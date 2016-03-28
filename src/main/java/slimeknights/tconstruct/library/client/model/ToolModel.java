@@ -29,14 +29,16 @@ public class ToolModel implements IModel {
   private final List<MaterialModel> brokenPartBlocks;
   private final ModifierModel modifiers;
   private final ImmutableMap<TransformType, TRSRTransformation> transforms;
+  private final ImmutableMap<TransformType, TRSRTransformation> transformsBlocking;
   private final ImmutableList<ResourceLocation> textures;
 
   public ToolModel(ImmutableList<ResourceLocation> defaultTextures, List<MaterialModel> parts, List<MaterialModel> brokenPartBlocks,
-                   ModifierModel modifiers, ImmutableMap<TransformType, TRSRTransformation> transforms) {
+                   ModifierModel modifiers, ImmutableMap<TransformType, TRSRTransformation> transforms, ImmutableMap<TransformType, TRSRTransformation> transformsBlocking) {
     this.partBlocks = parts;
     this.brokenPartBlocks = brokenPartBlocks;
     this.modifiers = modifiers;
     this.transforms = transforms;
+    this.transformsBlocking = transformsBlocking;
     this.textures = defaultTextures;
   }
 
@@ -89,7 +91,12 @@ public class ToolModel implements IModel {
     builder.putAll(IPerspectiveAwareModel.MapWrapper.getTransforms(state));
     builder.putAll(transforms); // only contains actual entries, so we override default values
 
-    return new BakedToolModel(base, partModels, brokenPartModels, modifierModels, ImmutableMap.copyOf(builder));
+    // same for blocking
+    Map<TransformType, TRSRTransformation> builder2 = Maps.newHashMap();
+    builder2.putAll(IPerspectiveAwareModel.MapWrapper.getTransforms(state));
+    builder2.putAll(transformsBlocking); // only contains actual entries, so we override default values
+
+    return new BakedToolModel(base, partModels, brokenPartModels, modifierModels, ImmutableMap.copyOf(builder), ImmutableMap.copyOf(builder2));
   }
 
   @Override

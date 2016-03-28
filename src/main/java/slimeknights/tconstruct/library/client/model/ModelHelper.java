@@ -11,6 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -18,8 +19,10 @@ import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ForgeBlockStateV1;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
+import net.minecraftforge.common.util.JsonUtils;
 
 import org.apache.commons.io.IOUtils;
 
@@ -34,9 +37,17 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
 
   static final Type maptype = new TypeToken<Map<String, String>>() {}.getType();
   static final Type offsettype = new TypeToken<Offset>() {}.getType();
-  private static final Gson
-      GSON =
-      new GsonBuilder().registerTypeAdapter(maptype, ModelTextureDeserializer.INSTANCE).registerTypeAdapter(offsettype, OffsetDeserializer.INSTANCE).create();
+  static final Type transformtype = new TypeToken<ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation>>() {}.getType();
+
+  private static final Gson GSON = new GsonBuilder()
+      .registerTypeAdapter(maptype, ModelTextureDeserializer.INSTANCE)
+      .registerTypeAdapter(offsettype, OffsetDeserializer.INSTANCE)
+      .registerTypeAdapter(transformtype, TransformDeserializer.INSTANCE)
+      //.registerTypeAdapter(ImmutableMap.class, JsonUtils.ImmutableMapTypeAdapter.INSTANCE)
+      .registerTypeAdapter(ItemCameraTransforms.class, new ItemCameraTransforms.Deserializer())
+      .registerTypeAdapter(ItemTransformVec3f.class, new ItemTransformVec3f.Deserializer())
+      //.registerTypeAdapter(TRSRTransformation.class, ForgeBlockStateV1.TRSRDeserializer.INSTANCE)
+      .create();
 
   public static Reader getReaderForResource(ResourceLocation location) throws IOException {
     ResourceLocation file = new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json");
@@ -63,6 +74,20 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
   }
 
   public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(ResourceLocation location) throws IOException {
+    return loadTransformFromJson(location, "display");
+  }
+
+  public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(ResourceLocation location, String tag) throws IOException {
+    Reader reader = getReaderForResource(location);
+    try {
+      TransformDeserializer.tag = tag;
+      return GSON.fromJson(reader, transformtype);
+    } finally {
+      IOUtils.closeQuietly(reader);
+    }
+  }
+
+  public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJsonBackup(ResourceLocation location) throws IOException {
     Reader reader = getReaderForResource(location);
     try {
       // we abuse ModelBlock because all the deserializers are not accessible..
@@ -151,6 +176,27 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
       }
 
       return GSON.fromJson(texElem, offsettype);
+    }
+  }
+
+  public static class TransformDeserializer implements JsonDeserializer<ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation>> {
+
+    public static final TransformDeserializer INSTANCE = new TransformDeserializer();
+
+    public static String tag;
+
+    @Override
+    public ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+        throws JsonParseException {
+      JsonObject obj = json.getAsJsonObject();
+      JsonElement texElem = obj.get(tag);
+
+      if(texElem != null && texElem.isJsonObject()) {
+        ItemCameraTransforms itemCameraTransforms = context.deserialize(texElem.getAsJsonObject(), ItemCameraTransforms.class);
+        return IPerspectiveAwareModel.MapWrapper.getTransforms(itemCameraTransforms);
+      }
+
+      return ImmutableMap.of();
     }
   }
 

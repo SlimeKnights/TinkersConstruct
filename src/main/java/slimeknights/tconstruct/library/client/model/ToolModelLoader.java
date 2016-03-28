@@ -44,7 +44,11 @@ public class ToolModelLoader implements ICustomModelLoader {
       // it also provides us with the textures
       Map<String, String> textures = ModelHelper.loadTexturesFromJson(modelLocation);
       ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms = ModelHelper.loadTransformFromJson(modelLocation);
+      ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> blockingTransforms = ModelHelper.loadTransformFromJson(modelLocation, "blocking");
 
+      if(blockingTransforms.isEmpty()) {
+        blockingTransforms = transforms;
+      }
 
       ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
       List<MaterialModel> parts = Lists.newArrayList();
@@ -102,7 +106,7 @@ public class ToolModelLoader implements ICustomModelLoader {
         modifiers = (ModifierModel) mods;
       }
 
-      IModel output = new ToolModel(builder.build(), parts, brokenParts, modifiers, transforms);
+      IModel output = new ToolModel(builder.build(), parts, brokenParts, modifiers, transforms, blockingTransforms);
 
       // inform the texture manager about the textures it has to process
       CustomTextureCreator.registerTextures(builder.build());

@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.block.model.ItemOverride;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
@@ -12,11 +13,16 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.List;
 import java.util.Map;
+
+import javax.vecmath.Matrix4f;
 
 import slimeknights.mantle.client.model.BakedSimple;
 import slimeknights.mantle.client.model.BakedWrapper;
@@ -30,13 +36,16 @@ public class BakedToolModel extends BakedWrapper.Perspective {
   protected BakedMaterialModel[] brokenParts;
   protected Map<String, IBakedModel> modifierParts;
   protected final ImmutableMap<TransformType, TRSRTransformation> transforms;
+  protected final ImmutableMap<TransformType, TRSRTransformation> blockingTransforms;
 
   /**
    * The length of brokenParts has to match the length of parts. If a part does not have a broken texture, the entry in
    * the array simply is null.
    */
   public BakedToolModel(IBakedModel parent, BakedMaterialModel[] parts, BakedMaterialModel[] brokenParts,
-                        Map<String, IBakedModel> modifierParts, ImmutableMap<TransformType, TRSRTransformation> transform) {
+                        Map<String, IBakedModel> modifierParts,
+                        ImmutableMap<TransformType, TRSRTransformation> transform,
+                        ImmutableMap<TransformType, TRSRTransformation> blockingTransform) {
     super(parent, transform);
     if(parts.length != brokenParts.length) {
       throw new RuntimeException("TinkerModel: Length of Parts and BrokenParts Array has to match");
@@ -46,6 +55,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
     this.brokenParts = brokenParts;
     this.modifierParts = modifierParts;
     this.transforms = transform;
+    this.blockingTransforms = blockingTransform;
   }
 
   @Override
@@ -91,7 +101,6 @@ public class BakedToolModel extends BakedWrapper.Perspective {
             partModel = parts[i].getModelByIdentifier(id);
           }
 
-          // todo: use an efficient collection for this. Preferably a List-List
           quads.add(partModel.getQuads(null, null, 0));
         }
 
@@ -104,7 +113,12 @@ public class BakedToolModel extends BakedWrapper.Perspective {
           }
         }
 
-        return new BakedSimple(new ImmutableConcatList<BakedQuad>(quads.build()), original.transforms, original);
+        ImmutableMap<TransformType, TRSRTransformation> transform = original.transforms;
+        if(entity != null && entity.isHandActive() && entity.getActiveItemStack() == stack) {
+          transform = original.blockingTransforms;
+        }
+
+        return new BakedSimple(new ImmutableConcatList<BakedQuad>(quads.build()), transform, original);
       }
       return originalModel;
     }
