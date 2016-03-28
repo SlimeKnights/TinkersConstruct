@@ -63,8 +63,8 @@ public class FryPan extends ToolCore {
     if(world.isRemote)
       return;
 
-    float progress = (float)(getMaxItemUseDuration(stack) - timeLeft)/30f;
-    float strength = .1f + 1.5f*progress*progress;
+    float progress = Math.min(1f, (float)(getMaxItemUseDuration(stack) - timeLeft)/30f);
+    float strength = .1f + 2.5f*progress*progress;
 
     float range = 3.2f;
 
@@ -87,16 +87,18 @@ public class FryPan extends ToolCore {
 
       // bonus damage!
       AttributeModifier modifier = new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", progress * 5f, 0);
-
+      AttributeModifier old = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getModifier(ATTACK_DAMAGE_MODIFIER);
 
       // we set the entity on fire for the hit if it was fully charged
       // this makes it so it drops cooked stuff.. and it'funny :D
-      boolean flamingStrike = progress >= 1f && entity.isBurning();
-      if(!flamingStrike) entity.setFire(1);
+      boolean flamingStrike = progress >= 1f && !entity.isBurning();
+      if(flamingStrike) entity.setFire(1);
+      player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).removeModifier(old);
       player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).applyModifier(modifier);
       ToolHelper.attackEntity(stack, this, player, entity);
       player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).removeModifier(modifier);
-      if(!flamingStrike) entity.extinguish();
+      player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).applyModifier(old);
+      if(flamingStrike) entity.extinguish();
 
       // 1.9
       //player.worldObj.playSoundAtEntity(player, Sounds.frypan_boing, 1.5f, 0.6f + 0.2f * TConstruct.random.nextFloat());
