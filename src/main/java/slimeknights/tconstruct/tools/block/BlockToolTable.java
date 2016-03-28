@@ -154,13 +154,6 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
   /* Bounds */
   private static AxisAlignedBB BOUNDS_Chest = new AxisAlignedBB(0, 0, 0, 1, 0.875, 1);
-  private static ImmutableList<AxisAlignedBB> BOUNDS_Table = ImmutableList.of(
-      new AxisAlignedBB(0, 0.75, 0, 1, 1, 1),
-      new AxisAlignedBB(0,    0, 0,    0.25, 0.75, 0.25),
-      new AxisAlignedBB(0.75, 0, 0,    1,    0.75, 0.25),
-      new AxisAlignedBB(0.75, 0, 0.75, 1,    0.75, 1),
-      new AxisAlignedBB(0,    0, 0.75, 0.25, 0.75, 1)
-  );
 
   @Override
   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -168,42 +161,16 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
       return BOUNDS_Chest;
     }
 
-    return FULL_BLOCK_AABB;
+    return super.getBoundingBox(state, source, pos);
   }
 
   @Override
   public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
     if(blockState.getValue(TABLES).isChest) {
-      return super.collisionRayTrace(blockState, worldIn, pos, start, end);
-    }
-    // basically the same BlockStairs does
-    // Raytrace through all AABBs (plate, legs) and return the nearest one
-
-    List<RayTraceResult> list = Lists.<RayTraceResult>newArrayList();
-
-    for (AxisAlignedBB axisalignedbb : BOUNDS_Table)
-    {
-      list.add(this.rayTrace(pos, start, end, axisalignedbb));
+      return rayTrace(pos, start, end, BOUNDS_Chest);
     }
 
-    RayTraceResult raytraceresult1 = null;
-    double d1 = 0.0D;
-
-    for (RayTraceResult raytraceresult : list)
-    {
-      if (raytraceresult != null)
-      {
-        double d0 = raytraceresult.hitVec.squareDistanceTo(end);
-
-        if (d0 > d1)
-        {
-          raytraceresult1 = raytraceresult;
-          d1 = d0;
-        }
-      }
-    }
-
-    return raytraceresult1;
+    return super.collisionRayTrace(blockState, worldIn, pos, start, end);
   }
 
   @Override

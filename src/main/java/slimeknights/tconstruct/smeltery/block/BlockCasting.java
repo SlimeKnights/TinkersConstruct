@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery.block;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
@@ -12,10 +14,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
@@ -124,6 +129,30 @@ public class BlockCasting extends BlockInventory {
     }
 
     return super.getExtendedState(state, world, pos);
+  }
+
+  /* Bounds */
+  private static ImmutableList<AxisAlignedBB> BOUNDS_Table = ImmutableList.of(
+      new AxisAlignedBB(0, 0.625, 0, 1, 1, 1),
+      new AxisAlignedBB(0,    0, 0,    0.25, 0.625, 0.25),
+      new AxisAlignedBB(0.75, 0, 0,    1,    0.625, 0.25),
+      new AxisAlignedBB(0.75, 0, 0.75, 1,    0.625, 1),
+      new AxisAlignedBB(0,    0, 0.75, 0.25, 0.625, 1)
+  );
+  private static ImmutableList<AxisAlignedBB> BOUNDS_Basin = ImmutableList.of(
+      new AxisAlignedBB(0, 0.25, 0, 1, 1, 1),
+      new AxisAlignedBB(0,      0, 0,      0.3125, 0.25, 0.3125),
+      new AxisAlignedBB(0.6875, 0, 0,      1,      0.25, 0.3125),
+      new AxisAlignedBB(0.6875, 0, 0.6875, 1,      0.25, 1),
+      new AxisAlignedBB(0,      0, 0.6875, 0.3125, 0.25, 1)
+  );
+
+  @Override
+  public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
+    if(blockState.getValue(TYPE) == CastingType.BASIN) {
+      return BlockTable.raytraceMultiAABB(BOUNDS_Basin, pos, start, end);
+    }
+    return BlockTable.raytraceMultiAABB(BOUNDS_Table, pos, start, end);
   }
 
   @Override
