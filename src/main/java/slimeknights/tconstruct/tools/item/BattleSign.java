@@ -1,16 +1,28 @@
 package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -27,6 +39,15 @@ public class BattleSign extends BroadSword {
   public BattleSign() {
     super(PartMaterialType.handle(TinkerTools.toolRod),
           PartMaterialType.head(TinkerTools.signHead));
+
+    this.addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter()
+    {
+      @SideOnly(Side.CLIENT)
+      public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn)
+      {
+        return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
+      }
+    });
   }
 
   @Override
@@ -37,6 +58,25 @@ public class BattleSign extends BroadSword {
   @Override
   public float damagePotential() {
     return 0.86f;
+  }
+
+  @Override
+  public EnumAction getItemUseAction(ItemStack stack)
+  {
+    return EnumAction.BLOCK;
+  }
+
+  @Override
+  public int getMaxItemUseDuration(ItemStack stack)
+  {
+    return 72000;
+  }
+
+  @Override
+  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+  {
+    playerIn.setActiveHand(hand);
+    return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
   }
 
   // Extra damage reduction when blocking with a battlesign
