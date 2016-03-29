@@ -32,8 +32,7 @@
             }
         },
         "has_knob": {
-            true: {
-                # that funny knob at the top
+            "true": {
                 "submodel": {
                     "knob": {
                         "model": "tconstruct:tank_knob",
@@ -47,7 +46,7 @@
                     }
                 }
             },
-            false: {
+            "false": {
             }
         }
     }

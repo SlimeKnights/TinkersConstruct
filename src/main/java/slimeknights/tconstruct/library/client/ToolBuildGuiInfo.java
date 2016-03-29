@@ -73,6 +73,6 @@ public class ToolBuildGuiInfo {
     }
 
     TinkerRegistry.tabTools.setDisplayIcon(TinkerTools.pickaxe.buildItemForRendering(ImmutableList.of(RenderMaterials[0], RenderMaterials[1], RenderMaterials[2])));
-    TinkerRegistry.tabParts.setDisplayIcon(TinkerTools.binding.getItemstackWithMaterial(RenderMaterials[2]));
+    TinkerRegistry.tabParts.setDisplayIcon(TinkerTools.pickHead.getItemstackWithMaterial(RenderMaterials[2]));
   }
 }
