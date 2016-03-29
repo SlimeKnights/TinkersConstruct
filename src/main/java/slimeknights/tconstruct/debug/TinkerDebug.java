@@ -35,6 +35,7 @@ public class TinkerDebug {
   @Subscribe
   public void serverStart(FMLServerStartingEvent event) {
     event.registerServerCommand(new DamageTool());
+    event.registerServerCommand(new TestTool());
 
     if(event.getSide().isClient()) {
       ClientCommandHandler.instance.registerCommand(new LocalizationCheckCommand());

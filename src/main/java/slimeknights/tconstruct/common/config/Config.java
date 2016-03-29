@@ -134,6 +134,7 @@ public class Config {
       prop = configFile.get(cat, "registerAllItems", forceRegisterAll);
       prop.setComment("Enables all items, even if the Module needed to obtain them is not active");
       forceRegisterAll = prop.getBoolean();
+      prop.requiresMcRestart();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "obsidianAlloy", obsidianAlloy);
