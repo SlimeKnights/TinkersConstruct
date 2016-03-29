@@ -31,6 +31,7 @@ import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.MathHelper;
@@ -638,6 +639,8 @@ public final class ToolHelper {
       }
 
       attacker.setLastAttacker(target);
+      // Damage indicator particles
+
 
       // we don't support vanilla thorns or antispider enchantments
       //EnchantmentHelper.applyThornEnchantments(target, player);
@@ -656,8 +659,13 @@ public final class ToolHelper {
           tool.reduceDurabilityOnHit(stack, player, damage);
         }
 
-        player.addStat(StatList.damageDealt, Math.round(damage * 10f));
+        player.addStat(StatList.damageDealt, Math.round(damageDealt * 10f));
         player.addExhaustion(0.3f);
+
+        if(player.worldObj instanceof WorldServer && damageDealt > 2f) {
+          int k = (int)(damageDealt * 0.5);
+          ((WorldServer)player.worldObj).spawnParticle(EnumParticleTypes.DAMAGE_INDICATOR, targetEntity.posX, targetEntity.posY + (double)(targetEntity.height * 0.5F), targetEntity.posZ, k, 0.1D, 0.0D, 0.1D, 0.2D);
+        }
       }
       else {
         tool.reduceDurabilityOnHit(stack, null, damage);
