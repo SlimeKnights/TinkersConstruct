@@ -1,18 +1,15 @@
 package slimeknights.tconstruct.smeltery.multiblock;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
 import java.util.List;
 
 import slimeknights.mantle.multiblock.IMasterLogic;
-import slimeknights.mantle.multiblock.IServantLogic;
 import slimeknights.mantle.multiblock.MultiServantLogic;
 
 /**
@@ -54,7 +51,7 @@ public abstract class MultiblockDetection {
         if(pos.getZ() > maxz) maxz = pos.getZ();
       }
 
-      bb = AxisAlignedBB.fromBounds(minx, miny, minz, maxx+1, maxy+1, maxz+1);
+      bb = new AxisAlignedBB(minx, miny, minz, maxx + 1, maxy + 1, maxz + 1);
       minPos = new BlockPos(minx, miny, minz);
       maxPos = new BlockPos(maxx, maxy, maxz);
     }
@@ -158,7 +155,8 @@ public abstract class MultiblockDetection {
       TileEntity slave = world.getTileEntity(pos);
       if(slave instanceof MultiServantLogic && slave.getWorld() != null) {
         ((MultiServantLogic) slave).overrideMaster(master);
-        world.markBlockForUpdate(pos);
+        IBlockState state = world.getBlockState(pos);
+        world.notifyBlockUpdate(pos, state, state, 3);
       }
     }
   }

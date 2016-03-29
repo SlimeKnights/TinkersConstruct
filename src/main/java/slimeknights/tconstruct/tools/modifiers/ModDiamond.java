@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
 
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;

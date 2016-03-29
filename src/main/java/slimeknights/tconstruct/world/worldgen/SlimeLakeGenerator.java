@@ -3,8 +3,9 @@ package slimeknights.tconstruct.world.worldgen;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
@@ -23,7 +24,7 @@ public class SlimeLakeGenerator implements IWorldGenerator {
   }
 
   @Override
-  public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
+  public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
     generateLake(random, world, world.getHeight(new BlockPos(chunkX*16, 0, chunkZ*16)));
   }
 
@@ -78,7 +79,8 @@ public class SlimeLakeGenerator implements IWorldGenerator {
           );
 
           if (check) {
-            Material m = world.getBlockState(pos.add(xx, yy, zz)).getBlock().getMaterial();
+            IBlockState state = world.getBlockState(pos.add(xx,yy,zz));
+            Material m = state.getBlock().getMaterial(state);
             if (yy >= 4 && m.isLiquid()) {
               return;
             }
@@ -138,9 +140,11 @@ public class SlimeLakeGenerator implements IWorldGenerator {
           );
 
           if (check) {
-            if ((yy < 4 || random.nextInt(2) != 0) && world.getBlockState(pos.add(xx, yy, zz)).getBlock().getMaterial().isSolid()) {
+            IBlockState state = world.getBlockState(pos.add(xx,yy,zz));
+            if ((yy < 4 || random.nextInt(2) != 0) && state.getBlock().getMaterial(state).isSolid()) {
+              IBlockState stateDown = world.getBlockState(pos.add(xx,yy+1,zz));
               // bottom of the lake?
-              if(world.getBlockState(pos.add(xx, yy+1, zz)).getBlock().getMaterial().isLiquid()) {
+              if(stateDown.getBlock().getMaterial(stateDown).isLiquid()) {
                 if(random.nextInt(10) == 0) {
                   world.setBlockState(pos.add(xx, yy, zz), lakeBottomBlock, 2);
                 }

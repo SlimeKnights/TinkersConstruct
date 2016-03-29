@@ -1,8 +1,11 @@
 package slimeknights.tconstruct.shared.block;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.util.IStringSerializable;
+
+import java.util.Locale;
 
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -18,7 +21,7 @@ public class BlockFirewood extends EnumBlock<BlockFirewood.FirewoodType> {
     this.setResistance(7f);
     this.setCreativeTab(TinkerRegistry.tabGeneral);
     this.setLightLevel(0.5f);
-    setStepSound(soundTypeWood);
+    this.setSoundType(SoundType.WOOD);
 
     this.setHarvestLevel("axe", -1);
   }
@@ -35,7 +38,7 @@ public class BlockFirewood extends EnumBlock<BlockFirewood.FirewoodType> {
 
     @Override
     public String getName() {
-      return this.toString();
+      return this.toString().toLowerCase(Locale.US);
     }
 
     @Override

@@ -2,16 +2,12 @@ package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Random;
+import java.util.Locale;
 
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -33,9 +29,10 @@ public class BlockOre extends EnumBlock<BlockOre.OreTypes> {
     setCreativeTab(TinkerRegistry.tabWorld);
   }
 
+  @Override
   @SideOnly(Side.CLIENT)
-  public EnumWorldBlockLayer getBlockLayer() {
-    return EnumWorldBlockLayer.CUTOUT_MIPPED;
+  public BlockRenderLayer getBlockLayer() {
+    return BlockRenderLayer.CUTOUT_MIPPED;
   }
 
   public enum OreTypes implements IStringSerializable, EnumBlock.IEnumMeta {
@@ -50,7 +47,7 @@ public class BlockOre extends EnumBlock<BlockOre.OreTypes> {
 
     @Override
     public String getName() {
-      return this.toString();
+      return this.toString().toLowerCase(Locale.US);
     }
 
     @Override

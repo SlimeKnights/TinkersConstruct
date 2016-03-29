@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 public class TraitJagged extends AbstractTrait {
 
   public TraitJagged() {
-    super("jagged", EnumChatFormatting.AQUA);
+    super("jagged", TextFormatting.AQUA);
   }
 
   private double calcBonus(ItemStack tool) {

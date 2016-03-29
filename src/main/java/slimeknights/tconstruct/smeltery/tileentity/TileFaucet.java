@@ -4,7 +4,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -211,11 +211,11 @@ public class TileFaucet extends TileEntity implements ITickable {
   public Packet getDescriptionPacket() {
     NBTTagCompound tag = new NBTTagCompound();
     writeToNBT(tag);
-    return new S35PacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);
+    return new SPacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);
   }
 
   @Override
-  public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+  public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
     super.onDataPacket(net, pkt);
     readFromNBT(pkt.getNbtCompound());
   }

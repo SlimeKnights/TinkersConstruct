@@ -1,5 +1,4 @@
 {
-    #same as "minecraft:block/slime" but with split textures
     "textures": {
         "particle": "tconstruct:blocks/slime/slime_magma",
         "texture": "tconstruct:blocks/slime/slime_magma",

@@ -4,15 +4,16 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumWorldBlockLayer;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -52,14 +53,22 @@ public class BlockSlimeLeaves extends BlockLeaves {
   }
 
   @Override
-  public boolean isOpaqueCube() {
-    return Blocks.leaves.isOpaqueCube();
+  public boolean isOpaqueCube(IBlockState state) {
+    return Blocks.leaves.isOpaqueCube(state);
   }
 
   @SideOnly(Side.CLIENT)
   @Override
-  public EnumWorldBlockLayer getBlockLayer() {
+  public BlockRenderLayer getBlockLayer() {
     return Blocks.leaves.getBlockLayer();
+  }
+
+  @Override
+  public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+    // isOpaqueCube returns !leavesFancy to us. We have to fix the variable before calling super
+    this.leavesFancy = !Blocks.leaves.isOpaqueCube(blockState);
+
+    return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
   }
 
   @Override
@@ -102,19 +111,18 @@ public class BlockSlimeLeaves extends BlockLeaves {
   }
 
   // item dropped on silktouching
+  @Override
   protected ItemStack createStackedBlock(IBlockState state)
   {
     return new ItemStack(Item.getItemFromBlock(this), 1, (state.getValue(BlockSlimeGrass.FOLIAGE)).ordinal() & 3);
   }
 
   @Override
-  protected BlockState createBlockState() {
-    return new BlockState(this, BlockSlimeGrass.FOLIAGE, CHECK_DECAY, DECAYABLE);
+  protected BlockStateContainer createBlockState() {
+    return new BlockStateContainer(this, BlockSlimeGrass.FOLIAGE, CHECK_DECAY, DECAYABLE);
   }
 
-  /**
-   * Convert the given metadata into a BlockState for this Block
-   */
+  @Override
   public IBlockState getStateFromMeta(int meta)
   {
     int type = meta % 4;
@@ -128,9 +136,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
                .withProperty(CHECK_DECAY, (meta & 8) > 0);
   }
 
-  /**
-   * Convert the BlockState into the correct metadata value
-   */
+  @Override
   public int getMetaFromState(IBlockState state)
   {
 
@@ -150,32 +156,6 @@ public class BlockSlimeLeaves extends BlockLeaves {
   }
 
   @Override
-  @SideOnly(Side.CLIENT)
-  public int getBlockColor ()
-  {
-    return 0xffffff;
-  }
-
-  // Used for the item
-  @SideOnly(Side.CLIENT)
-  @Override
-  public int getRenderColor(IBlockState state) {
-    FoliageType foliageType = state.getValue(BlockSlimeGrass.FOLIAGE);
-    return SlimeColorizer.getColorStatic(foliageType);
-  }
-
-  // Used for the block in world
-  @SideOnly(Side.CLIENT)
-  @Override
-  public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
-    IBlockState state = worldIn.getBlockState(pos);
-    if(state.getBlock() != this) return getBlockColor();
-
-    FoliageType foliageType = state.getValue(BlockSlimeGrass.FOLIAGE);
-    return SlimeColorizer.getColorForPos(pos.add(SlimeColorizer.loop/2, 0, SlimeColorizer.loop/2), foliageType);
-  }
-
-  @Override
   public BlockPlanks.EnumType getWoodType(int meta) {
     throw new NotImplementedException(); // unused by our code.
   }
@@ -187,7 +167,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
   }
 
   @Override
-  public boolean isLeaves(IBlockAccess world, BlockPos pos) {
+  public boolean isLeaves(IBlockState state, IBlockAccess world, BlockPos pos) {
     return true;
   }
 }

@@ -2,8 +2,6 @@ package slimeknights.tconstruct.library.materials;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.util.EnumChatFormatting;
-
 import java.util.List;
 
 import slimeknights.tconstruct.library.Util;

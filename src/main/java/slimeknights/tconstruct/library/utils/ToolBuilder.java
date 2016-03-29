@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 import org.apache.logging.log4j.Logger;
 
@@ -219,7 +219,7 @@ public final class ToolBuilder {
       if(input[i] != null && ItemStack.areItemStacksEqual(input[i], stacks[i])) {
         if(!appliedModifiers.isEmpty()) {
           String error =
-              StatCollector.translateToLocalFormatted("gui.error.no_modifier_for_item", input[i].getDisplayName());
+              I18n.translateToLocalFormatted("gui.error.no_modifier_for_item", input[i].getDisplayName());
           throw new TinkerGuiException(error);
         }
         return null;
@@ -345,7 +345,7 @@ public final class ToolBuilder {
 
     // check if the output has enough durability. we only allow it if the result would not be broken
     if(output.getItemDamage() > output.getMaxDamage()) {
-      String error = StatCollector.translateToLocalFormatted("gui.error.not_enough_durability", output.getItemDamage() - output.getMaxDamage());
+      String error = I18n.translateToLocalFormatted("gui.error.not_enough_durability", output.getItemDamage() - output.getMaxDamage());
       throw new TinkerGuiException(error);
     }
 
@@ -368,7 +368,7 @@ public final class ToolBuilder {
       throws TinkerGuiException {
     Item itemPart = Pattern.getPartFromTag(pattern);
     if(itemPart == null || !(itemPart instanceof MaterialItem) || !(itemPart instanceof IToolPart)) {
-      String error = StatCollector.translateToLocalFormatted("gui.error.invalid_pattern");
+      String error = I18n.translateToLocalFormatted("gui.error.invalid_pattern");
       throw new TinkerGuiException(error);
     }
 
@@ -523,8 +523,10 @@ public final class ToolBuilder {
       enchantments = new NBTTagList();
     }
 
+    int id = Enchantment.getEnchantmentID(enchantment);
+
     for(int i = 0; i < enchantments.tagCount(); i++) {
-      if(enchantments.getCompoundTagAt(i).getShort("id") == enchantment.effectId) {
+      if(enchantments.getCompoundTagAt(i).getShort("id") == id) {
         return enchantments.getCompoundTagAt(i).getShort("lvl");
       }
     }
@@ -539,10 +541,11 @@ public final class ToolBuilder {
     }
 
     NBTTagCompound enchTag = new NBTTagCompound();
+    int enchId = Enchantment.getEnchantmentID(enchantment);
 
     int id = -1;
     for(int i = 0; i < enchantments.tagCount(); i++) {
-      if(enchantments.getCompoundTagAt(i).getShort("id") == enchantment.effectId) {
+      if(enchantments.getCompoundTagAt(i).getShort("id") == enchId) {
         enchTag = enchantments.getCompoundTagAt(i);
         id = i;
         break;
@@ -551,7 +554,7 @@ public final class ToolBuilder {
 
     int level = enchTag.getShort("lvl") + 1;
     level = Math.min(level, enchantment.getMaxLevel());
-    enchTag.setShort("id", (short)enchantment.effectId);
+    enchTag.setShort("id", (short)enchId);
     enchTag.setShort("lvl", (short)level);
 
     if(id < 0) {

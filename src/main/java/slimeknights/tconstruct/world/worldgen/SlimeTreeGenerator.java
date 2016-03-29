@@ -5,9 +5,10 @@ import net.minecraft.block.BlockVine;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
@@ -40,7 +41,7 @@ public class SlimeTreeGenerator implements IWorldGenerator {
 
 
   @Override
-  public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
+  public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 
   }
 
@@ -59,12 +60,13 @@ public class SlimeTreeGenerator implements IWorldGenerator {
 
     if (yPos >= 1 && yPos + height + 1 <= 256)
     {
-      Block soil = world.getBlockState(pos.down()).getBlock();
-      boolean isSoil = (soil != null && soil.canSustainPlant(world, pos.down(), EnumFacing.UP, TinkerWorld.slimeSapling));
+      IBlockState state = world.getBlockState(pos.down());
+      Block soil = state.getBlock();
+      boolean isSoil = (soil != null && soil.canSustainPlant(state, world, pos.down(), EnumFacing.UP, TinkerWorld.slimeSapling));
 
       if (isSoil)
       {
-        soil.onPlantGrow(world, pos.down(), pos);
+        soil.onPlantGrow(state, world, pos.down(), pos);
         placeCanopy(world, random, pos, height);
         placeTrunk(world, pos, height);
       }
@@ -75,8 +77,9 @@ public class SlimeTreeGenerator implements IWorldGenerator {
   {
     do
     {
-      Block heightID = world.getBlockState(pos).getBlock();
-      if ((heightID == TinkerWorld.slimeDirt || heightID == TinkerWorld.slimeGrass) && !world.getBlockState(pos.up()).getBlock().isOpaqueCube())
+      IBlockState state = world.getBlockState(pos);
+      Block heightID = state.getBlock();
+      if ((heightID == TinkerWorld.slimeDirt || heightID == TinkerWorld.slimeGrass) && !world.getBlockState(pos.up()).getBlock().isOpaqueCube(state))
       {
         return pos.up();
       }
@@ -145,6 +148,9 @@ public class SlimeTreeGenerator implements IWorldGenerator {
   protected IBlockState getRandomizedVine(Random random) {
     IBlockState state = vine;
     PropertyBool[] sides = new PropertyBool[] {BlockVine.NORTH, BlockVine.EAST, BlockVine.SOUTH, BlockVine.WEST};
+    for(PropertyBool side : sides) {
+      state = state.withProperty(side, false);
+    }
     for(int i = random.nextInt(3) + 1; i > 0; i--) {
       state = state.withProperty(sides[random.nextInt(sides.length)], true);
     }
@@ -169,8 +175,9 @@ public class SlimeTreeGenerator implements IWorldGenerator {
   protected void placeTrunk (World world, BlockPos pos, int height)
   {
     while(height >= 0) {
-      Block block = world.getBlockState(pos).getBlock();
-      if (block.isAir(world, pos) || block.isReplaceable(world, pos) || block.isLeaves(world, pos))
+      IBlockState state = world.getBlockState(pos);
+      Block block = state.getBlock();
+      if (block.isAir(state, world, pos) || block.isReplaceable(world, pos) || block.isLeaves(state, world, pos))
       {
         this.setBlockAndMetadata(world, pos, log);
       }
@@ -180,12 +187,13 @@ public class SlimeTreeGenerator implements IWorldGenerator {
     }
   }
 
-  protected void setBlockAndMetadata (World world, BlockPos pos, IBlockState state)
+  protected void setBlockAndMetadata (World world, BlockPos pos, IBlockState stateNew)
   {
-    Block block = world.getBlockState(pos).getBlock();
-    if (block.isAir(world, pos) || block.canPlaceBlockAt(world, pos) || world.getBlockState(pos) == leaves)
+    IBlockState state = world.getBlockState(pos);
+    Block block = state.getBlock();
+    if (block.isAir(state, world, pos) || block.canPlaceBlockAt(world, pos) || world.getBlockState(pos) == leaves)
     {
-      world.setBlockState(pos, state, 2);
+      world.setBlockState(pos, stateNew, 2);
     }
   }
 }

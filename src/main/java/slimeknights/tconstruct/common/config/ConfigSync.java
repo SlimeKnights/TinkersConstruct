@@ -2,8 +2,8 @@ package slimeknights.tconstruct.common.config;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Property;
@@ -41,17 +41,17 @@ public class ConfigSync {
   @SubscribeEvent
   @SideOnly(Side.CLIENT)
   public void playerJoinedWorld(EntityJoinWorldEvent event) {
-    if(event.entity == Minecraft.getMinecraft().thePlayer) {
+    if(event.getEntity() == Minecraft.getMinecraft().thePlayer) {
       if(needsRestart) {
         //Minecraft.getMinecraft().theWorld.sendQuittingDisconnectingPacket();
         //Minecraft.getMinecraft().getNetHandler().getNetworkManager().closeChannel(new ChatComponentText("reboot pl0x"));
         //Minecraft.getMinecraft().loadWorld(null);
         Minecraft.getMinecraft().thePlayer
-            .addChatMessage(new ChatComponentText("[TConstruct] " + StatCollector.translateToLocal("config.synced.restart")));
+            .addChatMessage(new TextComponentString("[TConstruct] " + I18n.translateToLocal("config.synced.restart")));
       }
       else {
         Minecraft.getMinecraft().thePlayer
-            .addChatMessage(new ChatComponentText("[TConstruct] " + StatCollector.translateToLocal("config.synced.ok")));
+            .addChatMessage(new TextComponentString("[TConstruct] " + I18n.translateToLocal("config.synced.ok")));
       }
     }
     MinecraftForge.EVENT_BUS.unregister(this);

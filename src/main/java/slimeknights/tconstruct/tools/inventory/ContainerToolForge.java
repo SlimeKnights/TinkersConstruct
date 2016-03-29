@@ -2,6 +2,8 @@ package slimeknights.tconstruct.tools.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundCategory;
 
 import java.util.Set;
 
@@ -24,6 +26,7 @@ public class ContainerToolForge extends ContainerToolStation {
 
   @Override
   protected void playCraftSound(EntityPlayer player) {
-    player.worldObj.playSoundAtEntity(player, Sounds.anvil_use, 1f, 0.8f + 0.2f * TConstruct.random.nextFloat());
+    // 1.9 check if sound plays
+    player.worldObj.playSound(player, player.getPosition(), SoundEvents.block_anvil_use, SoundCategory.PLAYERS, 1f, 0.9f + 0.2f * TConstruct.random.nextFloat());
   }
 }

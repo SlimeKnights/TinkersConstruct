@@ -6,8 +6,8 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -31,7 +31,7 @@ import slimeknights.tconstruct.library.traits.ITrait;
 
 public class Material extends RecipeMatchRegistry {
 
-  public static final Material UNKNOWN = new Material("unknown", EnumChatFormatting.WHITE);
+  public static final Material UNKNOWN = new Material("unknown", TextFormatting.WHITE);
   public static final String LOC_Name = "material.%s.name";
   public static final String LOC_Prefix = "material.%s.prefix";
 
@@ -101,7 +101,7 @@ public class Material extends RecipeMatchRegistry {
   /** Stat-ID -> Traits */
   protected final Map<String, List<ITrait>> traits = new LinkedHashMap<String, List<ITrait>>();
 
-  public Material(String identifier, EnumChatFormatting textColor) {
+  public Material(String identifier, TextFormatting textColor) {
     this(identifier, Util.enumChatFormattingToColor(textColor));
   }
 
@@ -370,8 +370,8 @@ public class Material extends RecipeMatchRegistry {
   public String getLocalizedItemName(String itemName) {
     if(this == UNKNOWN) return itemName;
 
-    if(StatCollector.canTranslate(String.format(LOC_Prefix, getIdentifier()))) {
-      return StatCollector.translateToLocalFormatted(String.format(LOC_Prefix, Util
+    if(I18n.canTranslate(String.format(LOC_Prefix, getIdentifier()))) {
+      return I18n.translateToLocalFormatted(String.format(LOC_Prefix, Util
           .sanitizeLocalizationString(identifier)), itemName);
     }
 

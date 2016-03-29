@@ -77,6 +77,8 @@ public class TinkerGadgets extends TinkerPulse {
     MinecraftForge.EVENT_BUS.register(slimeBoots);
 
     proxy.preInit();
+
+    TinkerRegistry.tabGadgets.setDisplayIcon(new ItemStack(slimeSling));
   }
 
   // INITIALIZATION

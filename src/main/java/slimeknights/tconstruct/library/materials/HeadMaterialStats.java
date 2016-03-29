@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.materials;
 
 import com.google.common.collect.Lists;
 
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 import java.util.List;
 
@@ -63,14 +63,14 @@ public class HeadMaterialStats extends AbstractMaterialStats {
                          Util.translate(LOC_Durability),
                          CustomFontColor.valueToColorCode((float)durability / (float)ref),
                          df.format(durability),
-                         EnumChatFormatting.GRAY.toString(),
+                         TextFormatting.GRAY.toString(),
                          COLOR_Durability,
                          df.format(ref))
-           + EnumChatFormatting.RESET;
+           + TextFormatting.RESET;
   }
 
   public static String formatHarvestLevel(int level) {
-    return String.format("%s: %s", Util.translate(LOC_HarvestLevel), HarvestLevels.getHarvestLevelName(level)) + EnumChatFormatting.RESET;
+    return String.format("%s: %s", Util.translate(LOC_HarvestLevel), HarvestLevels.getHarvestLevelName(level)) + TextFormatting.RESET;
   }
 
   public static String formatMiningSpeed(float speed) {

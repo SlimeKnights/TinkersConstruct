@@ -6,7 +6,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemHangingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 
@@ -50,15 +52,15 @@ public class ItemFancyItemFrame extends ItemHangingEntity {
     return super.getUnlocalizedName(stack) + "." + type;
   }
 
-  public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ)
-  {
+  @Override
+  public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
     if (side == EnumFacing.DOWN)
     {
-      return false;
+      return EnumActionResult.FAIL;
     }
     else if (side == EnumFacing.UP)
     {
-      return false;
+      return EnumActionResult.FAIL;
     }
     else
     {
@@ -66,7 +68,7 @@ public class ItemFancyItemFrame extends ItemHangingEntity {
 
       if (!playerIn.canPlayerEdit(blockpos, side, stack))
       {
-        return false;
+        return EnumActionResult.FAIL;
       }
       else
       {
@@ -82,7 +84,7 @@ public class ItemFancyItemFrame extends ItemHangingEntity {
           --stack.stackSize;
         }
 
-        return true;
+        return EnumActionResult.SUCCESS;
       }
     }
   }

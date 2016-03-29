@@ -69,7 +69,7 @@ public class SlotToolStationIn extends Slot {
     if(restriction != null) {
       for(IToolPart part : restriction.getPossibleParts()) {
         if(part instanceof MaterialItem) {
-          icon = ((MaterialItem) part).getItemstackWithMaterial(CustomTextureCreator.guiMaterial);
+          icon = part.getItemstackWithMaterial(CustomTextureCreator.guiMaterial);
           break;
         }
       }

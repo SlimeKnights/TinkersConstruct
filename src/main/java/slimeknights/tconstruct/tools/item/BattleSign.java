@@ -1,16 +1,28 @@
 package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Vec3;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -27,11 +39,21 @@ public class BattleSign extends BroadSword {
   public BattleSign() {
     super(PartMaterialType.handle(TinkerTools.toolRod),
           PartMaterialType.head(TinkerTools.signHead));
+
+    this.addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter()
+    {
+      @Override
+      @SideOnly(Side.CLIENT)
+      public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn)
+      {
+        return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
+      }
+    });
   }
 
   @Override
-  public int attackSpeed() {
-    return 0;
+  public double attackSpeed() {
+    return 5;
   }
 
   @Override
@@ -39,29 +61,55 @@ public class BattleSign extends BroadSword {
     return 0.86f;
   }
 
+  @Override
+  public EnumAction getItemUseAction(ItemStack stack)
+  {
+    return EnumAction.BLOCK;
+  }
+
+  @Override
+  public int getMaxItemUseDuration(ItemStack stack)
+  {
+    return 72000;
+  }
+
+  @Override
+  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+  {
+    if(!ToolHelper.isBroken(itemStackIn)) {
+      playerIn.setActiveHand(hand);
+      return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+    }
+    return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+  }
+
   // Extra damage reduction when blocking with a battlesign
   @SubscribeEvent(priority = EventPriority.LOW) // lower priority so we get called later since we change tool NBT
   public void reducedDamageBlocked(LivingHurtEvent event) {
     // don't affect unblockable or magic damage or explosion damage
     // projectiles are handled in LivingAttackEvent
-    if(event.source.isUnblockable() || event.source.isMagicDamage() || event.source.isExplosion() || event.source.isProjectile() || event.isCanceled()) {
+    if(event.getSource().isUnblockable() ||
+       event.getSource().isMagicDamage() ||
+       event.getSource().isExplosion() ||
+       event.getSource().isProjectile() ||
+       event.isCanceled()) {
       return;
     }
-    if(!shouldBlockDamage(event.entityLiving)) {
+    if(!shouldBlockDamage(event.getEntityLiving())) {
       return;
     }
 
-    EntityPlayer player = (EntityPlayer) event.entityLiving;
-    ItemStack battlesign = player.getCurrentEquippedItem();
+    EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+    ItemStack battlesign = player.getHeldItemMainhand();
 
     // got hit by something: reduce damage
-    int damage = event.ammount < 2f ? 1 : Math.round(event.ammount/2f);
+    int damage = event.getAmount() < 2f ? 1 : Math.round(event.getAmount() / 2f);
     // reduce damage. After this event the damage will be halved again because we're blocking so we have to factor this in
-    event.ammount *= 0.7f;
+    event.setAmount(event.getAmount() * 0.7f);
 
     // reflect damage
-    if(event.source.getEntity() != null) {
-      event.source.getEntity().attackEntityFrom(DamageSource.causeThornsDamage(player), event.ammount/2f);
+    if(event.getSource().getEntity() != null) {
+      event.getSource().getEntity().attackEntityFrom(DamageSource.causeThornsDamage(player), event.getAmount() / 2f);
       damage = damage * 3 / 2;
     }
     ToolHelper.damageTool(battlesign, damage, player);
@@ -70,20 +118,20 @@ public class BattleSign extends BroadSword {
   @SubscribeEvent
   public void reflectProjectiles(LivingAttackEvent event) {
     // only blockable projectile damage
-    if(event.source.isUnblockable() || !event.source.isProjectile()) {
+    if(event.getSource().isUnblockable() || !event.getSource().isProjectile()) {
       return;
     }
-    if(!shouldBlockDamage(event.entityLiving)) {
+    if(!shouldBlockDamage(event.getEntityLiving())) {
       return;
     }
 
-    EntityPlayer player = (EntityPlayer) event.entityLiving;
-    ItemStack battlesign = player.getCurrentEquippedItem();
+    EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+    ItemStack battlesign = player.getHeldItemMainhand();
 
     // ensure the player is looking at the projectile (aka not getting shot into the back)
-    Entity projectile = event.source.getSourceOfDamage();
-    Vec3 motion = new Vec3(projectile.motionX, projectile.motionY, projectile.motionZ);
-    Vec3 look = player.getLookVec();
+    Entity projectile = event.getSource().getSourceOfDamage();
+    Vec3d motion = new Vec3d(projectile.motionX, projectile.motionY, projectile.motionZ);
+    Vec3d look = player.getLookVec();
 
     // this gives a factor of how much we're looking at the incoming arrow
     double strength = -look.dotProduct(motion.normalize());
@@ -123,7 +171,7 @@ public class BattleSign extends BroadSword {
     }
 
     // use durability equal to the damage prevented
-    ToolHelper.damageTool(battlesign, (int)event.ammount, player);
+    ToolHelper.damageTool(battlesign, (int) event.getAmount(), player);
   }
 
   protected boolean shouldBlockDamage(Entity entity) {
@@ -133,16 +181,13 @@ public class BattleSign extends BroadSword {
     }
     EntityPlayer player = (EntityPlayer) entity;
     // needs to be blocking with a battlesign
-    if(!player.isBlocking() || player.getCurrentEquippedItem().getItem() != this) {
+    if(!player.isActiveItemStackBlocking() || player.getActiveItemStack().getItem() != this) {
       return false;
     }
 
     // broken battlesign.
-    if(ToolHelper.isBroken(player.getCurrentEquippedItem())) {
-      return false;
-    }
+    return !ToolHelper.isBroken(player.getHeldItemMainhand());
 
-    return true;
   }
 
   @Override

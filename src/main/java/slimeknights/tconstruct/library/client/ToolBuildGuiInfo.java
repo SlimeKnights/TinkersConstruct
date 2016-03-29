@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 import org.lwjgl.util.Point;
 
@@ -57,13 +57,13 @@ public class ToolBuildGuiInfo {
 
   static {
     RenderMaterials = new Material[4];
-    RenderMaterials[0] = new Material("_internal_render1", EnumChatFormatting.WHITE);
+    RenderMaterials[0] = new Material("_internal_render1", TextFormatting.WHITE);
     RenderMaterials[0].setRenderInfo(0x684e1e);
-    RenderMaterials[1] = new Material("_internal_render2", EnumChatFormatting.WHITE);
+    RenderMaterials[1] = new Material("_internal_render2", TextFormatting.WHITE);
     RenderMaterials[1].setRenderInfo(0xc1c1c1);
-    RenderMaterials[2] = new Material("_internal_render3", EnumChatFormatting.WHITE);
+    RenderMaterials[2] = new Material("_internal_render3", TextFormatting.WHITE);
     RenderMaterials[2].setRenderInfo(0x2376dd);
-    RenderMaterials[3] = new Material("_internal_render4", EnumChatFormatting.WHITE);
+    RenderMaterials[3] = new Material("_internal_render4", TextFormatting.WHITE);
     RenderMaterials[3].setRenderInfo(0x7146b0);
 
     for(Material mat : RenderMaterials) {
@@ -73,6 +73,6 @@ public class ToolBuildGuiInfo {
     }
 
     TinkerRegistry.tabTools.setDisplayIcon(TinkerTools.pickaxe.buildItemForRendering(ImmutableList.of(RenderMaterials[0], RenderMaterials[1], RenderMaterials[2])));
-    TinkerRegistry.tabParts.setDisplayIcon(TinkerTools.binding.getItemstackWithMaterial(RenderMaterials[2]));
+    TinkerRegistry.tabParts.setDisplayIcon(TinkerTools.pickHead.getItemstackWithMaterial(RenderMaterials[2]));
   }
 }

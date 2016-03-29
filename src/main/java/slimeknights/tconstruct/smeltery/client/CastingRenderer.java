@@ -3,8 +3,8 @@ package slimeknights.tconstruct.smeltery.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.client.resources.model.IBakedModel;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -93,13 +93,8 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
       OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)(brightness % 0x10000) / 1f,
                                             (float)(brightness / 0x10000) / 1f);
 
-
-      //GlStateManager.translate(0.5f, 0.5f, 0.5f);
       GlStateManager.translate(xzOffset, yOffset, xzOffset);
       GlStateManager.scale(xzScale, yScale, xzScale);
-      //GlStateManager.scale(1.01f, 1.01f, 1.01f); // make it a tad bigger so it renders over the liquid (will be blended)
-      //GlStateManager.scale(0.999f, 0.999f, 0.999f); // renderItem scales by 0.5
-      GlStateManager.scale(2f, 2f, 2f); // renderItem scales by 0.5
 
       // align item orientation with casting tile orientation
       GlStateManager.rotate(-90 * te.getFacing().getHorizontalIndex(), 0, 1, 0);
@@ -109,7 +104,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
       GL14.glBlendColor(1f, 1f, 1f, progress);
       //GL14.glBlendColor(1f, 1f, 1f, 1f); // debug
 
-      IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getItemModel(stack);
+      IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, te.getWorld(), null);
       Minecraft.getMinecraft().getRenderItem().renderItem(stack, model);
 
       GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);

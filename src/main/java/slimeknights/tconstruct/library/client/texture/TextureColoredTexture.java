@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.client.RenderUtil;
 
 public class TextureColoredTexture extends AbstractColoredTexture {
 
-  protected final TextureAtlasSprite addTexture;
+  protected TextureAtlasSprite addTexture;
   protected final String addTextureLocation;
   protected int[][] textureData;
   protected int textureW;
@@ -67,27 +67,17 @@ public class TextureColoredTexture extends AbstractColoredTexture {
   }
 
   protected void loadData() {
-    if(addTexture != null && addTexture.getFrameCount() > 0) {
-      textureData = addTexture.getFrameTextureData(0);
-      scale = (float)addTexture.getIconWidth() / (float)this.width;
-      textureW = addTexture.getIconWidth();
-      textureH = addTexture.getIconHeight();
+    if(addTexture == null || addTexture.getFrameCount() <= 0) {
+      addTexture = backupLoadTexture(new ResourceLocation(addTextureLocation), Minecraft.getMinecraft().getResourceManager());
     }
-    else {
-      // we need to keep the sizes, otherwise the secondary texture might set our size to a different value
-      // since it uses the same loading code as the main texture
-      // read: 32x32 block textures with 16x16 tool textures = stuff goes boom
-      int w = this.width;
-      int h = this.height;
-      textureData = backupLoadTexture(new ResourceLocation(addTextureLocation),
-                                      Minecraft.getMinecraft().getResourceManager());
 
-      scale = (float)this.width / (float)w;
-      textureW = this.width;
-      textureH = this.height;
-      this.width = w;
-      this.height = h;
-    }
+    textureData = addTexture.getFrameTextureData(0);
+    // we need to keep the sizes, otherwise the secondary texture might set our size to a different value
+    // since it uses the same loading code as the main texture
+    // read: 32x32 block textures with 16x16 tool textures = stuff goes boom
+    textureW = addTexture.getIconWidth();
+    textureH = addTexture.getIconHeight();
+    scale = (float)textureH/(float)width;
   }
 
   public void setOffset(int x, int y) {

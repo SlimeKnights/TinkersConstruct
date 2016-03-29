@@ -2,13 +2,16 @@ package slimeknights.tconstruct.world.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
@@ -29,7 +32,7 @@ public class BlockSlimeSapling extends BlockSapling {
   public BlockSlimeSapling() {
     setCreativeTab(TinkerRegistry.tabWorld);
     setDefaultState(this.blockState.getBaseState());
-    this.setStepSound(soundTypeGrass);
+    this.setSoundType(SoundType.PLANT);
   }
 
   @Override
@@ -41,14 +44,15 @@ public class BlockSlimeSapling extends BlockSapling {
 
 
   @Override
-  protected BlockState createBlockState() {
+  protected BlockStateContainer createBlockState() {
     // TYPE has to be included because of the BlockSapling constructor.. but it's never used.
-    return new BlockState(this, FOLIAGE, STAGE, TYPE);
+    return new BlockStateContainer(this, FOLIAGE, STAGE, TYPE);
   }
 
   /**
    * Convert the given metadata into a BlockState for this Block
    */
+  @Override
   public IBlockState getStateFromMeta(int meta)
   {
     if(meta < 0 || meta >= BlockSlimeGrass.FoliageType.values().length) {
@@ -61,9 +65,10 @@ public class BlockSlimeSapling extends BlockSapling {
   /**
    * Convert the BlockState into the correct metadata value
    */
+  @Override
   public int getMetaFromState(IBlockState state)
   {
-    return ((BlockSlimeGrass.FoliageType)state.getValue(BlockSlimeGrass.FOLIAGE)).ordinal();
+    return state.getValue(BlockSlimeGrass.FOLIAGE).ordinal();
   }
 
   @Override
@@ -72,33 +77,13 @@ public class BlockSlimeSapling extends BlockSapling {
   }
 
   @Override
-  @SideOnly(Side.CLIENT)
-  public int getBlockColor ()
-  {
-    return 0xffffff;
-  }
-
-  // Used for the item
-  @SideOnly(Side.CLIENT)
-  @Override
-  public int getRenderColor(IBlockState state) {
-    return 0xffffff;
-  }
-
-  // Used for the block in world
-  @SideOnly(Side.CLIENT)
-  @Override
-  public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
-    return 0xffffff;
-  }
-
-  @Override
-  public boolean isReplaceable(World worldIn, BlockPos pos) {
+  public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
     return false;
   }
 
   @Override
-  protected boolean canPlaceBlockOn(Block ground) {
+  public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+    Block ground = worldIn.getBlockState(pos.down()).getBlock();
     return ground == TinkerWorld.slimeGrass || ground == TinkerWorld.slimeDirt;
   }
 
@@ -108,9 +93,10 @@ public class BlockSlimeSapling extends BlockSapling {
   }
 
   @Override
-  public int getDamageValue(World worldIn, BlockPos pos) {
-    IBlockState iblockstate = worldIn.getBlockState(pos);
-    return iblockstate.getBlock().getMetaFromState(iblockstate);
+  public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    IBlockState iblockstate = world.getBlockState(pos);
+    int meta = iblockstate.getBlock().getMetaFromState(iblockstate);
+    return new ItemStack(Item.getItemFromBlock(this), 1, meta);
   }
 
   @Override

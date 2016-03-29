@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.traits;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -16,7 +17,7 @@ public class TraitPoisonous extends AbstractTrait {
   @Override
   public void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
     if(wasHit && target.isEntityAlive()) {
-      target.addPotionEffect(new PotionEffect(Potion.poison.id, 101));
+      target.addPotionEffect(new PotionEffect(MobEffects.poison, 101));
     }
   }
 }

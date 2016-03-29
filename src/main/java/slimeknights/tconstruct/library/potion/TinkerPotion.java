@@ -4,6 +4,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -17,10 +19,11 @@ public class TinkerPotion extends Potion {
   }
 
   public TinkerPotion(ResourceLocation location, boolean badEffect, boolean showInInventory, int color) {
-    super(location, badEffect, color);
+    super(badEffect, color);
     setPotionName("potion." + location.getResourcePath());
 
     this.show = showInInventory;
+    potionRegistry.register(-1, location, this);
   }
 
   @Override
@@ -33,7 +36,7 @@ public class TinkerPotion extends Potion {
   }
 
   public PotionEffect apply(EntityLivingBase entity, int duration, int level) {
-    PotionEffect effect = new PotionEffect(this.getId(), duration, level, false, false);
+    PotionEffect effect = new PotionEffect(this, duration, level, false, false);
     entity.addPotionEffect(effect);
     return effect;
   }

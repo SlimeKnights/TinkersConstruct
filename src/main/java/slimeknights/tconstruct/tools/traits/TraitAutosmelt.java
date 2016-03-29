@@ -1,12 +1,13 @@
 package slimeknights.tconstruct.tools.traits;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
@@ -25,21 +26,21 @@ public class TraitAutosmelt extends AbstractTrait {
 
   @Override
   public boolean canApplyTogether(Enchantment enchantment) {
-    return enchantment != Enchantment.silkTouch;
+    return enchantment != Enchantments.silkTouch;
   }
 
   @Override
   public void blockHarvestDrops(ItemStack tool, BlockEvent.HarvestDropsEvent event) {
-    if(ToolHelper.isToolEffective(tool, event.state)) {
+    if(ToolHelper.isToolEffective(tool, event.getState())) {
       // go through the drops and replace them with their furnace'd variant if applicable
-      ListIterator<ItemStack> iter = event.drops.listIterator();
+      ListIterator<ItemStack> iter = event.getDrops().listIterator();
       while(iter.hasNext()) {
         ItemStack drop = iter.next();
         ItemStack smelted = FurnaceRecipes.instance().getSmeltingResult(drop);
         if(smelted != null) {
           smelted = smelted.copy();
           smelted.stackSize = drop.stackSize;
-          int fortune = EnchantmentHelper.getFortuneModifier(event.harvester);
+          int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, tool);
           if(Config.autosmeltlapis && fortune > 0) {
             smelted.stackSize *= random.nextInt(fortune + 1) + 1;
           }
@@ -51,7 +52,7 @@ public class TraitAutosmelt extends AbstractTrait {
             xp += 1f;
           }
           if(xp >= 1f) {
-            event.state.getBlock().dropXpOnBlockBreak(event.world, event.pos, (int) xp);
+            event.getState().getBlock().dropXpOnBlockBreak(event.getWorld(), event.getPos(), (int) xp);
           }
         }
       }
@@ -59,7 +60,7 @@ public class TraitAutosmelt extends AbstractTrait {
   }
 
   @Override
-  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
+  public void afterBlockBreak(ItemStack tool, World world, IBlockState state, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
     if(world.isRemote && wasEffective) {
       for(int i = 0; i < 3; i++) {
         world.spawnParticle(EnumParticleTypes.FLAME,

@@ -1,6 +1,9 @@
 package slimeknights.tconstruct.smeltery;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.Item;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
@@ -9,6 +12,9 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.smeltery.SmelteryTank;
+import slimeknights.tconstruct.smeltery.block.BlockSmelteryIO;
+import slimeknights.tconstruct.smeltery.block.BlockTank;
 import slimeknights.tconstruct.smeltery.client.CastingRenderer;
 import slimeknights.tconstruct.smeltery.client.FaucetRenderer;
 import slimeknights.tconstruct.smeltery.client.SmelteryRenderer;
@@ -18,6 +24,7 @@ import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
 import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
+import slimeknights.tconstruct.world.client.CustomStateMap;
 
 public class SmelteryClientProxy extends ClientProxy {
 
@@ -33,6 +40,32 @@ public class SmelteryClientProxy extends ClientProxy {
     // Blocks
     registerItemModel(Item.getItemFromBlock(TinkerSmeltery.smelteryController));
     registerItemModel(Item.getItemFromBlock(TinkerSmeltery.faucet));
+    registerItemBlockMeta(TinkerSmeltery.searedBlock);
+    registerItemBlockMeta(TinkerSmeltery.castingBlock);
+
+    // drains
+    Item drain = Item.getItemFromBlock(TinkerSmeltery.smelteryIO);
+    for(BlockSmelteryIO.IOType type : BlockSmelteryIO.IOType.values()) {
+      String variant = String.format("%s=%s,%s=%s",
+                                     BlockSmelteryIO.FACING.getName(),
+                                     BlockSmelteryIO.FACING.getName(EnumFacing.SOUTH),
+                                     BlockSmelteryIO.TYPE.getName(),
+                                     BlockSmelteryIO.TYPE.getName(type)
+      );
+      ModelLoader.setCustomModelResourceLocation(drain, type.meta, new ModelResourceLocation(drain.getRegistryName(), variant));
+    }
+
+    // seared tank items
+    Item tank = Item.getItemFromBlock(TinkerSmeltery.searedTank);
+    for(BlockTank.TankType type : BlockTank.TankType.values()) {
+      String variant = String.format("%s=%s,%s=%s",
+                                     BlockTank.KNOB.getName(),
+                                     BlockTank.KNOB.getName(type == BlockTank.TankType.TANK),
+                                     BlockTank.TYPE.getName(),
+                                     BlockTank.TYPE.getName(type)
+                                     );
+      ModelLoader.setCustomModelResourceLocation(tank, type.meta, new ModelResourceLocation(tank.getRegistryName(), variant));
+    }
 
     // TEs
     ClientRegistry.bindTileEntitySpecialRenderer(TileTank.class, new TankRenderer());

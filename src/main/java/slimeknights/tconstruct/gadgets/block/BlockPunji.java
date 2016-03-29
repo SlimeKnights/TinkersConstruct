@@ -1,26 +1,30 @@
 package slimeknights.tconstruct.gadgets.block;
 
+import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.MobEffects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import scala.None;
+import java.util.Locale;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 
 public class BlockPunji extends Block {
@@ -36,23 +40,27 @@ public class BlockPunji extends Block {
 
   public BlockPunji() {
     super(Material.plants);
-
-    this.setBlockBounds(0.125f, 0, 0.125f, 0.875f, 0.375f, 0.875f);
-    this.setStepSound(Block.soundTypeGrass);
+    this.setSoundType(SoundType.PLANT);
     this.setCreativeTab(TinkerRegistry.tabGadgets);
     this.setHardness(3.0f);
 
-    this.setDefaultState(getBlockState().getBaseState().withProperty(FACING, EnumFacing.DOWN));
+    this.setDefaultState(getBlockState().getBaseState()
+                                        .withProperty(FACING, EnumFacing.DOWN)
+                                        .withProperty(NORTH, false)
+                                        .withProperty(EAST, false)
+                                        .withProperty(NORTHEAST, false)
+                                        .withProperty(NORTHWEST, false));
   }
 
   @Override
-  protected BlockState createBlockState() {
-    return new BlockState(this, FACING, NORTH, EAST, NORTHEAST, NORTHWEST);
+  protected BlockStateContainer createBlockState() {
+    return new BlockStateContainer(this, FACING, NORTH, EAST, NORTHEAST, NORTHWEST);
   }
 
   /**
    * Convert the given metadata into a BlockState for this Block
    */
+  @Override
   public IBlockState getStateFromMeta(int meta) {
     if(meta >= EnumFacing.values().length) {
       meta = EnumFacing.DOWN.ordinal();
@@ -65,6 +73,7 @@ public class BlockPunji extends Block {
   /**
    * Convert the BlockState into the correct metadata value
    */
+  @Override
   public int getMetaFromState(IBlockState state) {
     return state.getValue(FACING).ordinal();
   }
@@ -106,6 +115,7 @@ public class BlockPunji extends Block {
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
    * IBlockstate
    */
+  @Override
   public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
     EnumFacing enumfacing = facing.getOpposite();
 
@@ -128,56 +138,23 @@ public class BlockPunji extends Block {
     }
   }
 
-  @Override
-  public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-    EnumFacing facing = worldIn.getBlockState(pos).getValue(FACING);
-    setBlockBoundsBasedOnState(facing);
-  }
+  /* Bounds */
+  private static final ImmutableMap<EnumFacing, AxisAlignedBB> BOUNDS;
+  static {
+    ImmutableMap.Builder<EnumFacing, AxisAlignedBB> builder = ImmutableMap.builder();
+    builder.put(EnumFacing.DOWN,  new AxisAlignedBB(0.1875, 0,      0.1875,  0.8125, 0.375, 0.8125));
+    builder.put(EnumFacing.UP,    new AxisAlignedBB(0.1875, 0.625,  0.1875,  0.8125, 1,     0.8125));
+    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0.1875, 0.1875, 0,       0.8125, 0.8125, 0.375));
+    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0.1875, 0.1875, 0.625,   0.8125, 0.8125, 1));
+    builder.put(EnumFacing.EAST,  new AxisAlignedBB(0.625,  0.1875, 0.1875,  1,      0.8125, 0.8125));
+    builder.put(EnumFacing.WEST,  new AxisAlignedBB(0,      0.1875, 0.1875,  0.375,  0.8125, 0.8125));
 
-  public void setBlockBoundsBasedOnState(EnumFacing facing) {
-    float h = 0.375f;
-
-    float xMin = 0.1875f;
-    float xMax = 1f - xMin;
-    float zMin = 0.1875f;
-    float zMax = 1f - zMin;
-    float yMin = 0.1875f;
-    float yMax = 1f - yMin;
-
-    switch(facing) {
-      case DOWN:
-        yMin = 0;
-        yMax = h;
-        break;
-      case UP:
-        yMin = 1f-h;
-        yMax = 1;
-        break;
-      case SOUTH:
-        zMin = 1f-h;
-        zMax = 1;
-        break;
-      case NORTH:
-        zMax = h;
-        zMin = 0;
-        break;
-      case EAST:
-        xMin = 1f-h;
-        xMax = 1;
-        break;
-      case WEST:
-        xMax = h;
-        xMin = 0;
-        break;
-    }
-
-    this.setBlockBounds(xMin, yMin, zMin, xMax, yMax, zMax);
+    BOUNDS = builder.build();
   }
 
   @Override
-  public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
-    setBlockBoundsBasedOnState(state.getValue(FACING));
-    return super.getCollisionBoundingBox(worldIn, pos, state);
+  public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+    return BOUNDS.get(state.getValue(FACING));
   }
 
   @Override
@@ -188,17 +165,17 @@ public class BlockPunji extends Block {
         damage += entityIn.fallDistance * 1.5f + 2f;
       }
       entityIn.attackEntityFrom(DamageSource.cactus, damage);
-      ((EntityLiving) entityIn).addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 20, 1));
+      ((EntityLiving) entityIn).addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 20, 1));
     }
   }
 
   @Override
-  public boolean isOpaqueCube() {
+  public boolean isOpaqueCube(IBlockState state) {
     return false;
   }
 
   @Override
-  public boolean isFullCube() {
+  public boolean isFullCube(IBlockState state) {
     return false;
   }
 
@@ -214,7 +191,7 @@ public class BlockPunji extends Block {
 
     @Override
     public String getName() {
-      return this.toString();
+      return this.toString().toLowerCase(Locale.US);
     }
   }
 }

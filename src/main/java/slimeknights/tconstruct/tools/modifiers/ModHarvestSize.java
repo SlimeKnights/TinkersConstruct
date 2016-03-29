@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.modifiers;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
 
 import java.util.Locale;
 

@@ -23,7 +23,7 @@ public class TraitLightweight extends AbstractTrait {
   @Override
   public void miningSpeed(ItemStack tool, PlayerEvent.BreakSpeed event) {
     // 10% bonus speed
-    event.newSpeed *= 1 + bonus;
+    event.setNewSpeed(event.getNewSpeed() * (1 + bonus));
   }
 
   @Override

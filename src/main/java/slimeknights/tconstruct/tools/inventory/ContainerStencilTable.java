@@ -106,7 +106,7 @@ public class ContainerStencilTable
       return super.transferStackInSlot(playerIn, index);
     }
 
-    Slot slot = (Slot) this.inventorySlots.get(index);
+    Slot slot = this.inventorySlots.get(index);
     if(slot == null || !slot.getHasStack()) {
       return null;
     }

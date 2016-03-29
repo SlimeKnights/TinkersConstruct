@@ -5,7 +5,7 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
 import io.netty.buffer.ByteBuf;
@@ -37,7 +37,7 @@ public class InventoryUpdateSyncPacket extends AbstractPacketThreadsafe {
       if(itemStacks[i] == null) continue;
       tile.setInventorySlotContents(i, itemStacks[i]);
     }
-    Minecraft.getMinecraft().renderGlobal.markBlockForUpdate(pos);
+    Minecraft.getMinecraft().renderGlobal.notifyBlockUpdate(null, pos, null, null, 0);
   }
 
   @Override

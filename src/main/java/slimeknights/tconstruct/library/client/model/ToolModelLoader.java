@@ -1,25 +1,22 @@
 package slimeknights.tconstruct.library.client.model;
 
-import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelBlock;
-import net.minecraft.client.resources.IResource;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.List;
 import java.util.Map;
 
@@ -46,8 +43,14 @@ public class ToolModelLoader implements ICustomModelLoader {
       // and we don't have to write our own json deserializer
       // it also provides us with the textures
       Map<String, String> textures = ModelHelper.loadTexturesFromJson(modelLocation);
-      ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
+      ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms = ModelHelper.loadTransformFromJson(modelLocation);
+      ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> blockingTransforms = ModelHelper.loadTransformFromJson(modelLocation, "blocking");
 
+      if(blockingTransforms.isEmpty()) {
+        blockingTransforms = transforms;
+      }
+
+      ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
       List<MaterialModel> parts = Lists.newArrayList();
       List<MaterialModel> brokenParts = Lists.newArrayList();
 
@@ -85,7 +88,13 @@ public class ToolModelLoader implements ICustomModelLoader {
       }
 
       String toolName = FilenameUtils.getBaseName(modelLocation.getResourcePath());
-      IModel mods = ModelLoaderRegistry.getModel(ModifierModelLoader.getLocationForToolModifiers(toolName));
+      IModel mods;
+      try {
+        mods = ModelLoaderRegistry.getModel(ModifierModelLoader.getLocationForToolModifiers(toolName));
+      } catch(Exception e) {
+        TinkerRegistry.log.error(e);
+        mods = null;
+      }
       ModifierModel modifiers = null;
 
       if(mods == null || !(mods instanceof ModifierModel)) {
@@ -97,7 +106,7 @@ public class ToolModelLoader implements ICustomModelLoader {
         modifiers = (ModifierModel) mods;
       }
 
-      IModel output = new ToolModel(builder.build(), parts, brokenParts, modifiers, ModelHelper.loadTransformFromJson(modelLocation));
+      IModel output = new ToolModel(builder.build(), parts, brokenParts, modifiers, transforms, blockingTransforms);
 
       // inform the texture manager about the textures it has to process
       CustomTextureCreator.registerTextures(builder.build());
@@ -113,10 +122,4 @@ public class ToolModelLoader implements ICustomModelLoader {
   public void onResourceManagerReload(IResourceManager resourceManager) {
 
   }
-
-  protected ResourceLocation getModelLocation(ResourceLocation p_177580_1_) {
-    return new ResourceLocation(p_177580_1_.getResourceDomain(), "models/" + p_177580_1_.getResourcePath() + ".json");
-  }
-
-
 }

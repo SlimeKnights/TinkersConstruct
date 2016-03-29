@@ -8,35 +8,38 @@ import com.google.common.collect.Maps;
 
 import gnu.trove.map.hash.THashMap;
 
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IFlexibleBakedModel;
-import net.minecraftforge.client.model.IModelState;
+import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ItemLayerModel;
-import net.minecraftforge.client.model.TRSRTransformation;
+import net.minecraftforge.common.model.IModelState;
+import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class ToolModel extends ItemLayerModel {
+public class ToolModel implements IModel {
 
   private final List<MaterialModel> partBlocks;
   private final List<MaterialModel> brokenPartBlocks;
   private final ModifierModel modifiers;
   private final ImmutableMap<TransformType, TRSRTransformation> transforms;
+  private final ImmutableMap<TransformType, TRSRTransformation> transformsBlocking;
+  private final ImmutableList<ResourceLocation> textures;
 
   public ToolModel(ImmutableList<ResourceLocation> defaultTextures, List<MaterialModel> parts, List<MaterialModel> brokenPartBlocks,
-                   ModifierModel modifiers, ImmutableMap<TransformType, TRSRTransformation> transforms) {
-    super(defaultTextures);
+                   ModifierModel modifiers, ImmutableMap<TransformType, TRSRTransformation> transforms, ImmutableMap<TransformType, TRSRTransformation> transformsBlocking) {
     this.partBlocks = parts;
     this.brokenPartBlocks = brokenPartBlocks;
     this.modifiers = modifiers;
     this.transforms = transforms;
+    this.transformsBlocking = transformsBlocking;
+    this.textures = defaultTextures;
   }
 
   @Override
@@ -48,7 +51,7 @@ public class ToolModel extends ItemLayerModel {
   public Collection<ResourceLocation> getTextures() {
     ImmutableSet.Builder<ResourceLocation> builder = ImmutableSet.builder();
 
-    builder.addAll(super.getTextures());
+    builder.addAll(textures);
 
     // modifier textures
     if(modifiers != null) {
@@ -59,9 +62,8 @@ public class ToolModel extends ItemLayerModel {
   }
 
   @Override
-  public IFlexibleBakedModel bake(IModelState state, VertexFormat format,
-                                  Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-    IFlexibleBakedModel base = super.bake(state, format, bakedTextureGetter);
+  public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+    IBakedModel base = new ItemLayerModel(textures).bake(state, format, bakedTextureGetter);
 
     BakedMaterialModel[] partModels = new BakedMaterialModel[partBlocks.size()];
     BakedMaterialModel[] brokenPartModels = new BakedMaterialModel[partBlocks.size()]; // has to be same size
@@ -77,19 +79,24 @@ public class ToolModel extends ItemLayerModel {
       }
     }
 
-    Map<String, IFlexibleBakedModel> modifierModels;
+    Map<String, IBakedModel> modifierModels;
     if(modifiers != null) {
       modifierModels = modifiers.bakeModels(state, format, bakedTextureGetter);
     }
     else {
-      modifierModels = new THashMap<String, IFlexibleBakedModel>();
+      modifierModels = new THashMap<String, IBakedModel>();
     }
 
     Map<TransformType, TRSRTransformation> builder = Maps.newHashMap();
     builder.putAll(IPerspectiveAwareModel.MapWrapper.getTransforms(state));
     builder.putAll(transforms); // only contains actual entries, so we override default values
 
-    return new BakedToolModel(base, partModels, brokenPartModels, modifierModels, ImmutableMap.copyOf(builder));
+    // same for blocking
+    Map<TransformType, TRSRTransformation> builder2 = Maps.newHashMap();
+    builder2.putAll(IPerspectiveAwareModel.MapWrapper.getTransforms(state));
+    builder2.putAll(transformsBlocking); // only contains actual entries, so we override default values
+
+    return new BakedToolModel(base, partModels, brokenPartModels, modifierModels, ImmutableMap.copyOf(builder), ImmutableMap.copyOf(builder2));
   }
 
   @Override

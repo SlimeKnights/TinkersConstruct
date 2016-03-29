@@ -1,15 +1,17 @@
 package slimeknights.tconstruct.smeltery.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.IBlockAccess;
@@ -20,7 +22,6 @@ import java.util.Random;
 import slimeknights.tconstruct.common.block.BlockInventoryTinkers;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
-import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 
 public class BlockSmelteryController extends BlockInventoryTinkers {
 
@@ -30,16 +31,16 @@ public class BlockSmelteryController extends BlockInventoryTinkers {
   public BlockSmelteryController() {
     super(Material.rock);
     this.setCreativeTab(TinkerRegistry.tabSmeltery);
-    setHardness(3F);
-    setResistance(20F);
-    setStepSound(soundTypeMetal);
+    this.setHardness(3F);
+    this.setResistance(20F);
+    this.setSoundType(SoundType.METAL);
 
     this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, false));
   }
 
   @Override
-  protected BlockState createBlockState() {
-    return new BlockState(this, FACING, ACTIVE);
+  protected BlockStateContainer createBlockState() {
+    return new BlockStateContainer(this, FACING, ACTIVE);
   }
 
   @Override
@@ -105,16 +106,17 @@ public class BlockSmelteryController extends BlockInventoryTinkers {
 
   // RENDERING
 
+
   @Override
-  public int getRenderType() {
-    return 3;
+  public EnumBlockRenderType getRenderType(IBlockState state) {
+    return EnumBlockRenderType.MODEL;
   }
 
   @Override
-  public void randomDisplayTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-    if (isActive(worldIn, pos))
+  public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+    if (isActive(world, pos))
     {
-      EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
+      EnumFacing enumfacing = state.getValue(FACING);
       double d0 = (double)pos.getX() + 0.5D;
       double d1 = (double)pos.getY() + 0.5D + (rand.nextFloat() * 6F) / 16F;
       double d2 = (double)pos.getZ() + 0.5D;
@@ -124,20 +126,20 @@ public class BlockSmelteryController extends BlockInventoryTinkers {
       switch (enumfacing)
       {
         case WEST:
-          worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-          worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+          world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+          world.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
           break;
         case EAST:
-          worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
-          worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+          world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
+          world.spawnParticle(EnumParticleTypes.FLAME, d0 + d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
           break;
         case NORTH:
-          worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
-          worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
+          world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
+          world.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 - d3, 0.0D, 0.0D, 0.0D);
           break;
         case SOUTH:
-          worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
-          worldIn.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
+          world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
+          world.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
       }
     }
   }

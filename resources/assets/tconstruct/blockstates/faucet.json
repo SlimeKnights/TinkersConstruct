@@ -15,13 +15,36 @@
             "model": "tconstruct:faucet",
             "transform": {
                 "gui": {
-                    "translation": [-0.125, -0.125, -0.125],
-                    "scale": [1.5, 1.5, 1.5]
+                    "rotation": [ {"x": 30}, {"y": 225} ],
+                    "translation": [0.1875, -0.125, 0],
+                    "scale": [0.9375, 0.9375, 0.9375]
                 },
-                "thirdperson": {
-                    "rotation": [ {"x": 10}, {"y": -45}, {"z": 170} ],
-                    "translation": [ 0, 0.09375, -0.171875 ],
+                "ground": {
+                    "translation": [ 0, 0.1875, 0],
+                    "scale":[ 0.25, 0.25, 0.25 ]
+                },
+                "fixed": {
+                    "scale":[ 0.5, 0.5, 0.5 ]
+                },
+                "thirdperson_righthand": {
+                    "rotation": [ {"x": 75}, {"y": 45} ],
+                    "translation": [ 0, 0.15625, 0],
                     "scale": [ 0.375, 0.375, 0.375 ]
+                },
+                "thirdperson_lefthand": {
+                    "rotation": [ {"x": 75}, {"y": 45} ],
+                    "translation": [ 0, 0.15625, 0],
+                    "scale": [ 0.375, 0.375, 0.375 ]
+                },
+                "firstperson_righthand": {
+                    "rotation": [ {"y": 135} ],
+                    "translation": [ -0.1875, 0.15625, 0.1875],
+                    "scale": [ 0.40, 0.40, 0.40 ]
+                },
+                "firstperson_lefthand": {
+                    "rotation": [ {"y": 135} ],
+                    "translation": [ -0.1875, 0.15625, 0.1875],
+                    "scale": [ 0.40, 0.40, 0.40 ]
                 }
             }
         }

@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.traits;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
@@ -24,7 +24,7 @@ public class TraitAlien extends TraitProgressiveStats {
   protected static float ATTACK_STEP = 0.005f;
 
   public TraitAlien() {
-    super("alien", EnumChatFormatting.YELLOW);
+    super("alien", TextFormatting.YELLOW);
   }
 
   @Override

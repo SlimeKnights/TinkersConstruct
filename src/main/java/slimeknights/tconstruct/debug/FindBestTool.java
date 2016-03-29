@@ -11,7 +11,8 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.text.TextComponentString;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
@@ -48,7 +49,7 @@ public class FindBestTool extends CommandBase {
   }
 
   @Override
-  public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+  public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
     int num, filtertype;
     if(args.length < 1) throw new CommandException("Too few arguments");
     else if(args.length < 2) {
@@ -167,7 +168,7 @@ public class FindBestTool extends CommandBase {
       best = Collections2.filter(results, filter[filtertype]);
     } while(best.size() > num);
 
-    sender.addChatMessage(new ChatComponentText(String.format("%d are in the top %d percentile of stats (%d; %f; %f)", best.size(), (int)(percentile*100f), durPercentile, speedPercentile, attackPercentile)));
+    sender.addChatMessage(new TextComponentString(String.format("%d are in the top %d percentile of stats (%d; %f; %f)", best.size(), (int)(percentile * 100f), durPercentile, speedPercentile, attackPercentile)));
 
     Collection<Triple<ItemStack, ImmutableList<Material>, Object[]>> sortedDurability = new Ordering<Triple<ItemStack, ImmutableList<Material>, Object[]>>() {
 
@@ -209,11 +210,11 @@ public class FindBestTool extends CommandBase {
       text.append(" Dmg: ");
       text.append((Float)foo.getRight()[2] * tool.damagePotential());
 
-      sender.addChatMessage(foo.getLeft().getChatComponent().appendSibling(new ChatComponentText(text.toString())));
+      sender.addChatMessage(foo.getLeft().getChatComponent().appendSibling(new TextComponentString(text.toString())));
       //System.out.println(text.toString());
     }
 
-    sender.addChatMessage(new ChatComponentText("Top 5 Durability:"));
+    sender.addChatMessage(new TextComponentString("Top 5 Durability:"));
     Iterator<Triple<ItemStack, ImmutableList<Material>, Object[]>> iter = sortedDurability.iterator();
     for(int i = 0; i < 5 && iter.hasNext(); i++) {
       Triple<ItemStack, ImmutableList<Material>, Object[]> foo = iter.next();
@@ -225,10 +226,10 @@ public class FindBestTool extends CommandBase {
         text.append(mat.getIdentifier());
         text.append(" ");
       }
-      sender.addChatMessage(foo.getLeft().getChatComponent().appendSibling(new ChatComponentText(text.toString())));
+      sender.addChatMessage(foo.getLeft().getChatComponent().appendSibling(new TextComponentString(text.toString())));
     }
 
-    sender.addChatMessage(new ChatComponentText("Top 5 Speed:"));
+    sender.addChatMessage(new TextComponentString("Top 5 Speed:"));
     iter = sortedSpeed.iterator();
     for(int i = 0; i < 5 && iter.hasNext(); i++) {
       Triple<ItemStack, ImmutableList<Material>, Object[]> foo = iter.next();
@@ -240,10 +241,10 @@ public class FindBestTool extends CommandBase {
         text.append(mat.getIdentifier());
         text.append(" ");
       }
-      sender.addChatMessage(foo.getLeft().getChatComponent().appendSibling(new ChatComponentText(text.toString())));
+      sender.addChatMessage(foo.getLeft().getChatComponent().appendSibling(new TextComponentString(text.toString())));
     }
 
-    sender.addChatMessage(new ChatComponentText("Top 5 Attack:"));
+    sender.addChatMessage(new TextComponentString("Top 5 Attack:"));
     iter = sortedAttack.iterator();
     for(int i = 0; i < 5 && iter.hasNext(); i++) {
       Triple<ItemStack, ImmutableList<Material>, Object[]> foo = iter.next();
@@ -255,7 +256,7 @@ public class FindBestTool extends CommandBase {
         text.append(mat.getIdentifier());
         text.append(" ");
       }
-      sender.addChatMessage(foo.getLeft().getChatComponent().appendSibling(new ChatComponentText(text.toString())));
+      sender.addChatMessage(foo.getLeft().getChatComponent().appendSibling(new TextComponentString(text.toString())));
     }
   }
 

@@ -49,7 +49,7 @@ public class TileDrain extends TileSmelteryComponent implements IFluidHandler, I
   @Override
   public int fill(FluidStack resource, boolean doFill) {
     TileSmeltery smeltery = getSmeltery();
-    if(smeltery != null) {
+    if(smeltery != null && resource != null) {
       return smeltery.getTank().fill(resource, doFill);
     }
     return 0;

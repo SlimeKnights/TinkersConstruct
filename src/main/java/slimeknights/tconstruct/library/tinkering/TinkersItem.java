@@ -15,8 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
 import java.text.DecimalFormat;
@@ -439,10 +439,10 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       tooltip.add(Util.translate("tooltip.tool.holdShift"));
       tooltip.add(Util.translate("tooltip.tool.holdCtrl"));
 
-      tooltip.add(EnumChatFormatting.BLUE +
-                  StatCollector.translateToLocalFormatted("attribute.modifier.plus.0",
-                                                          df.format(ToolHelper.getActualDamage(stack, playerIn)),
-                                                          StatCollector
+      tooltip.add(TextFormatting.BLUE +
+                  I18n.translateToLocalFormatted("attribute.modifier.plus.0",
+                                                 df.format(ToolHelper.getActualDamage(stack, playerIn)),
+                                                 I18n
                                                               .translateToLocal("attribute.name.generic.attackDamage")));
     }
     // detailed data

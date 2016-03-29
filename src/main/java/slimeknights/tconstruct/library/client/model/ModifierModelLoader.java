@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import slimeknights.tconstruct.library.TinkerAPIException;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;

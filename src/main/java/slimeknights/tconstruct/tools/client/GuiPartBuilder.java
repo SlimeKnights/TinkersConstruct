@@ -6,10 +6,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,10 +28,8 @@ import slimeknights.tconstruct.tools.client.module.GuiInfoPanel;
 import slimeknights.tconstruct.tools.client.module.GuiSideInventory;
 import slimeknights.tconstruct.tools.inventory.ContainerPartBuilder;
 import slimeknights.tconstruct.tools.inventory.ContainerPatternChest;
-import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
 import slimeknights.tconstruct.tools.inventory.ContainerTinkerStation;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
-import slimeknights.tconstruct.tools.tileentity.TilePartChest;
 
 @SideOnly(Side.CLIENT)
 public class GuiPartBuilder extends GuiTinkerStation {
@@ -119,8 +117,9 @@ public class GuiPartBuilder extends GuiTinkerStation {
         Material material = toolPart.getMaterial(output);
         // Material for the toolpart does not make sense, can't build anything out of it!
         if(!toolPart.canUseMaterial(material)) {
-          String materialName = material.getLocalizedNameColored() + EnumChatFormatting.WHITE;
-          String error = StatCollector.translateToLocalFormatted("gui.error.useless_tool_part", materialName, (new ItemStack(toolPart)).getDisplayName());
+          String materialName = material.getLocalizedNameColored() + TextFormatting.WHITE;
+          String error = I18n
+              .translateToLocalFormatted("gui.error.useless_tool_part", materialName, (new ItemStack(toolPart)).getDisplayName());
           warning(error);
         }
         // Material is OK, display material properties
@@ -138,21 +137,21 @@ public class GuiPartBuilder extends GuiTinkerStation {
       }
       // no, display general usage information
       else {
-        info.setCaption(container.getInventoryDisplayName().getFormattedText());
-        info.setText(StatCollector.translateToLocal("gui.partbuilder.info"));
+        info.setCaption(container.getInventoryDisplayName());
+        info.setText(I18n.translateToLocal("gui.partbuilder.info"));
       }
     }
   }
 
   @Override
   public void error(String message) {
-    info.setCaption(StatCollector.translateToLocal("gui.error"));
+    info.setCaption(I18n.translateToLocal("gui.error"));
     info.setText(message);
   }
 
   @Override
   public void warning(String message) {
-    info.setCaption(StatCollector.translateToLocal("gui.warning"));
+    info.setCaption(I18n.translateToLocal("gui.warning"));
     info.setText(message);
   }
 
@@ -174,7 +173,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
     List<String> stats = Lists.newLinkedList();
     List<String> tips = Lists.newArrayList();
     for(IMaterialStats stat : material.getAllStats()) {
-      stats.add(EnumChatFormatting.UNDERLINE + stat.getLocalizedName());
+      stats.add(TextFormatting.UNDERLINE + stat.getLocalizedName());
       stats.addAll(stat.getLocalizedInfo());
       stats.add(null);
       tips.add(null);

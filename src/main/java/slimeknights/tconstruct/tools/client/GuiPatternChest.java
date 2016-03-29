@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.client;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -29,7 +29,7 @@ public class GuiPatternChest extends GuiTinkerStation {
 
     // we use the sideinventory class for the inventory itself
     // it doesn't contain the player inventory
-    guiInventory = new GuiScalingChest(this, (BaseContainer)container.getSubContainer(ContainerPatternChest.DynamicChestInventory.class));
+    guiInventory = new GuiScalingChest(this, container.getSubContainer(ContainerPatternChest.DynamicChestInventory.class));
     addModule(guiInventory);
   }
 

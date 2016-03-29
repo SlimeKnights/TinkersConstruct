@@ -4,7 +4,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -35,10 +35,7 @@ public class EntityBlueSlime extends EntitySlime {
     if(this.worldObj.getBlockState(this.getPosition()).getBlock() instanceof BlockLiquidSlime) {
       return true;
     }
-    if(this.worldObj.getBlockState(this.getPosition().down()).getBlock() == TinkerWorld.slimeGrass) {
-      return true;
-    }
-    return false;
+    return this.worldObj.getBlockState(this.getPosition().down()).getBlock() == TinkerWorld.slimeGrass;
   }
 
   @Override

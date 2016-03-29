@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumHand;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -37,8 +38,8 @@ public class ModBeheading extends Modifier {
 
   @SubscribeEvent
   public void onLivingDrops(LivingDropsEvent event) {
-    if(event.source.getEntity() instanceof EntityPlayer) {
-      ItemStack item = ((EntityPlayer) event.source.getEntity()).getHeldItem();
+    if(event.getSource().getEntity() instanceof EntityPlayer) {
+      ItemStack item = ((EntityPlayer) event.getSource().getEntity()).getHeldItem(EnumHand.MAIN_HAND);
       NBTTagCompound tag = TinkerUtil.getModifierTag(item, getIdentifier());
       int level = ModifierNBT.readTag(tag).level;
       // has beheading
@@ -47,11 +48,11 @@ public class ModBeheading extends Modifier {
           level += 2;
         }
 
-        ItemStack head = getHeadDrop(event.entityLiving);
+        ItemStack head = getHeadDrop(event.getEntityLiving());
         if(head != null && level > random.nextInt(10)) {
-          EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, head);
+          EntityItem entityitem = new EntityItem(event.getEntityLiving().worldObj, event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, head);
           entityitem.setDefaultPickupDelay();
-          event.drops.add(entityitem);
+          event.getDrops().add(entityitem);
         }
       }
     }

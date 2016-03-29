@@ -14,10 +14,13 @@ import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.server.MinecraftServer;
 
 import java.awt.*;
 import java.io.File;
@@ -52,7 +55,7 @@ public class CompareVanilla extends CommandBase {
   }
 
   @Override
-  public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+  public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
     ImmutableList<Material> woodMaterials = ImmutableList.of(TinkerMaterials.wood, TinkerMaterials.wood, TinkerMaterials.wood);
     ImmutableList<Material> stoneMaterials = ImmutableList.of(TinkerMaterials.wood, TinkerMaterials.stone, TinkerMaterials.stone);
     ImmutableList<Material> ironMaterials = ImmutableList.of(TinkerMaterials.wood, TinkerMaterials.iron, TinkerMaterials.iron);
@@ -155,13 +158,13 @@ public class CompareVanilla extends CommandBase {
     // Redstone/Efficiency
     pw.println(genSection("Haste/Efficiency V", ""));
     ItemStack tinkerModified = applyModifier(TinkerTools.modHaste, tinker);
-    ItemStack vanillaModified = applyEnchantment(Enchantment.efficiency, vanilla);
+    ItemStack vanillaModified = applyEnchantment(Enchantments.efficiency, vanilla);
     pw.println(testToolSpeed(block, tinkerModified, vanillaModified));
 
     // Quartz/Sharpness
     pw.println(genSection("Sharpness V", ""));
     tinkerModified = applyModifier(TinkerTools.modSharpness, tinker);
-    vanillaModified = applyEnchantment(Enchantment.sharpness, vanilla);
+    vanillaModified = applyEnchantment(Enchantments.sharpness, vanilla);
     pw.println(testToolAttack(tinkerModified, vanillaModified));
   }
 
@@ -210,9 +213,9 @@ public class CompareVanilla extends CommandBase {
   protected String testToolSpeed(Block block, ItemStack tinker, ItemStack vanilla) {
     IBlockState state = block.getDefaultState();
 
-    float speed1 = tinker.getItem().getDigSpeed(tinker, state);
-    float speed2 = vanilla.getItem().getDigSpeed(vanilla, state);
-    int efficiencyLevel = EnchantmentHelper.getEnchantmentLevel(Enchantment.efficiency.effectId, vanilla);
+    float speed1 = tinker.getItem().getStrVsBlock(tinker, state);
+    float speed2 = vanilla.getItem().getStrVsBlock(vanilla, state);
+    int efficiencyLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.efficiency, vanilla);
     if(efficiencyLevel > 0) {
       speed2 += efficiencyLevel * efficiencyLevel + 1;
     }
@@ -223,12 +226,12 @@ public class CompareVanilla extends CommandBase {
   protected String testToolAttack(ItemStack tinker, ItemStack vanilla) {
     float attack1 = ToolHelper.getActualDamage(tinker, Minecraft.getMinecraft().thePlayer);
     float attack2 = 1f;
-    for(AttributeModifier mod : vanilla.getItem().getAttributeModifiers(vanilla).get(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName())) {
+    for(AttributeModifier mod : vanilla.getItem().getAttributeModifiers(EntityEquipmentSlot.MAINHAND, vanilla).get(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName())) {
       attack2 += mod.getAmount();
     }
 
     // enchantment
-    attack2 += EnchantmentHelper.func_152377_a(vanilla, EnumCreatureAttribute.UNDEFINED);
+    attack2 += EnchantmentHelper.getModifierForCreature(vanilla, EnumCreatureAttribute.UNDEFINED);
 
     return genRow("Attack", attack1, attack2);
   }

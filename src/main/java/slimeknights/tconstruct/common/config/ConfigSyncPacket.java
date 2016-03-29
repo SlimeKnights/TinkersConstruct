@@ -18,7 +18,7 @@ import slimeknights.mantle.network.AbstractPacket;
 
 public class ConfigSyncPacket extends AbstractPacket {
 
-  public List<ConfigCategory> categories = Lists.newLinkedList();;
+  public List<ConfigCategory> categories = Lists.newLinkedList();
 
   public ConfigSyncPacket() {
   }

@@ -9,8 +9,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
@@ -327,7 +327,8 @@ public class GuiInfoPanel extends GuiModule {
     if(hasCaption()) {
       int x2 = xSize / 2;
       x2 -=fontRenderer.getStringWidth(caption) / 2;
-      fontRenderer.drawStringWithShadow(EnumChatFormatting.UNDERLINE + EnumChatFormatting.getTextWithoutFormattingCodes(caption), guiLeft + x2, y, color);
+      fontRenderer.drawStringWithShadow(TextFormatting.UNDERLINE + TextFormatting
+          .getTextWithoutFormattingCodes(caption), guiLeft + x2, y, color);
       y += fontRenderer.FONT_HEIGHT + 3;
     }
 

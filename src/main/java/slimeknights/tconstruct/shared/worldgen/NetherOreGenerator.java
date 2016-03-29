@@ -1,9 +1,10 @@
 package slimeknights.tconstruct.shared.worldgen;
 
-import net.minecraft.block.state.pattern.BlockHelper;
+import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderHell;
 import net.minecraft.world.gen.feature.WorldGenMinable;
@@ -25,15 +26,15 @@ public class NetherOreGenerator implements IWorldGenerator {
   public NetherOreGenerator() {
     cobaltGen = new WorldGenMinable(TinkerCommons.blockOre.getStateFromMeta(BlockOre.OreTypes.COBALT.getMeta()),
                                     3,
-                                    BlockHelper.forBlock(Blocks.netherrack));
+                                    BlockMatcher.forBlock(Blocks.netherrack));
 
     arditeGen = new WorldGenMinable(TinkerCommons.blockOre.getStateFromMeta(BlockOre.OreTypes.ARDITE.getMeta()),
                                     3,
-                                    BlockHelper.forBlock(Blocks.netherrack));
+                                    BlockMatcher.forBlock(Blocks.netherrack));
   }
 
   @Override
-  public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
+  public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
     if(chunkGenerator instanceof ChunkProviderHell) {
       if(Config.genArdite) {
         generateNetherOre(arditeGen, Config.arditeRate, random, chunkX, chunkZ, world);

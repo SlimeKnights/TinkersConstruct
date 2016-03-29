@@ -35,6 +35,7 @@ public class TinkerDebug {
   @Subscribe
   public void serverStart(FMLServerStartingEvent event) {
     event.registerServerCommand(new DamageTool());
+    event.registerServerCommand(new TestTool());
 
     if(event.getSide().isClient()) {
       ClientCommandHandler.instance.registerCommand(new LocalizationCheckCommand());
@@ -60,26 +61,26 @@ public class TinkerDebug {
     }
 
     // check all blocks if all metadatas are supported
-    for(ResourceLocation identifier : (Set<ResourceLocation>) Block.blockRegistry.getKeys()) {
+    for(ResourceLocation identifier : Block.blockRegistry.getKeys()) {
       // only our own stuff
       if(!identifier.getResourceDomain().equals(Util.RESOURCE)) {
         continue;
       }
 
-      Block block = (Block)Block.blockRegistry.getObject(identifier);
+      Block block = Block.blockRegistry.getObject(identifier);
       for(int i = 0; i < 16; i++) {
         block.getMetaFromState(block.getStateFromMeta(i));
       }
     }
 
     // same for items
-    for(ResourceLocation identifier : (Set<ResourceLocation>) Item.itemRegistry.getKeys()) {
+    for(ResourceLocation identifier : Item.itemRegistry.getKeys()) {
       // only our own stuff
       if(!identifier.getResourceDomain().equals(Util.RESOURCE)) {
         continue;
       }
 
-      Item item = (Item) Item.itemRegistry.getObject(identifier);
+      Item item = Item.itemRegistry.getObject(identifier);
       for(int i = 0; i < 0x7FFF; i++) {
         item.getMetadata(i);
       }

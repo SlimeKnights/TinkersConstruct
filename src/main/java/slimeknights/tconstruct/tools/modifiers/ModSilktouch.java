@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers;
 
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.init.Enchantments;
 import net.minecraft.nbt.NBTTagCompound;
 
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -19,12 +20,12 @@ public class ModSilktouch extends Modifier {
 
   @Override
   public boolean canApplyTogether(Enchantment enchantment) {
-    return !(enchantment == Enchantment.silkTouch || enchantment == Enchantment.looting || enchantment == Enchantment.fortune);
+    return !(enchantment == Enchantments.silkTouch || enchantment == Enchantments.looting || enchantment == Enchantments.fortune);
   }
 
   @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
-    ToolBuilder.addEnchantment(rootCompound, Enchantment.silkTouch);
+    ToolBuilder.addEnchantment(rootCompound, Enchantments.silkTouch);
 
     ToolNBT toolData = TagUtil.getToolStats(rootCompound);
     toolData.speed = Math.max(1f, toolData.speed - 3f);

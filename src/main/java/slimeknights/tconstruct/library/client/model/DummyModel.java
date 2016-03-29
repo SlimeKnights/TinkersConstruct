@@ -3,16 +3,15 @@ package slimeknights.tconstruct.library.client.model;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.IFlexibleBakedModel;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.IModelState;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.common.model.IModelState;
 
 import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Dummy Model to be returned on the initial load to silence the missing model messages.
@@ -33,8 +32,8 @@ public class DummyModel implements IModel {
   }
 
   @Override
-  public IFlexibleBakedModel bake(IModelState state, VertexFormat format,
-                                  Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+  public IBakedModel bake(IModelState state, VertexFormat format,
+                          Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     return ModelLoaderRegistry.getMissingModel().bake(ModelLoaderRegistry.getMissingModel().getDefaultState(), format, bakedTextureGetter);
   }
 

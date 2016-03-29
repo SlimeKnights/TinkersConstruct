@@ -6,9 +6,10 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.StatCollector;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.translation.I18n;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class LocalizationCheckCommand extends CommandBase {
   }
 
   @Override
-  public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
+  public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
     if(args.length != 1) {
       return null;
     }
@@ -50,7 +51,7 @@ public class LocalizationCheckCommand extends CommandBase {
   }
 
   @Override
-  public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+  public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
     if(args.length > 1) {
       throw new WrongUsageException(getCommandUsage(sender));
     }
@@ -75,8 +76,8 @@ public class LocalizationCheckCommand extends CommandBase {
   }
 
   private void checkStr(String str, ICommandSender sender) {
-    if(!StatCollector.canTranslate(str)) {
-      sender.addChatMessage(new ChatComponentText("Missing localization for name: " + str));
+    if(!I18n.canTranslate(str)) {
+      sender.addChatMessage(new TextComponentString("Missing localization for name: " + str));
     }
   }
 }

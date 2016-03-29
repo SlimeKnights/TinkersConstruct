@@ -2,11 +2,19 @@ package slimeknights.tconstruct.tools.item;
 
 import com.google.common.collect.ImmutableSet;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -40,13 +48,8 @@ public class BroadSword extends ToolCore {
   }
 
   @Override
-  public boolean isEffective(Block block) {
+  public boolean isEffective(IBlockState block) {
     return effective_materials.contains(block.getMaterial());
-  }
-
-  @Override
-  public boolean canUseSecondaryItem() {
-    return false;
   }
 
   @Override
@@ -55,8 +58,8 @@ public class BroadSword extends ToolCore {
   }
 
   @Override
-  public int attackSpeed() {
-    return 0;
+  public double attackSpeed() {
+    return 1.6d; // default vanilla sword speed
   }
 
   @Override
@@ -64,30 +67,37 @@ public class BroadSword extends ToolCore {
     return 0.5f; // slooow, because it's a swooooord
   }
 
-  // Blocking and sword things
-  /**
-   * returns the action that specifies what animation to play when the items is being used
-   */
-  public EnumAction getItemUseAction(ItemStack stack)
-  {
-    return EnumAction.BLOCK;
-  }
+  // sword sweep attack
+  @Override
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+    // deal damage first
+    boolean hit = super.dealDamage(stack, player, entity, damage);
+    // and then sweep
+    if(hit) {
+      // sweep code from EntityPlayer#attackTargetEntityWithCurrentItem()
+      // basically: no crit, no sprinting and has to stand on the ground for sweep. Also has to move regularly slowly
+      double d0 = (double)(player.distanceWalkedModified - player.prevDistanceWalkedModified);
+      boolean flag = true;
+      if(player instanceof EntityPlayer) {
+        flag = ((EntityPlayer)player).getCooledAttackStrength(0.5F) > 0.9f;
+      }
+      boolean flag2 = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.blindness) && !player.isRiding();
+      if (flag && !player.isSprinting() && !flag2 && player.onGround && d0 < (double)player.getAIMoveSpeed()) {
+        for(EntityLivingBase entitylivingbase : player.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, entity.getEntityBoundingBox().expand(1.0D, 0.25D, 1.0D))) {
+          if(entitylivingbase != player && entitylivingbase != entity && !player.isOnSameTeam(entitylivingbase) && player.getDistanceSqToEntity(entitylivingbase) < 9.0D) {
+            entitylivingbase.knockBack(player, 0.4F, (double) MathHelper.sin(player.rotationYaw * 0.017453292F), (double) (-MathHelper.cos(player.rotationYaw * 0.017453292F)));
+            super.dealDamage(stack, player, entitylivingbase, 1f);
+          }
+        }
 
-  /**
-   * How long it takes to use or consume an item
-   */
-  public int getMaxItemUseDuration(ItemStack stack)
-  {
-    return 72000;
-  }
+        player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_player_attack_sweep, player.getSoundCategory(), 1.0F, 1.0F);
+        if(player instanceof EntityPlayer) {
+          ((EntityPlayer) player).spawnSweepParticles();
+        }
+      }
+    }
 
-  /**
-   * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
-   */
-  public ItemStack onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn)
-  {
-    playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
-    return itemStackIn;
+    return hit;
   }
 
   @Override

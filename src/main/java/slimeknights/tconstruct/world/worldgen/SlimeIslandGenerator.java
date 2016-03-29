@@ -1,23 +1,19 @@
 package slimeknights.tconstruct.world.worldgen;
 
-import com.google.common.collect.Maps;
-
 import gnu.trove.map.hash.TIntObjectHashMap;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
+import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.structure.MapGenStructureData;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 import java.awt.geom.Ellipse2D;
-import java.util.Map;
 import java.util.Random;
 
 import slimeknights.tconstruct.common.config.Config;
@@ -93,7 +89,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
   }
 
   protected SlimeIslandData getIslandData(World world) {
-    int dimensionId = world.provider.getDimensionId();
+    int dimensionId = world.provider.getDimension();
     if(!islandData.containsKey(dimensionId)) {
       SlimeIslandData data = (SlimeIslandData)world.getPerWorldStorage().loadData(SlimeIslandData.class, getDataName());
       if(data == null) {
@@ -116,7 +112,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
   }
 
   @Override
-  public void generate(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) {
+  public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
     if(!Config.genSlimeIslands) {
       return;
     }
@@ -126,7 +122,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     }
 
     // should generate in this dimension?
-    if(!shouldGenerateInDimension(world.provider.getDimensionId())) {
+    if(!shouldGenerateInDimension(world.provider.getDimension())) {
       return;
     }
 

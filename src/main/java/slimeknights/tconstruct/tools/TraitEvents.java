@@ -19,7 +19,7 @@ public class TraitEvents {
 
   @SubscribeEvent
   public void mineSpeed(PlayerEvent.BreakSpeed event) {
-    ItemStack tool = event.entityPlayer.inventory.getCurrentItem();
+    ItemStack tool = event.getEntityPlayer().inventory.getCurrentItem();
 
     if(isTool(tool) && !ToolHelper.isBroken(tool)) {
       NBTTagList list = TagUtil.getTraitsTagList(tool);
@@ -49,10 +49,10 @@ public class TraitEvents {
 
   @SubscribeEvent
   public void blockDropEvent(BlockEvent.HarvestDropsEvent event) {
-    if(event.harvester == null) {
+    if(event.getHarvester() == null) {
       return;
     }
-    ItemStack tool = event.harvester.inventory.getCurrentItem();
+    ItemStack tool = event.getHarvester().inventory.getCurrentItem();
 
     if(isTool(tool) && !ToolHelper.isBroken(tool)) {
       NBTTagList list = TagUtil.getTraitsTagList(tool);
@@ -67,18 +67,18 @@ public class TraitEvents {
 
   @SubscribeEvent
   public void playerBlockEvent(LivingHurtEvent event) {
-    if(event.entity == null || !(event.entity instanceof EntityPlayer) || !((EntityPlayer) event.entity).isBlocking()) {
+    if(event.getEntity() == null || !(event.getEntity() instanceof EntityPlayer) || !((EntityPlayer) event.getEntity()).isActiveItemStackBlocking()) {
       return;
     }
     // item in use has to be current item, otherwise MC stops using it
-    ItemStack tool = ((EntityPlayer) event.entity).inventory.getCurrentItem();
+    ItemStack tool = ((EntityPlayer) event.getEntity()).inventory.getCurrentItem();
 
     if(isTool(tool) && !ToolHelper.isBroken(tool)) {
       NBTTagList list = TagUtil.getTraitsTagList(tool);
       for(int i = 0; i < list.tagCount(); i++) {
         ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
         if(trait != null) {
-          trait.onBlock(tool, (EntityPlayer) event.entity, event);
+          trait.onBlock(tool, (EntityPlayer) event.getEntity(), event);
         }
       }
     }

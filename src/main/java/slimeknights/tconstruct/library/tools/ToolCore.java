@@ -1,30 +1,34 @@
 package slimeknights.tconstruct.library.tools;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -115,10 +119,11 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   /**
-   * Allows you to speed up the attack. 0 is standard attack. 5 is max speed. Negative values are not possible.
+   * Allows you set the attack speed. Equivalent to the vanilla attack speed.
+   * Default speed is 4, which is equal to any standard item. Value has to be greater than zero.
    */
-  public int attackSpeed() {
-    return 0;
+  public double attackSpeed() {
+    return 4;
   }
 
   /**
@@ -133,13 +138,17 @@ public abstract class ToolCore extends TinkersItem {
    *
    * @return True if the entity was hit. Usually the return value of {@link Entity#attackEntityFrom(DamageSource, float)}
    */
-  public boolean dealDamage(ItemStack stack, EntityPlayer player, EntityLivingBase entity, float damage) {
-    return entity.attackEntityFrom(DamageSource.causePlayerDamage(player), damage);
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+    if(player instanceof EntityPlayer) {
+      return entity.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) player), damage);
+    }
+    return entity.attackEntityFrom(DamageSource.causeMobDamage(player), damage);
   }
 
   /**
    * Called when an entity is getting damaged with the tool.
    * Reduce the tools durability accordingly
+   * player can be null!
    */
   public void reduceDurabilityOnHit(ItemStack stack, EntityPlayer player, float damage) {
     damage = Math.max(1f, damage/10f);
@@ -150,20 +159,20 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
-  public float getDigSpeed(ItemStack itemstack, IBlockState state) {
-    if(isEffective(state.getBlock()) || ToolHelper.isToolEffective(itemstack, state)) {
-      return ToolHelper.calcDigSpeed(itemstack, state);
+  public float getStrVsBlock(ItemStack stack, IBlockState state) {
+    if(isEffective(state) || ToolHelper.isToolEffective(stack, state)) {
+      return ToolHelper.calcDigSpeed(stack, state);
     }
-    return super.getDigSpeed(itemstack, state);
+    return super.getStrVsBlock(stack, state);
   }
 
-  public boolean isEffective(Block block) {
+  public boolean isEffective(IBlockState block) {
     return false;
   }
 
   @Override
-  public boolean canHarvestBlock(Block block, ItemStack itemStack) {
-    return isEffective(block);
+  public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
+    return isEffective(state);
   }
 
   @Override
@@ -184,33 +193,36 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
-    if(attackSpeed() > 0) {
+    /*if(attackSpeed() > 0) {
       int speed = Math.min(5, attackSpeed());
       ToolHelper.swingItem(speed, entityLiving);
       return true;
-    }
+    }*/
     return super.onEntitySwing(entityLiving, stack);
-  }
-
-  public boolean canUseSecondaryItem() {
-    return true;
-  }
-
-  @Override
-  public boolean onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-    if(canUseSecondaryItem()) {
-      return ToolHelper.useSecondaryItem(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
-    }
-    return super.onItemUse(stack, playerIn, worldIn, pos, side, hitX, hitY, hitZ);
   }
 
   @Override
   public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+    // todo: potentially reenable the hurtresistance thing if attackspeeds go below 1
+    /*
     if(attackSpeed() > 0) {
       target.hurtResistantTime -= attackSpeed();
       target.hurtTime -= attackSpeed();
-    }
+    }*/
     return super.hitEntity(stack, target, attacker);
+  }
+
+  @Override
+  public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+    Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+
+    if (slot == EntityEquipmentSlot.MAINHAND)
+    {
+      multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)ToolHelper.getActualAttack(stack), 0));
+      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", attackSpeed() - 4d, 0));
+    }
+
+    return multimap;
   }
 
   @Override
@@ -221,7 +233,7 @@ public abstract class ToolCore extends TinkersItem {
   @Override
   public void getTooltip(ItemStack stack, List<String> tooltips) {
     if(ToolHelper.isBroken(stack)) {
-      tooltips.add("" + EnumChatFormatting.DARK_RED + EnumChatFormatting.BOLD + Util.translate("tooltip.tool.broken"));
+      tooltips.add("" + TextFormatting.DARK_RED + TextFormatting.BOLD + Util.translate("tooltip.tool.broken"));
     }
     super.getTooltip(stack, tooltips);
   }
@@ -275,7 +287,7 @@ public abstract class ToolCore extends TinkersItem {
       ItemStack partStack = part.getItemstackWithMaterial(material);
       if(partStack != null) {
         // we have the part, add it
-        tooltips.add(material.getTextColor() + EnumChatFormatting.UNDERLINE + partStack.getDisplayName());
+        tooltips.add(material.getTextColor() + TextFormatting.UNDERLINE + partStack.getDisplayName());
 
         // find out which stats and traits it contributes and add it to the tooltip
         for(IMaterialStats stats : material.getAllStats()) {
@@ -434,25 +446,25 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
-  public boolean onBlockDestroyed(ItemStack stack, World worldIn, Block blockIn, BlockPos pos, EntityLivingBase playerIn) {
+  public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
     if(ToolHelper.isBroken(stack)) {
       return false;
     }
 
-    boolean effective = isEffective(blockIn) || ToolHelper.isToolEffective(stack, worldIn.getBlockState(pos));
+    boolean effective = isEffective(state) || ToolHelper.isToolEffective(stack, worldIn.getBlockState(pos));
     int damage = effective ? 1 : 2;
 
-    afterBlockBreak(stack, worldIn, blockIn, pos, playerIn, damage, effective);
+    afterBlockBreak(stack, worldIn, state, pos, entityLiving, damage, effective);
 
     return hasCategory(Category.TOOL);
   }
 
-  public void afterBlockBreak(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase player, int damage, boolean wasEffective) {
+  public void afterBlockBreak(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase player, int damage, boolean wasEffective) {
     NBTTagList list = TagUtil.getTraitsTagList(stack);
     for(int i = 0; i < list.tagCount(); i++) {
       ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
       if(trait != null) {
-        trait.afterBlockBreak(stack, world, block, pos, player, wasEffective);
+        trait.afterBlockBreak(stack, world, state, pos, player, wasEffective);
       }
     }
 
@@ -460,7 +472,8 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   // elevate to public
-  public MovingObjectPosition getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
+  @Override
+  public RayTraceResult getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
     return super.getMovingObjectPositionFromPlayer(worldIn, playerIn, useLiquids);
   }
 
@@ -470,9 +483,7 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-    // we simply return false. This should be cover any cases and probably 1-2 edge cases where it shouldn't..
-    // ..but I doubt anybody will notice ;o
-    return false;
+    return !ItemStack.areItemStacksEqual(oldStack, newStack) || slotChanged;
   }
 
   /**

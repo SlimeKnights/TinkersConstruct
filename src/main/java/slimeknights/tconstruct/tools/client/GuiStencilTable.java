@@ -1,8 +1,7 @@
 package slimeknights.tconstruct.tools.client;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -12,11 +11,9 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.tools.client.module.GuiButtonsStencilTable;
 import slimeknights.tconstruct.tools.client.module.GuiSideInventory;
 import slimeknights.tconstruct.tools.inventory.ContainerPatternChest;
-import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
 import slimeknights.tconstruct.tools.inventory.ContainerStencilTable;
 import slimeknights.tconstruct.tools.inventory.ContainerTinkerStation;
 import slimeknights.tconstruct.tools.network.StencilTableSelectionPacket;
-import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.tileentity.TileStencilTable;
 
 @SideOnly(Side.CLIENT)

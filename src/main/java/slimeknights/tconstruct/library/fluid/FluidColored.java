@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.fluid;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -41,6 +41,6 @@ public class FluidColored extends Fluid {
   @Override
   public String getLocalizedName(FluidStack stack) {
     String s = this.getUnlocalizedName();
-    return s == null ? "" : StatCollector.translateToLocal(s + ".name");
+    return s == null ? "" : I18n.translateToLocal(s + ".name");
   }
 }

@@ -9,8 +9,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -96,7 +96,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
             List<String> text = stat.getLocalizedInfo();
             if(!text.isEmpty()) {
               tooltip.add("");
-              tooltip.add(EnumChatFormatting.WHITE.toString() + EnumChatFormatting.UNDERLINE + stat.getLocalizedName());
+              tooltip.add(TextFormatting.WHITE.toString() + TextFormatting.UNDERLINE + stat.getLocalizedName());
               tooltip.addAll(stat.getLocalizedInfo());
             }
           }
@@ -104,8 +104,8 @@ public class ToolPart extends MaterialItem implements IToolPart {
       }
     }
 
-    String materialInfo = StatCollector.translateToLocalFormatted("tooltip.part.material_added_by",
-                                                                  TinkerRegistry.getTrace(material));
+    String materialInfo = I18n.translateToLocalFormatted("tooltip.part.material_added_by",
+                                                         TinkerRegistry.getTrace(material));
     tooltip.add("");
     tooltip.add(materialInfo);
   }
@@ -145,10 +145,10 @@ public class ToolPart extends MaterialItem implements IToolPart {
       // add the traits in "Stattype: Trait1, Trait2,..." style
       StringBuilder sb = new StringBuilder();
       if(withType) {
-        sb.append(EnumChatFormatting.ITALIC.toString());
+        sb.append(TextFormatting.ITALIC.toString());
         sb.append(entry.getKey());
         sb.append(": ");
-        sb.append(EnumChatFormatting.RESET.toString());
+        sb.append(TextFormatting.RESET.toString());
       }
       sb.append(material.getTextColor());
       List<ITrait> traits = entry.getValue();
@@ -174,7 +174,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
     String locString = getUnlocalizedName() + "." + material.getIdentifier();
 
     // custom name?
-    if(StatCollector.canTranslate(locString)) {
+    if(I18n.canTranslate(locString)) {
       return Util.translate(locString);
     }
 
@@ -213,10 +213,10 @@ public class ToolPart extends MaterialItem implements IToolPart {
 
       String error;
       if(materialID != null && !materialID.isEmpty()) {
-        error = StatCollector.translateToLocalFormatted("tooltip.part.missing_material", materialID);
+        error = I18n.translateToLocalFormatted("tooltip.part.missing_material", materialID);
       }
       else {
-        error = StatCollector.translateToLocal("tooltip.part.missing_info");
+        error = I18n.translateToLocal("tooltip.part.missing_info");
       }
       tooltip.addAll(Util.getTooltips(error));
       return true;

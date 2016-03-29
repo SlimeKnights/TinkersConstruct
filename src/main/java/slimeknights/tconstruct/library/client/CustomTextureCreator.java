@@ -8,9 +8,9 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
-import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.item.Item;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.IModel;
@@ -41,7 +41,6 @@ import slimeknights.tconstruct.library.client.texture.GuiOutlineTexture;
 import slimeknights.tconstruct.library.client.texture.PatternTexture;
 import slimeknights.tconstruct.library.client.texture.TextureColoredTexture;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.tools.IPattern;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 
@@ -90,10 +89,10 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
 
     createdTextures = 0;
     // create textures for each material where needed
-    createMaterialTextures(event.map);
+    createMaterialTextures(event.getMap());
 
     // add stencil and cast textures for all used toolparts
-    createPatterntextures(event.map);
+    createPatterntextures(event.getMap());
 
     log.debug("Generated " + createdTextures + " Textures for Materials");
   }
@@ -203,10 +202,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         log.error("No basetexture found for pattern texture generation: " + patternLocation);
         return null;
       }
-    } catch(IOException e) {
-      log.error(e);
-      return null;
-    } catch(NoSuchMethodException e) {
+    } catch(Exception e) {
       log.error(e);
       return null;
     }
@@ -243,14 +239,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
             map.setTextureEntry(partPatternLocation, partPatternTexture);
           }
         }
-      } catch(IOException e) {
-        // should never happen
-        log.error(e);
-      } catch(IllegalAccessException e) {
-        log.error(e);
-      } catch(InstantiationException e) {
-        log.error(e);
-      } catch(InvocationTargetException e) {
+      } catch(Exception e) {
         log.error(e);
       }
     }
@@ -320,7 +309,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         map.setTextureEntry(location, outlineTexture);
         partTextures.put("_internal_gui", outlineTexture);
 
-      } catch(IOException e) {
+      } catch(Exception e) {
         log.error(e);
       }
     }
@@ -353,7 +342,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
     sprites.clear();
   }
 
-  public static ResourceLocation getTextureLocationFromToolPart(IToolPart toolpart) throws IOException {
+  public static ResourceLocation getTextureLocationFromToolPart(IToolPart toolpart) throws Exception {
     if(!(toolpart instanceof Item)) {
       return null; // WHY?!
     }
@@ -386,7 +375,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         if(baseTexture.toString().equals(location.toString())) {
           return true;
         }
-      } catch(IOException e) {
+      } catch(Exception e) {
         return false;
       }
     }
@@ -394,7 +383,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
   }
 
   static {
-    guiMaterial = new Material("_internal_gui", EnumChatFormatting.WHITE);
+    guiMaterial = new Material("_internal_gui", TextFormatting.WHITE);
     guiMaterial.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
       @Override
       public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {

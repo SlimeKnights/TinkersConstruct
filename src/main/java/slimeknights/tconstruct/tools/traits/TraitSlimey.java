@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.tools.traits;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
 import java.lang.reflect.InvocationTargetException;
@@ -20,7 +20,7 @@ public class TraitSlimey extends AbstractTrait {
   protected final Class<? extends EntitySlime> slime;
 
   public TraitSlimey(String suffix, Class<? extends EntitySlime> slime) {
-    super("slimey_" + suffix, EnumChatFormatting.GREEN);
+    super("slimey_" + suffix, TextFormatting.GREEN);
     this.slime = slime;
   }
 
@@ -35,7 +35,7 @@ public class TraitSlimey extends AbstractTrait {
   }
 
   @Override
-  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
+  public void afterBlockBreak(ItemStack tool, World world, IBlockState state, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
     if(wasEffective && !world.isRemote && random.nextFloat() < chance) {
       spawnSlime(player, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, world);
     }

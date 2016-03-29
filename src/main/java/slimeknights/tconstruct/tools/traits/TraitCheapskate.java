@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tools.traits;
 
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.utils.TinkerUtil;
 public class TraitCheapskate extends AbstractTrait {
 
   public TraitCheapskate() {
-    super("cheapskate", EnumChatFormatting.GRAY);
+    super("cheapskate", TextFormatting.GRAY);
     MinecraftForge.EVENT_BUS.register(this);
   }
 

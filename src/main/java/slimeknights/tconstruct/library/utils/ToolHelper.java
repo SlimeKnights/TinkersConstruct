@@ -17,25 +17,31 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Enchantments;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.play.client.C07PacketPlayerDigging;
-import net.minecraft.network.play.server.S0BPacketAnimation;
-import net.minecraft.network.play.server.S12PacketEntityVelocity;
-import net.minecraft.network.play.server.S23PacketBlockChange;
+import net.minecraft.network.play.client.CPacketPlayerDigging;
+import net.minecraft.network.play.server.SPacketAnimation;
+import net.minecraft.network.play.server.SPacketBlockChange;
+import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.potion.Potion;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3i;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IShearable;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.List;
 
@@ -133,17 +139,14 @@ public final class ToolHelper {
     }
 
     // calculate speed depending on stats
-
-    // strength = default 1
     NBTTagCompound tag = TagUtil.getToolTag(stack);
-    float strength = stack.getItem().getStrVsBlock(stack, blockState.getBlock());
     float speed = tag.getFloat(Tags.MININGSPEED);
 
     if(stack.getItem() instanceof ToolCore) {
       speed *= ((ToolCore) stack.getItem()).miningSpeedModifier();
     }
 
-    return strength * speed;
+    return speed;
   }
 
   /**
@@ -165,10 +168,8 @@ public final class ToolHelper {
     if(isToolEffective(stack, state))
       return true;
 
-    if(stack.getItem() instanceof ToolCore && ((ToolCore) stack.getItem()).isEffective(state.getBlock()))
-      return true;
+    return stack.getItem() instanceof ToolCore && ((ToolCore) stack.getItem()).isEffective(state);
 
-    return false;
   }
 
   /**
@@ -178,7 +179,7 @@ public final class ToolHelper {
     Block block = state.getBlock();
 
     // doesn't require a tool
-    if(block.getMaterial().isToolNotRequired()) {
+    if(block.getMaterial(state).isToolNotRequired()) {
       return true;
     }
 
@@ -205,12 +206,12 @@ public final class ToolHelper {
     IBlockState state = world.getBlockState(origin);
     Block block = state.getBlock();
 
-    if(block.getMaterial() == Material.air) {
+    if(block.getMaterial(state) == Material.air) {
       // what are you DOING?
       return ImmutableList.of();
     }
 
-    MovingObjectPosition mop = ((ToolCore) stack.getItem()).getMovingObjectPositionFromPlayer(world, player, false);
+    RayTraceResult mop = ((ToolCore) stack.getItem()).getMovingObjectPositionFromPlayer(world, player, false);
     if(mop == null) {
       return ImmutableList.of();
     }
@@ -268,7 +269,7 @@ public final class ToolHelper {
     ImmutableList.Builder<BlockPos> builder = ImmutableList.builder();
     for(int xp = start.getX(); xp != start.getX() + x; xp += x/MathHelper.abs_int(x)) {
       for(int yp = start.getY(); yp != start.getY() + y; yp += y/MathHelper.abs_int(y)) {
-        for(int zp = start.getZ(); zp != start.getZ() + z; zp += z/MathHelper.abs_int(z)) {
+        for(int zp = start.getZ(); zp != start.getZ() + z; zp += z / MathHelper.abs_int(z)) {
           // don't add the origin block
           if(xp == origin.getX() && yp == origin.getY() && zp == origin.getZ()) {
             continue;
@@ -319,23 +320,23 @@ public final class ToolHelper {
 
     if (player.capabilities.isCreativeMode) {
       block.onBlockHarvested(world, pos, state, player);
-      if (block.removedByPlayer(world, pos, player, false))
+      if (block.removedByPlayer(state, world, pos, player, false))
         block.onBlockDestroyedByPlayer(world, pos, state);
 
       // send update to client
       if (!world.isRemote) {
-        ((EntityPlayerMP)player).playerNetServerHandler.sendPacket(new S23PacketBlockChange(world, pos));
+        ((EntityPlayerMP)player).playerNetServerHandler.sendPacket(new SPacketBlockChange(world, pos));
       }
       return;
     }
 
     // callback to the tool the player uses. Called on both sides. This damages the tool n stuff.
-    stack.onBlockDestroyed(world, block, pos, player);
+    stack.onBlockDestroyed(world, state, pos, player);
 
     // server sided handling
     if (!world.isRemote) {
       // send the blockbreak event
-      int xp = ForgeHooks.onBlockBreakEvent(world, ((EntityPlayerMP) player).theItemInWorldManager.getGameType(), (EntityPlayerMP) player, pos);
+      int xp = ForgeHooks.onBlockBreakEvent(world, ((EntityPlayerMP) player).interactionManager.getGameType(), (EntityPlayerMP) player, pos);
       if(xp == -1) {
         return;
       }
@@ -346,16 +347,16 @@ public final class ToolHelper {
       // ItemInWorldManager.removeBlock
       block.onBlockHarvested(world, pos, state, player);
 
-      if(block.removedByPlayer(world, pos, player, true)) // boolean is if block can be harvested, checked above
+      if(block.removedByPlayer(state, world, pos, player, true)) // boolean is if block can be harvested, checked above
       {
         block.onBlockDestroyedByPlayer(world, pos, state);
-        block.harvestBlock(world, player, pos, state, world.getTileEntity(pos));
+        block.harvestBlock(world, player, pos, state, world.getTileEntity(pos), stack);
         block.dropXpOnBlockBreak(world, pos, xp);
       }
 
       // always send block update to client
       EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
-      mpPlayer.playerNetServerHandler.sendPacket(new S23PacketBlockChange(world, pos));
+      mpPlayer.playerNetServerHandler.sendPacket(new SPacketBlockChange(world, pos));
     }
     // client sided handling
     else {
@@ -365,21 +366,22 @@ public final class ToolHelper {
 
       // following code can be found in PlayerControllerMP.onPlayerDestroyBlock
       world.playAuxSFX(2001, pos, Block.getStateId(state));
-      if(block.removedByPlayer(world, pos, player, true))
+      if(block.removedByPlayer(state, world, pos, player, true))
       {
         block.onBlockDestroyedByPlayer(world, pos, state);
       }
       // callback to the tool
-      stack.onBlockDestroyed(world, block, pos, player);
+      stack.onBlockDestroyed(world, state, pos, player);
 
-      if (stack.stackSize == 0 && stack == player.getCurrentEquippedItem())
+      if (stack.stackSize == 0 && stack == player.getHeldItemMainhand())
       {
-        player.destroyCurrentEquippedItem();
+        ForgeEventFactory.onPlayerDestroyItem(player, stack, EnumHand.MAIN_HAND);
+        player.setHeldItem(EnumHand.MAIN_HAND, null);
       }
 
       // send an update to the server, so we get an update back
       //if(PHConstruct.extraBlockUpdates)
-      Minecraft.getMinecraft().getNetHandler().addToSendQueue(new C07PacketPlayerDigging(C07PacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, Minecraft
+      Minecraft.getMinecraft().getNetHandler().addToSendQueue(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, Minecraft
           .getMinecraft().objectMouseOver.sideHit));
     }
   }
@@ -396,7 +398,7 @@ public final class ToolHelper {
       IShearable target = (IShearable)block;
       if (target.isShearable(itemstack, world, pos))
       {
-        int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, itemstack);
+        int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, itemstack);
         List<ItemStack> drops = target.onSheared(itemstack, world, pos, fortune);
 
         for(ItemStack stack : drops)
@@ -411,7 +413,7 @@ public final class ToolHelper {
         }
 
         itemstack.damageItem(1, player);
-        player.addStat(net.minecraft.stats.StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
+        //player.addStat(net.minecraft.stats.StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
 
         world.setBlockToAir(pos);
 
@@ -501,10 +503,9 @@ public final class ToolHelper {
    * Makes all the calls to attack an entity. Takes enchantments and potions and traits into account. Basically call this when a tool deals damage.
    * Most of this function is the same as {@link EntityPlayer#attackTargetEntityWithCurrentItem(Entity targetEntity)}
    */
-  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityPlayer player, Entity targetEntity) {
-    // todo: check how 1.9 does this and if we should steal it
+  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity) {
     // nothing to do, no target?
-    if(targetEntity == null || !targetEntity.canAttackWithItem() || targetEntity.hitByEntity(player) || !stack.hasTagCompound()) {
+    if(targetEntity == null || !targetEntity.canAttackWithItem() || targetEntity.hitByEntity(attacker) || !stack.hasTagCompound()) {
       return false;
     }
     if(!(targetEntity instanceof EntityLivingBase)) {
@@ -514,6 +515,11 @@ public final class ToolHelper {
       return false;
     }
     EntityLivingBase target = (EntityLivingBase) targetEntity;
+
+    EntityPlayer player = null;
+    if(attacker instanceof EntityPlayer) {
+      player = (EntityPlayer) attacker;
+    }
 
     // traits on the tool
     List<ITrait> traits = Lists.newLinkedList();
@@ -526,27 +532,27 @@ public final class ToolHelper {
     }
 
     // players base damage
-    float baseDamage = (float)player.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+    float baseDamage = (float)attacker.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 
     // missing because not supported by tcon tools: vanilla damage enchantments, we have our own modifiers
     // missing because not supported by tcon tools: vanilla knockback enchantments, we have our own modifiers
-    float baseKnockback = player.isSprinting() ? 1 : 0;
+    float baseKnockback = attacker.isSprinting() ? 1 : 0;
 
     // tool damage
     baseDamage += ToolHelper.getAttackStat(stack);
     baseDamage *= tool.damagePotential();
 
     // calculate if it's a critical hit
-    boolean isCritical = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Potion.blindness) && player.ridingEntity == null && targetEntity instanceof EntityLivingBase;
+    boolean isCritical = attacker.fallDistance > 0.0F && !attacker.onGround && !attacker.isOnLadder() && !attacker.isInWater() && !attacker.isPotionActive(MobEffects.blindness) && !attacker.isRiding();
     for(ITrait trait : traits) {
-      if(trait.isCriticalHit(stack, player, target))
+      if(trait.isCriticalHit(stack, attacker, target))
         isCritical = true;
     }
 
     // calculate actual damage
     float damage = baseDamage;
     for(ITrait trait : traits) {
-      damage = trait.damage(stack, player, target, baseDamage, damage, isCritical);
+      damage = trait.damage(stack, attacker, target, baseDamage, damage, isCritical);
     }
 
     // apply critical damage
@@ -560,7 +566,7 @@ public final class ToolHelper {
     // calculate actual knockback
     float knockback = baseKnockback;
     for(ITrait trait : traits) {
-      knockback = trait.knockBack(stack, player, target, damage, baseKnockback, knockback, isCritical);
+      knockback = trait.knockBack(stack, attacker, target, damage, baseKnockback, knockback, isCritical);
     }
 
     // missing because not supported by tcon tools: vanilla fire aspect enchantments, we have our own modifiers
@@ -575,11 +581,11 @@ public final class ToolHelper {
     int hurtResistantTime = target.hurtResistantTime;
     // deal the damage
     for(ITrait trait : traits) {
-      trait.onHit(stack, player, target, damage, isCritical);
+      trait.onHit(stack, attacker, target, damage, isCritical);
       // reset hurt reristant time
       target.hurtResistantTime = hurtResistantTime;
     }
-    boolean hit = tool.dealDamage(stack, player, target, damage);
+    boolean hit = tool.dealDamage(stack, attacker, target, damage);
 
     // did we hit?
     if(hit) {
@@ -593,44 +599,48 @@ public final class ToolHelper {
 
       // apply knockback
       if(knockback > 0f) {
-        double velX = -MathHelper.sin(player.rotationYaw * (float) Math.PI / 180.0F) * knockback * 0.5F;
-        double velZ = MathHelper.cos(player.rotationYaw * (float)Math.PI / 180.0F) * knockback * 0.5F;
+        double velX = -MathHelper.sin(attacker.rotationYaw * (float) Math.PI / 180.0F) * knockback * 0.5F;
+        double velZ = MathHelper.cos(attacker.rotationYaw * (float)Math.PI / 180.0F) * knockback * 0.5F;
         targetEntity.addVelocity(velX, 0.1d, velZ);
 
         // slow down player
-        player.motionX *= 0.6f;
-        player.motionZ *= 0.6f;
-        player.setSprinting(false);
+        attacker.motionX *= 0.6f;
+        attacker.motionZ *= 0.6f;
+        attacker.setSprinting(false);
       }
 
       // Send movement changes caused by attacking directly to hit players.
       // I guess this is to allow better handling at the hit players side? No idea why it resets the motion though.
       if (targetEntity instanceof EntityPlayerMP && targetEntity.velocityChanged)
       {
-        ((EntityPlayerMP)targetEntity).playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(targetEntity));
+        ((EntityPlayerMP)targetEntity).playerNetServerHandler.sendPacket(new SPacketEntityVelocity(targetEntity));
         targetEntity.velocityChanged = false;
         targetEntity.motionX = oldVelX;
         targetEntity.motionY = oldVelY;
         targetEntity.motionZ = oldVelZ;
       }
 
-      // vanilla critical callback
-      if(isCritical) {
-        player.onCriticalHit(target);
+      if(player != null) {
+        // vanilla critical callback
+        if(isCritical) {
+          player.onCriticalHit(target);
+        }
+
+        // "magical" critical damage? (aka caused by modifiers)
+        if(damage > baseDamage) {
+          // this usually only displays some particles :)
+          player.onEnchantmentCritical(targetEntity);
+        }
+
+        // vanilla achievement support :D
+        if(damage >= 18f) {
+          player.addStat(AchievementList.overkill);
+        }
       }
 
-      // "magical" critical damage? (aka caused by modifiers)
-      if(damage > baseDamage) {
-        // this usually only displays some particles :)
-        player.onEnchantmentCritical(targetEntity);
-      }
+      attacker.setLastAttacker(target);
+      // Damage indicator particles
 
-      // vanilla achievement support :D
-      if(damage >= 18f) {
-        player.triggerAchievement(AchievementList.overkill);
-      }
-
-      player.setLastAttacker(target);
 
       // we don't support vanilla thorns or antispider enchantments
       //EnchantmentHelper.applyThornEnchantments(target, player);
@@ -639,17 +649,27 @@ public final class ToolHelper {
 
       // call post-hit callbacks before reducing the durability
       for(ITrait trait : traits) {
-        trait.afterHit(stack, player, target, damageDealt, isCritical, hit); // hit is always true
+        trait.afterHit(stack, attacker, target, damageDealt, isCritical, hit); // hit is always true
       }
 
       // damage the tool
-      stack.hitEntity(target, player);
-      if(!player.capabilities.isCreativeMode) {
-        tool.reduceDurabilityOnHit(stack, player, damage);
-      }
+      if(player != null) {
+        stack.hitEntity(target, player);
+        if(!player.capabilities.isCreativeMode) {
+          tool.reduceDurabilityOnHit(stack, player, damage);
+        }
 
-      player.addStat(StatList.damageDealtStat, Math.round(damage*10f));
-      player.addExhaustion(0.3f);
+        player.addStat(StatList.damageDealt, Math.round(damageDealt * 10f));
+        player.addExhaustion(0.3f);
+
+        if(player.worldObj instanceof WorldServer && damageDealt > 2f) {
+          int k = (int)(damageDealt * 0.5);
+          ((WorldServer)player.worldObj).spawnParticle(EnumParticleTypes.DAMAGE_INDICATOR, targetEntity.posX, targetEntity.posY + (double)(targetEntity.height * 0.5F), targetEntity.posZ, k, 0.1D, 0.0D, 0.1D, 0.2D);
+        }
+      }
+      else {
+        tool.reduceDurabilityOnHit(stack, null, damage);
+      }
     }
 
     return true;
@@ -678,7 +698,7 @@ public final class ToolHelper {
   }
 
   public static float getActualDamage(ItemStack stack, EntityPlayer player) {
-    float damage = (float)player.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+    float damage = (float)player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
     damage += ToolHelper.getActualAttack(stack);
 
     if(stack.getItem() instanceof ToolCore) {
@@ -696,66 +716,10 @@ public final class ToolHelper {
 
       if (entity.worldObj instanceof WorldServer)
       {
-        ((WorldServer)entity.worldObj).getEntityTracker().sendToAllTrackingEntity(entity, new S0BPacketAnimation(entity, 0));
+        ((WorldServer)entity.worldObj).getEntityTracker().sendToAllTrackingEntity(entity, new SPacketAnimation(entity, 0));
       }
     }
   }
-
-  public static boolean useSecondaryItem(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ) {
-    int slot = getSecondaryItemSlot(player);
-
-    // last slot selected
-    if(slot == player.inventory.currentItem) {
-      return false;
-    }
-
-    ItemStack secondaryItem = player.inventory.getStackInSlot(slot);
-
-    // do we have an item to use?
-    if(secondaryItem == null) {
-      return false;
-    }
-
-    // use it
-    int oldSlot = player.inventory.currentItem;
-    player.inventory.currentItem = slot;
-    boolean ret = secondaryItem.onItemUse(player, world, pos, side, hitX, hitY, hitZ);
-    // might have gotten used up
-    if(secondaryItem.stackSize == 0) {
-      player.inventory.setInventorySlotContents(slot, null);
-    }
-    player.inventory.currentItem = oldSlot;
-
-    return ret;
-  }
-
-  public static int getSecondaryItemSlot(EntityPlayer player) {
-    int slot = player.inventory.currentItem;
-    int max = InventoryPlayer.getHotbarSize() - 1;
-    if(slot < max) {
-      slot++;
-    }
-
-    // find next slot that has an item in it
-    for(; slot < max; slot++) {
-      ItemStack secondaryItem = player.inventory.getStackInSlot(slot);
-      if(secondaryItem != null) {
-        if(!(secondaryItem.getItem() instanceof ToolCore) || !((ToolCore) secondaryItem.getItem()).canUseSecondaryItem()) {
-          break;
-        }
-      }
-    }
-
-    ItemStack secondaryItem = player.inventory.getStackInSlot(slot);
-    if(secondaryItem != null) {
-      if((secondaryItem.getItem() instanceof ToolCore) && ((ToolCore) secondaryItem.getItem()).canUseSecondaryItem()) {
-        return player.inventory.currentItem;
-      }
-    }
-
-    return slot;
-  }
-
 
   /* Helper Functions */
 

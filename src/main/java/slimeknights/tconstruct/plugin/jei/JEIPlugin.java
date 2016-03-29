@@ -38,15 +38,8 @@ public class JEIPlugin implements IModPlugin {
   public static IJeiHelpers jeiHelpers;
 
   @Override
-  public void onJeiHelpersAvailable(IJeiHelpers jeiHelpers) {
-    JEIPlugin.jeiHelpers = jeiHelpers;
-  }
-
-  @Override
-  public void onItemRegistryAvailable(IItemRegistry itemRegistry) {}
-
-  @Override
   public void register(IModRegistry registry) {
+    jeiHelpers = registry.getJeiHelpers();
     IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
     if(TConstruct.pulseManager.isPulseLoaded(TinkerTools.PulseId)) {
@@ -96,10 +89,6 @@ public class JEIPlugin implements IModPlugin {
       }
     }
   }
-
-  @Override
-  @Deprecated
-  public void onRecipeRegistryAvailable(IRecipeRegistry recipeRegistry) {}
 
   @Override
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {

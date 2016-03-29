@@ -4,7 +4,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.relauncher.Side;
@@ -41,7 +41,7 @@ public class TilePartBuilder extends TileTable implements IInventoryGui {
     float[] x = new float[] {c, -c, c, -c};
     float[] y = new float[] {-c, -c, c, c};
     for(int i = 0; i < 4; i++) {
-      PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i));
+      PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i), this.worldObj, null);
       if(item != null) {
         item.x += x[i];
         item.z += y[i];

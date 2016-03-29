@@ -2,7 +2,7 @@ package slimeknights.tconstruct.common.block;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import slimeknights.mantle.block.BlockInventory;

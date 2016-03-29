@@ -38,8 +38,9 @@ public class AnimatedColoredTexture extends TextureColoredTexture {
       actualTexture = addTexture;
     }
     else {
-      actualTexture = backupLoadtextureAtlasSprite(new ResourceLocation(addTextureLocation),
-                                                   Minecraft.getMinecraft().getResourceManager());
+      actualTexture = backupLoadTexture(new ResourceLocation(addTextureLocation), manager);
+      //actualTexture = backupLoadtextureAtlasSprite(new ResourceLocation(addTextureLocation),
+        //                                           Minecraft.getMinecraft().getResourceManager());
     }
 
     return super.load(manager, location);
@@ -48,7 +49,7 @@ public class AnimatedColoredTexture extends TextureColoredTexture {
   @Override
   protected void processData(int[][] data) {
     // get animation data again
-    ResourceLocation resourcelocation1 = this.completeResourceLocation(new ResourceLocation(addTextureLocation), 0);
+    ResourceLocation resourcelocation1 = this.getResourceLocation(new ResourceLocation(addTextureLocation));
     IResource iresource = null;
     try {
       iresource = Minecraft.getMinecraft().getResourceManager().getResource(resourcelocation1);
@@ -57,7 +58,7 @@ public class AnimatedColoredTexture extends TextureColoredTexture {
       return;
     }
     // todo: clean all this up to use the metadata of the actualTexture and therefore only run once without separation
-    AnimationMetadataSection meta = (AnimationMetadataSection) iresource.getMetadata("animation");
+    AnimationMetadataSection meta = iresource.getMetadata("animation");
 
     if(meta == null) {
       throw new TinkerAPIException(String.format(

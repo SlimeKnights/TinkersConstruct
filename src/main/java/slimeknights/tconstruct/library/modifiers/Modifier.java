@@ -15,7 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.translation.I18n;
 
 import java.util.Arrays;
 import java.util.List;
@@ -77,9 +77,9 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
       }
     }
 
-    for(int id : EnchantmentHelper.getEnchantments(stack).keySet()) {
-      if(!canApplyTogether(Enchantment.getEnchantmentById(id))) {
-        String enchName = StatCollector.translateToLocal(Enchantment.getEnchantmentById(id).getName());
+    for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+      if(!canApplyTogether(enchantment)) {
+        String enchName = I18n.translateToLocal(enchantment.getName());
         throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_enchantments", this.getLocalizedName(), enchName));
       }
     }
@@ -189,8 +189,8 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
     }
 
     for(int i = data.level; i > 1; i--) {
-      if(StatCollector.canTranslate(String.format(LOC_Name + i, getIdentifier()))) {
-        basic = StatCollector.translateToLocal(String.format(LOC_Name + i, getIdentifier()));
+      if(I18n.canTranslate(String.format(LOC_Name + i, getIdentifier()))) {
+        basic = I18n.translateToLocal(String.format(LOC_Name + i, getIdentifier()));
         break;
       }
     }
@@ -232,7 +232,7 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
     if(entity instanceof EntityLivingBase) {
       oldLastDamage = ((EntityLivingBase) entity).lastDamage;
       if(noKnockback) {
-        knockbackAttribute = ((EntityLivingBase) entity).getEntityAttribute(SharedMonsterAttributes.knockbackResistance);
+        knockbackAttribute = ((EntityLivingBase) entity).getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE);
       }
     }
 

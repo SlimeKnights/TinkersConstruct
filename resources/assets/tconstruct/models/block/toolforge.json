@@ -7,7 +7,6 @@
 			"legBottom": "minecraft:blocks/iron_block"
     },
 	"elements": [
-		// The top plate
 		{
 			 "from": [ 0, 15, 0 ],
 			 "to": [ 16, 16, 16 ],
@@ -21,7 +20,6 @@
 			 "uvlock": true,
 			 "__comment": "Table plate at the top"
 		},
-		// the side of the top part
 		{
 		 "from": [ 0, 12, 0 ],
          "to": [ 16, 15, 16 ],
@@ -35,7 +33,6 @@
 		 "uvlock": true,
 		 "__comment": "Table top side"
 		},
-        // the legs
 		{
 		 "from": [ 0, 0, 0 ],
          "to": [ 4, 12, 4 ],

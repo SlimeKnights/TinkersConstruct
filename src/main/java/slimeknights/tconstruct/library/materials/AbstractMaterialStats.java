@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.materials;
 
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 import java.text.DecimalFormat;
 
@@ -36,6 +36,6 @@ public abstract class AbstractMaterialStats implements IMaterialStats {
                          Util.translate(loc),
                          color,
                          df.format(number))
-           + EnumChatFormatting.RESET;
+           + TextFormatting.RESET;
   }
 }

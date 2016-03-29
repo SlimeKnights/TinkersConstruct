@@ -1,7 +1,8 @@
 package slimeknights.tconstruct.world.block;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+import java.util.Locale;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 
@@ -20,7 +22,7 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
   public BlockSlime() {
     this.setCreativeTab(TinkerRegistry.tabWorld);
     this.disableStats();
-    this.setStepSound(SLIME_SOUND);
+    this.setSoundType(SoundType.SLIME);
   }
 
   @SideOnly(Side.CLIENT)
@@ -32,8 +34,8 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
   }
 
   @Override
-  protected BlockState createBlockState() {
-    return new BlockState(this, TYPE);
+  protected BlockStateContainer createBlockState() {
+    return new BlockStateContainer(this, TYPE);
   }
 
   @Override
@@ -43,7 +45,7 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
 
   @Override
   public int getMetaFromState(IBlockState state) {
-    return ((SlimeType) state.getValue(TYPE)).meta;
+    return state.getValue(TYPE).meta;
   }
 
   @Override
@@ -74,7 +76,7 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
 
     @Override
     public String getName() {
-      return this.toString();
+      return this.toString().toLowerCase(Locale.US);
     }
   }
 }

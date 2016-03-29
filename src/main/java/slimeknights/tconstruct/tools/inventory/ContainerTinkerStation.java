@@ -9,7 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -98,7 +98,7 @@ public class ContainerTinkerStation<T extends TileEntity & IInventory> extends C
         tinkerStationBlocks.add(Pair.of(pos, state));
         ret.add(state);
         if(state.getProperties().containsKey(BlockToolTable.TABLES)) {
-          BlockToolTable.TableTypes type = (BlockToolTable.TableTypes) state.getValue(BlockToolTable.TABLES);
+          BlockToolTable.TableTypes type = state.getValue(BlockToolTable.TABLES);
           if(type != null && type == BlockToolTable.TableTypes.CraftingStation)
             hasMaster = true;
         }

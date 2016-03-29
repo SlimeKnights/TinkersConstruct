@@ -5,10 +5,11 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityMagmaCube;
-import net.minecraft.util.BlockPos;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -24,35 +25,35 @@ public class WorldEvents {
   // Slimy block jump stuff
   @SubscribeEvent
   public void onLivingJump(LivingEvent.LivingJumpEvent event) {
-    if(event.entity == null) {
+    if(event.getEntity() == null) {
       return;
     }
 
     // check if we jumped from a slime block
-    BlockPos pos = new BlockPos(event.entity.posX, event.entity.posY, event.entity.posZ);
-    if(event.entity.worldObj.isAirBlock(pos)) {
+    BlockPos pos = new BlockPos(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+    if(event.getEntity().worldObj.isAirBlock(pos)) {
       pos = pos.down();
     }
-    IBlockState state = event.entity.worldObj.getBlockState(pos);
+    IBlockState state = event.getEntity().worldObj.getBlockState(pos);
     Block block = state.getBlock();
 
     if(block == TinkerWorld.slimeBlockCongealed) {
-      bounce(event.entity, 0.25f);
+      bounce(event.getEntity(), 0.25f);
     }
     else if(block == TinkerCommons.blockSoil) {
       if(state.getValue(BlockSoil.TYPE) == BlockSoil.SoilTypes.SLIMY_MUD_GREEN ||
          state.getValue(BlockSoil.TYPE) == BlockSoil.SoilTypes.SLIMY_MUD_BLUE) {
-        bounce(event.entity, 0.15f);
+        bounce(event.getEntity(), 0.15f);
       }
     }
     else if(block == TinkerWorld.slimeDirt || block == TinkerWorld.slimeGrass) {
-      bounce(event.entity, 0.06f);
+      bounce(event.getEntity(), 0.06f);
     }
   }
 
   private void bounce(Entity entity, float amount) {
     entity.motionY += amount;
-    entity.playSound(Sounds.slime_small, 0.5f + amount, 1f);
+    entity.playSound(SoundEvents.entity_slime_squish, 0.5f + amount, 1f);
   }
 
   // Custom slime spawning on slime islands
@@ -61,18 +62,18 @@ public class WorldEvents {
 
   @SubscribeEvent
   public void extraSlimeSpawn(WorldEvent.PotentialSpawns event) {
-    if(event.type == EnumCreatureType.MONSTER || event.type == EnumCreatureType.WATER_CREATURE) {
+    if(event.getType() == EnumCreatureType.MONSTER || event.getType() == EnumCreatureType.WATER_CREATURE) {
       // inside a magma slime island?
-      if(MagmaSlimeIslandGenerator.INSTANCE.isSlimeIslandAt(event.world, event.pos.down(3))) {
+      if(MagmaSlimeIslandGenerator.INSTANCE.isSlimeIslandAt(event.getWorld(), event.getPos().down(3))) {
         // spawn magma slime, pig zombies have weight 100
-        event.list.clear();
-        event.list.add(magmaSlimeSpawn);
+        event.getList().clear();
+        event.getList().add(magmaSlimeSpawn);
       }
       // inside a slime island?
-      if(SlimeIslandGenerator.INSTANCE.isSlimeIslandAt(event.world, event.pos.down(3))) {
+      if(SlimeIslandGenerator.INSTANCE.isSlimeIslandAt(event.getWorld(), event.getPos().down(3))) {
         // spawn blue slime, most regular mobs have weight 10
-        event.list.clear();
-        event.list.add(blueSlimeSpawn);
+        event.getList().clear();
+        event.getList().add(blueSlimeSpawn);
       }
     }
   }

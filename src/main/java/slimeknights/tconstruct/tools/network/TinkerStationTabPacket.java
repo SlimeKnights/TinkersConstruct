@@ -5,8 +5,8 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetHandlerPlayServer;
-import net.minecraft.network.play.server.S2FPacketSetSlot;
-import net.minecraft.util.BlockPos;
+import net.minecraft.network.play.server.SPacketSetSlot;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -64,7 +64,7 @@ public class TinkerStationTabPacket extends AbstractPacketThreadsafe {
     if(heldStack != null) {
       player.inventory.setItemStack(heldStack);
       // also send it to the client
-      netHandler.sendPacket(new S2FPacketSetSlot(-1, -1, heldStack));
+      netHandler.sendPacket(new SPacketSetSlot(-1, -1, heldStack));
     }
   }
 

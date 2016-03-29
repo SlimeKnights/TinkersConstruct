@@ -4,6 +4,10 @@ import net.minecraft.item.ItemStack;
 
 import slimeknights.tconstruct.common.ClientProxy;
 
+import static slimeknights.tconstruct.shared.TinkerCommons.blockFirewood;
+import static slimeknights.tconstruct.shared.TinkerCommons.blockMetal;
+import static slimeknights.tconstruct.shared.TinkerCommons.blockOre;
+import static slimeknights.tconstruct.shared.TinkerCommons.blockSoil;
 import static slimeknights.tconstruct.shared.TinkerCommons.edibles;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingots;
 import static slimeknights.tconstruct.shared.TinkerCommons.materials;
@@ -17,6 +21,11 @@ public class CommonsClientProxy extends ClientProxy {
     ingots.registerItemModels();
     materials.registerItemModels();
     edibles.registerItemModels();
+
+    registerItemBlockMeta(blockMetal);
+    registerItemBlockMeta(blockSoil);
+    registerItemBlockMeta(blockOre);
+    registerItemBlockMeta(blockFirewood);
   }
 
   @Override

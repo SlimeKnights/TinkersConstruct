@@ -22,7 +22,7 @@ public class TraitEstablished extends AbstractTrait {
   public void onXpDrop(LivingExperienceDropEvent event) {
     EntityPlayer player = event.getAttackingPlayer();
     if(player != null) {
-      if(TinkerUtil.hasTrait(TagUtil.getTagSafe(player.getHeldItem()), identifier)) {
+      if(TinkerUtil.hasTrait(TagUtil.getTagSafe(player.getHeldItemMainhand()), identifier)) {
         event.setDroppedExperience(getUpdateXP(event.getDroppedExperience()));
       }
     }
@@ -32,7 +32,7 @@ public class TraitEstablished extends AbstractTrait {
   public void onBlockBreak(BlockEvent.BreakEvent event) {
     EntityPlayer player = event.getPlayer();
     if(player != null) {
-      if(TinkerUtil.hasTrait(TagUtil.getTagSafe(player.getHeldItem()), identifier)) {
+      if(TinkerUtil.hasTrait(TagUtil.getTagSafe(player.getHeldItemMainhand()), identifier)) {
         event.setExpToDrop(getUpdateXP(event.getExpToDrop()));
       }
     }

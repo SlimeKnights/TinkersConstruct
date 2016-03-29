@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.tools.traits;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
@@ -18,19 +18,19 @@ public class TraitMomentum extends AbstractTrait {
   public static final TinkerPotion Momentum = new TinkerPotion(Util.getResource("momentum"), false, false);
 
   public TraitMomentum() {
-    super("momentum", EnumChatFormatting.BLUE);
+    super("momentum", TextFormatting.BLUE);
   }
 
   @Override
   public void miningSpeed(ItemStack tool, PlayerEvent.BreakSpeed event) {
-    float boost = Momentum.getLevel(event.entityPlayer);
+    float boost = Momentum.getLevel(event.getEntityPlayer());
     boost /= 80f; // 40% boost max
 
-    event.newSpeed += event.originalSpeed * boost;
+    event.setNewSpeed(event.getNewSpeed() + event.getOriginalSpeed() * boost);
   }
 
   @Override
-  public void afterBlockBreak(ItemStack tool, World world, Block block, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
+  public void afterBlockBreak(ItemStack tool, World world, IBlockState state, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
     int level = 1;
     level += Momentum.getLevel(player);
 

@@ -1,11 +1,15 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -114,7 +118,8 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
             setInventorySlotContents(1, event.output);
           }
 
-          worldObj.playSoundEffect(pos.getX(), pos.getY(), pos.getZ(), "random.fizz", 0.07f, 4f);
+          // 1.9 test if sound works
+          worldObj.playSound(null, pos, SoundEvents.block_lava_extinguish, SoundCategory.AMBIENT, 0.07f, 4f);
 
           // reset state
           reset();
@@ -158,13 +163,12 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     tank.setCapacity(0);
     tank.setFluid(null);
 
-    if(!worldObj.isRemote && worldObj instanceof WorldServer) {
+    if(worldObj != null && !worldObj.isRemote && worldObj instanceof WorldServer) {
       TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FluidUpdatePacket(pos, null));
     }
   }
 
-  // called only clientside to sync with the server
-  @SideOnly(Side.CLIENT)
+  // called clientside to sync with the server and on load
   public void updateFluidTo(FluidStack fluid) {
     int oldAmount = tank.getFluidAmount();
     tank.setFluid(fluid);
@@ -208,7 +212,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
   @Override
   public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
     // this is where all the action happens
-    if(!canFill(from, resource.getFluid())) {
+    if(resource == null || !canFill(from, resource.getFluid())) {
       return 0;
     }
 
@@ -254,7 +258,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
 
   @Override
   public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
-    if(tank.getFluidAmount() == 0) {
+    if(resource == null || tank.getFluidAmount() == 0) {
       return null;
     }
     if(tank.getFluid().getFluid() != resource.getFluid()) {
@@ -283,5 +287,29 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
   @Override
   public FluidTankInfo[] getTankInfo(EnumFacing from) {
     return new FluidTankInfo[]{new FluidTankInfo(tank)};
+  }
+
+  /* Saving and Loading */
+
+  @Override
+  public void writeToNBT(NBTTagCompound tags) {
+    super.writeToNBT(tags);
+
+    NBTTagCompound tankTag = new NBTTagCompound();
+    tank.writeToNBT(tankTag);
+    tags.setTag("tank", tankTag);
+
+    tags.setInteger("timer", timer);
+  }
+
+  @Override
+  public void readFromNBT(NBTTagCompound tags) {
+    super.readFromNBT(tags);
+
+    tank.readFromNBT(tags.getCompoundTag("tank"));
+
+    updateFluidTo(tank.getFluid());
+
+    timer = tags.getInteger("timer");
   }
 }

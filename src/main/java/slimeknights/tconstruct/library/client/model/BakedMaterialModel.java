@@ -1,24 +1,23 @@
 package slimeknights.tconstruct.library.client.model;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 import gnu.trove.map.hash.THashMap;
 
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
-import net.minecraft.client.resources.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemOverride;
+import net.minecraft.client.renderer.block.model.ItemOverrideList;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.client.model.IFlexibleBakedModel;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
-import net.minecraftforge.client.model.ISmartItemModel;
-import net.minecraftforge.client.model.TRSRTransformation;
-
-import org.apache.commons.lang3.tuple.Pair;
+import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.Map;
 
-import javax.vecmath.Matrix4f;
-
+import slimeknights.mantle.client.model.BakedWrapper;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -29,33 +28,22 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
  *
  * ..basically it's a simple (Itemmeta -> Model) model
  */
-public class BakedMaterialModel extends IFlexibleBakedModel.Wrapper implements ISmartItemModel, IPerspectiveAwareModel {
+public class BakedMaterialModel extends BakedWrapper.Perspective implements IPerspectiveAwareModel {
 
-  protected Map<String, IFlexibleBakedModel> parts;
-  private final ImmutableMap<TransformType, TRSRTransformation> transforms;
+  protected Map<String, IBakedModel> parts;
 
-  public BakedMaterialModel(IFlexibleBakedModel base, ImmutableMap<TransformType, TRSRTransformation> transforms) {
-    super(base, base.getFormat());
+  public BakedMaterialModel(IBakedModel base, ImmutableMap<TransformType, TRSRTransformation> transforms) {
+    super(base, transforms);
 
-    this.parts = new THashMap<String, IFlexibleBakedModel>(TinkerRegistry.getAllMaterials().size());
-    this.transforms = transforms;
+    this.parts = new THashMap<String, IBakedModel>(TinkerRegistry.getAllMaterials().size());
   }
 
-  public void addMaterialModel(Material material, IFlexibleBakedModel model) {
+  public void addMaterialModel(Material material, IBakedModel model) {
     parts.put(material.identifier, model);
   }
 
-  @Override
-  public IBakedModel handleItemState(ItemStack stack) {
-    if(stack.getItem() instanceof IMaterialItem) {
-      String id = ((IMaterialItem) stack.getItem()).getMaterialID(stack);
-      return getModelByIdentifier(id);
-    }
-    return this;
-  }
-
-  public IFlexibleBakedModel getModelByIdentifier(String identifier) {
-    IFlexibleBakedModel materialModel = parts.get(identifier);
+  public IBakedModel getModelByIdentifier(String identifier) {
+    IBakedModel materialModel = parts.get(identifier);
     if(materialModel == null) {
       return this;
     }
@@ -64,7 +52,22 @@ public class BakedMaterialModel extends IFlexibleBakedModel.Wrapper implements I
   }
 
   @Override
-  public Pair<? extends IFlexibleBakedModel, Matrix4f> handlePerspective(TransformType cameraTransformType) {
-    return IPerspectiveAwareModel.MapWrapper.handlePerspective(this, transforms, cameraTransformType);
+  public ItemOverrideList getOverrides() {
+    return MaterialItemOverrideList.INSTANCE;
+  }
+
+  private static class MaterialItemOverrideList extends ItemOverrideList {
+
+    static MaterialItemOverrideList INSTANCE = new MaterialItemOverrideList();
+
+    private MaterialItemOverrideList() {
+      super(ImmutableList.<ItemOverride>of());
+    }
+
+    @Override
+    public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
+      String id = ((IMaterialItem) stack.getItem()).getMaterialID(stack);
+      return ((BakedMaterialModel) originalModel).getModelByIdentifier(id);
+    }
   }
 }

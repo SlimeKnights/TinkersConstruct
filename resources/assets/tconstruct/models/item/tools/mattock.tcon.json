@@ -1,5 +1,4 @@
 {
-    "parent": "tconstruct:item/tools/TinkerTool",
     "textures": {
         "layer0": "tconstruct:items/mattock/handle",
         "layer1": "tconstruct:items/mattock/head",

@@ -3,18 +3,19 @@ package slimeknights.tconstruct.world.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockGrass;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
@@ -23,6 +24,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import slimeknights.mantle.block.EnumBlock;
@@ -37,7 +39,7 @@ public class BlockSlimeGrass extends BlockGrass {
   public BlockSlimeGrass() {
     this.setCreativeTab(TinkerRegistry.tabWorld);
     this.setHardness(0.65f);
-    this.setStepSound(soundTypeGrass);
+    this.setSoundType(SoundType.PLANT);
     this.slipperiness += 0.05f;
   }
 
@@ -67,7 +69,7 @@ public class BlockSlimeGrass extends BlockGrass {
         {
           blockpos2 = blockpos2.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
 
-          if (worldIn.getBlockState(blockpos2.down()).getBlock() == this && !worldIn.getBlockState(blockpos2).getBlock().isNormalCube())
+          if (worldIn.getBlockState(blockpos2.down()).getBlock() == this && !worldIn.getBlockState(blockpos2).getBlock().isNormalCube(state))
           {
             ++j;
             continue;
@@ -105,7 +107,7 @@ public class BlockSlimeGrass extends BlockGrass {
       return;
     }
 
-    if (worldIn.getLightFromNeighbors(pos.up()) < 4 && worldIn.getBlockState(pos.up()).getBlock().getLightOpacity(worldIn, pos.up()) > 2)
+    if (worldIn.getLightFromNeighbors(pos.up()) < 4 && worldIn.getBlockState(pos.up()).getBlock().getLightOpacity(state, worldIn, pos.up()) > 2)
     {
       // convert grass back to dirt of the corresponding type
       worldIn.setBlockState(pos, getDirtState(state));
@@ -121,7 +123,7 @@ public class BlockSlimeGrass extends BlockGrass {
           Block block = worldIn.getBlockState(pos1.up()).getBlock();
           IBlockState state1 = worldIn.getBlockState(pos1);
 
-          if(worldIn.getLightFromNeighbors(pos1.up()) >= 4 && block.getLightOpacity(worldIn, pos1.up()) <= 2) {
+          if(worldIn.getLightFromNeighbors(pos1.up()) >= 4 && block.getLightOpacity(state, worldIn, pos1.up()) <= 2) {
             convert(worldIn, pos1, state1, state.getValue(FOLIAGE));
           }
         }
@@ -137,8 +139,8 @@ public class BlockSlimeGrass extends BlockGrass {
   }
 
   @Override
-  protected BlockState createBlockState() {
-    return new BlockState(this, TYPE, FOLIAGE, BlockGrass.SNOWY);
+  protected BlockStateContainer createBlockState() {
+    return new BlockStateContainer(this, TYPE, FOLIAGE, BlockGrass.SNOWY);
   }
 
   @Override
@@ -172,7 +174,7 @@ public class BlockSlimeGrass extends BlockGrass {
   }
 
   @Override
-  public ItemStack getPickBlock(MovingObjectPosition target, World world, BlockPos pos, EntityPlayer player) {
+  public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
     return this.createStackedBlock(world.getBlockState(pos));
   }
 
@@ -224,33 +226,9 @@ public class BlockSlimeGrass extends BlockGrass {
   }
 
   @Override
-  public boolean canSustainPlant(IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+  public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
     // can sustain both slimeplants and normal plants
     return plantable.getPlantType(world, pos) == TinkerWorld.slimePlantType || plantable.getPlantType(world, pos) == EnumPlantType.Plains;
-  }
-
-  @Override
-  public int getBlockColor() {
-    return SlimeColorizer.colorBlue;
-  }
-
-  // Used for the item
-  @SideOnly(Side.CLIENT)
-  @Override
-  public int getRenderColor(IBlockState state) {
-    FoliageType foliageType = state.getValue(FOLIAGE);
-    return SlimeColorizer.getColorStatic(foliageType);
-  }
-
-  // Used for the block in world
-  @SideOnly(Side.CLIENT)
-  @Override
-  public int colorMultiplier(IBlockAccess worldIn, BlockPos pos, int renderPass) {
-    IBlockState state = worldIn.getBlockState(pos);
-    if(state.getBlock() != this) return getBlockColor();
-
-    FoliageType foliageType = state.getValue(FOLIAGE);
-    return SlimeColorizer.getColorForPos(pos, foliageType);
   }
 
   public enum FoliageType implements IStringSerializable, EnumBlock.IEnumMeta {
@@ -273,7 +251,7 @@ public class BlockSlimeGrass extends BlockGrass {
 
     @Override
     public String getName() {
-      return this.toString();
+      return this.toString().toLowerCase(Locale.US);
     }
   }
 
@@ -286,7 +264,7 @@ public class BlockSlimeGrass extends BlockGrass {
 
     @Override
     public String getName() {
-      return this.toString();
+      return this.toString().toLowerCase(Locale.US);
     }
   }
 }

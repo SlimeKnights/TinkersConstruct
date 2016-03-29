@@ -2,19 +2,17 @@ package slimeknights.tconstruct.tools.client;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.List;
 
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.client.gui.GuiMultiModule;
@@ -109,7 +107,7 @@ public class GuiTinkerStation extends GuiMultiModule {
       }
 
       // sound!
-      mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
+      mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.ui_button_click, 1.0F));
     }
   }
 

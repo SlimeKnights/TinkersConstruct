@@ -6,14 +6,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
-
-import org.apache.commons.lang3.NotImplementedException;
 
 import io.netty.buffer.ByteBuf;
 import slimeknights.mantle.network.AbstractPacketThreadsafe;
-import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 
 // Sent to the client when smeltery contents get updated on the server
 // Needed to display items without open GUI

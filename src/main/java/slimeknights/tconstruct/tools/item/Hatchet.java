@@ -4,11 +4,14 @@ import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -46,7 +49,7 @@ public class Hatchet extends AoeToolCore {
   }
 
   @Override
-  public boolean isEffective(Block block) {
+  public boolean isEffective(IBlockState block) {
     return effective_materials.contains(block.getMaterial()) || ItemAxe.EFFECTIVE_ON.contains(block);
   }
 
@@ -56,26 +59,62 @@ public class Hatchet extends AoeToolCore {
   }
 
   @Override
+  public double attackSpeed() {
+    return 1.1f; // a bit faster than vanilla axes
+  }
+
+  @Override
   public float knockback() {
     return 1.3f;
   }
 
   // hatches 1 : leaves 0
   @Override
-  public float getDigSpeed(ItemStack itemstack, IBlockState state) {
-    if(state.getBlock().getMaterial() == net.minecraft.block.material.Material.leaves) {
-      return ToolHelper.calcDigSpeed(itemstack, state);
+  public float getStrVsBlock(ItemStack stack, IBlockState state) {
+    if(state.getBlock().getMaterial(state) == net.minecraft.block.material.Material.leaves) {
+      return ToolHelper.calcDigSpeed(stack, state);
     }
-    return super.getDigSpeed(itemstack, state);
+    return super.getStrVsBlock(stack, state);
   }
 
   @Override
-  public void afterBlockBreak(ItemStack stack, World world, Block block, BlockPos pos, EntityLivingBase player, int damage, boolean wasEffective) {
+  public void afterBlockBreak(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase player, int damage, boolean wasEffective) {
     // breaking leaves does not reduce durability
-    if(block.isLeaves(world, pos)) {
+    if(state.getBlock().isLeaves(state, world, pos)) {
       damage = 0;
     }
-    super.afterBlockBreak(stack, world, block, pos, player, damage, wasEffective);
+    super.afterBlockBreak(stack, world, state, pos, player, damage, wasEffective);
+  }
+
+  @Override
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+    boolean hit = super.dealDamage(stack, player, entity, damage);
+
+    // vanilla axe shieldbreak attack. See EntityPlayer#attackTargetEntityWithCurrentItem()
+    if(!player.worldObj.isRemote && entity instanceof EntityPlayer) {
+      EntityPlayer entityplayer = (EntityPlayer) entity;
+      ItemStack itemstack2 = player.getHeldItemMainhand();
+      ItemStack itemstack3 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : null;
+
+      // todo: possibly check for itemUseAction instead of is shield?
+      if (itemstack2 != null && itemstack3 != null && itemstack2.getItem() == this && itemstack3.getItem() == Items.shield)
+      {
+        float f3 = 0.25F + (float) EnchantmentHelper.getEfficiencyModifier(player) * 0.05F;
+
+        if (player.isSprinting())
+        {
+          f3 += 0.75F;
+        }
+
+        if (player.getRNG().nextFloat() < f3)
+        {
+          entityplayer.getCooldownTracker().setCooldown(Items.shield, 100);
+          player.worldObj.setEntityState(entityplayer, (byte)30);
+        }
+      }
+    }
+
+    return hit;
   }
 
   @Override

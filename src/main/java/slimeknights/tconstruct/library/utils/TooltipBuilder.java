@@ -6,8 +6,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class TooltipBuilder {
 
   public TooltipBuilder addDurability(boolean textIfBroken) {
     if(ToolHelper.isBroken(stack) && textIfBroken) {
-      tips.add(String.format("%s: %s%s%s", Util.translate(HeadMaterialStats.LOC_Durability), EnumChatFormatting.DARK_RED, EnumChatFormatting.BOLD, Util.translate("tooltip.tool.broken")));
+      tips.add(String.format("%s: %s%s%s", Util.translate(HeadMaterialStats.LOC_Durability), TextFormatting.DARK_RED, TextFormatting.BOLD, Util.translate("tooltip.tool.broken")));
     }
     else {
       tips.add(HeadMaterialStats
@@ -73,7 +73,7 @@ public class TooltipBuilder {
   }
 
   public TooltipBuilder addFreeModifiers() {
-    tips.add(String.format("%s: %d", StatCollector.translateToLocal(LOC_FreeModifiers),
+    tips.add(String.format("%s: %d", I18n.translateToLocal(LOC_FreeModifiers),
                            ToolHelper.getFreeModifiers(stack)));
 
     return this;

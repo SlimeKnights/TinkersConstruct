@@ -5,7 +5,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.text.TextFormatting;
 
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tools.ToolNBT;
@@ -26,7 +26,7 @@ public abstract class TraitProgressiveStats extends AbstractTrait {
   protected final String pool_key;    // Key to the tag that contains the free unassigned
   protected final String applied_key; // Key to the tag that contains the already applied bonus stats
 
-  public TraitProgressiveStats(String identifier, EnumChatFormatting color) {
+  public TraitProgressiveStats(String identifier, TextFormatting color) {
     super(identifier, color);
 
     pool_key = identifier + "StatPool";
@@ -91,7 +91,7 @@ public abstract class TraitProgressiveStats extends AbstractTrait {
 
   protected boolean playerIsBreakingBlock(Entity entity) {
     if(entity instanceof EntityPlayerMP) {
-      if(((EntityPlayerMP) entity).theItemInWorldManager.isDestroyingBlock) {
+      if(((EntityPlayerMP) entity).interactionManager.isDestroyingBlock) {
         return true;
       }
     }

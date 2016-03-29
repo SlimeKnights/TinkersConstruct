@@ -32,7 +32,7 @@ public class CustomFontRenderer extends FontRenderer {
 
   @Override
   public List<String> listFormattedStringToWidth(String str, int wrapWidth) {
-    return Arrays.<String>asList(this.wrapFormattedStringToWidth(str, wrapWidth).split("\n"));
+    return Arrays.asList(this.wrapFormattedStringToWidth(str, wrapWidth).split("\n"));
   }
 
   protected String wrapFormattedStringToWidth(String str, int wrapWidth) {

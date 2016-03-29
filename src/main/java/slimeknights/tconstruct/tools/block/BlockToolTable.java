@@ -1,12 +1,14 @@
 package slimeknights.tconstruct.tools.block;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockState;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,9 +16,11 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
@@ -26,6 +30,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
+import java.util.Locale;
 
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.TConstruct;
@@ -47,7 +52,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
     super(Material.wood);
     this.setCreativeTab(TinkerRegistry.tabGeneral);
 
-    this.setStepSound(soundTypeWood);
+    this.setSoundType(SoundType.WOOD);
     this.setResistance(5f);
     this.setHardness(1f);
 
@@ -133,7 +138,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
   }
 
   @Override
-  protected BlockState createBlockState() {
+  protected BlockStateContainer createBlockState() {
     return new ExtendedBlockState(this, new IProperty[]{TABLES}, new IUnlistedProperty[]{TEXTURE, INVENTORY, FACING});
   }
 
@@ -147,21 +152,25 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
     return (state.getValue(TABLES)).meta;
   }
 
+  /* Bounds */
+  private static AxisAlignedBB BOUNDS_Chest = new AxisAlignedBB(0, 0, 0, 1, 0.875, 1);
+
   @Override
-  public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-    if(worldIn.getBlockState(pos).getValue(TABLES).isChest) {
-      this.setBlockBounds(0, 0, 0, 1, 0.875f, 1);
+  public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+    if(state.getValue(TABLES).isChest) {
+      return BOUNDS_Chest;
     }
-    else {
-      this.setBlockBounds(0, 0, 0, 1, 1, 1);
-    }
+
+    return super.getBoundingBox(state, source, pos);
   }
 
   @Override
-  public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
-    float y = state.getValue(TABLES).isChest ? 0.875f : 1;
-    return AxisAlignedBB.fromBounds(pos.getX(), pos.getY(), pos.getZ(),
-                                    pos.getX() + 1, pos.getY() + y, pos.getZ() + 1);
+  public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
+    if(blockState.getValue(TABLES).isChest) {
+      return rayTrace(pos, start, end, BOUNDS_Chest);
+    }
+
+    return super.collisionRayTrace(blockState, worldIn, pos, start, end);
   }
 
   @Override
@@ -208,7 +217,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
     @Override
     public String getName() {
-      return this.toString();
+      return this.toString().toLowerCase(Locale.US);
     }
   }
 }

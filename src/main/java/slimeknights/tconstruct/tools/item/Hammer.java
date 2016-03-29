@@ -9,27 +9,20 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolNBT;
-import slimeknights.tconstruct.library.utils.TagUtil;
-import slimeknights.tconstruct.library.utils.TinkerUtil;
-import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
-import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.traits.InfiTool;
 
 public class Hammer extends Pickaxe {
 
@@ -59,7 +52,7 @@ public class Hammer extends Pickaxe {
   }
 
   @Override
-  public boolean dealDamage(ItemStack stack, EntityPlayer player, EntityLivingBase entity, float damage) {
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
     // bonus damage vs. undead!
     if(entity.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
       damage += 3 + TConstruct.random.nextInt(4);
