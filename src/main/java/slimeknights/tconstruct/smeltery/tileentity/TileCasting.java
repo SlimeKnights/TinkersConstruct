@@ -212,7 +212,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
   @Override
   public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
     // this is where all the action happens
-    if(!canFill(from, resource.getFluid())) {
+    if(resource == null || !canFill(from, resource.getFluid())) {
       return 0;
     }
 
@@ -258,7 +258,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
 
   @Override
   public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
-    if(tank.getFluidAmount() == 0) {
+    if(resource == null || tank.getFluidAmount() == 0) {
       return null;
     }
     if(tank.getFluid().getFluid() != resource.getFluid()) {
