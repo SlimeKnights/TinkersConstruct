@@ -29,14 +29,7 @@ public class BlockSlimeVine extends BlockVine {
     this.foliage = foliage;
     this.nextStage = nextStage;
   }
-/*
-  @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
-    if(this == TinkerWorld.slimeVinePurple1 || this == TinkerWorld.slimeVineBlue1) {
-      list.add(new ItemStack(this, 1, 0));
-    }
-  }
-*/
+
   private Boolean canAttachTo(IBlockAccess world, BlockPos pos) {
     IBlockState state = world.getBlockState(pos);
     Block block = state.getBlock();

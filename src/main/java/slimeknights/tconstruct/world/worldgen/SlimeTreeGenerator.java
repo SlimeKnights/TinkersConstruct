@@ -148,8 +148,11 @@ public class SlimeTreeGenerator implements IWorldGenerator {
   protected IBlockState getRandomizedVine(Random random) {
     IBlockState state = vine;
     PropertyBool[] sides = new PropertyBool[] {BlockVine.NORTH, BlockVine.EAST, BlockVine.SOUTH, BlockVine.WEST};
+    for(PropertyBool side : sides) {
+      state = state.withProperty(side, false);
+    }
     for(int i = random.nextInt(3) + 1; i > 0; i--) {
-      state = state.withProperty(sides[random.nextInt(sides.length)], false);
+      state = state.withProperty(sides[random.nextInt(sides.length)], true);
     }
 
     return state;

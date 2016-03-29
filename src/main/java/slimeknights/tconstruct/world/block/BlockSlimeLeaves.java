@@ -11,6 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.world.IBlockAccess;
@@ -60,6 +61,14 @@ public class BlockSlimeLeaves extends BlockLeaves {
   @Override
   public BlockRenderLayer getBlockLayer() {
     return Blocks.leaves.getBlockLayer();
+  }
+
+  @Override
+  public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+    // isOpaqueCube returns !leavesFancy to us. We have to fix the variable before calling super
+    this.leavesFancy = !Blocks.leaves.isOpaqueCube(blockState);
+
+    return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
   }
 
   @Override
