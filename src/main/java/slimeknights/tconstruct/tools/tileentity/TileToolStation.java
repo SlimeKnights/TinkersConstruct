@@ -36,6 +36,7 @@ public class TileToolStation extends TileTable implements IInventoryGui {
     return new GuiToolStation(inventoryplayer, world, pos, this);
   }
 
+  @Override
   protected IExtendedBlockState setInventoryDisplay(IExtendedBlockState state) {
     PropertyTableItem.TableItems toDisplay = new PropertyTableItem.TableItems();
 

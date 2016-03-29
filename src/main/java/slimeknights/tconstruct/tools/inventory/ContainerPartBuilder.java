@@ -203,6 +203,7 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
     return p_94530_2_.inventory != this.craftResult && super.canMergeSlot(p_94530_1_, p_94530_2_);
   }
 
+  @Override
   public String getInventoryDisplayName() {
     if(partCrafter) {
       return Util.translate("gui.partcrafter.name");

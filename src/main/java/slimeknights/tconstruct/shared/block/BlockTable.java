@@ -59,6 +59,7 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     return false;
   }
 
+  @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer()
   {

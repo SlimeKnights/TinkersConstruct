@@ -56,6 +56,7 @@ public class BlockFaucet extends BlockContainer {
   /**
    * Convert the given metadata into a BlockState for this Block
    */
+  @Override
   public IBlockState getStateFromMeta(int meta) {
     if(meta >= EnumFacing.values().length) {
       meta = 1;
@@ -71,6 +72,7 @@ public class BlockFaucet extends BlockContainer {
   /**
    * Convert the BlockState into the correct metadata value
    */
+  @Override
   public int getMetaFromState(IBlockState state) {
     return state.getValue(FACING).ordinal();
   }

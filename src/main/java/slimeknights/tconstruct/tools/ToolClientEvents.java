@@ -40,6 +40,7 @@ import slimeknights.tconstruct.tools.block.BlockToolTable;
 public class ToolClientEvents {
 
   public static Function<ResourceLocation, TextureAtlasSprite> textureGetter = new Function<ResourceLocation, TextureAtlasSprite>() {
+    @Override
     public TextureAtlasSprite apply(ResourceLocation location) {
       return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
     }

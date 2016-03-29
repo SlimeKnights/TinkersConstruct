@@ -48,6 +48,7 @@ public class SimpleColoredTexture extends AbstractColoredTexture {
     super.processData(data);
   }
 
+  @Override
   protected int colorPixel(int pixel, int mipmap, int pxCoord) {
     int a = RenderUtil.alpha(pixel);
     if(a == 0) {

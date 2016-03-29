@@ -52,6 +52,7 @@ public class WorldClientProxy extends ClientProxy {
     // slime grass, slime tall grass, and slime leaves
     blockColors.registerBlockColorHandler(
         new IBlockColor() {
+          @Override
           public int colorMultiplier(IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
             FoliageType type = state.getValue(BlockSlimeGrass.FOLIAGE);
             if(pos == null) {
@@ -66,6 +67,7 @@ public class WorldClientProxy extends ClientProxy {
     // leaves are a bit shifted, so they have slightly different tone than the grass they accompany
     blockColors.registerBlockColorHandler(
         new IBlockColor() {
+          @Override
           public int colorMultiplier(IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
             FoliageType type = state.getValue(BlockSlimeGrass.FOLIAGE);
             if(pos == null) {
@@ -80,6 +82,7 @@ public class WorldClientProxy extends ClientProxy {
     // slime vines don't use a foliage color state, so color them directly
     blockColors.registerBlockColorHandler(
         new IBlockColor() {
+          @Override
           public int colorMultiplier(IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
             if(pos == null) {
               return SlimeColorizer.getColorStatic(BlockSlimeGrass.FoliageType.BLUE);
@@ -91,6 +94,7 @@ public class WorldClientProxy extends ClientProxy {
         TinkerWorld.slimeVineBlue1, TinkerWorld.slimeVineBlue2, TinkerWorld.slimeVineBlue3);
     blockColors.registerBlockColorHandler(
         new IBlockColor() {
+          @Override
           public int colorMultiplier(IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
             if(pos == null) {
               return SlimeColorizer.getColorStatic(BlockSlimeGrass.FoliageType.PURPLE);
@@ -104,6 +108,7 @@ public class WorldClientProxy extends ClientProxy {
     // item models simply pull the data from the block models, to make things easier for each separate type
     minecraft.getItemColors().registerItemColorHandler(
         new IItemColor() {
+          @Override
           public int getColorFromItemstack(ItemStack stack, int tintIndex) {
             IBlockState iblockstate = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
             return blockColors.colorMultiplier(iblockstate, null, null, tintIndex);

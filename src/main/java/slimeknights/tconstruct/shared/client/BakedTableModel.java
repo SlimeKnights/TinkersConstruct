@@ -61,6 +61,7 @@ public class BakedTableModel implements IPerspectiveAwareModel {
     this.tableModel = tableModel;
 
     this.textureGetter = new Function<ResourceLocation, TextureAtlasSprite>() {
+      @Override
       public TextureAtlasSprite apply(ResourceLocation location) {
         return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
       }

@@ -29,6 +29,7 @@ public class BlockOre extends EnumBlock<BlockOre.OreTypes> {
     setCreativeTab(TinkerRegistry.tabWorld);
   }
 
+  @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer() {
     return BlockRenderLayer.CUTOUT_MIPPED;

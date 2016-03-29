@@ -58,11 +58,13 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
   }
 
   // update crafting
+  @Override
   public void onCraftMatrixChanged(IInventory inventoryIn) {
     this.craftResult
         .setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.world));
   }
 
+  @Override
   public boolean canMergeSlot(ItemStack p_94530_1_, Slot p_94530_2_) {
     return p_94530_2_.inventory != this.craftResult && super.canMergeSlot(p_94530_1_, p_94530_2_);
   }

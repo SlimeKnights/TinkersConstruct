@@ -78,6 +78,7 @@ public class RenderTinkerSlime extends RenderSlime {
       slimeModel = new ModelSlime(0);
     }
 
+    @Override
     public void doRenderLayer(EntitySlime entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale)
     {
       ticking += partialTicks;
@@ -99,6 +100,7 @@ public class RenderTinkerSlime extends RenderSlime {
       }
     }
 
+    @Override
     public boolean shouldCombineTextures()
     {
       return true;

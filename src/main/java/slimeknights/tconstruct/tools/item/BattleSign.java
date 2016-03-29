@@ -42,6 +42,7 @@ public class BattleSign extends BroadSword {
 
     this.addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter()
     {
+      @Override
       @SideOnly(Side.CLIENT)
       public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn)
       {

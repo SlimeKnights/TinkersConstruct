@@ -60,6 +60,7 @@ public class BlockPunji extends Block {
   /**
    * Convert the given metadata into a BlockState for this Block
    */
+  @Override
   public IBlockState getStateFromMeta(int meta) {
     if(meta >= EnumFacing.values().length) {
       meta = EnumFacing.DOWN.ordinal();
@@ -72,6 +73,7 @@ public class BlockPunji extends Block {
   /**
    * Convert the BlockState into the correct metadata value
    */
+  @Override
   public int getMetaFromState(IBlockState state) {
     return state.getValue(FACING).ordinal();
   }
@@ -113,6 +115,7 @@ public class BlockPunji extends Block {
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
    * IBlockstate
    */
+  @Override
   public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
     EnumFacing enumfacing = facing.getOpposite();
 

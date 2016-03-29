@@ -285,6 +285,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
 
     return input;
   }
+  @Override
   public boolean canMergeSlot(ItemStack stack, Slot slot) {
     return slot != out && super.canMergeSlot(stack, slot);
   }

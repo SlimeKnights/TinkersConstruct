@@ -102,6 +102,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
   }
 
   // item dropped on silktouching
+  @Override
   protected ItemStack createStackedBlock(IBlockState state)
   {
     return new ItemStack(Item.getItemFromBlock(this), 1, (state.getValue(BlockSlimeGrass.FOLIAGE)).ordinal() & 3);
@@ -112,9 +113,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
     return new BlockStateContainer(this, BlockSlimeGrass.FOLIAGE, CHECK_DECAY, DECAYABLE);
   }
 
-  /**
-   * Convert the given metadata into a BlockState for this Block
-   */
+  @Override
   public IBlockState getStateFromMeta(int meta)
   {
     int type = meta % 4;
@@ -128,9 +127,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
                .withProperty(CHECK_DECAY, (meta & 8) > 0);
   }
 
-  /**
-   * Convert the BlockState into the correct metadata value
-   */
+  @Override
   public int getMetaFromState(IBlockState state)
   {
 

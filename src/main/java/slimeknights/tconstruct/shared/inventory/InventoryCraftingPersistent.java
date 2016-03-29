@@ -26,10 +26,12 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
     this.eventHandler = eventHandler;
   }
 
+  @Override
   public int getSizeInventory() {
     return this.length;
   }
 
+  @Override
   public ItemStack getStackInSlot(int index) {
     return index >= this.getSizeInventory() ? null : this.parent.getStackInSlot(index);
   }
@@ -38,6 +40,7 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
     return "container.crafting";
   }
 
+  @Override
   public boolean hasCustomName() {
     return false;
   }
@@ -46,6 +49,7 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
     return null;
   }
 
+  @Override
   public ItemStack decrStackSize(int index, int count) {
     if(this.getStackInSlot(index) != null) {
       ItemStack itemstack;
@@ -72,6 +76,7 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
     }
   }
 
+  @Override
   public void setInventorySlotContents(int index, ItemStack stack) {
     this.parent.setInventorySlotContents(index, stack);
     this.eventHandler.onCraftMatrixChanged(this);
@@ -85,6 +90,7 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
     TinkerTools.proxy.sendPacketToServerOnly(new InventoryCraftingSyncPacket());
   }
 
+  @Override
   public void clear() {
     // inventory can't clear the tile container
   }

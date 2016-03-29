@@ -171,6 +171,7 @@ public class BlockCasting extends BlockInventory {
     return false;
   }
 
+  @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer()
   {

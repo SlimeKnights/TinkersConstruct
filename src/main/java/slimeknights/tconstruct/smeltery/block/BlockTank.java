@@ -159,6 +159,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     return tank.getBrightness();
   }
 
+  @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer()
   {

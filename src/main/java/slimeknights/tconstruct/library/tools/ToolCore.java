@@ -472,6 +472,7 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   // elevate to public
+  @Override
   public RayTraceResult getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
     return super.getMovingObjectPositionFromPlayer(worldIn, playerIn, useLiquids);
   }

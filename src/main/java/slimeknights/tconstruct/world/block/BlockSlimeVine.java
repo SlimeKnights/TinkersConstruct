@@ -48,6 +48,7 @@ public class BlockSlimeVine extends BlockVine {
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
    * IBlockstate
    */
+  @Override
   public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
   {
     IBlockState iblockstate = this.getDefaultState();

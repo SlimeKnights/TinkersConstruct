@@ -46,6 +46,7 @@ public abstract class AbstractTraitLeveled extends AbstractTrait {
     this.addAspects(new ModifierAspect.LevelAspect(this, maxLevels), new ModifierAspect.DataAspect(this, color));
   }
 
+  @Override
   public void updateNBTforTrait(NBTTagCompound modifierTag, int newColor) {
     super.updateNBTforTrait(modifierTag, newColor);
 
