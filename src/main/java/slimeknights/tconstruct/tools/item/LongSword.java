@@ -7,6 +7,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
@@ -40,6 +41,15 @@ public class LongSword extends BroadSword {
   @Override
   public float damageCutoff() {
     return 18f;
+  }
+
+  @Override
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+    // no sweep attack for you
+    if(player instanceof EntityPlayer) {
+      return entity.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) player), damage);
+    }
+    return entity.attackEntityFrom(DamageSource.causeMobDamage(player), damage);
   }
 
   @Override
