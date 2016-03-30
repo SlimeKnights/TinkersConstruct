@@ -125,6 +125,7 @@ item.tconstruct.edible.slimeball_magma.name=Slime Ball
 
 item.tconstruct.materials.seared_brick.name=Seared Brick
 item.tconstruct.materials.mud_brick.name=Mud Brick
+item.tconstruct.materials.mud_brick.tooltip=Building blocks for small and big
 item.tconstruct.materials.slimecrystal_green.name=Green Slime Crystal
 item.tconstruct.materials.slimecrystal_green.tooltip=Used to craft Slime Tools
 item.tconstruct.materials.slimecrystal_blue.name=Blue Slime Crystal
@@ -140,7 +141,10 @@ item.tconstruct.materials.reinforcement.tooltip=Reinforced Modifier
 item.tconstruct.materials.silky_cloth.name=Silky Cloth
 item.tconstruct.materials.silky_jewel.name=Silky Jewel
 item.tconstruct.materials.silky_jewel.tooltip=Silktouch Modifier
+item.tconstruct.materials.necrotic_bone.name=Necrotic Bone
+item.tconstruct.materials.necrotic_bone.tooltip=Necrotic Modifier
 item.tconstruct.materials.creative_modifier.name=Creative Modifier
+item.tconstruct.materials.creative_modifier.tooltip=Adds an additional modifier
 
 item.tconstruct.ingots.cobalt.name=Cobalt Ingot
 item.tconstruct.ingots.ardite.name=Ardite Ingot
