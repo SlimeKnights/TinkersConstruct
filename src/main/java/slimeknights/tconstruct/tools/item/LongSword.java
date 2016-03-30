@@ -25,7 +25,7 @@ public class LongSword extends BroadSword {
 
   @Override
   public float damagePotential() {
-    return 1.1f;
+    return 1.13f;
   }
 
   @Override
@@ -77,8 +77,8 @@ public class LongSword extends BroadSword {
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     ToolNBT data = buildDefaultTag(materials);
-    // 2 base damage, like vanilla swords
-    data.attack -= 1.5f;
+    // a bit less base damage, but it has better scaling
+    data.attack += 1f;
     data.attack = Math.max(1f, data.attack);
     return data.get();
   }
