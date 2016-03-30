@@ -11,7 +11,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -19,10 +18,8 @@ import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.ForgeBlockStateV1;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.common.util.JsonUtils;
 
 import org.apache.commons.io.IOUtils;
 
@@ -32,6 +29,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.util.Map;
+
+import slimeknights.tconstruct.library.client.deserializer.ItemCameraTransformsDeserializer;
+import slimeknights.tconstruct.library.client.deserializer.ItemTransformVec3fDeserializer;
 
 public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
 
@@ -44,8 +44,8 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
       .registerTypeAdapter(offsettype, OffsetDeserializer.INSTANCE)
       .registerTypeAdapter(transformtype, TransformDeserializer.INSTANCE)
       //.registerTypeAdapter(ImmutableMap.class, JsonUtils.ImmutableMapTypeAdapter.INSTANCE)
-      .registerTypeAdapter(ItemCameraTransforms.class, new ItemCameraTransforms.Deserializer())
-      .registerTypeAdapter(ItemTransformVec3f.class, new ItemTransformVec3f.Deserializer())
+      .registerTypeAdapter(ItemCameraTransforms.class, ItemCameraTransformsDeserializer.INSTANCE)
+      .registerTypeAdapter(ItemTransformVec3f.class, ItemTransformVec3fDeserializer.INSTANCE)
       //.registerTypeAdapter(TRSRTransformation.class, ForgeBlockStateV1.TRSRDeserializer.INSTANCE)
       .create();
 
