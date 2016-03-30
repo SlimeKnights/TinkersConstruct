@@ -6,6 +6,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
@@ -26,7 +29,7 @@ public class LongSword extends BroadSword {
 
   @Override
   public float damagePotential() {
-    return 1.1f;
+    return 1.13f;
   }
 
   @Override
@@ -42,6 +45,17 @@ public class LongSword extends BroadSword {
   @Override
   public EnumAction getItemUseAction(ItemStack stack) {
     return EnumAction.NONE;
+  }
+
+  @Override
+  public int getMaxItemUseDuration(ItemStack stack) {
+    return 200;
+  }
+
+  @Override
+  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    playerIn.setActiveHand(hand);
+    return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
   }
 
   @Override
@@ -81,8 +95,8 @@ public class LongSword extends BroadSword {
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     ToolNBT data = buildDefaultTag(materials);
-    // 2 base damage, like vanilla swords
-    data.attack -= 1.5f;
+    // a bit less base damage, but it has better scaling
+    data.attack += 1f;
     data.attack = Math.max(1f, data.attack);
     return data.get();
   }

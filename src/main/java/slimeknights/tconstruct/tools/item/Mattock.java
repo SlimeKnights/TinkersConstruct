@@ -87,7 +87,7 @@ public class Mattock extends AoeToolCore {
 
   @Override
   public float damagePotential() {
-    return 0.95f;
+    return 0.90f;
   }
 
   @Override
