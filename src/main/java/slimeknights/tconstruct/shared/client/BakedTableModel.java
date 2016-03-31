@@ -6,6 +6,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -128,6 +130,11 @@ public class BakedTableModel implements IPerspectiveAwareModel {
       if(extendedState.getUnlistedNames().contains(BlockTable.FACING)) {
         face = extendedState.getValue((IUnlistedProperty<EnumFacing>) BlockTable.FACING);
       }
+
+      // remove all world specific data
+      // This is so that the next call to getQuads from the transformed TRSRModel doesn't do this again
+      // otherwise table models inside table model items recursively calls this with the state of the original table
+      state = extendedState.withProperty(BlockTable.INVENTORY, PropertyTableItem.TableItems.EMPTY).withProperty((IUnlistedProperty<EnumFacing>) BlockTable.FACING, null);
     }
 
     // models are symmetric, no need to rotate if there's nothing on it where rotation matters, so we just use default

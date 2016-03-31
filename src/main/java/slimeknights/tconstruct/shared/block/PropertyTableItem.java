@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared.block;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -30,6 +31,11 @@ public class PropertyTableItem implements IUnlistedProperty<PropertyTableItem.Ta
   }
 
   public static class TableItems {
+    public static final TableItems EMPTY = new TableItems();
+    static {
+      EMPTY.items = ImmutableList.of();
+    }
+
     public List<TableItem> items = Lists.newLinkedList();
   }
 
