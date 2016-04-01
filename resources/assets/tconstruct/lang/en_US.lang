@@ -110,6 +110,7 @@ tile.tconstruct.stone_torch.name=Stone Torch
 tile.tconstruct.stone_ladder.name=Stone Ladder
 tile.tconstruct.wood_rail.name=Wooden Rail
 tile.tconstruct.punji.name=Punji Sticks
+tile.tconstruct.glow.name=Glow
 
 
 ################
@@ -240,6 +241,11 @@ item.tconstruct.fancy_frame.cobalt.name=Cobalt Item Frame
 item.tconstruct.fancy_frame.ardite.name=Ardite Item Frame
 item.tconstruct.fancy_frame.manyullyn.name=Manyullyn Item Frame
 item.tconstruct.fancy_frame.gold.name=Golden Item Frame
+
+item.tconstruct.throwball.glow.name=Glowball
+item.tconstruct.throwball.glow.tooltip=Not suited for cosumption.
+item.tconstruct.throwball.efln.name=EFLN
+item.tconstruct.throwball.efln.tooltip=Explodes! Save for mining
 
 #################
 #   Entities    #

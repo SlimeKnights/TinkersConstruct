@@ -16,6 +16,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import org.apache.logging.log4j.Logger;
 
@@ -29,9 +30,11 @@ import slimeknights.tconstruct.gadgets.block.BlockStoneLadder;
 import slimeknights.tconstruct.gadgets.block.BlockStoneTorch;
 import slimeknights.tconstruct.gadgets.block.BlockWoodRail;
 import slimeknights.tconstruct.gadgets.entity.EntityFancyItemFrame;
+import slimeknights.tconstruct.gadgets.entity.EntityThrowball;
 import slimeknights.tconstruct.gadgets.item.ItemFancyItemFrame;
 import slimeknights.tconstruct.gadgets.item.ItemSlimeBoots;
 import slimeknights.tconstruct.gadgets.item.ItemSlimeSling;
+import slimeknights.tconstruct.gadgets.item.ItemThrowball;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -52,6 +55,7 @@ public class TinkerGadgets extends TinkerPulse {
 
   public static ItemSlimeSling slimeSling;
   public static ItemSlimeBoots slimeBoots;
+  public static ItemThrowball throwball;
   public static Item stoneStick;
 
   public static ItemHangingEntity fancyFrame;
@@ -66,12 +70,14 @@ public class TinkerGadgets extends TinkerPulse {
 
     slimeSling = registerItem(new ItemSlimeSling(), "slimesling");
     slimeBoots = registerItem(new ItemSlimeBoots(), "slime_boots");
+    throwball = registerItem(new ItemThrowball(), "throwball");
     stoneStick = registerItem(new Item(), "stone_stick");
     stoneStick.setFull3D().setCreativeTab(TinkerRegistry.tabGadgets);
 
     fancyFrame = registerItem(new ItemFancyItemFrame(), "fancy_frame");
 
     EntityRegistry.registerModEntity(EntityFancyItemFrame.class, "Fancy Item Frame", EntityIDs.FANCY_FRAME, TConstruct.instance, 160, Integer.MAX_VALUE, false);
+    EntityRegistry.registerModEntity(EntityThrowball.class, "Throwball", EntityIDs.THROWBALL, TConstruct.instance, 64, 10, true);
     //EntityRegistry.instance().lookupModSpawn(EntityFancyItemFrame.class, false).setCustomSpawning(null, true);
 
     MinecraftForge.EVENT_BUS.register(slimeBoots);
@@ -134,6 +140,14 @@ public class TinkerGadgets extends TinkerPulse {
     if(TinkerCommons.nuggetManyullyn != null) {
       addFrameRecipe("nuggetManyullyn", EntityFancyItemFrame.FrameType.MANYULLYN);
     }
+
+    // throwballs
+    ItemStack glowball = new ItemStack(throwball, 1, ItemThrowball.ThrowballType.GLOW.ordinal());
+    GameRegistry.addRecipe(new ShapelessOreRecipe(glowball, Items.snowball, "dustGlowstone"));
+
+    ItemStack efln = new ItemStack(throwball, 1, ItemThrowball.ThrowballType.EFLN.ordinal());
+    GameRegistry.addShapelessRecipe(efln, Items.flint, Items.gunpowder);
+    GameRegistry.addRecipe(new ShapelessOreRecipe(efln, Items.flint, "dustSulfur"));
   }
 
   private void addFrameRecipe(String nugget, EntityFancyItemFrame.FrameType type) {

@@ -25,6 +25,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
+import slimeknights.tconstruct.shared.block.BlockGlow;
 import slimeknights.tconstruct.shared.block.BlockMetal;
 import slimeknights.tconstruct.shared.block.BlockOre;
 import slimeknights.tconstruct.shared.block.BlockSoil;
@@ -47,6 +48,7 @@ public class TinkerCommons extends TinkerPulse {
   public static BlockOre blockOre;
   public static BlockMetal blockMetal;
   public static Block blockFirewood;
+  public static Block blockGlow;
 
   // block itemstacks
   public static ItemStack grout;
@@ -215,6 +217,10 @@ public class TinkerCommons extends TinkerPulse {
 
       ingotKnightSlime = ingots.addMeta(3, "knightslime");
       nuggetKnightSlime = nuggets.addMeta(3, "knightslime");
+    }
+
+    if(isToolsLoaded() || isGadgetsLoaded()) {
+      blockGlow = registerBlock(new BlockGlow(), "glow");
     }
 
     // oredicting time

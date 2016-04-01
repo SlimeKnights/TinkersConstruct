@@ -12,6 +12,7 @@ import java.util.Locale;
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -38,6 +39,10 @@ public abstract class TinkerPulse {
 
   protected static boolean isWorldLoaded() {
     return TConstruct.pulseManager.isPulseLoaded(TinkerWorld.PulseId);
+  }
+
+  protected static boolean isGadgetsLoaded() {
+    return TConstruct.pulseManager.isPulseLoaded(TinkerGadgets.PulseId);
   }
 
   /**

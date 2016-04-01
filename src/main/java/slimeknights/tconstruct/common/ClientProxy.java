@@ -11,6 +11,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -191,6 +192,10 @@ public abstract class ClientProxy extends CommonProxy {
     return registerIt(item, itemLocation);
   }
 
+  public void registerItemModel(Item item, int meta, String variant) {
+    ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), variant));
+  }
+
   private static ResourceLocation registerIt(Item item, final ResourceLocation location) {
     // plop it in.
     // This here is needed for the model to be found ingame when the game looks for a model to render an Itemstack
@@ -240,6 +245,13 @@ public abstract class ClientProxy extends CommonProxy {
         playerSP.movementInput.moveStrafe *= originalSpeed * 5.0F;
       }
     }
+  }
+
+  @Override
+  public void customExplosion(World world, Explosion explosion) {
+    if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(world, explosion));
+    explosion.doExplosionA();
+    explosion.doExplosionB(true);
   }
 
   public static class PatternMeshDefinition implements ItemMeshDefinition {

@@ -1,0 +1,11 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-item",
+        "model": "forge:item-layer"
+    },
+    "variants": {
+        "glow": [{ "textures": { "layer0": "tconstruct:items/gadgets/glowball" }}],
+        "efln": [{ "textures": { "layer0": "tconstruct:items/gadgets/efln" }}]
+    }
+}

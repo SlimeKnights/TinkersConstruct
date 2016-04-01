@@ -9,4 +9,5 @@ public class EntityIDs {
   public static final int INDESTRUCTIBLE_ITEM = 0;
   public static final int BLUESLIME = 1;
   public static final int FANCY_FRAME = 2;
+  public static final int THROWBALL = 3;
 }

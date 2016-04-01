@@ -1,0 +1,20 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "tconstruct:flat_in",
+        "textures": {
+            "all": "tconstruct:blocks/glow"
+        }
+    },
+    "variants": {
+        "facing": {
+            "down": { "x": 90 },
+            "up": { "x": -90 },
+            "north": {},
+            "east": { "y": 90 },
+            "south": { "y": 180 },
+            "west": { "y": 270 }
+        },
+        "inventory": [{}]
+    }
+}

@@ -1,7 +1,12 @@
 package slimeknights.tconstruct.common;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
+import net.minecraft.network.play.server.SPacketExplosion;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.Loader;
@@ -62,5 +67,30 @@ public class CommonProxy {
 
   public void preventPlayerSlowdown(Entity player, float originalSpeed, Item item) {
     // clientside only
+  }
+
+  // replicates the World.newExplosion code to separate behaviour on server/client for any explosion implementation
+  public void customExplosion(World world, Explosion explosion) {
+    // server side
+    if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(world, explosion)) return;
+    explosion.doExplosionA();
+    explosion.doExplosionB(false);
+
+    if (!explosion.isSmoking)
+    {
+      explosion.clearAffectedBlockPositions();
+    }
+
+    // todo: send custom explosion packet to clients
+    // Send packets so player are moved around
+    /*
+    for (EntityPlayer entityplayer : world.playerEntities)
+    {
+      //if (entityplayer.getDistanceSq(x, y, z) < 4096.0D)
+      {
+        Vec3d vec = explosion.getPosition();
+        ((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(new SPacketExplosion(vec.xCoord, vec.yCoord, vec.zCoord, 1, explosion.getAffectedBlockPositions(), (Vec3d)explosion.getPlayerKnockbackMap().get(entityplayer)));
+      }
+    }*/
   }
 }
