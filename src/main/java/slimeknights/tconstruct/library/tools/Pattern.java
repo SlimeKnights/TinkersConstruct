@@ -54,7 +54,7 @@ public class Pattern extends Item implements IPattern {
   public static void setTagForPart(ItemStack stack, Item toolPart) {
     NBTTagCompound tag = TagUtil.getTagSafe(stack);
 
-    tag.setString(TAG_PARTTYPE, toolPart.getRegistryName());
+    tag.setString(TAG_PARTTYPE, toolPart.getRegistryName().toString());
 
     stack.setTagCompound(tag);
   }
@@ -88,7 +88,7 @@ public class Pattern extends Item implements IPattern {
   }
 
   public static String getTextureIdentifier(Item item) {
-    String identifier = item.getRegistryName();
+    String identifier = item.getRegistryName().toString();
     // sanitize it (remove modid)
     if(identifier.contains(":")) {
       identifier = identifier.substring(identifier.lastIndexOf(':') + 1);
