@@ -7,6 +7,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkCheckHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -14,9 +15,11 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.relauncher.Side;
 import mantle.pulsar.config.ForgeCFG;
 import mantle.pulsar.control.PulseManager;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -181,6 +184,9 @@ public class TConstruct
         MinecraftForge.EVENT_BUS.register(playerTracker);
         NetworkRegistry.INSTANCE.registerGuiHandler(TConstruct.instance, proxy);
 
+        if (PHConstruct.globalDespawn != 6000)
+            MinecraftForge.EVENT_BUS.register(new Spawntercepter());
+
         pulsar.preInit(event);
 
         if (PHConstruct.achievementsEnabled)
@@ -278,6 +284,20 @@ public class TConstruct
         for(FMLMissingMappingsEvent.MissingMapping mapping : event.get()) {
             if(mapping.name.equals("TConstruct:TankAir"))
                 mapping.ignore();
+        }
+    }
+
+    public static class Spawntercepter {
+        @SubscribeEvent
+        public void onEntitySpawn(EntityJoinWorldEvent event)
+        {
+            if(event.entity instanceof EntityItem)
+            {
+                EntityItem ourGuy = (EntityItem)event.entity;
+                if (ourGuy.lifespan == 6000) {
+                    ourGuy.lifespan = PHConstruct.globalDespawn;
+                }
+            }
         }
     }
 }
