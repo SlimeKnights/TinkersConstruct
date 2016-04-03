@@ -1,16 +1,25 @@
 package slimeknights.tconstruct.gadgets;
 
+import com.google.common.base.Predicate;
+
 import gnu.trove.map.hash.TObjectIntHashMap;
 import gnu.trove.procedure.TObjectIntProcedure;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.server.SPacketParticles;
+import net.minecraft.network.play.server.SPacketExplosion;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -24,6 +33,11 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
+import slimeknights.tconstruct.common.TinkerNetwork;
+import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
+
 public class Exploder {
 
   public final double r;
@@ -31,7 +45,7 @@ public class Exploder {
   public final int dist;
   public final double explosionStrength;
   public final int blocksPerIteration;
-  public final int x,y,z;
+  public final int x, y, z;
   public final World world;
   public final Entity exploder;
   public final Explosion explosion;
@@ -46,8 +60,8 @@ public class Exploder {
     this.world = world;
     this.explosion = explosion;
     this.exploder = exploder;
-    this.rr = r*r;
-    this.dist = (int)r + 1;
+    this.rr = r * r;
+    this.dist = (int) r + 1;
     this.explosionStrength = explosionStrength;
     this.blocksPerIteration = blocksPerIteration;
     this.currentRadius = 0;
@@ -64,7 +78,8 @@ public class Exploder {
   }
 
   public static void startExplosion(World world, Explosion explosion, Entity entity, BlockPos location, double r, double explosionStrength) {
-    Exploder exploder = new Exploder(world, explosion, entity, location, r, explosionStrength, Math.max(50, (int)(r*r*r/10d)));
+    Exploder exploder = new Exploder(world, explosion, entity, location, r, explosionStrength, Math.max(50, (int) (r * r * r / 10d)));
+    exploder.handleEntities();
     MinecraftForge.EVENT_BUS.register(exploder);
   }
 
@@ -78,15 +93,57 @@ public class Exploder {
     }
   }
 
+  void handleEntities() {
+    final Predicate<Entity> predicate = new Predicate<Entity>() {
+      @Override
+      public boolean apply(@Nullable Entity entity) {
+        return entity != null
+               && !entity.isImmuneToExplosions()
+               && EntitySelectors.NOT_SPECTATING.apply(entity)
+               && EntitySelectors.IS_ALIVE.apply(entity)
+               && entity.getPositionVector().squareDistanceTo(x, y, z) <= r * r;
+      }
+    };
+
+    // damage and blast back entities
+    List<Entity> list = world.getEntitiesInAABBexcluding(this.exploder,
+                                                         new AxisAlignedBB(x - r - 1,
+                                                                           y - r - 1,
+                                                                           z - r - 1,
+                                                                           x + r + 1,
+                                                                           y + r + 1,
+                                                                           z + r + 1),
+                                                         predicate
+    );
+    net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(world, explosion, list, r * 2);
+
+    for(Entity entity : list) {
+      //double str = 1f - (double)currentRadius/r;
+      //str *= str;
+      // move it away from the center depending on distance and explosion strength
+      Vec3d dir = entity.getPositionVector().subtract(exploder.getPositionVector().addVector(0,-r/2,0));
+      double str = (r - dir.lengthVector())/r;
+      str = Math.max(0.3, str);
+      dir = dir.normalize();
+      dir = dir.scale(explosionStrength * str * 0.3);
+      entity.addVelocity(dir.xCoord, dir.yCoord + 0.5, dir.zCoord);
+      entity.attackEntityFrom(DamageSource.causeExplosionDamage(explosion), (float) (str * explosionStrength));
+
+      if(entity instanceof EntityPlayerMP) {
+        TinkerNetwork.sendTo(new EntityMovementChangePacket(entity), (EntityPlayerMP) entity);
+      }
+    }
+  }
+
   private void finish() {
-    final int d = (int)r/2;
-    final BlockPos pos = new BlockPos(x-d,y-d,z-d);
+    final int d = (int) r / 2;
+    final BlockPos pos = new BlockPos(x - d, y - d, z - d);
     final Random random = new Random();
     // drop items
     droppedItems.forEachEntry(new TObjectIntProcedure<Pair<Item, Integer>>() {
       @Override
       public boolean execute(Pair<Item, Integer> a, int b) {
-        BlockPos spawnPos = pos.add(random.nextInt((int)r), random.nextInt((int)r), random.nextInt((int)r));
+        BlockPos spawnPos = pos.add(random.nextInt((int) r), random.nextInt((int) r), random.nextInt((int) r));
         do {
           int c = Math.min(b, 64);
           Block.spawnAsEntity(world, spawnPos, new ItemStack(a.getKey(), c, a.getValue()));
@@ -104,8 +161,8 @@ public class Exploder {
   private boolean iteration() {
     int count = 0;
 
-    while(count < blocksPerIteration && currentRadius < (int)r + 1) {
-      double d = curX*curX + curY*curY + curZ * curZ;
+    while(count < blocksPerIteration && currentRadius < (int) r + 1) {
+      double d = curX * curX + curY * curY + curZ * curZ;
       // inside the explosion?
       if(d <= rr) {
         BlockPos pos = new BlockPos(x + curX, y + curY, z + curZ);
@@ -173,8 +230,8 @@ public class Exploder {
     }
 
     if(world instanceof WorldServer) {
-      ((WorldServer) world).spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, true, pos.getX(), pos.getY(), pos.getZ(), 2, 0,0,0, 0d);
-      ((WorldServer) world).spawnParticle(EnumParticleTypes.SMOKE_LARGE, true, pos.getX(), pos.getY(), pos.getZ(), 1, 0,0,0, 0d);
+      ((WorldServer) world).spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, true, pos.getX(), pos.getY(), pos.getZ(), 2, 0, 0, 0, 0d);
+      ((WorldServer) world).spawnParticle(EnumParticleTypes.SMOKE_LARGE, true, pos.getX(), pos.getY(), pos.getZ(), 1, 0, 0, 0, 0d);
     }
 
     block.onBlockExploded(world, pos, explosion);
