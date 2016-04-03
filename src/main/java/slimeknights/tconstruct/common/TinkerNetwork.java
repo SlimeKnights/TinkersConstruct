@@ -92,7 +92,7 @@ public class TinkerNetwork extends NetworkWrapper {
           continue;
         }
         EntityPlayerMP playerMP = (EntityPlayerMP) player;
-        if(world.getPlayerChunkManager().isPlayerWatchingChunk(playerMP, chunk.xPosition, chunk.zPosition)) {
+        if(world.getPlayerChunkMap().isPlayerWatchingChunk(playerMP, chunk.xPosition, chunk.zPosition)) {
           TinkerNetwork.sendTo(packet, playerMP);
         }
       }

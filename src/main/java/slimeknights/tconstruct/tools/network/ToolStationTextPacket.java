@@ -42,7 +42,7 @@ public class ToolStationTextPacket extends AbstractPacketThreadsafe {
       ((ContainerToolStation) container).setToolName(text);
 
       // find all people who also have the same gui open and update them too
-      WorldServer server = netHandler.playerEntity.getServerForPlayer();
+      WorldServer server = netHandler.playerEntity.getServerWorld();
       for(EntityPlayer player : server.playerEntities) {
         if(player.openContainer instanceof ContainerToolStation) {
           if(((ContainerToolStation) container).sameGui((ContainerToolStation) player.openContainer)) {

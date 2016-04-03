@@ -210,7 +210,7 @@ public class FindBestTool extends CommandBase {
       text.append(" Dmg: ");
       text.append((Float)foo.getRight()[2] * tool.damagePotential());
 
-      sender.addChatMessage(foo.getLeft().getChatComponent().appendSibling(new TextComponentString(text.toString())));
+      sender.addChatMessage(foo.getLeft().getTextComponent().appendSibling(new TextComponentString(text.toString())));
       //System.out.println(text.toString());
     }
 
@@ -226,7 +226,7 @@ public class FindBestTool extends CommandBase {
         text.append(mat.getIdentifier());
         text.append(" ");
       }
-      sender.addChatMessage(foo.getLeft().getChatComponent().appendSibling(new TextComponentString(text.toString())));
+      sender.addChatMessage(foo.getLeft().getTextComponent().appendSibling(new TextComponentString(text.toString())));
     }
 
     sender.addChatMessage(new TextComponentString("Top 5 Speed:"));
@@ -241,7 +241,7 @@ public class FindBestTool extends CommandBase {
         text.append(mat.getIdentifier());
         text.append(" ");
       }
-      sender.addChatMessage(foo.getLeft().getChatComponent().appendSibling(new TextComponentString(text.toString())));
+      sender.addChatMessage(foo.getLeft().getTextComponent().appendSibling(new TextComponentString(text.toString())));
     }
 
     sender.addChatMessage(new TextComponentString("Top 5 Attack:"));
@@ -256,7 +256,7 @@ public class FindBestTool extends CommandBase {
         text.append(mat.getIdentifier());
         text.append(" ");
       }
-      sender.addChatMessage(foo.getLeft().getChatComponent().appendSibling(new TextComponentString(text.toString())));
+      sender.addChatMessage(foo.getLeft().getTextComponent().appendSibling(new TextComponentString(text.toString())));
     }
   }
 

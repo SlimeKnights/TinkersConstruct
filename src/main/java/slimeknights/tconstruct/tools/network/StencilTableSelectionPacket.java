@@ -48,7 +48,7 @@ public class StencilTableSelectionPacket extends AbstractPacketThreadsafe {
       ((ContainerStencilTable) container).setOutput(output);
 
       // find all people who also have the same gui open and update them too
-      WorldServer server = netHandler.playerEntity.getServerForPlayer();
+      WorldServer server = netHandler.playerEntity.getServerWorld();
       for(EntityPlayer player : server.playerEntities) {
         if(player == netHandler.playerEntity)
           continue;
