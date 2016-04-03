@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.gadgets.Exploder;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.item.ItemThrowball;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -40,7 +41,7 @@ public class EntityThrowball extends EntityThrowable implements IEntityAdditiona
         placeGlow(result);
         break;
       case EFLN:
-        explode(5f);
+        explode(6f);
         break;
     }
 
@@ -64,7 +65,8 @@ public class EntityThrowball extends EntityThrowable implements IEntityAdditiona
 
   protected void explode(float strength) {
     if(!worldObj.isRemote) {
-      TinkerGadgets.proxy.customExplosion(worldObj, new ExplosionEFLN(worldObj, this, posX, posY, posZ, strength, false, false));
+      //TinkerGadgets.proxy.customExplosion(worldObj, new ExplosionEFLN(worldObj, this, posX, posY, posZ, strength, false, false));
+      Exploder.startExplosion(worldObj, new ExplosionEFLN(worldObj, this, posX, posY, posZ, strength, false, false), this, new BlockPos(posX, posY, posZ), strength, strength);
     }
   }
 
