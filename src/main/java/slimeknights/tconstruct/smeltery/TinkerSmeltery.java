@@ -115,9 +115,9 @@ public class TinkerSmeltery extends TinkerPulse {
   public void preInit(FMLPreInitializationEvent event) {
     searedBlock = registerEnumBlock(new BlockSeared(), "seared");
     smelteryController = registerBlock(new BlockSmelteryController(), "smeltery_controller");
-    searedTank = registerBlock(new BlockTank(), ItemTank.class, "seared_tank");
+    searedTank = registerBlock(new ItemTank(new BlockTank()), "seared_tank");
     faucet = registerBlock(new BlockFaucet(), "faucet");
-    castingBlock = registerBlock(new BlockCasting(), ItemBlockMeta.class, "casting");
+    castingBlock = registerBlock(new ItemBlockMeta(new BlockCasting()), "casting");
     smelteryIO = registerEnumBlock(new BlockSmelteryIO(), "smeltery_io");
 
     ItemBlockMeta.setMappingProperty(searedTank, BlockTank.TYPE);

@@ -74,30 +74,23 @@ public class TinkerWorld extends TinkerPulse {
   // PRE-INITIALIZATION
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
-    slimeBlock = registerBlock(new BlockSlime(), ItemBlockMeta.class, "slime");
-    slimeBlockCongealed = registerBlock(new BlockSlimeCongealed(), ItemBlockMeta.class, "slime_congealed");
+    slimeBlock = registerBlock(new BlockSlime(), "slime", BlockSlime.TYPE);
+    slimeBlockCongealed = registerBlock(new BlockSlimeCongealed(), "slime_congealed", BlockSlime.TYPE);
 
     slimeDirt = registerEnumBlock(new BlockSlimeDirt(), "slime_dirt");
-    slimeGrass = registerBlock(new BlockSlimeGrass(), ItemBlockMeta.class, "slime_grass");
-    slimeLeaves = registerBlock(new BlockSlimeLeaves(), ItemBlockLeaves.class, "slime_leaves");
-    slimeGrassTall = registerBlock(new BlockTallSlimeGrass(), ItemBlockMeta.class, "slime_grass_tall");
-    slimeSapling = registerBlock(new BlockSlimeSapling(), ItemBlockMeta.class, "slime_sapling");
-
-    slimeVineBlue3 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.BLUE, null), ItemBlockMeta.class, "slime_vine_blue_end");
-    slimeVineBlue2 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.BLUE, slimeVineBlue3), ItemBlockMeta.class, "slime_vine_blue_mid");
-    slimeVineBlue1 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.BLUE, slimeVineBlue2), ItemBlockMeta.class, "slime_vine_blue");
-
-    slimeVinePurple3 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.PURPLE, null), ItemBlockMeta.class, "slime_vine_purple_end");
-    slimeVinePurple2 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.PURPLE, slimeVinePurple3), ItemBlockMeta.class, "slime_vine_purple_mid");
-    slimeVinePurple1 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.PURPLE, slimeVinePurple2), ItemBlockMeta.class, "slime_vine_purple");
-
-    ItemBlockMeta.setMappingProperty(slimeBlock, BlockSlime.TYPE);
-    ItemBlockMeta.setMappingProperty(slimeBlockCongealed, BlockSlime.TYPE);
-    ItemBlockMeta.setMappingProperty(slimeGrass, BlockSlimeGrass.TYPE);
+    slimeGrass = registerBlock(new BlockSlimeGrass(), "slime_grass", BlockSlimeGrass.TYPE);
+    slimeLeaves = registerBlock(new ItemBlockLeaves(new BlockSlimeLeaves()), "slime_leaves");
     ItemBlockMeta.setMappingProperty(slimeLeaves, BlockSlimeGrass.FOLIAGE);
-    ItemBlockMeta.setMappingProperty(slimeGrassTall, BlockTallSlimeGrass.TYPE);
-    ItemBlockMeta.setMappingProperty(slimeSapling, BlockSlimeGrass.FOLIAGE);
+    slimeGrassTall = registerBlock(new BlockTallSlimeGrass(), "slime_grass_tall", BlockTallSlimeGrass.TYPE);
+    slimeSapling = registerBlock(new BlockSlimeSapling(), "slime_sapling", BlockSlimeGrass.FOLIAGE);
 
+    slimeVineBlue3 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.BLUE, null), "slime_vine_blue_end");
+    slimeVineBlue2 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.BLUE, slimeVineBlue3), "slime_vine_blue_mid");
+    slimeVineBlue1 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.BLUE, slimeVineBlue2), "slime_vine_blue");
+
+    slimeVinePurple3 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.PURPLE, null), "slime_vine_purple_end");
+    slimeVinePurple2 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.PURPLE, slimeVinePurple3), "slime_vine_purple_mid");
+    slimeVinePurple1 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.PURPLE, slimeVinePurple2), "slime_vine_purple");
 
     EntityRegistry.registerModEntity(EntityBlueSlime.class, "blueslime", EntityIDs.BLUESLIME, TConstruct.instance, 64, 5, true, 0x47eff5, 0xacfff4);
     //EntitySpawnPlacementRegistry.setPlacementType(EntityBlueSlime.class, EntityLiving.SpawnPlacementType.IN_WATER);

@@ -192,8 +192,8 @@ public class TinkerTools extends TinkerPulse {
     registerModifiers();
 
     // register blocks
-    toolTables = registerBlock(new BlockToolTable(), ItemBlockTable.class, "tooltables");
-    toolForge = registerBlock(new BlockToolForge(), ItemBlockTable.class, "toolforge");
+    toolTables = registerBlock(new ItemBlockTable(new BlockToolTable()), "tooltables");
+    toolForge = registerBlock(new ItemBlockTable(new BlockToolForge()), "toolforge");
 
     ItemBlockMeta.setMappingProperty(toolTables, BlockToolTable.TABLES);
 

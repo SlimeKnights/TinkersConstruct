@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.common;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.IForgeRegistryEntry;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Locale;
@@ -55,34 +57,52 @@ public abstract class TinkerPulse {
 
     item.setUnlocalizedName(Util.prefix(name));
     item.setRegistryName(Util.getResource(name));
-    GameRegistry.registerItem(item, name);
+    GameRegistry.register(item);
     return item;
   }
 
   protected static <T extends Block> T registerBlock(T block, String name) {
-    block.setUnlocalizedName(Util.prefix(name));
-    block.setRegistryName(Util.getResource(name));
-    GameRegistry.registerBlock(block, Util.resource(name));
+    ItemBlock itemBlock = new ItemBlock(block);
+    registerBlock(block, itemBlock, name);
     return block;
   }
 
   protected static <T extends EnumBlock<?>> T registerEnumBlock(T block, String name) {
-    registerBlock(block, ItemBlockMeta.class, name);
+    registerBlock(block, new ItemBlockMeta(block), name);
     ItemBlockMeta.setMappingProperty(block, block.prop);
     return block;
   }
 
-  protected static <T extends Block> T registerBlock(T block,
-                                                     Class<? extends ItemBlock> itemBlockClazz,
-                                                     String name, Object... itemCtorArgs) {
+  protected static <T extends Block> T registerBlock(ItemBlock itemBlock, String name) {
+    Block block = itemBlock.getBlock();
+    return (T)registerBlock(block, itemBlock, name);
+  }
+
+  protected static <T extends Block> T registerBlock(T block, String name, IProperty<?> property) {
+    ItemBlockMeta itemBlock = new ItemBlockMeta(block);
+    registerBlock(block, itemBlock, name);
+    ItemBlockMeta.setMappingProperty(block, property);
+    return block;
+  }
+
+  protected static <T extends Block> T registerBlock(T block, ItemBlock itemBlock, String name) {
     if(!name.equals(name.toLowerCase(Locale.US))) {
       throw new IllegalArgumentException(String.format("Unlocalized names need to be all lowercase! Block: %s", name));
     }
 
-    block.setUnlocalizedName(Util.prefix(name));
-    block.setRegistryName(Util.getResource(name));
-    GameRegistry.registerBlock(block, itemBlockClazz, name, itemCtorArgs);
+    String prefixedName = Util.prefix(name);
+    block.setUnlocalizedName(prefixedName);
+    itemBlock.setUnlocalizedName(prefixedName);
+
+    register(block, name);
+    register(itemBlock, name);
     return block;
+  }
+
+  protected static <T extends IForgeRegistryEntry<?>> T register(T thing, String name) {
+    thing.setRegistryName(Util.getResource(name));
+    GameRegistry.register(thing);
+    return thing;
   }
 
   protected static void registerTE(Class<? extends TileEntity> teClazz, String name) {
