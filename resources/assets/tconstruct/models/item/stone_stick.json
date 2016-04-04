@@ -1,5 +1,5 @@
 {
-"parent": "tconstruct:item/defaultitem",
+    "parent": "item/handheld",
     "textures": {
         "layer0": "tconstruct:items/materials/stone_rod"
     }

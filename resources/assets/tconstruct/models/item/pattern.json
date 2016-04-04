@@ -1,5 +1,5 @@
 {
-    "parent": "tconstruct:item/defaultitem",
+    "parent": "item/generated",
     "textures": {
         "layer0": "tconstruct:items/pattern"
     }
