@@ -46,6 +46,7 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
@@ -483,7 +484,21 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-    return !ItemStack.areItemStacksEqual(oldStack, newStack) || slotChanged;
+    if(slotChanged) return true;
+
+    if(oldStack.getItem() == newStack.getItem() && newStack.getItem() instanceof ToolCore) {
+      NBTTagCompound oldTag = (NBTTagCompound) TagUtil.getTagSafe(oldStack).copy();
+      NBTTagCompound newTag = (NBTTagCompound) TagUtil.getTagSafe(newStack).copy();
+
+      oldTag.removeTag(Tags.TOOL_DATA);
+      oldTag.removeTag(Tags.TOOL_MODIFIERS);
+      oldTag.removeTag(Tags.TINKER_EXTRA);
+      newTag.removeTag(Tags.TOOL_DATA);
+      newTag.removeTag(Tags.TOOL_MODIFIERS);
+      newTag.removeTag(Tags.TINKER_EXTRA);
+      return !oldTag.equals(newTag);
+    }
+    return !ItemStack.areItemStacksEqual(oldStack, newStack);
   }
 
   /**
