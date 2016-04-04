@@ -54,6 +54,9 @@ public class EntityThrowball extends EntityThrowable implements IEntityAdditiona
   private void placeGlow(RayTraceResult result) {
     if(!worldObj.isRemote) {
       BlockPos pos = result.getBlockPos();
+      if(pos == null && result.entityHit != null) {
+        pos = result.entityHit.getPosition();
+      }
       EnumFacing facing = EnumFacing.DOWN;
       if(result.typeOfHit == RayTraceResult.Type.BLOCK) {
         pos = pos.offset(result.sideHit);
@@ -72,6 +75,9 @@ public class EntityThrowball extends EntityThrowable implements IEntityAdditiona
 
   @Override
   public void writeSpawnData(ByteBuf buffer) {
+    if(type == null) {
+      type = ItemThrowball.ThrowballType.GLOW;
+    }
     buffer.writeInt(type.ordinal());
   }
 
