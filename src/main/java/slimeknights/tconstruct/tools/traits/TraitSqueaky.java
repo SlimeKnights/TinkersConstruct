@@ -2,9 +2,11 @@ package slimeknights.tconstruct.tools.traits;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 
 import slimeknights.tconstruct.common.Sounds;
@@ -33,7 +35,6 @@ public class TraitSqueaky extends AbstractTrait {
 
   @Override
   public void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
-    // 1.9
-    //player.worldObj.playSound(player, Sounds.toy_squeak, 1.0f, 0.8f + 0.4f * random.nextFloat());
+    Sounds.playSoundForAll(player, Sounds.toy_squeak,  1.0f, 0.8f + 0.4f * random.nextFloat());
   }
 }

@@ -2,61 +2,61 @@
    "frypan_hit": {
      "category": "player",
      "sounds": [
-       "frypan_hit"
+       "tconstruct:frypan_hit"
      ]
    },
    "toy_squeak": {
      "category": "player",
      "sounds": [
-       "toy_squeak"
+       "tconstruct:toy_squeak"
      ]
    },
    "little_saw": {
      "category": "player",
      "sounds": [
-       "little_saw"
+       "tconstruct:little_saw"
      ]
    },
    "slimesling": {
     "category": "player",
     "sounds": [
-      "slimesling"
+      "tconstruct:slimesling"
     ]
    },
    "woodHit": {
      "category": "block",
      "sounds": [
-       "woodHit1",
-	   "woodHit2",
-	   "woodHit3",
-	   "woodHit4",
-	   "woodHit5"
+       "tconstruct:woodHit1",
+	   "tconstruct:woodHit2",
+	   "tconstruct:woodHit3",
+	   "tconstruct:woodHit4",
+	   "tconstruct:woodHit5"
      ]
    },
    "stoneHit": {
      "category": "block",
      "sounds": [
-       "stoneHit1",
-	   "stoneHit2",
-	   "stoneHit3"
+       "tconstruct:stoneHit1",
+	   "tconstruct:stoneHit2",
+	   "tconstruct:stoneHit3"
      ]
    },
    "crossbowReload": {
 	"category": "player",
 	"sounds": [
-		"crossbowReload"
+		"tconstruct:crossbowReload"
 	]
    },
    "charged": {
     "category": "player",
 	"sounds": [
-		"charged"
+		"tconstruct:charged"
 	]
    },
    "discharge": {
     "category": "player",
 	"sounds": [
-		"discharge"
+		"tconstruct:discharge"
 	]
    }
 }

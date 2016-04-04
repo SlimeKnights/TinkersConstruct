@@ -2,7 +2,9 @@ package slimeknights.tconstruct.tools.traits;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.FoodStats;
 import net.minecraft.world.World;
@@ -56,8 +58,7 @@ public class TraitTasty extends AbstractTrait {
     }
 
     player.getFoodStats().addStats(1, 0);
-    // 1.9
-    //player.worldObj.playSound(player, Sounds.nom, 0.8f, 1.0f);
+    player.worldObj.playSound(null, player.getPosition(), SoundEvents.entity_generic_eat, SoundCategory.PLAYERS, 0.8f, 1.0f);
     ToolHelper.damageTool(tool, NOM_COST, player);
   }
 }

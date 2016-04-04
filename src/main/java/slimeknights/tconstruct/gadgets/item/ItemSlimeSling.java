@@ -81,10 +81,8 @@ public class ItemSlimeSling extends Item {
         TinkerNetwork.sendTo(new EntityMovementChangePacket(player), playerMP);
         //playerMP.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(player));
       }
-      //1.9
-      //player.playSound(Sounds.slimesling, 1f, 1f);
+      player.playSound(Sounds.slimesling, 1f, 1f);
       SlimeBounceHandler.addBounceHandler(player);
-      //TinkerCommons.potionSlimeBounce.apply(player);
     }
   }
 }

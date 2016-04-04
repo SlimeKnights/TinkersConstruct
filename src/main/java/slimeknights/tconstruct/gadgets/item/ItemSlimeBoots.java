@@ -79,15 +79,8 @@ public class ItemSlimeBoots extends ItemArmor {
       else {
         event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
       }
-      // 1.9
-      //entity.playSound(Sounds.slime_small, 1f, 1f);
+      entity.playSound(SoundEvents.entity_slime_squish, 1f, 1f);
       SlimeBounceHandler.addBounceHandler(entity, entity.motionY);
-/*
-      if(entity instanceof EntityPlayerMP) {
-        ((EntityPlayerMP) entity).playerNetServerHandler
-            .sendPacket(new S12PacketEntityVelocity(entity));
-      }
-      TinkerCommons.potionSlimeBounce.apply(entity, entity.motionY);*/
     }
     else if(!entity.worldObj.isRemote && entity.isSneaking()){
       event.setDamageMultiplier(0.1f);

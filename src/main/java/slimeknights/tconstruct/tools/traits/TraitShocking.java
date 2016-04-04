@@ -30,8 +30,7 @@ public class TraitShocking extends AbstractTrait {
     if(data.charge >= 100f) {
       if(attackEntitySecondary(new EntityDamageSource("lightningBolt", player), 5f, target, false, true, false)) {
         if(player instanceof EntityPlayerMP) {
-          // 1.9
-          //((EntityPlayerMP) player).worldObj.playSoundEffect(player.posX, player.posY, player.posZ, Sounds.shocking_discharge, 2f, 1f);
+          Sounds.playSoundForAll(player, Sounds.shocking_discharge, 2f, 1f);
         }
         data.charge = 0;
 
@@ -80,8 +79,7 @@ public class TraitShocking extends AbstractTrait {
       TagUtil.setEnchantEffect(tool, true);
       // send only to the player that is charged
       if(entity instanceof EntityPlayerMP) {
-        // 1.9
-        //((EntityPlayerMP) entity).playerNetServerHandler.sendPacket(new SPacketSoundEffect(Sounds.shocking_charged, entity.posX, entity.posY, entity.posZ, 1f, 0.8f + 0.2f * random.nextFloat()));
+        Sounds.PlaySoundForPlayer(entity, Sounds.shocking_charged, 1f,  0.8f + 0.2f * random.nextFloat());
       }
     }
 

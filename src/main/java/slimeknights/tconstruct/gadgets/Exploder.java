@@ -8,15 +8,15 @@ import gnu.trove.procedure.TObjectIntProcedure;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.server.SPacketExplosion;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -35,6 +35,7 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 
@@ -80,6 +81,7 @@ public class Exploder {
   public static void startExplosion(World world, Explosion explosion, Entity entity, BlockPos location, double r, double explosionStrength) {
     Exploder exploder = new Exploder(world, explosion, entity, location, r, explosionStrength, Math.max(50, (int) (r * r * r / 10d)));
     exploder.handleEntities();
+    world.playSound(null, location, SoundEvents.entity_generic_explode, SoundCategory.BLOCKS, 4.0F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
     MinecraftForge.EVENT_BUS.register(exploder);
   }
 

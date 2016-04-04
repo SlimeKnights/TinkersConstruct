@@ -15,6 +15,8 @@ import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.RayTraceResult;
@@ -100,8 +102,7 @@ public class FryPan extends ToolCore {
       player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).applyModifier(old);
       if(flamingStrike) entity.extinguish();
 
-      // 1.9
-      //player.worldObj.playSoundAtEntity(player, Sounds.frypan_boing, 1.5f, 0.6f + 0.2f * TConstruct.random.nextFloat());
+      world.playSound(null, player.getPosition(), Sounds.frypan_boing, SoundCategory.PLAYERS, 1.5f, 0.6f + 0.2f * TConstruct.random.nextFloat());
       entity.addVelocity(x,y,z);
       if(entity instanceof EntityPlayerMP) {
         ((EntityPlayerMP)entity).playerNetServerHandler.sendPacket(new SPacketEntityVelocity(entity));
@@ -112,9 +113,8 @@ public class FryPan extends ToolCore {
   @Override
   public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
     boolean hit = super.dealDamage(stack, player, entity, damage);
-    if(hit) {
-      // 1.9
-      //player.worldObj.playSoundAtEntity(player, Sounds.frypan_boing, 1.2f, 0.8f + 0.4f * TConstruct.random.nextFloat());
+    if(hit || player.worldObj.isRemote) {
+      player.playSound(Sounds.frypan_boing, 2f, 1f);
     }
     return hit;
   }
