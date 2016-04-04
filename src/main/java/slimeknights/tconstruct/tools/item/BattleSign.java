@@ -100,7 +100,7 @@ public class BattleSign extends BroadSword {
     }
 
     EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-    ItemStack battlesign = player.getHeldItemMainhand();
+    ItemStack battlesign = player.getActiveItemStack();
 
     // got hit by something: reduce damage
     int damage = event.getAmount() < 2f ? 1 : Math.round(event.getAmount() / 2f);
