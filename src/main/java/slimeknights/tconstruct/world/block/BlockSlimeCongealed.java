@@ -8,6 +8,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,6 +25,8 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.block.BlockSlime.SlimeType;
 
 public class BlockSlimeCongealed extends Block {
+
+  private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.625D, 1.0D);
 
   public BlockSlimeCongealed() {
     super(Material.sponge);
@@ -63,28 +66,20 @@ public class BlockSlimeCongealed extends Block {
     return getMetaFromState(state);
   }
 
-  // 1.9
-  public AxisAlignedBB getCollisionBoundingBox(World worldIn, BlockPos pos, IBlockState state) {
-    return new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(),
-                                    pos.getX() + 1.0D, pos.getY() + 0.625D, pos.getZ() + 1.0D);
+  @Override
+  public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
+    return AABB;
   }
 
   @Override
   public void onLanded(World world, Entity entity) {
-    if(!(entity instanceof EntityLiving) && !(entity instanceof EntityItem)) {
+    if(!(entity instanceof EntityLivingBase) && !(entity instanceof EntityItem)) {
+      // this is mostly needed to prevent XP orbs from bouncing. which completely breaks the game.
       return;
     }
     if (entity.motionY < 0)
     {
-      if (entity.motionY < -0.08F)
-      {
-        //world.playSoundEffect(entity.posX, entity.posY, entity.posZ, stepSound.getStepSound(),
-          //                    stepSound.getVolume() / 2.0F, stepSound.getFrequency() * 0.65F);
-      }
       entity.motionY *= -1.2F;
-      if(entity instanceof EntityLiving) {
-        //TinkerCommons.potionSlimeBounce.apply((EntityLivingBase) entity);
-      }
       if(entity instanceof EntityItem) {
         entity.onGround = false;
       }
