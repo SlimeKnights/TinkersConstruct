@@ -6,6 +6,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.IStringSerializable;
@@ -50,6 +51,15 @@ public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta & IString
 
   @Override
   public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+    // todo: fix this once vanilla redstone doesn't fire neighbor update events to all neighbors of neighbors anymore
+    if(neighborBlock == Blocks.redstone_wire
+       || neighborBlock == Blocks.powered_repeater
+       || neighborBlock == Blocks.unpowered_repeater
+       || neighborBlock == Blocks.powered_comparator
+       || neighborBlock == Blocks.unpowered_comparator
+       || neighborBlock == Blocks.redstone_torch) {
+      return;
+    }
     TileEntity te = worldIn.getTileEntity(pos);
     if(te instanceof TileSmelteryComponent) {
       ((TileSmelteryComponent) te).notifyMasterOfChange();
