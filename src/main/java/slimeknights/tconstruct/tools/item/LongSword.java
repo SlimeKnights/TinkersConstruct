@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.item;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,16 +17,22 @@ import net.minecraft.world.World;
 import java.util.List;
 
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class LongSword extends BroadSword {
+import static slimeknights.tconstruct.tools.item.BroadSword.effective_materials;
+
+public class LongSword extends ToolCore {
 
   public LongSword() {
     super(PartMaterialType.handle(TinkerTools.toolRod),
           PartMaterialType.head(TinkerTools.swordBlade),
           PartMaterialType.extra(TinkerTools.handGuard));
+
+    addCategory(Category.WEAPON);
   }
 
   @Override
@@ -44,12 +51,13 @@ public class LongSword extends BroadSword {
   }
 
   @Override
-  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
-    // no sweep attack for you
-    if(player instanceof EntityPlayer) {
-      return entity.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) player), damage);
-    }
-    return entity.attackEntityFrom(DamageSource.causeMobDamage(player), damage);
+  public float miningSpeedModifier() {
+    return 0.5f;
+  }
+
+  @Override
+  public boolean isEffective(IBlockState block) {
+    return effective_materials.contains(block.getMaterial());
   }
 
   @Override

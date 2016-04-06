@@ -1,13 +1,9 @@
 package slimeknights.tconstruct.tools.item;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -17,21 +13,28 @@ import java.util.List;
 
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
-import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
+import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class Cleaver extends BroadSword {
+import static slimeknights.tconstruct.tools.item.BroadSword.effective_materials;
+
+public class Cleaver extends ToolCore {
 
   public Cleaver() {
     super(PartMaterialType.handle(TinkerTools.toughToolRod),
           PartMaterialType.head(TinkerTools.largeSwordBlade),
           PartMaterialType.head(TinkerTools.largePlate),
           PartMaterialType.extra(TinkerTools.toughToolRod));
+
+    addCategory(Category.WEAPON);
   }
 
+  // no offhand for you
   @Override
   public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
     return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);
@@ -48,29 +51,23 @@ public class Cleaver extends BroadSword {
   }
 
   @Override
-  public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-    target.hurtResistantTime += 12;
-    target.hurtTime += 12;
-    return super.hitEntity(stack, target, attacker);
-  }
-
-  @Override
-  public void onUpdate(ItemStack stack, World worldIn, Entity entity, int itemSlot, boolean isSelected) {
-    super.onUpdate(stack, worldIn, entity, itemSlot, isSelected);
-    if (entity instanceof EntityPlayer)
-    {
-      EntityPlayer player = (EntityPlayer) entity;
-      ItemStack equipped = player.getHeldItemMainhand();
-      if (equipped == stack)
-      {
-        player.addPotionEffect(new PotionEffect(MobEffects.digSlowdown, 2, 2, true, false));
-      }
-    }
+  public float damageCutoff() {
+    return 25f;
   }
 
   @Override
   public int[] getRepairParts() {
     return new int[] {1,2};
+  }
+
+  @Override
+  public boolean isEffective(IBlockState block) {
+    return effective_materials.contains(block.getMaterial());
+  }
+
+  @Override
+  public float miningSpeedModifier() {
+    return 0.2f;
   }
 
   @Override
