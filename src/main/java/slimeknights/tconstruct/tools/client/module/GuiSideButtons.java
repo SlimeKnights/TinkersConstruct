@@ -15,6 +15,7 @@ public class GuiSideButtons extends GuiModule {
 
   private final int columns;
   private GuiButton clickedButton;
+  protected int buttonCount = 0;
 
   public int spacing = 4;
 
@@ -28,14 +29,12 @@ public class GuiSideButtons extends GuiModule {
   }
 
   public void addButton(GuiButton button) {
-    int count = buttonList.size();
-
-    int rows = (count-1)/columns + 1;
+    int rows = (buttonCount-1)/columns + 1;
 
     this.xSize = button.width*columns + spacing * (columns-1);
     this.ySize = button.height * rows + spacing * (rows - 1);
 
-    int offset = buttonList.size();
+    int offset = buttonCount;
     int x = (offset % columns) * (button.width + spacing);
     int y = (offset / columns) * (button.height + spacing);
 
@@ -47,6 +46,7 @@ public class GuiSideButtons extends GuiModule {
     }
 
     this.buttonList.add(button);
+    this.buttonCount++;
   }
 
   @Override

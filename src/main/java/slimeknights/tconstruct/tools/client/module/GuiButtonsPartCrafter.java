@@ -66,6 +66,7 @@ public class GuiButtonsPartCrafter extends GuiSideButtons {
     }
 
     buttonList.clear();
+    buttonCount = 0;
     for(ItemStack stencil : patterns) {
       Item part = Pattern.getPartFromTag(stencil);
       if(part == null || !(part instanceof MaterialItem)) {
@@ -83,10 +84,11 @@ public class GuiButtonsPartCrafter extends GuiSideButtons {
 
   @Override
   protected void actionPerformed(GuiButton button) throws IOException {
-    @SuppressWarnings("unchecked")
-    ItemStack pattern = ((GuiButtonItem<ItemStack>) button).data;
+    if(button instanceof GuiButtonItem) {
+      ItemStack pattern = ((GuiButtonItem<ItemStack>) button).data;
 
-    TinkerNetwork.sendToServer(new PartCrafterSelectionPacket(pattern));
+      TinkerNetwork.sendToServer(new PartCrafterSelectionPacket(pattern));
+    }
   }
 
   protected void shiftButton(GuiButtonItem<ItemStack> button, int xd, int yd) {

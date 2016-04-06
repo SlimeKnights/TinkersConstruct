@@ -34,6 +34,7 @@ public class GuiButtonsToolStation extends GuiSideButtons {
     super.updatePosition(parentX, parentY, parentSizeX, parentSizeY);
 
     int index = 0;
+    buttonCount = 0;
 
     {
       GuiButtonItem<ToolBuildGuiInfo> button = new GuiButtonRepair(index++, -1, -1);
@@ -73,12 +74,16 @@ public class GuiButtonsToolStation extends GuiSideButtons {
   @SuppressWarnings("unchecked")
   protected void actionPerformed(GuiButton button) throws IOException {
     for(Object o : buttonList) {
-      ((GuiButtonItem<ToolBuildGuiInfo>) o).pressed = false;
+      if(o instanceof GuiButtonItem) {
+        ((GuiButtonItem<ToolBuildGuiInfo>) o).pressed = false;
+      }
     }
-    ((GuiButtonItem<ToolBuildGuiInfo>) button).pressed = true;
-    selected = button.id;
+    if(button instanceof GuiButtonItem) {
+      ((GuiButtonItem<ToolBuildGuiInfo>) button).pressed = true;
+      selected = button.id;
 
-    parent.onToolSelection(((GuiButtonItem<ToolBuildGuiInfo>) button).data);
+      parent.onToolSelection(((GuiButtonItem<ToolBuildGuiInfo>) button).data);
+    }
   }
 
   @SuppressWarnings("unchecked")

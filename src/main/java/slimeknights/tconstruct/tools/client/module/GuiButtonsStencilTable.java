@@ -11,7 +11,6 @@ import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
-import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.tools.client.GuiButtonItem;
 import slimeknights.tconstruct.tools.client.GuiStencilTable;
@@ -33,6 +32,7 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
 
     int index = 0;
 
+    buttonCount = 0;
     for(ItemStack stencil : TinkerRegistry.getStencilTableCrafting()) {
       Item part = Pattern.getPartFromTag(stencil);
       if(part == null || !(part instanceof MaterialItem)) {
@@ -65,17 +65,22 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
   @SuppressWarnings("unchecked")
   protected void actionPerformed(GuiButton button) throws IOException {
     for(Object o : buttonList) {
-      ((GuiButtonItem<ItemStack>) o).pressed = false;
+      if(o instanceof GuiButtonItem) {
+        ((GuiButtonItem<ItemStack>) o).pressed = false;
+      }
     }
-    ((GuiButtonItem<ItemStack>) button).pressed = true;
-    selected = button.id;
 
-    ContainerStencilTable container = ((ContainerStencilTable) parent.inventorySlots);
-    ItemStack output = ((GuiButtonItem<ItemStack>) button).data;
+    if(button instanceof GuiButtonItem) {
+      GuiButtonItem<ItemStack> buttonItem = (GuiButtonItem<ItemStack>) button;
+      buttonItem.pressed = true;
+      selected = button.id;
 
-    container.setOutput(output.copy());
+      ContainerStencilTable container = ((ContainerStencilTable) parent.inventorySlots);
+      ItemStack output = buttonItem.data;
+      container.setOutput(output.copy());
 
-    TinkerNetwork.sendToServer(new StencilTableSelectionPacket(output));
+      TinkerNetwork.sendToServer(new StencilTableSelectionPacket(output));
+    }
   }
 
   protected void shiftButton(GuiButtonItem<ItemStack> button, int xd, int yd) {
