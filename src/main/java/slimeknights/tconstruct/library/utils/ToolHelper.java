@@ -531,7 +531,7 @@ public final class ToolHelper {
       }
     }
 
-    // players base damage
+    // players base damage (includes tools damage stat)
     float baseDamage = (float)attacker.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 
     // missing because not supported by tcon tools: vanilla damage enchantments, we have our own modifiers
@@ -539,7 +539,6 @@ public final class ToolHelper {
     float baseKnockback = attacker.isSprinting() ? 1 : 0;
 
     // tool damage
-    baseDamage += ToolHelper.getAttackStat(stack);
     baseDamage *= tool.damagePotential();
 
     // calculate if it's a critical hit
@@ -577,6 +576,11 @@ public final class ToolHelper {
     double oldVelY = target.motionY;
     double oldVelZ = target.motionZ;
 
+    // apply cooldown damage decrease
+    if(player != null) {
+      float f2 = player.getCooledAttackStrength(0.5F);
+      damage *= (0.2F + f2 * f2 * 0.8F);
+    }
 
     int hurtResistantTime = target.hurtResistantTime;
     // deal the damage
@@ -666,6 +670,7 @@ public final class ToolHelper {
           int k = (int)(damageDealt * 0.5);
           ((WorldServer)player.worldObj).spawnParticle(EnumParticleTypes.DAMAGE_INDICATOR, targetEntity.posX, targetEntity.posY + (double)(targetEntity.height * 0.5F), targetEntity.posZ, k, 0.1D, 0.0D, 0.1D, 0.2D);
         }
+        player.resetCooldown();
       }
       else {
         tool.reduceDurabilityOnHit(stack, null, damage);
