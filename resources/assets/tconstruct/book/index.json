@@ -1,0 +1,46 @@
+[
+  {
+    "name": "intro",
+    "data": "sections/intro.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:tooltables",
+        "damage": 0
+      }
+    }
+  },
+  {
+    "name": "materials",
+    "icon": {
+      "item": {
+        "id": "minecraft:planks",
+        "damage": 0
+      }
+    }
+  },
+  {
+    "name": "tools",
+    "icon": {
+      "item": {
+        "id": "minecraft:iron_pickaxe"
+      }
+    }
+  },
+  {
+    "name": "modifiers",
+    "icon": {
+      "item": {
+        "id": "minecraft:redstone"
+      }
+    }
+  },
+  {
+    "name": "smeltery",
+    "data": "sections/smeltery.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:smeltery_controller"
+      }
+    }
+  }
+]

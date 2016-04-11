@@ -54,6 +54,8 @@ public class ToolPart extends MaterialItem implements IToolPart {
     }
   }
 
+
+  @Override
   public boolean canUseMaterial(Material mat) {
     for(ToolCore tool : TinkerRegistry.getTools()) {
       for(PartMaterialType pmt : tool.getRequiredComponents()) {
@@ -188,6 +190,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
     return ClientProxy.fontRenderer;
   }
 
+  @Override
   public boolean hasUseForStat(String stat) {
     for(ToolCore tool : TinkerRegistry.getTools()) {
       for(PartMaterialType pmt : tool.getRequiredComponents()) {

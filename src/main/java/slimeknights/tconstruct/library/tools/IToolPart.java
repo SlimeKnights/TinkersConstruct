@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools;
 
+import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
 /**
@@ -14,4 +15,11 @@ public interface IToolPart extends IMaterialItem {
    * etc.
    */
   int getCost();
+
+  /**
+   * Retruns true if the material can be used for this toolpart
+   */
+  boolean canUseMaterial(Material mat);
+
+  boolean hasUseForStat(String stat);
 }

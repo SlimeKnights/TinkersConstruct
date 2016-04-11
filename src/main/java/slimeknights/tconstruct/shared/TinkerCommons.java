@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.ItemBook;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -22,8 +23,10 @@ import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.item.ItemTinkerBook;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
 import slimeknights.tconstruct.shared.block.BlockGlow;
 import slimeknights.tconstruct.shared.block.BlockMetal;
@@ -73,10 +76,11 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack lavawood;
   public static ItemStack firewood;
 
+  // Items
+  public static ItemTinkerBook book;
   public static ItemMetaDynamic nuggets;
   public static ItemMetaDynamic ingots;
   public static ItemMetaDynamic materials;
-  //public static ItemMetaDynamic slimeballs;
   public static ItemEdible edibles;
 
   // Nugget Itemstacks
@@ -121,6 +125,8 @@ public class TinkerCommons extends TinkerPulse {
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
     boolean forced = Config.forceRegisterAll; // causes to always register all items
+
+    book = registerItem(new ItemTinkerBook(), "book");
 
     // Soils
     blockSoil = registerEnumBlock(new BlockSoil(), "soil");

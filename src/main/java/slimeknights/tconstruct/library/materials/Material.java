@@ -362,6 +362,10 @@ public class Material extends RecipeMatchRegistry {
     return null;
   }
 
+  public boolean hasItems() {
+    return !items.isEmpty();
+  }
+
   public String getLocalizedName() {
     return Util.translate(LOC_Name, getIdentifier());
   }

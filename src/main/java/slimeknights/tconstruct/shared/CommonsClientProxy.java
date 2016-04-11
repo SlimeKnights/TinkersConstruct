@@ -3,11 +3,13 @@ package slimeknights.tconstruct.shared;
 import net.minecraft.item.ItemStack;
 
 import slimeknights.tconstruct.common.ClientProxy;
+import slimeknights.tconstruct.library.book.TinkerBook;
 
 import static slimeknights.tconstruct.shared.TinkerCommons.blockFirewood;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockMetal;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockOre;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockSoil;
+import static slimeknights.tconstruct.shared.TinkerCommons.book;
 import static slimeknights.tconstruct.shared.TinkerCommons.edibles;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingots;
 import static slimeknights.tconstruct.shared.TinkerCommons.materials;
@@ -21,6 +23,9 @@ public class CommonsClientProxy extends ClientProxy {
     ingots.registerItemModels();
     materials.registerItemModels();
     edibles.registerItemModels();
+
+    registerItemModel(book, 0, "inventory");
+    TinkerBook.INSTANCE.equals(null);
 
     registerItemBlockMeta(blockMetal);
     registerItemBlockMeta(blockSoil);

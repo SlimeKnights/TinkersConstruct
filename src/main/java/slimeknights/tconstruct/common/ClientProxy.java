@@ -24,6 +24,7 @@ import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.client.CustomFontRenderer;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
@@ -66,18 +67,7 @@ public abstract class ClientProxy extends CommonProxy {
       fontRenderer.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
     }
     ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(fontRenderer);
-
-    try {
-      Class clazz = Class.forName("codechicken.lib.gui.GuiDraw");
-      Field field = clazz.getDeclaredField("fontRenderer");
-      field.set(null, fontRenderer);
-    } catch(ClassNotFoundException e) {
-      TConstruct.log.debug("Could not integrate FondRenderer with NEI");
-    } catch(NoSuchFieldException e) {
-      TConstruct.log.debug("Could not integrate FondRenderer with NEI");
-    } catch(IllegalAccessException e) {
-      TConstruct.log.debug("Could not integrate FondRenderer with NEI");
-    }
+    TinkerBook.INSTANCE.fontRenderer = fontRenderer;
   }
 
   protected ResourceLocation registerModel(Item item, String... customVariants) {
