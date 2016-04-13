@@ -39,7 +39,7 @@ public class TraitSharp extends AbstractTrait {
 
     int hurtResistantTime = target.hurtResistantTime;
     attackEntitySecondary(source, (level+1f)/3f, target, true, true);
-    target.hurtTime = hurtResistantTime;
+    target.hurtResistantTime = hurtResistantTime;
   }
 
 
