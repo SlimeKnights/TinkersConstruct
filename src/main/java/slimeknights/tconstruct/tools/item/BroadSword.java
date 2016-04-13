@@ -105,6 +105,7 @@ public class BroadSword extends ToolCore {
     ToolNBT data = buildDefaultTag(materials);
     // 2 base damage, like vanilla swords
     data.attack += 1f;
+    data.durability *= 1.1f;
     return data.get();
   }
 }

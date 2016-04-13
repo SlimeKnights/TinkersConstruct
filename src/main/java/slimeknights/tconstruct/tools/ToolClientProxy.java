@@ -164,7 +164,14 @@ public class ToolClientProxy extends ClientProxy {
     info.addSlotPosition(33+20-6, 42-20+5); // blade
     info.addSlotPosition(33-2-1, 42+2); // guard
     TinkerRegistryClient.addToolBuilding(info);
+
     // rapier
+    info = new ToolBuildGuiInfo(TinkerTools.rapier);
+    info.addSlotPosition(33-20-1, 42+20); // handle
+    info.addSlotPosition(33+20-6, 42-20+5); // blade
+    info.addSlotPosition(33-2-1, 42+2); // guard
+    TinkerRegistryClient.addToolBuilding(info);
+
     // dagger
 
     // battlesign

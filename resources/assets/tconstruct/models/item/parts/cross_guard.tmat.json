@@ -4,7 +4,7 @@
         "layer0": "tconstruct:items/rapier/guard"
     },
     "offset": {
-        "x": -3,
+        "x": 3,
         "y": -3
     }
 }

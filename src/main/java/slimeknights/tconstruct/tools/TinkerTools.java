@@ -60,6 +60,7 @@ import slimeknights.tconstruct.tools.item.LongSword;
 import slimeknights.tconstruct.tools.item.LumberAxe;
 import slimeknights.tconstruct.tools.item.Mattock;
 import slimeknights.tconstruct.tools.item.Pickaxe;
+import slimeknights.tconstruct.tools.item.Rapier;
 import slimeknights.tconstruct.tools.item.SharpeningKit;
 import slimeknights.tconstruct.tools.item.Shovel;
 import slimeknights.tconstruct.tools.modifiers.ModAntiMonsterType;
@@ -237,7 +238,7 @@ public class TinkerTools extends TinkerPulse {
 
     wideGuard = registerToolPart(new ToolPart(Material.VALUE_Ingot), "wide_guard");
     handGuard = registerToolPart(new ToolPart(Material.VALUE_Ingot), "hand_guard");
-    //crossGuard = registerToolPart(new ToolPart(Material.VALUE_Ingot), "cross_guard");
+    crossGuard = registerToolPart(new ToolPart(Material.VALUE_Ingot), "cross_guard");
 
     largePlate = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "large_plate");
   }
@@ -249,7 +250,7 @@ public class TinkerTools extends TinkerPulse {
     mattock = registerTool(new Mattock(), "mattock");
     broadSword = registerTool(new BroadSword(), "broadsword");
     longSword = registerTool(new LongSword(), "longsword");
-    // rapier
+    rapier = registerTool(new Rapier(), "rapier");
     // cutlass
     // dagger
     fryPan = registerTool(new FryPan(), "frypan");
@@ -342,6 +343,7 @@ public class TinkerTools extends TinkerPulse {
     TinkerRegistry.registerToolCrafting(mattock);
     TinkerRegistry.registerToolCrafting(broadSword);
     TinkerRegistry.registerToolCrafting(longSword);
+    TinkerRegistry.registerToolCrafting(rapier);
     TinkerRegistry.registerToolCrafting(fryPan);
     TinkerRegistry.registerToolCrafting(battleSign);
 

@@ -113,7 +113,7 @@ public class LongSword extends ToolCore {
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     ToolNBT data = buildDefaultTag(materials);
-    // a bit less base damage, but it has better scaling
+
     return data.get();
   }
 }
