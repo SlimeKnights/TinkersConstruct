@@ -5,6 +5,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 import slimeknights.tconstruct.tools.tileentity.TileTinkerChest;
 import slimeknights.tconstruct.tools.tileentity.TilePartChest;
@@ -17,7 +20,7 @@ public class ContainerPartChest extends ContainerTinkerStation<TilePartChest> {
     super(tile);
 
     // chest inventory. we have it as a module
-    inventory = new DynamicChestInventory(tile, tile, 8, 18, 8); // columns don't matter since they get set by gui
+    inventory = new DynamicChestInventory(tile, 8, 18, 8); // columns don't matter since they get set by gui
     this.addSubContainer(inventory, true);
 
     // player inventory
@@ -27,27 +30,27 @@ public class ContainerPartChest extends ContainerTinkerStation<TilePartChest> {
   // dynamic chest inventory as a module
   public static class DynamicChestInventory extends ContainerSideInventory<TilePartChest> {
 
-    public DynamicChestInventory(TilePartChest tile, IInventory inventory, int x, int y, int columns) {
-      super(tile, inventory, x, y, columns);
+    public DynamicChestInventory(TilePartChest tile, int x, int y, int columns) {
+      super(tile, x, y, columns);
 
       // add the theoretically possible slots
       while(this.inventorySlots.size() < TileTinkerChest.MAX_INVENTORY) {
-        this.addSlotToContainer(createSlot(inventory, this.inventorySlots.size(), 0,0));
+        this.addSlotToContainer(createSlot(itemHandler, this.inventorySlots.size(), 0,0));
       }
     }
 
     @Override
-    protected Slot createSlot(IInventory inventory, int index, int x, int y) {
+    protected Slot createSlot(IItemHandler itemHandler, int index, int x, int y) {
       return new PartSlot(tile, index, x, y);
     }
   }
 
   // slot that only accepts parts
-  public static class PartSlot extends Slot {
+  public static class PartSlot extends SlotItemHandler {
     private final TilePartChest tile;
 
     public PartSlot(TilePartChest tile, int index, int xPosition, int yPosition) {
-      super(tile, index, xPosition, yPosition);
+      super(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), index, xPosition, yPosition);
 
       this.tile = tile;
     }

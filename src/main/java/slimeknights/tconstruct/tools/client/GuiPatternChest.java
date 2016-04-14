@@ -25,7 +25,7 @@ public class GuiPatternChest extends GuiTinkerStation {
   public GuiScalingChest guiInventory;
 
   public GuiPatternChest(InventoryPlayer playerInv, World world, BlockPos pos, TilePatternChest tile) {
-    super(world, pos, (ContainerTinkerStation)tile.createContainer(playerInv, world, pos));
+    super(world, pos, (ContainerTinkerStation<TilePatternChest>)tile.createContainer(playerInv, world, pos));
 
     // we use the sideinventory class for the inventory itself
     // it doesn't contain the player inventory

@@ -5,6 +5,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 import slimeknights.tconstruct.library.smeltery.ICast;
 import slimeknights.tconstruct.library.tools.IPattern;
@@ -29,16 +31,16 @@ public class ContainerPatternChest extends ContainerTinkerStation<TilePatternChe
   public static class DynamicChestInventory extends ContainerSideInventory<TilePatternChest> {
 
     public DynamicChestInventory(TilePatternChest tile, IInventory inventory, int x, int y, int columns) {
-      super(tile, inventory, x, y, columns);
+      super(tile, x, y, columns);
 
       // add the theoretically possible slots
       while(this.inventorySlots.size() < TileTinkerChest.MAX_INVENTORY) {
-        this.addSlotToContainer(createSlot(inventory, this.inventorySlots.size(), 0,0));
+        this.addSlotToContainer(createSlot(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), this.inventorySlots.size(), 0, 0));
       }
     }
 
     @Override
-    protected Slot createSlot(IInventory inventory, int index, int x, int y) {
+    protected Slot createSlot(IItemHandler inventory, int index, int x, int y) {
       return new SlotPatternChest(tile, index, x, y);
     }
   }

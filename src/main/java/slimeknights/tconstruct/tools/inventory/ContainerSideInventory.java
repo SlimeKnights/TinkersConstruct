@@ -1,43 +1,45 @@
 package slimeknights.tconstruct.tools.inventory;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 import slimeknights.mantle.inventory.BaseContainer;
 
-public class ContainerSideInventory<T extends TileEntity & IInventory> extends BaseContainer<T> {
+public class ContainerSideInventory<T extends TileEntity> extends BaseContainer<T> {
   public final int columns;
   public final int slotCount;
 
-  public ContainerSideInventory(T tile, IInventory inventory, int x, int y, int columns) {
+  public ContainerSideInventory(T tile, int x, int y, int columns) {
     super(tile);
 
     this.columns = columns;
-    this.slotCount = inventory.getSizeInventory();
+    this.slotCount = itemHandler.getSlots();
 
-    int rows = inventory.getSizeInventory() / columns;
-    if(inventory.getSizeInventory() % columns != 0)
+    int rows = slotCount / columns;
+    if(slotCount % columns != 0) {
       rows++;
+    }
 
     int index = 0;
     for(int r = 0; r < rows; r++) {
       for(int c = 0; c < columns; c++) {
-        if(index >= inventory.getSizeInventory())
+        if(index >= slotCount)
           break;
-        this.addSlotToContainer(createSlot(inventory, index, x + c*18, y + r*18));
+        this.addSlotToContainer(createSlot(itemHandler, index, x + c*18, y + r*18));
         index++;
       }
     }
   }
 
-  protected Slot createSlot(IInventory inventory, int index, int x, int y) {
-    return new Slot(inventory, index, x, y);
+  protected Slot createSlot(IItemHandler itemHandler, int index, int x, int y) {
+    return new SlotItemHandler(itemHandler, index, x, y);
   }
 
   public int getSlotCount() { return slotCount; }
 
   public int getSizeInventory() {
-    return tile.getSizeInventory();
+    return itemHandler.getSlots();
   }
 }

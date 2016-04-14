@@ -18,7 +18,7 @@ public class ContainerSmeltery extends ContainerMultiModule<TileSmeltery> {
   public ContainerSmeltery(InventoryPlayer inventoryPlayer, TileSmeltery tile) {
     super(tile);
 
-    sideInventory = new ContainerSideInventory<TileSmeltery>(tile, tile, 0, 0, calcColumns());
+    sideInventory = new ContainerSideInventory<TileSmeltery>(tile, 0, 0, calcColumns());
     addSubContainer(sideInventory, true);
 
     addPlayerInventory(inventoryPlayer, 8, 84);
