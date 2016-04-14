@@ -91,7 +91,7 @@ public class Hatchet extends AoeToolCore {
     boolean hit = super.dealDamage(stack, player, entity, damage);
 
     // vanilla axe shieldbreak attack. See EntityPlayer#attackTargetEntityWithCurrentItem()
-    if(!player.worldObj.isRemote && entity instanceof EntityPlayer) {
+    if(hit &&  !ToolHelper.isBroken(stack) && !player.worldObj.isRemote && entity instanceof EntityPlayer) {
       EntityPlayer entityplayer = (EntityPlayer) entity;
       ItemStack itemstack2 = player.getHeldItemMainhand();
       ItemStack itemstack3 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : null;

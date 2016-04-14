@@ -84,7 +84,7 @@ public class LumberAxe extends AoeToolCore {
 
   @Override
   public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
-    if(ToolHelper.isToolEffective2(itemstack, player.worldObj.getBlockState(pos)) && detectTree(player.worldObj, pos)) {
+    if(!ToolHelper.isBroken(itemstack) && ToolHelper.isToolEffective2(itemstack, player.worldObj.getBlockState(pos)) && detectTree(player.worldObj, pos)) {
       return fellTree(itemstack, pos, player);
     }
     return super.onBlockStartBreak(itemstack, pos, player);

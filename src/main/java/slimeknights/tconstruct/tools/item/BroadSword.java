@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
+import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class BroadSword extends ToolCore {
@@ -73,7 +74,7 @@ public class BroadSword extends ToolCore {
     // deal damage first
     boolean hit = super.dealDamage(stack, player, entity, damage);
     // and then sweep
-    if(hit) {
+    if(hit && !ToolHelper.isBroken(stack)) {
       // sweep code from EntityPlayer#attackTargetEntityWithCurrentItem()
       // basically: no crit, no sprinting and has to stand on the ground for sweep. Also has to move regularly slowly
       double d0 = (double)(player.distanceWalkedModified - player.prevDistanceWalkedModified);
