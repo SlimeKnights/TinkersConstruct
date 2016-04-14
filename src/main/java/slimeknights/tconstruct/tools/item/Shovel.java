@@ -45,6 +45,11 @@ public class Shovel extends AoeToolCore {
   }
 
   @Override
+  public double attackSpeed() {
+    return 1f;
+  }
+
+  @Override
   public float damagePotential() {
     return 0.9f;
   }

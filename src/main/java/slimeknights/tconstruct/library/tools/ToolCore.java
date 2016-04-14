@@ -217,7 +217,7 @@ public abstract class ToolCore extends TinkersItem {
   public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
     Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
-    if (slot == EntityEquipmentSlot.MAINHAND)
+    if (slot == EntityEquipmentSlot.MAINHAND && !ToolHelper.isBroken(stack))
     {
       multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)ToolHelper.getActualAttack(stack), 0));
       multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", attackSpeed() - 4d, 0));

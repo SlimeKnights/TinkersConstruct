@@ -538,9 +538,6 @@ public final class ToolHelper {
     // missing because not supported by tcon tools: vanilla knockback enchantments, we have our own modifiers
     float baseKnockback = attacker.isSprinting() ? 1 : 0;
 
-    // tool damage
-    baseDamage *= tool.damagePotential();
-
     // calculate if it's a critical hit
     boolean isCritical = attacker.fallDistance > 0.0F && !attacker.onGround && !attacker.isOnLadder() && !attacker.isInWater() && !attacker.isPotionActive(MobEffects.blindness) && !attacker.isRiding();
     for(ITrait trait : traits) {

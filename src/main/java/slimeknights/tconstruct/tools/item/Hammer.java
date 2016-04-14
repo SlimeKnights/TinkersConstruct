@@ -52,6 +52,11 @@ public class Hammer extends Pickaxe {
   }
 
   @Override
+  public double attackSpeed() {
+    return 0.8f;
+  }
+
+  @Override
   public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
     // bonus damage vs. undead!
     if(entity.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {

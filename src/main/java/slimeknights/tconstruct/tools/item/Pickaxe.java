@@ -61,6 +61,11 @@ public class Pickaxe extends AoeToolCore {
   }
 
   @Override
+  public double attackSpeed() {
+    return 1.2f;
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     return buildDefaultTag(materials).get();
   }

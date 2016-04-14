@@ -96,6 +96,11 @@ public class Mattock extends AoeToolCore {
   }
 
   @Override
+  public double attackSpeed() {
+    return 0.9f;
+  }
+
+  @Override
   public int[] getRepairParts() {
     return new int[] {1,2};
   }

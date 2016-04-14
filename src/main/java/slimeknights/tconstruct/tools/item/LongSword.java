@@ -37,12 +37,12 @@ public class LongSword extends ToolCore {
 
   @Override
   public float damagePotential() {
-    return 1.13f;
+    return 1.1f;
   }
 
   @Override
   public double attackSpeed() {
-    return 1.3;
+    return 1.4;
   }
 
   @Override
@@ -113,6 +113,9 @@ public class LongSword extends ToolCore {
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     ToolNBT data = buildDefaultTag(materials);
+
+    data.attack += 0.5f;
+    data.durability *= 1.05f;
 
     return data.get();
   }

@@ -42,7 +42,7 @@ public class Cleaver extends ToolCore {
 
   @Override
   public float damagePotential() {
-    return 0.9f;
+    return 1.2f;
   }
 
   @Override
@@ -87,7 +87,7 @@ public class Cleaver extends ToolCore {
 
     // triple durability!
     data.durability *= 2f;
-    data.modifiers = 2;
+    data.modifiers = 3;
 
     return data.get();
   }

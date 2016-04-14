@@ -69,7 +69,12 @@ public class LumberAxe extends AoeToolCore {
 
   @Override
   public float damagePotential() {
-    return 0.9f;
+    return 1.0f;
+  }
+
+  @Override
+  public double attackSpeed() {
+    return 0.8f;
   }
 
   @Override
