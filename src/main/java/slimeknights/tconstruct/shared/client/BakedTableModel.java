@@ -94,12 +94,13 @@ public class BakedTableModel implements IPerspectiveAwareModel {
 
     // add all the items to display on the table
     if(items != null && !items.isEmpty()) {
-      ImmutableList.Builder<IBakedModel> pb = ImmutableList.builder();
+      BakedCompositeModel.Builder builder = new BakedCompositeModel.Builder();
+      builder.add(bakedModel, null, 0);
       for(PropertyTableItem.TableItem item : items) {
-        pb.add(new TRSRBakedModel(item.model, item.x, item.y + 1f, item.z, item.r, (float) (Math.PI), 0, item.s));
+        builder.add(new TRSRBakedModel(item.model, item.x, item.y + 1f, item.z, item.r, (float) (Math.PI), 0, item.s), null, 0);
       }
 
-      bakedModel = new BakedCompositeModel(bakedModel, pb.build());
+      bakedModel = builder.build(bakedModel);
     }
 
     if(facing != null) {
