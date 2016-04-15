@@ -4,14 +4,19 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
 
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockLiquidSlime;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 public class EntityBlueSlime extends EntitySlime {
+
+  public static final ResourceLocation LOOT_TABLE = Util.getResource("entities/blueslime");
 
   public EntityBlueSlime(World worldIn) {
     super(worldIn);
@@ -23,6 +28,11 @@ public class EntityBlueSlime extends EntitySlime {
     ItemStack stack = TinkerCommons.matSlimeBallBlue.copy();
     stack.stackSize = size;
     return this.entityDropItem(stack, offsetY);
+  }
+
+  @Override
+  protected ResourceLocation getLootTable() {
+    return this.getSlimeSize() == 1 ? LOOT_TABLE : LootTableList.EMPTY;
   }
 
   @Override

@@ -12,6 +12,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -93,6 +94,7 @@ public class TinkerWorld extends TinkerPulse {
     slimeVinePurple1 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.PURPLE, slimeVinePurple2), "slime_vine_purple");
 
     EntityRegistry.registerModEntity(EntityBlueSlime.class, "blueslime", EntityIDs.BLUESLIME, TConstruct.instance, 64, 5, true, 0x47eff5, 0xacfff4);
+    LootTableList.register(EntityBlueSlime.LOOT_TABLE);
     //EntitySpawnPlacementRegistry.setPlacementType(EntityBlueSlime.class, EntityLiving.SpawnPlacementType.IN_WATER);
 
 
