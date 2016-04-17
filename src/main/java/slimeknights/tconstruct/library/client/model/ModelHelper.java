@@ -11,6 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
@@ -123,6 +124,24 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
     }
 
     return builder.build();
+  }
+
+  public static Float[] loadLayerRotations(ResourceLocation location) throws IOException {
+    JsonReader reader = new JsonReader(getReaderForResource(location));
+    try {
+      reader.beginObject();
+      while(reader.hasNext()) {
+        if("layerrotation".equals(reader.nextName())) {
+          return GSON.fromJson(reader, Float[].class);
+        }
+        else {
+          reader.skipValue();
+        }
+      }
+    } finally {
+      IOUtils.closeQuietly(reader);
+    }
+    return new Float[0];
   }
 
   public static ResourceLocation getModelLocation(ResourceLocation location) {

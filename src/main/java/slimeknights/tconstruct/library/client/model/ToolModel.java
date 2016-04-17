@@ -6,6 +6,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 
+import com.sun.javafx.geom.Quat4f;
+
 import gnu.trove.map.hash.THashMap;
 
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -16,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ItemLayerModel;
+import net.minecraftforge.client.model.ModelStateComposition;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 
@@ -23,19 +26,28 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import slimeknights.mantle.client.model.TRSRBakedModel;
+
 public class ToolModel implements IModel {
 
   private final List<MaterialModel> partBlocks;
   private final List<MaterialModel> brokenPartBlocks;
+  private final Float[] layerRotations;
   private final ModifierModel modifiers;
   private final ImmutableMap<TransformType, TRSRTransformation> transforms;
   private final ImmutableMap<TransformType, TRSRTransformation> transformsBlocking;
   private final ImmutableList<ResourceLocation> textures;
 
-  public ToolModel(ImmutableList<ResourceLocation> defaultTextures, List<MaterialModel> parts, List<MaterialModel> brokenPartBlocks,
-                   ModifierModel modifiers, ImmutableMap<TransformType, TRSRTransformation> transforms, ImmutableMap<TransformType, TRSRTransformation> transformsBlocking) {
+  public ToolModel(ImmutableList<ResourceLocation> defaultTextures,
+                   List<MaterialModel> parts,
+                   List<MaterialModel> brokenPartBlocks,
+                   Float[] layerRotations,
+                   ModifierModel modifiers,
+                   ImmutableMap<TransformType, TRSRTransformation> transforms,
+                   ImmutableMap<TransformType, TRSRTransformation> transformsBlocking) {
     this.partBlocks = parts;
     this.brokenPartBlocks = brokenPartBlocks;
+    this.layerRotations = layerRotations;
     this.modifiers = modifiers;
     this.transforms = transforms;
     this.transformsBlocking = transformsBlocking;
@@ -71,11 +83,11 @@ public class ToolModel implements IModel {
     // we build simple models for the parts, so we can extract the UV information AND have depth
     for(int i = 0; i < partBlocks.size(); i++) {
       MaterialModel m = partBlocks.get(i);
-      partModels[i] = m.bakeIt(state, format, bakedTextureGetter);
+      partModels[i] = m.bakeIt(getStateForPart(i, state), format, bakedTextureGetter);
     }
     for(int i = 0; i < brokenPartBlocks.size(); i++) {
       if(brokenPartBlocks.get(i) != null) {
-        brokenPartModels[i] = brokenPartBlocks.get(i).bakeIt(state, format, bakedTextureGetter);
+        brokenPartModels[i] = brokenPartBlocks.get(i).bakeIt(getStateForPart(i, state), format, bakedTextureGetter);
       }
     }
 
@@ -97,6 +109,13 @@ public class ToolModel implements IModel {
     builder2.putAll(transformsBlocking); // only contains actual entries, so we override default values
 
     return new BakedToolModel(base, partModels, brokenPartModels, modifierModels, ImmutableMap.copyOf(builder), ImmutableMap.copyOf(builder2));
+  }
+
+  private IModelState getStateForPart(int i, IModelState originalState) {
+    if(layerRotations.length > i) {
+      return new ModelStateComposition(originalState, TRSRTransformation.blockCenterToCorner(new TRSRTransformation(null, TRSRTransformation.quatFromXYZ(0, 0, (float) (layerRotations[i] * Math.PI / 180)), null, null)));
+    }
+    return originalState;
   }
 
   @Override
