@@ -296,6 +296,7 @@ public class TinkerSmeltery extends TinkerPulse {
     // basically a pseudo-oredict of the seared blocks to support wildcard value
     TinkerRegistry.registerMelting(searedBlock, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
     TinkerRegistry.registerMelting(TinkerCommons.searedBrick, TinkerFluids.searedStone, Material.VALUE_SearedMaterial);
+    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of(TinkerCommons.grout), TinkerFluids.searedStone, Material.VALUE_SearedMaterial/3));
 
     // melt all the dirt into mud
     ItemStack stack = new ItemStack(Blocks.dirt, 1, OreDictionary.WILDCARD_VALUE);
