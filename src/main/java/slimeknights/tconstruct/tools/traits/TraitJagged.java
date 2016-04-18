@@ -22,7 +22,7 @@ public class TraitJagged extends AbstractTrait {
 
   private double calcBonus(ItemStack tool) {
     int durability = ToolHelper.getCurrentDurability(tool);
-    int maxDurability = ToolHelper.getDurabilityStat(tool);
+    int maxDurability = ToolHelper.getMaxDurability(tool);
 
     // old tcon jagged formula
     return Math.log((maxDurability - durability) / 72d + 1d) * 2;

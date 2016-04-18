@@ -290,12 +290,16 @@ public abstract class ToolCore extends TinkersItem {
         // we have the part, add it
         tooltips.add(material.getTextColor() + TextFormatting.UNDERLINE + partStack.getDisplayName());
 
+        Set<ITrait> usedTraits = Sets.newHashSet();
         // find out which stats and traits it contributes and add it to the tooltip
         for(IMaterialStats stats : material.getAllStats()) {
           if(pmt.usesStat(stats.getIdentifier())) {
             tooltips.addAll(stats.getLocalizedInfo());
             for(ITrait trait : pmt.getApplicableTraitsForMaterial(material)) {
-              tooltips.add(material.getTextColor() + trait.getLocalizedName());
+              if(!usedTraits.contains(trait)) {
+                tooltips.add(material.getTextColor() + trait.getLocalizedName());
+                usedTraits.add(trait);
+              }
             }
           }
         }

@@ -17,7 +17,7 @@ public class TraitDense extends AbstractTrait {
   @Override
   public int onToolDamage(ItemStack tool, int damage, int newDamage, EntityLivingBase entity) {
     float durability = ToolHelper.getCurrentDurability(tool);
-    float maxDurability = ToolHelper.getDurabilityStat(tool);
+    float maxDurability = ToolHelper.getMaxDurability(tool);
 
     float chance = 0.8f * (durability/maxDurability);
     chance = chance*chance*chance;

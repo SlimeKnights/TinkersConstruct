@@ -430,6 +430,10 @@ public final class ToolHelper {
     return stack.getMaxDamage() - stack.getItemDamage();
   }
 
+  public static int getMaxDurability(ItemStack stack) {
+    return stack.getMaxDamage();
+  }
+
   /** Damages the tool. Entity is only needed in case the tool breaks for rendering the break effect. */
   public static void damageTool(ItemStack stack, int amount, EntityLivingBase entity) {
     if(amount == 0 || isBroken(stack))

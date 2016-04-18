@@ -47,7 +47,7 @@ public class TooltipBuilder {
     }
     else {
       tips.add(HeadMaterialStats
-                   .formatDurability(ToolHelper.getCurrentDurability(stack), ToolHelper.getDurabilityStat(stack)));
+                   .formatDurability(ToolHelper.getCurrentDurability(stack), ToolHelper.getMaxDurability(stack)));
     }
 
     return this;
