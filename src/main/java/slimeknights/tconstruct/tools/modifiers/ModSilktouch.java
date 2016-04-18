@@ -20,12 +20,12 @@ public class ModSilktouch extends Modifier {
 
   @Override
   public boolean canApplyTogether(Enchantment enchantment) {
-    return !(enchantment == Enchantments.silkTouch || enchantment == Enchantments.looting || enchantment == Enchantments.fortune);
+    return !(enchantment == Enchantments.SILK_TOUCH || enchantment == Enchantments.LOOTING || enchantment == Enchantments.FORTUNE);
   }
 
   @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
-    ToolBuilder.addEnchantment(rootCompound, Enchantments.silkTouch);
+    ToolBuilder.addEnchantment(rootCompound, Enchantments.SILK_TOUCH);
 
     ToolNBT toolData = TagUtil.getToolStats(rootCompound);
     toolData.speed = Math.max(1f, toolData.speed - 3f);

@@ -66,7 +66,7 @@ public class ItemSlimeSling extends Item {
     }
 
     // check if player was targeting a block
-    RayTraceResult mop = getMovingObjectPositionFromPlayer(world, player, false);
+    RayTraceResult mop = rayTrace(world, player, false);
 
     if(mop != null && mop.typeOfHit == RayTraceResult.Type.BLOCK) {
       // we fling the inverted player look vector

@@ -18,7 +18,7 @@ public class BlockOre extends EnumBlock<BlockOre.OreTypes> {
   public static final PropertyEnum<OreTypes> TYPE = PropertyEnum.create("type", OreTypes.class);
 
   public BlockOre() {
-    this(Material.rock);
+    this(Material.ROCK);
   }
 
   public BlockOre(Material material) {

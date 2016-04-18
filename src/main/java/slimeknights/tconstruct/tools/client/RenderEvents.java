@@ -100,7 +100,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
     if(progress < 0)
       return;
 
-      renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+      renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
       //preRenderDamagedBlocks BEGIN
       GlStateManager.tryBlendFuncSeparate(774, 768, 1, 0);
       GlStateManager.enableBlend();
@@ -130,7 +130,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
         {
             IBlockState iblockstate = world.getBlockState(blockpos);
 
-            if (iblockstate.getBlock().getMaterial(iblockstate) != Material.air)
+            if (iblockstate.getBlock().getMaterial(iblockstate) != Material.AIR)
             {
               TextureAtlasSprite textureatlassprite = this.destroyBlockIcons[progress];
               BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();

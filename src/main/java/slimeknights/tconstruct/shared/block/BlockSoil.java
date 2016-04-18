@@ -38,7 +38,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
   public static final PropertyEnum<SoilTypes> TYPE = PropertyEnum.create("type", SoilTypes.class);
 
   public BlockSoil() {
-    super(Material.sand, TYPE, SoilTypes.class);
+    super(Material.SAND, TYPE, SoilTypes.class);
     this.slipperiness = 0.8F;
     this.setHardness(3.0f);
 
@@ -78,8 +78,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
   }
 
   @Override
-  public void onEntityCollidedWithBlock(World worldIn, BlockPos pos,Entity entityIn) {
-    IBlockState state = worldIn.getBlockState(pos);
+  public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
     switch(state.getValue(TYPE)) {
       case SLIMY_MUD_GREEN:
       case SLIMY_MUD_BLUE:
@@ -100,7 +99,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
     entity.motionZ *= 0.4;
     if (entity instanceof EntityLivingBase)
     {
-      ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.weakness, 1));
+      ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 1));
     }
   }
 

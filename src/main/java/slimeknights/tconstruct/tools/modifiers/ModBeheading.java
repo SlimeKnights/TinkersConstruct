@@ -61,19 +61,19 @@ public class ModBeheading extends Modifier {
   private ItemStack getHeadDrop(EntityLivingBase entity) {
     // meta 0,1: skeleton and wither skelly
     if(entity instanceof EntitySkeleton) {
-      return new ItemStack(Items.skull, 1, ((EntitySkeleton) entity).getSkeletonType());
+      return new ItemStack(Items.SKULL, 1, ((EntitySkeleton) entity).getSkeletonType());
     }
     // meta 2: zombie
     else if(entity instanceof EntityZombie) {
-      return new ItemStack(Items.skull, 1, 2);
+      return new ItemStack(Items.SKULL, 1, 2);
     }
     // meta 4: creeper
     else if(entity instanceof EntityCreeper) {
-      return new ItemStack(Items.skull, 1, 4);
+      return new ItemStack(Items.SKULL, 1, 4);
     }
     // meta 3: player
     else if(entity instanceof EntityPlayer) {
-      ItemStack head = new ItemStack(Items.skull, 1, 4);
+      ItemStack head = new ItemStack(Items.SKULL, 1, 4);
       NBTTagCompound nametag = new NBTTagCompound();
       nametag.setString("SkullOwner", entity.getDisplayName().getFormattedText());
       head.setTagCompound(nametag);

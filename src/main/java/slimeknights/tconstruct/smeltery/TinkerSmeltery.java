@@ -180,10 +180,10 @@ public class TinkerSmeltery extends TinkerPulse {
     // I AM GROUT
     ItemStack grout = TinkerCommons.grout.copy();
     grout.stackSize = 2;
-    GameRegistry.addRecipe(new ShapelessOreRecipe(grout, Items.clay_ball, Blocks.gravel, "sand"));
+    GameRegistry.addRecipe(new ShapelessOreRecipe(grout, Items.CLAY_BALL, Blocks.GRAVEL, "sand"));
     grout = grout.copy();
     grout.stackSize = 8;
-    GameRegistry.addRecipe(new ShapelessOreRecipe(grout, Blocks.gravel, "sand", Blocks.gravel, "sand",  Blocks.clay, "sand", Blocks.gravel, "sand", Blocks.gravel));
+    GameRegistry.addRecipe(new ShapelessOreRecipe(grout, Blocks.GRAVEL, "sand", Blocks.GRAVEL, "sand",  Blocks.CLAY, "sand", Blocks.GRAVEL, "sand", Blocks.GRAVEL));
 
     // seared bricks
     GameRegistry.addSmelting(TinkerCommons.grout, TinkerCommons.searedBrick, 0);
@@ -243,13 +243,13 @@ public class TinkerSmeltery extends TinkerPulse {
 
     // Water
     Fluid water = FluidRegistry.WATER;
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Blocks.ice, bucket), water, 305));
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Blocks.packed_ice, bucket * 2), water, 310));
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Blocks.snow, bucket), water, 305));
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Items.snowball, bucket / 8), water, 301));
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Blocks.ICE, bucket), water, 305));
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Blocks.PACKED_ICE, bucket * 2), water, 310));
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Blocks.SNOW, bucket), water, 305));
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(Items.SNOWBALL, bucket / 8), water, 301));
 
     // bloooooood
-    TinkerRegistry.registerMelting(Items.rotten_flesh, TinkerFluids.blood, 5);
+    TinkerRegistry.registerMelting(Items.ROTTEN_FLESH, TinkerFluids.blood, 5);
     if(TinkerCommons.matSlimeBallBlood != null) {
       TinkerRegistry.registerTableCasting(TinkerCommons.matSlimeBallBlood.copy(), null, TinkerFluids.blood, 160);
     }
@@ -274,7 +274,7 @@ public class TinkerSmeltery extends TinkerPulse {
                                                            TinkerFluids.obsidian, Material.VALUE_Ore));
     // note that obsidian casting gives you 2 ingot value per obsidian, while part crafting only gives 1 per obsidian
     registerToolpartMeltingCasting(TinkerMaterials.obsidian);
-    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.obsidian), null, TinkerFluids.obsidian, Material.VALUE_Ore);
+    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.OBSIDIAN), null, TinkerFluids.obsidian, Material.VALUE_Ore);
 
 
     // gold is melt and castable too, but no tools. Remaining materials are done directly in the MaterialIntegration
@@ -299,24 +299,24 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of(TinkerCommons.grout), TinkerFluids.searedStone, Material.VALUE_SearedMaterial/3));
 
     // melt all the dirt into mud
-    ItemStack stack = new ItemStack(Blocks.dirt, 1, OreDictionary.WILDCARD_VALUE);
+    ItemStack stack = new ItemStack(Blocks.DIRT, 1, OreDictionary.WILDCARD_VALUE);
     RecipeMatch rm = new RecipeMatch.Item(stack, 1, Material.VALUE_Ingot);
     TinkerRegistry.registerMelting(MeltingRecipe.forAmount(rm, TinkerFluids.dirt, Material.VALUE_BrickBlock));
     TinkerRegistry.registerTableCasting(TinkerCommons.mudBrick, castIngot, TinkerFluids.dirt, Material.VALUE_Ingot);
 
     // hardened clay
-    TinkerRegistry.registerMelting(Items.clay_ball, TinkerFluids.clay, Material.VALUE_Ingot);
-    TinkerRegistry.registerMelting(Blocks.clay, TinkerFluids.clay, Material.VALUE_BrickBlock);
+    TinkerRegistry.registerMelting(Items.CLAY_BALL, TinkerFluids.clay, Material.VALUE_Ingot);
+    TinkerRegistry.registerMelting(Blocks.CLAY, TinkerFluids.clay, Material.VALUE_BrickBlock);
     // decided against support for melting hardened clay. Once it's hardened, it stays hard. Same for bricks.
     //TinkerRegistry.registerMelting(Blocks.hardened_clay, TinkerFluids.clay, Material.VALUE_BrickBlock);
     //TinkerRegistry.registerMelting(Blocks.stained_hardened_clay, TinkerFluids.clay, Material.VALUE_BrickBlock);
-    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.hardened_clay), null, TinkerFluids.clay, Material.VALUE_BrickBlock);
+    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.HARDENED_CLAY), null, TinkerFluids.clay, Material.VALUE_BrickBlock);
 
     // emerald melting and casting
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("gemEmerald", Material.VALUE_Gem), TinkerFluids.emerald));
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("blockEmerald", Material.VALUE_Gem*9), TinkerFluids.emerald));
-    TinkerRegistry.registerTableCasting(new ItemStack(Items.emerald), castGem, TinkerFluids.emerald, Material.VALUE_Gem);
-    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.emerald_block), null, TinkerFluids.emerald, Material.VALUE_Gem*9);
+    TinkerRegistry.registerTableCasting(new ItemStack(Items.EMERALD), castGem, TinkerFluids.emerald, Material.VALUE_Gem);
+    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.EMERALD_BLOCK), null, TinkerFluids.emerald, Material.VALUE_Gem*9);
 
     // lavawood
     TinkerRegistry.registerBasinCasting(new CastingRecipe(TinkerCommons.lavawood, RecipeMatch.of("plankWood"),
@@ -325,8 +325,8 @@ public class TinkerSmeltery extends TinkerPulse {
 
 
     // red sand
-    TinkerRegistry.registerBasinCasting(new CastingRecipe(new ItemStack(Blocks.sand, 1, 1),
-                                                          RecipeMatch.of(new ItemStack(Blocks.sand, 1, 0)),
+    TinkerRegistry.registerBasinCasting(new CastingRecipe(new ItemStack(Blocks.SAND, 1, 1),
+                                                          RecipeMatch.of(new ItemStack(Blocks.SAND, 1, 0)),
                                                           new FluidStack(TinkerFluids.blood, 10),
                                                           true, true));
 

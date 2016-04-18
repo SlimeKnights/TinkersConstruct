@@ -52,7 +52,7 @@ public class TinkerDebug {
     // check all modifiers if they can be applied
     for(IModifier modifier : TinkerRegistry.getAllModifiers()) {
       try {
-        modifier.matches(new ItemStack[] {new ItemStack(Items.stick)});
+        modifier.matches(new ItemStack[] {new ItemStack(Items.STICK)});
         modifier.matches(new ItemStack[1]);
       } catch(Exception e) {
         log.error("Caught exception in modifier " + modifier.getIdentifier());
@@ -61,26 +61,26 @@ public class TinkerDebug {
     }
 
     // check all blocks if all metadatas are supported
-    for(ResourceLocation identifier : Block.blockRegistry.getKeys()) {
+    for(ResourceLocation identifier : Block.REGISTRY.getKeys()) {
       // only our own stuff
       if(!identifier.getResourceDomain().equals(Util.RESOURCE)) {
         continue;
       }
 
-      Block block = Block.blockRegistry.getObject(identifier);
+      Block block = Block.REGISTRY.getObject(identifier);
       for(int i = 0; i < 16; i++) {
         block.getMetaFromState(block.getStateFromMeta(i));
       }
     }
 
     // same for items
-    for(ResourceLocation identifier : Item.itemRegistry.getKeys()) {
+    for(ResourceLocation identifier : Item.REGISTRY.getKeys()) {
       // only our own stuff
       if(!identifier.getResourceDomain().equals(Util.RESOURCE)) {
         continue;
       }
 
-      Item item = Item.itemRegistry.getObject(identifier);
+      Item item = Item.REGISTRY.getObject(identifier);
       for(int i = 0; i < 0x7FFF; i++) {
         item.getMetadata(i);
       }

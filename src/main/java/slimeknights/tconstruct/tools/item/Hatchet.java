@@ -27,11 +27,11 @@ import slimeknights.tconstruct.tools.TinkerTools;
 public class Hatchet extends AoeToolCore {
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
-      ImmutableSet.of(net.minecraft.block.material.Material.wood,
-                      net.minecraft.block.material.Material.vine,
-                      net.minecraft.block.material.Material.plants,
-                      net.minecraft.block.material.Material.gourd,
-                      net.minecraft.block.material.Material.cactus);
+      ImmutableSet.of(net.minecraft.block.material.Material.WOOD,
+                      net.minecraft.block.material.Material.VINE,
+                      net.minecraft.block.material.Material.PLANTS,
+                      net.minecraft.block.material.Material.GOURD,
+                      net.minecraft.block.material.Material.CACTUS);
 
   public Hatchet() {
     this(PartMaterialType.handle(TinkerTools.toolRod),
@@ -71,7 +71,7 @@ public class Hatchet extends AoeToolCore {
   // hatches 1 : leaves 0
   @Override
   public float getStrVsBlock(ItemStack stack, IBlockState state) {
-    if(state.getBlock().getMaterial(state) == net.minecraft.block.material.Material.leaves) {
+    if(state.getBlock().getMaterial(state) == net.minecraft.block.material.Material.LEAVES) {
       return ToolHelper.calcDigSpeed(stack, state);
     }
     return super.getStrVsBlock(stack, state);
@@ -97,7 +97,7 @@ public class Hatchet extends AoeToolCore {
       ItemStack itemstack3 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : null;
 
       // todo: possibly check for itemUseAction instead of is shield?
-      if (itemstack2 != null && itemstack3 != null && itemstack2.getItem() == this && itemstack3.getItem() == Items.shield)
+      if (itemstack2 != null && itemstack3 != null && itemstack2.getItem() == this && itemstack3.getItem() == Items.SHIELD)
       {
         float f3 = 0.25F + (float) EnchantmentHelper.getEfficiencyModifier(player) * 0.05F;
 
@@ -108,7 +108,7 @@ public class Hatchet extends AoeToolCore {
 
         if (player.getRNG().nextFloat() < f3)
         {
-          entityplayer.getCooldownTracker().setCooldown(Items.shield, 100);
+          entityplayer.getCooldownTracker().setCooldown(Items.SHIELD, 100);
           player.worldObj.setEntityState(entityplayer, (byte)30);
         }
       }

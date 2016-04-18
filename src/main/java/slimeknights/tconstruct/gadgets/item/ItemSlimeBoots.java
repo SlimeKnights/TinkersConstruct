@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.Util;
 
 public class ItemSlimeBoots extends ItemArmor {
 
-  public static ArmorMaterial SLIME_MATERIAL = EnumHelper.addArmorMaterial("SLIME", Util.resource("slime"), 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.block_slime_place);
+  public static ArmorMaterial SLIME_MATERIAL = EnumHelper.addArmorMaterial("SLIME", Util.resource("slime"), 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.BLOCK_SLIME_PLACE);
 
   public ItemSlimeBoots() {
     super(SLIME_MATERIAL, 0, EntityEquipmentSlot.FEET);
@@ -79,7 +79,7 @@ public class ItemSlimeBoots extends ItemArmor {
       else {
         event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
       }
-      entity.playSound(SoundEvents.entity_slime_squish, 1f, 1f);
+      entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1f, 1f);
       SlimeBounceHandler.addBounceHandler(entity, entity.motionY);
     }
     else if(!entity.worldObj.isRemote && entity.isSneaking()){

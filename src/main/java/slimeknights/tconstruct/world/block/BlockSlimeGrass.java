@@ -183,7 +183,7 @@ public class BlockSlimeGrass extends BlockGrass {
     DirtType type = grassState.getValue(TYPE);
     switch(type) {
       case VANILLA:
-        return Blocks.dirt.getDefaultState();
+        return Blocks.DIRT.getDefaultState();
       case GREEN:
         return TinkerWorld.slimeDirt.getStateFromMeta(BlockSlimeDirt.DirtType.GREEN.getMeta());
       case BLUE:
@@ -199,7 +199,7 @@ public class BlockSlimeGrass extends BlockGrass {
   /** Returns the grass blockstate for the given dirt type or null */
   public IBlockState getStateFromDirt(IBlockState dirtState) {
     // vanilla dirt?
-    if(dirtState.getBlock() == Blocks.dirt && dirtState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT) {
+    if(dirtState.getBlock() == Blocks.DIRT && dirtState.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.DIRT) {
       return this.getDefaultState().withProperty(TYPE, DirtType.VANILLA);
     }
     // slimedirt block?

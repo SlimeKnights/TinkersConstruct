@@ -99,7 +99,7 @@ public class SlimeLakeGenerator implements IWorldGenerator {
             // only if below is not air.. we don't want holes
             if(!world.isAirBlock(pos.add(xx,yy,zz).down())) {
               world.setBlockState(pos.add(xx, yy, zz),
-                                  yy >= 4 ? Blocks.air.getDefaultState()
+                                  yy >= 4 ? Blocks.AIR.getDefaultState()
                                           : liquid, 2);
             }
           }

@@ -118,7 +118,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
             setInventorySlotContents(1, event.output);
           }
           
-          worldObj.playSound(null, pos, SoundEvents.block_lava_extinguish, SoundCategory.AMBIENT, 0.07f, 4f);
+          worldObj.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.AMBIENT, 0.07f, 4f);
 
           // reset state
           reset();

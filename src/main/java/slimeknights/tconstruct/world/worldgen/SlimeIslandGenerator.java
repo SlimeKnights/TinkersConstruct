@@ -46,7 +46,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
   protected TIntObjectHashMap<SlimeIslandData> islandData = new TIntObjectHashMap<SlimeIslandData>();
 
   public SlimeIslandGenerator() {
-    air = Blocks.air.getDefaultState();
+    air = Blocks.AIR.getDefaultState();
 
     IBlockState slimeGreen = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.GREEN);
     IBlockState slimeBlue = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.BLUE);
@@ -54,8 +54,8 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
     IBlockState leaves = TinkerWorld.slimeLeaves.getDefaultState();
 
-    IBlockState slimeFLuidBlue = Blocks.water.getDefaultState();
-    IBlockState slimeFLuidPurple = Blocks.water.getDefaultState();
+    IBlockState slimeFLuidBlue = Blocks.WATER.getDefaultState();
+    IBlockState slimeFLuidPurple = Blocks.WATER.getDefaultState();
     if(TinkerFluids.blueslime != null) {
       slimeFLuidBlue = TinkerFluids.blueslime.getBlock().getDefaultState();
       slimeFLuidPurple = slimeFLuidBlue; // just in case, will never be used with how the mod is set up
@@ -242,7 +242,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
                || world.getBlockState(below.east()) != dirt
                || world.getBlockState(below.south()) != dirt
                || world.getBlockState(below.west()) != dirt) {
-              world.setBlockState(pos, Blocks.air.getDefaultState(), 2);
+              world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
             }
           }
         }

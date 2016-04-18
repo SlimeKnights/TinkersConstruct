@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.block;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
@@ -16,9 +15,9 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
@@ -49,7 +48,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
   public static final PropertyEnum<TableTypes> TABLES = PropertyEnum.create("type", TableTypes.class);
 
   public BlockToolTable() {
-    super(Material.wood);
+    super(Material.WOOD);
     this.setCreativeTab(TinkerRegistry.tabGeneral);
 
     this.setSoundType(SoundType.WOOD);

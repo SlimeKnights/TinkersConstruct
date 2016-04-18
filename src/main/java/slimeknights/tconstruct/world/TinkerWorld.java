@@ -114,7 +114,7 @@ public class TinkerWorld extends TinkerPulse {
     // Slimeblocks
 
     // green slime
-    addSlimeRecipes(new ItemStack(Items.slime_ball), BlockSlime.SlimeType.GREEN);
+    addSlimeRecipes(new ItemStack(Items.SLIME_BALL), BlockSlime.SlimeType.GREEN);
 
     // blue slime
     addSlimeRecipes(TinkerCommons.matSlimeBallBlue, BlockSlime.SlimeType.BLUE);
@@ -129,19 +129,19 @@ public class TinkerWorld extends TinkerPulse {
     addSlimeRecipes(TinkerCommons.matSlimeBallMagma, BlockSlime.SlimeType.MAGMA);
 
     // Recipes to get slimy grass. Because why not
-    IBlockState vanillaDirtState = Blocks.dirt.getDefaultState();
+    IBlockState vanillaDirtState = Blocks.DIRT.getDefaultState();
     IBlockState grassState = slimeGrass.getDefaultState().withProperty(BlockSlimeGrass.TYPE, BlockSlimeGrass.DirtType.VANILLA);
     int meta = slimeGrass.getMetaFromState(grassState.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.BLUE));
     ItemStack slime = TinkerCommons.matSlimeBallBlue.copy();
-    GameRegistry.addShapedRecipe(new ItemStack(slimeGrass, 1, meta), " s ", "sBs", " s ", 's', slime, 'B', Blocks.grass);
+    GameRegistry.addShapedRecipe(new ItemStack(slimeGrass, 1, meta), " s ", "sBs", " s ", 's', slime, 'B', Blocks.GRASS);
 
     meta = slimeGrass.getMetaFromState(grassState.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.PURPLE));
     slime = TinkerCommons.matSlimeBallPurple.copy();
-    GameRegistry.addShapedRecipe(new ItemStack(slimeGrass, 1, meta), " s ", "sBs", " s ", 's', slime, 'B', Blocks.grass);
+    GameRegistry.addShapedRecipe(new ItemStack(slimeGrass, 1, meta), " s ", "sBs", " s ", 's', slime, 'B', Blocks.GRASS);
 
     meta = slimeGrass.getMetaFromState(grassState.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.ORANGE));
     slime = TinkerCommons.matSlimeBallMagma.copy();
-    GameRegistry.addShapedRecipe(new ItemStack(slimeGrass, 1, meta), " s ", "sBs", " s ", 's', slime, 'B', Blocks.grass);
+    GameRegistry.addShapedRecipe(new ItemStack(slimeGrass, 1, meta), " s ", "sBs", " s ", 's', slime, 'B', Blocks.GRASS);
   }
 
   private void addSlimeRecipes(ItemStack slimeball, BlockSlime.SlimeType type) {

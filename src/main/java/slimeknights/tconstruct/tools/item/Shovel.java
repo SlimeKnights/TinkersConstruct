@@ -17,13 +17,13 @@ import slimeknights.tconstruct.tools.TinkerTools;
 public class Shovel extends AoeToolCore {
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
-      ImmutableSet.of(net.minecraft.block.material.Material.grass,
-                      net.minecraft.block.material.Material.ground,
-                      net.minecraft.block.material.Material.sand,
-                      net.minecraft.block.material.Material.craftedSnow,
-                      net.minecraft.block.material.Material.snow,
-                      net.minecraft.block.material.Material.clay,
-                      net.minecraft.block.material.Material.cake);
+      ImmutableSet.of(net.minecraft.block.material.Material.GRASS,
+                      net.minecraft.block.material.Material.GROUND,
+                      net.minecraft.block.material.Material.SAND,
+                      net.minecraft.block.material.Material.CRAFTED_SNOW,
+                      net.minecraft.block.material.Material.SNOW,
+                      net.minecraft.block.material.Material.CLAY,
+                      net.minecraft.block.material.Material.CAKE);
 
   public Shovel() {
     this(PartMaterialType.handle(TinkerTools.toolRod),

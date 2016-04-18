@@ -63,12 +63,12 @@ public final class TinkerRegistry {
   /*---------------------------------------------------------------------------
   | CREATIVE TABS                                                             |
   ---------------------------------------------------------------------------*/
-  public static CreativeTab tabGeneral = new CreativeTab("TinkerGeneral", new ItemStack(Items.slime_ball));
-  public static CreativeTab tabTools = new CreativeTab("TinkerTools", new ItemStack(Items.iron_pickaxe));
-  public static CreativeTab tabParts = new CreativeTab("TinkerToolParts", new ItemStack(Items.stick));
-  public static CreativeTab tabSmeltery = new CreativeTab("TinkerSmeltery", new ItemStack(Item.getItemFromBlock(Blocks.stonebrick)));
-  public static CreativeTab tabWorld = new CreativeTab("TinkerWorld", new ItemStack(Item.getItemFromBlock(Blocks.slime_block)));
-  public static CreativeTab tabGadgets = new CreativeTab("TinkerGadgets", new ItemStack(Blocks.tnt));
+  public static CreativeTab tabGeneral = new CreativeTab("TinkerGeneral", new ItemStack(Items.SLIME_BALL));
+  public static CreativeTab tabTools = new CreativeTab("TinkerTools", new ItemStack(Items.IRON_PICKAXE));
+  public static CreativeTab tabParts = new CreativeTab("TinkerToolParts", new ItemStack(Items.STICK));
+  public static CreativeTab tabSmeltery = new CreativeTab("TinkerSmeltery", new ItemStack(Item.getItemFromBlock(Blocks.STONEBRICK)));
+  public static CreativeTab tabWorld = new CreativeTab("TinkerWorld", new ItemStack(Item.getItemFromBlock(Blocks.SLIME_BLOCK)));
+  public static CreativeTab tabGadgets = new CreativeTab("TinkerGadgets", new ItemStack(Blocks.TNT));
 
   /*---------------------------------------------------------------------------
   | MATERIALS                                                                 |
@@ -618,7 +618,7 @@ public final class TinkerRegistry {
 
   /** Register an entity to melt into the given fluidstack. The fluidstack is returned for 1 heart damage */
   public static void registerEntityMelting(Class<? extends Entity> clazz, FluidStack liquid) {
-    String name = EntityList.classToStringMapping.get(clazz);
+    String name = EntityList.CLASS_TO_NAME.get(clazz);
 
     if(name == null) {
       error("Entity Melting: Entity %s is not registered in the EntityList", clazz.getSimpleName());

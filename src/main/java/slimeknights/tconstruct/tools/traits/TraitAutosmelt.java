@@ -26,7 +26,7 @@ public class TraitAutosmelt extends AbstractTrait {
 
   @Override
   public boolean canApplyTogether(Enchantment enchantment) {
-    return enchantment != Enchantments.silkTouch;
+    return enchantment != Enchantments.SILK_TOUCH;
   }
 
   @Override
@@ -40,7 +40,7 @@ public class TraitAutosmelt extends AbstractTrait {
         if(smelted != null) {
           smelted = smelted.copy();
           smelted.stackSize = drop.stackSize;
-          int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, tool);
+          int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, tool);
           if(Config.autosmeltlapis && fortune > 0) {
             smelted.stackSize *= random.nextInt(fortune + 1) + 1;
           }

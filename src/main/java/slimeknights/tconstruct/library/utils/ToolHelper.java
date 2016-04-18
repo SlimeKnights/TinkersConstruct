@@ -206,12 +206,12 @@ public final class ToolHelper {
     IBlockState state = world.getBlockState(origin);
     Block block = state.getBlock();
 
-    if(block.getMaterial(state) == Material.air) {
+    if(block.getMaterial(state) == Material.AIR) {
       // what are you DOING?
       return ImmutableList.of();
     }
 
-    RayTraceResult mop = ((ToolCore) stack.getItem()).getMovingObjectPositionFromPlayer(world, player, false);
+    RayTraceResult mop = ((ToolCore) stack.getItem()).rayTrace(world, player, false);
     if(mop == null) {
       return ImmutableList.of();
     }
@@ -398,7 +398,7 @@ public final class ToolHelper {
       IShearable target = (IShearable)block;
       if (target.isShearable(itemstack, world, pos))
       {
-        int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.fortune, itemstack);
+        int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemstack);
         List<ItemStack> drops = target.onSheared(itemstack, world, pos, fortune);
 
         for(ItemStack stack : drops)
@@ -539,7 +539,7 @@ public final class ToolHelper {
     float baseKnockback = attacker.isSprinting() ? 1 : 0;
 
     // calculate if it's a critical hit
-    boolean isCritical = attacker.fallDistance > 0.0F && !attacker.onGround && !attacker.isOnLadder() && !attacker.isInWater() && !attacker.isPotionActive(MobEffects.blindness) && !attacker.isRiding();
+    boolean isCritical = attacker.fallDistance > 0.0F && !attacker.onGround && !attacker.isOnLadder() && !attacker.isInWater() && !attacker.isPotionActive(MobEffects.BLINDNESS) && !attacker.isRiding();
     for(ITrait trait : traits) {
       if(trait.isCriticalHit(stack, attacker, target))
         isCritical = true;
@@ -635,7 +635,7 @@ public final class ToolHelper {
 
         // vanilla achievement support :D
         if(damage >= 18f) {
-          player.addStat(AchievementList.overkill);
+          player.addStat(AchievementList.OVERKILL);
         }
       }
 
@@ -660,7 +660,7 @@ public final class ToolHelper {
           tool.reduceDurabilityOnHit(stack, player, damage);
         }
 
-        player.addStat(StatList.damageDealt, Math.round(damageDealt * 10f));
+        player.addStat(StatList.DAMAGE_DEALT, Math.round(damageDealt * 10f));
         player.addExhaustion(0.3f);
 
         if(player.worldObj instanceof WorldServer && damageDealt > 2f) {

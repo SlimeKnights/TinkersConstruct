@@ -28,7 +28,7 @@ public class MagmaSlimeIslandGenerator extends SlimeIslandGenerator {
   protected IBlockState grassMagma;
 
   public MagmaSlimeIslandGenerator() {
-    air = Blocks.lava.getDefaultState();
+    air = Blocks.LAVA.getDefaultState();
 
     IBlockState slimeMagma = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.MAGMA);
     IBlockState slimeBlood = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.BLOOD);
@@ -36,7 +36,7 @@ public class MagmaSlimeIslandGenerator extends SlimeIslandGenerator {
     dirtMagma = TinkerWorld.slimeDirt.getDefaultState().withProperty(BlockSlimeDirt.TYPE, BlockSlimeDirt.DirtType.MAGMA);
     grassMagma = TinkerWorld.slimeGrass.getStateFromDirt(dirtMagma).withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.ORANGE);
 
-    lakeGenMagma = new SlimeLakeGenerator(Blocks.lava.getDefaultState(), slimeMagma, slimeMagma, slimeMagma, slimeMagma, slimeMagma, slimeBlood);
+    lakeGenMagma = new SlimeLakeGenerator(Blocks.LAVA.getDefaultState(), slimeMagma, slimeMagma, slimeMagma, slimeMagma, slimeMagma, slimeBlood);
     treeGenMagma = new SlimeTreeGenerator(5, 4, slimeMagma, TinkerWorld.slimeLeaves.getDefaultState().withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.ORANGE), null);
     plantGenMagma = new SlimePlantGenerator(BlockSlimeGrass.FoliageType.ORANGE, false);
   }
@@ -83,6 +83,6 @@ public class MagmaSlimeIslandGenerator extends SlimeIslandGenerator {
   }
 
   private boolean isLava(World world, BlockPos pos) {
-    return world.getBlockState(pos).getBlock() == Blocks.lava;
+    return world.getBlockState(pos).getBlock() == Blocks.LAVA;
   }
 }

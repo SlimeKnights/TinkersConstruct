@@ -42,23 +42,23 @@ public class TinkerOredict {
   // Things that are not from tinkers but should be oredicted
   private static void ensureOredict() {
     // crafting table
-    oredict(Blocks.crafting_table, "workbench");
+    oredict(Blocks.CRAFTING_TABLE, "workbench");
     // some vanilla blocks
-    oredict(Blocks.cactus, "blockCactus");
-    oredict(Blocks.slime_block, "blockSlime");
-    oredict(Blocks.obsidian, "obsidian");
-    oredict(Blocks.netherrack, "netherrack");
-    oredict(Blocks.prismarine, "prismarine");
-    oredict(Blocks.vine, "vine");
+    oredict(Blocks.CACTUS, "blockCactus");
+    oredict(Blocks.SLIME_BLOCK, "blockSlime");
+    oredict(Blocks.OBSIDIAN, "obsidian");
+    oredict(Blocks.NETHERRACK, "netherrack");
+    oredict(Blocks.PRISMARINE, "prismarine");
+    oredict(Blocks.VINE, "vine");
     // glowstone block, redstone block
 
-    oredict(Blocks.dirt, "dirt");
+    oredict(Blocks.DIRT, "dirt");
   }
 
   // common items and blocks
   private static void registerCommon() {
     String dict = "slimeball";
-    oredict(Items.slime_ball,   dict + "Green"); // oredict vanilla as green slime ball
+    oredict(Items.SLIME_BALL,   dict + "Green"); // oredict vanilla as green slime ball
     oredict(matSlimeBallBlue,   dict, dict + "Blue");
     oredict(matSlimeBallPurple, dict, dict + "Purple");
     oredict(matSlimeBallBlood,  dict, dict + "Blood");
@@ -72,8 +72,8 @@ public class TinkerOredict {
     oredictNIB(nuggetAlubrass,    ingotAlubrass,    blockAlubrass,    "Alubrass");
 
     String metal = "blockMetal";
-    oredict(new ItemStack(Blocks.iron_block), metal);
-    oredict(new ItemStack(Blocks.gold_block), metal);
+    oredict(new ItemStack(Blocks.IRON_BLOCK), metal);
+    oredict(new ItemStack(Blocks.GOLD_BLOCK), metal);
 
     // other materials
     oredict(searedBrick, "ingotBrickSeared");

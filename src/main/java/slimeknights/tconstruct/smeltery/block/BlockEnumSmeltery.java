@@ -19,7 +19,7 @@ import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta & IStringSerializable> extends EnumBlock<T> implements ITileEntityProvider {
 
   public BlockEnumSmeltery(PropertyEnum<T> prop, Class<T> clazz) {
-    this(Material.rock, prop, clazz);
+    this(Material.ROCK, prop, clazz);
   }
 
   public BlockEnumSmeltery(Material material, PropertyEnum<T> prop, Class<T> clazz) {
@@ -52,12 +52,12 @@ public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta & IString
   @Override
   public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
     // todo: fix this once vanilla redstone doesn't fire neighbor update events to all neighbors of neighbors anymore
-    if(neighborBlock == Blocks.redstone_wire
-       || neighborBlock == Blocks.powered_repeater
-       || neighborBlock == Blocks.unpowered_repeater
-       || neighborBlock == Blocks.powered_comparator
-       || neighborBlock == Blocks.unpowered_comparator
-       || neighborBlock == Blocks.redstone_torch) {
+    if(neighborBlock == Blocks.REDSTONE_WIRE
+       || neighborBlock == Blocks.POWERED_REPEATER
+       || neighborBlock == Blocks.UNPOWERED_REPEATER
+       || neighborBlock == Blocks.POWERED_COMPARATOR
+       || neighborBlock == Blocks.UNPOWERED_COMPARATOR
+       || neighborBlock == Blocks.REDSTONE_TORCH) {
       return;
     }
     TileEntity te = worldIn.getTileEntity(pos);

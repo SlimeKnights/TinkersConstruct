@@ -62,7 +62,7 @@ public class FaucetRenderer extends TileEntitySpecialRenderer<TileFaucet> {
       Tessellator tessellator = Tessellator.getInstance();
       VertexBuffer renderer = tessellator.getBuffer();
       renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-      Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+      Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
       int color = te.drained.getFluid().getColor(te.drained);
       int brightness = te.getWorld().getCombinedLight(te.getPos(), te.drained.getFluid().getLuminosity());
       TextureAtlasSprite flowing = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(te.drained.getFluid().getFlowing(te.drained).toString());

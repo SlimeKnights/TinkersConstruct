@@ -58,7 +58,7 @@ public class TraitTasty extends AbstractTrait {
     }
 
     player.getFoodStats().addStats(1, 0);
-    player.worldObj.playSound(null, player.getPosition(), SoundEvents.entity_generic_eat, SoundCategory.PLAYERS, 0.8f, 1.0f);
+    player.worldObj.playSound(null, player.getPosition(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.PLAYERS, 0.8f, 1.0f);
     ToolHelper.damageTool(tool, NOM_COST, player);
   }
 }

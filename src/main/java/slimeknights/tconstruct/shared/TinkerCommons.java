@@ -240,13 +240,13 @@ public class TinkerCommons extends TinkerPulse {
   private void registerRecipies() {
     // soils
     GameRegistry.addSmelting(graveyardSoil, consecratedSoil, 0);
-    GameRegistry.addShapelessRecipe(graveyardSoil, Blocks.dirt, Items.rotten_flesh, new ItemStack(Items.dye, 1, 15));
+    GameRegistry.addShapelessRecipe(graveyardSoil, Blocks.DIRT, Items.ROTTEN_FLESH, new ItemStack(Items.DYE, 1, 15));
     if(mudBrick != null) {
       GameRegistry.addShapedRecipe(mudBrickBlock, "BB", "BB", 'B', mudBrick);
     }
 
     // firewood
-    GameRegistry.addShapelessRecipe(firewood,Items.blaze_powder, lavawood, Items.blaze_powder);
+    GameRegistry.addShapelessRecipe(firewood,Items.BLAZE_POWDER, lavawood, Items.BLAZE_POWDER);
 
     // metals
     registerMetalRecipes("Cobalt", ingotCobalt, nuggetCobalt, blockCobalt);

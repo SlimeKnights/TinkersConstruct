@@ -102,7 +102,7 @@ public class TinkerGadgets extends TinkerPulse {
     }
 
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeBoots), "   ", "s s", "b b", 's', "slimeball", 'b', ore));
-    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeSling), "fbf", "s s", " s ", 'f', Items.string, 's', "slimeball", 'b', ore));
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeSling), "fbf", "s s", " s ", 'f', Items.STRING, 's', "slimeball", 'b', ore));
 
     // Stonesticks Recipes
     ItemStack rod = new ItemStack(stoneStick);
@@ -110,21 +110,21 @@ public class TinkerGadgets extends TinkerPulse {
     GameRegistry.addRecipe(new ShapedOreRecipe(rod, "c", "c", 'c', "stone"));
 
     // Stone Torch Recipe
-    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneTorch, 4), "p", "w", 'p', new ItemStack(Items.coal, 1, Short.MAX_VALUE), 'w', "rodStone"));
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneTorch, 4), "p", "w", 'p', new ItemStack(Items.COAL, 1, Short.MAX_VALUE), 'w', "rodStone"));
     // Jack o'Latern Recipe - Stone Torch
-    GameRegistry.addRecipe(new ItemStack(Blocks.lit_pumpkin, 1, 0), "p", "s", 'p', new ItemStack(Blocks.pumpkin), 's', new ItemStack(stoneTorch));
+    GameRegistry.addRecipe(new ItemStack(Blocks.LIT_PUMPKIN, 1, 0), "p", "s", 'p', new ItemStack(Blocks.PUMPKIN), 's', new ItemStack(stoneTorch));
     // Stone Ladder Recipe
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneLadder, 3), "w w", "www", "w w", 'w', "rodStone"));
     // Wooden Rail Recipe
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(woodRail, 4, 0), "b b", "bxb", "b b", 'b', "plankWood", 'x', "stickWood"));
 
     // Punji Sticks
-    GameRegistry.addRecipe(new ItemStack(punji, 3, 0), "b b", " b ", "b b", 'b', new ItemStack(Items.reeds));
+    GameRegistry.addRecipe(new ItemStack(punji, 3, 0), "b b", " b ", "b b", 'b', new ItemStack(Items.REEDS));
 
 
     // fancy item frames
     ItemStack frame = new ItemStack(TinkerGadgets.fancyFrame, 1, EntityFancyItemFrame.FrameType.GOLD.ordinal());
-    GameRegistry.addRecipe(new ShapedOreRecipe(frame, "nnn", "nOn", "nnn", 'O', Blocks.obsidian, 'n', "nuggetGold"));
+    GameRegistry.addRecipe(new ShapedOreRecipe(frame, "nnn", "nOn", "nnn", 'O', Blocks.OBSIDIAN, 'n', "nuggetGold"));
 
     addFrameRecipe("nuggetGold", EntityFancyItemFrame.FrameType.JEWEL);
 
@@ -143,15 +143,15 @@ public class TinkerGadgets extends TinkerPulse {
 
     // throwballs
     ItemStack glowball = new ItemStack(throwball, 1, ItemThrowball.ThrowballType.GLOW.ordinal());
-    GameRegistry.addRecipe(new ShapelessOreRecipe(glowball, Items.snowball, "dustGlowstone"));
+    GameRegistry.addRecipe(new ShapelessOreRecipe(glowball, Items.SNOWBALL, "dustGlowstone"));
 
     ItemStack efln = new ItemStack(throwball, 1, ItemThrowball.ThrowballType.EFLN.ordinal());
-    GameRegistry.addShapelessRecipe(efln, Items.flint, Items.gunpowder);
-    GameRegistry.addRecipe(new ShapelessOreRecipe(efln, Items.flint, "dustSulfur"));
+    GameRegistry.addShapelessRecipe(efln, Items.FLINT, Items.GUNPOWDER);
+    GameRegistry.addRecipe(new ShapelessOreRecipe(efln, Items.FLINT, "dustSulfur"));
   }
 
   private void addFrameRecipe(String nugget, EntityFancyItemFrame.FrameType type) {
-    Object obsidian = Blocks.obsidian;
+    Object obsidian = Blocks.OBSIDIAN;
 
     ItemStack frame = new ItemStack(TinkerGadgets.fancyFrame, 1, type.ordinal());
     GameRegistry.addRecipe(new ShapedOreRecipe(frame, " n ", "nOn", " n ", 'O', obsidian, 'n', nugget));

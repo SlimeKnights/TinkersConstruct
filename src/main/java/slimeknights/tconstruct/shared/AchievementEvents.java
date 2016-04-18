@@ -23,18 +23,18 @@ public class AchievementEvents {
     Item item = event.crafting.getItem();
     // fire vanilla pickaxe crafting when crafting tinkers picks (hammers also count for completeness sake)
     if(item instanceof Pickaxe) {
-      event.player.addStat(AchievementList.buildPickaxe);
+      event.player.addStat(AchievementList.BUILD_PICKAXE);
 
       if(TagUtil.getToolStats(event.crafting).harvestLevel > 0) {
-        event.player.addStat(AchievementList.buildBetterPickaxe);
+        event.player.addStat(AchievementList.BUILD_BETTER_PICKAXE);
       }
     }
     if(item instanceof Mattock) {
-      event.player.addStat(AchievementList.buildHoe);
+      event.player.addStat(AchievementList.BUILD_HOE);
     }
     // sword == basic weapon achievement. Any weapon besides hatchet
     if(item != TinkerTools.hatchet && item instanceof ToolCore && ((ToolCore) item).hasCategory(Category.WEAPON)) {
-      event.player.addStat(AchievementList.buildSword);
+      event.player.addStat(AchievementList.BUILD_SWORD);
     }
   }
 
@@ -45,8 +45,8 @@ public class AchievementEvents {
     }
 
     Item item = event.smelting.getItem();
-    if(item == Items.iron_ingot) {
-      event.player.addStat(AchievementList.acquireIron);
+    if(item == Items.IRON_INGOT) {
+      event.player.addStat(AchievementList.ACQUIRE_IRON);
     }
   }
 

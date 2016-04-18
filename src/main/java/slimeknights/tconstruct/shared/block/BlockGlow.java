@@ -28,7 +28,7 @@ public class BlockGlow extends Block {
   public static PropertyDirection FACING = PropertyDirection.create("facing");
 
   public BlockGlow() {
-    super(Material.circuits);
+    super(Material.CIRCUITS);
     this.setTickRandomly(true);
     this.setHardness(0.0F);
     this.setLightLevel(0.9375F);

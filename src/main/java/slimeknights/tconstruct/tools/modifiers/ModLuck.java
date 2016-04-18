@@ -36,7 +36,7 @@ public class ModLuck extends ModifierTrait {
 
   @Override
   public boolean canApplyTogether(Enchantment enchantment) {
-    return enchantment != Enchantments.silkTouch;
+    return enchantment != Enchantments.SILK_TOUCH;
   }
 
   @Override
@@ -81,7 +81,7 @@ public class ModLuck extends ModifierTrait {
     boolean harvest = false;
     boolean weapon = false;
 
-    lvl = Math.min(lvl, Enchantments.looting.getMaxLevel());
+    lvl = Math.min(lvl, Enchantments.LOOTING.getMaxLevel());
 
     for(Category category : TagUtil.getCategories(rootCompound)) {
       if(category == Category.HARVEST) harvest = true;
@@ -90,14 +90,14 @@ public class ModLuck extends ModifierTrait {
 
     // weapons get looting
     if(weapon) {
-      while(lvl > ToolBuilder.getEnchantmentLevel(rootCompound, Enchantments.looting)) {
-        ToolBuilder.addEnchantment(rootCompound, Enchantments.looting);
+      while(lvl > ToolBuilder.getEnchantmentLevel(rootCompound, Enchantments.LOOTING)) {
+        ToolBuilder.addEnchantment(rootCompound, Enchantments.LOOTING);
       }
     }
     // harvest tools get fortune
     if(harvest) {
-      while(lvl > ToolBuilder.getEnchantmentLevel(rootCompound, Enchantments.fortune)) {
-        ToolBuilder.addEnchantment(rootCompound, Enchantments.fortune);
+      while(lvl > ToolBuilder.getEnchantmentLevel(rootCompound, Enchantments.FORTUNE)) {
+        ToolBuilder.addEnchantment(rootCompound, Enchantments.FORTUNE);
       }
     }
   }

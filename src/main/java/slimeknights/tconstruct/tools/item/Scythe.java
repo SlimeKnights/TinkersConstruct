@@ -32,12 +32,12 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class Scythe extends ToolCore {
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
-      ImmutableSet.of(net.minecraft.block.material.Material.web,
-                      net.minecraft.block.material.Material.leaves,
-                      net.minecraft.block.material.Material.plants,
-                      net.minecraft.block.material.Material.grass,
-                      net.minecraft.block.material.Material.vine,
-                      net.minecraft.block.material.Material.gourd);
+      ImmutableSet.of(net.minecraft.block.material.Material.WEB,
+                      net.minecraft.block.material.Material.LEAVES,
+                      net.minecraft.block.material.Material.PLANTS,
+                      net.minecraft.block.material.Material.GRASS,
+                      net.minecraft.block.material.Material.VINE,
+                      net.minecraft.block.material.Material.GOURD);
 
 
   public Scythe() {
@@ -79,7 +79,7 @@ public class Scythe extends ToolCore {
 
   protected void breakBlock(ItemStack stack, BlockPos pos, EntityPlayer player) {
     // silktouch gives us shears :D
-    if(EnchantmentHelper.getEnchantmentLevel(Enchantments.silkTouch, stack) > 0) {
+    if(EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0) {
       if(ToolHelper.shearBlock(stack, player.worldObj, player, pos)) {
         return;
       }

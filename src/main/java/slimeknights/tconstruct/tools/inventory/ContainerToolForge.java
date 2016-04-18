@@ -26,6 +26,6 @@ public class ContainerToolForge extends ContainerToolStation {
 
   @Override
   protected void playCraftSound(EntityPlayer player) {
-    Sounds.playSoundForAll(player, SoundEvents.block_anvil_use, 0.9f, 0.95f + 0.2f * TConstruct.random.nextFloat());
+    Sounds.playSoundForAll(player, SoundEvents.BLOCK_ANVIL_USE, 0.9f, 0.95f + 0.2f * TConstruct.random.nextFloat());
   }
 }

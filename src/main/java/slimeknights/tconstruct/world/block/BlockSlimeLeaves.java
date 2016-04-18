@@ -54,19 +54,19 @@ public class BlockSlimeLeaves extends BlockLeaves {
 
   @Override
   public boolean isOpaqueCube(IBlockState state) {
-    return Blocks.leaves.isOpaqueCube(state);
+    return Blocks.LEAVES.isOpaqueCube(state);
   }
 
   @SideOnly(Side.CLIENT)
   @Override
   public BlockRenderLayer getBlockLayer() {
-    return Blocks.leaves.getBlockLayer();
+    return Blocks.LEAVES.getBlockLayer();
   }
 
   @Override
   public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
     // isOpaqueCube returns !leavesFancy to us. We have to fix the variable before calling super
-    this.leavesFancy = !Blocks.leaves.isOpaqueCube(blockState);
+    this.leavesFancy = !Blocks.LEAVES.isOpaqueCube(blockState);
 
     return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
   }
@@ -94,7 +94,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
           stack = TinkerCommons.matSlimeBallBlue.copy();
         }
         else {
-          stack = new ItemStack(Items.slime_ball);
+          stack = new ItemStack(Items.SLIME_BALL);
         }
       }
 

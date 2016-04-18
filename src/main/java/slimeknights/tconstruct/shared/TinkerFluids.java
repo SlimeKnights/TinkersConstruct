@@ -198,7 +198,7 @@ public class TinkerFluids extends TinkerPulse {
     milk.setTemperature(320);
     registerFluid(milk);
     registerClassicBlock(milk);
-    FluidContainerRegistry.registerFluidContainer(new FluidStack(milk, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(Items.milk_bucket), FluidContainerRegistry.EMPTY_BUCKET);
+    FluidContainerRegistry.registerFluidContainer(new FluidStack(milk, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(Items.MILK_BUCKET), FluidContainerRegistry.EMPTY_BUCKET);
 
     if(isWorldLoaded()) {
       blueslime = fluidClassic("blueslime", 0xef67f0f5);
@@ -206,7 +206,7 @@ public class TinkerFluids extends TinkerPulse {
       blueslime.setViscosity(1500);
       blueslime.setDensity(1500);
       registerFluid(blueslime);
-      registerBlock(new BlockLiquidSlime(blueslime, net.minecraft.block.material.Material.water), blueslime.getName());
+      registerBlock(new BlockLiquidSlime(blueslime, net.minecraft.block.material.Material.WATER), blueslime.getName());
       FluidRegistry.addBucketForFluid(blueslime);
     }
     if(isWorldLoaded() || isSmelteryLoaded()) {
@@ -215,7 +215,7 @@ public class TinkerFluids extends TinkerPulse {
       purpleSlime.setViscosity(1600);
       purpleSlime.setDensity(1600);
       registerFluid(purpleSlime);
-      registerBlock(new BlockLiquidSlime(purpleSlime, net.minecraft.block.material.Material.water), purpleSlime.getName());
+      registerBlock(new BlockLiquidSlime(purpleSlime, net.minecraft.block.material.Material.WATER), purpleSlime.getName());
       FluidRegistry.addBucketForFluid(purpleSlime);
     }
 
@@ -293,7 +293,7 @@ public class TinkerFluids extends TinkerPulse {
 
   /** Registers a non-burning water based block for the fluid */
   public static BlockFluidBase registerClassicBlock(Fluid fluid) {
-    BlockFluidBase block = new BlockTinkerFluid(fluid, net.minecraft.block.material.Material.water);
+    BlockFluidBase block = new BlockTinkerFluid(fluid, net.minecraft.block.material.Material.WATER);
     return registerBlock(block, fluid.getName());
   }
 

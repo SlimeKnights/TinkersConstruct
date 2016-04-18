@@ -23,7 +23,7 @@ public class BlockMetal extends EnumBlock<BlockMetal.MetalTypes> {
   public static final PropertyEnum<MetalTypes> TYPE = PropertyEnum.create("type", MetalTypes.class);
 
   public BlockMetal() {
-    super(Material.iron, TYPE, MetalTypes.class);
+    super(Material.IRON, TYPE, MetalTypes.class);
 
     setHardness(5f);
     setHarvestLevel("pickaxe", -1); // we're generous. no harvest level required

@@ -40,7 +40,7 @@ public class BlockFaucet extends BlockContainer {
   });
 
   public BlockFaucet() {
-    super(Material.rock);
+    super(Material.ROCK);
 
     this.setCreativeTab(TinkerRegistry.tabSmeltery);
     this.setHardness(3F);

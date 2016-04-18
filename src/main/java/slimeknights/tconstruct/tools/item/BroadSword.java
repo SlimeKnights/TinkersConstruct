@@ -30,11 +30,11 @@ import slimeknights.tconstruct.tools.TinkerTools;
 public class BroadSword extends ToolCore {
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
-      ImmutableSet.of(net.minecraft.block.material.Material.web,
-                      net.minecraft.block.material.Material.vine,
-                      net.minecraft.block.material.Material.coral,
-                      net.minecraft.block.material.Material.gourd,
-                      net.minecraft.block.material.Material.leaves);
+      ImmutableSet.of(net.minecraft.block.material.Material.WEB,
+                      net.minecraft.block.material.Material.VINE,
+                      net.minecraft.block.material.Material.CORAL,
+                      net.minecraft.block.material.Material.GOURD,
+                      net.minecraft.block.material.Material.LEAVES);
 
   public BroadSword() {
     this(PartMaterialType.handle(TinkerTools.toolRod),
@@ -82,7 +82,7 @@ public class BroadSword extends ToolCore {
       if(player instanceof EntityPlayer) {
         flag = ((EntityPlayer)player).getCooledAttackStrength(0.5F) > 0.9f;
       }
-      boolean flag2 = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.blindness) && !player.isRiding();
+      boolean flag2 = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.BLINDNESS) && !player.isRiding();
       if (flag && !player.isSprinting() && !flag2 && player.onGround && d0 < (double)player.getAIMoveSpeed()) {
         for(EntityLivingBase entitylivingbase : player.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, entity.getEntityBoundingBox().expand(1.0D, 0.25D, 1.0D))) {
           if(entitylivingbase != player && entitylivingbase != entity && !player.isOnSameTeam(entitylivingbase) && player.getDistanceSqToEntity(entitylivingbase) < 9.0D) {
@@ -91,7 +91,7 @@ public class BroadSword extends ToolCore {
           }
         }
 
-        player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.entity_player_attack_sweep, player.getSoundCategory(), 1.0F, 1.0F);
+        player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
         if(player instanceof EntityPlayer) {
           ((EntityPlayer) player).spawnSweepParticles();
         }

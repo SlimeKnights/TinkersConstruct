@@ -27,7 +27,7 @@ public final class RenderUtil {
     Tessellator tessellator = Tessellator.getInstance();
     VertexBuffer worldrenderer = tessellator.getBuffer();
     worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-    mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+    mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
     putTiledTextureQuads(worldrenderer, x, y, width, height, depth, sprite);
 
@@ -103,7 +103,7 @@ public final class RenderUtil {
     Tessellator tessellator = Tessellator.getInstance();
     VertexBuffer renderer = tessellator.getBuffer();
     renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-    mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+    mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
     //RenderUtil.setColorRGBA(color);
     int brightness = mc.theWorld.getCombinedLight(pos, fluid.getFluid().getLuminosity());
 
@@ -133,7 +133,7 @@ public final class RenderUtil {
     Tessellator tessellator = Tessellator.getInstance();
     VertexBuffer renderer = tessellator.getBuffer();
     renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-    mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+    mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
     int color = fluid.getFluid().getColor(fluid);
     int brightness = mc.theWorld.getCombinedLight(pos, fluid.getFluid().getLuminosity());
 

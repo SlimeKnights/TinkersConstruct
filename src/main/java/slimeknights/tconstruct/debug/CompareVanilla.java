@@ -67,40 +67,40 @@ public class CompareVanilla extends CommandBase {
     ItemStack iron =  TinkerTools.pickaxe.buildItem(ironMaterials);
     ItemStack extra = TinkerTools.pickaxe.buildItem(cobaltMaterials);
 
-    testTools(Blocks.cobblestone,
+    testTools(Blocks.COBBLESTONE,
               wood, stone, iron, extra,
-              new ItemStack(Items.wooden_pickaxe), new ItemStack(Items.stone_pickaxe), new ItemStack(Items.iron_pickaxe),
-              new ItemStack(Items.diamond_pickaxe), new ItemStack(Items.golden_pickaxe));
+              new ItemStack(Items.WOODEN_PICKAXE), new ItemStack(Items.STONE_PICKAXE), new ItemStack(Items.IRON_PICKAXE),
+              new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.GOLDEN_PICKAXE));
 
     wood =  TinkerTools.shovel.buildItem(woodMaterials);
     stone = TinkerTools.shovel.buildItem(stoneMaterials);
     iron =  TinkerTools.shovel.buildItem(ironMaterials);
     extra = TinkerTools.shovel.buildItem(cobaltMaterials);
 
-    testTools(Blocks.dirt,
+    testTools(Blocks.DIRT,
               wood, stone, iron, extra,
-              new ItemStack(Items.wooden_shovel), new ItemStack(Items.stone_shovel), new ItemStack(Items.iron_shovel),
-              new ItemStack(Items.diamond_shovel), new ItemStack(Items.golden_shovel));
+              new ItemStack(Items.WOODEN_SHOVEL), new ItemStack(Items.STONE_SHOVEL), new ItemStack(Items.IRON_SHOVEL),
+              new ItemStack(Items.DIAMOND_SHOVEL), new ItemStack(Items.GOLDEN_SHOVEL));
 
     wood =  TinkerTools.hatchet.buildItem(woodMaterials);
     stone = TinkerTools.hatchet.buildItem(stoneMaterials);
     iron =  TinkerTools.hatchet.buildItem(ironMaterials);
     extra = TinkerTools.hatchet.buildItem(cobaltMaterials);
 
-    testTools(Blocks.log,
+    testTools(Blocks.LOG,
               wood, stone, iron, extra,
-              new ItemStack(Items.wooden_axe), new ItemStack(Items.stone_axe), new ItemStack(Items.iron_axe),
-              new ItemStack(Items.diamond_axe), new ItemStack(Items.golden_axe));
+              new ItemStack(Items.WOODEN_AXE), new ItemStack(Items.STONE_AXE), new ItemStack(Items.IRON_AXE),
+              new ItemStack(Items.DIAMOND_AXE), new ItemStack(Items.GOLDEN_AXE));
 
     wood =  TinkerTools.broadSword.buildItem(woodMaterials);
     stone = TinkerTools.broadSword.buildItem(stoneMaterials);
     iron =  TinkerTools.broadSword.buildItem(ironMaterials);
     extra = TinkerTools.broadSword.buildItem(manyMaterials);
 
-    testTools(Blocks.melon_block,
+    testTools(Blocks.MELON_BLOCK,
               wood, stone, iron, extra,
-              new ItemStack(Items.wooden_sword), new ItemStack(Items.stone_sword), new ItemStack(Items.iron_sword),
-              new ItemStack(Items.diamond_sword), new ItemStack(Items.golden_sword));
+              new ItemStack(Items.WOODEN_SWORD), new ItemStack(Items.STONE_SWORD), new ItemStack(Items.IRON_SWORD),
+              new ItemStack(Items.DIAMOND_SWORD), new ItemStack(Items.GOLDEN_SWORD));
   }
 
   protected void testTools(Block block, ItemStack wood, ItemStack stone, ItemStack iron, ItemStack extra1, ItemStack vanillaWood, ItemStack vanillaStone, ItemStack vanillaIron, ItemStack vanillaDiamond, ItemStack vanillaGold) {
@@ -158,13 +158,13 @@ public class CompareVanilla extends CommandBase {
     // Redstone/Efficiency
     pw.println(genSection("Haste/Efficiency V", ""));
     ItemStack tinkerModified = applyModifier(TinkerTools.modHaste, tinker);
-    ItemStack vanillaModified = applyEnchantment(Enchantments.efficiency, vanilla);
+    ItemStack vanillaModified = applyEnchantment(Enchantments.EFFICIENCY, vanilla);
     pw.println(testToolSpeed(block, tinkerModified, vanillaModified));
 
     // Quartz/Sharpness
     pw.println(genSection("Sharpness V", ""));
     tinkerModified = applyModifier(TinkerTools.modSharpness, tinker);
-    vanillaModified = applyEnchantment(Enchantments.sharpness, vanilla);
+    vanillaModified = applyEnchantment(Enchantments.SHARPNESS, vanilla);
     pw.println(testToolAttack(tinkerModified, vanillaModified));
   }
 
@@ -215,7 +215,7 @@ public class CompareVanilla extends CommandBase {
 
     float speed1 = tinker.getItem().getStrVsBlock(tinker, state);
     float speed2 = vanilla.getItem().getStrVsBlock(vanilla, state);
-    int efficiencyLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.efficiency, vanilla);
+    int efficiencyLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, vanilla);
     if(efficiencyLevel > 0) {
       speed2 += efficiencyLevel * efficiencyLevel + 1;
     }

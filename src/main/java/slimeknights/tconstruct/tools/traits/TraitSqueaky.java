@@ -24,7 +24,7 @@ public class TraitSqueaky extends AbstractTrait {
     super.applyEffect(rootCompound, modifierTag);
 
     // add silktouch if it's not present
-    ToolBuilder.addEnchantment(rootCompound, Enchantments.silkTouch);
+    ToolBuilder.addEnchantment(rootCompound, Enchantments.SILK_TOUCH);
   }
 
   @Override

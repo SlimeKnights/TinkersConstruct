@@ -78,7 +78,7 @@ public class ExplosionEFLN extends Explosion {
 
   @Override
   public void doExplosionB(boolean spawnParticles) {
-    this.worldObj.playSound(null, this.explosionX, this.explosionY, this.explosionZ, SoundEvents.entity_generic_explode, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+    this.worldObj.playSound(null, this.explosionX, this.explosionY, this.explosionZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 
     this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
 
@@ -108,7 +108,7 @@ public class ExplosionEFLN extends Explosion {
         this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5, new int[0]);
       }*/
 
-      if(iblockstate.getMaterial() != Material.air) {
+      if(iblockstate.getMaterial() != Material.AIR) {
         if(block.canDropFromExplosion(this)) {
           block.dropBlockAsItemWithChance(this.worldObj, blockpos, this.worldObj.getBlockState(blockpos), 1.0F, 0);
         }

@@ -28,7 +28,7 @@ public abstract class Sounds {
   private static SoundEvent sound(String name) {
     ResourceLocation location = Util.getResource(name);
     SoundEvent event = new SoundEvent(location);
-    SoundEvent.soundEventRegistry.register(-1, location, event);
+    SoundEvent.REGISTRY.register(-1, location, event);
     return event;
   }
 

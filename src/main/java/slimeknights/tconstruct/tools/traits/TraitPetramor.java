@@ -21,7 +21,7 @@ public class TraitPetramor extends AbstractTrait {
 
   @Override
   public void afterBlockBreak(ItemStack tool, World world, IBlockState state, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
-    if(!world.isRemote && state.getMaterial() == Material.rock && random.nextFloat() < chance) {
+    if(!world.isRemote && state.getMaterial() == Material.ROCK && random.nextFloat() < chance) {
       ToolHelper.healTool(tool, 5, player);
     }
   }

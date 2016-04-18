@@ -29,7 +29,7 @@ public class BlockSmelteryController extends BlockInventoryTinkers {
   public static PropertyBool ACTIVE = PropertyBool.create("active");
 
   public BlockSmelteryController() {
-    super(Material.rock);
+    super(Material.ROCK);
     this.setCreativeTab(TinkerRegistry.tabSmeltery);
     this.setHardness(3F);
     this.setResistance(20F);

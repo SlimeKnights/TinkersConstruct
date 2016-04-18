@@ -20,13 +20,13 @@ import slimeknights.tconstruct.tools.TinkerTools;
 public class Pickaxe extends AoeToolCore {
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
-      ImmutableSet.of(net.minecraft.block.material.Material.iron,
-                      net.minecraft.block.material.Material.anvil,
-                      net.minecraft.block.material.Material.rock,
-                      net.minecraft.block.material.Material.ice,
-                      net.minecraft.block.material.Material.glass,
-                      net.minecraft.block.material.Material.packedIce,
-                      net.minecraft.block.material.Material.piston);
+      ImmutableSet.of(net.minecraft.block.material.Material.IRON,
+                      net.minecraft.block.material.Material.ANVIL,
+                      net.minecraft.block.material.Material.ROCK,
+                      net.minecraft.block.material.Material.ICE,
+                      net.minecraft.block.material.Material.GLASS,
+                      net.minecraft.block.material.Material.PACKED_ICE,
+                      net.minecraft.block.material.Material.PISTON);
 
   // Pick-head, binding, tool-rod
   public Pickaxe() {

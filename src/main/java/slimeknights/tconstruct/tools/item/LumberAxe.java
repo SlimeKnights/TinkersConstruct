@@ -40,9 +40,9 @@ import slimeknights.tconstruct.tools.events.TinkerToolEvent;
 public class LumberAxe extends AoeToolCore {
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
-      ImmutableSet.of(net.minecraft.block.material.Material.wood,
-                      net.minecraft.block.material.Material.gourd,
-                      net.minecraft.block.material.Material.cactus);
+      ImmutableSet.of(net.minecraft.block.material.Material.WOOD,
+                      net.minecraft.block.material.Material.GOURD,
+                      net.minecraft.block.material.Material.CACTUS);
 
   public LumberAxe() {
     super(PartMaterialType.handle(TinkerTools.toughToolRod),

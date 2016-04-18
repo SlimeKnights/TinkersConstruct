@@ -474,8 +474,8 @@ public abstract class ToolCore extends TinkersItem {
 
   // elevate to public
   @Override
-  public RayTraceResult getMovingObjectPositionFromPlayer(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
-    return super.getMovingObjectPositionFromPlayer(worldIn, playerIn, useLiquids);
+  public RayTraceResult rayTrace(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
+    return super.rayTrace(worldIn, playerIn, useLiquids);
   }
 
   protected void preventSlowDown(Entity entityIn, float originalSpeed) {

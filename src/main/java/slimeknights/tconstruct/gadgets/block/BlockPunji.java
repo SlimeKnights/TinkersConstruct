@@ -39,7 +39,7 @@ public class BlockPunji extends Block {
   public static final PropertyBool NORTHWEST = PropertyBool.create("northwest");
 
   public BlockPunji() {
-    super(Material.plants);
+    super(Material.PLANTS);
     this.setSoundType(SoundType.PLANT);
     this.setCreativeTab(TinkerRegistry.tabGadgets);
     this.setHardness(3.0f);
@@ -165,7 +165,7 @@ public class BlockPunji extends Block {
         damage += entityIn.fallDistance * 1.5f + 2f;
       }
       entityIn.attackEntityFrom(DamageSource.cactus, damage);
-      ((EntityLiving) entityIn).addPotionEffect(new PotionEffect(MobEffects.moveSlowdown, 20, 1));
+      ((EntityLiving) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20, 1));
     }
   }
 

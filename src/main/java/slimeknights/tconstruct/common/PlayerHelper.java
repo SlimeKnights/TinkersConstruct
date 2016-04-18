@@ -40,7 +40,7 @@ public final class PlayerHelper {
       // if it got picked up, we're playing the sound
       else {
         // 1.9 check if this plays
-        player.worldObj.playSound(player, player.getPosition(), SoundEvents.entity_item_pickup, SoundCategory.PLAYERS, 0.2F, ((TConstruct.random.nextFloat() - TConstruct.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+        player.worldObj.playSound(player, player.getPosition(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((TConstruct.random.nextFloat() - TConstruct.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
         if(player instanceof EntityPlayerMP)
           player.inventoryContainer.detectAndSendChanges();
       }

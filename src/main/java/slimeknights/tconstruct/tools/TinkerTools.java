@@ -268,10 +268,10 @@ public class TinkerTools extends TinkerPulse {
     // create the modifiers and add their items
     modBaneOfArthopods = new ModAntiMonsterType("bane_of_arthopods", 0x61ba49, 5, 24, EnumCreatureAttribute.ARTHROPOD);
     modBaneOfArthopods = registerModifier(modBaneOfArthopods);
-    modBaneOfArthopods.addItem(Items.fermented_spider_eye);
+    modBaneOfArthopods.addItem(Items.FERMENTED_SPIDER_EYE);
 
     modBeheading = registerModifier(new ModBeheading());
-    modBeheading.addRecipeMatch(new RecipeMatch.ItemCombination(1, new ItemStack(Items.ender_pearl), new ItemStack(Blocks.obsidian)));
+    modBeheading.addRecipeMatch(new RecipeMatch.ItemCombination(1, new ItemStack(Items.ENDER_PEARL), new ItemStack(Blocks.OBSIDIAN)));
 
     modDiamond = registerModifier(new ModDiamond());
     modDiamond.addItem("gemDiamond");
@@ -280,7 +280,7 @@ public class TinkerTools extends TinkerPulse {
     modEmerald.addItem("gemEmerald");
 
     modFiery = registerModifier(new ModFiery());
-    modFiery.addItem(Items.blaze_powder);
+    modFiery.addItem(Items.BLAZE_POWDER);
 
     modHaste = registerModifier(new ModHaste(50));
     modHaste.addItem("dustRedstone");
@@ -293,8 +293,8 @@ public class TinkerTools extends TinkerPulse {
     modHarvestHeight.addItem(TinkerCommons.matExpanderH, 1, 1);
 
     modKnockback = registerModifier(new ModKnockback());
-    modKnockback.addItem(Blocks.piston, 1);
-    modKnockback.addItem(Blocks.sticky_piston, 1);
+    modKnockback.addItem(Blocks.PISTON, 1);
+    modKnockback.addItem(Blocks.STICKY_PISTON, 1);
 
     modLuck = registerModifier(new ModLuck());
     modLuck.addItem("gemLapis");
@@ -318,7 +318,7 @@ public class TinkerTools extends TinkerPulse {
     modSmite.addItem(TinkerCommons.consecratedSoil, 1, 1);
 
     modSoulbound = registerModifier(new ModSoulbound());
-    modSoulbound.addItem(Items.nether_star);
+    modSoulbound.addItem(Items.NETHER_STAR);
 
     modCreative = registerModifier(new ModCreative());
     modCreative.addItem(TinkerCommons.matCreativeModifier, 1, 1);
@@ -371,22 +371,22 @@ public class TinkerTools extends TinkerPulse {
         new TableRecipe(OreDictionary.getOres("plankWood"), toolTables, BlockToolTable.TableTypes.StencilTable.meta,
                         "P", "B", 'P', pattern, 'B', "plankWood"));
     GameRegistry.addRecipe(BlockTable
-                               .createItemstack(toolTables, BlockToolTable.TableTypes.StencilTable.meta, Blocks.rail, 0),
-                           "P", "B", 'P', pattern, 'B', Blocks.rail);
+                               .createItemstack(toolTables, BlockToolTable.TableTypes.StencilTable.meta, Blocks.RAIL, 0),
+                           "P", "B", 'P', pattern, 'B', Blocks.RAIL);
     GameRegistry.addRecipe(BlockTable
-                               .createItemstack(toolTables, BlockToolTable.TableTypes.StencilTable.meta, Blocks.melon_block, 0),
-                           "P", "B", 'P', pattern, 'B', Blocks.melon_block);
+                               .createItemstack(toolTables, BlockToolTable.TableTypes.StencilTable.meta, Blocks.MELON_BLOCK, 0),
+                           "P", "B", 'P', pattern, 'B', Blocks.MELON_BLOCK);
 
     // Part Builder
     GameRegistry.addRecipe(
         new TableRecipe(OreDictionary.getOres("logWood"), toolTables, BlockToolTable.TableTypes.PartBuilder.meta, "P",
                         "B", 'P', pattern, 'B', "logWood"));
     GameRegistry.addRecipe(BlockTable
-                               .createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.golden_rail, 0),
-                           "P", "B", 'P', pattern, 'B', Blocks.golden_rail);
+                               .createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.GOLDEN_RAIL, 0),
+                           "P", "B", 'P', pattern, 'B', Blocks.GOLDEN_RAIL);
     GameRegistry.addRecipe(BlockTable
-                               .createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.cactus, 0),
-                           "P", "B", 'P', pattern, 'B', Blocks.cactus);
+                               .createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.CACTUS, 0),
+                           "P", "B", 'P', pattern, 'B', Blocks.CACTUS);
 
     // Pattern Chest
     ItemStack patternChest = new ItemStack(toolTables, 1, BlockToolTable.TableTypes.PatternChest.meta);
@@ -415,28 +415,28 @@ public class TinkerTools extends TinkerPulse {
     ItemStack knightSlime = TinkerCommons.ingotKnightSlime;
     // blue slimeball has a recipe if world isn't present
     if(!isWorldLoaded()) {
-      GameRegistry.addRecipe(new ShapelessOreRecipe(slimeBallBlue, Items.slime_ball, "dyeBlue"));
-      GameRegistry.addRecipe(new ShapelessOreRecipe(slimeBallPurple, Items.slime_ball, "dyePurple"));
-      GameRegistry.addRecipe(new ShapelessOreRecipe(slimeBallMagma, Items.slime_ball, "dyeOrange"));
+      GameRegistry.addRecipe(new ShapelessOreRecipe(slimeBallBlue, Items.SLIME_BALL, "dyeBlue"));
+      GameRegistry.addRecipe(new ShapelessOreRecipe(slimeBallPurple, Items.SLIME_BALL, "dyePurple"));
+      GameRegistry.addRecipe(new ShapelessOreRecipe(slimeBallMagma, Items.SLIME_BALL, "dyeOrange"));
     }
     if(!isSmelteryLoaded()) {
       GameRegistry.addRecipe(new ShapelessOreRecipe(knightSlime, slimeBallPurple, "ingotIron", "stone"));
       // extra utility recipe if both are not loaded
       if(!isWorldLoaded()) {
-        GameRegistry.addRecipe(new ShapelessOreRecipe(knightSlime, Items.slime_ball, "dyePurple", "ingotIron", "stone"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(knightSlime, Items.SLIME_BALL, "dyePurple", "ingotIron", "stone"));
       }
 
       // cobalt ardite manyullyn
       GameRegistry.addSmelting(TinkerCommons.oreArdite, TinkerCommons.ingotArdite, 1.0f);
       GameRegistry.addSmelting(TinkerCommons.oreCobalt, TinkerCommons.ingotCobalt, 1.0f);
 
-      GameRegistry.addShapelessRecipe(TinkerCommons.ingotManyullyn, TinkerCommons.ingotCobalt, TinkerCommons.ingotArdite, Blocks.coal_block);
-      GameRegistry.addShapelessRecipe(TinkerCommons.nuggetManyullyn, TinkerCommons.nuggetCobalt, TinkerCommons.nuggetArdite, Items.coal);
+      GameRegistry.addShapelessRecipe(TinkerCommons.ingotManyullyn, TinkerCommons.ingotCobalt, TinkerCommons.ingotArdite, Blocks.COAL_BLOCK);
+      GameRegistry.addShapelessRecipe(TinkerCommons.nuggetManyullyn, TinkerCommons.nuggetCobalt, TinkerCommons.nuggetArdite, Items.COAL);
 
       // pigiron
       ItemStack pigiron = TinkerCommons.ingotPigIron.copy();
       pigiron.stackSize = 3;
-      GameRegistry.addRecipe(new ShapelessOreRecipe(pigiron, "ingotIron", "ingotIron", "ingotIron", Items.porkchop, Items.porkchop, Items.porkchop, "gemEmerald"));
+      GameRegistry.addRecipe(new ShapelessOreRecipe(pigiron, "ingotIron", "ingotIron", "ingotIron", Items.PORKCHOP, Items.PORKCHOP, Items.PORKCHOP, "gemEmerald"));
     }
 
     // Expander items for the Harvest-Width/Height modifier
@@ -445,7 +445,7 @@ public class TinkerTools extends TinkerPulse {
                                                "PSP",
                                                " L ",
                                                'L', "gemLapis",
-                                               'P', Blocks.piston,
+                                               'P', Blocks.PISTON,
                                                'S', slimeBallPurple));
 
     GameRegistry.addRecipe(new ShapedOreRecipe(TinkerCommons.matExpanderH,
@@ -453,7 +453,7 @@ public class TinkerTools extends TinkerPulse {
                                                "LSL",
                                                " P ",
                                                'L', "gemLapis",
-                                               'P', Blocks.piston,
+                                               'P', Blocks.PISTON,
                                                'S', slimeBallPurple));
 
     // silky cloth/jewel
@@ -461,7 +461,7 @@ public class TinkerTools extends TinkerPulse {
                                                "CCC",
                                                "CGC",
                                                "CCC",
-                                               'C', Items.string,
+                                               'C', Items.STRING,
                                                'G', "ingotGold"));
     GameRegistry.addRecipe(new ShapedOreRecipe(TinkerCommons.matSilkyJewel,
                                                " C ",
@@ -483,9 +483,9 @@ public class TinkerTools extends TinkerPulse {
                                                'P', goldThing));
 
     // Slimy Mud
-    GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudGreen, Items.slime_ball, Items.slime_ball, Items.slime_ball, Items.slime_ball, "sand", "dirt"));
+    GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudGreen, Items.SLIME_BALL, Items.SLIME_BALL, Items.SLIME_BALL, Items.SLIME_BALL, "sand", "dirt"));
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudBlue, slimeBallBlue, slimeBallBlue, slimeBallBlue, slimeBallBlue, "sand", "dirt"));
-    GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudMagma, slimeBallMagma, Items.magma_cream, slimeBallMagma, Items.magma_cream, Blocks.soul_sand, Blocks.netherrack));
+    GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudMagma, slimeBallMagma, Items.MAGMA_CREAM, slimeBallMagma, Items.MAGMA_CREAM, Blocks.SOUL_SAND, Blocks.NETHERRACK));
     if(isWorldLoaded()) {
       // recipies using congealed slime blocks
       ItemStack congealed = new ItemStack(TinkerWorld.slimeBlockCongealed, 0, BlockSlime.SlimeType.GREEN.meta);
@@ -504,7 +504,7 @@ public class TinkerTools extends TinkerPulse {
       GameRegistry.addRecipe(new ShapedOreRecipe(TinkerCommons.lavawood,
                                    " B ", "BWB", " B ",
                                    'B', "plankWood",
-                                   'W', Items.lava_bucket));
+                                   'W', Items.LAVA_BUCKET));
     }
   }
 
@@ -518,7 +518,7 @@ public class TinkerTools extends TinkerPulse {
   private static void registerToolForgeRecipe(String oredict) {
     Block brick = TinkerSmeltery.searedBlock;
     if(brick == null) {
-      brick = Blocks.stonebrick;
+      brick = Blocks.STONEBRICK;
     }
     GameRegistry
         .addRecipe(new TableRecipe(OreDictionary.getOres(oredict), toolForge, 0,

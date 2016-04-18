@@ -23,7 +23,7 @@ public class TinkerPotion extends Potion {
     setPotionName("potion." + location.getResourcePath());
 
     this.show = showInInventory;
-    potionRegistry.register(-1, location, this);
+    REGISTRY.register(-1, location, this);
   }
 
   @Override

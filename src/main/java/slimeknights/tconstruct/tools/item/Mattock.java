@@ -34,16 +34,16 @@ import slimeknights.tconstruct.tools.TinkerTools;
 public class Mattock extends AoeToolCore {
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials_axe =
-      ImmutableSet.of(net.minecraft.block.material.Material.wood,
-                      net.minecraft.block.material.Material.cactus,
-                      net.minecraft.block.material.Material.plants,
-                      net.minecraft.block.material.Material.vine,
-                      net.minecraft.block.material.Material.gourd);
+      ImmutableSet.of(net.minecraft.block.material.Material.WOOD,
+                      net.minecraft.block.material.Material.CACTUS,
+                      net.minecraft.block.material.Material.PLANTS,
+                      net.minecraft.block.material.Material.VINE,
+                      net.minecraft.block.material.Material.GOURD);
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials_shovel =
-      ImmutableSet.of(net.minecraft.block.material.Material.grass,
-                      net.minecraft.block.material.Material.ground,
-                      net.minecraft.block.material.Material.clay);
+      ImmutableSet.of(net.minecraft.block.material.Material.GRASS,
+                      net.minecraft.block.material.Material.GROUND,
+                      net.minecraft.block.material.Material.CLAY);
 
   public Mattock() {
     super(PartMaterialType.handle(TinkerTools.toolRod),
@@ -111,13 +111,13 @@ public class Mattock extends AoeToolCore {
       return EnumActionResult.FAIL;
     }
 
-    EnumActionResult ret = Items.diamond_hoe.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+    EnumActionResult ret = Items.DIAMOND_HOE.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
     for(BlockPos blockPos : getAOEBlocks(stack, worldIn, playerIn, pos)) {
       if(ToolHelper.isBroken(stack)) {
         break;
       }
 
-      EnumActionResult ret2 = Items.diamond_hoe.onItemUse(stack, playerIn, worldIn, blockPos, hand, facing, hitX, hitY, hitZ);
+      EnumActionResult ret2 = Items.DIAMOND_HOE.onItemUse(stack, playerIn, worldIn, blockPos, hand, facing, hitX, hitY, hitZ);
       if(ret != EnumActionResult.SUCCESS) {
         ret = ret2;
       }

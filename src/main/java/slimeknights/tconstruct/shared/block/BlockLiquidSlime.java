@@ -32,7 +32,7 @@ public class BlockLiquidSlime extends BlockTinkerFluid {
       if(rand.nextFloat() > 0.6f) {
         // only if they have dirt below them
         Block blockDown = world.getBlockState(pos.down()).getBlock();
-        if(blockDown == Blocks.dirt) {
+        if(blockDown == Blocks.DIRT) {
           // check if the block we flowed from has slimedirt below it and move the slime with us!
           for(EnumFacing dir : EnumFacing.HORIZONTALS) {
             IBlockState state2 = world.getBlockState(pos.offset(dir));

@@ -15,7 +15,7 @@ public class BlockFirewood extends EnumBlock<BlockFirewood.FirewoodType> {
   public final static PropertyEnum<FirewoodType> TYPE = PropertyEnum.create("type", FirewoodType.class);
 
   public BlockFirewood() {
-    super(Material.ground, TYPE, FirewoodType.class);
+    super(Material.WOOD, TYPE, FirewoodType.class);
 
     this.setHardness(2f);
     this.setResistance(7f);

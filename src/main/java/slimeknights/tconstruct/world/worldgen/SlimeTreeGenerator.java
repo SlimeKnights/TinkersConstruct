@@ -97,7 +97,7 @@ public class SlimeTreeGenerator implements IWorldGenerator {
       placeDiamondLayer(world, pos.down(i), i + 1);
     }
 
-    IBlockState air = Blocks.air.getDefaultState();
+    IBlockState air = Blocks.AIR.getDefaultState();
 
     pos = pos.down();
     this.setBlockAndMetadata(world, pos.add(+4, 0,  0), air);

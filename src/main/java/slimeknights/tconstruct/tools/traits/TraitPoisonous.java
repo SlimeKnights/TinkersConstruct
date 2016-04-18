@@ -17,7 +17,7 @@ public class TraitPoisonous extends AbstractTrait {
   @Override
   public void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
     if(wasHit && target.isEntityAlive()) {
-      target.addPotionEffect(new PotionEffect(MobEffects.poison, 101));
+      target.addPotionEffect(new PotionEffect(MobEffects.POISON, 101));
     }
   }
 }

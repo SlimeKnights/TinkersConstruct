@@ -53,7 +53,7 @@ public class WorldEvents {
 
   private void bounce(Entity entity, float amount) {
     entity.motionY += amount;
-    entity.playSound(SoundEvents.entity_slime_squish, 0.5f + amount, 1f);
+    entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 0.5f + amount, 1f);
   }
 
   // Custom slime spawning on slime islands

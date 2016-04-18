@@ -45,7 +45,7 @@ public class BlockCasting extends BlockInventory {
   public static final PropertyEnum<CastingType> TYPE = PropertyEnum.create("type", CastingType.class);
 
   public BlockCasting() {
-    super(Material.rock);
+    super(Material.ROCK);
     setHardness(3F);
     setResistance(20F);
     setCreativeTab(TinkerRegistry.tabSmeltery);

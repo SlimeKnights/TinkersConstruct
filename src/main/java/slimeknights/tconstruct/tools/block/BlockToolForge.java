@@ -34,7 +34,7 @@ public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
   public final Set<String> baseBlocks = Sets.newHashSet(); // oredict list of toolforge blocks
 
   public BlockToolForge() {
-    super(Material.iron);
+    super(Material.IRON);
     this.setCreativeTab(TinkerRegistry.tabGeneral);
 
     this.setSoundType(SoundType.METAL);

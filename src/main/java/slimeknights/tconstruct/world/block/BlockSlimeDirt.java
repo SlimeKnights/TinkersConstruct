@@ -22,7 +22,7 @@ public class BlockSlimeDirt extends EnumBlock<BlockSlimeDirt.DirtType> {
   public static PropertyEnum<DirtType> TYPE = PropertyEnum.create("type", DirtType.class);
 
   public BlockSlimeDirt() {
-    super(Material.ground, TYPE, DirtType.class);
+    super(Material.GROUND, TYPE, DirtType.class);
     this.setCreativeTab(TinkerRegistry.tabWorld);
     this.setHardness(0.55f);
     this.setSoundType(SoundType.SLIME);

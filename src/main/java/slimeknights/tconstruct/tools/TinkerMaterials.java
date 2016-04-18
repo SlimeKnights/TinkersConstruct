@@ -281,7 +281,7 @@ public final class TinkerMaterials {
     wood.addItem("stickWood", 1, Material.VALUE_Shard);
     wood.addItem("plankWood", 1, Material.VALUE_Ingot);
     wood.addItem("logWood", 1, Material.VALUE_Ingot * 4);
-    wood.setRepresentativeItem(new ItemStack(Items.stick));
+    wood.setRepresentativeItem(new ItemStack(Items.STICK));
     wood.addTrait(ecological, HEAD);
     wood.addTrait(splinters);
     wood.addTrait(ecological);
@@ -289,67 +289,67 @@ public final class TinkerMaterials {
     stone.setCraftable(true);
     stone.addItem("cobblestone", 1, Material.VALUE_Ingot);
     stone.addItem("stone", 1, Material.VALUE_Ingot);
-    stone.setRepresentativeItem(new ItemStack(Blocks.cobblestone));
+    stone.setRepresentativeItem(new ItemStack(Blocks.COBBLESTONE));
     stone.addTrait(cheapskate, HEAD);
     stone.addTrait(cheap);
 
     flint.setCraftable(true);
-    flint.addItem(Items.flint, 1, Material.VALUE_Ingot);
-    flint.setRepresentativeItem(new ItemStack(Items.flint));
+    flint.addItem(Items.FLINT, 1, Material.VALUE_Ingot);
+    flint.setRepresentativeItem(new ItemStack(Items.FLINT));
     flint.addTrait(crude2, HEAD);
     flint.addTrait(crude);
 
     cactus.setCraftable(true);
     cactus.addItem("blockCactus", 1, Material.VALUE_Ingot);
-    cactus.setRepresentativeItem(new ItemStack(Blocks.cactus));
+    cactus.setRepresentativeItem(new ItemStack(Blocks.CACTUS));
     cactus.addTrait(prickly, HEAD);
     cactus.addTrait(spiky);
 
     obsidian.setFluid(TinkerFluids.obsidian);
     obsidian.setCraftable(true);
     obsidian.setCastable(true);
-    obsidian.addItem(Blocks.obsidian, Material.VALUE_Ingot);
-    obsidian.setRepresentativeItem(new ItemStack(Blocks.obsidian));
+    obsidian.addItem(Blocks.OBSIDIAN, Material.VALUE_Ingot);
+    obsidian.setRepresentativeItem(new ItemStack(Blocks.OBSIDIAN));
     obsidian.addTrait(duritos);
 
     prismarine.setCraftable(true);
-    prismarine.addItem(Items.prismarine_shard, 1, Material.VALUE_Fragment);
-    prismarine.addItem(new ItemStack(Blocks.prismarine, 1, BlockPrismarine.ROUGH_META), 1, Material.VALUE_Ingot);
-    prismarine.addItem(new ItemStack(Blocks.prismarine, 1, BlockPrismarine.BRICKS_META), 1, Material.VALUE_Fragment*9);
-    prismarine.addItem(new ItemStack(Blocks.prismarine, 1, BlockPrismarine.DARK_META), 1, Material.VALUE_Ingot*2);
-    prismarine.setRepresentativeItem(Blocks.prismarine);
+    prismarine.addItem(Items.PRISMARINE_SHARD, 1, Material.VALUE_Fragment);
+    prismarine.addItem(new ItemStack(Blocks.PRISMARINE, 1, BlockPrismarine.ROUGH_META), 1, Material.VALUE_Ingot);
+    prismarine.addItem(new ItemStack(Blocks.PRISMARINE, 1, BlockPrismarine.BRICKS_META), 1, Material.VALUE_Fragment*9);
+    prismarine.addItem(new ItemStack(Blocks.PRISMARINE, 1, BlockPrismarine.DARK_META), 1, Material.VALUE_Ingot*2);
+    prismarine.setRepresentativeItem(Blocks.PRISMARINE);
     prismarine.addTrait(jagged, HEAD);
     prismarine.addTrait(aquadynamic);
 
     netherrack.setCraftable(true);
-    netherrack.addItem(Blocks.netherrack, Material.VALUE_Ingot);
-    netherrack.setRepresentativeItem(Blocks.netherrack);
+    netherrack.addItem(Blocks.NETHERRACK, Material.VALUE_Ingot);
+    netherrack.setRepresentativeItem(Blocks.NETHERRACK);
     netherrack.addTrait(aridiculous, HEAD);
     netherrack.addTrait(hellish);
 
     endstone.setCraftable(true);
-    endstone.addItem(Blocks.end_stone, Material.VALUE_Ingot);
-    endstone.setRepresentativeItem(Blocks.end_stone);
+    endstone.addItem(Blocks.END_STONE, Material.VALUE_Ingot);
+    endstone.setRepresentativeItem(Blocks.END_STONE);
     endstone.addTrait(alien, HEAD);
     endstone.addTrait(enderference);
 
     // item/special resources
     bone.setCraftable(true);
-    bone.addItem(Items.bone, 1, Material.VALUE_Ingot);
-    bone.addItem(new ItemStack(Items.dye, 1, EnumDyeColor.WHITE.getDyeDamage()), 1, Material.VALUE_Fragment); // bonemeal
-    bone.setRepresentativeItem(Items.bone);
+    bone.addItem(Items.BONE, 1, Material.VALUE_Ingot);
+    bone.addItem(new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()), 1, Material.VALUE_Fragment); // bonemeal
+    bone.setRepresentativeItem(Items.BONE);
     bone.addTrait(splintering, HEAD);
     bone.addTrait(fractured);
 
     paper.setCraftable(true);
-    paper.addItem(Items.paper, 1, Material.VALUE_Fragment);
-    paper.setRepresentativeItem(Items.paper);
+    paper.addItem(Items.PAPER, 1, Material.VALUE_Fragment);
+    paper.setRepresentativeItem(Items.PAPER);
     paper.addTrait(writable2, HEAD);
     paper.addTrait(writable);
 
     sponge.setCraftable(true);
-    sponge.addItem(Blocks.sponge, Material.VALUE_Ingot);
-    sponge.setRepresentativeItem(Blocks.sponge);
+    sponge.addItem(Blocks.SPONGE, Material.VALUE_Ingot);
+    sponge.setRepresentativeItem(Blocks.SPONGE);
     sponge.addTrait(squeaky);
 
     firewood.setCraftable(true);
@@ -377,7 +377,7 @@ public final class TinkerMaterials {
 
     // Metals
     iron.addItem("ingotIron", 1, Material.VALUE_Ingot);
-    iron.setRepresentativeItem(Items.iron_ingot);
+    iron.setRepresentativeItem(Items.IRON_INGOT);
     iron.addTrait(magnetic2, HEAD);
     iron.addTrait(magnetic);
 
