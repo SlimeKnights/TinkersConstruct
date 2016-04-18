@@ -3,8 +3,6 @@ package slimeknights.tconstruct.tools.client;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 
-import java.util.List;
-
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.client.gui.GuiElementScalable;
 import slimeknights.mantle.client.gui.GuiModule;

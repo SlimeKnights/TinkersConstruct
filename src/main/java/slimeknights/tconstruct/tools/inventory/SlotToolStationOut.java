@@ -6,8 +6,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
-import slimeknights.tconstruct.tools.events.TinkerToolEvent;
-
 public class SlotToolStationOut extends Slot {
 
   public ContainerToolStation parent;

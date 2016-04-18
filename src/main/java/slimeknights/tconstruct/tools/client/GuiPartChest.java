@@ -7,7 +7,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.client.gui.GuiElementScalable;
-import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.tools.client.module.GuiGeneric;
 import slimeknights.tconstruct.tools.inventory.ContainerPartChest;
 import slimeknights.tconstruct.tools.inventory.ContainerTinkerStation;

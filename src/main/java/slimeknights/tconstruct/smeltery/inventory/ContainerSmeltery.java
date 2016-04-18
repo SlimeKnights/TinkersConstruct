@@ -3,8 +3,6 @@ package slimeknights.tconstruct.smeltery.inventory;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
 
-import java.util.List;
-
 import slimeknights.mantle.inventory.ContainerMultiModule;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;

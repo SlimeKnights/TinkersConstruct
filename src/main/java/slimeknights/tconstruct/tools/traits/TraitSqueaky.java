@@ -1,12 +1,9 @@
 package slimeknights.tconstruct.tools.traits;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 
 import slimeknights.tconstruct.common.Sounds;

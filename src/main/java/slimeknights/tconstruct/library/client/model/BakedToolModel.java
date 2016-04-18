@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.block.model.ItemOverride;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
@@ -13,20 +12,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
 
-import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.List;
 import java.util.Map;
-
-import javax.vecmath.Matrix4f;
 
 import slimeknights.mantle.client.model.BakedSimple;
 import slimeknights.mantle.client.model.BakedWrapper;
-import slimeknights.mantle.util.ImmutableConcatList;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 

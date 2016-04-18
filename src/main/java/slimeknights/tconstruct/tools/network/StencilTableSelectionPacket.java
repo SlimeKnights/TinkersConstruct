@@ -10,8 +10,6 @@ import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
-import java.util.List;
-
 import io.netty.buffer.ByteBuf;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.mantle.network.AbstractPacketThreadsafe;

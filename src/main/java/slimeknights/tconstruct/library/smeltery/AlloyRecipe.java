@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 
 import net.minecraftforge.fluids.FluidStack;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 

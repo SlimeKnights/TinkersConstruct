@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools.inventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.util.SoundCategory;
 
 import java.util.Set;
 

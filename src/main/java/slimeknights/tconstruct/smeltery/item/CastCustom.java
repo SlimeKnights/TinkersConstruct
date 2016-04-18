@@ -2,19 +2,11 @@ package slimeknights.tconstruct.smeltery.item;
 
 import gnu.trove.map.hash.TIntIntHashMap;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import java.util.List;
 
 import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.ICast;
-import slimeknights.tconstruct.library.tools.IToolPart;
-import slimeknights.tconstruct.library.tools.Pattern;
 
 public class CastCustom extends ItemMetaDynamic implements ICast {
 

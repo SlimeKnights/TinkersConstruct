@@ -4,7 +4,6 @@ import javax.annotation.Nonnull;
 
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 
 public class CastingRecipeHandler implements IRecipeHandler<CastingRecipeWrapper> {
 

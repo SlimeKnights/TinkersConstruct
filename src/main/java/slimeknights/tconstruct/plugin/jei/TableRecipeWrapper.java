@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.plugin.jei;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;

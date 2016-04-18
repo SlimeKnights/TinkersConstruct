@@ -3,14 +3,12 @@ package slimeknights.tconstruct.tools;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.List;
 
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.BlockTable;
 
 import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPED;

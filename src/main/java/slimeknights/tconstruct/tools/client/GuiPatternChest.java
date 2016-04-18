@@ -1,14 +1,13 @@
 package slimeknights.tconstruct.tools.client;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.client.gui.GuiElementScalable;
-import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.tools.client.module.GuiGeneric;
 import slimeknights.tconstruct.tools.inventory.ContainerPatternChest;

@@ -1,13 +1,14 @@
 package slimeknights.tconstruct.plugin.jei;
 
-import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
-import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
-import slimeknights.tconstruct.tools.inventory.ContainerCraftingStation;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
+import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
+import slimeknights.tconstruct.tools.inventory.ContainerCraftingStation;
 
 /**
  * @author shadowfacts

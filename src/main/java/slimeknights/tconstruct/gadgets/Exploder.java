@@ -8,7 +8,6 @@ import gnu.trove.procedure.TObjectIntProcedure;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -35,7 +34,6 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 

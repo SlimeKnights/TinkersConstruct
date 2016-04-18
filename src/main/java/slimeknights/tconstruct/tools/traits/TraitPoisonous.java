@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools.traits;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 import slimeknights.tconstruct.library.traits.AbstractTrait;

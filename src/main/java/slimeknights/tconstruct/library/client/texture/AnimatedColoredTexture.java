@@ -12,7 +12,6 @@ import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.Iterator;
 import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerAPIException;

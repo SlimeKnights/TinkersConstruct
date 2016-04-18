@@ -7,9 +7,7 @@ import slimeknights.mantle.client.book.data.content.ContentText;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.book.repository.BookRepository;
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 
 public class ModifierSectionTransformer extends SectionTransformer {
 

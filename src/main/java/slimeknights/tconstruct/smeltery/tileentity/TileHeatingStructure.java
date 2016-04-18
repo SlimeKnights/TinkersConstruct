@@ -8,8 +8,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.Arrays;
 
 import slimeknights.mantle.tileentity.TileInventory;
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 
 /** Represents a structure that has an inventory where it heats its items. Like a smeltery. */
 public abstract class TileHeatingStructure extends TileInventory {

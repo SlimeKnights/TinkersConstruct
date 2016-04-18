@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library;
 import com.google.common.collect.Maps;
 
 import net.minecraft.item.Item;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

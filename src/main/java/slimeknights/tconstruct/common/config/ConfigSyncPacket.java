@@ -3,10 +3,8 @@ package slimeknights.tconstruct.common.config;
 import com.google.common.collect.Lists;
 
 import net.minecraft.client.network.NetHandlerPlayClient;
-import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.network.NetHandlerPlayServer;
 import net.minecraftforge.common.config.ConfigCategory;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;

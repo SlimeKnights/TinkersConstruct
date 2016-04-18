@@ -6,8 +6,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
 
-import com.sun.javafx.geom.Quat4f;
-
 import gnu.trove.map.hash.THashMap;
 
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -25,8 +23,6 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-
-import slimeknights.mantle.client.model.TRSRBakedModel;
 
 public class ToolModel implements IModel {
 

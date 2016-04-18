@@ -1,16 +1,14 @@
 package slimeknights.tconstruct.tools.inventory;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-import slimeknights.tconstruct.tools.tileentity.TileTinkerChest;
 import slimeknights.tconstruct.tools.tileentity.TilePartChest;
+import slimeknights.tconstruct.tools.tileentity.TileTinkerChest;
 
 public class ContainerPartChest extends ContainerTinkerStation<TilePartChest> {
 

@@ -15,7 +15,6 @@ import java.util.Locale;
 
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
 
 public class BlockMetal extends EnumBlock<BlockMetal.MetalTypes> {

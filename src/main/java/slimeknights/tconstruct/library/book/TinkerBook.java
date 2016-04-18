@@ -6,7 +6,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import slimeknights.mantle.client.book.BookLoader;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.repository.FileRepository;
-import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.Util;
 
 @SideOnly(Side.CLIENT)
