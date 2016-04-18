@@ -48,6 +48,7 @@ import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.block.BlockToolForge;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
+import slimeknights.tconstruct.tools.entity.EntityShuriken;
 import slimeknights.tconstruct.tools.item.BattleSign;
 import slimeknights.tconstruct.tools.item.BroadSword;
 import slimeknights.tconstruct.tools.item.Cleaver;
@@ -63,6 +64,7 @@ import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.Rapier;
 import slimeknights.tconstruct.tools.item.SharpeningKit;
 import slimeknights.tconstruct.tools.item.Shovel;
+import slimeknights.tconstruct.tools.item.Shuriken;
 import slimeknights.tconstruct.tools.modifiers.ModAntiMonsterType;
 import slimeknights.tconstruct.tools.modifiers.ModBeheading;
 import slimeknights.tconstruct.tools.modifiers.ModCreative;
@@ -128,6 +130,8 @@ public class TinkerTools extends TinkerPulse {
   public static ToolCore battleAxe;
   public static ToolCore scythe;
 
+  public static ToolCore shuriken;
+
   // Tool Parts
   public static ToolPart pickHead;
   public static ToolPart shovelHead;
@@ -149,6 +153,8 @@ public class TinkerTools extends TinkerPulse {
   public static ToolPart handGuard;
   public static ToolPart crossGuard;
   public static ToolPart largePlate;
+
+  public static ToolPart knifeBlade;
 
   // Modifiers
   public static Modifier modBaneOfArthopods;
@@ -210,6 +216,7 @@ public class TinkerTools extends TinkerPulse {
     // register entities
 
     EntityRegistry.registerModEntity(IndestructibleEntityItem.class, "Indestructible Item", EntityIDs.INDESTRUCTIBLE_ITEM, TConstruct.instance, 32, 5, true);
+    EntityRegistry.registerModEntity(EntityShuriken.class, "shuriken", EntityIDs.SHURIKEN, TConstruct.instance, 64, 1, false);
 
     proxy.preInit();
 
@@ -241,6 +248,8 @@ public class TinkerTools extends TinkerPulse {
     crossGuard = registerToolPart(new ToolPart(Material.VALUE_Ingot), "cross_guard");
 
     largePlate = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "large_plate");
+
+    knifeBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot), "knife_blade");
   }
 
   private void registerTools() {
@@ -262,6 +271,8 @@ public class TinkerTools extends TinkerPulse {
     cleaver = registerTool(new Cleaver(), "cleaver");
     //battleAxe = registerTool(new BattleAxe(), "battleaxe");
     //scythe = registerTool(new Scythe(), "scythe");
+
+    shuriken = registerTool(new Shuriken(), "shuriken");
   }
 
   private void registerModifiers() {
@@ -353,6 +364,8 @@ public class TinkerTools extends TinkerPulse {
     TinkerRegistry.registerToolForgeCrafting(cleaver);
     //TinkerRegistry.registerToolForgeCrafting(battleAxe);
     //TinkerRegistry.registerToolForgeCrafting(scythe);
+
+    TinkerRegistry.registerToolForgeCrafting(shuriken);
   }
 
   private void registerRecipies() {

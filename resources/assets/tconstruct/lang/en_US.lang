@@ -199,6 +199,8 @@ item.tconstruct.cleaver.name=Cleaver
 item.tconstruct.battleaxe.name=Battleaxe
 item.tconstruct.scythe.name=Scythe
 
+item.tconstruct.shuriken.name=Shuriken
+
 # Tool Parts
 item.tconstruct.shard.name=Shard
 
@@ -520,6 +522,7 @@ item.tconstruct.excavator.desc=The Excavator is a broad digging tool. It digs up
 item.tconstruct.cleaver.desc=The Cleaver is a heavy offensive weapon. It has powerful strikes, but is difficult to wield.\nSlow, cannot block!
 item.tconstruct.battleaxe.desc=The Battleaxe is a heavy offensive weapon, bringing the berserker out. It is capable of bringing down small trees and can send foes flying.\nRight Click: Berserk
 item.tconstruct.scythe.desc=The Scythe is a broad reaping tool. It is effective on plants and harvests flora and fauna in a wide range.\nBringing death to both crops and your enemies.
+item.tconstruct.shuriken.desc=The Shuriken is a fast, short ranged throwing weapon. It has high quantities but low damage.\nCan be thrown from the off-hand.
 
 ################
 #   Tooltips   #

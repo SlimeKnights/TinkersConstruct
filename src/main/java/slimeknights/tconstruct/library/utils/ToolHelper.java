@@ -475,6 +475,16 @@ public final class ToolHelper {
     }
   }
 
+  public static void unbreakTool(ItemStack stack) {
+    // ensure correct damage value
+    stack.setItemDamage(stack.getMaxDamage());
+
+    // setItemDamage might break the tool again, so we do this afterwards
+    NBTTagCompound tag = TagUtil.getToolTag(stack);
+    tag.setBoolean(Tags.BROKEN, false);
+    TagUtil.setToolTag(stack, tag);
+  }
+
   public static void repairTool(ItemStack stack, int amount) {
     // entity is optional, only needed for rendering break effect, never needed when repairing
     repairTool(stack, amount, null);
@@ -482,13 +492,7 @@ public final class ToolHelper {
 
   public static void repairTool(ItemStack stack, int amount, EntityLivingBase entity) {
     if(isBroken(stack)) {
-      // ensure correct damage value
-      stack.setItemDamage(stack.getMaxDamage());
-
-      // setItemDamage might break the tool again, so we do this afterwards
-      NBTTagCompound tag = TagUtil.getToolTag(stack);
-      tag.setBoolean(Tags.BROKEN, false);
-      TagUtil.setToolTag(stack, tag);
+      unbreakTool(stack);
     }
 
     TinkerToolEvent.OnRepair.fireEvent(stack, amount);
@@ -512,6 +516,9 @@ public final class ToolHelper {
       return false;
     }
     if(isBroken(stack)) {
+      return false;
+    }
+    if(attacker == null) {
       return false;
     }
     EntityLivingBase target = (EntityLivingBase) targetEntity;
@@ -699,7 +706,7 @@ public final class ToolHelper {
     return damage;
   }
 
-  public static float getActualDamage(ItemStack stack, EntityPlayer player) {
+  public static float getActualDamage(ItemStack stack, EntityLivingBase player) {
     float damage = (float)player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
     damage += ToolHelper.getActualAttack(stack);
 

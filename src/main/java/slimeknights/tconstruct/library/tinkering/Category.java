@@ -15,6 +15,8 @@ public class Category {
   public static final Category WEAPON = new Category("weapon");
   // everything that can harvest blocks
   public static final Category HARVEST = new Category("harvest");
+  // everything that deals damage over a distance
+  public static final Category RANGED = new Category("ranged");
 
 
   public final String name;

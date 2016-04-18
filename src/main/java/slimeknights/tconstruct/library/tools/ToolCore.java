@@ -487,6 +487,7 @@ public abstract class ToolCore extends TinkersItem {
     if(slotChanged) return true;
 
     if(oldStack.getItem() == newStack.getItem() && newStack.getItem() instanceof ToolCore) {
+/*
       NBTTagCompound oldTag = (NBTTagCompound) TagUtil.getTagSafe(oldStack).copy();
       NBTTagCompound newTag = (NBTTagCompound) TagUtil.getTagSafe(newStack).copy();
 
@@ -496,7 +497,8 @@ public abstract class ToolCore extends TinkersItem {
       newTag.removeTag(Tags.TOOL_DATA);
       newTag.removeTag(Tags.TOOL_MODIFIERS);
       newTag.removeTag(Tags.TINKER_EXTRA);
-      return !oldTag.equals(newTag);
+      return !oldTag.equals(newTag);*/
+      return !isEqualTinkersItem(oldStack, newStack);
     }
     return !ItemStack.areItemStacksEqual(oldStack, newStack);
   }
@@ -530,5 +532,22 @@ public abstract class ToolCore extends TinkersItem {
     data.modifiers = DEFAULT_MODIFIERS;
 
     return data;
+  }
+
+  public static boolean isEqualTinkersItem(ItemStack item1, ItemStack item2) {
+    if(item1 == null || item2 == null || item1.getItem() != item2.getItem()) {
+      return false;
+    }
+    if(!(item1.getItem() instanceof ToolCore)) {
+      return false;
+    }
+
+    NBTTagCompound tag1 = TagUtil.getTagSafe(item1);
+    NBTTagCompound tag2 = TagUtil.getTagSafe(item2);
+
+    return TagUtil.getBaseMaterialsTagList(tag1).equals(TagUtil.getBaseMaterialsTagList(tag2)) && // materials used
+           TagUtil.getModifiersTagList(tag1).equals(TagUtil.getModifiersTagList(tag2)) && // modifiers applied
+           TagUtil.getBaseModifiersUsed(tag1) == TagUtil.getBaseModifiersUsed(tag2) && // number of free modifiers used
+           TagUtil.getOriginalToolStats(tag1).equals(TagUtil.getOriginalToolStats(tag2)); // unmodified base stats
   }
 }
