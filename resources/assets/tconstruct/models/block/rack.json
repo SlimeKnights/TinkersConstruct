@@ -1,0 +1,28 @@
+{
+    "__comment": "Model is in the center, top of the block",
+    "parent": "block/block",
+    "display": {
+        "gui": {
+            "rotation": [ 30, 225, 0 ],
+            "translation": [ 0, -3, 0 ],
+            "scale": [ 0.625, 0.625, 0.625 ]
+        }
+    },
+    "textures": {
+        "particle": "#leg"
+    },
+    "elements": [
+        {
+            "from": [ 0, 12, 6 ], 
+            "to": [ 16, 16, 10 ], 
+            "faces": {
+                "north": { "texture": "#leg", "uv": [  0,  0, 16,  4 ] },
+                "east":  { "texture": "#leg", "uv": [  0,  0,  4,  4 ] },
+                "south": { "texture": "#leg", "uv": [  0,  0, 16,  4 ] },
+                "west":  { "texture": "#leg", "uv": [ 12,  0, 16,  4 ] },
+                "up":    { "texture": "#leg", "uv": [  0, 12, 16, 16 ] },
+                "down":  { "texture": "#leg", "uv": [  0,  0, 16,  4 ] }
+            }
+        }
+    ]
+}

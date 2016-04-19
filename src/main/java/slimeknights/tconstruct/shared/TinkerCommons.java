@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.shared;
 
+import org.apache.logging.log4j.Logger;
+
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
@@ -13,9 +15,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-
-import org.apache.logging.log4j.Logger;
-
 import slimeknights.mantle.item.ItemEdible;
 import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.mantle.pulsar.pulse.Pulse;
@@ -23,6 +22,7 @@ import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.item.ItemTinkerBook;
+//import slimeknights.tconstruct.common.item.ItemTinkerBook;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
@@ -100,6 +100,8 @@ public class TinkerCommons extends TinkerPulse {
   // Material Itemstacks
   public static ItemStack searedBrick;
   public static ItemStack mudBrick;
+  public static ItemStack driedBrick;
+  
   public static ItemStack matSlimeBallBlue;
   public static ItemStack matSlimeBallPurple;
   public static ItemStack matSlimeBallBlood;
@@ -116,6 +118,25 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack matSilkyCloth;
   public static ItemStack matSilkyJewel;
   public static ItemStack matNecroticBone;
+  
+  // jerky
+  public static ItemStack jerkyBeef;
+  public static ItemStack jerkyChicken;
+  public static ItemStack jerkyPork;
+  public static ItemStack jerkyMutton;
+  public static ItemStack jerkyRabbit;
+  
+  public static ItemStack jerkyFish;
+  public static ItemStack jerkySalmon;
+  public static ItemStack jerkyClownfish;
+  public static ItemStack jerkyPufferfish;
+  
+  public static ItemStack jerkySlimeBlue;
+  public static ItemStack jerkySlimePurple;
+  public static ItemStack jerkySlimeBlood;
+  public static ItemStack jerkySlimeMagma;
+  
+  public static ItemStack jerkyMonster;
 
   // Misc.
   public static ItemStack bacon;
@@ -221,6 +242,28 @@ public class TinkerCommons extends TinkerPulse {
 
       ingotKnightSlime = ingots.addMeta(3, "knightslime");
       nuggetKnightSlime = nuggets.addMeta(3, "knightslime");
+    }
+    
+    if (isGadgetsLoaded() || forced) {
+        driedBrick = materials.addMeta(2, "dried_brick");
+        
+        // Jerky
+        jerkyBeef = edibles.addFood(11, 8, 1f, "jerky_beef");
+        jerkyChicken = edibles.addFood(12, 6, 0.8f, "jerky_chicken");
+        jerkyPork = edibles.addFood(13, 8, 1f, "jerky_pork");
+        jerkyMutton = edibles.addFood(14, 6, 1f, "jerky_mutton");
+        jerkyRabbit = edibles.addFood(15, 5, 0.8f, "jerky_rabbit");
+        
+        jerkyFish = edibles.addFood(19, 5, 0.8f, "jerky_fish");
+        jerkySalmon = edibles.addFood(20, 6, 1f, "jerky_salmon");
+        jerkyClownfish = edibles.addFood(21, 3, 0.8f, "jerky_clownfish");
+        jerkyPufferfish = edibles.addFood(22, 3, 0.8f, "jerky_pufferfish");
+        
+        jerkyMonster = edibles.addFood(27, 4, 0.4f, "jerky_monster");
+        jerkySlimeBlue = edibles.addFood(28, 3, 1f, "jerky_slime_blue");
+        jerkySlimePurple = edibles.addFood(29, 3, 2f, "jerky_slime_purple");
+        jerkySlimeBlood = edibles.addFood(30, 3, 1.5f, "jerky_blood");
+        jerkySlimeMagma = edibles.addFood(31, 6, 1f, "jerky_slime_magma");
     }
 
     if(isToolsLoaded() || isGadgetsLoaded()) {
