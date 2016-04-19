@@ -250,22 +250,23 @@ public class TinkerCommons extends TinkerPulse {
       driedBrick = materials.addMeta(2, "dried_brick");
 
       // Jerky
+      jerkyMonster = edibles.addFood(10, 4, 0.4f, "jerky_monster");
       jerkyBeef = edibles.addFood(11, 8, 1f, "jerky_beef");
       jerkyChicken = edibles.addFood(12, 6, 0.8f, "jerky_chicken");
       jerkyPork = edibles.addFood(13, 8, 1f, "jerky_pork");
       jerkyMutton = edibles.addFood(14, 6, 1f, "jerky_mutton");
       jerkyRabbit = edibles.addFood(15, 5, 0.8f, "jerky_rabbit");
 
-      jerkyFish = edibles.addFood(19, 5, 0.8f, "jerky_fish");
-      jerkySalmon = edibles.addFood(20, 6, 1f, "jerky_salmon");
-      jerkyClownfish = edibles.addFood(21, 3, 0.8f, "jerky_clownfish");
-      jerkyPufferfish = edibles.addFood(22, 3, 0.8f, "jerky_pufferfish");
+      jerkyFish = edibles.addFood(20, 5, 0.8f, "jerky_fish");
+      jerkySalmon = edibles.addFood(21, 6, 1f, "jerky_salmon");
+      jerkyClownfish = edibles.addFood(22, 3, 0.8f, "jerky_clownfish");
+      jerkyPufferfish = edibles.addFood(23, 3, 0.8f, "jerky_pufferfish");
 
-      jerkyMonster = edibles.addFood(27, 4, 0.4f, "jerky_monster");
-      jerkySlimeBlue = edibles.addFood(28, 3, 1f, "jerky_slime_blue");
-      jerkySlimePurple = edibles.addFood(29, 3, 2f, "jerky_slime_purple");
-      jerkySlimeBlood = edibles.addFood(30, 3, 1.5f, "jerky_blood");
-      jerkySlimeMagma = edibles.addFood(31, 6, 1f, "jerky_slime_magma");
+      jerkySlimeBlue = edibles.addFood(30, 1, 1f, "slimedrop_green");
+      jerkySlimeBlue = edibles.addFood(31, 3, 1f, "slimedrop_blue");
+      jerkySlimePurple = edibles.addFood(32, 3, 2f, "slimedrop_purple");
+      jerkySlimeBlood = edibles.addFood(33, 3, 1.5f, "slimedrop_blood");
+      jerkySlimeMagma = edibles.addFood(34, 6, 1f, "slimedrop_magma");
     }
 
     if(isToolsLoaded() || isGadgetsLoaded()) {

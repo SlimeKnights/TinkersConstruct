@@ -139,10 +139,11 @@ item.tconstruct.edible.jerky_salmon.name=Salmon Jerky
 item.tconstruct.edible.jerky_clownfish.name=Clownfish Jerky
 item.tconstruct.edible.jerky_pufferfish.name=Fugu Jerky
 item.tconstruct.edible.jerky_monster.name=Monster Jerky
-item.tconstruct.edible.jerky_slime_blue.name=Gelatinous Slime Drop
-item.tconstruct.edible.jerky_slime_purple.name=Gelatinous Slime Drop
-item.tconstruct.edible.jerky_blood.name=Coagulated Blood Drop
-item.tconstruct.edible.jerky_slime_magma.name=Gelatinous Slime Drop
+item.tconstruct.edible.slimedrop_green.name=Gelatinous Slime Drop
+item.tconstruct.edible.slimedrop_blue.name=Gelatinous Slime Drop
+item.tconstruct.edible.slimedrop_purple.name=Gelatinous Slime Drop
+item.tconstruct.edible.slimedrop_blood.name=Coagulated Blood Drop
+item.tconstruct.edible.slimedrop_magma.name=Gelatinous Slime Drop
 
 item.tconstruct.materials.seared_brick.name=Seared Brick
 item.tconstruct.materials.mud_brick.name=Mud Brick
