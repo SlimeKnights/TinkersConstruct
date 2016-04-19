@@ -133,10 +133,11 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack jerkyClownfish;
   public static ItemStack jerkyPufferfish;
 
-  public static ItemStack jerkySlimeBlue;
-  public static ItemStack jerkySlimePurple;
-  public static ItemStack jerkySlimeBlood;
-  public static ItemStack jerkySlimeMagma;
+  public static ItemStack slimedropGreen;
+  public static ItemStack slimedropBlue;
+  public static ItemStack slimedropPurple;
+  public static ItemStack slimedropBlood;
+  public static ItemStack slimedropMagma;
 
   public static ItemStack jerkyMonster;
 
@@ -262,11 +263,11 @@ public class TinkerCommons extends TinkerPulse {
       jerkyClownfish = edibles.addFood(22, 3, 0.8f, "jerky_clownfish");
       jerkyPufferfish = edibles.addFood(23, 3, 0.8f, "jerky_pufferfish");
 
-      jerkySlimeBlue = edibles.addFood(30, 1, 1f, "slimedrop_green");
-      jerkySlimeBlue = edibles.addFood(31, 3, 1f, "slimedrop_blue");
-      jerkySlimePurple = edibles.addFood(32, 3, 2f, "slimedrop_purple");
-      jerkySlimeBlood = edibles.addFood(33, 3, 1.5f, "slimedrop_blood");
-      jerkySlimeMagma = edibles.addFood(34, 6, 1f, "slimedrop_magma");
+      slimedropGreen = edibles.addFood(30, 1, 1f, "slimedrop_green");
+      slimedropBlue = edibles.addFood(31, 3, 1f, "slimedrop_blue");
+      slimedropPurple = edibles.addFood(32, 3, 2f, "slimedrop_purple");
+      slimedropBlood = edibles.addFood(33, 3, 1.5f, "slimedrop_blood");
+      slimedropMagma = edibles.addFood(34, 6, 1f, "slimedrop_magma");
     }
 
     if(isToolsLoaded() || isGadgetsLoaded()) {

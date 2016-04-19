@@ -188,24 +188,25 @@ public class TinkerGadgets extends TinkerPulse {
   }
 
   private void registerDrying() {
-
     // Jerky
-    TinkerRegistry.registerDryingRecipe(Items.BEEF, TinkerCommons.jerkyBeef, 20 * 60 * 5);
-    TinkerRegistry.registerDryingRecipe(Items.CHICKEN, TinkerCommons.jerkyChicken, 20 * 60 * 5);
-    TinkerRegistry.registerDryingRecipe(Items.PORKCHOP, TinkerCommons.jerkyPork, 20 * 60 * 5);
-    TinkerRegistry.registerDryingRecipe(Items.MUTTON, TinkerCommons.jerkyMutton, 20 * 60 * 5);
-    TinkerRegistry.registerDryingRecipe(Items.RABBIT, TinkerCommons.jerkyRabbit, 20 * 60 * 5);
+    int time = 20 * 60 * 5;
+    TinkerRegistry.registerDryingRecipe(Items.ROTTEN_FLESH, TinkerCommons.jerkyMonster, time);
+    TinkerRegistry.registerDryingRecipe(Items.BEEF, TinkerCommons.jerkyBeef, time);
+    TinkerRegistry.registerDryingRecipe(Items.CHICKEN, TinkerCommons.jerkyChicken, time);
+    TinkerRegistry.registerDryingRecipe(Items.PORKCHOP, TinkerCommons.jerkyPork, time);
+    TinkerRegistry.registerDryingRecipe(Items.MUTTON, TinkerCommons.jerkyMutton, time);
+    TinkerRegistry.registerDryingRecipe(Items.RABBIT, TinkerCommons.jerkyRabbit, time);
 
-    TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 0), TinkerCommons.jerkyFish, 20 * 60 * 5);
-    TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 1), TinkerCommons.jerkySalmon, 20 * 60 * 5);
-    TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 2), TinkerCommons.jerkyClownfish, 20 * 60 * 5);
-    TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 3), TinkerCommons.jerkyPufferfish, 20 * 60 * 5);
+    TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 0), TinkerCommons.jerkyFish, time);
+    TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 1), TinkerCommons.jerkySalmon, time);
+    TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 2), TinkerCommons.jerkyClownfish, time);
+    TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 3), TinkerCommons.jerkyPufferfish, time);
 
-    TinkerRegistry.registerDryingRecipe(Items.ROTTEN_FLESH, TinkerCommons.jerkyMonster, 20 * 60 * 5);
-    TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallBlue, TinkerCommons.jerkySlimeBlue, 20 * 60 * 5);
-    TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallPurple, TinkerCommons.jerkySlimePurple, 20 * 60 * 5);
-    TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallBlood, TinkerCommons.jerkySlimeBlood, 20 * 60 * 5);
-    TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallMagma, TinkerCommons.jerkySlimeMagma, 20 * 60 * 5);
+    TinkerRegistry.registerDryingRecipe(Items.SLIME_BALL, TinkerCommons.slimedropGreen, time);
+    TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallBlue, TinkerCommons.slimedropBlue, time);
+    TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallPurple, TinkerCommons.slimedropPurple, time);
+    TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallBlood, TinkerCommons.slimedropBlood, time);
+    TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallMagma, TinkerCommons.slimedropMagma, time);
 
     // Dried Clay
     TinkerRegistry.registerDryingRecipe(Items.CLAY_BALL, TinkerCommons.driedBrick, 20 * 60 * 2);
