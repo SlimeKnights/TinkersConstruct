@@ -7,6 +7,7 @@
     "variants": {
         "seared_brick": [{ "textures": { "layer0": "tconstruct:items/materials/seared_brick" }}],
         "mud_brick": [{ "textures": { "layer0": "tconstruct:items/materials/mud_brick" }}],
+        "dried_brick": [{ "textures": { "layer0": "tconstruct:items/materials/dried_brick" }}],
         "slimecrystal_green": [{ "textures": { "layer0": "tconstruct:items/materials/slimecrystal_green" }}],
         "slimecrystal_blue": [{ "textures": { "layer0": "tconstruct:items/materials/slimecrystal_blue" }}],
         "slimecrystal_magma": [{ "textures": { "layer0": "tconstruct:items/materials/slimecrystal_magma" }}],

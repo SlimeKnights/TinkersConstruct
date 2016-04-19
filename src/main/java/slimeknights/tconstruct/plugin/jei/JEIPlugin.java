@@ -19,6 +19,7 @@ import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.smeltery.Cast;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
@@ -53,7 +54,7 @@ public class JEIPlugin implements IModPlugin {
                                  new CastingRecipeHandler());
 
 
-      // melting recipies
+      // melting recipes
       registry.addRecipes(TinkerRegistry.getAllMeltingRecipies());
       // alloys
       registry.addRecipes(TinkerRegistry.getAlloys());
@@ -80,6 +81,13 @@ public class JEIPlugin implements IModPlugin {
       for(CastingRecipe recipe : TinkerRegistry.getAllBasinCastingRecipes()) {
         registry.addRecipes(ImmutableList.of(new CastingRecipeWrapper(recipe, castingCategory.castingBasin)));
       }
+    }
+    
+    // drying rack
+    if(TConstruct.pulseManager.isPulseLoaded(TinkerGadgets.PulseId)) {
+      registry.addRecipeCategories(new DryingRecipeCategory(guiHelper));
+      registry.addRecipeHandlers(new DryingRecipeHandler());
+      registry.addRecipes(TinkerRegistry.getAllDryingRecipes());
     }
   }
 

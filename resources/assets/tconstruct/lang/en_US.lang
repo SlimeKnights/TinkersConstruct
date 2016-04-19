@@ -111,6 +111,12 @@ tile.tconstruct.stone_ladder.name=Stone Ladder
 tile.tconstruct.wood_rail.name=Wooden Rail
 tile.tconstruct.punji.name=Punji Sticks
 tile.tconstruct.glow.name=Glow
+tile.tconstruct.rack.item.name=Item Rack
+tile.tconstruct.rack.item.tooltip=Better for decoration
+tile.tconstruct.rack.drying.name=Drying Rack
+tile.tconstruct.rack.drying.tooltip=Used to peform drying recipes
+tile.tconstruct.dried_clay.clay.name=Dried Clay
+tile.tconstruct.dried_clay.brick.name=Dried Bricks
 
 
 ################
@@ -123,10 +129,25 @@ item.tconstruct.edible.slimeball_blue.name=Slime Ball
 item.tconstruct.edible.slimeball_purple.name=Slime Ball
 item.tconstruct.edible.slimeball_blood.name=Coagulated Blood
 item.tconstruct.edible.slimeball_magma.name=Slime Ball
+item.tconstruct.edible.jerky_beef.name=Beef Jerky
+item.tconstruct.edible.jerky_chicken.name=Chicken Jerky
+item.tconstruct.edible.jerky_pork.name=Bacon Jerky
+item.tconstruct.edible.jerky_mutton.name=Mutton Jerky
+item.tconstruct.edible.jerky_rabbit.name=Rabbit Jerky
+item.tconstruct.edible.jerky_fish.name=Fish Jerky
+item.tconstruct.edible.jerky_salmon.name=Salmon Jerky
+item.tconstruct.edible.jerky_clownfish.name=Clownfish Jerky
+item.tconstruct.edible.jerky_pufferfish.name=Fugu Jerky
+item.tconstruct.edible.jerky_monster.name=Monster Jerky
+item.tconstruct.edible.jerky_slime_blue.name=Gelatinous Slime Drop
+item.tconstruct.edible.jerky_slime_purple.name=Gelatinous Slime Drop
+item.tconstruct.edible.jerky_blood.name=Coagulated Blood Drop
+item.tconstruct.edible.jerky_slime_magma.name=Gelatinous Slime Drop
 
 item.tconstruct.materials.seared_brick.name=Seared Brick
 item.tconstruct.materials.mud_brick.name=Mud Brick
 item.tconstruct.materials.mud_brick.tooltip=Building blocks for small and big
+item.tconstruct.materials.dried_brick.name=Dried Brick
 item.tconstruct.materials.slimecrystal_green.name=Green Slime Crystal
 item.tconstruct.materials.slimecrystal_green.tooltip=Used to craft Slime Tools
 item.tconstruct.materials.slimecrystal_blue.name=Blue Slime Crystal
@@ -639,12 +660,16 @@ gui.smeltery.liquid.nugget=Nugget
 gui.smeltery.liquid.block=Block
 gui.smeltery.liquid.gem=Gem
 
+# These GUIs don't appear in game, but the titles can be viewed using the crafting station
+gui.itemrack.name=Item Rack
+gui.dryingrack.name=Drying Rack
 
 # JEI Plugin
 gui.jei.smelting.title=Smelting
 gui.jei.alloy.title=Alloying
 gui.jei.casting.title=Casting
 gui.jei.casting.consume=Consumes cast!
+gui.jei.drying.title=Drying
 
 # Config
 config.synced.restart=Your configuration has been updated to match the server. Restart Minecraft.
