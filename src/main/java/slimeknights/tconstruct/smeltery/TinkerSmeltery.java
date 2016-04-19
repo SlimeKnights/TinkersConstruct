@@ -392,12 +392,22 @@ public class TinkerSmeltery extends TinkerPulse {
                                    new FluidStack(TinkerFluids.silver, 1));
     }
 
+    // 1 ingot copper + 3 ingots aluminium = 4 ingots alubrass
     if(FluidRegistry.isFluidRegistered(TinkerFluids.alubrass) &&
        FluidRegistry.isFluidRegistered(TinkerFluids.copper) &&
        FluidRegistry.isFluidRegistered(TinkerFluids.aluminum)) {
       TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.alubrass, 4),
                                    new FluidStack(TinkerFluids.copper, 1),
                                    new FluidStack(TinkerFluids.aluminum, 3));
+    }
+
+    // 2 ingots copper + 1 ingot zinc = 3 ingots brass
+    if(FluidRegistry.isFluidRegistered(TinkerFluids.brass) &&
+       FluidRegistry.isFluidRegistered(TinkerFluids.copper) &&
+       FluidRegistry.isFluidRegistered(TinkerFluids.zinc)) {
+      TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.brass, 3),
+                                   new FluidStack(TinkerFluids.copper, 2),
+                                   new FluidStack(TinkerFluids.zinc, 1));
     }
   }
 
