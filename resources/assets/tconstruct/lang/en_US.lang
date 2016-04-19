@@ -112,9 +112,9 @@ tile.tconstruct.wood_rail.name=Wooden Rail
 tile.tconstruct.punji.name=Punji Sticks
 tile.tconstruct.glow.name=Glow
 tile.tconstruct.rack.item.name=Item Rack
-tile.tconstruct.rack.item.tooltip=Better for decoration
+tile.tconstruct.rack.item.tooltip=For decoration purpose only
 tile.tconstruct.rack.drying.name=Drying Rack
-tile.tconstruct.rack.drying.tooltip=Used to peform drying recipes
+tile.tconstruct.rack.drying.tooltip=Used to dry items
 tile.tconstruct.dried_clay.clay.name=Dried Clay
 tile.tconstruct.dried_clay.brick.name=Dried Bricks
 

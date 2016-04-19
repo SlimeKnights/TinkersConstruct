@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.gadgets;
 
-import org.apache.logging.log4j.Logger;
-
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
@@ -20,6 +18,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import org.apache.logging.log4j.Logger;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
@@ -78,7 +78,7 @@ public class TinkerGadgets extends TinkerPulse {
     punji = registerBlock(new BlockPunji(), "punji");
     rack = registerBlock(new ItemBlockRack(new BlockRack()), "rack");
     driedClay = registerEnumBlock(new BlockDriedClay(), "dried_clay");
-    
+
     registerTE(TileItemRack.class, "item_rack");
     registerTE(TileDryingRack.class, "drying_rack");
 
@@ -134,16 +134,16 @@ public class TinkerGadgets extends TinkerPulse {
 
     // Punji Sticks
     GameRegistry.addRecipe(new ItemStack(punji, 3, 0), "b b", " b ", "b b", 'b', new ItemStack(Items.REEDS));
-    
+
     // Item Rack, a bit cheaper to encourage it for decoration
     GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres("slabWood"), rack, 0, "ww", 'w', "slabWood"));
-    
+
     // Drying Rack
     GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres("slabWood"), rack, 1, "www", 'w', "slabWood"));
-    
+
     // Dried Bricks
     GameRegistry.addRecipe(new ItemStack(driedClay, 1, 1), "bb", "bb", 'b', TinkerCommons.driedBrick);
-    
+
     // fancy item frames
     ItemStack frame = new ItemStack(TinkerGadgets.fancyFrame, 1, EntityFancyItemFrame.FrameType.GOLD.ordinal());
     GameRegistry.addRecipe(new ShapedOreRecipe(frame, "nnn", "nOn", "nnn", 'O', Blocks.OBSIDIAN, 'n', "nuggetGold"));
@@ -183,37 +183,37 @@ public class TinkerGadgets extends TinkerPulse {
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
     registerDrying();
-    
+
     proxy.postInit();
   }
 
   private void registerDrying() {
-    
+
     // Jerky
     TinkerRegistry.registerDryingRecipe(Items.BEEF, TinkerCommons.jerkyBeef, 20 * 60 * 5);
     TinkerRegistry.registerDryingRecipe(Items.CHICKEN, TinkerCommons.jerkyChicken, 20 * 60 * 5);
     TinkerRegistry.registerDryingRecipe(Items.PORKCHOP, TinkerCommons.jerkyPork, 20 * 60 * 5);
     TinkerRegistry.registerDryingRecipe(Items.MUTTON, TinkerCommons.jerkyMutton, 20 * 60 * 5);
     TinkerRegistry.registerDryingRecipe(Items.RABBIT, TinkerCommons.jerkyRabbit, 20 * 60 * 5);
-    
+
     TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 0), TinkerCommons.jerkyFish, 20 * 60 * 5);
     TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 1), TinkerCommons.jerkySalmon, 20 * 60 * 5);
     TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 2), TinkerCommons.jerkyClownfish, 20 * 60 * 5);
     TinkerRegistry.registerDryingRecipe(new ItemStack(Items.FISH, 1, 3), TinkerCommons.jerkyPufferfish, 20 * 60 * 5);
-  
+
     TinkerRegistry.registerDryingRecipe(Items.ROTTEN_FLESH, TinkerCommons.jerkyMonster, 20 * 60 * 5);
     TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallBlue, TinkerCommons.jerkySlimeBlue, 20 * 60 * 5);
     TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallPurple, TinkerCommons.jerkySlimePurple, 20 * 60 * 5);
     TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallBlood, TinkerCommons.jerkySlimeBlood, 20 * 60 * 5);
     TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallMagma, TinkerCommons.jerkySlimeMagma, 20 * 60 * 5);
-    
+
     // Dried Clay
     TinkerRegistry.registerDryingRecipe(Items.CLAY_BALL, TinkerCommons.driedBrick, 20 * 60 * 2);
     TinkerRegistry.registerDryingRecipe(new ItemStack(Blocks.CLAY), new ItemStack(driedClay, 1, 0), 20 * 60 * 6);
-    
+
     // Wet sponge to dry sponge
     TinkerRegistry.registerDryingRecipe(new ItemStack(Blocks.SPONGE, 1, 1), new ItemStack(Blocks.SPONGE, 1, 0), 20 * 60 * 2);
-    
+
     // Sapling to dead bush
     TinkerRegistry.registerDryingRecipe("treeSapling", new ItemStack(Blocks.DEADBUSH), 20 * 60 * 6);
   }

@@ -8,22 +8,24 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 
 public class TileDryingRack extends TileItemRack implements ITickable, ISidedInventory {
+
   int currentTime;
   int maxTime;
-  
+
   public TileDryingRack() {
     super("gui.dryingrack.name", 2); // two slots, an input and an output. Should never both have something, output is just to stop item tranfer
   }
-  
+
   @Override
   public void update() {
     //only run on the server side and if a recipe is available
-    if (!worldObj.isRemote && maxTime > 0 && currentTime < maxTime) {
+    if(!worldObj.isRemote && maxTime > 0 && currentTime < maxTime) {
       currentTime++;
-      if (currentTime >= maxTime) {
+      if(currentTime >= maxTime) {
         // add the result to slot 1 and remove the original from slot 0
         setInventorySlotContents(1, TinkerRegistry.getDryingResult(getStackInSlot(0)));
         setInventorySlotContents(0, null);
@@ -31,64 +33,65 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
       }
     }
   }
-    
+
   @Override
-  public void setInventorySlotContents (int slot, ItemStack itemstack) {
+  public void setInventorySlotContents(int slot, ItemStack itemstack) {
     // if there is no drying recipe, just place the item directly into the output slot for item output and tick efficiency
-    if ( slot == 0 && itemstack != null && !isStackInSlot(1) && TinkerRegistry.getDryingResult(itemstack) == null ) {
+    if(slot == 0 && itemstack != null && !isStackInSlot(1) && TinkerRegistry.getDryingResult(itemstack) == null) {
       slot = 1;
     }
-  		
+
     super.setInventorySlotContents(slot, itemstack);
-    if ( slot == 0 ) {
+    if(slot == 0) {
       updateDryingTime();
     }
   }
-    
+
   @Override
-  public ItemStack decrStackSize (int slot, int quantity) {
+  public ItemStack decrStackSize(int slot, int quantity) {
     ItemStack stack = super.decrStackSize(slot, quantity);
     maxTime = 0;
     currentTime = 0;
     return stack;
   }
-    
-  public void updateDryingTime () {
+
+  public void updateDryingTime() {
     currentTime = 0;
     ItemStack stack = getStackInSlot(0);
-    
-    if (stack != null) {
-        maxTime = TinkerRegistry.getDryingTime(stack);
-    } else {
-        maxTime = -1;
+
+    if(stack != null) {
+      maxTime = TinkerRegistry.getDryingTime(stack);
+    }
+    else {
+      maxTime = -1;
     }
     //worldObj.scheduleUpdate(pos, blockType, 0);
   }
-    
+
   @Override
-  public void readFromNBT (NBTTagCompound tags) {
+  public void readFromNBT(NBTTagCompound tags) {
     currentTime = tags.getInteger("Time");
     maxTime = tags.getInteger("MaxTime");
     super.readFromNBT(tags);
   }
 
   @Override
-  public void writeToNBT (NBTTagCompound tags) {
+  public void writeToNBT(NBTTagCompound tags) {
     tags.setInteger("Time", currentTime);
     tags.setInteger("MaxTime", maxTime);
     super.writeToNBT(tags);
   }
-    
+
   @Override
   @SideOnly(Side.CLIENT)
-  public AxisAlignedBB getRenderBoundingBox () {
+  public AxisAlignedBB getRenderBoundingBox() {
     AxisAlignedBB cbb = new AxisAlignedBB(pos.getX(), pos.getY() - 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
     return cbb;
   }
-    
+
   @Override
   public int[] getSlotsForFace(EnumFacing side) {
-    return new int[] {0, 1};
+    return new int[]{0, 1};
   }
 
   @Override

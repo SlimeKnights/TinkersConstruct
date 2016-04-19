@@ -61,7 +61,7 @@ public class JEIPlugin implements IModPlugin {
 
       // casting
       // we collect together all casting recipes that create a cast and group them together into one recipe
-      Map<Triple<Item, Item, Fluid>, List<ItemStack >> castDict = Maps.newHashMap();
+      Map<Triple<Item, Item, Fluid>, List<ItemStack>> castDict = Maps.newHashMap();
       for(CastingRecipe recipe : TinkerRegistry.getAllTableCastingRecipes()) {
         if(recipe.cast != null && recipe.getResult() != null && recipe.getResult().getItem() instanceof Cast) {
           Triple<Item, Item, Fluid> output = Triple.of(recipe.getResult().getItem(), Cast.getPartFromTag(recipe.getResult()), recipe.getFluid().getFluid());
@@ -82,7 +82,7 @@ public class JEIPlugin implements IModPlugin {
         registry.addRecipes(ImmutableList.of(new CastingRecipeWrapper(recipe, castingCategory.castingBasin)));
       }
     }
-    
+
     // drying rack
     if(TConstruct.pulseManager.isPulseLoaded(TinkerGadgets.PulseId)) {
       registry.addRecipeCategories(new DryingRecipeCategory(guiHelper));

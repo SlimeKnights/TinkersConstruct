@@ -1,20 +1,21 @@
 package slimeknights.tconstruct.gadgets.item;
 
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemMultiTexture;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
+import java.util.List;
+
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 
 public class ItemBlockRack extends ItemMultiTexture {
 
   public ItemBlockRack(Block block) {
-    super(block, block, new String[] {"item", "drying"});
-  }    
+    super(block, block, new String[]{"item", "drying"});
+  }
 
   @Override
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
@@ -29,10 +30,11 @@ public class ItemBlockRack extends ItemMultiTexture {
         tooltip.add(Util.translate("tooltip.chest.has_items"));
       }
     }
-    
-    if ( stack.getMetadata() == 0 ) {
+
+    if(stack.getMetadata() == 0) {
       tooltip.add(Util.translate("tile.tconstruct.rack.item.tooltip"));
-    } else if ( stack.getMetadata() == 1 ) {
+    }
+    else if(stack.getMetadata() == 1) {
       tooltip.add(Util.translate("tile.tconstruct.rack.drying.tooltip"));
     }
   }
