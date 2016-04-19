@@ -383,22 +383,22 @@ public class TinkerTools extends TinkerPulse {
     GameRegistry.addRecipe(
         new TableRecipe(OreDictionary.getOres("plankWood"), toolTables, BlockToolTable.TableTypes.StencilTable.meta,
                         "P", "B", 'P', pattern, 'B', "plankWood"));
-    GameRegistry.addRecipe(BlockTable
-                               .createItemstack(toolTables, BlockToolTable.TableTypes.StencilTable.meta, Blocks.RAIL, 0),
+    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.StencilTable.meta, TinkerCommons.blockFirewood, TinkerCommons.lavawood.getMetadata()),
+                           "P", "B", 'P', pattern, 'B', TinkerCommons.lavawood);
+    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.StencilTable.meta, Blocks.RAIL, 0),
                            "P", "B", 'P', pattern, 'B', Blocks.RAIL);
-    GameRegistry.addRecipe(BlockTable
-                               .createItemstack(toolTables, BlockToolTable.TableTypes.StencilTable.meta, Blocks.MELON_BLOCK, 0),
+    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.StencilTable.meta, Blocks.MELON_BLOCK, 0),
                            "P", "B", 'P', pattern, 'B', Blocks.MELON_BLOCK);
 
     // Part Builder
     GameRegistry.addRecipe(
         new TableRecipe(OreDictionary.getOres("logWood"), toolTables, BlockToolTable.TableTypes.PartBuilder.meta, "P",
                         "B", 'P', pattern, 'B', "logWood"));
-    GameRegistry.addRecipe(BlockTable
-                               .createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.GOLDEN_RAIL, 0),
+    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, TinkerCommons.blockFirewood, TinkerCommons.firewood.getMetadata()),
+                           "P", "B", 'P', pattern, 'B', TinkerCommons.firewood);
+    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.GOLDEN_RAIL, 0),
                            "P", "B", 'P', pattern, 'B', Blocks.GOLDEN_RAIL);
-    GameRegistry.addRecipe(BlockTable
-                               .createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.CACTUS, 0),
+    GameRegistry.addRecipe(BlockTable.createItemstack(toolTables, BlockToolTable.TableTypes.PartBuilder.meta, Blocks.CACTUS, 0),
                            "P", "B", 'P', pattern, 'B', Blocks.CACTUS);
 
     // Pattern Chest
