@@ -120,7 +120,7 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
 
       // check if we also have an inventory
       if(tag.hasKey("inventory")) {
-        TileInventory.readInventoryFromNBT(table, tag.getCompoundTag("inventory"));
+        table.readInventoryFromNBT(tag.getCompoundTag("inventory"));
       }
     }
   }
@@ -174,7 +174,7 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
           // save inventory?
           if(keepInventory(state)) {
             NBTTagCompound inventoryTag = new NBTTagCompound();
-            TileInventory.writeInventoryToNBT(table, inventoryTag);
+            table.writeInventoryToNBT(inventoryTag);
             tag.setTag("inventory", inventoryTag);
           }
         }

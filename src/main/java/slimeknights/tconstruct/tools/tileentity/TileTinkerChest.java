@@ -33,15 +33,10 @@ public class TileTinkerChest extends TileTable {
   }
 
   @Override
-  public void writeToNBT(NBTTagCompound tags) {
-    super.writeToNBT(tags);
-  }
-
-  @Override
-  public void readFromNBT(NBTTagCompound tags) {
+  public void readInventoryFromNBT(NBTTagCompound tag) {
     // we need to set it to max because the loading code uses getSizeInventory and we want to load all stacks
     actualSize = MAX_INVENTORY;
-    super.readFromNBT(tags);
+    super.readInventoryFromNBT(tag);
 
     // recalculate actual size from inventory:
     // decrease until it matches
