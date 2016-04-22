@@ -10,6 +10,7 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -17,6 +18,10 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
 import slimeknights.tconstruct.common.PlayerHelper;
 import slimeknights.tconstruct.common.TinkerNetwork;
@@ -37,6 +42,9 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     super("casting", 2, 1); // 2 slots. 0 == input, 1 == output
     // initialize with empty tank
     tank = new FluidTank(0);
+
+    // use a SidedInventory Wrapper to respect the canInsert/Extract calls
+    this.itemHandler = new SidedInvWrapper(this, null);
   }
 
   /* Inventory Management */
@@ -77,7 +85,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
 
   @Override
   public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-    return index == 0;
+    return index == 0 && !isStackInSlot(1);
   }
 
   @Override
