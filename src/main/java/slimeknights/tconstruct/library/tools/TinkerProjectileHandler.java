@@ -30,11 +30,11 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
   @Override
   public boolean pickup(Entity entity, boolean simulate) {
     // up == main inventory, does mean we don't have to bother with the inventory itself
-    if(parent == null || !entity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP)) {
+    if(parent == null || !entity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
       return false;
     }
 
-    IItemHandler itemHandler = entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+    IItemHandler itemHandler = entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
     // find an itemstack that matches our input
     for(int i = 0; i < itemHandler.getSlots(); i++) {
