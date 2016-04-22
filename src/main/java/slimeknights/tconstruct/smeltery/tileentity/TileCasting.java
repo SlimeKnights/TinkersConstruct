@@ -274,7 +274,9 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
       if(!worldObj.isRemote && worldObj instanceof WorldServer) {
         TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FluidUpdatePacket(pos, tank.getFluid()));
       }
-      reset();
+      if(tank.getFluidAmount() == 0) {
+        reset();
+      }
     }
 
     return amount;
