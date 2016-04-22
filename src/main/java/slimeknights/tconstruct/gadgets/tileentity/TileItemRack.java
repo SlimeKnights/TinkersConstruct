@@ -38,9 +38,9 @@ public class TileItemRack extends TileTable {
         }
         else {
           // rotate items so they face downwards and move them down half a pixel
-          item.s = 1f;
+          item.s = 0.875f;
           item.r = (float) Math.PI * 2;
-          item.y -= 1 / 32f;
+          item.y += 1 / 16f;
         }
 
         // adjust the item location based on the state
