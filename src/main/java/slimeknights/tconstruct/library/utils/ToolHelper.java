@@ -673,7 +673,11 @@ public final class ToolHelper {
           int k = (int)(damageDealt * 0.5);
           ((WorldServer)player.worldObj).spawnParticle(EnumParticleTypes.DAMAGE_INDICATOR, targetEntity.posX, targetEntity.posY + (double)(targetEntity.height * 0.5F), targetEntity.posZ, k, 0.1D, 0.0D, 0.1D, 0.2D);
         }
-        player.resetCooldown();
+
+        // we reset the cooldown after attack. We only do it if the cooldown is more than 1 tick (for projectiles)
+        if(player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue() < 20) {
+          player.resetCooldown();
+        }
       }
       else {
         tool.reduceDurabilityOnHit(stack, null, damage);

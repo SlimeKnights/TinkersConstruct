@@ -50,6 +50,7 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
 
     IItemHandler itemHandler = entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
+
     // find an itemstack that matches our input
     for(int i = 0; i < itemHandler.getSlots(); i++) {
       ItemStack in = itemHandler.getStackInSlot(i);
