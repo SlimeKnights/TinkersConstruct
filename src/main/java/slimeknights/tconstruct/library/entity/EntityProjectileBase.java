@@ -26,6 +26,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.library.tools.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.tools.ITinkerProjectile;
+import slimeknights.tconstruct.library.tools.TinkerProjectileHandler;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
@@ -34,7 +35,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   //public final static String woodSound = Reference.resource("woodHit");
   //public final static String stoneSound = Reference.resource("stoneHit");
 
-  public ITinkerProjectile tinkerProjectile = CapabilityTinkerProjectile.PROJECTILE_CAPABILITY.getDefaultInstance();
+  public TinkerProjectileHandler tinkerProjectile = new TinkerProjectileHandler();
 
   public boolean bounceOnNoDamage = true;
   public boolean defused = false; // if this is true it wont hit any entities anymore
@@ -200,9 +201,17 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       EntityLivingBase attacker = (EntityLivingBase) this.shootingEntity;
       EntityLivingBase target = (EntityLivingBase) raytraceResult.entityHit;
 
+      // find the actual itemstack in the players inventory
+      ItemStack inventoryItem = tinkerProjectile.getMatchingItemstackFromInventory(attacker, false);
+      if(inventoryItem == null || inventoryItem.getItem() != item.getItem()) {
+        // backup, use saved itemstack
+        inventoryItem = item;
+      }
+
+
       float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
       float damage = speed * ToolHelper.getActualDamage(item, attacker);
-      bounceOff = ToolHelper.attackEntity(item, (ToolCore) item.getItem(), attacker, target);
+      bounceOff = ToolHelper.attackEntity(inventoryItem, (ToolCore) item.getItem(), attacker, target);
 
       if(!bounceOff) {
         doLivingHit(target);

@@ -29,9 +29,23 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
 
   @Override
   public boolean pickup(Entity entity, boolean simulate) {
-    // up == main inventory, does mean we don't have to bother with the inventory itself
+    ItemStack stack = getMatchingItemstackFromInventory(entity, true);
+    if(stack != null) {
+      if(!simulate) {
+        if(ToolHelper.isBroken(stack)) {
+          ToolHelper.unbreakTool(stack);
+        }
+        ToolHelper.healTool(stack, parent.stackSize, null);
+      }
+      return true;
+    }
+
+    return false;
+  }
+
+  public ItemStack getMatchingItemstackFromInventory(Entity entity, boolean damagedOnly) {
     if(parent == null || !entity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
-      return false;
+      return null;
     }
 
     IItemHandler itemHandler = entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
@@ -39,18 +53,12 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
     // find an itemstack that matches our input
     for(int i = 0; i < itemHandler.getSlots(); i++) {
       ItemStack in = itemHandler.getStackInSlot(i);
-      if(ToolCore.isEqualTinkersItem(in, parent)) {
-        if(!simulate) {
-          if(ToolHelper.isBroken(in)) {
-            ToolHelper.unbreakTool(in);
-          }
-          ToolHelper.healTool(in, parent.stackSize, null);
-        }
-        return true;
+      if(ToolCore.isEqualTinkersItem(in, parent) && (!damagedOnly || in.getItemDamage() > 0)) {
+        return in;
       }
     }
 
-    return false;
+    return null;
   }
 
   @Override
