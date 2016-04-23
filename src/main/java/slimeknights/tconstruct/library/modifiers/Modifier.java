@@ -218,6 +218,14 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
   }
 
   @Override
+  public boolean equalModifier(NBTTagCompound modifierTag1, NBTTagCompound modifierTag2) {
+    ModifierNBT data1 = ModifierNBT.readTag(modifierTag1);
+    ModifierNBT data2 = ModifierNBT.readTag(modifierTag2);
+
+    return data1.identifier.equals(data2.identifier) && data1.level == data2.level;
+  }
+
+  @Override
   public boolean hasTexturePerMaterial() {
     return false;
   }

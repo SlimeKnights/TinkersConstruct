@@ -38,6 +38,8 @@ import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
@@ -545,8 +547,24 @@ public abstract class ToolCore extends TinkersItem {
     NBTTagCompound tag1 = TagUtil.getTagSafe(item1);
     NBTTagCompound tag2 = TagUtil.getTagSafe(item2);
 
+    NBTTagList mods1 = TagUtil.getModifiersTagList(tag1);
+    NBTTagList mods2 = TagUtil.getModifiersTagList(tag2);
+
+    if(mods1.tagCount() != mods1.tagCount()) {
+      return false;
+    }
+
+    // check modifiers
+    for(int i = 0; i < mods1.tagCount(); i++) {
+      NBTTagCompound tag = mods1.getCompoundTagAt(i);
+      ModifierNBT data = ModifierNBT.readTag(tag);
+      IModifier modifier = TinkerRegistry.getModifier(data.identifier);
+      if(modifier != null && !modifier.equalModifier(tag, mods2.getCompoundTagAt(i))) {
+        return false;
+      }
+    }
+
     return TagUtil.getBaseMaterialsTagList(tag1).equals(TagUtil.getBaseMaterialsTagList(tag2)) && // materials used
-           TagUtil.getModifiersTagList(tag1).equals(TagUtil.getModifiersTagList(tag2)) && // modifiers applied
            TagUtil.getBaseModifiersUsed(tag1) == TagUtil.getBaseModifiersUsed(tag2) && // number of free modifiers used
            TagUtil.getOriginalToolStats(tag1).equals(TagUtil.getOriginalToolStats(tag2)); // unmodified base stats
   }

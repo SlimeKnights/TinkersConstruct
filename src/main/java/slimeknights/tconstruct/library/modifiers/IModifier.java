@@ -66,4 +66,5 @@ public interface IModifier extends IToolMod {
   @SideOnly(Side.CLIENT)
   boolean hasTexturePerMaterial();
 
+  boolean equalModifier(NBTTagCompound modifierTag1, NBTTagCompound modifierTag2);
 }
