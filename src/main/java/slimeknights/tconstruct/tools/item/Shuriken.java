@@ -1,11 +1,6 @@
 package slimeknights.tconstruct.tools.item;
 
-import com.google.common.collect.Multimap;
-
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -21,14 +16,13 @@ import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.IProjectileStats;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ProjectileCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.entity.EntityShuriken;
 
-public class Shuriken extends ToolCore implements IProjectileStats {
+public class Shuriken extends ProjectileCore {
 
   private static PartMaterialType shurikenPMT = new PartMaterialType(TinkerTools.knifeBlade, HeadMaterialStats.TYPE, ExtraMaterialStats.TYPE);
 
@@ -36,11 +30,6 @@ public class Shuriken extends ToolCore implements IProjectileStats {
     super(shurikenPMT, shurikenPMT, shurikenPMT, shurikenPMT);
 
     addCategory(Category.WEAPON, Category.RANGED);
-  }
-
-  @Override
-  public double attackSpeed() {
-    return 100f;
   }
 
   @Override
@@ -94,21 +83,5 @@ public class Shuriken extends ToolCore implements IProjectileStats {
     //data.durability = Math.max(1, Math.round((float) data.durability / 10f));
 
     return data.get();
-  }
-
-  @Override
-  public int getMaxDamage(ItemStack stack) {
-    return Math.max(1, Math.round((float) super.getMaxDamage(stack) / 10f));
-  }
-
-  @Override
-  public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
-    return this.getItemAttributeModifiers(slot);
-  }
-
-  @Override
-  public Multimap<String, AttributeModifier> getProjectileAttributeModifier(ItemStack stack) {
-    // return the standard damage map
-    return super.getAttributeModifiers(EntityEquipmentSlot.MAINHAND, stack);
   }
 }
