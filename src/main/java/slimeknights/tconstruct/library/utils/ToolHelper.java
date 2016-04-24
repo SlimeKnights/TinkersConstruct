@@ -11,7 +11,10 @@ import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -45,6 +48,7 @@ import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
+import slimeknights.tconstruct.library.tools.IProjectileStats;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.tools.events.TinkerToolEvent;
@@ -502,11 +506,15 @@ public final class ToolHelper {
 
   /* Dealing tons of damage */
 
+  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity) {
+    return attackEntity(stack, tool, attacker, targetEntity, false);
+  }
+
   /**
    * Makes all the calls to attack an entity. Takes enchantments and potions and traits into account. Basically call this when a tool deals damage.
    * Most of this function is the same as {@link EntityPlayer#attackTargetEntityWithCurrentItem(Entity targetEntity)}
    */
-  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity) {
+  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, boolean isProjectile) {
     // nothing to do, no target?
     if(targetEntity == null || !targetEntity.canAttackWithItem() || targetEntity.hitByEntity(attacker) || !stack.hasTagCompound()) {
       return false;
@@ -662,7 +670,7 @@ public final class ToolHelper {
       // damage the tool
       if(player != null) {
         stack.hitEntity(target, player);
-        if(!player.capabilities.isCreativeMode) {
+        if(!player.capabilities.isCreativeMode && !isProjectile) {
           tool.reduceDurabilityOnHit(stack, player, damage);
         }
 
@@ -674,12 +682,12 @@ public final class ToolHelper {
           ((WorldServer)player.worldObj).spawnParticle(EnumParticleTypes.DAMAGE_INDICATOR, targetEntity.posX, targetEntity.posY + (double)(targetEntity.height * 0.5F), targetEntity.posZ, k, 0.1D, 0.0D, 0.1D, 0.2D);
         }
 
-        // we reset the cooldown after attack. We only do it if the cooldown is more than 1 tick (for projectiles)
-        if(player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getAttributeValue() < 20) {
+        // cooldown for non-projectiles
+        if(!isProjectile) {
           player.resetCooldown();
         }
       }
-      else {
+      else if(!isProjectile) {
         tool.reduceDurabilityOnHit(stack, null, damage);
       }
     }
