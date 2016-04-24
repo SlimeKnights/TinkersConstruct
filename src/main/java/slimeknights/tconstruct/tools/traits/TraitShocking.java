@@ -91,15 +91,6 @@ public class TraitShocking extends AbstractTrait {
     TagUtil.setModifiersTagList(tool, tagList);
   }
 
-  @Override
-  public boolean equalModifier(NBTTagCompound modifierTag1, NBTTagCompound modifierTag2) {
-    // charge status has to be equal too
-    float charge1 = modifierTag1.getFloat("charge");
-    float charge2 = modifierTag2.getFloat("charge");
-
-    return (charge1 < 100f && charge2 < 100f || charge1 >= 100f && charge2 >= 100f) && super.equalModifier(modifierTag1, modifierTag2);
-  }
-
   public static class Data {
     float charge;
     double x;
