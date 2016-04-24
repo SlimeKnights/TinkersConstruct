@@ -114,8 +114,8 @@ public class BlockFaucet extends BlockContainer {
   static {
     ImmutableMap.Builder<EnumFacing, AxisAlignedBB> builder = ImmutableMap.builder();
     builder.put(EnumFacing.UP,    new AxisAlignedBB(0.25,  0.625, 0.25,    0.75,  1,     0.75));
-    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0.25,  0.25,  0,       0.625, 0.625, 0.375));
-    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0.25,  0.25,  0.625,   0.625, 0.625, 1.0));
+    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0.25,  0.25,  0,       0.75,  0.625, 0.375));
+    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0.25,  0.25,  0.625,   0.75,  0.625, 1.0));
     builder.put(EnumFacing.EAST,  new AxisAlignedBB(0.625, 0.25,  0.25,    1,     0.625, 0.75));
     builder.put(EnumFacing.WEST,  new AxisAlignedBB(0,     0.25,  0.25,    0.375, 0.625, 0.75));
     builder.put(EnumFacing.DOWN, FULL_BLOCK_AABB);

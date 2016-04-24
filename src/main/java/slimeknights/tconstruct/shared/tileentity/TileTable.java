@@ -96,7 +96,7 @@ public class TileTable extends TileInventory {
       model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager().getMissingModel();
     }
 
-    PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(model, 0,-0.46875f,0, 0.8f, (float) (-Math.PI/2));
+    PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(model, 0,-0.46875f,0, 0.8f, (float) (Math.PI/2));
     if(stack.getItem() instanceof ItemBlock) {
       item.y = -0.3125f;
       item.s = 0.375f;

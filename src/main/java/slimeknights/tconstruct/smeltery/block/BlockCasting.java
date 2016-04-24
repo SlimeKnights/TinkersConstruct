@@ -178,6 +178,11 @@ public class BlockCasting extends BlockInventory {
     return BlockRenderLayer.CUTOUT;
   }
 
+  @Override
+  public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+    return true;
+  }
+
   public enum CastingType implements IStringSerializable, EnumBlock.IEnumMeta {
     TABLE,
     BASIN;

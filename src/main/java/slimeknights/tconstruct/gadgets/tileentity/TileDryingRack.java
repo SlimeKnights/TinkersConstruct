@@ -8,6 +8,7 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 
@@ -18,6 +19,9 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
 
   public TileDryingRack() {
     super("gui.dryingrack.name", 2); // two slots, an input and an output. Should never both have something, output is just to stop item tranfer
+
+    // use a SidedInventory Wrapper to respect the canInsert/Extract calls
+    this.itemHandler = new SidedInvWrapper(this, null);
   }
 
   @Override

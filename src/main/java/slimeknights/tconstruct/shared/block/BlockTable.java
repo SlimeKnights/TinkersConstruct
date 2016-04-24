@@ -67,6 +67,11 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   }
 
   @Override
+  public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+    return true;
+  }
+
+  @Override
   public boolean hasTileEntity(IBlockState state) {
     return true;
   }

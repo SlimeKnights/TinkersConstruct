@@ -45,7 +45,7 @@ public class SlimeBounceHandler {
   @SubscribeEvent
   public void playerTickPost(TickEvent.PlayerTickEvent event) {
     // this is only relevant for the local player
-    if(event.phase == TickEvent.Phase.END && event.player == entityLiving) {
+    if(event.phase == TickEvent.Phase.END && event.player == entityLiving && !event.player.isElytraFlying()) {
       // bounce up. This is to pcircumvent the logic that resets y motion after landing
       if(event.player.ticksExisted == bounceTick) {
         event.player.motionY = bounce;

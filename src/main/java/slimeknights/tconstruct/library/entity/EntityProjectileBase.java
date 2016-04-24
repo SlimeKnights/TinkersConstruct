@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
@@ -25,7 +26,9 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.library.tools.CapabilityTinkerProjectile;
+import slimeknights.tconstruct.library.tools.IProjectileStats;
 import slimeknights.tconstruct.library.tools.ITinkerProjectile;
+import slimeknights.tconstruct.library.tools.TinkerProjectileHandler;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
@@ -34,7 +37,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   //public final static String woodSound = Reference.resource("woodHit");
   //public final static String stoneSound = Reference.resource("stoneHit");
 
-  public ITinkerProjectile tinkerProjectile = CapabilityTinkerProjectile.PROJECTILE_CAPABILITY.getDefaultInstance();
+  public TinkerProjectileHandler tinkerProjectile = new TinkerProjectileHandler();
 
   public boolean bounceOnNoDamage = true;
   public boolean defused = false; // if this is true it wont hit any entities anymore
@@ -200,9 +203,35 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       EntityLivingBase attacker = (EntityLivingBase) this.shootingEntity;
       EntityLivingBase target = (EntityLivingBase) raytraceResult.entityHit;
 
+      // find the actual itemstack in the players inventory
+      ItemStack inventoryItem = tinkerProjectile.getMatchingItemstackFromInventory(attacker, false);
+      if(inventoryItem == null || inventoryItem.getItem() != item.getItem()) {
+        // backup, use saved itemstack
+        inventoryItem = item;
+      }
+
+      // remove stats from held items
+      unequip(attacker, EntityEquipmentSlot.OFFHAND);
+      unequip(attacker, EntityEquipmentSlot.MAINHAND);
+
+      // apply stats from projectile
+      if(item.getItem() instanceof IProjectileStats) {
+        attacker.getAttributeMap().applyAttributeModifiers(((IProjectileStats) item.getItem()).getProjectileAttributeModifier(inventoryItem));
+      }
+
+      // deal the damage
       float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-      float damage = speed * ToolHelper.getActualDamage(item, attacker);
-      bounceOff = ToolHelper.attackEntity(item, (ToolCore) item.getItem(), attacker, target);
+      bounceOff = dealDamage(speed, inventoryItem, attacker, target);
+
+      // remove stats from projectile
+      // apply stats from projectile
+      if(item.getItem() instanceof IProjectileStats) {
+        attacker.getAttributeMap().removeAttributeModifiers(((IProjectileStats) item.getItem()).getProjectileAttributeModifier(inventoryItem));
+      }
+
+      // readd stats from held items
+      equip(attacker, EntityEquipmentSlot.MAINHAND);
+      equip(attacker, EntityEquipmentSlot.OFFHAND);
 
       if(!bounceOff) {
         doLivingHit(target);
@@ -238,21 +267,23 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     playHitEntitySound();
   }
 
+  private void unequip(EntityLivingBase entity, EntityEquipmentSlot slot) {
+    ItemStack stack = entity.getItemStackFromSlot(slot);
+    if(stack != null) {
+      entity.getAttributeMap().removeAttributeModifiers(stack.getAttributeModifiers(slot));
+    }
+  }
+
+  private void equip(EntityLivingBase entity, EntityEquipmentSlot slot) {
+    ItemStack stack = entity.getItemStackFromSlot(slot);
+    if(stack != null) {
+      entity.getAttributeMap().applyAttributeModifiers(stack.getAttributeModifiers(slot));
+    }
+  }
+
   // returns true if it was successful
-  public boolean dealDamage(float damage, ItemStack item, EntityLivingBase attacker, EntityLivingBase target) {
-    boolean dealtDamage = false;
-
-    // deal regular damage
-    DamageSource damagesource;
-    if(this.shootingEntity == null) {
-      damagesource = DamageSource.causeArrowDamage(this, this);
-    }
-    else {
-      damagesource = DamageSource.causeArrowDamage(this, this.shootingEntity);
-    }
-    dealtDamage = target.attackEntityFrom(damagesource, damage);
-
-    return dealtDamage;
+  public boolean dealDamage(float speed, ItemStack item, EntityLivingBase attacker, EntityLivingBase target) {
+    return ToolHelper.attackEntity(item, (ToolCore) item.getItem(), attacker, target);
   }
 
   @Override
