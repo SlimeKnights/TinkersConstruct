@@ -24,14 +24,12 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.item.ItemThrowball;
 
 public class BlockGlow extends Block {
 
   public static PropertyDirection FACING = PropertyDirection.create("facing");
-  private static boolean gadgetsLoaded = TConstruct.pulseManager.isPulseLoaded(TinkerGadgets.PulseId);
 
   public BlockGlow() {
     super(Material.CIRCUITS);
@@ -60,8 +58,8 @@ public class BlockGlow extends Block {
   
   @Override
   public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-    // use the glowball for the pickblock, as it is more useful than the technical block
-    if(gadgetsLoaded) {
+    // only use the glowball for pickblock if it was loaded (which happens when gadgets is loaded)
+    if(TinkerGadgets.throwball != null) {
       return new ItemStack(TinkerGadgets.throwball, 1, ItemThrowball.ThrowballType.GLOW.ordinal());
     }
 
