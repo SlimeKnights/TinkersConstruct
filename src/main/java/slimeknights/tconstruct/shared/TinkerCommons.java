@@ -51,7 +51,7 @@ public class TinkerCommons extends TinkerPulse {
   public static BlockOre blockOre;
   public static BlockMetal blockMetal;
   public static Block blockFirewood;
-  public static Block blockGlow;
+  public static BlockGlow blockGlow;
 
   // block itemstacks
   public static ItemStack grout;
