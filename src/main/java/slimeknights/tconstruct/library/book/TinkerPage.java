@@ -20,22 +20,23 @@ public abstract class TinkerPage extends PageContent {
 
   public void addTitle(ArrayList<BookElement> list, String titleText, ItemStack itemStack, String text2) {
     TextData title = new TextData(titleText);
-    title.scale = 1.5f;
+    title.scale = 1.2f;
     title.underlined = true;
+    title.dropshadow = true;
 
-    int w = (int)Math.ceil(ClientProxy.fontRenderer.getStringWidth(titleText) * title.scale);
-    int x = GuiBook.PAGE_WIDTH / 2 - w / 2;
+    int w = (int)Math.ceil(parent.parent.parent.fontRenderer.getStringWidth(titleText) * title.scale);
+    int x = (GuiBook.PAGE_WIDTH - w) / 2;
 
     if(itemStack != null) {
-      list.add(new ElementItem(x - 28, -2, title.scale, itemStack));
+      list.add(new ElementItem(x -18, -2, 1, itemStack));
     }
     if(text2 != null) {
       TextData titleShadow = new TextData(text2);
       titleShadow.scale = title.scale;
       titleShadow.underlined = title.underlined;
-      list.add(new ElementText(x+1, 5+1, w, 24, titleShadow));
+      ////list.add(new ElementText(x+1, 5+1, w, 24, titleShadow));
     }
 
-    list.add(new ElementText(x, 5, w, 24, title));
+    list.add(new ElementText(x, 0, w, 24, title));
   }
 }

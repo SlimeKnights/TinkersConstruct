@@ -21,7 +21,7 @@ public class ContentPageIconList extends PageContent {
   }
 
   @Override
-  public void build(BookData book, ArrayList<BookElement> list) {
+  public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
 
   }
 }

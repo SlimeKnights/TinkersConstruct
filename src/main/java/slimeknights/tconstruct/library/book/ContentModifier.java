@@ -32,7 +32,7 @@ public class ContentModifier extends TinkerPage {
   }
 
   @Override
-  public void build(BookData book, ArrayList<BookElement> list) {
+  public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
     addTitle(list, modifier.getLocalizedName(), null, null);
 
     int x = GuiBook.PAGE_WIDTH/2;

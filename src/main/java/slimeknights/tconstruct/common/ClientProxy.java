@@ -3,6 +3,7 @@ package slimeknights.tconstruct.common;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.IReloadableResourceManager;
@@ -56,6 +57,7 @@ public abstract class ClientProxy extends CommonProxy {
     ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(creator);
     ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(AbstractColoredTexture.CacheClearer.INSTANCE);
 
+    // Font renderer for tooltips and GUIs
     fontRenderer = new CustomFontRenderer(Minecraft.getMinecraft().gameSettings,
                                           new ResourceLocation("textures/font/ascii.png"),
                                           Minecraft.getMinecraft().renderEngine);
@@ -64,7 +66,17 @@ public abstract class ClientProxy extends CommonProxy {
       fontRenderer.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
     }
     ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(fontRenderer);
-    TinkerBook.INSTANCE.fontRenderer = fontRenderer;
+
+
+    // Font Renderer for the tinker books
+    FontRenderer bookRenderer = new CustomFontRenderer(Minecraft.getMinecraft().gameSettings,
+                                                       new ResourceLocation("textures/font/ascii.png"),
+                                                       Minecraft.getMinecraft().renderEngine);
+    bookRenderer.setUnicodeFlag(true);
+    if(Minecraft.getMinecraft().gameSettings.language != null) {
+      fontRenderer.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
+    }
+    TinkerBook.INSTANCE.fontRenderer = bookRenderer;
   }
 
   protected ResourceLocation registerModel(Item item, String... customVariants) {
