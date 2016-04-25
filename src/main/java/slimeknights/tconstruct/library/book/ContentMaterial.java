@@ -4,9 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
 
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
@@ -17,15 +14,11 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 import slimeknights.mantle.client.book.data.BookData;
-import slimeknights.mantle.client.book.data.element.ImageData;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.gui.book.GuiBook;
 import slimeknights.mantle.client.gui.book.element.BookElement;
-import slimeknights.mantle.client.gui.book.element.ElementImage;
 import slimeknights.mantle.client.gui.book.element.ElementItem;
 import slimeknights.mantle.client.gui.book.element.ElementText;
-import slimeknights.mantle.client.gui.book.element.SizedBookElement;
-import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
@@ -86,13 +79,13 @@ public class ContentMaterial extends TinkerPage {
 
     int y = top + 10;
     int x = left + 10;
-    int w = GuiBook.PAGE_WIDTH/2 - col_margin;
+    int w = GuiBook.PAGE_WIDTH/2 - 10;
 
     LinkedHashSet<ITrait> allTraits = new LinkedHashSet<ITrait>();
 
     // head stats
     addStatsDisplay(x, y, w, list, allTraits, HeadMaterialStats.TYPE);
-    addStatsDisplay(x+w+col_margin, y, w, list, allTraits, HandleMaterialStats.TYPE);
+    addStatsDisplay(x+w, y, w, list, allTraits, HeadMaterialStats.TYPE);
 
     y += 65 + 10 * material.getAllTraitsForStats(HeadMaterialStats.TYPE).size();
     addStatsDisplay(x, y, w, list, allTraits, ExtraMaterialStats.TYPE);
@@ -204,7 +197,7 @@ public class ContentMaterial extends TinkerPage {
 
     // said parts next to the name
     if(parts.size() > 0) {
-      ElementItem display = new ElementItem(x, y+1, 0.5f, parts);
+      ElementItem display = new ElementTinkerItem(x, y+1, 0.5f, parts);
       list.add(display);
     }
 
@@ -258,18 +251,18 @@ public class ContentMaterial extends TinkerPage {
 
     // representative item first
     if(material.getRepresentativeItem() != null) {
-      displayTools.add(new ElementItem(0, 0, 1, material.getRepresentativeItem()));
+      displayTools.add(new ElementTinkerItem(material.getRepresentativeItem()));
     }
     // then "craftability"
     if(material.isCraftable()) {
       ItemStack partbuilder = new ItemStack(TinkerTools.toolTables, 1, BlockToolTable.TableTypes.PartBuilder.meta);
-      ElementItem elementItem = new ElementItem(0, 0, 1, partbuilder);
+      ElementItem elementItem = new ElementTinkerItem(partbuilder);
       elementItem.tooltip = ImmutableList.of("Can be crafted in the Part Builder");
       displayTools.add(elementItem);
     }
     if(material.isCastable()) {
       ItemStack basin = new ItemStack(TinkerSmeltery.castingBlock, 1, BlockCasting.CastingType.BASIN.getMeta());
-      ElementItem elementItem = new ElementItem(0, 0, 1, basin);
+      ElementItem elementItem = new ElementTinkerItem(basin);
       elementItem.tooltip = ImmutableList.of(String.format("Can be cast from %s", material.getFluid().getLocalizedName(new FluidStack(material.getFluid(), 0))));
       displayTools.add(elementItem);
     }
@@ -289,7 +282,7 @@ public class ContentMaterial extends TinkerPage {
       }
       ItemStack builtTool = tool.buildItem(builder.build());
       if(tool.hasValidMaterials(builtTool)) {
-        displayTools.add(new ElementItem(0, 0, 1, builtTool));
+        displayTools.add(new ElementTinkerItem(builtTool));
       }
 
       if(displayTools.size() == 9) {
