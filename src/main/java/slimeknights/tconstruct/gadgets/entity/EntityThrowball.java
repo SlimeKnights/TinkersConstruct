@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets.entity;
 
+import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.EnumFacing;
@@ -7,12 +8,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-
-import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.gadgets.Exploder;
 import slimeknights.tconstruct.gadgets.item.ItemThrowball;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.block.BlockGlow;
 
 public class EntityThrowball extends EntityThrowable implements IEntityAdditionalSpawnData {
 
@@ -54,12 +52,15 @@ public class EntityThrowball extends EntityThrowable implements IEntityAdditiona
       if(pos == null && result.entityHit != null) {
         pos = result.entityHit.getPosition();
       }
+
       EnumFacing facing = EnumFacing.DOWN;
       if(result.typeOfHit == RayTraceResult.Type.BLOCK) {
         pos = pos.offset(result.sideHit);
         facing = result.sideHit.getOpposite();
-      }
-      worldObj.setBlockState(pos, TinkerCommons.blockGlow.getDefaultState().withProperty(BlockGlow.FACING, facing));
+      }  
+
+      // add the glow using the special function in BlockGlow so it faces the right way after placing
+      TinkerCommons.blockGlow.addGlow(worldObj, pos, facing);
     }
   }
 

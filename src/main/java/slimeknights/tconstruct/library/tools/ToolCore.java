@@ -484,22 +484,18 @@ public abstract class ToolCore extends TinkersItem {
     TinkerTools.proxy.preventPlayerSlowdown(entityIn, originalSpeed, this);
   }
 
+  @SideOnly(Side.CLIENT)
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-    if(slotChanged) return true;
+    if(slotChanged) {
+      return true;
+    }
+
+    if(oldStack.hasEffect() != newStack.hasEffect()) {
+      return true;
+    }
 
     if(oldStack.getItem() == newStack.getItem() && newStack.getItem() instanceof ToolCore) {
-/*
-      NBTTagCompound oldTag = (NBTTagCompound) TagUtil.getTagSafe(oldStack).copy();
-      NBTTagCompound newTag = (NBTTagCompound) TagUtil.getTagSafe(newStack).copy();
-
-      oldTag.removeTag(Tags.TOOL_DATA);
-      oldTag.removeTag(Tags.TOOL_MODIFIERS);
-      oldTag.removeTag(Tags.TINKER_EXTRA);
-      newTag.removeTag(Tags.TOOL_DATA);
-      newTag.removeTag(Tags.TOOL_MODIFIERS);
-      newTag.removeTag(Tags.TINKER_EXTRA);
-      return !oldTag.equals(newTag);*/
       return !isEqualTinkersItem(oldStack, newStack);
     }
     return !ItemStack.areItemStacksEqual(oldStack, newStack);
