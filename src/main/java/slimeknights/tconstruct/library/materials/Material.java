@@ -119,6 +119,11 @@ public class Material extends RecipeMatchRegistry {
     }
   }
 
+  /*** If false the material will not be displayed to the user anywhere. Used for special or internal materials. */
+  public boolean isHidden() {
+    return false;
+  }
+
   /** Associates this fluid with the material. Used for melting/casting items. */
   public Material setFluid(Fluid fluid) {
     if(fluid != null && !FluidRegistry.isFluidRegistered(fluid)) {
