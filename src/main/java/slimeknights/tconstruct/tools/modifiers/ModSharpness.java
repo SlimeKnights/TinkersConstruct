@@ -9,16 +9,16 @@ import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 
-public class ModSharpness extends Modifier {
+public class ModSharpness extends ToolModifier {
 
   private final int max;
 
   public ModSharpness(int max) {
-    super("sharpness");
+    super("sharpness", 0xfff6f6);
 
     this.max = max;
 
-    addAspects(new ModifierAspect.MultiAspect(this, 0xfff6f6, 5, max, 1));
+    addAspects(new ModifierAspect.MultiAspect(this, 5, max, 1));
   }
 
   @Override

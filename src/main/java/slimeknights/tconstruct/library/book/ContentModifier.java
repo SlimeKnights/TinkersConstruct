@@ -24,10 +24,12 @@ import slimeknights.mantle.client.gui.book.element.ElementItem;
 import slimeknights.mantle.client.gui.book.element.ElementText;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.CustomFontColor;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.modifiers.IModifierDisplay;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerMaterials;
@@ -86,7 +88,34 @@ public class ContentModifier extends TinkerPage {
 
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
-    addTitle(list, modifier.getLocalizedName(), true);
+    int color = 0xdddddd;
+    int inCount = 1;
+    ItemStack[][] inputItems = null;
+    if(modifier instanceof IModifierDisplay) {
+      IModifierDisplay modifierDisplay = (IModifierDisplay) modifier;
+      color = modifierDisplay.getColor();
+
+      // determine how many slots we need to display
+      List<List<ItemStack>> inputList = modifierDisplay.getItems(); // cache it, can be expensive
+      inputItems = new ItemStack[5][]; // max size so we don't have to iterate twice
+
+      for(int i = 0; i < 5; i++) {
+        inputItems[i] = new ItemStack[inputList.size()];
+      }
+
+      for(int i = 0; i < inputList.size(); i++) {
+        List<ItemStack> inputs = inputList.get(i);
+        if(inputs.size() > inCount) {
+          inCount = inputs.size();
+        }
+
+        for(int j = 0; j < inputs.size() && j < 5; j++) {
+          inputItems[j][i] = inputs.get(j);
+        }
+      }
+    }
+
+    addTitle(list, CustomFontColor.encodeColor(color) + modifier.getLocalizedName(), true);
 
     // description
     int h = GuiBook.PAGE_WIDTH/3;
@@ -107,7 +136,6 @@ public class ContentModifier extends TinkerPage {
       list.add(new ElementText(10, 30 + h, GuiBook.PAGE_WIDTH / 2 - 5, GuiBook.PAGE_HEIGHT - h - 20, effectData));
     }
 
-    int inCount = 5;
     ImageData img;
     switch(inCount) {
       case 1: img = IMG_SLOT_1; break;
@@ -152,8 +180,10 @@ public class ContentModifier extends TinkerPage {
     list.add(new ElementTinkerItem(imgX + (img.width - 16)/2, imgY - 24, 1f, demo));
     list.add(new ElementImage(imgX + (img.width - 22)/2, imgY - 27, -1, -1, IMG_SLOT_1, 0xffffff));
 
-    for(int i = 0; i < inCount; i++) {
-      //list.add(new ElementTinkerItem(imgX + slotX[i], imgY + slotY[i], 1f, TinkerSmeltery.cast));
+    if(inputItems != null) {
+      for(int i = 0; i < inCount; i++) {
+        list.add(new ElementTinkerItem(imgX + slotX[i], imgY + slotY[i], 1f, inputItems[i]));
+      }
     }
   }
 }

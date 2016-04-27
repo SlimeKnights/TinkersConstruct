@@ -8,12 +8,12 @@ import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
-public class ModDiamond extends Modifier {
+public class ModDiamond extends ToolModifier {
 
   public ModDiamond() {
-    super("diamond");
+    super("diamond", 0x8cf4e2);
 
-    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this, 0x8cf4e2), ModifierAspect.freeModifier);
+    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this), ModifierAspect.freeModifier);
   }
 
   @Override

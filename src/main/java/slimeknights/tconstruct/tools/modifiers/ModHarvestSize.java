@@ -10,12 +10,12 @@ import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tools.IAoeTool;
 
-public class ModHarvestSize extends Modifier {
+public class ModHarvestSize extends ToolModifier {
 
   public ModHarvestSize(String name) {
-    super("harvest" + name.toLowerCase(Locale.US));
+    super("harvest" + name.toLowerCase(Locale.US), 0xcaf6a2);
 
-    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this, 0xcaf6a2), ModifierAspect.harvestOnly, ModifierAspect.freeModifier);
+    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this), ModifierAspect.harvestOnly, ModifierAspect.freeModifier);
   }
 
   @Override

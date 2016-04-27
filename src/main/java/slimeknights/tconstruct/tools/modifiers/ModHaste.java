@@ -9,16 +9,16 @@ import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 
-public class ModHaste extends Modifier {
+public class ModHaste extends ToolModifier {
 
   private final int max;
 
   public ModHaste(int max) {
-    super("haste");
+    super("haste", 0x910000);
 
     this.max = max;
 
-    addAspects(new ModifierAspect.MultiAspect(this, 0x910000, 5, max, 1), ModifierAspect.harvestOnly);
+    addAspects(new ModifierAspect.MultiAspect(this, 5, max, 1), ModifierAspect.harvestOnly);
   }
 
   @Override

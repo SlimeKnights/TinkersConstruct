@@ -16,12 +16,12 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 
-public class ModSoulbound extends Modifier {
+public class ModSoulbound extends ToolModifier {
 
   public ModSoulbound() {
-    super("soulbound");
+    super("soulbound", 0xf5fbac);
 
-    addAspects(new ModifierAspect.DataAspect(this, 0xf5fbac), new ModifierAspect.SingleAspect(this));
+    addAspects(new ModifierAspect.DataAspect(this), new ModifierAspect.SingleAspect(this));
 
     MinecraftForge.EVENT_BUS.register(this);
   }
