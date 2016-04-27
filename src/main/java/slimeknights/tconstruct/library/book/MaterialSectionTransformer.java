@@ -42,8 +42,8 @@ public class MaterialSectionTransformer extends SectionTransformer {
       page.source = data.source;
       page.parent = data;
       page.name = material.getIdentifier();
-      page.type = ContentMaterial.Tool.ID;
-      page.content = new ContentMaterial.Tool(material);
+      page.type = ContentMaterial.ID;
+      page.content = new ContentMaterial(material);
       page.load();
 
       SizedBookElement icon;

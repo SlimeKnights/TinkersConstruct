@@ -36,17 +36,14 @@ import slimeknights.tconstruct.tools.block.BlockToolTable;
 
 @SideOnly(Side.CLIENT)
 public class ContentMaterial extends TinkerPage {
+  public static final String ID = "toolmaterial";
 
   private transient Material material;
-  public String[] types;
   @SerializedName("material")
   public String materialName;
 
-  public ContentMaterial() {}
-
-  public ContentMaterial(Material material, String... types) {
+  public ContentMaterial(Material material) {
     this.material = material;
-    this.types = types;
     this.materialName = material.getIdentifier();
   }
 
@@ -198,14 +195,6 @@ public class ContentMaterial extends TinkerPage {
         y += ElementItem.ITEM_SIZE_HARDCODED;
         list.add(element);
       }
-    }
-  }
-
-  public static class Tool extends ContentMaterial {
-    public static final String ID = "toolmaterial";
-
-    public Tool(Material material) {
-      super(material, HeadMaterialStats.TYPE, HandleMaterialStats.TYPE, ExtraMaterialStats.TYPE);
     }
   }
 }

@@ -18,7 +18,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class ToolBuildGuiInfo {
 
-  private static final Material RenderMaterials[];
+  public static final Material RenderMaterials[];
 
   public final ItemStack tool;
   // the positions where the slots are located
