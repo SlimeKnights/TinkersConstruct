@@ -38,7 +38,7 @@ public class ContentPageIconList extends TinkerPage {
 
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
-    addTitle(list, TextFormatting.DARK_GRAY + "Materials", null, null); // todo: localization
+    addTitle(list, TextFormatting.DARK_GRAY + "Materials", false); // todo: localization
 
     int offset = 15;
     int x = offset;

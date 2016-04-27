@@ -59,19 +59,10 @@ public class ContentMaterial extends TinkerPage {
 
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
-    //GuiBook.PAGE_PADDING_LEFT = 10;
-    addTitle(list, material.getLocalizedNameColored(), null, material.getLocalizedName());
-/*
-    list.add(new SizedBookElement(0, 0, GuiBook.PAGE_WIDTH, GuiBook.PAGE_HEIGHT) {
-      @Override
-      public void draw(int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
-        drawRect(x, y, width, height, 0xffff0000);
-      }
-    });*/
+    addTitle(list, material.getLocalizedNameColored(), true);
 
     // the cool tools to the left/right
     addDisplayItems(list, rightSide ? GuiBook.PAGE_WIDTH - 18 : 0);
-    //addDisplayItems(book, list, !rightSide ? GuiBook.PAGE_WIDTH - 18 : 0);
 
     int col_margin = 22;
     int top = 15;
@@ -85,97 +76,12 @@ public class ContentMaterial extends TinkerPage {
 
     // head stats
     addStatsDisplay(x, y, w, list, allTraits, HeadMaterialStats.TYPE);
-    addStatsDisplay(x+w, y, w, list, allTraits, HeadMaterialStats.TYPE);
+    addStatsDisplay(x+w, y, w, list, allTraits, HandleMaterialStats.TYPE);
 
     y += 65 + 10 * material.getAllTraitsForStats(HeadMaterialStats.TYPE).size();
     addStatsDisplay(x, y, w, list, allTraits, ExtraMaterialStats.TYPE);
-/*
-
-    for(String type : types) {
-      IMaterialStats stats = material.getStats(type);
-      if(stats == null) {
-        continue;
-      }
-
-      // save traits for processing later
-      List<ITrait> traits = material.getAllTraitsForStats(type);
-      allTraits.addAll(traits);
-
-      List<ItemStack> parts = Lists.newLinkedList();
-      for(IToolPart part : TinkerRegistry.getToolParts()) {
-        if(part.hasUseForStat(stats.getIdentifier())) {
-          parts.add(part.getItemstackWithMaterial(material));
-        }
-      }
-
-      y += 5;
-      if(parts.size() > 0) {
-        ElementItem display = new ElementItem(x, y+1, 0.5f, parts);
-        list.add(display);
-      }
-
-      ElementText name = new ElementText(x + 10, y, w, 10, stats.getLocalizedName());
-      name.text[0].underlined = true;
-      list.add(name);
-      y+= 12;
-      for(int i = 0; i < stats.getLocalizedInfo().size(); i++) {
-        TextData text = new TextData(stats.getLocalizedInfo().get(i));
-        text.tooltip = new String[] {stats.getLocalizedDesc().get(i)};
-        list.add(new ElementText(x, y, w, 10, text));
-        y += 10;
-      }
-
-      if(traits.size() > 0) {
-        y += 3;
-      }
-      List<TextData> traitText = Lists.newLinkedList();
-      for(ITrait trait : traits) {
-        if(!traitText.isEmpty()) {
-          traitText.add(new TextData(", "));
-        }
-        TextData text = new TextData(trait.getLocalizedName());
-        text.tooltip = Util.convertNewlines(trait.getLocalizedDesc()).split("\n");
-        traitText.add(text);
-      }
-      if(!traitText.isEmpty()) {
-        traitText.add(0, new TextData("Traits: "));
-        list.add(new ElementText(x, y, w, 10, traitText));
-        y += 10;
-      }
-      y += 7;
-    }
-
-    // right column
-    y = 48;
 
 
-    y += 25;
-    TextData textTraits = new TextData("Traits");
-    textTraits.underlined = true;
-    textTraits.scale = 1.2f;
-    list.add(new ElementText(x2+40, y, w, 15, textTraits));
-    //y += 15;
-
-    ElementText traitsElement = new ElementText(x2, y, w, GuiBook.PAGE_HEIGHT);
-    List<TextData> textDatas = Lists.newArrayList();
-    for(ITrait trait : allTraits) {
-      TextData name = new TextData(trait.getLocalizedName());
-      name.underlined = true;
-      name.paragraph = true;
-      textDatas.add(name);
-
-      for(String s : Util.convertNewlines(trait.getLocalizedDesc()).split("\n")) {
-        TextData desc = new TextData(s);
-        desc.paragraph = true;
-        textDatas.add(desc);
-      }
-    }
-
-    traitsElement.text = textDatas.toArray(new TextData[textDatas.size()]);
-
-    if(traitsElement.text.length > 0) {
-      list.add(traitsElement);
-    }*/
   }
 
   private void addStatsDisplay(int x, int y, int w, ArrayList<BookElement> list, LinkedHashSet<ITrait> allTraits, String stattype) {
@@ -214,31 +120,14 @@ public class ContentMaterial extends TinkerPage {
       text.tooltip = Util.convertNewlines(stats.getLocalizedDesc().get(i)).split("\n");
       lineData.add(text);
       lineData.add(new TextData("\n"));
-      //list.add(new ElementText(x, y, w, 10, text));
-      //y += 10;
     }
 
-    if(traits.size() > 0) {
-      //y += 3;
-    }
-    List<TextData> traitText = Lists.newLinkedList();
     for(ITrait trait : traits) {
-      if(!traitText.isEmpty()) {
-        //traitText.add(new TextData(", "));
-      }
       TextData text = new TextData(trait.getLocalizedName());
       text.tooltip = Util.convertNewlines(trait.getLocalizedDesc()).split("\n");
       text.italic = true;
-      traitText.add(text);
-    }
-    if(!traitText.isEmpty()) {
-      //traitText.add(0, new TextData("Traits: "));
-      //lineData.add(new TextData("Traits: "));
-      //list.add(new ElementText(x, y, w, 35, traitText));
-      for(TextData data : traitText) {
-        lineData.add(data);
-        lineData.add(new TextData("\n"));
-      }
+      lineData.add(text);
+      lineData.add(new TextData("\n"));
     }
 
     list.add(new ElementText(x, y, w, GuiBook.PAGE_HEIGHT, lineData));
