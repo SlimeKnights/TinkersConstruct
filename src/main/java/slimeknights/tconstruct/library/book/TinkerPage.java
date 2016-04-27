@@ -12,8 +12,6 @@ public abstract class TinkerPage extends PageContent {
 
   public static final transient int TITLE_HEIGHT = 28;
 
-  // todo: custom title
-
   public void addTitle(ArrayList<BookElement> list, String titleText, boolean dropShadow) {
     TextData title = new TextData(titleText);
     title.scale = 1.2f;

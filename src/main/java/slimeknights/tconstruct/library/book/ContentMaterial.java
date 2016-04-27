@@ -76,12 +76,21 @@ public class ContentMaterial extends TinkerPage {
 
     // head stats
     addStatsDisplay(x, y, w, list, allTraits, HeadMaterialStats.TYPE);
-    addStatsDisplay(x+w, y, w, list, allTraits, HandleMaterialStats.TYPE);
+    // handle
+    addStatsDisplay(x+w, y, w-10, list, allTraits, HandleMaterialStats.TYPE);
 
+    // extra
     y += 65 + 10 * material.getAllTraitsForStats(HeadMaterialStats.TYPE).size();
     addStatsDisplay(x, y, w, list, allTraits, ExtraMaterialStats.TYPE);
 
-
+    // inspirational quote
+    String flavour = parent.parent.parent.strings.get(String.format("%s.flavour", material.getIdentifier()));
+    //flavour = "How much wood could a woodchuck chuck if a woodchuck could chuck wood?";
+    if(flavour != null) {
+      TextData flavourData = new TextData("\"" + flavour + "\"");
+      flavourData.italic = true;
+      list.add(new ElementText(x+w, y, w-16, 60, flavourData));
+    }
   }
 
   private void addStatsDisplay(int x, int y, int w, ArrayList<BookElement> list, LinkedHashSet<ITrait> allTraits, String stattype) {
@@ -124,7 +133,7 @@ public class ContentMaterial extends TinkerPage {
 
     for(ITrait trait : traits) {
       TextData text = new TextData(trait.getLocalizedName());
-      text.tooltip = Util.convertNewlines(trait.getLocalizedDesc()).split("\n");
+      text.tooltip = Util.convertNewlines(material.getTextColor() + trait.getLocalizedDesc()).split("\n");
       text.italic = true;
       lineData.add(text);
       lineData.add(new TextData("\n"));
@@ -146,13 +155,14 @@ public class ContentMaterial extends TinkerPage {
     if(material.isCraftable()) {
       ItemStack partbuilder = new ItemStack(TinkerTools.toolTables, 1, BlockToolTable.TableTypes.PartBuilder.meta);
       ElementItem elementItem = new ElementTinkerItem(partbuilder);
-      elementItem.tooltip = ImmutableList.of("Can be crafted in the Part Builder");
+      elementItem.tooltip = ImmutableList.of(parent.translate("material.craft_partbuilder"));
       displayTools.add(elementItem);
     }
     if(material.isCastable()) {
       ItemStack basin = new ItemStack(TinkerSmeltery.castingBlock, 1, BlockCasting.CastingType.BASIN.getMeta());
       ElementItem elementItem = new ElementTinkerItem(basin);
-      elementItem.tooltip = ImmutableList.of(String.format("Can be cast from %s", material.getFluid().getLocalizedName(new FluidStack(material.getFluid(), 0))));
+      String text = parent.translate("material.craft_casting");
+      elementItem.tooltip = ImmutableList.of(String.format(text, material.getFluid().getLocalizedName(new FluidStack(material.getFluid(), 0))));
       displayTools.add(elementItem);
     }
 

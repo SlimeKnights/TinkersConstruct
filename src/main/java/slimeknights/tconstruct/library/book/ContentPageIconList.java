@@ -20,6 +20,7 @@ public class ContentPageIconList extends TinkerPage {
 
   protected final int width;
   protected final int height;
+  public String title;
 
   protected List<ElementPageIconLink> elements = Lists.newArrayList();
 
@@ -38,13 +39,17 @@ public class ContentPageIconList extends TinkerPage {
 
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
-    addTitle(list, TextFormatting.DARK_GRAY + "Materials", false); // todo: localization
+    int yOff = 0;
+    if(title != null) {
+      addTitle(list, title, false);
+      yOff = 20;
+    }
 
     int offset = 15;
     int x = offset;
-    int y = 20;
+    int y = yOff;
     int pageW = GuiBook.PAGE_WIDTH - 2*offset;
-    int pageH = GuiBook.PAGE_HEIGHT - 20;
+    int pageH = GuiBook.PAGE_HEIGHT - yOff;
 
     float scale = 2.5f;
     boolean fits = false;

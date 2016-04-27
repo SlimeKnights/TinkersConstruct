@@ -32,6 +32,8 @@ public class MaterialSectionTransformer extends SectionTransformer {
 
     data.pages.add(page);
 
+    overview.title = book.translate("materials");
+
     for(Material material : TinkerRegistry.getAllMaterials()) {
       if(material.isHidden() || material.getAllStats().isEmpty() || !material.hasItems()) {
         continue;
