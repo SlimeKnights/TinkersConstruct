@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import net.minecraft.block.state.IBlockState;
@@ -83,6 +84,9 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   protected MultiblockSmeltery multiblock;
   protected int tick;
 
+  private BlockPos insideCheck; // last checked position for validity inside the smeltery
+  private int fullCheckCounter = 0;
+
   public TileSmeltery() {
     super("gui.smeltery.name", 0, 1);
     multiblock = new MultiblockSmeltery(this);
@@ -118,6 +122,46 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
       if(needsFuel) {
         consumeFuel();
+      }
+
+      // we gradually check if the inside of the smeltery is blocked (for performance reasons)
+      if(tick == 0) {
+        // called every second, we check every 15s or so
+        if(++fullCheckCounter >= 15) {
+          fullCheckCounter = 0;
+          checkSmelteryStructure();
+        }
+        else {
+          // outside or unset?
+          if(insideCheck == null
+             || insideCheck.getX() < minPos.getX()
+             || insideCheck.getY() < minPos.getY()
+             || insideCheck.getZ() < minPos.getZ()
+             || insideCheck.getX() > maxPos.getX()
+             || insideCheck.getY() > maxPos.getY()
+             || insideCheck.getZ() > maxPos.getZ()) {
+            insideCheck = minPos;
+          }
+
+          if(!worldObj.isAirBlock(insideCheck)) {
+            // we broke. inside blocked. :(
+            this.active = false;
+            updateSmelteryInfo(null);
+            insideCheck = null;
+            IBlockState state = worldObj.getBlockState(this.pos);
+            worldObj.notifyBlockUpdate(getPos(), state, state, 3);
+          }
+          else {
+            // advance to next block
+            insideCheck = insideCheck.add(1, 0, 0);
+            if(insideCheck.getX() > maxPos.getX()) {
+              insideCheck = new BlockPos(minPos.getX(), insideCheck.getY(), insideCheck.getZ() + 1);
+              if(insideCheck.getZ() > maxPos.getZ()) {
+                insideCheck = new BlockPos(minPos.getX(), insideCheck.getY() + 1, minPos.getZ());
+              }
+            }
+          }
+        }
       }
     }
 
@@ -368,7 +412,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
       MultiblockDetection.MultiblockStructure structure = multiblock.detectMultiblock(this.worldObj, this.getPos().offset(in), MAX_SIZE);
       if(structure == null) {
         active = false;
-        updateSmelteryInfo(new MultiblockDetection.MultiblockStructure(0, 0, 0, Lists.<BlockPos>newLinkedList()));
+        updateSmelteryInfo(null);
       }
       else {
         // we found a valid smeltery. yay.
@@ -392,6 +436,10 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
   protected void updateSmelteryInfo(MultiblockDetection.MultiblockStructure structure) {
     info = structure;
+
+    if(structure == null) {
+      structure = new MultiblockDetection.MultiblockStructure(0, 0, 0, ImmutableList.<BlockPos>of(this.pos));
+    }
 
     if(info != null) {
       minPos = info.minPos.add(1,1,1); // add walls and floor
@@ -582,6 +630,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
     compound.setTag("minPos", TagUtil.writePos(minPos));
     compound.setTag("maxPos", TagUtil.writePos(maxPos));
+    compound.setTag("insidePos", TagUtil.writePos(insideCheck));
   }
 
   @Override
@@ -601,6 +650,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
     minPos = TagUtil.readPos(compound.getCompoundTag("minPos"));
     maxPos = TagUtil.readPos(compound.getCompoundTag("maxPos"));
+    insideCheck = TagUtil.readPos(compound.getCompoundTag("insidePos"));
   }
 
   @Override
