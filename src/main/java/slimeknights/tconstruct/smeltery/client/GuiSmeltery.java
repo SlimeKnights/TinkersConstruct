@@ -54,6 +54,17 @@ public class GuiSmeltery extends GuiMultiModule {
   }
 
   @Override
+  public void updateScreen() {
+    super.updateScreen();
+
+    // smeltery size changed
+    if(smeltery.getSizeInventory() != sideinventory.inventorySlots.inventorySlots.size()) {
+      // close screen
+      this.mc.thePlayer.closeScreen();
+    }
+  }
+
+  @Override
   protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
     super.drawGuiContainerForegroundLayer(mouseX + cornerX, mouseY + cornerY);
 
