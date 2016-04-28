@@ -29,7 +29,7 @@ public class Shuriken extends ProjectileCore {
   public Shuriken() {
     super(shurikenPMT, shurikenPMT, shurikenPMT, shurikenPMT);
 
-    addCategory(Category.WEAPON, Category.RANGED);
+    addCategory(Category.NO_MELEE, Category.PROJECTILE);
   }
 
   @Override
@@ -78,6 +78,7 @@ public class Shuriken extends ProjectileCore {
                (ExtraMaterialStats) materials.get(3).getStatsOrUnknown(ExtraMaterialStats.TYPE));
 
     data.modifiers = DEFAULT_MODIFIERS;
+    data.attackSpeed = 1.0f;
 
     data.attack += 1f;
     //data.durability = Math.max(1, Math.round((float) data.durability / 10f));

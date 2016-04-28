@@ -164,6 +164,11 @@ public class FryPan extends ToolCore {
   }
 
   @Override
+  public double attackSpeed() {
+    return 1.4d;
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     return buildDefaultTag(materials).get();
   }

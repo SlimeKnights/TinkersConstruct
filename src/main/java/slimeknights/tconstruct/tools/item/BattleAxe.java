@@ -56,6 +56,11 @@ public class BattleAxe extends AoeToolCore {
   }
 
   @Override
+  public double attackSpeed() {
+    return 1f;
+  }
+
+  @Override
   public int[] getRepairParts() {
     return new int[] {1,2};
   }
