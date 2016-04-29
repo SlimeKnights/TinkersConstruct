@@ -233,9 +233,13 @@ public abstract class ToolCore extends TinkersItem {
   @Override
   public void getTooltip(ItemStack stack, List<String> tooltips) {
     if(ToolHelper.isBroken(stack)) {
-      tooltips.add("" + TextFormatting.DARK_RED + TextFormatting.BOLD + Util.translate("tooltip.tool.broken"));
+      tooltips.add("" + TextFormatting.DARK_RED + TextFormatting.BOLD + getBrokenTooltip(stack));
     }
     super.getTooltip(stack, tooltips);
+  }
+
+  protected String getBrokenTooltip(ItemStack itemStack) {
+    return Util.translate(TooltipBuilder.LOC_Broken);
   }
 
   @Override

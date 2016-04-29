@@ -379,6 +379,8 @@ stat.extra.durability.desc=How much durability this part contributes when used a
 stat.mattock.axelevel.name=Axe Level
 stat.mattock.shovellevel.name=Shovel Level
 
+stat.projectile.ammo.name=Ammo
+
 ##############
 #   Traits   #
 ##############
@@ -551,6 +553,7 @@ item.tconstruct.shuriken.desc=The Shuriken is a fast, short ranged throwing weap
 ################
 tooltip.tool.modifiers=Modifiers
 tooltip.tool.broken=Broken
+tooltip.tool.empty=Empty
 tooltip.tool.holdShift=Hold §e§oShift§r for Stats
 tooltip.tool.holdCtrl=Hold §e§bCtrl§r for more
 
