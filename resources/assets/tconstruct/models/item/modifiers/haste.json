@@ -1,9 +1,15 @@
 {
     "textures": {
         "battleaxe": "tconstruct:items/battleaxe/mod_haste",
+        "battlesign": "tconstruct:items/battlesign/mod_haste",
+        "broadsword": "tconstruct:items/broadsword/mod_haste",
+        "rapier": "tconstruct:items/rapier/mod_haste",
+        "cleaver": "tconstruct:items/cleaver/mod_haste",
         "excavator": "tconstruct:items/excavator/mod_haste",
+        "frypan": "tconstruct:items/frypan/mod_haste",
         "hammer": "tconstruct:items/hammer/mod_haste",
         "hatchet": "tconstruct:items/hatchet/mod_haste",
+        "longsword": "tconstruct:items/longsword/mod_haste",
         "lumberaxe": "tconstruct:items/lumberaxe/mod_haste",
         "mattock": "tconstruct:items/mattock/mod_haste",
         "pickaxe": "tconstruct:items/pickaxe/mod_haste",

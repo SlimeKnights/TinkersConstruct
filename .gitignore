@@ -13,8 +13,10 @@ Thumbs.db
 #gradle stuff
 /.gradle
 /build/
+/libs/
 /run*/
 /ui/
+*.launch
 gradle-app.setting
 #IDEA files from Gradle
 .idea/

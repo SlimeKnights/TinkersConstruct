@@ -29,7 +29,7 @@ public class Shuriken extends ProjectileCore {
   public Shuriken() {
     super(shurikenPMT, shurikenPMT, shurikenPMT, shurikenPMT);
 
-    addCategory(Category.WEAPON, Category.RANGED);
+    addCategory(Category.NO_MELEE, Category.PROJECTILE);
   }
 
   @Override

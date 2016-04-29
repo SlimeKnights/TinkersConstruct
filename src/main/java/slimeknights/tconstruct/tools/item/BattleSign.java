@@ -52,7 +52,7 @@ public class BattleSign extends ToolCore {
 
   @Override
   public double attackSpeed() {
-    return 5;
+    return 1.2;
   }
 
   @Override

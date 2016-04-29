@@ -52,6 +52,11 @@ public class Scythe extends ToolCore {
   }
 
   @Override
+  public double attackSpeed() {
+    return 1f;
+  }
+
+  @Override
   public boolean isEffective(IBlockState block) {
     return effective_materials.contains(block.getMaterial());
   }
