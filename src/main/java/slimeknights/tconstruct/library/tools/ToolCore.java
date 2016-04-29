@@ -28,6 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import slimeknights.tconstruct.common.ClientProxy;
@@ -487,12 +488,25 @@ public abstract class ToolCore extends TinkersItem {
   @SideOnly(Side.CLIENT)
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+    if(oldStack == newStack) {
+      return false;
+    }
     if(slotChanged) {
       return true;
     }
 
     if(oldStack.hasEffect() != newStack.hasEffect()) {
       return true;
+    }
+
+    Multimap<String, AttributeModifier> attributes = newStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
+    for(Map.Entry<String, AttributeModifier> entry: oldStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND).entries()) {
+      if(!attributes.containsKey(entry.getKey())) {
+        return true;
+      }
+      if(!attributes.get(entry.getKey()).equals(entry.getValue())) {
+        return true;
+      }
     }
 
     if(oldStack.getItem() == newStack.getItem() && newStack.getItem() instanceof ToolCore) {
