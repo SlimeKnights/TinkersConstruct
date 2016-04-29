@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.utils;
 
+import java.util.List;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
@@ -11,10 +13,7 @@ import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -40,15 +39,11 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.event.ForgeEventFactory;
-
-import java.util.List;
-
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
-import slimeknights.tconstruct.library.tools.IProjectileStats;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.tools.events.TinkerToolEvent;
@@ -93,7 +88,22 @@ public final class ToolHelper {
     return damage;
   }
 
-  /** Returns the speed saved on the tool. NOT the actual mining speed, see getActualMiningSpeed */
+  /** Returns the attack speed saved on the tool.
+   * This is normally just a number from 1 to 2, the actual attack speed is in getActualAttackSpeed */
+  public static float getAttackSpeedStat(ItemStack stack) {
+    return getfloatTag(stack, Tags.ATTACKSPEEDMULTIPLIER);
+  }
+
+  /** Returns the actual attack speed */
+  public static float getActualAttackSpeed(ItemStack stack) {
+    float speed = getAttackSpeedStat(stack);
+    if(stack != null && stack.getItem() instanceof ToolCore) {
+      speed *= ((ToolCore) stack.getItem()).attackSpeed();
+    }
+    return speed;
+  }
+
+  /** Returns the actual mining speed. */
   public static float getActualMiningSpeed(ItemStack stack) {
     float speed = getMiningSpeedStat(stack);
     if(stack != null && stack.getItem() instanceof ToolCore) {

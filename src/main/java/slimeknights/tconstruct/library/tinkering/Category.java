@@ -9,14 +9,16 @@ public class Category {
 
   public static Map<String, Category> categories = Maps.newHashMap();
 
-  // everything item built is a tool
+  /** Everything item built is a tool */
   public static final Category TOOL = new Category("tool");
-  // everything that has weapon as intended use
+  /** Everything that has weapon as intended use */
   public static final Category WEAPON = new Category("weapon");
-  // everything that can harvest blocks
+  /** Everything that can harvest blocks */
   public static final Category HARVEST = new Category("harvest");
-  // everything that deals damage over a distance
-  public static final Category RANGED = new Category("ranged");
+  /** Everything thrown or launched over a distance */
+  public static final Category PROJECTILE = new Category("projectile");
+  /** Everything which does nothing on melee */
+  public static final Category NO_MELEE = new Category("no_melee");
 
 
   public final String name;

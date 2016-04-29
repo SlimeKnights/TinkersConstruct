@@ -119,12 +119,10 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   /**
-   * Allows you set the attack speed. Equivalent to the vanilla attack speed.
-   * Default speed is 4, which is equal to any standard item. Value has to be greater than zero.
+   * Allows you set the base attack speed, can be changed by modifiers. Equivalent to the vanilla attack speed.
+   * 4 is equal to any standard item. Value has to be greater than zero.
    */
-  public double attackSpeed() {
-    return 4;
-  }
+  public abstract double attackSpeed();
 
   /**
    * Knockback modifier. Basically this takes the vanilla knockback on hit and modifies it by this factor.
@@ -219,7 +217,7 @@ public abstract class ToolCore extends TinkersItem {
     if (slot == EntityEquipmentSlot.MAINHAND && !ToolHelper.isBroken(stack))
     {
       multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)ToolHelper.getActualAttack(stack), 0));
-      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", attackSpeed() - 4d, 0));
+      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double)ToolHelper.getActualAttackSpeed(stack) - 4d, 0));
     }
 
     return multimap;
