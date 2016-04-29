@@ -48,6 +48,7 @@ import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Shard;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
+import slimeknights.tconstruct.shared.CreativeTabFluids;
 
 public final class TinkerRegistry {
 
@@ -66,6 +67,7 @@ public final class TinkerRegistry {
   public static CreativeTab tabSmeltery = new CreativeTab("TinkerSmeltery", new ItemStack(Item.getItemFromBlock(Blocks.STONEBRICK)));
   public static CreativeTab tabWorld = new CreativeTab("TinkerWorld", new ItemStack(Item.getItemFromBlock(Blocks.SLIME_BLOCK)));
   public static CreativeTab tabGadgets = new CreativeTab("TinkerGadgets", new ItemStack(Blocks.TNT));
+  public static CreativeTab tabFluids = new CreativeTabFluids();
 
   /*---------------------------------------------------------------------------
   | MATERIALS                                                                 |

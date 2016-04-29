@@ -615,6 +615,7 @@ itemGroup.TinkerToolParts=Tinkers' Toolparts
 itemGroup.TinkerSmeltery=Tinkers' Smeltery
 itemGroup.TinkerWorld=Tinkers' World
 itemGroup.TinkerGadgets=Tinkers' Gadgets
+itemGroup.TimkerFluids=Tinkers' Fluids
 
 # Crafting Station
 gui.craftingstation.name=Crafting Station
