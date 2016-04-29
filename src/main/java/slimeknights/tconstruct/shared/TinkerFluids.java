@@ -257,27 +257,23 @@ public class TinkerFluids extends TinkerPulse {
 
   private static FluidMolten fluidLiquid(String name, int color) {
     FluidMolten fluid = new FluidMolten(name, color, FluidMolten.ICON_LiquidStill, FluidMolten.ICON_LiquidFlowing);
-    registerFluid(fluid);
     return fluid;
   }
 
   private static FluidMolten fluidStone(String name, int color) {
     FluidMolten fluid = new FluidMolten(name, color, FluidColored.ICON_StoneStill, FluidColored.ICON_StoneFlowing);
-    fluid = registerFluid(fluid);
 
     return fluid;
   }
 
   private static FluidColored fluidClassic(String name, int color) {
     FluidColored fluid = new FluidColored(name, color, FluidColored.ICON_LiquidStill, FluidColored.ICON_LiquidFlowing);
-    fluid = registerFluid(fluid);
 
     return fluid;
   }
 
   private static FluidColored fluidMilk(String name, int color) {
     FluidColored fluid = new FluidColored(name, color, FluidColored.ICON_MilkStill, FluidColored.ICON_MilkFlowing);
-    fluid = registerFluid(fluid);
 
     return fluid;
   }
