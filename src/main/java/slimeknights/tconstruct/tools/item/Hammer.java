@@ -101,7 +101,6 @@ public class Hammer extends Pickaxe {
 
     // 3 free modifiers
     data.modifiers = DEFAULT_MODIFIERS;
-    data.attackSpeed = 1.0f;
 
     return data.get();
   }

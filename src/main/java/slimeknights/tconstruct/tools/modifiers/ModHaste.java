@@ -9,7 +9,6 @@ import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
-import slimeknights.tconstruct.library.utils.Tags;
 
 public class ModHaste extends ToolModifier {
 
@@ -25,7 +24,7 @@ public class ModHaste extends ToolModifier {
 
   @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
-    ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(modifierTag);
+    ModifierNBT.IntegerNBT modData = ModifierNBT.readInteger(modifierTag);
 
     boolean harvest = false;
     
@@ -33,14 +32,13 @@ public class ModHaste extends ToolModifier {
       if(category == Category.HARVEST) harvest = true;
     }
 
-    ToolNBT toolData = TagUtil.getOriginalToolStats(rootCompound);
-    NBTTagCompound tag = TagUtil.getToolTag(rootCompound);
-    int level = data.current / max;
+    ToolNBT data = TagUtil.getToolStats(rootCompound);
+    int level = modData.current / max;
     
     // only boost mining speed if we have a harvest tool
     if(harvest) {
-      float speed = toolData.speed;
-      for(int count = data.current; count > 0; count--) {
+      float speed = data.speed;
+      for(int count = modData.current; count > 0; count--) {
         if(speed <= 10f) {
           // linear scaling from 0.08 to 0.06 per piece till 10 miningspeed
           speed += 0.15f - 0.05f * speed / 10f;
@@ -57,18 +55,13 @@ public class ModHaste extends ToolModifier {
       speed += level * 0.5f;
   
       // save it to the tool
-      speed -= toolData.speed;
-      speed += tag.getFloat(Tags.MININGSPEED);
-      tag.setFloat(Tags.MININGSPEED, speed);
+      data.speed = speed;
     }
     
-    // attack speed: each level adds 0.2 to the multiplier, meaning level 1 is 1.2 times the default speed, and 5 is 2.0 times it
-    float attackSpeed = 1.0f + (level * 0.2f);
+    // attack speed: each total level adds 0.2 to the modifier, though individual redstone piece above the level add 0.004 each
+    data.attackSpeedMultiplier += (0.2f * modData.current / max);
 
-    // save it to the tool, adding the original boost from lightweight (if it exists)
-    attackSpeed -= toolData.attackSpeed;
-    attackSpeed += tag.getFloat(Tags.ATTACKSPEED);
-    tag.setFloat(Tags.ATTACKSPEED, attackSpeed);
+    TagUtil.setToolTag(rootCompound, data.get());
   }
   
   // don't allow on projectiles

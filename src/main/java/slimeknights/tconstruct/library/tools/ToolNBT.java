@@ -12,7 +12,7 @@ public class ToolNBT {
   public int harvestLevel;
   public float attack;
   public float speed; // mining speed
-  public float attackSpeed;
+  public float attackSpeedMultiplier;
   public int modifiers; // free modifiers
 
   public ToolNBT() {
@@ -20,7 +20,7 @@ public class ToolNBT {
     harvestLevel = 0;
     attack = 0;
     speed = 0;
-    attackSpeed = 0;
+    attackSpeedMultiplier = 1;
   }
 
   public ToolNBT(NBTTagCompound tag) {
@@ -97,7 +97,7 @@ public class ToolNBT {
     harvestLevel = tag.getInteger(Tags.HARVESTLEVEL);
     attack = tag.getFloat(Tags.ATTACK);
     speed = tag.getFloat(Tags.MININGSPEED);
-    attackSpeed = tag.getFloat(Tags.ATTACKSPEED);
+    attackSpeedMultiplier = tag.getFloat(Tags.ATTACKSPEEDMULTIPLIER);
     modifiers = tag.getInteger(Tags.FREE_MODIFIERS);
   }
 
@@ -106,7 +106,7 @@ public class ToolNBT {
     tag.setInteger(Tags.HARVESTLEVEL, harvestLevel);
     tag.setFloat(Tags.ATTACK, attack);
     tag.setFloat(Tags.MININGSPEED, speed);
-    tag.setFloat(Tags.ATTACKSPEED, attackSpeed);
+    tag.setFloat(Tags.ATTACKSPEEDMULTIPLIER, attackSpeedMultiplier);
     tag.setInteger(Tags.FREE_MODIFIERS, modifiers);
   }
 

@@ -526,9 +526,6 @@ public abstract class ToolCore extends TinkersItem {
 
     // 3 free modifiers
     data.modifiers = DEFAULT_MODIFIERS;
-    
-    // normal attack speed
-    data.attackSpeed = 1.0f;
 
     return data;
   }

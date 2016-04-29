@@ -33,7 +33,7 @@ public final class Tags {
 
   public static final String DURABILITY = "Durability";
   public static final String ATTACK = "Attack";
-  public static final String ATTACKSPEED = "AttackSpeed";
+  public static final String ATTACKSPEEDMULTIPLIER = "AttackSpeedMultiplier";
   public static final String MININGSPEED = "MiningSpeed";
   public static final String HARVESTLEVEL = "HarvestLevel";
 

@@ -27,14 +27,13 @@ public class TraitLightweight extends AbstractTrait {
     super.applyEffect(rootCompound, modifierTag);
 
     // add the attack speed boost
-    float speedBoost = 1 + bonus;
-    ToolNBT toolData = TagUtil.getOriginalToolStats(rootCompound);
+    ToolNBT data = TagUtil.getToolStats(rootCompound);
     
-    // make sure the original speed is preserved, in case we want tool based speed boost
-    speedBoost *= toolData.attackSpeed;
+    // apply using the base value of 1.0f, as otherwise this will apply twice on tools with multiple lightweight parts
+    data.attackSpeedMultiplier = 1.0f + bonus;
 
-    NBTTagCompound tag = TagUtil.getToolTag(rootCompound);
-    tag.setFloat(Tags.ATTACKSPEED, speedBoost);
+    TagUtil.setToolTag(rootCompound, data.get());
+
   }
 
   @Override

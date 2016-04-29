@@ -91,7 +91,7 @@ public final class ToolHelper {
   /** Returns the attack speed saved on the tool.
    * This is normally just a number from 1 to 2, the actual attack speed is in getActualAttackSpeed */
   public static float getAttackSpeedStat(ItemStack stack) {
-    return getfloatTag(stack, Tags.ATTACKSPEED);
+    return getfloatTag(stack, Tags.ATTACKSPEEDMULTIPLIER);
   }
 
   /** Returns the actual attack speed */
