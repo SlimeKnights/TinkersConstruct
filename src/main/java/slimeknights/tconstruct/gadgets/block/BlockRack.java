@@ -63,8 +63,8 @@ public class BlockRack extends BlockTable {
   @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
-    list.add(createItemstack(this, 0, Blocks.PLANKS, 0));
-    list.add(createItemstack(this, 1, Blocks.PLANKS, 0));
+    list.add(createItemstack(this, 0, Blocks.WOODEN_SLAB, 0));
+    list.add(createItemstack(this, 1, Blocks.WOODEN_SLAB, 0));
   }
 
   @Override
