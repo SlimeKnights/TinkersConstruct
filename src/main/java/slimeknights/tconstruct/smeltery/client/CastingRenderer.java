@@ -10,6 +10,11 @@ import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
+import org.lwjgl.opengl.GL15;
+import org.lwjgl.opengl.GL32;
+import org.lwjgl.opengl.GL33;
+import org.lwjgl.opengl.GL40;
+import org.lwjgl.opengl.GL45;
 
 import slimeknights.tconstruct.library.client.RenderUtil;
 import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
@@ -77,12 +82,15 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
     g = RenderUtil.green(color);
     b = RenderUtil.blue(color);
 
-    //a = (int)(((a/255f) * (1f - progress/2f)) * a);
-    r = (int)((float)r * (1f - progress));
-    g = (int)((float)g * (1f - progress));
-    b = (int)((float)b * (1f - progress));
+    if(progress > 2/3) {
+      float af = progress / 3f;
 
-    color = RenderUtil.compose(r, g, b, a);
+      a = (int) (((a / 255f) * (1f - af)) * a);
+      //r = (int)((float)r * (1f - progress));
+      //g = (int)((float)g * (1f - progress));
+      //b = (int)((float)b * (1f - progress));
+      color = RenderUtil.compose(r, g, b, a);
+    }
     RenderUtil.renderFluidCuboid(te.tank.getFluid(), te.getPos(), x,y,z, xzMin, yMin, xzMin, xzMax, yh, xzMax, color);
 
     // render item
@@ -100,13 +108,18 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
       GlStateManager.rotate(-90 * te.getFacing().getHorizontalIndex(), 0, 1, 0);
       GlStateManager.rotate(-90, 1, 0, 0);
 
-      GlStateManager.blendFunc(GL11.GL_CONSTANT_ALPHA, GL11.GL_SRC_ALPHA);
+      //GlStateManager.blendFunc(GL11.GL_CONSTANT_ALPHA, GL11.GL_CONSTANT_ALPHA);
+      //GlStateManager.blendFunc(GL11.GL_CONSTANT_ALPHA, GL11.GL_DST_ALPHA);
+      //GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_CONSTANT_ALPHA, GL11.GL_SRC_COLOR);
+      GlStateManager.blendFunc(GL11.GL_CONSTANT_ALPHA, GL11.GL_ONE_MINUS_CONSTANT_ALPHA);
       GL14.glBlendColor(1f, 1f, 1f, progress);
+      //GL14.glBlendColor(r, g, b, progress);
       //GL14.glBlendColor(1f, 1f, 1f, 1f); // debug
 
+      GL11.glDepthMask(false);
       IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, te.getWorld(), null);
       Minecraft.getMinecraft().getRenderItem().renderItem(stack, model);
-
+      GL11.glDepthMask(true);
       GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
       RenderUtil.post();
     }
