@@ -201,12 +201,12 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-    // todo: potentially reenable the hurtresistance thing if attackspeeds go below 1
-    /*
-    if(attackSpeed() > 0) {
-      target.hurtResistantTime -= attackSpeed();
-      target.hurtTime -= attackSpeed();
-    }*/
+    float speed = ToolHelper.getActualAttackSpeed(stack);
+    int time = Math.round(20f/speed);
+    if(time < target.hurtResistantTime/2) {
+      target.hurtResistantTime = target.hurtResistantTime/2 + time;
+      target.hurtTime = target.hurtTime/2 + time;
+    }
     return super.hitEntity(stack, target, attacker);
   }
 
