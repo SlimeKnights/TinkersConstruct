@@ -60,7 +60,7 @@ public abstract class TinkerPulse {
   }
 
   protected static <T extends Block> T registerBlock(T block, String name) {
-    ItemBlock itemBlock = new ItemBlock(block);
+    ItemBlock itemBlock = new ItemBlockMeta(block);
     registerBlock(block, itemBlock, name);
     return block;
   }

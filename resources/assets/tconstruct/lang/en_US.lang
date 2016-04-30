@@ -99,12 +99,16 @@ tile.tconstruct.seared.tooltip=Part of the Smeltery. Safe for Decoration.
 tile.tconstruct.smeltery_controller.name=Smeltery Controller
 tile.tconstruct.smeltery_controller.tooltip=Brain of the Smeltery
 tile.tconstruct.smeltery_io.drain.name=Smeltery Drain
+tile.tconstruct.smeltery_io.drain.tooltip=Fluid in- and output for the Smeltery
 tile.tconstruct.casting.table.name=Casting Table
 tile.tconstruct.casting.basin.name=Casting Basin
+tile.tconstruct.casting.tooltip=Cast items using molten metals from a smeltery
 tile.tconstruct.faucet.name=Faucet
+tile.tconstruct.faucet.tooltip=Drains liquids from Smelteries and other things
 tile.tconstruct.seared_tank.tank.name=Seared Tank
 tile.tconstruct.seared_tank.gauge.name=Seared Gauge
 tile.tconstruct.seared_tank.window.name=Seared Window
+tile.tconstruct.seared_tank.tooltip=Heart of the Smeltery
 
 tile.tconstruct.stone_torch.name=Stone Torch
 tile.tconstruct.stone_ladder.name=Stone Ladder
