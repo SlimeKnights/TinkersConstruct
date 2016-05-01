@@ -130,6 +130,9 @@ tile.tconstruct.dried_clay.brick.name=Dried Bricks
 ################
 
 # General Items
+item.tconstruct.book.name=Materials and You
+item.tconstruct.book.tooltip=The book every Tinkerer needs\nby Skyla
+
 item.tconstruct.edible.bacon.name=Bacon
 item.tconstruct.edible.slimeball_blue.name=Slime Ball
 item.tconstruct.edible.slimeball_purple.name=Slime Ball
