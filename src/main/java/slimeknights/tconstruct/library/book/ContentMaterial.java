@@ -19,6 +19,7 @@ import slimeknights.mantle.client.gui.book.GuiBook;
 import slimeknights.mantle.client.gui.book.element.BookElement;
 import slimeknights.mantle.client.gui.book.element.ElementItem;
 import slimeknights.mantle.client.gui.book.element.ElementText;
+import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
@@ -123,14 +124,14 @@ public class ContentMaterial extends TinkerPage {
     // add lines of tool information
     for(int i = 0; i < stats.getLocalizedInfo().size(); i++) {
       TextData text = new TextData(stats.getLocalizedInfo().get(i));
-      text.tooltip = Util.convertNewlines(stats.getLocalizedDesc().get(i)).split("\n");
+      text.tooltip = LocUtils.convertNewlines(stats.getLocalizedDesc().get(i)).split("\n");
       lineData.add(text);
       lineData.add(new TextData("\n"));
     }
 
     for(ITrait trait : traits) {
       TextData text = new TextData(trait.getLocalizedName());
-      text.tooltip = Util.convertNewlines(material.getTextColor() + trait.getLocalizedDesc()).split("\n");
+      text.tooltip = LocUtils.convertNewlines(material.getTextColor() + trait.getLocalizedDesc()).split("\n");
       text.italic = true;
       lineData.add(text);
       lineData.add(new TextData("\n"));

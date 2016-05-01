@@ -83,36 +83,6 @@ public class Util {
     return I18n.translateToLocal(I18n.translateToLocalFormatted(key, (Object[]) pars).trim()).trim();
   }
 
-  public static List<String> getTooltips(String text) {
-    List<String> list = Lists.newLinkedList();
-    if(text == null)
-      return list;
-    int j = 0;
-    int k;
-    while((k = text.indexOf("\\n", j)) >= 0)
-    {
-      list.add(text.substring(j, k));
-      j = k+2;
-    }
-
-    list.add(text.substring(j, text.length()));
-
-    return list;
-  }
-
-
-  public static String convertNewlines(String line) {
-    if(line == null)
-      return null;
-    int j;
-    while((j = line.indexOf("\\n")) >= 0)
-    {
-      line = line.substring(0, j) + '\n' + line.substring(j+2);
-    }
-
-    return line;
-  }
-
   public static ResourceLocation getItemLocation(Item item) {
     // get the registered name for the object
     Object o = GameData.getItemRegistry().getNameForObject(item);
