@@ -77,8 +77,7 @@ public class ItemThrowball extends ItemSnowball {
   @Override
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
     if(I18n.canTranslate(this.getUnlocalizedName(stack) + ".tooltip")) {
-      tooltip.add(
-          TextFormatting.GRAY.toString() + LocUtils.translateRecursive(super.getUnlocalizedName(stack) + ".tooltip"));
+      tooltip.add(TextFormatting.GRAY.toString() + LocUtils.translateRecursive(this.getUnlocalizedName(stack) + ".tooltip"));
     }
   }
 

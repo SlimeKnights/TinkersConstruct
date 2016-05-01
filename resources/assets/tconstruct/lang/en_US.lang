@@ -77,6 +77,7 @@ tile.tconstruct.slime_grass_tall.fern.name=Slimy Fern
 tile.tconstruct.slime_sapling.blue.name=Blue Slime Sapling
 tile.tconstruct.slime_sapling.purple.name=Purple Slime Sapling
 tile.tconstruct.slime_sapling.orange.name=Magma Slime Sapling
+tile.tconstruct.slime_sapling.tooltip=Only grows on slimy dirt/grass
 
 tile.tconstruct.slime_vine_blue.name=Blue Slimy Vine
 tile.tconstruct.slime_vine_blue_mid.name=Blue Slimy Vine
@@ -108,12 +109,13 @@ tile.tconstruct.faucet.tooltip=Drains liquids from Smelteries and other things
 tile.tconstruct.seared_tank.tank.name=Seared Tank
 tile.tconstruct.seared_tank.gauge.name=Seared Gauge
 tile.tconstruct.seared_tank.window.name=Seared Window
-tile.tconstruct.seared_tank.tooltip=Heart of the Smeltery
+tile.tconstruct.seared_tank.tooltip=Heart of the Smeltery\nRetains liquid when broken.
 
 tile.tconstruct.stone_torch.name=Stone Torch
 tile.tconstruct.stone_ladder.name=Stone Ladder
 tile.tconstruct.wood_rail.name=Wooden Rail
 tile.tconstruct.punji.name=Punji Sticks
+tile.tconstruct.punji.tooltip=Pointy! Also sticks to walls.
 tile.tconstruct.glow.name=Glow
 tile.tconstruct.rack.item.name=Item Rack
 tile.tconstruct.rack.item.tooltip=For decoration purpose only
@@ -271,7 +273,7 @@ item.tconstruct.fancy_frame.manyullyn.name=Manyullyn Item Frame
 item.tconstruct.fancy_frame.gold.name=Golden Item Frame
 
 item.tconstruct.throwball.glow.name=Glowball
-item.tconstruct.throwball.glow.tooltip=Not suited for cosumption.
+item.tconstruct.throwball.glow.tooltip=Not suited for consumption.
 item.tconstruct.throwball.efln.name=EFLN
 item.tconstruct.throwball.efln.tooltip=Explodes! Save for mining
 
