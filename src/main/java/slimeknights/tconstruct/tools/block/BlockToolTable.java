@@ -82,9 +82,11 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
   @Override
   public boolean openGui(EntityPlayer player, World world, BlockPos pos) {
-    player.openGui(TConstruct.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
-    if(player.openContainer instanceof BaseContainer) {
-      ((BaseContainer) player.openContainer).syncOnOpen((EntityPlayerMP) player);
+    if(!world.isRemote) {
+      player.openGui(TConstruct.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+      if(player.openContainer instanceof BaseContainer) {
+        ((BaseContainer) player.openContainer).syncOnOpen((EntityPlayerMP) player);
+      }
     }
     return true;
   }
