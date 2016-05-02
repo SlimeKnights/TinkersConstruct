@@ -7,7 +7,9 @@ tile.tconstruct.tooltables.stenciltable.name=Stencil Table
 tile.tconstruct.tooltables.partbuilder.name=Part Builder
 tile.tconstruct.tooltables.toolstation.name=Tool Station
 tile.tconstruct.tooltables.patternchest.name=Pattern Chest
+tile.tconstruct.tooltables.patternchest.tooltip=Holds either patterns or casts
 tile.tconstruct.tooltables.partchest.name=Part Chest
+tile.tconstruct.tooltables.partchest.tooltip=Can hold a large amount of toolparts
 tile.tconstruct.toolforge.name=Tool Forge
 
 tile.tconstruct.soil.grout.name=Grout
