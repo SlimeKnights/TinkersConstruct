@@ -37,13 +37,18 @@ public class FluidsClientProxy extends ClientProxy {
     if(fluid == null) return;
 
     Block block = fluid.getBlock();
-    Item item = Item.getItemFromBlock(block);
-    FluidStateMapper mapper = new FluidStateMapper(fluid);
-    // item-model
-    ModelLoader.registerItemVariants(item);
-    ModelLoader.setCustomMeshDefinition(item, mapper);
-    // block-model
-    ModelLoader.setCustomStateMapper(block, mapper);
+    if(block != null) {
+      Item item = Item.getItemFromBlock(block);
+      FluidStateMapper mapper = new FluidStateMapper(fluid);
+
+      // item-model
+      if(item != null) {
+        ModelLoader.registerItemVariants(item);
+        ModelLoader.setCustomMeshDefinition(item, mapper);
+      }
+      // block-model
+      ModelLoader.setCustomStateMapper(block, mapper);
+    }
   }
 
   public static class FluidStateMapper extends StateMapperBase implements ItemMeshDefinition {
