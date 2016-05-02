@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
@@ -29,7 +30,7 @@ public class SharpeningKit extends ToolPart {
 
   @Override
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-    tooltip.addAll(Util.getTooltips(Util.translate("item.tconstruct.sharpening_kit.tooltip")));
+    tooltip.addAll(LocUtils.getTooltips(Util.translate("item.tconstruct.sharpening_kit.tooltip")));
     if(!checkMissingMaterialTooltip(stack, tooltip, HeadMaterialStats.TYPE)) {
       Material material = getMaterial(stack);
       HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);

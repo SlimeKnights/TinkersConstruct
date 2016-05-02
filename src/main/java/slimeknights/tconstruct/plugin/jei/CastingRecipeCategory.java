@@ -87,7 +87,7 @@ public class CastingRecipeCategory implements IRecipeCategory {
       // no cast, bigger fluid
       int h = 11;
       if(recipe.getInputs().isEmpty()) {
-        h += 15;
+        h += 16;
       }
       fluids.init(1, true, 64, 15, 6, h, cap, false, null);
       fluids.set(1, recipe.getFluidInputs());

@@ -7,7 +7,9 @@ tile.tconstruct.tooltables.stenciltable.name=Stencil Table
 tile.tconstruct.tooltables.partbuilder.name=Part Builder
 tile.tconstruct.tooltables.toolstation.name=Tool Station
 tile.tconstruct.tooltables.patternchest.name=Pattern Chest
+tile.tconstruct.tooltables.patternchest.tooltip=Holds either patterns or casts
 tile.tconstruct.tooltables.partchest.name=Part Chest
+tile.tconstruct.tooltables.partchest.tooltip=Can hold a large amount of toolparts
 tile.tconstruct.toolforge.name=Tool Forge
 
 tile.tconstruct.soil.grout.name=Grout
@@ -77,6 +79,7 @@ tile.tconstruct.slime_grass_tall.fern.name=Slimy Fern
 tile.tconstruct.slime_sapling.blue.name=Blue Slime Sapling
 tile.tconstruct.slime_sapling.purple.name=Purple Slime Sapling
 tile.tconstruct.slime_sapling.orange.name=Magma Slime Sapling
+tile.tconstruct.slime_sapling.tooltip=Only grows on slimy dirt/grass
 
 tile.tconstruct.slime_vine_blue.name=Blue Slimy Vine
 tile.tconstruct.slime_vine_blue_mid.name=Blue Slimy Vine
@@ -99,17 +102,22 @@ tile.tconstruct.seared.tooltip=Part of the Smeltery. Safe for Decoration.
 tile.tconstruct.smeltery_controller.name=Smeltery Controller
 tile.tconstruct.smeltery_controller.tooltip=Brain of the Smeltery
 tile.tconstruct.smeltery_io.drain.name=Smeltery Drain
+tile.tconstruct.smeltery_io.drain.tooltip=Fluid in- and output for the Smeltery
 tile.tconstruct.casting.table.name=Casting Table
 tile.tconstruct.casting.basin.name=Casting Basin
+tile.tconstruct.casting.tooltip=Cast items using molten metals from a smeltery
 tile.tconstruct.faucet.name=Faucet
+tile.tconstruct.faucet.tooltip=Drains liquids from Smelteries and other things
 tile.tconstruct.seared_tank.tank.name=Seared Tank
 tile.tconstruct.seared_tank.gauge.name=Seared Gauge
 tile.tconstruct.seared_tank.window.name=Seared Window
+tile.tconstruct.seared_tank.tooltip=Heart of the Smeltery\nRetains liquid when broken.
 
 tile.tconstruct.stone_torch.name=Stone Torch
 tile.tconstruct.stone_ladder.name=Stone Ladder
 tile.tconstruct.wood_rail.name=Wooden Rail
 tile.tconstruct.punji.name=Punji Sticks
+tile.tconstruct.punji.tooltip=Pointy! Also sticks to walls.
 tile.tconstruct.glow.name=Glow
 tile.tconstruct.rack.item.name=Item Rack
 tile.tconstruct.rack.item.tooltip=For decoration purpose only
@@ -124,6 +132,9 @@ tile.tconstruct.dried_clay.brick.name=Dried Bricks
 ################
 
 # General Items
+item.tconstruct.book.name=Materials and You
+item.tconstruct.book.tooltip=The book every Tinkerer needs\nby Skyla
+
 item.tconstruct.edible.bacon.name=Bacon
 item.tconstruct.edible.slimeball_blue.name=Slime Ball
 item.tconstruct.edible.slimeball_purple.name=Slime Ball
@@ -267,7 +278,7 @@ item.tconstruct.fancy_frame.manyullyn.name=Manyullyn Item Frame
 item.tconstruct.fancy_frame.gold.name=Golden Item Frame
 
 item.tconstruct.throwball.glow.name=Glowball
-item.tconstruct.throwball.glow.tooltip=Not suited for cosumption.
+item.tconstruct.throwball.glow.tooltip=Not suited for consumption.
 item.tconstruct.throwball.efln.name=EFLN
 item.tconstruct.throwball.efln.tooltip=Explodes! Save for mining
 
@@ -379,6 +390,8 @@ stat.extra.durability.desc=How much durability this part contributes when used a
 stat.mattock.axelevel.name=Axe Level
 stat.mattock.shovellevel.name=Shovel Level
 
+stat.projectile.ammo.name=Ammo
+
 ##############
 #   Traits   #
 ##############
@@ -431,7 +444,7 @@ modifier.jagged.name=Jagged
 modifier.jagged.desc=§oMoves like jagged!§r\nEvery point durability lost increases damage.
 modifier.jagged.extra=Jagged Damage: +%s
 modifier.lightweight.name=Lightweight
-modifier.lightweight.desc=§oSwift like the wind!§r\nIncreases the overall speed of your tool when mining.
+modifier.lightweight.desc=§oSwift like the wind!§r\nIncreases the overall speed of your tool when mining and attacking.
 modifier.lightweight.extra=Bonus Speed: +%s
 modifier.magnetic.name=Magnetic
 modifier.magnetic.desc=§oHow do they work?!§r\nHitting things attracts nearby things?!
@@ -500,7 +513,8 @@ modifier.haste.name2=Haster
 modifier.haste.name3=Hastest
 modifier.haste.name4=Hastester
 modifier.haste.name5=Hastestest
-modifier.haste.desc=§oWeeeeeee!§r\nThe redstone impulse when hitting blocks motivates your tool to mine faster.
+modifier.haste.desc=§oWeeeeeee!§r\nThe redstone impulse when using your tool motivates your tool to move even faster.
+modifier.haste.extra=Bonus-Speed: +%s
 modifier.knockback.name=Knockback
 modifier.knockback.desc=§oHomerun!§r\nTeach things how to fly - the cool way.
 modifier.luck.name=Luck
@@ -551,6 +565,7 @@ item.tconstruct.shuriken.desc=The Shuriken is a fast, short ranged throwing weap
 ################
 tooltip.tool.modifiers=Modifiers
 tooltip.tool.broken=Broken
+tooltip.tool.empty=Empty
 tooltip.tool.holdShift=Hold §e§oShift§r for Stats
 tooltip.tool.holdCtrl=Hold §e§bCtrl§r for more
 

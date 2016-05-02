@@ -21,14 +21,11 @@ public class ModifierSectionTransformer extends SectionTransformer {
     data.parent = book;
 
     for(IModifier modifier : TinkerRegistry.getAllModifiers()) {
-      ContentText foo = new ContentText();
-      foo.text = new TextData[]{new TextData(modifier.getLocalizedName())};
-
       PageData page = new PageData(true);
       page.source = data.source;
       page.parent = data;
       page.type = "f";
-      page.content = foo;
+      page.content = new ContentModifier(modifier);
       page.load();
 
       data.pages.add(page);

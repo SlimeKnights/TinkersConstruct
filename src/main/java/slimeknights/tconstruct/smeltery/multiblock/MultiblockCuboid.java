@@ -117,12 +117,12 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
   protected boolean detectPlaneXZ(World world, BlockPos center, int[] edges, boolean ceiling, List<BlockPos> subBlocks) {
     BlockPos from = center.add(edges[1], 0, edges[2]);
     BlockPos to = center.add(edges[3], 0, edges[0]);
-    List<BlockPos> candidates = Lists.newLinkedList();
+    List<BlockPos> candidates = Lists.newArrayList();
 
     // validate frame first
     if(hasFrame) {
       // calculate blocks
-      List<BlockPos> frame = Lists.newLinkedList();
+      List<BlockPos> frame = Lists.newArrayList();
       // x direction
       for(int x = 0; x <= to.getX() - from.getX(); x++) {
         frame.add(from.add(x, 0, 0));
@@ -166,12 +166,12 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
   protected boolean detectLayer(World world, BlockPos center, int layer, int[] edges, List<BlockPos> subBlocks) {
     BlockPos from = center.add(edges[1], 0, edges[2]);
     BlockPos to = center.add(edges[3], 0, edges[0]);
-    List<BlockPos> candidates = Lists.newLinkedList();
+    List<BlockPos> candidates = Lists.newArrayList();
 
     // validate frame first
     if(hasFrame) {
       // calculate blocks
-      List<BlockPos> frame = Lists.newLinkedList();
+      List<BlockPos> frame = Lists.newArrayList();
       // we only have 4 corner blocks to check
       frame.add(from);
       frame.add(to);
@@ -188,10 +188,10 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
     }
 
     // validate the inside
-    List<BlockPos> blocks = Lists.newLinkedList();
+    List<BlockPos> blocks = Lists.newArrayList();
     for(int x = edges[1]+1; x < edges[3]; x++) {
       for(int z = edges[2]+1; z < edges[0]; z++) {
-        candidates.add(center.add(x, 0 ,z));
+        blocks.add(center.add(x, 0 ,z));
       }
     }
     for(BlockPos pos : blocks) {
@@ -204,7 +204,7 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
     }
 
     // validate the 4 sides
-    blocks = Lists.newLinkedList();
+    blocks.clear();
     for(int x = edges[1]+1; x < edges[3]; x++) {
       blocks.add(center.add(x, 0, edges[2]));
       blocks.add(center.add(x, 0, edges[0]));

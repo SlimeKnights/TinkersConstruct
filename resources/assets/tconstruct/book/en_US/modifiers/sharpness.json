@@ -1,0 +1,14 @@
+{
+  "modifier": "sharpness",
+  "text": [
+    {
+      "text": "Quartz is sharp."
+    }
+  ],
+  "effects": [
+    "Increases damage"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword"
+  ]
+}

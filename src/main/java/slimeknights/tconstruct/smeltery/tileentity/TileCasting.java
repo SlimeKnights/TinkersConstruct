@@ -1,10 +1,13 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.play.server.SPacketParticles;
+import net.minecraft.network.play.server.SPacketSoundEffect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
@@ -74,7 +77,6 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
       }
       PlayerHelper.spawnItemAtPlayer(player, stack);
       setInventorySlotContents(slot, null);
-
     }
   }
 
@@ -112,6 +114,17 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
           if(event.consumeCast) {
             // todo: play breaking sound and animation
             setInventorySlotContents(0, null);
+
+            for(EntityPlayer player : worldObj.playerEntities) {
+              if(player.getDistanceSq(pos) < 1024 && player instanceof EntityPlayerMP) {
+                ((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new SPacketParticles(EnumParticleTypes.FLAME, false,
+                                                                                                 pos.getX() + 0.5f,
+                                                                                                 pos.getY() + 1.1f,
+                                                                                                 pos.getZ() + 0.5f,
+                                                                                                 0.25f, 0.0125f, 0.25f,
+                                                                                                 0.005f, 5));
+              }
+            }
           }
 
           // put result into output
@@ -122,7 +135,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
           else {
             setInventorySlotContents(1, event.output);
           }
-          
+
           worldObj.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.AMBIENT, 0.07f, 4f);
 
           // reset state

@@ -32,6 +32,7 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
 
     int index = 0;
 
+    buttonList.clear();
     buttonCount = 0;
     for(ItemStack stencil : TinkerRegistry.getStencilTableCrafting()) {
       Item part = Pattern.getPartFromTag(stencil);
@@ -54,9 +55,10 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
 
   public void setSelectedbuttonByItem(ItemStack stack) {
     for(Object o : buttonList) {
-      @SuppressWarnings("unchecked")
-      GuiButtonItem<ItemStack> button = (GuiButtonItem<ItemStack>) o;
-      button.pressed = ItemStack.areItemStacksEqual(button.data, stack);
+      if(o instanceof GuiButtonItem) {
+        GuiButtonItem<ItemStack> button = (GuiButtonItem<ItemStack>) o;
+        button.pressed = ItemStack.areItemStacksEqual(button.data, stack);
+      }
     }
   }
 

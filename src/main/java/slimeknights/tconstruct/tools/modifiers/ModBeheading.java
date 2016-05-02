@@ -14,19 +14,18 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 // todo: make some kind of class->head registry that can be expanded via IMC for the lookup
-public class ModBeheading extends Modifier {
+public class ModBeheading extends ToolModifier {
 
   public ModBeheading() {
-    super("beheading");
+    super("beheading", 0x10574b);
 
-    addAspects(new ModifierAspect.LevelAspect(this, 10), new ModifierAspect.DataAspect(this, 0x10574b), ModifierAspect.freeModifier);
+    addAspects(new ModifierAspect.LevelAspect(this, 10), new ModifierAspect.DataAspect(this), ModifierAspect.freeModifier);
 
     MinecraftForge.EVENT_BUS.register(this);
   }

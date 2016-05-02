@@ -40,6 +40,7 @@ import slimeknights.tconstruct.library.client.texture.GuiOutlineTexture;
 import slimeknights.tconstruct.library.client.texture.PatternTexture;
 import slimeknights.tconstruct.library.client.texture.TextureColoredTexture;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialGUI;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 
@@ -382,7 +383,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
   }
 
   static {
-    guiMaterial = new Material("_internal_gui", TextFormatting.WHITE);
+    guiMaterial = new MaterialGUI("_internal_gui");
     guiMaterial.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
       @Override
       public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {

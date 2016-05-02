@@ -1,0 +1,15 @@
+{
+  "modifier": "beheading",
+  "text": [
+    {
+      "text": ""
+    }
+  ],
+  "effects": [
+    ""
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver"
+  ]
+}

@@ -48,7 +48,7 @@ public class Rapier extends ToolCore {
 
   @Override
   public double attackSpeed() {
-    return 5;
+    return 4;
   }
 
   @Override

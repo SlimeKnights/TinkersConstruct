@@ -28,6 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import slimeknights.tconstruct.common.ClientProxy;
@@ -118,12 +119,10 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   /**
-   * Allows you set the attack speed. Equivalent to the vanilla attack speed.
-   * Default speed is 4, which is equal to any standard item. Value has to be greater than zero.
+   * Allows you set the base attack speed, can be changed by modifiers. Equivalent to the vanilla attack speed.
+   * 4 is equal to any standard item. Value has to be greater than zero.
    */
-  public double attackSpeed() {
-    return 4;
-  }
+  public abstract double attackSpeed();
 
   /**
    * Knockback modifier. Basically this takes the vanilla knockback on hit and modifies it by this factor.
@@ -202,12 +201,12 @@ public abstract class ToolCore extends TinkersItem {
 
   @Override
   public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-    // todo: potentially reenable the hurtresistance thing if attackspeeds go below 1
-    /*
-    if(attackSpeed() > 0) {
-      target.hurtResistantTime -= attackSpeed();
-      target.hurtTime -= attackSpeed();
-    }*/
+    float speed = ToolHelper.getActualAttackSpeed(stack);
+    int time = Math.round(20f/speed);
+    if(time < target.hurtResistantTime/2) {
+      target.hurtResistantTime = target.hurtResistantTime/2 + time;
+      target.hurtTime = target.hurtTime/2 + time;
+    }
     return super.hitEntity(stack, target, attacker);
   }
 
@@ -218,7 +217,7 @@ public abstract class ToolCore extends TinkersItem {
     if (slot == EntityEquipmentSlot.MAINHAND && !ToolHelper.isBroken(stack))
     {
       multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)ToolHelper.getActualAttack(stack), 0));
-      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", attackSpeed() - 4d, 0));
+      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double)ToolHelper.getActualAttackSpeed(stack) - 4d, 0));
     }
 
     return multimap;
@@ -232,9 +231,13 @@ public abstract class ToolCore extends TinkersItem {
   @Override
   public void getTooltip(ItemStack stack, List<String> tooltips) {
     if(ToolHelper.isBroken(stack)) {
-      tooltips.add("" + TextFormatting.DARK_RED + TextFormatting.BOLD + Util.translate("tooltip.tool.broken"));
+      tooltips.add("" + TextFormatting.DARK_RED + TextFormatting.BOLD + getBrokenTooltip(stack));
     }
     super.getTooltip(stack, tooltips);
+  }
+
+  protected String getBrokenTooltip(ItemStack itemStack) {
+    return Util.translate(TooltipBuilder.LOC_Broken);
   }
 
   @Override
@@ -487,12 +490,25 @@ public abstract class ToolCore extends TinkersItem {
   @SideOnly(Side.CLIENT)
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+    if(oldStack == newStack) {
+      return false;
+    }
     if(slotChanged) {
       return true;
     }
 
     if(oldStack.hasEffect() != newStack.hasEffect()) {
       return true;
+    }
+
+    Multimap<String, AttributeModifier> attributes = newStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
+    for(Map.Entry<String, AttributeModifier> entry: oldStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND).entries()) {
+      if(!attributes.containsKey(entry.getKey())) {
+        return true;
+      }
+      if(!attributes.get(entry.getKey()).equals(entry.getValue())) {
+        return true;
+      }
     }
 
     if(oldStack.getItem() == newStack.getItem() && newStack.getItem() instanceof ToolCore) {

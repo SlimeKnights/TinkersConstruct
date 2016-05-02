@@ -12,6 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -40,9 +41,43 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
       }
     }
 
-    TileEntity te = detectInventory();
-    if(te != null) {
-      addSubContainer(new ContainerSideInventory(te, -6 - 18 * 6, 8, 6), false);
+    // detect te
+    TileEntity inventoryTE = null;
+    EnumFacing accessDir = null;
+    for(EnumFacing dir : EnumFacing.HORIZONTALS) {
+      BlockPos neighbor = pos.offset(dir);
+      boolean stationPart = false;
+      for(Pair<BlockPos, IBlockState> tinkerPos : tinkerStationBlocks) {
+        if(tinkerPos.getLeft().equals(neighbor)) {
+          stationPart = true;
+          break;
+        }
+      }
+      if(!stationPart) {
+        TileEntity te = world.getTileEntity(neighbor);
+        if(te != null) {
+          // try internal access first
+          if(te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
+            if(te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null) instanceof IItemHandlerModifiable) {
+              inventoryTE = te;
+              accessDir = null;
+              break;
+            }
+          }
+          // try sided access else
+          if(te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite())) {
+            if(te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite()) instanceof IItemHandlerModifiable) {
+              inventoryTE = te;
+              accessDir = dir.getOpposite();
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    if(inventoryTE != null) {
+      addSubContainer(new ContainerSideInventory(inventoryTE, accessDir, -6 - 18 * 6, 8, 6), false);
     }
 
     this.addPlayerInventory(playerInventory, 8, 84);
@@ -75,7 +110,9 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
       if(!stationPart) {
         TileEntity te = world.getTileEntity(neighbor);
         if(te != null && te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite())) {
-          return te;
+          if(te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, dir.getOpposite()) instanceof IItemHandlerModifiable) {
+            return te;
+          }
         }
       }
     }

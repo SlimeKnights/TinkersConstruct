@@ -27,12 +27,13 @@ import java.util.List;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 
 // BattleSign Ability: Blocks more damage and can reflect projectiles. The ultimate defensive weapon.
-public class BattleSign extends BroadSword {
+public class BattleSign extends ToolCore {
 
   public BattleSign() {
     super(PartMaterialType.handle(TinkerTools.toolRod),
@@ -51,7 +52,7 @@ public class BattleSign extends BroadSword {
 
   @Override
   public double attackSpeed() {
-    return 5;
+    return 1.2;
   }
 
   @Override
@@ -124,7 +125,7 @@ public class BattleSign extends BroadSword {
     }
 
     EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-    ItemStack battlesign = player.getHeldItemMainhand();
+    ItemStack battlesign = player.getActiveItemStack();
 
     // ensure the player is looking at the projectile (aka not getting shot into the back)
     Entity projectile = event.getSource().getSourceOfDamage();
@@ -184,7 +185,7 @@ public class BattleSign extends BroadSword {
     }
 
     // broken battlesign.
-    return !ToolHelper.isBroken(player.getHeldItemMainhand());
+    return !ToolHelper.isBroken(player.getActiveItemStack());
 
   }
 

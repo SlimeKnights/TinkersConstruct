@@ -1,6 +1,14 @@
 // Sections
 intro=Introduction
-materials=Toolmaterials
+materials=Tool-Materials
 tools=Tools
 modifiers=Modifiers
 smeltery=Smeltery
+
+modifier.effect=Effects:
+
+material.craft_partbuilder=Can be crafted in the Part Builder
+material.craft_casting=Can be cast from %s
+
+wood.flavour=How much wood could a woodchuck chuck if a woodchuck could chuck wood?
+stone.flavour=Rock solid

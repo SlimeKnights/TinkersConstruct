@@ -1,0 +1,16 @@
+{
+  "modifier": "luck",
+  "text": [
+    {
+      "text": "Lapis."
+    }
+  ],
+  "effects": [
+    "Fortune",
+    "Looting"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword"
+  ]
+}

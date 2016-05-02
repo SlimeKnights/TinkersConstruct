@@ -19,6 +19,7 @@ import slimeknights.mantle.client.gui.book.GuiBook;
 import slimeknights.mantle.client.gui.book.element.BookElement;
 import slimeknights.mantle.client.gui.book.element.ElementItem;
 import slimeknights.mantle.client.gui.book.element.ElementText;
+import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
@@ -27,6 +28,7 @@ import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
@@ -35,17 +37,14 @@ import slimeknights.tconstruct.tools.block.BlockToolTable;
 
 @SideOnly(Side.CLIENT)
 public class ContentMaterial extends TinkerPage {
+  public static final String ID = "toolmaterial";
 
   private transient Material material;
-  public String[] types;
   @SerializedName("material")
   public String materialName;
 
-  public ContentMaterial() {}
-
-  public ContentMaterial(Material material, String... types) {
+  public ContentMaterial(Material material) {
     this.material = material;
-    this.types = types;
     this.materialName = material.getIdentifier();
   }
 
@@ -57,170 +56,146 @@ public class ContentMaterial extends TinkerPage {
   }
 
   @Override
-  public void build(BookData book, ArrayList<BookElement> list) {
-    addTitle(list, material.getLocalizedNameColored(), material.getRepresentativeItem(), material.getLocalizedName());
+  public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
+    addTitle(list, material.getLocalizedNameColored(), true);
 
-    List<ItemStack> displayTools = Lists.newArrayList();
+    // the cool tools to the left/right
+    addDisplayItems(list, rightSide ? GuiBook.PAGE_WIDTH - 18 : 0);
 
-    if(TinkerTools.pickaxe != null) {
-      displayTools.add(TinkerTools.pickaxe.buildItem(ImmutableList.of(material, material, material)));
-    }
-    if(TinkerTools.broadSword != null) {
-      displayTools.add(TinkerTools.broadSword.buildItem(ImmutableList.of(material, material, material)));
-    }
-    if(TinkerTools.hammer != null) {
-      displayTools.add(TinkerTools.hammer.buildItem(ImmutableList.of(material, material, material, material)));
-    }
-    if(TinkerTools.cleaver != null) {
-      displayTools.add(TinkerTools.cleaver.buildItem(ImmutableList.of(material, material, material, material)));
-    }
+    int col_margin = 22;
+    int top = 15;
+    int left = rightSide ? 0 : col_margin;
 
-    int y = 28;
-    int x = 18;
-    int w = GuiBook.PAGE_WIDTH/2 - 20 - 18;
-    int x2 = x + w + 20;
-
-    // built tools
-    if(!displayTools.isEmpty()) {
-      x = GuiBook.PAGE_WIDTH/2;
-      x -= displayTools.size()*18/2;
-      for(ItemStack stack : displayTools) {
-        list.add(new ElementItem(x, y, 1f, stack));
-        x += 18;
-      }
-    }
-
-    y = 48;
-    x = 18;
+    int y = top + 10;
+    int x = left + 10;
+    int w = GuiBook.PAGE_WIDTH/2 - 10;
 
     LinkedHashSet<ITrait> allTraits = new LinkedHashSet<ITrait>();
 
-    // left column
-    TextData textStats = new TextData("Stats");
-    textStats.underlined = true;
-    textStats.scale = 1.2f;
-    list.add(new ElementText(x+25, y, w, 15, textStats));
-    y += 15;
+    // head stats
+    addStatsDisplay(x, y, w, list, allTraits, HeadMaterialStats.TYPE);
+    // handle
+    addStatsDisplay(x+w, y, w-10, list, allTraits, HandleMaterialStats.TYPE);
 
-    for(String type : types) {
-      IMaterialStats stats = material.getStats(type);
-      if(stats == null) {
-        continue;
-      }
+    // extra
+    y += 65 + 10 * material.getAllTraitsForStats(HeadMaterialStats.TYPE).size();
+    addStatsDisplay(x, y, w, list, allTraits, ExtraMaterialStats.TYPE);
 
-      // save traits for processing later
-      List<ITrait> traits = material.getAllTraitsForStats(type);
-      allTraits.addAll(traits);
-
-      List<ItemStack> parts = Lists.newLinkedList();
-      for(IToolPart part : TinkerRegistry.getToolParts()) {
-        if(part.hasUseForStat(stats.getIdentifier())) {
-          parts.add(part.getItemstackWithMaterial(material));
-        }
-      }
-
-      if(parts.size() > 0) {
-        ElementItem display = new ElementItem(0, y, 1f, parts);
-        list.add(display);
-      }
-
-      y += 5;
-      ElementText name = new ElementText(x, y, w, 10, stats.getLocalizedName());
-      name.text[0].underlined = true;
-      list.add(name);
-      y+= 12;
-      for(int i = 0; i < stats.getLocalizedInfo().size(); i++) {
-        TextData text = new TextData(stats.getLocalizedInfo().get(i));
-        text.tooltip = new String[] {stats.getLocalizedDesc().get(i)};
-        list.add(new ElementText(x, y, w, 10, text));
-        y += 10;
-      }
-
-      if(traits.size() > 0) {
-        y += 3;
-      }
-      List<TextData> traitText = Lists.newLinkedList();
-      for(ITrait trait : traits) {
-        if(!traitText.isEmpty()) {
-          traitText.add(new TextData(", "));
-        }
-        TextData text = new TextData(trait.getLocalizedName());
-        text.tooltip = Util.convertNewlines(trait.getLocalizedDesc()).split("\n");
-        traitText.add(text);
-      }
-      if(!traitText.isEmpty()) {
-        traitText.add(0, new TextData("Traits: "));
-        list.add(new ElementText(x, y, w, 10, traitText));
-        y += 10;
-      }
-      y += 7;
-    }
-
-    // right column
-    y = 48;
-
-    TextData textCrafting = new TextData("Crafting");
-    textCrafting.underlined = true;
-    textCrafting.scale = 1.2f;
-    list.add(new ElementText(x2+35, y, w, 15, textCrafting));
-    y += 15;
-
-    // craftable/castable
-    x = x2 + w/2;
-    if(material.isCraftable()) {
-      x -= 18/2;
-    }
-    if(material.isCastable()) {
-      x -= 18/2;
-    }
-    if(material.isCraftable()) {
-      ItemStack partbuilder = new ItemStack(TinkerTools.toolTables, 1, BlockToolTable.TableTypes.PartBuilder.meta);
-      ElementItem elementItem = new ElementItem(x, y, 1.2f, partbuilder);
-      elementItem.tooltip = ImmutableList.of("Can be crafted in the Part Builder");
-      list.add(elementItem);
-      x += 18;
-    }
-    if(material.isCastable()) {
-      ItemStack basin = new ItemStack(TinkerSmeltery.castingBlock, 1, BlockCasting.CastingType.BASIN.getMeta());
-      ElementItem elementItem = new ElementItem(x, y, 1.2f, basin);
-      elementItem.tooltip = ImmutableList.of(String.format("Can be cast from %s", material.getFluid().getLocalizedName(new FluidStack(material.getFluid(), 0))));
-      list.add(elementItem);
-    }
-
-    y += 25;
-    TextData textTraits = new TextData("Traits");
-    textTraits.underlined = true;
-    textTraits.scale = 1.2f;
-    list.add(new ElementText(x2+40, y, w, 15, textTraits));
-    //y += 15;
-
-    ElementText traitsElement = new ElementText(x2, y, w, GuiBook.PAGE_HEIGHT);
-    List<TextData> textDatas = Lists.newArrayList();
-    for(ITrait trait : allTraits) {
-      TextData name = new TextData(trait.getLocalizedName());
-      name.underlined = true;
-      name.paragraph = true;
-      textDatas.add(name);
-
-      for(String s : Util.convertNewlines(trait.getLocalizedDesc()).split("\n")) {
-        TextData desc = new TextData(s);
-        desc.paragraph = true;
-        textDatas.add(desc);
-      }
-    }
-
-    traitsElement.text = textDatas.toArray(new TextData[textDatas.size()]);
-
-    if(traitsElement.text.length > 0) {
-      list.add(traitsElement);
+    // inspirational quote
+    String flavour = parent.parent.parent.strings.get(String.format("%s.flavour", material.getIdentifier()));
+    //flavour = "How much wood could a woodchuck chuck if a woodchuck could chuck wood?";
+    if(flavour != null) {
+      TextData flavourData = new TextData("\"" + flavour + "\"");
+      flavourData.italic = true;
+      list.add(new ElementText(x+w, y, w-16, 60, flavourData));
     }
   }
 
-  public static class Tool extends ContentMaterial {
-    public static final String ID = "toolmaterial";
+  private void addStatsDisplay(int x, int y, int w, ArrayList<BookElement> list, LinkedHashSet<ITrait> allTraits, String stattype) {
+    IMaterialStats stats = material.getStats(stattype);
+    if(stats == null) {
+      return;
+    }
 
-    public Tool(Material material) {
-      super(material, HeadMaterialStats.TYPE, HandleMaterialStats.TYPE, ExtraMaterialStats.TYPE);
+    List<ITrait> traits = material.getAllTraitsForStats(stats.getIdentifier());
+    allTraits.addAll(traits);
+
+    // create a list of all valid toolparts with the stats
+    List<ItemStack> parts = Lists.newLinkedList();
+    for(IToolPart part : TinkerRegistry.getToolParts()) {
+      if(part.hasUseForStat(stats.getIdentifier())) {
+        parts.add(part.getItemstackWithMaterial(material));
+      }
+    }
+
+    // said parts next to the name
+    if(parts.size() > 0) {
+      ElementItem display = new ElementTinkerItem(x, y+1, 0.5f, parts);
+      list.add(display);
+    }
+
+    // and the name itself
+    ElementText name = new ElementText(x + 10, y, w-10, 10, stats.getLocalizedName());
+    name.text[0].underlined = true;
+    list.add(name);
+    y+= 12;
+
+    List<TextData> lineData = Lists.newArrayList();
+    // add lines of tool information
+    for(int i = 0; i < stats.getLocalizedInfo().size(); i++) {
+      TextData text = new TextData(stats.getLocalizedInfo().get(i));
+      text.tooltip = LocUtils.convertNewlines(stats.getLocalizedDesc().get(i)).split("\n");
+      lineData.add(text);
+      lineData.add(new TextData("\n"));
+    }
+
+    for(ITrait trait : traits) {
+      TextData text = new TextData(trait.getLocalizedName());
+      text.tooltip = LocUtils.convertNewlines(material.getTextColor() + trait.getLocalizedDesc()).split("\n");
+      text.italic = true;
+      lineData.add(text);
+      lineData.add(new TextData("\n"));
+    }
+
+    list.add(new ElementText(x, y, w, GuiBook.PAGE_HEIGHT, lineData));
+  }
+
+  private void addDisplayItems(ArrayList<BookElement> list, int x) {
+    List<ElementItem> displayTools = Lists.newArrayList();
+
+    int y = 10;
+
+    // representative item first
+    if(material.getRepresentativeItem() != null) {
+      displayTools.add(new ElementTinkerItem(material.getRepresentativeItem()));
+    }
+    // then "craftability"
+    if(material.isCraftable()) {
+      ItemStack partbuilder = new ItemStack(TinkerTools.toolTables, 1, BlockToolTable.TableTypes.PartBuilder.meta);
+      ElementItem elementItem = new ElementTinkerItem(partbuilder);
+      elementItem.tooltip = ImmutableList.of(parent.translate("material.craft_partbuilder"));
+      displayTools.add(elementItem);
+    }
+    if(material.isCastable()) {
+      ItemStack basin = new ItemStack(TinkerSmeltery.castingBlock, 1, BlockCasting.CastingType.BASIN.getMeta());
+      ElementItem elementItem = new ElementTinkerItem(basin);
+      String text = parent.translate("material.craft_casting");
+      elementItem.tooltip = ImmutableList.of(String.format(text, material.getFluid().getLocalizedName(new FluidStack(material.getFluid(), 0))));
+      displayTools.add(elementItem);
+    }
+
+    // build a range of tools to fill the "bar" at the side
+    ToolCore[] tools = new ToolCore[] {TinkerTools.pickaxe, TinkerTools.mattock, TinkerTools.broadSword,
+                                       TinkerTools.hammer, TinkerTools.cleaver, TinkerTools.shuriken,
+                                       TinkerTools.fryPan, TinkerTools.lumberAxe, TinkerTools.battleSign};
+
+    for(ToolCore tool : tools) {
+      if(tool == null) {
+        continue;
+      }
+      ImmutableList.Builder<Material> builder = ImmutableList.builder();
+      for(int i = 0; i < tool.getRequiredComponents().size(); i++) {
+        builder.add(material);
+      }
+      ItemStack builtTool = tool.buildItem(builder.build());
+      if(tool.hasValidMaterials(builtTool)) {
+        displayTools.add(new ElementTinkerItem(builtTool));
+      }
+
+      if(displayTools.size() == 9) {
+        break;
+      }
+    }
+
+    // built tools
+    if(!displayTools.isEmpty()) {
+      for(ElementItem element : displayTools) {
+        element.x = x;
+        element.y = y;
+        element.scale = 1f;
+        y += ElementItem.ITEM_SIZE_HARDCODED;
+        list.add(element);
+      }
     }
   }
 }

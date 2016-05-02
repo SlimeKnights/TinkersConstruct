@@ -21,6 +21,7 @@ import slimeknights.mantle.client.gui.GuiElementScalable;
 import slimeknights.mantle.client.gui.GuiModule;
 import slimeknights.mantle.client.gui.GuiMultiModule;
 import slimeknights.mantle.client.gui.GuiWidgetSlider;
+import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.Util;
 
@@ -118,7 +119,7 @@ public class GuiInfoPanel extends GuiModule {
     // convert \n in localized text to actual newlines
     if(text != null) {
       for(int i = 0; i < text.size(); i++) {
-        text.set(i, Util.convertNewlines(text.get(i)));
+        text.set(i, LocUtils.convertNewlines(text.get(i)));
       }
     }
     this.text = text;
@@ -131,7 +132,7 @@ public class GuiInfoPanel extends GuiModule {
     // convert \n in localized text to actual newlines
     if(tooltips != null) {
       for(int i = 0; i < tooltips.size(); i++) {
-        tooltips.set(i, Util.convertNewlines(tooltips.get(i)));
+        tooltips.set(i, LocUtils.convertNewlines(tooltips.get(i)));
       }
     }
     this.tooltips = tooltips;

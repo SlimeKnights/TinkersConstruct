@@ -1,8 +1,13 @@
 package slimeknights.tconstruct.library.modifiers;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.List;
+
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
@@ -12,7 +17,7 @@ import slimeknights.tconstruct.library.utils.TinkerUtil;
  * Modifier can have multiple levels.
  * Since this is intended for modifiers it uses a modifier
  */
-public class ModifierTrait extends AbstractTrait {
+public class ModifierTrait extends AbstractTrait implements IModifierDisplay {
 
   protected final int maxLevel;
 
@@ -64,5 +69,24 @@ public class ModifierTrait extends AbstractTrait {
       return getLeveledTooltip(modifierTag, detailed);
     }
     return super.getTooltip(modifierTag, detailed);
+  }
+
+  @Override
+  public int getColor() {
+    return color;
+  }
+
+  @Override
+  public List<List<ItemStack>> getItems() {
+    ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
+
+    for(RecipeMatch rm : items) {
+      List<ItemStack> in = rm.getInputs();
+      if(!in.isEmpty()) {
+        builder.add(in);
+      }
+    }
+
+    return builder.build();
   }
 }

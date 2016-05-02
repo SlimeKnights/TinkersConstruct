@@ -13,7 +13,7 @@
     "name": "materials",
     "icon": {
       "item": {
-        "id": "minecraft:planks",
+        "id": "minecraft:iron_ingot",
         "damage": 0
       }
     }
@@ -28,6 +28,7 @@
   },
   {
     "name": "modifiers",
+    "data": "sections/modifiers.json",
     "icon": {
       "item": {
         "id": "minecraft:redstone"

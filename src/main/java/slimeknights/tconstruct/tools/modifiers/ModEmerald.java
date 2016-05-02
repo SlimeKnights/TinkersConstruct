@@ -2,18 +2,17 @@ package slimeknights.tconstruct.tools.modifiers;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
-public class ModEmerald extends Modifier {
+public class ModEmerald extends ToolModifier {
 
   public ModEmerald() {
-    super("emerald");
+    super("emerald", 0x41f384);
 
-    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this, 0x41f384), ModifierAspect.freeModifier);
+    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this), ModifierAspect.freeModifier);
   }
 
   @Override

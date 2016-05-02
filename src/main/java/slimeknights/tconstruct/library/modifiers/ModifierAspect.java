@@ -126,6 +126,11 @@ public abstract class ModifierAspect {
       this.color = color;
     }
 
+    public <T extends IModifier & IModifierDisplay> DataAspect(T parent) {
+      super(parent);
+      this.color = parent.getColor();
+    }
+
     @Override
     public boolean canApply(ItemStack stack, ItemStack original) {
       // can always apply
@@ -151,6 +156,10 @@ public abstract class ModifierAspect {
     protected DataAspect dataAspect;
     protected LevelAspect levelAspect;
     protected FreeModifierAspect freeModifierAspect;
+
+    public <T extends IModifier & IModifierDisplay> MultiAspect(T parent, int maxLevel, int countPerLevel, int modifiersNeeded) {
+      this(parent, parent.getColor(), maxLevel, countPerLevel, modifiersNeeded);
+    }
 
     // multiple levels, once every time the maximum is reached
     public MultiAspect(IModifier parent, int color, int maxLevel, int countPerLevel, int modifiersNeeded) {

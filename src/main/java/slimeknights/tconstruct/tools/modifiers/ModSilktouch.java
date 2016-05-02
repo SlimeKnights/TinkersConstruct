@@ -10,12 +10,12 @@ import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 
-public class ModSilktouch extends Modifier {
+public class ModSilktouch extends ToolModifier {
 
   public ModSilktouch() {
-    super("silktouch");
+    super("silktouch", 0xfbe28b);
 
-    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this, 0xfbe28b), ModifierAspect.freeModifier);
+    addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this), ModifierAspect.freeModifier);
   }
 
   @Override

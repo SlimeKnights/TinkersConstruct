@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -18,13 +19,17 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
+import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.smeltery.Cast;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
+import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.BlockCasting;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.block.BlockToolTable;
 
 @mezz.jei.api.JEIPlugin
 public class JEIPlugin implements IModPlugin {
@@ -39,6 +44,10 @@ public class JEIPlugin implements IModPlugin {
     if(TConstruct.pulseManager.isPulseLoaded(TinkerTools.PulseId)) {
       // crafting table shiftclicking
       registry.getRecipeTransferRegistry().addRecipeTransferHandler(new CraftingStationRecipeTransferInfo());
+      
+      // add our crafting table to the list with the vanilla crafting table
+      registry.addRecipeCategoryCraftingItem(new ItemStack(TinkerTools.toolTables, 1, BlockToolTable.TableTypes.CraftingStation.meta),
+                                             VanillaRecipeCategoryUid.CRAFTING);
     }
 
     // Smeltery
@@ -53,6 +62,13 @@ public class JEIPlugin implements IModPlugin {
                                  new AlloyRecipeHandler(),
                                  new CastingRecipeHandler());
 
+      registry.addRecipeCategoryCraftingItem(new ItemStack(TinkerSmeltery.smelteryController),
+                                             SmeltingRecipeCategory.CATEGORY,
+                                             AlloyRecipeCategory.CATEGORY);
+      registry.addRecipeCategoryCraftingItem(new ItemStack(TinkerSmeltery.castingBlock, 1, BlockCasting.CastingType.TABLE.meta),
+                                             CastingRecipeCategory.CATEGORY);
+      registry.addRecipeCategoryCraftingItem(new ItemStack(TinkerSmeltery.castingBlock, 1, BlockCasting.CastingType.BASIN.meta),
+                                             CastingRecipeCategory.CATEGORY);
 
       // melting recipes
       registry.addRecipes(TinkerRegistry.getAllMeltingRecipies());
@@ -88,11 +104,12 @@ public class JEIPlugin implements IModPlugin {
       registry.addRecipeCategories(new DryingRecipeCategory(guiHelper));
       registry.addRecipeHandlers(new DryingRecipeHandler());
       registry.addRecipes(TinkerRegistry.getAllDryingRecipes());
+      registry.addRecipeCategoryCraftingItem(BlockTable.createItemstack(TinkerGadgets.rack, 1, Blocks.WOODEN_SLAB, 0),
+                                             DryingRecipeCategory.CATEGORY);
     }
   }
 
   @Override
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
-
   }
 }

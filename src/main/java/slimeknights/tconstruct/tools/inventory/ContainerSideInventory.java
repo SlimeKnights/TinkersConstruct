@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.inventory;
 
 import net.minecraft.inventory.Slot;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
@@ -12,7 +13,11 @@ public class ContainerSideInventory<T extends TileEntity> extends BaseContainer<
   public final int slotCount;
 
   public ContainerSideInventory(T tile, int x, int y, int columns) {
-    super(tile);
+    this(tile, null, x, y, columns);
+  }
+
+  public ContainerSideInventory(T tile, EnumFacing dir, int x, int y, int columns) {
+    super(tile, dir);
 
     this.columns = columns;
     this.slotCount = itemHandler.getSlots();
