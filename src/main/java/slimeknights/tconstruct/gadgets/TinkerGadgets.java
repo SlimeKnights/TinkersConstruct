@@ -164,8 +164,8 @@ public class TinkerGadgets extends TinkerPulse {
     }
 
     // throwballs
-    ItemStack glowball = new ItemStack(throwball, 1, ItemThrowball.ThrowballType.GLOW.ordinal());
-    GameRegistry.addRecipe(new ShapelessOreRecipe(glowball, Items.SNOWBALL, "dustGlowstone"));
+    ItemStack glowball = new ItemStack(throwball, 8, ItemThrowball.ThrowballType.GLOW.ordinal());
+    GameRegistry.addRecipe(new ShapedOreRecipe(glowball, "SSS","SGS", "SSS", 'S', Items.SNOWBALL, 'G', "dustGlowstone"));
 
     ItemStack efln = new ItemStack(throwball, 1, ItemThrowball.ThrowballType.EFLN.ordinal());
     GameRegistry.addShapelessRecipe(efln, Items.FLINT, Items.GUNPOWDER);
