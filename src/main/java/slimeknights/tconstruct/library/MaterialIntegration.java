@@ -76,12 +76,18 @@ public class MaterialIntegration {
       fluid = null;
     }
 
-    // fluid first
-    if(fluid != null && !FluidRegistry.isFluidRegistered(fluid)) {
-      TinkerFluids.registerFluid(fluid);
-      registerFluidBlock();
+    // fluid first.
+    if(fluid != null) {
+      Fluid registeredFluid = FluidRegistry.getFluid(fluid.getName());
+      // we only register blocks and buckets if it's our own fluid
+      if(registeredFluid == fluid) {
+        registerFluidBlock();
+      }
 
-      FluidRegistry.addBucketForFluid(fluid);
+      // we register a bucket for the fluid if it's not done because we need it
+      if(!FluidRegistry.getBucketFluids().contains(registeredFluid)) {
+        FluidRegistry.addBucketForFluid(registeredFluid);
+      }
     }
 
     // register material
