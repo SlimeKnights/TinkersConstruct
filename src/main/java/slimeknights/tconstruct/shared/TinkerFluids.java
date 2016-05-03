@@ -75,8 +75,6 @@ public class TinkerFluids extends TinkerPulse {
   public static FluidMolten steel;
   public static FluidMolten aluminum;
 
-  static List<Fluid> fluids = Lists.newLinkedList(); // all fluids registered by tcon
-
   static {
     setupFluids();
   }
@@ -158,45 +156,38 @@ public class TinkerFluids extends TinkerPulse {
     if(isSmelteryLoaded()) {
       searedStone = fluidStone("stone", 0x777777);
       searedStone.setTemperature(800);
-      registerFluid(searedStone);
       registerMoltenBlock(searedStone);
       FluidRegistry.addBucketForFluid(searedStone);
 
       obsidian = fluidStone(TinkerMaterials.obsidian.getIdentifier(), 0x2c0d59);
       obsidian.setTemperature(1000);
-      registerFluid(obsidian);
       registerMoltenBlock(obsidian);
       FluidRegistry.addBucketForFluid(obsidian);
 
       clay = fluidStone("clay", 0xc67453);
       clay.setTemperature(700);
-      registerFluid(clay);
       registerMoltenBlock(clay);
       FluidRegistry.addBucketForFluid(clay);
 
       dirt = fluidStone("dirt", 0xa68564);
       dirt.setTemperature(500);
-      registerFluid(dirt);
       registerMoltenBlock(dirt);
       FluidRegistry.addBucketForFluid(dirt);
 
       emerald = fluidMetal("emerald", 0x58e78e);
       emerald.setTemperature(999);
-      registerFluid(emerald);
       registerMoltenBlock(emerald);
       FluidRegistry.addBucketForFluid(emerald);
 
       // blood for the blood god
       blood = fluidClassic("blood", 0x540000);
       blood.setTemperature(420);
-      registerFluid(blood);
       registerClassicBlock(blood);
       FluidRegistry.addBucketForFluid(blood);
     }
 
     milk = fluidMilk("milk", 0xffffff);
     milk.setTemperature(320);
-    registerFluid(milk);
     registerClassicBlock(milk);
     FluidContainerRegistry.registerFluidContainer(new FluidStack(milk, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(Items.MILK_BUCKET), FluidContainerRegistry.EMPTY_BUCKET);
 
@@ -205,7 +196,6 @@ public class TinkerFluids extends TinkerPulse {
       blueslime.setTemperature(310);
       blueslime.setViscosity(1500);
       blueslime.setDensity(1500);
-      registerFluid(blueslime);
       registerBlock(new BlockLiquidSlime(blueslime, net.minecraft.block.material.Material.WATER), blueslime.getName());
       FluidRegistry.addBucketForFluid(blueslime);
     }
@@ -214,25 +204,10 @@ public class TinkerFluids extends TinkerPulse {
       purpleSlime.setTemperature(370);
       purpleSlime.setViscosity(1600);
       purpleSlime.setDensity(1600);
-      registerFluid(purpleSlime);
       registerBlock(new BlockLiquidSlime(purpleSlime, net.minecraft.block.material.Material.WATER), purpleSlime.getName());
       FluidRegistry.addBucketForFluid(purpleSlime);
     }
 
-    // register fluid buckets for all of the liquids
-    // ok we can't register them because fluidcontainerregistry is not NBT sensitive.
-/*
-    if(TinkerSmeltery.bucket != null) {
-      for(Fluid fluid : fluids) {
-        if(fluid == milk) {
-          continue;
-        }
-        FluidStack toFill = new FluidStack(fluid, FluidContainerRegistry.BUCKET_VOLUME);
-        ItemStack filled = UniversalBucket.getFilledBucket(TinkerSmeltery.bucket, fluid);
-        FluidContainerRegistry.registerFluidContainer(toFill, filled, FluidContainerRegistry.EMPTY_BUCKET);
-      }
-    }
-*/
     proxy.preInit();
   }
 
@@ -252,37 +227,34 @@ public class TinkerFluids extends TinkerPulse {
 
   private static FluidMolten fluidMetal(String name, int color) {
     FluidMolten fluid = new FluidMolten(name, color);
-    return fluid;
+    return registerFluid(fluid);
   }
 
   private static FluidMolten fluidLiquid(String name, int color) {
     FluidMolten fluid = new FluidMolten(name, color, FluidMolten.ICON_LiquidStill, FluidMolten.ICON_LiquidFlowing);
-    return fluid;
+    return registerFluid(fluid);
   }
 
   private static FluidMolten fluidStone(String name, int color) {
     FluidMolten fluid = new FluidMolten(name, color, FluidColored.ICON_StoneStill, FluidColored.ICON_StoneFlowing);
 
-    return fluid;
+    return registerFluid(fluid);
   }
 
   private static FluidColored fluidClassic(String name, int color) {
     FluidColored fluid = new FluidColored(name, color, FluidColored.ICON_LiquidStill, FluidColored.ICON_LiquidFlowing);
 
-    return fluid;
+    return registerFluid(fluid);
   }
 
   private static FluidColored fluidMilk(String name, int color) {
     FluidColored fluid = new FluidColored(name, color, FluidColored.ICON_MilkStill, FluidColored.ICON_MilkFlowing);
-
-    return fluid;
+    return registerFluid(fluid);
   }
 
-  public static <T extends Fluid> T registerFluid(T fluid) {
+  protected static <T extends Fluid> T registerFluid(T fluid) {
     fluid.setUnlocalizedName(Util.prefix(fluid.getName()));
     FluidRegistry.registerFluid(fluid);
-
-    fluids.add(fluid);
 
     return fluid;
   }
