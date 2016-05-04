@@ -375,6 +375,9 @@ public class TinkerTools extends TinkerPulse {
     GameRegistry.addRecipe(new ShapedOreRecipe(pattern, "SP", "PS", 'P', "plankWood", 'S', "stickWood"));
     pattern.stackSize = 1;
 
+    // pattern book recipe
+    GameRegistry.addShapelessRecipe(new ItemStack(Items.BOOK), Items.PAPER, Items.PAPER, Items.PAPER, Items.STRING, pattern, pattern);
+
     // Crafting Station
     GameRegistry.addRecipe(
         new ShapelessOreRecipe(new ItemStack(toolTables, 1, BlockToolTable.TableTypes.CraftingStation.meta),

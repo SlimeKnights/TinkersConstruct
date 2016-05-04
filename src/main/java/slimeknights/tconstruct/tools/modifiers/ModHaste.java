@@ -1,7 +1,14 @@
 package slimeknights.tconstruct.tools.modifiers;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
+import java.util.List;
+
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
@@ -59,12 +66,18 @@ public class ModHaste extends ToolModifier {
     }
     
     // attack speed: each total level adds 0.2 to the modifier, though individual redstone piece above the level add 0.004 each
-    data.attackSpeedMultiplier += (0.2f * modData.current / max);
+    data.attackSpeedMultiplier += getSpeedBonus(modData);
 
     TagUtil.setToolTag(rootCompound, data.get());
   }
-  
+
+  protected float getSpeedBonus(ModifierNBT.IntegerNBT modData) {
+    return 0.2f * modData.current / max;
+  }
+
+
   // don't allow on projectiles
+  @Override
   protected boolean canApplyCustom(ItemStack stack) throws TinkerGuiException {
     return !((ToolCore)stack.getItem()).hasCategory(Category.NO_MELEE);
   }
@@ -72,5 +85,12 @@ public class ModHaste extends ToolModifier {
   @Override
   public String getTooltip(NBTTagCompound modifierTag, boolean detailed) {
     return getLeveledTooltip(modifierTag, detailed);
+  }
+
+  @Override
+  public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
+    String loc = String.format(LOC_Extra, getIdentifier());
+    float bonus = getSpeedBonus(ModifierNBT.readInteger(modifierTag));
+    return ImmutableList.of(Util.translateFormatted(loc, AbstractMaterialStats.dfPercent.format(bonus)));
   }
 }
