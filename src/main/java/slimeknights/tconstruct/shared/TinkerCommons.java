@@ -5,7 +5,9 @@ import com.google.common.eventbus.Subscribe;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -183,12 +185,13 @@ public class TinkerCommons extends TinkerPulse {
     ingots.setCreativeTab(TinkerRegistry.tabGeneral);
     materials.setCreativeTab(TinkerRegistry.tabGeneral);
     edibles.setCreativeTab(TinkerRegistry.tabGeneral);
+    edibles.setAlwaysEdible();
 
     // Items that can always be present.. slimeballs
-    matSlimeBallBlue = edibles.addFood(1, 1, 1f, "slimeball_blue");
-    matSlimeBallPurple = edibles.addFood(2, 1, 2f, "slimeball_purple");
-    matSlimeBallBlood = edibles.addFood(3, 1, 1.5f, "slimeball_blood");
-    matSlimeBallMagma = edibles.addFood(4, 2, 1f, "slimeball_magma");
+    matSlimeBallBlue = edibles.addFood(1, 1, 1f, "slimeball_blue", new PotionEffect(MobEffects.SLOWNESS, 20*45, 2), new PotionEffect(MobEffects.JUMP_BOOST, 20*60, 2) );
+    matSlimeBallPurple = edibles.addFood(2, 1, 2f, "slimeball_purple", new PotionEffect(MobEffects.UNLUCK, 20*45), new PotionEffect(MobEffects.LUCK, 20*60));
+    matSlimeBallBlood = edibles.addFood(3, 1, 1.5f, "slimeball_blood", new PotionEffect(MobEffects.POISON, 20*45, 2), new PotionEffect(MobEffects.HEALTH_BOOST, 20*60));
+    matSlimeBallMagma = edibles.addFood(4, 2, 1f, "slimeball_magma", new PotionEffect(MobEffects.WEAKNESS, 20*45), new PotionEffect(MobEffects.WITHER, 20*15), new PotionEffect(MobEffects.FIRE_RESISTANCE, 20*60));
 
     // All other items are either ingots or items for modifiers
 
@@ -263,11 +266,11 @@ public class TinkerCommons extends TinkerPulse {
       jerkyClownfish = edibles.addFood(22, 3, 0.8f, "jerky_clownfish");
       jerkyPufferfish = edibles.addFood(23, 3, 0.8f, "jerky_pufferfish");
 
-      slimedropGreen = edibles.addFood(30, 1, 1f, "slimedrop_green");
-      slimedropBlue = edibles.addFood(31, 3, 1f, "slimedrop_blue");
-      slimedropPurple = edibles.addFood(32, 3, 2f, "slimedrop_purple");
-      slimedropBlood = edibles.addFood(33, 3, 1.5f, "slimedrop_blood");
-      slimedropMagma = edibles.addFood(34, 6, 1f, "slimedrop_magma");
+      slimedropGreen = edibles.addFood(30, 1, 1f, "slimedrop_green", new PotionEffect(MobEffects.SATURATION, 20*90));
+      slimedropBlue = edibles.addFood(31, 3, 1f, "slimedrop_blue", new PotionEffect(MobEffects.JUMP_BOOST, 20*90, 2));
+      slimedropPurple = edibles.addFood(32, 3, 2f, "slimedrop_purple", new PotionEffect(MobEffects.LUCK, 20*90));
+      slimedropBlood = edibles.addFood(33, 3, 1.5f, "slimedrop_blood", new PotionEffect(MobEffects.HEALTH_BOOST, 20*90));
+      slimedropMagma = edibles.addFood(34, 6, 1f, "slimedrop_magma", new PotionEffect(MobEffects.FIRE_RESISTANCE, 20*90));
     }
 
     if(isToolsLoaded() || isGadgetsLoaded()) {
