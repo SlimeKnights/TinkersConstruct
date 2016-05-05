@@ -376,7 +376,7 @@ public class GuiToolStation extends GuiTinkerStation {
           itemRender.renderItemIntoGUI(currentInfo.tool, logoX, logoY);
         }
         else if(currentInfo == GuiButtonRepair.info) {
-          this.mc.getTextureManager().bindTexture(ICONS);
+          this.mc.getTextureManager().bindTexture(GuiTinkerStation.ICON);
           ICON_Anvil.draw(logoX, logoY);
         }
       }
@@ -414,7 +414,7 @@ public class GuiToolStation extends GuiTinkerStation {
       }
     }
 
-    this.mc.getTextureManager().bindTexture(ICONS);
+    this.mc.getTextureManager().bindTexture(ICON);
 
     // slot logos
     if(currentInfo == GuiButtonRepair.info) {

@@ -15,7 +15,7 @@ public class GuiButtonRepair extends GuiButtonItem<ToolBuildGuiInfo> {
 
   @Override
   protected void drawIcon(Minecraft mc) {
-    mc.getTextureManager().bindTexture(GuiTinkerStation.ICONS);
+    mc.getTextureManager().bindTexture(GuiTinkerStation.ICON);
     GuiTinkerStation.ICON_Anvil.draw(xPosition, yPosition);
   }
 

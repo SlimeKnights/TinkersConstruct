@@ -89,6 +89,6 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
     button.setGraphics(GuiTinkerStation.ICON_Button.shift(xd, yd),
                        GuiTinkerStation.ICON_ButtonHover.shift(xd, yd),
                        GuiTinkerStation.ICON_ButtonPressed.shift(xd, yd),
-                       GuiTinkerStation.ICONS);
+                       GuiTinkerStation.ICON);
   }
 }
