@@ -489,9 +489,9 @@ modifier.writable.desc=§oIntellectual!§r\nMore words. More Modifiers. It's onl
 #   Modifiers   #
 #################
 
-modifier.bane_of_arthopods.name=Bane of Arthopods
-modifier.bane_of_arthopods.desc=§oAnti-Spider!§r\nDeal massive damage to spiders.
-modifier.bane_of_arthopods.extra=Vs Spiders: +%s
+modifier.bane_of_arthropods.name=Bane of Arthropods
+modifier.bane_of_arthropods.desc=§oAnti-Spider!§r\nDeal massive damage to spiders.
+modifier.bane_of_arthropods.extra=Vs Spiders: +%s
 modifier.beheading.name=Beheading
 modifier.beheading.desc=§oOff with his head!§r\nEach level adds a 10% chance to get the enemies head on kill.
 modifier.diamond.name=Diamond
