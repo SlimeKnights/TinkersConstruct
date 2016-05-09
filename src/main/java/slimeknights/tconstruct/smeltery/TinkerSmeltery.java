@@ -280,6 +280,10 @@ public class TinkerSmeltery extends TinkerPulse {
     // gold is melt and castable too, but no tools. Remaining materials are done directly in the MaterialIntegration
     // gold is integrated via MaterialIntegration in TinkerIntegration now
 
+    // special melting
+    TinkerRegistry.registerMelting(Items.IRON_HORSE_ARMOR, TinkerFluids.iron, Material.VALUE_Ingot*8);
+    TinkerRegistry.registerMelting(Items.GOLDEN_HORSE_ARMOR, TinkerFluids.gold, Material.VALUE_Ingot*8);
+
     // register stone toolpart melting
     for(IToolPart toolPart : TinkerRegistry.getToolParts()) {
       if(toolPart instanceof MaterialItem) {
@@ -296,7 +300,7 @@ public class TinkerSmeltery extends TinkerPulse {
     // basically a pseudo-oredict of the seared blocks to support wildcard value
     TinkerRegistry.registerMelting(searedBlock, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
     TinkerRegistry.registerMelting(TinkerCommons.searedBrick, TinkerFluids.searedStone, Material.VALUE_SearedMaterial);
-    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of(TinkerCommons.grout), TinkerFluids.searedStone, Material.VALUE_SearedMaterial/3));
+    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of(TinkerCommons.grout, Material.VALUE_SearedMaterial), TinkerFluids.searedStone, Material.VALUE_SearedMaterial/3));
 
     // melt all the dirt into mud
     ItemStack stack = new ItemStack(Blocks.DIRT, 1, OreDictionary.WILDCARD_VALUE);
@@ -620,7 +624,7 @@ public class TinkerSmeltery extends TinkerPulse {
         ItemStack output = irecipe.getRecipeOutput().copy();
         int amount = known.get(fluid) / output.stackSize;
         output.stackSize = 1;
-        TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.ofNBT(output, amount), fluid));
+        TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(output, amount), fluid));
         log.trace("Added automatic melting recipe for {} ({} {})", irecipe.getRecipeOutput().toString(), amount, fluid
             .getName());
       }

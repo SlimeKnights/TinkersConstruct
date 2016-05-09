@@ -158,13 +158,13 @@ public class BlockPunji extends Block {
 
   @Override
   public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-    if(entityIn instanceof EntityLiving) {
+    if(entityIn instanceof EntityLivingBase) {
       float damage = 3f;
       if(entityIn.fallDistance > 0) {
         damage += entityIn.fallDistance * 1.5f + 2f;
       }
       entityIn.attackEntityFrom(DamageSource.cactus, damage);
-      ((EntityLiving) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20, 1));
+      ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20, 1));
     }
   }
 

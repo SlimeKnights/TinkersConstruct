@@ -29,7 +29,7 @@ import slimeknights.tconstruct.tools.network.TinkerStationTabPacket;
 // Takes care of the tinker station pseudo-multiblock
 public class GuiTinkerStation extends GuiMultiModule {
 
-  public static final ResourceLocation ICONS = Util.getResource("textures/gui/icons.png");
+  public static final ResourceLocation ICON = Util.getResource("textures/gui/icons.png");
   public static final ResourceLocation BLANK_BACK = Util.getResource("textures/gui/blank.png");
 
   public static final GuiElement ICON_Anvil = new GuiElement(18 * 3, 0, 18, 18, 256, 256);
@@ -83,7 +83,7 @@ public class GuiTinkerStation extends GuiMultiModule {
   }
 
   protected void drawIcon(Slot slot, GuiElement element) {
-    this.mc.getTextureManager().bindTexture(ICONS);
+    this.mc.getTextureManager().bindTexture(ICON);
     element.draw(slot.xDisplayPosition + this.cornerX - 1, slot.yDisplayPosition + this.cornerY - 1);
   }
 

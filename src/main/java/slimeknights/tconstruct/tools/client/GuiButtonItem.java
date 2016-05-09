@@ -21,7 +21,7 @@ public class GuiButtonItem<T> extends GuiButton {
   private GuiElement guiPressed = GUI_Button_pressed;
   private GuiElement guiNormal = GUI_Button_normal;
   private GuiElement guiHover = GUI_Button_hover;
-  private ResourceLocation locBackground = GuiTinkerStation.ICONS;
+  private ResourceLocation locBackground = GuiTinkerStation.ICON;
 
   public GuiButtonItem(int buttonId, int x, int y, String displayName, T data) {
     super(buttonId, x, y, 18, 18, displayName);
