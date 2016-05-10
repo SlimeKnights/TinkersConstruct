@@ -211,6 +211,23 @@ public class TinkerSmeltery extends TinkerPulse {
     GameRegistry.addRecipe(new ItemStack(faucet),
                            "b b", " b ", 'b', searedBrick); // Faucet
     //GameRegistry.addRecipe(new ItemStack(TinkerSmeltery.castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); // Channel
+
+    // remaining seared bricks
+    addBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.BRICK);
+    addBrickRecipe(BlockSeared.SearedType.BRICK_FANCY, BlockSeared.SearedType.PAVER);
+    addBrickRecipe(BlockSeared.SearedType.BRICK_SQUARE, BlockSeared.SearedType.BRICK_FANCY);
+    addBrickRecipe(BlockSeared.SearedType.CREEPER, BlockSeared.SearedType.BRICK_SQUARE);
+    addBrickRecipe(BlockSeared.SearedType.ROAD, BlockSeared.SearedType.CREEPER);
+    addBrickRecipe(BlockSeared.SearedType.BRICK_CRACKED, BlockSeared.SearedType.ROAD);
+    addBrickRecipe(BlockSeared.SearedType.BRICK, BlockSeared.SearedType.BRICK_CRACKED);
+  }
+
+  private void addBrickRecipe(BlockSeared.SearedType out, BlockSeared.SearedType in) {
+    ItemStack searedBrickBlockIn = new ItemStack(searedBlock, 1, in.getMeta());
+    ItemStack searedBrickBlockOut = new ItemStack(searedBlock, 4, out.getMeta());
+
+    // todo: convert to chisel recipes if chisel is present
+    GameRegistry.addShapedRecipe(searedBrickBlockOut, "BB", "BB", 'B', searedBrickBlockIn);
   }
 
   // POST-INITIALIZATION
