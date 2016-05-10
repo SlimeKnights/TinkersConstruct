@@ -38,7 +38,7 @@ public class Rapier extends ToolCore {
 
   @Override
   public float damagePotential() {
-    return 0.8f; // tad lower than broadsword
+    return 0.35f; // tad lower than broadsword if it had the same speed
   }
 
   @Override
