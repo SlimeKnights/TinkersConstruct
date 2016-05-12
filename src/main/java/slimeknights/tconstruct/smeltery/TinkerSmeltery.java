@@ -218,8 +218,11 @@ public class TinkerSmeltery extends TinkerPulse {
     addBrickRecipe(BlockSeared.SearedType.BRICK_SQUARE, BlockSeared.SearedType.BRICK_FANCY);
     addBrickRecipe(BlockSeared.SearedType.CREEPER, BlockSeared.SearedType.BRICK_SQUARE);
     addBrickRecipe(BlockSeared.SearedType.ROAD, BlockSeared.SearedType.CREEPER);
-    addBrickRecipe(BlockSeared.SearedType.BRICK_CRACKED, BlockSeared.SearedType.ROAD);
-    addBrickRecipe(BlockSeared.SearedType.BRICK, BlockSeared.SearedType.BRICK_CRACKED);
+    addBrickRecipe(BlockSeared.SearedType.BRICK, BlockSeared.SearedType.ROAD);
+
+    GameRegistry.addSmelting(new ItemStack(searedBlock, 1, BlockSeared.SearedType.BRICK.getMeta()),
+                             new ItemStack(searedBlock, 1, BlockSeared.SearedType.BRICK_CRACKED.getMeta()),
+                             0.1f);
   }
 
   private void addBrickRecipe(BlockSeared.SearedType out, BlockSeared.SearedType in) {
