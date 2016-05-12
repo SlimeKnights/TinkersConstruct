@@ -4,6 +4,8 @@ import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProvider;
+import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderHell;
@@ -35,7 +37,7 @@ public class NetherOreGenerator implements IWorldGenerator {
 
   @Override
   public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-    if(chunkGenerator instanceof ChunkProviderHell) {
+    if(world.provider instanceof WorldProviderHell) {
       if(Config.genArdite) {
         generateNetherOre(arditeGen, Config.arditeRate, random, chunkX, chunkZ, world);
       }
