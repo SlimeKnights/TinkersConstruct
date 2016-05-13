@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.item;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -34,6 +35,14 @@ public class Rapier extends ToolCore {
   @Override
   public boolean isEffective(IBlockState block) {
     return BroadSword.effective_materials.contains(block.getMaterial());
+  }
+
+  @Override
+  public float getStrVsBlock(ItemStack stack, IBlockState state) {
+    if(state.getBlock() == Blocks.WEB) {
+      return super.getStrVsBlock(stack, state)*7.5f;
+    }
+    return super.getStrVsBlock(stack, state);
   }
 
   @Override
