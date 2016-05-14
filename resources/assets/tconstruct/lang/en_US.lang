@@ -25,6 +25,8 @@ tile.tconstruct.soil.graveyard.tooltip=Heals undead
 tile.tconstruct.soil.consecrated.name=Consecrated Soil
 tile.tconstruct.soil.consecrated.tooltip=Hurts undead
 tile.tconstruct.soil.mudbrick.name=Mud Bricks
+tile.tconstruct.soil_slab.mudbrick.name=Mud Bricks Slab
+tile.tconstruct.mudbrick_stairs.name=Mud Bricks Stairs
 
 tile.tconstruct.ore.cobalt.name=Cobalt Ore
 tile.tconstruct.ore.ardite.name=Ardite Ore
@@ -39,6 +41,10 @@ tile.tconstruct.metal.silky_jewel.name=Silky Block of Jewel
 
 tile.tconstruct.firewood.lavawood.name=Lavawood
 tile.tconstruct.firewood.firewood.name=Firewood
+tile.tconstruct.firewood_slab.lavawood.name=Lavawood Slab
+tile.tconstruct.firewood_slab.firewood.name=Firewood Slab
+tile.tconstruct.lavawood_stairs.name=Lavawood Stairs
+tile.tconstruct.firewood_stairs.name=Firewood Stairs
 
 tile.tconstruct.slime.green.name=Green Slime Block
 tile.tconstruct.slime.blue.name=Blue Slime Block
@@ -99,6 +105,26 @@ tile.tconstruct.seared.road.name=Seared Road
 tile.tconstruct.seared.creeper.name=Seared Creeperface
 tile.tconstruct.seared.tooltip=Part of the Smeltery. Safe for Decoration.
 
+tile.tconstruct.seared_slab.stone.name=Seared Stone Slab
+tile.tconstruct.seared_slab.cobble.name=Seared Cobblestone Slab
+tile.tconstruct.seared_slab.paver.name=Seared Paver Slab
+tile.tconstruct.seared_slab.brick.name=Seared Bricks Slab
+tile.tconstruct.seared_slab.brick_cracked.name=Cracked Seared Bricks Slab
+tile.tconstruct.seared_slab.brick_fancy.name=Fancy Seared Bricks Slab
+tile.tconstruct.seared_slab.brick_square.name=Square Seared Bricks Slab
+tile.tconstruct.seared_slab.road.name=Seared Road Slab
+tile.tconstruct.seared_slab2.creeper.name=Seared Creeperface Slab
+
+tile.tconstruct.seared_stairs_stone.name=Seared Stone Stairs
+tile.tconstruct.seared_stairs_cobble.name=Seared Cobblestone Stairs
+tile.tconstruct.seared_stairs_paver.name=Seared Paver Stairs
+tile.tconstruct.seared_stairs_brick.name=Seared Bricks Stairs
+tile.tconstruct.seared_stairs_brick_cracked.name=Cracked Seared Bricks Stairs
+tile.tconstruct.seared_stairs_brick_fancy.name=Fancy Seared Bricks Stairs
+tile.tconstruct.seared_stairs_brick_square.name=Square Seared Bricks Stairs
+tile.tconstruct.seared_stairs_road.name=Seared Road Stairs
+tile.tconstruct.seared_stairs_creeper.name=Seared Creeperface Stairs
+
 tile.tconstruct.smeltery_controller.name=Smeltery Controller
 tile.tconstruct.smeltery_controller.tooltip=Brain of the Smeltery
 tile.tconstruct.smeltery_io.drain.name=Smeltery Drain
@@ -123,8 +149,13 @@ tile.tconstruct.rack.item.name=Item Rack
 tile.tconstruct.rack.item.tooltip=For decoration purpose only
 tile.tconstruct.rack.drying.name=Drying Rack
 tile.tconstruct.rack.drying.tooltip=Used to dry items
+
 tile.tconstruct.dried_clay.clay.name=Dried Clay
 tile.tconstruct.dried_clay.brick.name=Dried Bricks
+tile.tconstruct.dried_clay_slab.clay.name=Dried Clay Slab
+tile.tconstruct.dried_clay_slab.brick.name=Dried Bricks Slab
+tile.tconstruct.dried_clay_stairs.name=Dried Clay Stairs
+tile.tconstruct.dried_brick_stairs.name=Dried Bricks Stairs
 
 
 ################
