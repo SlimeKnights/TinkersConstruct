@@ -1,12 +1,15 @@
 package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -21,6 +24,7 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.client.particle.CleaverSlashAttackFx;
 import slimeknights.tconstruct.tools.modifiers.ModBeheading;
 
 import static slimeknights.tconstruct.tools.item.BroadSword.effective_materials;
@@ -38,7 +42,7 @@ public class Cleaver extends ToolCore {
 
   // no offhand for you
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player, EnumHand hand) {
     return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);
   }
 
@@ -70,6 +74,27 @@ public class Cleaver extends ToolCore {
   @Override
   public float miningSpeedModifier() {
     return 0.2f;
+  }
+
+  @Override
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+    boolean hit = super.dealDamage(stack, player, entity, damage);
+
+    if(hit && player instanceof EntityPlayer && ((EntityPlayer) player).getCooledAttackStrength(0.5f) > 0.9f) {
+      if(player.worldObj.isRemote) {
+        float distance = 0.017453292f;
+        double xd = (double)(-MathHelper.sin(player.rotationYaw * distance));
+        double yd = (double)MathHelper.cos(player.rotationYaw * distance);
+
+        Minecraft.getMinecraft().effectRenderer.addEffect(CleaverSlashAttackFx.FACTORY.getEntityFX(-1, player.worldObj,
+                                                                                                   player.posX + xd,
+                                                                                                   player.posY + player.height * 0.85d,
+                                                                                                   player.posZ + yd,
+                                                                                                   xd, 0.0D, yd));
+      }
+    }
+
+    return hit;
   }
 
   @Override
