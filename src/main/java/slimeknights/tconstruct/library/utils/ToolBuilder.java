@@ -494,7 +494,13 @@ public final class ToolBuilder {
 
       modifier.applyEffect(rootNBT, tag);
       if(!tag.hasNoTags()) {
-        modifiersTag.appendTag(tag);
+        int indexNew = TinkerUtil.getIndexInList(modifiersTag, modifier.getIdentifier());
+        if(indexNew >= 0) {
+          modifiersTag.set(indexNew, tag);
+        }
+        else {
+          modifiersTag.appendTag(tag);
+        }
       }
     }
 
