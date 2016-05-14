@@ -19,7 +19,9 @@ import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
+import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.modifiers.ModBeheading;
 
 import static slimeknights.tconstruct.tools.item.BroadSword.effective_materials;
 
@@ -90,5 +92,14 @@ public class Cleaver extends ToolCore {
     data.modifiers = 3;
 
     return data.get();
+  }
+
+  @Override
+  public void addMaterialTraits(NBTTagCompound root, List<Material> materials) {
+    super.addMaterialTraits(root, materials);
+
+    // beheading "trait", 2 level -> 2 applications
+    ModBeheading.CLEAVER_BEHEADING_MOD.apply(root);
+    ModBeheading.CLEAVER_BEHEADING_MOD.apply(root);
   }
 }
