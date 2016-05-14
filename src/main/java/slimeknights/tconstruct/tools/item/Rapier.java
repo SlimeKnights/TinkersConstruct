@@ -47,7 +47,7 @@ public class Rapier extends ToolCore {
 
   @Override
   public float damagePotential() {
-    return 0.35f; // tad lower than broadsword if it had the same speed
+    return 0.55f;
   }
 
   @Override
@@ -57,7 +57,7 @@ public class Rapier extends ToolCore {
 
   @Override
   public double attackSpeed() {
-    return 4;
+    return 3;
   }
 
   @Override
