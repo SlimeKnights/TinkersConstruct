@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
@@ -88,6 +89,10 @@ public class Hatchet extends AoeToolCore {
   @Override
   public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
     boolean hit = super.dealDamage(stack, player, entity, damage);
+
+    if(hit && readyForSpecialAttack(player)) {
+      TinkerTools.proxy.spawnAttackParticle(Particles.HATCHET_ATTACK, player, 0.8d);
+    }
 
     // vanilla axe shieldbreak attack. See EntityPlayer#attackTargetEntityWithCurrentItem()
     if(hit &&  !ToolHelper.isBroken(stack) && !player.worldObj.isRemote && entity instanceof EntityPlayer) {

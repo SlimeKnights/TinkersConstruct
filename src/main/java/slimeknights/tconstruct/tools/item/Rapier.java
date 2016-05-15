@@ -76,7 +76,7 @@ public class Rapier extends ToolCore {
       hit = dealHybridDamage(DamageSource.causeMobDamage(player), entity, damage);
     }
 
-    if(hit && player instanceof EntityPlayer && ((EntityPlayer) player).getCooledAttackStrength(0.5f) > 0.9f) {
+    if(hit && readyForSpecialAttack(entity)) {
       TinkerTools.proxy.spawnAttackParticle(Particles.RAPIER_ATTACK, player, 0.8d);
     }
 

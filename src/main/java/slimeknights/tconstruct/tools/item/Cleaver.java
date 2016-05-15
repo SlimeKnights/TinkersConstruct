@@ -78,7 +78,7 @@ public class Cleaver extends ToolCore {
     boolean hit = super.dealDamage(stack, player, entity, damage);
 
     // cleaver slash particle
-    if(hit && player instanceof EntityPlayer && ((EntityPlayer) player).getCooledAttackStrength(0.5f) > 0.9f) {
+    if(hit && readyForSpecialAttack(player)) {
       TinkerTools.proxy.spawnAttackParticle(Particles.CLEAVER_ATTACK, player, 0.85d);
     }
 

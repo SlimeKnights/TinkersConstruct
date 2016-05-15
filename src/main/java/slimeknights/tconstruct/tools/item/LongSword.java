@@ -89,8 +89,8 @@ public class LongSword extends ToolCore {
   public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
     boolean hit = super.dealDamage(stack, player, entity, damage);
 
-    // cleaver slash particle
-    if(hit && player instanceof EntityPlayer && ((EntityPlayer) player).getCooledAttackStrength(0.5f) > 0.9f) {
+    // slash particle
+    if(hit && readyForSpecialAttack(player)) {
       TinkerTools.proxy.spawnAttackParticle(Particles.LONGSWORD_ATTACK, player, 0.7d);
     }
 

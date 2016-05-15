@@ -143,6 +143,10 @@ public abstract class ToolCore extends TinkersItem {
     return entity.attackEntityFrom(DamageSource.causeMobDamage(player), damage);
   }
 
+  protected boolean readyForSpecialAttack(EntityLivingBase player) {
+    return player instanceof EntityPlayer && ((EntityPlayer) player).getCooledAttackStrength(0.5f) > 0.9f;
+  }
+
   /**
    * Called when an entity is getting damaged with the tool.
    * Reduce the tools durability accordingly
