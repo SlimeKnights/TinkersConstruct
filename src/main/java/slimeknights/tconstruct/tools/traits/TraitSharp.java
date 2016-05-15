@@ -8,6 +8,8 @@ import net.minecraft.util.EntityDamageSource;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
+import slimeknights.tconstruct.shared.client.ParticleEffect;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 public class TraitSharp extends AbstractTrait {
 
@@ -37,6 +39,7 @@ public class TraitSharp extends AbstractTrait {
 
     int hurtResistantTime = target.hurtResistantTime;
     attackEntitySecondary(source, (level+1f)/3f, target, true, true);
+    TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_BLOOD, target, 1);
     target.hurtResistantTime = hurtResistantTime;
   }
 

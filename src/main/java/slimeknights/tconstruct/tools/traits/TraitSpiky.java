@@ -11,6 +11,8 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.shared.client.ParticleEffect;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 public class TraitSpiky extends AbstractTrait {
 
@@ -27,7 +29,9 @@ public class TraitSpiky extends AbstractTrait {
       damageSource.setDamageBypassesArmor();
       damageSource.setDamageIsAbsolute();
 
-      attackEntitySecondary(damageSource, damage, target, true, false);
+      if(attackEntitySecondary(damageSource, damage, target, true, false)) {
+        TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_CACTUS, (EntityLivingBase) target, 1);
+      }
       target.hurtResistantTime = 4; // very short invulv time from that
     }
   }

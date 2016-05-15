@@ -35,6 +35,7 @@ import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.client.ParticleEffect;
 import slimeknights.tconstruct.tools.client.particle.ParticleAttackCleaver;
 import slimeknights.tconstruct.tools.client.particle.ParticleAttackFrypan;
 import slimeknights.tconstruct.tools.client.particle.ParticleAttackHammer;
@@ -237,9 +238,16 @@ public abstract class ClientProxy extends CommonProxy {
   }
 
   @Override
-  public void spawnParticle(Particles particleType, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-    EntityFX effect = createParticle(particleType, world, x,y,z, xSpeed,ySpeed,zSpeed);
+  public void spawnParticle(Particles particleType, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
+    EntityFX effect = createParticle(particleType, world, x,y,z, xSpeed,ySpeed,zSpeed, data);
     Minecraft.getMinecraft().effectRenderer.addEffect(effect);
+
+    if(particleType == Particles.EFFECT && data[0] > 1) {
+      for(int i = 0; i < data[0]-1; i++) {
+        effect = createParticle(particleType, world, x,y,z, xSpeed,ySpeed,zSpeed, data);
+        Minecraft.getMinecraft().effectRenderer.addEffect(effect);
+      }
+    }
   }
 
   @Override
@@ -247,10 +255,12 @@ public abstract class ClientProxy extends CommonProxy {
     Minecraft.getMinecraft().effectRenderer.addEffect(new EntitySlimeFx(world, x,y,z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage()));
   }
 
-  public static EntityFX createParticle(Particles type, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+  public static EntityFX createParticle(Particles type, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
     switch(type) {
+      // entities
       case BLUE_SLIME:
         return new EntitySlimeFx(world, x, y, z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage());
+      // attack
       case CLEAVER_ATTACK:
         return new ParticleAttackCleaver(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
       case LONGSWORD_ATTACK:
@@ -265,6 +275,9 @@ public abstract class ClientProxy extends CommonProxy {
         return new ParticleAttackFrypan(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
       case HAMMER_ATTACK:
         return new ParticleAttackHammer(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+      // effects
+      case EFFECT:
+        return new ParticleEffect(data[1], world, x,y,z, xSpeed, ySpeed, zSpeed);
     }
 
     return null;

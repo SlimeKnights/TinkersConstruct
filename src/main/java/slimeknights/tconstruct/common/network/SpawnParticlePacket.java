@@ -3,6 +3,7 @@ package slimeknights.tconstruct.common.network;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.NetHandlerPlayServer;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 
 import io.netty.buffer.ByteBuf;
 import slimeknights.mantle.network.AbstractPacketThreadsafe;
@@ -18,11 +19,12 @@ public class SpawnParticlePacket extends AbstractPacketThreadsafe {
   double xSpeed;
   double ySpeed;
   double zSpeed;
+  int[] data;
 
   public SpawnParticlePacket() {
   }
 
-  public SpawnParticlePacket(Particles particle, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+  public SpawnParticlePacket(Particles particle, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
     this.particle = particle;
     this.x = x;
     this.y = y;
@@ -30,11 +32,12 @@ public class SpawnParticlePacket extends AbstractPacketThreadsafe {
     this.xSpeed = xSpeed;
     this.ySpeed = ySpeed;
     this.zSpeed = zSpeed;
+    this.data = data;
   }
 
   @Override
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
-    TinkerTools.proxy.spawnParticle(particle, Minecraft.getMinecraft().theWorld, x,y,z, xSpeed,ySpeed,zSpeed);
+    TinkerTools.proxy.spawnParticle(particle, Minecraft.getMinecraft().theWorld, x,y,z, xSpeed,ySpeed,zSpeed, data);
   }
 
   @Override
@@ -52,6 +55,11 @@ public class SpawnParticlePacket extends AbstractPacketThreadsafe {
     xSpeed = buf.readDouble();
     ySpeed = buf.readDouble();
     zSpeed = buf.readDouble();
+
+    data = new int[buf.readInt()];
+    for(int i = 0; i < data.length; i++) {
+      data[i] = buf.readInt();
+    }
   }
 
   @Override
@@ -63,5 +71,10 @@ public class SpawnParticlePacket extends AbstractPacketThreadsafe {
     buf.writeDouble(xSpeed);
     buf.writeDouble(ySpeed);
     buf.writeDouble(zSpeed);
+
+    buf.writeInt(data.length);
+    for(int i : data) {
+      buf.writeInt(i);
+    }
   }
 }

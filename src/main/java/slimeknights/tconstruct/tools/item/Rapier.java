@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
+import slimeknights.tconstruct.shared.client.ParticleEffect;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class Rapier extends ToolCore {
@@ -92,6 +93,11 @@ public class Rapier extends ToolCore {
       target.hurtResistantTime = 0;
       target.lastDamage = 0;
       target.attackEntityFrom(source.setDamageBypassesArmor(), damage / 2f);
+
+      int count = Math.round(damage / 2f);
+      if(count > 0) {
+        TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_ARMOR, target, count);
+      }
     }
     return hit;
   }

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.common;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Explosion;
@@ -14,6 +15,7 @@ import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.network.SpawnParticlePacket;
 import slimeknights.tconstruct.library.client.particle.Particles;
+import slimeknights.tconstruct.shared.client.ParticleEffect;
 
 /**
  * This class contains all the base functions for server and clientside proxy that should be called. Can be used when no
@@ -81,14 +83,22 @@ public class CommonProxy {
                   xd, yd, zd);
   }
 
-  public void spawnParticle(Particles particleType, World world, double x, double y, double z) {
-    spawnParticle(particleType, world, x, y, z, 0, 0, 0);
+  public void spawnEffectParticle(ParticleEffect.Type type, EntityLivingBase entity, int count) {
+    spawnParticle(Particles.EFFECT, entity.getEntityWorld(), entity.posX, entity.posY + entity.height * 0.5f, entity.posZ, 0d, 1d, 0d, count, type.ordinal());
+  }
+  
+  public void spawnEffectParticle(ParticleEffect.Type type, World world, double x, double y, double z, int count) {
+    spawnParticle(Particles.EFFECT, world, x, y, z, 0d, -1d, 0d, count, type.ordinal());
   }
 
-  public void spawnParticle(Particles particleType, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+  public void spawnParticle(Particles particleType, World world, double x, double y, double z, int... data) {
+    spawnParticle(particleType, world, x, y, z, 0d, 0d, 0d, data);
+  }
+
+  public void spawnParticle(Particles particleType, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
     // 32*32 = 1024 = vanilla particle range
     NetworkRegistry.TargetPoint point = new NetworkRegistry.TargetPoint(world.provider.getDimension(), x, y, z, 32);
-    AbstractPacket packet = new SpawnParticlePacket(particleType, x, y, z, xSpeed, ySpeed, zSpeed);
+    AbstractPacket packet = new SpawnParticlePacket(particleType, x, y, z, xSpeed, ySpeed, zSpeed, data);
     TinkerNetwork.sendToAllAround(packet, point);
   }
 

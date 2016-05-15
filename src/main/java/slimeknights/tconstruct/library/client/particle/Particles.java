@@ -12,5 +12,8 @@ public enum Particles {
   HATCHET_ATTACK,
   LUMBERAXE_ATTACK,
   FRYPAN_ATTACK,
-  HAMMER_ATTACK
+  HAMMER_ATTACK,
+
+  // Effects
+  EFFECT
 }

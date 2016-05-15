@@ -13,6 +13,8 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
+import slimeknights.tconstruct.shared.client.ParticleEffect;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 public class TraitShocking extends AbstractTrait {
   public TraitShocking() {
@@ -28,6 +30,7 @@ public class TraitShocking extends AbstractTrait {
     Data data = Data.read(tag);
     if(data.charge >= 100f) {
       if(attackEntitySecondary(new EntityDamageSource("lightningBolt", player), 5f, target, false, true, false)) {
+        TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_ELECTRO, target, 5);
         if(player instanceof EntityPlayerMP) {
           Sounds.playSoundForAll(player, Sounds.shocking_discharge, 2f, 1f);
         }
