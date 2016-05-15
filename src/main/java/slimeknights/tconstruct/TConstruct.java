@@ -3,6 +3,7 @@ package slimeknights.tconstruct;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLMissingMappingsEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -21,6 +22,7 @@ import java.util.Random;
 import slimeknights.mantle.common.GuiHandler;
 import slimeknights.mantle.pulsar.control.PulseManager;
 import slimeknights.tconstruct.common.ClientProxy;
+import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.TinkerOredict;
 import slimeknights.tconstruct.common.config.Config;
@@ -64,6 +66,9 @@ public class TConstruct {
   /* Instance of this mod, used for grabbing prototype fields */
   @Mod.Instance(modID)
   public static TConstruct instance;
+
+  @SidedProxy(clientSide = "slimeknights.tconstruct.common.CommonProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
+  public static CommonProxy proxy;
 
   public static PulseManager pulseManager = new PulseManager(Config.pulseConfig);
   public static GuiHandler guiHandler = new GuiHandler();

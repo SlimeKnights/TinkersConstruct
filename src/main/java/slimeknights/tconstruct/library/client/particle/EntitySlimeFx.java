@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+// not part of the tic particle system since it uses vanilla particles
 @SideOnly(Side.CLIENT)
 public class EntitySlimeFx extends EntityBreakingFX {
 

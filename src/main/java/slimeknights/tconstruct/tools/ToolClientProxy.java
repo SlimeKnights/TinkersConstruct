@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.EffectRenderer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.IReloadableResourceManager;
@@ -39,6 +40,12 @@ public class ToolClientProxy extends ClientProxy {
   @Override
   public void preInit() {
     super.preInit();
+
+    registerParticles();
+  }
+
+  private void registerParticles() {
+    //Minecraft.getMinecraft().effectRenderer.registerParticle();
   }
 
   @Override

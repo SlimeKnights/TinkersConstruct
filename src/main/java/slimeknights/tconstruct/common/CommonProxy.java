@@ -2,14 +2,18 @@ package slimeknights.tconstruct.common;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.particle.Particles;
+import slimeknights.tconstruct.common.network.SpawnParticlePacket;
 
 /**
  * This class contains all the base functions for server and clientside proxy that should be called. Can be used when no
@@ -51,6 +55,30 @@ public class CommonProxy {
 
   public void sendPacketToServerOnly(AbstractPacket packet) {
 
+  }
+
+  public void spawnAttackParticle(Particles particleType, Entity entity, double height) {
+    float distance = 0.017453292f;
+    double xd = (double)(-MathHelper.sin(entity.rotationYaw * distance));
+    double zd = (double)MathHelper.cos(entity.rotationYaw * distance);
+
+    spawnParticle(particleType,
+                  entity.worldObj,
+                  entity.posX + xd,
+                  entity.posY + entity.height * height,
+                  entity.posZ + zd,
+                  xd, 0.0D, zd);
+  }
+
+  public void spawnParticle(Particles particleType, World world, double x, double y, double z) {
+    spawnParticle(particleType, world, x, y, z, 0, 0, 0);
+  }
+
+  public void spawnParticle(Particles particleType, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+    // 32*32 = 1024 = vanilla particle range
+    NetworkRegistry.TargetPoint point = new NetworkRegistry.TargetPoint(world.provider.getDimension(), x, y, z, 32);
+    AbstractPacket packet = new SpawnParticlePacket(particleType, x, y, z, xSpeed, ySpeed, zSpeed);
+    TinkerNetwork.sendToAllAround(packet, point);
   }
 
   public void spawnSlimeParticle(World world, double x, double y, double z) {
