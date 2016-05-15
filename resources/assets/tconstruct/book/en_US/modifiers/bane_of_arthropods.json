@@ -1,0 +1,17 @@
+{
+  "modifier": "bane_of_arthopods",
+  "text": [
+    {
+      "text": "Striking a spider with its own eyeball causes it to recoil in fear. Have a pest problem? Here is the solution. Kills bugs dead."
+    }
+  ],
+  "effects": [
+    "Does extra damage to spiders and silverfish.",
+    "1-2 hearts per level.",
+    "Slows arthropods for 1 second per level."
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:hammer"
+  ]
+}

@@ -2,11 +2,11 @@
   "modifier": "beheading",
   "text": [
     {
-      "text": ""
+      "text": "Working an ender pearl and some obsidian on a weapon has the curious effect of separating the target's head from its body."
     }
   ],
   "effects": [
-    ""
+    "Beheads mobs. Enemies drop their heads as a result."
   ],
   "demoTool": [
     "tconstruct:broadsword",

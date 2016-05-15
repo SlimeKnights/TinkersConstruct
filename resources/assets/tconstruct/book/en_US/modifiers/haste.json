@@ -2,12 +2,12 @@
   "modifier": "haste",
   "text": [
     {
-      "text": "Redstone. Crazy stuff, amiright."
+      "text": "Adding redstone to a tool seems to increase its mining speed. Redstone. Crazy stuff, amiright."
     }
   ],
   "effects": [
-    "Increases mining speed",
-    "makes stuff faster",
-    "test entry"
+    "Each redstone dust increases mining speed by 0.08.",
+    "At 50 the boost is 4.0, making a wood pickaxe equivalent in speed to iron.",
+    "Not useful on weapons"
   ]
 }

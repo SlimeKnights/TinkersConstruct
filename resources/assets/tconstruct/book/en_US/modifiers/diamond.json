@@ -1,0 +1,15 @@
+{
+  "modifier": "diamond",
+  "text": [
+    {
+      "text": "Adding a diamond to the edge of a tool seems to make it more resilient."
+    }
+  ],
+  "effects": [
+    "Extra durability",
+    "Mining level increased to level 3"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe"
+  ]
+}

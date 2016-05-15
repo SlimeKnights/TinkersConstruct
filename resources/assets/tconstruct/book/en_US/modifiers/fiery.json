@@ -1,0 +1,15 @@
+{
+  "modifier": "fiery",
+  "text": [
+    {
+      "text": "Adding blaze powder to a tool gives it a fiery tinge."
+    }
+  ],
+  "effects": [
+    "Sets enemies on fire",
+    "Every 5 powder adds another second to the flame duration."
+  ],
+  "demoTool": [
+    "tconstruct:broadsword"
+  ]
+}

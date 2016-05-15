@@ -1,0 +1,16 @@
+{
+  "modifier": "necrotic",
+  "text": [
+    {
+      "text": "Placing the bone of a Wither Skeleton on a tool gives it nefarious life-stealing powers."
+    }
+  ],
+  "effects": [
+    "Heals you every time a monster is hit.",
+    "Heals one heart per bone."
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver"
+  ]
+}
