@@ -59,15 +59,26 @@ public class CommonProxy {
 
   public void spawnAttackParticle(Particles particleType, Entity entity, double height) {
     float distance = 0.017453292f;
-    double xd = (double)(-MathHelper.sin(entity.rotationYaw * distance));
-    double zd = (double)MathHelper.cos(entity.rotationYaw * distance);
+
+    double xd = -MathHelper.sin(entity.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(entity.rotationPitch / 180.0F * (float) Math.PI);
+    double zd = +MathHelper.cos(entity.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(entity.rotationPitch / 180.0F * (float) Math.PI);
+    double yd = -MathHelper.sin(entity.rotationPitch / 180.0F * (float) Math.PI);
+
+    distance = 1f;
+    xd *= distance;
+    yd *= distance;
+    zd *= distance;
+
+    //double xd = (double)(-MathHelper.sin(entity.rotationYaw * distance));
+    //double zd = (double)MathHelper.cos(entity.rotationYaw * distance);
+    //double yd = (double)(-MathHelper.sin(entity.rotationPitch * distance));
 
     spawnParticle(particleType,
                   entity.worldObj,
                   entity.posX + xd,
                   entity.posY + entity.height * height,
                   entity.posZ + zd,
-                  xd, 0.0D, zd);
+                  xd, yd, zd);
   }
 
   public void spawnParticle(Particles particleType, World world, double x, double y, double z) {
