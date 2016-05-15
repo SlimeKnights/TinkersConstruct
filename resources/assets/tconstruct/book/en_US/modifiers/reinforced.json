@@ -1,0 +1,16 @@
+{
+  "modifier": "reinforced",
+  "text": [
+    {
+      "text": "Adding an obsidian plate to the tool seems to help with its durability."
+    }
+  ],
+  "effects": [
+    "Adds the material trait Reinforced to the tool.",
+    "Stacks with previous levels of Reinforced."
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:hammer"
+  ]
+}

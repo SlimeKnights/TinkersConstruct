@@ -2,12 +2,13 @@
   "modifier": "luck",
   "text": [
     {
-      "text": "Lapis."
+      "text": "Encrusting lapis on tools is a gift to the gods of luck. They will bless your tool with great fortune and loot."
     }
   ],
   "effects": [
-    "Fortune",
-    "Looting"
+    "Adds fortune or looting, depends on the tool type.",
+    "Using the tool has a chance to increase the luck even further.",
+    "Not compatible with Silky."
   ],
   "demoTool": [
     "tconstruct:pickaxe",

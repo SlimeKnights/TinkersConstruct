@@ -2,13 +2,15 @@
   "modifier": "sharpness",
   "text": [
     {
-      "text": "Quartz is sharp."
+      "text": "Adding quartz to the edge of a tool seems to make it sharper. Quartz is sharp."
     }
   ],
   "effects": [
-    "Increases damage"
+    "Increases attack damage.",
+    "Has less of an effect on tools with piercing properties."
   ],
   "demoTool": [
-    "tconstruct:broadsword"
+    "tconstruct:broadsword",
+    "tconstruct:cleaver"
   ]
 }

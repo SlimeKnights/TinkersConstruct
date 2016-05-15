@@ -1,0 +1,15 @@
+{
+  "modifier": "knockback",
+  "text": [
+    {
+      "text": "Attaching a piston to the tool and activating it at the right time seems to throw mobs further away."
+    }
+  ],
+  "effects": [
+    "Adds extra knockback to the tool.",
+    "Each piston increases the knockback distance."
+  ],
+  "demoTool": [
+    "tconstruct:broadsword"
+  ]
+}
