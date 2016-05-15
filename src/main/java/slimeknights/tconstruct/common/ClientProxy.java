@@ -36,6 +36,7 @@ import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.client.particle.ParticleAttackCleaver;
+import slimeknights.tconstruct.tools.client.particle.ParticleAttackFrypan;
 import slimeknights.tconstruct.tools.client.particle.ParticleAttackHatchet;
 import slimeknights.tconstruct.tools.client.particle.ParticleAttackLongsword;
 import slimeknights.tconstruct.tools.client.particle.ParticleAttackLumberAxe;
@@ -259,6 +260,8 @@ public abstract class ClientProxy extends CommonProxy {
         return new ParticleAttackHatchet(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
       case LUMBERAXE_ATTACK:
         return new ParticleAttackLumberAxe(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+      case FRYPAN_ATTACK:
+        return new ParticleAttackFrypan(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
     }
 
     return null;

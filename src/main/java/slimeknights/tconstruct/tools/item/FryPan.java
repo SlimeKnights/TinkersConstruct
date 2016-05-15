@@ -24,6 +24,7 @@ import java.util.List;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
@@ -101,6 +102,7 @@ public class FryPan extends ToolCore {
 
       world.playSound(null, player.getPosition(), Sounds.frypan_boing, SoundCategory.PLAYERS, 1.5f, 0.6f + 0.2f * TConstruct.random.nextFloat());
       entity.addVelocity(x,y,z);
+      TinkerTools.proxy.spawnAttackParticle(Particles.FRYPAN_ATTACK, player, 0.6d);
       if(entity instanceof EntityPlayerMP) {
         ((EntityPlayerMP)entity).playerNetServerHandler.sendPacket(new SPacketEntityVelocity(entity));
       }
@@ -112,6 +114,9 @@ public class FryPan extends ToolCore {
     boolean hit = super.dealDamage(stack, player, entity, damage);
     if(hit || player.worldObj.isRemote) {
       player.playSound(Sounds.frypan_boing, 2f, 1f);
+    }
+    if(hit && readyForSpecialAttack(player)) {
+      TinkerTools.proxy.spawnAttackParticle(Particles.FRYPAN_ATTACK, player, 0.8d);
     }
     return hit;
   }
