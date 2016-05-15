@@ -204,8 +204,8 @@ public abstract class ToolCore extends TinkersItem {
     float speed = ToolHelper.getActualAttackSpeed(stack);
     int time = Math.round(20f/speed);
     if(time < target.hurtResistantTime/2) {
-      target.hurtResistantTime = target.hurtResistantTime/2 + time;
-      target.hurtTime = target.hurtTime/2 + time;
+      target.hurtResistantTime = (target.hurtResistantTime + time)/2;
+      target.hurtTime = (target.hurtTime + time)/2;
     }
     return super.hitEntity(stack, target, attacker);
   }

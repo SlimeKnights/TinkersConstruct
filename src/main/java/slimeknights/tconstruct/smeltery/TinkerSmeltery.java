@@ -211,6 +211,26 @@ public class TinkerSmeltery extends TinkerPulse {
     GameRegistry.addRecipe(new ItemStack(faucet),
                            "b b", " b ", 'b', searedBrick); // Faucet
     //GameRegistry.addRecipe(new ItemStack(TinkerSmeltery.castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); // Channel
+
+    // remaining seared bricks
+    addBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.BRICK);
+    addBrickRecipe(BlockSeared.SearedType.BRICK_FANCY, BlockSeared.SearedType.PAVER);
+    addBrickRecipe(BlockSeared.SearedType.BRICK_SQUARE, BlockSeared.SearedType.BRICK_FANCY);
+    addBrickRecipe(BlockSeared.SearedType.CREEPER, BlockSeared.SearedType.BRICK_SQUARE);
+    addBrickRecipe(BlockSeared.SearedType.ROAD, BlockSeared.SearedType.CREEPER);
+    addBrickRecipe(BlockSeared.SearedType.BRICK, BlockSeared.SearedType.ROAD);
+
+    GameRegistry.addSmelting(new ItemStack(searedBlock, 1, BlockSeared.SearedType.BRICK.getMeta()),
+                             new ItemStack(searedBlock, 1, BlockSeared.SearedType.BRICK_CRACKED.getMeta()),
+                             0.1f);
+  }
+
+  private void addBrickRecipe(BlockSeared.SearedType out, BlockSeared.SearedType in) {
+    ItemStack searedBrickBlockIn = new ItemStack(searedBlock, 1, in.getMeta());
+    ItemStack searedBrickBlockOut = new ItemStack(searedBlock, 4, out.getMeta());
+
+    // todo: convert to chisel recipes if chisel is present
+    GameRegistry.addShapedRecipe(searedBrickBlockOut, "BB", "BB", 'B', searedBrickBlockIn);
   }
 
   // POST-INITIALIZATION
@@ -297,6 +317,10 @@ public class TinkerSmeltery extends TinkerPulse {
     blockSeared.setItemDamage(BlockSeared.SearedType.STONE.getMeta());
     TinkerRegistry.registerTableCasting(TinkerCommons.searedBrick, castIngot, TinkerFluids.searedStone, Material.VALUE_SearedMaterial);
     TinkerRegistry.registerBasinCasting(blockSeared, null, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
+
+    ItemStack searedCobble = new ItemStack(searedBlock, 1, BlockSeared.SearedType.COBBLE.getMeta());
+    TinkerRegistry.registerBasinCasting(new CastingRecipe(searedCobble, RecipeMatch.of("cobblestone"), TinkerFluids.searedStone, Material.VALUE_SearedBlock - Material.VALUE_SearedMaterial));
+
     // basically a pseudo-oredict of the seared blocks to support wildcard value
     TinkerRegistry.registerMelting(searedBlock, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
     TinkerRegistry.registerMelting(TinkerCommons.searedBrick, TinkerFluids.searedStone, Material.VALUE_SearedMaterial);

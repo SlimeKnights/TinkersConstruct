@@ -266,7 +266,7 @@ public class TinkerCommons extends TinkerPulse {
       jerkyClownfish = edibles.addFood(22, 3, 0.8f, "jerky_clownfish");
       jerkyPufferfish = edibles.addFood(23, 3, 0.8f, "jerky_pufferfish");
 
-      slimedropGreen = edibles.addFood(30, 1, 1f, "slimedrop_green", new PotionEffect(MobEffects.SATURATION, 20*90));
+      slimedropGreen = edibles.addFood(30, 1, 1f, "slimedrop_green", new PotionEffect(MobEffects.SPEED, 20*90, 2));
       slimedropBlue = edibles.addFood(31, 3, 1f, "slimedrop_blue", new PotionEffect(MobEffects.JUMP_BOOST, 20*90, 2));
       slimedropPurple = edibles.addFood(32, 3, 2f, "slimedrop_purple", new PotionEffect(MobEffects.LUCK, 20*90));
       slimedropBlood = edibles.addFood(33, 3, 1.5f, "slimedrop_blood", new PotionEffect(MobEffects.HEALTH_BOOST, 20*90));
