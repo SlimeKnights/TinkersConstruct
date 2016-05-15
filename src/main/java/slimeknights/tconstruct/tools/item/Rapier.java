@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
@@ -67,11 +68,19 @@ public class Rapier extends ToolCore {
 
   @Override
   public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+    boolean hit;
     if(player instanceof EntityPlayer) {
-      return dealHybridDamage(DamageSource.causePlayerDamage((EntityPlayer) player), entity, damage);
+      hit = dealHybridDamage(DamageSource.causePlayerDamage((EntityPlayer) player), entity, damage);
+    }
+    else {
+      hit = dealHybridDamage(DamageSource.causeMobDamage(player), entity, damage);
     }
 
-    return dealHybridDamage(DamageSource.causeMobDamage(player), entity, damage);
+    if(hit && player instanceof EntityPlayer && ((EntityPlayer) player).getCooledAttackStrength(0.5f) > 0.9f) {
+      TinkerTools.proxy.spawnAttackParticle(Particles.RAPIER_ATTACK, player, 0.8d);
+    }
+
+    return hit;
   }
 
   // changes the passed in damagesource, but the default method calls we use always create a new object

@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
@@ -82,6 +83,18 @@ public class LongSword extends ToolCore {
   public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
     playerIn.setActiveHand(hand);
     return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
+  }
+
+  @Override
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+    boolean hit = super.dealDamage(stack, player, entity, damage);
+
+    // cleaver slash particle
+    if(hit && player instanceof EntityPlayer && ((EntityPlayer) player).getCooledAttackStrength(0.5f) > 0.9f) {
+      TinkerTools.proxy.spawnAttackParticle(Particles.LONGSWORD_ATTACK, player, 0.7d);
+    }
+
+    return hit;
   }
 
   @Override

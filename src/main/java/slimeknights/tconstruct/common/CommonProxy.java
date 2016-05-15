@@ -12,8 +12,8 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.common.network.SpawnParticlePacket;
+import slimeknights.tconstruct.library.client.particle.Particles;
 
 /**
  * This class contains all the base functions for server and clientside proxy that should be called. Can be used when no
