@@ -6,8 +6,9 @@
     }
   ],
   "effects": [
-    "Adds fortune or looting, depends on the tool type.",
-    "Using the tool has a chance to increase the luck even further.",
+    "Adds fortune or looting.",
+    "Tool use has a chance to increase the luck.",
+    "Adding more lapis only takes up the one modifier.",
     "Not compatible with Silky."
   ],
   "demoTool": [

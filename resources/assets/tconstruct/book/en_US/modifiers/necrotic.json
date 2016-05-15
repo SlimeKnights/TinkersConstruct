@@ -6,8 +6,9 @@
     }
   ],
   "effects": [
-    "Heals you every time a monster is hit.",
-    "Heals one heart per bone."
+    "Chance to heal you every time a monster is hit.",
+    "Add more bones to increase the heal chance and amount.",
+    "Multiple levels available."
   ],
   "demoTool": [
     "tconstruct:broadsword",

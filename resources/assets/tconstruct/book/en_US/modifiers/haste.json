@@ -6,8 +6,8 @@
     }
   ],
   "effects": [
-    "Each redstone dust increases mining speed by 0.08.",
-    "At 50 the boost is 4.0, making a wood pickaxe equivalent in speed to iron.",
-    "Not useful on weapons"
+    "Each redstone dust increases mining speed by a small amount.",
+    "Attack speed is increased on weapons.",
+    "Multiple levels available."
   ]
 }

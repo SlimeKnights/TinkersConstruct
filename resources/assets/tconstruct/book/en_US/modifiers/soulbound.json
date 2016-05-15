@@ -6,7 +6,8 @@
     }
   ],
   "effects": [
-    "Tool remains in your inventory after death."
+    "Tool remains in your inventory after death.",
+    "Single level available."
   ],
   "demoTool": [
     "tconstruct:broadsword",

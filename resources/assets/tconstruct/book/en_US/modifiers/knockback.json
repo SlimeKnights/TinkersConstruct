@@ -7,7 +7,8 @@
   ],
   "effects": [
     "Adds extra knockback to the tool.",
-    "Each piston increases the knockback distance."
+    "Each piston increases the knockback distance.",
+    "Multiple levels available."
   ],
   "demoTool": [
     "tconstruct:broadsword"

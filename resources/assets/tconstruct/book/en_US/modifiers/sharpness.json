@@ -2,12 +2,13 @@
   "modifier": "sharpness",
   "text": [
     {
-      "text": "Adding quartz to the edge of a tool seems to make it sharper. Quartz is sharp."
+      "text": "You can use Quartz to sharpen and hone the edge of weapons. The more used the better you can sharpen the blade. Works with blunt items as well."
     }
   ],
   "effects": [
     "Increases attack damage.",
-    "Has less of an effect on tools with piercing properties."
+    "Non-slashing weapons scale their damage differently from those with an edge.",
+    "Multiple levels available."
   ],
   "demoTool": [
     "tconstruct:broadsword",

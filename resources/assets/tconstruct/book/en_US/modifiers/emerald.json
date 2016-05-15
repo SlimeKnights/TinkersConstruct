@@ -2,12 +2,14 @@
   "modifier": "emerald",
   "text": [
     {
-      "text": "Affixing an emerald to a tool's weakest point appears to make it more resilient."
+      "text": "Affixing an emerald to a tool's weakest point appears to make it more resilient. Villagers may also covet your tool, be weary."
     }
   ],
   "effects": [
-    "50% more durability",
-    "Mining level increased to level 2"
+    "Increases the durability of the tool.",
+    "Mining level increased to Iron.",
+    "Outrageous!",
+    "Single level available."
   ],
   "demoTool": [
     "tconstruct:pickaxe",

@@ -2,12 +2,14 @@
   "modifier": "diamond",
   "text": [
     {
-      "text": "Adding a diamond to the edge of a tool seems to make it more resilient."
+      "text": "Adding a diamond to the edge of a tool seems to make it more resilient and increases what the tool can mine. Also makes a fetching fashion statement."
     }
   ],
   "effects": [
     "Extra durability",
-    "Mining level increased to level 3"
+    "Mining level increased to Obsidian.",
+    "Fabulous!",
+    "Single level available."
   ],
   "demoTool": [
     "tconstruct:pickaxe"

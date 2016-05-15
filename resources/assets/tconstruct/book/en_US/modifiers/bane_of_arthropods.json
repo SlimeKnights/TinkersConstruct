@@ -6,9 +6,10 @@
     }
   ],
   "effects": [
-    "Does extra damage to spiders and silverfish.",
-    "1-2 hearts per level.",
-    "Slows arthropods for 1 second per level."
+    "Extra damage to only spiders and silverfish.",
+    "Greater damage than Sharpness.",
+    "Not compatible with Sharpness or Smite.",
+    "Multiple levels available."
   ],
   "demoTool": [
     "tconstruct:broadsword",

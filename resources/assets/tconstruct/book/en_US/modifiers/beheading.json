@@ -2,11 +2,13 @@
   "modifier": "beheading",
   "text": [
     {
-      "text": "Working an ender pearl and some obsidian on a weapon has the curious effect of separating the target's head from its body."
+      "text": "Working an ender pearl and some obsidian on a weapon has the curious effect of separating the target's head from its body. Just a little off the top?"
     }
   ],
   "effects": [
-    "Beheads mobs. Enemies drop their heads as a result."
+    "Beheads mobs. Enemies drop their heads as a result.",
+    "Adding more Obsidian and Ender Pearls increases the chance of decapitation.",
+    "Multiple levels available."
   ],
   "demoTool": [
     "tconstruct:broadsword",

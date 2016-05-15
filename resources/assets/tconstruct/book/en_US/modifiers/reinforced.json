@@ -6,8 +6,9 @@
     }
   ],
   "effects": [
-    "Adds the material trait Reinforced to the tool.",
-    "Stacks with previous levels of Reinforced."
+    "Each plate adds a chance that durability of a tool is not used.",
+    "Stacks with previous levels of Reinforced.",
+    "Multiple levels available."
   ],
   "demoTool": [
     "tconstruct:pickaxe",

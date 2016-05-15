@@ -7,7 +7,8 @@
   ],
   "effects": [
     "Does extra damage to undead.",
-    "1-2 hearts per level."
+    "Does more damage to undead than Sharpness.",
+    "Multiple levels available."
   ],
   "demoTool": [
     "tconstruct:broadsword",
