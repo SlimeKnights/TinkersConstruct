@@ -5,7 +5,7 @@
         "model": "cube",
         "textures": {
             "particle": "#up",
-            "up": "tconstruct:blocks/smeltery/seared_brick",
+            "up": "tconstruct:blocks/smeltery/drain_front",
             "down": "#up",
             "east": "#up",
             "west": "#up",
