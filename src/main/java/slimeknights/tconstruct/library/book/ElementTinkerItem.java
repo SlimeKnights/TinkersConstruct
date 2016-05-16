@@ -8,9 +8,12 @@ import net.minecraft.item.ItemStack;
 import java.util.Collection;
 
 import slimeknights.mantle.client.gui.book.element.ElementItem;
+import slimeknights.tconstruct.library.Util;
 
 /** Same as ElementItem, but uses the vanilla fontrenderer if none other is given */
 public class ElementTinkerItem extends ElementItem {
+
+  public boolean noTooltip = false;
 
   public ElementTinkerItem(ItemStack item) {
     this(0, 0, 1, item);
@@ -46,6 +49,9 @@ public class ElementTinkerItem extends ElementItem {
 
   @Override
   public void drawOverlay(int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
+    if(noTooltip) {
+      return;
+    }
     if(tooltip == null) {
       fontRenderer = mc.fontRendererObj;
     }

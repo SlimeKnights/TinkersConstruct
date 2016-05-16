@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.IModifierDisplay;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -118,7 +119,7 @@ public class ContentModifier extends TinkerPage {
     addTitle(list, CustomFontColor.encodeColor(color) + modifier.getLocalizedName(), true);
 
     // description
-    int h = GuiBook.PAGE_WIDTH/3;
+    int h = GuiBook.PAGE_WIDTH/3 - 10;
     list.add(new ElementText(10, 20, GuiBook.PAGE_WIDTH-20, h, text));
 
     if(effects.length > 0) {
@@ -162,11 +163,30 @@ public class ContentModifier extends TinkerPage {
     list.add(new ElementImage(imgX + (img.width - IMG_TABLE.width)/2, imgY - 24, -1, -1, IMG_TABLE));
     list.add(new ElementImage(imgX, imgY, -1, -1, img, book.appearance.slotColor));
 
+    ItemStack[] demo = getDemoTools(inputItems);
+
+    ElementTinkerItem toolItem = new ElementTinkerItem(imgX + (img.width - 16)/2, imgY - 24, 1f, demo);
+    toolItem.noTooltip = true;
+
+    list.add(toolItem);
+    list.add(new ElementImage(imgX + (img.width - 22)/2, imgY - 27, -1, -1, IMG_SLOT_1, 0xffffff));
+
+    if(inputItems != null) {
+      for(int i = 0; i < inCount; i++) {
+        list.add(new ElementTinkerItem(imgX + slotX[i], imgY + slotY[i], 1f, inputItems[i]));
+      }
+    }
+  }
+
+  protected ItemStack[] getDemoTools(ItemStack[][] inputItems) {
     ItemStack[] demo = new ItemStack[tool.size()];
 
     for(int i = 0; i < tool.size(); i++) {
       if(tool.get(i) instanceof ToolCore) {
-        demo[i] = ((ToolCore) tool.get(i)).buildItemForRendering(ImmutableList.<Material>of(TinkerMaterials.wood, TinkerMaterials.cobalt, TinkerMaterials.cobalt));
+        ToolCore core = (ToolCore) tool.get(i);
+        List<Material> mats = ImmutableList.<Material>of(TinkerMaterials.wood, TinkerMaterials.cobalt, TinkerMaterials.ardite, TinkerMaterials.manyullyn);
+        mats = mats.subList(0, core.getRequiredComponents().size());
+        demo[i] = ((ToolCore) tool.get(i)).buildItemForRendering(mats);
       }
       else if(tool != null) {
         demo[i] = new ItemStack(tool.get(i));
@@ -177,13 +197,6 @@ public class ContentModifier extends TinkerPage {
       }
     }
 
-    list.add(new ElementTinkerItem(imgX + (img.width - 16)/2, imgY - 24, 1f, demo));
-    list.add(new ElementImage(imgX + (img.width - 22)/2, imgY - 27, -1, -1, IMG_SLOT_1, 0xffffff));
-
-    if(inputItems != null) {
-      for(int i = 0; i < inCount; i++) {
-        list.add(new ElementTinkerItem(imgX + slotX[i], imgY + slotY[i], 1f, inputItems[i]));
-      }
-    }
+    return demo;
   }
 }
