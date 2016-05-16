@@ -27,6 +27,7 @@ import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.client.RenderEvents;
 import slimeknights.tconstruct.tools.client.renderer.RenderShuriken;
 import slimeknights.tconstruct.tools.entity.EntityShuriken;
+import slimeknights.tconstruct.tools.modifiers.ModFortifyDisplay;
 
 import static slimeknights.tconstruct.tools.TinkerTools.modCreative;
 import static slimeknights.tconstruct.tools.TinkerTools.modHarvestHeight;
@@ -107,21 +108,7 @@ public class ToolClientProxy extends ClientProxy {
     }
 
     // we add a temporary modifier that does nothing to work around the model restrictions for the fortify modifier
-    registerModifierModel(new Modifier("fortify") {
-      @Override
-      public void updateNBT(NBTTagCompound modifierTag) {
-      }
-
-      @Override
-      public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
-
-      }
-
-      @Override
-      public boolean hasTexturePerMaterial() {
-        return true;
-      }
-    }, Util.getResource("models/item/modifiers/fortify"));
+    registerModifierModel(new ModFortifyDisplay(), Util.getResource("models/item/modifiers/fortify"));
 
     // entities
     //RenderingRegistry.registerEntityRenderingHandler(EntityShuriken.class, RenderProjectileBase.getFactory(RenderShuriken.class));

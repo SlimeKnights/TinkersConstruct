@@ -19,7 +19,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class ModFortify extends ToolModifier {
 
-  protected final Material material;
+  public final Material material;
 
   public ModFortify(Material material) {
     super("fortify" + material.getIdentifier(), material.materialTextColor);
