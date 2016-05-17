@@ -22,5 +22,6 @@ public class TinkerBook extends BookData {
     INSTANCE.addTransformer(new MaterialSectionTransformer());
     //INSTANCE.addTransformer(new ModifierSectionTransformer());
     INSTANCE.addTransformer(BookTransformer.IndexTranformer());
+    INSTANCE.addTransformer(new ModifierSectionTransformer());
   }
 }
