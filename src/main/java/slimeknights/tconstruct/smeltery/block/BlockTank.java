@@ -71,8 +71,6 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
 
   @Override
   public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-    if(worldIn.isRemote) return true;
-
     TileEntity te = worldIn.getTileEntity(pos);
     if(!(te instanceof IFluidHandler)) {
       return false;
