@@ -18,7 +18,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameData;
-
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
@@ -199,6 +198,10 @@ public abstract class ClientProxy extends CommonProxy {
     }
 
     return registerIt(item, itemLocation);
+  }
+  
+  public ResourceLocation registerItemModel(Block block) {
+    return registerItemModel(Item.getItemFromBlock(block));
   }
 
   public void registerItemModel(Item item, int meta, String variant) {

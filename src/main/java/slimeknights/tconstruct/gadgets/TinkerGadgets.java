@@ -1,13 +1,12 @@
 package slimeknights.tconstruct.gadgets;
 
-import com.google.common.eventbus.Subscribe;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemHangingEntity;
 import net.minecraft.item.ItemStack;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -21,12 +20,15 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import org.apache.logging.log4j.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.EntityIDs;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.gadgets.block.BlockDriedClay;
+import slimeknights.tconstruct.gadgets.block.BlockDriedClaySlab;
 import slimeknights.tconstruct.gadgets.block.BlockPunji;
 import slimeknights.tconstruct.gadgets.block.BlockRack;
 import slimeknights.tconstruct.gadgets.block.BlockStoneLadder;
@@ -44,6 +46,8 @@ import slimeknights.tconstruct.gadgets.tileentity.TileItemRack;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.block.BlockFirewood;
+import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.tools.TableRecipe;
 
 @Pulse(id = TinkerGadgets.PulseId, description = "All the fun toys")
@@ -60,7 +64,10 @@ public class TinkerGadgets extends TinkerPulse {
   public static Block woodRail;
   public static Block punji;
   public static BlockRack rack;
-  public static Block driedClay;
+  public static BlockDriedClay driedClay;
+  public static Block driedClaySlab;
+  public static Block driedClayStairs;
+  public static Block driedBrickStairs;
 
   public static ItemSlimeSling slimeSling;
   public static ItemSlimeBoots slimeBoots;
@@ -78,6 +85,10 @@ public class TinkerGadgets extends TinkerPulse {
     punji = registerBlock(new BlockPunji(), "punji");
     rack = registerBlock(new ItemBlockRack(new BlockRack()), "rack");
     driedClay = registerEnumBlock(new BlockDriedClay(), "dried_clay");
+    driedClaySlab = registerEnumBlockSlab(new BlockDriedClaySlab(), "dried_clay_slab");
+    
+    driedClayStairs = registerBlockStairsFrom(driedClay, BlockDriedClay.DriedClayType.CLAY, "dried_clay_stairs");
+    driedBrickStairs = registerBlockStairsFrom(driedClay, BlockDriedClay.DriedClayType.BRICK, "dried_brick_stairs");
 
     registerTE(TileItemRack.class, "item_rack");
     registerTE(TileDryingRack.class, "drying_rack");
@@ -137,12 +148,25 @@ public class TinkerGadgets extends TinkerPulse {
 
     // Item Rack, a bit cheaper to encourage it for decoration
     GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres("slabWood"), rack, 0, "ww", 'w', "slabWood"));
+    GameRegistry.addRecipe(BlockTable.createItemstack(rack, 0, TinkerCommons.slabFirewood, BlockFirewood.FirewoodType.LAVAWOOD.getMeta()),
+                           "ww", 'w', new ItemStack(TinkerCommons.slabFirewood, 1, BlockFirewood.FirewoodType.LAVAWOOD.getMeta()));
 
     // Drying Rack
     GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres("slabWood"), rack, 1, "www", 'w', "slabWood"));
+    GameRegistry.addRecipe(BlockTable.createItemstack(rack, 1, TinkerCommons.slabFirewood, BlockFirewood.FirewoodType.LAVAWOOD.getMeta()),
+        "www", 'w', new ItemStack(TinkerCommons.slabFirewood, 1, BlockFirewood.FirewoodType.LAVAWOOD.getMeta()));
 
     // Dried Bricks
-    GameRegistry.addRecipe(new ItemStack(driedClay, 1, 1), "bb", "bb", 'b', TinkerCommons.driedBrick);
+    ItemStack stackDriedClay = new ItemStack(driedClay, 1, BlockDriedClay.DriedClayType.CLAY.getMeta());
+    ItemStack stackDriedBrick = new ItemStack(driedClay, 1, BlockDriedClay.DriedClayType.BRICK.getMeta());
+    
+    GameRegistry.addRecipe(stackDriedBrick, "bb", "bb", 'b', TinkerCommons.driedBrick);
+    GameRegistry.addShapedRecipe(new ItemStack(driedClaySlab, 1, BlockDriedClay.DriedClayType.BRICK.getMeta()), "bb", 'b', TinkerCommons.driedBrick);
+    
+    addSlabRecipe(new ItemStack(driedClaySlab, 1, BlockDriedClay.DriedClayType.CLAY.getMeta()), stackDriedClay);
+    addSlabRecipe(new ItemStack(driedClaySlab, 1, BlockDriedClay.DriedClayType.BRICK.getMeta()), stackDriedBrick);
+    addStairRecipe(driedClayStairs, stackDriedClay);
+    addStairRecipe(driedBrickStairs, stackDriedBrick);
 
     // fancy item frames
     ItemStack frame = new ItemStack(TinkerGadgets.fancyFrame, 1, EntityFancyItemFrame.FrameType.GOLD.ordinal());
@@ -210,7 +234,7 @@ public class TinkerGadgets extends TinkerPulse {
 
     // Dried Clay
     TinkerRegistry.registerDryingRecipe(Items.CLAY_BALL, TinkerCommons.driedBrick, 20 * 60 * 2);
-    TinkerRegistry.registerDryingRecipe(new ItemStack(Blocks.CLAY), new ItemStack(driedClay, 1, 0), 20 * 60 * 6);
+    TinkerRegistry.registerDryingRecipe(new ItemStack(Blocks.CLAY), new ItemStack(driedClay, 1, BlockDriedClay.DriedClayType.CLAY.getMeta()), 20 * 60 * 6);
 
     // Wet sponge to dry sponge
     TinkerRegistry.registerDryingRecipe(new ItemStack(Blocks.SPONGE, 1, 1), new ItemStack(Blocks.SPONGE, 1, 0), 20 * 60 * 2);

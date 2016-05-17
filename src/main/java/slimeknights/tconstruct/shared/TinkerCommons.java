@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.shared;
 
+import org.apache.logging.log4j.Logger;
+
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
@@ -15,9 +17,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-
-import org.apache.logging.log4j.Logger;
-
 import slimeknights.mantle.item.ItemEdible;
 import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.mantle.pulsar.pulse.Pulse;
@@ -28,14 +27,14 @@ import slimeknights.tconstruct.common.item.ItemTinkerBook;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
+import slimeknights.tconstruct.shared.block.BlockFirewoodSlab;
 import slimeknights.tconstruct.shared.block.BlockGlow;
 import slimeknights.tconstruct.shared.block.BlockMetal;
 import slimeknights.tconstruct.shared.block.BlockOre;
 import slimeknights.tconstruct.shared.block.BlockSoil;
+import slimeknights.tconstruct.shared.block.BlockSoilSlab;
 import slimeknights.tconstruct.shared.item.ItemMetaDynamicTinkers;
 import slimeknights.tconstruct.shared.worldgen.NetherOreGenerator;
-
-//import slimeknights.tconstruct.common.item.ItemTinkerBook;
 
 /**
  * Contains items and blocks and stuff that is shared by multiple pulses, but might be required individually
@@ -52,8 +51,16 @@ public class TinkerCommons extends TinkerPulse {
   public static BlockSoil blockSoil;
   public static BlockOre blockOre;
   public static BlockMetal blockMetal;
-  public static Block blockFirewood;
+  public static BlockFirewood blockFirewood;
   public static BlockGlow blockGlow;
+
+  public static Block slabSoil;
+  public static Block slabFirewood;
+  
+  // stairs
+  public static Block stairsMudBrick;
+  public static Block stairsFirewood;
+  public static Block stairsLavawood;
 
   // block itemstacks
   public static ItemStack grout;
@@ -174,6 +181,15 @@ public class TinkerCommons extends TinkerPulse {
     blockFirewood.setCreativeTab(TinkerRegistry.tabGeneral);
     lavawood = new ItemStack(blockFirewood, 1, BlockFirewood.FirewoodType.LAVAWOOD.getMeta());
     firewood = new ItemStack(blockFirewood, 1, BlockFirewood.FirewoodType.FIREWOOD.getMeta());
+    
+    // slabs
+    slabSoil = registerEnumBlockSlab(new BlockSoilSlab(), "soil_slab");
+    slabFirewood = registerEnumBlockSlab(new BlockFirewoodSlab(), "firewood_slab");
+    
+    // stairs
+    stairsMudBrick = registerBlockStairsFrom(blockSoil, BlockSoil.SoilTypes.MUDBRICK, "mudbrick_stairs");
+    stairsFirewood = registerBlockStairsFrom(blockFirewood, BlockFirewood.FirewoodType.FIREWOOD, "firewood_stairs");
+    stairsLavawood = registerBlockStairsFrom(blockFirewood, BlockFirewood.FirewoodType.LAVAWOOD, "lavawood_stairs");
 
     // create the items. We can probably always create them since they handle themselves dynamically
     nuggets = registerItem(new ItemMetaDynamicTinkers(), "nuggets");
@@ -292,9 +308,15 @@ public class TinkerCommons extends TinkerPulse {
     if(mudBrick != null) {
       GameRegistry.addShapedRecipe(mudBrickBlock, "BB", "BB", 'B', mudBrick);
     }
+    addSlabRecipe(new ItemStack(slabSoil, 1, BlockSoilSlab.SoilType.MUDBRICK.getMeta()), mudBrickBlock);
+    addStairRecipe(stairsMudBrick, mudBrickBlock);
 
     // firewood
     GameRegistry.addShapelessRecipe(firewood, Items.BLAZE_POWDER, lavawood, Items.BLAZE_POWDER);
+    addSlabRecipe(new ItemStack(slabFirewood, 1, BlockFirewood.FirewoodType.FIREWOOD.getMeta()), firewood);
+    addSlabRecipe(new ItemStack(slabFirewood, 1, BlockFirewood.FirewoodType.LAVAWOOD.getMeta()), lavawood);
+    addStairRecipe(stairsFirewood, firewood);
+    addStairRecipe(stairsLavawood, lavawood);
 
     // metals
     registerMetalRecipes("Cobalt", ingotCobalt, nuggetCobalt, blockCobalt);
