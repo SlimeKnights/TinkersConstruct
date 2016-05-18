@@ -6,9 +6,9 @@
     }
   ],
   "effects": [
-    "Each plate adds a chance that durability of a tool is not used.",
-    "Stacks with previous levels of Reinforced.",
-    "Multiple levels available."
+    "Adds a chance to not consume durability",
+    "Stacks with previous levels of Reinforced",
+    "Multiple levels"
   ],
   "demoTool": [
     "tconstruct:pickaxe",

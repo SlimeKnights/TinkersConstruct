@@ -6,9 +6,9 @@
     }
   ],
   "effects": [
-    "Chance to heal you every time a monster is hit.",
-    "Add more bones to increase the heal chance and amount.",
-    "Multiple levels available."
+    "Heal when dealing damage",
+    "Add more bones to increase the heal",
+    "Multiple levels"
   ],
   "demoTool": [
     "tconstruct:broadsword",

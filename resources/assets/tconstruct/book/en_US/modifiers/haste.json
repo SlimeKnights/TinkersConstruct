@@ -2,12 +2,16 @@
   "modifier": "haste",
   "text": [
     {
-      "text": "Adding redstone to a tool seems to increase its mining speed. Redstone. Crazy stuff, amiright."
+      "text": "Adding redstone to a tool seems to increase its  speed. Redstone. Crazy stuff, amiright?"
     }
   ],
   "effects": [
-    "Each redstone dust increases mining speed by a small amount.",
-    "Attack speed is increased on weapons.",
-    "Multiple levels available."
+    "Each redstone dust increases mining speed by a small amount",
+    "Increases attack speed",
+    "Multiple levels"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword"
   ]
 }

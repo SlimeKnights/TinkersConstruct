@@ -6,10 +6,10 @@
     }
   ],
   "effects": [
-    "Increases the durability of the tool.",
-    "Mining level increased to Iron.",
-    "Outrageous!",
-    "Single level available."
+    "50% durability increase",
+    "Mining level increased to Iron",
+    "Single use",
+    "Outrageous!"
   ],
   "demoTool": [
     "tconstruct:pickaxe",

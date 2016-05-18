@@ -6,10 +6,8 @@
     }
   ],
   "effects": [
-    "Extra damage to only spiders and silverfish.",
-    "Greater damage than Sharpness.",
-    "Not compatible with Sharpness or Smite.",
-    "Multiple levels available."
+    "Deals massive damate to spiders and silverfish",
+    "Multiple levels"
   ],
   "demoTool": [
     "tconstruct:broadsword",

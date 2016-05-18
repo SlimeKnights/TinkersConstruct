@@ -6,10 +6,9 @@
     }
   ],
   "effects": [
-    "Mining level increased to the same level as %s."
+    "Mining level increased to the same level as %s"
   ],
   "demoTool": [
-    "tconstruct:pickaxe",
-    "tconstruct:hammer"
+    "tconstruct:pickaxe"
   ]
 }

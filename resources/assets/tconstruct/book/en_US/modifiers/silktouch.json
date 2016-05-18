@@ -7,9 +7,9 @@
     }
   ],
   "effects": [
-    "Allows blocks to be harvested directly.",
-    "Not compatible with Luck or Auto-Smelt.",
-    "Single level available."
+    "Allows blocks to be harvested directly",
+    "Not compatible with Luck or Auto-Smelt",
+    "Single use"
   ],
   "demoTool": [
     "tconstruct:pickaxe",

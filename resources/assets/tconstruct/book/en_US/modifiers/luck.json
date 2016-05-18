@@ -6,10 +6,10 @@
     }
   ],
   "effects": [
-    "Adds fortune or looting.",
-    "Tool use has a chance to increase the luck.",
-    "Adding more lapis only takes up the one modifier.",
-    "Not compatible with Silky."
+    "Adds fortune or looting",
+    "Tool use has a chance to increase the luck",
+    "Adding more lapis only takes one modifier",
+    "Not compatible with Silky"
   ],
   "demoTool": [
     "tconstruct:pickaxe",

@@ -7,9 +7,10 @@
   ],
   "effects": [
     "Extra durability",
-    "Mining level increased to Obsidian.",
-    "Fabulous!",
-    "Single level available."
+    "Minor stat increase",
+    "Mining level increased to Obsidian",
+    "Single use",
+    "Fabulous!"
   ],
   "demoTool": [
     "tconstruct:pickaxe"

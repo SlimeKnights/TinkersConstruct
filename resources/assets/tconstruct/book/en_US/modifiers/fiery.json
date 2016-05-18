@@ -6,9 +6,8 @@
     }
   ],
   "effects": [
-    "Sets enemies on fire and deals additional fire damage.",
-    "The more powder added, increases the flame duration.",
-    "Multiple levels available."
+    "Sets enemies on fire and deals additional fire damage",
+    "Multiple levels"
   ],
   "demoTool": [
     "tconstruct:broadsword"

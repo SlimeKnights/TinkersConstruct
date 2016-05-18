@@ -6,9 +6,8 @@
     }
   ],
   "effects": [
-    "Does extra damage to undead.",
-    "Does more damage to undead than Sharpness.",
-    "Multiple levels available."
+    "Deals massive damage to undead enemies",
+    "Multiple levels"
   ],
   "demoTool": [
     "tconstruct:broadsword",

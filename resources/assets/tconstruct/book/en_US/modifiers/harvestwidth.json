@@ -6,9 +6,9 @@
     }
   ],
   "effects": [
-    "Increases the width of the area affected by your tool.",
-    "Does not work for weapons.",
-    "Multiple levels available."
+    "Increases the width of the area affected",
+    "Does not work for weapons",
+    "Multiple levels"
   ],
   "demoTool": [
     "tconstruct:pickaxe",
