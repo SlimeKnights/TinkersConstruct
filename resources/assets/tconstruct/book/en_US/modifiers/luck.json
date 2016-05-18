@@ -8,7 +8,7 @@
   "effects": [
     "Adds fortune or looting",
     "Tool use has a chance to increase the luck",
-    "Adding more lapis only takes one modifier",
+    "Adding more lapis only uses one modifier",
     "Not compatible with Silky"
   ],
   "demoTool": [

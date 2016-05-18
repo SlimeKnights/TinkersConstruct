@@ -6,7 +6,10 @@
     }
   ],
   "effects": [
-    "Mining level increased to the same level as %s"
+    "Increases Mining level",
+    "Mining Level depends on material used",
+    "Can also downgrade level",
+    "Requires no modifier"
   ],
   "demoTool": [
     "tconstruct:pickaxe"

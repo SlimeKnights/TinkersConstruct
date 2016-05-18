@@ -6,7 +6,8 @@
     }
   ],
   "effects": [
-    "Sets enemies on fire and deals additional fire damage",
+    "Sets enemies on fire",
+    "Deals additional fire damage on hit",
     "Multiple levels"
   ],
   "demoTool": [

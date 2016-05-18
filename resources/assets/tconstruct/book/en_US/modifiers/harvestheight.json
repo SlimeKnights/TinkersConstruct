@@ -7,6 +7,7 @@
   ],
   "effects": [
     "Increases the height of the area affected",
+    "Only affects blocks",
     "Does not work for weapons",
     "Multiple levels"
   ],
