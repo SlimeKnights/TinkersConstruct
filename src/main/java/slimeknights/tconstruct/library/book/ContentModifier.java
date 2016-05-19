@@ -134,7 +134,7 @@ public class ContentModifier extends TinkerPage {
         effectData.add(new TextData("\n"));
       }
 
-      list.add(new ElementText(10, 30 + h, GuiBook.PAGE_WIDTH / 2 - 5, GuiBook.PAGE_HEIGHT - h - 20, effectData));
+      list.add(new ElementText(10, 30 + h, GuiBook.PAGE_WIDTH / 2 + 5, GuiBook.PAGE_HEIGHT - h - 20, effectData));
     }
 
     ImageData img;

@@ -12,7 +12,7 @@ import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.gui.book.GuiBook;
 import slimeknights.mantle.client.gui.book.element.BookElement;
 
-public class ContentListing extends TinkerPage {
+public class ContentListingCentered extends TinkerPage {
 
   public String title;
   private final List<TextData> entries = Lists.newArrayList();
@@ -36,22 +36,12 @@ public class ContentListing extends TinkerPage {
     int y = yOff;
     int x = 0;
     int w = GuiBook.PAGE_WIDTH;
-    int line_height = 9;
-
-    int bot = GuiBook.PAGE_HEIGHT - 30;
-
-    if(entries.size()*line_height + yOff > bot) {
-      w /= 2;
-    }
 
     for(TextData data : entries) {
-      list.add(new ElementListingLeft(x, y, w, line_height, data));
-      y += line_height;
+      int ex = x + w/2 - book.fontRenderer.getStringWidth(data.text)/2;
 
-      if(y > bot) {
-        x += w;
-        y = yOff;
-      }
+      list.add(new ElementListingCentered(ex, y, w, 9, data));
+      y += 9;
     }
   }
 }
