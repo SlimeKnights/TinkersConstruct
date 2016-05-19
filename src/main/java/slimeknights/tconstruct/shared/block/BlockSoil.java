@@ -78,7 +78,8 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
   }
 
   @Override
-  public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+  public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
+    IBlockState state = worldIn.getBlockState(pos);
     switch(state.getValue(TYPE)) {
       case SLIMY_MUD_GREEN:
       case SLIMY_MUD_BLUE:
