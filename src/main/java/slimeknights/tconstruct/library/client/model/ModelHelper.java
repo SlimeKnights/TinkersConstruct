@@ -82,7 +82,17 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
     Reader reader = getReaderForResource(location);
     try {
       TransformDeserializer.tag = tag;
-      return GSON.fromJson(reader, transformtype);
+      ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms = GSON.fromJson(reader, transformtype);
+
+      // filter out missing/identity entries
+      ImmutableMap.Builder<ItemCameraTransforms.TransformType, TRSRTransformation> builder = ImmutableMap.builder();
+      for(Map.Entry<ItemCameraTransforms.TransformType, TRSRTransformation> entry : transforms.entrySet()) {
+        if(!entry.getValue().equals(TRSRTransformation.identity())) {
+          builder.put(entry.getKey(), entry.getValue());
+        }
+      }
+
+      return builder.build();
     } finally {
       IOUtils.closeQuietly(reader);
     }
