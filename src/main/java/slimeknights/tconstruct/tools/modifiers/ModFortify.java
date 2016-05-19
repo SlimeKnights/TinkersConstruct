@@ -38,7 +38,7 @@ public class ModFortify extends ToolModifier {
 
   @Override
   public String getLocalizedName() {
-    return Util.translateFormatted(String.format(LOC_Name, "fortify"), material.getLocalizedName());
+    return Util.translateFormatted(String.format(LOC_Name, "fortify") + " (%s)", material.getLocalizedName());
   }
 
   @Override

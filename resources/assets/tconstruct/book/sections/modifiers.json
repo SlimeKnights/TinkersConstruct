@@ -1,8 +1,5 @@
 [
   {
-    "type": "blank"
-  },
-  {
     "type": "modifier",
     "data": "modifiers/haste.json"
   },
@@ -12,11 +9,7 @@
   },
   {
     "type": "modifier",
-    "data": "modifiers/fortify.json"
-  },
-  {
-    "type": "modifier",
-    "data": "modifiers/reinforced.json"
+    "data": "modifiers/sharpness.json"
   },
   {
     "type": "modifier",
@@ -27,8 +20,16 @@
     "data": "modifiers/emerald.json"
   },
   {
+    "type": "modifier_fortify",
+    "data": "modifiers/fortify.json"
+  },
+  {
     "type": "modifier",
-    "data": "modifiers/sharpness.json"
+    "data": "modifiers/silktouch.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/reinforced.json"
   },
   {
     "type": "modifier",
@@ -53,10 +54,6 @@
   {
     "type": "modifier",
     "data": "modifiers/knockback.json"
-  },
-  {
-    "type": "modifier",
-    "data": "modifiers/silktouch.json"
   },
   {
     "type": "modifier",
