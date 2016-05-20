@@ -35,6 +35,7 @@ import slimeknights.tconstruct.shared.block.BlockSoil;
 import slimeknights.tconstruct.shared.block.BlockSoilSlab;
 import slimeknights.tconstruct.shared.item.ItemMetaDynamicTinkers;
 import slimeknights.tconstruct.shared.worldgen.NetherOreGenerator;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 /**
  * Contains items and blocks and stuff that is shared by multiple pulses, but might be required individually
@@ -293,15 +294,27 @@ public class TinkerCommons extends TinkerPulse {
       blockGlow = registerBlock(new BlockGlow(), "glow");
     }
 
-    // oredicting time
-    registerRecipies();
-
     proxy.preInit();
 
     TinkerRegistry.tabGeneral.setDisplayIcon(matSlimeBallBlue);
   }
 
+  @Subscribe
+  public void init(FMLInitializationEvent event) {
+    registerRecipies();
+
+    GameRegistry.registerWorldGenerator(NetherOreGenerator.INSTANCE, 0);
+
+    MinecraftForge.EVENT_BUS.register(new AchievementEvents());
+    MinecraftForge.EVENT_BUS.register(new PlayerDataEvents());
+  }
+
   private void registerRecipies() {
+    // book
+    if(isToolsLoaded()) {
+      GameRegistry.addShapelessRecipe(new ItemStack(book), new ItemStack(Items.BOOK), new ItemStack(TinkerTools.pattern));
+    }
+
     // soils
     GameRegistry.addSmelting(graveyardSoil, consecratedSoil, 0);
     GameRegistry.addShapelessRecipe(graveyardSoil, Blocks.DIRT, Items.ROTTEN_FLESH, new ItemStack(Items.DYE, 1, 15));
@@ -355,12 +368,5 @@ public class TinkerCommons extends TinkerPulse {
     small.stackSize = 9;
     //GameRegistry.addShapelessRecipe(small, big);
     GameRegistry.addRecipe(new ShapelessOreRecipe(small, oreBig));
-  }
-
-  @Subscribe
-  public void init(FMLInitializationEvent event) {
-    GameRegistry.registerWorldGenerator(NetherOreGenerator.INSTANCE, 0);
-
-    MinecraftForge.EVENT_BUS.register(new AchievementEvents());
   }
 }
