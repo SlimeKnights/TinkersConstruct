@@ -29,7 +29,7 @@ public class CommonsClientProxy extends ClientProxy {
     edibles.registerItemModels();
 
     registerItemModel(book, 0, "inventory");
-    TinkerBook.INSTANCE.equals(null);
+    TinkerBook.INSTANCE.equals(null); // instantiate book so it's loaded ._.
 
     registerItemBlockMeta(blockMetal);
     registerItemBlockMeta(blockSoil);

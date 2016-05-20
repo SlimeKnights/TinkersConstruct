@@ -1,7 +1,7 @@
 [
   {
     "name": "intro",
-    "data": "sections/intro.json",
+    "data": "sections/intro_tmp.json",
     "icon": {
       "item": {
         "id": "tconstruct:tooltables",
@@ -19,28 +19,11 @@
     }
   },
   {
-    "name": "tools",
-    "icon": {
-      "item": {
-        "id": "minecraft:iron_pickaxe"
-      }
-    }
-  },
-  {
     "name": "modifiers",
     "data": "sections/modifiers.json",
     "icon": {
       "item": {
         "id": "minecraft:redstone"
-      }
-    }
-  },
-  {
-    "name": "smeltery",
-    "data": "sections/smeltery.json",
-    "icon": {
-      "item": {
-        "id": "tconstruct:smeltery_controller"
       }
     }
   }
