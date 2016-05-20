@@ -25,8 +25,8 @@ tile.tconstruct.soil.graveyard.tooltip=Ce guérit les morts-vivant.
 tile.tconstruct.soil.consecrated.name=Sol sacré
 tile.tconstruct.soil.consecrated.tooltip=Ce fait mal les morts-vivant.
 tile.tconstruct.soil.mudbrick.name=Briques de boue
-tile.tconstruct.soil_slab.mudbrick.name=Mud Bricks Slab
-tile.tconstruct.mudbrick_stairs.name=Mud Bricks Stairs
+tile.tconstruct.soil_slab.mudbrick.name=Dalle en briques de boue
+tile.tconstruct.mudbrick_stairs.name=Escaliers en briques de boue
 
 tile.tconstruct.ore.cobalt.name=Minerai de cobalt
 tile.tconstruct.ore.ardite.name=Minerai d'ardite
@@ -58,7 +58,7 @@ tile.tconstruct.slime_congealed.blue.name=Bloc de substance gluante gélatineux 
 tile.tconstruct.slime_congealed.purple.name=Bloc de substance gluante gélatineux violet
 tile.tconstruct.slime_congealed.blood.name=Bloc de substance gluante gélatineux de sang
 tile.tconstruct.slime_congealed.magma.name=Bloc de substance gluante gélatineux de magma
-tile.tconstruct.slime_congealed.tooltip=Lets you jump really high.
+tile.tconstruct.slime_congealed.tooltip=Ce te permet sauter très haut.
 
 tile.tconstruct.slime_dirt.green.name=Terre gluante vert
 tile.tconstruct.slime_dirt.blue.name=Terre gluante bleu
@@ -73,7 +73,7 @@ tile.tconstruct.slime_grass.blue.name=Herbe gluante bleu
 tile.tconstruct.slime_grass.purple.name=Herbe gluante violet
 tile.tconstruct.slime_grass.blood.name=Herbe gluante de sang
 tile.tconstruct.slime_grass.magma.name=Herbe gluante de magma
-tile.tconstruct.slime_grass.tooltip=So soft! Lets you jump higher
+tile.tconstruct.slime_grass.tooltip=Très mou! Ce te permet sauter plus haut.
 
 tile.tconstruct.slime_leaves.blue.name=Feuilles gluante
 tile.tconstruct.slime_leaves.purple.name=Feuilles gluante
@@ -103,7 +103,7 @@ tile.tconstruct.seared.brick_fancy.name=Briques revenu sophistiqué
 tile.tconstruct.seared.brick_square.name=Briques revenu carrée
 tile.tconstruct.seared.road.name=Rue revenu
 tile.tconstruct.seared.creeper.name=Briques revenu de visage de Creeper
-tile.tconstruct.seared.tooltip=Part of the Smeltery. Safe for Decoration.
+tile.tconstruct.seared.tooltip=C'est de fonderie. C'est sûr pour décoration.
 
 tile.tconstruct.seared_slab.stone.name=Seared Stone Slab
 tile.tconstruct.seared_slab.cobble.name=Seared Cobblestone Slab
