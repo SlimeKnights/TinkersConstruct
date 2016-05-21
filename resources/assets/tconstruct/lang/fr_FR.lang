@@ -159,89 +159,89 @@ tile.tconstruct.dried_brick_stairs.name=Escaliers en briques sec
 
 
 ################
-#    Items     #
+#    Objets    #
 ################
 
 # General Items
-item.tconstruct.book.name=Materials and You
-item.tconstruct.book.tooltip=The book every Tinkerer needs\nby Skyla
+item.tconstruct.book.name=Matériaux et Vous
+item.tconstruct.book.tooltip=Chaque Tinkeur doit ce livre\npar Skyla
 
 item.tconstruct.edible.bacon.name=Bacon
-item.tconstruct.edible.slimeball_blue.name=Slime Ball
-item.tconstruct.edible.slimeball_purple.name=Slime Ball
-item.tconstruct.edible.slimeball_blood.name=Coagulated Blood
-item.tconstruct.edible.slimeball_magma.name=Slime Ball
-item.tconstruct.edible.jerky_beef.name=Beef Jerky
-item.tconstruct.edible.jerky_chicken.name=Chicken Jerky
-item.tconstruct.edible.jerky_pork.name=Bacon Jerky
-item.tconstruct.edible.jerky_mutton.name=Mutton Jerky
-item.tconstruct.edible.jerky_rabbit.name=Rabbit Jerky
-item.tconstruct.edible.jerky_fish.name=Fish Jerky
-item.tconstruct.edible.jerky_salmon.name=Salmon Jerky
-item.tconstruct.edible.jerky_clownfish.name=Clownfish Jerky
-item.tconstruct.edible.jerky_pufferfish.name=Fugu Jerky
-item.tconstruct.edible.jerky_monster.name=Monster Jerky
-item.tconstruct.edible.slimedrop_green.name=Gelatinous Slime Drop
-item.tconstruct.edible.slimedrop_blue.name=Gelatinous Slime Drop
-item.tconstruct.edible.slimedrop_purple.name=Gelatinous Slime Drop
-item.tconstruct.edible.slimedrop_blood.name=Coagulated Blood Drop
-item.tconstruct.edible.slimedrop_magma.name=Gelatinous Slime Drop
+item.tconstruct.edible.slimeball_blue.name=Boule de substance gluante
+item.tconstruct.edible.slimeball_purple.name=Boule de substance gluante
+item.tconstruct.edible.slimeball_blood.name=Sang coagule
+item.tconstruct.edible.slimeball_magma.name=Boule de substance gluante
+item.tconstruct.edible.jerky_beef.name=Boeuf séchée
+item.tconstruct.edible.jerky_chicken.name=Poulet séchée
+item.tconstruct.edible.jerky_pork.name=Bacon séchée
+item.tconstruct.edible.jerky_mutton.name=Mouton séchée
+item.tconstruct.edible.jerky_rabbit.name=Lapin séchée
+item.tconstruct.edible.jerky_fish.name=Poisson séchée
+item.tconstruct.edible.jerky_salmon.name=Saumon séchée
+item.tconstruct.edible.jerky_clownfish.name=Poisson-clown séchée
+item.tconstruct.edible.jerky_pufferfish.name=Tétraodon séchée
+item.tconstruct.edible.jerky_monster.name=Monstre séchée
+item.tconstruct.edible.slimedrop_green.name=Gouette de substance gluante gélatineux
+item.tconstruct.edible.slimedrop_blue.name=Gouette de substance gluante gélatineux
+item.tconstruct.edible.slimedrop_purple.name=Gouette de substance gluante gélatineux
+item.tconstruct.edible.slimedrop_blood.name=Gouette de sang coagule
+item.tconstruct.edible.slimedrop_magma.name=Gouette de substance gluante gélatineux
 
-item.tconstruct.materials.seared_brick.name=Seared Brick
-item.tconstruct.materials.mud_brick.name=Mud Brick
-item.tconstruct.materials.mud_brick.tooltip=Building blocks for small and big
-item.tconstruct.materials.dried_brick.name=Dried Brick
-item.tconstruct.materials.slimecrystal_green.name=Green Slime Crystal
-item.tconstruct.materials.slimecrystal_green.tooltip=Used to craft Slime Tools
-item.tconstruct.materials.slimecrystal_blue.name=Blue Slime Crystal
+item.tconstruct.materials.seared_brick.name=Brique revenu
+item.tconstruct.materials.mud_brick.name=Brique de boue
+item.tconstruct.materials.mud_brick.tooltip=Parpaing pour petit et grand.
+item.tconstruct.materials.dried_brick.name=Brique sec
+item.tconstruct.materials.slimecrystal_green.name=Cristal de substance gluante gélatineux vert
+item.tconstruct.materials.slimecrystal_green.tooltip=C'est utilise pour les outils.
+item.tconstruct.materials.slimecrystal_blue.name=Cristal de substance gluante gélatineux bleu
 item.tconstruct.materials.slimecrystal_blue.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
-item.tconstruct.materials.slimecrystal_magma.name=Magma Slime Crystal
+item.tconstruct.materials.slimecrystal_magma.name=Cristal de substance gluante gélatineux de magma
 item.tconstruct.materials.slimecrystal_magma.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
-item.tconstruct.materials.expander_w.name=Expander (Horizontal)
-item.tconstruct.materials.expander_w.tooltip=Don't skip leg day!
-item.tconstruct.materials.expander_h.name=Expander (Vertical)
-item.tconstruct.materials.expander_h.tooltip=Do you even lift?
-item.tconstruct.materials.reinforcement.name=Reinforcement
-item.tconstruct.materials.reinforcement.tooltip=Reinforced Modifier
-item.tconstruct.materials.silky_cloth.name=Silky Cloth
-item.tconstruct.materials.silky_jewel.name=Silky Jewel
-item.tconstruct.materials.silky_jewel.tooltip=Silktouch Modifier
-item.tconstruct.materials.necrotic_bone.name=Necrotic Bone
-item.tconstruct.materials.necrotic_bone.tooltip=Necrotic Modifier
-item.tconstruct.materials.creative_modifier.name=Creative Modifier
-item.tconstruct.materials.creative_modifier.tooltip=Adds an additional modifier
+item.tconstruct.materials.expander_w.name=Extenseur (horizontal)
+item.tconstruct.materials.expander_w.tooltip=Ne manquez pas jour des jambes!
+item.tconstruct.materials.expander_h.name=Extenseur (vertical)
+item.tconstruct.materials.expander_h.tooltip=Faitez-tu soulever encore?
+item.tconstruct.materials.reinforcement.name=Renforcement
+item.tconstruct.materials.reinforcement.tooltip=Modificateur renforcé
+item.tconstruct.materials.silky_cloth.name=Tissu soyeux
+item.tconstruct.materials.silky_jewel.name=Bijou soyeux
+item.tconstruct.materials.silky_jewel.tooltip=Modificateur de toucher de soie
+item.tconstruct.materials.necrotic_bone.name=Os nécrotique
+item.tconstruct.materials.necrotic_bone.tooltip=Modificaeur nécrotique
+item.tconstruct.materials.creative_modifier.name=Modificaeur créatif
+item.tconstruct.materials.creative_modifier.tooltip=C'additionne un modificaeur supplémentaire.
 
-item.tconstruct.ingots.cobalt.name=Cobalt Ingot
-item.tconstruct.ingots.ardite.name=Ardite Ingot
-item.tconstruct.ingots.manyullyn.name=Manyullyn Ingot
-item.tconstruct.ingots.knightslime.name=Knightslime Ingot
-item.tconstruct.ingots.knightslime.tooltip=Slimy yet metallic but also stone? Fascinating!
-item.tconstruct.ingots.pigiron.name=Pigiron Ingot
-item.tconstruct.ingots.pigiron.tooltip=Oink!
-item.tconstruct.ingots.alubrass.name=Aluminum Brass Ingot
+item.tconstruct.ingots.cobalt.name=Lingot de cobalt
+item.tconstruct.ingots.ardite.name=Lingot d'ardite
+item.tconstruct.ingots.manyullyn.name=Lingot de manyullyn
+item.tconstruct.ingots.knightslime.name=Lingot de substance gluante de chevalier
+item.tconstruct.ingots.knightslime.tooltip=C'est gluante mais métallique... aussi caillouteux? Intéressant!
+item.tconstruct.ingots.pigiron.name=Lingot de fer de conchon
+item.tconstruct.ingots.pigiron.tooltip=Grouin grouin!
+item.tconstruct.ingots.alubrass.name=Lingot de cuivre d'aluminum
 
-item.tconstruct.nuggets.cobalt.name=Cobalt Nugget
-item.tconstruct.nuggets.ardite.name=Ardite Nugget
-item.tconstruct.nuggets.manyullyn.name=Manyullyn Nugget
-item.tconstruct.nuggets.knightslime.name=Knightslime Nugget
-item.tconstruct.nuggets.pigiron.name=Pigiron Nugget
-item.tconstruct.nuggets.alubrass.name=Aluminum Brass Nugget
+item.tconstruct.nuggets.cobalt.name=Pépite de cobalt
+item.tconstruct.nuggets.ardite.name=Pépite d'ardite
+item.tconstruct.nuggets.manyullyn.name=Pépite de manyullyn
+item.tconstruct.nuggets.knightslime.name=Pépite de substance gluante de chevalier
+item.tconstruct.nuggets.pigiron.name=Pépite de fer de conchon
+item.tconstruct.nuggets.alubrass.name=Pépite de cuivre d'aluminum
 
-item.tconstruct.pattern.blank=Blank Pattern
-item.tconstruct.pattern.name=%s Pattern
-item.tconstruct.cast.blank=Blank Cast
-item.tconstruct.cast.name=%s Cast
-item.tconstruct.clay_cast.name=%s Clay Cast
-item.tconstruct.cast_custom.ingot.name=Ingot Cast
-item.tconstruct.cast_custom.nugget.name=Nugget Cast
-item.tconstruct.cast_custom.gem.name=Gem Cast
-item.tconstruct.cast_custom.plate.name=Plate Cast
-item.tconstruct.cast_custom.gear.name=Gear Cast
+item.tconstruct.pattern.blank=Motif vierge
+item.tconstruct.pattern.name=%s de motif
+item.tconstruct.cast.blank=Moule vierge
+item.tconstruct.cast.name=%s moule
+item.tconstruct.clay_cast.name=%s de moule d'argile
+item.tconstruct.cast_custom.ingot.name=Motif de lingot
+item.tconstruct.cast_custom.nugget.name=Motif de pépite
+item.tconstruct.cast_custom.gem.name=Motif de bijou
+item.tconstruct.cast_custom.plate.name=Motif de plaque
+item.tconstruct.cast_custom.gear.name=Motif de roue dentée
 
-item.tconstruct.sharpening_kit.name=Sharpening Kit
-item.tconstruct.sharpening_kit.tooltip=Combine with a flint\nUpgrades your tool to the materials mining level.
+item.tconstruct.sharpening_kit.name=Équipement de affûtage
+item.tconstruct.sharpening_kit.tooltip=Utilisez avec un silex!\nCe surclasse ton outil à le niveau du matériau.
 
-item.forge.bucketFilled.blood=Bucket o' Blood
+item.forge.bucketFilled.blood=Seau de sang
 
 # Tools
 item.tconstruct.pickaxe.name=Pickaxe
@@ -317,7 +317,7 @@ item.tconstruct.throwball.efln.tooltip=Explodes! Save for mining
 #   Entities    #
 #################
 
-entity.tconstruct.blueslime.name=Blue Slime
+entity.tconstruct.blueslime.name=Slime bleu
 
 #################
 #    Liquids    #
