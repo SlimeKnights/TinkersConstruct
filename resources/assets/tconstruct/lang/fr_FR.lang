@@ -244,74 +244,74 @@ item.tconstruct.sharpening_kit.tooltip=Utilisez avec un silex!\nCe surclasse ton
 item.forge.bucketFilled.blood=Seau de sang
 
 # Tools
-item.tconstruct.pickaxe.name=Pickaxe
-item.tconstruct.shovel.name=Shovel
-item.tconstruct.hatchet.name=Hatchet
-item.tconstruct.mattock.name=Mattock
-item.tconstruct.frypan.name=Frypan
-item.tconstruct.battlesign.name=Battlesign
-item.tconstruct.dagger.name=Dagger
-item.tconstruct.broadsword.name=Broadsword
-item.tconstruct.longsword.name=Longsword
-item.tconstruct.rapier.name=Rapier
-item.tconstruct.cutlass.name=Cutlass
+item.tconstruct.pickaxe.name=Pioche
+item.tconstruct.shovel.name=Pelle
+item.tconstruct.hatchet.name=Hachette
+item.tconstruct.mattock.name=Bêche-binette-hache
+item.tconstruct.frypan.name=Poêle
+item.tconstruct.battlesign.name=Pancarte de guerre
+item.tconstruct.dagger.name=Poignard
+item.tconstruct.broadsword.name=Épée large
+item.tconstruct.longsword.name=Épée long
+item.tconstruct.rapier.name=Rapière
+item.tconstruct.cutlass.name=Coutelas
 
-item.tconstruct.hammer.name=Hammer
-item.tconstruct.excavator.name=Excavator
-item.tconstruct.lumberaxe.name=Lumberaxe
-item.tconstruct.cleaver.name=Cleaver
-item.tconstruct.battleaxe.name=Battleaxe
-item.tconstruct.scythe.name=Scythe
+item.tconstruct.hammer.name=Marteau
+item.tconstruct.excavator.name=Excavateur
+item.tconstruct.lumberaxe.name=Hache de lourd
+item.tconstruct.cleaver.name=Couperet
+item.tconstruct.battleaxe.name=Hache de guerre
+item.tconstruct.scythe.name=Faux
 
 item.tconstruct.shuriken.name=Shuriken
 
 # Tool Parts
-item.tconstruct.shard.name=Shard
+item.tconstruct.shard.name=Tesson
 
-item.tconstruct.pick_head.name=Pickaxe Head
-item.tconstruct.shovel_head.name=Shovel Head
-item.tconstruct.axe_head.name=Axe Head
-item.tconstruct.pan_head.name=Pan
-item.tconstruct.sign_head.name=Sign Plate
-item.tconstruct.binding.name=Binding
-item.tconstruct.tool_rod.name=Tool Rod
-item.tconstruct.knife_blade.name=Knife Blade
-item.tconstruct.sword_blade.name=Sword Blade
-item.tconstruct.wide_guard.name=Wide Guard
-item.tconstruct.cross_guard.name=Cross Guard
-item.tconstruct.hand_guard.name=Hand Guard
-item.tconstruct.full_guard.name=Full Guard
+item.tconstruct.pick_head.name=Tête de pioche
+item.tconstruct.shovel_head.name=Tête de pelle
+item.tconstruct.axe_head.name=Tête d'hachette
+item.tconstruct.pan_head.name=Batée
+item.tconstruct.sign_head.name=Plaque de pancarte
+item.tconstruct.binding.name=Connecteur
+item.tconstruct.tool_rod.name=Tige d'outil
+item.tconstruct.knife_blade.name=Lame de couteau
+item.tconstruct.sword_blade.name=Lame d'épée
+item.tconstruct.wide_guard.name=Garde large
+item.tconstruct.cross_guard.name=Garde de croix
+item.tconstruct.hand_guard.name=Garde-main
+item.tconstruct.full_guard.name=Garde complet
 
 #Large Tool Parts
-item.tconstruct.hammer_head.name=Hammer Head
-item.tconstruct.excavator_head.name=Excavator Head
-item.tconstruct.broad_axe_head.name=Broad Axe Head
-item.tconstruct.large_plate.name=Large Plate
-item.tconstruct.tough_binding.name=Tough Binding
-item.tconstruct.tough_tool_rod.name=Tough Tool Rod
-item.tconstruct.scythe_head.name=Scythe Head
-item.tconstruct.large_sword_blade.name=Large Sword Blade
+item.tconstruct.hammer_head.name=Tête de marteau
+item.tconstruct.excavator_head.name=Tête de excavateur
+item.tconstruct.broad_axe_head.name=Tête d'hache large
+item.tconstruct.large_plate.name=Plaque large
+item.tconstruct.tough_binding.name=Connecteur dur
+item.tconstruct.tough_tool_rod.name=Tige d'outil dur
+item.tconstruct.scythe_head.name=Tête de faux
+item.tconstruct.large_sword_blade.name=Lame d'épée large
 
 # Material specific tools and toolparts
 # item.tconstruct.<tool>.<material>
 # item.tconstruct.pickaxe.wood=Wooden Pickaxe
 
 # Gadgets
-item.tconstruct.slime_boots.name=Slime Boots
-item.tconstruct.slimesling.name=Slimesling
-item.tconstruct.stone_stick.name=Stone Rod
+item.tconstruct.slime_boots.name=Bottes de Slime
+item.tconstruct.slimesling.name=Fronde de Slime
+item.tconstruct.stone_stick.name=Tige de pierre
 
-item.tconstruct.fancy_frame.jewel.name=Fancy Item Frame
-item.tconstruct.fancy_frame.alubrass.name=Aluminium Brass Item Frame
-item.tconstruct.fancy_frame.cobalt.name=Cobalt Item Frame
-item.tconstruct.fancy_frame.ardite.name=Ardite Item Frame
-item.tconstruct.fancy_frame.manyullyn.name=Manyullyn Item Frame
-item.tconstruct.fancy_frame.gold.name=Golden Item Frame
+item.tconstruct.fancy_frame.jewel.name=Cadre sophistiqué
+item.tconstruct.fancy_frame.alubrass.name=Cadre de cuivre d'aluminum
+item.tconstruct.fancy_frame.cobalt.name=Cadre de cobalt
+item.tconstruct.fancy_frame.ardite.name=Cadre d'ardite
+item.tconstruct.fancy_frame.manyullyn.name=Cadre de manyullyn
+item.tconstruct.fancy_frame.gold.name=Cadre d'or
 
-item.tconstruct.throwball.glow.name=Glowball
-item.tconstruct.throwball.glow.tooltip=Not suited for consumption.
+item.tconstruct.throwball.glow.name=Balle de lueur
+item.tconstruct.throwball.glow.tooltip=Ce n'est pas mangeable.
 item.tconstruct.throwball.efln.name=EFLN
-item.tconstruct.throwball.efln.tooltip=Explodes! Save for mining
+item.tconstruct.throwball.efln.tooltip=C'explose! Gardez pour l'exploitation minière!
 
 #################
 #   Entities    #
