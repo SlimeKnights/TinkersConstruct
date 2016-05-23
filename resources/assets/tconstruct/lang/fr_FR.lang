@@ -36,7 +36,7 @@ tile.tconstruct.metal.ardite.name=Bloc d'ardite
 tile.tconstruct.metal.manyullyn.name=Bloc de manyullyn
 tile.tconstruct.metal.knightslime.name=Bloc de substance gluante de chevalier
 tile.tconstruct.metal.pigiron.name=Bloc de fer de conchon
-tile.tconstruct.metal.alubrass.name=Bloc de cuivre d'aluminum
+tile.tconstruct.metal.alubrass.name=Bloc de laiton d'aluminium
 tile.tconstruct.metal.silky_jewel.name=Bloc de bijou soyeux
 
 tile.tconstruct.firewood.lavawood.name=Bois de lave
@@ -218,14 +218,14 @@ item.tconstruct.ingots.knightslime.name=Lingot de substance gluante de chevalier
 item.tconstruct.ingots.knightslime.tooltip=C'est gluante mais métallique... aussi caillouteux? Intéressant!
 item.tconstruct.ingots.pigiron.name=Lingot de fer de conchon
 item.tconstruct.ingots.pigiron.tooltip=Grouin grouin!
-item.tconstruct.ingots.alubrass.name=Lingot de cuivre d'aluminum
+item.tconstruct.ingots.alubrass.name=Lingot de laiton d'aluminium
 
 item.tconstruct.nuggets.cobalt.name=Pépite de cobalt
 item.tconstruct.nuggets.ardite.name=Pépite d'ardite
 item.tconstruct.nuggets.manyullyn.name=Pépite de manyullyn
 item.tconstruct.nuggets.knightslime.name=Pépite de substance gluante de chevalier
 item.tconstruct.nuggets.pigiron.name=Pépite de fer de conchon
-item.tconstruct.nuggets.alubrass.name=Pépite de cuivre d'aluminum
+item.tconstruct.nuggets.alubrass.name=Pépite de laiton d'aluminium
 
 item.tconstruct.pattern.blank=Motif vierge
 item.tconstruct.pattern.name=%s de motif
@@ -302,7 +302,7 @@ item.tconstruct.slimesling.name=Fronde de Slime
 item.tconstruct.stone_stick.name=Tige de pierre
 
 item.tconstruct.fancy_frame.jewel.name=Cadre sophistiqué
-item.tconstruct.fancy_frame.alubrass.name=Cadre de cuivre d'aluminum
+item.tconstruct.fancy_frame.alubrass.name=Cadre de laiton d'aluminium
 item.tconstruct.fancy_frame.cobalt.name=Cadre de cobalt
 item.tconstruct.fancy_frame.ardite.name=Cadre d'ardite
 item.tconstruct.fancy_frame.manyullyn.name=Cadre de manyullyn
@@ -323,40 +323,40 @@ entity.tconstruct.blueslime.name=Slime bleu
 #    Liquids    #
 #################
 
-fluid.tconstruct.stone.name=Seared Stone
-fluid.tconstruct.obsidian.name=Molten Obsidian
-fluid.tconstruct.clay.name=Molten Clay
-fluid.tconstruct.dirt.name=Liquid Dirt
-fluid.tconstruct.iron.name=Molten Iron
-fluid.tconstruct.gold.name=Molten Gold
-fluid.tconstruct.pigiron.name=Molten Pigiron
-fluid.tconstruct.cobalt.name=Molten Cobalt
-fluid.tconstruct.ardite.name=Molten Ardite
-fluid.tconstruct.manyullyn.name=Molten Manyullyn
-fluid.tconstruct.knightslime.name=Molten Knightslime
-fluid.tconstruct.emerald.name=Molten Emerald
-fluid.tconstruct.blood.name=Blood
-fluid.tconstruct.milk.name=Milk
-fluid.tconstruct.blueslime.name=Liquid Blue Slime
-fluid.tconstruct.purpleslime.name=Liquid Purple Slime
-fluid.tconstruct.brass.name=Molten Brass
-fluid.tconstruct.copper.name=Molten Copper
-fluid.tconstruct.tin.name=Molten Tin
-fluid.tconstruct.bronze.name=Molten Bronze
-fluid.tconstruct.zinc.name=Molten Zinc
-fluid.tconstruct.lead.name=Molten Lead
-fluid.tconstruct.nickel.name=Molten Nickel
-fluid.tconstruct.silver.name=Molten Silver
-fluid.tconstruct.electrum.name=Molten Electrum
-fluid.tconstruct.steel.name=Molten Steel
-fluid.tconstruct.aluminum.name=Molten Aluminum
-fluid.tconstruct.alubrass.name=Molten Aluminum Brass
+fluid.tconstruct.stone.name=Roche revenu
+fluid.tconstruct.obsidian.name=Obsidienne fondu
+fluid.tconstruct.clay.name=Argile fondu
+fluid.tconstruct.dirt.name=Terre fluide
+fluid.tconstruct.iron.name=Fer fondu
+fluid.tconstruct.gold.name=Or fondu
+fluid.tconstruct.pigiron.name=Fer de conchon fondu
+fluid.tconstruct.cobalt.name=Cobalt fondu
+fluid.tconstruct.ardite.name=Ardite fondu
+fluid.tconstruct.manyullyn.name=Manyullyn fondu
+fluid.tconstruct.knightslime.name=Substance gluante de chevalier fondu
+fluid.tconstruct.emerald.name=Émeraude fondu
+fluid.tconstruct.blood.name=Sang
+fluid.tconstruct.milk.name=Lait
+fluid.tconstruct.blueslime.name=Substance gluante bleu fluide
+fluid.tconstruct.purpleslime.name=substance gluante violet fluide
+fluid.tconstruct.brass.name=Laiton fondu
+fluid.tconstruct.copper.name=Cuivre fondu
+fluid.tconstruct.tin.name=Étain fondu
+fluid.tconstruct.bronze.name==Bronze fondu
+fluid.tconstruct.zinc.name=Zinc fondu
+fluid.tconstruct.lead.name=Plomb fondu
+fluid.tconstruct.nickel.name=Nickel fondu
+fluid.tconstruct.silver.name=Argent fondu
+fluid.tconstruct.electrum.name=Électrum fondu
+fluid.tconstruct.steel.name=Acier fondu
+fluid.tconstruct.aluminum.name=Aluminium fondu
+fluid.tconstruct.alubrass.name=Laiton d'aluminium fondu
 
 #################
 #    Potions    #
 #################
 
-potion.slimebounce=Slimebounce
+potion.slimebounce=Rebondit-slime
 
 #################
 #   Materials   #
