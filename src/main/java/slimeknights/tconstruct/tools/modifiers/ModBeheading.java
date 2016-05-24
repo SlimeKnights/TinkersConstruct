@@ -105,7 +105,7 @@ public class ModBeheading extends ToolModifier {
     }
     // meta 3: player
     else if(entity instanceof EntityPlayer) {
-      ItemStack head = new ItemStack(Items.SKULL, 1, 4);
+      ItemStack head = new ItemStack(Items.SKULL, 1, 3);
       NBTTagCompound nametag = new NBTTagCompound();
       nametag.setString("SkullOwner", entity.getDisplayName().getFormattedText());
       head.setTagCompound(nametag);
