@@ -142,7 +142,7 @@ processResources
 // Add Access Transformers Manifest
 jar {
     manifest {
-        attributes 'FMLAT': 'TConstruct_at.cfg'
+        attributes 'FMLAT': 'tconstruct_at.cfg'
     }
 }
 
@@ -151,7 +151,7 @@ task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'deobf'
 	manifest {
-        attributes 'FMLAT': 'TConstruct_at.cfg'
+        attributes 'FMLAT': 'tconstruct_at.cfg'
     }
 }
 /*
