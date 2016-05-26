@@ -240,7 +240,7 @@ item.tconstruct.cast_custom.plate.name=Plate Cast
 item.tconstruct.cast_custom.gear.name=Gear Cast
 
 item.tconstruct.sharpening_kit.name=Sharpening Kit
-item.tconstruct.sharpening_kit.tooltip=Combine with a flint\nUpgrades your tool to the materials mining level.
+item.tconstruct.sharpening_kit.tooltip=Combine with a flint\nUpgrades your tool to the material's mining level.
 
 item.forge.bucketFilled.blood=Bucket o' Blood
 
