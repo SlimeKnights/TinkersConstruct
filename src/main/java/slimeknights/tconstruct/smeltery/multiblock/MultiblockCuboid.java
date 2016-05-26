@@ -65,7 +65,7 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
 
     // go up layer for layer (again, frame check done inside)
     int height = 0;
-    for(; height <= limit; height++) {
+    for(; height + center.getY() < world.getHeight(); height++) {
       if(!detectLayer(world, center.up(height), height, edges, subBlocks)) {
         break;
       }
