@@ -96,6 +96,7 @@ minecraft {
     mappings = config.mappings
     runDir = "run"
     replace '${version}', project.version
+    useDepAts = true
 }
 
 dependencies {
