@@ -26,13 +26,14 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.item.ItemTinkerBook;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.shared.block.BlockDecoGround;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
 import slimeknights.tconstruct.shared.block.BlockFirewoodSlab;
 import slimeknights.tconstruct.shared.block.BlockGlow;
 import slimeknights.tconstruct.shared.block.BlockMetal;
 import slimeknights.tconstruct.shared.block.BlockOre;
 import slimeknights.tconstruct.shared.block.BlockSoil;
-import slimeknights.tconstruct.shared.block.BlockSoilSlab;
+import slimeknights.tconstruct.shared.block.BlockDecoGroundSlab;
 import slimeknights.tconstruct.shared.item.ItemMetaDynamicTinkers;
 import slimeknights.tconstruct.shared.worldgen.NetherOreGenerator;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -55,7 +56,9 @@ public class TinkerCommons extends TinkerPulse {
   public static BlockFirewood blockFirewood;
   public static BlockGlow blockGlow;
 
-  public static Block slabSoil;
+  public static BlockDecoGround blockDecoGround;
+
+  public static Block slabDecoGround;
   public static Block slabFirewood;
   
   // stairs
@@ -70,6 +73,7 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack slimyMudMagma;
   public static ItemStack graveyardSoil;
   public static ItemStack consecratedSoil;
+
   public static ItemStack mudBrickBlock;
 
   public static ItemStack oreCobalt;
@@ -169,7 +173,6 @@ public class TinkerCommons extends TinkerPulse {
     slimyMudMagma = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.SLIMY_MUD_MAGMA.getMeta());
     graveyardSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.GRAVEYARD.getMeta());
     consecratedSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.CONSECRATED.getMeta());
-    mudBrickBlock = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.MUDBRICK.getMeta());
 
     // Ores
     blockOre = registerEnumBlock(new BlockOre(), "ore");
@@ -182,13 +185,17 @@ public class TinkerCommons extends TinkerPulse {
     blockFirewood.setCreativeTab(TinkerRegistry.tabGeneral);
     lavawood = new ItemStack(blockFirewood, 1, BlockFirewood.FirewoodType.LAVAWOOD.getMeta());
     firewood = new ItemStack(blockFirewood, 1, BlockFirewood.FirewoodType.FIREWOOD.getMeta());
-    
+
+    // deco stuff
+    blockDecoGround = registerEnumBlock(new BlockDecoGround(), "deco_ground");
+    mudBrickBlock = new ItemStack(blockDecoGround, 1, BlockDecoGround.DecoGroundType.MUDBRICK.getMeta());
+
     // slabs
-    slabSoil = registerEnumBlockSlab(new BlockSoilSlab(), "soil_slab");
+    slabDecoGround = registerEnumBlockSlab(new BlockDecoGroundSlab(), "deco_ground_slab");
     slabFirewood = registerEnumBlockSlab(new BlockFirewoodSlab(), "firewood_slab");
     
     // stairs
-    stairsMudBrick = registerBlockStairsFrom(blockSoil, BlockSoil.SoilTypes.MUDBRICK, "mudbrick_stairs");
+    stairsMudBrick = registerBlockStairsFrom(blockDecoGround, BlockDecoGround.DecoGroundType.MUDBRICK, "mudbrick_stairs");
     stairsFirewood = registerBlockStairsFrom(blockFirewood, BlockFirewood.FirewoodType.FIREWOOD, "firewood_stairs");
     stairsLavawood = registerBlockStairsFrom(blockFirewood, BlockFirewood.FirewoodType.LAVAWOOD, "lavawood_stairs");
 
@@ -321,7 +328,7 @@ public class TinkerCommons extends TinkerPulse {
     if(mudBrick != null) {
       GameRegistry.addShapedRecipe(mudBrickBlock, "BB", "BB", 'B', mudBrick);
     }
-    addSlabRecipe(new ItemStack(slabSoil, 1, BlockSoilSlab.SoilType.MUDBRICK.getMeta()), mudBrickBlock);
+    addSlabRecipe(new ItemStack(slabDecoGround, 1, BlockDecoGround.DecoGroundType.MUDBRICK.getMeta()), mudBrickBlock);
     addStairRecipe(stairsMudBrick, mudBrickBlock);
 
     // firewood

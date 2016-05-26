@@ -1,12 +1,9 @@
 package slimeknights.tconstruct.gadgets.block;
 
-import java.util.Locale;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.IStringSerializable;
-import slimeknights.mantle.block.EnumBlock;
+
 import slimeknights.mantle.block.EnumBlockSlab;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.TinkerRegistry;
