@@ -1,0 +1,30 @@
+[
+  {
+    "name": "intro",
+    "data": "sections/intro_tmp.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:tooltables",
+        "damage": 0
+      }
+    }
+  },
+  {
+    "name": "materials",
+    "icon": {
+      "item": {
+        "id": "minecraft:iron_ingot",
+        "damage": 0
+      }
+    }
+  },
+  {
+    "name": "modifiers",
+    "data": "sections/modifiers.json",
+    "icon": {
+      "item": {
+        "id": "minecraft:redstone"
+      }
+    }
+  }
+]
