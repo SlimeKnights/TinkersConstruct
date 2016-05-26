@@ -327,6 +327,7 @@ public class TinkerCommons extends TinkerPulse {
     GameRegistry.addShapelessRecipe(graveyardSoil, Blocks.DIRT, Items.ROTTEN_FLESH, new ItemStack(Items.DYE, 1, 15));
     if(mudBrick != null) {
       GameRegistry.addShapedRecipe(mudBrickBlock, "BB", "BB", 'B', mudBrick);
+      GameRegistry.addShapedRecipe(new ItemStack(slabDecoGround, 1, BlockDecoGround.DecoGroundType.MUDBRICK.getMeta()), "bb", 'b', mudBrick);
     }
     addSlabRecipe(new ItemStack(slabDecoGround, 1, BlockDecoGround.DecoGroundType.MUDBRICK.getMeta()), mudBrickBlock);
     addStairRecipe(stairsMudBrick, mudBrickBlock);
