@@ -425,13 +425,13 @@ material.steel.prefix=%s d'acier
 #############
 stat.head.name=Tête
 stat.head.durability.name=Durabilité
-stat.head.durability.desc=The base-value for durability calculations.\nUsually an integral part to the overall durability of a tool.
-stat.head.miningspeed.name=Mining Speed
-stat.head.miningspeed.desc=How fast a tool with a tool head of this material can mine blocks.\nMay be influenced by other toolparts.
-stat.head.harvestlevel.name=Mining Level
-stat.head.harvestlevel.desc=What range of blocks a tool with a tool head of this material can mine.
-stat.head.attack.name=Attack
-stat.head.attack.desc=Base value for attack calculations.\nThe end result depens on the tool itself and the other components used.
+stat.head.durability.desc=La valeur de base pour les calculs de la durabilité.\nC'est en général important pour la durabilité global d'outil.
+stat.head.miningspeed.name=Vitesse de minage
+stat.head.miningspeed.desc=La vitesse du minage de la matériau de la tête.\nC'est jamais affecté selon pièces d'outils autre.
+stat.head.harvestlevel.name=Niveau de minage
+stat.head.harvestlevel.desc=Le niveau de l'obtention du minerai via minage.
+stat.head.attack.name=Pointes d'attaque
+stat.head.attack.desc=La valeur de base pour les calculs de la pointes d'attaque.\nLa pointes d'attaque dépend sur le type d'outil et les pièces autre.
 
 stat.handle.name=Handle
 stat.handle.modifier.name=Modifier
@@ -446,7 +446,7 @@ stat.extra.durability.desc=How much durability this part contributes when used a
 stat.mattock.axelevel.name=Axe Level
 stat.mattock.shovellevel.name=Shovel Level
 
-stat.projectile.ammo.name=Ammo
+stat.projectile.ammo.name=Munitions
 
 ##############
 #   Traits   #
