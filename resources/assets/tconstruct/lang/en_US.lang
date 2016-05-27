@@ -417,7 +417,7 @@ stat.handle.durability.desc=How well the material can be held.\nTool durability 
 
 stat.extra.name=Extra
 stat.extra.durability.name=stat.head.durability.name
-stat.extra.durability.desc=How much durability this part contributes when used as an accessoire.
+stat.extra.durability.desc=How much durability this part contributes when used as an accessory.
 
 stat.mattock.axelevel.name=Axe Level
 stat.mattock.shovellevel.name=Shovel Level
