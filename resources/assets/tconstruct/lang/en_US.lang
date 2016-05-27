@@ -407,7 +407,7 @@ stat.head.miningspeed.desc=How fast a tool with a tool head of this material can
 stat.head.harvestlevel.name=Mining Level
 stat.head.harvestlevel.desc=What range of blocks a tool with a tool head of this material can mine.
 stat.head.attack.name=Attack
-stat.head.attack.desc=Base value for attack calculations.\nThe end result depens on the tool itself and the other components used.
+stat.head.attack.desc=Base value for attack calculations.\nThe end result depends on the tool itself and the other components used.
 
 stat.handle.name=Handle
 stat.handle.modifier.name=Modifier
