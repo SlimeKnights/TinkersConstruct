@@ -407,7 +407,7 @@ stat.head.miningspeed.desc=How fast a tool with a tool head of this material can
 stat.head.harvestlevel.name=Mining Level
 stat.head.harvestlevel.desc=What range of blocks a tool with a tool head of this material can mine.
 stat.head.attack.name=Attack
-stat.head.attack.desc=Base value for attack calculations.\nThe end result depens on the tool itself and the other components used.
+stat.head.attack.desc=Base value for attack calculations.\nThe end result depends on the tool itself and the other components used.
 
 stat.handle.name=Handle
 stat.handle.modifier.name=Modifier
@@ -417,7 +417,7 @@ stat.handle.durability.desc=How well the material can be held.\nTool durability 
 
 stat.extra.name=Extra
 stat.extra.durability.name=stat.head.durability.name
-stat.extra.durability.desc=How much durability this part contributes when used as an accessoire.
+stat.extra.durability.desc=How much durability this part contributes when used as an accessory.
 
 stat.mattock.axelevel.name=Axe Level
 stat.mattock.shovellevel.name=Shovel Level
