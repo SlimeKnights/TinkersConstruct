@@ -314,13 +314,13 @@ item.tconstruct.throwball.efln.name=EFLN
 item.tconstruct.throwball.efln.tooltip=C'explose! Gardez pour l'exploitation minière!
 
 #################
-#   Entities    #
+#   Entités    #
 #################
 
 entity.tconstruct.blueslime.name=Slime bleu
 
 #################
-#    Liquids    #
+#    Fluides    #
 #################
 
 fluid.tconstruct.stone.name=Roche revenu
@@ -338,7 +338,7 @@ fluid.tconstruct.emerald.name=Émeraude fondu
 fluid.tconstruct.blood.name=Sang
 fluid.tconstruct.milk.name=Lait
 fluid.tconstruct.blueslime.name=Substance gluante bleu fluide
-fluid.tconstruct.purpleslime.name=substance gluante violet fluide
+fluid.tconstruct.purpleslime.name=Substance gluante violet fluide
 fluid.tconstruct.brass.name=Laiton fondu
 fluid.tconstruct.copper.name=Cuivre fondu
 fluid.tconstruct.tin.name=Étain fondu
@@ -359,7 +359,7 @@ fluid.tconstruct.alubrass.name=Laiton d'aluminium fondu
 potion.slimebounce=Rebondit-slime
 
 #################
-#   Materials   #
+#   Matériaux   #
 #################
 # material.<identifier>.name
 # material.<identifier>.prefix
@@ -420,9 +420,9 @@ material.electrum.prefix=%s d'électrum
 material.steel.name=Acier
 material.steel.prefix=%s d'acier
 
-#############
-#   Stats   #
-#############
+##############
+#Statistiques#
+##############
 stat.head.name=Tête
 stat.head.durability.name=Durabilité
 stat.head.durability.desc=La valeur de base pour les calculs de la durabilité.\nC'est en général important pour la durabilité global d'outil.
@@ -433,18 +433,18 @@ stat.head.harvestlevel.desc=Le niveau de l'obtention du minerai via minage.
 stat.head.attack.name=Pointes d'attaque
 stat.head.attack.desc=La valeur de base pour les calculs de la pointes d'attaque.\nLa pointes d'attaque dépend sur le type d'outil et les pièces autre.
 
-stat.handle.name=Handle
-stat.handle.modifier.name=Modifier
-stat.handle.modifier.desc=How suitable the tool material is as a handle.\nThe total durability of the tool will be multiplied by this.
+stat.handle.name=Manche
+stat.handle.modifier.name=Modificateur
+stat.handle.modifier.desc=Caractère approprié du matériaux d'outil.\nCe va multiplier la durabilité global d'outil.
 stat.handle.durability.name=stat.head.durability.name
-stat.handle.durability.desc=How well the material can be held.\nTool durability will be changed by this amount.
+stat.handle.durability.desc=La durabilité du matériau.\nLa durabilité d'outil peut changer selon ce quantitébe.
 
-stat.extra.name=Extra
+stat.extra.name=Supplémentaire
 stat.extra.durability.name=stat.head.durability.name
-stat.extra.durability.desc=How much durability this part contributes when used as an accessoire.
+stat.extra.durability.desc=La durabilité de la pièce comme un accessoire.
 
-stat.mattock.axelevel.name=Axe Level
-stat.mattock.shovellevel.name=Shovel Level
+stat.mattock.axelevel.name=Niveau d'hache
+stat.mattock.shovellevel.name=Niveau de pelle
 
 stat.projectile.ammo.name=Munitions
 
@@ -538,11 +538,11 @@ modifier.unnatural.name=Unnatural
 modifier.unnatural.desc=§oAbomination!§r\nThe tool mines faster the higher its mining level is above the required one.
 modifier.tasty.name=Tasty
 modifier.tasty.desc=§oOm Nom Nom§r\nSmells so good.. You'd rather eat your tool than starve.
-modifier.writable.name=Writable
+modifier.writable.name=Inscriptible
 modifier.writable.desc=§oIntellectual!§r\nPlus de mots. Plus de modificateurs. C'est juste logique!
 
 #################
-#   Modifiers   #
+# Modificateurs #
 #################
 
 modifier.bane_of_arthopods.name=Bane of Arthropods
@@ -657,8 +657,8 @@ death.attack.splinter=%s caught a splinter. Must've been massive
 # GUI Error messages #
 ######################
 
-gui.error=ERROR
-gui.warning=WARNING
+gui.error=ERREUR
+gui.warning=ALERTE
 # GUI Errors from the different Tinker Tables
 gui.error.invalid_pattern=Pattern does not contain a valid tool part!
 gui.error.useless_tool_part=This part can not be used to craft any tool!\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting.
@@ -739,7 +739,7 @@ gui.dryingrack.name=Drying Rack
 # JEI Plugin
 gui.jei.smelting.title=Smelting
 gui.jei.alloy.title=Alloying
-gui.jei.casting.title=Casting
+gui.jei.casting.title=Fonte
 gui.jei.casting.consume=Consumes cast!
 gui.jei.drying.title=Drying
 
