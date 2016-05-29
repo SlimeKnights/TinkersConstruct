@@ -1,9 +1,7 @@
 package slimeknights.tconstruct.common.network;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.network.NetHandlerPlayServer;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
 
 import io.netty.buffer.ByteBuf;
 import slimeknights.mantle.network.AbstractPacketThreadsafe;
@@ -37,7 +35,7 @@ public class SpawnParticlePacket extends AbstractPacketThreadsafe {
 
   @Override
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
-    TinkerTools.proxy.spawnParticle(particle, Minecraft.getMinecraft().theWorld, x,y,z, xSpeed,ySpeed,zSpeed, data);
+    TinkerTools.proxy.spawnParticle(particle, null, x,y,z, xSpeed,ySpeed,zSpeed, data);
   }
 
   @Override

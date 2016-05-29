@@ -242,6 +242,9 @@ public abstract class ClientProxy extends CommonProxy {
 
   @Override
   public void spawnParticle(Particles particleType, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
+    if(world == null) {
+      world = Minecraft.getMinecraft().theWorld;
+    }
     EntityFX effect = createParticle(particleType, world, x,y,z, xSpeed,ySpeed,zSpeed, data);
     Minecraft.getMinecraft().effectRenderer.addEffect(effect);
 
