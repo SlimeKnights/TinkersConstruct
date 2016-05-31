@@ -81,6 +81,7 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
     super.readFromNBT(tags);
   }
 
+  @Nonnull
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound tags) {
     tags.setInteger("Time", currentTime);
@@ -92,8 +93,7 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
   @Override
   @SideOnly(Side.CLIENT)
   public AxisAlignedBB getRenderBoundingBox() {
-    AxisAlignedBB cbb = new AxisAlignedBB(pos.getX(), pos.getY() - 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
-    return cbb;
+    return new AxisAlignedBB(pos.getX(), pos.getY() - 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
   }
 
   @Nonnull

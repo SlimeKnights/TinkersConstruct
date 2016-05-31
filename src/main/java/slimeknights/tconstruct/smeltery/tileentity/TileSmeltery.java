@@ -611,6 +611,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     active = false;
   }
 
+  @Nonnull
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
     compound = super.writeToNBT(compound);

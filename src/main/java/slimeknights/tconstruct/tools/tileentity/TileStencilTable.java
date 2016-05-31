@@ -9,6 +9,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
@@ -34,7 +36,7 @@ public class TileStencilTable extends TileTable implements IInventoryGui {
   }
 
   @Override
-  public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+  public boolean isItemValidForSlot(int slot, @Nonnull ItemStack itemstack) {
     return itemstack != null && itemstack.getItem() == TinkerTools.pattern && (Config.reuseStencil || !itemstack.hasTagCompound());
   }
 }

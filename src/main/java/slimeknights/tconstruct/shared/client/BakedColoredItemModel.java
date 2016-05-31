@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.client.model.BakedWrapper;
 import slimeknights.tconstruct.library.client.model.ModelHelper;
 
@@ -94,6 +96,7 @@ public class BakedColoredItemModel extends BakedWrapper {
     }
   }
 
+  @Nonnull
   @Override
   public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
     if(coloredQuads.isEmpty()) {

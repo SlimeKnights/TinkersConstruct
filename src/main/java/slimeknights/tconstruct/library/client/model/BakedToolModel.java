@@ -52,6 +52,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
     this.blockingTransforms = blockingTransform;
   }
 
+  @Nonnull
   @Override
   public ItemOverrideList getOverrides() {
     return ToolItemOverrideList.INSTANCE;

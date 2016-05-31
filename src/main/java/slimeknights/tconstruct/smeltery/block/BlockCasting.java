@@ -86,8 +86,9 @@ public class BlockCasting extends BlockInventory {
     return getMetaFromState(state);
   }
 
+  @Nonnull
   @Override
-  public TileEntity createNewTileEntity(World worldIn, int meta) {
+  public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     switch(getStateFromMeta(meta).getValue(TYPE)) {
       case TABLE:
         return new TileCastingTable();

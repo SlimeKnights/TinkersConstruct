@@ -13,6 +13,8 @@ import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 
@@ -120,6 +122,7 @@ public class TileTank extends TileSmelteryComponent implements IFluidHandler {
     tank.readFromNBT(tags);
   }
 
+  @Nonnull
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound tags) {
     tags = super.writeToNBT(tags);

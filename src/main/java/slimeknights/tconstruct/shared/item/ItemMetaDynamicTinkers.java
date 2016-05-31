@@ -9,6 +9,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
@@ -17,7 +19,7 @@ public class ItemMetaDynamicTinkers extends ItemMetaDynamic {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     for(int i = 0; i <= availabilityMask.length; i++) {
       if(isValid(i)) {
         // prevent the addition of alubrass if it's not present

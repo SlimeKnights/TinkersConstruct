@@ -308,6 +308,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
 
   /* Saving and Loading */
 
+  @Nonnull
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound tags) {
     tags = super.writeToNBT(tags);

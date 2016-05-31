@@ -13,6 +13,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.TinkerFluids;
@@ -31,7 +33,7 @@ public class BlockMetal extends EnumBlock<BlockMetal.MetalTypes> {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     for(MetalTypes type : MetalTypes.values()) {
       if(type == MetalTypes.ALUBRASS && !FluidRegistry.isFluidRegistered(TinkerFluids.alubrass)) {
         continue;

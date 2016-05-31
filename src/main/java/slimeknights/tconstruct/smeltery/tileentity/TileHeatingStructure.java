@@ -7,6 +7,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Arrays;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.tileentity.TileInventory;
 
 /** Represents a structure that has an inventory where it heats its items. Like a smeltery. */
@@ -159,6 +161,7 @@ public abstract class TileHeatingStructure extends TileInventory {
     this.temperature = temperature;
   }
 
+  @Nonnull
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound tags) {
     tags = super.writeToNBT(tags);

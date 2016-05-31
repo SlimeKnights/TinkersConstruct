@@ -10,6 +10,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.library.smeltery.ICast;
 import slimeknights.tconstruct.library.tools.IPattern;
@@ -36,7 +38,7 @@ public class TilePatternChest extends TileTinkerChest implements IInventoryGui {
 
   // we only allow one type (cast/pattern) and only one of each toolpart
   @Override
-  public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+  public boolean isItemValidForSlot(int slot, @Nonnull ItemStack itemstack) {
     if(itemstack == null || !(itemstack.getItem() instanceof IPattern || itemstack.getItem() instanceof ICast)) {
       return false;
     }
@@ -105,6 +107,7 @@ public class TilePatternChest extends TileTinkerChest implements IInventoryGui {
     return true;
   }
 
+  @Nonnull
   @Override
   public String getName() {
     // do we hold casts instead of patterns?

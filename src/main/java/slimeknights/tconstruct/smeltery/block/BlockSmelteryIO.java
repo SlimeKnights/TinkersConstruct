@@ -35,11 +35,13 @@ public class BlockSmelteryIO extends BlockEnumSmeltery<BlockSmelteryIO.IOType> {
     super(TYPE, IOType.class);
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, TYPE, FACING);
   }
 
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
     int horIndex = (meta >> 2) & 0xF;

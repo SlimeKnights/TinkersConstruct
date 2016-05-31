@@ -46,8 +46,9 @@ public class BlockSmelteryController extends BlockInventoryTinkers {
     return new BlockStateContainer(this, FACING, ACTIVE);
   }
 
+  @Nonnull
   @Override
-  public TileEntity createNewTileEntity(World worldIn, int meta) {
+  public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     return new TileSmeltery();
   }
 
@@ -112,6 +113,7 @@ public class BlockSmelteryController extends BlockInventoryTinkers {
 
   // RENDERING
 
+  @Nonnull
   @Override
   public EnumBlockRenderType getRenderType(IBlockState state) {
     return EnumBlockRenderType.MODEL;

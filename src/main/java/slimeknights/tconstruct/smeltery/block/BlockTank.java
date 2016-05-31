@@ -52,6 +52,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     return new TileTank();
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, TYPE, KNOB);
@@ -64,6 +65,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     return super.getActualState(state, worldIn, pos).withProperty(KNOB, hasKnob);
   }
 
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
     IBlockState state = super.getStateFromMeta(meta);

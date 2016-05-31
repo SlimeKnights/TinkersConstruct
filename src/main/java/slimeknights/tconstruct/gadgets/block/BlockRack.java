@@ -311,6 +311,7 @@ public class BlockRack extends BlockTable {
     return BOUNDS.get(state.getValue(ORIENTATION));
   }
 
+  @Nonnull
   @Override
   public EnumBlockRenderType getRenderType(IBlockState state) {
     return EnumBlockRenderType.MODEL;
