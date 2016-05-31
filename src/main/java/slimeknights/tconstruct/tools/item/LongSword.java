@@ -26,8 +26,6 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-import static slimeknights.tconstruct.tools.item.BroadSword.effective_materials;
-
 public class LongSword extends ToolCore {
 
   public LongSword() {

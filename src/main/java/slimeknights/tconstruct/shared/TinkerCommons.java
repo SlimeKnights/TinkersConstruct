@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.shared;
 
-import org.apache.logging.log4j.Logger;
-
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
@@ -17,6 +15,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import org.apache.logging.log4j.Logger;
+
 import slimeknights.mantle.item.ItemEdible;
 import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.mantle.pulsar.pulse.Pulse;
@@ -27,13 +28,13 @@ import slimeknights.tconstruct.common.item.ItemTinkerBook;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.BlockDecoGround;
+import slimeknights.tconstruct.shared.block.BlockDecoGroundSlab;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
 import slimeknights.tconstruct.shared.block.BlockFirewoodSlab;
 import slimeknights.tconstruct.shared.block.BlockGlow;
 import slimeknights.tconstruct.shared.block.BlockMetal;
 import slimeknights.tconstruct.shared.block.BlockOre;
 import slimeknights.tconstruct.shared.block.BlockSoil;
-import slimeknights.tconstruct.shared.block.BlockDecoGroundSlab;
 import slimeknights.tconstruct.shared.item.ItemMetaDynamicTinkers;
 import slimeknights.tconstruct.shared.worldgen.NetherOreGenerator;
 import slimeknights.tconstruct.tools.TinkerTools;

@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.modifiers;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.HarvestLevels;

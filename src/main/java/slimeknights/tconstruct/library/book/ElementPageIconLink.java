@@ -6,12 +6,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 
 import slimeknights.mantle.client.book.action.StringActionProcessor;
-import slimeknights.mantle.client.book.action.protocol.ProtocolGoToPage;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.element.TextData;
-import slimeknights.mantle.client.gui.book.element.BookElement;
-import slimeknights.mantle.client.gui.book.element.ElementItem;
-import slimeknights.mantle.client.gui.book.element.ElementText;
 import slimeknights.mantle.client.gui.book.element.SizedBookElement;
 
 public class ElementPageIconLink extends SizedBookElement {

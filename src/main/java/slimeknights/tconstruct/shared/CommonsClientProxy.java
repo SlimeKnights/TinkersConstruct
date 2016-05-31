@@ -1,5 +1,10 @@
 package slimeknights.tconstruct.shared;
 
+import net.minecraft.item.ItemStack;
+
+import slimeknights.tconstruct.common.ClientProxy;
+import slimeknights.tconstruct.library.book.TinkerBook;
+
 import static slimeknights.tconstruct.shared.TinkerCommons.blockDecoGround;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockFirewood;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockMetal;
@@ -10,15 +15,11 @@ import static slimeknights.tconstruct.shared.TinkerCommons.edibles;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingots;
 import static slimeknights.tconstruct.shared.TinkerCommons.materials;
 import static slimeknights.tconstruct.shared.TinkerCommons.nuggets;
-import static slimeknights.tconstruct.shared.TinkerCommons.slabFirewood;
 import static slimeknights.tconstruct.shared.TinkerCommons.slabDecoGround;
+import static slimeknights.tconstruct.shared.TinkerCommons.slabFirewood;
 import static slimeknights.tconstruct.shared.TinkerCommons.stairsFirewood;
 import static slimeknights.tconstruct.shared.TinkerCommons.stairsLavawood;
 import static slimeknights.tconstruct.shared.TinkerCommons.stairsMudBrick;
-
-import net.minecraft.item.ItemStack;
-import slimeknights.tconstruct.common.ClientProxy;
-import slimeknights.tconstruct.library.book.TinkerBook;
 
 public class CommonsClientProxy extends ClientProxy {
 

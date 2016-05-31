@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.gadgets.entity;
 
-import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.EnumFacing;
@@ -11,6 +10,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 import javax.annotation.Nonnull;
 
+import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.gadgets.Exploder;
 import slimeknights.tconstruct.gadgets.item.ItemThrowball;
 import slimeknights.tconstruct.shared.TinkerCommons;

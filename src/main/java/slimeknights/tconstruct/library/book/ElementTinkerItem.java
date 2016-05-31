@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import java.util.Collection;
 
 import slimeknights.mantle.client.gui.book.element.ElementItem;
-import slimeknights.tconstruct.library.Util;
 
 /** Same as ElementItem, but uses the vanilla fontrenderer if none other is given */
 public class ElementTinkerItem extends ElementItem {

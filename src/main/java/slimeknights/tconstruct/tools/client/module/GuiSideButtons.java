@@ -1,12 +1,9 @@
 package slimeknights.tconstruct.tools.client.module;
 
-import com.google.common.collect.ImmutableList;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.inventory.Container;
 
 import java.io.IOException;
-import java.util.List;
 
 import slimeknights.mantle.client.gui.GuiModule;
 import slimeknights.mantle.client.gui.GuiMultiModule;

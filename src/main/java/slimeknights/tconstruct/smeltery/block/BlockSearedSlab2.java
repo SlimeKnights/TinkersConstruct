@@ -1,12 +1,13 @@
 package slimeknights.tconstruct.smeltery.block;
 
-import java.util.Locale;
-
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.IStringSerializable;
+
+import java.util.Locale;
+
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.mantle.block.EnumBlockSlab;
 import slimeknights.tconstruct.library.TinkerRegistry;

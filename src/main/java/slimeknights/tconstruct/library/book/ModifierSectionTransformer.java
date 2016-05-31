@@ -3,9 +3,6 @@ package slimeknights.tconstruct.library.book;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
-import slimeknights.mantle.client.book.data.content.ContentText;
-import slimeknights.mantle.client.book.data.element.TextData;
-import slimeknights.mantle.client.book.repository.BookRepository;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 
