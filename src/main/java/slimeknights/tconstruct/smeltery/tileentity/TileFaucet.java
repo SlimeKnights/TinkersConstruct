@@ -222,4 +222,16 @@ public class TileFaucet extends TileEntity implements ITickable {
     super.onDataPacket(net, pkt);
     readFromNBT(pkt.getNbtCompound());
   }
+
+  @Nonnull
+  @Override
+  public NBTTagCompound getUpdateTag() {
+    // new tag instead of super since default implementation calls the super of writeToNBT
+    return writeToNBT(new NBTTagCompound());
+  }
+
+  @Override
+  public void handleUpdateTag(@Nonnull NBTTagCompound tag) {
+    readFromNBT(tag);
+  }
 }

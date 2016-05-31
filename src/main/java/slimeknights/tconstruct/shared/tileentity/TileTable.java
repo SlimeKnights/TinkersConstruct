@@ -18,6 +18,8 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.tileentity.TileInventory;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.config.Config;
@@ -128,6 +130,18 @@ public class TileTable extends TileInventory {
     if(facing != null) {
       getTileData().setTag(FACE_TAG, facing);
     }
+    readFromNBT(tag);
+  }
+
+  @Nonnull
+  @Override
+  public NBTTagCompound getUpdateTag() {
+    // new tag instead of super since default implementation calls the super of writeToNBT
+    return writeToNBT(new NBTTagCompound());
+  }
+
+  @Override
+  public void handleUpdateTag(@Nonnull NBTTagCompound tag) {
     readFromNBT(tag);
   }
 
