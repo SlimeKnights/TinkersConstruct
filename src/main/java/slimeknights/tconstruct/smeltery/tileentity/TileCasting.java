@@ -26,6 +26,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.common.PlayerHelper;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
@@ -80,18 +82,19 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     }
   }
 
+  @Nonnull
   @Override
-  public int[] getSlotsForFace(EnumFacing side) {
+  public int[] getSlotsForFace(@Nonnull EnumFacing side) {
     return new int[] {0, 1};
   }
 
   @Override
-  public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+  public boolean canInsertItem(int index, @Nonnull ItemStack itemStackIn, @Nonnull EnumFacing direction) {
     return index == 0 && !isStackInSlot(1);
   }
 
   @Override
-  public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+  public boolean canExtractItem(int index, @Nonnull ItemStack stack, @Nonnull EnumFacing direction) {
     return index == 1;
   }
 

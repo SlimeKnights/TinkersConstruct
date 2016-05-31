@@ -26,6 +26,8 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
@@ -59,7 +61,7 @@ public class LumberAxe extends AoeToolCore {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     addDefaultSubItems(subItems);
     addInfiTool(subItems, "InfiChopper");
   }

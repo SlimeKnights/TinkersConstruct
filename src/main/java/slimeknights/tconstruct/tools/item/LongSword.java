@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
@@ -69,6 +71,7 @@ public class LongSword extends ToolCore {
     return super.getStrVsBlock(stack, state);
   }
 
+  @Nonnull
   @Override
   public EnumAction getItemUseAction(ItemStack stack) {
     return EnumAction.NONE;
@@ -79,8 +82,9 @@ public class LongSword extends ToolCore {
     return 200;
   }
 
+  @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
     playerIn.setActiveHand(hand);
     return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
   }

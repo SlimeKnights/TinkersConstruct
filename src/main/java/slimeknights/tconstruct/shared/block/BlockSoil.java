@@ -26,6 +26,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -124,7 +126,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
   }
 
   @Override
-  public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+  public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockAccess world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
     SoilTypes type = world.getBlockState(pos).getValue(TYPE);
     if(type == SoilTypes.SLIMY_MUD_GREEN || type == SoilTypes.SLIMY_MUD_BLUE) {
       // can sustain slimeplants

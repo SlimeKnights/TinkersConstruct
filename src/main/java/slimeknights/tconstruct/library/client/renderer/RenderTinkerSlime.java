@@ -15,6 +15,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.awt.*;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.RenderUtil;
 
@@ -52,6 +54,7 @@ public class RenderTinkerSlime extends RenderSlime {
     super.doRender(entity, x, y, z, entityYaw, partialTicks);
   }
 
+  @Nonnull
   @Override
   protected ResourceLocation getEntityTexture(EntitySlime entity) {
     return this.texture;
@@ -79,7 +82,7 @@ public class RenderTinkerSlime extends RenderSlime {
     }
 
     @Override
-    public void doRenderLayer(EntitySlime entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale)
+    public void doRenderLayer(@Nonnull EntitySlime entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale)
     {
       ticking += partialTicks;
       if (!entitylivingbaseIn.isInvisible())

@@ -24,6 +24,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.item.ItemThrowball;
 
@@ -41,6 +44,7 @@ public class BlockGlow extends Block {
     this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.DOWN));
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, FACING);
@@ -51,13 +55,15 @@ public class BlockGlow extends Block {
     return state.getValue(FACING).getIndex();
   }
 
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
     return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));
   }
   
+  @Nonnull
   @Override
-  public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+  public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
     // only use the glowball for pickblock if it was loaded (which happens when gadgets is loaded)
     if(TinkerGadgets.throwball != null) {
       return new ItemStack(TinkerGadgets.throwball, 1, ItemThrowball.ThrowballType.GLOW.ordinal());
@@ -135,13 +141,14 @@ public class BlockGlow extends Block {
     BOUNDS = builder.build();
   }
 
+  @Nonnull
   @Override
   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
     return BOUNDS.get(state.getValue(FACING));
   }
 
   @Override
-  public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
+  public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, @Nonnull World worldIn, @Nonnull BlockPos pos) {
     return NULL_AABB;
   }
 
@@ -155,6 +162,7 @@ public class BlockGlow extends Block {
     return false;
   }
 
+  @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer() {
@@ -167,6 +175,6 @@ public class BlockGlow extends Block {
   }
 
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
   }
 }

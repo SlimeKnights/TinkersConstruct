@@ -17,6 +17,8 @@ import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
@@ -41,18 +43,20 @@ public class DumpMaterialTest extends CommandBase {
     return 0;
   }
 
+  @Nonnull
   @Override
   public String getCommandName() {
     return "dumpMaterialTest";
   }
 
+  @Nonnull
   @Override
-  public String getCommandUsage(ICommandSender sender) {
+  public String getCommandUsage(@Nonnull ICommandSender sender) {
     return "";
   }
 
   @Override
-  public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
     printStats();
     printTool(new Pickaxe(), baseMaterial);
     printTool(new Hatchet(), baseMaterial);

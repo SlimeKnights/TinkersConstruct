@@ -10,6 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fluids.Fluid;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.Util;
 
@@ -63,13 +65,15 @@ public class FluidsClientProxy extends ClientProxy {
       this.location = new ModelResourceLocation(Util.getResource("fluid_block"), fluid.getName());
     }
 
+    @Nonnull
     @Override
-    protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+    protected ModelResourceLocation getModelResourceLocation(@Nonnull IBlockState state) {
       return location;
     }
 
+    @Nonnull
     @Override
-    public ModelResourceLocation getModelLocation(ItemStack stack) {
+    public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
       return location;
     }
   }

@@ -36,6 +36,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.tileentity.TileDryingRack;
 import slimeknights.tconstruct.gadgets.tileentity.TileItemRack;
@@ -62,7 +64,7 @@ public class BlockRack extends BlockTable {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     list.add(createItemstack(this, 0, Blocks.WOODEN_SLAB, 0));
     list.add(createItemstack(this, 1, Blocks.WOODEN_SLAB, 0));
   }
@@ -78,8 +80,9 @@ public class BlockRack extends BlockTable {
   }
 
   /* Inventory stuffs */
+  @Nonnull
   @Override
-  public TileEntity createNewTileEntity(World worldIn, int meta) {
+  public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     if(getStateFromMeta(meta).getValue(DRYING)) {
       return new TileDryingRack();
     }
@@ -105,6 +108,7 @@ public class BlockRack extends BlockTable {
   }
 
   /* Block state */
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     // FACING is used to orientate the item, while ORIENTATION is the location of the rack. This mainly affects centered racks
@@ -115,6 +119,7 @@ public class BlockRack extends BlockTable {
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
    * IBlockstate
    */
+  @Nonnull
   @Override
   public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
     IBlockState state = this.getDefaultState();
@@ -178,6 +183,7 @@ public class BlockRack extends BlockTable {
   /**
    * Convert the given metadata into a BlockState for this Block
    */
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
     return this.getDefaultState()
@@ -204,8 +210,9 @@ public class BlockRack extends BlockTable {
    * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
    * blockstate.
    */
+  @Nonnull
   @Override
-  public IBlockState withRotation(IBlockState state, Rotation rot) {
+  public IBlockState withRotation(@Nonnull IBlockState state, Rotation rot) {
     switch(rot) {
       case CLOCKWISE_180:
         switch(state.getValue(ORIENTATION)) {
@@ -270,8 +277,9 @@ public class BlockRack extends BlockTable {
    * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
    * blockstate.
    */
+  @Nonnull
   @Override
-  public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+  public IBlockState withMirror(@Nonnull IBlockState state, Mirror mirrorIn) {
     return state.withRotation(mirrorIn.toRotation(state.getValue(ORIENTATION).getFacing()));
   }
 
@@ -293,10 +301,11 @@ public class BlockRack extends BlockTable {
   }
 
   @Override
-  public AxisAlignedBB getCollisionBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
+  public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos) {
     return BOUNDS.get(state.getValue(ORIENTATION));
   }
 
+  @Nonnull
   @Override
   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
     return BOUNDS.get(state.getValue(ORIENTATION));
@@ -309,7 +318,7 @@ public class BlockRack extends BlockTable {
 
   @Override
   @SideOnly(Side.CLIENT)
-  public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+  public boolean shouldSideBeRendered(IBlockState blockState, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, EnumFacing side) {
     return true;
   }
 
@@ -319,7 +328,7 @@ public class BlockRack extends BlockTable {
    * Ray traces through the blocks collision from start vector to end vector returning a ray trace hit.
    */
   @Override
-  public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
+  public RayTraceResult collisionRayTrace(IBlockState blockState, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Vec3d start, @Nonnull Vec3d end) {
     return this.rayTrace(pos, start, end, blockState.getBoundingBox(worldIn, pos));
   }
 }

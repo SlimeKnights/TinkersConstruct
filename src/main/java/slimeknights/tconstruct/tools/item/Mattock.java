@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
@@ -57,7 +59,7 @@ public class Mattock extends AoeToolCore {
   }
 
   @Override
-  public int getHarvestLevel(ItemStack stack, String toolClass) {
+  public int getHarvestLevel(ItemStack stack, @Nonnull String toolClass) {
     if(toolClass == null) {
       return -1;
     }
@@ -105,6 +107,7 @@ public class Mattock extends AoeToolCore {
     return new int[] {1,2};
   }
 
+  @Nonnull
   @Override
   public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
     if(ToolHelper.isBroken(stack)) {

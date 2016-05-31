@@ -17,6 +17,8 @@ import org.lwjgl.opengl.GL12;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 import slimeknights.tconstruct.library.tools.CapabilityTinkerProjectile;
@@ -29,7 +31,7 @@ public class RenderProjectileBase<T extends EntityProjectileBase> extends Render
   }
 
   @Override
-  public void doRender(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
+  public void doRender(@Nonnull T entity, double x, double y, double z, float entityYaw, float partialTicks) {
     // preface: Remember that the rotations are applied in reverse order.
     // the rendering call does not apply any transformations.
     // That'd screw things up, since it'd be applied before our transformations
@@ -100,8 +102,9 @@ public class RenderProjectileBase<T extends EntityProjectileBase> extends Render
     GL11.glRotatef(-45, 0f, 0f, 1f);
   }
 
+  @Nonnull
   @Override
-  protected ResourceLocation getEntityTexture(T entity) {
+  protected ResourceLocation getEntityTexture(@Nonnull T entity) {
     return TextureMap.LOCATION_MISSING_TEXTURE;
   }
 

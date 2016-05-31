@@ -30,6 +30,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.IPatternOffset;
@@ -332,7 +334,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
   }
 
   @Override
-  public void onResourceManagerReload(IResourceManager resourceManager) {
+  public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
     // clear cache
     baseTextures.clear();
     for(Map map : sprites.values()) {

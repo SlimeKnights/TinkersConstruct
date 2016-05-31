@@ -12,6 +12,8 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.smeltery.block.BlockFaucet;
@@ -169,6 +171,7 @@ public class TileFaucet extends TileEntity implements ITickable {
 
   /* Load & Save */
 
+  @Nonnull
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
     compound = super.writeToNBT(compound);

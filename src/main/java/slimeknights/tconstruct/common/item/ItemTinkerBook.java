@@ -12,6 +12,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.book.TinkerBook;
@@ -23,8 +25,9 @@ public class ItemTinkerBook extends Item {
     this.setMaxStackSize(1);
   }
 
+  @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
     TinkerBook.INSTANCE.openGui(itemStackIn);
     return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
   }

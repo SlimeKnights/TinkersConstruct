@@ -18,6 +18,9 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameData;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
@@ -213,8 +216,9 @@ public abstract class ClientProxy extends CommonProxy {
     // This here is needed for the model to be found ingame when the game looks for a model to render an Itemstack
     // we use an ItemMeshDefinition because it allows us to do it no matter what metadata we use
     ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
+      @Nonnull
       @Override
-      public ModelResourceLocation getModelLocation(ItemStack stack) {
+      public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
         return new ModelResourceLocation(location, "inventory");
       }
     });
@@ -318,8 +322,9 @@ public abstract class ClientProxy extends CommonProxy {
       this.baseLocation = baseLocation;
     }
 
+    @Nonnull
     @Override
-    public ModelResourceLocation getModelLocation(ItemStack stack) {
+    public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
       Item item = Pattern.getPartFromTag(stack);
       String suffix = "";
       if(item != null) {

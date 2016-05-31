@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -43,7 +45,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     for(SlimePlantType type : SlimePlantType.values()) {
       for(FoliageType foliage : FoliageType.values()) {
         list.add(new ItemStack(this, 1, getMetaFromState(getDefaultState().withProperty(TYPE, type).withProperty(FOLIAGE, foliage))));
@@ -52,6 +54,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
   }
 
   /* State stuff */
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, TYPE, FOLIAGE);
@@ -65,6 +68,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
     return meta;
   }
 
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
     int type = meta & 3;
@@ -87,12 +91,13 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
   /* Logic stuff */
 
   @Override
-  public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
+  public boolean isReplaceable(IBlockAccess worldIn, @Nonnull BlockPos pos) {
     return true;
   }
 
+  @Nonnull
   @Override
-  public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+  public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
     int meta = this.getMetaFromState(state);
     return new ItemStack(Item.getItemFromBlock(this), 1, meta);
   }
@@ -113,6 +118,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
   /**
    * Get the OffsetType for this Block. Determines if the model is rendered slightly offset.
    */
+  @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
   public Block.EnumOffsetType getOffsetType()
@@ -121,6 +127,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
   }
 
   /* Forge/MC callbacks */
+  @Nonnull
   @Override
   public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
     return TinkerWorld.slimePlantType;

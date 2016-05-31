@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -48,6 +49,7 @@ public class BlockFaucet extends BlockContainer {
     this.setSoundType(SoundType.METAL);
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, FACING);
@@ -56,6 +58,7 @@ public class BlockFaucet extends BlockContainer {
   /**
    * Convert the given metadata into a BlockState for this Block
    */
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
     if(meta >= EnumFacing.values().length) {
@@ -124,11 +127,13 @@ public class BlockFaucet extends BlockContainer {
     BOUNDS = builder.build();
   }
 
+  @Nonnull
   @Override
   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
     return BOUNDS.get(state.getValue(FACING));
   }
 
+  @Nonnull
   @Override
   public EnumBlockRenderType getRenderType(IBlockState state) {
     return EnumBlockRenderType.MODEL;
@@ -136,7 +141,7 @@ public class BlockFaucet extends BlockContainer {
 
   @Override
   @SideOnly(Side.CLIENT)
-  public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+  public boolean shouldSideBeRendered(IBlockState blockState, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, EnumFacing side) {
     return true;
   }
 
@@ -150,8 +155,9 @@ public class BlockFaucet extends BlockContainer {
     return false;
   }
 
+  @Nonnull
   @Override
-  public TileEntity createNewTileEntity(World worldIn, int meta) {
+  public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     return new TileFaucet();
   }
 
@@ -159,6 +165,7 @@ public class BlockFaucet extends BlockContainer {
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
    * IBlockstate
    */
+  @Nonnull
   @Override
   public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
     EnumFacing enumfacing = facing.getOpposite();

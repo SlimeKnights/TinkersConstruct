@@ -9,6 +9,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
@@ -29,6 +31,7 @@ public class BlockOre extends EnumBlock<BlockOre.OreTypes> {
     setCreativeTab(TinkerRegistry.tabWorld);
   }
 
+  @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer() {

@@ -9,6 +9,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockLiquidSlime;
@@ -23,8 +25,9 @@ public class EntityBlueSlime extends EntitySlime {
   }
 
   // we're using this instead of getDropItem because we need the metadata
+  @Nonnull
   @Override
-  public EntityItem dropItemWithOffset(Item itemIn, int size, float offsetY) {
+  public EntityItem dropItemWithOffset(@Nonnull Item itemIn, int size, float offsetY) {
     ItemStack stack = TinkerCommons.matSlimeBallBlue.copy();
     stack.stackSize = size;
     return this.entityDropItem(stack, offsetY);
@@ -35,6 +38,7 @@ public class EntityBlueSlime extends EntitySlime {
     return this.getSlimeSize() == 1 ? LOOT_TABLE : LootTableList.EMPTY;
   }
 
+  @Nonnull
   @Override
   protected EntitySlime createInstance() {
     return new EntityBlueSlime(this.worldObj);

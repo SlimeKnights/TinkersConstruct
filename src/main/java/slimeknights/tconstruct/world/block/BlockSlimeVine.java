@@ -12,6 +12,8 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
 
@@ -38,6 +40,7 @@ public class BlockSlimeVine extends BlockVine {
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
    * IBlockstate
    */
+  @Nonnull
   @Override
   public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
   {
@@ -50,7 +53,7 @@ public class BlockSlimeVine extends BlockVine {
   }
 
   @Override
-  public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+  public void neighborChanged(@Nonnull IBlockState state, World worldIn, @Nonnull BlockPos pos, Block blockIn) {
     if(worldIn.isRemote) {
       return;
     }
@@ -74,7 +77,7 @@ public class BlockSlimeVine extends BlockVine {
   }
 
   @Override
-  public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+  public void updateTick(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random rand) {
     if(!worldIn.isRemote) {
       if (rand.nextInt(4) == 0) {
         grow(worldIn, rand, pos, state);

@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.RenderUtil;
 
@@ -268,7 +270,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     private CacheClearer() {}
 
     @Override
-    public void onResourceManagerReload(IResourceManager resourceManager) {
+    public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
       AbstractColoredTexture.cache.clear();
     }
   }

@@ -13,6 +13,8 @@ import net.minecraft.util.text.translation.I18n;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 
@@ -23,16 +25,19 @@ public class LocalizationCheckCommand extends CommandBase {
     return 0;
   }
 
+  @Nonnull
   @Override
   public String getCommandName() {
     return "checkLocalizationStrings";
   }
 
+  @Nonnull
   @Override
-  public String getCommandUsage(ICommandSender sender) {
+  public String getCommandUsage(@Nonnull ICommandSender sender) {
     return "/" + getCommandName() + " [Material-Identifier]";
   }
 
+  @Nonnull
   @Override
   public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
     if(args.length != 1) {
@@ -51,7 +56,7 @@ public class LocalizationCheckCommand extends CommandBase {
   }
 
   @Override
-  public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
     if(args.length > 1) {
       throw new WrongUsageException(getCommandUsage(sender));
     }

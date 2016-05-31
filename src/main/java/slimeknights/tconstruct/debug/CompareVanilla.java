@@ -27,6 +27,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
@@ -43,18 +45,20 @@ public class CompareVanilla extends CommandBase {
     return 0;
   }
 
+  @Nonnull
   @Override
   public String getCommandName() {
     return "compareVanilla";
   }
 
+  @Nonnull
   @Override
-  public String getCommandUsage(ICommandSender sender) {
+  public String getCommandUsage(@Nonnull ICommandSender sender) {
     return "";
   }
 
   @Override
-  public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
     ImmutableList<Material> woodMaterials = ImmutableList.of(TinkerMaterials.wood, TinkerMaterials.wood, TinkerMaterials.wood);
     ImmutableList<Material> stoneMaterials = ImmutableList.of(TinkerMaterials.wood, TinkerMaterials.stone, TinkerMaterials.stone);
     ImmutableList<Material> ironMaterials = ImmutableList.of(TinkerMaterials.wood, TinkerMaterials.iron, TinkerMaterials.iron);

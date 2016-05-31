@@ -17,6 +17,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.gadgets.entity.EntityThrowball;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -31,14 +33,15 @@ public class ItemThrowball extends ItemSnowball {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     for(ThrowballType type : ThrowballType.values()) {
       subItems.add(new ItemStack(this, 1, type.ordinal()));
     }
   }
 
+  @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
   {
     if (!playerIn.capabilities.isCreativeMode)
     {
@@ -63,6 +66,7 @@ public class ItemThrowball extends ItemSnowball {
     world.spawnEntityInWorld(entity);
   }
 
+  @Nonnull
   @Override
   public String getUnlocalizedName(ItemStack stack) {
     int meta = stack.getMetadata(); // should call getMetadata below

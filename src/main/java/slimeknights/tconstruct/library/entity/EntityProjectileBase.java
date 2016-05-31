@@ -24,6 +24,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import io.netty.buffer.ByteBuf;
@@ -84,12 +85,13 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   }
 
   @Override
-  public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+  public boolean hasCapability(@Nonnull Capability<?> capability, @Nonnull EnumFacing facing) {
     return capability == CapabilityTinkerProjectile.PROJECTILE_CAPABILITY || super.hasCapability(capability, facing);
   }
 
+  @Nonnull
   @Override
-  public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+  public <T> T getCapability(@Nonnull Capability<T> capability, @Nonnull EnumFacing facing) {
     if(capability == CapabilityTinkerProjectile.PROJECTILE_CAPABILITY) {
       return (T) tinkerProjectile;
     }
@@ -104,6 +106,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.defused = true;
   }
 
+  @Nonnull
   @Override
   protected ItemStack getArrowStack() {
     return tinkerProjectile.getItemStack();
@@ -451,7 +454,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
   @Nullable
   @Override
-  protected Entity findEntityOnPath(Vec3d start, Vec3d end) {
+  protected Entity findEntityOnPath(@Nonnull Vec3d start, @Nonnull Vec3d end) {
     if(isDefused()) {
       return null;
     }
@@ -511,7 +514,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
    * Called by a player entity when they collide with an entity
    */
   @Override
-  public void onCollideWithPlayer(EntityPlayer player) {
+  public void onCollideWithPlayer(@Nonnull EntityPlayer player) {
     if(!this.worldObj.isRemote && this.inGround && this.arrowShake <= 0) {
       boolean pickedUp = this.pickupStatus == EntityArrow.PickupStatus.ALLOWED || this.pickupStatus == EntityArrow.PickupStatus.CREATIVE_ONLY && player.capabilities.isCreativeMode;
 

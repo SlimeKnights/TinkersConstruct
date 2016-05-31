@@ -22,6 +22,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.client.particle.Particles;
@@ -43,7 +45,7 @@ public class FryPan extends ToolCore {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     addDefaultSubItems(subItems);
     ItemStack tool = getInfiTool("Bane of Pigs");
 
@@ -122,7 +124,7 @@ public class FryPan extends ToolCore {
   }
 
   @Override
-  public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
+  public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
     return stack;
   }
 
@@ -146,14 +148,16 @@ public class FryPan extends ToolCore {
   /**
    * returns the action that specifies what animation to play when the items is being used
    */
+  @Nonnull
   @Override
   public EnumAction getItemUseAction(ItemStack stack)
   {
     return EnumAction.BOW;
   }
 
+  @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
     playerIn.setActiveHand(hand);
     return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
   }

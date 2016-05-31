@@ -8,6 +8,8 @@ import net.minecraft.util.math.BlockPos;
 
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
@@ -87,7 +89,7 @@ public class SlimeColorizer implements IResourceManagerReloadListener {
   }
 
   @Override
-  public void onResourceManagerReload(IResourceManager resourceManager) {
+  public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
     try {
       colorBufferBlue = TextureUtil.readImageData(resourceManager, LOC_SLIME_BLUE_PNG);
       colorBufferPurple = TextureUtil.readImageData(resourceManager, LOC_SLIME_PURPLE_PNG);

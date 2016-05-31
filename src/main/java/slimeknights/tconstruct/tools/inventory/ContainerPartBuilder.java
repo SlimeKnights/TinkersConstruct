@@ -16,6 +16,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.inventory.IContainerCraftingCustom;
 import slimeknights.mantle.inventory.SlotCraftingCustom;
 import slimeknights.mantle.inventory.SlotOut;
@@ -212,7 +214,7 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
 
   @Override
   @SideOnly(Side.CLIENT)
-  public void putStackInSlot(int p_75141_1_, ItemStack p_75141_2_) {
+  public void putStackInSlot(int p_75141_1_, @Nonnull ItemStack p_75141_2_) {
     super.putStackInSlot(p_75141_1_, p_75141_2_);
 
     // this is called solely to update the gui buttons

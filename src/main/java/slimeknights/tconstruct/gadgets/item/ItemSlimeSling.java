@@ -13,6 +13,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
@@ -26,12 +28,14 @@ public class ItemSlimeSling extends Item {
     this.setCreativeTab(TinkerRegistry.tabGadgets);
   }
 
+  @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
     playerIn.setActiveHand(hand);
     return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
   }
 
+  @Nonnull
   @Override
   public EnumAction getItemUseAction(ItemStack stack) {
     return EnumAction.BOW;

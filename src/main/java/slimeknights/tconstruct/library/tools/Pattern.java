@@ -11,6 +11,8 @@ import net.minecraftforge.fml.common.registry.GameData;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -29,7 +31,7 @@ public class Pattern extends Item implements IPattern {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     subItems.add(new ItemStack(this));
 
     for(Item toolpart : TinkerRegistry.getPatternItems()) {
@@ -40,8 +42,9 @@ public class Pattern extends Item implements IPattern {
     }
   }
 
+  @Nonnull
   @Override
-  public String getItemStackDisplayName(ItemStack stack) {
+  public String getItemStackDisplayName(@Nonnull ItemStack stack) {
     Item part = getPartFromTag(stack);
     String unloc = this.getUnlocalizedNameInefficiently(stack);
     if(part == null) {

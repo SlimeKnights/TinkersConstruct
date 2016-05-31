@@ -35,6 +35,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Matrix4f;
 
 import slimeknights.mantle.client.model.BakedCompositeModel;
@@ -108,6 +109,7 @@ public class BakedTableModel implements IPerspectiveAwareModel {
     return bakedModel;
   }
 
+  @Nonnull
   @Override
   public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
     // get texture from state
@@ -160,16 +162,19 @@ public class BakedTableModel implements IPerspectiveAwareModel {
     return standard.isBuiltInRenderer();
   }
 
+  @Nonnull
   @Override
   public TextureAtlasSprite getParticleTexture() {
     return standard.getParticleTexture();
   }
 
+  @Nonnull
   @Override
   public ItemCameraTransforms getItemCameraTransforms() {
     return standard.getItemCameraTransforms();
   }
 
+  @Nonnull
   @Override
   public ItemOverrideList getOverrides() {
     return TableItemOverrideList.INSTANCE;
@@ -189,8 +194,9 @@ public class BakedTableModel implements IPerspectiveAwareModel {
       super(ImmutableList.<ItemOverride>of());
     }
 
+    @Nonnull
     @Override
-    public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
+    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
       if(originalModel instanceof BakedTableModel) {
         // read out the data on the itemstack
         ItemStack blockStack = ItemStack

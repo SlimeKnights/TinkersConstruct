@@ -33,6 +33,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.mantle.multiblock.IMasterLogic;
 import slimeknights.mantle.multiblock.IServantLogic;
@@ -560,6 +562,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     return info;
   }
 
+  @Nonnull
   @Override
   public AxisAlignedBB getRenderBoundingBox() {
     if(minPos == null || maxPos == null) {

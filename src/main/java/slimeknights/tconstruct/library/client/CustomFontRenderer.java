@@ -12,6 +12,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 
 /**
  * Custom renderer based on CoFHs CoFHFontRenderer.
@@ -30,8 +32,9 @@ public class CustomFontRenderer extends FontRenderer {
     super(gameSettingsIn, location, textureManagerIn, true);
   }
 
+  @Nonnull
   @Override
-  public List<String> listFormattedStringToWidth(String str, int wrapWidth) {
+  public List<String> listFormattedStringToWidth(@Nonnull String str, int wrapWidth) {
     return Arrays.asList(this.wrapFormattedStringToWidth(str, wrapWidth).split("\n"));
   }
 
@@ -86,7 +89,7 @@ public class CustomFontRenderer extends FontRenderer {
   }
 
   @Override
-  public int renderString(String text, float x, float y, int color, boolean dropShadow) {
+  public int renderString(@Nonnull String text, float x, float y, int color, boolean dropShadow) {
     this.dropShadow = dropShadow;
     return super.renderString(text, x, y, color, dropShadow);
   }

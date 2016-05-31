@@ -24,6 +24,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -39,13 +41,13 @@ public class BlockSlimeLeaves extends BlockLeaves {
   }
 
   @Override
-  public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+  public void updateTick(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, Random rand) {
     super.updateTick(worldIn, pos, state, rand);
   }
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     for(FoliageType type : FoliageType.values()) {
       list.add(new ItemStack(this, 1, getMetaFromState(this.getDefaultState().withProperty(BlockSlimeGrass.FOLIAGE, type))));
     }
@@ -56,6 +58,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
     return Blocks.LEAVES.isOpaqueCube(state);
   }
 
+  @Nonnull
   @SideOnly(Side.CLIENT)
   @Override
   public BlockRenderLayer getBlockLayer() {
@@ -63,7 +66,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
   }
 
   @Override
-  public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+  public boolean shouldSideBeRendered(@Nonnull IBlockState blockState, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
     // isOpaqueCube returns !leavesFancy to us. We have to fix the variable before calling super
     this.leavesFancy = !Blocks.LEAVES.isOpaqueCube(blockState);
 
@@ -111,16 +114,18 @@ public class BlockSlimeLeaves extends BlockLeaves {
 
   // item dropped on silktouching
   @Override
-  protected ItemStack createStackedBlock(IBlockState state)
+  protected ItemStack createStackedBlock(@Nonnull IBlockState state)
   {
     return new ItemStack(Item.getItemFromBlock(this), 1, (state.getValue(BlockSlimeGrass.FOLIAGE)).ordinal() & 3);
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, BlockSlimeGrass.FOLIAGE, CHECK_DECAY, DECAYABLE);
   }
 
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta)
   {
@@ -154,6 +159,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
     return meta;
   }
 
+  @Nonnull
   @Override
   public BlockPlanks.EnumType getWoodType(int meta) {
     throw new NotImplementedException(); // unused by our code.

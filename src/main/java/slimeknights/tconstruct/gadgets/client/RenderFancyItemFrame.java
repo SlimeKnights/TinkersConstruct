@@ -18,6 +18,8 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.gadgets.entity.EntityFancyItemFrame;
 import slimeknights.tconstruct.library.Util;
 
@@ -34,7 +36,7 @@ public class RenderFancyItemFrame extends RenderItemFrame {
   }
 
   @Override
-  public void doRender(EntityItemFrame entity, double x, double y, double z, float entityYaw, float partialTicks)
+  public void doRender(@Nonnull EntityItemFrame entity, double x, double y, double z, float entityYaw, float partialTicks)
   {
     GlStateManager.pushMatrix();
     BlockPos blockpos = entity.getHangingPosition();

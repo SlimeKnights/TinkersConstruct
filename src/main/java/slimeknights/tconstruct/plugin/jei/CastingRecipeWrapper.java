@@ -60,11 +60,13 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
     return recipe.cast != null;
   }
 
+  @Nonnull
   @Override
   public List<FluidStack> getFluidInputs() {
     return inputFluid;
   }
 
+  @Nonnull
   @Override
   public List getInputs() {
     if(cast == null) {
@@ -73,6 +75,7 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
     return cast;
   }
 
+  @Nonnull
   @Override
   public List getOutputs() {
     if(output == null) {

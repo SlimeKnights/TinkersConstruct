@@ -17,6 +17,8 @@ import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.client.model.BakedWrapper;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
@@ -51,6 +53,7 @@ public class BakedMaterialModel extends BakedWrapper.Perspective implements IPer
     return materialModel;
   }
 
+  @Nonnull
   @Override
   public ItemOverrideList getOverrides() {
     return MaterialItemOverrideList.INSTANCE;
@@ -64,8 +67,9 @@ public class BakedMaterialModel extends BakedWrapper.Perspective implements IPer
       super(ImmutableList.<ItemOverride>of());
     }
 
+    @Nonnull
     @Override
-    public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
+    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
       String id = ((IMaterialItem) stack.getItem()).getMaterialID(stack);
       return ((BakedMaterialModel) originalModel).getModelByIdentifier(id);
     }

@@ -9,6 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.EntityThrowball;
 
@@ -20,6 +22,7 @@ public class RenderThrowball extends RenderSnowball<EntityThrowball> {
     super(renderManagerIn, p_i46137_2_, p_i46137_3_);
   }
 
+  @Nonnull
   @Override
   public ItemStack getStackToRender(EntityThrowball entityIn) {
     return new ItemStack(item, 1, entityIn.type.ordinal());

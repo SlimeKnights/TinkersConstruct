@@ -8,6 +8,8 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 
@@ -18,7 +20,7 @@ public class ItemBlockRack extends ItemMultiTexture {
   }
 
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+  public void addInformation(@Nonnull ItemStack stack, @Nonnull EntityPlayer playerIn, @Nonnull List<String> tooltip, boolean advanced) {
     if(stack.hasTagCompound()) {
       NBTTagCompound tag = stack.getTagCompound().getCompoundTag(TileTable.FEET_TAG);
       ItemStack legs = ItemStack.loadItemStackFromNBT(tag);

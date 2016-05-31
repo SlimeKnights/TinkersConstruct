@@ -13,6 +13,8 @@ import net.minecraftforge.common.IPlantable;
 
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -29,7 +31,7 @@ public class BlockSlimeDirt extends EnumBlock<BlockSlimeDirt.DirtType> {
   }
 
   @Override
-  public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+  public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockAccess world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
     // can sustain both slimeplants and normal plants
     return plantable.getPlantType(world, pos) == TinkerWorld.slimePlantType || plantable.getPlantType(world, pos) == EnumPlantType.Plains;
   }

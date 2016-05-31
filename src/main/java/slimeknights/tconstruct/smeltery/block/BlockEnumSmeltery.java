@@ -12,6 +12,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.mantle.multiblock.IServantLogic;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -34,14 +37,15 @@ public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta & IString
     this.isBlockContainer = true; // has TE
   }
 
+  @Nonnull
   @Override
-  public TileEntity createNewTileEntity(World worldIn, int meta) {
+  public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     return new TileSmelteryComponent();
   }
 
   /* BlockContainer TE handling */
   @Override
-  public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+  public void breakBlock(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
     TileEntity te = worldIn.getTileEntity(pos);
     if(te instanceof TileSmelteryComponent) {
       ((TileSmelteryComponent) te).notifyMasterOfChange();

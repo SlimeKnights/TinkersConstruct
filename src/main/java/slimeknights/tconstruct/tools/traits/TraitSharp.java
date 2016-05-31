@@ -5,6 +5,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
@@ -57,7 +59,7 @@ public class TraitSharp extends AbstractTrait {
     }
 
     @Override
-    public void performEffect(EntityLivingBase target, int level) {
+    public void performEffect(@Nonnull EntityLivingBase target, int level) {
       dealDamage(target, level);
     }
   }

@@ -22,6 +22,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -38,18 +39,20 @@ public class FindBestTool extends CommandBase {
     return 0;
   }
 
+  @Nonnull
   @Override
   public String getCommandName() {
     return "findBestTool";
   }
 
+  @Nonnull
   @Override
-  public String getCommandUsage(ICommandSender sender) {
+  public String getCommandUsage(@Nonnull ICommandSender sender) {
     return "/findBestTool [number of tools to display] <filter type>";
   }
 
   @Override
-  public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
     int num, filtertype;
     if(args.length < 1) throw new CommandException("Too few arguments");
     else if(args.length < 2) {

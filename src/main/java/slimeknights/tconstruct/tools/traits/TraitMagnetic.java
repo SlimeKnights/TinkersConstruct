@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Vector3d;
 
 import slimeknights.tconstruct.library.Util;
@@ -50,7 +51,7 @@ public class TraitMagnetic extends AbstractTraitLeveled {
     }
 
     @Override
-    public void performEffect(EntityLivingBase entity, int id) {
+    public void performEffect(@Nonnull EntityLivingBase entity, int id) {
       // super magnetic - inspired by botanias code
       double x = entity.posX;
       double y = entity.posY;

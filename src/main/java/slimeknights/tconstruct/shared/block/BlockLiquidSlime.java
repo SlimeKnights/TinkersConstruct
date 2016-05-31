@@ -13,6 +13,8 @@ import net.minecraftforge.fluids.Fluid;
 
 import java.util.Random;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.smeltery.block.BlockTinkerFluid;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -57,7 +59,7 @@ public class BlockLiquidSlime extends BlockTinkerFluid {
   }
 
   @Override
-  public boolean canCreatureSpawn(IBlockState state, IBlockAccess world, BlockPos pos, EntityLiving.SpawnPlacementType type) {
+  public boolean canCreatureSpawn(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EntityLiving.SpawnPlacementType type) {
     return type == EntityLiving.SpawnPlacementType.IN_WATER || super.canCreatureSpawn(state, world, pos, type);
   }
 }

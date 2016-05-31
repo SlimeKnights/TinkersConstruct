@@ -31,6 +31,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
@@ -60,8 +62,9 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
   }
 
 
+  @Nonnull
   @Override
-  public TileEntity createNewTileEntity(World worldIn, int meta) {
+  public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     switch(TableTypes.fromMeta(meta)) {
       case CraftingStation:
         return new TileCraftingStation();
@@ -93,7 +96,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     // crafting station is boring
     list.add(new ItemStack(this, 1, TableTypes.CraftingStation.meta));
 
@@ -138,11 +141,13 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
            (state.getValue(TABLES) == TableTypes.PatternChest || state.getValue(TABLES) == TableTypes.PartChest);
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new ExtendedBlockState(this, new IProperty[]{TABLES}, new IUnlistedProperty[]{TEXTURE, INVENTORY, FACING});
   }
 
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
     return this.getDefaultState().withProperty(TABLES, TableTypes.fromMeta(meta));
@@ -156,6 +161,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
   /* Bounds */
   private static AxisAlignedBB BOUNDS_Chest = new AxisAlignedBB(0, 0, 0, 1, 0.875, 1);
 
+  @Nonnull
   @Override
   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
     if(state.getValue(TABLES).isChest) {
@@ -166,7 +172,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
   }
 
   @Override
-  public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
+  public RayTraceResult collisionRayTrace(IBlockState blockState, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Vec3d start, @Nonnull Vec3d end) {
     if(blockState.getValue(TABLES).isChest) {
       return rayTrace(pos, start, end, BOUNDS_Chest);
     }

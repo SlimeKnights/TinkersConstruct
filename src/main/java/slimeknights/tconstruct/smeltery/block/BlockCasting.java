@@ -32,6 +32,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.BlockInventory;
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -53,12 +55,13 @@ public class BlockCasting extends BlockInventory {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     for(CastingType type : CastingType.values()) {
       list.add(new ItemStack(this, 1, type.getMeta()));
     }
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new ExtendedBlockState(this, new IProperty[]{TYPE}, new IUnlistedProperty[]{BlockTable.INVENTORY, BlockTable.FACING});
@@ -69,6 +72,7 @@ public class BlockCasting extends BlockInventory {
     return state.getValue(TYPE).getMeta();
   }
 
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
     if(meta < 0 || meta >= CastingType.values().length) {
@@ -117,9 +121,10 @@ public class BlockCasting extends BlockInventory {
     }
   }
 
+  @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
-  public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+  public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
     IExtendedBlockState extendedState = (IExtendedBlockState) state;
 
     TileEntity te = world.getTileEntity(pos);
@@ -148,7 +153,7 @@ public class BlockCasting extends BlockInventory {
   );
 
   @Override
-  public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
+  public RayTraceResult collisionRayTrace(IBlockState blockState, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Vec3d start, @Nonnull Vec3d end) {
     if(blockState.getValue(TYPE) == CastingType.BASIN) {
       return BlockTable.raytraceMultiAABB(BOUNDS_Basin, pos, start, end);
     }
@@ -171,6 +176,7 @@ public class BlockCasting extends BlockInventory {
     return false;
   }
 
+  @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer()
@@ -179,7 +185,7 @@ public class BlockCasting extends BlockInventory {
   }
 
   @Override
-  public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+  public boolean shouldSideBeRendered(IBlockState blockState, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, EnumFacing side) {
     return true;
   }
 

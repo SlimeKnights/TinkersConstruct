@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -44,7 +46,7 @@ public class BlockSlimeGrass extends BlockGrass {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     for(FoliageType grass : FoliageType.values()) {
       for(DirtType type : DirtType.values()) {
         list.add(new ItemStack(this, 1, getMetaFromState(getDefaultState().withProperty(TYPE, type).withProperty(FOLIAGE, grass))));
@@ -53,7 +55,7 @@ public class BlockSlimeGrass extends BlockGrass {
   }
 
   @Override
-  public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+  public void grow(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
     BlockPos blockpos1 = pos.up();
     int i = 0;
 
@@ -101,7 +103,7 @@ public class BlockSlimeGrass extends BlockGrass {
   }
 
   @Override
-  public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+  public void updateTick(World worldIn, @Nonnull BlockPos pos, IBlockState state, @Nonnull Random rand) {
     if(worldIn.isRemote) {
       return;
     }
@@ -137,11 +139,13 @@ public class BlockSlimeGrass extends BlockGrass {
     }
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, TYPE, FOLIAGE, BlockGrass.SNOWY);
   }
 
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
     if(meta > 14) meta = 0;
@@ -168,12 +172,13 @@ public class BlockSlimeGrass extends BlockGrass {
   }
 
   @Override
-  public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+  public Item getItemDropped(IBlockState state, @Nonnull Random rand, int fortune) {
     return Item.getItemFromBlock(getDirtState(state).getBlock());
   }
 
+  @Nonnull
   @Override
-  public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+  public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
     return this.createStackedBlock(world.getBlockState(pos));
   }
 
@@ -225,7 +230,7 @@ public class BlockSlimeGrass extends BlockGrass {
   }
 
   @Override
-  public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+  public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockAccess world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
     // can sustain both slimeplants and normal plants
     return plantable.getPlantType(world, pos) == TinkerWorld.slimePlantType || plantable.getPlantType(world, pos) == EnumPlantType.Plains;
   }

@@ -14,6 +14,8 @@ import org.apache.commons.lang3.tuple.Triple;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IJeiRuntime;
@@ -37,7 +39,7 @@ public class JEIPlugin implements IModPlugin {
   public static IJeiHelpers jeiHelpers;
 
   @Override
-  public void register(IModRegistry registry) {
+  public void register(@Nonnull IModRegistry registry) {
     jeiHelpers = registry.getJeiHelpers();
     IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
 
@@ -110,6 +112,6 @@ public class JEIPlugin implements IModPlugin {
   }
 
   @Override
-  public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
+  public void onRuntimeAvailable(@Nonnull IJeiRuntime jeiRuntime) {
   }
 }

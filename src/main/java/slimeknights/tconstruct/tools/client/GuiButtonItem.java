@@ -6,6 +6,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.client.gui.GuiElement;
 
 public class GuiButtonItem<T> extends GuiButton {
@@ -47,7 +49,7 @@ public class GuiButtonItem<T> extends GuiButton {
   }
 
   @Override
-  public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+  public void drawButton(@Nonnull Minecraft mc, int mouseX, int mouseY) {
     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
     mc.getTextureManager().bindTexture(locBackground);
 

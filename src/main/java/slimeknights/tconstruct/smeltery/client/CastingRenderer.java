@@ -16,6 +16,8 @@ import org.lwjgl.opengl.GL33;
 import org.lwjgl.opengl.GL40;
 import org.lwjgl.opengl.GL45;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.client.RenderUtil;
 import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
@@ -51,7 +53,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
   }
 
   @Override
-  public void renderTileEntityAt(T te, double x, double y, double z, float partialTicks, int destroyStage) {
+  public void renderTileEntityAt(@Nonnull T te, double x, double y, double z, float partialTicks, int destroyStage) {
     if(te.tank.getFluidAmount() == 0 || te.tank.getCapacity() == 0) {
       return;
     }

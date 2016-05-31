@@ -16,6 +16,8 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.client.RenderUtil;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
@@ -23,7 +25,7 @@ import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
 
   @Override
-  public void renderTileEntityAt(TileSmeltery smeltery, double x, double y, double z, float partialTicks, int destroyStage) {
+  public void renderTileEntityAt(@Nonnull TileSmeltery smeltery, double x, double y, double z, float partialTicks, int destroyStage) {
     if(!smeltery.isActive())
       return;
 

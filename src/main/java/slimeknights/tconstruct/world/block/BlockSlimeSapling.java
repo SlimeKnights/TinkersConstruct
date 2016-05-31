@@ -19,6 +19,8 @@ import net.minecraftforge.common.EnumPlantType;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
@@ -34,13 +36,14 @@ public class BlockSlimeSapling extends BlockSapling {
   }
 
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, @Nonnull List<ItemStack> list) {
     for(FoliageType type : FoliageType.values()) {
       list.add(new ItemStack(this, 1, getMetaFromState(getDefaultState().withProperty(FOLIAGE, type))));
     }
   }
 
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     // TYPE has to be included because of the BlockSapling constructor.. but it's never used.
@@ -50,6 +53,7 @@ public class BlockSlimeSapling extends BlockSapling {
   /**
    * Convert the given metadata into a BlockState for this Block
    */
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta)
   {
@@ -75,7 +79,7 @@ public class BlockSlimeSapling extends BlockSapling {
   }
 
   @Override
-  public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
+  public boolean isReplaceable(IBlockAccess worldIn, @Nonnull BlockPos pos) {
     return false;
   }
 
@@ -85,20 +89,22 @@ public class BlockSlimeSapling extends BlockSapling {
     return ground == TinkerWorld.slimeGrass || ground == TinkerWorld.slimeDirt;
   }
 
+  @Nonnull
   @Override
   public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
     return TinkerWorld.slimePlantType;
   }
 
+  @Nonnull
   @Override
-  public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+  public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
     IBlockState iblockstate = world.getBlockState(pos);
     int meta = iblockstate.getBlock().getMetaFromState(iblockstate);
     return new ItemStack(Item.getItemFromBlock(this), 1, meta);
   }
 
   @Override
-  public void generateTree(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+  public void generateTree(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random rand) {
     if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn, rand, pos)) return;
 
     BlockSlime.SlimeType slimeType = BlockSlime.SlimeType.GREEN;

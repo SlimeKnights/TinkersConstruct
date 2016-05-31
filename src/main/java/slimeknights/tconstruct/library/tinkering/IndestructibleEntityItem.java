@@ -7,6 +7,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import javax.annotation.Nonnull;
+
 public class IndestructibleEntityItem extends EntityItem {
 
   public IndestructibleEntityItem(World worldIn, double x, double y, double z) {
@@ -25,7 +27,7 @@ public class IndestructibleEntityItem extends EntityItem {
   }
 
   @Override
-  public boolean attackEntityFrom(DamageSource source, float amount) {
+  public boolean attackEntityFrom(@Nonnull DamageSource source, float amount) {
     if(source.getDamageType().equals(DamageSource.outOfWorld.damageType)) {
       return true;
     }

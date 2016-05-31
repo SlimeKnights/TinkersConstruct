@@ -10,6 +10,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
+import javax.annotation.Nonnull;
+
 import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 
@@ -64,6 +66,7 @@ public class EntityFancyItemFrame extends EntityItemFrame implements IEntityAddi
     }
   }
 
+  @Nonnull
   @Override
   public String getName() {
     if (this.hasCustomName())
@@ -83,7 +86,7 @@ public class EntityFancyItemFrame extends EntityItemFrame implements IEntityAddi
   }
 
   @Override
-  public void readEntityFromNBT(NBTTagCompound tagCompund) {
+  public void readEntityFromNBT(@Nonnull NBTTagCompound tagCompund) {
     int nr = tagCompund.getInteger("frame");
     type = FrameType.values()[nr % FrameType.values().length];
 
