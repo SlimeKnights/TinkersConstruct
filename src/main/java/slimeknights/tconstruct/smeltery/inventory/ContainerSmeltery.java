@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.smeltery.inventory;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.IContainerListener;
 
 import slimeknights.mantle.inventory.ContainerMultiModule;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
@@ -29,8 +29,8 @@ public class ContainerSmeltery extends ContainerMultiModule<TileSmeltery> {
   }
 
   @Override
-  public void onCraftGuiOpened(ICrafting listener) {
-    super.onCraftGuiOpened(listener);
+  public void addListener(IContainerListener listener) {
+    super.addListener(listener);
 
     for(int i = 0; i < oldHeats.length; i++) {
       listener.sendProgressBarUpdate(this, i, tile.getTemperature(i));
@@ -46,7 +46,7 @@ public class ContainerSmeltery extends ContainerMultiModule<TileSmeltery> {
       int temp = tile.getTemperature(i);
       if(temp != oldHeats[i]) {
         oldHeats[i] = temp;
-        for(ICrafting crafter : this.listeners) {
+        for(IContainerListener crafter : this.listeners) {
           crafter.sendProgressBarUpdate(this, i, temp);
         }
       }

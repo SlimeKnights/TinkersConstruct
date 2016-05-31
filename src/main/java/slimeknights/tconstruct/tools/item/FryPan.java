@@ -104,7 +104,7 @@ public class FryPan extends ToolCore {
       entity.addVelocity(x,y,z);
       TinkerTools.proxy.spawnAttackParticle(Particles.FRYPAN_ATTACK, player, 0.6d);
       if(entity instanceof EntityPlayerMP) {
-        ((EntityPlayerMP)entity).playerNetServerHandler.sendPacket(new SPacketEntityVelocity(entity));
+        ((EntityPlayerMP)entity).connection.sendPacket(new SPacketEntityVelocity(entity));
       }
     }
   }

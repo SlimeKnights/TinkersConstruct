@@ -68,13 +68,13 @@ public class BlockGlow extends Block {
   }
 
   @Override
-  public void onNeighborBlockChange(World world, BlockPos pos, IBlockState state, Block neighbor) {
+  public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn) {
     // if the location is not stable, break the block
     if (!canBlockStay(world, pos, state.getValue(FACING))) {
       world.setBlockToAir(pos);
     }
-    
-    super.onNeighborBlockChange(world, pos, state, neighbor);
+
+    super.neighborChanged(state, world, pos, blockIn);
   }
 
   // function to determine if a side can contain a glow. Like the function from the ladder, only opposite

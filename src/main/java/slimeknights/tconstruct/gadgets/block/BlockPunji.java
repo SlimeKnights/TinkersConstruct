@@ -126,8 +126,9 @@ public class BlockPunji extends Block {
     return worldIn.isSideSolid(pos.offset(side.getOpposite()), side, true);
   }
 
+
   @Override
-  public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+  public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
     EnumFacing facing = state.getValue(FACING);
 
     if (!worldIn.isSideSolid(pos.offset(facing), facing.getOpposite(), true))

@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.IReloadableResourceManager;
@@ -245,7 +245,7 @@ public abstract class ClientProxy extends CommonProxy {
     if(world == null) {
       world = Minecraft.getMinecraft().theWorld;
     }
-    EntityFX effect = createParticle(particleType, world, x,y,z, xSpeed,ySpeed,zSpeed, data);
+    Particle effect = createParticle(particleType, world, x, y, z, xSpeed, ySpeed, zSpeed, data);
     Minecraft.getMinecraft().effectRenderer.addEffect(effect);
 
     if(particleType == Particles.EFFECT && data[0] > 1) {
@@ -261,7 +261,7 @@ public abstract class ClientProxy extends CommonProxy {
     Minecraft.getMinecraft().effectRenderer.addEffect(new EntitySlimeFx(world, x,y,z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage()));
   }
 
-  public static EntityFX createParticle(Particles type, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
+  public static Particle createParticle(Particles type, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
     switch(type) {
       // entities
       case BLUE_SLIME:

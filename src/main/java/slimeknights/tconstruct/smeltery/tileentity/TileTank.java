@@ -121,9 +121,11 @@ public class TileTank extends TileSmelteryComponent implements IFluidHandler {
   }
 
   @Override
-  public void writeToNBT(NBTTagCompound tags) {
-    super.writeToNBT(tags);
+  public NBTTagCompound writeToNBT(NBTTagCompound tags) {
+    tags = super.writeToNBT(tags);
     writeTankToNBT(tags);
+
+    return tags;
   }
 
   public void writeTankToNBT(NBTTagCompound tags) {

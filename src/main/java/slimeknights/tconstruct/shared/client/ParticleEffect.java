@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.shared.client;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.EntityCrit2FX;
+import net.minecraft.client.particle.ParticleCrit;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import slimeknights.tconstruct.library.Util;
 
 @SideOnly(Side.CLIENT)
-public class ParticleEffect extends EntityCrit2FX {
+public class ParticleEffect extends ParticleCrit {
 
   public static final ResourceLocation TEXTURE = Util.getResource("textures/particle/particles.png");
   public static final ResourceLocation VANILLA_PARTICLE_TEXTURES = new ResourceLocation("textures/particle/particles.png");
@@ -38,9 +38,9 @@ public class ParticleEffect extends EntityCrit2FX {
     this.particleTextureIndexX = type.x/8;
     this.particleTextureIndexY = type.y/8;
 
-    this.ySpeed += 0.1f;
-    this.xSpeed += -0.25f + rand.nextFloat()*0.5f;
-    this.zSpeed += -0.25f + rand.nextFloat()*0.5f;
+    this.motionY += 0.1f;
+    this.motionX += -0.25f + rand.nextFloat()*0.5f;
+    this.motionZ += -0.25f + rand.nextFloat()*0.5f;
 
     particleRed = particleBlue = particleGreen = 1f;
 

@@ -91,7 +91,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
   protected SlimeIslandData getIslandData(World world) {
     int dimensionId = world.provider.getDimension();
     if(!islandData.containsKey(dimensionId)) {
-      SlimeIslandData data = (SlimeIslandData)world.getPerWorldStorage().loadData(SlimeIslandData.class, getDataName());
+      SlimeIslandData data = (SlimeIslandData)world.getPerWorldStorage().getOrLoadData(SlimeIslandData.class, getDataName());
       if(data == null) {
         data = new SlimeIslandData(getDataName());
         world.getPerWorldStorage().setData(getDataName(), data);

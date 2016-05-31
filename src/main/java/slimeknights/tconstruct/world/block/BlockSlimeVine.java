@@ -50,7 +50,7 @@ public class BlockSlimeVine extends BlockVine {
   }
 
   @Override
-  public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+  public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
     if(worldIn.isRemote) {
       return;
     }

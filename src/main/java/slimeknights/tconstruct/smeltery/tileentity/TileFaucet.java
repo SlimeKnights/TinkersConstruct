@@ -170,14 +170,15 @@ public class TileFaucet extends TileEntity implements ITickable {
   /* Load & Save */
 
   @Override
-  public void writeToNBT(NBTTagCompound compound) {
-    super.writeToNBT(compound);
+  public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    compound = super.writeToNBT(compound);
     if(drained != null) {
       drained.writeToNBT(compound);
       compound.setInteger("direction", direction.getIndex());
       //compound.setString("direction", direction.getName());
       compound.setBoolean("stop", stopPouring);
     }
+    return compound;
   }
 
   @Override
@@ -208,7 +209,7 @@ public class TileFaucet extends TileEntity implements ITickable {
   }
 
   @Override
-  public Packet getDescriptionPacket() {
+  public SPacketUpdateTileEntity getUpdatePacket() {
     NBTTagCompound tag = new NBTTagCompound();
     writeToNBT(tag);
     return new SPacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);

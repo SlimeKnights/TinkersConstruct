@@ -28,12 +28,14 @@ public class SlimeIslandData extends WorldSavedData {
   }
 
   @Override
-  public void writeToNBT(NBTTagCompound nbt) {
+  public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
     NBTTagList tagList = new NBTTagList();
     for(StructureBoundingBox sbb : islands) {
       tagList.appendTag(sbb.toNBTTagIntArray());
     }
 
     nbt.setTag("slimeislands", tagList);
+
+    return nbt;
   }
 }

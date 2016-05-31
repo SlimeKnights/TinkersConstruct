@@ -111,7 +111,7 @@ public class TileTable extends TileInventory {
   }
 
   @Override
-  public Packet getDescriptionPacket() {
+  public SPacketUpdateTileEntity getUpdatePacket() {
     // note that this sends all of the tile data. you should change this if you use additional tile data
     NBTTagCompound tag = (NBTTagCompound) getTileData().copy();
     writeToNBT(tag);

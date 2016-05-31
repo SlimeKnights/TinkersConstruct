@@ -21,7 +21,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
     }
 }
 /*
@@ -102,7 +102,7 @@ minecraft {
 dependencies {
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
-    deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version}-${config.mantle_version}"
+    //deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version}-${config.mantle_version}"
     deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
     //compile "codechicken:CodeChickenLib:${config.minecraft_version2}-${config.CCLIB_version}:dev"
     //compile "codechicken:CodeChickenCore:${config.minecraft_version2}-${config.ccc_version}:dev"

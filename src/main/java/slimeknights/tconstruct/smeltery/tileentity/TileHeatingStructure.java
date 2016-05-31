@@ -160,13 +160,14 @@ public abstract class TileHeatingStructure extends TileInventory {
   }
 
   @Override
-  public void writeToNBT(NBTTagCompound tags) {
-    super.writeToNBT(tags);
+  public NBTTagCompound writeToNBT(NBTTagCompound tags) {
+    tags = super.writeToNBT(tags);
     tags.setInteger("fuel", fuel);
     tags.setInteger("temperature", temperature);
     tags.setBoolean("needsFuel", needsFuel);
     tags.setIntArray("itemTemperatures", itemTemperatures);
     tags.setIntArray("itemTempRequired", itemTempRequired);
+    return tags;
   }
 
   @Override
