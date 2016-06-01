@@ -58,7 +58,7 @@ public class MaterialIntegration {
       boolean found = false;
       // we use this method because it doesn't add empty entries to the oredict, even though it is less performant
       for(String ore : OreDictionary.getOreNames()) {
-        if(ore.equals(oreRequirement)) {
+        if(oreRequirement.equals(ore)) {
           found = true;
           break;
         }
