@@ -106,11 +106,11 @@ public class EntityFancyItemFrame extends EntityItemFrame implements IEntityAddi
     this.type = FrameType.values()[additionalData.readShort()];
   }
 
-  public String getType() {
+  public FrameType getType() {
     if(type == null) {
-      return FrameType.JEWEL.toString();
+      return FrameType.JEWEL;
     }
-    return type.toString();
+    return type;
   }
 
   public enum FrameType {
@@ -119,7 +119,8 @@ public class EntityFancyItemFrame extends EntityItemFrame implements IEntityAddi
     COBALT,
     ARDITE,
     MANYULLYN,
-    GOLD;
+    GOLD,
+    CLEAR;
 
     public static FrameType fromMeta(int meta) {
       return FrameType.values()[meta % FrameType.values().length];

@@ -45,6 +45,8 @@ public class ItemFancyItemFrame extends ItemHangingEntity {
     }
 
     subItems.add(new ItemStack(itemIn, 1, EntityFancyItemFrame.FrameType.GOLD.ordinal()));
+    subItems.add(new ItemStack(itemIn, 1, EntityFancyItemFrame.FrameType.CLEAR.ordinal()));
+
   }
 
   @Nonnull

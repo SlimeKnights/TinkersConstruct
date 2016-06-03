@@ -308,6 +308,7 @@ item.tconstruct.fancy_frame.cobalt.name=Cobalt Item Frame
 item.tconstruct.fancy_frame.ardite.name=Ardite Item Frame
 item.tconstruct.fancy_frame.manyullyn.name=Manyullyn Item Frame
 item.tconstruct.fancy_frame.gold.name=Golden Item Frame
+item.tconstruct.fancy_frame.clear.name=Clear Item Frame
 
 item.tconstruct.throwball.glow.name=Glowball
 item.tconstruct.throwball.glow.tooltip=Not suited for consumption.
