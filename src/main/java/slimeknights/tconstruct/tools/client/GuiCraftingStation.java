@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.client;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -30,6 +31,10 @@ public class GuiCraftingStation extends GuiTinkerStation {
       ContainerCraftingStation container = (ContainerCraftingStation) inventorySlots;
       ContainerSideInventory chestContainer = container.getSubContainer(ContainerSideInventory.class);
       if(chestContainer != null) {
+        if(chestContainer.getTile() instanceof TileEntityChest) {
+          // Fix: chests don't update their single/double chest status clientside once accessed
+          ((TileEntityChest) chestContainer.getTile()).doubleChestHandler = null;
+        }
         this.addModule(new GuiSideInventory(this, chestContainer, chestContainer.getSlotCount(), chestContainer.columns));
       }
     }
