@@ -30,14 +30,12 @@ public class ItemPiggybackPack extends ItemArmor {
     super(PIGGYBACK_MATERIAL, 0, EntityEquipmentSlot.CHEST);
 
     this.setMaxStackSize(16);
-
-    MinecraftForge.EVENT_BUS.register(this);
   }
 
   @Override
   public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
     // is the chest slot empty?
-    ItemStack chestArmor = playerIn.getItemStackFromSlot(this.getEquipmentSlot());
+    ItemStack chestArmor = playerIn.getItemStackFromSlot(this.armorType);
 
     // need enough space to exchange the chest armor
     if(chestArmor != null && chestArmor.getItem() != this && playerIn.inventory.getFirstEmptyStack() == -1) {
@@ -54,7 +52,7 @@ public class ItemPiggybackPack extends ItemArmor {
 
       // we could pick it up just fine, check if we need to "equip" more of the item
       if(chestArmor == null) {
-        playerIn.setItemStackToSlot(this.getEquipmentSlot(), stack.splitStack(1));
+        playerIn.setItemStackToSlot(this.armorType, stack.splitStack(1));
       } else if(chestArmor.stackSize < getEntitiesCarriedCount(playerIn)) {
         stack.splitStack(1);
         chestArmor.stackSize++;
@@ -74,13 +72,13 @@ public class ItemPiggybackPack extends ItemArmor {
 
     int count = 0;
     Entity toRide = player;
-    while(!toRide.getPassengers().isEmpty() && count < MAX_ENTITY_STACK) {
+    while(toRide.isBeingRidden() && count < MAX_ENTITY_STACK) {
       toRide = toRide.getPassengers().get(0);
       count++;
     }
 
     // can only ride one entity each
-    if(toRide.getPassengers().isEmpty() && count < MAX_ENTITY_STACK) {
+    if(!toRide.isBeingRidden() && count < MAX_ENTITY_STACK) {
       // todo: possibly throw off all passengers of the target
       return target.startRiding(toRide, true);
     }
@@ -90,7 +88,7 @@ public class ItemPiggybackPack extends ItemArmor {
   public int getEntitiesCarriedCount(EntityPlayer player) {
     int count = 0;
     Entity ridden = player;
-    while(!ridden.getPassengers().isEmpty()) {
+    while(ridden.isBeingRidden()) {
       count++;
       ridden = ridden.getPassengers().get(0);
     }
@@ -102,7 +100,7 @@ public class ItemPiggybackPack extends ItemArmor {
     int count = 0;
     // get top rider
     Entity ridden = player;
-    while(!ridden.getPassengers().isEmpty()) {
+    while(ridden.isBeingRidden()) {
       ridden = ridden.getPassengers().get(0);
       count++;
 
@@ -116,7 +114,7 @@ public class ItemPiggybackPack extends ItemArmor {
   @Override
   public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     if(entityIn instanceof EntityLivingBase) {
-      if(((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST) == stack && !entityIn.getPassengers().isEmpty()) {
+      if(((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST) == stack && entityIn.isBeingRidden()) {
         ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(CarryPotionEffect.INSTANCE, 1, 0, true, false));
       }
     }
