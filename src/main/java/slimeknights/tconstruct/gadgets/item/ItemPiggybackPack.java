@@ -12,12 +12,15 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.capability.TinkerPiggybackSerializer;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
 
 public class ItemPiggybackPack extends ItemArmor {
@@ -30,6 +33,8 @@ public class ItemPiggybackPack extends ItemArmor {
     super(PIGGYBACK_MATERIAL, 0, EntityEquipmentSlot.CHEST);
 
     this.setMaxStackSize(16);
+
+    MinecraftForge.EVENT_BUS.register(this);
   }
 
   @Override
@@ -117,6 +122,13 @@ public class ItemPiggybackPack extends ItemArmor {
       if(((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST) == stack && entityIn.isBeingRidden()) {
         ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(CarryPotionEffect.INSTANCE, 1, 0, true, false));
       }
+    }
+  }
+
+  @SubscribeEvent
+  public void attachCapability(AttachCapabilitiesEvent.Entity event) {
+    if(event.getEntity() instanceof EntityPlayer) {
+      event.addCapability(Util.getResource("piggyback"), new TinkerPiggybackSerializer((EntityPlayer)event.getEntity()));
     }
   }
 
