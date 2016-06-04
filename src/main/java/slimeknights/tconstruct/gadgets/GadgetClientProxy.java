@@ -36,6 +36,7 @@ public class GadgetClientProxy extends ClientProxy {
     // Items
     registerItemModel(TinkerGadgets.slimeSling);
     registerItemModel(TinkerGadgets.slimeBoots);
+    registerItemModel(TinkerGadgets.piggybackPack);
     registerItemModel(TinkerGadgets.stoneStick);
 
     for(ItemThrowball.ThrowballType type : ItemThrowball.ThrowballType.values()) {

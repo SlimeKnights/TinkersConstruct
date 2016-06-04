@@ -300,6 +300,7 @@ item.tconstruct.large_sword_blade.name=Large Sword Blade
 # Gadgets
 item.tconstruct.slime_boots.name=Slime Boots
 item.tconstruct.slimesling.name=Slimesling
+item.tconstruct.piggybackpack.name=Piggybackpack
 item.tconstruct.stone_stick.name=Stone Rod
 
 item.tconstruct.fancy_frame.jewel.name=Fancy Item Frame
@@ -358,7 +359,7 @@ fluid.tconstruct.alubrass.name=Molten Aluminum Brass
 #    Potions    #
 #################
 
-potion.slimebounce=Slimebounce
+potion.carry=Piggybacking
 
 #################
 #   Materials   #

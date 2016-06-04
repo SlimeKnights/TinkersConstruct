@@ -37,6 +37,7 @@ import slimeknights.tconstruct.gadgets.entity.EntityFancyItemFrame;
 import slimeknights.tconstruct.gadgets.entity.EntityThrowball;
 import slimeknights.tconstruct.gadgets.item.ItemBlockRack;
 import slimeknights.tconstruct.gadgets.item.ItemFancyItemFrame;
+import slimeknights.tconstruct.gadgets.item.ItemPiggybackPack;
 import slimeknights.tconstruct.gadgets.item.ItemSlimeBoots;
 import slimeknights.tconstruct.gadgets.item.ItemSlimeSling;
 import slimeknights.tconstruct.gadgets.item.ItemThrowball;
@@ -70,6 +71,7 @@ public class TinkerGadgets extends TinkerPulse {
 
   public static ItemSlimeSling slimeSling;
   public static ItemSlimeBoots slimeBoots;
+  public static ItemPiggybackPack piggybackPack;
   public static ItemThrowball throwball;
   public static Item stoneStick;
 
@@ -94,6 +96,7 @@ public class TinkerGadgets extends TinkerPulse {
 
     slimeSling = registerItem(new ItemSlimeSling(), "slimesling");
     slimeBoots = registerItem(new ItemSlimeBoots(), "slime_boots");
+    piggybackPack = registerItem(new ItemPiggybackPack(), "piggybackpack");
     throwball = registerItem(new ItemThrowball(), "throwball");
     stoneStick = registerItem(new Item(), "stone_stick");
     stoneStick.setFull3D().setCreativeTab(TinkerRegistry.tabGadgets);
