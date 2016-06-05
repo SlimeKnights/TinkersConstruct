@@ -18,6 +18,7 @@ import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -99,10 +100,10 @@ public class GuiPartBuilder extends GuiTinkerStation {
     }
 
     // draw slot icons
-    drawIconEmpty(container.getSlot(1), ICON_Shard);
-    drawIconEmpty(container.getSlot(2), ICON_Pattern);
-    drawIconEmpty(container.getSlot(3), ICON_Ingot);
-    drawIconEmpty(container.getSlot(4), ICON_Block);
+    drawIconEmpty(container.getSlot(1), Icons.ICON_Shard);
+    drawIconEmpty(container.getSlot(2), Icons.ICON_Pattern);
+    drawIconEmpty(container.getSlot(3), Icons.ICON_Ingot);
+    drawIconEmpty(container.getSlot(4), Icons.ICON_Block);
 
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
   }

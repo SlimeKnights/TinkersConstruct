@@ -20,6 +20,7 @@ import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.mantle.inventory.ContainerMultiModule;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.tools.block.ITinkerStationBlock;
 import slimeknights.tconstruct.tools.client.module.GuiTinkerTabs;
 import slimeknights.tconstruct.tools.inventory.ContainerTinkerStation;
@@ -29,26 +30,7 @@ import slimeknights.tconstruct.tools.network.TinkerStationTabPacket;
 // Takes care of the tinker station pseudo-multiblock
 public class GuiTinkerStation extends GuiMultiModule {
 
-  public static final ResourceLocation ICON = Util.getResource("textures/gui/icons.png");
   public static final ResourceLocation BLANK_BACK = Util.getResource("textures/gui/blank.png");
-
-  public static final GuiElement ICON_Anvil = new GuiElement(18 * 3, 0, 18, 18, 256, 256);
-
-  public static final GuiElement ICON_Pattern = new GuiElement(18 * 0, 18 * 12, 18, 18);
-  public static final GuiElement ICON_Shard = new GuiElement(18 * 1, 18 * 12, 18, 18);
-  public static final GuiElement ICON_Block = new GuiElement(18 * 2, 18 * 12, 18, 18);
-
-  public static final GuiElement ICON_Pickaxe = new GuiElement(18 * 0, 18 * 13, 18, 18);
-  public static final GuiElement ICON_Dust = new GuiElement(18 * 1, 18 * 13, 18, 18);
-  public static final GuiElement ICON_Lapis = new GuiElement(18 * 2, 18 * 13, 18, 18);
-  public static final GuiElement ICON_Ingot = new GuiElement(18 * 3, 18 * 13, 18, 18);
-  public static final GuiElement ICON_Gem = new GuiElement(18 * 4, 18 * 13, 18, 18);
-  public static final GuiElement ICON_Quartz = new GuiElement(18 * 5, 18 * 13, 18, 18);
-
-  public static final GuiElement ICON_Button = new GuiElement(180, 216, 18, 18);
-  public static final GuiElement ICON_ButtonHover = new GuiElement(180 + 18 * 2, 216, 18, 18);
-  public static final GuiElement ICON_ButtonPressed = new GuiElement(180 - 18 * 2, 216, 18, 18);
-
 
   protected final ContainerMultiModule<?> container;
 
@@ -83,7 +65,7 @@ public class GuiTinkerStation extends GuiMultiModule {
   }
 
   protected void drawIcon(Slot slot, GuiElement element) {
-    this.mc.getTextureManager().bindTexture(ICON);
+    this.mc.getTextureManager().bindTexture(Icons.ICON);
     element.draw(slot.xDisplayPosition + this.cornerX - 1, slot.yDisplayPosition + this.cornerY - 1);
   }
 

@@ -8,10 +8,10 @@ import net.minecraft.item.ItemStack;
 import java.io.IOException;
 
 import slimeknights.tconstruct.library.TinkerRegistryClient;
+import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 import slimeknights.tconstruct.tools.client.GuiButtonItem;
 import slimeknights.tconstruct.tools.client.GuiButtonRepair;
-import slimeknights.tconstruct.tools.client.GuiTinkerStation;
 import slimeknights.tconstruct.tools.client.GuiToolStation;
 
 public class GuiButtonsToolStation extends GuiSideButtons {
@@ -105,9 +105,9 @@ public class GuiButtonsToolStation extends GuiSideButtons {
   }
 
   protected void shiftButton(GuiButtonItem<ToolBuildGuiInfo> button, int xd, int yd) {
-    button.setGraphics(GuiTinkerStation.ICON_Button.shift(xd, yd),
-                       GuiTinkerStation.ICON_ButtonHover.shift(xd, yd),
-                       GuiTinkerStation.ICON_ButtonPressed.shift(xd, yd),
-                       GuiTinkerStation.ICON);
+    button.setGraphics(Icons.ICON_Button.shift(xd, yd),
+                       Icons.ICON_ButtonHover.shift(xd, yd),
+                       Icons.ICON_ButtonPressed.shift(xd, yd),
+                       Icons.ICON);
   }
 }

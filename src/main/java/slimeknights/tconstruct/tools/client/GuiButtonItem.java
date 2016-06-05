@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.client.gui.GuiElement;
+import slimeknights.tconstruct.library.client.Icons;
 
 public class GuiButtonItem<T> extends GuiButton {
   // Positions from generic.png
@@ -23,7 +24,7 @@ public class GuiButtonItem<T> extends GuiButton {
   private GuiElement guiPressed = GUI_Button_pressed;
   private GuiElement guiNormal = GUI_Button_normal;
   private GuiElement guiHover = GUI_Button_hover;
-  private ResourceLocation locBackground = GuiTinkerStation.ICON;
+  private ResourceLocation locBackground = Icons.ICON;
 
   public GuiButtonItem(int buttonId, int x, int y, String displayName, T data) {
     super(buttonId, x, y, 18, 18, displayName);

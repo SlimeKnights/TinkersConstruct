@@ -8,6 +8,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.tools.client.module.GuiButtonsStencilTable;
 import slimeknights.tconstruct.tools.client.module.GuiSideInventory;
 import slimeknights.tconstruct.tools.inventory.ContainerPatternChest;
@@ -54,7 +55,7 @@ public class GuiStencilTable extends GuiTinkerStation {
       sideInventory.updateSlotCount(chestContainer.getSizeInventory());
     }
 
-    drawIcon(inventorySlots.getSlot(0), ICON_Pattern);
+    drawIcon(inventorySlots.getSlot(0), Icons.ICON_Pattern);
 
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
   }
