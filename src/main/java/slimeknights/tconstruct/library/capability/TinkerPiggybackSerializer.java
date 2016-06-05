@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.capability;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import net.minecraft.entity.Entity;
@@ -13,14 +12,13 @@ import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
+// This capability and serializer is solely needed to save carried entities in SSP... :(
+// otherwise whatever is carried is lost on logout
 public class TinkerPiggybackSerializer implements ICapabilitySerializable<NBTTagCompound> {
 
   private final EntityPlayer player;
@@ -75,17 +73,5 @@ public class TinkerPiggybackSerializer implements ICapabilitySerializable<NBTTag
         attachedTo.put(uuid, entity);
       }
     }
-/*
-    List<Entity> entities = Lists.newArrayList();
-    entities.addAll(attachedTo.values());
-    entities.add(player);
-
-    // now that all entities are created, attach them to each other
-    for(Entity entity : entities) {
-      Entity rider = attachedTo.get(entity.getUniqueID());
-      if(rider != null) {
-        rider.startRiding(entity, true);
-      }
-    }*/
   }
 }
