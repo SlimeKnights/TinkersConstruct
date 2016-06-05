@@ -22,11 +22,14 @@ import slimeknights.mantle.item.ItemEdible;
 import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
+import slimeknights.tconstruct.common.TinkerOredict;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.item.ItemTinkerBook;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.shared.block.BlockClearGlass;
+import slimeknights.tconstruct.shared.block.BlockClearStainedGlass;
 import slimeknights.tconstruct.shared.block.BlockDecoGround;
 import slimeknights.tconstruct.shared.block.BlockDecoGroundSlab;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
@@ -66,6 +69,10 @@ public class TinkerCommons extends TinkerPulse {
   public static Block stairsMudBrick;
   public static Block stairsFirewood;
   public static Block stairsLavawood;
+  
+  // glass
+  public static Block blockClearGlass;
+  public static Block blockClearStainedGlass;
 
   // block itemstacks
   public static ItemStack grout;
@@ -190,7 +197,10 @@ public class TinkerCommons extends TinkerPulse {
     // deco stuff
     blockDecoGround = registerEnumBlock(new BlockDecoGround(), "deco_ground");
     mudBrickBlock = new ItemStack(blockDecoGround, 1, BlockDecoGround.DecoGroundType.MUDBRICK.getMeta());
-
+    
+    blockClearGlass = registerBlock(new BlockClearGlass(), "clear_glass");
+    blockClearStainedGlass = registerEnumBlock(new BlockClearStainedGlass(), "clear_stained_glass");
+    
     // slabs
     slabDecoGround = registerEnumBlockSlab(new BlockDecoGroundSlab(), "deco_ground_slab");
     slabFirewood = registerEnumBlockSlab(new BlockFirewoodSlab(), "firewood_slab");
@@ -309,6 +319,7 @@ public class TinkerCommons extends TinkerPulse {
   @Subscribe
   public void init(FMLInitializationEvent event) {
     registerRecipies();
+    proxy.init();
 
     GameRegistry.registerWorldGenerator(NetherOreGenerator.INSTANCE, 0);
 
@@ -349,6 +360,15 @@ public class TinkerCommons extends TinkerPulse {
 
     if(blockSilkyJewel != null && matSilkyJewel != null) {
       GameRegistry.addShapedRecipe(blockSilkyJewel, "###", "###", "###", '#', matSilkyJewel);
+    }
+    
+    // glass
+    if(!isSmelteryLoaded()) {
+      // compat recipe if the smeltery is not available for melting
+      GameRegistry.addSmelting(Blocks.GLASS, new ItemStack(blockClearGlass), 0.1f);
+    }
+    for(int i = 0; i < 16; i++) {
+      GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockClearStainedGlass, 8, i), "GGG", "GDG", "GGG", 'G', blockClearGlass, 'D', "dye" + TinkerOredict.dyes[i]));
     }
   }
 

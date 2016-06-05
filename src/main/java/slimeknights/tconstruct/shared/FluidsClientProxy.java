@@ -27,7 +27,8 @@ public class FluidsClientProxy extends ClientProxy {
     registerFluidModels(TinkerFluids.dirt);
     registerFluidModels(TinkerFluids.gold);
     registerFluidModels(TinkerFluids.emerald);
-
+    registerFluidModels(TinkerFluids.glass);
+    
     registerFluidModels(TinkerFluids.milk);
     registerFluidModels(TinkerFluids.blueslime);
     registerFluidModels(TinkerFluids.purpleSlime);
