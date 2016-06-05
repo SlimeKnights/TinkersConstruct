@@ -397,10 +397,6 @@ public final class ToolBuilder {
         foundMaterial = material;
         // is it more complex than the old one?
       }
-      else if(newMatch.stacks.size() > match.stacks.size()) {
-        match = newMatch;
-        foundMaterial = material;
-      }
     }
 
     // nope, no material

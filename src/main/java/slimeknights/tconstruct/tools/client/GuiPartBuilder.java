@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -16,12 +17,17 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
+import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
+import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.tools.client.module.GuiButtonsPartCrafter;
@@ -104,6 +110,29 @@ public class GuiPartBuilder extends GuiTinkerStation {
     drawIconEmpty(container.getSlot(2), Icons.ICON_Pattern);
     drawIconEmpty(container.getSlot(3), Icons.ICON_Ingot);
     drawIconEmpty(container.getSlot(4), Icons.ICON_Block);
+
+    // draw material info
+    String amount = null;
+    Material material = getMaterial(container.getSlot(3).getStack(), container.getSlot(4).getStack());
+    if(material != null) {
+      int count = 0;
+      RecipeMatch.Match match = material.matchesRecursively(new ItemStack[] {container.getSlot(3).getStack(), container.getSlot(4).getStack()});
+      if(match != null) {
+        amount = AbstractMaterialStats.df.format(match.amount / (float) Material.VALUE_Ingot);
+
+        Item part = Pattern.getPartFromTag(container.getSlot(2).getStack());
+        if(part instanceof IToolPart && match.amount < ((IToolPart) part).getCost()) {
+          amount = TextFormatting.DARK_RED + amount + TextFormatting.RESET;
+        }
+      }
+    }
+    if(amount != null) {
+      int x = this.cornerX + this.realWidth/2;
+      int y = this.cornerY + 63;
+      String text = Util.translateFormatted("gui.partbuilder.material_value", amount, material.getLocalizedName());
+      x -= fontRendererObj.getStringWidth(text)/2;
+      fontRendererObj.renderString(text, x, y, 0x777777, false);
+    }
 
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
   }

@@ -678,6 +678,7 @@ gui.stenciltable.name=Stencil Table
 gui.partbuilder.name=Part Builder
 gui.partcrafter.name=Part Crafter
 gui.partbuilder.info=Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put its pattern into the left slot. The two remaining slots hold the material you want to craft your part out of.
+gui.partbuilder.material_value=Material Value: %s %s
 
 # Tool Station/Forge
 gui.toolstation.name=Tool Station
