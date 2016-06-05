@@ -210,7 +210,6 @@ public class TinkerCommons extends TinkerPulse {
     ingots.setCreativeTab(TinkerRegistry.tabGeneral);
     materials.setCreativeTab(TinkerRegistry.tabGeneral);
     edibles.setCreativeTab(TinkerRegistry.tabGeneral);
-    edibles.setAlwaysEdible();
 
     // Items that can always be present.. slimeballs
     matSlimeBallBlue = edibles.addFood(1, 1, 1f, "slimeball_blue", new PotionEffect(MobEffects.SLOWNESS, 20*45, 2), new PotionEffect(MobEffects.JUMP_BOOST, 20*60, 2) );
@@ -279,17 +278,17 @@ public class TinkerCommons extends TinkerPulse {
       driedBrick = materials.addMeta(2, "dried_brick");
 
       // Jerky
-      jerkyMonster = edibles.addFood(10, 4, 0.4f, "jerky_monster");
-      jerkyBeef = edibles.addFood(11, 8, 1f, "jerky_beef");
-      jerkyChicken = edibles.addFood(12, 6, 0.8f, "jerky_chicken");
-      jerkyPork = edibles.addFood(13, 8, 1f, "jerky_pork");
-      jerkyMutton = edibles.addFood(14, 6, 1f, "jerky_mutton");
-      jerkyRabbit = edibles.addFood(15, 5, 0.8f, "jerky_rabbit");
+      jerkyMonster = edibles.addFood(10, 4, 0.4f, "jerky_monster", false);
+      jerkyBeef = edibles.addFood(11, 8, 1f, "jerky_beef", false);
+      jerkyChicken = edibles.addFood(12, 6, 0.8f, "jerky_chicken", false);
+      jerkyPork = edibles.addFood(13, 8, 1f, "jerky_pork", false);
+      jerkyMutton = edibles.addFood(14, 6, 1f, "jerky_mutton", false);
+      jerkyRabbit = edibles.addFood(15, 5, 0.8f, "jerky_rabbit", false);
 
-      jerkyFish = edibles.addFood(20, 5, 0.8f, "jerky_fish");
-      jerkySalmon = edibles.addFood(21, 6, 1f, "jerky_salmon");
-      jerkyClownfish = edibles.addFood(22, 3, 0.8f, "jerky_clownfish");
-      jerkyPufferfish = edibles.addFood(23, 3, 0.8f, "jerky_pufferfish");
+      jerkyFish = edibles.addFood(20, 5, 0.8f, "jerky_fish", false);
+      jerkySalmon = edibles.addFood(21, 6, 1f, "jerky_salmon", false);
+      jerkyClownfish = edibles.addFood(22, 3, 0.8f, "jerky_clownfish", false);
+      jerkyPufferfish = edibles.addFood(23, 3, 0.8f, "jerky_pufferfish", false);
 
       slimedropGreen = edibles.addFood(30, 1, 1f, "slimedrop_green", new PotionEffect(MobEffects.SPEED, 20*90, 2));
       slimedropBlue = edibles.addFood(31, 3, 1f, "slimedrop_blue", new PotionEffect(MobEffects.JUMP_BOOST, 20*90, 2));

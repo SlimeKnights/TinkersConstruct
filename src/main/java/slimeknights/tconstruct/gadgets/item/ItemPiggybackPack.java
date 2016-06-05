@@ -1,15 +1,12 @@
 package slimeknights.tconstruct.gadgets.item;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
@@ -24,11 +21,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-import java.util.UUID;
-
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.client.gui.GuiElement;
+import slimeknights.mantle.item.ItemArmorTooltip;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.CapabilityTinkerPiggyback;
@@ -37,7 +33,7 @@ import slimeknights.tconstruct.library.capability.TinkerPiggybackSerializer;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
 
-public class ItemPiggybackPack extends ItemArmor {
+public class ItemPiggybackPack extends ItemArmorTooltip {
 
   // todo: turn this into a config
   private static final int MAX_ENTITY_STACK = 3; // how many entities can be carried at once
@@ -186,7 +182,7 @@ public class ItemPiggybackPack extends ItemArmor {
         }
       }
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc) {

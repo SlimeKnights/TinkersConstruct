@@ -299,8 +299,11 @@ item.tconstruct.large_sword_blade.name=Large Sword Blade
 
 # Gadgets
 item.tconstruct.slime_boots.name=Slime Boots
+item.tconstruct.slime_boots.tooltip=Makes you bounce when landing
 item.tconstruct.slimesling.name=Slimesling
+item.tconstruct.slimesling.tooltip=Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!
 item.tconstruct.piggybackpack.name=Piggybackpack
+item.tconstruct.piggybackpack.tooltip=Rightclick mobs to pick them up
 item.tconstruct.stone_stick.name=Stone Rod
 
 item.tconstruct.fancy_frame.jewel.name=Fancy Item Frame
