@@ -131,6 +131,8 @@ public class TinkerGadgets extends TinkerPulse {
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeBoots), "   ", "s s", "b b", 's', "slimeball", 'b', ore));
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeSling), "fbf", "s s", " s ", 'f', Items.STRING, 's', "slimeball", 'b', ore));
 
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(piggybackPack), " s ", "l l", " s ", 's', "stickWood", 'l', "leather"));
+
     // Stonesticks Recipes
     ItemStack rod = new ItemStack(stoneStick);
     GameRegistry.addRecipe(new ShapedOreRecipe(rod, "c", "c", 'c', "cobblestone"));
