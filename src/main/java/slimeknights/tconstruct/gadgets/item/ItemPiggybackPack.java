@@ -20,17 +20,21 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
+import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.library.capability.ITinkerPiggyback;
 import slimeknights.tconstruct.library.capability.TinkerPiggybackSerializer;
+import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
 
 public class ItemPiggybackPack extends ItemArmor {
@@ -162,11 +166,6 @@ public class ItemPiggybackPack extends ItemArmor {
     }
 
     @Override
-    public void renderHUDEffect(int x, int y, PotionEffect effect, Minecraft mc, float alpha) {
-      super.renderHUDEffect(x, y, effect, mc, alpha);
-    }
-
-    @Override
     public boolean isReady(int duration, int amplifier) {
       return true; // check every tick
     }
@@ -186,6 +185,26 @@ public class ItemPiggybackPack extends ItemArmor {
           }
         }
       }
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc) {
+      renderHUDEffect(x, y, effect, mc, 1f);
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void renderHUDEffect(int x, int y, PotionEffect effect, Minecraft mc, float alpha) {
+      mc.getTextureManager().bindTexture(Icons.ICON);
+      GuiElement element;
+      switch(effect.getAmplifier()) {
+        case 0: element = Icons.ICON_PIGGYBACK_1; break;
+        case 1: element = Icons.ICON_PIGGYBACK_2; break;
+        case 2: element = Icons.ICON_PIGGYBACK_3; break;
+        default: element = Icons.ICON_PIGGYBACK_3; break;
+      }
+      element.draw(x+6, y+7);
     }
   }
 }
