@@ -1,13 +1,19 @@
 package slimeknights.tconstruct.gadgets.item;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -16,10 +22,14 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 
+import java.util.UUID;
+
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.capability.CapabilityTinkerPiggyback;
+import slimeknights.tconstruct.library.capability.ITinkerPiggyback;
 import slimeknights.tconstruct.library.capability.TinkerPiggybackSerializer;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
 
@@ -35,6 +45,12 @@ public class ItemPiggybackPack extends ItemArmor {
     this.setMaxStackSize(16);
 
     MinecraftForge.EVENT_BUS.register(this);
+  }
+
+  @Nonnull
+  @Override
+  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
   }
 
   @Override
@@ -90,7 +106,7 @@ public class ItemPiggybackPack extends ItemArmor {
     return false;
   }
 
-  public int getEntitiesCarriedCount(EntityPlayer player) {
+  public int getEntitiesCarriedCount(EntityLivingBase player) {
     int count = 0;
     Entity ridden = player;
     while(ridden.isBeingRidden()) {
@@ -119,8 +135,10 @@ public class ItemPiggybackPack extends ItemArmor {
   @Override
   public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     if(entityIn instanceof EntityLivingBase) {
-      if(((EntityLivingBase) entityIn).getItemStackFromSlot(EntityEquipmentSlot.CHEST) == stack && entityIn.isBeingRidden()) {
-        ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(CarryPotionEffect.INSTANCE, 1, 0, true, false));
+      EntityLivingBase entityLivingBase = (EntityLivingBase) entityIn;
+      if(entityLivingBase.getItemStackFromSlot(EntityEquipmentSlot.CHEST) == stack && entityIn.isBeingRidden()) {
+        int amplifier = getEntitiesCarriedCount(entityLivingBase) - 1;
+        entityLivingBase.addPotionEffect(new PotionEffect(CarryPotionEffect.INSTANCE, 1, amplifier, true, false));
       }
     }
   }
@@ -135,9 +153,17 @@ public class ItemPiggybackPack extends ItemArmor {
   public static class CarryPotionEffect extends TinkerPotion {
 
     public static final CarryPotionEffect INSTANCE = new CarryPotionEffect();
+    public static final String UUID = "ff4de63a-2b24-11e6-b67b-9e71128cae77";
 
     protected CarryPotionEffect() {
       super(Util.getResource("carry"), false, true);
+
+      this.registerPotionAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED, UUID, -0.05D, 2);
+    }
+
+    @Override
+    public void renderHUDEffect(int x, int y, PotionEffect effect, Minecraft mc, float alpha) {
+      super.renderHUDEffect(x, y, effect, mc, alpha);
     }
 
     @Override
@@ -153,6 +179,12 @@ public class ItemPiggybackPack extends ItemArmor {
       }
       else if(chestArmor.getItem() == TinkerGadgets.piggybackPack) {
         TinkerGadgets.piggybackPack.matchCarriedEntitiesToCount(entityLivingBaseIn, chestArmor.stackSize);
+        if(!entityLivingBaseIn.worldObj.isRemote) {
+          if(entityLivingBaseIn.hasCapability(CapabilityTinkerPiggyback.PIGGYBACK, null)) {
+            ITinkerPiggyback piggyback = entityLivingBaseIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null);
+            piggyback.updatePassengers();
+          }
+        }
       }
     }
   }

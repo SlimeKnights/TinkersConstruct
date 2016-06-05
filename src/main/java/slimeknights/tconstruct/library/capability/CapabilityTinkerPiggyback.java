@@ -18,7 +18,7 @@ public class CapabilityTinkerPiggyback {
     CapabilityManager.INSTANCE.register(ITinkerPiggyback.class, null, new Callable<ITinkerPiggyback>() {
       @Override
       public ITinkerPiggyback call() throws Exception {
-        return null;
+        return new TinkerPiggybackHandler();
       }
     });
   }

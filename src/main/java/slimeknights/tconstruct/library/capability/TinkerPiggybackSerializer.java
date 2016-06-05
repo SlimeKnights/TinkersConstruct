@@ -17,24 +17,28 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
-// This capability and serializer is solely needed to save carried entities in SSP... :(
-// otherwise whatever is carried is lost on logout
+// This capability and serializer takes care of:
+// * Saving carried entities for SSP (otherwise they'd vanish)
+// * Tell the player when stuff riding him stops (otherwise other players dismounting wouldn't get dismounted for the carrying player)
 public class TinkerPiggybackSerializer implements ICapabilitySerializable<NBTTagCompound> {
 
   private final EntityPlayer player;
+  private final ITinkerPiggyback piggyback;
 
   public TinkerPiggybackSerializer(@Nonnull EntityPlayer player) {
     this.player = player;
+    piggyback = new TinkerPiggybackHandler();
+    piggyback.setRiddenPlayer(player);
   }
 
   @Override
   public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-    return player.hasCapability(capability, facing);
+    return true;
   }
 
   @Override
   public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-    return player.getCapability(capability, facing);
+    return (T)piggyback;
   }
 
   @Override
