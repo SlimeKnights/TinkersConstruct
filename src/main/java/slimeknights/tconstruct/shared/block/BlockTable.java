@@ -31,6 +31,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.BlockInventory;
 import slimeknights.mantle.property.PropertyString;
 import slimeknights.mantle.property.PropertyUnlistedDirection;
@@ -59,15 +61,15 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     return false;
   }
 
+  @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
-  public BlockRenderLayer getBlockLayer()
-  {
+  public BlockRenderLayer getBlockLayer() {
     return BlockRenderLayer.CUTOUT;
   }
 
   @Override
-  public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+  public boolean shouldSideBeRendered(IBlockState blockState, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, EnumFacing side) {
     return true;
   }
 
@@ -76,8 +78,9 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     return true;
   }
 
+  @Nonnull
   @Override
-  public TileEntity createNewTileEntity(World worldIn, int meta) {
+  public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     // table without inventory by default
     return new TileTable("tile.table", 0, 0);
   }
@@ -88,13 +91,15 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     return false;
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new ExtendedBlockState(this, new IProperty[0], new IUnlistedProperty[]{TEXTURE, INVENTORY, FACING});
   }
 
+  @Nonnull
   @Override
-  public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+  public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
     IExtendedBlockState extendedState = (IExtendedBlockState) state;
 
     TileEntity te = world.getTileEntity(pos);
@@ -131,7 +136,7 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   }
 
   @Override
-  public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+  public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest) {
     // we pull up a few calls to this point in time because we still have the TE here
     // the execution otherwise is equivalent to vanilla order
     this.onBlockDestroyedByPlayer(world, pos, state);
@@ -140,7 +145,7 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     }
 
     // clear the inventory if we kept it on the item
-    // otherwise we'd dupe it since it'd also spell when we set the block to air
+    // otherwise we'd dupe it since it'd also spill when we set the block to air
     if(keepInventory(state)) {
       TileEntity te = world.getTileEntity(pos);
       if(te instanceof TileInventory) {
@@ -158,9 +163,10 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     return false;
   }
 
+  @Nonnull
   @Override
   // save the block data from the table to the item on drop. Only works because of removedByPlayer fix above :I
-  public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+  public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
     List<ItemStack> items = super.getDrops(world, pos, state, fortune);
 
     // get block data from the block
@@ -190,7 +196,39 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   }
 
   @Override
-  public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+  public void dropBlockAsItemWithChance(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, float chance, int fortune) {
+    if(!worldIn.isRemote && !worldIn.restoringBlockSnapshots) {
+
+      // note that this is a super call, not this
+      List<ItemStack> items = super.getDrops(worldIn, pos, state, fortune);
+      chance = net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(items, worldIn, pos, state, fortune, chance, false, harvesters.get());
+
+      // add inventory contents
+      TileEntity te = worldIn.getTileEntity(pos);
+      if(te instanceof TileInventory) {
+        TileInventory tileInventory = (TileInventory) te;
+
+        for(int i = 0; i < tileInventory.getSizeInventory(); i++) {
+          ItemStack itemStack = tileInventory.getStackInSlot(i);
+          if(itemStack != null) {
+            items.add(itemStack);
+          }
+        }
+        // clear since otherwise we might dupe
+        tileInventory.clear();
+      }
+
+      for(ItemStack item : items) {
+        if(worldIn.rand.nextFloat() <= chance) {
+          spawnAsEntity(worldIn, pos, item);
+        }
+      }
+    }
+  }
+
+  @Nonnull
+  @Override
+  public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
     List<ItemStack> drops = getDrops(world, pos, world.getBlockState(pos), 0);
     if(drops.size() > 0) {
       return drops.get(0);
@@ -218,14 +256,14 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   /* Bounds */
   private static ImmutableList<AxisAlignedBB> BOUNDS_Table = ImmutableList.of(
       new AxisAlignedBB(0, 0.75, 0, 1, 1, 1),
-      new AxisAlignedBB(0,    0, 0,    0.25, 0.75, 0.25),
-      new AxisAlignedBB(0.75, 0, 0,    1,    0.75, 0.25),
-      new AxisAlignedBB(0.75, 0, 0.75, 1,    0.75, 1),
-      new AxisAlignedBB(0,    0, 0.75, 0.25, 0.75, 1)
+      new AxisAlignedBB(0, 0, 0, 0.25, 0.75, 0.25),
+      new AxisAlignedBB(0.75, 0, 0, 1, 0.75, 0.25),
+      new AxisAlignedBB(0.75, 0, 0.75, 1, 0.75, 1),
+      new AxisAlignedBB(0, 0, 0.75, 0.25, 0.75, 1)
   );
 
   @Override
-  public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
+  public RayTraceResult collisionRayTrace(IBlockState blockState, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Vec3d start, @Nonnull Vec3d end) {
     // basically the same BlockStairs does
     // Raytrace through all AABBs (plate, legs) and return the nearest one
     return raytraceMultiAABB(BOUNDS_Table, pos, start, end);
@@ -234,22 +272,18 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   public static RayTraceResult raytraceMultiAABB(List<AxisAlignedBB> aabbs, BlockPos pos, Vec3d start, Vec3d end) {
     List<RayTraceResult> list = Lists.<RayTraceResult>newArrayList();
 
-    for (AxisAlignedBB axisalignedbb : aabbs)
-    {
+    for(AxisAlignedBB axisalignedbb : aabbs) {
       list.add(rayTrace2(pos, start, end, axisalignedbb));
     }
 
     RayTraceResult raytraceresult1 = null;
     double d1 = 0.0D;
 
-    for (RayTraceResult raytraceresult : list)
-    {
-      if (raytraceresult != null)
-      {
+    for(RayTraceResult raytraceresult : list) {
+      if(raytraceresult != null) {
         double d0 = raytraceresult.hitVec.squareDistanceTo(end);
 
-        if (d0 > d1)
-        {
+        if(d0 > d1) {
           raytraceresult1 = raytraceresult;
           d1 = d0;
         }
@@ -260,11 +294,10 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   }
 
   // Block.raytrace
-  private static RayTraceResult rayTrace2(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB boundingBox)
-  {
-    Vec3d vec3d = start.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
-    Vec3d vec3d1 = end.subtract((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
+  private static RayTraceResult rayTrace2(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB boundingBox) {
+    Vec3d vec3d = start.subtract((double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
+    Vec3d vec3d1 = end.subtract((double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
     RayTraceResult raytraceresult = boundingBox.calculateIntercept(vec3d, vec3d1);
-    return raytraceresult == null ? null : new RayTraceResult(raytraceresult.hitVec.addVector((double)pos.getX(), (double)pos.getY(), (double)pos.getZ()), raytraceresult.sideHit, pos);
+    return raytraceresult == null ? null : new RayTraceResult(raytraceresult.hitVec.addVector((double) pos.getX(), (double) pos.getY(), (double) pos.getZ()), raytraceresult.sideHit, pos);
   }
 }

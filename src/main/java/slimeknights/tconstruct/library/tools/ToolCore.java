@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -143,6 +145,10 @@ public abstract class ToolCore extends TinkersItem {
     return entity.attackEntityFrom(DamageSource.causeMobDamage(player), damage);
   }
 
+  protected boolean readyForSpecialAttack(EntityLivingBase player) {
+    return player instanceof EntityPlayer && ((EntityPlayer) player).getCooledAttackStrength(0.5f) > 0.9f;
+  }
+
   /**
    * Called when an entity is getting damaged with the tool.
    * Reduce the tools durability accordingly
@@ -169,7 +175,7 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
-  public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
+  public boolean canHarvestBlock(@Nonnull IBlockState state, ItemStack stack) {
     return isEffective(state);
   }
 
@@ -204,14 +210,15 @@ public abstract class ToolCore extends TinkersItem {
     float speed = ToolHelper.getActualAttackSpeed(stack);
     int time = Math.round(20f/speed);
     if(time < target.hurtResistantTime/2) {
-      target.hurtResistantTime = target.hurtResistantTime/2 + time;
-      target.hurtTime = target.hurtTime/2 + time;
+      target.hurtResistantTime = (target.hurtResistantTime + time)/2;
+      target.hurtTime = (target.hurtTime + time)/2;
     }
     return super.hitEntity(stack, target, attacker);
   }
 
+  @Nonnull
   @Override
-  public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+  public Multimap<String, AttributeModifier> getAttributeModifiers(@Nonnull EntityEquipmentSlot slot, ItemStack stack) {
     Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
     if (slot == EntityEquipmentSlot.MAINHAND && !ToolHelper.isBroken(stack))
@@ -309,6 +316,7 @@ public abstract class ToolCore extends TinkersItem {
     }
   }
 
+  @Nonnull
   @SideOnly(Side.CLIENT)
   @Override
   public FontRenderer getFontRenderer(ItemStack stack) {
@@ -321,8 +329,9 @@ public abstract class ToolCore extends TinkersItem {
     return TagUtil.hasEnchantEffect(stack);
   }
 
+  @Nonnull
   @Override
-  public String getItemStackDisplayName(ItemStack stack) {
+  public String getItemStackDisplayName(@Nonnull ItemStack stack) {
     // if the tool is not named we use the repair tools for a prefix like thing
     List<Material> materials = TinkerUtil.getMaterialsFromTagList(TagUtil.getBaseMaterialsTagList(stack));
     // we save all the ones for the name in a set so we don't have the same material in it twice
@@ -363,7 +372,7 @@ public abstract class ToolCore extends TinkersItem {
 
   // Creative tab items
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     addDefaultSubItems(subItems);
   }
 
@@ -407,7 +416,7 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   @Override
-  public int getHarvestLevel(ItemStack stack, String toolClass) {
+  public int getHarvestLevel(ItemStack stack, @Nonnull String toolClass) {
     if(this.getToolClasses(stack).contains(toolClass)) {
       NBTTagCompound tag = TagUtil.getToolTag(stack);
       // will return 0 if the tag has no info anyway
@@ -478,6 +487,7 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   // elevate to public
+  @Nonnull
   @Override
   public RayTraceResult rayTrace(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
     return super.rayTrace(worldIn, playerIn, useLiquids);
@@ -489,7 +499,7 @@ public abstract class ToolCore extends TinkersItem {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+  public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
     if(oldStack == newStack) {
       return false;
     }

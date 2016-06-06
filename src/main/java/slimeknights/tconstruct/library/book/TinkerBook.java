@@ -17,9 +17,11 @@ public class TinkerBook extends BookData {
   static {
     BookLoader.registerPageType(ContentMaterial.ID, ContentMaterial.class);
     BookLoader.registerPageType(ContentModifier.ID, ContentModifier.class);
+    BookLoader.registerPageType(ContentModifierFortify.ID, ContentModifierFortify.class);
     INSTANCE.addRepository(new FileRepository(Util.resource("book")));
     INSTANCE.addTransformer(new MaterialSectionTransformer());
     //INSTANCE.addTransformer(new ModifierSectionTransformer());
     INSTANCE.addTransformer(BookTransformer.IndexTranformer());
+    INSTANCE.addTransformer(new ModifierSectionTransformer());
   }
 }

@@ -3,6 +3,7 @@ package slimeknights.tconstruct.debug;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -53,8 +54,7 @@ public class TinkerDebug {
         modifier.matches(new ItemStack[] {new ItemStack(Items.STICK)});
         modifier.matches(new ItemStack[1]);
       } catch(Exception e) {
-        log.error("Caught exception in modifier " + modifier.getIdentifier());
-        log.error(e);
+        log.error("Caught exception in modifier " + modifier.getIdentifier(), e);
       }
     }
 
@@ -67,7 +67,12 @@ public class TinkerDebug {
 
       Block block = Block.REGISTRY.getObject(identifier);
       for(int i = 0; i < 16; i++) {
-        block.getMetaFromState(block.getStateFromMeta(i));
+        try {
+          IBlockState state = block.getStateFromMeta(i);
+          state.getBlock().getMetaFromState(state);
+        } catch(Exception e) {
+          log.error("Caught exception when checking block " + identifier + ":" + i, e);
+        }
       }
     }
 
@@ -80,7 +85,11 @@ public class TinkerDebug {
 
       Item item = Item.REGISTRY.getObject(identifier);
       for(int i = 0; i < 0x7FFF; i++) {
-        item.getMetadata(i);
+        try {
+          item.getMetadata(i);
+        } catch(Exception e) {
+          log.error("Caught exception when checking item " + identifier + ":" + i, e);
+        }
       }
     }
   }

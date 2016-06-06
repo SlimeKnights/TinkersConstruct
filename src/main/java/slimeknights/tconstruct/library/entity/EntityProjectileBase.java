@@ -11,7 +11,6 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -24,10 +23,12 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.library.tools.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.tools.IProjectileStats;
-import slimeknights.tconstruct.library.tools.ITinkerProjectile;
 import slimeknights.tconstruct.library.tools.TinkerProjectileHandler;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -58,7 +59,8 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
     this.shootingEntity = player;
 
-    canBePickedUp = player.isCreative() ? PickupStatus.CREATIVE_ONLY : PickupStatus.ALLOWED;
+
+    pickupStatus = player.isCreative() ? PickupStatus.CREATIVE_ONLY : PickupStatus.ALLOWED;
 
     // stuff from the arrow
     this.setLocationAndAngles(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ, player.rotationYaw, player.rotationPitch);
@@ -81,12 +83,13 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   }
 
   @Override
-  public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+  public boolean hasCapability(@Nonnull Capability<?> capability, @Nonnull EnumFacing facing) {
     return capability == CapabilityTinkerProjectile.PROJECTILE_CAPABILITY || super.hasCapability(capability, facing);
   }
 
+  @Nonnull
   @Override
-  public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+  public <T> T getCapability(@Nonnull Capability<T> capability, @Nonnull EnumFacing facing) {
     if(capability == CapabilityTinkerProjectile.PROJECTILE_CAPABILITY) {
       return (T) tinkerProjectile;
     }
@@ -101,6 +104,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.defused = true;
   }
 
+  @Nonnull
   @Override
   protected ItemStack getArrowStack() {
     return tinkerProjectile.getItemStack();
@@ -378,7 +382,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     //else
     //newPos = Vec3d.createVectorHelper(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 
-    Entity entity = this.func_184551_a(oldPos, newPos);
+    Entity entity = this.findEntityOnPath(oldPos, newPos);
 
     // if we hit something, new collision point!
     if(entity != null) {
@@ -446,12 +450,13 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.doBlockCollisions();
   }
 
+  @Nullable
   @Override
-  protected Entity func_184551_a(Vec3d p_184551_1_, Vec3d p_184551_2_) {
+  protected Entity findEntityOnPath(@Nonnull Vec3d start, @Nonnull Vec3d end) {
     if(isDefused()) {
       return null;
     }
-    return super.func_184551_a(p_184551_1_, p_184551_2_);
+    return super.findEntityOnPath(start, end);
   }
 
   public void drawCritParticles() {
@@ -507,12 +512,12 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
    * Called by a player entity when they collide with an entity
    */
   @Override
-  public void onCollideWithPlayer(EntityPlayer player) {
+  public void onCollideWithPlayer(@Nonnull EntityPlayer player) {
     if(!this.worldObj.isRemote && this.inGround && this.arrowShake <= 0) {
-      boolean pickedUp = this.canBePickedUp == EntityArrow.PickupStatus.ALLOWED || this.canBePickedUp == EntityArrow.PickupStatus.CREATIVE_ONLY && player.capabilities.isCreativeMode;
+      boolean pickedUp = this.pickupStatus == EntityArrow.PickupStatus.ALLOWED || this.pickupStatus == EntityArrow.PickupStatus.CREATIVE_ONLY && player.capabilities.isCreativeMode;
 
       if(pickedUp) {
-        pickedUp = tinkerProjectile.pickup(player, canBePickedUp != PickupStatus.ALLOWED);
+        pickedUp = tinkerProjectile.pickup(player, pickupStatus != PickupStatus.ALLOWED);
       }
 
       if(pickedUp) {

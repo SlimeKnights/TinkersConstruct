@@ -18,6 +18,8 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.gadgets.entity.EntityFancyItemFrame;
 import slimeknights.tconstruct.library.Util;
 
@@ -34,8 +36,10 @@ public class RenderFancyItemFrame extends RenderItemFrame {
   }
 
   @Override
-  public void doRender(EntityItemFrame entity, double x, double y, double z, float entityYaw, float partialTicks)
+  public void doRender(@Nonnull EntityItemFrame entity, double x, double y, double z, float entityYaw, float partialTicks)
   {
+    EntityFancyItemFrame.FrameType type = ((EntityFancyItemFrame)entity).getType();
+
     GlStateManager.pushMatrix();
     BlockPos blockpos = entity.getHangingPosition();
     double d0 = (double)blockpos.getX() - entity.posX + x;
@@ -44,24 +48,29 @@ public class RenderFancyItemFrame extends RenderItemFrame {
     GlStateManager.translate(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D);
     GlStateManager.rotate(180.0F - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
     this.renderManager.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-    BlockRendererDispatcher blockrendererdispatcher = this.mc.getBlockRendererDispatcher();
-    ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
-    IBakedModel ibakedmodel;
 
-    if (entity.getDisplayedItem() != null && entity.getDisplayedItem().getItem() == Items.FILLED_MAP)
-    {
-      ibakedmodel = modelmanager.getModel(mapModel);
-    }
-    else
-    {
-      ibakedmodel = modelmanager.getModel(Util.getModelResource("fancy_frame", ((EntityFancyItemFrame)entity).getType()));
-    }
+    // we don't render the clear variant if it has an item
+    if(entity.getDisplayedItem() == null || type != EntityFancyItemFrame.FrameType.CLEAR) {
+      BlockRendererDispatcher blockrendererdispatcher = this.mc.getBlockRendererDispatcher();
+      ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
+      IBakedModel ibakedmodel;
 
-    GlStateManager.pushMatrix();
-    GlStateManager.translate(-0.5F, -0.5F, -0.5F);
-    blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(ibakedmodel, 1.0F, 1.0F, 1.0F, 1.0F);
-    GlStateManager.popMatrix();
+      if(entity.getDisplayedItem() != null && entity.getDisplayedItem().getItem() == Items.FILLED_MAP) {
+        ibakedmodel = modelmanager.getModel(mapModel);
+      }
+      else {
+        ibakedmodel = modelmanager.getModel(Util.getModelResource("fancy_frame", ((EntityFancyItemFrame) entity).getType().toString()));
+      }
+
+      GlStateManager.pushMatrix();
+      GlStateManager.translate(-0.5F, -0.5F, -0.5F);
+      blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(ibakedmodel, 1.0F, 1.0F, 1.0F, 1.0F);
+      GlStateManager.popMatrix();
+    }
     GlStateManager.translate(0.0F, 0.0F, 0.4375F);
+    if(type == EntityFancyItemFrame.FrameType.CLEAR) {
+      GlStateManager.translate(0.0F, 0.0F, 0.03125F);
+    }
     this.renderItem(entity);
     GlStateManager.popMatrix();
     this.renderName(entity, x + (double)((float)entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (double)((float)entity.facingDirection.getFrontOffsetZ() * 0.3F));

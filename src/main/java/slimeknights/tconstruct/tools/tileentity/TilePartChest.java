@@ -9,6 +9,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.tools.client.GuiPartChest;
@@ -33,7 +35,7 @@ public class TilePartChest extends TileTinkerChest implements IInventoryGui {
 
   // toolparts only
   @Override
-  public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
+  public boolean isItemValidForSlot(int slot, @Nonnull ItemStack itemstack) {
     // check if there is no other slot containing that item
     for(int i = 0; i < getSizeInventory(); i++) {
       // don't compare count

@@ -10,6 +10,8 @@ import net.minecraftforge.fml.common.LoaderState;
 
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 
@@ -44,7 +46,7 @@ public class MaterialModelLoader implements ICustomModelLoader {
   }
 
   @Override
-  public void onResourceManagerReload(IResourceManager resourceManager) {
+  public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
 
   }
 }

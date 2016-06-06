@@ -5,7 +5,9 @@ import com.google.common.eventbus.Subscribe;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -25,15 +27,17 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.item.ItemTinkerBook;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.shared.block.BlockDecoGround;
+import slimeknights.tconstruct.shared.block.BlockDecoGroundSlab;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
+import slimeknights.tconstruct.shared.block.BlockFirewoodSlab;
 import slimeknights.tconstruct.shared.block.BlockGlow;
 import slimeknights.tconstruct.shared.block.BlockMetal;
 import slimeknights.tconstruct.shared.block.BlockOre;
 import slimeknights.tconstruct.shared.block.BlockSoil;
 import slimeknights.tconstruct.shared.item.ItemMetaDynamicTinkers;
 import slimeknights.tconstruct.shared.worldgen.NetherOreGenerator;
-
-//import slimeknights.tconstruct.common.item.ItemTinkerBook;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 /**
  * Contains items and blocks and stuff that is shared by multiple pulses, but might be required individually
@@ -50,8 +54,18 @@ public class TinkerCommons extends TinkerPulse {
   public static BlockSoil blockSoil;
   public static BlockOre blockOre;
   public static BlockMetal blockMetal;
-  public static Block blockFirewood;
+  public static BlockFirewood blockFirewood;
   public static BlockGlow blockGlow;
+
+  public static BlockDecoGround blockDecoGround;
+
+  public static Block slabDecoGround;
+  public static Block slabFirewood;
+  
+  // stairs
+  public static Block stairsMudBrick;
+  public static Block stairsFirewood;
+  public static Block stairsLavawood;
 
   // block itemstacks
   public static ItemStack grout;
@@ -60,6 +74,7 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack slimyMudMagma;
   public static ItemStack graveyardSoil;
   public static ItemStack consecratedSoil;
+
   public static ItemStack mudBrickBlock;
 
   public static ItemStack oreCobalt;
@@ -159,7 +174,6 @@ public class TinkerCommons extends TinkerPulse {
     slimyMudMagma = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.SLIMY_MUD_MAGMA.getMeta());
     graveyardSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.GRAVEYARD.getMeta());
     consecratedSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.CONSECRATED.getMeta());
-    mudBrickBlock = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.MUDBRICK.getMeta());
 
     // Ores
     blockOre = registerEnumBlock(new BlockOre(), "ore");
@@ -173,6 +187,19 @@ public class TinkerCommons extends TinkerPulse {
     lavawood = new ItemStack(blockFirewood, 1, BlockFirewood.FirewoodType.LAVAWOOD.getMeta());
     firewood = new ItemStack(blockFirewood, 1, BlockFirewood.FirewoodType.FIREWOOD.getMeta());
 
+    // deco stuff
+    blockDecoGround = registerEnumBlock(new BlockDecoGround(), "deco_ground");
+    mudBrickBlock = new ItemStack(blockDecoGround, 1, BlockDecoGround.DecoGroundType.MUDBRICK.getMeta());
+
+    // slabs
+    slabDecoGround = registerEnumBlockSlab(new BlockDecoGroundSlab(), "deco_ground_slab");
+    slabFirewood = registerEnumBlockSlab(new BlockFirewoodSlab(), "firewood_slab");
+    
+    // stairs
+    stairsMudBrick = registerBlockStairsFrom(blockDecoGround, BlockDecoGround.DecoGroundType.MUDBRICK, "mudbrick_stairs");
+    stairsFirewood = registerBlockStairsFrom(blockFirewood, BlockFirewood.FirewoodType.FIREWOOD, "firewood_stairs");
+    stairsLavawood = registerBlockStairsFrom(blockFirewood, BlockFirewood.FirewoodType.LAVAWOOD, "lavawood_stairs");
+
     // create the items. We can probably always create them since they handle themselves dynamically
     nuggets = registerItem(new ItemMetaDynamicTinkers(), "nuggets");
     ingots = registerItem(new ItemMetaDynamicTinkers(), "ingots");
@@ -185,10 +212,10 @@ public class TinkerCommons extends TinkerPulse {
     edibles.setCreativeTab(TinkerRegistry.tabGeneral);
 
     // Items that can always be present.. slimeballs
-    matSlimeBallBlue = edibles.addFood(1, 1, 1f, "slimeball_blue");
-    matSlimeBallPurple = edibles.addFood(2, 1, 2f, "slimeball_purple");
-    matSlimeBallBlood = edibles.addFood(3, 1, 1.5f, "slimeball_blood");
-    matSlimeBallMagma = edibles.addFood(4, 2, 1f, "slimeball_magma");
+    matSlimeBallBlue = edibles.addFood(1, 1, 1f, "slimeball_blue", new PotionEffect(MobEffects.SLOWNESS, 20*45, 2), new PotionEffect(MobEffects.JUMP_BOOST, 20*60, 2) );
+    matSlimeBallPurple = edibles.addFood(2, 1, 2f, "slimeball_purple", new PotionEffect(MobEffects.UNLUCK, 20*45), new PotionEffect(MobEffects.LUCK, 20*60));
+    matSlimeBallBlood = edibles.addFood(3, 1, 1.5f, "slimeball_blood", new PotionEffect(MobEffects.POISON, 20*45, 2), new PotionEffect(MobEffects.HEALTH_BOOST, 20*60));
+    matSlimeBallMagma = edibles.addFood(4, 2, 1f, "slimeball_magma", new PotionEffect(MobEffects.WEAKNESS, 20*45), new PotionEffect(MobEffects.WITHER, 20*15), new PotionEffect(MobEffects.FIRE_RESISTANCE, 20*60));
 
     // All other items are either ingots or items for modifiers
 
@@ -251,47 +278,66 @@ public class TinkerCommons extends TinkerPulse {
       driedBrick = materials.addMeta(2, "dried_brick");
 
       // Jerky
-      jerkyMonster = edibles.addFood(10, 4, 0.4f, "jerky_monster");
-      jerkyBeef = edibles.addFood(11, 8, 1f, "jerky_beef");
-      jerkyChicken = edibles.addFood(12, 6, 0.8f, "jerky_chicken");
-      jerkyPork = edibles.addFood(13, 8, 1f, "jerky_pork");
-      jerkyMutton = edibles.addFood(14, 6, 1f, "jerky_mutton");
-      jerkyRabbit = edibles.addFood(15, 5, 0.8f, "jerky_rabbit");
+      jerkyMonster = edibles.addFood(10, 4, 0.4f, "jerky_monster", false);
+      jerkyBeef = edibles.addFood(11, 8, 1f, "jerky_beef", false);
+      jerkyChicken = edibles.addFood(12, 6, 0.8f, "jerky_chicken", false);
+      jerkyPork = edibles.addFood(13, 8, 1f, "jerky_pork", false);
+      jerkyMutton = edibles.addFood(14, 6, 1f, "jerky_mutton", false);
+      jerkyRabbit = edibles.addFood(15, 5, 0.8f, "jerky_rabbit", false);
 
-      jerkyFish = edibles.addFood(20, 5, 0.8f, "jerky_fish");
-      jerkySalmon = edibles.addFood(21, 6, 1f, "jerky_salmon");
-      jerkyClownfish = edibles.addFood(22, 3, 0.8f, "jerky_clownfish");
-      jerkyPufferfish = edibles.addFood(23, 3, 0.8f, "jerky_pufferfish");
+      jerkyFish = edibles.addFood(20, 5, 0.8f, "jerky_fish", false);
+      jerkySalmon = edibles.addFood(21, 6, 1f, "jerky_salmon", false);
+      jerkyClownfish = edibles.addFood(22, 3, 0.8f, "jerky_clownfish", false);
+      jerkyPufferfish = edibles.addFood(23, 3, 0.8f, "jerky_pufferfish", false);
 
-      slimedropGreen = edibles.addFood(30, 1, 1f, "slimedrop_green");
-      slimedropBlue = edibles.addFood(31, 3, 1f, "slimedrop_blue");
-      slimedropPurple = edibles.addFood(32, 3, 2f, "slimedrop_purple");
-      slimedropBlood = edibles.addFood(33, 3, 1.5f, "slimedrop_blood");
-      slimedropMagma = edibles.addFood(34, 6, 1f, "slimedrop_magma");
+      slimedropGreen = edibles.addFood(30, 1, 1f, "slimedrop_green", new PotionEffect(MobEffects.SPEED, 20*90, 2));
+      slimedropBlue = edibles.addFood(31, 3, 1f, "slimedrop_blue", new PotionEffect(MobEffects.JUMP_BOOST, 20*90, 2));
+      slimedropPurple = edibles.addFood(32, 3, 2f, "slimedrop_purple", new PotionEffect(MobEffects.LUCK, 20*90));
+      slimedropBlood = edibles.addFood(33, 3, 1.5f, "slimedrop_blood", new PotionEffect(MobEffects.HEALTH_BOOST, 20*90));
+      slimedropMagma = edibles.addFood(34, 6, 1f, "slimedrop_magma", new PotionEffect(MobEffects.FIRE_RESISTANCE, 20*90));
     }
 
     if(isToolsLoaded() || isGadgetsLoaded()) {
       blockGlow = registerBlock(new BlockGlow(), "glow");
     }
 
-    // oredicting time
-    registerRecipies();
-
     proxy.preInit();
 
     TinkerRegistry.tabGeneral.setDisplayIcon(matSlimeBallBlue);
   }
 
+  @Subscribe
+  public void init(FMLInitializationEvent event) {
+    registerRecipies();
+
+    GameRegistry.registerWorldGenerator(NetherOreGenerator.INSTANCE, 0);
+
+    MinecraftForge.EVENT_BUS.register(new AchievementEvents());
+    MinecraftForge.EVENT_BUS.register(new PlayerDataEvents());
+  }
+
   private void registerRecipies() {
+    // book
+    if(isToolsLoaded()) {
+      GameRegistry.addShapelessRecipe(new ItemStack(book), new ItemStack(Items.BOOK), new ItemStack(TinkerTools.pattern));
+    }
+
     // soils
     GameRegistry.addSmelting(graveyardSoil, consecratedSoil, 0);
     GameRegistry.addShapelessRecipe(graveyardSoil, Blocks.DIRT, Items.ROTTEN_FLESH, new ItemStack(Items.DYE, 1, 15));
     if(mudBrick != null) {
       GameRegistry.addShapedRecipe(mudBrickBlock, "BB", "BB", 'B', mudBrick);
+      GameRegistry.addShapedRecipe(new ItemStack(slabDecoGround, 1, BlockDecoGround.DecoGroundType.MUDBRICK.getMeta()), "bb", 'b', mudBrick);
     }
+    addSlabRecipe(new ItemStack(slabDecoGround, 1, BlockDecoGround.DecoGroundType.MUDBRICK.getMeta()), mudBrickBlock);
+    addStairRecipe(stairsMudBrick, mudBrickBlock);
 
     // firewood
     GameRegistry.addShapelessRecipe(firewood, Items.BLAZE_POWDER, lavawood, Items.BLAZE_POWDER);
+    addSlabRecipe(new ItemStack(slabFirewood, 1, BlockFirewood.FirewoodType.FIREWOOD.getMeta()), firewood);
+    addSlabRecipe(new ItemStack(slabFirewood, 1, BlockFirewood.FirewoodType.LAVAWOOD.getMeta()), lavawood);
+    addStairRecipe(stairsFirewood, firewood);
+    addStairRecipe(stairsLavawood, lavawood);
 
     // metals
     registerMetalRecipes("Cobalt", ingotCobalt, nuggetCobalt, blockCobalt);
@@ -330,12 +376,5 @@ public class TinkerCommons extends TinkerPulse {
     small.stackSize = 9;
     //GameRegistry.addShapelessRecipe(small, big);
     GameRegistry.addRecipe(new ShapelessOreRecipe(small, oreBig));
-  }
-
-  @Subscribe
-  public void init(FMLInitializationEvent event) {
-    GameRegistry.registerWorldGenerator(NetherOreGenerator.INSTANCE, 0);
-
-    MinecraftForge.EVENT_BUS.register(new AchievementEvents());
   }
 }

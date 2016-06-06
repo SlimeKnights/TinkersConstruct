@@ -26,6 +26,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -50,7 +52,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     for(SoilTypes type : SoilTypes.values()) {
       if(isTypeEnabled(type)) {
         list.add(new ItemStack(this, 1, type.getMeta()));
@@ -66,8 +68,6 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
         return TinkerCommons.matSlimeBallBlue != null;
       case SLIMY_MUD_MAGMA:
         return TinkerCommons.matSlimeBallMagma != null;
-      case MUDBRICK:
-        return TinkerCommons.mudBrick != null;
       case SLIMY_MUD_GREEN:
       case GRAVEYARD:
       case CONSECRATED:
@@ -78,7 +78,8 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
   }
 
   @Override
-  public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+  public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
+    IBlockState state = worldIn.getBlockState(pos);
     switch(state.getValue(TYPE)) {
       case SLIMY_MUD_GREEN:
       case SLIMY_MUD_BLUE:
@@ -125,7 +126,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
   }
 
   @Override
-  public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+  public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockAccess world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
     SoilTypes type = world.getBlockState(pos).getValue(TYPE);
     if(type == SoilTypes.SLIMY_MUD_GREEN || type == SoilTypes.SLIMY_MUD_BLUE) {
       // can sustain slimeplants
@@ -140,8 +141,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
     SLIMY_MUD_BLUE,
     GRAVEYARD,
     CONSECRATED,
-    SLIMY_MUD_MAGMA,
-    MUDBRICK;
+    SLIMY_MUD_MAGMA;
 
     public  final int meta;
 

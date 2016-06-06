@@ -17,6 +17,8 @@ import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.client.model.BakedSimple;
 import slimeknights.mantle.client.model.BakedWrapper;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -50,6 +52,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
     this.blockingTransforms = blockingTransform;
   }
 
+  @Nonnull
   @Override
   public ItemOverrideList getOverrides() {
     return ToolItemOverrideList.INSTANCE;
@@ -63,8 +66,9 @@ public class BakedToolModel extends BakedWrapper.Perspective {
       super(ImmutableList.<ItemOverride>of());
     }
 
+    @Nonnull
     @Override
-    public IBakedModel handleItemState(IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
+    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
       NBTTagCompound baseTag = TagUtil.getBaseTag(stack);
       if(!baseTag.hasNoTags()) {
         BakedToolModel original = (BakedToolModel)originalModel;

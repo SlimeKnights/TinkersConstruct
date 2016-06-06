@@ -19,6 +19,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.client.renderer.RenderTinkerSlime;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
@@ -53,7 +55,7 @@ public class WorldClientProxy extends ClientProxy {
     blockColors.registerBlockColorHandler(
         new IBlockColor() {
           @Override
-          public int colorMultiplier(IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
+          public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
             FoliageType type = state.getValue(BlockSlimeGrass.FOLIAGE);
             if(pos == null) {
               return SlimeColorizer.getColorStatic(type);
@@ -68,7 +70,7 @@ public class WorldClientProxy extends ClientProxy {
     blockColors.registerBlockColorHandler(
         new IBlockColor() {
           @Override
-          public int colorMultiplier(IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
+          public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
             FoliageType type = state.getValue(BlockSlimeGrass.FOLIAGE);
             if(pos == null) {
               return SlimeColorizer.getColorStatic(type);
@@ -83,7 +85,7 @@ public class WorldClientProxy extends ClientProxy {
     blockColors.registerBlockColorHandler(
         new IBlockColor() {
           @Override
-          public int colorMultiplier(IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
+          public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
             if(pos == null) {
               return SlimeColorizer.getColorStatic(BlockSlimeGrass.FoliageType.BLUE);
             }
@@ -95,7 +97,7 @@ public class WorldClientProxy extends ClientProxy {
     blockColors.registerBlockColorHandler(
         new IBlockColor() {
           @Override
-          public int colorMultiplier(IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
+          public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
             if(pos == null) {
               return SlimeColorizer.getColorStatic(BlockSlimeGrass.FoliageType.PURPLE);
             }
@@ -109,7 +111,7 @@ public class WorldClientProxy extends ClientProxy {
     minecraft.getItemColors().registerItemColorHandler(
         new IItemColor() {
           @Override
-          public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+          public int getColorFromItemstack(@Nonnull ItemStack stack, int tintIndex) {
             IBlockState iblockstate = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
             return blockColors.colorMultiplier(iblockstate, null, null, tintIndex);
           }

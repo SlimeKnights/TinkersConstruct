@@ -397,10 +397,6 @@ public final class ToolBuilder {
         foundMaterial = material;
         // is it more complex than the old one?
       }
-      else if(newMatch.stacks.size() > match.stacks.size()) {
-        match = newMatch;
-        foundMaterial = material;
-      }
     }
 
     // nope, no material
@@ -494,7 +490,13 @@ public final class ToolBuilder {
 
       modifier.applyEffect(rootNBT, tag);
       if(!tag.hasNoTags()) {
-        modifiersTag.appendTag(tag);
+        int indexNew = TinkerUtil.getIndexInList(modifiersTag, modifier.getIdentifier());
+        if(indexNew >= 0) {
+          modifiersTag.set(indexNew, tag);
+        }
+        else {
+          modifiersTag.appendTag(tag);
+        }
       }
     }
 

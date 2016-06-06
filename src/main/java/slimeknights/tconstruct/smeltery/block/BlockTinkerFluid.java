@@ -5,6 +5,8 @@ import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 
 public class BlockTinkerFluid extends BlockFluidClassic {
@@ -15,6 +17,7 @@ public class BlockTinkerFluid extends BlockFluidClassic {
     setCreativeTab(TinkerRegistry.tabSmeltery);
   }
 
+  @Nonnull
   @Override
   public String getUnlocalizedName() {
     Fluid fluid = FluidRegistry.getFluid(fluidName);

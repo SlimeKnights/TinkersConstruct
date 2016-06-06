@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.smeltery.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -19,6 +18,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Random;
+
+import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.common.block.BlockInventoryTinkers;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -39,18 +40,21 @@ public class BlockSmelteryController extends BlockInventoryTinkers {
     this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, false));
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, FACING, ACTIVE);
   }
 
+  @Nonnull
   @Override
-  public TileEntity createNewTileEntity(World worldIn, int meta) {
+  public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     return new TileSmeltery();
   }
 
+  @Nonnull
   @Override
-  public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+  public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
     // active or inactive?
     return state.withProperty(ACTIVE, isActive(worldIn, pos));
   }
@@ -71,6 +75,7 @@ public class BlockSmelteryController extends BlockInventoryTinkers {
     return super.openGui(player, world, pos);
   }
 
+  @Nonnull
   @Override
   public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
     // set rotation
@@ -88,6 +93,7 @@ public class BlockSmelteryController extends BlockInventoryTinkers {
 
   // METADATA
 
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
     EnumFacing enumfacing = EnumFacing.getFront(meta);
@@ -107,6 +113,7 @@ public class BlockSmelteryController extends BlockInventoryTinkers {
 
   // RENDERING
 
+  @Nonnull
   @Override
   public EnumBlockRenderType getRenderType(IBlockState state) {
     return EnumBlockRenderType.MODEL;

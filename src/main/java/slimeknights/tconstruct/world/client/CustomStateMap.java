@@ -13,6 +13,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.LinkedHashMap;
 
+import javax.annotation.Nonnull;
+
 @SideOnly(Side.CLIENT)
 public class CustomStateMap extends StateMapperBase {
 
@@ -22,8 +24,9 @@ public class CustomStateMap extends StateMapperBase {
     this.customName = customName;
   }
 
+  @Nonnull
   @Override
-  protected ModelResourceLocation getModelResourceLocation(IBlockState state)
+  protected ModelResourceLocation getModelResourceLocation(@Nonnull IBlockState state)
   {
     LinkedHashMap<IProperty<?>,Comparable<?>> linkedhashmap = Maps.newLinkedHashMap(state.getProperties());
     ResourceLocation res = new ResourceLocation(Block.REGISTRY.getNameForObject(state.getBlock()).getResourceDomain(), customName);

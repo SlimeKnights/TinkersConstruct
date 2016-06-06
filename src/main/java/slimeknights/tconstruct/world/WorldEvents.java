@@ -7,7 +7,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -55,8 +55,8 @@ public class WorldEvents {
   }
 
   // Custom slime spawning on slime islands
-  BiomeGenBase.SpawnListEntry magmaSlimeSpawn = new BiomeGenBase.SpawnListEntry(EntityMagmaCube.class, 250, 4, 6);
-  BiomeGenBase.SpawnListEntry blueSlimeSpawn = new BiomeGenBase.SpawnListEntry(EntityBlueSlime.class, 20, 2, 4);
+  Biome.SpawnListEntry magmaSlimeSpawn = new Biome.SpawnListEntry(EntityMagmaCube.class, 150, 4, 6);
+  Biome.SpawnListEntry blueSlimeSpawn = new Biome.SpawnListEntry(EntityBlueSlime.class, 15, 2, 4);
 
   @SubscribeEvent
   public void extraSlimeSpawn(WorldEvent.PotentialSpawns event) {

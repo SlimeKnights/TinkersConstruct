@@ -1,19 +1,19 @@
 package slimeknights.tconstruct.smeltery.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
 
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.mantle.multiblock.IServantLogic;
@@ -37,14 +37,15 @@ public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta & IString
     this.isBlockContainer = true; // has TE
   }
 
+  @Nonnull
   @Override
-  public TileEntity createNewTileEntity(World worldIn, int meta) {
+  public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     return new TileSmelteryComponent();
   }
 
   /* BlockContainer TE handling */
   @Override
-  public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+  public void breakBlock(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
     TileEntity te = worldIn.getTileEntity(pos);
     if(te instanceof TileSmelteryComponent) {
       ((TileSmelteryComponent) te).notifyMasterOfChange();
@@ -77,9 +78,10 @@ public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta & IString
   }
 
   @Override
-  public boolean onBlockEventReceived(World worldIn, BlockPos pos, IBlockState state, int eventID, int eventParam) {
-    super.onBlockEventReceived(worldIn, pos, state, eventID, eventParam);
+  @Deprecated
+  public boolean eventReceived(IBlockState state, World worldIn, BlockPos pos, int id, int param) {
+    super.eventReceived(state, worldIn, pos, id, param);
     TileEntity tileentity = worldIn.getTileEntity(pos);
-    return tileentity != null && tileentity.receiveClientEvent(eventID, eventParam);
+    return tileentity == null ? false : tileentity.receiveClientEvent(id, param);
   }
 }

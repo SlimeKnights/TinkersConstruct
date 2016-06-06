@@ -11,6 +11,8 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
@@ -45,7 +47,7 @@ public class Pickaxe extends AoeToolCore {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     addDefaultSubItems(subItems);
     addInfiTool(subItems, "InfiHarvester");
   }

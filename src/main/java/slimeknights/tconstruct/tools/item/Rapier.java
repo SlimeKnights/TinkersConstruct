@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.item;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -14,11 +15,15 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
+import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
+import slimeknights.tconstruct.shared.client.ParticleEffect;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class Rapier extends ToolCore {
@@ -37,8 +42,16 @@ public class Rapier extends ToolCore {
   }
 
   @Override
+  public float getStrVsBlock(ItemStack stack, IBlockState state) {
+    if(state.getBlock() == Blocks.WEB) {
+      return super.getStrVsBlock(stack, state)*7.5f;
+    }
+    return super.getStrVsBlock(stack, state);
+  }
+
+  @Override
   public float damagePotential() {
-    return 0.8f; // tad lower than broadsword
+    return 0.55f;
   }
 
   @Override
@@ -48,7 +61,7 @@ public class Rapier extends ToolCore {
 
   @Override
   public double attackSpeed() {
-    return 4;
+    return 3;
   }
 
   @Override
@@ -58,11 +71,19 @@ public class Rapier extends ToolCore {
 
   @Override
   public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+    boolean hit;
     if(player instanceof EntityPlayer) {
-      return dealHybridDamage(DamageSource.causePlayerDamage((EntityPlayer) player), entity, damage);
+      hit = dealHybridDamage(DamageSource.causePlayerDamage((EntityPlayer) player), entity, damage);
+    }
+    else {
+      hit = dealHybridDamage(DamageSource.causeMobDamage(player), entity, damage);
     }
 
-    return dealHybridDamage(DamageSource.causeMobDamage(player), entity, damage);
+    if(hit && readyForSpecialAttack(entity)) {
+      TinkerTools.proxy.spawnAttackParticle(Particles.RAPIER_ATTACK, player, 0.8d);
+    }
+
+    return hit;
   }
 
   // changes the passed in damagesource, but the default method calls we use always create a new object
@@ -74,12 +95,18 @@ public class Rapier extends ToolCore {
       target.hurtResistantTime = 0;
       target.lastDamage = 0;
       target.attackEntityFrom(source.setDamageBypassesArmor(), damage / 2f);
+
+      int count = Math.round(damage / 2f);
+      if(count > 0) {
+        TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_ARMOR, target, count);
+      }
     }
     return hit;
   }
 
+  @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer player, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer player, EnumHand hand) {
     if(player.onGround) {
       player.addExhaustion(0.1f);
       player.motionY += 0.32;

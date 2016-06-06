@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.config.Config;
@@ -46,7 +48,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     for(Material mat : TinkerRegistry.getAllMaterials()) {
       // check if the material makes sense for this item (is it usable to build stuff?)
       if(canUseMaterial(mat)) {
@@ -170,8 +172,9 @@ public class ToolPart extends MaterialItem implements IToolPart {
     return tooltips;
   }
 
+  @Nonnull
   @Override
-  public String getItemStackDisplayName(ItemStack stack) {
+  public String getItemStackDisplayName(@Nonnull ItemStack stack) {
     Material material = getMaterial(stack);
 
     String locString = getUnlocalizedName() + "." + material.getIdentifier();
@@ -185,6 +188,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
     return material.getLocalizedItemName(super.getItemStackDisplayName(stack));
   }
 
+  @Nonnull
   @SideOnly(Side.CLIENT)
   @Override
   public FontRenderer getFontRenderer(ItemStack stack) {

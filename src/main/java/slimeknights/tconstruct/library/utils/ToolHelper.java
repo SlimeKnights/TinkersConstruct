@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.utils;
 
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
@@ -39,6 +37,9 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.event.ForgeEventFactory;
+
+import java.util.List;
+
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -334,7 +335,7 @@ public final class ToolHelper {
 
       // send update to client
       if (!world.isRemote) {
-        ((EntityPlayerMP)player).playerNetServerHandler.sendPacket(new SPacketBlockChange(world, pos));
+        ((EntityPlayerMP)player).connection.sendPacket(new SPacketBlockChange(world, pos));
       }
       return;
     }
@@ -365,7 +366,7 @@ public final class ToolHelper {
 
       // always send block update to client
       EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
-      mpPlayer.playerNetServerHandler.sendPacket(new SPacketBlockChange(world, pos));
+      mpPlayer.connection.sendPacket(new SPacketBlockChange(world, pos));
     }
     // client sided handling
     else {
@@ -374,7 +375,7 @@ public final class ToolHelper {
       // the code above, executed on the server, sends a block-updates that give us the correct state of the block we destroy.
 
       // following code can be found in PlayerControllerMP.onPlayerDestroyBlock
-      world.playAuxSFX(2001, pos, Block.getStateId(state));
+      world.playBroadcastSound(2001, pos, Block.getStateId(state));
       if(block.removedByPlayer(state, world, pos, player, true))
       {
         block.onBlockDestroyedByPlayer(world, pos, state);
@@ -390,7 +391,7 @@ public final class ToolHelper {
 
       // send an update to the server, so we get an update back
       //if(PHConstruct.extraBlockUpdates)
-      Minecraft.getMinecraft().getNetHandler().addToSendQueue(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, Minecraft
+      Minecraft.getMinecraft().getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, Minecraft
           .getMinecraft().objectMouseOver.sideHit));
     }
   }
@@ -526,7 +527,7 @@ public final class ToolHelper {
    */
   public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, boolean isProjectile) {
     // nothing to do, no target?
-    if(targetEntity == null || !targetEntity.canAttackWithItem() || targetEntity.hitByEntity(attacker) || !stack.hasTagCompound()) {
+    if(targetEntity == null || !targetEntity.canBeAttackedWithItem() || targetEntity.hitByEntity(attacker) || !stack.hasTagCompound()) {
       return false;
     }
     if(!(targetEntity instanceof EntityLivingBase)) {
@@ -638,7 +639,7 @@ public final class ToolHelper {
       // I guess this is to allow better handling at the hit players side? No idea why it resets the motion though.
       if (targetEntity instanceof EntityPlayerMP && targetEntity.velocityChanged)
       {
-        ((EntityPlayerMP)targetEntity).playerNetServerHandler.sendPacket(new SPacketEntityVelocity(targetEntity));
+        ((EntityPlayerMP)targetEntity).connection.sendPacket(new SPacketEntityVelocity(targetEntity));
         targetEntity.velocityChanged = false;
         targetEntity.motionX = oldVelX;
         targetEntity.motionY = oldVelY;

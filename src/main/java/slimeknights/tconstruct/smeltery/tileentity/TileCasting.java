@@ -7,13 +7,11 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketParticles;
-import net.minecraft.network.play.server.SPacketSoundEffect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.WorldServer;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -21,10 +19,9 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
+
+import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.common.PlayerHelper;
 import slimeknights.tconstruct.common.TinkerNetwork;
@@ -80,18 +77,19 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     }
   }
 
+  @Nonnull
   @Override
-  public int[] getSlotsForFace(EnumFacing side) {
+  public int[] getSlotsForFace(@Nonnull EnumFacing side) {
     return new int[] {0, 1};
   }
 
   @Override
-  public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+  public boolean canInsertItem(int index, @Nonnull ItemStack itemStackIn, @Nonnull EnumFacing direction) {
     return index == 0 && !isStackInSlot(1);
   }
 
   @Override
-  public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+  public boolean canExtractItem(int index, @Nonnull ItemStack stack, @Nonnull EnumFacing direction) {
     return index == 1;
   }
 
@@ -117,7 +115,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
 
             for(EntityPlayer player : worldObj.playerEntities) {
               if(player.getDistanceSq(pos) < 1024 && player instanceof EntityPlayerMP) {
-                ((EntityPlayerMP) player).playerNetServerHandler.sendPacket(new SPacketParticles(EnumParticleTypes.FLAME, false,
+                ((EntityPlayerMP) player).connection.sendPacket(new SPacketParticles(EnumParticleTypes.FLAME, false,
                                                                                                  pos.getX() + 0.5f,
                                                                                                  pos.getY() + 1.1f,
                                                                                                  pos.getZ() + 0.5f,
@@ -310,15 +308,17 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
 
   /* Saving and Loading */
 
+  @Nonnull
   @Override
-  public void writeToNBT(NBTTagCompound tags) {
-    super.writeToNBT(tags);
+  public NBTTagCompound writeToNBT(NBTTagCompound tags) {
+    tags = super.writeToNBT(tags);
 
     NBTTagCompound tankTag = new NBTTagCompound();
     tank.writeToNBT(tankTag);
     tags.setTag("tank", tankTag);
 
     tags.setInteger("timer", timer);
+    return tags;
   }
 
   @Override

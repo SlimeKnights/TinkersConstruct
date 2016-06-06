@@ -9,6 +9,8 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 public class SlimeIslandData extends WorldSavedData {
 
   public final List<StructureBoundingBox> islands = Lists.newArrayList();
@@ -18,7 +20,7 @@ public class SlimeIslandData extends WorldSavedData {
   }
 
   @Override
-  public void readFromNBT(NBTTagCompound nbt) {
+  public void readFromNBT(@Nonnull NBTTagCompound nbt) {
     islands.clear();
 
     NBTTagList tagList = nbt.getTagList("slimeislands", 11);
@@ -27,13 +29,16 @@ public class SlimeIslandData extends WorldSavedData {
     }
   }
 
+  @Nonnull
   @Override
-  public void writeToNBT(NBTTagCompound nbt) {
+  public NBTTagCompound writeToNBT(@Nonnull NBTTagCompound nbt) {
     NBTTagList tagList = new NBTTagList();
     for(StructureBoundingBox sbb : islands) {
       tagList.appendTag(sbb.toNBTTagIntArray());
     }
 
     nbt.setTag("slimeislands", tagList);
+
+    return nbt;
   }
 }

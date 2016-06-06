@@ -1,6 +1,7 @@
 {
     "pools": [
         {
+            "name": "blueslime",
             "rolls": 1,
             "entries": [
                 {

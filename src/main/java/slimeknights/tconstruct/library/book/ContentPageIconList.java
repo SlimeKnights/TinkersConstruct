@@ -2,17 +2,13 @@ package slimeknights.tconstruct.library.book;
 
 import com.google.common.collect.Lists;
 
-import net.minecraft.util.text.TextFormatting;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
-import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.gui.book.GuiBook;
 import slimeknights.mantle.client.gui.book.element.BookElement;
-import slimeknights.mantle.client.gui.book.element.ElementImage;
 import slimeknights.mantle.client.gui.book.element.ElementItem;
 import slimeknights.mantle.client.gui.book.element.SizedBookElement;
 

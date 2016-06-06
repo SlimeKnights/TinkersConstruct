@@ -10,11 +10,11 @@ import java.io.IOException;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.tools.client.GuiButtonItem;
 import slimeknights.tconstruct.tools.client.GuiStencilTable;
-import slimeknights.tconstruct.tools.client.GuiTinkerStation;
 import slimeknights.tconstruct.tools.inventory.ContainerStencilTable;
 import slimeknights.tconstruct.tools.network.StencilTableSelectionPacket;
 
@@ -86,9 +86,9 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
   }
 
   protected void shiftButton(GuiButtonItem<ItemStack> button, int xd, int yd) {
-    button.setGraphics(GuiTinkerStation.ICON_Button.shift(xd, yd),
-                       GuiTinkerStation.ICON_ButtonHover.shift(xd, yd),
-                       GuiTinkerStation.ICON_ButtonPressed.shift(xd, yd),
-                       GuiTinkerStation.ICONS);
+    button.setGraphics(Icons.ICON_Button.shift(xd, yd),
+                       Icons.ICON_ButtonHover.shift(xd, yd),
+                       Icons.ICON_ButtonPressed.shift(xd, yd),
+                       Icons.ICON);
   }
 }

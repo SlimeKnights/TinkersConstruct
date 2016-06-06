@@ -38,11 +38,13 @@ public class SmeltingRecipeWrapper extends BlankRecipeWrapper {
     fuels = builder.build();
   }
 
+  @Nonnull
   @Override
   public List getInputs() {
     return inputs;
   }
 
+  @Nonnull
   @Override
   public List<FluidStack> getFluidOutputs() {
     return outputs;

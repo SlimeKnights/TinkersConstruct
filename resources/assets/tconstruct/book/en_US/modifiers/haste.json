@@ -2,12 +2,16 @@
   "modifier": "haste",
   "text": [
     {
-      "text": "Redstone. Crazy stuff, amiright."
+      "text": "Adding redstone to a tool seems to increase its speed. Redstone. Crazy stuff, amiright?"
     }
   ],
   "effects": [
-    "Increases mining speed",
-    "makes stuff faster",
-    "test entry"
+    "Each redstone dust increases mining speed by a small amount",
+    "Increases attack speed",
+    "Multiple levels"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword"
   ]
 }

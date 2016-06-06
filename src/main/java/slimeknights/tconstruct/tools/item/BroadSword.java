@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -45,6 +46,14 @@ public class BroadSword extends ToolCore {
   @Override
   public boolean isEffective(IBlockState block) {
     return effective_materials.contains(block.getMaterial());
+  }
+
+  @Override
+  public float getStrVsBlock(ItemStack stack, IBlockState state) {
+    if(state.getBlock() == Blocks.WEB) {
+      return super.getStrVsBlock(stack, state)*7.5f;
+    }
+    return super.getStrVsBlock(stack, state);
   }
 
   @Override

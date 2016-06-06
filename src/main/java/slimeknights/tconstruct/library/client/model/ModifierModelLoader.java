@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
@@ -101,7 +103,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
   }
 
   @Override
-  public void onResourceManagerReload(IResourceManager resourceManager) {
+  public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
     // goodbye, my dear data. You'll be...loaded again
     cache = null;
   }

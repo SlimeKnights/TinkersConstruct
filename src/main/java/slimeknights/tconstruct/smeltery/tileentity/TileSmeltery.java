@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
@@ -32,6 +31,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.mantle.multiblock.IMasterLogic;
@@ -560,6 +561,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     return info;
   }
 
+  @Nonnull
   @Override
   public AxisAlignedBB getRenderBoundingBox() {
     if(minPos == null || maxPos == null) {
@@ -609,9 +611,10 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     active = false;
   }
 
+  @Nonnull
   @Override
-  public void writeToNBT(NBTTagCompound compound) {
-    super.writeToNBT(compound);
+  public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    compound = super.writeToNBT(compound);
     liquids.writeToNBT(compound);
 
     compound.setBoolean("active", active);
@@ -631,6 +634,8 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     compound.setTag("minPos", TagUtil.writePos(minPos));
     compound.setTag("maxPos", TagUtil.writePos(maxPos));
     compound.setTag("insidePos", TagUtil.writePos(insideCheck));
+
+    return compound;
   }
 
   @Override
@@ -654,7 +659,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   }
 
   @Override
-  public Packet getDescriptionPacket() {
+  public SPacketUpdateTileEntity getUpdatePacket() {
     NBTTagCompound tag = new NBTTagCompound();
     writeToNBT(tag);
     return new SPacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);
@@ -671,6 +676,18 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
       IBlockState state = worldObj.getBlockState(getPos());
       worldObj.notifyBlockUpdate(getPos(), state, state, 3);
     }
+  }
+
+  @Nonnull
+  @Override
+  public NBTTagCompound getUpdateTag() {
+    // new tag instead of super since default implementation calls the super of writeToNBT
+    return writeToNBT(new NBTTagCompound());
+  }
+
+  @Override
+  public void handleUpdateTag(@Nonnull NBTTagCompound tag) {
+    readFromNBT(tag);
   }
 
   /* Getter */

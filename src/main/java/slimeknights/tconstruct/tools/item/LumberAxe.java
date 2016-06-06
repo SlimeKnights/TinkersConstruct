@@ -8,6 +8,7 @@ import gnu.trove.set.hash.THashSet;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
@@ -25,6 +26,9 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
+import javax.annotation.Nonnull;
+
+import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
@@ -57,7 +61,7 @@ public class LumberAxe extends AoeToolCore {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     addDefaultSubItems(subItems);
     addInfiTool(subItems, "InfiChopper");
   }
@@ -85,6 +89,17 @@ public class LumberAxe extends AoeToolCore {
   @Override
   public float knockback() {
     return 1.5f;
+  }
+
+  @Override
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+    boolean hit = super.dealDamage(stack, player, entity, damage);
+
+    if(hit && readyForSpecialAttack(player)) {
+      TinkerTools.proxy.spawnAttackParticle(Particles.LUMBERAXE_ATTACK, player, 0.8d);
+    }
+
+    return hit;
   }
 
   @Override

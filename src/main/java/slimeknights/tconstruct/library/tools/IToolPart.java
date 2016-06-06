@@ -8,11 +8,11 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
  */
 public interface IToolPart extends IMaterialItem {
   /**
-   * Returns the cost to craft the tool in 0.5 steps.<br>
-   * 1 = 1 shard<br>
-   * 2 = 1 ingot<br>
-   * 3 = 1 shard + 1 ingot<br>
-   * etc.
+   * Returns the cost to craft the tool. Values match the ingot values<br>
+   * 72 = 1 shard<br>
+   * 144 = 1 ingot<br>
+   * etc.<br>
+   * Check the Material class for values
    */
   int getCost();
 

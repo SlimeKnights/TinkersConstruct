@@ -14,7 +14,10 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
@@ -36,7 +39,7 @@ public class Hammer extends Pickaxe {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     addDefaultSubItems(subItems);
     addInfiTool(subItems, "InfiMiner");
   }
@@ -62,7 +65,12 @@ public class Hammer extends Pickaxe {
     if(entity.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
       damage += 3 + TConstruct.random.nextInt(4);
     }
-    return super.dealDamage(stack, player, entity, damage);
+    boolean hit = super.dealDamage(stack, player, entity, damage);
+
+    if(hit && readyForSpecialAttack(player)) {
+      TinkerTools.proxy.spawnAttackParticle(Particles.HAMMER_ATTACK, player, 0.8d);
+    }
+    return hit;
   }
 
   @Override

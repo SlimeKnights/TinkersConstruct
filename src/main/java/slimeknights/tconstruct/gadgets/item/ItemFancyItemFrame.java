@@ -14,6 +14,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.gadgets.entity.EntityFancyItemFrame;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
@@ -26,7 +28,7 @@ public class ItemFancyItemFrame extends ItemHangingEntity {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     subItems.add(new ItemStack(itemIn, 1, EntityFancyItemFrame.FrameType.JEWEL.ordinal()));
 
     if(TinkerCommons.nuggetAlubrass != null) {
@@ -43,8 +45,11 @@ public class ItemFancyItemFrame extends ItemHangingEntity {
     }
 
     subItems.add(new ItemStack(itemIn, 1, EntityFancyItemFrame.FrameType.GOLD.ordinal()));
+    subItems.add(new ItemStack(itemIn, 1, EntityFancyItemFrame.FrameType.CLEAR.ordinal()));
+
   }
 
+  @Nonnull
   @Override
   public String getUnlocalizedName(ItemStack stack) {
     String type = EntityFancyItemFrame.FrameType.fromMeta(stack.getMetadata()).toString().toLowerCase();
@@ -52,8 +57,9 @@ public class ItemFancyItemFrame extends ItemHangingEntity {
     return super.getUnlocalizedName(stack) + "." + type;
   }
 
+  @Nonnull
   @Override
-  public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+  public EnumActionResult onItemUse(@Nonnull ItemStack stack, @Nonnull EntityPlayer playerIn, @Nonnull World worldIn, BlockPos pos, EnumHand hand, @Nonnull EnumFacing side, float hitX, float hitY, float hitZ) {
     if (side == EnumFacing.DOWN)
     {
       return EnumActionResult.FAIL;

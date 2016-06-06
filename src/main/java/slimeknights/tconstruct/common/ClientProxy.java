@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.IReloadableResourceManager;
@@ -18,6 +19,8 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameData;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
@@ -29,10 +32,19 @@ import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.client.model.ModifierModelLoader;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.client.particle.EntitySlimeFx;
+import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.client.ParticleEffect;
+import slimeknights.tconstruct.tools.client.particle.ParticleAttackCleaver;
+import slimeknights.tconstruct.tools.client.particle.ParticleAttackFrypan;
+import slimeknights.tconstruct.tools.client.particle.ParticleAttackHammer;
+import slimeknights.tconstruct.tools.client.particle.ParticleAttackHatchet;
+import slimeknights.tconstruct.tools.client.particle.ParticleAttackLongsword;
+import slimeknights.tconstruct.tools.client.particle.ParticleAttackLumberAxe;
+import slimeknights.tconstruct.tools.client.particle.ParticleAttackRapier;
 
 public abstract class ClientProxy extends CommonProxy {
 
@@ -190,6 +202,10 @@ public abstract class ClientProxy extends CommonProxy {
 
     return registerIt(item, itemLocation);
   }
+  
+  public ResourceLocation registerItemModel(Block block) {
+    return registerItemModel(Item.getItemFromBlock(block));
+  }
 
   public void registerItemModel(Item item, int meta, String variant) {
     ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), variant));
@@ -200,8 +216,9 @@ public abstract class ClientProxy extends CommonProxy {
     // This here is needed for the model to be found ingame when the game looks for a model to render an Itemstack
     // we use an ItemMeshDefinition because it allows us to do it no matter what metadata we use
     ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
+      @Nonnull
       @Override
-      public ModelResourceLocation getModelLocation(ItemStack stack) {
+      public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
         return new ModelResourceLocation(location, "inventory");
       }
     });
@@ -228,8 +245,52 @@ public abstract class ClientProxy extends CommonProxy {
   }
 
   @Override
+  public void spawnParticle(Particles particleType, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
+    if(world == null) {
+      world = Minecraft.getMinecraft().theWorld;
+    }
+    Particle effect = createParticle(particleType, world, x, y, z, xSpeed, ySpeed, zSpeed, data);
+    Minecraft.getMinecraft().effectRenderer.addEffect(effect);
+
+    if(particleType == Particles.EFFECT && data[0] > 1) {
+      for(int i = 0; i < data[0]-1; i++) {
+        effect = createParticle(particleType, world, x,y,z, xSpeed,ySpeed,zSpeed, data);
+        Minecraft.getMinecraft().effectRenderer.addEffect(effect);
+      }
+    }
+  }
+
+  @Override
   public void spawnSlimeParticle(World world, double x, double y, double z) {
     Minecraft.getMinecraft().effectRenderer.addEffect(new EntitySlimeFx(world, x,y,z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage()));
+  }
+
+  public static Particle createParticle(Particles type, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
+    switch(type) {
+      // entities
+      case BLUE_SLIME:
+        return new EntitySlimeFx(world, x, y, z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage());
+      // attack
+      case CLEAVER_ATTACK:
+        return new ParticleAttackCleaver(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+      case LONGSWORD_ATTACK:
+        return new ParticleAttackLongsword(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+      case RAPIER_ATTACK:
+        return new ParticleAttackRapier(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+      case HATCHET_ATTACK:
+        return new ParticleAttackHatchet(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+      case LUMBERAXE_ATTACK:
+        return new ParticleAttackLumberAxe(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+      case FRYPAN_ATTACK:
+        return new ParticleAttackFrypan(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+      case HAMMER_ATTACK:
+        return new ParticleAttackHammer(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+      // effects
+      case EFFECT:
+        return new ParticleEffect(data[1], world, x,y,z, xSpeed, ySpeed, zSpeed);
+    }
+
+    return null;
   }
 
   @Override
@@ -261,8 +322,9 @@ public abstract class ClientProxy extends CommonProxy {
       this.baseLocation = baseLocation;
     }
 
+    @Nonnull
     @Override
-    public ModelResourceLocation getModelLocation(ItemStack stack) {
+    public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
       Item item = Pattern.getPartFromTag(stack);
       String suffix = "";
       if(item != null) {

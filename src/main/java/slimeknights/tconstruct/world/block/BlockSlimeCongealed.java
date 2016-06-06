@@ -20,6 +20,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.block.BlockSlime.SlimeType;
 
@@ -39,17 +41,19 @@ public class BlockSlimeCongealed extends Block {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     for(SlimeType type : SlimeType.values()) {
       list.add(new ItemStack(this, 1, type.meta));
     }
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, BlockSlime.TYPE);
   }
 
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
     return this.getDefaultState().withProperty(BlockSlime.TYPE, SlimeType.fromMeta(meta));
@@ -66,7 +70,7 @@ public class BlockSlimeCongealed extends Block {
   }
 
   @Override
-  public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
+  public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, @Nonnull World worldIn, @Nonnull BlockPos pos) {
     return AABB;
   }
 
@@ -100,7 +104,7 @@ public class BlockSlimeCongealed extends Block {
 
   // this causes leaves to decay when you break the block
   @Override
-  public void breakBlock(World worldIn, BlockPos pos, IBlockState state)
+  public void breakBlock(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state)
   {
     byte b0 = 4;
     int i = b0 + 1;

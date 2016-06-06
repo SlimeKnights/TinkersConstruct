@@ -8,23 +8,27 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class TestTool extends CommandBase {
 
+  @Nonnull
   @Override
   public String getCommandName() {
     return "testTool";
   }
 
+  @Nonnull
   @Override
-  public String getCommandUsage(ICommandSender sender) {
+  public String getCommandUsage(@Nonnull ICommandSender sender) {
     return "/testTool";
   }
 
   @Override
-  public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
     if(sender.getCommandSenderEntity() instanceof EntityPlayer) {
       EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
       ItemStack item = player.inventory.getCurrentItem();

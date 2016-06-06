@@ -6,6 +6,8 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 
@@ -19,11 +21,13 @@ public class AlloyRecipeWrapper extends BlankRecipeWrapper {
     this.outputs = ImmutableList.of(recipe.getResult());
   }
 
+  @Nonnull
   @Override
   public List<FluidStack> getFluidInputs() {
     return inputs;
   }
 
+  @Nonnull
   @Override
   public List<FluidStack> getFluidOutputs() {
     return outputs;

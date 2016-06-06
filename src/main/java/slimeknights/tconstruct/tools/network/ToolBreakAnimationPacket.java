@@ -29,6 +29,7 @@ public class ToolBreakAnimationPacket extends AbstractPacketThreadsafe {
   @Override
   public void handleServerSafe(NetHandlerPlayServer netHandler) {
     // clientside only
+    throw new UnsupportedOperationException("Clientside only");
   }
 
   @Override

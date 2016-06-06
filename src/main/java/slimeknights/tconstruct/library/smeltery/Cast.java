@@ -6,6 +6,8 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -17,7 +19,7 @@ public class Cast extends Pattern implements ICast {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     if(this == TinkerSmeltery.cast) {
       subItems.add(new ItemStack(this));
     }

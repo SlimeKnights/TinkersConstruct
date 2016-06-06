@@ -5,6 +5,8 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.client.RenderUtil;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
@@ -13,7 +15,7 @@ public class TankRenderer extends TileEntitySpecialRenderer<TileTank> {
   protected static Minecraft mc = Minecraft.getMinecraft();
 
   @Override
-  public void renderTileEntityAt(TileTank te, double x, double y, double z, float partialTicks, int destroyStage) {
+  public void renderTileEntityAt(@Nonnull TileTank te, double x, double y, double z, float partialTicks, int destroyStage) {
     if(te.containsFluid()) {
       FluidTankInfo info = te.getTankInfo(null)[0];
       FluidStack liquid = info.fluid;

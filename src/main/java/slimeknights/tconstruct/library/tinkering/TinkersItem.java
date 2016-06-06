@@ -25,6 +25,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -88,6 +90,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     return true;
   }
 
+  @Nonnull
   @Override
   public Entity createEntity(World world, Entity location, ItemStack itemstack) {
     EntityItem entity = new IndestructibleEntityItem(world, location.posX, location.posY, location.posZ, itemstack);
@@ -473,6 +476,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     }
   }
 
+  @Nonnull
   @Override
   public EnumRarity getRarity(ItemStack stack) {
     // prevents enchanted items to have a different name color

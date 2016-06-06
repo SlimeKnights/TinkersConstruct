@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import slimeknights.tconstruct.library.traits.AbstractTrait;
@@ -33,7 +33,7 @@ public class TraitAridiculous extends AbstractTrait {
   }
 
   protected float calcAridiculousness(World world, BlockPos pos) {
-    BiomeGenBase biome = world.getBiomeGenForCoords(pos);
+    Biome biome = world.getBiomeForCoordsBody(pos);
     float rain = world.isRaining() ? biome.getRainfall() / 2f : 0f;
     return (float) (Math.pow(1.25, 3d * (0.5f + biome.getTemperature() - biome.getRainfall())) - 1.25d) - rain;
   }

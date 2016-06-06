@@ -8,6 +8,8 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import mezz.jei.plugins.vanilla.crafting.ShapedOreRecipeWrapper;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.tools.TableRecipe;
@@ -35,6 +37,7 @@ public class TableRecipeWrapper extends ShapedOreRecipeWrapper {
     outputs = builder.build();
   }
 
+  @Nonnull
   @Override
   public List<ItemStack> getOutputs() {
     return outputs;

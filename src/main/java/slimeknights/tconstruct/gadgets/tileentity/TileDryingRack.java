@@ -10,6 +10,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 
 public class TileDryingRack extends TileItemRack implements ITickable, ISidedInventory {
@@ -79,33 +81,35 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
     super.readFromNBT(tags);
   }
 
+  @Nonnull
   @Override
-  public void writeToNBT(NBTTagCompound tags) {
+  public NBTTagCompound writeToNBT(NBTTagCompound tags) {
     tags.setInteger("Time", currentTime);
     tags.setInteger("MaxTime", maxTime);
-    super.writeToNBT(tags);
+    return super.writeToNBT(tags);
   }
 
+  @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
   public AxisAlignedBB getRenderBoundingBox() {
-    AxisAlignedBB cbb = new AxisAlignedBB(pos.getX(), pos.getY() - 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
-    return cbb;
+    return new AxisAlignedBB(pos.getX(), pos.getY() - 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
   }
 
+  @Nonnull
   @Override
-  public int[] getSlotsForFace(EnumFacing side) {
+  public int[] getSlotsForFace(@Nonnull EnumFacing side) {
     return new int[]{0, 1};
   }
 
   @Override
-  public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+  public boolean canInsertItem(int index, @Nonnull ItemStack itemStackIn, @Nonnull EnumFacing direction) {
     // Only allow inserting if there is no stack in the result slot
     return !isStackInSlot(1) && index == 0;
   }
 
   @Override
-  public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+  public boolean canExtractItem(int index, @Nonnull ItemStack stack, @Nonnull EnumFacing direction) {
     return index == 1;
   }
 }

@@ -4,6 +4,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,14 +16,15 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
+import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
-
-import static slimeknights.tconstruct.tools.item.BroadSword.effective_materials;
 
 public class LongSword extends ToolCore {
 
@@ -56,9 +58,18 @@ public class LongSword extends ToolCore {
 
   @Override
   public boolean isEffective(IBlockState block) {
-    return effective_materials.contains(block.getMaterial());
+    return BroadSword.effective_materials.contains(block.getMaterial());
   }
 
+  @Override
+  public float getStrVsBlock(ItemStack stack, IBlockState state) {
+    if(state.getBlock() == Blocks.WEB) {
+      return super.getStrVsBlock(stack, state)*7.5f;
+    }
+    return super.getStrVsBlock(stack, state);
+  }
+
+  @Nonnull
   @Override
   public EnumAction getItemUseAction(ItemStack stack) {
     return EnumAction.NONE;
@@ -69,10 +80,23 @@ public class LongSword extends ToolCore {
     return 200;
   }
 
+  @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
     playerIn.setActiveHand(hand);
     return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
+  }
+
+  @Override
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+    boolean hit = super.dealDamage(stack, player, entity, damage);
+
+    // slash particle
+    if(hit && readyForSpecialAttack(player)) {
+      TinkerTools.proxy.spawnAttackParticle(Particles.LONGSWORD_ATTACK, player, 0.7d);
+    }
+
+    return hit;
   }
 
   @Override

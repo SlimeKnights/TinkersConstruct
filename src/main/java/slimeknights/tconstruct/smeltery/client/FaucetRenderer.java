@@ -14,6 +14,8 @@ import net.minecraft.util.EnumFacing;
 
 import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.client.RenderUtil;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
@@ -22,7 +24,7 @@ import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 public class FaucetRenderer extends TileEntitySpecialRenderer<TileFaucet> {
 
   @Override
-  public void renderTileEntityAt(TileFaucet te, double x, double y, double z, float partialTicks, int destroyStage) {
+  public void renderTileEntityAt(@Nonnull TileFaucet te, double x, double y, double z, float partialTicks, int destroyStage) {
     if(!te.isPouring || te.drained == null) {
       return;
     }

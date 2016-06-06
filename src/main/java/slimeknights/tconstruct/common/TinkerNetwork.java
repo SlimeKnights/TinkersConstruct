@@ -11,6 +11,7 @@ import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.ConfigSyncPacket;
+import slimeknights.tconstruct.common.network.SpawnParticlePacket;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidClicked;
@@ -37,6 +38,7 @@ public class TinkerNetwork extends NetworkWrapper {
   public void setup() {
     // register all the packets
     registerPacketClient(ConfigSyncPacket.class);
+    registerPacketClient(SpawnParticlePacket.class);
 
     // TOOLS
     registerPacket(StencilTableSelectionPacket.class);

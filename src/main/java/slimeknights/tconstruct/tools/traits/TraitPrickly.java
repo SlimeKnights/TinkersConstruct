@@ -7,6 +7,8 @@ import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.text.TextFormatting;
 
 import slimeknights.tconstruct.library.traits.AbstractTrait;
+import slimeknights.tconstruct.shared.client.ParticleEffect;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 public class TraitPrickly extends AbstractTrait {
 
@@ -28,7 +30,9 @@ public class TraitPrickly extends AbstractTrait {
       damageSource.setDamageBypassesArmor();
       damageSource.setDamageIsAbsolute();
 
-      attackEntitySecondary(damageSource, damage, target, true, false);
+      if(attackEntitySecondary(damageSource, damage, target, true, false)) {
+        TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_CACTUS, target, 1);
+      }
     }
   }
 }

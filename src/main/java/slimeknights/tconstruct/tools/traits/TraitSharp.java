@@ -5,9 +5,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
+import slimeknights.tconstruct.shared.client.ParticleEffect;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 public class TraitSharp extends AbstractTrait {
 
@@ -37,6 +41,7 @@ public class TraitSharp extends AbstractTrait {
 
     int hurtResistantTime = target.hurtResistantTime;
     attackEntitySecondary(source, (level+1f)/3f, target, true, true);
+    TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_BLOOD, target, 1);
     target.hurtResistantTime = hurtResistantTime;
   }
 
@@ -54,7 +59,7 @@ public class TraitSharp extends AbstractTrait {
     }
 
     @Override
-    public void performEffect(EntityLivingBase target, int level) {
+    public void performEffect(@Nonnull EntityLivingBase target, int level) {
       dealDamage(target, level);
     }
   }

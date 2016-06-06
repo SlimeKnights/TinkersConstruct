@@ -7,6 +7,8 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.library.Util;
@@ -19,7 +21,7 @@ public class ItemBlockTable extends ItemBlockMeta {
   }
 
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+  public void addInformation(@Nonnull ItemStack stack, @Nonnull EntityPlayer playerIn, @Nonnull List<String> tooltip, boolean advanced) {
     super.addInformation(stack, playerIn, tooltip, advanced);
     if(!stack.hasTagCompound()) {
       return;

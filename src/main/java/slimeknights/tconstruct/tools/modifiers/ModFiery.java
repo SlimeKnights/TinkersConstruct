@@ -14,6 +14,8 @@ import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
+import slimeknights.tconstruct.shared.client.ParticleEffect;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 public class ModFiery extends ModifierTrait {
 
@@ -35,7 +37,10 @@ public class ModFiery extends ModifierTrait {
 
     // one heart fire damage per 15
     float fireDamage = getFireDamage(data);
-    attackEntitySecondary(DamageSource.inFire, fireDamage, target, false, true);
+    if(attackEntitySecondary(DamageSource.inFire, fireDamage, target, false, true)) {
+      int count = Math.round(fireDamage);
+      TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_FIRE, target, count);
+    }
   }
 
   private float getFireDamage(ModifierNBT.IntegerNBT data) {

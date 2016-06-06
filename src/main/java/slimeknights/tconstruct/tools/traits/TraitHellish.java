@@ -7,7 +7,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.biome.Biome;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class TraitHellish extends AbstractTrait {
   @Override
   public float damage(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
     for(EnumCreatureType creatureType : EnumCreatureType.values()) {
-      for(BiomeGenBase.SpawnListEntry spawnListEntry : BiomeGenBase.REGISTRY.getObject(new ResourceLocation("hell")).getSpawnableList(creatureType)) {
+      for(Biome.SpawnListEntry spawnListEntry : Biome.REGISTRY.getObject(new ResourceLocation("hell")).getSpawnableList(creatureType)) {
         if(spawnListEntry.entityClass.equals(target.getClass())) {
           // nether mob
           return super.damage(tool, player, target, damage, newDamage, isCritical);

@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.tools.traits;
 
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+
+import java.util.List;
+
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
-import slimeknights.tconstruct.library.utils.Tags;
 
 public class TraitLightweight extends AbstractTrait {
 

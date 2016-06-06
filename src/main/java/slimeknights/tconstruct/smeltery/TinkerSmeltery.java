@@ -57,6 +57,8 @@ import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
 import slimeknights.tconstruct.smeltery.block.BlockFaucet;
 import slimeknights.tconstruct.smeltery.block.BlockSeared;
+import slimeknights.tconstruct.smeltery.block.BlockSearedSlab;
+import slimeknights.tconstruct.smeltery.block.BlockSearedSlab2;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryIO;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
@@ -90,6 +92,20 @@ public class TinkerSmeltery extends TinkerPulse {
   public static BlockCasting castingBlock;
   public static BlockSmelteryIO smelteryIO;
 
+  public static Block searedSlab;
+  public static Block searedSlab2;
+  
+  // stairs
+  public static Block searedStairsStone;
+  public static Block searedStairsCobble;
+  public static Block searedStairsPaver;
+  public static Block searedStairsBrick;
+  public static Block searedStairsBrickCracked;
+  public static Block searedStairsBrickFancy;
+  public static Block searedStairsBrickSquare;
+  public static Block searedStairsRoad;
+  public static Block searedStairsCreeper;
+
   // Items
   public static Cast cast;
   public static CastCustom castCustom;
@@ -122,6 +138,21 @@ public class TinkerSmeltery extends TinkerPulse {
 
     ItemBlockMeta.setMappingProperty(searedTank, BlockTank.TYPE);
     ItemBlockMeta.setMappingProperty(castingBlock, BlockCasting.TYPE);
+    
+    // slabs
+    searedSlab = registerEnumBlockSlab(new BlockSearedSlab(), "seared_slab");
+    searedSlab2 = registerEnumBlockSlab(new BlockSearedSlab2(), "seared_slab2");
+    
+    // stairs
+    searedStairsStone = registerBlockStairsFrom(searedBlock, BlockSeared.SearedType.STONE, "seared_stairs_stone");
+    searedStairsCobble = registerBlockStairsFrom(searedBlock, BlockSeared.SearedType.COBBLE, "seared_stairs_cobble");
+    searedStairsPaver = registerBlockStairsFrom(searedBlock, BlockSeared.SearedType.PAVER, "seared_stairs_paver");
+    searedStairsBrick = registerBlockStairsFrom(searedBlock, BlockSeared.SearedType.BRICK, "seared_stairs_brick");
+    searedStairsBrickCracked = registerBlockStairsFrom(searedBlock, BlockSeared.SearedType.BRICK_CRACKED, "seared_stairs_brick_cracked");
+    searedStairsBrickFancy = registerBlockStairsFrom(searedBlock, BlockSeared.SearedType.BRICK_FANCY, "seared_stairs_brick_fancy");
+    searedStairsBrickSquare = registerBlockStairsFrom(searedBlock, BlockSeared.SearedType.BRICK_SQUARE, "seared_stairs_brick_square");
+    searedStairsRoad = registerBlockStairsFrom(searedBlock, BlockSeared.SearedType.ROAD, "seared_stairs_road");
+    searedStairsCreeper = registerBlockStairsFrom(searedBlock, BlockSeared.SearedType.CREEPER, "seared_stairs_creeper");
 
     registerTE(TileSmeltery.class, "smeltery_controller");
     registerTE(TileSmelteryComponent.class, "smeltery_component");
@@ -177,6 +208,17 @@ public class TinkerSmeltery extends TinkerPulse {
   }
 
   private void registerRecipes() {
+    // storing stacks for following recipes, mainly slabs and stairs
+    ItemStack stackSearedStone = new ItemStack(searedBlock, 1, BlockSeared.SearedType.STONE.getMeta());
+    ItemStack stackSearedCobble = new ItemStack(searedBlock, 1, BlockSeared.SearedType.COBBLE.getMeta());
+    ItemStack stackSearedPaver = new ItemStack(searedBlock, 1, BlockSeared.SearedType.PAVER.getMeta());
+    ItemStack stackSearedBrick = new ItemStack(searedBlock, 1, BlockSeared.SearedType.BRICK.getMeta());
+    ItemStack stackSearedBrickCracked = new ItemStack(searedBlock, 1, BlockSeared.SearedType.BRICK_CRACKED.getMeta());
+    ItemStack stackSearedBrickFancy = new ItemStack(searedBlock, 1, BlockSeared.SearedType.BRICK_FANCY.getMeta());
+    ItemStack stackSearedBrickSquare = new ItemStack(searedBlock, 1, BlockSeared.SearedType.BRICK_SQUARE.getMeta());
+    ItemStack stackSearedRoad = new ItemStack(searedBlock, 1, BlockSeared.SearedType.ROAD.getMeta());
+    ItemStack stackSearedCreeper = new ItemStack(searedBlock, 1, BlockSeared.SearedType.CREEPER.getMeta());
+    
     // I AM GROUT
     ItemStack grout = TinkerCommons.grout.copy();
     grout.stackSize = 2;
@@ -186,13 +228,13 @@ public class TinkerSmeltery extends TinkerPulse {
     GameRegistry.addRecipe(new ShapelessOreRecipe(grout, Blocks.GRAVEL, "sand", Blocks.GRAVEL, "sand",  Blocks.CLAY, "sand", Blocks.GRAVEL, "sand", Blocks.GRAVEL));
 
     // seared bricks
+    ItemStack searedBrick = TinkerCommons.searedBrick;
     GameRegistry.addSmelting(TinkerCommons.grout, TinkerCommons.searedBrick, 0);
-    ItemStack blockSeared = new ItemStack(searedBlock);
-    blockSeared.setItemDamage(BlockSeared.SearedType.BRICK.getMeta());
-    GameRegistry.addShapedRecipe(blockSeared, "bb", "bb", 'b', TinkerCommons.searedBrick);
+    GameRegistry.addShapedRecipe(stackSearedBrick, "bb", "bb", 'b', searedBrick);
+    // you always seem to have a few leftover bricks
+    GameRegistry.addShapedRecipe(new ItemStack(searedSlab, 1, BlockSearedSlab.SearedType.BRICK.getMeta()), "bb", 'b', searedBrick);
 
     // remaining smeltery component recipes
-    ItemStack searedBrick = TinkerCommons.searedBrick;
     GameRegistry.addRecipe(new ItemStack(smelteryController),
                            "bbb", "b b", "bbb", 'b', searedBrick); // Controller
     GameRegistry.addRecipe(new ItemStack(smelteryIO, 1, BlockSmelteryIO.IOType.DRAIN.getMeta()),
@@ -211,6 +253,47 @@ public class TinkerSmeltery extends TinkerPulse {
     GameRegistry.addRecipe(new ItemStack(faucet),
                            "b b", " b ", 'b', searedBrick); // Faucet
     //GameRegistry.addRecipe(new ItemStack(TinkerSmeltery.castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); // Channel
+
+    // remaining seared bricks
+    addBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.BRICK);
+    addBrickRecipe(BlockSeared.SearedType.BRICK_FANCY, BlockSeared.SearedType.PAVER);
+    addBrickRecipe(BlockSeared.SearedType.BRICK_SQUARE, BlockSeared.SearedType.BRICK_FANCY);
+    addBrickRecipe(BlockSeared.SearedType.CREEPER, BlockSeared.SearedType.BRICK_SQUARE);
+    addBrickRecipe(BlockSeared.SearedType.ROAD, BlockSeared.SearedType.CREEPER);
+    addBrickRecipe(BlockSeared.SearedType.BRICK, BlockSeared.SearedType.ROAD);
+
+    GameRegistry.addSmelting(stackSearedBrick.copy(), stackSearedBrickCracked.copy(), 0.1f);
+    
+    // slabs
+    addSlabRecipe(new ItemStack(searedSlab, 1, BlockSearedSlab.SearedType.STONE.getMeta()), stackSearedStone.copy());
+    addSlabRecipe(new ItemStack(searedSlab, 1, BlockSearedSlab.SearedType.COBBLE.getMeta()), stackSearedCobble.copy());
+    addSlabRecipe(new ItemStack(searedSlab, 1, BlockSearedSlab.SearedType.PAVER.getMeta()), stackSearedPaver.copy());
+    addSlabRecipe(new ItemStack(searedSlab, 1, BlockSearedSlab.SearedType.BRICK.getMeta()), stackSearedBrick.copy());
+    addSlabRecipe(new ItemStack(searedSlab, 1, BlockSearedSlab.SearedType.BRICK_CRACKED.getMeta()), stackSearedBrickCracked.copy());
+    addSlabRecipe(new ItemStack(searedSlab, 1, BlockSearedSlab.SearedType.BRICK_FANCY.getMeta()), stackSearedBrickFancy.copy());
+    addSlabRecipe(new ItemStack(searedSlab, 1, BlockSearedSlab.SearedType.BRICK_SQUARE.getMeta()), stackSearedBrickSquare.copy());
+    addSlabRecipe(new ItemStack(searedSlab, 1, BlockSearedSlab.SearedType.ROAD.getMeta()), stackSearedRoad.copy());
+    addSlabRecipe(new ItemStack(searedSlab2, 1, BlockSearedSlab2.SearedType.CREEPER.getMeta()), stackSearedCreeper.copy());
+
+    // stairs
+    addStairRecipe(searedStairsStone, stackSearedStone);
+    addStairRecipe(searedStairsCobble, stackSearedCobble);
+    addStairRecipe(searedStairsPaver, stackSearedPaver);
+    addStairRecipe(searedStairsBrick, stackSearedBrick);
+    addStairRecipe(searedStairsBrickCracked, stackSearedBrickCracked);
+    addStairRecipe(searedStairsBrickFancy, stackSearedBrickFancy);
+    addStairRecipe(searedStairsBrickSquare, stackSearedBrickSquare);
+    addStairRecipe(searedStairsRoad, stackSearedRoad);
+    addStairRecipe(searedStairsCreeper, stackSearedCreeper);
+    
+  }
+
+  private void addBrickRecipe(BlockSeared.SearedType out, BlockSeared.SearedType in) {
+    ItemStack searedBrickBlockIn = new ItemStack(searedBlock, 1, in.getMeta());
+    ItemStack searedBrickBlockOut = new ItemStack(searedBlock, 4, out.getMeta());
+
+    // todo: convert to chisel recipes if chisel is present
+    GameRegistry.addShapedRecipe(searedBrickBlockOut, "BB", "BB", 'B', searedBrickBlockIn);
   }
 
   // POST-INITIALIZATION
@@ -280,6 +363,10 @@ public class TinkerSmeltery extends TinkerPulse {
     // gold is melt and castable too, but no tools. Remaining materials are done directly in the MaterialIntegration
     // gold is integrated via MaterialIntegration in TinkerIntegration now
 
+    // special melting
+    TinkerRegistry.registerMelting(Items.IRON_HORSE_ARMOR, TinkerFluids.iron, Material.VALUE_Ingot*8);
+    TinkerRegistry.registerMelting(Items.GOLDEN_HORSE_ARMOR, TinkerFluids.gold, Material.VALUE_Ingot*8);
+
     // register stone toolpart melting
     for(IToolPart toolPart : TinkerRegistry.getToolParts()) {
       if(toolPart instanceof MaterialItem) {
@@ -293,10 +380,14 @@ public class TinkerSmeltery extends TinkerPulse {
     blockSeared.setItemDamage(BlockSeared.SearedType.STONE.getMeta());
     TinkerRegistry.registerTableCasting(TinkerCommons.searedBrick, castIngot, TinkerFluids.searedStone, Material.VALUE_SearedMaterial);
     TinkerRegistry.registerBasinCasting(blockSeared, null, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
+
+    ItemStack searedCobble = new ItemStack(searedBlock, 1, BlockSeared.SearedType.COBBLE.getMeta());
+    TinkerRegistry.registerBasinCasting(new CastingRecipe(searedCobble, RecipeMatch.of("cobblestone"), TinkerFluids.searedStone, Material.VALUE_SearedBlock - Material.VALUE_SearedMaterial));
+
     // basically a pseudo-oredict of the seared blocks to support wildcard value
     TinkerRegistry.registerMelting(searedBlock, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
     TinkerRegistry.registerMelting(TinkerCommons.searedBrick, TinkerFluids.searedStone, Material.VALUE_SearedMaterial);
-    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of(TinkerCommons.grout), TinkerFluids.searedStone, Material.VALUE_SearedMaterial/3));
+    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of(TinkerCommons.grout, Material.VALUE_SearedMaterial), TinkerFluids.searedStone, Material.VALUE_SearedMaterial/3));
 
     // melt all the dirt into mud
     ItemStack stack = new ItemStack(Blocks.DIRT, 1, OreDictionary.WILDCARD_VALUE);
@@ -620,7 +711,7 @@ public class TinkerSmeltery extends TinkerPulse {
         ItemStack output = irecipe.getRecipeOutput().copy();
         int amount = known.get(fluid) / output.stackSize;
         output.stackSize = 1;
-        TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.ofNBT(output, amount), fluid));
+        TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(output, amount), fluid));
         log.trace("Added automatic melting recipe for {} ({} {})", irecipe.getRecipeOutput().toString(), amount, fluid
             .getName());
       }

@@ -1,0 +1,18 @@
+{
+  "modifier": "soulbound",
+  "text": [
+    {
+      "text": "A perfect match. You love your tool. Not even death can part you from it."
+    }
+  ],
+  "effects": [
+    "Tool remains in your inventory after death",
+    "Single use"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:pickaxe",
+    "tconstruct:hammer"
+  ]
+}

@@ -24,7 +24,10 @@ tile.tconstruct.soil.graveyard.name=Graveyard Soil
 tile.tconstruct.soil.graveyard.tooltip=Heals undead
 tile.tconstruct.soil.consecrated.name=Consecrated Soil
 tile.tconstruct.soil.consecrated.tooltip=Hurts undead
-tile.tconstruct.soil.mudbrick.name=Mud Bricks
+
+tile.tconstruct.deco_ground.mudbrick.name=Mud Bricks
+tile.tconstruct.deco_ground_slab.mudbrick.name=Mud Bricks Slab
+tile.tconstruct.mudbrick_stairs.name=Mud Bricks Stairs
 
 tile.tconstruct.ore.cobalt.name=Cobalt Ore
 tile.tconstruct.ore.ardite.name=Ardite Ore
@@ -39,6 +42,10 @@ tile.tconstruct.metal.silky_jewel.name=Silky Block of Jewel
 
 tile.tconstruct.firewood.lavawood.name=Lavawood
 tile.tconstruct.firewood.firewood.name=Firewood
+tile.tconstruct.firewood_slab.lavawood.name=Lavawood Slab
+tile.tconstruct.firewood_slab.firewood.name=Firewood Slab
+tile.tconstruct.lavawood_stairs.name=Lavawood Stairs
+tile.tconstruct.firewood_stairs.name=Firewood Stairs
 
 tile.tconstruct.slime.green.name=Green Slime Block
 tile.tconstruct.slime.blue.name=Blue Slime Block
@@ -99,6 +106,26 @@ tile.tconstruct.seared.road.name=Seared Road
 tile.tconstruct.seared.creeper.name=Seared Creeperface
 tile.tconstruct.seared.tooltip=Part of the Smeltery. Safe for Decoration.
 
+tile.tconstruct.seared_slab.stone.name=Seared Stone Slab
+tile.tconstruct.seared_slab.cobble.name=Seared Cobblestone Slab
+tile.tconstruct.seared_slab.paver.name=Seared Paver Slab
+tile.tconstruct.seared_slab.brick.name=Seared Bricks Slab
+tile.tconstruct.seared_slab.brick_cracked.name=Cracked Seared Bricks Slab
+tile.tconstruct.seared_slab.brick_fancy.name=Fancy Seared Bricks Slab
+tile.tconstruct.seared_slab.brick_square.name=Square Seared Bricks Slab
+tile.tconstruct.seared_slab.road.name=Seared Road Slab
+tile.tconstruct.seared_slab2.creeper.name=Seared Creeperface Slab
+
+tile.tconstruct.seared_stairs_stone.name=Seared Stone Stairs
+tile.tconstruct.seared_stairs_cobble.name=Seared Cobblestone Stairs
+tile.tconstruct.seared_stairs_paver.name=Seared Paver Stairs
+tile.tconstruct.seared_stairs_brick.name=Seared Bricks Stairs
+tile.tconstruct.seared_stairs_brick_cracked.name=Cracked Seared Bricks Stairs
+tile.tconstruct.seared_stairs_brick_fancy.name=Fancy Seared Bricks Stairs
+tile.tconstruct.seared_stairs_brick_square.name=Square Seared Bricks Stairs
+tile.tconstruct.seared_stairs_road.name=Seared Road Stairs
+tile.tconstruct.seared_stairs_creeper.name=Seared Creeperface Stairs
+
 tile.tconstruct.smeltery_controller.name=Smeltery Controller
 tile.tconstruct.smeltery_controller.tooltip=Brain of the Smeltery
 tile.tconstruct.smeltery_io.drain.name=Smeltery Drain
@@ -123,8 +150,13 @@ tile.tconstruct.rack.item.name=Item Rack
 tile.tconstruct.rack.item.tooltip=For decoration purpose only
 tile.tconstruct.rack.drying.name=Drying Rack
 tile.tconstruct.rack.drying.tooltip=Used to dry items
+
 tile.tconstruct.dried_clay.clay.name=Dried Clay
 tile.tconstruct.dried_clay.brick.name=Dried Bricks
+tile.tconstruct.dried_clay_slab.clay.name=Dried Clay Slab
+tile.tconstruct.dried_clay_slab.brick.name=Dried Bricks Slab
+tile.tconstruct.dried_clay_stairs.name=Dried Clay Stairs
+tile.tconstruct.dried_brick_stairs.name=Dried Bricks Stairs
 
 
 ################
@@ -208,7 +240,7 @@ item.tconstruct.cast_custom.plate.name=Plate Cast
 item.tconstruct.cast_custom.gear.name=Gear Cast
 
 item.tconstruct.sharpening_kit.name=Sharpening Kit
-item.tconstruct.sharpening_kit.tooltip=Combine with a flint\nUpgrades your tool to the materials mining level.
+item.tconstruct.sharpening_kit.tooltip=Combine with a flint\nUpgrades your tool to the material's mining level.
 
 item.forge.bucketFilled.blood=Bucket o' Blood
 
@@ -267,7 +299,11 @@ item.tconstruct.large_sword_blade.name=Large Sword Blade
 
 # Gadgets
 item.tconstruct.slime_boots.name=Slime Boots
+item.tconstruct.slime_boots.tooltip=Makes you bounce when landing
 item.tconstruct.slimesling.name=Slimesling
+item.tconstruct.slimesling.tooltip=Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!
+item.tconstruct.piggybackpack.name=Piggybackpack
+item.tconstruct.piggybackpack.tooltip=Rightclick mobs to pick them up
 item.tconstruct.stone_stick.name=Stone Rod
 
 item.tconstruct.fancy_frame.jewel.name=Fancy Item Frame
@@ -276,6 +312,7 @@ item.tconstruct.fancy_frame.cobalt.name=Cobalt Item Frame
 item.tconstruct.fancy_frame.ardite.name=Ardite Item Frame
 item.tconstruct.fancy_frame.manyullyn.name=Manyullyn Item Frame
 item.tconstruct.fancy_frame.gold.name=Golden Item Frame
+item.tconstruct.fancy_frame.clear.name=Clear Item Frame
 
 item.tconstruct.throwball.glow.name=Glowball
 item.tconstruct.throwball.glow.tooltip=Not suited for consumption.
@@ -325,7 +362,7 @@ fluid.tconstruct.alubrass.name=Molten Aluminum Brass
 #    Potions    #
 #################
 
-potion.slimebounce=Slimebounce
+potion.carry=Piggybacking
 
 #################
 #   Materials   #
@@ -375,7 +412,7 @@ stat.head.miningspeed.desc=How fast a tool with a tool head of this material can
 stat.head.harvestlevel.name=Mining Level
 stat.head.harvestlevel.desc=What range of blocks a tool with a tool head of this material can mine.
 stat.head.attack.name=Attack
-stat.head.attack.desc=Base value for attack calculations.\nThe end result depens on the tool itself and the other components used.
+stat.head.attack.desc=Base value for attack calculations.\nThe end result depends on the tool itself and the other components used.
 
 stat.handle.name=Handle
 stat.handle.modifier.name=Modifier
@@ -385,7 +422,7 @@ stat.handle.durability.desc=How well the material can be held.\nTool durability 
 
 stat.extra.name=Extra
 stat.extra.durability.name=stat.head.durability.name
-stat.extra.durability.desc=How much durability this part contributes when used as an accessoire.
+stat.extra.durability.desc=How much durability this part contributes when used as an accessory.
 
 stat.mattock.axelevel.name=Axe Level
 stat.mattock.shovellevel.name=Shovel Level
@@ -489,7 +526,7 @@ modifier.writable.desc=§oIntellectual!§r\nMore words. More Modifiers. It's onl
 #   Modifiers   #
 #################
 
-modifier.bane_of_arthopods.name=Bane of Arthopods
+modifier.bane_of_arthopods.name=Bane of Arthropods
 modifier.bane_of_arthopods.desc=§oAnti-Spider!§r\nDeal massive damage to spiders.
 modifier.bane_of_arthopods.extra=Vs Spiders: +%s
 modifier.beheading.name=Beheading
@@ -502,7 +539,7 @@ modifier.fiery.name=Fiery
 modifier.fiery.desc=§oSo hot right now!§r\nBonus fire damage, sets your enemies on fire.
 modifier.fiery.extra=Fire Damage: +%s
 modifier.fiery.extra2=Burn Duration: %ss
-modifier.fortify.name=Fortified (%s)
+modifier.fortify.name=Fortified
 modifier.fortify.desc=§oHarder, better, faster, stronger!§r\nMining level increased to the same level as %s.
 modifier.harvestwidth.name=Width++
 modifier.harvestwidth.desc=§oExpand!§r\nIncreases the width of the area affected by your tool. The effect is tool specific.
@@ -547,15 +584,15 @@ item.tconstruct.pickaxe.desc=The Pickaxe is a precise mining tool. It is effecti
 item.tconstruct.shovel.desc=The Shovel digs up dirt. It is effective on dirt, sand, gravel and snow.\nJust don't dig your own grave!
 item.tconstruct.hatchet.desc=The Hatchet chops up wood and makes short work of leaves. It also makes for a passable weapon.\nChop chop!
 item.tconstruct.mattock.desc=The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, and plants. It also packs quite a punch.\nRight Click: Hoe ground
-item.tconstruct.broadsword.desc=The Broadsword is a universal weapon. Blocking cuts damage in half.\nAlso good against cobwebs!
+item.tconstruct.broadsword.desc=The Broadsword is a universal weapon. Sweep attacks keep enemy hordes at bay.\nAlso good against cobwebs!
 item.tconstruct.longsword.desc=The Longsword is an offensive weapon. It is often used for charging into battle at full speed.\nRight Click: Lunge
 item.tconstruct.rapier.desc=The Rapier is a special weapon that relies on quick strikes to defeat foes.\nRight Click: Backpedal
 item.tconstruct.frypan.desc=The Frying Pan is a heavy weapon with knockback to create some distance. It also goes BOING!\nRight Click: Heavy Blow
-item.tconstruct.battlesign.desc=The Battlesign is the ultimate defensive weapon. An advance in weapon technology worthy of Zombie Pigmen everywhere.\nBlocking reduces damage even more and reflects projectiles.
+item.tconstruct.battlesign.desc=The Battlesign is the ultimate defensive weapon. An advance in weapon technology worthy of Zombie Pigmen everywhere.\nCan be used as a shield, reflects projectiles.
 item.tconstruct.hammer.desc=The Hammer is a broad mining tool. It harvests blocks in a wide range.\nAlso effective against undead.
 item.tconstruct.lumberaxe.desc=The Lumber Axe is a broad chopping tool. It can fell entire trees in one swoop or gather wood in a wide range.\nTimber!
 item.tconstruct.excavator.desc=The Excavator is a broad digging tool. It digs up large areas of soil and snow in a wide range.\nTerraforming!
-item.tconstruct.cleaver.desc=The Cleaver is a heavy offensive weapon. It has powerful strikes, but is difficult to wield.\nSlow, cannot block!
+item.tconstruct.cleaver.desc=The Cleaver is a heavy offensive weapon. It has powerful strikes, but is difficult to wield.\nSlow, requires two hands!
 item.tconstruct.battleaxe.desc=The Battleaxe is a heavy offensive weapon, bringing the berserker out. It is capable of bringing down small trees and can send foes flying.\nRight Click: Berserk
 item.tconstruct.scythe.desc=The Scythe is a broad reaping tool. It is effective on plants and harvests flora and fauna in a wide range.\nBringing death to both crops and your enemies.
 item.tconstruct.shuriken.desc=The Shuriken is a fast, short ranged throwing weapon. It has high quantities but low damage.\nCan be thrown from the off-hand.
@@ -641,6 +678,7 @@ gui.stenciltable.name=Stencil Table
 gui.partbuilder.name=Part Builder
 gui.partcrafter.name=Part Crafter
 gui.partbuilder.info=Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put its pattern into the left slot. The two remaining slots hold the material you want to craft your part out of.
+gui.partbuilder.material_value=Material Value: %s %s
 
 # Tool Station/Forge
 gui.toolstation.name=Tool Station

@@ -5,7 +5,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.Locale;
 
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tools.IAoeTool;

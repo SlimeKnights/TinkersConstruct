@@ -7,22 +7,26 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class DamageTool extends CommandBase {
 
+  @Nonnull
   @Override
   public String getCommandName() {
     return "damageTool";
   }
 
+  @Nonnull
   @Override
-  public String getCommandUsage(ICommandSender sender) {
+  public String getCommandUsage(@Nonnull ICommandSender sender) {
     return "/damageTool <amount>";
   }
 
   @Override
-  public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
     if(args.length != 1) {
       throw new CommandException("Invalid params");
     }

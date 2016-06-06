@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
@@ -19,12 +18,15 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.tileentity.TileInventory;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
+import slimeknights.tconstruct.shared.client.BakedColoredItemModel;
 import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
 
 public class TileTable extends TileInventory {
@@ -95,6 +97,10 @@ public class TileTable extends TileInventory {
       // missing model so people don't go paranoid when their chests go missing
       model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager().getMissingModel();
     }
+    else {
+      // take color into account
+      model = new BakedColoredItemModel(stack, model);
+    }
 
     PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(model, 0,-0.46875f,0, 0.8f, (float) (Math.PI/2));
     if(stack.getItem() instanceof ItemBlock) {
@@ -106,7 +112,7 @@ public class TileTable extends TileInventory {
   }
 
   @Override
-  public Packet getDescriptionPacket() {
+  public SPacketUpdateTileEntity getUpdatePacket() {
     // note that this sends all of the tile data. you should change this if you use additional tile data
     NBTTagCompound tag = (NBTTagCompound) getTileData().copy();
     writeToNBT(tag);
@@ -124,6 +130,18 @@ public class TileTable extends TileInventory {
     if(facing != null) {
       getTileData().setTag(FACE_TAG, facing);
     }
+    readFromNBT(tag);
+  }
+
+  @Nonnull
+  @Override
+  public NBTTagCompound getUpdateTag() {
+    // new tag instead of super since default implementation calls the super of writeToNBT
+    return writeToNBT(new NBTTagCompound());
+  }
+
+  @Override
+  public void handleUpdateTag(@Nonnull NBTTagCompound tag) {
     readFromNBT(tag);
   }
 

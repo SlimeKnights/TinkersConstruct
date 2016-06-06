@@ -25,11 +25,13 @@ public class DryingRecipeWrapper extends BlankRecipeWrapper {
     this.time = recipe.getTime();
   }
 
+  @Nonnull
   @Override
   public List<ItemStack> getInputs() {
     return input;
   }
 
+  @Nonnull
   @Override
   public List<ItemStack> getOutputs() {
     return output;

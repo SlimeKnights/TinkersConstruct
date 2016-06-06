@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.gadgets.entity;
 
-import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.util.EnumFacing;
@@ -8,6 +7,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+
+import javax.annotation.Nonnull;
+
+import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.gadgets.Exploder;
 import slimeknights.tconstruct.gadgets.item.ItemThrowball;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -30,7 +33,7 @@ public class EntityThrowball extends EntityThrowable implements IEntityAdditiona
   }
 
   @Override
-  protected void onImpact(RayTraceResult result) {
+  protected void onImpact(@Nonnull RayTraceResult result) {
     switch(type) {
       case GLOW:
         placeGlow(result);

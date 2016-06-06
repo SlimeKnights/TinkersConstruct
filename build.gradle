@@ -21,7 +21,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
     }
 }
 /*
@@ -96,6 +96,7 @@ minecraft {
     mappings = config.mappings
     runDir = "run"
     replace '${version}', project.version
+    useDepAts = true
 }
 
 dependencies {
@@ -142,7 +143,7 @@ processResources
 // Add Access Transformers Manifest
 jar {
     manifest {
-        attributes 'FMLAT': 'TConstruct_at.cfg'
+        attributes 'FMLAT': 'tconstruct_at.cfg'
     }
 }
 
@@ -151,7 +152,7 @@ task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'deobf'
 	manifest {
-        attributes 'FMLAT': 'TConstruct_at.cfg'
+        attributes 'FMLAT': 'tconstruct_at.cfg'
     }
 }
 /*

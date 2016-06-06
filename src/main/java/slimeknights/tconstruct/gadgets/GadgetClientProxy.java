@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.gadgets;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -23,17 +22,21 @@ public class GadgetClientProxy extends ClientProxy {
     super.registerModels();
 
     // Blocks
-    registerItemModel(Item.getItemFromBlock(TinkerGadgets.stoneTorch));
-    registerItemModel(Item.getItemFromBlock(TinkerGadgets.stoneLadder));
-    registerItemModel(Item.getItemFromBlock(TinkerGadgets.woodRail));
-    registerItemModel(Item.getItemFromBlock(TinkerGadgets.punji));
-    registerItemModel(Item.getItemFromBlock(TinkerGadgets.rack));
+    registerItemModel(TinkerGadgets.stoneTorch);
+    registerItemModel(TinkerGadgets.stoneLadder);
+    registerItemModel(TinkerGadgets.woodRail);
+    registerItemModel(TinkerGadgets.punji);
+    registerItemModel(TinkerGadgets.rack);
+    
     registerItemBlockMeta(TinkerGadgets.driedClay);
-
+    registerItemBlockMeta(TinkerGadgets.driedClaySlab);
+    registerItemModel(TinkerGadgets.driedClayStairs);
+    registerItemModel(TinkerGadgets.driedBrickStairs);
 
     // Items
     registerItemModel(TinkerGadgets.slimeSling);
     registerItemModel(TinkerGadgets.slimeBoots);
+    registerItemModel(TinkerGadgets.piggybackPack);
     registerItemModel(TinkerGadgets.stoneStick);
 
     for(ItemThrowball.ThrowballType type : ItemThrowball.ThrowballType.values()) {

@@ -20,6 +20,8 @@ import net.minecraftforge.fluids.IFluidHandler;
 
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.common.PlayerHelper;
 import slimeknights.tconstruct.smeltery.tileentity.TileDrain;
@@ -33,11 +35,13 @@ public class BlockSmelteryIO extends BlockEnumSmeltery<BlockSmelteryIO.IOType> {
     super(TYPE, IOType.class);
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, TYPE, FACING);
   }
 
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
     int horIndex = (meta >> 2) & 0xF;
@@ -55,11 +59,13 @@ public class BlockSmelteryIO extends BlockEnumSmeltery<BlockSmelteryIO.IOType> {
     return state.getValue(prop).getMeta(); // no rotation in the dropped drain
   }
 
+  @Nonnull
   @Override
-  public TileEntity createNewTileEntity(World worldIn, int meta) {
+  public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     return new TileDrain();
   }
 
+  @Nonnull
   @Override
   public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
     EnumFacing side = placer.getHorizontalFacing().getOpposite();

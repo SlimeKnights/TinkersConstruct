@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
@@ -44,22 +46,26 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     setDefaultState(this.blockState.getBaseState().withProperty(KNOB, false));
   }
 
+  @Nonnull
   @Override
-  public TileEntity createNewTileEntity(World worldIn, int meta) {
+  public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     return new TileTank();
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, TYPE, KNOB);
   }
 
+  @Nonnull
   @Override
-  public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+  public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
     boolean hasKnob = (state.getValue(TYPE)) == TankType.TANK && worldIn.isAirBlock(pos.up());
     return super.getActualState(state, worldIn, pos).withProperty(KNOB, hasKnob);
   }
 
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
     IBlockState state = super.getStateFromMeta(meta);
@@ -71,8 +77,6 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
 
   @Override
   public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-    if(worldIn.isRemote) return true;
-
     TileEntity te = worldIn.getTileEntity(pos);
     if(!(te instanceof IFluidHandler)) {
       return false;
@@ -104,8 +108,9 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     }
   }
 
+  @Nonnull
   @Override
-  public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+  public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
     // standard drop logic
     List<ItemStack> ret = Lists.newArrayList();
     Random rand = world instanceof World ? ((World)world).rand : RANDOM;
@@ -133,7 +138,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   // fix blockbreak logic order. Needed to have the tile entity when getting the drops
 
   @Override
-  public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+  public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest) {
     // we pull up a few calls to this point in time because we still have the TE here
     // the execution otherwise is equivalent to vanilla order
     this.onBlockDestroyedByPlayer(world, pos, state);
@@ -150,7 +155,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   /* Rendering stuff etc */
 
   @Override
-  public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+  public int getLightValue(@Nonnull IBlockState state, IBlockAccess world, @Nonnull BlockPos pos) {
     TileEntity te = world.getTileEntity(pos);
     if(!(te instanceof TileTank)) {
       return 0;
@@ -159,6 +164,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     return tank.getBrightness();
   }
 
+  @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer()

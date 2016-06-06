@@ -24,6 +24,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
@@ -43,7 +45,7 @@ public class BattleSign extends ToolCore {
     {
       @Override
       @SideOnly(Side.CLIENT)
-      public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn)
+      public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn)
       {
         return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
       }
@@ -60,6 +62,7 @@ public class BattleSign extends ToolCore {
     return 0.86f;
   }
 
+  @Nonnull
   @Override
   public EnumAction getItemUseAction(ItemStack stack)
   {
@@ -72,8 +75,9 @@ public class BattleSign extends ToolCore {
     return 72000;
   }
 
+  @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
+  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
   {
     if(!ToolHelper.isBroken(itemStackIn)) {
       playerIn.setActiveHand(hand);

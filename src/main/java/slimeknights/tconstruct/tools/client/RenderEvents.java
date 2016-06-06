@@ -39,6 +39,8 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.tools.IAoeTool;
 
 @SideOnly(Side.CLIENT)
@@ -148,7 +150,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
   }
 
   @Override
-  public void onResourceManagerReload(IResourceManager resourceManager) {
+  public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
     TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
 
     for (int i = 0; i < this.destroyBlockIcons.length; ++i)

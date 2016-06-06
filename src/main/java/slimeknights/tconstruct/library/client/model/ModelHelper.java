@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.resources.IResource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -35,6 +36,8 @@ import slimeknights.tconstruct.library.client.deserializer.ItemCameraTransformsD
 import slimeknights.tconstruct.library.client.deserializer.ItemTransformVec3fDeserializer;
 
 public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
+
+  public static final EnumFacing[] MODEL_SIDES = new EnumFacing[] {null, EnumFacing.DOWN, EnumFacing.UP, EnumFacing.NORTH, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.EAST};
 
   static final Type maptype = new TypeToken<Map<String, String>>() {}.getType();
   static final Type offsettype = new TypeToken<Offset>() {}.getType();
@@ -82,7 +85,17 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
     Reader reader = getReaderForResource(location);
     try {
       TransformDeserializer.tag = tag;
-      return GSON.fromJson(reader, transformtype);
+      ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms = GSON.fromJson(reader, transformtype);
+
+      // filter out missing/identity entries
+      ImmutableMap.Builder<ItemCameraTransforms.TransformType, TRSRTransformation> builder = ImmutableMap.builder();
+      for(Map.Entry<ItemCameraTransforms.TransformType, TRSRTransformation> entry : transforms.entrySet()) {
+        if(!entry.getValue().equals(TRSRTransformation.identity())) {
+          builder.put(entry.getKey(), entry.getValue());
+        }
+      }
+
+      return builder.build();
     } finally {
       IOUtils.closeQuietly(reader);
     }

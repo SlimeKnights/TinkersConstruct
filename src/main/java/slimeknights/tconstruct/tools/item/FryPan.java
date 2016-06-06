@@ -22,8 +22,11 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
@@ -42,7 +45,7 @@ public class FryPan extends ToolCore {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     addDefaultSubItems(subItems);
     ItemStack tool = getInfiTool("Bane of Pigs");
 
@@ -101,8 +104,9 @@ public class FryPan extends ToolCore {
 
       world.playSound(null, player.getPosition(), Sounds.frypan_boing, SoundCategory.PLAYERS, 1.5f, 0.6f + 0.2f * TConstruct.random.nextFloat());
       entity.addVelocity(x,y,z);
+      TinkerTools.proxy.spawnAttackParticle(Particles.FRYPAN_ATTACK, player, 0.6d);
       if(entity instanceof EntityPlayerMP) {
-        ((EntityPlayerMP)entity).playerNetServerHandler.sendPacket(new SPacketEntityVelocity(entity));
+        ((EntityPlayerMP)entity).connection.sendPacket(new SPacketEntityVelocity(entity));
       }
     }
   }
@@ -113,11 +117,14 @@ public class FryPan extends ToolCore {
     if(hit || player.worldObj.isRemote) {
       player.playSound(Sounds.frypan_boing, 2f, 1f);
     }
+    if(hit && readyForSpecialAttack(player)) {
+      TinkerTools.proxy.spawnAttackParticle(Particles.FRYPAN_ATTACK, player, 0.8d);
+    }
     return hit;
   }
 
   @Override
-  public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
+  public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
     return stack;
   }
 
@@ -141,14 +148,16 @@ public class FryPan extends ToolCore {
   /**
    * returns the action that specifies what animation to play when the items is being used
    */
+  @Nonnull
   @Override
   public EnumAction getItemUseAction(ItemStack stack)
   {
     return EnumAction.BOW;
   }
 
+  @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
     playerIn.setActiveHand(hand);
     return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
   }

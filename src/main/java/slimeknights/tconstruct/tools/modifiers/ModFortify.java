@@ -10,7 +10,6 @@ import slimeknights.tconstruct.library.TinkerAPIException;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -19,7 +18,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class ModFortify extends ToolModifier {
 
-  protected final Material material;
+  public final Material material;
 
   public ModFortify(Material material) {
     super("fortify" + material.getIdentifier(), material.materialTextColor);
@@ -38,7 +37,7 @@ public class ModFortify extends ToolModifier {
 
   @Override
   public String getLocalizedName() {
-    return Util.translateFormatted(String.format(LOC_Name, "fortify"), material.getLocalizedName());
+    return Util.translate(LOC_Name, "fortify") + " (" + material.getLocalizedName() + ")";
   }
 
   @Override

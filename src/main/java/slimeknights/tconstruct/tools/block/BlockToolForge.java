@@ -22,6 +22,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -53,13 +55,14 @@ public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
     return true;
   }
 
+  @Nonnull
   @Override
-  public TileEntity createNewTileEntity(World worldIn, int meta) {
+  public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     return new TileToolForge();
   }
 
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     // toolforge has custom blocks
     for(String oredict : baseBlocks) {
       // only add the first entry per oredict
@@ -71,6 +74,7 @@ public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
     }
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new ExtendedBlockState(this, new IProperty[]{}, new IUnlistedProperty[]{TEXTURE, INVENTORY, FACING});

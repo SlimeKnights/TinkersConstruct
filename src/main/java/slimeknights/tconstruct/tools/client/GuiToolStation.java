@@ -34,6 +34,7 @@ import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.TinkerRegistryClient;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
@@ -376,8 +377,8 @@ public class GuiToolStation extends GuiTinkerStation {
           itemRender.renderItemIntoGUI(currentInfo.tool, logoX, logoY);
         }
         else if(currentInfo == GuiButtonRepair.info) {
-          this.mc.getTextureManager().bindTexture(ICONS);
-          ICON_Anvil.draw(logoX, logoY);
+          this.mc.getTextureManager().bindTexture(Icons.ICON);
+          Icons.ICON_Anvil.draw(logoX, logoY);
         }
       }
     }
@@ -414,7 +415,7 @@ public class GuiToolStation extends GuiTinkerStation {
       }
     }
 
-    this.mc.getTextureManager().bindTexture(ICONS);
+    this.mc.getTextureManager().bindTexture(Icons.ICON);
 
     // slot logos
     if(currentInfo == GuiButtonRepair.info) {
@@ -491,22 +492,22 @@ public class GuiToolStation extends GuiTinkerStation {
     }
 
     if(i == 0) {
-      icon = ICON_Pickaxe;
+      icon = Icons.ICON_Pickaxe;
     }
     else if(i == 1) {
-      icon = ICON_Dust;
+      icon = Icons.ICON_Dust;
     }
     else if(i == 2) {
-      icon = ICON_Lapis;
+      icon = Icons.ICON_Lapis;
     }
     else if(i == 3) {
-      icon = ICON_Ingot;
+      icon = Icons.ICON_Ingot;
     }
     else if(i == 4) {
-      icon = ICON_Gem;
+      icon = Icons.ICON_Gem;
     }
     else if(i == 5) {
-      icon = ICON_Quartz;
+      icon = Icons.ICON_Quartz;
     }
 
     if(icon != null) {

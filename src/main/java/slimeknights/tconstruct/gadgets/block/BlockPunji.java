@@ -10,7 +10,6 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
@@ -23,6 +22,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Locale;
+
+import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 
@@ -51,6 +52,7 @@ public class BlockPunji extends Block {
                                         .withProperty(NORTHWEST, false));
   }
 
+  @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, FACING, NORTH, EAST, NORTHEAST, NORTHWEST);
@@ -59,6 +61,7 @@ public class BlockPunji extends Block {
   /**
    * Convert the given metadata into a BlockState for this Block
    */
+  @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
     if(meta >= EnumFacing.values().length) {
@@ -77,8 +80,9 @@ public class BlockPunji extends Block {
     return state.getValue(FACING).ordinal();
   }
 
+  @Nonnull
   @Override
-  public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+  public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
     EnumFacing facing = state.getValue(FACING);
 
     int off = -facing.ordinal() % 2;
@@ -114,6 +118,7 @@ public class BlockPunji extends Block {
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
    * IBlockstate
    */
+  @Nonnull
   @Override
   public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
     EnumFacing enumfacing = facing.getOpposite();
@@ -122,12 +127,13 @@ public class BlockPunji extends Block {
   }
 
   @Override
-  public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
+  public boolean canPlaceBlockOnSide(@Nonnull World worldIn, @Nonnull BlockPos pos, EnumFacing side) {
     return worldIn.isSideSolid(pos.offset(side.getOpposite()), side, true);
   }
 
+
   @Override
-  public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock) {
+  public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
     EnumFacing facing = state.getValue(FACING);
 
     if (!worldIn.isSideSolid(pos.offset(facing), facing.getOpposite(), true))
@@ -151,6 +157,7 @@ public class BlockPunji extends Block {
     BOUNDS = builder.build();
   }
 
+  @Nonnull
   @Override
   public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
     return BOUNDS.get(state.getValue(FACING));
@@ -158,13 +165,13 @@ public class BlockPunji extends Block {
 
   @Override
   public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-    if(entityIn instanceof EntityLiving) {
+    if(entityIn instanceof EntityLivingBase) {
       float damage = 3f;
       if(entityIn.fallDistance > 0) {
         damage += entityIn.fallDistance * 1.5f + 2f;
       }
       entityIn.attackEntityFrom(DamageSource.cactus, damage);
-      ((EntityLiving) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20, 1));
+      ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20, 1));
     }
   }
 

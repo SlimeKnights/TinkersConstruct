@@ -80,8 +80,8 @@ public class GuiSideButtons extends GuiModule {
 
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-    for(Object o : buttonList) {
-      ((GuiButton)o).drawButton(this.mc, mouseX, mouseY);
+    for(GuiButton button : buttonList) {
+      button.drawButton(this.mc, mouseX, mouseY);
     }
   }
 }

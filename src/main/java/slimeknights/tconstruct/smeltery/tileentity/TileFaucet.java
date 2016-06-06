@@ -3,7 +3,6 @@ package slimeknights.tconstruct.smeltery.tileentity;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -11,6 +10,8 @@ import net.minecraft.util.ITickable;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidHandler;
+
+import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.materials.Material;
@@ -169,15 +170,17 @@ public class TileFaucet extends TileEntity implements ITickable {
 
   /* Load & Save */
 
+  @Nonnull
   @Override
-  public void writeToNBT(NBTTagCompound compound) {
-    super.writeToNBT(compound);
+  public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    compound = super.writeToNBT(compound);
     if(drained != null) {
       drained.writeToNBT(compound);
       compound.setInteger("direction", direction.getIndex());
       //compound.setString("direction", direction.getName());
       compound.setBoolean("stop", stopPouring);
     }
+    return compound;
   }
 
   @Override
@@ -208,7 +211,7 @@ public class TileFaucet extends TileEntity implements ITickable {
   }
 
   @Override
-  public Packet getDescriptionPacket() {
+  public SPacketUpdateTileEntity getUpdatePacket() {
     NBTTagCompound tag = new NBTTagCompound();
     writeToNBT(tag);
     return new SPacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);
@@ -218,5 +221,17 @@ public class TileFaucet extends TileEntity implements ITickable {
   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
     super.onDataPacket(net, pkt);
     readFromNBT(pkt.getNbtCompound());
+  }
+
+  @Nonnull
+  @Override
+  public NBTTagCompound getUpdateTag() {
+    // new tag instead of super since default implementation calls the super of writeToNBT
+    return writeToNBT(new NBTTagCompound());
+  }
+
+  @Override
+  public void handleUpdateTag(@Nonnull NBTTagCompound tag) {
+    readFromNBT(tag);
   }
 }

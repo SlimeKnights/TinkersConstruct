@@ -6,6 +6,8 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
@@ -20,12 +22,12 @@ public class TempToolModifying implements IRecipe {
   private ItemStack outputTool;
 
   @Override
-  public ItemStack getCraftingResult(InventoryCrafting p_77572_1_) {
+  public ItemStack getCraftingResult(@Nonnull InventoryCrafting p_77572_1_) {
     return outputTool;
   }
 
   @Override
-  public boolean matches(InventoryCrafting inv, World worldIn) {
+  public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World worldIn) {
     outputTool = null;
 
     ItemStack[] stacks = new ItemStack[inv.getSizeInventory()];
@@ -62,8 +64,9 @@ public class TempToolModifying implements IRecipe {
     return outputTool;
   }
 
+  @Nonnull
   @Override
-  public ItemStack[] getRemainingItems(InventoryCrafting inv) {
+  public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
     ItemStack[] stacks = new ItemStack[inv.getSizeInventory()];
     ItemStack tool = null;
 

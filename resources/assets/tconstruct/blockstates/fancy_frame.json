@@ -1,29 +1,14 @@
 {
     "forge_marker": 1,
     "defaults": {
-        "model": "item_frame",
+        "model": "tconstruct:fancy_frame",
         "textures": {
             "particle": "#wood",
             "wood": "tconstruct:blocks/block_ardite",
             "back": "tconstruct:blocks/itemframe_background"
         },
         "transform": {
-            "firstperson_righthand": {
-                "rotation": [ {"x": -20}, {"y": 90}, {"z": 0} ],
-                "translation": [ -0.25, 0.05, 0 ]
-            },
-            "firstperson_lefthand": {
-                "rotation": [ {"x": -20}, {"y": 90}, {"z": 0} ],
-                "translation": [ -0.25, 0.05, 0 ]
-            },
-            "thirdperson_righthand": {
-                "translation": [ 0, 0.18, -0.175 ],
-                "scale": [ 0.5, 0.5, 0.5 ]
-            },
-            "thirdperson_lefthand": {
-                "translation": [ 0, 0.18, -0.175 ],
-                "scale": [ 0.5, 0.5, 0.5 ]
-            }
+
         }
     },
     "variants": {
@@ -33,6 +18,7 @@
         "cobalt":    [{ "textures": { "wood": "tconstruct:blocks/block_cobalt" } }],
         "ardite":    [{ "textures": { "wood": "tconstruct:blocks/block_ardite" } }],
         "manyullyn": [{ "textures": { "wood": "tconstruct:blocks/block_manyullyn" } }],
+        "clear":     [{ "textures": { "wood": "minecraft:blocks/glass", "back": "#wood" } }],
         "map":       [{ "model": "item_frame_map" }]
     }
 }

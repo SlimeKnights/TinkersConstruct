@@ -9,6 +9,8 @@ import net.minecraftforge.oredict.RecipeSorter;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tools.ToolCore;
 
@@ -22,12 +24,12 @@ public class TempToolCrafting implements IRecipe {
   private ItemStack outputTool;
 
   @Override
-  public ItemStack getCraftingResult(InventoryCrafting p_77572_1_) {
+  public ItemStack getCraftingResult(@Nonnull InventoryCrafting p_77572_1_) {
     return outputTool;
   }
 
   @Override
-  public boolean matches(InventoryCrafting inv, World worldIn) {
+  public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World worldIn) {
     outputTool = null;
 
 
@@ -65,8 +67,9 @@ public class TempToolCrafting implements IRecipe {
     return outputTool;
   }
 
+  @Nonnull
   @Override
-  public ItemStack[] getRemainingItems(InventoryCrafting inv) {
+  public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
     return new ItemStack[0];
   }
 }
