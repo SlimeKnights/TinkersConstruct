@@ -33,12 +33,15 @@ public class TinkerPiggybackSerializer implements ICapabilitySerializable<NBTTag
 
   @Override
   public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-    return true;
+    return capability == CapabilityTinkerPiggyback.PIGGYBACK;
   }
 
   @Override
   public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-    return (T)piggyback;
+    if(capability == CapabilityTinkerPiggyback.PIGGYBACK) {
+      return (T)piggyback;
+    }
+    return null;
   }
 
   @Override
