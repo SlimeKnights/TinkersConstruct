@@ -22,6 +22,8 @@ import static slimeknights.tconstruct.shared.TinkerCommons.blockCobalt;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockKnightSlime;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockManyullyn;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockPigIron;
+import static slimeknights.tconstruct.shared.TinkerCommons.blockClearGlass;
+import static slimeknights.tconstruct.shared.TinkerCommons.blockClearStainedGlass;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotAlubrass;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotArdite;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotCobalt;
@@ -70,6 +72,24 @@ import static slimeknights.tconstruct.world.TinkerWorld.slimeVinePurple3;
 public class TinkerOredict {
 
   public static final String PulseId = "TinkerOredict";
+  public static final String[] dyes = { // makes oredict to int a bit easier in a couple other places
+    "White",
+    "Orange",
+    "Magenta",
+    "LightBlue",
+    "Yellow",
+    "Lime",
+    "Pink",
+    "Gray",
+    "LightGray",
+    "Cyan",
+    "Purple",
+    "Blue",
+    "Brown",
+    "Green",
+    "Red",
+    "Black"
+  };
 
   @Subscribe
   public static void doTheOredict(FMLPreInitializationEvent event) {
@@ -128,6 +148,14 @@ public class TinkerOredict {
     // Ores
     oredict(oreCobalt, "oreCobalt");
     oredict(oreArdite, "oreArdite");
+    
+    // glass
+    oredict(blockClearGlass, "blockGlass"); // no blockGlassColorless as then it is assumed as available for staining
+                                            // which blocks our own staining recipes
+    oredict(blockClearStainedGlass, "blockGlass");
+    for(int i = 0; i > 16; i++) {
+      oredict(blockClearStainedGlass, i, "blockGlass" + dyes[i]);
+    }
   }
 
   private static void oredictNIB(ItemStack nugget, ItemStack ingot, ItemStack block, String oreSuffix) {

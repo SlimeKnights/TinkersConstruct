@@ -57,6 +57,7 @@ import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
 import slimeknights.tconstruct.smeltery.block.BlockFaucet;
 import slimeknights.tconstruct.smeltery.block.BlockSeared;
+import slimeknights.tconstruct.smeltery.block.BlockSearedGlass;
 import slimeknights.tconstruct.smeltery.block.BlockSearedSlab;
 import slimeknights.tconstruct.smeltery.block.BlockSearedSlab2;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
@@ -91,6 +92,7 @@ public class TinkerSmeltery extends TinkerPulse {
   public static BlockFaucet faucet;
   public static BlockCasting castingBlock;
   public static BlockSmelteryIO smelteryIO;
+  public static Block searedGlass;
 
   public static Block searedSlab;
   public static Block searedSlab2;
@@ -135,6 +137,7 @@ public class TinkerSmeltery extends TinkerPulse {
     faucet = registerBlock(new BlockFaucet(), "faucet");
     castingBlock = registerBlock(new ItemBlockMeta(new BlockCasting()), "casting");
     smelteryIO = registerEnumBlock(new BlockSmelteryIO(), "smeltery_io");
+    searedGlass = registerEnumBlock(new BlockSearedGlass(), "seared_glass");
 
     ItemBlockMeta.setMappingProperty(searedTank, BlockTank.TYPE);
     ItemBlockMeta.setMappingProperty(castingBlock, BlockCasting.TYPE);
@@ -186,6 +189,7 @@ public class TinkerSmeltery extends TinkerPulse {
     builder.add(searedBlock);
     builder.add(searedTank);
     builder.add(smelteryIO);
+    builder.add(searedGlass);
 
     validSmelteryBlocks = builder.build();
   }
@@ -245,6 +249,9 @@ public class TinkerSmeltery extends TinkerPulse {
                                                "bgb", "ggg", "bgb", 'b', searedBrick, 'g', "blockGlass")); // Glass
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(searedTank, 1, BlockTank.TankType.WINDOW.getMeta()),
                                                "bgb", "bgb", "bgb", 'b', searedBrick, 'g', "blockGlass")); // Window
+    // glass, requires clear glass rather than regular like the stained variants
+    GameRegistry.addRecipe(new ItemStack(searedGlass, 1, BlockSearedGlass.GlassType.GLASS.getMeta()),
+                           " b ", "bgb", " b ", 'b', searedBrick, 'g', TinkerCommons.blockClearGlass);
 
     GameRegistry.addRecipe(new ItemStack(castingBlock, 1, BlockCasting.CastingType.TABLE.getMeta()),
                            "bbb", "b b", "b b", 'b', searedBrick); // Table
@@ -411,6 +418,12 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerTableCasting(new ItemStack(Items.EMERALD), castGem, TinkerFluids.emerald, Material.VALUE_Gem);
     TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.EMERALD_BLOCK), null, TinkerFluids.emerald, Material.VALUE_Gem*9);
 
+    // glass melting and casting
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("sand", Material.VALUE_Glass), TinkerFluids.glass));
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("blockGlass", Material.VALUE_Glass), TinkerFluids.glass));
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("paneGlass", Material.VALUE_Glass*6/16), TinkerFluids.glass));
+    TinkerRegistry.registerBasinCasting(new ItemStack(TinkerCommons.blockClearGlass), null, TinkerFluids.glass, Material.VALUE_Glass);
+    
     // lavawood
     TinkerRegistry.registerBasinCasting(new CastingRecipe(TinkerCommons.lavawood, RecipeMatch.of("plankWood"),
                                                           new FluidStack(FluidRegistry.LAVA, 250),

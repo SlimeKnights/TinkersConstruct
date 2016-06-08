@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.smeltery;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -11,6 +13,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.smeltery.block.BlockSearedGlass;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryIO;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
 import slimeknights.tconstruct.smeltery.client.CastingRenderer;
@@ -34,9 +37,13 @@ public class SmelteryClientProxy extends ClientProxy {
 
   @Override
   protected void registerModels() {
+    // ignore color state for the clear stained glass, it is handled by tinting
+    ModelLoader.setCustomStateMapper(TinkerSmeltery.searedGlass, (new StateMap.Builder()).ignore(BlockSearedGlass.TYPE).build());
+    
     // Blocks
     registerItemModel(Item.getItemFromBlock(TinkerSmeltery.smelteryController));
     registerItemModel(Item.getItemFromBlock(TinkerSmeltery.faucet));
+    registerItemModel(Item.getItemFromBlock(TinkerSmeltery.searedGlass));
     registerItemBlockMeta(TinkerSmeltery.searedBlock);
     registerItemBlockMeta(TinkerSmeltery.castingBlock);
     
