@@ -1,25 +1,30 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.world.storage.loot.functions.Smelt;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
-import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+
+import java.lang.ref.WeakReference;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import slimeknights.tconstruct.library.fluid.FluidHandlerExtractOnlyWrapper;
 
 /**
  * Drains allow access to the bottommost liquid in the smeltery.
  * They can insert and drain liquids from the smeltery.
  */
-public class TileDrain extends TileSmelteryComponent implements IFluidHandler, IFluidTank {
+public class TileDrain extends TileSmelteryComponent {
+
+  private FluidHandlerExtractOnlyWrapper drainFluidHandler;
+  private WeakReference<TileEntity> oldSmeltery;
 
   @Override
-  public boolean hasCapability(@Nonnull Capability<?> capability, @Nonnull EnumFacing facing) {
+  public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
       return getSmeltery() != null;
     }
@@ -29,97 +34,18 @@ public class TileDrain extends TileSmelteryComponent implements IFluidHandler, I
   @SuppressWarnings("unchecked")
   @Nonnull
   @Override
-  public <T> T getCapability(@Nonnull Capability<T> capability, @Nonnull EnumFacing facing) {
+  public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-      return (T)getSmeltery().getTank();
+      TileSmeltery smeltery = getSmeltery();
+      if(facing == null) {
+        if(drainFluidHandler == null || oldSmeltery == null || oldSmeltery.get() == null || !oldSmeltery.get().getPos().equals(smeltery.getPos())) {
+          drainFluidHandler = new FluidHandlerExtractOnlyWrapper(smeltery.getTank());
+          oldSmeltery = new WeakReference<TileEntity>(smeltery);
+        }
+        return (T)drainFluidHandler;
+      }
+      return (T)smeltery.getTank();
     }
     return super.getCapability(capability, facing);
-  }
-
-  @Override
-  public FluidStack getFluid() {
-    TileSmeltery smeltery = getSmeltery();
-    if(smeltery != null) {
-      if(smeltery.getTank().getFluids().size() > 0) {
-        return smeltery.getTank().getFluids().get(0);
-      }
-    }
-    return null;
-  }
-
-  @Override
-  public int getFluidAmount() {
-    FluidStack fs = getFluid();
-    return fs != null ? fs.amount : 0;
-  }
-
-  @Override
-  public int getCapacity() {
-    TileSmeltery smeltery = getSmeltery();
-    // return the capacity with respect to the current fluid
-    if(smeltery != null) {
-      return smeltery.getTank().getCapacity() - smeltery.getTank().getFluidAmount() + getFluidAmount();
-    }
-    return 0;
-  }
-
-  @Override
-  public FluidTankInfo getInfo() {
-    return new FluidTankInfo(getFluid(), getCapacity());
-  }
-
-  @Override
-  public int fill(FluidStack resource, boolean doFill) {
-    TileSmeltery smeltery = getSmeltery();
-    if(smeltery != null && resource != null) {
-      return smeltery.getTank().fill(resource, doFill);
-    }
-    return 0;
-  }
-
-  @Override
-  public FluidStack drain(int maxDrain, boolean doDrain) {
-    TileSmeltery smeltery = getSmeltery();
-    if(smeltery != null) {
-      return smeltery.getTank().drain(maxDrain, doDrain);
-    }
-    return null;
-  }
-
-  @Override
-  public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
-    return fill(resource, doFill);
-  }
-
-  @Override
-  public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
-    if(resource == null || getFluid() == null) {
-      return null;
-    }
-
-    if(getFluid().isFluidEqual(resource)) {
-      return drain(resource.amount, doDrain);
-    }
-    return null;
-  }
-
-  @Override
-  public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
-    return drain(maxDrain, doDrain);
-  }
-
-  @Override
-  public boolean canFill(EnumFacing from, Fluid fluid) {
-    return getCapacity() - getFluidAmount() > 0;
-  }
-
-  @Override
-  public boolean canDrain(EnumFacing from, Fluid fluid) {
-    return getFluid() != null && getFluid().getFluid() == fluid;
-  }
-
-  @Override
-  public FluidTankInfo[] getTankInfo(EnumFacing from) {
-    return new FluidTankInfo[] {getInfo()};
   }
 }

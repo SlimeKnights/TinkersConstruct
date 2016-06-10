@@ -16,6 +16,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
@@ -32,7 +33,7 @@ public class TileTank extends TileSmelteryComponent {
   }
 
   @Override
-  public boolean hasCapability(@Nonnull Capability<?> capability, @Nonnull EnumFacing facing) {
+  public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
       return true;
     }
@@ -42,7 +43,7 @@ public class TileTank extends TileSmelteryComponent {
   @SuppressWarnings("unchecked")
   @Nonnull
   @Override
-  public <T> T getCapability(@Nonnull Capability<T> capability, @Nonnull EnumFacing facing) {
+  public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
       return (T)tank;
     }
