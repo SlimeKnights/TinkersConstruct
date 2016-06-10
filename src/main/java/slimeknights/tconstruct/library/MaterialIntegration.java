@@ -80,7 +80,7 @@ public class MaterialIntegration {
     if(fluid != null) {
       Fluid registeredFluid = FluidRegistry.getFluid(fluid.getName());
       // we only register blocks and buckets if it's our own fluid
-      if(registeredFluid == fluid) {
+      if(registeredFluid == fluid && fluid.getBlock() == null) {
         registerFluidBlock();
       }
 
