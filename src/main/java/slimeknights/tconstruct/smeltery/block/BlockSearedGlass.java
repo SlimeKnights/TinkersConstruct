@@ -64,15 +64,18 @@ public class BlockSearedGlass extends BlockEnumSmeltery<BlockSearedGlass.GlassTy
     return connected.getBlock() == original.getBlock() && connected.getValue(prop) == original.getValue(prop);
   }
 
+  @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer() {
     return BlockRenderLayer.CUTOUT;
   }
 
+  @Override
   public boolean isFullCube(IBlockState state) {
     return false;
   }
   
+  @Override
   public boolean isOpaqueCube(IBlockState state) {
       return false;
   }

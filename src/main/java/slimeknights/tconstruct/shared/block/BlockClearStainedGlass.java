@@ -33,15 +33,18 @@ public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClear
     this.setCreativeTab(TinkerRegistry.tabGeneral);
   }
 
+  @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer() {
     return BlockRenderLayer.TRANSLUCENT;
   }
 
+  @Override
   public boolean isFullCube(IBlockState state) {
     return false;
   }
   
+  @Override
   public boolean isOpaqueCube(IBlockState state) {
       return false;
   }
@@ -49,10 +52,12 @@ public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClear
   /**
    * Get the MapColor for this Block and the given BlockState
    */
+  @Override
   public MapColor getMapColor(IBlockState state) {
       return state.getValue(COLOR).getMapColor();
   }
   
+  @Override
   @SuppressWarnings("deprecation")
   public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
     return canConnect(blockState, blockAccess.getBlockState(pos.offset(side))) ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);

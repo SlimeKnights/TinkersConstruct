@@ -22,6 +22,7 @@ public class ItemCameraTransformsDeserializer implements JsonDeserializer<ItemCa
 
   public static final ItemCameraTransformsDeserializer INSTANCE = new ItemCameraTransformsDeserializer();
 
+  @Override
   public ItemCameraTransforms deserialize(JsonElement p_deserialize_1_, Type p_deserialize_2_, JsonDeserializationContext p_deserialize_3_)
       throws
       JsonParseException {
