@@ -314,18 +314,18 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
       // consume fuel!
       TileEntity te = worldObj.getTileEntity(currentTank);
       if(te instanceof TileTank) {
-        TileTank tank = (TileTank) te;
+        IFluidTank tank = ((TileTank) te).getInternalTank();
 
-        FluidStack liquid = tank.getInternalTank().getFluid();
+        FluidStack liquid = tank.getFluid();
         if(liquid != null) {
           FluidStack in = liquid.copy();
           int bonusFuel = TinkerRegistry.consumeSmelteryFuel(in);
           int amount = liquid.amount - in.amount;
-          FluidStack drained = tank.drain(null, amount, false);
+          FluidStack drained = tank.drain(amount, false);
 
           // we can drain. actually drain and add the fuel
-          if(drained.amount == amount) {
-            tank.drain(null, amount, true);
+          if(drained != null && drained.amount == amount) {
+            tank.drain(amount, true);
             currentFuel = drained.copy();
             addFuel(bonusFuel, drained.getFluid().getTemperature(drained) - 300); // convert to degree celcius
 
@@ -367,7 +367,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   // checks if the given location has a fluid tank that contains fuel
   private boolean hasFuel(BlockPos pos, FluidStack preference) {
     IFluidTank tank = getTankAt(pos);
-    if(tank != null) {
+    if(tank != null && tank.getFluid() != null) {
       if(tank.getFluidAmount() > 0 && TinkerRegistry.isSmelteryFuel(tank.getFluid())) {
         // if we have a preference, only use that
         if(preference != null && tank.getFluid().isFluidEqual(preference)) {

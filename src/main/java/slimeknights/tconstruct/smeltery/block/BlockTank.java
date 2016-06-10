@@ -22,7 +22,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.IFluidContainerItem;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -78,24 +79,14 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   @Override
   public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
     TileEntity te = worldIn.getTileEntity(pos);
-    if(!(te instanceof IFluidHandler)) {
-      return false;
-    }
-    IFluidHandler tank = (IFluidHandler) te;
-    side = side.getOpposite();
-
-    ItemStack stack = playerIn.getHeldItemMainhand();
-    if(stack == null) {
+    if(te == null || !te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side)) {
       return false;
     }
 
-    // do the thing with the tank and the buckets
-    if(FluidUtil.interactWithTank(stack, playerIn, tank, side)) {
-      return true;
-    }
-
-    // prevent interaction of the item if it's a fluidcontainer. Prevents placing liquids when interacting with the tank
-    return FluidContainerRegistry.isFilledContainer(stack) || stack.getItem() instanceof IFluidContainerItem;
+    IFluidHandler fluidHandler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side);
+    FluidUtil.interactWithFluidHandler(heldItem, fluidHandler, playerIn);
+    // prevent interaction so stuff like buckets and other things don't place the liquid block
+    return true;
   }
 
   /* Block breaking retains the liquid */
