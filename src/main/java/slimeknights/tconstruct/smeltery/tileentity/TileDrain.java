@@ -1,17 +1,40 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import net.minecraft.util.EnumFacing;
+import net.minecraft.world.storage.loot.functions.Smelt;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+
+import javax.annotation.Nonnull;
 
 /**
  * Drains allow access to the bottommost liquid in the smeltery.
  * They can insert and drain liquids from the smeltery.
  */
 public class TileDrain extends TileSmelteryComponent implements IFluidHandler, IFluidTank {
+
+  @Override
+  public boolean hasCapability(@Nonnull Capability<?> capability, @Nonnull EnumFacing facing) {
+    if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+      return getSmeltery() != null;
+    }
+    return super.hasCapability(capability, facing);
+  }
+
+  @SuppressWarnings("unchecked")
+  @Nonnull
+  @Override
+  public <T> T getCapability(@Nonnull Capability<T> capability, @Nonnull EnumFacing facing) {
+    if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+      return (T)getSmeltery().getTank();
+    }
+    return super.getCapability(capability, facing);
+  }
 
   @Override
   public FluidStack getFluid() {
@@ -35,7 +58,7 @@ public class TileDrain extends TileSmelteryComponent implements IFluidHandler, I
     TileSmeltery smeltery = getSmeltery();
     // return the capacity with respect to the current fluid
     if(smeltery != null) {
-      return smeltery.getTank().getMaxCapacity() - smeltery.getTank().getUsedCapacity() + getFluidAmount();
+      return smeltery.getTank().getCapacity() - smeltery.getTank().getFluidAmount() + getFluidAmount();
     }
     return 0;
   }

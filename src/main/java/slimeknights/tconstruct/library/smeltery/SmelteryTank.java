@@ -5,11 +5,17 @@ import com.google.common.collect.Lists;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 import java.util.List;
 import java.util.ListIterator;
 
-public class SmelteryTank {
+import javax.annotation.Nullable;
+
+public class SmelteryTank implements IFluidTank, IFluidHandler {
 
   protected final ISmelteryTankHandler parent;
   protected List<FluidStack> liquids; // currently contained liquids in the smeltery
@@ -34,11 +40,14 @@ public class SmelteryTank {
     parent.onTankChanged(liquids, null);
   }
 
-  public int getMaxCapacity() {
-    return maxCapacity;
+  @Nullable
+  @Override
+  public FluidStack getFluid() {
+    return liquids.size() > 0 ? liquids.get(0) : null;
   }
 
-  public int getUsedCapacity() {
+  @Override
+  public int getFluidAmount() {
     int cap = 0;
     for(FluidStack liquid : liquids) {
       cap += liquid.amount;
@@ -47,9 +56,25 @@ public class SmelteryTank {
     return cap;
   }
 
+  @Override
+  public int getCapacity() {
+    return maxCapacity;
+  }
+
+  @Override
+  public FluidTankInfo getInfo() {
+    return null;
+  }
+
+  @Override
+  public IFluidTankProperties[] getTankProperties() {
+    return new IFluidTankProperties[0];
+  }
+
+  @Override
   public int fill(FluidStack resource, boolean doFill) {
     // check how much space is left in the smeltery
-    int used = getUsedCapacity();
+    int used = getFluidAmount();
 
     int usable = Math.min(maxCapacity - used, resource.amount);
 
@@ -75,6 +100,7 @@ public class SmelteryTank {
     return usable;
   }
 
+  @Override
   public FluidStack drain(int maxDrain, boolean doDrain) {
     if(liquids.isEmpty()) {
       return null;
@@ -84,6 +110,7 @@ public class SmelteryTank {
     return drain(liquid, doDrain);
   }
 
+  @Override
   public FluidStack drain(FluidStack resource, boolean doDrain) {
     // search for the resource
     ListIterator<FluidStack> iter = liquids.listIterator();

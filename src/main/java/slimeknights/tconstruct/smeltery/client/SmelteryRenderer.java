@@ -55,7 +55,7 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
       // calc heights, we use mB capacities and then convert it over to blockheights during rendering
       int yd = 1 + Math.max(0, smeltery.maxPos.getY() - smeltery.minPos.getY());
       // one block height = 1000 mb
-      int[] heights = calcLiquidHeights(fluids, tank.getMaxCapacity(), yd * 1000 - (int)(RenderUtil.FLUID_OFFSET*2000d), 100);
+      int[] heights = calcLiquidHeights(fluids, tank.getCapacity(), yd * 1000 - (int)(RenderUtil.FLUID_OFFSET*2000d), 100);
 
       double curY = RenderUtil.FLUID_OFFSET;
       // rendering time
