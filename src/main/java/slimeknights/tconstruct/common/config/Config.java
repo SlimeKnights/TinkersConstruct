@@ -36,6 +36,7 @@ public class Config {
   public static boolean autosmeltlapis = true;
   public static boolean obsidianAlloy = true;
   public static boolean claycasts = true;
+  public static boolean castableBricks = true;
 
   // Worldgen
   public static boolean genSlimeIslands = true;
@@ -118,6 +119,12 @@ public class Config {
       prop = configFile.get(cat, "enableClayCasts", claycasts);
       prop.setComment("Adds single-use clay casts.");
       claycasts = prop.getBoolean();
+      prop.requiresMcRestart();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "allowBrickCasting", castableBricks);
+      prop.setComment("Allows the creation of bricks from molten clay");
+      castableBricks = prop.getBoolean();
       prop.requiresMcRestart();
       propOrder.add(prop.getName());
 
