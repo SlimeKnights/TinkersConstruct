@@ -37,6 +37,7 @@ public class Config {
   public static boolean obsidianAlloy = true;
   public static boolean claycasts = true;
   public static boolean castableBricks = true;
+  public static boolean leatherDryingRecipe = true;
 
   // Worldgen
   public static boolean genSlimeIslands = true;
@@ -147,6 +148,12 @@ public class Config {
       prop = configFile.get(cat, "obsidianAlloy", obsidianAlloy);
       prop.setComment("Allows the creation of obsidian in the smeltery, using a bucket of lava and water.");
       obsidianAlloy = prop.getBoolean();
+      prop.requiresMcRestart();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "addLeatherDryingRecipe", leatherDryingRecipe);
+      prop.setComment("Adds a recipe that allows you to get leather from drying cooked meat");
+      leatherDryingRecipe = prop.getBoolean();
       prop.requiresMcRestart();
       propOrder.add(prop.getName());
     }

@@ -26,6 +26,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.EntityIDs;
 import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.gadgets.block.BlockDriedClay;
 import slimeknights.tconstruct.gadgets.block.BlockDriedClaySlab;
 import slimeknights.tconstruct.gadgets.block.BlockPunji;
@@ -237,6 +238,18 @@ public class TinkerGadgets extends TinkerPulse {
     TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallPurple, TinkerCommons.slimedropPurple, time);
     TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallBlood, TinkerCommons.slimedropBlood, time);
     TinkerRegistry.registerDryingRecipe(TinkerCommons.matSlimeBallMagma, TinkerCommons.slimedropMagma, time);
+
+    // leather
+    if(Config.leatherDryingRecipe) {
+      ItemStack leather = new ItemStack(Items.LEATHER);
+      time = (int)(20 * 60 * 8.5);
+      TinkerRegistry.registerDryingRecipe(Items.COOKED_BEEF, leather, time);
+      TinkerRegistry.registerDryingRecipe(Items.COOKED_CHICKEN, leather, time);
+      TinkerRegistry.registerDryingRecipe(Items.COOKED_FISH, leather, time);
+      TinkerRegistry.registerDryingRecipe(Items.COOKED_MUTTON, leather, time);
+      TinkerRegistry.registerDryingRecipe(Items.COOKED_PORKCHOP, leather, time);
+      TinkerRegistry.registerDryingRecipe(Items.COOKED_RABBIT, leather, time);
+    }
 
     // Dried Clay
     TinkerRegistry.registerDryingRecipe(Items.CLAY_BALL, TinkerCommons.driedBrick, 20 * 60 * 2);
