@@ -18,12 +18,12 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import slimeknights.tconstruct.common.PlayerHelper;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.fluid.FluidHandlerCasting;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
@@ -94,7 +94,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
       if(slot == 1) {
         FMLCommonHandler.instance().firePlayerSmeltedEvent(player, stack);
       }
-      PlayerHelper.spawnItemAtPlayer(player, stack);
+      ItemHandlerHelper.giveItemToPlayer(player, stack);
       setInventorySlotContents(slot, null);
     }
   }
