@@ -410,7 +410,13 @@ public class TinkerSmeltery extends TinkerPulse {
     //TinkerRegistry.registerMelting(Blocks.stained_hardened_clay, TinkerFluids.clay, Material.VALUE_BrickBlock);
     TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.HARDENED_CLAY), null, TinkerFluids.clay, Material.VALUE_BrickBlock);
     // funny thing about hardened clay. If it's stained and you wash it with water, it turns back into regular hardened clay!
-    TinkerRegistry.registerBasinCasting(new CastingRecipe(new ItemStack(Blocks.HARDENED_CLAY), RecipeMatch.of(new ItemStack(Blocks.STAINED_HARDENED_CLAY, 1, OreDictionary.WILDCARD_VALUE)), FluidRegistry.WATER, 250, 150));
+    TinkerRegistry.registerBasinCasting(new CastingRecipe(
+        new ItemStack(Blocks.HARDENED_CLAY),
+        RecipeMatch.of(new ItemStack(Blocks.STAINED_HARDENED_CLAY, 1, OreDictionary.WILDCARD_VALUE)),
+        new FluidStack(FluidRegistry.WATER, 250),
+        150,
+        true,
+        false));
     // let's allow bricks because we're nice
     if(Config.castableBricks) {
       TinkerRegistry.registerTableCasting(new ItemStack(Items.BRICK), castIngot, TinkerFluids.clay, Material.VALUE_Ingot);
