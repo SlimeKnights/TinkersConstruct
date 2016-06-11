@@ -1,5 +1,24 @@
 package slimeknights.tconstruct.shared;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.client.model.ModelLoader;
+
+import javax.annotation.Nonnull;
+
+import slimeknights.tconstruct.common.ClientProxy;
+import slimeknights.tconstruct.library.book.TinkerBook;
+import slimeknights.tconstruct.shared.block.BlockClearStainedGlass;
+import slimeknights.tconstruct.shared.block.BlockClearStainedGlass.EnumGlassColor;
+
 import static slimeknights.tconstruct.shared.TinkerCommons.blockClearGlass;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockClearStainedGlass;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockDecoGround;
@@ -17,26 +36,6 @@ import static slimeknights.tconstruct.shared.TinkerCommons.slabFirewood;
 import static slimeknights.tconstruct.shared.TinkerCommons.stairsFirewood;
 import static slimeknights.tconstruct.shared.TinkerCommons.stairsLavawood;
 import static slimeknights.tconstruct.shared.TinkerCommons.stairsMudBrick;
-
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
-
-import net.minecraftforge.client.model.ModelLoader;
-
-import javax.annotation.Nonnull;
-
-import slimeknights.tconstruct.common.ClientProxy;
-import slimeknights.tconstruct.library.book.TinkerBook;
-import slimeknights.tconstruct.shared.block.BlockClearStainedGlass;
-import slimeknights.tconstruct.shared.block.BlockClearStainedGlass.EnumGlassColor;
 
 public class CommonsClientProxy extends ClientProxy {
   public static Minecraft minecraft = Minecraft.getMinecraft();

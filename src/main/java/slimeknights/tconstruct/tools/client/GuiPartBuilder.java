@@ -18,7 +18,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import slimeknights.mantle.util.RecipeMatch;
-import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
