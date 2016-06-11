@@ -14,6 +14,7 @@ import org.lwjgl.opengl.GL14;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.client.RenderUtil;
+import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
@@ -49,24 +50,25 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
 
   @Override
   public void renderTileEntityAt(@Nonnull T te, double x, double y, double z, float partialTicks, int destroyStage) {
-    if(te.tank.getFluidAmount() == 0 || te.tank.getCapacity() == 0) {
+    FluidTankAnimated tank = te.tank;
+    if(tank.getFluidAmount() == 0 || tank.getCapacity() == 0) {
       return;
     }
 
-    float height = ((float)te.tank.getFluidAmount() - te.renderOffset) / (float)te.tank.getCapacity();
+    float height = ((float)tank.getFluidAmount() - tank.renderOffset) / (float)tank.getCapacity();
 
-    if(te.renderOffset > 1.2f || te.renderOffset < -1.2f) {
-      te.renderOffset -= (te.renderOffset / 12f + 0.1f) * partialTicks;
+    if(tank.renderOffset > 1.2f || tank.renderOffset < -1.2f) {
+      tank.renderOffset -= (tank.renderOffset / 12f + 0.1f) * partialTicks;
     }
     else {
-      te.renderOffset = 0;
+      tank.renderOffset = 0;
     }
 
     float yh = yMin + (yMax - yMin) * height;
 
     //GlStateManager.color(0.1f, 0.1f, 0.1f);
     //RenderUtil.renderFluidCuboid(te.tank.getFluid(), te.getPos(), x,y,z, xzMin, yMin, xzMin, xzMax, yh, xzMax);
-    FluidStack fluid = te.tank.getFluid();
+    FluidStack fluid = tank.getFluid();
     float progress = 0f;
     //if(te.renderOffset == 0) {
       progress = te.getCooldownProgress();
@@ -88,7 +90,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
       //b = (int)((float)b * (1f - progress));
       color = RenderUtil.compose(r, g, b, a);
     }
-    RenderUtil.renderFluidCuboid(te.tank.getFluid(), te.getPos(), x,y,z, xzMin, yMin, xzMin, xzMax, yh, xzMax, color);
+    RenderUtil.renderFluidCuboid(tank.getFluid(), te.getPos(), x,y,z, xzMin, yMin, xzMin, xzMax, yh, xzMax, color);
 
     // render item
     ItemStack stack = te.getCurrentResult();

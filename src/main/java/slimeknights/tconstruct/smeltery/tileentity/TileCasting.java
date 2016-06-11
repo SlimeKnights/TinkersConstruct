@@ -12,39 +12,64 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.common.PlayerHelper;
 import slimeknights.tconstruct.common.TinkerNetwork;
+import slimeknights.tconstruct.library.fluid.FluidHandlerCasting;
+import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.events.TinkerCastingEvent;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 
-public abstract class TileCasting extends TileTable implements ITickable, ISidedInventory, IFluidHandler {
+public abstract class TileCasting extends TileTable implements ITickable, ISidedInventory {
 
   // the internal fluidtank of the casting block
-  public FluidTank tank;
-  public float renderOffset;
+  public FluidTankAnimated tank;
+  public IFluidHandler fluidHandler;
   protected int timer; // timer for recipe cooldown
   protected CastingRecipe recipe; // current recipe
 
   public TileCasting() {
     super("casting", 2, 1); // 2 slots. 0 == input, 1 == output
     // initialize with empty tank
-    tank = new FluidTank(0);
+    tank = new FluidTankAnimated(0, this);
+    fluidHandler = new FluidHandlerCasting(this, tank);
 
     // use a SidedInventory Wrapper to respect the canInsert/Extract calls
     this.itemHandler = new SidedInvWrapper(this, null);
+  }
+
+  // capability
+  @Override
+  public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+    if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+      return true;
+    }
+    return super.hasCapability(capability, facing);
+  }
+
+  @SuppressWarnings("unchecked")
+  @Nonnull
+  @Override
+  public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+    if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+      return (T)fluidHandler;
+    }
+    return super.getCapability(capability, facing);
   }
 
   /* Inventory Management */
@@ -172,11 +197,25 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     return null;
   }
 
-  protected void reset() {
+  /** Sets the state for a new casting recipe, returns the fluid amount needed for casting */
+  public int initNewCasting(Fluid fluid, boolean setNewRecipe) {
+    CastingRecipe recipe = findRecipe(fluid);
+    if(recipe != null) {
+      if(setNewRecipe) {
+        this.recipe = recipe;
+      }
+      return recipe.getFluid().amount;
+    }
+    return 0;
+  }
+
+  /** Resets the current state completely */
+  public void reset() {
     timer = 0;
     recipe = null;
     tank.setCapacity(0);
     tank.setFluid(null);
+    tank.renderOffset = 0;
 
     if(worldObj != null && !worldObj.isRemote && worldObj instanceof WorldServer) {
       TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FluidUpdatePacket(pos, null));
@@ -190,6 +229,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
 
     if(fluid == null) {
       reset();
+      return;
     }
     else if(recipe == null) {
       recipe = findRecipe(fluid.getFluid());
@@ -198,112 +238,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
       }
     }
 
-    renderOffset += tank.getFluidAmount() - oldAmount;
-  }
-
-
-  /* Fluid Management */
-  @Override
-  public boolean canFill(EnumFacing from, Fluid fluid) {
-    // can only fill if no output in the inventory
-    if(isStackInSlot(1)) {
-      return false;
-    }
-    // can only fill if same fluid or empty and recipe present
-    if(tank.getFluidAmount() > 0) {
-      // if we have a fluid we also have a recipe
-      return tank.getFluid().getFluid() == fluid && tank.getFluidAmount() < tank.getCapacity();
-    }
-
-    return findRecipe(fluid) != null;
-  }
-
-  @Override
-  public boolean canDrain(EnumFacing from, Fluid fluid) {
-    // can only drain if cooldown hasn't started and fluid is there and it's the same
-    return timer == 0 && tank.getFluid() != null && tank.getFluid().getFluid() == fluid;
-  }
-
-  @Override
-  public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
-    // this is where all the action happens
-    if(resource == null || !canFill(from, resource.getFluid())) {
-      return 0;
-    }
-
-    // if empty, find a new recipe
-    if(this.tank.getFluidAmount() == 0) {
-      CastingRecipe recipe = findRecipe(resource.getFluid());
-      if(recipe == null) {
-        // no recipe found -> can't fill
-        return 0;
-      }
-
-      int capacity = recipe.getFluid().amount;
-      IFluidTank calcTank = new FluidTank(capacity);
-
-      // no extra checks needed for the tank since it's empty and we have to set the capacity anyway
-      if(doFill) {
-        this.recipe = recipe;
-        tank.setCapacity(capacity);
-        calcTank = tank;
-      }
-
-      int filled = calcTank.fill(resource, doFill);
-      if(filled > 0 && doFill) {
-        renderOffset = filled;
-        if(!worldObj.isRemote && worldObj instanceof WorldServer) {
-          TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FluidUpdatePacket(pos, tank.getFluid()));
-        }
-      }
-      return filled;
-    }
-
-    // non-empty tank. just try to fill
-    int filled = tank.fill(resource, doFill);
-    if(filled > 0 && doFill) {
-      renderOffset += filled;
-      if(!worldObj.isRemote && worldObj instanceof WorldServer) {
-        TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FluidUpdatePacket(pos, tank.getFluid()));
-      }
-    }
-
-    return filled;
-  }
-
-  @Override
-  public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
-    if(resource == null || tank.getFluidAmount() == 0) {
-      return null;
-    }
-    if(tank.getFluid().getFluid() != resource.getFluid()) {
-      return null;
-    }
-
-    // same fluid, k
-    return this.drain(from, resource.amount, doDrain);
-  }
-
-  @Override
-  public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
-    FluidStack amount = tank.drain(maxDrain, doDrain);
-    if(amount != null && doDrain) {
-      renderOffset = -maxDrain;
-      // if we're empty after the drain we reset the recipe
-      if(!worldObj.isRemote && worldObj instanceof WorldServer) {
-        TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FluidUpdatePacket(pos, tank.getFluid()));
-      }
-      if(tank.getFluidAmount() == 0) {
-        reset();
-      }
-    }
-
-    return amount;
-  }
-
-  @Override
-  public FluidTankInfo[] getTankInfo(EnumFacing from) {
-    return new FluidTankInfo[]{new FluidTankInfo(tank)};
+    tank.renderOffset += tank.getFluidAmount() - oldAmount;
   }
 
   /* Saving and Loading */
