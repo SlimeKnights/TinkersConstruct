@@ -156,8 +156,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
-  public BlockRenderLayer getBlockLayer()
-  {
+  public BlockRenderLayer getBlockLayer() {
     return BlockRenderLayer.CUTOUT;
   }
 
@@ -169,6 +168,21 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   @Override
   public boolean isOpaqueCube(IBlockState state) {
     return false;
+  }
+
+  @Override
+  public boolean hasComparatorInputOverride(IBlockState state) {
+    return true;
+  }
+
+  @Override
+  public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos) {
+    TileEntity te = world.getTileEntity(pos);
+    if(!(te instanceof TileTank)) {
+      return 0;
+    }
+
+    return ((TileTank) te).comparatorStrength();
   }
 
   public enum TankType implements IStringSerializable, EnumBlock.IEnumMeta {

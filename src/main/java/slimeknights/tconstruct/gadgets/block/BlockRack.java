@@ -332,4 +332,20 @@ public class BlockRack extends BlockTable {
   public RayTraceResult collisionRayTrace(IBlockState blockState, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Vec3d start, @Nonnull Vec3d end) {
     return this.rayTrace(pos, start, end, blockState.getBoundingBox(worldIn, pos));
   }
+
+  @Override
+  public boolean hasComparatorInputOverride(IBlockState state) {
+    return state.getValue(DRYING) == Boolean.TRUE;
+  }
+
+  // comparator stuffs
+  @Override
+  public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos) {
+    TileEntity te = world.getTileEntity(pos);
+    if(!(te instanceof TileDryingRack)) {
+      return 0;
+    }
+
+    return ((TileDryingRack) te).comparatorStrength();
+  }
 }

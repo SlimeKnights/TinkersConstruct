@@ -180,9 +180,23 @@ public class BlockCasting extends BlockInventory {
   @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
-  public BlockRenderLayer getBlockLayer()
-  {
+  public BlockRenderLayer getBlockLayer() {
     return BlockRenderLayer.CUTOUT;
+  }
+
+  @Override
+  public boolean hasComparatorInputOverride(IBlockState state) {
+    return true;
+  }
+
+  @Override
+  public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos) {
+    TileEntity te = world.getTileEntity(pos);
+    if(!(te instanceof TileCasting)) {
+      return 0;
+    }
+
+    return ((TileCasting) te).comparatorStrength();
   }
 
   @Override

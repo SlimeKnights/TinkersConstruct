@@ -55,4 +55,12 @@ public class FluidTankAnimated extends FluidTank {
       }
     }
   }
+
+  @Override
+  protected void onContentsChanged() {
+    // updates the tile entity for the sake of things that detect when contents change (such as comparators)
+    if(parent instanceof IFluidTankUpdater) {
+      ((IFluidTankUpdater) parent).onTankContentsChanged();
+    }
+  }
 }
