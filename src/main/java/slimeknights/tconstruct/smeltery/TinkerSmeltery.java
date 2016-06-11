@@ -249,8 +249,8 @@ public class TinkerSmeltery extends TinkerPulse {
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(searedTank, 1, BlockTank.TankType.WINDOW.getMeta()),
                                                "bgb", "bgb", "bgb", 'b', searedBrick, 'g', "blockGlass")); // Window
     // glass, requires clear glass rather than regular like the stained variants
-    GameRegistry.addRecipe(new ItemStack(searedGlass, 1, BlockSearedGlass.GlassType.GLASS.getMeta()),
-                           " b ", "bgb", " b ", 'b', searedBrick, 'g', TinkerCommons.blockClearGlass);
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(searedGlass, 1, BlockSearedGlass.GlassType.GLASS.getMeta()),
+                           " b ", "bgb", " b ", 'b', searedBrick, 'g', "blockGlass"));
 
     GameRegistry.addRecipe(new ItemStack(castingBlock, 1, BlockCasting.CastingType.TABLE.getMeta()),
                            "bbb", "b b", "b b", 'b', searedBrick); // Table
