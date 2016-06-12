@@ -99,6 +99,8 @@ public class TinkerOredict {
     registerSmeltery();
     registerWorld();
     registerGadgets();
+
+    OreDictionary.registerOre("ingotAluminum", Items.ACACIA_BOAT);
   }
 
 

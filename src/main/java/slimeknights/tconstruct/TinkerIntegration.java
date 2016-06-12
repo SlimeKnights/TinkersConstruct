@@ -64,8 +64,9 @@ public class TinkerIntegration extends TinkerPulse {
 
     integrate(TinkerMaterials.iron, TinkerFluids.iron, "Iron").toolforge();
     integrate(TinkerMaterials.pigiron, TinkerFluids.pigIron, "Pigiron").toolforge();
-    //integrate(TinkerMaterials.copper, TinkerFluids.copper, "Copper").toolforge();
-    //integrate(TinkerMaterials.bronze, TinkerFluids.bronze, "Bronze").toolforge();
+
+    // alubrass needs  both copper and aluminum
+    add(new MaterialIntegration(null, TinkerFluids.alubrass, "Alubrass", "ingotCopper", "ingotAluminum")).toolforge();
 
 
     integrate(TinkerMaterials.netherrack);
@@ -96,6 +97,19 @@ public class TinkerIntegration extends TinkerPulse {
     MinecraftForge.EVENT_BUS.register(this);
   }
 
+  public static boolean isIntegrated(Fluid fluid) {
+    String name = FluidRegistry.getFluidName(fluid);
+    if(name != null) {
+      for(MaterialIntegration integration : integrationList) {
+        if(integration.isIntegrated() && integration.fluid != null && name.equals(integration.fluid.getName())) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
   @Subscribe
   public void init(FMLInitializationEvent event) {
     handleIMCs();
@@ -119,24 +133,6 @@ public class TinkerIntegration extends TinkerPulse {
     for(MaterialIntegration integration : ImmutableList.copyOf(integrationList)) {
       // calling this multiple time is ok because it does nothing once it was successful
       integration.integrate();
-    }
-  }
-
-  @SubscribeEvent
-  public void onFluidRegister(FluidRegistry.FluidRegisterEvent event) {
-    // we're only interested in preInit
-    if(Loader.instance().hasReachedState(LoaderState.INITIALIZATION)) {
-      return;
-    }
-
-    // add alubrass if both copper and aluminum are present
-    if(FluidRegistry.isFluidRegistered(TinkerFluids.aluminum) && FluidRegistry.isFluidRegistered(TinkerFluids.copper)) {
-      if(alubrassIntegration == null) {
-        alubrassIntegration = integrate(TinkerFluids.alubrass, "Alubrass").toolforge();
-        alubrassIntegration.integrate();
-
-        TinkerSmeltery.castCreationFluids.add(new FluidStack(TinkerFluids.alubrass, Material.VALUE_Ingot));
-      }
     }
   }
 

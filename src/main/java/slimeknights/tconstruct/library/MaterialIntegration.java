@@ -19,7 +19,7 @@ public class MaterialIntegration {
   public Material material; // TCon material
   public Fluid fluid;
   public String oreSuffix; // oredict suffix, e.g. "Iron" -> "ingotIron", "blockIron",...
-  public String oreRequirement; // required oredict entry for this integration
+  public String[] oreRequirement; // required oredict entry for this integration
   private boolean integrated;
   private boolean toolforge = false;
 
@@ -36,10 +36,14 @@ public class MaterialIntegration {
   }
 
   public MaterialIntegration(String oreRequirement, Material material, Fluid fluid, String oreSuffix) {
+    this(material, fluid, oreSuffix, oreRequirement);
+  }
+
+  public MaterialIntegration(Material material, Fluid fluid, String oreSuffix, String... oreRequirement) {
     this.material = material;
     this.fluid = fluid;
     this.oreSuffix = oreSuffix;
-    this.oreRequirement = oreRequirement;
+    this.oreRequirement = oreRequirement[0] == null ? new String[0] : oreRequirement; // API backwards compatibility
 
     this.integrated = false;
   }
@@ -49,22 +53,29 @@ public class MaterialIntegration {
     return this;
   }
 
+  public boolean isIntegrated() {
+    return integrated;
+  }
+
   public void integrate() {
     if(integrated) {
       return;
     }
 
-    if(oreRequirement != null && !Config.forceRegisterAll) {
-      boolean found = false;
+    if(oreRequirement != null && oreRequirement.length > 0 && !Config.forceRegisterAll) {
+      int found = 0;
       // we use this method because it doesn't add empty entries to the oredict, even though it is less performant
       for(String ore : OreDictionary.getOreNames()) {
-        if(oreRequirement.equals(ore)) {
-          found = true;
-          break;
+        for(int i = 0; i < oreRequirement.length; i++) {
+          if(oreRequirement[i].equals(ore)) {
+            if(++found == oreRequirement.length) {
+              break;
+            }
+          }
         }
       }
       // prerequisite not fulfilled
-      if(!found) {
+      if(found < oreRequirement.length) {
         return;
       }
     }

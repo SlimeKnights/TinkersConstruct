@@ -39,6 +39,7 @@ import java.util.Set;
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.tconstruct.TinkerIntegration;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.config.Config;
@@ -490,36 +491,36 @@ public class TinkerSmeltery extends TinkerPulse {
                                  new FluidStack(TinkerFluids.ardite, 2));
 
     // 3 ingots copper + 1 ingot tin = 4 ingots bronze
-    if(FluidRegistry.isFluidRegistered(TinkerFluids.bronze) &&
-       FluidRegistry.isFluidRegistered(TinkerFluids.copper) &&
-       FluidRegistry.isFluidRegistered(TinkerFluids.tin)) {
+    if(TinkerIntegration.isIntegrated(TinkerFluids.bronze) &&
+       TinkerIntegration.isIntegrated(TinkerFluids.copper) &&
+       TinkerIntegration.isIntegrated(TinkerFluids.tin)) {
       TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.bronze, 4),
                                    new FluidStack(TinkerFluids.copper, 3),
                                    new FluidStack(TinkerFluids.tin, 1));
     }
 
     // 1 ingot gold + 1 ingot silver = 2 ingots electrum
-    if(FluidRegistry.isFluidRegistered(TinkerFluids.electrum) &&
-       FluidRegistry.isFluidRegistered(TinkerFluids.gold) &&
-       FluidRegistry.isFluidRegistered(TinkerFluids.silver)) {
+    if(TinkerIntegration.isIntegrated(TinkerFluids.electrum) &&
+       TinkerIntegration.isIntegrated(TinkerFluids.gold) &&
+       TinkerIntegration.isIntegrated(TinkerFluids.silver)) {
       TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.electrum, 2),
                                    new FluidStack(TinkerFluids.gold, 1),
                                    new FluidStack(TinkerFluids.silver, 1));
     }
 
     // 1 ingot copper + 3 ingots aluminium = 4 ingots alubrass
-    if(FluidRegistry.isFluidRegistered(TinkerFluids.alubrass) &&
-       FluidRegistry.isFluidRegistered(TinkerFluids.copper) &&
-       FluidRegistry.isFluidRegistered(TinkerFluids.aluminum)) {
+    if(TinkerIntegration.isIntegrated(TinkerFluids.alubrass) &&
+       TinkerIntegration.isIntegrated(TinkerFluids.copper) &&
+       TinkerIntegration.isIntegrated(TinkerFluids.aluminum)) {
       TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.alubrass, 4),
                                    new FluidStack(TinkerFluids.copper, 1),
                                    new FluidStack(TinkerFluids.aluminum, 3));
     }
 
     // 2 ingots copper + 1 ingot zinc = 3 ingots brass
-    if(FluidRegistry.isFluidRegistered(TinkerFluids.brass) &&
-       FluidRegistry.isFluidRegistered(TinkerFluids.copper) &&
-       FluidRegistry.isFluidRegistered(TinkerFluids.zinc)) {
+    if(TinkerIntegration.isIntegrated(TinkerFluids.brass) &&
+       TinkerIntegration.isIntegrated(TinkerFluids.copper) &&
+       TinkerIntegration.isIntegrated(TinkerFluids.zinc)) {
       TinkerRegistry.registerAlloy(new FluidStack(TinkerFluids.brass, 3),
                                    new FluidStack(TinkerFluids.copper, 2),
                                    new FluidStack(TinkerFluids.zinc, 1));
