@@ -102,6 +102,10 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
     while(toRide.isBeingRidden() && count < MAX_ENTITY_STACK) {
       toRide = toRide.getPassengers().get(0);
       count++;
+      // don't allow more than 1 player, that can easily cause endless loops with riding detection for some reason.
+      if(toRide instanceof EntityPlayer && target instanceof EntityPlayer) {
+        return false;
+      }
     }
 
     // can only ride one entity each
