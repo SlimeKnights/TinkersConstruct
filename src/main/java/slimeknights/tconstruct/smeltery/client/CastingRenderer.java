@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -105,7 +106,9 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
 
       // align item orientation with casting tile orientation
       GlStateManager.rotate(-90 * te.getFacing().getHorizontalIndex(), 0, 1, 0);
-      GlStateManager.rotate(-90, 1, 0, 0);
+      if(!(stack.getItem() instanceof ItemBlock)) {
+        GlStateManager.rotate(-90, 1, 0, 0);
+      }
 
       //GlStateManager.blendFunc(GL11.GL_CONSTANT_ALPHA, GL11.GL_CONSTANT_ALPHA);
       //GlStateManager.blendFunc(GL11.GL_CONSTANT_ALPHA, GL11.GL_DST_ALPHA);
@@ -138,6 +141,8 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
 
     public Basin() {
       super(4 / 16f, 1f, 2 / 16f, 14 / 16f);
+
+      this.xzScale = 0.751f;
     }
   }
 }
