@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 
-import static slimeknights.tconstruct.library.materials.AbstractMaterialStats.df;
+import static slimeknights.tconstruct.library.Util.df;
 import static slimeknights.tconstruct.library.materials.HeadMaterialStats.COLOR_Durability;
 
 /**

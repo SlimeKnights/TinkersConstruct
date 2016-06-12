@@ -13,9 +13,7 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.tileentity.IProgress;
-import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 
 public class ProgressDataProvider implements IWailaDataProvider {
 
@@ -31,12 +29,12 @@ public class ProgressDataProvider implements IWailaDataProvider {
 
   @Override
   public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-    if (config.getConfig(Waila.CONFIG_CASTING) && accessor.getTileEntity() instanceof IProgress)
+    if (config.getConfig(Waila.CONFIG_PROGRESS) && accessor.getTileEntity() instanceof IProgress)
     {
       IProgress te = (IProgress) accessor.getTileEntity();
       float progress = te.getProgress();
       if(progress > 0f) {
-        currenttip.add(Util.translateFormatted("gui.waila.casting.progress", AbstractMaterialStats.dfPercent.format(progress)));
+        currenttip.add(Util.translateFormatted("gui.waila.casting.progress", Util.dfPercent.format(progress)));
       }
     }
     return currenttip;

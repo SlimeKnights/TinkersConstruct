@@ -9,7 +9,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import java.util.List;
 
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
@@ -40,6 +39,6 @@ public class ModNecrotic extends ModifierTrait {
     String loc = String.format(LOC_Extra, getModifierIdentifier());
     float amount = lifesteal(modifierTag);
 
-    return ImmutableList.of(Util.translateFormatted(loc, AbstractMaterialStats.dfPercent.format(amount)));
+    return ImmutableList.of(Util.translateFormatted(loc, Util.dfPercent.format(amount)));
   }
 }

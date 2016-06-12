@@ -2,14 +2,9 @@ package slimeknights.tconstruct.library.materials;
 
 import net.minecraft.util.text.TextFormatting;
 
-import java.text.DecimalFormat;
-
 import slimeknights.tconstruct.library.Util;
 
 public abstract class AbstractMaterialStats implements IMaterialStats {
-
-  public static final DecimalFormat df = new DecimalFormat("#,###,###.##");
-  public static final DecimalFormat dfPercent = new DecimalFormat("#%");
 
   protected final String materialType;
 
@@ -35,7 +30,7 @@ public abstract class AbstractMaterialStats implements IMaterialStats {
     return String.format("%s: %s%s",
                          Util.translate(loc),
                          color,
-                         df.format(number))
+                         Util.df.format(number))
            + TextFormatting.RESET;
   }
 }

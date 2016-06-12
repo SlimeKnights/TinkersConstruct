@@ -17,6 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
+import java.text.DecimalFormat;
 import java.util.Locale;
 
 import slimeknights.mantle.util.RecipeMatchRegistry;
@@ -25,6 +26,9 @@ public class Util {
 
   public static final String MODID = "tconstruct";
   public static final String RESOURCE = MODID.toLowerCase(Locale.US);
+
+  public static final DecimalFormat df = new DecimalFormat("#,###,###.##");
+  public static final DecimalFormat dfPercent = new DecimalFormat("#%");
 
   public static Logger getLogger(String type) {
     String log = MODID;

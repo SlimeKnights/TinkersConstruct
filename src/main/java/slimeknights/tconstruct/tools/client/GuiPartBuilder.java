@@ -21,7 +21,6 @@ import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
-import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -119,7 +118,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
       int count = 0;
       RecipeMatch.Match match = material.matchesRecursively(new ItemStack[]{container.getSlot(3).getStack(), container.getSlot(4).getStack()});
       if(match != null) {
-        amount = AbstractMaterialStats.df.format(match.amount / (float) Material.VALUE_Ingot);
+        amount = Util.df.format(match.amount / (float) Material.VALUE_Ingot);
 
         Item part = Pattern.getPartFromTag(container.getSlot(2).getStack());
         if(part instanceof IToolPart && match.amount < ((IToolPart) part).getCost()) {

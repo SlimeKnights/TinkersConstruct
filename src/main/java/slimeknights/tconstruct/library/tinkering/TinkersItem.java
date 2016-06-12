@@ -437,7 +437,6 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     boolean ctrl = Util.isCtrlKeyDown();
     // modifiers
     if(!shift && !ctrl) {
-      DecimalFormat df = new DecimalFormat("#.##");
       getTooltip(stack, tooltip);
 
       tooltip.add("");
@@ -447,7 +446,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
       tooltip.add(TextFormatting.BLUE +
                   I18n.translateToLocalFormatted("attribute.modifier.plus.0",
-                                                 df.format(ToolHelper.getActualDamage(stack, playerIn)),
+                                                 Util.df.format(ToolHelper.getActualDamage(stack, playerIn)),
                                                  I18n
                                                      .translateToLocal("attribute.name.generic.attackDamage")));
     }

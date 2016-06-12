@@ -21,8 +21,6 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 
 public class Pattern extends Item implements IPattern {
 
-  public static final DecimalFormat df = new DecimalFormat("#.##");
-
   public static final String TAG_PARTTYPE = "PartType";
 
   public Pattern() {
@@ -86,7 +84,7 @@ public class Pattern extends Item implements IPattern {
     Item part = getPartFromTag(stack);
     if(part != null && part instanceof IToolPart) {
       float cost = ((IToolPart) part).getCost() / (float) Material.VALUE_Ingot;
-      tooltip.add(Util.translateFormatted("tooltip.pattern.cost", df.format(cost)));
+      tooltip.add(Util.translateFormatted("tooltip.pattern.cost", Util.df.format(cost)));
     }
   }
 

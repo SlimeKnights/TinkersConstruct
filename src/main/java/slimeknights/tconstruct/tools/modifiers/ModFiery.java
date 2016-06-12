@@ -10,7 +10,6 @@ import net.minecraft.util.DamageSource;
 import java.util.List;
 
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
@@ -59,8 +58,8 @@ public class ModFiery extends ModifierTrait {
     float dmg = getFireDamage(data);
 
     return ImmutableList.of(
-        Util.translateFormatted(loc, AbstractMaterialStats.df.format(dmg)),
-        Util.translateFormatted(loc + 2, AbstractMaterialStats.df.format(duration))
+        Util.translateFormatted(loc, Util.df.format(dmg)),
+        Util.translateFormatted(loc + 2, Util.df.format(duration))
     );
   }
 }

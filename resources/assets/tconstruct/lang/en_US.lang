@@ -754,7 +754,9 @@ gui.waila.casting.progress=Progress: %s
 gui.waila.casting.recipe=Recipe: %s
 
 option.tconstruct.tank=Tank Liquid
-option.tconstruct.casting=Casting Progress
+option.tconstruct.casting=Casting Recipe
+option.tconstruct.progress=Recipe Progress
+
 
 # Config
 config.synced.restart=Your configuration has been updated to match the server. Restart Minecraft.

@@ -8,7 +8,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import java.util.List;
 
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
@@ -93,6 +92,6 @@ public class ModHaste extends ToolModifier {
   public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
     String loc = String.format(LOC_Extra, getIdentifier());
     float bonus = getSpeedBonus(ModifierNBT.readInteger(modifierTag));
-    return ImmutableList.of(Util.translateFormatted(loc, AbstractMaterialStats.dfPercent.format(bonus)));
+    return ImmutableList.of(Util.translateFormatted(loc, Util.dfPercent.format(bonus)));
   }
 }
