@@ -32,7 +32,7 @@ public class TankDataProvider implements IWailaDataProvider {
 
   @Override
   public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-    if(config.getConfig(Waila.CONFIG_TANK, true)) {
+    if(config.getConfig(Waila.CONFIG_TANK)) {
 
       TileEntity te = accessor.getTileEntity();
 

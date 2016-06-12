@@ -32,9 +32,9 @@ public class Waila {
 
   public static void wailaCallback(IWailaRegistrar registrar) {
     // config entries
-    registrar.addConfig(TConstruct.modName, CONFIG_TANK);
-    registrar.addConfig(TConstruct.modName, CONFIG_CASTING);
-    registrar.addConfig(TConstruct.modName, CONFIG_PROGRESS);
+    registrar.addConfig(TConstruct.modName, CONFIG_TANK, true);
+    registrar.addConfig(TConstruct.modName, CONFIG_CASTING, true);
+    registrar.addConfig(TConstruct.modName, CONFIG_PROGRESS, true);
 
     // Casting info
     CastingDataProvider castingDataProvider = new CastingDataProvider();
