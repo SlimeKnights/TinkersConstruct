@@ -223,7 +223,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   protected void interactWithEntitiesInside() {
     // find all entities inside the smeltery
 
-    AxisAlignedBB bb = info.getBoundingBox().contract(1);
+    AxisAlignedBB bb = info.getBoundingBox().contract(1).offset(0, 0.5, 0).expand(0, 0.5, 0);
 
     List<Entity> entities = worldObj.getEntitiesWithinAABB(Entity.class, bb);
     for(Entity entity : entities) {
