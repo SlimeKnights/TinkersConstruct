@@ -9,6 +9,7 @@ import mcp.mobius.waila.api.IWailaRegistrar;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.tileentity.IProgress;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
 import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
@@ -22,6 +23,7 @@ public class Waila {
 
   static final String CONFIG_TANK = Util.prefix("tank");
   static final String CONFIG_CASTING = Util.prefix("casting");
+  static final String CONFIG_PROGRESS = Util.prefix("progress");
 
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
@@ -32,17 +34,9 @@ public class Waila {
     // config entries
     registrar.addConfig(TConstruct.modName, CONFIG_TANK);
     registrar.addConfig(TConstruct.modName, CONFIG_CASTING);
+    registrar.addConfig(TConstruct.modName, CONFIG_PROGRESS);
 
-        /*
-        // Configs
-        registrar.addConfig("Tinkers' Construct", "tcon.searedtank");
-        registrar.addConfig("Tinkers' Construct", "tcon.castingchannel");
-        registrar.addConfig("Tinkers' Construct", "tcon.basin");
-        registrar.addConfig("Tinkers' Construct", "tcon.table");
-        registrar.addConfig("Tinkers' Construct", "tcon.smeltery");
-*/
-
-    // Casting progress
+    // Casting info
     CastingDataProvider castingDataProvider = new CastingDataProvider();
     registrar.registerBodyProvider(castingDataProvider, TileCasting.class);
 
@@ -50,6 +44,10 @@ public class Waila {
     TankDataProvider tankDataProvider = new TankDataProvider();
     registrar.registerBodyProvider(tankDataProvider, TileTank.class);
     registrar.registerBodyProvider(tankDataProvider, TileCasting.class);
+
+    // Progress
+    ProgressDataProvider progressDataProvider = new ProgressDataProvider();
+    registrar.registerBodyProvider(progressDataProvider, IProgress.class);
 
     //registrar.registerBodyProvider(new CastingChannelDataProvider(), CastingChannelLogic.class);
     //registrar.registerBodyProvider(new EssenceExtractorDataProvider(), EssenceExtractor.class);

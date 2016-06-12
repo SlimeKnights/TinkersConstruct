@@ -13,8 +13,9 @@ import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.tileentity.IProgress;
 
-public class TileDryingRack extends TileItemRack implements ITickable, ISidedInventory {
+public class TileDryingRack extends TileItemRack implements ITickable, ISidedInventory, IProgress {
 
   int currentTime;
   int maxTime;
@@ -27,11 +28,19 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
   }
 
   @Override
+  public float getProgress() {
+    if(getStackInSlot(0) != null && currentTime < maxTime) {
+      return (float) currentTime / (float) maxTime;
+    }
+    return 0;
+  }
+
+  @Override
   public void update() {
     //only run on the server side and if a recipe is available
-    if(!worldObj.isRemote && maxTime > 0 && currentTime < maxTime) {
+    if(maxTime > 0 && currentTime < maxTime) {
       currentTime++;
-      if(currentTime >= maxTime) {
+      if(currentTime >= maxTime && !worldObj.isRemote) {
         // add the result to slot 1 and remove the original from slot 0
         setInventorySlotContents(1, TinkerRegistry.getDryingResult(getStackInSlot(0)));
         setInventorySlotContents(0, null);

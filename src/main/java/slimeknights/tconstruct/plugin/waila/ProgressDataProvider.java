@@ -14,9 +14,10 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
+import slimeknights.tconstruct.library.tileentity.IProgress;
 import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 
-public class CastingDataProvider implements IWailaDataProvider {
+public class ProgressDataProvider implements IWailaDataProvider {
 
   @Override
   public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
@@ -30,12 +31,12 @@ public class CastingDataProvider implements IWailaDataProvider {
 
   @Override
   public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-    if (config.getConfig(Waila.CONFIG_CASTING) && accessor.getTileEntity() instanceof TileCasting)
+    if (config.getConfig(Waila.CONFIG_CASTING) && accessor.getTileEntity() instanceof IProgress)
     {
-      TileCasting te = (TileCasting) accessor.getTileEntity();
-      ItemStack output = te.getCurrentResult();
-      if(output != null) {
-        currenttip.add(Util.translateFormatted("gui.waila.casting.recipe", output.getDisplayName()));
+      IProgress te = (IProgress) accessor.getTileEntity();
+      float progress = te.getProgress();
+      if(progress > 0f) {
+        currenttip.add(Util.translateFormatted("gui.waila.casting.progress", AbstractMaterialStats.dfPercent.format(progress)));
       }
     }
     return currenttip;

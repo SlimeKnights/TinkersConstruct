@@ -28,11 +28,12 @@ import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.fluid.FluidHandlerCasting;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
+import slimeknights.tconstruct.library.tileentity.IProgress;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.events.TinkerCastingEvent;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 
-public abstract class TileCasting extends TileTable implements ITickable, ISidedInventory {
+public abstract class TileCasting extends TileTable implements ITickable, ISidedInventory, IProgress {
 
   // the internal fluidtank of the casting block
   public FluidTankAnimated tank;
@@ -175,7 +176,8 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     }
   }
 
-  public float getCooldownProgress() {
+  @Override
+  public float getProgress() {
     if(recipe == null || tank.getFluidAmount() == 0) {
       return 0f;
     }
