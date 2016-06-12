@@ -9,6 +9,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -84,7 +85,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     IFluidHandler fluidHandler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side);
     FluidUtil.interactWithFluidHandler(heldItem, fluidHandler, playerIn);
     // prevent interaction so stuff like buckets and other things don't place the liquid block
-    return true;
+    return heldItem != null && !(heldItem.getItem() instanceof ItemBlock);
   }
 
   /* Block breaking retains the liquid */
