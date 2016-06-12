@@ -34,6 +34,7 @@ import slimeknights.tconstruct.library.tools.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.plugin.ChiselAndBits;
 import slimeknights.tconstruct.plugin.CraftingTweaks;
+import slimeknights.tconstruct.plugin.waila.Waila;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -49,7 +50,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 
 
 @Mod(modid = TConstruct.modID,
-    name = "Tinkers' Construct",
+    name = TConstruct.modName,
     version = TConstruct.modVersion,
     guiFactory = "slimeknights.tconstruct.common.config.ConfigGui$ConfigGuiFactory",
     dependencies = "required-after:Forge@[12.17.0.1908,);"
@@ -59,6 +60,7 @@ public class TConstruct {
 
   public static final String modID = Util.MODID;
   public static final String modVersion = "${version}";
+  public static final String modName = "Tinkers' Construct";
 
   public static final Logger log = LogManager.getLogger(modID);
   public static final Random random = new Random();
@@ -88,6 +90,7 @@ public class TConstruct {
     //pulseManager.registerPulse(new TinkerVintageCraft());
     pulseManager.registerPulse(new ChiselAndBits());
     pulseManager.registerPulse(new CraftingTweaks());
+    pulseManager.registerPulse(new Waila());
 
     pulseManager.registerPulse(new TinkerDebug());
   }

@@ -746,6 +746,16 @@ gui.jei.casting.title=Casting
 gui.jei.casting.consume=Consumes cast!
 gui.jei.drying.title=Drying
 
+# WAILA Plugin
+gui.waila.tank.fluid=Liquid: %s
+gui.waila.tank.amount=Amount: %d / %d mb
+gui.waila.tank.empty=Empty
+gui.waila.casting.progress=Progress: %s
+gui.waila.casting.recipe=Recipe: %s
+
+option.tconstruct.tank=Tank Liquid
+option.tconstruct.casting=Casting Progress
+
 # Config
 config.synced.restart=Your configuration has been updated to match the server. Restart Minecraft.
 config.synced.ok=Configuration synced with server.
