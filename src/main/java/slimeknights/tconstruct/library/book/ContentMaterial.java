@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -132,7 +133,8 @@ public class ContentMaterial extends TinkerPage {
     for(ITrait trait : traits) {
       TextData text = new TextData(trait.getLocalizedName());
       text.tooltip = LocUtils.convertNewlines(material.getTextColor() + trait.getLocalizedDesc()).split("\n");
-      text.italic = true;
+      text.color = TextFormatting.DARK_GRAY.getFriendlyName();
+      text.underlined = true;
       lineData.add(text);
       lineData.add(new TextData("\n"));
     }
