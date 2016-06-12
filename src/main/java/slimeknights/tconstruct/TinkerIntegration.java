@@ -210,7 +210,7 @@ public class TinkerIntegration extends TinkerPulse {
       // needs at least 3 fluids
       if(fluids.size() > 2) {
         FluidStack output = fluids.get(0);
-        FluidStack[] input = new FluidStack[fluids.size()-1];
+        FluidStack[] input = new FluidStack[fluids.size() - 1];
         input = fluids.subList(1, fluids.size()).toArray(input);
         TinkerRegistry.registerAlloy(output, input);
         log.debug("Added integration alloy: " + output.getLocalizedName());

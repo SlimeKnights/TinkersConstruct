@@ -42,7 +42,7 @@ public class TileTank extends TileSmelteryComponent implements IFluidTankUpdater
   @Override
   public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-      return (T)tank;
+      return (T) tank;
     }
     return super.getCapability(capability, facing);
   }

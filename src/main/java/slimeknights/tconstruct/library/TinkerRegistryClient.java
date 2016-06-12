@@ -18,7 +18,8 @@ public final class TinkerRegistryClient {
   // the logger for the library
   public static final Logger log = Util.getLogger("API-Client");
 
-  private TinkerRegistryClient() {}
+  private TinkerRegistryClient() {
+  }
 
   /*---------------------------------------------------------------------------
   | GUI & CRAFTING                                                            |

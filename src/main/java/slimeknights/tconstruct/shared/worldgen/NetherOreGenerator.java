@@ -47,12 +47,12 @@ public class NetherOreGenerator implements IWorldGenerator {
 
   public void generateNetherOre(WorldGenMinable gen, int rate, Random random, int chunkX, int chunkZ, World world) {
     BlockPos pos;
-    for (int i = 0; i < rate; i += 2) {
-      pos = new BlockPos(chunkX*16, 32, chunkZ*16);
+    for(int i = 0; i < rate; i += 2) {
+      pos = new BlockPos(chunkX * 16, 32, chunkZ * 16);
       pos = pos.add(random.nextInt(16), random.nextInt(64), random.nextInt(16));
       gen.generate(world, random, pos);
 
-      pos = new BlockPos(chunkX*16, 0, chunkZ*16);
+      pos = new BlockPos(chunkX * 16, 0, chunkZ * 16);
       pos = pos.add(random.nextInt(16), random.nextInt(128), random.nextInt(16));
       gen.generate(world, random, pos);
     }

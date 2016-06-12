@@ -29,21 +29,24 @@ public class SimpleColoredTexture extends AbstractColoredTexture {
     for(int x = 0; x < width; ++x) {
       for(int y = 0; y < height; ++y) {
         int c = data[0][y * width + x];
-        if(RenderUtil.alpha(c) == 0)
+        if(RenderUtil.alpha(c) == 0) {
           continue;
+        }
         int b = getPerceptualBrightness(c);
-        if(b < min)
+        if(b < min) {
           min = b;
-        if(b > max)
+        }
+        if(b > max) {
           max = b;
+        }
       }
     }
 
     // calculate the actual limits where we change color
-    int d = max-min;
+    int d = max - min;
     d /= 2;
-    minBrightness = Math.max(min+1, min + (int)(d * 0.4f));
-    maxBrightness = Math.min(max-1, max - (int)(d * 0.3f));
+    minBrightness = Math.max(min + 1, min + (int) (d * 0.4f));
+    maxBrightness = Math.min(max - 1, max - (int) (d * 0.3f));
 
     super.processData(data);
   }

@@ -38,8 +38,8 @@ public class TilePartBuilder extends TileTable implements IInventoryGui {
   protected IExtendedBlockState setInventoryDisplay(IExtendedBlockState state) {
     PropertyTableItem.TableItems toDisplay = new PropertyTableItem.TableItems();
     float c = 0.2f;
-    float[] x = new float[] {c, -c, c, -c};
-    float[] y = new float[] {-c, -c, c, c};
+    float[] x = new float[]{c, -c, c, -c};
+    float[] y = new float[]{-c, -c, c, c};
     for(int i = 0; i < 4; i++) {
       PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i), this.worldObj, null);
       if(item != null) {
@@ -49,7 +49,7 @@ public class TilePartBuilder extends TileTable implements IInventoryGui {
 
         // correct itemblock because scaling
         if(getStackInSlot(i).getItem() instanceof ItemBlock) {
-          item.y = -(1f - item.s)/2f;
+          item.y = -(1f - item.s) / 2f;
         }
 
         //item.s *= 2/5f;

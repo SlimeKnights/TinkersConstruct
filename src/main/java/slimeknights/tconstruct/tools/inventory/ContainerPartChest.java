@@ -33,7 +33,7 @@ public class ContainerPartChest extends ContainerTinkerStation<TilePartChest> {
 
       // add the theoretically possible slots
       while(this.inventorySlots.size() < TileTinkerChest.MAX_INVENTORY) {
-        this.addSlotToContainer(createSlot(itemHandler, this.inventorySlots.size(), 0,0));
+        this.addSlotToContainer(createSlot(itemHandler, this.inventorySlots.size(), 0, 0));
       }
     }
 
@@ -45,6 +45,7 @@ public class ContainerPartChest extends ContainerTinkerStation<TilePartChest> {
 
   // slot that only accepts parts
   public static class PartSlot extends SlotItemHandler {
+
     private final TilePartChest tile;
 
     public PartSlot(TilePartChest tile, int index, int xPosition, int yPosition) {

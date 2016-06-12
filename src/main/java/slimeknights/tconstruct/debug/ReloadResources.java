@@ -23,7 +23,8 @@ public class ReloadResources extends CommandBase {
   }
 
   @Override
-  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
+  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args)
+      throws CommandException {
     if(sender.getEntityWorld().isRemote) {
       Minecraft.getMinecraft().refreshResources();
     }

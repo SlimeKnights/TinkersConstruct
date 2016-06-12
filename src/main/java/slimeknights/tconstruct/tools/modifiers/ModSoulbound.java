@@ -34,7 +34,7 @@ public class ModSoulbound extends ToolModifier {
   // HIGH priority so we do it before other possibly death-inventory-modifying mods
   @SubscribeEvent(priority = EventPriority.HIGH)
   public void onPlayerDeath(PlayerDropsEvent event) {
-    if (event.getEntityPlayer() == null || event.getEntityPlayer() instanceof FakePlayer || event.isCanceled()) {
+    if(event.getEntityPlayer() == null || event.getEntityPlayer() instanceof FakePlayer || event.isCanceled()) {
       return;
     }
     if(event.getEntityPlayer().worldObj.getGameRules().getBoolean("keepInventory")) {
@@ -42,7 +42,7 @@ public class ModSoulbound extends ToolModifier {
     }
 
     ListIterator<EntityItem> iter = event.getDrops().listIterator();
-    while (iter.hasNext()) {
+    while(iter.hasNext()) {
       EntityItem ei = iter.next();
       ItemStack stack = ei.getEntityItem();
       // find soulbound items
@@ -57,7 +57,7 @@ public class ModSoulbound extends ToolModifier {
   // On respawn we copy the items out of the players corpse, into the new player
   @SubscribeEvent(priority = EventPriority.HIGH)
   public void onPlayerClone(PlayerEvent.Clone evt) {
-    if (!evt.isWasDeath() || evt.isCanceled()) {
+    if(!evt.isWasDeath() || evt.isCanceled()) {
       return;
     }
     if(evt.getOriginal() == null || evt.getEntityPlayer() == null || evt.getEntityPlayer() instanceof FakePlayer) {
@@ -67,7 +67,7 @@ public class ModSoulbound extends ToolModifier {
       return;
     }
 
-    for (int i = 0; i < evt.getOriginal().inventory.mainInventory.length; i++) {
+    for(int i = 0; i < evt.getOriginal().inventory.mainInventory.length; i++) {
       ItemStack stack = evt.getOriginal().inventory.mainInventory[i];
       if(stack != null && TinkerUtil.hasModifier(stack.getTagCompound(), this.identifier)) {
         evt.getEntityPlayer().inventory.addItemStackToInventory(stack);

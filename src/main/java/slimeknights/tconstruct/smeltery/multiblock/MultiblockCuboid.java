@@ -189,9 +189,9 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
 
     // validate the inside
     List<BlockPos> blocks = Lists.newArrayList();
-    for(int x = edges[1]+1; x < edges[3]; x++) {
-      for(int z = edges[2]+1; z < edges[0]; z++) {
-        blocks.add(center.add(x, 0 ,z));
+    for(int x = edges[1] + 1; x < edges[3]; x++) {
+      for(int z = edges[2] + 1; z < edges[0]; z++) {
+        blocks.add(center.add(x, 0, z));
       }
     }
     for(BlockPos pos : blocks) {
@@ -205,11 +205,11 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
 
     // validate the 4 sides
     blocks.clear();
-    for(int x = edges[1]+1; x < edges[3]; x++) {
+    for(int x = edges[1] + 1; x < edges[3]; x++) {
       blocks.add(center.add(x, 0, edges[2]));
       blocks.add(center.add(x, 0, edges[0]));
     }
-    for(int z = edges[2]+1; z < edges[0]; z++) {
+    for(int z = edges[2] + 1; z < edges[0]; z++) {
       blocks.add(center.add(edges[1], 0, z));
       blocks.add(center.add(edges[3], 0, z));
     }

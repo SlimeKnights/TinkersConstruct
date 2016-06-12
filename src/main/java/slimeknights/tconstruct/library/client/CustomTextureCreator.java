@@ -235,7 +235,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
             partPatternTexture = constructor.newInstance(partTexture.toString(), baseTexture, partPatternLocation);
             if(partModel instanceof IPatternOffset) {
               IPatternOffset offset = (IPatternOffset) partModel;
-              ((TextureColoredTexture)partPatternTexture).setOffset(offset.getXOffset(), offset.getYOffset());
+              ((TextureColoredTexture) partPatternTexture).setOffset(offset.getXOffset(), offset.getYOffset());
             }
             map.setTextureEntry(partPatternLocation, partPatternTexture);
           }

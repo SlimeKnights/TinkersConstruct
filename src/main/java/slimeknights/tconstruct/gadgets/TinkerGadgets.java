@@ -88,7 +88,7 @@ public class TinkerGadgets extends TinkerPulse {
     rack = registerBlock(new ItemBlockRack(new BlockRack()), "rack");
     driedClay = registerEnumBlock(new BlockDriedClay(), "dried_clay");
     driedClaySlab = registerEnumBlockSlab(new BlockDriedClaySlab(), "dried_clay_slab");
-    
+
     driedClayStairs = registerBlockStairsFrom(driedClay, BlockDriedClay.DriedClayType.CLAY, "dried_clay_stairs");
     driedBrickStairs = registerBlockStairsFrom(driedClay, BlockDriedClay.DriedClayType.BRICK, "dried_brick_stairs");
 
@@ -159,15 +159,15 @@ public class TinkerGadgets extends TinkerPulse {
     // Drying Rack
     GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres("slabWood"), rack, 1, "www", 'w', "slabWood"));
     GameRegistry.addRecipe(BlockTable.createItemstack(rack, 1, TinkerCommons.slabFirewood, BlockFirewood.FirewoodType.LAVAWOOD.getMeta()),
-        "www", 'w', new ItemStack(TinkerCommons.slabFirewood, 1, BlockFirewood.FirewoodType.LAVAWOOD.getMeta()));
+                           "www", 'w', new ItemStack(TinkerCommons.slabFirewood, 1, BlockFirewood.FirewoodType.LAVAWOOD.getMeta()));
 
     // Dried Bricks
     ItemStack stackDriedClay = new ItemStack(driedClay, 1, BlockDriedClay.DriedClayType.CLAY.getMeta());
     ItemStack stackDriedBrick = new ItemStack(driedClay, 1, BlockDriedClay.DriedClayType.BRICK.getMeta());
-    
+
     GameRegistry.addRecipe(stackDriedBrick, "bb", "bb", 'b', TinkerCommons.driedBrick);
     GameRegistry.addShapedRecipe(new ItemStack(driedClaySlab, 1, BlockDriedClay.DriedClayType.BRICK.getMeta()), "bb", 'b', TinkerCommons.driedBrick);
-    
+
     addSlabRecipe(new ItemStack(driedClaySlab, 1, BlockDriedClay.DriedClayType.CLAY.getMeta()), stackDriedClay);
     addSlabRecipe(new ItemStack(driedClaySlab, 1, BlockDriedClay.DriedClayType.BRICK.getMeta()), stackDriedBrick);
     addStairRecipe(driedClayStairs, stackDriedClay);
@@ -196,7 +196,7 @@ public class TinkerGadgets extends TinkerPulse {
 
     // throwballs
     ItemStack glowball = new ItemStack(throwball, 8, ItemThrowball.ThrowballType.GLOW.ordinal());
-    GameRegistry.addRecipe(new ShapedOreRecipe(glowball, "SSS","SGS", "SSS", 'S', Items.SNOWBALL, 'G', "dustGlowstone"));
+    GameRegistry.addRecipe(new ShapedOreRecipe(glowball, "SSS", "SGS", "SSS", 'S', Items.SNOWBALL, 'G', "dustGlowstone"));
 
     ItemStack efln = new ItemStack(throwball, 1, ItemThrowball.ThrowballType.EFLN.ordinal());
     GameRegistry.addShapelessRecipe(efln, Items.FLINT, Items.GUNPOWDER);

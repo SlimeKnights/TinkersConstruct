@@ -58,16 +58,17 @@ public class CompareVanilla extends CommandBase {
   }
 
   @Override
-  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
+  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args)
+      throws CommandException {
     ImmutableList<Material> woodMaterials = ImmutableList.of(TinkerMaterials.wood, TinkerMaterials.wood, TinkerMaterials.wood);
     ImmutableList<Material> stoneMaterials = ImmutableList.of(TinkerMaterials.wood, TinkerMaterials.stone, TinkerMaterials.stone);
     ImmutableList<Material> ironMaterials = ImmutableList.of(TinkerMaterials.wood, TinkerMaterials.iron, TinkerMaterials.iron);
     ImmutableList<Material> cobaltMaterials = ImmutableList.of(TinkerMaterials.wood, TinkerMaterials.cobalt, TinkerMaterials.cobalt);
     ImmutableList<Material> manyMaterials = ImmutableList.of(TinkerMaterials.wood, TinkerMaterials.manyullyn, TinkerMaterials.manyullyn);
     // Pickaxe
-    ItemStack wood =  TinkerTools.pickaxe.buildItem(woodMaterials);
+    ItemStack wood = TinkerTools.pickaxe.buildItem(woodMaterials);
     ItemStack stone = TinkerTools.pickaxe.buildItem(stoneMaterials);
-    ItemStack iron =  TinkerTools.pickaxe.buildItem(ironMaterials);
+    ItemStack iron = TinkerTools.pickaxe.buildItem(ironMaterials);
     ItemStack extra = TinkerTools.pickaxe.buildItem(cobaltMaterials);
 
     testTools(Blocks.COBBLESTONE,
@@ -75,9 +76,9 @@ public class CompareVanilla extends CommandBase {
               new ItemStack(Items.WOODEN_PICKAXE), new ItemStack(Items.STONE_PICKAXE), new ItemStack(Items.IRON_PICKAXE),
               new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.GOLDEN_PICKAXE));
 
-    wood =  TinkerTools.shovel.buildItem(woodMaterials);
+    wood = TinkerTools.shovel.buildItem(woodMaterials);
     stone = TinkerTools.shovel.buildItem(stoneMaterials);
-    iron =  TinkerTools.shovel.buildItem(ironMaterials);
+    iron = TinkerTools.shovel.buildItem(ironMaterials);
     extra = TinkerTools.shovel.buildItem(cobaltMaterials);
 
     testTools(Blocks.DIRT,
@@ -85,9 +86,9 @@ public class CompareVanilla extends CommandBase {
               new ItemStack(Items.WOODEN_SHOVEL), new ItemStack(Items.STONE_SHOVEL), new ItemStack(Items.IRON_SHOVEL),
               new ItemStack(Items.DIAMOND_SHOVEL), new ItemStack(Items.GOLDEN_SHOVEL));
 
-    wood =  TinkerTools.hatchet.buildItem(woodMaterials);
+    wood = TinkerTools.hatchet.buildItem(woodMaterials);
     stone = TinkerTools.hatchet.buildItem(stoneMaterials);
-    iron =  TinkerTools.hatchet.buildItem(ironMaterials);
+    iron = TinkerTools.hatchet.buildItem(ironMaterials);
     extra = TinkerTools.hatchet.buildItem(cobaltMaterials);
 
     testTools(Blocks.LOG,
@@ -95,9 +96,9 @@ public class CompareVanilla extends CommandBase {
               new ItemStack(Items.WOODEN_AXE), new ItemStack(Items.STONE_AXE), new ItemStack(Items.IRON_AXE),
               new ItemStack(Items.DIAMOND_AXE), new ItemStack(Items.GOLDEN_AXE));
 
-    wood =  TinkerTools.broadSword.buildItem(woodMaterials);
+    wood = TinkerTools.broadSword.buildItem(woodMaterials);
     stone = TinkerTools.broadSword.buildItem(stoneMaterials);
-    iron =  TinkerTools.broadSword.buildItem(ironMaterials);
+    iron = TinkerTools.broadSword.buildItem(ironMaterials);
     extra = TinkerTools.broadSword.buildItem(manyMaterials);
 
     testTools(Blocks.MELON_BLOCK,
@@ -131,11 +132,11 @@ public class CompareVanilla extends CommandBase {
 
     // perform the tests for each material
     pw.println(genSection("Wood", "#806517"));
-    performToolTests(pw, block, wood,   vanillaWood);
+    performToolTests(pw, block, wood, vanillaWood);
     pw.println(genSection("Stone", "#837E7C"));
-    performToolTests(pw, block, stone,  vanillaStone);
+    performToolTests(pw, block, stone, vanillaStone);
     pw.println(genSection("Iron", "#CECECE"));
-    performToolTests(pw, block, iron,  vanillaIron);
+    performToolTests(pw, block, iron, vanillaIron);
     pw.println(genSection("Diamond", "#5CB3FF"));
     performToolTests(pw, block, extra1, vanillaDiamond);
     pw.println(genSection("Gold", "#EAC117"));

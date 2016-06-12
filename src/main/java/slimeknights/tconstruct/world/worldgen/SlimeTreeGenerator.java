@@ -34,8 +34,7 @@ public class SlimeTreeGenerator implements IWorldGenerator {
     this.seekHeight = seekHeight;
   }
 
-  public SlimeTreeGenerator(int treeHeight, int treeRange, IBlockState log, IBlockState leaves, IBlockState vine)
-  {
+  public SlimeTreeGenerator(int treeHeight, int treeRange, IBlockState log, IBlockState leaves, IBlockState vine) {
     this(treeHeight, treeRange, log, leaves, vine, true);
   }
 
@@ -45,27 +44,24 @@ public class SlimeTreeGenerator implements IWorldGenerator {
 
   }
 
-  public void generateTree(Random random, World world, BlockPos pos)
-  {
+  public void generateTree(Random random, World world, BlockPos pos) {
     int height = random.nextInt(this.treeHeightRange) + this.minTreeHeight;
     boolean flag = true;
-    if (seekHeight)
-    {
+    if(seekHeight) {
       pos = findGround(world, pos);
-      if (pos.getY() < 0)
+      if(pos.getY() < 0) {
         return;
+      }
     }
 
     int yPos = pos.getY();
 
-    if (yPos >= 1 && yPos + height + 1 <= 256)
-    {
+    if(yPos >= 1 && yPos + height + 1 <= 256) {
       IBlockState state = world.getBlockState(pos.down());
       Block soil = state.getBlock();
       boolean isSoil = (soil != null && soil.canSustainPlant(state, world, pos.down(), EnumFacing.UP, TinkerWorld.slimeSapling));
 
-      if (isSoil)
-      {
+      if(isSoil) {
         soil.onPlantGrow(state, world, pos.down(), pos);
         placeCanopy(world, random, pos, height);
         placeTrunk(world, pos, height);
@@ -73,27 +69,22 @@ public class SlimeTreeGenerator implements IWorldGenerator {
     }
   }
 
-  BlockPos findGround (World world, BlockPos pos)
-  {
-    do
-    {
+  BlockPos findGround(World world, BlockPos pos) {
+    do {
       IBlockState state = world.getBlockState(pos);
       Block heightID = state.getBlock();
-      if ((heightID == TinkerWorld.slimeDirt || heightID == TinkerWorld.slimeGrass) && !world.getBlockState(pos.up()).getBlock().isOpaqueCube(state))
-      {
+      if((heightID == TinkerWorld.slimeDirt || heightID == TinkerWorld.slimeGrass) && !world.getBlockState(pos.up()).getBlock().isOpaqueCube(state)) {
         return pos.up();
       }
       pos = pos.down();
-    } while (pos.getY() > 0);
+    } while(pos.getY() > 0);
 
     return pos;
   }
 
-  void placeCanopy (World world, Random random, BlockPos pos, int height)
-  {
+  void placeCanopy(World world, Random random, BlockPos pos, int height) {
     pos = pos.up(height);
-    for (int i = 0; i < 4; i++)
-    {
+    for(int i = 0; i < 4; i++) {
       placeDiamondLayer(world, pos.down(i), i + 1);
     }
 
@@ -147,7 +138,7 @@ public class SlimeTreeGenerator implements IWorldGenerator {
 
   protected IBlockState getRandomizedVine(Random random) {
     IBlockState state = vine;
-    PropertyBool[] sides = new PropertyBool[] {BlockVine.NORTH, BlockVine.EAST, BlockVine.SOUTH, BlockVine.WEST};
+    PropertyBool[] sides = new PropertyBool[]{BlockVine.NORTH, BlockVine.EAST, BlockVine.SOUTH, BlockVine.WEST};
     for(PropertyBool side : sides) {
       state = state.withProperty(side, false);
     }
@@ -158,27 +149,21 @@ public class SlimeTreeGenerator implements IWorldGenerator {
     return state;
   }
 
-  protected void placeDiamondLayer (World world, BlockPos pos, int range)
-  {
-    for (int x = -range; x <= range; x++)
-    {
-      for (int z = -range; z <= range; z++)
-      {
-        if (Math.abs(x) + Math.abs(z) <= range)
-        {
-          this.setBlockAndMetadata(world, pos.add(x,0,z), leaves);
+  protected void placeDiamondLayer(World world, BlockPos pos, int range) {
+    for(int x = -range; x <= range; x++) {
+      for(int z = -range; z <= range; z++) {
+        if(Math.abs(x) + Math.abs(z) <= range) {
+          this.setBlockAndMetadata(world, pos.add(x, 0, z), leaves);
         }
       }
     }
   }
 
-  protected void placeTrunk (World world, BlockPos pos, int height)
-  {
+  protected void placeTrunk(World world, BlockPos pos, int height) {
     while(height >= 0) {
       IBlockState state = world.getBlockState(pos);
       Block block = state.getBlock();
-      if (block.isAir(state, world, pos) || block.isReplaceable(world, pos) || block.isLeaves(state, world, pos))
-      {
+      if(block.isAir(state, world, pos) || block.isReplaceable(world, pos) || block.isLeaves(state, world, pos)) {
         this.setBlockAndMetadata(world, pos, log);
       }
 
@@ -187,12 +172,10 @@ public class SlimeTreeGenerator implements IWorldGenerator {
     }
   }
 
-  protected void setBlockAndMetadata (World world, BlockPos pos, IBlockState stateNew)
-  {
+  protected void setBlockAndMetadata(World world, BlockPos pos, IBlockState stateNew) {
     IBlockState state = world.getBlockState(pos);
     Block block = state.getBlock();
-    if (block.isAir(state, world, pos) || block.canPlaceBlockAt(world, pos) || world.getBlockState(pos) == leaves)
-    {
+    if(block.isAir(state, world, pos) || block.canPlaceBlockAt(world, pos) || world.getBlockState(pos) == leaves) {
       world.setBlockState(pos, stateNew, 2);
     }
   }

@@ -70,8 +70,9 @@ public class GuiTinkerStation extends GuiMultiModule {
   }
 
   protected void drawIconEmpty(Slot slot, GuiElement element) {
-    if(slot.getHasStack())
+    if(slot.getHasStack()) {
       return;
+    }
     drawIcon(slot, element);
   }
 
@@ -93,7 +94,12 @@ public class GuiTinkerStation extends GuiMultiModule {
     }
   }
 
-  public void error(String message) {}
-  public void warning(String message) {}
-  public void updateDisplay() {}
+  public void error(String message) {
+  }
+
+  public void warning(String message) {
+  }
+
+  public void updateDisplay() {
+  }
 }

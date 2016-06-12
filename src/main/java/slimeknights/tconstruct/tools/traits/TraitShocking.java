@@ -17,6 +17,7 @@ import slimeknights.tconstruct.shared.client.ParticleEffect;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class TraitShocking extends AbstractTrait {
+
   public TraitShocking() {
     super("shocking", 0xffffff);
   }
@@ -67,21 +68,21 @@ public class TraitShocking extends AbstractTrait {
     double dy = entity.posY - data.y;
     double dz = entity.posZ - data.z;
 
-    double dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+    double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
     if(dist < 0.1f) {
       return;
     }
     else if(dist > 5f) {
       dist = 5f;
     }
-    data.charge += dist*2f;
+    data.charge += dist * 2f;
 
     // play sound when fully charged
     if(data.charge >= 100f) {
       TagUtil.setEnchantEffect(tool, true);
       // send only to the player that is charged
       if(entity instanceof EntityPlayerMP) {
-        Sounds.PlaySoundForPlayer(entity, Sounds.shocking_charged, 1f,  0.8f + 0.2f * random.nextFloat());
+        Sounds.PlaySoundForPlayer(entity, Sounds.shocking_charged, 1f, 0.8f + 0.2f * random.nextFloat());
       }
     }
 
@@ -95,6 +96,7 @@ public class TraitShocking extends AbstractTrait {
   }
 
   public static class Data {
+
     float charge;
     double x;
     double y;

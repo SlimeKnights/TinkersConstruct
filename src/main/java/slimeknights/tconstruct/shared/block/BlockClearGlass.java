@@ -14,11 +14,11 @@ public class BlockClearGlass extends BlockConnectedTexture {
 
   public BlockClearGlass() {
     super(Material.GLASS);
-    
+
     this.setHardness(0.3f);
     setHarvestLevel("pickaxe", -1);
     this.setSoundType(SoundType.GLASS);
-    
+
     this.setCreativeTab(TinkerRegistry.tabGeneral);
   }
 
@@ -32,9 +32,9 @@ public class BlockClearGlass extends BlockConnectedTexture {
   public boolean isFullCube(IBlockState state) {
     return false;
   }
-  
+
   @Override
   public boolean isOpaqueCube(IBlockState state) {
-      return false;
+    return false;
   }
 }

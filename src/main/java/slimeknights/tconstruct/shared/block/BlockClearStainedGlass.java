@@ -20,15 +20,16 @@ import slimeknights.mantle.block.EnumBlockConnectedTexture;
 import slimeknights.tconstruct.library.TinkerRegistry;
 
 public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClearStainedGlass.EnumGlassColor> {
+
   public static final PropertyEnum<EnumGlassColor> COLOR = PropertyEnum.<EnumGlassColor>create("color", EnumGlassColor.class);
-  
+
   public BlockClearStainedGlass() {
     super(Material.GLASS, COLOR, EnumGlassColor.class);
-    
+
     this.setHardness(0.3f);
     setHarvestLevel("pickaxe", -1);
     this.setSoundType(SoundType.GLASS);
-    
+
     this.setCreativeTab(TinkerRegistry.tabGeneral);
   }
 
@@ -42,10 +43,10 @@ public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClear
   public boolean isFullCube(IBlockState state) {
     return false;
   }
-  
+
   @Override
   public boolean isOpaqueCube(IBlockState state) {
-      return false;
+    return false;
   }
 
   /**
@@ -53,15 +54,15 @@ public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClear
    */
   @Override
   public MapColor getMapColor(IBlockState state) {
-      return state.getValue(COLOR).getMapColor();
+    return state.getValue(COLOR).getMapColor();
   }
-  
+
   @Override
   @SuppressWarnings("deprecation")
   public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
     return canConnect(blockState, blockAccess.getBlockState(pos.offset(side))) ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
   }
-  
+
   // The default does not implement EnumBlock.IEnumMeta, and Enums cannot be extended
   public enum EnumGlassColor implements IStringSerializable, EnumBlock.IEnumMeta {
     WHITE(0xffffff, MapColor.SNOW),
@@ -80,11 +81,11 @@ public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClear
     GREEN(0x667f33, MapColor.GREEN),
     RED(0x993333, MapColor.RED),
     BLACK(0x191919, MapColor.BLACK);
-    
+
     private final int color;
     private final MapColor mapColor;
     private final int meta;
-    
+
     private EnumGlassColor(int color, MapColor mapColor) {
       this.meta = ordinal();
       this.color = color;
@@ -105,7 +106,7 @@ public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClear
     public int getColor() {
       return color;
     }
-    
+
     public MapColor getMapColor() {
       return mapColor;
     }

@@ -19,6 +19,7 @@ import javax.annotation.Nonnull;
 import slimeknights.tconstruct.library.TinkerRegistry;
 
 public class BlockSlime extends net.minecraft.block.BlockSlime {
+
   public static final PropertyEnum<SlimeType> TYPE = PropertyEnum.create("type", SlimeType.class);
 
   public BlockSlime() {

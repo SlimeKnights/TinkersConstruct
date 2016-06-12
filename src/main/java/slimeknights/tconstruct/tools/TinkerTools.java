@@ -190,7 +190,7 @@ public class TinkerTools extends TinkerPulse {
     pattern = registerItem(new Pattern(), "pattern");
 
     shard = registerItem(new Shard(), "shard");
-    sharpeningKit = (SharpeningKit)registerToolPart(new SharpeningKit(), "sharpening_kit");
+    sharpeningKit = (SharpeningKit) registerToolPart(new SharpeningKit(), "sharpening_kit");
     sharpeningKit.setCreativeTab(TinkerRegistry.tabParts);
     TinkerRegistry.registerToolPart(sharpeningKit);
 
@@ -226,11 +226,11 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerToolParts() {
     // The order the items are registered in represents the order in the stencil table GUI too
-    pickHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "pick_head");
-    shovelHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "shovel_head");
-    axeHead = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "axe_head");
+    pickHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 2), "pick_head");
+    shovelHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 2), "shovel_head");
+    axeHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 2), "axe_head");
     broadAxeHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "broad_axe_head");
-    swordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot*2), "sword_blade");
+    swordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot * 2), "sword_blade");
     largeSwordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "large_sword_blade");
     hammerHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "hammer_head");
     excavatorHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "excavator_head");
@@ -518,9 +518,9 @@ public class TinkerTools extends TinkerPulse {
     // lavawood if needed
     if(!isSmelteryLoaded()) {
       GameRegistry.addRecipe(new ShapedOreRecipe(TinkerCommons.lavawood,
-                                   " B ", "BWB", " B ",
-                                   'B', "plankWood",
-                                   'W', Items.LAVA_BUCKET));
+                                                 " B ", "BWB", " B ",
+                                                 'B', "plankWood",
+                                                 'W', Items.LAVA_BUCKET));
     }
   }
 

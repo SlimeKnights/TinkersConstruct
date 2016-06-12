@@ -26,13 +26,13 @@ public class ModAntiMonsterType extends ModifierTrait {
     super(identifier, color, maxLevel, countPerLevel);
     this.type = type;
 
-    dmgPerItem = 7f / (float)countPerLevel;
+    dmgPerItem = 7f / (float) countPerLevel;
   }
 
   protected float calcIncreasedDamage(NBTTagCompound modifierTag, float baseDamage) {
     ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(modifierTag);
 
-    return baseDamage + (float)data.current * dmgPerItem;
+    return baseDamage + (float) data.current * dmgPerItem;
   }
 
   @Override

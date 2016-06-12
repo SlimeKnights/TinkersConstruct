@@ -40,7 +40,7 @@ public class TraitSharp extends AbstractTrait {
     }
 
     int hurtResistantTime = target.hurtResistantTime;
-    attackEntitySecondary(source, (level+1f)/3f, target, true, true);
+    attackEntitySecondary(source, (level + 1f) / 3f, target, true, true);
     TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_BLOOD, target, 1);
     target.hurtResistantTime = hurtResistantTime;
   }

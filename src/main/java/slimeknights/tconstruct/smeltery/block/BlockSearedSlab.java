@@ -55,27 +55,27 @@ public class BlockSearedSlab extends EnumBlockSlab<BlockSearedSlab.SearedType> {
     public String getName() {
       return this.toString().toLowerCase(Locale.US);
     }
-    
+
     public BlockSeared.SearedType asSearedBlock() {
       switch(this) {
-      case STONE:
-        return BlockSeared.SearedType.STONE;
-      case COBBLE:
-        return BlockSeared.SearedType.COBBLE;
-      case PAVER:
-        return BlockSeared.SearedType.PAVER;
-      case BRICK:
-        return BlockSeared.SearedType.BRICK;
-      case BRICK_CRACKED:
-        return BlockSeared.SearedType.BRICK_CRACKED;
-      case BRICK_FANCY:
-        return BlockSeared.SearedType.BRICK_FANCY;
-      case BRICK_SQUARE:
-        return BlockSeared.SearedType.BRICK_SQUARE;
-      case ROAD:
-        return BlockSeared.SearedType.ROAD;
-      default:
-        return null;
+        case STONE:
+          return BlockSeared.SearedType.STONE;
+        case COBBLE:
+          return BlockSeared.SearedType.COBBLE;
+        case PAVER:
+          return BlockSeared.SearedType.PAVER;
+        case BRICK:
+          return BlockSeared.SearedType.BRICK;
+        case BRICK_CRACKED:
+          return BlockSeared.SearedType.BRICK_CRACKED;
+        case BRICK_FANCY:
+          return BlockSeared.SearedType.BRICK_FANCY;
+        case BRICK_SQUARE:
+          return BlockSeared.SearedType.BRICK_SQUARE;
+        case ROAD:
+          return BlockSeared.SearedType.ROAD;
+        default:
+          return null;
       }
     }
 

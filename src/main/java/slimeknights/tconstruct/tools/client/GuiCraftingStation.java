@@ -23,7 +23,7 @@ public class GuiCraftingStation extends GuiTinkerStation {
   protected final TileCraftingStation tile;
 
   public GuiCraftingStation(InventoryPlayer playerInv, World world, BlockPos pos, TileCraftingStation tile) {
-    super(world, pos, (ContainerTinkerStation)tile.createContainer(playerInv, world, pos));
+    super(world, pos, (ContainerTinkerStation) tile.createContainer(playerInv, world, pos));
 
     this.tile = tile;
 

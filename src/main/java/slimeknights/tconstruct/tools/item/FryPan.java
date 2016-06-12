@@ -62,16 +62,17 @@ public class FryPan extends ToolCore {
 
   @Override
   public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft) {
-    if(world.isRemote)
+    if(world.isRemote) {
       return;
+    }
 
-    float progress = Math.min(1f, (float)(getMaxItemUseDuration(stack) - timeLeft)/30f);
-    float strength = .1f + 2.5f*progress*progress;
+    float progress = Math.min(1f, (float) (getMaxItemUseDuration(stack) - timeLeft) / 30f);
+    float strength = .1f + 2.5f * progress * progress;
 
     float range = 3.2f;
 
     // is the player currently looking at an entity?
-    Vec3d eye = new Vec3d(player.posX, player.posY + (double)player.getEyeHeight(), player.posZ); // Entity.getPositionEyes
+    Vec3d eye = new Vec3d(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ); // Entity.getPositionEyes
     Vec3d look = player.getLook(1.0f);
     RayTraceResult mop = EntityUtil.raytraceEntity(player, eye, look, range, true);
 
@@ -84,7 +85,7 @@ public class FryPan extends ToolCore {
     if(mop.typeOfHit == RayTraceResult.Type.ENTITY) {
       Entity entity = mop.entityHit;
       double x = look.xCoord * strength;
-      double y = look.yCoord/3f * strength + 0.1f + 0.4f * progress;
+      double y = look.yCoord / 3f * strength + 0.1f + 0.4f * progress;
       double z = look.zCoord * strength;
 
       // bonus damage!
@@ -94,19 +95,23 @@ public class FryPan extends ToolCore {
       // we set the entity on fire for the hit if it was fully charged
       // this makes it so it drops cooked stuff.. and it'funny :D
       boolean flamingStrike = progress >= 1f && !entity.isBurning();
-      if(flamingStrike) entity.setFire(1);
+      if(flamingStrike) {
+        entity.setFire(1);
+      }
       player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).removeModifier(old);
       player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).applyModifier(modifier);
       ToolHelper.attackEntity(stack, this, player, entity);
       player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).removeModifier(modifier);
       player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).applyModifier(old);
-      if(flamingStrike) entity.extinguish();
+      if(flamingStrike) {
+        entity.extinguish();
+      }
 
       world.playSound(null, player.getPosition(), Sounds.frypan_boing, SoundCategory.PLAYERS, 1.5f, 0.6f + 0.2f * TConstruct.random.nextFloat());
-      entity.addVelocity(x,y,z);
+      entity.addVelocity(x, y, z);
       TinkerTools.proxy.spawnAttackParticle(Particles.FRYPAN_ATTACK, player, 0.6d);
       if(entity instanceof EntityPlayerMP) {
-        ((EntityPlayerMP)entity).connection.sendPacket(new SPacketEntityVelocity(entity));
+        ((EntityPlayerMP) entity).connection.sendPacket(new SPacketEntityVelocity(entity));
       }
     }
   }
@@ -140,8 +145,7 @@ public class FryPan extends ToolCore {
    * How long it takes to use or consume an item
    */
   @Override
-  public int getMaxItemUseDuration(ItemStack stack)
-  {
+  public int getMaxItemUseDuration(ItemStack stack) {
     return 5 * 20;
   }
 
@@ -150,8 +154,7 @@ public class FryPan extends ToolCore {
    */
   @Nonnull
   @Override
-  public EnumAction getItemUseAction(ItemStack stack)
-  {
+  public EnumAction getItemUseAction(ItemStack stack) {
     return EnumAction.BOW;
   }
 

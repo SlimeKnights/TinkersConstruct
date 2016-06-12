@@ -19,8 +19,9 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 
-@Pulse(id=TinkerDebug.PulseId, description = "Debug utilities", defaultEnable = false)
+@Pulse(id = TinkerDebug.PulseId, description = "Debug utilities", defaultEnable = false)
 public class TinkerDebug {
+
   public static final String PulseId = "TinkerDebug";
   static final Logger log = Util.getLogger(PulseId);
 
@@ -51,7 +52,7 @@ public class TinkerDebug {
     // check all modifiers if they can be applied
     for(IModifier modifier : TinkerRegistry.getAllModifiers()) {
       try {
-        modifier.matches(new ItemStack[] {new ItemStack(Items.STICK)});
+        modifier.matches(new ItemStack[]{new ItemStack(Items.STICK)});
         modifier.matches(new ItemStack[1]);
       } catch(Exception e) {
         log.error("Caught exception in modifier " + modifier.getIdentifier(), e);

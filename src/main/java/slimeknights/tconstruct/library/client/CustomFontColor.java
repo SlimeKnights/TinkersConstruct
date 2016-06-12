@@ -8,24 +8,25 @@ public class CustomFontColor {
 
   protected static int MARKER = 0xE700;
 
-  private CustomFontColor() {}
+  private CustomFontColor() {
+  }
 
   public static String encodeColor(int color) {
     int r = ((color >> 16) & 255);
-    int g = ((color >>  8) & 255);
-    int b = ((color >>  0) & 255);
+    int g = ((color >> 8) & 255);
+    int b = ((color >> 0) & 255);
     return encodeColor(r, g, b);
   }
 
   public static String encodeColor(float r, float g, float b) {
-    return encodeColor((int)r*255, (int)g*255, (int)b*255);
+    return encodeColor((int) r * 255, (int) g * 255, (int) b * 255);
   }
 
   public static String encodeColor(int r, int g, int b) {
     return String.format("%c%c%c",
-                         ((char)(MARKER + (r&0xFF))),
-                         ((char)(MARKER + (g&0xFF))),
-                         ((char)(MARKER + (b&0xFF))));
+                         ((char) (MARKER + (r & 0xFF))),
+                         ((char) (MARKER + (g & 0xFF))),
+                         ((char) (MARKER + (b & 0xFF))));
   }
 
   /**

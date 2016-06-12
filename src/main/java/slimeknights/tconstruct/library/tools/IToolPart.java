@@ -7,6 +7,7 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
  * Any Class that's used as a tool part needs to implement this.
  */
 public interface IToolPart extends IMaterialItem {
+
   /**
    * Returns the cost to craft the tool. Values match the ingot values<br>
    * 72 = 1 shard<br>

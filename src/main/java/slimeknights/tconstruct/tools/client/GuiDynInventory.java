@@ -84,7 +84,7 @@ public class GuiDynInventory extends GuiModule {
     int max = 0;
     if(sliderActive) {
       slider.show();
-      max = slotCount/columns - rows + 1; // the assumption here is that for an active slider this always is >0
+      max = slotCount / columns - rows + 1; // the assumption here is that for an active slider this always is >0
     }
     else {
       slider.hide();

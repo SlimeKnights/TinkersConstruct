@@ -40,7 +40,7 @@ public class ContentListing extends TinkerPage {
 
     int bot = GuiBook.PAGE_HEIGHT - 30;
 
-    if(entries.size()*line_height + yOff > bot) {
+    if(entries.size() * line_height + yOff > bot) {
       w /= 2;
     }
 

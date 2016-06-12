@@ -9,7 +9,9 @@ import net.minecraft.util.SoundEvent;
 import slimeknights.tconstruct.library.Util;
 
 public abstract class Sounds {
-  private Sounds() {}
+
+  private Sounds() {
+  }
 
   public static final SoundEvent saw = sound("little_saw");
   //public static final SoundEvent anvil_use = "random.anvil_use";

@@ -35,12 +35,12 @@ public class ParticleEffect extends ParticleCrit {
     this.type = Type.values()[typeId];
 
     this.particleMaxAge = 20;
-    this.particleTextureIndexX = type.x/8;
-    this.particleTextureIndexY = type.y/8;
+    this.particleTextureIndexX = type.x / 8;
+    this.particleTextureIndexY = type.y / 8;
 
     this.motionY += 0.1f;
-    this.motionX += -0.25f + rand.nextFloat()*0.5f;
-    this.motionZ += -0.25f + rand.nextFloat()*0.5f;
+    this.motionX += -0.25f + rand.nextFloat() * 0.5f;
+    this.motionZ += -0.25f + rand.nextFloat() * 0.5f;
 
     particleRed = particleBlue = particleGreen = 1f;
 
@@ -61,9 +61,9 @@ public class ParticleEffect extends ParticleCrit {
     float b = this.particleBlue;
     super.onUpdate();
 
-    this.particleRed = r*0.975f;
-    this.particleGreen = g*0.975f;
-    this.particleBlue = b*0.975f;
+    this.particleRed = r * 0.975f;
+    this.particleGreen = g * 0.975f;
+    this.particleBlue = b * 0.975f;
   }
 
   @Override
@@ -87,7 +87,7 @@ public class ParticleEffect extends ParticleCrit {
     HEART_BLOOD(24, 0),
     HEART_ARMOR(32, 0);
 
-    int x,y;
+    int x, y;
 
     Type(int x, int y) {
       this.x = x;

@@ -89,8 +89,10 @@ public final class ToolHelper {
     return damage;
   }
 
-  /** Returns the attack speed saved on the tool.
-   * This is normally just a number from 1 to 2, the actual attack speed is in getActualAttackSpeed */
+  /**
+   * Returns the attack speed saved on the tool.
+   * This is normally just a number from 1 to 2, the actual attack speed is in getActualAttackSpeed
+   */
   public static float getAttackSpeedStat(ItemStack stack) {
     return getfloatTag(stack, Tags.ATTACKSPEEDMULTIPLIER);
   }
@@ -175,8 +177,9 @@ public final class ToolHelper {
 
   // also checks for the tools effectiveness
   public static boolean isToolEffective2(ItemStack stack, IBlockState state) {
-    if(isToolEffective(stack, state))
+    if(isToolEffective(stack, state)) {
       return true;
+    }
 
     return stack.getItem() instanceof ToolCore && ((ToolCore) stack.getItem()).isEffective(state);
 
@@ -202,15 +205,15 @@ public final class ToolHelper {
   /* Harvesting */
 
 
-
   public static ImmutableList<BlockPos> calcAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin, int width, int height, int depth) {
     return calcAOEBlocks(stack, world, player, origin, width, height, depth, -1);
   }
 
   public static ImmutableList<BlockPos> calcAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin, int width, int height, int depth, int distance) {
     // only works with toolcore because we need the raytrace call
-    if(stack == null || !(stack.getItem() instanceof ToolCore))
+    if(stack == null || !(stack.getItem() instanceof ToolCore)) {
       return ImmutableList.of();
+    }
 
     // find out where the player is hitting the block
     IBlockState state = world.getBlockState(origin);
@@ -234,7 +237,7 @@ public final class ToolHelper {
     distance = event.distance;
 
     // we know the block and we know which side of the block we're hitting. time to calculate the depth along the different axes
-    int x,y,z;
+    int x, y, z;
     BlockPos start = origin;
     switch(mop.sideHit) {
       case DOWN:
@@ -244,14 +247,22 @@ public final class ToolHelper {
         x = vec.getX() * height + vec.getZ() * width;
         y = mop.sideHit.getAxisDirection().getOffset() * -depth;
         z = vec.getX() * width + vec.getZ() * height;
-        start = start.add(-x/2, 0, -z/2);
+        start = start.add(-x / 2, 0, -z / 2);
         if(x % 2 == 0) {
-          if(x > 0 && mop.hitVec.xCoord - mop.getBlockPos().getX() > 0.5d) start = start.add(1,0,0);
-          else if (x < 0 && mop.hitVec.xCoord - mop.getBlockPos().getX() < 0.5d) start = start.add(-1,0,0);
+          if(x > 0 && mop.hitVec.xCoord - mop.getBlockPos().getX() > 0.5d) {
+            start = start.add(1, 0, 0);
+          }
+          else if(x < 0 && mop.hitVec.xCoord - mop.getBlockPos().getX() < 0.5d) {
+            start = start.add(-1, 0, 0);
+          }
         }
         if(z % 2 == 0) {
-          if(z > 0 && mop.hitVec.zCoord - mop.getBlockPos().getZ() > 0.5d) start = start.add(0,0,1);
-          else if(z < 0 && mop.hitVec.zCoord - mop.getBlockPos().getZ() < 0.5d) start = start.add(0,0,-1);
+          if(z > 0 && mop.hitVec.zCoord - mop.getBlockPos().getZ() > 0.5d) {
+            start = start.add(0, 0, 1);
+          }
+          else if(z < 0 && mop.hitVec.zCoord - mop.getBlockPos().getZ() < 0.5d) {
+            start = start.add(0, 0, -1);
+          }
         }
         break;
       case NORTH:
@@ -259,26 +270,34 @@ public final class ToolHelper {
         x = width;
         y = height;
         z = mop.sideHit.getAxisDirection().getOffset() * -depth;
-        start = start.add(-x/2, -y/2, 0);
-        if(x % 2 == 0 && mop.hitVec.xCoord - mop.getBlockPos().getX() > 0.5d) start = start.add(1,0,0);
-        if(y % 2 == 0 && mop.hitVec.yCoord - mop.getBlockPos().getY() > 0.5d) start = start.add(0,1,0);
+        start = start.add(-x / 2, -y / 2, 0);
+        if(x % 2 == 0 && mop.hitVec.xCoord - mop.getBlockPos().getX() > 0.5d) {
+          start = start.add(1, 0, 0);
+        }
+        if(y % 2 == 0 && mop.hitVec.yCoord - mop.getBlockPos().getY() > 0.5d) {
+          start = start.add(0, 1, 0);
+        }
         break;
       case WEST:
       case EAST:
         x = mop.sideHit.getAxisDirection().getOffset() * -depth;
         y = height;
         z = width;
-        start = start.add(-0, -y/2, -z/2);
-        if(y % 2 == 0 && mop.hitVec.yCoord - mop.getBlockPos().getY() > 0.5d) start = start.add(0,1,0);
-        if(z % 2 == 0 && mop.hitVec.zCoord - mop.getBlockPos().getZ() > 0.5d) start = start.add(0,0,1);
+        start = start.add(-0, -y / 2, -z / 2);
+        if(y % 2 == 0 && mop.hitVec.yCoord - mop.getBlockPos().getY() > 0.5d) {
+          start = start.add(0, 1, 0);
+        }
+        if(z % 2 == 0 && mop.hitVec.zCoord - mop.getBlockPos().getZ() > 0.5d) {
+          start = start.add(0, 0, 1);
+        }
         break;
       default:
         x = y = z = 0;
     }
 
     ImmutableList.Builder<BlockPos> builder = ImmutableList.builder();
-    for(int xp = start.getX(); xp != start.getX() + x; xp += x/MathHelper.abs_int(x)) {
-      for(int yp = start.getY(); yp != start.getY() + y; yp += y/MathHelper.abs_int(y)) {
+    for(int xp = start.getX(); xp != start.getX() + x; xp += x / MathHelper.abs_int(x)) {
+      for(int yp = start.getY(); yp != start.getY() + y; yp += y / MathHelper.abs_int(y)) {
         for(int zp = start.getZ(); zp != start.getZ() + z; zp += z / MathHelper.abs_int(z)) {
           // don't add the origin block
           if(xp == origin.getX() && yp == origin.getY() && zp == origin.getZ()) {
@@ -301,11 +320,12 @@ public final class ToolHelper {
 
   public static void breakExtraBlock(ItemStack stack, World world, EntityPlayer player, BlockPos pos, BlockPos refPos) {
     // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
-    if (world.isAirBlock(pos))
+    if(world.isAirBlock(pos)) {
       return;
+    }
 
     //if(!(player instanceof EntityPlayerMP)) {
-      //return;
+    //return;
     //}
 
     // check if the block can be broken, since extra block breaks shouldn't instantly break stuff like obsidian
@@ -323,19 +343,21 @@ public final class ToolHelper {
     float strength = ForgeHooks.blockStrength(state, player, world, pos);
 
     // only harvestable blocks that aren't impossibly slow to harvest
-    if (!ForgeHooks.canHarvestBlock(block, player, world, pos) || refStrength/strength > 10f)
+    if(!ForgeHooks.canHarvestBlock(block, player, world, pos) || refStrength / strength > 10f) {
       return;
+    }
 
     // From this point on it's clear that the player CAN break the block
 
-    if (player.capabilities.isCreativeMode) {
+    if(player.capabilities.isCreativeMode) {
       block.onBlockHarvested(world, pos, state, player);
-      if (block.removedByPlayer(state, world, pos, player, false))
+      if(block.removedByPlayer(state, world, pos, player, false)) {
         block.onBlockDestroyedByPlayer(world, pos, state);
+      }
 
       // send update to client
-      if (!world.isRemote) {
-        ((EntityPlayerMP)player).connection.sendPacket(new SPacketBlockChange(world, pos));
+      if(!world.isRemote) {
+        ((EntityPlayerMP) player).connection.sendPacket(new SPacketBlockChange(world, pos));
       }
       return;
     }
@@ -344,7 +366,7 @@ public final class ToolHelper {
     stack.onBlockDestroyed(world, state, pos, player);
 
     // server sided handling
-    if (!world.isRemote) {
+    if(!world.isRemote) {
       // send the blockbreak event
       int xp = ForgeHooks.onBlockBreakEvent(world, ((EntityPlayerMP) player).interactionManager.getGameType(), (EntityPlayerMP) player, pos);
       if(xp == -1) {
@@ -376,15 +398,13 @@ public final class ToolHelper {
 
       // following code can be found in PlayerControllerMP.onPlayerDestroyBlock
       world.playBroadcastSound(2001, pos, Block.getStateId(state));
-      if(block.removedByPlayer(state, world, pos, player, true))
-      {
+      if(block.removedByPlayer(state, world, pos, player, true)) {
         block.onBlockDestroyedByPlayer(world, pos, state);
       }
       // callback to the tool
       stack.onBlockDestroyed(world, state, pos, player);
 
-      if (stack.stackSize == 0 && stack == player.getHeldItemMainhand())
-      {
+      if(stack.stackSize == 0 && stack == player.getHeldItemMainhand()) {
         ForgeEventFactory.onPlayerDestroyItem(player, stack, EnumHand.MAIN_HAND);
         player.setHeldItem(EnumHand.MAIN_HAND, null);
       }
@@ -403,21 +423,18 @@ public final class ToolHelper {
     }
 
     Block block = world.getBlockState(pos).getBlock();
-    if (block instanceof IShearable)
-    {
-      IShearable target = (IShearable)block;
-      if (target.isShearable(itemstack, world, pos))
-      {
+    if(block instanceof IShearable) {
+      IShearable target = (IShearable) block;
+      if(target.isShearable(itemstack, world, pos)) {
         int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemstack);
         List<ItemStack> drops = target.onSheared(itemstack, world, pos, fortune);
 
-        for(ItemStack stack : drops)
-        {
+        for(ItemStack stack : drops) {
           float f = 0.7F;
-          double d  = (double)(TConstruct.random.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-          double d1 = (double)(TConstruct.random.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-          double d2 = (double)(TConstruct.random.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-          EntityItem entityitem = new EntityItem(player.worldObj, (double)pos.getX() + d, (double)pos.getY() + d1, (double)pos.getZ() + d2, stack);
+          double d = (double) (TConstruct.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+          double d1 = (double) (TConstruct.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+          double d2 = (double) (TConstruct.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+          EntityItem entityitem = new EntityItem(player.worldObj, (double) pos.getX() + d, (double) pos.getY() + d1, (double) pos.getZ() + d2, stack);
           entityitem.setDefaultPickupDelay();
           world.spawnEntityInWorld(entityitem);
         }
@@ -446,8 +463,9 @@ public final class ToolHelper {
 
   /** Damages the tool. Entity is only needed in case the tool breaks for rendering the break effect. */
   public static void damageTool(ItemStack stack, int amount, EntityLivingBase entity) {
-    if(amount == 0 || isBroken(stack))
+    if(amount == 0 || isBroken(stack)) {
       return;
+    }
 
     int actualAmount = amount;
     NBTTagList list = TagUtil.getTraitsTagList(stack);
@@ -456,7 +474,8 @@ public final class ToolHelper {
       if(trait != null) {
         if(amount > 0) {
           actualAmount = trait.onToolDamage(stack, amount, actualAmount, entity);
-        } else {
+        }
+        else {
           actualAmount = trait.onToolHeal(stack, amount, actualAmount, entity);
         }
       }
@@ -557,7 +576,7 @@ public final class ToolHelper {
     }
 
     // players base damage (includes tools damage stat)
-    float baseDamage = (float)attacker.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+    float baseDamage = (float) attacker.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 
     // missing because not supported by tcon tools: vanilla damage enchantments, we have our own modifiers
     // missing because not supported by tcon tools: vanilla knockback enchantments, we have our own modifiers
@@ -566,8 +585,9 @@ public final class ToolHelper {
     // calculate if it's a critical hit
     boolean isCritical = attacker.fallDistance > 0.0F && !attacker.onGround && !attacker.isOnLadder() && !attacker.isInWater() && !attacker.isPotionActive(MobEffects.BLINDNESS) && !attacker.isRiding();
     for(ITrait trait : traits) {
-      if(trait.isCriticalHit(stack, attacker, target))
+      if(trait.isCriticalHit(stack, attacker, target)) {
         isCritical = true;
+      }
     }
 
     // calculate actual damage
@@ -619,14 +639,14 @@ public final class ToolHelper {
       float damageDealt = oldHP - target.getHealth();
 
       // apply knockback modifier
-      oldVelX = target.motionX = oldVelX + (target.motionX - oldVelX)*tool.knockback();
-      oldVelY = target.motionY = oldVelY + (target.motionY - oldVelY)*tool.knockback()/3f;
-      oldVelZ = target.motionZ = oldVelZ + (target.motionZ - oldVelZ)*tool.knockback();
+      oldVelX = target.motionX = oldVelX + (target.motionX - oldVelX) * tool.knockback();
+      oldVelY = target.motionY = oldVelY + (target.motionY - oldVelY) * tool.knockback() / 3f;
+      oldVelZ = target.motionZ = oldVelZ + (target.motionZ - oldVelZ) * tool.knockback();
 
       // apply knockback
       if(knockback > 0f) {
         double velX = -MathHelper.sin(attacker.rotationYaw * (float) Math.PI / 180.0F) * knockback * 0.5F;
-        double velZ = MathHelper.cos(attacker.rotationYaw * (float)Math.PI / 180.0F) * knockback * 0.5F;
+        double velZ = MathHelper.cos(attacker.rotationYaw * (float) Math.PI / 180.0F) * knockback * 0.5F;
         targetEntity.addVelocity(velX, 0.1d, velZ);
 
         // slow down player
@@ -637,9 +657,8 @@ public final class ToolHelper {
 
       // Send movement changes caused by attacking directly to hit players.
       // I guess this is to allow better handling at the hit players side? No idea why it resets the motion though.
-      if (targetEntity instanceof EntityPlayerMP && targetEntity.velocityChanged)
-      {
-        ((EntityPlayerMP)targetEntity).connection.sendPacket(new SPacketEntityVelocity(targetEntity));
+      if(targetEntity instanceof EntityPlayerMP && targetEntity.velocityChanged) {
+        ((EntityPlayerMP) targetEntity).connection.sendPacket(new SPacketEntityVelocity(targetEntity));
         targetEntity.velocityChanged = false;
         targetEntity.motionX = oldVelX;
         targetEntity.motionY = oldVelY;
@@ -689,8 +708,8 @@ public final class ToolHelper {
         player.addExhaustion(0.3f);
 
         if(player.worldObj instanceof WorldServer && damageDealt > 2f) {
-          int k = (int)(damageDealt * 0.5);
-          ((WorldServer)player.worldObj).spawnParticle(EnumParticleTypes.DAMAGE_INDICATOR, targetEntity.posX, targetEntity.posY + (double)(targetEntity.height * 0.5F), targetEntity.posZ, k, 0.1D, 0.0D, 0.1D, 0.2D);
+          int k = (int) (damageDealt * 0.5);
+          ((WorldServer) player.worldObj).spawnParticle(EnumParticleTypes.DAMAGE_INDICATOR, targetEntity.posX, targetEntity.posY + (double) (targetEntity.height * 0.5F), targetEntity.posZ, k, 0.1D, 0.0D, 0.1D, 0.2D);
         }
 
         // cooldown for non-projectiles
@@ -717,19 +736,19 @@ public final class ToolHelper {
         p *= 0.9f;
       }
       else {
-        damage += p * cutoff * ((d/cutoff) - 1f);
+        damage += p * cutoff * ((d / cutoff) - 1f);
         return damage;
       }
       d -= cutoff;
     }
 
-    damage += p*d;
+    damage += p * d;
 
     return damage;
   }
 
   public static float getActualDamage(ItemStack stack, EntityLivingBase player) {
-    float damage = (float)player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+    float damage = (float) player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
     damage += ToolHelper.getActualAttack(stack);
 
     if(stack.getItem() instanceof ToolCore) {
@@ -740,14 +759,12 @@ public final class ToolHelper {
   }
 
   public static void swingItem(int speed, EntityLivingBase entity) {
-    if (!entity.isSwingInProgress || entity.swingProgressInt >= 3 || entity.swingProgressInt < 0)
-    {
+    if(!entity.isSwingInProgress || entity.swingProgressInt >= 3 || entity.swingProgressInt < 0) {
       entity.swingProgressInt = Math.min(4, -1 + speed);
       entity.isSwingInProgress = true;
 
-      if (entity.worldObj instanceof WorldServer)
-      {
-        ((WorldServer)entity.worldObj).getEntityTracker().sendToAllTrackingEntity(entity, new SPacketAnimation(entity, 0));
+      if(entity.worldObj instanceof WorldServer) {
+        ((WorldServer) entity.worldObj).getEntityTracker().sendToAllTrackingEntity(entity, new SPacketAnimation(entity, 0));
       }
     }
   }

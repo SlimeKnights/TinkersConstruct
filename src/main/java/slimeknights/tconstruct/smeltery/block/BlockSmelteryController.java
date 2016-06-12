@@ -98,8 +98,7 @@ public class BlockSmelteryController extends BlockInventoryTinkers {
   public IBlockState getStateFromMeta(int meta) {
     EnumFacing enumfacing = EnumFacing.getFront(meta);
 
-    if (enumfacing.getAxis() == EnumFacing.Axis.Y)
-    {
+    if(enumfacing.getAxis() == EnumFacing.Axis.Y) {
       enumfacing = EnumFacing.NORTH;
     }
 
@@ -121,17 +120,15 @@ public class BlockSmelteryController extends BlockInventoryTinkers {
 
   @Override
   public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-    if (isActive(world, pos))
-    {
+    if(isActive(world, pos)) {
       EnumFacing enumfacing = state.getValue(FACING);
-      double d0 = (double)pos.getX() + 0.5D;
-      double d1 = (double)pos.getY() + 0.5D + (rand.nextFloat() * 6F) / 16F;
-      double d2 = (double)pos.getZ() + 0.5D;
+      double d0 = (double) pos.getX() + 0.5D;
+      double d1 = (double) pos.getY() + 0.5D + (rand.nextFloat() * 6F) / 16F;
+      double d2 = (double) pos.getZ() + 0.5D;
       double d3 = 0.52D;
       double d4 = rand.nextDouble() * 0.6D - 0.3D;
 
-      switch (enumfacing)
-      {
+      switch(enumfacing) {
         case WEST:
           world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);
           world.spawnParticle(EnumParticleTypes.FLAME, d0 - d3, d1, d2 + d4, 0.0D, 0.0D, 0.0D);

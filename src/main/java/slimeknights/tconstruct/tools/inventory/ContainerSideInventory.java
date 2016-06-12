@@ -9,6 +9,7 @@ import net.minecraftforge.items.SlotItemHandler;
 import slimeknights.mantle.inventory.BaseContainer;
 
 public class ContainerSideInventory<T extends TileEntity> extends BaseContainer<T> {
+
   public final int columns;
   public final int slotCount;
 
@@ -30,9 +31,10 @@ public class ContainerSideInventory<T extends TileEntity> extends BaseContainer<
     int index = 0;
     for(int r = 0; r < rows; r++) {
       for(int c = 0; c < columns; c++) {
-        if(index >= slotCount)
+        if(index >= slotCount) {
           break;
-        this.addSlotToContainer(createSlot(itemHandler, index, x + c*18, y + r*18));
+        }
+        this.addSlotToContainer(createSlot(itemHandler, index, x + c * 18, y + r * 18));
         index++;
       }
     }
@@ -42,7 +44,9 @@ public class ContainerSideInventory<T extends TileEntity> extends BaseContainer<
     return new SlotItemHandler(itemHandler, index, x, y);
   }
 
-  public int getSlotCount() { return slotCount; }
+  public int getSlotCount() {
+    return slotCount;
+  }
 
   public int getSizeInventory() {
     return itemHandler.getSlots();

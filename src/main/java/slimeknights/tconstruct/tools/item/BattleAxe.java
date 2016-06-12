@@ -64,7 +64,7 @@ public class BattleAxe extends AoeToolCore {
 
   @Override
   public int[] getRepairParts() {
-    return new int[] {1,2};
+    return new int[]{1, 2};
   }
 
   @Nonnull
@@ -85,7 +85,7 @@ public class BattleAxe extends AoeToolCore {
 
     data.harvestLevel = Math.max(head1.harvestLevel, head2.harvestLevel);
 
-    data.durability = (head1.durability + head2.durability)/2;
+    data.durability = (head1.durability + head2.durability) / 2;
     //data.handle(handle).extra(binding);
 
     //data.durability *= 1f + 0.15f * (binding.extraQuality - 0.5f);

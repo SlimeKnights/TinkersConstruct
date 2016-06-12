@@ -9,6 +9,7 @@ import slimeknights.tconstruct.library.events.TinkerEvent;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 
 public class TinkerSmelteryEvent extends TinkerEvent {
+
   public final BlockPos pos;
   public final TileSmeltery smeltery;
 
@@ -19,6 +20,7 @@ public class TinkerSmelteryEvent extends TinkerEvent {
 
   /** Fired when an item finishes melting down in the smeltery */
   public static class OnMelting extends TinkerSmelteryEvent {
+
     public FluidStack result;
     /** Itemstack is not in the smeltery anymore */
     public final ItemStack itemStack;

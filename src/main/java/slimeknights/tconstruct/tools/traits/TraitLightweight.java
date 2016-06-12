@@ -21,14 +21,14 @@ public class TraitLightweight extends AbstractTrait {
   public TraitLightweight() {
     super("lightweight", 0x00ff00);
   }
-  
+
   @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
     super.applyEffect(rootCompound, modifierTag);
 
     // add the attack speed boost
     ToolNBT data = TagUtil.getToolStats(rootCompound);
-    
+
     // apply using the base value of 1.0f, as otherwise this will apply twice on tools with multiple lightweight parts
     data.attackSpeedMultiplier = 1.0f + bonus;
 

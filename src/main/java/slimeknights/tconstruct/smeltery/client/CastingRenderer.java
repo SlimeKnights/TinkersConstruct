@@ -35,14 +35,14 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
   public CastingRenderer(float yMin, float yMax, float xzMin, float xzMax) {
     // we make the size a tad smaller because of casts so it doesn't overlap
     float s = 0.9995f;
-    this.yMin = yMin*s;
-    this.yMax = yMax*s;
-    this.xzMin = xzMin*s;
-    this.xzMax = xzMax*s;
+    this.yMin = yMin * s;
+    this.yMax = yMax * s;
+    this.xzMin = xzMin * s;
+    this.xzMax = xzMax * s;
 
 
-    this.yOffset = yMin + (yMax-yMin)/2f;
-    this.xzOffset = xzMin + (xzMax - xzMin)/2f;
+    this.yOffset = yMin + (yMax - yMin) / 2f;
+    this.xzOffset = xzMin + (xzMax - xzMin) / 2f;
 
     this.xzScale = (this.xzMax - this.xzMin);
     this.yScale = xzScale;
@@ -55,7 +55,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
       return;
     }
 
-    float height = ((float)tank.getFluidAmount() - tank.renderOffset) / (float)tank.getCapacity();
+    float height = ((float) tank.getFluidAmount() - tank.renderOffset) / (float) tank.getCapacity();
 
     if(tank.renderOffset > 1.2f || tank.renderOffset < -1.2f) {
       tank.renderOffset -= (tank.renderOffset / 12f + 0.1f) * partialTicks;
@@ -71,17 +71,17 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
     FluidStack fluid = tank.getFluid();
     float progress = 0f;
     //if(te.renderOffset == 0) {
-      progress = te.getCooldownProgress();
+    progress = te.getCooldownProgress();
     //}
 
     int color = fluid.getFluid().getColor(fluid);
-    int r,g,b,a;
+    int r, g, b, a;
     a = RenderUtil.alpha(color);
     r = RenderUtil.red(color);
     g = RenderUtil.green(color);
     b = RenderUtil.blue(color);
 
-    if(progress > 2/3) {
+    if(progress > 2 / 3) {
       float af = progress / 3f;
 
       a = (int) (((a / 255f) * (1f - af)) * a);
@@ -90,15 +90,15 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
       //b = (int)((float)b * (1f - progress));
       color = RenderUtil.compose(r, g, b, a);
     }
-    RenderUtil.renderFluidCuboid(tank.getFluid(), te.getPos(), x,y,z, xzMin, yMin, xzMin, xzMax, yh, xzMax, color);
+    RenderUtil.renderFluidCuboid(tank.getFluid(), te.getPos(), x, y, z, xzMin, yMin, xzMin, xzMax, yh, xzMax, color);
 
     // render item
     ItemStack stack = te.getCurrentResult();
     if(progress > 0 && stack != null && te.getStackInSlot(1) == null) {
-      RenderUtil.pre(x,y,z);
+      RenderUtil.pre(x, y, z);
       int brightness = te.getWorld().getCombinedLight(te.getPos(), 0);
-      OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)(brightness % 0x10000) / 1f,
-                                            (float)(brightness / 0x10000) / 1f);
+      OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) (brightness % 0x10000) / 1f,
+                                            (float) (brightness / 0x10000) / 1f);
 
       GlStateManager.translate(xzOffset, yOffset, xzOffset);
       GlStateManager.scale(xzScale, yScale, xzScale);
@@ -127,7 +127,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
   public static class Table extends CastingRenderer<TileCastingTable> {
 
     public Table() {
-      super(15/16f, 1f + 0.001f, 1/16f, 15/16f);
+      super(15 / 16f, 1f + 0.001f, 1 / 16f, 15 / 16f);
       this.xzScale = 0.875f;
       this.yScale = 1f;
       this.yOffset += 0.001f;
@@ -137,7 +137,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
   public static class Basin extends CastingRenderer<TileCastingBasin> {
 
     public Basin() {
-      super(4/16f, 1f, 2/16f, 14/16f);
+      super(4 / 16f, 1f, 2 / 16f, 14 / 16f);
     }
   }
 }

@@ -52,7 +52,7 @@ public class TooltipBuilder {
   public static String formatAmmo(int durability, int ref) {
     return String.format("%s: %s%s%s/%s%s",
                          Util.translate(LOC_Ammo),
-                         CustomFontColor.valueToColorCode((float)durability / (float)ref),
+                         CustomFontColor.valueToColorCode((float) durability / (float) ref),
                          df.format(durability),
                          TextFormatting.GRAY.toString(),
                          COLOR_Durability,

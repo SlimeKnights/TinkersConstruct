@@ -31,7 +31,7 @@ public class ModFortify extends ToolModifier {
     addAspects(new ModifierAspect.SingleAspect(this), new ModifierAspect.DataAspect(this), ModifierAspect.harvestOnly);
 
     ItemStack kit = TinkerTools.sharpeningKit.getItemstackWithMaterial(material);
-    ItemStack flint = new ItemStack(Items.FLINT) ;
+    ItemStack flint = new ItemStack(Items.FLINT);
     addRecipeMatch(new RecipeMatch.ItemCombination(1, kit, flint));
   }
 

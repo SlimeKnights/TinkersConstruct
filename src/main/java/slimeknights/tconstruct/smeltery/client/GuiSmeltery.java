@@ -132,7 +132,7 @@ public class GuiSmeltery extends GuiMultiModule {
       for(int i = 0; i < heights.length; i++) {
         int h = heights[i];
         FluidStack liquid = liquids.getFluids().get(i);
-        RenderUtil.renderTiledFluid(x, y-h, w, h, this.zLevel, liquid);
+        RenderUtil.renderTiledFluid(x, y - h, w, h, this.zLevel, liquid);
 
         y -= h;
       }
@@ -145,9 +145,9 @@ public class GuiSmeltery extends GuiMultiModule {
       int x = 71 + cornerX;
       int y = 16 + cornerY + 52;
       int w = 12;
-      int h = (int)(52f * (float)fuelInfo.fluid.amount / (float)fuelInfo.maxCap);
+      int h = (int) (52f * (float) fuelInfo.fluid.amount / (float) fuelInfo.maxCap);
 
-      RenderUtil.renderTiledFluid(x, y-h, w, h, this.zLevel, fuelInfo.fluid);
+      RenderUtil.renderTiledFluid(x, y - h, w, h, this.zLevel, fuelInfo.fluid);
     }
   }
 
@@ -258,7 +258,7 @@ public class GuiSmeltery extends GuiMultiModule {
   }
 
   private int calcLiquidText(int amount, int divider, String unit, List<String> text) {
-    int full = amount/divider;
+    int full = amount / divider;
     if(full > 0) {
       text.add(String.format("%d %s%s", full, TextFormatting.GRAY, unit));
     }
@@ -267,6 +267,7 @@ public class GuiSmeltery extends GuiMultiModule {
   }
 
   private static class FluidGuiEntry {
+
     public final int amount;
     public final String unlocName;
 

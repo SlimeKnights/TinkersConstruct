@@ -102,19 +102,17 @@ public class Util {
   /* Code for ctl and shift down  from TicTooltips by squeek502
    * https://github.com/squeek502/TiC-Tooltips/blob/1.7.10/java/squeek/tictooltips/helpers/KeyHelper.java
    */
-  public static boolean isCtrlKeyDown()
-  {
+  public static boolean isCtrlKeyDown() {
     // prioritize CONTROL, but allow OPTION as well on Mac (note: GuiScreen's isCtrlKeyDown only checks for the OPTION key on Mac)
     boolean isCtrlKeyDown = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL);
-    if (!isCtrlKeyDown && Minecraft.IS_RUNNING_ON_MAC) {
+    if(!isCtrlKeyDown && Minecraft.IS_RUNNING_ON_MAC) {
       isCtrlKeyDown = Keyboard.isKeyDown(Keyboard.KEY_LMETA) || Keyboard.isKeyDown(Keyboard.KEY_RMETA);
     }
 
     return isCtrlKeyDown;
   }
 
-  public static boolean isShiftKeyDown()
-  {
+  public static boolean isShiftKeyDown() {
     return Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT);
 
   }
@@ -122,19 +120,17 @@ public class Util {
 
   /**
    * Returns the actual color value for a chatformatting
-    */
+   */
   public static int enumChatFormattingToColor(TextFormatting color) {
     int i = color.getColorIndex();
     int j = (i >> 3 & 1) * 85;
     int k = (i >> 2 & 1) * 170 + j;
     int l = (i >> 1 & 1) * 170 + j;
     int i1 = (i >> 0 & 1) * 170 + j;
-    if (i == 6)
-    {
+    if(i == 6) {
       k += 85;
     }
-    if (i >= 16)
-    {
+    if(i >= 16) {
       k /= 4;
       l /= 4;
       i1 /= 4;

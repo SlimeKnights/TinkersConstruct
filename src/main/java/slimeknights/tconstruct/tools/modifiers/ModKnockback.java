@@ -21,6 +21,6 @@ public class ModKnockback extends ModifierTrait {
 
   protected float calcKnockback(NBTTagCompound modifierTag) {
     ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(modifierTag);
-    return (float)data.current * 0.1f;
+    return (float) data.current * 0.1f;
   }
 }

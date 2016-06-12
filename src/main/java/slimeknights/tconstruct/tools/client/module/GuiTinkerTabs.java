@@ -17,10 +17,11 @@ import slimeknights.mantle.client.gui.GuiWidgetTabs;
 import slimeknights.tconstruct.tools.client.GuiTinkerStation;
 
 public class GuiTinkerTabs extends GuiModule {
-  protected static final GuiElement GUI_Tab = new GuiElement(0,2,28,28,256,256);
-  protected static final GuiElement GUI_TabActiveL = new GuiElement(0,32,28,32,256,256);
-  protected static final GuiElement GUI_TabActiveC = new GuiElement(28,32,28,32,256,256);
-  protected static final GuiElement GUI_TabActiveR = new GuiElement(140,32,28,32,256,256);
+
+  protected static final GuiElement GUI_Tab = new GuiElement(0, 2, 28, 28, 256, 256);
+  protected static final GuiElement GUI_TabActiveL = new GuiElement(0, 32, 28, 32, 256, 256);
+  protected static final GuiElement GUI_TabActiveC = new GuiElement(28, 32, 28, 32, 256, 256);
+  protected static final GuiElement GUI_TabActiveR = new GuiElement(140, 32, 28, 32, 256, 256);
 
   public GuiWidgetTabs tabs;
   public List<BlockPos> tabData;

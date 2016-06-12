@@ -95,25 +95,22 @@ public class Hatchet extends AoeToolCore {
     }
 
     // vanilla axe shieldbreak attack. See EntityPlayer#attackTargetEntityWithCurrentItem()
-    if(hit &&  !ToolHelper.isBroken(stack) && !player.worldObj.isRemote && entity instanceof EntityPlayer) {
+    if(hit && !ToolHelper.isBroken(stack) && !player.worldObj.isRemote && entity instanceof EntityPlayer) {
       EntityPlayer entityplayer = (EntityPlayer) entity;
       ItemStack itemstack2 = player.getHeldItemMainhand();
       ItemStack itemstack3 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : null;
 
       // todo: possibly check for itemUseAction instead of is shield?
-      if (itemstack2 != null && itemstack3 != null && itemstack2.getItem() == this && itemstack3.getItem() == Items.SHIELD)
-      {
+      if(itemstack2 != null && itemstack3 != null && itemstack2.getItem() == this && itemstack3.getItem() == Items.SHIELD) {
         float f3 = 0.25F + (float) EnchantmentHelper.getEfficiencyModifier(player) * 0.05F;
 
-        if (player.isSprinting())
-        {
+        if(player.isSprinting()) {
           f3 += 0.75F;
         }
 
-        if (player.getRNG().nextFloat() < f3)
-        {
+        if(player.getRNG().nextFloat() < f3) {
           entityplayer.getCooldownTracker().setCooldown(Items.SHIELD, 100);
-          player.worldObj.setEntityState(entityplayer, (byte)30);
+          player.worldObj.setEntityState(entityplayer, (byte) 30);
         }
       }
     }

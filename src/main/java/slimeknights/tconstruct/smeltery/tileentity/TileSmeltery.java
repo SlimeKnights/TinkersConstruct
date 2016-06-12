@@ -196,7 +196,9 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   protected boolean onItemFinishedHeating(ItemStack stack, int slot) {
     MeltingRecipe recipe = TinkerRegistry.getMelting(stack);
 
-    if(recipe == null) return false;
+    if(recipe == null) {
+      return false;
+    }
 
     TinkerSmelteryEvent.OnMelting event = TinkerSmelteryEvent.OnMelting.fireEvent(this, stack, recipe.output);
 
@@ -270,31 +272,31 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   // check for alloys and create them
   protected void alloyAlloys() {
     for(AlloyRecipe recipe : TinkerRegistry.getAlloys()) {
-        // find out how often we can apply the recipe
-        int matched = recipe.matches(liquids.getFluids());
-        if(matched > ALLOYING_PER_TICK) {
-          matched = ALLOYING_PER_TICK;
+      // find out how often we can apply the recipe
+      int matched = recipe.matches(liquids.getFluids());
+      if(matched > ALLOYING_PER_TICK) {
+        matched = ALLOYING_PER_TICK;
+      }
+      while(matched > 0) {
+        // remove all liquids from the tank
+        for(FluidStack liquid : recipe.getFluids()) {
+          FluidStack toDrain = liquid.copy();
+          FluidStack drained = liquids.drain(toDrain, true);
+          // error logging
+          if(!drained.isFluidEqual(toDrain) || drained.amount != toDrain.amount) {
+            log.error("Smeltery alloy creation drained incorrect amount: was %s:%d, should be %s:%d", drained
+                .getUnlocalizedName(), drained.amount, toDrain.getUnlocalizedName(), toDrain.amount);
+          }
         }
-        while(matched > 0) {
-          // remove all liquids from the tank
-          for(FluidStack liquid : recipe.getFluids()) {
-            FluidStack toDrain = liquid.copy();
-            FluidStack drained = liquids.drain(toDrain, true);
-            // error logging
-            if(!drained.isFluidEqual(toDrain) || drained.amount != toDrain.amount) {
-              log.error("Smeltery alloy creation drained incorrect amount: was %s:%d, should be %s:%d", drained
-                  .getUnlocalizedName(), drained.amount, toDrain.getUnlocalizedName(), toDrain.amount);
-            }
-          }
 
-          // and insert the alloy
-          FluidStack toFill = recipe.getResult().copy();
-          int filled = liquids.fill(toFill, true);
-          if(filled != recipe.getResult().amount) {
-            log.error("Smeltery alloy creation filled incorrect amount: was %d, should be %d (%s)", filled,
-                      recipe.getResult().amount * matched, recipe.getResult().getUnlocalizedName());
-          }
-          matched -= filled;
+        // and insert the alloy
+        FluidStack toFill = recipe.getResult().copy();
+        int filled = liquids.fill(toFill, true);
+        if(filled != recipe.getResult().amount) {
+          log.error("Smeltery alloy creation filled incorrect amount: was %d, should be %d (%s)", filled,
+                    recipe.getResult().amount * matched, recipe.getResult().getUnlocalizedName());
+        }
+        matched -= filled;
       }
     }
   }
@@ -443,7 +445,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     }
 
     if(info != null) {
-      minPos = info.minPos.add(1,1,1); // add walls and floor
+      minPos = info.minPos.add(1, 1, 1); // add walls and floor
       maxPos = info.maxPos.add(-1, 0, -1); // subtract walls, no ceiling
     }
     else {
@@ -501,7 +503,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   @Override
   @SideOnly(Side.CLIENT)
   public GuiContainer createGui(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
-    return new GuiSmeltery((ContainerSmeltery)createContainer(inventoryplayer, world, pos), this);
+    return new GuiSmeltery((ContainerSmeltery) createContainer(inventoryplayer, world, pos), this);
   }
 
   public float getMeltingProgress(int index) {
@@ -539,7 +541,9 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
     // check all other tanks (except the current one that we already checked) for more fuel
     for(BlockPos pos : tanks) {
-      if(pos == currentTank) continue;
+      if(pos == currentTank) {
+        continue;
+      }
 
       IFluidTank tank = getTankAt(pos);
       // tank exists and has something in it
@@ -567,7 +571,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     if(minPos == null || maxPos == null) {
       return super.getRenderBoundingBox();
     }
-    return new AxisAlignedBB(minPos.getX(), minPos.getY(), minPos.getZ(), maxPos.getX()+1, maxPos.getY()+1, maxPos.getZ()+1);
+    return new AxisAlignedBB(minPos.getX(), minPos.getY(), minPos.getZ(), maxPos.getX() + 1, maxPos.getY() + 1, maxPos.getZ() + 1);
   }
 
   /* Network & Saving */
@@ -583,7 +587,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
   @SideOnly(Side.CLIENT)
   public void updateTemperatureFromPacket(int index, int heat) {
-    if(index < 0 || index > getSizeInventory()-1) {
+    if(index < 0 || index > getSizeInventory() - 1) {
       return;
     }
 
@@ -697,6 +701,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   }
 
   public static class FuelInfo {
+
     public int heat;
     public int maxCap;
     public FluidStack fluid;

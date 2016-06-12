@@ -60,18 +60,21 @@ public class ModLuck extends ModifierTrait {
       return;
     }
     // we reward one chance per full heart damage dealt. No chance for 0.5 heart hits, sorry :(
-    for(int i = (int)(damageDealt/2f); i > 0; i--) {
+    for(int i = (int) (damageDealt / 2f); i > 0; i--) {
       rewardProgress(tool);
     }
   }
 
   public void rewardProgress(ItemStack tool) {
     // 2% chance
-    if(random.nextFloat() > 0.02f) return;
+    if(random.nextFloat() > 0.02f) {
+      return;
+    }
 
     try {
-      if(canApply(tool, tool))
+      if(canApply(tool, tool)) {
         apply(tool);
+      }
     } catch(TinkerGuiException e) {
       // no user feedback
     }
@@ -84,8 +87,12 @@ public class ModLuck extends ModifierTrait {
     lvl = Math.min(lvl, Enchantments.LOOTING.getMaxLevel());
 
     for(Category category : TagUtil.getCategories(rootCompound)) {
-      if(category == Category.HARVEST) harvest = true;
-      if(category == Category.WEAPON) weapon = true;
+      if(category == Category.HARVEST) {
+        harvest = true;
+      }
+      if(category == Category.WEAPON) {
+        weapon = true;
+      }
     }
 
     // weapons get looting
@@ -117,12 +124,14 @@ public class ModLuck extends ModifierTrait {
 
     @Override
     protected int getMaxForLevel(int level) {
-      return (countPerLevel * level * (level+1))/2; // sum(n)
+      return (countPerLevel * level * (level + 1)) / 2; // sum(n)
     }
 
     public int getLevel(int current) {
       int i = 0;
-      while(current >= getMaxForLevel(i+1)) i++;
+      while(current >= getMaxForLevel(i + 1)) {
+        i++;
+      }
       return i;
     }
   }

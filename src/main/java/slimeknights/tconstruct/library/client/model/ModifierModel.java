@@ -66,7 +66,7 @@ public class ModifierModel implements IModel {
 
   @Override
   public IBakedModel bake(IModelState state, VertexFormat format,
-                                  Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+                          Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     throw new UnsupportedOperationException("The modifier-Model is not built to be used as an item model");
   }
 

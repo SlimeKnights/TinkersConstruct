@@ -315,8 +315,8 @@ public final class TinkerMaterials {
     prismarine.setCraftable(true);
     prismarine.addItem(Items.PRISMARINE_SHARD, 1, Material.VALUE_Fragment);
     prismarine.addItem(new ItemStack(Blocks.PRISMARINE, 1, BlockPrismarine.ROUGH_META), 1, Material.VALUE_Ingot);
-    prismarine.addItem(new ItemStack(Blocks.PRISMARINE, 1, BlockPrismarine.BRICKS_META), 1, Material.VALUE_Fragment*9);
-    prismarine.addItem(new ItemStack(Blocks.PRISMARINE, 1, BlockPrismarine.DARK_META), 1, Material.VALUE_Ingot*2);
+    prismarine.addItem(new ItemStack(Blocks.PRISMARINE, 1, BlockPrismarine.BRICKS_META), 1, Material.VALUE_Fragment * 9);
+    prismarine.addItem(new ItemStack(Blocks.PRISMARINE, 1, BlockPrismarine.DARK_META), 1, Material.VALUE_Ingot * 2);
     prismarine.setRepresentativeItem(Blocks.PRISMARINE);
     prismarine.addTrait(jagged, HEAD);
     prismarine.addTrait(aquadynamic);
@@ -573,7 +573,9 @@ public final class TinkerMaterials {
 
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
-    if(TinkerTools.shard == null) return;
+    if(TinkerTools.shard == null) {
+      return;
+    }
 
     // each material without a shard set gets the default one set
     for(Material material : TinkerRegistry.getAllMaterials()) {

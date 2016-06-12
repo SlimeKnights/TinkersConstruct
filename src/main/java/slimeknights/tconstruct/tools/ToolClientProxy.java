@@ -131,97 +131,97 @@ public class ToolClientProxy extends ClientProxy {
   public void toolBuildInfo() {
     // pickaxe
     ToolBuildGuiInfo info = new ToolBuildGuiInfo(TinkerTools.pickaxe);
-    info.addSlotPosition(33-18, 42+18); // rod
-    info.addSlotPosition(33+20, 42-20); // pick head
+    info.addSlotPosition(33 - 18, 42 + 18); // rod
+    info.addSlotPosition(33 + 20, 42 - 20); // pick head
     info.addSlotPosition(33, 42); // binding
     TinkerRegistryClient.addToolBuilding(info);
 
     // shovel
     info = new ToolBuildGuiInfo(TinkerTools.shovel);
     info.addSlotPosition(33, 42); // rod
-    info.addSlotPosition(33+18, 42-18); // shovel head
-    info.addSlotPosition(33-20, 42+20); // binding
+    info.addSlotPosition(33 + 18, 42 - 18); // shovel head
+    info.addSlotPosition(33 - 20, 42 + 20); // binding
     TinkerRegistryClient.addToolBuilding(info);
 
     // hatchet
     info = new ToolBuildGuiInfo(TinkerTools.hatchet);
-    info.addSlotPosition(33-11, 42+11); // rod
-    info.addSlotPosition(33-2, 42-20); // head
-    info.addSlotPosition(33+18, 42-8); // binding
+    info.addSlotPosition(33 - 11, 42 + 11); // rod
+    info.addSlotPosition(33 - 2, 42 - 20); // head
+    info.addSlotPosition(33 + 18, 42 - 8); // binding
     TinkerRegistryClient.addToolBuilding(info);
 
     // mattock
     info = new ToolBuildGuiInfo(TinkerTools.mattock);
-    info.addSlotPosition(33-11, 42+11); // rod
-    info.addSlotPosition(33-2, 42-20); // axe head
-    info.addSlotPosition(33+18, 42-8); // shovel head
+    info.addSlotPosition(33 - 11, 42 + 11); // rod
+    info.addSlotPosition(33 - 2, 42 - 20); // axe head
+    info.addSlotPosition(33 + 18, 42 - 8); // shovel head
     TinkerRegistryClient.addToolBuilding(info);
 
     // broadsword
     info = new ToolBuildGuiInfo(TinkerTools.broadSword);
-    info.addSlotPosition(33-20-1, 42+20); // handle
-    info.addSlotPosition(33+20-6, 42-20+5); // blade
-    info.addSlotPosition(33-2-1, 42+2); // guard
+    info.addSlotPosition(33 - 20 - 1, 42 + 20); // handle
+    info.addSlotPosition(33 + 20 - 6, 42 - 20 + 5); // blade
+    info.addSlotPosition(33 - 2 - 1, 42 + 2); // guard
     TinkerRegistryClient.addToolBuilding(info);
 
     // longsword
     info = new ToolBuildGuiInfo(TinkerTools.longSword);
-    info.addSlotPosition(33-20-1, 42+20); // handle
-    info.addSlotPosition(33+20-6, 42-20+5); // blade
-    info.addSlotPosition(33-2-1, 42+2); // guard
+    info.addSlotPosition(33 - 20 - 1, 42 + 20); // handle
+    info.addSlotPosition(33 + 20 - 6, 42 - 20 + 5); // blade
+    info.addSlotPosition(33 - 2 - 1, 42 + 2); // guard
     TinkerRegistryClient.addToolBuilding(info);
 
     // rapier
     info = new ToolBuildGuiInfo(TinkerTools.rapier);
-    info.addSlotPosition(33-20-1, 42+20); // handle
-    info.addSlotPosition(33+20-6, 42-20+5); // blade
-    info.addSlotPosition(33-2-1, 42+2); // guard
+    info.addSlotPosition(33 - 20 - 1, 42 + 20); // handle
+    info.addSlotPosition(33 + 20 - 6, 42 - 20 + 5); // blade
+    info.addSlotPosition(33 - 2 - 1, 42 + 2); // guard
     TinkerRegistryClient.addToolBuilding(info);
 
     // dagger
 
     // battlesign
     info = new ToolBuildGuiInfo(TinkerTools.battleSign);
-    info.addSlotPosition(33-6, 42+18); // handle
-    info.addSlotPosition(33-6, 42-8); // sign
+    info.addSlotPosition(33 - 6, 42 + 18); // handle
+    info.addSlotPosition(33 - 6, 42 - 8); // sign
     TinkerRegistryClient.addToolBuilding(info);
 
     // frypan
     info = new ToolBuildGuiInfo(TinkerTools.fryPan);
-    info.addSlotPosition(33-20-1, 42+20); // handle
-    info.addSlotPosition(33+2-1, 42-6); // pan
+    info.addSlotPosition(33 - 20 - 1, 42 + 20); // handle
+    info.addSlotPosition(33 + 2 - 1, 42 - 6); // pan
     TinkerRegistryClient.addToolBuilding(info);
 
     // hammer
     info = new ToolBuildGuiInfo(TinkerTools.hammer);
-    info.addSlotPosition(33-10-2, 42+10); // handle
-    info.addSlotPosition(33+13-2, 42-13); // head
-    info.addSlotPosition(33+10+16-2, 42-10+16); // plate 1
-    info.addSlotPosition(33+10-16-2, 42-10-16); // plate 2
+    info.addSlotPosition(33 - 10 - 2, 42 + 10); // handle
+    info.addSlotPosition(33 + 13 - 2, 42 - 13); // head
+    info.addSlotPosition(33 + 10 + 16 - 2, 42 - 10 + 16); // plate 1
+    info.addSlotPosition(33 + 10 - 16 - 2, 42 - 10 - 16); // plate 2
     TinkerRegistryClient.addToolBuilding(info);
 
     // excavator
     info = new ToolBuildGuiInfo(TinkerTools.excavator);
-    info.addSlotPosition(33-10+2, 42+4); // handle
-    info.addSlotPosition(33+12, 42-16); // head
-    info.addSlotPosition(33-8, 42-16); // plate
-    info.addSlotPosition(33-10-16, 42+20); // binding
+    info.addSlotPosition(33 - 10 + 2, 42 + 4); // handle
+    info.addSlotPosition(33 + 12, 42 - 16); // head
+    info.addSlotPosition(33 - 8, 42 - 16); // plate
+    info.addSlotPosition(33 - 10 - 16, 42 + 20); // binding
     TinkerRegistryClient.addToolBuilding(info);
 
     // lumberaxe
     info = new ToolBuildGuiInfo(TinkerTools.lumberAxe);
-    info.addSlotPosition(33+6-10+3, 42+4); // handle
-    info.addSlotPosition(33+6-6, 42-20); // head
-    info.addSlotPosition(33+6+14, 42-4); // plate
-    info.addSlotPosition(33+6-10-16, 42+20); // binding
+    info.addSlotPosition(33 + 6 - 10 + 3, 42 + 4); // handle
+    info.addSlotPosition(33 + 6 - 6, 42 - 20); // head
+    info.addSlotPosition(33 + 6 + 14, 42 - 4); // plate
+    info.addSlotPosition(33 + 6 - 10 - 16, 42 + 20); // binding
     TinkerRegistryClient.addToolBuilding(info);
 
     // cleaver
     info = new ToolBuildGuiInfo(TinkerTools.cleaver);
-    info.addSlotPosition(33-10-14, 42+10+12); // handle
-    info.addSlotPosition(33-8, 42-10+4); // head
-    info.addSlotPosition(33+14, 42-10-2); // plate/shield
-    info.addSlotPosition(33+10-10, 42+10+6); // guard
+    info.addSlotPosition(33 - 10 - 14, 42 + 10 + 12); // handle
+    info.addSlotPosition(33 - 8, 42 - 10 + 4); // head
+    info.addSlotPosition(33 + 14, 42 - 10 - 2); // plate/shield
+    info.addSlotPosition(33 + 10 - 10, 42 + 10 + 6); // guard
     TinkerRegistryClient.addToolBuilding(info);
 
     // battleaxe
@@ -242,10 +242,10 @@ public class ToolClientProxy extends ClientProxy {
 
     // shuriken
     info = new ToolBuildGuiInfo(TinkerTools.shuriken);
-    info.addSlotPosition(32-12, 41-12); // top left
-    info.addSlotPosition(32+12, 41-12); // top right
-    info.addSlotPosition(32+12, 41+12); // bot left
-    info.addSlotPosition(32-12, 41+12); // bot right
+    info.addSlotPosition(32 - 12, 41 - 12); // top left
+    info.addSlotPosition(32 + 12, 41 - 12); // top right
+    info.addSlotPosition(32 + 12, 41 + 12); // bot left
+    info.addSlotPosition(32 - 12, 41 + 12); // bot right
     TinkerRegistryClient.addToolBuilding(info);
   }
 }

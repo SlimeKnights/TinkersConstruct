@@ -75,20 +75,20 @@ public abstract class TinkerPulse {
     ItemBlockMeta.setMappingProperty(block, block.prop);
     return block;
   }
-  
+
   protected static <T extends EnumBlockSlab<?>> T registerEnumBlockSlab(T block, String name) {
     registerBlock(block, new ItemBlockSlab(block), name);
     ItemBlockMeta.setMappingProperty(block, block.prop);
     return block;
   }
-  
+
   protected static <E extends Enum<E> & EnumBlock.IEnumMeta & IStringSerializable> BlockStairsBase registerBlockStairsFrom(EnumBlock<E> block, E value, String name) {
     return registerBlock(new BlockStairsBase(block.getDefaultState().withProperty(block.prop, value)), name);
   }
 
   protected static <T extends Block> T registerBlock(ItemBlock itemBlock, String name) {
     Block block = itemBlock.getBlock();
-    return (T)registerBlock(block, itemBlock, name);
+    return (T) registerBlock(block, itemBlock, name);
   }
 
   protected static <T extends Block> T registerBlock(T block, String name, IProperty<?> property) {
@@ -125,12 +125,12 @@ public abstract class TinkerPulse {
 
     GameRegistry.registerTileEntity(teClazz, Util.prefix(name));
   }
-  
+
   // sets the stack size to make Tinkers Commons easier, as it uses base itemstacks there
   protected static void addSlabRecipe(ItemStack slab, ItemStack input) {
     GameRegistry.addShapedRecipe(new ItemStack(slab.getItem(), 6, slab.getItemDamage()), "BBB", 'B', input);
   }
-  
+
   protected static void addStairRecipe(Block stairs, ItemStack input) {
     GameRegistry.addShapedRecipe(new ItemStack(stairs, 4, 0), "B  ", "BB ", "BBB", 'B', input);
   }

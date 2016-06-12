@@ -20,6 +20,7 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.events.TinkerToolEvent;
 
 public class ToolEvents {
+
   private static final Random random = new Random();
 
   public final static Set<ToolCore> smallTools = Sets.newHashSet();
@@ -27,7 +28,9 @@ public class ToolEvents {
   // Extra width/height modifier management
   @SubscribeEvent
   public void onExtraBlockBreak(TinkerToolEvent.ExtraBlockBreak event) {
-    if(TinkerTools.modHarvestWidth == null || TinkerTools.modHarvestHeight == null) return;
+    if(TinkerTools.modHarvestWidth == null || TinkerTools.modHarvestHeight == null) {
+      return;
+    }
 
     NBTTagList modifiers = TagUtil.getBaseModifiersTagList(event.itemStack);
     boolean width = false;
@@ -54,8 +57,12 @@ public class ToolEvents {
     }
     else if(event.tool == TinkerTools.mattock) {
       int c = 0;
-      if(width) c++;
-      if(height) c++;
+      if(width) {
+        c++;
+      }
+      if(height) {
+        c++;
+      }
       event.width += c;
       event.height += c;
     }

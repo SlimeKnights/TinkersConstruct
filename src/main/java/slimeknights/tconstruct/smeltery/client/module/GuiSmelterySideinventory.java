@@ -22,8 +22,8 @@ public class GuiSmelterySideinventory extends GuiSideInventory {
 
   protected GuiElement progressBar = new GuiElementScalable(176, 150, 3, 16, 256, 256);
   protected GuiElement unprogressBar = new GuiElementScalable(179, 150, 3, 16);
-  protected GuiElement uberHeatBar =  new GuiElementScalable(182, 150, 3, 16);
-  protected GuiElement noMeltBar =  new GuiElementScalable(185, 150, 3, 16);
+  protected GuiElement uberHeatBar = new GuiElementScalable(182, 150, 3, 16);
+  protected GuiElement noMeltBar = new GuiElementScalable(185, 150, 3, 16);
 
   public GuiSmelterySideinventory(GuiMultiModule parent, Container container, TileSmeltery smeltery, int slotCount, int columns) {
     super(parent, container, slotCount, columns, false, true);
@@ -93,7 +93,7 @@ public class GuiSmelterySideinventory extends GuiSideInventory {
           tooltip = "gui.smeltery.progress.no_space";
         }
 
-        int height = 1 + Math.round(progress * (bar.h-1));
+        int height = 1 + Math.round(progress * (bar.h - 1));
         int x = slot.xDisplayPosition - 10 + this.xSize;
         int y = slot.yDisplayPosition + bar.h - height;
 

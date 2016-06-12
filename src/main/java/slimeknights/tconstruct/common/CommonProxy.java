@@ -86,7 +86,7 @@ public class CommonProxy {
   public void spawnEffectParticle(ParticleEffect.Type type, EntityLivingBase entity, int count) {
     spawnParticle(Particles.EFFECT, entity.getEntityWorld(), entity.posX, entity.posY + entity.height * 0.5f, entity.posZ, 0d, 1d, 0d, count, type.ordinal());
   }
-  
+
   public void spawnEffectParticle(ParticleEffect.Type type, World world, double x, double y, double z, int count) {
     spawnParticle(Particles.EFFECT, world, x, y, z, 0d, -1d, 0d, count, type.ordinal());
   }
@@ -117,12 +117,13 @@ public class CommonProxy {
   // replicates the World.newExplosion code to separate behaviour on server/client for any explosion implementation
   public void customExplosion(World world, Explosion explosion) {
     // server side
-    if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(world, explosion)) return;
+    if(net.minecraftforge.event.ForgeEventFactory.onExplosionStart(world, explosion)) {
+      return;
+    }
     explosion.doExplosionA();
     explosion.doExplosionB(false);
 
-    if (!explosion.isSmoking)
-    {
+    if(!explosion.isSmoking) {
       explosion.clearAffectedBlockPositions();
     }
 

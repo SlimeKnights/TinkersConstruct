@@ -9,6 +9,7 @@ import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 
 public class TinkerCastingEvent extends TinkerEvent {
+
   public final CastingRecipe recipe;
   public final TileCasting tile;
 
@@ -37,6 +38,7 @@ public class TinkerCastingEvent extends TinkerEvent {
   }
 
   public static class OnCasted extends TinkerCastingEvent {
+
     public ItemStack output;
     public boolean consumeCast;
     public boolean switchOutputs;

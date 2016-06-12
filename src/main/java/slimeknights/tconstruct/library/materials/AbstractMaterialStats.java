@@ -28,7 +28,7 @@ public abstract class AbstractMaterialStats implements IMaterialStats {
   }
 
   public static String formatNumber(String loc, String color, int number) {
-    return formatNumber(loc, color, (float)number);
+    return formatNumber(loc, color, (float) number);
   }
 
   public static String formatNumber(String loc, String color, float number) {

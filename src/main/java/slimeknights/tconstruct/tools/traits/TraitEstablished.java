@@ -46,7 +46,7 @@ public class TraitEstablished extends AbstractTrait {
       }
       return 0;
     }
-    float exp = (float)xp * 1.25f + random.nextFloat()*0.5f;
+    float exp = (float) xp * 1.25f + random.nextFloat() * 0.5f;
     return 1 + Math.round(exp);
   }
 }

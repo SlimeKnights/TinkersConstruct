@@ -19,15 +19,20 @@ import slimeknights.tconstruct.library.client.texture.TextureColoredTexture;
 public interface MaterialRenderInfo {
 
   TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location);
+
   boolean isStitched();
+
   boolean useVertexColoring();
+
   int getVertexColor();
 
   // this actually would require its own thing, but we put it here for simplicity
   String getTextureSuffix();
+
   MaterialRenderInfo setTextureSuffix(String suffix);
 
   abstract class AbstractMaterialRenderInfo implements MaterialRenderInfo {
+
     private String suffix;
 
     @Override
@@ -62,6 +67,7 @@ public interface MaterialRenderInfo {
    * Safes VRAM, so we use vertex colors instead of creating new data.
    */
   class Default extends AbstractMaterialRenderInfo {
+
     public final int color;
 
     public Default(int color) {
@@ -122,6 +128,7 @@ public interface MaterialRenderInfo {
   }
 
   class Metal extends AbstractMaterialRenderInfo {
+
     protected float shinyness;
     protected float brightness;
     protected float hueshift;

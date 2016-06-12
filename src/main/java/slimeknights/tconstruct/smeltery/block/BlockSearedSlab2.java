@@ -46,13 +46,13 @@ public class BlockSearedSlab2 extends EnumBlockSlab<BlockSearedSlab2.SearedType>
     public String getName() {
       return this.toString().toLowerCase(Locale.US);
     }
-    
+
     public BlockSeared.SearedType asSearedBlock() {
       switch(this) {
-      case CREEPER:
-        return BlockSeared.SearedType.CREEPER;
-      default:
-        return null;
+        case CREEPER:
+          return BlockSeared.SearedType.CREEPER;
+        default:
+          return null;
       }
     }
 

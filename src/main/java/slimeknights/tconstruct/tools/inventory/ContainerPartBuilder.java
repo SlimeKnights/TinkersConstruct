@@ -70,15 +70,18 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
       boolean hasCraftingStation = false;
       boolean hasStencilTable = false;
       for(Pair<BlockPos, IBlockState> pair : tinkerStationBlocks) {
-        if(!pair.getRight().getProperties().containsKey(BlockToolTable.TABLES))
+        if(!pair.getRight().getProperties().containsKey(BlockToolTable.TABLES)) {
           continue;
+        }
 
         BlockToolTable.TableTypes type = pair.getRight().getValue(BlockToolTable.TABLES);
         if(type != null) {
-          if(type == BlockToolTable.TableTypes.CraftingStation)
+          if(type == BlockToolTable.TableTypes.CraftingStation) {
             hasCraftingStation = true;
-          else if(type == BlockToolTable.TableTypes.StencilTable)
+          }
+          else if(type == BlockToolTable.TableTypes.StencilTable) {
             hasStencilTable = true;
+          }
         }
       }
 
@@ -133,7 +136,7 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
       if(toolPart != null &&
          // got no secondary output or does it stack with the current one?
          (secondary == null || toolPart[1] == null || ItemStack.areItemsEqual(secondary, toolPart[1]) && ItemStack.areItemStackTagsEqual(secondary, toolPart[1]))) {
-          craftResult.setInventorySlotContents(0, toolPart[0]);
+        craftResult.setInventorySlotContents(0, toolPart[0]);
       }
       else {
         craftResult.setInventorySlotContents(0, null);
@@ -150,8 +153,9 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
 
   /** Looks for a pattern that matches the given one in the PatternChest and exchanges it with the pattern slot */
   public void setPattern(ItemStack wanted) {
-    if(patternChest == null)
+    if(patternChest == null) {
       return;
+    }
 
     // check chest contents for wanted
     for(int i = 0; i < patternChest.getSizeInventory(); i++) {

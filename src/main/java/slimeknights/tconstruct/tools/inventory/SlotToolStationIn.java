@@ -33,7 +33,9 @@ public class SlotToolStationIn extends Slot {
   @Override
   public boolean isItemValid(ItemStack stack) {
     // dormant slots don't take any items, they can only be taken out of
-    if(dormant) return false;
+    if(dormant) {
+      return false;
+    }
 
     // otherwise we check if we have item info and restrict it to that
     if(restriction != null) {

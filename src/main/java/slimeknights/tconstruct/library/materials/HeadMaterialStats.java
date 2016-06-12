@@ -61,7 +61,7 @@ public class HeadMaterialStats extends AbstractMaterialStats {
   public static String formatDurability(int durability, int ref) {
     return String.format("%s: %s%s%s/%s%s",
                          Util.translate(LOC_Durability),
-                         CustomFontColor.valueToColorCode((float)durability / (float)ref),
+                         CustomFontColor.valueToColorCode((float) durability / (float) ref),
                          df.format(durability),
                          TextFormatting.GRAY.toString(),
                          COLOR_Durability,

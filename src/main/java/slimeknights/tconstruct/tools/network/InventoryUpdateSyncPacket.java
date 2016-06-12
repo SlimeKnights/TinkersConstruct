@@ -29,12 +29,15 @@ public class InventoryUpdateSyncPacket extends AbstractPacketThreadsafe {
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
     // only ever sent to players in the same dimension as the position
     TileEntity tileEntity = Minecraft.getMinecraft().thePlayer.worldObj.getTileEntity(pos);
-    if(tileEntity == null || !(tileEntity instanceof TileInventory))
+    if(tileEntity == null || !(tileEntity instanceof TileInventory)) {
       return;
+    }
 
     TileInventory tile = (TileInventory) tileEntity;
     for(int i = 0; i < itemStacks.length; i++) {
-      if(itemStacks[i] == null) continue;
+      if(itemStacks[i] == null) {
+        continue;
+      }
       tile.setInventorySlotContents(i, itemStacks[i]);
     }
     Minecraft.getMinecraft().renderGlobal.notifyBlockUpdate(null, pos, null, null, 0);
@@ -64,11 +67,15 @@ public class InventoryUpdateSyncPacket extends AbstractPacketThreadsafe {
     buf.writeShort(itemStacks.length);
     int count = 0;
     for(int i = 0; i < itemStacks.length; i++) {
-      if(itemStacks[i] != null) count++;
+      if(itemStacks[i] != null) {
+        count++;
+      }
     }
     buf.writeShort(count);
     for(int i = 0; i < itemStacks.length; i++) {
-      if(itemStacks[i] == null) continue;
+      if(itemStacks[i] == null) {
+        continue;
+      }
 
       buf.writeShort(i);
       ByteBufUtils.writeItemStack(buf, itemStacks[i]);

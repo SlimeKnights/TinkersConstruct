@@ -19,12 +19,14 @@ import slimeknights.mantle.pulsar.config.ForgeCFG;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 
-public class Config {
+public final class Config {
 
   public static ForgeCFG pulseConfig = new ForgeCFG("TinkerModules", "Modules");
   public static Config instance = new Config();
   public static Logger log = Util.getLogger("Config");
-  private Config() {}
+
+  private Config() {
+  }
 
 
   public static boolean forceRegisterAll = false; // enables all common items, even if their module is not present
@@ -44,7 +46,7 @@ public class Config {
   public static boolean genIslandsInSuperflat = false;
   public static int slimeIslandsRate = 730; // Every x-th chunk will have a slime island. so 1 = every chunk, 100 = every 100th
   public static int magmaIslandsRate = 100; // Every x-th chunk will have a slime island. so 1 = every chunk, 100 = every 100th
-  public static int[] slimeIslandBlacklist = new int[] {-1, 1};
+  public static int[] slimeIslandBlacklist = new int[]{-1, 1};
   public static boolean genCobalt = true;
   public static int cobaltRate = 16; // max. cobalt per chunk
   public static boolean genArdite = true;

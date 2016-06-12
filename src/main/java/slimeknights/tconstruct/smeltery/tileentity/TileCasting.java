@@ -1,8 +1,5 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
@@ -23,6 +20,10 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.fluid.FluidHandlerCasting;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
@@ -63,7 +64,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
   @Override
   public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-      return (T)fluidHandler;
+      return (T) fluidHandler;
     }
     return super.getCapability(capability, facing);
   }
@@ -106,7 +107,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
   @Nonnull
   @Override
   public int[] getSlotsForFace(@Nonnull EnumFacing side) {
-    return new int[] {0, 1};
+    return new int[]{0, 1};
   }
 
   @Override
@@ -142,11 +143,11 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
             for(EntityPlayer player : worldObj.playerEntities) {
               if(player.getDistanceSq(pos) < 1024 && player instanceof EntityPlayerMP) {
                 ((EntityPlayerMP) player).connection.sendPacket(new SPacketParticles(EnumParticleTypes.FLAME, false,
-                                                                                                 pos.getX() + 0.5f,
-                                                                                                 pos.getY() + 1.1f,
-                                                                                                 pos.getZ() + 0.5f,
-                                                                                                 0.25f, 0.0125f, 0.25f,
-                                                                                                 0.005f, 5));
+                                                                                     pos.getX() + 0.5f,
+                                                                                     pos.getY() + 1.1f,
+                                                                                     pos.getZ() + 0.5f,
+                                                                                     0.25f, 0.0125f, 0.25f,
+                                                                                     0.005f, 5));
               }
             }
           }
@@ -178,7 +179,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     if(recipe == null || tank.getFluidAmount() == 0) {
       return 0f;
     }
-    return Math.min(1f, (float)timer/(float)recipe.getTime());
+    return Math.min(1f, (float) timer / (float) recipe.getTime());
   }
 
   public ItemStack getCurrentResult() {

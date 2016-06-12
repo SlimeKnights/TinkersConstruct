@@ -43,8 +43,7 @@ public class EntityThrowball extends EntityThrowable implements IEntityAdditiona
         break;
     }
 
-    if (!this.worldObj.isRemote)
-    {
+    if(!this.worldObj.isRemote) {
       this.setDead();
     }
   }
@@ -60,7 +59,7 @@ public class EntityThrowball extends EntityThrowable implements IEntityAdditiona
       if(result.typeOfHit == RayTraceResult.Type.BLOCK) {
         pos = pos.offset(result.sideHit);
         facing = result.sideHit.getOpposite();
-      }  
+      }
 
       // add the glow using the special function in BlockGlow so it faces the right way after placing
       TinkerCommons.blockGlow.addGlow(worldObj, pos, facing);

@@ -8,6 +8,7 @@ import slimeknights.tconstruct.library.events.TinkerEvent;
 import slimeknights.tconstruct.library.tools.ToolCore;
 
 public abstract class TinkerToolEvent extends TinkerEvent {
+
   public final ItemStack itemStack;
   public final ToolCore tool;
 
@@ -17,6 +18,7 @@ public abstract class TinkerToolEvent extends TinkerEvent {
   }
 
   public static class ExtraBlockBreak extends TinkerToolEvent {
+
     public final EntityPlayer player;
 
     public int width;
@@ -42,6 +44,7 @@ public abstract class TinkerToolEvent extends TinkerEvent {
   }
 
   public static class OnRepair extends TinkerToolEvent {
+
     public final int amount;
 
     public OnRepair(ItemStack itemStack, int amount) {

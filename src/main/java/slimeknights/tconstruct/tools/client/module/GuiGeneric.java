@@ -7,6 +7,7 @@ import slimeknights.mantle.client.gui.GuiElementScalable;
 import slimeknights.tconstruct.library.Util;
 
 public final class GuiGeneric {
+
   public static final ResourceLocation LOCATION = Util.getResource("textures/gui/generic.png");
 
   // first one sets default texture w/h
@@ -38,5 +39,6 @@ public final class GuiGeneric {
   public static final GuiElement sliderBottom = new GuiElement(43, 38, 12, 1);
   public static final GuiElementScalable sliderBackground = new GuiElementScalable(43, 8, 12, 30);
 
-  private GuiGeneric() {}
+  private GuiGeneric() {
+  }
 }

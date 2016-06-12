@@ -34,6 +34,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 public class BlockSlimeGrass extends BlockGrass {
+
   public static PropertyEnum<DirtType> TYPE = PropertyEnum.create("type", DirtType.class);
   public static PropertyEnum<FoliageType> FOLIAGE = PropertyEnum.create("foliage", FoliageType.class);
 
@@ -59,39 +60,31 @@ public class BlockSlimeGrass extends BlockGrass {
     BlockPos blockpos1 = pos.up();
     int i = 0;
 
-    while (i < 128)
-    {
+    while(i < 128) {
       BlockPos blockpos2 = blockpos1;
       int j = 0;
 
-      while (true)
-      {
-        if (j < i / 16)
-        {
+      while(true) {
+        if(j < i / 16) {
           blockpos2 = blockpos2.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
 
-          if (worldIn.getBlockState(blockpos2.down()).getBlock() == this && !worldIn.getBlockState(blockpos2).getBlock().isNormalCube(state))
-          {
+          if(worldIn.getBlockState(blockpos2.down()).getBlock() == this && !worldIn.getBlockState(blockpos2).getBlock().isNormalCube(state)) {
             ++j;
             continue;
           }
         }
-        else if (worldIn.isAirBlock(blockpos2))
-        {
+        else if(worldIn.isAirBlock(blockpos2)) {
           IBlockState plantState;
-          if (rand.nextInt(8) == 0)
-          {
+          if(rand.nextInt(8) == 0) {
             plantState = TinkerWorld.slimeGrassTall.getDefaultState().withProperty(BlockTallSlimeGrass.TYPE, BlockTallSlimeGrass.SlimePlantType.FERN);
           }
-          else
-          {
+          else {
             plantState = TinkerWorld.slimeGrassTall.getDefaultState().withProperty(BlockTallSlimeGrass.TYPE, BlockTallSlimeGrass.SlimePlantType.TALL_GRASS);
           }
 
           plantState = plantState.withProperty(BlockTallSlimeGrass.FOLIAGE, state.getValue(FOLIAGE));
 
-          if (TinkerWorld.slimeGrassTall.canBlockStay(worldIn, blockpos2, plantState))
-          {
+          if(TinkerWorld.slimeGrassTall.canBlockStay(worldIn, blockpos2, plantState)) {
             worldIn.setBlockState(blockpos2, plantState, 3);
           }
         }
@@ -108,18 +101,14 @@ public class BlockSlimeGrass extends BlockGrass {
       return;
     }
 
-    if (worldIn.getLightFromNeighbors(pos.up()) < 4 && worldIn.getBlockState(pos.up()).getBlock().getLightOpacity(state, worldIn, pos.up()) > 2)
-    {
+    if(worldIn.getLightFromNeighbors(pos.up()) < 4 && worldIn.getBlockState(pos.up()).getBlock().getLightOpacity(state, worldIn, pos.up()) > 2) {
       // convert grass back to dirt of the corresponding type
       worldIn.setBlockState(pos, getDirtState(state));
     }
-    else
-    {
+    else {
       // spread to surrounding blocks
-      if (worldIn.getLightFromNeighbors(pos.up()) >= 9)
-      {
-        for (int i = 0; i < 4; ++i)
-        {
+      if(worldIn.getLightFromNeighbors(pos.up()) >= 9) {
+        for(int i = 0; i < 4; ++i) {
           BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
           Block block = worldIn.getBlockState(pos1.up()).getBlock();
           IBlockState state1 = worldIn.getBlockState(pos1);
@@ -148,9 +137,11 @@ public class BlockSlimeGrass extends BlockGrass {
   @Nonnull
   @Override
   public IBlockState getStateFromMeta(int meta) {
-    if(meta > 14) meta = 0;
+    if(meta > 14) {
+      meta = 0;
+    }
 
-    return this.getDefaultState().withProperty(TYPE, DirtType.values()[meta%5]).withProperty(FOLIAGE, FoliageType.values()[meta/5]);
+    return this.getDefaultState().withProperty(TYPE, DirtType.values()[meta % 5]).withProperty(FOLIAGE, FoliageType.values()[meta / 5]);
   }
 
   @Override
@@ -159,14 +150,15 @@ public class BlockSlimeGrass extends BlockGrass {
     FoliageType grass = state.getValue(FOLIAGE);
 
     //type goes from 0-5, grass goes from 0-2 resulting in 0-5, 6-10, 11-15
-    return type.ordinal() + grass.ordinal()*5;
+    return type.ordinal() + grass.ordinal() * 5;
   }
 
   @Override
   public int damageDropped(IBlockState state) {
     DirtType type = state.getValue(TYPE);
-    if(type == DirtType.VANILLA)
+    if(type == DirtType.VANILLA) {
       return 0;
+    }
 
     return getDirtState(state).getValue(BlockSlimeDirt.TYPE).getMeta();
   }

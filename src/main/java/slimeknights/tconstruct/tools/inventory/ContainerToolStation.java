@@ -48,7 +48,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     }
 
     // output slot
-    out = new SlotToolStationOut(i, 124,38, this);
+    out = new SlotToolStationOut(i, 124, 38, this);
     addSlotToContainer(out);
 
     this.addPlayerInventory(playerInventory, 8, 84 + 8);
@@ -82,8 +82,9 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
   }
 
   public void setToolSelection(ToolCore tool, int activeSlots) {
-    if(activeSlots > tile.getSizeInventory())
+    if(activeSlots > tile.getSizeInventory()) {
       activeSlots = tile.getSizeInventory();
+    }
 
     this.activeSlots = activeSlots;
     this.selectedTool = tool;
@@ -156,8 +157,9 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
         result = modifyTool(false);
       }
       // 4. try building a new tool
-      if(result == null)
+      if(result == null) {
         result = buildTool();
+      }
 
       out.inventory.setInventorySlotContents(0, result);
       updateGUI();
@@ -170,7 +172,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     if(!this.world.isRemote) {
       WorldServer server = (WorldServer) this.world;
       for(EntityPlayer player : server.playerEntities) {
-        if(player.openContainer != this && player.openContainer instanceof ContainerToolStation && this.sameGui((ContainerToolStation)player.openContainer)) {
+        if(player.openContainer != this && player.openContainer instanceof ContainerToolStation && this.sameGui((ContainerToolStation) player.openContainer)) {
           ((ContainerToolStation) player.openContainer).out.inventory.setInventorySlotContents(0, out.getStack());
         }
       }
@@ -214,7 +216,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
   }
 
   protected void playCraftSound(EntityPlayer player) {
-    Sounds.playSoundForAll(player, Sounds.saw,  0.8f, 0.8f + 0.4f * TConstruct.random.nextFloat());
+    Sounds.playSoundForAll(player, Sounds.saw, 0.8f, 0.8f + 0.4f * TConstruct.random.nextFloat());
   }
 
   private ItemStack repairTool(boolean remove) {
@@ -277,13 +279,14 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
   }
 
   private ItemStack[] getInputs() {
-    ItemStack[] input = new ItemStack[tile.getSizeInventory()-1];
+    ItemStack[] input = new ItemStack[tile.getSizeInventory() - 1];
     for(int i = 1; i < tile.getSizeInventory(); i++) {
-      input[i-1] = tile.getStackInSlot(i);
+      input[i - 1] = tile.getStackInSlot(i);
     }
 
     return input;
   }
+
   @Override
   public boolean canMergeSlot(ItemStack stack, Slot slot) {
     return slot != out && super.canMergeSlot(stack, slot);

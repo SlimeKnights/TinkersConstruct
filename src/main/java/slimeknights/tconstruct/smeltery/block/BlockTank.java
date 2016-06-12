@@ -102,11 +102,10 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
     // standard drop logic
     List<ItemStack> ret = Lists.newArrayList();
-    Random rand = world instanceof World ? ((World)world).rand : RANDOM;
+    Random rand = world instanceof World ? ((World) world).rand : RANDOM;
     Item item = this.getItemDropped(state, rand, fortune);
     ItemStack stack = null;
-    if (item != null)
-    {
+    if(item != null) {
       stack = new ItemStack(item, 1, this.damageDropped(state));
       ret.add(stack);
     }
@@ -190,7 +189,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     GAUGE,
     WINDOW;
 
-    public  final int meta;
+    public final int meta;
 
     TankType() {
       meta = ordinal();

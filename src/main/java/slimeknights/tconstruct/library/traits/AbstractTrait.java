@@ -101,7 +101,7 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
   }
 
   @Override
-  public float damage(ItemStack tool,  EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
+  public float damage(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
     return newDamage;
   }
 
@@ -110,7 +110,7 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
   }
 
   @Override
-  public void afterHit(ItemStack tool,  EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
+  public void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
   }
 
   @Override
@@ -135,7 +135,8 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
   }
 
   @Override
-  public void onRepair(ItemStack tool, int amount) {}
+  public void onRepair(ItemStack tool, int amount) {
+  }
 
   /* Modifier things */
 

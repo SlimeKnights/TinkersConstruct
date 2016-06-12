@@ -76,7 +76,8 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
       // we could pick it up just fine, check if we need to "equip" more of the item
       if(chestArmor == null) {
         playerIn.setItemStackToSlot(this.armorType, stack.splitStack(1));
-      } else if(chestArmor.stackSize < getEntitiesCarriedCount(playerIn)) {
+      }
+      else if(chestArmor.stackSize < getEntitiesCarriedCount(playerIn)) {
         stack.splitStack(1);
         chestArmor.stackSize++;
       }
@@ -156,7 +157,7 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
   @SubscribeEvent
   public void attachCapability(AttachCapabilitiesEvent.Entity event) {
     if(event.getEntity() instanceof EntityPlayer) {
-      event.addCapability(Util.getResource("piggyback"), new TinkerPiggybackSerializer((EntityPlayer)event.getEntity()));
+      event.addCapability(Util.getResource("piggyback"), new TinkerPiggybackSerializer((EntityPlayer) event.getEntity()));
     }
   }
 
@@ -205,12 +206,20 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
       mc.getTextureManager().bindTexture(Icons.ICON);
       GuiElement element;
       switch(effect.getAmplifier()) {
-        case 0: element = Icons.ICON_PIGGYBACK_1; break;
-        case 1: element = Icons.ICON_PIGGYBACK_2; break;
-        case 2: element = Icons.ICON_PIGGYBACK_3; break;
-        default: element = Icons.ICON_PIGGYBACK_3; break;
+        case 0:
+          element = Icons.ICON_PIGGYBACK_1;
+          break;
+        case 1:
+          element = Icons.ICON_PIGGYBACK_2;
+          break;
+        case 2:
+          element = Icons.ICON_PIGGYBACK_3;
+          break;
+        default:
+          element = Icons.ICON_PIGGYBACK_3;
+          break;
       }
-      element.draw(x+6, y+7);
+      element.draw(x + 6, y + 7);
     }
   }
 }

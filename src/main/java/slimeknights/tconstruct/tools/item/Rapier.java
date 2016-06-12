@@ -44,7 +44,7 @@ public class Rapier extends ToolCore {
   @Override
   public float getStrVsBlock(ItemStack stack, IBlockState state) {
     if(state.getBlock() == Blocks.WEB) {
-      return super.getStrVsBlock(stack, state)*7.5f;
+      return super.getStrVsBlock(stack, state) * 7.5f;
     }
     return super.getStrVsBlock(stack, state);
   }

@@ -44,11 +44,11 @@ public class ModFiery extends ModifierTrait {
   }
 
   private float getFireDamage(ModifierNBT.IntegerNBT data) {
-    return (float)data.current/15f;
+    return (float) data.current / 15f;
   }
 
   private int getFireDuration(ModifierNBT.IntegerNBT data) {
-    return 1 + data.current/8;
+    return 1 + data.current / 8;
   }
 
   @Override

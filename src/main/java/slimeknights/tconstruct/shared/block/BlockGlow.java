@@ -60,7 +60,7 @@ public class BlockGlow extends Block {
   public IBlockState getStateFromMeta(int meta) {
     return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));
   }
-  
+
   @Nonnull
   @Override
   public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
@@ -76,7 +76,7 @@ public class BlockGlow extends Block {
   @Override
   public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn) {
     // if the location is not stable, break the block
-    if (!canBlockStay(world, pos, state.getValue(FACING))) {
+    if(!canBlockStay(world, pos, state.getValue(FACING))) {
       world.setBlockToAir(pos);
     }
 
@@ -92,27 +92,28 @@ public class BlockGlow extends Block {
   /**
    * Adds a glow block to the world, setting its facing based on the surroundings if not valid
    * Used since onBlockPlaced is not called when placing via World.setBlockState
-   * @param world World object
-   * @param pos Position to place the block
+   *
+   * @param world  World object
+   * @param pos    Position to place the block
    * @param facing Preferred facing, if the facing is not valid another one may be chosen
    * @return A boolean stating whether a glow was placed.
-   *         Will be false if the block position contains a non-replacable block or none of the surrounding blocks has a solid face
+   * Will be false if the block position contains a non-replacable block or none of the surrounding blocks has a solid face
    */
   public boolean addGlow(World world, BlockPos pos, EnumFacing facing) {
-    
+
     // only place the block if the current block at the location is replacable (eg, air, tall grass, etc.)
     IBlockState oldState = world.getBlockState(pos);
     if(oldState.getBlock().getMaterial(oldState).isReplaceable()) {
-      
+
       // if the location is valid, place the block directly
-      if (this.canBlockStay(world, pos, facing)) {
+      if(this.canBlockStay(world, pos, facing)) {
         world.setBlockState(pos, getDefaultState().withProperty(FACING, facing));
         return true;
       }
       // otherwise, try and place it facing a different way
       else {
-        for (EnumFacing enumfacing : EnumFacing.VALUES) {
-          if (this.canBlockStay(world, pos, enumfacing)) {
+        for(EnumFacing enumfacing : EnumFacing.VALUES) {
+          if(this.canBlockStay(world, pos, enumfacing)) {
             world.setBlockState(pos, getDefaultState().withProperty(FACING, enumfacing));
             return true;
           }

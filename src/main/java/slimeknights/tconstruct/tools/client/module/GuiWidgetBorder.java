@@ -6,6 +6,7 @@ import slimeknights.mantle.client.gui.GuiModule;
 import slimeknights.mantle.client.gui.GuiWidget;
 
 public class GuiWidgetBorder extends GuiWidget {
+
   // all elements based on generic gui
   public GuiElement cornerTopLeft = GuiGeneric.cornerTopLeft;
   public GuiElement cornerTopRight = GuiGeneric.cornerTopRight;

@@ -8,6 +8,6 @@ public class MaterialGUI extends Material {
 
   @Override
   public boolean isHidden() {
-     return true;
+    return true;
   }
 }

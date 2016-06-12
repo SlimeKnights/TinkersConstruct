@@ -38,18 +38,18 @@ public class SmelteryClientProxy extends ClientProxy {
   protected void registerModels() {
     // ignore color state for the clear stained glass, it is handled by tinting
     ModelLoader.setCustomStateMapper(TinkerSmeltery.searedGlass, (new StateMap.Builder()).ignore(BlockSearedGlass.TYPE).build());
-    
+
     // Blocks
     registerItemModel(Item.getItemFromBlock(TinkerSmeltery.smelteryController));
     registerItemModel(Item.getItemFromBlock(TinkerSmeltery.faucet));
     registerItemModel(Item.getItemFromBlock(TinkerSmeltery.searedGlass));
     registerItemBlockMeta(TinkerSmeltery.searedBlock);
     registerItemBlockMeta(TinkerSmeltery.castingBlock);
-    
+
     // slabs
     registerItemBlockMeta(TinkerSmeltery.searedSlab);
     registerItemBlockMeta(TinkerSmeltery.searedSlab2);
-    
+
     // stairs
     registerItemModel(TinkerSmeltery.searedStairsStone);
     registerItemModel(TinkerSmeltery.searedStairsCobble);
@@ -81,7 +81,7 @@ public class SmelteryClientProxy extends ClientProxy {
                                      BlockTank.KNOB.getName(type == BlockTank.TankType.TANK),
                                      BlockTank.TYPE.getName(),
                                      BlockTank.TYPE.getName(type)
-                                     );
+      );
       ModelLoader.setCustomModelResourceLocation(tank, type.meta, new ModelResourceLocation(tank.getRegistryName(), variant));
     }
 

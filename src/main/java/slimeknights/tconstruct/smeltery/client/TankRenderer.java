@@ -21,7 +21,7 @@ public class TankRenderer extends TileEntitySpecialRenderer<TileTank> {
 
     if(liquid != null) {
 
-      float height = ((float)liquid.amount - tank.renderOffset) / (float)tank.getCapacity();
+      float height = ((float) liquid.amount - tank.renderOffset) / (float) tank.getCapacity();
 
       if(tank.renderOffset > 1.2f || tank.renderOffset < -1.2f) {
         tank.renderOffset -= (tank.renderOffset / 12f + 0.1f) * partialTicks;
@@ -31,7 +31,7 @@ public class TankRenderer extends TileEntitySpecialRenderer<TileTank> {
       }
 
       float d = RenderUtil.FLUID_OFFSET;
-      RenderUtil.renderFluidCuboid(liquid, tile.getPos(), x,y,z, d, d, d, 1d-d, height-d, 1d-d);
+      RenderUtil.renderFluidCuboid(liquid, tile.getPos(), x, y, z, d, d, d, 1d - d, height - d, 1d - d);
     }
   }
 }

@@ -77,7 +77,7 @@ public class TextureColoredTexture extends AbstractColoredTexture {
     // read: 32x32 block textures with 16x16 tool textures = stuff goes boom
     textureW = addTexture.getIconWidth();
     textureH = addTexture.getIconHeight();
-    scale = (float)textureH/(float)width;
+    scale = (float) textureH / (float) width;
   }
 
   public void setOffset(int x, int y) {

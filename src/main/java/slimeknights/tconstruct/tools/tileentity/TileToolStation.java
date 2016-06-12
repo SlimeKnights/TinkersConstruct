@@ -51,8 +51,8 @@ public class TileToolStation extends TileTable implements IInventoryGui {
     for(int i = 0; i < info.positions.size(); i++) {
       PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i), this.worldObj, null);
       if(item != null) {
-        item.x = (33 - info.positions.get(i).getX())/61f;
-        item.z = (42 - info.positions.get(i).getY())/61f;
+        item.x = (33 - info.positions.get(i).getX()) / 61f;
+        item.z = (42 - info.positions.get(i).getY()) / 61f;
         item.s *= s;
 
         if(i == 0 || info != GuiButtonRepair.info) {
@@ -61,7 +61,7 @@ public class TileToolStation extends TileTable implements IInventoryGui {
 
         // correct itemblock because scaling
         if(getStackInSlot(i).getItem() instanceof ItemBlock) {
-          item.y = -(1f - item.s)/2f;
+          item.y = -(1f - item.s) / 2f;
         }
 
         //item.s *= 2/5f;

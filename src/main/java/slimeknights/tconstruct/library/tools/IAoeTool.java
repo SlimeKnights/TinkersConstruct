@@ -11,6 +11,7 @@ import net.minecraft.world.World;
  * An item that breaks multiple blocks at once
  */
 public interface IAoeTool {
+
   /** returns the blocks affected by the tool */
   ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin);
 

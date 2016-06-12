@@ -98,6 +98,7 @@ public interface ITrait extends IToolMod {
 
   /**
    * Modify the knockback applied. Called after onHit and with the actual damage value. Damage value INCLUDES crit damage here.
+   *
    * @param tool         The tool dealing the damage.
    * @param player       The player (or entity) that is hitting the target.
    * @param target       The entity to hit.
@@ -151,8 +152,8 @@ public interface ITrait extends IToolMod {
    * Do not confuse this with onToolHeal, which will be called afterwards.
    * This callback as well as onToolHeal will be called multiple times when a tool is getting repaired with multiple items.
    *
-   * @param tool       The tool to repair.
-   * @param amount     How much durability will be repaired. Can be bigger than the damage the tool has.
+   * @param tool   The tool to repair.
+   * @param amount How much durability will be repaired. Can be bigger than the damage the tool has.
    */
   void onRepair(ItemStack tool, int amount);
 }

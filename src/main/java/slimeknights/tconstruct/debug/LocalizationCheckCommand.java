@@ -56,7 +56,8 @@ public class LocalizationCheckCommand extends CommandBase {
   }
 
   @Override
-  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
+  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args)
+      throws CommandException {
     if(args.length > 1) {
       throw new WrongUsageException(getCommandUsage(sender));
     }

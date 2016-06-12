@@ -66,6 +66,7 @@ public class RenderTinkerSlime extends RenderSlime {
   }
 
   public static class LayerSlimeGelColored implements LayerRenderer<EntitySlime> {
+
     private final RenderSlime slimeRenderer;
     private final ModelBase slimeModel;
     private final int color;
@@ -74,19 +75,16 @@ public class RenderTinkerSlime extends RenderSlime {
 
     public static boolean magicMushrooms = false;
 
-    public LayerSlimeGelColored(RenderSlime slimeRendererIn, int color)
-    {
+    public LayerSlimeGelColored(RenderSlime slimeRendererIn, int color) {
       this.slimeRenderer = slimeRendererIn;
       this.color = color;
       slimeModel = new ModelSlime(0);
     }
 
     @Override
-    public void doRenderLayer(@Nonnull EntitySlime entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale)
-    {
+    public void doRenderLayer(@Nonnull EntitySlime entitylivingbaseIn, float p_177141_2_, float p_177141_3_, float partialTicks, float p_177141_5_, float p_177141_6_, float p_177141_7_, float scale) {
       ticking += partialTicks;
-      if (!entitylivingbaseIn.isInvisible())
-      {
+      if(!entitylivingbaseIn.isInvisible()) {
         if(magicMushrooms) {
           RenderUtil.setColorRGBA(Color.HSBtoRGB(ticking / 100f, 0.65f, 0.8f) | (color & (0xFF << 24)));
         }
@@ -104,8 +102,7 @@ public class RenderTinkerSlime extends RenderSlime {
     }
 
     @Override
-    public boolean shouldCombineTextures()
-    {
+    public boolean shouldCombineTextures() {
       return true;
     }
   }

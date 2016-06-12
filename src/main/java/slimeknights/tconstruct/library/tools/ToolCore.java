@@ -101,8 +101,9 @@ public abstract class ToolCore extends TinkersItem {
 
   /* Tool and Weapon specific properties */
 
-  /** Multiplier applied to the actual mining speed of the tool
-   *  Internally a hammer and pick have the same speed, but a hammer is 2/3 slower
+  /**
+   * Multiplier applied to the actual mining speed of the tool
+   * Internally a hammer and pick have the same speed, but a hammer is 2/3 slower
    */
   public float miningSpeedModifier() {
     return 1f;
@@ -155,11 +156,11 @@ public abstract class ToolCore extends TinkersItem {
    * player can be null!
    */
   public void reduceDurabilityOnHit(ItemStack stack, EntityPlayer player, float damage) {
-    damage = Math.max(1f, damage/10f);
+    damage = Math.max(1f, damage / 10f);
     if(!hasCategory(Category.WEAPON)) {
       damage *= 2;
     }
-    ToolHelper.damageTool(stack, (int)damage, player);
+    ToolHelper.damageTool(stack, (int) damage, player);
   }
 
   @Override
@@ -208,10 +209,10 @@ public abstract class ToolCore extends TinkersItem {
   @Override
   public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
     float speed = ToolHelper.getActualAttackSpeed(stack);
-    int time = Math.round(20f/speed);
-    if(time < target.hurtResistantTime/2) {
-      target.hurtResistantTime = (target.hurtResistantTime + time)/2;
-      target.hurtTime = (target.hurtTime + time)/2;
+    int time = Math.round(20f / speed);
+    if(time < target.hurtResistantTime / 2) {
+      target.hurtResistantTime = (target.hurtResistantTime + time) / 2;
+      target.hurtTime = (target.hurtTime + time) / 2;
     }
     return super.hitEntity(stack, target, attacker);
   }
@@ -221,10 +222,9 @@ public abstract class ToolCore extends TinkersItem {
   public Multimap<String, AttributeModifier> getAttributeModifiers(@Nonnull EntityEquipmentSlot slot, ItemStack stack) {
     Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
-    if (slot == EntityEquipmentSlot.MAINHAND && !ToolHelper.isBroken(stack))
-    {
-      multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double)ToolHelper.getActualAttack(stack), 0));
-      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double)ToolHelper.getActualAttackSpeed(stack) - 4d, 0));
+    if(slot == EntityEquipmentSlot.MAINHAND && !ToolHelper.isBroken(stack)) {
+      multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double) ToolHelper.getActualAttack(stack), 0));
+      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double) ToolHelper.getActualAttackSpeed(stack) - 4d, 0));
     }
 
     return multimap;
@@ -512,7 +512,7 @@ public abstract class ToolCore extends TinkersItem {
     }
 
     Multimap<String, AttributeModifier> attributes = newStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
-    for(Map.Entry<String, AttributeModifier> entry: oldStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND).entries()) {
+    for(Map.Entry<String, AttributeModifier> entry : oldStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND).entries()) {
       if(!attributes.containsKey(entry.getKey())) {
         return true;
       }

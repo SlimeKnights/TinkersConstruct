@@ -40,9 +40,9 @@ public class TileDrain extends TileSmelteryComponent {
           drainFluidHandler = new FluidHandlerExtractOnlyWrapper(smeltery.getTank());
           oldSmeltery = new WeakReference<TileEntity>(smeltery);
         }
-        return (T)drainFluidHandler;
+        return (T) drainFluidHandler;
       }
-      return (T)smeltery.getTank();
+      return (T) smeltery.getTank();
     }
     return super.getCapability(capability, facing);
   }

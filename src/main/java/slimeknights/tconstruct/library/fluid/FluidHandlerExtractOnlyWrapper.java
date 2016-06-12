@@ -8,6 +8,7 @@ import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerConcatenate;
 
 public class FluidHandlerExtractOnlyWrapper extends FluidHandlerConcatenate {
+
   private final IFluidHandler parent;
 
   public FluidHandlerExtractOnlyWrapper(IFluidHandler parent) {
@@ -20,7 +21,7 @@ public class FluidHandlerExtractOnlyWrapper extends FluidHandlerConcatenate {
     IFluidTankProperties[] iFluidTankPropertiesArray = parent.getTankProperties();
     if(iFluidTankPropertiesArray.length > 0) {
       IFluidTankProperties fluidTankProperties = parent.getTankProperties()[0];
-      return new IFluidTankProperties[] {new FluidTankProperties(fluidTankProperties.getContents(), fluidTankProperties.getCapacity(), true, false)};
+      return new IFluidTankProperties[]{new FluidTankProperties(fluidTankProperties.getContents(), fluidTankProperties.getCapacity(), true, false)};
     }
     return EmptyFluidHandler.EMPTY_TANK_PROPERTIES_ARRAY;
   }

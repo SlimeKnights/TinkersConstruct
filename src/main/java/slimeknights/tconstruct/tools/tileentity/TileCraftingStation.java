@@ -40,20 +40,20 @@ public class TileCraftingStation extends TileTable implements IInventoryGui {
     PropertyTableItem.TableItems toDisplay = new PropertyTableItem.TableItems();
 
     float s = 0.125f;
-    float o = 3f/16f; // we want to move it 3 pixel in a 16 width texture
+    float o = 3f / 16f; // we want to move it 3 pixel in a 16 width texture
     for(int i = 0; i < 9; i++) {
       ItemStack itemStack = getStackInSlot(i);
       PropertyTableItem.TableItem item = getTableItem(itemStack, this.worldObj, null);
       if(item != null) {
-        item.x = +o - (i%3)*o;
-        item.z = +o - (i/3)*o;
-        item.y = -0.5f +s/32f; // half itemmodel height + move it down to the bottom from the center
+        item.x = +o - (i % 3) * o;
+        item.z = +o - (i / 3) * o;
+        item.y = -0.5f + s / 32f; // half itemmodel height + move it down to the bottom from the center
         //item.s *= 0.46875f;
         item.s = s;
 
         // correct itemblock because scaling
         if(itemStack.getItem() instanceof ItemBlock) {
-          item.y = -(1f - item.s)/2f;
+          item.y = -(1f - item.s) / 2f;
         }
 
         //item.s *= 2/5f;

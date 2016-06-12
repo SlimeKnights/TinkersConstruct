@@ -63,7 +63,7 @@ public class Cleaver extends ToolCore {
 
   @Override
   public int[] getRepairParts() {
-    return new int[] {1,2};
+    return new int[]{1, 2};
   }
 
   @Override

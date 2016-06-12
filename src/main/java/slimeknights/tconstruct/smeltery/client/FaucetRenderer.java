@@ -47,7 +47,7 @@ public class FaucetRenderer extends TileEntitySpecialRenderer<TileFaucet> {
     }
 
     if(te.direction == EnumFacing.UP) {
-      RenderUtil.renderFluidCuboid(te.drained, te.getPos(), x,y,z, 0.375,0,0.375, 0.625,1f,0.625);
+      RenderUtil.renderFluidCuboid(te.drained, te.getPos(), x, y, z, 0.375, 0, 0.375, 0.625, 1f, 0.625);
       // render in the block beneath
       if(yMin < 0) {
         RenderUtil.renderFluidCuboid(te.drained, te.getPos(), x, y, z, 0.375, -1, 0.375, 0.625, 0f, 0.625);
@@ -59,7 +59,7 @@ public class FaucetRenderer extends TileEntitySpecialRenderer<TileFaucet> {
       float r = -90f * (2 + te.direction.getHorizontalIndex());
       float o = 0.5f;
       // custom rendering for flowing on top
-      RenderUtil.pre(x,y,z);
+      RenderUtil.pre(x, y, z);
 
       Tessellator tessellator = Tessellator.getInstance();
       VertexBuffer renderer = tessellator.getBuffer();

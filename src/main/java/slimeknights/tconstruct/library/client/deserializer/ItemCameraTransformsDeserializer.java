@@ -14,8 +14,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.lang.reflect.Type;
 
 /**
- *  Since ATs don't work properly on inner classes in CI/obf environments we simply copy the implementation
- *  1:1 copy of net.minecraft.client.renderer.block.model.ItemCameraTransforms.Deserializer
+ * Since ATs don't work properly on inner classes in CI/obf environments we simply copy the implementation
+ * 1:1 copy of net.minecraft.client.renderer.block.model.ItemCameraTransforms.Deserializer
  */
 @SideOnly(Side.CLIENT)
 public class ItemCameraTransformsDeserializer implements JsonDeserializer<ItemCameraTransforms> {

@@ -85,7 +85,7 @@ public class Pattern extends Item implements IPattern {
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
     Item part = getPartFromTag(stack);
     if(part != null && part instanceof IToolPart) {
-      float cost = ((IToolPart)part).getCost() / (float) Material.VALUE_Ingot;
+      float cost = ((IToolPart) part).getCost() / (float) Material.VALUE_Ingot;
       tooltip.add(Util.translateFormatted("tooltip.pattern.cost", df.format(cost)));
     }
   }

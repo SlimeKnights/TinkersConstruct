@@ -52,9 +52,12 @@ public class FindBestTool extends CommandBase {
   }
 
   @Override
-  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
+  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args)
+      throws CommandException {
     int num, filtertype;
-    if(args.length < 1) throw new CommandException("Too few arguments");
+    if(args.length < 1) {
+      throw new CommandException("Too few arguments");
+    }
     else if(args.length < 2) {
       num = 100;
       filtertype = Integer.valueOf(args[0]);
@@ -74,7 +77,7 @@ public class FindBestTool extends CommandBase {
     List<Triple<ItemStack, ImmutableList<Material>, Object[]>> results = Lists.newArrayList();
 
     @SuppressWarnings("unchecked")
-    Function<ItemStack, ?> functions[] = new Function[] {
+    Function<ItemStack, ?> functions[] = new Function[]{
         new Function<ItemStack, Integer>() {
           @Override
           public Integer apply(ItemStack itemStack) {
@@ -99,7 +102,7 @@ public class FindBestTool extends CommandBase {
 
     //Collections.sort(results, Comp.INSTANCE);
 
-    List<Integer> durabilities = Lists.transform(results, new com.google.common.base.Function<Triple<ItemStack,ImmutableList<Material>,Object[]>, Integer>() {
+    List<Integer> durabilities = Lists.transform(results, new com.google.common.base.Function<Triple<ItemStack, ImmutableList<Material>, Object[]>, Integer>() {
       @Nullable
       @Override
       public Integer apply(Triple<ItemStack, ImmutableList<Material>, Object[]> input) {
@@ -107,14 +110,14 @@ public class FindBestTool extends CommandBase {
       }
     });
 
-    List<Float> speeds = Lists.transform(results, new com.google.common.base.Function<Triple<ItemStack,ImmutableList<Material>,Object[]>, Float>() {
+    List<Float> speeds = Lists.transform(results, new com.google.common.base.Function<Triple<ItemStack, ImmutableList<Material>, Object[]>, Float>() {
       @Nullable
       @Override
       public Float apply(Triple<ItemStack, ImmutableList<Material>, Object[]> input) {
         return (Float) input.getRight()[1];
       }
     });
-    List<Float> attacks = Lists.transform(results, new com.google.common.base.Function<Triple<ItemStack,ImmutableList<Material>,Object[]>, Float>() {
+    List<Float> attacks = Lists.transform(results, new com.google.common.base.Function<Triple<ItemStack, ImmutableList<Material>, Object[]>, Float>() {
       @Nullable
       @Override
       public Float apply(Triple<ItemStack, ImmutableList<Material>, Object[]> input) {
@@ -171,13 +174,13 @@ public class FindBestTool extends CommandBase {
       best = Collections2.filter(results, filter[filtertype]);
     } while(best.size() > num);
 
-    sender.addChatMessage(new TextComponentString(String.format("%d are in the top %d percentile of stats (%d; %f; %f)", best.size(), (int)(percentile * 100f), durPercentile, speedPercentile, attackPercentile)));
+    sender.addChatMessage(new TextComponentString(String.format("%d are in the top %d percentile of stats (%d; %f; %f)", best.size(), (int) (percentile * 100f), durPercentile, speedPercentile, attackPercentile)));
 
     Collection<Triple<ItemStack, ImmutableList<Material>, Object[]>> sortedDurability = new Ordering<Triple<ItemStack, ImmutableList<Material>, Object[]>>() {
 
       @Override
       public int compare(@Nullable Triple<ItemStack, ImmutableList<Material>, Object[]> left, @Nullable Triple<ItemStack, ImmutableList<Material>, Object[]> right) {
-        return (Integer)right.getRight()[0] - (Integer)left.getRight()[0];
+        return (Integer) right.getRight()[0] - (Integer) left.getRight()[0];
       }
     }.sortedCopy(best);
 
@@ -185,7 +188,7 @@ public class FindBestTool extends CommandBase {
 
       @Override
       public int compare(@Nullable Triple<ItemStack, ImmutableList<Material>, Object[]> left, @Nullable Triple<ItemStack, ImmutableList<Material>, Object[]> right) {
-        return (int)((Float)right.getRight()[1]*10f) - (int)((Float)left.getRight()[1]*10f);
+        return (int) ((Float) right.getRight()[1] * 10f) - (int) ((Float) left.getRight()[1] * 10f);
       }
     }.sortedCopy(best);
 
@@ -193,7 +196,7 @@ public class FindBestTool extends CommandBase {
 
       @Override
       public int compare(@Nullable Triple<ItemStack, ImmutableList<Material>, Object[]> left, @Nullable Triple<ItemStack, ImmutableList<Material>, Object[]> right) {
-        return (int)((Float)right.getRight()[2]*10f) - (int)((Float)left.getRight()[2]*10f);
+        return (int) ((Float) right.getRight()[2] * 10f) - (int) ((Float) left.getRight()[2] * 10f);
       }
     }.sortedCopy(best);
 
@@ -209,9 +212,9 @@ public class FindBestTool extends CommandBase {
       text.append("Dur: ");
       text.append(foo.getRight()[0]);
       text.append(" Speed: ");
-      text.append((Float)foo.getRight()[1] * tool.miningSpeedModifier());
+      text.append((Float) foo.getRight()[1] * tool.miningSpeedModifier());
       text.append(" Dmg: ");
-      text.append((Float)foo.getRight()[2] * tool.damagePotential());
+      text.append((Float) foo.getRight()[2] * tool.damagePotential());
 
       sender.addChatMessage(foo.getLeft().getTextComponent().appendSibling(new TextComponentString(text.toString())));
       //System.out.println(text.toString());
@@ -267,7 +270,9 @@ public class FindBestTool extends CommandBase {
     // not enough materials yet, recurse
     if(tool.getRequiredComponents().size() > materials.size()) {
       for(Material mat : TinkerRegistry.getAllMaterials()) {
-        if(!mat.hasStats(HeadMaterialStats.TYPE)) continue;
+        if(!mat.hasStats(HeadMaterialStats.TYPE)) {
+          continue;
+        }
         ImmutableList.Builder<Material> mats = ImmutableList.builder();
         mats.addAll(materials);
         mats.add(mat);
@@ -295,13 +300,13 @@ public class FindBestTool extends CommandBase {
   }
 
   private <T extends Number> double getPercentile(List<T> entries, float percentile) {
-    int coeff = (int)(1f/percentile);
-    if(entries.size()%2 == 1) {
-      return entries.get(entries.size()/coeff).doubleValue();
+    int coeff = (int) (1f / percentile);
+    if(entries.size() % 2 == 1) {
+      return entries.get(entries.size() / coeff).doubleValue();
     }
 
-    T v1 = entries.get(entries.size()/coeff);
-    T v2 = entries.get(entries.size()/coeff + 1);
-    return ((v1.doubleValue() + v2.doubleValue())/2d);
+    T v1 = entries.get(entries.size() / coeff);
+    T v2 = entries.get(entries.size() / coeff + 1);
+    return ((v1.doubleValue() + v2.doubleValue()) / 2d);
   }
 }

@@ -21,7 +21,7 @@ public interface IModifier extends IToolMod {
    * The original contains the unmodified tool.
    *
    * @throws TinkerGuiException Thrown if there is a specific reason why the modifier couldn't be applied.
-   *                         The exception contains a localized string describing what's wrong.
+   *                            The exception contains a localized string describing what's wrong.
    */
   boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException;
 

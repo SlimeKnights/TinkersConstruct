@@ -20,8 +20,9 @@ import slimeknights.mantle.block.BlockConnectedTexture;
 import slimeknights.mantle.block.EnumBlock;
 
 public class BlockSearedGlass extends BlockEnumSmeltery<BlockSearedGlass.GlassType> {
+
   public static final PropertyEnum<GlassType> TYPE = PropertyEnum.create("type", GlassType.class);
-  
+
   public BlockSearedGlass() {
     super(TYPE, GlassType.class);
 
@@ -33,15 +34,15 @@ public class BlockSearedGlass extends BlockEnumSmeltery<BlockSearedGlass.GlassTy
                                         .withProperty(BlockConnectedTexture.CONNECTED_UP, Boolean.FALSE)
                                         .withProperty(BlockConnectedTexture.CONNECTED_WEST, Boolean.FALSE));
   }
-  
+
   @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
-    return new BlockStateContainer(this, new IProperty[] {TYPE, BlockConnectedTexture.CONNECTED_DOWN, BlockConnectedTexture.CONNECTED_UP, BlockConnectedTexture.CONNECTED_NORTH, BlockConnectedTexture.CONNECTED_SOUTH, BlockConnectedTexture.CONNECTED_WEST, BlockConnectedTexture.CONNECTED_EAST});
+    return new BlockStateContainer(this, new IProperty[]{TYPE, BlockConnectedTexture.CONNECTED_DOWN, BlockConnectedTexture.CONNECTED_UP, BlockConnectedTexture.CONNECTED_NORTH, BlockConnectedTexture.CONNECTED_SOUTH, BlockConnectedTexture.CONNECTED_WEST, BlockConnectedTexture.CONNECTED_EAST});
   }
-  
+
   @Override
-  public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos position) { 
+  public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos position) {
     // Creates the state to use for the block. This is where we check if every side is
     // connectable or not.
     return state.withProperty(BlockConnectedTexture.CONNECTED_DOWN,  this.isSideConnectable(world, position, EnumFacing.DOWN))
@@ -55,7 +56,7 @@ public class BlockSearedGlass extends BlockEnumSmeltery<BlockSearedGlass.GlassTy
   private boolean isSideConnectable(IBlockAccess world, BlockPos pos, EnumFacing side) {
     final IBlockState original = world.getBlockState(pos);
     final IBlockState connected = world.getBlockState(pos.offset(side));
-    
+
     return original != null && connected != null && canConnect(original, connected);
   }
 
@@ -73,17 +74,17 @@ public class BlockSearedGlass extends BlockEnumSmeltery<BlockSearedGlass.GlassTy
   public boolean isFullCube(IBlockState state) {
     return false;
   }
-  
+
   @Override
   public boolean isOpaqueCube(IBlockState state) {
-      return false;
+    return false;
   }
-  
+
   // only one type, but we are forced to use an enum to extend BlockEnumSmeltery (which has all the smeltery multiblock logic)
   public enum GlassType implements IStringSerializable, EnumBlock.IEnumMeta {
     GLASS;
 
-    public  final int meta;
+    public final int meta;
 
     GlassType() {
       meta = ordinal();

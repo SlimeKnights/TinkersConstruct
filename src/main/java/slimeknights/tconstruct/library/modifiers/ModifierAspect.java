@@ -90,8 +90,9 @@ public abstract class ModifierAspect {
     @Override
     public boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException {
       // can always apply if the parent already has the modifier
-      if(TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), parent.getIdentifier()))
+      if(TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), parent.getIdentifier())) {
         return true;
+      }
 
       // otherwise he requires free modifiers
       return super.canApply(stack, original);
@@ -254,9 +255,11 @@ public abstract class ModifierAspect {
 
     @Override
     public boolean canApply(ItemStack stack, ItemStack original) {
-      for(Category cat : category)
-        if(!ToolHelper.hasCategory(stack, cat))
+      for(Category cat : category) {
+        if(!ToolHelper.hasCategory(stack, cat)) {
           return false;
+        }
+      }
 
       return true;
     }
@@ -278,9 +281,11 @@ public abstract class ModifierAspect {
 
     @Override
     public boolean canApply(ItemStack stack, ItemStack original) {
-      for(Category cat : category)
-        if(ToolHelper.hasCategory(stack, cat))
+      for(Category cat : category) {
+        if(ToolHelper.hasCategory(stack, cat)) {
           return true;
+        }
+      }
 
       return false;
     }

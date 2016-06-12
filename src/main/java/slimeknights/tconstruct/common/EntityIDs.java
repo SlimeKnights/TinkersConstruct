@@ -3,15 +3,14 @@ package slimeknights.tconstruct.common;
 /**
  * Sole purpose of this class is to have all mod entity IDs in one place so we don't assign them twice and conflict.
  */
-public class EntityIDs {
-  private EntityIDs() {}
+public interface EntityIDs {
 
-  public static final int INDESTRUCTIBLE_ITEM = 0;
-  public static final int BLUESLIME = 1;
-  public static final int FANCY_FRAME = 2;
-  public static final int THROWBALL = 3;
+  int INDESTRUCTIBLE_ITEM = 0;
+  int BLUESLIME = 1;
+  int FANCY_FRAME = 2;
+  int THROWBALL = 3;
 
-  public static final int ARROW = 10;
-  public static final int BOLT = 11;
-  public static final int SHURIKEN = 12;
+  int ARROW = 10;
+  int BOLT = 11;
+  int SHURIKEN = 12;
 }

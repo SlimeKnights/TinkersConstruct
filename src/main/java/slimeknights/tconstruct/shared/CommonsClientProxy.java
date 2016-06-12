@@ -38,42 +38,43 @@ import static slimeknights.tconstruct.shared.TinkerCommons.stairsLavawood;
 import static slimeknights.tconstruct.shared.TinkerCommons.stairsMudBrick;
 
 public class CommonsClientProxy extends ClientProxy {
+
   public static Minecraft minecraft = Minecraft.getMinecraft();
-  
+
   @Override
   public void init() {
     final BlockColors blockColors = minecraft.getBlockColors();
 
     // stained glass
     blockColors.registerBlockColorHandler(
-      new IBlockColor() {
-        @Override
-        public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
-          EnumGlassColor type = state.getValue(BlockClearStainedGlass.COLOR);
-          return type.getColor();
-        }
-      },
-      blockClearStainedGlass);
-    
+        new IBlockColor() {
+          @Override
+          public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
+            EnumGlassColor type = state.getValue(BlockClearStainedGlass.COLOR);
+            return type.getColor();
+          }
+        },
+        blockClearStainedGlass);
+
     minecraft.getItemColors().registerItemColorHandler(
-      new IItemColor() {
-        @SuppressWarnings("deprecation")
-        @Override
-        public int getColorFromItemstack(@Nonnull ItemStack stack, int tintIndex) {
-          IBlockState iblockstate = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
-          return blockColors.colorMultiplier(iblockstate, null, null, tintIndex);
-        }
-      },
-      blockClearStainedGlass);
+        new IItemColor() {
+          @SuppressWarnings("deprecation")
+          @Override
+          public int getColorFromItemstack(@Nonnull ItemStack stack, int tintIndex) {
+            IBlockState iblockstate = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
+            return blockColors.colorMultiplier(iblockstate, null, null, tintIndex);
+          }
+        },
+        blockClearStainedGlass);
 
     super.init();
   }
-  
+
   @Override
   protected void registerModels() {
     // ignore color state for the clear stained glass, it is handled by tinting
     ModelLoader.setCustomStateMapper(blockClearStainedGlass, (new StateMap.Builder()).ignore(BlockClearStainedGlass.COLOR).build());
-    
+
     nuggets.registerItemModels();
     ingots.registerItemModels();
     materials.registerItemModels();
@@ -100,7 +101,9 @@ public class CommonsClientProxy extends ClientProxy {
   @Override
   protected void registerItemModel(ItemStack item, String name) {
     // safety! We call it for everything even if it wasn't registered
-    if(item == null) return;
+    if(item == null) {
+      return;
+    }
 
     super.registerItemModel(item, name);
   }

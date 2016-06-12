@@ -51,7 +51,8 @@ public class ContentModifier extends TinkerPage {
   public String modifierName;
   public String[] demoTool = new String[]{Util.getResource("pickaxe").toString()};
 
-  public ContentModifier() {}
+  public ContentModifier() {
+  }
 
   public ContentModifier(IModifier modifier) {
     this.modifier = modifier;
@@ -109,8 +110,8 @@ public class ContentModifier extends TinkerPage {
     addTitle(list, CustomFontColor.encodeColor(color) + modifier.getLocalizedName(), true);
 
     // description
-    int h = GuiBook.PAGE_WIDTH/3 - 10;
-    list.add(new ElementText(10, 20, GuiBook.PAGE_WIDTH-20, h, text));
+    int h = GuiBook.PAGE_WIDTH / 3 - 10;
+    list.add(new ElementText(10, 20, GuiBook.PAGE_WIDTH - 20, h, text));
 
     if(effects.length > 0) {
       TextData head = new TextData(parent.translate("modifier.effect"));
@@ -129,37 +130,43 @@ public class ContentModifier extends TinkerPage {
 
     ImageData img;
     switch(inCount) {
-      case 1: img = IMG_SLOT_1; break;
-      case 2: img = IMG_SLOT_2; break;
-      case 3: img = IMG_SLOT_3; break;
+      case 1:
+        img = IMG_SLOT_1;
+        break;
+      case 2:
+        img = IMG_SLOT_2;
+        break;
+      case 3:
+        img = IMG_SLOT_3;
+        break;
       default:
         img = IMG_SLOT_5;
     }
 
-    int imgX = GuiBook.PAGE_WIDTH/2 + 20;
-    int imgY = GuiBook.PAGE_HEIGHT/2 + 30;
+    int imgX = GuiBook.PAGE_WIDTH / 2 + 20;
+    int imgY = GuiBook.PAGE_HEIGHT / 2 + 30;
 
     // move ot towards the center wher ewe want it, since image sice can differ
-    imgX = imgX + 29 - img.width/2;
-    imgY = imgY + 20 - img.height/2;
+    imgX = imgX + 29 - img.width / 2;
+    imgY = imgY + 20 - img.height / 2;
 
     //int[] slotX = new int[] { 7,  3, 28, 53, 49};
     //int[] slotY = new int[] {50, 24,  3, 24, 50};
-    int[] slotX = new int[] {3, 21, 39, 12, 30};
-    int[] slotY = new int[] {3, 3,  3, 22, 22};
+    int[] slotX = new int[]{3, 21, 39, 12, 30};
+    int[] slotY = new int[]{3, 3, 3, 22, 22};
 
     //list.add(new ElementItemCustom(imgX + IMG_MODIFY.width/2 - 24, imgY - 25, 3f, new ItemStack(TinkerTools.toolTables, 1, BlockToolTable.TableTypes.ToolStation.meta), new ItemStack(TinkerTools.toolForge)));
 
-    list.add(new ElementImage(imgX + (img.width - IMG_TABLE.width)/2, imgY - 24, -1, -1, IMG_TABLE));
+    list.add(new ElementImage(imgX + (img.width - IMG_TABLE.width) / 2, imgY - 24, -1, -1, IMG_TABLE));
     list.add(new ElementImage(imgX, imgY, -1, -1, img, book.appearance.slotColor));
 
     ItemStack[] demo = getDemoTools(inputItems);
 
-    ElementTinkerItem toolItem = new ElementTinkerItem(imgX + (img.width - 16)/2, imgY - 24, 1f, demo);
+    ElementTinkerItem toolItem = new ElementTinkerItem(imgX + (img.width - 16) / 2, imgY - 24, 1f, demo);
     toolItem.noTooltip = true;
 
     list.add(toolItem);
-    list.add(new ElementImage(imgX + (img.width - 22)/2, imgY - 27, -1, -1, IMG_SLOT_1, 0xffffff));
+    list.add(new ElementImage(imgX + (img.width - 22) / 2, imgY - 27, -1, -1, IMG_SLOT_1, 0xffffff));
 
     if(inputItems != null) {
       for(int i = 0; i < inCount; i++) {

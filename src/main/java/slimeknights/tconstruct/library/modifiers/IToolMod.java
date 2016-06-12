@@ -14,14 +14,16 @@ public interface IToolMod {
   String getIdentifier();
 
   String getLocalizedName();
+
   /** A short description to tell the user what the trait does */
   String getLocalizedDesc();
 
-  /** Extra info to display in the tool station. Each entry adds a line.  */
+  /** Extra info to display in the tool station. Each entry adds a line. */
   List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag);
 
-  /** Return true to hide the trait from the user.
-   *  Useful for internal stuff.
+  /**
+   * Return true to hide the trait from the user.
+   * Useful for internal stuff.
    */
   boolean isHidden();
 }
