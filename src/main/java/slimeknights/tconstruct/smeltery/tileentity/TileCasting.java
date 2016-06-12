@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
@@ -20,10 +23,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.fluid.FluidHandlerCasting;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
@@ -96,6 +95,11 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
       }
       ItemHandlerHelper.giveItemToPlayer(player, stack);
       setInventorySlotContents(slot, null);
+
+      // send a block update for the comparator, needs to be done after the stack is removed
+      if(slot == 1) {
+        this.worldObj.notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+      }
     }
   }
 
@@ -155,8 +159,10 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
           else {
             setInventorySlotContents(1, event.output);
           }
-
           worldObj.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.AMBIENT, 0.07f, 4f);
+
+          // comparator update
+          worldObj.notifyNeighborsOfStateChange(this.pos, this.getBlockType());
 
           // reset state
           reset();
@@ -236,6 +242,13 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     }
 
     tank.renderOffset += tank.getFluidAmount() - oldAmount;
+  }
+
+  /**
+   * @return The current comparator strength based on if an output exists
+   */
+  public int comparatorStrength() {
+    return isStackInSlot(1) ? 15 : 0;
   }
 
   /* Saving and Loading */

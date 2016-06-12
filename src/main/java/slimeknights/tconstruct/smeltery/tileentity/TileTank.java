@@ -13,15 +13,20 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
+import slimeknights.tconstruct.library.fluid.IFluidTankUpdater;
 
-public class TileTank extends TileSmelteryComponent {
+public class TileTank extends TileSmelteryComponent implements IFluidTankUpdater {
 
   public static final int CAPACITY = Fluid.BUCKET_VOLUME * 4;
 
   protected FluidTankAnimated tank;
 
+  // used to only run block updates if the value actually changes
+  private int lastStrength;
+
   public TileTank() {
     this.tank = new FluidTankAnimated(CAPACITY, this);
+    this.lastStrength = -1;
   }
 
   @Override
@@ -89,8 +94,20 @@ public class TileTank extends TileSmelteryComponent {
     tank.writeToNBT(tags);
   }
 
-
+  /**
+   * @return The current comparator strength based on the tank's capicity
+   */
   public int comparatorStrength() {
     return 15 * tank.getFluidAmount() / tank.getCapacity();
   }
+
+  @Override
+  public void onTankContentsChanged() {
+    int newStrength = this.comparatorStrength();
+    if(newStrength != lastStrength) {
+      this.worldObj.notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+      this.lastStrength = newStrength;
+    }
+  }
+
 }
