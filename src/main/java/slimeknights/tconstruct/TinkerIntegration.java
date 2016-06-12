@@ -29,7 +29,6 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.shared.TinkerFluids;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 
 // Takes care of adding all the generic-ish materials
@@ -40,8 +39,6 @@ public class TinkerIntegration extends TinkerPulse {
   static final Logger log = Util.getLogger(PulseId);
   public static List<MaterialIntegration> integrationList = Lists.newLinkedList();
   public static List<NBTTagList> alloys = Lists.newLinkedList();
-
-  private MaterialIntegration alubrassIntegration = null;
 
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
@@ -141,48 +138,19 @@ public class TinkerIntegration extends TinkerPulse {
       try {
         // smeltery melting
         if(message.key.equals("integrateSmeltery")) {
-          NBTTagCompound tag = message.getNBTValue();
-          String fluidName = tag.getString("fluid");
-          String ore = tag.getString("ore");
-          boolean toolforge = tag.getBoolean("toolforge");
-
-          Fluid fluid = FluidRegistry.getFluid(fluidName);
-
-          if(fluid != null && ore != null && !ore.isEmpty()) {
-            boolean isNew = true;
-            for(MaterialIntegration mi : integrationList) {
-              if(mi.fluid != null && mi.fluid.getName().equals(fluidName)) {
-                isNew = false;
-              }
-            }
-            // only integrate if not present already
-            if(isNew) {
-              MaterialIntegration materialIntegration = new MaterialIntegration(null, fluid, ore);
-              if(toolforge) {
-                materialIntegration.toolforge();
-              }
-              integrationList.add(materialIntegration);
-              materialIntegration.integrate();
-              log.info("Added integration smelting for " + ore + " from " + message.getSender());
-            }
-          }
-          if(tag.hasKey("alloy")) {
-            alloys.add(tag.getTagList("alloy", 10));
-          }
+          IMCIntegration.integrateSmeltery(message);
         }
         // smeltery alloys
         else if(message.key.equals("alloy")) {
-          alloys.add(message.getNBTValue().getTagList("alloy", 10));
+          IMCIntegration.alloy(message);
         }
         // melting blacklist
         else if(message.key.equals("blacklistMelting")) {
-          // oredict blacklist
-          if(message.getMessageType() == String.class) {
-            TinkerSmeltery.meltingBlacklist.addAll(OreDictionary.getOres(message.getStringValue(), false));
-          }
-          else {
-            TinkerSmeltery.meltingBlacklist.add(message.getItemStackValue());
-          }
+          IMCIntegration.blacklistMelting(message);
+        }
+        // drying rack integration
+        else if(message.key.equals("addDryingRecipe")) {
+          IMCIntegration.addDryingRecipe(message);
         }
       } catch(ClassCastException e) {
         log.error("Got invalid " + message.key + " IMC from " + message.getSender());

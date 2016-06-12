@@ -108,5 +108,7 @@ public class TinkerDebug {
         log.error("Fluid " + entry.getValue().getUnlocalizedName() + " is registered with an empty name!");
       }
     }
+
+    log.info("Sanity Check Complete");
   }
 }
