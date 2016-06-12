@@ -25,6 +25,11 @@ public abstract class Sounds {
   public static final SoundEvent shocking_charged = sound("charged");
   public static final SoundEvent shocking_discharge = sound("discharge");
 
+  public static final SoundEvent stone_hit = sound("stone_hit");
+  public static final SoundEvent wood_hit = sound("wood_hit");
+
+  public static final SoundEvent crossbow_reload = sound("crossbow_reload");
+
   private static SoundEvent sound(String name) {
     ResourceLocation location = Util.getResource(name);
     SoundEvent event = new SoundEvent(location);
