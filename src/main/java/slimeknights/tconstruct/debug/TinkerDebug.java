@@ -9,10 +9,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ClientCommandHandler;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 import org.apache.logging.log4j.Logger;
+
+import java.util.Map;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -91,6 +95,17 @@ public class TinkerDebug {
         } catch(Exception e) {
           log.error("Caught exception when checking item " + identifier + ":" + i, e);
         }
+      }
+    }
+
+    // check for broken unsavable fluids
+    for(Map.Entry<String, Fluid> entry : FluidRegistry.getRegisteredFluids().entrySet()) {
+      if(entry.getKey() == null || entry.getKey().isEmpty()) {
+        log.error("Fluid " + entry.getValue().getUnlocalizedName() + " has an empty name registered!");
+      }
+      String name = FluidRegistry.getFluidName(entry.getValue());
+      if(name == null || name.isEmpty()) {
+        log.error("Fluid " + entry.getValue().getUnlocalizedName() + " is registered with an empty name!");
       }
     }
   }
