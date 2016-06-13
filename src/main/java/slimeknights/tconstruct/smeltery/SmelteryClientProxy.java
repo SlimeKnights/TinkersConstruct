@@ -58,7 +58,10 @@ public class SmelteryClientProxy extends ClientProxy {
     registerItemModel(TinkerSmeltery.searedStairsBrickCracked);
     registerItemModel(TinkerSmeltery.searedStairsBrickFancy);
     registerItemModel(TinkerSmeltery.searedStairsBrickSquare);
+    registerItemModel(TinkerSmeltery.searedStairsBrickTriangle);
+    registerItemModel(TinkerSmeltery.searedStairsBrickSmall);
     registerItemModel(TinkerSmeltery.searedStairsRoad);
+    registerItemModel(TinkerSmeltery.searedStairsTile);
     registerItemModel(TinkerSmeltery.searedStairsCreeper);
 
     // drains
