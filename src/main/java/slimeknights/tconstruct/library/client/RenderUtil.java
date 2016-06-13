@@ -370,8 +370,8 @@ public final class RenderUtil {
 
   public static void post() {
     GlStateManager.disableBlend();
-    RenderHelper.enableStandardItemLighting();
     GlStateManager.popMatrix();
+    RenderHelper.enableStandardItemLighting();
   }
 
   public static void setColorRGB(int color) {
