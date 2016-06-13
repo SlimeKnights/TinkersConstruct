@@ -63,7 +63,7 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
     if(slot == 0) {
       updateDryingTime();
     }
-    else {
+    else if(this.worldObj != null){
       // comparator update
       this.worldObj.notifyNeighborsOfStateChange(this.pos, this.getBlockType());
     }
