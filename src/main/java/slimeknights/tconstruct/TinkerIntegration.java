@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
@@ -119,6 +120,14 @@ public class TinkerIntegration extends TinkerPulse {
 
     handleAlloyIMCs();
   }
+
+  @Subscribe
+  public void postInit(FMLPostInitializationEvent event) {
+    for(MaterialIntegration integration : integrationList) {
+      integration.registerRepresentativeItem();
+    }
+  }
+
 
   @SubscribeEvent
   public void onOredictRegister(OreDictionary.OreRegisterEvent event) {

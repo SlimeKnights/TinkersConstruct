@@ -1,8 +1,11 @@
 package slimeknights.tconstruct.library;
 
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.List;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
@@ -20,6 +23,7 @@ public class MaterialIntegration {
   public Fluid fluid;
   public String oreSuffix; // oredict suffix, e.g. "Iron" -> "ingotIron", "blockIron",...
   public String[] oreRequirement; // required oredict entry for this integration
+  public String representativeItem; // oredict entry for the representative item
   private boolean integrated;
   private boolean toolforge = false;
 
@@ -43,6 +47,7 @@ public class MaterialIntegration {
     this.material = material;
     this.fluid = fluid;
     this.oreSuffix = oreSuffix;
+    this.representativeItem = "ingot" + oreSuffix;
     this.oreRequirement = oreRequirement[0] == null ? new String[0] : oreRequirement; // API backwards compatibility
 
     this.integrated = false;
@@ -50,6 +55,11 @@ public class MaterialIntegration {
 
   public MaterialIntegration toolforge() {
     this.toolforge = true;
+    return this;
+  }
+
+  public MaterialIntegration setRepresentativeItem(String representativeItem) {
+    this.representativeItem = representativeItem;
     return this;
   }
 
@@ -129,6 +139,20 @@ public class MaterialIntegration {
     }
     if(material != null) {
       TinkerSmeltery.registerToolpartMeltingCasting(material);
+    }
+  }
+
+  public void registerRepresentativeItem() {
+    // also set the representative item
+    if(material != null && material.getRepresentativeItem() == null && representativeItem != null && !representativeItem.isEmpty()) {
+      List<ItemStack> ore = OreDictionary.getOres(representativeItem, false);
+      if(!ore.isEmpty()) {
+        ItemStack itemStack = ore.get(0).copy();
+        if(itemStack.getMetadata() == OreDictionary.WILDCARD_VALUE) {
+          itemStack.setItemDamage(0);
+        }
+        material.setRepresentativeItem(itemStack);
+      }
     }
   }
 

@@ -248,7 +248,8 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
           }
         }
       }
-      else {
+      // we only melt living entities if we have something in the smeltery
+      else if(liquids.getFluidAmount() > 0) {
         // custom melting?
         FluidStack fluid = TinkerRegistry.getMeltingForEntity(entity);
         // no custom melting but a living entity that's alive?
