@@ -33,7 +33,12 @@ public class TraitEstablished extends AbstractTrait {
     EntityPlayer player = event.getPlayer();
     if(player != null) {
       if(TinkerUtil.hasTrait(TagUtil.getTagSafe(player.getHeldItemMainhand()), identifier)) {
-        event.setExpToDrop(getUpdateXP(event.getExpToDrop()));
+        float r = random.nextFloat();
+        int expToDrop = event.getExpToDrop();
+        // 30% chance for 1 bonus xp
+        if(r < 0.33f || (expToDrop == 0 && r < 0.03f)) {
+          event.setExpToDrop(expToDrop + 1);
+        }
       }
     }
   }
@@ -46,7 +51,7 @@ public class TraitEstablished extends AbstractTrait {
       }
       return 0;
     }
-    float exp = (float) xp * 1.25f + random.nextFloat() * 0.5f;
+    float exp = (float) xp * 1.25f + random.nextFloat() * 0.25f;
     return 1 + Math.round(exp);
   }
 }
