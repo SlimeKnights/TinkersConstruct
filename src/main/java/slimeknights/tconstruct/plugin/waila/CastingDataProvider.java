@@ -13,7 +13,6 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 
 public class CastingDataProvider implements IWailaDataProvider {
@@ -30,7 +29,7 @@ public class CastingDataProvider implements IWailaDataProvider {
 
   @Override
   public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-    if (config.getConfig(Waila.CONFIG_CASTING) && accessor.getTileEntity() instanceof TileCasting)
+    if (config.getConfig(WailaRegistrar.CONFIG_CASTING) && accessor.getTileEntity() instanceof TileCasting)
     {
       TileCasting te = (TileCasting) accessor.getTileEntity();
       ItemStack output = te.getCurrentResult();
