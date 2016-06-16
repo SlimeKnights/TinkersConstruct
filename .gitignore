@@ -38,3 +38,5 @@ version.properties
 options.txt
 /saves/
 /out
+libs/
+*.bat
