@@ -33,7 +33,7 @@ public class BlockSearedSlab extends EnumBlockSlab<BlockSearedSlab.SearedType> {
     return TinkerSmeltery.searedBlock.getDefaultState().withProperty(BlockSeared.TYPE, state.getValue(TYPE).asSearedBlock());
   }
 
-  // using a separate Enum than BlockSeared since there are 9 types (and slabs only support 8)
+  // using a separate Enum than BlockSeared since there are more variants than the 8 types slabs support
   public enum SearedType implements IStringSerializable, EnumBlock.IEnumMeta {
     STONE,
     COBBLE,
@@ -43,7 +43,6 @@ public class BlockSearedSlab extends EnumBlockSlab<BlockSearedSlab.SearedType> {
     BRICK_FANCY,
     BRICK_SQUARE,
     ROAD;
-    // creeper is in BlockStoneSlab2
 
     public final int meta;
 

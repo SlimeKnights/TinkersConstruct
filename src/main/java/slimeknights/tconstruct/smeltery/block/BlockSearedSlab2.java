@@ -34,7 +34,10 @@ public class BlockSearedSlab2 extends EnumBlockSlab<BlockSearedSlab2.SearedType>
   }
 
   public enum SearedType implements IStringSerializable, EnumBlock.IEnumMeta {
-    CREEPER;
+    CREEPER,
+    BRICK_TRIANGLE,
+    BRICK_SMALL,
+    TILE;
 
     public final int meta;
 
@@ -51,6 +54,12 @@ public class BlockSearedSlab2 extends EnumBlockSlab<BlockSearedSlab2.SearedType>
       switch(this) {
         case CREEPER:
           return BlockSeared.SearedType.CREEPER;
+        case BRICK_SMALL:
+          return BlockSeared.SearedType.BRICK_SMALL;
+        case BRICK_TRIANGLE:
+          return BlockSeared.SearedType.BRICK_TRIANGLE;
+        case TILE:
+          return BlockSeared.SearedType.TILE;
         default:
           return null;
       }

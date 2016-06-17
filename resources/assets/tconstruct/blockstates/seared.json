@@ -31,8 +31,17 @@
             "brick_square": {
                 "textures": { "all": "tconstruct:blocks/smeltery/seared_brick_square" }
             },
+            "brick_triangle": {
+                "textures": { "all": "tconstruct:blocks/smeltery/seared_brick_triangle" }
+            },
+            "brick_small": {
+                "textures": { "all": "tconstruct:blocks/smeltery/seared_brick_small" }
+            },
             "road": {
                 "textures": { "all": "tconstruct:blocks/smeltery/seared_road" }
+            },
+            "tile": {
+                "textures": { "all": "tconstruct:blocks/smeltery/seared_tile" }
             },
             "creeper": {
                 "model": "cube_bottom_top",
