@@ -40,6 +40,7 @@ public final class Config {
   public static boolean claycasts = true;
   public static boolean castableBricks = true;
   public static boolean leatherDryingRecipe = true;
+  public static boolean gravelFlintRecipe = true;
 
   // Worldgen
   public static boolean genSlimeIslands = true;
@@ -156,6 +157,12 @@ public final class Config {
       prop = configFile.get(cat, "addLeatherDryingRecipe", leatherDryingRecipe);
       prop.setComment("Adds a recipe that allows you to get leather from drying cooked meat");
       leatherDryingRecipe = prop.getBoolean();
+      prop.requiresMcRestart();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "addFlintRecipe", gravelFlintRecipe);
+      prop.setComment("Adds a recipe that allows you to craft 3 gravel into a flint");
+      gravelFlintRecipe = prop.getBoolean();
       prop.requiresMcRestart();
       propOrder.add(prop.getName());
     }

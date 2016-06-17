@@ -370,6 +370,15 @@ public class TinkerCommons extends TinkerPulse {
     for(int i = 0; i < 16; i++) {
       GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockClearStainedGlass, 8, i), "GGG", "GDG", "GGG", 'G', blockClearGlass, 'D', "dye" + TinkerOredict.dyes[i]));
     }
+
+    // flint recipe
+    if(Config.gravelFlintRecipe) {
+      GameRegistry.addRecipe(new ShapelessOreRecipe(
+          new ItemStack(Items.FLINT),
+          "gravel",
+          "gravel",
+          "gravel"));
+    }
   }
 
   private static void registerMetalRecipes(String oreString, ItemStack ingot, ItemStack nugget, ItemStack block) {
