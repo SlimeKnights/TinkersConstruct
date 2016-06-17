@@ -355,16 +355,16 @@ public class TinkerSmeltery extends TinkerPulse {
 
     // seared stone, takes as long as a full block to melt, but gives less
     TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("stone", Material.VALUE_SearedMaterial),
-                                                           TinkerFluids.searedStone, Material.VALUE_Ore));
+                                                           TinkerFluids.searedStone, Material.VALUE_Ore()));
     TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("cobblestone", Material.VALUE_SearedMaterial),
-                                                           TinkerFluids.searedStone, Material.VALUE_Ore));
+                                                           TinkerFluids.searedStone, Material.VALUE_Ore()));
 
     // obsidian
-    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("obsidian", Material.VALUE_Ore),
-                                                           TinkerFluids.obsidian, Material.VALUE_Ore));
+    TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("obsidian", Material.VALUE_Ore()),
+                                                           TinkerFluids.obsidian, Material.VALUE_Ore()));
     // note that obsidian casting gives you 2 ingot value per obsidian, while part crafting only gives 1 per obsidian
     registerToolpartMeltingCasting(TinkerMaterials.obsidian);
-    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.OBSIDIAN), null, TinkerFluids.obsidian, Material.VALUE_Ore);
+    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.OBSIDIAN), null, TinkerFluids.obsidian, Material.VALUE_Ore());
 
 
     // gold is melt and castable too, but no tools. Remaining materials are done directly in the MaterialIntegration
@@ -600,7 +600,7 @@ public class TinkerSmeltery extends TinkerPulse {
     Pair<List<ItemStack>, Integer> nuggetOre = Pair.of(OreDictionary.getOres("nugget" + ore), Material.VALUE_Nugget);
     Pair<List<ItemStack>, Integer> ingotOre = Pair.of(OreDictionary.getOres("ingot" + ore), Material.VALUE_Ingot);
     Pair<List<ItemStack>, Integer> blockOre = Pair.of(OreDictionary.getOres("block" + ore), Material.VALUE_Block);
-    Pair<List<ItemStack>, Integer> oreOre = Pair.of(OreDictionary.getOres("ore" + ore), Material.VALUE_Ore);
+    Pair<List<ItemStack>, Integer> oreOre = Pair.of(OreDictionary.getOres("ore" + ore), Material.VALUE_Ore());
     Pair<List<ItemStack>, Integer> plateOre = Pair.of(OreDictionary.getOres("plate" + ore), Material.VALUE_Ingot);
     Pair<List<ItemStack>, Integer> gearOre = Pair.of(OreDictionary.getOres("gear" + ore), Material.VALUE_Ingot * 4);
     Pair<List<ItemStack>, Integer> dustOre = Pair.of(OreDictionary.getOres("dust" + ore), Material.VALUE_Ingot);

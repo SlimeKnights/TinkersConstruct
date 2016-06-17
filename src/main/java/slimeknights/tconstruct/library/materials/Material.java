@@ -42,7 +42,6 @@ public class Material extends RecipeMatchRegistry {
   public static final int VALUE_Fragment = VALUE_Ingot / 4;
   public static final int VALUE_Shard = VALUE_Ingot / 2;
 
-  public static final int VALUE_Ore = VALUE_Ingot * 2;
   public static final int VALUE_Gem = 666; // divisible by 3!
   public static final int VALUE_Block = VALUE_Ingot * 9;
 
@@ -53,6 +52,10 @@ public class Material extends RecipeMatchRegistry {
   public static final int VALUE_BrickBlock = VALUE_Ingot * 4;
 
   public static final int VALUE_SlimeBall = 250;
+
+  public static int VALUE_Ore() {
+    return (int)(VALUE_Ingot * Config.oreToIngotRatio);
+  }
 
   static {
     UNKNOWN.addStats(new HeadMaterialStats(1, 1, 1, 0));

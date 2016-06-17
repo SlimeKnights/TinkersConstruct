@@ -2,6 +2,7 @@ package slimeknights.tconstruct.common.config;
 
 import com.google.common.collect.Lists;
 
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.ConfigCategory;
@@ -41,6 +42,7 @@ public final class Config {
   public static boolean castableBricks = true;
   public static boolean leatherDryingRecipe = true;
   public static boolean gravelFlintRecipe = true;
+  public static double oreToIngotRatio = 2;
 
   // Worldgen
   public static boolean genSlimeIslands = true;
@@ -163,6 +165,13 @@ public final class Config {
       prop = configFile.get(cat, "addFlintRecipe", gravelFlintRecipe);
       prop.setComment("Adds a recipe that allows you to craft 3 gravel into a flint");
       gravelFlintRecipe = prop.getBoolean();
+      prop.requiresMcRestart();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "oreToIngotRatio", oreToIngotRatio);
+      prop.setComment("Determines the ratio of ore to ingot, or in other words how many ingots you get out of an ore. This ratio applies to all ores (including poor and dense). The ratio can be any decimal, including 1.5 and the like, but can't go below 1. THIS ALSO AFFECTS MELTING TEMPERATURE!");
+      prop.setMinValue(1);
+      oreToIngotRatio = prop.getDouble();
       prop.requiresMcRestart();
       propOrder.add(prop.getName());
     }
