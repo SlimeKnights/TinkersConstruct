@@ -272,6 +272,7 @@ public class TinkerSmeltery extends TinkerPulse {
 
     // polish stone into the paver
     addBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.STONE);
+    addBrickRecipe(BlockSeared.SearedType.BRICK, BlockSeared.SearedType.PAVER);
     
     // remaining seared bricks
     addBrickRecipe(BlockSeared.SearedType.BRICK_FANCY, BlockSeared.SearedType.BRICK);
