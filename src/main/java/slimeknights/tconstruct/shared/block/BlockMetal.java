@@ -16,6 +16,7 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.block.EnumBlock;
+import slimeknights.tconstruct.TinkerIntegration;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.TinkerFluids;
 
@@ -35,7 +36,7 @@ public class BlockMetal extends EnumBlock<BlockMetal.MetalTypes> {
   @Override
   public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
     for(MetalTypes type : MetalTypes.values()) {
-      if(type == MetalTypes.ALUBRASS && !FluidRegistry.isFluidRegistered(TinkerFluids.alubrass)) {
+      if(type == MetalTypes.ALUBRASS && !TinkerIntegration.isIntegrated(TinkerFluids.alubrass)) {
         continue;
       }
       list.add(new ItemStack(this, 1, type.getMeta()));

@@ -205,7 +205,7 @@ public class TinkerSmeltery extends TinkerPulse {
   public void init(FMLInitializationEvent event) {
     // done here so they're present for integration in MaterialIntegration and fluids in TinkerFluids are also initialized
     castCreationFluids.add(new FluidStack(TinkerFluids.gold, Material.VALUE_Ingot * 2));
-    if(FluidRegistry.isFluidRegistered(TinkerFluids.brass)) {
+    if(TinkerIntegration.isIntegrated(TinkerFluids.brass)) {
       castCreationFluids.add(new FluidStack(TinkerFluids.brass, Material.VALUE_Ingot));
     }
     if(FluidRegistry.isFluidRegistered(TinkerFluids.clay)) {
