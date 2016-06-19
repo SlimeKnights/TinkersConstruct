@@ -249,6 +249,11 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   }
 
 
+  @Override
+  public boolean isSideSolid(@Nonnull IBlockState base_state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
+    return side == EnumFacing.UP || super.isSideSolid(base_state, world, pos, side);
+  }
+
   /* Bounds */
   private static ImmutableList<AxisAlignedBB> BOUNDS_Table = ImmutableList.of(
       new AxisAlignedBB(0, 0.75, 0, 1, 1, 1),

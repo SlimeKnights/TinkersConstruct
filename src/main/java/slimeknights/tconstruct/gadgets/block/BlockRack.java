@@ -79,6 +79,12 @@ public class BlockRack extends BlockTable {
     }
   }
 
+  @Override
+  public boolean isSideSolid(@Nonnull IBlockState base_state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
+    // the center ones are considered solid at the top
+    return side == EnumFacing.UP && base_state.getValue(ORIENTATION).getFacing() == EnumFacing.UP;
+  }
+
   /* Inventory stuffs */
   @Nonnull
   @Override
