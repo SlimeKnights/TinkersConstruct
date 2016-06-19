@@ -26,6 +26,7 @@ import net.minecraft.network.play.server.SPacketBlockChange;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -376,13 +377,12 @@ public final class ToolHelper {
 
       // serverside we reproduce ItemInWorldManager.tryHarvestBlock
 
+      TileEntity tileEntity = world.getTileEntity(pos);
       // ItemInWorldManager.removeBlock
-      block.onBlockHarvested(world, pos, state, player);
-
       if(block.removedByPlayer(state, world, pos, player, true)) // boolean is if block can be harvested, checked above
       {
         block.onBlockDestroyedByPlayer(world, pos, state);
-        block.harvestBlock(world, player, pos, state, world.getTileEntity(pos), stack);
+        block.harvestBlock(world, player, pos, state, tileEntity, stack);
         block.dropXpOnBlockBreak(world, pos, xp);
       }
 
