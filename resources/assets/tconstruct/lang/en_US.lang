@@ -134,10 +134,10 @@ tile.tconstruct.seared_slab.brick.name=Seared Bricks Slab
 tile.tconstruct.seared_slab.brick_cracked.name=Cracked Seared Bricks Slab
 tile.tconstruct.seared_slab.brick_fancy.name=Fancy Seared Bricks Slab
 tile.tconstruct.seared_slab.brick_square.name=Square Seared Bricks Slab
-tile.tconstruct.seared_slab.brick_square.name=Triangle Seared Bricks Slab
-tile.tconstruct.seared_slab.brick_square.name=Small Seared Bricks Slab
+tile.tconstruct.seared_slab.brick_triangle.name=Triangle Seared Bricks Slab
+tile.tconstruct.seared_slab.brick_small.name=Small Seared Bricks Slab
 tile.tconstruct.seared_slab.road.name=Seared Road Slab
-tile.tconstruct.seared_slab.road.name=Seared Tile Slab
+tile.tconstruct.seared_slab.tile.name=Seared Tile Slab
 tile.tconstruct.seared_slab2.creeper.name=Seared Creeperface Slab
 
 tile.tconstruct.seared_stairs_stone.name=Seared Stone Stairs
