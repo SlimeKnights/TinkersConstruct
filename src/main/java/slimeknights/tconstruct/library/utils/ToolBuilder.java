@@ -304,7 +304,7 @@ public final class ToolBuilder {
             candidate = j;
             // if a tool has multiple of the same parts we may want to replace another one as the currently selected
             // for that purpose we only allow to overwrite the current selection if the input slot is a later one than the current one
-            if(i > j) {
+            if(i <= j) {
               break;
             }
           }
