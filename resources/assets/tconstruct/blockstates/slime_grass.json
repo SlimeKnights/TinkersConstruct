@@ -47,7 +47,10 @@
             },
             "magma": {
                 "textures": {
-                    "particle": "tconstruct:blocks/slime/slimedirt_magma"
+                    "particle": "tconstruct:blocks/slime/slimedirt_magma",
+                    "bottom": "#particle",
+                    "side": "#particle",
+                    "all": "#particle"
                 }
             }
         },
