@@ -27,6 +27,9 @@ import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.EntityIDs;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.gadgets.block.BlockBrownstone;
+import slimeknights.tconstruct.gadgets.block.BlockBrownstoneSlab;
+import slimeknights.tconstruct.gadgets.block.BlockBrownstoneSlab2;
 import slimeknights.tconstruct.gadgets.block.BlockDriedClay;
 import slimeknights.tconstruct.gadgets.block.BlockDriedClaySlab;
 import slimeknights.tconstruct.gadgets.block.BlockPunji;
@@ -66,9 +69,26 @@ public class TinkerGadgets extends TinkerPulse {
   public static Block punji;
   public static BlockRack rack;
   public static BlockDriedClay driedClay;
+  public static BlockBrownstone brownstone;
+
   public static Block driedClaySlab;
+  public static Block brownstoneSlab;
+  public static Block brownstoneSlab2;
+
   public static Block driedClayStairs;
   public static Block driedBrickStairs;
+  public static Block brownstoneStairsSmooth;
+  public static Block brownstoneStairsRough;
+  public static Block brownstoneStairsPaver;
+  public static Block brownstoneStairsBrick;
+  public static Block brownstoneStairsBrickCracked;
+  public static Block brownstoneStairsBrickFancy;
+  public static Block brownstoneStairsBrickSquare;
+  public static Block brownstoneStairsBrickTriangle;
+  public static Block brownstoneStairsBrickSmall;
+  public static Block brownstoneStairsRoad;
+  public static Block brownstoneStairsTile;
+  public static Block brownstoneStairsCreeper;
 
   public static ItemSlimeSling slimeSling;
   public static ItemSlimeBoots slimeBoots;
@@ -86,11 +106,31 @@ public class TinkerGadgets extends TinkerPulse {
     woodRail = registerBlock(new BlockWoodRail(), "wood_rail");
     punji = registerBlock(new BlockPunji(), "punji");
     rack = registerBlock(new ItemBlockRack(new BlockRack()), "rack");
+    
+    // dried clay
     driedClay = registerEnumBlock(new BlockDriedClay(), "dried_clay");
     driedClaySlab = registerEnumBlockSlab(new BlockDriedClaySlab(), "dried_clay_slab");
-
     driedClayStairs = registerBlockStairsFrom(driedClay, BlockDriedClay.DriedClayType.CLAY, "dried_clay_stairs");
     driedBrickStairs = registerBlockStairsFrom(driedClay, BlockDriedClay.DriedClayType.BRICK, "dried_brick_stairs");
+
+    // brownstone
+    brownstone = registerEnumBlock(new BlockBrownstone(), "brownstone");
+    brownstoneSlab = registerEnumBlockSlab(new BlockBrownstoneSlab(), "brownstone_slab");
+    brownstoneSlab2 = registerEnumBlockSlab(new BlockBrownstoneSlab2(), "brownstone_slab2");
+
+    // stairs
+    brownstoneStairsSmooth = registerBlockStairsFrom(brownstone, BlockBrownstone.BrownstoneType.SMOOTH, "brownstone_stairs_smooth");
+    brownstoneStairsRough = registerBlockStairsFrom(brownstone, BlockBrownstone.BrownstoneType.ROUGH, "brownstone_stairs_rough");
+    brownstoneStairsPaver = registerBlockStairsFrom(brownstone, BlockBrownstone.BrownstoneType.PAVER, "brownstone_stairs_paver");
+    brownstoneStairsBrick = registerBlockStairsFrom(brownstone, BlockBrownstone.BrownstoneType.BRICK, "brownstone_stairs_brick");
+    brownstoneStairsBrickCracked = registerBlockStairsFrom(brownstone, BlockBrownstone.BrownstoneType.BRICK_CRACKED, "brownstone_stairs_brick_cracked");
+    brownstoneStairsBrickFancy = registerBlockStairsFrom(brownstone, BlockBrownstone.BrownstoneType.BRICK_FANCY, "brownstone_stairs_brick_fancy");
+    brownstoneStairsBrickSquare = registerBlockStairsFrom(brownstone, BlockBrownstone.BrownstoneType.BRICK_SQUARE, "brownstone_stairs_brick_square");
+    brownstoneStairsBrickTriangle = registerBlockStairsFrom(brownstone, BlockBrownstone.BrownstoneType.BRICK_TRIANGLE, "brownstone_stairs_brick_triangle");
+    brownstoneStairsBrickSmall = registerBlockStairsFrom(brownstone, BlockBrownstone.BrownstoneType.BRICK_SMALL, "brownstone_stairs_brick_small");
+    brownstoneStairsRoad = registerBlockStairsFrom(brownstone, BlockBrownstone.BrownstoneType.ROAD, "brownstone_stairs_road");
+    brownstoneStairsTile = registerBlockStairsFrom(brownstone, BlockBrownstone.BrownstoneType.TILE, "brownstone_stairs_tile");
+    brownstoneStairsCreeper = registerBlockStairsFrom(brownstone, BlockBrownstone.BrownstoneType.CREEPER, "brownstone_stairs_creeper");
 
     registerTE(TileItemRack.class, "item_rack");
     registerTE(TileDryingRack.class, "drying_rack");
@@ -201,6 +241,68 @@ public class TinkerGadgets extends TinkerPulse {
     ItemStack efln = new ItemStack(throwball, 1, ItemThrowball.ThrowballType.EFLN.ordinal());
     GameRegistry.addShapelessRecipe(efln, Items.FLINT, Items.GUNPOWDER);
     GameRegistry.addRecipe(new ShapelessOreRecipe(efln, Items.FLINT, "dustSulfur"));
+    
+    // brownstone
+    ItemStack stackBrownstoneSmooth = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.SMOOTH.getMeta());
+    ItemStack stackBrownstoneRough = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.ROUGH.getMeta());
+    ItemStack stackBrownstonePaver = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.PAVER.getMeta());
+    ItemStack stackBrownstoneBrick = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.BRICK.getMeta());
+    ItemStack stackBrownstoneBrickCracked = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.BRICK_CRACKED.getMeta());
+    ItemStack stackBrownstoneBrickFancy = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.BRICK_FANCY.getMeta());
+    ItemStack stackBrownstoneBrickSquare = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.BRICK_SQUARE.getMeta());
+    ItemStack stackBrownstoneBrickTriangle = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.BRICK_TRIANGLE.getMeta());
+    ItemStack stackBrownstoneBrickSmall = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.BRICK_SMALL.getMeta());
+    ItemStack stackBrownstoneRoad = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.ROAD.getMeta());
+    ItemStack stackBrownstoneTile = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.TILE.getMeta());
+    ItemStack stackBrownstoneCreeper = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.CREEPER.getMeta());
+    
+    // normal recipe
+    // 2 redstone + sandstone = 1 brownstone
+    GameRegistry.addRecipe(new ShapedOreRecipe(stackBrownstoneRough.copy(), "rsr", 'r', "dustRedstone", 's', "sandstone"));
+
+    // smelting to get smooth and cracked
+    GameRegistry.addSmelting(stackBrownstoneRough.copy(), stackBrownstoneSmooth.copy(), 0.1f);
+    GameRegistry.addSmelting(stackBrownstoneBrick.copy(), stackBrownstoneBrickCracked.copy(), 0.1f);
+
+    // remaining brownstone types
+    addBrickRecipe(BlockBrownstone.BrownstoneType.PAVER, BlockBrownstone.BrownstoneType.SMOOTH);
+    addBrickRecipe(BlockBrownstone.BrownstoneType.BRICK, BlockBrownstone.BrownstoneType.PAVER);
+    addBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_FANCY, BlockBrownstone.BrownstoneType.BRICK);
+    addBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_SQUARE, BlockBrownstone.BrownstoneType.BRICK_FANCY);
+    addBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_TRIANGLE, BlockBrownstone.BrownstoneType.BRICK_SQUARE);
+    addBrickRecipe(BlockBrownstone.BrownstoneType.CREEPER, BlockBrownstone.BrownstoneType.BRICK_TRIANGLE);
+    addBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_SMALL, BlockBrownstone.BrownstoneType.CREEPER);
+    addBrickRecipe(BlockBrownstone.BrownstoneType.TILE, BlockBrownstone.BrownstoneType.BRICK_SMALL);
+    addBrickRecipe(BlockBrownstone.BrownstoneType.ROAD, BlockBrownstone.BrownstoneType.TILE);
+    addBrickRecipe(BlockBrownstone.BrownstoneType.BRICK, BlockBrownstone.BrownstoneType.ROAD);
+ 
+    // slabs
+    addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.SMOOTH.getMeta()), stackBrownstoneSmooth.copy());
+    addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.ROUGH.getMeta()), stackBrownstoneRough.copy());
+    addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.PAVER.getMeta()), stackBrownstonePaver.copy());
+    addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.BRICK.getMeta()), stackBrownstoneBrick.copy());
+    addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.BRICK_CRACKED.getMeta()), stackBrownstoneBrickCracked.copy());
+    addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.BRICK_FANCY.getMeta()), stackBrownstoneBrickFancy.copy());
+    addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.BRICK_SQUARE.getMeta()), stackBrownstoneBrickSquare.copy());
+    addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.ROAD.getMeta()), stackBrownstoneRoad.copy());
+    addSlabRecipe(new ItemStack(brownstoneSlab2, 1, BlockBrownstoneSlab2.BrownstoneType.CREEPER.getMeta()), stackBrownstoneCreeper.copy());
+    addSlabRecipe(new ItemStack(brownstoneSlab2, 1, BlockBrownstoneSlab2.BrownstoneType.BRICK_TRIANGLE.getMeta()), stackBrownstoneBrickTriangle.copy());
+    addSlabRecipe(new ItemStack(brownstoneSlab2, 1, BlockBrownstoneSlab2.BrownstoneType.BRICK_SMALL.getMeta()), stackBrownstoneBrickSmall.copy());
+    addSlabRecipe(new ItemStack(brownstoneSlab2, 1, BlockBrownstoneSlab2.BrownstoneType.TILE.getMeta()), stackBrownstoneTile.copy());
+
+    // stairs
+    addStairRecipe(brownstoneStairsSmooth, stackBrownstoneSmooth);
+    addStairRecipe(brownstoneStairsRough, stackBrownstoneRough);
+    addStairRecipe(brownstoneStairsPaver, stackBrownstonePaver);
+    addStairRecipe(brownstoneStairsBrick, stackBrownstoneBrick);
+    addStairRecipe(brownstoneStairsBrickCracked, stackBrownstoneBrickCracked);
+    addStairRecipe(brownstoneStairsBrickFancy, stackBrownstoneBrickFancy);
+    addStairRecipe(brownstoneStairsBrickSquare, stackBrownstoneBrickSquare);
+    addStairRecipe(brownstoneStairsRoad, stackBrownstoneRoad);
+    addStairRecipe(brownstoneStairsCreeper, stackBrownstoneCreeper);
+    addStairRecipe(brownstoneStairsBrickTriangle, stackBrownstoneBrickTriangle);
+    addStairRecipe(brownstoneStairsBrickSmall, stackBrownstoneBrickSmall);
+    addStairRecipe(brownstoneStairsTile, stackBrownstoneTile);
   }
 
   private void addFrameRecipe(String nugget, EntityFancyItemFrame.FrameType type) {
@@ -208,6 +310,14 @@ public class TinkerGadgets extends TinkerPulse {
 
     ItemStack frame = new ItemStack(TinkerGadgets.fancyFrame, 1, type.ordinal());
     GameRegistry.addRecipe(new ShapedOreRecipe(frame, " n ", "nOn", " n ", 'O', obsidian, 'n', nugget));
+  }
+
+  private void addBrickRecipe(BlockBrownstone.BrownstoneType out, BlockBrownstone.BrownstoneType in) {
+    ItemStack searedBrickBlockIn = new ItemStack(brownstone, 1, in.getMeta());
+    ItemStack searedBrickBlockOut = new ItemStack(brownstone, 4, out.getMeta());
+
+    // todo: convert to chisel recipes if chisel is present
+    GameRegistry.addShapedRecipe(searedBrickBlockOut, "BB", "BB", 'B', searedBrickBlockIn);
   }
 
   // POST-INITIALIZATION

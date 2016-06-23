@@ -187,6 +187,45 @@ tile.tconstruct.dried_clay_slab.brick.name=Dried Bricks Slab
 tile.tconstruct.dried_clay_stairs.name=Dried Clay Stairs
 tile.tconstruct.dried_brick_stairs.name=Dried Bricks Stairs
 
+tile.tconstruct.brownstone.smooth.name=Smooth Brownstone
+tile.tconstruct.brownstone.rough.name=Rough Brownstone
+tile.tconstruct.brownstone.paver.name=Brownstone Paver
+tile.tconstruct.brownstone.brick.name=Brownstone Bricks
+tile.tconstruct.brownstone.brick_cracked.name=Cracked Brownstone Bricks
+tile.tconstruct.brownstone.brick_fancy.name=Fancy Brownstone Bricks
+tile.tconstruct.brownstone.brick_square.name=Square Brownstone Bricks
+tile.tconstruct.brownstone.brick_triangle.name=Triangle Brownstone Bricks
+tile.tconstruct.brownstone.brick_small.name=Small Brownstone Bricks
+tile.tconstruct.brownstone.road.name=Brownstone Road
+tile.tconstruct.brownstone.tile.name=Brownstone Tiles
+tile.tconstruct.brownstone.creeper.name=Brownstone Creeperface
+tile.tconstruct.brownstone.tooltip=You move a bit faster on it
+
+tile.tconstruct.brownstone_slab.smooth.name=Smooth Brownstone Slab
+tile.tconstruct.brownstone_slab.rough.name=Rough Brownstone Slab
+tile.tconstruct.brownstone_slab.paver.name=Brownstone Paver Slab
+tile.tconstruct.brownstone_slab.brick.name=Brownstone Bricks Slab
+tile.tconstruct.brownstone_slab.brick_cracked.name=Cracked Brownstone Bricks Slab
+tile.tconstruct.brownstone_slab.brick_fancy.name=Fancy Brownstone Bricks Slab
+tile.tconstruct.brownstone_slab.brick_square.name=Square Brownstone Bricks Slab
+tile.tconstruct.brownstone_slab.road.name=Brownstone Road Slab
+tile.tconstruct.brownstone_slab2.creeper.name=Brownstone Creeperface Slab
+tile.tconstruct.brownstone_slab2.brick_triangle.name=Triangle Brownstone Bricks Slab
+tile.tconstruct.brownstone_slab2.brick_small.name=Small Brownstone Bricks Slab
+tile.tconstruct.brownstone_slab2.tile.name=Brownstone Tile Slab
+
+tile.tconstruct.brownstone_stairs_smooth.name=Smooth Brownstone Stairs
+tile.tconstruct.brownstone_stairs_rough.name=Rough Brownstone Stairs
+tile.tconstruct.brownstone_stairs_paver.name=Brownstone Paver Stairs
+tile.tconstruct.brownstone_stairs_brick.name=Brownstone Bricks Stairs
+tile.tconstruct.brownstone_stairs_brick_cracked.name=Cracked Brownstone Bricks Stairs
+tile.tconstruct.brownstone_stairs_brick_fancy.name=Fancy Brownstone Bricks Stairs
+tile.tconstruct.brownstone_stairs_brick_square.name=Square Brownstone Bricks Stairs
+tile.tconstruct.brownstone_stairs_brick_triangle.name=Triangle Brownstone Bricks Stairs
+tile.tconstruct.brownstone_stairs_brick_small.name=Small Brownstone Bricks Stairs
+tile.tconstruct.brownstone_stairs_road.name=Brownstone Road Stairs
+tile.tconstruct.brownstone_stairs_tile.name=Brownstone Tile Stairs
+tile.tconstruct.brownstone_stairs_creeper.name=Brownstone Creeperface Stairs
 
 ################
 #    Items     #
