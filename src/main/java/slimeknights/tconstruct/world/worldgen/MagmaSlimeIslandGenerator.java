@@ -12,8 +12,9 @@ import net.minecraft.world.gen.ChunkProviderHell;
 import java.util.Random;
 
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.block.BlockSlime;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.BlockSlime;
 import slimeknights.tconstruct.world.block.BlockSlimeDirt;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 
@@ -30,8 +31,8 @@ public class MagmaSlimeIslandGenerator extends SlimeIslandGenerator {
   public MagmaSlimeIslandGenerator() {
     air = Blocks.LAVA.getDefaultState();
 
-    IBlockState slimeMagma = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.MAGMA);
-    IBlockState slimeBlood = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.BLOOD);
+    IBlockState slimeMagma = TinkerCommons.blockSlimeCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.MAGMA);
+    IBlockState slimeBlood = TinkerCommons.blockSlimeCongealed.getDefaultState().withProperty(BlockSlime.TYPE, BlockSlime.SlimeType.BLOOD);
 
     dirtMagma = TinkerWorld.slimeDirt.getDefaultState().withProperty(BlockSlimeDirt.TYPE, BlockSlimeDirt.DirtType.MAGMA);
     grassMagma = TinkerWorld.slimeGrass.getStateFromDirt(dirtMagma).withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.ORANGE);

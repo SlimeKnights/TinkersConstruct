@@ -26,6 +26,8 @@ import static slimeknights.tconstruct.shared.TinkerCommons.blockFirewood;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockMetal;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockOre;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockSoil;
+import static slimeknights.tconstruct.shared.TinkerCommons.blockSlime;
+import static slimeknights.tconstruct.shared.TinkerCommons.blockSlimeCongealed;
 import static slimeknights.tconstruct.shared.TinkerCommons.book;
 import static slimeknights.tconstruct.shared.TinkerCommons.edibles;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingots;
@@ -87,6 +89,8 @@ public class CommonsClientProxy extends ClientProxy {
     registerItemBlockMeta(blockSoil);
     registerItemBlockMeta(blockOre);
     registerItemBlockMeta(blockFirewood);
+    registerItemBlockMeta(blockSlime);
+    registerItemBlockMeta(blockSlimeCongealed);
     registerItemBlockMeta(slabFirewood);
     registerItemModel(stairsFirewood);
     registerItemModel(stairsLavawood);

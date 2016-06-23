@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.world.block;
+package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -23,7 +23,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.world.block.BlockSlime.SlimeType;
+import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
 
 public class BlockSlimeCongealed extends Block {
 

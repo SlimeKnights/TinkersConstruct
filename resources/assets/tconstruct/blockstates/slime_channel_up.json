@@ -1,0 +1,27 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "tconstruct:slime_channel",
+        "textures": {
+          "slime": "tconstruct:blocks/fluids/liquid_flow"
+        }
+    },
+    "variants": {
+        "facing": {
+            "west": { "x": 180, "y": 90 },
+            "east":  { "x": 180, "y": 270 },
+            "south": { "x": 180 },
+            "north":  { "x": 180, "y": 180 }
+        },
+        "powered": {
+            "true": { "textures": { "slime": "tconstruct:blocks/fluids/slime_channel_still" } },
+            "false": {}
+        },
+        "connected": {
+            "none": {},
+            "inner": { "model": "tconstruct:slime_channel_inner" },
+            "outer": { "model": "tconstruct:slime_channel_outer" }
+        },
+        "inventory": [{}]
+    }
+}
