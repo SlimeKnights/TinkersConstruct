@@ -257,24 +257,26 @@ public class TinkerGadgets extends TinkerPulse {
     ItemStack stackBrownstoneCreeper = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.CREEPER.getMeta());
     
     // normal recipe
-    // 2 redstone + sandstone = 1 brownstone
-    GameRegistry.addRecipe(new ShapedOreRecipe(stackBrownstoneRough.copy(), "rsr", 'r', "dustRedstone", 's', "sandstone"));
+    // 2 redstone + sandstone =  brownstone
+    ItemStack regularBrownstoneRecipeOut = stackBrownstoneRough.copy();
+    regularBrownstoneRecipeOut.stackSize = 3;
+    GameRegistry.addRecipe(new ShapedOreRecipe(regularBrownstoneRecipeOut, " s ", "rsr", " s ", 'r', "dustRedstone", 's', "sandstone"));
 
     // smelting to get smooth and cracked
     GameRegistry.addSmelting(stackBrownstoneRough.copy(), stackBrownstoneSmooth.copy(), 0.1f);
     GameRegistry.addSmelting(stackBrownstoneBrick.copy(), stackBrownstoneBrickCracked.copy(), 0.1f);
 
     // remaining brownstone types
-    addBrickRecipe(BlockBrownstone.BrownstoneType.PAVER, BlockBrownstone.BrownstoneType.SMOOTH);
-    addBrickRecipe(BlockBrownstone.BrownstoneType.BRICK, BlockBrownstone.BrownstoneType.PAVER);
-    addBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_FANCY, BlockBrownstone.BrownstoneType.BRICK);
-    addBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_SQUARE, BlockBrownstone.BrownstoneType.BRICK_FANCY);
-    addBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_TRIANGLE, BlockBrownstone.BrownstoneType.BRICK_SQUARE);
-    addBrickRecipe(BlockBrownstone.BrownstoneType.CREEPER, BlockBrownstone.BrownstoneType.BRICK_TRIANGLE);
-    addBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_SMALL, BlockBrownstone.BrownstoneType.CREEPER);
-    addBrickRecipe(BlockBrownstone.BrownstoneType.TILE, BlockBrownstone.BrownstoneType.BRICK_SMALL);
-    addBrickRecipe(BlockBrownstone.BrownstoneType.ROAD, BlockBrownstone.BrownstoneType.TILE);
-    addBrickRecipe(BlockBrownstone.BrownstoneType.BRICK, BlockBrownstone.BrownstoneType.ROAD);
+    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.PAVER, BlockBrownstone.BrownstoneType.SMOOTH);
+    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK, BlockBrownstone.BrownstoneType.PAVER);
+    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_FANCY, BlockBrownstone.BrownstoneType.BRICK);
+    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_SQUARE, BlockBrownstone.BrownstoneType.BRICK_FANCY);
+    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_TRIANGLE, BlockBrownstone.BrownstoneType.BRICK_SQUARE);
+    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.CREEPER, BlockBrownstone.BrownstoneType.BRICK_TRIANGLE);
+    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_SMALL, BlockBrownstone.BrownstoneType.CREEPER);
+    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.TILE, BlockBrownstone.BrownstoneType.BRICK_SMALL);
+    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.ROAD, BlockBrownstone.BrownstoneType.TILE);
+    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.PAVER, BlockBrownstone.BrownstoneType.ROAD);
  
     // slabs
     addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.SMOOTH.getMeta()), stackBrownstoneSmooth.copy());
@@ -312,12 +314,8 @@ public class TinkerGadgets extends TinkerPulse {
     GameRegistry.addRecipe(new ShapedOreRecipe(frame, " n ", "nOn", " n ", 'O', obsidian, 'n', nugget));
   }
 
-  private void addBrickRecipe(BlockBrownstone.BrownstoneType out, BlockBrownstone.BrownstoneType in) {
-    ItemStack searedBrickBlockIn = new ItemStack(brownstone, 1, in.getMeta());
-    ItemStack searedBrickBlockOut = new ItemStack(brownstone, 4, out.getMeta());
-
-    // todo: convert to chisel recipes if chisel is present
-    GameRegistry.addShapedRecipe(searedBrickBlockOut, "BB", "BB", 'B', searedBrickBlockIn);
+  private void addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType out, BlockBrownstone.BrownstoneType in) {
+    addBrickRecipe(brownstone, out, in);
   }
 
   // POST-INITIALIZATION

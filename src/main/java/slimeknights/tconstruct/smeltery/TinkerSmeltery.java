@@ -271,18 +271,18 @@ public class TinkerSmeltery extends TinkerPulse {
     //GameRegistry.addRecipe(new ItemStack(TinkerSmeltery.castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); // Channel
 
     // polish stone into the paver
-    addBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.STONE);
-    addBrickRecipe(BlockSeared.SearedType.BRICK, BlockSeared.SearedType.PAVER);
+    addSearedBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.STONE);
+    addSearedBrickRecipe(BlockSeared.SearedType.BRICK, BlockSeared.SearedType.PAVER);
     
     // remaining seared bricks
-    addBrickRecipe(BlockSeared.SearedType.BRICK_FANCY, BlockSeared.SearedType.BRICK);
-    addBrickRecipe(BlockSeared.SearedType.BRICK_SQUARE, BlockSeared.SearedType.BRICK_FANCY);
-    addBrickRecipe(BlockSeared.SearedType.BRICK_TRIANGLE, BlockSeared.SearedType.BRICK_SQUARE);
-    addBrickRecipe(BlockSeared.SearedType.CREEPER, BlockSeared.SearedType.BRICK_TRIANGLE);
-    addBrickRecipe(BlockSeared.SearedType.BRICK_SMALL, BlockSeared.SearedType.CREEPER);
-    addBrickRecipe(BlockSeared.SearedType.TILE, BlockSeared.SearedType.BRICK_SMALL);
-    addBrickRecipe(BlockSeared.SearedType.ROAD, BlockSeared.SearedType.TILE);
-    addBrickRecipe(BlockSeared.SearedType.BRICK, BlockSeared.SearedType.ROAD);
+    addSearedBrickRecipe(BlockSeared.SearedType.BRICK_FANCY, BlockSeared.SearedType.BRICK);
+    addSearedBrickRecipe(BlockSeared.SearedType.BRICK_SQUARE, BlockSeared.SearedType.BRICK_FANCY);
+    addSearedBrickRecipe(BlockSeared.SearedType.BRICK_TRIANGLE, BlockSeared.SearedType.BRICK_SQUARE);
+    addSearedBrickRecipe(BlockSeared.SearedType.CREEPER, BlockSeared.SearedType.BRICK_TRIANGLE);
+    addSearedBrickRecipe(BlockSeared.SearedType.BRICK_SMALL, BlockSeared.SearedType.CREEPER);
+    addSearedBrickRecipe(BlockSeared.SearedType.TILE, BlockSeared.SearedType.BRICK_SMALL);
+    addSearedBrickRecipe(BlockSeared.SearedType.ROAD, BlockSeared.SearedType.TILE);
+    addSearedBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.ROAD);
 
     GameRegistry.addSmelting(stackSearedBrick.copy(), stackSearedBrickCracked.copy(), 0.1f);
 
@@ -316,12 +316,8 @@ public class TinkerSmeltery extends TinkerPulse {
 
   }
 
-  private void addBrickRecipe(BlockSeared.SearedType out, BlockSeared.SearedType in) {
-    ItemStack searedBrickBlockIn = new ItemStack(searedBlock, 1, in.getMeta());
-    ItemStack searedBrickBlockOut = new ItemStack(searedBlock, 4, out.getMeta());
-
-    // todo: convert to chisel recipes if chisel is present
-    GameRegistry.addShapedRecipe(searedBrickBlockOut, "BB", "BB", 'B', searedBrickBlockIn);
+  private void addSearedBrickRecipe(BlockSeared.SearedType out, BlockSeared.SearedType in) {
+    addBrickRecipe(searedBlock, out, in);
   }
 
   // POST-INITIALIZATION

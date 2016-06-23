@@ -134,4 +134,13 @@ public abstract class TinkerPulse {
   protected static void addStairRecipe(Block stairs, ItemStack input) {
     GameRegistry.addShapedRecipe(new ItemStack(stairs, 4, 0), "B  ", "BB ", "BBB", 'B', input);
   }
+
+  protected static void addBrickRecipe(Block block, EnumBlock.IEnumMeta out, EnumBlock.IEnumMeta in) {
+    ItemStack brickBlockIn = new ItemStack(block, 1, in.getMeta());
+    ItemStack brickBlockOut = new ItemStack(block, 1, out.getMeta());
+
+    // todo: convert to chisel recipes if chisel is present
+    //GameRegistry.addShapedRecipe(searedBrickBlockOut, "BB", "BB", 'B', searedBrickBlockIn);
+    GameRegistry.addShapelessRecipe(brickBlockOut, brickBlockIn);
+  }
 }
