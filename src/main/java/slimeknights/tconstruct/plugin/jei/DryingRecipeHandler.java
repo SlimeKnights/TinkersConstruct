@@ -22,6 +22,12 @@ public class DryingRecipeHandler implements IRecipeHandler<DryingRecipe> {
 
   @Nonnull
   @Override
+  public String getRecipeCategoryUid(@Nonnull DryingRecipe recipe) {
+    return getRecipeCategoryUid();
+  }
+
+  @Nonnull
+  @Override
   public IRecipeWrapper getRecipeWrapper(@Nonnull DryingRecipe recipe) {
     return new DryingRecipeWrapper(recipe);
   }

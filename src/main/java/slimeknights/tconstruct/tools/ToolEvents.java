@@ -6,6 +6,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.SkeletonType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -79,7 +80,7 @@ public class ToolEvents {
   @SubscribeEvent
   public void onLivingDrop(LivingDropsEvent event) {
     if(event.getEntityLiving() instanceof EntitySkeleton && event.getSource().getEntity() instanceof EntityPlayer) {
-      if(((EntitySkeleton) event.getEntityLiving()).getSkeletonType() == 1) {
+      if(((EntitySkeleton) event.getEntityLiving()).func_189771_df() == SkeletonType.WITHER) {
         float chance = 0.10f;
         chance += 0.05f + EnchantmentHelper.getLootingModifier((EntityLivingBase) event.getSource().getEntity());
         if(random.nextFloat() < chance) {

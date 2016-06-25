@@ -21,6 +21,12 @@ public class CastingRecipeHandler implements IRecipeHandler<CastingRecipeWrapper
 
   @Nonnull
   @Override
+  public String getRecipeCategoryUid(@Nonnull CastingRecipeWrapper recipe) {
+    return getRecipeCategoryUid();
+  }
+
+  @Nonnull
+  @Override
   public IRecipeWrapper getRecipeWrapper(@Nonnull CastingRecipeWrapper recipe) {
     return recipe;
   }

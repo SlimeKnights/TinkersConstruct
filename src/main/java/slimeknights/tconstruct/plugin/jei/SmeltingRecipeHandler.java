@@ -22,6 +22,12 @@ public class SmeltingRecipeHandler implements IRecipeHandler<MeltingRecipe> {
 
   @Nonnull
   @Override
+  public String getRecipeCategoryUid(@Nonnull MeltingRecipe recipe) {
+    return getRecipeCategoryUid();
+  }
+
+  @Nonnull
+  @Override
   public IRecipeWrapper getRecipeWrapper(@Nonnull MeltingRecipe recipe) {
     return new SmeltingRecipeWrapper(recipe);
   }

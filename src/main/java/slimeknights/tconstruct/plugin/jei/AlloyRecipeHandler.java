@@ -22,6 +22,12 @@ public class AlloyRecipeHandler implements IRecipeHandler<AlloyRecipe> {
 
   @Nonnull
   @Override
+  public String getRecipeCategoryUid(@Nonnull AlloyRecipe recipe) {
+    return getRecipeCategoryUid();
+  }
+
+  @Nonnull
+  @Override
   public IRecipeWrapper getRecipeWrapper(@Nonnull AlloyRecipe recipe) {
     return new AlloyRecipeWrapper(recipe);
   }
