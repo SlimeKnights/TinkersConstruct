@@ -57,15 +57,15 @@ public class RenderProjectileBase<T extends EntityProjectileBase> extends Render
     customRendering(entity, x, y, z, entityYaw, partialTicks);
 
     // arrow shake
-    float f11 = (float)entity.arrowShake - partialTicks;
-    if (f11 > 0.0F)
-    {
+    float f11 = (float) entity.arrowShake - partialTicks;
+    if(f11 > 0.0F) {
       float f12 = -MathHelper.sin(f11 * 3.0F) * f11;
       GL11.glRotatef(f12, 0.0F, 0.0F, 1.0F);
     }
 
-    if(renderManager == null || renderManager.renderEngine == null)
+    if(renderManager == null || renderManager.renderEngine == null) {
       return;
+    }
 
     // draw correct texture. not some weird block fragments.
     renderManager.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
@@ -84,8 +84,7 @@ public class RenderProjectileBase<T extends EntityProjectileBase> extends Render
     super.doRender(entity, x, y, z, entityYaw, partialTicks);
   }
 
-  public void customRendering(T entity, double x, double y, double z, float entityYaw, float partialTicks)
-  {
+  public void customRendering(T entity, double x, double y, double z, float entityYaw, float partialTicks) {
     // flip it, flop it, pop it, pull it, push it, rotate it, translate it, TECHNOLOGY
 
     // rotate it into the direction we threw it

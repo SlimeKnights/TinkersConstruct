@@ -37,7 +37,7 @@ public class ElementPageIconLink extends SizedBookElement {
     GlStateManager.color(1F, 1F, 1F, hover ? 1F : 0.5F);
     //GlStateManager.scale(scale, scale, 1f);
     if(isHovered(mouseX, mouseY)) {
-      drawRect(x, y, x+width, y+height, parent.book.appearance.hoverColor | (0x77 << 24));
+      drawRect(x, y, x + width, y + height, parent.book.appearance.hoverColor | (0x77 << 24));
     }
 
 

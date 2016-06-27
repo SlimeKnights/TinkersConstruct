@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -14,6 +15,7 @@ import org.lwjgl.opengl.GL14;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.client.RenderUtil;
+import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
@@ -34,14 +36,14 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
   public CastingRenderer(float yMin, float yMax, float xzMin, float xzMax) {
     // we make the size a tad smaller because of casts so it doesn't overlap
     float s = 0.9995f;
-    this.yMin = yMin*s;
-    this.yMax = yMax*s;
-    this.xzMin = xzMin*s;
-    this.xzMax = xzMax*s;
+    this.yMin = yMin * s;
+    this.yMax = yMax * s;
+    this.xzMin = xzMin * s;
+    this.xzMax = xzMax * s;
 
 
-    this.yOffset = yMin + (yMax-yMin)/2f;
-    this.xzOffset = xzMin + (xzMax - xzMin)/2f;
+    this.yOffset = yMin + (yMax - yMin) / 2f;
+    this.xzOffset = xzMin + (xzMax - xzMin) / 2f;
 
     this.xzScale = (this.xzMax - this.xzMin);
     this.yScale = xzScale;
@@ -49,37 +51,38 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
 
   @Override
   public void renderTileEntityAt(@Nonnull T te, double x, double y, double z, float partialTicks, int destroyStage) {
-    if(te.tank.getFluidAmount() == 0 || te.tank.getCapacity() == 0) {
+    FluidTankAnimated tank = te.tank;
+    if(tank.getFluidAmount() == 0 || tank.getCapacity() == 0) {
       return;
     }
 
-    float height = ((float)te.tank.getFluidAmount() - te.renderOffset) / (float)te.tank.getCapacity();
+    float height = ((float) tank.getFluidAmount() - tank.renderOffset) / (float) tank.getCapacity();
 
-    if(te.renderOffset > 1.2f || te.renderOffset < -1.2f) {
-      te.renderOffset -= (te.renderOffset / 12f + 0.1f) * partialTicks;
+    if(tank.renderOffset > 1.2f || tank.renderOffset < -1.2f) {
+      tank.renderOffset -= (tank.renderOffset / 12f + 0.1f) * partialTicks;
     }
     else {
-      te.renderOffset = 0;
+      tank.renderOffset = 0;
     }
 
     float yh = yMin + (yMax - yMin) * height;
 
     //GlStateManager.color(0.1f, 0.1f, 0.1f);
     //RenderUtil.renderFluidCuboid(te.tank.getFluid(), te.getPos(), x,y,z, xzMin, yMin, xzMin, xzMax, yh, xzMax);
-    FluidStack fluid = te.tank.getFluid();
+    FluidStack fluid = tank.getFluid();
     float progress = 0f;
     //if(te.renderOffset == 0) {
-      progress = te.getCooldownProgress();
+    progress = te.getProgress();
     //}
 
     int color = fluid.getFluid().getColor(fluid);
-    int r,g,b,a;
+    int r, g, b, a;
     a = RenderUtil.alpha(color);
     r = RenderUtil.red(color);
     g = RenderUtil.green(color);
     b = RenderUtil.blue(color);
 
-    if(progress > 2/3) {
+    if(progress > 2 / 3) {
       float af = progress / 3f;
 
       a = (int) (((a / 255f) * (1f - af)) * a);
@@ -88,22 +91,24 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
       //b = (int)((float)b * (1f - progress));
       color = RenderUtil.compose(r, g, b, a);
     }
-    RenderUtil.renderFluidCuboid(te.tank.getFluid(), te.getPos(), x,y,z, xzMin, yMin, xzMin, xzMax, yh, xzMax, color);
+    RenderUtil.renderFluidCuboid(tank.getFluid(), te.getPos(), x, y, z, xzMin, yMin, xzMin, xzMax, yh, xzMax, color);
 
     // render item
     ItemStack stack = te.getCurrentResult();
     if(progress > 0 && stack != null && te.getStackInSlot(1) == null) {
-      RenderUtil.pre(x,y,z);
+      RenderUtil.pre(x, y, z);
       int brightness = te.getWorld().getCombinedLight(te.getPos(), 0);
-      OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)(brightness % 0x10000) / 1f,
-                                            (float)(brightness / 0x10000) / 1f);
+      OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) (brightness % 0x10000) / 1f,
+                                            (float) (brightness / 0x10000) / 1f);
 
       GlStateManager.translate(xzOffset, yOffset, xzOffset);
       GlStateManager.scale(xzScale, yScale, xzScale);
 
       // align item orientation with casting tile orientation
       GlStateManager.rotate(-90 * te.getFacing().getHorizontalIndex(), 0, 1, 0);
-      GlStateManager.rotate(-90, 1, 0, 0);
+      if(!(stack.getItem() instanceof ItemBlock)) {
+        GlStateManager.rotate(-90, 1, 0, 0);
+      }
 
       //GlStateManager.blendFunc(GL11.GL_CONSTANT_ALPHA, GL11.GL_CONSTANT_ALPHA);
       //GlStateManager.blendFunc(GL11.GL_CONSTANT_ALPHA, GL11.GL_DST_ALPHA);
@@ -125,7 +130,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
   public static class Table extends CastingRenderer<TileCastingTable> {
 
     public Table() {
-      super(15/16f, 1f + 0.001f, 1/16f, 15/16f);
+      super(15 / 16f, 1f + 0.001f, 1 / 16f, 15 / 16f);
       this.xzScale = 0.875f;
       this.yScale = 1f;
       this.yOffset += 0.001f;
@@ -135,7 +140,9 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
   public static class Basin extends CastingRenderer<TileCastingBasin> {
 
     public Basin() {
-      super(4/16f, 1f, 2/16f, 14/16f);
+      super(4 / 16f, 1f, 2 / 16f, 14 / 16f);
+
+      this.xzScale = 0.751f;
     }
   }
 }

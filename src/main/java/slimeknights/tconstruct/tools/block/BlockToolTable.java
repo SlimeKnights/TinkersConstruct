@@ -183,13 +183,20 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
   @Override
   public int getGuiNumber(IBlockState state) {
     switch(state.getValue(TABLES)) {
-      case StencilTable: return 10;
-      case PatternChest: return 15;
-      case PartChest: return 16;
-      case PartBuilder: return 20;
-      case ToolStation: return 25;
-      case CraftingStation: return 50;
-      default: return 0;
+      case StencilTable:
+        return 10;
+      case PatternChest:
+        return 15;
+      case PartChest:
+        return 16;
+      case PartBuilder:
+        return 20;
+      case ToolStation:
+        return 25;
+      case CraftingStation:
+        return 50;
+      default:
+        return 0;
     }
   }
 

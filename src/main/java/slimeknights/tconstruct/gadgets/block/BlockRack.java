@@ -79,6 +79,12 @@ public class BlockRack extends BlockTable {
     }
   }
 
+  @Override
+  public boolean isSideSolid(@Nonnull IBlockState base_state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
+    // the center ones are considered solid at the top
+    return side == EnumFacing.UP && base_state.getValue(ORIENTATION).getFacing() == EnumFacing.UP;
+  }
+
   /* Inventory stuffs */
   @Nonnull
   @Override
@@ -331,5 +337,21 @@ public class BlockRack extends BlockTable {
   @Override
   public RayTraceResult collisionRayTrace(IBlockState blockState, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Vec3d start, @Nonnull Vec3d end) {
     return this.rayTrace(pos, start, end, blockState.getBoundingBox(worldIn, pos));
+  }
+
+  @Override
+  public boolean hasComparatorInputOverride(IBlockState state) {
+    return state.getValue(DRYING) == Boolean.TRUE;
+  }
+
+  // comparator stuffs
+  @Override
+  public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos) {
+    TileEntity te = world.getTileEntity(pos);
+    if(!(te instanceof TileDryingRack)) {
+      return 0;
+    }
+
+    return ((TileDryingRack) te).comparatorStrength();
   }
 }

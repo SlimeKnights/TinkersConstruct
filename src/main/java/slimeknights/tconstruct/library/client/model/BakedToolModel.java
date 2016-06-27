@@ -71,7 +71,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
     public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
       NBTTagCompound baseTag = TagUtil.getBaseTag(stack);
       if(!baseTag.hasNoTags()) {
-        BakedToolModel original = (BakedToolModel)originalModel;
+        BakedToolModel original = (BakedToolModel) originalModel;
         BakedMaterialModel parts[] = original.parts;
         BakedMaterialModel brokenParts[] = original.brokenParts;
         Map<String, IBakedModel> modifierParts = original.modifierParts;

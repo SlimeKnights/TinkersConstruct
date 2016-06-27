@@ -19,11 +19,11 @@ public class TraitDense extends AbstractTrait {
     float durability = ToolHelper.getCurrentDurability(tool);
     float maxDurability = ToolHelper.getMaxDurability(tool);
 
-    float chance = 0.8f * (durability/maxDurability);
-    chance = chance*chance*chance;
+    float chance = 0.8f * (durability / maxDurability);
+    chance = chance * chance * chance;
 
     if(chance > random.nextFloat()) {
-      newDamage -= Math.max(damage/2, 1);
+      newDamage -= Math.max(damage / 2, 1);
     }
 
     return super.onToolDamage(tool, damage, newDamage, entity);

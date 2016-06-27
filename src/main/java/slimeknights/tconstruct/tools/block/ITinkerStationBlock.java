@@ -9,6 +9,7 @@ import net.minecraft.world.World;
  * Blocks implementing this interface are part of the tinker station GUI system
  */
 public interface ITinkerStationBlock {
+
   /**
    * Used for sorting the tabs in the UI. Tabs are sorted from low to high.
    * Duplicate entries will be treated as the same and their blocks will be ignored.

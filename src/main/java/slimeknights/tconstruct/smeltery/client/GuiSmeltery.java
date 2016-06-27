@@ -83,8 +83,8 @@ public class GuiSmeltery extends GuiMultiModule {
       List<String> text = Lists.newArrayList();
 
       if(hovered == null) {
-        int usedCap = smeltery.getTank().getUsedCapacity();
-        int maxCap = smeltery.getTank().getMaxCapacity();
+        int usedCap = smeltery.getTank().getFluidAmount();
+        int maxCap = smeltery.getTank().getCapacity();
         text.add(TextFormatting.WHITE + Util.translate("gui.smeltery.capacity"));
         text.add(TextFormatting.GRAY.toString() + maxCap + Util.translate("gui.smeltery.liquid.millibucket"));
         text.add(Util.translateFormatted("gui.smeltery.capacity_available"));
@@ -122,8 +122,8 @@ public class GuiSmeltery extends GuiMultiModule {
 
     // draw liquids
     SmelteryTank liquids = smeltery.getTank();
-    if(liquids.getUsedCapacity() > 0) {
-      int capacity = Math.max(liquids.getUsedCapacity(), liquids.getMaxCapacity());
+    if(liquids.getFluidAmount() > 0) {
+      int capacity = Math.max(liquids.getFluidAmount(), liquids.getCapacity());
       int[] heights = calcLiquidHeights(liquids.getFluids(), capacity);
       int x = 8 + cornerX;
       int y = 16 + scala.h + cornerY; // y starting position
@@ -132,7 +132,7 @@ public class GuiSmeltery extends GuiMultiModule {
       for(int i = 0; i < heights.length; i++) {
         int h = heights[i];
         FluidStack liquid = liquids.getFluids().get(i);
-        RenderUtil.renderTiledFluid(x, y-h, w, h, this.zLevel, liquid);
+        RenderUtil.renderTiledFluid(x, y - h, w, h, this.zLevel, liquid);
 
         y -= h;
       }
@@ -145,9 +145,9 @@ public class GuiSmeltery extends GuiMultiModule {
       int x = 71 + cornerX;
       int y = 16 + cornerY + 52;
       int w = 12;
-      int h = (int)(52f * (float)fuelInfo.fluid.amount / (float)fuelInfo.maxCap);
+      int h = (int) (52f * (float) fuelInfo.fluid.amount / (float) fuelInfo.maxCap);
 
-      RenderUtil.renderTiledFluid(x, y-h, w, h, this.zLevel, fuelInfo.fluid);
+      RenderUtil.renderTiledFluid(x, y - h, w, h, this.zLevel, fuelInfo.fluid);
     }
   }
 
@@ -158,7 +158,7 @@ public class GuiSmeltery extends GuiMultiModule {
       mouseY -= cornerY;
       if(8 <= mouseX && mouseX < 60 && 16 <= mouseY && mouseY < 68) {
         SmelteryTank tank = smeltery.getTank();
-        int[] heights = calcLiquidHeights(tank.getFluids(), tank.getMaxCapacity());
+        int[] heights = calcLiquidHeights(tank.getFluids(), tank.getCapacity());
         int y = 68 - mouseY - 1;
 
         for(int i = 0; i < heights.length; i++) {
@@ -177,7 +177,7 @@ public class GuiSmeltery extends GuiMultiModule {
 
   protected FluidStack getFluidHovered(int y) {
     SmelteryTank tank = smeltery.getTank();
-    int[] heights = calcLiquidHeights(tank.getFluids(), tank.getMaxCapacity());
+    int[] heights = calcLiquidHeights(tank.getFluids(), tank.getCapacity());
 
     for(int i = 0; i < heights.length; i++) {
       if(y < heights[i]) {
@@ -258,7 +258,7 @@ public class GuiSmeltery extends GuiMultiModule {
   }
 
   private int calcLiquidText(int amount, int divider, String unit, List<String> text) {
-    int full = amount/divider;
+    int full = amount / divider;
     if(full > 0) {
       text.add(String.format("%d %s%s", full, TextFormatting.GRAY, unit));
     }
@@ -267,6 +267,7 @@ public class GuiSmeltery extends GuiMultiModule {
   }
 
   private static class FluidGuiEntry {
+
     public final int amount;
     public final String unlocName;
 

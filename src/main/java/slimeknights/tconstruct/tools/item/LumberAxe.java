@@ -73,7 +73,7 @@ public class LumberAxe extends AoeToolCore {
 
   @Override
   public float damagePotential() {
-    return 1.0f;
+    return 1.2f;
   }
 
   @Override
@@ -120,7 +120,7 @@ public class LumberAxe extends AoeToolCore {
 
   @Override
   public int[] getRepairParts() {
-    return new int[] {1,2};
+    return new int[]{1, 2};
   }
 
   @Override
@@ -201,7 +201,7 @@ public class LumberAxe extends AoeToolCore {
       return true;
     }
     TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(itemstack, player, 3, 3, 3, -1);
-    int speed = Math.round((event.width * event.height * event.depth)/27f);
+    int speed = Math.round((event.width * event.height * event.depth) / 27f);
     if(event.distance > 0) {
       speed = event.distance + 1;
     }

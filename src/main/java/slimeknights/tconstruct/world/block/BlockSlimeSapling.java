@@ -27,6 +27,7 @@ import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
 import slimeknights.tconstruct.world.worldgen.SlimeTreeGenerator;
 
 public class BlockSlimeSapling extends BlockSapling {
+
   public static PropertyEnum<FoliageType> FOLIAGE = BlockSlimeGrass.FOLIAGE;
 
   public BlockSlimeSapling() {
@@ -55,8 +56,7 @@ public class BlockSlimeSapling extends BlockSapling {
    */
   @Nonnull
   @Override
-  public IBlockState getStateFromMeta(int meta)
-  {
+  public IBlockState getStateFromMeta(int meta) {
     if(meta < 0 || meta >= BlockSlimeGrass.FoliageType.values().length) {
       meta = 0;
     }
@@ -68,8 +68,7 @@ public class BlockSlimeSapling extends BlockSapling {
    * Convert the BlockState into the correct metadata value
    */
   @Override
-  public int getMetaFromState(IBlockState state)
-  {
+  public int getMetaFromState(IBlockState state) {
     return state.getValue(BlockSlimeGrass.FOLIAGE).ordinal();
   }
 
@@ -105,7 +104,9 @@ public class BlockSlimeSapling extends BlockSapling {
 
   @Override
   public void generateTree(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random rand) {
-    if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn, rand, pos)) return;
+    if(!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(worldIn, rand, pos)) {
+      return;
+    }
 
     BlockSlime.SlimeType slimeType = BlockSlime.SlimeType.GREEN;
     if(state.getValue(FOLIAGE) == FoliageType.ORANGE) {

@@ -12,6 +12,7 @@ import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.tconstruct.library.client.Icons;
 
 public class GuiButtonItem<T> extends GuiButton {
+
   // Positions from generic.png
   protected static final GuiElement GUI_Button_pressed = new GuiElement(144, 216, 18, 18, 256, 256);
   protected static final GuiElement GUI_Button_normal = new GuiElement(144 + 18 * 2, 216, 18, 18, 256, 256);
@@ -73,6 +74,6 @@ public class GuiButtonItem<T> extends GuiButton {
   }
 
   protected void drawIcon(Minecraft mc) {
-    mc.getRenderItem().renderItemIntoGUI(icon, xPosition+1, yPosition+1);
+    mc.getRenderItem().renderItemIntoGUI(icon, xPosition + 1, yPosition + 1);
   }
 }

@@ -304,7 +304,7 @@ public final class ToolBuilder {
             candidate = j;
             // if a tool has multiple of the same parts we may want to replace another one as the currently selected
             // for that purpose we only allow to overwrite the current selection if the input slot is a later one than the current one
-            if(i > j) {
+            if(i <= j) {
               break;
             }
           }
@@ -413,7 +413,7 @@ public final class ToolBuilder {
 
     // check if we have secondary output
     ItemStack secondary = null;
-    int leftover = (match.amount - part.getCost())/ Material.VALUE_Shard;
+    int leftover = (match.amount - part.getCost()) / Material.VALUE_Shard;
     if(leftover > 0) {
       secondary = TinkerRegistry.getShard(foundMaterial);
       secondary.stackSize = leftover;
@@ -556,8 +556,8 @@ public final class ToolBuilder {
 
     int level = enchTag.getShort("lvl") + 1;
     level = Math.min(level, enchantment.getMaxLevel());
-    enchTag.setShort("id", (short)enchId);
-    enchTag.setShort("lvl", (short)level);
+    enchTag.setShort("id", (short) enchId);
+    enchTag.setShort("lvl", (short) level);
 
     if(id < 0) {
       enchantments.appendTag(enchTag);

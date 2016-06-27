@@ -22,7 +22,7 @@ public class ModReinforced extends ModifierTrait {
     NBTTagCompound tag = TinkerUtil.getModifierTag(tool, identifier);
     ModifierNBT data = ModifierNBT.readTag(tag);
 
-    float chance = (float)data.level * 0.15f;
+    float chance = (float) data.level * 0.15f;
     if(chance >= random.nextFloat()) {
       newDamage -= damage;
     }

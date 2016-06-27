@@ -91,7 +91,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
   protected SlimeIslandData getIslandData(World world) {
     int dimensionId = world.provider.getDimension();
     if(!islandData.containsKey(dimensionId)) {
-      SlimeIslandData data = (SlimeIslandData)world.getPerWorldStorage().getOrLoadData(SlimeIslandData.class, getDataName());
+      SlimeIslandData data = (SlimeIslandData) world.getPerWorldStorage().getOrLoadData(SlimeIslandData.class, getDataName());
       if(data == null) {
         data = new SlimeIslandData(getDataName());
         world.getPerWorldStorage().setData(getDataName(), data);
@@ -159,9 +159,9 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     IBlockState dirtState = TinkerWorld.slimeDirt.getDefaultState().withProperty(BlockSlimeDirt.TYPE, dirt);
     IBlockState grassState = TinkerWorld.slimeGrass.getStateFromDirt(dirtState).withProperty(BlockSlimeGrass.FOLIAGE, grass);
 
-    int x = chunkX*16 + 7 + random.nextInt(6) - 3;
-    int z = chunkZ*16 + 7 + random.nextInt(6) - 3;
-    int y = world.getHeight(new BlockPos(x,0,z)).getY() + 50 + random.nextInt(50) + 11;
+    int x = chunkX * 16 + 7 + random.nextInt(6) - 3;
+    int z = chunkZ * 16 + 7 + random.nextInt(6) - 3;
+    int y = world.getHeight(new BlockPos(x, 0, z)).getY() + 50 + random.nextInt(50) + 11;
 
     generateIsland(random, world, x, z, y, dirtState, grassState, vine, lakeGen, treeGen, plantGen);
   }
@@ -176,20 +176,17 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     int yBottom = ySurfacePos - yRange;
 
     BlockPos center = new BlockPos(xPos, yBottom + height, zPos);
-    BlockPos start = new BlockPos(xPos - xRange/2, yBottom, zPos - zRange/2);
+    BlockPos start = new BlockPos(xPos - xRange / 2, yBottom, zPos - zRange / 2);
 
     // the elliptic shape
     Ellipse2D.Double ellipse = new Ellipse2D.Double(0, 0, xRange, zRange);
 
     // Basic shape
-    for (int x = 0; x <= xRange; x++)
-    {
-      for (int z = 0; z <= zRange; z++)
-      {
-        for (int y = 0; y <= yRange; y++)
-        {
-          if (ellipse.contains(x, z)) {
-            world.setBlockState(start.add(x,y,z), dirt, 2);
+    for(int x = 0; x <= xRange; x++) {
+      for(int z = 0; z <= zRange; z++) {
+        for(int y = 0; y <= yRange; y++) {
+          if(ellipse.contains(x, z)) {
+            world.setBlockState(start.add(x, y, z), dirt, 2);
           }
         }
       }
@@ -198,15 +195,12 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     // now we have a cylindric-elliptic shape floating 50+ blocks above the ground. yaaaaay
     // Erode bottom
     int erode_height = 8;
-    for (int x = 0; x <= xRange; x++)
-    {
-      for (int z = 0; z <= zRange; z++)
-      {
-        for (int y = 0; y <= erode_height; y++)
-        {
+    for(int x = 0; x <= xRange; x++) {
+      for(int z = 0; z <= zRange; z++) {
+        for(int y = 0; y <= erode_height; y++) {
           // we go top down
-          BlockPos pos1 = start.add(x,erode_height - y,z);
-          BlockPos pos2 = start.add(xRange - x,erode_height - y, zRange - z);
+          BlockPos pos1 = start.add(x, erode_height - y, z);
+          BlockPos pos2 = start.add(xRange - x, erode_height - y, zRange - z);
 
           for(BlockPos pos : new BlockPos[]{pos1, pos2}) {
             if(world.getBlockState(pos) == dirt) {
@@ -225,12 +219,9 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
     // Erode top
     erode_height = 2;
-    for (int x = 0; x <= xRange; x++)
-    {
-      for (int z = 0; z <= zRange; z++)
-      {
-        for (int y = 0; y <= erode_height; y++)
-        {
+    for(int x = 0; x <= xRange; x++) {
+      for(int z = 0; z <= zRange; z++) {
+        for(int y = 0; y <= erode_height; y++) {
           // bottom up, starting with top - erosion layers
           BlockPos pos1 = start.add(x, y + height - erode_height + 2, z);
           BlockPos pos2 = start.add(xRange - x, y + height - erode_height + 2, zRange - z);
@@ -250,13 +241,10 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     }
 
     // make surface grass
-    for (int x = 0; x <= xRange; x++)
-    {
-      for (int z = 0; z <= zRange; z++)
-      {
+    for(int x = 0; x <= xRange; x++) {
+      for(int z = 0; z <= zRange; z++) {
         BlockPos top = start.add(x, height, z);
-        for (int y = 0; y <= height; y++)
-        {
+        for(int y = 0; y <= height; y++) {
           BlockPos pos = top.down(y);
           if(world.getBlockState(pos) == dirt && world.isAirBlock(pos.up())) {
             world.setBlockState(pos, grass, 2);
@@ -274,7 +262,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
     // plants
     if(plantGen != null) {
-      plantGen.generatePlants(random, world, start.up(height + 1), start.add(xRange, height-3, zRange), 128);
+      plantGen.generatePlants(random, world, start.up(height + 1), start.add(xRange, height - 3, zRange), 128);
     }
 
     if(treeGenerator != null) {
@@ -295,7 +283,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     // save it
     SlimeIslandData data = getIslandData(world);
     data.islands.add(new StructureBoundingBox(start.getX(), start.getY(), start.getZ(),
-                                                              start.getX()+xRange, start.getY()+yRange, start.getZ()+yRange));
+                                              start.getX() + xRange, start.getY() + yRange, start.getZ() + yRange));
     data.markDirty();
   }
 
@@ -307,9 +295,9 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     for(int i = 0; i < limit; i++) {
       // check around for a possible block
       if(vine.getBlock().canPlaceBlockOnSide(world, pos, EnumFacing.NORTH)
-          || vine.getBlock().canPlaceBlockOnSide(world, pos, EnumFacing.EAST)
-          || vine.getBlock().canPlaceBlockOnSide(world, pos, EnumFacing.SOUTH)
-          || vine.getBlock().canPlaceBlockOnSide(world, pos, EnumFacing.WEST)) {
+         || vine.getBlock().canPlaceBlockOnSide(world, pos, EnumFacing.EAST)
+         || vine.getBlock().canPlaceBlockOnSide(world, pos, EnumFacing.SOUTH)
+         || vine.getBlock().canPlaceBlockOnSide(world, pos, EnumFacing.WEST)) {
         if(candidate == null || random.nextInt(10) == 0) {
           candidate = pos;
         }
@@ -328,7 +316,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
         if(!(world.getBlockState(pos).getBlock() instanceof BlockSlimeVine)) {
           break;
         }
-        ((BlockSlimeVine)world.getBlockState(pos).getBlock()).grow(world, random, pos, world.getBlockState(pos));
+        ((BlockSlimeVine) world.getBlockState(pos).getBlock()).grow(world, random, pos, world.getBlockState(pos));
         pos = pos.down();
       }
     }

@@ -6,6 +6,7 @@ import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.tconstruct.library.Util;
 
 public interface Icons {
+
   ResourceLocation ICON = Util.getResource("textures/gui/icons.png");
 
   GuiElement ICON_Anvil = new GuiElement(18 * 3, 0, 18, 18, 256, 256);
@@ -22,7 +23,7 @@ public interface Icons {
   GuiElement ICON_ButtonHover = new GuiElement(180 + 18 * 2, 216, 18, 18);
   GuiElement ICON_ButtonPressed = new GuiElement(180 - 18 * 2, 216, 18, 18);
 
-  GuiElement ICON_PIGGYBACK_1 = new GuiElement(18*13, 18*0, 18, 18);
-  GuiElement ICON_PIGGYBACK_2 = new GuiElement(18*13, 18*1, 18, 18);
-  GuiElement ICON_PIGGYBACK_3 = new GuiElement(18*13, 18*2, 18, 18);
+  GuiElement ICON_PIGGYBACK_1 = new GuiElement(18 * 13, 18 * 0, 18, 18);
+  GuiElement ICON_PIGGYBACK_2 = new GuiElement(18 * 13, 18 * 1, 18, 18);
+  GuiElement ICON_PIGGYBACK_3 = new GuiElement(18 * 13, 18 * 2, 18, 18);
 }

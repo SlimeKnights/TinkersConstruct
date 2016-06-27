@@ -23,7 +23,7 @@
       "tconstruct:slimesling"
     ]
    },
-   "woodHit": {
+   "wood_hit": {
      "category": "block",
      "sounds": [
        "tconstruct:woodHit1",
@@ -33,7 +33,7 @@
 	   "tconstruct:woodHit5"
      ]
    },
-   "stoneHit": {
+   "stone_hit": {
      "category": "block",
      "sounds": [
        "tconstruct:stoneHit1",
@@ -41,7 +41,7 @@
 	   "tconstruct:stoneHit3"
      ]
    },
-   "crossbowReload": {
+   "crossbow_reload": {
 	"category": "player",
 	"sounds": [
 		"tconstruct:crossbowReload"

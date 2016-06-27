@@ -64,7 +64,7 @@ public class LongSword extends ToolCore {
   @Override
   public float getStrVsBlock(ItemStack stack, IBlockState state) {
     if(state.getBlock() == Blocks.WEB) {
-      return super.getStrVsBlock(stack, state)*7.5f;
+      return super.getStrVsBlock(stack, state) * 7.5f;
     }
     return super.getStrVsBlock(stack, state);
   }
@@ -110,21 +110,22 @@ public class LongSword extends ToolCore {
   @Override
   public void onPlayerStoppedUsing(ItemStack stack, World world, EntityLivingBase player, int timeLeft) {
     int time = this.getMaxItemUseDuration(stack) - timeLeft;
-    if (time > 5)
-    {
+    if(time > 5) {
       if(player instanceof EntityPlayer) {
         ((EntityPlayer) player).addExhaustion(0.2F);
       }
       player.setSprinting(true);
 
       float increase = (float) (0.02 * time + 0.2);
-      if (increase > 0.56f)
+      if(increase > 0.56f) {
         increase = 0.56f;
+      }
       player.motionY += increase;
 
       float speed = 0.05F * time;
-      if (speed > 0.925f)
+      if(speed > 0.925f) {
         speed = 0.925f;
+      }
       player.motionX = (double) (-MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed);
       player.motionZ = (double) (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper
           .cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed);

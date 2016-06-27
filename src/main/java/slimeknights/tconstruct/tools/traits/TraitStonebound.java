@@ -10,7 +10,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import java.util.List;
 
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
@@ -40,6 +39,6 @@ public class TraitStonebound extends AbstractTrait {
   public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
     String loc = String.format(LOC_Extra, getModifierIdentifier());
 
-    return ImmutableList.of(Util.translateFormatted(loc, AbstractMaterialStats.df.format(calcBonus(tool))));
+    return ImmutableList.of(Util.translateFormatted(loc, Util.df.format(calcBonus(tool))));
   }
 }

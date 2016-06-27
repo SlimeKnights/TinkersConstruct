@@ -13,7 +13,7 @@ public class GuiScalingChest extends GuiDynInventory {
   public GuiScalingChest(GuiMultiModule parent, BaseContainer container) {
     super(parent, container);
 
-    inventory = (IInventory)container.getTile();
+    inventory = (IInventory) container.getTile();
     slotCount = inventory.getSizeInventory();
     sliderActive = true;
   }

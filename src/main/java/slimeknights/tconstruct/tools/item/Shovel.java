@@ -56,7 +56,7 @@ public class Shovel extends AoeToolCore {
   public boolean isEffective(IBlockState block) {
     return effective_materials.contains(block.getMaterial()) || ItemSpade.EFFECTIVE_ON.contains(block);
   }
-  
+
   // grass paths
   @Nonnull
   @Override
@@ -64,9 +64,9 @@ public class Shovel extends AoeToolCore {
     if(ToolHelper.isBroken(stack)) {
       return EnumActionResult.FAIL;
     }
-    
+
     EnumActionResult result = Items.DIAMOND_SHOVEL.onItemUse(stack, player, world, pos, hand, facing, hitX, hitY, hitZ);
-    
+
     // only do the AOE path if the selected block is grass or grass path
     Block block = world.getBlockState(pos).getBlock();
     if(block == Blocks.GRASS || block == Blocks.GRASS_PATH) {
@@ -75,7 +75,7 @@ public class Shovel extends AoeToolCore {
         if(ToolHelper.isBroken(stack)) {
           break;
         }
-        
+
         EnumActionResult aoeResult = Items.DIAMOND_SHOVEL.onItemUse(stack, player, world, aoePos, hand, facing, hitX, hitY, hitZ);
         // if we pass on an earlier block, check if another block succeeds here instead
         if(result != EnumActionResult.SUCCESS) {
@@ -83,7 +83,7 @@ public class Shovel extends AoeToolCore {
         }
       }
     }
-    
+
     return result;
   }
 

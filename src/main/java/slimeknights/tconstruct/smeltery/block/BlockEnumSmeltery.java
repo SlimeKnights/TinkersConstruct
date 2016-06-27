@@ -21,7 +21,8 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 
-public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta & IStringSerializable> extends EnumBlock<T> implements ITileEntityProvider {
+public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta & IStringSerializable> extends EnumBlock<T>
+    implements ITileEntityProvider {
 
   public BlockEnumSmeltery(PropertyEnum<T> prop, Class<T> clazz) {
     this(Material.ROCK, prop, clazz);

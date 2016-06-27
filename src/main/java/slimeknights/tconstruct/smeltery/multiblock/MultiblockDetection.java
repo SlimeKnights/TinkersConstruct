@@ -43,12 +43,24 @@ public abstract class MultiblockDetection {
       int minz = Integer.MAX_VALUE;
       int maxz = Integer.MIN_VALUE;
       for(BlockPos pos : blocks) {
-        if(pos.getX() < minx) minx = pos.getX();
-        if(pos.getX() > maxx) maxx = pos.getX();
-        if(pos.getY() < miny) miny = pos.getY();
-        if(pos.getY() > maxy) maxy = pos.getY();
-        if(pos.getZ() < minz) minz = pos.getZ();
-        if(pos.getZ() > maxz) maxz = pos.getZ();
+        if(pos.getX() < minx) {
+          minx = pos.getX();
+        }
+        if(pos.getX() > maxx) {
+          maxx = pos.getX();
+        }
+        if(pos.getY() < miny) {
+          miny = pos.getY();
+        }
+        if(pos.getY() > maxy) {
+          maxy = pos.getY();
+        }
+        if(pos.getZ() < minz) {
+          minz = pos.getZ();
+        }
+        if(pos.getZ() > maxz) {
+          maxz = pos.getZ();
+        }
       }
 
       bb = new AxisAlignedBB(minx, miny, minz, maxx + 1, maxy + 1, maxz + 1);
@@ -74,7 +86,7 @@ public abstract class MultiblockDetection {
     // basically this means we center the block inside the smeltery on the x axis.
     int xd1 = 1, xd2 = 1; // x-difference
     int zd1 = 1, zd2 = 1; // z-difference
-    for (int i = 1; i < limit; i++) // don't check farther than needed
+    for(int i = 1; i < limit; i++) // don't check farther than needed
     {
       // expand the range on the x axis as long as one side has not met a wall
       if(isInnerBlock(world, inside.add(-xd1, 0, 0))) {
@@ -85,16 +97,14 @@ public abstract class MultiblockDetection {
       }
 
       // if one side hit a wall and the other didn't we might have to re-center our x-position again
-      if (xd1 - xd2 > 1)
-      {
+      if(xd1 - xd2 > 1) {
         // move x and offsets to the -x
         xd1--;
         inside = inside.add(-1, 0, 0);
         xd2++;
       }
       // or the right
-      if (xd2 - xd1 > 1)
-      {
+      if(xd2 - xd1 > 1) {
         xd2--;
         inside = inside.add(1, 0, 0);
         xd1++;
@@ -108,16 +118,14 @@ public abstract class MultiblockDetection {
         zd2++;
       }
 
-      if (zd1 - zd2 > 1)
-      {
+      if(zd1 - zd2 > 1) {
         // move x and offsets to the -x
         zd1--;
         inside = inside.add(0, 0, -1);
         zd2++;
       }
       // or the right
-      if (zd2 - zd1 > 1)
-      {
+      if(zd2 - zd1 > 1) {
         zd2--;
         inside = inside.add(0, 0, 1);
         zd1++;

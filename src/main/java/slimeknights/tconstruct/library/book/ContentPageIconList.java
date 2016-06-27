@@ -44,7 +44,7 @@ public class ContentPageIconList extends TinkerPage {
     int offset = 15;
     int x = offset;
     int y = yOff;
-    int pageW = GuiBook.PAGE_WIDTH - 2*offset;
+    int pageW = GuiBook.PAGE_WIDTH - 2 * offset;
     int pageH = GuiBook.PAGE_HEIGHT - yOff;
 
     float scale = 2.5f;
@@ -53,18 +53,18 @@ public class ContentPageIconList extends TinkerPage {
     boolean fits = false;
     while(!fits && scale > 1f) {
       scale -= 0.25f;
-      scaledWidth = (int)(width*scale);
-      scaledHeight = (int)(height*scale);
+      scaledWidth = (int) (width * scale);
+      scaledHeight = (int) (height * scale);
       int rows = pageW / scaledWidth;
       int cols = pageH / scaledHeight;
-      fits = rows*cols >= elements.size();
+      fits = rows * cols >= elements.size();
     }
 
     for(ElementPageIconLink element : elements) {
       element.x = x;
       element.y = y;
-      element.displayElement.x = x + (int)(scale * (width - element.displayElement.width)/2);
-      element.displayElement.y = y + (int)(scale * (height - element.displayElement.height)/2);
+      element.displayElement.x = x + (int) (scale * (width - element.displayElement.width) / 2);
+      element.displayElement.y = y + (int) (scale * (height - element.displayElement.height) / 2);
 
       element.width = scaledWidth;
       element.height = scaledHeight;

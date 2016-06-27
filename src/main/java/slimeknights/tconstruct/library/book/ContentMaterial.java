@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.annotations.SerializedName;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -36,6 +37,7 @@ import slimeknights.tconstruct.tools.block.BlockToolTable;
 
 @SideOnly(Side.CLIENT)
 public class ContentMaterial extends TinkerPage {
+
   public static final String ID = "toolmaterial";
 
   private transient Material material;
@@ -67,14 +69,14 @@ public class ContentMaterial extends TinkerPage {
 
     int y = top + 10;
     int x = left + 10;
-    int w = GuiBook.PAGE_WIDTH/2 - 10;
+    int w = GuiBook.PAGE_WIDTH / 2 - 10;
 
     LinkedHashSet<ITrait> allTraits = new LinkedHashSet<ITrait>();
 
     // head stats
     addStatsDisplay(x, y, w, list, allTraits, HeadMaterialStats.TYPE);
     // handle
-    addStatsDisplay(x+w, y, w-10, list, allTraits, HandleMaterialStats.TYPE);
+    addStatsDisplay(x + w, y, w - 10, list, allTraits, HandleMaterialStats.TYPE);
 
     // extra
     y += 65 + 10 * material.getAllTraitsForStats(HeadMaterialStats.TYPE).size();
@@ -86,7 +88,7 @@ public class ContentMaterial extends TinkerPage {
     if(flavour != null) {
       TextData flavourData = new TextData("\"" + flavour + "\"");
       flavourData.italic = true;
-      list.add(new ElementText(x+w, y, w-16, 60, flavourData));
+      list.add(new ElementText(x + w, y, w - 16, 60, flavourData));
     }
   }
 
@@ -109,15 +111,15 @@ public class ContentMaterial extends TinkerPage {
 
     // said parts next to the name
     if(parts.size() > 0) {
-      ElementItem display = new ElementTinkerItem(x, y+1, 0.5f, parts);
+      ElementItem display = new ElementTinkerItem(x, y + 1, 0.5f, parts);
       list.add(display);
     }
 
     // and the name itself
-    ElementText name = new ElementText(x + 10, y, w-10, 10, stats.getLocalizedName());
+    ElementText name = new ElementText(x + 10, y, w - 10, 10, stats.getLocalizedName());
     name.text[0].underlined = true;
     list.add(name);
-    y+= 12;
+    y += 12;
 
     List<TextData> lineData = Lists.newArrayList();
     // add lines of tool information
@@ -131,7 +133,8 @@ public class ContentMaterial extends TinkerPage {
     for(ITrait trait : traits) {
       TextData text = new TextData(trait.getLocalizedName());
       text.tooltip = LocUtils.convertNewlines(material.getTextColor() + trait.getLocalizedDesc()).split("\n");
-      text.italic = true;
+      text.color = TextFormatting.DARK_GRAY.getFriendlyName();
+      text.underlined = true;
       lineData.add(text);
       lineData.add(new TextData("\n"));
     }
@@ -164,9 +167,9 @@ public class ContentMaterial extends TinkerPage {
     }
 
     // build a range of tools to fill the "bar" at the side
-    ToolCore[] tools = new ToolCore[] {TinkerTools.pickaxe, TinkerTools.mattock, TinkerTools.broadSword,
-                                       TinkerTools.hammer, TinkerTools.cleaver, TinkerTools.shuriken,
-                                       TinkerTools.fryPan, TinkerTools.lumberAxe, TinkerTools.battleSign};
+    ToolCore[] tools = new ToolCore[]{TinkerTools.pickaxe, TinkerTools.mattock, TinkerTools.broadSword,
+                                      TinkerTools.hammer, TinkerTools.cleaver, TinkerTools.shuriken,
+                                      TinkerTools.fryPan, TinkerTools.lumberAxe, TinkerTools.battleSign};
 
     for(ToolCore tool : tools) {
       if(tool == null) {

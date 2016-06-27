@@ -5,9 +5,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.server.SPacketSetPassengers;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -74,7 +76,8 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
       // we could pick it up just fine, check if we need to "equip" more of the item
       if(chestArmor == null) {
         playerIn.setItemStackToSlot(this.armorType, stack.splitStack(1));
-      } else if(chestArmor.stackSize < getEntitiesCarriedCount(playerIn)) {
+      }
+      else if(chestArmor.stackSize < getEntitiesCarriedCount(playerIn)) {
         stack.splitStack(1);
         chestArmor.stackSize++;
       }
@@ -86,8 +89,11 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
   }
 
   public boolean pickupEntity(EntityPlayer player, Entity target) {
-    // silly players, clicking on entities they're already carrying
-    if(target.getRidingEntity() == player) {
+    if(player.worldObj.isRemote) {
+      return false;
+    }
+    // silly players, clicking on entities they're already carrying or riding
+    if(target.getRidingEntity() == player || player.getRidingEntity() == target) {
       return false;
     }
 
@@ -96,12 +102,21 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
     while(toRide.isBeingRidden() && count < MAX_ENTITY_STACK) {
       toRide = toRide.getPassengers().get(0);
       count++;
+      // don't allow more than 1 player, that can easily cause endless loops with riding detection for some reason.
+      if(toRide instanceof EntityPlayer && target instanceof EntityPlayer) {
+        return false;
+      }
     }
 
     // can only ride one entity each
     if(!toRide.isBeingRidden() && count < MAX_ENTITY_STACK) {
       // todo: possibly throw off all passengers of the target
-      return target.startRiding(toRide, true);
+      if(target.startRiding(toRide, true)) {
+        if(player instanceof EntityPlayerMP) {
+          ((EntityPlayerMP) player).connection.sendPacket(new SPacketSetPassengers(player));
+        }
+        return true;
+      }
     }
     return false;
   }
@@ -146,7 +161,7 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
   @SubscribeEvent
   public void attachCapability(AttachCapabilitiesEvent.Entity event) {
     if(event.getEntity() instanceof EntityPlayer) {
-      event.addCapability(Util.getResource("piggyback"), new TinkerPiggybackSerializer((EntityPlayer)event.getEntity()));
+      event.addCapability(Util.getResource("piggyback"), new TinkerPiggybackSerializer((EntityPlayer) event.getEntity()));
     }
   }
 
@@ -195,12 +210,20 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
       mc.getTextureManager().bindTexture(Icons.ICON);
       GuiElement element;
       switch(effect.getAmplifier()) {
-        case 0: element = Icons.ICON_PIGGYBACK_1; break;
-        case 1: element = Icons.ICON_PIGGYBACK_2; break;
-        case 2: element = Icons.ICON_PIGGYBACK_3; break;
-        default: element = Icons.ICON_PIGGYBACK_3; break;
+        case 0:
+          element = Icons.ICON_PIGGYBACK_1;
+          break;
+        case 1:
+          element = Icons.ICON_PIGGYBACK_2;
+          break;
+        case 2:
+          element = Icons.ICON_PIGGYBACK_3;
+          break;
+        default:
+          element = Icons.ICON_PIGGYBACK_3;
+          break;
       }
-      element.draw(x+6, y+7);
+      element.draw(x + 6, y + 7);
     }
   }
 }

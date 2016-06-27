@@ -43,7 +43,7 @@ public class Cleaver extends ToolCore {
   @Nonnull
   @Override
   public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer player, EnumHand hand) {
-    return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);
+    return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
   }
 
   @Override
@@ -63,7 +63,7 @@ public class Cleaver extends ToolCore {
 
   @Override
   public int[] getRepairParts() {
-    return new int[] {1,2};
+    return new int[]{1, 2};
   }
 
   @Override
@@ -100,8 +100,8 @@ public class Cleaver extends ToolCore {
     data.extra(guard);
     data.handle(handle);
 
-    data.attack *= 1.4f;
-    data.attack += 2f;
+    data.attack *= 1.3f;
+    data.attack += 3f;
 
     // triple durability!
     data.durability *= 2f;

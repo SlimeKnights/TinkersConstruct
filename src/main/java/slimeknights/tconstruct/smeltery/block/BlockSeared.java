@@ -4,7 +4,6 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.util.IStringSerializable;
-
 import java.util.Locale;
 
 import slimeknights.mantle.block.EnumBlock;
@@ -31,7 +30,10 @@ public class BlockSeared extends BlockEnumSmeltery<BlockSeared.SearedType> {
     BRICK_FANCY,
     BRICK_SQUARE,
     ROAD,
-    CREEPER;
+    CREEPER,
+    BRICK_TRIANGLE,
+    BRICK_SMALL,
+    TILE;
 
     public final int meta;
 

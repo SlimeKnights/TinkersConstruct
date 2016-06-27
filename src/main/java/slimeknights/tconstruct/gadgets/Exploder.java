@@ -121,8 +121,8 @@ public class Exploder {
       //double str = 1f - (double)currentRadius/r;
       //str *= str;
       // move it away from the center depending on distance and explosion strength
-      Vec3d dir = entity.getPositionVector().subtract(exploder.getPositionVector().addVector(0,-r/2,0));
-      double str = (r - dir.lengthVector())/r;
+      Vec3d dir = entity.getPositionVector().subtract(exploder.getPositionVector().addVector(0, -r / 2, 0));
+      double str = (r - dir.lengthVector()) / r;
       str = Math.max(0.3, str);
       dir = dir.normalize();
       dir = dir.scale(explosionStrength * str * 0.3);

@@ -202,7 +202,7 @@ public abstract class ClientProxy extends CommonProxy {
 
     return registerIt(item, itemLocation);
   }
-  
+
   public ResourceLocation registerItemModel(Block block) {
     return registerItemModel(Item.getItemFromBlock(block));
   }
@@ -253,8 +253,8 @@ public abstract class ClientProxy extends CommonProxy {
     Minecraft.getMinecraft().effectRenderer.addEffect(effect);
 
     if(particleType == Particles.EFFECT && data[0] > 1) {
-      for(int i = 0; i < data[0]-1; i++) {
-        effect = createParticle(particleType, world, x,y,z, xSpeed,ySpeed,zSpeed, data);
+      for(int i = 0; i < data[0] - 1; i++) {
+        effect = createParticle(particleType, world, x, y, z, xSpeed, ySpeed, zSpeed, data);
         Minecraft.getMinecraft().effectRenderer.addEffect(effect);
       }
     }
@@ -262,7 +262,7 @@ public abstract class ClientProxy extends CommonProxy {
 
   @Override
   public void spawnSlimeParticle(World world, double x, double y, double z) {
-    Minecraft.getMinecraft().effectRenderer.addEffect(new EntitySlimeFx(world, x,y,z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage()));
+    Minecraft.getMinecraft().effectRenderer.addEffect(new EntitySlimeFx(world, x, y, z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage()));
   }
 
   public static Particle createParticle(Particles type, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
@@ -287,7 +287,7 @@ public abstract class ClientProxy extends CommonProxy {
         return new ParticleAttackHammer(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
       // effects
       case EFFECT:
-        return new ParticleEffect(data[1], world, x,y,z, xSpeed, ySpeed, zSpeed);
+        return new ParticleEffect(data[1], world, x, y, z, xSpeed, ySpeed, zSpeed);
     }
 
     return null;
@@ -309,7 +309,9 @@ public abstract class ClientProxy extends CommonProxy {
 
   @Override
   public void customExplosion(World world, Explosion explosion) {
-    if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(world, explosion));
+    if(net.minecraftforge.event.ForgeEventFactory.onExplosionStart(world, explosion)) {
+      ;
+    }
     explosion.doExplosionA();
     explosion.doExplosionB(true);
   }

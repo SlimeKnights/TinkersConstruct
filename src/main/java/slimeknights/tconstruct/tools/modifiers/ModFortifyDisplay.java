@@ -45,7 +45,7 @@ public class ModFortifyDisplay extends Modifier implements IModifierDisplay {
       }
 
       ItemStack kit = TinkerTools.sharpeningKit.getItemstackWithMaterial(((ModFortify) modifier).material);
-      ItemStack flint = new ItemStack(Items.FLINT) ;
+      ItemStack flint = new ItemStack(Items.FLINT);
 
       builder.add(ImmutableList.<ItemStack>of(kit, flint));
     }

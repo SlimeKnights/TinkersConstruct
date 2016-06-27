@@ -46,7 +46,7 @@ public class JEIPlugin implements IModPlugin {
     if(TConstruct.pulseManager.isPulseLoaded(TinkerTools.PulseId)) {
       // crafting table shiftclicking
       registry.getRecipeTransferRegistry().addRecipeTransferHandler(new CraftingStationRecipeTransferInfo());
-      
+
       // add our crafting table to the list with the vanilla crafting table
       registry.addRecipeCategoryCraftingItem(new ItemStack(TinkerTools.toolTables, 1, BlockToolTable.TableTypes.CraftingStation.meta),
                                              VanillaRecipeCategoryUid.CRAFTING);

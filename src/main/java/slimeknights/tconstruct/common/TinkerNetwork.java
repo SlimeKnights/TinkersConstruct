@@ -29,6 +29,7 @@ import slimeknights.tconstruct.tools.network.ToolStationSelectionPacket;
 import slimeknights.tconstruct.tools.network.ToolStationTextPacket;
 
 public class TinkerNetwork extends NetworkWrapper {
+
   public static TinkerNetwork instance = new TinkerNetwork();
 
   public TinkerNetwork() {
@@ -60,43 +61,38 @@ public class TinkerNetwork extends NetworkWrapper {
     registerPacketClient(FaucetActivationPacket.class);
   }
 
-  public static void sendToAll(AbstractPacket packet)
-  {
+  public static void sendToAll(AbstractPacket packet) {
     instance.network.sendToAll(packet);
   }
 
-  public static void sendTo(AbstractPacket packet, EntityPlayerMP player)
-  {
+  public static void sendTo(AbstractPacket packet, EntityPlayerMP player) {
     instance.network.sendTo(packet, player);
   }
 
 
-  public static void sendToAllAround(AbstractPacket packet, NetworkRegistry.TargetPoint point)
-  {
+  public static void sendToAllAround(AbstractPacket packet, NetworkRegistry.TargetPoint point) {
     instance.network.sendToAllAround(packet, point);
   }
 
-  public static void sendToDimension(AbstractPacket packet, int dimensionId)
-  {
+  public static void sendToDimension(AbstractPacket packet, int dimensionId) {
     instance.network.sendToDimension(packet, dimensionId);
   }
 
-  public static void sendToServer(AbstractPacket packet)
-  {
+  public static void sendToServer(AbstractPacket packet) {
     instance.network.sendToServer(packet);
   }
 
   public static void sendToClients(WorldServer world, BlockPos pos, AbstractPacket packet) {
-      Chunk chunk = world.getChunkFromBlockCoords(pos);
-      for(EntityPlayer player : world.playerEntities) {
-        // only send to relevant players
-        if(!(player instanceof EntityPlayerMP)) {
-          continue;
-        }
-        EntityPlayerMP playerMP = (EntityPlayerMP) player;
-        if(world.getPlayerChunkMap().isPlayerWatchingChunk(playerMP, chunk.xPosition, chunk.zPosition)) {
-          TinkerNetwork.sendTo(packet, playerMP);
-        }
+    Chunk chunk = world.getChunkFromBlockCoords(pos);
+    for(EntityPlayer player : world.playerEntities) {
+      // only send to relevant players
+      if(!(player instanceof EntityPlayerMP)) {
+        continue;
       }
+      EntityPlayerMP playerMP = (EntityPlayerMP) player;
+      if(world.getPlayerChunkMap().isPlayerWatchingChunk(playerMP, chunk.xPosition, chunk.zPosition)) {
+        TinkerNetwork.sendTo(packet, playerMP);
+      }
+    }
   }
 }

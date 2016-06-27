@@ -33,20 +33,20 @@ public class SlimeColorizer implements IResourceManagerReloadListener {
   public static final float loop = 256; // after how many blocks the pattern loops
 
   public static int getColorBlue(int x, int z) {
-    return getColor(x,z, colorBufferBlue);
+    return getColor(x, z, colorBufferBlue);
   }
 
   public static int getColorPurple(int x, int z) {
-    return getColor(x,z, colorBufferPurple);
+    return getColor(x, z, colorBufferPurple);
   }
 
   public static int getColorOrange(int x, int z) {
-    return getColor(x,z, colorBufferOrange);
+    return getColor(x, z, colorBufferOrange);
   }
 
   private static int getColor(int posX, int posZ, int[] buffer) {
-    float x = Math.abs((loop - (Math.abs(posX)%(2*loop)))/loop);
-    float z = Math.abs((loop - (Math.abs(posZ)%(2*loop)))/loop);
+    float x = Math.abs((loop - (Math.abs(posX) % (2 * loop))) / loop);
+    float z = Math.abs((loop - (Math.abs(posZ) % (2 * loop))) / loop);
 
     if(x < z) {
       float tmp = x;

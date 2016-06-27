@@ -51,7 +51,7 @@ public class Hammer extends Pickaxe {
 
   @Override
   public float damagePotential() {
-    return 1.0f;
+    return 1.2f;
   }
 
   @Override
@@ -83,7 +83,7 @@ public class Hammer extends Pickaxe {
 
   @Override
   public int[] getRepairParts() {
-    return new int[] {1,2,3};
+    return new int[]{1, 2, 3};
   }
 
   @Override

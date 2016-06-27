@@ -37,7 +37,7 @@ import slimeknights.tconstruct.library.client.deserializer.ItemTransformVec3fDes
 
 public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
 
-  public static final EnumFacing[] MODEL_SIDES = new EnumFacing[] {null, EnumFacing.DOWN, EnumFacing.UP, EnumFacing.NORTH, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.EAST};
+  public static final EnumFacing[] MODEL_SIDES = new EnumFacing[]{null, EnumFacing.DOWN, EnumFacing.UP, EnumFacing.NORTH, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.EAST};
 
   static final Type maptype = new TypeToken<Map<String, String>>() {}.getType();
   static final Type offsettype = new TypeToken<Offset>() {}.getType();
@@ -77,11 +77,13 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
     }
   }
 
-  public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(ResourceLocation location) throws IOException {
+  public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(ResourceLocation location)
+      throws IOException {
     return loadTransformFromJson(location, "display");
   }
 
-  public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(ResourceLocation location, String tag) throws IOException {
+  public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJson(ResourceLocation location, String tag)
+      throws IOException {
     Reader reader = getReaderForResource(location);
     try {
       TransformDeserializer.tag = tag;
@@ -101,7 +103,8 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
     }
   }
 
-  public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJsonBackup(ResourceLocation location) throws IOException {
+  public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> loadTransformFromJsonBackup(ResourceLocation location)
+      throws IOException {
     Reader reader = getReaderForResource(location);
     try {
       // we abuse ModelBlock because all the deserializers are not accessible..
@@ -211,7 +214,8 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
     }
   }
 
-  public static class TransformDeserializer implements JsonDeserializer<ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation>> {
+  public static class TransformDeserializer
+      implements JsonDeserializer<ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation>> {
 
     public static final TransformDeserializer INSTANCE = new TransformDeserializer();
 
@@ -233,6 +237,7 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
   }
 
   public static class Offset {
+
     public int x;
     public int y;
   }

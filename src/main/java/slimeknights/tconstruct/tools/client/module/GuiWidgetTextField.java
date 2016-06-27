@@ -11,7 +11,7 @@ public class GuiWidgetTextField extends GuiWidget {
 
   public static final GuiElement FieldLeft = new GuiElement(0, 0, 2, 12);
   public static final GuiElement FieldRight = new GuiElement(0, 0, 2, 12);
-  public static final GuiElementScalable FieldCenter = new GuiElementScalable(2, 0, 98,12);
+  public static final GuiElementScalable FieldCenter = new GuiElementScalable(2, 0, 98, 12);
 
   public GuiElement left = FieldLeft;
   public GuiElement right = FieldRight;
@@ -37,7 +37,8 @@ public class GuiWidgetTextField extends GuiWidget {
       x += leftHighlight.draw(x, y);
       x += centerHighlight.drawScaledX(x, y, width - left.w - right.w);
       rightHighlight.draw(x, y);
-    } else {
+    }
+    else {
       x += left.draw(x, y);
       x += center.drawScaledX(x, y, width - left.w - right.w);
       right.draw(x, y);

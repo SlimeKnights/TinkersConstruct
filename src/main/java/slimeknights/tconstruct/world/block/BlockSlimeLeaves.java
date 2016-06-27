@@ -114,8 +114,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
 
   // item dropped on silktouching
   @Override
-  protected ItemStack createStackedBlock(@Nonnull IBlockState state)
-  {
+  protected ItemStack createStackedBlock(@Nonnull IBlockState state) {
     return new ItemStack(Item.getItemFromBlock(this), 1, (state.getValue(BlockSlimeGrass.FOLIAGE)).ordinal() & 3);
   }
 
@@ -127,8 +126,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
 
   @Nonnull
   @Override
-  public IBlockState getStateFromMeta(int meta)
-  {
+  public IBlockState getStateFromMeta(int meta) {
     int type = meta % 4;
     if(type < 0 || type >= FoliageType.values().length) {
       type = 0;
@@ -141,18 +139,15 @@ public class BlockSlimeLeaves extends BlockLeaves {
   }
 
   @Override
-  public int getMetaFromState(IBlockState state)
-  {
+  public int getMetaFromState(IBlockState state) {
 
     int meta = (state.getValue(BlockSlimeGrass.FOLIAGE)).ordinal() & 3; // only first 2 bits
 
-    if (!state.getValue(DECAYABLE))
-    {
+    if(!state.getValue(DECAYABLE)) {
       meta |= 4;
     }
 
-    if (state.getValue(CHECK_DECAY))
-    {
+    if(state.getValue(CHECK_DECAY)) {
       meta |= 8;
     }
 

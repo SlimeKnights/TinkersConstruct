@@ -39,7 +39,7 @@ public class AnimatedColoredTexture extends TextureColoredTexture {
     else {
       actualTexture = backupLoadTexture(new ResourceLocation(addTextureLocation), manager);
       //actualTexture = backupLoadtextureAtlasSprite(new ResourceLocation(addTextureLocation),
-        //                                           Minecraft.getMinecraft().getResourceManager());
+      //                                           Minecraft.getMinecraft().getResourceManager());
     }
 
     return super.load(manager, location);

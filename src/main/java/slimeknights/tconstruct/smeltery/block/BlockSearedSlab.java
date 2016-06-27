@@ -33,7 +33,7 @@ public class BlockSearedSlab extends EnumBlockSlab<BlockSearedSlab.SearedType> {
     return TinkerSmeltery.searedBlock.getDefaultState().withProperty(BlockSeared.TYPE, state.getValue(TYPE).asSearedBlock());
   }
 
-  // using a separate Enum than BlockSeared since there are 9 types (and slabs only support 8)
+  // using a separate Enum than BlockSeared since there are more variants than the 8 types slabs support
   public enum SearedType implements IStringSerializable, EnumBlock.IEnumMeta {
     STONE,
     COBBLE,
@@ -43,7 +43,6 @@ public class BlockSearedSlab extends EnumBlockSlab<BlockSearedSlab.SearedType> {
     BRICK_FANCY,
     BRICK_SQUARE,
     ROAD;
-    // creeper is in BlockStoneSlab2
 
     public final int meta;
 
@@ -55,27 +54,27 @@ public class BlockSearedSlab extends EnumBlockSlab<BlockSearedSlab.SearedType> {
     public String getName() {
       return this.toString().toLowerCase(Locale.US);
     }
-    
+
     public BlockSeared.SearedType asSearedBlock() {
       switch(this) {
-      case STONE:
-        return BlockSeared.SearedType.STONE;
-      case COBBLE:
-        return BlockSeared.SearedType.COBBLE;
-      case PAVER:
-        return BlockSeared.SearedType.PAVER;
-      case BRICK:
-        return BlockSeared.SearedType.BRICK;
-      case BRICK_CRACKED:
-        return BlockSeared.SearedType.BRICK_CRACKED;
-      case BRICK_FANCY:
-        return BlockSeared.SearedType.BRICK_FANCY;
-      case BRICK_SQUARE:
-        return BlockSeared.SearedType.BRICK_SQUARE;
-      case ROAD:
-        return BlockSeared.SearedType.ROAD;
-      default:
-        return null;
+        case STONE:
+          return BlockSeared.SearedType.STONE;
+        case COBBLE:
+          return BlockSeared.SearedType.COBBLE;
+        case PAVER:
+          return BlockSeared.SearedType.PAVER;
+        case BRICK:
+          return BlockSeared.SearedType.BRICK;
+        case BRICK_CRACKED:
+          return BlockSeared.SearedType.BRICK_CRACKED;
+        case BRICK_FANCY:
+          return BlockSeared.SearedType.BRICK_FANCY;
+        case BRICK_SQUARE:
+          return BlockSeared.SearedType.BRICK_SQUARE;
+        case ROAD:
+          return BlockSeared.SearedType.ROAD;
+        default:
+          return null;
       }
     }
 

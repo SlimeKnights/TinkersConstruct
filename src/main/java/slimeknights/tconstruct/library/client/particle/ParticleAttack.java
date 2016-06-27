@@ -57,16 +57,16 @@ public abstract class ParticleAttack extends Particle {
 
   @Override
   public void renderParticle(VertexBuffer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-    float progress = ((float)life + partialTicks)/(float)lifeTime;
-    int i = (int)(progress * (float)animPhases);
+    float progress = ((float) life + partialTicks) / (float) lifeTime;
+    int i = (int) (progress * (float) animPhases);
     int rows = MathHelper.ceiling_float_int((float) animPhases / (float) animPerRow);
 
     if(i < animPhases) {
       this.textureManager.bindTexture(getTexture());
       float f = (float) (i % animPerRow) / (float) animPerRow;
-      float f1 = f + 1f/(float)animPerRow - 0.005f;
+      float f1 = f + 1f / (float) animPerRow - 0.005f;
       float f2 = (float) (i / animPerRow) / (float) rows;
-      float f3 = f2 + 1f/(float)rows - 0.005f;
+      float f3 = f2 + 1f / (float) rows - 0.005f;
       float f4 = 0.5F * this.size;
       float f5 = (float) (this.prevPosX + (this.posX - this.prevPosX) * (double) partialTicks - interpPosX);
       float f6 = (float) (this.prevPosY + (this.posY - this.prevPosY) * (double) partialTicks - interpPosY);
@@ -84,10 +84,10 @@ public abstract class ParticleAttack extends Particle {
       GlStateManager.disableLighting();
       RenderHelper.disableStandardItemLighting();
       worldRendererIn.begin(7, getVertexFormat());
-      worldRendererIn.pos((double) (f5 - rotationX * f4 - rotationXY * f4),  (f6 - rotationZ * f4 * height), (double) (f7 - rotationYZ * f4 - rotationXZ * f4)).tex((double) f1, (double) f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-      worldRendererIn.pos((double) (f5 - rotationX * f4 + rotationXY * f4),  (f6 + rotationZ * f4 * height), (double) (f7 - rotationYZ * f4 + rotationXZ * f4)).tex((double) f1, (double) f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-      worldRendererIn.pos((double) (f5 + rotationX * f4 + rotationXY * f4),  (f6 + rotationZ * f4 * height), (double) (f7 + rotationYZ * f4 + rotationXZ * f4)).tex((double) f, (double) f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-      worldRendererIn.pos((double) (f5 + rotationX * f4 - rotationXY * f4),  (f6 - rotationZ * f4 * height), (double) (f7 + rotationYZ * f4 - rotationXZ * f4)).tex((double) f, (double) f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+      worldRendererIn.pos((double) (f5 - rotationX * f4 - rotationXY * f4), (f6 - rotationZ * f4 * height), (double) (f7 - rotationYZ * f4 - rotationXZ * f4)).tex((double) f1, (double) f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+      worldRendererIn.pos((double) (f5 - rotationX * f4 + rotationXY * f4), (f6 + rotationZ * f4 * height), (double) (f7 - rotationYZ * f4 + rotationXZ * f4)).tex((double) f1, (double) f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+      worldRendererIn.pos((double) (f5 + rotationX * f4 + rotationXY * f4), (f6 + rotationZ * f4 * height), (double) (f7 + rotationYZ * f4 + rotationXZ * f4)).tex((double) f, (double) f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+      worldRendererIn.pos((double) (f5 + rotationX * f4 - rotationXY * f4), (f6 - rotationZ * f4 * height), (double) (f7 + rotationYZ * f4 - rotationXZ * f4)).tex((double) f, (double) f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
       Tessellator.getInstance().draw();
       GlStateManager.enableLighting();
     }

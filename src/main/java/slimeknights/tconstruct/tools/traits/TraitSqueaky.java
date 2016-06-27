@@ -32,6 +32,6 @@ public class TraitSqueaky extends AbstractTrait {
 
   @Override
   public void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
-    Sounds.playSoundForAll(player, Sounds.toy_squeak,  1.0f, 0.8f + 0.4f * random.nextFloat());
+    Sounds.playSoundForAll(player, Sounds.toy_squeak, 1.0f, 0.8f + 0.4f * random.nextFloat());
   }
 }

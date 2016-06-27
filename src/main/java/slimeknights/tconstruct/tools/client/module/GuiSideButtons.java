@@ -29,9 +29,9 @@ public class GuiSideButtons extends GuiModule {
   }
 
   public void addButton(GuiButton button) {
-    int rows = (buttonCount-1)/columns + 1;
+    int rows = (buttonCount - 1) / columns + 1;
 
-    this.xSize = button.width*columns + spacing * (columns-1);
+    this.xSize = button.width * columns + spacing * (columns - 1);
     this.ySize = button.height * rows + spacing * (rows - 1);
 
     int offset = buttonCount;
@@ -50,9 +50,8 @@ public class GuiSideButtons extends GuiModule {
   }
 
   @Override
-  public boolean handleMouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException{
-    if (mouseButton == 0)
-    {
+  public boolean handleMouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+    if(mouseButton == 0) {
       for(Object o : this.buttonList) {
         GuiButton guibutton = (GuiButton) o;
 

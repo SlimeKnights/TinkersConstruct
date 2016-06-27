@@ -3,11 +3,11 @@ package slimeknights.tconstruct.smeltery.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
 
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.client.RenderUtil;
+import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
 public class TankRenderer extends TileEntitySpecialRenderer<TileTank> {
@@ -15,22 +15,23 @@ public class TankRenderer extends TileEntitySpecialRenderer<TileTank> {
   protected static Minecraft mc = Minecraft.getMinecraft();
 
   @Override
-  public void renderTileEntityAt(@Nonnull TileTank te, double x, double y, double z, float partialTicks, int destroyStage) {
-    if(te.containsFluid()) {
-      FluidTankInfo info = te.getTankInfo(null)[0];
-      FluidStack liquid = info.fluid;
+  public void renderTileEntityAt(@Nonnull TileTank tile, double x, double y, double z, float partialTicks, int destroyStage) {
+    FluidTankAnimated tank = tile.getInternalTank();
+    FluidStack liquid = tank.getFluid();
 
-      float height = ((float)liquid.amount - te.renderOffset) / (float)info.capacity;
+    if(liquid != null) {
 
-      if(te.renderOffset > 1.2f || te.renderOffset < -1.2f) {
-        te.renderOffset -= (te.renderOffset / 12f + 0.1f) * partialTicks;
+      float height = ((float) liquid.amount - tank.renderOffset) / (float) tank.getCapacity();
+
+      if(tank.renderOffset > 1.2f || tank.renderOffset < -1.2f) {
+        tank.renderOffset -= (tank.renderOffset / 12f + 0.1f) * partialTicks;
       }
       else {
-        te.renderOffset = 0;
+        tank.renderOffset = 0;
       }
 
       float d = RenderUtil.FLUID_OFFSET;
-      RenderUtil.renderFluidCuboid(liquid, te.getPos(), x,y,z, d, d, d, 1d-d, height-d, 1d-d);
+      RenderUtil.renderFluidCuboid(liquid, tile.getPos(), x, y, z, d, d, d, 1d - d, height - d, 1d - d);
     }
   }
 }

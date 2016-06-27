@@ -22,8 +22,8 @@ public class GuiButtonRepair extends GuiButtonItem<ToolBuildGuiInfo> {
 
 
   static {
-    int x = 7 + 80/2 - 8 - 6;
-    int y = 18 + 64/2 - 8;
+    int x = 7 + 80 / 2 - 8 - 6;
+    int y = 18 + 64 / 2 - 8;
 
     info = new ToolBuildGuiInfo();
 

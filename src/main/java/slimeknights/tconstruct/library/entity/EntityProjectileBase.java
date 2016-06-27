@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import io.netty.buffer.ByteBuf;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.tools.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.tools.IProjectileStats;
 import slimeknights.tconstruct.library.tools.TinkerProjectileHandler;
@@ -110,18 +111,17 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     return tinkerProjectile.getItemStack();
   }
 
-  protected void playHitBlockSound(float speed) {
-    // 1.9
-    /*
-    Block block = worldObj.getBlock(x, y, z);
-    if(block != null && block.blockMaterial == Material.wood)
-      worldObj.playSoundAtEntity(this, woodSound, 1.0f, 1.0f);
-    else {
-      worldObj.playSoundAtEntity(this, stoneSound, 1.0f, 1.0f);
+  protected void playHitBlockSound(float speed, IBlockState state) {
+    Material material = state.getMaterial();
+
+    if(material == Material.WOOD) {
+      this.playSound(Sounds.wood_hit, 1f, 1f);
+    }
+    else if(material == Material.ROCK) {
+      this.playSound(Sounds.stone_hit, 1f, 1f);
     }
 
-    if(block != null)
-      worldObj.playSoundAtEntity(this, block.stepSound.getBreakSound(), 0.7f, 1.0f);*/
+    this.playSound(state.getBlock().getSoundType().getStepSound(), 0.8f, 1.0f);
   }
 
   protected void playHitEntitySound() {
@@ -186,7 +186,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.posY -= this.motionY / (double) speed * 0.05000000074505806D;
     this.posZ -= this.motionZ / (double) speed * 0.05000000074505806D;
 
-    playHitBlockSound(speed);
+    playHitBlockSound(speed, iblockstate);
 
     this.inGround = true;
     this.arrowShake = 7;

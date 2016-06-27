@@ -71,7 +71,7 @@ public class GuiSideInventory extends GuiModule {
     this.columns = columns;
     this.slotCount = slotCount;
 
-    this.xSize = columns * slot.w + border.w*2;
+    this.xSize = columns * slot.w + border.w * 2;
     this.ySize = calcCappedYSize(slot.h * 10);
 
     if(connected) {
@@ -106,8 +106,9 @@ public class GuiSideInventory extends GuiModule {
       return false;
     }
     // all visible
-    if(!slider.isEnabled())
+    if(!slider.isEnabled()) {
       return true;
+    }
 
     return firstSlotId <= slot.getSlotIndex() && lastSlotId > slot.getSlotIndex();
   }
@@ -119,7 +120,9 @@ public class GuiSideInventory extends GuiModule {
 
   public void updateSlotCount(int newSlotCount) {
     // don't do extra stuff if it's not needed
-    if(slotCount == newSlotCount) return;
+    if(slotCount == newSlotCount) {
+      return;
+    }
 
     this.slotCount = newSlotCount;
     // called twice to get correct slider calculation
@@ -134,11 +137,11 @@ public class GuiSideInventory extends GuiModule {
     // slider needed?
     if(getDisplayedRows() < getTotalRows()) {
       slider.enable();
-      this.xSize = columns * slot.w + slider.width +2*border.w;
+      this.xSize = columns * slot.w + slider.width + 2 * border.w;
     }
     else {
       slider.disable();
-      this.xSize = columns * slot.w + border.w*2;
+      this.xSize = columns * slot.w + border.w * 2;
     }
 
     // update position
@@ -149,7 +152,8 @@ public class GuiSideInventory extends GuiModule {
       if(yOffset == 0) {
         if(right) {
           border.cornerTopLeft = overlapTop;
-        } else {
+        }
+        else {
           border.cornerTopRight = overlapTop;
         }
       }
@@ -168,13 +172,13 @@ public class GuiSideInventory extends GuiModule {
     border.setSize(xSize, ySize);
 
     int y = guiTop + border.h;
-    int h = ySize - border.h*2;
+    int h = ySize - border.h * 2;
 
     if(shouldDrawName()) {
       y += textBackground.h;
       h -= textBackground.h;
     }
-    slider.setPosition(guiLeft + columns*slot.w + border.w, y);
+    slider.setPosition(guiLeft + columns * slot.w + border.w, y);
     slider.setSize(h);
     slider.setSliderParameters(0, getTotalRows() - getDisplayedRows(), 1);
 
@@ -182,13 +186,14 @@ public class GuiSideInventory extends GuiModule {
   }
 
   private int getDisplayedRows() {
-    return slider.height/slot.h;
+    return slider.height / slot.h;
   }
 
   private int getTotalRows() {
     int total = slotCount / columns;
-    if(slotCount % columns != 0)
+    if(slotCount % columns != 0) {
       total++;
+    }
 
     return total;
   }
@@ -198,8 +203,9 @@ public class GuiSideInventory extends GuiModule {
 
     h = border.getHeightWithBorder(h);
 
-    if(shouldDrawName())
+    if(shouldDrawName()) {
       h += textBackground.h;
+    }
 
     // not higher than the max
     while(h > max) {
@@ -216,8 +222,9 @@ public class GuiSideInventory extends GuiModule {
     int xd = border.w + xOffset;
     int yd = border.h + yOffset;
 
-    if(shouldDrawName())
+    if(shouldDrawName()) {
       yd += textBackground.h;
+    }
 
     for(Object o : inventorySlots.inventorySlots) {
       Slot slot = (Slot) o;
@@ -232,7 +239,8 @@ public class GuiSideInventory extends GuiModule {
 
         if(this.right) {
           slot.xDisplayPosition += parent.realWidth;
-        } else {
+        }
+        else {
           slot.xDisplayPosition -= this.xSize;
         }
       }
@@ -246,7 +254,7 @@ public class GuiSideInventory extends GuiModule {
   @Override
   public void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
     if(shouldDrawName()) {
-      String name = ((BaseContainer)inventorySlots).getInventoryDisplayName();
+      String name = ((BaseContainer) inventorySlots).getInventoryDisplayName();
       this.fontRendererObj.drawString(name, border.w, border.h - 1, 0x404040);
     }
   }
@@ -261,18 +269,18 @@ public class GuiSideInventory extends GuiModule {
 
     int x = guiLeft;// + border.w;
     int y = guiTop;// + border.h;
-    int midW = xSize - border.w*2;
-    int midH = ySize - border.h*2;
+    int midW = xSize - border.w * 2;
+    int midH = ySize - border.h * 2;
 
     border.draw();
 
     if(shouldDrawName()) {
-      textBackground.drawScaledX(x,y, midW);
+      textBackground.drawScaledX(x, y, midW);
       y += textBackground.h;
     }
 
     this.mc.getTextureManager().bindTexture(GUI_INVENTORY);
-    drawSlots(x,y);
+    drawSlots(x, y);
 /*
     // draw the connection to the main thing
     if(right) {
@@ -337,9 +345,9 @@ public class GuiSideInventory extends GuiModule {
 
   protected int drawSlots(int xPos, int yPos) {
     int width = columns * slot.w;
-    int height = ySize - border.h*2;
+    int height = ySize - border.h * 2;
 
-    int fullRows = (lastSlotId - firstSlotId)/columns;
+    int fullRows = (lastSlotId - firstSlotId) / columns;
     int y;
     for(y = 0; y < fullRows * slot.h && y < height; y += slot.h) {
       slot.drawScaledX(xPos, yPos + y, width);

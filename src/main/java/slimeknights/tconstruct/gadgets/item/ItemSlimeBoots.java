@@ -34,12 +34,10 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
   }
 
   // equipping with rightclick
-  public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
-  {
+  public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
     ItemStack itemstack = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
 
-    if (itemstack == null)
-    {
+    if(itemstack == null) {
       player.setItemStackToSlot(EntityEquipmentSlot.FEET, stack.copy());
       stack.stackSize--;
     }
@@ -83,7 +81,7 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
       entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1f, 1f);
       SlimeBounceHandler.addBounceHandler(entity, entity.motionY);
     }
-    else if(!entity.worldObj.isRemote && entity.isSneaking()){
+    else if(!entity.worldObj.isRemote && entity.isSneaking()) {
       event.setDamageMultiplier(0.1f);
     }
   }

@@ -38,21 +38,24 @@ public class Material extends RecipeMatchRegistry {
   // How much the different items are "worth"
   // the values are used for both liquid conversion as well as part crafting
   public static final int VALUE_Ingot = 144;
-  public static final int VALUE_Nugget = VALUE_Ingot/9;
-  public static final int VALUE_Fragment = VALUE_Ingot/4;
-  public static final int VALUE_Shard = VALUE_Ingot/2;
+  public static final int VALUE_Nugget = VALUE_Ingot / 9;
+  public static final int VALUE_Fragment = VALUE_Ingot / 4;
+  public static final int VALUE_Shard = VALUE_Ingot / 2;
 
-  public static final int VALUE_Ore = VALUE_Ingot*2;
   public static final int VALUE_Gem = 666; // divisible by 3!
-  public static final int VALUE_Block = VALUE_Ingot*9;
+  public static final int VALUE_Block = VALUE_Ingot * 9;
 
-  public static final int VALUE_SearedBlock = VALUE_Ingot*2;
-  public static final int VALUE_SearedMaterial = VALUE_Ingot/2;
+  public static final int VALUE_SearedBlock = VALUE_Ingot * 2;
+  public static final int VALUE_SearedMaterial = VALUE_Ingot / 2;
   public static final int VALUE_Glass = 1000;
 
-  public static final int VALUE_BrickBlock = VALUE_Ingot*4;
+  public static final int VALUE_BrickBlock = VALUE_Ingot * 4;
 
   public static final int VALUE_SlimeBall = 250;
+
+  public static int VALUE_Ore() {
+    return (int)(VALUE_Ingot * Config.oreToIngotRatio);
+  }
 
   static {
     UNKNOWN.addStats(new HeadMaterialStats(1, 1, 1, 0));
@@ -377,7 +380,9 @@ public class Material extends RecipeMatchRegistry {
 
   /** Takes a string and turns it into a named variant for this material. E.g. pickaxe -> wooden pickaxe */
   public String getLocalizedItemName(String itemName) {
-    if(this == UNKNOWN) return itemName;
+    if(this == UNKNOWN) {
+      return itemName;
+    }
 
     if(I18n.canTranslate(String.format(LOC_Prefix, getIdentifier()))) {
       return I18n.translateToLocalFormatted(String.format(LOC_Prefix, Util

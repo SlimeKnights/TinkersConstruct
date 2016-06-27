@@ -31,7 +31,9 @@ public class PropertyTableItem implements IUnlistedProperty<PropertyTableItem.Ta
   }
 
   public static class TableItems {
+
     public static final TableItems EMPTY = new TableItems();
+
     static {
       EMPTY.items = ImmutableList.of();
     }
@@ -40,17 +42,18 @@ public class PropertyTableItem implements IUnlistedProperty<PropertyTableItem.Ta
   }
 
   public static class TableItem {
+
     public final IBakedModel model;
-    public float x,y,z;
+    public float x, y, z;
     public float s;
     public float r;
 
     public TableItem(IBakedModel model) {
-      this(model, 0,0,0);
+      this(model, 0, 0, 0);
     }
 
     public TableItem(IBakedModel model, float x, float y, float z) {
-      this(model, x,y,z, 1, 0);
+      this(model, x, y, z, 1, 0);
     }
 
     public TableItem(IBakedModel model, float x, float y, float z, float s, float r) {

@@ -22,11 +22,14 @@ import slimeknights.mantle.item.ItemEdible;
 import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
+import slimeknights.tconstruct.common.TinkerOredict;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.item.ItemTinkerBook;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.shared.block.BlockClearGlass;
+import slimeknights.tconstruct.shared.block.BlockClearStainedGlass;
 import slimeknights.tconstruct.shared.block.BlockDecoGround;
 import slimeknights.tconstruct.shared.block.BlockDecoGroundSlab;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
@@ -61,11 +64,15 @@ public class TinkerCommons extends TinkerPulse {
 
   public static Block slabDecoGround;
   public static Block slabFirewood;
-  
+
   // stairs
   public static Block stairsMudBrick;
   public static Block stairsFirewood;
   public static Block stairsLavawood;
+
+  // glass
+  public static Block blockClearGlass;
+  public static Block blockClearStainedGlass;
 
   // block itemstacks
   public static ItemStack grout;
@@ -191,10 +198,13 @@ public class TinkerCommons extends TinkerPulse {
     blockDecoGround = registerEnumBlock(new BlockDecoGround(), "deco_ground");
     mudBrickBlock = new ItemStack(blockDecoGround, 1, BlockDecoGround.DecoGroundType.MUDBRICK.getMeta());
 
+    blockClearGlass = registerBlock(new BlockClearGlass(), "clear_glass");
+    blockClearStainedGlass = registerEnumBlock(new BlockClearStainedGlass(), "clear_stained_glass");
+
     // slabs
     slabDecoGround = registerEnumBlockSlab(new BlockDecoGroundSlab(), "deco_ground_slab");
     slabFirewood = registerEnumBlockSlab(new BlockFirewoodSlab(), "firewood_slab");
-    
+
     // stairs
     stairsMudBrick = registerBlockStairsFrom(blockDecoGround, BlockDecoGround.DecoGroundType.MUDBRICK, "mudbrick_stairs");
     stairsFirewood = registerBlockStairsFrom(blockFirewood, BlockFirewood.FirewoodType.FIREWOOD, "firewood_stairs");
@@ -212,10 +222,10 @@ public class TinkerCommons extends TinkerPulse {
     edibles.setCreativeTab(TinkerRegistry.tabGeneral);
 
     // Items that can always be present.. slimeballs
-    matSlimeBallBlue = edibles.addFood(1, 1, 1f, "slimeball_blue", new PotionEffect(MobEffects.SLOWNESS, 20*45, 2), new PotionEffect(MobEffects.JUMP_BOOST, 20*60, 2) );
-    matSlimeBallPurple = edibles.addFood(2, 1, 2f, "slimeball_purple", new PotionEffect(MobEffects.UNLUCK, 20*45), new PotionEffect(MobEffects.LUCK, 20*60));
-    matSlimeBallBlood = edibles.addFood(3, 1, 1.5f, "slimeball_blood", new PotionEffect(MobEffects.POISON, 20*45, 2), new PotionEffect(MobEffects.HEALTH_BOOST, 20*60));
-    matSlimeBallMagma = edibles.addFood(4, 2, 1f, "slimeball_magma", new PotionEffect(MobEffects.WEAKNESS, 20*45), new PotionEffect(MobEffects.WITHER, 20*15), new PotionEffect(MobEffects.FIRE_RESISTANCE, 20*60));
+    matSlimeBallBlue = edibles.addFood(1, 1, 1f, "slimeball_blue", new PotionEffect(MobEffects.SLOWNESS, 20 * 45, 2), new PotionEffect(MobEffects.JUMP_BOOST, 20 * 60, 2));
+    matSlimeBallPurple = edibles.addFood(2, 1, 2f, "slimeball_purple", new PotionEffect(MobEffects.UNLUCK, 20 * 45), new PotionEffect(MobEffects.LUCK, 20 * 60));
+    matSlimeBallBlood = edibles.addFood(3, 1, 1.5f, "slimeball_blood", new PotionEffect(MobEffects.POISON, 20 * 45, 2), new PotionEffect(MobEffects.HEALTH_BOOST, 20 * 60));
+    matSlimeBallMagma = edibles.addFood(4, 2, 1f, "slimeball_magma", new PotionEffect(MobEffects.WEAKNESS, 20 * 45), new PotionEffect(MobEffects.WITHER, 20 * 15), new PotionEffect(MobEffects.FIRE_RESISTANCE, 20 * 60));
 
     // All other items are either ingots or items for modifiers
 
@@ -290,11 +300,11 @@ public class TinkerCommons extends TinkerPulse {
       jerkyClownfish = edibles.addFood(22, 3, 0.8f, "jerky_clownfish", false);
       jerkyPufferfish = edibles.addFood(23, 3, 0.8f, "jerky_pufferfish", false);
 
-      slimedropGreen = edibles.addFood(30, 1, 1f, "slimedrop_green", new PotionEffect(MobEffects.SPEED, 20*90, 2));
-      slimedropBlue = edibles.addFood(31, 3, 1f, "slimedrop_blue", new PotionEffect(MobEffects.JUMP_BOOST, 20*90, 2));
-      slimedropPurple = edibles.addFood(32, 3, 2f, "slimedrop_purple", new PotionEffect(MobEffects.LUCK, 20*90));
-      slimedropBlood = edibles.addFood(33, 3, 1.5f, "slimedrop_blood", new PotionEffect(MobEffects.HEALTH_BOOST, 20*90));
-      slimedropMagma = edibles.addFood(34, 6, 1f, "slimedrop_magma", new PotionEffect(MobEffects.FIRE_RESISTANCE, 20*90));
+      slimedropGreen = edibles.addFood(30, 1, 1f, "slimedrop_green", new PotionEffect(MobEffects.SPEED, 20 * 90, 2));
+      slimedropBlue = edibles.addFood(31, 3, 1f, "slimedrop_blue", new PotionEffect(MobEffects.JUMP_BOOST, 20 * 90, 2));
+      slimedropPurple = edibles.addFood(32, 3, 2f, "slimedrop_purple", new PotionEffect(MobEffects.LUCK, 20 * 90));
+      slimedropBlood = edibles.addFood(33, 3, 1.5f, "slimedrop_blood", new PotionEffect(MobEffects.HEALTH_BOOST, 20 * 90));
+      slimedropMagma = edibles.addFood(34, 6, 1f, "slimedrop_magma", new PotionEffect(MobEffects.FIRE_RESISTANCE, 20 * 90));
     }
 
     if(isToolsLoaded() || isGadgetsLoaded()) {
@@ -309,6 +319,7 @@ public class TinkerCommons extends TinkerPulse {
   @Subscribe
   public void init(FMLInitializationEvent event) {
     registerRecipies();
+    proxy.init();
 
     GameRegistry.registerWorldGenerator(NetherOreGenerator.INSTANCE, 0);
 
@@ -349,6 +360,24 @@ public class TinkerCommons extends TinkerPulse {
 
     if(blockSilkyJewel != null && matSilkyJewel != null) {
       GameRegistry.addShapedRecipe(blockSilkyJewel, "###", "###", "###", '#', matSilkyJewel);
+    }
+
+    // glass
+    if(!isSmelteryLoaded()) {
+      // compat recipe if the smeltery is not available for melting
+      GameRegistry.addSmelting(Blocks.GLASS, new ItemStack(blockClearGlass), 0.1f);
+    }
+    for(int i = 0; i < 16; i++) {
+      GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockClearStainedGlass, 8, i), "GGG", "GDG", "GGG", 'G', blockClearGlass, 'D', "dye" + TinkerOredict.dyes[i]));
+    }
+
+    // flint recipe
+    if(Config.gravelFlintRecipe) {
+      GameRegistry.addRecipe(new ShapelessOreRecipe(
+          new ItemStack(Items.FLINT),
+          "gravel",
+          "gravel",
+          "gravel"));
     }
   }
 

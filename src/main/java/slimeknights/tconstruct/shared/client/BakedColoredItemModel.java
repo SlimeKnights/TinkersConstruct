@@ -55,10 +55,10 @@ public class BakedColoredItemModel extends BakedWrapper {
 
 
       // itemconsumer is a color-transformer we can reuse
-      float b = (float)(color & 0xFF) / 0xFF;
-      float g = (float)((color >>> 8) & 0xFF) / 0xFF;
-      float r = (float)((color >>> 16) & 0xFF) / 0xFF;
-      float a = (float)((color >>> 24) & 0xFF) / 0xFF;
+      float b = (float) (color & 0xFF) / 0xFF;
+      float g = (float) ((color >>> 8) & 0xFF) / 0xFF;
+      float r = (float) ((color >>> 16) & 0xFF) / 0xFF;
+      float a = (float) ((color >>> 24) & 0xFF) / 0xFF;
       if(a == 0f) {
         a = 1f;
       }

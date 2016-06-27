@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 
-import static slimeknights.tconstruct.library.materials.AbstractMaterialStats.df;
+import static slimeknights.tconstruct.library.Util.df;
 import static slimeknights.tconstruct.library.materials.HeadMaterialStats.COLOR_Durability;
 
 /**
@@ -52,7 +52,7 @@ public class TooltipBuilder {
   public static String formatAmmo(int durability, int ref) {
     return String.format("%s: %s%s%s/%s%s",
                          Util.translate(LOC_Ammo),
-                         CustomFontColor.valueToColorCode((float)durability / (float)ref),
+                         CustomFontColor.valueToColorCode((float) durability / (float) ref),
                          df.format(durability),
                          TextFormatting.GRAY.toString(),
                          COLOR_Durability,

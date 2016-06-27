@@ -20,10 +20,11 @@ public class ModEmerald extends ToolModifier {
     ToolNBT data = TagUtil.getToolStats(rootCompound);
     ToolNBT base = TagUtil.getOriginalToolStats(rootCompound);
 
-    data.durability += base.durability/2;
+    data.durability += base.durability / 2;
 
-    if(data.harvestLevel < HarvestLevels.DIAMOND)
+    if(data.harvestLevel < HarvestLevels.DIAMOND) {
       data.harvestLevel++;
+    }
 
     TagUtil.setToolTag(rootCompound, data.get());
   }

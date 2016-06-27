@@ -47,6 +47,24 @@ tile.tconstruct.firewood_slab.firewood.name=Firewood Slab
 tile.tconstruct.lavawood_stairs.name=Lavawood Stairs
 tile.tconstruct.firewood_stairs.name=Firewood Stairs
 
+tile.tconstruct.clear_glass.name=Clear Glass
+tile.tconstruct.clear_stained_glass.white.name=Clear White Stained Glass
+tile.tconstruct.clear_stained_glass.orange.name=Clear Orange Stained Glass
+tile.tconstruct.clear_stained_glass.magenta.name=Clear Magenta Stained Glass
+tile.tconstruct.clear_stained_glass.light_blue.name=Clear Light Blue Stained Glass
+tile.tconstruct.clear_stained_glass.yellow.name=Clear Yellow Stained Glass
+tile.tconstruct.clear_stained_glass.lime.name=Clear Light Green Stained Glass
+tile.tconstruct.clear_stained_glass.pink.name=Clear Pink Stained Glass
+tile.tconstruct.clear_stained_glass.gray.name=Clear Gray Stained Glass
+tile.tconstruct.clear_stained_glass.silver.name=Clear Light Gray Stained Glass
+tile.tconstruct.clear_stained_glass.cyan.name=Clear Cyan Stained Glass
+tile.tconstruct.clear_stained_glass.purple.name=Clear Purple Stained Glass
+tile.tconstruct.clear_stained_glass.blue.name=Clear Blue Stained Glass
+tile.tconstruct.clear_stained_glass.brown.name=Clear Brown Stained Glass
+tile.tconstruct.clear_stained_glass.green.name=Clear Green Stained Glass
+tile.tconstruct.clear_stained_glass.red.name=Clear Red Stained Glass
+tile.tconstruct.clear_stained_glass.black.name=Clear Black Stained Glass
+
 tile.tconstruct.slime.green.name=Green Slime Block
 tile.tconstruct.slime.blue.name=Blue Slime Block
 tile.tconstruct.slime.purple.name=Purple Slime Block
@@ -102,9 +120,12 @@ tile.tconstruct.seared.brick.name=Seared Bricks
 tile.tconstruct.seared.brick_cracked.name=Cracked Seared Bricks
 tile.tconstruct.seared.brick_fancy.name=Fancy Seared Bricks
 tile.tconstruct.seared.brick_square.name=Square Seared Bricks
+tile.tconstruct.seared.brick_triangle.name=Triangle Seared Bricks
+tile.tconstruct.seared.brick_small.name=Small Seared Bricks
 tile.tconstruct.seared.road.name=Seared Road
+tile.tconstruct.seared.tile.name=Seared Tiles
 tile.tconstruct.seared.creeper.name=Seared Creeperface
-tile.tconstruct.seared.tooltip=Part of the Smeltery. Safe for Decoration.
+tile.tconstruct.seared.tooltip=Part of the Smeltery. Safe for decoration.
 
 tile.tconstruct.seared_slab.stone.name=Seared Stone Slab
 tile.tconstruct.seared_slab.cobble.name=Seared Cobblestone Slab
@@ -115,6 +136,9 @@ tile.tconstruct.seared_slab.brick_fancy.name=Fancy Seared Bricks Slab
 tile.tconstruct.seared_slab.brick_square.name=Square Seared Bricks Slab
 tile.tconstruct.seared_slab.road.name=Seared Road Slab
 tile.tconstruct.seared_slab2.creeper.name=Seared Creeperface Slab
+tile.tconstruct.seared_slab2.brick_triangle.name=Triangle Seared Bricks Slab
+tile.tconstruct.seared_slab2.brick_small.name=Small Seared Bricks Slab
+tile.tconstruct.seared_slab2.tile.name=Seared Tile Slab
 
 tile.tconstruct.seared_stairs_stone.name=Seared Stone Stairs
 tile.tconstruct.seared_stairs_cobble.name=Seared Cobblestone Stairs
@@ -123,7 +147,10 @@ tile.tconstruct.seared_stairs_brick.name=Seared Bricks Stairs
 tile.tconstruct.seared_stairs_brick_cracked.name=Cracked Seared Bricks Stairs
 tile.tconstruct.seared_stairs_brick_fancy.name=Fancy Seared Bricks Stairs
 tile.tconstruct.seared_stairs_brick_square.name=Square Seared Bricks Stairs
+tile.tconstruct.seared_stairs_brick_triangle.name=Triangle Seared Bricks Stairs
+tile.tconstruct.seared_stairs_brick_small.name=Small Seared Bricks Stairs
 tile.tconstruct.seared_stairs_road.name=Seared Road Stairs
+tile.tconstruct.seared_stairs_tile.name=Seared Tile Stairs
 tile.tconstruct.seared_stairs_creeper.name=Seared Creeperface Stairs
 
 tile.tconstruct.smeltery_controller.name=Smeltery Controller
@@ -139,6 +166,8 @@ tile.tconstruct.seared_tank.tank.name=Seared Tank
 tile.tconstruct.seared_tank.gauge.name=Seared Gauge
 tile.tconstruct.seared_tank.window.name=Seared Window
 tile.tconstruct.seared_tank.tooltip=Heart of the Smeltery\nRetains liquid when broken.
+tile.tconstruct.seared_glass.glass.name=Seared Glass
+tile.tconstruct.seared_glass.glass.tooltip=Part of the Smeltery. Safe for decoration.\nCannot store liquids.
 
 tile.tconstruct.stone_torch.name=Stone Torch
 tile.tconstruct.stone_ladder.name=Stone Ladder
@@ -158,6 +187,45 @@ tile.tconstruct.dried_clay_slab.brick.name=Dried Bricks Slab
 tile.tconstruct.dried_clay_stairs.name=Dried Clay Stairs
 tile.tconstruct.dried_brick_stairs.name=Dried Bricks Stairs
 
+tile.tconstruct.brownstone.smooth.name=Smooth Brownstone
+tile.tconstruct.brownstone.rough.name=Rough Brownstone
+tile.tconstruct.brownstone.paver.name=Brownstone Paver
+tile.tconstruct.brownstone.brick.name=Brownstone Bricks
+tile.tconstruct.brownstone.brick_cracked.name=Cracked Brownstone Bricks
+tile.tconstruct.brownstone.brick_fancy.name=Fancy Brownstone Bricks
+tile.tconstruct.brownstone.brick_square.name=Square Brownstone Bricks
+tile.tconstruct.brownstone.brick_triangle.name=Triangle Brownstone Bricks
+tile.tconstruct.brownstone.brick_small.name=Small Brownstone Bricks
+tile.tconstruct.brownstone.road.name=Brownstone Road
+tile.tconstruct.brownstone.tile.name=Brownstone Tiles
+tile.tconstruct.brownstone.creeper.name=Brownstone Creeperface
+tile.tconstruct.brownstone.tooltip=You move a bit faster on it
+
+tile.tconstruct.brownstone_slab.smooth.name=Smooth Brownstone Slab
+tile.tconstruct.brownstone_slab.rough.name=Rough Brownstone Slab
+tile.tconstruct.brownstone_slab.paver.name=Brownstone Paver Slab
+tile.tconstruct.brownstone_slab.brick.name=Brownstone Bricks Slab
+tile.tconstruct.brownstone_slab.brick_cracked.name=Cracked Brownstone Bricks Slab
+tile.tconstruct.brownstone_slab.brick_fancy.name=Fancy Brownstone Bricks Slab
+tile.tconstruct.brownstone_slab.brick_square.name=Square Brownstone Bricks Slab
+tile.tconstruct.brownstone_slab.road.name=Brownstone Road Slab
+tile.tconstruct.brownstone_slab2.creeper.name=Brownstone Creeperface Slab
+tile.tconstruct.brownstone_slab2.brick_triangle.name=Triangle Brownstone Bricks Slab
+tile.tconstruct.brownstone_slab2.brick_small.name=Small Brownstone Bricks Slab
+tile.tconstruct.brownstone_slab2.tile.name=Brownstone Tile Slab
+
+tile.tconstruct.brownstone_stairs_smooth.name=Smooth Brownstone Stairs
+tile.tconstruct.brownstone_stairs_rough.name=Rough Brownstone Stairs
+tile.tconstruct.brownstone_stairs_paver.name=Brownstone Paver Stairs
+tile.tconstruct.brownstone_stairs_brick.name=Brownstone Bricks Stairs
+tile.tconstruct.brownstone_stairs_brick_cracked.name=Cracked Brownstone Bricks Stairs
+tile.tconstruct.brownstone_stairs_brick_fancy.name=Fancy Brownstone Bricks Stairs
+tile.tconstruct.brownstone_stairs_brick_square.name=Square Brownstone Bricks Stairs
+tile.tconstruct.brownstone_stairs_brick_triangle.name=Triangle Brownstone Bricks Stairs
+tile.tconstruct.brownstone_stairs_brick_small.name=Small Brownstone Bricks Stairs
+tile.tconstruct.brownstone_stairs_road.name=Brownstone Road Stairs
+tile.tconstruct.brownstone_stairs_tile.name=Brownstone Tile Stairs
+tile.tconstruct.brownstone_stairs_creeper.name=Brownstone Creeperface Stairs
 
 ################
 #    Items     #
@@ -341,6 +409,7 @@ fluid.tconstruct.ardite.name=Molten Ardite
 fluid.tconstruct.manyullyn.name=Molten Manyullyn
 fluid.tconstruct.knightslime.name=Molten Knightslime
 fluid.tconstruct.emerald.name=Molten Emerald
+fluid.tconstruct.glass.name=Molten Glass
 fluid.tconstruct.blood.name=Blood
 fluid.tconstruct.milk.name=Milk
 fluid.tconstruct.blueslime.name=Liquid Blue Slime
@@ -592,7 +661,7 @@ item.tconstruct.battlesign.desc=The Battlesign is the ultimate defensive weapon.
 item.tconstruct.hammer.desc=The Hammer is a broad mining tool. It harvests blocks in a wide range.\nAlso effective against undead.
 item.tconstruct.lumberaxe.desc=The Lumber Axe is a broad chopping tool. It can fell entire trees in one swoop or gather wood in a wide range.\nTimber!
 item.tconstruct.excavator.desc=The Excavator is a broad digging tool. It digs up large areas of soil and snow in a wide range.\nTerraforming!
-item.tconstruct.cleaver.desc=The Cleaver is a heavy offensive weapon. It has powerful strikes, but is difficult to wield.\nSlow, requires two hands!
+item.tconstruct.cleaver.desc=The Cleaver is a heavy offensive weapon. It has powerful strikes, but is difficult to wield.\nCleavers benefit from high damage.\nSlow, requires two hands!
 item.tconstruct.battleaxe.desc=The Battleaxe is a heavy offensive weapon, bringing the berserker out. It is capable of bringing down small trees and can send foes flying.\nRight Click: Berserk
 item.tconstruct.scythe.desc=The Scythe is a broad reaping tool. It is effective on plants and harvests flora and fauna in a wide range.\nBringing death to both crops and your enemies.
 item.tconstruct.shuriken.desc=The Shuriken is a fast, short ranged throwing weapon. It has high quantities but low damage.\nCan be thrown from the off-hand.
@@ -724,6 +793,18 @@ gui.jei.alloy.title=Alloying
 gui.jei.casting.title=Casting
 gui.jei.casting.consume=Consumes cast!
 gui.jei.drying.title=Drying
+
+# WAILA Plugin
+gui.waila.tank.fluid=Liquid: %s
+gui.waila.tank.amount=Amount: %d / %d mb
+gui.waila.tank.empty=Empty
+gui.waila.casting.progress=Progress: %s
+gui.waila.casting.recipe=Recipe: %s
+
+option.tconstruct.tank=Tank Liquid
+option.tconstruct.casting=Casting Recipe
+option.tconstruct.progress=Recipe Progress
+
 
 # Config
 config.synced.restart=Your configuration has been updated to match the server. Restart Minecraft.

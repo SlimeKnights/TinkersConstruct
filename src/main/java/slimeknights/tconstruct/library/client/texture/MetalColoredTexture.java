@@ -37,7 +37,7 @@ public class MetalColoredTexture extends AbstractColoredTexture {
       return pixel;
     }
 
-    float l = getPerceptualBrightness(pixel)/255f;
+    float l = getPerceptualBrightness(pixel) / 255f;
 
     int c = baseColor;
 
@@ -51,8 +51,8 @@ public class MetalColoredTexture extends AbstractColoredTexture {
     b = mult(b, RenderUtil.green(pixel)) & 0xff;
 
 
-    float[] hsl = Color.RGBtoHSB(r,g,b, null);
-    hsl[0] -= (0.5f-l*l) * hueshift;
+    float[] hsl = Color.RGBtoHSB(r, g, b, null);
+    hsl[0] -= (0.5f - l * l) * hueshift;
     //float l = (brightness/255f)*(brightness/255f);
     // brightness of the template affects saturation. the brighter the less saturation to simulate shiny metal
     if(l > 0.9f) {
@@ -62,10 +62,11 @@ public class MetalColoredTexture extends AbstractColoredTexture {
     // lightness too!
     //hsl[2] = MathHelper.clamp_float(hsl[2] - 0.3f + l*l*0.8f, 0, 1);
     //hsl[2] = MathHelper.clamp_float(hsl[2], 0, 1);
-    if(l > 0.8f)
-      hsl[2] = MathHelper.clamp_float(hsl[2] + l*l*brightness, 0, 1);
+    if(l > 0.8f) {
+      hsl[2] = MathHelper.clamp_float(hsl[2] + l * l * brightness, 0, 1);
+    }
     //else if(l > 0.4f)
-      //hsl[2] = MathHelper.clamp_float(hsl[2] + l * l * 0.1f, 0, 1);
+    //hsl[2] = MathHelper.clamp_float(hsl[2] + l * l * 0.1f, 0, 1);
 
     c = Color.HSBtoRGB(hsl[0], hsl[1], hsl[2]);
     r = RenderUtil.red(c);

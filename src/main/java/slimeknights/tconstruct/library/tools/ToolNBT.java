@@ -8,6 +8,7 @@ import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.utils.Tags;
 
 public class ToolNBT {
+
   public int durability;
   public int harvestLevel;
   public float attack;
@@ -48,9 +49,9 @@ public class ToolNBT {
       }
     }
 
-    durability = Math.max(1, durability/heads.length);
-    attack /= (float)heads.length;
-    speed /= (float)heads.length;
+    durability = Math.max(1, durability / heads.length);
+    attack /= (float) heads.length;
+    speed /= (float) heads.length;
 
     return this;
   }
@@ -63,7 +64,7 @@ public class ToolNBT {
         dur += extra.extraDurability;
       }
     }
-    this.durability += Math.round((float)dur / (float)extras.length);
+    this.durability += Math.round((float) dur / (float) extras.length);
 
     return this;
   }
@@ -81,11 +82,11 @@ public class ToolNBT {
       }
     }
 
-    modifier /= (float)handles.length;
-    this.durability = Math.round((float)this.durability * modifier);
+    modifier /= (float) handles.length;
+    this.durability = Math.round((float) this.durability * modifier);
 
     // add in handle durability change
-    this.durability += Math.round((float)dur / (float)handles.length);
+    this.durability += Math.round((float) dur / (float) handles.length);
 
     this.durability = Math.max(1, this.durability);
 

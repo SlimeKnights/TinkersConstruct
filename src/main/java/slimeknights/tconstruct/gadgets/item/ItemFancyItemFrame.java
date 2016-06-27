@@ -60,30 +60,23 @@ public class ItemFancyItemFrame extends ItemHangingEntity {
   @Nonnull
   @Override
   public EnumActionResult onItemUse(@Nonnull ItemStack stack, @Nonnull EntityPlayer playerIn, @Nonnull World worldIn, BlockPos pos, EnumHand hand, @Nonnull EnumFacing side, float hitX, float hitY, float hitZ) {
-    if (side == EnumFacing.DOWN)
-    {
+    if(side == EnumFacing.DOWN) {
       return EnumActionResult.FAIL;
     }
-    else if (side == EnumFacing.UP)
-    {
+    else if(side == EnumFacing.UP) {
       return EnumActionResult.FAIL;
     }
-    else
-    {
+    else {
       BlockPos blockpos = pos.offset(side);
 
-      if (!playerIn.canPlayerEdit(blockpos, side, stack))
-      {
+      if(!playerIn.canPlayerEdit(blockpos, side, stack)) {
         return EnumActionResult.FAIL;
       }
-      else
-      {
+      else {
         EntityHanging entityhanging = new EntityFancyItemFrame(worldIn, blockpos, side, stack.getMetadata());
 
-        if (entityhanging.onValidSurface())
-        {
-          if (!worldIn.isRemote)
-          {
+        if(entityhanging.onValidSurface()) {
+          if(!worldIn.isRemote) {
             worldIn.spawnEntityInWorld(entityhanging);
           }
 

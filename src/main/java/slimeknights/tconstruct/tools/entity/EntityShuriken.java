@@ -33,12 +33,12 @@ public class EntityShuriken extends EntityProjectileBase {
 
   @Override
   protected double getGravity() {
-    return (this.ticksExisted/8) * 0.018d; // integer division. so the first 20 ticks it will have no gravity at all.
+    return (this.ticksExisted / 10) * 0.04d; // integer division. so the first ticks it will have no gravity at all.
   }
 
   @Override
   protected double getSlowdown() {
-    return 0.15f;
+    return 0.05f;
   }
 
   @Override
@@ -50,7 +50,7 @@ public class EntityShuriken extends EntityProjectileBase {
   public void readSpawnData(ByteBuf data) {
     super.readSpawnData(data);
 
-  // this is only relevant clientside only, so we don't actually have it on the server
+    // this is only relevant clientside only, so we don't actually have it on the server
     spin = rand.nextInt(360);
     rollAngle = 7 - rand.nextInt(14);
   }

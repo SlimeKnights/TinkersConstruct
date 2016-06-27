@@ -11,7 +11,6 @@ import net.minecraft.util.text.translation.I18n;
 import java.util.List;
 
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
@@ -26,13 +25,13 @@ public class ModAntiMonsterType extends ModifierTrait {
     super(identifier, color, maxLevel, countPerLevel);
     this.type = type;
 
-    dmgPerItem = 7f / (float)countPerLevel;
+    dmgPerItem = 7f / (float) countPerLevel;
   }
 
   protected float calcIncreasedDamage(NBTTagCompound modifierTag, float baseDamage) {
     ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(modifierTag);
 
-    return baseDamage + (float)data.current * dmgPerItem;
+    return baseDamage + (float) data.current * dmgPerItem;
   }
 
   @Override
@@ -50,7 +49,7 @@ public class ModAntiMonsterType extends ModifierTrait {
 
     if(I18n.canTranslate(loc)) {
       float dmg = calcIncreasedDamage(modifierTag, 0);
-      return ImmutableList.of(Util.translateFormatted(loc, AbstractMaterialStats.df.format(dmg)));
+      return ImmutableList.of(Util.translateFormatted(loc, Util.df.format(dmg)));
     }
     return super.getExtraInfo(tool, modifierTag);
   }

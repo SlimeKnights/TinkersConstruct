@@ -10,7 +10,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import java.util.List;
 
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 
 public class TraitHoly extends AbstractTrait {
@@ -33,6 +32,6 @@ public class TraitHoly extends AbstractTrait {
   @Override
   public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
     String loc = Util.translate(LOC_Extra, getIdentifier());
-    return ImmutableList.of(Util.translateFormatted(loc, AbstractMaterialStats.df.format(bonusDamage)));
+    return ImmutableList.of(Util.translateFormatted(loc, Util.df.format(bonusDamage)));
   }
 }

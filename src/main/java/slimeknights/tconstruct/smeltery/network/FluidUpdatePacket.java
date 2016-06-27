@@ -15,6 +15,7 @@ import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
 public class FluidUpdatePacket extends AbstractPacketThreadsafe {
+
   public BlockPos pos;
   public FluidStack fluid;
 

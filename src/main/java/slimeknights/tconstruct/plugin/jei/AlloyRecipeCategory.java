@@ -65,7 +65,7 @@ public class AlloyRecipeCategory implements IRecipeCategory {
       AlloyRecipeWrapper recipe = (AlloyRecipeWrapper) recipeWrapper;
       IGuiFluidStackGroup fluids = recipeLayout.getFluidStacks();
 
-      float w = 36f/recipe.getFluidInputs().size();
+      float w = 36f / recipe.getFluidInputs().size();
 
       // find maximum used amount in the recipe so relations are correct
       int max_amount = 0;
@@ -83,10 +83,10 @@ public class AlloyRecipeCategory implements IRecipeCategory {
       // inputs
       for(int i = 0; i < recipe.getFluidInputs().size(); i++) {
         FluidStack in = recipe.getFluidInputs().get(i);
-        int x = 21 + (int)(i*w);
-        int _w = (int)((i+1)*w - i*w);
-        fluids.init(i+1, true, x, 11, _w, 32, max_amount, false, null);
-        fluids.set(i+1, in);
+        int x = 21 + (int) (i * w);
+        int _w = (int) ((i + 1) * w - i * w);
+        fluids.init(i + 1, true, x, 11, _w, 32, max_amount, false, null);
+        fluids.set(i + 1, in);
       }
 
       // output

@@ -30,6 +30,7 @@ import slimeknights.tconstruct.tools.item.Pickaxe;
 import slimeknights.tconstruct.tools.item.Shovel;
 
 public class DumpMaterialTest extends CommandBase {
+
   public static String path = "./dumps/";
   public Material baseMaterial;
 
@@ -56,7 +57,8 @@ public class DumpMaterialTest extends CommandBase {
   }
 
   @Override
-  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) throws CommandException {
+  public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args)
+      throws CommandException {
     printStats();
     printTool(new Pickaxe(), baseMaterial);
     printTool(new Hatchet(), baseMaterial);
@@ -64,8 +66,9 @@ public class DumpMaterialTest extends CommandBase {
     printTool(new Shovel(), baseMaterial);
 
     for(Material mat1 : TinkerRegistry.getAllMaterials()) {
-      if(!mat1.hasStats(HeadMaterialStats.TYPE))
+      if(!mat1.hasStats(HeadMaterialStats.TYPE)) {
         continue;
+      }
       printTool(new Pickaxe(), mat1);
       printTool(new Hatchet(), mat1);
       printTool(new BroadSword(), mat1);
@@ -88,8 +91,9 @@ public class DumpMaterialTest extends CommandBase {
     List<List<String>> rows = Lists.newArrayList();
 
     for(Material mat1 : TinkerRegistry.getAllMaterials()) {
-      if(!mat1.hasStats(HeadMaterialStats.TYPE))
+      if(!mat1.hasStats(HeadMaterialStats.TYPE)) {
         continue;
+      }
 
       HeadMaterialStats stats = mat1.getStats(HeadMaterialStats.TYPE);
       List<String> row = Lists.newArrayList();
@@ -137,8 +141,9 @@ public class DumpMaterialTest extends CommandBase {
     List<List<String>> tableAttack = Lists.newArrayList();
 
     for(Material mat1 : TinkerRegistry.getAllMaterials()) {
-      if(!mat1.hasStats(HeadMaterialStats.TYPE))
+      if(!mat1.hasStats(HeadMaterialStats.TYPE)) {
         continue;
+      }
       header.add(mat1.getIdentifier());
 
       List<String> dur = Lists.newArrayList();
@@ -150,18 +155,19 @@ public class DumpMaterialTest extends CommandBase {
       List<String> att = Lists.newArrayList();
       tableAttack.add(att);
       for(Material mat2 : TinkerRegistry.getAllMaterials()) {
-        if(!mat2.hasStats(HeadMaterialStats.TYPE))
+        if(!mat2.hasStats(HeadMaterialStats.TYPE)) {
           continue;
+        }
         ItemStack stack = tool.buildItem(ImmutableList.of(mat1, head, mat2));
         int d = ToolHelper.getDurabilityStat(stack);
         String s = String.format("<td bgcolor=\"%s\">%s</td>", Integer
             .toHexString(floatToCol((float) d / (float) ref.durability)), String.valueOf(d));
         dur.add(s);
         float sp = ToolHelper.getMiningSpeedStat(stack);
-        s = String.format("<td bgcolor=\"%s\">%s</td>", Integer.toHexString(floatToCol(sp/ref.miningspeed)), df.format(sp));
+        s = String.format("<td bgcolor=\"%s\">%s</td>", Integer.toHexString(floatToCol(sp / ref.miningspeed)), df.format(sp));
         speed.add(s);
         float at = ToolHelper.getAttackStat(stack) * tool.damagePotential();
-        s = String.format("<td bgcolor=\"%s\">%s</td>", Integer.toHexString(floatToCol(at/ref.attack)), df.format(at));
+        s = String.format("<td bgcolor=\"%s\">%s</td>", Integer.toHexString(floatToCol(at / ref.attack)), df.format(at));
         att.add(s);
       }
     }
@@ -188,21 +194,22 @@ public class DumpMaterialTest extends CommandBase {
   }
 
   private int floatToCol(float f) {
-    return Color.HSBtoRGB(f/3f, 0.65f, 0.8f) & 0xffffff;
+    return Color.HSBtoRGB(f / 3f, 0.65f, 0.8f) & 0xffffff;
   }
 
-  public static String array2HTML(List<String> header, List<List<String>> array, boolean headerAsRowCaption){
+  public static String array2HTML(List<String> header, List<List<String>> array, boolean headerAsRowCaption) {
     StringBuilder html = new StringBuilder(
         "<table border=\"1\">");
-    for(Object elem : header){
+    for(Object elem : header) {
       html.append("<th>").append(elem.toString()).append("</th>");
     }
     for(int i = 0; i < array.size(); i++) {
       List<String> row = array.get(i);
       html.append("<tr>");
-      if(headerAsRowCaption)
+      if(headerAsRowCaption) {
         html.append("<td>").append(header.get(i + 1)).append("</td>");
-      for(Object elem : row){
+      }
+      for(Object elem : row) {
         html.append(elem.toString());
         //html.append("<td>" + elem.toString() + "</td>");
       }

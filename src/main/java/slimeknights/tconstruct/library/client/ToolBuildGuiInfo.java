@@ -31,7 +31,7 @@ public class ToolBuildGuiInfo {
   public ToolBuildGuiInfo(TinkersItem tool) {
     List<Material> mats = Lists.newLinkedList();
     for(int i = 0; i < tool.getRequiredComponents().size(); i++) {
-      mats.add(RenderMaterials[i%RenderMaterials.length]);
+      mats.add(RenderMaterials[i % RenderMaterials.length]);
     }
 
     this.tool = tool.buildItemForRendering(mats);
@@ -39,8 +39,8 @@ public class ToolBuildGuiInfo {
 
   public static ToolBuildGuiInfo default3Part(TinkersItem tool) {
     ToolBuildGuiInfo info = new ToolBuildGuiInfo(tool);
-    info.addSlotPosition(33-20, 42+20);
-    info.addSlotPosition(33+20, 42-20);
+    info.addSlotPosition(33 - 20, 42 + 20);
+    info.addSlotPosition(33 + 20, 42 - 20);
     info.addSlotPosition(33, 42);
     return info;
   }
@@ -48,8 +48,8 @@ public class ToolBuildGuiInfo {
   /**
    * Add another slot at the specified position for the tool.
    * The positions are usually located between:
-   *   X: 7 - 69
-   *   Y: 18 - 64
+   * X: 7 - 69
+   * Y: 18 - 64
    */
   public void addSlotPosition(int x, int y) {
     positions.add(new Point(x, y));

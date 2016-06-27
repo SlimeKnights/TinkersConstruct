@@ -27,6 +27,7 @@ public class FluidsClientProxy extends ClientProxy {
     registerFluidModels(TinkerFluids.dirt);
     registerFluidModels(TinkerFluids.gold);
     registerFluidModels(TinkerFluids.emerald);
+    registerFluidModels(TinkerFluids.glass);
 
     registerFluidModels(TinkerFluids.milk);
     registerFluidModels(TinkerFluids.blueslime);
@@ -36,7 +37,9 @@ public class FluidsClientProxy extends ClientProxy {
 
   @Override
   public void registerFluidModels(Fluid fluid) {
-    if(fluid == null) return;
+    if(fluid == null) {
+      return;
+    }
 
     Block block = fluid.getBlock();
     if(block != null) {

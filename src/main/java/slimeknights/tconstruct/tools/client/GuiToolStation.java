@@ -216,7 +216,9 @@ public class GuiToolStation extends GuiTinkerStation {
     // tool info of existing or tool to build
     ContainerToolStation container = (ContainerToolStation) inventorySlots;
     ItemStack toolStack = container.getResult();
-    if(toolStack == null) toolStack = inventorySlots.getSlot(0).getStack();
+    if(toolStack == null) {
+      toolStack = inventorySlots.getSlot(0).getStack();
+    }
 
     // current tool to build or repair/modify
     if(toolStack != null && toolStack.getItem() instanceof ToolCore) {
@@ -256,7 +258,7 @@ public class GuiToolStation extends GuiTinkerStation {
 
       traitInfo.setCaption(null);
       String c = TextFormatting.DARK_GRAY.toString();
-      String[] art = new String[] {
+      String[] art = new String[]{
           c + "",
           c + "",
           c + "       .",
@@ -269,7 +271,7 @@ public class GuiToolStation extends GuiTinkerStation {
     }
     // tool build info
     else {
-      ToolCore tool = (ToolCore)currentInfo.tool.getItem();
+      ToolCore tool = (ToolCore) currentInfo.tool.getItem();
       toolInfo.setCaption(tool.getLocalizedToolName());
       toolInfo.setText(tool.getLocalizedDescription());
 
@@ -300,7 +302,7 @@ public class GuiToolStation extends GuiTinkerStation {
             sb.append("/");
           }
         }
-        sb.deleteCharAt(sb.length()-1); // removes last '/'
+        sb.deleteCharAt(sb.length() - 1); // removes last '/'
         text.add(sb.toString());
       }
       traitInfo.setCaption(I18n.translateToLocal("gui.toolstation.components"));
@@ -326,7 +328,7 @@ public class GuiToolStation extends GuiTinkerStation {
 
       textField.textboxKeyTyped(typedChar, keyCode);
       TinkerNetwork.sendToServer(new ToolStationTextPacket(textField.getText()));
-      ((ContainerToolStation)container).setToolName(textField.getText());
+      ((ContainerToolStation) container).setToolName(textField.getText());
     }
   }
 
@@ -339,8 +341,9 @@ public class GuiToolStation extends GuiTinkerStation {
   @Override
   public void drawSlot(Slot slotIn) {
     // don't draw dormant slots with no item
-    if(slotIn instanceof SlotToolStationIn && ((SlotToolStationIn) slotIn).isDormant() && !slotIn.getHasStack())
+    if(slotIn instanceof SlotToolStationIn && ((SlotToolStationIn) slotIn).isDormant() && !slotIn.getHasStack()) {
       return;
+    }
 
     super.drawSlot(slotIn);
   }

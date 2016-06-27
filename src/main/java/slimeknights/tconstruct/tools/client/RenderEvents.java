@@ -86,75 +86,74 @@ public class RenderEvents implements IResourceManagerReloadListener {
   }
 
   // RenderGlobal.drawBlockDamageTexture
-  public void drawBlockDamageTexture(Tessellator tessellatorIn, VertexBuffer vertexBuffer, Entity entityIn, float partialTicks, World world, List<BlockPos> blocks)
-  {
-    double d0 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double)partialTicks;
-    double d1 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double)partialTicks;
-    double d2 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double)partialTicks;
+  public void drawBlockDamageTexture(Tessellator tessellatorIn, VertexBuffer vertexBuffer, Entity entityIn, float partialTicks, World world, List<BlockPos> blocks) {
+    double d0 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double) partialTicks;
+    double d1 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
+    double d2 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
 
     TextureManager renderEngine = Minecraft.getMinecraft().renderEngine;
-    int progress = (int)(Minecraft.getMinecraft().playerController.curBlockDamageMP*10f) - 1; // 0-10
+    int progress = (int) (Minecraft.getMinecraft().playerController.curBlockDamageMP * 10f) - 1; // 0-10
 
-    if(progress < 0)
+    if(progress < 0) {
       return;
+    }
 
-      renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-      //preRenderDamagedBlocks BEGIN
-      GlStateManager.tryBlendFuncSeparate(774, 768, 1, 0);
-      GlStateManager.enableBlend();
-      GlStateManager.color(1.0F, 1.0F, 1.0F, 0.5F);
-      GlStateManager.doPolygonOffset(-3.0F, -3.0F);
-      GlStateManager.enablePolygonOffset();
-      GlStateManager.alphaFunc(516, 0.1F);
-      GlStateManager.enableAlpha();
-      GlStateManager.pushMatrix();
-      //preRenderDamagedBlocks END
+    renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+    //preRenderDamagedBlocks BEGIN
+    GlStateManager.tryBlendFuncSeparate(774, 768, 1, 0);
+    GlStateManager.enableBlend();
+    GlStateManager.color(1.0F, 1.0F, 1.0F, 0.5F);
+    GlStateManager.doPolygonOffset(-3.0F, -3.0F);
+    GlStateManager.enablePolygonOffset();
+    GlStateManager.alphaFunc(516, 0.1F);
+    GlStateManager.enableAlpha();
+    GlStateManager.pushMatrix();
+    //preRenderDamagedBlocks END
 
-      vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-      vertexBuffer.setTranslation(-d0, -d1, -d2);
-      vertexBuffer.noColor();
+    vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+    vertexBuffer.setTranslation(-d0, -d1, -d2);
+    vertexBuffer.noColor();
 
-      for(BlockPos blockpos : blocks) {
-        double d3 = (double)blockpos.getX() - d0;
-        double d4 = (double)blockpos.getY() - d1;
-        double d5 = (double)blockpos.getZ() - d2;
-        Block block = world.getBlockState(blockpos).getBlock();
-        TileEntity te = world.getTileEntity(blockpos);
-        boolean hasBreak = block instanceof BlockChest || block instanceof BlockEnderChest
-                           || block instanceof BlockSign || block instanceof BlockSkull;
-        if (!hasBreak) hasBreak = te != null && te.canRenderBreaking();
-
-        if (!hasBreak)
-        {
-            IBlockState iblockstate = world.getBlockState(blockpos);
-
-            if (iblockstate.getBlock().getMaterial(iblockstate) != Material.AIR)
-            {
-              TextureAtlasSprite textureatlassprite = this.destroyBlockIcons[progress];
-              BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
-              blockrendererdispatcher.renderBlockDamage(iblockstate, blockpos, textureatlassprite, world);
-            }
-        }
+    for(BlockPos blockpos : blocks) {
+      double d3 = (double) blockpos.getX() - d0;
+      double d4 = (double) blockpos.getY() - d1;
+      double d5 = (double) blockpos.getZ() - d2;
+      Block block = world.getBlockState(blockpos).getBlock();
+      TileEntity te = world.getTileEntity(blockpos);
+      boolean hasBreak = block instanceof BlockChest || block instanceof BlockEnderChest
+                         || block instanceof BlockSign || block instanceof BlockSkull;
+      if(!hasBreak) {
+        hasBreak = te != null && te.canRenderBreaking();
       }
 
-      tessellatorIn.draw();
-      vertexBuffer.setTranslation(0.0D, 0.0D, 0.0D);
-      // postRenderDamagedBlocks BEGIN
-      GlStateManager.disableAlpha();
-      GlStateManager.doPolygonOffset(0.0F, 0.0F);
-      GlStateManager.disablePolygonOffset();
-      GlStateManager.enableAlpha();
-      GlStateManager.depthMask(true);
-      GlStateManager.popMatrix();
-      // postRenderDamagedBlocks END
+      if(!hasBreak) {
+        IBlockState iblockstate = world.getBlockState(blockpos);
+
+        if(iblockstate.getBlock().getMaterial(iblockstate) != Material.AIR) {
+          TextureAtlasSprite textureatlassprite = this.destroyBlockIcons[progress];
+          BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
+          blockrendererdispatcher.renderBlockDamage(iblockstate, blockpos, textureatlassprite, world);
+        }
+      }
+    }
+
+    tessellatorIn.draw();
+    vertexBuffer.setTranslation(0.0D, 0.0D, 0.0D);
+    // postRenderDamagedBlocks BEGIN
+    GlStateManager.disableAlpha();
+    GlStateManager.doPolygonOffset(0.0F, 0.0F);
+    GlStateManager.disablePolygonOffset();
+    GlStateManager.enableAlpha();
+    GlStateManager.depthMask(true);
+    GlStateManager.popMatrix();
+    // postRenderDamagedBlocks END
   }
 
   @Override
   public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
     TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
 
-    for (int i = 0; i < this.destroyBlockIcons.length; ++i)
-    {
+    for(int i = 0; i < this.destroyBlockIcons.length; ++i) {
       this.destroyBlockIcons[i] = texturemap.getAtlasSprite("minecraft:blocks/destroy_stage_" + i);
     }
   }

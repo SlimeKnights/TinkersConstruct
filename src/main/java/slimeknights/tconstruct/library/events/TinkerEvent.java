@@ -19,6 +19,7 @@ public abstract class TinkerEvent extends Event {
    * You can make changes to the tag compound and it'll land on the resulting tool, but its itemstack is not available.
    */
   public static class OnItemBuilding extends TinkerEvent {
+
     public NBTTagCompound tag;
     public final ImmutableList<Material> materials;
 

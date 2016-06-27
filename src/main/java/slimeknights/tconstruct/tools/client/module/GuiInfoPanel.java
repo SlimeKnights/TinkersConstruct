@@ -164,12 +164,14 @@ public class GuiInfoPanel extends GuiModule {
     // we assume slider not shown
     slider.hide();
 
-    int h = ySize - 2*5; // we use 5 as border thickness
+    int h = ySize - 2 * 5; // we use 5 as border thickness
 
     // check if we can display all lines
     if(calcNeededHeight() <= h)
-      // can display all, stay hidden
+    // can display all, stay hidden
+    {
       return;
+    }
 
     // we need the slider
     slider.show();
@@ -184,12 +186,12 @@ public class GuiInfoPanel extends GuiModule {
   }
 
   protected List<String> getTotalLines() {
-    int w = xSize - border.w*2 + 2;
+    int w = xSize - border.w * 2 + 2;
     if(!slider.isHidden()) {
       w -= slider.width + 3;
     }
 
-    w =(int) ((float)w/textScale);
+    w = (int) ((float) w / textScale);
 
     List<String> lines = Lists.newLinkedList();
     tooltipLines.clear();
@@ -233,24 +235,26 @@ public class GuiInfoPanel extends GuiModule {
 
   private void shiftSlider(int xd, int yd) {
     slider = new GuiWidgetSlider(sliderNormal.shift(xd, yd),
-                               sliderHover.shift(xd, yd),
-                               sliderHover.shift(xd, yd),
-                               sliderTop.shift(xd, yd),
-                               sliderBot.shift(xd, yd),
-                               sliderBar.shift(xd, yd));
+                                 sliderHover.shift(xd, yd),
+                                 sliderHover.shift(xd, yd),
+                                 sliderTop.shift(xd, yd),
+                                 sliderBot.shift(xd, yd),
+                                 sliderBar.shift(xd, yd));
   }
 
   @Override
   protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-    if(tooltips == null)
+    if(tooltips == null) {
       return;
-    if(mouseX < guiLeft || mouseX > guiRight())
+    }
+    if(mouseX < guiLeft || mouseX > guiRight()) {
       return;
+    }
 
     // floating over tooltip info?
     if(hasTooltips()
-       && mouseX >= guiRight() - border.w - fontRenderer.getCharWidth('?')/2 && mouseX < guiRight()
-       && mouseY > guiTop+5 && mouseY < guiTop+5+fontRenderer.FONT_HEIGHT) {
+       && mouseX >= guiRight() - border.w - fontRenderer.getCharWidth('?') / 2 && mouseX < guiRight()
+       && mouseY > guiTop + 5 && mouseY < guiTop + 5 + fontRenderer.FONT_HEIGHT) {
       int w = MathHelper.clamp_int(this.width - mouseX - 12, 10, 200);
       drawHoveringText(fontRenderer.listFormattedStringToWidth(Util.translate("gui.general.hover"), w), mouseX - guiLeft, mouseY - guiTop);
     }
@@ -263,7 +267,7 @@ public class GuiInfoPanel extends GuiModule {
     }
 
     float textHeight = fontRenderer.FONT_HEIGHT * textScale + 0.5f;
-    float lowerBound = (guiTop + ySize - 5)/textScale;
+    float lowerBound = (guiTop + ySize - 5) / textScale;
 
     // get the index of the currently hovered line
     int index = -1;
@@ -290,21 +294,23 @@ public class GuiInfoPanel extends GuiModule {
 
     // get the tooltip index from the hovered line
     int i = 0;
-    while(tooltipLines.size() > i && index > tooltipLines.get(i))
+    while(tooltipLines.size() > i && index > tooltipLines.get(i)) {
       i++;
+    }
 
-    if(i >= tooltips.size() || tooltips.get(i) == null)
+    if(i >= tooltips.size() || tooltips.get(i) == null) {
       return;
+    }
 
     int w = MathHelper.clamp_int(this.width - mouseX - 12, 0, 200);
     if(w < 100) {
-      mouseX -= 100-w;
+      mouseX -= 100 - w;
       w = 100;
     }
 
     List<String> lines = fontRenderer.listFormattedStringToWidth(tooltips.get(i), w);
 
-    drawHoveringText(lines, mouseX - guiLeft, mouseY - guiTop - lines.size()*fontRenderer.FONT_HEIGHT/2);
+    drawHoveringText(lines, mouseX - guiLeft, mouseY - guiTop - lines.size() * fontRenderer.FONT_HEIGHT / 2);
   }
 
   @Override
@@ -321,13 +327,13 @@ public class GuiInfoPanel extends GuiModule {
 
     // info ? in the top right corner
     if(hasTooltips()) {
-      fontRenderer.drawString("?", guiRight() - border.w - fontRenderer.getCharWidth('?')/2, guiTop+5, 0xff5f5f5f, false);
+      fontRenderer.drawString("?", guiRight() - border.w - fontRenderer.getCharWidth('?') / 2, guiTop + 5, 0xff5f5f5f, false);
     }
 
     // draw caption
     if(hasCaption()) {
       int x2 = xSize / 2;
-      x2 -=fontRenderer.getStringWidth(caption) / 2;
+      x2 -= fontRenderer.getStringWidth(caption) / 2;
       fontRenderer.drawStringWithShadow(TextFormatting.UNDERLINE + TextFormatting
           .getTextWithoutFormattingCodes(caption), guiLeft + x2, y, color);
       y += fontRenderer.FONT_HEIGHT + 3;
@@ -340,7 +346,7 @@ public class GuiInfoPanel extends GuiModule {
     }
 
     float textHeight = fontRenderer.FONT_HEIGHT * textScale + 0.5f;
-    float lowerBound = (guiTop + ySize - 5)/textScale;
+    float lowerBound = (guiTop + ySize - 5) / textScale;
     GlStateManager.scale(textScale, textScale, 1.0f);
     x /= textScale;
     y /= textScale;
@@ -357,7 +363,7 @@ public class GuiInfoPanel extends GuiModule {
       y += textHeight;
     }
 
-    GlStateManager.scale(1f/textScale, 1f/textScale, 1.0f);
+    GlStateManager.scale(1f / textScale, 1f / textScale, 1.0f);
 
     this.mc.getTextureManager().bindTexture(BACKGROUND);
     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

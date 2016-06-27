@@ -30,7 +30,7 @@ public class BlockSlimeCongealed extends Block {
   private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.625D, 1.0D);
 
   public BlockSlimeCongealed() {
-    super(Material.SPONGE);
+    super(Material.CLAY);
     this.setCreativeTab(TinkerRegistry.tabWorld);
     this.setHardness(0.5f);
     this.slipperiness = 0.5f;
@@ -80,8 +80,7 @@ public class BlockSlimeCongealed extends Block {
       // this is mostly needed to prevent XP orbs from bouncing. which completely breaks the game.
       return;
     }
-    if (entity.motionY < 0)
-    {
+    if(entity.motionY < 0) {
       entity.motionY *= -1.2F;
       if(entity instanceof EntityItem) {
         entity.onGround = false;
@@ -104,13 +103,11 @@ public class BlockSlimeCongealed extends Block {
 
   // this causes leaves to decay when you break the block
   @Override
-  public void breakBlock(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state)
-  {
+  public void breakBlock(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
     byte b0 = 4;
     int i = b0 + 1;
 
-    if (worldIn.isAreaLoaded(pos.add(-i, -i, -i), pos.add(i, i, i)))
-    {
+    if(worldIn.isAreaLoaded(pos.add(-i, -i, -i), pos.add(i, i, i))) {
 
       for(BlockPos blockpos1 : BlockPos.getAllInBox(pos.add(-b0, -b0, -b0), pos.add(b0, b0, b0))) {
         IBlockState iblockstate1 = worldIn.getBlockState(blockpos1);

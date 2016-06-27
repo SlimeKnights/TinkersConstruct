@@ -156,8 +156,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
       TinkerRegistry.log.error("Unable to generate " + this.getIconName() + ": unable to load " + resourceLocation + "!\nBase texture: " + baseTexture.getIconName(), e);
       net.minecraftforge.fml.client.FMLClientHandler.instance().trackMissingTexture(resourceLocation);
       sprite = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
-    } finally
-    {
+    } finally {
       IOUtils.closeQuietly(iresource);
     }
 
@@ -224,8 +223,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
     return null;
   }
 
-  protected ResourceLocation getResourceLocation(ResourceLocation resourceLocation)
-  {
+  protected ResourceLocation getResourceLocation(ResourceLocation resourceLocation) {
     return new ResourceLocation(resourceLocation.getResourceDomain(), String.format("%s/%s%s", "textures", resourceLocation.getResourcePath(), ".png"));
   }
 
@@ -256,7 +254,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
   }
 
   protected int getY(int pxCoord) {
-   return pxCoord / width;
+    return pxCoord / width;
   }
 
   protected int coord(int x, int y) {
@@ -265,9 +263,11 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
 
 
   public static class CacheClearer implements IResourceManagerReloadListener {
+
     public static CacheClearer INSTANCE = new CacheClearer();
 
-    private CacheClearer() {}
+    private CacheClearer() {
+    }
 
     @Override
     public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {

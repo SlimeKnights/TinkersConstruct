@@ -67,10 +67,10 @@ public class MagmaSlimeIslandGenerator extends SlimeIslandGenerator {
     }
 
     int y = 31; // lava lake surface is at 32
-    int x = chunkX*16 + 7 + random.nextInt(6) - 3;
-    int z = chunkZ*16 + 7 + random.nextInt(6) - 3;
+    int x = chunkX * 16 + 7 + random.nextInt(6) - 3;
+    int z = chunkZ * 16 + 7 + random.nextInt(6) - 3;
 
-    BlockPos pos = new BlockPos(x,y,z);
+    BlockPos pos = new BlockPos(x, y, z);
 
     // check if we got a bit of lava
     if(isLava(world, pos) &&
@@ -78,7 +78,7 @@ public class MagmaSlimeIslandGenerator extends SlimeIslandGenerator {
        isLava(world, pos.east()) &&
        isLava(world, pos.south()) &&
        isLava(world, pos.west())) {
-      generateIsland(random, world, x, z, y+1, dirtMagma, grassMagma, null, lakeGenMagma, treeGenMagma, plantGenMagma);
+      generateIsland(random, world, x, z, y + 1, dirtMagma, grassMagma, null, lakeGenMagma, treeGenMagma, plantGenMagma);
     }
   }
 

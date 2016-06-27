@@ -38,7 +38,7 @@ public class ContentListingCentered extends TinkerPage {
     int w = GuiBook.PAGE_WIDTH;
 
     for(TextData data : entries) {
-      int ex = x + w/2 - book.fontRenderer.getStringWidth(data.text)/2;
+      int ex = x + w / 2 - book.fontRenderer.getStringWidth(data.text) / 2;
 
       list.add(new ElementListingCentered(ex, y, w, 9, data));
       y += 9;

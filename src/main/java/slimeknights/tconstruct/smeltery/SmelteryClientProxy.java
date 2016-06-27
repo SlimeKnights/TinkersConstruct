@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -11,6 +12,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.smeltery.block.BlockSearedGlass;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryIO;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
 import slimeknights.tconstruct.smeltery.client.CastingRenderer;
@@ -34,16 +36,20 @@ public class SmelteryClientProxy extends ClientProxy {
 
   @Override
   protected void registerModels() {
+    // ignore color state for the clear stained glass, it is handled by tinting
+    ModelLoader.setCustomStateMapper(TinkerSmeltery.searedGlass, (new StateMap.Builder()).ignore(BlockSearedGlass.TYPE).build());
+
     // Blocks
     registerItemModel(Item.getItemFromBlock(TinkerSmeltery.smelteryController));
     registerItemModel(Item.getItemFromBlock(TinkerSmeltery.faucet));
+    registerItemModel(Item.getItemFromBlock(TinkerSmeltery.searedGlass));
     registerItemBlockMeta(TinkerSmeltery.searedBlock);
     registerItemBlockMeta(TinkerSmeltery.castingBlock);
-    
+
     // slabs
     registerItemBlockMeta(TinkerSmeltery.searedSlab);
     registerItemBlockMeta(TinkerSmeltery.searedSlab2);
-    
+
     // stairs
     registerItemModel(TinkerSmeltery.searedStairsStone);
     registerItemModel(TinkerSmeltery.searedStairsCobble);
@@ -52,7 +58,10 @@ public class SmelteryClientProxy extends ClientProxy {
     registerItemModel(TinkerSmeltery.searedStairsBrickCracked);
     registerItemModel(TinkerSmeltery.searedStairsBrickFancy);
     registerItemModel(TinkerSmeltery.searedStairsBrickSquare);
+    registerItemModel(TinkerSmeltery.searedStairsBrickTriangle);
+    registerItemModel(TinkerSmeltery.searedStairsBrickSmall);
     registerItemModel(TinkerSmeltery.searedStairsRoad);
+    registerItemModel(TinkerSmeltery.searedStairsTile);
     registerItemModel(TinkerSmeltery.searedStairsCreeper);
 
     // drains
@@ -75,7 +84,7 @@ public class SmelteryClientProxy extends ClientProxy {
                                      BlockTank.KNOB.getName(type == BlockTank.TankType.TANK),
                                      BlockTank.TYPE.getName(),
                                      BlockTank.TYPE.getName(type)
-                                     );
+      );
       ModelLoader.setCustomModelResourceLocation(tank, type.meta, new ModelResourceLocation(tank.getRegistryName(), variant));
     }
 

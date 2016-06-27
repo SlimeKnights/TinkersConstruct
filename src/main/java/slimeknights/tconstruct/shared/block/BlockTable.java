@@ -136,7 +136,7 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   }
 
   @Override
-  public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest) {
+  public boolean removedByPlayer(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest) {
     // we pull up a few calls to this point in time because we still have the TE here
     // the execution otherwise is equivalent to vanilla order
     this.onBlockDestroyedByPlayer(world, pos, state);
@@ -163,47 +163,43 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     return false;
   }
 
-  @Nonnull
-  @Override
-  // save the block data from the table to the item on drop. Only works because of removedByPlayer fix above :I
-  public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-    List<ItemStack> items = super.getDrops(world, pos, state, fortune);
-
+  // saves the info about the TE onto the itemstack
+  private void writeDataOntoItemstack(@Nonnull ItemStack item, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean noInventorySave) {
     // get block data from the block
     TileEntity te = world.getTileEntity(pos);
     if(te != null && te instanceof TileTable) {
       TileTable table = (TileTable) te;
       NBTTagCompound data = table.getTextureBlock();
 
-      for(ItemStack item : items) {
-        // save the data from the block onto the item
-        if(item.getItem() == Item.getItemFromBlock(this)) {
-          NBTTagCompound tag = TagUtil.getTagSafe(item);
-          tag.setTag(TileTable.FEET_TAG, data);
-          item.setTagCompound(tag);
+      NBTTagCompound tag = TagUtil.getTagSafe(item);
+      tag.setTag(TileTable.FEET_TAG, data);
+      item.setTagCompound(tag);
 
-          // save inventory?
-          if(keepInventory(state)) {
-            NBTTagCompound inventoryTag = new NBTTagCompound();
-            table.writeInventoryToNBT(inventoryTag);
-            tag.setTag("inventory", inventoryTag);
-          }
-        }
+      // save inventory?
+      if(noInventorySave && keepInventory(state)) {
+        NBTTagCompound inventoryTag = new NBTTagCompound();
+        table.writeInventoryToNBT(inventoryTag);
+        tag.setTag("inventory", inventoryTag);
+        table.clear();
       }
     }
-
-    return items;
   }
 
   @Override
-  public void dropBlockAsItemWithChance(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, float chance, int fortune) {
+  public void dropBlockAsItemWithChance(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, float chance, int fortune) {
     if(!worldIn.isRemote && !worldIn.restoringBlockSnapshots) {
 
-      // note that this is a super call, not this
-      List<ItemStack> items = super.getDrops(worldIn, pos, state, fortune);
+      List<ItemStack> items = this.getDrops(worldIn, pos, state, fortune);
       chance = net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(items, worldIn, pos, state, fortune, chance, false, harvesters.get());
 
-      // add inventory contents
+      for(ItemStack item : items) {
+        // save the data from the block onto the item
+        if(item.getItem() == Item.getItemFromBlock(this)) {
+          writeDataOntoItemstack(item, worldIn, pos, state, chance >= 1f);
+        }
+      }
+
+      // also drop inventory contents (that hasn't been written on the TE above)
       TileEntity te = worldIn.getTileEntity(pos);
       if(te instanceof TileInventory) {
         TileInventory tileInventory = (TileInventory) te;
@@ -252,6 +248,11 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     return stack;
   }
 
+
+  @Override
+  public boolean isSideSolid(@Nonnull IBlockState base_state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
+    return side == EnumFacing.UP || super.isSideSolid(base_state, world, pos, side);
+  }
 
   /* Bounds */
   private static ImmutableList<AxisAlignedBB> BOUNDS_Table = ImmutableList.of(

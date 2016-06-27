@@ -99,8 +99,9 @@ public class ContainerTinkerStation<T extends TileEntity & IInventory> extends C
         ret.add(state);
         if(state.getProperties().containsKey(BlockToolTable.TABLES)) {
           BlockToolTable.TableTypes type = state.getValue(BlockToolTable.TABLES);
-          if(type != null && type == BlockToolTable.TableTypes.CraftingStation)
+          if(type != null && type == BlockToolTable.TableTypes.CraftingStation) {
             hasMaster = true;
+          }
         }
       }
     }
@@ -193,7 +194,7 @@ public class ContainerTinkerStation<T extends TileEntity & IInventory> extends C
       IBlockState s1 = o1.getRight();
       IBlockState s2 = o2.getRight();
 
-      return ((ITinkerStationBlock)s2.getBlock()).getGuiNumber(s2) - ((ITinkerStationBlock)s1.getBlock()).getGuiNumber(s1);
+      return ((ITinkerStationBlock) s2.getBlock()).getGuiNumber(s2) - ((ITinkerStationBlock) s1.getBlock()).getGuiNumber(s1);
     }
   }
 }

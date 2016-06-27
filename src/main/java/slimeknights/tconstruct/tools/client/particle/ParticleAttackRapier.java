@@ -19,7 +19,7 @@ public class ParticleAttackRapier extends ParticleAttack {
   protected void init() {
     super.init();
 
-    this.animPhases=8;
+    this.animPhases = 8;
     this.height = 1f;
     this.size = 0.2f;
     this.lifeTime = 2;

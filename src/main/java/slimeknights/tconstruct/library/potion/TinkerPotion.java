@@ -6,6 +6,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 
 public class TinkerPotion extends Potion {
+
   private final boolean show;
 
   public TinkerPotion(ResourceLocation location, boolean badEffect, boolean showInInventory) {

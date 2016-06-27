@@ -9,7 +9,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import java.util.List;
 
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.traits.AbstractTraitLeveled;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
@@ -41,6 +40,6 @@ public class TraitCrude extends AbstractTraitLeveled {
     String loc = String.format(LOC_Extra, getModifierIdentifier());
     float bonus = bonusModifier(modifierTag);
 
-    return ImmutableList.of(Util.translateFormatted(loc, AbstractMaterialStats.dfPercent.format(bonus)));
+    return ImmutableList.of(Util.translateFormatted(loc, Util.dfPercent.format(bonus)));
   }
 }

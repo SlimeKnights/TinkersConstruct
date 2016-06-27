@@ -36,7 +36,7 @@ public class Shuriken extends ProjectileCore {
 
   @Override
   public float damagePotential() {
-    return 0.5f;
+    return 0.7f;
   }
 
   @Nonnull
@@ -60,7 +60,7 @@ public class Shuriken extends ProjectileCore {
         reference.stackSize = 0;
       }
 
-      EntityProjectileBase projectile = new EntityShuriken(worldIn, playerIn, 1.9f, 0f, reference);
+      EntityProjectileBase projectile = new EntityShuriken(worldIn, playerIn, 2.1f, 0f, reference);
       worldIn.spawnEntityInWorld(projectile);
     }
 

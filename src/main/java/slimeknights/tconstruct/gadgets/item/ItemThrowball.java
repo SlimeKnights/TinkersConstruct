@@ -41,17 +41,14 @@ public class ItemThrowball extends ItemSnowball {
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
-  {
-    if (!playerIn.capabilities.isCreativeMode)
-    {
+  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    if(!playerIn.capabilities.isCreativeMode) {
       --itemStackIn.stackSize;
     }
 
     worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-    if (!worldIn.isRemote)
-    {
+    if(!worldIn.isRemote) {
       ThrowballType type = ThrowballType.values()[itemStackIn.getMetadata() % ThrowballType.values().length];
       launchThrowball(worldIn, playerIn, type, hand);
     }

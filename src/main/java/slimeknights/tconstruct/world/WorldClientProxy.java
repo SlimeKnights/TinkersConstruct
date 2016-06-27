@@ -76,7 +76,7 @@ public class WorldClientProxy extends ClientProxy {
               return SlimeColorizer.getColorStatic(type);
             }
 
-            return SlimeColorizer.getColorForPos(pos.add(SlimeColorizer.loop/2, 0, SlimeColorizer.loop/2), type);
+            return SlimeColorizer.getColorForPos(pos.add(SlimeColorizer.loop / 2, 0, SlimeColorizer.loop / 2), type);
           }
         },
         TinkerWorld.slimeLeaves);
@@ -90,7 +90,7 @@ public class WorldClientProxy extends ClientProxy {
               return SlimeColorizer.getColorStatic(BlockSlimeGrass.FoliageType.BLUE);
             }
 
-            return SlimeColorizer.getColorForPos(pos.add(SlimeColorizer.loop/2, 0, SlimeColorizer.loop/2), BlockSlimeGrass.FoliageType.BLUE);
+            return SlimeColorizer.getColorForPos(pos.add(SlimeColorizer.loop / 2, 0, SlimeColorizer.loop / 2), BlockSlimeGrass.FoliageType.BLUE);
           }
         },
         TinkerWorld.slimeVineBlue1, TinkerWorld.slimeVineBlue2, TinkerWorld.slimeVineBlue3);
@@ -102,7 +102,7 @@ public class WorldClientProxy extends ClientProxy {
               return SlimeColorizer.getColorStatic(BlockSlimeGrass.FoliageType.PURPLE);
             }
 
-            return SlimeColorizer.getColorForPos(pos.add(SlimeColorizer.loop/2, 0, SlimeColorizer.loop/2), BlockSlimeGrass.FoliageType.PURPLE);
+            return SlimeColorizer.getColorForPos(pos.add(SlimeColorizer.loop / 2, 0, SlimeColorizer.loop / 2), BlockSlimeGrass.FoliageType.PURPLE);
           }
         },
         TinkerWorld.slimeVinePurple1, TinkerWorld.slimeVinePurple2, TinkerWorld.slimeVinePurple3);

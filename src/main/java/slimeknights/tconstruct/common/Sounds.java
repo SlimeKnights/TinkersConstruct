@@ -9,7 +9,9 @@ import net.minecraft.util.SoundEvent;
 import slimeknights.tconstruct.library.Util;
 
 public abstract class Sounds {
-  private Sounds() {}
+
+  private Sounds() {
+  }
 
   public static final SoundEvent saw = sound("little_saw");
   //public static final SoundEvent anvil_use = "random.anvil_use";
@@ -22,6 +24,11 @@ public abstract class Sounds {
   public static final SoundEvent slimesling = sound("slimesling");
   public static final SoundEvent shocking_charged = sound("charged");
   public static final SoundEvent shocking_discharge = sound("discharge");
+
+  public static final SoundEvent stone_hit = sound("stone_hit");
+  public static final SoundEvent wood_hit = sound("wood_hit");
+
+  public static final SoundEvent crossbow_reload = sound("crossbow_reload");
 
   private static SoundEvent sound(String name) {
     ResourceLocation location = Util.getResource(name);

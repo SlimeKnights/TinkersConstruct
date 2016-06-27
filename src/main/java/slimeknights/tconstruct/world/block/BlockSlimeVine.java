@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
 
 public class BlockSlimeVine extends BlockVine {
+
   protected final FoliageType foliage;
   protected final BlockSlimeVine nextStage;
 
@@ -42,8 +43,7 @@ public class BlockSlimeVine extends BlockVine {
    */
   @Nonnull
   @Override
-  public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer)
-  {
+  public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
     IBlockState iblockstate = this.getDefaultState();
     iblockstate = iblockstate.withProperty(NORTH, canAttachTo(worldIn, pos.north()));
     iblockstate = iblockstate.withProperty(EAST, canAttachTo(worldIn, pos.east()));
@@ -79,7 +79,7 @@ public class BlockSlimeVine extends BlockVine {
   @Override
   public void updateTick(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random rand) {
     if(!worldIn.isRemote) {
-      if (rand.nextInt(4) == 0) {
+      if(rand.nextInt(4) == 0) {
         grow(worldIn, rand, pos, state);
       }
     }

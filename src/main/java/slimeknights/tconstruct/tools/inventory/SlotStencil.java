@@ -15,8 +15,9 @@ public class SlotStencil extends Slot {
 
   @Override
   public boolean isItemValid(ItemStack stack) {
-    if(stack == null || !(stack.getItem() instanceof IPattern))
+    if(stack == null || !(stack.getItem() instanceof IPattern)) {
       return false;
+    }
 
     return !(stack.getItem() instanceof IPattern) || ((Pattern) stack.getItem()).isBlankPattern(stack);
   }

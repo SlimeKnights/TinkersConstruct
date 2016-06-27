@@ -1,8 +1,11 @@
 package slimeknights.tconstruct.library;
 
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.List;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
@@ -19,7 +22,8 @@ public class MaterialIntegration {
   public Material material; // TCon material
   public Fluid fluid;
   public String oreSuffix; // oredict suffix, e.g. "Iron" -> "ingotIron", "blockIron",...
-  public String oreRequirement; // required oredict entry for this integration
+  public String[] oreRequirement; // required oredict entry for this integration
+  public String representativeItem; // oredict entry for the representative item
   private boolean integrated;
   private boolean toolforge = false;
 
@@ -36,10 +40,15 @@ public class MaterialIntegration {
   }
 
   public MaterialIntegration(String oreRequirement, Material material, Fluid fluid, String oreSuffix) {
+    this(material, fluid, oreSuffix, oreRequirement);
+  }
+
+  public MaterialIntegration(Material material, Fluid fluid, String oreSuffix, String... oreRequirement) {
     this.material = material;
     this.fluid = fluid;
     this.oreSuffix = oreSuffix;
-    this.oreRequirement = oreRequirement;
+    this.representativeItem = "ingot" + oreSuffix;
+    this.oreRequirement = oreRequirement[0] == null ? new String[0] : oreRequirement; // API backwards compatibility
 
     this.integrated = false;
   }
@@ -49,22 +58,34 @@ public class MaterialIntegration {
     return this;
   }
 
+  public MaterialIntegration setRepresentativeItem(String representativeItem) {
+    this.representativeItem = representativeItem;
+    return this;
+  }
+
+  public boolean isIntegrated() {
+    return integrated;
+  }
+
   public void integrate() {
     if(integrated) {
       return;
     }
 
-    if(oreRequirement != null && !Config.forceRegisterAll) {
-      boolean found = false;
+    if(oreRequirement != null && oreRequirement.length > 0 && !Config.forceRegisterAll) {
+      int found = 0;
       // we use this method because it doesn't add empty entries to the oredict, even though it is less performant
       for(String ore : OreDictionary.getOreNames()) {
-        if(oreRequirement.equals(ore)) {
-          found = true;
-          break;
+        for(int i = 0; i < oreRequirement.length; i++) {
+          if(oreRequirement[i].equals(ore)) {
+            if(++found == oreRequirement.length) {
+              break;
+            }
+          }
         }
       }
       // prerequisite not fulfilled
-      if(!found) {
+      if(found < oreRequirement.length) {
         return;
       }
     }
@@ -80,7 +101,7 @@ public class MaterialIntegration {
     if(fluid != null) {
       Fluid registeredFluid = FluidRegistry.getFluid(fluid.getName());
       // we only register blocks and buckets if it's our own fluid
-      if(registeredFluid == fluid) {
+      if(registeredFluid == fluid && fluid.getBlock() == null) {
         registerFluidBlock();
       }
 
@@ -118,6 +139,20 @@ public class MaterialIntegration {
     }
     if(material != null) {
       TinkerSmeltery.registerToolpartMeltingCasting(material);
+    }
+  }
+
+  public void registerRepresentativeItem() {
+    // also set the representative item
+    if(material != null && material.getRepresentativeItem() == null && representativeItem != null && !representativeItem.isEmpty()) {
+      List<ItemStack> ore = OreDictionary.getOres(representativeItem, false);
+      if(!ore.isEmpty()) {
+        ItemStack itemStack = ore.get(0).copy();
+        if(itemStack.getMetadata() == OreDictionary.WILDCARD_VALUE) {
+          itemStack.setItemDamage(0);
+        }
+        material.setRepresentativeItem(itemStack);
+      }
     }
   }
 

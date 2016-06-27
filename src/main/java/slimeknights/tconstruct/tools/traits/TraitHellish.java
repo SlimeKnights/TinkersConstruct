@@ -12,7 +12,6 @@ import net.minecraft.world.biome.Biome;
 import java.util.List;
 
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 
 public class TraitHellish extends AbstractTrait {
@@ -41,6 +40,6 @@ public class TraitHellish extends AbstractTrait {
   public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
     String loc = String.format(LOC_Extra, getModifierIdentifier());
 
-    return ImmutableList.of(Util.translateFormatted(loc, AbstractMaterialStats.df.format(bonusDamage)));
+    return ImmutableList.of(Util.translateFormatted(loc, Util.df.format(bonusDamage)));
   }
 }

@@ -9,6 +9,7 @@ import io.netty.buffer.ByteBuf;
 import slimeknights.mantle.network.AbstractPacketThreadsafe;
 
 public class EntityMovementChangePacket extends AbstractPacketThreadsafe {
+
   public int entityID;
   public double x;
   public double y;

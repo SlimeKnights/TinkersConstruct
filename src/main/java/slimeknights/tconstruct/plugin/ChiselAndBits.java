@@ -7,7 +7,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 @Pulse(id = ChiselAndBits.PulseId, modsRequired = ChiselAndBits.modid, defaultEnable = true)
 public class ChiselAndBits {
@@ -18,6 +20,11 @@ public class ChiselAndBits {
   @Subscribe
   public void init(FMLInitializationEvent event) {
     imc(TinkerSmeltery.searedBlock);
+    imc(TinkerCommons.blockClearGlass);
+    imc(TinkerCommons.blockClearStainedGlass);
+    imc(TinkerWorld.slimeBlock);
+    imc(TinkerWorld.slimeBlockCongealed);
+    imc(TinkerWorld.slimeLeaves);
   }
 
   protected void imc(Block block) {

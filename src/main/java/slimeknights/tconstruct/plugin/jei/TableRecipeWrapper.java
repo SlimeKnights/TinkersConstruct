@@ -27,7 +27,7 @@ public class TableRecipeWrapper extends ShapedOreRecipeWrapper {
       Block legBlock = Block.getBlockFromItem(stack.getItem());
       if(stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
         for(ItemStack sub : JEIPlugin.jeiHelpers.getStackHelper().getSubtypes(stack)) {
-            builder.add(BlockTable.createItemstack(block, recipe.getRecipeOutput().getItemDamage(), legBlock, sub.getItemDamage()));
+          builder.add(BlockTable.createItemstack(block, recipe.getRecipeOutput().getItemDamage(), legBlock, sub.getItemDamage()));
         }
       }
       else {

@@ -13,17 +13,17 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.IFluidContainerItem;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.block.EnumBlock;
-import slimeknights.tconstruct.common.PlayerHelper;
 import slimeknights.tconstruct.smeltery.tileentity.TileDrain;
 
 public class BlockSmelteryIO extends BlockEnumSmeltery<BlockSmelteryIO.IOType> {
@@ -76,41 +76,18 @@ public class BlockSmelteryIO extends BlockEnumSmeltery<BlockSmelteryIO.IOType> {
   @Override
   public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
     // we allow to insert buckets into the smeltery
-    TileEntity te = worldIn.getTileEntity(pos);
-    if(!(te instanceof IFluidHandler)) {
-      return false;
-    }
-    IFluidHandler tank = (IFluidHandler) te;
-    side = side.getOpposite();
-
-    ItemStack stack = player.getHeldItemMainhand();
-    if(stack == null) {
+    IFluidHandler fluidHandler = FluidUtil.getFluidHandler(worldIn, pos, null);
+    if(fluidHandler == null) {
       return false;
     }
 
-    // regular bucket
-    ItemStack result = FluidUtil.tryEmptyBucket(stack, tank, side);
-    if(result != null) {
-      if(!player.capabilities.isCreativeMode) {
-        player.inventory.decrStackSize(player.inventory.currentItem, 1);
-        PlayerHelper.spawnItemAtPlayer(player, result);
-      }
+    IItemHandler playerInventory = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
+    if(FluidUtil.tryEmptyContainerAndStow(heldItem, fluidHandler, playerInventory, Fluid.BUCKET_VOLUME, player)) {
       return true;
     }
 
-    // universal bucket
-    ItemStack copy = stack.copy();
-    if(FluidUtil.tryEmptyFluidContainerItem(stack, tank, side, player)) {
-      if(player.capabilities.isCreativeMode) {
-        // reset the stack that got modified
-        player.inventory.setInventorySlotContents(player.inventory.currentItem, copy);
-      }
-      return true;
-    }
-
-
-    // prevent interaction of the item if it's a fluidcontainer. Prevents placing liquids when interacting with the tank
-    return FluidContainerRegistry.isFilledContainer(stack) || stack.getItem() instanceof IFluidContainerItem;
+    // return true if it's a fluid handler to prevent in world interaction of the fluidhandler (bucket places liquids)
+    return FluidUtil.getFluidHandler(heldItem) != null;
   }
 
   // at most 4

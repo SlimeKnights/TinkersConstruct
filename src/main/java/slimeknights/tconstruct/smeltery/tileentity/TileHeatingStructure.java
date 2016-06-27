@@ -46,7 +46,7 @@ public abstract class TileHeatingStructure extends TileInventory {
     if(index >= itemTemperatures.length) {
       return 0f;
     }
-    return (float)itemTemperatures[index]/(float)itemTempRequired[index];
+    return (float) itemTemperatures[index] / (float) itemTempRequired[index];
   }
 
   protected void setHeatRequiredForSlot(int index, int heat) {
@@ -59,7 +59,7 @@ public abstract class TileHeatingStructure extends TileInventory {
     if(index >= itemTempRequired.length) {
       return 0;
     }
-    return itemTempRequired[index]/TIME_FACTOR;
+    return itemTempRequired[index] / TIME_FACTOR;
   }
 
   /**
@@ -107,7 +107,7 @@ public abstract class TileHeatingStructure extends TileInventory {
   }
 
   protected int heatSlot(int i) {
-    return temperature/100; // if your smeltery has <100 heat then it deserves to not create any heat .
+    return temperature / 100; // if your smeltery has <100 heat then it deserves to not create any heat .
   }
 
   public int getTemperature(int i) {

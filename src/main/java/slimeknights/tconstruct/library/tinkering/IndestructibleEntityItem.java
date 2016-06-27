@@ -36,8 +36,11 @@ public class IndestructibleEntityItem extends EntityItem {
   }
 
   public static class EventHandler {
+
     public static final EventHandler instance = new EventHandler();
-    private EventHandler() {}
+
+    private EventHandler() {
+    }
 
     @SubscribeEvent
     public void onExpire(ItemExpireEvent event) {

@@ -8,7 +8,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import java.util.List;
 
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.AbstractMaterialStats;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
@@ -25,7 +24,7 @@ public class ModHaste extends ToolModifier {
     super("haste", 0x910000);
 
     this.max = max;
-    
+
     addAspects(new ModifierAspect.MultiAspect(this, 5, max, 1));
   }
 
@@ -34,14 +33,16 @@ public class ModHaste extends ToolModifier {
     ModifierNBT.IntegerNBT modData = ModifierNBT.readInteger(modifierTag);
 
     boolean harvest = false;
-    
+
     for(Category category : TagUtil.getCategories(rootCompound)) {
-      if(category == Category.HARVEST) harvest = true;
+      if(category == Category.HARVEST) {
+        harvest = true;
+      }
     }
 
     ToolNBT data = TagUtil.getToolStats(rootCompound);
     int level = modData.current / max;
-    
+
     // only boost mining speed if we have a harvest tool
     if(harvest) {
       float speed = data.speed;
@@ -57,14 +58,14 @@ public class ModHaste extends ToolModifier {
           speed += 0.05;
         }
       }
-  
+
       // each full level gives a flat 0.5 bonus, not influenced by dimishing returns
       speed += level * 0.5f;
-  
+
       // save it to the tool
       data.speed = speed;
     }
-    
+
     // attack speed: each total level adds 0.2 to the modifier, though individual redstone piece above the level add 0.004 each
     data.attackSpeedMultiplier += getSpeedBonus(modData);
 
@@ -79,7 +80,7 @@ public class ModHaste extends ToolModifier {
   // don't allow on projectiles
   @Override
   protected boolean canApplyCustom(ItemStack stack) throws TinkerGuiException {
-    return !((ToolCore)stack.getItem()).hasCategory(Category.NO_MELEE);
+    return !((ToolCore) stack.getItem()).hasCategory(Category.NO_MELEE);
   }
 
   @Override
@@ -91,6 +92,6 @@ public class ModHaste extends ToolModifier {
   public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
     String loc = String.format(LOC_Extra, getIdentifier());
     float bonus = getSpeedBonus(ModifierNBT.readInteger(modifierTag));
-    return ImmutableList.of(Util.translateFormatted(loc, AbstractMaterialStats.dfPercent.format(bonus)));
+    return ImmutableList.of(Util.translateFormatted(loc, Util.dfPercent.format(bonus)));
   }
 }

@@ -41,12 +41,10 @@ public class BattleSign extends ToolCore {
     super(PartMaterialType.handle(TinkerTools.toolRod),
           PartMaterialType.head(TinkerTools.signHead));
 
-    this.addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter()
-    {
+    this.addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter() {
       @Override
       @SideOnly(Side.CLIENT)
-      public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn)
-      {
+      public float apply(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityIn) {
         return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
       }
     });
@@ -64,21 +62,18 @@ public class BattleSign extends ToolCore {
 
   @Nonnull
   @Override
-  public EnumAction getItemUseAction(ItemStack stack)
-  {
+  public EnumAction getItemUseAction(ItemStack stack) {
     return EnumAction.BLOCK;
   }
 
   @Override
-  public int getMaxItemUseDuration(ItemStack stack)
-  {
+  public int getMaxItemUseDuration(ItemStack stack) {
     return 72000;
   }
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
-  {
+  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
     if(!ToolHelper.isBroken(itemStackIn)) {
       playerIn.setActiveHand(hand);
       return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
@@ -139,15 +134,16 @@ public class BattleSign extends ToolCore {
     // this gives a factor of how much we're looking at the incoming arrow
     double strength = -look.dotProduct(motion.normalize());
     // we're looking away. oh no.
-    if(strength < 0.1)
+    if(strength < 0.1) {
       return;
+    }
 
     // caught that bastard! block it!
     event.setCanceled(true);
 
     // and return it to the sender
     // calc speed of the projectile
-    double speed = projectile.motionX*projectile.motionX + projectile.motionY*projectile.motionY + projectile.motionZ*projectile.motionZ;
+    double speed = projectile.motionX * projectile.motionX + projectile.motionY * projectile.motionY + projectile.motionZ * projectile.motionZ;
     speed = Math.sqrt(speed);
     speed += 0.2f; // we add a bit speed
 
@@ -156,8 +152,8 @@ public class BattleSign extends ToolCore {
     projectile.motionY = look.yCoord * speed;
     projectile.motionZ = look.zCoord * speed;
 
-    projectile.rotationYaw = (float)(Math.atan2(projectile.motionX, projectile.motionZ) * 180.0D / Math.PI);
-    projectile.rotationPitch = (float)(Math.atan2(projectile.motionY, speed) * 180.0D / Math.PI);
+    projectile.rotationYaw = (float) (Math.atan2(projectile.motionX, projectile.motionZ) * 180.0D / Math.PI);
+    projectile.rotationPitch = (float) (Math.atan2(projectile.motionY, speed) * 180.0D / Math.PI);
 
     // notify clients from change, otherwise people will get veeeery confused
     TinkerNetwork.sendToAll(new EntityMovementChangePacket(projectile));

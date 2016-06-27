@@ -24,7 +24,7 @@ public class TileCastingTable extends TileCasting {
       if(isStackInSlot(i)) {
         PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i), this.worldObj, null);
         item.s = 0.875f;// * 0.875f;
-        item.y -= 1/16f * item.s;
+        item.y -= 1 / 16f * item.s;
         //item.s = 1f;
         toDisplay.items.add(item);
         if(i == 0) {

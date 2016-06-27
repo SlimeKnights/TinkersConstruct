@@ -2,6 +2,7 @@ package slimeknights.tconstruct.common.config;
 
 import com.google.common.collect.Lists;
 
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.ConfigCategory;
@@ -19,12 +20,14 @@ import slimeknights.mantle.pulsar.config.ForgeCFG;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 
-public class Config {
+public final class Config {
 
   public static ForgeCFG pulseConfig = new ForgeCFG("TinkerModules", "Modules");
   public static Config instance = new Config();
   public static Logger log = Util.getLogger("Config");
-  private Config() {}
+
+  private Config() {
+  }
 
 
   public static boolean forceRegisterAll = false; // enables all common items, even if their module is not present
@@ -36,13 +39,17 @@ public class Config {
   public static boolean autosmeltlapis = true;
   public static boolean obsidianAlloy = true;
   public static boolean claycasts = true;
+  public static boolean castableBricks = true;
+  public static boolean leatherDryingRecipe = true;
+  public static boolean gravelFlintRecipe = true;
+  public static double oreToIngotRatio = 2;
 
   // Worldgen
   public static boolean genSlimeIslands = true;
   public static boolean genIslandsInSuperflat = false;
   public static int slimeIslandsRate = 730; // Every x-th chunk will have a slime island. so 1 = every chunk, 100 = every 100th
   public static int magmaIslandsRate = 100; // Every x-th chunk will have a slime island. so 1 = every chunk, 100 = every 100th
-  public static int[] slimeIslandBlacklist = new int[] {-1, 1};
+  public static int[] slimeIslandBlacklist = new int[]{-1, 1};
   public static boolean genCobalt = true;
   public static int cobaltRate = 16; // max. cobalt per chunk
   public static boolean genArdite = true;
@@ -121,6 +128,12 @@ public class Config {
       prop.requiresMcRestart();
       propOrder.add(prop.getName());
 
+      prop = configFile.get(cat, "allowBrickCasting", castableBricks);
+      prop.setComment("Allows the creation of bricks from molten clay");
+      castableBricks = prop.getBoolean();
+      prop.requiresMcRestart();
+      propOrder.add(prop.getName());
+
       prop = configFile.get(cat, "AutosmeltFortuneInteraction", autosmeltlapis);
       prop.setComment("Fortune increases drops after harvesting a block with autosmelt");
       autosmeltlapis = prop.getBoolean();
@@ -140,6 +153,25 @@ public class Config {
       prop = configFile.get(cat, "obsidianAlloy", obsidianAlloy);
       prop.setComment("Allows the creation of obsidian in the smeltery, using a bucket of lava and water.");
       obsidianAlloy = prop.getBoolean();
+      prop.requiresMcRestart();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "addLeatherDryingRecipe", leatherDryingRecipe);
+      prop.setComment("Adds a recipe that allows you to get leather from drying cooked meat");
+      leatherDryingRecipe = prop.getBoolean();
+      prop.requiresMcRestart();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "addFlintRecipe", gravelFlintRecipe);
+      prop.setComment("Adds a recipe that allows you to craft 3 gravel into a flint");
+      gravelFlintRecipe = prop.getBoolean();
+      prop.requiresMcRestart();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "oreToIngotRatio", oreToIngotRatio);
+      prop.setComment("Determines the ratio of ore to ingot, or in other words how many ingots you get out of an ore. This ratio applies to all ores (including poor and dense). The ratio can be any decimal, including 1.5 and the like, but can't go below 1. THIS ALSO AFFECTS MELTING TEMPERATURE!");
+      prop.setMinValue(1);
+      oreToIngotRatio = prop.getDouble();
       prop.requiresMcRestart();
       propOrder.add(prop.getName());
     }

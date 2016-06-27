@@ -23,8 +23,8 @@ public class PatternTexture extends TextureColoredTexture {
 
     if(width > textureW) {
       // scale coordinates to match the other texture
-      int texX = (int)((float)getX(pxCoord)*scale);
-      int texY = (int)((float)getY(pxCoord)*scale);
+      int texX = (int) ((float) getX(pxCoord) * scale);
+      int texY = (int) ((float) getY(pxCoord) * scale);
       pxCoord = texY * textureW + texX;
     }
 
@@ -40,8 +40,9 @@ public class PatternTexture extends TextureColoredTexture {
       return pixel;
     }
 
-    if(x < textureW/8 || x > textureW - textureW/8 || y < textureH/8 || y > textureH - textureH/8)
+    if(x < textureW / 8 || x > textureW - textureW / 8 || y < textureH / 8 || y > textureH - textureH / 8) {
       return pixel;
+    }
 
     int c = textureData[mipmap][coord2(x2, y2)];
 
@@ -59,13 +60,13 @@ public class PatternTexture extends TextureColoredTexture {
         edge = true;
       }
     }
-    if(y < height-1) {
+    if(y < height - 1) {
       a = RenderUtil.alpha(textureData[mipmap][coord2(x, y + 1)]);
       if(a < 64) {
         edge = true;
       }
     }
-    if(x < width-1) {
+    if(x < width - 1) {
       a = RenderUtil.alpha(textureData[mipmap][coord2(x + 1, y)]);
       if(a < 64) {
         edge = true;
@@ -79,20 +80,24 @@ public class PatternTexture extends TextureColoredTexture {
     }
 
     mult = 0.5f;
-    if(edge)
+    if(edge) {
       mult = 0.6f;
+    }
 
 
-    int r = (int)((float) RenderUtil.red(pixel) * mult);
-    int g = (int)((float) RenderUtil.green(pixel) * mult);
-    int b = (int)((float) RenderUtil.blue(pixel) * mult);
+    int r = (int) ((float) RenderUtil.red(pixel) * mult);
+    int g = (int) ((float) RenderUtil.green(pixel) * mult);
+    int b = (int) ((float) RenderUtil.blue(pixel) * mult);
 
-    if(r > 255)
+    if(r > 255) {
       r = 255;
-    if(g > 255)
+    }
+    if(g > 255) {
       g = 255;
-    if(b > 255)
+    }
+    if(b > 255) {
       b = 255;
+    }
 
     // otherwise darken color for pattern imprint
     return RenderUtil.compose(r, g, b, 255);

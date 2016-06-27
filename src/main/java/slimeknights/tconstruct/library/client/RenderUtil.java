@@ -16,7 +16,9 @@ import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
 
 public final class RenderUtil {
-  private RenderUtil() {}
+
+  private RenderUtil() {
+  }
 
   public static float FLUID_OFFSET = 0.005f;
 
@@ -37,7 +39,7 @@ public final class RenderUtil {
   public static void renderTiledFluid(int x, int y, int width, int height, float depth, FluidStack fluidStack) {
     TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(fluidStack.getFluid().getStill(fluidStack).toString());
     RenderUtil.setColorRGBA(fluidStack.getFluid().getColor(fluidStack));
-    renderTiledTextureAtlas(x,y,width, height, depth, fluidSprite);
+    renderTiledTextureAtlas(x, y, width, height, depth, fluidSprite);
   }
 
   /** Adds a quad to the rendering pipeline. Call startDrawingQuads beforehand. You need to call draw() yourself. */
@@ -50,7 +52,7 @@ public final class RenderUtil {
       int renderHeight = Math.min(sprite.getIconHeight(), height);
       height -= renderHeight;
 
-      float v2 = sprite.getInterpolatedV((16f * renderHeight)/(float)sprite.getIconHeight());
+      float v2 = sprite.getInterpolatedV((16f * renderHeight) / (float) sprite.getIconHeight());
 
       // we need to draw the quads per width too
       int x2 = x;
@@ -60,12 +62,12 @@ public final class RenderUtil {
         int renderWidth = Math.min(sprite.getIconWidth(), width2);
         width2 -= renderWidth;
 
-        float u2 = sprite.getInterpolatedU((16f * renderWidth)/(float)sprite.getIconWidth());
+        float u2 = sprite.getInterpolatedU((16f * renderWidth) / (float) sprite.getIconWidth());
 
-        renderer.pos(x2,               y,                depth).tex(u1, v1).endVertex();
-        renderer.pos(x2,               y + renderHeight, depth).tex(u1, v2).endVertex();
+        renderer.pos(x2, y, depth).tex(u1, v1).endVertex();
+        renderer.pos(x2, y + renderHeight, depth).tex(u1, v2).endVertex();
         renderer.pos(x2 + renderWidth, y + renderHeight, depth).tex(u2, v2).endVertex();
-        renderer.pos(x2 + renderWidth, y,                depth).tex(u2, v1).endVertex();
+        renderer.pos(x2 + renderWidth, y, depth).tex(u2, v1).endVertex();
 
         x2 += renderWidth;
       } while(width2 > 0);
@@ -76,6 +78,7 @@ public final class RenderUtil {
 
   /**
    * Renders a fluid block, call from TESR. x/y/z is the rendering offset.
+   *
    * @param fluid Fluid to render
    * @param pos   BlockPos where the Block is rendered. Used for brightness.
    * @param x     Rendering offset. TESR x parameter.
@@ -86,11 +89,11 @@ public final class RenderUtil {
    * @param d     Depth. 1 = full Z-Depth
    */
   public static void renderFluidCuboid(FluidStack fluid, BlockPos pos, double x, double y, double z, double w, double h, double d) {
-    double wd = (1d-w)/2d;
-    double hd = (1d-h)/2d;
-    double dd = (1d-d)/2d;
+    double wd = (1d - w) / 2d;
+    double hd = (1d - h) / 2d;
+    double dd = (1d - d) / 2d;
 
-    renderFluidCuboid(fluid, pos, x, y, z, wd, hd, dd, 1d-wd, 1d-hd, 1d-dd);
+    renderFluidCuboid(fluid, pos, x, y, z, wd, hd, dd, 1d - wd, 1d - hd, 1d - dd);
   }
 
   public static void renderFluidCuboid(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2) {
@@ -151,7 +154,7 @@ public final class RenderUtil {
     }
 
     int xd = to.getX() - from.getX();
-    int yd = (int)(ymax - ymin);
+    int yd = (int) (ymax - ymin);
     int zd = to.getZ() - from.getZ();
 
     double xmin = FLUID_OFFSET;
@@ -235,7 +238,7 @@ public final class RenderUtil {
     int g = color >> 8 & 0xFF;
     int b = color & 0xFF;
 
-    putTexturedQuad(renderer, sprite, x,y,z, w,h, d, face, r,g,b,a, l1, l2, flowing);
+    putTexturedQuad(renderer, sprite, x, y, z, w, h, d, face, r, g, b, a, l1, l2, flowing);
   }
 
   // x and x+w has to be within [0,1], same for y/h and z/d
@@ -251,7 +254,9 @@ public final class RenderUtil {
     double maxV;
 
     double size = 16f;
-    if(flowing) size = 8f;
+    if(flowing) {
+      size = 8f;
+    }
 
     double x1 = x;
     double x2 = x + w;
@@ -353,12 +358,10 @@ public final class RenderUtil {
     GlStateManager.enableBlend();
     GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-    if (Minecraft.isAmbientOcclusionEnabled())
-    {
+    if(Minecraft.isAmbientOcclusionEnabled()) {
       GL11.glShadeModel(GL11.GL_SMOOTH);
     }
-    else
-    {
+    else {
       GL11.glShadeModel(GL11.GL_FLAT);
     }
 
@@ -367,8 +370,8 @@ public final class RenderUtil {
 
   public static void post() {
     GlStateManager.disableBlend();
-    RenderHelper.enableStandardItemLighting();
     GlStateManager.popMatrix();
+    RenderHelper.enableStandardItemLighting();
   }
 
   public static void setColorRGB(int color) {
@@ -376,10 +379,10 @@ public final class RenderUtil {
   }
 
   public static void setColorRGBA(int color) {
-    float a = (float)alpha(color) / 255.0F;
-    float r = (float)red(color) / 255.0F;
-    float g = (float)green(color) / 255.0F;
-    float b = (float)blue(color) / 255.0F;
+    float a = (float) alpha(color) / 255.0F;
+    float r = (float) red(color) / 255.0F;
+    float g = (float) green(color) / 255.0F;
+    float b = (float) blue(color) / 255.0F;
 
     GlStateManager.color(r, g, b, a);
   }

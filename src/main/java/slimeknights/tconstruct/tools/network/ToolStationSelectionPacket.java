@@ -50,8 +50,9 @@ public class ToolStationSelectionPacket extends AbstractPacketThreadsafe {
       // find all people who also have the same gui open and update them too
       WorldServer server = netHandler.playerEntity.getServerWorld();
       for(EntityPlayer player : server.playerEntities) {
-        if(player == netHandler.playerEntity)
+        if(player == netHandler.playerEntity) {
           continue;
+        }
         if(player.openContainer instanceof ContainerToolStation) {
           if(((BaseContainer) container).sameGui((BaseContainer) player.openContainer)) {
             ((ContainerToolStation) player.openContainer).setToolSelection(tool, activeSlots);
@@ -78,10 +79,12 @@ public class ToolStationSelectionPacket extends AbstractPacketThreadsafe {
 
   @Override
   public void toBytes(ByteBuf buf) {
-    if(tool == null)
+    if(tool == null) {
       buf.writeShort(-1);
-    else
+    }
+    else {
       buf.writeShort(Item.getIdFromItem(tool));
+    }
 
     buf.writeInt(activeSlots);
   }

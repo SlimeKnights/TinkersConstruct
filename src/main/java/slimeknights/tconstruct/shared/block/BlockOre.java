@@ -42,7 +42,7 @@ public class BlockOre extends EnumBlock<BlockOre.OreTypes> {
     COBALT,
     ARDITE;
 
-    public  final int meta;
+    public final int meta;
 
     OreTypes() {
       meta = ordinal();

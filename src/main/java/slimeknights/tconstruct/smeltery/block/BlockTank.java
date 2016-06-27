@@ -9,6 +9,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -19,10 +20,9 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.IFluidContainerItem;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -78,24 +78,14 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   @Override
   public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
     TileEntity te = worldIn.getTileEntity(pos);
-    if(!(te instanceof IFluidHandler)) {
-      return false;
-    }
-    IFluidHandler tank = (IFluidHandler) te;
-    side = side.getOpposite();
-
-    ItemStack stack = playerIn.getHeldItemMainhand();
-    if(stack == null) {
+    if(te == null || !te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side)) {
       return false;
     }
 
-    // do the thing with the tank and the buckets
-    if(FluidUtil.interactWithTank(stack, playerIn, tank, side)) {
-      return true;
-    }
-
-    // prevent interaction of the item if it's a fluidcontainer. Prevents placing liquids when interacting with the tank
-    return FluidContainerRegistry.isFilledContainer(stack) || stack.getItem() instanceof IFluidContainerItem;
+    IFluidHandler fluidHandler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side);
+    FluidUtil.interactWithFluidHandler(heldItem, fluidHandler, playerIn);
+    // prevent interaction so stuff like buckets and other things don't place the liquid block
+    return heldItem != null && !(heldItem.getItem() instanceof ItemBlock);
   }
 
   /* Block breaking retains the liquid */
@@ -113,11 +103,10 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
     // standard drop logic
     List<ItemStack> ret = Lists.newArrayList();
-    Random rand = world instanceof World ? ((World)world).rand : RANDOM;
+    Random rand = world instanceof World ? ((World) world).rand : RANDOM;
     Item item = this.getItemDropped(state, rand, fortune);
     ItemStack stack = null;
-    if (item != null)
-    {
+    if(item != null) {
       stack = new ItemStack(item, 1, this.damageDropped(state));
       ret.add(stack);
     }
@@ -167,8 +156,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
   @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
-  public BlockRenderLayer getBlockLayer()
-  {
+  public BlockRenderLayer getBlockLayer() {
     return BlockRenderLayer.CUTOUT;
   }
 
@@ -182,12 +170,27 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     return false;
   }
 
+  @Override
+  public boolean hasComparatorInputOverride(IBlockState state) {
+    return true;
+  }
+
+  @Override
+  public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos) {
+    TileEntity te = world.getTileEntity(pos);
+    if(!(te instanceof TileTank)) {
+      return 0;
+    }
+
+    return ((TileTank) te).comparatorStrength();
+  }
+
   public enum TankType implements IStringSerializable, EnumBlock.IEnumMeta {
     TANK,
     GAUGE,
     WINDOW;
 
-    public  final int meta;
+    public final int meta;
 
     TankType() {
       meta = ordinal();

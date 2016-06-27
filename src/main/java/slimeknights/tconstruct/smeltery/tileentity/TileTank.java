@@ -2,94 +2,53 @@ package slimeknights.tconstruct.smeltery.tileentity;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
-import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import slimeknights.tconstruct.common.TinkerNetwork;
-import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
+import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
+import slimeknights.tconstruct.library.fluid.IFluidTankUpdater;
 
-public class TileTank extends TileSmelteryComponent implements IFluidHandler {
+public class TileTank extends TileSmelteryComponent implements IFluidTankUpdater {
 
-  public static final int CAPACITY = FluidContainerRegistry.BUCKET_VOLUME * 4;
+  public static final int CAPACITY = Fluid.BUCKET_VOLUME * 4;
 
-  public FluidTank tank;
-  public float renderOffset;
+  protected FluidTankAnimated tank;
+
+  // used to only run block updates if the value actually changes
+  private int lastStrength;
 
   public TileTank() {
-    this.tank = new FluidTank(CAPACITY);
+    this.tank = new FluidTankAnimated(CAPACITY, this);
+    this.lastStrength = -1;
   }
 
   @Override
-  public int fill(EnumFacing from, FluidStack resource, boolean doFill) {
-    int amount = tank.fill(resource, doFill);
-    if(amount > 0 && doFill) {
-      renderOffset += amount;
-      if(!worldObj.isRemote) {
-        TinkerNetwork.sendToAll(new FluidUpdatePacket(pos, tank.getFluid()));
-      }
+  public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+    if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+      return true;
     }
-
-    return amount;
+    return super.hasCapability(capability, facing);
   }
 
+  @SuppressWarnings("unchecked")
+  @Nonnull
   @Override
-  public FluidStack drain(EnumFacing from, FluidStack resource, boolean doDrain) {
-    if(resource == null || tank.getFluidAmount() == 0) {
-      return null;
+  public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+    if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+      return (T) tank;
     }
-    if(tank.getFluid().getFluid() != resource.getFluid()) {
-      return null;
-    }
-
-    // same fluid, k
-    return this.drain(from, resource.amount, doDrain);
+    return super.getCapability(capability, facing);
   }
 
-  @Override
-  public FluidStack drain(EnumFacing from, int maxDrain, boolean doDrain) {
-    FluidStack amount = tank.drain(maxDrain, doDrain);
-    if(amount != null && doDrain) {
-      renderOffset -= amount.amount;
-      if(!worldObj.isRemote && worldObj instanceof WorldServer) {
-        TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FluidUpdatePacket(pos, tank.getFluid()));
-      }
-    }
-
-    return amount;
-  }
-
-  @Override
-  public boolean canFill(EnumFacing from, Fluid fluid) {
-    return tank.getFluidAmount() == 0 || (tank.getFluid().getFluid() == fluid && tank.getFluidAmount() < tank
-        .getCapacity());
-  }
-
-  @Override
-  public boolean canDrain(EnumFacing from, Fluid fluid) {
-    return tank.getFluidAmount() > 0 && tank.getFluid().getFluid() == fluid;
-  }
-
-  @Override
-  public FluidTankInfo[] getTankInfo(EnumFacing from) {
-    return new FluidTankInfo[]{new FluidTankInfo(tank)};
-  }
-
-  IFluidTank getInternalTank() {
+  public FluidTankAnimated getInternalTank() {
     return tank;
-  }
-
-  public float getFluidAmountScaled() {
-    return (tank.getFluid().amount - renderOffset) / (tank.getCapacity() * 1.01F);
   }
 
   public boolean containsFluid() {
@@ -109,7 +68,7 @@ public class TileTank extends TileSmelteryComponent implements IFluidHandler {
     int oldAmount = tank.getFluidAmount();
     tank.setFluid(fluid);
 
-    renderOffset += tank.getFluidAmount() - oldAmount;
+    tank.renderOffset += tank.getFluidAmount() - oldAmount;
   }
 
   @Override
@@ -135,8 +94,20 @@ public class TileTank extends TileSmelteryComponent implements IFluidHandler {
     tank.writeToNBT(tags);
   }
 
-
+  /**
+   * @return The current comparator strength based on the tank's capicity
+   */
   public int comparatorStrength() {
     return 15 * tank.getFluidAmount() / tank.getCapacity();
   }
+
+  @Override
+  public void onTankContentsChanged() {
+    int newStrength = this.comparatorStrength();
+    if(newStrength != lastStrength) {
+      this.worldObj.notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+      this.lastStrength = newStrength;
+    }
+  }
+
 }

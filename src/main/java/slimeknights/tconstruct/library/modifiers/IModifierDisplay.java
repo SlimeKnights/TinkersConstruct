@@ -11,9 +11,10 @@ public interface IModifierDisplay {
   int getColor();
 
 
-  /** List of ItemStacks possible to apply the modifier.
-   *  Each list entry corresponds to one item combination that can be applied
-   *  Example: first entry with size 1 and redstone, second entry with size 1 and redstone block,...
+  /**
+   * List of ItemStacks possible to apply the modifier.
+   * Each list entry corresponds to one item combination that can be applied
+   * Example: first entry with size 1 and redstone, second entry with size 1 and redstone block,...
    */
   List<List<ItemStack>> getItems();
 }

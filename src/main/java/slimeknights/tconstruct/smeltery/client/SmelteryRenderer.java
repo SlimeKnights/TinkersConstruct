@@ -26,15 +26,17 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
 
   @Override
   public void renderTileEntityAt(@Nonnull TileSmeltery smeltery, double x, double y, double z, float partialTicks, int destroyStage) {
-    if(!smeltery.isActive())
+    if(!smeltery.isActive()) {
       return;
+    }
 
     // get liquids
     SmelteryTank tank = smeltery.getTank();
 
     // safety first!
-    if(tank == null || smeltery.minPos == null || smeltery.maxPos == null)
+    if(tank == null || smeltery.minPos == null || smeltery.maxPos == null) {
       return;
+    }
 
     List<FluidStack> fluids = tank.getFluids();
 
@@ -55,14 +57,14 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
       // calc heights, we use mB capacities and then convert it over to blockheights during rendering
       int yd = 1 + Math.max(0, smeltery.maxPos.getY() - smeltery.minPos.getY());
       // one block height = 1000 mb
-      int[] heights = calcLiquidHeights(fluids, tank.getMaxCapacity(), yd * 1000 - (int)(RenderUtil.FLUID_OFFSET*2000d), 100);
+      int[] heights = calcLiquidHeights(fluids, tank.getCapacity(), yd * 1000 - (int) (RenderUtil.FLUID_OFFSET * 2000d), 100);
 
       double curY = RenderUtil.FLUID_OFFSET;
       // rendering time
       for(int i = 0; i < fluids.size(); i++) {
         double h = (double) heights[i] / 1000d;
         // minpos as start instead of smeltery.pos because we want to use the lighting inside the smeltery
-        RenderUtil.renderStackedFluidCuboid(fluids.get(i), x,y,z, smeltery.minPos, minPos, maxPos, curY, curY+h);
+        RenderUtil.renderStackedFluidCuboid(fluids.get(i), x, y, z, smeltery.minPos, minPos, maxPos, curY, curY + h);
         curY += h;
       }
     }
@@ -70,12 +72,12 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
     // render items
     int xd = 1 + smeltery.maxPos.getX() - smeltery.minPos.getX();
     int zd = 1 + smeltery.maxPos.getZ() - smeltery.minPos.getZ();
-    int layer = xd*zd;
+    int layer = xd * zd;
     //Tessellator tessellator = Tessellator.getInstance();
     //WorldRenderer renderer = tessellator.getWorldRenderer();
     //renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
     Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-    RenderUtil.pre(x,y,z);
+    RenderUtil.pre(x, y, z);
     GlStateManager.disableCull();
     GlStateManager.translate(x1, y1, z1);
     GlStateManager.translate(0.5f, 0.5f, 0.5f);
@@ -95,8 +97,8 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
 
         ItemStack stack = smeltery.getStackInSlot(i);
         boolean isItem = !(stack.getItem() instanceof ItemBlock);
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)(brightness % 0x10000) / 1f,
-                                              (float)(brightness / 0x10000) / 1f);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) (brightness % 0x10000) / 1f,
+                                              (float) (brightness / 0x10000) / 1f);
 
         //GlStateManager.pushMatrix();
         GlStateManager.translate(i2 % xd, h, i2 / xd);
@@ -121,14 +123,14 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
 
   /**
    * calculate the rendering heights for all the liquids
-   * @param liquids   The liquids
-   * @param capacity  Max capacity of smeltery, to calculate how much height one liquid takes up
-   * @param height    Maximum height, basically represents how much height full capacity is
-   * @param min       Minimum amount of height for a fluid. A fluid can never have less than this value height returned
+   *
+   * @param liquids  The liquids
+   * @param capacity Max capacity of smeltery, to calculate how much height one liquid takes up
+   * @param height   Maximum height, basically represents how much height full capacity is
+   * @param min      Minimum amount of height for a fluid. A fluid can never have less than this value height returned
    * @return Array with heights corresponding to input-list liquids
    */
-  public static int[] calcLiquidHeights (List<FluidStack> liquids, int capacity, int height, int min)
-  {
+  public static int[] calcLiquidHeights(List<FluidStack> liquids, int capacity, int height, int min) {
     int fluidHeights[] = new int[liquids.size()];
 
     if(liquids.size() > 0) {
@@ -160,8 +162,9 @@ public class SmelteryRenderer extends TileEntitySpecialRenderer<TileSmeltery> {
         }
 
         // remove a pixel from the biggest one
-        if(sum > height)
+        if(sum > height) {
           fluidHeights[m]--;
+        }
       } while(sum > height);
     }
 

@@ -34,7 +34,7 @@ public class TraitInsatiable extends AbstractTrait {
 
   @Override
   public int onToolDamage(ItemStack tool, int damage, int newDamage, EntityLivingBase entity) {
-    int level = Insatiable.getLevel(entity)/3;
+    int level = Insatiable.getLevel(entity) / 3;
     return super.onToolDamage(tool, damage, newDamage, entity) + level;
   }
 }

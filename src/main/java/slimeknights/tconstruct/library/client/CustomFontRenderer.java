@@ -41,12 +41,10 @@ public class CustomFontRenderer extends FontRenderer {
   protected String wrapFormattedStringToWidth(String str, int wrapWidth) {
     int i = this.sizeStringToWidth(str, wrapWidth);
 
-    if (str.length() <= i)
-    {
+    if(str.length() <= i) {
       return str;
     }
-    else
-    {
+    else {
       String s = str.substring(0, i);
       char c0 = str.charAt(i);
       boolean flag = c0 == 32 || c0 == 10;
@@ -60,8 +58,7 @@ public class CustomFontRenderer extends FontRenderer {
     int i = 0;
     int j = text.length();
 
-    while ((i < j-1))
-    {
+    while((i < j - 1)) {
       char c = text.charAt(i);
       // vanilla formatting
       if(c == 167) {
@@ -79,7 +76,7 @@ public class CustomFontRenderer extends FontRenderer {
       }
       // custom formatting
       else if((int) c >= CustomFontColor.MARKER && (int) c <= CustomFontColor.MARKER + 0xFF) {
-        s = String.format("%s%s%s", c, text.charAt(i+1), text.charAt(i+2));
+        s = String.format("%s%s%s", c, text.charAt(i + 1), text.charAt(i + 2));
         i += 2;
       }
       i++;
@@ -98,32 +95,38 @@ public class CustomFontRenderer extends FontRenderer {
   protected float renderUnicodeChar(char letter, boolean italic) {
     // special color settings through char code
     // we use \u2700 to \u27FF, where the lower byte represents the Hue of the color
-    if((int)letter >= CustomFontColor.MARKER && (int)letter <= CustomFontColor.MARKER + 0xFF) {
+    if((int) letter >= CustomFontColor.MARKER && (int) letter <= CustomFontColor.MARKER + 0xFF) {
       int value = letter & 0xFF;
       switch(state) {
-        case 0: red = value; break;
-        case 1: green = value; break;
-        case 2: blue = value; break;
-        default: this.setColor(1f, 1f, 1f, 1f); return 0;
+        case 0:
+          red = value;
+          break;
+        case 1:
+          green = value;
+          break;
+        case 2:
+          blue = value;
+          break;
+        default:
+          this.setColor(1f, 1f, 1f, 1f);
+          return 0;
       }
 
       state = ++state % 3;
 
       int color = (red << 16) | (green << 8) | blue | (0xff << 24);
-      if ((color & -67108864) == 0)
-      {
+      if((color & -67108864) == 0) {
         color |= -16777216;
       }
 
-      if (dropShadow)
-      {
+      if(dropShadow) {
         color = (color & 16579836) >> 2 | color & -16777216;
       }
 
-      this.setColor(((color >> 16) & 255)/255f,
-                    ((color >>  8) & 255)/255f,
-                    ((color >>  0) & 255)/255f,
-                    ((color >> 24) & 255)/255f);
+      this.setColor(((color >> 16) & 255) / 255f,
+                    ((color >> 8) & 255) / 255f,
+                    ((color >> 0) & 255) / 255f,
+                    ((color >> 24) & 255) / 255f);
       return 0;
     }
 

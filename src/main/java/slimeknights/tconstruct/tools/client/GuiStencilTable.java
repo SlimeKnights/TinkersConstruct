@@ -19,6 +19,7 @@ import slimeknights.tconstruct.tools.tileentity.TileStencilTable;
 
 @SideOnly(Side.CLIENT)
 public class GuiStencilTable extends GuiTinkerStation {
+
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/stenciltable.png");
 
   public static final int Column_Count = 4;

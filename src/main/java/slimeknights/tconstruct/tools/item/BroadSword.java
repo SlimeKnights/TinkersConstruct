@@ -51,7 +51,7 @@ public class BroadSword extends ToolCore {
   @Override
   public float getStrVsBlock(ItemStack stack, IBlockState state) {
     if(state.getBlock() == Blocks.WEB) {
-      return super.getStrVsBlock(stack, state)*7.5f;
+      return super.getStrVsBlock(stack, state) * 7.5f;
     }
     return super.getStrVsBlock(stack, state);
   }
@@ -80,13 +80,13 @@ public class BroadSword extends ToolCore {
     if(hit && !ToolHelper.isBroken(stack)) {
       // sweep code from EntityPlayer#attackTargetEntityWithCurrentItem()
       // basically: no crit, no sprinting and has to stand on the ground for sweep. Also has to move regularly slowly
-      double d0 = (double)(player.distanceWalkedModified - player.prevDistanceWalkedModified);
+      double d0 = (double) (player.distanceWalkedModified - player.prevDistanceWalkedModified);
       boolean flag = true;
       if(player instanceof EntityPlayer) {
-        flag = ((EntityPlayer)player).getCooledAttackStrength(0.5F) > 0.9f;
+        flag = ((EntityPlayer) player).getCooledAttackStrength(0.5F) > 0.9f;
       }
       boolean flag2 = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(MobEffects.BLINDNESS) && !player.isRiding();
-      if (flag && !player.isSprinting() && !flag2 && player.onGround && d0 < (double)player.getAIMoveSpeed()) {
+      if(flag && !player.isSprinting() && !flag2 && player.onGround && d0 < (double) player.getAIMoveSpeed()) {
         for(EntityLivingBase entitylivingbase : player.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, entity.getEntityBoundingBox().expand(1.0D, 0.25D, 1.0D))) {
           if(entitylivingbase != player && entitylivingbase != entity && !player.isOnSameTeam(entitylivingbase) && player.getDistanceSqToEntity(entitylivingbase) < 9.0D) {
             entitylivingbase.knockBack(player, 0.4F, (double) MathHelper.sin(player.rotationYaw * 0.017453292F), (double) (-MathHelper.cos(player.rotationYaw * 0.017453292F)));

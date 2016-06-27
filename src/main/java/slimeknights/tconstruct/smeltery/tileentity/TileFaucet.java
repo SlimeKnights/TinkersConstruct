@@ -7,9 +7,11 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nonnull;
 
@@ -96,20 +98,17 @@ public class TileFaucet extends TileEntity implements ITickable {
     if(drained != null) {
       return;
     }
-    TileEntity drainTE = worldObj.getTileEntity(pos.offset(direction));
-    TileEntity fillTE = worldObj.getTileEntity(pos.down());
-    if(drainTE instanceof IFluidHandler && fillTE instanceof IFluidHandler) {
-      IFluidHandler toDrain = (IFluidHandler) drainTE;
-      IFluidHandler toFill = (IFluidHandler) fillTE;
-
+    IFluidHandler toDrain = getFluidHandler(pos.offset(direction), direction);
+    IFluidHandler toFill = getFluidHandler(pos.down(), EnumFacing.UP);
+    if(toDrain != null && toFill != null) {
       // can we drain?
-      FluidStack drained = toDrain.drain(direction, TRANSACTION_AMOUNT, false);
+      FluidStack drained = toDrain.drain(TRANSACTION_AMOUNT, false);
       if(drained != null) {
         // can we fill?
-        int filled = toFill.fill(EnumFacing.UP, drained, false);
+        int filled = toFill.fill(drained, false);
         if(filled > 0) {
           // drain the liquid and transfer it, buffer the amount for delay
-          this.drained = toDrain.drain(direction, filled, true);
+          this.drained = toDrain.drain(filled, true);
           this.isPouring = true;
           pour();
 
@@ -132,20 +131,18 @@ public class TileFaucet extends TileEntity implements ITickable {
       return;
     }
 
-    TileEntity fillTE = worldObj.getTileEntity(pos.down());
-    if(fillTE instanceof IFluidHandler) {
-      IFluidHandler toFill = (IFluidHandler) fillTE;
-
+    IFluidHandler toFill = getFluidHandler(pos.down(), EnumFacing.UP);
+    if(toFill != null) {
       FluidStack fillStack = drained.copy();
       fillStack.amount = Math.min(drained.amount, LIQUID_TRANSFER);
 
       // can we fill?
-      int filled = toFill.fill(EnumFacing.UP, fillStack, false);
+      int filled = toFill.fill(fillStack, false);
       if(filled > 0) {
         // transfer it
         this.drained.amount -= filled;
         fillStack.amount = filled;
-        toFill.fill(EnumFacing.UP, fillStack, true);
+        toFill.fill(fillStack, true);
       }
     }
     else {
@@ -167,6 +164,13 @@ public class TileFaucet extends TileEntity implements ITickable {
     }
   }
 
+  protected IFluidHandler getFluidHandler(BlockPos pos, EnumFacing direction) {
+    TileEntity te = worldObj.getTileEntity(pos);
+    if(te != null && te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, direction)) {
+      return te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, direction);
+    }
+    return null;
+  }
 
   /* Load & Save */
 

@@ -137,6 +137,15 @@ public class BlockCasting extends BlockInventory {
     return super.getExtendedState(state, world, pos);
   }
 
+  @Override
+  public boolean isSideSolid(@Nonnull IBlockState base_state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
+    if(base_state.getValue(TYPE) == CastingType.BASIN) {
+      // solid from the sides, but not up and below
+      return side != EnumFacing.DOWN;
+    }
+    return super.isSideSolid(base_state, world, pos, side);
+  }
+
   /* Bounds */
   private static ImmutableList<AxisAlignedBB> BOUNDS_Table = ImmutableList.of(
       new AxisAlignedBB(0, 0.625, 0, 1, 1, 1),
@@ -180,9 +189,23 @@ public class BlockCasting extends BlockInventory {
   @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
-  public BlockRenderLayer getBlockLayer()
-  {
+  public BlockRenderLayer getBlockLayer() {
     return BlockRenderLayer.CUTOUT;
+  }
+
+  @Override
+  public boolean hasComparatorInputOverride(IBlockState state) {
+    return true;
+  }
+
+  @Override
+  public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos) {
+    TileEntity te = world.getTileEntity(pos);
+    if(!(te instanceof TileCasting)) {
+      return 0;
+    }
+
+    return ((TileCasting) te).comparatorStrength();
   }
 
   @Override

@@ -131,7 +131,7 @@ public class ToolClientEvents {
             for(BakedQuad quad : baked.getQuads(null, null, 0)) {
               quads.add(ModelHelper.colorQuad(color, quad));
             }
-            baked = new BakedSimple.Wrapper(quads.build(), ((IPerspectiveAwareModel)baked));
+            baked = new BakedSimple.Wrapper(quads.build(), ((IPerspectiveAwareModel) baked));
           }
           event.getModelRegistry().putObject(new ModelResourceLocation(partPatternLocation, "inventory"), baked);
         }

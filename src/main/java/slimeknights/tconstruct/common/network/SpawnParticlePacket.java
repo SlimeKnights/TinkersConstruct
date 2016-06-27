@@ -35,7 +35,7 @@ public class SpawnParticlePacket extends AbstractPacketThreadsafe {
 
   @Override
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
-    TinkerTools.proxy.spawnParticle(particle, null, x,y,z, xSpeed,ySpeed,zSpeed, data);
+    TinkerTools.proxy.spawnParticle(particle, null, x, y, z, xSpeed, ySpeed, zSpeed, data);
   }
 
   @Override

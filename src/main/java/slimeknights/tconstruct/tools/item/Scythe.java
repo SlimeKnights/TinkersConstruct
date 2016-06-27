@@ -32,6 +32,7 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class Scythe extends ToolCore {
+
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
       ImmutableSet.of(net.minecraft.block.material.Material.WEB,
                       net.minecraft.block.material.Material.LEAVES,
@@ -140,7 +141,7 @@ public class Scythe extends ToolCore {
 
   @Override
   public int[] getRepairParts() {
-    return new int[] {1,2};
+    return new int[]{1, 2};
   }
 
   @Override

@@ -36,16 +36,13 @@ public class EntityFancyItemFrame extends EntityItemFrame implements IEntityAddi
 
   @Override
   public void dropItemOrSelf(Entity entity, boolean dropFrame) {
-    if (this.worldObj.getGameRules().getBoolean("doEntityDrops"))
-    {
+    if(this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
       ItemStack itemstack = this.getDisplayedItem();
 
-      if (entity instanceof EntityPlayer)
-      {
-        EntityPlayer entityplayer = (EntityPlayer)entity;
+      if(entity instanceof EntityPlayer) {
+        EntityPlayer entityplayer = (EntityPlayer) entity;
 
-        if (entityplayer.capabilities.isCreativeMode)
-        {
+        if(entityplayer.capabilities.isCreativeMode) {
           this.removeFrameFromMap(itemstack);
           return;
         }
@@ -57,8 +54,7 @@ public class EntityFancyItemFrame extends EntityItemFrame implements IEntityAddi
       }
 
       // drop item in frame
-      if (itemstack != null)
-      {
+      if(itemstack != null) {
         itemstack = itemstack.copy();
         this.removeFrameFromMap(itemstack);
         this.entityDropItem(itemstack, 0.0F);
@@ -69,8 +65,7 @@ public class EntityFancyItemFrame extends EntityItemFrame implements IEntityAddi
   @Nonnull
   @Override
   public String getName() {
-    if (this.hasCustomName())
-    {
+    if(this.hasCustomName()) {
       return this.getCustomNameTag();
     }
 

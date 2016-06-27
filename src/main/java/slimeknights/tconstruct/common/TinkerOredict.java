@@ -18,6 +18,8 @@ import static slimeknights.tconstruct.gadgets.TinkerGadgets.stoneStick;
 import static slimeknights.tconstruct.gadgets.TinkerGadgets.stoneTorch;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockAlubrass;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockArdite;
+import static slimeknights.tconstruct.shared.TinkerCommons.blockClearGlass;
+import static slimeknights.tconstruct.shared.TinkerCommons.blockClearStainedGlass;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockCobalt;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockKnightSlime;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockManyullyn;
@@ -66,10 +68,28 @@ import static slimeknights.tconstruct.world.TinkerWorld.slimeVinePurple3;
  * oredicts ALL the things in TConstruct.
  * Conveniently gathered in one place!
  */
-@Pulse(id=TinkerOredict.PulseId, forced = true)
+@Pulse(id = TinkerOredict.PulseId, forced = true)
 public class TinkerOredict {
 
   public static final String PulseId = "TinkerOredict";
+  public static final String[] dyes = { // makes oredict to int a bit easier in a couple other places
+                                        "White",
+                                        "Orange",
+                                        "Magenta",
+                                        "LightBlue",
+                                        "Yellow",
+                                        "Lime",
+                                        "Pink",
+                                        "Gray",
+                                        "LightGray",
+                                        "Cyan",
+                                        "Purple",
+                                        "Blue",
+                                        "Brown",
+                                        "Green",
+                                        "Red",
+                                        "Black"
+  };
 
   @Subscribe
   public static void doTheOredict(FMLPreInitializationEvent event) {
@@ -101,18 +121,18 @@ public class TinkerOredict {
   // common items and blocks
   private static void registerCommon() {
     String dict = "slimeball";
-    oredict(Items.SLIME_BALL,   dict + "Green"); // oredict vanilla as green slime ball
-    oredict(matSlimeBallBlue,   dict, dict + "Blue");
+    oredict(Items.SLIME_BALL, dict + "Green"); // oredict vanilla as green slime ball
+    oredict(matSlimeBallBlue, dict, dict + "Blue");
     oredict(matSlimeBallPurple, dict, dict + "Purple");
-    oredict(matSlimeBallBlood,  dict, dict + "Blood");
-    oredict(matSlimeBallMagma,  dict, dict + "Magma");
+    oredict(matSlimeBallBlood, dict, dict + "Blood");
+    oredict(matSlimeBallMagma, dict, dict + "Magma");
 
-    oredictNIB(nuggetCobalt,      ingotCobalt,      blockCobalt,      "Cobalt");
-    oredictNIB(nuggetArdite,      ingotArdite,      blockArdite,      "Ardite");
-    oredictNIB(nuggetManyullyn,   ingotManyullyn,   blockManyullyn,   "Manyullyn");
+    oredictNIB(nuggetCobalt, ingotCobalt, blockCobalt, "Cobalt");
+    oredictNIB(nuggetArdite, ingotArdite, blockArdite, "Ardite");
+    oredictNIB(nuggetManyullyn, ingotManyullyn, blockManyullyn, "Manyullyn");
     oredictNIB(nuggetKnightSlime, ingotKnightSlime, blockKnightSlime, "Knightslime");
-    oredictNIB(nuggetPigIron,     ingotPigIron,     blockPigIron,     "Pigiron");
-    oredictNIB(nuggetAlubrass,    ingotAlubrass,    blockAlubrass,    "Alubrass");
+    oredictNIB(nuggetPigIron, ingotPigIron, blockPigIron, "Pigiron");
+    oredictNIB(nuggetAlubrass, ingotAlubrass, blockAlubrass, "Alubrass");
 
     String metal = "blockMetal";
     oredict(new ItemStack(Blocks.IRON_BLOCK), metal);
@@ -128,12 +148,20 @@ public class TinkerOredict {
     // Ores
     oredict(oreCobalt, "oreCobalt");
     oredict(oreArdite, "oreArdite");
+
+    // glass
+    oredict(blockClearGlass, "blockGlass"); // no blockGlassColorless as then it is assumed as available for staining
+    // which blocks our own staining recipes
+    oredict(blockClearStainedGlass, "blockGlass");
+    for(int i = 0; i > 16; i++) {
+      oredict(blockClearStainedGlass, i, "blockGlass" + dyes[i]);
+    }
   }
 
   private static void oredictNIB(ItemStack nugget, ItemStack ingot, ItemStack block, String oreSuffix) {
     oredict(nugget, "nugget" + oreSuffix);
-    oredict(ingot,  "ingot"  + oreSuffix);
-    oredict(block,  "block"  + oreSuffix);
+    oredict(ingot, "ingot" + oreSuffix);
+    oredict(block, "block" + oreSuffix);
   }
 
 
@@ -142,8 +170,8 @@ public class TinkerOredict {
     oredict(toolTables, BlockToolTable.TableTypes.CraftingStation.meta, "workbench");
 
     oredict(pickHead, "partPickHead");
-    oredict(binding,  "partBinding");
-    oredict(toolRod,  "partToolRod");
+    oredict(binding, "partBinding");
+    oredict(toolRod, "partToolRod");
 
     oredict(pattern, "pattern");
   }

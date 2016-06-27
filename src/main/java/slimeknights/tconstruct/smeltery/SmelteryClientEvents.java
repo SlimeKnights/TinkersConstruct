@@ -40,7 +40,7 @@ public class SmelteryClientEvents {
   private void wrap(ModelBakeEvent event, ModelResourceLocation loc) {
     IBakedModel model = event.getModelRegistry().getObject(loc);
     if(model != null && model instanceof IPerspectiveAwareModel) {
-      event.getModelRegistry().putObject(loc, new BakedTableModel((IPerspectiveAwareModel)model, null, DefaultVertexFormats.ITEM));
+      event.getModelRegistry().putObject(loc, new BakedTableModel((IPerspectiveAwareModel) model, null, DefaultVertexFormats.ITEM));
     }
   }
 }

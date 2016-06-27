@@ -22,6 +22,12 @@ public class AlloyRecipeHandler implements IRecipeHandler<AlloyRecipe> {
 
   @Nonnull
   @Override
+  public String getRecipeCategoryUid(@Nonnull AlloyRecipe recipe) {
+    return getRecipeCategoryUid();
+  }
+
+  @Nonnull
+  @Override
   public IRecipeWrapper getRecipeWrapper(@Nonnull AlloyRecipe recipe) {
     return new AlloyRecipeWrapper(recipe);
   }
@@ -29,8 +35,8 @@ public class AlloyRecipeHandler implements IRecipeHandler<AlloyRecipe> {
   @Override
   public boolean isRecipeValid(@Nonnull AlloyRecipe recipe) {
     return recipe.getFluids() != null
-        && recipe.getFluids().size() > 0
-        && recipe.getResult() != null
-        && recipe.getResult().amount > 0;
+           && recipe.getFluids().size() > 0
+           && recipe.getResult() != null
+           && recipe.getResult().amount > 0;
   }
 }

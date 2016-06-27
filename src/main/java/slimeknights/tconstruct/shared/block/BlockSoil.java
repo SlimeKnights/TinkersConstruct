@@ -98,8 +98,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
   protected void processSlimyMud(Entity entity) {
     entity.motionX *= 0.4;
     entity.motionZ *= 0.4;
-    if (entity instanceof EntityLivingBase)
-    {
+    if(entity instanceof EntityLivingBase) {
       ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 1));
     }
   }
@@ -143,7 +142,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
     CONSECRATED,
     SLIMY_MUD_MAGMA;
 
-    public  final int meta;
+    public final int meta;
 
     SoilTypes() {
       meta = ordinal();

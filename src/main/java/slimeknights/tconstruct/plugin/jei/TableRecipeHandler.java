@@ -23,6 +23,12 @@ public class TableRecipeHandler implements IRecipeHandler<TableRecipe> {
 
   @Nonnull
   @Override
+  public String getRecipeCategoryUid(@Nonnull TableRecipe recipe) {
+    return getRecipeCategoryUid();
+  }
+
+  @Nonnull
+  @Override
   public IRecipeWrapper getRecipeWrapper(@Nonnull TableRecipe recipe) {
     return new TableRecipeWrapper(recipe);
   }

@@ -219,7 +219,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   public abstract NBTTagCompound buildTag(List<Material> materials);
 
-  /** Checks whether an Item built from materials has only valid materials. Uses the standard NBT to determine materials.  */
+  /** Checks whether an Item built from materials has only valid materials. Uses the standard NBT to determine materials. */
   public boolean hasValidMaterials(ItemStack stack) {
     // checks if the materials used support all stats needed
     NBTTagList list = TagUtil.getBaseMaterialsTagList(stack);
@@ -262,7 +262,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   /** Returns indices of the parts that are used for repairing */
   public int[] getRepairParts() {
-    return new int[] {1}; // index 1 usually is the head. 0 is handle.
+    return new int[]{1}; // index 1 usually is the head. 0 is handle.
   }
 
   public float getRepairModifierForPart(int index) {
@@ -379,50 +379,53 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
         HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
         if(stats != null) {
           materialsMatched.add(material);
-          durability += ((float)stats.durability * (float)match.amount * getRepairModifierForPart(index)) / 144f;
+          durability += ((float) stats.durability * (float) match.amount * getRepairModifierForPart(index)) / 144f;
           RecipeMatch.removeMatch(repairItems, match);
         }
       }
     }
 
-    durability *= 1f + ((float)materialsMatched.size()-1)/9f;
+    durability *= 1f + ((float) materialsMatched.size() - 1) / 9f;
 
-    return (int)durability;
+    return (int) durability;
   }
 
-  protected int calculateRepair(ItemStack tool, int amount)
-  {
+  protected int calculateRepair(ItemStack tool, int amount) {
     float origDur = TagUtil.getOriginalToolStats(tool).durability;
     float actualDur = ToolHelper.getDurabilityStat(tool);
 
     // calculate in modifiers that change the total durability of a tool, like diamond
     // they should not punish the player with higher repair costs
-    float durabilityFactor = actualDur/origDur;
-    float increase = (float)amount * Math.min(10f, durabilityFactor);
+    float durabilityFactor = actualDur / origDur;
+    float increase = (float) amount * Math.min(10f, durabilityFactor);
 
-    increase = Math.max(increase, actualDur/64f);
+    increase = Math.max(increase, actualDur / 64f);
     //increase = Math.max(50, increase);
 
 
     int modifiersUsed = TagUtil.getBaseModifiersUsed(tool.getTagCompound());
     float mods = 1.0f;
-    if(modifiersUsed == 1)
+    if(modifiersUsed == 1) {
       mods = 0.95f;
-    else if (modifiersUsed == 2)
+    }
+    else if(modifiersUsed == 2) {
       mods = 0.9f;
-    else if (modifiersUsed >= 3)
+    }
+    else if(modifiersUsed >= 3) {
       mods = 0.85f;
+    }
 
     increase *= mods;
 
     NBTTagCompound tag = TagUtil.getExtraTag(tool);
     int repair = tag.getInteger(Tags.REPAIR_COUNT);
     float repairCount = (100 - repair) / 100f;
-    if (repairCount < 0.5f)
+    if(repairCount < 0.5f) {
       repairCount = 0.5f;
+    }
     increase *= repairCount;
 
-    return (int)Math.ceil(increase);
+    return (int) Math.ceil(increase);
   }
 
   /* Information */
@@ -434,7 +437,6 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     boolean ctrl = Util.isCtrlKeyDown();
     // modifiers
     if(!shift && !ctrl) {
-      DecimalFormat df = new DecimalFormat("#.##");
       getTooltip(stack, tooltip);
 
       tooltip.add("");
@@ -444,9 +446,9 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
       tooltip.add(TextFormatting.BLUE +
                   I18n.translateToLocalFormatted("attribute.modifier.plus.0",
-                                                 df.format(ToolHelper.getActualDamage(stack, playerIn)),
+                                                 Util.df.format(ToolHelper.getActualDamage(stack, playerIn)),
                                                  I18n
-                                                              .translateToLocal("attribute.name.generic.attackDamage")));
+                                                     .translateToLocal("attribute.name.generic.attackDamage")));
     }
     // detailed data
     else if(Config.extraTooltips && shift) {

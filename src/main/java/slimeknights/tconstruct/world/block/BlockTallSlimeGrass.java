@@ -115,14 +115,14 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
   }
 
   /* Rendering Stuff */
+
   /**
    * Get the OffsetType for this Block. Determines if the model is rendered slightly offset.
    */
   @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
-  public Block.EnumOffsetType getOffsetType()
-  {
+  public Block.EnumOffsetType getOffsetType() {
     return Block.EnumOffsetType.XYZ;
   }
 
@@ -139,8 +139,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
   }
 
   @Override
-  public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune)
-  {
+  public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
     IBlockState state = world.getBlockState(pos);
     ItemStack stack = new ItemStack(this, 1, getMetaFromState(state));
     return Lists.newArrayList(stack);

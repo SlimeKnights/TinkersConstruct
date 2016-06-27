@@ -67,7 +67,7 @@ public class TileTable extends TileInventory {
     }
 
     EnumFacing facing = getFacing();
-    state = state.withProperty((IUnlistedProperty<EnumFacing>)BlockTable.FACING, facing);
+    state = state.withProperty((IUnlistedProperty<EnumFacing>) BlockTable.FACING, facing);
 
     state = setInventoryDisplay(state);
 
@@ -89,8 +89,9 @@ public class TileTable extends TileInventory {
 
   @SideOnly(Side.CLIENT)
   public static PropertyTableItem.TableItem getTableItem(ItemStack stack, World world, EntityLivingBase entity) {
-    if(stack == null)
+    if(stack == null) {
       return null;
+    }
 
     IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, world, entity);
     if(model == null || model.isBuiltInRenderer()) {
@@ -102,7 +103,7 @@ public class TileTable extends TileInventory {
       model = new BakedColoredItemModel(stack, model);
     }
 
-    PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(model, 0,-0.46875f,0, 0.8f, (float) (Math.PI/2));
+    PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(model, 0, -0.46875f, 0, 0.8f, (float) (Math.PI / 2));
     if(stack.getItem() instanceof ItemBlock) {
       item.y = -0.3125f;
       item.s = 0.375f;
@@ -164,7 +165,7 @@ public class TileTable extends TileInventory {
   @Override
   public void setInventorySlotContents(int slot, ItemStack itemstack) {
     // we sync slot changes to all clients around
-    if(this.worldObj != null  && this.worldObj instanceof WorldServer && !this.worldObj.isRemote && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot))) {
+    if(this.worldObj != null && this.worldObj instanceof WorldServer && !this.worldObj.isRemote && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot))) {
       TinkerNetwork.sendToClients((WorldServer) this.worldObj, this.pos, new InventorySlotSyncPacket(itemstack, slot, pos));
     }
     super.setInventorySlotContents(slot, itemstack);
