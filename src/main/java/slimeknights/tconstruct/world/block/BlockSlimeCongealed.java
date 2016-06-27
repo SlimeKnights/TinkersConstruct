@@ -30,7 +30,7 @@ public class BlockSlimeCongealed extends Block {
   private static final AxisAlignedBB AABB = new AxisAlignedBB(0, 0, 0, 1, 0.625D, 1.0D);
 
   public BlockSlimeCongealed() {
-    super(Material.SPONGE);
+    super(Material.CLAY);
     this.setCreativeTab(TinkerRegistry.tabWorld);
     this.setHardness(0.5f);
     this.slipperiness = 0.5f;
