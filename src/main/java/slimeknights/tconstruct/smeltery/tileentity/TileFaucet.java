@@ -22,7 +22,7 @@ import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 
 public class TileFaucet extends TileEntity implements ITickable {
 
-  public static final int LIQUID_TRANSFER = 2,147,483,647; // how much liquid is transferred per operation
+  public static final int LIQUID_TRANSFER = 2147483647; // how much liquid is transferred per operation
   public static final int TRANSACTION_AMOUNT = Material.VALUE_Ingot;
 
   // direction we're pulling liquid from. cached so we don't have to query the world every time. set on pour-begin
