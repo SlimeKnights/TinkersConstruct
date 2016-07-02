@@ -10,7 +10,9 @@ import net.minecraft.util.EntityDamageSource;
 import net.minecraft.world.World;
 
 import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
+import slimeknights.tconstruct.library.utils.ModifierTagHolder;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.shared.client.ParticleEffect;
@@ -27,8 +29,10 @@ public class TraitShocking extends AbstractTrait {
     if(player.worldObj.isRemote) {
       return;
     }
-    NBTTagCompound tag = TinkerUtil.getModifierTag(tool, identifier);
-    Data data = Data.read(tag);
+
+    ModifierTagHolder modtag = ModifierTagHolder.getModifier(tool, getModifierIdentifier());
+    Data data = modtag.getTagData(Data.class);
+
     if(data.charge >= 100f) {
       if(attackEntitySecondary(new EntityDamageSource("lightningBolt", player), 5f, target, false, true, false)) {
         TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_ELECTRO, target, 5);
@@ -37,11 +41,8 @@ public class TraitShocking extends AbstractTrait {
         }
         data.charge = 0;
 
-        NBTTagList tagList = TagUtil.getModifiersTagList(tool);
-        int index = TinkerUtil.getIndexInCompoundList(tagList, identifier);
-        data.write(tag);
-        tagList.set(index, tag);
-        TagUtil.setModifiersTagList(tool, tagList);
+        modtag.save();
+
         TagUtil.setEnchantEffect(tool, false);
       }
     }
@@ -52,11 +53,8 @@ public class TraitShocking extends AbstractTrait {
     if(!isSelected || world.isRemote) {
       return;
     }
-    NBTTagList tagList = TagUtil.getModifiersTagList(tool);
-    int index = TinkerUtil.getIndexInCompoundList(tagList, identifier);
-    NBTTagCompound tag = tagList.getCompoundTagAt(index);
-
-    Data data = Data.read(tag);
+    ModifierTagHolder modtag = ModifierTagHolder.getModifier(tool, getModifierIdentifier());
+    Data data = modtag.getTagData(Data.class);
 
     // fully charged
     if(data.charge >= 100) {
@@ -89,29 +87,28 @@ public class TraitShocking extends AbstractTrait {
     data.x = entity.posX;
     data.y = entity.posY;
     data.z = entity.posZ;
-    data.write(tag);
-
-    tagList.set(index, tag);
-    TagUtil.setModifiersTagList(tool, tagList);
+    modtag.save();
   }
 
-  public static class Data {
+  public static class Data extends ModifierNBT {
 
     float charge;
     double x;
     double y;
     double z;
 
-    public static Data read(NBTTagCompound tag) {
-      Data data = new Data();
-      data.charge = tag.getFloat("charge");
-      data.x = tag.getDouble("x");
-      data.y = tag.getDouble("y");
-      data.z = tag.getDouble("z");
-      return data;
+    @Override
+    public void read(NBTTagCompound tag) {
+      super.read(tag);
+      charge = tag.getFloat("charge");
+      x = tag.getDouble("x");
+      y = tag.getDouble("y");
+      z = tag.getDouble("z");
     }
 
+    @Override
     public void write(NBTTagCompound tag) {
+      super.write(tag);
       tag.setFloat("charge", charge);
       tag.setDouble("x", x);
       tag.setDouble("y", y);
