@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
 
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.utils.ModifierTagHolder;
@@ -29,10 +30,10 @@ public class ModMendingMoss extends ModifierTrait {
   private static final String TAG_STORED_XP = "stored_xp";
   private static final String TAG_LAST_HEAL = "heal_timestamp";
 
-  private static final int DELAY = 20 * 6; // every 6s
+  private static final int DELAY = 20 * 7 + 10; // every 7.5s
 
   public ModMendingMoss() {
-    super("mending_moss", 0x43ab32, 3, 1);
+    super("mending_moss", 0x43ab32, 3, 0);
 
     MinecraftForge.EVENT_BUS.register(this);
   }
@@ -51,7 +52,7 @@ public class ModMendingMoss extends ModifierTrait {
       // needs ot be repaired and is in hotbar or offhand
       if(needsRepair(tool)) {
         if(useXp(tool, world)) {
-          ToolHelper.healTool(tool, 1, (EntityLivingBase) entity);
+          ToolHelper.healTool(tool, 3, (EntityLivingBase) entity);
         }
       }
     }
@@ -124,7 +125,10 @@ public class ModMendingMoss extends ModifierTrait {
   @Override
   public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
     Data data = ModifierNBT.readTag(modifierTag, Data.class);
-    return ImmutableList.of("Stored xp: " + data.storedXp);
+    String loc = String.format(LOC_Extra, getIdentifier());
+    return ImmutableList.of(
+          Util.translateFormatted(loc, data.storedXp)
+        );
   }
 
   public static class Data extends ModifierNBT {
