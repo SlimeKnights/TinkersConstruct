@@ -142,6 +142,8 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack matSilkyCloth;
   public static ItemStack matSilkyJewel;
   public static ItemStack matNecroticBone;
+  public static ItemStack matMoss;
+  public static ItemStack matMendingMoss;
 
   // jerky
   public static ItemStack jerkyBeef;
@@ -277,6 +279,8 @@ public class TinkerCommons extends TinkerPulse {
       matSilkyJewel = materials.addMeta(16, "silky_jewel");
 
       matNecroticBone = materials.addMeta(17, "necrotic_bone");
+      matMoss = materials.addMeta(18, "moss");
+      matMendingMoss = materials.addMeta(19, "mending_moss");
 
       matCreativeModifier = materials.addMeta(50, "creative_modifier");
 

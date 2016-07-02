@@ -8,9 +8,15 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.SkeletonType;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.Random;
 import java.util.Set;
@@ -91,6 +97,30 @@ public class ToolEvents {
                                                  TinkerCommons.matNecroticBone.copy());
           entityitem.setDefaultPickupDelay();
           event.getDrops().add(entityitem);
+        }
+      }
+    }
+  }
+
+  @SubscribeEvent
+  public void onInteract(PlayerInteractEvent.RightClickBlock event) {
+    // does the player clicks on an echanting table with moss with 5 levels?
+    if(ItemStack.areItemsEqual(event.getItemStack(), TinkerCommons.matMoss)) {
+      if(event.getWorld().getBlockState(event.getPos()).getBlock() == Blocks.ENCHANTING_TABLE) {
+        if(event.getEntityPlayer().experienceLevel >= 5) {
+          // convert moss to mending moss
+          EntityPlayer player = event.getEntityPlayer();
+          player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
+
+          if(!event.getWorld().isRemote) {
+            event.getItemStack().stackSize--;
+            player.removeExperienceLevel(5);
+            ItemHandlerHelper.giveItemToPlayer(player, TinkerCommons.matMendingMoss.copy());
+
+            event.setUseBlock(Event.Result.DENY);
+            event.setUseItem(Event.Result.DENY);
+            event.setCanceled(true);
+          }
         }
       }
     }

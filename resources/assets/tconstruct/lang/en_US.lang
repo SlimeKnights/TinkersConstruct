@@ -277,6 +277,10 @@ item.tconstruct.materials.silky_jewel.name=Silky Jewel
 item.tconstruct.materials.silky_jewel.tooltip=Silktouch Modifier
 item.tconstruct.materials.necrotic_bone.name=Necrotic Bone
 item.tconstruct.materials.necrotic_bone.tooltip=Necrotic Modifier
+item.tconstruct.materials.moss.name=Ball of moss
+item.tconstruct.materials.moss.tooltip=Right click onto Enchanting Table\nto convert into Mending Moss.\n§oConsumes 5 Levels
+item.tconstruct.materials.mending_moss.name=Mending Moss
+item.tconstruct.materials.mending_moss.tooltip=Mending Moss Modifier
 item.tconstruct.materials.creative_modifier.name=Creative Modifier
 item.tconstruct.materials.creative_modifier.tooltip=Adds an additional modifier
 

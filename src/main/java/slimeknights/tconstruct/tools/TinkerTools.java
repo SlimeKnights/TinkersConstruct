@@ -76,6 +76,7 @@ import slimeknights.tconstruct.tools.modifiers.ModHarvestSize;
 import slimeknights.tconstruct.tools.modifiers.ModHaste;
 import slimeknights.tconstruct.tools.modifiers.ModKnockback;
 import slimeknights.tconstruct.tools.modifiers.ModLuck;
+import slimeknights.tconstruct.tools.modifiers.ModMendingMoss;
 import slimeknights.tconstruct.tools.modifiers.ModNecrotic;
 import slimeknights.tconstruct.tools.modifiers.ModReinforced;
 import slimeknights.tconstruct.tools.modifiers.ModSharpness;
@@ -167,6 +168,7 @@ public class TinkerTools extends TinkerPulse {
   public static Modifier modHarvestHeight;
   public static Modifier modKnockback;
   public static Modifier modLuck;
+  public static Modifier modMendingMoss;
   public static Modifier modNecrotic;
   public static Modifier modReinforced;
   public static Modifier modSharpness;
@@ -310,6 +312,9 @@ public class TinkerTools extends TinkerPulse {
     modLuck = registerModifier(new ModLuck());
     modLuck.addItem("gemLapis");
     modLuck.addItem("blockLapis", 1, 9);
+
+    modMendingMoss = registerModifier(new ModMendingMoss());
+    modMendingMoss.addItem(TinkerCommons.matMendingMoss, 1, 1);
 
     modNecrotic = registerModifier(new ModNecrotic());
     modNecrotic.addItem(TinkerCommons.matNecroticBone, 1, 1);

@@ -17,6 +17,8 @@
         "silky_cloth": [{ "textures": { "layer0": "tconstruct:items/materials/silky_cloth" }}],
         "silky_jewel": [{ "textures": { "layer0": "tconstruct:items/materials/silky_jewel" }}],
         "necrotic_bone": [{ "textures": { "layer0": "tconstruct:items/materials/necrotic_bone" }}],
+        "moss": [{ "textures": { "layer0": "tconstruct:items/materials/moss" }}],
+        "mending_moss": [{ "textures": { "layer0": "tconstruct:items/materials/mending_moss" }}],
         "creative_modifier": [{ "textures": { "layer0": "tconstruct:items/skull_char_gold" }}]
     }
 }
