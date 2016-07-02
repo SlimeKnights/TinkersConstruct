@@ -30,8 +30,14 @@ public class BlockBrownstoneSlab extends EnumBlockSlab<BlockBrownstoneSlab.Brown
 
   @Override
   public void onEntityWalk(World worldIn, BlockPos pos, Entity entity) {
-    entity.motionX *= 1.25;
-    entity.motionZ *= 1.25;
+    if(entity.isInWater()) {
+      entity.motionX *= 1.20;
+      entity.motionZ *= 1.20;
+    }
+    else {
+      entity.motionX *= 1.25;
+      entity.motionZ *= 1.25;
+    }
   }
 
   @Override
