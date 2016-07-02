@@ -55,6 +55,7 @@ import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
+import slimeknights.tconstruct.shared.block.BlockSlime;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
 import slimeknights.tconstruct.smeltery.block.BlockFaucet;
 import slimeknights.tconstruct.smeltery.block.BlockSeared;
@@ -74,8 +75,6 @@ import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 import slimeknights.tconstruct.tools.TinkerMaterials;
-import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.BlockSlime;
 
 @Pulse(id = TinkerSmeltery.PulseId, description = "The smeltery and items needed for it")
 public class TinkerSmeltery extends TinkerPulse {
@@ -367,12 +366,10 @@ public class TinkerSmeltery extends TinkerPulse {
 
     // purple slime
     TinkerRegistry.registerMelting(TinkerCommons.matSlimeBallPurple, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall);
-    if(TinkerWorld.slimeBlockCongealed != null) {
-      ItemStack slimeblock = new ItemStack(TinkerWorld.slimeBlockCongealed, 1, BlockSlime.SlimeType.PURPLE.meta);
-      TinkerRegistry.registerMelting(slimeblock, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall * 4);
-      slimeblock = new ItemStack(TinkerWorld.slimeBlock, 1, BlockSlime.SlimeType.PURPLE.meta);
-      TinkerRegistry.registerMelting(slimeblock, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall * 9);
-    }
+    ItemStack slimeblock = new ItemStack(TinkerCommons.blockSlimeCongealed, 1, BlockSlime.SlimeType.PURPLE.meta);
+    TinkerRegistry.registerMelting(slimeblock, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall * 4);
+    slimeblock = new ItemStack(TinkerCommons.blockSlime, 1, BlockSlime.SlimeType.PURPLE.meta);
+    TinkerRegistry.registerMelting(slimeblock, TinkerFluids.purpleSlime, Material.VALUE_SlimeBall * 9);
 
     // seared stone, takes as long as a full block to melt, but gives less
     TinkerRegistry.registerMelting(MeltingRecipe.forAmount(RecipeMatch.of("stone", Material.VALUE_SearedMaterial),

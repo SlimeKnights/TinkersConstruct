@@ -180,6 +180,13 @@ tile.tconstruct.rack.item.tooltip=For decoration purpose only
 tile.tconstruct.rack.drying.name=Drying Rack
 tile.tconstruct.rack.drying.tooltip=Used to dry items
 
+tile.tconstruct.slime_channel.green.name=Green Slime Channel
+tile.tconstruct.slime_channel.blue.name=Blue Slime Channel
+tile.tconstruct.slime_channel.purple.name=Purple Slime Channel
+tile.tconstruct.slime_channel.magma.name=Magma Slime Channel
+tile.tconstruct.slime_channel.blood.name=Blood Channel
+tile.tconstruct.slime_channel.tooltip=Flows like water, feels like gelatin
+
 tile.tconstruct.dried_clay.clay.name=Dried Clay
 tile.tconstruct.dried_clay.brick.name=Dried Bricks
 tile.tconstruct.dried_clay_slab.clay.name=Dried Clay Slab

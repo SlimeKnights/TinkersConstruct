@@ -22,6 +22,8 @@ import java.util.Random;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.block.BlockSlime;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
 import slimeknights.tconstruct.world.worldgen.SlimeTreeGenerator;
@@ -113,7 +115,7 @@ public class BlockSlimeSapling extends BlockSapling {
       slimeType = BlockSlime.SlimeType.MAGMA;
     }
 
-    IBlockState slimeGreen = TinkerWorld.slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, slimeType);
+    IBlockState slimeGreen = TinkerCommons.blockSlimeCongealed.getDefaultState().withProperty(BlockSlime.TYPE, slimeType);
     IBlockState leaves = TinkerWorld.slimeLeaves.getDefaultState().withProperty(BlockSlimeGrass.FOLIAGE, state.getValue(FOLIAGE));
     SlimeTreeGenerator gen = new SlimeTreeGenerator(5, 4, slimeGreen, leaves, null);
 

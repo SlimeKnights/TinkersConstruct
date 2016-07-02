@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
@@ -7,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -37,6 +39,8 @@ import slimeknights.tconstruct.shared.block.BlockFirewoodSlab;
 import slimeknights.tconstruct.shared.block.BlockGlow;
 import slimeknights.tconstruct.shared.block.BlockMetal;
 import slimeknights.tconstruct.shared.block.BlockOre;
+import slimeknights.tconstruct.shared.block.BlockSlime;
+import slimeknights.tconstruct.shared.block.BlockSlimeCongealed;
 import slimeknights.tconstruct.shared.block.BlockSoil;
 import slimeknights.tconstruct.shared.item.ItemMetaDynamicTinkers;
 import slimeknights.tconstruct.shared.worldgen.NetherOreGenerator;
@@ -61,6 +65,9 @@ public class TinkerCommons extends TinkerPulse {
   public static BlockGlow blockGlow;
 
   public static BlockDecoGround blockDecoGround;
+
+  public static BlockSlime blockSlime;
+  public static BlockSlimeCongealed blockSlimeCongealed;
 
   public static Block slabDecoGround;
   public static Block slabFirewood;
@@ -183,6 +190,10 @@ public class TinkerCommons extends TinkerPulse {
     slimyMudMagma = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.SLIMY_MUD_MAGMA.getMeta());
     graveyardSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.GRAVEYARD.getMeta());
     consecratedSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.CONSECRATED.getMeta());
+
+    // slime blocks
+    blockSlime = registerBlock(new BlockSlime(), "slime", BlockSlime.TYPE);
+    blockSlimeCongealed = registerBlock(new BlockSlimeCongealed(), "slime_congealed", BlockSlime.TYPE);
 
     // Ores
     blockOre = registerEnumBlock(new BlockOre(), "ore");
@@ -328,6 +339,7 @@ public class TinkerCommons extends TinkerPulse {
     GameRegistry.registerWorldGenerator(NetherOreGenerator.INSTANCE, 0);
 
     MinecraftForge.EVENT_BUS.register(new AchievementEvents());
+    MinecraftForge.EVENT_BUS.register(new BlockEvents());
     MinecraftForge.EVENT_BUS.register(new PlayerDataEvents());
   }
 
@@ -383,6 +395,19 @@ public class TinkerCommons extends TinkerPulse {
           "gravel",
           "gravel"));
     }
+    
+    // slime blocks
+
+    // green slime
+    addSlimeRecipes(new ItemStack(Items.SLIME_BALL), BlockSlime.SlimeType.GREEN);
+    // blue slime
+    addSlimeRecipes(TinkerCommons.matSlimeBallBlue, BlockSlime.SlimeType.BLUE);
+    // purple slime
+    addSlimeRecipes(TinkerCommons.matSlimeBallPurple, BlockSlime.SlimeType.PURPLE);
+    // blood slime
+    addSlimeRecipes(TinkerCommons.matSlimeBallBlood, BlockSlime.SlimeType.BLOOD);
+    // magma slime
+    addSlimeRecipes(TinkerCommons.matSlimeBallMagma, BlockSlime.SlimeType.MAGMA);
   }
 
   private static void registerMetalRecipes(String oreString, ItemStack ingot, ItemStack nugget, ItemStack block) {
@@ -409,5 +434,20 @@ public class TinkerCommons extends TinkerPulse {
     small.stackSize = 9;
     //GameRegistry.addShapelessRecipe(small, big);
     GameRegistry.addRecipe(new ShapelessOreRecipe(small, oreBig));
+  }
+  
+  private void addSlimeRecipes(ItemStack slimeball, BlockSlime.SlimeType type) {
+    ItemStack congealed = new ItemStack(blockSlimeCongealed);
+    congealed.setItemDamage(blockSlimeCongealed.getMetaFromState(blockSlimeCongealed.getDefaultState().withProperty(BlockSlime.TYPE, type)));
+
+    ItemStack block = new ItemStack(blockSlime);
+    block.setItemDamage(blockSlime.getMetaFromState(blockSlime.getDefaultState().withProperty(BlockSlime.TYPE, type)));
+
+    GameRegistry.addRecipe(congealed.copy(), "##", "##", '#', slimeball);
+    ItemStack slimeballOut = slimeball.copy();
+    slimeballOut.stackSize = 4;
+    GameRegistry.addRecipe(slimeballOut, "#", '#', congealed.copy());
+
+    GameRegistry.addRecipe(new ShapelessRecipes(block, ImmutableList.of(congealed, slimeball, slimeball, slimeball, slimeball, slimeball)));
   }
 }
