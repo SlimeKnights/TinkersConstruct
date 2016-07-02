@@ -308,7 +308,7 @@ public class TinkerCommons extends TinkerPulse {
     }
 
     if(isToolsLoaded() || isGadgetsLoaded()) {
-      blockGlow = registerBlock(new BlockGlow(), "glow");
+      blockGlow = registerBlockNoItem(new BlockGlow(), "glow");
     }
 
     proxy.preInit();
