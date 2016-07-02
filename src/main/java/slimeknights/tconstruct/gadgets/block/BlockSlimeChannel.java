@@ -205,6 +205,9 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
       if(entityAABB.intersectsWith(getBounds(state, world, pos).offset(pos))) {
         inBounds = true; // tell the other bounding box not to reduce gravity again
         entity.setFire(0);
+        if(entity.isEntityAlive()) {
+          entity.setAir(300);
+        }
         entity.fallDistance = 0;
         
         EnumFacing direction = getDirection(side, state.getValue(FACING));
@@ -240,13 +243,17 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
       // apply additional movement based on the "connected" bounding box
       ChannelConnected connected = state.getValue(CONNECTED);
       if(connected == ChannelConnected.OUTER && entityAABB.intersectsWith(getSecondaryBounds(state).offset(pos))) {
-        // only run these if not already in bounds above, as that would double the effect in a single block
-        if(side != EnumFacing.DOWN && !inBounds) {
+        // only run this if not already in bounds above
+        // mainly to remove redundancy, but it does have an effect with the fall speed
+        if(!inBounds) {
           // makes the block "slimey", as in you fall through it slowly
-          if(entity.motionY < 0) {
+          if(side != EnumFacing.DOWN && entity.motionY < 0) {
             entity.motionY /= 2;
           }
           entity.setFire(0);
+          if(entity.isEntityAlive()) {
+            entity.setAir(300);
+          }
           entity.fallDistance = 0;
         }
         switch(side) {
