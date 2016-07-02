@@ -46,6 +46,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.smeltery.BucketCastingRecipe;
 import slimeknights.tconstruct.library.smeltery.Cast;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
@@ -347,6 +348,9 @@ public class TinkerSmeltery extends TinkerPulse {
 
   private void registerMeltingCasting() {
     int bucket = Fluid.BUCKET_VOLUME;
+
+    // bucket casting
+    TinkerRegistry.registerTableCasting(new BucketCastingRecipe());
 
     // Water
     Fluid water = FluidRegistry.WATER;

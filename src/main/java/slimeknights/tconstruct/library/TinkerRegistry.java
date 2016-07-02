@@ -41,6 +41,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
+import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IPattern;
@@ -452,8 +453,8 @@ public final class TinkerRegistry {
   | Smeltery                                                                  |
   ---------------------------------------------------------------------------*/
   private static List<MeltingRecipe> meltingRegistry = Lists.newLinkedList();
-  private static List<CastingRecipe> tableCastRegistry = Lists.newLinkedList();
-  private static List<CastingRecipe> basinCastRegistry = Lists.newLinkedList();
+  private static List<ICastingRecipe> tableCastRegistry = Lists.newLinkedList();
+  private static List<ICastingRecipe> basinCastRegistry = Lists.newLinkedList();
   private static List<AlloyRecipe> alloyRegistry = Lists.newLinkedList();
   private static Map<FluidStack, Integer> smelteryFuels = Maps.newHashMap();
   private static Map<String, FluidStack> entityMeltingRegistry = Maps.newHashMap();
@@ -521,12 +522,12 @@ public final class TinkerRegistry {
     tableCastRegistry.add(new CastingRecipe(output, rm, fluid, amount));
   }
 
-  public static void registerTableCasting(CastingRecipe recipe) {
+  public static void registerTableCasting(ICastingRecipe recipe) {
     tableCastRegistry.add(recipe);
   }
 
-  public static CastingRecipe getTableCasting(ItemStack cast, Fluid fluid) {
-    for(CastingRecipe recipe : tableCastRegistry) {
+  public static ICastingRecipe getTableCasting(ItemStack cast, Fluid fluid) {
+    for(ICastingRecipe recipe : tableCastRegistry) {
       if(recipe.matches(cast, fluid)) {
         return recipe;
       }
@@ -534,7 +535,7 @@ public final class TinkerRegistry {
     return null;
   }
 
-  public static List<CastingRecipe> getAllTableCastingRecipes() {
+  public static List<ICastingRecipe> getAllTableCastingRecipes() {
     return tableCastRegistry;
   }
 
@@ -548,12 +549,12 @@ public final class TinkerRegistry {
     basinCastRegistry.add(new CastingRecipe(output, rm, fluid, amount));
   }
 
-  public static void registerBasinCasting(CastingRecipe recipe) {
+  public static void registerBasinCasting(ICastingRecipe recipe) {
     basinCastRegistry.add(recipe);
   }
 
-  public static CastingRecipe getBasinCasting(ItemStack cast, Fluid fluid) {
-    for(CastingRecipe recipe : basinCastRegistry) {
+  public static ICastingRecipe getBasinCasting(ItemStack cast, Fluid fluid) {
+    for(ICastingRecipe recipe : basinCastRegistry) {
       if(recipe.matches(cast, fluid)) {
         return recipe;
       }
@@ -561,7 +562,7 @@ public final class TinkerRegistry {
     return null;
   }
 
-  public static List<CastingRecipe> getAllBasinCastingRecipes() {
+  public static List<ICastingRecipe> getAllBasinCastingRecipes() {
     return basinCastRegistry;
   }
 

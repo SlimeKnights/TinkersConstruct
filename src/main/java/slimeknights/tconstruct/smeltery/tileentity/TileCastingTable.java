@@ -6,13 +6,14 @@ import net.minecraftforge.fluids.Fluid;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
+import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
 
 public class TileCastingTable extends TileCasting {
 
   @Override
-  protected CastingRecipe findRecipe(ItemStack cast, Fluid fluid) {
+  protected ICastingRecipe findRecipe(ItemStack cast, Fluid fluid) {
     return TinkerRegistry.getTableCasting(cast, fluid);
   }
 

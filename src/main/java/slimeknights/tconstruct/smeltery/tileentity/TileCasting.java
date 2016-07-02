@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import com.google.common.base.Optional;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
@@ -28,6 +30,7 @@ import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.fluid.FluidHandlerCasting;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
+import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.library.tileentity.IProgress;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.events.TinkerCastingEvent;
@@ -39,7 +42,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
   public FluidTankAnimated tank;
   public IFluidHandler fluidHandler;
   protected int timer; // timer for recipe cooldown
-  protected CastingRecipe recipe; // current recipe
+  protected ICastingRecipe recipe; // current recipe
 
   public TileCasting() {
     super("casting", 2, 1); // 2 slots. 0 == input, 1 == output
@@ -188,14 +191,20 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     if(recipe == null) {
       return null;
     }
-    return recipe.getResult();
+
+    Fluid fluid = null;
+    if(tank.getFluid() != null) {
+      fluid = tank.getFluid().getFluid();
+    }
+
+    return recipe.getResult(getStackInSlot(0), fluid);
   }
 
   /** Return the recipe for the current state, if one exists. Don't forget to fire the OnCasting event! */
-  protected abstract CastingRecipe findRecipe(ItemStack cast, Fluid fluid);
+  protected abstract ICastingRecipe findRecipe(ItemStack cast, Fluid fluid);
 
-  protected CastingRecipe findRecipe(Fluid fluid) {
-    CastingRecipe recipe = findRecipe(getStackInSlot(0), fluid);
+  protected ICastingRecipe findRecipe(Fluid fluid) {
+    ICastingRecipe recipe = findRecipe(getStackInSlot(0), fluid);
     if(TinkerCastingEvent.OnCasting.fire(recipe, this)) {
       return recipe;
     }
@@ -205,12 +214,12 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
 
   /** Sets the state for a new casting recipe, returns the fluid amount needed for casting */
   public int initNewCasting(Fluid fluid, boolean setNewRecipe) {
-    CastingRecipe recipe = findRecipe(fluid);
+    ICastingRecipe recipe = findRecipe(fluid);
     if(recipe != null) {
       if(setNewRecipe) {
         this.recipe = recipe;
       }
-      return recipe.getFluid().amount;
+      return recipe.getFluidAmount();
     }
     return 0;
   }
@@ -240,7 +249,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     else if(recipe == null) {
       recipe = findRecipe(fluid.getFluid());
       if(recipe != null) {
-        tank.setCapacity(recipe.getFluid().amount);
+        tank.setCapacity(recipe.getFluidAmount());
       }
     }
 

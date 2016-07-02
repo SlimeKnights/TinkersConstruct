@@ -7,7 +7,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerAPIException;
 
-public class CastingRecipe {
+public class CastingRecipe implements ICastingRecipe {
 
   public final RecipeMatch cast;
   protected final FluidStack fluid;
@@ -48,6 +48,7 @@ public class CastingRecipe {
     this.switchOutputs = switchOutputs;
   }
 
+  @Override
   public boolean matches(ItemStack cast, Fluid fluid) {
     if((cast == null && this.cast == null) || (this.cast != null && this.cast.matches(new ItemStack[]{cast}) != null)) {
       return this.fluid.getFluid() == fluid;
@@ -55,25 +56,45 @@ public class CastingRecipe {
     return false;
   }
 
-  public ItemStack getResult() {
+  @Override
+  public ItemStack getResult(ItemStack cast, Fluid fluid) {
     return output.copy();
+  }
+
+  @Override
+  public int getTime() {
+    return time;
+  }
+
+  @Override
+  public boolean consumesCast() {
+    return consumesCast;
+  }
+
+  @Override
+  public int getFluidAmount() {
+    return fluid.amount;
+  }
+
+  @Override
+  public boolean switchOutputs() {
+    return switchOutputs;
+  }
+
+  @Override
+  public FluidStack getFluid(ItemStack cast, Fluid fluid) {
+    return this.fluid;
+  }
+
+  // JEI stuff
+  public ItemStack getResult() {
+    return output;
   }
 
   public FluidStack getFluid() {
     return fluid;
   }
 
-  public int getTime() {
-    return time;
-  }
-
-  public boolean consumesCast() {
-    return consumesCast;
-  }
-
-  public boolean switchOutputs() {
-    return switchOutputs;
-  }
 
   public static int calcCooldownTime(Fluid fluid, int amount) {
     // minimum time = faucet animation time :I
