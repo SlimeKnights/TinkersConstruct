@@ -235,8 +235,11 @@ public final class Config {
       List<String> propOrder = Lists.newArrayList();
       ClientSide = configFile.getCategory(cat);
 
-      prop = configFile.get(cat, "renderTableItems", renderTableItems);
-      prop.setComment("If true all of Tinkers' tables will render their contents on top of the table");
+      // rename renderTableItems to renderInventoryInWorld
+      configFile.renameProperty(cat, "renderTableItems", "renderInventoryInWorld");
+
+      prop = configFile.get(cat, "renderInventoryInWorld", renderTableItems);
+      prop.setComment("If true all of Tinkers' blocks with contents (tables, basin, drying racks,...) will render their contents in the world");
       renderTableItems = prop.getBoolean();
       propOrder.add(prop.getName());
 
