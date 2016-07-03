@@ -68,6 +68,7 @@ import slimeknights.tconstruct.tools.item.Shovel;
 import slimeknights.tconstruct.tools.item.Shuriken;
 import slimeknights.tconstruct.tools.modifiers.ModAntiMonsterType;
 import slimeknights.tconstruct.tools.modifiers.ModBeheading;
+import slimeknights.tconstruct.tools.modifiers.ModBlasting;
 import slimeknights.tconstruct.tools.modifiers.ModCreative;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModEmerald;
@@ -159,6 +160,7 @@ public class TinkerTools extends TinkerPulse {
   // Modifiers
   public static Modifier modBaneOfArthopods;
   public static Modifier modBeheading;
+  public static Modifier modBlasting;
   public static Modifier modDiamond;
   public static Modifier modEmerald;
   public static Modifier modFiery;
@@ -284,6 +286,9 @@ public class TinkerTools extends TinkerPulse {
 
     modBeheading = registerModifier(new ModBeheading());
     modBeheading.addRecipeMatch(new RecipeMatch.ItemCombination(1, new ItemStack(Items.ENDER_PEARL), new ItemStack(Blocks.OBSIDIAN)));
+
+    modBlasting = registerModifier(new ModBlasting());
+    modBlasting.addItem(Blocks.TNT, 1);
 
     modDiamond = registerModifier(new ModDiamond());
     modDiamond.addItem("gemDiamond");

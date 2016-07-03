@@ -50,6 +50,7 @@ import slimeknights.tconstruct.library.tools.IProjectileStats;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.network.ToolBreakAnimationPacket;
 
 public final class ToolHelper {
@@ -180,6 +181,11 @@ public final class ToolHelper {
   // also checks for the tools effectiveness
   public static boolean isToolEffective2(ItemStack stack, IBlockState state) {
     if(isToolEffective(stack, state)) {
+      return true;
+    }
+
+    // this will be the only place besides fortify where a modifier is hardcoded. I promise. :L
+    if(TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), TinkerTools.modBlasting.getIdentifier())) {
       return true;
     }
 
