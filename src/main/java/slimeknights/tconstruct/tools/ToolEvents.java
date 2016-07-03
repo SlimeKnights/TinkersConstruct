@@ -2,17 +2,22 @@ package slimeknights.tconstruct.tools;
 
 import com.google.common.collect.Sets;
 
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.SkeletonType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraft.world.storage.loot.LootEntry;
+import net.minecraft.world.storage.loot.LootEntryItem;
+import net.minecraft.world.storage.loot.LootPool;
+import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraft.world.storage.loot.RandomValueRange;
+import net.minecraft.world.storage.loot.conditions.KilledByPlayer;
+import net.minecraft.world.storage.loot.conditions.LootCondition;
+import net.minecraft.world.storage.loot.conditions.RandomChanceWithLooting;
+import net.minecraft.world.storage.loot.functions.LootFunction;
+import net.minecraft.world.storage.loot.functions.SetMetadata;
+import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -84,21 +89,26 @@ public class ToolEvents {
   }
 
   @SubscribeEvent
-  public void onLivingDrop(LivingDropsEvent event) {
-    if(event.getEntityLiving() instanceof EntitySkeleton && event.getSource().getEntity() instanceof EntityPlayer) {
-      if(((EntitySkeleton) event.getEntityLiving()).func_189771_df() == SkeletonType.WITHER) {
-        float chance = 0.10f;
-        chance += 0.05f + EnchantmentHelper.getLootingModifier((EntityLivingBase) event.getSource().getEntity());
-        if(random.nextFloat() < chance) {
-          EntityItem entityitem = new EntityItem(event.getEntityLiving().worldObj,
-                                                 event.getEntityLiving().posX,
-                                                 event.getEntityLiving().posY,
-                                                 event.getEntityLiving().posZ,
-                                                 TinkerCommons.matNecroticBone.copy());
-          entityitem.setDefaultPickupDelay();
-          event.getDrops().add(entityitem);
-        }
-      }
+  public void onLootTableLoad(LootTableLoadEvent event) {
+    // wither skellies drop necrotic bones
+    if(event.getName().equals(LootTableList.ENTITIES_WITHER_SKELETON)) {
+
+      LootCondition[] lootConditions = new LootCondition[0];
+
+      LootEntry entry = new LootEntryItem(TinkerCommons.matNecroticBone.getItem(),
+                                          1,
+                                          0,
+                                          new LootFunction[]{new SetMetadata(lootConditions, new RandomValueRange(TinkerCommons.matNecroticBone.getMetadata()))},
+                                          lootConditions,
+                                          "necrotic_bone");
+      event.getTable().addPool(new LootPool(new LootEntry[]{entry},
+                                            new LootCondition[]{
+                                                new KilledByPlayer(false),
+                                                new RandomChanceWithLooting(0.07f, 0.05f)
+                                            },
+                                            new RandomValueRange(1),
+                                            new RandomValueRange(0),
+                                            "necrotic_bone"));
     }
   }
 
