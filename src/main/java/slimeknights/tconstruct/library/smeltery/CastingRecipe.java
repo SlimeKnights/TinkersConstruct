@@ -58,7 +58,7 @@ public class CastingRecipe implements ICastingRecipe {
 
   @Override
   public ItemStack getResult(ItemStack cast, Fluid fluid) {
-    return output.copy();
+    return getResult().copy();
   }
 
   @Override
