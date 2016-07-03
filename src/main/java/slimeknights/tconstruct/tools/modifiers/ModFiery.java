@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 
 import java.util.List;
 
@@ -24,10 +25,10 @@ public class ModFiery extends ModifierTrait {
 
   @Override
   public void onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, boolean isCritical) {
-    dealFireDamage(tool, target);
+    dealFireDamage(tool, player, target);
   }
 
-  protected void dealFireDamage(ItemStack tool, EntityLivingBase target) {
+  protected void dealFireDamage(ItemStack tool, EntityLivingBase attacker, EntityLivingBase target) {
     NBTTagCompound tag = TinkerUtil.getModifierTag(tool, identifier);
     ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(tag);
 
@@ -36,7 +37,7 @@ public class ModFiery extends ModifierTrait {
 
     // one heart fire damage per 15
     float fireDamage = getFireDamage(data);
-    if(attackEntitySecondary(DamageSource.inFire, fireDamage, target, false, true)) {
+    if(attackEntitySecondary(new EntityDamageSource("fire", attacker).setFireDamage(), fireDamage, target, false, true)) {
       int count = Math.round(fireDamage);
       TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_FIRE, target, count);
     }
