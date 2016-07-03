@@ -17,7 +17,7 @@ public class WorldEvents {
 
   @SubscribeEvent
   public void extraSlimeSpawn(WorldEvent.PotentialSpawns event) {
-    if(event.getType() == EnumCreatureType.MONSTER || event.getType() == EnumCreatureType.WATER_CREATURE) {
+    if(event.getType() == EnumCreatureType.MONSTER) {
       // inside a magma slime island?
       if(MagmaSlimeIslandGenerator.INSTANCE.isSlimeIslandAt(event.getWorld(), event.getPos().down(3))) {
         // spawn magma slime, pig zombies have weight 100
