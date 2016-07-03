@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
@@ -279,6 +280,8 @@ public class TinkerTools extends TinkerPulse {
   }
 
   private void registerModifiers() {
+    ItemStack tnt = new ItemStack(Blocks.TNT);
+
     // create the modifiers and add their items
     modBaneOfArthopods = new ModAntiMonsterType("bane_of_arthopods", 0x61ba49, 5, 24, EnumCreatureAttribute.ARTHROPOD);
     modBaneOfArthopods = registerModifier(modBaneOfArthopods);
@@ -288,7 +291,7 @@ public class TinkerTools extends TinkerPulse {
     modBeheading.addRecipeMatch(new RecipeMatch.ItemCombination(1, new ItemStack(Items.ENDER_PEARL), new ItemStack(Blocks.OBSIDIAN)));
 
     modBlasting = registerModifier(new ModBlasting());
-    modBlasting.addItem(Blocks.TNT, 1);
+    modBlasting.addRecipeMatch(new RecipeMatch.ItemCombination(1, tnt, tnt, tnt));
 
     modDiamond = registerModifier(new ModDiamond());
     modDiamond.addItem("gemDiamond");
