@@ -49,7 +49,7 @@ import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.IProjectileStats;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
-import slimeknights.tconstruct.tools.events.TinkerToolEvent;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.tools.network.ToolBreakAnimationPacket;
 
 public final class ToolHelper {
@@ -221,6 +221,10 @@ public final class ToolHelper {
     IBlockState state = world.getBlockState(origin);
     Block block = state.getBlock();
 
+    if(!isToolEffective2(stack, state)) {
+      return ImmutableList.of();
+    }
+
     if(block.getMaterial(state) == Material.AIR) {
       // what are you DOING?
       return ImmutableList.of();
@@ -232,7 +236,10 @@ public final class ToolHelper {
     }
 
     // fire event
-    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(stack, player, width, height, depth, distance);
+    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(stack, player, state, width, height, depth, distance);
+    if(event.isCanceled()) {
+      return ImmutableList.of();
+    }
     width = event.width;
     height = event.height;
     depth = event.depth;

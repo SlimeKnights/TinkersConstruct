@@ -39,7 +39,7 @@ import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.events.TinkerToolEvent;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
 
 public class LumberAxe extends AoeToolCore {
 
@@ -200,7 +200,7 @@ public class LumberAxe extends AoeToolCore {
     if(player.worldObj.isRemote) {
       return true;
     }
-    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(itemstack, player, 3, 3, 3, -1);
+    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(itemstack, player, player.getEntityWorld().getBlockState(start), 3, 3, 3, -1);
     int speed = Math.round((event.width * event.height * event.depth) / 27f);
     if(event.distance > 0) {
       speed = event.distance + 1;

@@ -41,9 +41,6 @@ public class BattleAxe extends AoeToolCore {
 
   @Override
   public ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
-    if(!ToolHelper.isToolEffective2(stack, world.getBlockState(origin))) {
-      return ImmutableList.of();
-    }
     return ToolHelper.calcAOEBlocks(stack, world, player, origin, 2, 2, 1);
   }
 

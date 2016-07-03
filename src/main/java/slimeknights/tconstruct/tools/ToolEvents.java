@@ -29,7 +29,7 @@ import java.util.Set;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.tools.events.TinkerToolEvent;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
 
 public class ToolEvents {
 
