@@ -1,13 +1,18 @@
 package slimeknights.tconstruct.tools.modifiers;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 
+import java.util.List;
 import java.util.ListIterator;
 
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
@@ -25,6 +30,8 @@ public class ModBlasting extends ModifierTrait {
         iter.set(new ModifierAspect.FreeFirstModifierAspect(this, 1));
       }
     }
+
+    addAspects(ModifierAspect.harvestOnly);
 
     MinecraftForge.EVENT_BUS.register(this);
   }
@@ -67,12 +74,20 @@ public class ModBlasting extends ModifierTrait {
   private float getBlockDestroyChange(ItemStack tool) {
     float level = getLevel(tool);
     float chancePerLevel = 1f/(float)maxLevel;
-    return 1f - level * chancePerLevel;
+    return level * chancePerLevel;
   }
 
   @Override
   public void blockHarvestDrops(ItemStack tool, BlockEvent.HarvestDropsEvent event) {
-    float chance = getBlockDestroyChange(tool);
+    float chance = 1f - getBlockDestroyChange(tool);
     event.setDropChance(event.getDropChance() * chance);
+  }
+
+  @Override
+  public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
+    String loc = String.format(LOC_Extra, getIdentifier());
+    float chance = getBlockDestroyChange(tool);
+
+    return ImmutableList.of(Util.translateFormatted(loc, Util.dfPercent.format(chance)));
   }
 }
