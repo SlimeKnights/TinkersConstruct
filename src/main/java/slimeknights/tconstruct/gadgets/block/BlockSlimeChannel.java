@@ -97,51 +97,61 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
 
   @Override
   public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess source, BlockPos pos) {
+    state = addDataFromTE(state, source, pos);
     // connections!
     // first, try the outside, the block in front of this
     // this is checked first since a full peice is better than a partial one in the case of both
     EnumFacing side = state.getValue(SIDE);
     EnumFacing facing = state.getValue(FACING);
-    IBlockState check = source.getBlockState(pos.offset(side.getOpposite()));
-    if(check.getBlock() == this && check.getValue(SIDE) == getDirection(side, facing).getOpposite()) {
+    BlockPos offset = pos.offset(side.getOpposite());
+    IBlockState check = source.getBlockState(offset);
+    if(check.getBlock() == this && addDataFromTE(check, source, offset).getValue(SIDE) == getDirection(side, facing).getOpposite()) {
       return state.withProperty(CONNECTED, ChannelConnected.OUTER);
     }
     // if that does not work, try to connect to the inside, or the block behind this
-    check = source.getBlockState(pos.offset(side));
-    if(check.getBlock() == this && check.getValue(SIDE) == getDirection(side, facing)) {
+    offset = pos.offset(side);
+    check = source.getBlockState(offset);
+    if(check.getBlock() == this && addDataFromTE(check, source, offset).getValue(SIDE) == getDirection(side, facing)) {
       return state.withProperty(CONNECTED, ChannelConnected.INNER);
     }
 
     // if neither work, no connection
     return state.withProperty(CONNECTED, ChannelConnected.NONE);
   }
+  
+  /**
+   * Safe way to grab TE data above since we don't want to call getActualState inside itself for connections
+   * (it would go back and forth and back and forth between the two blocks)
+   */
+  private IBlockState addDataFromTE(IBlockState state, IBlockAccess source, BlockPos pos) {
+    TileEntity te = source.getTileEntity(pos);
+    if(te instanceof TileSlimeChannel) {
+      TileSlimeChannel channel = (TileSlimeChannel)te;
+      return state.withProperty(SIDE, channel.getSide())
+                  .withProperty(FACING, channel.getFacing());
+    }
+    return state;
+  }
 
   /**
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-   * IBlockstate
+   * IBlockState
    */
   @Nonnull
   @Override
-  public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-    return this.getDefaultState().withProperty(TYPE, SlimeType.fromMeta(meta))
-                                 .withProperty(SIDE, side.getOpposite())
-                                 .withProperty(FACING, getPlacement(side.getOpposite(), placer));  
-  }
-  
-  /**
-   * Called by ItemBlocks after a block is set in the world, to allow post-place logic
-   */
-  @Override
-  public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-    TileEntity te = worldIn.getTileEntity(pos);
-    if(te instanceof TileSlimeChannel) {
-      TileSlimeChannel channel = (TileSlimeChannel)te;
-      channel.setSide(state.getValue(SIDE), false);
-      channel.setFacing(state.getValue(FACING), false);
+  public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing face, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+    IBlockState clicked = world.getBlockState(pos.offset(face.getOpposite()));
+    EnumFacing side = face.getOpposite();
+    if(clicked.getBlock() == this) {
+      side = clicked.getActualState(world, pos).getValue(SIDE);
     }
+    // we temporarily store the data in the blockstate until the TE is created
+    return this.getDefaultState().withProperty(TYPE, SlimeType.fromMeta(meta))
+                                 .withProperty(SIDE, side)
+                                 .withProperty(FACING, getPlacement(side, placer));  
   }
   
-  public static EnumFacing getPlacement(EnumFacing side, EntityLivingBase placer) {
+  private static EnumFacing getPlacement(EnumFacing side, EntityLivingBase placer) {
     EnumFacing facing;
     EnumFacing horizontal = placer.getHorizontalFacing();
     // if on the bottom/top, just rotate horizontally
@@ -166,6 +176,20 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
       return facing.getOpposite();
     }
     return facing;
+  }
+  
+  /**
+   * Called by ItemBlocks after a block is set in the world, to allow post-place logic
+   */
+  @Override
+  public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+    TileEntity te = worldIn.getTileEntity(pos);
+    // pull the data we stored earlier into the Tile Entity
+    if(te instanceof TileSlimeChannel) {
+      TileSlimeChannel channel = (TileSlimeChannel)te;
+      channel.setSide(state.getValue(SIDE));
+      channel.setFacing(state.getValue(FACING));
+    }
   }
   
   /* Item drops */
@@ -200,7 +224,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
       double moveY = 0;
       double moveZ = 0;
       boolean inBounds = false;
-      state = state.getActualState(world, pos); // get the connected values
+      state = state.getActualState(world, pos); // get the direction and connected values
       EnumFacing side = state.getValue(SIDE);
       if(entityAABB.intersectsWith(getBounds(state, world, pos).offset(pos))) {
         inBounds = true; // tell the other bounding box not to reduce gravity again
@@ -316,7 +340,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
   /* Powering */
   @Override
   public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-    this.updateState(worldIn, pos, state, false);
+    this.updateState(worldIn, pos, state);
   }
   
   /**
@@ -326,26 +350,15 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
    */
   @Override
   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-      this.updateState(worldIn, pos, state, true);
+      this.updateState(worldIn, pos, state);
   }
 
-  public void updateState(World world, BlockPos pos, IBlockState state, boolean refresh) {
-    boolean flag = world.isBlockPowered(pos);
-    IBlockState oldState = state;
+  public void updateState(World world, BlockPos pos, IBlockState state) {
+    boolean powered = world.isBlockPowered(pos);
     
-    if(flag != state.getValue(POWERED).booleanValue()) {
-      state = state.withProperty(POWERED, Boolean.valueOf(flag));
-    }
-    // this fixes a bug where on world reload the block added by the TE loses facing data on block update
-    // note it is not called when the block is added since then we pull default data as the TE does not exist yet (nor have we defined it)
-    TileEntity te = world.getTileEntity(pos);
-    if(te instanceof TileSlimeChannel && refresh) {
-      TileSlimeChannel channel = (TileSlimeChannel)te;
-      state = state.withProperty(SIDE, channel.getSide());
-      state = state.withProperty(FACING, channel.getFacing());
-    }
-    if(state != oldState) {
-      world.setBlockState(pos, state);
+    // don't do any changes if the block is the same
+    if(powered != state.getValue(POWERED).booleanValue()) {
+      world.setBlockState(pos, state.withProperty(POWERED, Boolean.valueOf(powered)));
     }
   }
 
@@ -485,7 +498,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
   @Override
   public boolean shouldSideBeRendered(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing face) {
     @SuppressWarnings("unused")
-    int knightminers_sanity_percentage_after_writing_function = 15;
+    int knightminers_sanity_percentage_after_writing_function = 15;    
     // common logic for solid blocks, basically if a solid face is on the side we can skip all of this
     if(!super.shouldSideBeRendered(state, blockAccess, pos, face)) {
       return false;
@@ -500,12 +513,16 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
       return true;
     }
     
-    // so, it matches, set up some data for readibility and send it along
+    // so, it matches. great, grab directions and connections
+    state = state.getActualState(blockAccess, pos);
+    offset = offset.getActualState(blockAccess, pos.offset(face));
+    
+    // then set up some data for readability and send it along
     EnumFacing side = state.getValue(SIDE);
-    ChannelConnected connected = state.getActualState(blockAccess, pos).getValue(CONNECTED);
+    ChannelConnected connected = state.getValue(CONNECTED);
     EnumFacing direction = getDirection(side, state.getValue(FACING));
     EnumFacing offsetSide = offset.getValue(SIDE);
-    ChannelConnected offsetConnected = offset.getActualState(blockAccess, pos.offset(face)).getValue(CONNECTED);
+    ChannelConnected offsetConnected = offset.getValue(CONNECTED);
     EnumFacing offsetDirection = getDirection(offsetSide, offset.getValue(FACING));
 
     // the other channel is against our back
