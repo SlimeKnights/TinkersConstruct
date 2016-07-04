@@ -1,0 +1,6 @@
+{
+    "parent": "tconstruct:block/slime_channel",
+    "textures": {
+        "slime": "tconstruct:blocks/fluids/liquid_flow"
+    }
+}

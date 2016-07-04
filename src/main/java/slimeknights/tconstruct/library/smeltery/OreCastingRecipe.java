@@ -43,6 +43,11 @@ public class OreCastingRecipe extends CastingRecipe {
   }
 
   @Override
+  public ItemStack getResult(ItemStack cast, Fluid fluid) {
+    return getResult().copy();
+  }
+
+  @Override
   public ItemStack getResult() {
     if(outputs.isEmpty()) {
       return null;

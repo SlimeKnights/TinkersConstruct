@@ -55,7 +55,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
     guiFactory = "slimeknights.tconstruct.common.config.ConfigGui$ConfigGuiFactory",
     dependencies = "required-after:Forge@[12.18.0.1993,);"
                    + "required-after:mantle@[1.10-0.10.3,)",
-    acceptedMinecraftVersions = "[1.10]")
+    acceptedMinecraftVersions = "[1.10, 1.11)")
 public class TConstruct {
 
   public static final String modID = Util.MODID;
@@ -149,7 +149,9 @@ public class TConstruct {
   public void onMissingMapping(FMLMissingMappingsEvent event) {
     for(FMLMissingMappingsEvent.MissingMapping mapping : event.get()) {
       // old universal bucket, got moved into Forge
-      if(mapping.type == GameRegistry.Type.ITEM && mapping.name.equals(Util.resource("bucket"))) {
+      // glow is the leftover itemblock form which was removed
+      if(mapping.type == GameRegistry.Type.ITEM
+          && (mapping.name.equals(Util.resource("bucket")) || mapping.name.equals(Util.resource("glow")))) {
         mapping.ignore();
       }
     }

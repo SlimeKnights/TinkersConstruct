@@ -22,8 +22,8 @@ public class ChiselAndBits {
     imc(TinkerSmeltery.searedBlock);
     imc(TinkerCommons.blockClearGlass);
     imc(TinkerCommons.blockClearStainedGlass);
-    imc(TinkerWorld.slimeBlock);
-    imc(TinkerWorld.slimeBlockCongealed);
+    imc(TinkerCommons.blockSlime);
+    imc(TinkerCommons.blockSlimeCongealed);
     imc(TinkerWorld.slimeLeaves);
   }
 

@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.RenderUtil;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
+import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.client.module.GuiSmelterySideinventory;
@@ -221,27 +222,33 @@ public class GuiSmeltery extends GuiMultiModule {
     List<FluidGuiEntry> list = Lists.newArrayList();
 
     // go through all casting recipes for the fluids and check for known "units" like blocks, ingots,...
-    for(CastingRecipe recipe : TinkerRegistry.getAllBasinCastingRecipes()) {
-      // search for a block recipe
-      if(recipe.getFluid().getFluid() == fluid && recipe.cast == null) {
-        // it's a block that is cast solely from the material, using no cast, therefore it's a block made out of the material
-        list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.block"));
+    for(ICastingRecipe irecipe : TinkerRegistry.getAllBasinCastingRecipes()) {
+      if(irecipe instanceof CastingRecipe) {
+        CastingRecipe recipe = (CastingRecipe) irecipe;
+        // search for a block recipe
+        if(recipe.getFluid().getFluid() == fluid && recipe.cast == null) {
+          // it's a block that is cast solely from the material, using no cast, therefore it's a block made out of the material
+          list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.block"));
+        }
       }
     }
     // table casting
-    for(CastingRecipe recipe : TinkerRegistry.getAllTableCastingRecipes()) {
-      if(recipe.getFluid().getFluid() == fluid && recipe.cast != null) {
-        // nugget
-        if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castNugget}) != null) {
-          list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.nugget"));
-        }
-        // ingot
-        if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castIngot}) != null) {
-          list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.ingot"));
-        }
-        // gem
-        if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castGem}) != null) {
-          list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.gem"));
+    for(ICastingRecipe irecipe : TinkerRegistry.getAllTableCastingRecipes()) {
+      if(irecipe instanceof CastingRecipe) {
+        CastingRecipe recipe = (CastingRecipe) irecipe;
+        if(recipe.getFluid().getFluid() == fluid && recipe.cast != null) {
+          // nugget
+          if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castNugget}) != null) {
+            list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.nugget"));
+          }
+          // ingot
+          if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castIngot}) != null) {
+            list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.ingot"));
+          }
+          // gem
+          if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castGem}) != null) {
+            list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.gem"));
+          }
         }
       }
     }
