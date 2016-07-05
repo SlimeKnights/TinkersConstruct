@@ -66,5 +66,13 @@
   {
     "type": "modifier",
     "data": "modifiers/harvestwidth.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/mending_moss.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/blasting.json"
   }
 ]

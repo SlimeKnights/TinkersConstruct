@@ -30,6 +30,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.gadgets.block.BlockBrownstone;
 import slimeknights.tconstruct.gadgets.block.BlockBrownstoneSlab;
 import slimeknights.tconstruct.gadgets.block.BlockBrownstoneSlab2;
+import slimeknights.tconstruct.gadgets.block.BlockSlimeChannel;
 import slimeknights.tconstruct.gadgets.block.BlockDriedClay;
 import slimeknights.tconstruct.gadgets.block.BlockDriedClaySlab;
 import slimeknights.tconstruct.gadgets.block.BlockPunji;
@@ -47,11 +48,13 @@ import slimeknights.tconstruct.gadgets.item.ItemSlimeSling;
 import slimeknights.tconstruct.gadgets.item.ItemThrowball;
 import slimeknights.tconstruct.gadgets.tileentity.TileDryingRack;
 import slimeknights.tconstruct.gadgets.tileentity.TileItemRack;
+import slimeknights.tconstruct.gadgets.tileentity.TileSlimeChannel;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
 import slimeknights.tconstruct.shared.block.BlockTable;
+import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
 import slimeknights.tconstruct.tools.TableRecipe;
 
 @Pulse(id = TinkerGadgets.PulseId, description = "All the fun toys")
@@ -70,6 +73,8 @@ public class TinkerGadgets extends TinkerPulse {
   public static BlockRack rack;
   public static BlockDriedClay driedClay;
   public static BlockBrownstone brownstone;
+  
+  public static Block slimeChannel;
 
   public static Block driedClaySlab;
   public static Block brownstoneSlab;
@@ -107,6 +112,9 @@ public class TinkerGadgets extends TinkerPulse {
     punji = registerBlock(new BlockPunji(), "punji");
     rack = registerBlock(new ItemBlockRack(new BlockRack()), "rack");
     
+    // slime channels
+    slimeChannel = registerEnumBlock(new BlockSlimeChannel(), "slime_channel");
+    
     // dried clay
     driedClay = registerEnumBlock(new BlockDriedClay(), "dried_clay");
     driedClaySlab = registerEnumBlockSlab(new BlockDriedClaySlab(), "dried_clay_slab");
@@ -134,6 +142,7 @@ public class TinkerGadgets extends TinkerPulse {
 
     registerTE(TileItemRack.class, "item_rack");
     registerTE(TileDryingRack.class, "drying_rack");
+    registerTE(TileSlimeChannel.class, "slime_channel");
 
     slimeSling = registerItem(new ItemSlimeSling(), "slimesling");
     slimeBoots = registerItem(new ItemSlimeBoots(), "slime_boots");
@@ -164,13 +173,8 @@ public class TinkerGadgets extends TinkerPulse {
   }
 
   private void registerRecipes() {
-    String ore = "blockSlime";
-    if(isWorldLoaded()) {
-      ore = "blockSlimeCongealed";
-    }
-
-    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeBoots), "   ", "s s", "b b", 's', "slimeball", 'b', ore));
-    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeSling), "fbf", "s s", " s ", 'f', Items.STRING, 's', "slimeball", 'b', ore));
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeBoots), "   ", "s s", "b b", 's', "slimeball", 'b', "blockSlimeCongealed"));
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeSling), "fbf", "s s", " s ", 'f', Items.STRING, 's', "slimeball", 'b', "blockSlimeCongealed"));
 
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(piggybackPack), " s ", "l l", " s ", 's', "stickWood", 'l', "leather"));
 
@@ -218,6 +222,12 @@ public class TinkerGadgets extends TinkerPulse {
     GameRegistry.addRecipe(new ShapedOreRecipe(frame, "nnn", "nOn", "nnn", 'O', Blocks.OBSIDIAN, 'n', "nuggetGold"));
     frame = new ItemStack(TinkerGadgets.fancyFrame, 1, EntityFancyItemFrame.FrameType.CLEAR.ordinal());
     GameRegistry.addRecipe(new ShapedOreRecipe(frame, " n ", "nOn", " n ", 'O', "blockGlass", 'n', "paneGlass"));
+    
+    // slime channels
+    for(SlimeType type : SlimeType.values()) {
+      GameRegistry.addSmelting(new ItemStack(TinkerCommons.blockSlimeCongealed, 1, type.getMeta()),
+                               new ItemStack(slimeChannel, 1, type.getMeta()), 0.1f);
+    }
 
     addFrameRecipe("nuggetGold", EntityFancyItemFrame.FrameType.JEWEL);
 
@@ -322,6 +332,9 @@ public class TinkerGadgets extends TinkerPulse {
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
     registerDrying();
+    
+    // prevents items from despawning in slime channels
+    MinecraftForge.EVENT_BUS.register(BlockSlimeChannel.EventHandler.instance);
 
     proxy.postInit();
   }

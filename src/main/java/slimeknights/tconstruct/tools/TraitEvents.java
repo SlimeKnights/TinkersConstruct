@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
-import slimeknights.tconstruct.tools.events.TinkerToolEvent;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
 
 public class TraitEvents {
 

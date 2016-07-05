@@ -287,7 +287,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
   // returns true if it was successful
   public boolean dealDamage(float speed, ItemStack item, EntityLivingBase attacker, EntityLivingBase target) {
-    return ToolHelper.attackEntity(item, (ToolCore) item.getItem(), attacker, target, true);
+    return ToolHelper.attackEntity(item, (ToolCore) item.getItem(), attacker, target, this);
   }
 
   @Override

@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.common;
 
 import com.google.common.eventbus.Subscribe;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -9,7 +8,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
-
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
@@ -24,6 +22,8 @@ import static slimeknights.tconstruct.shared.TinkerCommons.blockCobalt;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockKnightSlime;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockManyullyn;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockPigIron;
+import static slimeknights.tconstruct.shared.TinkerCommons.blockSlime;
+import static slimeknights.tconstruct.shared.TinkerCommons.blockSlimeCongealed;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotAlubrass;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotArdite;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotCobalt;
@@ -51,8 +51,6 @@ import static slimeknights.tconstruct.tools.TinkerTools.pattern;
 import static slimeknights.tconstruct.tools.TinkerTools.pickHead;
 import static slimeknights.tconstruct.tools.TinkerTools.toolRod;
 import static slimeknights.tconstruct.tools.TinkerTools.toolTables;
-import static slimeknights.tconstruct.world.TinkerWorld.slimeBlock;
-import static slimeknights.tconstruct.world.TinkerWorld.slimeBlockCongealed;
 import static slimeknights.tconstruct.world.TinkerWorld.slimeDirt;
 import static slimeknights.tconstruct.world.TinkerWorld.slimeGrass;
 import static slimeknights.tconstruct.world.TinkerWorld.slimeLeaves;
@@ -183,8 +181,8 @@ public class TinkerOredict {
 
   private static void registerWorld() {
     oredict(slimeSapling, "treeSapling");
-    oredict(slimeBlock, "blockSlime");
-    oredict(slimeBlockCongealed, "blockSlimeCongealed");
+    oredict(blockSlime, "blockSlime");
+    oredict(blockSlimeCongealed, "blockSlimeCongealed");
     oredict(slimeDirt, "blockSlimeDirt");
     oredict(slimeGrass, "blockSlimeGrass");
     oredict(slimeLeaves, "treeLeaves");

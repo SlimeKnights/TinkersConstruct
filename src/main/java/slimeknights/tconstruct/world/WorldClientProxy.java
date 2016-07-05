@@ -145,8 +145,6 @@ public class WorldClientProxy extends ClientProxy {
     ModelLoader.setCustomStateMapper(TinkerWorld.slimeVinePurple3, vineMap);
 
     // items
-    registerItemBlockMeta(TinkerWorld.slimeBlock);
-    registerItemBlockMeta(TinkerWorld.slimeBlockCongealed);
     registerItemBlockMeta(TinkerWorld.slimeDirt);
 
     // slime grass

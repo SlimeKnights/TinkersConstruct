@@ -16,16 +16,20 @@ public class ToolNBT {
   public float attackSpeedMultiplier;
   public int modifiers; // free modifiers
 
+  private final NBTTagCompound parent;
+
   public ToolNBT() {
     durability = 0;
     harvestLevel = 0;
     attack = 0;
     speed = 0;
     attackSpeedMultiplier = 1;
+    parent = new NBTTagCompound();
   }
 
   public ToolNBT(NBTTagCompound tag) {
     read(tag);
+    parent = tag;
   }
 
   /** Initialize the stats with the heads. CALL THIS FIRST */
@@ -112,7 +116,7 @@ public class ToolNBT {
   }
 
   public NBTTagCompound get() {
-    NBTTagCompound tag = new NBTTagCompound();
+    NBTTagCompound tag = parent.copy();
     write(tag);
 
     return tag;

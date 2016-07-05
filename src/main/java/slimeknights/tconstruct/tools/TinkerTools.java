@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
@@ -43,6 +44,7 @@ import slimeknights.tconstruct.library.tools.Shard;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.block.BlockSlime;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -67,6 +69,7 @@ import slimeknights.tconstruct.tools.item.Shovel;
 import slimeknights.tconstruct.tools.item.Shuriken;
 import slimeknights.tconstruct.tools.modifiers.ModAntiMonsterType;
 import slimeknights.tconstruct.tools.modifiers.ModBeheading;
+import slimeknights.tconstruct.tools.modifiers.ModBlasting;
 import slimeknights.tconstruct.tools.modifiers.ModCreative;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModEmerald;
@@ -76,6 +79,7 @@ import slimeknights.tconstruct.tools.modifiers.ModHarvestSize;
 import slimeknights.tconstruct.tools.modifiers.ModHaste;
 import slimeknights.tconstruct.tools.modifiers.ModKnockback;
 import slimeknights.tconstruct.tools.modifiers.ModLuck;
+import slimeknights.tconstruct.tools.modifiers.ModMendingMoss;
 import slimeknights.tconstruct.tools.modifiers.ModNecrotic;
 import slimeknights.tconstruct.tools.modifiers.ModReinforced;
 import slimeknights.tconstruct.tools.modifiers.ModSharpness;
@@ -89,8 +93,6 @@ import slimeknights.tconstruct.tools.tileentity.TileStencilTable;
 import slimeknights.tconstruct.tools.tileentity.TileToolForge;
 import slimeknights.tconstruct.tools.tileentity.TileToolStation;
 import slimeknights.tconstruct.tools.traits.InfiTool;
-import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.BlockSlime;
 
 @Pulse(id = TinkerTools.PulseId, description = "All the tools and everything related to it.")
 public class TinkerTools extends TinkerPulse {
@@ -159,6 +161,7 @@ public class TinkerTools extends TinkerPulse {
   // Modifiers
   public static Modifier modBaneOfArthopods;
   public static Modifier modBeheading;
+  public static Modifier modBlasting;
   public static Modifier modDiamond;
   public static Modifier modEmerald;
   public static Modifier modFiery;
@@ -167,6 +170,7 @@ public class TinkerTools extends TinkerPulse {
   public static Modifier modHarvestHeight;
   public static Modifier modKnockback;
   public static Modifier modLuck;
+  public static Modifier modMendingMoss;
   public static Modifier modNecrotic;
   public static Modifier modReinforced;
   public static Modifier modSharpness;
@@ -276,6 +280,8 @@ public class TinkerTools extends TinkerPulse {
   }
 
   private void registerModifiers() {
+    ItemStack tnt = new ItemStack(Blocks.TNT);
+
     // create the modifiers and add their items
     modBaneOfArthopods = new ModAntiMonsterType("bane_of_arthopods", 0x61ba49, 5, 24, EnumCreatureAttribute.ARTHROPOD);
     modBaneOfArthopods = registerModifier(modBaneOfArthopods);
@@ -283,6 +289,9 @@ public class TinkerTools extends TinkerPulse {
 
     modBeheading = registerModifier(new ModBeheading());
     modBeheading.addRecipeMatch(new RecipeMatch.ItemCombination(1, new ItemStack(Items.ENDER_PEARL), new ItemStack(Blocks.OBSIDIAN)));
+
+    modBlasting = registerModifier(new ModBlasting());
+    modBlasting.addRecipeMatch(new RecipeMatch.ItemCombination(1, tnt, tnt, tnt));
 
     modDiamond = registerModifier(new ModDiamond());
     modDiamond.addItem("gemDiamond");
@@ -310,6 +319,9 @@ public class TinkerTools extends TinkerPulse {
     modLuck = registerModifier(new ModLuck());
     modLuck.addItem("gemLapis");
     modLuck.addItem("blockLapis", 1, 9);
+
+    modMendingMoss = registerModifier(new ModMendingMoss());
+    modMendingMoss.addItem(TinkerCommons.matMendingMoss, 1, 1);
 
     modNecrotic = registerModifier(new ModNecrotic());
     modNecrotic.addItem(TinkerCommons.matNecroticBone, 1, 1);
@@ -502,13 +514,12 @@ public class TinkerTools extends TinkerPulse {
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudGreen, Items.SLIME_BALL, Items.SLIME_BALL, Items.SLIME_BALL, Items.SLIME_BALL, "sand", "dirt"));
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudBlue, slimeBallBlue, slimeBallBlue, slimeBallBlue, slimeBallBlue, "sand", "dirt"));
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudMagma, slimeBallMagma, Items.MAGMA_CREAM, slimeBallMagma, Items.MAGMA_CREAM, Blocks.SOUL_SAND, Blocks.NETHERRACK));
-    if(isWorldLoaded()) {
-      // recipies using congealed slime blocks
-      ItemStack congealed = new ItemStack(TinkerWorld.slimeBlockCongealed, 0, BlockSlime.SlimeType.GREEN.meta);
-      GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudGreen, congealed, "sand", "dirt"));
-      congealed = new ItemStack(TinkerWorld.slimeBlockCongealed, 0, BlockSlime.SlimeType.BLUE.meta);
-      GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudBlue, congealed, "sand", "dirt"));
-    }
+
+    // recipies using congealed slime blocks
+    ItemStack congealed = new ItemStack(TinkerCommons.blockSlimeCongealed, 0, BlockSlime.SlimeType.GREEN.meta);
+    GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudGreen, congealed, "sand", "dirt"));
+    congealed = new ItemStack(TinkerCommons.blockSlimeCongealed, 0, BlockSlime.SlimeType.BLUE.meta);
+    GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudBlue, congealed, "sand", "dirt"));
 
     // Slime crystals
     FurnaceRecipes.instance().addSmeltingRecipe(TinkerCommons.slimyMudGreen, TinkerCommons.matSlimeCrystalGreen, 0);

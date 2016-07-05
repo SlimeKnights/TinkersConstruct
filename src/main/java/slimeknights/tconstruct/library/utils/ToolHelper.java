@@ -46,9 +46,11 @@ import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
+import slimeknights.tconstruct.library.tools.IProjectileStats;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
-import slimeknights.tconstruct.tools.events.TinkerToolEvent;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.network.ToolBreakAnimationPacket;
 
 public final class ToolHelper {
@@ -182,6 +184,11 @@ public final class ToolHelper {
       return true;
     }
 
+    // this will be the only place besides fortify where a modifier is hardcoded. I promise. :L
+    if(TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), TinkerTools.modBlasting.getIdentifier())) {
+      return true;
+    }
+
     return stack.getItem() instanceof ToolCore && ((ToolCore) stack.getItem()).isEffective(state);
 
   }
@@ -220,6 +227,10 @@ public final class ToolHelper {
     IBlockState state = world.getBlockState(origin);
     Block block = state.getBlock();
 
+    if(!isToolEffective2(stack, state)) {
+      return ImmutableList.of();
+    }
+
     if(block.getMaterial(state) == Material.AIR) {
       // what are you DOING?
       return ImmutableList.of();
@@ -231,7 +242,10 @@ public final class ToolHelper {
     }
 
     // fire event
-    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(stack, player, width, height, depth, distance);
+    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(stack, player, state, width, height, depth, distance);
+    if(event.isCanceled()) {
+      return ImmutableList.of();
+    }
     width = event.width;
     height = event.height;
     depth = event.depth;
@@ -537,14 +551,14 @@ public final class ToolHelper {
   /* Dealing tons of damage */
 
   public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity) {
-    return attackEntity(stack, tool, attacker, targetEntity, false);
+    return attackEntity(stack, tool, attacker, targetEntity, null);
   }
 
   /**
    * Makes all the calls to attack an entity. Takes enchantments and potions and traits into account. Basically call this when a tool deals damage.
    * Most of this function is the same as {@link EntityPlayer#attackTargetEntityWithCurrentItem(Entity targetEntity)}
    */
-  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, boolean isProjectile) {
+  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity) {
     // nothing to do, no target?
     if(targetEntity == null || !targetEntity.canBeAttackedWithItem() || targetEntity.hitByEntity(attacker) || !stack.hasTagCompound()) {
       return false;
@@ -558,6 +572,7 @@ public final class ToolHelper {
     if(attacker == null) {
       return false;
     }
+    boolean isProjectile = projectileEntity != null;
     EntityLivingBase target = (EntityLivingBase) targetEntity;
 
     EntityPlayer player = null;
@@ -631,7 +646,15 @@ public final class ToolHelper {
       // reset hurt reristant time
       target.hurtResistantTime = hurtResistantTime;
     }
-    boolean hit = tool.dealDamage(stack, attacker, target, damage);
+
+    boolean hit = false;
+    if(isProjectile && tool instanceof IProjectileStats) {
+      hit = ((IProjectileStats) tool).dealDamageRanged(stack, projectileEntity, attacker, target, damage);
+    }
+    else {
+      hit = tool.dealDamage(stack, attacker, target, damage);
+    }
+
 
     // did we hit?
     if(hit) {

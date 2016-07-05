@@ -3,10 +3,13 @@ package slimeknights.tconstruct.library.tools;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSourceIndirect;
 
 import java.util.List;
 
@@ -38,6 +41,13 @@ public abstract class ProjectileCore extends ToolCore implements IProjectileStat
   @Override
   public double attackSpeed() {
     return 100f;
+  }
+
+  @Override
+  public boolean dealDamageRanged(ItemStack stack, Entity projectile, EntityLivingBase player, EntityLivingBase entity, float damage) {
+    DamageSource damageSource = new EntityDamageSourceIndirect("projectile", player, projectile).setProjectile();
+
+    return entity.attackEntityFrom(damageSource, damage);
   }
 
   @Override

@@ -33,6 +33,7 @@ public final class Config {
   public static boolean forceRegisterAll = false; // enables all common items, even if their module is not present
 
   // Tools and general
+  public static boolean spawnWithBook = true;
   public static boolean reuseStencil = true;
   public static boolean craftCastableMaterials = false;
   public static boolean chestsKeepInventory = true;
@@ -111,6 +112,11 @@ public final class Config {
       String cat = "gameplay";
       List<String> propOrder = Lists.newArrayList();
       Gameplay = configFile.getCategory(cat);
+
+      prop = configFile.get(cat, "spawnWithBook", spawnWithBook);
+      prop.setComment("Players who enter the world for the first time get a Tinkers' Book");
+      spawnWithBook = prop.getBoolean();
+      propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "reuseStencils", reuseStencil);
       prop.setComment("Allows to reuse stencils in the stencil table to turn them into other stencils");
@@ -235,8 +241,11 @@ public final class Config {
       List<String> propOrder = Lists.newArrayList();
       ClientSide = configFile.getCategory(cat);
 
-      prop = configFile.get(cat, "renderTableItems", renderTableItems);
-      prop.setComment("If true all of Tinkers' tables will render their contents on top of the table");
+      // rename renderTableItems to renderInventoryInWorld
+      configFile.renameProperty(cat, "renderTableItems", "renderInventoryInWorld");
+
+      prop = configFile.get(cat, "renderInventoryInWorld", renderTableItems);
+      prop.setComment("If true all of Tinkers' blocks with contents (tables, basin, drying racks,...) will render their contents in the world");
       renderTableItems = prop.getBoolean();
       propOrder.add(prop.getName());
 

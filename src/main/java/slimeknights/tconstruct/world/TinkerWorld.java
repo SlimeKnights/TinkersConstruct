@@ -1,13 +1,10 @@
 package slimeknights.tconstruct.world;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.MinecraftForge;
@@ -29,8 +26,6 @@ import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.world.block.BlockSlime;
-import slimeknights.tconstruct.world.block.BlockSlimeCongealed;
 import slimeknights.tconstruct.world.block.BlockSlimeDirt;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 import slimeknights.tconstruct.world.block.BlockSlimeLeaves;
@@ -51,8 +46,6 @@ public class TinkerWorld extends TinkerPulse {
   @SidedProxy(clientSide = "slimeknights.tconstruct.world.WorldClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
   public static CommonProxy proxy;
 
-  public static BlockSlime slimeBlock;
-  public static BlockSlimeCongealed slimeBlockCongealed;
   public static BlockSlimeDirt slimeDirt;
   public static BlockSlimeGrass slimeGrass;
   public static BlockSlimeLeaves slimeLeaves;
@@ -70,9 +63,6 @@ public class TinkerWorld extends TinkerPulse {
   // PRE-INITIALIZATION
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
-    slimeBlock = registerBlock(new BlockSlime(), "slime", BlockSlime.TYPE);
-    slimeBlockCongealed = registerBlock(new BlockSlimeCongealed(), "slime_congealed", BlockSlime.TYPE);
-
     slimeDirt = registerEnumBlock(new BlockSlimeDirt(), "slime_dirt");
     slimeGrass = registerBlock(new BlockSlimeGrass(), "slime_grass", BlockSlimeGrass.TYPE);
     slimeLeaves = registerBlock(new ItemBlockLeaves(new BlockSlimeLeaves()), "slime_leaves");
@@ -106,22 +96,6 @@ public class TinkerWorld extends TinkerPulse {
   }
 
   private void addRecipies() {
-    // Slimeblocks
-
-    // green slime
-    addSlimeRecipes(new ItemStack(Items.SLIME_BALL), BlockSlime.SlimeType.GREEN);
-
-    // blue slime
-    addSlimeRecipes(TinkerCommons.matSlimeBallBlue, BlockSlime.SlimeType.BLUE);
-
-    // purple slime
-    addSlimeRecipes(TinkerCommons.matSlimeBallPurple, BlockSlime.SlimeType.PURPLE);
-
-    // blood slime
-    addSlimeRecipes(TinkerCommons.matSlimeBallBlood, BlockSlime.SlimeType.BLOOD);
-
-    // magma slime
-    addSlimeRecipes(TinkerCommons.matSlimeBallMagma, BlockSlime.SlimeType.MAGMA);
 
     // Recipes to get slimy grass. Because why not
     IBlockState vanillaDirtState = Blocks.DIRT.getDefaultState();
@@ -137,21 +111,6 @@ public class TinkerWorld extends TinkerPulse {
     meta = slimeGrass.getMetaFromState(grassState.withProperty(BlockSlimeGrass.FOLIAGE, BlockSlimeGrass.FoliageType.ORANGE));
     slime = TinkerCommons.matSlimeBallMagma.copy();
     GameRegistry.addShapedRecipe(new ItemStack(slimeGrass, 1, meta), " s ", "sBs", " s ", 's', slime, 'B', Blocks.GRASS);
-  }
-
-  private void addSlimeRecipes(ItemStack slimeball, BlockSlime.SlimeType type) {
-    ItemStack congealed = new ItemStack(slimeBlockCongealed);
-    congealed.setItemDamage(slimeBlockCongealed.getMetaFromState(slimeBlockCongealed.getDefaultState().withProperty(BlockSlime.TYPE, type)));
-
-    ItemStack block = new ItemStack(slimeBlock);
-    block.setItemDamage(slimeBlock.getMetaFromState(slimeBlock.getDefaultState().withProperty(BlockSlime.TYPE, type)));
-
-    GameRegistry.addRecipe(congealed.copy(), "##", "##", '#', slimeball);
-    ItemStack slimeballOut = slimeball.copy();
-    slimeballOut.stackSize = 4;
-    GameRegistry.addRecipe(slimeballOut, "#", '#', congealed.copy());
-
-    GameRegistry.addRecipe(new ShapelessRecipes(block, ImmutableList.of(congealed, slimeball, slimeball, slimeball, slimeball, slimeball)));
   }
 
   // POST-INITIALIZATION

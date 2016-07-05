@@ -2,18 +2,20 @@ package slimeknights.tconstruct.smeltery.events;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 
 import slimeknights.tconstruct.library.events.TinkerEvent;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
+import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 
 public class TinkerCastingEvent extends TinkerEvent {
 
-  public final CastingRecipe recipe;
+  public final ICastingRecipe recipe;
   public final TileCasting tile;
 
-  public TinkerCastingEvent(CastingRecipe recipe, TileCasting tile) {
+  public TinkerCastingEvent(ICastingRecipe recipe, TileCasting tile) {
     this.recipe = recipe;
     this.tile = tile;
   }
@@ -26,11 +28,11 @@ public class TinkerCastingEvent extends TinkerEvent {
   @Cancelable
   public static class OnCasting extends TinkerCastingEvent {
 
-    public OnCasting(CastingRecipe recipe, TileCasting tile) {
+    public OnCasting(ICastingRecipe recipe, TileCasting tile) {
       super(recipe, tile);
     }
 
-    public static boolean fire(CastingRecipe recipe, TileCasting tile) {
+    public static boolean fire(ICastingRecipe recipe, TileCasting tile) {
       OnCasting event = new OnCasting(recipe, tile);
       MinecraftForge.EVENT_BUS.post(event);
       return !event.isCanceled();
@@ -43,14 +45,16 @@ public class TinkerCastingEvent extends TinkerEvent {
     public boolean consumeCast;
     public boolean switchOutputs;
 
-    public OnCasted(CastingRecipe recipe, TileCasting tile) {
+    public OnCasted(ICastingRecipe recipe, TileCasting tile) {
       super(recipe, tile);
-      this.output = recipe.getResult().copy();
+      ItemStack cast = tile.getStackInSlot(0);
+      Fluid fluid = tile.tank.getFluid().getFluid();
+      this.output = recipe.getResult(cast, fluid).copy();
       this.consumeCast = recipe.consumesCast();
       this.switchOutputs = recipe.switchOutputs();
     }
 
-    public static OnCasted fire(CastingRecipe recipe, TileCasting tile) {
+    public static OnCasted fire(ICastingRecipe recipe, TileCasting tile) {
       OnCasted event = new OnCasted(recipe, tile);
       MinecraftForge.EVENT_BUS.post(event);
       return event;
