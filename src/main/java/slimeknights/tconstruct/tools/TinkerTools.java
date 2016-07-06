@@ -510,6 +510,9 @@ public class TinkerTools extends TinkerPulse {
                                                'O', "obsidian",
                                                'P', goldThing));
 
+    // Moss
+    GameRegistry.addRecipe(new ShapedOreRecipe(TinkerCommons.matMoss, "xxx", "xxx", "xxx", 'x', "blockMossy"));
+
     // Slimy Mud
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudGreen, Items.SLIME_BALL, Items.SLIME_BALL, Items.SLIME_BALL, Items.SLIME_BALL, "sand", "dirt"));
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudBlue, slimeBallBlue, slimeBallBlue, slimeBallBlue, slimeBallBlue, "sand", "dirt"));
