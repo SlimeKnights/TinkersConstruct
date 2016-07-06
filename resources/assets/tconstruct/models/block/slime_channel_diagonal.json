@@ -1,0 +1,19 @@
+{
+    "textures": {
+        "particle": "#slime"
+    },
+    "elements": [
+        {
+            "from": [ 0, 0, 0 ], 
+            "to": [ 16, 8, 16 ], 
+            "faces": {
+                "north": { "texture": "#slime",    "uv": [ 0, 0,  4,  8 ], "tintindex": 0, "cullface": "north", "rotation": 270 },
+                "east":  { "texture": "#slime",    "uv": [ 0, 0,  4,  8 ], "tintindex": 0, "cullface": "east",  "rotation": 270 },
+                "south": { "texture": "#slime",    "uv": [ 4, 0,  8,  8 ], "tintindex": 0, "cullface": "south", "rotation": 90 },
+                "west":  { "texture": "#slime",    "uv": [ 4, 0,  8,  8 ], "tintindex": 0, "cullface": "west",  "rotation": 90 },
+                "up":    { "texture": "#diagonal", "uv": [ 0, 0, 16, 16 ], "tintindex": 0, "rotation": 180 },
+                "down":  { "texture": "#diagonal", "uv": [ 0, 0, 16, 16 ], "tintindex": 0, "cullface": "down" }
+            }
+        }
+    ]
+}
