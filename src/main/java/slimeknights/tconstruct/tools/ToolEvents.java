@@ -30,6 +30,7 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
+import slimeknights.tconstruct.tools.modifiers.ModMendingMoss;
 
 public class ToolEvents {
 
@@ -124,7 +125,7 @@ public class ToolEvents {
 
           if(!event.getWorld().isRemote) {
             event.getItemStack().stackSize--;
-            player.removeExperienceLevel(5);
+            player.removeExperienceLevel(ModMendingMoss.MENDING_MOSS_LEVELS);
             ItemHandlerHelper.giveItemToPlayer(player, TinkerCommons.matMendingMoss.copy());
 
             event.setUseBlock(Event.Result.DENY);
