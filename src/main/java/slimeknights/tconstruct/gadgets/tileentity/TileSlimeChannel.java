@@ -10,6 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.gadgets.block.BlockSlimeChannel.ChannelDirection;
 
 /**
  * This tile entity is simply an extra data 
@@ -18,6 +19,7 @@ public class TileSlimeChannel extends TileEntity {
   
   public static final String SIDE_TAG = "side";
   public static final String FACING_TAG = "facing";
+  public static final String DIRECTION_TAG = "direction";
   
   // don't delete the TE if the state changes
   // we want to keep our side and facing data if it becomes powered
@@ -40,18 +42,14 @@ public class TileSlimeChannel extends TileEntity {
     return EnumFacing.VALUES[side];
   }
   
-  public void setFacing(EnumFacing facing) {
-    getTileData().setInteger(FACING_TAG, facing.getHorizontalIndex());
+  public void setDirection(ChannelDirection direction) {
+    getTileData().setInteger(DIRECTION_TAG, direction.getIndex());
   }
 
   @Nonnull
-  public EnumFacing getFacing() {
-    int facing = getTileData().getInteger(FACING_TAG);
-    // no indexOutOfBounds please
-    if(facing > 3 || facing < 0) {
-      facing = 0;
-    }
-    return EnumFacing.HORIZONTALS[facing];
+  public ChannelDirection getDirection() {
+    int direction = getTileData().getInteger(DIRECTION_TAG);
+    return ChannelDirection.fromIndex(direction);
   }
   
   /* Client sync stuff */
@@ -67,7 +65,31 @@ public class TileSlimeChannel extends TileEntity {
   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
     NBTTagCompound tag = pkt.getNbtCompound();
     getTileData().setInteger(SIDE_TAG, tag.getInteger(SIDE_TAG));
-    getTileData().setInteger(FACING_TAG, tag.getInteger(FACING_TAG));
+    getTileData().setInteger(DIRECTION_TAG, tag.getInteger(DIRECTION_TAG));
     readFromNBT(tag);
+  }
+  
+  // backwards compat for those testing slime channels earlier
+  // TODO: this can be removed sometime before the update, it is just for the sake of those using the jenkins builds
+  @Override
+  public void readFromNBT(NBTTagCompound tags) {
+    super.readFromNBT(tags);
+    if(getTileData().hasKey(FACING_TAG)) {
+      // convert from horizontal facing index to channel direction index
+      int direction = 0;
+      switch(getTileData().getInteger(FACING_TAG)) {
+        case 1: // west
+          direction = 2;
+          break;
+        case 2: // north
+          direction = 4;
+          break;
+        case 3: // east
+          direction = 6;
+          break;
+      }
+      getTileData().setInteger(DIRECTION_TAG, direction);
+      getTileData().removeTag(FACING_TAG);
+    }
   }
 }
