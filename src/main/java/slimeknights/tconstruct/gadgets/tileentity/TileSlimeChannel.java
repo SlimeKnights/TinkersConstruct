@@ -4,62 +4,70 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.gadgets.block.BlockSlimeChannel;
 
 /**
  * This tile entity is simply an extra data 
  */
 public class TileSlimeChannel extends TileEntity {
   
+  public static final String SIDE_TAG = "side";
+  public static final String FACING_TAG = "facing";
+  
   // don't delete the TE if the state changes
+  // we want to keep our side and facing data if it becomes powered
   @Override
   public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
     return newState.getBlock() != oldState.getBlock();
   }
   
-  public void setSide(EnumFacing side, boolean update) {
-   getTileData().setInteger("side", side.getIndex());
-   if(update) {
-     worldObj.setBlockState(pos, worldObj.getBlockState(pos).withProperty(BlockSlimeChannel.SIDE, side));
-   }
-  }
-  
   public void setSide(EnumFacing side) {
-    setSide(side, true);
+    getTileData().setInteger(SIDE_TAG, side.getIndex());
   }
 
   @Nonnull
   public EnumFacing getSide() {
-    return EnumFacing.VALUES[getTileData().getInteger("side")];
-  }
-  
-  public void setFacing(EnumFacing facing, boolean update) {
-    getTileData().setInteger("facing", facing.getHorizontalIndex());
-    if(update) {
-      worldObj.setBlockState(pos, worldObj.getBlockState(pos).withProperty(BlockSlimeChannel.FACING, facing));
+    int side = getTileData().getInteger(SIDE_TAG);
+    // no indexOutOfBounds please
+    if(side > 5 || side < 0) {
+      side = 0;
     }
+    return EnumFacing.VALUES[side];
   }
   
   public void setFacing(EnumFacing facing) {
-    setFacing(facing, true);
+    getTileData().setInteger(FACING_TAG, facing.getHorizontalIndex());
   }
 
   @Nonnull
   public EnumFacing getFacing() {
-    return EnumFacing.HORIZONTALS[getTileData().getInteger("facing")];
+    int facing = getTileData().getInteger(FACING_TAG);
+    // no indexOutOfBounds please
+    if(facing > 3 || facing < 0) {
+      facing = 0;
+    }
+    return EnumFacing.HORIZONTALS[facing];
+  }
+  
+  /* Client sync stuff */
+  @Override
+  public SPacketUpdateTileEntity getUpdatePacket() {
+    // note that this sends all of the tile data. you should change this if you use additional tile data
+    NBTTagCompound tag = getTileData().copy();
+    writeToNBT(tag);
+    return new SPacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);
   }
   
   @Override
-  public void readFromNBT(NBTTagCompound compound) {
-    super.readFromNBT(compound);
-    // just a safety check, should ever not have a world by this point
-    if(hasWorldObj()) {
-      worldObj.setBlockState(pos, worldObj.getBlockState(pos).withProperty(BlockSlimeChannel.SIDE, getSide())
-                                                             .withProperty(BlockSlimeChannel.FACING, getFacing()), 2);
-    }
+  public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+    NBTTagCompound tag = pkt.getNbtCompound();
+    getTileData().setInteger(SIDE_TAG, tag.getInteger(SIDE_TAG));
+    getTileData().setInteger(FACING_TAG, tag.getInteger(FACING_TAG));
+    readFromNBT(tag);
   }
 }
