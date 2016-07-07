@@ -19,10 +19,10 @@
             "south": { "x": 180 },
             "north":  { "x": 180, "y": 180 },
 
-            "southwest": { "model": "tconstruct:slime_channel_diagonal", "x": 180, "y": 90 },
-            "northeast":  { "model": "tconstruct:slime_channel_diagonal", "x": 180, "y": 270 },
-            "southeast": { "model": "tconstruct:slime_channel_diagonal", "x": 180 },
-            "northwest":  { "model": "tconstruct:slime_channel_diagonal", "x": 180, "y": 180 }
+            "northwest": { "model": "tconstruct:slime_channel_diagonal", "x": 180, "y": 90 },
+            "southeast":  { "model": "tconstruct:slime_channel_diagonal", "x": 180, "y": 270 },
+            "southwest": { "model": "tconstruct:slime_channel_diagonal", "x": 180 },
+            "northeast":  { "model": "tconstruct:slime_channel_diagonal", "x": 180, "y": 180 }
         },
         "powered": {
             "true": { "textures": {
