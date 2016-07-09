@@ -49,6 +49,11 @@ public class ModBlasting extends ModifierTrait {
 
     // mitigate block hardness
     float hardness = event.getState().getBlockHardness(world, event.getPos());
+    if(hardness <= 0f) {
+      // hardness 0 -> already instabreaks. otherwise we set speed to 0
+      return;
+    }
+
     speed *= hardness;
 
     if(level > 2) {
