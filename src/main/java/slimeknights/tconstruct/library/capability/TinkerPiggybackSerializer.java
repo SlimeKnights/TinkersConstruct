@@ -50,13 +50,16 @@ public class TinkerPiggybackSerializer implements ICapabilitySerializable<NBTTag
     NBTTagList riderList = new NBTTagList();
     // save riders
     for(Entity entity : player.getRecursivePassengers()) {
-      NBTTagCompound entityTag = new NBTTagCompound();
-      NBTTagCompound entityDataTag = new NBTTagCompound();
-      entity.writeToNBT(entityDataTag);
-      entityDataTag.setString("id", EntityList.getEntityString(entity));
-      entityTag.setUniqueId("Attach", entity.getRidingEntity().getUniqueID());
-      entityTag.setTag("Entity", entityDataTag);
-      riderList.appendTag(entityTag);
+      String id = EntityList.getEntityString(entity);
+      if(id != null && !"".equals(id)) {
+        NBTTagCompound entityTag = new NBTTagCompound();
+        NBTTagCompound entityDataTag = new NBTTagCompound();
+        entity.writeToNBT(entityDataTag);
+        entityDataTag.setString("id", EntityList.getEntityString(entity));
+        entityTag.setUniqueId("Attach", entity.getRidingEntity().getUniqueID());
+        entityTag.setTag("Entity", entityDataTag);
+        riderList.appendTag(entityTag);
+      }
     }
 
     tagCompound.setTag("riders", riderList);
