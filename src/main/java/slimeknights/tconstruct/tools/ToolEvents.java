@@ -117,8 +117,8 @@ public class ToolEvents {
   public void onInteract(PlayerInteractEvent.RightClickBlock event) {
     // does the player clicks on an echanting table with moss with 5 levels?
     if(ItemStack.areItemsEqual(event.getItemStack(), TinkerCommons.matMoss)) {
-      if(event.getWorld().getBlockState(event.getPos()).getBlock() == Blocks.ENCHANTING_TABLE) {
-        if(event.getEntityPlayer().experienceLevel >= 5) {
+      if(event.getWorld().getBlockState(event.getPos()).getBlock() == Blocks.BOOKSHELF) {
+        if(event.getEntityPlayer().experienceLevel >= ModMendingMoss.MENDING_MOSS_LEVELS) {
           // convert moss to mending moss
           EntityPlayer player = event.getEntityPlayer();
           player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
