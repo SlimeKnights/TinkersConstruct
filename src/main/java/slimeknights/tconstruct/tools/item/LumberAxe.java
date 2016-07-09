@@ -236,6 +236,9 @@ public class LumberAxe extends AoeToolCore {
         finish();
         return;
       }
+      if(event.world == world) {
+        return;
+      }
 
       // setup
       int left = blocksPerTick;
