@@ -1,0 +1,19 @@
+{
+    "textures": {
+        "battleaxe": "tconstruct:items/battleaxe/mod_glowing",
+        "battlesign": "tconstruct:items/battlesign/mod_glowing",
+        "broadsword": "tconstruct:items/broadsword/mod_glowing",
+        "rapier": "tconstruct:items/rapier/mod_glowing",
+        "cleaver": "tconstruct:items/cleaver/mod_glowing",
+        "excavator": "tconstruct:items/excavator/mod_glowing",
+        "frypan": "tconstruct:items/frypan/mod_glowing",
+        "hammer": "tconstruct:items/hammer/mod_glowing",
+        "hatchet": "tconstruct:items/hatchet/mod_glowing",
+        "longsword": "tconstruct:items/longsword/mod_glowing",
+        "lumberaxe": "tconstruct:items/lumberaxe/mod_glowing",
+        "mattock": "tconstruct:items/mattock/mod_glowing",
+        "pickaxe": "tconstruct:items/pickaxe/mod_glowing",
+        "shovel": "tconstruct:items/shovel/mod_glowing",
+        "shuriken": "tconstruct:items/shuriken/mod_glowing"
+    }
+}
