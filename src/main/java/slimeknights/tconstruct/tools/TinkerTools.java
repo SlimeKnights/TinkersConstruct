@@ -283,6 +283,7 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerModifiers() {
     ItemStack tnt = new ItemStack(Blocks.TNT);
+    ItemStack glowstoneDust = new ItemStack(Items.GLOWSTONE_DUST);
 
     // create the modifiers and add their items
     modBaneOfArthopods = new ModAntiMonsterType("bane_of_arthopods", 0x61ba49, 5, 24, EnumCreatureAttribute.ARTHROPOD);
@@ -305,7 +306,7 @@ public class TinkerTools extends TinkerPulse {
     modFiery.addItem(Items.BLAZE_POWDER);
 
     modGlowing = registerModifier(new ModGlowing());
-    modGlowing.addRecipeMatch(new RecipeMatch.ItemCombination(1, new ItemStack(Items.GLOWSTONE_DUST), new ItemStack(Items.ENDER_EYE)));
+    modGlowing.addRecipeMatch(new RecipeMatch.ItemCombination(1, glowstoneDust, new ItemStack(Items.ENDER_EYE), glowstoneDust));
 
     modHaste = registerModifier(new ModHaste(50));
     modHaste.addItem("dustRedstone");

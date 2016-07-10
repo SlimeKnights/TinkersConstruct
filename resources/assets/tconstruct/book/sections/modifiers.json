@@ -74,5 +74,9 @@
   {
     "type": "modifier",
     "data": "modifiers/blasting.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/glowing.json"
   }
 ]
