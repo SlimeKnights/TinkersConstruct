@@ -80,8 +80,6 @@ public class Shuriken extends ProjectileCore {
                (ExtraMaterialStats) materials.get(2).getStatsOrUnknown(ExtraMaterialStats.TYPE),
                (ExtraMaterialStats) materials.get(3).getStatsOrUnknown(ExtraMaterialStats.TYPE));
 
-    data.modifiers = DEFAULT_MODIFIERS;
-
     data.attack += 1f;
     //data.durability = Math.max(1, Math.round((float) data.durability / 10f));
 

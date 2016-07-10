@@ -104,7 +104,6 @@ public class BattleAxe extends AoeToolCore {
     data.speed = head1.miningspeed/2f + head2.miningspeed/2f;
     data.speed *= 0.3f + 0.3f * handle.modifier * binding.extraQuality;
 */
-    data.modifiers = 2;
 
     return data.get();
   }

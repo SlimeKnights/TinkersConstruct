@@ -77,8 +77,6 @@ public class Excavator extends Shovel {
 
     data.durability *= 1.75f;
 
-    data.modifiers = 2;
-
     return data.get();
   }
 }

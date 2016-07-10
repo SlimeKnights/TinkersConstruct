@@ -62,13 +62,7 @@ import slimeknights.tconstruct.tools.traits.ToolGrowth;
  */
 public abstract class ToolCore extends TinkersItem {
 
-  protected final static int DEFAULT_MODIFIERS = 3;
-  protected final static ToolGrowth toolGrowth;
-
-  static {
-    toolGrowth = new ToolGrowth();
-    TinkerRegistry.addTrait(toolGrowth);
-  }
+  public final static int DEFAULT_MODIFIERS = 3;
 
   public ToolCore(PartMaterialType... requiredComponents) {
     super(requiredComponents);

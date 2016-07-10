@@ -179,9 +179,6 @@ public class Mattock extends AoeToolCore {
     // base damage!
     data.attack += 3;
 
-    // 3 free modifiers
-    data.modifiers = DEFAULT_MODIFIERS;
-
     return data.get();
   }
 

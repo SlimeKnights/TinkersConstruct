@@ -137,8 +137,6 @@ public class LumberAxe extends AoeToolCore {
 
     data.durability *= 2f;
 
-    data.modifiers = 2;
-
     return data.get();
   }
 
