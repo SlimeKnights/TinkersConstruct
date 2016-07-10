@@ -75,6 +75,7 @@ import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModEmerald;
 import slimeknights.tconstruct.tools.modifiers.ModFiery;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
+import slimeknights.tconstruct.tools.modifiers.ModGlowing;
 import slimeknights.tconstruct.tools.modifiers.ModHarvestSize;
 import slimeknights.tconstruct.tools.modifiers.ModHaste;
 import slimeknights.tconstruct.tools.modifiers.ModKnockback;
@@ -165,6 +166,7 @@ public class TinkerTools extends TinkerPulse {
   public static Modifier modDiamond;
   public static Modifier modEmerald;
   public static Modifier modFiery;
+  public static Modifier modGlowing;
   public static Modifier modHaste;
   public static Modifier modHarvestWidth;
   public static Modifier modHarvestHeight;
@@ -301,6 +303,9 @@ public class TinkerTools extends TinkerPulse {
 
     modFiery = registerModifier(new ModFiery());
     modFiery.addItem(Items.BLAZE_POWDER);
+
+    modGlowing = registerModifier(new ModGlowing());
+    modGlowing.addRecipeMatch(new RecipeMatch.ItemCombination(1, new ItemStack(Items.GLOWSTONE_DUST), new ItemStack(Items.ENDER_EYE)));
 
     modHaste = registerModifier(new ModHaste(50));
     modHaste.addItem("dustRedstone");
