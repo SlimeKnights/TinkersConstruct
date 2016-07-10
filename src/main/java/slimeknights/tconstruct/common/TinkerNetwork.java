@@ -16,7 +16,7 @@ import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidClicked;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
-import slimeknights.tconstruct.smeltery.network.SmelteryFuelUpdatePacket;
+import slimeknights.tconstruct.smeltery.network.HeatingStructureFuelUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryInventoryUpdatePacket;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.network.InventoryCraftingSyncPacket;
@@ -54,7 +54,7 @@ public class TinkerNetwork extends NetworkWrapper {
 
     // SMELTERY
     registerPacketClient(SmelteryFluidUpdatePacket.class);
-    registerPacketClient(SmelteryFuelUpdatePacket.class);
+    registerPacketClient(HeatingStructureFuelUpdatePacket.class);
     registerPacketClient(SmelteryInventoryUpdatePacket.class);
     registerPacketServer(SmelteryFluidClicked.class);
     registerPacketClient(FluidUpdatePacket.class);

@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
 import java.util.List;
 
 public abstract class MultiblockCuboid extends MultiblockDetection {
@@ -79,7 +78,9 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
     // detect ceiling (yup. frame check done inside.)
     if(hasCeiling) {
       // move as high as possible
-      if(!detectCeiling(world, center.up(height + 1), edges, subBlocks)) {
+      // basically "height" failed above meaning thats the number we are left with
+      // and assuming its a valid structure, it failed because its a ceiling (if another reason, the ceiling check will fail)
+      if(!detectCeiling(world, center.up(height), edges, subBlocks)) {
         return null;
       }
     }
@@ -97,7 +98,7 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
     return isValidBlock(world, pos);
   }
 
-  public boolean isFrameBlock(World world, BlockPos pos) {
+  public boolean isFrameBlock(World world, BlockPos pos, EnumFrameType type) {
     return isValidBlock(world, pos);
   }
 
@@ -136,7 +137,7 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
 
       // check the blocks
       for(BlockPos pos : frame) {
-        if(!isFrameBlock(world, pos)) {
+        if(!isFrameBlock(world, pos, ceiling ? EnumFrameType.CEILING : EnumFrameType.FLOOR)) {
           return false;
         }
         candidates.add(pos);
@@ -180,7 +181,7 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
 
       // check the blocks
       for(BlockPos pos : frame) {
-        if(!isFrameBlock(world, pos)) {
+        if(!isFrameBlock(world, pos, EnumFrameType.WALL)) {
           return false;
         }
         candidates.add(pos);
@@ -223,5 +224,11 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
 
     subBlocks.addAll(candidates);
     return true;
+  }
+  
+  public static enum EnumFrameType {
+    FLOOR,
+    CEILING,
+    WALL;
   }
 }

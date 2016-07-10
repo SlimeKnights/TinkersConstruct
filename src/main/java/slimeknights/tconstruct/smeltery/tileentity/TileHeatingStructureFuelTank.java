@@ -1,0 +1,275 @@
+package slimeknights.tconstruct.smeltery.tileentity;
+
+import java.util.List;
+
+import com.google.common.collect.Lists;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import slimeknights.tconstruct.common.TinkerNetwork;
+import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.smeltery.network.HeatingStructureFuelUpdatePacket;
+
+public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure {
+  // NBT Tags
+  public static final String TAG_ACTIVE = "active";
+  public static final String TAG_FUELQUALITY = "fuelQuality";
+  public static final String TAG_CURRENTFUEL = "currentFuel";
+  public static final String TAG_TANKS = "tanks";
+  public static final String TAG_CURRENTTANK = "currentTank";
+  
+  // amount of fuel gotten from a single consumption of the fluid, used for GUI fuel percentage
+  public int fuelQuality;
+  public boolean active;
+  
+  // Fuel tank information
+  public List<BlockPos> tanks;
+  public BlockPos currentTank;
+  public FluidStack currentFuel; // the fuel that was last consumed
+  
+  public TileHeatingStructureFuelTank(String name, int inventorySize, int maxStackSize) {
+    super(name, inventorySize, maxStackSize);
+    
+    tanks = Lists.newLinkedList();
+  }
+
+  @Override
+  protected void consumeFuel() {
+    // no need to consume fuel
+    if(hasFuel()) {
+      return;
+    }
+
+    // get current tank
+    searchForFuel();
+
+    // got a tank?
+    if(currentTank != null) {
+      // consume fuel!
+      TileEntity te = worldObj.getTileEntity(currentTank);
+      if(te instanceof TileTank) {
+        IFluidTank tank = ((TileTank) te).getInternalTank();
+
+        FluidStack liquid = tank.getFluid();
+        if(liquid != null) {
+          FluidStack in = liquid.copy();
+          int bonusFuel = TinkerRegistry.consumeSmelteryFuel(in);
+          int amount = liquid.amount - in.amount;
+          FluidStack drained = tank.drain(amount, false);
+
+          // we can drain. actually drain and add the fuel
+          if(drained != null && drained.amount == amount) {
+            tank.drain(amount, true);
+            currentFuel = drained.copy();
+            fuelQuality = bonusFuel;
+            addFuel(bonusFuel, drained.getFluid().getTemperature(drained) - 300); // convert to degree celcius
+
+            // notify client of fuel/temperature changes
+            if(worldObj != null && !worldObj.isRemote) {
+              TinkerNetwork.sendToAll(new HeatingStructureFuelUpdatePacket(pos, currentTank, temperature, currentFuel));
+            }
+            
+            return;
+          }
+        }
+        
+        fuelQuality = 0;
+      }
+    }
+  }
+
+  /**
+   * Locates a tank containing fuel, if one exists
+   * @return true if successful
+   */
+  private void searchForFuel() {
+    // is the current tank still up to date?
+    if(currentTank != null && hasFuel(currentTank, currentFuel)) {
+      return;
+    }
+
+    // nope, current tank is empty, check others for same fuel
+    for(BlockPos pos : tanks) {
+      if(hasFuel(pos, currentFuel)) {
+        currentTank = pos;
+        return;
+      }
+    }
+
+    // nothing found, try again with new fuel
+    for(BlockPos pos : tanks) {
+      if(hasFuel(pos, null)) {
+        currentTank = pos;
+        return;
+      }
+    }
+
+    currentTank = null;
+  }
+
+  // checks if the given location has a fluid tank that contains fuel
+  private boolean hasFuel(BlockPos pos, FluidStack preference) {
+    IFluidTank tank = getTankAt(pos);
+    if(tank != null && tank.getFluid() != null) {
+      if(tank.getFluidAmount() > 0 && TinkerRegistry.isSmelteryFuel(tank.getFluid())) {
+        // if we have a preference, only use that
+        if(preference != null && tank.getFluid().isFluidEqual(preference)) {
+          return true;
+        }
+        else if(preference == null) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Grabs the tank at the given location (if present)
+   */
+  private IFluidTank getTankAt(BlockPos pos) {
+    TileEntity te = worldObj.getTileEntity(pos);
+    if(te instanceof TileTank) {
+      return ((TileTank) te).getInternalTank();
+    }
+
+    return null;
+  }
+
+  /* GUI */
+  public float getMeltingProgress(int index) {
+    if(index < 0 || index > getSizeInventory() - 1) {
+      return -1f;
+    }
+
+    if(!canHeat(index)) {
+      return -1f;
+    }
+
+    return getProgress(index);
+  }
+  
+  /**
+   * Can be used by the GUI to determine fuel percentage
+   */
+  @SideOnly(Side.CLIENT)
+  public float getFuelPercentage() {
+    return (float)fuel / (float)fuelQuality;
+  }
+  
+  @SideOnly(Side.CLIENT)
+  public FuelInfo getFuelDisplay() {
+    FuelInfo info = new FuelInfo();
+
+    // we still have leftover fuel
+    if(hasFuel()) {
+      info.fluid = currentFuel.copy();
+      info.fluid.amount = 0;
+      info.heat = this.temperature;
+      info.maxCap = currentFuel.amount;
+    }
+    else if(currentTank != null) {
+      // we need to consume fuel, check the current tank
+      if(hasFuel(currentTank, currentFuel)) {
+        IFluidTank tank = getTankAt(currentTank);
+        info.fluid = tank.getFluid().copy();
+        info.heat = temperature;
+        info.maxCap = tank.getCapacity();
+      }
+    }
+
+    // check all other tanks (except the current one that we already checked) for more fuel
+    for(BlockPos pos : tanks) {
+      if(pos == currentTank) {
+        continue;
+      }
+
+      IFluidTank tank = getTankAt(pos);
+      // tank exists and has something in it
+      if(tank != null && tank.getFluidAmount() > 0) {
+        // we don't have fuel yet, use this
+        if(info.fluid == null) {
+          info.fluid = tank.getFluid().copy();
+          info.heat = info.fluid.getFluid().getTemperature(info.fluid);
+          info.maxCap = tank.getCapacity();
+        }
+        // otherwise add the same together
+        else if(tank.getFluid().isFluidEqual(info.fluid)) {
+          info.fluid.amount += tank.getFluidAmount();
+          info.maxCap += tank.getCapacity();
+        }
+      }
+    }
+
+    return info;
+  }
+  
+  /* Networking and saving */
+  @SideOnly(Side.CLIENT)
+  public void updateFuelFromPacket(int index, int fuel) {
+    if(index == 0) {
+      this.fuel = fuel;
+    }
+    else if(index == 1) {
+      this.fuelQuality = fuel;
+    }
+  }
+  
+  @Override
+  public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    compound = super.writeToNBT(compound);
+
+    compound.setBoolean(TAG_ACTIVE, active);
+    compound.setInteger(TAG_FUELQUALITY, fuelQuality);
+    
+    compound.setTag(TAG_CURRENTTANK, TagUtil.writePos(currentTank));
+    NBTTagList tankList = new NBTTagList();
+    for(BlockPos pos : tanks) {
+      tankList.appendTag(TagUtil.writePos(pos));
+    }
+    compound.setTag(TAG_TANKS, tankList);
+    
+    NBTTagCompound fuelTag = new NBTTagCompound();
+    if(currentFuel != null) {
+      currentFuel.writeToNBT(fuelTag);
+    }
+    compound.setTag(TAG_CURRENTFUEL, fuelTag);
+    
+    return compound;
+  }
+
+  @Override
+  public void readFromNBT(NBTTagCompound compound) {
+    super.readFromNBT(compound);
+
+    active = compound.getBoolean(TAG_ACTIVE);
+    fuelQuality = compound.getInteger(TAG_FUELQUALITY);
+    
+    NBTTagList tankList = compound.getTagList(TAG_TANKS, 10);
+    tanks.clear();
+    for(int i = 0; i < tankList.tagCount(); i++) {
+      tanks.add(TagUtil.readPos(tankList.getCompoundTagAt(i)));
+    }
+    
+    NBTTagCompound fuelTag = compound.getCompoundTag(TAG_CURRENTFUEL);
+    currentFuel = FluidStack.loadFluidStackFromNBT(fuelTag);
+  }
+  
+  public boolean isActive() {
+    return active;
+  }
+
+  public static class FuelInfo {
+    public int heat;
+    public int maxCap;
+    public FluidStack fluid;
+  }
+
+}

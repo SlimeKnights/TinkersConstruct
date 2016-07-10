@@ -16,9 +16,9 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.block.EnumBlock;
+import slimeknights.mantle.multiblock.IMasterLogic;
 import slimeknights.mantle.multiblock.IServantLogic;
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 
 public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta & IStringSerializable> extends EnumBlock<T>
@@ -61,17 +61,17 @@ public class BlockEnumSmeltery<T extends Enum<T> & EnumBlock.IEnumMeta & IString
     // look for a smeltery (controller directly or through another smeltery block) and notify it that we exist
     for(EnumFacing dir : EnumFacing.values()) {
       TileEntity te = worldIn.getTileEntity(pos.offset(dir));
-      if(te instanceof TileSmeltery) {
+      if(te instanceof IMasterLogic) {
         TileEntity servant = worldIn.getTileEntity(pos);
         if(servant instanceof IServantLogic) {
-          ((TileSmeltery) te).notifyChange((IServantLogic) servant, pos);
+          ((IMasterLogic) te).notifyChange((IServantLogic) servant, pos);
           break;
         }
       }
       else if(te instanceof TileSmelteryComponent) {
         TileSmelteryComponent component = (TileSmelteryComponent) te;
-        if(((TileSmelteryComponent) te).hasValidMaster()) {
-          ((TileSmelteryComponent) te).notifyMasterOfChange();
+        if(component.hasValidMaster()) {
+          component.notifyMasterOfChange();
           break;
         }
       }

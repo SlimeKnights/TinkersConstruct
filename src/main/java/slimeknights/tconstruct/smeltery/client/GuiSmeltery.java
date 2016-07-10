@@ -30,6 +30,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.client.module.GuiSmelterySideinventory;
 import slimeknights.tconstruct.smeltery.inventory.ContainerSmeltery;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidClicked;
+import slimeknights.tconstruct.smeltery.tileentity.TileHeatingStructureFuelTank;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
 
@@ -42,7 +43,7 @@ public class GuiSmeltery extends GuiMultiModule {
   protected final GuiSmelterySideinventory sideinventory;
   protected final TileSmeltery smeltery;
 
-  private TileSmeltery.FuelInfo fuelInfo;
+  private TileHeatingStructureFuelTank.FuelInfo fuelInfo;
 
   public GuiSmeltery(ContainerSmeltery container, TileSmeltery smeltery) {
     super(container);
@@ -67,7 +68,8 @@ public class GuiSmeltery extends GuiMultiModule {
 
   @Override
   protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-    super.drawGuiContainerForegroundLayer(mouseX + cornerX, mouseY + cornerY);
+    // we don't need to add the corner since the mouse is already reletive to the corner
+    super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 
     // draw the scale
     this.mc.getTextureManager().bindTexture(BACKGROUND);
@@ -75,6 +77,7 @@ public class GuiSmeltery extends GuiMultiModule {
     scala.draw(8, 16);
 
     // draw the tooltips, if any
+    // subtract the corner of the main module so the mouse location is relative to just the center, rather than the side inventory
     mouseX -= cornerX;
     mouseY -= cornerY;
 
@@ -146,7 +149,7 @@ public class GuiSmeltery extends GuiMultiModule {
       int x = 71 + cornerX;
       int y = 16 + cornerY + 52;
       int w = 12;
-      int h = (int) (52f * (float) fuelInfo.fluid.amount / (float) fuelInfo.maxCap);
+      int h = (int) (52f * fuelInfo.fluid.amount / fuelInfo.maxCap);
 
       RenderUtil.renderTiledFluid(x, y - h, w, h, this.zLevel, fuelInfo.fluid);
     }
