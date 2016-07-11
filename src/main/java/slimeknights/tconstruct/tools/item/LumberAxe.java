@@ -137,8 +137,6 @@ public class LumberAxe extends AoeToolCore {
 
     data.durability *= 2f;
 
-    data.modifiers = 2;
-
     return data.get();
   }
 
@@ -234,6 +232,9 @@ public class LumberAxe extends AoeToolCore {
     public void chopChop(TickEvent.WorldTickEvent event) {
       if(event.side.isClient()) {
         finish();
+        return;
+      }
+      if(event.world == world) {
         return;
       }
 

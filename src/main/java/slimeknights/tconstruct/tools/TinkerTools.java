@@ -75,6 +75,7 @@ import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModEmerald;
 import slimeknights.tconstruct.tools.modifiers.ModFiery;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
+import slimeknights.tconstruct.tools.modifiers.ModGlowing;
 import slimeknights.tconstruct.tools.modifiers.ModHarvestSize;
 import slimeknights.tconstruct.tools.modifiers.ModHaste;
 import slimeknights.tconstruct.tools.modifiers.ModKnockback;
@@ -165,6 +166,7 @@ public class TinkerTools extends TinkerPulse {
   public static Modifier modDiamond;
   public static Modifier modEmerald;
   public static Modifier modFiery;
+  public static Modifier modGlowing;
   public static Modifier modHaste;
   public static Modifier modHarvestWidth;
   public static Modifier modHarvestHeight;
@@ -281,6 +283,7 @@ public class TinkerTools extends TinkerPulse {
 
   private void registerModifiers() {
     ItemStack tnt = new ItemStack(Blocks.TNT);
+    ItemStack glowstoneDust = new ItemStack(Items.GLOWSTONE_DUST);
 
     // create the modifiers and add their items
     modBaneOfArthopods = new ModAntiMonsterType("bane_of_arthopods", 0x61ba49, 5, 24, EnumCreatureAttribute.ARTHROPOD);
@@ -301,6 +304,9 @@ public class TinkerTools extends TinkerPulse {
 
     modFiery = registerModifier(new ModFiery());
     modFiery.addItem(Items.BLAZE_POWDER);
+
+    modGlowing = registerModifier(new ModGlowing());
+    modGlowing.addRecipeMatch(new RecipeMatch.ItemCombination(1, glowstoneDust, new ItemStack(Items.ENDER_EYE), glowstoneDust));
 
     modHaste = registerModifier(new ModHaste(50));
     modHaste.addItem("dustRedstone");
@@ -509,6 +515,9 @@ public class TinkerTools extends TinkerPulse {
                                                "OOO",
                                                'O', "obsidian",
                                                'P', goldThing));
+
+    // Moss
+    GameRegistry.addRecipe(new ShapedOreRecipe(TinkerCommons.matMoss, "xxx", "xxx", "xxx", 'x', "blockMossy"));
 
     // Slimy Mud
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudGreen, Items.SLIME_BALL, Items.SLIME_BALL, Items.SLIME_BALL, Items.SLIME_BALL, "sand", "dirt"));

@@ -104,9 +104,6 @@ public class Hammer extends Pickaxe {
 
     data.durability *= 2.5f;
 
-    // 3 free modifiers
-    data.modifiers = DEFAULT_MODIFIERS;
-
     return data.get();
   }
 }

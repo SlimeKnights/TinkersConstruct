@@ -24,6 +24,7 @@ public class ToolNBT {
     attack = 0;
     speed = 0;
     attackSpeedMultiplier = 1;
+    modifiers = ToolCore.DEFAULT_MODIFIERS;
     parent = new NBTTagCompound();
   }
 

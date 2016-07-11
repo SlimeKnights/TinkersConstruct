@@ -2,6 +2,7 @@ package slimeknights.tconstruct.common;
 
 import com.google.common.eventbus.Subscribe;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -114,6 +115,9 @@ public class TinkerOredict {
     // glowstone block, redstone block
 
     oredict(Blocks.DIRT, "dirt");
+
+    oredict(Blocks.MOSSY_COBBLESTONE, "blockMossy");
+    oredict(new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.MOSSY_META), "blockMossy");
   }
 
   // common items and blocks

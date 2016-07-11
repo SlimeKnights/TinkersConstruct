@@ -105,7 +105,6 @@ public class Cleaver extends ToolCore {
 
     // triple durability!
     data.durability *= 2f;
-    data.modifiers = 3;
 
     return data.get();
   }

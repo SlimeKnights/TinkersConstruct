@@ -30,6 +30,7 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
+import slimeknights.tconstruct.tools.modifiers.ModMendingMoss;
 
 public class ToolEvents {
 
@@ -116,15 +117,15 @@ public class ToolEvents {
   public void onInteract(PlayerInteractEvent.RightClickBlock event) {
     // does the player clicks on an echanting table with moss with 5 levels?
     if(ItemStack.areItemsEqual(event.getItemStack(), TinkerCommons.matMoss)) {
-      if(event.getWorld().getBlockState(event.getPos()).getBlock() == Blocks.ENCHANTING_TABLE) {
-        if(event.getEntityPlayer().experienceLevel >= 5) {
+      if(event.getWorld().getBlockState(event.getPos()).getBlock() == Blocks.BOOKSHELF) {
+        if(event.getEntityPlayer().experienceLevel >= ModMendingMoss.MENDING_MOSS_LEVELS) {
           // convert moss to mending moss
           EntityPlayer player = event.getEntityPlayer();
           player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
 
           if(!event.getWorld().isRemote) {
             event.getItemStack().stackSize--;
-            player.removeExperienceLevel(5);
+            player.removeExperienceLevel(ModMendingMoss.MENDING_MOSS_LEVELS);
             ItemHandlerHelper.giveItemToPlayer(player, TinkerCommons.matMendingMoss.copy());
 
             event.setUseBlock(Event.Result.DENY);

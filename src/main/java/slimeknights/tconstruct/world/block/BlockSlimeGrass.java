@@ -101,21 +101,15 @@ public class BlockSlimeGrass extends BlockGrass {
       return;
     }
 
-    if(worldIn.getLightFromNeighbors(pos.up()) < 4 && worldIn.getBlockState(pos.up()).getBlock().getLightOpacity(state, worldIn, pos.up()) > 2) {
-      // convert grass back to dirt of the corresponding type
-      worldIn.setBlockState(pos, getDirtState(state));
-    }
-    else {
-      // spread to surrounding blocks
-      if(worldIn.getLightFromNeighbors(pos.up()) >= 9) {
-        for(int i = 0; i < 4; ++i) {
-          BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
-          Block block = worldIn.getBlockState(pos1.up()).getBlock();
-          IBlockState state1 = worldIn.getBlockState(pos1);
+    // spread to surrounding blocks
+    if(worldIn.getLightFromNeighbors(pos.up()) >= 9) {
+      for(int i = 0; i < 4; ++i) {
+        BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
+        Block block = worldIn.getBlockState(pos1.up()).getBlock();
+        IBlockState state1 = worldIn.getBlockState(pos1);
 
-          if(worldIn.getLightFromNeighbors(pos1.up()) >= 4 && block.getLightOpacity(state, worldIn, pos1.up()) <= 2) {
-            convert(worldIn, pos1, state1, state.getValue(FOLIAGE));
-          }
+        if(worldIn.getLightFromNeighbors(pos1.up()) >= 4 && block.getLightOpacity(state, worldIn, pos1.up()) <= 2) {
+          convert(worldIn, pos1, state1, state.getValue(FOLIAGE));
         }
       }
     }

@@ -27,6 +27,8 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class ModMendingMoss extends ModifierTrait {
 
+  public static final int MENDING_MOSS_LEVELS = 10;
+
   private static final String TAG_STORED_XP = "stored_xp";
   private static final String TAG_LAST_HEAL = "heal_timestamp";
 

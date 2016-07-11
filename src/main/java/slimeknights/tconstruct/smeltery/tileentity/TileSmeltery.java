@@ -200,7 +200,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
       return false;
     }
 
-    TinkerSmelteryEvent.OnMelting event = TinkerSmelteryEvent.OnMelting.fireEvent(this, stack, recipe.output);
+    TinkerSmelteryEvent.OnMelting event = TinkerSmelteryEvent.OnMelting.fireEvent(this, stack, recipe.output.copy());
 
     int filled = liquids.fill(event.result, false);
 
@@ -263,7 +263,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
           // hurt it
           if(entity.attackEntityFrom(smelteryDamage, 2f)) {
             // spill the blood
-            liquids.fill(fluid, true);
+            liquids.fill(fluid.copy(), true);
           }
         }
       }

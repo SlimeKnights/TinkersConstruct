@@ -107,14 +107,18 @@ public class BlockGlow extends Block {
 
       // if the location is valid, place the block directly
       if(this.canBlockStay(world, pos, facing)) {
-        world.setBlockState(pos, getDefaultState().withProperty(FACING, facing));
+        if(!world.isRemote) {
+          world.setBlockState(pos, getDefaultState().withProperty(FACING, facing));
+        }
         return true;
       }
       // otherwise, try and place it facing a different way
       else {
         for(EnumFacing enumfacing : EnumFacing.VALUES) {
           if(this.canBlockStay(world, pos, enumfacing)) {
-            world.setBlockState(pos, getDefaultState().withProperty(FACING, enumfacing));
+            if(!world.isRemote) {
+              world.setBlockState(pos, getDefaultState().withProperty(FACING, enumfacing));
+            }
             return true;
           }
         }

@@ -185,7 +185,7 @@ public final class ToolHelper {
     }
 
     // this will be the only place besides fortify where a modifier is hardcoded. I promise. :L
-    if(TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), TinkerTools.modBlasting.getIdentifier())) {
+    if(TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), TinkerTools.modBlasting.getIdentifier()) && state.getMaterial().isToolNotRequired()) {
       return true;
     }
 
