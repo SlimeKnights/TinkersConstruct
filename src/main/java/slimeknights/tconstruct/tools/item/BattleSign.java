@@ -28,6 +28,7 @@ import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -40,6 +41,8 @@ public class BattleSign extends ToolCore {
   public BattleSign() {
     super(PartMaterialType.handle(TinkerTools.toolRod),
           PartMaterialType.head(TinkerTools.signHead));
+
+    addCategory(Category.WEAPON);
 
     this.addPropertyOverride(new ResourceLocation("blocking"), new IItemPropertyGetter() {
       @Override
