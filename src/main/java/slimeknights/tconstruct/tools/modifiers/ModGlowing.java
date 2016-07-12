@@ -19,7 +19,7 @@ public class ModGlowing extends ModifierTrait {
 
   @Override
   public void onUpdate(ItemStack tool, World world, Entity entity, int itemSlot, boolean isSelected) {
-    if(isSelected && !ToolHelper.isBroken(tool)) {
+    if(isSelected && !world.isRemote && !ToolHelper.isBroken(tool)) {
       BlockPos pos = entity.getPosition();
       // check light level at entity
       if(world.getLight(pos) < 8) {
