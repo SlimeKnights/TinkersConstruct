@@ -1,0 +1,19 @@
+{
+    "textures": {
+        "battleaxe": "tconstruct:items/battleaxe/mod_mending_moss",
+        "battlesign": "tconstruct:items/battlesign/mod_mending_moss",
+        "broadsword": "tconstruct:items/broadsword/mod_mending_moss",
+        "rapier": "tconstruct:items/rapier/mod_mending_moss",
+        "cleaver": "tconstruct:items/cleaver/mod_mending_moss",
+        "excavator": "tconstruct:items/excavator/mod_mending_moss",
+        "frypan": "tconstruct:items/frypan/mod_mending_moss",
+        "hammer": "tconstruct:items/hammer/mod_mending_moss",
+        "hatchet": "tconstruct:items/hatchet/mod_mending_moss",
+        "longsword": "tconstruct:items/longsword/mod_mending_moss",
+        "lumberaxe": "tconstruct:items/lumberaxe/mod_mending_moss",
+        "mattock": "tconstruct:items/mattock/mod_mending_moss",
+        "pickaxe": "tconstruct:items/pickaxe/mod_mending_moss",
+        "shovel": "tconstruct:items/shovel/mod_mending_moss",
+        "shuriken": "tconstruct:items/shuriken/mod_mending_moss"
+    }
+}
