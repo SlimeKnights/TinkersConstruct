@@ -28,6 +28,8 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class Rapier extends ToolCore {
 
+  public static final float DURABILITY_MODIFIER = 0.8f;
+
   public Rapier() {
     super(PartMaterialType.handle(TinkerTools.toolRod),
           PartMaterialType.head(TinkerTools.swordBlade),
@@ -118,10 +120,15 @@ public class Rapier extends ToolCore {
   }
 
   @Override
+  public float getRepairModifierForPart(int index) {
+    return DURABILITY_MODIFIER;
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     ToolNBT data = buildDefaultTag(materials);
 
-    data.durability *= 0.8f;
+    data.durability *= DURABILITY_MODIFIER;
 
     return data.get();
   }

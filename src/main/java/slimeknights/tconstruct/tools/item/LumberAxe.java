@@ -47,6 +47,7 @@ public class LumberAxe extends AoeToolCore {
       ImmutableSet.of(net.minecraft.block.material.Material.WOOD,
                       net.minecraft.block.material.Material.GOURD,
                       net.minecraft.block.material.Material.CACTUS);
+  public static final float DURABILITY_MODIFIER = 2f;
 
   public LumberAxe() {
     super(PartMaterialType.handle(TinkerTools.toughToolRod),
@@ -124,6 +125,11 @@ public class LumberAxe extends AoeToolCore {
   }
 
   @Override
+  public float getRepairModifierForPart(int index) {
+    return index == 1 ? DURABILITY_MODIFIER : DURABILITY_MODIFIER*0.625f;
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
     HeadMaterialStats head     = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
@@ -135,7 +141,8 @@ public class LumberAxe extends AoeToolCore {
     data.extra(binding);
     data.handle(handle);
 
-    data.durability *= 2f;
+    data.attack += 2;
+    data.durability *= DURABILITY_MODIFIER;
 
     return data.get();
   }

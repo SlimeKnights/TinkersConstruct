@@ -29,6 +29,8 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class Hammer extends Pickaxe {
 
+  public static final float DURABILITY_MODIFIER = 2.5f;
+
   public Hammer() {
     super(PartMaterialType.handle(TinkerTools.toughToolRod),
           PartMaterialType.head(TinkerTools.hammerHead),
@@ -85,7 +87,7 @@ public class Hammer extends Pickaxe {
 
   @Override
   public float getRepairModifierForPart(int index) {
-    return index == 1 ? 1f : 0.5f;
+    return index == 1 ? DURABILITY_MODIFIER : DURABILITY_MODIFIER*0.6f;
   }
 
   @Override
@@ -102,7 +104,7 @@ public class Hammer extends Pickaxe {
     // harvestlevel is always determined by the head
     data.harvestLevel = head.harvestLevel;
 
-    data.durability *= 2.5f;
+    data.durability *= DURABILITY_MODIFIER;
 
     return data.get();
   }

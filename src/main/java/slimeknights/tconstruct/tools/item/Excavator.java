@@ -25,6 +25,8 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class Excavator extends Shovel {
 
+  public static final float DURABILITY_MODIFIER = 1.75f;
+
   public Excavator() {
     super(PartMaterialType.handle(TinkerTools.toughToolRod),
           PartMaterialType.head(TinkerTools.excavatorHead),
@@ -64,6 +66,11 @@ public class Excavator extends Shovel {
   }
 
   @Override
+  public float getRepairModifierForPart(int index) {
+    return index == 1 ? DURABILITY_MODIFIER : DURABILITY_MODIFIER*0.75f;
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
     HeadMaterialStats head     = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
@@ -75,7 +82,7 @@ public class Excavator extends Shovel {
     data.extra(binding);
     data.handle(handle);
 
-    data.durability *= 1.75f;
+    data.durability *= DURABILITY_MODIFIER;
 
     return data.get();
   }
