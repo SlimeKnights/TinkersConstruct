@@ -419,11 +419,11 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
     NBTTagCompound tag = TagUtil.getExtraTag(tool);
     int repair = tag.getInteger(Tags.REPAIR_COUNT);
-    float repairCount = (100 - repair) / 100f;
-    if(repairCount < 0.5f) {
-      repairCount = 0.5f;
+    float repairDimishingReturns = 2*(100 - repair) / 100f;
+    if(repairDimishingReturns < 0.5f) {
+      repairDimishingReturns = 0.5f;
     }
-    increase *= repairCount;
+    increase *= repairDimishingReturns;
 
     return (int) Math.ceil(increase);
   }
