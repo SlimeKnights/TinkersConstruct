@@ -171,7 +171,7 @@ public class TinkerTools extends TinkerPulse {
   public static Modifier modHarvestWidth;
   public static Modifier modHarvestHeight;
   public static Modifier modKnockback;
-  public static Modifier modLuck;
+  public static ModLuck modLuck;
   public static Modifier modMendingMoss;
   public static Modifier modNecrotic;
   public static Modifier modReinforced;

@@ -640,7 +640,6 @@ modifier.haste.extra=Bonus-Speed: +%s
 modifier.knockback.name=Knockback
 modifier.knockback.desc=§oHomerun!§r\nTeach things how to fly - the cool way.
 modifier.luck.name=Luck
-modifier.luck.name2=Luck
 modifier.luck.desc=§oShiny!§r\nYou're getting all the nice things. And a lot of them.
 modifier.mending_moss.name=Mending Moss
 modifier.mending_moss.desc=§oIt's alive!§r\nPicked up XP is stored in the tool. It will slowly use up the XP to regenerate durability.

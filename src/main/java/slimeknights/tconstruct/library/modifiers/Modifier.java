@@ -21,6 +21,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
 import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -177,28 +179,31 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
   }
 
   public String getLeveledTooltip(NBTTagCompound modifierTag, boolean detailed) {
-    // the most important function in the whole file!
     ModifierNBT data = ModifierNBT.readInteger(modifierTag);
+    return getLeveledTooltip(data.level, detailed ? " " + data.extraInfo : "");
+  }
+
+  public String getLeveledTooltip(int level, @Nullable String suffix) {
+    // the most important function in the whole file!
 
     String basic = getLocalizedName(); // backup
-    if(data.level == 0) {
+    if(level == 0) {
       return basic;
     }
-    else if(data.level > 1) {
-      basic += " " + TinkerUtil.getRomanNumeral(data.level);
+    else if(level > 1) {
+      basic += " " + TinkerUtil.getRomanNumeral(level);
     }
 
-    for(int i = data.level; i > 1; i--) {
+    for(int i = level; i > 1; i--) {
       if(I18n.canTranslate(String.format(LOC_Name + i, getIdentifier()))) {
         basic = I18n.translateToLocal(String.format(LOC_Name + i, getIdentifier()));
         break;
       }
     }
 
-    if(detailed) {
-      return basic + " " + data.extraInfo;
+    if(suffix != null) {
+      basic += suffix;
     }
-
     return basic;
   }
 
