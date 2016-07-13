@@ -2,6 +2,8 @@ package slimeknights.tconstruct.tools;
 
 import com.google.common.collect.Sets;
 
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
@@ -18,6 +20,7 @@ import net.minecraft.world.storage.loot.conditions.RandomChanceWithLooting;
 import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraft.world.storage.loot.functions.SetMetadata;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -26,8 +29,13 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import java.util.Random;
 import java.util.Set;
 
+import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.modifiers.ModifierNBT;
+import slimeknights.tconstruct.library.tools.CapabilityTinkerProjectile;
+import slimeknights.tconstruct.library.tools.ITinkerProjectile;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.tools.modifiers.ModMendingMoss;
@@ -133,6 +141,24 @@ public class ToolEvents {
             event.setCanceled(true);
           }
         }
+      }
+    }
+  }
+
+  @SubscribeEvent
+  public void onLooting(LootingLevelEvent event) {
+    // ensure looting is taken into account for projectiles
+    Entity projectile = event.getDamageSource().getEntity();
+    if(projectile == null || !projectile.hasCapability(CapabilityTinkerProjectile.PROJECTILE_CAPABILITY, null)) {
+      return;
+    }
+
+    ITinkerProjectile tinkerProjectile = projectile.getCapability(CapabilityTinkerProjectile.PROJECTILE_CAPABILITY, null);
+    ItemStack item = tinkerProjectile.getItemStack();
+    if(item != null) {
+      int level = TinkerTools.modLuck.getLuckLevel(item);
+      if(level > 0) {
+        event.setLootingLevel(level);
       }
     }
   }
