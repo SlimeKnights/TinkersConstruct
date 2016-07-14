@@ -30,6 +30,7 @@ public class BroadSword extends ToolCore {
                       net.minecraft.block.material.Material.CORAL,
                       net.minecraft.block.material.Material.GOURD,
                       net.minecraft.block.material.Material.LEAVES);
+  public static final float DURABILITY_MODIFIER = 1.1f;
 
   public BroadSword() {
     this(PartMaterialType.handle(TinkerTools.toolRod),
@@ -105,11 +106,16 @@ public class BroadSword extends ToolCore {
   }
 
   @Override
+  public float getRepairModifierForPart(int index) {
+    return DURABILITY_MODIFIER;
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     ToolNBT data = buildDefaultTag(materials);
     // 2 base damage, like vanilla swords
     data.attack += 1f;
-    data.durability *= 1.1f;
+    data.durability *= DURABILITY_MODIFIER;
     return data.get();
   }
 }

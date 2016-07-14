@@ -28,6 +28,8 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class LongSword extends ToolCore {
 
+  public static final float DURABILITY_MODIFIER = 1.05f;
+
   public LongSword() {
     super(PartMaterialType.handle(TinkerTools.toolRod),
           PartMaterialType.head(TinkerTools.swordBlade),
@@ -135,11 +137,16 @@ public class LongSword extends ToolCore {
   }
 
   @Override
+  public float getRepairModifierForPart(int index) {
+    return DURABILITY_MODIFIER;
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     ToolNBT data = buildDefaultTag(materials);
 
     data.attack += 0.5f;
-    data.durability *= 1.05f;
+    data.durability *= DURABILITY_MODIFIER;
 
     return data.get();
   }

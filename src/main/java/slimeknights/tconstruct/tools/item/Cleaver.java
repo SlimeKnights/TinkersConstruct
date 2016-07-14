@@ -30,6 +30,8 @@ import static slimeknights.tconstruct.tools.item.BroadSword.effective_materials;
 
 public class Cleaver extends ToolCore {
 
+  public static final float DURABILITY_MODIFIER = 2f;
+
   public Cleaver() {
     super(PartMaterialType.handle(TinkerTools.toughToolRod),
           PartMaterialType.head(TinkerTools.largeSwordBlade),
@@ -89,6 +91,11 @@ public class Cleaver extends ToolCore {
   }
 
   @Override
+  public float getRepairModifierForPart(int index) {
+    return index == 1 ? DURABILITY_MODIFIER : DURABILITY_MODIFIER*0.75f;
+  }
+
+  @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
     HeadMaterialStats head     = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
@@ -104,7 +111,7 @@ public class Cleaver extends ToolCore {
     data.attack += 3f;
 
     // triple durability!
-    data.durability *= 2f;
+    data.durability *= DURABILITY_MODIFIER;
 
     return data.get();
   }
