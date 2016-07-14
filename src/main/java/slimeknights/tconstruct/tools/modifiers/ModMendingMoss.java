@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -49,6 +50,13 @@ public class ModMendingMoss extends ModifierTrait {
          && !InventoryPlayer.isHotbar(itemSlot)
          && ((EntityPlayer) entity).getHeldItemOffhand() != tool) {
         return;
+      }
+
+      // not during blockbreaking
+      if(isSelected && entity instanceof EntityPlayerMP) {
+        if(((EntityPlayerMP) entity).interactionManager.isDestroyingBlock) {
+          return;
+        }
       }
 
       // needs ot be repaired and is in hotbar or offhand
