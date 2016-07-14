@@ -38,6 +38,7 @@ import slimeknights.tconstruct.gadgets.block.BlockRack;
 import slimeknights.tconstruct.gadgets.block.BlockStoneLadder;
 import slimeknights.tconstruct.gadgets.block.BlockStoneTorch;
 import slimeknights.tconstruct.gadgets.block.BlockWoodRail;
+import slimeknights.tconstruct.gadgets.block.BlockWoodRailDropper;
 import slimeknights.tconstruct.gadgets.entity.EntityFancyItemFrame;
 import slimeknights.tconstruct.gadgets.entity.EntityThrowball;
 import slimeknights.tconstruct.gadgets.item.ItemBlockRack;
@@ -68,12 +69,14 @@ public class TinkerGadgets extends TinkerPulse {
 
   public static Block stoneTorch;
   public static Block stoneLadder;
-  public static Block woodRail;
   public static Block punji;
   public static BlockRack rack;
   public static BlockDriedClay driedClay;
   public static BlockBrownstone brownstone;
-  
+
+  public static Block woodRail;
+  public static Block woodRailDropper;
+
   public static Block slimeChannel;
 
   public static Block driedClaySlab;
@@ -108,10 +111,12 @@ public class TinkerGadgets extends TinkerPulse {
   public void preInit(FMLPreInitializationEvent event) {
     stoneTorch = registerBlock(new BlockStoneTorch(), "stone_torch");
     stoneLadder = registerBlock(new BlockStoneLadder(), "stone_ladder");
-    woodRail = registerBlock(new BlockWoodRail(), "wood_rail");
     punji = registerBlock(new BlockPunji(), "punji");
     rack = registerBlock(new ItemBlockRack(new BlockRack()), "rack");
-    
+
+    woodRail = registerBlock(new BlockWoodRail(), "wood_rail");
+    woodRailDropper = registerBlock(new BlockWoodRailDropper(), "wood_rail_dropper");
+
     // slime channels
     slimeChannel = registerEnumBlock(new BlockSlimeChannel(), "slime_channel");
     
@@ -191,6 +196,7 @@ public class TinkerGadgets extends TinkerPulse {
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneLadder, 3), "w w", "www", "w w", 'w', "rodStone"));
     // Wooden Rail Recipe
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(woodRail, 4, 0), "b b", "bxb", "b b", 'b', "plankWood", 'x', "stickWood"));
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(woodRail, 4, 0), "b b", "bxb", "b b", 'b', "plankWood", 'x', "trapdoorWood"));
 
     // Punji Sticks
     GameRegistry.addRecipe(new ItemStack(punji, 3, 0), "b b", " b ", "b b", 'b', new ItemStack(Items.REEDS));

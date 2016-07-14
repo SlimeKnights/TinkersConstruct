@@ -118,6 +118,8 @@ public class TinkerOredict {
 
     oredict(Blocks.MOSSY_COBBLESTONE, "blockMossy");
     oredict(new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.MOSSY_META), "blockMossy");
+
+    oredict(Blocks.TRAPDOOR, "trapdoorWood");
   }
 
   // common items and blocks
