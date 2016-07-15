@@ -70,7 +70,7 @@ public class GadgetClientProxy extends ClientProxy {
     registerItemModel(TinkerGadgets.rack);
 
     registerItemModel(TinkerGadgets.woodRail);
-    registerItemModel(TinkerGadgets.woodRailDropper);
+    registerItemModel(TinkerGadgets.woodRailTrapdoor);
 
     registerItemModel(TinkerGadgets.slimeChannel); //tinted for variants
     

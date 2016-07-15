@@ -75,7 +75,7 @@ public class TinkerGadgets extends TinkerPulse {
   public static BlockBrownstone brownstone;
 
   public static Block woodRail;
-  public static Block woodRailDropper;
+  public static Block woodRailTrapdoor;
 
   public static Block slimeChannel;
 
@@ -115,7 +115,7 @@ public class TinkerGadgets extends TinkerPulse {
     rack = registerBlock(new ItemBlockRack(new BlockRack()), "rack");
 
     woodRail = registerBlock(new BlockWoodRail(), "wood_rail");
-    woodRailDropper = registerBlock(new BlockWoodRailDropper(), "wood_rail_dropper");
+    woodRailTrapdoor = registerBlock(new BlockWoodRailDropper(), "wood_rail_trapdoor");
 
     // slime channels
     slimeChannel = registerEnumBlock(new BlockSlimeChannel(), "slime_channel");
@@ -196,7 +196,7 @@ public class TinkerGadgets extends TinkerPulse {
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneLadder, 3), "w w", "www", "w w", 'w', "rodStone"));
     // Wooden Rail Recipe
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(woodRail, 4, 0), "b b", "bxb", "b b", 'b', "plankWood", 'x', "stickWood"));
-    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(woodRail, 4, 0), "b b", "bxb", "b b", 'b', "plankWood", 'x', "trapdoorWood"));
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(woodRailTrapdoor, 4, 0), "b b", "bxb", "b b", 'b', "plankWood", 'x', "trapdoorWood"));
 
     // Punji Sticks
     GameRegistry.addRecipe(new ItemStack(punji, 3, 0), "b b", " b ", "b b", 'b', new ItemStack(Items.REEDS));
