@@ -641,7 +641,6 @@ mmodifier.haste.desc=§o哇啊啊啊啊啊！§r\n红石脉冲会使你的工具
 modifier.knockback.name=击退
 modifier.knockback.desc=§o本垒打！§r\n以一种很酷的方式教会怪物如何飞行.
 modifier.luck.name=时运
-modifier.luck.name2=时运
 modifier.luck.desc=§o闪闪发亮！§r\n你会得到好东西的,而且数量很多.
 modifier.mending_moss.name=修复苔藓
 modifier.mending_moss.desc=§o它是活的!§r\n它会悄悄窃取玩家身上的经验来修复自身耐久
@@ -828,5 +827,5 @@ option.tconstruct.progress=制作进度
 
 
 # Config
-onfig.synced.restart=你的配置已经被更新以和服务器匹配.请重启Minecraft.
+config.synced.restart=你的配置已经被更新以和服务器匹配.请重启Minecraft.
 config.synced.ok=配制已和服务器同步.
