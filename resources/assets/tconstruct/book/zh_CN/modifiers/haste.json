@@ -1,0 +1,17 @@
+{
+  "modifier": "haste",
+  "text": [
+    {
+      "text": "把红石涂覆于工具之上似乎能提升它的速度，等等，红石？真是个疯狂的物品"
+    }
+  ],
+  "effects": [
+    "每个红石都能提升一点工具的速度",
+    "增加攻击速度",
+    "多个等级"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword"
+  ]
+}

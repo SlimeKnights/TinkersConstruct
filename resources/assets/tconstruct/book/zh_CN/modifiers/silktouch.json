@@ -1,0 +1,20 @@
+
+{
+  "modifier": "silktouch",
+  "text": [
+    {
+      "text": "附加上黄金和线的工具一定能拥有精准采集的功能"
+    },
+    { "text": "\n" },
+    { "text": "我保证这涂的不是黄油" }
+  ],
+  "effects": [
+    "工具拥有精准采集功能",
+    "不能和时运和自动冶炼兼容",
+    "只能强化一次"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:hammer"
+  ]
+}

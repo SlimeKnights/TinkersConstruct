@@ -1,0 +1,16 @@
+{
+  "modifier": "knockback",
+  "text": [
+    {
+      "text": "在工具上面绑上活塞似乎能把怪物弹得更远。"
+    }
+  ],
+  "effects": [
+    "增加击退属性",
+    "每个活塞都能增加一定的击退距离",
+    "多个等级"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword"
+  ]
+}

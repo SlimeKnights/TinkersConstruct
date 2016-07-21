@@ -1,0 +1,19 @@
+{
+  "modifier": "soulbound",
+  "text": [
+    {
+      "text": "哦，你和你的工具简直就是天生一对，即使是死亡！也不能将你们分开。"
+    }
+  ],
+  "effects": [
+    "玩家死亡后复活，工具仍旧能保存在物品栏",
+    "只能强化一次",
+    "不需要强化槽"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:pickaxe",
+    "tconstruct:hammer"
+  ]
+}

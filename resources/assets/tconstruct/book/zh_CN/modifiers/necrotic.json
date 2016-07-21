@@ -1,0 +1,17 @@
+{
+  "modifier": "necrotic",
+  "text": [
+    {
+      "text": "在工具上面附上凋零之骨可以拥有生命窃取的能力"
+    }
+  ],
+  "effects": [
+    "当攻击对方时自己会获得治愈效果",
+    "多个凋零之骨可以增加治愈的生命值",
+    "多个等级"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver"
+  ]
+}

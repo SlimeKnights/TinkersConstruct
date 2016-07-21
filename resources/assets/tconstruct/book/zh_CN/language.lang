@@ -1,0 +1,14 @@
+// Sections
+intro=介绍
+materials=工具材料
+tools=工具
+modifiers=强化
+smeltery=冶炼
+
+modifier.effect=特殊效果:
+
+material.craft_partbuilder=在部件加工台制作
+material.craft_casting=可以用%s铸造
+
+wood.flavour=How much wood could a woodchuck chuck if a woodchuck could chuck wood?
+stone.flavour=Rock solid
