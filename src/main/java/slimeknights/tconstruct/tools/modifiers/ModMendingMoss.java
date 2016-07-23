@@ -62,7 +62,7 @@ public class ModMendingMoss extends ModifierTrait {
       // needs ot be repaired and is in hotbar or offhand
       if(needsRepair(tool)) {
         if(useXp(tool, world)) {
-          ToolHelper.healTool(tool, 3, (EntityLivingBase) entity);
+          ToolHelper.healTool(tool, getDurabilityPerXP(tool), (EntityLivingBase) entity);
         }
       }
     }
@@ -90,6 +90,10 @@ public class ModMendingMoss extends ModifierTrait {
 
   private boolean needsRepair(ItemStack itemStack) {
     return itemStack != null && itemStack.getItemDamage() > 0 && !ToolHelper.isBroken(itemStack);
+  }
+
+  private int getDurabilityPerXP(ItemStack itemStack) {
+    return 2 + ModifierTagHolder.getModifier(itemStack, getModifierIdentifier()).getTagData(Data.class).level;
   }
 
   // 100 * 3^(level-1)
