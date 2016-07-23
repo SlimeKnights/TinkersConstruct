@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -23,17 +24,17 @@ public class ModGlowing extends ModifierTrait {
       BlockPos pos = entity.getPosition();
       // check light level at entity
       if(world.getLight(pos) < 8) {
-        for(BlockPos candidate : new BlockPos[]{pos, pos.down(), pos.up(), pos.north(), pos.east(), pos.south(), pos.west()}) {
-          // try placing a glow block. Values are defined as vertical first
-          for(EnumFacing dir : EnumFacing.values()) {
-            if(TinkerCommons.blockGlow.addGlow(world, candidate, dir)) {
-              EntityLivingBase entityLiving = null;
-              if(entity instanceof EntityLivingBase) {
-                entityLiving = (EntityLivingBase) entity;
-              }
-              ToolHelper.damageTool(tool, 1, entityLiving);
-              return;
+        for(BlockPos candidate : new BlockPos[]{pos, pos.up(), pos.north(), pos.east(), pos.south(), pos.west(), pos.down()}) {
+          // addGlow tries all directions if the passed one doesn't work
+          if(TinkerCommons.blockGlow.addGlow(world, candidate, EnumFacing.values()[random.nextInt(6)])) {
+            EntityLivingBase entityLiving = null;
+            if(entity instanceof EntityLivingBase) {
+              entityLiving = (EntityLivingBase) entity;
             }
+            if(!(entity instanceof EntityPlayer) || !((EntityPlayer)entity).capabilities.isCreativeMode) {
+              ToolHelper.damageTool(tool, 1, entityLiving);
+            }
+            return;
           }
         }
       }
