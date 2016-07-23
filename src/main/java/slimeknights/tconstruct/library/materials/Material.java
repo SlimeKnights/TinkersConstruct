@@ -305,6 +305,10 @@ public class Material extends RecipeMatchRegistry {
     return fluid;
   }
 
+  public void addItemIngot(String oredict) {
+    this.addItem(oredict, 1, Material.VALUE_Ingot);
+  }
+
   public void setRepresentativeItem(Item representativeItem) {
     setRepresentativeItem(new ItemStack(representativeItem));
   }

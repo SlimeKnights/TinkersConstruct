@@ -3,6 +3,8 @@ package slimeknights.tconstruct.tools;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
+import com.sun.org.apache.bcel.internal.generic.IREM;
+
 import net.minecraft.block.BlockPrismarine;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.monster.EntitySlime;
@@ -287,8 +289,8 @@ public final class TinkerMaterials {
     wood.addTrait(ecological);
 
     stone.setCraftable(true);
-    stone.addItem("cobblestone", 1, Material.VALUE_Ingot);
-    stone.addItem("stone", 1, Material.VALUE_Ingot);
+    stone.addItemIngot("cobblestone");
+    stone.addItemIngot("stone");
     stone.setRepresentativeItem(new ItemStack(Blocks.COBBLESTONE));
     stone.addTrait(cheapskate, HEAD);
     stone.addTrait(cheap);
@@ -300,7 +302,7 @@ public final class TinkerMaterials {
     flint.addTrait(crude);
 
     cactus.setCraftable(true);
-    cactus.addItem("blockCactus", 1, Material.VALUE_Ingot);
+    cactus.addItemIngot("blockCactus");
     cactus.setRepresentativeItem(new ItemStack(Blocks.CACTUS));
     cactus.addTrait(prickly, HEAD);
     cactus.addTrait(spiky);
@@ -308,41 +310,41 @@ public final class TinkerMaterials {
     obsidian.setFluid(TinkerFluids.obsidian);
     obsidian.setCraftable(true);
     obsidian.setCastable(true);
-    obsidian.addItem(Blocks.OBSIDIAN, Material.VALUE_Ingot);
+    obsidian.addItemIngot("obsidian");
     obsidian.setRepresentativeItem(new ItemStack(Blocks.OBSIDIAN));
     obsidian.addTrait(duritos);
 
     prismarine.setCraftable(true);
-    prismarine.addItem(Items.PRISMARINE_SHARD, 1, Material.VALUE_Fragment);
-    prismarine.addItem(new ItemStack(Blocks.PRISMARINE, 1, BlockPrismarine.ROUGH_META), 1, Material.VALUE_Ingot);
-    prismarine.addItem(new ItemStack(Blocks.PRISMARINE, 1, BlockPrismarine.BRICKS_META), 1, Material.VALUE_Fragment * 9);
-    prismarine.addItem(new ItemStack(Blocks.PRISMARINE, 1, BlockPrismarine.DARK_META), 1, Material.VALUE_Ingot * 2);
+    prismarine.addItem("gemPrismarine", 1, Material.VALUE_Fragment);
+    prismarine.addItem("blockPrismarine", 1, Material.VALUE_Ingot);
+    prismarine.addItem("blockPrismarineBrick", 1, Material.VALUE_Fragment * 9);
+    prismarine.addItem("blockPrismarineDark", 1, Material.VALUE_Ingot * 2);
     prismarine.setRepresentativeItem(Blocks.PRISMARINE);
     prismarine.addTrait(jagged, HEAD);
     prismarine.addTrait(aquadynamic);
 
     netherrack.setCraftable(true);
-    netherrack.addItem(Blocks.NETHERRACK, Material.VALUE_Ingot);
+    netherrack.addItemIngot("netherrack");
     netherrack.setRepresentativeItem(Blocks.NETHERRACK);
     netherrack.addTrait(aridiculous, HEAD);
     netherrack.addTrait(hellish);
 
     endstone.setCraftable(true);
-    endstone.addItem(Blocks.END_STONE, Material.VALUE_Ingot);
+    endstone.addItemIngot("endstone");
     endstone.setRepresentativeItem(Blocks.END_STONE);
     endstone.addTrait(alien, HEAD);
     endstone.addTrait(enderference);
 
     // item/special resources
     bone.setCraftable(true);
-    bone.addItem(Items.BONE, 1, Material.VALUE_Ingot);
+    bone.addItemIngot("bone");
     bone.addItem(new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()), 1, Material.VALUE_Fragment); // bonemeal
     bone.setRepresentativeItem(Items.BONE);
     bone.addTrait(splintering, HEAD);
     bone.addTrait(fractured);
 
     paper.setCraftable(true);
-    paper.addItem(Items.PAPER, 1, Material.VALUE_Fragment);
+    paper.addItem("paper", 1, Material.VALUE_Fragment);
     paper.setRepresentativeItem(Items.PAPER);
     paper.addTrait(writable2, HEAD);
     paper.addTrait(writable);
@@ -358,63 +360,64 @@ public final class TinkerMaterials {
     firewood.addTrait(autosmelt);
 
     slime.setCraftable(true);
-    safeAdd(slime, TinkerCommons.matSlimeCrystalGreen, Material.VALUE_Ingot, true);
+    slime.addItemIngot("slimecrystalGreen");
     slime.addTrait(slimeyGreen);
 
     blueslime.setCraftable(true);
-    safeAdd(blueslime, TinkerCommons.matSlimeCrystalBlue, Material.VALUE_Ingot, true);
+    blueslime.addItemIngot("slimecrystalBlue");
     blueslime.addTrait(slimeyBlue);
 
     knightslime.setCraftable(true);
-    safeAdd(knightslime, TinkerCommons.ingotKnightSlime, Material.VALUE_Ingot, true);
+    knightslime.addItemIngot("ingotKnightslime");
     knightslime.addTrait(crumbling, HEAD);
     knightslime.addTrait(unnatural);
 
     magmaslime.setCraftable(true);
-    safeAdd(magmaslime, TinkerCommons.matSlimeCrystalMagma, Material.VALUE_Ingot, true);
+    magmaslime.addItemIngot("slimecrystalMagma");
+    magmaslime.setRepresentativeItem(TinkerCommons.matSlimeCrystalMagma);
     magmaslime.addTrait(superheat, HEAD);
     magmaslime.addTrait(flammable);
 
     // Metals
-    iron.addItem("ingotIron", 1, Material.VALUE_Ingot);
+    iron.addItemIngot("ingotIron");
     iron.setRepresentativeItem(Items.IRON_INGOT);
     iron.addTrait(magnetic2, HEAD);
     iron.addTrait(magnetic);
 
-    safeAdd(pigiron, TinkerCommons.ingotPigIron, Material.VALUE_Ingot, true);
+    pigiron.addItemIngot("ingotPigiron");
     pigiron.addTrait(baconlicious, HEAD);
     pigiron.addTrait(tasty, HEAD);
     pigiron.addTrait(tasty);
 
-    safeAdd(cobalt, TinkerCommons.ingotCobalt, Material.VALUE_Ingot, true);
+    cobalt.addItemIngot("ingotCobalt");
     cobalt.addTrait(momentum, HEAD);
     cobalt.addTrait(lightweight);
 
-    safeAdd(ardite, TinkerCommons.ingotArdite, Material.VALUE_Ingot, true);
+    ardite.addItemIngot("ingotArdite");
     ardite.addTrait(stonebound, HEAD);
     ardite.addTrait(petramor);
 
-    safeAdd(manyullyn, TinkerCommons.ingotManyullyn, Material.VALUE_Ingot, true);
+    manyullyn.addItemIngot("ingotManyullyn");
     manyullyn.addTrait(insatiable, HEAD);
     manyullyn.addTrait(coldblooded);
 
     // mod integration
-    copper.addItem("ingotCopper", 1, Material.VALUE_Ingot);
+    copper.addItemIngot("ingotCopper");
     copper.addTrait(established);
 
-    bronze.addItem("ingotBronze", 1, Material.VALUE_Ingot);
+    bronze.addItemIngot("ingotBronze");
     bronze.addTrait(dense);
 
-    lead.addItem("ingotLead", 1, Material.VALUE_Ingot);
+    lead.addItemIngot("ingotLead");
     lead.addTrait(poisonous);
 
-    silver.addItem("ingotSilver", 1, Material.VALUE_Ingot);
+    silver.addItemIngot("ingotSilver");
     silver.addTrait(holy);
 
-    electrum.addItem("ingotElectrum", 1, Material.VALUE_Ingot);
+    electrum.addItemIngot("ingotElectrum");
     electrum.addTrait(shocking);
 
-    steel.addItem("ingotSteel", 1, Material.VALUE_Ingot);
+    steel.addItemIngot("ingotSteel");
     steel.addTrait(sharp, HEAD);
     steel.addTrait(stiff);
 
@@ -423,6 +426,11 @@ public final class TinkerMaterials {
 
   private void safeAdd(Material material, ItemStack item, int value) {
     this.safeAdd(material, item, value, false);
+  }
+
+  private void safeAddOredicted(Material material, String oredict, ItemStack representative) {
+    material.addItem(oredict, 1, Material.VALUE_Ingot);
+    material.setRepresentativeItem(representative);
   }
 
   private void safeAdd(Material material, ItemStack item, int value, boolean representative) {

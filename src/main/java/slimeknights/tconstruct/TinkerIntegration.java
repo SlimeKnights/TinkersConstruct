@@ -200,7 +200,9 @@ public class TinkerIntegration extends TinkerPulse {
   }
 
   public static MaterialIntegration integrate(Material material, String oreRequirement) {
-    return add(new MaterialIntegration(oreRequirement, material, null, null));
+    MaterialIntegration materialIntegration = new MaterialIntegration(oreRequirement, material, null, null);
+    materialIntegration.setRepresentativeItem(oreRequirement);
+    return add(materialIntegration);
   }
 
   public static MaterialIntegration integrate(Material material, Fluid fluid, String oreSuffix) {
