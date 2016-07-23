@@ -1,9 +1,13 @@
 package slimeknights.tconstruct.tools.modifiers;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.translation.I18n;
+
+import java.util.List;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
@@ -12,17 +16,24 @@ import slimeknights.tconstruct.library.utils.TinkerUtil;
 
 public class ModReinforced extends ModifierTrait {
 
+  private static final float chancePerLevel = 0.20f;
+
   public ModReinforced() {
     super("reinforced", 0x502e83, 7, 0);
+  }
+
+  private float getReinforcedChance(NBTTagCompound modifierTag) {
+    ModifierNBT data = ModifierNBT.readTag(modifierTag);
+
+    return (float) data.level * chancePerLevel;
   }
 
   @Override
   public int onToolDamage(ItemStack tool, int damage, int newDamage, EntityLivingBase entity) {
     // get reinforced level
     NBTTagCompound tag = TinkerUtil.getModifierTag(tool, identifier);
-    ModifierNBT data = ModifierNBT.readTag(tag);
 
-    float chance = (float) data.level * 0.15f;
+    float chance = getReinforcedChance(tag);
     if(chance >= random.nextFloat()) {
       newDamage -= damage;
     }
@@ -31,14 +42,31 @@ public class ModReinforced extends ModifierTrait {
   }
 
   @Override
+  public String getLocalizedDesc() {
+    return String.format(super.getLocalizedDesc(), Util.dfPercent.format(chancePerLevel));
+  }
+
+  @Override
   public String getTooltip(NBTTagCompound modifierTag, boolean detailed) {
     ModifierNBT data = ModifierNBT.readTag(modifierTag);
     if(data.level == maxLevel) {
-      String key = String.format("modifier.%s.unbreakable", getIdentifier());
-      if(I18n.canTranslate(key)) {
-        return Util.translate(key);
-      }
+      return Util.translate("modifier.%s.unbreakable", getIdentifier());
     }
     return super.getTooltip(modifierTag, detailed);
+  }
+
+  @Override
+  public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
+    String loc = String.format(LOC_Extra, getIdentifier());
+
+    if(I18n.canTranslate(loc)) {
+      float chance = getReinforcedChance(modifierTag);
+      String chanceStr = Util.dfPercent.format(chance);
+      if(chance >= 1f) {
+        chanceStr = Util.translate("modifier.%s.unbreakable", getIdentifier());
+      }
+      return ImmutableList.of(Util.translateFormatted(loc, chanceStr));
+    }
+    return super.getExtraInfo(tool, modifierTag);
   }
 }

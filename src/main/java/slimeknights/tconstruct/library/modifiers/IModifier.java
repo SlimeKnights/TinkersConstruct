@@ -1,13 +1,11 @@
 package slimeknights.tconstruct.library.modifiers;
 
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.util.RecipeMatch;
-import slimeknights.tconstruct.library.traits.ITrait;
 
 public interface IModifier extends IToolMod {
 
