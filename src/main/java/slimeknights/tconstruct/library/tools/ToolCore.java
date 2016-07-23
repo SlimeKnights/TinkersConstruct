@@ -505,13 +505,22 @@ public abstract class ToolCore extends TinkersItem {
       return true;
     }
 
-    Multimap<String, AttributeModifier> attributes = newStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
-    for(Map.Entry<String, AttributeModifier> entry : oldStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND).entries()) {
-      if(!attributes.containsKey(entry.getKey())) {
+    Multimap<String, AttributeModifier> attributesNew = newStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
+    Multimap<String, AttributeModifier> attributesOld = oldStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
+
+    if(attributesNew.size() != attributesOld.size()) {
+      return true;
+    }
+    for(String key : attributesOld.keySet()) {
+      if(!attributesNew.containsKey(key)) {
         return true;
       }
-      if(!attributes.get(entry.getKey()).equals(entry.getValue())) {
-        return true;
+      Iterator<AttributeModifier> iter1 = attributesNew.get(key).iterator();
+      Iterator<AttributeModifier> iter2 = attributesOld.get(key).iterator();
+      while(iter1.hasNext() && iter2.hasNext()) {
+        if(!iter1.next().equals(iter2.next())) {
+          return true;
+        }
       }
     }
 
