@@ -52,6 +52,7 @@ import slimeknights.tconstruct.library.tools.Shard;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 
+@SuppressWarnings("unused")
 public final class TinkerRegistry {
 
   // the logger for the library
@@ -145,7 +146,7 @@ public final class TinkerRegistry {
   }
 
   public static Collection<Material> getAllMaterials() {
-    return materials.values();
+    return ImmutableList.copyOf(materials.values());
   }
 
   public static Collection<Material> getAllMaterialsWithStats(String statType) {
@@ -448,7 +449,7 @@ public final class TinkerRegistry {
   }
 
   public static Collection<IModifier> getAllModifiers() {
-    return modifiers.values();
+    return ImmutableList.copyOf(modifiers.values());
   }
 
   /*---------------------------------------------------------------------------
@@ -497,7 +498,7 @@ public final class TinkerRegistry {
   }
 
   public static List<MeltingRecipe> getAllMeltingRecipies() {
-    return meltingRegistry;
+    return ImmutableList.copyOf(meltingRegistry);
   }
 
   public static void registerAlloy(FluidStack result, FluidStack... inputs) {
@@ -538,7 +539,7 @@ public final class TinkerRegistry {
   }
 
   public static List<ICastingRecipe> getAllTableCastingRecipes() {
-    return tableCastRegistry;
+    return ImmutableList.copyOf(tableCastRegistry);
   }
 
 
@@ -565,7 +566,7 @@ public final class TinkerRegistry {
   }
 
   public static List<ICastingRecipe> getAllBasinCastingRecipes() {
-    return basinCastRegistry;
+    return ImmutableList.copyOf(basinCastRegistry);
   }
 
   /**
@@ -613,7 +614,7 @@ public final class TinkerRegistry {
 
   /** Returns all registered smeltery fuels */
   public static Collection<FluidStack> getSmelteryFuels() {
-    return smelteryFuels.keySet();
+    return ImmutableSet.copyOf(smelteryFuels.keySet());
   }
 
   /** Register an entity to melt into the given fluidstack. The fluidstack is returned for 1 heart damage */
@@ -642,7 +643,7 @@ public final class TinkerRegistry {
    * @return The list of all drying rack recipes
    */
   public static List<DryingRecipe> getAllDryingRecipes() {
-    return dryingRegistry;
+    return ImmutableList.copyOf(dryingRegistry);
   }
   
   /**
@@ -705,7 +706,7 @@ public final class TinkerRegistry {
 
   /**
    * Adds a new drying recipe
-   * @param input Input ore dictionary entry
+   * @param oredict Input ore dictionary entry
    * @param output Output ItemStack
    * @param time Recipe time in ticks
    */ 
