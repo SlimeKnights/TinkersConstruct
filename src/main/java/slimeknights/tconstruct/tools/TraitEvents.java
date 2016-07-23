@@ -70,15 +70,16 @@ public class TraitEvents {
     if(event.getEntity() == null || !(event.getEntity() instanceof EntityPlayer) || !((EntityPlayer) event.getEntity()).isActiveItemStackBlocking()) {
       return;
     }
-    // item in use has to be current item, otherwise MC stops using it
-    ItemStack tool = ((EntityPlayer) event.getEntity()).inventory.getCurrentItem();
 
-    if(isTool(tool) && !ToolHelper.isBroken(tool)) {
-      NBTTagList list = TagUtil.getTraitsTagList(tool);
-      for(int i = 0; i < list.tagCount(); i++) {
-        ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
-        if(trait != null) {
-          trait.onBlock(tool, (EntityPlayer) event.getEntity(), event);
+    // we allow block traits to affect both main and offhand
+    for(ItemStack tool : event.getEntity().getHeldEquipment()) {
+      if(isTool(tool) && !ToolHelper.isBroken(tool)) {
+        NBTTagList list = TagUtil.getTraitsTagList(tool);
+        for(int i = 0; i < list.tagCount(); i++) {
+          ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+          if(trait != null) {
+            trait.onBlock(tool, (EntityPlayer) event.getEntity(), event);
+          }
         }
       }
     }
