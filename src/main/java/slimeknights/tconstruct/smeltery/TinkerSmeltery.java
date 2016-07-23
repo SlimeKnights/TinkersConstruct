@@ -208,6 +208,9 @@ public class TinkerSmeltery extends TinkerPulse {
     if(TinkerIntegration.isIntegrated(TinkerFluids.brass)) {
       castCreationFluids.add(new FluidStack(TinkerFluids.brass, Material.VALUE_Ingot));
     }
+    if(TinkerIntegration.isIntegrated(TinkerFluids.alubrass)) {
+      castCreationFluids.add(new FluidStack(TinkerFluids.alubrass, Material.VALUE_Ingot));
+    }
     if(FluidRegistry.isFluidRegistered(TinkerFluids.clay)) {
       clayCreationFluids.add(new FluidStack(TinkerFluids.clay, Material.VALUE_Ingot * 2));
     }
