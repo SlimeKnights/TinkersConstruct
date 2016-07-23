@@ -485,6 +485,11 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     return EnumRarity.COMMON;
   }
 
+  @Override
+  public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+    return false;
+  }
+
   /* NBT loading */
 
   @Override
