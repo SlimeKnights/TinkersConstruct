@@ -337,6 +337,21 @@ public final class ToolBuilder {
       }
     });
 
+    // check that each material is still compatible with each modifier
+    TinkersItem tinkersItem = (TinkersItem) toolStack.getItem();
+    ItemStack copyToCheck = tinkersItem.buildItem(TinkerUtil.getMaterialsFromTagList(materialList));
+    // this includes traits
+    NBTTagList modifiers = TagUtil.getBaseModifiersTagList(toolStack);
+    for(int i = 0; i < modifiers.tagCount(); i++) {
+      String id = modifiers.getStringTagAt(i);
+      IModifier mod = TinkerRegistry.getModifier(id);
+
+      // will throw an exception if it can't apply
+      if(!mod.canApply(copyToCheck, copyToCheck)) {
+        throw new TinkerGuiException();
+      }
+    }
+
     ItemStack output = toolStack.copy();
     TagUtil.setBaseMaterialsTagList(output, materialList);
     NBTTagCompound tag = output.getTagCompound();

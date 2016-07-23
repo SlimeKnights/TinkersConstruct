@@ -2,6 +2,8 @@ package slimeknights.tconstruct.tools.modifiers;
 
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -13,11 +15,15 @@ import java.util.List;
 import java.util.ListIterator;
 
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
+import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.tools.TinkerMaterials;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 public class ModBlasting extends ModifierTrait {
 
@@ -34,6 +40,27 @@ public class ModBlasting extends ModifierTrait {
     addAspects(ModifierAspect.harvestOnly);
 
     MinecraftForge.EVENT_BUS.register(this);
+  }
+
+  @Override
+  public boolean canApplyTogether(Enchantment enchantment) {
+    return enchantment != Enchantments.SILK_TOUCH
+        && enchantment != Enchantments.LOOTING
+        && enchantment != Enchantments.FORTUNE;
+  }
+
+  @Override
+  public boolean canApplyTogether(IModifier otherModifier) {
+    String id = otherModifier.getIdentifier();
+    return !id.equals(TinkerTools.modLuck.getModifierIdentifier())
+        && !id.equals(TinkerTools.modSilktouch.getIdentifier());
+  }
+
+  @Override
+  public boolean canApplyTogether(ITrait trait) {
+    String id = trait.getIdentifier();
+    return !id.equals(TinkerMaterials.squeaky.getIdentifier())
+        && !id.equals(TinkerMaterials.autosmelt.getIdentifier());
   }
 
   private int getLevel(ItemStack tool) {

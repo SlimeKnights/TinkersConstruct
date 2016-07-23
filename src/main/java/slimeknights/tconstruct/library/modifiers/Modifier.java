@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 
@@ -70,6 +71,16 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
       }
     }
 
+
+    NBTTagList traits = TagUtil.getTraitsTagList(stack);
+    for(int i = 0; i < traits.tagCount(); i++) {
+      String id = traits.getStringTagAt(i);
+      ITrait trait = TinkerRegistry.getTrait(id);
+      if(trait != null && !canApplyTogether(trait)) {
+        throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_trait", this.getLocalizedName(), trait.getLocalizedName()));
+      }
+    }
+
     NBTTagList modifiers = TagUtil.getBaseModifiersTagList(stack);
     for(int i = 0; i < modifiers.tagCount(); i++) {
       String id = modifiers.getStringTagAt(i);
@@ -94,6 +105,11 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
   }
 
   public boolean canApplyTogether(IModifier otherModifier) {
+    return true;
+  }
+
+
+  public boolean canApplyTogether(ITrait trait) {
     return true;
   }
 
