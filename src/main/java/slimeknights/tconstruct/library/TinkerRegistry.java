@@ -33,6 +33,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
 import slimeknights.mantle.client.CreativeTab;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.events.MaterialEvent;
@@ -514,7 +516,7 @@ public final class TinkerRegistry {
   }
 
   /** Registers a casting recipe for casting table */
-  public static void registerTableCasting(ItemStack output, ItemStack cast, Fluid fluid, int amount) {
+  public static void registerTableCasting(ItemStack output, @Nullable ItemStack cast, Fluid fluid, int amount) {
     RecipeMatch rm = null;
     if(cast != null) {
       rm = RecipeMatch.ofNBT(cast);
@@ -526,7 +528,7 @@ public final class TinkerRegistry {
     tableCastRegistry.add(recipe);
   }
 
-  public static ICastingRecipe getTableCasting(ItemStack cast, Fluid fluid) {
+  public static ICastingRecipe getTableCasting(@Nullable ItemStack cast, Fluid fluid) {
     for(ICastingRecipe recipe : tableCastRegistry) {
       if(recipe.matches(cast, fluid)) {
         return recipe;
@@ -541,7 +543,7 @@ public final class TinkerRegistry {
 
 
   /** Registers a casting recipe for the casting basin */
-  public static void registerBasinCasting(ItemStack output, ItemStack cast, Fluid fluid, int amount) {
+  public static void registerBasinCasting(ItemStack output, @Nullable ItemStack cast, Fluid fluid, int amount) {
     RecipeMatch rm = null;
     if(cast != null) {
       rm = RecipeMatch.ofNBT(cast);
@@ -553,7 +555,7 @@ public final class TinkerRegistry {
     basinCastRegistry.add(recipe);
   }
 
-  public static ICastingRecipe getBasinCasting(ItemStack cast, Fluid fluid) {
+  public static ICastingRecipe getBasinCasting(@Nullable ItemStack cast, Fluid fluid) {
     for(ICastingRecipe recipe : basinCastRegistry) {
       if(recipe.matches(cast, fluid)) {
         return recipe;

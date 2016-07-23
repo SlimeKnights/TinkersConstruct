@@ -4,6 +4,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
+import javax.annotation.Nullable;
+
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerAPIException;
 
@@ -49,7 +51,7 @@ public class CastingRecipe implements ICastingRecipe {
   }
 
   @Override
-  public boolean matches(ItemStack cast, Fluid fluid) {
+  public boolean matches(@Nullable ItemStack cast, Fluid fluid) {
     if((cast == null && this.cast == null) || (this.cast != null && this.cast.matches(new ItemStack[]{cast}) != null)) {
       return this.fluid.getFluid() == fluid;
     }
@@ -57,7 +59,7 @@ public class CastingRecipe implements ICastingRecipe {
   }
 
   @Override
-  public ItemStack getResult(ItemStack cast, Fluid fluid) {
+  public ItemStack getResult(@Nullable ItemStack cast, Fluid fluid) {
     return getResult().copy();
   }
 
@@ -82,7 +84,7 @@ public class CastingRecipe implements ICastingRecipe {
   }
 
   @Override
-  public FluidStack getFluid(ItemStack cast, Fluid fluid) {
+  public FluidStack getFluid(@Nullable ItemStack cast, Fluid fluid) {
     return this.fluid;
   }
 

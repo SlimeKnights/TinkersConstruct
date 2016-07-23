@@ -8,6 +8,8 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import slimeknights.mantle.util.RecipeMatch;
 
 /**
@@ -37,13 +39,13 @@ public class OreCastingRecipe extends CastingRecipe {
   }
 
   @Override
-  public boolean matches(ItemStack cast, Fluid fluid) {
+  public boolean matches(@Nullable ItemStack cast, Fluid fluid) {
     // always return false if there is no output
     return !outputs.isEmpty() && super.matches(cast, fluid);
   }
 
   @Override
-  public ItemStack getResult(ItemStack cast, Fluid fluid) {
+  public ItemStack getResult(@Nullable ItemStack cast, Fluid fluid) {
     return getResult().copy();
   }
 
