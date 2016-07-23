@@ -1,0 +1,17 @@
+{
+  "modifier": "beheading",
+  "text": [
+    {
+      "text": "使用末影珍珠和黑曜石强化工具可以有效提升怪物的头颅掉落几率"
+    }
+  ],
+  "effects": [
+    "我们砍掉了敌人的头",
+    "使用末影珍珠和黑曜石强化工具可以获得“斩首”效果",
+    "多个等级"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver"
+  ]
+}
