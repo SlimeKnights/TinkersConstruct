@@ -16,6 +16,7 @@ import java.util.ListIterator;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.modifiers.IToolMod;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
@@ -50,16 +51,11 @@ public class ModBlasting extends ModifierTrait {
   }
 
   @Override
-  public boolean canApplyTogether(IModifier otherModifier) {
-    String id = otherModifier.getIdentifier();
+  public boolean canApplyTogether(IToolMod toolmod) {
+    String id = toolmod.getIdentifier();
     return !id.equals(TinkerTools.modLuck.getModifierIdentifier())
-        && !id.equals(TinkerTools.modSilktouch.getIdentifier());
-  }
-
-  @Override
-  public boolean canApplyTogether(ITrait trait) {
-    String id = trait.getIdentifier();
-    return !id.equals(TinkerMaterials.squeaky.getIdentifier())
+        && !id.equals(TinkerTools.modSilktouch.getIdentifier())
+        && !id.equals(TinkerMaterials.squeaky.getIdentifier())
         && !id.equals(TinkerMaterials.autosmelt.getIdentifier());
   }
 

@@ -16,6 +16,7 @@ import java.util.ListIterator;
 
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.modifiers.IToolMod;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -34,13 +35,9 @@ public class TraitAutosmelt extends AbstractTrait {
   }
 
   @Override
-  public boolean canApplyTogether(ITrait trait) {
-    return !trait.getIdentifier().equals(TinkerMaterials.squeaky.getIdentifier());
-  }
-
-  @Override
-  public boolean canApplyTogether(IModifier otherModifier) {
-    return !otherModifier.getIdentifier().equals(TinkerTools.modSilktouch.getIdentifier());
+  public boolean canApplyTogether(IToolMod toolmod) {
+    return !toolmod.getIdentifier().equals(TinkerMaterials.squeaky.getIdentifier())
+        && !toolmod.getIdentifier().equals(TinkerTools.modSilktouch.getIdentifier());
   }
 
   @Override

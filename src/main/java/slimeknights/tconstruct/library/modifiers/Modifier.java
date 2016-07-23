@@ -20,6 +20,7 @@ import net.minecraft.util.text.translation.I18n;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import javax.annotation.Nullable;
 
@@ -64,20 +65,18 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
 
   @Override
   public final boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException {
-    // aspects
-    for(ModifierAspect aspect : aspects) {
-      if(!aspect.canApply(stack, original)) {
-        return false;
-      }
-    }
 
+    Set<Enchantment> enchantments = EnchantmentHelper.getEnchantments(stack).keySet();
 
     NBTTagList traits = TagUtil.getTraitsTagList(stack);
     for(int i = 0; i < traits.tagCount(); i++) {
       String id = traits.getStringTagAt(i);
       ITrait trait = TinkerRegistry.getTrait(id);
-      if(trait != null && !canApplyTogether(trait)) {
-        throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_trait", this.getLocalizedName(), trait.getLocalizedName()));
+      if(trait != null) {
+        if(!canApplyTogether(trait) || !trait.canApplyTogether(this)) {
+          throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_trait", this.getLocalizedName(), trait.getLocalizedName()));
+        }
+        canApplyWithEnchantment(trait, enchantments);
       }
     }
 
@@ -85,31 +84,42 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
     for(int i = 0; i < modifiers.tagCount(); i++) {
       String id = modifiers.getStringTagAt(i);
       IModifier mod = TinkerRegistry.getModifier(id);
-      if(mod != null && !canApplyTogether(mod)) {
-        throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_modifiers", this.getLocalizedName(), mod.getLocalizedName()));
+      if(mod != null) {
+        if(!canApplyTogether(mod) || !mod.canApplyTogether(this)) {
+          throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_modifiers", this.getLocalizedName(), mod.getLocalizedName()));
+        }
+        canApplyWithEnchantment(mod, enchantments);
       }
     }
 
-    for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-      if(!canApplyTogether(enchantment)) {
-        String enchName = I18n.translateToLocal(enchantment.getName());
-        throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_enchantments", this.getLocalizedName(), enchName));
+    canApplyWithEnchantment(this, enchantments);
+
+    // aspects
+    for(ModifierAspect aspect : aspects) {
+      if(!aspect.canApply(stack, original)) {
+        return false;
       }
     }
 
     return canApplyCustom(stack);
   }
 
+  private static void canApplyWithEnchantment(IToolMod iToolMod, Set<Enchantment> enchantments) throws TinkerGuiException {
+    for(Enchantment enchantment : enchantments) {
+      if(!iToolMod.canApplyTogether(enchantment)) {
+        String enchName = I18n.translateToLocal(enchantment.getName());
+        throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_enchantments", iToolMod.getLocalizedName(), enchName));
+      }
+    }
+  }
+
+  @Override
   public boolean canApplyTogether(Enchantment enchantment) {
     return true;
   }
 
-  public boolean canApplyTogether(IModifier otherModifier) {
-    return true;
-  }
-
-
-  public boolean canApplyTogether(ITrait trait) {
+  @Override
+  public boolean canApplyTogether(IToolMod otherModifier) {
     return true;
   }
 
