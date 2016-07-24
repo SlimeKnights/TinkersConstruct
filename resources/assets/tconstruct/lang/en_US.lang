@@ -661,6 +661,7 @@ modifier.sharpness.name5=Sharpestest
 modifier.sharpness.desc=§oOuch!§r\nSo sharp, it hurts to look at it.
 modifier.shulking.name=Shulking
 modifier.shulking.desc=§oUp up and away!§r\nHitting foes causes them to float away.
+modifier.shulking.extra=Float Duration: %ss
 modifier.silktouch.name=Silktouch
 modifier.silktouch.desc=§oSmooth as silk!§r\nMined blocks drop themselves instead of the usual items.
 modifier.smite.name=Smite

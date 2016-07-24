@@ -78,5 +78,13 @@
   {
     "type": "modifier",
     "data": "modifiers/glowing.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/shulking.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/webbed.json"
   }
 ]

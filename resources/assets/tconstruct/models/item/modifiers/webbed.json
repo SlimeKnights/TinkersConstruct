@@ -1,0 +1,19 @@
+{
+    "textures": {
+        "battleaxe": "tconstruct:items/battleaxe/mod_web",
+        "battlesign": "tconstruct:items/battlesign/mod_web",
+        "broadsword": "tconstruct:items/broadsword/mod_web",
+        "rapier": "tconstruct:items/rapier/mod_web",
+        "cleaver": "tconstruct:items/cleaver/mod_web",
+        "excavator": "tconstruct:items/excavator/mod_web",
+        "frypan": "tconstruct:items/frypan/mod_web",
+        "hammer": "tconstruct:items/hammer/mod_web",
+        "hatchet": "tconstruct:items/hatchet/mod_web",
+        "longsword": "tconstruct:items/longsword/mod_web",
+        "lumberaxe": "tconstruct:items/lumberaxe/mod_web",
+        "mattock": "tconstruct:items/mattock/mod_web",
+        "pickaxe": "tconstruct:items/pickaxe/mod_web",
+        "shovel": "tconstruct:items/shovel/mod_web",
+        "shuriken": "tconstruct:items/shuriken/mod_web"
+    }
+}
