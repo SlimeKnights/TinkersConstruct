@@ -1,5 +1,11 @@
 package slimeknights.tconstruct.library.book;
 
+import com.google.common.collect.Lists;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.ListIterator;
+
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
@@ -22,23 +28,44 @@ public class MaterialSectionTransformer extends SectionTransformer {
     data.source = BookRepository.DUMMY;
     data.parent = book;
 
-    // list page
-    ContentPageIconList overview = new ContentPageIconList(20);
-    PageData page = new PageData(true);
-    page.source = data.source;
-    page.parent = data;
-    page.content = overview;
-    page.load();
+    Collection<Material> materialList = TinkerRegistry.getAllMaterials();
 
-    data.pages.add(page);
+    // calculate pages needed
+    int count = materialList.size();
+    List<ContentPageIconList> listPages = Lists.newArrayList();
 
-    overview.title = book.translate("materials");
+    while(count > 0) {
+      ContentPageIconList overview = new ContentPageIconList(20);
+      PageData page = new PageData(true);
+      page.source = data.source;
+      page.parent = data;
+      page.content = overview;
+      page.load();
+
+      data.pages.add(page);
+
+      overview.title = book.translate("materials");
+
+      listPages.add(overview);
+
+      count -= overview.getMaxIconCount();
+    }
+
+    ListIterator<ContentPageIconList> iter = listPages.listIterator(1);
+    while(iter.hasNext()) {
+      // same scale if multiple pages
+      iter.next().maxScale = 1f;
+    }
+
+
+    iter = listPages.listIterator();
+    ContentPageIconList overview = iter.next();
 
     for(Material material : TinkerRegistry.getAllMaterials()) {
       if(material.isHidden() || material.getAllStats().isEmpty() || !material.hasItems()) {
         continue;
       }
-      page = new PageData(true);
+      PageData page = new PageData(true);
       page.source = data.source;
       page.parent = data;
       page.name = material.getIdentifier();
@@ -53,7 +80,10 @@ public class MaterialSectionTransformer extends SectionTransformer {
       else {
         icon = new ElementImage(ImageData.MISSING);
       }
-      overview.addLink(icon, material.getLocalizedNameColored(), page);
+
+      if(!overview.addLink(icon, material.getLocalizedNameColored(), page)) {
+        overview = iter.next();
+      }
 
       data.pages.add(page);
     }

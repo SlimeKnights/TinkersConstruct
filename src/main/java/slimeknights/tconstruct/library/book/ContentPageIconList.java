@@ -16,7 +16,9 @@ public class ContentPageIconList extends TinkerPage {
 
   protected final int width;
   protected final int height;
+
   public String title;
+  public float maxScale = 2.5f;
 
   protected List<ElementPageIconLink> elements = Lists.newArrayList();
 
@@ -29,8 +31,25 @@ public class ContentPageIconList extends TinkerPage {
     this.height = height;
   }
 
-  public void addLink(SizedBookElement element, String name, PageData pageData) {
+  /** Returns false if the page is full */
+  public boolean addLink(SizedBookElement element, String name, PageData pageData) {
+    if(elements.size() >= getMaxIconCount()) {
+      return false;
+    }
     elements.add(new ElementPageIconLink(0, 0, element, name, pageData));
+    return true;
+  }
+
+  public int getMaxIconCount() {
+    return getMaxColumns() * getMaxRows();
+  }
+
+  public int getMaxRows() {
+    return (GuiBook.PAGE_HEIGHT - (title != null ? 20 : 0))/height;
+  }
+
+  public int getMaxColumns() {
+    return (GuiBook.PAGE_WIDTH - 30) / width;
   }
 
   @Override
@@ -47,7 +66,7 @@ public class ContentPageIconList extends TinkerPage {
     int pageW = GuiBook.PAGE_WIDTH - 2 * offset;
     int pageH = GuiBook.PAGE_HEIGHT - yOff;
 
-    float scale = 2.5f;
+    float scale = maxScale;
     int scaledWidth = width;
     int scaledHeight = height;
     boolean fits = false;
