@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
@@ -9,6 +8,7 @@ import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -542,6 +542,9 @@ public class TinkerTools extends TinkerPulse {
                                                  'B', "plankWood",
                                                  'W', Items.LAVA_BUCKET));
     }
+
+
+    CraftingManager.getInstance().addRecipe(new RepairRecipe());
   }
 
   public static void registerToolForgeBlock(String oredict) {

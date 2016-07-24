@@ -19,7 +19,7 @@ public class ModReinforced extends ModifierTrait {
   private static final float chancePerLevel = 0.20f;
 
   public ModReinforced() {
-    super("reinforced", 0x502e83, 7, 0);
+    super("reinforced", 0x502e83, 5, 0);
   }
 
   private float getReinforcedChance(NBTTagCompound modifierTag) {

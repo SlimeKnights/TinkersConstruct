@@ -19,7 +19,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -287,6 +286,11 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     boolean foundMatch = false;
     for(int index : getRepairParts()) {
       Material material = materials.get(index);
+
+      if(repairCustom(material, items) > 0) {
+        foundMatch = true;
+      }
+
       RecipeMatch.Match match = material.matches(items);
 
       // not a single match -> nothing to repair with
@@ -331,36 +335,12 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       TagUtil.setExtraTag(item, tag);
     }
 
-    /*
-    for(int index : getRepairParts()) {
-      RecipeMatch.Match match;
-      Material material = materials.get(index);
-
-      // repair for each match so the end result is the same as if each one had been applied individually
-      while((match = material.matches(repairItems)) != null) {
-        // is the tool still damaged?
-        if(item.getItemDamage() == 0) {
-          // we're done
-          break;
-        }
-        // todo: fire event?
-        // do the actual repair
-        //int amount = calculateRepair(item, match.amount, index);
-        HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
-        int amount = (stats.durability * 144) / match.amount;
-        ToolHelper.repairTool(item, amount);
-
-        // save that we repaired it :I
-        NBTTagCompound tag = TagUtil.getExtraTag(item);
-        TagUtil.addInteger(tag, Tags.REPAIR_COUNT, 1);
-        TagUtil.setExtraTag(item, tag);
-
-        // use up items
-        RecipeMatch.removeMatch(repairItems, match);
-      }
-    }*/
-
     return item;
+  }
+
+  /** Allows for custom repair items. Remove used items from the array. */
+  protected int repairCustom(Material material, ItemStack[] repairItems) {
+    return 0;
   }
 
   protected int calculateRepairAmount(List<Material> materials, ItemStack[] repairItems) {
@@ -369,12 +349,15 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     // try to match each material once
     for(int index : getRepairParts()) {
       Material material = materials.get(index);
-      RecipeMatch.Match match = material.matches(repairItems);
 
       if(materialsMatched.contains(material)) {
         continue;
       }
 
+      // custom repairing
+      durability += repairCustom(material, repairItems) * getRepairModifierForPart(index);
+
+      RecipeMatch.Match match = material.matches(repairItems);
       if(match != null) {
         HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
         if(stats != null) {
@@ -419,7 +402,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
     NBTTagCompound tag = TagUtil.getExtraTag(tool);
     int repair = tag.getInteger(Tags.REPAIR_COUNT);
-    float repairDimishingReturns = 2*(100 - repair) / 100f;
+    float repairDimishingReturns = (100 - repair/2) / 100f;
     if(repairDimishingReturns < 0.5f) {
       repairDimishingReturns = 0.5f;
     }

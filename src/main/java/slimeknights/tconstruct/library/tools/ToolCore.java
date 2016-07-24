@@ -28,11 +28,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -54,7 +54,6 @@ import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.traits.InfiTool;
-import slimeknights.tconstruct.tools.traits.ToolGrowth;
 
 /**
  * Intermediate abstraction layer for all tools/melee weapons. This class has all the callbacks for blocks and enemies
@@ -437,6 +436,27 @@ public abstract class ToolCore extends TinkersItem {
   /** Returns info about the Tool. Displayed in the tool stations etc. */
   public String getLocalizedDescription() {
     return Util.translate(getUnlocalizedName() + ".desc");
+  }
+
+  @Override
+  protected int repairCustom(Material material, ItemStack[] repairItems) {
+    RecipeMatch.Match match = RecipeMatch.of(TinkerTools.sharpeningKit).matches(repairItems);
+    if(match == null) {
+      return 0;
+    }
+
+    for(ItemStack stacks : match.stacks) {
+      // invalid material?
+      if(TinkerTools.sharpeningKit.getMaterial(stacks) != material) {
+        return 0;
+      }
+    }
+
+    RecipeMatch.removeMatch(repairItems, match);
+    HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
+    float durability = stats.durability * match.amount * TinkerTools.sharpeningKit.getCost();
+    durability /= Material.VALUE_Ingot;
+    return (int)(durability);
   }
 
   /* Additional Trait callbacks */
