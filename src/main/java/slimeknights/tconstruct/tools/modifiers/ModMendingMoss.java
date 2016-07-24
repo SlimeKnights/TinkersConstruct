@@ -52,13 +52,6 @@ public class ModMendingMoss extends ModifierTrait {
         return;
       }
 
-      // not during blockbreaking
-      if(isSelected && entity instanceof EntityPlayerMP) {
-        if(((EntityPlayerMP) entity).interactionManager.isDestroyingBlock) {
-          return;
-        }
-      }
-
       // needs ot be repaired and is in hotbar or offhand
       if(needsRepair(tool)) {
         if(useXp(tool, world)) {

@@ -511,6 +511,11 @@ public abstract class ToolCore extends TinkersItem {
     TinkerTools.proxy.preventPlayerSlowdown(entityIn, originalSpeed, this);
   }
 
+  @Override
+  public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
+    return shouldCauseReequipAnimation(oldStack, newStack, false);
+  }
+
   @SideOnly(Side.CLIENT)
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {

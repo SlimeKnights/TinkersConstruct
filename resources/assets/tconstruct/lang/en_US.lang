@@ -517,7 +517,7 @@ stat.projectile.ammo.name=Ammo
 
 # traits are also modifiers, they use the same prefix so they don't have to be localized twice
 modifier.alien.name=Alien
-modifier.alien.desc=§oSomething is off...§r\n..but I can't tell what! Maybe time will tell.
+modifier.alien.desc=§oThe stats feel off...§r\n..as if they're changing! Maybe time will tell?
 modifier.aquadynamic.name=Aquadynamic
 modifier.aquadynamic.desc=§oIt's getting wet in here!§r\nThe tool is unhindered by water and loves rainy evenings.
 modifier.aridiculous.name=Aridiculous
