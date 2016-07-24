@@ -659,6 +659,8 @@ modifier.sharpness.name3=Sharpest
 modifier.sharpness.name4=Sharpester
 modifier.sharpness.name5=Sharpestest
 modifier.sharpness.desc=§oOuch!§r\nSo sharp, it hurts to look at it.
+modifier.shulking.name=Shulking
+modifier.shulking.desc=§oUp up and away!§r\nHitting foes causes them to float away.
 modifier.silktouch.name=Silktouch
 modifier.silktouch.desc=§oSmooth as silk!§r\nMined blocks drop themselves instead of the usual items.
 modifier.smite.name=Smite
@@ -666,6 +668,8 @@ modifier.smite.desc=§oFor Justice!§r\nDeal massive damage to undead.
 modifier.smite.extra=Vs Undead: +%s
 modifier.soulbound.name=Soulbound
 modifier.soulbound.desc=§oA merry couple!§r\nYou love your tool. Not even death can part you.
+modifier.webbed.name=Webbed
+modifier.webbed.desc=§oYuck!§r\nEntangle your foes in cobwebs, slowing them.
 
 #################
 #   Tool Info   #
