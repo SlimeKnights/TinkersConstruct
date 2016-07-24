@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools;
 
 import com.google.common.collect.Sets;
 
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -29,13 +28,10 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import java.util.Random;
 import java.util.Set;
 
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.modifiers.ModifierNBT;
-import slimeknights.tconstruct.library.tools.CapabilityTinkerProjectile;
-import slimeknights.tconstruct.library.tools.ITinkerProjectile;
+import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
+import slimeknights.tconstruct.library.capability.projectile.ITinkerProjectile;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.TagUtil;
-import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.tools.modifiers.ModMendingMoss;

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.capability.projectile;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;

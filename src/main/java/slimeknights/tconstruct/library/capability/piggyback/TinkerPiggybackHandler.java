@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.capability;
+package slimeknights.tconstruct.library.capability.piggyback;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

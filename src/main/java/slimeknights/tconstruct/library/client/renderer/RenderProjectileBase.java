@@ -21,8 +21,8 @@ import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
-import slimeknights.tconstruct.library.tools.CapabilityTinkerProjectile;
-import slimeknights.tconstruct.library.tools.ITinkerProjectile;
+import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
+import slimeknights.tconstruct.library.capability.projectile.ITinkerProjectile;
 
 public class RenderProjectileBase<T extends EntityProjectileBase> extends Render<T> {
 

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.capability;
+package slimeknights.tconstruct.library.capability.piggyback;
 
 import com.google.common.collect.Maps;
 

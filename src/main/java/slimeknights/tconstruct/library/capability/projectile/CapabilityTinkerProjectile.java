@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.capability.projectile;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.capability.projectile;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -8,6 +8,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializable<NBTTagCompound> {

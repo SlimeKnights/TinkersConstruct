@@ -29,9 +29,9 @@ import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.item.ItemArmorTooltip;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.capability.CapabilityTinkerPiggyback;
-import slimeknights.tconstruct.library.capability.ITinkerPiggyback;
-import slimeknights.tconstruct.library.capability.TinkerPiggybackSerializer;
+import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
+import slimeknights.tconstruct.library.capability.piggyback.ITinkerPiggyback;
+import slimeknights.tconstruct.library.capability.piggyback.TinkerPiggybackSerializer;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
 

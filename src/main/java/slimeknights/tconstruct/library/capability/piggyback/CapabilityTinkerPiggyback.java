@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.capability;
+package slimeknights.tconstruct.library.capability.piggyback;
 
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
