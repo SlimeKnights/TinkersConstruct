@@ -467,12 +467,12 @@ public final class TinkerMaterials {
                                     new HandleMaterialStats(1.10f, 50),
                                     new ExtraMaterialStats(65));
     TinkerRegistry.addMaterialStats(obsidian,
-                                    new HeadMaterialStats(89, 7.07f, 4.20f, COBALT),
-                                    new HandleMaterialStats(0.90f, -150),
+                                    new HeadMaterialStats(139, 7.07f, 4.20f, COBALT),
+                                    new HandleMaterialStats(0.90f, -100),
                                     new ExtraMaterialStats(90));
     TinkerRegistry.addMaterialStats(prismarine,
                                     new HeadMaterialStats(430, 5.50f, 6.00f, IRON),
-                                    new HandleMaterialStats(0.60f, -200),
+                                    new HandleMaterialStats(0.60f, -150),
                                     new ExtraMaterialStats(100));
     TinkerRegistry.addMaterialStats(endstone,
                                     new HeadMaterialStats(420, 3.23f, 3.23f, OBSIDIAN),
@@ -481,7 +481,7 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(paper,
                                     new HeadMaterialStats(12, 0.51f, 0.05f, STONE),
                                     new HandleMaterialStats(0.10f, 5),
-                                    new ExtraMaterialStats(5));
+                                    new ExtraMaterialStats(15));
     TinkerRegistry.addMaterialStats(sponge,
                                     new HeadMaterialStats(550, 3.02f, 0.00f, STONE),
                                     new HandleMaterialStats(1.20f, 250),
