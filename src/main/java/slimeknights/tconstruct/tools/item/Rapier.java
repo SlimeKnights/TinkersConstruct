@@ -39,8 +39,8 @@ public class Rapier extends ToolCore {
   }
 
   @Override
-  public boolean isEffective(IBlockState block) {
-    return BroadSword.effective_materials.contains(block.getMaterial());
+  public boolean isEffective(IBlockState state) {
+    return BroadSword.effective_materials.contains(state.getMaterial());
   }
 
   @Override

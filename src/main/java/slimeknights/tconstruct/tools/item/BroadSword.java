@@ -45,8 +45,8 @@ public class BroadSword extends ToolCore {
   }
 
   @Override
-  public boolean isEffective(IBlockState block) {
-    return effective_materials.contains(block.getMaterial());
+  public boolean isEffective(IBlockState state) {
+    return effective_materials.contains(state.getMaterial());
   }
 
   @Override

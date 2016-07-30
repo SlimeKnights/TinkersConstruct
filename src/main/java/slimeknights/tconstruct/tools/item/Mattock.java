@@ -78,8 +78,8 @@ public class Mattock extends AoeToolCore {
   }
 
   @Override
-  public boolean isEffective(IBlockState block) {
-    return effective_materials_axe.contains(block.getMaterial()) || effective_materials_shovel.contains(block.getMaterial());
+  public boolean isEffective(IBlockState state) {
+    return effective_materials_axe.contains(state.getMaterial()) || effective_materials_shovel.contains(state.getMaterial());
   }
 
   @Override

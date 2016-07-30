@@ -60,8 +60,8 @@ public class Scythe extends ToolCore {
   }
 
   @Override
-  public boolean isEffective(IBlockState block) {
-    return effective_materials.contains(block.getMaterial());
+  public boolean isEffective(IBlockState state) {
+    return effective_materials.contains(state.getMaterial());
   }
 
   // special AOE block breaking against leaves

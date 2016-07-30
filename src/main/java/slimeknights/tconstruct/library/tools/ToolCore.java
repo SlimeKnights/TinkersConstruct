@@ -164,7 +164,7 @@ public abstract class ToolCore extends TinkersItem {
     return super.getStrVsBlock(stack, state);
   }
 
-  public boolean isEffective(IBlockState block) {
+  public boolean isEffective(IBlockState state) {
     return false;
   }
 

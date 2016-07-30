@@ -53,8 +53,8 @@ public class Pickaxe extends AoeToolCore {
   }
 
   @Override
-  public boolean isEffective(IBlockState block) {
-    return effective_materials.contains(block.getMaterial()) || ItemPickaxe.EFFECTIVE_ON.contains(block);
+  public boolean isEffective(IBlockState state) {
+    return effective_materials.contains(state.getMaterial()) || ItemPickaxe.EFFECTIVE_ON.contains(state.getBlock());
   }
 
   @Override
