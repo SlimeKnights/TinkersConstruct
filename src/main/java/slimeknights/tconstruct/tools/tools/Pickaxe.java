@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.item;
+package slimeknights.tconstruct.tools.tools;
 
 import com.google.common.collect.ImmutableSet;
 

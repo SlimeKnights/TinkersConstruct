@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.item;
+package slimeknights.tconstruct.weapons.melee.item;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -25,8 +25,6 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.modifiers.ModBeheading;
-
-import static slimeknights.tconstruct.tools.item.BroadSword.effective_materials;
 
 public class Cleaver extends ToolCore {
 
@@ -70,7 +68,7 @@ public class Cleaver extends ToolCore {
 
   @Override
   public boolean isEffective(IBlockState state) {
-    return effective_materials.contains(state.getMaterial());
+    return BroadSword.effective_materials.contains(state.getMaterial());
   }
 
   @Override

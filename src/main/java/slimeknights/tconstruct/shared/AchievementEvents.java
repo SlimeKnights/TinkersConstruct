@@ -10,8 +10,8 @@ import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.item.Mattock;
-import slimeknights.tconstruct.tools.item.Pickaxe;
+import slimeknights.tconstruct.tools.tools.Mattock;
+import slimeknights.tconstruct.tools.tools.Pickaxe;
 
 public class AchievementEvents {
 

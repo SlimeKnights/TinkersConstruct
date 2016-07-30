@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.item;
+package slimeknights.tconstruct.weapons.ranged.item;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

@@ -36,7 +36,9 @@ import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerMaterials;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.weapons.melee.TinkerMeleeWeapons;
 
 public class CompareVanilla extends CommandBase {
 
@@ -96,10 +98,10 @@ public class CompareVanilla extends CommandBase {
               new ItemStack(Items.WOODEN_AXE), new ItemStack(Items.STONE_AXE), new ItemStack(Items.IRON_AXE),
               new ItemStack(Items.DIAMOND_AXE), new ItemStack(Items.GOLDEN_AXE));
 
-    wood = TinkerTools.broadSword.buildItem(woodMaterials);
-    stone = TinkerTools.broadSword.buildItem(stoneMaterials);
-    iron = TinkerTools.broadSword.buildItem(ironMaterials);
-    extra = TinkerTools.broadSword.buildItem(manyMaterials);
+    wood = TinkerMeleeWeapons.broadSword.buildItem(woodMaterials);
+    stone = TinkerMeleeWeapons.broadSword.buildItem(stoneMaterials);
+    iron = TinkerMeleeWeapons.broadSword.buildItem(ironMaterials);
+    extra = TinkerMeleeWeapons.broadSword.buildItem(manyMaterials);
 
     testTools(Blocks.MELON_BLOCK,
               wood, stone, iron, extra,
@@ -161,13 +163,13 @@ public class CompareVanilla extends CommandBase {
 
     // Redstone/Efficiency
     pw.println(genSection("Haste/Efficiency V", ""));
-    ItemStack tinkerModified = applyModifier(TinkerTools.modHaste, tinker);
+    ItemStack tinkerModified = applyModifier(TinkerModifiers.modHaste, tinker);
     ItemStack vanillaModified = applyEnchantment(Enchantments.EFFICIENCY, vanilla);
     pw.println(testToolSpeed(block, tinkerModified, vanillaModified));
 
     // Quartz/Sharpness
     pw.println(genSection("Sharpness V", ""));
-    tinkerModified = applyModifier(TinkerTools.modSharpness, tinker);
+    tinkerModified = applyModifier(TinkerModifiers.modSharpness, tinker);
     vanillaModified = applyEnchantment(Enchantments.SHARPNESS, vanilla);
     pw.println(testToolAttack(tinkerModified, vanillaModified));
   }

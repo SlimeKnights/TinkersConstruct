@@ -45,7 +45,7 @@ public class ToolEvents {
   // Extra width/height modifier management
   @SubscribeEvent
   public void onExtraBlockBreak(TinkerToolEvent.ExtraBlockBreak event) {
-    if(TinkerTools.modHarvestWidth == null || TinkerTools.modHarvestHeight == null) {
+    if(TinkerModifiers.modHarvestWidth == null || TinkerModifiers.modHarvestHeight == null) {
       return;
     }
 
@@ -54,10 +54,10 @@ public class ToolEvents {
     boolean height = false;
     for(int i = 0; i < modifiers.tagCount(); i++) {
       String modId = modifiers.getStringTagAt(i);
-      if(modId.equals(TinkerTools.modHarvestWidth.getIdentifier())) {
+      if(modId.equals(TinkerModifiers.modHarvestWidth.getIdentifier())) {
         width = true;
       }
-      else if(modId.equals(TinkerTools.modHarvestHeight.getIdentifier())) {
+      else if(modId.equals(TinkerModifiers.modHarvestHeight.getIdentifier())) {
         height = true;
       }
     }
@@ -152,7 +152,7 @@ public class ToolEvents {
     ITinkerProjectile tinkerProjectile = projectile.getCapability(CapabilityTinkerProjectile.PROJECTILE_CAPABILITY, null);
     ItemStack item = tinkerProjectile.getItemStack();
     if(item != null) {
-      int level = TinkerTools.modLuck.getLuckLevel(item);
+      int level = TinkerModifiers.modLuck.getLuckLevel(item);
       if(level > 0) {
         event.setLootingLevel(level);
       }

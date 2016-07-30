@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.item;
+package slimeknights.tconstruct.weapons.melee.item;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -33,6 +33,7 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.EntityUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class FryPan extends ToolCore {
@@ -51,7 +52,7 @@ public class FryPan extends ToolCore {
 
     if(tool != null) {
       for(int i = 0; i < 25 * 5; i++) {
-        TinkerTools.modFiery.apply(tool);
+        TinkerModifiers.modFiery.apply(tool);
       }
 
       if(hasValidMaterials(tool)) {

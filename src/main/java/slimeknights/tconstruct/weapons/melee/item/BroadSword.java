@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.item;
+package slimeknights.tconstruct.weapons.melee.item;
 
 import com.google.common.collect.ImmutableSet;
 

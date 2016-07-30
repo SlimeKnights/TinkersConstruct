@@ -24,10 +24,10 @@ import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
-import slimeknights.tconstruct.tools.item.BroadSword;
-import slimeknights.tconstruct.tools.item.Hatchet;
-import slimeknights.tconstruct.tools.item.Pickaxe;
-import slimeknights.tconstruct.tools.item.Shovel;
+import slimeknights.tconstruct.weapons.melee.item.BroadSword;
+import slimeknights.tconstruct.tools.tools.Hatchet;
+import slimeknights.tconstruct.tools.tools.Pickaxe;
+import slimeknights.tconstruct.tools.tools.Shovel;
 
 public class DumpMaterialTest extends CommandBase {
 

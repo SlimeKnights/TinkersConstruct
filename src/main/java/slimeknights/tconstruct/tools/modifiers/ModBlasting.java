@@ -26,6 +26,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerMaterials;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class ModBlasting extends ModifierTrait {
@@ -55,8 +56,8 @@ public class ModBlasting extends ModifierTrait {
   @Override
   public boolean canApplyTogether(IToolMod toolmod) {
     String id = toolmod.getIdentifier();
-    return !id.equals(TinkerTools.modLuck.getModifierIdentifier())
-        && !id.equals(TinkerTools.modSilktouch.getIdentifier())
+    return !id.equals(TinkerModifiers.modLuck.getModifierIdentifier())
+        && !id.equals(TinkerModifiers.modSilktouch.getIdentifier())
         && !id.equals(TinkerMaterials.squeaky.getIdentifier())
         && !id.equals(TinkerMaterials.autosmelt.getIdentifier());
   }

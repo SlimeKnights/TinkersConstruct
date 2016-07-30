@@ -316,6 +316,17 @@ public abstract class ClientProxy extends CommonProxy {
     explosion.doExplosionB(true);
   }
 
+  public ResourceLocation registerPartModel(Item item) {
+    ResourceLocation itemLocation = getItemLocation(item);
+    if(itemLocation == null) {
+      return null;
+    }
+
+    String path = "parts/" + itemLocation.getResourcePath() + MaterialModelLoader.EXTENSION;
+
+    return registerMaterialModel(item, new ResourceLocation(itemLocation.getResourceDomain(), path));
+  }
+
   public static class PatternMeshDefinition implements ItemMeshDefinition {
 
     private final ResourceLocation baseLocation;

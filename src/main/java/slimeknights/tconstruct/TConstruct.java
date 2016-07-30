@@ -38,8 +38,12 @@ import slimeknights.tconstruct.plugin.waila.Waila;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tools.AggregateModelRegistrar;
 import slimeknights.tconstruct.tools.TinkerMaterials;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.weapons.melee.TinkerMeleeWeapons;
+import slimeknights.tconstruct.weapons.ranged.TinkerRangedWeapons;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 /**
@@ -79,13 +83,21 @@ public class TConstruct {
   static {
     pulseManager.registerPulse(new TinkerCommons());
     pulseManager.registerPulse(new TinkerWorld());
+
     pulseManager.registerPulse(new TinkerTools());
+    pulseManager.registerPulse(new TinkerMeleeWeapons());
+    pulseManager.registerPulse(new TinkerRangedWeapons());
+    pulseManager.registerPulse(new TinkerModifiers());
+
     pulseManager.registerPulse(new TinkerSmeltery());
     pulseManager.registerPulse(new TinkerGadgets());
+
     pulseManager.registerPulse(new TinkerOredict()); // oredict the items added in the pulses before, needed for integration
     pulseManager.registerPulse(new TinkerIntegration()); // takes care of adding all the fluids, materials, melting etc. together
     pulseManager.registerPulse(new TinkerFluids());
     pulseManager.registerPulse(new TinkerMaterials());
+
+    pulseManager.registerPulse(new AggregateModelRegistrar());
     // Plugins/Integration
     //pulseManager.registerPulse(new TinkerVintageCraft());
     pulseManager.registerPulse(new ChiselAndBits());
