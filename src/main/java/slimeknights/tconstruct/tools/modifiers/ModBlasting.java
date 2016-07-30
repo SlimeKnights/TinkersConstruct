@@ -2,10 +2,14 @@ package slimeknights.tconstruct.tools.modifiers;
 
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -15,12 +19,10 @@ import java.util.List;
 import java.util.ListIterator;
 
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.IToolMod;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
-import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerMaterials;
@@ -80,7 +82,7 @@ public class ModBlasting extends ModifierTrait {
     speed *= hardness;
 
     if(level > 2) {
-      speed /= 1.5f;
+      speed /= 1.1f;
     }
     else if(level > 1) {
       speed /= 5f;
@@ -103,6 +105,12 @@ public class ModBlasting extends ModifierTrait {
     float level = getLevel(tool);
     float chancePerLevel = 1f/(float)maxLevel;
     return level * chancePerLevel;
+  }
+
+  @Override
+  public void afterBlockBreak(ItemStack tool, World world, IBlockState state, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
+    EnumParticleTypes particleType = random.nextInt(20) == 0 ? EnumParticleTypes.EXPLOSION_LARGE : EnumParticleTypes.EXPLOSION_NORMAL;
+    world.spawnParticle(particleType, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 0, 0, 0);
   }
 
   @Override
