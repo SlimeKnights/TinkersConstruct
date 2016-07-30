@@ -109,7 +109,13 @@ public class TConstruct {
   //Force the client and server to have or not have this mod
   @NetworkCheckHandler()
   public boolean matchModVersions(Map<String, String> remoteVersions, Side side) {
-    return remoteVersions.containsKey(modID) && modVersion.equals(remoteVersions.get(modID));
+
+    // we don't accept clients without TiC
+    if(side == Side.CLIENT) {
+      return remoteVersions.containsKey(modID);
+    }
+    // but we can connect to servers without TiC when TiC is present on the client
+    return !remoteVersions.containsKey(modID) || modVersion.equals(remoteVersions.get(modID));
   }
 
   @Mod.EventHandler
