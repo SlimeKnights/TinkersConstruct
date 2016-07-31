@@ -29,6 +29,7 @@ import slimeknights.tconstruct.library.client.deserializer.ItemCameraTransformsD
 import slimeknights.tconstruct.library.client.deserializer.ItemTransformVec3fDeserializer;
 import slimeknights.tconstruct.library.client.model.format.ModelTextureDeserializer;
 import slimeknights.tconstruct.library.client.model.format.Offset;
+import slimeknights.tconstruct.library.client.model.format.ToolModelOverride;
 import slimeknights.tconstruct.library.client.model.format.TransformDeserializer;
 
 public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
@@ -43,6 +44,7 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
       .registerTypeAdapter(ItemCameraTransforms.class, ItemCameraTransformsDeserializer.INSTANCE)
       .registerTypeAdapter(ItemTransformVec3f.class, ItemTransformVec3fDeserializer.INSTANCE)
       //.registerTypeAdapter(TRSRTransformation.class, ForgeBlockStateV1.TRSRDeserializer.INSTANCE)
+      .registerTypeAdapter(ToolModelOverride.ToolModelOverrideListDeserializer.TYPE, ToolModelOverride.ToolModelOverrideListDeserializer.INSTANCE)
       .create();
 
   public static Reader getReaderForResource(ResourceLocation location) throws IOException {
@@ -64,6 +66,15 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
     Reader reader = getReaderForResource(location);
     try {
       return GSON.fromJson(reader, Offset.OffsetDeserializer.TYPE);
+    } finally {
+      IOUtils.closeQuietly(reader);
+    }
+  }
+
+  public static ImmutableList<ToolModelOverride> loadToolModelOverridesFromJson(ResourceLocation location) throws IOException {
+    Reader reader = getReaderForResource(location);
+    try {
+      return GSON.fromJson(reader, ToolModelOverride.ToolModelOverrideListDeserializer.TYPE);
     } finally {
       IOUtils.closeQuietly(reader);
     }
