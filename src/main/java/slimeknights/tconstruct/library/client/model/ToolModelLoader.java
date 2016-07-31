@@ -3,6 +3,9 @@ package slimeknights.tconstruct.library.client.model;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
+import gnu.trove.map.hash.TIntObjectHashMap;
 
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.resources.IResourceManager;
@@ -24,6 +27,7 @@ import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.client.model.format.ToolModelOverride;
 
 public class ToolModelLoader implements ICustomModelLoader {
 
@@ -46,7 +50,7 @@ public class ToolModelLoader implements ICustomModelLoader {
       // it also provides us with the textures
       Map<String, String> textures = ModelHelper.loadTexturesFromJson(modelLocation);
       ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms = ModelHelper.loadTransformFromJson(modelLocation);
-      ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> blockingTransforms = ModelHelper.loadTransformFromJson(modelLocation, "blocking");
+      ImmutableList<ToolModelOverride> overrides = ModelHelper.loadToolModelOverridesFromJson(modelLocation);
       Float[] rotations = ModelHelper.loadLayerRotations(modelLocation);
 
       if(rotations.length > 0 && textures.size() != rotations.length) {
@@ -54,11 +58,8 @@ public class ToolModelLoader implements ICustomModelLoader {
         rotations = new Float[0];
       }
 
-      if(blockingTransforms.isEmpty()) {
-        blockingTransforms = transforms;
-      }
-
-      ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
+      ImmutableList.Builder<ResourceLocation> textureListBuilder = ImmutableList.builder();
+      ImmutableList.Builder<ResourceLocation> defaultTextureListBuilder = ImmutableList.builder();
       List<MaterialModel> parts = Lists.newArrayList();
       List<MaterialModel> brokenParts = Lists.newArrayList();
 
@@ -89,11 +90,46 @@ public class ToolModelLoader implements ICustomModelLoader {
           }
           listToAdd.set(i, partModel);
 
-          builder.add(location);
+          textureListBuilder.add(location);
+          defaultTextureListBuilder.add(location);
         } catch(NumberFormatException e) {
           TinkerRegistry.log.error("Toolmodel {} has invalid texture entry {}; Skipping layer.", modelLocation, name);
         }
       }
+
+      // create overrides
+      for(ToolModelOverride override : overrides) {
+        for(Map.Entry<String, String> entry : override.textures.entrySet()) {
+          String name = entry.getKey();
+          try {
+            int i;
+            TIntObjectHashMap<MaterialModel> mapToAdd;
+
+            if(name.startsWith("layer")) {
+              i = Integer.valueOf(name.substring(5));
+              mapToAdd = override.partModelReplacement;
+            }
+            else if(name.startsWith("broken")) {
+              i = Integer.valueOf(name.substring(6));
+              mapToAdd = override.brokenPartModelReplacement;
+            }
+            // invalid entry, ignore
+            else {
+              TinkerRegistry.log.warn("Toolmodel {} has invalid texture override entry {}; Skipping layer.", modelLocation, name);
+              continue;
+            }
+
+            ResourceLocation location = new ResourceLocation(entry.getValue());
+            MaterialModel partModel = new MaterialModel(ImmutableList.of(location));
+            mapToAdd.put(i, partModel);
+
+            textureListBuilder.add(location);
+          } catch(NumberFormatException e) {
+            TinkerRegistry.log.error("Toolmodel {} has invalid texture entry {}; Skipping layer.", modelLocation, name);
+          }
+        }
+      }
+
 
       String toolName = FilenameUtils.getBaseName(modelLocation.getResourcePath());
       IModel mods;
@@ -114,10 +150,10 @@ public class ToolModelLoader implements ICustomModelLoader {
         modifiers = (ModifierModel) mods;
       }
 
-      IModel output = new ToolModel(builder.build(), parts, brokenParts, rotations, modifiers, transforms, blockingTransforms);
+      IModel output = new ToolModel(defaultTextureListBuilder.build(), parts, brokenParts, rotations, modifiers, transforms, overrides);
 
       // inform the texture manager about the textures it has to process
-      CustomTextureCreator.registerTextures(builder.build());
+      CustomTextureCreator.registerTextures(textureListBuilder.build());
 
       return output;
     } catch(IOException e) {

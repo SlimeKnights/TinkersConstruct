@@ -11,6 +11,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 
+import gnu.trove.map.hash.TIntObjectHashMap;
+
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
 import net.minecraft.util.ResourceLocation;
@@ -19,11 +21,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.lang.reflect.Type;
-import java.util.Iterator;
 import java.util.Map;
 
 import slimeknights.tconstruct.library.client.deserializer.ItemCameraTransformsDeserializer;
 import slimeknights.tconstruct.library.client.deserializer.ItemTransformVec3fDeserializer;
+import slimeknights.tconstruct.library.client.model.MaterialModel;
 
 @SideOnly(Side.CLIENT)
 public class ToolModelOverride {
@@ -31,6 +33,10 @@ public class ToolModelOverride {
   public final ImmutableMap<ResourceLocation, Float> predicates;
   public final ImmutableMap<String, String> textures;
   public final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
+
+  // those will be filled later on during the loading progress
+  public final TIntObjectHashMap<MaterialModel> partModelReplacement = new TIntObjectHashMap<MaterialModel>();
+  public final TIntObjectHashMap<MaterialModel> brokenPartModelReplacement = new TIntObjectHashMap<MaterialModel>();
 
   public ToolModelOverride(ImmutableMap<ResourceLocation, Float> predicates, ImmutableMap<String, String> textures, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms) {
     this.predicates = predicates;
@@ -58,7 +64,7 @@ public class ToolModelOverride {
       }
 
       if(texElem.isJsonObject()) {
-        return ImmutableList.of((ToolModelOverride) GSON.fromJson(json, ToolModelOverrideDeserializer.TYPE));
+        return ImmutableList.of((ToolModelOverride) GSON.fromJson(texElem, ToolModelOverrideDeserializer.TYPE));
       }
 
       ImmutableList.Builder<ToolModelOverride> builder = ImmutableList.builder();
@@ -85,11 +91,27 @@ public class ToolModelOverride {
         .create();
 
     @Override
-    public ToolModelOverride deserialize(JsonElement json, Type type, JsonDeserializationContext context)
+    public ToolModelOverride deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context)
         throws JsonParseException {
+      JsonObject json = jsonElement.getAsJsonObject();
+
       ImmutableMap<ResourceLocation, Float> predicates = GSON.fromJson(json, PredicateDeserializer.TYPE);
-      ImmutableMap<String, String> textures = ImmutableMap.copyOf((Map<String, String>)GSON.fromJson(json, ModelTextureDeserializer.TYPE));
-      ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms = GSON.fromJson(json, TransformDeserializer.TYPE);
+
+      ImmutableMap<String, String> textures;
+      if(json.get("textures") != null) {
+        textures = ImmutableMap.copyOf((Map<String, String>)GSON.fromJson(json, ModelTextureDeserializer.TYPE));
+      }
+      else {
+        textures = ImmutableMap.of();
+      }
+
+      ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
+      if(json.get("display") != null) {
+        transforms = GSON.fromJson(json, TransformDeserializer.TYPE);
+      }
+      else {
+        transforms = ImmutableMap.of();
+      }
 
       return new ToolModelOverride(predicates, textures, transforms);
     }

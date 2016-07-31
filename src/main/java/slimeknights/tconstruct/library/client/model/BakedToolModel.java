@@ -30,7 +30,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
   protected BakedMaterialModel[] brokenParts;
   protected Map<String, IBakedModel> modifierParts;
   protected final ImmutableMap<TransformType, TRSRTransformation> transforms;
-  protected final ImmutableMap<TransformType, TRSRTransformation> blockingTransforms;
+  protected final ImmutableList<BakedToolModelOverride> overrides;
 
   /**
    * The length of brokenParts has to match the length of parts. If a part does not have a broken texture, the entry in
@@ -39,7 +39,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
   public BakedToolModel(IBakedModel parent, BakedMaterialModel[] parts, BakedMaterialModel[] brokenParts,
                         Map<String, IBakedModel> modifierParts,
                         ImmutableMap<TransformType, TRSRTransformation> transform,
-                        ImmutableMap<TransformType, TRSRTransformation> blockingTransform) {
+                        ImmutableList<BakedToolModelOverride> overrides) {
     super(parent, transform);
     if(parts.length != brokenParts.length) {
       throw new RuntimeException("TinkerModel: Length of Parts and BrokenParts Array has to match");
@@ -49,7 +49,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
     this.brokenParts = brokenParts;
     this.modifierParts = modifierParts;
     this.transforms = transform;
-    this.blockingTransforms = blockingTransform;
+    this.overrides = overrides;
   }
 
   @Nonnull
@@ -72,6 +72,14 @@ public class BakedToolModel extends BakedWrapper.Perspective {
       NBTTagCompound baseTag = TagUtil.getBaseTag(stack);
       if(!baseTag.hasNoTags()) {
         BakedToolModel original = (BakedToolModel) originalModel;
+
+        // check for an override
+        for(BakedToolModelOverride override : original.overrides) {
+          if(override.matches(stack, world, entity)) {
+            original = override.bakedToolModel;
+          }
+        }
+
         BakedMaterialModel parts[] = original.parts;
         BakedMaterialModel brokenParts[] = original.brokenParts;
         Map<String, IBakedModel> modifierParts = original.modifierParts;
@@ -109,12 +117,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
           }
         }
 
-        ImmutableMap<TransformType, TRSRTransformation> transform = original.transforms;
-        if(entity != null && entity.isHandActive() && entity.getActiveItemStack() == stack) {
-          transform = original.blockingTransforms;
-        }
-
-        return new BakedSimple(quads.build(), transform, original);
+        return new BakedSimple(quads.build(), original.transforms, original);
       }
       return originalModel;
     }
