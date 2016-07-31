@@ -46,12 +46,11 @@ import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
-import slimeknights.tconstruct.library.tools.IProjectileStats;
+import slimeknights.tconstruct.library.tools.ranged.IProjectile;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.network.ToolBreakAnimationPacket;
 
 public final class ToolHelper {
@@ -524,13 +523,15 @@ public final class ToolHelper {
   }
 
   public static void unbreakTool(ItemStack stack) {
-    // ensure correct damage value
-    stack.setItemDamage(stack.getMaxDamage());
+    if(isBroken(stack)) {
+      // ensure correct damage value
+      stack.setItemDamage(stack.getMaxDamage());
 
-    // setItemDamage might break the tool again, so we do this afterwards
-    NBTTagCompound tag = TagUtil.getToolTag(stack);
-    tag.setBoolean(Tags.BROKEN, false);
-    TagUtil.setToolTag(stack, tag);
+      // setItemDamage might break the tool again, so we do this afterwards
+      NBTTagCompound tag = TagUtil.getToolTag(stack);
+      tag.setBoolean(Tags.BROKEN, false);
+      TagUtil.setToolTag(stack, tag);
+    }
   }
 
   public static void repairTool(ItemStack stack, int amount) {
@@ -539,9 +540,7 @@ public final class ToolHelper {
   }
 
   public static void repairTool(ItemStack stack, int amount, EntityLivingBase entity) {
-    if(isBroken(stack)) {
-      unbreakTool(stack);
-    }
+    unbreakTool(stack);
 
     TinkerToolEvent.OnRepair.fireEvent(stack, amount);
 
@@ -649,8 +648,8 @@ public final class ToolHelper {
     }
 
     boolean hit = false;
-    if(isProjectile && tool instanceof IProjectileStats) {
-      hit = ((IProjectileStats) tool).dealDamageRanged(stack, projectileEntity, attacker, target, damage);
+    if(isProjectile && tool instanceof IProjectile) {
+      hit = ((IProjectile) tool).dealDamageRanged(stack, projectileEntity, attacker, target, damage);
     }
     else {
       hit = tool.dealDamage(stack, attacker, target, damage);

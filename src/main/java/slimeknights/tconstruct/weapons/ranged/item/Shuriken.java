@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.ProjectileCore;
+import slimeknights.tconstruct.library.tools.ranged.ProjectileCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -45,21 +45,10 @@ public class Shuriken extends ProjectileCore {
     if(ToolHelper.isBroken(itemStackIn)) {
       return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);
     }
-    int damage = itemStackIn.getItemDamage();
-    ItemStack reference = itemStackIn.copy(); // copy has to be taken before damage in case damageTool breaks the tool
-    reference.stackSize = 1;
-
-    if(!playerIn.capabilities.isCreativeMode) {
-      ToolHelper.damageTool(itemStackIn, 1, playerIn);
-    }
+    ItemStack reference = getProjectileStack(itemStackIn, worldIn, playerIn);
     playerIn.getCooldownTracker().setCooldown(itemStackIn.getItem(), 4);
 
     if(!worldIn.isRemote) {
-      // in case we're creative or a trait like obsidian's prevented the damage
-      if(damage == itemStackIn.getItemDamage()) {
-        reference.stackSize = 0;
-      }
-
       EntityProjectileBase projectile = new EntityShuriken(worldIn, playerIn, 2.1f, 0f, reference);
       worldIn.spawnEntityInWorld(projectile);
     }

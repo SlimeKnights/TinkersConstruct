@@ -92,6 +92,11 @@ public abstract class ToolCore extends TinkersItem {
     return true;
   }
 
+  @Override
+  public boolean showDurabilityBar(ItemStack stack) {
+    return super.showDurabilityBar(stack) && !ToolHelper.isBroken(stack);
+  }
+
   /* Tool and Weapon specific properties */
 
   /**

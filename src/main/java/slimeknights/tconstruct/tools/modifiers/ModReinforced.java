@@ -30,14 +30,15 @@ public class ModReinforced extends ModifierTrait {
 
   @Override
   public int onToolDamage(ItemStack tool, int damage, int newDamage, EntityLivingBase entity) {
-    // get reinforced level
-    NBTTagCompound tag = TinkerUtil.getModifierTag(tool, identifier);
+    if(!entity.getEntityWorld().isRemote) {
+      // get reinforced level
+      NBTTagCompound tag = TinkerUtil.getModifierTag(tool, identifier);
 
-    float chance = getReinforcedChance(tag);
-    if(chance >= random.nextFloat()) {
-      newDamage -= damage;
+      float chance = getReinforcedChance(tag);
+      if(chance >= random.nextFloat()) {
+        newDamage -= damage;
+      }
     }
-
     return Math.max(0, newDamage);
   }
 

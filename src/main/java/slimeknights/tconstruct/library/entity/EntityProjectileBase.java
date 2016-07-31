@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
 import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
-import slimeknights.tconstruct.library.tools.IProjectileStats;
+import slimeknights.tconstruct.library.tools.ranged.IProjectile;
 import slimeknights.tconstruct.library.capability.projectile.TinkerProjectileHandler;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -219,8 +219,8 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       unequip(attacker, EntityEquipmentSlot.MAINHAND);
 
       // apply stats from projectile
-      if(item.getItem() instanceof IProjectileStats) {
-        attacker.getAttributeMap().applyAttributeModifiers(((IProjectileStats) item.getItem()).getProjectileAttributeModifier(inventoryItem));
+      if(item.getItem() instanceof IProjectile) {
+        attacker.getAttributeMap().applyAttributeModifiers(((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem));
       }
 
       // deal the damage
@@ -229,8 +229,8 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
       // remove stats from projectile
       // apply stats from projectile
-      if(item.getItem() instanceof IProjectileStats) {
-        attacker.getAttributeMap().removeAttributeModifiers(((IProjectileStats) item.getItem()).getProjectileAttributeModifier(inventoryItem));
+      if(item.getItem() instanceof IProjectile) {
+        attacker.getAttributeMap().removeAttributeModifiers(((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem));
       }
 
       // readd stats from held items

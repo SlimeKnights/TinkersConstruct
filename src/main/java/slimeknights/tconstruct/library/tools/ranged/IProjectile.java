@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tools;
+package slimeknights.tconstruct.library.tools.ranged;
 
 import com.google.common.collect.Multimap;
 
@@ -7,7 +7,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemStack;
 
-public interface IProjectileStats {
+/**
+ * The item is a tinker projectile. Used for internal handling.
+ */
+public interface IProjectile {
 
    boolean dealDamageRanged(ItemStack stack, Entity projectile, EntityLivingBase player, EntityLivingBase entity, float damage);
 

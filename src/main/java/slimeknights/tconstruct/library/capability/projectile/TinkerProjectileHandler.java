@@ -9,6 +9,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ranged.IAmmo;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializable<NBTTagCompound> {
@@ -29,14 +30,12 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
   }
 
   @Override
-  public boolean pickup(Entity entity, boolean simulate) {
+  public boolean pickup(EntityLivingBase entity, boolean simulate) {
     ItemStack stack = getMatchingItemstackFromInventory(entity, true);
-    if(stack != null) {
-      if(!simulate) {
-        if(ToolHelper.isBroken(stack)) {
-          ToolHelper.unbreakTool(stack);
-        }
-        ToolHelper.healTool(stack, parent.stackSize, null);
+    if(stack != null && stack.getItem() instanceof IAmmo) {
+      if(!simulate && parent.stackSize > 0) {
+        ToolHelper.unbreakTool(stack);
+        ((IAmmo) stack.getItem()).addAmmo(stack, entity);
       }
       return true;
     }

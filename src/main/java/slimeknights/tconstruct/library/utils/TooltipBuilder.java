@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.client.CustomFontColor;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
+import slimeknights.tconstruct.library.tools.ranged.IAmmo;
 
 import static slimeknights.tconstruct.library.Util.df;
 import static slimeknights.tconstruct.library.materials.HeadMaterialStats.COLOR_Durability;
@@ -72,11 +73,14 @@ public class TooltipBuilder {
   }
 
   public TooltipBuilder addAmmo(boolean textIfEmpty) {
-    if(ToolHelper.isBroken(stack) && textIfEmpty) {
-      tips.add(String.format("%s: %s%s%s", Util.translate(LOC_Ammo), TextFormatting.DARK_RED, TextFormatting.BOLD, Util.translate(LOC_Empty)));
-    }
-    else {
-      tips.add(formatAmmo(ToolHelper.getCurrentDurability(stack), ToolHelper.getMaxDurability(stack)));
+    if(stack.getItem() instanceof IAmmo) {
+      if(ToolHelper.isBroken(stack) && textIfEmpty) {
+        tips.add(String.format("%s: %s%s%s", Util.translate(LOC_Ammo), TextFormatting.DARK_RED, TextFormatting.BOLD, Util.translate(LOC_Empty)));
+      }
+      else {
+        IAmmo ammoItem = (IAmmo) stack.getItem();
+        tips.add(formatAmmo(ammoItem.getCurrentAmmo(stack), ammoItem.getMaxAmmo(stack)));
+      }
     }
 
     return this;
