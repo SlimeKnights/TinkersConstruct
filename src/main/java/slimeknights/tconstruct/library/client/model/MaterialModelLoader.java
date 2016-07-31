@@ -14,6 +14,7 @@ import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.client.model.format.Offset;
 
 public class MaterialModelLoader implements ICustomModelLoader {
 
@@ -32,7 +33,7 @@ public class MaterialModelLoader implements ICustomModelLoader {
     }
 
     try {
-      ModelHelper.Offset offset = ModelHelper.loadOffsetFromJson(modelLocation);
+      Offset offset = ModelHelper.loadOffsetFromJson(modelLocation);
       IModel model = new MaterialModel(ModelHelper.loadTextureListFromJson(modelLocation), offset.x, offset.y);
 
       // register the base texture for texture generation
