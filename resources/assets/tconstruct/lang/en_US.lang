@@ -330,6 +330,14 @@ item.tconstruct.pickaxe.name=Pickaxe
 item.tconstruct.shovel.name=Shovel
 item.tconstruct.hatchet.name=Hatchet
 item.tconstruct.mattock.name=Mattock
+
+item.tconstruct.hammer.name=Hammer
+item.tconstruct.excavator.name=Excavator
+item.tconstruct.lumberaxe.name=Lumberaxe
+item.tconstruct.scythe.name=Scythe
+
+# Melee Weapons
+
 item.tconstruct.frypan.name=Frypan
 item.tconstruct.battlesign.name=Battlesign
 item.tconstruct.dagger.name=Dagger
@@ -338,12 +346,12 @@ item.tconstruct.longsword.name=Longsword
 item.tconstruct.rapier.name=Rapier
 item.tconstruct.cutlass.name=Cutlass
 
-item.tconstruct.hammer.name=Hammer
-item.tconstruct.excavator.name=Excavator
-item.tconstruct.lumberaxe.name=Lumberaxe
 item.tconstruct.cleaver.name=Cleaver
 item.tconstruct.battleaxe.name=Battleaxe
-item.tconstruct.scythe.name=Scythe
+
+# Ranged Weapons & Ammo
+
+item.tconstruct.shortbow.name=Shortbow
 
 item.tconstruct.shuriken.name=Shuriken
 

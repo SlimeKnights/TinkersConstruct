@@ -1,0 +1,42 @@
+{
+    "textures": {
+        "layer0": "tconstruct:items/shortbow/bowstring",
+        "layer1": "tconstruct:items/shortbow/limb_top",
+        "layer2": "tconstruct:items/shortbow/limb_bottom",
+        "broken0": "tconstruct:items/shortbow/bowstring_broken"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "pulling": 1
+            },
+            "textures": {
+                "layer0": "tconstruct:items/shortbow/bowstring_1",
+                "layer1": "tconstruct:items/shortbow/limb_top_1",
+                "layer2": "tconstruct:items/shortbow/limb_bottom_1"
+            }
+        },
+        {
+            "predicate": {
+                "pulling": 1,
+                "pull": 0.65
+            },
+            "textures": {
+                "layer0": "tconstruct:items/shortbow/bowstring_2",
+                "layer1": "tconstruct:items/shortbow/limb_top_2",
+                "layer2": "tconstruct:items/shortbow/limb_bottom_2"
+            }
+        },
+        {
+            "predicate": {
+                "pulling": 1,
+                "pull": 0.9
+            },
+            "textures": {
+                "layer0": "tconstruct:items/shortbow/bowstring_3",
+                "layer1": "tconstruct:items/shortbow/limb_top_3",
+                "layer2": "tconstruct:items/shortbow/limb_bottom_3"
+            }
+        }
+    ]
+}

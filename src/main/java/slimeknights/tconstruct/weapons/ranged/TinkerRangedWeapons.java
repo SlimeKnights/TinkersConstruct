@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.tools.AbstractToolPulse;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.weapons.ranged.item.ShortBow;
 import slimeknights.tconstruct.weapons.ranged.item.Shuriken;
 
 @Pulse(
@@ -31,6 +32,8 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
   @SidedProxy(clientSide = "slimeknights.tconstruct.weapons.ranged.RangedClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
   public static CommonProxy proxy;
 
+  public static ShortBow shortBow;
+
   public static ToolCore shuriken;
 
   // PRE-INITIALIZATION
@@ -43,6 +46,8 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
 
   @Override
   protected void registerTools() {
+    shortBow = registerTool(new ShortBow(), "shortbow");
+
     shuriken = registerTool(new Shuriken(), "shuriken");
   }
 
@@ -56,6 +61,8 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
 
   @Override
   protected void registerToolBuilding() {
+    TinkerRegistry.registerToolStationCrafting(shortBow);
+
     TinkerRegistry.registerToolForgeCrafting(shuriken);
   }
 
