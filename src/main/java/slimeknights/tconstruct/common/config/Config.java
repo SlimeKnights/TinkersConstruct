@@ -60,7 +60,7 @@ public final class Config {
   public static boolean renderTableItems = true;
   public static boolean extraTooltips = true;
   public static boolean enableForgeBucketModel = true; // enables the forge bucket model by default
-
+  public static boolean dumpTextureMap = false; // requires debug module
 
   /* Config File */
 
@@ -266,6 +266,11 @@ public final class Config {
           ForgeModContainer.getConfig().save();
         }
       }
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "dumpTextureMap", dumpTextureMap);
+      prop.setComment("REQUIRES DEBUG MODULE. Will do nothing if debug module is disabled. If true the texture map will be dumped into the run directory, just like old forge did.");
+      dumpTextureMap = prop.getBoolean();
       propOrder.add(prop.getName());
 
       ClientSide.setPropertyOrder(propOrder);
