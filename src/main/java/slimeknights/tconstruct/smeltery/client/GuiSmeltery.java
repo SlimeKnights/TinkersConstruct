@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.client;
 
 import com.google.common.collect.Lists;
+
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
@@ -8,6 +9,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.io.IOException;
 import java.util.List;
+
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.Util;

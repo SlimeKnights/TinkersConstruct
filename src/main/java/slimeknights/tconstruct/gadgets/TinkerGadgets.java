@@ -30,11 +30,11 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.gadgets.block.BlockBrownstone;
 import slimeknights.tconstruct.gadgets.block.BlockBrownstoneSlab;
 import slimeknights.tconstruct.gadgets.block.BlockBrownstoneSlab2;
-import slimeknights.tconstruct.gadgets.block.BlockSlimeChannel;
 import slimeknights.tconstruct.gadgets.block.BlockDriedClay;
 import slimeknights.tconstruct.gadgets.block.BlockDriedClaySlab;
 import slimeknights.tconstruct.gadgets.block.BlockPunji;
 import slimeknights.tconstruct.gadgets.block.BlockRack;
+import slimeknights.tconstruct.gadgets.block.BlockSlimeChannel;
 import slimeknights.tconstruct.gadgets.block.BlockStoneLadder;
 import slimeknights.tconstruct.gadgets.block.BlockStoneTorch;
 import slimeknights.tconstruct.gadgets.block.BlockWoodRail;
@@ -54,8 +54,8 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
-import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
+import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.tools.TableRecipe;
 
 @Pulse(id = TinkerGadgets.PulseId, description = "All the fun toys")

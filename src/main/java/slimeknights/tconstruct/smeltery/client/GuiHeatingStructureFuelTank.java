@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.smeltery.client;
 
-import java.util.List;
-
 import com.google.common.collect.Lists;
+
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidStack;
+
+import java.util.List;
+
 import slimeknights.mantle.client.gui.GuiMultiModule;
 import slimeknights.mantle.inventory.ContainerMultiModule;
 import slimeknights.tconstruct.library.Util;

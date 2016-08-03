@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.smeltery.block;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
@@ -10,6 +8,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.BlockStairsBase;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 

@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.inventory;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IContainerListener;
+
 import slimeknights.mantle.inventory.ContainerMultiModule;
 import slimeknights.tconstruct.smeltery.tileentity.TileSearedFurnace;
 import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;

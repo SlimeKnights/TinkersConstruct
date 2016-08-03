@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.gadgets.tileentity;
 
-import javax.annotation.Nonnull;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -10,6 +8,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.gadgets.block.BlockSlimeChannel.ChannelDirection;
 
 /**

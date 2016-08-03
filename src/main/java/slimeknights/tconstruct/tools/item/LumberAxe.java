@@ -29,6 +29,7 @@ import java.util.Stack;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.client.particle.Particles;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
@@ -39,7 +40,6 @@ import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.library.events.TinkerToolEvent;
 
 public class LumberAxe extends AoeToolCore {
 

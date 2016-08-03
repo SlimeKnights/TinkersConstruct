@@ -2,7 +2,6 @@ package slimeknights.tconstruct.common.config;
 
 import com.google.common.collect.Lists;
 
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.ConfigCategory;

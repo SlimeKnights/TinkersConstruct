@@ -29,8 +29,8 @@ import javax.annotation.Nullable;
 import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
-import slimeknights.tconstruct.library.tools.IProjectileStats;
 import slimeknights.tconstruct.library.capability.projectile.TinkerProjectileHandler;
+import slimeknights.tconstruct.library.tools.IProjectileStats;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 

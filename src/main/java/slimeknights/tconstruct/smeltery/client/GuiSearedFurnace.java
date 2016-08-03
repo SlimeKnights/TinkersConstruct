@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.client;
 
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
+
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.client.gui.GuiElementScalable;
 import slimeknights.tconstruct.library.Util;

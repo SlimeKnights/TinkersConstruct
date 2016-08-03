@@ -3,9 +3,6 @@ package slimeknights.tconstruct.tools;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
-import com.sun.org.apache.bcel.internal.generic.IREM;
-
-import net.minecraft.block.BlockPrismarine;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.init.Blocks;
