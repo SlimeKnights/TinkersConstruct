@@ -1,5 +1,9 @@
 package slimeknights.tconstruct.library.client;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -8,12 +12,27 @@ import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.smeltery.CastingRecipe;
+import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 public final class RenderUtil {
 
@@ -413,5 +432,108 @@ public final class RenderUtil {
 
   public static int blue(int c) {
     return (c) & 0xFF;
+  }
+
+
+  /* Fluid amount displays */
+  private static Map<Fluid, List<FluidGuiEntry>> fluidGui = Maps.newHashMap();
+  private static boolean smelteryLoaded = TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId);
+
+  /**
+   * Adds information for the tooltip based on the fluid stacks size.
+   *
+   * @param fluid Input fluid stack
+   * @param text  Text to add information to.
+   */
+  public static void liquidToString(FluidStack fluid, List<String> text) {
+    int amount = fluid.amount;
+    if(smelteryLoaded && !Util.isShiftKeyDown()) {
+      List<FluidGuiEntry> entries = fluidGui.get(fluid.getFluid());
+      if(entries == null) {
+        entries = calcFluidGuiEntries(fluid.getFluid());
+        fluidGui.put(fluid.getFluid(), entries);
+      }
+
+      for(FluidGuiEntry entry : entries) {
+        amount = calcLiquidText(amount, entry.amount, entry.getText(), text);
+      }
+    }
+
+    // standard display: bucket amounts
+    // we go up to kiloBuckets because we can
+    amount = calcLiquidText(amount, 1000000, Util.translate("gui.smeltery.liquid.kilobucket"), text);
+    amount = calcLiquidText(amount, 1000, Util.translate("gui.smeltery.liquid.bucket"), text);
+    calcLiquidText(amount, 1, Util.translate("gui.smeltery.liquid.millibucket"), text);
+  }
+
+  private static List<FluidGuiEntry> calcFluidGuiEntries(Fluid fluid) {
+    List<FluidGuiEntry> list = Lists.newArrayList();
+
+    // go through all casting recipes for the fluids and check for known "units" like blocks, ingots,...
+    for(ICastingRecipe irecipe : TinkerRegistry.getAllBasinCastingRecipes()) {
+      if(irecipe instanceof CastingRecipe) {
+        CastingRecipe recipe = (CastingRecipe) irecipe;
+        // search for a block recipe
+        if(recipe.getFluid().getFluid() == fluid && recipe.cast == null) {
+          // it's a block that is cast solely from the material, using no cast, therefore it's a block made out of the material
+          list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.block"));
+        }
+      }
+    }
+    // table casting
+    for(ICastingRecipe irecipe : TinkerRegistry.getAllTableCastingRecipes()) {
+      if(irecipe instanceof CastingRecipe) {
+        CastingRecipe recipe = (CastingRecipe) irecipe;
+        if(recipe.getFluid().getFluid() == fluid && recipe.cast != null) {
+          // nugget
+          if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castNugget}) != null) {
+            list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.nugget"));
+          }
+          // ingot
+          if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castIngot}) != null) {
+            list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.ingot"));
+          }
+          // gem
+          if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castGem}) != null) {
+            list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.gem"));
+          }
+        }
+      }
+    }
+
+    // sort by amount descending because the order in which they're accessed is important since it changes the remaining value during processing
+    Collections.sort(list, new Comparator<FluidGuiEntry>() {
+      @Override
+      public int compare(FluidGuiEntry o1, FluidGuiEntry o2) {
+        return o2.amount - o1.amount;
+      }
+    });
+
+    return ImmutableList.copyOf(list);
+  }
+
+  private static int calcLiquidText(int amount, int divider, String unit, List<String> text) {
+    int full = amount / divider;
+    if(full > 0) {
+      text.add(String.format("%d %s%s", full, TextFormatting.GRAY, unit));
+    }
+
+    return amount % divider;
+  }
+
+
+  private static class FluidGuiEntry {
+
+    public final int amount;
+    public final String unlocName;
+
+    private FluidGuiEntry(int amount, String unlocName) {
+      this.amount = amount;
+      this.unlocName = unlocName;
+    }
+
+    public String getText() {
+      return Util.translate(unlocName);
+    }
   }
 }

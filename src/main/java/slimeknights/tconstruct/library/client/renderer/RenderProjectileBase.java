@@ -20,9 +20,9 @@ import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.capability.projectile.ITinkerProjectile;
+import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 
 public class RenderProjectileBase<T extends EntityProjectileBase> extends Render<T> {
 

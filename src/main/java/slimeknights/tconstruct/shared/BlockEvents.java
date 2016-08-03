@@ -7,11 +7,13 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.shared.block.BlockSoil;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 public class BlockEvents {
+
   private static boolean worldLoaded = TConstruct.pulseManager.isPulseLoaded(TinkerWorld.PulseId);
 
   // Slimy block jump stuff

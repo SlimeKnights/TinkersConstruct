@@ -40,9 +40,10 @@ public class SmelteryClientProxy extends ClientProxy {
     ModelLoader.setCustomStateMapper(TinkerSmeltery.searedGlass, (new StateMap.Builder()).ignore(BlockSearedGlass.TYPE).build());
 
     // Blocks
-    registerItemModel(Item.getItemFromBlock(TinkerSmeltery.smelteryController));
-    registerItemModel(Item.getItemFromBlock(TinkerSmeltery.faucet));
-    registerItemModel(Item.getItemFromBlock(TinkerSmeltery.searedGlass));
+    registerItemModel(TinkerSmeltery.smelteryController);
+    registerItemModel(TinkerSmeltery.faucet);
+    registerItemModel(TinkerSmeltery.searedGlass);
+    registerItemModel(TinkerSmeltery.searedFurnaceController);
     registerItemBlockMeta(TinkerSmeltery.searedBlock);
     registerItemBlockMeta(TinkerSmeltery.castingBlock);
 

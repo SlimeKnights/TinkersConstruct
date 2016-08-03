@@ -26,6 +26,7 @@ import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.Util;
 
 public class GuiInfoPanel extends GuiModule {
+
   private static int resW = 118;
   private static int resH = 75;
 

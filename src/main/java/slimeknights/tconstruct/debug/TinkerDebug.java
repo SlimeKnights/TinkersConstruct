@@ -9,9 +9,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ClientCommandHandler;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 import org.apache.logging.log4j.Logger;
@@ -19,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.IModifier;
@@ -28,6 +31,13 @@ public class TinkerDebug {
 
   public static final String PulseId = "TinkerDebug";
   static final Logger log = Util.getLogger(PulseId);
+
+  @Subscribe
+  public void preInit(FMLPreInitializationEvent event) {
+    if(Config.dumpTextureMap) {
+      MinecraftForge.EVENT_BUS.register(new TextureDump());
+    }
+  }
 
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {

@@ -44,12 +44,12 @@ import java.util.List;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
-import slimeknights.tconstruct.library.tools.ranged.IProjectile;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ranged.IProjectile;
 import slimeknights.tconstruct.library.traits.ITrait;
-import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.network.ToolBreakAnimationPacket;
 

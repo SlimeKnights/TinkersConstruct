@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.world.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockGrass;
 import net.minecraft.block.SoundType;

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.common;
 
 import com.google.common.eventbus.Subscribe;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.init.Blocks;
@@ -9,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
+
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.block.BlockToolTable;

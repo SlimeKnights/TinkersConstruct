@@ -94,7 +94,7 @@ public class ModBeheading extends ToolModifier {
   private ItemStack getHeadDrop(EntityLivingBase entity) {
     // meta 0,1: skeleton and wither skelly
     if(entity instanceof EntitySkeleton) {
-      return new ItemStack(Items.SKULL, 1, ((EntitySkeleton)entity).getSkeletonType() == SkeletonType.WITHER ? 1 : 0);
+      return new ItemStack(Items.SKULL, 1, ((EntitySkeleton) entity).getSkeletonType() == SkeletonType.WITHER ? 1 : 0);
     }
     // meta 2: zombie
     else if(entity instanceof EntityZombie) {

@@ -136,8 +136,7 @@ public class BlockPunji extends Block {
   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
     EnumFacing facing = state.getValue(FACING);
 
-    if (!worldIn.isSideSolid(pos.offset(facing), facing.getOpposite(), true))
-    {
+    if(!worldIn.isSideSolid(pos.offset(facing), facing.getOpposite(), true)) {
       this.dropBlockAsItem(worldIn, pos, state, 0);
       worldIn.setBlockToAir(pos);
     }

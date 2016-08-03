@@ -31,7 +31,7 @@ public class ModGlowing extends ModifierTrait {
             if(entity instanceof EntityLivingBase) {
               entityLiving = (EntityLivingBase) entity;
             }
-            if(!(entity instanceof EntityPlayer) || !((EntityPlayer)entity).capabilities.isCreativeMode) {
+            if(!(entity instanceof EntityPlayer) || !((EntityPlayer) entity).capabilities.isCreativeMode) {
               ToolHelper.damageTool(tool, 1, entityLiving);
             }
             return;

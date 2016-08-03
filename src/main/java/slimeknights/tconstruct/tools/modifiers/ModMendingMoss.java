@@ -7,7 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -95,7 +94,7 @@ public class ModMendingMoss extends ModifierTrait {
       return 100;
     }
 
-    return getMaxXp(level-1) * 3;
+    return getMaxXp(level - 1) * 3;
   }
 
   private boolean canStoreXp(Data data) {
@@ -134,11 +133,12 @@ public class ModMendingMoss extends ModifierTrait {
     Data data = ModifierNBT.readTag(modifierTag, Data.class);
     String loc = String.format(LOC_Extra, getIdentifier());
     return ImmutableList.of(
-          Util.translateFormatted(loc, data.storedXp)
-        );
+        Util.translateFormatted(loc, data.storedXp)
+    );
   }
 
   public static class Data extends ModifierNBT {
+
     public int storedXp;
     public long lastHeal;
 

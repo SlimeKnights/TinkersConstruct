@@ -117,6 +117,13 @@ public abstract class TileHeatingStructure extends TileInventory {
     return itemTemperatures[i];
   }
 
+  public int getTempRequired(int i) {
+    if(i < 0 || i >= itemTempRequired.length) {
+      return 0;
+    }
+    return itemTempRequired[i];
+  }
+
   public int getTemperature() {
     return temperature;
   }
@@ -152,6 +159,29 @@ public abstract class TileHeatingStructure extends TileInventory {
 
   public boolean hasFuel() {
     return fuel > 0;
+  }
+
+  /* Networking */
+  public int getFuel() {
+    return fuel;
+  }
+
+  @SideOnly(Side.CLIENT)
+  public void updateTemperatureFromPacket(int index, int heat) {
+    if(index < 0 || index > getSizeInventory() - 1) {
+      return;
+    }
+
+    itemTemperatures[index] = heat;
+  }
+
+  @SideOnly(Side.CLIENT)
+  public void updateTempRequiredFromPacket(int index, int heat) {
+    if(index < 0 || index > getSizeInventory() - 1) {
+      return;
+    }
+
+    itemTempRequired[index] = heat;
   }
 
   /* Loading and Saving */

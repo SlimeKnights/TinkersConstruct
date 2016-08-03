@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 public interface ICastingRecipe {
 
   ItemStack getResult(@Nullable ItemStack cast, Fluid fluid);
+
   FluidStack getFluid(@Nullable ItemStack cast, Fluid fluid);
 
   boolean matches(@Nullable ItemStack cast, Fluid fluid);
@@ -16,7 +17,9 @@ public interface ICastingRecipe {
   // all the things that have to be the same for each recipe
 
   boolean switchOutputs();
+
   boolean consumesCast();
+
   int getTime();
 
   /** Amount of fluid needed for the recipe */

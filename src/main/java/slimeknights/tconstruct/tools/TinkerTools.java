@@ -42,15 +42,8 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.block.BlockToolForge;
 import slimeknights.tconstruct.tools.block.BlockToolTable;
 import slimeknights.tconstruct.tools.entity.EntityShuriken;
-import slimeknights.tconstruct.tools.tools.Excavator;
-import slimeknights.tconstruct.tools.tools.Hammer;
-import slimeknights.tconstruct.tools.tools.Hatchet;
 import slimeknights.tconstruct.tools.item.ItemBlockTable;
-import slimeknights.tconstruct.tools.tools.LumberAxe;
-import slimeknights.tconstruct.tools.tools.Mattock;
-import slimeknights.tconstruct.tools.tools.Pickaxe;
 import slimeknights.tconstruct.tools.item.SharpeningKit;
-import slimeknights.tconstruct.tools.tools.Shovel;
 import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
 import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
 import slimeknights.tconstruct.tools.tileentity.TilePartChest;
@@ -58,6 +51,13 @@ import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.tileentity.TileStencilTable;
 import slimeknights.tconstruct.tools.tileentity.TileToolForge;
 import slimeknights.tconstruct.tools.tileentity.TileToolStation;
+import slimeknights.tconstruct.tools.tools.Excavator;
+import slimeknights.tconstruct.tools.tools.Hammer;
+import slimeknights.tconstruct.tools.tools.Hatchet;
+import slimeknights.tconstruct.tools.tools.LumberAxe;
+import slimeknights.tconstruct.tools.tools.Mattock;
+import slimeknights.tconstruct.tools.tools.Pickaxe;
+import slimeknights.tconstruct.tools.tools.Shovel;
 
 @Pulse(id = TinkerTools.PulseId, description = "All the tools and everything related to it.")
 public class TinkerTools extends AbstractToolPulse {

@@ -29,8 +29,7 @@ public class ProgressDataProvider implements IWailaDataProvider {
 
   @Override
   public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-    if (config.getConfig(WailaRegistrar.CONFIG_PROGRESS) && accessor.getTileEntity() instanceof IProgress)
-    {
+    if(config.getConfig(WailaRegistrar.CONFIG_PROGRESS) && accessor.getTileEntity() instanceof IProgress) {
       IProgress te = (IProgress) accessor.getTileEntity();
       float progress = te.getProgress();
       if(progress > 0f) {

@@ -146,10 +146,10 @@ public class Scythe extends ToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    HandleMaterialStats handle  = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
-    HeadMaterialStats head      = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
+    HeadMaterialStats head = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
     HandleMaterialStats handle2 = materials.get(1).getStatsOrUnknown(HandleMaterialStats.TYPE);
-    ExtraMaterialStats binding  = materials.get(3).getStatsOrUnknown(ExtraMaterialStats.TYPE);
+    ExtraMaterialStats binding = materials.get(3).getStatsOrUnknown(ExtraMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT();
 

@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
-import com.google.common.base.Optional;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
@@ -29,7 +27,6 @@ import javax.annotation.Nullable;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.fluid.FluidHandlerCasting;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
-import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.library.tileentity.IProgress;
 import slimeknights.tconstruct.shared.tileentity.TileTable;

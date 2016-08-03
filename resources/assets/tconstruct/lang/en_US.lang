@@ -168,6 +168,7 @@ tile.tconstruct.seared_tank.window.name=Seared Window
 tile.tconstruct.seared_tank.tooltip=Heart of the Smeltery\nRetains liquid when broken.
 tile.tconstruct.seared_glass.glass.name=Seared Glass
 tile.tconstruct.seared_glass.glass.tooltip=Part of the Smeltery. Safe for decoration.\nCannot store liquids.
+tile.tconstruct.seared_furnace_controller.name=Seared Furnace Controller
 
 tile.tconstruct.stone_torch.name=Stone Torch
 tile.tconstruct.stone_ladder.name=Stone Ladder
@@ -817,6 +818,12 @@ gui.smeltery.liquid.ingot=Ingot
 gui.smeltery.liquid.nugget=Nugget
 gui.smeltery.liquid.block=Block
 gui.smeltery.liquid.gem=Gem
+
+# Seared Furnace
+gui.searedfurnace.name=Seared Furnace
+gui.searedfurnace.progress.complete=Item is finished smelting
+gui.searedfurnace.progress.no_recipe=Item can't be cooked
+gui.searedfurnace.progress.no_space=Resulting stack is too large for the slot
 
 # These GUIs don't appear in game, but the titles can be viewed using the crafting station
 gui.itemrack.name=Item Rack

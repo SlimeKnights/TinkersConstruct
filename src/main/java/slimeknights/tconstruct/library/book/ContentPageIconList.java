@@ -45,7 +45,7 @@ public class ContentPageIconList extends TinkerPage {
   }
 
   public int getMaxRows() {
-    return (GuiBook.PAGE_HEIGHT - (title != null ? 20 : 0))/height;
+    return (GuiBook.PAGE_HEIGHT - (title != null ? 20 : 0)) / height;
   }
 
   public int getMaxColumns() {

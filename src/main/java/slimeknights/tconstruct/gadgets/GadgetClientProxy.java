@@ -29,7 +29,7 @@ import slimeknights.tconstruct.shared.block.BlockSlime;
 
 public class GadgetClientProxy extends ClientProxy {
 
-  
+
   @Override
   public void init() {
     Minecraft minecraft = Minecraft.getMinecraft();
@@ -55,7 +55,7 @@ public class GadgetClientProxy extends ClientProxy {
 
     super.init();
   }
-  
+
   @Override
   protected void registerModels() {
     super.registerModels();
@@ -73,7 +73,7 @@ public class GadgetClientProxy extends ClientProxy {
     registerItemModel(TinkerGadgets.woodRailTrapdoor);
 
     registerItemModel(TinkerGadgets.slimeChannel); //tinted for variants
-    
+
     registerItemBlockMeta(TinkerGadgets.driedClay);
     registerItemBlockMeta(TinkerGadgets.brownstone);
 

@@ -29,6 +29,7 @@ import java.util.Stack;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.client.particle.Particles;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
@@ -39,7 +40,6 @@ import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.library.events.TinkerToolEvent;
 
 public class LumberAxe extends AoeToolCore {
 
@@ -126,14 +126,14 @@ public class LumberAxe extends AoeToolCore {
 
   @Override
   public float getRepairModifierForPart(int index) {
-    return index == 1 ? DURABILITY_MODIFIER : DURABILITY_MODIFIER*0.625f;
+    return index == 1 ? DURABILITY_MODIFIER : DURABILITY_MODIFIER * 0.625f;
   }
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
-    HeadMaterialStats head     = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
-    HeadMaterialStats plate    = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HeadMaterialStats head = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HeadMaterialStats plate = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
     ExtraMaterialStats binding = materials.get(3).getStatsOrUnknown(ExtraMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT();

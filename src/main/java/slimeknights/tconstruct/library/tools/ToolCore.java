@@ -461,7 +461,7 @@ public abstract class ToolCore extends TinkersItem {
     HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
     float durability = stats.durability * match.amount * TinkerTools.sharpeningKit.getCost();
     durability /= Material.VALUE_Ingot;
-    return (int)(durability);
+    return (int) (durability);
   }
 
   /* Additional Trait callbacks */
@@ -508,7 +508,7 @@ public abstract class ToolCore extends TinkersItem {
   // elevate to public
   @Nonnull
   @Override
-  public RayTraceResult rayTrace(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
+  public RayTraceResult rayTrace(@Nonnull World worldIn, @Nonnull EntityPlayer playerIn, boolean useLiquids) {
     return super.rayTrace(worldIn, playerIn, useLiquids);
   }
 

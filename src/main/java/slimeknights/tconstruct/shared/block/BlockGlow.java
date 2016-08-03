@@ -134,6 +134,7 @@ public class BlockGlow extends Block {
 
   /* Bounds */
   private static final ImmutableMap<EnumFacing, AxisAlignedBB> BOUNDS;
+
   static {
     ImmutableMap.Builder<EnumFacing, AxisAlignedBB> builder = ImmutableMap.builder();
     builder.put(EnumFacing.UP,    new AxisAlignedBB(0.0D, 0.9375D, 0.0D, 1.0D, 1.0D, 1.0D));

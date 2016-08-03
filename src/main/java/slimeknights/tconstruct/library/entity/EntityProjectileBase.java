@@ -29,9 +29,9 @@ import javax.annotation.Nullable;
 import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
-import slimeknights.tconstruct.library.tools.ranged.IProjectile;
 import slimeknights.tconstruct.library.capability.projectile.TinkerProjectileHandler;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ranged.IProjectile;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
 // have to base this on EntityArrow, otherwise minecraft does derp things because everything is handled based on class.
