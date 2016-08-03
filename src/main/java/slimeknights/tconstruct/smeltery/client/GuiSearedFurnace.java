@@ -14,7 +14,7 @@ import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
 public class GuiSearedFurnace extends GuiHeatingStructureFuelTank {
 
   public static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/seared_furnace.png");
-  
+
   protected GuiElement flame = new GuiElementScalable(176, 76, 28, 28, 256, 256);
 
   protected final GuiSearedFurnaceSideInventory sideinventory;
@@ -22,7 +22,7 @@ public class GuiSearedFurnace extends GuiHeatingStructureFuelTank {
 
   public GuiSearedFurnace(ContainerSearedFurnace container, TileSearedFurnace tile) {
     super(container);
-    
+
     this.furnace = tile;
 
     sideinventory = new GuiSearedFurnaceSideInventory(this, container.getSubContainer(ContainerSideInventory.class),
@@ -72,7 +72,7 @@ public class GuiSearedFurnace extends GuiHeatingStructureFuelTank {
       int height = 1 + Math.round(fuel * (flame.h - 1));
       int x = 26 + cornerX;
       int y = 41 + cornerY + flame.h - height;
-      
+
       GuiScreen.drawModalRectWithCustomSizedTexture(x, y, flame.x, flame.y + flame.h - height, flame.w, height, flame.texW, flame.texH);
     }
 

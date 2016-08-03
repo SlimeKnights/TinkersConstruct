@@ -17,6 +17,7 @@ import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 public class BlockSearedStairs extends BlockStairsBase implements ITileEntityProvider {
 
   private Block block;
+
   public BlockSearedStairs(IBlockState modelState) {
     super(modelState);
     this.block = modelState.getBlock();
@@ -35,7 +36,7 @@ public class BlockSearedStairs extends BlockStairsBase implements ITileEntityPro
   }
   
   /* Pass on the missing code for seared block TE stuff */
-  
+
   @Override
   public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
     block.onBlockPlacedBy(worldIn, pos, state, placer, stack);

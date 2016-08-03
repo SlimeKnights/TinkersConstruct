@@ -16,17 +16,18 @@ import slimeknights.tconstruct.smeltery.tileentity.TileHeatingStructureFuelTank;
 public class GuiHeatingStructureFuelTank extends GuiMultiModule {
 
   protected TileHeatingStructureFuelTank.FuelInfo fuelInfo;
-  
+
   public GuiHeatingStructureFuelTank(ContainerMultiModule<?> container) {
     super(container);
   }
 
   /**
    * Draws the fuel at the specified location
+   *
    * @param displayX Display X location, excluding cornerX
    * @param displayY Display Y location, excluding cornerY
-   * @param width Width
-   * @param height Height of the whole area, note that displayed size may differ due to how full the fuel is
+   * @param width    Width
+   * @param height   Height of the whole area, note that displayed size may differ due to how full the fuel is
    */
   protected void drawFuel(int displayX, int displayY, int width, int height) {
     if(fuelInfo.fluid != null && fuelInfo.fluid.amount > 0) {
@@ -38,7 +39,7 @@ public class GuiHeatingStructureFuelTank extends GuiMultiModule {
       RenderUtil.renderTiledFluid(x, y - h, w, h, this.zLevel, fuelInfo.fluid);
     }
   }
-  
+
   /**
    * Draws the fuel tooltip
    */

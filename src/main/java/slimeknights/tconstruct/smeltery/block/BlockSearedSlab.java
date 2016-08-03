@@ -44,7 +44,7 @@ public class BlockSearedSlab extends EnumBlockSlab<BlockSearedSlab.SearedType> i
   }
   
   /* Multiblock stuff */
-  
+
   @Nonnull
   @Override
   public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {

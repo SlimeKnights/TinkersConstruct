@@ -14,21 +14,21 @@ import javax.annotation.Nonnull;
 import slimeknights.tconstruct.gadgets.block.BlockSlimeChannel.ChannelDirection;
 
 /**
- * This tile entity is simply an extra data 
+ * This tile entity is simply an extra data
  */
 public class TileSlimeChannel extends TileEntity {
-  
+
   public static final String SIDE_TAG = "side";
   public static final String FACING_TAG = "facing";
   public static final String DIRECTION_TAG = "direction";
-  
+
   // don't delete the TE if the state changes
   // we want to keep our side and facing data if it becomes powered
   @Override
   public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
     return newState.getBlock() != oldState.getBlock();
   }
-  
+
   public void setSide(EnumFacing side) {
     getTileData().setInteger(SIDE_TAG, side.getIndex());
   }
@@ -42,7 +42,7 @@ public class TileSlimeChannel extends TileEntity {
     }
     return EnumFacing.VALUES[side];
   }
-  
+
   public void setDirection(ChannelDirection direction) {
     getTileData().setInteger(DIRECTION_TAG, direction.getIndex());
   }
@@ -52,7 +52,7 @@ public class TileSlimeChannel extends TileEntity {
     int direction = getTileData().getInteger(DIRECTION_TAG);
     return ChannelDirection.fromIndex(direction);
   }
-  
+
   /* Client sync stuff */
   @Override
   public SPacketUpdateTileEntity getUpdatePacket() {
@@ -61,7 +61,7 @@ public class TileSlimeChannel extends TileEntity {
     writeToNBT(tag);
     return new SPacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);
   }
-  
+
   @Override
   public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
     NBTTagCompound tag = pkt.getNbtCompound();
@@ -69,7 +69,7 @@ public class TileSlimeChannel extends TileEntity {
     getTileData().setInteger(DIRECTION_TAG, tag.getInteger(DIRECTION_TAG));
     readFromNBT(tag);
   }
-  
+
   // backwards compat for those testing slime channels earlier
   // TODO: this can be removed sometime before the update, it is just for the sake of those using the jenkins builds
   @Override

@@ -87,15 +87,15 @@ public class Hammer extends Pickaxe {
 
   @Override
   public float getRepairModifierForPart(int index) {
-    return index == 1 ? DURABILITY_MODIFIER : DURABILITY_MODIFIER*0.6f;
+    return index == 1 ? DURABILITY_MODIFIER : DURABILITY_MODIFIER * 0.6f;
   }
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
-    HeadMaterialStats head     = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
-    HeadMaterialStats plate1   = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
-    HeadMaterialStats plate2   = materials.get(3).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HeadMaterialStats head = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HeadMaterialStats plate1 = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HeadMaterialStats plate2 = materials.get(3).getStatsOrUnknown(HeadMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT();
     data.head(head, head, plate1, plate2); // head itself counts for more

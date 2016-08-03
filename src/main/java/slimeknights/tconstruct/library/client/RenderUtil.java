@@ -433,7 +433,7 @@ public final class RenderUtil {
   public static int blue(int c) {
     return (c) & 0xFF;
   }
-  
+
 
   /* Fluid amount displays */
   private static Map<Fluid, List<FluidGuiEntry>> fluidGui = Maps.newHashMap();
@@ -441,8 +441,9 @@ public final class RenderUtil {
 
   /**
    * Adds information for the tooltip based on the fluid stacks size.
+   *
    * @param fluid Input fluid stack
-   * @param text Text to add information to.
+   * @param text  Text to add information to.
    */
   public static void liquidToString(FluidStack fluid, List<String> text) {
     int amount = fluid.amount;
@@ -519,8 +520,8 @@ public final class RenderUtil {
 
     return amount % divider;
   }
-  
-  
+
+
   private static class FluidGuiEntry {
 
     public final int amount;

@@ -20,7 +20,7 @@ public class ModShulking extends ModifierTrait {
   }
 
   private int getDuration(ItemStack tool) {
-    return getData(tool).current/2 + 10;
+    return getData(tool).current / 2 + 10;
   }
 
 

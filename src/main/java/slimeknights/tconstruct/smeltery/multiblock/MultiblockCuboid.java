@@ -226,7 +226,7 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
     subBlocks.addAll(candidates);
     return true;
   }
-  
+
   public static enum EnumFrameType {
     FLOOR,
     CEILING,

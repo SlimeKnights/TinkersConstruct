@@ -75,7 +75,7 @@ public class RepairRecipe implements IRecipe {
     }
 
     // do the repairing, also checks for valid input
-    return ((TinkersItem)tool.getItem()).repair(tool.copy(), input);
+    return ((TinkersItem) tool.getItem()).repair(tool.copy(), input);
   }
 
   @Override

@@ -456,7 +456,7 @@ public abstract class ToolCore extends TinkersItem {
     HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
     float durability = stats.durability * match.amount * TinkerTools.sharpeningKit.getCost();
     durability /= Material.VALUE_Ingot;
-    return (int)(durability);
+    return (int) (durability);
   }
 
   /* Additional Trait callbacks */

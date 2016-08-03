@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 
 public interface IProjectileStats {
 
-   boolean dealDamageRanged(ItemStack stack, Entity projectile, EntityLivingBase player, EntityLivingBase entity, float damage);
+  boolean dealDamageRanged(ItemStack stack, Entity projectile, EntityLivingBase player, EntityLivingBase entity, float damage);
 
   Multimap<String, AttributeModifier> getProjectileAttributeModifier(ItemStack stack);
 }

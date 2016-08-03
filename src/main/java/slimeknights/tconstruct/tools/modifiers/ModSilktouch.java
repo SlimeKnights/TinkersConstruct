@@ -23,13 +23,13 @@ public class ModSilktouch extends ToolModifier {
   @Override
   public boolean canApplyTogether(Enchantment enchantment) {
     return enchantment != Enchantments.LOOTING
-        && enchantment != Enchantments.FORTUNE;
+           && enchantment != Enchantments.FORTUNE;
   }
 
   @Override
   public boolean canApplyTogether(IToolMod otherModifier) {
     return !otherModifier.getIdentifier().equals(TinkerMaterials.squeaky.getIdentifier())
-        && !otherModifier.getIdentifier().equals(TinkerTools.modLuck.getIdentifier());
+           && !otherModifier.getIdentifier().equals(TinkerTools.modLuck.getIdentifier());
   }
 
   @Override

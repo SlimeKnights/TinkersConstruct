@@ -32,7 +32,7 @@ public class BlockSearedFurnaceController extends BlockInventoryTinkers {
 
   public static final PropertyDirection FACING = BlockHorizontal.FACING;
   public static final PropertyBool ACTIVE = PropertyBool.create("active");
-  
+
   public BlockSearedFurnaceController() {
     super(Material.ROCK);
     this.setCreativeTab(TinkerRegistry.tabSmeltery);
@@ -56,14 +56,14 @@ public class BlockSearedFurnaceController extends BlockInventoryTinkers {
     }
     return super.openGui(player, world, pos);
   }
-  
+
   /* Blockstate */
   @Nonnull
   @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, FACING, ACTIVE);
   }
-  
+
   /**
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
    * IBlockstate
@@ -97,7 +97,7 @@ public class BlockSearedFurnaceController extends BlockInventoryTinkers {
     }
     return false;
   }
-  
+
   // lit furnaces produce light
   @Override
   public int getLightValue(@Nonnull IBlockState state, IBlockAccess world, @Nonnull BlockPos pos) {
@@ -106,7 +106,7 @@ public class BlockSearedFurnaceController extends BlockInventoryTinkers {
     }
     return super.getLightValue(state, world, pos);
   }
-  
+
   /**
    * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
    * blockstate.

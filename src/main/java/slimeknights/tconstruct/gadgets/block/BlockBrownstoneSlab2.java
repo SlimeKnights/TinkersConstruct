@@ -27,7 +27,7 @@ public class BlockBrownstoneSlab2 extends EnumBlockSlab<BlockBrownstoneSlab2.Bro
     this.setResistance(20F);
     this.setSoundType(SoundType.STONE);
   }
-  
+
   @Override
   public void onEntityWalk(World worldIn, BlockPos pos, Entity entity) {
     if(entity.isInWater()) {
@@ -39,7 +39,7 @@ public class BlockBrownstoneSlab2 extends EnumBlockSlab<BlockBrownstoneSlab2.Bro
       entity.motionZ *= 1.25;
     }
   }
-  
+
   @Override
   public IBlockState getFullBlock(IBlockState state) {
     if(TinkerGadgets.brownstone == null) {

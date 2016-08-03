@@ -18,12 +18,13 @@ import javax.annotation.Nonnull;
  * Maps a single property to multiple blockstate files in order to make the mapping easier to handle
  */
 public class PropertyStateMapper extends StateMapperBase {
-  
+
   private final PropertyEnum<?> prop;
   private final IProperty<?>[] ignore;
-  
+
   private String name;
-  public PropertyStateMapper(String name, PropertyEnum<?> prop, IProperty<?> ... ignore) {
+
+  public PropertyStateMapper(String name, PropertyEnum<?> prop, IProperty<?>... ignore) {
     this.name = name + "_";
     this.prop = prop;
     this.ignore = ignore;
@@ -38,7 +39,7 @@ public class PropertyStateMapper extends StateMapperBase {
       map.remove(ignored);
     }
     ResourceLocation res = new ResourceLocation(Block.REGISTRY.getNameForObject(state.getBlock()).getResourceDomain(), name + state.getValue(prop).getName());
-    
+
     return new ModelResourceLocation(res, this.getPropertyString(map));
   }
 

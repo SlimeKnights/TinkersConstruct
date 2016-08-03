@@ -35,7 +35,7 @@ public class TraitAutosmelt extends AbstractTrait {
   @Override
   public boolean canApplyTogether(IToolMod toolmod) {
     return !toolmod.getIdentifier().equals(TinkerMaterials.squeaky.getIdentifier())
-        && !toolmod.getIdentifier().equals(TinkerTools.modSilktouch.getIdentifier());
+           && !toolmod.getIdentifier().equals(TinkerTools.modSilktouch.getIdentifier());
   }
 
   @Override

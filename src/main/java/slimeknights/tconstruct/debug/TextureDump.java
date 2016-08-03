@@ -18,30 +18,28 @@ import java.nio.IntBuffer;
 import javax.imageio.ImageIO;
 
 // The old forge thingie code from Lex
-public class TextureDump
-{
+public class TextureDump {
+
   @SubscribeEvent
-  public void postTextureStitch(TextureStitchEvent.Post e) throws Exception
-  {
+  public void postTextureStitch(TextureStitchEvent.Post e) throws Exception {
     saveGlTexture(getName(e.getMap()), e.getMap().getGlTextureId(), getMip(e.getMap()));
 
   }
 
   private static Field fName;
-  private static String getName(TextureMap map) throws Exception
-  {
-    if (fName == null)
-    {
+
+  private static String getName(TextureMap map) throws Exception {
+    if(fName == null) {
       fName = TextureMap.class.getDeclaredFields()[7];
       fName.setAccessible(true);
     }
-    return ((String)fName.get(map)).replace('/', '_');
+    return ((String) fName.get(map)).replace('/', '_');
   }
+
   private static Field fMip;
-  private static int getMip(TextureMap map) throws Exception
-  {
-    if (fMip == null)
-    {
+
+  private static int getMip(TextureMap map) throws Exception {
+    if(fMip == null) {
       fMip = TextureMap.class.getDeclaredFields()[9];
       fMip.setAccessible(true);
     }
@@ -49,15 +47,13 @@ public class TextureDump
   }
 
 
-  public static void saveGlTexture(String name, int textureId, int mipmapLevels)
-  {
+  public static void saveGlTexture(String name, int textureId, int mipmapLevels) {
     GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureId);
 
     GL11.glPixelStorei(GL11.GL_PACK_ALIGNMENT, 1);
     GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
 
-    for (int level = 0; level <= mipmapLevels; level++)
-    {
+    for(int level = 0; level <= mipmapLevels; level++) {
       int width = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, level, GL11.GL_TEXTURE_WIDTH);
       int height = GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, level, GL11.GL_TEXTURE_HEIGHT);
       int size = width * height;
@@ -72,13 +68,10 @@ public class TextureDump
       buffer.get(data);
       bufferedimage.setRGB(0, 0, width, height, data, 0, width);
 
-      try
-      {
+      try {
         ImageIO.write(bufferedimage, "png", output);
         FMLLog.info("[TextureDump] Exported png to: " + output.getAbsolutePath());
-      }
-      catch (IOException ioexception)
-      {
+      } catch(IOException ioexception) {
         FMLLog.info("[TextureDump] Unable to write: ", ioexception);
       }
     }

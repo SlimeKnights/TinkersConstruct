@@ -29,8 +29,7 @@ public class CastingDataProvider implements IWailaDataProvider {
 
   @Override
   public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-    if (config.getConfig(WailaRegistrar.CONFIG_CASTING) && accessor.getTileEntity() instanceof TileCasting)
-    {
+    if(config.getConfig(WailaRegistrar.CONFIG_CASTING) && accessor.getTileEntity() instanceof TileCasting) {
       TileCasting te = (TileCasting) accessor.getTileEntity();
       ItemStack output = te.getCurrentResult();
       if(output != null) {

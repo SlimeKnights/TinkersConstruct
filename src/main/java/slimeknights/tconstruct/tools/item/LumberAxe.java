@@ -126,14 +126,14 @@ public class LumberAxe extends AoeToolCore {
 
   @Override
   public float getRepairModifierForPart(int index) {
-    return index == 1 ? DURABILITY_MODIFIER : DURABILITY_MODIFIER*0.625f;
+    return index == 1 ? DURABILITY_MODIFIER : DURABILITY_MODIFIER * 0.625f;
   }
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
-    HeadMaterialStats head     = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
-    HeadMaterialStats plate    = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HeadMaterialStats head = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HeadMaterialStats plate = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
     ExtraMaterialStats binding = materials.get(3).getStatsOrUnknown(ExtraMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT();

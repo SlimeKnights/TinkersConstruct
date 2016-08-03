@@ -104,7 +104,8 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
     return canApplyCustom(stack);
   }
 
-  private static void canApplyWithEnchantment(IToolMod iToolMod, Set<Enchantment> enchantments) throws TinkerGuiException {
+  private static void canApplyWithEnchantment(IToolMod iToolMod, Set<Enchantment> enchantments)
+      throws TinkerGuiException {
     for(Enchantment enchantment : enchantments) {
       if(!iToolMod.canApplyTogether(enchantment)) {
         String enchName = I18n.translateToLocal(enchantment.getName());

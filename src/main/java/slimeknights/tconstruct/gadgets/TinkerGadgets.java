@@ -119,7 +119,7 @@ public class TinkerGadgets extends TinkerPulse {
 
     // slime channels
     slimeChannel = registerEnumBlock(new BlockSlimeChannel(), "slime_channel");
-    
+
     // dried clay
     driedClay = registerEnumBlock(new BlockDriedClay(), "dried_clay");
     driedClaySlab = registerEnumBlockSlab(new BlockDriedClaySlab(), "dried_clay_slab");
@@ -228,7 +228,7 @@ public class TinkerGadgets extends TinkerPulse {
     GameRegistry.addRecipe(new ShapedOreRecipe(frame, "nnn", "nOn", "nnn", 'O', Blocks.OBSIDIAN, 'n', "nuggetGold"));
     frame = new ItemStack(TinkerGadgets.fancyFrame, 1, EntityFancyItemFrame.FrameType.CLEAR.ordinal());
     GameRegistry.addRecipe(new ShapedOreRecipe(frame, " n ", "nOn", " n ", 'O', "blockGlass", 'n', "paneGlass"));
-    
+
     // slime channels
     for(SlimeType type : SlimeType.values()) {
       GameRegistry.addSmelting(new ItemStack(TinkerCommons.blockSlimeCongealed, 1, type.getMeta()),
@@ -257,7 +257,7 @@ public class TinkerGadgets extends TinkerPulse {
     ItemStack efln = new ItemStack(throwball, 1, ItemThrowball.ThrowballType.EFLN.ordinal());
     GameRegistry.addShapelessRecipe(efln, Items.FLINT, Items.GUNPOWDER);
     GameRegistry.addRecipe(new ShapelessOreRecipe(efln, Items.FLINT, "dustSulfur"));
-    
+
     // brownstone
     ItemStack stackBrownstoneSmooth = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.SMOOTH.getMeta());
     ItemStack stackBrownstoneRough = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.ROUGH.getMeta());
@@ -271,7 +271,7 @@ public class TinkerGadgets extends TinkerPulse {
     ItemStack stackBrownstoneRoad = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.ROAD.getMeta());
     ItemStack stackBrownstoneTile = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.TILE.getMeta());
     ItemStack stackBrownstoneCreeper = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.CREEPER.getMeta());
-    
+
     // normal recipe
     // 2 redstone + sandstone =  brownstone
     ItemStack regularBrownstoneRecipeOut = stackBrownstoneRough.copy();
@@ -293,7 +293,7 @@ public class TinkerGadgets extends TinkerPulse {
     addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.TILE, BlockBrownstone.BrownstoneType.BRICK_SMALL);
     addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.ROAD, BlockBrownstone.BrownstoneType.TILE);
     addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.PAVER, BlockBrownstone.BrownstoneType.ROAD);
- 
+
     // slabs
     addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.SMOOTH.getMeta()), stackBrownstoneSmooth.copy());
     addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.ROUGH.getMeta()), stackBrownstoneRough.copy());
@@ -338,7 +338,7 @@ public class TinkerGadgets extends TinkerPulse {
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
     registerDrying();
-    
+
     // prevents items from despawning in slime channels
     MinecraftForge.EVENT_BUS.register(BlockSlimeChannel.EventHandler.instance);
 
@@ -369,7 +369,7 @@ public class TinkerGadgets extends TinkerPulse {
     // leather
     if(Config.leatherDryingRecipe) {
       ItemStack leather = new ItemStack(Items.LEATHER);
-      time = (int)(20 * 60 * 8.5);
+      time = (int) (20 * 60 * 8.5);
       TinkerRegistry.registerDryingRecipe(Items.COOKED_BEEF, leather, time);
       TinkerRegistry.registerDryingRecipe(Items.COOKED_CHICKEN, leather, time);
       TinkerRegistry.registerDryingRecipe(Items.COOKED_FISH, leather, time);

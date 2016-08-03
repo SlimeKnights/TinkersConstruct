@@ -21,25 +21,26 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.smeltery.network.HeatingStructureFuelUpdatePacket;
 
 public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure {
+
   // NBT Tags
   public static final String TAG_ACTIVE = "active";
   public static final String TAG_FUELQUALITY = "fuelQuality";
   public static final String TAG_CURRENTFUEL = "currentFuel";
   public static final String TAG_TANKS = "tanks";
   public static final String TAG_CURRENTTANK = "currentTank";
-  
+
   // amount of fuel gotten from a single consumption of the fluid, used for GUI fuel percentage
   public int fuelQuality;
   public boolean active;
-  
+
   // Fuel tank information
   public List<BlockPos> tanks;
   public BlockPos currentTank;
   public FluidStack currentFuel; // the fuel that was last consumed
-  
+
   public TileHeatingStructureFuelTank(String name, int inventorySize, int maxStackSize) {
     super(name, inventorySize, maxStackSize);
-    
+
     tanks = Lists.newLinkedList();
   }
 
@@ -78,11 +79,11 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
             if(worldObj != null && !worldObj.isRemote) {
               TinkerNetwork.sendToAll(new HeatingStructureFuelUpdatePacket(pos, currentTank, temperature, currentFuel));
             }
-            
+
             return;
           }
         }
-        
+
         fuelQuality = 0;
       }
     }
@@ -90,6 +91,7 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
 
   /**
    * Locates a tank containing fuel, if one exists
+   *
    * @return true if successful
    */
   private void searchForFuel() {
@@ -159,15 +161,15 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
 
     return getProgress(index);
   }
-  
+
   /**
    * Can be used by the GUI to determine fuel percentage
    */
   @SideOnly(Side.CLIENT)
   public float getFuelPercentage() {
-    return (float)fuel / (float)fuelQuality;
+    return (float) fuel / (float) fuelQuality;
   }
-  
+
   @SideOnly(Side.CLIENT)
   public FuelInfo getFuelDisplay() {
     FuelInfo info = new FuelInfo();
@@ -214,7 +216,7 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
 
     return info;
   }
-  
+
   /* Networking and saving */
   @SideOnly(Side.CLIENT)
   public void updateFuelFromPacket(int index, int fuel) {
@@ -225,7 +227,7 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
       this.fuelQuality = fuel;
     }
   }
-  
+
   @Nonnull
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
@@ -233,20 +235,20 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
 
     compound.setBoolean(TAG_ACTIVE, active);
     compound.setInteger(TAG_FUELQUALITY, fuelQuality);
-    
+
     compound.setTag(TAG_CURRENTTANK, TagUtil.writePos(currentTank));
     NBTTagList tankList = new NBTTagList();
     for(BlockPos pos : tanks) {
       tankList.appendTag(TagUtil.writePos(pos));
     }
     compound.setTag(TAG_TANKS, tankList);
-    
+
     NBTTagCompound fuelTag = new NBTTagCompound();
     if(currentFuel != null) {
       currentFuel.writeToNBT(fuelTag);
     }
     compound.setTag(TAG_CURRENTFUEL, fuelTag);
-    
+
     return compound;
   }
 
@@ -256,22 +258,23 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
 
     active = compound.getBoolean(TAG_ACTIVE);
     fuelQuality = compound.getInteger(TAG_FUELQUALITY);
-    
+
     NBTTagList tankList = compound.getTagList(TAG_TANKS, 10);
     tanks.clear();
     for(int i = 0; i < tankList.tagCount(); i++) {
       tanks.add(TagUtil.readPos(tankList.getCompoundTagAt(i)));
     }
-    
+
     NBTTagCompound fuelTag = compound.getCompoundTag(TAG_CURRENTFUEL);
     currentFuel = FluidStack.loadFluidStackFromNBT(fuelTag);
   }
-  
+
   public boolean isActive() {
     return active;
   }
 
   public static class FuelInfo {
+
     public int heat;
     public int maxCap;
     public FluidStack fluid;

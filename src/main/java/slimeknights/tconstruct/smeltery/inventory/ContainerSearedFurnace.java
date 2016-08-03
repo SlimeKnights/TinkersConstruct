@@ -15,13 +15,13 @@ public class ContainerSearedFurnace extends ContainerMultiModule<TileSearedFurna
   protected int[] oldHeats;
   protected int[] oldHeatsRequired;
   private int inventorySize;
-  
+
   public ContainerSearedFurnace(InventoryPlayer inventoryPlayer, TileSearedFurnace tile) {
     super(tile);
 
     sideInventory = new ContainerSideInventory<TileSearedFurnace>(tile, 0, 0, calcColumns());
     addSubContainer(sideInventory, true);
-    
+
     // player stuffs
     addPlayerInventory(inventoryPlayer, 8, 84);
 
@@ -42,7 +42,7 @@ public class ContainerSearedFurnace extends ContainerMultiModule<TileSearedFurna
 
     listener.sendProgressBarUpdate(this, 0, tile.getFuel());
     listener.sendProgressBarUpdate(this, 1, tile.fuelQuality);
-    
+
     for(int i = 0; i < inventorySize; i++) {
       listener.sendProgressBarUpdate(this, i + 2, tile.getTemperature(i));
       listener.sendProgressBarUpdate(this, i + inventorySize + 2, tile.getTempRequired(i));
@@ -68,7 +68,7 @@ public class ContainerSearedFurnace extends ContainerMultiModule<TileSearedFurna
         crafter.sendProgressBarUpdate(this, 1, fuel);
       }
     }
-    
+
     // send changed heats
     for(int i = 0; i < inventorySize; i++) {
       int temp = tile.getTemperature(i);
@@ -99,7 +99,7 @@ public class ContainerSearedFurnace extends ContainerMultiModule<TileSearedFurna
       tile.updateTemperatureFromPacket(id - 2, data);
     }
     // lastly is another inventorySize set of required temps
-    else if (id < (inventorySize * 2) + 2) {
+    else if(id < (inventorySize * 2) + 2) {
       tile.updateTempRequiredFromPacket(id - 2 - inventorySize, data);
     }
   }

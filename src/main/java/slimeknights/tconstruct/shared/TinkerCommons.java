@@ -395,7 +395,7 @@ public class TinkerCommons extends TinkerPulse {
           "gravel",
           "gravel"));
     }
-    
+
     // slime blocks
 
     // green slime
@@ -435,7 +435,7 @@ public class TinkerCommons extends TinkerPulse {
     //GameRegistry.addShapelessRecipe(small, big);
     GameRegistry.addRecipe(new ShapelessOreRecipe(small, oreBig));
   }
-  
+
   private void addSlimeRecipes(ItemStack slimeball, BlockSlime.SlimeType type) {
     ItemStack congealed = new ItemStack(blockSlimeCongealed);
     congealed.setItemDamage(blockSlimeCongealed.getMetaFromState(blockSlimeCongealed.getDefaultState().withProperty(BlockSlime.TYPE, type)));

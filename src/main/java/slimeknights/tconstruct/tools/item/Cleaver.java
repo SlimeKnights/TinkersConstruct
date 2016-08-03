@@ -92,15 +92,15 @@ public class Cleaver extends ToolCore {
 
   @Override
   public float getRepairModifierForPart(int index) {
-    return index == 1 ? DURABILITY_MODIFIER : DURABILITY_MODIFIER*0.75f;
+    return index == 1 ? DURABILITY_MODIFIER : DURABILITY_MODIFIER * 0.75f;
   }
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
-    HeadMaterialStats head     = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
-    HeadMaterialStats shield   = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
-    ExtraMaterialStats guard   = materials.get(3).getStatsOrUnknown(ExtraMaterialStats.TYPE);
+    HeadMaterialStats head = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HeadMaterialStats shield = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    ExtraMaterialStats guard = materials.get(3).getStatsOrUnknown(ExtraMaterialStats.TYPE);
 
     ToolNBT data = new ToolNBT();
     data.head(head, shield);

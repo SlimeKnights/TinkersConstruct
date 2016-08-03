@@ -157,7 +157,7 @@ public class TConstruct {
       // old universal bucket, got moved into Forge
       // glow is the leftover itemblock form which was removed
       if(mapping.type == GameRegistry.Type.ITEM
-          && (mapping.name.equals(Util.resource("bucket")) || mapping.name.equals(Util.resource("glow")))) {
+         && (mapping.name.equals(Util.resource("bucket")) || mapping.name.equals(Util.resource("glow")))) {
         mapping.ignore();
       }
     }

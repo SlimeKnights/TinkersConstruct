@@ -160,27 +160,27 @@ public abstract class TileHeatingStructure extends TileInventory {
   public boolean hasFuel() {
     return fuel > 0;
   }
-  
+
   /* Networking */
   public int getFuel() {
     return fuel;
   }
-  
+
   @SideOnly(Side.CLIENT)
   public void updateTemperatureFromPacket(int index, int heat) {
     if(index < 0 || index > getSizeInventory() - 1) {
       return;
     }
-  
+
     itemTemperatures[index] = heat;
   }
-  
+
   @SideOnly(Side.CLIENT)
   public void updateTempRequiredFromPacket(int index, int heat) {
     if(index < 0 || index > getSizeInventory() - 1) {
       return;
     }
-  
+
     itemTempRequired[index] = heat;
   }
 

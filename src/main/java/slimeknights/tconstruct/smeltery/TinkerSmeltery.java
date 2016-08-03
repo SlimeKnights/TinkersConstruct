@@ -208,12 +208,12 @@ public class TinkerSmeltery extends TinkerPulse {
     builder.add(searedGlass);
 
     validSmelteryBlocks = builder.build();
-    
+
     // seared furnace ceiling blocks, no smelteryIO or seared glass
     // does not affect sides, those are forced to use seared blocks/tanks where relevant
     builder = ImmutableSet.builder();
     builder.add(searedBlock);
-    
+
     builder.add(searedSlab);
     builder.add(searedSlab2);
     builder.add(searedStairsStone);
@@ -295,7 +295,7 @@ public class TinkerSmeltery extends TinkerPulse {
                                                "bgb", "bgb", "bgb", 'b', searedBrick, 'g', "blockGlass")); // Window
     // glass, requires clear glass rather than regular like the stained variants
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(searedGlass, 1, BlockSearedGlass.GlassType.GLASS.getMeta()),
-                           " b ", "bgb", " b ", 'b', searedBrick, 'g', "blockGlass"));
+                                               " b ", "bgb", " b ", 'b', searedBrick, 'g', "blockGlass"));
 
     GameRegistry.addRecipe(new ItemStack(castingBlock, 1, BlockCasting.CastingType.TABLE.getMeta()),
                            "bbb", "b b", "b b", 'b', searedBrick); // Table
@@ -304,7 +304,7 @@ public class TinkerSmeltery extends TinkerPulse {
     GameRegistry.addRecipe(new ItemStack(faucet),
                            "b b", " b ", 'b', searedBrick); // Faucet
     //GameRegistry.addRecipe(new ItemStack(TinkerSmeltery.castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); // Channel
-    
+
     // seared furnace, uses a furnace in the center as just bricks gets the smeltery controller
     // there is an alternative recipe below using the casting basin
     GameRegistry.addRecipe(new ItemStack(searedFurnaceController), "bbb", "bfb", "bbb", 'b', searedBrick, 'f', Blocks.FURNACE);
@@ -312,7 +312,7 @@ public class TinkerSmeltery extends TinkerPulse {
     // polish stone into the paver
     addSearedBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.STONE);
     addSearedBrickRecipe(BlockSeared.SearedType.BRICK, BlockSeared.SearedType.PAVER);
-    
+
     // remaining seared bricks
     addSearedBrickRecipe(BlockSeared.SearedType.BRICK_FANCY, BlockSeared.SearedType.BRICK);
     addSearedBrickRecipe(BlockSeared.SearedType.BRICK_SQUARE, BlockSeared.SearedType.BRICK_FANCY);
@@ -447,13 +447,13 @@ public class TinkerSmeltery extends TinkerPulse {
 
     ItemStack searedCobble = new ItemStack(searedBlock, 1, BlockSeared.SearedType.COBBLE.getMeta());
     TinkerRegistry.registerBasinCasting(new CastingRecipe(searedCobble, RecipeMatch.of("cobblestone"), TinkerFluids.searedStone, Material.VALUE_SearedBlock - Material.VALUE_SearedMaterial));
-    
+
     // seared furnaces have an additional recipe above using a crafting table, to allow creation without a smeltery
     // this one is convenience for those with one
     TinkerRegistry.registerBasinCasting(new CastingRecipe(new ItemStack(searedFurnaceController),
-                                        RecipeMatch.of(Blocks.FURNACE),
-                                        new FluidStack(TinkerFluids.searedStone, Material.VALUE_SearedMaterial * 8),
-                                        true, true));
+                                                          RecipeMatch.of(Blocks.FURNACE),
+                                                          new FluidStack(TinkerFluids.searedStone, Material.VALUE_SearedMaterial * 8),
+                                                          true, true));
 
     // basically a pseudo-oredict of the seared blocks to support wildcard value
     TinkerRegistry.registerMelting(searedBlock, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
@@ -488,7 +488,7 @@ public class TinkerSmeltery extends TinkerPulse {
 
     // emerald melting and casting
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("gemEmerald", Material.VALUE_Gem), TinkerFluids.emerald));
-    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("oreEmerald", (int)(Material.VALUE_Gem * Config.oreToIngotRatio)), TinkerFluids.emerald));
+    TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("oreEmerald", (int) (Material.VALUE_Gem * Config.oreToIngotRatio)), TinkerFluids.emerald));
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("blockEmerald", Material.VALUE_Gem * 9), TinkerFluids.emerald));
     TinkerRegistry.registerTableCasting(new ItemStack(Items.EMERALD), castGem, TinkerFluids.emerald, Material.VALUE_Gem);
     TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.EMERALD_BLOCK), null, TinkerFluids.emerald, Material.VALUE_Gem * 9);
@@ -497,7 +497,7 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("sand", Material.VALUE_Glass), TinkerFluids.glass));
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("blockGlass", Material.VALUE_Glass), TinkerFluids.glass));
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("paneGlass", Material.VALUE_Glass * 6 / 16), TinkerFluids.glass));
-    TinkerRegistry.registerTableCasting(new CastingRecipe(new ItemStack(Blocks.GLASS_PANE), null, TinkerFluids.glass, Material.VALUE_Glass*6/16, 50));
+    TinkerRegistry.registerTableCasting(new CastingRecipe(new ItemStack(Blocks.GLASS_PANE), null, TinkerFluids.glass, Material.VALUE_Glass * 6 / 16, 50));
     TinkerRegistry.registerBasinCasting(new CastingRecipe(new ItemStack(TinkerCommons.blockClearGlass), null, TinkerFluids.glass, Material.VALUE_Glass, 120));
 
     // lavawood
@@ -667,9 +667,9 @@ public class TinkerSmeltery extends TinkerPulse {
     Pair<List<ItemStack>, Integer> ingotOre = Pair.of(OreDictionary.getOres("ingot" + ore), Material.VALUE_Ingot);
     Pair<List<ItemStack>, Integer> blockOre = Pair.of(OreDictionary.getOres("block" + ore), Material.VALUE_Block);
     Pair<List<ItemStack>, Integer> oreOre = Pair.of(OreDictionary.getOres("ore" + ore), Material.VALUE_Ore());
-    Pair<List<ItemStack>, Integer> oreNetherOre = Pair.of(OreDictionary.getOres("oreNether" + ore), (int)(2 * Material.VALUE_Ingot * Config.oreToIngotRatio));
-    Pair<List<ItemStack>, Integer> oreDenseOre = Pair.of(OreDictionary.getOres("denseore" + ore), (int)(3 * Material.VALUE_Ingot * Config.oreToIngotRatio));
-    Pair<List<ItemStack>, Integer> orePoorOre = Pair.of(OreDictionary.getOres("orePoor" + ore), (int)(Material.VALUE_Nugget * Config.oreToIngotRatio));
+    Pair<List<ItemStack>, Integer> oreNetherOre = Pair.of(OreDictionary.getOres("oreNether" + ore), (int) (2 * Material.VALUE_Ingot * Config.oreToIngotRatio));
+    Pair<List<ItemStack>, Integer> oreDenseOre = Pair.of(OreDictionary.getOres("denseore" + ore), (int) (3 * Material.VALUE_Ingot * Config.oreToIngotRatio));
+    Pair<List<ItemStack>, Integer> orePoorOre = Pair.of(OreDictionary.getOres("orePoor" + ore), (int) (Material.VALUE_Nugget * Config.oreToIngotRatio));
     Pair<List<ItemStack>, Integer> plateOre = Pair.of(OreDictionary.getOres("plate" + ore), Material.VALUE_Ingot);
     Pair<List<ItemStack>, Integer> gearOre = Pair.of(OreDictionary.getOres("gear" + ore), Material.VALUE_Ingot * 4);
     Pair<List<ItemStack>, Integer> dustOre = Pair.of(OreDictionary.getOres("dust" + ore), Material.VALUE_Ingot);
@@ -809,7 +809,7 @@ public class TinkerSmeltery extends TinkerPulse {
       }
     }
   }
-  
+
   protected static <E extends Enum<E> & EnumBlock.IEnumMeta & IStringSerializable> BlockSearedStairs registerBlockSearedStairsFrom(EnumBlock<E> block, E value, String name) {
     return registerBlock(new BlockSearedStairs(block.getDefaultState().withProperty(block.prop, value)), name);
   }

@@ -54,12 +54,12 @@ import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryInventoryUpdatePacket;
 
 public class TileSmeltery extends TileHeatingStructureFuelTank implements IMasterLogic, ITickable, IInventoryGui,
-                                                                  ISmelteryTankHandler {
-  
+                                                                          ISmelteryTankHandler {
+
   public static final DamageSource smelteryDamage = new DamageSource("smeltery").setFireDamage();
 
   static final Logger log = Util.getLogger("Smeltery");
-  
+
   // NBT tags
   public static final String TAG_MINPOS = "minPos";
   public static final String TAG_MAXPOS = "maxPos";
@@ -83,7 +83,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank implements IMaste
 
   private BlockPos insideCheck; // last checked position for validity inside the smeltery
   private int fullCheckCounter = 0;
-  
+
   public TileSmeltery() {
     super("gui.smeltery.name", 0, 1);
     multiblock = new MultiblockSmeltery(this);
@@ -391,7 +391,6 @@ public class TileSmeltery extends TileHeatingStructureFuelTank implements IMaste
   }
 
 
-
   /* Fluid handling */
   public SmelteryTank getTank() {
     return liquids;
@@ -448,7 +447,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank implements IMaste
     // on validation we set active to false so the smeltery checks anew if it's formed
     active = false;
   }
-  
+
   @Nonnull
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound compound) {

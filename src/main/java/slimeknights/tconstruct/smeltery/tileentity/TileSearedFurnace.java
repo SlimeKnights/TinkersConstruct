@@ -41,25 +41,25 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank implements I
   private static final double LOG9_2 = 0.31546487678;
 
   protected static final int MAX_SIZE = 9; // because the smeltery max is 9x9, duh
-  
+
   // Info about the furnace structure/multiblock
   public MultiblockDetection.MultiblockStructure info;
 
   protected MultiblockSearedFurnace multiblock;
   protected int tick;
-  
+
   public TileSearedFurnace() {
     super("gui.searedfurnace.name", 0, 64);
 
     multiblock = new MultiblockSearedFurnace(this);
   }
-  
+
   @Override
   public void update() {
     if(worldObj.isRemote) {
       return;
     }
-    
+
     // are we fully formed?
     if(!isActive()) {
       // check for furnace once per second
@@ -70,7 +70,7 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank implements I
     else {
       // we have a lot less to do than a smeltery since the inside is unreachable and we have no liquids
       // basically just heating and fuel consumption
-      
+
       // we heat items every tick, as otherwise we are quite slow compared to a vanilla furnace
       if(tick % 4 == 0) {
         heatItems();
@@ -79,13 +79,13 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank implements I
       if(needsFuel) {
         consumeFuel();
       }
-      
+
       // we don't check the inside for obstructions since it should not be possible unless the outside was modified
     }
-    
+
     tick = (tick + 1) % 20;
   }
-  
+
   /* Grabs the heat for a furnace */
   @Override
   protected void updateHeatRequired(int index) {
@@ -111,13 +111,14 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank implements I
         return;
       }
     }
-    
+
     setHeatRequiredForSlot(index, 0);
   }
 
   /**
    * Returns the heat required to smelt the itemstack
-   * @param input Input stack
+   *
+   * @param input  Input stack
    * @param result Output stack, here just for conveince so we don't have to index it twice
    * @return A number representing the time
    */
@@ -127,13 +128,13 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank implements I
     // (240 is the result, though that brings us to 192 due to the temperature calculations)
     int base = 200;
     float temp = (base * input.stackSize / 20f) + base / 4f;
-    
+
     // adjust the speed based on if its a food or not
     // after adjustment with the base of 200, we get 153 for foods and 192 for non foods 
     if(result.getItem() instanceof ItemFood) {
       temp *= 0.8;
     }
-    
+
     return (int) temp;
   }
 
@@ -146,11 +147,11 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank implements I
       // recipe changed mid smelting...
       return false;
     }
-    
+
     // remember, we can smelt a whole stack at once
     result = result.copy();
     result.stackSize *= stack.stackSize;
-    
+
     setInventorySlotContents(slot, result);
     // we set to 1 so we get positive infinity instead of NaN for progress, since NaN is already defined as no recipe
     itemTemperatures[slot] = 1;
@@ -165,7 +166,7 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank implements I
   public void notifyChange(IServantLogic servant, BlockPos pos) {
     checkFurnaceStructure();
   }
-  
+
   /**
    * Check if the structure is fully formed
    */
@@ -203,7 +204,7 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank implements I
       this.markDirty();
     }
   }
-  
+
   protected void updateFurnaceInfo(MultiblockDetection.MultiblockStructure structure) {
     info = structure;
 
@@ -222,7 +223,7 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank implements I
     // inventory size is 2 per internal space plus an additional 6 for the controller
     // this gives us 12 in a 3x3x3, 90 in a 5x5x5, 
     int inventorySize = 9 + (3 * structure.xd * structure.yd * structure.zd);
-   
+
     // if the new smeltery is smaller we pop out all items that don't fit in anymore
     if(this.getSizeInventory() > inventorySize) {
       for(int i = inventorySize; i < getSizeInventory(); i++) {
@@ -243,7 +244,7 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank implements I
     EntityItem entityitem = new EntityItem(worldObj, pos.getX(), pos.getY(), pos.getZ(), stack);
     worldObj.spawnEntityInWorld(entityitem);
   }
-  
+
   /* GUI */
   @Override
   public Container createContainer(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
@@ -255,7 +256,7 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank implements I
   public GuiContainer createGui(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
     return new GuiSearedFurnace((ContainerSearedFurnace) createContainer(inventoryplayer, world, pos), this);
   }
-  
+
   /* Networking and saving */
   @Override
   public void validate() {

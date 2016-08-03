@@ -15,13 +15,14 @@ public class MultiblockSearedFurnace extends MultiblockCuboid {
 
   public final TileSearedFurnace furnace;
   public boolean hasTank;
+
   public MultiblockSearedFurnace(TileSearedFurnace furnace) {
     // perfect cubes only
     super(true, true, true);
-    
+
     this.furnace = furnace;
   }
-  
+
   // we need a tank bro
   @Override
   public MultiblockStructure detectMultiblock(World world, BlockPos center, int limit) {
@@ -39,7 +40,7 @@ public class MultiblockSearedFurnace extends MultiblockCuboid {
     if(pos.equals(furnace.getPos())) {
       return true;
     }
-    
+
     // only seared blocks in the main structure
     return world.getBlockState(pos).getBlock() == TinkerSmeltery.searedBlock && isValidSlave(world, pos);
   }
@@ -63,21 +64,21 @@ public class MultiblockSearedFurnace extends MultiblockCuboid {
     if(state.getBlock() instanceof BlockStairs && state.getValue(BlockStairs.HALF) == BlockStairs.EnumHalf.TOP) {
       return false;
     }
-    
+
     return TinkerSmeltery.validSearedFurnaceBlocks.contains(state.getBlock());
   }
-  
+
   @Override
   public boolean isFrameBlock(World world, BlockPos pos, EnumFrameType type) {
     // controller always is valid
     if(pos.equals(furnace.getPos())) {
       return true;
     }
-    
+
     if(!isValidSlave(world, pos)) {
       return false;
     }
-    
+
     // we need a tank, but they are only valid in the frame
     IBlockState state = world.getBlockState(pos);
     if(state.getBlock() == TinkerSmeltery.searedTank) {
@@ -93,13 +94,13 @@ public class MultiblockSearedFurnace extends MultiblockCuboid {
       if(state.getBlock() instanceof BlockStairs && state.getValue(BlockStairs.HALF) == BlockStairs.EnumHalf.TOP) {
         return false;
       }
-      
+
       return TinkerSmeltery.validSearedFurnaceBlocks.contains(state.getBlock());
     }
-    
+
     return state.getBlock() == TinkerSmeltery.searedBlock;
   }
-  
+
   private boolean isValidSlave(World world, BlockPos pos) {
     TileEntity te = world.getTileEntity(pos);
 

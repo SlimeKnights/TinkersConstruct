@@ -54,7 +54,7 @@ public class Material extends RecipeMatchRegistry {
   public static final int VALUE_SlimeBall = 250;
 
   public static int VALUE_Ore() {
-    return (int)(VALUE_Ingot * Config.oreToIngotRatio);
+    return (int) (VALUE_Ingot * Config.oreToIngotRatio);
   }
 
   static {
