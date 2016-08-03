@@ -90,13 +90,13 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
    */
   private void searchForFuel() {
     // is the current tank still up to date?
-    if(currentTank != null && hasFuel(currentTank, currentFuel)) {
+    if(currentTank != null && hasTankWithFuel(currentTank, currentFuel)) {
       return;
     }
 
     // nope, current tank is empty, check others for same fuel
     for(BlockPos pos : tanks) {
-      if(hasFuel(pos, currentFuel)) {
+      if(hasTankWithFuel(pos, currentFuel)) {
         currentTank = pos;
         return;
       }
@@ -104,7 +104,7 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
 
     // nothing found, try again with new fuel
     for(BlockPos pos : tanks) {
-      if(hasFuel(pos, null)) {
+      if(hasTankWithFuel(pos, null)) {
         currentTank = pos;
         return;
       }
@@ -114,7 +114,7 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
   }
 
   // checks if the given location has a fluid tank that contains fuel
-  private boolean hasFuel(BlockPos pos, FluidStack preference) {
+  private boolean hasTankWithFuel(BlockPos pos, FluidStack preference) {
     IFluidTank tank = getTankAt(pos);
     if(tank != null && tank.getFluid() != null) {
       if(tank.getFluidAmount() > 0 && TinkerRegistry.isSmelteryFuel(tank.getFluid())) {
@@ -144,7 +144,7 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
   }
 
   /* GUI */
-  public float getMeltingProgress(int index) {
+  public float getHeatingProgress(int index) {
     if(index < 0 || index > getSizeInventory() - 1) {
       return -1f;
     }
@@ -177,7 +177,7 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
     }
     else if(currentTank != null) {
       // we need to consume fuel, check the current tank
-      if(hasFuel(currentTank, currentFuel)) {
+      if(hasTankWithFuel(currentTank, currentFuel)) {
         IFluidTank tank = getTankAt(currentTank);
         info.fluid = tank.getFluid().copy();
         info.heat = temperature;

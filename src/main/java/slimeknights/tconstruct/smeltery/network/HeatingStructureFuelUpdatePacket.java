@@ -12,7 +12,6 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 import slimeknights.mantle.network.AbstractPacketThreadsafe;
 import slimeknights.tconstruct.smeltery.tileentity.TileHeatingStructureFuelTank;
-import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 
 // Sent to the client when the smeltery consumes fuel
 public class HeatingStructureFuelUpdatePacket extends AbstractPacketThreadsafe {
@@ -36,7 +35,7 @@ public class HeatingStructureFuelUpdatePacket extends AbstractPacketThreadsafe {
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
     TileEntity te = Minecraft.getMinecraft().theWorld.getTileEntity(pos);
     if(te instanceof TileHeatingStructureFuelTank) {
-      TileSmeltery structure = (TileSmeltery) te;
+      TileHeatingStructureFuelTank structure = (TileHeatingStructureFuelTank) te;
       structure.currentFuel = fuel;
       structure.currentTank = tank;
       structure.updateTemperatureFromPacket(temperature);

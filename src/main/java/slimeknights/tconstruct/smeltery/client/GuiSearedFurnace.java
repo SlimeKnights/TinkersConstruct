@@ -1,23 +1,16 @@
 package slimeknights.tconstruct.smeltery.client;
 
-import java.util.List;
-import com.google.common.collect.Lists;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.client.gui.GuiElementScalable;
-import slimeknights.mantle.client.gui.GuiMultiModule;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.RenderUtil;
 import slimeknights.tconstruct.smeltery.client.module.GuiSearedFurnaceSideInventory;
 import slimeknights.tconstruct.smeltery.inventory.ContainerSearedFurnace;
-import slimeknights.tconstruct.smeltery.tileentity.TileHeatingStructureFuelTank;
 import slimeknights.tconstruct.smeltery.tileentity.TileSearedFurnace;
 import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
 
-public class GuiSearedFurnace extends GuiMultiModule {
+public class GuiSearedFurnace extends GuiHeatingStructureFuelTank {
 
   public static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/seared_furnace.png");
   
@@ -25,7 +18,6 @@ public class GuiSearedFurnace extends GuiMultiModule {
 
   protected final GuiSearedFurnaceSideInventory sideinventory;
   protected final TileSearedFurnace furnace;
-  private TileHeatingStructureFuelTank.FuelInfo fuelInfo;
 
   public GuiSearedFurnace(ContainerSearedFurnace container, TileSearedFurnace tile) {
     super(container);
@@ -36,7 +28,8 @@ public class GuiSearedFurnace extends GuiMultiModule {
                                                       furnace, furnace.getSizeInventory(), container.calcColumns());
     addModule(sideinventory);
   }
-  
+
+  // this is the same for both structures, but the superclass does not have (nor need) access to the side inventory
   @Override
   public void updateScreen() {
     super.updateScreen();
@@ -60,18 +53,7 @@ public class GuiSearedFurnace extends GuiMultiModule {
 
     // Fuel tooltips
     if(71 <= mouseX && mouseX < 83 && 16 <= mouseY && mouseY < 68) {
-      List<String> text = Lists.newArrayList();
-      FluidStack fuel = fuelInfo.fluid;
-      text.add(TextFormatting.WHITE + Util.translate("gui.smeltery.fuel"));
-      if(fuel != null) {
-        text.add(fuel.getLocalizedName());
-        liquidToString(fuel, text);
-      }
-      else {
-        text.add(Util.translate("gui.smeltery.fuel.empty"));
-      }
-      text.add(Util.translateFormatted("gui.smeltery.fuel.heat", fuelInfo.heat));
-      this.drawHoveringText(text, mouseX, mouseY);
+      drawFuelTooltip(mouseX, mouseY);
     }
   }
 
@@ -80,9 +62,6 @@ public class GuiSearedFurnace extends GuiMultiModule {
     drawBackground(BACKGROUND);
 
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
-
-    // update fuel info
-    fuelInfo = furnace.getFuelDisplay();
 
     // draw the flame, shows how much fuel is left of the last consumed liquid
     this.mc.getTextureManager().bindTexture(BACKGROUND);
@@ -96,35 +75,9 @@ public class GuiSearedFurnace extends GuiMultiModule {
       GuiScreen.drawModalRectWithCustomSizedTexture(x, y, flame.x, flame.y + flame.h - height, flame.w, height, flame.texW, flame.texH);
     }
 
-    // draw the fuel
-    if(fuelInfo.fluid != null && fuelInfo.fluid.amount > 0) {
-      int x = 71 + cornerX;
-      int y = 16 + cornerY + 52;
-      int w = 12;
-      int h = (int) (52f * fuelInfo.fluid.amount / fuelInfo.maxCap);
-
-      RenderUtil.renderTiledFluid(x, y - h, w, h, this.zLevel, fuelInfo.fluid);
-    }
-  }
-
-  /* Fluid amount displays */
-  public void liquidToString(FluidStack fluid, List<String> text) {
-    int amount = fluid.amount;
-    
-    // standard display: bucket amounts
-    // we go up to kiloBuckets because we can, not that is possible for the tank...
-    amount = calcLiquidText(amount, 1000000, Util.translate("gui.smeltery.liquid.kilobucket"), text);
-    amount = calcLiquidText(amount, 1000, Util.translate("gui.smeltery.liquid.bucket"), text);
-    calcLiquidText(amount, 1, Util.translate("gui.smeltery.liquid.millibucket"), text);
-  }
-  
-  private int calcLiquidText(int amount, int divider, String unit, List<String> text) {
-    int full = amount / divider;
-    if(full > 0) {
-      text.add(String.format("%d %s%s", full, TextFormatting.GRAY, unit));
-    }
-
-    return amount % divider;
+    // update fuel info
+    fuelInfo = furnace.getFuelDisplay();
+    drawFuel(71, 16, 12, 52);
   }
 
 }

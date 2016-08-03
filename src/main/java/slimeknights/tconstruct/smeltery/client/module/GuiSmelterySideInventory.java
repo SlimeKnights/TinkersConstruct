@@ -14,7 +14,7 @@ import slimeknights.tconstruct.smeltery.client.GuiSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.tools.client.module.GuiSideInventory;
 
-public class GuiSmelterySideinventory extends GuiSideInventory {
+public class GuiSmelterySideInventory extends GuiSideInventory {
 
   public static final ResourceLocation SLOT_LOCATION = GuiSmeltery.BACKGROUND;
 
@@ -25,7 +25,7 @@ public class GuiSmelterySideinventory extends GuiSideInventory {
   protected GuiElement uberHeatBar = new GuiElementScalable(182, 150, 3, 16);
   protected GuiElement noMeltBar = new GuiElementScalable(185, 150, 3, 16);
 
-  public GuiSmelterySideinventory(GuiMultiModule parent, Container container, TileSmeltery smeltery, int slotCount, int columns) {
+  public GuiSmelterySideInventory(GuiMultiModule parent, Container container, TileSmeltery smeltery, int slotCount, int columns) {
     super(parent, container, slotCount, columns, false, true);
 
     this.smeltery = smeltery;
@@ -70,7 +70,7 @@ public class GuiSmelterySideinventory extends GuiSideInventory {
     // draw the "heat" bars for each slot
     for(Slot slot : inventorySlots.inventorySlots) {
       if(slot.getHasStack() && shouldDrawSlot(slot)) {
-        float progress = smeltery.getMeltingProgress(slot.getSlotIndex());
+        float progress = smeltery.getHeatingProgress(slot.getSlotIndex());
         String tooltip = null;
         GuiElement bar = progressBar;
 
@@ -98,8 +98,8 @@ public class GuiSmelterySideinventory extends GuiSideInventory {
         int y = slot.yDisplayPosition + bar.h - height;
 
         if(tooltip != null &&
-           x + guiLeft <= mouseX && x + guiLeft + bar.w >= mouseX &&
-           y + guiTop <= mouseY && y + guiTop + bar.h >= mouseY) {
+           x + guiLeft <= mouseX && x + guiLeft + bar.w > mouseX &&
+           y + guiTop <= mouseY && y + guiTop + bar.h > mouseY) {
           tooltipText = tooltip;
         }
 

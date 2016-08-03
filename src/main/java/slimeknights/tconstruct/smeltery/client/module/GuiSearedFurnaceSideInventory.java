@@ -70,7 +70,7 @@ public class GuiSearedFurnaceSideInventory extends GuiSideInventory {
     // draw the "heat" bars for each slot
     for(Slot slot : inventorySlots.inventorySlots) {
       if(slot.getHasStack() && shouldDrawSlot(slot)) {
-        float progress = furnace.getMeltingProgress(slot.getSlotIndex());
+        float progress = furnace.getHeatingProgress(slot.getSlotIndex());
         String tooltip = null;
         GuiElement bar = progressBar;
 
@@ -103,8 +103,8 @@ public class GuiSearedFurnaceSideInventory extends GuiSideInventory {
         int y = slot.yDisplayPosition + bar.h - height;
         
         if(tooltip != null &&
-           x + guiLeft <= mouseX && x + guiLeft + bar.w >= mouseX &&
-           y + guiTop <= mouseY && y + guiTop + bar.h >= mouseY) {
+           x + guiLeft <= mouseX && x + guiLeft + bar.w > mouseX &&
+           y + guiTop <= mouseY && y + guiTop + bar.h > mouseY) {
           tooltipText = tooltip;
         }
 
