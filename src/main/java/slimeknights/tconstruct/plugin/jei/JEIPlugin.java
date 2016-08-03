@@ -72,6 +72,10 @@ public class JEIPlugin implements IModPlugin {
                                              CastingRecipeCategory.CATEGORY);
       registry.addRecipeCategoryCraftingItem(new ItemStack(TinkerSmeltery.castingBlock, 1, BlockCasting.CastingType.BASIN.meta),
                                              CastingRecipeCategory.CATEGORY);
+      // add the seared furnace to the list with the vanilla furnace
+      // note that this is just the smelting one, fuel is not relevant
+      registry.addRecipeCategoryCraftingItem(new ItemStack(TinkerSmeltery.searedFurnaceController),
+                                             VanillaRecipeCategoryUid.SMELTING);
 
       // melting recipes
       registry.addRecipes(TinkerRegistry.getAllMeltingRecipies());
