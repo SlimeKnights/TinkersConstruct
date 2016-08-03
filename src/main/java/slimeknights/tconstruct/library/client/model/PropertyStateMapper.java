@@ -10,6 +10,8 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 /**
  * Maps a single property to multiple blockstate files in order to make the mapping easier to handle
  */
@@ -25,8 +27,9 @@ public class PropertyStateMapper extends StateMapperBase {
     this.ignore = ignore;
   }
 
+  @Nonnull
   @Override
-  protected ModelResourceLocation getModelResourceLocation(IBlockState state) {
+  protected ModelResourceLocation getModelResourceLocation(@Nonnull IBlockState state) {
     LinkedHashMap<IProperty<?>, Comparable<?>> map = Maps.newLinkedHashMap(state.getProperties());
     map.remove(prop);
     for(IProperty<?> ignored : ignore) {

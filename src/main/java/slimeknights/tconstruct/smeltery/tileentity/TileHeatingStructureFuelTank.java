@@ -11,6 +11,9 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -222,6 +225,7 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
     }
   }
   
+  @Nonnull
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
     compound = super.writeToNBT(compound);

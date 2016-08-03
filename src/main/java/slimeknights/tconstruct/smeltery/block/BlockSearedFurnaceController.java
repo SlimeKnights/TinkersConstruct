@@ -44,7 +44,7 @@ public class BlockSearedFurnaceController extends BlockInventoryTinkers {
 
   @Nonnull
   @Override
-  public TileEntity createNewTileEntity(World worldIn, int meta) {
+  public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     return new TileSearedFurnace();
   }
 
@@ -67,6 +67,7 @@ public class BlockSearedFurnaceController extends BlockInventoryTinkers {
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
    * IBlockstate
    */
+  @Nonnull
   @Override
   public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
     return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
@@ -98,7 +99,7 @@ public class BlockSearedFurnaceController extends BlockInventoryTinkers {
   
   // lit furnaces produce light
   @Override
-  public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+  public int getLightValue(@Nonnull IBlockState state, IBlockAccess world, @Nonnull BlockPos pos) {
     if(state.getBlock() == this && state.getActualState(world, pos).getValue(ACTIVE) == Boolean.TRUE) {
       return 15;
     }
@@ -109,8 +110,9 @@ public class BlockSearedFurnaceController extends BlockInventoryTinkers {
    * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
    * blockstate.
    */
+  @Nonnull
   @Override
-  public IBlockState withRotation(IBlockState state, Rotation rot) {
+  public IBlockState withRotation(@Nonnull IBlockState state, Rotation rot) {
     return state.withProperty(FACING, rot.rotate(state.getValue(FACING)));
   }
 
@@ -118,8 +120,9 @@ public class BlockSearedFurnaceController extends BlockInventoryTinkers {
    * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
    * blockstate.
    */
+  @Nonnull
   @Override
-  public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+  public IBlockState withMirror(@Nonnull IBlockState state, Mirror mirrorIn) {
     return state.withRotation(mirrorIn.toRotation(state.getValue(FACING)));
   }
 

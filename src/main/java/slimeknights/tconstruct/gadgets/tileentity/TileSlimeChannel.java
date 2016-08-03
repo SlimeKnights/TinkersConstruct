@@ -24,7 +24,7 @@ public class TileSlimeChannel extends TileEntity {
   // don't delete the TE if the state changes
   // we want to keep our side and facing data if it becomes powered
   @Override
-  public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+  public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
     return newState.getBlock() != oldState.getBlock();
   }
   

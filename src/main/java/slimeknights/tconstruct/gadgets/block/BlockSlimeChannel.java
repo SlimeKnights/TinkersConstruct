@@ -98,6 +98,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
     return meta;
   }
 
+  @Nonnull
   @Override
   public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess source, BlockPos pos) {
     state = addDataFromTE(state, source, pos);
@@ -354,6 +355,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
   }
   
   // tells the game that the entity is in water
+  @Nonnull
   @Override
   public Boolean isEntityInsideMaterial(IBlockAccess world, BlockPos pos, IBlockState state, Entity entity, double yToTest, Material material, boolean testingHead) {
     if(material != Material.WATER) {
@@ -527,6 +529,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
   
   /* Misc */
   
+  @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer() {
@@ -545,7 +548,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
   
   @SuppressWarnings("deprecation")
   @Override
-  public boolean shouldSideBeRendered(IBlockState state, IBlockAccess blockAccess, BlockPos pos, EnumFacing face) {
+  public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, EnumFacing face) {
     @SuppressWarnings("unused")
     int knightminers_sanity_percentage_after_writing_function = 14;    
     // common logic for solid blocks, basically if a solid face is on the side we can skip all of this
