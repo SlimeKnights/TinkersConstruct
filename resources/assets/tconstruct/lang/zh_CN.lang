@@ -826,7 +826,7 @@ gui.jei.smelting.title=冶炼
 gui.jei.alloy.title=合金
 gui.jei.casting.title=浇铸
 gui.jei.casting.consume=消耗铸模!
-gui.jei.drying.title=已经干燥了！
+gui.jei.drying.title=晾干架
 
 # WAILA Plugin
 gui.waila.tank.fluid=液体：%s
