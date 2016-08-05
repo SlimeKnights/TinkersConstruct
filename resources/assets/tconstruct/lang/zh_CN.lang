@@ -639,6 +639,7 @@ modifier.haste.name3=急速 III
 modifier.haste.name4=急速 IV
 modifier.haste.name5=急速 V
 mmodifier.haste.desc=§o哇啊啊啊啊啊！§r\n红石脉冲会使你的工具挖的更快.
+modifier.haste.extra=速度增益：+%s
 modifier.knockback.name=击退
 modifier.knockback.desc=§o本垒打！§r\n让我们来以一种很酷的方式教教怪物如何飞行.
 modifier.luck.name=时运
@@ -671,7 +672,6 @@ modifier.soulbound.name=灵魂绑定
 modifier.soulbound.desc=§o一对快乐的夫妇！§r\n你爱你的工具.甚至死亡也不能分开你们.
 modifier.webbed.name=织网
 modifier.webbed.desc=§o呦吼！§r\n让你的敌人被蜘蛛网缠住吧.
-
 
 #################
 #   Tool Info   #
