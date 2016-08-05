@@ -168,6 +168,7 @@ tile.tconstruct.seared_tank.window.name=焦黑视窗
 tile.tconstruct.seared_tank.tooltip=敲掉时也能保存其中的流体
 tile.tconstruct.seared_glass.glass.name=焦黑玻璃
 tile.tconstruct.seared_glass.glass.tooltip=可以做冶炼炉的材料，也是美观的建材\n不能存储液体
+tile.tconstruct.seared_furnace_controller.name=焦黑熔炉控制器
 
 tile.tconstruct.stone_torch.name=石柄火把
 tile.tconstruct.stone_ladder.name=石头楼梯
@@ -383,8 +384,8 @@ item.tconstruct.slime_boots.name=史莱姆靴子
 item.tconstruct.slime_boots.tooltip=拥有一定能力的摔落保护
 item.tconstruct.slimesling.name=史莱姆弹弓
 item.tconstruct.slimesling.tooltip=蓄力，瞄准，发射！\n如果你尊重自己性命的话最好穿上史莱姆靴子!
-item.tconstruct.piggybackpack.name=小猪背包
-item.tconstruct.piggybackpack.tooltip=右击怪物把它们举起来
+item.tconstruct.piggybackpack.name=肩托式背包
+item.tconstruct.piggybackpack.tooltip=右击怪物把它们背起来
 item.tconstruct.stone_stick.name=石棍
 
 item.tconstruct.fancy_frame.jewel.name=平滑展示框
@@ -444,7 +445,7 @@ fluid.tconstruct.alubrass.name=熔融铝黄铜
 #    Potions    #
 #################
 
-potion.carry=Piggybacking
+potion.carry=肩托
 
 #################
 #   Materials   #
@@ -517,7 +518,7 @@ stat.projectile.ammo.name=弹药
 
 # traits are also modifiers, they use the same prefix so they don't have to be localized twice
 modifier.alien.name=异形
-modifier.alien.desc=§o有些东西发生了改变...§r\n但我不知道是什么！也许时间会告诉我们答案.
+modifier.alien.desc=§o感觉有些不对劲...§r\n好像它们在变化！也许时间会告诉我们答案?
 modifier.aquadynamic.name=喜水
 modifier.aquadynamic.desc=§o这儿越来越潮湿了！§r\n水下的挖掘速度将不会受到影响，在雨天也会得到增强！
 modifier.aridiculous.name=好暑
@@ -614,7 +615,7 @@ modifier.bane_of_arthopods.extra=对蜘蛛: +%s
 modifier.beheading.name=斩首
 modifier.beheading.desc=§o砍下他的头！§r\n每级增加10%的概率使你在杀死敌人时获得他的头颅.
 modifier.blasting.name=爆破
-modifier.blasting.desc=§o嘣，沙卡拉卡!§r\n你可以把不起作用的方块打了，但是他们有可能会被损坏
+modifier.blasting.desc=§o嘣，沙卡拉卡!§r\n你可以把没用的的方块炸了，但是他们有可能会被炸毁
 modifier.blasting.extra=爆炸力: %s
 modifier.diamond.name=钻石
 modifier.diamond.desc=§o闪耀！§r\n增加工具的耐久！
@@ -639,7 +640,7 @@ modifier.haste.name4=急速 IV
 modifier.haste.name5=急速 V
 mmodifier.haste.desc=§o哇啊啊啊啊啊！§r\n红石脉冲会使你的工具挖的更快.
 modifier.knockback.name=击退
-modifier.knockback.desc=§o本垒打！§r\n以一种很酷的方式教会怪物如何飞行.
+modifier.knockback.desc=§o本垒打！§r\n让我们来以一种很酷的方式教教怪物如何飞行.
 modifier.luck.name=时运
 modifier.luck.desc=§o闪闪发亮！§r\n你会得到好东西的,而且数量很多.
 modifier.mending_moss.name=修复苔藓
@@ -650,13 +651,17 @@ modifier.necrotic.desc=§o我又活过来了!!§r\n依据对敌人造成的伤�
 modifier.necrotic.extra=生命窃取: +%s
 modifier.reinforced.name=耐久
 modifier.reinforced.unbreakable=耐久
-modifier.reinforced.desc=§o如此强大！§r\n每级增加15%的概率在使用工具时不消耗耐久.
+modifier.reinforced.desc=§o如此强大！§r\n每级增加%s的概率在使用工具时不消耗耐久.
+modifier.reinforced.extra=耐久: %s
 modifier.sharpness.name=锋利
 modifier.sharpness.name2=锋利 II
 modifier.sharpness.name3=锋利 III
 modifier.sharpness.name4=锋利 IV
 modifier.sharpness.name5=锋利 V
 modifier.sharpness.desc=§o嗷！§r\n真锋利,光是看着它就感觉要受伤了.
+modifier.shulking.name=悬浮
+modifier.shulking.desc=§o飞吧飞吧！§r\n让你击中的那些敌人都飞走吧.
+modifier.shulking.extra=悬浮时间: %ss
 modifier.silktouch.name=精准采集
 modifier.silktouch.desc=§o如丝绸一般顺滑！§r\n挖掘方块时可以精准采集.
 modifier.smite.name=亡灵杀手
@@ -664,6 +669,8 @@ modifier.smite.desc=§o为了正义！§r\n对亡灵生物会造成大量的伤�
 modifier.smite.extra=对亡灵生物: +%s
 modifier.soulbound.name=灵魂绑定
 modifier.soulbound.desc=§o一对快乐的夫妇！§r\n你爱你的工具.甚至死亡也不能分开你们.
+modifier.webbed.name=织网
+modifier.webbed.desc=§o呦吼！§r\n让你的敌人被蜘蛛网缠住吧.
 
 
 #################
@@ -737,10 +744,11 @@ gui.error.not_enough_durability=没有足够的耐久来替换部件！\n还需�
 # GUI Errors from modifiers
 gui.error.not_enough_modifiers=剩余强化槽不足！\n(需要%d个)
 gui.error.single_modifier=%s只能强化一次.
-gui.error.max_level_modifier=已达到 %s 的最高等级.
-gui.error.no_modifier_for_item=未找到 %s 的强化槽. 
-gui.error.incompatible_modifiers=%s 和 %s 不能一起强化
-gui.error.incompatible_enchantments=%s 强化不能与 %s 附魔相结合
+gui.error.max_level_modifier=已达到%s的最高等级.
+gui.error.no_modifier_for_item=未找到%s的强化槽. 
+gui.error.incompatible_modifiers=%s和%s不能一起强化
+gui.error.incompatible_enchantments=%s强化不能与%s附魔相结合
+gui.error.incompatible_trait=%s强化不能和%s特性相结合
 
 ################
 #     GUIs     #
@@ -803,6 +811,12 @@ gui.smeltery.liquid.nugget=粒
 gui.smeltery.liquid.block=块
 gui.smeltery.liquid.gem=宝石
 
+# Seared Furnace
+gui.searedfurnace.name=焦黑熔炉
+gui.searedfurnace.progress.complete=物品已经完成了烧制
+gui.searedfurnace.progress.no_recipe=这个物品不能被烧制
+gui.searedfurnace.progress.no_space=熔炉空间不足
+
 # These GUIs don't appear in game, but the titles can be viewed using the crafting station
 gui.itemrack.name=物品架
 gui.dryingrack.name=晾干架
@@ -815,11 +829,11 @@ gui.jei.casting.consume=消耗铸模!
 gui.jei.drying.title=已经干燥了！
 
 # WAILA Plugin
-gui.waila.tank.fluid=液体: %s
-gui.waila.tank.amount=数量: %d / %d mb
+gui.waila.tank.fluid=液体：%s
+gui.waila.tank.amount=数量：%d / %d mb
 gui.waila.tank.empty=空
-gui.waila.casting.progress=进度: %s
-gui.waila.casting.recipe=配方: %s
+gui.waila.casting.progress=进度：%s
+gui.waila.casting.recipe=配方：%s
 
 option.tconstruct.tank=储罐液体
 option.tconstruct.casting=铸造配方
