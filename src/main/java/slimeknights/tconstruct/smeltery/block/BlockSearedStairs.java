@@ -24,17 +24,12 @@ public class BlockSearedStairs extends BlockStairsBase implements ITileEntityPro
     this.isBlockContainer = true; // has TE
   }
 
-  /* BlockContainer TE handling
-   * Not a fan of duplicating the code
-   * but for the sake of mod compat other mods need to know this is stairs
-   */
-
   @Nonnull
   @Override
   public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     return new TileSmelteryComponent();
   }
-  
+
   /* Pass on the missing code for seared block TE stuff */
 
   @Override

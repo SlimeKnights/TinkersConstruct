@@ -38,7 +38,6 @@ import slimeknights.tconstruct.smeltery.multiblock.MultiblockSearedFurnace;
 public class TileSearedFurnace extends TileHeatingStructureFuelTank implements IMasterLogic, ITickable, IInventoryGui {
 
   public static final Logger log = Util.getLogger("Furnace");
-  private static final double LOG9_2 = 0.31546487678;
 
   protected static final int MAX_SIZE = 9; // because the smeltery max is 9x9, duh
 
@@ -49,7 +48,7 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank implements I
   protected int tick;
 
   public TileSearedFurnace() {
-    super("gui.searedfurnace.name", 0, 64);
+    super("gui.searedfurnace.name", 0, 16);
 
     multiblock = new MultiblockSearedFurnace(this);
   }
@@ -124,13 +123,11 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank implements I
    */
   private int getHeatForStack(@Nonnull ItemStack input, @Nonnull ItemStack result) {
     // base stack temp, here in case Forge adds a hook
-    // ends up at 60 by default, since we only actually increment the cooking time every 4 ticks
-    // (240 is the result, though that brings us to 192 due to the temperature calculations)
     int base = 200;
-    float temp = (base * input.stackSize / 20f) + base / 4f;
+    float temp = base * input.stackSize / 4f;
 
     // adjust the speed based on if its a food or not
-    // after adjustment with the base of 200, we get 153 for foods and 192 for non foods 
+    // after adjustment with the base of 200, we get a temp of 160 for foods, though its slightly faster than that due to TileHeatingStructure logic
     if(result.getItem() instanceof ItemFood) {
       temp *= 0.8;
     }
