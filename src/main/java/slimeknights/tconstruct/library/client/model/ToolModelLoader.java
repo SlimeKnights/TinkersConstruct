@@ -28,10 +28,19 @@ import javax.annotation.Nonnull;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.client.model.format.ToolModelOverride;
+import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.ToolCore;
 
 public class ToolModelLoader implements ICustomModelLoader {
 
   public static String EXTENSION = ".tcon";
+
+  // used to create only actually needed textures in the texturegenerator instead of ALL materials for all parts
+  private static final Map<ResourceLocation, ToolCore> modelItemMap = Maps.newHashMap();
+
+  public static void addPartMapping(ResourceLocation resourceLocation, ToolCore tool) {
+    modelItemMap.put(resourceLocation, tool);
+  }
 
   @Override
   public boolean accepts(ResourceLocation modelLocation) {
@@ -63,6 +72,8 @@ public class ToolModelLoader implements ICustomModelLoader {
       List<MaterialModel> parts = Lists.newArrayList();
       List<MaterialModel> brokenParts = Lists.newArrayList();
 
+      ToolCore toolCore = modelItemMap.get(MaterialModelLoader.getReducedPath(modelLocation));
+
       for(Map.Entry<String, String> entry : textures.entrySet()) {
         String name = entry.getKey();
         try {
@@ -90,8 +101,8 @@ public class ToolModelLoader implements ICustomModelLoader {
           }
           listToAdd.set(i, partModel);
 
-          textureListBuilder.add(location);
           defaultTextureListBuilder.add(location);
+          registerCustomTextures(i, location, toolCore);
         } catch(NumberFormatException e) {
           TinkerRegistry.log.error("Toolmodel {} has invalid texture entry {}; Skipping layer.", modelLocation, name);
         }
@@ -123,7 +134,7 @@ public class ToolModelLoader implements ICustomModelLoader {
             MaterialModel partModel = new MaterialModel(ImmutableList.of(location));
             mapToAdd.put(i, partModel);
 
-            textureListBuilder.add(location);
+            registerCustomTextures(i, location, toolCore);
           } catch(NumberFormatException e) {
             TinkerRegistry.log.error("Toolmodel {} has invalid texture entry {}; Skipping layer.", modelLocation, name);
           }
@@ -152,14 +163,22 @@ public class ToolModelLoader implements ICustomModelLoader {
 
       IModel output = new ToolModel(defaultTextureListBuilder.build(), parts, brokenParts, rotations, modifiers, transforms, overrides);
 
-      // inform the texture manager about the textures it has to process
-      CustomTextureCreator.registerTextures(textureListBuilder.build());
-
       return output;
     } catch(IOException e) {
       TinkerRegistry.log.error("Could not load multimodel {}", modelLocation.toString());
     }
     return ModelLoaderRegistry.getMissingModel();
+  }
+
+  private void registerCustomTextures(int i, ResourceLocation resourceLocation, ToolCore toolCore) {
+    if(toolCore == null) {
+      CustomTextureCreator.registerTexture(resourceLocation);
+    }
+    else {
+      for(IToolPart part : toolCore.getRequiredComponents().get(i).getPossibleParts()) {
+        CustomTextureCreator.registerTextureForPart(resourceLocation, part);
+      }
+    }
   }
 
   @Override

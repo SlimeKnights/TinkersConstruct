@@ -23,6 +23,11 @@ public class SharpeningKit extends ToolPart {
   }
 
   @Override
+  public boolean canUseMaterial(Material mat) {
+    return mat.hasStats(HeadMaterialStats.TYPE);
+  }
+
+  @Override
   public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     // this adds a variant of each material to the creative menu
     for(Material mat : TinkerRegistry.getAllMaterialsWithStats(HeadMaterialStats.TYPE)) {

@@ -35,7 +35,9 @@ import slimeknights.tconstruct.library.client.particle.EntitySlimeFx;
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.client.ParticleEffect;
 import slimeknights.tconstruct.tools.client.particle.ParticleAttackCleaver;
@@ -149,15 +151,18 @@ public abstract class ClientProxy extends CommonProxy {
    * Registers a multimodel that should be loaded via our multimodel loader The model-string is obtained through the
    * game registry.
    */
-  protected ResourceLocation registerToolModel(Item item) {
-    ResourceLocation itemLocation = getItemLocation(item);
+  protected ResourceLocation registerToolModel(ToolCore tool) {
+    ResourceLocation itemLocation = getItemLocation(tool);
     if(itemLocation == null) {
       return null;
     }
 
     String path = "tools/" + itemLocation.getResourcePath() + ToolModelLoader.EXTENSION;
 
-    return registerToolModel(item, new ResourceLocation(itemLocation.getResourceDomain(), path));
+    ResourceLocation location = new ResourceLocation(itemLocation.getResourceDomain(), path);
+    ToolModelLoader.addPartMapping(location, tool);
+
+    return registerToolModel(tool, location);
   }
 
   protected ResourceLocation registerToolModel(Item item, final ResourceLocation location) {
@@ -316,15 +321,18 @@ public abstract class ClientProxy extends CommonProxy {
     explosion.doExplosionB(true);
   }
 
-  public ResourceLocation registerPartModel(Item item) {
+  public <T extends Item & IToolPart> ResourceLocation registerPartModel(T item) {
     ResourceLocation itemLocation = getItemLocation(item);
     if(itemLocation == null) {
       return null;
     }
 
     String path = "parts/" + itemLocation.getResourcePath() + MaterialModelLoader.EXTENSION;
+    ResourceLocation location = new ResourceLocation(itemLocation.getResourceDomain(), path);
 
-    return registerMaterialModel(item, new ResourceLocation(itemLocation.getResourceDomain(), path));
+    MaterialModelLoader.addPartMapping(location, item);
+
+    return registerMaterialModel(item, location);
   }
 
   public static class PatternMeshDefinition implements ItemMeshDefinition {
