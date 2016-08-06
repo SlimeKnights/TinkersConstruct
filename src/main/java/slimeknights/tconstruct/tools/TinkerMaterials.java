@@ -614,7 +614,6 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(electrum, new BowMaterialStats());
     TinkerRegistry.addMaterialStats(steel, new BowMaterialStats());
 
-
     // Bowstring materials
     TinkerRegistry.addMaterialStats(string, new BowStringMaterialStats());
   }

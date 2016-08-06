@@ -11,9 +11,7 @@
                 "pulling": 1
             },
             "textures": {
-                "layer0": "tconstruct:items/shortbow/bowstring_1",
-                "layer1": "tconstruct:items/shortbow/limb_top_1",
-                "layer2": "tconstruct:items/shortbow/limb_bottom_1"
+                "layer0": "tconstruct:items/shortbow/bowstring_1"
             }
         },
         {

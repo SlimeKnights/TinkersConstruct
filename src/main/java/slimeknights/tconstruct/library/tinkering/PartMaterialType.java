@@ -111,7 +111,7 @@ public class PartMaterialType {
   }
 
   public static PartMaterialType bow(IToolPart part) {
-    return new PartMaterialType(part, BowMaterialStats.TYPE);
+    return new PartMaterialType(part, BowMaterialStats.TYPE, HeadMaterialStats.TYPE);
   }
 
   public static PartMaterialType bowstring(IToolPart part) {
