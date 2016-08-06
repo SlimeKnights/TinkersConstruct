@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import slimeknights.tconstruct.library.materials.BowMaterialStats;
+import slimeknights.tconstruct.library.materials.BowStringMaterialStats;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
@@ -106,5 +108,13 @@ public class PartMaterialType {
 
   public static PartMaterialType extra(IToolPart part) {
     return new PartMaterialType(part, ExtraMaterialStats.TYPE);
+  }
+
+  public static PartMaterialType bow(IToolPart part) {
+    return new PartMaterialType(part, BowMaterialStats.TYPE);
+  }
+
+  public static PartMaterialType bowstring(IToolPart part) {
+    return new PartMaterialType(part, BowStringMaterialStats.TYPE);
   }
 }

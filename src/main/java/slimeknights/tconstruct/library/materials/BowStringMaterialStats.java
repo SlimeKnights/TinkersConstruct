@@ -4,21 +4,21 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
-public class BowMaterialStats extends AbstractMaterialStats {
+public class BowStringMaterialStats extends AbstractMaterialStats {
 
-  public final static String TYPE = "bow";
+  public final static String TYPE = "bowstring";
 
-  public BowMaterialStats() {
+  public BowStringMaterialStats() {
     super(TYPE);
   }
 
   @Override
   public List<String> getLocalizedInfo() {
-    return ImmutableList.of("");
+    return ImmutableList.of();
   }
 
   @Override
   public List<String> getLocalizedDesc() {
-    return ImmutableList.of("");
+    return ImmutableList.of();
   }
 }

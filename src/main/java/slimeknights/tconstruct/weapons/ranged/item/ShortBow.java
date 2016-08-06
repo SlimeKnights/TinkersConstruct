@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.weapons.ranged.item;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -15,11 +17,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.materials.BowMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -31,9 +37,9 @@ import slimeknights.tconstruct.weapons.ranged.TinkerRangedWeapons;
 public class ShortBow extends ToolCore {
 
   public ShortBow() {
-    super(PartMaterialType.head(TinkerTools.axeHead),
-          PartMaterialType.head(TinkerTools.axeHead),
-          PartMaterialType.head(TinkerTools.axeHead));
+    super(PartMaterialType.bowstring(TinkerTools.bowString),
+          PartMaterialType.bow(TinkerTools.bowLimb),
+          PartMaterialType.bow(TinkerTools.bowLimb));
 
     this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter()
     {
@@ -59,6 +65,11 @@ public class ShortBow extends ToolCore {
         return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
       }
     });
+  }
+
+  @Override
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+    addDefaultBowItems(subItems);
   }
 
   /* Tic Tool Stuff */

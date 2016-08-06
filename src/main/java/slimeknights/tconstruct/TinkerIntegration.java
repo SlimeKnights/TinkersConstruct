@@ -88,6 +88,9 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerFluids.zinc, "Zinc").toolforge();
     integrate(TinkerFluids.aluminum, "Aluminum").toolforge();
 
+    // bow stuff
+    integrate(TinkerMaterials.string);
+
     for(MaterialIntegration integration : integrationList) {
       integration.integrate();
     }

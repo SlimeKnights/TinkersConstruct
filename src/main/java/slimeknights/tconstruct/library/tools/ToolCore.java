@@ -36,6 +36,7 @@ import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.BowMaterialStats;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
@@ -385,6 +386,33 @@ public abstract class ToolCore extends TinkersItem {
       for(int i = 0; i < requiredComponents.length; i++) {
         // todo: check for applicability with stats
         mats.add(head);
+      }
+
+      ItemStack tool = buildItem(mats);
+      // only valid ones
+      if(hasValidMaterials(tool)) {
+        subItems.add(tool);
+      }
+    }
+  }
+
+  protected void addDefaultBowItems(List<ItemStack> subItems) {
+    Material string = TinkerMaterials.string;
+
+    for(Material head : TinkerRegistry.getAllMaterials()) {
+      if(!head.hasStats(BowMaterialStats.TYPE)) {
+        continue;
+      }
+
+      List<Material> mats = new ArrayList<Material>(requiredComponents.length);
+
+      for(int i = 0; i < requiredComponents.length; i++) {
+        if(requiredComponents[i].isValidMaterial(string)) {
+          mats.add(string);
+        }
+        else {
+          mats.add(head);
+        }
       }
 
       ItemStack tool = buildItem(mats);

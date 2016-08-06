@@ -27,6 +27,8 @@ import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
 import slimeknights.tconstruct.library.client.texture.MetalColoredTexture;
 import slimeknights.tconstruct.library.client.texture.MetalTextureTexture;
+import slimeknights.tconstruct.library.materials.BowMaterialStats;
+import slimeknights.tconstruct.library.materials.BowStringMaterialStats;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
@@ -135,6 +137,9 @@ public final class TinkerMaterials {
 
   // specul
   public static final Material xu;
+
+  // bowstring materials
+  public static final Material string    = mat("string", 0xeeeeee);
 
   public static final AbstractTrait alien = new TraitAlien();
   public static final AbstractTrait aquadynamic = new TraitAquadynamic();
@@ -271,6 +276,8 @@ public final class TinkerMaterials {
         return new ExtraUtilityTexture(baseTexture, location);
       }
     });
+
+    string.setRenderInfo(0xeeeeee);
   }
 
   @Subscribe
@@ -419,6 +426,7 @@ public final class TinkerMaterials {
     steel.addTrait(stiff);
 
     registerToolMaterials();
+    registerBowMaterials();
   }
 
   private void safeAdd(Material material, ItemStack item, int value) {
@@ -569,7 +577,46 @@ public final class TinkerMaterials {
   }
 
   public void registerBowMaterials() {
+    TinkerRegistry.addMaterialStats(wood, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(stone, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(flint, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(cactus, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(bone, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(obsidian, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(prismarine, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(endstone, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(paper, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(sponge, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(firewood, new BowMaterialStats());
 
+
+    // Slime
+    TinkerRegistry.addMaterialStats(slime, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(blueslime, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(knightslime, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(magmaslime, new BowMaterialStats());
+
+    // Nether
+    TinkerRegistry.addMaterialStats(netherrack, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(cobalt, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(ardite, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(manyullyn, new BowMaterialStats());
+
+    // Metals
+    TinkerRegistry.addMaterialStats(iron, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(pigiron, new BowMaterialStats());
+
+    // Mod Integration
+    TinkerRegistry.addMaterialStats(copper, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(bronze, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(lead, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(silver, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(electrum, new BowMaterialStats());
+    TinkerRegistry.addMaterialStats(steel, new BowMaterialStats());
+
+
+    // Bowstring materials
+    TinkerRegistry.addMaterialStats(string, new BowStringMaterialStats());
   }
 
   public void registerProjectileMaterials() {
