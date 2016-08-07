@@ -12,13 +12,37 @@ import java.lang.reflect.Type;
 
 public class AmmoPosition {
 
-  public float x;
-  public float y;
-  public float z;
-  public float r; // in degree
+  public Float[] pos;
+  public Float[] rot; // in degree
+
+  /** Returns a new ammopos whith all missing ammo positions filled out by the backup */
+  public AmmoPosition combine(AmmoPosition backup) {
+    AmmoPosition combined = new AmmoPosition();
+    combined.pos = new Float[3];
+    combined.rot = new Float[3];
+
+    for(int i = 0; i < 3; i++) {
+      copyEntry(pos, backup.pos, combined.pos, i);
+      copyEntry(rot, backup.rot, combined.rot, i);
+    }
+
+    return combined;
+  }
+
+  private void copyEntry(Float[] in1, Float[] in2, Float[] out, int i) {
+    if(in1 != null && in1[i] != null) {
+      out[i] = in1[i];
+    }
+    else if(in2 != null && in2[i] != null) {
+      out[i] = in2[i];
+    }
+    else {
+      out[i] = 0f;
+    }
+  }
 
   /**
-   * Deseralizes a json in the format of { "offset": { "x": 1, "y": 2, "z": 0, "r": 45 }}
+   * Deseralizes a json in the format of { "offset": { "pos": [1,2,3], "rot": [0,90,0] }}
    * Ignores all invalid json
    */
   public static class AmmoPositionDeserializer implements JsonDeserializer<AmmoPosition> {

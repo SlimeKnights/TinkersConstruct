@@ -151,7 +151,9 @@ public class ToolModel implements IModel {
 
   private BakedToolModel getBakedToolModel(IBakedModel base, BakedMaterialModel[] partModels, BakedMaterialModel[] brokenPartModels, Map<String, IBakedModel> modifierModels, ImmutableMap<TransformType, TRSRTransformation> transform, ImmutableList<BakedToolModelOverride> build, AmmoPosition ammoPosition) {
     if(ammoPosition != null) {
-      return new BakedBowModel(base, partModels, brokenPartModels, modifierModels, transform, build, ammoPosition);
+      // combine ammopositions
+      AmmoPosition combined = ammoPosition.combine(this.ammoPosition);
+      return new BakedBowModel(base, partModels, brokenPartModels, modifierModels, transform, build, combined);
     }
     return new BakedToolModel(base, partModels, brokenPartModels, modifierModels, transform, build);
   }

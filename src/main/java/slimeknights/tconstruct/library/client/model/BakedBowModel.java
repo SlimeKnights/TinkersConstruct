@@ -53,7 +53,10 @@ public class BakedBowModel extends BakedToolModel {
           AmmoPosition pos = ((BakedBowModel) original).ammoPosition;
           // ammo found, render it
           IBakedModel ammoModel = ModelHelper.getBakedModelForItem(ammo, world, entityLivingBase);
-          ammoModel = new TRSRBakedModel(ammoModel, pos.x, pos.y, pos.z, 0, 0, (pos.r/180f)*(float)Math.PI, 1f);
+          ammoModel = new TRSRBakedModel(ammoModel,
+                                         pos.pos[0], pos.pos[1], pos.pos[2],
+                                         (pos.rot[0]/180f)*(float)Math.PI, (pos.rot[1]/180f)*(float)Math.PI, (pos.rot[2]/180f)*(float)Math.PI,
+                                         1f);
           quads.addAll(ammoModel.getQuads(null, null, 0));
         }
       }

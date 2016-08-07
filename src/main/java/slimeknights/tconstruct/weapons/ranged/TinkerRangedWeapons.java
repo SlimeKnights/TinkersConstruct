@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.tools.AbstractToolPulse;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.weapons.ranged.item.Arrow;
 import slimeknights.tconstruct.weapons.ranged.item.ShortBow;
 import slimeknights.tconstruct.weapons.ranged.item.Shuriken;
 
@@ -34,6 +35,8 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
 
   public static ShortBow shortBow;
 
+  public static Arrow arrow;
+
   public static ToolCore shuriken;
 
   // PRE-INITIALIZATION
@@ -47,6 +50,8 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
   @Override
   protected void registerTools() {
     shortBow = registerTool(new ShortBow(), "shortbow");
+
+    arrow = registerTool(new Arrow(), "arrow");
 
     shuriken = registerTool(new Shuriken(), "shuriken");
   }
@@ -62,6 +67,8 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
   @Override
   protected void registerToolBuilding() {
     TinkerRegistry.registerToolStationCrafting(shortBow);
+
+    TinkerRegistry.registerToolStationCrafting(arrow);
 
     TinkerRegistry.registerToolForgeCrafting(shuriken);
   }
