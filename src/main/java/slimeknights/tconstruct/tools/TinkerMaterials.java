@@ -33,6 +33,7 @@ import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
@@ -197,7 +198,7 @@ public final class TinkerMaterials {
     xu = new Material("unstable", TextFormatting.WHITE);
   }
 
-  private static final String HEAD = HeadMaterialStats.TYPE;
+  private static final String HEAD = MaterialTypes.HEAD;
 
   @Subscribe
   public void registerRendering(FMLPostInitializationEvent event) {

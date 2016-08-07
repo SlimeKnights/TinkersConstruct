@@ -13,7 +13,8 @@ import slimeknights.tconstruct.library.utils.HarvestLevels;
 
 public class HeadMaterialStats extends AbstractMaterialStats {
 
-  public final static String TYPE = "head";
+  @Deprecated
+  public final static String TYPE = MaterialTypes.HEAD;
 
   public final static String LOC_Durability   = "stat.head.durability.name";
   public final static String LOC_MiningSpeed  = "stat.head.miningspeed.name";
@@ -35,7 +36,7 @@ public class HeadMaterialStats extends AbstractMaterialStats {
   public final float miningspeed; // usually between 1 and 10
 
   public HeadMaterialStats(int durability, float miningspeed, float attack, int harvestLevel) {
-    super(TYPE);
+    super(MaterialTypes.HEAD);
     this.durability = durability;
     this.miningspeed = miningspeed;
     this.attack = attack;

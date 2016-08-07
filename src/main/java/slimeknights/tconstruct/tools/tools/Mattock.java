@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.AoeToolCore;
@@ -164,9 +165,9 @@ public class Mattock extends AoeToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
-    HeadMaterialStats axe = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
-    HeadMaterialStats shovel = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(MaterialTypes.HANDLE);
+    HeadMaterialStats axe = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
+    HeadMaterialStats shovel = materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD);
 
     MattockToolNBT data = new MattockToolNBT();
     data.head(axe, shovel);

@@ -26,8 +26,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -270,7 +270,7 @@ public class FindBestTool extends CommandBase {
     // not enough materials yet, recurse
     if(tool.getRequiredComponents().size() > materials.size()) {
       for(Material mat : TinkerRegistry.getAllMaterials()) {
-        if(!mat.hasStats(HeadMaterialStats.TYPE)) {
+        if(!mat.hasStats(MaterialTypes.HEAD)) {
           continue;
         }
         ImmutableList.Builder<Material> mats = ImmutableList.builder();

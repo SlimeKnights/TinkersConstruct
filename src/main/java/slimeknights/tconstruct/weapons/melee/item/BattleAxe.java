@@ -17,6 +17,7 @@ import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.AoeToolCore;
@@ -73,10 +74,10 @@ public class BattleAxe extends AoeToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    HeadMaterialStats handle = materials.get(0).getStats(HeadMaterialStats.TYPE);
-    HeadMaterialStats head1 = materials.get(1).getStats(HeadMaterialStats.TYPE);
-    HeadMaterialStats head2 = materials.get(2).getStats(HeadMaterialStats.TYPE);
-    HeadMaterialStats binding = materials.get(3).getStats(HeadMaterialStats.TYPE);
+    HeadMaterialStats handle = materials.get(0).getStats(MaterialTypes.HEAD);
+    HeadMaterialStats head1 = materials.get(1).getStats(MaterialTypes.HEAD);
+    HeadMaterialStats head2 = materials.get(2).getStats(MaterialTypes.HEAD);
+    HeadMaterialStats binding = materials.get(3).getStats(MaterialTypes.HEAD);
 
     ToolNBT data = new ToolNBT();
 

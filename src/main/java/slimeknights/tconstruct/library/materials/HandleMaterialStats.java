@@ -9,7 +9,8 @@ import slimeknights.tconstruct.library.client.CustomFontColor;
 
 public class HandleMaterialStats extends AbstractMaterialStats {
 
-  public final static String TYPE = "handle";
+  @Deprecated
+  public final static String TYPE = MaterialTypes.HANDLE;
 
   public final static String LOC_Multiplier = "stat.handle.modifier.name";
   public final static String LOC_Durability = "stat.handle.durability.name";
@@ -24,7 +25,7 @@ public class HandleMaterialStats extends AbstractMaterialStats {
   public final int durability; // usually between -500 and 500
 
   public HandleMaterialStats(float modifier, int durability) {
-    super(TYPE);
+    super(MaterialTypes.HANDLE);
     this.durability = durability;
     this.modifier = modifier;
   }

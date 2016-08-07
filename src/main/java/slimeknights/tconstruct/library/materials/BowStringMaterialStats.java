@@ -6,10 +6,8 @@ import java.util.List;
 
 public class BowStringMaterialStats extends AbstractMaterialStats {
 
-  public final static String TYPE = "bowstring";
-
   public BowStringMaterialStats() {
-    super(TYPE);
+    super(MaterialTypes.BOWSTRING);
   }
 
   @Override

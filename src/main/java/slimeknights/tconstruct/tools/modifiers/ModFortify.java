@@ -10,6 +10,7 @@ import slimeknights.tconstruct.library.TinkerAPIException;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -23,7 +24,7 @@ public class ModFortify extends ToolModifier {
   public ModFortify(Material material) {
     super("fortify" + material.getIdentifier(), material.materialTextColor);
 
-    if(!material.hasStats(HeadMaterialStats.TYPE)) {
+    if(!material.hasStats(MaterialTypes.HEAD)) {
       throw new TinkerAPIException(String.format("Trying to add a fortify-modifier for a material without tool stats: %s", material.getIdentifier()));
     }
 
@@ -48,7 +49,7 @@ public class ModFortify extends ToolModifier {
   @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
     NBTTagCompound tag = TagUtil.getToolTag(rootCompound);
-    HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
+    HeadMaterialStats stats = material.getStats(MaterialTypes.HEAD);
     tag.setInteger(Tags.HARVESTLEVEL, stats.harvestLevel);
 
     // Remove other fortify modifiers, only the last one applies

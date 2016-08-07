@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolNBT;
@@ -92,10 +93,10 @@ public class Hammer extends Pickaxe {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
-    HeadMaterialStats head = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
-    HeadMaterialStats plate1 = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
-    HeadMaterialStats plate2 = materials.get(3).getStatsOrUnknown(HeadMaterialStats.TYPE);
+    HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(MaterialTypes.HANDLE);
+    HeadMaterialStats head = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
+    HeadMaterialStats plate1 = materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD);
+    HeadMaterialStats plate2 = materials.get(3).getStatsOrUnknown(MaterialTypes.HEAD);
 
     ToolNBT data = new ToolNBT();
     data.head(head, head, plate1, plate2); // head itself counts for more

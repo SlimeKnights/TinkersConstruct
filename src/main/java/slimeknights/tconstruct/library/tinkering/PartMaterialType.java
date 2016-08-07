@@ -9,12 +9,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import slimeknights.tconstruct.library.materials.BowMaterialStats;
-import slimeknights.tconstruct.library.materials.BowStringMaterialStats;
-import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
-import slimeknights.tconstruct.library.materials.HandleMaterialStats;
-import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.traits.ITrait;
 
@@ -99,22 +95,22 @@ public class PartMaterialType {
   }
 
   public static PartMaterialType head(IToolPart part) {
-    return new PartMaterialType(part, HeadMaterialStats.TYPE);
+    return new PartMaterialType(part, MaterialTypes.HEAD);
   }
 
   public static PartMaterialType handle(IToolPart part) {
-    return new PartMaterialType(part, HandleMaterialStats.TYPE);
+    return new PartMaterialType(part, MaterialTypes.HANDLE);
   }
 
   public static PartMaterialType extra(IToolPart part) {
-    return new PartMaterialType(part, ExtraMaterialStats.TYPE);
+    return new PartMaterialType(part, MaterialTypes.EXTRA);
   }
 
   public static PartMaterialType bow(IToolPart part) {
-    return new PartMaterialType(part, BowMaterialStats.TYPE, HeadMaterialStats.TYPE);
+    return new PartMaterialType(part, MaterialTypes.BOW, MaterialTypes.HEAD);
   }
 
   public static PartMaterialType bowstring(IToolPart part) {
-    return new PartMaterialType(part, BowStringMaterialStats.TYPE);
+    return new PartMaterialType(part, MaterialTypes.BOWSTRING);
   }
 }

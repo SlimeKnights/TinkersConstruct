@@ -34,6 +34,7 @@ import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.AoeToolCore;
@@ -131,10 +132,10 @@ public class LumberAxe extends AoeToolCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
-    HeadMaterialStats head = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
-    HeadMaterialStats plate = materials.get(2).getStatsOrUnknown(HeadMaterialStats.TYPE);
-    ExtraMaterialStats binding = materials.get(3).getStatsOrUnknown(ExtraMaterialStats.TYPE);
+    HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(MaterialTypes.HANDLE);
+    HeadMaterialStats head = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
+    HeadMaterialStats plate = materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD);
+    ExtraMaterialStats binding = materials.get(3).getStatsOrUnknown(MaterialTypes.EXTRA);
 
     ToolNBT data = new ToolNBT();
     data.head(head, plate);

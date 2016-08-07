@@ -33,6 +33,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.events.TinkerEvent;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
@@ -359,7 +360,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
       RecipeMatch.Match match = material.matches(repairItems);
       if(match != null) {
-        HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
+        HeadMaterialStats stats = material.getStats(MaterialTypes.HEAD);
         if(stats != null) {
           materialsMatched.add(material);
           durability += ((float) stats.durability * (float) match.amount * getRepairModifierForPart(index)) / 144f;

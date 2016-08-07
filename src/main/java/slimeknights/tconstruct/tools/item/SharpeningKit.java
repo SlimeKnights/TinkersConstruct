@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tools.ToolPart;
 
 public class SharpeningKit extends ToolPart {
@@ -24,13 +25,13 @@ public class SharpeningKit extends ToolPart {
 
   @Override
   public boolean canUseMaterial(Material mat) {
-    return mat.hasStats(HeadMaterialStats.TYPE);
+    return mat.hasStats(MaterialTypes.HEAD);
   }
 
   @Override
   public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     // this adds a variant of each material to the creative menu
-    for(Material mat : TinkerRegistry.getAllMaterialsWithStats(HeadMaterialStats.TYPE)) {
+    for(Material mat : TinkerRegistry.getAllMaterialsWithStats(MaterialTypes.HEAD)) {
       subItems.add(getItemstackWithMaterial(mat));
     }
   }
@@ -38,9 +39,9 @@ public class SharpeningKit extends ToolPart {
   @Override
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
     tooltip.addAll(LocUtils.getTooltips(Util.translate("item.tconstruct.sharpening_kit.tooltip")));
-    if(!checkMissingMaterialTooltip(stack, tooltip, HeadMaterialStats.TYPE)) {
+    if(!checkMissingMaterialTooltip(stack, tooltip, MaterialTypes.HEAD)) {
       Material material = getMaterial(stack);
-      HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
+      HeadMaterialStats stats = material.getStats(MaterialTypes.HEAD);
       if(stats != null) {
         tooltip.add(HeadMaterialStats.formatHarvestLevel(stats.harvestLevel));
       }
