@@ -12,6 +12,12 @@
             },
             "textures": {
                 "layer0": "tconstruct:items/shortbow/bowstring_1"
+            },
+            "ammoPosition": {
+                "x": -0.1875,
+                "y": 0.1875,
+                "z": 0.01,
+                "r": 90
             }
         },
         {
@@ -23,6 +29,12 @@
                 "layer0": "tconstruct:items/shortbow/bowstring_2",
                 "layer1": "tconstruct:items/shortbow/limb_top_2",
                 "layer2": "tconstruct:items/shortbow/limb_bottom_2"
+            },
+            "ammoPosition": {
+                "x": -0.125,
+                "y": 0.125,
+                "z": 0.01,
+                "r": 90
             }
         },
         {
@@ -34,6 +46,12 @@
                 "layer0": "tconstruct:items/shortbow/bowstring_3",
                 "layer1": "tconstruct:items/shortbow/limb_top_3",
                 "layer2": "tconstruct:items/shortbow/limb_bottom_3"
+            },
+            "ammoPosition": {
+                "x": -0.0625,
+                "y": 0.0625,
+                "z": 0.01,
+                "r": 90
             }
         }
     ],
