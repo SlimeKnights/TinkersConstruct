@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.weapons.ranged.item;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -117,6 +119,9 @@ public class ShortBow extends ToolCore implements IAmmoUser {
 
   @Override
   public ItemStack getAmmoToRender(ItemStack weapon, EntityLivingBase player) {
-    return AmmoHelper.findAmmoFromInventory(Items.ARROW, player);
+    if(ToolHelper.isBroken(weapon)) {
+      return null;
+    }
+    return AmmoHelper.findAmmoFromInventory(ImmutableList.of(TinkerRangedWeapons.arrow, Items.ARROW), player);
   }
 }
