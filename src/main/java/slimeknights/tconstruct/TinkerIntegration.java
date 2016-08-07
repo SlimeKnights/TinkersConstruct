@@ -43,7 +43,7 @@ public class TinkerIntegration extends TinkerPulse {
 
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
-    integrate(TinkerMaterials.wood);
+    integrate(TinkerMaterials.wood, "plankWood");
     integrate(TinkerMaterials.stone);
     integrate(TinkerMaterials.flint);
     integrate(TinkerMaterials.cactus);

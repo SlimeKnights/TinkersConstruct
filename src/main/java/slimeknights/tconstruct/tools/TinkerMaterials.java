@@ -287,7 +287,6 @@ public final class TinkerMaterials {
     wood.addItem("stickWood", 1, Material.VALUE_Shard);
     wood.addItem("plankWood", 1, Material.VALUE_Ingot);
     wood.addItem("logWood", 1, Material.VALUE_Ingot * 4);
-    wood.setRepresentativeItem(new ItemStack(Items.STICK));
     wood.addTrait(ecological, HEAD);
     wood.addTrait(splinters);
     wood.addTrait(ecological);
