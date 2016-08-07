@@ -8,14 +8,20 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.resources.IResource;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.commons.io.IOUtils;
 
@@ -27,11 +33,14 @@ import java.util.Map;
 
 import slimeknights.tconstruct.library.client.deserializer.ItemCameraTransformsDeserializer;
 import slimeknights.tconstruct.library.client.deserializer.ItemTransformVec3fDeserializer;
+import slimeknights.tconstruct.library.client.model.format.AmmoPosition;
 import slimeknights.tconstruct.library.client.model.format.ModelTextureDeserializer;
 import slimeknights.tconstruct.library.client.model.format.Offset;
 import slimeknights.tconstruct.library.client.model.format.ToolModelOverride;
 import slimeknights.tconstruct.library.client.model.format.TransformDeserializer;
+import slimeknights.tconstruct.shared.client.BakedColoredItemModel;
 
+@SideOnly(Side.CLIENT)
 public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
 
   public static final EnumFacing[] MODEL_SIDES = new EnumFacing[]{null, EnumFacing.DOWN, EnumFacing.UP, EnumFacing.NORTH, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.EAST};
@@ -45,7 +54,21 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
       .registerTypeAdapter(ItemTransformVec3f.class, ItemTransformVec3fDeserializer.INSTANCE)
       //.registerTypeAdapter(TRSRTransformation.class, ForgeBlockStateV1.TRSRDeserializer.INSTANCE)
       .registerTypeAdapter(ToolModelOverride.ToolModelOverrideListDeserializer.TYPE, ToolModelOverride.ToolModelOverrideListDeserializer.INSTANCE)
+      .registerTypeAdapter(AmmoPosition.AmmoPositionDeserializer.TYPE, AmmoPosition.AmmoPositionDeserializer.INSTANCE)
       .create();
+
+  public static IBakedModel getBakedModelForItem(ItemStack stack, World world, EntityLivingBase entity) {
+    IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, world, entity);
+    if(model == null || model.isBuiltInRenderer()) {
+      // missing model so people don't go paranoid when their chests go missing
+      model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager().getMissingModel();
+    }
+    else {
+      // take color into account
+      model = new BakedColoredItemModel(stack, model);
+    }
+    return model;
+  }
 
   public static Reader getReaderForResource(ResourceLocation location) throws IOException {
     ResourceLocation file = new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json");
@@ -70,6 +93,16 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
       IOUtils.closeQuietly(reader);
     }
   }
+
+  public static AmmoPosition loadAmmoPositionFromJson(ResourceLocation location) throws IOException {
+    Reader reader = getReaderForResource(location);
+    try {
+      return GSON.fromJson(reader, AmmoPosition.AmmoPositionDeserializer.TYPE);
+    } finally {
+      IOUtils.closeQuietly(reader);
+    }
+  }
+
 
   public static ImmutableList<ToolModelOverride> loadToolModelOverridesFromJson(ResourceLocation location) throws IOException {
     Reader reader = getReaderForResource(location);

@@ -32,6 +32,7 @@ import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerPro
 import slimeknights.tconstruct.library.capability.projectile.TinkerProjectileHandler;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ranged.IProjectile;
+import slimeknights.tconstruct.library.utils.AmmoHelper;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
 // have to base this on EntityArrow, otherwise minecraft does derp things because everything is handled based on class.
@@ -208,7 +209,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       EntityLivingBase target = (EntityLivingBase) raytraceResult.entityHit;
 
       // find the actual itemstack in the players inventory
-      ItemStack inventoryItem = tinkerProjectile.getMatchingItemstackFromInventory(attacker, false);
+      ItemStack inventoryItem = AmmoHelper.getMatchingItemstackFromInventory(tinkerProjectile.getItemStack(), attacker, false);
       if(inventoryItem == null || inventoryItem.getItem() != item.getItem()) {
         // backup, use saved itemstack
         inventoryItem = item;

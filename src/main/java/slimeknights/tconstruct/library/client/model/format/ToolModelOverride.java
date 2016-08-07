@@ -33,15 +33,17 @@ public class ToolModelOverride {
   public final ImmutableMap<ResourceLocation, Float> predicates;
   public final ImmutableMap<String, String> textures;
   public final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
+  public final AmmoPosition ammoPosition;
 
   // those will be filled later on during the loading progress
   public final TIntObjectHashMap<MaterialModel> partModelReplacement = new TIntObjectHashMap<MaterialModel>();
   public final TIntObjectHashMap<MaterialModel> brokenPartModelReplacement = new TIntObjectHashMap<MaterialModel>();
 
-  public ToolModelOverride(ImmutableMap<ResourceLocation, Float> predicates, ImmutableMap<String, String> textures, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms) {
+  public ToolModelOverride(ImmutableMap<ResourceLocation, Float> predicates, ImmutableMap<String, String> textures, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms, AmmoPosition ammoPosition) {
     this.predicates = predicates;
     this.textures = textures;
     this.transforms = transforms;
+    this.ammoPosition = ammoPosition;
   }
 
   public static class ToolModelOverrideListDeserializer implements JsonDeserializer<ImmutableList<ToolModelOverride>> {
@@ -88,6 +90,7 @@ public class ToolModelOverride {
         .registerTypeAdapter(TransformDeserializer.TYPE, TransformDeserializer.INSTANCE)
         .registerTypeAdapter(ItemCameraTransforms.class, ItemCameraTransformsDeserializer.INSTANCE)
         .registerTypeAdapter(ItemTransformVec3f.class, ItemTransformVec3fDeserializer.INSTANCE)
+        .registerTypeAdapter(AmmoPosition.AmmoPositionDeserializer.TYPE, AmmoPosition.AmmoPositionDeserializer.INSTANCE)
         .create();
 
     @Override
@@ -113,7 +116,9 @@ public class ToolModelOverride {
         transforms = ImmutableMap.of();
       }
 
-      return new ToolModelOverride(predicates, textures, transforms);
+      AmmoPosition ammoPosition = GSON.fromJson(json, AmmoPosition.AmmoPositionDeserializer.TYPE);
+
+      return new ToolModelOverride(predicates, textures, transforms, ammoPosition);
     }
   }
 

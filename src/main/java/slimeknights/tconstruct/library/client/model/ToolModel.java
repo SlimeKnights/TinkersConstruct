@@ -9,6 +9,7 @@ import com.google.common.collect.Maps;
 import gnu.trove.map.hash.THashMap;
 
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -24,6 +25,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import slimeknights.tconstruct.library.client.model.format.AmmoPosition;
 import slimeknights.tconstruct.library.client.model.format.ToolModelOverride;
 
 public class ToolModel implements IModel {
@@ -35,6 +37,7 @@ public class ToolModel implements IModel {
   private final ImmutableMap<TransformType, TRSRTransformation> transforms;
   private final ImmutableList<ToolModelOverride> overrides;
   private final ImmutableList<ResourceLocation> textures;
+  private final AmmoPosition ammoPosition;
 
   public ToolModel(ImmutableList<ResourceLocation> defaultTextures,
                    List<MaterialModel> parts,
@@ -42,7 +45,7 @@ public class ToolModel implements IModel {
                    Float[] layerRotations,
                    ModifierModel modifiers,
                    ImmutableMap<TransformType, TRSRTransformation> transforms,
-                   ImmutableList<ToolModelOverride> overrides) {
+                   ImmutableList<ToolModelOverride> overrides, AmmoPosition ammoPosition) {
     this.partBlocks = parts;
     this.brokenPartBlocks = brokenPartBlocks;
     this.layerRotations = layerRotations;
@@ -50,6 +53,7 @@ public class ToolModel implements IModel {
     this.transforms = transforms;
     this.overrides = overrides;
     this.textures = defaultTextures;
+    this.ammoPosition = ammoPosition;
   }
 
   @Override
@@ -137,13 +141,21 @@ public class ToolModel implements IModel {
       builder2.putAll(IPerspectiveAwareModel.MapWrapper.getTransforms(state));
       builder2.putAll(override.transforms); // only contains actual entries, so we override default values
 
-      BakedToolModel bakedToolModel = new BakedToolModel(base, overridenPartModels, overridenBrokenPartModels, modifierModels, ImmutableMap.copyOf(builder2), ImmutableList.<BakedToolModelOverride>of());
+      BakedToolModel bakedToolModel = getBakedToolModel(base, overridenPartModels, overridenBrokenPartModels, modifierModels, ImmutableMap.copyOf(builder2), ImmutableList.<BakedToolModelOverride>of(), ammoPosition);
       overrideBuilder.add(new BakedToolModelOverride(override.predicates, bakedToolModel));
     }
 
 
-    return new BakedToolModel(base, partModels, brokenPartModels, modifierModels, ImmutableMap.copyOf(builder), overrideBuilder.build());
+    return getBakedToolModel(base, partModels, brokenPartModels, modifierModels, ImmutableMap.copyOf(builder), overrideBuilder.build(), ammoPosition);
   }
+
+  private BakedToolModel getBakedToolModel(IBakedModel base, BakedMaterialModel[] partModels, BakedMaterialModel[] brokenPartModels, Map<String, IBakedModel> modifierModels, ImmutableMap<TransformType, TRSRTransformation> transform, ImmutableList<BakedToolModelOverride> build, AmmoPosition ammoPosition) {
+    if(ammoPosition != null) {
+      return new BakedBowModel(base, partModels, brokenPartModels, modifierModels, transform, build, ammoPosition);
+    }
+    return new BakedToolModel(base, partModels, brokenPartModels, modifierModels, transform, build);
+  }
+
 
   private IModelState getStateForPart(int i, IModelState originalState) {
     if(layerRotations.length > i) {

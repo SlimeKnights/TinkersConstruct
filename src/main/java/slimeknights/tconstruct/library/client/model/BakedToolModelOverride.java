@@ -15,7 +15,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-// Basicaly ItemOverride but with models instead of locations as output
+// Basically ItemOverride but with models instead of locations as output
 @SideOnly(Side.CLIENT)
 public class BakedToolModelOverride {
 

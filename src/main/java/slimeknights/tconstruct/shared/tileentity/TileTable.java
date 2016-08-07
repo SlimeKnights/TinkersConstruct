@@ -93,15 +93,7 @@ public class TileTable extends TileInventory {
       return null;
     }
 
-    IBakedModel model = Minecraft.getMinecraft().getRenderItem().getItemModelWithOverrides(stack, world, entity);
-    if(model == null || model.isBuiltInRenderer()) {
-      // missing model so people don't go paranoid when their chests go missing
-      model = Minecraft.getMinecraft().getRenderItem().getItemModelMesher().getModelManager().getMissingModel();
-    }
-    else {
-      // take color into account
-      model = new BakedColoredItemModel(stack, model);
-    }
+    IBakedModel model = ModelHelper.getBakedModelForItem(stack, world, entity);
 
     PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(model, 0, -0.46875f, 0, 0.8f, (float) (Math.PI / 2));
     if(stack.getItem() instanceof ItemBlock) {

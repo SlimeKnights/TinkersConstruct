@@ -36,5 +36,11 @@
                 "layer2": "tconstruct:items/shortbow/limb_bottom_3"
             }
         }
-    ]
+    ],
+    "ammoPosition": {
+        "x": -0.0625,
+        "y": 0.0625,
+        "z": 0.01,
+        "r": 90
+    }
 }

@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import slimeknights.mantle.client.model.BakedSimple;
 import slimeknights.mantle.client.model.BakedWrapper;
 import slimeknights.tconstruct.library.utils.TagUtil;
-import slimeknights.tconstruct.library.utils.Tags;
+import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class BakedToolModel extends BakedWrapper.Perspective {
 
@@ -36,7 +36,9 @@ public class BakedToolModel extends BakedWrapper.Perspective {
    * The length of brokenParts has to match the length of parts. If a part does not have a broken texture, the entry in
    * the array simply is null.
    */
-  public BakedToolModel(IBakedModel parent, BakedMaterialModel[] parts, BakedMaterialModel[] brokenParts,
+  public BakedToolModel(IBakedModel parent,
+                        BakedMaterialModel[] parts,
+                        BakedMaterialModel[] brokenParts,
                         Map<String, IBakedModel> modifierParts,
                         ImmutableMap<TransformType, TRSRTransformation> transform,
                         ImmutableList<BakedToolModelOverride> overrides) {
@@ -58,11 +60,11 @@ public class BakedToolModel extends BakedWrapper.Perspective {
     return ToolItemOverrideList.INSTANCE;
   }
 
-  private static class ToolItemOverrideList extends ItemOverrideList {
+  protected static class ToolItemOverrideList extends ItemOverrideList {
 
     static ToolItemOverrideList INSTANCE = new ToolItemOverrideList();
 
-    private ToolItemOverrideList() {
+    protected ToolItemOverrideList() {
       super(ImmutableList.<ItemOverride>of());
     }
 
@@ -71,55 +73,70 @@ public class BakedToolModel extends BakedWrapper.Perspective {
     public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
       NBTTagCompound baseTag = TagUtil.getBaseTag(stack);
       if(!baseTag.hasNoTags()) {
-        BakedToolModel original = (BakedToolModel) originalModel;
-
-        // check for an override
-        for(BakedToolModelOverride override : original.overrides) {
-          if(override.matches(stack, world, entity)) {
-            original = override.bakedToolModel;
-          }
-        }
-
-        BakedMaterialModel parts[] = original.parts;
-        BakedMaterialModel brokenParts[] = original.brokenParts;
-        Map<String, IBakedModel> modifierParts = original.modifierParts;
-
-        NBTTagCompound toolTag = TagUtil.getToolTag(stack);
-        NBTTagList materials = TagUtil.getBaseMaterialsTagList(stack);
-        NBTTagList modifiers = TagUtil.getBaseModifiersTagList(stack);
+        BakedToolModel original = getBaseModel((BakedToolModel) originalModel, stack, world, entity);
 
         // get the texture for each part
         ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
 
-        boolean broken = toolTag.getBoolean(Tags.BROKEN);
-
-        // the model for the part of the given material. Broken or not-broken
-        for(int i = 0; i < parts.length; i++) {
-          String id = materials.getStringTagAt(i);
-
-          IBakedModel partModel;
-          if(broken && brokenParts[i] != null) {
-            partModel = brokenParts[i].getModelByIdentifier(id);
-          }
-          else {
-            partModel = parts[i].getModelByIdentifier(id);
-          }
-
-          quads.addAll(partModel.getQuads(null, null, 0));
-        }
-
-        // modifiers
-        for(int i = 0; i < modifiers.tagCount(); i++) {
-          String modId = modifiers.getStringTagAt(i);
-          IBakedModel modModel = modifierParts.get(modId);
-          if(modModel != null) {
-            quads.addAll(modModel.getQuads(null, null, 0));
-          }
-        }
+        addPartQuads(stack, original, quads);
+        addModifierQuads(stack, original, quads);
+        addExtraQuads(stack, original, quads, world, entity);
 
         return new BakedSimple(quads.build(), original.transforms, original);
       }
       return originalModel;
+    }
+
+    private BakedToolModel getBaseModel(@Nonnull BakedToolModel originalModel, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
+      BakedToolModel original = originalModel;
+
+      // check for an override
+      for(BakedToolModelOverride override : original.overrides) {
+        if(override.matches(stack, world, entity)) {
+          original = override.bakedToolModel;
+        }
+      }
+      return original;
+    }
+
+    private void addPartQuads(ItemStack stack, BakedToolModel original, ImmutableList.Builder<BakedQuad> quads) {
+      NBTTagList materials = TagUtil.getBaseMaterialsTagList(stack);
+      boolean broken = ToolHelper.isBroken(stack);
+
+      BakedMaterialModel parts[] = original.parts;
+      BakedMaterialModel brokenParts[] = original.brokenParts;
+
+      // the model for the part of the given material. Broken or not-broken
+      for(int i = 0; i < parts.length; i++) {
+        String id = materials.getStringTagAt(i);
+
+        IBakedModel partModel;
+        if(broken && brokenParts[i] != null) {
+          partModel = brokenParts[i].getModelByIdentifier(id);
+        }
+        else {
+          partModel = parts[i].getModelByIdentifier(id);
+        }
+
+        quads.addAll(partModel.getQuads(null, null, 0));
+      }
+    }
+
+    private void addModifierQuads(ItemStack stack, BakedToolModel original, ImmutableList.Builder<BakedQuad> quads) {
+      NBTTagList modifiers = TagUtil.getBaseModifiersTagList(stack);
+      Map<String, IBakedModel> modifierParts = original.modifierParts;
+      for(int i = 0; i < modifiers.tagCount(); i++) {
+        String modId = modifiers.getStringTagAt(i);
+        IBakedModel modModel = modifierParts.get(modId);
+        if(modModel != null) {
+          quads.addAll(modModel.getQuads(null, null, 0));
+        }
+      }
+    }
+
+
+    protected void addExtraQuads(ItemStack stack, BakedToolModel original, ImmutableList.Builder<BakedQuad> quads, World world, EntityLivingBase entity) {
+      // for custom stuff
     }
   }
 }

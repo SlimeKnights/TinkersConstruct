@@ -17,24 +17,22 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.materials.BowMaterialStats;
-import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.IAmmoUser;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
+import slimeknights.tconstruct.library.utils.AmmoHelper;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.weapons.ranged.TinkerRangedWeapons;
 
-public class ShortBow extends ToolCore {
+public class ShortBow extends ToolCore implements IAmmoUser {
 
   public ShortBow() {
     super(PartMaterialType.bowstring(TinkerTools.bowString),
@@ -43,6 +41,7 @@ public class ShortBow extends ToolCore {
 
     this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter()
     {
+      @Override
       @SideOnly(Side.CLIENT)
       public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
       {
@@ -59,6 +58,7 @@ public class ShortBow extends ToolCore {
     });
     this.addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter()
     {
+      @Override
       @SideOnly(Side.CLIENT)
       public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
       {
@@ -113,5 +113,10 @@ public class ShortBow extends ToolCore {
   public NBTTagCompound buildTag(List<Material> materials) {
     ToolNBT toolNBT = new ToolNBT();
     return toolNBT.get();
+  }
+
+  @Override
+  public ItemStack getAmmoToRender(ItemStack weapon, EntityLivingBase player) {
+    return AmmoHelper.findAmmoFromInventory(Items.ARROW, player);
   }
 }

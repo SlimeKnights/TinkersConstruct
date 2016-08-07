@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.client.model.format.AmmoPosition;
 import slimeknights.tconstruct.library.client.model.format.ToolModelOverride;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -60,6 +61,7 @@ public class ToolModelLoader implements ICustomModelLoader {
       Map<String, String> textures = ModelHelper.loadTexturesFromJson(modelLocation);
       ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms = ModelHelper.loadTransformFromJson(modelLocation);
       ImmutableList<ToolModelOverride> overrides = ModelHelper.loadToolModelOverridesFromJson(modelLocation);
+      AmmoPosition ammoPosition = ModelHelper.loadAmmoPositionFromJson(modelLocation);
       Float[] rotations = ModelHelper.loadLayerRotations(modelLocation);
 
       if(rotations.length > 0 && textures.size() != rotations.length) {
@@ -67,7 +69,6 @@ public class ToolModelLoader implements ICustomModelLoader {
         rotations = new Float[0];
       }
 
-      ImmutableList.Builder<ResourceLocation> textureListBuilder = ImmutableList.builder();
       ImmutableList.Builder<ResourceLocation> defaultTextureListBuilder = ImmutableList.builder();
       List<MaterialModel> parts = Lists.newArrayList();
       List<MaterialModel> brokenParts = Lists.newArrayList();
@@ -161,9 +162,7 @@ public class ToolModelLoader implements ICustomModelLoader {
         modifiers = (ModifierModel) mods;
       }
 
-      IModel output = new ToolModel(defaultTextureListBuilder.build(), parts, brokenParts, rotations, modifiers, transforms, overrides);
-
-      return output;
+      return new ToolModel(defaultTextureListBuilder.build(), parts, brokenParts, rotations, modifiers, transforms, overrides, ammoPosition);
     } catch(IOException e) {
       TinkerRegistry.log.error("Could not load multimodel {}", modelLocation.toString());
     }
