@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.BowNBT;
 import slimeknights.tconstruct.library.tools.IAmmoUser;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
@@ -113,8 +114,8 @@ public class ShortBow extends ToolCore implements IAmmoUser {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolNBT toolNBT = new ToolNBT();
-    return toolNBT.get();
+    BowNBT data = new BowNBT();
+    return data.get();
   }
 
   @Override

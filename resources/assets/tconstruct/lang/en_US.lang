@@ -518,6 +518,24 @@ stat.extra.durability.desc=How much durability this part contributes when used a
 stat.mattock.axelevel.name=Axe Level
 stat.mattock.shovellevel.name=Shovel Level
 
+stat.bow.name=Bow
+stat.bow.drawspeed.name=Drawspeed
+stat.bow.drawspeed.desc=How fast you can draw the bow.
+stat.bow.range.name=Range
+stat.bow.range.desc=How far the projectile can be propelled.
+
+stat.shaft.name=Arrow Shaft
+stat.shaft.modifier.name=Modifier
+stat.shaft.modifier.desc=Each arrow needs a suiting core. It determines how well it lasts.\nThe total ammo count of the tool will be multiplied by this.
+stat.shaft.ammo.name=Bonus-Ammo
+stat.shaft.ammo.desc=How many arrows you can get out of it.\nThis much flat ammo will be added.
+
+stat.fletching.name=Fletching
+stat.fletching.accuracy.name=Accuracy
+stat.fletching.accuracy.desc=How stable the flight path will be using this fletching.\nAffects the overall accuracy of the projectile.
+stat.fletching.modifier.name=Modifier
+stat.fletching.modifier.desc=How many arrows you can craft with this.\nProjectile ammo will be multiplied by this.
+
 stat.projectile.ammo.name=Ammo
 
 ##############

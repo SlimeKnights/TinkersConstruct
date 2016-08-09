@@ -6,6 +6,7 @@ import java.util.List;
 
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.ProjectileNBT;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.tools.ranged.ProjectileCore;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -30,7 +31,7 @@ public class Arrow extends ProjectileCore {
 
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
-    ToolNBT toolNBT = new ToolNBT();
-    return toolNBT.get();
+    ProjectileNBT data = new ProjectileNBT();
+    return data.get();
   }
 }

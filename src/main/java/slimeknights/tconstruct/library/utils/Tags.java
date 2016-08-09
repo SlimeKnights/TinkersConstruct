@@ -31,14 +31,22 @@ public final class Tags {
   /** The tag that saves the material information on toolparts */
   public static final String PART_MATERIAL = "Material";
 
+  // tools
   public static final String DURABILITY = "Durability";
   public static final String ATTACK = "Attack";
   public static final String ATTACKSPEEDMULTIPLIER = "AttackSpeedMultiplier";
   public static final String MININGSPEED = "MiningSpeed";
   public static final String HARVESTLEVEL = "HarvestLevel";
 
-  public static final String FREE_MODIFIERS = "FreeModifiers";
+  // bows
+  public static final String DRAWSPEED = "DrawSpeed";
+  public static final String RANGE = "Range";
 
+  // projectile
+  public static final String ACCURACY = "Accuracy";
+
+  // misc. tool info
+  public static final String FREE_MODIFIERS = "FreeModifiers";
   public static final String BROKEN = "Broken";
 
   // Extra

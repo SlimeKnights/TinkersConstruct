@@ -8,5 +8,7 @@ public interface MaterialTypes {
 
   String BOW = "bow";
   String BOWSTRING = "bowstring";
-  
+
+  String SHAFT = "shaft";
+  String FLETCHING = "fletching";
 }
