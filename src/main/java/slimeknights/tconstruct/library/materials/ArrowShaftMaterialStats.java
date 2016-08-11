@@ -18,18 +18,18 @@ public class ArrowShaftMaterialStats extends AbstractMaterialStats {
   public final static String COLOR_Modifier = HandleMaterialStats.COLOR_Modifier;
 
   public final float modifier;
-  public final int durability;
+  public final int bonusAmmo;
 
-  public ArrowShaftMaterialStats(float modifier, int durability) {
+  public ArrowShaftMaterialStats(float modifier, int bonusAmmo) {
     super(MaterialTypes.SHAFT);
-    this.durability = durability;
+    this.bonusAmmo = bonusAmmo;
     this.modifier = modifier;
   }
 
   @Override
   public List<String> getLocalizedInfo() {
     return ImmutableList.of(formatModifier(modifier),
-                            formatAmmo(durability));
+                            formatAmmo(bonusAmmo));
   }
 
   @Override

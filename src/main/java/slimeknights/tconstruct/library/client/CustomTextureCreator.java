@@ -137,7 +137,6 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         }
 
         if(usable) {
-
           TextureAtlasSprite sprite = createTexture(material, baseTexture, base, map);
           if(sprite != null) {
             builtSprites.put(material.identifier, sprite);

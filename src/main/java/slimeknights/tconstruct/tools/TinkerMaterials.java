@@ -27,9 +27,11 @@ import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
 import slimeknights.tconstruct.library.client.texture.MetalColoredTexture;
 import slimeknights.tconstruct.library.client.texture.MetalTextureTexture;
+import slimeknights.tconstruct.library.materials.ArrowShaftMaterialStats;
 import slimeknights.tconstruct.library.materials.BowMaterialStats;
 import slimeknights.tconstruct.library.materials.BowStringMaterialStats;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
+import slimeknights.tconstruct.library.materials.FletchingMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
@@ -141,6 +143,17 @@ public final class TinkerMaterials {
 
   // bowstring materials
   public static final Material string    = mat("string", 0xeeeeee);
+
+  // additional arrow shaft
+  public static final Material blaze     = mat("blaze", 0xffc100);
+  public static final Material reed      = mat("reed", 0xaadb74);
+
+  // fletching
+  public static final Material feather   = mat("feather", 0xeeeeee);
+  public static final Material leaf      = mat("leaf", 0x1d730c);
+  public static final Material slimeleaf_green = mat("slimeleaf_green", 0x82c873);
+  public static final Material slimeleaf_blue  = mat("slimeleaf_blue", 0x74c8c7);
+  public static final Material slimeleaf_magma = mat("slimeleaf_magma", 0xff960d);
 
   public static final AbstractTrait alien = new TraitAlien();
   public static final AbstractTrait aquadynamic = new TraitAquadynamic();
@@ -279,6 +292,15 @@ public final class TinkerMaterials {
     });
 
     string.setRenderInfo(0xeeeeee);
+
+    blaze.setRenderInfo(0xffc100);
+    reed.setRenderInfo(0xaadb74);
+
+    feather.setRenderInfo(0xffffff).setTextureSuffix("feather");
+    leaf.setRenderInfo(0x1d730c).setTextureSuffix("feather");
+    slimeleaf_green.setRenderInfo(0x82c873);
+    slimeleaf_blue.setRenderInfo(0x74c8c7);
+    slimeleaf_magma.setRenderInfo(0xff960d);
   }
 
   @Subscribe
@@ -427,6 +449,7 @@ public final class TinkerMaterials {
 
     registerToolMaterials();
     registerBowMaterials();
+    registerProjectileMaterials();
   }
 
   private void safeAdd(Material material, ItemStack item, int value) {
@@ -620,7 +643,18 @@ public final class TinkerMaterials {
   }
 
   public void registerProjectileMaterials() {
+    // shaft
+    TinkerRegistry.addMaterialStats(wood, new ArrowShaftMaterialStats(1f, 0));
+    TinkerRegistry.addMaterialStats(bone, new ArrowShaftMaterialStats(1f, 0));
+    TinkerRegistry.addMaterialStats(blaze, new ArrowShaftMaterialStats(1f, 0));
+    TinkerRegistry.addMaterialStats(reed, new ArrowShaftMaterialStats(1f, 0));
 
+    // fletching
+    TinkerRegistry.addMaterialStats(feather, new FletchingMaterialStats(1f, 1f));
+    TinkerRegistry.addMaterialStats(leaf, new FletchingMaterialStats(1f, 1f));
+    TinkerRegistry.addMaterialStats(slimeleaf_green, new FletchingMaterialStats(1f, 1f));
+    TinkerRegistry.addMaterialStats(slimeleaf_blue, new FletchingMaterialStats(1f, 1f));
+    TinkerRegistry.addMaterialStats(slimeleaf_magma, new FletchingMaterialStats(1f, 1f));
   }
 
   @Subscribe

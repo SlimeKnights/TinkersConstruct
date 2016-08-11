@@ -113,4 +113,16 @@ public class PartMaterialType {
   public static PartMaterialType bowstring(IToolPart part) {
     return new PartMaterialType(part, MaterialTypes.BOWSTRING);
   }
+
+  public static PartMaterialType arrowHead(IToolPart part) {
+    return new PartMaterialType(part, MaterialTypes.HEAD);
+  }
+
+  public static PartMaterialType arrowShaft(IToolPart part) {
+    return new PartMaterialType(part, MaterialTypes.SHAFT);
+  }
+
+  public static PartMaterialType fletching(IToolPart part) {
+    return new PartMaterialType(part, MaterialTypes.FLETCHING);
+  }
 }

@@ -1,22 +1,37 @@
 package slimeknights.tconstruct.weapons.ranged.item;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
+import slimeknights.tconstruct.library.materials.ArrowShaftMaterialStats;
+import slimeknights.tconstruct.library.materials.FletchingMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ProjectileNBT;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.tools.ranged.ProjectileCore;
+import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class Arrow extends ProjectileCore {
 
   public Arrow() {
-    super(PartMaterialType.handle(TinkerTools.toolRod),
-          PartMaterialType.head(TinkerTools.knifeBlade),
-          PartMaterialType.extra(TinkerTools.binding));
+    super(PartMaterialType.arrowShaft(TinkerTools.arrowShaft),
+          PartMaterialType.arrowHead(TinkerTools.arrowHead),
+          PartMaterialType.fletching(TinkerTools.fletching));
+  }
+
+  @Override
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+    addDefaultSubItems(subItems, TinkerMaterials.wood, null, TinkerMaterials.feather);
   }
 
   @Override
@@ -32,6 +47,15 @@ public class Arrow extends ProjectileCore {
   @Override
   public NBTTagCompound buildTag(List<Material> materials) {
     ProjectileNBT data = new ProjectileNBT();
+
+    ArrowShaftMaterialStats shaft = materials.get(0).getStatsOrUnknown(MaterialTypes.SHAFT);
+    HeadMaterialStats head = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
+    FletchingMaterialStats fletching = materials.get(2).getStatsOrUnknown(MaterialTypes.FLETCHING);
+
+    data.head(head);
+    data.fletchings(fletching);
+    data.shafts(this, shaft);
+
     return data.get();
   }
 }

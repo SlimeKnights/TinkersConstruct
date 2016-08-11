@@ -375,42 +375,16 @@ public abstract class ToolCore extends TinkersItem {
     addDefaultSubItems(subItems);
   }
 
-  protected void addDefaultSubItems(List<ItemStack> subItems) {
+  protected void addDefaultSubItems(List<ItemStack> subItems, Material... fixedMaterials) {
     for(Material head : TinkerRegistry.getAllMaterials()) {
-      if(!head.hasStats(MaterialTypes.HEAD)) {
-        continue;
-      }
-
       List<Material> mats = new ArrayList<Material>(requiredComponents.length);
 
       for(int i = 0; i < requiredComponents.length; i++) {
-        // todo: check for applicability with stats
-        mats.add(head);
-      }
-
-      ItemStack tool = buildItem(mats);
-      // only valid ones
-      if(hasValidMaterials(tool)) {
-        subItems.add(tool);
-      }
-    }
-  }
-
-  protected void addDefaultBowItems(List<ItemStack> subItems) {
-    Material string = TinkerMaterials.string;
-
-    for(Material head : TinkerRegistry.getAllMaterials()) {
-      if(!head.hasStats(MaterialTypes.BOW)) {
-        continue;
-      }
-
-      List<Material> mats = new ArrayList<Material>(requiredComponents.length);
-
-      for(int i = 0; i < requiredComponents.length; i++) {
-        if(requiredComponents[i].isValidMaterial(string)) {
-          mats.add(string);
+        if(fixedMaterials.length > i && fixedMaterials[i] != null && requiredComponents[i].isValidMaterial(fixedMaterials[i])) {
+          mats.add(fixedMaterials[i]);
         }
         else {
+          // todo: check for applicability with stats
           mats.add(head);
         }
       }

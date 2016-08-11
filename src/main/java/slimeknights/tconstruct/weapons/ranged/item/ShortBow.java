@@ -24,7 +24,11 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import slimeknights.tconstruct.library.materials.BowMaterialStats;
+import slimeknights.tconstruct.library.materials.BowStringMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.BowNBT;
 import slimeknights.tconstruct.library.tools.IAmmoUser;
@@ -32,6 +36,7 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.AmmoHelper;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.weapons.ranged.TinkerRangedWeapons;
 
@@ -72,7 +77,7 @@ public class ShortBow extends ToolCore implements IAmmoUser {
 
   @Override
   public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-    addDefaultBowItems(subItems);
+    addDefaultSubItems(subItems, TinkerMaterials.string);
   }
 
   /* Tic Tool Stuff */
@@ -110,19 +115,30 @@ public class ShortBow extends ToolCore implements IAmmoUser {
     return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
   }
 
-  /* Data Stuff */
-
-  @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
-    BowNBT data = new BowNBT();
-    return data.get();
-  }
-
   @Override
   public ItemStack getAmmoToRender(ItemStack weapon, EntityLivingBase player) {
     if(ToolHelper.isBroken(weapon)) {
       return null;
     }
     return AmmoHelper.findAmmoFromInventory(ImmutableList.of(TinkerRangedWeapons.arrow, Items.ARROW), player);
+  }
+
+    /* Data Stuff */
+
+  @Override
+  public NBTTagCompound buildTag(List<Material> materials) {
+    BowNBT data = new BowNBT();
+    HeadMaterialStats head1 = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
+    HeadMaterialStats head2 = materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD);
+    BowMaterialStats limb1 = materials.get(1).getStatsOrUnknown(MaterialTypes.BOW);
+    BowMaterialStats limb2 = materials.get(2).getStatsOrUnknown(MaterialTypes.BOW);
+    BowStringMaterialStats bowstring = materials.get(0).getStatsOrUnknown(MaterialTypes.BOWSTRING);
+
+
+    data.head(head1, head2);
+    data.limb(limb1, limb2);
+    data.bowstring(bowstring);
+
+    return data.get();
   }
 }

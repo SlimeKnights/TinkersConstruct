@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.tools;
 
 import net.minecraft.nbt.NBTTagCompound;
 
+import slimeknights.tconstruct.library.materials.BowMaterialStats;
+import slimeknights.tconstruct.library.materials.BowStringMaterialStats;
 import slimeknights.tconstruct.library.utils.Tags;
 
 public class BowNBT extends ToolNBT {
@@ -17,6 +19,42 @@ public class BowNBT extends ToolNBT {
 
     this.range = 10f;
     this.drawSpeed = 4f;
+  }
+
+  public BowNBT limb(BowMaterialStats... bowlimbs) {
+    speed = 0;
+    range = 0;
+
+    for(BowMaterialStats limb : bowlimbs) {
+      if(limb != null) {
+        speed += limb.drawspeed;
+        range += limb.range;
+      }
+    }
+
+    speed /= (float) bowlimbs.length;
+    range /= (float) bowlimbs.length;
+
+    speed = Math.max(0.001f, speed);
+    range = Math.min(0.001f, range);
+
+    return this;
+  }
+
+  public BowNBT bowstring(BowStringMaterialStats... bowstrings) {
+    float modifier = 0f;
+
+    for(BowStringMaterialStats bowstring : bowstrings) {
+      if(bowstring != null) {
+        modifier += bowstring.modifier;
+      }
+    }
+
+    modifier /= (float) bowstrings.length;
+    this.durability = Math.round((float) this.durability * modifier);
+    this.durability = Math.max(1, this.durability);
+
+    return this;
   }
 
   @Override

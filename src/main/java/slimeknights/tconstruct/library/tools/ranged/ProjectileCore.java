@@ -44,6 +44,10 @@ public abstract class ProjectileCore extends ToolCore implements IProjectile, IA
     this.durabilityPerAmmo = durabilityPerAmmo;
   }
 
+  public int getDurabilityPerAmmo() {
+    return durabilityPerAmmo;
+  }
+
   @Override
   public double getDurabilityForDisplay(ItemStack stack) {
     // this is inverted, we return how DAMAGED the tool is, not how healthy

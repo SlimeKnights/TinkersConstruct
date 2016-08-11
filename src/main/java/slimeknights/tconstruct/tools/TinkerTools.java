@@ -116,6 +116,10 @@ public class TinkerTools extends AbstractToolPulse {
   public static ToolPart bowLimb;
   public static ToolPart bowString;
 
+  public static ToolPart arrowHead;
+  public static ToolPart arrowShaft;
+  public static ToolPart fletching;
+
   // PRE-INITIALIZATION
   @Override
   @Subscribe
@@ -186,6 +190,10 @@ public class TinkerTools extends AbstractToolPulse {
 
     bowLimb = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "bow_limb");
     bowString = registerToolPart(new ToolPart(Material.VALUE_Ingot), "bow_string");
+
+    arrowHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 2), "arrow_head");
+    arrowShaft = registerToolPart(new ToolPart(Material.VALUE_Ingot * 2), "arrow_shaft");
+    fletching = registerToolPart(new ToolPart(Material.VALUE_Ingot), "fletching");
   }
 
   @Override
