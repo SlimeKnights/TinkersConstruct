@@ -95,10 +95,10 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerMaterials.reed);
 
     integrate(TinkerMaterials.feather);
-    integrate(TinkerMaterials.leaf);
-    integrate(TinkerMaterials.slimeleaf_green);
+    integrate(TinkerMaterials.slimeleaf_purple);
     integrate(TinkerMaterials.slimeleaf_blue);
-    integrate(TinkerMaterials.slimeleaf_magma);
+    integrate(TinkerMaterials.slimeleaf_orange);
+    integrate(TinkerMaterials.leaf); // leaf is last because its oredict also catches slimeleaves
 
     for(MaterialIntegration integration : integrationList) {
       integration.integrate();

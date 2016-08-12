@@ -80,6 +80,8 @@ import slimeknights.tconstruct.tools.traits.TraitSuperheat;
 import slimeknights.tconstruct.tools.traits.TraitTasty;
 import slimeknights.tconstruct.tools.traits.TraitUnnatural;
 import slimeknights.tconstruct.tools.traits.TraitWritable;
+import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 import slimeknights.tconstruct.world.entity.EntityBlueSlime;
 
 import static slimeknights.tconstruct.library.utils.HarvestLevels.COBALT;
@@ -151,9 +153,9 @@ public final class TinkerMaterials {
   // fletching
   public static final Material feather   = mat("feather", 0xeeeeee);
   public static final Material leaf      = mat("leaf", 0x1d730c);
-  public static final Material slimeleaf_green = mat("slimeleaf_green", 0x82c873);
   public static final Material slimeleaf_blue  = mat("slimeleaf_blue", 0x74c8c7);
-  public static final Material slimeleaf_magma = mat("slimeleaf_magma", 0xff960d);
+  public static final Material slimeleaf_orange = mat("slimeleaf_orange", 0xff960d);
+  public static final Material slimeleaf_purple = mat("slimeleaf_purple", 0xc873c8);
 
   public static final AbstractTrait alien = new TraitAlien();
   public static final AbstractTrait aquadynamic = new TraitAquadynamic();
@@ -298,9 +300,9 @@ public final class TinkerMaterials {
 
     feather.setRenderInfo(0xffffff).setTextureSuffix("feather");
     leaf.setRenderInfo(0x1d730c).setTextureSuffix("feather");
-    slimeleaf_green.setRenderInfo(0x82c873);
     slimeleaf_blue.setRenderInfo(0x74c8c7);
-    slimeleaf_magma.setRenderInfo(0xff960d);
+    slimeleaf_orange.setRenderInfo(0xff960d);
+    slimeleaf_purple.setRenderInfo(0xc873c8);
   }
 
   @Subscribe
@@ -447,9 +449,23 @@ public final class TinkerMaterials {
     steel.addTrait(sharp, HEAD);
     steel.addTrait(stiff);
 
-    registerToolMaterials();
-    registerBowMaterials();
-    registerProjectileMaterials();
+    // bowstring
+    string.addItemIngot("string");
+
+    // arrow materials
+    blaze.addItem(Items.BLAZE_ROD);
+    reed.addItem(Items.REEDS);
+
+    feather.addItemIngot("feather");
+    leaf.addItemIngot("treeLeaves");
+    safeAdd(slimeleaf_blue, new ItemStack(TinkerWorld.slimeLeaves, 1, BlockSlimeGrass.FoliageType.BLUE.getMeta()), Material.VALUE_Ingot, true);
+    safeAdd(slimeleaf_orange, new ItemStack(TinkerWorld.slimeLeaves, 1, BlockSlimeGrass.FoliageType.ORANGE.getMeta()), Material.VALUE_Ingot, true);
+    safeAdd(slimeleaf_purple, new ItemStack(TinkerWorld.slimeLeaves, 1, BlockSlimeGrass.FoliageType.PURPLE.getMeta()), Material.VALUE_Ingot, true);
+
+
+    registerToolMaterialStats();
+    registerBowMaterialStats();
+    registerProjectileMaterialStats();
   }
 
   private void safeAdd(Material material, ItemStack item, int value) {
@@ -462,7 +478,7 @@ public final class TinkerMaterials {
   }
 
   private void safeAdd(Material material, ItemStack item, int value, boolean representative) {
-    if(item != null) {
+    if(item != null && item.getItem() != null) {
       material.addItem(item, 1, value);
       if(representative) {
         material.setRepresentativeItem(item);
@@ -470,7 +486,7 @@ public final class TinkerMaterials {
     }
   }
 
-  public void registerToolMaterials() {
+  public void registerToolMaterialStats() {
     // Stats:                                                   Durability, speed, attack, handle, extra, harvestlevel
     // natural resources/blocks
     TinkerRegistry.addMaterialStats(wood,
@@ -599,7 +615,7 @@ public final class TinkerMaterials {
     //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
   }
 
-  public void registerBowMaterials() {
+  public void registerBowMaterialStats() {
     TinkerRegistry.addMaterialStats(wood, new BowMaterialStats(3f, 10f));
     /*
     TinkerRegistry.addMaterialStats(stone, new BowMaterialStats(drawspeed, range));
@@ -642,7 +658,7 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(string, new BowStringMaterialStats(1f));
   }
 
-  public void registerProjectileMaterials() {
+  public void registerProjectileMaterialStats() {
     // shaft
     TinkerRegistry.addMaterialStats(wood, new ArrowShaftMaterialStats(1f, 0));
     TinkerRegistry.addMaterialStats(bone, new ArrowShaftMaterialStats(1f, 0));
@@ -652,9 +668,9 @@ public final class TinkerMaterials {
     // fletching
     TinkerRegistry.addMaterialStats(feather, new FletchingMaterialStats(1f, 1f));
     TinkerRegistry.addMaterialStats(leaf, new FletchingMaterialStats(1f, 1f));
-    TinkerRegistry.addMaterialStats(slimeleaf_green, new FletchingMaterialStats(1f, 1f));
+    TinkerRegistry.addMaterialStats(slimeleaf_purple, new FletchingMaterialStats(1f, 1f));
     TinkerRegistry.addMaterialStats(slimeleaf_blue, new FletchingMaterialStats(1f, 1f));
-    TinkerRegistry.addMaterialStats(slimeleaf_magma, new FletchingMaterialStats(1f, 1f));
+    TinkerRegistry.addMaterialStats(slimeleaf_orange, new FletchingMaterialStats(1f, 1f));
   }
 
   @Subscribe
