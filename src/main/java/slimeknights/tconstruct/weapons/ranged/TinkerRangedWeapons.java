@@ -66,9 +66,9 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
 
   @Override
   protected void registerToolBuilding() {
-    TinkerRegistry.registerToolStationCrafting(shortBow);
+    TinkerRegistry.registerToolCrafting(shortBow);
 
-    TinkerRegistry.registerToolStationCrafting(arrow);
+    TinkerRegistry.registerToolCrafting(arrow);
 
     TinkerRegistry.registerToolForgeCrafting(shuriken);
   }
