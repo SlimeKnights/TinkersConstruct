@@ -126,14 +126,14 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
       Map<String, TextureAtlasSprite> builtSprites = Maps.newHashMap();
       for(Material material : TinkerRegistry.getAllMaterials()) {
         boolean usable;
-        if(parts != null) {
+        if(parts == null || material instanceof MaterialGUI) {
+          usable = true;
+        }
+        else {
           usable = false;
           for(IToolPart toolPart : parts) {
             usable |= toolPart.canUseMaterial(material);
           }
-        }
-        else {
-          usable = true;
         }
 
         if(usable) {
