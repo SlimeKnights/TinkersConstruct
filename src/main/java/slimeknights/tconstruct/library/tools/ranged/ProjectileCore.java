@@ -19,8 +19,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.ProjectileNBT;
+import slimeknights.tconstruct.library.tools.TinkerToolCore;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
 
@@ -29,7 +33,7 @@ import slimeknights.tconstruct.library.utils.TooltipBuilder;
  * Durability works like usually, but ammo is abstracted on top of durability.
  * So durability controls the interaction with materials, and ammo-ratio controls the interaction betweer durability and ammo
  */
-public abstract class ProjectileCore extends ToolCore implements IProjectile, IAmmo {
+public abstract class ProjectileCore extends TinkerToolCore implements IProjectile, IAmmo {
 
   protected int durabilityPerAmmo;
 
@@ -171,4 +175,11 @@ public abstract class ProjectileCore extends ToolCore implements IProjectile, IA
     // return the standard damage map
     return super.getAttributeModifiers(EntityEquipmentSlot.MAINHAND, stack);
   }
+
+  @Override
+  public final ToolNBT buildTagData(List<Material> materials) {
+    return buildProjectileTagData(materials);
+  }
+
+  public abstract ProjectileNBT buildProjectileTagData(List<Material> materials);
 }

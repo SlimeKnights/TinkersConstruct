@@ -10,7 +10,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -30,13 +29,14 @@ import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.TinkerToolCore;
+import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.EntityUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class FryPan extends ToolCore {
+public class FryPan extends TinkerToolCore {
 
   public FryPan() {
     super(PartMaterialType.handle(TinkerTools.toolRod),
@@ -182,7 +182,7 @@ public class FryPan extends ToolCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
-    return buildDefaultTag(materials).get();
+  public ToolNBT buildTagData(List<Material> materials) {
+    return buildDefaultTag(materials);
   }
 }

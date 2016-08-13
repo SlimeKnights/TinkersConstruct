@@ -21,12 +21,12 @@ import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.TinkerToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.shared.client.ParticleEffect;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class Rapier extends ToolCore {
+public class Rapier extends TinkerToolCore {
 
   public static final float DURABILITY_MODIFIER = 0.8f;
 
@@ -125,11 +125,11 @@ public class Rapier extends ToolCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
+  public ToolNBT buildTagData(List<Material> materials) {
     ToolNBT data = buildDefaultTag(materials);
 
     data.durability *= DURABILITY_MODIFIER;
 
-    return data.get();
+    return data;
   }
 }

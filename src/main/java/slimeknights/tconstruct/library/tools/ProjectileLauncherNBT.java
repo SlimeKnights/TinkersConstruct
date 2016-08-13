@@ -6,22 +6,22 @@ import slimeknights.tconstruct.library.materials.BowMaterialStats;
 import slimeknights.tconstruct.library.materials.BowStringMaterialStats;
 import slimeknights.tconstruct.library.utils.Tags;
 
-public class BowNBT extends ToolNBT {
+public class ProjectileLauncherNBT extends ToolNBT {
 
   public float drawSpeed;
   public float range;
 
-  public BowNBT() {
+  public ProjectileLauncherNBT() {
   }
 
-  public BowNBT(NBTTagCompound tag) {
+  public ProjectileLauncherNBT(NBTTagCompound tag) {
     super(tag);
 
     this.range = 10f;
     this.drawSpeed = 4f;
   }
 
-  public BowNBT limb(BowMaterialStats... bowlimbs) {
+  public ProjectileLauncherNBT limb(BowMaterialStats... bowlimbs) {
     speed = 0;
     range = 0;
 
@@ -41,7 +41,7 @@ public class BowNBT extends ToolNBT {
     return this;
   }
 
-  public BowNBT bowstring(BowStringMaterialStats... bowstrings) {
+  public ProjectileLauncherNBT bowstring(BowStringMaterialStats... bowstrings) {
     float modifier = 0f;
 
     for(BowStringMaterialStats bowstring : bowstrings) {

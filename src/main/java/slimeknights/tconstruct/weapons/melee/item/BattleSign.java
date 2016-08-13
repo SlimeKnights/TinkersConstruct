@@ -30,13 +30,14 @@ import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.TinkerToolCore;
+import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
 
 // BattleSign Ability: Blocks more damage and can reflect projectiles. The ultimate defensive weapon.
-public class BattleSign extends ToolCore {
+public class BattleSign extends TinkerToolCore {
 
   public BattleSign() {
     super(PartMaterialType.handle(TinkerTools.toolRod),
@@ -193,7 +194,7 @@ public class BattleSign extends ToolCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
-    return buildDefaultTag(materials).get();
+  public ToolNBT buildTagData(List<Material> materials) {
+    return buildDefaultTag(materials);
   }
 }

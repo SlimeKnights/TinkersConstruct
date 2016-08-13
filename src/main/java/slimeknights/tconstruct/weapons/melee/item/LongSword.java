@@ -7,7 +7,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -22,11 +21,11 @@ import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.TinkerToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class LongSword extends ToolCore {
+public class LongSword extends TinkerToolCore {
 
   public static final float DURABILITY_MODIFIER = 1.05f;
 
@@ -142,12 +141,12 @@ public class LongSword extends ToolCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
+  public ToolNBT buildTagData(List<Material> materials) {
     ToolNBT data = buildDefaultTag(materials);
 
     data.attack += 0.5f;
     data.durability *= DURABILITY_MODIFIER;
 
-    return data.get();
+    return data;
   }
 }

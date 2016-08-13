@@ -30,17 +30,16 @@ import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.BowNBT;
+import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
 import slimeknights.tconstruct.library.tools.IAmmoUser;
-import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.tools.ToolNBT;
+import slimeknights.tconstruct.library.tools.ranged.ProjectileLauncherCore;
 import slimeknights.tconstruct.library.utils.AmmoHelper;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.weapons.ranged.TinkerRangedWeapons;
 
-public class ShortBow extends ToolCore implements IAmmoUser {
+public class ShortBow extends ProjectileLauncherCore implements IAmmoUser {
 
   public ShortBow() {
     super(PartMaterialType.bowstring(TinkerTools.bowString),
@@ -126,8 +125,8 @@ public class ShortBow extends ToolCore implements IAmmoUser {
     /* Data Stuff */
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
-    BowNBT data = new BowNBT();
+  public ProjectileLauncherNBT buildProjectileLauncherTagData(List<Material> materials) {
+    ProjectileLauncherNBT data = new ProjectileLauncherNBT();
     HeadMaterialStats head1 = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
     HeadMaterialStats head2 = materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD);
     BowMaterialStats limb1 = materials.get(1).getStatsOrUnknown(MaterialTypes.BOW);
@@ -139,6 +138,6 @@ public class ShortBow extends ToolCore implements IAmmoUser {
     data.limb(limb1, limb2);
     data.bowstring(bowstring);
 
-    return data.get();
+    return data;
   }
 }

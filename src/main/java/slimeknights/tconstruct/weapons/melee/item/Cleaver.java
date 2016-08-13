@@ -22,12 +22,12 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.TinkerToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.modifiers.ModBeheading;
 
-public class Cleaver extends ToolCore {
+public class Cleaver extends TinkerToolCore {
 
   public static final float DURABILITY_MODIFIER = 2f;
 
@@ -95,7 +95,7 @@ public class Cleaver extends ToolCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
+  public ToolNBT buildTagData(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(MaterialTypes.HANDLE);
     HeadMaterialStats head = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
     HeadMaterialStats shield = materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD);
@@ -112,7 +112,7 @@ public class Cleaver extends ToolCore {
     // triple durability!
     data.durability *= DURABILITY_MODIFIER;
 
-    return data.get();
+    return data;
   }
 
   @Override

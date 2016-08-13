@@ -45,7 +45,7 @@ public class Arrow extends ProjectileCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
+  public ProjectileNBT buildProjectileTagData(List<Material> materials) {
     ProjectileNBT data = new ProjectileNBT();
 
     ArrowShaftMaterialStats shaft = materials.get(0).getStatsOrUnknown(MaterialTypes.SHAFT);
@@ -56,6 +56,6 @@ public class Arrow extends ProjectileCore {
     data.fletchings(fletching);
     data.shafts(this, shaft);
 
-    return data.get();
+    return data;
   }
 }

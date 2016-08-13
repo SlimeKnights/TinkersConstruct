@@ -17,12 +17,12 @@ import java.util.List;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.TinkerToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class BroadSword extends ToolCore {
+public class BroadSword extends TinkerToolCore {
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
       ImmutableSet.of(net.minecraft.block.material.Material.WEB,
@@ -111,11 +111,11 @@ public class BroadSword extends ToolCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
+  public ToolNBT buildTagData(List<Material> materials) {
     ToolNBT data = buildDefaultTag(materials);
     // 2 base damage, like vanilla swords
     data.attack += 1f;
     data.durability *= DURABILITY_MODIFIER;
-    return data.get();
+    return data;
   }
 }

@@ -8,7 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -27,12 +26,12 @@ import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.TinkerToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class Scythe extends ToolCore {
+public class Scythe extends TinkerToolCore {
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
       ImmutableSet.of(net.minecraft.block.material.Material.WEB,
@@ -146,7 +145,7 @@ public class Scythe extends ToolCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
+  public ToolNBT buildTagData(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(MaterialTypes.HANDLE);
     HeadMaterialStats head = materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD);
     HandleMaterialStats handle2 = materials.get(1).getStatsOrUnknown(MaterialTypes.HANDLE);
@@ -154,6 +153,6 @@ public class Scythe extends ToolCore {
 
     ToolNBT data = new ToolNBT();
 
-    return data.get();
+    return data;
   }
 }
