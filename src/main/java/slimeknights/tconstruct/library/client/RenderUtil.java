@@ -173,7 +173,16 @@ public final class RenderUtil {
     }
 
     int xd = to.getX() - from.getX();
-    int yd = (int) (ymax - ymin);
+
+    // the liquid can stretch over more blocks than the subtracted height is if ymin's decimal is bigger than ymax's decimal (causing UV over 1)
+    // ignoring the decimals prevents this, as yd then equals exactly how many ints are between the two
+    // for example, if ymax = 5.1 and ymin = 2.3, 2.8 (which rounds to 2), with the face array becoming 2.3, 3, 4, 5.1
+    int yminInt = (int)ymin;
+    int yd = (int) (ymax - yminInt);
+
+    // prevents a rare case of rendering the top face multiple times if ymax is perfectly aligned with the block
+    // for example, if ymax = 3 and ymin = 1, the values of the face array become 1, 2, 3, 3 as we then have middle ints
+    if(ymax % 1d == 0) yd--;
     int zd = to.getZ() - from.getZ();
 
     double xmin = FLUID_OFFSET;
@@ -191,8 +200,10 @@ public final class RenderUtil {
     for(int i = 1; i <= xd; i++) xs[i] = i;
     xs[xd+1] = xmax;
 
+    // we have to add the whole number for ymin or otherwise things render incorrectly if above the first block
+    // example, heights of 2 and 5 would produce array of 2, 1, 2, 5
     ys[0] = ymin;
-    for(int i = 1; i <= yd; i++) ys[i] = i;
+    for(int i = 1; i <= yd; i++) ys[i] = i + yminInt;
     ys[yd+1] = ymax;
 
     zs[0] = zmin;

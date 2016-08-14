@@ -69,6 +69,7 @@ import slimeknights.tconstruct.smeltery.block.BlockSearedStairs;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryIO;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
+import slimeknights.tconstruct.smeltery.block.BlockTinkerTankController;
 import slimeknights.tconstruct.smeltery.item.CastCustom;
 import slimeknights.tconstruct.smeltery.item.ItemTank;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
@@ -79,6 +80,7 @@ import slimeknights.tconstruct.smeltery.tileentity.TileSearedFurnace;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
+import slimeknights.tconstruct.smeltery.tileentity.TileTinkerTank;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 
 @Pulse(id = TinkerSmeltery.PulseId, description = "The smeltery and items needed for it")
@@ -98,7 +100,9 @@ public class TinkerSmeltery extends TinkerPulse {
   public static BlockCasting castingBlock;
   public static BlockSmelteryIO smelteryIO;
   public static Block searedGlass;
+
   public static Block searedFurnaceController;
+  public static Block tinkerTankController;
 
   public static Block searedSlab;
   public static Block searedSlab2;
@@ -136,6 +140,7 @@ public class TinkerSmeltery extends TinkerPulse {
 
   public static ImmutableSet<Block> validSmelteryBlocks;
   public static ImmutableSet<Block> validSearedFurnaceBlocks;
+  public static ImmutableSet<Block> validTinkerTankBlocks;
   public static List<ItemStack> meltingBlacklist = Lists.newLinkedList();
 
   // PRE-INITIALIZATION
@@ -148,7 +153,9 @@ public class TinkerSmeltery extends TinkerPulse {
     castingBlock = registerBlock(new ItemBlockMeta(new BlockCasting()), "casting");
     smelteryIO = registerEnumBlock(new BlockSmelteryIO(), "smeltery_io");
     searedGlass = registerEnumBlock(new BlockSearedGlass(), "seared_glass");
+
     searedFurnaceController = registerBlock(new BlockSearedFurnaceController(), "seared_furnace_controller");
+    tinkerTankController = registerBlock(new BlockTinkerTankController(), "tinker_tank_controller");
 
     ItemBlockMeta.setMappingProperty(searedTank, BlockTank.TYPE);
     ItemBlockMeta.setMappingProperty(castingBlock, BlockCasting.TYPE);
@@ -179,6 +186,7 @@ public class TinkerSmeltery extends TinkerPulse {
     registerTE(TileCastingBasin.class, "casting_basin");
     registerTE(TileDrain.class, "smeltery_drain");
     registerTE(TileSearedFurnace.class, "seared_furnace");
+    registerTE(TileTinkerTank.class, "tinker_tank");
 
     cast = registerItem(new Cast(), "cast");
     castCustom = registerItem(new CastCustom(), "cast_custom");
@@ -208,6 +216,7 @@ public class TinkerSmeltery extends TinkerPulse {
     builder.add(searedGlass);
 
     validSmelteryBlocks = builder.build();
+    validTinkerTankBlocks = builder.build(); // same blocks right now
 
     // seared furnace ceiling blocks, no smelteryIO or seared glass
     // does not affect sides, those are forced to use seared blocks/tanks where relevant
@@ -308,6 +317,9 @@ public class TinkerSmeltery extends TinkerPulse {
     // seared furnace, uses a furnace in the center as just bricks gets the smeltery controller
     // there is an alternative recipe below using the casting basin
     GameRegistry.addRecipe(new ItemStack(searedFurnaceController), "bbb", "bfb", "bbb", 'b', searedBrick, 'f', Blocks.FURNACE);
+
+    // Tinker Tank, same as above but with a bucket
+    GameRegistry.addRecipe(new ItemStack(tinkerTankController), "bbb", "bub", "bbb", 'b', searedBrick, 'u', Items.BUCKET);
 
     // polish stone into the paver
     addSearedBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.STONE);

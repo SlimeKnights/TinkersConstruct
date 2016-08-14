@@ -392,6 +392,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank implements IMaste
 
 
   /* Fluid handling */
+  @Override
   public SmelteryTank getTank() {
     return liquids;
   }
@@ -427,6 +428,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank implements IMaste
     super.setInventorySlotContents(slot, itemstack);
   }
 
+  @Override
   @SideOnly(Side.CLIENT)
   public void updateFluidsFromPacket(List<FluidStack> fluids) {
     this.liquids.setFluids(fluids);

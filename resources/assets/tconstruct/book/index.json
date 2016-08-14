@@ -43,5 +43,14 @@
         "id": "tconstruct:seared_furnace_controller"
       }
     }
+  },
+  {
+    "name": "tinker_tank",
+    "data": "sections/tinker_tank.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:tinker_tank_controller"
+      }
+    }
   }
 ]

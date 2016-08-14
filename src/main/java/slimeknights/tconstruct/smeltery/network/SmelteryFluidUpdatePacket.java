@@ -14,7 +14,7 @@ import java.util.List;
 
 import io.netty.buffer.ByteBuf;
 import slimeknights.mantle.network.AbstractPacketThreadsafe;
-import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
+import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
 
 public class SmelteryFluidUpdatePacket extends AbstractPacketThreadsafe {
 
@@ -32,9 +32,9 @@ public class SmelteryFluidUpdatePacket extends AbstractPacketThreadsafe {
   @Override
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
     TileEntity te = Minecraft.getMinecraft().theWorld.getTileEntity(pos);
-    if(te instanceof TileSmeltery) {
-      TileSmeltery smeltery = (TileSmeltery) te;
-      smeltery.updateFluidsFromPacket(liquids);
+    if(te instanceof ISmelteryTankHandler) {
+      ISmelteryTankHandler handler = (ISmelteryTankHandler) te;
+      handler.updateFluidsFromPacket(liquids);
     }
   }
 

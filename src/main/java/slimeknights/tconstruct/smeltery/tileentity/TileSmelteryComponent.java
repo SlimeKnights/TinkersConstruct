@@ -7,6 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import javax.annotation.Nonnull;
 
+import slimeknights.mantle.multiblock.IMasterLogic;
 import slimeknights.mantle.multiblock.MultiServantLogic;
 
 public class TileSmelteryComponent extends MultiServantLogic {
@@ -37,11 +38,11 @@ public class TileSmelteryComponent extends MultiServantLogic {
     readFromNBT(tag);
   }
 
-  protected TileSmeltery getSmeltery() {
+  protected TileEntity getMaster() {
     if(getHasMaster()) {
       TileEntity te = worldObj.getTileEntity(getMasterPosition());
-      if(te instanceof TileSmeltery) {
-        return (TileSmeltery) te;
+      if(te instanceof IMasterLogic) {
+        return te;
       }
     }
     return null;
