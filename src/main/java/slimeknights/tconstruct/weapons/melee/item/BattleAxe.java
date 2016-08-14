@@ -73,7 +73,7 @@ public class BattleAxe extends AoeToolCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
+  public ToolNBT buildTagData(List<Material> materials) {
     HeadMaterialStats handle = materials.get(0).getStats(MaterialTypes.HEAD);
     HeadMaterialStats head1 = materials.get(1).getStats(MaterialTypes.HEAD);
     HeadMaterialStats head2 = materials.get(2).getStats(MaterialTypes.HEAD);
@@ -106,6 +106,6 @@ public class BattleAxe extends AoeToolCore {
     data.speed *= 0.3f + 0.3f * handle.modifier * binding.extraQuality;
 */
 
-    return data.get();
+    return data;
   }
 }

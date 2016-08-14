@@ -92,7 +92,7 @@ public class Hammer extends Pickaxe {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
+  public ToolNBT buildTagData(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(MaterialTypes.HANDLE);
     HeadMaterialStats head = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
     HeadMaterialStats plate1 = materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD);
@@ -107,6 +107,6 @@ public class Hammer extends Pickaxe {
 
     data.durability *= DURABILITY_MODIFIER;
 
-    return data.get();
+    return data;
   }
 }

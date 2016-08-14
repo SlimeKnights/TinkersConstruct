@@ -164,7 +164,7 @@ public class Mattock extends AoeToolCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
+  public ToolNBT buildTagData(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(MaterialTypes.HANDLE);
     HeadMaterialStats axe = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
     HeadMaterialStats shovel = materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD);
@@ -180,7 +180,7 @@ public class Mattock extends AoeToolCore {
     // base damage!
     data.attack += 3;
 
-    return data.get();
+    return data;
   }
 
   protected int getAxeLevel(ItemStack stack) {

@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.AoeToolCore;
+import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
@@ -98,7 +99,7 @@ public class Shovel extends AoeToolCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
-    return buildDefaultTag(materials).get();
+  protected ToolNBT buildTagData(List<Material> materials) {
+    return buildDefaultTag(materials);
   }
 }

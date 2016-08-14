@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.AoeToolCore;
+import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class Pickaxe extends AoeToolCore {
@@ -68,7 +69,7 @@ public class Pickaxe extends AoeToolCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
-    return buildDefaultTag(materials).get();
+  protected ToolNBT buildTagData(List<Material> materials) {
+    return buildDefaultTag(materials);
   }
 }

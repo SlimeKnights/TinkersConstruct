@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.ProjectileNBT;
 import slimeknights.tconstruct.library.tools.ranged.ProjectileCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -58,8 +59,8 @@ public class Shuriken extends ProjectileCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
-    ToolNBT data = new ToolNBT();
+  public ProjectileNBT buildProjectileTagData(List<Material> materials) {
+    ProjectileNBT data = new ProjectileNBT();
     data.head((HeadMaterialStats) materials.get(0).getStatsOrUnknown(MaterialTypes.HEAD),
               (HeadMaterialStats) materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD),
               (HeadMaterialStats) materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD),
@@ -71,8 +72,9 @@ public class Shuriken extends ProjectileCore {
                (ExtraMaterialStats) materials.get(3).getStatsOrUnknown(MaterialTypes.EXTRA));
 
     data.attack += 1f;
+    data.accuracy = 1f;
     //data.durability = Math.max(1, Math.round((float) data.durability / 10f));
 
-    return data.get();
+    return data;
   }
 }

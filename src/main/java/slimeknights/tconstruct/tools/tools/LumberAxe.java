@@ -131,7 +131,7 @@ public class LumberAxe extends AoeToolCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
+  public ToolNBT buildTagData(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(MaterialTypes.HANDLE);
     HeadMaterialStats head = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
     HeadMaterialStats plate = materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD);
@@ -145,7 +145,7 @@ public class LumberAxe extends AoeToolCore {
     data.attack += 2;
     data.durability *= DURABILITY_MODIFIER;
 
-    return data.get();
+    return data;
   }
 
   public static boolean detectTree(World world, BlockPos origin) {

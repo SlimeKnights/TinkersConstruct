@@ -119,9 +119,9 @@ public class Hatchet extends AoeToolCore {
   }
 
   @Override
-  public NBTTagCompound buildTag(List<Material> materials) {
+  protected ToolNBT buildTagData(List<Material> materials) {
     ToolNBT data = buildDefaultTag(materials);
     data.attack += 0.5f;
-    return data.get();
+    return data;
   }
 }
