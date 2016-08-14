@@ -5,5 +5,7 @@ import net.minecraft.item.ItemStack;
 
 public interface IAmmoUser {
 
+  ItemStack findAmmo(ItemStack weapon, EntityLivingBase player);
+
   ItemStack getAmmoToRender(ItemStack weapon, EntityLivingBase player);
 }

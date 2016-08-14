@@ -47,11 +47,10 @@ public class Shuriken extends ProjectileCore {
     if(ToolHelper.isBroken(itemStackIn)) {
       return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);
     }
-    ItemStack reference = getProjectileStack(itemStackIn, worldIn, playerIn);
     playerIn.getCooldownTracker().setCooldown(itemStackIn.getItem(), 4);
 
     if(!worldIn.isRemote) {
-      EntityProjectileBase projectile = new EntityShuriken(worldIn, playerIn, 2.1f, 0f, reference);
+      EntityProjectileBase projectile = getProjectile(itemStackIn, worldIn, playerIn, 2.1f, 0f);
       worldIn.spawnEntityInWorld(projectile);
     }
 
@@ -76,5 +75,10 @@ public class Shuriken extends ProjectileCore {
     //data.durability = Math.max(1, Math.round((float) data.durability / 10f));
 
     return data;
+  }
+
+  @Override
+  public EntityProjectileBase getProjectile(ItemStack stack, World world, EntityPlayer player, float speed, float inaccuracy) {
+    return new EntityShuriken(world, player, speed, inaccuracy, getProjectileStack(stack, world, player));
   }
 }

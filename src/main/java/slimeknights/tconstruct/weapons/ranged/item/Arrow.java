@@ -1,14 +1,17 @@
 package slimeknights.tconstruct.weapons.ranged.item;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
 import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 import slimeknights.tconstruct.library.materials.ArrowShaftMaterialStats;
 import slimeknights.tconstruct.library.materials.FletchingMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
@@ -20,6 +23,7 @@ import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.tools.ranged.ProjectileCore;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.entity.EntityShuriken;
 
 public class Arrow extends ProjectileCore {
 
@@ -57,5 +61,10 @@ public class Arrow extends ProjectileCore {
     data.shafts(this, shaft);
 
     return data;
+  }
+
+  @Override
+  public EntityProjectileBase getProjectile(ItemStack stack, World world, EntityPlayer player, float speed, float inaccuracy) {
+    return new EntityShuriken(world, player, speed, inaccuracy, getProjectileStack(stack, world, player));
   }
 }

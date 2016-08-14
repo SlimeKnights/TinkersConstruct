@@ -17,7 +17,7 @@ public class ProjectileLauncherNBT extends ToolNBT {
   public ProjectileLauncherNBT(NBTTagCompound tag) {
     super(tag);
 
-    this.range = 10f;
+    this.range = 1f;
     this.drawSpeed = 4f;
   }
 

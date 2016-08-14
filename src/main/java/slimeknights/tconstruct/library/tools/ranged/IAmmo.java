@@ -1,10 +1,13 @@
 package slimeknights.tconstruct.library.tools.ranged;
 
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+
+import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 
 /**
  * Represents an item that has an ammo count
@@ -44,4 +47,9 @@ public interface IAmmo {
    * @param stack The itemstack to set the ammo for. Has to have proper NBT.
    */
   void setAmmo(int count, ItemStack stack);
+
+  /**
+   * Gets the projectile to fire, matching the itemstacks data.
+   */
+  EntityProjectileBase getProjectile(ItemStack stack, World world, EntityPlayer player, float speed, float inaccuracy);
 }

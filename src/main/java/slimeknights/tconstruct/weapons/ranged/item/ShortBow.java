@@ -24,6 +24,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.materials.BowMaterialStats;
 import slimeknights.tconstruct.library.materials.BowStringMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
@@ -32,6 +33,7 @@ import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
 import slimeknights.tconstruct.library.tools.IAmmoUser;
+import slimeknights.tconstruct.library.tools.ranged.BowCore;
 import slimeknights.tconstruct.library.tools.ranged.ProjectileLauncherCore;
 import slimeknights.tconstruct.library.utils.AmmoHelper;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -39,36 +41,30 @@ import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.weapons.ranged.TinkerRangedWeapons;
 
-public class ShortBow extends ProjectileLauncherCore implements IAmmoUser {
+public class ShortBow extends BowCore {
 
   public ShortBow() {
     super(PartMaterialType.bowstring(TinkerTools.bowString),
           PartMaterialType.bow(TinkerTools.bowLimb),
           PartMaterialType.bow(TinkerTools.bowLimb));
 
-    this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter()
-    {
+    this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {
       @Override
       @SideOnly(Side.CLIENT)
-      public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
-      {
-        if (entityIn == null)
-        {
+      public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+        if(entityIn == null) {
           return 0.0F;
         }
-        else
-        {
+        else {
           ItemStack itemstack = entityIn.getActiveItemStack();
-          return itemstack != null && itemstack.getItem() == TinkerRangedWeapons.shortBow ? (float)(stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F : 0.0F;
+          return itemstack != null && itemstack.getItem() == TinkerRangedWeapons.shortBow ? (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F : 0.0F;
         }
       }
     });
-    this.addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter()
-    {
+    this.addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter() {
       @Override
       @SideOnly(Side.CLIENT)
-      public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn)
-      {
+      public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
         return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
       }
     });
@@ -91,35 +87,22 @@ public class ShortBow extends ProjectileLauncherCore implements IAmmoUser {
     return 3;
   }
 
-  /* Bow usage stuff */
-
-  @Nonnull
-  @Override
-  public EnumAction getItemUseAction(ItemStack stack) {
-    return EnumAction.BOW;
-  }
+  private ImmutableList<RecipeMatch> arrowMatches = null;
 
   @Override
-  public int getMaxItemUseDuration(ItemStack stack) {
-    return 72000;
-  }
-
-  @Nonnull
-  @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-    if(!ToolHelper.isBroken(itemStackIn)) {
-      playerIn.setActiveHand(hand);
-      return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+  protected List<RecipeMatch> getAmmoItems() {
+    arrowMatches = null;
+    if(arrowMatches == null) {
+      ImmutableList.Builder<RecipeMatch> builder = ImmutableList.builder();
+      if(TinkerRangedWeapons.arrow != null) {
+        builder.add(new AmmoHelper.AmmoMatch(TinkerRangedWeapons.arrow));
+      }
+      builder.add(RecipeMatch.of(Items.ARROW));
+      builder.add(RecipeMatch.of(Items.TIPPED_ARROW));
+      builder.add(RecipeMatch.of(Items.SPECTRAL_ARROW));
+      arrowMatches = builder.build();
     }
-    return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
-  }
-
-  @Override
-  public ItemStack getAmmoToRender(ItemStack weapon, EntityLivingBase player) {
-    if(ToolHelper.isBroken(weapon)) {
-      return null;
-    }
-    return AmmoHelper.findAmmoFromInventory(ImmutableList.of(TinkerRangedWeapons.arrow, Items.ARROW), player);
+    return arrowMatches;
   }
 
   /* Data Stuff */
