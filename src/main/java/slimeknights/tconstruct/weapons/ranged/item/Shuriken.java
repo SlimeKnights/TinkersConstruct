@@ -59,7 +59,7 @@ public class Shuriken extends ProjectileCore {
   }
 
   @Override
-  public ProjectileNBT buildProjectileTagData(List<Material> materials) {
+  public ProjectileNBT buildTagData(List<Material> materials) {
     ProjectileNBT data = new ProjectileNBT();
     data.head((HeadMaterialStats) materials.get(0).getStatsOrUnknown(MaterialTypes.HEAD),
               (HeadMaterialStats) materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD),

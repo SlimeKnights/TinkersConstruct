@@ -177,9 +177,5 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
   }
 
   @Override
-  public final ToolNBT buildTagData(List<Material> materials) {
-    return buildProjectileTagData(materials);
-  }
-
-  public abstract ProjectileNBT buildProjectileTagData(List<Material> materials);
+  public abstract ProjectileNBT buildTagData(List<Material> materials);
 }

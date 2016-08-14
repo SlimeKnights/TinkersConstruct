@@ -122,10 +122,10 @@ public class ShortBow extends ProjectileLauncherCore implements IAmmoUser {
     return AmmoHelper.findAmmoFromInventory(ImmutableList.of(TinkerRangedWeapons.arrow, Items.ARROW), player);
   }
 
-    /* Data Stuff */
+  /* Data Stuff */
 
   @Override
-  public ProjectileLauncherNBT buildProjectileLauncherTagData(List<Material> materials) {
+  public ProjectileLauncherNBT buildTagData(List<Material> materials) {
     ProjectileLauncherNBT data = new ProjectileLauncherNBT();
     HeadMaterialStats head1 = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
     HeadMaterialStats head2 = materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD);

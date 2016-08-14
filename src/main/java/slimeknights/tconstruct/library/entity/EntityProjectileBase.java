@@ -56,7 +56,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.setPosition(d, d1, d2);
   }
 
-  public EntityProjectileBase(World world, EntityPlayer player, float speed, float accuracy, ItemStack stack) {
+  public EntityProjectileBase(World world, EntityPlayer player, float speed, float inaccuracy, ItemStack stack) {
     this(world);
 
     this.shootingEntity = player;
@@ -74,7 +74,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI);
     this.motionZ = +MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI);
     this.motionY = -MathHelper.sin(this.rotationPitch / 180.0F * (float) Math.PI);
-    this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, speed, accuracy);
+    this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, speed, inaccuracy);
 
     // our stuff
     tinkerProjectile.setItemStack(stack);
