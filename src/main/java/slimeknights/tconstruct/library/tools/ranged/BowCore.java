@@ -7,6 +7,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
@@ -148,9 +149,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
   @Override
   public ItemStack findAmmo(ItemStack weapon, EntityLivingBase player) {
-    RecipeMatch.Match match = AmmoHelper.findAmmoFromInventory(getAmmoItems(), player);
-    // only 1 item max.
-    return match != null ? match.stacks.get(0) : null;
+    return AmmoHelper.findAmmoFromInventory(getAmmoItems(), player);
   }
 
   @Override
@@ -161,5 +160,5 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     return findAmmo(weapon, player);
   }
 
-  protected abstract List<RecipeMatch> getAmmoItems();
+  protected abstract List<Item> getAmmoItems();
 }

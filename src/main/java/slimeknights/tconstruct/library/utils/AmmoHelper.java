@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -20,14 +21,14 @@ public final class AmmoHelper {
 
   private AmmoHelper() {}
 
-  public static RecipeMatch.Match findAmmoFromInventory(List<RecipeMatch> ammoItems, Entity entity) {
+  public static ItemStack findAmmoFromInventory(List<Item> ammoItems, Entity entity) {
     if(ammoItems == null || entity == null || !entity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
       return null;
     }
 
     // we specifically check the equipment inventory first because it contains the offhand
     IItemHandler itemHandler = entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
-    RecipeMatch.Match ammo = validAmmoInRange(itemHandler, ammoItems, 0, InventoryPlayer.getHotbarSize());
+    ItemStack ammo = validAmmoInRange(itemHandler, ammoItems, 0, InventoryPlayer.getHotbarSize());
 
     // and then the remaining inventory
     if(ammo == null) {
@@ -43,13 +44,16 @@ public final class AmmoHelper {
     return ammo;
   }
 
-  private static RecipeMatch.Match validAmmoInRange(IItemHandler itemHandler, List<RecipeMatch> ammoItems, int from, int to) {
+  private static ItemStack validAmmoInRange(IItemHandler itemHandler, List<Item> ammoItems, int from, int to) {
     for(int i = from; i < to; i++) {
       ItemStack in = itemHandler.getStackInSlot(i);
-      for(RecipeMatch ammoItem : ammoItems) {
-        RecipeMatch.Match match = ammoItem.matches(new ItemStack[]{in});
-        if(match != null) {
-            return match;
+      for(Item ammoItem : ammoItems) {
+        // same item
+        if(in != null && in.getItem() == ammoItem) {
+          // no ammoitem or ammoitem with ammo
+          if(!(ammoItem instanceof IAmmo) || ((IAmmo) ammoItem).getCurrentAmmo(in) > 0) {
+            return in;
+          }
         }
       }
     }
@@ -86,34 +90,5 @@ public final class AmmoHelper {
     }
 
     return null;
-  }
-
-  public static class AmmoMatch extends RecipeMatch.Item {
-
-    private final IAmmo ammoItem;
-
-    public <T extends net.minecraft.item.Item & IAmmo> AmmoMatch(T template) {
-      super(new ItemStack(template), 1, 1);
-
-      this.ammoItem = template;
-    }
-
-    @Override
-    public Match matches(ItemStack[] stacks) {
-      for(ItemStack stack : stacks) {
-        if(stack == null || stack.getItem() != ammoItem) {
-          continue;
-        }
-        if(ammoItem.getCurrentAmmo(stack) > 0) {
-          // add the amount found to the list
-          ItemStack copy = stack.copy();
-          copy.stackSize = 1;
-
-          return new Match(ImmutableList.of(copy), amountMatched);
-        }
-      }
-
-      return null;
-    }
   }
 }

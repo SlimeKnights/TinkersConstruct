@@ -87,19 +87,18 @@ public class ShortBow extends BowCore {
     return 3;
   }
 
-  private ImmutableList<RecipeMatch> arrowMatches = null;
+  private ImmutableList<Item> arrowMatches = null;
 
   @Override
-  protected List<RecipeMatch> getAmmoItems() {
-    arrowMatches = null;
+  protected List<Item> getAmmoItems() {
     if(arrowMatches == null) {
-      ImmutableList.Builder<RecipeMatch> builder = ImmutableList.builder();
+      ImmutableList.Builder<Item> builder = ImmutableList.builder();
       if(TinkerRangedWeapons.arrow != null) {
-        builder.add(new AmmoHelper.AmmoMatch(TinkerRangedWeapons.arrow));
+        builder.add(TinkerRangedWeapons.arrow);
       }
-      builder.add(RecipeMatch.of(Items.ARROW));
-      builder.add(RecipeMatch.of(Items.TIPPED_ARROW));
-      builder.add(RecipeMatch.of(Items.SPECTRAL_ARROW));
+      builder.add(Items.ARROW);
+      builder.add(Items.TIPPED_ARROW);
+      builder.add(Items.SPECTRAL_ARROW);
       arrowMatches = builder.build();
     }
     return arrowMatches;
