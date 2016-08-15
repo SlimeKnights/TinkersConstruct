@@ -84,7 +84,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     int useTime = this.getMaxItemUseDuration(stack) - timeLeft;
     useTime = ForgeEventFactory.onArrowLoose(stack, worldIn, player, useTime, ammo != null);
 
-    if(useTime < 0) {
+    if(useTime < 5) {
       return;
     }
 

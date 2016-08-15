@@ -6,16 +6,21 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 import org.apache.logging.log4j.Logger;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.CommonProxy;
+import slimeknights.tconstruct.common.EntityIDs;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.tools.AbstractToolPulse;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.entity.EntityArrow;
+import slimeknights.tconstruct.tools.entity.EntityShuriken;
 import slimeknights.tconstruct.weapons.ranged.item.Arrow;
 import slimeknights.tconstruct.weapons.ranged.item.ShortBow;
 import slimeknights.tconstruct.weapons.ranged.item.Shuriken;
@@ -44,6 +49,11 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
     super.preInit(event);
+
+    // entities
+    EntityRegistry.registerModEntity(EntityArrow.class, "arrow", EntityIDs.ARROW, TConstruct.instance, 64, 1, false);
+    EntityRegistry.registerModEntity(EntityShuriken.class, "shuriken", EntityIDs.SHURIKEN, TConstruct.instance, 64, 1, false);
+
     proxy.preInit();
   }
 

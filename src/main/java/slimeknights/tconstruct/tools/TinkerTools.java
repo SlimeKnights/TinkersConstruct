@@ -152,7 +152,6 @@ public class TinkerTools extends AbstractToolPulse {
     // register entities
 
     EntityRegistry.registerModEntity(IndestructibleEntityItem.class, "Indestructible Item", EntityIDs.INDESTRUCTIBLE_ITEM, TConstruct.instance, 32, 5, true);
-    EntityRegistry.registerModEntity(EntityShuriken.class, "shuriken", EntityIDs.SHURIKEN, TConstruct.instance, 64, 1, false);
 
     proxy.preInit();
 

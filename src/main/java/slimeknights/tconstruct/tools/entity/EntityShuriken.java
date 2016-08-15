@@ -42,11 +42,6 @@ public class EntityShuriken extends EntityProjectileBase {
   }
 
   @Override
-  protected double getStuckDepth() {
-    return 0.8d;
-  }
-
-  @Override
   public void readSpawnData(ByteBuf data) {
     super.readSpawnData(data);
 

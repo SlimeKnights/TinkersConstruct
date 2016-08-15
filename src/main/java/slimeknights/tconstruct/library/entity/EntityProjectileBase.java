@@ -130,11 +130,10 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   }
 
   /**
-   * How deep the item enters stuff it hits. Should be bigger for bigger objects, and smaller for smaller objects.
-   * 1.0f is exactly halfway in.
+   * How deep the item enters stuff it hits. Best experiment.
    */
-  protected double getStuckDepth() {
-    return 0.5f;
+  public double getStuckDepth() {
+    return 0.4f;
   }
 
   protected void doLivingHit(EntityLivingBase entityHit) {
@@ -506,7 +505,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
    * Added to the y-velocity as gravitational pull. Otherwise stuff would simply float midair.
    */
   protected double getGravity() {
-    return 0.05;
+    return 0.00;
   }
 
   /**

@@ -8,7 +8,10 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistryClient;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
+import slimeknights.tconstruct.library.client.renderer.RenderProjectileBase;
+import slimeknights.tconstruct.tools.client.renderer.RenderArrow;
 import slimeknights.tconstruct.tools.client.renderer.RenderShuriken;
+import slimeknights.tconstruct.tools.entity.EntityArrow;
 import slimeknights.tconstruct.tools.entity.EntityShuriken;
 
 public class RangedClientProxy extends ClientProxy {
@@ -22,6 +25,12 @@ public class RangedClientProxy extends ClientProxy {
       @Override
       public Render<? super EntityShuriken> createRenderFor(RenderManager manager) {
         return new RenderShuriken(manager);
+      }
+    });
+    RenderingRegistry.registerEntityRenderingHandler(EntityArrow.class, new IRenderFactory<EntityArrow>() {
+      @Override
+      public Render<? super EntityArrow> createRenderFor(RenderManager manager) {
+        return new RenderArrow(manager);
       }
     });
   }

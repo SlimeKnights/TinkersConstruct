@@ -23,6 +23,7 @@ import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.tools.ranged.ProjectileCore;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.entity.EntityArrow;
 import slimeknights.tconstruct.tools.entity.EntityShuriken;
 
 public class Arrow extends ProjectileCore {
@@ -65,6 +66,6 @@ public class Arrow extends ProjectileCore {
 
   @Override
   public EntityProjectileBase getProjectile(ItemStack stack, World world, EntityPlayer player, float speed, float inaccuracy) {
-    return new EntityShuriken(world, player, speed, inaccuracy, getProjectileStack(stack, world, player));
+    return new EntityArrow(world, player, speed, inaccuracy, getProjectileStack(stack, world, player));
   }
 }
