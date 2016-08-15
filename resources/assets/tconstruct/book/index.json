@@ -13,8 +13,7 @@
     "name": "materials",
     "icon": {
       "item": {
-        "id": "minecraft:iron_ingot",
-        "damage": 0
+        "id": "minecraft:iron_ingot"
       }
     }
   },
@@ -24,6 +23,24 @@
     "icon": {
       "item": {
         "id": "minecraft:redstone"
+      }
+    }
+  },
+  {
+    "name": "smeltery",
+    "data": "sections/smeltery.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:smeltery_controller"
+      }
+    }
+  },
+  {
+    "name": "seared_furnace",
+    "data": "sections/seared_furnace.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:seared_furnace_controller"
       }
     }
   }
