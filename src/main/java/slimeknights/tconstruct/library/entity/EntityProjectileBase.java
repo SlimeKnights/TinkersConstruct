@@ -503,7 +503,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
    * Added to the y-velocity as gravitational pull. Otherwise stuff would simply float midair.
    */
   protected double getGravity() {
-    return 0.00;
+    return 0.05;
   }
 
   /**
