@@ -99,7 +99,9 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
       Entity projectile = getProjectileEntity(ammo, worldIn, player, power, 0f);
 
       if(projectile != null) {
-        ToolHelper.damageTool(stack, 1, player);
+        if(!player.capabilities.isCreativeMode) {
+          ToolHelper.damageTool(stack, 1, player);
+        }
         worldIn.spawnEntityInWorld(projectile);
       }
     }
