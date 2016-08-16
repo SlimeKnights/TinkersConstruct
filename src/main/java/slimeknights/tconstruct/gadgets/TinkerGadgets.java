@@ -232,7 +232,7 @@ public class TinkerGadgets extends TinkerPulse {
     // slime channels
     for(SlimeType type : SlimeType.values()) {
       GameRegistry.addSmelting(new ItemStack(TinkerCommons.blockSlimeCongealed, 1, type.getMeta()),
-                               new ItemStack(slimeChannel, 1, type.getMeta()), 0.1f);
+                               new ItemStack(slimeChannel, 3, type.getMeta()), 0.15f);
     }
 
     addFrameRecipe("nuggetGold", EntityFancyItemFrame.FrameType.JEWEL);

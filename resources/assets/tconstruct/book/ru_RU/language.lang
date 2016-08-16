@@ -1,0 +1,14 @@
+// Sections Про сурка перевода нормального не существует.
+intro=Вступление
+materials=Материалы
+tools=Инструменты
+modifiers=Улучшения
+smeltery=Плавильня
+
+modifier.effect=Эффекты:
+
+material.craft_partbuilder=Может быть создано в столе вырезки частей
+material.craft_casting=Может быть отлито из %s
+
+wood.flavour=Сколько дров бросил бы сурок, если бы сурок мог бросать дрова?
+stone.flavour=Тверд, как камень

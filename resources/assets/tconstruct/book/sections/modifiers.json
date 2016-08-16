@@ -86,5 +86,8 @@
   {
     "type": "modifier",
     "data": "modifiers/webbed.json"
+  },
+  {
+    "type": "blank"
   }
 ]

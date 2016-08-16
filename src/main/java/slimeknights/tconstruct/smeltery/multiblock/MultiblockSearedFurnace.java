@@ -86,17 +86,12 @@ public class MultiblockSearedFurnace extends MultiblockCuboid {
       return true;
     }
 
-    // allow stairs and slabs on the ceiling, but need to be the bottom half
-    if(type == EnumFrameType.CEILING) {
-      if(state.getBlock() instanceof BlockSlab && state.getValue(BlockSlab.HALF) == BlockSlab.EnumBlockHalf.TOP) {
-        return false;
-      }
-      if(state.getBlock() instanceof BlockStairs && state.getValue(BlockStairs.HALF) == BlockStairs.EnumHalf.TOP) {
-        return false;
-      }
-
-      return TinkerSmeltery.validSearedFurnaceBlocks.contains(state.getBlock());
+    // anything is allowed on the ceiling and floor of the frame, just the walls matter
+    if(type != EnumFrameType.WALL) {
+      return true;
     }
+
+    // the above also allows slabs and stairs on the ceiling, so no need to add it here
 
     return state.getBlock() == TinkerSmeltery.searedBlock;
   }
