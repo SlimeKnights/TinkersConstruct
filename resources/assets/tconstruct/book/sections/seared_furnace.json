@@ -2,11 +2,11 @@
   {
     "name": "intro",
     "type": "image with text below",
-    "data": "smeltery/intro.json"
+    "data": "seared_furnace/intro.json"
   },
   {
     "name": "structure",
     "type": "text",
-    "data": "smeltery/structure.json"
+    "data": "seared_furnace/structure.json"
   }
 ]

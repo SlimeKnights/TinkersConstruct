@@ -1,0 +1,12 @@
+{
+  "title":"",
+  "text": [
+    {
+      "text": "The seared furnace can be any size from 3x3 to 11x11, with larger structues increasing the amount of items that can smelt at once. In order to be a valid structure, it requires a floor and ceiling, along with a frame around the sides (frames around the ceiling and floor are optional)"
+    },
+    {
+      "text": "The structure can be made using seared blocks of any kind with a single controller. It can also have any number of tanks in the frame for fuel, though it needs at least one. The ceiling can be swapped out for slabs or stairs, but otherwise supports the same blocks as the rest of the structure.",
+	  "paragraph": true
+    }
+  ]
+}

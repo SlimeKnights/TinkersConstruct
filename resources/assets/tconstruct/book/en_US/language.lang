@@ -1,9 +1,10 @@
 // Sections
 intro=Introduction
-materials=Toolmaterials
+materials=Tool materials
 tools=Tools
 modifiers=Modifiers
 smeltery=Smeltery
+seared_furnace=Seared Furnace
 
 modifier.effect=Effects:
 
