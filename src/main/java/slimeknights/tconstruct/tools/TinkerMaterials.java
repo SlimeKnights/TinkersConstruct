@@ -295,7 +295,7 @@ public final class TinkerMaterials {
 
     string.setRenderInfo(0xeeeeee);
 
-    blaze.setRenderInfo(0xffc100);
+    blaze.setRenderInfo(0xffd120);
     reed.setRenderInfo(0xaadb74);
 
     feather.setRenderInfo(0xffffff).setTextureSuffix("feather");
