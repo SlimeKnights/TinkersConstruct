@@ -2,6 +2,7 @@
     "textures": {
         "layer0": "tconstruct:items/arrow/shaft",
         "layer1": "tconstruct:items/arrow/head",
-        "layer2": "tconstruct:items/arrow/fletching"
+        "layer2": "tconstruct:items/arrow/fletching",
+        "broken0": "tconstruct:items/arrow/shaft_broken"
     }
 }

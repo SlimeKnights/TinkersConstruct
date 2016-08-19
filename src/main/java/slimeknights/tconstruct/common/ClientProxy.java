@@ -361,9 +361,7 @@ public abstract class ClientProxy extends CommonProxy {
 
   @Override
   public void updateEquippedItemForRendering(EnumHand hand) {
-    ToolCore.renderHack = true;
     Minecraft.getMinecraft().getItemRenderer().resetEquippedProgress(hand);
     Minecraft.getMinecraft().getItemRenderer().updateEquippedItem();
-    ToolCore.renderHack = false;
   }
 }
