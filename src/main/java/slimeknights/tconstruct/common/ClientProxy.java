@@ -11,6 +11,7 @@ import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -356,5 +357,13 @@ public abstract class ClientProxy extends CommonProxy {
                                                             baseLocation.getResourcePath() + suffix),
                                        "inventory");
     }
+  }
+
+  @Override
+  public void updateEquippedItemForRendering(EnumHand hand) {
+    ToolCore.renderHack = true;
+    Minecraft.getMinecraft().getItemRenderer().resetEquippedProgress(hand);
+    Minecraft.getMinecraft().getItemRenderer().updateEquippedItem();
+    ToolCore.renderHack = false;
   }
 }

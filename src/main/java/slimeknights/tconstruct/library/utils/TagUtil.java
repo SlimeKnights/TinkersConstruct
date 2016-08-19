@@ -269,6 +269,16 @@ public final class TagUtil {
     return root.getBoolean(Tags.ENCHANT_EFFECT);
   }
 
+  public static void setResetFlag(ItemStack stack, boolean active) {
+    NBTTagCompound root = getTagSafe(stack);
+    root.setBoolean(Tags.RESET_FLAG, active);
+    stack.setTagCompound(root);
+  }
+
+  public static boolean getResetFlag(ItemStack stack) {
+    return getTagSafe(stack).getBoolean(Tags.RESET_FLAG);
+  }
+
   /* Helper functions */
 
   public static NBTTagCompound writePos(BlockPos pos) {

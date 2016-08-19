@@ -29,12 +29,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.mantle.util.TagHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.BooleanItemPropertyGetter;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IAmmoUser;
 import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.AmmoHelper;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.weapons.ranged.TinkerRangedWeapons;
 
@@ -90,7 +94,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
   protected float getDrawbackProgress(ItemStack itemStack, int timePassed) {
     float drawProgress = ProjectileLauncherNBT.from(itemStack).drawSpeed * (float) timePassed;
-    return drawProgress / (float) getDrawTime();
+    return Math.min(1f, drawProgress / (float) getDrawTime());
   }
 
   /* Bow usage stuff */
@@ -165,6 +169,13 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
     consumeAmmo(ammo, player);
     player.addStat(StatList.getObjectUseStats(this));
+
+    // needs to be done manually for the overrides to work out correctly
+    // since TiC tools don't get updated by default due to their custom equip check
+    // this interferes with the item properties since it gets the wrong itemstack
+    // causing animations not to work
+    TinkerRangedWeapons.proxy.updateEquippedItemForRendering(entityLiving.getActiveHand());
+    TagUtil.setResetFlag(stack, true);
   }
 
   protected Entity getProjectileEntity(ItemStack ammo, World world, EntityPlayer player, float power, float inaccuracy) {

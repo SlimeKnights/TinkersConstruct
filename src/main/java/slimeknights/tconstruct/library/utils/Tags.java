@@ -53,6 +53,7 @@ public final class Tags {
   public static final String REPAIR_COUNT = "RepairCount";
 
   public static final String ENCHANT_EFFECT = "EnchantEffect";
+  public static final String RESET_FLAG = "ResetFlag";
 
   private Tags() {
   }

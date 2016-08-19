@@ -530,6 +530,10 @@ public abstract class ToolCore extends TinkersItem {
   @SideOnly(Side.CLIENT)
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
+    if(TagUtil.getResetFlag(newStack)) {
+      TagUtil.setResetFlag(newStack, false);
+      return true;
+    }
     if(oldStack == newStack) {
       return false;
     }
