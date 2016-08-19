@@ -7,6 +7,7 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.IItemPropertyGetter;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemBow;
@@ -15,15 +16,21 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.tconstruct.library.client.BooleanItemPropertyGetter;
+import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IAmmoUser;
 import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
@@ -33,8 +40,57 @@ import slimeknights.tconstruct.weapons.ranged.TinkerRangedWeapons;
 
 public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUser {
 
+  protected static final ResourceLocation PROPERTY_PULL = new ResourceLocation("pull");
+  protected static final ResourceLocation PROPERTY_PULLING = new ResourceLocation("pulling");
+
   public BowCore(PartMaterialType... requiredComponents) {
     super(requiredComponents);
+
+    addCategory(Category.LAUNCHER);
+
+    this.addPropertyOverride(PROPERTY_PULL, new IItemPropertyGetter() {
+      @Override
+      @SideOnly(Side.CLIENT)
+      public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+        if(entityIn == null) {
+          return 0.0F;
+        }
+        else {
+          ItemStack itemstack = entityIn.getActiveItemStack();
+          if(itemstack != null && itemstack.getItem() == BowCore.this) {
+            int timePassed = itemstack.getMaxItemUseDuration() - entityIn.getItemInUseCount();
+            return getDrawbackProgress(itemstack, timePassed);
+          }
+          return 0f;
+        }
+      }
+    });
+    this.addPropertyOverride(PROPERTY_PULLING, new BooleanItemPropertyGetter() {
+      @Override
+      @SideOnly(Side.CLIENT)
+      public boolean applyIf(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+        return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack;
+      }
+    });
+  }
+
+  /* Stuff to override */
+
+  protected float baseInaccuracy() {
+    return 0f;
+  }
+
+  protected float baseProjectileSpeed() {
+    return 3f;
+  }
+
+  protected int getDrawTime() {
+    return 20;
+  }
+
+  protected float getDrawbackProgress(ItemStack itemStack, int timePassed) {
+    float drawProgress = ProjectileLauncherNBT.from(itemStack).drawSpeed * (float) timePassed;
+    return drawProgress / (float) getDrawTime();
   }
 
   /* Bow usage stuff */
@@ -92,11 +148,10 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
       ammo = getCreativeProjectileStack();
     }
 
-    ProjectileLauncherNBT data = getData(stack);
-    float power = ItemBow.getArrowVelocity(useTime) * data.range * 3f;
+    float power = ItemBow.getArrowVelocity(useTime) * getDrawbackProgress(stack, useTime) * baseProjectileSpeed();
 
     if(!worldIn.isRemote) {
-      Entity projectile = getProjectileEntity(ammo, worldIn, player, power, 0f);
+      Entity projectile = getProjectileEntity(ammo, worldIn, player, power, baseInaccuracy());
 
       if(projectile != null) {
         if(!player.capabilities.isCreativeMode) {
@@ -114,7 +169,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
   protected Entity getProjectileEntity(ItemStack ammo, World world, EntityPlayer player, float power, float inaccuracy) {
     if(ammo.getItem() instanceof IAmmo) {
-      return ((IAmmo) ammo.getItem()).getProjectile(ammo, world, player, power, 0f);
+      return ((IAmmo) ammo.getItem()).getProjectile(ammo, world, player, power, inaccuracy);
     }
     else if(ammo.getItem() instanceof ItemArrow) {
       EntityArrow projectile = ((ItemArrow) ammo.getItem()).createArrow(world, ammo, player);

@@ -47,27 +47,6 @@ public class ShortBow extends BowCore {
     super(PartMaterialType.bowstring(TinkerTools.bowString),
           PartMaterialType.bow(TinkerTools.bowLimb),
           PartMaterialType.bow(TinkerTools.bowLimb));
-
-    this.addPropertyOverride(new ResourceLocation("pull"), new IItemPropertyGetter() {
-      @Override
-      @SideOnly(Side.CLIENT)
-      public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-        if(entityIn == null) {
-          return 0.0F;
-        }
-        else {
-          ItemStack itemstack = entityIn.getActiveItemStack();
-          return itemstack != null && itemstack.getItem() == TinkerRangedWeapons.shortBow ? (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F : 0.0F;
-        }
-      }
-    });
-    this.addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter() {
-      @Override
-      @SideOnly(Side.CLIENT)
-      public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
-        return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
-      }
-    });
   }
 
   @Override

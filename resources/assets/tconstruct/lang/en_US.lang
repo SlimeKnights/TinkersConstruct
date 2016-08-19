@@ -521,7 +521,7 @@ stat.mattock.shovellevel.name=Shovel Level
 stat.bow.name=Bow
 stat.bow.drawspeed.name=Drawspeed
 stat.bow.drawspeed.desc=How fast you can draw the bow.
-stat.bow.range.name=Range
+stat.bow.range.name=Range Multiplier
 stat.bow.range.desc=How far the projectile can be propelled.
 
 stat.shaft.name=Arrow Shaft

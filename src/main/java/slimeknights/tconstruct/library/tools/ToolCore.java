@@ -259,6 +259,10 @@ public abstract class ToolCore extends TinkersItem {
       info.addHarvestLevel();
       info.addMiningSpeed();
     }
+    if(hasCategory(Category.LAUNCHER)) {
+      info.addDrawSpeed();
+      info.addRange();
+    }
     info.addAttack();
 
     if(ToolHelper.getFreeModifiers(stack) > 0) {

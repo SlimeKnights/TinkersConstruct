@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ProjectileNBT;
 import slimeknights.tconstruct.library.tools.ranged.ProjectileCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.entity.EntityShuriken;
@@ -79,6 +80,8 @@ public class Shuriken extends ProjectileCore {
 
   @Override
   public EntityProjectileBase getProjectile(ItemStack stack, World world, EntityPlayer player, float speed, float inaccuracy) {
+    ProjectileNBT projectileNBT = new ProjectileNBT(TagUtil.getTagSafe(stack));
+    inaccuracy *= projectileNBT.accuracy;
     return new EntityShuriken(world, player, speed, inaccuracy, getProjectileStack(stack, world, player));
   }
 }

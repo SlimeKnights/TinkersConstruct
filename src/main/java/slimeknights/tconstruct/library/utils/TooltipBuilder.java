@@ -14,9 +14,11 @@ import java.util.List;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomFontColor;
+import slimeknights.tconstruct.library.materials.BowMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
+import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
 import slimeknights.tconstruct.library.tools.ranged.IAmmo;
 
 import static slimeknights.tconstruct.library.Util.df;
@@ -131,6 +133,16 @@ public class TooltipBuilder {
       }
     }
 
+    return this;
+  }
+
+  public TooltipBuilder addDrawSpeed() {
+    tips.add(BowMaterialStats.formatDrawspeed(ProjectileLauncherNBT.from(stack).drawSpeed));
+    return this;
+  }
+
+  public TooltipBuilder addRange() {
+    tips.add(BowMaterialStats.formatRange(ProjectileLauncherNBT.from(stack).range));
     return this;
   }
 }

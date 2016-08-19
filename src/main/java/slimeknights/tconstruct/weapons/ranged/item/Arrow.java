@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.materials.FletchingMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
+import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ProjectileNBT;
 import slimeknights.tconstruct.library.tools.ToolNBT;
@@ -33,6 +34,8 @@ public class Arrow extends ProjectileCore {
     super(PartMaterialType.arrowShaft(TinkerTools.arrowShaft),
           PartMaterialType.arrowHead(TinkerTools.arrowHead),
           PartMaterialType.fletching(TinkerTools.fletching));
+
+    addCategory(Category.NO_MELEE, Category.PROJECTILE);
   }
 
   @Override

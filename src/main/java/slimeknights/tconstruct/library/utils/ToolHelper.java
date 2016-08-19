@@ -47,6 +47,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
+import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ranged.IProjectile;
 import slimeknights.tconstruct.library.traits.ITrait;
@@ -117,7 +118,6 @@ public final class ToolHelper {
     }
     return speed;
   }
-
 
   public static int getFreeModifiers(ItemStack stack) {
     return getIntTag(stack, Tags.FREE_MODIFIERS);

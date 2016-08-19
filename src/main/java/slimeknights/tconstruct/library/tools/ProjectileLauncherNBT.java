@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.library.tools;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import slimeknights.tconstruct.library.materials.BowMaterialStats;
 import slimeknights.tconstruct.library.materials.BowStringMaterialStats;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 
 public class ProjectileLauncherNBT extends ToolNBT {
@@ -12,31 +14,30 @@ public class ProjectileLauncherNBT extends ToolNBT {
   public float range;
 
   public ProjectileLauncherNBT() {
+    drawSpeed = 1f;
+    range = 1f;
   }
 
   public ProjectileLauncherNBT(NBTTagCompound tag) {
     super(tag);
-
-    this.range = 1f;
-    this.drawSpeed = 4f;
   }
 
   public ProjectileLauncherNBT limb(BowMaterialStats... bowlimbs) {
-    speed = 0;
+    drawSpeed = 0;
     range = 0;
 
     for(BowMaterialStats limb : bowlimbs) {
       if(limb != null) {
-        speed += limb.drawspeed;
+        drawSpeed += limb.drawspeed;
         range += limb.range;
       }
     }
 
-    speed /= (float) bowlimbs.length;
+    drawSpeed /= (float) bowlimbs.length;
     range /= (float) bowlimbs.length;
 
-    speed = Math.max(0.001f, speed);
-    range = Math.min(0.001f, range);
+    drawSpeed = Math.max(0.001f, drawSpeed);
+    range = Math.max(0.001f, range);
 
     return this;
   }
@@ -69,5 +70,9 @@ public class ProjectileLauncherNBT extends ToolNBT {
     super.write(tag);
     tag.setFloat(Tags.DRAWSPEED, drawSpeed);
     tag.setFloat(Tags.RANGE, range);
+  }
+
+  public static ProjectileLauncherNBT from(ItemStack itemStack) {
+    return new ProjectileLauncherNBT(TagUtil.getToolTag(itemStack));
   }
 }

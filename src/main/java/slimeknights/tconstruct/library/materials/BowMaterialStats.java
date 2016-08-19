@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomFontColor;
 
 public class BowMaterialStats extends AbstractMaterialStats {
@@ -26,13 +27,27 @@ public class BowMaterialStats extends AbstractMaterialStats {
     this.range = range;
   }
 
+  public static String formatDrawspeed(float drawspeed) {
+    return formatNumber(LOC_Drawspeed, COLOR_Drawspeed, drawspeed);
+  }
+
+  public static String formatRange(float range) {
+    return formatNumber(LOC_Range, COLOR_Range, range);
+  }
+
   @Override
   public List<String> getLocalizedInfo() {
-    return ImmutableList.of("");
+    return ImmutableList.of(
+        formatDrawspeed(drawspeed),
+        formatRange(range)
+    );
   }
 
   @Override
   public List<String> getLocalizedDesc() {
-    return ImmutableList.of("");
+    return ImmutableList.of(
+        Util.translate(LOC_DrawspeedDesc),
+        Util.translate(LOC_RangeDesc)
+    );
   }
 }

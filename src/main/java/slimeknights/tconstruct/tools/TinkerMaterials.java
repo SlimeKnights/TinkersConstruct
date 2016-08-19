@@ -616,10 +616,10 @@ public final class TinkerMaterials {
   }
 
   public void registerBowMaterialStats() {
-    TinkerRegistry.addMaterialStats(wood, new BowMaterialStats(3f, 10f));
+    TinkerRegistry.addMaterialStats(wood, new BowMaterialStats(1f, 1f));
+    TinkerRegistry.addMaterialStats(stone, new BowMaterialStats(0.1f, 0.1f));
+    TinkerRegistry.addMaterialStats(flint, new BowMaterialStats(0.1f, 0.1f));
     /*
-    TinkerRegistry.addMaterialStats(stone, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(flint, new BowMaterialStats(drawspeed, range));
     TinkerRegistry.addMaterialStats(cactus, new BowMaterialStats(drawspeed, range));
     TinkerRegistry.addMaterialStats(bone, new BowMaterialStats(drawspeed, range));
     TinkerRegistry.addMaterialStats(obsidian, new BowMaterialStats(drawspeed, range));

@@ -18,7 +18,7 @@ public abstract class ProjectileLauncherCore extends TinkerToolCore {
   }
 
   protected ProjectileLauncherNBT getData(ItemStack stack) {
-    return new ProjectileLauncherNBT(TagHelper.getTagSafe(stack));
+    return ProjectileLauncherNBT.from(stack);
   }
 
   @Override
