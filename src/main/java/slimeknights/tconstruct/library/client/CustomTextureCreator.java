@@ -50,6 +50,8 @@ import slimeknights.tconstruct.library.tools.Pattern;
  */
 public class CustomTextureCreator implements IResourceManagerReloadListener {
 
+  public static final CustomTextureCreator INSTANCE = new CustomTextureCreator();
+
   private static Logger log = Util.getLogger("TextureGen");
 
   /**

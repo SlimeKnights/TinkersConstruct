@@ -61,11 +61,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
         }
         else {
           ItemStack itemstack = entityIn.getActiveItemStack();
-          if(itemstack != null && itemstack.getItem() == BowCore.this) {
-            int timePassed = itemstack.getMaxItemUseDuration() - entityIn.getItemInUseCount();
-            return getDrawbackProgress(itemstack, timePassed);
-          }
-          return 0f;
+          return getDrawbackProgress(itemstack, entityIn);
         }
       }
     });
@@ -90,6 +86,17 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
   protected int getDrawTime() {
     return 20;
+  }
+
+  protected float getDrawbackProgress(ItemStack itemStack, EntityLivingBase entityIn) {
+    ItemStack itemstack = entityIn.getActiveItemStack();
+    if(itemstack != null && itemstack.getItem() == BowCore.this) {
+      int timePassed = itemstack.getMaxItemUseDuration() - entityIn.getItemInUseCount();
+      return getDrawbackProgress(itemstack, timePassed);
+    }
+    else {
+      return 0f;
+    }
   }
 
   protected float getDrawbackProgress(ItemStack itemStack, int timePassed) {

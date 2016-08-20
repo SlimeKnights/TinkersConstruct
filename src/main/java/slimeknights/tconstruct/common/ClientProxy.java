@@ -29,6 +29,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.client.CustomFontRenderer;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.client.crosshair.CrosshairRenderEvents;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.client.model.ModifierModelLoader;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
@@ -66,7 +67,7 @@ public abstract class ClientProxy extends CommonProxy {
 
   public static void initRenderer() {
 
-    CustomTextureCreator creator = new CustomTextureCreator();
+    CustomTextureCreator creator = CustomTextureCreator.INSTANCE;
 
     MinecraftForge.EVENT_BUS.register(creator);
     ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(creator);
@@ -92,6 +93,8 @@ public abstract class ClientProxy extends CommonProxy {
       fontRenderer.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
     }
     TinkerBook.INSTANCE.fontRenderer = bookRenderer;
+
+    MinecraftForge.EVENT_BUS.register(CrosshairRenderEvents.INSTANCE);
   }
 
   protected ResourceLocation registerModel(Item item, String... customVariants) {
