@@ -145,6 +145,7 @@ public final class TinkerMaterials {
 
   // bowstring materials
   public static final Material string    = mat("string", 0xeeeeee);
+  public static final Material vine      = mat("vine", 0x40a10f);
 
   // additional arrow shaft
   public static final Material blaze     = mat("blaze", 0xffc100);
@@ -294,6 +295,7 @@ public final class TinkerMaterials {
     });
 
     string.setRenderInfo(0xeeeeee);
+    vine.setRenderInfo(0x40a10f);
 
     blaze.setRenderInfo(0xffd120);
     reed.setRenderInfo(0xaadb74);
@@ -451,6 +453,7 @@ public final class TinkerMaterials {
 
     // bowstring
     string.addItemIngot("string");
+    vine.addItemIngot("vine");
 
     // arrow materials
     blaze.addItem(Items.BLAZE_ROD);
@@ -612,8 +615,6 @@ public final class TinkerMaterials {
                                     new HandleMaterialStats(0.9f, 150),
                                     new ExtraMaterialStats(25));
 
-    TinkerRegistry.addMaterialStats(string,
-                                    new ExtraMaterialStats(150));
     //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
   }
 
@@ -659,6 +660,7 @@ public final class TinkerMaterials {
 
     // Bowstring materials
     TinkerRegistry.addMaterialStats(string, new BowStringMaterialStats(1f));
+    TinkerRegistry.addMaterialStats(vine, new BowStringMaterialStats(1f));
   }
 
   public void registerProjectileMaterialStats() {

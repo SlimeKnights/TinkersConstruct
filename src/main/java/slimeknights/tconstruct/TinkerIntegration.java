@@ -90,6 +90,7 @@ public class TinkerIntegration extends TinkerPulse {
 
     // bow stuff
     integrate(TinkerMaterials.string);
+    integrate(TinkerMaterials.vine);
 
     integrate(TinkerMaterials.blaze);
     integrate(TinkerMaterials.reed);
