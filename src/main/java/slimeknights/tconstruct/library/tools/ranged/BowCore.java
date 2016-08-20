@@ -160,6 +160,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     }
 
     float power = ItemBow.getArrowVelocity(useTime) * getDrawbackProgress(stack, useTime) * baseProjectileSpeed();
+    power *= ProjectileLauncherNBT.from(stack).range;
 
     if(!worldIn.isRemote) {
       Entity projectile = getProjectileEntity(ammo, worldIn, player, power, baseInaccuracy());

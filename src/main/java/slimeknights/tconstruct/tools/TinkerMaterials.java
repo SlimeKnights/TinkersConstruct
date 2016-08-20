@@ -617,8 +617,8 @@ public final class TinkerMaterials {
 
   public void registerBowMaterialStats() {
     TinkerRegistry.addMaterialStats(wood, new BowMaterialStats(1f, 1f));
-    TinkerRegistry.addMaterialStats(stone, new BowMaterialStats(0.1f, 0.1f));
-    TinkerRegistry.addMaterialStats(flint, new BowMaterialStats(0.1f, 0.1f));
+    TinkerRegistry.addMaterialStats(stone, new BowMaterialStats(0.2f, 0.4f));
+    TinkerRegistry.addMaterialStats(flint, new BowMaterialStats(0.2f, 0.4f));
     /*
     TinkerRegistry.addMaterialStats(cactus, new BowMaterialStats(drawspeed, range));
     TinkerRegistry.addMaterialStats(bone, new BowMaterialStats(drawspeed, range));
