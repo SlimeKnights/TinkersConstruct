@@ -664,16 +664,17 @@ public final class TinkerMaterials {
   public void registerProjectileMaterialStats() {
     // shaft
     TinkerRegistry.addMaterialStats(wood, new ArrowShaftMaterialStats(1f, 0));
-    TinkerRegistry.addMaterialStats(bone, new ArrowShaftMaterialStats(1f, 0));
-    TinkerRegistry.addMaterialStats(blaze, new ArrowShaftMaterialStats(1f, 0));
-    TinkerRegistry.addMaterialStats(reed, new ArrowShaftMaterialStats(1f, 0));
+    TinkerRegistry.addMaterialStats(bone, new ArrowShaftMaterialStats(0.9f, 5));
+    TinkerRegistry.addMaterialStats(blaze, new ArrowShaftMaterialStats(0.8f, 3));
+    TinkerRegistry.addMaterialStats(reed, new ArrowShaftMaterialStats(1.5f, 20));
 
     // fletching
-    TinkerRegistry.addMaterialStats(feather, new FletchingMaterialStats(1f, 1f));
-    TinkerRegistry.addMaterialStats(leaf, new FletchingMaterialStats(1f, 1f));
-    TinkerRegistry.addMaterialStats(slimeleaf_purple, new FletchingMaterialStats(1f, 1f));
-    TinkerRegistry.addMaterialStats(slimeleaf_blue, new FletchingMaterialStats(1f, 1f));
-    TinkerRegistry.addMaterialStats(slimeleaf_orange, new FletchingMaterialStats(1f, 1f));
+    TinkerRegistry.addMaterialStats(feather, new FletchingMaterialStats(0.9f, 1f));
+    TinkerRegistry.addMaterialStats(leaf, new FletchingMaterialStats(0.5f, 1.5f));
+    FletchingMaterialStats slimeLeafStats = new FletchingMaterialStats(0.8f, 1.25f);
+    TinkerRegistry.addMaterialStats(slimeleaf_purple, slimeLeafStats);
+    TinkerRegistry.addMaterialStats(slimeleaf_blue, slimeLeafStats);
+    TinkerRegistry.addMaterialStats(slimeleaf_orange, slimeLeafStats);
   }
 
   @Subscribe

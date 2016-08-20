@@ -70,8 +70,7 @@ public class Arrow extends ProjectileCore {
 
   @Override
   public EntityProjectileBase getProjectile(ItemStack stack, World world, EntityPlayer player, float speed, float inaccuracy) {
-    ProjectileNBT projectileNBT = new ProjectileNBT(TagUtil.getTagSafe(stack));
-    inaccuracy *= projectileNBT.accuracy;
+    inaccuracy *= ProjectileNBT.from(stack).accuracy;
     return new EntityArrow(world, player, speed, inaccuracy, getProjectileStack(stack, world, player));
   }
 }

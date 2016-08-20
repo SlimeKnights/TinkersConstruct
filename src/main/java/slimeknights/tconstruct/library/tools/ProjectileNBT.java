@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.library.tools;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import slimeknights.tconstruct.library.materials.ArrowShaftMaterialStats;
 import slimeknights.tconstruct.library.materials.FletchingMaterialStats;
 import slimeknights.tconstruct.library.tools.ranged.ProjectileCore;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 
 public class ProjectileNBT extends ToolNBT {
@@ -12,11 +14,11 @@ public class ProjectileNBT extends ToolNBT {
   public float accuracy;
 
   public ProjectileNBT() {
+    accuracy = 1f;
   }
 
   public ProjectileNBT(NBTTagCompound tag) {
     super(tag);
-    this.accuracy = 1f;
   }
 
   public ProjectileNBT shafts(ProjectileCore projectileCore, ArrowShaftMaterialStats... shafts) {
@@ -75,5 +77,9 @@ public class ProjectileNBT extends ToolNBT {
   public void write(NBTTagCompound tag) {
     super.write(tag);
     tag.setFloat(Tags.ACCURACY, accuracy);
+  }
+
+  public static ProjectileNBT from(ItemStack itemStack) {
+    return new ProjectileNBT(TagUtil.getToolTag(itemStack));
   }
 }
