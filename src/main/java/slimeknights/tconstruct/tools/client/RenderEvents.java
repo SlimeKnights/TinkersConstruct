@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -23,13 +24,16 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.RenderSpecificHandEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -41,6 +45,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import slimeknights.tconstruct.library.tools.DualToolHarvestUtils;
 import slimeknights.tconstruct.library.tools.IAoeTool;
 
 @SideOnly(Side.CLIENT)
@@ -54,33 +59,34 @@ public class RenderEvents implements IResourceManagerReloadListener {
     PlayerControllerMP controllerMP = Minecraft.getMinecraft().playerController;
     EntityPlayer player = Minecraft.getMinecraft().thePlayer;
     World world = player.worldObj;
+
+    ItemStack tool = player.getHeldItemMainhand();
+
     // AOE preview
-    if(player.getHeldItemMainhand() != null && player.getHeldItemMainhand().getItem() instanceof IAoeTool) {
+    if(tool != null) {
       RayTraceResult mop = player.rayTrace(controllerMP.getBlockReachDistance(), event.getPartialTicks());
       if(mop != null) {
-        ItemStack stack = player.getHeldItemMainhand();
-        ImmutableList<BlockPos> extraBlocks = ((IAoeTool) stack.getItem()).getAOEBlocks(stack, world, player, mop
-            .getBlockPos());
-        for(BlockPos pos : extraBlocks) {
-          event.getContext().drawSelectionBox(player, new RayTraceResult(new Vec3d(0, 0, 0), null, pos), 0, event
-              .getPartialTicks());
+        tool = DualToolHarvestUtils.getItemstackToUse(player, world.getBlockState(mop.getBlockPos()));
+        if(tool.getItem() instanceof IAoeTool) {
+          ImmutableList<BlockPos> extraBlocks = ((IAoeTool) tool.getItem()).getAOEBlocks(tool, world, player, mop.getBlockPos());
+          for(BlockPos pos : extraBlocks) {
+            event.getContext().drawSelectionBox(player, new RayTraceResult(new Vec3d(0, 0, 0), null, pos), 0, event.getPartialTicks());
+          }
         }
       }
     }
 
     // extra-blockbreak animation
     if(controllerMP.isHittingBlock) {
-      if(controllerMP.currentItemHittingBlock != null &&
-         controllerMP.currentItemHittingBlock.getItem() instanceof IAoeTool &&
-         ((IAoeTool) controllerMP.currentItemHittingBlock.getItem()).isAoeHarvestTool()) {
-        ItemStack stack = controllerMP.currentItemHittingBlock;
+      tool = DualToolHarvestUtils.getItemstackToUse(player, world.getBlockState(controllerMP.currentBlock));
+      if(tool != null && tool.getItem() instanceof IAoeTool && ((IAoeTool) tool.getItem()).isAoeHarvestTool()) {
         BlockPos pos = controllerMP.currentBlock;
         drawBlockDamageTexture(Tessellator.getInstance(),
                                Tessellator.getInstance().getBuffer(),
                                player,
                                event.getPartialTicks(),
                                world,
-                               ((IAoeTool) stack.getItem()).getAOEBlocks(stack, world, player, pos));
+                               ((IAoeTool) tool.getItem()).getAOEBlocks(tool, world, player, pos));
       }
     }
   }
@@ -147,6 +153,49 @@ public class RenderEvents implements IResourceManagerReloadListener {
     GlStateManager.depthMask(true);
     GlStateManager.popMatrix();
     // postRenderDamagedBlocks END
+  }
+
+
+  @SubscribeEvent
+  public void handRenderEvent(RenderSpecificHandEvent event) {
+    EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+
+    if(event.getHand() == EnumHand.OFF_HAND && player.isHandActive()) {
+      ItemStack stack = player.getActiveItemStack();
+      if(stack != null && stack.getItemUseAction() == EnumAction.BOW) {
+        event.setCanceled(true);
+      }
+    }
+
+    ItemStack mainStack = player.getHeldItemMainhand();
+    RayTraceResult rt = Minecraft.getMinecraft().objectMouseOver;
+    if(mainStack != null
+       && rt.typeOfHit == RayTraceResult.Type.BLOCK
+       && DualToolHarvestUtils.shouldUseOffhand(player, rt.getBlockPos(), mainStack)) {
+
+      event.setCanceled(true);
+
+      EnumHand hand;
+      ItemStack itemStack;
+      if(event.getHand() == EnumHand.MAIN_HAND) {
+        hand = EnumHand.OFF_HAND;
+        itemStack = player.getHeldItemOffhand();
+      }
+      else {
+        hand = EnumHand.MAIN_HAND;
+        itemStack = player.getHeldItemMainhand();
+      }
+
+      ItemRenderer itemRenderer = Minecraft.getMinecraft().getItemRenderer();
+      itemRenderer.renderItemInFirstPerson(
+          Minecraft.getMinecraft().thePlayer,
+          event.getPartialTicks(),
+          event.getInterpolatedPitch(),
+          hand,
+          event.getSwingProgress(),
+          itemStack,
+          event.getEquipProgress());
+    }
   }
 
   @Override

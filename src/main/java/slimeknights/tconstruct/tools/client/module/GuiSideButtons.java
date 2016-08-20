@@ -28,7 +28,7 @@ public class GuiSideButtons extends GuiModule {
     this.columns = columns;
   }
 
-  public void addButton(GuiButton button) {
+  public void addSideButton(GuiButton button) {
     int rows = (buttonCount - 1) / columns + 1;
 
     this.xSize = button.width * columns + spacing * (columns - 1);

@@ -30,6 +30,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
+import slimeknights.tconstruct.library.tools.DualToolHarvestUtils;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.Shard;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -430,5 +431,6 @@ public class TinkerTools extends AbstractToolPulse {
     MinecraftForge.EVENT_BUS.register(IndestructibleEntityItem.EventHandler.instance);
     MinecraftForge.EVENT_BUS.register(new TraitEvents());
     MinecraftForge.EVENT_BUS.register(new ToolEvents());
+    MinecraftForge.EVENT_BUS.register(DualToolHarvestUtils.INSTANCE);
   }
 }

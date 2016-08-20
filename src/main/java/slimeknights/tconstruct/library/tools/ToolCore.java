@@ -422,7 +422,6 @@ public abstract class ToolCore extends TinkersItem {
   @Override
   public int getHarvestLevel(ItemStack stack, @Nonnull String toolClass) {
     if(this.getToolClasses(stack).contains(toolClass)) {
-      NBTTagCompound tag = TagUtil.getToolTag(stack);
       // will return 0 if the tag has no info anyway
       return ToolHelper.getHarvestLevelStat(stack);
     }
