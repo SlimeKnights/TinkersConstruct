@@ -527,22 +527,18 @@ public final class TinkerMaterials {
                                     new HandleMaterialStats(0.10f, 5),
                                     new ExtraMaterialStats(15));
     TinkerRegistry.addMaterialStats(sponge,
-                                    new HeadMaterialStats(550, 3.02f, 0.00f, STONE),
+                                    new HeadMaterialStats(1050, 3.02f, 0.00f, STONE),
                                     new HandleMaterialStats(1.20f, 250),
                                     new ExtraMaterialStats(250));
-    TinkerRegistry.addMaterialStats(firewood,
-                                    new HeadMaterialStats(550, 6.00f, 5.50f, STONE),
-                                    new HandleMaterialStats(1.0f, -200),
-                                    new ExtraMaterialStats(150));
 
     // Slime
     TinkerRegistry.addMaterialStats(slime,
                                     new HeadMaterialStats(1000, 4.24f, 1.80f, STONE),
-                                    new HandleMaterialStats(0.70f, -100),
+                                    new HandleMaterialStats(0.70f, 0),
                                     new ExtraMaterialStats(350));
     TinkerRegistry.addMaterialStats(blueslime,
                                     new HeadMaterialStats(780, 4.03f, 1.80f, STONE),
-                                    new HandleMaterialStats(1.30f, -100),
+                                    new HandleMaterialStats(1.30f, -50),
                                     new ExtraMaterialStats(200));
     TinkerRegistry.addMaterialStats(knightslime,
                                     new HeadMaterialStats(850, 5.8f, 5.10f, OBSIDIAN),
@@ -570,6 +566,10 @@ public final class TinkerMaterials {
                                     new HeadMaterialStats(820, 7.02f, 8.72f, COBALT),
                                     new HandleMaterialStats(0.50f, 250),
                                     new ExtraMaterialStats(50));
+    TinkerRegistry.addMaterialStats(firewood,
+                                    new HeadMaterialStats(550, 6.00f, 5.50f, STONE),
+                                    new HandleMaterialStats(1.0f, -200),
+                                    new ExtraMaterialStats(150));
 
     // Metals
     TinkerRegistry.addMaterialStats(iron,
@@ -612,48 +612,51 @@ public final class TinkerMaterials {
                                     new HandleMaterialStats(0.9f, 150),
                                     new ExtraMaterialStats(25));
 
+    TinkerRegistry.addMaterialStats(string,
+                                    new ExtraMaterialStats(150));
     //TinkerRegistry.addMaterialStats(xu,         new ToolMaterialStats(97, 1.00f, 1.00f, 0.10f, 0.20f, DIAMOND));
   }
 
   public void registerBowMaterialStats() {
+    BowMaterialStats whyWouldYouMakeABowOutOfThis = new BowMaterialStats(0.2f, 0.4f);
+
     TinkerRegistry.addMaterialStats(wood, new BowMaterialStats(1f, 1f));
-    TinkerRegistry.addMaterialStats(stone, new BowMaterialStats(0.2f, 0.4f));
-    TinkerRegistry.addMaterialStats(flint, new BowMaterialStats(0.2f, 0.4f));
-    /*
-    TinkerRegistry.addMaterialStats(cactus, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(bone, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(obsidian, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(prismarine, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(endstone, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(paper, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(sponge, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(firewood, new BowMaterialStats(drawspeed, range));
+    TinkerRegistry.addMaterialStats(stone, whyWouldYouMakeABowOutOfThis);
+    TinkerRegistry.addMaterialStats(flint, whyWouldYouMakeABowOutOfThis);
+    TinkerRegistry.addMaterialStats(cactus, new BowMaterialStats(1.05f, 0.9f));
+    TinkerRegistry.addMaterialStats(bone, new BowMaterialStats(0.95f, 1.15f));
+    TinkerRegistry.addMaterialStats(obsidian, whyWouldYouMakeABowOutOfThis);
+    TinkerRegistry.addMaterialStats(prismarine, whyWouldYouMakeABowOutOfThis);
+    TinkerRegistry.addMaterialStats(endstone, whyWouldYouMakeABowOutOfThis);
+    TinkerRegistry.addMaterialStats(paper, new BowMaterialStats(2f, 0.5f));
+    TinkerRegistry.addMaterialStats(sponge, new BowMaterialStats(1.15f, 0.75f));
 
 
     // Slime
-    TinkerRegistry.addMaterialStats(slime, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(blueslime, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(knightslime, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(magmaslime, new BowMaterialStats(drawspeed, range));
+    TinkerRegistry.addMaterialStats(slime, new BowMaterialStats(0.85f, 1.3f));
+    TinkerRegistry.addMaterialStats(blueslime, new BowMaterialStats(1.05f, 1f));
+    TinkerRegistry.addMaterialStats(knightslime, new BowMaterialStats(0.4f, 2f));
+    TinkerRegistry.addMaterialStats(magmaslime, new BowMaterialStats(1.1f, 1.05f));
 
     // Nether
-    TinkerRegistry.addMaterialStats(netherrack, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(cobalt, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(ardite, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(manyullyn, new BowMaterialStats(drawspeed, range));
+    TinkerRegistry.addMaterialStats(netherrack, whyWouldYouMakeABowOutOfThis);
+    TinkerRegistry.addMaterialStats(cobalt, new BowMaterialStats(0.75f, 1.3f));
+    TinkerRegistry.addMaterialStats(ardite, new BowMaterialStats(0.45f, 0.8f));
+    TinkerRegistry.addMaterialStats(manyullyn, new BowMaterialStats(0.65f, 1.2f));
+    TinkerRegistry.addMaterialStats(firewood, new BowMaterialStats(1f, 1f));
 
     // Metals
-    TinkerRegistry.addMaterialStats(iron, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(pigiron, new BowMaterialStats(drawspeed, range));
+    TinkerRegistry.addMaterialStats(iron, new BowMaterialStats(0.5f, 1.5f));
+    TinkerRegistry.addMaterialStats(pigiron, new BowMaterialStats(0.6f, 1.4f));
 
     // Mod Integration
-    TinkerRegistry.addMaterialStats(copper, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(bronze, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(lead, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(silver, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(electrum, new BowMaterialStats(drawspeed, range));
-    TinkerRegistry.addMaterialStats(steel, new BowMaterialStats(drawspeed, range));
-*/
+    TinkerRegistry.addMaterialStats(copper, new BowMaterialStats(0.6f, 1.45f));
+    TinkerRegistry.addMaterialStats(bronze, new BowMaterialStats(0.55f, 1.5f));
+    TinkerRegistry.addMaterialStats(lead, new BowMaterialStats(0.4f, 1.3f));
+    TinkerRegistry.addMaterialStats(silver, new BowMaterialStats(1.2f, 0.8f));
+    TinkerRegistry.addMaterialStats(electrum, new BowMaterialStats(1.5f, 1f));
+    TinkerRegistry.addMaterialStats(steel, new BowMaterialStats(0.4f, 2f));
+
     // Bowstring materials
     TinkerRegistry.addMaterialStats(string, new BowStringMaterialStats(1f));
   }
