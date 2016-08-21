@@ -133,37 +133,11 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   }
 
   protected void doLivingHit(EntityLivingBase entityHit) {
-    /*
-    float knockback = returnStack.getTagCompound().getCompoundTag("InfiTool").getFloat("Knockback");
-    if(shootingEntity instanceof EntityLivingBase)
-      knockback += EnchantmentHelper.getKnockbackModifier((EntityLivingBase) shootingEntity, entityHit);
+    setDead();
+  }
 
-    if (!this.worldObj.isRemote)
-    {
-      entityHit.setArrowCountInEntity(entityHit.getArrowCountInEntity() + 1);
-    }
-
-    if (knockback > 0)
-    {
-      double horizontalSpeed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-
-      if (horizontalSpeed > 0.0F)
-      {
-        entityHit.addVelocity(this.motionX * (double) knockback * 0.6000000238418579D / horizontalSpeed, 0.1D, this.motionZ * (double) knockback * 0.6000000238418579D / (double) horizontalSpeed);
-      }
-    }
-
-    if (this.shootingEntity != null && this.shootingEntity instanceof EntityLivingBase)
-    {
-      EnchantmentHelper.func_151384_a(entityHit, this.shootingEntity);
-      EnchantmentHelper.func_151385_b((EntityLivingBase)this.shootingEntity, entityHit);
-    }
-
-    if (this.shootingEntity != null && entityHit != this.shootingEntity && entityHit instanceof EntityPlayer && this.shootingEntity instanceof EntityPlayerMP)
-    {
-      ((EntityPlayerMP)this.shootingEntity).playerNetServerHandler.sendPacket(new SPacketChangeGameState(6, 0.0F));
-    }
-    */
+  protected float getSpeed() {
+    return MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
   }
 
   public void onHitBlock(RayTraceResult raytraceResult) {
@@ -177,7 +151,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.motionX = (double) ((float) (raytraceResult.hitVec.xCoord - this.posX));
     this.motionY = (double) ((float) (raytraceResult.hitVec.yCoord - this.posY));
     this.motionZ = (double) ((float) (raytraceResult.hitVec.zCoord - this.posZ));
-    float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+    float speed = getSpeed();
     this.posX -= this.motionX / (double) speed * 0.05000000074505806D;
     this.posY -= this.motionY / (double) speed * 0.05000000074505806D;
     this.posZ -= this.motionZ / (double) speed * 0.05000000074505806D;
@@ -221,7 +195,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
       // deal the damage
       float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-      bounceOff = dealDamage(speed, inventoryItem, attacker, target);
+      bounceOff = !dealDamage(speed, inventoryItem, attacker, target);
 
       // remove stats from projectile
       // apply stats from projectile
