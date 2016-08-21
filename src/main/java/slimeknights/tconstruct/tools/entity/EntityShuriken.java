@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.entity;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -39,6 +40,11 @@ public class EntityShuriken extends EntityProjectileBase {
   @Override
   protected double getSlowdown() {
     return 0.05f;
+  }
+
+  @Override
+  protected void playHitEntitySound() {
+
   }
 
   @Override

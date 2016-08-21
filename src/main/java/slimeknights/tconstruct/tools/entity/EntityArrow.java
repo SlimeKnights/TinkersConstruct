@@ -13,7 +13,7 @@ public class EntityArrow extends EntityProjectileBase {
 
   // animation
   public int roll = 0;
-  public boolean rollLeft = false;
+  public int rollSpeed = 80;
 
   public EntityArrow(World world) {
     super(world);
@@ -37,6 +37,7 @@ public class EntityArrow extends EntityProjectileBase {
     super.readSpawnData(data);
 
     // animation stuff, it sometimes rotates left
-    rollLeft = rand.nextBoolean();
+    int rollDir = rand.nextBoolean() ? -1 : 1;
+    rollSpeed = (int)((getSpeed() * 80) / 3) * rollDir;
   }
 }

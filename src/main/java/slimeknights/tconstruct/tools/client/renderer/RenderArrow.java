@@ -16,7 +16,7 @@ public class RenderArrow extends RenderProjectileBase<EntityArrow> {
   @Override
   protected void customCustomRendering(EntityArrow entity, double x, double y, double z, float entityYaw, float partialTicks) {
     if(!entity.inGround) {
-      entity.roll += 80 * partialTicks * (entity.rollLeft ? -1 : 1);
+      entity.roll += entity.rollSpeed * partialTicks;
     }
     float r = entity.roll;
 

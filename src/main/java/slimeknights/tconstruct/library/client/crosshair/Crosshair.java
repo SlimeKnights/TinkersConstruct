@@ -39,8 +39,8 @@ public class Crosshair implements ICrosshair {
 
     drawCrosshair(spread, width, height, partialTicks);
 
-    GlStateManager.disableBlend();
     OpenGlHelper.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+    GlStateManager.disableBlend();
   }
 
   protected void drawCrosshair(float spread, float width, float height, float partialTicks) {
