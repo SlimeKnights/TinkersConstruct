@@ -37,8 +37,6 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 
 // have to base this on EntityArrow, otherwise minecraft does derp things because everything is handled based on class.
 public abstract class EntityProjectileBase extends EntityArrow implements IEntityAdditionalSpawnData {
-  //public final static String woodSound = Reference.resource("woodHit");
-  //public final static String stoneSound = Reference.resource("stoneHit");
 
   public TinkerProjectileHandler tinkerProjectile = new TinkerProjectileHandler();
 
@@ -124,7 +122,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   }
 
   protected void playHitEntitySound() {
-
+    this.playSound(SoundEvents.ENTITY_ARROW_HIT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
   }
 
   /**

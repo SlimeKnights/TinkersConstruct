@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.tools.entity;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -23,6 +25,11 @@ public class EntityArrow extends EntityProjectileBase {
 
   public EntityArrow(World world, EntityPlayer player, float speed, float inaccuracy, ItemStack stack) {
     super(world, player, speed, inaccuracy, stack);
+  }
+
+  @Override
+  protected void playHitBlockSound(float speed, IBlockState state) {
+    this.playSound(SoundEvents.ENTITY_ARROW_HIT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
   }
 
   @Override
