@@ -25,7 +25,10 @@ public class RenderThrowball extends RenderSnowball<EntityThrowball> {
   @Nonnull
   @Override
   public ItemStack getStackToRender(EntityThrowball entityIn) {
-    return new ItemStack(item, 1, entityIn.type.ordinal());
+    if(entityIn.type != null) {
+      return new ItemStack(item, 1, entityIn.type.ordinal());
+    }
+    return null;
   }
 
   private static class Factory implements IRenderFactory<EntityThrowball> {

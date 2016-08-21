@@ -2,6 +2,7 @@ package slimeknights.tconstruct.gadgets.entity;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -34,13 +35,15 @@ public class EntityThrowball extends EntityThrowable implements IEntityAdditiona
 
   @Override
   protected void onImpact(@Nonnull RayTraceResult result) {
-    switch(type) {
-      case GLOW:
-        placeGlow(result);
-        break;
-      case EFLN:
-        explode(6f);
-        break;
+    if(type != null) {
+      switch(type) {
+        case GLOW:
+          placeGlow(result);
+          break;
+        case EFLN:
+          explode(6f);
+          break;
+      }
     }
 
     if(!this.worldObj.isRemote) {
@@ -74,15 +77,35 @@ public class EntityThrowball extends EntityThrowable implements IEntityAdditiona
   }
 
   @Override
+  public void writeEntityToNBT(NBTTagCompound compound) {
+    super.writeEntityToNBT(compound);
+    ensureType();
+    compound.setInteger("type", type.ordinal());
+  }
+
+  @Override
+  public void readEntityFromNBT(NBTTagCompound compound) {
+    super.readEntityFromNBT(compound);
+    type = ItemThrowball.ThrowballType.values()[compound.getInteger("type")];
+    ensureType();
+  }
+
+  @Override
   public void writeSpawnData(ByteBuf buffer) {
-    if(type == null) {
-      type = ItemThrowball.ThrowballType.GLOW;
-    }
+    ensureType();
     buffer.writeInt(type.ordinal());
   }
 
   @Override
   public void readSpawnData(ByteBuf additionalData) {
     type = ItemThrowball.ThrowballType.values()[additionalData.readInt()];
+    ensureType();
   }
+
+  private void ensureType() {
+    if(type == null) {
+      type = ItemThrowball.ThrowballType.GLOW;
+    }
+  }
+
 }
