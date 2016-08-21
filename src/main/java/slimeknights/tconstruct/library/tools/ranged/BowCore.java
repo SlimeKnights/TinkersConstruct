@@ -203,6 +203,11 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
   }
 
   protected void consumeAmmo(ItemStack ammo, EntityPlayer player) {
+    // no ammo consumption in creative
+    if(player.capabilities.isCreativeMode) {
+      return;
+    }
+
     if(ammo.getItem() instanceof IAmmo) {
       ((IAmmo) ammo.getItem()).useAmmo(ammo, player);
     }
