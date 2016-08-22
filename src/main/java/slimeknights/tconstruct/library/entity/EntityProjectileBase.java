@@ -185,27 +185,30 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       }
 
       // remove stats from held items
-      unequip(attacker, EntityEquipmentSlot.OFFHAND);
-      unequip(attacker, EntityEquipmentSlot.MAINHAND);
+      if(!worldObj.isRemote) {
+        unequip(attacker, EntityEquipmentSlot.OFFHAND);
+        unequip(attacker, EntityEquipmentSlot.MAINHAND);
 
-      // apply stats from projectile
-      if(item.getItem() instanceof IProjectile) {
-        attacker.getAttributeMap().applyAttributeModifiers(((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem));
+        // apply stats from projectile
+        if(item.getItem() instanceof IProjectile) {
+          attacker.getAttributeMap().applyAttributeModifiers(((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem));
+        }
       }
-
       // deal the damage
       float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
       bounceOff = !dealDamage(speed, inventoryItem, attacker, target);
 
       // remove stats from projectile
       // apply stats from projectile
-      if(item.getItem() instanceof IProjectile) {
-        attacker.getAttributeMap().removeAttributeModifiers(((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem));
-      }
+      if(!worldObj.isRemote) {
+        if(item.getItem() instanceof IProjectile) {
+          attacker.getAttributeMap().removeAttributeModifiers(((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem));
+        }
 
-      // readd stats from held items
-      equip(attacker, EntityEquipmentSlot.MAINHAND);
-      equip(attacker, EntityEquipmentSlot.OFFHAND);
+        // readd stats from held items
+        equip(attacker, EntityEquipmentSlot.MAINHAND);
+        equip(attacker, EntityEquipmentSlot.OFFHAND);
+      }
 
       if(!bounceOff) {
         doLivingHit(target);
