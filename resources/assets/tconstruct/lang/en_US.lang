@@ -354,6 +354,8 @@ item.tconstruct.battleaxe.name=Battleaxe
 
 item.tconstruct.shortbow.name=Shortbow
 
+item.tconstruct.arrow.name=Arrow
+
 item.tconstruct.shuriken.name=Shuriken
 
 # Tool Parts
@@ -373,7 +375,7 @@ item.tconstruct.cross_guard.name=Cross Guard
 item.tconstruct.hand_guard.name=Hand Guard
 item.tconstruct.full_guard.name=Full Guard
 
-#Large Tool Parts
+# Large Tool Parts
 item.tconstruct.hammer_head.name=Hammer Head
 item.tconstruct.excavator_head.name=Excavator Head
 item.tconstruct.broad_axe_head.name=Broad Axe Head
@@ -382,6 +384,15 @@ item.tconstruct.tough_binding.name=Tough Binding
 item.tconstruct.tough_tool_rod.name=Tough Tool Rod
 item.tconstruct.scythe_head.name=Scythe Head
 item.tconstruct.large_sword_blade.name=Large Sword Blade
+
+# Bow & Arrow Parts
+
+item.tconstruct.bow_limb.name=Bowlimb
+item.tconstruct.bow_string.name=Bowstring
+
+item.tconstruct.arrow_head.name=Arrow Head
+item.tconstruct.arrow_shaft.name=Arrow Shaft
+item.tconstruct.fletching.name=Fletching
 
 # Material specific tools and toolparts
 # item.tconstruct.<tool>.<material>
@@ -491,6 +502,15 @@ material.lead.name=Lead
 material.silver.name=Silver
 material.electrum.name=Electrum
 material.steel.name=Steel
+material.string.name=String
+material.vine.name=Vines
+material.blaze.name=Blazerod
+material.reed.name=Reeds
+material.feather.name=Feather
+material.leaf.name=Leaf
+material.slimeleaf_blue.name=Slimeleaf
+material.slimeleaf_orange.name=material.slimeleaf_blue.name
+material.slimeleaf_purple.name=material.slimeleaf_blue.name
 
 #############
 #   Stats   #
