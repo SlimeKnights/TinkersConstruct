@@ -45,7 +45,7 @@ public class Arrow extends ProjectileCore {
 
   @Override
   public float damagePotential() {
-    return 0.1f;
+    return 1f;
   }
 
   @Override
@@ -64,6 +64,8 @@ public class Arrow extends ProjectileCore {
     data.head(head);
     data.fletchings(fletching);
     data.shafts(this, shaft);
+
+    data.attack += 2;
 
     return data;
   }
