@@ -51,5 +51,5 @@ public interface IAmmo {
   /**
    * Gets the projectile to fire, matching the itemstacks data.
    */
-  EntityProjectileBase getProjectile(ItemStack stack, World world, EntityPlayer player, float speed, float inaccuracy);
+  EntityProjectileBase getProjectile(ItemStack stack, World world, EntityPlayer player, float speed, float inaccuracy, boolean usedAmmo);
 }

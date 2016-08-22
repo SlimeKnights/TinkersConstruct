@@ -163,7 +163,8 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     power *= ProjectileLauncherNBT.from(stack).range;
 
     if(!worldIn.isRemote) {
-      Entity projectile = getProjectileEntity(ammo, worldIn, player, power, baseInaccuracy());
+      boolean usedAmmo = consumeAmmo(ammo, player);
+      Entity projectile = getProjectileEntity(ammo, worldIn, player, power, baseInaccuracy(), usedAmmo);
 
       if(projectile != null) {
         if(!player.capabilities.isCreativeMode) {
@@ -175,7 +176,6 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
     playShootSound(power, worldIn, player);
 
-    consumeAmmo(ammo, player);
     player.addStat(StatList.getObjectUseStats(this));
 
     // needs to be done manually for the overrides to work out correctly
@@ -186,9 +186,9 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     TagUtil.setResetFlag(stack, true);
   }
 
-  protected Entity getProjectileEntity(ItemStack ammo, World world, EntityPlayer player, float power, float inaccuracy) {
+  protected Entity getProjectileEntity(ItemStack ammo, World world, EntityPlayer player, float power, float inaccuracy, boolean usedAmmo) {
     if(ammo.getItem() instanceof IAmmo) {
-      return ((IAmmo) ammo.getItem()).getProjectile(ammo, world, player, power, inaccuracy);
+      return ((IAmmo) ammo.getItem()).getProjectile(ammo, world, player, power, inaccuracy, usedAmmo);
     }
     else if(ammo.getItem() instanceof ItemArrow) {
       EntityArrow projectile = ((ItemArrow) ammo.getItem()).createArrow(world, ammo, player);
@@ -196,20 +196,23 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
       if(player.capabilities.isCreativeMode) {
         projectile.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
       }
+      else if(!usedAmmo) {
+        projectile.pickupStatus = EntityArrow.PickupStatus.DISALLOWED;
+      }
       return projectile;
     }
     // shizzle-foo, this fizzles too!
     return null;
   }
 
-  protected void consumeAmmo(ItemStack ammo, EntityPlayer player) {
+  protected boolean consumeAmmo(ItemStack ammo, EntityPlayer player) {
     // no ammo consumption in creative
     if(player.capabilities.isCreativeMode) {
-      return;
+      return false;
     }
 
     if(ammo.getItem() instanceof IAmmo) {
-      ((IAmmo) ammo.getItem()).useAmmo(ammo, player);
+      return ((IAmmo) ammo.getItem()).useAmmo(ammo, player);
     }
     else {
       ammo.stackSize--;
@@ -217,6 +220,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
       {
         player.inventory.deleteStack(ammo);
       }
+      return true;
     }
   }
 

@@ -2,7 +2,6 @@ package slimeknights.tconstruct.weapons.ranged.item;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -21,8 +20,6 @@ import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ProjectileNBT;
 import slimeknights.tconstruct.library.tools.ranged.ProjectileCore;
-import slimeknights.tconstruct.library.tools.ToolNBT;
-import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.entity.EntityShuriken;
@@ -51,7 +48,8 @@ public class Shuriken extends ProjectileCore {
     playerIn.getCooldownTracker().setCooldown(itemStackIn.getItem(), 4);
 
     if(!worldIn.isRemote) {
-      EntityProjectileBase projectile = getProjectile(itemStackIn, worldIn, playerIn, 2.1f, 0f);
+      boolean usedAmmo = useAmmo(itemStackIn, playerIn);
+      EntityProjectileBase projectile = getProjectile(itemStackIn, worldIn, playerIn, 2.1f, 0f, usedAmmo);
       worldIn.spawnEntityInWorld(projectile);
     }
 
@@ -79,8 +77,8 @@ public class Shuriken extends ProjectileCore {
   }
 
   @Override
-  public EntityProjectileBase getProjectile(ItemStack stack, World world, EntityPlayer player, float speed, float inaccuracy) {
+  public EntityProjectileBase getProjectile(ItemStack stack, World world, EntityPlayer player, float speed, float inaccuracy, boolean usedAmmo) {
     inaccuracy *= ProjectileNBT.from(stack).accuracy;
-    return new EntityShuriken(world, player, speed, inaccuracy, getProjectileStack(stack, world, player));
+    return new EntityShuriken(world, player, speed, inaccuracy, getProjectileStack(stack, world, player, usedAmmo));
   }
 }

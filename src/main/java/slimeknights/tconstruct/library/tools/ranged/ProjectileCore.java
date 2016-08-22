@@ -110,14 +110,12 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
 
   /* Tool stuff */
 
-  protected ItemStack getProjectileStack(ItemStack itemStack, World world, EntityPlayer player) {
+  protected ItemStack getProjectileStack(ItemStack itemStack, World world, EntityPlayer player, boolean usedAmmo) {
     ItemStack reference = itemStack.copy(); // copy has to be taken before damage in case damageTool breaks the tool
     reference.stackSize = 1;
 
-    if(!player.capabilities.isCreativeMode && !world.isRemote) {
-      if(!useAmmo(itemStack, player)) {
-        reference.stackSize = 0;
-      }
+    if(!player.capabilities.isCreativeMode && !world.isRemote && !usedAmmo) {
+      reference.stackSize = 0;
     }
 
     return reference;
