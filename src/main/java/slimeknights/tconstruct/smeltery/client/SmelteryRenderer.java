@@ -86,7 +86,8 @@ public class SmelteryRenderer extends SmelteryTankRenderer<TileSmeltery> {
       }
     }
     RenderHelper.enableStandardItemLighting();
-//    tessellator.draw();
+    GlStateManager.enableCull();
+    //tessellator.draw();
     RenderUtil.post();
   }
 }

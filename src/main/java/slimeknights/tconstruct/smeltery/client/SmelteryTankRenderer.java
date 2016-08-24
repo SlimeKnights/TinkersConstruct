@@ -39,8 +39,6 @@ public class SmelteryTankRenderer<T extends TileEntity & ISmelteryTankHandler> e
       int yd = 1 + Math.max(0, tankMaxPos.getY() - tankMinPos.getY());
       // one block height = 1000 mb
       int[] heights = calcLiquidHeights(fluids, tank.getCapacity(), yd * 1000 - (int) (RenderUtil.FLUID_OFFSET * 2000d), 100);
-      for(int i = 0; i < heights.length; i++) {
-      }
 
       double curY = RenderUtil.FLUID_OFFSET;
       // rendering time

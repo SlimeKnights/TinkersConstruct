@@ -100,7 +100,6 @@ public class SmelteryClientProxy extends ClientProxy {
     ClientRegistry.bindTileEntitySpecialRenderer(TileCastingTable.class, new CastingRenderer.Table());
     ClientRegistry.bindTileEntitySpecialRenderer(TileCastingBasin.class, new CastingRenderer.Basin());
 
-
     // Items
     final ResourceLocation castLoc = SmelteryClientEvents.locBlankCast;
     CustomTextureCreator.castModelLocation = new ResourceLocation(castLoc.getResourceDomain(), "item/" + castLoc.getResourcePath());

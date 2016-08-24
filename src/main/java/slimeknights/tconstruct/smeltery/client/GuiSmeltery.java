@@ -76,9 +76,9 @@ public class GuiSmeltery extends GuiHeatingStructureFuelTank {
         int usedCap = smeltery.getTank().getFluidAmount();
         int maxCap = smeltery.getTank().getCapacity();
         text.add(TextFormatting.WHITE + Util.translate("gui.smeltery.capacity"));
-        text.add(TextFormatting.GRAY.toString() + maxCap + Util.translate("gui.smeltery.liquid.millibucket"));
+        RenderUtil.liquidToString(null, maxCap, text);
         text.add(Util.translateFormatted("gui.smeltery.capacity_available"));
-        text.add(TextFormatting.GRAY.toString() + (maxCap - usedCap) + Util.translate("gui.smeltery.liquid.millibucket"));
+        RenderUtil.liquidToString(null, maxCap - usedCap, text);
       }
       else {
         text.add(TextFormatting.WHITE + hovered.getLocalizedName());

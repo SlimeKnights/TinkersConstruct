@@ -139,7 +139,7 @@ public class TinkerSmeltery extends TinkerPulse {
   public static List<FluidStack> clayCreationFluids = Lists.newLinkedList();
 
   public static ImmutableSet<Block> validSmelteryBlocks;
-  public static ImmutableSet<Block> validSearedFurnaceBlocks;
+  public static ImmutableSet<Block> searedStairsSlabs;
   public static ImmutableSet<Block> validTinkerTankBlocks;
   public static List<ItemStack> meltingBlacklist = Lists.newLinkedList();
 
@@ -238,7 +238,7 @@ public class TinkerSmeltery extends TinkerPulse {
     builder.add(searedStairsTile);
     builder.add(searedStairsCreeper);
 
-    validSearedFurnaceBlocks = builder.build();
+    searedStairsSlabs = builder.build();
   }
 
   // INITIALIZATION
@@ -465,6 +465,12 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerBasinCasting(new CastingRecipe(new ItemStack(searedFurnaceController),
                                                           RecipeMatch.of(Blocks.FURNACE),
                                                           new FluidStack(TinkerFluids.searedStone, Material.VALUE_SearedMaterial * 8),
+                                                          true, true));
+
+    // seared glass convenience recipe
+    TinkerRegistry.registerBasinCasting(new CastingRecipe(new ItemStack(searedGlass, 1, BlockSearedGlass.GlassType.GLASS.getMeta()),
+                                                          RecipeMatch.of("blockGlass"),
+                                                          new FluidStack(TinkerFluids.searedStone, Material.VALUE_SearedMaterial * 4),
                                                           true, true));
 
     // basically a pseudo-oredict of the seared blocks to support wildcard value

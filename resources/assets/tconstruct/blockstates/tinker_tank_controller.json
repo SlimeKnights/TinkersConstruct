@@ -4,9 +4,10 @@
 		"model": "orientable",
 		"textures": {
             "top": "tconstruct:blocks/smeltery/seared_brick",
-			"front": "tconstruct:blocks/smeltery/tinker_tank_inactive",
+			"front": "tconstruct:blocks/smeltery/tinker_tank",
             "side": "#top"
-		}
+		},
+        "uvlock": true
 	},
 	"variants": {
 		"facing": {
@@ -16,7 +17,10 @@
 			"east": { "y": 90 }
 		},
 		"active": {
-			"true": { "textures": { "front": "tconstruct:blocks/smeltery/tinker_tank_active" } },
+			"true": { "textures": {
+				"particle": "tconstruct:blocks/smeltery/tinker_tank",
+				"front": "tconstruct:blocks/smeltery/tinker_tank_overlay"
+			} },
 			"false": {}
 		},
 		"inventory": [{}]

@@ -128,7 +128,6 @@ public class TileTinkerTank extends TileEntity implements IMasterLogic, IInvento
 
     // we add 2 to the coordinates so we include the walls/floor/ceiling in the size caculation
     // otherwise a 3x3x3 tank is way too little capacity
-    // TODO: remove the bottom cap if too much
     int liquidSize = (structure.xd + 2) * (structure.yd + 2) * (structure.zd + 2);
     this.liquids.setCapacity(liquidSize * CAPACITY_PER_BLOCK);
   }
@@ -182,7 +181,15 @@ public class TileTinkerTank extends TileEntity implements IMasterLogic, IInvento
     if(minPos == null || maxPos == null) {
       return super.getRenderBoundingBox();
     }
-    return new AxisAlignedBB(minPos.getX(), minPos.getY(), minPos.getZ(), maxPos.getX() + 1, maxPos.getY() + 1, maxPos.getZ() + 1);
+    // we need to include the controller's position as we render a face there
+    return new AxisAlignedBB(
+        Math.min(minPos.getX(), pos.getX()),
+        Math.min(minPos.getY(), pos.getY()),
+        Math.min(minPos.getZ(), pos.getZ()),
+        Math.max(maxPos.getX(), pos.getX()) + 1,
+        Math.max(maxPos.getY(), pos.getY()) + 1,
+        Math.max(maxPos.getY(), pos.getZ()) + 1
+      );
   }
 
   @Override

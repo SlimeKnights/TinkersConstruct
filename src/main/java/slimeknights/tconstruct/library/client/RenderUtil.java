@@ -27,6 +27,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -457,12 +459,22 @@ public final class RenderUtil {
    * @param text  Text to add information to.
    */
   public static void liquidToString(FluidStack fluid, List<String> text) {
-    int amount = fluid.amount;
-    if(smelteryLoaded && !Util.isShiftKeyDown()) {
-      List<FluidGuiEntry> entries = fluidGui.get(fluid.getFluid());
+    liquidToString(fluid.getFluid(), fluid.amount, text);
+  }
+
+  /**
+   * Adds information for the tooltip based on the fluid stacks size.
+   *
+   * @param fluid  Input fluid, only used for type calculation
+   * @param amount Fluid amount
+   * @param text   Text to add information to.
+   */
+  public static void liquidToString(@Nullable Fluid fluid, int amount, List<String> text) {
+    if(fluid != null && smelteryLoaded && !Util.isShiftKeyDown()) {
+      List<FluidGuiEntry> entries = fluidGui.get(fluid);
       if(entries == null) {
-        entries = calcFluidGuiEntries(fluid.getFluid());
-        fluidGui.put(fluid.getFluid(), entries);
+        entries = calcFluidGuiEntries(fluid);
+        fluidGui.put(fluid, entries);
       }
 
       for(FluidGuiEntry entry : entries) {
