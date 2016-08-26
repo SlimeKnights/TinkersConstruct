@@ -52,6 +52,11 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
     return 3;
   }
 
+  @Override
+  protected float baseInaccuracy() {
+    return 1f;
+  }
+
   private ImmutableList<Item> arrowMatches = null;
 
   @Override

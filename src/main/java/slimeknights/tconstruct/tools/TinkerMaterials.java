@@ -671,7 +671,7 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(reed, new ArrowShaftMaterialStats(1.5f, 20));
 
     // fletching
-    TinkerRegistry.addMaterialStats(feather, new FletchingMaterialStats(0.9f, 1f));
+    TinkerRegistry.addMaterialStats(feather, new FletchingMaterialStats(1.0f, 1f));
     TinkerRegistry.addMaterialStats(leaf, new FletchingMaterialStats(0.5f, 1.5f));
     FletchingMaterialStats slimeLeafStats = new FletchingMaterialStats(0.8f, 1.25f);
     TinkerRegistry.addMaterialStats(slimeleaf_purple, slimeLeafStats);
