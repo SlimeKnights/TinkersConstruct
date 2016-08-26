@@ -8,6 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameData;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -31,12 +32,34 @@ public class Pattern extends Item implements IPattern {
   public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     subItems.add(new ItemStack(this));
 
-    for(Item toolpart : TinkerRegistry.getPatternItems()) {
+    for(Item toolpart : getSubItemToolparts()) {
       ItemStack stack = new ItemStack(this);
       setTagForPart(stack, toolpart);
 
-      subItems.add(stack);
+      if(isValidSubitem(toolpart)) {
+        subItems.add(stack);
+      }
     }
+  }
+
+  protected Collection<Item> getSubItemToolparts() {
+    return TinkerRegistry.getPatternItems();
+  }
+
+  protected boolean isValidSubitem(Item toolpart) {
+    if(toolpart instanceof IToolPart) {
+      for(Material material : TinkerRegistry.getAllMaterials()) {
+        if(isValidSubitemMaterial(material) && ((IToolPart) toolpart).canUseMaterial(material)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    return true;
+  }
+
+  protected boolean isValidSubitemMaterial(Material material) {
+    return material.isCraftable();
   }
 
   @Nonnull
