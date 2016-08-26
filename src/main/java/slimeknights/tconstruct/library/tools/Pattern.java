@@ -7,11 +7,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -82,11 +84,12 @@ public class Pattern extends Item implements IPattern {
     stack.setTagCompound(tag);
   }
 
+  @Nullable
   public static Item getPartFromTag(ItemStack stack) {
     NBTTagCompound tag = TagUtil.getTagSafe(stack);
     String part = tag.getString(TAG_PARTTYPE);
 
-    return GameData.getItemRegistry().getObject(new ResourceLocation(part));
+    return Item.getByNameOrId(part);
   }
 
   public boolean isBlankPattern(ItemStack stack) {
