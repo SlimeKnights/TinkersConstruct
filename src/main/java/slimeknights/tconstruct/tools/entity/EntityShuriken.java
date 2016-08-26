@@ -33,12 +33,12 @@ public class EntityShuriken extends EntityProjectileBase {
   }
 
   @Override
-  protected double getGravity() {
+  public double getGravity() {
     return (this.ticksExisted / 10) * 0.04d; // integer division. so the first ticks it will have no gravity at all.
   }
 
   @Override
-  protected double getSlowdown() {
+  public double getSlowdown() {
     return 0.05f;
   }
 

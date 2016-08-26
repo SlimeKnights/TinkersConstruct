@@ -27,6 +27,7 @@ import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerTraits;
 
 public class ModBlasting extends ModifierTrait {
 
@@ -57,8 +58,8 @@ public class ModBlasting extends ModifierTrait {
     String id = toolmod.getIdentifier();
     return !id.equals(TinkerModifiers.modLuck.getModifierIdentifier())
            && !id.equals(TinkerModifiers.modSilktouch.getIdentifier())
-           && !id.equals(TinkerMaterials.squeaky.getIdentifier())
-           && !id.equals(TinkerMaterials.autosmelt.getIdentifier());
+           && !id.equals(TinkerTraits.squeaky.getIdentifier())
+           && !id.equals(TinkerTraits.autosmelt.getIdentifier());
   }
 
   private int getLevel(ItemStack tool) {

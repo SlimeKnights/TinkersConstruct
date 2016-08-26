@@ -20,6 +20,7 @@ import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerTraits;
 
 public class TraitAutosmelt extends AbstractTrait {
 
@@ -34,7 +35,7 @@ public class TraitAutosmelt extends AbstractTrait {
 
   @Override
   public boolean canApplyTogether(IToolMod toolmod) {
-    return !toolmod.getIdentifier().equals(TinkerMaterials.squeaky.getIdentifier())
+    return !toolmod.getIdentifier().equals(TinkerTraits.squeaky.getIdentifier())
            && !toolmod.getIdentifier().equals(TinkerModifiers.modSilktouch.getIdentifier());
   }
 

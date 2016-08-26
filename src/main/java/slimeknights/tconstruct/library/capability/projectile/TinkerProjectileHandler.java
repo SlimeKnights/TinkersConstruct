@@ -1,17 +1,27 @@
 package slimeknights.tconstruct.library.capability.projectile;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.INBTSerializable;
 
+import java.util.List;
+
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tools.ranged.IAmmo;
+import slimeknights.tconstruct.library.traits.IProjectileTrait;
+import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.AmmoHelper;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializable<NBTTagCompound> {
 
   private ItemStack parent;
+  private List<IProjectileTrait> projectileTraitList = Lists.newArrayList();
 
   public TinkerProjectileHandler() {
   }
@@ -24,6 +34,26 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
   @Override
   public void setItemStack(ItemStack stack) {
     parent = stack;
+    updateTraits();
+  }
+
+  @Override
+  public List<IProjectileTrait> getProjectileTraits() {
+    return projectileTraitList;
+  }
+
+  private void updateTraits() {
+    if(parent != null) {
+      projectileTraitList.clear();
+
+      NBTTagList list = TagUtil.getTraitsTagList(parent);
+      for(int i = 0; i < list.tagCount(); i++) {
+        ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+        if(trait instanceof IProjectileTrait) {
+          projectileTraitList.add((IProjectileTrait) trait);
+        }
+      }
+    }
   }
 
   @Override
@@ -54,5 +84,6 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
   @Override
   public void deserializeNBT(NBTTagCompound nbt) {
     parent = ItemStack.loadItemStackFromNBT(nbt);
+    updateTraits();
   }
 }

@@ -32,6 +32,7 @@ import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.mantle.util.TagHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.BooleanItemPropertyGetter;
+import slimeknights.tconstruct.library.events.ProjectileEvent;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IAmmoUser;
@@ -164,9 +165,9 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
     if(!worldIn.isRemote) {
       boolean usedAmmo = consumeAmmo(ammo, player);
-      Entity projectile = getProjectileEntity(ammo, worldIn, player, power, baseInaccuracy(), usedAmmo);
+      EntityArrow projectile = getProjectileEntity(ammo, worldIn, player, power, baseInaccuracy(), usedAmmo);
 
-      if(projectile != null) {
+      if(projectile != null && ProjectileEvent.OnLaunch.fireEvent(projectile, stack, player)) {
         if(!player.capabilities.isCreativeMode) {
           ToolHelper.damageTool(stack, 1, player);
         }
@@ -186,7 +187,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     TagUtil.setResetFlag(stack, true);
   }
 
-  protected Entity getProjectileEntity(ItemStack ammo, World world, EntityPlayer player, float power, float inaccuracy, boolean usedAmmo) {
+  protected EntityArrow getProjectileEntity(ItemStack ammo, World world, EntityPlayer player, float power, float inaccuracy, boolean usedAmmo) {
     if(ammo.getItem() instanceof IAmmo) {
       return ((IAmmo) ammo.getItem()).getProjectile(ammo, world, player, power, inaccuracy, usedAmmo);
     }

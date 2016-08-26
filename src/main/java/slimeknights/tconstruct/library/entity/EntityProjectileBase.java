@@ -30,8 +30,10 @@ import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.capability.projectile.TinkerProjectileHandler;
+import slimeknights.tconstruct.library.events.ProjectileEvent;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ranged.IProjectile;
+import slimeknights.tconstruct.library.traits.IProjectileTrait;
 import slimeknights.tconstruct.library.utils.AmmoHelper;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
@@ -74,6 +76,10 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
     // our stuff
     tinkerProjectile.setItemStack(stack);
+
+    for(IProjectileTrait trait : tinkerProjectile.getProjectileTraits()) {
+      trait.onLaunch(this, world, player);
+    }
   }
 
   protected void init() {
@@ -157,6 +163,8 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.posZ -= this.motionZ / (double) speed * 0.05000000074505806D;
 
     playHitBlockSound(speed, iblockstate);
+
+    ProjectileEvent.OnHitBlock.fireEvent(this, speed, blockpos, iblockstate);
 
     this.inGround = true;
     this.arrowShake = 7;
@@ -276,6 +284,10 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     // call the entity update routine
     // luckily we can call this directly and take the arrow-code, since we'd have to call super.onUpdate otherwise. Which would not work.
     onEntityUpdate();
+
+    for(IProjectileTrait trait : tinkerProjectile.getProjectileTraits()) {
+      trait.onProjectileUpdate(this, worldObj, tinkerProjectile.getItemStack());
+    }
 
     // boioioiooioing
     if(this.arrowShake > 0) {
@@ -416,7 +428,9 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.motionY *= slowdown;
     this.motionZ *= slowdown;
     // gravity
-    this.motionY -= getGravity();
+    if(!this.hasNoGravity()) {
+      this.motionY -= getGravity();
+    }
     this.setPosition(this.posX, this.posY, this.posZ);
 
     // tell blocks we collided with, that we collided with them!
@@ -470,14 +484,14 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   /**
    * Factor for the slowdown. 0 = no slowdown, >0 = (1-slowdown)*speed slowdown, <0 = speedup
    */
-  protected double getSlowdown() {
+  public double getSlowdown() {
     return 0.01;
   }
 
   /**
    * Added to the y-velocity as gravitational pull. Otherwise stuff would simply float midair.
    */
-  protected double getGravity() {
+  public double getGravity() {
     return 0.05;
   }
 
