@@ -33,6 +33,7 @@ import slimeknights.mantle.util.TagHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.BooleanItemPropertyGetter;
 import slimeknights.tconstruct.library.events.ProjectileEvent;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IAmmoUser;
@@ -160,22 +161,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
       ammo = getCreativeProjectileStack();
     }
 
-    float power = ItemBow.getArrowVelocity(useTime) * getDrawbackProgress(stack, useTime) * baseProjectileSpeed();
-    power *= ProjectileLauncherNBT.from(stack).range;
-
-    if(!worldIn.isRemote) {
-      boolean usedAmmo = consumeAmmo(ammo, player);
-      EntityArrow projectile = getProjectileEntity(ammo, worldIn, player, power, baseInaccuracy(), usedAmmo);
-
-      if(projectile != null && ProjectileEvent.OnLaunch.fireEvent(projectile, stack, player)) {
-        if(!player.capabilities.isCreativeMode) {
-          ToolHelper.damageTool(stack, 1, player);
-        }
-        worldIn.spawnEntityInWorld(projectile);
-      }
-    }
-
-    playShootSound(power, worldIn, player);
+    shootProjectile(ammo, stack, worldIn, player, useTime);
 
     player.addStat(StatList.getObjectUseStats(this));
 
@@ -187,9 +173,35 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     TagUtil.setResetFlag(stack, true);
   }
 
-  protected EntityArrow getProjectileEntity(ItemStack ammo, World world, EntityPlayer player, float power, float inaccuracy, boolean usedAmmo) {
+  public void shootProjectile(ItemStack ammo, ItemStack bow, World worldIn, EntityPlayer player, int useTime) {
+    float power = ItemBow.getArrowVelocity(useTime) * getDrawbackProgress(bow, useTime) * baseProjectileSpeed();
+    power *= ProjectileLauncherNBT.from(bow).range;
+
+    if(!worldIn.isRemote) {
+      TinkerToolEvent.OnBowShoot event = TinkerToolEvent.OnBowShoot.fireEvent(bow, ammo, player, useTime);
+
+      for(int i = 0; i < event.projectileCount; i++) {
+        boolean usedAmmo = false;
+        if(i == 0 || event.consumeAmmoPerProjectile) {
+          usedAmmo = consumeAmmo(ammo, player);
+        }
+        EntityArrow projectile = getProjectileEntity(ammo, bow, worldIn, player, power, baseInaccuracy(), usedAmmo);
+
+        if(projectile != null && ProjectileEvent.OnLaunch.fireEvent(projectile, bow, player)) {
+          if(!player.capabilities.isCreativeMode) {
+            ToolHelper.damageTool(bow, 1, player);
+          }
+          worldIn.spawnEntityInWorld(projectile);
+        }
+      }
+    }
+
+    playShootSound(power, worldIn, player);
+  }
+
+  public EntityArrow getProjectileEntity(ItemStack ammo, ItemStack bow, World world, EntityPlayer player, float power, float inaccuracy, boolean usedAmmo) {
     if(ammo.getItem() instanceof IAmmo) {
-      return ((IAmmo) ammo.getItem()).getProjectile(ammo, world, player, power, inaccuracy, usedAmmo);
+      return ((IAmmo) ammo.getItem()).getProjectile(ammo, bow, world, player, power, inaccuracy, usedAmmo);
     }
     else if(ammo.getItem() instanceof ItemArrow) {
       EntityArrow projectile = ((ItemArrow) ammo.getItem()).createArrow(world, ammo, player);
@@ -206,7 +218,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     return null;
   }
 
-  protected boolean consumeAmmo(ItemStack ammo, EntityPlayer player) {
+  public boolean consumeAmmo(ItemStack ammo, EntityPlayer player) {
     // no ammo consumption in creative
     if(player.capabilities.isCreativeMode) {
       return false;

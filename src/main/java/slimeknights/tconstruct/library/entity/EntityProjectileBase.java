@@ -56,7 +56,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.setPosition(d, d1, d2);
   }
 
-  public EntityProjectileBase(World world, EntityPlayer player, float speed, float inaccuracy, ItemStack stack) {
+  public EntityProjectileBase(World world, EntityPlayer player, float speed, float inaccuracy, ItemStack stack, ItemStack launchingStack) {
     this(world);
 
     this.shootingEntity = player;
@@ -76,6 +76,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
     // our stuff
     tinkerProjectile.setItemStack(stack);
+    tinkerProjectile.setLaunchingStack(launchingStack);
 
     for(IProjectileTrait trait : tinkerProjectile.getProjectileTraits()) {
       trait.onLaunch(this, world, player);

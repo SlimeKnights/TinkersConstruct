@@ -69,7 +69,6 @@ public class TConstruct {
   public static final Logger log = LogManager.getLogger(modID);
   public static final Random random = new Random();
 
-  /* Instance of this mod, used for grabbing prototype fields */
   @Mod.Instance(modID)
   public static TConstruct instance;
 

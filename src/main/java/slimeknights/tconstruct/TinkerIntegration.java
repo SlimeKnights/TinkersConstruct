@@ -94,6 +94,8 @@ public class TinkerIntegration extends TinkerPulse {
 
     integrate(TinkerMaterials.blaze);
     integrate(TinkerMaterials.reed);
+    integrate(TinkerMaterials.ice);
+    integrate(TinkerMaterials.endrod);
 
     integrate(TinkerMaterials.feather);
     integrate(TinkerMaterials.slimeleaf_purple);

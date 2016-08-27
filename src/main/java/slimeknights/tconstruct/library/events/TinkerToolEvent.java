@@ -7,6 +7,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ranged.BowCore;
 
 public abstract class TinkerToolEvent extends TinkerEvent {
 
@@ -59,6 +60,44 @@ public abstract class TinkerToolEvent extends TinkerEvent {
     public static boolean fireEvent(ItemStack itemStack, int amount) {
       OnRepair event = new OnRepair(itemStack, amount);
       return !MinecraftForge.EVENT_BUS.post(event);
+    }
+  }
+
+  public static class OnBowShoot extends TinkerToolEvent {
+
+    public final EntityPlayer entityPlayer;
+    public final BowCore bowCore;
+    public final ItemStack ammo;
+    public final int useTime;
+
+    public int projectileCount = 1;
+    public boolean consumeAmmoPerProjectile = true;
+    public boolean consumeDurabilityPerProjectile = true;
+
+    public OnBowShoot(ItemStack bow, ItemStack ammo, EntityPlayer entityPlayer, int useTime) {
+      super(bow);
+      this.bowCore = (BowCore) bow.getItem();
+      this.ammo = ammo;
+      this.entityPlayer = entityPlayer;
+      this.useTime = useTime;
+    }
+
+    public static OnBowShoot fireEvent(ItemStack bow, ItemStack ammo, EntityPlayer entityPlayer , int useTime) {
+      OnBowShoot event = new OnBowShoot(bow, ammo, entityPlayer, useTime);
+      MinecraftForge.EVENT_BUS.post(event);
+      return event;
+    }
+
+    public void setProjectileCount(int projectileCount) {
+      this.projectileCount = projectileCount;
+    }
+
+    public void setConsumeAmmoPerProjectile(boolean consumeAmmoPerProjectile) {
+      this.consumeAmmoPerProjectile = consumeAmmoPerProjectile;
+    }
+
+    public void setConsumeDurabilityPerProjectile(boolean consumeDurabilityPerProjectile) {
+      this.consumeDurabilityPerProjectile = consumeDurabilityPerProjectile;
     }
   }
 }

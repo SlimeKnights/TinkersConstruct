@@ -24,7 +24,7 @@ public class TraitBreakable extends AbstractTrait {
     if(!event.projectile.worldObj.isRemote) {
 
       ItemStack itemStack = event.projectile.tinkerProjectile.getItemStack();
-      if(TinkerUtil.hasTrait(TagUtil.getTagSafe(itemStack), this.getModifierIdentifier()) && random.nextFloat() > BREAKCHANCE) {
+      if(TinkerUtil.hasTrait(TagUtil.getTagSafe(itemStack), this.getModifierIdentifier()) && random.nextFloat() < BREAKCHANCE) {
         event.projectile.setDead();
       }
     }

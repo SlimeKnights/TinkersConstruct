@@ -38,6 +38,7 @@ import slimeknights.tconstruct.tools.traits.TraitPetramor;
 import slimeknights.tconstruct.tools.traits.TraitPoisonous;
 import slimeknights.tconstruct.tools.traits.TraitPrickly;
 import slimeknights.tconstruct.tools.traits.TraitSharp;
+import slimeknights.tconstruct.tools.traits.TraitSplitting;
 import slimeknights.tconstruct.tools.traits.TraitShocking;
 import slimeknights.tconstruct.tools.traits.TraitSlimey;
 import slimeknights.tconstruct.tools.traits.TraitSpiky;
@@ -113,4 +114,5 @@ public class TinkerTraits {
   // arrow shaft traits
   public static final AbstractTrait breakable = new TraitBreakable();
   public static final AbstractTrait hovering = new TraitHovering();
+  public static final AbstractTrait shattering = new TraitSplitting();
 }

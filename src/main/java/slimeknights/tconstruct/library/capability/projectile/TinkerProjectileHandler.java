@@ -10,6 +10,8 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tools.ranged.IAmmo;
 import slimeknights.tconstruct.library.traits.IProjectileTrait;
@@ -20,7 +22,10 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializable<NBTTagCompound> {
 
+  public static final String TAG_PARENT = "parent";
+  public static final String TAG_LAUNCHER = "launcher";
   private ItemStack parent;
+  private ItemStack launcher;
   private List<IProjectileTrait> projectileTraitList = Lists.newArrayList();
 
   public TinkerProjectileHandler() {
@@ -35,6 +40,17 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
   public void setItemStack(ItemStack stack) {
     parent = stack;
     updateTraits();
+  }
+
+  @Nullable
+  @Override
+  public ItemStack getLaunchingStack() {
+    return launcher;
+  }
+
+  @Override
+  public void setLaunchingStack(ItemStack launchingStack) {
+    this.launcher = launchingStack;
   }
 
   @Override
@@ -76,14 +92,22 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
   public NBTTagCompound serializeNBT() {
     NBTTagCompound tag = new NBTTagCompound();
     if(parent != null) {
-      parent.writeToNBT(tag);
+      tag.setTag(TAG_PARENT, parent.writeToNBT(new NBTTagCompound()));
+    }
+    if(launcher != null) {
+      tag.setTag(TAG_LAUNCHER, launcher.writeToNBT(new NBTTagCompound()));
     }
     return tag;
   }
 
   @Override
   public void deserializeNBT(NBTTagCompound nbt) {
-    parent = ItemStack.loadItemStackFromNBT(nbt);
+    parent = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag(TAG_PARENT));
+    // backwards compatibility
+    if(parent == null) {
+      parent = ItemStack.loadItemStackFromNBT(nbt);
+    }
+    launcher = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag(TAG_LAUNCHER));
     updateTraits();
   }
 }

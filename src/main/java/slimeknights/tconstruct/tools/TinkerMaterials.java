@@ -40,6 +40,8 @@ import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 
+import static slimeknights.tconstruct.library.materials.MaterialTypes.HEAD;
+import static slimeknights.tconstruct.library.materials.MaterialTypes.SHAFT;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.COBALT;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.DIAMOND;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.IRON;
@@ -126,8 +128,6 @@ public final class TinkerMaterials {
   static {
     xu = new Material("unstable", TextFormatting.WHITE);
   }
-
-  private static final String HEAD = MaterialTypes.HEAD;
 
   @Subscribe
   public void registerRendering(FMLPostInitializationEvent event) {
@@ -286,6 +286,7 @@ public final class TinkerMaterials {
     bone.addItem(new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()), 1, Material.VALUE_Fragment); // bonemeal
     bone.setRepresentativeItem(Items.BONE);
     bone.addTrait(splintering, HEAD);
+    bone.addTrait(shattering, SHAFT);
     bone.addTrait(fractured);
 
     paper.setCraftable(true);
@@ -370,7 +371,7 @@ public final class TinkerMaterials {
     string.addItemIngot("string");
     vine.addItemIngot("vine");
 
-    // arrow materials
+    // arrow only materials
     blaze.addItem(Items.BLAZE_ROD);
     blaze.addTrait(hovering);
 
