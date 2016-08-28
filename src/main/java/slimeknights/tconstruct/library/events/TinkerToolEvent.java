@@ -3,6 +3,8 @@ package slimeknights.tconstruct.library.events;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 
@@ -59,6 +61,42 @@ public abstract class TinkerToolEvent extends TinkerEvent {
     public static boolean fireEvent(ItemStack itemStack, int amount) {
       OnRepair event = new OnRepair(itemStack, amount);
       return !MinecraftForge.EVENT_BUS.post(event);
+    }
+  }
+
+  public static class OnMattockHoe extends TinkerToolEvent {
+
+    public final BlockPos pos;
+    public final World world;
+    public final EntityPlayer player;
+
+    public OnMattockHoe(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos) {
+      super(itemStack);
+      this.player = player;
+      this.pos = pos;
+      this.world = world;
+    }
+
+    public static void fireEvent(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos) {
+      MinecraftForge.EVENT_BUS.post(new OnMattockHoe(itemStack, player, world, pos));
+    }
+  }
+
+  public static class OnShovelMakePath extends TinkerToolEvent {
+
+    public final BlockPos pos;
+    public final EntityPlayer player;
+    private final World world;
+
+    public OnShovelMakePath(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos) {
+      super(itemStack);
+      this.pos = pos;
+      this.player = player;
+      this.world = world;
+    }
+
+    public static void fireEvent(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos) {
+      MinecraftForge.EVENT_BUS.post(new OnShovelMakePath(itemStack, player, world, pos));
     }
   }
 }
