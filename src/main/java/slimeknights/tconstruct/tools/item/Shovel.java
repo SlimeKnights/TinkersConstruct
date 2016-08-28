@@ -67,6 +67,9 @@ public class Shovel extends AoeToolCore {
     }
 
     EnumActionResult result = Items.DIAMOND_SHOVEL.onItemUse(stack, player, world, pos, hand, facing, hitX, hitY, hitZ);
+    if(result == EnumActionResult.SUCCESS) {
+      TinkerToolEvent.OnShovelMakePath.fireEvent(stack, player, world, pos);
+    }
 
     // only do the AOE path if the selected block is grass or grass path
     Block block = world.getBlockState(pos).getBlock();
@@ -84,7 +87,7 @@ public class Shovel extends AoeToolCore {
         }
 
         if(aoeResult == EnumActionResult.SUCCESS) {
-          TinkerToolEvent.OnShovelMakePath.fireEvent(stack, player, world, pos);
+          TinkerToolEvent.OnShovelMakePath.fireEvent(stack, player, world, aoePos);
         }
       }
     }
