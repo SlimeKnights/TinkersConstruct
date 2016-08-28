@@ -699,8 +699,8 @@ item.tconstruct.shuriken.desc=The Shuriken is a fast, short ranged throwing weap
 tooltip.tool.modifiers=Modifiers
 tooltip.tool.broken=Broken
 tooltip.tool.empty=Empty
-tooltip.tool.holdShift=Hold §e§oShift§r for Stats
-tooltip.tool.holdCtrl=Hold §e§bCtrl§r for more
+tooltip.tool.holdShift=Hold §e§oShift§r§7 for Stats
+tooltip.tool.holdCtrl=Hold §e§bCtrl§r§7 for more
 
 tooltip.part.material_added_by=Material added by %s
 tooltip.part.missing_material=Missing material: %s
