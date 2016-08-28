@@ -8,10 +8,9 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
-import slimeknights.tconstruct.library.traits.AbstractTrait;
-import slimeknights.tconstruct.library.traits.IProjectileTrait;
+import slimeknights.tconstruct.library.traits.AbstractProjectileTrait;
 
-public class TraitHovering extends AbstractTrait implements IProjectileTrait {
+public class TraitHovering extends AbstractProjectileTrait {
 
   public TraitHovering() {
     super("hovering", 0xffffff);
@@ -25,12 +24,8 @@ public class TraitHovering extends AbstractTrait implements IProjectileTrait {
   }
 
   @Override
-  public void onProjectileUpdate(EntityProjectileBase projectile, World world, ItemStack toolStack) {
-    if(projectile.inGround) {
-      return;
-    }
-
-    double slowdownCompensation = 0.99f/(1d - projectile.getSlowdown());
+  public void onMovement(EntityProjectileBase projectile, World world, double slowdown) {
+    double slowdownCompensation = 0.99f/slowdown;
     projectile.motionX *= slowdownCompensation;
     projectile.motionY *= slowdownCompensation;
     projectile.motionZ *= slowdownCompensation;

@@ -24,8 +24,10 @@ import slimeknights.tconstruct.tools.traits.TraitDepthdigger;
 import slimeknights.tconstruct.tools.traits.TraitDuritos;
 import slimeknights.tconstruct.tools.traits.TraitEcological;
 import slimeknights.tconstruct.tools.traits.TraitEnderference;
+import slimeknights.tconstruct.tools.traits.TraitEndspeed;
 import slimeknights.tconstruct.tools.traits.TraitEstablished;
 import slimeknights.tconstruct.tools.traits.TraitFlammable;
+import slimeknights.tconstruct.tools.traits.TraitFreezing;
 import slimeknights.tconstruct.tools.traits.TraitHellish;
 import slimeknights.tconstruct.tools.traits.TraitHoly;
 import slimeknights.tconstruct.tools.traits.TraitHovering;
@@ -113,6 +115,8 @@ public class TinkerTraits {
 
   // arrow shaft traits
   public static final AbstractTrait breakable = new TraitBreakable();
+  public static final AbstractTrait endspeed = new TraitEndspeed();
+  public static final AbstractTrait freezing = new TraitFreezing();
   public static final AbstractTrait hovering = new TraitHovering();
   public static final AbstractTrait shattering = new TraitSplitting();
 }

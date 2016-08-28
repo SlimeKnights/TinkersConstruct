@@ -323,7 +323,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   }
 
   // Update while we're stuck in a block
-  protected void updateInGround(IBlockState state) {
+  public void updateInGround(IBlockState state) {
     Block block = state.getBlock();
     int meta = block.getMetaFromState(state);
 
@@ -348,7 +348,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   }
 
   // update while traveling
-  protected void updateInAir() {
+  public void updateInAir() {
     // tick tock
     this.timeInGround = 0;
     ++this.ticksInAir;
@@ -431,6 +431,9 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     // gravity
     if(!this.hasNoGravity()) {
       this.motionY -= getGravity();
+    }
+    for(IProjectileTrait trait : tinkerProjectile.getProjectileTraits()) {
+      trait.onMovement(this, worldObj, slowdown);
     }
     this.setPosition(this.posX, this.posY, this.posZ);
 

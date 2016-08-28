@@ -110,7 +110,7 @@ public final class TinkerMaterials {
   public static final Material blaze     = mat("blaze", 0xffc100);
   public static final Material reed      = mat("reed", 0xaadb74);
   public static final Material ice       = mat("ice", 0x97d7e0);
-  public static final Material endrod    = mat("endrod", 0xaaff66);
+  public static final Material endrod    = mat("endrod", 0xe8ffd6);
 
   // fletching
   public static final Material feather   = mat("feather", 0xeeeeee);
@@ -213,7 +213,7 @@ public final class TinkerMaterials {
     blaze.setRenderInfo(0xffd120);
     reed.setRenderInfo(0xaadb74);
     ice.setRenderInfo(0x97d7e0);
-    endrod.setRenderInfo(0xaaff66);
+    endrod.setRenderInfo(0xe8ffd6);
 
     feather.setRenderInfo(0xffffff).setTextureSuffix("feather");
     leaf.setRenderInfo(0x1d730c).setTextureSuffix("feather");
@@ -379,7 +379,10 @@ public final class TinkerMaterials {
     reed.addTrait(breakable);
 
     ice.addItem(Blocks.PACKED_ICE, 1);
+    ice.addTrait(freezing);
+
     endrod.addItem(Blocks.END_ROD, 1);
+    endrod.addTrait(endspeed);
 
     feather.addItemIngot("feather");
     leaf.addItemIngot("treeLeaves");

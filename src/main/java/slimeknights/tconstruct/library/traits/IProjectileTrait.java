@@ -17,4 +17,7 @@ public interface IProjectileTrait extends ITrait {
    * Called each tick in the entity.
    */
   void onProjectileUpdate(EntityProjectileBase projectile, World world, ItemStack toolStack);
+
+
+  void onMovement(EntityProjectileBase projectile, World world, double slowdown);
 }
