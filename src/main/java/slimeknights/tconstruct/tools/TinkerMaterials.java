@@ -372,16 +372,20 @@ public final class TinkerMaterials {
     vine.addItemIngot("vine");
 
     // arrow only materials
-    blaze.addItem(Items.BLAZE_ROD);
+    blaze.addItem(Items.BLAZE_ROD, 1, Material.VALUE_Ingot);
+    blaze.setRepresentativeItem(Items.BLAZE_ROD);
     blaze.addTrait(hovering);
 
-    reed.addItem(Items.REEDS);
+    reed.addItem(Items.REEDS, 1, Material.VALUE_Ingot);
+    reed.setRepresentativeItem(Items.REEDS);
     reed.addTrait(breakable);
 
-    ice.addItem(Blocks.PACKED_ICE, 1);
+    ice.addItem(Blocks.PACKED_ICE, Material.VALUE_Ingot);
+    ice.setRepresentativeItem(Blocks.PACKED_ICE);
     ice.addTrait(freezing);
 
-    endrod.addItem(Blocks.END_ROD, 1);
+    endrod.addItem(Blocks.END_ROD, Material.VALUE_Ingot);
+    endrod.setRepresentativeItem(Blocks.END_ROD);
     endrod.addTrait(endspeed);
 
     feather.addItemIngot("feather");
