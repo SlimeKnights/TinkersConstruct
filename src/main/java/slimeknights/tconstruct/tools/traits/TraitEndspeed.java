@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.traits;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
@@ -8,8 +7,12 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
+import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 import slimeknights.tconstruct.library.traits.AbstractProjectileTrait;
+import slimeknights.tconstruct.shared.client.ParticleEffect;
+import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.weapons.ranged.TinkerRangedWeapons;
 
 public class TraitEndspeed extends AbstractProjectileTrait {
 
@@ -29,7 +32,8 @@ public class TraitEndspeed extends AbstractProjectileTrait {
   @Override
   public void onProjectileUpdate(EntityProjectileBase projectile, World world, ItemStack toolStack) {
     double sqrDistanceTraveled = 0d;
-    while(!projectile.inGround && sqrDistanceTraveled < 40) {
+    double lastParticle = 0d;
+    while(!projectile.inGround && projectile.ticksInAir > 2 && sqrDistanceTraveled < 40) {
       double x = projectile.posX;
       double y = projectile.posY;
       double z = projectile.posZ;
@@ -40,29 +44,32 @@ public class TraitEndspeed extends AbstractProjectileTrait {
       y -= projectile.posY;
       z -= projectile.posZ;
 
-      sqrDistanceTraveled += 0.5d;
-      //double travelled = x*x + y*y + z*z;
-      //sqrDistanceTraveled += travelled;
-      //if(travelled < 0.001) {
-//        break;
-//      }
+      //sqrDistanceTraveled += 0.5d;
+      double travelled = x*x + y*y + z*z;
+      sqrDistanceTraveled += travelled;
+      if(travelled < 0.001) {
+        break;
+      }
+
+      lastParticle += travelled;
+      if(lastParticle > 0.3d) {
+        TinkerRangedWeapons.proxy.spawnParticle(Particles.ENDSPEED,
+                                                world,
+                                                projectile.posX,
+                                                projectile.posY,
+                                                projectile.posZ);
+        lastParticle = 0;
+      }
     }
   }
 
   @Override
   public void onMovement(EntityProjectileBase projectile, World world, double slowdown) {
-    if(world.isRemote) {
-      world.spawnParticle(EnumParticleTypes.END_ROD,
-                          projectile.posX,
-                          projectile.posY,
-                          projectile.posZ,
-                          0d, 0d, 0d);
-    }
+    // revert slowdown so we don't get stuck midair
+    projectile.motionX *= 1d / slowdown;
+    projectile.motionY *= 1d / slowdown;
+    projectile.motionZ *= 1d / slowdown;
 
-    projectile.motionX *= 1d/slowdown;
-    projectile.motionY *= 1d/slowdown;
-    projectile.motionZ *= 1d/slowdown;
-
-    //projectile.motionY -= projectile.getGravity()/20d;
+    projectile.motionY -= projectile.getGravity()/250d;
   }
 }

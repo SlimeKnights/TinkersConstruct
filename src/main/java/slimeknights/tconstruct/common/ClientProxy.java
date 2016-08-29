@@ -42,6 +42,7 @@ import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.client.ParticleEffect;
+import slimeknights.tconstruct.shared.client.ParticleEndspeed;
 import slimeknights.tconstruct.tools.client.particle.ParticleAttackCleaver;
 import slimeknights.tconstruct.tools.client.particle.ParticleAttackFrypan;
 import slimeknights.tconstruct.tools.client.particle.ParticleAttackHammer;
@@ -297,6 +298,8 @@ public abstract class ClientProxy extends CommonProxy {
       // effects
       case EFFECT:
         return new ParticleEffect(data[1], world, x, y, z, xSpeed, ySpeed, zSpeed);
+      case ENDSPEED:
+        return new ParticleEndspeed(world, x, y, z, xSpeed, ySpeed, zSpeed);
     }
 
     return null;
