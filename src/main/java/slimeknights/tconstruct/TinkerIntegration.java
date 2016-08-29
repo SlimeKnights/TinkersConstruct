@@ -90,7 +90,9 @@ public class TinkerIntegration extends TinkerPulse {
 
     // bow stuff
     integrate(TinkerMaterials.string);
-    integrate(TinkerMaterials.vine);
+    integrate(TinkerMaterials.slimevine_blue);
+    integrate(TinkerMaterials.slimevine_purple);
+    integrate(TinkerMaterials.vine); // vine is last because its oredict also catches slimevines
 
     integrate(TinkerMaterials.blaze);
     integrate(TinkerMaterials.reed);
@@ -98,9 +100,9 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerMaterials.endrod);
 
     integrate(TinkerMaterials.feather);
-    integrate(TinkerMaterials.slimeleaf_purple);
     integrate(TinkerMaterials.slimeleaf_blue);
     integrate(TinkerMaterials.slimeleaf_orange);
+    integrate(TinkerMaterials.slimeleaf_purple);
     integrate(TinkerMaterials.leaf); // leaf is last because its oredict also catches slimeleaves
 
     for(MaterialIntegration integration : integrationList) {

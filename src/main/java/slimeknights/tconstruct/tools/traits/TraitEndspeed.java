@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.traits;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -10,8 +9,6 @@ import javax.annotation.Nullable;
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 import slimeknights.tconstruct.library.traits.AbstractProjectileTrait;
-import slimeknights.tconstruct.shared.client.ParticleEffect;
-import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.weapons.ranged.TinkerRangedWeapons;
 
 public class TraitEndspeed extends AbstractProjectileTrait {
@@ -44,7 +41,6 @@ public class TraitEndspeed extends AbstractProjectileTrait {
       y -= projectile.posY;
       z -= projectile.posZ;
 
-      //sqrDistanceTraveled += 0.5d;
       double travelled = x*x + y*y + z*z;
       sqrDistanceTraveled += travelled;
       if(travelled < 0.001) {

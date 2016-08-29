@@ -105,6 +105,9 @@ public final class TinkerMaterials {
   // bowstring materials
   public static final Material string    = mat("string", 0xeeeeee);
   public static final Material vine      = mat("vine", 0x40a10f);
+  public static final Material slimevine_blue   = mat("slimevine_blue", 0x74c8c7);
+  //public static final Material slimevine_orange = mat("slimevine_orange", 0xff960d);
+  public static final Material slimevine_purple = mat("slimevine_purple", 0xc873c8);
 
   // additional arrow shaft
   public static final Material blaze     = mat("blaze", 0xffc100);
@@ -115,7 +118,7 @@ public final class TinkerMaterials {
   // fletching
   public static final Material feather   = mat("feather", 0xeeeeee);
   public static final Material leaf      = mat("leaf", 0x1d730c);
-  public static final Material slimeleaf_blue  = mat("slimeleaf_blue", 0x74c8c7);
+  public static final Material slimeleaf_blue   = mat("slimeleaf_blue", 0x74c8c7);
   public static final Material slimeleaf_orange = mat("slimeleaf_orange", 0xff960d);
   public static final Material slimeleaf_purple = mat("slimeleaf_purple", 0xc873c8);
 
@@ -209,6 +212,9 @@ public final class TinkerMaterials {
 
     string.setRenderInfo(0xeeeeee);
     vine.setRenderInfo(0x40a10f);
+    slimevine_blue.setRenderInfo(0x74c8c7);
+    //slimevine_orange.setRenderInfo(0xff960d);
+    slimevine_purple.setRenderInfo(0xc873c8);
 
     blaze.setRenderInfo(0xffd120);
     reed.setRenderInfo(0xaadb74);
@@ -370,6 +376,12 @@ public final class TinkerMaterials {
     // bowstring
     string.addItemIngot("string");
     vine.addItemIngot("vine");
+    safeAdd(slimevine_blue, new ItemStack(TinkerWorld.slimeVineBlue1), Material.VALUE_Ingot, true);
+    safeAdd(slimevine_blue, new ItemStack(TinkerWorld.slimeVineBlue2), Material.VALUE_Ingot, false);
+    safeAdd(slimevine_blue, new ItemStack(TinkerWorld.slimeVineBlue3), Material.VALUE_Ingot, false);
+    safeAdd(slimevine_purple, new ItemStack(TinkerWorld.slimeVinePurple1), Material.VALUE_Ingot, true);
+    safeAdd(slimevine_purple, new ItemStack(TinkerWorld.slimeVinePurple2), Material.VALUE_Ingot, false);
+    safeAdd(slimevine_purple, new ItemStack(TinkerWorld.slimeVinePurple3), Material.VALUE_Ingot, false);
 
     // arrow only materials
     blaze.addItem(Items.BLAZE_ROD, 1, Material.VALUE_Ingot);
@@ -588,8 +600,11 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(steel, new BowMaterialStats(0.4f, 2f));
 
     // Bowstring materials
-    TinkerRegistry.addMaterialStats(string, new BowStringMaterialStats(1f));
-    TinkerRegistry.addMaterialStats(vine, new BowStringMaterialStats(1f));
+    BowStringMaterialStats bowstring = new BowStringMaterialStats(1f);
+    TinkerRegistry.addMaterialStats(string, bowstring);
+    TinkerRegistry.addMaterialStats(vine, bowstring);
+    TinkerRegistry.addMaterialStats(slimevine_blue, bowstring);
+    TinkerRegistry.addMaterialStats(slimevine_purple, bowstring);
   }
 
   public void registerProjectileMaterialStats() {

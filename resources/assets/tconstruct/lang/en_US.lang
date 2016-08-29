@@ -502,10 +502,16 @@ material.lead.name=Lead
 material.silver.name=Silver
 material.electrum.name=Electrum
 material.steel.name=Steel
+
 material.string.name=String
 material.vine.name=Vines
+material.slimevine_blue.name=Slimevine
+material.slimevine_orange.name=material.slimeleaf_blue.name
+material.slimevine_purple.name=material.slimeleaf_blue.name
+
 material.blaze.name=Blazerod
 material.reed.name=Reeds
+
 material.feather.name=Feather
 material.leaf.name=Leaf
 material.slimeleaf_blue.name=Slimeleaf
