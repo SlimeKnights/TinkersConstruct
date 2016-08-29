@@ -724,8 +724,8 @@ item.tconstruct.shuriken.desc=Сюрикен это быстрое метате�
 tooltip.tool.modifiers=Улучшения
 tooltip.tool.broken=Сломано
 tooltip.tool.empty=Пусто
-tooltip.tool.holdShift=Зажмите §e§oShift§r для характеристик
-tooltip.tool.holdCtrl=Зажмите §e§bCtrl§r для информации
+tooltip.tool.holdShift=Зажмите §e§oShift§r§7 для характеристик
+tooltip.tool.holdCtrl=Зажмите §e§bCtrl§r§7 для информации
 
 tooltip.part.material_added_by=Материал добавлен %s
 tooltip.part.missing_material=Не хватает материала: %s
