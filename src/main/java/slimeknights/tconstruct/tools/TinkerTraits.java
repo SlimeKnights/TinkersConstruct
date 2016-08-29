@@ -118,5 +118,5 @@ public class TinkerTraits {
   public static final AbstractTrait endspeed = new TraitEndspeed();
   public static final AbstractTrait freezing = new TraitFreezing();
   public static final AbstractTrait hovering = new TraitHovering();
-  public static final AbstractTrait shattering = new TraitSplitting();
+  public static final AbstractTrait splitting = new TraitSplitting();
 }

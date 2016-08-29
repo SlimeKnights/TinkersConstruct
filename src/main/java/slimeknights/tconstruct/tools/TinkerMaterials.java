@@ -34,7 +34,6 @@ import slimeknights.tconstruct.library.materials.FletchingMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -292,7 +291,7 @@ public final class TinkerMaterials {
     bone.addItem(new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()), 1, Material.VALUE_Fragment); // bonemeal
     bone.setRepresentativeItem(Items.BONE);
     bone.addTrait(splintering, HEAD);
-    bone.addTrait(shattering, SHAFT);
+    bone.addTrait(splitting, SHAFT);
     bone.addTrait(fractured);
 
     paper.setCraftable(true);

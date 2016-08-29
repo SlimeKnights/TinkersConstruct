@@ -15,7 +15,7 @@ public class FletchingMaterialStats extends AbstractMaterialStats {
   public final static String LOC_AccuracyDesc = "stat.fletching.accuracy.desc";
   public final static String LOC_MultiplierDesc = "stat.fletching.modifier.desc";
 
-  public final static String COLOR_Accuracy = CustomFontColor.encodeColor(205, 100, 205);
+  public final static String COLOR_Accuracy = CustomFontColor.encodeColor(205, 170, 205);
   public final static String COLOR_Modifier = HandleMaterialStats.COLOR_Modifier;
 
   public final float modifier;
@@ -44,7 +44,7 @@ public class FletchingMaterialStats extends AbstractMaterialStats {
     return formatNumber(LOC_Multiplier, COLOR_Modifier, quality);
   }
 
-  public static String formatAccuracy(float durability) {
-    return formatNumber(LOC_Accuracy, COLOR_Accuracy, durability);
+  public static String formatAccuracy(float accuraccy) {
+    return formatNumberPercent(LOC_Accuracy, COLOR_Accuracy, accuraccy);
   }
 }

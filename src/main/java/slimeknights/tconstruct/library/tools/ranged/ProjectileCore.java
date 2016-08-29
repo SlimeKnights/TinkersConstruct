@@ -150,6 +150,7 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
 
     info.addAmmo(!detailed);
     info.addAttack();
+    info.addAccuracy();
 
     if(ToolHelper.getFreeModifiers(stack) > 0) {
       info.addFreeModifiers();

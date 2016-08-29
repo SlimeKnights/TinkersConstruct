@@ -550,6 +550,10 @@ stat.bow.drawspeed.desc=How fast you can draw the bow.
 stat.bow.range.name=Range Multiplier
 stat.bow.range.desc=How far the projectile can be propelled.
 
+stat.bowstring.name=Bowstring
+stat.bowstring.modifier.name=Modifier
+stat.bowstring.modifier.desc=Tool durability will be multiplied by this.
+
 stat.shaft.name=Arrow Shaft
 stat.shaft.modifier.name=Modifier
 stat.shaft.modifier.desc=Each arrow needs a suiting core. It determines how well it lasts.\nThe total ammo count of the tool will be multiplied by this.
@@ -656,6 +660,17 @@ modifier.tasty.name=Tasty
 modifier.tasty.desc=§oOm Nom Nom§r\nSmells so good.. You'd rather eat your tool than starve.
 modifier.writable.name=Writable
 modifier.writable.desc=§oIntellectual!§r\nMore words. More Modifiers. It's only logical!
+
+modifier.breakable.name=Breakable
+modifier.breakable.desc=§oThis side up!§r\nProjectiles have a 50% chance to break on impact.
+modifier.endspeed.name=Endspeed
+modifier.endspeed.desc=§oQuantum speed!§r\nProjectiles instantly travel to their destination.
+modifier.freezing.name=Freezing
+modifier.freezing.desc=§oWinter is Coming§r\nSuccessful hits slow your target more and more.
+modifier.hovering.name=Hovering
+modifier.hovering.desc=§oFree like the wind§r\nProjectiles move slower but don't mind gravity as much.
+modifier.splitting.name=Splitting
+modifier.splitting.desc=§oTwo for one!§r\nThe sudden acceleration of releasing an arrow might cause it to split into two.
 
 #################
 #   Modifiers   #
