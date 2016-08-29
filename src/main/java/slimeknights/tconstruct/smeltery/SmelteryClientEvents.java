@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -13,7 +12,6 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.shared.client.BakedTableModel;
-import slimeknights.tconstruct.smeltery.client.TinkerTankRenderer;
 import slimeknights.tconstruct.tools.ToolClientEvents;
 
 public class SmelteryClientEvents {
@@ -44,10 +42,5 @@ public class SmelteryClientEvents {
     if(model != null && model instanceof IPerspectiveAwareModel) {
       event.getModelRegistry().putObject(loc, new BakedTableModel((IPerspectiveAwareModel) model, null, DefaultVertexFormats.ITEM));
     }
-  }
-
-  @SubscribeEvent
-  public void onTextureStitch(TextureStitchEvent.Pre event) {
-    event.getMap().registerSprite(new ResourceLocation(TinkerTankRenderer.TEXTURE_TINKER_TANK_BACKGROUND));
   }
 }

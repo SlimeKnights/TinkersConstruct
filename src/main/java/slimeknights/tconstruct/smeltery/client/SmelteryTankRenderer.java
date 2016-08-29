@@ -72,7 +72,7 @@ public class SmelteryTankRenderer<T extends TileEntity & ISmelteryTankHandler> e
         fluidHeights[i] = Math.max(min, (int) Math.ceil(h * (float) height));
       }
 
-      // check if we have enough height to render everything
+      // check if we have enough height to render everything, if not remove pixels from the tallest liquid
       int sum = 0;
       do {
         sum = 0;
@@ -80,8 +80,8 @@ public class SmelteryTankRenderer<T extends TileEntity & ISmelteryTankHandler> e
         int m = 0;
         for(int i = 0; i < fluidHeights.length; i++) {
           sum += fluidHeights[i];
-          if(liquids.get(i).amount > biggest) {
-            biggest = liquids.get(i).amount;
+          if(fluidHeights[i] > biggest) {
+            biggest = fluidHeights[i];
             m = i;
           }
         }

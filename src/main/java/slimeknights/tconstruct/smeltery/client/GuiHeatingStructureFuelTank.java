@@ -10,7 +10,7 @@ import java.util.List;
 import slimeknights.mantle.client.gui.GuiMultiModule;
 import slimeknights.mantle.inventory.ContainerMultiModule;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.RenderUtil;
+import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.smeltery.tileentity.TileHeatingStructureFuelTank;
 
 public class GuiHeatingStructureFuelTank extends GuiMultiModule {
@@ -36,7 +36,7 @@ public class GuiHeatingStructureFuelTank extends GuiMultiModule {
       int w = width;
       int h = height * fuelInfo.fluid.amount / fuelInfo.maxCap;
 
-      RenderUtil.renderTiledFluid(x, y - h, w, h, this.zLevel, fuelInfo.fluid);
+      GuiUtil.renderTiledFluid(x, y - h, w, h, this.zLevel, fuelInfo.fluid);
     }
   }
 
@@ -49,7 +49,7 @@ public class GuiHeatingStructureFuelTank extends GuiMultiModule {
     text.add(TextFormatting.WHITE + Util.translate("gui.smeltery.fuel"));
     if(fuel != null) {
       text.add(fuel.getLocalizedName());
-      RenderUtil.liquidToString(fuel, text);
+      GuiUtil.liquidToString(fuel, text);
     }
     else {
       text.add(Util.translate("gui.smeltery.fuel.empty"));

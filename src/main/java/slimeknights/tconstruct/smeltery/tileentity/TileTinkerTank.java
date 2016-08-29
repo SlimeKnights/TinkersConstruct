@@ -14,6 +14,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -40,7 +41,7 @@ import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockTinkerTank;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
 
-public class TileTinkerTank extends TileEntity implements IMasterLogic, IInventoryGui, ISmelteryTankHandler, IWorldNameable {
+public class TileTinkerTank extends TileEntity implements ITickable, IMasterLogic, IInventoryGui, ISmelteryTankHandler, IWorldNameable {
 
   public static final String TAG_ACTIVE = "active";
   public static final String TAG_MINPOS = "minPos";
@@ -62,11 +63,31 @@ public class TileTinkerTank extends TileEntity implements IMasterLogic, IInvento
   protected SmelteryTank liquids;
   protected String inventoryTitle;
   protected boolean hasCustomName;
+  protected int tick;
 
   public TileTinkerTank() {
     multiblock = new MultiblockTinkerTank(this);
     liquids = new SmelteryTank(this);
     this.inventoryTitle = "gui.tinkertank.name";
+  }
+
+  @Override
+  public void update() {
+    if(this.worldObj.isRemote) {
+      return;
+    }
+
+    // are we fully formed?
+    if(!isActive()) {
+      // check for tank once per second
+      if(tick == 0) {
+        checkTankStructure();
+      }
+
+      tick = (tick + 1) % 20;
+    }
+
+    // if we are already active, we don't do anything
   }
 
   /** Called by the servants */
@@ -205,6 +226,13 @@ public class TileTinkerTank extends TileEntity implements IMasterLogic, IInvento
     if(worldObj != null && !worldObj.isRemote) {
       TinkerNetwork.sendToAll(new SmelteryFluidUpdatePacket(pos, fluids));
     }
+  }
+
+  @Override
+  public void validate() {
+    super.validate();
+    // on validation we set active to false so the tank checks anew if it's formed
+    active = false;
   }
 
   public boolean isActive() {
