@@ -13,7 +13,7 @@ tile.tconstruct.tooltables.partchest.tooltip=Ce peut contenir beaucoup des pièc
 tile.tconstruct.toolforge.name=Forge d'outil
 
 tile.tconstruct.soil.grout.name=Enduit de jointement
-tile.tconstruct.soil.grout.tooltip=I am Grout!
+tile.tconstruct.soil.grout.tooltip=Je suis "Grout"!
 tile.tconstruct.soil.slimy_mud_green.name=Boue gluante vert
 tile.tconstruct.soil.slimy_mud_green.tooltip=Ce ralentit, mais ce te permet sauter plus haut.
 tile.tconstruct.soil.slimy_mud_blue.name=Boue gluante bleu
@@ -24,8 +24,9 @@ tile.tconstruct.soil.graveyard.name=Sol de cimetière
 tile.tconstruct.soil.graveyard.tooltip=Ce guérit les morts-vivant.
 tile.tconstruct.soil.consecrated.name=Sol sacré
 tile.tconstruct.soil.consecrated.tooltip=Ce fait mal les morts-vivant.
-tile.tconstruct.soil.mudbrick.name=Briques de boue
-tile.tconstruct.soil_slab.mudbrick.name=Dalle en briques de boue
+
+tile.tconstruct.deco_ground.mudbrick.name=Briques de boue
+tile.tconstruct.deco_ground_slab.mudbrick.name=Dalle en briques de boue
 tile.tconstruct.mudbrick_stairs.name=Escaliers en briques de boue
 
 tile.tconstruct.ore.cobalt.name=Minerai de cobalt
@@ -45,6 +46,24 @@ tile.tconstruct.firewood_slab.lavawood.name=Dalle en bois de lave
 tile.tconstruct.firewood_slab.firewood.name=Dalle en bois de feu
 tile.tconstruct.lavawood_stairs.name=Escaliers en bois de lave
 tile.tconstruct.firewood_stairs.name=Escaliers en bois de feu
+
+tile.tconstruct.clear_glass.name=Verre transparent
+tile.tconstruct.clear_stained_glass.white.name=Vitrail transparent blanc
+tile.tconstruct.clear_stained_glass.orange.name=Vitrail transparent orange
+tile.tconstruct.clear_stained_glass.magenta.name=Vitrail transparent magenta
+tile.tconstruct.clear_stained_glass.light_blue.name=Vitrail transparent bleu clair
+tile.tconstruct.clear_stained_glass.yellow.name=Vitrail transparent jaune
+tile.tconstruct.clear_stained_glass.lime.name=Vitrail transparent vert clair
+tile.tconstruct.clear_stained_glass.pink.name=Vitrail transparent rose
+tile.tconstruct.clear_stained_glass.gray.name=Vitrail transparent gris
+tile.tconstruct.clear_stained_glass.silver.name=Vitrail transparent gris clair
+tile.tconstruct.clear_stained_glass.cyan.name=Vitrail transparent cyan
+tile.tconstruct.clear_stained_glass.purple.name=Vitrail transparent violet
+tile.tconstruct.clear_stained_glass.blue.name=Vitrail transparent bleu
+tile.tconstruct.clear_stained_glass.brown.name=Vitrail transparent marron
+tile.tconstruct.clear_stained_glass.green.name=Vitrail transparent vert
+tile.tconstruct.clear_stained_glass.red.name=Vitrail transparent rouge
+tile.tconstruct.clear_stained_glass.black.name=Vitrail transparent noir
 
 tile.tconstruct.slime.green.name=Bloc de substance gluante vert
 tile.tconstruct.slime.blue.name=Bloc de substance gluante bleu
@@ -101,7 +120,10 @@ tile.tconstruct.seared.brick.name=Briques revenu
 tile.tconstruct.seared.brick_cracked.name=Briques revenu craquelé
 tile.tconstruct.seared.brick_fancy.name=Briques revenu sophistiqué
 tile.tconstruct.seared.brick_square.name=Briques revenu carrée
+tile.tconstruct.seared.brick_triangle.name=Briques revenu triangulaire
+tile.tconstruct.seared.brick_small.name=Briques revenu petit
 tile.tconstruct.seared.road.name=Rue revenu
+tile.tconstruct.seared.tile.name=Carreau revenu
 tile.tconstruct.seared.creeper.name=Briques revenu de visage de Creeper
 tile.tconstruct.seared.tooltip=C'est de la fonderie. C'est sûr pour la décoration.
 
@@ -112,7 +134,10 @@ tile.tconstruct.seared_slab.brick.name=Dalle en briques revenu
 tile.tconstruct.seared_slab.brick_cracked.name=Dalle en briques revenu craquelé
 tile.tconstruct.seared_slab.brick_fancy.name=Dalle en briques revenu sophistiqué
 tile.tconstruct.seared_slab.brick_square.name=Dalle en briques revenu carrée
+tile.tconstruct.seared_slab2.brick_triangle.name=Dalle en briques revenu triangulaire
+tile.tconstruct.seared_slab2.brick_small.name=Dalle en briques revenu petit
 tile.tconstruct.seared_slab.road.name=Dalle en rue revenu
+tile.tconstruct.seared_slab2.tile.name=Dalle en carreau revenu
 tile.tconstruct.seared_slab2.creeper.name=Dalle en briques revenu de visage de Creeper
 
 tile.tconstruct.seared_stairs_stone.name=Escaliers en roche revenu
@@ -122,7 +147,10 @@ tile.tconstruct.seared_stairs_brick.name=Escaliers en briques revenu
 tile.tconstruct.seared_stairs_brick_cracked.name=Escaliers en briques revenu craquelé
 tile.tconstruct.seared_stairs_brick_fancy.name=Escaliers en briques revenu sophistiqué
 tile.tconstruct.seared_stairs_brick_square.name=Escaliers en briques revenu carrée
+tile.tconstruct.seared_stairs_brick_triangle.name=Escaliers en briques revenu triangulaire
+tile.tconstruct.seared_stairs_brick_small.name=Escaliers en briques revenu petit
 tile.tconstruct.seared_stairs_road.name=Escaliers en rue revenu
+tile.tconstruct.seared_stairs_tile.name=Escaliers en carreau revenu
 tile.tconstruct.seared_stairs_creeper.name=Escaliers en briques revenu de visage de Creeper
 
 tile.tconstruct.smeltery_controller.name=Régulateur de fonderie
@@ -138,10 +166,15 @@ tile.tconstruct.seared_tank.tank.name=Réservoir revenu
 tile.tconstruct.seared_tank.gauge.name=Jauge revenu
 tile.tconstruct.seared_tank.window.name=Fenêtre revenu
 tile.tconstruct.seared_tank.tooltip=Le cœur de la fonderie.\nCe garde les liquides quand ce casse.
+tile.tconstruct.seared_glass.glass.name=Verre revenu
+tile.tconstruct.seared_glass.glass.tooltip=C'est de la fonderie. C'est sûr pour la décoration.\nCe ne garde pas les liquides.
+tile.tconstruct.seared_furnace_controller.name=Seared Furnace Controller
 
 tile.tconstruct.stone_torch.name=Torche de pierre
 tile.tconstruct.stone_ladder.name=Échelle de pierre
 tile.tconstruct.wood_rail.name=Rail de bois
+tile.tconstruct.wood_rail_trapdoor.name=Rail de bois avec une trappe
+tile.tconstruct.wood_rail_trapdoor.tooltip=Minecarts with a Hopper can\ninsert into the block below
 tile.tconstruct.punji.name=Bâton de canne tranchant
 tile.tconstruct.punji.tooltip=Pointu! Ce raccorde à les murs.
 tile.tconstruct.glow.name=Lueur
@@ -150,6 +183,14 @@ tile.tconstruct.rack.item.tooltip=Pour le décoration seul.
 tile.tconstruct.rack.drying.name=Étagère de séchage
 tile.tconstruct.rack.drying.tooltip=C'utilise sécher les objets
 
+
+tile.tconstruct.slime_channel.green.name=Green Slime Channel
+tile.tconstruct.slime_channel.blue.name=Blue Slime Channel
+tile.tconstruct.slime_channel.purple.name=Purple Slime Channel
+tile.tconstruct.slime_channel.magma.name=Magma Slime Channel
+tile.tconstruct.slime_channel.blood.name=Blood Channel
+tile.tconstruct.slime_channel.tooltip=Flows like water, feels like gelatin
+
 tile.tconstruct.dried_clay.clay.name=Argile sec
 tile.tconstruct.dried_clay.brick.name=Briques sec
 tile.tconstruct.dried_clay_slab.clay.name=Dalle en argile sec
@@ -157,6 +198,45 @@ tile.tconstruct.dried_clay_slab.brick.name=Dalle en briques sec
 tile.tconstruct.dried_clay_stairs.name=Escaliers en argile sec
 tile.tconstruct.dried_brick_stairs.name=Escaliers en briques sec
 
+tile.tconstruct.brownstone.smooth.name=Grès rouge lisse
+tile.tconstruct.brownstone.rough.name=Grès rouge rugueux
+tile.tconstruct.brownstone.paver.name=Trottoir de grès rouge 
+tile.tconstruct.brownstone.brick.name=Briques de grès rouge
+tile.tconstruct.brownstone.brick_cracked.name=Briques de grès rouge craquelé
+tile.tconstruct.brownstone.brick_fancy.name=Briques de grès rouge sophistiqué
+tile.tconstruct.brownstone.brick_square.name=Briques de grès rouge carrée
+tile.tconstruct.brownstone.brick_triangle.name=Briques de grès rouge triangulaire
+tile.tconstruct.brownstone.brick_small.name=Briques de grès rouge petit
+tile.tconstruct.brownstone.road.name=Rue de grès rouge
+tile.tconstruct.brownstone.tile.name=Carreau de grès rouge
+tile.tconstruct.brownstone.creeper.name=Visage de Creeper de grès rouge
+tile.tconstruct.brownstone.tooltip=Vous partez à toute vitesse sur le grès rouge.
+
+tile.tconstruct.brownstone_slab.smooth.name=Dalle en grès rouge lisse
+tile.tconstruct.brownstone_slab.rough.name=Dalle en grès rouge rugueux
+tile.tconstruct.brownstone_slab.paver.name=Dalle en trottoir de grès rouge 
+tile.tconstruct.brownstone_slab.brick.name=Dalle en briques de grès rouge
+tile.tconstruct.brownstone_slab.brick_cracked.name=Dalle en briques de grès rouge craquelé
+tile.tconstruct.brownstone_slab.brick_fancy.name=Dalle en briques de grès rouge sophistiqué
+tile.tconstruct.brownstone_slab.brick_square.name=Dalle en briques de grès rouge carrée
+tile.tconstruct.brownstone_slab.road.name=Dalle en rue de grès rouge
+tile.tconstruct.brownstone_slab2.creeper.name=Dalle en visage de Creeper de grès rouge
+tile.tconstruct.brownstone_slab2.brick_triangle.name=Dalle en briques de grès rouge triangulaire
+tile.tconstruct.brownstone_slab2.brick_small.name=Dalle en briques de grès rouge petit
+tile.tconstruct.brownstone_slab2.tile.name=Dalle en carreau de grès rouge
+
+tile.tconstruct.brownstone_stairs_smooth.name=Escaliers en grès rouge lisse
+tile.tconstruct.brownstone_stairs_rough.name=Escaliers en grès rouge rugueux
+tile.tconstruct.brownstone_stairs_paver.name=Escaliers en trottoir de grès rouge 
+tile.tconstruct.brownstone_stairs_brick.name=Escaliers en briques de grès rouge
+tile.tconstruct.brownstone_stairs_brick_cracked.name=Escaliers en briques de grès rouge craquelé
+tile.tconstruct.brownstone_stairs_brick_fancy.name=Escaliers en briques de grès rouge sophistiqué
+tile.tconstruct.brownstone_stairs_brick_square.name=Escaliers en briques de grès rouge carrée
+tile.tconstruct.brownstone_stairs_brick_triangle.name=Escaliers en briques de grès rouge triangulaire
+tile.tconstruct.brownstone_stairs_brick_small.name=Escaliers en briques de grès rouge petit
+tile.tconstruct.brownstone_stairs_road.name=Escaliers en rue de grès rouge
+tile.tconstruct.brownstone_stairs_tile.name=Escaliers en carreau de grès rouge
+tile.tconstruct.brownstone_stairs_creeper.name=Escaliers en visage de Creeper de grès rouge
 
 ################
 #    Objets    #
@@ -200,15 +280,19 @@ item.tconstruct.materials.slimecrystal_magma.tooltip=item.tconstruct.materials.s
 item.tconstruct.materials.expander_w.name=Extenseur (horizontal)
 item.tconstruct.materials.expander_w.tooltip=Ne manquez pas jour des jambes!
 item.tconstruct.materials.expander_h.name=Extenseur (vertical)
-item.tconstruct.materials.expander_h.tooltip=Faitez-tu soulever encore?
+item.tconstruct.materials.expander_h.tooltip=Faites-tu soulever encore?
 item.tconstruct.materials.reinforcement.name=Renforcement
 item.tconstruct.materials.reinforcement.tooltip=Modificateur renforcé
 item.tconstruct.materials.silky_cloth.name=Tissu soyeux
 item.tconstruct.materials.silky_jewel.name=Bijou soyeux
 item.tconstruct.materials.silky_jewel.tooltip=Modificateur de toucher de soie
 item.tconstruct.materials.necrotic_bone.name=Os nécrotique
-item.tconstruct.materials.necrotic_bone.tooltip=Modificaeur nécrotique
-item.tconstruct.materials.creative_modifier.name=Modificaeur créatif
+item.tconstruct.materials.necrotic_bone.tooltip=Modificateur nécrotique
+item.tconstruct.materials.moss.name=Balle de mousse
+item.tconstruct.materials.moss.tooltip=Right click a Bookshelf with this\nto convert it into Mending Moss.\n§oConsumes 10 Levels
+item.tconstruct.materials.mending_moss.name=Mousse de raccommodage
+item.tconstruct.materials.mending_moss.tooltip=Modificateur de mousse de raccommodage
+item.tconstruct.materials.creative_modifier.name=Modificateur créatif
 item.tconstruct.materials.creative_modifier.tooltip=C'additionne un modificaeur supplémentaire.
 
 item.tconstruct.ingots.cobalt.name=Lingot de cobalt
@@ -298,7 +382,11 @@ item.tconstruct.large_sword_blade.name=Lame d'épée large
 
 # Gadgets
 item.tconstruct.slime_boots.name=Bottes de Slime
+item.tconstruct.slime_boots.tooltip=Vous rebondissez quand l'atterrissage.
 item.tconstruct.slimesling.name=Fronde de Slime
+item.tconstruct.slimesling.tooltip=Vous visez le sol.\nUtilisez les bottes de Slime si vous accordez de l'importance à votre vie!
+item.tconstruct.piggybackpack.name=Sac à dos de conchon
+item.tconstruct.piggybackpack.tooltip=Vous faites un clic droit sur les créatures à vous ramassez.
 item.tconstruct.stone_stick.name=Tige de pierre
 
 item.tconstruct.fancy_frame.jewel.name=Cadre sophistiqué
@@ -307,6 +395,7 @@ item.tconstruct.fancy_frame.cobalt.name=Cadre de cobalt
 item.tconstruct.fancy_frame.ardite.name=Cadre d'ardite
 item.tconstruct.fancy_frame.manyullyn.name=Cadre de manyullyn
 item.tconstruct.fancy_frame.gold.name=Cadre d'or
+item.tconstruct.fancy_frame.clear.name=Cadre transparent
 
 item.tconstruct.throwball.glow.name=Balle de lueur
 item.tconstruct.throwball.glow.tooltip=Ce n'est pas mangeable.
@@ -314,7 +403,7 @@ item.tconstruct.throwball.efln.name=EFLN
 item.tconstruct.throwball.efln.tooltip=C'explose! Gardez pour l'exploitation minière!
 
 #################
-#   Entités    #
+#    Entités    #
 #################
 
 entity.tconstruct.blueslime.name=Slime bleu
@@ -335,6 +424,7 @@ fluid.tconstruct.ardite.name=Ardite fondu
 fluid.tconstruct.manyullyn.name=Manyullyn fondu
 fluid.tconstruct.knightslime.name=Substance gluante de chevalier fondu
 fluid.tconstruct.emerald.name=Émeraude fondu
+fluid.tconstruct.glass.name=Verre fondu
 fluid.tconstruct.blood.name=Sang
 fluid.tconstruct.milk.name=Lait
 fluid.tconstruct.blueslime.name=Substance gluante bleu fluide
@@ -453,104 +543,107 @@ stat.projectile.ammo.name=Munitions
 ##############
 
 # traits are also modifiers, they use the same prefix so they don't have to be localized twice
-modifier.alien.name=Alien
-modifier.alien.desc=§oSomething is off...§r\n..but I can't tell what! Maybe time will tell.
-modifier.aquadynamic.name=Aquadynamic
-modifier.aquadynamic.desc=§oIt's getting wet in here!§r\nThe tool is unhindered by water and loves rainy evenings.
+modifier.alien.name=Extraterrestre
+modifier.alien.desc=§oLes statistiques n'est pas correct...§r\n..mais je ne résous pas! Temps montre peut-être?
+modifier.aquadynamic.name=Dynamique-aqua
+modifier.aquadynamic.desc=§oC'est ici mouillé!§r\nC'est libre dans l'eau.
 modifier.aridiculous.name=Aridiculous
-modifier.aridiculous.desc=§oTurn up the heat!§r\nThe tool works better in hotter environments.
-modifier.autosmelt.name=Autosmelt
-modifier.autosmelt.desc=§oA furnace in tool form!§r\nHarvested blocks get smelted.
-modifier.baconlicious.name=Baconlicious
-modifier.baconlicious.desc=§oBACON!§r\nHitting things sometimes gives bacon.
-modifier.cheap.name=Cheap
-modifier.cheap.desc=§oMore bang for your buck!§r\nIncreases durability gained when repairing the tool.
-modifier.cheapskate.name=Cheapskate
-modifier.cheapskate.desc=§oCheeky!§r\nStone is bad. Your tool has less durability.
-modifier.coldblooded.name=Cold-Blooded
-modifier.coldblooded.desc=§oSavage!§r\nDeal increased damage to targets at full health.
-modifier.crude.name=Crude
-modifier.crude.desc=§oArmor is for cowards!§r\nBonus damage against unarmored targets.
-modifier.crude.extra=Vs Unarmored: +%s
-modifier.crumbling.name=Crumbling
-modifier.crumbling.desc=§oCrumble rumble rumble§r\nThe tool breaks soft blocks that don't need a tool faster.
+modifier.aridiculous.desc=§oS'intensifier!§r\nC'est libre dans les atmosphères de la chaleur.
+modifier.autosmelt.name=Fonde-automatiquement
+modifier.autosmelt.desc=§oUn fourneau sur un outil!§r\nBlocs obtenu est fond.
+modifier.baconlicious.name=Baconlicieux
+modifier.baconlicious.desc=§oBACON!§r\nDes chose de heurte donne le bacon.
+modifier.cheap.name=Bon marché
+modifier.cheap.desc=§oVous en aurez pour votre argent!§r\nC'augmente durabilité de gagne quand vous réparez l'outil.
+modifier.cheapskate.name=Radin
+modifier.cheapskate.desc=§oInsolent!§r\nLe pierre est mauvais. Votre outil est moins durable.
+modifier.coldblooded.name=Sans pitié
+modifier.coldblooded.desc=§oSauvage!§r\nC'augmente des dommages pour des objectifs de la santé plein.
+modifier.crude.name=Brut
+modifier.crude.desc=§oL'armure est pour les lâches!§r\nLes dommages prime contres les chose sans renfort.
+modifier.crude.extra=Vs sans renfort: +%s
+modifier.crumbling.name=Croulant
+modifier.crumbling.desc=§oS'émietter et le grondement et le grondement.§r\nL'outil détruit rapidement les blocs mou que ne requiert pas un outil.
 modifier.dense.name=Dense
-modifier.dense.desc=§oHard...er.§r\nYour tool lasts longer when it has less durability.
+modifier.dense.desc=§oPlus... dur.§r\nVotre outil plus de dernier avec moins de rapidement.
 modifier.duritos.name=Duritae
-modifier.duritos.desc=§oDoesn't taste as good as it sounds.§r\nYour tool lasts longer ...most of the time.
-modifier.ecological.name=Ecological
-modifier.ecological.desc=§oGreen Power!§r\nRenewable resources are so good, they regenerate by themselves!
-modifier.enderference.name=Enderference
-modifier.enderference.desc=§oAnti-Teleport!§r\nPrevents Endermen from teleporting around for a short time.
-modifier.established.name=Well-Established
-modifier.established.desc=§oFree bonus XP!§r\nYou gain additional XP.
-modifier.flammable.name=Flammable
-modifier.flammable.desc=§oCan't have enough fire!§r\nBlocking blocks fire damage and sets the attacker on fire.
-modifier.fractured.name=Fractured
-modifier.fractured.desc=§oHurt!§r\nYour tools damage is increased.
-modifier.hellish.name=Hellish
-modifier.hellish.desc=§oFrom down below!§r\nDeal bonus damage to non-Nether mobs.
+modifier.duritos.desc=§oCe n'est pas savoureux.§r\nVotre outil tient ...la plupart du temps.
+modifier.ecological.name=Écologique
+modifier.ecological.desc=§oLa force vert!§r\nC'est renouvelable, donc c'est régénératif!
+modifier.enderference.name=Enderférence
+modifier.enderference.desc=§oAnti-téléportation!§r\nEndermen ne téléporte pas temporairement.
+modifier.established.name=Bien établi
+modifier.established.desc=§oXP supplémentaire gratuit!§r\nVouz obtenez XP supplémentaire.
+modifier.flammable.name=Inflammable
+modifier.flammable.desc=§oLe feu est déficient!§r\nBlocage s'arrête les dommages du feu et cause le feu sur l'agresseur.
+modifier.fractured.name=Fracturé
+modifier.fractured.desc=§oDouleur!§r\nLes dommages de l'outil est plus élevé.
+modifier.hellish.name=Infernal
+modifier.hellish.desc=§oD'en enfer!§r\nLes dommages supplémentaire contre la créature du Non-Nether.
 modifier.hellish.extra=Vs Non-Nether: +%s
-modifier.holy.name=Holy
-modifier.holy.desc=§oRadiant!§r\nDeal bonus damage to undead enemies.
+modifier.holy.name=Saint
+modifier.holy.desc=§oRadiant!§r\nLes dommages supplémentaire contre les morts-vivants.
 modifier.holy.extra=modifier.smite.extra
 modifier.insatiable.name=Insatiable
-modifier.insatiable.desc=§oDevour!§r\nDuring combat you deal more and more damage but also consume more and more durability.
-modifier.jagged.name=Jagged
-modifier.jagged.desc=§oMoves like jagged!§r\nEvery point durability lost increases damage.
-modifier.jagged.extra=Jagged Damage: +%s
-modifier.lightweight.name=Lightweight
-modifier.lightweight.desc=§oSwift like the wind!§r\nIncreases the overall speed of your tool when mining and attacking.
-modifier.lightweight.extra=Bonus Speed: +%s
-modifier.magnetic.name=Magnetic
-modifier.magnetic.desc=§oHow do they work?!§r\nHitting things attracts nearby things?!
-modifier.momentum.name=Momentum
-modifier.momentum.desc=§oFaster, keep going!§r\nMining blocks increases your speed, as long as you keep going.
+modifier.insatiable.desc=§oDévorez!§r\nVous infligez de plus en plus les dommages pendent le combat mais aussi l'outil utilise de plus en plus le durabilité.
+modifier.jagged.name=Denté
+modifier.jagged.desc=§oUsure naturelle!§r\nL'outil gagne les dommages quand l'outil perd le durabilité.
+modifier.jagged.extra=Dommages de denté: +%s
+modifier.lightweight.name=Léger
+modifier.lightweight.desc=§oRapide!§r\nL'outil obtient la vitesse supplémentaire pour le minage et l'attaque.
+modifier.lightweight.extra=Vitesse supplémentaire: +%s
+modifier.magnetic.name=Magnétique
+modifier.magnetic.desc=§oComment il fonctionne?!§r\nVous frappez les chose attire les chose dans les environs?!
+modifier.momentum.name=Élan
+modifier.momentum.desc=§oPlus vite, continue!§r\nVous extrayez les blocs avec la vitesse supplémentaire pourvu que vous continuiez.
 modifier.petramor.name=Petramor
-modifier.petramor.desc=§oSo much stone, must see it all!§r\nYour tool loves stone, it literally wants to absorb it (for durability).
-modifier.poisonous.name=Poisonous
-modifier.poisonous.desc=§oNot exactly lead-free!§r\nPoisons enemies on hit.
-modifier.prickly.name=Prickly
-modifier.prickly.desc=§oOuch!§r\nNobody is safe from those thorns, they always hurt.
-modifier.sharp.name=Sharp
-modifier.sharp.desc=§oCan even cut words!§r\nHitting an enemy leaves them bleeding for a short time.
-modifier.shocking.name=Shocking
-modifier.shocking.desc=§oBzzzzzt!§r\nRunning around charges your tool, hitting an enemy discharges it.
-modifier.slimey.name=Slimey
-modifier.slimey.desc=§oEww, gooey!§r\nIt'll wash off.
-modifier.spiky.name=Spiky
-modifier.spiky.desc=§o200% cooler with spikes!§r\nBlocking deals damage to the attacker.
-modifier.splintering.name=Splintering
-modifier.splintering.desc=§oA souvenir for your enemies!§r\nHit them more to deal more damage.
-modifier.splinters.name=Splinters
-modifier.splinters.desc=§oOuch!§r\nBe careful not to catch a splinter!
-modifier.squeaky.name=Squeaky
-modifier.squeaky.desc=§oCute.§r\nYour tool is so soft and squeaky it gained silktouch, but deals no damage.
-modifier.stiff.name=Stiff
-modifier.stiff.desc=§oUnmoving!§r\nBlocking reduces the damage taken even more.
-modifier.stonebound.name=Stonebound
-modifier.stonebound.desc=§oYour tool absolutely loves stone!§r\nThe tool mines faster as it wears out, but does less damage.
-modifier.stonebound.extra=Stonebound Speed: +%s
-modifier.superheat.name=Superheat
-modifier.superheat.desc=§oTurn up the heat!§r\nDeal bonus damage to enemies on fire.
-modifier.superheat.extra=Vs Burning: +%s
-modifier.unnatural.name=Unnatural
-modifier.unnatural.desc=§oAbomination!§r\nThe tool mines faster the higher its mining level is above the required one.
-modifier.tasty.name=Tasty
-modifier.tasty.desc=§oOm Nom Nom§r\nSmells so good.. You'd rather eat your tool than starve.
+modifier.petramor.desc=§oBeaucoup des pierres, je dois tout voir !§r\nC'outil aime les pierres, il peux absorber les pierres (pour le durabilité).
+modifier.poisonous.name=Empoisonné
+modifier.poisonous.desc=§oC'outil n'est pas exactement le plomb libre!§r\nL'ennemi agressé est envenimé.
+modifier.prickly.name=Épineux
+modifier.prickly.desc=§oAïe!§r\nPersonne n'est sûr des épines!
+modifier.sharp.name=Tranchant
+modifier.sharp.desc=§oLes mots peux encore être endommagé!§r\nL'ennemi agressé saigne.
+modifier.shocking.name=Bouleversant
+modifier.shocking.desc=§oBzzzzzt!§r\nCourant partout, vous chargez votre outil.  Attaquant un ennemi, vous déchargez votre outil.
+modifier.slimey.name=Gluant
+modifier.slimey.desc=§oC'est dégoûtant!§r\nLa substance gluante peux lave.
+modifier.spiky.name=Piquant
+modifier.spiky.desc=§o200% trop bien avec les pointes!§r\nLe blocage endommage l'agresseur.
+modifier.splintering.name=Fragmentation
+modifier.splintering.desc=§oUn souvenir pour votre ennemis!§r\nVous frappez leur à infligez plus des dommages.
+modifier.splinters.name=Échardes
+modifier.splinters.desc=§oAïe!§r\nFaites attention! N'obtenez pas une écharde!
+modifier.squeaky.name=Grinçant
+modifier.squeaky.desc=§oMignon.§r\nVotre outil obtient le toucher de soie, mais ne fait pas les dommages.
+modifier.stiff.name=Raide
+modifier.stiff.desc=§oNon-mobile!§r\nLe blocage réduit les dommages pris.
+modifier.stonebound.name=Attaché-roche
+modifier.stonebound.desc=§oVotre outil aime les pierres!§r\nL'outil extrait plus vite en perdant le durabilité, mais fait moins les dommages.
+modifier.stonebound.extra=Vitesse d'attaché-roche: +%s
+modifier.superheat.name=Surchauffe
+modifier.superheat.desc=§oLa chaleur mets plus fort!§r\nInfligez plus des dommages sur les ennemis en feu.
+modifier.superheat.extra=Vs En feu: +%s
+modifier.unnatural.name=Anormal
+modifier.unnatural.desc=§oAbomination!§r\nL'outil extrait plus vite quand le niveau de minage est plus haut.
+modifier.tasty.name=Savoureux
+modifier.tasty.desc=§oOm Nom Nom§r\nCe outil sent délicieux.. Vous préférez manger votre outil que mourir de faim.
 modifier.writable.name=Inscriptible
-modifier.writable.desc=§oIntellectual!§r\nPlus de mots. Plus de modificateurs. C'est juste logique!
+modifier.writable.desc=§oIntellectuel!§r\nPlus de mots. Plus de modificateurs. C'est juste logique!
 
 #################
 # Modificateurs #
 #################
 
-modifier.bane_of_arthopods.name=Bane of Arthropods
-modifier.bane_of_arthopods.desc=§oAnti-Spider!§r\nDeal massive damage to spiders.
-modifier.bane_of_arthopods.extra=Vs Spiders: +%s
-modifier.beheading.name=Beheading
-modifier.beheading.desc=§oOff with his head!§r\nEach level adds a 10% chance to get the enemies head on kill.
-modifier.diamond.name=Diamond
+modifier.bane_of_arthopods.name=Flèau des arthropodes
+modifier.bane_of_arthopods.desc=§oAnti-araignée!§r\nInfligez plus des dommages sur les araignées.
+modifier.bane_of_arthopods.extra=Vs araignées: +%s
+modifier.beheading.name=Décapitation
+modifier.beheading.desc=§oQu'on leur coupe la tête!§r\nEach level adds a 10% chance to get the enemies head on kill.
+modifier.blasting.name=Blasting
+modifier.blasting.desc=§oKa-Boom!§r\nYou can break non-effective blocks like normal blocks, but they might get destroyed.
+modifier.blasting.extra=Blast Power: %s
+modifier.diamond.name=Diamant
 modifier.diamond.desc=§oShiny!§r\nIncreased durability!
 modifier.emerald.name=Emerald
 modifier.emerald.desc=§oFancy!§r\nIncreases durability depending on base stats!
@@ -560,37 +653,45 @@ modifier.fiery.extra=Fire Damage: +%s
 modifier.fiery.extra2=Burn Duration: %ss
 modifier.fortify.name=Fortified (%s)
 modifier.fortify.desc=§oHarder, better, faster, stronger!§r\nMining level increased to the same level as %s.
+modifier.glowing.name=Glowing
+modifier.glowing.desc=§oShine bright§r\nWhenever it gets too dark your tool sacrifices a part of itself to light up your way.
 modifier.harvestwidth.name=Width++
 modifier.harvestwidth.desc=§oExpand!§r\nIncreases the width of the area affected by your tool. The effect is tool specific.
 modifier.harvestheight.name=Height++
 modifier.harvestheight.desc=§oExpand!§r\nIncreases the height of the area affected by your tool. The effect is tool specific.
-modifier.haste.name=Haste
-modifier.haste.name2=Haster
-modifier.haste.name3=Hastest
-modifier.haste.name4=Hastester
-modifier.haste.name5=Hastestest
+modifier.haste.name=Hâte
+modifier.haste.name2=Plus de hâte
+modifier.haste.name3=Très hâte
+modifier.haste.name4=Plus de très hâte
+modifier.haste.name5=Très très hâte
 modifier.haste.desc=§oWeeeeeee!§r\nThe redstone impulse when using your tool motivates your tool to move even faster.
 modifier.haste.extra=Bonus-Speed: +%s
-modifier.knockback.name=Knockback
+modifier.knockback.name=Recul
 modifier.knockback.desc=§oHomerun!§r\nTeach things how to fly - the cool way.
 modifier.luck.name=Luck
-modifier.luck.name2=Luck
 modifier.luck.desc=§oShiny!§r\nYou're getting all the nice things. And a lot of them.
+modifier.mending_moss.name=Mending Moss
+modifier.mending_moss.desc=§oIt's alive!§r\nPicked up XP is stored in the tool. It will slowly use up the XP to regenerate durability.
+modifier.mending_moss.extra=Stored XP: %d
 modifier.necrotic.name=Necrotic
 modifier.necrotic.desc=§oI feel so Alive!!§r\nHitting enemies returns health to you depending on damage dealt.
 modifier.necrotic.extra=Lifesteal: +%s
 modifier.reinforced.name=Reinforced
 modifier.reinforced.unbreakable=Unbreakable
-modifier.reinforced.desc=§oSo strong!§r\nEach level adds a 15% chance to not use durability.
-modifier.sharpness.name=Sharp
-modifier.sharpness.name2=Sharper
-modifier.sharpness.name3=Sharpest
-modifier.sharpness.name4=Sharpester
-modifier.sharpness.name5=Sharpestest
+modifier.reinforced.desc=§oSo strong!§r\nEach level adds a %s chance to not use durability.
+modifier.reinforced.extra=Reinforced: %s
+modifier.sharpness.name=Tranchant
+modifier.sharpness.name2=Plus tranchant
+modifier.sharpness.name3=Très tranchant
+modifier.sharpness.name4=Plus de très tranchant
+modifier.sharpness.name5=Très très tranchant
 modifier.sharpness.desc=§oOuch!§r\nSo sharp, it hurts to look at it.
+modifier.shulking.name=Shulking
+modifier.shulking.desc=§oUp up and away!§r\nHitting foes causes them to float away.
+modifier.shulking.extra=Float Duration: %ss
 modifier.silktouch.name=Silktouch
 modifier.silktouch.desc=§oSmooth as silk!§r\nMined blocks drop themselves instead of the usual items.
-modifier.smite.name=Smite
+modifier.smite.name=Châtiment
 modifier.smite.desc=§oFor Justice!§r\nDeal massive damage to undead.
 modifier.smite.extra=Vs Undead: +%s
 modifier.soulbound.name=Soulbound
@@ -611,7 +712,7 @@ item.tconstruct.battlesign.desc=The Battlesign is the ultimate defensive weapon.
 item.tconstruct.hammer.desc=The Hammer is a broad mining tool. It harvests blocks in a wide range.\nAlso effective against undead.
 item.tconstruct.lumberaxe.desc=The Lumber Axe is a broad chopping tool. It can fell entire trees in one swoop or gather wood in a wide range.\nTimber!
 item.tconstruct.excavator.desc=The Excavator is a broad digging tool. It digs up large areas of soil and snow in a wide range.\nTerraforming!
-item.tconstruct.cleaver.desc=The Cleaver is a heavy offensive weapon. It has powerful strikes, but is difficult to wield.\nSlow, cannot block!
+item.tconstruct.cleaver.desc=The Cleaver is a heavy offensive weapon. It has powerful strikes, but is difficult to wield.\nCleavers benefit from high damage.\nSlow, cannot block!
 item.tconstruct.battleaxe.desc=The Battleaxe is a heavy offensive weapon, bringing the berserker out. It is capable of bringing down small trees and can send foes flying.\nRight Click: Berserk
 item.tconstruct.scythe.desc=The Scythe is a broad reaping tool. It is effective on plants and harvests flora and fauna in a wide range.\nBringing death to both crops and your enemies.
 item.tconstruct.shuriken.desc=The Shuriken is a fast, short ranged throwing weapon. It has high quantities but low damage.\nCan be thrown from the off-hand.
@@ -619,9 +720,9 @@ item.tconstruct.shuriken.desc=The Shuriken is a fast, short ranged throwing weap
 ################
 #   Tooltips   #
 ################
-tooltip.tool.modifiers=Modifiers
-tooltip.tool.broken=Broken
-tooltip.tool.empty=Empty
+tooltip.tool.modifiers=Modificateur
+tooltip.tool.broken=Cassé
+tooltip.tool.empty=Vide
 tooltip.tool.holdShift=Hold §e§oShift§r for Stats
 tooltip.tool.holdCtrl=Hold §e§bCtrl§r for more
 
@@ -642,11 +743,11 @@ tooltip.tank.amount=%d mb
 ##################
 # general strings used in GUIs, tooltips and other display stuff
 
-ui.mininglevel.stone=Stone
-ui.mininglevel.iron=Iron
+ui.mininglevel.stone=Roche
+ui.mininglevel.iron=Fer
 #ui.mininglevel.redstone=Redstone # replaced with diamond
-ui.mininglevel.diamond=Diamond
-ui.mininglevel.obsidian=Obsidian
+ui.mininglevel.diamond=Diamant
+ui.mininglevel.obsidian=Obsidienne
 ui.mininglevel.cobalt=Cobalt
 
 # Death messages
@@ -670,6 +771,7 @@ gui.error.single_modifier=%s can only be applied once.
 gui.error.max_level_modifier=Maximum Level for %s already reached.
 gui.error.no_modifier_for_item=No modifier found for %s.
 gui.error.incompatible_modifiers=Modifiers %s and %s cannot be applied together
+gui.error.incompatible_trait=Modifier %s can not be used together with trait %s
 gui.error.incompatible_enchantments=Modifier %s cannot be combined with enchantment %s
 
 ################
@@ -680,15 +782,15 @@ gui.error.incompatible_enchantments=Modifier %s cannot be combined with enchantm
 gui.general.hover=Hover over the entries for more info
 
 # Creative Tabs
-itemGroup.TinkerGeneral=Tinkers' General Items
-itemGroup.TinkerTools=Tinkers' Tools
-itemGroup.TinkerToolParts=Tinkers' Toolparts
-itemGroup.TinkerSmeltery=Tinkers' Smeltery
-itemGroup.TinkerWorld=Tinkers' World
-itemGroup.TinkerGadgets=Tinkers' Gadgets
+itemGroup.TinkerGeneral=Objets général du Tinker
+itemGroup.TinkerTools=Outils du Tinker
+itemGroup.TinkerToolParts=Pièces d'outil général du Tinker
+itemGroup.TinkerSmeltery=Fondu du Tinker
+itemGroup.TinkerWorld=Monde du Tinker
+itemGroup.TinkerGadgets=Gadgets du Tinker
 
 # Crafting Station
-gui.craftingstation.name=Crafting Station
+gui.craftingstation.name=Station de réalisant
 
 # Stencil Table
 gui.stenciltable.name=Stencil Table
@@ -697,6 +799,7 @@ gui.stenciltable.name=Stencil Table
 gui.partbuilder.name=Part Builder
 gui.partcrafter.name=Part Crafter
 gui.partbuilder.info=Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put its pattern into the left slot. The two remaining slots hold the material you want to craft your part out of.
+gui.partbuilder.material_value=Valeur du matériau: %s %s
 
 # Tool Station/Forge
 gui.toolstation.name=Tool Station
@@ -732,6 +835,12 @@ gui.smeltery.liquid.nugget=Nugget
 gui.smeltery.liquid.block=Block
 gui.smeltery.liquid.gem=Gem
 
+# Seared Furnace
+gui.searedfurnace.name=Seared Furnace
+gui.searedfurnace.progress.complete=Item is finished smelting
+gui.searedfurnace.progress.no_recipe=Item can't be cooked
+gui.searedfurnace.progress.no_space=Resulting stack is too large for the slot
+
 # These GUIs don't appear in game, but the titles can be viewed using the crafting station
 gui.itemrack.name=Item Rack
 gui.dryingrack.name=Drying Rack
@@ -742,6 +851,17 @@ gui.jei.alloy.title=Alloying
 gui.jei.casting.title=Fonte
 gui.jei.casting.consume=Consumes cast!
 gui.jei.drying.title=Drying
+
+# WAILA Plugin
+gui.waila.tank.fluid=Liquid: %s
+gui.waila.tank.amount=Amount: %d / %d mb
+gui.waila.tank.empty=Empty
+gui.waila.casting.progress=Progress: %s
+gui.waila.casting.recipe=Recipe: %s
+
+option.tconstruct.tank=Tank Liquid
+option.tconstruct.casting=Casting Recipe
+option.tconstruct.progress=Recipe Progress
 
 # Config
 config.synced.restart=Your configuration has been updated to match the server. Restart Minecraft.
