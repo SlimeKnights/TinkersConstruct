@@ -26,8 +26,7 @@ public class TileDrain extends TileSmelteryComponent {
   @Override
   public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-      TileEntity te = getMaster();
-      return te != null && te instanceof ISmelteryTankHandler;
+      return getSmelteryTankHandler() != null;
     }
     return super.hasCapability(capability, facing);
   }
@@ -37,8 +36,8 @@ public class TileDrain extends TileSmelteryComponent {
   @Override
   public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-      TileEntity te = getMaster();
-      if(te == null || !(te instanceof ISmelteryTankHandler)) {
+      TileEntity te = this.getSmelteryTankHandler();
+      if(te == null) {
         return super.getCapability(capability, facing);
       }
 

@@ -27,7 +27,7 @@ public class FluidHandlerExtractOnlyWrapper extends FluidHandlerConcatenate {
 
   @Override
   public IFluidTankProperties[] getTankProperties() {
-    if(parent.get() != null) {
+    if(hasParent()) {
       IFluidTankProperties[] iFluidTankPropertiesArray = parent.get().getTankProperties();
       if(iFluidTankPropertiesArray.length > 0) {
         IFluidTankProperties fluidTankProperties = parent.get().getTankProperties()[0];
