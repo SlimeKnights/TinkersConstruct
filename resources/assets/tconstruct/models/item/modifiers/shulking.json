@@ -1,0 +1,19 @@
+{
+    "textures": {
+        "battleaxe": "tconstruct:items/battleaxe/mod_shulking",
+        "battlesign": "tconstruct:items/battlesign/mod_shulking",
+        "broadsword": "tconstruct:items/broadsword/mod_shulking",
+        "rapier": "tconstruct:items/rapier/mod_shulking",
+        "cleaver": "tconstruct:items/cleaver/mod_shulking",
+        "excavator": "tconstruct:items/excavator/mod_shulking",
+        "frypan": "tconstruct:items/frypan/mod_shulking",
+        "hammer": "tconstruct:items/hammer/mod_shulking",
+        "hatchet": "tconstruct:items/hatchet/mod_shulking",
+        "longsword": "tconstruct:items/longsword/mod_shulking",
+        "lumberaxe": "tconstruct:items/lumberaxe/mod_shulking",
+        "mattock": "tconstruct:items/mattock/mod_shulking",
+        "pickaxe": "tconstruct:items/pickaxe/mod_shulking",
+        "shovel": "tconstruct:items/shovel/mod_shulking",
+        "shuriken": "tconstruct:items/shuriken/mod_shulking"
+    }
+}
