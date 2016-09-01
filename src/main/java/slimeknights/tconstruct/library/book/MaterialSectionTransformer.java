@@ -16,7 +16,9 @@ import slimeknights.mantle.client.gui.book.element.ElementItem;
 import slimeknights.mantle.client.gui.book.element.SizedBookElement;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 
+/** Populates the materials section for tool materials with content */
 public class MaterialSectionTransformer extends SectionTransformer {
 
   public MaterialSectionTransformer() {
@@ -63,6 +65,9 @@ public class MaterialSectionTransformer extends SectionTransformer {
 
     for(Material material : TinkerRegistry.getAllMaterials()) {
       if(material.isHidden() || material.getAllStats().isEmpty() || !material.hasItems()) {
+        continue;
+      }
+      if(!material.hasStats(MaterialTypes.HEAD) && !material.hasStats(MaterialTypes.HEAD) && !material.hasStats(MaterialTypes.HEAD)) {
         continue;
       }
       PageData page = new PageData(true);
