@@ -6,7 +6,8 @@
             "top": "tconstruct:blocks/smeltery/seared_brick",
 			"front": "tconstruct:blocks/smeltery/seared_furnace_inactive",
             "side": "#top"
-		}
+		},
+        "uvlock": true
 	},
 	"variants": {
 		"facing": {
