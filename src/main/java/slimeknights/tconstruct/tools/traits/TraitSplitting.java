@@ -22,7 +22,7 @@ public class TraitSplitting extends AbstractTrait {
   public void onBowShooting(TinkerToolEvent.OnBowShoot event) {
     if(TinkerUtil.hasTrait(TagUtil.getTagSafe(event.ammo), this.getModifierIdentifier()) && random.nextFloat() < DOUBLESHOT_CHANCE) {
       event.setProjectileCount(2);
-      event.setConsumeAmmoPerProjectile(true);
+      event.setConsumeAmmoPerProjectile(false);
       event.setConsumeDurabilityPerProjectile(false);
     }
   }
