@@ -7,6 +7,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import org.lwjgl.opencl.CL;
 
 import java.util.List;
 
@@ -93,11 +97,13 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
     return data;
   }
 
+  @SideOnly(Side.CLIENT)
   @Override
   public ICrosshair getCrosshair(ItemStack itemStack, EntityPlayer player) {
     return Crosshairs.SQUARE;
   }
 
+  @SideOnly(Side.CLIENT)
   @Override
   public float getCrosshairState(ItemStack itemStack, EntityPlayer player) {
     return getDrawbackProgress(itemStack, player);

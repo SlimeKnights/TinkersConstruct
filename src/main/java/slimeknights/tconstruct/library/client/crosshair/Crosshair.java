@@ -8,11 +8,14 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.opengl.GL11;
 
 import slimeknights.tconstruct.library.Util;
 
+@SideOnly(Side.CLIENT)
 public class Crosshair implements ICrosshair {
 
   private final ResourceLocation texture;

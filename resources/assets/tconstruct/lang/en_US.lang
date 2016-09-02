@@ -508,11 +508,13 @@ material.steel.name=Steel
 material.string.name=String
 material.vine.name=Vines
 material.slimevine_blue.name=Slimevine
-material.slimevine_orange.name=material.slimeleaf_blue.name
-material.slimevine_purple.name=material.slimeleaf_blue.name
+material.slimevine_orange.name=material.slimevine_blue.name
+material.slimevine_purple.name=material.slimevine_blue.name
 
 material.blaze.name=Blazerod
 material.reed.name=Reeds
+material.ice.name=Ice
+material.endrod.name=Endrod
 
 material.feather.name=Feather
 material.leaf.name=Leaf
