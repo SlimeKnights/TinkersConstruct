@@ -15,6 +15,11 @@ import slimeknights.tconstruct.library.smeltery.SmelteryTank;
 public class SmelteryTankRenderer<T extends TileEntity & ISmelteryTankHandler> extends TileEntitySpecialRenderer<T> {
 
   public void renderFluids(SmelteryTank tank, @Nonnull BlockPos pos, @Nonnull BlockPos tankMinPos, @Nonnull BlockPos tankMaxPos, double x, double y, double z) {
+    // minpos as lightingPos instead of smeltery.pos because we want to use the lighting inside the smeltery
+    renderFluids(tank, pos, tankMinPos, tankMaxPos, x, y, z, RenderUtil.FLUID_OFFSET, tankMinPos);
+  }
+
+  public void renderFluids(SmelteryTank tank, @Nonnull BlockPos pos, @Nonnull BlockPos tankMinPos, @Nonnull BlockPos tankMaxPos, double x, double y, double z, float offsetToBlockEdge, @Nonnull BlockPos lightingPos) {
     if(tank == null) {
       return;
     }
@@ -44,8 +49,7 @@ public class SmelteryTankRenderer<T extends TileEntity & ISmelteryTankHandler> e
       // rendering time
       for(int i = 0; i < fluids.size(); i++) {
         double h = (double) heights[i] / 1000d;
-        // minpos as start instead of smeltery.pos because we want to use the lighting inside the smeltery
-        RenderUtil.renderStackedFluidCuboid(fluids.get(i), x, y, z, tankMinPos, minPos, maxPos, curY, curY + h);
+        RenderUtil.renderStackedFluidCuboid(fluids.get(i), x, y, z, lightingPos, minPos, maxPos, curY, curY + h, offsetToBlockEdge);
         curY += h;
       }
     }

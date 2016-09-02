@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -140,8 +141,8 @@ public class TileTinkerTank extends TileEntity implements ITickable, IMasterLogi
     }
 
     if(info != null) {
-      minPos = info.minPos.add(1, 1, 1); // add walls and floor
-      maxPos = info.maxPos.add(-1, -1, -1); // subtract walls and ceiling
+      minPos = info.minPos.add(0, 1, 0); // add floor
+      maxPos = info.maxPos.add(0, -1, 0); // subtract ceiling
     }
     else {
       minPos = maxPos = this.pos;
@@ -167,7 +168,7 @@ public class TileTinkerTank extends TileEntity implements ITickable, IMasterLogi
 
   @Override
   public GuiContainer createGui(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
-    return new GuiTinkerTank((ContainerTinkerTank) createContainer(inventoryplayer, world, pos), this);
+    return new GuiTinkerTank(createContainer(inventoryplayer, world, pos), this);
   }
 
   @Nonnull
@@ -202,14 +203,15 @@ public class TileTinkerTank extends TileEntity implements ITickable, IMasterLogi
     if(minPos == null || maxPos == null) {
       return super.getRenderBoundingBox();
     }
-    // we need to include the controller's position as we render a face there
+    // we need to include the controller's position for Y value as we render a face there
+    // we also include additional positions for the sake of the fluids
     return new AxisAlignedBB(
-        Math.min(minPos.getX(), pos.getX()),
+        minPos.getX(),
         Math.min(minPos.getY(), pos.getY()),
-        Math.min(minPos.getZ(), pos.getZ()),
-        Math.max(maxPos.getX(), pos.getX()) + 1,
+        minPos.getZ(),
+        maxPos.getX() + 1,
         Math.max(maxPos.getY(), pos.getY()) + 1,
-        Math.max(maxPos.getY(), pos.getZ()) + 1
+        maxPos.getZ() + 1
       );
   }
 

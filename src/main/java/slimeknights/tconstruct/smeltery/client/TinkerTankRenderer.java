@@ -14,8 +14,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
+
 import slimeknights.tconstruct.library.client.RenderUtil;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
 import slimeknights.tconstruct.smeltery.block.BlockTinkerTankController;
@@ -47,40 +49,45 @@ public class TinkerTankRenderer extends SmelteryTankRenderer<TileTinkerTank> {
 
       // make sure we have a fluid before continuing
       FluidStack fluidStack = tank.getFluid();
-      if(fluidStack != null) {
-        Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer renderer = tessellator.getBuffer();
-
-        renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-        mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-
-        EnumFacing face = world.getBlockState(pos).getValue(BlockTinkerTankController.FACING);
-
-        // set up data for the sprite rendering
-        Fluid fluid = fluidStack.getFluid();
-        TextureAtlasSprite sprite = mc.getTextureMapBlocks().getTextureExtry(fluid.getStill().toString());
-        int brightness = world.getCombinedLight(pos.offset(face), fluid.getLuminosity(fluidStack));
-        int color = fluid.getColor(fluidStack);
-
-        RenderUtil.pre(x, y, z);
-
-        // fluid is missing texture
-        if(sprite == null) {
-          sprite = mc.getTextureMapBlocks().getMissingSprite();
-        }
-
-        float d = RenderUtil.FLUID_OFFSET;
-        float d2 = 1 - (d * 2);
-        // transparent liquids should render solid textured
-        // otherwise it would look bad as our backface is so dark
-        GlStateManager.disableBlend();
-        RenderUtil.putTexturedQuad(renderer, sprite, d, d, d, d2, d2, d2, face, color, brightness, false);
-        tessellator.draw();
-        RenderUtil.post();
+      // we draw water for an active tank so people know it's active
+      if(fluidStack == null) {
+        fluidStack = new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME);
       }
+
+      Tessellator tessellator = Tessellator.getInstance();
+      VertexBuffer renderer = tessellator.getBuffer();
+
+      renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+      mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+
+      EnumFacing face = world.getBlockState(pos).getValue(BlockTinkerTankController.FACING);
+
+      // set up data for the sprite rendering
+      Fluid fluid = fluidStack.getFluid();
+      TextureAtlasSprite sprite = mc.getTextureMapBlocks().getTextureExtry(fluid.getStill().toString());
+      int brightness = world.getCombinedLight(pos.offset(face), fluid.getLuminosity(fluidStack));
+      int color = fluid.getColor(fluidStack);
+
+      RenderUtil.pre(x, y, z);
+
+      // fluid is missing texture
+      if(sprite == null) {
+        sprite = mc.getTextureMapBlocks().getMissingSprite();
+      }
+
+      float d = RenderUtil.FLUID_OFFSET;
+      float d2 = 1 - (d * 2);
+
+      // transparent liquids should render solid textured
+      // otherwise it would look bad as our backface is so dark
+      GlStateManager.disableBlend();
+      RenderUtil.putTexturedQuad(renderer, sprite, d, d, d, d2, d2 - 0.3f, d2, face, color, brightness, false);
+      tessellator.draw();
+      RenderUtil.post();
     }
 
     // draw the fluids inside
-    renderFluids(tank, pos, tinkerTank.minPos, tinkerTank.maxPos, x, y, z);
+    // we offset the minPos for lighting since its possible to have a solid block (always light 0) where the liquid starts
+    renderFluids(tank, pos, tinkerTank.minPos, tinkerTank.maxPos, x, y, z, 0.0625f, tinkerTank.minPos.add(1, 0, 1));
   }
 }

@@ -78,6 +78,11 @@ public final class RenderUtil {
 
   public static void renderStackedFluidCuboid(FluidStack fluid, double px, double py, double pz, BlockPos pos,
                                               BlockPos from, BlockPos to, double ymin, double ymax) {
+    renderStackedFluidCuboid(fluid, px, py, pz, pos, from, to, ymin, ymax, FLUID_OFFSET);
+  }
+
+  public static void renderStackedFluidCuboid(FluidStack fluid, double px, double py, double pz, BlockPos pos,
+                                              BlockPos from, BlockPos to, double ymin, double ymax, float offsetToBlockEdge) {
     if(ymin >= ymax) {
       return;
     }
@@ -114,12 +119,12 @@ public final class RenderUtil {
     if(ymax % 1d == 0) yd--;
     int zd = to.getZ() - from.getZ();
 
-    double xmin = FLUID_OFFSET;
-    double xmax = xd + 1d - FLUID_OFFSET;
+    double xmin = offsetToBlockEdge;
+    double xmax = xd + 1d - offsetToBlockEdge;
     //double ymin = y1;
     //double ymax = y2;
-    double zmin = FLUID_OFFSET;
-    double zmax = zd + 1d - FLUID_OFFSET;
+    double zmin = offsetToBlockEdge;
+    double zmax = zd + 1d - offsetToBlockEdge;
 
     double[] xs = new double[2 + xd];
     double[] ys = new double[2 + yd];
