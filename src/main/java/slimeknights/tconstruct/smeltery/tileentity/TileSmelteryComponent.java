@@ -7,7 +7,9 @@ import net.minecraft.tileentity.TileEntity;
 
 import javax.annotation.Nonnull;
 
+import slimeknights.mantle.multiblock.IMasterLogic;
 import slimeknights.mantle.multiblock.MultiServantLogic;
+import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
 
 public class TileSmelteryComponent extends MultiServantLogic {
 
@@ -37,11 +39,15 @@ public class TileSmelteryComponent extends MultiServantLogic {
     readFromNBT(tag);
   }
 
-  protected TileSmeltery getSmeltery() {
+  /**
+   * Gets a tile entity at the position of the master that contains a ISmelteryTankHandler
+   * @return null if the TE is not an ISmelteryTankHandler or if the master is missing
+   */
+  protected TileEntity getSmelteryTankHandler() {
     if(getHasMaster()) {
       TileEntity te = worldObj.getTileEntity(getMasterPosition());
-      if(te instanceof TileSmeltery) {
-        return (TileSmeltery) te;
+      if(te instanceof ISmelteryTankHandler) {
+        return te;
       }
     }
     return null;

@@ -19,6 +19,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
@@ -125,6 +126,10 @@ public class Mattock extends AoeToolCore {
       if(ret != EnumActionResult.SUCCESS) {
         ret = ret2;
       }
+    }
+
+    if(ret == EnumActionResult.SUCCESS) {
+      TinkerToolEvent.OnMattockHoe.fireEvent(stack, playerIn, worldIn, pos);
     }
 
     return ret;

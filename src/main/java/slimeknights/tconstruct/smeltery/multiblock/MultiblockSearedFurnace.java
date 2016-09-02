@@ -65,7 +65,7 @@ public class MultiblockSearedFurnace extends MultiblockCuboid {
       return false;
     }
 
-    return TinkerSmeltery.validSearedFurnaceBlocks.contains(state.getBlock());
+    return TinkerSmeltery.searedStairsSlabs.contains(state.getBlock());
   }
 
   @Override
@@ -110,5 +110,4 @@ public class MultiblockSearedFurnace extends MultiblockCuboid {
     }
     return true;
   }
-
 }

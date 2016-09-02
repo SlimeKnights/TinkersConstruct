@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
@@ -67,6 +68,9 @@ public class Shovel extends AoeToolCore {
     }
 
     EnumActionResult result = Items.DIAMOND_SHOVEL.onItemUse(stack, player, world, pos, hand, facing, hitX, hitY, hitZ);
+    if(result == EnumActionResult.SUCCESS) {
+      TinkerToolEvent.OnShovelMakePath.fireEvent(stack, player, world, pos);
+    }
 
     // only do the AOE path if the selected block is grass or grass path
     Block block = world.getBlockState(pos).getBlock();
@@ -81,6 +85,10 @@ public class Shovel extends AoeToolCore {
         // if we pass on an earlier block, check if another block succeeds here instead
         if(result != EnumActionResult.SUCCESS) {
           result = aoeResult;
+        }
+
+        if(aoeResult == EnumActionResult.SUCCESS) {
+          TinkerToolEvent.OnShovelMakePath.fireEvent(stack, player, world, aoePos);
         }
       }
     }

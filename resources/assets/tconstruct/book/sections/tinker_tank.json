@@ -1,0 +1,12 @@
+[
+  {
+    "name": "intro",
+    "type": "image with text below",
+    "data": "tinker_tank/intro.json"
+  },
+  {
+    "name": "structure",
+    "type": "text",
+    "data": "tinker_tank/structure.json"
+  }
+]

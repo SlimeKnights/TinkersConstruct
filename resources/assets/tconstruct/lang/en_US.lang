@@ -168,7 +168,9 @@ tile.tconstruct.seared_tank.window.name=Seared Window
 tile.tconstruct.seared_tank.tooltip=Heart of the Smeltery\nRetains liquid when broken.
 tile.tconstruct.seared_glass.glass.name=Seared Glass
 tile.tconstruct.seared_glass.glass.tooltip=Part of the Smeltery. Safe for decoration.\nCannot store liquids.
+
 tile.tconstruct.seared_furnace_controller.name=Seared Furnace Controller
+tile.tconstruct.tinker_tank_controller.name=Tinker Tank Controller
 
 tile.tconstruct.stone_torch.name=Stone Torch
 tile.tconstruct.stone_ladder.name=Stone Ladder
@@ -766,8 +768,8 @@ item.tconstruct.shuriken.desc=The Shuriken is a fast, short ranged throwing weap
 tooltip.tool.modifiers=Modifiers
 tooltip.tool.broken=Broken
 tooltip.tool.empty=Empty
-tooltip.tool.holdShift=Hold §e§oShift§r for Stats
-tooltip.tool.holdCtrl=Hold §e§bCtrl§r for more
+tooltip.tool.holdShift=Hold §e§oShift§r§7 for Stats
+tooltip.tool.holdCtrl=Hold §e§bCtrl§r§7 for more
 
 tooltip.part.material_added_by=Material added by %s
 tooltip.part.missing_material=Missing material: %s
@@ -883,6 +885,9 @@ gui.searedfurnace.name=Seared Furnace
 gui.searedfurnace.progress.complete=Item is finished smelting
 gui.searedfurnace.progress.no_recipe=Item can't be cooked
 gui.searedfurnace.progress.no_space=Resulting stack is too large for the slot
+
+# Tinker Tank
+gui.tinkertank.name=Tinker Tank
 
 # These GUIs don't appear in game, but the titles can be viewed using the crafting station
 gui.itemrack.name=Item Rack
