@@ -50,6 +50,7 @@ public final class Config {
   public static int slimeIslandsRate = 730; // Every x-th chunk will have a slime island. so 1 = every chunk, 100 = every 100th
   public static int magmaIslandsRate = 100; // Every x-th chunk will have a slime island. so 1 = every chunk, 100 = every 100th
   public static int[] slimeIslandBlacklist = new int[]{-1, 1};
+  public static boolean slimeIslandsOnlyGenerateInSurfaceWorlds = true;
   public static boolean genCobalt = true;
   public static int cobaltRate = 16; // max. cobalt per chunk
   public static boolean genArdite = true;
@@ -210,6 +211,11 @@ public final class Config {
       prop = configFile.get(cat, "slimeIslandBlacklist", slimeIslandBlacklist);
       prop.setComment("Prevents generation of slime islands in the listed dimensions");
       slimeIslandBlacklist = prop.getIntList();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "slimeIslandsOnlyGenerateInSurfaceWorlds", slimeIslandsOnlyGenerateInSurfaceWorlds);
+      prop.setComment("If true, slime islands wont generate in dimensions which aren't of type surface. This means they wont generate in modded cave dimensions like the deep dark.");
+      slimeIslandsOnlyGenerateInSurfaceWorlds = prop.getBoolean();
       propOrder.add(prop.getName());
 
       // Nether ore generation
