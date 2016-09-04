@@ -24,27 +24,27 @@ public class SmelteryRenderer extends SmelteryTankRenderer<TileSmeltery> {
       return;
     }
 
-    // get liquids
+    BlockPos tilePos = smeltery.getPos();
+    BlockPos minPos = smeltery.getMinPos();
+    BlockPos maxPos = smeltery.getMaxPos();
 
     // safety first!
-    if(smeltery.minPos == null || smeltery.maxPos == null) {
+    if(minPos == null || maxPos == null) {
       return;
     }
 
-    renderFluids(smeltery.getTank(), smeltery.getPos(), smeltery.minPos, smeltery.maxPos, x, y, z);
+    renderFluids(smeltery.getTank(), tilePos, minPos, maxPos, x, y, z);
 
     // calculate x/z parameters
-    double x1 = smeltery.minPos.getX() - smeltery.getPos().getX();
-    double y1 = smeltery.minPos.getY() - smeltery.getPos().getY();
-    double z1 = smeltery.minPos.getZ() - smeltery.getPos().getZ();
+    double x1 = minPos.getX() - tilePos.getX();
+    double y1 = minPos.getY() - tilePos.getY();
+    double z1 = minPos.getZ() - tilePos.getZ();
 
     // render items
-    int xd = 1 + smeltery.maxPos.getX() - smeltery.minPos.getX();
-    int zd = 1 + smeltery.maxPos.getZ() - smeltery.minPos.getZ();
+    int xd = 1 + maxPos.getX() - minPos.getX();
+    int zd = 1 + maxPos.getZ() - minPos.getZ();
     int layer = xd * zd;
     //Tessellator tessellator = Tessellator.getInstance();
-    //WorldRenderer renderer = tessellator.getWorldRenderer();
-    //renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
     Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
     RenderUtil.pre(x, y, z);
     GlStateManager.disableCull();
@@ -60,7 +60,7 @@ public class SmelteryRenderer extends SmelteryTankRenderer<TileSmeltery> {
         // calculate position inside the smeltery from slot index
         int h = i / layer;
         int i2 = i % layer;
-        BlockPos pos = smeltery.minPos.add(i2 % xd, h, i2 / xd);
+        BlockPos pos = minPos.add(i2 % xd, h, i2 / xd);
 
         int brightness = smeltery.getWorld().getCombinedLight(pos, 0);
 

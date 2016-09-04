@@ -28,10 +28,7 @@ import slimeknights.tconstruct.common.block.BlockInventoryTinkers;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.smeltery.tileentity.TileSearedFurnace;
 
-public class BlockSearedFurnaceController extends BlockInventoryTinkers {
-
-  public static final PropertyDirection FACING = BlockHorizontal.FACING;
-  public static final PropertyBool ACTIVE = PropertyBool.create("active");
+public class BlockSearedFurnaceController extends BlockMultiblockController {
 
   public BlockSearedFurnaceController() {
     super(Material.ROCK);
@@ -47,55 +44,6 @@ public class BlockSearedFurnaceController extends BlockInventoryTinkers {
   @Override
   public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     return new TileSearedFurnace();
-  }
-
-  @Override
-  protected boolean openGui(EntityPlayer player, World world, BlockPos pos) {
-    if(!isActive(world, pos)) {
-      return false;
-    }
-    return super.openGui(player, world, pos);
-  }
-
-  /* Blockstate */
-  @Nonnull
-  @Override
-  protected BlockStateContainer createBlockState() {
-    return new BlockStateContainer(this, FACING, ACTIVE);
-  }
-
-  /**
-   * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
-   * IBlockstate
-   */
-  @Nonnull
-  @Override
-  public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-    return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
-  }
-
-  @Override
-  public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-    // check for a valid structure
-    TileEntity te = world.getTileEntity(pos);
-    if(te instanceof TileSearedFurnace) {
-      ((TileSearedFurnace) te).checkFurnaceStructure();
-    }
-  }
-
-  @Nonnull
-  @Override
-  public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-    // active or inactive?
-    return state.withProperty(ACTIVE, isActive(worldIn, pos));
-  }
-
-  public boolean isActive(IBlockAccess world, BlockPos pos) {
-    TileEntity te = world.getTileEntity(pos);
-    if(te instanceof TileSearedFurnace) {
-      return ((TileSearedFurnace) te).isActive();
-    }
-    return false;
   }
 
   // lit furnaces produce light
@@ -142,11 +90,6 @@ public class BlockSearedFurnaceController extends BlockInventoryTinkers {
   }
 
   /* Rendering */
-  @Nonnull
-  @Override
-  public EnumBlockRenderType getRenderType(IBlockState state) {
-    return EnumBlockRenderType.MODEL;
-  }
 
   @Override
   public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
@@ -158,23 +101,7 @@ public class BlockSearedFurnaceController extends BlockInventoryTinkers {
       double frontOffset = 0.52D;
       double sideOffset = rand.nextDouble() * 0.4D - 0.2D;
 
-      switch(enumfacing) {
-        case WEST:
-          world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x - frontOffset, y, z + sideOffset, 0.0D, 0.0D, 0.0D);
-          world.spawnParticle(EnumParticleTypes.FLAME, x - frontOffset, y, z + sideOffset, 0.0D, 0.0D, 0.0D);
-          break;
-        case EAST:
-          world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + frontOffset, y, z + sideOffset, 0.0D, 0.0D, 0.0D);
-          world.spawnParticle(EnumParticleTypes.FLAME, x + frontOffset, y, z + sideOffset, 0.0D, 0.0D, 0.0D);
-          break;
-        case NORTH:
-          world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + sideOffset, y, z - frontOffset, 0.0D, 0.0D, 0.0D);
-          world.spawnParticle(EnumParticleTypes.FLAME, x + sideOffset, y, z - frontOffset, 0.0D, 0.0D, 0.0D);
-          break;
-        case SOUTH:
-          world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, x + sideOffset, y, z + frontOffset, 0.0D, 0.0D, 0.0D);
-          world.spawnParticle(EnumParticleTypes.FLAME, x + sideOffset, y, z + frontOffset, 0.0D, 0.0D, 0.0D);
-      }
+      spawnFireParticles(world, enumfacing, x, y, z, frontOffset, sideOffset);
     }
   }
 }
