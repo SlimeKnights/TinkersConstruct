@@ -1,9 +1,7 @@
 package slimeknights.tconstruct.tools.item;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
@@ -21,12 +19,12 @@ import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.SwordCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.shared.client.ParticleEffect;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class Rapier extends ToolCore {
+public class Rapier extends SwordCore {
 
   public static final float DURABILITY_MODIFIER = 0.8f;
 
@@ -36,19 +34,6 @@ public class Rapier extends ToolCore {
           PartMaterialType.extra(TinkerTools.crossGuard));
 
     addCategory(Category.WEAPON);
-  }
-
-  @Override
-  public boolean isEffective(IBlockState state) {
-    return BroadSword.effective_materials.contains(state.getMaterial());
-  }
-
-  @Override
-  public float getStrVsBlock(ItemStack stack, IBlockState state) {
-    if(state.getBlock() == Blocks.WEB) {
-      return super.getStrVsBlock(stack, state) * 7.5f;
-    }
-    return super.getStrVsBlock(stack, state);
   }
 
   @Override

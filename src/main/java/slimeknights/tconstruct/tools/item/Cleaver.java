@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.SwordCore;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -28,7 +29,7 @@ import slimeknights.tconstruct.tools.modifiers.ModBeheading;
 
 import static slimeknights.tconstruct.tools.item.BroadSword.effective_materials;
 
-public class Cleaver extends ToolCore {
+public class Cleaver extends SwordCore {
 
   public static final float DURABILITY_MODIFIER = 2f;
 
@@ -66,16 +67,6 @@ public class Cleaver extends ToolCore {
   @Override
   public int[] getRepairParts() {
     return new int[]{1, 2};
-  }
-
-  @Override
-  public boolean isEffective(IBlockState state) {
-    return effective_materials.contains(state.getMaterial());
-  }
-
-  @Override
-  public float miningSpeedModifier() {
-    return 0.2f;
   }
 
   @Override

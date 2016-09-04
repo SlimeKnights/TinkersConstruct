@@ -1,11 +1,7 @@
 package slimeknights.tconstruct.tools.item;
 
-import com.google.common.collect.ImmutableSet;
-
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -17,44 +13,21 @@ import java.util.List;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.SwordCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class BroadSword extends ToolCore {
+public class BroadSword extends SwordCore {
 
-  public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
-      ImmutableSet.of(net.minecraft.block.material.Material.WEB,
-                      net.minecraft.block.material.Material.VINE,
-                      net.minecraft.block.material.Material.CORAL,
-                      net.minecraft.block.material.Material.GOURD,
-                      net.minecraft.block.material.Material.LEAVES);
   public static final float DURABILITY_MODIFIER = 1.1f;
 
   public BroadSword() {
-    this(PartMaterialType.handle(TinkerTools.toolRod),
+    super(PartMaterialType.handle(TinkerTools.toolRod),
          PartMaterialType.head(TinkerTools.swordBlade),
          PartMaterialType.extra(TinkerTools.wideGuard));
-  }
-
-  protected BroadSword(PartMaterialType... requiredComponents) {
-    super(requiredComponents);
 
     addCategory(Category.WEAPON);
-  }
-
-  @Override
-  public boolean isEffective(IBlockState state) {
-    return effective_materials.contains(state.getMaterial());
-  }
-
-  @Override
-  public float getStrVsBlock(ItemStack stack, IBlockState state) {
-    if(state.getBlock() == Blocks.WEB) {
-      return super.getStrVsBlock(stack, state) * 7.5f;
-    }
-    return super.getStrVsBlock(stack, state);
   }
 
   @Override
@@ -65,11 +38,6 @@ public class BroadSword extends ToolCore {
   @Override
   public double attackSpeed() {
     return 1.6d; // default vanilla sword speed
-  }
-
-  @Override
-  public float miningSpeedModifier() {
-    return 0.5f; // slooow, because it's a swooooord
   }
 
   // sword sweep attack

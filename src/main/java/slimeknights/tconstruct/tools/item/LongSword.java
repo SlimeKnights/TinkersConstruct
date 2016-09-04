@@ -22,11 +22,12 @@ import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.SwordCore;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class LongSword extends ToolCore {
+public class LongSword extends SwordCore {
 
   public static final float DURABILITY_MODIFIER = 1.05f;
 
@@ -51,24 +52,6 @@ public class LongSword extends ToolCore {
   @Override
   public float damageCutoff() {
     return 18f;
-  }
-
-  @Override
-  public float miningSpeedModifier() {
-    return 0.5f;
-  }
-
-  @Override
-  public boolean isEffective(IBlockState state) {
-    return BroadSword.effective_materials.contains(state.getMaterial());
-  }
-
-  @Override
-  public float getStrVsBlock(ItemStack stack, IBlockState state) {
-    if(state.getBlock() == Blocks.WEB) {
-      return super.getStrVsBlock(stack, state) * 7.5f;
-    }
-    return super.getStrVsBlock(stack, state);
   }
 
   @Nonnull
