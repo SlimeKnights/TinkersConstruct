@@ -86,6 +86,7 @@ public class TileTinkerTank extends TileMultiblock<MultiblockTinkerTank> impleme
   }
 
   @Override
+  @SideOnly(Side.CLIENT)
   public GuiContainer createGui(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
     return new GuiTinkerTank(createContainer(inventoryplayer, world, pos), this);
   }
