@@ -7,6 +7,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.tinkering.TinkersItem;
+import slimeknights.tconstruct.library.tools.ToolCore;
 
 /**
  * Base class for all tinkers events
@@ -22,14 +24,16 @@ public abstract class TinkerEvent extends Event {
 
     public NBTTagCompound tag;
     public final ImmutableList<Material> materials;
+    public final TinkersItem tool;
 
-    public OnItemBuilding(NBTTagCompound tag, ImmutableList<Material> materials) {
+    public OnItemBuilding(NBTTagCompound tag, ImmutableList<Material> materials, TinkersItem tool) {
       this.tag = tag;
       this.materials = materials;
+      this.tool = tool;
     }
 
-    public static OnItemBuilding fireEvent(NBTTagCompound tag, ImmutableList<Material> materials) {
-      OnItemBuilding event = new OnItemBuilding(tag, materials);
+    public static OnItemBuilding fireEvent(NBTTagCompound tag, ImmutableList<Material> materials, TinkersItem tool) {
+      OnItemBuilding event = new OnItemBuilding(tag, materials, tool);
       MinecraftForge.EVENT_BUS.post(event);
       return event;
     }

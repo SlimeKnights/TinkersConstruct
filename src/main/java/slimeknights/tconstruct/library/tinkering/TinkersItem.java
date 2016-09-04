@@ -176,7 +176,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     addMaterialTraits(basetag, materials);
 
     // fire toolbuilding event
-    TinkerEvent.OnItemBuilding.fireEvent(basetag, ImmutableList.copyOf(materials));
+    TinkerEvent.OnItemBuilding.fireEvent(basetag, ImmutableList.copyOf(materials), this);
 
     return basetag;
   }
