@@ -92,7 +92,7 @@ public class MultiblockTinkerTank extends MultiblockTinker {
   @Override
   public boolean isFloorBlock(World world, BlockPos pos) {
     // only bricks for the floor
-    return world.getBlockState(pos).getBlock() == TinkerSmeltery.searedBlock && isValidSlave(world, pos);
+    return TinkerSmeltery.validTinkerTankFloorBlocks.contains(world.getBlockState(pos).getBlock()) && isValidSlave(world, pos);
   }
 
 }

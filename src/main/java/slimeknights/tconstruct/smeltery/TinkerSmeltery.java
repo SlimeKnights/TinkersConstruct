@@ -141,6 +141,7 @@ public class TinkerSmeltery extends TinkerPulse {
   public static ImmutableSet<Block> validSmelteryBlocks;
   public static ImmutableSet<Block> searedStairsSlabs;
   public static ImmutableSet<Block> validTinkerTankBlocks;
+  public static ImmutableSet<Block> validTinkerTankFloorBlocks;
   public static List<ItemStack> meltingBlacklist = Lists.newLinkedList();
 
   // PRE-INITIALIZATION
@@ -217,6 +218,7 @@ public class TinkerSmeltery extends TinkerPulse {
 
     validSmelteryBlocks = builder.build();
     validTinkerTankBlocks = builder.build(); // same blocks right now
+    validTinkerTankFloorBlocks = ImmutableSet.of(searedBlock, searedGlass, smelteryIO);
 
     // seared furnace ceiling blocks, no smelteryIO or seared glass
     // does not affect sides, those are forced to use seared blocks/tanks where relevant
