@@ -5,19 +5,15 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.PlayerControllerMP;
-import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.Item;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.event.RenderSpecificHandEvent;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.IRetexturableModel;
@@ -35,7 +31,7 @@ import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.client.BakedTableModel;
-import slimeknights.tconstruct.tools.block.BlockToolTable;
+import slimeknights.tconstruct.tools.common.block.BlockToolTable;
 
 @SideOnly(Side.CLIENT)
 public class ToolClientEvents {

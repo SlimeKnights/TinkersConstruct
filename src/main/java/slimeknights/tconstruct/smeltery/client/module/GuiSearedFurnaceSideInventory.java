@@ -12,7 +12,7 @@ import slimeknights.mantle.client.gui.GuiMultiModule;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.client.GuiSearedFurnace;
 import slimeknights.tconstruct.smeltery.tileentity.TileSearedFurnace;
-import slimeknights.tconstruct.tools.client.module.GuiSideInventory;
+import slimeknights.tconstruct.tools.common.client.module.GuiSideInventory;
 
 public class GuiSearedFurnaceSideInventory extends GuiSideInventory {
 

@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.tools.ranged;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -28,9 +27,6 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import slimeknights.mantle.util.RecipeMatch;
-import slimeknights.mantle.util.TagHelper;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.BooleanItemPropertyGetter;
 import slimeknights.tconstruct.library.events.ProjectileEvent;
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
@@ -38,11 +34,10 @@ import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IAmmoUser;
 import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
-import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.AmmoHelper;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
-import slimeknights.tconstruct.weapons.ranged.TinkerRangedWeapons;
+import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 
 public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUser {
 

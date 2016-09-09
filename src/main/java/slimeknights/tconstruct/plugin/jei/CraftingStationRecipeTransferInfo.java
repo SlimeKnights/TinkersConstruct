@@ -8,7 +8,7 @@ import java.util.List;
 
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
-import slimeknights.tconstruct.tools.inventory.ContainerCraftingStation;
+import slimeknights.tconstruct.tools.common.inventory.ContainerCraftingStation;
 
 /**
  * @author shadowfacts

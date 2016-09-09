@@ -34,6 +34,7 @@ import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
 import slimeknights.tconstruct.tools.modifiers.ModMendingMoss;
 
 public class ToolEvents {
@@ -66,13 +67,13 @@ public class ToolEvents {
       return;
     }
 
-    if(event.tool == TinkerTools.pickaxe ||
-       event.tool == TinkerTools.hatchet ||
-       event.tool == TinkerTools.shovel) {
+    if(event.tool == TinkerHarvestTools.pickaxe ||
+       event.tool == TinkerHarvestTools.hatchet ||
+       event.tool == TinkerHarvestTools.shovel) {
       event.width += width ? 1 : 0;
       event.height += height ? 1 : 0;
     }
-    else if(event.tool == TinkerTools.mattock) {
+    else if(event.tool == TinkerHarvestTools.mattock) {
       int c = 0;
       if(width) {
         c++;
@@ -83,9 +84,9 @@ public class ToolEvents {
       event.width += c;
       event.height += c;
     }
-    else if(event.tool == TinkerTools.hammer ||
-            event.tool == TinkerTools.excavator ||
-            event.tool == TinkerTools.lumberAxe) {
+    else if(event.tool == TinkerHarvestTools.hammer ||
+            event.tool == TinkerHarvestTools.excavator ||
+            event.tool == TinkerHarvestTools.lumberAxe) {
       event.width += width ? 2 : 0;
       event.height += height ? 2 : 0;
       //event.distance = 1 + (width ? 1 : 0) + (height ? 1 : 0);

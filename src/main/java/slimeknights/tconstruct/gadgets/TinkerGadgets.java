@@ -56,7 +56,7 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
 import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
 import slimeknights.tconstruct.shared.block.BlockTable;
-import slimeknights.tconstruct.tools.TableRecipe;
+import slimeknights.tconstruct.tools.common.TableRecipe;
 
 @Pulse(id = TinkerGadgets.PulseId, description = "All the fun toys")
 public class TinkerGadgets extends TinkerPulse {

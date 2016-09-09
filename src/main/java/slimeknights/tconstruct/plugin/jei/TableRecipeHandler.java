@@ -5,7 +5,7 @@ import javax.annotation.Nonnull;
 import mezz.jei.api.recipe.IRecipeHandler;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
-import slimeknights.tconstruct.tools.TableRecipe;
+import slimeknights.tconstruct.tools.common.TableRecipe;
 
 public class TableRecipeHandler implements IRecipeHandler<TableRecipe> {
 

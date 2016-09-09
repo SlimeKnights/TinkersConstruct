@@ -26,8 +26,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
-import slimeknights.tconstruct.shared.client.BakedColoredItemModel;
-import slimeknights.tconstruct.tools.network.InventorySlotSyncPacket;
+import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
 public class TileTable extends TileInventory {
 

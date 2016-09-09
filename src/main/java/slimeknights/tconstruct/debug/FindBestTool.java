@@ -30,7 +30,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
-import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
 
 public class FindBestTool extends CommandBase {
 
@@ -73,7 +73,7 @@ public class FindBestTool extends CommandBase {
       throw new CommandException("Inavlid arguments");
     }
 
-    ToolCore tool = TinkerTools.pickaxe;
+    ToolCore tool = TinkerHarvestTools.pickaxe;
     List<Triple<ItemStack, ImmutableList<Material>, Object[]>> results = Lists.newArrayList();
 
     @SuppressWarnings("unchecked")

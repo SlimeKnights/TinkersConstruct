@@ -35,7 +35,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.common.TinkerNetwork;
-import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
+import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 public class Exploder {
 

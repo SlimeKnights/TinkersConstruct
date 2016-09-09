@@ -25,7 +25,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
-import slimeknights.tconstruct.weapons.melee.item.BroadSword;
+import slimeknights.tconstruct.tools.melee.item.BroadSword;
 import slimeknights.tconstruct.tools.tools.Hatchet;
 import slimeknights.tconstruct.tools.tools.Pickaxe;
 import slimeknights.tconstruct.tools.tools.Shovel;

@@ -13,7 +13,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.tools.block.BlockToolTable;
+import slimeknights.tconstruct.tools.common.block.BlockToolTable;
 
 import static slimeknights.tconstruct.gadgets.TinkerGadgets.stoneStick;
 import static slimeknights.tconstruct.gadgets.TinkerGadgets.stoneTorch;

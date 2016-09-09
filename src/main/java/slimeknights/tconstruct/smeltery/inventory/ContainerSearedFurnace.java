@@ -5,7 +5,7 @@ import net.minecraft.inventory.IContainerListener;
 
 import slimeknights.mantle.inventory.ContainerMultiModule;
 import slimeknights.tconstruct.smeltery.tileentity.TileSearedFurnace;
-import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
+import slimeknights.tconstruct.tools.common.inventory.ContainerSideInventory;
 
 public class ContainerSearedFurnace extends ContainerMultiModule<TileSearedFurnace> {
 

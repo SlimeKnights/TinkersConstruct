@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 import slimeknights.tconstruct.library.traits.AbstractProjectileTrait;
-import slimeknights.tconstruct.weapons.ranged.TinkerRangedWeapons;
+import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 
 public class TraitEndspeed extends AbstractProjectileTrait {
 

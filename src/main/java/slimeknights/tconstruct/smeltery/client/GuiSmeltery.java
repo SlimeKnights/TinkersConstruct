@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.smeltery.client.module.GuiSmelterySideInventory;
 import slimeknights.tconstruct.smeltery.inventory.ContainerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
-import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
+import slimeknights.tconstruct.tools.common.inventory.ContainerSideInventory;
 
 public class GuiSmeltery extends GuiHeatingStructureFuelTank {
 

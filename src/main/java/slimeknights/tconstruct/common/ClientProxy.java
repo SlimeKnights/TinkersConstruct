@@ -43,13 +43,13 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.client.ParticleEffect;
 import slimeknights.tconstruct.shared.client.ParticleEndspeed;
-import slimeknights.tconstruct.tools.client.particle.ParticleAttackCleaver;
-import slimeknights.tconstruct.tools.client.particle.ParticleAttackFrypan;
-import slimeknights.tconstruct.tools.client.particle.ParticleAttackHammer;
-import slimeknights.tconstruct.tools.client.particle.ParticleAttackHatchet;
-import slimeknights.tconstruct.tools.client.particle.ParticleAttackLongsword;
-import slimeknights.tconstruct.tools.client.particle.ParticleAttackLumberAxe;
-import slimeknights.tconstruct.tools.client.particle.ParticleAttackRapier;
+import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackCleaver;
+import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackFrypan;
+import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackHammer;
+import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackHatchet;
+import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackLongsword;
+import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackLumberAxe;
+import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackRapier;
 
 public abstract class ClientProxy extends CommonProxy {
 

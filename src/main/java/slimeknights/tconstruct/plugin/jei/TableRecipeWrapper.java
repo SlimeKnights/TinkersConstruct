@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 
 import mezz.jei.plugins.vanilla.crafting.ShapedOreRecipeWrapper;
 import slimeknights.tconstruct.shared.block.BlockTable;
-import slimeknights.tconstruct.tools.TableRecipe;
+import slimeknights.tconstruct.tools.common.TableRecipe;
 
 public class TableRecipeWrapper extends ShapedOreRecipeWrapper {
 

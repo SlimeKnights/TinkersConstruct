@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialGUI;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
 
 public class ToolBuildGuiInfo {
 
@@ -72,7 +73,7 @@ public class ToolBuildGuiInfo {
       TinkerRegistry.addMaterial(mat);
     }
 
-    TinkerRegistry.tabTools.setDisplayIcon(TinkerTools.pickaxe.buildItemForRendering(ImmutableList.of(RenderMaterials[0], RenderMaterials[1], RenderMaterials[2])));
+    TinkerRegistry.tabTools.setDisplayIcon(TinkerHarvestTools.pickaxe.buildItemForRendering(ImmutableList.of(RenderMaterials[0], RenderMaterials[1], RenderMaterials[2])));
     TinkerRegistry.tabParts.setDisplayIcon(TinkerTools.pickHead.getItemstackWithMaterial(RenderMaterials[2]));
   }
 }

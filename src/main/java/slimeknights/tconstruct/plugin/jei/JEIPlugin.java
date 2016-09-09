@@ -32,7 +32,7 @@ import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.block.BlockToolTable;
+import slimeknights.tconstruct.tools.common.block.BlockToolTable;
 
 @mezz.jei.api.JEIPlugin
 public class JEIPlugin implements IModPlugin {

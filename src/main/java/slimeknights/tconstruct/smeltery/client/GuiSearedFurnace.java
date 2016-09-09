@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.client.module.GuiSearedFurnaceSideInventory;
 import slimeknights.tconstruct.smeltery.inventory.ContainerSearedFurnace;
 import slimeknights.tconstruct.smeltery.tileentity.TileSearedFurnace;
-import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
+import slimeknights.tconstruct.tools.common.inventory.ContainerSideInventory;
 
 public class GuiSearedFurnace extends GuiHeatingStructureFuelTank {
 

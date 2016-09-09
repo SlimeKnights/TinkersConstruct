@@ -31,9 +31,10 @@ import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.block.BlockToolTable;
-import slimeknights.tconstruct.weapons.melee.TinkerMeleeWeapons;
-import slimeknights.tconstruct.weapons.ranged.TinkerRangedWeapons;
+import slimeknights.tconstruct.tools.common.block.BlockToolTable;
+import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
+import slimeknights.tconstruct.tools.melee.TinkerMeleeWeapons;
+import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 
 @SideOnly(Side.CLIENT)
 public class ContentMaterial extends TinkerPage {
@@ -167,9 +168,9 @@ public class ContentMaterial extends TinkerPage {
     }
 
     // build a range of tools to fill the "bar" at the side
-    ToolCore[] tools = new ToolCore[]{TinkerTools.pickaxe, TinkerTools.mattock, TinkerMeleeWeapons.broadSword,
-                                      TinkerTools.hammer, TinkerMeleeWeapons.cleaver, TinkerRangedWeapons.shuriken,
-                                      TinkerMeleeWeapons.fryPan, TinkerTools.lumberAxe, TinkerMeleeWeapons.battleSign};
+    ToolCore[] tools = new ToolCore[]{TinkerHarvestTools.pickaxe, TinkerHarvestTools.mattock, TinkerMeleeWeapons.broadSword,
+                                      TinkerHarvestTools.hammer, TinkerMeleeWeapons.cleaver, TinkerRangedWeapons.shuriken,
+                                      TinkerMeleeWeapons.fryPan, TinkerHarvestTools.lumberAxe, TinkerMeleeWeapons.battleSign};
 
     for(ToolCore tool : tools) {
       if(tool == null) {

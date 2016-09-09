@@ -5,7 +5,7 @@ import net.minecraft.inventory.IContainerListener;
 
 import slimeknights.mantle.inventory.ContainerMultiModule;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
-import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
+import slimeknights.tconstruct.tools.common.inventory.ContainerSideInventory;
 
 public class ContainerSmeltery extends ContainerMultiModule<TileSmeltery> {
 

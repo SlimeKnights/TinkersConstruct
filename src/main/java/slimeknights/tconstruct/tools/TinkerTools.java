@@ -40,18 +40,19 @@ import slimeknights.tconstruct.shared.block.BlockSlime;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.tools.block.BlockToolForge;
-import slimeknights.tconstruct.tools.block.BlockToolTable;
-import slimeknights.tconstruct.tools.entity.EntityShuriken;
-import slimeknights.tconstruct.tools.item.ItemBlockTable;
-import slimeknights.tconstruct.tools.item.SharpeningKit;
-import slimeknights.tconstruct.tools.tileentity.TileCraftingStation;
-import slimeknights.tconstruct.tools.tileentity.TilePartBuilder;
-import slimeknights.tconstruct.tools.tileentity.TilePartChest;
-import slimeknights.tconstruct.tools.tileentity.TilePatternChest;
-import slimeknights.tconstruct.tools.tileentity.TileStencilTable;
-import slimeknights.tconstruct.tools.tileentity.TileToolForge;
-import slimeknights.tconstruct.tools.tileentity.TileToolStation;
+import slimeknights.tconstruct.tools.common.RepairRecipe;
+import slimeknights.tconstruct.tools.common.TableRecipe;
+import slimeknights.tconstruct.tools.common.block.BlockToolForge;
+import slimeknights.tconstruct.tools.common.block.BlockToolTable;
+import slimeknights.tconstruct.tools.common.item.ItemBlockTable;
+import slimeknights.tconstruct.tools.common.item.SharpeningKit;
+import slimeknights.tconstruct.tools.common.tileentity.TileCraftingStation;
+import slimeknights.tconstruct.tools.common.tileentity.TilePartBuilder;
+import slimeknights.tconstruct.tools.common.tileentity.TilePartChest;
+import slimeknights.tconstruct.tools.common.tileentity.TilePatternChest;
+import slimeknights.tconstruct.tools.common.tileentity.TileStencilTable;
+import slimeknights.tconstruct.tools.common.tileentity.TileToolForge;
+import slimeknights.tconstruct.tools.common.tileentity.TileToolStation;
 import slimeknights.tconstruct.tools.tools.Excavator;
 import slimeknights.tconstruct.tools.tools.Hammer;
 import slimeknights.tconstruct.tools.tools.Hatchet;
@@ -77,18 +78,6 @@ public class TinkerTools extends AbstractToolPulse {
   public static Pattern pattern;
   public static Shard shard;
   public static SharpeningKit sharpeningKit;
-
-  // Tools
-  public static ToolCore pickaxe;
-  public static ToolCore shovel;
-  public static ToolCore hatchet;
-  public static ToolCore mattock;
-
-  public static ToolCore hammer;
-  public static ToolCore excavator;
-  public static ToolCore lumberAxe;
-  public static ToolCore scythe;
-
 
   // Tool Parts
   public static ToolPart pickHead;
@@ -196,20 +185,6 @@ public class TinkerTools extends AbstractToolPulse {
     fletching = registerToolPart(new ToolPart(Material.VALUE_Ingot), "fletching");
   }
 
-  @Override
-  protected void registerTools() {
-    pickaxe = registerTool(new Pickaxe(), "pickaxe");
-    shovel = registerTool(new Shovel(), "shovel");
-    hatchet = registerTool(new Hatchet(), "hatchet");
-    mattock = registerTool(new Mattock(), "mattock");
-
-    hammer = registerTool(new Hammer(), "hammer");
-    excavator = registerTool(new Excavator(), "excavator");
-    lumberAxe = registerTool(new LumberAxe(), "lumberaxe");
-    //scythe = registerTool(new Scythe(), "scythe");
-  }
-
-
   // INITIALIZATION
   @Override
   @Subscribe
@@ -217,19 +192,6 @@ public class TinkerTools extends AbstractToolPulse {
     super.init(event);
 
     proxy.init();
-  }
-
-  @Override
-  protected void registerToolBuilding() {
-    TinkerRegistry.registerToolCrafting(pickaxe);
-    TinkerRegistry.registerToolCrafting(shovel);
-    TinkerRegistry.registerToolCrafting(hatchet);
-    TinkerRegistry.registerToolCrafting(mattock);
-
-    TinkerRegistry.registerToolForgeCrafting(hammer);
-    TinkerRegistry.registerToolForgeCrafting(excavator);
-    TinkerRegistry.registerToolForgeCrafting(lumberAxe);
-    //TinkerRegistry.registerToolForgeCrafting(scythe);
   }
 
   @Override

@@ -42,8 +42,9 @@ import slimeknights.tconstruct.tools.AggregateModelRegistrar;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.weapons.melee.TinkerMeleeWeapons;
-import slimeknights.tconstruct.weapons.ranged.TinkerRangedWeapons;
+import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
+import slimeknights.tconstruct.tools.melee.TinkerMeleeWeapons;
+import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 /**
@@ -84,6 +85,7 @@ public class TConstruct {
     pulseManager.registerPulse(new TinkerWorld());
 
     pulseManager.registerPulse(new TinkerTools());
+    pulseManager.registerPulse(new TinkerHarvestTools());
     pulseManager.registerPulse(new TinkerMeleeWeapons());
     pulseManager.registerPulse(new TinkerRangedWeapons());
     pulseManager.registerPulse(new TinkerModifiers());
