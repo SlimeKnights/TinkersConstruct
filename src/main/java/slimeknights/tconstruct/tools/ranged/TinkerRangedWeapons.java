@@ -51,7 +51,7 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
     super.preInit(event);
 
     // entities
-    //EntityRegistry.registerModEntity(EntityArrow.class, "arrow", EntityIDs.ARROW, TConstruct.instance, 64, 1, false);
+    EntityRegistry.registerModEntity(EntityArrow.class, "arrow", EntityIDs.ARROW, TConstruct.instance, 64, 1, false);
     EntityRegistry.registerModEntity(EntityShuriken.class, "shuriken", EntityIDs.SHURIKEN, TConstruct.instance, 64, 1, false);
 
     proxy.preInit();
@@ -59,9 +59,9 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
 
   @Override
   protected void registerTools() {
-    //shortBow = registerTool(new ShortBow(), "shortbow");
+    shortBow = registerTool(new ShortBow(), "shortbow");
 
-    //arrow = registerTool(new Arrow(), "arrow");
+    arrow = registerTool(new Arrow(), "arrow");
 
     shuriken = registerTool(new Shuriken(), "shuriken");
   }
@@ -76,9 +76,9 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
 
   @Override
   protected void registerToolBuilding() {
-    //TinkerRegistry.registerToolCrafting(shortBow);
+    TinkerRegistry.registerToolCrafting(shortBow);
 
-    //TinkerRegistry.registerToolCrafting(arrow);
+    TinkerRegistry.registerToolCrafting(arrow);
 
     TinkerRegistry.registerToolForgeCrafting(shuriken);
   }
