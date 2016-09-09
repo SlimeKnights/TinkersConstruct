@@ -107,15 +107,15 @@ public class TileTinkerTank extends TileMultiblock<MultiblockTinkerTank> impleme
     if(minPos == null || maxPos == null) {
       return super.getRenderBoundingBox();
     }
-    // we need to include the controller's position for Y value as we render a face there
-    // we also include additional positions for the sake of the fluids
+    // we stretch the bounding on the X and Z since the liquids show in the full structure rather than just the inside
+    // we also need to include the controller's position for Y value as we render a face there (but X/Z is covered above)
     return new AxisAlignedBB(
-        minPos.getX(),
+        minPos.getX() - 1,
         Math.min(minPos.getY(), pos.getY()),
-        minPos.getZ(),
-        maxPos.getX() + 1,
+        minPos.getZ() - 1,
+        maxPos.getX() + 2,
         Math.max(maxPos.getY(), pos.getY()) + 1,
-        maxPos.getZ() + 1
+        maxPos.getZ() + 2
       );
   }
 

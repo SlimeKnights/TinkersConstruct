@@ -90,7 +90,7 @@ public class TinkerTankRenderer extends SmelteryTankRenderer<TileTinkerTank> {
     }
 
     // draw the fluids inside
-    // we offset the minPos for lighting since its possible to have a solid block (always light 0) where the liquid starts
-    renderFluids(tank, tilePos, minPos.add(-1, 0, -1), maxPos.add(1, 0, 1), x, y, z, 0.0625f, minPos.add(2, 0, 2));
+    // we don't offset the minPos for lighting since its possible to have a solid block (always light 0) where the liquid starts
+    renderFluids(tank, tilePos, minPos.add(-1, 0, -1), maxPos.add(1, 0, 1), x, y, z, 0.0625f, minPos);
   }
 }
