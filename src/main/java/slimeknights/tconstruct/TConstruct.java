@@ -87,7 +87,7 @@ public class TConstruct {
     pulseManager.registerPulse(new TinkerTools());
     pulseManager.registerPulse(new TinkerHarvestTools());
     pulseManager.registerPulse(new TinkerMeleeWeapons());
-    //pulseManager.registerPulse(new TinkerRangedWeapons());
+    pulseManager.registerPulse(new TinkerRangedWeapons());
     pulseManager.registerPulse(new TinkerModifiers());
 
     pulseManager.registerPulse(new TinkerSmeltery());
