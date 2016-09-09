@@ -479,7 +479,7 @@ public final class ToolBuilder {
     tinkersItem.addMaterialTraits(rootNBT, materials);
 
     // fire event
-    TinkerEvent.OnItemBuilding.fireEvent(rootNBT, ImmutableList.copyOf(materials));
+    TinkerEvent.OnItemBuilding.fireEvent(rootNBT, ImmutableList.copyOf(materials), tinkersItem);
 
     // reapply modifiers
     NBTTagList modifiers = TagUtil.getBaseModifiersTagList(rootNBT);

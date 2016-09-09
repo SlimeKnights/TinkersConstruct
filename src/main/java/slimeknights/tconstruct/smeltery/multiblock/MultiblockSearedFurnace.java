@@ -11,16 +11,13 @@ import slimeknights.mantle.multiblock.MultiServantLogic;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileSearedFurnace;
 
-public class MultiblockSearedFurnace extends MultiblockCuboid {
+public class MultiblockSearedFurnace extends MultiblockTinker {
 
-  public final TileSearedFurnace furnace;
   public boolean hasTank;
 
   public MultiblockSearedFurnace(TileSearedFurnace furnace) {
     // perfect cubes only
-    super(true, true, true);
-
-    this.furnace = furnace;
+    super(furnace, true, true, true);
   }
 
   // we need a tank bro
@@ -37,7 +34,7 @@ public class MultiblockSearedFurnace extends MultiblockCuboid {
   @Override
   public boolean isValidBlock(World world, BlockPos pos) {
     // controller always is valid
-    if(pos.equals(furnace.getPos())) {
+    if(pos.equals(tile.getPos())) {
       return true;
     }
 
@@ -48,7 +45,7 @@ public class MultiblockSearedFurnace extends MultiblockCuboid {
   @Override
   public boolean isCeilingBlock(World world, BlockPos pos) {
     // controller always is valid
-    if(pos.equals(furnace.getPos())) {
+    if(pos.equals(tile.getPos())) {
       return true;
     }
 
@@ -71,7 +68,7 @@ public class MultiblockSearedFurnace extends MultiblockCuboid {
   @Override
   public boolean isFrameBlock(World world, BlockPos pos, EnumFrameType type) {
     // controller always is valid
-    if(pos.equals(furnace.getPos())) {
+    if(pos.equals(tile.getPos())) {
       return true;
     }
 
@@ -92,22 +89,6 @@ public class MultiblockSearedFurnace extends MultiblockCuboid {
     }
 
     // the above also allows slabs and stairs on the ceiling, so no need to add it here
-
     return state.getBlock() == TinkerSmeltery.searedBlock;
-  }
-
-  private boolean isValidSlave(World world, BlockPos pos) {
-    TileEntity te = world.getTileEntity(pos);
-
-    // slave-blocks are only allowed if they already belong to this smeltery
-    if(te instanceof MultiServantLogic) {
-      MultiServantLogic slave = (MultiServantLogic) te;
-      if(slave.hasValidMaster()) {
-        if(!furnace.getPos().equals(slave.getMasterPosition())) {
-          return false;
-        }
-      }
-    }
-    return true;
   }
 }

@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.weapons.melee.item;
 
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -22,12 +21,12 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.TinkerToolCore;
+import slimeknights.tconstruct.library.tools.SwordCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.modifiers.ModBeheading;
 
-public class Cleaver extends TinkerToolCore {
+public class Cleaver extends SwordCore {
 
   public static final float DURABILITY_MODIFIER = 2f;
 
@@ -65,16 +64,6 @@ public class Cleaver extends TinkerToolCore {
   @Override
   public int[] getRepairParts() {
     return new int[]{1, 2};
-  }
-
-  @Override
-  public boolean isEffective(IBlockState state) {
-    return BroadSword.effective_materials.contains(state.getMaterial());
-  }
-
-  @Override
-  public float miningSpeedModifier() {
-    return 0.2f;
   }
 
   @Override

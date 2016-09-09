@@ -2,9 +2,12 @@ package slimeknights.tconstruct.smeltery.tileentity;
 
 import com.google.common.collect.Lists;
 
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
@@ -18,20 +21,21 @@ import javax.annotation.Nonnull;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.BlockSearedFurnaceController;
+import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 import slimeknights.tconstruct.smeltery.network.HeatingStructureFuelUpdatePacket;
 
-public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure {
+public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection> extends TileHeatingStructure<T> {
 
   // NBT Tags
-  public static final String TAG_ACTIVE = "active";
-  public static final String TAG_FUELQUALITY = "fuelQuality";
-  public static final String TAG_CURRENTFUEL = "currentFuel";
   public static final String TAG_TANKS = "tanks";
-  public static final String TAG_CURRENTTANK = "currentTank";
+  public static final String TAG_FUEL_QUALITY = "fuelQuality";
+  public static final String TAG_CURRENT_FUEL = "currentFuel";
+  public static final String TAG_CURRENT_TANK = "currentTank";
 
   // amount of fuel gotten from a single consumption of the fluid, used for GUI fuel percentage
   public int fuelQuality;
-  public boolean active;
 
   // Fuel tank information
   public List<BlockPos> tanks;
@@ -137,6 +141,42 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
     return false;
   }
 
+  @Override
+  protected void updateStructureInfo(MultiblockDetection.MultiblockStructure structure) {
+    // find all tanks for input
+    tanks.clear();
+    for(BlockPos pos : structure.blocks) {
+      if(worldObj.getBlockState(pos).getBlock() == TinkerSmeltery.searedTank) {
+        tanks.add(pos);
+      }
+    }
+
+    int inventorySize = getUpdatedInventorySize(structure.xd, structure.yd, structure.zd);
+
+    // if the new multiblock is smaller we pop out all items that don't fit in anymore
+    if(this.getSizeInventory() > inventorySize) {
+      for(int i = inventorySize; i < getSizeInventory(); i++) {
+        if(getStackInSlot(i) != null) {
+          dropItem(getStackInSlot(i));
+        }
+      }
+    }
+
+    // adjust inventory sizes
+    this.resize(inventorySize);
+  }
+
+  /** When the multiblock forms the inventory size is readjusted. Return the inventory size from the (total) structure size */
+  protected abstract int getUpdatedInventorySize(int width, int height, int depth);
+
+  protected void dropItem(ItemStack stack) {
+    EnumFacing direction = worldObj.getBlockState(pos).getValue(BlockSearedFurnaceController.FACING);
+    BlockPos pos = this.getPos().offset(direction);
+
+    EntityItem entityitem = new EntityItem(worldObj, pos.getX(), pos.getY(), pos.getZ(), stack);
+    worldObj.spawnEntityInWorld(entityitem);
+  }
+
   /**
    * Grabs the tank at the given location (if present)
    */
@@ -233,10 +273,9 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
     compound = super.writeToNBT(compound);
 
-    compound.setBoolean(TAG_ACTIVE, active);
-    compound.setInteger(TAG_FUELQUALITY, fuelQuality);
+    compound.setInteger(TAG_FUEL_QUALITY, fuelQuality);
 
-    compound.setTag(TAG_CURRENTTANK, TagUtil.writePos(currentTank));
+    compound.setTag(TAG_CURRENT_TANK, TagUtil.writePos(currentTank));
     NBTTagList tankList = new NBTTagList();
     for(BlockPos pos : tanks) {
       tankList.appendTag(TagUtil.writePos(pos));
@@ -247,7 +286,7 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
     if(currentFuel != null) {
       currentFuel.writeToNBT(fuelTag);
     }
-    compound.setTag(TAG_CURRENTFUEL, fuelTag);
+    compound.setTag(TAG_CURRENT_FUEL, fuelTag);
 
     return compound;
   }
@@ -256,8 +295,7 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
   public void readFromNBT(NBTTagCompound compound) {
     super.readFromNBT(compound);
 
-    active = compound.getBoolean(TAG_ACTIVE);
-    fuelQuality = compound.getInteger(TAG_FUELQUALITY);
+    fuelQuality = compound.getInteger(TAG_FUEL_QUALITY);
 
     NBTTagList tankList = compound.getTagList(TAG_TANKS, 10);
     tanks.clear();
@@ -265,12 +303,8 @@ public abstract class TileHeatingStructureFuelTank extends TileHeatingStructure 
       tanks.add(TagUtil.readPos(tankList.getCompoundTagAt(i)));
     }
 
-    NBTTagCompound fuelTag = compound.getCompoundTag(TAG_CURRENTFUEL);
+    NBTTagCompound fuelTag = compound.getCompoundTag(TAG_CURRENT_FUEL);
     currentFuel = FluidStack.loadFluidStackFromNBT(fuelTag);
-  }
-
-  public boolean isActive() {
-    return active;
   }
 
   public static class FuelInfo {

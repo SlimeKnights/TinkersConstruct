@@ -11,21 +11,17 @@ import slimeknights.mantle.multiblock.MultiServantLogic;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileTinkerTank;
 
-public class MultiblockTinkerTank extends MultiblockCuboid {
-
-  public final TileTinkerTank tank;
+public class MultiblockTinkerTank extends MultiblockTinker {
 
   public MultiblockTinkerTank(TileTinkerTank tank) {
     // ceiling, floor, and walls
-    super(true, true, true);
-
-    this.tank = tank;
+    super(tank, true, true, true);
   }
 
   @Override
   public boolean isValidBlock(World world, BlockPos pos) {
     // controller always is valid
-    if(pos.equals(tank.getPos())) {
+    if(pos.equals(tile.getPos())) {
       return true;
     }
 
@@ -36,7 +32,7 @@ public class MultiblockTinkerTank extends MultiblockCuboid {
   @Override
   public boolean isFrameBlock(World world, BlockPos pos, EnumFrameType type) {
     // controller always is valid
-    if(pos.equals(tank.getPos())) {
+    if(pos.equals(tile.getPos())) {
       return true;
     }
 
@@ -72,7 +68,7 @@ public class MultiblockTinkerTank extends MultiblockCuboid {
   @Override
   public boolean isCeilingBlock(World world, BlockPos pos) {
     // controller always is valid
-    if(pos.equals(tank.getPos())) {
+    if(pos.equals(tile.getPos())) {
       return true;
     }
 
@@ -96,21 +92,7 @@ public class MultiblockTinkerTank extends MultiblockCuboid {
   @Override
   public boolean isFloorBlock(World world, BlockPos pos) {
     // only bricks for the floor
-    return world.getBlockState(pos).getBlock() == TinkerSmeltery.searedBlock && isValidSlave(world, pos);
+    return TinkerSmeltery.validTinkerTankFloorBlocks.contains(world.getBlockState(pos).getBlock()) && isValidSlave(world, pos);
   }
 
-  private boolean isValidSlave(World world, BlockPos pos) {
-    TileEntity te = world.getTileEntity(pos);
-
-    // slave-blocks are only allowed if they already belong to this tank
-    if(te instanceof MultiServantLogic) {
-      MultiServantLogic slave = (MultiServantLogic) te;
-      if(slave.hasValidMaster()) {
-        if(!tank.getPos().equals(slave.getMasterPosition())) {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
 }

@@ -32,18 +32,21 @@ public class TinkerTankRenderer extends SmelteryTankRenderer<TileTinkerTank> {
       return;
     }
 
+    BlockPos tilePos = tinkerTank.getPos();
+    BlockPos minPos = tinkerTank.getMinPos();
+    BlockPos maxPos = tinkerTank.getMaxPos();
+
     // safety first!
-    if(tinkerTank.minPos == null || tinkerTank.maxPos == null) {
+    if(minPos == null || maxPos == null) {
       return;
     }
 
     // generic data
     SmelteryTank tank = tinkerTank.getTank();
-    BlockPos pos = tinkerTank.getPos();
 
     // draw the bottom most fluid on the controller itself
     World world = tinkerTank.getWorld();
-    IBlockState state = world.getBlockState(pos);
+    IBlockState state = world.getBlockState(tilePos);
     // on the odd chance something outside of us changes the blockstate and uses this TE
     if(state.getBlock() instanceof BlockTinkerTankController) {
 
@@ -60,12 +63,12 @@ public class TinkerTankRenderer extends SmelteryTankRenderer<TileTinkerTank> {
       renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
       mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-      EnumFacing face = world.getBlockState(pos).getValue(BlockTinkerTankController.FACING);
+      EnumFacing face = world.getBlockState(tilePos).getValue(BlockTinkerTankController.FACING);
 
       // set up data for the sprite rendering
       Fluid fluid = fluidStack.getFluid();
       TextureAtlasSprite sprite = mc.getTextureMapBlocks().getTextureExtry(fluid.getStill().toString());
-      int brightness = world.getCombinedLight(pos.offset(face), fluid.getLuminosity(fluidStack));
+      int brightness = world.getCombinedLight(tilePos.offset(face), fluid.getLuminosity(fluidStack));
       int color = fluid.getColor(fluidStack);
 
       RenderUtil.pre(x, y, z);
@@ -88,6 +91,6 @@ public class TinkerTankRenderer extends SmelteryTankRenderer<TileTinkerTank> {
 
     // draw the fluids inside
     // we offset the minPos for lighting since its possible to have a solid block (always light 0) where the liquid starts
-    renderFluids(tank, pos, tinkerTank.minPos, tinkerTank.maxPos, x, y, z, 0.0625f, tinkerTank.minPos.add(1, 0, 1));
+    renderFluids(tank, tilePos, minPos.add(-1, 0, -1), maxPos.add(1, 0, 1), x, y, z, 0.0625f, minPos.add(2, 0, 2));
   }
 }
