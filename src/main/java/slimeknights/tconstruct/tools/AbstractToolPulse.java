@@ -1,6 +1,9 @@
 package slimeknights.tconstruct.tools;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
+import com.mojang.realmsclient.util.Pair;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,6 +12,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.util.List;
+import java.util.Map;
 
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -31,6 +35,7 @@ public abstract class AbstractToolPulse extends TinkerPulse {
   static List<ToolCore> tools = Lists.newLinkedList();      // contains all tools registered in this pulse
   static List<ToolPart> toolparts = Lists.newLinkedList();  // ^ all toolparts
   static List<IModifier> modifiers = Lists.newLinkedList(); // ^ all modifiers
+  static List<Pair<Item, ToolPart>> toolPartPatterns = Lists.newLinkedList();
 
   // PRE-INITIALIZATION
   public void preInit(FMLPreInitializationEvent event) {
@@ -76,9 +81,7 @@ public abstract class AbstractToolPulse extends TinkerPulse {
     ToolPart ret = registerItem(part, name);
 
     if(pattern != null) {
-      ItemStack stencil = new ItemStack(pattern);
-      Pattern.setTagForPart(stencil, part);
-      TinkerRegistry.registerStencilTableCrafting(stencil);
+      toolPartPatterns.add(Pair.<Item, ToolPart>of(pattern, ret));
     }
 
     toolparts.add(ret);
