@@ -376,6 +376,9 @@ public class TinkerCommons extends TinkerPulse {
 
     if(blockSilkyJewel != null && matSilkyJewel != null) {
       GameRegistry.addShapedRecipe(blockSilkyJewel, "###", "###", "###", '#', matSilkyJewel);
+      ItemStack silkyJewels = matSilkyJewel.copy();
+      silkyJewels.stackSize = 9;
+      GameRegistry.addShapelessRecipe(silkyJewels, blockSilkyJewel);
     }
 
     // glass
