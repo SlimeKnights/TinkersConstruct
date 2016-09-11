@@ -6,6 +6,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_blasting",
         "mattock": "tconstruct:items/mattock/mod_blasting",
         "pickaxe": "tconstruct:items/pickaxe/mod_blasting",
+        "scythe": "tconstruct:items/scythe/mod_blasting",
         "shovel": "tconstruct:items/shovel/mod_blasting"
     }
 }

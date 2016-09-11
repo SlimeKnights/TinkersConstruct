@@ -199,7 +199,7 @@ public final class ToolHelper {
     Block block = state.getBlock();
 
     // doesn't require a tool
-    if(block.getMaterial(state).isToolNotRequired()) {
+    if(state.getMaterial().isToolNotRequired()) {
       return true;
     }
 
@@ -224,13 +224,12 @@ public final class ToolHelper {
 
     // find out where the player is hitting the block
     IBlockState state = world.getBlockState(origin);
-    Block block = state.getBlock();
 
     if(!isToolEffective2(stack, state)) {
       return ImmutableList.of();
     }
 
-    if(block.getMaterial(state) == Material.AIR) {
+    if(state.getMaterial() == Material.AIR) {
       // what are you DOING?
       return ImmutableList.of();
     }
@@ -309,12 +308,16 @@ public final class ToolHelper {
         x = y = z = 0;
     }
 
+    return calcAOEBlocks(stack, world, origin, start, x, y, z, distance, true);
+  }
+
+  public static ImmutableList<BlockPos> calcAOEBlocks(ItemStack stack, World world, BlockPos origin, BlockPos start, int x, int y, int z, int distance, boolean skipOrigin) {
     ImmutableList.Builder<BlockPos> builder = ImmutableList.builder();
     for(int xp = start.getX(); xp != start.getX() + x; xp += x / MathHelper.abs_int(x)) {
       for(int yp = start.getY(); yp != start.getY() + y; yp += y / MathHelper.abs_int(y)) {
         for(int zp = start.getZ(); zp != start.getZ() + z; zp += z / MathHelper.abs_int(z)) {
           // don't add the origin block
-          if(xp == origin.getX() && yp == origin.getY() && zp == origin.getZ()) {
+          if(skipOrigin && xp == origin.getX() && yp == origin.getY() && zp == origin.getZ()) {
             continue;
           }
           if(distance > 0 && MathHelper.abs_int(xp - origin.getX()) + MathHelper.abs_int(yp - origin.getY()) + MathHelper.abs_int(

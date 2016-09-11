@@ -22,6 +22,7 @@ import slimeknights.tconstruct.tools.tools.Hatchet;
 import slimeknights.tconstruct.tools.tools.LumberAxe;
 import slimeknights.tconstruct.tools.tools.Mattock;
 import slimeknights.tconstruct.tools.tools.Pickaxe;
+import slimeknights.tconstruct.tools.tools.Scythe;
 import slimeknights.tconstruct.tools.tools.Shovel;
 
 @Pulse(
@@ -65,7 +66,7 @@ public class TinkerHarvestTools extends AbstractToolPulse {
     hammer = registerTool(new Hammer(), "hammer");
     excavator = registerTool(new Excavator(), "excavator");
     lumberAxe = registerTool(new LumberAxe(), "lumberaxe");
-    //scythe = registerTool(new Scythe(), "scythe");
+    scythe = registerTool(new Scythe(), "scythe");
   }
 
   // INITIALIZATION
@@ -86,7 +87,7 @@ public class TinkerHarvestTools extends AbstractToolPulse {
     TinkerRegistry.registerToolForgeCrafting(hammer);
     TinkerRegistry.registerToolForgeCrafting(excavator);
     TinkerRegistry.registerToolForgeCrafting(lumberAxe);
-    //TinkerRegistry.registerToolForgeCrafting(scythe);
+    TinkerRegistry.registerToolForgeCrafting(scythe);
   }
 
   // POST-INITIALIZATION

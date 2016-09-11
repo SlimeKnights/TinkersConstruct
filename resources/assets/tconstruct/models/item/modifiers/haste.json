@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_haste",
         "mattock": "tconstruct:items/mattock/mod_haste",
         "pickaxe": "tconstruct:items/pickaxe/mod_haste",
+        "scythe": "tconstruct:items/scythe/mod_haste",
         "shovel": "tconstruct:items/shovel/mod_haste"
     }
 }

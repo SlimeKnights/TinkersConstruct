@@ -33,7 +33,6 @@ import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.tools.DualToolHarvestUtils;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.Shard;
-import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockSlime;
@@ -53,13 +52,6 @@ import slimeknights.tconstruct.tools.common.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.common.tileentity.TileStencilTable;
 import slimeknights.tconstruct.tools.common.tileentity.TileToolForge;
 import slimeknights.tconstruct.tools.common.tileentity.TileToolStation;
-import slimeknights.tconstruct.tools.tools.Excavator;
-import slimeknights.tconstruct.tools.tools.Hammer;
-import slimeknights.tconstruct.tools.tools.Hatchet;
-import slimeknights.tconstruct.tools.tools.LumberAxe;
-import slimeknights.tconstruct.tools.tools.Mattock;
-import slimeknights.tconstruct.tools.tools.Pickaxe;
-import slimeknights.tconstruct.tools.tools.Shovel;
 
 @Pulse(id = TinkerTools.PulseId, description = "All the tools and everything related to it.")
 public class TinkerTools extends AbstractToolPulse {
@@ -160,7 +152,7 @@ public class TinkerTools extends AbstractToolPulse {
     largeSwordBlade = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "large_sword_blade");
     hammerHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "hammer_head");
     excavatorHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "excavator_head");
-    //scytheHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "scythe_head");
+    scytheHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 8), "scythe_head");
     panHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "pan_head");
     signHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 3), "sign_head");
 

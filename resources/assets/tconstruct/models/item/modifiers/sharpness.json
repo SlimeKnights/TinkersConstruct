@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_sharpness",
         "mattock": "tconstruct:items/mattock/mod_sharpness",
         "pickaxe": "tconstruct:items/pickaxe/mod_sharpness",
+        "scythe": "tconstruct:items/scythe/mod_sharpness",
         "shovel": "tconstruct:items/shovel/mod_sharpness",
         "shuriken": "tconstruct:items/shuriken/mod_sharpness"
     }

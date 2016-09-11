@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_diamond",
         "mattock": "tconstruct:items/mattock/mod_diamond",
         "pickaxe": "tconstruct:items/pickaxe/mod_diamond",
+        "scythe": "tconstruct:items/scythe/mod_diamond",
         "shovel": "tconstruct:items/shovel/mod_diamond",
         "shuriken": "tconstruct:items/shuriken/mod_diamond"
     }
