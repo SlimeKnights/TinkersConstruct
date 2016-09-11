@@ -34,6 +34,8 @@ import slimeknights.tconstruct.library.materials.FletchingMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.traits.AbstractTrait;
+import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -58,8 +60,7 @@ public final class TinkerMaterials {
   static final Logger log = Util.getLogger(PulseId);
 
   public static final List<Material> materials = Lists.newArrayList();
-
-  // not all listed materials are available by default. They enable when the needed material is present
+  // not all listed materials are available by default. They enable when the needed material is present. See TinkerIntegration
 
   // natural resources/blocks
   public static final Material wood       = mat("wood", 0x8e661b);

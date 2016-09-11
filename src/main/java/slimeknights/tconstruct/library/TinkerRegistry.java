@@ -38,6 +38,7 @@ import javax.annotation.Nullable;
 import slimeknights.mantle.client.CreativeTab;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.events.MaterialEvent;
+import slimeknights.tconstruct.library.events.TinkerRegisterEvent;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
@@ -466,26 +467,28 @@ public final class TinkerRegistry {
   /** Registers this item with all its metadatas to melt into amount of the given fluid. */
   public static void registerMelting(Item item, Fluid fluid, int amount) {
     ItemStack stack = new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE);
-    meltingRegistry.add(new MeltingRecipe(new RecipeMatch.Item(stack, 1, amount), fluid));
+    registerMelting(new MeltingRecipe(new RecipeMatch.Item(stack, 1, amount), fluid));
   }
 
   /** Registers this block with all its metadatas to melt into amount of the given fluid. */
   public static void registerMelting(Block block, Fluid fluid, int amount) {
     ItemStack stack = new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE);
-    meltingRegistry.add(new MeltingRecipe(new RecipeMatch.Item(stack, 1, amount), fluid));
+    registerMelting(new MeltingRecipe(new RecipeMatch.Item(stack, 1, amount), fluid));
   }
 
   /** Registers this itemstack NBT-SENSITIVE to melt into amount of the given fluid. */
   public static void registerMelting(ItemStack stack, Fluid fluid, int amount) {
-    meltingRegistry.add(new MeltingRecipe(new RecipeMatch.ItemCombination(amount, stack), fluid));
+    registerMelting(new MeltingRecipe(new RecipeMatch.ItemCombination(amount, stack), fluid));
   }
 
   public static void registerMelting(String oredict, Fluid fluid, int amount) {
-    meltingRegistry.add(new MeltingRecipe(new RecipeMatch.Oredict(oredict, 1, amount), fluid));
+    registerMelting(new MeltingRecipe(new RecipeMatch.Oredict(oredict, 1, amount), fluid));
   }
 
   public static void registerMelting(MeltingRecipe recipe) {
-    meltingRegistry.add(recipe);
+    if(new TinkerRegisterEvent.MestingRegisterEvent(recipe).fire()) {
+      meltingRegistry.add(recipe);
+    }
   }
 
   public static MeltingRecipe getMelting(ItemStack stack) {
@@ -510,7 +513,13 @@ public final class TinkerRegistry {
       error("Alloy Recipe: Alloy for %s must consist of at least 2 liquids", result.getLocalizedName());
     }
 
-    alloyRegistry.add(new AlloyRecipe(result, inputs));
+    registerAlloy(new AlloyRecipe(result, inputs));
+  }
+
+  public static void registerAlloy(AlloyRecipe recipe) {
+    if(new TinkerRegisterEvent.AlloyRegisterEvent(recipe).fire()) {
+      alloyRegistry.add(recipe);
+    }
   }
 
   public static List<AlloyRecipe> getAlloys() {
@@ -523,11 +532,13 @@ public final class TinkerRegistry {
     if(cast != null) {
       rm = RecipeMatch.ofNBT(cast);
     }
-    tableCastRegistry.add(new CastingRecipe(output, rm, fluid, amount));
+    registerTableCasting(new CastingRecipe(output, rm, fluid, amount));
   }
 
   public static void registerTableCasting(ICastingRecipe recipe) {
-    tableCastRegistry.add(recipe);
+    if(new TinkerRegisterEvent.TableCastingRegisterEvent(recipe).fire()) {
+      tableCastRegistry.add(recipe);
+    }
   }
 
   public static ICastingRecipe getTableCasting(@Nullable ItemStack cast, Fluid fluid) {
@@ -550,11 +561,13 @@ public final class TinkerRegistry {
     if(cast != null) {
       rm = RecipeMatch.ofNBT(cast);
     }
-    basinCastRegistry.add(new CastingRecipe(output, rm, fluid, amount));
+    registerBasinCasting(new CastingRecipe(output, rm, fluid, amount));
   }
 
   public static void registerBasinCasting(ICastingRecipe recipe) {
-    basinCastRegistry.add(recipe);
+    if(new TinkerRegisterEvent.BasinCastingRegisterEvent(recipe).fire()) {
+      basinCastRegistry.add(recipe);
+    }
   }
 
   public static ICastingRecipe getBasinCasting(@Nullable ItemStack cast, Fluid fluid) {
@@ -627,7 +640,10 @@ public final class TinkerRegistry {
       error("Entity Melting: Entity %s is not registered in the EntityList", clazz.getSimpleName());
     }
 
-    entityMeltingRegistry.put(name, liquid);
+    TinkerRegisterEvent.EntityMeltingRegisterEvent event = new TinkerRegisterEvent.EntityMeltingRegisterEvent(clazz, liquid);
+    if(!event.fire()) {
+      entityMeltingRegistry.put(name, event.getNewFluidStack());
+    }
   }
 
   public static FluidStack getMeltingForEntity(Entity entity) {
@@ -659,7 +675,7 @@ public final class TinkerRegistry {
     if(output == null || input == null) {
       return;
     }
-    dryingRegistry.add(new DryingRecipe(new RecipeMatch.Item(input, 1), output, time));
+    addDryingReciye(new DryingRecipe(new RecipeMatch.Item(input, 1), output, time));
   }
 
   /**
@@ -675,7 +691,7 @@ public final class TinkerRegistry {
     }
 
     ItemStack stack = new ItemStack(input, 1, OreDictionary.WILDCARD_VALUE);
-    dryingRegistry.add(new DryingRecipe(new RecipeMatch.Item(stack, 1), output, time));
+    addDryingReciye(new DryingRecipe(new RecipeMatch.Item(stack, 1), output, time));
   }
 
   /**
@@ -691,7 +707,7 @@ public final class TinkerRegistry {
     }
 
     ItemStack stack = new ItemStack(input, 1, OreDictionary.WILDCARD_VALUE);
-    dryingRegistry.add(new DryingRecipe(new RecipeMatch.Item(stack, 1), new ItemStack(output), time));
+    addDryingReciye(new DryingRecipe(new RecipeMatch.Item(stack, 1), new ItemStack(output), time));
   }
 
   /**
@@ -707,7 +723,7 @@ public final class TinkerRegistry {
     }
 
     ItemStack stack = new ItemStack(input, 1, OreDictionary.WILDCARD_VALUE);
-    dryingRegistry.add(new DryingRecipe(new RecipeMatch.Item(stack, 1), new ItemStack(output), time));
+    addDryingReciye(new DryingRecipe(new RecipeMatch.Item(stack, 1), new ItemStack(output), time));
   }
 
   /**
@@ -722,7 +738,13 @@ public final class TinkerRegistry {
       return;
     }
 
-    dryingRegistry.add(new DryingRecipe(new RecipeMatch.Oredict(oredict, 1), output, time));
+    addDryingReciye(new DryingRecipe(new RecipeMatch.Oredict(oredict, 1), output, time));
+  }
+
+  private static void addDryingReciye(DryingRecipe dryingRecipe) {
+    if(new TinkerRegisterEvent.DryingRackRegisterEvent(dryingRecipe).fire()) {
+      dryingRegistry.add(dryingRecipe);
+    }
   }
 
   /**
