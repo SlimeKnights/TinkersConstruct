@@ -242,7 +242,8 @@ public class LumberAxe extends AoeToolCore {
         finish();
         return;
       }
-      if(event.world == world) {
+      // only if same dimension
+      if(event.world.provider.getDimension() != world.provider.getDimension()) {
         return;
       }
 
