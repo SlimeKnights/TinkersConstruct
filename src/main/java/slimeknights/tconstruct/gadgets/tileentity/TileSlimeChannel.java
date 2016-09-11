@@ -19,7 +19,6 @@ import slimeknights.tconstruct.gadgets.block.BlockSlimeChannel.ChannelDirection;
 public class TileSlimeChannel extends TileEntity {
 
   public static final String SIDE_TAG = "side";
-  public static final String FACING_TAG = "facing";
   public static final String DIRECTION_TAG = "direction";
 
   // don't delete the TE if the state changes
@@ -68,29 +67,5 @@ public class TileSlimeChannel extends TileEntity {
     getTileData().setInteger(SIDE_TAG, tag.getInteger(SIDE_TAG));
     getTileData().setInteger(DIRECTION_TAG, tag.getInteger(DIRECTION_TAG));
     readFromNBT(tag);
-  }
-
-  // backwards compat for those testing slime channels earlier
-  // TODO: this can be removed sometime before the update, it is just for the sake of those using the jenkins builds
-  @Override
-  public void readFromNBT(NBTTagCompound tags) {
-    super.readFromNBT(tags);
-    if(getTileData().hasKey(FACING_TAG)) {
-      // convert from horizontal facing index to channel direction index
-      int direction = 0;
-      switch(getTileData().getInteger(FACING_TAG)) {
-        case 1: // west
-          direction = 2;
-          break;
-        case 2: // north
-          direction = 4;
-          break;
-        case 3: // east
-          direction = 6;
-          break;
-      }
-      getTileData().setInteger(DIRECTION_TAG, direction);
-      getTileData().removeTag(FACING_TAG);
-    }
   }
 }
