@@ -2,14 +2,12 @@ package slimeknights.tconstruct.tools;
 
 import com.google.common.eventbus.Subscribe;
 
-import com.mojang.realmsclient.util.Pair;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.Logger;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
@@ -19,7 +17,6 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
-import slimeknights.tconstruct.library.tools.IPattern;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolPart;
@@ -28,7 +25,6 @@ import slimeknights.tconstruct.tools.modifiers.ModFortifyDisplay;
 import static slimeknights.tconstruct.tools.TinkerModifiers.modCreative;
 import static slimeknights.tconstruct.tools.TinkerModifiers.modHarvestHeight;
 import static slimeknights.tconstruct.tools.TinkerModifiers.modHarvestWidth;
-import static slimeknights.tconstruct.tools.TinkerTools.pattern;
 
 // this class is called after all other pulses that add stuff have been called and registers all the tools, modifiers
 // and more in one swoop
@@ -49,7 +45,7 @@ public class AggregateModelRegistrar extends AbstractToolPulse {
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
     for(Pair<Item, ToolPart> toolPartPattern : toolPartPatterns) {
-      registerStencil(toolPartPattern.first(), toolPartPattern.second());
+      registerStencil(toolPartPattern.getLeft(), toolPartPattern.getRight());
     }
 
 
