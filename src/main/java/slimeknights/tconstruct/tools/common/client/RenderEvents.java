@@ -170,6 +170,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
     ItemStack mainStack = player.getHeldItemMainhand();
     RayTraceResult rt = Minecraft.getMinecraft().objectMouseOver;
     if(mainStack != null
+       && rt != null
        && rt.typeOfHit == RayTraceResult.Type.BLOCK
        && DualToolHarvestUtils.shouldUseOffhand(player, rt.getBlockPos(), mainStack)) {
 
