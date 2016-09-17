@@ -308,16 +308,12 @@ public final class ToolHelper {
         x = y = z = 0;
     }
 
-    return calcAOEBlocks(stack, world, origin, start, x, y, z, distance, true);
-  }
-
-  public static ImmutableList<BlockPos> calcAOEBlocks(ItemStack stack, World world, BlockPos origin, BlockPos start, int x, int y, int z, int distance, boolean skipOrigin) {
     ImmutableList.Builder<BlockPos> builder = ImmutableList.builder();
     for(int xp = start.getX(); xp != start.getX() + x; xp += x / MathHelper.abs_int(x)) {
       for(int yp = start.getY(); yp != start.getY() + y; yp += y / MathHelper.abs_int(y)) {
         for(int zp = start.getZ(); zp != start.getZ() + z; zp += z / MathHelper.abs_int(z)) {
           // don't add the origin block
-          if(skipOrigin && xp == origin.getX() && yp == origin.getY() && zp == origin.getZ()) {
+          if(xp == origin.getX() && yp == origin.getY() && zp == origin.getZ()) {
             continue;
           }
           if(distance > 0 && MathHelper.abs_int(xp - origin.getX()) + MathHelper.abs_int(yp - origin.getY()) + MathHelper.abs_int(
@@ -556,11 +552,19 @@ public final class ToolHelper {
     return attackEntity(stack, tool, attacker, targetEntity, null);
   }
 
+  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity) {
+    float cooldown = 1.0f;
+    if(attacker instanceof EntityPlayer) {
+      cooldown = ((EntityPlayer)attacker).getCooledAttackStrength(0.5F);
+    }
+    return attackEntity(stack, tool, attacker, targetEntity, projectileEntity, cooldown);
+  }
+
   /**
    * Makes all the calls to attack an entity. Takes enchantments and potions and traits into account. Basically call this when a tool deals damage.
    * Most of this function is the same as {@link EntityPlayer#attackTargetEntityWithCurrentItem(Entity targetEntity)}
    */
-  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity) {
+  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity, float cooldown) {
     // nothing to do, no target?
     if(targetEntity == null || !targetEntity.canBeAttackedWithItem() || targetEntity.hitByEntity(attacker) || !stack.hasTagCompound()) {
       return false;
@@ -637,8 +641,7 @@ public final class ToolHelper {
 
     // apply cooldown damage decrease
     if(player != null) {
-      float f2 = player.getCooledAttackStrength(0.5F);
-      damage *= (0.2F + f2 * f2 * 0.8F);
+      damage *= (0.2F + cooldown * cooldown * 0.8F);
     }
 
     int hurtResistantTime = target.hurtResistantTime;

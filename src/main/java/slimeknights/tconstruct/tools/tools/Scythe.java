@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.SoundEvents;
@@ -17,10 +18,14 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.common.IShearable;
 import net.minecraftforge.event.ForgeEventFactory;
 import java.util.List;
+import java.util.Random;
+
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
@@ -57,12 +62,12 @@ public class Scythe extends AoeToolCore {
 
   @Override
   public float damagePotential() {
-    return 0.8f;
+    return 0.75f;
   }
 
   @Override
   public double attackSpeed() {
-    return 1f;
+    return 0.9f;
   }
 
   @Override
@@ -100,15 +105,15 @@ public class Scythe extends AoeToolCore {
   }
 
   @Override
-  public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity) {
+  public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity target) {
 
     // only do AOE attack if the attack meter is charged
     if(player.getCooledAttackStrength(0.5F) <= 0.9f) {
-      return super.onLeftClickEntity(stack, player, entity);
+      return super.onLeftClickEntity(stack, player, target);
     }
 
     // increase the size based on the AOE stuffs
-    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(stack, player, player.worldObj.getBlockState(entity.getPosition()), 3, 3, 3, -1);
+    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(stack, player, player.worldObj.getBlockState(target.getPosition()), 3, 3, 3, -1);
     if(event.isCanceled()) {
       return false;
     }
@@ -117,25 +122,26 @@ public class Scythe extends AoeToolCore {
     player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
     player.spawnSweepParticles();
 
-    // subtract the default box and then half as this number is the amount to increase the box by
-    return aoeAttack(stack, player, entity, event);
-  }
-
-  private boolean aoeAttack(ItemStack stack, EntityPlayer player, Entity target, TinkerToolEvent.ExtraBlockBreak event) {
-    int width = (event.width - 1) / 2;
-    int height = (event.width - 1) / 2;
     int distance = event.distance;
     boolean hit = false;
-    AxisAlignedBB box = new AxisAlignedBB(target.posX, target.posY, target.posZ, target.posX + 1.0D, target.posY + 1.0D, target.posZ + 1.0D).expand(width, height, width);
-    List<Entity> entities = player.worldObj.getEntitiesWithinAABBExcludingEntity(player, box);
-
-    for(Entity entity : entities) {
-      if(distance < 0 || entity.getDistanceToEntity(target) < distance) {
-        hit |= ToolHelper.attackEntity(stack, this, player, entity);
+    // we cache the cooldown here since it resets as soon as the first entity is hit
+    float cooldown = player.getCooledAttackStrength(0.5F);
+    for(Entity entity : getAoeEntities(player, target, event)) {
+      if(distance < 0 || entity.getDistanceToEntity(target) <= distance) {
+        hit |= ToolHelper.attackEntity(stack, this, player, entity, null, cooldown);
       }
     }
 
+    // subtract the default box and then half as this number is the amount to increase the box by
     return hit;
+  }
+
+  private List<Entity> getAoeEntities(EntityPlayer player, Entity target, TinkerToolEvent.ExtraBlockBreak event) {
+    int width = (event.width - 1) / 2;
+    int height = (event.width - 1) / 2;
+    AxisAlignedBB box = new AxisAlignedBB(target.posX, target.posY, target.posZ, target.posX + 1.0D, target.posY + 1.0D, target.posZ + 1.0D).expand(width, height, width);
+
+    return player.worldObj.getEntitiesWithinAABBExcludingEntity(player, box);
   }
 
   @Nonnull
@@ -145,84 +151,143 @@ public class Scythe extends AoeToolCore {
       return ActionResult.newResult(EnumActionResult.FAIL, stack);
     }
 
-    BlockPos origin = new BlockPos(player);
-
-    // increase the size based on the AOE stuffs
-    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(stack, player, player.worldObj.getBlockState(player.getPosition()), 3, 3, 3, 2);
-    if(event.isCanceled()) {
-      return ActionResult.newResult(EnumActionResult.FAIL, stack);
+    RayTraceResult trace = this.rayTrace(world, player, false);
+    if(trace == null || trace.typeOfHit != RayTraceResult.Type.BLOCK) {
+      return ActionResult.newResult(EnumActionResult.PASS, stack);
     }
 
-    // from this point out we succeeded, so set cooldowns
-    player.getCooldownTracker().setCooldown(stack.getItem(), 10);
-    player.resetCooldown();
+    int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
 
-    int width = event.width;
-    int height = event.height;
-    int distance = event.distance;
-
-    // loop through AOE positions centered on the player
-    for(BlockPos pos : ToolHelper.calcAOEBlocks(stack, world, origin, origin.add(-width/2, -height/2, -width/2), width, height, width, distance, false)) {
-      IBlockState state = world.getBlockState(pos);
-
-      // only work on blocks with a hardness of 0, as this is instant break otherwise
-      if(ToolHelper.isToolEffective2(stack, state) && state.getBlockHardness(world, pos) <= 0) {
-        int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-
-        // first, try getting a seed from the drops, if we don't have one we don't replant
-        float chance = 1.0f;
-        List<ItemStack> drops = state.getBlock().getDrops(world, pos, state, fortune);
-        chance = ForgeEventFactory.fireBlockHarvesting(drops, world, pos, state, fortune, chance, false, player);
-
-        IPlantable seed = null;
-        for(ItemStack drop : drops) {
-          if(drop != null && drop.getItem() instanceof IPlantable) {
-            seed = (IPlantable) drop.getItem();
-            drop.stackSize--;
-            if(drop.stackSize <= 0) {
-              drops.remove(drop);
-            }
-
-            break;
-          }
-        }
-
-        // if we have a valid seed, try to plant the crop
-        if(seed != null) {
-          // make sure the plant is allowed here. should already be, mainly just covers the case of seeds from grass
-          IBlockState down = world.getBlockState(pos.down());
-          if(down.getBlock().canSustainPlant(down, world, pos.down(), EnumFacing.UP, seed)) {
-            // success! place the plant and drop the rest of the items
-            IBlockState crop = seed.getPlant(world, pos);
-
-            // only place the block/damage the tool if its a different state
-            if(crop != state) {
-              world.setBlockState(pos, seed.getPlant(world, pos));
-              ToolHelper.damageTool(stack, 1, player);
-            }
-
-            // drop the remainder of the items
-            for(ItemStack drop : drops) {
-              if(world.rand.nextFloat() <= chance) {
-                Block.spawnAsEntity(world, pos, drop);
-              }
-            }
-            continue;
-          }
-        }
-
-        // can't plant? just break the block directly
-        breakBlock(stack, player, pos, pos);
-      }
+    // if we cannot harvest the center block then back out
+    BlockPos origin = trace.getBlockPos().offset(trace.sideHit);
+    if(!harvestBlock(stack, world, player, origin, fortune)) {
+      return ActionResult.newResult(EnumActionResult.PASS, stack);
     }
 
-    // AOE attack centered on the player, still applies same cooldown
-    aoeAttack(stack, player, player, event);
+    // otherwise if we succeed harvest the rest
+    for(BlockPos pos : ((IAoeTool) this).getAOEBlocks(stack, player.worldObj, player, origin)) {
+      harvestBlock(stack, world, player, pos, fortune);
+    }
 
     player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
     player.spawnSweepParticles();
 
     return ActionResult.newResult(player.worldObj.isRemote ? EnumActionResult.PASS : EnumActionResult.SUCCESS, stack);
+  }
+
+  /**
+   * Returns true if the item can be used on the given entity, e.g. shears on sheep.
+   */
+  @Override
+  public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer player, EntityLivingBase target, EnumHand hand) {
+    // only run AOE on shearable entities
+    if(!(target instanceof IShearable)) {
+      return false;
+    }
+
+    // increase the size based on the AOE stuffs
+    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(stack, player, player.worldObj.getBlockState(target.getPosition()), 3, 3, 3, -1);
+    if(event.isCanceled()) {
+      return false;
+    }
+
+    int distance = event.distance;
+    boolean shorn = false;
+
+    int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
+    for(Entity entity : getAoeEntities(player, target, event)) {
+      if(distance < 0 || entity.getDistanceToEntity(target) <= distance) {
+        shorn |= shearEntity(stack, player.worldObj, player, entity, distance, fortune);
+      }
+    }
+
+    if(shorn) {
+      player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
+      player.spawnSweepParticles();
+    }
+
+    return shorn;
+  }
+
+  public boolean harvestBlock(ItemStack stack, World world, EntityPlayer player, BlockPos pos, int fortune) {
+    IBlockState state = world.getBlockState(pos);
+    // only work on blocks with a hardness of 0, as this is instant break
+    // we ignore replacable blocks since they mess with the raytrace though
+    if(ToolHelper.isToolEffective2(stack, state) && state.getBlockHardness(world, pos) <= 0
+        && !state.getMaterial().isReplaceable()) {
+
+      // first, try getting a seed from the drops, if we don't have one we don't replant
+      float chance = 1.0f;
+      List<ItemStack> drops = state.getBlock().getDrops(world, pos, state, fortune);
+      chance = ForgeEventFactory.fireBlockHarvesting(drops, world, pos, state, fortune, chance, false, player);
+
+      IPlantable seed = null;
+      for(ItemStack drop : drops) {
+        if(drop != null && drop.getItem() instanceof IPlantable) {
+          seed = (IPlantable) drop.getItem();
+          drop.stackSize--;
+          if(drop.stackSize <= 0) {
+            drops.remove(drop);
+          }
+
+          break;
+        }
+      }
+
+      // if we have a valid seed, try to plant the crop
+      if(seed != null) {
+        // make sure the plant is allowed here. should already be, mainly just covers the case of seeds from grass
+        IBlockState down = world.getBlockState(pos.down());
+        if(down.getBlock().canSustainPlant(down, world, pos.down(), EnumFacing.UP, seed)) {
+          // success! place the plant and drop the rest of the items
+          IBlockState crop = seed.getPlant(world, pos);
+
+          // only place the block/damage the tool if its a different state
+          if(crop != state) {
+            world.setBlockState(pos, seed.getPlant(world, pos));
+            ToolHelper.damageTool(stack, 1, player);
+          }
+
+          // drop the remainder of the items
+          for(ItemStack drop : drops) {
+            if(world.rand.nextFloat() <= chance) {
+              Block.spawnAsEntity(world, pos, drop);
+            }
+          }
+          return true;
+        }
+      }
+
+      // can't plant? just break the block directly
+      breakBlock(stack, player, pos, pos);
+
+      return true;
+    }
+
+    return false;
+  }
+
+  public boolean shearEntity(ItemStack stack, World world, EntityPlayer player, Entity entity, int distance, int fortune) {
+    if(!(entity instanceof IShearable)) {
+      return false;
+    }
+
+    IShearable shearable = (IShearable)entity;
+    if(shearable.isShearable(stack, world, entity.getPosition())) {
+      List<ItemStack> drops = shearable.onSheared(stack, world, entity.getPosition(), fortune);
+      Random rand = world.rand;
+      for(ItemStack drop : drops) {
+        net.minecraft.entity.item.EntityItem ent = entity.entityDropItem(drop, 1.0F);
+        ent.motionY += rand.nextFloat() * 0.05F;
+        ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+        ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+      }
+      ToolHelper.damageTool(stack, 1, player);
+
+      return true;
+    }
+
+    return false;
   }
 
   @Override
