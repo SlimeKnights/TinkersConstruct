@@ -147,6 +147,8 @@ public class TinkerTools extends AbstractToolPulse {
 
     // set shard
     TinkerRegistry.setShardItem(shard);
+
+    TinkerRegistry.registerStencilTableCrafting(Pattern.setTagForPart(new ItemStack(pattern), sharpeningKit));
   }
 
   @Override
