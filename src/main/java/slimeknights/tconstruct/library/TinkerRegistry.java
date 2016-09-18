@@ -641,7 +641,7 @@ public final class TinkerRegistry {
     }
 
     TinkerRegisterEvent.EntityMeltingRegisterEvent event = new TinkerRegisterEvent.EntityMeltingRegisterEvent(clazz, liquid);
-    if(!event.fire()) {
+    if(event.fire()) {
       entityMeltingRegistry.put(name, event.getNewFluidStack());
     }
   }
