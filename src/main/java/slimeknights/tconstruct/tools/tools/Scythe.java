@@ -125,11 +125,14 @@ public class Scythe extends AoeToolCore {
     int distance = event.distance;
     boolean hit = false;
     // we cache the cooldown here since it resets as soon as the first entity is hit
-    float cooldown = player.getCooledAttackStrength(0.5F);
     for(Entity entity : getAoeEntities(player, target, event)) {
       if(distance < 0 || entity.getDistanceToEntity(target) <= distance) {
-        hit |= ToolHelper.attackEntity(stack, this, player, entity, null, cooldown);
+        hit |= ToolHelper.attackEntity(stack, this, player, entity, null, true);
       }
+    }
+
+    if(hit) {
+      player.resetCooldown();
     }
 
     // subtract the default box and then half as this number is the amount to increase the box by

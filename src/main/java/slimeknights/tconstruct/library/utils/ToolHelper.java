@@ -553,18 +553,14 @@ public final class ToolHelper {
   }
 
   public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity) {
-    float cooldown = 1.0f;
-    if(attacker instanceof EntityPlayer) {
-      cooldown = ((EntityPlayer)attacker).getCooledAttackStrength(0.5F);
-    }
-    return attackEntity(stack, tool, attacker, targetEntity, projectileEntity, cooldown);
+    return attackEntity(stack, tool, attacker, targetEntity, projectileEntity, false);
   }
 
   /**
    * Makes all the calls to attack an entity. Takes enchantments and potions and traits into account. Basically call this when a tool deals damage.
    * Most of this function is the same as {@link EntityPlayer#attackTargetEntityWithCurrentItem(Entity targetEntity)}
    */
-  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity, float cooldown) {
+  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity, boolean skipCooldown) {
     // nothing to do, no target?
     if(targetEntity == null || !targetEntity.canBeAttackedWithItem() || targetEntity.hitByEntity(attacker) || !stack.hasTagCompound()) {
       return false;
@@ -641,6 +637,7 @@ public final class ToolHelper {
 
     // apply cooldown damage decrease
     if(player != null) {
+      float cooldown = ((EntityPlayer)attacker).getCooledAttackStrength(0.5F);
       damage *= (0.2F + cooldown * cooldown * 0.8F);
     }
 
@@ -741,7 +738,7 @@ public final class ToolHelper {
         }
 
         // cooldown for non-projectiles
-        if(!isProjectile) {
+        if(!isProjectile && !skipCooldown) {
           player.resetCooldown();
         }
       }
