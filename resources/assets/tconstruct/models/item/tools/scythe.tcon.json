@@ -4,6 +4,6 @@
         "layer1": "tconstruct:items/scythe/head",
         "layer2": "tconstruct:items/scythe/binding",
         "layer3": "tconstruct:items/scythe/accessory",
-		"broken1": "tconstruct:items/scythe/broken_head"
+        "broken1": "tconstruct:items/scythe/broken_head"
     }
 }

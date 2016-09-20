@@ -29,7 +29,11 @@ import java.util.Random;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
+import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
+import slimeknights.tconstruct.library.materials.HandleMaterialStats;
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.AoeToolCore;
@@ -40,7 +44,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class Scythe extends AoeToolCore {
 
-  public static final String HARVEST_TAG = "harvesting";
+  public static final float DURABILITY_MODIFIER = 2.2f;
 
   public static final ImmutableSet<net.minecraft.block.material.Material> effective_materials =
       ImmutableSet.of(net.minecraft.block.material.Material.WEB,
@@ -52,10 +56,10 @@ public class Scythe extends AoeToolCore {
 
 
   public Scythe() {
-    super(PartMaterialType.handle(TinkerTools.toolRod),
+    super(PartMaterialType.handle(TinkerTools.toughToolRod),
           PartMaterialType.head(TinkerTools.scytheHead),
-          PartMaterialType.handle(TinkerTools.toolRod),
-          PartMaterialType.extra(TinkerTools.toughBinding)); // todo
+          PartMaterialType.handle(TinkerTools.toughToolRod),
+          PartMaterialType.extra(TinkerTools.toughBinding));
 
     addCategory(Category.HARVEST, Category.WEAPON);
   }
@@ -90,7 +94,7 @@ public class Scythe extends AoeToolCore {
 
   @Override
   public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
-    if(!ToolHelper.isBroken(stack) && this instanceof IAoeTool && ((IAoeTool) this).isAoeHarvestTool()) {
+    if(!ToolHelper.isBroken(stack) && this.isAoeHarvestTool()) {
       for(BlockPos extraPos : ((IAoeTool) this).getAOEBlocks(stack, player.worldObj, player, pos)) {
         breakBlock(stack, player, extraPos, pos);
       }
@@ -127,7 +131,7 @@ public class Scythe extends AoeToolCore {
     // we cache the cooldown here since it resets as soon as the first entity is hit
     for(Entity entity : getAoeEntities(player, target, event)) {
       if(distance < 0 || entity.getDistanceToEntity(target) <= distance) {
-        hit |= ToolHelper.attackEntity(stack, this, player, entity, null, true);
+        hit |= ToolHelper.attackEntity(stack, this, player, entity, null, false);
       }
     }
 
@@ -154,7 +158,7 @@ public class Scythe extends AoeToolCore {
       return ActionResult.newResult(EnumActionResult.FAIL, stack);
     }
 
-    RayTraceResult trace = this.rayTrace(world, player, false);
+    RayTraceResult trace = this.rayTrace(world, player, true);
     if(trace == null || trace.typeOfHit != RayTraceResult.Type.BLOCK) {
       return ActionResult.newResult(EnumActionResult.PASS, stack);
     }
@@ -162,15 +166,20 @@ public class Scythe extends AoeToolCore {
     int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
 
     // if we cannot harvest the center block then back out
-    BlockPos origin = trace.getBlockPos().offset(trace.sideHit);
-    if(!harvestBlock(stack, world, player, origin, fortune)) {
+    // don't break it now or the AOE check can fail due to an air block being there
+    BlockPos origin = trace.getBlockPos();
+    IBlockState state = world.getBlockState(origin);
+    if(!ToolHelper.isToolEffective2(stack, state) || state.getBlockHardness(world, origin) > 0) {
       return ActionResult.newResult(EnumActionResult.PASS, stack);
     }
 
     // otherwise if we succeed harvest the rest
-    for(BlockPos pos : ((IAoeTool) this).getAOEBlocks(stack, player.worldObj, player, origin)) {
-      harvestBlock(stack, world, player, pos, fortune);
+    for(BlockPos pos : this.getAOEBlocks(stack, player.worldObj, player, origin)) {
+      harvestCrop(stack, world, player, pos, fortune);
     }
+
+    // harvest the center block
+    harvestCrop(stack, world, player, origin, fortune);
 
     player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
     player.spawnSweepParticles();
@@ -212,12 +221,10 @@ public class Scythe extends AoeToolCore {
     return shorn;
   }
 
-  public boolean harvestBlock(ItemStack stack, World world, EntityPlayer player, BlockPos pos, int fortune) {
+  public boolean harvestCrop(ItemStack stack, World world, EntityPlayer player, BlockPos pos, int fortune) {
     IBlockState state = world.getBlockState(pos);
     // only work on blocks with a hardness of 0, as this is instant break
-    // we ignore replacable blocks since they mess with the raytrace though
-    if(ToolHelper.isToolEffective2(stack, state) && state.getBlockHardness(world, pos) <= 0
-        && !state.getMaterial().isReplaceable()) {
+    if(ToolHelper.isToolEffective2(stack, state) && state.getBlockHardness(world, pos) <= 0) {
 
       // first, try getting a seed from the drops, if we don't have one we don't replant
       float chance = 1.0f;
@@ -252,9 +259,11 @@ public class Scythe extends AoeToolCore {
           }
 
           // drop the remainder of the items
-          for(ItemStack drop : drops) {
-            if(world.rand.nextFloat() <= chance) {
-              Block.spawnAsEntity(world, pos, drop);
+          if(!world.isRemote) {
+            for(ItemStack drop : drops) {
+              if(world.rand.nextFloat() <= chance) {
+                Block.spawnAsEntity(world, pos, drop);
+              }
             }
           }
           return true;
@@ -277,13 +286,15 @@ public class Scythe extends AoeToolCore {
 
     IShearable shearable = (IShearable)entity;
     if(shearable.isShearable(stack, world, entity.getPosition())) {
-      List<ItemStack> drops = shearable.onSheared(stack, world, entity.getPosition(), fortune);
-      Random rand = world.rand;
-      for(ItemStack drop : drops) {
-        net.minecraft.entity.item.EntityItem ent = entity.entityDropItem(drop, 1.0F);
-        ent.motionY += rand.nextFloat() * 0.05F;
-        ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-        ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+      if(!world.isRemote) {
+        List<ItemStack> drops = shearable.onSheared(stack, world, entity.getPosition(), fortune);
+        Random rand = world.rand;
+        for(ItemStack drop : drops) {
+          net.minecraft.entity.item.EntityItem ent = entity.entityDropItem(drop, 1.0F);
+          ent.motionY += rand.nextFloat() * 0.05F;
+          ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+          ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+        }
       }
       ToolHelper.damageTool(stack, 1, player);
 
@@ -298,9 +309,23 @@ public class Scythe extends AoeToolCore {
     return new int[]{1, 2};
   }
 
-
   @Override
   public ToolNBT buildTagData(List<Material> materials) {
-    return buildDefaultTag(materials);
+    HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(MaterialTypes.HANDLE);
+    HeadMaterialStats head = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
+    HandleMaterialStats handle2 = materials.get(2).getStatsOrUnknown(MaterialTypes.HANDLE);
+    ExtraMaterialStats extra = materials.get(3).getStatsOrUnknown(MaterialTypes.EXTRA);
+
+    ToolNBT data = new ToolNBT();
+    data.head(head);
+    data.handle(handle, handle2);
+    data.extra(extra);
+
+    // harvestlevel is always determined by the head
+    data.harvestLevel = head.harvestLevel;
+
+    data.durability *= DURABILITY_MODIFIER;
+
+    return data;
   }
 }

@@ -553,14 +553,14 @@ public final class ToolHelper {
   }
 
   public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity) {
-    return attackEntity(stack, tool, attacker, targetEntity, projectileEntity, false);
+    return attackEntity(stack, tool, attacker, targetEntity, projectileEntity, true);
   }
 
   /**
    * Makes all the calls to attack an entity. Takes enchantments and potions and traits into account. Basically call this when a tool deals damage.
    * Most of this function is the same as {@link EntityPlayer#attackTargetEntityWithCurrentItem(Entity targetEntity)}
    */
-  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity, boolean skipCooldown) {
+  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity, boolean applyCooldown) {
     // nothing to do, no target?
     if(targetEntity == null || !targetEntity.canBeAttackedWithItem() || targetEntity.hitByEntity(attacker) || !stack.hasTagCompound()) {
       return false;
@@ -738,7 +738,7 @@ public final class ToolHelper {
         }
 
         // cooldown for non-projectiles
-        if(!isProjectile && !skipCooldown) {
+        if(!isProjectile && applyCooldown) {
           player.resetCooldown();
         }
       }
