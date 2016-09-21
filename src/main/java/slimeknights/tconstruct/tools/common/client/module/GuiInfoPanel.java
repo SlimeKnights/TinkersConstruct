@@ -119,6 +119,7 @@ public class GuiInfoPanel extends GuiModule {
   public void setText(List<String> text, List<String> tooltips) {
     // convert \n in localized text to actual newlines
     if(text != null) {
+      text = Lists.newArrayList(text);
       for(int i = 0; i < text.size(); i++) {
         text.set(i, LocUtils.convertNewlines(text.get(i)));
       }

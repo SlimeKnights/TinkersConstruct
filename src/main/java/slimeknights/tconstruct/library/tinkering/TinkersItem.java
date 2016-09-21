@@ -43,6 +43,7 @@ import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.library.utils.TooltipBuilder;
 
 /**
  * The base for each Tinker tool.
@@ -447,19 +448,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   @Override
   public void getTooltip(ItemStack stack, List<String> tooltips) {
     // Default tooltip: modifiers
-    NBTTagList tagList = TagUtil.getModifiersTagList(stack);
-    for(int i = 0; i < tagList.tagCount(); i++) {
-      NBTTagCompound tag = tagList.getCompoundTagAt(i);
-      ModifierNBT data = ModifierNBT.readTag(tag);
-
-      // get matching modifier
-      IModifier modifier = TinkerRegistry.getModifier(data.identifier);
-      if(modifier == null || modifier.isHidden()) {
-        continue;
-      }
-
-      tooltips.add(data.getColorString() + modifier.getTooltip(tag, false));
-    }
+    TooltipBuilder.addModifierTooltips(stack,tooltips);
   }
 
   @Nonnull

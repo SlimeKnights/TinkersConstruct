@@ -38,6 +38,8 @@ import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
+import slimeknights.tconstruct.library.tinkering.IModifyable;
+import slimeknights.tconstruct.library.tinkering.IToolStationDisplay;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
@@ -121,7 +123,6 @@ public class GuiToolStation extends GuiTinkerStation {
     this.guiTop += 4;
     this.cornerY += 4;
 
-    // todo: sync text via network
     textField = new GuiTextField(0, fontRendererObj, cornerX + 70, cornerY + 7, 92, 12);
     //textField.setFocused(true);
     //textField.setCanLoseFocus(false);
@@ -220,11 +221,19 @@ public class GuiToolStation extends GuiTinkerStation {
       toolStack = inventorySlots.getSlot(0).getStack();
     }
 
+
+
     // current tool to build or repair/modify
-    if(toolStack != null && toolStack.getItem() instanceof ToolCore) {
-      ToolCore tool = (ToolCore) toolStack.getItem();
-      toolInfo.setCaption(tool.getLocalizedToolName());
-      toolInfo.setText(tool.getInformation(toolStack));
+    if(toolStack != null && toolStack.getItem() instanceof IModifyable) {
+      if(toolStack.getItem() instanceof IToolStationDisplay) {
+        IToolStationDisplay tool = (IToolStationDisplay) toolStack.getItem();
+        toolInfo.setCaption(tool.getLocalizedToolName());
+        toolInfo.setText(tool.getInformation(toolStack));
+      }
+      else {
+        toolInfo.setCaption(toolStack.getDisplayName());
+        toolInfo.setText();
+      }
 
       traitInfo.setCaption(I18n.translateToLocal("gui.toolstation.traits"));
 

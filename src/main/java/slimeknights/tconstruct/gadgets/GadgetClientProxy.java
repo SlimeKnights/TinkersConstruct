@@ -72,6 +72,8 @@ public class GadgetClientProxy extends ClientProxy {
     registerItemModel(TinkerGadgets.woodRail);
     registerItemModel(TinkerGadgets.woodRailTrapdoor);
 
+    registerItemModel(TinkerGadgets.momsSpaghetti);
+
     registerItemModel(TinkerGadgets.slimeChannel); //tinted for variants
 
     registerItemBlockMeta(TinkerGadgets.driedClay);

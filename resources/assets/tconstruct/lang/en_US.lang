@@ -422,6 +422,19 @@ item.tconstruct.throwball.glow.tooltip=Not suited for consumption.
 item.tconstruct.throwball.efln.name=EFLN
 item.tconstruct.throwball.efln.tooltip=Explodes! Save for mining
 
+###################
+# Mom's Spaghetti #
+###################
+
+item.tconstruct.moms_spaghetti.name=Mom's Spaghetti
+item.tconstruct.moms_spaghetti.desc=Delicious!
+stat.spaghetti.nourishment.name=Nourishment
+stat.spaghetti.saturation.name=Saturation
+modifier.spaghetti_sauce.name=with sauce
+modifier.spaghetti_sauce.desc=§oWith beets by mom§r\nIncreases the saturation
+modifier.spaghetti_meat.name=with meat
+modifier.spaghetti_meat.desc=§oAll the meat!§r\nIncreases the nourishment value
+
 #################
 #   Entities    #
 #################

@@ -46,6 +46,7 @@ import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tinkering.Category;
+import slimeknights.tconstruct.library.tinkering.IToolStationDisplay;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.traits.ITrait;
@@ -61,7 +62,7 @@ import slimeknights.tconstruct.tools.traits.InfiTool;
  * Intermediate abstraction layer for all tools/melee weapons. This class has all the callbacks for blocks and enemies
  * so tools and weapons can share behaviour.
  */
-public abstract class ToolCore extends TinkersItem {
+public abstract class ToolCore extends TinkersItem implements IToolStationDisplay {
 
   public final static int DEFAULT_MODIFIERS = 3;
 
@@ -435,6 +436,7 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   /** The tools name completely without material information */
+  @Override
   public String getLocalizedToolName() {
     return Util.translate(getUnlocalizedName() + ".name");
   }
