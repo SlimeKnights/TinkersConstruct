@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_beheading",
         "mattock": "tconstruct:items/mattock/mod_beheading",
         "pickaxe": "tconstruct:items/pickaxe/mod_beheading",
+        "scythe": "tconstruct:items/scythe/mod_beheading",
         "shovel": "tconstruct:items/shovel/mod_beheading",
         "shuriken": "tconstruct:items/shuriken/mod_beheading"
     }

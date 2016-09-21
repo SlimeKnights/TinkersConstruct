@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_bane_spider",
         "mattock": "tconstruct:items/mattock/mod_bane_spider",
         "pickaxe": "tconstruct:items/pickaxe/mod_bane_spider",
+        "scythe": "tconstruct:items/scythe/mod_bane_spider",
         "shovel": "tconstruct:items/shovel/mod_bane_spider",
         "shuriken": "tconstruct:items/shuriken/mod_bane_spider"
     }

@@ -76,7 +76,8 @@ public class ToolEvents {
     }
     else if(event.tool == TinkerHarvestTools.hammer ||
             event.tool == TinkerHarvestTools.excavator ||
-            event.tool == TinkerHarvestTools.lumberAxe) {
+            event.tool == TinkerHarvestTools.lumberAxe ||
+            event.tool == TinkerHarvestTools.scythe) {
       event.width += width ? 2 : 0;
       event.height += height ? 2 : 0;
       //event.distance = 1 + (width ? 1 : 0) + (height ? 1 : 0);

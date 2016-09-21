@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_soulbound",
         "mattock": "tconstruct:items/mattock/mod_soulbound",
         "pickaxe": "tconstruct:items/pickaxe/mod_soulbound",
+        "scythe": "tconstruct:items/scythe/mod_soulbound",
         "shovel": "tconstruct:items/shovel/mod_soulbound",
         "shuriken": "tconstruct:items/shuriken/mod_soulbound"
     }

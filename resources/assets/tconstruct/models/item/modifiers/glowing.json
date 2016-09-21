@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_glowing",
         "mattock": "tconstruct:items/mattock/mod_glowing",
         "pickaxe": "tconstruct:items/pickaxe/mod_glowing",
+        "scythe": "tconstruct:items/scythe/mod_glowing",
         "shovel": "tconstruct:items/shovel/mod_glowing",
         "shuriken": "tconstruct:items/shuriken/mod_glowing"
     }
