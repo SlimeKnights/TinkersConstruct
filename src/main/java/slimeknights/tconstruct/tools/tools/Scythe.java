@@ -58,8 +58,8 @@ public class Scythe extends AoeToolCore {
   public Scythe() {
     super(PartMaterialType.handle(TinkerTools.toughToolRod),
           PartMaterialType.head(TinkerTools.scytheHead),
-          PartMaterialType.handle(TinkerTools.toughToolRod),
-          PartMaterialType.extra(TinkerTools.toughBinding));
+          PartMaterialType.extra(TinkerTools.toughBinding),
+          PartMaterialType.handle(TinkerTools.toughToolRod));
 
     addCategory(Category.HARVEST, Category.WEAPON);
   }
@@ -313,16 +313,13 @@ public class Scythe extends AoeToolCore {
   public ToolNBT buildTagData(List<Material> materials) {
     HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(MaterialTypes.HANDLE);
     HeadMaterialStats head = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
-    HandleMaterialStats handle2 = materials.get(2).getStatsOrUnknown(MaterialTypes.HANDLE);
-    ExtraMaterialStats extra = materials.get(3).getStatsOrUnknown(MaterialTypes.EXTRA);
+    ExtraMaterialStats extra = materials.get(2).getStatsOrUnknown(MaterialTypes.EXTRA);
+    HandleMaterialStats handle2 = materials.get(3).getStatsOrUnknown(MaterialTypes.HANDLE);
 
     ToolNBT data = new ToolNBT();
     data.head(head);
     data.handle(handle, handle2);
     data.extra(extra);
-
-    // harvestlevel is always determined by the head
-    data.harvestLevel = head.harvestLevel;
 
     data.durability *= DURABILITY_MODIFIER;
 
