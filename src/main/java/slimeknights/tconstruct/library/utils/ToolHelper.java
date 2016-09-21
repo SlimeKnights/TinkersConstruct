@@ -637,7 +637,7 @@ public final class ToolHelper {
 
     // apply cooldown damage decrease
     if(player != null) {
-      float cooldown = ((EntityPlayer)attacker).getCooledAttackStrength(0.5F);
+      float cooldown = ((EntityPlayer) attacker).getCooledAttackStrength(0.5F);
       damage *= (0.2F + cooldown * cooldown * 0.8F);
     }
 

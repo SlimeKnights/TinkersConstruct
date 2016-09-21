@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.event.ForgeEventFactory;
+
 import java.util.List;
 import java.util.Random;
 
@@ -95,7 +96,7 @@ public class Scythe extends AoeToolCore {
   @Override
   public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
     if(!ToolHelper.isBroken(stack) && this.isAoeHarvestTool()) {
-      for(BlockPos extraPos : ((IAoeTool) this).getAOEBlocks(stack, player.worldObj, player, pos)) {
+      for(BlockPos extraPos : this.getAOEBlocks(stack, player.worldObj, player, pos)) {
         breakBlock(stack, player, extraPos, pos);
       }
     }
@@ -209,7 +210,7 @@ public class Scythe extends AoeToolCore {
     int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
     for(Entity entity : getAoeEntities(player, target, event)) {
       if(distance < 0 || entity.getDistanceToEntity(target) <= distance) {
-        shorn |= shearEntity(stack, player.worldObj, player, entity, distance, fortune);
+        shorn |= shearEntity(stack, player.worldObj, player, entity, fortune);
       }
     }
 
@@ -279,12 +280,12 @@ public class Scythe extends AoeToolCore {
     return false;
   }
 
-  public boolean shearEntity(ItemStack stack, World world, EntityPlayer player, Entity entity, int distance, int fortune) {
+  public boolean shearEntity(ItemStack stack, World world, EntityPlayer player, Entity entity, int fortune) {
     if(!(entity instanceof IShearable)) {
       return false;
     }
 
-    IShearable shearable = (IShearable)entity;
+    IShearable shearable = (IShearable) entity;
     if(shearable.isShearable(stack, world, entity.getPosition())) {
       if(!world.isRemote) {
         List<ItemStack> drops = shearable.onSheared(stack, world, entity.getPosition(), fortune);
