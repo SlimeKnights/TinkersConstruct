@@ -25,6 +25,7 @@ import slimeknights.tconstruct.gadgets.entity.EntityThrowball;
 import slimeknights.tconstruct.gadgets.item.ItemThrowball;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.PropertyStateMapper;
+import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.shared.block.BlockSlime;
 
 public class GadgetClientProxy extends ClientProxy {
@@ -72,8 +73,6 @@ public class GadgetClientProxy extends ClientProxy {
     registerItemModel(TinkerGadgets.woodRail);
     registerItemModel(TinkerGadgets.woodRailTrapdoor);
 
-    registerItemModel(TinkerGadgets.momsSpaghetti);
-
     registerItemModel(TinkerGadgets.slimeChannel); //tinted for variants
 
     registerItemBlockMeta(TinkerGadgets.driedClay);
@@ -119,6 +118,12 @@ public class GadgetClientProxy extends ClientProxy {
       ModelLoader.setCustomModelResourceLocation(TinkerGadgets.fancyFrame, type.ordinal(), loc);
     }
     RenderingRegistry.registerEntityRenderingHandler(EntityThrowball.class, RenderThrowball.FACTORY);
+
+
+    // Mom's Spaghetti
+    registerToolModel(TinkerGadgets.momsSpaghetti, Util.getResource("moms_spaghetti" + ToolModelLoader.EXTENSION));
+    registerModifierModel(TinkerGadgets.modSpaghettiSauce, Util.getModifierResource(TinkerGadgets.modSpaghettiSauce.getIdentifier()));
+    registerModifierModel(TinkerGadgets.modSpaghettiMeat, Util.getModifierResource(TinkerGadgets.modSpaghettiMeat.getIdentifier()));
   }
 
   @Override
