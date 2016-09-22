@@ -9,6 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemHangingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -21,6 +23,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import org.apache.logging.log4j.Logger;
 
+import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.TConstruct;
@@ -48,6 +51,7 @@ import slimeknights.tconstruct.gadgets.item.ItemMomsSpaghetti;
 import slimeknights.tconstruct.gadgets.item.ItemPiggybackPack;
 import slimeknights.tconstruct.gadgets.item.ItemSlimeBoots;
 import slimeknights.tconstruct.gadgets.item.ItemSlimeSling;
+import slimeknights.tconstruct.gadgets.item.ItemSpaghetti;
 import slimeknights.tconstruct.gadgets.item.ItemThrowball;
 import slimeknights.tconstruct.gadgets.modifiers.ModSpaghettiMeat;
 import slimeknights.tconstruct.gadgets.modifiers.ModSpaghettiSauce;
@@ -57,10 +61,12 @@ import slimeknights.tconstruct.gadgets.tileentity.TileSlimeChannel;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
 import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
 import slimeknights.tconstruct.shared.block.BlockTable;
+import slimeknights.tconstruct.shared.item.ItemMetaDynamicTinkers;
 import slimeknights.tconstruct.tools.common.TableRecipe;
 
 @Pulse(id = TinkerGadgets.PulseId, description = "All the fun toys")
@@ -109,6 +115,7 @@ public class TinkerGadgets extends TinkerPulse {
   public static ItemThrowball throwball;
   public static Item stoneStick;
 
+  public static ItemMetaDynamic spaghetti;
   public static Item momsSpaghetti;
   public static Modifier modSpaghettiSauce;
   public static Modifier modSpaghettiMeat;
@@ -181,7 +188,13 @@ public class TinkerGadgets extends TinkerPulse {
   }
 
   private void registerMomsSpaghetti() {
+    spaghetti = registerItem(new ItemSpaghetti(), "spaghetti");
     momsSpaghetti = registerItem(new ItemMomsSpaghetti(), "moms_spaghetti");
+
+    ItemStack hardSpaghetti = spaghetti.addMeta(0, "hard");
+    ItemStack wetSpaghetti = spaghetti.addMeta(1, "soggy");
+    ItemStack coldSpaghetti = spaghetti.addMeta(2, "cold");
+
     modSpaghettiSauce = new ModSpaghettiSauce();
     modSpaghettiSauce.addItem(Items.BEETROOT_SOUP);
 
@@ -192,6 +205,11 @@ public class TinkerGadgets extends TinkerPulse {
                                                                     new ItemStack(Items.COOKED_MUTTON),
                                                                     new ItemStack(Items.COOKED_PORKCHOP)
     ));
+
+    // Recipe for mom's spaghetti: soak em, dry em, cook em, eat em
+    TinkerRegistry.registerTableCasting(new CastingRecipe(wetSpaghetti, RecipeMatch.of(hardSpaghetti), FluidRegistry.WATER, Fluid.BUCKET_VOLUME * 3, 15*60*20));
+    TinkerRegistry.registerDryingRecipe(wetSpaghetti, coldSpaghetti, 15*60*20);
+    GameRegistry.addSmelting(coldSpaghetti, new ItemStack(momsSpaghetti), 0f);
   }
 
   // INITIALIZATION

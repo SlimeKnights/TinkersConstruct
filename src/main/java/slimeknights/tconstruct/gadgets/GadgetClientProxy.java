@@ -121,6 +121,7 @@ public class GadgetClientProxy extends ClientProxy {
 
 
     // Mom's Spaghetti
+    TinkerGadgets.spaghetti.registerItemModels();
     registerToolModel(TinkerGadgets.momsSpaghetti, Util.getResource("moms_spaghetti" + ToolModelLoader.EXTENSION));
     registerModifierModel(TinkerGadgets.modSpaghettiSauce, Util.getModifierResource(TinkerGadgets.modSpaghettiSauce.getIdentifier()));
     registerModifierModel(TinkerGadgets.modSpaghettiMeat, Util.getModifierResource(TinkerGadgets.modSpaghettiMeat.getIdentifier()));
