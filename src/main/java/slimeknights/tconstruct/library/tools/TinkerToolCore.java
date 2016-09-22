@@ -53,7 +53,7 @@ public abstract class TinkerToolCore extends ToolCore {
 
   @Override
   public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
-    if(DualToolHarvestUtils.shouldUseOffhand(player, blockState, stack)) {
+    if(player != null && DualToolHarvestUtils.shouldUseOffhand(player, blockState, stack)) {
       ItemStack offhand = player.getHeldItemOffhand();
       return offhand.getItem().getHarvestLevel(offhand, toolClass, player, blockState);
     }
