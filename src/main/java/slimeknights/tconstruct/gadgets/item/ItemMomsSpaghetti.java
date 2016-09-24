@@ -27,9 +27,11 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.CustomFontColor;
 import slimeknights.tconstruct.library.tinkering.IModifyable;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.IToolStationDisplay;
@@ -43,8 +45,10 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
 
   public static final String LOC_NAME = "item.tconstruct.moms_spaghetti.name";
   public static final String LOC_DESC = "item.tconstruct.moms_spaghetti.desc";
+  public static final String LOC_USES = "stat.spaghetti.uses.name";
   public static final String LOC_NOURISHMENT = "stat.spaghetti.nourishment.name";
   public static final String LOC_SATURATION = "stat.spaghetti.saturation.name";
+  public static final String LOC_TOOLTIP = "item.tconstruct.moms_spaghetti.tooltip";
 
   public static final int MAX_USES = 100;
   public static final int USES_PER_WHEAT = 1;
@@ -66,7 +70,7 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
   @Override
   public float getSaturationModifier(ItemStack stack) {
     float saturation = super.getSaturationModifier(stack);
-    if(TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), TinkerGadgets.modSpaghettiSauce.getIdentifier())) {
+    if(hasSauce(stack)) {
       saturation += 0.2f;
     }
     return saturation;
@@ -75,10 +79,22 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
   @Override
   public int getHealAmount(ItemStack stack) {
     int heal = super.getHealAmount(stack);
-    if(TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), TinkerGadgets.modSpaghettiMeat.getIdentifier())) {
+    if(hasMeat(stack)) {
       heal += 1;
     }
     return heal;
+  }
+
+  protected boolean hasModifier(ItemStack stack, String identifier) {
+    return TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), identifier);
+  }
+
+  protected boolean hasSauce(ItemStack stack) {
+    return hasModifier(stack, TinkerGadgets.modSpaghettiSauce.getIdentifier());
+  }
+
+  protected boolean hasMeat(ItemStack stack) {
+    return hasModifier(stack, TinkerGadgets.modSpaghettiMeat.getIdentifier());
   }
 
   @Override
@@ -107,13 +123,15 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
   /**
    * returns the action that specifies what animation to play when the items is being used
    */
+  @Nonnull
   @Override
   public EnumAction getItemUseAction(ItemStack stack) {
     return EnumAction.EAT;
   }
 
+  @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, @Nonnull EnumHand hand) {
     if(playerIn.canEat(false) && getUses(itemStackIn) > 0) {
       playerIn.setActiveHand(hand);
       return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
@@ -166,7 +184,19 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
   @SideOnly(Side.CLIENT)
   @Override
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+    tooltip.add(String.format("%s: %s", Util.translate(LOC_USES),
+                              CustomFontColor.formatPartialAmount(getUses(stack), getMaxDamage(stack))));
     TooltipBuilder.addModifierTooltips(stack, tooltip);
+
+    tooltip.add("");
+    int i = 1;
+    if(hasMeat(stack)) {
+      i = 3;
+    }
+    else if(hasSauce(stack)) {
+      i = 2;
+    }
+    tooltip.addAll(LocUtils.getTooltips(Util.translate(LOC_TOOLTIP + i)));
   }
 
   @Nonnull
@@ -189,6 +219,7 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
 
     return ImmutableList.of(
         Util.translate(LOC_DESC),
+        String.format("%s: %s", Util.translate(LOC_USES), getUses(stack)) + TextFormatting.RESET,
         String.format("%s: %s", Util.translate(LOC_NOURISHMENT), nourishment) + TextFormatting.RESET,
         String.format("%s: %s", Util.translate(LOC_SATURATION), Util.dfPercent.format(saturation)) + TextFormatting.RESET
     );
