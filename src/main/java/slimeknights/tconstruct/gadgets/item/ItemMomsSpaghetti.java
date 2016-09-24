@@ -85,15 +85,15 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
     return heal;
   }
 
-  protected boolean hasModifier(ItemStack stack, String identifier) {
+  protected static boolean hasModifier(ItemStack stack, String identifier) {
     return TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), identifier);
   }
 
-  protected boolean hasSauce(ItemStack stack) {
+  public static boolean hasSauce(ItemStack stack) {
     return hasModifier(stack, TinkerGadgets.modSpaghettiSauce.getIdentifier());
   }
 
-  protected boolean hasMeat(ItemStack stack) {
+  public static boolean hasMeat(ItemStack stack) {
     return hasModifier(stack, TinkerGadgets.modSpaghettiMeat.getIdentifier());
   }
 

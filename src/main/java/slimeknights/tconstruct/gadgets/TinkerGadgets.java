@@ -116,7 +116,7 @@ public class TinkerGadgets extends TinkerPulse {
   public static Item stoneStick;
 
   public static ItemMetaDynamic spaghetti;
-  public static Item momsSpaghetti;
+  public static ItemMomsSpaghetti momsSpaghetti;
   public static Modifier modSpaghettiSauce;
   public static Modifier modSpaghettiMeat;
 
@@ -196,7 +196,6 @@ public class TinkerGadgets extends TinkerPulse {
     ItemStack coldSpaghetti = spaghetti.addMeta(2, "cold");
 
     modSpaghettiSauce = new ModSpaghettiSauce();
-    modSpaghettiSauce.addItem(Items.BEETROOT_SOUP);
 
     modSpaghettiMeat = new ModSpaghettiMeat();
     modSpaghettiMeat.addRecipeMatch(new RecipeMatch.ItemCombination(1,
