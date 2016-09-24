@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_necrotic",
         "mattock": "tconstruct:items/mattock/mod_necrotic",
         "pickaxe": "tconstruct:items/pickaxe/mod_necrotic",
+        "scythe": "tconstruct:items/scythe/mod_necrotic",
         "shovel": "tconstruct:items/shovel/mod_necrotic",
         "shuriken": "tconstruct:items/shuriken/mod_necrotic"
     }

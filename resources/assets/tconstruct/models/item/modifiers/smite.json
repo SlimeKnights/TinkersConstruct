@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_smite",
         "mattock": "tconstruct:items/mattock/mod_smite",
         "pickaxe": "tconstruct:items/pickaxe/mod_smite",
+        "scythe": "tconstruct:items/scythe/mod_smite",
         "shovel": "tconstruct:items/shovel/mod_smite",
         "shuriken": "tconstruct:items/shuriken/mod_smite"
     }

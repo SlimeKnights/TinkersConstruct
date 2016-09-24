@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_luck",
         "mattock": "tconstruct:items/mattock/mod_luck",
         "pickaxe": "tconstruct:items/pickaxe/mod_luck",
+        "scythe": "tconstruct:items/scythe/mod_luck",
         "shovel": "tconstruct:items/shovel/mod_luck",
         "shuriken": "tconstruct:items/shuriken/mod_luck"
     }

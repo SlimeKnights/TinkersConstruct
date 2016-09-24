@@ -199,7 +199,7 @@ public final class ToolHelper {
     Block block = state.getBlock();
 
     // doesn't require a tool
-    if(block.getMaterial(state).isToolNotRequired()) {
+    if(state.getMaterial().isToolNotRequired()) {
       return true;
     }
 
@@ -224,13 +224,12 @@ public final class ToolHelper {
 
     // find out where the player is hitting the block
     IBlockState state = world.getBlockState(origin);
-    Block block = state.getBlock();
 
     if(!isToolEffective2(stack, state)) {
       return ImmutableList.of();
     }
 
-    if(block.getMaterial(state) == Material.AIR) {
+    if(state.getMaterial() == Material.AIR) {
       // what are you DOING?
       return ImmutableList.of();
     }
@@ -553,11 +552,15 @@ public final class ToolHelper {
     return attackEntity(stack, tool, attacker, targetEntity, null);
   }
 
+  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity) {
+    return attackEntity(stack, tool, attacker, targetEntity, projectileEntity, true);
+  }
+
   /**
    * Makes all the calls to attack an entity. Takes enchantments and potions and traits into account. Basically call this when a tool deals damage.
    * Most of this function is the same as {@link EntityPlayer#attackTargetEntityWithCurrentItem(Entity targetEntity)}
    */
-  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity) {
+  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity, boolean applyCooldown) {
     // nothing to do, no target?
     if(targetEntity == null || !targetEntity.canBeAttackedWithItem() || targetEntity.hitByEntity(attacker) || !stack.hasTagCompound()) {
       return false;
@@ -634,8 +637,8 @@ public final class ToolHelper {
 
     // apply cooldown damage decrease
     if(player != null) {
-      float f2 = player.getCooledAttackStrength(0.5F);
-      damage *= (0.2F + f2 * f2 * 0.8F);
+      float cooldown = ((EntityPlayer) attacker).getCooledAttackStrength(0.5F);
+      damage *= (0.2F + cooldown * cooldown * 0.8F);
     }
 
     int hurtResistantTime = target.hurtResistantTime;
@@ -735,7 +738,7 @@ public final class ToolHelper {
         }
 
         // cooldown for non-projectiles
-        if(!isProjectile) {
+        if(!isProjectile && applyCooldown) {
           player.resetCooldown();
         }
       }

@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_mending_moss",
         "mattock": "tconstruct:items/mattock/mod_mending_moss",
         "pickaxe": "tconstruct:items/pickaxe/mod_mending_moss",
+        "scythe": "tconstruct:items/scythe/mod_mending_moss",
         "shovel": "tconstruct:items/shovel/mod_mending_moss",
         "shuriken": "tconstruct:items/shuriken/mod_mending_moss"
     }

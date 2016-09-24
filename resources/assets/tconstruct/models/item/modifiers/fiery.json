@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_fiery",
         "mattock": "tconstruct:items/mattock/mod_fiery",
         "pickaxe": "tconstruct:items/pickaxe/mod_fiery",
+        "scythe": "tconstruct:items/scythe/mod_fiery",
         "shovel": "tconstruct:items/shovel/mod_fiery",
         "shuriken": "tconstruct:items/shuriken/mod_fiery"
     }

@@ -1,24 +1,20 @@
 package slimeknights.tconstruct.tools;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
-import com.mojang.realmsclient.util.Pair;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import java.util.List;
-import java.util.Map;
 
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.tools.IPattern;
-import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolPart;
 

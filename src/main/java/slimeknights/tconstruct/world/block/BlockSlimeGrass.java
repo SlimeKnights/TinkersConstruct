@@ -112,7 +112,7 @@ public class BlockSlimeGrass extends BlockGrass {
         IBlockState iblockstate = worldIn.getBlockState(blockpos.up());
         IBlockState iblockstate1 = worldIn.getBlockState(blockpos);
 
-        if(iblockstate1.getBlock() == TinkerWorld.slimeDirt && worldIn.getLightFromNeighbors(blockpos.up()) >= 4 && iblockstate.getLightOpacity(worldIn, pos.up()) <= 2) {
+        if(worldIn.getLightFromNeighbors(blockpos.up()) >= 4 && iblockstate.getLightOpacity(worldIn, pos.up()) <= 2) {
           convert(worldIn, blockpos, iblockstate1, state.getValue(FOLIAGE));
         }
       }

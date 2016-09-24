@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_web",
         "mattock": "tconstruct:items/mattock/mod_web",
         "pickaxe": "tconstruct:items/pickaxe/mod_web",
+        "scythe": "tconstruct:items/scythe/mod_web",
         "shovel": "tconstruct:items/shovel/mod_web",
         "shuriken": "tconstruct:items/shuriken/mod_web"
     }

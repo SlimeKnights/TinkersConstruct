@@ -76,12 +76,13 @@ public class Pattern extends Item implements IPattern {
     return Util.translateFormatted(unloc + ".name", part.getItemStackDisplayName(null));
   }
 
-  public static void setTagForPart(ItemStack stack, Item toolPart) {
+  public static ItemStack setTagForPart(ItemStack stack, Item toolPart) {
     NBTTagCompound tag = TagUtil.getTagSafe(stack);
 
     tag.setString(TAG_PARTTYPE, toolPart.getRegistryName().toString());
 
     stack.setTagCompound(tag);
+    return stack;
   }
 
   @Nullable

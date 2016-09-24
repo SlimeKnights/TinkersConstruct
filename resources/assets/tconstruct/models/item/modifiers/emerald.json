@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_emerald",
         "mattock": "tconstruct:items/mattock/mod_emerald",
         "pickaxe": "tconstruct:items/pickaxe/mod_emerald",
+        "scythe": "tconstruct:items/scythe/mod_emerald",
         "shovel": "tconstruct:items/shovel/mod_emerald",
         "shuriken": "tconstruct:items/shuriken/mod_emerald"
     }

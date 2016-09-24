@@ -13,6 +13,7 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_silk",
         "mattock": "tconstruct:items/mattock/mod_silk",
         "pickaxe": "tconstruct:items/pickaxe/mod_silk",
+        "scythe": "tconstruct:items/scythe/mod_silk",
         "shovel": "tconstruct:items/shovel/mod_silk",
         "shuriken": "tconstruct:items/shuriken/mod_silk"
     }

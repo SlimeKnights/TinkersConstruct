@@ -2,10 +2,6 @@ package slimeknights.tconstruct.tools;
 
 import net.minecraft.entity.monster.EntitySlime;
 
-import org.apache.logging.log4j.Logger;
-
-import slimeknights.mantle.pulsar.pulse.Pulse;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.tools.traits.TraitAlien;
 import slimeknights.tconstruct.tools.traits.TraitAquadynamic;
@@ -40,12 +36,12 @@ import slimeknights.tconstruct.tools.traits.TraitPetramor;
 import slimeknights.tconstruct.tools.traits.TraitPoisonous;
 import slimeknights.tconstruct.tools.traits.TraitPrickly;
 import slimeknights.tconstruct.tools.traits.TraitSharp;
-import slimeknights.tconstruct.tools.traits.TraitSplitting;
 import slimeknights.tconstruct.tools.traits.TraitShocking;
 import slimeknights.tconstruct.tools.traits.TraitSlimey;
 import slimeknights.tconstruct.tools.traits.TraitSpiky;
 import slimeknights.tconstruct.tools.traits.TraitSplintering;
 import slimeknights.tconstruct.tools.traits.TraitSplinters;
+import slimeknights.tconstruct.tools.traits.TraitSplitting;
 import slimeknights.tconstruct.tools.traits.TraitSqueaky;
 import slimeknights.tconstruct.tools.traits.TraitStiff;
 import slimeknights.tconstruct.tools.traits.TraitStonebound;
@@ -55,16 +51,7 @@ import slimeknights.tconstruct.tools.traits.TraitUnnatural;
 import slimeknights.tconstruct.tools.traits.TraitWritable;
 import slimeknights.tconstruct.world.entity.EntityBlueSlime;
 
-@Pulse(
-    id = TinkerTraits.PulseId,
-    description = "All the traits in one handy package",
-    pulsesRequired = TinkerTools.PulseId,
-    forced = true)
 public class TinkerTraits {
-
-  public static final String PulseId = "TinkerTraits";
-  static final Logger log = Util.getLogger(PulseId);
-
 
   // general material traits
   public static final AbstractTrait alien = new TraitAlien();
