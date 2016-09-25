@@ -24,6 +24,7 @@ import javax.vecmath.Vector3f;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.modifiers.IModifier;
 
 /**
  * This model contains all modifiers for a tool Note that handling may seem confusing, because modifier textures are
@@ -40,12 +41,8 @@ public class ModifierModel implements IModel {
     models.put(modifier, texture);
   }
 
-  public String getTextureForModifier(String modifier) {
-    if(!models.containsKey(modifier)) {
-      return null;
-    }
-
-    return models.get(modifier);
+  public Map<String, String> getModels() {
+    return models;
   }
 
   @Override
@@ -84,7 +81,8 @@ public class ModifierModel implements IModel {
       // todo: turn this into an event?
       // check if the corresponding modifier needs this to be a material model
       // if this check ever causes an NPE then a modifier has been removed between model loading and model baking
-      if(TinkerRegistry.getModifier(entry.getKey()).hasTexturePerMaterial()) {
+      IModifier modifier = TinkerRegistry.getModifier(entry.getKey());
+      if(modifier != null && modifier.hasTexturePerMaterial()) {
         MaterialModel materialModel = new MaterialModel(ImmutableList.of(new ResourceLocation(entry.getValue())));
         BakedMaterialModel bakedModel = materialModel.bakeIt(state, format, bakedTextureGetter);
         for(Material material : TinkerRegistry.getAllMaterials()) {

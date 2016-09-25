@@ -85,17 +85,17 @@ public class ModifierModelLoader implements ICustomModelLoader {
     for(Map.Entry<String, String> entry : cache.get(toolname).entrySet()) {
       // check if the modifier actually exists in the game so we don't load unnecessary textures
       IModifier mod = TinkerRegistry.getModifier(entry.getKey());
-
+/*
       if(mod == null) {
         log.debug("Removing texture {} for modifier {}: No modifier present for texture", entry.getValue(), entry.getKey());
         continue;
-      }
+      }*/
 
       // using the String from the modifier means an == check succeeds and fixes lowercasing from the loading from files
-      model.addModelForModifier(mod.getIdentifier(), entry.getValue());
+      model.addModelForModifier(entry.getKey(), entry.getValue());
 
       // register per-material modifiers for texture creation
-      if(mod.hasTexturePerMaterial()) {
+      if(mod != null && mod.hasTexturePerMaterial()) {
         CustomTextureCreator.registerTexture(new ResourceLocation(entry.getValue()));
       }
     }

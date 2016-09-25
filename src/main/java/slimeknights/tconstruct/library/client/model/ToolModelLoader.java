@@ -145,21 +145,40 @@ public class ToolModelLoader implements ICustomModelLoader {
 
       String toolName = FilenameUtils.getBaseName(modelLocation.getResourcePath());
       IModel mods;
+      ModifierModel modifiers = null;
       try {
         mods = ModelLoaderRegistry.getModel(ModifierModelLoader.getLocationForToolModifiers(toolName));
+
+        if(mods == null || !(mods instanceof ModifierModel)) {
+          TinkerRegistry.log.trace(
+              "Toolmodel {} does not have any modifiers associated with it. Be sure that the Tools internal name, the Toolmodels filename and the name used inside the Modifier Model Definition match!",
+              modelLocation);
+        }
+        else {
+          modifiers = (ModifierModel) mods;
+
+          for(ToolModelOverride toolModelOverride : overrides) {
+            if(toolModelOverride.modifierSuffix != null) {
+              String modifierName = toolName + toolModelOverride.modifierSuffix;
+              IModel extraModel = ModelLoaderRegistry.getModel(ModifierModelLoader.getLocationForToolModifiers(modifierName));
+              if(extraModel instanceof ModifierModel) {
+                ModifierModel overriddenModifierModel = new ModifierModel();
+                // fill in non-overridden modifiers
+                for(Map.Entry<String, String> entry : modifiers.getModels().entrySet()) {
+                  overriddenModifierModel.addModelForModifier(entry.getKey(), entry.getValue());
+                }
+                // overwrite overridden modifiers
+                for(Map.Entry<String, String> entry : ((ModifierModel) extraModel).getModels().entrySet()) {
+                  overriddenModifierModel.addModelForModifier(entry.getKey(), entry.getValue());
+                }
+                toolModelOverride.overrideModifierModel = overriddenModifierModel;
+              }
+            }
+          }
+        }
       } catch(Exception e) {
         TinkerRegistry.log.error(e);
-        mods = null;
-      }
-      ModifierModel modifiers = null;
-
-      if(mods == null || !(mods instanceof ModifierModel)) {
-        TinkerRegistry.log.trace(
-            "Toolmodel {} does not have any modifiers associated with it. Be sure that the Tools internal name, the Toolmodels filename and the name used inside the Modifier Model Definition match!",
-            modelLocation);
-      }
-      else {
-        modifiers = (ModifierModel) mods;
+        modifiers = null;
       }
 
       return new ToolModel(defaultTextureListBuilder.build(), parts, brokenParts, rotations, modifiers, transforms, overrides, ammoPosition);

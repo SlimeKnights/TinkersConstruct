@@ -141,7 +141,15 @@ public class ToolModel implements IModel {
       builder2.putAll(IPerspectiveAwareModel.MapWrapper.getTransforms(state));
       builder2.putAll(override.transforms); // only contains actual entries, so we override default values
 
-      BakedToolModel bakedToolModel = getBakedToolModel(base, overridenPartModels, overridenBrokenPartModels, modifierModels, ImmutableMap.copyOf(builder2), ImmutableList.<BakedToolModelOverride>of(), override.ammoPosition);
+      Map<String, IBakedModel> overriddenModifierModels;
+      if(override.overrideModifierModel != null) {
+        overriddenModifierModels = override.overrideModifierModel.bakeModels(state, format, bakedTextureGetter);
+      }
+      else {
+        overriddenModifierModels = modifierModels;
+      }
+
+      BakedToolModel bakedToolModel = getBakedToolModel(base, overridenPartModels, overridenBrokenPartModels, overriddenModifierModels, ImmutableMap.copyOf(builder2), ImmutableList.<BakedToolModelOverride>of(), override.ammoPosition);
       overrideBuilder.add(new BakedToolModelOverride(override.predicates, bakedToolModel));
     }
 
