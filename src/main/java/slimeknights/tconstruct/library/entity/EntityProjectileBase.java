@@ -201,6 +201,13 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       }
 
 
+      // for the sake of dealing damage we always ensure that the impact itemstack has the correct broken state
+      // since the ammo stack can break while the arrow travels/if it's the last arrow
+      boolean brokenStateDiffers = ToolHelper.isBroken(inventoryItem) != ToolHelper.isBroken(item);
+      if(brokenStateDiffers) {
+        toggleBroken(inventoryItem);
+      }
+
       Multimap<String, AttributeModifier> projectileAttributes = null;
       // remove stats from held items
       if(!worldObj.isRemote) {
@@ -221,6 +228,9 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       // deal the damage
       float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
       bounceOff = !dealDamage(speed, inventoryItem, attacker, target);
+      if(brokenStateDiffers) {
+        toggleBroken(inventoryItem);
+      }
 
       // remove stats from projectile
       // apply stats from projectile
@@ -280,6 +290,12 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     if(stack != null) {
       entity.getAttributeMap().applyAttributeModifiers(stack.getAttributeModifiers(slot));
     }
+  }
+
+  private void toggleBroken(ItemStack stack) {
+    NBTTagCompound tag = TagUtil.getToolTag(stack);
+    tag.setBoolean(Tags.BROKEN, !tag.getBoolean(Tags.BROKEN));
+    TagUtil.setToolTag(stack, tag);
   }
 
   // returns true if it was successful
