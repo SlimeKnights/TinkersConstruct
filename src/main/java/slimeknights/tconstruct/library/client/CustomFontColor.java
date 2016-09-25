@@ -1,8 +1,11 @@
 package slimeknights.tconstruct.library.client;
 
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextFormatting;
 
 import java.awt.*;
+
+import slimeknights.tconstruct.library.Util;
 
 public class CustomFontColor {
 
@@ -42,5 +45,15 @@ public class CustomFontColor {
     v = MathHelper.clamp_float(v, 0.01f, 0.5f);
     int color = Color.HSBtoRGB(v, 0.65f, 0.8f);
     return encodeColor(color);
+  }
+
+  public static String formatPartialAmount(int value, int max) {
+    return String.format("%s%s%s/%s%s",
+                         CustomFontColor.valueToColorCode((float) value / (float) max),
+                         Util.df.format(value),
+                         TextFormatting.GRAY.toString(),
+                         CustomFontColor.valueToColorCode(1f),
+                         Util.df.format(max))
+           + TextFormatting.RESET;
   }
 }

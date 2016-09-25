@@ -60,6 +60,10 @@ public class Util {
     return new ModelResourceLocation(resource(res), variant);
   }
 
+  public static ResourceLocation getModifierResource(String res) {
+    return getResource("models/item/modifiers/" + res);
+  }
+
   /**
    * Prefixes the given unlocalized name with tinkers prefix. Use this when passing unlocalized names for a uniform
    * namespace.

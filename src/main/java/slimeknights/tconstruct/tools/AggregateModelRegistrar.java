@@ -91,7 +91,7 @@ public class AggregateModelRegistrar extends AbstractToolPulse {
           // modifiers without model are blacklisted
           continue;
         }
-        registerModifierModel(modifier, Util.getResource("models/item/modifiers/" + modifier.getIdentifier()));
+        registerModifierModel(modifier, Util.getModifierResource(modifier.getIdentifier()));
       }
 
       // we add a temporary modifier that does nothing to work around the model restrictions for the fortify modifier

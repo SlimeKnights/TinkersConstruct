@@ -86,7 +86,9 @@ public final class TagUtil {
   }
 
   public static void setBaseModifiersTagList(NBTTagCompound root, NBTTagList tagList) {
-    getBaseTag(root).setTag(Tags.BASE_MODIFIERS, tagList);
+    NBTTagCompound baseTag = getBaseTag(root);
+    baseTag.setTag(Tags.BASE_MODIFIERS, tagList);
+    setBaseTag(root, baseTag);
   }
 
   public static NBTTagList getBaseMaterialsTagList(ItemStack stack) {
