@@ -59,7 +59,7 @@ public class ModHaste extends ToolModifier {
     // bow speed:
     if(launcher) {
       ProjectileLauncherNBT launcherData = new ProjectileLauncherNBT(TagUtil.getToolTag(rootCompound));
-      launcherData.drawSpeed += getDrawspeedBonus(modData);
+      launcherData.drawSpeed += launcherData.drawSpeed * getDrawspeedBonus(modData);
       TagUtil.setToolTag(rootCompound, launcherData.get());
     }
   }
