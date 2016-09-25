@@ -29,6 +29,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -46,6 +47,8 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 
 public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUser, ILauncher {
+
+  protected static final UUID LAUNCHER_BONUS_DAMAGE = UUID.fromString("066b8892-d2ac-4bae-ac22-26f9f91a02ee");
 
   protected static final ResourceLocation PROPERTY_PULL = new ResourceLocation("pull");
   protected static final ResourceLocation PROPERTY_PULLING = new ResourceLocation("pulling");
@@ -266,19 +269,9 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
   @Override
   public void modifyProjectileAttributes(Multimap<String, AttributeModifier> projectileAttributes) {
-    Collection<AttributeModifier> attributes = projectileAttributes.get(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName());
-    Iterator<AttributeModifier> iter = attributes.iterator();
-    double dmg = 0;
-    while(iter.hasNext()) {
-      AttributeModifier attribute = iter.next();
-      if(attribute.getOperation() == 0) {
-        dmg = attribute.getAmount() + baseProjectileDamage();
-        iter.remove();
-      }
-    }
-
+    double dmg = baseProjectileDamage();
     if(dmg != 0) {
-      projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", dmg, 0));
+      projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(LAUNCHER_BONUS_DAMAGE, "Launcher bonus damage", dmg, 0));
     }
   }
 
