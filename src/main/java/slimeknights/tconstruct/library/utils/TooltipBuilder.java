@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
 import slimeknights.tconstruct.library.tools.ProjectileNBT;
+import slimeknights.tconstruct.library.tools.ranged.BowCore;
 import slimeknights.tconstruct.library.tools.ranged.IAmmo;
 
 import static slimeknights.tconstruct.library.Util.df;
@@ -139,7 +140,12 @@ public class TooltipBuilder {
   }
 
   public TooltipBuilder addDrawSpeed() {
-    tips.add(BowMaterialStats.formatDrawspeed(ProjectileLauncherNBT.from(stack).drawSpeed));
+    float speed = ProjectileLauncherNBT.from(stack).drawSpeed;
+    // convert speed per tick to seconds drawtime
+    if(stack.getItem() instanceof BowCore) {
+      speed = (float)((BowCore) stack.getItem()).getDrawTime()/(20f * speed);
+    }
+    tips.add(BowMaterialStats.formatDrawspeed(speed));
     return this;
   }
 
