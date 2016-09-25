@@ -1,10 +1,13 @@
 package slimeknights.tconstruct.library.entity;
 
+import com.google.common.collect.Multimap;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.SoundEvents;
@@ -32,9 +35,12 @@ import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerPro
 import slimeknights.tconstruct.library.capability.projectile.TinkerProjectileHandler;
 import slimeknights.tconstruct.library.events.ProjectileEvent;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ranged.ILauncher;
 import slimeknights.tconstruct.library.tools.ranged.IProjectile;
 import slimeknights.tconstruct.library.traits.IProjectileTrait;
 import slimeknights.tconstruct.library.utils.AmmoHelper;
+import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
 // have to base this on EntityArrow, otherwise minecraft does derp things because everything is handled based on class.
@@ -180,6 +186,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
   public void onHitEntity(RayTraceResult raytraceResult) {
     ItemStack item = tinkerProjectile.getItemStack();
+    ItemStack launcher = tinkerProjectile.getLaunchingStack();
     boolean bounceOff = false;
     // deal damage if we have everything
     if(item != null && item.getItem() instanceof ToolCore && raytraceResult.entityHit instanceof EntityLivingBase && this.shootingEntity instanceof EntityLivingBase) {
@@ -193,6 +200,8 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
         inventoryItem = item;
       }
 
+
+      Multimap<String, AttributeModifier> projectileAttributes = null;
       // remove stats from held items
       if(!worldObj.isRemote) {
         unequip(attacker, EntityEquipmentSlot.OFFHAND);
@@ -200,7 +209,13 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
         // apply stats from projectile
         if(item.getItem() instanceof IProjectile) {
-          attacker.getAttributeMap().applyAttributeModifiers(((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem));
+          projectileAttributes = ((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem);
+
+          if(launcher != null && launcher.getItem() instanceof ILauncher) {
+            ((ILauncher) launcher.getItem()).modifyProjectileAttributes(projectileAttributes);
+          }
+
+          attacker.getAttributeMap().applyAttributeModifiers(projectileAttributes);
         }
       }
       // deal the damage
@@ -211,7 +226,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       // apply stats from projectile
       if(!worldObj.isRemote) {
         if(item.getItem() instanceof IProjectile) {
-          attacker.getAttributeMap().removeAttributeModifiers(((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem));
+          attacker.getAttributeMap().removeAttributeModifiers(projectileAttributes);
         }
 
         // readd stats from held items

@@ -1,6 +1,10 @@
 package slimeknights.tconstruct.library.tools.ranged;
 
+import com.google.common.collect.Multimap;
+
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
@@ -22,6 +26,8 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -39,7 +45,7 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 
-public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUser {
+public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUser, ILauncher {
 
   protected static final ResourceLocation PROPERTY_PULL = new ResourceLocation("pull");
   protected static final ResourceLocation PROPERTY_PULLING = new ResourceLocation("pulling");
@@ -250,6 +256,26 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
       return null;
     }
     return findAmmo(weapon, player);
+  }
+
+  public abstract float baseProjectileDamage();
+
+  @Override
+  public void modifyProjectileAttributes(Multimap<String, AttributeModifier> projectileAttributes) {
+    Collection<AttributeModifier> attributes = projectileAttributes.get(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName());
+    Iterator<AttributeModifier> iter = attributes.iterator();
+    double dmg = 0;
+    while(iter.hasNext()) {
+      AttributeModifier attribute = iter.next();
+      if(attribute.getOperation() == 0) {
+        dmg = attribute.getAmount() + baseProjectileDamage();
+        iter.remove();
+      }
+    }
+
+    if(dmg != 0) {
+      projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", dmg, 0));
+    }
   }
 
   protected abstract List<Item> getAmmoItems();

@@ -45,6 +45,11 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
   /* Tic Tool Stuff */
 
   @Override
+  public float baseProjectileDamage() {
+    return 2f;
+  }
+
+  @Override
   public float damagePotential() {
     return 0.7f;
   }
