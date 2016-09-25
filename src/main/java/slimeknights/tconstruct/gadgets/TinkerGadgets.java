@@ -383,6 +383,7 @@ public class TinkerGadgets extends TinkerPulse {
 
     // prevents items from despawning in slime channels
     MinecraftForge.EVENT_BUS.register(BlockSlimeChannel.EventHandler.instance);
+    MinecraftForge.EVENT_BUS.register(new GadgetEvents());
 
     proxy.postInit();
   }
