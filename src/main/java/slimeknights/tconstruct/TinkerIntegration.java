@@ -55,14 +55,15 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerMaterials.sponge);
     integrate(TinkerMaterials.firewood);
 
+    // listed here so it's the first in the toolforge listing
+    integrate(TinkerMaterials.iron, TinkerFluids.iron, "Iron").toolforge();
+    integrate(TinkerMaterials.pigiron, TinkerFluids.pigIron, "Pigiron").toolforge();
+
     integrate(TinkerMaterials.knightslime, TinkerFluids.knightslime, "Knightslime").toolforge();
     integrate(TinkerMaterials.slime, "slimecrystalGreen");
     integrate(TinkerMaterials.blueslime, "slimecrystalBlue");
     integrate(TinkerMaterials.magmaslime, "slimecrystalMagma");
-
-    integrate(TinkerMaterials.iron, TinkerFluids.iron, "Iron").toolforge();
-    integrate(TinkerMaterials.pigiron, TinkerFluids.pigIron, "Pigiron").toolforge();
-
+    
     // alubrass needs  both copper and aluminum
     add(new MaterialIntegration(null, TinkerFluids.alubrass, "Alubrass", "ingotCopper", "ingotAluminum")).toolforge();
 

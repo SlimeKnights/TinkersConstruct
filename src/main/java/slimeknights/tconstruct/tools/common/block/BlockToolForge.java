@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.tools.common.tileentity.TileToolForge;
@@ -33,7 +34,7 @@ import slimeknights.tconstruct.tools.common.tileentity.TileToolForge;
 // This literally only is its own block because it has a different material
 public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
 
-  public final Set<String> baseBlocks = Sets.newHashSet(); // oredict list of toolforge blocks
+  public final Set<String> baseBlocks = Sets.newLinkedHashSet(); // oredict list of toolforge blocks
 
   public BlockToolForge() {
     super(Material.IRON);
@@ -70,6 +71,9 @@ public class BlockToolForge extends BlockTable implements ITinkerStationBlock {
       if(ores.size() > 0) {
         list.add(createItemstack(this, 0, getBlockFromItem(ores.get(0).getItem()),
                                  ores.get(0).getItemDamage()));
+        if(!Config.listAllTables) {
+          return;
+        }
       }
     }
   }

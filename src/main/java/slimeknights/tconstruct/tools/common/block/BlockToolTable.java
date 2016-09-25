@@ -127,10 +127,16 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
         for(ItemStack subBlock : subBlocks) {
           list.add(createItemstack(this, meta, getBlockFromItem(subBlock.getItem()), subBlock.getItemDamage()));
+          if(!Config.listAllTables) {
+            return;
+          }
         }
       }
       else {
         list.add(createItemstack(this, meta, block, blockMeta));
+        if(!Config.listAllTables) {
+          return;
+        }
       }
     }
   }
