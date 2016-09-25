@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
@@ -10,6 +11,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.Set;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -91,6 +94,14 @@ public class TinkerOredict {
                                         "Red",
                                         "Black"
   };
+  public static final Set<Item> COOKED_MEAT = ImmutableSet.<Item>builder()
+      .add(Items.COOKED_BEEF)
+      .add(Items.COOKED_CHICKEN)
+      .add(Items.COOKED_FISH)
+      .add(Items.COOKED_MUTTON)
+      .add(Items.COOKED_PORKCHOP)
+      .add(Items.COOKED_RABBIT)
+      .build();
 
   @Subscribe
   public static void doTheOredict(FMLPreInitializationEvent event) {
@@ -122,6 +133,13 @@ public class TinkerOredict {
     oredict(new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.MOSSY_META), "blockMossy");
 
     oredict(Blocks.TRAPDOOR, "trapdoorWood");
+
+    // vanilla cooked meat
+    // compatibility with pams harvestcraft
+    for(Item meat : COOKED_MEAT) {
+      oredict(meat, "listAllmeatcooked");
+    }
+
   }
 
   // common items and blocks

@@ -75,6 +75,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
     }
 
     if(!cache.containsKey(toolname)) {
+      log.debug("Tried to load modifiers for " + toolname + "but no modifiers were found");
       return ModelLoaderRegistry.getMissingModel();
     }
 

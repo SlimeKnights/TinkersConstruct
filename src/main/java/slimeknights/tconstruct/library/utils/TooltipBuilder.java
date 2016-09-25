@@ -152,4 +152,20 @@ public class TooltipBuilder {
     this.add(FletchingMaterialStats.formatAccuracy(ProjectileNBT.from(stack).accuracy));
     return this;
   }
+
+  public static void addModifierTooltips(ItemStack stack, List<String> tooltips) {
+    NBTTagList tagList = TagUtil.getModifiersTagList(stack);
+    for(int i = 0; i < tagList.tagCount(); i++) {
+      NBTTagCompound tag = tagList.getCompoundTagAt(i);
+      ModifierNBT data = ModifierNBT.readTag(tag);
+
+      // get matching modifier
+      IModifier modifier = TinkerRegistry.getModifier(data.identifier);
+      if(modifier == null || modifier.isHidden()) {
+        continue;
+      }
+
+      tooltips.add(data.getColorString() + modifier.getTooltip(tag, false));
+    }
+  }
 }

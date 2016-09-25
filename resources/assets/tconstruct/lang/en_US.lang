@@ -422,6 +422,30 @@ item.tconstruct.throwball.glow.tooltip=Not suited for consumption.
 item.tconstruct.throwball.efln.name=EFLN
 item.tconstruct.throwball.efln.tooltip=Explodes! Save for mining
 
+###################
+# Mom's Spaghetti #
+###################
+
+item.tconstruct.moms_spaghetti.name=Mom's Spaghetti
+item.tconstruct.moms_spaghetti.desc=Delicious!
+item.tconstruct.moms_spaghetti.tooltip1=§oI guess they're all right... but it's just not the same.\nThey defenitively need some sauce, but it has to be red.
+item.tconstruct.moms_spaghetti.tooltip2=§oSomething is missing.. could use some meat. Mama always used ALL the meat.\nI should get at least three different meat types.
+item.tconstruct.moms_spaghetti.tooltip3=§oJust like mama used to make them.
+stat.spaghetti.uses.name=Noms
+stat.spaghetti.nourishment.name=Nourishment
+stat.spaghetti.saturation.name=Saturation
+modifier.spaghetti_sauce.name=with sauce
+modifier.spaghetti_sauce.desc=§oWith beets by mom§r\nIncreases the saturation
+modifier.spaghetti_meat.name=with meat
+modifier.spaghetti_meat.desc=§oAll the meat!§r\nIncreases the nourishment value
+
+item.tconstruct.spaghetti.hard.name=Impossibly hard wheat sticks
+item.tconstruct.spaghetti.hard.tooltip=Completely inedible like that.\nThey need to be softened up, even your sweaty palms aren't enough for that.\nThey should probably soak in some water for a while.
+item.tconstruct.spaghetti.soggy.name=Soggy noodles
+item.tconstruct.spaghetti.soggy.tooltip=Now they're all wet, even your spaghetti arms can bend them now.\nLet's hang them up and get them dry.
+item.tconstruct.spaghetti.cold.name=Cold dried noodles
+item.tconstruct.spaghetti.cold.tooltip=Well, that's better, but they still taste gross.\nWarming them up should make them edible.\nThey might even be good enough to get you off your weak knees.
+
 #################
 #   Entities    #
 #################

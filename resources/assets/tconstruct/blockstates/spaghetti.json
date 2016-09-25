@@ -1,0 +1,12 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "transform": "forge:default-item",
+        "model": "forge:item-layer"
+    },
+    "variants": {
+        "hard": [{ "textures": { "layer0": "tconstruct:items/food/spaghetti_hard" }}],
+        "soggy": [{ "textures": { "layer0": "tconstruct:items/food/spaghetti_soggy" }}],
+        "cold": [{ "textures": { "layer0": "tconstruct:items/food/spaghetti_cold" }}]
+    }
+}
