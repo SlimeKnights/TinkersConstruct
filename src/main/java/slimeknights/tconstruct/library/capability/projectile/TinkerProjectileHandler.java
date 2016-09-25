@@ -24,9 +24,11 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
 
   public static final String TAG_PARENT = "parent";
   public static final String TAG_LAUNCHER = "launcher";
+  public static final String TAG_POWER = "power";
   private ItemStack parent;
   private ItemStack launcher;
   private List<IProjectileTrait> projectileTraitList = Lists.newArrayList();
+  private float power = 1f;
 
   public TinkerProjectileHandler() {
   }
@@ -86,6 +88,15 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
     return false;
   }
 
+  @Override
+  public void setPower(float power) {
+    this.power = power;
+  }
+
+  @Override
+  public float getPower() {
+    return power;
+  }
 
 
   @Override
@@ -97,6 +108,7 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
     if(launcher != null) {
       tag.setTag(TAG_LAUNCHER, launcher.writeToNBT(new NBTTagCompound()));
     }
+    tag.setFloat(TAG_POWER, power);
     return tag;
   }
 
@@ -108,6 +120,7 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
       parent = ItemStack.loadItemStackFromNBT(nbt);
     }
     launcher = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag(TAG_LAUNCHER));
+    power = nbt.getFloat(TAG_POWER);
     updateTraits();
   }
 }

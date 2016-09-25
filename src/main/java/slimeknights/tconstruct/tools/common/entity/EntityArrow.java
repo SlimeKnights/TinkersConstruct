@@ -23,8 +23,8 @@ public class EntityArrow extends EntityProjectileBase {
     super(world, d, d1, d2);
   }
 
-  public EntityArrow(World world, EntityPlayer player, float speed, float inaccuracy, ItemStack stack, ItemStack launchingStack) {
-    super(world, player, speed, inaccuracy, stack, launchingStack);
+  public EntityArrow(World world, EntityPlayer player, float speed, float inaccuracy, float power, ItemStack stack, ItemStack launchingStack) {
+    super(world, player, speed, inaccuracy, power, stack, launchingStack);
   }
 
   @Override

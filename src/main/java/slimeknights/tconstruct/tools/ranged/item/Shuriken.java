@@ -49,7 +49,7 @@ public class Shuriken extends ProjectileCore {
 
     if(!worldIn.isRemote) {
       boolean usedAmmo = useAmmo(itemStackIn, playerIn);
-      EntityProjectileBase projectile = getProjectile(itemStackIn, itemStackIn, worldIn, playerIn, 2.1f, 0f, usedAmmo);
+      EntityProjectileBase projectile = getProjectile(itemStackIn, itemStackIn, worldIn, playerIn, 2.1f, 0f, 1f, usedAmmo);
       worldIn.spawnEntityInWorld(projectile);
     }
 
@@ -77,7 +77,7 @@ public class Shuriken extends ProjectileCore {
   }
 
   @Override
-  public EntityProjectileBase getProjectile(ItemStack stack, ItemStack launcher, World world, EntityPlayer player, float speed, float inaccuracy, boolean usedAmmo) {
+  public EntityProjectileBase getProjectile(ItemStack stack, ItemStack launcher, World world, EntityPlayer player, float speed, float inaccuracy, float progress, boolean usedAmmo) {
     inaccuracy *= ProjectileNBT.from(stack).accuracy;
     return new EntityShuriken(world, player, speed, inaccuracy, getProjectileStack(stack, world, player, usedAmmo), launcher);
   }

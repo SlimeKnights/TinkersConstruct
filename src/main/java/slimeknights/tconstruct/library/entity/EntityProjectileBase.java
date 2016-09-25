@@ -7,6 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -25,6 +26,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+
+import java.util.UUID;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -46,6 +49,8 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 // have to base this on EntityArrow, otherwise minecraft does derp things because everything is handled based on class.
 public abstract class EntityProjectileBase extends EntityArrow implements IEntityAdditionalSpawnData {
 
+  protected static final UUID PROJECTILE_POWER_MODIFIER = UUID.fromString("c6aefc21-081a-4c4a-b076-8f9d6cef9122");
+
   public TinkerProjectileHandler tinkerProjectile = new TinkerProjectileHandler();
 
   public boolean bounceOnNoDamage = true;
@@ -62,7 +67,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.setPosition(d, d1, d2);
   }
 
-  public EntityProjectileBase(World world, EntityPlayer player, float speed, float inaccuracy, ItemStack stack, ItemStack launchingStack) {
+  public EntityProjectileBase(World world, EntityPlayer player, float speed, float inaccuracy, float power, ItemStack stack, ItemStack launchingStack) {
     this(world);
 
     this.shootingEntity = player;
@@ -83,6 +88,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     // our stuff
     tinkerProjectile.setItemStack(stack);
     tinkerProjectile.setLaunchingStack(launchingStack);
+    tinkerProjectile.setPower(power);
 
     for(IProjectileTrait trait : tinkerProjectile.getProjectileTraits()) {
       trait.onLaunch(this, world, player);
@@ -181,7 +187,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       this.inTile.onEntityCollidedWithBlock(this.worldObj, blockpos, iblockstate, this);
     }
 
-    this.defused = true; // defuse it so it doesn't hit stuff anymore, being weird
+    defuse(); // defuse it so it doesn't hit stuff anymore, being weird
   }
 
   public void onHitEntity(RayTraceResult raytraceResult) {
@@ -221,6 +227,10 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
           if(launcher != null && launcher.getItem() instanceof ILauncher) {
             ((ILauncher) launcher.getItem()).modifyProjectileAttributes(projectileAttributes);
           }
+
+          // factor in power
+          projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(),
+                                   new AttributeModifier(PROJECTILE_POWER_MODIFIER, "Weapon damage multiplier", tinkerProjectile.getPower() - 1f, 2));
 
           attacker.getAttributeMap().applyAttributeModifiers(projectileAttributes);
         }
@@ -580,6 +590,8 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     data.writeDouble(this.motionZ);
 
     ByteBufUtils.writeItemStack(data, tinkerProjectile.getItemStack());
+    ByteBufUtils.writeItemStack(data, tinkerProjectile.getLaunchingStack());
+    data.writeFloat(tinkerProjectile.getPower());
   }
 
   @Override
@@ -592,6 +604,8 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.motionZ = data.readDouble();
 
     tinkerProjectile.setItemStack(ByteBufUtils.readItemStack(data));
+    tinkerProjectile.setLaunchingStack(ByteBufUtils.readItemStack(data));
+    tinkerProjectile.setPower(data.readFloat());
 
     this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
     this.posY -= 0.10000000149011612D;

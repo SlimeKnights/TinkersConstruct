@@ -22,7 +22,7 @@ public class EntityShuriken extends EntityProjectileBase {
   }
 
   public EntityShuriken(World world, EntityPlayer player, float speed, float inaccuracy, ItemStack stack, ItemStack launchingStack) {
-    super(world, player, speed, inaccuracy, stack, launchingStack);
+    super(world, player, speed, inaccuracy, 1f, stack, launchingStack);
   }
 
   @Override

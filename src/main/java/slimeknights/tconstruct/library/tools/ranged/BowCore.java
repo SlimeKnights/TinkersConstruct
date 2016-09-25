@@ -174,7 +174,8 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
   }
 
   public void shootProjectile(ItemStack ammo, ItemStack bow, World worldIn, EntityPlayer player, int useTime) {
-    float power = ItemBow.getArrowVelocity(useTime) * getDrawbackProgress(bow, useTime) * baseProjectileSpeed();
+    float progress = getDrawbackProgress(bow, useTime);
+    float power = ItemBow.getArrowVelocity(useTime) * progress * baseProjectileSpeed();
     power *= ProjectileLauncherNBT.from(bow).range;
 
     if(!worldIn.isRemote) {
@@ -185,9 +186,12 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
         if(i == 0 || event.consumeAmmoPerProjectile) {
           usedAmmo = consumeAmmo(ammo, player);
         }
-        EntityArrow projectile = getProjectileEntity(ammo, bow, worldIn, player, power, baseInaccuracy(), usedAmmo);
+        EntityArrow projectile = getProjectileEntity(ammo, bow, worldIn, player, power, baseInaccuracy(), progress*progress, usedAmmo);
 
         if(projectile != null && ProjectileEvent.OnLaunch.fireEvent(projectile, bow, player)) {
+          if(progress >= 1f) {
+            projectile.setIsCritical(true);
+          }
           if(!player.capabilities.isCreativeMode) {
             ToolHelper.damageTool(bow, 1, player);
           }
@@ -199,9 +203,9 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     playShootSound(power, worldIn, player);
   }
 
-  public EntityArrow getProjectileEntity(ItemStack ammo, ItemStack bow, World world, EntityPlayer player, float power, float inaccuracy, boolean usedAmmo) {
+  public EntityArrow getProjectileEntity(ItemStack ammo, ItemStack bow, World world, EntityPlayer player, float power, float inaccuracy, float progress, boolean usedAmmo) {
     if(ammo.getItem() instanceof IAmmo) {
-      return ((IAmmo) ammo.getItem()).getProjectile(ammo, bow, world, player, power, inaccuracy, usedAmmo);
+      return ((IAmmo) ammo.getItem()).getProjectile(ammo, bow, world, player, power, inaccuracy, progress, usedAmmo);
     }
     else if(ammo.getItem() instanceof ItemArrow) {
       EntityArrow projectile = ((ItemArrow) ammo.getItem()).createArrow(world, ammo, player);
