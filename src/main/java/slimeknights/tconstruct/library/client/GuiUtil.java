@@ -105,6 +105,8 @@ public class GuiUtil {
         GuiUtil.amountToString(maxCap, text);
         text.add(Util.translateFormatted("gui.smeltery.capacity_available"));
         GuiUtil.amountToString(maxCap - usedCap, text);
+        text.add(Util.translateFormatted("gui.smeltery.capacity_used"));
+        GuiUtil.amountToString(usedCap, text);
       }
       else {
         text.add(TextFormatting.WHITE + hovered.getLocalizedName());
@@ -256,7 +258,7 @@ public class GuiUtil {
   private static int calcLiquidText(int amount, int divider, String unit, List<String> text) {
     int full = amount / divider;
     if(full > 0) {
-      text.add(String.format("%d %s%s", full, TextFormatting.GRAY, unit));
+      text.add(String.format("%s%d %s", TextFormatting.GRAY, full, unit));
     }
 
     return amount % divider;
