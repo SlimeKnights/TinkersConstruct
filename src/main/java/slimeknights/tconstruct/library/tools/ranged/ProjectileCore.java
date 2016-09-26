@@ -6,10 +6,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.world.World;
 
@@ -28,6 +30,7 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
+import slimeknights.tconstruct.tools.traits.TraitEnderference;
 
 /**
  * This class is a tool that has ammo.
@@ -36,6 +39,7 @@ import slimeknights.tconstruct.library.utils.TooltipBuilder;
  */
 public abstract class ProjectileCore extends TinkerToolCore implements IProjectile, IAmmo {
 
+  public static final String DAMAGE_TYPE_PROJECTILE = "projectile";
   protected int durabilityPerAmmo;
 
   public ProjectileCore(PartMaterialType... requiredComponents) {
@@ -139,7 +143,12 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
 
   @Override
   public boolean dealDamageRanged(ItemStack stack, Entity projectile, EntityLivingBase player, Entity entity, float damage) {
-    DamageSource damageSource = new EntityDamageSourceIndirect("projectile", projectile, player).setProjectile();
+    DamageSource damageSource = new EntityDamageSourceIndirect(DAMAGE_TYPE_PROJECTILE, projectile, player).setProjectile();
+
+    // friggin vanilla hardcode
+    if(entity instanceof EntityEnderman && ((EntityEnderman) entity).getActivePotionEffect(TraitEnderference.Enderference) != null) {
+      damageSource = new EntityDamageSource(DAMAGE_TYPE_PROJECTILE, player);
+    }
 
     return entity.attackEntityFrom(damageSource, damage);
   }

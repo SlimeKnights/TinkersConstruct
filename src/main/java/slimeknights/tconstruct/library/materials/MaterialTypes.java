@@ -9,6 +9,7 @@ public interface MaterialTypes {
   String BOW = "bow";
   String BOWSTRING = "bowstring";
 
+  String PROJECTILE = "projectile";
   String SHAFT = "shaft";
   String FLETCHING = "fletching";
 }

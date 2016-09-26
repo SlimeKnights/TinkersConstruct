@@ -65,6 +65,7 @@ public class Material extends RecipeMatchRegistry {
     UNKNOWN.addStats(new BowStringMaterialStats(1f));
     UNKNOWN.addStats(new ArrowShaftMaterialStats(1f, 0));
     UNKNOWN.addStats(new FletchingMaterialStats(1f, 1f));
+    UNKNOWN.addStats(new ProjectileMaterialStats());
   }
 
   /**

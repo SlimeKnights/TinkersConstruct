@@ -115,7 +115,7 @@ public class PartMaterialType {
   }
 
   public static PartMaterialType arrowHead(IToolPart part) {
-    return new PartMaterialType(part, MaterialTypes.HEAD);
+    return new PartMaterialType(part, MaterialTypes.HEAD, MaterialTypes.PROJECTILE);
   }
 
   public static PartMaterialType arrowShaft(IToolPart part) {

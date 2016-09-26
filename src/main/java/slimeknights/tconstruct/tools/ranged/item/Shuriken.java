@@ -26,7 +26,7 @@ import slimeknights.tconstruct.tools.common.entity.EntityShuriken;
 
 public class Shuriken extends ProjectileCore {
 
-  private static PartMaterialType shurikenPMT = new PartMaterialType(TinkerTools.knifeBlade, MaterialTypes.HEAD, MaterialTypes.EXTRA);
+  private static PartMaterialType shurikenPMT = new PartMaterialType(TinkerTools.knifeBlade, MaterialTypes.HEAD, MaterialTypes.EXTRA, MaterialTypes.PROJECTILE);
 
   public Shuriken() {
     super(shurikenPMT, shurikenPMT, shurikenPMT, shurikenPMT);

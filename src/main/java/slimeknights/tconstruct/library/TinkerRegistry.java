@@ -31,6 +31,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -41,6 +42,8 @@ import slimeknights.tconstruct.library.events.MaterialEvent;
 import slimeknights.tconstruct.library.events.TinkerRegisterEvent;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
+import slimeknights.tconstruct.library.materials.ProjectileMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
@@ -243,6 +246,10 @@ public final class TinkerRegistry {
 
     String activeMod = Loader.instance().activeModContainer().getModId();
     putStatTrace(identifier, stats, activeMod);
+
+    if(Objects.equals(stats.getIdentifier(), MaterialTypes.HEAD) && !material.hasStats(MaterialTypes.PROJECTILE)) {
+      addMaterialStats(material, new ProjectileMaterialStats());
+    }
   }
 
   public static void addMaterialTrait(String materialIdentifier, ITrait trait, String stats) {

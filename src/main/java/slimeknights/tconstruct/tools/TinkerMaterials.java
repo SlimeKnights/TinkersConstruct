@@ -42,6 +42,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 
 import static slimeknights.tconstruct.library.materials.MaterialTypes.HEAD;
+import static slimeknights.tconstruct.library.materials.MaterialTypes.PROJECTILE;
 import static slimeknights.tconstruct.library.materials.MaterialTypes.SHAFT;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.COBALT;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.DIAMOND;
@@ -285,6 +286,7 @@ public final class TinkerMaterials {
     endstone.setRepresentativeItem(Blocks.END_STONE);
     endstone.addTrait(alien, HEAD);
     endstone.addTrait(enderference);
+    endstone.addTrait(enderference, PROJECTILE);
 
     // item/special resources
     bone.setCraftable(true);
