@@ -65,7 +65,7 @@ public class Rapier extends SwordCore {
       hit = dealHybridDamage(DamageSource.causeMobDamage(player), entity, damage);
     }
 
-    if(hit && readyForSpecialAttack(entity)) {
+    if(hit && readyForSpecialAttack(player)) {
       TinkerTools.proxy.spawnAttackParticle(Particles.RAPIER_ATTACK, player, 0.8d);
     }
 
