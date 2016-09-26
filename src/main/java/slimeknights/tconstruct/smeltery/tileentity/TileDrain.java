@@ -37,7 +37,7 @@ public class TileDrain extends TileSmelteryComponent {
   public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
       TileEntity te = this.getSmelteryTankHandler();
-      if(te == null) {
+      if(te == null || !(te instanceof ISmelteryTankHandler)) {
         return super.getCapability(capability, facing);
       }
 

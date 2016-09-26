@@ -64,6 +64,11 @@ public class GuiSmeltery extends GuiHeatingStructureFuelTank {
     if(tooltip != null) {
       this.drawHoveringText(tooltip, mouseX, mouseY);
     }
+
+    // Fuel tooltips
+    if(71 <= mouseX && mouseX < 83 && 16 <= mouseY && mouseY < 68) {
+      drawFuelTooltip(mouseX, mouseY);
+    }
   }
 
   @Override
