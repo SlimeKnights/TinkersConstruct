@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.melee.item;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -56,7 +57,7 @@ public class Rapier extends SwordCore {
   }
 
   @Override
-  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, Entity entity, float damage) {
     boolean hit;
     if(player instanceof EntityPlayer) {
       hit = dealHybridDamage(DamageSource.causePlayerDamage((EntityPlayer) player), entity, damage);
@@ -73,18 +74,19 @@ public class Rapier extends SwordCore {
   }
 
   // changes the passed in damagesource, but the default method calls we use always create a new object
-  private boolean dealHybridDamage(DamageSource source, EntityLivingBase target, float damage) {
+  private boolean dealHybridDamage(DamageSource source, Entity target, float damage) {
     // half damage normal, half damage armor bypassing
     boolean hit = target.attackEntityFrom(source, damage / 2f);
-    if(hit) {
+    if(hit && target instanceof EntityLivingBase) {
+      EntityLivingBase targetLiving = (EntityLivingBase) target;
       // reset things to deal damage again
-      target.hurtResistantTime = 0;
-      target.lastDamage = 0;
-      target.attackEntityFrom(source.setDamageBypassesArmor(), damage / 2f);
+      targetLiving.hurtResistantTime = 0;
+      targetLiving.lastDamage = 0;
+      targetLiving.attackEntityFrom(source.setDamageBypassesArmor(), damage / 2f);
 
       int count = Math.round(damage / 2f);
       if(count > 0) {
-        TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_ARMOR, target, count);
+        TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_ARMOR, targetLiving, count);
       }
     }
     return hit;

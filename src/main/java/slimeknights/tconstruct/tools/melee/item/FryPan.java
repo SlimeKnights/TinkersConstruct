@@ -118,7 +118,7 @@ public class FryPan extends TinkerToolCore {
   }
 
   @Override
-  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, Entity entity, float damage) {
     boolean hit = super.dealDamage(stack, player, entity, damage);
     if(hit || player.worldObj.isRemote) {
       player.playSound(Sounds.frypan_boing, 2f, 1f);

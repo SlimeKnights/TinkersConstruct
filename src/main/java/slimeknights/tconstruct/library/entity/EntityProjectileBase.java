@@ -151,7 +151,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     return 0.4f;
   }
 
-  protected void doLivingHit(EntityLivingBase entityHit) {
+  protected void onEntityHit(Entity entityHit) {
     setDead();
   }
 
@@ -194,10 +194,11 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     ItemStack item = tinkerProjectile.getItemStack();
     ItemStack launcher = tinkerProjectile.getLaunchingStack();
     boolean bounceOff = false;
+    Entity entityHit = raytraceResult.entityHit;
     // deal damage if we have everything
-    if(item != null && item.getItem() instanceof ToolCore && raytraceResult.entityHit instanceof EntityLivingBase && this.shootingEntity instanceof EntityLivingBase) {
+    if(item != null && item.getItem() instanceof ToolCore && this.shootingEntity instanceof EntityLivingBase) {
       EntityLivingBase attacker = (EntityLivingBase) this.shootingEntity;
-      EntityLivingBase target = (EntityLivingBase) raytraceResult.entityHit;
+      //EntityLivingBase target = (EntityLivingBase) raytraceResult.entityHit;
 
       // find the actual itemstack in the players inventory
       ItemStack inventoryItem = AmmoHelper.getMatchingItemstackFromInventory(tinkerProjectile.getItemStack(), attacker, false);
@@ -237,7 +238,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       }
       // deal the damage
       float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-      bounceOff = !dealDamage(speed, inventoryItem, attacker, target);
+      bounceOff = !dealDamage(speed, inventoryItem, attacker, entityHit);
       if(brokenStateDiffers) {
         toggleBroken(inventoryItem);
       }
@@ -255,7 +256,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       }
 
       if(!bounceOff) {
-        doLivingHit(target);
+        onEntityHit(entityHit);
       }
     }
 
@@ -309,7 +310,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   }
 
   // returns true if it was successful
-  public boolean dealDamage(float speed, ItemStack item, EntityLivingBase attacker, EntityLivingBase target) {
+  public boolean dealDamage(float speed, ItemStack item, EntityLivingBase attacker, Entity target) {
     return ToolHelper.attackEntity(item, (ToolCore) item.getItem(), attacker, target, this);
   }
 
