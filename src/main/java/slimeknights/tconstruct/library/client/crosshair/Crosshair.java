@@ -36,8 +36,8 @@ public class Crosshair implements ICrosshair {
 
     mc.getTextureManager().bindTexture(texture);
     GlStateManager.enableBlend();
-    OpenGlHelper.glBlendFunc(GL11.GL_ONE_MINUS_DST_COLOR, GL11.GL_ONE_MINUS_SRC_COLOR, 1, 0);
-
+    GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+    GlStateManager.enableAlpha();
     float spread = (1.0f - charge) * 25f;
 
     drawCrosshair(spread, width, height, partialTicks);
