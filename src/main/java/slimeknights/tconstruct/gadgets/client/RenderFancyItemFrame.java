@@ -29,10 +29,13 @@ public class RenderFancyItemFrame extends RenderItemFrame {
   public static final IRenderFactory<EntityFancyItemFrame> FACTORY = new Factory();
 
   private final Minecraft mc = Minecraft.getMinecraft();
-  public static final ModelResourceLocation mapModel = Util.getModelResource("fancy_frame", "map");
 
   public RenderFancyItemFrame(RenderManager renderManagerIn, RenderItem itemRendererIn) {
     super(renderManagerIn, itemRendererIn);
+  }
+
+  public static String getVariant(EntityFancyItemFrame.FrameType type, boolean withMap) {
+    return String.format("map=%s,type=%s", withMap, type.toString());
   }
 
   @Override
@@ -54,12 +57,10 @@ public class RenderFancyItemFrame extends RenderItemFrame {
       ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
       IBakedModel ibakedmodel;
 
-      if(entity.getDisplayedItem() != null && entity.getDisplayedItem().getItem() == Items.FILLED_MAP) {
-        ibakedmodel = modelmanager.getModel(mapModel);
-      }
-      else {
-        ibakedmodel = modelmanager.getModel(Util.getModelResource("fancy_frame", ((EntityFancyItemFrame) entity).getType().toString()));
-      }
+      boolean withMap = entity.getDisplayedItem() != null && entity.getDisplayedItem().getItem() == Items.FILLED_MAP;
+      String variant = getVariant(((EntityFancyItemFrame) entity).getType(), withMap);
+
+      ibakedmodel = modelmanager.getModel(Util.getModelResource("fancy_frame", variant));
 
       GlStateManager.pushMatrix();
       GlStateManager.translate(-0.5F, -0.5F, -0.5F);

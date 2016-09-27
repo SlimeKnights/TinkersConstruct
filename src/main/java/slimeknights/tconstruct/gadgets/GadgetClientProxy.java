@@ -113,9 +113,14 @@ public class GadgetClientProxy extends ClientProxy {
     RenderingRegistry.registerEntityRenderingHandler(EntityFancyItemFrame.class, RenderFancyItemFrame.FACTORY);
 
     for(EntityFancyItemFrame.FrameType type : EntityFancyItemFrame.FrameType.values()) {
-      ModelResourceLocation loc = Util.getModelResource("fancy_frame", type.toString());
-      ModelLoader.registerItemVariants(TinkerGadgets.fancyFrame, loc);
-      ModelLoader.setCustomModelResourceLocation(TinkerGadgets.fancyFrame, type.ordinal(), loc);
+      for(boolean withMap : new boolean[]{true, false}) {
+        String variant = RenderFancyItemFrame.getVariant(type, withMap);
+        ModelResourceLocation loc = Util.getModelResource("fancy_frame", variant);
+        ModelLoader.registerItemVariants(TinkerGadgets.fancyFrame, loc);
+        if(!withMap) {
+          ModelLoader.setCustomModelResourceLocation(TinkerGadgets.fancyFrame, type.ordinal(), loc);
+        }
+      }
     }
     RenderingRegistry.registerEntityRenderingHandler(EntityThrowball.class, RenderThrowball.FACTORY);
 
