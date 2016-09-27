@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidTank;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.ListIterator;
 
 import javax.annotation.Nullable;
+
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 public class SmelteryTank implements IFluidTank, IFluidHandler {
 
@@ -143,6 +146,14 @@ public class SmelteryTank implements IFluidTank, IFluidHandler {
     NBTTagList taglist = new NBTTagList();
 
     for(FluidStack liquid : liquids) {
+      if(FluidRegistry.getFluidName(liquid.getFluid()) == null) {
+        TinkerSmeltery.log.error("Error trying to save fluids inside smeltery! Invalid Liquid found! Smeltery contents:");
+        for(FluidStack liquid2 : liquids) {
+          TinkerSmeltery.log.error("  " + liquid2.getUnlocalizedName() + "/" + liquid2.amount + "mb");
+        }
+        continue;
+      }
+
       NBTTagCompound fluidTag = new NBTTagCompound();
       liquid.writeToNBT(fluidTag);
       taglist.appendTag(fluidTag);
