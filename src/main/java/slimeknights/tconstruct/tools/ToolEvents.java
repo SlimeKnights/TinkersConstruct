@@ -135,19 +135,29 @@ public class ToolEvents {
 
   @SubscribeEvent
   public void onLooting(LootingLevelEvent event) {
+    ItemStack item;
+    int level = event.getLootingLevel();
+
     // ensure looting is taken into account for projectiles
-    Entity projectile = event.getDamageSource().getEntity();
-    if(projectile == null || !projectile.hasCapability(CapabilityTinkerProjectile.PROJECTILE_CAPABILITY, null)) {
-      return;
+    Entity projectile = event.getDamageSource().getSourceOfDamage();
+    if(projectile != null && projectile.hasCapability(CapabilityTinkerProjectile.PROJECTILE_CAPABILITY, null)) {
+      ITinkerProjectile tinkerProjectile = projectile.getCapability(CapabilityTinkerProjectile.PROJECTILE_CAPABILITY, null);
+      item = tinkerProjectile.getItemStack();
+      level = Math.max(level, getLooting(item));
+    }
+    // or the item itself
+    else if(event.getDamageSource().getEntity() instanceof EntityPlayer) {
+      item = ((EntityPlayer) event.getDamageSource().getEntity()).getHeldItemMainhand();
+      level = Math.max(level, getLooting(item));
     }
 
-    ITinkerProjectile tinkerProjectile = projectile.getCapability(CapabilityTinkerProjectile.PROJECTILE_CAPABILITY, null);
-    ItemStack item = tinkerProjectile.getItemStack();
+    event.setLootingLevel(level);
+  }
+
+  private int getLooting(ItemStack item) {
     if(item != null) {
-      int level = TinkerModifiers.modLuck.getLuckLevel(item);
-      if(level > 0) {
-        event.setLootingLevel(level);
-      }
+      return TinkerModifiers.modLuck.getLuckLevel(item);
     }
+    return 0;
   }
 }

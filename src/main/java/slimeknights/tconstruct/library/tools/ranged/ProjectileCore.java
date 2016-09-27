@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.tools.ranged;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.EntityEnderman;
@@ -21,13 +20,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ProjectileNBT;
 import slimeknights.tconstruct.library.tools.TinkerToolCore;
-import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.tools.traits.TraitEnderference;
@@ -147,7 +143,7 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
 
     // friggin vanilla hardcode
     if(entity instanceof EntityEnderman && ((EntityEnderman) entity).getActivePotionEffect(TraitEnderference.Enderference) != null) {
-      damageSource = new EntityDamageSource(DAMAGE_TYPE_PROJECTILE, player);
+      damageSource = new DamageSourceProjectileForEndermen(DAMAGE_TYPE_PROJECTILE, projectile, player);
     }
 
     return entity.attackEntityFrom(damageSource, damage);
@@ -192,4 +188,20 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
 
   @Override
   public abstract ProjectileNBT buildTagData(List<Material> materials);
+
+  public static class DamageSourceProjectileForEndermen extends EntityDamageSource {
+
+    public final Entity projectile;
+
+    public DamageSourceProjectileForEndermen(String damageTypeIn, Entity projectile, Entity damageSourceEntityIn) {
+      super(damageTypeIn, damageSourceEntityIn);
+      this.projectile = projectile;
+    }
+
+    @Nullable
+    @Override
+    public Entity getSourceOfDamage() {
+      return projectile;
+    }
+  }
 }
