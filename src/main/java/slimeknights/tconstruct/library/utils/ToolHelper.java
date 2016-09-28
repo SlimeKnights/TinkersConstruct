@@ -234,9 +234,13 @@ public final class ToolHelper {
       return ImmutableList.of();
     }
 
-    RayTraceResult mop = ((ToolCore) stack.getItem()).rayTrace(world, player, false);
-    if(mop == null) {
-      return ImmutableList.of();
+    // raytrace to get the side, but has to result in the same block
+    RayTraceResult mop = ((ToolCore) stack.getItem()).rayTrace(world, player, true);
+    if(mop == null || !origin.equals(mop.getBlockPos())) {
+      mop = ((ToolCore) stack.getItem()).rayTrace(world, player, false);
+      if(mop == null || !origin.equals(mop.getBlockPos())) {
+        return ImmutableList.of();
+      }
     }
 
     // fire event
