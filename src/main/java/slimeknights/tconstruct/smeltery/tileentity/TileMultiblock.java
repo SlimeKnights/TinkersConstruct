@@ -107,7 +107,7 @@ public abstract class TileMultiblock<T extends MultiblockDetection> extends Tile
 
     if(info != null) {
       minPos = info.minPos.add(1, 1, 1); // add walls and floor
-      maxPos = info.maxPos.add(-1, hasCeiling() ? 1 : 0, -1); // subtract walls, no ceiling
+      maxPos = info.maxPos.add(-1, hasCeiling() ? -1 : 0, -1); // subtract walls, no ceiling
     }
     else {
       minPos = maxPos = this.pos;
