@@ -242,8 +242,13 @@ public class Scythe extends AoeToolCore {
         return;
       }
 
-      // handlede by event
+      // handled by event
       if(!TinkerToolEvent.OnScytheHarvest.fireEvent(stack, player, world, pos, state)) {
+        return;
+      }
+
+      // do not harvest bottom row reeds
+      if(state.getBlock() instanceof BlockReed && !(world.getBlockState(pos.down()).getBlock() instanceof BlockReed)) {
         return;
       }
 
