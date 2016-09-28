@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockReed;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -164,13 +166,14 @@ public class Scythe extends AoeToolCore {
       return ActionResult.newResult(EnumActionResult.PASS, stack);
     }
 
-    int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
+    int fortune = ToolHelper.getFortuneLevel(stack);
 
     // if we cannot harvest the center block then back out
     // don't break it now or the AOE check can fail due to an air block being there
     BlockPos origin = trace.getBlockPos();
     IBlockState state = world.getBlockState(origin);
-    if(!ToolHelper.isToolEffective2(stack, state) || state.getBlockHardness(world, origin) > 0) {
+
+    if(!canHarvestCrop(stack, world, player, origin, state)) {
       return ActionResult.newResult(EnumActionResult.PASS, stack);
     }
 
@@ -186,6 +189,15 @@ public class Scythe extends AoeToolCore {
     player.spawnSweepParticles();
 
     return ActionResult.newResult(player.worldObj.isRemote ? EnumActionResult.PASS : EnumActionResult.SUCCESS, stack);
+  }
+
+  protected boolean canHarvestCrop(@Nonnull ItemStack stack, World world, EntityPlayer player, BlockPos pos, IBlockState state) {
+    boolean canHarvest = state.getBlock() instanceof BlockReed;
+
+    if(state.getBlock() instanceof BlockCrops && ((BlockCrops) state.getBlock()).isMaxAge(state)) {
+      canHarvest = true;
+    }
+    return TinkerToolEvent.ScytheCanHarvest.fireEvent(stack, player, world, pos, state, canHarvest);
   }
 
   /**
@@ -222,10 +234,18 @@ public class Scythe extends AoeToolCore {
     return shorn;
   }
 
-  public boolean harvestCrop(ItemStack stack, World world, EntityPlayer player, BlockPos pos, int fortune) {
+  public void harvestCrop(ItemStack stack, World world, EntityPlayer player, BlockPos pos, int fortune) {
     IBlockState state = world.getBlockState(pos);
     // only work on blocks with a hardness of 0, as this is instant break
-    if(ToolHelper.isToolEffective2(stack, state) && state.getBlockHardness(world, pos) <= 0) {
+    if(canHarvestCrop(stack, world, player, pos, state)) {
+      if(world.isRemote) {
+        return;
+      }
+
+      // handlede by event
+      if(!TinkerToolEvent.OnScytheHarvest.fireEvent(stack, player, world, pos, state)) {
+        return;
+      }
 
       // first, try getting a seed from the drops, if we don't have one we don't replant
       float chance = 1.0f;
@@ -260,24 +280,18 @@ public class Scythe extends AoeToolCore {
           }
 
           // drop the remainder of the items
-          if(!world.isRemote) {
-            for(ItemStack drop : drops) {
-              if(world.rand.nextFloat() <= chance) {
-                Block.spawnAsEntity(world, pos, drop);
-              }
+          for(ItemStack drop : drops) {
+            if(world.rand.nextFloat() <= chance) {
+              Block.spawnAsEntity(world, pos, drop);
             }
           }
-          return true;
+          return;
         }
       }
 
       // can't plant? just break the block directly
       breakBlock(stack, player, pos, pos);
-
-      return true;
     }
-
-    return false;
   }
 
   public boolean shearEntity(ItemStack stack, World world, EntityPlayer player, Entity entity, int fortune) {

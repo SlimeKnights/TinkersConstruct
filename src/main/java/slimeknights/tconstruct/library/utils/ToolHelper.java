@@ -122,6 +122,13 @@ public final class ToolHelper {
     return getIntTag(stack, Tags.FREE_MODIFIERS);
   }
 
+  public static int getFortuneLevel(ItemStack stack) {
+    int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
+    int luck = TinkerModifiers.modLuck.getLuckLevel(stack);
+
+    return Math.max(fortune, luck);
+  }
+
   public static List<ITrait> getTraits(ItemStack stack) {
     List<ITrait> traits = Lists.newLinkedList();
     NBTTagList traitsTagList = TagUtil.getTraitsTagList(stack);

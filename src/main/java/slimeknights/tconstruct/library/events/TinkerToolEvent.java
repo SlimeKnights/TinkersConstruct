@@ -101,6 +101,50 @@ public abstract class TinkerToolEvent extends TinkerEvent {
     }
   }
 
+  @HasResult
+  public static class ScytheCanHarvest extends TinkerToolEvent {
+    public final BlockPos pos;
+    public final EntityPlayer player;
+    public final IBlockState blockState;
+    private final World world;
+
+    public ScytheCanHarvest(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, IBlockState blockState) {
+      super(itemStack);
+      this.pos = pos;
+      this.player = player;
+      this.world = world;
+      this.blockState = blockState;
+    }
+
+    public static boolean fireEvent(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, IBlockState blockState, boolean canHarvest) {
+      ScytheCanHarvest event = new ScytheCanHarvest(itemStack, player, world, pos, blockState);
+      event.setResult(canHarvest ? Result.ALLOW : Result.DENY);
+      MinecraftForge.EVENT_BUS.post(event);
+
+      return event.getResult() != Result.DENY;
+    }
+  }
+
+  @Cancelable
+  public static class OnScytheHarvest extends TinkerToolEvent {
+    public final BlockPos pos;
+    public final EntityPlayer player;
+    public final IBlockState blockState;
+    private final World world;
+
+    public OnScytheHarvest(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, IBlockState blockState) {
+      super(itemStack);
+      this.pos = pos;
+      this.player = player;
+      this.world = world;
+      this.blockState = blockState;
+    }
+
+    public static boolean fireEvent(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, IBlockState blockState) {
+      return !MinecraftForge.EVENT_BUS.post(new OnScytheHarvest(itemStack, player, world, pos, blockState));
+    }
+  }
+
   public static class OnBowShoot extends TinkerToolEvent {
 
     public final EntityPlayer entityPlayer;
