@@ -35,6 +35,7 @@ import javax.annotation.Nullable;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.ClientProxy;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
@@ -399,6 +400,9 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
       // only valid ones
       if(hasValidMaterials(tool)) {
         subItems.add(tool);
+        if(!Config.listAllMaterials) {
+          break;
+        }
       }
     }
   }
