@@ -1,8 +1,5 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockPane;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fluids.Fluid;
@@ -28,12 +25,6 @@ public class TileCastingTable extends TileCasting {
         PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i), this.worldObj, null);
         item.s = 0.875f;// * 0.875f;
         item.y -= 1 / 16f * item.s;
-
-        if(Block.getBlockFromItem(getStackInSlot(i).getItem()) instanceof BlockPane) {
-          item.y = -0.46875f - 1/16f * item.s;
-          item.r = (float) Math.PI/2f;
-          //item.y -= 3/16f * item.s;
-        }
 
         //item.s = 1f;
         toDisplay.items.add(item);

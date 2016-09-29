@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.tools.common.tileentity;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockPane;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -52,7 +54,7 @@ public class TileCraftingStation extends TileTable implements IInventoryGui {
         item.s = s;
 
         // correct itemblock because scaling
-        if(itemStack.getItem() instanceof ItemBlock) {
+        if(itemStack.getItem() instanceof ItemBlock && !(Block.getBlockFromItem(itemStack.getItem())  instanceof BlockPane)) {
           item.y = -(1f - item.s) / 2f;
         }
 
