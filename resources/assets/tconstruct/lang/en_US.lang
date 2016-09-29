@@ -428,7 +428,7 @@ item.tconstruct.throwball.efln.tooltip=Explodes! Save for mining
 
 item.tconstruct.moms_spaghetti.name=Mom's Spaghetti
 item.tconstruct.moms_spaghetti.desc=Delicious!
-item.tconstruct.moms_spaghetti.tooltip1=§oI guess they're all right... but it's just not the same.\nThey defenitively need some sauce, but it has to be red.
+item.tconstruct.moms_spaghetti.tooltip1=§oI guess they're all right... but it's just not the same.\nThey definitely need some sauce, but it has to be red.
 item.tconstruct.moms_spaghetti.tooltip2=§oSomething is missing.. could use some meat. Mama always used ALL the meat.\nI should get at least three different meat types.
 item.tconstruct.moms_spaghetti.tooltip3=§oJust like mama used to make them.
 stat.spaghetti.uses.name=Noms
