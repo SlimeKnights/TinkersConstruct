@@ -289,7 +289,7 @@ item.tconstruct.materials.silky_jewel.name=Silky Jewel
 item.tconstruct.materials.silky_jewel.tooltip=Silktouch Modifier
 item.tconstruct.materials.necrotic_bone.name=Necrotic Bone
 item.tconstruct.materials.necrotic_bone.tooltip=Necrotic Modifier
-item.tconstruct.materials.moss.name=Ball of moss
+item.tconstruct.materials.moss.name=Ball of Moss
 item.tconstruct.materials.moss.tooltip=Right click a Bookshelf with this\nto convert it into Mending Moss.\n§oConsumes 10 Levels
 item.tconstruct.materials.mending_moss.name=Mending Moss
 item.tconstruct.materials.mending_moss.tooltip=Mending Moss Modifier
@@ -406,7 +406,7 @@ item.tconstruct.slime_boots.tooltip=Makes you bounce when landing
 item.tconstruct.slimesling.name=Slimesling
 item.tconstruct.slimesling.tooltip=Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!
 item.tconstruct.piggybackpack.name=Piggybackpack
-item.tconstruct.piggybackpack.tooltip=Rightclick mobs to pick them up
+item.tconstruct.piggybackpack.tooltip=Right-click mobs to pick them up
 item.tconstruct.stone_stick.name=Stone Rod
 
 item.tconstruct.fancy_frame.jewel.name=Fancy Item Frame
@@ -434,16 +434,16 @@ item.tconstruct.moms_spaghetti.tooltip3=§oJust like mama used to make them.
 stat.spaghetti.uses.name=Noms
 stat.spaghetti.nourishment.name=Nourishment
 stat.spaghetti.saturation.name=Saturation
-modifier.spaghetti_sauce.name=with sauce
+modifier.spaghetti_sauce.name=with Sauce
 modifier.spaghetti_sauce.desc=§oWith beets by mom§r\nIncreases the saturation
-modifier.spaghetti_meat.name=with meat
+modifier.spaghetti_meat.name=with Meat
 modifier.spaghetti_meat.desc=§oAll the meat!§r\nIncreases the nourishment value
 
-item.tconstruct.spaghetti.hard.name=Impossibly hard wheat sticks
+item.tconstruct.spaghetti.hard.name=Impossibly Hard Wheat Sticks
 item.tconstruct.spaghetti.hard.tooltip=Completely inedible like that.\nThey need to be softened up, even your sweaty palms aren't enough for that.\nThey should probably soak in some water for a while.
-item.tconstruct.spaghetti.soggy.name=Soggy noodles
+item.tconstruct.spaghetti.soggy.name=Soggy Noodles
 item.tconstruct.spaghetti.soggy.tooltip=Now they're all wet, even your spaghetti arms can bend them now.\nLet's hang them up and get them dry.
-item.tconstruct.spaghetti.cold.name=Cold dried noodles
+item.tconstruct.spaghetti.cold.name=Cold Dried Noodles
 item.tconstruct.spaghetti.cold.tooltip=Well, that's better, but they still taste gross.\nWarming them up should make them edible.\nThey might even be good enough to get you off your weak knees.
 
 #################
