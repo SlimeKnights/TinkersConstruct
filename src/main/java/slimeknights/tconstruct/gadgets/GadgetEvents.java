@@ -28,7 +28,7 @@ public class GadgetEvents {
   private final LootPool pool;
 
   public GadgetEvents() {
-    LootEntry entry = new LootEntryItem(TinkerGadgets.momsSpaghetti, 1, 1, new LootFunction[0], new LootCondition[0], "moms_spaghetti");
+    LootEntry entry = new LootEntryItem(TinkerGadgets.spaghetti, 1, 1, new LootFunction[0], new LootCondition[0], "moms_spaghetti");
     LootCondition chance = new RandomChance(0.05f);
     pool = new LootPool(new LootEntry[] {entry}, new LootCondition[] {chance}, new RandomValueRange(1), new RandomValueRange(0), "moms_spaghetti");
   }
