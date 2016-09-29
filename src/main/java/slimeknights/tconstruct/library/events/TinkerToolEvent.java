@@ -87,7 +87,7 @@ public abstract class TinkerToolEvent extends TinkerEvent {
 
     public final BlockPos pos;
     public final EntityPlayer player;
-    private final World world;
+    public final World world;
 
     public OnShovelMakePath(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos) {
       super(itemStack);
@@ -101,47 +101,34 @@ public abstract class TinkerToolEvent extends TinkerEvent {
     }
   }
 
+  /**
+   * Cancel event to indicate that the block is not harvestable.
+   * Leave the Result on DEFAUT to tell the Scythe to harvest the block, if it's harvestable
+   * Set the Result to ALLOW to tell the Scythe that the block is harvestable, even if the check says it's not
+   * Set the Result to DENY to let the Scythe know you handled the stuff (= harvest was successful, but not handled by the scythe)
+   */
   @HasResult
-  public static class ScytheCanHarvest extends TinkerToolEvent {
-    public final BlockPos pos;
-    public final EntityPlayer player;
-    public final IBlockState blockState;
-    private final World world;
-
-    public ScytheCanHarvest(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, IBlockState blockState) {
-      super(itemStack);
-      this.pos = pos;
-      this.player = player;
-      this.world = world;
-      this.blockState = blockState;
-    }
-
-    public static boolean fireEvent(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, IBlockState blockState, boolean canHarvest) {
-      ScytheCanHarvest event = new ScytheCanHarvest(itemStack, player, world, pos, blockState);
-      event.setResult(canHarvest ? Result.ALLOW : Result.DENY);
-      MinecraftForge.EVENT_BUS.post(event);
-
-      return event.getResult() != Result.DENY;
-    }
-  }
-
   @Cancelable
   public static class OnScytheHarvest extends TinkerToolEvent {
     public final BlockPos pos;
     public final EntityPlayer player;
     public final IBlockState blockState;
-    private final World world;
+    public final World world;
+    public final boolean harvestable;
 
-    public OnScytheHarvest(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, IBlockState blockState) {
+    public OnScytheHarvest(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, IBlockState blockState, boolean harvestable) {
       super(itemStack);
       this.pos = pos;
       this.player = player;
       this.world = world;
       this.blockState = blockState;
+      this.harvestable = harvestable;
     }
 
-    public static boolean fireEvent(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, IBlockState blockState) {
-      return !MinecraftForge.EVENT_BUS.post(new OnScytheHarvest(itemStack, player, world, pos, blockState));
+    public static OnScytheHarvest fireEvent(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, IBlockState blockState, boolean harvestable) {
+      OnScytheHarvest event = new OnScytheHarvest(itemStack, player, world, pos, blockState, harvestable);
+      MinecraftForge.EVENT_BUS.post(event);
+      return event;
     }
   }
 

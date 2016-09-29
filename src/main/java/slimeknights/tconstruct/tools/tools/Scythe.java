@@ -25,6 +25,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 import java.util.List;
 import java.util.Random;
@@ -171,33 +172,31 @@ public class Scythe extends AoeToolCore {
     // if we cannot harvest the center block then back out
     // don't break it now or the AOE check can fail due to an air block being there
     BlockPos origin = trace.getBlockPos();
-    IBlockState state = world.getBlockState(origin);
 
-    if(!canHarvestCrop(stack, world, player, origin, state)) {
-      return ActionResult.newResult(EnumActionResult.PASS, stack);
-    }
+    boolean harvestedSomething = false;
 
     // otherwise if we succeed harvest the rest
     for(BlockPos pos : this.getAOEBlocks(stack, player.worldObj, player, origin)) {
-      harvestCrop(stack, world, player, pos, fortune);
+      harvestedSomething |= harvestCrop(stack, world, player, pos, fortune);
     }
 
-    // harvest the center block
-    harvestCrop(stack, world, player, origin, fortune);
+    if(harvestedSomething) {
+      player.swingArm(hand);
+      player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
+      player.spawnSweepParticles();
+      return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+    }
 
-    player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
-    player.spawnSweepParticles();
-
-    return ActionResult.newResult(player.worldObj.isRemote ? EnumActionResult.PASS : EnumActionResult.SUCCESS, stack);
+    return ActionResult.newResult(EnumActionResult.PASS, stack);
   }
 
-  protected boolean canHarvestCrop(@Nonnull ItemStack stack, World world, EntityPlayer player, BlockPos pos, IBlockState state) {
+  protected boolean canHarvestCrop(IBlockState state) {
     boolean canHarvest = state.getBlock() instanceof BlockReed;
 
     if(state.getBlock() instanceof BlockCrops && ((BlockCrops) state.getBlock()).isMaxAge(state)) {
       canHarvest = true;
     }
-    return TinkerToolEvent.ScytheCanHarvest.fireEvent(stack, player, world, pos, state, canHarvest);
+    return canHarvest;
   }
 
   /**
@@ -234,67 +233,90 @@ public class Scythe extends AoeToolCore {
     return shorn;
   }
 
-  public void harvestCrop(ItemStack stack, World world, EntityPlayer player, BlockPos pos, int fortune) {
+  public boolean harvestCrop(ItemStack stack, World world, EntityPlayer player, BlockPos pos, int fortune) {
     IBlockState state = world.getBlockState(pos);
-    // only work on blocks with a hardness of 0, as this is instant break
-    if(canHarvestCrop(stack, world, player, pos, state)) {
-      if(world.isRemote) {
-        return;
-      }
 
-      // handled by event
-      if(!TinkerToolEvent.OnScytheHarvest.fireEvent(stack, player, world, pos, state)) {
-        return;
-      }
+    boolean canHarvest = canHarvestCrop(state);
 
-      // do not harvest bottom row reeds
-      if(state.getBlock() instanceof BlockReed && !(world.getBlockState(pos.down()).getBlock() instanceof BlockReed)) {
-        return;
-      }
+    // do not harvest bottom row reeds
+    if(state.getBlock() instanceof BlockReed && !(world.getBlockState(pos.down()).getBlock() instanceof BlockReed)) {
+      canHarvest = false;
+    }
 
-      // first, try getting a seed from the drops, if we don't have one we don't replant
-      float chance = 1.0f;
-      List<ItemStack> drops = state.getBlock().getDrops(world, pos, state, fortune);
-      chance = ForgeEventFactory.fireBlockHarvesting(drops, world, pos, state, fortune, chance, false, player);
+    TinkerToolEvent.OnScytheHarvest event = TinkerToolEvent.OnScytheHarvest.fireEvent(stack, player, world, pos, state, canHarvest);
 
-      IPlantable seed = null;
-      for(ItemStack drop : drops) {
-        if(drop != null && drop.getItem() instanceof IPlantable) {
-          seed = (IPlantable) drop.getItem();
-          drop.stackSize--;
-          if(drop.stackSize <= 0) {
-            drops.remove(drop);
-          }
+    // can't harvest
+    if(event.isCanceled()) {
+      return false;
+    }
 
-          break;
+    // harvest handled by event
+    if(event.getResult() == Event.Result.DENY) {
+      return true;
+    }
+    // should harwest block nontheless
+    else if(event.getResult() == Event.Result.ALLOW) {
+      canHarvest = true;
+    }
+
+    if(!canHarvest) {
+      return false;
+    }
+
+    // can be harvested, always just return true clientside for the animation stuff
+    if(!world.isRemote) {
+      doHarvestCrop(stack, world, player, pos, fortune, state);
+    }
+
+    return true;
+  }
+
+  protected void doHarvestCrop(ItemStack stack, World world, EntityPlayer player, BlockPos pos, int fortune, IBlockState state) {
+    // first, try getting a seed from the drops, if we don't have one we don't replant
+    float chance = 1.0f;
+    List<ItemStack> drops = state.getBlock().getDrops(world, pos, state, fortune);
+    chance = ForgeEventFactory.fireBlockHarvesting(drops, world, pos, state, fortune, chance, false, player);
+
+    IPlantable seed = null;
+    for(ItemStack drop : drops) {
+      if(drop != null && drop.getItem() instanceof IPlantable) {
+        seed = (IPlantable) drop.getItem();
+        drop.stackSize--;
+        if(drop.stackSize <= 0) {
+          drops.remove(drop);
         }
+
+        break;
       }
+    }
 
-      // if we have a valid seed, try to plant the crop
-      if(seed != null) {
-        // make sure the plant is allowed here. should already be, mainly just covers the case of seeds from grass
-        IBlockState down = world.getBlockState(pos.down());
-        if(down.getBlock().canSustainPlant(down, world, pos.down(), EnumFacing.UP, seed)) {
-          // success! place the plant and drop the rest of the items
-          IBlockState crop = seed.getPlant(world, pos);
+    // if we have a valid seed, try to plant the crop
+    boolean replanted = false;
+    if(seed != null) {
+      // make sure the plant is allowed here. should already be, mainly just covers the case of seeds from grass
+      IBlockState down = world.getBlockState(pos.down());
+      if(down.getBlock().canSustainPlant(down, world, pos.down(), EnumFacing.UP, seed)) {
+        // success! place the plant and drop the rest of the items
+        IBlockState crop = seed.getPlant(world, pos);
 
-          // only place the block/damage the tool if its a different state
-          if(crop != state) {
-            world.setBlockState(pos, seed.getPlant(world, pos));
-            ToolHelper.damageTool(stack, 1, player);
-          }
-
-          // drop the remainder of the items
-          for(ItemStack drop : drops) {
-            if(world.rand.nextFloat() <= chance) {
-              Block.spawnAsEntity(world, pos, drop);
-            }
-          }
-          return;
+        // only place the block/damage the tool if its a different state
+        if(crop != state) {
+          world.setBlockState(pos, seed.getPlant(world, pos));
+          ToolHelper.damageTool(stack, 1, player);
         }
-      }
 
-      // can't plant? just break the block directly
+        // drop the remainder of the items
+        for(ItemStack drop : drops) {
+          if(world.rand.nextFloat() <= chance) {
+            Block.spawnAsEntity(world, pos, drop);
+          }
+        }
+        replanted = true;
+      }
+    }
+
+    // can't plant? just break the block directly
+    if(!replanted) {
       breakBlock(stack, player, pos, pos);
     }
   }
