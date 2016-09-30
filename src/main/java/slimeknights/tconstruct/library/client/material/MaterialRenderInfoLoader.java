@@ -17,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
+import net.minecraftforge.fml.common.ModContainer;
 
 import org.apache.logging.log4j.Logger;
 
@@ -65,8 +66,9 @@ public class MaterialRenderInfoLoader implements IResourceManagerReloadListener 
 
       List<String> domains = Lists.newArrayList();
 
-      if(!Util.MODID.equals(TinkerRegistry.getTrace(material))) {
-        domains.add(TinkerRegistry.getTrace(material));
+      ModContainer registeredBy = TinkerRegistry.getTrace(material);
+      if(!Util.MODID.equals(registeredBy.getModId())) {
+        domains.add(registeredBy.getModId().toLowerCase());
       }
 
       domains.add(Util.MODID);

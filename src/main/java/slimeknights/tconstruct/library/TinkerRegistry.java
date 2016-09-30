@@ -22,6 +22,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -80,9 +81,9 @@ public final class TinkerRegistry {
   private static final Map<String, Material> materials = Maps.newLinkedHashMap();
   private static final Map<String, ITrait> traits = new THashMap<String, ITrait>();
   // traceability information who registered what. Used to find errors.
-  private static final Map<String, String> materialRegisteredByMod = new THashMap<String, String>();
-  private static final Map<String, Map<String, String>> statRegisteredByMod = new THashMap<String, Map<String, String>>();
-  private static final Map<String, Map<String, String>> traitRegisteredByMod = new THashMap<String, Map<String, String>>();
+  private static final Map<String, ModContainer> materialRegisteredByMod = new THashMap<String, ModContainer>();
+  private static final Map<String, Map<String, ModContainer>> statRegisteredByMod = new THashMap<String, Map<String, ModContainer>>();
+  private static final Map<String, Map<String, ModContainer>> traitRegisteredByMod = new THashMap<String, Map<String, ModContainer>>();
 
   // contains all cancelled materials, allows us to eat calls regarding the material silently
   private static final Set<String> cancelledMaterials = new THashSet<String>();
@@ -120,11 +121,11 @@ public final class TinkerRegistry {
 
     // duplicate material
     if(materials.containsKey(material.identifier)) {
-      String registeredBy = materialRegisteredByMod.get(material.identifier);
+      ModContainer registeredBy = materialRegisteredByMod.get(material.identifier);
       error(String.format(
           "Could not register Material \"%s\": It was already registered by %s",
           material.identifier,
-          registeredBy));
+          registeredBy.getName()));
       return;
     }
 
@@ -174,7 +175,7 @@ public final class TinkerRegistry {
 
     traits.put(trait.getIdentifier(), trait);
 
-    String activeMod = Loader.instance().activeModContainer().getModId();
+    ModContainer activeMod = Loader.instance().activeModContainer();
     putTraitTrace(trait.getIdentifier(), trait, activeMod);
   }
 
@@ -212,9 +213,9 @@ public final class TinkerRegistry {
     // duplicate stats
     if(material.getStats(stats.getIdentifier()) != null) {
       String registeredBy = "Unknown";
-      Map<String, String> matReg = statRegisteredByMod.get(identifier);
+      Map<String, ModContainer> matReg = statRegisteredByMod.get(identifier);
       if(matReg != null) {
-        registeredBy = matReg.get(stats.getIdentifier());
+        registeredBy = matReg.get(stats.getIdentifier()).getName();
       }
 
       error(String.format(
@@ -241,7 +242,7 @@ public final class TinkerRegistry {
 
     material.addStats(stats);
 
-    String activeMod = Loader.instance().activeModContainer().getModId();
+    ModContainer activeMod = Loader.instance().activeModContainer();
     putStatTrace(identifier, stats, activeMod);
   }
 
@@ -282,9 +283,9 @@ public final class TinkerRegistry {
     // duplicate traits
     if(material.hasTrait(trait.getIdentifier(), stats)) {
       String registeredBy = "Unknown";
-      Map<String, String> matReg = traitRegisteredByMod.get(identifier);
+      Map<String, ModContainer> matReg = traitRegisteredByMod.get(identifier);
       if(matReg != null) {
-        registeredBy = matReg.get(trait.getIdentifier());
+        registeredBy = matReg.get(trait.getIdentifier()).getName();
       }
 
       error(String.format(
@@ -784,25 +785,25 @@ public final class TinkerRegistry {
   ---------------------------------------------------------------------------*/
 
   static void putMaterialTrace(String materialIdentifier) {
-    String activeMod = Loader.instance().activeModContainer().getName();
+    ModContainer activeMod = Loader.instance().activeModContainer();
     materialRegisteredByMod.put(materialIdentifier, activeMod);
   }
 
-  static void putStatTrace(String materialIdentifier, IMaterialStats stats, String trace) {
+  static void putStatTrace(String materialIdentifier, IMaterialStats stats, ModContainer trace) {
     if(!statRegisteredByMod.containsKey(materialIdentifier)) {
-      statRegisteredByMod.put(materialIdentifier, new HashMap<String, String>());
+      statRegisteredByMod.put(materialIdentifier, new HashMap<String, ModContainer>());
     }
     statRegisteredByMod.get(materialIdentifier).put(stats.getIdentifier(), trace);
   }
 
-  static void putTraitTrace(String materialIdentifier, ITrait trait, String trace) {
+  static void putTraitTrace(String materialIdentifier, ITrait trait, ModContainer trace) {
     if(!traitRegisteredByMod.containsKey(materialIdentifier)) {
-      traitRegisteredByMod.put(materialIdentifier, new HashMap<String, String>());
+      traitRegisteredByMod.put(materialIdentifier, new HashMap<String, ModContainer>());
     }
     traitRegisteredByMod.get(materialIdentifier).put(trait.getIdentifier(), trace);
   }
 
-  public static String getTrace(Material material) {
+  public static ModContainer getTrace(Material material) {
     return materialRegisteredByMod.get(material.identifier);
   }
 
