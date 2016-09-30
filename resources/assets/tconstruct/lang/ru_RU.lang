@@ -1,5 +1,5 @@
 ################
-#    Блоки     #
+#    Блоки     # 
 ################
 
 tile.tconstruct.tooltables.craftingstation.name=Инженерный верстак
@@ -168,7 +168,9 @@ tile.tconstruct.seared_tank.window.name=Сушёное окно
 tile.tconstruct.seared_tank.tooltip=Сердце плавильни\nСохраняет жидкости при снятии.
 tile.tconstruct.seared_glass.glass.name=Сушёное стекло
 tile.tconstruct.seared_glass.glass.tooltip=Часть плавильни. Подходит для декорации.\nНе вмещает жидкости.
+
 tile.tconstruct.seared_furnace_controller.name=Контроллер печи
+tile.tconstruct.tinker_tank_controller.name=Контроллер цистерны
 
 tile.tconstruct.stone_torch.name=Каменный факел
 tile.tconstruct.stone_ladder.name=Каменная лестница
@@ -326,11 +328,19 @@ item.tconstruct.sharpening_kit.tooltip=Объедините с кремнем и
 
 item.forge.bucketFilled.blood=Ведро крови
 
-# Tools
+# Струменты
 item.tconstruct.pickaxe.name=кирка
 item.tconstruct.shovel.name=лопата
 item.tconstruct.hatchet.name=топор
 item.tconstruct.mattock.name=мотыготопор
+
+item.tconstruct.hammer.name=молот
+item.tconstruct.excavator.name=большая лопата
+item.tconstruct.lumberaxe.name=большой топор
+item.tconstruct.scythe.name=коса
+
+# Милишки
+
 item.tconstruct.frypan.name=сковорода
 item.tconstruct.battlesign.name=боевая табличка
 item.tconstruct.dagger.name=кинжал
@@ -339,12 +349,14 @@ item.tconstruct.longsword.name=меч
 item.tconstruct.rapier.name=рапира
 item.tconstruct.cutlass.name=сабля
 
-item.tconstruct.hammer.name=молот
-item.tconstruct.excavator.name=большая лопата
-item.tconstruct.lumberaxe.name=большой топор
 item.tconstruct.cleaver.name=гигантский меч
 item.tconstruct.battleaxe.name=боевой топор
-item.tconstruct.scythe.name=коса
+
+# Ranged Weapons & Ammo
+
+item.tconstruct.shortbow.name=короткий лук
+
+item.tconstruct.arrow.name=стрела
 
 item.tconstruct.shuriken.name=сюрикен
 
@@ -375,11 +387,20 @@ item.tconstruct.tough_tool_rod.name=мощная рукоять
 item.tconstruct.scythe_head.name=навершие косы
 item.tconstruct.large_sword_blade.name=широкое лезвие меча
 
+# Лук и стрелы
+
+item.tconstruct.bow_limb.name=плечо лука
+item.tconstruct.bow_string.name=тетива
+
+item.tconstruct.arrow_head.name=наконечник
+item.tconstruct.arrow_shaft.name=древко стрелы
+item.tconstruct.fletching.name=оперение
+
 # Material specific tools and toolparts
 # item.tconstruct.<tool>.<material>
 # item.tconstruct.pickaxe.wood=Wooden Pickaxe
 
-# Gadgets
+# Примочки
 item.tconstruct.slime_boots.name=Слизневые ботинки
 item.tconstruct.slime_boots.tooltip=Отскакиваете при падении
 item.tconstruct.slimesling.name=Слизнерогатка
@@ -401,6 +422,30 @@ item.tconstruct.throwball.glow.tooltip=Не пригодно для пищевы
 item.tconstruct.throwball.efln.name=EFLN
 item.tconstruct.throwball.efln.tooltip=Взрывчатка! Сохраните для шахт
 
+###################
+# Мамкины спагетти#
+###################
+
+item.tconstruct.moms_spaghetti.name=Мамины спагетти
+item.tconstruct.moms_spaghetti.desc=Вкуснятина!
+item.tconstruct.moms_spaghetti.tooltip1=§oЯ думаю, они похожи, но не те...\nИм нужно больше соуса, но он был красным.
+item.tconstruct.moms_spaghetti.tooltip2=§oЧего-то не хватает.. мяса? Мама всегда брала ВСЁ мясо.\nНаверное, стоит взять все три типа.
+item.tconstruct.moms_spaghetti.tooltip3=§oТочь-в-точь как мамины.
+stat.spaghetti.uses.name=Ням
+stat.spaghetti.nourishment.name=Насыщение
+stat.spaghetti.saturation.name=Сытность
+modifier.spaghetti_sauce.name=с соусом
+modifier.spaghetti_sauce.desc=§oСо свеклой§r\nБолее сытно
+modifier.spaghetti_meat.name=с мясом
+modifier.spaghetti_meat.desc=§oВсе типы!§r\nНасыщает лучше
+
+item.tconstruct.spaghetti.hard.name=Невероятно твёрдая лапша
+item.tconstruct.spaghetti.hard.tooltip=Абсолютно несъедобна.\nЕё надо размягчить, но Ваши потные ладошки не могут это сделать.\nНаверное, её надо отмочить в воде.
+item.tconstruct.spaghetti.soggy.name=Сырая лапша
+item.tconstruct.spaghetti.soggy.tooltip=Теперь, когда она размягчилась, даже Ваши ладошки могут её гнуть.\nСтоит её подвесить сушиться.
+item.tconstruct.spaghetti.cold.name=Холодная сушёная лапша
+item.tconstruct.spaghetti.cold.tooltip=Ну, это уже лучше. Хотя вкус всё ещё неприятный.\nСтоит подогреть и она станет съедобной.\nМожет, она сможет вылечить Ваши больные колени.
+
 #################
 #   Сущности    #
 #################
@@ -408,7 +453,7 @@ item.tconstruct.throwball.efln.tooltip=Взрывчатка! Сохраните 
 entity.tconstruct.blueslime.name=Синий слизень
 
 #################
-#    Liquids    #
+#    Жижки    #
 #################
 
 fluid.tconstruct.stone.name=Расплавленный камень
@@ -442,13 +487,13 @@ fluid.tconstruct.aluminum.name=Жидкий алюминий
 fluid.tconstruct.alubrass.name=Жидкая алюминиевая латунь
 
 #################
-#    Potions    #
+#    Зельки     #
 #################
 
 potion.carry=Вы несёте кого-то
 
 #################
-#   Materials   #
+#   Материалы   #
 #################
 # material.<identifier>.name
 # material.<identifier>.prefix
@@ -509,6 +554,36 @@ material.electrum.prefix=Электрумов. %s
 material.steel.name=Сталь
 material.steel.prefix=Стальн. %s
 
+material.string.name=Нить
+material.string.prefix=Нитяная %s
+material.vine.name=Лоза
+material.vine.prefix=Из лозы %s
+material.slimevine_blue.name=Слизневая лоза
+material.slimevine_blue.prefix=Слизнелозная %s
+material.slimevine_orange.name=material.slimevine_blue.name
+material.slimevine_orange.prefix=material.slimevine_blue.prefix
+material.slimevine_purple.prefix=material.slimevine_blue.prefix
+material.slimevine_purple.name=material.slimevine_blue.name
+
+material.blaze.name=Огненный стержень
+material.reed.name=Тростник
+material.ice.name=Лёд
+material.endrod.name=Стержень Края
+material.blaze.prefix=Огненное %s
+material.reed.prefix=Тростниковое %s
+material.ice.prefix=Ледяное %s
+material.endrod.prefix=Стержня Края %s
+
+material.feather.name=Перо
+material.leaf.name=Листья
+material.slimeleaf_blue.name=Слизнелистья
+material.slimeleaf_orange.name=material.slimeleaf_blue.name
+material.slimeleaf_purple.name=material.slimeleaf_blue.name
+material.feather.prefix=Перьевое %s
+material.leaf.prefix=Лиственное %s
+material.slimeleaf_blue.prefix=Слизнелиственное %s
+material.slimeleaf_orange.prefix=material.slimeleaf_blue.prefix
+material.slimeleaf_purple.prefix=material.slimeleaf_blue.prefix
 #############
 #   Статы   #
 #############
@@ -534,6 +609,28 @@ stat.extra.durability.desc=Сколько прочности эта часть �
 
 stat.mattock.axelevel.name=Уровень топора
 stat.mattock.shovellevel.name=Уровень лопаты
+
+stat.bow.name=Лук
+stat.bow.drawspeed.name=Скорость взвода
+stat.bow.drawspeed.desc=Как быстро натягивается лук.
+stat.bow.range.name=Дальности
+stat.bow.range.desc=Насколько далеко снаряд полетит.
+
+stat.bowstring.name=Тетива
+stat.bowstring.modifier.name=Квантификатор
+stat.bowstring.modifier.desc=Прочность лука будет умножена на это число.
+
+stat.shaft.name=Древко
+stat.shaft.modifier.name=Модификатор
+stat.shaft.modifier.desc=Каждой стреле нужен свой стержень. От материала зависит количество получаемых стрел.\nИтоговое количество умножается на это число.
+stat.shaft.ammo.name=Снаряды
+stat.shaft.ammo.desc=Точное количество стрел.\nЭто - число добавляемых снарядов.
+
+stat.fletching.name=Оперение
+stat.fletching.accuracy.name=Точность
+stat.fletching.accuracy.desc=Насколько стабильна в полёте будет стрела с таким оперением.\nВлияет на общую точность снаряда.
+stat.fletching.modifier.name=Модификатор
+stat.fletching.modifier.desc=Сколько стрел можно с ним собрать.\nИтоговое количество умножается на это число.
 
 stat.projectile.ammo.name=Аммуниция
 
@@ -630,6 +727,17 @@ modifier.tasty.desc=§oАм-ням-ням§r\nТак вкусно пахнет..
 modifier.writable.name=Переписываемость
 modifier.writable.desc=§oИнтеллектуальность!§r\nБольше слов. Больше улучшений. Это логика!
 
+modifier.breakable.name=Хрупкость
+modifier.breakable.desc=§oХрясь!§r\nСнаряды с 50% шансом ломаются при ударе.
+modifier.endspeed.name=Сверхскорость
+modifier.endspeed.desc=§oКвантовая скорость!§r\nСнаряды долетают до цели мгновенно.
+modifier.freezing.name=Заморозка
+modifier.freezing.desc=§oЗима близко§r\nУдачные попадания замедляют цель.
+modifier.hovering.name=Парение
+modifier.hovering.desc=§oСвободен, как ветер§r\nСнаряды летят медленнее, но слабаа подвержены гравитации.
+modifier.splitting.name=Раскол
+modifier.splitting.desc=§oДва по цене одного!§r\nВнезапное ускорение стрелы может расколоть её на два осколка.
+
 #################
 #   Modifiers   #
 #################
@@ -685,8 +793,8 @@ modifier.sharpness.name3=Ещё острее
 modifier.sharpness.name4=Совсем остро
 modifier.sharpness.name5=Супер остро
 modifier.sharpness.desc=§oОй!§r\nТак остро, ранит даже при взгляде.
-modifier.shulking.name=Парение
-modifier.shulking.desc=§oВверх к звёздам!§r\nАтаки заставляют врагов медленно подниамться в воздух.
+modifier.shulking.name=Вознесение
+modifier.shulking.desc=§oВверх к звёздам!§r\nАтаки заставляют врагов медленно подниматься в воздух.
 modifier.shulking.extra=Длительность парения: %s с.
 modifier.silktouch.name=Шёлковое касание
 modifier.silktouch.desc=§oГладкий, как шёлк!§r\nДобытые блоки выпадают в виде самих себя.
@@ -800,7 +908,7 @@ gui.stenciltable.name=Стол для вырезки схем
 gui.partbuilder.name=Стол для вырезки частей
 gui.partcrafter.name=Сборщик частей
 gui.partbuilder.info=Здесь Вы можете вырезать части инструментов из нужных материалов.\n\nЧтобы вырезать часть, положите схему в левый слот и материал в правый.
-gui.partbuilder.material_value=Material Value: %s %s
+gui.partbuilder.material_value=Затраты: %s %s
 
 # Tool Station/Forge
 gui.toolstation.name=Инженерная станция
@@ -841,6 +949,9 @@ gui.searedfurnace.name=Большая печь
 gui.searedfurnace.progress.complete=Предмет переработан
 gui.searedfurnace.progress.no_recipe=Предмет нельзя больше перерабатывать
 gui.searedfurnace.progress.no_space=Стопка на выходе больше слота входа
+
+# Tinker Tank
+gui.tinkertank.name=Цистерна
 
 # These GUIs don't appear in game, but the titles can be viewed using the crafting station
 gui.itemrack.name=Вешалка
