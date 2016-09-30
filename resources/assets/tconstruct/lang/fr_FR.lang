@@ -940,5 +940,5 @@ option.tconstruct.progress=Progression de la recette
 
 
 # Config
-config.synced.restart=votre configuration a été mise à jour pour correspondre au serveur. Relancez Minecraft.
+config.synced.restart=Votre configuration a été mise à jour pour correspondre au serveur. Relancez Minecraft.
 config.synced.ok=Configuration synchrone avec le serveur.
