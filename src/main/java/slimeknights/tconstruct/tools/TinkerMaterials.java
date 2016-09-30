@@ -23,6 +23,7 @@ import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
+import slimeknights.tconstruct.library.client.material.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
 import slimeknights.tconstruct.library.client.texture.MetalColoredTexture;
 import slimeknights.tconstruct.library.client.texture.MetalTextureTexture;
