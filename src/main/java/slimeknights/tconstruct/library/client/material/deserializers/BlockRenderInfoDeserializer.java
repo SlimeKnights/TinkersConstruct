@@ -4,10 +4,10 @@ import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 
 public class BlockRenderInfoDeserializer extends AbstractRenderInfoDeserializer {
 
-  protected String textureLocation;
+  protected String texture;
 
   @Override
   public MaterialRenderInfo getMaterialRenderInfo() {
-    return new MaterialRenderInfo.BlockTexture(textureLocation);
+    return new MaterialRenderInfo.BlockTexture(texture);
   }
 }

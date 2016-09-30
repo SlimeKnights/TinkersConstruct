@@ -33,7 +33,12 @@ import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.crosshair.CrosshairRenderEvents;
 import slimeknights.tconstruct.library.client.material.MaterialRenderInfoLoader;
+import slimeknights.tconstruct.library.client.material.deserializers.BlockRenderInfoDeserializer;
 import slimeknights.tconstruct.library.client.material.deserializers.ColoredRenderInfoDeserializer;
+import slimeknights.tconstruct.library.client.material.deserializers.InverseMultiColorRenderInfoDeserializer;
+import slimeknights.tconstruct.library.client.material.deserializers.MetalRenderInfoDeserializer;
+import slimeknights.tconstruct.library.client.material.deserializers.MultiColorRenderInfoDeserializer;
+import slimeknights.tconstruct.library.client.material.deserializers.TexturedMetalRenderInfoDeserializer;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.client.model.ModifierModelLoader;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
@@ -71,7 +76,11 @@ public abstract class ClientProxy extends CommonProxy {
     ModelLoaderRegistry.registerLoader(modifierLoader);
 
     MaterialRenderInfoLoader.addRenderInfo("colored", ColoredRenderInfoDeserializer.class);
-
+    MaterialRenderInfoLoader.addRenderInfo("multicolor", MultiColorRenderInfoDeserializer.class);
+    MaterialRenderInfoLoader.addRenderInfo("inverse_multicolor", InverseMultiColorRenderInfoDeserializer.class);
+    MaterialRenderInfoLoader.addRenderInfo("metal", MetalRenderInfoDeserializer.class);
+    MaterialRenderInfoLoader.addRenderInfo("metal_textured", TexturedMetalRenderInfoDeserializer.class);
+    MaterialRenderInfoLoader.addRenderInfo("block", BlockRenderInfoDeserializer.class);
   }
 
   public static void initRenderer() {

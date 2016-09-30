@@ -85,6 +85,7 @@ public class MaterialRenderInfoLoader implements IResourceManagerReloadListener 
           // set default if nothing is present
           if(material.renderInfo == null) {
             material.renderInfo = new MaterialRenderInfo.Default(material.materialTextColor);
+            log.warn("Material " + material.getIdentifier() + " has no rendering info. Substituting default");
           }
         } catch(IOException e) {
           log.error("Exception when loading render info for material " + material.getIdentifier(), e);

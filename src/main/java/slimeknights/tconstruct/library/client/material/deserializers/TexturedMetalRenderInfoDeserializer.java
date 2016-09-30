@@ -4,10 +4,10 @@ import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 
 public class TexturedMetalRenderInfoDeserializer extends MetalRenderInfoDeserializer {
 
-  protected String textureLocation;
+  protected String texture;
 
   @Override
   public MaterialRenderInfo getMaterialRenderInfo() {
-    return new MaterialRenderInfo.MetalTextured(textureLocation, fromHex(color), shinyness, brightness, hueshift);
+    return new MaterialRenderInfo.MetalTextured(texture, fromHex(color), shinyness, brightness, hueshift);
   }
 }
