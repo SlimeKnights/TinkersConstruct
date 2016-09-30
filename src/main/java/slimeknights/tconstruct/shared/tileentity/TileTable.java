@@ -93,6 +93,10 @@ public class TileTable extends TileInventory {
       return null;
     }
 
+    if(!Config.renderTableItems) {
+      return new PropertyTableItem.TableItem(null);
+    }
+
     IBakedModel model = ModelHelper.getBakedModelForItem(stack, world, entity);
 
     PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(model, 0, -0.46875f, 0, 0.8f, (float) (Math.PI / 2));
