@@ -10,6 +10,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.util.LocUtils;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
@@ -33,6 +34,9 @@ public class SharpeningKit extends ToolPart {
     // this adds a variant of each material to the creative menu
     for(Material mat : TinkerRegistry.getAllMaterialsWithStats(MaterialTypes.HEAD)) {
       subItems.add(getItemstackWithMaterial(mat));
+      if(!Config.listAllMaterials) {
+        break;
+      }
     }
   }
 

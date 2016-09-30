@@ -4,9 +4,11 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.capability.FluidTankProperties;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
@@ -14,6 +16,8 @@ import java.util.List;
 import java.util.ListIterator;
 
 import javax.annotation.Nullable;
+
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 public class SmelteryTank implements IFluidTank, IFluidHandler {
 
@@ -63,12 +67,27 @@ public class SmelteryTank implements IFluidTank, IFluidHandler {
 
   @Override
   public FluidTankInfo getInfo() {
-    return null;
+    FluidStack fluid = getFluid();
+    int capacity = getCapacity() - getFluidAmount();
+    if(fluid != null) {
+      capacity += fluid.amount;
+    }
+    return new FluidTankInfo(fluid, capacity);
   }
 
   @Override
   public IFluidTankProperties[] getTankProperties() {
-    return new IFluidTankProperties[0];
+    IFluidTankProperties[] properties = new IFluidTankProperties[liquids.size()];
+    for(int i = 0; i < liquids.size(); i++) {
+      boolean first = i == 0;
+      int capacity = liquids.get(i).amount;
+      if(first) {
+        capacity += getCapacity() - getFluidAmount();
+      }
+      properties[i] = new FluidTankProperties(liquids.get(i), capacity, first, first);
+    }
+
+    return properties;
   }
 
   @Override
@@ -143,6 +162,14 @@ public class SmelteryTank implements IFluidTank, IFluidHandler {
     NBTTagList taglist = new NBTTagList();
 
     for(FluidStack liquid : liquids) {
+      if(FluidRegistry.getFluidName(liquid.getFluid()) == null) {
+        TinkerSmeltery.log.error("Error trying to save fluids inside smeltery! Invalid Liquid found! Smeltery contents:");
+        for(FluidStack liquid2 : liquids) {
+          TinkerSmeltery.log.error("  " + liquid2.getUnlocalizedName() + "/" + liquid2.amount + "mb");
+        }
+        continue;
+      }
+
       NBTTagCompound fluidTag = new NBTTagCompound();
       liquid.writeToNBT(fluidTag);
       taglist.appendTag(fluidTag);

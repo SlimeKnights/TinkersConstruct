@@ -53,6 +53,9 @@ public class ToolPart extends MaterialItem implements IToolPart {
       // check if the material makes sense for this item (is it usable to build stuff?)
       if(canUseMaterial(mat)) {
         subItems.add(getItemstackWithMaterial(mat));
+        if(!Config.listAllMaterials) {
+          break;
+        }
       }
     }
   }

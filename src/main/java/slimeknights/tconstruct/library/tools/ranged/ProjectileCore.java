@@ -138,6 +138,11 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
   }
 
   @Override
+  public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+    return false;
+  }
+
+  @Override
   public boolean dealDamageRanged(ItemStack stack, Entity projectile, EntityLivingBase player, Entity entity, float damage) {
     DamageSource damageSource = new EntityDamageSourceIndirect(DAMAGE_TYPE_PROJECTILE, projectile, player).setProjectile();
 

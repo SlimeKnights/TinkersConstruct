@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.traits;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -50,6 +51,13 @@ public class TraitShocking extends AbstractTrait {
   public void onUpdate(ItemStack tool, World world, Entity entity, int itemSlot, boolean isSelected) {
     if(!isSelected || world.isRemote) {
       return;
+    }
+    if(entity instanceof EntityPlayer) {
+      ItemStack stackInUse = ((EntityPlayer) entity).getActiveItemStack();
+      // "same" item
+      if(stackInUse != null && !tool.getItem().shouldCauseBlockBreakReset(tool, stackInUse)) {
+        return;
+      }
     }
     ModifierTagHolder modtag = ModifierTagHolder.getModifier(tool, getModifierIdentifier());
     Data data = modtag.getTagData(Data.class);

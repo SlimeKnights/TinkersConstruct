@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.shared.tileentity;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPane;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.entity.EntityLivingBase;
@@ -96,9 +97,11 @@ public class TileTable extends TileInventory {
 
     PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(model, 0, -0.46875f, 0, 0.8f, (float) (Math.PI / 2));
     if(stack.getItem() instanceof ItemBlock) {
-      item.y = -0.3125f;
+      if(!(Block.getBlockFromItem(stack.getItem())  instanceof BlockPane)) {
+        item.y = -0.3125f;
+        item.r = 0;
+      }
       item.s = 0.375f;
-      item.r = 0;
     }
     return item;
   }
@@ -106,7 +109,7 @@ public class TileTable extends TileInventory {
   @Override
   public SPacketUpdateTileEntity getUpdatePacket() {
     // note that this sends all of the tile data. you should change this if you use additional tile data
-    NBTTagCompound tag = (NBTTagCompound) getTileData().copy();
+    NBTTagCompound tag = getTileData().copy();
     writeToNBT(tag);
     return new SPacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);
   }

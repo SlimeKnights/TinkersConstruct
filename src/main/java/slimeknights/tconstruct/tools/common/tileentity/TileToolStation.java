@@ -1,9 +1,12 @@
 package slimeknights.tconstruct.tools.common.tileentity;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockPane;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.IExtendedBlockState;
@@ -49,7 +52,8 @@ public class TileToolStation extends TileTable implements IInventoryGui {
     float s = 0.46875f;
 
     for(int i = 0; i < info.positions.size(); i++) {
-      PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i), this.worldObj, null);
+      ItemStack stackInSlot = getStackInSlot(i);
+      PropertyTableItem.TableItem item = getTableItem(stackInSlot, this.worldObj, null);
       if(item != null) {
         item.x = (33 - info.positions.get(i).getX()) / 61f;
         item.z = (42 - info.positions.get(i).getY()) / 61f;
@@ -60,7 +64,7 @@ public class TileToolStation extends TileTable implements IInventoryGui {
         }
 
         // correct itemblock because scaling
-        if(getStackInSlot(i).getItem() instanceof ItemBlock) {
+        if(stackInSlot.getItem() instanceof ItemBlock && !(Block.getBlockFromItem(stackInSlot.getItem())  instanceof BlockPane)) {
           item.y = -(1f - item.s) / 2f;
         }
 

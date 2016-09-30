@@ -64,7 +64,9 @@ public class RenderEvents implements IResourceManagerReloadListener {
 
     // AOE preview
     if(tool != null) {
-      RayTraceResult mop = player.rayTrace(controllerMP.getBlockReachDistance(), event.getPartialTicks());
+      Entity renderEntity = Minecraft.getMinecraft().getRenderViewEntity();
+      double distance = controllerMP.getBlockReachDistance();
+      RayTraceResult mop = renderEntity.rayTrace(distance, event.getPartialTicks());
       if(mop != null) {
         tool = DualToolHarvestUtils.getItemstackToUse(player, world.getBlockState(mop.getBlockPos()));
         if(tool.getItem() instanceof IAoeTool) {

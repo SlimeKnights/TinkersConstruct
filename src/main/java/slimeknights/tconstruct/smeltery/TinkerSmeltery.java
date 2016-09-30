@@ -87,7 +87,7 @@ import slimeknights.tconstruct.tools.TinkerMaterials;
 public class TinkerSmeltery extends TinkerPulse {
 
   public static final String PulseId = "TinkerSmeltery";
-  static final Logger log = Util.getLogger(PulseId);
+  public static final Logger log = Util.getLogger(PulseId);
 
   @SidedProxy(clientSide = "slimeknights.tconstruct.smeltery.SmelteryClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
   public static CommonProxy proxy;

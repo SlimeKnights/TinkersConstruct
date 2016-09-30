@@ -122,6 +122,13 @@ public final class ToolHelper {
     return getIntTag(stack, Tags.FREE_MODIFIERS);
   }
 
+  public static int getFortuneLevel(ItemStack stack) {
+    int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
+    int luck = TinkerModifiers.modLuck.getLuckLevel(stack);
+
+    return Math.max(fortune, luck);
+  }
+
   public static List<ITrait> getTraits(ItemStack stack) {
     List<ITrait> traits = Lists.newLinkedList();
     NBTTagList traitsTagList = TagUtil.getTraitsTagList(stack);
@@ -234,9 +241,13 @@ public final class ToolHelper {
       return ImmutableList.of();
     }
 
-    RayTraceResult mop = ((ToolCore) stack.getItem()).rayTrace(world, player, false);
-    if(mop == null) {
-      return ImmutableList.of();
+    // raytrace to get the side, but has to result in the same block
+    RayTraceResult mop = ((ToolCore) stack.getItem()).rayTrace(world, player, true);
+    if(mop == null || !origin.equals(mop.getBlockPos())) {
+      mop = ((ToolCore) stack.getItem()).rayTrace(world, player, false);
+      if(mop == null || !origin.equals(mop.getBlockPos())) {
+        return ImmutableList.of();
+      }
     }
 
     // fire event

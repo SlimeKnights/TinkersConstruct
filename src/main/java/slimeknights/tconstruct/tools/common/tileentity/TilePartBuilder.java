@@ -1,9 +1,12 @@
 package slimeknights.tconstruct.tools.common.tileentity;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockPane;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.IExtendedBlockState;
@@ -37,18 +40,19 @@ public class TilePartBuilder extends TileTable implements IInventoryGui {
   @Override
   protected IExtendedBlockState setInventoryDisplay(IExtendedBlockState state) {
     PropertyTableItem.TableItems toDisplay = new PropertyTableItem.TableItems();
-    float c = 0.2f;
+    float c = 0.2125f;
     float[] x = new float[]{c, -c, c, -c};
     float[] y = new float[]{-c, -c, c, c};
     for(int i = 0; i < 4; i++) {
-      PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i), this.worldObj, null);
+      ItemStack stackInSlot = getStackInSlot(i);
+      PropertyTableItem.TableItem item = getTableItem(stackInSlot, this.worldObj, null);
       if(item != null) {
         item.x += x[i];
         item.z += y[i];
         item.s *= 0.46875f;
 
         // correct itemblock because scaling
-        if(getStackInSlot(i).getItem() instanceof ItemBlock) {
+        if(stackInSlot.getItem() instanceof ItemBlock && !(Block.getBlockFromItem(stackInSlot.getItem())  instanceof BlockPane)) {
           item.y = -(1f - item.s) / 2f;
         }
 
