@@ -177,7 +177,7 @@ public class TinkerOredict {
     oredict(blockClearGlass, "blockGlass"); // no blockGlassColorless as then it is assumed as available for staining
     // which blocks our own staining recipes
     oredict(blockClearStainedGlass, "blockGlass");
-    for(int i = 0; i > 16; i++) {
+    for(int i = 0; i < 16; i++) {
       oredict(blockClearStainedGlass, i, "blockGlass" + dyes[i]);
     }
   }
