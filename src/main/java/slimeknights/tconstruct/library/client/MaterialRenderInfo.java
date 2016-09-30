@@ -3,12 +3,15 @@ package slimeknights.tconstruct.library.client;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.texture.AnimatedColoredTexture;
 import slimeknights.tconstruct.library.client.texture.InverseColoredTexture;
 import slimeknights.tconstruct.library.client.texture.MetalColoredTexture;
+import slimeknights.tconstruct.library.client.texture.MetalTextureTexture;
 import slimeknights.tconstruct.library.client.texture.SimpleColoredTexture;
 import slimeknights.tconstruct.library.client.texture.TextureColoredTexture;
 
@@ -152,13 +155,27 @@ public interface MaterialRenderInfo {
     }
   }
 
+  class MetalTextured extends Metal {
+
+    protected String extraTexture;
+
+    public MetalTextured(String extraTexture, int color, float shinyness, float brightness, float hueshift) {
+      super(color, shinyness, brightness, hueshift);
+      this.extraTexture = extraTexture;
+    }
+
+    @Override
+    public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
+      return new MetalTextureTexture(extraTexture, baseTexture, location, color, shinyness, brightness, hueshift);
+    }
+  }
+
   /**
    * Uses a (block) texture instead of a color to create the texture
    */
   class BlockTexture extends AbstractMaterialRenderInfo {
 
     protected String texturePath;
-    protected Block block;
 
     public BlockTexture(String texturePath) {
       this.texturePath = texturePath;

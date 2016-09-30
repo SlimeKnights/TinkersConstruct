@@ -70,6 +70,8 @@ public abstract class ClientProxy extends CommonProxy {
     ModelLoaderRegistry.registerLoader(materialLoader);
     ModelLoaderRegistry.registerLoader(modifierLoader);
 
+    MaterialRenderInfoLoader.addRenderInfo("colored", ColoredRenderInfoDeserializer.class);
+
   }
 
   public static void initRenderer() {
@@ -81,8 +83,6 @@ public abstract class ClientProxy extends CommonProxy {
     resourceManager.registerReloadListener(MaterialRenderInfoLoader.INSTANCE);
     resourceManager.registerReloadListener(AbstractColoredTexture.CacheClearer.INSTANCE);
     resourceManager.registerReloadListener(creator);
-
-    MaterialRenderInfoLoader.addRenderInfo("colored", ColoredRenderInfoDeserializer.class);
 
     // Font renderer for tooltips and GUIs
     fontRenderer = new CustomFontRenderer(mc.gameSettings,
