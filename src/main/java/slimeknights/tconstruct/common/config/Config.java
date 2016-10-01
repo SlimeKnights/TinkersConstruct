@@ -133,13 +133,13 @@ public final class Config {
       prop = configFile.get(cat, "enableClayCasts", claycasts);
       prop.setComment("Adds single-use clay casts.");
       claycasts = prop.getBoolean();
-      prop.requiresMcRestart();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "allowBrickCasting", castableBricks);
       prop.setComment("Allows the creation of bricks from molten clay");
       castableBricks = prop.getBoolean();
-      prop.requiresMcRestart();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "AutosmeltFortuneInteraction", autosmeltlapis);
@@ -155,32 +155,32 @@ public final class Config {
       prop = configFile.get(cat, "registerAllItems", forceRegisterAll);
       prop.setComment("Enables all items, even if the Module needed to obtain them is not active");
       forceRegisterAll = prop.getBoolean();
-      prop.requiresMcRestart();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "obsidianAlloy", obsidianAlloy);
       prop.setComment("Allows the creation of obsidian in the smeltery, using a bucket of lava and water.");
       obsidianAlloy = prop.getBoolean();
-      prop.requiresMcRestart();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "addLeatherDryingRecipe", leatherDryingRecipe);
       prop.setComment("Adds a recipe that allows you to get leather from drying cooked meat");
       leatherDryingRecipe = prop.getBoolean();
-      prop.requiresMcRestart();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "addFlintRecipe", gravelFlintRecipe);
       prop.setComment("Adds a recipe that allows you to craft 3 gravel into a flint");
       gravelFlintRecipe = prop.getBoolean();
-      prop.requiresMcRestart();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "oreToIngotRatio", oreToIngotRatio);
       prop.setComment("Determines the ratio of ore to ingot, or in other words how many ingots you get out of an ore. This ratio applies to all ores (including poor and dense). The ratio can be any decimal, including 1.5 and the like, but can't go below 1. THIS ALSO AFFECTS MELTING TEMPERATURE!");
       prop.setMinValue(1);
       oreToIngotRatio = prop.getDouble();
-      prop.requiresMcRestart();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
     }
     // Worldgen
