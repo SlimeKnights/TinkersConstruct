@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_shulking",
         "battleaxe": "tconstruct:items/battleaxe/mod_shulking",
         "battlesign": "tconstruct:items/battlesign/mod_shulking",
         "broadsword": "tconstruct:items/broadsword/mod_shulking",
@@ -15,6 +16,10 @@
         "pickaxe": "tconstruct:items/pickaxe/mod_shulking",
         "scythe": "tconstruct:items/scythe/mod_shulking",
         "shovel": "tconstruct:items/shovel/mod_shulking",
-        "shuriken": "tconstruct:items/shuriken/mod_shulking"
+        "shuriken": "tconstruct:items/shuriken/mod_shulking",
+        "shortbow": "tconstruct:items/shortbow/mod_shulking",
+        "shortbow1": "tconstruct:items/shortbow/mod_shulking",
+        "shortbow2": "tconstruct:items/shortbow/mod_shulking",
+        "shortbow3": "tconstruct:items/shortbow/mod_shulking_3"
     }
 }

@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_emerald",
         "battleaxe": "tconstruct:items/battleaxe/mod_emerald",
         "battlesign": "tconstruct:items/battlesign/mod_emerald",
         "broadsword": "tconstruct:items/broadsword/mod_emerald",
@@ -15,6 +16,10 @@
         "pickaxe": "tconstruct:items/pickaxe/mod_emerald",
         "scythe": "tconstruct:items/scythe/mod_emerald",
         "shovel": "tconstruct:items/shovel/mod_emerald",
-        "shuriken": "tconstruct:items/shuriken/mod_emerald"
+        "shuriken": "tconstruct:items/shuriken/mod_emerald",
+        "shortbow": "tconstruct:items/shortbow/mod_emerald",
+        "shortbow1": "tconstruct:items/shortbow/mod_emerald",
+        "shortbow2": "tconstruct:items/shortbow/mod_emerald",
+        "shortbow3": "tconstruct:items/shortbow/mod_emerald"
     }
 }
