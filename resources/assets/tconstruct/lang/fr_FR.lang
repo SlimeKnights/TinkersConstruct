@@ -134,11 +134,11 @@ tile.tconstruct.seared_slab.brick.name=Dalle en briques sombres
 tile.tconstruct.seared_slab.brick_cracked.name=Dalle en briques sombres craquelées
 tile.tconstruct.seared_slab.brick_fancy.name=Dalle en briques sombres de qualité supérieure
 tile.tconstruct.seared_slab.brick_square.name=Dalle en briques sombres à motifs carrés
+tile.tconstruct.seared_slab.road.name=Pavé de rue sombre
+tile.tconstruct.seared_slab2.creeper.name=Dalle en briques sombres à motifs de visage de Creeper
 tile.tconstruct.seared_slab2.brick_triangle.name=Dalle en briques sombres à motifs triangulaires
 tile.tconstruct.seared_slab2.brick_small.name=Dalle en petites briques sombres
-tile.tconstruct.seared_slab.road.name=Pavé de rue sombre
 tile.tconstruct.seared_slab2.tile.name=Dalle à carreaux sombre
-tile.tconstruct.seared_slab2.creeper.name=Dalle en briques sombres à motifs de visage de Creeper
 
 tile.tconstruct.seared_stairs_stone.name=Escaliers en roche sombre
 tile.tconstruct.seared_stairs_cobble.name=Escaliers en pierre sombre
@@ -168,7 +168,9 @@ tile.tconstruct.seared_tank.window.name=Fenêtre sombre
 tile.tconstruct.seared_tank.tooltip=Coeur de la fonderie.\nRetient les liquides même s'il est cassé.
 tile.tconstruct.seared_glass.glass.name=Verre sombre
 tile.tconstruct.seared_glass.glass.tooltip=Elément de la fonderie. Utilisable pour la décoration.\nNe retient pas les liquides.
+
 tile.tconstruct.seared_furnace_controller.name=Contrôleur du four
+tile.tconstruct.tinker_tank_controller.name=Contrôleur du réservoir
 
 tile.tconstruct.stone_torch.name=Torche de pierre
 tile.tconstruct.stone_ladder.name=Échelle de pierre
@@ -331,6 +333,14 @@ item.tconstruct.pickaxe.name=Pioche
 item.tconstruct.shovel.name=Pelle
 item.tconstruct.hatchet.name=Hachette
 item.tconstruct.mattock.name=Bêche-binette-hache
+
+item.tconstruct.hammer.name=Marteau
+item.tconstruct.excavator.name=Excavateur
+item.tconstruct.lumberaxe.name=Hache lourde
+item.tconstruct.scythe.name=Faux
+
+# Melee Weapons
+
 item.tconstruct.frypan.name=Poêle
 item.tconstruct.battlesign.name=Pancarte de guerre
 item.tconstruct.dagger.name=Dague
@@ -339,12 +349,14 @@ item.tconstruct.longsword.name=Épée longue
 item.tconstruct.rapier.name=Rapière
 item.tconstruct.cutlass.name=Coutelas
 
-item.tconstruct.hammer.name=Marteau
-item.tconstruct.excavator.name=Excavateur
-item.tconstruct.lumberaxe.name=Hache lourde
 item.tconstruct.cleaver.name=Couperet
 item.tconstruct.battleaxe.name=Hache de guerre
-item.tconstruct.scythe.name=Faux
+
+# Ranged Weapons & Ammo
+
+item.tconstruct.shortbow.name=Arc court
+
+item.tconstruct.arrow.name=Flèche
 
 item.tconstruct.shuriken.name=Shuriken
 
@@ -365,7 +377,7 @@ item.tconstruct.cross_guard.name=Garde en croix
 item.tconstruct.hand_guard.name=Garde-main
 item.tconstruct.full_guard.name=Garde complète
 
-#Large Tool Parts
+# Large Tool Parts
 item.tconstruct.hammer_head.name=Tête de marteau
 item.tconstruct.excavator_head.name=Tête d'excavateur
 item.tconstruct.broad_axe_head.name=Tête de hache large
@@ -374,6 +386,15 @@ item.tconstruct.tough_binding.name=Connecteur dur
 item.tconstruct.tough_tool_rod.name=Manche d'outil dur
 item.tconstruct.scythe_head.name=Tête de faux
 item.tconstruct.large_sword_blade.name=Lame d'épée large
+
+# Bow & Arrow Parts
+
+item.tconstruct.bow_limb.name=Corps d'arc
+item.tconstruct.bow_string.name=Corde d'arc
+
+item.tconstruct.arrow_head.name=Pointe de flèche
+item.tconstruct.arrow_shaft.name=Hampe de flèche
+item.tconstruct.fletching.name=Empennage
 
 # Material specific tools and toolparts
 # item.tconstruct.<tool>.<material>
@@ -400,6 +421,30 @@ item.tconstruct.throwball.glow.name=Balle lumineuse
 item.tconstruct.throwball.glow.tooltip=Non comestible.
 item.tconstruct.throwball.efln.name=EFLN
 item.tconstruct.throwball.efln.tooltip=Explose! A garder pour l'exploitation minière!
+
+######################
+# Spaghetti de maman #
+######################
+
+item.tconstruct.moms_spaghetti.name=Spaghetti de maman
+item.tconstruct.moms_spaghetti.desc=Delicieux!
+item.tconstruct.moms_spaghetti.tooltip1=§oJe pense qu'elles sont bien…mais ce n'est pas pareil.\nElles ont incontestablement besoin d'un peu de sauce, mais elle doit être rouge.
+item.tconstruct.moms_spaghetti.tooltip2=§oIl manque quelque chose…on pourrait utiliser de la viande. Maman utilise touours TOUTE la viande.\nJe dois avoir au-moins 3 différentes sortes de viande.
+item.tconstruct.moms_spaghetti.tooltip3=§oJuste comme maman a l'habitude de les faire.
+stat.spaghetti.uses.name=Noms
+stat.spaghetti.nourishment.name=Nourriture
+stat.spaghetti.saturation.name=Saturation
+modifier.spaghetti_sauce.name=avec de la sauce
+modifier.spaghetti_sauce.desc=§oAvec des betteraves par maman§r\nAugmente la saturation
+modifier.spaghetti_meat.name=avec de la viande
+modifier.spaghetti_meat.desc=§oToute la viande!§r\nAugmente la valeur nutritive
+
+item.tconstruct.spaghetti.hard.name=Bâtonnets de blé super durs
+item.tconstruct.spaghetti.hard.tooltip=Complètement immangeables tels quels.\nIls ont besoin d'être ramolis, même toute la sueur de votre front est insufisante pour en venir à bout.\nIls doivent probablement tremper un bon moment dans de l'eau.
+item.tconstruct.spaghetti.soggy.name=Nouilles molles
+item.tconstruct.spaghetti.soggy.tooltip=Maintenant ils sont tout humides, même vos bras de spaghetti arrivent à les plier.\nSuspendons les et laissons les sécher.
+item.tconstruct.spaghetti.cold.name=Nouilles froides séchées
+item.tconstruct.spaghetti.cold.tooltip=Bon, c'est meilleur, mais ils ont encore un goût dégeulasse.\nLes réchauffer devrait les rendre mangeables.\nIls devraient même être suffisamment bons pour vous remettre sur pied.
 
 #################
 #    Entités    #
@@ -445,7 +490,7 @@ fluid.tconstruct.alubrass.name=Laiton d'aluminium fondu
 #    Potions    #
 #################
 
-potion.slimebounce=Rebondit-slime
+potion.carry=Piggybacking
 
 #################
 #   Matériaux   #
@@ -457,61 +502,53 @@ potion.slimebounce=Rebondit-slime
 material.wood.name=Bois
 material.wood.prefix=%s de bois
 material.stone.name=Pierre
-material.stone.prefix=%s de pierre
 material.flint.name=Silex
-material.flint.prefix=%s de silex
 material.cactus.name=Cactus
-material.cactus.prefix=%s de cactus
 material.obsidian.name=Obsidienne
-material.obsidian.prefix=%s d'obsidienne
 material.prismarine.name=Prismarine
-material.prismarine.prefix=%s de prismarine
 material.netherrack.name=Roche du Nether
-material.netherrack.prefix=%s de roche du Nether
 material.endstone.name=End
-material.endstone.prefix=%s d'End
 material.bone.name=Os
-material.bone.prefix=%s d'os
 material.paper.name=Papier
-material.paper.prefix=%s de papier
 material.sponge.name=Éponge
-material.sponge.prefix=%s d'éponge
 material.firewood.name=Bois de lave
-material.firewood.prefix=%s de bois de lave
 material.slime.name=Slime
-material.slime.prefix=%s de Slime
 material.blueslime.name=Slime bleu
 material.blueslime.prefix=%s de Slime bleu
 material.knightslime.name=knightslime
-material.knightslime.prefix=%s de knightslime
 material.magmaslime.name=Slime de magma
-material.magmaslime.prefix=%s de Slime de magma
 material.ardite.name=Ardite
-material.ardite.prefix=%s d'ardite
 material.cobalt.name=Cobalt
-material.cobalt.prefix=%s de cobalt
 material.manyullyn.name=Manyullyn
-material.manyullyn.prefix=%s de Manyullyn
 material.iron.name=Fer
-material.iron.prefix=%s de fer
 material.pigiron.name=Fonte
-material.pigiron.prefix=%s de fonte
 material.copper.name=Cuivre
-material.copper.prefix=%s de cuivre
 material.bronze.name=Bronze
-material.bronze.prefix=%s de bronze
 material.lead.name=Plomb
-material.lead.prefix=%s de plomb
 material.silver.name=Argent
-material.silver.prefix=%s d'argent
 material.electrum.name=Électrum
-material.electrum.prefix=%s d'électrum
 material.steel.name=Acier
-material.steel.prefix=%s d'acier
 
-##############
-#Statistiques#
-##############
+material.string.name=Ficelle
+material.vine.name=Vigne
+material.slimevine_blue.name=Vigne en slime bleu
+material.slimevine_orange.name=Vigne en slime orange
+material.slimevine_purple.name=Vigne en slime violet
+
+material.blaze.name=Bâton de Blaze
+material.reed.name=Roseaux
+material.ice.name=Glace
+material.endrod.name=Bâton de l'End
+
+material.feather.name=Plume
+material.leaf.name=Feuille
+material.slimeleaf_blue.name=Feuille en slime bleu
+material.slimeleaf_orange.name=Feuille en slime orange
+material.slimeleaf_purple.name=Feuille en slime violet
+
+#############
+#   Stats   #
+#############
 stat.head.name=Tête
 stat.head.durability.name=Durabilité
 stat.head.durability.desc=valeur de base pour les calculs de durabilité.\nC'est généralement une part importants de la durabilité global de l'outil.
@@ -534,6 +571,28 @@ stat.extra.durability.desc=A quel point la durabilité de cette pièce contribue
 
 stat.mattock.axelevel.name=Niveau de hache
 stat.mattock.shovellevel.name=Niveau de pelle
+
+stat.bow.name=Arc
+stat.bow.drawspeed.name=Vitesse de tir
+stat.bow.drawspeed.desc=Rapidité à laquelle tire l'arc.
+stat.bow.range.name=Multiplicateur de portée
+stat.bow.range.desc=Distance à laquelle le projectile peut être propulsé.
+
+stat.bowstring.name=Corde d'arc
+stat.bowstring.modifier.name=Modificateur
+stat.bowstring.modifier.desc=La durabilité sera multipliée par cette valeur.
+
+stat.shaft.name=Hampe de flèche
+stat.shaft.modifier.name=Modificateur
+stat.shaft.modifier.desc=Toute flèche a besoin d'une base convenable. Elle determinera la qualité finale.\nLe nombre total de munitions sera multiplié par cette valeur.
+stat.shaft.ammo.name=Munitions
+stat.shaft.ammo.desc=How many arrows you can get out of it.\nThis much flat ammo will be added.
+
+stat.fletching.name=Empennage de flèche
+stat.fletching.accuracy.name=Précision
+stat.fletching.accuracy.desc=Détermine la qualité de la trajectoire obtenue en utilisant cet empennage.\nAffecte la précision globale des projectiles.
+stat.fletching.modifier.name=Modificateur
+stat.fletching.modifier.desc=How many arrows you can craft with this.\nProjectile ammo will be multiplied by this.
 
 stat.projectile.ammo.name=Munitions
 
@@ -630,6 +689,17 @@ modifier.tasty.desc=§oHumm Hum Humm§r\nCe outil sent si bon.. Vous feriez mieu
 modifier.writable.name=Inscriptible
 modifier.writable.desc=§oIntellectuel!§r\nPlus de mots. Plus de modificateurs. C'est juste logique!
 
+modifier.breakable.name=Fragilité
+modifier.breakable.desc=§o"Haut"!§r\nLes projectiles ont 50% de chance de se briser à l'impact.
+modifier.endspeed.name=Vitesse terminale
+modifier.endspeed.desc=§oVitesse quantique!§r\nLes projectiles atteignent instantanément leur cible.
+modifier.freezing.name=Gêle
+modifier.freezing.desc=§oL'hiver vient§r\nLes cibles touchées sont de plus en plus ralenties.
+modifier.hovering.name=Planant
+modifier.hovering.desc=§oLibre comme le vent§r\nLes projectiles se déplacent plus lentement mais subissent moins la gravité.
+modifier.splitting.name=Séparation
+modifier.splitting.desc=§oDeux pour le prix d'une!§r\nL'accélération brutale de la flèche relachée peut la faire se séparer en dédoubler.
+
 #################
 # Modificateurs #
 #################
@@ -695,9 +765,11 @@ modifier.smite.desc=§oPour la Justice!§r\nFait des dommages supplémentaires a
 modifier.smite.extra=Vs morts-vivants: +%s
 modifier.soulbound.name=Lien sprirituel
 modifier.soulbound.desc=§oUn joyeux couple!§r\nVous aimez votre outil. Même la mort ne peut pas vous séparer.
+modifier.webbed.name=Englué
+modifier.webbed.desc=§oYuck!§r\nEmmêle l'ennemi dans une toile d'araignée, le ralentissant.
 
 #################
-#   Tool Info   #
+# Infos outils  #
 #################
 item.tconstruct.pickaxe.desc=La Piche est un outil de minage précis. Elle est efficace sur la pierre et les minerais.\nElle brise les blocs, OK?
 item.tconstruct.shovel.desc=La Pelle creuse la terre. Elle est efficace sur la terre, le sable, le gravier et la neige.\nFaites juste attention à ne pas creuser votre tombe!
@@ -717,7 +789,7 @@ item.tconstruct.scythe.desc=La Faux est un large outil de récolte. Elle est eff
 item.tconstruct.shuriken.desc=Le Shuriken est une  arme de lancé rapide à courte portée. Il est en grand nombre, mais fait de faibles dégâts.\nPeut être lancé depuis la deuxième main.
 
 ################
-#   Tooltips   #
+#  Infobulles  #
 ################
 tooltip.tool.modifiers=Modificateur
 tooltip.tool.broken=Cassé
@@ -826,6 +898,7 @@ gui.smeltery.fuel.empty=Pas de combustible trouvé
 gui.smeltery.fuel.heat=Température: %d
 gui.smeltery.capacity=Capacité
 gui.smeltery.capacity_available=Libre
+gui.smeltery.capacity_used=Utilisé:
 gui.smeltery.liquid.kilobucket=kb
 gui.smeltery.liquid.bucket=b
 gui.smeltery.liquid.millibucket=mb
@@ -839,6 +912,9 @@ gui.searedfurnace.name=Four sombre
 gui.searedfurnace.progress.complete=L'objet a fini de fondre
 gui.searedfurnace.progress.no_recipe=L'objet ne peut pas être cuisiné
 gui.searedfurnace.progress.no_space=Les résultat est trop grand pour tenir dans l'emplacement
+
+# Tinker Tank
+gui.tinkertank.name=Tinker Tank
 
 # These GUIs don't appear in game, but the titles can be viewed using the crafting station
 gui.itemrack.name=Etagère à objets
@@ -862,8 +938,7 @@ option.tconstruct.tank=Réservoir
 option.tconstruct.casting=Moulage
 option.tconstruct.progress=Progression de la recette
 
+
 # Config
 config.synced.restart=Votre configuration a été mise à jour pour correspondre au serveur. Relancez Minecraft.
 config.synced.ok=Configuration synchrone avec le serveur.
-
-#Contributed by LovelyFlare and Trounk on GitHub.  If there is an issue with this translation, please go make an issue at https://github.com/SlimeKnights/TinkersConstruct/issues
