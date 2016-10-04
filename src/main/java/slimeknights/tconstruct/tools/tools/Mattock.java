@@ -142,7 +142,7 @@ public class Mattock extends AoeToolCore {
     stack.setItemDamage(damage);
 
     // do tinkers damaging
-    if(!worldIn.isRemote) {
+    if(!worldIn.isRemote && ret == EnumActionResult.SUCCESS) {
       ToolHelper.damageTool(stack, 1, playerIn);
     }
     return ret;
