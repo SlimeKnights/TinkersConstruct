@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_diamond",
         "battleaxe": "tconstruct:items/battleaxe/mod_diamond",
         "battlesign": "tconstruct:items/battlesign/mod_diamond",
         "broadsword": "tconstruct:items/broadsword/mod_diamond",
@@ -15,6 +16,10 @@
         "pickaxe": "tconstruct:items/pickaxe/mod_diamond",
         "scythe": "tconstruct:items/scythe/mod_diamond",
         "shovel": "tconstruct:items/shovel/mod_diamond",
-        "shuriken": "tconstruct:items/shuriken/mod_diamond"
+        "shuriken": "tconstruct:items/shuriken/mod_diamond",
+        "shortbow": "tconstruct:items/shortbow/mod_diamond",
+        "shortbow1": "tconstruct:items/shortbow/mod_diamond",
+        "shortbow2": "tconstruct:items/shortbow/mod_diamond",
+        "shortbow3": "tconstruct:items/shortbow/mod_diamond"
     }
 }

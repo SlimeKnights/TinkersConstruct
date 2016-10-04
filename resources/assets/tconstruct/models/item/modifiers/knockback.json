@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_knockback",
         "battleaxe": "tconstruct:items/battleaxe/mod_knockback",
         "battlesign": "tconstruct:items/battlesign/mod_knockback",
         "broadsword": "tconstruct:items/broadsword/mod_knockback",
@@ -15,6 +16,10 @@
         "pickaxe": "tconstruct:items/pickaxe/mod_knockback",
         "scythe": "tconstruct:items/scythe/mod_knockback",
         "shovel": "tconstruct:items/shovel/mod_knockback",
-        "shuriken": "tconstruct:items/shuriken/mod_knockback"
+        "shuriken": "tconstruct:items/shuriken/mod_knockback",
+        "shortbow": "tconstruct:items/shortbow/mod_knockback",
+        "shortbow1": "tconstruct:items/shortbow/mod_knockback",
+        "shortbow2": "tconstruct:items/shortbow/mod_knockback",
+        "shortbow3": "tconstruct:items/shortbow/mod_knockback"
     }
 }

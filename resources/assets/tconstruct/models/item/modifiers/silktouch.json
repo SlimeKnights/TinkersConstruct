@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_silk",
         "battleaxe": "tconstruct:items/battleaxe/mod_silk",
         "battlesign": "tconstruct:items/battlesign/mod_silk",
         "broadsword": "tconstruct:items/broadsword/mod_silk",
@@ -15,6 +16,10 @@
         "pickaxe": "tconstruct:items/pickaxe/mod_silk",
         "scythe": "tconstruct:items/scythe/mod_silk",
         "shovel": "tconstruct:items/shovel/mod_silk",
-        "shuriken": "tconstruct:items/shuriken/mod_silk"
+        "shuriken": "tconstruct:items/shuriken/mod_silk",
+        "shortbow": "tconstruct:items/shortbow/mod_silk",
+        "shortbow1": "tconstruct:items/shortbow/mod_silk",
+        "shortbow2": "tconstruct:items/shortbow/mod_silk_2",
+        "shortbow3": "tconstruct:items/shortbow/mod_silk_3"
     }
 }

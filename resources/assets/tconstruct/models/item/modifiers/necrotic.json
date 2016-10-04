@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_necrotic",
         "battleaxe": "tconstruct:items/battleaxe/mod_necrotic",
         "battlesign": "tconstruct:items/battlesign/mod_necrotic",
         "broadsword": "tconstruct:items/broadsword/mod_necrotic",
@@ -15,6 +16,10 @@
         "pickaxe": "tconstruct:items/pickaxe/mod_necrotic",
         "scythe": "tconstruct:items/scythe/mod_necrotic",
         "shovel": "tconstruct:items/shovel/mod_necrotic",
-        "shuriken": "tconstruct:items/shuriken/mod_necrotic"
+        "shuriken": "tconstruct:items/shuriken/mod_necrotic",
+        "shortbow": "tconstruct:items/shortbow/mod_necrotic",
+        "shortbow1": "tconstruct:items/shortbow/mod_necrotic",
+        "shortbow2": "tconstruct:items/shortbow/mod_necrotic",
+        "shortbow3": "tconstruct:items/shortbow/mod_necrotic"
     }
 }

@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_soulbound",
         "battleaxe": "tconstruct:items/battleaxe/mod_soulbound",
         "battlesign": "tconstruct:items/battlesign/mod_soulbound",
         "broadsword": "tconstruct:items/broadsword/mod_soulbound",
@@ -15,6 +16,10 @@
         "pickaxe": "tconstruct:items/pickaxe/mod_soulbound",
         "scythe": "tconstruct:items/scythe/mod_soulbound",
         "shovel": "tconstruct:items/shovel/mod_soulbound",
-        "shuriken": "tconstruct:items/shuriken/mod_soulbound"
+        "shuriken": "tconstruct:items/shuriken/mod_soulbound",
+        "shortbow": "tconstruct:items/shortbow/mod_soulbound",
+        "shortbow1": "tconstruct:items/shortbow/mod_soulbound",
+        "shortbow2": "tconstruct:items/shortbow/mod_soulbound",
+        "shortbow3": "tconstruct:items/shortbow/mod_soulbound"
     }
 }

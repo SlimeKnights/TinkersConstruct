@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_glowing",
         "battleaxe": "tconstruct:items/battleaxe/mod_glowing",
         "battlesign": "tconstruct:items/battlesign/mod_glowing",
         "broadsword": "tconstruct:items/broadsword/mod_glowing",
@@ -15,6 +16,10 @@
         "pickaxe": "tconstruct:items/pickaxe/mod_glowing",
         "scythe": "tconstruct:items/scythe/mod_glowing",
         "shovel": "tconstruct:items/shovel/mod_glowing",
-        "shuriken": "tconstruct:items/shuriken/mod_glowing"
+        "shuriken": "tconstruct:items/shuriken/mod_glowing",
+        "shortbow": "tconstruct:items/shortbow/mod_glowing",
+        "shortbow1": "tconstruct:items/shortbow/mod_glowing_1",
+        "shortbow2": "tconstruct:items/shortbow/mod_glowing_2",
+        "shortbow3": "tconstruct:items/shortbow/mod_glowing_3"
     }
 }

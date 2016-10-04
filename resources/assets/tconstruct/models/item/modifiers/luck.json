@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_luck",
         "battleaxe": "tconstruct:items/battleaxe/mod_luck",
         "battlesign": "tconstruct:items/battlesign/mod_luck",
         "broadsword": "tconstruct:items/broadsword/mod_luck",

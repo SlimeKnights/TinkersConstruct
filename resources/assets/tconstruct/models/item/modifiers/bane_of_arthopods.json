@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_bane_spider",
         "battleaxe": "tconstruct:items/battleaxe/mod_bane_spider",
         "battlesign": "tconstruct:items/battlesign/mod_bane_spider",
         "broadsword": "tconstruct:items/broadsword/mod_bane_spider",
@@ -15,6 +16,10 @@
         "pickaxe": "tconstruct:items/pickaxe/mod_bane_spider",
         "scythe": "tconstruct:items/scythe/mod_bane_spider",
         "shovel": "tconstruct:items/shovel/mod_bane_spider",
-        "shuriken": "tconstruct:items/shuriken/mod_bane_spider"
+        "shuriken": "tconstruct:items/shuriken/mod_bane_spider",
+        "shortbow": "tconstruct:items/shortbow/mod_bane_spider",
+        "shortbow1": "tconstruct:items/shortbow/mod_bane_spider",
+        "shortbow2": "tconstruct:items/shortbow/mod_bane_spider_2",
+        "shortbow3": "tconstruct:items/shortbow/mod_bane_spider_3"
     }
 }
