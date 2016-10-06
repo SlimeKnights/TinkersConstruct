@@ -46,8 +46,8 @@ repositories {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 //apply plugin: 'forge'
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 group= "slimeknights"
 archivesBaseName = "TConstruct"
@@ -76,7 +76,7 @@ task buildInfo {
     }
 
     if (System.getenv().BUILD_NUMBER != null) {
-        ext.buildNum = "jenkins${System.getenv().BUILD_NUMBER}"
+        ext.buildNum = "${System.getenv().BUILD_NUMBER}"
     } else {
         ext.buildNum = "DEV.${project.buildInfo.revision}"
     }
