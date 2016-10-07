@@ -75,8 +75,8 @@ public class MaterialRenderInfoLoader implements IResourceManagerReloadListener 
       domains.add("minecraft");
 
       for(String domain : domains) {
+        ResourceLocation location = new ResourceLocation(domain, "materials/" + material.getIdentifier());
         try {
-          ResourceLocation location = new ResourceLocation(domain, "materials/" + material.getIdentifier());
           Reader reader = ModelHelper.getReaderForResource(location, resourceManager);
           IMaterialRenderInfoDeserializer deserializer = GSON.fromJson(reader, TYPE);
           if(deserializer != null) {
@@ -89,8 +89,8 @@ public class MaterialRenderInfoLoader implements IResourceManagerReloadListener 
             material.renderInfo = new MaterialRenderInfo.Default(material.materialTextColor);
             log.warn("Material " + material.getIdentifier() + " has no rendering info. Substituting default");
           }
-        } catch(IOException e) {
-          log.error("Exception when loading render info for material " + material.getIdentifier(), e);
+        } catch(IOException | JsonParseException e) {
+          log.error("Exception when loading render info for material " + material.getIdentifier() + " from file " + location.toString(), e);
         }
       }
     }
