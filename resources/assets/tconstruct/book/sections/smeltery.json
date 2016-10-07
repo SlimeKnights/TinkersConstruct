@@ -5,8 +5,13 @@
     "data": "smeltery/intro.json"
   },
   {
+    "name": "build",
+    "type": "structure",
+    "data": "smeltery/structure.json"
+  },
+  {
     "name": "structure",
     "type": "text",
-    "data": "smeltery/structure.json"
+    "data": "smeltery/buildInfo.json"
   }
 ]
