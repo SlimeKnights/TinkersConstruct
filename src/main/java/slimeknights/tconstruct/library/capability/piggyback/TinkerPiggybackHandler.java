@@ -7,6 +7,8 @@ import net.minecraft.network.play.server.SPacketSetPassengers;
 
 import java.util.List;
 
+import slimeknights.tconstruct.common.TinkerNetwork;
+
 public class TinkerPiggybackHandler implements ITinkerPiggyback {
 
   private EntityPlayer riddenPlayer;
@@ -23,7 +25,7 @@ public class TinkerPiggybackHandler implements ITinkerPiggyback {
       // tell the player itself if his riders changed serverside
       if(!riddenPlayer.getPassengers().equals(lastPassengers)) {
         if(riddenPlayer instanceof EntityPlayerMP) {
-          ((EntityPlayerMP) riddenPlayer).connection.sendPacket(new SPacketSetPassengers(riddenPlayer));
+          TinkerNetwork.sendPacket(riddenPlayer, new SPacketSetPassengers(riddenPlayer));
         }
       }
       lastPassengers = riddenPlayer.getPassengers();

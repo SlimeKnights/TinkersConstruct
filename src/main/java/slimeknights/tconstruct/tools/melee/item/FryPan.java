@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
@@ -112,7 +113,7 @@ public class FryPan extends TinkerToolCore {
       entity.addVelocity(x, y, z);
       TinkerTools.proxy.spawnAttackParticle(Particles.FRYPAN_ATTACK, player, 0.6d);
       if(entity instanceof EntityPlayerMP) {
-        ((EntityPlayerMP) entity).connection.sendPacket(new SPacketEntityVelocity(entity));
+        TinkerNetwork.sendPacket(player, new SPacketEntityVelocity(entity));
       }
     }
   }
