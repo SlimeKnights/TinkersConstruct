@@ -20,6 +20,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
@@ -37,6 +38,8 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 public class FryPan extends TinkerToolCore {
+
+  protected static final UUID FRYPAN_CHARGE_BONUS = UUID.fromString("b8f6d5f0-8d5a-11e6-ae22-56b6b6499611");
 
   public FryPan() {
     super(PartMaterialType.handle(TinkerTools.toolRod),
@@ -90,8 +93,7 @@ public class FryPan extends TinkerToolCore {
       double z = look.zCoord * strength;
 
       // bonus damage!
-      AttributeModifier modifier = new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", progress * 5f, 0);
-      AttributeModifier old = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getModifier(ATTACK_DAMAGE_MODIFIER);
+      AttributeModifier modifier = new AttributeModifier(FRYPAN_CHARGE_BONUS, "Frypan charge bonus", progress * 5f, 0);
 
       // we set the entity on fire for the hit if it was fully charged
       // this makes it so it drops cooked stuff.. and it'funny :D
@@ -99,11 +101,9 @@ public class FryPan extends TinkerToolCore {
       if(flamingStrike) {
         entity.setFire(1);
       }
-      player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).removeModifier(old);
       player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).applyModifier(modifier);
       ToolHelper.attackEntity(stack, this, player, entity);
       player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).removeModifier(modifier);
-      player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).applyModifier(old);
       if(flamingStrike) {
         entity.extinguish();
       }
