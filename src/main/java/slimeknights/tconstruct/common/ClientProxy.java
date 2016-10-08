@@ -8,6 +8,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,7 +30,15 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.client.CustomFontRenderer;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.crosshair.CrosshairRenderEvents;
+import slimeknights.tconstruct.library.client.material.MaterialRenderInfoLoader;
+import slimeknights.tconstruct.library.client.material.deserializers.BlockRenderInfoDeserializer;
+import slimeknights.tconstruct.library.client.material.deserializers.ColoredRenderInfoDeserializer;
+import slimeknights.tconstruct.library.client.material.deserializers.InverseMultiColorRenderInfoDeserializer;
+import slimeknights.tconstruct.library.client.material.deserializers.MetalRenderInfoDeserializer;
+import slimeknights.tconstruct.library.client.material.deserializers.MultiColorRenderInfoDeserializer;
+import slimeknights.tconstruct.library.client.material.deserializers.TexturedMetalRenderInfoDeserializer;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.client.model.ModifierModelLoader;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
@@ -53,6 +62,7 @@ import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackRapier
 
 public abstract class ClientProxy extends CommonProxy {
 
+  private static final Minecraft mc = Minecraft.getMinecraft();
   public static CustomFontRenderer fontRenderer;
 
   protected static final ToolModelLoader loader = new ToolModelLoader();
@@ -64,6 +74,13 @@ public abstract class ClientProxy extends CommonProxy {
     ModelLoaderRegistry.registerLoader(loader);
     ModelLoaderRegistry.registerLoader(materialLoader);
     ModelLoaderRegistry.registerLoader(modifierLoader);
+
+    MaterialRenderInfoLoader.addRenderInfo("colored", ColoredRenderInfoDeserializer.class);
+    MaterialRenderInfoLoader.addRenderInfo("multicolor", MultiColorRenderInfoDeserializer.class);
+    MaterialRenderInfoLoader.addRenderInfo("inverse_multicolor", InverseMultiColorRenderInfoDeserializer.class);
+    MaterialRenderInfoLoader.addRenderInfo("metal", MetalRenderInfoDeserializer.class);
+    MaterialRenderInfoLoader.addRenderInfo("metal_textured", TexturedMetalRenderInfoDeserializer.class);
+    MaterialRenderInfoLoader.addRenderInfo("block", BlockRenderInfoDeserializer.class);
   }
 
   public static void initRenderer() {
@@ -71,27 +88,29 @@ public abstract class ClientProxy extends CommonProxy {
     CustomTextureCreator creator = CustomTextureCreator.INSTANCE;
 
     MinecraftForge.EVENT_BUS.register(creator);
-    ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(creator);
-    ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(AbstractColoredTexture.CacheClearer.INSTANCE);
+    IReloadableResourceManager resourceManager = (IReloadableResourceManager) mc.getResourceManager();
+    resourceManager.registerReloadListener(MaterialRenderInfoLoader.INSTANCE);
+    resourceManager.registerReloadListener(AbstractColoredTexture.CacheClearer.INSTANCE);
+    resourceManager.registerReloadListener(creator);
 
     // Font renderer for tooltips and GUIs
-    fontRenderer = new CustomFontRenderer(Minecraft.getMinecraft().gameSettings,
+    fontRenderer = new CustomFontRenderer(mc.gameSettings,
                                           new ResourceLocation("textures/font/ascii.png"),
-                                          Minecraft.getMinecraft().renderEngine);
-    if(Minecraft.getMinecraft().gameSettings.language != null) {
-      fontRenderer.setUnicodeFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLocaleUnicode() || Minecraft.getMinecraft().gameSettings.forceUnicodeFont);
-      fontRenderer.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
+                                          mc.renderEngine);
+    if(mc.gameSettings.language != null) {
+      fontRenderer.setUnicodeFlag(mc.getLanguageManager().isCurrentLocaleUnicode() || mc.gameSettings.forceUnicodeFont);
+      fontRenderer.setBidiFlag(mc.getLanguageManager().isCurrentLanguageBidirectional());
     }
-    ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(fontRenderer);
+    resourceManager.registerReloadListener(fontRenderer);
 
 
     // Font Renderer for the tinker books
-    FontRenderer bookRenderer = new CustomFontRenderer(Minecraft.getMinecraft().gameSettings,
+    FontRenderer bookRenderer = new CustomFontRenderer(mc.gameSettings,
                                                        new ResourceLocation("textures/font/ascii.png"),
-                                                       Minecraft.getMinecraft().renderEngine);
+                                                       mc.renderEngine);
     bookRenderer.setUnicodeFlag(true);
-    if(Minecraft.getMinecraft().gameSettings.language != null) {
-      fontRenderer.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
+    if(mc.gameSettings.language != null) {
+      fontRenderer.setBidiFlag(mc.getLanguageManager().isCurrentLanguageBidirectional());
     }
     TinkerBook.INSTANCE.fontRenderer = bookRenderer;
 
@@ -257,22 +276,22 @@ public abstract class ClientProxy extends CommonProxy {
   @Override
   public void spawnParticle(Particles particleType, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
     if(world == null) {
-      world = Minecraft.getMinecraft().theWorld;
+      world = mc.theWorld;
     }
     Particle effect = createParticle(particleType, world, x, y, z, xSpeed, ySpeed, zSpeed, data);
-    Minecraft.getMinecraft().effectRenderer.addEffect(effect);
+    mc.effectRenderer.addEffect(effect);
 
     if(particleType == Particles.EFFECT && data[0] > 1) {
       for(int i = 0; i < data[0] - 1; i++) {
         effect = createParticle(particleType, world, x, y, z, xSpeed, ySpeed, zSpeed, data);
-        Minecraft.getMinecraft().effectRenderer.addEffect(effect);
+        mc.effectRenderer.addEffect(effect);
       }
     }
   }
 
   @Override
   public void spawnSlimeParticle(World world, double x, double y, double z) {
-    Minecraft.getMinecraft().effectRenderer.addEffect(new EntitySlimeFx(world, x, y, z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage()));
+    mc.effectRenderer.addEffect(new EntitySlimeFx(world, x, y, z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage()));
   }
 
   public static Particle createParticle(Particles type, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
@@ -282,19 +301,19 @@ public abstract class ClientProxy extends CommonProxy {
         return new EntitySlimeFx(world, x, y, z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage());
       // attack
       case CLEAVER_ATTACK:
-        return new ParticleAttackCleaver(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+        return new ParticleAttackCleaver(world, x, y, z, xSpeed, ySpeed, zSpeed, mc.getTextureManager());
       case LONGSWORD_ATTACK:
-        return new ParticleAttackLongsword(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+        return new ParticleAttackLongsword(world, x, y, z, xSpeed, ySpeed, zSpeed, mc.getTextureManager());
       case RAPIER_ATTACK:
-        return new ParticleAttackRapier(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+        return new ParticleAttackRapier(world, x, y, z, xSpeed, ySpeed, zSpeed, mc.getTextureManager());
       case HATCHET_ATTACK:
-        return new ParticleAttackHatchet(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+        return new ParticleAttackHatchet(world, x, y, z, xSpeed, ySpeed, zSpeed, mc.getTextureManager());
       case LUMBERAXE_ATTACK:
-        return new ParticleAttackLumberAxe(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+        return new ParticleAttackLumberAxe(world, x, y, z, xSpeed, ySpeed, zSpeed, mc.getTextureManager());
       case FRYPAN_ATTACK:
-        return new ParticleAttackFrypan(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+        return new ParticleAttackFrypan(world, x, y, z, xSpeed, ySpeed, zSpeed, mc.getTextureManager());
       case HAMMER_ATTACK:
-        return new ParticleAttackHammer(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+        return new ParticleAttackHammer(world, x, y, z, xSpeed, ySpeed, zSpeed, mc.getTextureManager());
       // effects
       case EFFECT:
         return new ParticleEffect(data[1], world, x, y, z, xSpeed, ySpeed, zSpeed);
@@ -367,7 +386,7 @@ public abstract class ClientProxy extends CommonProxy {
 
   @Override
   public void updateEquippedItemForRendering(EnumHand hand) {
-    Minecraft.getMinecraft().getItemRenderer().resetEquippedProgress(hand);
-    Minecraft.getMinecraft().getItemRenderer().updateEquippedItem();
+    mc.getItemRenderer().resetEquippedProgress(hand);
+    mc.getItemRenderer().updateEquippedItem();
   }
 }

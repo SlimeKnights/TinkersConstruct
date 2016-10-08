@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemTransformVec3f;
 import net.minecraft.client.renderer.block.model.ModelBlock;
 import net.minecraft.client.resources.IResource;
+import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -71,8 +72,12 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
   }
 
   public static Reader getReaderForResource(ResourceLocation location) throws IOException {
+    return getReaderForResource(location, Minecraft.getMinecraft().getResourceManager());
+  }
+
+  public static Reader getReaderForResource(ResourceLocation location, IResourceManager resourceManager) throws IOException {
     ResourceLocation file = new ResourceLocation(location.getResourceDomain(), location.getResourcePath() + ".json");
-    IResource iresource = Minecraft.getMinecraft().getResourceManager().getResource(file);
+    IResource iresource = resourceManager.getResource(file);
     return new BufferedReader(new InputStreamReader(iresource.getInputStream(), Charsets.UTF_8));
   }
 

@@ -157,10 +157,10 @@ public class TConstruct {
     if(event.getSide().isClient()) {
       ClientProxy.initRenderer();
     }
-
-
-    // config syncing
-    MinecraftForge.EVENT_BUS.register(new ConfigSync());
+    else {
+      // config syncing
+      MinecraftForge.EVENT_BUS.register(new ConfigSync());
+    }
   }
 
   // Old version compatibility

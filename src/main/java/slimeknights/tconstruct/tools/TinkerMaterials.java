@@ -23,6 +23,7 @@ import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
+import slimeknights.tconstruct.library.client.material.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
 import slimeknights.tconstruct.library.client.texture.MetalColoredTexture;
 import slimeknights.tconstruct.library.client.texture.MetalTextureTexture;
@@ -131,102 +132,6 @@ public final class TinkerMaterials {
 
   static {
     xu = new Material("unstable", TextFormatting.WHITE);
-  }
-
-  @Subscribe
-  public void registerRendering(FMLPostInitializationEvent event) {
-    if(event.getSide().isClient()) {
-      TinkerMaterials.registerMaterialRendering();
-    }
-  }
-
-  @SideOnly(Side.CLIENT)
-  private static void registerMaterialRendering() {
-    wood.setRenderInfo(new MaterialRenderInfo.MultiColor(0x6e572a, 0x745f38, 0x8e671d));
-    stone.setRenderInfo(0x696969);
-    flint.setRenderInfo(0xffffff).setTextureSuffix("contrast");
-    cactus.setRenderInfo(0x006d0a); // cactus has custom textures
-    obsidian.setRenderInfo(new MaterialRenderInfo.MultiColor(0x71589c, 0x8f60d4, 0x8c53df).setTextureSuffix("contrast")); // increase each color by 20 to get thaumium
-    prismarine.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/prismarine_bricks"));
-    netherrack.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/netherrack"));
-    endstone.setRenderInfo(new MaterialRenderInfo.InverseMultiColor(0x5c6296, 0x3c4276, 0x212a76));
-    firewood.setRenderInfo(new MaterialRenderInfo.BlockTexture("tconstruct:blocks/firewood"));
-
-    bone.setRenderInfo(0xede6bf).setTextureSuffix("bone_base");
-    paper.setRenderInfo(0xffffff); // paper has custom textures
-    sponge.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/sponge"));
-    slime.setRenderInfo(0x82c873);
-    blueslime.setRenderInfo(0x74c8c7);
-    magmaslime.setRenderInfo(new MaterialRenderInfo.MultiColor(0xa8673b, 0xff8c49, 0xff9d3d));
-    //magmaslime.setRenderInfo(new MaterialRenderInfo.BlockTexture("minecraft:blocks/lava_flow"));
-    /*
-    magmaslime.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() { // not technically a metal
-      @Override
-      public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
-        return new MetalTextureTexture(Util.resource("items/materials/magmaslime_pattern"), baseTexture, location, 0xff8c0d, 0.00f, 0.05f, 0.0f);
-      }
-    });*/
-
-
-    // Metals
-    //iron.setRenderInfo(new MaterialRenderInfo.Metal(0xcccccc, 0.0f, 0f, 0f));
-    iron.setRenderInfo(new MaterialRenderInfo.Metal(0xcacaca, 0f, 0.3f, 0f));
-    cobalt.setRenderInfo(new MaterialRenderInfo.Metal(0x173b75, 0.25f, 0.5f, -0.1f));
-    //ardite.setRenderInfo(new MaterialRenderInfo.Metal(0xa53000, 0.4f, 0.4f, 0.1f));
-    ardite.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() { // not technically a metal
-      @Override
-      public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
-        return new MetalTextureTexture(Util.resource("items/materials/ardite_rust"), baseTexture, location, 0xf97217, 0.6f, 0.4f, 0.1f);
-      }
-    });
-    //ardite.setRenderInfo(new MaterialRenderInfo.MultiColor(0x4e0000, 0xbc2a00, 0xff9e00).setTextureSuffix("metal"));
-    //ardite.setRenderInfo(new MaterialRenderInfo.MultiColor(0x0000FF, 0x00FF00, 0xff9e00).setTextureSuffix("metal"));
-    manyullyn.setRenderInfo(new MaterialRenderInfo.Metal(0xa93df5, 0.4f, 0.2f, -0.1f));
-
-    pigiron.setRenderInfo(new MaterialRenderInfo.Metal(0xd37c78, 0.1f, 0.1f, 0f));
-
-    // alloys
-    //knightslime.setRenderInfo(new MaterialRenderInfo.MultiColor(0x9c9c9c, 0xb79acc, 0xbc61f8).setTextureSuffix("contrast")); // looks awesome as obsidian
-    TinkerMaterials.knightslime.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() { // not technically a metal
-      @Override
-      public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
-        //return new MetalTextureTexture(Util.resource("blocks/slime/slimeblock_purple"), baseTexture, location, 0xdf86fa, 0.4f, 0.2f, 0.0f);
-        return new MetalColoredTexture(baseTexture, location, 0x685bd0, 0.0f, 0.5f, 0.3f);
-      }
-    });
-
-    // mod integration
-    copper.setRenderInfo(new MaterialRenderInfo.Metal(0xefa055, 0.25f, 0.25f, -0.05f));
-    bronze.setRenderInfo(new MaterialRenderInfo.Metal(0xe3bd68, 0.25f, 0.15f, -0.05f));
-    lead.setRenderInfo(new MaterialRenderInfo.Metal(0x4d4968, 0.0f, 0.15f, 0.2f));
-    silver.setRenderInfo(new MaterialRenderInfo.Metal(0xd1ecf6, 1f, 0.5f, 0.1f));
-    electrum.setRenderInfo(new MaterialRenderInfo.Metal(0xeddd51, 0.15f, 0.25f, -0.05f));
-    steel.setRenderInfo(new MaterialRenderInfo.Metal(0x888888, 0.1f, 0.3f, 0.1f));
-
-    // specul
-    xu.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
-      @Override
-      public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
-        return new ExtraUtilityTexture(baseTexture, location);
-      }
-    });
-
-    string.setRenderInfo(0xeeeeee);
-    vine.setRenderInfo(0x40a10f);
-    slimevine_blue.setRenderInfo(0x74c8c7);
-    //slimevine_orange.setRenderInfo(0xff960d);
-    slimevine_purple.setRenderInfo(0xc873c8);
-
-    blaze.setRenderInfo(0xffd120);
-    reed.setRenderInfo(0xaadb74);
-    ice.setRenderInfo(0x97d7e0);
-    endrod.setRenderInfo(0xe8ffd6);
-
-    feather.setRenderInfo(0xffffff).setTextureSuffix("feather");
-    leaf.setRenderInfo(0x1d730c).setTextureSuffix("feather");
-    slimeleaf_blue.setRenderInfo(0x74c8c7);
-    slimeleaf_orange.setRenderInfo(0xff960d);
-    slimeleaf_purple.setRenderInfo(0xc873c8);
   }
 
   @Subscribe

@@ -29,15 +29,26 @@ public class ModReinforced extends ModifierTrait {
   }
 
   @Override
-  public int onToolDamage(ItemStack tool, int damage, int newDamage, EntityLivingBase entity) {
-    if(!entity.getEntityWorld().isRemote) {
-      // get reinforced level
-      NBTTagCompound tag = TinkerUtil.getModifierTag(tool, identifier);
+  public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
+    super.applyEffect(rootCompound, modifierTag);
 
-      float chance = getReinforcedChance(tag);
-      if(chance >= random.nextFloat()) {
-        newDamage -= damage;
-      }
+    if(getReinforcedChance(modifierTag) >= 1f) {
+      rootCompound.setBoolean("Unbreakable", true);
+    }
+  }
+
+  @Override
+  public int onToolDamage(ItemStack tool, int damage, int newDamage, EntityLivingBase entity) {
+    if(entity.getEntityWorld().isRemote) {
+      return 0;
+    }
+
+    // get reinforced level
+    NBTTagCompound tag = TinkerUtil.getModifierTag(tool, identifier);
+
+    float chance = getReinforcedChance(tag);
+    if(chance >= random.nextFloat()) {
+      newDamage -= damage;
     }
     return Math.max(0, newDamage);
   }

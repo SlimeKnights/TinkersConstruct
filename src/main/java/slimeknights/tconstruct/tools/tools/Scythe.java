@@ -41,7 +41,6 @@ import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.AoeToolCore;
-import slimeknights.tconstruct.library.tools.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -169,16 +168,15 @@ public class Scythe extends AoeToolCore {
 
     int fortune = ToolHelper.getFortuneLevel(stack);
 
-    // if we cannot harvest the center block then back out
-    // don't break it now or the AOE check can fail due to an air block being there
     BlockPos origin = trace.getBlockPos();
 
     boolean harvestedSomething = false;
-
-    // otherwise if we succeed harvest the rest
     for(BlockPos pos : this.getAOEBlocks(stack, player.worldObj, player, origin)) {
       harvestedSomething |= harvestCrop(stack, world, player, pos, fortune);
     }
+
+    // center space done after the loop to prevent from changing the hitbox before AOE runs
+    harvestedSomething |= harvestCrop(stack, world, player, origin, fortune);
 
     if(harvestedSomething) {
       player.swingArm(hand);

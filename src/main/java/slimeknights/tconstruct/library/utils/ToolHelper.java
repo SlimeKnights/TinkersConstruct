@@ -381,7 +381,7 @@ public final class ToolHelper {
 
       // send update to client
       if(!world.isRemote) {
-        ((EntityPlayerMP) player).connection.sendPacket(new SPacketBlockChange(world, pos));
+        TinkerNetwork.sendPacket(player, new SPacketBlockChange(world, pos));
       }
       return;
     }
@@ -410,8 +410,7 @@ public final class ToolHelper {
       }
 
       // always send block update to client
-      EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
-      mpPlayer.connection.sendPacket(new SPacketBlockChange(world, pos));
+      TinkerNetwork.sendPacket(player, new SPacketBlockChange(world, pos));
     }
     // client sided handling
     else {
@@ -703,7 +702,7 @@ public final class ToolHelper {
       // Send movement changes caused by attacking directly to hit players.
       // I guess this is to allow better handling at the hit players side? No idea why it resets the motion though.
       if(targetEntity instanceof EntityPlayerMP && targetEntity.velocityChanged) {
-        ((EntityPlayerMP) targetEntity).connection.sendPacket(new SPacketEntityVelocity(targetEntity));
+        TinkerNetwork.sendPacket(player, new SPacketEntityVelocity(targetEntity));
         targetEntity.velocityChanged = false;
         targetEntity.motionX = oldVelX;
         targetEntity.motionY = oldVelY;

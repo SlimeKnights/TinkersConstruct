@@ -43,7 +43,7 @@ public abstract class Sounds {
 
   public static void PlaySoundForPlayer(Entity entity, SoundEvent sound, float volume, float pitch) {
     if(entity instanceof EntityPlayerMP) {
-      ((EntityPlayerMP) entity).connection.sendPacket(new SPacketSoundEffect(sound, entity.getSoundCategory(), entity.posX, entity.posY, entity.posZ, volume, pitch));
+      TinkerNetwork.sendPacket(entity, new SPacketSoundEffect(sound, entity.getSoundCategory(), entity.posX, entity.posY, entity.posZ, volume, pitch));
     }
   }
 }

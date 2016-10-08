@@ -33,6 +33,7 @@ import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.material.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.model.IPatternOffset;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
@@ -99,6 +100,8 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
       return;
     }
 
+    // get the material info at this point, to override hardcoded material rendering with resources
+    MaterialRenderInfoLoader.INSTANCE.loadRenderInfo();
 
     createdTextures = 0;
     // create textures for each material where needed
