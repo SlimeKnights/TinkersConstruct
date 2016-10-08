@@ -29,6 +29,15 @@ public class ModReinforced extends ModifierTrait {
   }
 
   @Override
+  public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
+    super.applyEffect(rootCompound, modifierTag);
+
+    if(getReinforcedChance(modifierTag) >= 1f) {
+      rootCompound.setBoolean("Unbreakable", true);
+    }
+  }
+
+  @Override
   public int onToolDamage(ItemStack tool, int damage, int newDamage, EntityLivingBase entity) {
     if(entity.getEntityWorld().isRemote) {
       return 0;
