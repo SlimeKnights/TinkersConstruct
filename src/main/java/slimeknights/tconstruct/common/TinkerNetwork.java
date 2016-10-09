@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.common;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.Packet;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
@@ -59,6 +61,12 @@ public class TinkerNetwork extends NetworkWrapper {
     registerPacketServer(SmelteryFluidClicked.class);
     registerPacketClient(FluidUpdatePacket.class);
     registerPacketClient(FaucetActivationPacket.class);
+  }
+
+  public static void sendPacket(Entity player, Packet<?> packet) {
+    if(player instanceof EntityPlayerMP && ((EntityPlayerMP) player).connection != null) {
+      ((EntityPlayerMP) player).connection.sendPacket(packet);
+    }
   }
 
   public static void sendToAll(AbstractPacket packet) {

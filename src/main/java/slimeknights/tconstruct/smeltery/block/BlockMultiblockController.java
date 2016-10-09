@@ -124,4 +124,10 @@ public abstract class BlockMultiblockController extends BlockInventoryTinkers {
         world.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
     }
   }
+
+  @Override
+  public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
+    // don't rotate, we like our tile entity data and we don't want to create an invalid structure by rotating the controller
+    return false;
+  }
 }

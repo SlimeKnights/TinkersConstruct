@@ -72,27 +72,29 @@ public class MaterialModel implements IPatternOffset, IModel {
     String baseTexture = base.getParticleTexture().getIconName();
     Map<String, TextureAtlasSprite> sprites = CustomTextureCreator.sprites.get(baseTexture);
 
-    for(Map.Entry<String, TextureAtlasSprite> entry : sprites.entrySet()) {
-      Material material = TinkerRegistry.getMaterial(entry.getKey());
+    if(sprites != null) {
+      for(Map.Entry<String, TextureAtlasSprite> entry : sprites.entrySet()) {
+        Material material = TinkerRegistry.getMaterial(entry.getKey());
 
-      IModel model2 = ItemLayerModel.INSTANCE.retexture(ImmutableMap.of("layer0", entry.getValue().getIconName()));
-      IBakedModel bakedModel2 = model2.bake(state, format, bakedTextureGetter);
+        IModel model2 = ItemLayerModel.INSTANCE.retexture(ImmutableMap.of("layer0", entry.getValue().getIconName()));
+        IBakedModel bakedModel2 = model2.bake(state, format, bakedTextureGetter);
 
-      // if it's a colored material we need to color the quads. But only if the texture was not a custom texture
-      if(material.renderInfo.useVertexColoring() && !CustomTextureCreator.exists(baseTexture + "_" + material.identifier)) {
-        int color = (material.renderInfo).getVertexColor();
+        // if it's a colored material we need to color the quads. But only if the texture was not a custom texture
+        if(material.renderInfo.useVertexColoring() && !CustomTextureCreator.exists(baseTexture + "_" + material.identifier)) {
+          int color = (material.renderInfo).getVertexColor();
 
-        ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
-        // ItemLayerModel.BakedModel only uses general quads
-        for(BakedQuad quad : bakedModel2.getQuads(null, null, 0)) {
-          quads.add(ModelHelper.colorQuad(color, quad));
+          ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
+          // ItemLayerModel.BakedModel only uses general quads
+          for(BakedQuad quad : bakedModel2.getQuads(null, null, 0)) {
+            quads.add(ModelHelper.colorQuad(color, quad));
+          }
+
+          // create a new model with the colored quads
+          bakedModel2 = new BakedSimple(quads.build(), map, bakedModel2);
         }
 
-        // create a new model with the colored quads
-        bakedModel2 = new BakedSimple(quads.build(), map, bakedModel2);
+        bakedMaterialModel.addMaterialModel(material, bakedModel2);
       }
-
-      bakedMaterialModel.addMaterialModel(material, bakedModel2);
     }
 
     return bakedMaterialModel;

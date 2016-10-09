@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
@@ -66,6 +67,7 @@ import slimeknights.tconstruct.tools.traits.InfiTool;
 public abstract class ToolCore extends TinkersItem implements IToolStationDisplay {
 
   public final static int DEFAULT_MODIFIERS = 3;
+  public static final String TAG_SWITCHED_HAND_HAX = "SwitchedHand";
 
   public ToolCore(PartMaterialType... requiredComponents) {
     super(requiredComponents);
@@ -188,6 +190,19 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
       for(BlockPos extraPos : ((IAoeTool) this).getAOEBlocks(itemstack, player.worldObj, player, pos)) {
         ToolHelper.breakExtraBlock(itemstack, player.worldObj, player, extraPos, pos);
       }
+    }
+
+    // this is a really dumb hack.
+    // Basically when something with silktouch harvests a block from the offhand
+    // the game can't detect that. so we have to switch around the items in the hands for the break call
+    // it's switched back in onBlockDestroyed
+    if(DualToolHarvestUtils.shouldUseOffhand(player, pos, player.getHeldItemMainhand())) {
+      ItemStack off = player.getHeldItemOffhand();
+      switchItemsInHands(player);
+      // remember, off is in the mainhand now
+      NBTTagCompound tag = TagUtil.getTagSafe(off);
+      tag.setLong(TAG_SWITCHED_HAND_HAX, player.worldObj.getTotalWorldTime());
+      off.setTagCompound(tag);
     }
 
     return super.onBlockStartBreak(itemstack, pos, player);
@@ -493,6 +508,16 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   @Override
   public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+    // move item back into offhand. See onBlockBreakStart
+    if(stack != null && entityLiving != null && stack.hasTagCompound()) {
+      NBTTagCompound tag = stack.getTagCompound();
+      if(tag.getLong(TAG_SWITCHED_HAND_HAX) == entityLiving.worldObj.getTotalWorldTime()) {
+        tag.removeTag(TAG_SWITCHED_HAND_HAX);
+        stack.setTagCompound(tag);
+
+        switchItemsInHands(entityLiving);
+      }
+    }
     if(ToolHelper.isBroken(stack)) {
       return false;
     }
@@ -503,6 +528,13 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
     afterBlockBreak(stack, worldIn, state, pos, entityLiving, damage, effective);
 
     return hasCategory(Category.TOOL);
+  }
+
+  protected void switchItemsInHands(EntityLivingBase entityLiving) {
+    ItemStack main = entityLiving.getHeldItemMainhand();
+    ItemStack off = entityLiving.getHeldItemOffhand();
+    entityLiving.setHeldItem(EnumHand.OFF_HAND, main);
+    entityLiving.setHeldItem(EnumHand.MAIN_HAND, off);
   }
 
   public void afterBlockBreak(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase player, int damage, boolean wasEffective) {

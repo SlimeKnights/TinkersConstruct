@@ -301,4 +301,17 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     RayTraceResult raytraceresult = boundingBox.calculateIntercept(vec3d, vec3d1);
     return raytraceresult == null ? null : new RayTraceResult(raytraceresult.hitVec.addVector((double) pos.getX(), (double) pos.getY(), (double) pos.getZ()), raytraceresult.sideHit, pos);
   }
+
+  @Override
+  public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
+    TileEntity te = world.getTileEntity(pos);
+    if(te instanceof TileTable) {
+      TileTable table = (TileTable) te;
+      table.setFacing(table.getFacing().rotateY());
+      IBlockState state = world.getBlockState(pos);
+      world.notifyBlockUpdate(pos, state, state, 0);
+      return true;
+    }
+    return false;
+  }
 }

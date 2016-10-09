@@ -143,12 +143,12 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
 
             for(EntityPlayer player : worldObj.playerEntities) {
               if(player.getDistanceSq(pos) < 1024 && player instanceof EntityPlayerMP) {
-                ((EntityPlayerMP) player).connection.sendPacket(new SPacketParticles(EnumParticleTypes.FLAME, false,
-                                                                                     pos.getX() + 0.5f,
-                                                                                     pos.getY() + 1.1f,
-                                                                                     pos.getZ() + 0.5f,
-                                                                                     0.25f, 0.0125f, 0.25f,
-                                                                                     0.005f, 5));
+                TinkerNetwork.sendPacket(player, new SPacketParticles(EnumParticleTypes.FLAME, false,
+                                                                      pos.getX() + 0.5f,
+                                                                      pos.getY() + 1.1f,
+                                                                      pos.getZ() + 0.5f,
+                                                                      0.25f, 0.0125f, 0.25f,
+                                                                      0.005f, 5));
               }
             }
           }
