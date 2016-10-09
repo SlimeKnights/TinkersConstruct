@@ -28,7 +28,10 @@
       "pos": [2, 1, 4],
       "endPos": [2, 1, 4],
       "block": "tconstruct:smeltery_controller",
-      "meta": 3
+      "state": {
+        "facing": "south",
+        "active": "true"
+      }
     },
     {
       "pos": [3, 1, 4],

@@ -42,7 +42,10 @@ public abstract class BlockMultiblockController extends BlockInventoryTinkers {
   @Override
   public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
     // active or inactive?
-    return state.withProperty(ACTIVE, isActive(worldIn, pos));
+    if(getTile(worldIn, pos) != null) {
+      return state.withProperty(ACTIVE, isActive(worldIn, pos));
+    }
+    return state;
   }
 
   protected TileMultiblock<?> getTile(IBlockAccess world, BlockPos pos) {
