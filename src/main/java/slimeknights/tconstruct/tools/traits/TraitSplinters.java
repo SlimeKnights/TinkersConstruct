@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.traits.AbstractTrait;
 public class TraitSplinters extends AbstractTrait {
 
   public static DamageSource splinter = new DamageSource("splinter").setDamageBypassesArmor();
-  private static int chance = 100; // 1/X chance of getting the effect
+  private static int chance = 150; // 1/X chance of getting the effect
 
   public TraitSplinters() {
     super("splinters", TextFormatting.GREEN);
