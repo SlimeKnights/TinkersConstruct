@@ -213,8 +213,8 @@ tile.tconstruct.brownstone.tile.name=Braunsteinkacheln
 tile.tconstruct.brownstone.creeper.name=Braunstein-Creepergesicht
 tile.tconstruct.brownstone.tooltip=Du kannst dich darauf ein wenig schneller bewegen
 
-tile.tconstruct.brownstone_slab.smooth.name=Smooth Braunsteinstufe
-tile.tconstruct.brownstone_slab.rough.name=Rough Braunsteinstufe
+tile.tconstruct.brownstone_slab.smooth.name=Glatte Braunsteinstufe
+tile.tconstruct.brownstone_slab.rough.name=Raue Braunsteinstufe
 tile.tconstruct.brownstone_slab.paver.name=Braunsteinpflasterstufe
 tile.tconstruct.brownstone_slab.brick.name=Braunsteinziegelstufe
 tile.tconstruct.brownstone_slab.brick_cracked.name=Rissige Braunsteinziegelstufe
