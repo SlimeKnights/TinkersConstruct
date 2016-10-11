@@ -113,6 +113,7 @@ public class TinkerTools extends AbstractToolPulse {
     sharpeningKit = (SharpeningKit) registerToolPart(new SharpeningKit(), "sharpening_kit");
     sharpeningKit.setCreativeTab(TinkerRegistry.tabParts);
     TinkerRegistry.registerToolPart(sharpeningKit);
+    TinkerRegistry.registerToolPart(shard);
 
     super.preInit(event);
 
@@ -141,6 +142,7 @@ public class TinkerTools extends AbstractToolPulse {
     TinkerRegistry.setShardItem(shard);
 
     TinkerRegistry.registerStencilTableCrafting(Pattern.setTagForPart(new ItemStack(pattern), sharpeningKit));
+    TinkerRegistry.registerStencilTableCrafting(Pattern.setTagForPart(new ItemStack(pattern), shard));
   }
 
   @Override
