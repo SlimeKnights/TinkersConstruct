@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.client.model;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
@@ -16,6 +18,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
 
@@ -62,6 +67,11 @@ public class BakedToolModel extends BakedWrapper.Perspective {
 
   protected static class ToolItemOverrideList extends ItemOverrideList {
 
+    private Cache<CacheKey, IBakedModel> bakedModelCache = CacheBuilder.newBuilder()
+                                                                       .maximumSize(1000)
+                                                                       .expireAfterWrite(5, TimeUnit.MINUTES)
+                                                                       .build();
+
     static ToolItemOverrideList INSTANCE = new ToolItemOverrideList();
 
     protected ToolItemOverrideList() {
@@ -70,21 +80,37 @@ public class BakedToolModel extends BakedWrapper.Perspective {
 
     @Nonnull
     @Override
-    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
+    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, final ItemStack stack, @Nonnull final World world, @Nonnull final EntityLivingBase entity) {
       NBTTagCompound baseTag = TagUtil.getBaseTag(stack);
+      IBakedModel outputModel = originalModel;
       if(!baseTag.hasNoTags()) {
-        BakedToolModel original = getBaseModel((BakedToolModel) originalModel, stack, world, entity);
+        final BakedToolModel original = getBaseModel((BakedToolModel) originalModel, stack, world, entity);
 
-        // get the texture for each part
-        ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
+        CacheKey key = new CacheKey(original, stack);
 
-        addPartQuads(stack, original, quads);
-        addModifierQuads(stack, original, quads);
-        addExtraQuads(stack, original, quads, world, entity);
-
-        return new BakedSimple(quads.build(), original.transforms, original);
+        try {
+          outputModel = bakedModelCache.get(key, new Callable<IBakedModel>() {
+            @Override
+            public IBakedModel call() throws Exception {
+              return getCompleteModel(stack, world, entity, original);
+            }
+          });
+        } catch(ExecutionException e) {
+          // do nothing, return original model
+        }
       }
-      return originalModel;
+      return outputModel;
+    }
+
+    protected IBakedModel getCompleteModel(ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity, BakedToolModel original) {
+      // get the texture for each part
+      ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
+
+      addPartQuads(stack, original, quads);
+      addModifierQuads(stack, original, quads);
+      addExtraQuads(stack, original, quads, world, entity);
+
+      return new BakedSimple(quads.build(), original.transforms, original);
     }
 
     private BakedToolModel getBaseModel(@Nonnull BakedToolModel originalModel, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
@@ -139,4 +165,45 @@ public class BakedToolModel extends BakedWrapper.Perspective {
       // for custom stuff
     }
   }
+
+  private static class CacheKey {
+
+    final IBakedModel parent;
+    final String data;
+
+    private CacheKey(IBakedModel parent, ItemStack stack) {
+      this.parent = parent;
+      this.data = getDataFromStack(stack);
+    }
+
+    private String getDataFromStack(ItemStack stack) {
+      return TagUtil.getTagSafe(stack).toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if(this == o) {
+        return true;
+      }
+      if(o == null || getClass() != o.getClass()) {
+        return false;
+      }
+
+      CacheKey cacheKey = (CacheKey) o;
+
+      if(parent != null ? parent != cacheKey.parent : cacheKey.parent != null) {
+        return false;
+      }
+      return data != null ? data.equals(cacheKey.data) : cacheKey.data == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+      int result = parent != null ? parent.hashCode() : 0;
+      result = 31 * result + (data != null ? data.hashCode() : 0);
+      return result;
+    }
+  }
+
 }
