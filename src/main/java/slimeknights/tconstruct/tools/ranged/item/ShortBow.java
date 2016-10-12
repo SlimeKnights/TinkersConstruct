@@ -32,9 +32,13 @@ import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 public class ShortBow extends BowCore implements ICustomCrosshairUser {
 
   public ShortBow() {
-    super(PartMaterialType.bowstring(TinkerTools.bowString),
+    this(PartMaterialType.bowstring(TinkerTools.bowString),
           PartMaterialType.bow(TinkerTools.bowLimb),
           PartMaterialType.bow(TinkerTools.bowLimb));
+  }
+
+  public ShortBow(PartMaterialType... requiredComponents) {
+    super(requiredComponents);
   }
 
   @Override
