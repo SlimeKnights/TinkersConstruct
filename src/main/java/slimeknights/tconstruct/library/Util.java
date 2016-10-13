@@ -88,18 +88,13 @@ public class Util {
     return I18n.translateToLocal(I18n.translateToLocalFormatted(key, (Object[]) pars).trim()).trim();
   }
 
+  /**
+   * Will be removed!
+   * @deprecated use Item.getRegistryName
+   */
+  @Deprecated
   public static ResourceLocation getItemLocation(Item item) {
-    // get the registered name for the object
-    Object o = GameData.getItemRegistry().getNameForObject(item);
-
-    // are you trying to add an unregistered item...?
-    if(o == null) {
-      TinkerRegistry.log.error("Item %s is not registered!" + item.getUnlocalizedName());
-      // bad boi
-      return null;
-    }
-
-    return (ResourceLocation) o;
+    return item.getRegistryName();
   }
 
   public static ItemStack[] copyItemStackArray(ItemStack[] in) {

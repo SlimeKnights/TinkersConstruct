@@ -101,14 +101,4 @@ public class CommonsClientProxy extends ClientProxy {
     registerItemBlockMeta(slabDecoGround);
     registerItemModel(stairsMudBrick);
   }
-
-  @Override
-  protected void registerItemModel(ItemStack item, String name) {
-    // safety! We call it for everything even if it wasn't registered
-    if(item == null) {
-      return;
-    }
-
-    super.registerItemModel(item, name);
-  }
 }
