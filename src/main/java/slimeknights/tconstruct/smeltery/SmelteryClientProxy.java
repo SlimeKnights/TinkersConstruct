@@ -27,6 +27,9 @@ import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 import slimeknights.tconstruct.smeltery.tileentity.TileTinkerTank;
 
+import static slimeknights.tconstruct.common.ModelRegisterUtil.registerItemBlockMeta;
+import static slimeknights.tconstruct.common.ModelRegisterUtil.registerItemModel;
+
 public class SmelteryClientProxy extends ClientProxy {
 
   @Override

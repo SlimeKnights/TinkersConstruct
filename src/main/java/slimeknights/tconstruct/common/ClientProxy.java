@@ -160,13 +160,9 @@ public abstract class ClientProxy extends CommonProxy {
   }
 
   /** Register with name only, defaults to TiC domain */
-  public static void registerItemModel(ItemStack item, String name) {
+  protected void registerItemModelTiC(ItemStack item, String name) {
     if(item != null && !StringUtils.isNullOrEmpty(name)) {
-      // tell Minecraft which textures it has to load. This is resource-domain sensitive
-      if(!name.contains(":")) {
-        name = Util.resource(name);
-      }
-      ModelRegisterUtil.registerItemModel(item, new ResourceLocation(name));
+      ModelRegisterUtil.registerItemModel(item, Util.getResource(name));
     }
   }
 

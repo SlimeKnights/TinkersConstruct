@@ -28,6 +28,11 @@ import slimeknights.tconstruct.library.client.model.PropertyStateMapper;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.shared.block.BlockSlime;
 
+import static slimeknights.tconstruct.common.ModelRegisterUtil.registerItemBlockMeta;
+import static slimeknights.tconstruct.common.ModelRegisterUtil.registerItemModel;
+import static slimeknights.tconstruct.common.ModelRegisterUtil.registerModifierModel;
+import static slimeknights.tconstruct.common.ModelRegisterUtil.registerToolModel;
+
 public class GadgetClientProxy extends ClientProxy {
 
 

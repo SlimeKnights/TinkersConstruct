@@ -8,9 +8,8 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 
 import slimeknights.tconstruct.common.ClientProxy;
-import slimeknights.tconstruct.library.TinkerRegistryClient;
+import slimeknights.tconstruct.common.ModelRegisterUtil;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
-import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 import slimeknights.tconstruct.tools.common.block.BlockToolTable;
 import slimeknights.tconstruct.tools.common.client.RenderEvents;
 
@@ -48,8 +47,8 @@ public class ToolClientProxy extends ClientProxy {
     ModelLoader.setCustomMeshDefinition(TinkerTools.pattern, new PatternMeshDefinition(patternLoc));
 
     // parts
-    registerPartModel(shard);
-    registerPartModel(sharpeningKit);
+    ModelRegisterUtil.registerPartModel(shard);
+    ModelRegisterUtil.registerPartModel(sharpeningKit);
   }
 
 

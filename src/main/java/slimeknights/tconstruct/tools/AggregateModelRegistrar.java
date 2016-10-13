@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.CommonProxy;
+import slimeknights.tconstruct.common.ModelRegisterUtil;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.IModifier;
@@ -74,12 +75,12 @@ public class AggregateModelRegistrar extends AbstractToolPulse {
 
       // toolparts
       for(ToolPart part : toolparts) {
-        registerPartModel(part);
+        ModelRegisterUtil.registerPartModel(part);
       }
 
       // tools
       for(ToolCore tool : tools) {
-        registerToolModel(tool);
+        ModelRegisterUtil.registerToolModel(tool);
       }
 
       registerModifierModels();
@@ -91,11 +92,11 @@ public class AggregateModelRegistrar extends AbstractToolPulse {
           // modifiers without model are blacklisted
           continue;
         }
-        registerModifierModel(modifier, Util.getModifierResource(modifier.getIdentifier()));
+        ModelRegisterUtil.registerModifierModel(modifier, Util.getModifierResource(modifier.getIdentifier()));
       }
 
       // we add a temporary modifier that does nothing to work around the model restrictions for the fortify modifier
-      registerModifierModel(new ModFortifyDisplay(), Util.getResource("models/item/modifiers/fortify"));
+      ModelRegisterUtil.registerModifierModel(new ModFortifyDisplay(), Util.getResource("models/item/modifiers/fortify"));
     }
   }
 }

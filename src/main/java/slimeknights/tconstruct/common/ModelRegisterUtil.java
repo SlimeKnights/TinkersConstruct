@@ -15,7 +15,6 @@ import javax.annotation.Nonnull;
 
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.modifiers.IModifier;
@@ -69,7 +68,7 @@ public final class ModelRegisterUtil {
         TConstruct.log.error("Trying to register an ItemBlockMeta model for a non itemblockmeta block: " + block.getRegistryName());
       }
     }
-}
+  }
 
   /** Registers the item with the given metadata and its registry name for the inventory variant */
   public static void registerItemModel(Item item, int meta) {
@@ -111,7 +110,7 @@ public final class ModelRegisterUtil {
   }
 
   /** Manual registration of a tool model. You probably shouldn't be using this. */
-  static ResourceLocation registerToolModel(Item item, final ResourceLocation location) {
+  public static ResourceLocation registerToolModel(Item item, final ResourceLocation location) {
     if(!location.getResourcePath().endsWith(ToolModelLoader.EXTENSION)) {
       TConstruct.log.error("The material-model " + location.toString() + " does not end with '"
                            + ToolModelLoader.EXTENSION
@@ -190,5 +189,6 @@ public final class ModelRegisterUtil {
     return location;
   }
 
-  private ModelRegisterUtil() {}
+  private ModelRegisterUtil() {
+  }
 }

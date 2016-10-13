@@ -19,6 +19,8 @@ import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.block.BlockClearStainedGlass;
 import slimeknights.tconstruct.shared.block.BlockClearStainedGlass.EnumGlassColor;
 
+import static slimeknights.tconstruct.common.ModelRegisterUtil.registerItemBlockMeta;
+import static slimeknights.tconstruct.common.ModelRegisterUtil.registerItemModel;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockClearGlass;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockClearStainedGlass;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockDecoGround;
