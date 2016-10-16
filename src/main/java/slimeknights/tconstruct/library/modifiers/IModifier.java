@@ -13,7 +13,7 @@ public interface IModifier extends IToolMod {
    * Called with a set of itemstacks and returns a match which contains the items that match
    * and how often the modifier can be applied with them
    */
-  RecipeMatch.Match matches(ItemStack[] stacks);
+  RecipeMatch.Match matches(ItemStack... stacks);
 
   /**
    * Returns true if the modifier can be applied to the given itemstack.
