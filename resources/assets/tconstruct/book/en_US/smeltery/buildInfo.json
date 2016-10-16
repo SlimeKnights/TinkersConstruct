@@ -1,0 +1,12 @@
+{
+  "title":"",
+  "text": [
+    {
+      "text": "The Smeltery can be any size from 3x3 to 11x11, and any height from a minumum of 2. Larger structures increase both the number of items that can smelt and the liquid capacity. The structure requires a floor, but does not require a ceiling or a frame."
+    },
+    {
+      "text": "The Smeltery can be built using any combination of seared blocks, glass, tanks, and drains, though the floor must be made of solely seared blocks. It also requires at least one tank for fuel, but more will increase the fuel amount. Faucets can be attached to the drains in order to pour fluids into casting tables and basins, or fluid can be pumped in and out of the drains using fluid pipes from other mods",
+	  "paragraph": true
+    }
+  ]
+}
