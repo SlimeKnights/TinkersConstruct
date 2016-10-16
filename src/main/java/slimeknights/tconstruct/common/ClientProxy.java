@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.common;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
@@ -43,10 +42,7 @@ import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.client.particle.EntitySlimeFx;
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
-import slimeknights.tconstruct.library.modifiers.IModifier;
-import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
-import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.client.ParticleEffect;
 import slimeknights.tconstruct.shared.client.ParticleEndspeed;
@@ -166,69 +162,6 @@ public abstract class ClientProxy extends CommonProxy {
     }
   }
 
-  /** @deprecated use {@link ModelRegisterUtil} */
-  @Deprecated
-  protected ResourceLocation registerToolModel(ToolCore tool) {
-    return ModelRegisterUtil.registerToolModel(tool);
-  }
-
-  /** @deprecated use {@link ModelRegisterUtil} */
-  @Deprecated
-  protected ResourceLocation registerToolModel(Item item, final ResourceLocation location) {
-    return ModelRegisterUtil.registerToolModel(item, location);
-  }
-
-  /** @deprecated use {@link ModelRegisterUtil} */
-  @Deprecated
-  public ResourceLocation registerMaterialItemModel(Item item) {
-    return ModelRegisterUtil.registerMaterialItemModel(item);
-  }
-
-  /** @deprecated use {@link ModelRegisterUtil} */
-  @Deprecated
-  public ResourceLocation registerMaterialModel(Item item, final ResourceLocation location) {
-    return ModelRegisterUtil.registerMaterialModel(item, location);
-  }
-
-  /** @deprecated use {@link ModelRegisterUtil} */
-  @Deprecated
-  public void registerModifierModel(IModifier modifier, ResourceLocation location) {
-    ModelRegisterUtil.registerModifierModel(modifier, location);
-  }
-
-  /** @deprecated use {@link ModelRegisterUtil} */
-  @Deprecated
-  public ResourceLocation registerItemModel(Item item) {
-    return ModelRegisterUtil.registerItemModel(item);
-  }
-
-  /** @deprecated use {@link ModelRegisterUtil} */
-  @Deprecated
-  public ResourceLocation registerItemModel(Block block) {
-    return ModelRegisterUtil.registerItemModel(block);
-  }
-
-  /** @deprecated use {@link ModelRegisterUtil} */
-  @Deprecated
-  public void registerItemModel(Item item, int meta, String variant) {
-    ModelRegisterUtil.registerItemModel(item, meta, variant);
-  }
-
-  /** @deprecated use {@link ModelRegisterUtil} */
-  @Deprecated
-  public void registerItemBlockMeta(Block block) {
-    ModelRegisterUtil.registerItemBlockMeta(block);
-  }
-
-  /**
-   * Will be removed
-   * @deprecated Use Item.getRegistryName
-   */
-  @Deprecated
-  public static ResourceLocation getItemLocation(Item item) {
-    return Util.getItemLocation(item);
-  }
-
   @Override
   public void sendPacketToServerOnly(AbstractPacket packet) {
     TinkerNetwork.sendToServer(packet);
@@ -306,12 +239,6 @@ public abstract class ClientProxy extends CommonProxy {
     }
     explosion.doExplosionA();
     explosion.doExplosionB(true);
-  }
-
-  /** @deprecated use {@link ModelRegisterUtil} */
-  @Deprecated
-  public static <T extends Item & IToolPart> ResourceLocation registerPartModel(T item) {
-    return ModelRegisterUtil.registerPartModel(item);
   }
 
   public static class PatternMeshDefinition implements ItemMeshDefinition {

@@ -85,7 +85,7 @@ public final class ModelRegisterUtil {
   /** Registers the given item/meta combination with the model at the given location, and the given variant */
   public static void registerItemModel(Item item, int meta, ResourceLocation location, String variant) {
     if(item != null && !StringUtils.isNullOrEmpty(variant)) {
-      ModelLoader.registerItemVariants(item, location);
+      //ModelLoader.registerItemVariants(item, location);
       ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), variant));
     }
   }
