@@ -15,6 +15,7 @@ public class CastingRecipeHandler implements IRecipeHandler<CastingRecipeWrapper
 
   @Nonnull
   @Override
+  @Deprecated
   public String getRecipeCategoryUid() {
     return CastingRecipeCategory.CATEGORY;
   }
@@ -22,7 +23,7 @@ public class CastingRecipeHandler implements IRecipeHandler<CastingRecipeWrapper
   @Nonnull
   @Override
   public String getRecipeCategoryUid(@Nonnull CastingRecipeWrapper recipe) {
-    return getRecipeCategoryUid();
+    return CastingRecipeCategory.CATEGORY;
   }
 
   @Nonnull
