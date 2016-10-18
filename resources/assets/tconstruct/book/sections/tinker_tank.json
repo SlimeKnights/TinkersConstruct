@@ -8,5 +8,13 @@
     "name": "structure",
     "type": "text",
     "data": "tinker_tank/structure.json"
+  },
+  {
+    "name": "structure",
+    "type": "structure",
+    "data": "tinker_tank/multiblock.json"
+  },
+  {
+    "type": "blank"
   }
 ]
