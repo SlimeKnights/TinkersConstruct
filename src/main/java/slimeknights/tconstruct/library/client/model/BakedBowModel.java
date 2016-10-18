@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -46,6 +47,20 @@ public class BakedBowModel extends BakedToolModel {
     static BowItemOverrideList INSTANCE = new BowItemOverrideList();
 
     @Override
+    protected CacheKey getCacheKey(ItemStack stack, BakedToolModel original, World world, EntityLivingBase entityLivingBase) {
+      CacheKey key = super.getCacheKey(stack, original, world, entityLivingBase);
+
+      if(original instanceof BakedBowModel && stack.getItem() instanceof IAmmoUser) {
+        ItemStack ammo = ((IAmmoUser) stack.getItem()).getAmmoToRender(stack, entityLivingBase);
+        if(ammo != null) {
+          key = new CacheKeyAmmo(original, stack, ammo);
+        }
+      }
+
+      return key;
+    }
+
+    @Override
     protected void addExtraQuads(ItemStack stack, BakedToolModel original, ImmutableList.Builder<BakedQuad> quads, World world, EntityLivingBase entityLivingBase) {
       if(original instanceof BakedBowModel && stack.getItem() instanceof IAmmoUser) {
         ItemStack ammo = ((IAmmoUser) stack.getItem()).getAmmoToRender(stack, entityLivingBase);
@@ -62,4 +77,46 @@ public class BakedBowModel extends BakedToolModel {
       }
     }
   }
+
+  protected static class CacheKeyAmmo extends CacheKey {
+
+    final Item ammoItem;
+    final String ammoData;
+
+    private CacheKeyAmmo(IBakedModel parent, ItemStack stack, ItemStack ammo) {
+      super(parent, stack);
+      ammoItem = ammo.getItem();
+      ammoData = getDataFromStack(ammo);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if(this == o) {
+        return true;
+      }
+      if(o == null || getClass() != o.getClass()) {
+        return false;
+      }
+      if(!super.equals(o)) {
+        return false;
+      }
+
+      CacheKeyAmmo that = (CacheKeyAmmo) o;
+
+      if(ammoItem != null ? !ammoItem.equals(that.ammoItem) : that.ammoItem != null) {
+        return false;
+      }
+      return ammoData != null ? ammoData.equals(that.ammoData) : that.ammoData == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+      int result = super.hashCode();
+      result = 31 * result + (ammoItem != null ? ammoItem.hashCode() : 0);
+      result = 31 * result + (ammoData != null ? ammoData.hashCode() : 0);
+      return result;
+    }
+  }
+
 }
