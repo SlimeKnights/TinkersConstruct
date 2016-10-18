@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.plugin.jei;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
@@ -11,11 +12,12 @@ import mezz.jei.api.gui.IDrawableAnimated;
 import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import slimeknights.tconstruct.library.Util;
 
-public class DryingRecipeCategory implements IRecipeCategory {
+public class DryingRecipeCategory implements IRecipeCategory<DryingRecipeWrapper> {
 
   public static String CATEGORY = Util.prefix("dryingrack");
   public static ResourceLocation background_loc = Util.getResource("textures/gui/jei/dryingrack.png");
@@ -58,17 +60,20 @@ public class DryingRecipeCategory implements IRecipeCategory {
   }
 
   @Override
-  public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
-    if(recipeWrapper instanceof DryingRecipeWrapper) {
-      DryingRecipeWrapper recipe = (DryingRecipeWrapper) recipeWrapper;
-      IGuiItemStackGroup items = recipeLayout.getItemStacks();
+  @Deprecated
+  public void setRecipe(IRecipeLayout recipeLayout, DryingRecipeWrapper recipe) {
+    // deprecated
+  }
 
-      items.init(0, true, 43, 17);
-      items.setFromRecipe(0, recipe.getInputs());
+  @Override
+  public void setRecipe(IRecipeLayout recipeLayout, DryingRecipeWrapper recipeWrapper, IIngredients ingredients) {
+    IGuiItemStackGroup items = recipeLayout.getItemStacks();
 
-      items.init(1, false, 97, 17);
-      items.setFromRecipe(1, recipe.getOutputs());
-    }
+    items.init(0, true, 43, 17);
+    items.set(ingredients);
+
+    items.init(1, false, 97, 17);
+    items.set(ingredients);
   }
 
 }

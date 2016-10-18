@@ -16,6 +16,7 @@ public class SmeltingRecipeHandler implements IRecipeHandler<MeltingRecipe> {
 
   @Nonnull
   @Override
+  @Deprecated
   public String getRecipeCategoryUid() {
     return SmeltingRecipeCategory.CATEGORY;
   }
@@ -23,7 +24,7 @@ public class SmeltingRecipeHandler implements IRecipeHandler<MeltingRecipe> {
   @Nonnull
   @Override
   public String getRecipeCategoryUid(@Nonnull MeltingRecipe recipe) {
-    return getRecipeCategoryUid();
+    return SmeltingRecipeCategory.CATEGORY;
   }
 
   @Nonnull

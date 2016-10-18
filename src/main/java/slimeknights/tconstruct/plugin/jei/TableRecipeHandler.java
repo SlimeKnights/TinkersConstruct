@@ -17,6 +17,7 @@ public class TableRecipeHandler implements IRecipeHandler<TableRecipe> {
 
   @Nonnull
   @Override
+  @Deprecated
   public String getRecipeCategoryUid() {
     return VanillaRecipeCategoryUid.CRAFTING;
   }
@@ -24,7 +25,7 @@ public class TableRecipeHandler implements IRecipeHandler<TableRecipe> {
   @Nonnull
   @Override
   public String getRecipeCategoryUid(@Nonnull TableRecipe recipe) {
-    return getRecipeCategoryUid();
+    return VanillaRecipeCategoryUid.CRAFTING;
   }
 
   @Nonnull

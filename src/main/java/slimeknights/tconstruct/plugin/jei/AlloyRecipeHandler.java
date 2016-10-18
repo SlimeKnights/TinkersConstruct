@@ -16,6 +16,7 @@ public class AlloyRecipeHandler implements IRecipeHandler<AlloyRecipe> {
 
   @Nonnull
   @Override
+  @Deprecated
   public String getRecipeCategoryUid() {
     return AlloyRecipeCategory.CATEGORY;
   }
@@ -23,7 +24,7 @@ public class AlloyRecipeHandler implements IRecipeHandler<AlloyRecipe> {
   @Nonnull
   @Override
   public String getRecipeCategoryUid(@Nonnull AlloyRecipe recipe) {
-    return getRecipeCategoryUid();
+    return AlloyRecipeCategory.CATEGORY;
   }
 
   @Nonnull

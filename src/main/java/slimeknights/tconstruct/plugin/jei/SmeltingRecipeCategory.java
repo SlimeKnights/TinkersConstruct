@@ -10,12 +10,12 @@ import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 
-public class SmeltingRecipeCategory implements IRecipeCategory {
+public class SmeltingRecipeCategory implements IRecipeCategory<SmeltingRecipeWrapper> {
 
   public static String CATEGORY = Util.prefix("smeltery");
   public static ResourceLocation background_loc = Util.getResource("textures/gui/jei/smeltery.png");
@@ -57,20 +57,22 @@ public class SmeltingRecipeCategory implements IRecipeCategory {
   }
 
   @Override
-  public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
+  @Deprecated
+  public void setRecipe(IRecipeLayout recipeLayout, SmeltingRecipeWrapper recipeWrapper) {
+    // deprecated
+  }
+
+  @Override
+  public void setRecipe(IRecipeLayout recipeLayout, SmeltingRecipeWrapper recipe, IIngredients ingredients) {
     IGuiItemStackGroup items = recipeLayout.getItemStacks();
     items.init(0, true, 27, 20);
-    items.setFromRecipe(0, recipeWrapper.getInputs());
+    items.set(ingredients);
 
-    if(recipeWrapper instanceof SmeltingRecipeWrapper) {
-      SmeltingRecipeWrapper recipe = (SmeltingRecipeWrapper) recipeWrapper;
+    IGuiFluidStackGroup fluids = recipeLayout.getFluidStacks();
+    fluids.init(0, false, 115, 6, 18, 32, Material.VALUE_Block, false, null);
+    fluids.set(ingredients);
 
-      IGuiFluidStackGroup fluids = recipeLayout.getFluidStacks();
-      fluids.init(0, false, 115, 6, 18, 32, Material.VALUE_Block, false, null);
-      fluids.set(0, recipe.outputs);
-
-      fluids.init(1, false, 72, 38, 16, 16, 1000, false, tankOverlay);
-      fluids.set(1, recipe.fuels);
-    }
+    fluids.init(1, false, 72, 38, 16, 16, 1000, false, tankOverlay);
+    fluids.set(1, recipe.fuels);
   }
 }

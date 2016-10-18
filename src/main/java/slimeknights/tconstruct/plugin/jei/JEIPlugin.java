@@ -21,6 +21,8 @@ import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
+import mezz.jei.api.ISubtypeRegistry;
+import mezz.jei.api.ingredients.IModIngredientRegistration;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -38,6 +40,16 @@ import slimeknights.tconstruct.tools.common.block.BlockToolTable;
 public class JEIPlugin implements IModPlugin {
 
   public static IJeiHelpers jeiHelpers;
+
+  @Override
+  public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
+
+  }
+
+  @Override
+  public void registerIngredients(IModIngredientRegistration registry) {
+
+  }
 
   @Override
   public void register(@Nonnull IModRegistry registry) {

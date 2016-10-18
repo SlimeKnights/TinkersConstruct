@@ -1,7 +1,11 @@
 package slimeknights.tconstruct.plugin.jei;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidStack;
+
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -12,12 +16,12 @@ import mezz.jei.api.gui.IDrawableStatic;
 import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 
-public class CastingRecipeCategory implements IRecipeCategory {
+public class CastingRecipeCategory implements IRecipeCategory<CastingRecipeWrapper> {
 
   public static String CATEGORY = Util.prefix("casting_table");
   public static ResourceLocation background_loc = Util.getResource("textures/gui/jei/casting.png");
@@ -67,30 +71,33 @@ public class CastingRecipeCategory implements IRecipeCategory {
   }
 
   @Override
-  public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IRecipeWrapper recipeWrapper) {
-    if(recipeWrapper instanceof CastingRecipeWrapper) {
-      CastingRecipeWrapper recipe = (CastingRecipeWrapper) recipeWrapper;
-      IGuiItemStackGroup items = recipeLayout.getItemStacks();
-      IGuiFluidStackGroup fluids = recipeLayout.getFluidStacks();
+  @Deprecated
+  public void setRecipe(IRecipeLayout recipeLayout, CastingRecipeWrapper recipeWrapper) {
+    // deprecated
+  }
 
-      int cap = recipe.getFluidInputs().get(0).amount;
+  @Override
+  public void setRecipe(IRecipeLayout recipeLayout, CastingRecipeWrapper recipe, IIngredients ingredients) {
+    IGuiItemStackGroup items = recipeLayout.getItemStacks();
+    IGuiFluidStackGroup fluids = recipeLayout.getFluidStacks();
 
-      items.init(0, true, 58, 25);
-      items.setFromRecipe(0, recipe.getInputs());
+    List<FluidStack> input = ingredients.getInputs(FluidStack.class).get(0);
+    List<ItemStack> casts = ingredients.getInputs(ItemStack.class).get(0);
 
-      items.init(1, false, 113, 24);
-      items.setFromRecipe(1, recipe.getOutputs());
+    int cap = input.get(0).amount;
 
-      fluids.init(0, true, 22, 10, 18, 32, Material.VALUE_Block, false, null);
-      fluids.set(0, recipe.getFluidInputs());
+    items.init(0, true, 58, 25);
+    items.init(1, false, 113, 24);
+    items.set(ingredients);
 
-      // no cast, bigger fluid
-      int h = 11;
-      if(recipe.getInputs().isEmpty()) {
-        h += 16;
-      }
-      fluids.init(1, true, 64, 15, 6, h, cap, false, null);
-      fluids.set(1, recipe.getFluidInputs());
+    fluids.init(0, true, 22, 10, 18, 32, Material.VALUE_Block, false, null);
+
+    // no cast, bigger fluid
+    int h = 11;
+    if(!casts.isEmpty()) {
+      h += 16;
     }
+    fluids.init(1, true, 64, 15, 6, h, cap, false, null);
+    fluids.set(ingredients);
   }
 }

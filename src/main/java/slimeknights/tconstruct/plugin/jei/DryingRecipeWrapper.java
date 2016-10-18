@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import slimeknights.tconstruct.library.DryingRecipe;
 
@@ -25,16 +26,10 @@ public class DryingRecipeWrapper extends BlankRecipeWrapper {
     this.time = recipe.getTime();
   }
 
-  @Nonnull
   @Override
-  public List<ItemStack> getInputs() {
-    return input;
-  }
-
-  @Nonnull
-  @Override
-  public List<ItemStack> getOutputs() {
-    return output;
+  public void getIngredients(IIngredients ingredients) {
+    ingredients.setInputs(ItemStack.class, input);
+    ingredients.setOutputs(ItemStack.class, output);
   }
 
   @Override
