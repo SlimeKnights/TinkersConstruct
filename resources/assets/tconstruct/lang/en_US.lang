@@ -355,6 +355,7 @@ item.tconstruct.battleaxe.name=Battleaxe
 # Ranged Weapons & Ammo
 
 item.tconstruct.shortbow.name=Shortbow
+item.tconstruct.longbow.name=Longbow
 
 item.tconstruct.arrow.name=Arrow
 
