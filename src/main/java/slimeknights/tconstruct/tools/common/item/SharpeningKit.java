@@ -21,7 +21,7 @@ import slimeknights.tconstruct.library.tools.ToolPart;
 public class SharpeningKit extends ToolPart {
 
   public SharpeningKit() {
-    super(Material.VALUE_Shard * 3);
+    super(Material.VALUE_Shard * 4);
   }
 
   @Override

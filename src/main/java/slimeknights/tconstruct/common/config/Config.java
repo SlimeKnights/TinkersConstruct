@@ -52,9 +52,9 @@ public final class Config {
   public static int[] slimeIslandBlacklist = new int[]{-1, 1};
   public static boolean slimeIslandsOnlyGenerateInSurfaceWorlds = true;
   public static boolean genCobalt = true;
-  public static int cobaltRate = 16; // max. cobalt per chunk
+  public static int cobaltRate = 20; // max. cobalt per chunk
   public static boolean genArdite = true;
-  public static int arditeRate = 16; // max. ardite per chunk
+  public static int arditeRate = 20; // max. ardite per chunk
 
   // Clientside configs
   public static boolean renderTableItems = true;

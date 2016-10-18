@@ -287,7 +287,9 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     // save it
     SlimeIslandData data = getIslandData(world);
     data.islands.add(new StructureBoundingBox(start.getX(), start.getY(), start.getZ(),
-                                              start.getX() + xRange, start.getY() + yRange, start.getZ() + yRange));
+                                              start.getX() + xRange,
+                                              start.getY() + yRange,
+                                              start.getZ() + zRange));
     data.markDirty();
   }
 

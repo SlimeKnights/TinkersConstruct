@@ -19,6 +19,8 @@ import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.block.BlockClearStainedGlass;
 import slimeknights.tconstruct.shared.block.BlockClearStainedGlass.EnumGlassColor;
 
+import static slimeknights.tconstruct.common.ModelRegisterUtil.registerItemBlockMeta;
+import static slimeknights.tconstruct.common.ModelRegisterUtil.registerItemModel;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockClearGlass;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockClearStainedGlass;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockDecoGround;
@@ -100,15 +102,5 @@ public class CommonsClientProxy extends ClientProxy {
     registerItemBlockMeta(blockDecoGround);
     registerItemBlockMeta(slabDecoGround);
     registerItemModel(stairsMudBrick);
-  }
-
-  @Override
-  protected void registerItemModel(ItemStack item, String name) {
-    // safety! We call it for everything even if it wasn't registered
-    if(item == null) {
-      return;
-    }
-
-    super.registerItemModel(item, name);
   }
 }

@@ -141,8 +141,6 @@ public final class TinkerMaterials {
     wood.addItem("stickWood", 1, Material.VALUE_Shard);
     wood.addItem("plankWood", 1, Material.VALUE_Ingot);
     wood.addItem("logWood", 1, Material.VALUE_Ingot * 4);
-    wood.addTrait(ecological, HEAD);
-    wood.addTrait(splinters);
     wood.addTrait(ecological);
 
     stone.setCraftable(true);
@@ -346,11 +344,11 @@ public final class TinkerMaterials {
                                     new ExtraMaterialStats(15));
 
     TinkerRegistry.addMaterialStats(stone,
-                                    new HeadMaterialStats(120, 4.00f, 2.90f, IRON),
+                                    new HeadMaterialStats(120, 4.00f, 3.00f, IRON),
                                     new HandleMaterialStats(0.50f, -50),
                                     new ExtraMaterialStats(20));
     TinkerRegistry.addMaterialStats(flint,
-                                    new HeadMaterialStats(150, 5.00f, 2.80f, IRON),
+                                    new HeadMaterialStats(150, 5.00f, 2.90f, IRON),
                                     new HandleMaterialStats(0.60f, -60),
                                     new ExtraMaterialStats(40));
     TinkerRegistry.addMaterialStats(cactus,

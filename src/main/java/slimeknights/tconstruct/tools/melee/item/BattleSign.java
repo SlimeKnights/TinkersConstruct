@@ -119,7 +119,7 @@ public class BattleSign extends TinkerToolCore {
   @SubscribeEvent
   public void reflectProjectiles(LivingAttackEvent event) {
     // only blockable projectile damage
-    if(event.getSource().isUnblockable() || !event.getSource().isProjectile()) {
+    if(event.getSource().isUnblockable() || !event.getSource().isProjectile() || event.getSource().getSourceOfDamage() == null) {
       return;
     }
     if(!shouldBlockDamage(event.getEntityLiving())) {

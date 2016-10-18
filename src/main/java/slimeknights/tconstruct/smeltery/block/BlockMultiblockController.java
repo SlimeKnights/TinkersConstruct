@@ -42,7 +42,10 @@ public abstract class BlockMultiblockController extends BlockInventoryTinkers {
   @Override
   public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
     // active or inactive?
-    return state.withProperty(ACTIVE, isActive(worldIn, pos));
+    if(getTile(worldIn, pos) != null) {
+      return state.withProperty(ACTIVE, isActive(worldIn, pos));
+    }
+    return state;
   }
 
   protected TileMultiblock<?> getTile(IBlockAccess world, BlockPos pos) {
@@ -123,5 +126,11 @@ public abstract class BlockMultiblockController extends BlockInventoryTinkers {
         world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
         world.spawnParticle(EnumParticleTypes.FLAME, d0 + d4, d1, d2 + d3, 0.0D, 0.0D, 0.0D);
     }
+  }
+
+  @Override
+  public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
+    // don't rotate, we like our tile entity data and we don't want to create an invalid structure by rotating the controller
+    return false;
   }
 }
