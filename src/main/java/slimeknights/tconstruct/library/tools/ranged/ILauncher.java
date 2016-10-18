@@ -6,5 +6,5 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 
 public interface ILauncher {
 
-  void modifyProjectileAttributes(Multimap<String, AttributeModifier> projectileAttributes);
+  void modifyProjectileAttributes(Multimap<String, AttributeModifier> projectileAttributes, float power);
 }

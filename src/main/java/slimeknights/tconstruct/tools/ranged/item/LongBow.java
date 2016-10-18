@@ -28,22 +28,27 @@ public class LongBow extends ShortBow {
 
   @Override
   public float baseProjectileDamage() {
-    return 6.5f; // shortbow 2f
+    return 4.5f;
   }
 
   @Override
   protected float baseProjectileSpeed() {
-    return 6f; // shortbow 3f
+    return 5.5f;
   }
 
   @Override
   protected float baseInaccuracy() {
-    return 3.2f; // shortbow 1f
+    return 1.2f;
+  }
+
+  @Override
+  public float projectileDamageModifier() {
+    return 1.2f;
   }
 
   @Override
   public int getDrawTime() {
-    return 35; // shortbow 20
+    return 35;
   }
 
   /* Data Stuff */

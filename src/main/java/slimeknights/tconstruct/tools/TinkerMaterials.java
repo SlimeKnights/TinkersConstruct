@@ -475,7 +475,7 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(obsidian, whyWouldYouMakeABowOutOfThis);
     TinkerRegistry.addMaterialStats(prismarine, whyWouldYouMakeABowOutOfThis);
     TinkerRegistry.addMaterialStats(endstone, whyWouldYouMakeABowOutOfThis);
-    TinkerRegistry.addMaterialStats(paper, new BowMaterialStats(2f, 0.5f));
+    TinkerRegistry.addMaterialStats(paper, new BowMaterialStats(1.5f, 0.4f));
     TinkerRegistry.addMaterialStats(sponge, new BowMaterialStats(1.15f, 0.75f));
 
 

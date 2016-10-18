@@ -26,8 +26,6 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,6 +47,7 @@ import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUser, ILauncher {
 
   protected static final UUID LAUNCHER_BONUS_DAMAGE = UUID.fromString("066b8892-d2ac-4bae-ac22-26f9f91a02ee");
+  protected static final UUID LAUNCHER_DAMAGE_MODIFIER = UUID.fromString("4f76565a-3845-4a09-ba8f-92a37937a7c3");
 
   protected static final ResourceLocation PROPERTY_PULL = new ResourceLocation("pull");
   protected static final ResourceLocation PROPERTY_PULLING = new ResourceLocation("pulling");
@@ -178,7 +177,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
   public void shootProjectile(ItemStack ammo, ItemStack bow, World worldIn, EntityPlayer player, int useTime) {
     float progress = getDrawbackProgress(bow, useTime);
-    float power = ItemBow.getArrowVelocity(useTime) * progress * baseProjectileSpeed();
+    float power = ItemBow.getArrowVelocity((int)(progress * 20f)) * progress * baseProjectileSpeed();
     power *= ProjectileLauncherNBT.from(bow).range;
 
     if(!worldIn.isRemote) {
@@ -267,11 +266,16 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
   public abstract float baseProjectileDamage();
 
+  public abstract float projectileDamageModifier();
+
   @Override
-  public void modifyProjectileAttributes(Multimap<String, AttributeModifier> projectileAttributes) {
-    double dmg = baseProjectileDamage();
+  public void modifyProjectileAttributes(Multimap<String, AttributeModifier> projectileAttributes, float power) {
+    double dmg = baseProjectileDamage() * power;
     if(dmg != 0) {
       projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(LAUNCHER_BONUS_DAMAGE, "Launcher bonus damage", dmg, 0));
+    }
+    if(projectileDamageModifier() != 0f) {
+      projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(LAUNCHER_DAMAGE_MODIFIER, "Launcher damage modifier", projectileDamageModifier() - 1f, 1));
     }
   }
 

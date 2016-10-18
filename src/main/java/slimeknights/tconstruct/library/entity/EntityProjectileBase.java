@@ -226,7 +226,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
           projectileAttributes = ((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem);
 
           if(launcher != null && launcher.getItem() instanceof ILauncher) {
-            ((ILauncher) launcher.getItem()).modifyProjectileAttributes(projectileAttributes);
+            ((ILauncher) launcher.getItem()).modifyProjectileAttributes(projectileAttributes, tinkerProjectile.getPower());
           }
 
           // factor in power
