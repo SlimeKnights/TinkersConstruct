@@ -4,12 +4,12 @@ import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -87,7 +87,7 @@ public class Hatchet extends AoeToolCore {
   }
 
   @Override
-  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, Entity entity, float damage) {
     boolean hit = super.dealDamage(stack, player, entity, damage);
 
     if(hit && readyForSpecialAttack(player)) {

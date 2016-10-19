@@ -575,9 +575,6 @@ public final class ToolHelper {
     if(targetEntity == null || !targetEntity.canBeAttackedWithItem() || targetEntity.hitByEntity(attacker) || !stack.hasTagCompound()) {
       return false;
     }
-    if(!(targetEntity instanceof EntityLivingBase)) {
-      return false;
-    }
     if(isBroken(stack)) {
       return false;
     }
@@ -585,9 +582,11 @@ public final class ToolHelper {
       return false;
     }
     boolean isProjectile = projectileEntity != null;
-    EntityLivingBase target = (EntityLivingBase) targetEntity;
-
+    EntityLivingBase target = null;
     EntityPlayer player = null;
+    if(targetEntity instanceof EntityLivingBase) {
+      target = (EntityLivingBase) targetEntity;
+    }
     if(attacker instanceof EntityPlayer) {
       player = (EntityPlayer) attacker;
     }
@@ -619,8 +618,10 @@ public final class ToolHelper {
 
     // calculate actual damage
     float damage = baseDamage;
-    for(ITrait trait : traits) {
-      damage = trait.damage(stack, attacker, target, baseDamage, damage, isCritical);
+    if(target != null) {
+      for(ITrait trait : traits) {
+        damage = trait.damage(stack, attacker, target, baseDamage, damage, isCritical);
+      }
     }
 
     // apply critical damage
@@ -633,17 +634,23 @@ public final class ToolHelper {
 
     // calculate actual knockback
     float knockback = baseKnockback;
-    for(ITrait trait : traits) {
-      knockback = trait.knockBack(stack, attacker, target, damage, baseKnockback, knockback, isCritical);
+    if(target != null) {
+      for(ITrait trait : traits) {
+        knockback = trait.knockBack(stack, attacker, target, damage, baseKnockback, knockback, isCritical);
+      }
     }
 
     // missing because not supported by tcon tools: vanilla fire aspect enchantments, we have our own modifiers
 
-    float oldHP = target.getHealth();
+    float oldHP = 0;
 
-    double oldVelX = target.motionX;
-    double oldVelY = target.motionY;
-    double oldVelZ = target.motionZ;
+    double oldVelX = targetEntity.motionX;
+    double oldVelY = targetEntity.motionY;
+    double oldVelZ = targetEntity.motionZ;
+
+    if(target != null) {
+      oldHP = target.getHealth();
+    }
 
     // apply cooldown damage decrease
     if(player != null) {
@@ -651,25 +658,27 @@ public final class ToolHelper {
       damage *= (0.2F + cooldown * cooldown * 0.8F);
     }
 
-    int hurtResistantTime = target.hurtResistantTime;
     // deal the damage
-    for(ITrait trait : traits) {
-      trait.onHit(stack, attacker, target, damage, isCritical);
-      // reset hurt reristant time
-      target.hurtResistantTime = hurtResistantTime;
+    if(target != null) {
+    int hurtResistantTime = target.hurtResistantTime;
+      for(ITrait trait : traits) {
+        trait.onHit(stack, attacker, target, damage, isCritical);
+        // reset hurt reristant time
+        target.hurtResistantTime = hurtResistantTime;
+      }
     }
 
     boolean hit = false;
     if(isProjectile && tool instanceof IProjectile) {
-      hit = ((IProjectile) tool).dealDamageRanged(stack, projectileEntity, attacker, target, damage);
+      hit = ((IProjectile) tool).dealDamageRanged(stack, projectileEntity, attacker, targetEntity, damage);
     }
     else {
-      hit = tool.dealDamage(stack, attacker, target, damage);
+      hit = tool.dealDamage(stack, attacker, targetEntity, damage);
     }
 
 
     // did we hit?
-    if(hit) {
+    if(hit && target != null) {
       // actual damage dealt
       float damageDealt = oldHP - target.getHealth();
 

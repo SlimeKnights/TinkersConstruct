@@ -1,6 +1,10 @@
 package slimeknights.tconstruct.library.tools.ranged;
 
+import com.google.common.collect.Multimap;
+
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
@@ -23,6 +27,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,7 +44,10 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 
-public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUser {
+public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUser, ILauncher {
+
+  protected static final UUID LAUNCHER_BONUS_DAMAGE = UUID.fromString("066b8892-d2ac-4bae-ac22-26f9f91a02ee");
+  protected static final UUID LAUNCHER_DAMAGE_MODIFIER = UUID.fromString("4f76565a-3845-4a09-ba8f-92a37937a7c3");
 
   protected static final ResourceLocation PROPERTY_PULL = new ResourceLocation("pull");
   protected static final ResourceLocation PROPERTY_PULLING = new ResourceLocation("pulling");
@@ -81,12 +89,11 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     return 3f;
   }
 
-  protected int getDrawTime() {
+  public int getDrawTime() {
     return 20;
   }
 
-  protected float getDrawbackProgress(ItemStack itemStack, EntityLivingBase entityIn) {
-    ItemStack itemstack = entityIn.getActiveItemStack();
+  protected float getDrawbackProgress(ItemStack itemstack, EntityLivingBase entityIn) {
     if(itemstack != null && itemstack.getItem() == BowCore.this) {
       int timePassed = itemstack.getMaxItemUseDuration() - entityIn.getItemInUseCount();
       return getDrawbackProgress(itemstack, timePassed);
@@ -169,7 +176,8 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
   }
 
   public void shootProjectile(ItemStack ammo, ItemStack bow, World worldIn, EntityPlayer player, int useTime) {
-    float power = ItemBow.getArrowVelocity(useTime) * getDrawbackProgress(bow, useTime) * baseProjectileSpeed();
+    float progress = getDrawbackProgress(bow, useTime);
+    float power = ItemBow.getArrowVelocity((int)(progress * 20f)) * progress * baseProjectileSpeed();
     power *= ProjectileLauncherNBT.from(bow).range;
 
     if(!worldIn.isRemote) {
@@ -180,9 +188,12 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
         if(i == 0 || event.consumeAmmoPerProjectile) {
           usedAmmo = consumeAmmo(ammo, player);
         }
-        EntityArrow projectile = getProjectileEntity(ammo, bow, worldIn, player, power, baseInaccuracy(), usedAmmo);
+        EntityArrow projectile = getProjectileEntity(ammo, bow, worldIn, player, power, baseInaccuracy(), progress*progress, usedAmmo);
 
         if(projectile != null && ProjectileEvent.OnLaunch.fireEvent(projectile, bow, player)) {
+          if(progress >= 1f) {
+            projectile.setIsCritical(true);
+          }
           if(!player.capabilities.isCreativeMode) {
             ToolHelper.damageTool(bow, 1, player);
           }
@@ -194,9 +205,9 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     playShootSound(power, worldIn, player);
   }
 
-  public EntityArrow getProjectileEntity(ItemStack ammo, ItemStack bow, World world, EntityPlayer player, float power, float inaccuracy, boolean usedAmmo) {
+  public EntityArrow getProjectileEntity(ItemStack ammo, ItemStack bow, World world, EntityPlayer player, float power, float inaccuracy, float progress, boolean usedAmmo) {
     if(ammo.getItem() instanceof IAmmo) {
-      return ((IAmmo) ammo.getItem()).getProjectile(ammo, bow, world, player, power, inaccuracy, usedAmmo);
+      return ((IAmmo) ammo.getItem()).getProjectile(ammo, bow, world, player, power, inaccuracy, progress, usedAmmo);
     }
     else if(ammo.getItem() instanceof ItemArrow) {
       EntityArrow projectile = ((ItemArrow) ammo.getItem()).createArrow(world, ammo, player);
@@ -251,6 +262,21 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
       return null;
     }
     return findAmmo(weapon, player);
+  }
+
+  public abstract float baseProjectileDamage();
+
+  public abstract float projectileDamageModifier();
+
+  @Override
+  public void modifyProjectileAttributes(Multimap<String, AttributeModifier> projectileAttributes, float power) {
+    double dmg = baseProjectileDamage() * power;
+    if(dmg != 0) {
+      projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(LAUNCHER_BONUS_DAMAGE, "Launcher bonus damage", dmg, 0));
+    }
+    if(projectileDamageModifier() != 0f) {
+      projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(LAUNCHER_DAMAGE_MODIFIER, "Launcher damage modifier", projectileDamageModifier() - 1f, 1));
+    }
   }
 
   protected abstract List<Item> getAmmoItems();

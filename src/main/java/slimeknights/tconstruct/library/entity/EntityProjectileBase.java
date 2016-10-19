@@ -1,10 +1,14 @@
 package slimeknights.tconstruct.library.entity;
 
+import com.google.common.collect.Multimap;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.SoundEvents;
@@ -23,6 +27,8 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
+import java.util.UUID;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -32,13 +38,18 @@ import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerPro
 import slimeknights.tconstruct.library.capability.projectile.TinkerProjectileHandler;
 import slimeknights.tconstruct.library.events.ProjectileEvent;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ranged.ILauncher;
 import slimeknights.tconstruct.library.tools.ranged.IProjectile;
 import slimeknights.tconstruct.library.traits.IProjectileTrait;
 import slimeknights.tconstruct.library.utils.AmmoHelper;
+import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
 // have to base this on EntityArrow, otherwise minecraft does derp things because everything is handled based on class.
 public abstract class EntityProjectileBase extends EntityArrow implements IEntityAdditionalSpawnData {
+
+  protected static final UUID PROJECTILE_POWER_MODIFIER = UUID.fromString("c6aefc21-081a-4c4a-b076-8f9d6cef9122");
 
   public TinkerProjectileHandler tinkerProjectile = new TinkerProjectileHandler();
 
@@ -56,7 +67,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.setPosition(d, d1, d2);
   }
 
-  public EntityProjectileBase(World world, EntityPlayer player, float speed, float inaccuracy, ItemStack stack, ItemStack launchingStack) {
+  public EntityProjectileBase(World world, EntityPlayer player, float speed, float inaccuracy, float power, ItemStack stack, ItemStack launchingStack) {
     this(world);
 
     this.shootingEntity = player;
@@ -77,6 +88,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     // our stuff
     tinkerProjectile.setItemStack(stack);
     tinkerProjectile.setLaunchingStack(launchingStack);
+    tinkerProjectile.setPower(power);
 
     for(IProjectileTrait trait : tinkerProjectile.getProjectileTraits()) {
       trait.onLaunch(this, world, player);
@@ -139,7 +151,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     return 0.4f;
   }
 
-  protected void doLivingHit(EntityLivingBase entityHit) {
+  protected void onEntityHit(Entity entityHit) {
     setDead();
   }
 
@@ -175,16 +187,18 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       this.inTile.onEntityCollidedWithBlock(this.worldObj, blockpos, iblockstate, this);
     }
 
-    this.defused = true; // defuse it so it doesn't hit stuff anymore, being weird
+    defuse(); // defuse it so it doesn't hit stuff anymore, being weird
   }
 
   public void onHitEntity(RayTraceResult raytraceResult) {
     ItemStack item = tinkerProjectile.getItemStack();
+    ItemStack launcher = tinkerProjectile.getLaunchingStack();
     boolean bounceOff = false;
+    Entity entityHit = raytraceResult.entityHit;
     // deal damage if we have everything
-    if(item != null && item.getItem() instanceof ToolCore && raytraceResult.entityHit instanceof EntityLivingBase && this.shootingEntity instanceof EntityLivingBase) {
+    if(item != null && item.getItem() instanceof ToolCore && this.shootingEntity instanceof EntityLivingBase) {
       EntityLivingBase attacker = (EntityLivingBase) this.shootingEntity;
-      EntityLivingBase target = (EntityLivingBase) raytraceResult.entityHit;
+      //EntityLivingBase target = (EntityLivingBase) raytraceResult.entityHit;
 
       // find the actual itemstack in the players inventory
       ItemStack inventoryItem = AmmoHelper.getMatchingItemstackFromInventory(tinkerProjectile.getItemStack(), attacker, false);
@@ -193,6 +207,15 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
         inventoryItem = item;
       }
 
+
+      // for the sake of dealing damage we always ensure that the impact itemstack has the correct broken state
+      // since the ammo stack can break while the arrow travels/if it's the last arrow
+      boolean brokenStateDiffers = ToolHelper.isBroken(inventoryItem) != ToolHelper.isBroken(item);
+      if(brokenStateDiffers) {
+        toggleBroken(inventoryItem);
+      }
+
+      Multimap<String, AttributeModifier> projectileAttributes = null;
       // remove stats from held items
       if(!worldObj.isRemote) {
         unequip(attacker, EntityEquipmentSlot.OFFHAND);
@@ -200,18 +223,31 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
         // apply stats from projectile
         if(item.getItem() instanceof IProjectile) {
-          attacker.getAttributeMap().applyAttributeModifiers(((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem));
+          projectileAttributes = ((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem);
+
+          if(launcher != null && launcher.getItem() instanceof ILauncher) {
+            ((ILauncher) launcher.getItem()).modifyProjectileAttributes(projectileAttributes, tinkerProjectile.getPower());
+          }
+
+          // factor in power
+          projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(),
+                                   new AttributeModifier(PROJECTILE_POWER_MODIFIER, "Weapon damage multiplier", tinkerProjectile.getPower() - 1f, 2));
+
+          attacker.getAttributeMap().applyAttributeModifiers(projectileAttributes);
         }
       }
       // deal the damage
       float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-      bounceOff = !dealDamage(speed, inventoryItem, attacker, target);
+      bounceOff = !dealDamage(speed, inventoryItem, attacker, entityHit);
+      if(brokenStateDiffers) {
+        toggleBroken(inventoryItem);
+      }
 
       // remove stats from projectile
       // apply stats from projectile
       if(!worldObj.isRemote) {
         if(item.getItem() instanceof IProjectile) {
-          attacker.getAttributeMap().removeAttributeModifiers(((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem));
+          attacker.getAttributeMap().removeAttributeModifiers(projectileAttributes);
         }
 
         // readd stats from held items
@@ -220,7 +256,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       }
 
       if(!bounceOff) {
-        doLivingHit(target);
+        onEntityHit(entityHit);
       }
     }
 
@@ -267,8 +303,14 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     }
   }
 
+  private void toggleBroken(ItemStack stack) {
+    NBTTagCompound tag = TagUtil.getToolTag(stack);
+    tag.setBoolean(Tags.BROKEN, !tag.getBoolean(Tags.BROKEN));
+    TagUtil.setToolTag(stack, tag);
+  }
+
   // returns true if it was successful
-  public boolean dealDamage(float speed, ItemStack item, EntityLivingBase attacker, EntityLivingBase target) {
+  public boolean dealDamage(float speed, ItemStack item, EntityLivingBase attacker, Entity target) {
     return ToolHelper.attackEntity(item, (ToolCore) item.getItem(), attacker, target, this);
   }
 
@@ -549,6 +591,8 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     data.writeDouble(this.motionZ);
 
     ByteBufUtils.writeItemStack(data, tinkerProjectile.getItemStack());
+    ByteBufUtils.writeItemStack(data, tinkerProjectile.getLaunchingStack());
+    data.writeFloat(tinkerProjectile.getPower());
   }
 
   @Override
@@ -561,6 +605,8 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.motionZ = data.readDouble();
 
     tinkerProjectile.setItemStack(ByteBufUtils.readItemStack(data));
+    tinkerProjectile.setLaunchingStack(ByteBufUtils.readItemStack(data));
+    tinkerProjectile.setPower(data.readFloat());
 
     this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
     this.posY -= 0.10000000149011612D;

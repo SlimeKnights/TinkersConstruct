@@ -3,10 +3,12 @@ package slimeknights.tconstruct.tools.ranged.item;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -32,9 +34,13 @@ import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 public class ShortBow extends BowCore implements ICustomCrosshairUser {
 
   public ShortBow() {
-    super(PartMaterialType.bowstring(TinkerTools.bowString),
+    this(PartMaterialType.bowstring(TinkerTools.bowString),
           PartMaterialType.bow(TinkerTools.bowLimb),
           PartMaterialType.bow(TinkerTools.bowLimb));
+  }
+
+  public ShortBow(PartMaterialType... requiredComponents) {
+    super(requiredComponents);
   }
 
   @Override
@@ -43,6 +49,11 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
   }
 
   /* Tic Tool Stuff */
+
+  @Override
+  public float baseProjectileDamage() {
+    return 1f;
+  }
 
   @Override
   public float damagePotential() {
@@ -57,6 +68,16 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
   @Override
   protected float baseInaccuracy() {
     return 1f;
+  }
+
+  @Override
+  public float projectileDamageModifier() {
+    return 0.7f;
+  }
+
+  @Override
+  public int getDrawTime() {
+    return 12;
   }
 
   private ImmutableList<Item> arrowMatches = null;
@@ -74,6 +95,15 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
       arrowMatches = builder.build();
     }
     return arrowMatches;
+  }
+
+  @Override
+  public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+    // has to be done in onUpdate because onTickUsing is too early and gets overwritten. bleh.
+    // shortbows are more mobile than other bows
+    preventSlowDown(entityIn, 0.5f);
+
+    super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
   }
 
   /* Data Stuff */

@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_silk",
         "battleaxe": "tconstruct:items/battleaxe/mod_silk",
         "battlesign": "tconstruct:items/battlesign/mod_silk",
         "broadsword": "tconstruct:items/broadsword/mod_silk",
@@ -10,11 +11,19 @@
         "hammer": "tconstruct:items/hammer/mod_silk",
         "hatchet": "tconstruct:items/hatchet/mod_silk",
         "longsword": "tconstruct:items/longsword/mod_silk",
+        "longbow": "tconstruct:items/longbow/mod_silk",
+        "longbow1": "tconstruct:items/longbow/mod_silk",
+        "longbow2": "tconstruct:items/longbow/mod_silk_2",
+        "longbow3": "tconstruct:items/longbow/mod_silk_3",
         "lumberaxe": "tconstruct:items/lumberaxe/mod_silk",
         "mattock": "tconstruct:items/mattock/mod_silk",
         "pickaxe": "tconstruct:items/pickaxe/mod_silk",
         "scythe": "tconstruct:items/scythe/mod_silk",
         "shovel": "tconstruct:items/shovel/mod_silk",
-        "shuriken": "tconstruct:items/shuriken/mod_silk"
+        "shuriken": "tconstruct:items/shuriken/mod_silk",
+        "shortbow": "tconstruct:items/shortbow/mod_silk",
+        "shortbow1": "tconstruct:items/shortbow/mod_silk",
+        "shortbow2": "tconstruct:items/shortbow/mod_silk_2",
+        "shortbow3": "tconstruct:items/shortbow/mod_silk_3"
     }
 }

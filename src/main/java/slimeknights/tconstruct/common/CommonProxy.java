@@ -84,7 +84,7 @@ public class CommonProxy {
                   xd, yd, zd);
   }
 
-  public void spawnEffectParticle(ParticleEffect.Type type, EntityLivingBase entity, int count) {
+  public void spawnEffectParticle(ParticleEffect.Type type, Entity entity, int count) {
     spawnParticle(Particles.EFFECT, entity.getEntityWorld(), entity.posX, entity.posY + entity.height * 0.5f, entity.posZ, 0d, 1d, 0d, count, type.ordinal());
   }
 

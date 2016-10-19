@@ -38,7 +38,8 @@ public class BowMaterialStats extends AbstractMaterialStats {
   @Override
   public List<String> getLocalizedInfo() {
     return ImmutableList.of(
-        formatDrawspeed(drawspeed),
+        // "normalized" drawspeed
+        formatDrawspeed(1f/drawspeed),
         formatRange(range)
     );
   }

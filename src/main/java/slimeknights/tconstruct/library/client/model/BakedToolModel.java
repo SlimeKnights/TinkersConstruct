@@ -86,20 +86,19 @@ public class BakedToolModel extends BakedWrapper.Perspective {
       if(!baseTag.hasNoTags()) {
         final BakedToolModel original = getBaseModel((BakedToolModel) originalModel, stack, world, entity);
 
-        CacheKey key = new CacheKey(original, stack);
+        CacheKey key = getCacheKey(stack, original, world, entity);
 
         try {
-          outputModel = bakedModelCache.get(key, new Callable<IBakedModel>() {
-            @Override
-            public IBakedModel call() throws Exception {
-              return getCompleteModel(stack, world, entity, original);
-            }
-          });
+          outputModel = bakedModelCache.get(key, () -> getCompleteModel(stack, world, entity, original));
         } catch(ExecutionException e) {
           // do nothing, return original model
         }
       }
       return outputModel;
+    }
+
+    protected CacheKey getCacheKey(ItemStack stack, BakedToolModel original, World world, EntityLivingBase entityLivingBase) {
+      return new CacheKey(original, stack);
     }
 
     protected IBakedModel getCompleteModel(ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity, BakedToolModel original) {
@@ -166,17 +165,17 @@ public class BakedToolModel extends BakedWrapper.Perspective {
     }
   }
 
-  private static class CacheKey {
+  protected static class CacheKey {
 
     final IBakedModel parent;
     final String data;
 
-    private CacheKey(IBakedModel parent, ItemStack stack) {
+    protected CacheKey(IBakedModel parent, ItemStack stack) {
       this.parent = parent;
       this.data = getDataFromStack(stack);
     }
 
-    private String getDataFromStack(ItemStack stack) {
+    protected String getDataFromStack(ItemStack stack) {
       return TagUtil.getTagSafe(stack).toString();
     }
 

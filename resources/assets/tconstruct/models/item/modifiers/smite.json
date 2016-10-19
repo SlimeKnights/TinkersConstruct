@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_smite",
         "battleaxe": "tconstruct:items/battleaxe/mod_smite",
         "battlesign": "tconstruct:items/battlesign/mod_smite",
         "broadsword": "tconstruct:items/broadsword/mod_smite",
@@ -9,12 +10,20 @@
         "frypan": "tconstruct:items/frypan/mod_smite",
         "hammer": "tconstruct:items/hammer/mod_smite",
         "hatchet": "tconstruct:items/hatchet/mod_smite",
+        "longbow": "tconstruct:items/longbow/mod_smite",
+        "longbow1": "tconstruct:items/longbow/mod_smite",
+        "longbow2": "tconstruct:items/longbow/mod_smite",
+        "longbow3": "tconstruct:items/longbow/mod_smite",
         "longsword": "tconstruct:items/longsword/mod_smite",
         "lumberaxe": "tconstruct:items/lumberaxe/mod_smite",
         "mattock": "tconstruct:items/mattock/mod_smite",
         "pickaxe": "tconstruct:items/pickaxe/mod_smite",
         "scythe": "tconstruct:items/scythe/mod_smite",
         "shovel": "tconstruct:items/shovel/mod_smite",
-        "shuriken": "tconstruct:items/shuriken/mod_smite"
+        "shuriken": "tconstruct:items/shuriken/mod_smite",
+        "shortbow": "tconstruct:items/shortbow/mod_smite",
+        "shortbow1": "tconstruct:items/shortbow/mod_smite",
+        "shortbow2": "tconstruct:items/shortbow/mod_smite",
+        "shortbow3": "tconstruct:items/shortbow/mod_smite"
     }
 }

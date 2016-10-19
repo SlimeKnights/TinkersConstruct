@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_reinforced",
         "battleaxe": "tconstruct:items/battleaxe/mod_reinforced",
         "battlesign": "tconstruct:items/battlesign/mod_reinforced",
         "broadsword": "tconstruct:items/broadsword/mod_reinforced",
@@ -9,12 +10,20 @@
         "frypan": "tconstruct:items/frypan/mod_reinforced",
         "hammer": "tconstruct:items/hammer/mod_reinforced",
         "hatchet": "tconstruct:items/hatchet/mod_reinforced",
+        "longbow": "tconstruct:items/longbow/mod_reinforced",
+        "longbow1": "tconstruct:items/longbow/mod_reinforced",
+        "longbow2": "tconstruct:items/longbow/mod_reinforced",
+        "longbow3": "tconstruct:items/longbow/mod_reinforced",
         "longsword": "tconstruct:items/longsword/mod_reinforced",
         "lumberaxe": "tconstruct:items/lumberaxe/mod_reinforced",
         "mattock": "tconstruct:items/mattock/mod_reinforced",
         "pickaxe": "tconstruct:items/pickaxe/mod_reinforced",
         "scythe": "tconstruct:items/scythe/mod_reinforced",
         "shovel": "tconstruct:items/shovel/mod_reinforced",
-        "shuriken": "tconstruct:items/shuriken/mod_reinforced"
+        "shuriken": "tconstruct:items/shuriken/mod_reinforced",
+        "shortbow": "tconstruct:items/shortbow/mod_reinforced",
+        "shortbow1": "tconstruct:items/shortbow/mod_reinforced",
+        "shortbow2": "tconstruct:items/shortbow/mod_reinforced",
+        "shortbow3": "tconstruct:items/shortbow/mod_reinforced"
     }
 }

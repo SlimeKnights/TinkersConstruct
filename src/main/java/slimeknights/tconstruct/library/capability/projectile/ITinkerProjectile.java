@@ -14,10 +14,12 @@ import slimeknights.tconstruct.library.traits.ITrait;
 
 public interface ITinkerProjectile extends INBTSerializable<NBTTagCompound> {
 
+  /** The itemstack that represents the projectile */
   ItemStack getItemStack();
 
   void setItemStack(ItemStack stack);
 
+  /** The itemstack the projectile has been launched with */
   @Nullable
   ItemStack getLaunchingStack();
 
@@ -26,4 +28,9 @@ public interface ITinkerProjectile extends INBTSerializable<NBTTagCompound> {
   List<IProjectileTrait> getProjectileTraits();
 
   boolean pickup(EntityLivingBase entity, boolean simulate);
+
+  void setPower(float power);
+
+  /** This basically represents how far the bow was drawn back, or equivalent for other things */
+  float getPower();
 }

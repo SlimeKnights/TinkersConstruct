@@ -69,7 +69,7 @@ public class LongSword extends SwordCore {
   }
 
   @Override
-  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, Entity entity, float damage) {
     boolean hit = super.dealDamage(stack, player, entity, damage);
 
     // slash particle

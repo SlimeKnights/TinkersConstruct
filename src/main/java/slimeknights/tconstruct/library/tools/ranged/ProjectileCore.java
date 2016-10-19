@@ -3,13 +3,14 @@ package slimeknights.tconstruct.library.tools.ranged;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.world.World;
 
@@ -19,15 +20,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ProjectileNBT;
 import slimeknights.tconstruct.library.tools.TinkerToolCore;
-import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
+import slimeknights.tconstruct.tools.traits.TraitEnderference;
 
 /**
  * This class is a tool that has ammo.
@@ -36,6 +35,7 @@ import slimeknights.tconstruct.library.utils.TooltipBuilder;
  */
 public abstract class ProjectileCore extends TinkerToolCore implements IProjectile, IAmmo {
 
+  public static final String DAMAGE_TYPE_PROJECTILE = "projectile";
   protected int durabilityPerAmmo;
 
   public ProjectileCore(PartMaterialType... requiredComponents) {
@@ -111,13 +111,18 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
   /* Tool stuff */
 
   protected ItemStack getProjectileStack(ItemStack itemStack, World world, EntityPlayer player, boolean usedAmmo) {
-    ItemStack reference = itemStack.copy(); // copy has to be taken before damage in case damageTool breaks the tool
+    ItemStack reference = itemStack.copy();
     reference.stackSize = 1;
+    setAmmo(1, reference);
 
+    // prevent a positive feedback loop with picking up ammo + durability retaining modifiers like reinforced
     if(!player.capabilities.isCreativeMode && !world.isRemote && !usedAmmo) {
       reference.stackSize = 0;
+      setAmmo(0, reference);
     }
 
+    // never broken
+    ToolHelper.unbreakTool(reference);
     return reference;
   }
 
@@ -138,8 +143,13 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
   }
 
   @Override
-  public boolean dealDamageRanged(ItemStack stack, Entity projectile, EntityLivingBase player, EntityLivingBase entity, float damage) {
-    DamageSource damageSource = new EntityDamageSourceIndirect("projectile", projectile, player).setProjectile();
+  public boolean dealDamageRanged(ItemStack stack, Entity projectile, EntityLivingBase player, Entity entity, float damage) {
+    DamageSource damageSource = new EntityDamageSourceIndirect(DAMAGE_TYPE_PROJECTILE, projectile, player).setProjectile();
+
+    // friggin vanilla hardcode
+    if(entity instanceof EntityEnderman && ((EntityEnderman) entity).getActivePotionEffect(TraitEnderference.Enderference) != null) {
+      damageSource = new DamageSourceProjectileForEndermen(DAMAGE_TYPE_PROJECTILE, projectile, player);
+    }
 
     return entity.attackEntityFrom(damageSource, damage);
   }
@@ -183,4 +193,20 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
 
   @Override
   public abstract ProjectileNBT buildTagData(List<Material> materials);
+
+  public static class DamageSourceProjectileForEndermen extends EntityDamageSource {
+
+    public final Entity projectile;
+
+    public DamageSourceProjectileForEndermen(String damageTypeIn, Entity projectile, Entity damageSourceEntityIn) {
+      super(damageTypeIn, damageSourceEntityIn);
+      this.projectile = projectile;
+    }
+
+    @Nullable
+    @Override
+    public Entity getSourceOfDamage() {
+      return projectile;
+    }
+  }
 }

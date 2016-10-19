@@ -9,11 +9,19 @@
         "frypan": "tconstruct:items/frypan/mod_haste",
         "hammer": "tconstruct:items/hammer/mod_haste",
         "hatchet": "tconstruct:items/hatchet/mod_haste",
+        "longbow": "tconstruct:items/longbow/mod_haste",
+        "longbow1": "tconstruct:items/longbow/mod_haste_1",
+        "longbow2": "tconstruct:items/longbow/mod_haste_2",
+        "longbow3": "tconstruct:items/longbow/mod_haste_3",
         "longsword": "tconstruct:items/longsword/mod_haste",
         "lumberaxe": "tconstruct:items/lumberaxe/mod_haste",
         "mattock": "tconstruct:items/mattock/mod_haste",
         "pickaxe": "tconstruct:items/pickaxe/mod_haste",
         "scythe": "tconstruct:items/scythe/mod_haste",
-        "shovel": "tconstruct:items/shovel/mod_haste"
+        "shovel": "tconstruct:items/shovel/mod_haste",
+        "shortbow": "tconstruct:items/shortbow/mod_haste",
+        "shortbow1": "tconstruct:items/shortbow/mod_haste_1",
+        "shortbow2": "tconstruct:items/shortbow/mod_haste_2",
+        "shortbow3": "tconstruct:items/shortbow/mod_haste_3"
     }
 }

@@ -26,6 +26,7 @@ import java.util.Map;
 import slimeknights.tconstruct.library.client.deserializer.ItemCameraTransformsDeserializer;
 import slimeknights.tconstruct.library.client.deserializer.ItemTransformVec3fDeserializer;
 import slimeknights.tconstruct.library.client.model.MaterialModel;
+import slimeknights.tconstruct.library.client.model.ModifierModel;
 
 @SideOnly(Side.CLIENT)
 public class ToolModelOverride {
@@ -35,15 +36,19 @@ public class ToolModelOverride {
   public final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
   public final AmmoPosition ammoPosition;
 
+  public final String modifierSuffix;
+
   // those will be filled later on during the loading progress
   public final TIntObjectHashMap<MaterialModel> partModelReplacement = new TIntObjectHashMap<MaterialModel>();
   public final TIntObjectHashMap<MaterialModel> brokenPartModelReplacement = new TIntObjectHashMap<MaterialModel>();
+  public ModifierModel overrideModifierModel;
 
-  public ToolModelOverride(ImmutableMap<ResourceLocation, Float> predicates, ImmutableMap<String, String> textures, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms, AmmoPosition ammoPosition) {
+  public ToolModelOverride(ImmutableMap<ResourceLocation, Float> predicates, ImmutableMap<String, String> textures, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms, AmmoPosition ammoPosition, String modifierSuffix) {
     this.predicates = predicates;
     this.textures = textures;
     this.transforms = transforms;
     this.ammoPosition = ammoPosition;
+    this.modifierSuffix = modifierSuffix;
   }
 
   public static class ToolModelOverrideListDeserializer implements JsonDeserializer<ImmutableList<ToolModelOverride>> {
@@ -118,7 +123,13 @@ public class ToolModelOverride {
 
       AmmoPosition ammoPosition = GSON.fromJson(json, AmmoPosition.AmmoPositionDeserializer.TYPE);
 
-      return new ToolModelOverride(predicates, textures, transforms, ammoPosition);
+      String modSuffix = null;
+      JsonElement modSuffixElement = json.get("modifier_suffix");
+      if(modSuffixElement != null) {
+        modSuffix = modSuffixElement.getAsString();
+      }
+
+      return new ToolModelOverride(predicates, textures, transforms, ammoPosition, modSuffix);
     }
   }
 

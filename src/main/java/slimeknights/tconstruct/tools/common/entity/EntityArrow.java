@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.tools.common.entity;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -23,8 +25,17 @@ public class EntityArrow extends EntityProjectileBase {
     super(world, d, d1, d2);
   }
 
-  public EntityArrow(World world, EntityPlayer player, float speed, float inaccuracy, ItemStack stack, ItemStack launchingStack) {
-    super(world, player, speed, inaccuracy, stack, launchingStack);
+  public EntityArrow(World world, EntityPlayer player, float speed, float inaccuracy, float power, ItemStack stack, ItemStack launchingStack) {
+    super(world, player, speed, inaccuracy, power, stack, launchingStack);
+  }
+
+  @Override
+  protected void onEntityHit(Entity entityHit) {
+    super.onEntityHit(entityHit);
+    if(!this.worldObj.isRemote && entityHit instanceof EntityLivingBase) {
+      EntityLivingBase entityLivingBaseHit = (EntityLivingBase) entityHit;
+      entityLivingBaseHit.setArrowCountInEntity(entityLivingBaseHit.getArrowCountInEntity() + 1);
+    }
   }
 
   @Override

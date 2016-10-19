@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_beheading",
         "battleaxe": "tconstruct:items/battleaxe/mod_beheading",
         "battlesign": "tconstruct:items/battlesign/mod_beheading",
         "broadsword": "tconstruct:items/broadsword/mod_beheading",
@@ -9,12 +10,20 @@
         "frypan": "tconstruct:items/frypan/mod_beheading",
         "hammer": "tconstruct:items/hammer/mod_beheading",
         "hatchet": "tconstruct:items/hatchet/mod_beheading",
+        "longbow": "tconstruct:items/longbow/mod_beheading",
+        "longbow1": "tconstruct:items/longbow/mod_beheading",
+        "longbow2": "tconstruct:items/longbow/mod_beheading",
+        "longbow3": "tconstruct:items/longbow/mod_beheading",
         "longsword": "tconstruct:items/longsword/mod_beheading",
         "lumberaxe": "tconstruct:items/lumberaxe/mod_beheading",
         "mattock": "tconstruct:items/mattock/mod_beheading",
         "pickaxe": "tconstruct:items/pickaxe/mod_beheading",
         "scythe": "tconstruct:items/scythe/mod_beheading",
         "shovel": "tconstruct:items/shovel/mod_beheading",
-        "shuriken": "tconstruct:items/shuriken/mod_beheading"
+        "shuriken": "tconstruct:items/shuriken/mod_beheading",
+        "shortbow": "tconstruct:items/shortbow/mod_beheading",
+        "shortbow1": "tconstruct:items/shortbow/mod_beheading",
+        "shortbow2": "tconstruct:items/shortbow/mod_beheading",
+        "shortbow3": "tconstruct:items/shortbow/mod_beheading"
     }
 }

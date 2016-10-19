@@ -19,7 +19,8 @@
                     0.1880,
                     0.01
                 ]
-            }
+            },
+            "modifier_suffix": "1"
         },
         {
             "predicate": {
@@ -37,7 +38,8 @@
                     0.1255,
                     0.01
                 ]
-            }
+            },
+            "modifier_suffix": "2"
         },
         {
             "predicate": {
@@ -55,7 +57,8 @@
                     0.0630,
                     0.01
                 ]
-            }
+            },
+            "modifier_suffix": "3"
         }
     ],
     "ammoPosition": {

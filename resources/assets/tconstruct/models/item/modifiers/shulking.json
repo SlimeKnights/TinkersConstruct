@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_shulking",
         "battleaxe": "tconstruct:items/battleaxe/mod_shulking",
         "battlesign": "tconstruct:items/battlesign/mod_shulking",
         "broadsword": "tconstruct:items/broadsword/mod_shulking",
@@ -10,11 +11,19 @@
         "hammer": "tconstruct:items/hammer/mod_shulking",
         "hatchet": "tconstruct:items/hatchet/mod_shulking",
         "longsword": "tconstruct:items/longsword/mod_shulking",
+        "longbow": "tconstruct:items/longbow/mod_shulking",
+        "longbow1": "tconstruct:items/longbow/mod_shulking",
+        "longbow2": "tconstruct:items/longbow/mod_shulking_2",
+        "longbow3": "tconstruct:items/longbow/mod_shulking_3",
         "lumberaxe": "tconstruct:items/lumberaxe/mod_shulking",
         "mattock": "tconstruct:items/mattock/mod_shulking",
         "pickaxe": "tconstruct:items/pickaxe/mod_shulking",
         "scythe": "tconstruct:items/scythe/mod_shulking",
         "shovel": "tconstruct:items/shovel/mod_shulking",
-        "shuriken": "tconstruct:items/shuriken/mod_shulking"
+        "shuriken": "tconstruct:items/shuriken/mod_shulking",
+        "shortbow": "tconstruct:items/shortbow/mod_shulking",
+        "shortbow1": "tconstruct:items/shortbow/mod_shulking",
+        "shortbow2": "tconstruct:items/shortbow/mod_shulking",
+        "shortbow3": "tconstruct:items/shortbow/mod_shulking_3"
     }
 }

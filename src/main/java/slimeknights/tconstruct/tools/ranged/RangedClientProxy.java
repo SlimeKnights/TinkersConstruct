@@ -51,7 +51,7 @@ public class RangedClientProxy extends ClientProxy {
     info.addSlotPosition(32 + 12, 41 + 12); // bot left
     info.addSlotPosition(32 - 12, 41 + 12); // bot right
     TinkerRegistryClient.addToolBuilding(info);
-/*
+
     // shortbow
     info = new ToolBuildGuiInfo(TinkerRangedWeapons.shortBow);
     info.addSlotPosition(32 + 6, 41 + 6); // center bowstring
@@ -59,11 +59,19 @@ public class RangedClientProxy extends ClientProxy {
     info.addSlotPosition(32 - 18, 41 + 4); // left limb
     TinkerRegistryClient.addToolBuilding(info);
 
+    // longbow
+    info = new ToolBuildGuiInfo(TinkerRangedWeapons.longBow);
+    info.addSlotPosition(32 + 6, 41 + 6); // center bowstring
+    info.addSlotPosition(32 + 12, 41 - 22); // top limb
+    info.addSlotPosition(32 - 22, 41 + 12); // left limb
+    info.addSlotPosition(32 - 18, 41 - 18); // grip
+    TinkerRegistryClient.addToolBuilding(info);
+
     // arrow
     info = new ToolBuildGuiInfo(TinkerRangedWeapons.arrow);
     info.addSlotPosition(32, 41); // center
     info.addSlotPosition(32 + 18, 41 - 18); // top right
     info.addSlotPosition(32 - 18, 41 + 18); // bot left
-    TinkerRegistryClient.addToolBuilding(info);*/
+    TinkerRegistryClient.addToolBuilding(info);
   }
 }

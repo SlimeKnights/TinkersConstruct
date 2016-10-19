@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_soulbound",
         "battleaxe": "tconstruct:items/battleaxe/mod_soulbound",
         "battlesign": "tconstruct:items/battlesign/mod_soulbound",
         "broadsword": "tconstruct:items/broadsword/mod_soulbound",
@@ -9,12 +10,20 @@
         "frypan": "tconstruct:items/frypan/mod_soulbound",
         "hammer": "tconstruct:items/hammer/mod_soulbound",
         "hatchet": "tconstruct:items/hatchet/mod_soulbound",
+        "longbow": "tconstruct:items/longbow/mod_soulbound",
+        "longbow1": "tconstruct:items/longbow/mod_soulbound",
+        "longbow2": "tconstruct:items/longbow/mod_soulbound",
+        "longbow3": "tconstruct:items/longbow/mod_soulbound",
         "longsword": "tconstruct:items/longsword/mod_soulbound",
         "lumberaxe": "tconstruct:items/lumberaxe/mod_soulbound",
         "mattock": "tconstruct:items/mattock/mod_soulbound",
         "pickaxe": "tconstruct:items/pickaxe/mod_soulbound",
         "scythe": "tconstruct:items/scythe/mod_soulbound",
         "shovel": "tconstruct:items/shovel/mod_soulbound",
-        "shuriken": "tconstruct:items/shuriken/mod_soulbound"
+        "shuriken": "tconstruct:items/shuriken/mod_soulbound",
+        "shortbow": "tconstruct:items/shortbow/mod_soulbound",
+        "shortbow1": "tconstruct:items/shortbow/mod_soulbound",
+        "shortbow2": "tconstruct:items/shortbow/mod_soulbound",
+        "shortbow3": "tconstruct:items/shortbow/mod_soulbound"
     }
 }

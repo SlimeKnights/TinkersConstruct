@@ -32,7 +32,7 @@ public class ModLuck extends ModifierTrait {
 
     aspects.clear();
     aspect = new LuckAspect(this);
-    addAspects(aspect);
+    addAspects(aspect, new ModifierAspect.CategoryAnyAspect(Category.HARVEST, Category.WEAPON, Category.PROJECTILE));
   }
 
   public int getLuckLevel(ItemStack itemStack) {

@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.ClientProxy;
@@ -143,7 +142,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
    *
    * @return True if the entity was hit. Usually the return value of {@link Entity#attackEntityFrom(DamageSource, float)}
    */
-  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, Entity entity, float damage) {
     if(player instanceof EntityPlayer) {
       return entity.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) player), damage);
     }

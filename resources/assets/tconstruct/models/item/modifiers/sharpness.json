@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_sharpness",
         "battleaxe": "tconstruct:items/battleaxe/mod_sharpness",
         "battlesign": "tconstruct:items/battlesign/mod_sharpness",
         "broadsword": "tconstruct:items/broadsword/mod_sharpness",
@@ -9,12 +10,20 @@
         "frypan": "tconstruct:items/frypan/mod_sharpness",
         "hammer": "tconstruct:items/hammer/mod_sharpness",
         "hatchet": "tconstruct:items/hatchet/mod_sharpness",
+        "longbow": "tconstruct:items/longbow/mod_sharpness",
+        "longbow1": "tconstruct:items/longbow/mod_sharpness",
+        "longbow2": "tconstruct:items/longbow/mod_sharpness_2",
+        "longbow3": "tconstruct:items/longbow/mod_sharpness_3",
         "longsword": "tconstruct:items/longsword/mod_sharpness",
         "lumberaxe": "tconstruct:items/lumberaxe/mod_sharpness",
         "mattock": "tconstruct:items/mattock/mod_sharpness",
         "pickaxe": "tconstruct:items/pickaxe/mod_sharpness",
         "scythe": "tconstruct:items/scythe/mod_sharpness",
         "shovel": "tconstruct:items/shovel/mod_sharpness",
-        "shuriken": "tconstruct:items/shuriken/mod_sharpness"
+        "shuriken": "tconstruct:items/shuriken/mod_sharpness",
+        "shortbow": "tconstruct:items/shortbow/mod_sharpness",
+        "shortbow1": "tconstruct:items/shortbow/mod_sharpness",
+        "shortbow2": "tconstruct:items/shortbow/mod_sharpness",
+        "shortbow3": "tconstruct:items/shortbow/mod_sharpness_3"
     }
 }

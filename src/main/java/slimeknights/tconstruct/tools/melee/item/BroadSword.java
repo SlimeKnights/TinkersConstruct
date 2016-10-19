@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.melee.item;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -41,7 +42,7 @@ public class BroadSword extends SwordCore {
 
   // sword sweep attack
   @Override
-  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, Entity entity, float damage) {
     // deal damage first
     boolean hit = super.dealDamage(stack, player, entity, damage);
     // and then sweep

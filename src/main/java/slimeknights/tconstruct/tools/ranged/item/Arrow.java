@@ -67,8 +67,8 @@ public class Arrow extends ProjectileCore {
   }
 
   @Override
-  public EntityProjectileBase getProjectile(ItemStack stack, ItemStack bow, World world, EntityPlayer player, float speed, float inaccuracy, boolean usedAmmo) {
-    inaccuracy -=  (1f - 1f/ProjectileNBT.from(stack).accuracy) * speed/2f;
-    return new EntityArrow(world, player, speed, inaccuracy, getProjectileStack(stack, world, player, usedAmmo), bow);
+  public EntityProjectileBase getProjectile(ItemStack stack, ItemStack bow, World world, EntityPlayer player, float speed, float inaccuracy, float power, boolean usedAmmo) {
+    inaccuracy -= (1f - 1f/ProjectileNBT.from(stack).accuracy) * speed/2f;
+    return new EntityArrow(world, player, speed, inaccuracy, power, getProjectileStack(stack, world, player, usedAmmo), bow);
   }
 }

@@ -1,5 +1,6 @@
 {
     "textures": {
+        "arrow": "tconstruct:items/arrow/mod_mending_moss",
         "battleaxe": "tconstruct:items/battleaxe/mod_mending_moss",
         "battlesign": "tconstruct:items/battlesign/mod_mending_moss",
         "broadsword": "tconstruct:items/broadsword/mod_mending_moss",
@@ -9,12 +10,20 @@
         "frypan": "tconstruct:items/frypan/mod_mending_moss",
         "hammer": "tconstruct:items/hammer/mod_mending_moss",
         "hatchet": "tconstruct:items/hatchet/mod_mending_moss",
+        "longbow": "tconstruct:items/longbow/mod_mending_moss",
+        "longbow1": "tconstruct:items/longbow/mod_mending_moss",
+        "longbow2": "tconstruct:items/longbow/mod_mending_moss",
+        "longbow3": "tconstruct:items/longbow/mod_mending_moss",
         "longsword": "tconstruct:items/longsword/mod_mending_moss",
         "lumberaxe": "tconstruct:items/lumberaxe/mod_mending_moss",
         "mattock": "tconstruct:items/mattock/mod_mending_moss",
         "pickaxe": "tconstruct:items/pickaxe/mod_mending_moss",
         "scythe": "tconstruct:items/scythe/mod_mending_moss",
         "shovel": "tconstruct:items/shovel/mod_mending_moss",
-        "shuriken": "tconstruct:items/shuriken/mod_mending_moss"
+        "shuriken": "tconstruct:items/shuriken/mod_mending_moss",
+        "shortbow": "tconstruct:items/shortbow/mod_mending_moss",
+        "shortbow1": "tconstruct:items/shortbow/mod_mending_moss",
+        "shortbow2": "tconstruct:items/shortbow/mod_mending_moss",
+        "shortbow3": "tconstruct:items/shortbow/mod_mending_moss"
     }
 }
