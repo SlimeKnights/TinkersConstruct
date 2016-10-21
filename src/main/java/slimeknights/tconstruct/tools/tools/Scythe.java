@@ -358,8 +358,8 @@ public class Scythe extends AoeToolCore {
 
     ToolNBT data = new ToolNBT();
     data.head(head);
-    data.handle(handle, handle2);
     data.extra(extra);
+    data.handle(handle, handle2);
 
     data.durability *= DURABILITY_MODIFIER;
 
