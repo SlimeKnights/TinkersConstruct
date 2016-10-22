@@ -203,12 +203,15 @@ public class GuiPartBuilder extends GuiTinkerStation {
     List<String> stats = Lists.newLinkedList();
     List<String> tips = Lists.newArrayList();
     for(IMaterialStats stat : material.getAllStats()) {
-      stats.add(TextFormatting.UNDERLINE + stat.getLocalizedName());
-      stats.addAll(stat.getLocalizedInfo());
-      stats.add(null);
-      tips.add(null);
-      tips.addAll(stat.getLocalizedDesc());
-      tips.add(null);
+      List<String> info = stat.getLocalizedInfo();
+      if(!info.isEmpty()) {
+        stats.add(TextFormatting.UNDERLINE + stat.getLocalizedName());
+        stats.addAll(info);
+        stats.add(null);
+        tips.add(null);
+        tips.addAll(stat.getLocalizedDesc());
+        tips.add(null);
+      }
     }
 
     // Traits

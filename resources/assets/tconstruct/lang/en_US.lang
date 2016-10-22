@@ -595,6 +595,7 @@ stat.fletching.accuracy.desc=How stable the flight path will be using this fletc
 stat.fletching.modifier.name=Modifier
 stat.fletching.modifier.desc=How many arrows you can craft with this.\nProjectile ammo will be multiplied by this.
 
+stat.projectile.name=Projectile
 stat.projectile.ammo.name=Ammo
 
 ##############
