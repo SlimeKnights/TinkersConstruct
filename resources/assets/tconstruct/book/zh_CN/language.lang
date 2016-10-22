@@ -1,14 +1,14 @@
 // Sections
-intro=½éÉÜ
-materials=¹¤¾ß²ÄÁÏ
-tools=¹¤¾ß
-modifiers=Ç¿»¯
-smeltery=Ò±Á¶
+intro=ä»‹ç»
+materials=å·¥å…·ææ–™
+tools=å·¥å…·
+modifiers=å¼ºåŒ–
+smeltery=å†¶ç‚¼
 
-modifier.effect=ÌØÊâĞ§¹û:
+modifier.effect=ç‰¹æ®Šæ•ˆæœ:
 
-material.craft_partbuilder=ÔÚ²¿¼ş¼Ó¹¤Ì¨ÖÆ×÷
-material.craft_casting=¿ÉÒÔÓÃ%sÖıÔì
+material.craft_partbuilder=åœ¨éƒ¨ä»¶åŠ å·¥å°åˆ¶ä½œ
+material.craft_casting=å¯ä»¥ç”¨%sé“¸é€ 
 
 wood.flavour=How much wood could a woodchuck chuck if a woodchuck could chuck wood?
 stone.flavour=Rock solid
