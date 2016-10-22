@@ -423,6 +423,9 @@ public final class ToolBuilder {
     if(output == null) {
       return null;
     }
+    if(output.getItem() instanceof IToolPart && !((IToolPart) output.getItem()).canUseMaterial(foundMaterial)) {
+      return null;
+    }
 
     RecipeMatch.removeMatch(materialItems, match);
 
