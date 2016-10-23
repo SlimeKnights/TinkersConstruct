@@ -63,9 +63,11 @@ public class GuiButtonsToolStation extends GuiSideButtons {
 
   public void setSelectedButtonByTool(ItemStack stack) {
     for(Object o : buttonList) {
-      @SuppressWarnings("unchecked")
-      GuiButtonItem<ToolBuildGuiInfo> btn = (GuiButtonItem<ToolBuildGuiInfo>) o;
-      btn.pressed = ItemStack.areItemStacksEqual(btn.data.tool, stack);
+      if(o instanceof GuiButtonItem) {
+        @SuppressWarnings("unchecked")
+        GuiButtonItem<ToolBuildGuiInfo> btn = (GuiButtonItem<ToolBuildGuiInfo>) o;
+        btn.pressed = ItemStack.areItemStacksEqual(btn.data.tool, stack);
+      }
     }
   }
 

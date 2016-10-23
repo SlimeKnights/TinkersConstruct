@@ -347,7 +347,7 @@ public final class ToolBuilder {
       IModifier mod = TinkerRegistry.getModifier(id);
 
       // will throw an exception if it can't apply
-      if(!mod.canApply(copyToCheck, copyToCheck)) {
+      if(mod != null && !mod.canApply(copyToCheck, copyToCheck)) {
         throw new TinkerGuiException();
       }
     }
