@@ -37,15 +37,15 @@ import slimeknights.tconstruct.tools.melee.TinkerMeleeWeapons;
 import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 
 @SideOnly(Side.CLIENT)
-public class ContentMaterial extends TinkerPage {
+public class ContentBowMaterial extends TinkerPage {
 
-  public static final String ID = "toolmaterial";
+  public static final String ID = "bowtoolmaterial";
 
   private transient Material material;
   @SerializedName("material")
   public String materialName;
 
-  public ContentMaterial(Material material) {
+  public ContentBowMaterial(Material material) {
     this.material = material;
     this.materialName = material.getIdentifier();
   }
@@ -62,7 +62,7 @@ public class ContentMaterial extends TinkerPage {
     addTitle(list, material.getLocalizedNameColored(), true);
 
     // the cool tools to the left/right
-    addDisplayItems(list, rightSide ? GuiBook.PAGE_WIDTH - 18 : 0);
+    //addDisplayItems(list, rightSide ? GuiBook.PAGE_WIDTH - 18 : 0);
 
     int col_margin = 22;
     int top = 15;
@@ -75,13 +75,18 @@ public class ContentMaterial extends TinkerPage {
     LinkedHashSet<ITrait> allTraits = new LinkedHashSet<ITrait>();
 
     // head stats
-    addStatsDisplay(x, y, w, list, allTraits, MaterialTypes.HEAD);
+    if(material.hasStats(MaterialTypes.BOW)) {
+      addStatsDisplay(x, y, w, list, allTraits, MaterialTypes.BOW);
+    }
     // handle
-    addStatsDisplay(x + w, y, w - 10, list, allTraits, MaterialTypes.HANDLE);
+    if(material.hasStats(MaterialTypes.SHAFT)) {
+      addStatsDisplay(x + w, y, w - 10, list, allTraits, MaterialTypes.SHAFT);
+    }
+
 
     // extra
-    y += 65 + 10 * material.getAllTraitsForStats(MaterialTypes.HEAD).size();
-    addStatsDisplay(x, y, w, list, allTraits, MaterialTypes.EXTRA);
+    y += 65 + 10 * material.getAllTraitsForStats(MaterialTypes.BOW).size();
+    //addStatsDisplay(x, y, w, list, allTraits, MaterialTypes.EXTRA);
 
     // inspirational quote
     String flavour = parent.parent.parent.strings.get(String.format("%s.flavour", material.getIdentifier()));

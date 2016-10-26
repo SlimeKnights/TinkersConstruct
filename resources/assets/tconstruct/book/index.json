@@ -52,5 +52,13 @@
         "id": "tconstruct:tinker_tank_controller"
       }
     }
+  },
+  {
+    "name": "bowmaterials",
+    "icon": {
+      "item": {
+        "id": "minecraft:bow"
+      }
+    }
   }
 ]
