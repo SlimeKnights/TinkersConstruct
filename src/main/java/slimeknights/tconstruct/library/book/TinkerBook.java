@@ -8,6 +8,8 @@ import slimeknights.mantle.client.book.BookTransformer;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.repository.FileRepository;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.book.sectiontransformer.MaterialSectionTransformer;
+import slimeknights.tconstruct.library.book.sectiontransformer.ModifierSectionTransformer;
 
 @SideOnly(Side.CLIENT)
 public class TinkerBook extends BookData {

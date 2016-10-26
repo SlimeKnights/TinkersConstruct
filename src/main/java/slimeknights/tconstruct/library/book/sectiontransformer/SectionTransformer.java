@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book;
+package slimeknights.tconstruct.library.book.sectiontransformer;
 
 import slimeknights.mantle.client.book.BookTransformer;
 import slimeknights.mantle.client.book.data.BookData;
@@ -6,7 +6,7 @@ import slimeknights.mantle.client.book.data.SectionData;
 
 public abstract class SectionTransformer extends BookTransformer {
 
-  private final String sectionName;
+  protected final String sectionName;
 
   public SectionTransformer(String sectionName) {
     this.sectionName = sectionName;

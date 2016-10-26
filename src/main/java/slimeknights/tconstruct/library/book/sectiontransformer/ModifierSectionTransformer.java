@@ -1,9 +1,11 @@
-package slimeknights.tconstruct.library.book;
+package slimeknights.tconstruct.library.book.sectiontransformer;
 
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.book.ContentListing;
+import slimeknights.tconstruct.library.book.ContentModifier;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 
 public class ModifierSectionTransformer extends SectionTransformer {
