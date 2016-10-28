@@ -804,7 +804,9 @@ tooltip.part.missing_info=Werkzeugteil besitzt keine Werte
 
 tooltip.pattern.cost=Materialkosten: %d
 
-tooltip.chest.has_items=Enthält Gegenstände
+tooltip.chest.has_items=Enthält %d Gegenstände
+tooltip.patternchest.holds_patterns=Enthält %d Schablonen
+tooltip.patternchest.holds_casts=Enthält %d Gussformen
 
 tooltip.tank.fluid=%s
 tooltip.tank.amount=%d ml
