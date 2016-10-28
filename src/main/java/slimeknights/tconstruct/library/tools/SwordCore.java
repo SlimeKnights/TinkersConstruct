@@ -20,6 +20,9 @@ public abstract class SwordCore extends TinkerToolCore {
 
   public SwordCore(PartMaterialType... requiredComponents) {
     super(requiredComponents);
+
+    // extended compatibility
+    setHarvestLevel("sword", 0);
   }
 
 
