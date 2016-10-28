@@ -87,6 +87,16 @@ public class TileTable extends TileInventory {
     return state.withProperty(BlockTable.INVENTORY, toDisplay);
   }
 
+  public boolean isInventoryEmpty() {
+    for (int i = 0; i < this.getSizeInventory(); ++i) {
+      if (this.getStackInSlot(i) != null) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   @SideOnly(Side.CLIENT)
   public static PropertyTableItem.TableItem getTableItem(ItemStack stack, World world, EntityLivingBase entity) {
     if(stack == null) {
