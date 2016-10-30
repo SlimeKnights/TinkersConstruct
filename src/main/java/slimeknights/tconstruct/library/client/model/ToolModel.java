@@ -139,6 +139,7 @@ public class ToolModel implements IModel {
 
       Map<TransformType, TRSRTransformation> builder2 = Maps.newHashMap();
       builder2.putAll(IPerspectiveAwareModel.MapWrapper.getTransforms(state));
+      builder2.putAll(transforms);
       builder2.putAll(override.transforms); // only contains actual entries, so we override default values
 
       Map<String, IBakedModel> overriddenModifierModels;

@@ -37,6 +37,9 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
     this(PartMaterialType.bowstring(TinkerTools.bowString),
           PartMaterialType.bow(TinkerTools.bowLimb),
           PartMaterialType.bow(TinkerTools.bowLimb));
+
+    this.addPropertyOverride(PROPERTY_PULL_PROGRESS, pullProgressPropertyGetter);
+    this.addPropertyOverride(PROPERTY_IS_PULLING, isPullingPropertyGetter);
   }
 
   public ShortBow(PartMaterialType... requiredComponents) {

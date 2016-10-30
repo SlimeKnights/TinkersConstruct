@@ -49,15 +49,18 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
   protected static final UUID LAUNCHER_BONUS_DAMAGE = UUID.fromString("066b8892-d2ac-4bae-ac22-26f9f91a02ee");
   protected static final UUID LAUNCHER_DAMAGE_MODIFIER = UUID.fromString("4f76565a-3845-4a09-ba8f-92a37937a7c3");
 
-  protected static final ResourceLocation PROPERTY_PULL = new ResourceLocation("pull");
-  protected static final ResourceLocation PROPERTY_PULLING = new ResourceLocation("pulling");
+  protected static final ResourceLocation PROPERTY_PULL_PROGRESS = new ResourceLocation("pull");
+  protected static final ResourceLocation PROPERTY_IS_PULLING = new ResourceLocation("pulling");
+
+  protected final IItemPropertyGetter pullProgressPropertyGetter;
+  protected final IItemPropertyGetter isPullingPropertyGetter;
 
   public BowCore(PartMaterialType... requiredComponents) {
     super(requiredComponents);
 
     addCategory(Category.LAUNCHER);
 
-    this.addPropertyOverride(PROPERTY_PULL, new IItemPropertyGetter() {
+    pullProgressPropertyGetter = new IItemPropertyGetter() {
       @Override
       @SideOnly(Side.CLIENT)
       public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
@@ -69,14 +72,14 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
           return getDrawbackProgress(itemstack, entityIn);
         }
       }
-    });
-    this.addPropertyOverride(PROPERTY_PULLING, new BooleanItemPropertyGetter() {
+    };
+    isPullingPropertyGetter = new BooleanItemPropertyGetter() {
       @Override
       @SideOnly(Side.CLIENT)
       public boolean applyIf(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
         return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack;
       }
-    });
+    };
   }
 
   /* Stuff to override */
