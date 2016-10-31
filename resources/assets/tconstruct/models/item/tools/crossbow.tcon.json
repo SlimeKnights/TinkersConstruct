@@ -22,6 +22,11 @@
                     "rotation": [ -115, -25, -45 ],
                     "translation": [ -3, 2.5, 1 ],
                     "scale": [ 0.68, 0.68, 0.68 ]
+                },
+                "firstperson_lefthand": {
+                    "rotation": [ -115, -25, 45 ],
+                    "translation": [ -3, 2.5, 1 ],
+                    "scale": [ 0.68, 0.68, 0.68 ]
                 }
             }
         },
@@ -40,6 +45,11 @@
                     "rotation": [ -115, -25, -45 ],
                     "translation": [ -3, 2.5, 1 ],
                     "scale": [ 0.68, 0.68, 0.68 ]
+                },
+                "firstperson_lefthand": {
+                    "rotation": [ -115, -25, 45 ],
+                    "translation": [ -3, 2.5, 1 ],
+                    "scale": [ 0.68, 0.68, 0.68 ]
                 }
             }
         },
@@ -56,6 +66,11 @@
             "display": {
                 "firstperson_righthand": {
                     "rotation": [ -115, -25, -45 ],
+                    "translation": [ -3, 2.5, 1 ],
+                    "scale": [ 0.68, 0.68, 0.68 ]
+                },
+                "firstperson_lefthand": {
+                    "rotation": [ -115, -25, 45 ],
                     "translation": [ -3, 2.5, 1 ],
                     "scale": [ 0.68, 0.68, 0.68 ]
                 }
@@ -83,6 +98,11 @@
                     "rotation": [ -90, -5, -45 ],
                     "translation": [ 0, 2, 0 ],
                     "scale": [ 0.68, 0.68, 0.68 ]
+                },
+                "firstperson_lefthand": {
+                    "rotation": [ -90, -5, 45 ],
+                    "translation": [ 0, 2, 0 ],
+                    "scale": [ 0.68, 0.68, 0.68 ]
                 }
             }
         }
@@ -106,8 +126,8 @@
             "scale": [ 0.68, 0.68, 0.68 ]
         },
         "firstperson_lefthand": {
-            "rotation": [ 0, -90, 25 ],
-            "translation": [ 0, 2, 0.8 ],
+            "rotation": [ -75, -5, 45 ],
+            "translation": [ 0, 2, 0 ],
             "scale": [ 0.68, 0.68, 0.68 ]
         }
     }
