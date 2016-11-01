@@ -142,6 +142,7 @@ public abstract class TinkerToolEvent extends TinkerEvent {
     public int projectileCount = 1;
     public boolean consumeAmmoPerProjectile = true;
     public boolean consumeDurabilityPerProjectile = true;
+    public float bonusInaccuracy = 0;
 
     public OnBowShoot(ItemStack bow, ItemStack ammo, EntityPlayer entityPlayer, int useTime) {
       super(bow);
@@ -167,6 +168,10 @@ public abstract class TinkerToolEvent extends TinkerEvent {
 
     public void setConsumeDurabilityPerProjectile(boolean consumeDurabilityPerProjectile) {
       this.consumeDurabilityPerProjectile = consumeDurabilityPerProjectile;
+    }
+
+    public void setBonusInaccuracy(float bonusInaccuracy) {
+      this.bonusInaccuracy = bonusInaccuracy;
     }
   }
 }

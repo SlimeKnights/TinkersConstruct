@@ -191,7 +191,11 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
         if(i == 0 || event.consumeAmmoPerProjectile) {
           usedAmmo = consumeAmmo(ammo, player);
         }
-        EntityArrow projectile = getProjectileEntity(ammo, bow, worldIn, player, power, baseInaccuracy(), progress*progress, usedAmmo);
+        float inaccuracy = baseInaccuracy();
+        if(i > 0) {
+          inaccuracy += event.bonusInaccuracy;
+        }
+        EntityArrow projectile = getProjectileEntity(ammo, bow, worldIn, player, power, inaccuracy, progress*progress, usedAmmo);
 
         if(projectile != null && ProjectileEvent.OnLaunch.fireEvent(projectile, bow, player)) {
           if(progress >= 1f) {

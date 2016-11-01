@@ -24,6 +24,7 @@ public class TraitSplitting extends AbstractTrait {
       event.setProjectileCount(2);
       event.setConsumeAmmoPerProjectile(false);
       event.setConsumeDurabilityPerProjectile(false);
+      event.setBonusInaccuracy(3f);
     }
   }
 }
