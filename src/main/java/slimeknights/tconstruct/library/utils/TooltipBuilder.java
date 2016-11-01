@@ -154,6 +154,11 @@ public class TooltipBuilder {
     return this;
   }
 
+  public TooltipBuilder addProjectileBonusDamage() {
+    tips.add(BowMaterialStats.formatDamage(ProjectileLauncherNBT.from(stack).bonusDamage));
+    return this;
+  }
+
   public TooltipBuilder addAccuracy() {
     this.add(FletchingMaterialStats.formatAccuracy(ProjectileNBT.from(stack).accuracy));
     return this;

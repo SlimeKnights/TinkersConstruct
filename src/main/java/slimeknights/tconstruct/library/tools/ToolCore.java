@@ -279,6 +279,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
     if(hasCategory(Category.LAUNCHER)) {
       info.addDrawSpeed();
       info.addRange();
+      info.addProjectileBonusDamage();
     }
     info.addAttack();
 

@@ -41,6 +41,7 @@ public final class Tags {
   // bows
   public static final String DRAWSPEED = "DrawSpeed";
   public static final String RANGE = "Range";
+  public static final String PROJECTILE_BONUS_DAMAGE = "ProjectileBonusDamage";
 
   // projectile
   public static final String ACCURACY = "Accuracy";

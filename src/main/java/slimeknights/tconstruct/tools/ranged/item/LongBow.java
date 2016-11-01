@@ -28,7 +28,7 @@ public class LongBow extends ShortBow {
 
   @Override
   public float baseProjectileDamage() {
-    return 4.5f;
+    return 2.5f;
   }
 
   @Override
@@ -43,7 +43,7 @@ public class LongBow extends ShortBow {
 
   @Override
   public float projectileDamageModifier() {
-    return 1.33f;
+    return 1.25f;
   }
 
   @Override

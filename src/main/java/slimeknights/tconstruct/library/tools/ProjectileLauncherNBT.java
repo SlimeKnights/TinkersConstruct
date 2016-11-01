@@ -12,10 +12,12 @@ public class ProjectileLauncherNBT extends ToolNBT {
 
   public float drawSpeed;
   public float range;
+  public float bonusDamage;
 
   public ProjectileLauncherNBT() {
     drawSpeed = 1f;
     range = 1f;
+    bonusDamage = 0f;
   }
 
   public ProjectileLauncherNBT(NBTTagCompound tag) {
@@ -25,16 +27,19 @@ public class ProjectileLauncherNBT extends ToolNBT {
   public ProjectileLauncherNBT limb(BowMaterialStats... bowlimbs) {
     drawSpeed = 0;
     range = 0;
+    bonusDamage = 0;
 
     for(BowMaterialStats limb : bowlimbs) {
       if(limb != null) {
         drawSpeed += limb.drawspeed;
         range += limb.range;
+        bonusDamage += limb.bonusDamage;
       }
     }
 
     drawSpeed /= (float) bowlimbs.length;
     range /= (float) bowlimbs.length;
+    bonusDamage /= (float) bowlimbs.length;
 
     drawSpeed = Math.max(0.001f, drawSpeed);
     range = Math.max(0.001f, range);
@@ -63,6 +68,7 @@ public class ProjectileLauncherNBT extends ToolNBT {
     super.read(tag);
     this.drawSpeed = tag.getFloat(Tags.DRAWSPEED);
     this.range = tag.getFloat(Tags.RANGE);
+    this.bonusDamage = tag.getFloat(Tags.PROJECTILE_BONUS_DAMAGE);
   }
 
   @Override
@@ -70,6 +76,7 @@ public class ProjectileLauncherNBT extends ToolNBT {
     super.write(tag);
     tag.setFloat(Tags.DRAWSPEED, drawSpeed);
     tag.setFloat(Tags.RANGE, range);
+    tag.setFloat(Tags.PROJECTILE_BONUS_DAMAGE, bonusDamage);
   }
 
   public static ProjectileLauncherNBT from(ItemStack itemStack) {

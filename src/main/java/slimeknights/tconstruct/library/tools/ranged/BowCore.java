@@ -276,8 +276,9 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
   public abstract float projectileDamageModifier();
 
   @Override
-  public void modifyProjectileAttributes(Multimap<String, AttributeModifier> projectileAttributes, float power) {
+  public void modifyProjectileAttributes(Multimap<String, AttributeModifier> projectileAttributes, @Nullable ItemStack launcher, ItemStack projectile, float power) {
     double dmg = baseProjectileDamage() * power;
+    dmg += ProjectileLauncherNBT.from(launcher).bonusDamage;
     if(dmg != 0) {
       projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(LAUNCHER_BONUS_DAMAGE, "Launcher bonus damage", dmg, 0));
     }

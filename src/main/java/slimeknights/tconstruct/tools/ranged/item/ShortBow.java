@@ -55,7 +55,7 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
 
   @Override
   public float baseProjectileDamage() {
-    return 1f;
+    return 0f;
   }
 
   @Override
@@ -75,7 +75,7 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
 
   @Override
   public float projectileDamageModifier() {
-    return 0.85f;
+    return 0.8f;
   }
 
   @Override
