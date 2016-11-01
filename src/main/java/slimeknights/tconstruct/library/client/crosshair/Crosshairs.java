@@ -11,4 +11,5 @@ public interface Crosshairs {
   Crosshair X = new CrosshairTriangle(Util.getResource("textures/gui/crosshair/x.png"));
   Crosshair INVERSE = new CrosshairTriangle(Util.getResource("textures/gui/crosshair/inverse.png"));
   Crosshair PLUS = new Crosshair(Util.getResource("textures/gui/crosshair/plus.png"));
+  Crosshair T = new CrosshairInverseT(Util.getResource("textures/gui/crosshair/T.png"), 15);
 }

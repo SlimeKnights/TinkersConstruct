@@ -56,7 +56,7 @@
         {
             "predicate": {
                 "pulling": 1,
-                "pull": 0.95
+                "pull": 0.999
             },
             "textures": {
                 "layer0": "tconstruct:items/crossbow/bowstring_3",

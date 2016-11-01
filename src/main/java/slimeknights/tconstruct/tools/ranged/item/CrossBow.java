@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.ranged.item;
 
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -20,6 +21,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.client.BooleanItemPropertyGetter;
+import slimeknights.tconstruct.library.client.crosshair.Crosshairs;
+import slimeknights.tconstruct.library.client.crosshair.ICrosshair;
+import slimeknights.tconstruct.library.client.crosshair.ICustomCrosshairUser;
 import slimeknights.tconstruct.library.materials.BowMaterialStats;
 import slimeknights.tconstruct.library.materials.BowStringMaterialStats;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
@@ -32,10 +36,11 @@ import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
 import slimeknights.tconstruct.library.tools.ranged.BowCore;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 
-public class CrossBow extends BowCore {
+public class CrossBow extends BowCore implements ICustomCrosshairUser {
 
   private static final String TAG_Loaded = "Loaded";
 
@@ -58,6 +63,11 @@ public class CrossBow extends BowCore {
   }
 
   @Override
+  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+    addDefaultSubItems(subItems, TinkerMaterials.string);
+  }
+
+  @Override
   public float damagePotential() {
     return 1f;
   }
@@ -69,12 +79,17 @@ public class CrossBow extends BowCore {
 
   @Override
   public float baseProjectileDamage() {
-    return 0;
+    return 3f;
   }
 
   @Override
   public float projectileDamageModifier() {
     return 1f;
+  }
+
+  @Override
+  public int getDrawTime() {
+    return 45;
   }
 
   public boolean isLoaded(ItemStack stack) {
@@ -155,8 +170,26 @@ public class CrossBow extends BowCore {
     data.handle(body);
     data.bowstring(bowstring);
 
+    data.bonusDamage *= 3f;
+
     //data.durability *= DURABILITY_MODIFIER;
 
     return data;
+  }
+
+  @Override
+  public ICrosshair getCrosshair(ItemStack itemStack, EntityPlayer player) {
+    return Crosshairs.T;
+  }
+
+  @Override
+  public float getCrosshairState(ItemStack itemStack, EntityPlayer player) {
+    if(isLoaded(itemStack)) {
+      return 1f;
+    }
+    else if(player.getActiveItemStack() != itemStack) {
+      return 0f;
+    }
+    return getDrawbackProgress(itemStack, player);
   }
 }
