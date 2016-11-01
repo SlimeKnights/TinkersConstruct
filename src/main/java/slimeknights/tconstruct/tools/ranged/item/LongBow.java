@@ -43,12 +43,12 @@ public class LongBow extends ShortBow {
 
   @Override
   public float projectileDamageModifier() {
-    return 1.2f;
+    return 1.33f;
   }
 
   @Override
   public int getDrawTime() {
-    return 35;
+    return 30;
   }
 
   /* Data Stuff */
