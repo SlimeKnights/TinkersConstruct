@@ -30,12 +30,16 @@ public class ToolBuildGuiInfo {
   }
 
   public ToolBuildGuiInfo(TinkersItem tool) {
+    this.tool = getItemstackForRendering(tool);
+  }
+
+  public static ItemStack getItemstackForRendering(TinkersItem tool) {
     List<Material> mats = Lists.newLinkedList();
     for(int i = 0; i < tool.getRequiredComponents().size(); i++) {
       mats.add(RenderMaterials[i % RenderMaterials.length]);
     }
 
-    this.tool = tool.buildItemForRendering(mats);
+    return tool.buildItemForRendering(mats);
   }
 
   public static ToolBuildGuiInfo default3Part(TinkersItem tool) {

@@ -8,5 +8,10 @@
     "name": "repairing",
     "type": "text",
     "data": "tools/repairing.json"
+  },
+  {
+    "name": "pickaxe",
+    "type": "tool",
+    "data": "tools/pickaxe.json"
   }
 ]

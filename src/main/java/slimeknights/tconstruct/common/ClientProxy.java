@@ -56,6 +56,8 @@ import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackRapier
 
 public abstract class ClientProxy extends CommonProxy {
 
+  public static final ResourceLocation BOOK_MODIFY = Util.getResource("textures/gui/book/modify.png");
+
   private static final Minecraft mc = Minecraft.getMinecraft();
   public static CustomFontRenderer fontRenderer;
 

@@ -20,6 +20,7 @@ import slimeknights.mantle.client.gui.book.GuiBook;
 import slimeknights.mantle.client.gui.book.element.BookElement;
 import slimeknights.mantle.client.gui.book.element.ElementImage;
 import slimeknights.mantle.client.gui.book.element.ElementText;
+import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.elements.ElementTinkerItem;
@@ -34,14 +35,15 @@ import slimeknights.tconstruct.tools.TinkerMaterials;
 @SideOnly(Side.CLIENT)
 public class ContentModifier extends TinkerPage {
 
-  public static final transient int TEX_SIZE = 256;
-  //public static final transient ImageData IMG_MODIFY = new ImageData(Util.getResource("textures/gui/book/modify.png"), 0, 0, 122, 70, TEX_SIZE, TEX_SIZE);
-  public static final transient ImageData IMG_SLOT_1 = new ImageData(Util.getResource("textures/gui/book/modify.png"), 0, 75, 22, 22, TEX_SIZE, TEX_SIZE);
-  public static final transient ImageData IMG_SLOT_2 = new ImageData(Util.getResource("textures/gui/book/modify.png"), 0, 97, 40, 22, TEX_SIZE, TEX_SIZE);
-  public static final transient ImageData IMG_SLOT_3 = new ImageData(Util.getResource("textures/gui/book/modify.png"), 0, 119, 58, 22, TEX_SIZE, TEX_SIZE);
-  public static final transient ImageData IMG_SLOT_5 = new ImageData(Util.getResource("textures/gui/book/modify.png"), 0, 141, 58, 41, TEX_SIZE, TEX_SIZE);
-  public static final transient ImageData IMG_TABLE = new ImageData(Util.getResource("textures/gui/book/modify.png"), 214, 0, 42, 46, TEX_SIZE, TEX_SIZE);
   public static final transient String ID = "modifier";
+
+  public static final transient int TEX_SIZE = 256;
+  //public static final transient ImageData IMG_MODIFY = new ImageData(ClientProxy.BOOK_MODIFY), 0, 0, 122, 70, TEX_SIZE, TEX_SIZE);
+  public static final transient ImageData IMG_SLOT_1 = new ImageData(ClientProxy.BOOK_MODIFY, 0, 75, 22, 22, TEX_SIZE, TEX_SIZE);
+  public static final transient ImageData IMG_SLOT_2 = new ImageData(ClientProxy.BOOK_MODIFY, 0, 97, 40, 22, TEX_SIZE, TEX_SIZE);
+  public static final transient ImageData IMG_SLOT_3 = new ImageData(ClientProxy.BOOK_MODIFY, 0, 119, 58, 22, TEX_SIZE, TEX_SIZE);
+  public static final transient ImageData IMG_SLOT_5 = new ImageData(ClientProxy.BOOK_MODIFY, 0, 141, 58, 41, TEX_SIZE, TEX_SIZE);
+  public static final transient ImageData IMG_TABLE = new ImageData(ClientProxy.BOOK_MODIFY, 214, 0, 42, 46, TEX_SIZE, TEX_SIZE);
 
   private transient IModifier modifier;
   private transient List<Item> tool;

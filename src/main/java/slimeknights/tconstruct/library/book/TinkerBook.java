@@ -12,6 +12,7 @@ import slimeknights.tconstruct.library.book.content.ContentBowMaterial;
 import slimeknights.tconstruct.library.book.content.ContentMaterial;
 import slimeknights.tconstruct.library.book.content.ContentModifier;
 import slimeknights.tconstruct.library.book.content.ContentModifierFortify;
+import slimeknights.tconstruct.library.book.content.ContentTool;
 import slimeknights.tconstruct.library.book.sectiontransformer.BowMaterialSectionTransformer;
 import slimeknights.tconstruct.library.book.sectiontransformer.MaterialSectionTransformer;
 import slimeknights.tconstruct.library.book.sectiontransformer.ModifierSectionTransformer;
@@ -27,6 +28,7 @@ public class TinkerBook extends BookData {
     BookLoader.registerPageType(ContentBowMaterial.ID, ContentBowMaterial.class);
     BookLoader.registerPageType(ContentModifier.ID, ContentModifier.class);
     BookLoader.registerPageType(ContentModifierFortify.ID, ContentModifierFortify.class);
+    BookLoader.registerPageType(ContentTool.ID, ContentTool.class);
     INSTANCE.addRepository(new FileRepository(Util.resource("book")));
     INSTANCE.addTransformer(new MaterialSectionTransformer());
     INSTANCE.addTransformer(new BowMaterialSectionTransformer());
