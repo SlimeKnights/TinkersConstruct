@@ -25,6 +25,10 @@ public class ContentListing extends TinkerPage {
     entries.add(data);
   }
 
+  public boolean hasEntries() {
+    return entries.size() > 0;
+  }
+
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
     int yOff = 0;
@@ -45,7 +49,7 @@ public class ContentListing extends TinkerPage {
     }
 
     for(TextData data : entries) {
-      list.add(new ElementListingLeft(x, y, w, line_height, data));
+      list.add(createListingElement(y, x, w, line_height, data));
       y += line_height;
 
       if(y > bot) {
@@ -53,5 +57,9 @@ public class ContentListing extends TinkerPage {
         y = yOff;
       }
     }
+  }
+
+  protected ElementListingLeft createListingElement(int y, int x, int w, int line_height, TextData data) {
+    return new ElementListingLeft(x, y, w, line_height, data);
   }
 }
