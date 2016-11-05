@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.common;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
@@ -20,10 +22,13 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameData;
 
+import java.util.stream.Stream;
+
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.client.CustomFontRenderer;
@@ -42,10 +47,13 @@ import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.client.particle.EntitySlimeFx;
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
+import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialGUI;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.client.ParticleEffect;
 import slimeknights.tconstruct.shared.client.ParticleEndspeed;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackCleaver;
 import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackFrypan;
 import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackHammer;
@@ -53,8 +61,12 @@ import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackHatche
 import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackLongsword;
 import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackLumberAxe;
 import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackRapier;
+import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
 
 public abstract class ClientProxy extends CommonProxy {
+
+  public static Material RenderMaterials[];
+  public static Material RenderMaterialString;
 
   public static final ResourceLocation BOOK_MODIFY = Util.getResource("textures/gui/book/modify.png");
 
@@ -77,6 +89,31 @@ public abstract class ClientProxy extends CommonProxy {
     MaterialRenderInfoLoader.addRenderInfo("metal", MetalRenderInfoDeserializer.class);
     MaterialRenderInfoLoader.addRenderInfo("metal_textured", TexturedMetalRenderInfoDeserializer.class);
     MaterialRenderInfoLoader.addRenderInfo("block", BlockRenderInfoDeserializer.class);
+  }
+
+  public static void initRenderMaterials() {
+    RenderMaterials = new Material[4];
+    RenderMaterials[0] = new MaterialGUI("_internal_render1");
+    RenderMaterials[0].setRenderInfo(0x684e1e);
+    RenderMaterials[1] = new MaterialGUI("_internal_render2");
+    RenderMaterials[1].setRenderInfo(0xc1c1c1);
+    RenderMaterials[2] = new MaterialGUI("_internal_render3");
+    RenderMaterials[2].setRenderInfo(0x2376dd);
+    RenderMaterials[3] = new MaterialGUI("_internal_render4");
+    RenderMaterials[3].setRenderInfo(0x7146b0);
+
+    RenderMaterialString = new MaterialGUI("_internal_renderString");
+    RenderMaterialString.setRenderInfo(0xffffff);
+
+    // yes, these will only be registered clientside
+    // but it shouldn't matter because they're never used serverside and we don't use indices
+    Stream.concat(
+      Stream.of(RenderMaterials),
+      Stream.of(RenderMaterialString)
+    ).forEach(TinkerRegistry::addMaterial);
+
+    TinkerRegistry.tabTools.setDisplayIcon(TinkerHarvestTools.pickaxe.buildItemForRendering(ImmutableList.of(RenderMaterials[0], RenderMaterials[1], RenderMaterials[2])));
+    TinkerRegistry.tabParts.setDisplayIcon(TinkerTools.pickHead.getItemstackWithMaterial(RenderMaterials[2]));
   }
 
   public static void initRenderer() {

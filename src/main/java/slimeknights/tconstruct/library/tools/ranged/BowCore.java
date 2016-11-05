@@ -32,9 +32,11 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.client.BooleanItemPropertyGetter;
 import slimeknights.tconstruct.library.events.ProjectileEvent;
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
+import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IAmmoUser;
@@ -288,4 +290,13 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
   }
 
   protected abstract List<Item> getAmmoItems();
+
+  @Override
+  @SideOnly(Side.CLIENT)
+  public Material getMaterialForPartForGuiRendering(int index) {
+    if(index == 0) {
+      return ClientProxy.RenderMaterialString;
+    }
+    return super.getMaterialForPartForGuiRendering(index + 1);
+  }
 }

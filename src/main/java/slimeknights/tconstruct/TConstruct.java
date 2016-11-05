@@ -151,7 +151,9 @@ public class TConstruct {
 
   @Mod.EventHandler
   public void init(FMLInitializationEvent event) {
-
+    if(event.getSide().isClient()) {
+      ClientProxy.initRenderMaterials();
+    }
   }
 
   @Mod.EventHandler

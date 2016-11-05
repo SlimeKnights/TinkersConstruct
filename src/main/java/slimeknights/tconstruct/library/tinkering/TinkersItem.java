@@ -18,15 +18,20 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -216,6 +221,19 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     tool.setTagCompound(base);
 
     return tool;
+  }
+
+  public ItemStack buildItemForRenderingInGui() {
+    List<Material> materials = IntStream.range(0, getRequiredComponents().size())
+                                        .mapToObj(this::getMaterialForPartForGuiRendering)
+                                        .collect(Collectors.toList());
+
+    return buildItemForRendering(materials);
+  }
+
+  @SideOnly(Side.CLIENT)
+  public Material getMaterialForPartForGuiRendering(int index) {
+    return ClientProxy.RenderMaterials[index % ClientProxy.RenderMaterials.length];
   }
 
   public abstract NBTTagCompound buildTag(List<Material> materials);

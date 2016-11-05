@@ -124,7 +124,7 @@ public class ContentTool extends TinkerPage {
     list.add(new ElementImage(imgX + (img.width - IMG_TABLE.width) / 2, imgY + 28, -1, -1, IMG_TABLE));
     list.add(new ElementImage(imgX, imgY, -1, -1, img, book.appearance.slotColor));
 
-    ItemStack demo = ToolBuildGuiInfo.getItemstackForRendering(tool);
+    ItemStack demo = tool.buildItemForRenderingInGui();
 
     ElementTinkerItem toolItem = new ElementTinkerItem(toolX, toolY, 1f, demo);
     toolItem.noTooltip = true;
@@ -135,7 +135,7 @@ public class ContentTool extends TinkerPage {
     for(int i = 0; i < parts.size(); i++) {
       Collection<IToolPart> items = parts.get(i);
 
-      Material material = ToolBuildGuiInfo.RenderMaterials[i % ToolBuildGuiInfo.RenderMaterials.length];
+      Material material = tool.getMaterialForPartForGuiRendering(i);
 
       ItemStack[] stacks = items.stream().map(part -> part.getItemstackWithMaterial(material)).toArray(ItemStack[]::new);
 
