@@ -10,6 +10,11 @@
     "data": "tools/repairing.json"
   },
   {
+    "name": "repairing2",
+    "type": "image with text below",
+    "data": "tools/repairing2.json"
+  },
+  {
     "name": "pickaxe",
     "type": "tool",
     "data": "tools/pickaxe.json"
