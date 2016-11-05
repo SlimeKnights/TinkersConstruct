@@ -11,6 +11,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.sectiontransformer.BowMaterialSectionTransformer;
 import slimeknights.tconstruct.library.book.sectiontransformer.MaterialSectionTransformer;
 import slimeknights.tconstruct.library.book.sectiontransformer.ModifierSectionTransformer;
+import slimeknights.tconstruct.library.book.sectiontransformer.ToolSectionTransformer;
 
 @SideOnly(Side.CLIENT)
 public class TinkerBook extends BookData {
@@ -27,5 +28,5 @@ public class TinkerBook extends BookData {
     INSTANCE.addTransformer(new BowMaterialSectionTransformer());
     INSTANCE.addTransformer(BookTransformer.IndexTranformer());
     INSTANCE.addTransformer(new ModifierSectionTransformer());
-  }
+    INSTANCE.addTransformer(new ToolSectionTransformer());  }
 }

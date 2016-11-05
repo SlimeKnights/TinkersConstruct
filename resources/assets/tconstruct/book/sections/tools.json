@@ -1,0 +1,12 @@
+[
+  {
+    "name": "overview",
+    "type": "text",
+    "data": "tools/overview.json"
+  },
+  {
+    "name": "repairing",
+    "type": "text",
+    "data": "tools/repairing.json"
+  }
+]
