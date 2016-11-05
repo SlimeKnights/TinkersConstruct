@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book;
+package slimeknights.tconstruct.library.book.content;
 
 import com.google.common.collect.Lists;
 
@@ -11,8 +11,10 @@ import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.gui.book.GuiBook;
 import slimeknights.mantle.client.gui.book.element.BookElement;
+import slimeknights.tconstruct.library.book.elements.ElementListingCentered;
+import slimeknights.tconstruct.library.book.TinkerPage;
 
-public class ContentListing extends TinkerPage {
+public class ContentListingCentered extends TinkerPage {
 
   public String title;
   private final List<TextData> entries = Lists.newArrayList();
@@ -23,10 +25,6 @@ public class ContentListing extends TinkerPage {
       data.action = ProtocolGoToPage.GO_TO_RTN + ":" + link.parent.name + "." + link.name;
     }
     entries.add(data);
-  }
-
-  public boolean hasEntries() {
-    return entries.size() > 0;
   }
 
   @Override
@@ -40,26 +38,12 @@ public class ContentListing extends TinkerPage {
     int y = yOff;
     int x = 0;
     int w = GuiBook.PAGE_WIDTH;
-    int line_height = 9;
-
-    int bot = GuiBook.PAGE_HEIGHT - 30;
-
-    if(entries.size() * line_height + yOff > bot) {
-      w /= 2;
-    }
 
     for(TextData data : entries) {
-      list.add(createListingElement(y, x, w, line_height, data));
-      y += line_height;
+      int ex = x + w / 2 - book.fontRenderer.getStringWidth(data.text) / 2;
 
-      if(y > bot) {
-        x += w;
-        y = yOff;
-      }
+      list.add(new ElementListingCentered(ex, y, w, 9, data));
+      y += 9;
     }
-  }
-
-  protected ElementListingLeft createListingElement(int y, int x, int w, int line_height, TextData data) {
-    return new ElementListingLeft(x, y, w, line_height, data);
   }
 }

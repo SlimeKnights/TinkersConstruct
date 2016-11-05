@@ -16,8 +16,8 @@ import slimeknights.mantle.client.gui.book.element.ElementImage;
 import slimeknights.mantle.client.gui.book.element.ElementItem;
 import slimeknights.mantle.client.gui.book.element.SizedBookElement;
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.book.ContentMaterial;
-import slimeknights.tconstruct.library.book.ContentPageIconList;
+import slimeknights.tconstruct.library.book.content.ContentMaterial;
+import slimeknights.tconstruct.library.book.content.ContentPageIconList;
 import slimeknights.tconstruct.library.materials.Material;
 
 public abstract class AbstractMaterialSectionTransformer extends SectionTransformer {

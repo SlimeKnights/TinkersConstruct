@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.book.sectiontransformer;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
-import slimeknights.tconstruct.library.book.ContentListing;
+import slimeknights.tconstruct.library.book.content.ContentListing;
 
 public class ContentListingSectionTransformer extends SectionTransformer {
 

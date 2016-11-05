@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book;
+package slimeknights.tconstruct.library.book.content;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -22,6 +22,8 @@ import slimeknights.mantle.client.gui.book.element.ElementItem;
 import slimeknights.mantle.client.gui.book.element.ElementText;
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.book.elements.ElementTinkerItem;
+import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
@@ -37,15 +39,15 @@ import slimeknights.tconstruct.tools.melee.TinkerMeleeWeapons;
 import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 
 @SideOnly(Side.CLIENT)
-public class ContentBowMaterial extends TinkerPage {
+public class ContentMaterial extends TinkerPage {
 
-  public static final String ID = "bowtoolmaterial";
+  public static final String ID = "toolmaterial";
 
   private transient Material material;
   @SerializedName("material")
   public String materialName;
 
-  public ContentBowMaterial(Material material) {
+  public ContentMaterial(Material material) {
     this.material = material;
     this.materialName = material.getIdentifier();
   }
@@ -62,7 +64,7 @@ public class ContentBowMaterial extends TinkerPage {
     addTitle(list, material.getLocalizedNameColored(), true);
 
     // the cool tools to the left/right
-    //addDisplayItems(list, rightSide ? GuiBook.PAGE_WIDTH - 18 : 0);
+    addDisplayItems(list, rightSide ? GuiBook.PAGE_WIDTH - 18 : 0);
 
     int col_margin = 22;
     int top = 15;
@@ -75,18 +77,13 @@ public class ContentBowMaterial extends TinkerPage {
     LinkedHashSet<ITrait> allTraits = new LinkedHashSet<ITrait>();
 
     // head stats
-    if(material.hasStats(MaterialTypes.BOW)) {
-      addStatsDisplay(x, y, w, list, allTraits, MaterialTypes.BOW);
-    }
+    addStatsDisplay(x, y, w, list, allTraits, MaterialTypes.HEAD);
     // handle
-    if(material.hasStats(MaterialTypes.SHAFT)) {
-      addStatsDisplay(x + w, y, w - 10, list, allTraits, MaterialTypes.SHAFT);
-    }
-
+    addStatsDisplay(x + w, y, w - 10, list, allTraits, MaterialTypes.HANDLE);
 
     // extra
-    y += 65 + 10 * material.getAllTraitsForStats(MaterialTypes.BOW).size();
-    //addStatsDisplay(x, y, w, list, allTraits, MaterialTypes.EXTRA);
+    y += 65 + 10 * material.getAllTraitsForStats(MaterialTypes.HEAD).size();
+    addStatsDisplay(x, y, w, list, allTraits, MaterialTypes.EXTRA);
 
     // inspirational quote
     String flavour = parent.parent.parent.strings.get(String.format("%s.flavour", material.getIdentifier()));

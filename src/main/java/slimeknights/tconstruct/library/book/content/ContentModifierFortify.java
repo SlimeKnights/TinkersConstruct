@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book;
+package slimeknights.tconstruct.library.book.content;
 
 import com.google.common.collect.Lists;
 

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.book;
+package slimeknights.tconstruct.library.book.elements;
 
 import com.google.common.collect.ImmutableList;
 

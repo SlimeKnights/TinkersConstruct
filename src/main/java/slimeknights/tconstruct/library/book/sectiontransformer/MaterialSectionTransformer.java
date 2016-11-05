@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.book.sectiontransformer;
 
 import slimeknights.mantle.client.book.data.content.PageContent;
-import slimeknights.tconstruct.library.book.ContentMaterial;
+import slimeknights.tconstruct.library.book.content.ContentMaterial;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
 
