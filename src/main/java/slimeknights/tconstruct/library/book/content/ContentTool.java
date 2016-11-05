@@ -45,7 +45,7 @@ public class ContentTool extends TinkerPage {
   private transient List<Collection<IToolPart>> parts;
 
   public TextData[] text;
-  public String[] effects;
+  public String[] properties;
 
   @SerializedName("tool")
   public String toolName;
@@ -100,13 +100,13 @@ public class ContentTool extends TinkerPage {
 
     y = imgY - 6;
 
-    if(effects.length > 0) {
+    if(properties.length > 0) {
       TextData head = new TextData(parent.translate("tool.properties"));
       head.underlined = true;
       list.add(new ElementText(padding, y, 86 - padding, GuiBook.PAGE_HEIGHT - h - 20, head));
 
       List<TextData> effectData = Lists.newArrayList();
-      for(String e : effects) {
+      for(String e : properties) {
         effectData.add(new TextData("\u25CF "));
         effectData.add(new TextData(e));
         effectData.add(new TextData("\n"));
