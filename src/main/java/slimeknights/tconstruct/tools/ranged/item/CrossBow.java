@@ -47,10 +47,10 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
   protected static final ResourceLocation PROPERTY_IS_LOADED = new ResourceLocation("loaded");
 
   public CrossBow() {
-    super(PartMaterialType.bowstring(TinkerTools.bowString),
+    super(PartMaterialType.handle(TinkerTools.toughToolRod),
           PartMaterialType.bow(TinkerTools.bowLimb),
-          PartMaterialType.handle(TinkerTools.toughToolRod),
-          PartMaterialType.extra(TinkerTools.toughBinding));
+          PartMaterialType.extra(TinkerTools.toughBinding),
+          PartMaterialType.bowstring(TinkerTools.bowString));
 
     this.addPropertyOverride(PROPERTY_PULL_PROGRESS, pullProgressPropertyGetter);
     this.addPropertyOverride(PROPERTY_IS_PULLING, isPullingPropertyGetter);
@@ -64,7 +64,7 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
 
   @Override
   public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-    addDefaultSubItems(subItems, TinkerMaterials.string);
+    addDefaultSubItems(subItems, null, null, null, TinkerMaterials.string);
   }
 
   @Override
@@ -157,11 +157,11 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
   @Override
   public ProjectileLauncherNBT buildTagData(List<Material> materials) {
     ProjectileLauncherNBT data = new ProjectileLauncherNBT();
+    HandleMaterialStats body = materials.get(0).getStatsOrUnknown(MaterialTypes.HANDLE);
     HeadMaterialStats head = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
     BowMaterialStats limb = materials.get(1).getStatsOrUnknown(MaterialTypes.BOW);
-    HandleMaterialStats body = materials.get(3).getStatsOrUnknown(MaterialTypes.HANDLE);
-    ExtraMaterialStats binding = materials.get(3).getStatsOrUnknown(MaterialTypes.EXTRA);
-    BowStringMaterialStats bowstring = materials.get(0).getStatsOrUnknown(MaterialTypes.BOWSTRING);
+    ExtraMaterialStats binding = materials.get(2).getStatsOrUnknown(MaterialTypes.EXTRA);
+    BowStringMaterialStats bowstring = materials.get(3).getStatsOrUnknown(MaterialTypes.BOWSTRING);
 
 
     data.head(head);

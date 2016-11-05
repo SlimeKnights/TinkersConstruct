@@ -34,9 +34,9 @@ import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 public class ShortBow extends BowCore implements ICustomCrosshairUser {
 
   public ShortBow() {
-    this(PartMaterialType.bowstring(TinkerTools.bowString),
-          PartMaterialType.bow(TinkerTools.bowLimb),
-          PartMaterialType.bow(TinkerTools.bowLimb));
+    this(PartMaterialType.bow(TinkerTools.bowLimb),
+         PartMaterialType.bow(TinkerTools.bowLimb),
+         PartMaterialType.bowstring(TinkerTools.bowString));
   }
 
   public ShortBow(PartMaterialType... requiredComponents) {
@@ -48,7 +48,7 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
 
   @Override
   public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-    addDefaultSubItems(subItems, TinkerMaterials.string);
+    addDefaultSubItems(subItems, null, null, TinkerMaterials.string);
   }
 
   /* Tic Tool Stuff */
@@ -114,11 +114,11 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
   @Override
   public ProjectileLauncherNBT buildTagData(List<Material> materials) {
     ProjectileLauncherNBT data = new ProjectileLauncherNBT();
-    HeadMaterialStats head1 = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
-    HeadMaterialStats head2 = materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD);
-    BowMaterialStats limb1 = materials.get(1).getStatsOrUnknown(MaterialTypes.BOW);
-    BowMaterialStats limb2 = materials.get(2).getStatsOrUnknown(MaterialTypes.BOW);
-    BowStringMaterialStats bowstring = materials.get(0).getStatsOrUnknown(MaterialTypes.BOWSTRING);
+    HeadMaterialStats head1 = materials.get(0).getStatsOrUnknown(MaterialTypes.HEAD);
+    HeadMaterialStats head2 = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
+    BowMaterialStats limb1 = materials.get(0).getStatsOrUnknown(MaterialTypes.BOW);
+    BowMaterialStats limb2 = materials.get(1).getStatsOrUnknown(MaterialTypes.BOW);
+    BowStringMaterialStats bowstring = materials.get(2).getStatsOrUnknown(MaterialTypes.BOWSTRING);
 
 
     data.head(head1, head2);

@@ -1,9 +1,9 @@
 {
     "textures": {
-        "layer0": "tconstruct:items/shortbow/bowstring",
-        "layer1": "tconstruct:items/shortbow/limb_top",
-        "layer2": "tconstruct:items/shortbow/limb_bottom",
-        "broken0": "tconstruct:items/shortbow/bowstring_broken"
+        "layer0": "tconstruct:items/shortbow/limb_top",
+        "layer1": "tconstruct:items/shortbow/limb_bottom",
+        "layer2": "tconstruct:items/shortbow/bowstring",
+        "broken2": "tconstruct:items/shortbow/bowstring_broken"
     },
     "overrides": [
         {
@@ -11,7 +11,7 @@
                 "pulling": 1
             },
             "textures": {
-                "layer0": "tconstruct:items/shortbow/bowstring_1"
+                "layer2": "tconstruct:items/shortbow/bowstring_1"
             },
             "ammoPosition": {
                 "pos": [
@@ -28,9 +28,9 @@
                 "pull": 0.65
             },
             "textures": {
-                "layer0": "tconstruct:items/shortbow/bowstring_2",
-                "layer1": "tconstruct:items/shortbow/limb_top_2",
-                "layer2": "tconstruct:items/shortbow/limb_bottom_2"
+                "layer0": "tconstruct:items/shortbow/limb_top_2",
+                "layer1": "tconstruct:items/shortbow/limb_bottom_2",
+                "layer2": "tconstruct:items/shortbow/bowstring_2"
             },
             "ammoPosition": {
                 "pos": [
@@ -47,9 +47,9 @@
                 "pull": 0.9
             },
             "textures": {
-                "layer0": "tconstruct:items/shortbow/bowstring_3",
-                "layer1": "tconstruct:items/shortbow/limb_top_3",
-                "layer2": "tconstruct:items/shortbow/limb_bottom_3"
+                "layer0": "tconstruct:items/shortbow/limb_top_3",
+                "layer1": "tconstruct:items/shortbow/limb_bottom_3",
+                "layer2": "tconstruct:items/shortbow/bowstring_3"
             },
             "ammoPosition": {
                 "pos": [

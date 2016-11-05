@@ -1,10 +1,10 @@
 {
     "textures": {
-        "layer0": "tconstruct:items/crossbow/bowstring",
+        "layer0": "tconstruct:items/crossbow/body",
         "layer1": "tconstruct:items/crossbow/limb",
-        "layer2": "tconstruct:items/crossbow/body",
-        "layer3": "tconstruct:items/crossbow/binding",
-        "broken0": "tconstruct:items/crossbow/bowstring_broken"
+        "layer2": "tconstruct:items/crossbow/binding",
+        "layer3": "tconstruct:items/crossbow/bowstring",
+        "broken3": "tconstruct:items/crossbow/bowstring_broken"
     },
     "overrides": [
         {
@@ -13,8 +13,8 @@
                 "pull": 0
             },
             "textures": {
-                "layer0": "tconstruct:items/crossbow/bowstring_1",
-                "layer1": "tconstruct:items/crossbow/limb_1"
+                "layer1": "tconstruct:items/crossbow/limb_1",
+                "layer3": "tconstruct:items/crossbow/bowstring_1"
             },
             "modifier_suffix": "1",
             "display": {
@@ -36,8 +36,8 @@
                 "pull": 0.5
             },
             "textures": {
-                "layer0": "tconstruct:items/crossbow/bowstring_2",
-                "layer1": "tconstruct:items/crossbow/limb_2"
+                "layer1": "tconstruct:items/crossbow/limb_2",
+                "layer3": "tconstruct:items/crossbow/bowstring_2"
             },
             "modifier_suffix": "2",
             "display": {
@@ -59,8 +59,8 @@
                 "pull": 0.999
             },
             "textures": {
-                "layer0": "tconstruct:items/crossbow/bowstring_3",
-                "layer1": "tconstruct:items/crossbow/limb_3"
+                "layer1": "tconstruct:items/crossbow/limb_3",
+                "layer3": "tconstruct:items/crossbow/bowstring_3"
             },
             "modifier_suffix": "3",
             "display": {
@@ -81,8 +81,8 @@
                 "loaded": 1
             },
             "textures": {
-                "layer0": "tconstruct:items/crossbow/bowstring_3",
-                "layer1": "tconstruct:items/crossbow/limb_3"
+                "layer1": "tconstruct:items/crossbow/limb_3",
+                "layer3": "tconstruct:items/crossbow/bowstring_3"
             },
             "ammoPosition": {
                 "pos": [
