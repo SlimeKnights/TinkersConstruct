@@ -13,5 +13,10 @@
     "name": "pickaxe",
     "type": "tool",
     "data": "tools/pickaxe.json"
+  },
+  {
+    "name": "shortbow",
+    "type": "tool",
+    "data": "tools/shortbow.json"
   }
 ]

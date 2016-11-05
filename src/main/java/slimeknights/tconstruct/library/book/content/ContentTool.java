@@ -82,20 +82,28 @@ public class ContentTool extends TinkerPage {
 
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
-    int color = 0xdddddd;
-    int inCount = 1;
-    ItemStack[][] inputItems = null;
-
     addTitle(list, tool.getLocalizedName());
+
+    int padding = 5;
 
     // description
     int h = GuiBook.PAGE_WIDTH / 3 - 10;
-    list.add(new ElementText(10, 20, GuiBook.PAGE_WIDTH - 20, h, text));
+    int y = 16;
+    list.add(new ElementText(padding, y, GuiBook.PAGE_WIDTH - padding*2, h, text));
+
+    ImageData img = IMG_SLOTS;
+    int imgX = GuiBook.PAGE_WIDTH - img.width - 8;
+    int imgY = GuiBook.PAGE_HEIGHT - img.height - 16;
+
+    int toolX = imgX + (img.width - 16) / 2;
+    int toolY = imgY + 28;
+
+    y = imgY - 6;
 
     if(effects.length > 0) {
-      TextData head = new TextData(parent.translate("tools.effect"));
+      TextData head = new TextData(parent.translate("tool.properties"));
       head.underlined = true;
-      list.add(new ElementText(10, 20 + h, GuiBook.PAGE_WIDTH / 2 - 5, GuiBook.PAGE_HEIGHT - h - 20, head));
+      list.add(new ElementText(padding, y, 86 - padding, GuiBook.PAGE_HEIGHT - h - 20, head));
 
       List<TextData> effectData = Lists.newArrayList();
       for(String e : effects) {
@@ -104,15 +112,11 @@ public class ContentTool extends TinkerPage {
         effectData.add(new TextData("\n"));
       }
 
-      list.add(new ElementText(10, 30 + h, GuiBook.PAGE_WIDTH / 2 + 5, GuiBook.PAGE_HEIGHT - h - 20, effectData));
+      y += 10;
+      list.add(new ElementText(padding, y, GuiBook.PAGE_WIDTH / 2 + 5, GuiBook.PAGE_HEIGHT - h - 20, effectData));
     }
 
-    ImageData img = IMG_SLOTS;
-    int imgX = GuiBook.PAGE_WIDTH - img.width - 8;
-    int imgY = GuiBook.PAGE_HEIGHT - img.height - 16;
 
-    int toolX = imgX + (img.width - 16) / 2;
-    int toolY = imgY + 28;
 
     int[] slotX = new int[]{-21, -25,   0, 25, 21};
     int[] slotY = new int[]{ 22,  -4, -25, -4, 22};

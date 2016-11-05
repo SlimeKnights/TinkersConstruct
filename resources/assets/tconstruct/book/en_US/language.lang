@@ -9,6 +9,7 @@ seared_furnace=Seared Furnace
 tinker_tank=Tinker Tank
 
 modifier.effect=Effects:
+tool.properties=Properties:
 
 material.craft_partbuilder=Can be crafted in the Part Builder
 material.craft_casting=Can be cast from %s
