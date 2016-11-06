@@ -1,8 +1,8 @@
 [
   {
-    "name": "overview",
-    "type": "text",
-    "data": "tools/overview.json"
+    "name": "offhand",
+    "type": "imageText2",
+    "data": "tools/offhand.json"
   },
   {
     "name": "repairing",
