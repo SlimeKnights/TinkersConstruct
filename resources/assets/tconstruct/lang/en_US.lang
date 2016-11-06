@@ -356,6 +356,7 @@ item.tconstruct.battleaxe.name=Battleaxe
 
 item.tconstruct.shortbow.name=Shortbow
 item.tconstruct.longbow.name=Longbow
+item.tconstruct.crossbow.name=Crossbow
 
 item.tconstruct.arrow.name=Arrow
 

@@ -26,7 +26,7 @@ public class ContentListingSectionTransformer extends SectionTransformer {
     listingPage.parent = data;
     listingPage.content = listing;
 
-    data.pages.forEach(sectionPage -> processPage(listing, sectionPage));
+    data.pages.forEach(sectionPage -> processPage(book, listing, sectionPage));
 
     if(listing.hasEntries()) {
       listingPage.load();
@@ -35,9 +35,9 @@ public class ContentListingSectionTransformer extends SectionTransformer {
     }
   }
 
-  protected void processPage(ContentListing listing, PageData page) {
+  protected void processPage(BookData book, ContentListing listing, PageData page) {
     if(!page.getTitle().equals("hidden")) {
-      listing.addEntry(page.getTitle(), page);
+      listing.addEntry(book.translate(page.getTitle()), page);
     }
   }
 }

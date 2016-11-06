@@ -5,6 +5,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Optional;
 
+import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.book.content.ContentListing;
@@ -19,7 +20,7 @@ public class ToolSectionTransformer extends ContentListingSectionTransformer {
   }
 
   @Override
-  protected void processPage(ContentListing listing, PageData page) {
+  protected void processPage(BookData book, ContentListing listing, PageData page) {
     // only add tool pages if the tool exists
     if(page.content instanceof ContentTool) {
       String toolName = ((ContentTool) page.content).toolName;
@@ -30,7 +31,7 @@ public class ToolSectionTransformer extends ContentListingSectionTransformer {
       tool.ifPresent(toolCore -> listing.addEntry(toolCore.getLocalizedName(), page));
     }
     else {
-      super.processPage(listing, page);
+      super.processPage(book, listing, page);
     }
   }
 }

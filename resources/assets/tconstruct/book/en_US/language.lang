@@ -8,6 +8,9 @@ smeltery=Smeltery
 seared_furnace=Seared Furnace
 tinker_tank=Tinker Tank
 
+repairing=Repairing
+offhand=Offhand Harvesting
+
 modifier.effect=Effects:
 tool.properties=Properties:
 
