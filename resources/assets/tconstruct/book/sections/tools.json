@@ -23,5 +23,15 @@
     "name": "shortbow",
     "type": "tool",
     "data": "tools/shortbow.json"
+  },
+  {
+    "name": "longbow",
+    "type": "tool",
+    "data": "tools/longbow.json"
+  },
+  {
+    "name": "crossbow",
+    "type": "tool",
+    "data": "tools/crossbow.json"
   }
 ]

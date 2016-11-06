@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.client.crosshair.Crosshairs;
 import slimeknights.tconstruct.library.client.crosshair.ICrosshair;
 import slimeknights.tconstruct.library.client.crosshair.ICustomCrosshairUser;

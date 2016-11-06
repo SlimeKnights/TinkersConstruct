@@ -294,9 +294,14 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
   @Override
   @SideOnly(Side.CLIENT)
   public Material getMaterialForPartForGuiRendering(int index) {
-    if(index == 0) {
+    if(index == getRequiredComponents().size()-1) {
       return ClientProxy.RenderMaterialString;
     }
-    return super.getMaterialForPartForGuiRendering(index + 1);
+    switch(index) {
+      case 0: return ClientProxy.RenderMaterials[0];
+      case 1: return ClientProxy.RenderMaterials[2];
+      case 2: return ClientProxy.RenderMaterials[1];
+      default: return super.getMaterialForPartForGuiRendering(index);
+    }
   }
 }

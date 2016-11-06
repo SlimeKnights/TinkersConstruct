@@ -139,7 +139,10 @@ public class ContentTool extends TinkerPage {
 
       ItemStack[] stacks = items.stream().map(part -> part.getItemstackWithMaterial(material)).toArray(ItemStack[]::new);
 
-      list.add(new ElementTinkerItem(toolX + slotX[i], toolY + slotY[i], 1f, stacks));
+      ElementTinkerItem partItem = new ElementTinkerItem(toolX + slotX[i], toolY + slotY[i], 1f, stacks);
+      partItem.noTooltip = true;
+
+      list.add(partItem);
     }
   }
 }
