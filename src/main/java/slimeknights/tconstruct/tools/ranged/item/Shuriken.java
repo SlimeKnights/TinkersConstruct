@@ -35,6 +35,11 @@ public class Shuriken extends ProjectileCore {
   }
 
   @Override
+  public int[] getRepairParts() {
+    return new int[]{0, 1, 2, 3};
+  }
+
+  @Override
   public float damagePotential() {
     return 0.7f;
   }
@@ -59,19 +64,18 @@ public class Shuriken extends ProjectileCore {
   @Override
   public ProjectileNBT buildTagData(List<Material> materials) {
     ProjectileNBT data = new ProjectileNBT();
-    data.head((HeadMaterialStats) materials.get(0).getStatsOrUnknown(MaterialTypes.HEAD),
-              (HeadMaterialStats) materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD),
-              (HeadMaterialStats) materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD),
-              (HeadMaterialStats) materials.get(3).getStatsOrUnknown(MaterialTypes.HEAD));
+    data.head(materials.get(0).getStatsOrUnknown(MaterialTypes.HEAD),
+              materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD),
+              materials.get(2).getStatsOrUnknown(MaterialTypes.HEAD),
+              materials.get(3).getStatsOrUnknown(MaterialTypes.HEAD));
 
-    data.extra((ExtraMaterialStats) materials.get(0).getStatsOrUnknown(MaterialTypes.EXTRA),
-               (ExtraMaterialStats) materials.get(1).getStatsOrUnknown(MaterialTypes.EXTRA),
-               (ExtraMaterialStats) materials.get(2).getStatsOrUnknown(MaterialTypes.EXTRA),
-               (ExtraMaterialStats) materials.get(3).getStatsOrUnknown(MaterialTypes.EXTRA));
+    data.extra(materials.get(0).getStatsOrUnknown(MaterialTypes.EXTRA),
+               materials.get(1).getStatsOrUnknown(MaterialTypes.EXTRA),
+               materials.get(2).getStatsOrUnknown(MaterialTypes.EXTRA),
+               materials.get(3).getStatsOrUnknown(MaterialTypes.EXTRA));
 
     data.attack += 1f;
     data.accuracy = 1f;
-    //data.durability = Math.max(1, Math.round((float) data.durability / 10f));
 
     return data;
   }
