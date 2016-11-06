@@ -1,10 +1,14 @@
 package slimeknights.tconstruct.library.book.sectiontransformer;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
 import slimeknights.tconstruct.library.book.content.ContentListing;
 
+@SideOnly(Side.CLIENT)
 public class ContentListingSectionTransformer extends SectionTransformer {
 
   public ContentListingSectionTransformer(String sectionName) {
@@ -32,6 +36,8 @@ public class ContentListingSectionTransformer extends SectionTransformer {
   }
 
   protected void processPage(ContentListing listing, PageData page) {
-    listing.addEntry(page.getTitle(), page);
+    if(!page.getTitle().equals("hidden")) {
+      listing.addEntry(page.getTitle(), page);
+    }
   }
 }

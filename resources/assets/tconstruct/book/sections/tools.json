@@ -10,7 +10,7 @@
     "data": "tools/repairing.json"
   },
   {
-    "name": "repairing2",
+    "name": "hidden",
     "type": "image with text below",
     "data": "tools/repairing2.json"
   },
