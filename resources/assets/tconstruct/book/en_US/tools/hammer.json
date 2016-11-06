@@ -2,13 +2,20 @@
   "tool": "hammer",
   "text": [
     {
-      "text": "Placeholder"
+      "text": "The Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "It is optimal for mining out large areas and long mining trips."
     }
   ],
   "properties": [
-    "Requires Tool Forge",
+    "Requires a Tool Forge",
     "Advanced mining tool",
     "3x3 AOE Mining",
-    "Effective on stone and ores"
+    "Effective on stone and ores",
+    "Bonus damage against undead"
   ]
 }

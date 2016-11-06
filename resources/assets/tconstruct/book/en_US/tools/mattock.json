@@ -2,7 +2,13 @@
   "tool": "mattock",
   "text": [
     {
-      "text": "Placeholder"
+      "text": "The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, and plants."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "It can till soil and also deals respectable damage in combat."
     }
   ],
   "properties": [

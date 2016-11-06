@@ -2,13 +2,20 @@
   "tool": "cleaver",
   "text": [
     {
-      "text": "Placeholder"
+      "text": "The Cleaver is a heavy offensive weapon. It has powerful strikes, but is difficult to wield."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Each killing blow has a chance to behead the foe."
     }
   ],
   "properties": [
-    "Requires Tool Forge",
+    "Requires a Tool Forge",
     "Offensive weapon",
     "High damage, but slow",
+    "Beheading II",
     "Two handed, no offhand"
   ]
 }

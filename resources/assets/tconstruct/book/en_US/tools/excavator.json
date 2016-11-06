@@ -2,11 +2,17 @@
   "tool": "excavator",
   "text": [
     {
-      "text": "Placeholder"
+      "text": "The Excavator is a broad digging tool. It harvests soil and snow in a wide range."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "For when you need to dig a lot of graves."
     }
   ],
   "properties": [
-    "Requires Tool Forge",
+    "Requires a Tool Forge",
     "Advanced mining tool",
     "3x3 AOE Mining",
     "Effective on dirt, sand and gravel",

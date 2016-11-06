@@ -2,7 +2,13 @@
   "tool": "longsword",
   "text": [
     {
-      "text": "Placeholder"
+      "text": "he Longsword is an offensive weapon. It is often used for charging into battle at full speed. It is slower than the Broadsword but scales better with damage."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Holding rightclick charges up a lunge, which allows you to perform a short jump."
     }
   ],
   "properties": [
