@@ -1,0 +1,13 @@
+{
+  "tool": "shovel",
+  "text": [
+    {
+      "text": "Placeholder"
+    }
+  ],
+  "properties": [
+    "Basic mining tool",
+    "Effective on dirt, sand and gravel",
+    "Can create path"
+  ]
+}

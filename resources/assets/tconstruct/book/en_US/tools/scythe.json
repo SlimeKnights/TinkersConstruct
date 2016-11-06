@@ -1,0 +1,16 @@
+{
+  "tool": "scythe",
+  "text": [
+    {
+      "text": "Placeholder"
+    }
+  ],
+  "properties": [
+    "Requires Tool Forge",
+    "Advanced mining tool and weapon",
+    "AOE Attack",
+    "3x3 AOE Harvesting",
+    "Effective on crops and plants",
+    "Rightclick: AOE Harvest and replant"
+  ]
+}

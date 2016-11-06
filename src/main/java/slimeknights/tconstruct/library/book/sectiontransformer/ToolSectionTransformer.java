@@ -20,8 +20,7 @@ public class ToolSectionTransformer extends ContentListingSectionTransformer {
 
   @Override
   protected void processPage(ContentListing listing, PageData page) {
-    super.processPage(listing, page);
-    /*
+    // only add tool pages if the tool exists
     if(page.content instanceof ContentTool) {
       String toolName = ((ContentTool) page.content).toolName;
       Optional<ToolCore> tool = TinkerRegistry.getTools().stream()
@@ -29,7 +28,9 @@ public class ToolSectionTransformer extends ContentListingSectionTransformer {
                                               .findFirst();
 
       tool.ifPresent(toolCore -> listing.addEntry(toolCore.getLocalizedName(), page));
-    }*/
-
+    }
+    else {
+      super.processPage(listing, page);
+    }
   }
 }

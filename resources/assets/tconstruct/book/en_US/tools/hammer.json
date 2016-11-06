@@ -1,0 +1,14 @@
+{
+  "tool": "hammer",
+  "text": [
+    {
+      "text": "Placeholder"
+    }
+  ],
+  "properties": [
+    "Requires Tool Forge",
+    "Advanced mining tool",
+    "3x3 AOE Mining",
+    "Effective on stone and ores"
+  ]
+}

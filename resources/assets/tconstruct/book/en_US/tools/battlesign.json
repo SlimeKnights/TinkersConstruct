@@ -1,0 +1,14 @@
+{
+  "tool": "battlesign",
+  "text": [
+    {
+      "text": "Placeholder"
+    }
+  ],
+  "properties": [
+    "Defensive weapon",
+    "Low damage",
+    "Can be used as a shield",
+    "Blocking reflects projectiles"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "tool": "lumberaxe",
+  "text": [
+    {
+      "text": "Placeholder"
+    }
+  ],
+  "properties": [
+    "Requires Tool Forge",
+    "Advanced mining tool",
+    "Fells whole trees in one swoop",
+    "3x3x3 AOE Mining",
+    "Effective on Wood"
+  ]
+}

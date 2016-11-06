@@ -1,0 +1,14 @@
+{
+  "tool": "hatchet",
+  "text": [
+    {
+      "text": "Placeholder"
+    }
+  ],
+  "properties": [
+    "Basic mining tool",
+    "Effective on wood",
+    "Breaks leaves really fast",
+    "Doesn't use durability on leaves"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "tool": "excavator",
+  "text": [
+    {
+      "text": "Placeholder"
+    }
+  ],
+  "properties": [
+    "Requires Tool Forge",
+    "Advanced mining tool",
+    "3x3 AOE Mining",
+    "Effective on dirt, sand and gravel",
+    "Can create path"
+  ]
+}
