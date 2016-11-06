@@ -4,12 +4,15 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.client.book.action.StringActionProcessor;
 import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.gui.book.element.SizedBookElement;
 
+@SideOnly(Side.CLIENT)
 public class ElementPageIconLink extends SizedBookElement {
 
   public PageData pageData;

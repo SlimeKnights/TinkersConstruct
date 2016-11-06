@@ -2,6 +2,9 @@ package slimeknights.tconstruct.library.book.content;
 
 import com.google.common.collect.Lists;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +17,7 @@ import slimeknights.mantle.client.gui.book.element.BookElement;
 import slimeknights.tconstruct.library.book.elements.ElementListingLeft;
 import slimeknights.tconstruct.library.book.TinkerPage;
 
+@SideOnly(Side.CLIENT)
 public class ContentListing extends TinkerPage {
 
   public String title;

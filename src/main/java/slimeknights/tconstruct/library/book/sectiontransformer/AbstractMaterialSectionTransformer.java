@@ -2,6 +2,9 @@ package slimeknights.tconstruct.library.book.sectiontransformer;
 
 import com.google.common.collect.Lists;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import java.util.List;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
@@ -20,6 +23,7 @@ import slimeknights.tconstruct.library.book.content.ContentMaterial;
 import slimeknights.tconstruct.library.book.content.ContentPageIconList;
 import slimeknights.tconstruct.library.materials.Material;
 
+@SideOnly(Side.CLIENT)
 public abstract class AbstractMaterialSectionTransformer extends SectionTransformer {
 
   public AbstractMaterialSectionTransformer(String sectionName) {

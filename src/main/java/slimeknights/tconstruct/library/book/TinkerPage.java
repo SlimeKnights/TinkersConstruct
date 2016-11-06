@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.library.book;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import java.util.ArrayList;
 
 import slimeknights.mantle.client.book.data.content.PageContent;
@@ -8,6 +11,7 @@ import slimeknights.mantle.client.gui.book.GuiBook;
 import slimeknights.mantle.client.gui.book.element.BookElement;
 import slimeknights.mantle.client.gui.book.element.ElementText;
 
+@SideOnly(Side.CLIENT)
 public abstract class TinkerPage extends PageContent {
 
   public static final transient int TITLE_HEIGHT = 28;

@@ -3,10 +3,13 @@ package slimeknights.tconstruct.library.book.elements;
 import com.google.common.collect.Lists;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.gui.book.element.ElementText;
 
+@SideOnly(Side.CLIENT)
 public class ElementListingLeft extends ElementText {
 
   public ElementListingLeft(int x, int y, int width, int height, TextData... text) {

@@ -3,9 +3,12 @@ package slimeknights.tconstruct.library.book.elements;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.client.gui.book.element.ElementItem;
 
+@SideOnly(Side.CLIENT)
 public class ElementItemCustom extends ElementItem {
 
   public int depth = 0;

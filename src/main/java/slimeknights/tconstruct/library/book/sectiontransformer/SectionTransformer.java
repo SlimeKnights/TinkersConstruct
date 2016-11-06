@@ -1,9 +1,13 @@
 package slimeknights.tconstruct.library.book.sectiontransformer;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import slimeknights.mantle.client.book.BookTransformer;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.SectionData;
 
+@SideOnly(Side.CLIENT)
 public abstract class SectionTransformer extends BookTransformer {
 
   protected final String sectionName;

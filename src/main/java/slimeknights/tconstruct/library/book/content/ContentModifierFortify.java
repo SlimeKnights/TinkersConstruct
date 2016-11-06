@@ -3,6 +3,8 @@ package slimeknights.tconstruct.library.book.content;
 import com.google.common.collect.Lists;
 
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 
@@ -11,6 +13,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.tools.TinkerTools;
 
+@SideOnly(Side.CLIENT)
 public class ContentModifierFortify extends ContentModifier {
 
   public static final transient String ID = "modifier_fortify";

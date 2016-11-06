@@ -4,12 +4,15 @@ import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Collection;
 
 import slimeknights.mantle.client.gui.book.element.ElementItem;
 
 /** Same as ElementItem, but uses the vanilla fontrenderer if none other is given */
+@SideOnly(Side.CLIENT)
 public class ElementTinkerItem extends ElementItem {
 
   public boolean noTooltip = false;
