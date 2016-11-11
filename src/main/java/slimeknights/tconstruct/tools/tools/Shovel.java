@@ -93,7 +93,12 @@ public class Shovel extends AoeToolCore {
       }
     }
 
-    return result;
+    if(result == EnumActionResult.PASS) {
+      return super.onItemUse(stack, player, world, pos, hand, facing, hitX, hitY, hitZ);
+    }
+    else {
+      return result;
+    }
   }
 
   @Override

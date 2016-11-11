@@ -18,6 +18,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -547,6 +549,21 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
     }
 
     ToolHelper.damageTool(stack, damage, player);
+  }
+
+  @Override
+  public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    NBTTagList list = TagUtil.getTraitsTagList(stack);
+    for(int i = 0; i < list.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+      if(trait != null) {
+        EnumActionResult result = trait.onToolUse(stack, player, world, pos, hand, facing, hitX, hitY, hitZ);
+        if (result != EnumActionResult.PASS) {
+          return result;
+        }
+      }
+    }
+    return EnumActionResult.PASS;
   }
 
   // elevate to public
