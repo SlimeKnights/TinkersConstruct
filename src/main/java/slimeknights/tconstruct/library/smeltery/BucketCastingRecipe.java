@@ -11,6 +11,9 @@ import javax.annotation.Nullable;
 
 public class BucketCastingRecipe implements ICastingRecipe {
 
+  public static final BucketCastingRecipe INSTANCE = new BucketCastingRecipe();
+
+  protected BucketCastingRecipe() {}
 
   @Override
   public ItemStack getResult(@Nullable ItemStack cast, Fluid fluid) {
@@ -19,11 +22,6 @@ public class BucketCastingRecipe implements ICastingRecipe {
     fluidHandler.fill(getFluid(cast, fluid), true);
 
     return output;
-  }
-
-  @Override
-  public FluidStack getFluid(@Nullable ItemStack cast, Fluid fluid) {
-    return new FluidStack(fluid, Fluid.BUCKET_VOLUME);
   }
 
   @Override

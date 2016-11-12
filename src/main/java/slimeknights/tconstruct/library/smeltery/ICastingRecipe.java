@@ -10,7 +10,9 @@ public interface ICastingRecipe {
 
   ItemStack getResult(@Nullable ItemStack cast, Fluid fluid);
 
-  FluidStack getFluid(@Nullable ItemStack cast, Fluid fluid);
+  default FluidStack getFluid(@Nullable ItemStack cast, Fluid fluid) {
+    return new FluidStack(fluid, getFluidAmount());
+  }
 
   boolean matches(@Nullable ItemStack cast, Fluid fluid);
 

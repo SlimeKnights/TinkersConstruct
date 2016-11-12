@@ -40,6 +40,10 @@ public class BoltCore extends ToolPart {
     return combined;
   }
 
+  public static ItemStack getItemstackWithMaterials(Material shaft, Material head) {
+    return combineMaterials(TinkerTools.boltCore.buildInternalItemstackForCrafting(shaft), head);
+  }
+
   public ItemStack buildInternalItemstackForCrafting(Material material) {
     return super.getItemstackWithMaterial(material);
   }

@@ -106,6 +106,8 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
   @Override
   public void postInit(FMLPostInitializationEvent event) {
     super.postInit(event);
+
+    TinkerRegistry.registerTableCasting(BoltCoreCastingRecipe.INSTANCE);
   }
 
 }
