@@ -180,7 +180,7 @@ public class TinkerTools extends AbstractToolPulse {
 
     arrowHead = registerToolPart(new ToolPart(Material.VALUE_Ingot * 2), "arrow_head");
     arrowShaft = registerToolPart(new ToolPart(Material.VALUE_Ingot * 2), "arrow_shaft");
-    fletching = registerToolPart(new ToolPart(Material.VALUE_Ingot), "fletching");
+    fletching = registerToolPart(new ToolPart(Material.VALUE_Ingot * 2), "fletching");
     boltCore = (BoltCore)registerToolPart(new BoltCore(Material.VALUE_Ingot * 2), "bolt_core");
   }
 
