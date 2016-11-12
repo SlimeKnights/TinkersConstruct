@@ -809,7 +809,9 @@ tooltip.part.missing_info=Part has no data
 
 tooltip.pattern.cost=Material Cost: %d
 
-tooltip.chest.has_items=Contains items
+tooltip.chest.has_items=Contains %d item(s)
+tooltip.patternchest.holds_patterns=Contains %d pattern(s)
+tooltip.patternchest.holds_casts=Contains %d cast(s)
 
 tooltip.tank.fluid=%s
 tooltip.tank.amount=%d mb
