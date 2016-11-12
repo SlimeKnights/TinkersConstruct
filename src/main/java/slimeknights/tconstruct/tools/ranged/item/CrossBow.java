@@ -149,8 +149,8 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
   protected List<Item> getAmmoItems() {
     if(arrowMatches == null) {
       ImmutableList.Builder<Item> builder = ImmutableList.builder();
-      if(TinkerRangedWeapons.arrow != null) {
-        builder.add(TinkerRangedWeapons.arrow);
+      if(TinkerRangedWeapons.bolt != null) {
+        builder.add(TinkerRangedWeapons.bolt);
       }
       arrowMatches = builder.build();
     }

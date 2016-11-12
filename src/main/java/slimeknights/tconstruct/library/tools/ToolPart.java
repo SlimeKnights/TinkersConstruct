@@ -74,11 +74,6 @@ public class ToolPart extends MaterialItem implements IToolPart {
     return false;
   }
 
-  @Override
-  public ItemStack getItemstackWithMaterial(Material material) {
-    return super.getItemstackWithMaterial(material);
-  }
-
   @SideOnly(Side.CLIENT)
   @Override
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {

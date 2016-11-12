@@ -277,7 +277,7 @@ public final class ToolBuilder {
     TIntIntMap assigned = new TIntIntHashMap();
     TinkersItem tool = (TinkersItem) toolStack.getItem();
     // materiallist has to be copied because it affects the actual NBT on the tool if it's changed
-    final NBTTagList materialList = (NBTTagList) TagUtil.getBaseMaterialsTagList(toolStack).copy();
+    final NBTTagList materialList = TagUtil.getBaseMaterialsTagList(toolStack).copy();
 
     // assing each toolpart to a slot in the tool
     for(int i = 0; i < toolParts.length; i++) {
@@ -325,16 +325,13 @@ public final class ToolBuilder {
 
     // We now know which parts to replace with which inputs. Yay. Now we only have to do so.
     // to do so we simply switch out the materials used and rebuild the tool
-    assigned.forEachEntry(new TIntIntProcedure() {
-      @Override
-      public boolean execute(int i, int j) {
-        String mat = ((IToolPart) toolParts[i].getItem()).getMaterial(toolParts[i]).getIdentifier();
-        materialList.set(j, new NBTTagString(mat));
-        if(removeItems) {
-          toolPartsIn[i].stackSize--;
-        }
-        return true;
+    assigned.forEachEntry((i, j) -> {
+      String mat = ((IToolPart) toolParts[i].getItem()).getMaterial(toolParts[i]).getIdentifier();
+      materialList.set(j, new NBTTagString(mat));
+      if(removeItems) {
+        toolPartsIn[i].stackSize--;
       }
+      return true;
     });
 
     // check that each material is still compatible with each modifier
@@ -354,7 +351,7 @@ public final class ToolBuilder {
 
     ItemStack output = toolStack.copy();
     TagUtil.setBaseMaterialsTagList(output, materialList);
-    NBTTagCompound tag = output.getTagCompound();
+    NBTTagCompound tag = TagUtil.getTagSafe(output);
     rebuildTool(tag, (TinkersItem) output.getItem());
     output.setTagCompound(tag);
 
