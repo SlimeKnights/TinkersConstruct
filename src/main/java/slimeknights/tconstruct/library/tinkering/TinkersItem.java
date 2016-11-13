@@ -71,6 +71,10 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     return ImmutableList.copyOf(requiredComponents);
   }
 
+  public List<PartMaterialType> getToolBuildComponents() {
+    return getRequiredComponents();
+  }
+
   protected void addCategory(Category... categories) {
     Collections.addAll(this.categories, categories);
   }

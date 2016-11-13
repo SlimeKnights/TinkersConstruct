@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.tools.ranged.item;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -32,12 +34,20 @@ import slimeknights.tconstruct.tools.common.entity.EntityBolt;
 
 public class Bolt extends ProjectileCore {
 
+  protected final List<PartMaterialType> toolBuildComponents;
+
   public Bolt() {
     super(PartMaterialType.arrowShaft(TinkerTools.boltCore),
           PartMaterialType.head(TinkerTools.boltCore),
           PartMaterialType.fletching(TinkerTools.fletching));
 
     addCategory(Category.NO_MELEE, Category.PROJECTILE);
+    toolBuildComponents = ImmutableList.of(requiredComponents[0], requiredComponents[2]);
+  }
+
+  @Override
+  public List<PartMaterialType> getToolBuildComponents() {
+    return toolBuildComponents;
   }
 
   @Override

@@ -1,5 +1,10 @@
 package slimeknights.tconstruct.library.tools;
 
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
@@ -32,5 +37,10 @@ public interface IToolPart extends IMaterialItem {
   /** Return true if the toolpart should be registered for casting, using a cast */
   default boolean canBeCasted() {
     return true;
+  }
+
+  @SideOnly(Side.CLIENT)
+  default ItemStack getOutlineRenderStack() {
+    return getItemstackWithMaterial(CustomTextureCreator.guiMaterial);
   }
 }

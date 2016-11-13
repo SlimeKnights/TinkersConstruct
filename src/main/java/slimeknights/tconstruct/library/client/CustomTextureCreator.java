@@ -27,6 +27,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -392,18 +393,18 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
       if(!(toolpart instanceof Item)) {
         continue; // WHY?!
       }
-
       try {
-        // name and model location
-        ResourceLocation modelLocation = Util.getItemLocation((Item) toolpart);
-        IModel partModel = ModelLoaderRegistry.getModel(new ResourceLocation(modelLocation.getResourceDomain(),
-                                                                             "item/parts/" + modelLocation
-                                                                                 .getResourcePath()
-                                                                             + MaterialModelLoader.EXTENSION));
-        // the actual texture of the part
-        ResourceLocation baseTexture = partModel.getTextures().iterator().next();
-        if(baseTexture.toString().equals(location.toString())) {
-          return true;
+        Optional<ResourceLocation> storedResourceLocation = MaterialModelLoader.getToolPartModelLocation(toolpart);
+        if(storedResourceLocation.isPresent()) {
+          ResourceLocation stored = storedResourceLocation.get();
+          ResourceLocation modelLocation = new ResourceLocation(stored.getResourceDomain(), "item/" + stored.getResourcePath());
+          IModel partModel = ModelLoaderRegistry.getModel(modelLocation);
+
+          // the actual texture of the part
+          ResourceLocation baseTexture = partModel.getTextures().iterator().next();
+          if(baseTexture.toString().equals(location.toString())) {
+            return true;
+          }
         }
       } catch(Exception e) {
         return false;

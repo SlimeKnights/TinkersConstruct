@@ -44,9 +44,4 @@ public class ToolBuildGuiInfo {
     positions.add(new Point(x, y));
   }
 
-  static {
-
-
-
-  }
 }

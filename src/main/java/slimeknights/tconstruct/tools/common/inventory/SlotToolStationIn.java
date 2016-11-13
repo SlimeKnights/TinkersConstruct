@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Iterator;
+
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
@@ -68,16 +70,12 @@ public class SlotToolStationIn extends Slot {
 
   @SideOnly(Side.CLIENT)
   public void updateIcon() {
+    icon = null;
     if(restriction != null) {
-      for(IToolPart part : restriction.getPossibleParts()) {
-        if(part instanceof MaterialItem) {
-          icon = part.getItemstackWithMaterial(CustomTextureCreator.guiMaterial);
-          break;
-        }
+      Iterator<IToolPart> iterator = restriction.getPossibleParts().iterator();
+      while(iterator.hasNext() && icon == null) {
+        icon = iterator.next().getOutlineRenderStack();
       }
-    }
-    else {
-      icon = null;
     }
   }
 }
