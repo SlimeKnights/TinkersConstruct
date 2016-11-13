@@ -70,6 +70,7 @@ public class MaterialModelLoader implements ICustomModelLoader {
       return model;
     } catch(IOException e) {
       TinkerRegistry.log.error("Could not load material model {}", modelLocation.toString());
+      TinkerRegistry.log.debug(e);
     }
     return ModelLoaderRegistry.getMissingModel();
   }

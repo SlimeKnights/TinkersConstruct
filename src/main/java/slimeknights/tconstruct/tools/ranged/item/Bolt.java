@@ -81,7 +81,8 @@ public class Bolt extends ProjectileCore {
     ItemStack boltCore = stacks[0];
     ItemStack fletching = stacks[1];
 
-    ItemStack boltCoreHead = TinkerTools.boltCore.buildInternalItemstackForCrafting(BoltCore.getHeadMaterial(boltCore));
+    // we only care about the material returned by getMaterial call
+    ItemStack boltCoreHead = BoltCore.getItemstackWithMaterials(BoltCore.getHeadMaterial(boltCore), Material.UNKNOWN);
 
     return super.buildItemFromStacks(new ItemStack[]{boltCore, boltCoreHead, fletching});
   }

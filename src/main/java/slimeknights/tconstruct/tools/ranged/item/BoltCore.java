@@ -2,10 +2,11 @@ package slimeknights.tconstruct.tools.ranged.item;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.tools.TinkerToolCore;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
@@ -14,37 +15,39 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class BoltCore extends ToolPart {
 
-  public static final String TAG_Material2 = Tags.PART_MATERIAL + "2";
-
   public BoltCore(int cost) {
     super(cost);
   }
 
   @Override
-  public ItemStack getItemstackWithMaterial(Material material) {
-    return combineMaterials(super.getItemstackWithMaterial(TinkerMaterials.wood), material);
+  public Material getMaterial(ItemStack stack) {
+    NBTTagList materials = TagUtil.getBaseMaterialsTagList(stack);
+    return TinkerRegistry.getMaterial(materials.getStringTagAt(0));
   }
 
   public static Material getHeadMaterial(ItemStack stack) {
-    NBTTagCompound tag = TagUtil.getTagSafe(stack);
-
-    return TinkerRegistry.getMaterial(tag.getString(TAG_Material2));
+    NBTTagList materials = TagUtil.getBaseMaterialsTagList(stack);
+    return TinkerRegistry.getMaterial(materials.getStringTagAt(1));
   }
 
-  public static ItemStack combineMaterials(ItemStack core, Material cover) {
-    ItemStack combined = core.copy();
-    NBTTagCompound tag = TagUtil.getTagSafe(core);
-    tag.setString(TAG_Material2, cover.identifier);
-    combined.setTagCompound(tag);
-
-    return combined;
+  @Override
+  public ItemStack getItemstackWithMaterial(Material material) {
+    return getItemstackWithMaterials(TinkerMaterials.wood, material);
   }
 
   public static ItemStack getItemstackWithMaterials(Material shaft, Material head) {
-    return combineMaterials(TinkerTools.boltCore.buildInternalItemstackForCrafting(shaft), head);
-  }
+    ItemStack stack = new ItemStack(TinkerTools.boltCore);
+    NBTTagList tagList = new NBTTagList();
+    tagList.appendTag(new NBTTagString(shaft.getIdentifier()));
+    tagList.appendTag(new NBTTagString(head.getIdentifier()));
 
-  public ItemStack buildInternalItemstackForCrafting(Material material) {
-    return super.getItemstackWithMaterial(material);
+    NBTTagCompound rootTag = new NBTTagCompound();
+    NBTTagCompound baseTag = new NBTTagCompound();
+
+    baseTag.setTag(Tags.BASE_MATERIALS, tagList);
+    rootTag.setTag(Tags.BASE_DATA, baseTag);
+    stack.setTagCompound(rootTag);
+
+    return stack;
   }
 }

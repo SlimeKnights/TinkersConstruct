@@ -9,7 +9,9 @@ import net.minecraftforge.common.MinecraftForge;
 
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.ModelRegisterUtil;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.tools.common.block.BlockToolTable;
 import slimeknights.tconstruct.tools.common.client.RenderEvents;
 
@@ -49,6 +51,9 @@ public class ToolClientProxy extends ClientProxy {
     // parts
     ModelRegisterUtil.registerPartModel(shard);
     ModelRegisterUtil.registerPartModel(sharpeningKit);
+
+
+    ModelRegisterUtil.registerToolModel(TinkerTools.boltCore, Util.getResource("tools/bolt_core" + ToolModelLoader.EXTENSION));
   }
 
 

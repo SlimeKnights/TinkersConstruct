@@ -107,10 +107,12 @@ public class ToolPart extends MaterialItem implements IToolPart {
       }
     }
 
-    String materialInfo = I18n.translateToLocalFormatted("tooltip.part.material_added_by",
-                                                         TinkerRegistry.getTrace(material).getName());
-    tooltip.add("");
-    tooltip.add(materialInfo);
+    if(TinkerRegistry.getTrace(material) != null) {
+      String materialInfo = I18n.translateToLocalFormatted("tooltip.part.material_added_by",
+                                                           TinkerRegistry.getTrace(material).getName());
+      tooltip.add("");
+      tooltip.add(materialInfo);
+    }
   }
 
   public List<String> getTooltipTraitInfo(Material material) {
