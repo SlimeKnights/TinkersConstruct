@@ -18,6 +18,8 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class BoltCore extends ToolPart {
 
+  public static ItemStack GUI_RENDER_ITEMSTACK;
+
   public BoltCore(int cost) {
     super(cost);
   }
@@ -67,6 +69,9 @@ public class BoltCore extends ToolPart {
   @SideOnly(Side.CLIENT)
   @Override
   public ItemStack getOutlineRenderStack() {
-    return getItemstackWithMaterials(CustomTextureCreator.guiMaterial, CustomTextureCreator.guiMaterial);
+    if(GUI_RENDER_ITEMSTACK == null) {
+      GUI_RENDER_ITEMSTACK = getItemstackWithMaterials(CustomTextureCreator.guiMaterial, CustomTextureCreator.guiMaterial);
+    }
+    return GUI_RENDER_ITEMSTACK;
   }
 }
