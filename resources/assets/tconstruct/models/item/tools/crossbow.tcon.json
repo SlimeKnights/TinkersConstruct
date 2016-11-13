@@ -13,7 +13,6 @@
                 "pull": 0
             },
             "textures": {
-                "layer1": "tconstruct:items/crossbow/limb_1",
                 "layer3": "tconstruct:items/crossbow/bowstring_1"
             },
             "modifier_suffix": "1",
