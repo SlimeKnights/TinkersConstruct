@@ -50,4 +50,14 @@ public class BoltCore extends ToolPart {
 
     return stack;
   }
+
+  @Override
+  public boolean canBeCrafted() {
+    return false;
+  }
+
+  @Override
+  public boolean canBeCasted() {
+    return false;
+  }
 }

@@ -355,8 +355,12 @@ public final class TinkerRegistry {
   public static void registerToolPart(IToolPart part) {
     toolParts.add(part);
     if(part instanceof Item) {
-      addPatternForItem((Item) part);
-      addCastForItem((Item) part);
+      if(part.canBeCrafted()) {
+        addPatternForItem((Item) part);
+      }
+      if(part.canBeCasted()) {
+        addCastForItem((Item) part);
+      }
     }
   }
 
