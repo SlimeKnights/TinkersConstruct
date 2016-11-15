@@ -15,6 +15,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -411,5 +412,32 @@ public class Material extends RecipeMatchRegistry {
 
   public String getTextColor() {
     return CustomFontColor.encodeColor(materialTextColor);
+  }
+
+  public static String getCombinedItemName(String itemName, Collection<Material> materials) {
+
+    // no material
+    if(materials.isEmpty()) {
+      return itemName;
+    }
+    // only one material - prefix
+    if(materials.size() == 1) {
+      return materials.iterator().next().getLocalizedItemName(itemName);
+    }
+
+    // multiple materials. we'll have to combine
+    StringBuilder sb = new StringBuilder();
+    Iterator<Material> iter = materials.iterator();
+    Material material = iter.next();
+    sb.append(material.getLocalizedName());
+    while(iter.hasNext()) {
+      material = iter.next();
+      sb.append("-");
+      sb.append(material.getLocalizedName());
+    }
+    sb.append(" ");
+    sb.append(itemName);
+
+    return sb.toString();
   }
 }

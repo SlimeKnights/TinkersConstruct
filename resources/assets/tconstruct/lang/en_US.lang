@@ -359,6 +359,7 @@ item.tconstruct.longbow.name=Longbow
 item.tconstruct.crossbow.name=Crossbow
 
 item.tconstruct.arrow.name=Arrow
+item.tconstruct.bolt.name=Bolt
 
 item.tconstruct.shuriken.name=Shuriken
 
@@ -397,6 +398,8 @@ item.tconstruct.bow_string.name=Bowstring
 item.tconstruct.arrow_head.name=Arrow Head
 item.tconstruct.arrow_shaft.name=Arrow Shaft
 item.tconstruct.fletching.name=Fletching
+
+item.tconstruct.bolt_core.name=Bolt Core
 
 # Material specific tools and toolparts
 # item.tconstruct.<tool>.<material>

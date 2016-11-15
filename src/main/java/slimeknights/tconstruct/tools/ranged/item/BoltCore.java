@@ -1,13 +1,23 @@
 package slimeknights.tconstruct.tools.ranged.item;
 
+import com.google.common.collect.ImmutableList;
+
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.ToolPart;
@@ -15,6 +25,7 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 
 public class BoltCore extends ToolPart {
 
@@ -54,6 +65,47 @@ public class BoltCore extends ToolPart {
     stack.setTagCompound(rootTag);
 
     return stack;
+  }
+
+  @SideOnly(Side.CLIENT)
+  @Override
+  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+    Material material = getMaterial(stack);
+    Material material2 = getHeadMaterial(stack);
+
+    // Material traits/info
+    boolean shift = Util.isShiftKeyDown();
+
+    if(!checkMissingMaterialTooltip(stack, tooltip)) {
+      tooltip.addAll(getTooltipTraitInfo(material));
+      tooltip.addAll(getTooltipTraitInfo(material2));
+    }
+
+    // Stats
+    if(Config.extraTooltips) {
+      if(!shift) {
+        // info tooltip for detailed and component info
+        tooltip.add("");
+        tooltip.add(Util.translate("tooltip.tool.holdShift"));
+      }
+      else {
+        tooltip.addAll(getTooltipStatsInfo(material));
+        tooltip.addAll(getTooltipStatsInfo(material2));
+      }
+    }
+
+    tooltip.addAll(getAddedByInfo(material2));
+  }
+
+  @Nonnull
+  @Override
+  public String getItemStackDisplayName(@Nonnull ItemStack stack) {
+    Material material = getMaterial(stack);
+    Material material2 = getHeadMaterial(stack);
+
+    String originalItemName = ("" + I18n.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
+
+    return Material.getCombinedItemName(originalItemName, ImmutableList.of(material, material2));
   }
 
   @Override

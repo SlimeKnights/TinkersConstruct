@@ -364,31 +364,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
       }
     }
 
-    String itemName = super.getItemStackDisplayName(stack);
-
-    // no material
-    if(nameMaterials.isEmpty()) {
-      return itemName;
-    }
-    // only one material - prefix
-    if(nameMaterials.size() == 1) {
-      return nameMaterials.iterator().next().getLocalizedItemName(itemName);
-    }
-
-    // multiple materials. we'll have to combine
-    StringBuilder sb = new StringBuilder();
-    Iterator<Material> iter = nameMaterials.iterator();
-    Material material = iter.next();
-    sb.append(material.getLocalizedName());
-    while(iter.hasNext()) {
-      material = iter.next();
-      sb.append("-");
-      sb.append(material.getLocalizedName());
-    }
-    sb.append(" ");
-    sb.append(itemName);
-
-    return sb.toString();
+    return Material.getCombinedItemName(super.getItemStackDisplayName(stack), nameMaterials);
   }
 
   // Creative tab items
