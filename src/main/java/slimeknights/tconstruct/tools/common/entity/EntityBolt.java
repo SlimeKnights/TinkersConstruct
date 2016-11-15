@@ -13,10 +13,6 @@ import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 
 public class EntityBolt extends EntityProjectileBase {
 
-  // animation
-  public int roll = 0;
-  public int rollSpeed = 80;
-
   public EntityBolt(World world) {
     super(world);
   }
@@ -44,11 +40,12 @@ public class EntityBolt extends EntityProjectileBase {
   }
 
   @Override
-  public void readSpawnData(ByteBuf data) {
-    super.readSpawnData(data);
+  public double getGravity() {
+    return 0.065;
+  }
 
-    // animation stuff, it sometimes rotates left
-    int rollDir = rand.nextBoolean() ? -1 : 1;
-    rollSpeed = (int)((getSpeed() * 80) / 3) * rollDir;
+  @Override
+  public double getSlowdown() {
+    return 0.015;
   }
 }

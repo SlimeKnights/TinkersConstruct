@@ -3,9 +3,14 @@ package slimeknights.tconstruct.tools.ranged.item;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -27,10 +32,13 @@ import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ProjectileNBT;
 import slimeknights.tconstruct.library.tools.ranged.ProjectileCore;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
+import slimeknights.tconstruct.shared.client.ParticleEffect;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.common.entity.EntityArrow;
 import slimeknights.tconstruct.tools.common.entity.EntityBolt;
+import slimeknights.tconstruct.tools.melee.item.Rapier;
+import slimeknights.tconstruct.tools.traits.TraitEnderference;
 
 public class Bolt extends ProjectileCore {
 
@@ -98,6 +106,18 @@ public class Bolt extends ProjectileCore {
   }
 
   @Override
+  public boolean dealDamageRanged(ItemStack stack, Entity projectile, EntityLivingBase player, Entity target, float damage) {
+    // friggin vanilla hardcode 2
+    if(target instanceof EntityEnderman && ((EntityEnderman) target).getActivePotionEffect(TraitEnderference.Enderference) != null) {
+      return target.attackEntityFrom(new DamageSourceProjectileForEndermen(DAMAGE_TYPE_PROJECTILE, projectile, player), damage);
+    }
+
+
+    DamageSource damageSource = new EntityDamageSourceIndirect(DAMAGE_TYPE_PROJECTILE, projectile, player).setProjectile();
+    return Rapier.dealHybridDamage(damageSource, target, damage);
+  }
+
+  @Override
   public ProjectileNBT buildTagData(List<Material> materials) {
     ProjectileNBT data = new ProjectileNBT();
 
@@ -109,7 +129,7 @@ public class Bolt extends ProjectileCore {
     data.fletchings(fletching);
     data.shafts(this, shaft);
 
-    data.attack += 2;
+    data.durability *= 0.8f;
 
     return data;
   }

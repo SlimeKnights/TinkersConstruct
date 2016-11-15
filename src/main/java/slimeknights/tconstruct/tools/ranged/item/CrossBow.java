@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,6 +14,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -23,6 +25,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.common.ClientProxy;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.client.BooleanItemPropertyGetter;
 import slimeknights.tconstruct.library.client.crosshair.Crosshairs;
 import slimeknights.tconstruct.library.client.crosshair.ICrosshair;
@@ -86,8 +89,13 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
   }
 
   @Override
+  protected float baseProjectileSpeed() {
+    return 7f;
+  }
+
+  @Override
   public float projectileDamageModifier() {
-    return 1f;
+    return 1.3f;
   }
 
   @Override
@@ -129,10 +137,15 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
     if(!ToolHelper.isBroken(stack) && (entityLiving instanceof EntityPlayer)) {
       int useTime = this.getMaxItemUseDuration(stack) - timeLeft;
       if(getDrawbackProgress(stack, useTime) >= 1f) {
-        // todo: load sound
+        Sounds.PlaySoundForPlayer(entityLiving, Sounds.crossbow_reload, 1.5f, 0.9f + itemRand.nextFloat()*0.1f);
         setLoaded(stack, true);
       }
     }
+  }
+
+  @Override
+  public void playShootSound(float power, World world, EntityPlayer entityPlayer) {
+    world.playSound(null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 0.5f + itemRand.nextFloat()*0.1f);
   }
 
   @Override
@@ -173,9 +186,7 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
     data.handle(body);
     data.bowstring(bowstring);
 
-    data.bonusDamage *= 3f;
-
-    //data.durability *= DURABILITY_MODIFIER;
+    data.bonusDamage *= 1.5f;
 
     return data;
   }

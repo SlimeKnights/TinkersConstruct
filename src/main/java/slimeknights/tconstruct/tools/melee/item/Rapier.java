@@ -74,15 +74,19 @@ public class Rapier extends SwordCore {
   }
 
   // changes the passed in damagesource, but the default method calls we use always create a new object
-  private boolean dealHybridDamage(DamageSource source, Entity target, float damage) {
+  public static boolean dealHybridDamage(DamageSource source, Entity target, float damage) {
+    if(target instanceof EntityLivingBase) {
+      damage /= 2f;
+    }
+
     // half damage normal, half damage armor bypassing
-    boolean hit = target.attackEntityFrom(source, damage / 2f);
+    boolean hit = target.attackEntityFrom(source, damage);
     if(hit && target instanceof EntityLivingBase) {
       EntityLivingBase targetLiving = (EntityLivingBase) target;
       // reset things to deal damage again
       targetLiving.hurtResistantTime = 0;
       targetLiving.lastDamage = 0;
-      targetLiving.attackEntityFrom(source.setDamageBypassesArmor(), damage / 2f);
+      targetLiving.attackEntityFrom(source.setDamageBypassesArmor(), damage);
 
       int count = Math.round(damage / 2f);
       if(count > 0) {
