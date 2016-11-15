@@ -25,7 +25,6 @@ import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 
 public class BoltCore extends ToolPart {
 

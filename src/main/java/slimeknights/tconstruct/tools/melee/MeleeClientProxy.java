@@ -19,22 +19,22 @@ public class MeleeClientProxy extends ClientProxy {
     // broadsword
     info = new ToolBuildGuiInfo(TinkerMeleeWeapons.broadSword);
     info.addSlotPosition(33 - 20 - 1, 42 + 20); // handle
-    info.addSlotPosition(33 + 20 - 6, 42 - 20 + 5); // blade
+    info.addSlotPosition(33 + 20 - 5, 42 - 20 + 4); // blade
     info.addSlotPosition(33 - 2 - 1, 42 + 2); // guard
     TinkerRegistryClient.addToolBuilding(info);
 
     // longsword
     info = new ToolBuildGuiInfo(TinkerMeleeWeapons.longSword);
     info.addSlotPosition(33 - 20 - 1, 42 + 20); // handle
-    info.addSlotPosition(33 + 20 - 6, 42 - 20 + 5); // blade
+    info.addSlotPosition(33 + 20 - 5, 42 - 20 + 4); // blade
     info.addSlotPosition(33 - 2 - 1, 42 + 2); // guard
     TinkerRegistryClient.addToolBuilding(info);
 
     // rapier
     info = new ToolBuildGuiInfo(TinkerMeleeWeapons.rapier);
-    info.addSlotPosition(33 - 20 - 1, 42 + 20); // handle
-    info.addSlotPosition(33 + 20 - 6, 42 - 20 + 5); // blade
-    info.addSlotPosition(33 - 2 - 1, 42 + 2); // guard
+    info.addSlotPosition(33 + 20 - 1, 42 + 20); // handle
+    info.addSlotPosition(33 - 20 + 5, 42 - 20 + 4); // blade
+    info.addSlotPosition(33 - 2 + 1, 42 + 2); // guard
     TinkerRegistryClient.addToolBuilding(info);
 
     // dagger
