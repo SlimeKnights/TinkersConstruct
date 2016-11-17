@@ -70,7 +70,7 @@ public class ContentTool extends TinkerPage {
                            .orElseThrow(() -> new RuntimeException("Unknown tool " + toolName));
     }
     if(parts == null) {
-      parts = tool.getRequiredComponents().stream()
+      parts = tool.getToolBuildComponents().stream()
                   .map(PartMaterialType::getPossibleParts)
                   .collect(Collectors.toList());
     }

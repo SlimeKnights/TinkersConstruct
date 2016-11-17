@@ -15,6 +15,11 @@
     "data": "tools/repairing2.json"
   },
   {
+    "name": "bolt_core",
+    "type": "imageText2",
+    "data": "tools/bolt_crafting.json"
+  },
+  {
     "name": "pickaxe",
     "type": "tool",
     "data": "tools/pickaxe.json"

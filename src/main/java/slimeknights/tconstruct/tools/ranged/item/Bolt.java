@@ -15,6 +15,8 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.annotation.Nonnull;
 
@@ -46,7 +48,7 @@ public class Bolt extends ProjectileCore {
 
   public Bolt() {
     super(PartMaterialType.arrowShaft(TinkerTools.boltCore),
-          PartMaterialType.head(TinkerTools.boltCore),
+          new BoltHeadPartMaterialType(TinkerTools.boltCore),
           PartMaterialType.fletching(TinkerTools.fletching));
 
     addCategory(Category.NO_MELEE, Category.PROJECTILE);
@@ -78,6 +80,20 @@ public class Bolt extends ProjectileCore {
         }
       }
     }
+  }
+
+  @Override
+  public Material getMaterialForPartForGuiRendering(int index) {
+    return super.getMaterialForPartForGuiRendering(index + 1);
+  }
+
+  @Override
+  public ItemStack buildItemForRenderingInGui() {
+    List<Material> materials = IntStream.range(0, getRequiredComponents().size())
+                                        .mapToObj(super::getMaterialForPartForGuiRendering)
+                                        .collect(Collectors.toList());
+
+    return buildItemForRendering(materials);
   }
 
   @Override
@@ -138,5 +154,17 @@ public class Bolt extends ProjectileCore {
   public EntityProjectileBase getProjectile(ItemStack stack, ItemStack bow, World world, EntityPlayer player, float speed, float inaccuracy, float power, boolean usedAmmo) {
     inaccuracy -= (1f - 1f/ProjectileNBT.from(stack).accuracy) * speed/2f;
     return new EntityBolt(world, player, speed, inaccuracy, power, getProjectileStack(stack, world, player, usedAmmo), bow);
+  }
+
+  private static class BoltHeadPartMaterialType extends PartMaterialType {
+
+    public BoltHeadPartMaterialType(IToolPart part) {
+      super(part, MaterialTypes.HEAD);
+    }
+
+    @Override
+    public boolean isValidMaterial(Material material) {
+      return material.isCastable() && super.isValidMaterial(material);
+    }
   }
 }
