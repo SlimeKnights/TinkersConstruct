@@ -17,6 +17,10 @@ public abstract class TinkerPage extends PageContent {
   public static final transient int TITLE_HEIGHT = 28;
 
   public void addTitle(ArrayList<BookElement> list, String titleText, boolean dropShadow) {
+    addTitle(list, titleText, dropShadow, 0);
+  }
+
+  public void addTitle(ArrayList<BookElement> list, String titleText, boolean dropShadow, int y) {
     TextData title = new TextData(titleText);
     title.scale = 1.2f;
     title.underlined = true;
@@ -25,6 +29,6 @@ public abstract class TinkerPage extends PageContent {
     int w = (int) Math.ceil(parent.parent.parent.fontRenderer.getStringWidth(titleText) * title.scale);
     int x = (GuiBook.PAGE_WIDTH - w) / 2;
 
-    list.add(new ElementText(x, 0, w, 24, title));
+    list.add(new ElementText(x, y, w, 24, title));
   }
 }

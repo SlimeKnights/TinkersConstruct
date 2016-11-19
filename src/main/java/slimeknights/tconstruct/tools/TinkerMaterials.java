@@ -280,7 +280,9 @@ public final class TinkerMaterials {
 
     // bowstring
     string.addItemIngot("string");
+    string.setRepresentativeItem(Items.STRING);
     vine.addItemIngot("vine");
+    vine.setRepresentativeItem(Blocks.VINE);
     safeAdd(slimevine_blue, new ItemStack(TinkerWorld.slimeVineBlue1), Material.VALUE_Ingot, true);
     safeAdd(slimevine_blue, new ItemStack(TinkerWorld.slimeVineBlue2), Material.VALUE_Ingot, false);
     safeAdd(slimevine_blue, new ItemStack(TinkerWorld.slimeVineBlue3), Material.VALUE_Ingot, false);
@@ -306,7 +308,9 @@ public final class TinkerMaterials {
     endrod.addTrait(endspeed);
 
     feather.addItemIngot("feather");
+    feather.setRepresentativeItem(Items.FEATHER);
     leaf.addItem("treeLeaves", 1, Material.VALUE_Shard);
+    leaf.setRepresentativeItem(Blocks.LEAVES);
     safeAdd(slimeleaf_blue, new ItemStack(TinkerWorld.slimeLeaves, 1, BlockSlimeGrass.FoliageType.BLUE.getMeta()), Material.VALUE_Shard, true);
     safeAdd(slimeleaf_orange, new ItemStack(TinkerWorld.slimeLeaves, 1, BlockSlimeGrass.FoliageType.ORANGE.getMeta()), Material.VALUE_Shard, true);
     safeAdd(slimeleaf_purple, new ItemStack(TinkerWorld.slimeLeaves, 1, BlockSlimeGrass.FoliageType.PURPLE.getMeta()), Material.VALUE_Shard, true);

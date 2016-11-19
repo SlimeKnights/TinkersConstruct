@@ -10,6 +10,7 @@ import java.util.List;
 
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
+import slimeknights.mantle.client.book.data.SectionData;
 import slimeknights.mantle.client.gui.book.GuiBook;
 import slimeknights.mantle.client.gui.book.element.BookElement;
 import slimeknights.mantle.client.gui.book.element.ElementItem;
@@ -27,6 +28,10 @@ public class ContentPageIconList extends TinkerPage {
   public float maxScale = 2.5f;
 
   protected List<ElementPageIconLink> elements = Lists.newArrayList();
+
+  public ContentPageIconList() {
+    this(20);
+  }
 
   public ContentPageIconList(int size) {
     this(size, size);
@@ -110,5 +115,33 @@ public class ContentPageIconList extends TinkerPage {
         }
       }
     }
+  }
+
+  public static List<ContentPageIconList> getPagesNeededForItemCount(int count, SectionData data, String title) {
+    List<ContentPageIconList> listPages = Lists.newArrayList();
+
+    while(count > 0) {
+      ContentPageIconList overview = new ContentPageIconList();
+      PageData page = new PageData(true);
+      page.source = data.source;
+      page.parent = data;
+      page.content = overview;
+      page.load();
+
+      data.pages.add(page);
+
+      overview.title = title;
+
+      listPages.add(overview);
+
+      count -= overview.getMaxIconCount();
+    }
+
+    // ensure same size for all
+    if(listPages.size() > 1) {
+      listPages.forEach(page -> page.maxScale = 1f);
+    }
+
+    return listPages;
   }
 }
