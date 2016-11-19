@@ -126,13 +126,25 @@ public class ContentMaterial extends TinkerPage {
 
     List<TextData> lineData = Lists.newArrayList();
     // add lines of tool information
+    lineData.addAll(getStatLines(stats));
+    lineData.addAll(getTraitLines(traits, material));
+
+    list.add(new ElementText(x, y, w, GuiBook.PAGE_HEIGHT, lineData));
+  }
+
+  public static List<TextData> getStatLines(IMaterialStats stats) {
+    List<TextData> lineData = new ArrayList<>();
     for(int i = 0; i < stats.getLocalizedInfo().size(); i++) {
       TextData text = new TextData(stats.getLocalizedInfo().get(i));
       text.tooltip = LocUtils.convertNewlines(stats.getLocalizedDesc().get(i)).split("\n");
       lineData.add(text);
       lineData.add(new TextData("\n"));
     }
+    return lineData;
+  }
 
+  public static List<TextData> getTraitLines(List<ITrait> traits, Material material) {
+    List<TextData> lineData = new ArrayList<>();
     for(ITrait trait : traits) {
       TextData text = new TextData(trait.getLocalizedName());
       text.tooltip = LocUtils.convertNewlines(material.getTextColor() + trait.getLocalizedDesc()).split("\n");
@@ -141,8 +153,7 @@ public class ContentMaterial extends TinkerPage {
       lineData.add(text);
       lineData.add(new TextData("\n"));
     }
-
-    list.add(new ElementText(x, y, w, GuiBook.PAGE_HEIGHT, lineData));
+    return lineData;
   }
 
   private void addDisplayItems(ArrayList<BookElement> list, int x) {

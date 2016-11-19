@@ -80,7 +80,7 @@ public class ContentSingleStatMultMaterial extends TinkerPage {
       int top = 15;
       int left = rightSide ? 0 : col_margin;
 
-      //int y = top + 10;
+      y += 20;
       int x = left + 10;
       int w = GuiBook.PAGE_WIDTH / 2 - 10;
 
@@ -99,106 +99,32 @@ public class ContentSingleStatMultMaterial extends TinkerPage {
       return;
     }
 
+    int x1 = 10;
+    int x2 = 30;
+    int x3 = 120;
+
+
     List<ITrait> traits = material.getAllTraitsForStats(stats.getIdentifier());
-    allTraits.addAll(traits);
 
     // create a list of all valid toolparts with the stats
     List<ItemStack> parts = Lists.newLinkedList();
-    for(IToolPart part : TinkerRegistry.getToolParts()) {
-      if(part.hasUseForStat(stats.getIdentifier())) {
-        parts.add(part.getItemstackWithMaterial(material));
-      }
-    }
+    parts.addAll(TinkerRegistry.getToolParts().stream()
+                               .filter(part -> part.hasUseForStat(stats.getIdentifier()))
+                               .map(part -> part.getItemstackWithMaterial(material))
+                               .collect(Collectors.toList()));
 
     // said parts next to the name
     if(parts.size() > 0) {
-      ElementItem display = new ElementTinkerItem(x, y + 1, 0.5f, parts);
+      ElementItem display = new ElementTinkerItem(x1, y + 1, 1f, parts);
       list.add(display);
     }
 
-    // and the name itself
-    ElementText name = new ElementText(x + 10, y, w - 10, 10, stats.getLocalizedName());
-    name.text[0].underlined = true;
-    list.add(name);
-    y += 12;
+    List<TextData> lineData = ContentMaterial.getStatLines(stats);
+    List<TextData> traitLineData = ContentMaterial.getTraitLines(traits, material);
 
-    List<TextData> lineData = Lists.newArrayList();
-    // add lines of tool information
-    for(int i = 0; i < stats.getLocalizedInfo().size(); i++) {
-      TextData text = new TextData(stats.getLocalizedInfo().get(i));
-      text.tooltip = LocUtils.convertNewlines(stats.getLocalizedDesc().get(i)).split("\n");
-      lineData.add(text);
-      lineData.add(new TextData("\n"));
-    }
-
-    for(ITrait trait : traits) {
-      TextData text = new TextData(trait.getLocalizedName());
-      text.tooltip = LocUtils.convertNewlines(material.getTextColor() + trait.getLocalizedDesc()).split("\n");
-      text.color = TextFormatting.DARK_GRAY.getFriendlyName();
-      text.underlined = true;
-      lineData.add(text);
-      lineData.add(new TextData("\n"));
-    }
-
-    list.add(new ElementText(x, y, w, GuiBook.PAGE_HEIGHT, lineData));
-  }
-
-  private void addDisplayItems(ArrayList<BookElement> list, Material material, int x) {
-    List<ElementItem> displayTools = Lists.newArrayList();
-
-    int y = 10;
-
-    // representative item first
-    if(material.getRepresentativeItem() != null) {
-      displayTools.add(new ElementTinkerItem(material.getRepresentativeItem()));
-    }
-    // then "craftability"
-    if(material.isCraftable()) {
-      ItemStack partbuilder = new ItemStack(TinkerTools.toolTables, 1, BlockToolTable.TableTypes.PartBuilder.meta);
-      ElementItem elementItem = new ElementTinkerItem(partbuilder);
-      elementItem.tooltip = ImmutableList.of(parent.translate("material.craft_partbuilder"));
-      displayTools.add(elementItem);
-    }
-    if(material.isCastable()) {
-      ItemStack basin = new ItemStack(TinkerSmeltery.castingBlock, 1, BlockCasting.CastingType.BASIN.getMeta());
-      ElementItem elementItem = new ElementTinkerItem(basin);
-      String text = parent.translate("material.craft_casting");
-      elementItem.tooltip = ImmutableList.of(String.format(text, material.getFluid().getLocalizedName(new FluidStack(material.getFluid(), 0))));
-      displayTools.add(elementItem);
-    }
-
-    // build a range of tools to fill the "bar" at the side
-    ToolCore[] tools = new ToolCore[]{TinkerHarvestTools.pickaxe, TinkerHarvestTools.mattock, TinkerMeleeWeapons.broadSword,
-                                      TinkerHarvestTools.hammer, TinkerMeleeWeapons.cleaver, TinkerRangedWeapons.shuriken,
-                                      TinkerMeleeWeapons.fryPan, TinkerHarvestTools.lumberAxe, TinkerMeleeWeapons.battleSign};
-
-    for(ToolCore tool : tools) {
-      if(tool == null) {
-        continue;
-      }
-      ImmutableList.Builder<Material> builder = ImmutableList.builder();
-      for(int i = 0; i < tool.getRequiredComponents().size(); i++) {
-        builder.add(material);
-      }
-      ItemStack builtTool = tool.buildItem(builder.build());
-      if(tool.hasValidMaterials(builtTool)) {
-        displayTools.add(new ElementTinkerItem(builtTool));
-      }
-
-      if(displayTools.size() == 9) {
-        break;
-      }
-    }
-
-    // built tools
-    if(!displayTools.isEmpty()) {
-      for(ElementItem element : displayTools) {
-        element.x = x;
-        element.y = y;
-        element.scale = 1f;
-        y += ElementItem.ITEM_SIZE_HARDCODED;
-        list.add(element);
-      }
+    list.add(new ElementText(x2, y, w, GuiBook.PAGE_HEIGHT, lineData));
+    if(!traitLineData.isEmpty()) {
+      list.add(new ElementText(x3, y, w, GuiBook.PAGE_HEIGHT, traitLineData));
     }
   }
 }

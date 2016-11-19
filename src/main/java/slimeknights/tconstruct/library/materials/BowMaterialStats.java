@@ -17,8 +17,8 @@ public class BowMaterialStats extends AbstractMaterialStats {
   public final static String LOC_RangeDesc = "stat.bow.range.desc";
   public final static String LOC_DamageDesc = "stat.bow.damage.desc";
 
-  public final static String COLOR_Drawspeed = CustomFontColor.encodeColor(205, 205, 205);
-  public final static String COLOR_Range = CustomFontColor.encodeColor(150, 205, 205);
+  public final static String COLOR_Drawspeed = CustomFontColor.encodeColor(128, 128, 128);
+  public final static String COLOR_Range = CustomFontColor.encodeColor(140, 175, 175);
   public final static String COLOR_Damage = CustomFontColor.encodeColor(155, 80, 65);
 
   public final float drawspeed;

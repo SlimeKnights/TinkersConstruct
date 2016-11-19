@@ -19,7 +19,7 @@ public class HandleMaterialStats extends AbstractMaterialStats {
   public final static String LOC_DurabilityDesc = "stat.handle.durability.desc";
 
   public final static String COLOR_Durability = HeadMaterialStats.COLOR_Durability;
-  public final static String COLOR_Modifier = CustomFontColor.encodeColor(205, 205, 100);
+  public final static String COLOR_Modifier = CustomFontColor.encodeColor(185, 185, 90);
 
   public final float modifier; // how good the material is for handles. 0.0 - 1.0
   public final int durability; // usually between -500 and 500

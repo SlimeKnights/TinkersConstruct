@@ -20,6 +20,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
@@ -47,6 +48,9 @@ public class BoltCore extends ToolPart {
 
   @Override
   public ItemStack getItemstackWithMaterial(Material material) {
+    if(material.hasStats(MaterialTypes.SHAFT)) {
+      return getItemstackWithMaterials(material, TinkerMaterials.iron);
+    }
     return getItemstackWithMaterials(TinkerMaterials.wood, material);
   }
 
