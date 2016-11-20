@@ -191,11 +191,13 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
     return data;
   }
 
+  @SideOnly(Side.CLIENT)
   @Override
   public ICrosshair getCrosshair(ItemStack itemStack, EntityPlayer player) {
     return Crosshairs.T;
   }
 
+  @SideOnly(Side.CLIENT)
   @Override
   public float getCrosshairState(ItemStack itemStack, EntityPlayer player) {
     if(isLoaded(itemStack)) {
