@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.plugin.jei;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
@@ -14,7 +13,6 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
-import mezz.jei.api.recipe.IRecipeWrapper;
 import slimeknights.tconstruct.library.Util;
 
 public class DryingRecipeCategory implements IRecipeCategory<DryingRecipeWrapper> {
@@ -74,6 +72,12 @@ public class DryingRecipeCategory implements IRecipeCategory<DryingRecipeWrapper
 
     items.init(1, false, 97, 17);
     items.set(ingredients);
+  }
+
+  @Override
+  public IDrawable getIcon() {
+    // use the default icon
+    return null;
   }
 
 }

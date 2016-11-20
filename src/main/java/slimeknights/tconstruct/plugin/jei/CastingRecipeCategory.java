@@ -82,7 +82,13 @@ public class CastingRecipeCategory implements IRecipeCategory<CastingRecipeWrapp
     IGuiFluidStackGroup fluids = recipeLayout.getFluidStacks();
 
     List<FluidStack> input = ingredients.getInputs(FluidStack.class).get(0);
-    List<ItemStack> casts = ingredients.getInputs(ItemStack.class).get(0);
+    List<List<ItemStack>> castsList = ingredients.getInputs(ItemStack.class);
+
+    // if there is no cast then the size of the inputs is 0, producing an index error
+    List<ItemStack> casts = null;
+    if(castsList.size() > 0) {
+      casts = castsList.get(0);
+    }
 
     int cap = input.get(0).amount;
 
@@ -91,13 +97,21 @@ public class CastingRecipeCategory implements IRecipeCategory<CastingRecipeWrapp
     items.set(ingredients);
 
     fluids.init(0, true, 22, 10, 18, 32, Material.VALUE_Block, false, null);
+    fluids.set(ingredients);
 
     // no cast, bigger fluid
     int h = 11;
-    if(!casts.isEmpty()) {
+    if(casts == null || casts.isEmpty()) {
       h += 16;
     }
     fluids.init(1, true, 64, 15, 6, h, cap, false, null);
-    fluids.set(ingredients);
+    // otherwise it tries to get the second input fluidstack
+    fluids.set(1, input);
+  }
+
+  @Override
+  public IDrawable getIcon() {
+    // use the default icon
+    return null;
   }
 }

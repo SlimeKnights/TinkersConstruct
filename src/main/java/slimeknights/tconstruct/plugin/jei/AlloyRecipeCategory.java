@@ -100,4 +100,10 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipeWrapper> 
     fluids.init(0, false, 118, 11, 18, 32, max_amount, false, null);
     fluids.set(ingredients);
   }
+
+  @Override
+  public IDrawable getIcon() {
+    // use the default icon
+    return null;
+  }
 }

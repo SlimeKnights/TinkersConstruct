@@ -75,4 +75,10 @@ public class SmeltingRecipeCategory implements IRecipeCategory<SmeltingRecipeWra
     fluids.init(1, false, 72, 38, 16, 16, 1000, false, tankOverlay);
     fluids.set(1, recipe.fuels);
   }
+
+  @Override
+  public IDrawable getIcon() {
+    // use the default icon
+    return null;
+  }
 }
