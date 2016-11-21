@@ -498,7 +498,7 @@ public final class TinkerRegistry {
   }
 
   public static void registerMelting(MeltingRecipe recipe) {
-    if(new TinkerRegisterEvent.MestingRegisterEvent(recipe).fire()) {
+    if(new TinkerRegisterEvent.MeltingRegisterEvent(recipe).fire()) {
       meltingRegistry.add(recipe);
     }
   }

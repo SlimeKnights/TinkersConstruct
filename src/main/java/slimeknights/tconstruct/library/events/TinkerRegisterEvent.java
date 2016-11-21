@@ -38,9 +38,9 @@ public abstract class TinkerRegisterEvent<T> extends TinkerEvent {
   }
 
   /** Register a recipe for melting something in the smeltery */
-  public static class MestingRegisterEvent extends TinkerRegisterEvent<MeltingRecipe> {
+  public static class MeltingRegisterEvent extends TinkerRegisterEvent<MeltingRecipe> {
 
-    public MestingRegisterEvent(MeltingRecipe recipe) {
+    public MeltingRegisterEvent(MeltingRecipe recipe) {
       super(recipe);
     }
   }
