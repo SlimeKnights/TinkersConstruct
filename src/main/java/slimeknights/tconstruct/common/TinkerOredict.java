@@ -140,6 +140,7 @@ public class TinkerOredict {
       oredict(meat, "listAllmeatcooked");
     }
 
+    oredict(new ItemStack(Items.FISH, 1, OreDictionary.WILDCARD_VALUE), "fish");
   }
 
   // common items and blocks

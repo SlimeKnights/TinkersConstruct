@@ -9,9 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.element.ImageData;
@@ -100,13 +102,18 @@ public class ContentModifier extends TinkerPage {
       }
 
       for(int i = 0; i < inputList.size(); i++) {
-        List<ItemStack> inputs = inputList.get(i);
+        List<ItemStack> inputs = new ArrayList<>(inputList.get(i));
         if(inputs.size() > inCount) {
           inCount = inputs.size();
         }
 
         for(int j = 0; j < inputs.size() && j < 5; j++) {
-          inputItems[j][i] = inputs.get(j);
+          ItemStack stack = inputs.get(j);
+          if(stack != null && stack.getMetadata() == OreDictionary.WILDCARD_VALUE) {
+            stack = stack.copy();
+            stack.setItemDamage(0);
+          }
+          inputItems[j][i] = stack;
         }
       }
     }

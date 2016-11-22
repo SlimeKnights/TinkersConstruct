@@ -128,7 +128,7 @@ public class TinkerModifiers extends AbstractToolPulse {
     modFiery.addItem(Items.BLAZE_POWDER);
 
     modFins = registerModifier(new ModFins());
-    modFins.addRecipeMatch(new RecipeMatch.Item(new ItemStack(Items.FISH, 1, OreDictionary.WILDCARD_VALUE), 2, 1));
+    modFins.addItem("fish");
 
     modGlowing = registerModifier(new ModGlowing());
     modGlowing.addRecipeMatch(new RecipeMatch.ItemCombination(1, glowstoneDust, new ItemStack(Items.ENDER_EYE), glowstoneDust));
