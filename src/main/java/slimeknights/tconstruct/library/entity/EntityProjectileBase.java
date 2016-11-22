@@ -458,7 +458,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       }
 
       // more slowdown in water
-      slowdown = 1d - 20d * getSlowdown();
+      slowdown *= 0.60d;
     }
 
     // phshshshshshs

@@ -1,0 +1,7 @@
+{
+    "textures": {
+        "arrow": "tconstruct:items/arrow/mod_fins",
+        "bolt": "tconstruct:items/bolt/mod_fins",
+        "shuriken": "tconstruct:items/shuriken/mod_fins"
+    }
+}

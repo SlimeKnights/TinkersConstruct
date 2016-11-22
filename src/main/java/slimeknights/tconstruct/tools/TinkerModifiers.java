@@ -31,6 +31,7 @@ import slimeknights.tconstruct.tools.modifiers.ModCreative;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModEmerald;
 import slimeknights.tconstruct.tools.modifiers.ModFiery;
+import slimeknights.tconstruct.tools.modifiers.ModFins;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
 import slimeknights.tconstruct.tools.modifiers.ModGlowing;
 import slimeknights.tconstruct.tools.modifiers.ModHarvestSize;
@@ -67,12 +68,13 @@ public class TinkerModifiers extends AbstractToolPulse {
   public static Modifier modDiamond;
   public static Modifier modEmerald;
   public static Modifier modFiery;
+  public static Modifier modFins;
   public static Modifier modGlowing;
   public static Modifier modHaste;
   public static Modifier modHarvestWidth;
   public static Modifier modHarvestHeight;
   public static Modifier modKnockback;
-  public static ModLuck modLuck;
+  public static ModLuck  modLuck;
   public static Modifier modMendingMoss;
   public static Modifier modNecrotic;
   public static Modifier modReinforced;
@@ -123,6 +125,9 @@ public class TinkerModifiers extends AbstractToolPulse {
 
     modFiery = registerModifier(new ModFiery());
     modFiery.addItem(Items.BLAZE_POWDER);
+
+    modFins = registerModifier(new ModFins());
+    modFins.addItem(Items.FISH);
 
     modGlowing = registerModifier(new ModGlowing());
     modGlowing.addRecipeMatch(new RecipeMatch.ItemCombination(1, glowstoneDust, new ItemStack(Items.ENDER_EYE), glowstoneDust));
