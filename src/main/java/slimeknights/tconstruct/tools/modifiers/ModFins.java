@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.modifiers;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
@@ -13,11 +12,6 @@ public class ModFins extends ProjectileModifierTrait {
     super("fins", 0xabcdef);
 
     addAspects(ModifierAspect.projectileOnly);
-  }
-
-  @Override
-  public boolean canApplyCustom(ItemStack stack) {
-    return super.canApplyCustom(stack);
   }
 
   @Override

@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Logger;
 
@@ -127,7 +128,7 @@ public class TinkerModifiers extends AbstractToolPulse {
     modFiery.addItem(Items.BLAZE_POWDER);
 
     modFins = registerModifier(new ModFins());
-    modFins.addItem(Items.FISH);
+    modFins.addRecipeMatch(new RecipeMatch.Item(new ItemStack(Items.FISH, 1, OreDictionary.WILDCARD_VALUE), 2, 1));
 
     modGlowing = registerModifier(new ModGlowing());
     modGlowing.addRecipeMatch(new RecipeMatch.ItemCombination(1, glowstoneDust, new ItemStack(Items.ENDER_EYE), glowstoneDust));
