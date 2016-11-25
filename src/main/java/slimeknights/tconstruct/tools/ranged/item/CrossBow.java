@@ -53,7 +53,7 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
   protected static final ResourceLocation PROPERTY_IS_LOADED = new ResourceLocation("loaded");
 
   public CrossBow() {
-    super(PartMaterialType.handle(TinkerTools.toughToolRod),
+    super(PartMaterialType.crossbow(TinkerTools.toughToolRod),
           PartMaterialType.bow(TinkerTools.bowLimb),
           PartMaterialType.extra(TinkerTools.toughBinding),
           PartMaterialType.bowstring(TinkerTools.bowString));
@@ -174,6 +174,7 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
   public ProjectileLauncherNBT buildTagData(List<Material> materials) {
     ProjectileLauncherNBT data = new ProjectileLauncherNBT();
     HandleMaterialStats body = materials.get(0).getStatsOrUnknown(MaterialTypes.HANDLE);
+    ExtraMaterialStats bodyExtra = materials.get(0).getStatsOrUnknown(MaterialTypes.EXTRA);
     HeadMaterialStats head = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
     BowMaterialStats limb = materials.get(1).getStatsOrUnknown(MaterialTypes.BOW);
     ExtraMaterialStats binding = materials.get(2).getStatsOrUnknown(MaterialTypes.EXTRA);
@@ -182,7 +183,7 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
 
     data.head(head);
     data.limb(limb);
-    data.extra(binding);
+    data.extra(binding, bodyExtra);
     data.handle(body);
     data.bowstring(bowstring);
 

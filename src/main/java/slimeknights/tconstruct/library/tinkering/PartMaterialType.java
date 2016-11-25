@@ -125,4 +125,8 @@ public class PartMaterialType {
   public static PartMaterialType fletching(IToolPart part) {
     return new PartMaterialType(part, MaterialTypes.FLETCHING);
   }
+
+  public static PartMaterialType crossbow(IToolPart part) {
+    return new PartMaterialType(part, MaterialTypes.HANDLE, MaterialTypes.EXTRA);
+  }
 }
