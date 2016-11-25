@@ -67,4 +67,8 @@ public interface IModifier extends IToolMod {
   boolean hasTexturePerMaterial();
 
   boolean equalModifier(NBTTagCompound modifierTag1, NBTTagCompound modifierTag2);
+
+  default boolean hasItemsToApplyWith() {
+    return true;
+  }
 }

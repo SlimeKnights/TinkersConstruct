@@ -7,6 +7,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.items.ItemHandlerHelper;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
@@ -14,16 +16,16 @@ import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
 
-public class ListValidModifiers extends CommandBase {
+public class GenValidModifiers extends CommandBase {
 
   @Override
   public String getCommandName() {
-    return "listValidModifiers";
+    return "genValidModifiers";
   }
 
   @Override
   public String getCommandUsage(ICommandSender sender) {
-    return "Hold tool while calling /listValidModifiers to get a list of all valid modifiers for a tool";
+    return "Hold tool while calling /genValidModifiers to generate all modified variants";
   }
 
   @Override
@@ -39,7 +41,9 @@ public class ListValidModifiers extends CommandBase {
         }
         try {
           if((mod instanceof ModifierTrait || !(mod instanceof AbstractTrait)) && mod.canApply(item.copy(), item) && (mod.getIdentifier().equals("fortified") || !(mod instanceof ModFortify))) {
-            sender.addChatMessage(new TextComponentString("* " + mod.getIdentifier()));
+            ItemStack copy = item.copy();
+            mod.apply(copy);
+            ItemHandlerHelper.giveItemToPlayer(player, copy);
           }
         }
         catch (TinkerGuiException e) {

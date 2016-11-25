@@ -300,5 +300,10 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
     return hit;
   }
 
+  @Override
+  public boolean hasItemsToApplyWith() {
+    return !items.isEmpty();
+  }
+
   private static final AttributeModifier ANTI_KNOCKBACK_MOD = new AttributeModifier("Anti Modifier Knockback", 1f, 0);
 }
