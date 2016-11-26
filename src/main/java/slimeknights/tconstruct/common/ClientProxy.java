@@ -262,7 +262,7 @@ public abstract class ClientProxy extends CommonProxy {
     // has to be done in onUpdate because onTickUsing is too early and gets overwritten. bleh.
     if(player instanceof EntityPlayerSP) {
       EntityPlayerSP playerSP = (EntityPlayerSP) player;
-      ItemStack usingItem = playerSP.inventory.getCurrentItem();
+      ItemStack usingItem = playerSP.getActiveItemStack();
       if(usingItem != null && usingItem.getItem() == item) {
         // no slowdown from charging it up
         playerSP.movementInput.moveForward *= originalSpeed * 5.0F;

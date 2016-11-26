@@ -473,6 +473,10 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
   public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
 
+    onUpdateTraits(stack, worldIn, entityIn, itemSlot, isSelected);
+  }
+
+  protected void onUpdateTraits(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     NBTTagList list = TagUtil.getTraitsTagList(stack);
     for(int i = 0; i < list.tagCount(); i++) {
       ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
@@ -481,6 +485,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
       }
     }
   }
+
 
   @Override
   public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {

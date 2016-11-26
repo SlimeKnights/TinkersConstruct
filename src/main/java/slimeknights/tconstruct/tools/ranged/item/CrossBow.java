@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.ranged.item;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -111,6 +112,14 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
     NBTTagCompound tag = TagUtil.getTagSafe(stack);
     tag.setBoolean(TAG_Loaded, isLoaded);
     stack.setTagCompound(tag);
+  }
+
+  @Override
+  public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+    // has to be done in onUpdate because onTickUsing is too early and gets overwritten. bleh.
+    preventSlowDown(entityIn, 0.195f);
+
+    super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
   }
 
   @Nonnull

@@ -1,8 +1,10 @@
 package slimeknights.tconstruct.tools.ranged.item;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -64,6 +66,12 @@ public class LongBow extends ShortBow {
   @Override
   public int getDrawTime() {
     return 30;
+  }
+
+  @Override
+  public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+    // no speedup on charging
+    onUpdateTraits(stack, worldIn, entityIn, itemSlot, isSelected);
   }
 
   /* Data Stuff */
