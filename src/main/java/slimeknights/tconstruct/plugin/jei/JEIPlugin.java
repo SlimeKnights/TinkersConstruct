@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
@@ -22,6 +24,7 @@ import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.ISubtypeRegistry;
+import mezz.jei.api.gui.BlankAdvancedGuiHandler;
 import mezz.jei.api.ingredients.IModIngredientRegistration;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import slimeknights.tconstruct.TConstruct;
@@ -33,6 +36,9 @@ import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
+import slimeknights.tconstruct.smeltery.client.GuiSmeltery;
+import slimeknights.tconstruct.smeltery.client.GuiTinkerTank;
+import slimeknights.tconstruct.smeltery.client.IGuiLiquidTank;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.common.block.BlockToolTable;
 
@@ -122,6 +128,11 @@ public class JEIPlugin implements IModPlugin {
           registry.addRecipes(ImmutableList.of(new CastingRecipeWrapper(recipe, castingCategory.castingBasin)));
         }
       }
+
+      // liquid recipe lookup for smeltery and tinker tank
+      registry.addAdvancedGuiHandlers(
+          new TinkerGuiTankHandler<GuiTinkerTank>(GuiTinkerTank.class),
+          new TinkerGuiTankHandler<GuiSmeltery>(GuiSmeltery.class));
     }
 
     // drying rack
@@ -136,5 +147,26 @@ public class JEIPlugin implements IModPlugin {
 
   @Override
   public void onRuntimeAvailable(@Nonnull IJeiRuntime jeiRuntime) {
+  }
+
+
+  private static class TinkerGuiTankHandler<T extends GuiContainer & IGuiLiquidTank> extends BlankAdvancedGuiHandler<T> {
+    private Class<T> clazz;
+
+    public TinkerGuiTankHandler(Class<T> clazz) {
+      this.clazz = clazz;
+    }
+
+    @Nonnull
+    @Override
+    public Class<T> getGuiContainerClass() {
+      return clazz;
+    }
+
+    @Nullable
+    @Override
+    public Object getIngredientUnderMouse(T guiContainer, int mouseX, int mouseY) {
+      return guiContainer.getFluidStackAtPosition(mouseX, mouseY);
+    }
   }
 }

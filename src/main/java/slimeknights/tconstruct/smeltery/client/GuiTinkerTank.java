@@ -7,13 +7,14 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.smeltery.tileentity.TileTinkerTank;
 
-public class GuiTinkerTank extends GuiContainer {
+public class GuiTinkerTank extends GuiContainer implements IGuiLiquidTank {
 
   public static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/tinker_tank.png");
   protected GuiElement scala = new GuiElement(122, 0, 106, 106, 256, 256);
@@ -64,6 +65,11 @@ public class GuiTinkerTank extends GuiContainer {
     }
 
     super.mouseClicked(mouseX, mouseY, mouseButton);
+  }
+
+  @Override
+  public FluidStack getFluidStackAtPosition(int mouseX, int mouseY) {
+    return GuiUtil.getFluidStackAtPosition(tinkerTank.getTank(), mouseX - guiLeft, mouseY - guiTop, 8, 16, 114, 122);
   }
 
   protected void drawBackground(ResourceLocation background) {
