@@ -74,30 +74,30 @@ public class ModifierModelLoader implements ICustomModelLoader {
       loadFilesIntoCache();
     }
 
-    if(!cache.containsKey(toolname)) {
-      log.debug("Tried to load modifiers for " + toolname + "but no modifiers were found");
-      return ModelLoaderRegistry.getMissingModel();
-    }
-
     ModifierModel model = new ModifierModel();
 
-    // generate the modelblocks for each entry
-    for(Map.Entry<String, String> entry : cache.get(toolname).entrySet()) {
-      // check if the modifier actually exists in the game so we don't load unnecessary textures
-      IModifier mod = TinkerRegistry.getModifier(entry.getKey());
+    if(cache.containsKey(toolname)) {
+      // generate the modelblocks for each entry
+      for(Map.Entry<String, String> entry : cache.get(toolname).entrySet()) {
+        // check if the modifier actually exists in the game so we don't load unnecessary textures
+        IModifier mod = TinkerRegistry.getModifier(entry.getKey());
 /*
       if(mod == null) {
         log.debug("Removing texture {} for modifier {}: No modifier present for texture", entry.getValue(), entry.getKey());
         continue;
       }*/
 
-      // using the String from the modifier means an == check succeeds and fixes lowercasing from the loading from files
-      model.addModelForModifier(entry.getKey(), entry.getValue());
+        // using the String from the modifier means an == check succeeds and fixes lowercasing from the loading from files
+        model.addModelForModifier(entry.getKey(), entry.getValue());
 
-      // register per-material modifiers for texture creation
-      if(mod != null && mod.hasTexturePerMaterial()) {
-        CustomTextureCreator.registerTexture(new ResourceLocation(entry.getValue()));
+        // register per-material modifiers for texture creation
+        if(mod != null && mod.hasTexturePerMaterial()) {
+          CustomTextureCreator.registerTexture(new ResourceLocation(entry.getValue()));
+        }
       }
+    }
+    else {
+      log.debug("Tried to load modifier models for " + toolname + "but none were found");
     }
 
     return model;
@@ -135,9 +135,9 @@ public class ModifierModelLoader implements ICustomModelLoader {
             }
           }
         } catch(IOException e) {
-          log.error("Cannot load modifier-model {}", entry.getValue());
+          log.error("Cannot load modifier-model " + entry.getValue(), e);
         } catch(JsonParseException e) {
-          log.error("Cannot load modifier-model {}", entry.getValue());
+          log.error("Cannot load modifier-model " + entry.getValue(), e);
           throw e;
         }
       }

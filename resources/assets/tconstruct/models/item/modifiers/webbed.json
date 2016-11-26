@@ -3,9 +3,10 @@
         "arrow": "tconstruct:items/arrow/mod_web",
         "battleaxe": "tconstruct:items/battleaxe/mod_web",
         "battlesign": "tconstruct:items/battlesign/mod_web",
+        "bolt": "tconstruct:items/bolt/mod_web",
         "broadsword": "tconstruct:items/broadsword/mod_web",
-        "rapier": "tconstruct:items/rapier/mod_web",
         "cleaver": "tconstruct:items/cleaver/mod_web",
+        "crossbow": "tconstruct:items/crossbow/mod_web",
         "excavator": "tconstruct:items/excavator/mod_web",
         "frypan": "tconstruct:items/frypan/mod_web",
         "hammer": "tconstruct:items/hammer/mod_web",
@@ -18,12 +19,13 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_web",
         "mattock": "tconstruct:items/mattock/mod_web",
         "pickaxe": "tconstruct:items/pickaxe/mod_web",
+        "rapier": "tconstruct:items/rapier/mod_web",
         "scythe": "tconstruct:items/scythe/mod_web",
-        "shovel": "tconstruct:items/shovel/mod_web",
-        "shuriken": "tconstruct:items/shuriken/mod_web",
         "shortbow": "tconstruct:items/shortbow/mod_web",
         "shortbow1": "tconstruct:items/shortbow/mod_web",
         "shortbow2": "tconstruct:items/shortbow/mod_web_2",
-        "shortbow3": "tconstruct:items/shortbow/mod_web_3"
+        "shortbow3": "tconstruct:items/shortbow/mod_web_3",
+        "shovel": "tconstruct:items/shovel/mod_web",
+        "shuriken": "tconstruct:items/shuriken/mod_web"
     }
 }

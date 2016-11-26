@@ -3,7 +3,6 @@
         "battleaxe": "tconstruct:items/battleaxe/mod_haste",
         "battlesign": "tconstruct:items/battlesign/mod_haste",
         "broadsword": "tconstruct:items/broadsword/mod_haste",
-        "rapier": "tconstruct:items/rapier/mod_haste",
         "cleaver": "tconstruct:items/cleaver/mod_haste",
         "excavator": "tconstruct:items/excavator/mod_haste",
         "frypan": "tconstruct:items/frypan/mod_haste",
@@ -17,11 +16,12 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_haste",
         "mattock": "tconstruct:items/mattock/mod_haste",
         "pickaxe": "tconstruct:items/pickaxe/mod_haste",
+        "rapier": "tconstruct:items/rapier/mod_haste",
         "scythe": "tconstruct:items/scythe/mod_haste",
-        "shovel": "tconstruct:items/shovel/mod_haste",
         "shortbow": "tconstruct:items/shortbow/mod_haste",
         "shortbow1": "tconstruct:items/shortbow/mod_haste_1",
         "shortbow2": "tconstruct:items/shortbow/mod_haste_2",
-        "shortbow3": "tconstruct:items/shortbow/mod_haste_3"
+        "shortbow3": "tconstruct:items/shortbow/mod_haste_3",
+        "shovel": "tconstruct:items/shovel/mod_haste"
     }
 }

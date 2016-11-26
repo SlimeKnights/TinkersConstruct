@@ -3,9 +3,10 @@
         "arrow": "tconstruct:items/arrow/mod_diamond",
         "battleaxe": "tconstruct:items/battleaxe/mod_diamond",
         "battlesign": "tconstruct:items/battlesign/mod_diamond",
+        "bolt": "tconstruct:items/bolt/mod_diamond",
         "broadsword": "tconstruct:items/broadsword/mod_diamond",
-        "rapier": "tconstruct:items/rapier/mod_diamond",
         "cleaver": "tconstruct:items/cleaver/mod_diamond",
+        "crossbow": "tconstruct:items/crossbow/mod_diamond",
         "excavator": "tconstruct:items/excavator/mod_diamond",
         "frypan": "tconstruct:items/frypan/mod_diamond",
         "hammer": "tconstruct:items/hammer/mod_diamond",
@@ -18,12 +19,13 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_diamond",
         "mattock": "tconstruct:items/mattock/mod_diamond",
         "pickaxe": "tconstruct:items/pickaxe/mod_diamond",
+        "rapier": "tconstruct:items/rapier/mod_diamond",
         "scythe": "tconstruct:items/scythe/mod_diamond",
-        "shovel": "tconstruct:items/shovel/mod_diamond",
-        "shuriken": "tconstruct:items/shuriken/mod_diamond",
         "shortbow": "tconstruct:items/shortbow/mod_diamond",
         "shortbow1": "tconstruct:items/shortbow/mod_diamond",
         "shortbow2": "tconstruct:items/shortbow/mod_diamond",
-        "shortbow3": "tconstruct:items/shortbow/mod_diamond"
+        "shortbow3": "tconstruct:items/shortbow/mod_diamond",
+        "shovel": "tconstruct:items/shovel/mod_diamond",
+        "shuriken": "tconstruct:items/shuriken/mod_diamond"
     }
 }

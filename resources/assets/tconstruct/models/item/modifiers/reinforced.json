@@ -3,9 +3,10 @@
         "arrow": "tconstruct:items/arrow/mod_reinforced",
         "battleaxe": "tconstruct:items/battleaxe/mod_reinforced",
         "battlesign": "tconstruct:items/battlesign/mod_reinforced",
+        "bolt": "tconstruct:items/bolt/mod_reinforced",
         "broadsword": "tconstruct:items/broadsword/mod_reinforced",
-        "rapier": "tconstruct:items/rapier/mod_reinforced",
         "cleaver": "tconstruct:items/cleaver/mod_reinforced",
+        "crossbow": "tconstruct:items/crossbow/mod_reinforced",
         "excavator": "tconstruct:items/excavator/mod_reinforced",
         "frypan": "tconstruct:items/frypan/mod_reinforced",
         "hammer": "tconstruct:items/hammer/mod_reinforced",
@@ -18,12 +19,13 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_reinforced",
         "mattock": "tconstruct:items/mattock/mod_reinforced",
         "pickaxe": "tconstruct:items/pickaxe/mod_reinforced",
+        "rapier": "tconstruct:items/rapier/mod_reinforced",
         "scythe": "tconstruct:items/scythe/mod_reinforced",
-        "shovel": "tconstruct:items/shovel/mod_reinforced",
-        "shuriken": "tconstruct:items/shuriken/mod_reinforced",
         "shortbow": "tconstruct:items/shortbow/mod_reinforced",
         "shortbow1": "tconstruct:items/shortbow/mod_reinforced",
         "shortbow2": "tconstruct:items/shortbow/mod_reinforced",
-        "shortbow3": "tconstruct:items/shortbow/mod_reinforced"
+        "shortbow3": "tconstruct:items/shortbow/mod_reinforced",
+        "shovel": "tconstruct:items/shovel/mod_reinforced",
+        "shuriken": "tconstruct:items/shuriken/mod_reinforced"
     }
 }

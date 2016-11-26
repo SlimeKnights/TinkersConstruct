@@ -3,9 +3,10 @@
         "arrow": "tconstruct:items/arrow/mod_beheading",
         "battleaxe": "tconstruct:items/battleaxe/mod_beheading",
         "battlesign": "tconstruct:items/battlesign/mod_beheading",
+        "bolt": "tconstruct:items/bolt/mod_beheading",
         "broadsword": "tconstruct:items/broadsword/mod_beheading",
-        "rapier": "tconstruct:items/rapier/mod_beheading",
         "cleaver": "tconstruct:items/cleaver/mod_beheading",
+        "crossbow": "tconstruct:items/crossbow/mod_beheading",
         "excavator": "tconstruct:items/excavator/mod_beheading",
         "frypan": "tconstruct:items/frypan/mod_beheading",
         "hammer": "tconstruct:items/hammer/mod_beheading",
@@ -18,12 +19,13 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_beheading",
         "mattock": "tconstruct:items/mattock/mod_beheading",
         "pickaxe": "tconstruct:items/pickaxe/mod_beheading",
+        "rapier": "tconstruct:items/rapier/mod_beheading",
         "scythe": "tconstruct:items/scythe/mod_beheading",
-        "shovel": "tconstruct:items/shovel/mod_beheading",
-        "shuriken": "tconstruct:items/shuriken/mod_beheading",
         "shortbow": "tconstruct:items/shortbow/mod_beheading",
         "shortbow1": "tconstruct:items/shortbow/mod_beheading",
         "shortbow2": "tconstruct:items/shortbow/mod_beheading",
-        "shortbow3": "tconstruct:items/shortbow/mod_beheading"
+        "shortbow3": "tconstruct:items/shortbow/mod_beheading",
+        "shovel": "tconstruct:items/shovel/mod_beheading",
+        "shuriken": "tconstruct:items/shuriken/mod_beheading"
     }
 }

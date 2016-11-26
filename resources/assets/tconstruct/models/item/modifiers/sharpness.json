@@ -3,9 +3,10 @@
         "arrow": "tconstruct:items/arrow/mod_sharpness",
         "battleaxe": "tconstruct:items/battleaxe/mod_sharpness",
         "battlesign": "tconstruct:items/battlesign/mod_sharpness",
+        "bolt": "tconstruct:items/bolt/mod_sharpness",
         "broadsword": "tconstruct:items/broadsword/mod_sharpness",
-        "rapier": "tconstruct:items/rapier/mod_sharpness",
         "cleaver": "tconstruct:items/cleaver/mod_sharpness",
+        "crossbow": "tconstruct:items/crossbow/mod_sharpness",
         "excavator": "tconstruct:items/excavator/mod_sharpness",
         "frypan": "tconstruct:items/frypan/mod_sharpness",
         "hammer": "tconstruct:items/hammer/mod_sharpness",
@@ -18,12 +19,13 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_sharpness",
         "mattock": "tconstruct:items/mattock/mod_sharpness",
         "pickaxe": "tconstruct:items/pickaxe/mod_sharpness",
+        "rapier": "tconstruct:items/rapier/mod_sharpness",
         "scythe": "tconstruct:items/scythe/mod_sharpness",
-        "shovel": "tconstruct:items/shovel/mod_sharpness",
-        "shuriken": "tconstruct:items/shuriken/mod_sharpness",
         "shortbow": "tconstruct:items/shortbow/mod_sharpness",
         "shortbow1": "tconstruct:items/shortbow/mod_sharpness",
         "shortbow2": "tconstruct:items/shortbow/mod_sharpness",
-        "shortbow3": "tconstruct:items/shortbow/mod_sharpness_3"
+        "shortbow3": "tconstruct:items/shortbow/mod_sharpness_3",
+        "shovel": "tconstruct:items/shovel/mod_sharpness",
+        "shuriken": "tconstruct:items/shuriken/mod_sharpness"
     }
 }

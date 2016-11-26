@@ -3,9 +3,10 @@
         "arrow": "tconstruct:items/arrow/mod_bane_spider",
         "battleaxe": "tconstruct:items/battleaxe/mod_bane_spider",
         "battlesign": "tconstruct:items/battlesign/mod_bane_spider",
+        "bolt": "tconstruct:items/bolt/mod_bane_spider",
         "broadsword": "tconstruct:items/broadsword/mod_bane_spider",
-        "rapier": "tconstruct:items/rapier/mod_bane_spider",
         "cleaver": "tconstruct:items/cleaver/mod_bane_spider",
+        "crossbow": "tconstruct:items/crossbow/mod_bane_spider",
         "excavator": "tconstruct:items/excavator/mod_bane_spider",
         "frypan": "tconstruct:items/frypan/mod_bane_spider",
         "hammer": "tconstruct:items/hammer/mod_bane_spider",
@@ -18,12 +19,13 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_bane_spider",
         "mattock": "tconstruct:items/mattock/mod_bane_spider",
         "pickaxe": "tconstruct:items/pickaxe/mod_bane_spider",
+        "rapier": "tconstruct:items/rapier/mod_bane_spider",
         "scythe": "tconstruct:items/scythe/mod_bane_spider",
-        "shovel": "tconstruct:items/shovel/mod_bane_spider",
-        "shuriken": "tconstruct:items/shuriken/mod_bane_spider",
         "shortbow": "tconstruct:items/shortbow/mod_bane_spider",
         "shortbow1": "tconstruct:items/shortbow/mod_bane_spider",
         "shortbow2": "tconstruct:items/shortbow/mod_bane_spider_2",
-        "shortbow3": "tconstruct:items/shortbow/mod_bane_spider_3"
+        "shortbow3": "tconstruct:items/shortbow/mod_bane_spider_3",
+        "shovel": "tconstruct:items/shovel/mod_bane_spider",
+        "shuriken": "tconstruct:items/shuriken/mod_bane_spider"
     }
 }

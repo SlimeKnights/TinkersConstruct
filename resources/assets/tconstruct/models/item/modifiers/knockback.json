@@ -3,9 +3,10 @@
         "arrow": "tconstruct:items/arrow/mod_knockback",
         "battleaxe": "tconstruct:items/battleaxe/mod_knockback",
         "battlesign": "tconstruct:items/battlesign/mod_knockback",
+        "bolt": "tconstruct:items/bolt/mod_knockback",
         "broadsword": "tconstruct:items/broadsword/mod_knockback",
-        "rapier": "tconstruct:items/rapier/mod_knockback",
         "cleaver": "tconstruct:items/cleaver/mod_knockback",
+        "crossbow": "tconstruct:items/crossbow/mod_knockback",
         "excavator": "tconstruct:items/excavator/mod_knockback",
         "frypan": "tconstruct:items/frypan/mod_knockback",
         "hammer": "tconstruct:items/hammer/mod_knockback",
@@ -18,12 +19,13 @@
         "lumberaxe": "tconstruct:items/lumberaxe/mod_knockback",
         "mattock": "tconstruct:items/mattock/mod_knockback",
         "pickaxe": "tconstruct:items/pickaxe/mod_knockback",
+        "rapier": "tconstruct:items/rapier/mod_knockback",
         "scythe": "tconstruct:items/scythe/mod_knockback",
-        "shovel": "tconstruct:items/shovel/mod_knockback",
-        "shuriken": "tconstruct:items/shuriken/mod_knockback",
         "shortbow": "tconstruct:items/shortbow/mod_knockback",
         "shortbow1": "tconstruct:items/shortbow/mod_knockback",
         "shortbow2": "tconstruct:items/shortbow/mod_knockback",
-        "shortbow3": "tconstruct:items/shortbow/mod_knockback"
+        "shortbow3": "tconstruct:items/shortbow/mod_knockback",
+        "shovel": "tconstruct:items/shovel/mod_knockback",
+        "shuriken": "tconstruct:items/shuriken/mod_knockback"
     }
 }
