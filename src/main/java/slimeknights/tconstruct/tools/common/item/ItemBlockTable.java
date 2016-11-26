@@ -16,6 +16,7 @@ import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.smeltery.ICast;
 import slimeknights.tconstruct.library.tools.IPattern;
+import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.tools.common.block.BlockToolTable;
 
@@ -32,15 +33,31 @@ public class ItemBlockTable extends ItemBlockMeta {
       return;
     }
 
-    NBTTagCompound tag = stack.getTagCompound().getCompoundTag(TileTable.FEET_TAG);
-    ItemStack legs = ItemStack.loadItemStackFromNBT(tag);
-    if(legs != null && legs.getItem() != null) {
+    ItemStack legs = getLegStack(stack);
+    if(legs != null) {
       tooltip.add(legs.getDisplayName());
     }
 
     if(stack.getTagCompound().hasKey("inventory")) {
       this.addInventoryInformation(stack, playerIn, tooltip, advanced);
     }
+  }
+
+  /**
+   * Gets the itemstack that determines the leg's texture from the table
+   * @param table  Input table
+   * @return  The itemstack determining the leg's texture, or null if none exists
+   */
+  public static ItemStack getLegStack(ItemStack table) {
+    NBTTagCompound tag = TagUtil.getTagSafe(table).getCompoundTag(TileTable.FEET_TAG);
+    ItemStack stack = ItemStack.loadItemStackFromNBT(tag);
+
+    // don't use a stack with a null item
+    if(stack == null || stack.getItem() == null) {
+      return null;
+    }
+
+    return stack;
   }
 
   protected void addInventoryInformation(@Nonnull ItemStack stack, @Nonnull EntityPlayer playerIn, @Nonnull List<String> tooltip, boolean advanced) {

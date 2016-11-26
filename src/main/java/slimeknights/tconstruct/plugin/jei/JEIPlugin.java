@@ -25,6 +25,7 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.gui.BlankAdvancedGuiHandler;
+import mezz.jei.api.gui.ICraftingGridHelper;
 import mezz.jei.api.ingredients.IModIngredientRegistration;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import slimeknights.tconstruct.TConstruct;
@@ -33,6 +34,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.smeltery.Cast;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
+import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
@@ -46,10 +48,44 @@ import slimeknights.tconstruct.tools.common.block.BlockToolTable;
 public class JEIPlugin implements IModPlugin {
 
   public static IJeiHelpers jeiHelpers;
+  // crafting grid slots, integer constants from the default crafting grid implementation
+  private static final int craftOutputSlot = 0;
+  private static final int craftInputSlot1 = 1;
+  public static ICraftingGridHelper craftingGridHelper;
 
   @Override
-  public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
+  public void registerItemSubtypes(ISubtypeRegistry registry) {
+    TableSubtypeInterpreter tableInterpreter = new TableSubtypeInterpreter();
+    PatternSubtypeInterpreter patternInterpreter = new PatternSubtypeInterpreter();
 
+    // drying racks and item racks
+    if(TConstruct.pulseManager.isPulseLoaded(TinkerGadgets.PulseId)) {
+      registry.registerSubtypeInterpreter(Item.getItemFromBlock(TinkerGadgets.rack), tableInterpreter);
+    }
+
+    // tools
+    if(TConstruct.pulseManager.isPulseLoaded(TinkerTools.PulseId)) {
+      // tool tables
+      registry.registerSubtypeInterpreter(Item.getItemFromBlock(TinkerTools.toolTables), tableInterpreter);
+      registry.registerSubtypeInterpreter(Item.getItemFromBlock(TinkerTools.toolForge), tableInterpreter);
+
+      // tool parts
+      ToolPartSubtypeInterpreter toolPartInterpreter = new ToolPartSubtypeInterpreter();
+      for(IToolPart part : TinkerRegistry.getToolParts()) {
+        if(part instanceof Item) {
+          registry.registerSubtypeInterpreter((Item)part, toolPartInterpreter);
+        }
+      }
+
+      // tool patterns
+      registry.registerSubtypeInterpreter(TinkerTools.pattern, patternInterpreter);
+    }
+
+    // casts
+    if(TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId)) {
+      registry.registerSubtypeInterpreter(TinkerSmeltery.cast, patternInterpreter);
+      registry.registerSubtypeInterpreter(TinkerSmeltery.clayCast, patternInterpreter);
+    }
   }
 
   @Override
@@ -61,6 +97,9 @@ public class JEIPlugin implements IModPlugin {
   public void register(@Nonnull IModRegistry registry) {
     jeiHelpers = registry.getJeiHelpers();
     IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
+
+    // crafting helper used by the shaped table wrapper
+    craftingGridHelper = guiHelper.createCraftingGridHelper(craftInputSlot1, craftOutputSlot);
 
     if(TConstruct.pulseManager.isPulseLoaded(TinkerTools.PulseId)) {
       // crafting table shiftclicking
