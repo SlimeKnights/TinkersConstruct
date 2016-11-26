@@ -98,7 +98,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     return 20;
   }
 
-  protected float getDrawbackProgress(ItemStack itemstack, EntityLivingBase entityIn) {
+  public float getDrawbackProgress(ItemStack itemstack, EntityLivingBase entityIn) {
     if(itemstack != null && itemstack.getItem() == BowCore.this) {
       int timePassed = itemstack.getMaxItemUseDuration() - entityIn.getItemInUseCount();
       return getDrawbackProgress(itemstack, timePassed);

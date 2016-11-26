@@ -25,7 +25,6 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.client.BooleanItemPropertyGetter;
 import slimeknights.tconstruct.library.client.crosshair.Crosshairs;
@@ -165,18 +164,18 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
     return super.getAmmoToRender(weapon, player);
   }
 
-  private ImmutableList<Item> arrowMatches = null;
+  private ImmutableList<Item> boltMatches = null;
 
   @Override
   protected List<Item> getAmmoItems() {
-    if(arrowMatches == null) {
+    if(boltMatches == null) {
       ImmutableList.Builder<Item> builder = ImmutableList.builder();
       if(TinkerRangedWeapons.bolt != null) {
         builder.add(TinkerRangedWeapons.bolt);
       }
-      arrowMatches = builder.build();
+      boltMatches = builder.build();
     }
-    return arrowMatches;
+    return boltMatches;
   }
 
   @Override

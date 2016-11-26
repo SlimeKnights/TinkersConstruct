@@ -33,6 +33,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.client.event.RenderSpecificHandEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -47,6 +48,7 @@ import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.tools.DualToolHarvestUtils;
 import slimeknights.tconstruct.library.tools.IAoeTool;
+import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 
 @SideOnly(Side.CLIENT)
 public class RenderEvents implements IResourceManagerReloadListener {
@@ -201,6 +203,33 @@ public class RenderEvents implements IResourceManagerReloadListener {
     }
   }
 
+  @SubscribeEvent
+  public void onFovEvent(FOVUpdateEvent event) {
+    ItemStack stack = event.getEntity().getActiveItemStack();
+
+    if(stack != null) {
+      float zoom = 0f;
+      float progress = 0f;
+
+      if(stack.getItem() == TinkerRangedWeapons.longBow) {
+        zoom = 0.35f;
+        progress = TinkerRangedWeapons.longBow.getDrawbackProgress(stack, event.getEntity());
+      }
+
+      if(zoom > 0) {
+        event.setNewfov(1f - (progress * progress) * zoom);
+      }
+    }
+  }
+
+  public float calcZoomProgress(float chargeProgress) {
+    if (chargeProgress < 1.0F)
+    {
+      return chargeProgress * chargeProgress;
+    }
+    return chargeProgress;
+  }
+  
   @Override
   public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
     TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
