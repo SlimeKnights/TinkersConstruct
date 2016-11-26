@@ -120,4 +120,10 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
     return null;
   }
 
+  /**
+   * @return the starting slot for the player inventory. Present for usage in the JEI crafting station support
+   */
+  public int getPlayerInventoryStart() {
+    return playerInventoryStart;
+  }
 }
