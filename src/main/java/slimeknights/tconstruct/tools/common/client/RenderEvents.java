@@ -222,14 +222,6 @@ public class RenderEvents implements IResourceManagerReloadListener {
     }
   }
 
-  public float calcZoomProgress(float chargeProgress) {
-    if (chargeProgress < 1.0F)
-    {
-      return chargeProgress * chargeProgress;
-    }
-    return chargeProgress;
-  }
-  
   @Override
   public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
     TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
