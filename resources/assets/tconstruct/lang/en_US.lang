@@ -820,6 +820,7 @@ tooltip.patternchest.holds_casts=Contains %d cast(s)
 
 tooltip.tank.fluid=%s
 tooltip.tank.amount=%d mb
+tooltip.tank.holdShift=Hold §e§oShift§r§7 for buckets
 
 ##################
 #   UI Strings   #
@@ -914,10 +915,10 @@ gui.smeltery.capacity_used=Used:
 gui.smeltery.liquid.kilobucket=kb
 gui.smeltery.liquid.bucket=b
 gui.smeltery.liquid.millibucket=mb
-gui.smeltery.liquid.ingot=Ingot
-gui.smeltery.liquid.nugget=Nugget
-gui.smeltery.liquid.block=Block
-gui.smeltery.liquid.gem=Gem
+gui.smeltery.liquid.ingot=Ingots
+gui.smeltery.liquid.nugget=Nuggets
+gui.smeltery.liquid.block=Blocks
+gui.smeltery.liquid.gem=Gems
 
 # Seared Furnace
 gui.searedfurnace.name=Seared Furnace

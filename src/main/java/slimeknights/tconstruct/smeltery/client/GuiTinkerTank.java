@@ -43,7 +43,7 @@ public class GuiTinkerTank extends GuiContainer implements IGuiLiquidTank {
     mouseY -= guiTop;
 
     // Liquids
-    List<String> tooltip = GuiUtil.drawTankTooltip(tinkerTank.getTank(), mouseX, mouseY, 8, 16, 114, 122);
+    List<String> tooltip = GuiUtil.getTankTooltip(tinkerTank.getTank(), mouseX, mouseY, 8, 16, 114, 122);
     if(tooltip != null) {
       this.drawHoveringText(tooltip, mouseX, mouseY);
     }

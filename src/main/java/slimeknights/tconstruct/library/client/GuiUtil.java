@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import org.lwjgl.opengl.GL11;
 
@@ -26,6 +27,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
@@ -92,22 +94,34 @@ public class GuiUtil {
   }
 
   /* GUI Tanks */
+  /** @deprecated Will be removed next version */
+  @Deprecated
   public static List<String> drawTankTooltip(SmelteryTank tank, int mouseX, int mouseY, int xmin, int ymin, int xmax, int ymax) {
+    return getTankTooltip(tank, mouseX, mouseY, xmin, ymin, xmax, ymax);
+  }
+
+  public static List<String> getTankTooltip(SmelteryTank tank, int mouseX, int mouseY, int xmin, int ymin, int xmax, int ymax) {
 
     // Liquids
     if(xmin <= mouseX && mouseX < xmax && ymin <= mouseY && mouseY < ymax) {
       FluidStack hovered = getFluidHovered(tank, ymax - mouseY - 1, ymax - ymin);
       List<String> text = Lists.newArrayList();
 
+      Consumer<Integer> stringFn = Util.isShiftKeyDown() ? (i) -> GuiUtil.amountToString(i, text) : (i) -> GuiUtil.amountToIngotString(i, text);
+
       if(hovered == null) {
         int usedCap = tank.getFluidAmount();
         int maxCap = tank.getCapacity();
         text.add(TextFormatting.WHITE + Util.translate("gui.smeltery.capacity"));
-        GuiUtil.amountToString(maxCap, text);
+        stringFn.accept(maxCap);
         text.add(Util.translateFormatted("gui.smeltery.capacity_available"));
-        GuiUtil.amountToString(maxCap - usedCap, text);
+        stringFn.accept(maxCap - usedCap);
         text.add(Util.translateFormatted("gui.smeltery.capacity_used"));
-        GuiUtil.amountToString(usedCap, text);
+        stringFn.accept(usedCap);
+        if(!Util.isShiftKeyDown()) {
+          text.add("");
+          text.add(Util.translate("tooltip.tank.holdShift"));
+        }
       }
       else {
         text.add(TextFormatting.WHITE + hovered.getLocalizedName());
@@ -207,6 +221,11 @@ public class GuiUtil {
     }
 
     // standard display stuff: bucket amounts
+    amountToString(amount, text);
+  }
+
+  public static void amountToIngotString(int amount, List<String> text) {
+    amount = calcLiquidText(amount, Material.VALUE_Ingot, Util.translate("gui.smeltery.liquid.ingot"), text);
     amountToString(amount, text);
   }
 

@@ -62,7 +62,7 @@ public class GuiSmeltery extends GuiHeatingStructureFuelTank implements IGuiLiqu
     mouseY -= cornerY;
 
     // Liquids
-    List<String> tooltip = GuiUtil.drawTankTooltip(smeltery.getTank(), mouseX, mouseY, 8, 16, 60, 68);
+    List<String> tooltip = GuiUtil.getTankTooltip(smeltery.getTank(), mouseX, mouseY, 8, 16, 60, 68);
     if(tooltip != null) {
       this.drawHoveringText(tooltip, mouseX, mouseY);
     }
