@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.lwjgl.opengl.GL11;
 
@@ -154,34 +155,29 @@ public class GuiUtil {
   }
 
   public static FluidStack getFluidStackAtPosition(SmelteryTank tank, int mouseX, int mouseY, int xmin, int ymin, int xmax, int ymax) {
-    if(xmin <= mouseX && mouseX < xmax && ymin <= mouseY && mouseY < ymax) {
-      int[] heights = calcLiquidHeights(tank.getFluids(), tank.getCapacity(), ymax - ymin);
-      int y = ymax - mouseY - 1;
-
-      for(int i = 0; i < heights.length; i++) {
-        if(y < heights[i]) {
-          return tank.getFluids().get(i);
-        }
-        y -= heights[i];
-      }
-    }
-
-    return null;
+    return getFluidStackIndexAtPosition(tank, mouseX, mouseY, xmin, ymin, xmax, ymax).map(tank.getFluids()::get).orElse(null);
   }
 
   public static void handleTankClick(SmelteryTank tank, int mouseX, int mouseY, int xmin, int ymin, int xmax, int ymax) {
+    getFluidStackIndexAtPosition(tank, mouseX, mouseY, xmin, ymin, xmax, ymax).ifPresent(
+        i -> TinkerNetwork.sendToServer(new SmelteryFluidClicked(i))
+    );
+  }
+
+  public static Optional<Integer> getFluidStackIndexAtPosition(SmelteryTank tank, int mouseX, int mouseY, int xmin, int ymin, int xmax, int ymax) {
     if(xmin <= mouseX && mouseX < xmax && ymin <= mouseY && mouseY < ymax) {
       int[] heights = calcLiquidHeights(tank.getFluids(), tank.getCapacity(), ymax - ymin);
       int y = ymax - mouseY - 1;
 
       for(int i = 0; i < heights.length; i++) {
         if(y < heights[i]) {
-          TinkerNetwork.sendToServer(new SmelteryFluidClicked(i));
-          return;
+          return Optional.of(i);
         }
         y -= heights[i];
       }
     }
+
+    return Optional.empty();
   }
 
   /* Fluid amount displays */
