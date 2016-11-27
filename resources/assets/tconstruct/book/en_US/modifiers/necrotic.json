@@ -12,6 +12,7 @@
   ],
   "demoTool": [
     "tconstruct:broadsword",
-    "tconstruct:cleaver"
+    "tconstruct:cleaver",
+    "tconstruct:arrow"
   ]
 }
