@@ -3,18 +3,34 @@ package slimeknights.tconstruct.tools.traits;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.library.traits.AbstractProjectileTrait;
+import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 
 public class TraitEndspeed extends AbstractProjectileTrait {
 
   public TraitEndspeed() {
     super("endspeed", 0xffffff);
+
+    MinecraftForge.EVENT_BUS.register(this);
+  }
+
+
+
+  @SubscribeEvent
+  public void onBowShooting(TinkerToolEvent.OnBowShoot event) {
+    if(TinkerUtil.hasTrait(TagUtil.getTagSafe(event.ammo), this.getModifierIdentifier())) {
+      event.setBaseInaccuracy(event.getBaseInaccuracy()*2f/3f);
+    }
   }
 
   @Override

@@ -138,22 +138,24 @@ public abstract class TinkerToolEvent extends TinkerEvent {
     public final BowCore bowCore;
     public final ItemStack ammo;
     public final int useTime;
+    private float baseInaccuracy;
 
     public int projectileCount = 1;
     public boolean consumeAmmoPerProjectile = true;
     public boolean consumeDurabilityPerProjectile = true;
     public float bonusInaccuracy = 0;
 
-    public OnBowShoot(ItemStack bow, ItemStack ammo, EntityPlayer entityPlayer, int useTime) {
+    public OnBowShoot(ItemStack bow, ItemStack ammo, EntityPlayer entityPlayer, int useTime, float baseInaccuracy) {
       super(bow);
       this.bowCore = (BowCore) bow.getItem();
       this.ammo = ammo;
       this.entityPlayer = entityPlayer;
       this.useTime = useTime;
+      this.baseInaccuracy = baseInaccuracy;
     }
 
-    public static OnBowShoot fireEvent(ItemStack bow, ItemStack ammo, EntityPlayer entityPlayer , int useTime) {
-      OnBowShoot event = new OnBowShoot(bow, ammo, entityPlayer, useTime);
+    public static OnBowShoot fireEvent(ItemStack bow, ItemStack ammo, EntityPlayer entityPlayer, int useTime, float baseInaccuracy) {
+      OnBowShoot event = new OnBowShoot(bow, ammo, entityPlayer, useTime, baseInaccuracy);
       MinecraftForge.EVENT_BUS.post(event);
       return event;
     }
@@ -172,6 +174,14 @@ public abstract class TinkerToolEvent extends TinkerEvent {
 
     public void setBonusInaccuracy(float bonusInaccuracy) {
       this.bonusInaccuracy = bonusInaccuracy;
+    }
+
+    public float getBaseInaccuracy() {
+      return baseInaccuracy;
+    }
+
+    public void setBaseInaccuracy(float baseInaccuracy) {
+      this.baseInaccuracy = baseInaccuracy;
     }
   }
 }

@@ -186,14 +186,14 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     power *= ProjectileLauncherNBT.from(bow).range;
 
     if(!worldIn.isRemote) {
-      TinkerToolEvent.OnBowShoot event = TinkerToolEvent.OnBowShoot.fireEvent(bow, ammo, player, useTime);
+      TinkerToolEvent.OnBowShoot event = TinkerToolEvent.OnBowShoot.fireEvent(bow, ammo, player, useTime, baseInaccuracy());
 
       for(int i = 0; i < event.projectileCount; i++) {
         boolean usedAmmo = false;
         if(i == 0 || event.consumeAmmoPerProjectile) {
           usedAmmo = consumeAmmo(ammo, player);
         }
-        float inaccuracy = baseInaccuracy();
+        float inaccuracy = event.getBaseInaccuracy();
         if(i > 0) {
           inaccuracy += event.bonusInaccuracy;
         }
