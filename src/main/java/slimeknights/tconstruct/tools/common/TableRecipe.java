@@ -55,4 +55,11 @@ public class TableRecipe extends ShapedOreRecipe {
     }
     return super.getRecipeOutput();
   }
+
+  /**
+   * Gets the recipe output without applying the legs block
+   */
+  public ItemStack getPlainRecipeOutput() {
+    return output;
+  }
 }

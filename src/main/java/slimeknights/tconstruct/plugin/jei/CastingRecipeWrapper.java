@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.awt.*;
-import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -64,7 +63,7 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
 
   @Override
   public void getIngredients(IIngredients ingredients) {
-    ingredients.setInputs(ItemStack.class, cast);
+    ingredients.setInputLists(ItemStack.class, ImmutableList.of(cast));
     ingredients.setInputs(FluidStack.class, inputFluid);
     ingredients.setOutputs(ItemStack.class, lazyInitOutput());
   }

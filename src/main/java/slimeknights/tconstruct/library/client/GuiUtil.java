@@ -153,6 +153,22 @@ public class GuiUtil {
     }
   }
 
+  public static FluidStack getFluidStackAtPosition(SmelteryTank tank, int mouseX, int mouseY, int xmin, int ymin, int xmax, int ymax) {
+    if(xmin <= mouseX && mouseX < xmax && ymin <= mouseY && mouseY < ymax) {
+      int[] heights = calcLiquidHeights(tank.getFluids(), tank.getCapacity(), ymax - ymin);
+      int y = ymax - mouseY - 1;
+
+      for(int i = 0; i < heights.length; i++) {
+        if(y < heights[i]) {
+          return tank.getFluids().get(i);
+        }
+        y -= heights[i];
+      }
+    }
+
+    return null;
+  }
+
   public static void handleTankClick(SmelteryTank tank, int mouseX, int mouseY, int xmin, int ymin, int xmax, int ymax) {
     if(xmin <= mouseX && mouseX < xmax && ymin <= mouseY && mouseY < ymax) {
       int[] heights = calcLiquidHeights(tank.getFluids(), tank.getCapacity(), ymax - ymin);
