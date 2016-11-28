@@ -118,10 +118,5 @@
     "name": "shuriken",
     "type": "tool",
     "data": "tools/shuriken.json"
-  },
-  {
-    "name": "longbow",
-    "type": "tool",
-    "data": "tools/longbow.json"
   }
 ]
