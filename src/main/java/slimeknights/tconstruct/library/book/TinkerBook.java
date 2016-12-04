@@ -32,10 +32,10 @@ public class TinkerBook extends BookData {
     BookLoader.registerPageType(ContentSingleStatMultMaterial.ID, ContentSingleStatMultMaterial.class);
     BookLoader.registerPageType(ContentImageText2.ID, ContentImageText2.class);
     INSTANCE.addRepository(new FileRepository(Util.resource("book")));
+    INSTANCE.addTransformer(new ToolSectionTransformer());
     INSTANCE.addTransformer(new MaterialSectionTransformer());
+    INSTANCE.addTransformer(new ModifierSectionTransformer());
     INSTANCE.addTransformer(new BowMaterialSectionTransformer());
     INSTANCE.addTransformer(BookTransformer.IndexTranformer());
-    INSTANCE.addTransformer(new ModifierSectionTransformer());
-    INSTANCE.addTransformer(new ToolSectionTransformer());
   }
 }
