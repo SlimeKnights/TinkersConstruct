@@ -14,6 +14,8 @@
     "tconstruct:broadsword",
     "tconstruct:cleaver",
     "tconstruct:pickaxe",
-    "tconstruct:hammer"
+    "tconstruct:hammer",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
   ]
 }
