@@ -3,6 +3,9 @@ package slimeknights.tconstruct.tools.traits;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
@@ -74,7 +77,7 @@ public class TraitAlien extends TraitProgressiveStats {
     }
 
     // we don't update if the player is currently breaking a block because that'd reset it
-    if(playerIsBreakingBlock(entity)) {
+    if(playerIsBreakingBlock(entity) || (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).getActiveItemStack() == tool)) {
       return;
     }
 
