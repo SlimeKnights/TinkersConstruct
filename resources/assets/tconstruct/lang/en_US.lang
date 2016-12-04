@@ -797,6 +797,12 @@ item.tconstruct.cleaver.desc=The Cleaver is a heavy offensive weapon. It has pow
 item.tconstruct.battleaxe.desc=The Battleaxe is a heavy offensive weapon, bringing the berserker out. It is capable of bringing down small trees and can send foes flying.\nRight Click: Berserk
 item.tconstruct.scythe.desc=The Scythe is a broad reaping tool, mowing down plants and foes alike.\nHas an AOE Attack.\nRight Click: Harvest and replant crops
 item.tconstruct.shuriken.desc=The Shuriken is a fast, short ranged throwing weapon. It has high quantities but low damage.\nCan be thrown from the off-hand.
+item.tconstruct.shortbow.desc=The Shortbow is a quick and nimble weapon. It allows for fast movements while shooting arrows at a rapid rate.\nUses Tinkers' Arrows.
+item.tconstruct.longbow.desc=The Longbow is a powerful long range weapon. It provides high damage but is less mobile than its short brother.\nUses Tinkers' Arrows.
+item.tconstruct.arrow.desc=The Arrows are the ammo used for Tinkers' Bows. One stack provides many shots, and they can be modified as any tool.
+item.tconstruct.crossbow.desc=The Crossbow is a slow but very powerful weapon. It has to be loaded beforehand by holding rightclick, but can be fired at any moment afterwards.\nUses Tinkers' Bolts.
+item.tconstruct.bolt.desc=The Bolts are the ammo used for Tinkers' Crossbows. One stack provides many shots, and they can be modified as any tool.\nPartially penetrates enemy armor.
+
 
 ################
 #   Tooltips   #

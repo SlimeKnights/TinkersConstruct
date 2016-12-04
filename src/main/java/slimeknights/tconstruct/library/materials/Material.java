@@ -417,7 +417,7 @@ public class Material extends RecipeMatchRegistry {
   public static String getCombinedItemName(String itemName, Collection<Material> materials) {
 
     // no material
-    if(materials.isEmpty()) {
+    if(materials.isEmpty() || materials.stream().allMatch(Material.UNKNOWN::equals)) {
       return itemName;
     }
     // only one material - prefix
