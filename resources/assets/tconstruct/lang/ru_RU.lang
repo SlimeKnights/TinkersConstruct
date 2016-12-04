@@ -875,7 +875,9 @@ ui.mininglevel.cobalt=Кобальт
 # Death messages
 death.attack.smeltery=%s попытался получить жидкого игрока
 death.attack.splinter=%s поймал занозу. Видимо, большую
-
+death.attack.bleed=%1$s умер от потери крови после атак %2$s
+death.attack.bleed.item=%1$s умер от потери крови после атак %2$s с помощью %3$s
+ 
 ######################
 # Ошибки интерфейсов #
 ######################
