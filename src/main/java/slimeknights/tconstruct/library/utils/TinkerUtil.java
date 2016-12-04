@@ -6,11 +6,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
+import java.util.Arrays;
 import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
+import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
 public final class TinkerUtil {
@@ -30,6 +32,10 @@ public final class TinkerUtil {
     }
 
     return ((IMaterialItem) stack.getItem()).getMaterial(stack);
+  }
+
+  public static boolean hasCategory(NBTTagCompound root, Category category) {
+    return Arrays.stream(TagUtil.getCategories(root)).anyMatch(category::equals);
   }
 
   public static boolean hasTrait(NBTTagCompound root, String identifier) {
