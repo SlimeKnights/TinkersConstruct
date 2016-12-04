@@ -102,6 +102,11 @@ public abstract class BlockMultiblockController extends BlockInventoryTinkers {
     return state.getValue(FACING).getIndex();
   }
 
+  @Override
+  public int damageDropped(IBlockState state) {
+    return 0;
+  }
+
   @Nonnull
   @Override
   public EnumBlockRenderType getRenderType(IBlockState state) {
