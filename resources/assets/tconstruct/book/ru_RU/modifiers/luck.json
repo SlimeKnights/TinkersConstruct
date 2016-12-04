@@ -3,6 +3,12 @@
   "text": [
     {
       "text": "Инкрустация инструмента лазуритом - это подарок богов Удачи. Они благословят Ваш инструмент удачей и фортуной."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Лучше всего инкрустировать снаряды."
     }
   ],
   "effects": [
@@ -13,6 +19,7 @@
   ],
   "demoTool": [
     "tconstruct:pickaxe",
-    "tconstruct:broadsword"
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
   ]
 }

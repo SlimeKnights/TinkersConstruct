@@ -352,11 +352,14 @@ item.tconstruct.cutlass.name=сабля
 item.tconstruct.cleaver.name=гигантский меч
 item.tconstruct.battleaxe.name=боевой топор
 
-# Ranged Weapons & Ammo
+# Дальний бой
 
 item.tconstruct.shortbow.name=короткий лук
+item.tconstruct.longbow.name=длинный лук
+item.tconstruct.crossbow.name=арбалет
 
 item.tconstruct.arrow.name=стрела
+item.tconstruct.bolt.name=болт
 
 item.tconstruct.shuriken.name=сюрикен
 
@@ -395,6 +398,8 @@ item.tconstruct.bow_string.name=тетива
 item.tconstruct.arrow_head.name=наконечник
 item.tconstruct.arrow_shaft.name=древко стрелы
 item.tconstruct.fletching.name=оперение
+
+item.tconstruct.bolt_core.name=стержень болта
 
 # Material specific tools and toolparts
 # item.tconstruct.<tool>.<material>
@@ -615,6 +620,8 @@ stat.bow.drawspeed.name=Скорость взвода
 stat.bow.drawspeed.desc=Как быстро натягивается лук.
 stat.bow.range.name=Дальности
 stat.bow.range.desc=Насколько далеко снаряд полетит.
+stat.bow.damage.name=Дополнительный урон
+stat.bow.damage.desc=Дополнительный урон при ударе.\nСила стрелы.
 
 stat.bowstring.name=Тетива
 stat.bowstring.modifier.name=Квантификатор
@@ -632,6 +639,7 @@ stat.fletching.accuracy.desc=Насколько стабильна в полёт
 stat.fletching.modifier.name=Модификатор
 stat.fletching.modifier.desc=Сколько стрел можно с ним собрать.\nИтоговое количество умножается на это число.
 
+stat.projectile.name=Снаряд
 stat.projectile.ammo.name=Аммуниция
 
 ##############
@@ -758,6 +766,8 @@ modifier.fiery.name=Огнеопасность
 modifier.fiery.desc=§oТак горячо!§r\nДополнительный урон огнём и поджигание.
 modifier.fiery.extra=Урон огнём: +%s
 modifier.fiery.extra2=Время горения: %s с.
+modifier.fins.name=Плавники
+modifier.fins.desc=§oЧто-то рыбное...§r\nПриклеивание плавников к снаряду позволяет ему спокойно проходить воду.
 modifier.fortify.name=Усиление
 modifier.fortify.desc=§oТвёрже, лучше, быстрее, сильнее!§r\nУровень добычи становится равным %s.
 modifier.glowing.name=Свечение
@@ -827,7 +837,7 @@ item.tconstruct.scythe.desc=Коса предназначена для жнец�
 item.tconstruct.shuriken.desc=Сюрикен это быстрое метательное оружие. Делается сразу много, но у него малый урон.\nМожно метать левой рукой.
 
 ################
-#   Tooltips   #
+#   Подсказки  #
 ################
 tooltip.tool.modifiers=Улучшения
 tooltip.tool.broken=Сломано
@@ -842,15 +852,18 @@ tooltip.part.missing_info=У части нет инфорамции
 
 tooltip.pattern.cost=Затрат материала: %d
 
-tooltip.chest.has_items=Содержит предметы
+tooltip.chest.has_items=Содержит %d предм.
+tooltip.patternchest.holds_patterns=Содержит %d схем(-ы).
+tooltip.patternchest.holds_casts=Содержит %d отливок.
 
 tooltip.tank.fluid=%s
 tooltip.tank.amount=%d мВ
+tooltip.tank.holdShift=Зажмите §e§oShift§r§7 для кол-ва вёдер
 
 ##################
-#   UI Strings   #
+#   Строки инт   #
 ##################
-# general strings used in GUIs, tooltips and other display stuff
+# интерфейсовая фигня
 
 ui.mininglevel.stone=Камень
 ui.mininglevel.iron=Железо
@@ -864,7 +877,7 @@ death.attack.smeltery=%s попытался получить жидкого иг
 death.attack.splinter=%s поймал занозу. Видимо, большую
 
 ######################
-# GUI Error messages #
+# Ошибки интерфейсов #
 ######################
 
 gui.error=Ошибка
@@ -939,10 +952,10 @@ gui.smeltery.capacity_available=Свободно
 gui.smeltery.liquid.kilobucket=кВ
 gui.smeltery.liquid.bucket=В
 gui.smeltery.liquid.millibucket=мВ
-gui.smeltery.liquid.ingot=Слиток
-gui.smeltery.liquid.nugget=Самородок
-gui.smeltery.liquid.block=Блок
-gui.smeltery.liquid.gem=Камень
+gui.smeltery.liquid.ingot=Слитк.
+gui.smeltery.liquid.nugget=Самородк.
+gui.smeltery.liquid.block=Блок.
+gui.smeltery.liquid.gem=Камн.
 
 # Seared Furnace
 gui.searedfurnace.name=Большая печь
@@ -950,10 +963,10 @@ gui.searedfurnace.progress.complete=Предмет переработан
 gui.searedfurnace.progress.no_recipe=Предмет нельзя больше перерабатывать
 gui.searedfurnace.progress.no_space=Стопка на выходе больше слота входа
 
-# Tinker Tank
+# Цистерна
 gui.tinkertank.name=Цистерна
 
-# These GUIs don't appear in game, but the titles can be viewed using the crafting station
+# Этих интерфейсов в игре в явном виде нет
 gui.itemrack.name=Вешалка
 gui.dryingrack.name=Сушилка
 
