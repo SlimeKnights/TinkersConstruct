@@ -35,7 +35,7 @@ import slimeknights.tconstruct.tools.traits.TraitEnderference;
  */
 public abstract class ProjectileCore extends TinkerToolCore implements IProjectile, IAmmo {
 
-  public static final String DAMAGE_TYPE_PROJECTILE = "projectile";
+  public static final String DAMAGE_TYPE_PROJECTILE = "arrow";
   protected int durabilityPerAmmo;
 
   public ProjectileCore(PartMaterialType... requiredComponents) {

@@ -36,7 +36,7 @@ public class ModFiery extends ModifierTrait {
 
     // one heart fire damage per 15
     float fireDamage = getFireDamage(data);
-    if(attackEntitySecondary(new EntityDamageSource("fire", attacker).setFireDamage(), fireDamage, target, false, true)) {
+    if(attackEntitySecondary(new EntityDamageSource("onFire", attacker).setFireDamage(), fireDamage, target, false, true)) {
       int count = Math.round(fireDamage);
       TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_FIRE, target, count);
     }

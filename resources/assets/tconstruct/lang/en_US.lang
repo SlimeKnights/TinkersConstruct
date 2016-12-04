@@ -843,6 +843,8 @@ ui.mininglevel.cobalt=Cobalt
 # Death messages
 death.attack.smeltery=%s tried to create molten player
 death.attack.splinter=%s caught a splinter. Must've been massive
+death.attack.bleed=%1$s bled to death from %2$s attack
+death.attack.bleed.item=%1$s bled to death from %2$s attack with %3$s
 
 ######################
 # GUI Error messages #
