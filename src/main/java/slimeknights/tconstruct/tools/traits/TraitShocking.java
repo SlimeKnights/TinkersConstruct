@@ -49,7 +49,7 @@ public class TraitShocking extends AbstractTrait {
 
   @Override
   public void onUpdate(ItemStack tool, World world, Entity entity, int itemSlot, boolean isSelected) {
-    if(!isSelected || world.isRemote) {
+    if(!isSelected || world.isRemote || world.getTotalWorldTime() % 5 > 0) {
       return;
     }
     if(entity instanceof EntityPlayer) {
