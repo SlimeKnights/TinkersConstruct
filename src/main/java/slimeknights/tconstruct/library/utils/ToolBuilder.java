@@ -17,9 +17,11 @@ import net.minecraft.util.text.translation.I18n;
 
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import slimeknights.mantle.util.RecipeMatch;
@@ -38,6 +40,7 @@ import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.traits.ITrait;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 public final class ToolBuilder {
 
@@ -272,7 +275,12 @@ public final class ToolBuilder {
     }
 
     // we never modify the original. Caller can remove all of them if we return a result
-    final ItemStack[] toolParts = Util.copyItemStackArray(toolPartsIn);
+    List<ItemStack> inputItems = new ArrayList<>(Arrays.asList(Util.copyItemStackArray(toolPartsIn)));
+    if(!TinkerEvent.OnToolPartReplacement.fireEvent(inputItems, toolStack)) {
+      // event cancelled
+      return null;
+    }
+    final ItemStack[] toolParts = inputItems.toArray(new ItemStack[inputItems.size()]);
 
     TIntIntMap assigned = new TIntIntHashMap();
     TinkersItem tool = (TinkersItem) toolStack.getItem();
@@ -329,7 +337,9 @@ public final class ToolBuilder {
       String mat = ((IToolPart) toolParts[i].getItem()).getMaterial(toolParts[i]).getIdentifier();
       materialList.set(j, new NBTTagString(mat));
       if(removeItems) {
-        toolPartsIn[i].stackSize--;
+        if(i < toolPartsIn.length && toolPartsIn[i] != null) {
+          toolPartsIn[i].stackSize--;
+        }
       }
       return true;
     });

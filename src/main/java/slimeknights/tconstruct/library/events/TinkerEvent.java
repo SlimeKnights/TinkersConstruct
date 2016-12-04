@@ -2,9 +2,13 @@ package slimeknights.tconstruct.library.events;
 
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.eventhandler.Cancelable;
 import net.minecraftforge.fml.common.eventhandler.Event;
+
+import java.util.List;
 
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
@@ -36,6 +40,28 @@ public abstract class TinkerEvent extends Event {
       OnItemBuilding event = new OnItemBuilding(tag, materials, tool);
       MinecraftForge.EVENT_BUS.post(event);
       return event;
+    }
+  }
+
+  /**
+   * Fired when the player tries to replace a toolpart.
+   * You can modify the input items to achieve different results, this will not modify the actual items in the game.
+   * If you're modifying the list itself, make sure to put new items into originally empty indices to prevent the usage of other items in the input. Just append to the list.
+   * You can not modify the tool that's getting modified
+   */
+  @Cancelable
+  public static class OnToolPartReplacement extends TinkerEvent {
+
+    public List<ItemStack> replacementParts;
+    public ItemStack toolStack;
+
+    public OnToolPartReplacement(List<ItemStack> replacementParts, ItemStack toolStack) {
+      this.replacementParts = replacementParts;
+      this.toolStack = ItemStack.copyItemStack(toolStack);
+    }
+
+    public static boolean fireEvent(List<ItemStack> replacementParts, ItemStack toolStack) {
+      return !MinecraftForge.EVENT_BUS.post(new OnToolPartReplacement(replacementParts, toolStack));
     }
   }
 }

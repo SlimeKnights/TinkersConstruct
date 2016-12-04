@@ -116,7 +116,7 @@ public class Bolt extends ProjectileCore {
     ItemStack fletching = stacks[1];
 
     // we only care about the material returned by getMaterial call
-    ItemStack boltCoreHead = BoltCore.getItemstackWithMaterials(BoltCore.getHeadMaterial(boltCore), Material.UNKNOWN);
+    ItemStack boltCoreHead = BoltCore.getHeadStack(boltCore);
 
     return super.buildItemFromStacks(new ItemStack[]{boltCore, boltCoreHead, fletching});
   }

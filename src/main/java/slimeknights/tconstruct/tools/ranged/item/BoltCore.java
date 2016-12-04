@@ -70,6 +70,10 @@ public class BoltCore extends ToolPart {
     return stack;
   }
 
+  public static ItemStack getHeadStack(ItemStack boltCore) {
+    return getItemstackWithMaterials(BoltCore.getHeadMaterial(boltCore), Material.UNKNOWN);
+  }
+
   @SideOnly(Side.CLIENT)
   @Override
   public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
