@@ -1,0 +1,21 @@
+{
+  "tool": "lumberaxe",
+  "text": [
+    {
+      "text": "The Lumber Axe is a broad chopping tool. It can fell entire trees or gather wood in a wide range."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "A tree is only detected if it has leaves on top."
+    }
+  ],
+  "properties": [
+    "Requires a Tool Forge",
+    "Advanced mining tool",
+    "Fells whole trees in one swoop",
+    "3x3x3 AOE Mining",
+    "Effective on Wood"
+  ]
+}

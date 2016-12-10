@@ -1,0 +1,12 @@
+{
+  "title":"",
+  "text": [
+    {
+      "text": "冶炼炉可以在3×3到11×11之间自定义大小，高度至少为2。越大的冶炼炉可以熔化更多的物品，拥有更大的容积。这个多方块结构需要铺满底部，但是不需要铺满顶部和框架。"
+    },
+    {
+      "text": "The Smeltery can be built using any combination of seared blocks, glass, tanks, and drains, though the floor must be made of solely seared blocks. It also requires at least one tank for fuel, but more will increase the fuel amount. Faucets can be attached to the drains in order to pour fluids into casting tables and basins, or fluid can be pumped in and out of the drains using fluid pipes from other mods",
+	  "paragraph": true
+    }
+  ]
+}

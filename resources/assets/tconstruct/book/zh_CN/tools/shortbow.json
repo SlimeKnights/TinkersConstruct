@@ -1,0 +1,20 @@
+{
+  "tool": "shortbow",
+  "text": [
+    {
+      "text": "The Shortbow is a fast and nimble option for ranged combat. It fires faster than its vanilla brother and also allows for faster movement, however this comes with the price of reduced damage."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "If you're looking to turn your enemies into a pincushion, then the shortbow is for you."
+    }
+  ],
+  "properties": [
+    "Fast & mobile",
+    "Uses Tinkers' Arrows",
+    "Can be used with vanilla arrows",
+    "Can use regular arrows, but they're less effective"
+  ]
+}

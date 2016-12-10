@@ -1,0 +1,12 @@
+{
+  "title":"",
+  "text": [
+    {
+      "text": "The Tinker Tank can be any size from 3x3 to 11x11, and with any height from a minimum of 3. Larger structues increase the size of the tank. In order to be a valid structure, it requires a floor and ceiling, along with a frame around the whole structure"
+    },
+    {
+      "text": "The Tinker Tank can be built using any combination of seared blocks, glass, and drains. The floor and ceiling frame must be either seared blocks or drains. A single Tinker Tank controller is required. It can be placed on any layer except the ceiling, and must not be placed on the outside edges of the frame. The ceiling additionally supports slabs and stairs, even in the frame, provided they are downwards facing.",
+	  "paragraph": true
+    }
+  ]
+}
