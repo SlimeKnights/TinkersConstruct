@@ -1,11 +1,11 @@
 {
-  "title":"The Seared Furnace",
+  "title":"焦黑熔炉",
   "image": {
 	"file": "tconstruct:textures/gui/book/seared_furnace.png"
   },
   "text": [
     {
-      "text": "The Seared Furnace is a master to all furnaces, cooking quarter stacks at once and cooking food with greater speed."
+      "text": "焦黑熔炉是熔炉界的大师，一次可以烧制1/4组物品，拿来烧制食物绝对快极了。"
     }
   ]
 }
