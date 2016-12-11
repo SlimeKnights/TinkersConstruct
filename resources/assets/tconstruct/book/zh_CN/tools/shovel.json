@@ -2,18 +2,18 @@
   "tool": "shovel",
   "text": [
     {
-      "text": "The Shovel is a precise digging tool. It is effective on dirt, sand, gravel and snow."
+      "text": "铲是一个标准的挖掘工具。对泥土，沙子，砂砾，雪有效。"
     },
     {
       "text": "\n"
     },
     {
-      "text": "Rightclicking on grass turns the grass block into path."
+      "text": "右击草方块能把草方块变成草径。"
     }
   ],
   "properties": [
-    "Basic mining tool",
-    "Effective on dirt, sand and gravel",
-    "Can create path"
+    "基础采掘工具",
+    "对泥土，沙子，砂砾有效",
+    "能够制作草径"
   ]
 }

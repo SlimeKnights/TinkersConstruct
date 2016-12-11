@@ -2,18 +2,18 @@
   "tool": "mattock",
   "text": [
     {
-      "text": "The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, and plants."
+      "text": "鹤嘴锄是一种多用途农具。对木制品，泥土和植物都有效。"
     },
     {
       "text": "\n"
     },
     {
-      "text": "It can till soil and also deals respectable damage in combat."
+      "text": "能够耕种土地，也能在战斗中造成可观的伤害。"
     }
   ],
   "properties": [
-    "Also a hoe",
-    "Tills the ground",
-    "Effective on dirt and wood"
+    "也是锄头",
+    "能够耕地",
+    "对泥土，木制品有效"
   ]
 }

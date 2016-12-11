@@ -2,18 +2,18 @@
   "tool": "broadsword",
   "text": [
     {
-      "text": "The Broadsword is a versatile weapon. It has average damage, allows to knock back enemies with a sweep attack all while keeping your other hand free."
+      "text": "大剑是一种多用途的武器。它拥有相对适中的攻击力，能够对敌人进行范围攻击，还能保持你的另一只手是空闲的。"
     },
     {
       "text": "\n"
     },
     {
-      "text": "Compatible with other offhand weapons or tools."
+      "text": "与其他副手工具或者武器兼容。"
     }
   ],
   "properties": [
-    "Medium Damage",
-    "Sweep attack",
-    "Can use offhand"
+    "中等伤害",
+    "范围攻击",
+    "能够使用副手"
   ]
 }

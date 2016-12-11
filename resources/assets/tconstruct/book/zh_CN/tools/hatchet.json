@@ -2,19 +2,19 @@
   "tool": "hatchet",
   "text": [
     {
-      "text": "The Hatchet is a basic chopping tool. It is effective on wood and leaves. Breaking leaves with it does not consume durability."
+      "text": "手斧是一个基础的砍伐工具。对树叶和木头有效。破坏树叶时候不消耗耐久。"
     },
     {
       "text": "\n"
     },
     {
-      "text": "Using the hatchet in combat allows you to disable the shield of your opponent."
+      "text": "在战斗中使用手斧能够使对方不能使用盾牌防御。"
     }
   ],
   "properties": [
-    "Basic mining tool",
-    "Effective on wood",
-    "Breaks leaves really fast",
-    "Doesn't use durability on leaves"
+    "基础挖掘工具",
+    "对木制品有效",
+    "能够很快的破坏树叶",
+    "破坏树叶不消耗耐久"
   ]
 }

@@ -2,20 +2,20 @@
   "tool": "lumberaxe",
   "text": [
     {
-      "text": "The Lumber Axe is a broad chopping tool. It can fell entire trees or gather wood in a wide range."
+      "text": "伐木斧是一个范围采掘工具。它能够伐倒巨大的树木或者采掘大范围的木制品"
     },
     {
       "text": "\n"
     },
     {
-      "text": "A tree is only detected if it has leaves on top."
+      "text": "只有在树的顶部有树叶才能被检测。"
     }
   ],
   "properties": [
-    "Requires a Tool Forge",
-    "Advanced mining tool",
-    "Fells whole trees in one swoop",
-    "3x3x3 AOE Mining",
-    "Effective on Wood"
+    "需要工具装配台",
+    "高级采掘工具",
+    "一下子砍倒一棵树",
+    "3x3x3范围采掘",
+    "对木制品有效"
   ]
 }

@@ -2,19 +2,19 @@
   "tool": "rapier",
   "text": [
     {
-      "text": "The Rapier is a special weapon that relies on quick strikes to defeat (armored) foes. Each hit with the rapier partially bypasses the armor of the target."
+      "text": "西洋剑是一种能够快速战胜（穿有装甲的）敌人的武器。每次使用都能无视掉对方的装甲。"
     },
     {
       "text": "\n"
     },
     {
-      "text": "Rightclick performs a short backpedal, allowing to quickly dodge incoming damage."
+      "text": "右击能够进行后跳，这样你可以躲避伤害。"
     }
   ],
   "properties": [
-    "Fast, but low damage",
-    "50% Armor Piercing",
-    "Rightclick: Backpedal",
-    "No offhand"
+    "快速但是伤害值较低",
+    "50%几率破甲",
+    "右击：后跳",
+    "副手不能使用"
   ]
 }

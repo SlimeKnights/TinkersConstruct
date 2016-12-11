@@ -2,18 +2,18 @@
   "tool": "arrow",
   "text": [
     {
-      "text": "The Arrows are deadly projectiles, fired from a bow. The crafted arrows contain multiple shots and can be picked back up."
+      "text": "箭矢是由弓发射出来的致命弹药。合成出的箭矢能被多次使用，还能被捡回来。"
     },
     {
       "text": "\n"
     },
     {
-      "text": "Damage dealt depends on the bow as well as the arrows themselves. They offer a wide range of behaviours with different materials."
+      "text": "伤害值取决于弓与箭矢本身。不同的材料有不同的属性。"
     }
   ],
   "properties": [
-    "Ammo for Bows",
-    "Can be picked back up",
-    "One Stack contains many shots"
+    "弓的弹药",
+    "能够被捡回来",
+    "一个箭矢可以被使用多次"
   ]
 }

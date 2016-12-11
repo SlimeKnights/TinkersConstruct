@@ -2,19 +2,19 @@
   "tool": "battlesign",
   "text": [
     {
-      "text": "The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere. It's a defensive weapon which doubles as a shield."
+      "text": "战斗牌子是一个对付僵尸猪人的好武器。它作为一个防御性武器性能双倍优于盾牌。"
     },
     {
       "text": "\n"
     },
     {
-      "text": "Blocking gives increased damage reduction, reflecting a small portion of the damage and reflects any projectiles."
+      "text": "使用它能阻挡伤害，并且能反射一部分攻击和所有的投掷物"
     }
   ],
   "properties": [
-    "Defensive weapon",
-    "Low damage",
-    "Can be used as a shield",
-    "Blocking reflects projectiles"
+    "防御性武器",
+    "低伤害值",
+    "能像盾牌一样使用",
+    "使用能反射投掷物"
   ]
 }

@@ -2,19 +2,19 @@
   "tool": "longbow",
   "text": [
     {
-      "text": "The Longbow is the perfect weapon to kill over a distance. It fires slowly, but packs a punch."
+      "text": "长弓是一种有效的远距离杀伤性武器。发射速度缓慢但是威力强劲"
     },
     {
       "text": "\n"
     },
     {
-      "text": "Perfect for abusing a positional advantage, you just need to nail the shot."
+      "text": "占据有利地形，像钉子一样一动不动的射击。"
     }
   ],
   "properties": [
-    "Requires a Tool Forge",
-    "Uses Tinkers' Arrows",
-    "Slow but hits hard",
-    "Can use regular arrows, but they're less effective"
+    "需要工具装配台",
+    "使用匠魂箭矢",
+    "射速慢但是高伤害",
+    "可以使用普通的箭矢,但是效率会稍差"
   ]
 }

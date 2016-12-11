@@ -2,19 +2,19 @@
   "tool": "bolt",
   "text": [
     {
-      "text": "The Bolt is a heavy, armor penetrating projectile. Once loaded into a crossbow, they deal high amounts of damage while also penetrating half of the targets armor."
+      "text": "弩箭是一个很重，并且能破甲的投掷物。一旦装载在十字弓上面，它们能提供很高的伤害，还有一半几率能破甲。"
     },
     {
       "text": "\n"
     },
     {
-      "text": "Damage dealt depends on the crossbow as well as the bolts themselves. The Bolt Crafting page explains how to craft the parts."
+      "text": "伤害值取决于十字弓和弩箭本身。在弩箭制作篇章将会详细介绍如何制作弩箭。"
     }
   ],
   "properties": [
-    "Ammo for Crossbows",
-    "50% Armor Penetration",
-    "Can be picked back up",
-    "One stack contains many shots"
+    "十字弓的弹药",
+    "50%几率破甲",
+    "可以被捡起来",
+    "一个弩箭可以使用多次"
   ]
 }

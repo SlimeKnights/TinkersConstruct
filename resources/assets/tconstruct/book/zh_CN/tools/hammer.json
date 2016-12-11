@@ -2,20 +2,20 @@
   "tool": "hammer",
   "text": [
     {
-      "text": "The Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead."
+      "text": "锤子是一个范围挖掘工具。能够挖掘很大范围方块，并且对亡灵生物有额外伤害"
     },
     {
       "text": "\n"
     },
     {
-      "text": "It is optimal for mining out large areas and long mining trips."
+      "text": "大范围长时间采掘的理想工具"
     }
   ],
   "properties": [
-    "Requires a Tool Forge",
-    "Advanced mining tool",
-    "3x3 AOE Mining",
-    "Effective on stone and ores",
-    "Bonus damage against undead"
+    "需要工具装配台",
+    "高级挖掘工具",
+    "3x3范围采掘",
+    "对石头和矿物有效",
+    "对亡灵生物有额外伤害"
   ]
 }
