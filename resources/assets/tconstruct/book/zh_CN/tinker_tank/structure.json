@@ -2,10 +2,10 @@
   "title":"",
   "text": [
     {
-      "text": "The Tinker Tank can be any size from 3x3 to 11x11, and with any height from a minimum of 3. Larger structues increase the size of the tank. In order to be a valid structure, it requires a floor and ceiling, along with a frame around the whole structure"
+      "text": "工匠储罐可以在3×3到11×11之间自定义大小，高度至少为3。越大的匠魂储罐可以容纳更多的液体。搭建它需要铺满顶部，底部以及框架。"
     },
     {
-      "text": "The Tinker Tank can be built using any combination of seared blocks, glass, and drains. The floor and ceiling frame must be either seared blocks or drains. A single Tinker Tank controller is required. It can be placed on any layer except the ceiling, and must not be placed on the outside edges of the frame. The ceiling additionally supports slabs and stairs, even in the frame, provided they are downwards facing.",
+      "text": "这个工匠储罐可以由任意种类的焦黑方块，焦黑玻璃，和冶炼炉排液口构建成，但是底部和顶部只能用焦黑方块或者铺满。必须要有一个工匠储罐控制器。它可以被放置在任意部分，除了顶部和边线部分。顶部还可以用台阶或者楼梯搭建。即使是框架部分朝下放置也是可以的。",
 	  "paragraph": true
     }
   ]

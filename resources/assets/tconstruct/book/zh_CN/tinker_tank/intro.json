@@ -1,11 +1,11 @@
 {
-  "title":"The Tinker Tank",
+  "title":"匠魂储罐",
   "image": {
 	"file": "tconstruct:textures/gui/book/tinker_tank.png"
   },
   "text": [
     {
-      "text": "The Tinker Tank is a giant tank, holding much more liquid than a smeltery, but without heat causing no alloys or smelting."
+      "text": "匠魂储罐是个巨大的，能容纳比冶炼炉还多液体的储罐，但是不能熔化金属或者制作合金"
     }
   ]
 }
