@@ -13,7 +13,7 @@ tile.tconstruct.tooltables.partchest.tooltip=可以容纳大量的部件
 tile.tconstruct.toolforge.name=工具装配台
 
 tile.tconstruct.soil.grout.name=水泥
-tile.tconstruct.soil.grout.tooltip=我就是渣渣!
+tile.tconstruct.soil.grout.tooltip=我就是渣渣！
 tile.tconstruct.soil.slimy_mud_green.name=绿色黏滑泥泞
 tile.tconstruct.soil.slimy_mud_green.tooltip=在上面行走会变得缓慢，但是玩家可以跳的更高
 tile.tconstruct.soil.slimy_mud_blue.name=蓝色黏滑泥泞
@@ -179,7 +179,7 @@ tile.tconstruct.wood_rail_trapdoor.name=带活版门的木质轨道
 tile.tconstruct.wood_rail_trapdoor.tooltip=漏斗矿车可以\n穿过这个方块下面
 tile.tconstruct.punji.name=尖竹钉
 tile.tconstruct.punji.tooltip=非常尖锐！可以拿来做围墙
-tile.tconstruct.glow.name=Glow
+tile.tconstruct.glow.name=辉光
 tile.tconstruct.rack.item.name=物品架
 tile.tconstruct.rack.item.tooltip=仅仅是用来做装饰的
 tile.tconstruct.rack.drying.name=晾干架
@@ -323,7 +323,7 @@ item.tconstruct.cast_custom.gem.name=宝石铸模
 item.tconstruct.cast_custom.plate.name=板铸模
 item.tconstruct.cast_custom.gear.name=齿轮铸模
 
-item.tconstruct.sharpening_kit.name=采掘升级工具
+item.tconstruct.sharpening_kit.name=磨制工具
 item.tconstruct.sharpening_kit.tooltip=结合燧石使用\n可以把你的工具升级到该种材料对应的挖掘等级
 
 item.forge.bucketFilled.blood=血桶
@@ -355,8 +355,11 @@ item.tconstruct.battleaxe.name=战斧
 # Ranged Weapons & Ammo
 
 item.tconstruct.shortbow.name=短弓
+item.tconstruct.longbow.name=长弓
+item.tconstruct.crossbow.name=十字弓
 
-item.tconstruct.arrow.name=箭
+item.tconstruct.arrow.name=箭矢
+item.tconstruct.bolt.name=弩箭
 
 item.tconstruct.shuriken.name=回旋镖
 
@@ -389,16 +392,18 @@ item.tconstruct.large_sword_blade.name=宽剑刃
 
 # Bow & Arrow Parts
 
-item.tconstruct.bow_limb.name=弓骨
+item.tconstruct.bow_limb.name=弓臂
 item.tconstruct.bow_string.name=弓弦
 
 item.tconstruct.arrow_head.name=箭头
 item.tconstruct.arrow_shaft.name=箭杆
 item.tconstruct.fletching.name=箭羽
 
+item.tconstruct.bolt_core.name=弩箭核心
+
 # Material specific tools and toolparts
 # item.tconstruct.<tool>.<material>
-# item.tconstruct.pickaxe.wood=Wooden pickaxe
+# item.tconstruct.pickaxe.wood=Wooden Pickaxe
 
 # Gadgets
 item.tconstruct.slime_boots.name=史莱姆靴子
@@ -427,7 +432,7 @@ item.tconstruct.throwball.efln.tooltip=爆破！一种安全的挖矿方法.
 ###################
 
 item.tconstruct.moms_spaghetti.name=妈妈做的意大利面
-item.tconstruct.moms_spaghetti.desc=美味!
+item.tconstruct.moms_spaghetti.desc=美味！
 item.tconstruct.moms_spaghetti.tooltip1=§o我猜这样就可以了...但还是什么地方不一样。\n肯定要酱料，而且是那种红色酱料(番茄沙司)。
 item.tconstruct.moms_spaghetti.tooltip2=§o还缺了什么...也许是肉。妈妈做的意面总是用各种肉的。\n我想我得找至少三种肉。
 item.tconstruct.moms_spaghetti.tooltip3=§o现在这意面就是妈妈的味道。
@@ -445,7 +450,6 @@ item.tconstruct.spaghetti.soggy.name=湿软面条
 item.tconstruct.spaghetti.soggy.tooltip=现在这面湿透了，你那已经累成意面的手也能掰弯这面条了。\n挂起来晾干吧。
 item.tconstruct.spaghetti.cold.name=干冷面条
 item.tconstruct.spaghetti.cold.tooltip=很好，现在这面质量又上了一层，但还是味同嚼蜡。\n热一下也许就可以吃了。\n甚至它可以让你虚弱的膝盖恢复活力。
-
 
 #################
 #   Entities    #
@@ -498,7 +502,7 @@ potion.carry=肩托
 #################
 # material.<identifier>.name
 # material.<identifier>.prefix
-# material.wood.prefix=Wooden %s - Used for stuff like "Wooden pickaxe" if no specific name is given
+# material.wood.prefix=Wooden %s - Used for stuff like "Wooden Pickaxe" if no specific name is given
 
 material.wood.name=木
 material.wood.prefix=木 %s
@@ -578,23 +582,26 @@ stat.bow.drawspeed.name=拉弓速度
 stat.bow.drawspeed.desc=决定了你拉弓的速度。
 stat.bow.range.name=范围系数
 stat.bow.range.desc=决定了箭能够飞多远。
+stat.bow.damage.name=附加伤害
+stat.bow.damage.desc=每次打击施加的伤害值。\n箭的力量。
 
 stat.bowstring.name=弓弦
-stat.bowstring.modifier.name=Modifier
+stat.bowstring.modifier.name=强化
 stat.bowstring.modifier.desc=该系数将会影响整体耐久。
 
 stat.shaft.name=箭杆
-stat.shaft.modifier.name=Modifier
+stat.shaft.modifier.name=强化
 stat.shaft.modifier.desc=好箭也需配好芯。这个系数决定了箭的品质。\n另外，弹药的总数也和此系数成正比。
 stat.shaft.ammo.name=额外弹药
-stat.shaft.ammo.desc=反映了此材料可合成的箭的数量。\n最终合成数量会直接加上此系数。
+stat.shaft.ammo.desc=反映了此材料可合成的箭的数量。\n最终合成数量会直接乘上此系数。
 
 stat.fletching.name=箭羽
 stat.fletching.accuracy.name=精确度
 stat.fletching.accuracy.desc=反映了使用此箭羽的箭飞行时弹道的稳定程度。\n会影响整体的精确度。
-stat.fletching.modifier.name=Modifier
+stat.fletching.modifier.name=强化
 stat.fletching.modifier.desc=反映了此材料可合成的箭的数量。\n最终合成数量将会乘以此系数。
 
+stat.projectile.name=弹药
 stat.projectile.ammo.name=弹药
 
 ##############
@@ -628,25 +635,25 @@ modifier.dense.desc=§o更...硬...§r\n工具耐久越低，可以持续使用�
 modifier.duritos.name=持久
 modifier.duritos.desc=§o用起来不像听起来那么好.§r\n你的工具寿命会更长一些...多数时候是这样.
 modifier.ecological.name=生态
-modifier.ecological.desc=§o绿色能源！§r\n可再生资源真好,他们会自动修复!
+modifier.ecological.desc=§o绿色能源！§r\n可再生资源真好，他们会自动修复！
 modifier.enderference.name=抑影
-modifier.enderference.desc=§o反瞬移！§r\n短时间内可以阻止末影人的瞬移.
+modifier.enderference.desc=§o反瞬移！§r\n短时间内可以阻止末影人的瞬移。
 modifier.established.name=老成
 modifier.established.desc=§o免费经验加成！§r\n玩家可以获得额外的经验。
 modifier.flammable.name=可燃
 modifier.flammable.desc=§o更多的火焰！§r\n格挡时可以消除火焰伤害，还会使攻击者着火.
 modifier.fractured.name=碎骨
-modifier.fractured.desc=§o疼！§r\n你的工具有了更高的伤害.
+modifier.fractured.desc=§o疼！§r\n你的工具有了更高的伤害。
 modifier.hellish.name=炼狱
 modifier.hellish.desc=§o来自深渊的最深处！§r\n对非下界生物会造成额外的伤害。
 modifier.hellish.extra=对非下界生物: +%s
 modifier.holy.name=神圣
-modifier.holy.desc=§o圣光净化它！§r\n对亡灵生物造成额外的伤害.
+modifier.holy.desc=§o圣光净化它！§r\n对亡灵生物造成额外的伤害。
 modifier.holy.extra=modifier.smite.extra
 modifier.insatiable.name=贪心
-modifier.insatiable.desc=§o吞噬！§r\n在战斗中你将能造成越来越高的伤害，但同时也会消耗越来越多的耐久.
+modifier.insatiable.desc=§o吞噬！§r\n在战斗中你将能造成越来越高的伤害，但同时也会消耗越来越多的耐久。
 modifier.jagged.name=锯齿
-modifier.jagged.desc=§o锯齿般锋利！§r\n耐久越低，伤害越高.
+modifier.jagged.desc=§o锯齿般锋利！§r\n耐久越低，伤害越高。
 modifier.jagged.extra=锯齿伤害: +%s
 modifier.lightweight.name=轻便
 modifier.lightweight.desc=§o疾如风！§r\n提高工具的挖掘或攻击速度。
@@ -658,37 +665,37 @@ modifier.momentum.desc=§o越来越快！§r\n挖掘方块时，持续的挖掘�
 modifier.petramor.name=爱石
 modifier.petramor.desc=§o如此多的石头！§r\n你的工具喜欢石头，它会吸收石头来回复耐久！
 modifier.poisonous.name=剧毒
-modifier.poisonous.desc=§o并非完全不含铅！§r\n给予攻击目标中毒效果.
+modifier.poisonous.desc=§o并非完全不含铅！§r\n给予攻击目标中毒效果。
 modifier.prickly.name=尖刺
 modifier.prickly.desc=§o哎呦，疼！§r\n没人能从这些尖刺中幸免，它们扎人真疼！
 modifier.sharp.name=锐利
-modifier.sharp.desc=§o甚至能切断声音！§r\n击中敌人时会使他们在短时间内流血.
+modifier.sharp.desc=§o甚至能切断声音！§r\n击中敌人时会使他们在短时间内流血。
 modifier.shocking.name=震击
-modifier.shocking.desc=§o滋滋滋！§r\n当你移动时你的工具会被充能,这些能量会在击中敌人时被释放.
+modifier.shocking.desc=§o滋滋滋！§r\n当你移动时你的工具会被充能，这些能量会在击中敌人时被释放。
 modifier.slimey.name=黏滑
-modifier.slimey.desc=§o唔,好黏！§r\n我要洗掉它.
+modifier.slimey.desc=§o唔，好黏！§r\n我要洗掉它。
 modifier.spiky.name=棘刺
-modifier.spiky.desc=§o200%冰冷的刺!§r\n格挡攻击时会对攻击者造成伤害.
+modifier.spiky.desc=§o200%冰冷的刺！§r\n格挡攻击时会对攻击者造成伤害。
 modifier.splintering.name=碎裂
-modifier.splintering.desc=§o给你敌人留下点纪念！§r\n攻击次数越多，伤害越高.
+modifier.splintering.desc=§o给你敌人留下点纪念！§r\n攻击次数越多，伤害越高。
 modifier.splinters.name=碎裂
 modifier.splinters.desc=§o呜哇！§r\n小心不要扎到碎片！
 modifier.squeaky.name=柔和
-modifier.squeaky.desc=§o真可爱！§r\n你的工具由于海绵的柔软而自带了精准采集,但它却失去了攻击力.
+modifier.squeaky.desc=§o真可爱！§r\n你的工具由于海绵的柔软而自带了精准采集，但它却失去了攻击力。
 modifier.stiff.name=坚忍
 modifier.stiff.desc=§o不动如山！§r\n格挡时可以减少更多的伤害.
 modifier.stonebound.name=石缚
-modifier.stonebound.desc=§o你的工具深爱着石头！§r\n耐久越低，工具的挖掘速度越快，但伤害也越低.
+modifier.stonebound.desc=§o你的工具深爱着石头！§r\n耐久越低，工具的挖掘速度越快，但伤害也越低。
 modifier.stonebound.extra=石缚速度: +%s
 modifier.superheat.name=过热
 modifier.superheat.desc=§o再热一点！§r\n对着火的敌人造成更多伤害。
 modifier.superheat.extra=对着火的目标: +%s
 modifier.unnatural.name=超自然
-modifier.unnatural.desc=§o憎恶！§r\n工具的挖掘等级比目标方块越大，挖掘速度越快.
+modifier.unnatural.desc=§o憎恶！§r\n工具的挖掘等级比目标方块越大，挖掘速度越快。
 modifier.tasty.name=美味
-modifier.tasty.desc=§o吧唧吧唧§r\n闻起来真不错.. 比起挨饿,你更愿意吃掉你的工具.
+modifier.tasty.desc=§o吧唧吧唧§r\n闻起来真不错.. 比起挨饿，你更愿意吃掉你的工具。
 modifier.writable.name=铭刻
-modifier.writable.desc=§o知识分子！§r\n更多的文字,更多强化槽. 这很符合逻辑！
+modifier.writable.desc=§o知识分子！§r\n更多的文字，更多强化槽. 这很符合逻辑！
 
 modifier.breakable.name=易碎
 modifier.breakable.desc=§o这面朝上！§r\n投掷物发生碰撞时有50%概率直接损坏。
@@ -721,14 +728,16 @@ modifier.fiery.name=炽热
 modifier.fiery.desc=§o现在好热！§r\n给予额外的火焰伤害，让你的敌人着火！
 modifier.fiery.extra=火焰伤害: +%s
 modifier.fiery.extra2=灼烧时间: %ss
+modifier.fins.name=鱼鳍
+modifier.fins.desc=§o有些事情不对劲……§r\n在投掷物上附加鱼鳍会让它们在水下也能正常飞行。
 modifier.fortify.name=强化
 modifier.fortify.desc=§o更硬，更好，更快，更强！§r\n增加挖掘等级到 %s。
 modifier.glowing.name=荧光
 modifier.glowing.desc=§o闪闪发光§r\n无论那里多么黑暗，你的工具都会牺牲自己来照亮那里。
 modifier.harvestwidth.name=水平扩展
-modifier.harvestwidth.desc=§o扩展！§r\n增加工具作用区域的宽度. 只有特定的工具能有这个效果.
+modifier.harvestwidth.desc=§o扩展！§r\n增加工具作用区域的宽度。 只有特定的工具能有这个效果。
 modifier.harvestheight.name=竖直扩展
-modifier.harvestheight.desc=§o扩展！§r\n增加工具作用区域的高度. 只有特定的工具能有这个效果.
+modifier.harvestheight.desc=§o扩展！§r\n增加工具作用区域的高度.。只有特定的工具能有这个效果。
 modifier.haste.name=急速
 modifier.haste.name2=急速 II
 modifier.haste.name3=急速 III
@@ -737,14 +746,14 @@ modifier.haste.name5=急速 V
 modifier.haste.desc=§o噫噫噫噫噫！§r\n你使用这个工具时，红石产生的推力会让它动起来。
 modifier.haste.extra=速度增益：+%s
 modifier.knockback.name=击退
-modifier.knockback.desc=§o本垒打！§r\n让我们来以一种很酷的方式教教怪物如何飞行.
+modifier.knockback.desc=§o本垒打！§r\n让我们来以一种很酷的方式教教怪物如何飞行。
 modifier.luck.name=时运
-modifier.luck.desc=§o闪闪发亮！§r\n你会得到好东西的,而且数量很多.
+modifier.luck.desc=§o闪闪发亮！§r\n你会得到好东西的，而且数量很多。
 modifier.mending_moss.name=修复苔藓
-modifier.mending_moss.desc=§o它是活的!§r\n它会悄悄窃取玩家身上的经验来修复自身耐久
+modifier.mending_moss.desc=§o它是活的！§r\n它会悄悄窃取玩家身上的经验来修复自身耐久。
 modifier.mending_moss.extra=容纳的XP: %d
 modifier.necrotic.name=生命窃取
-modifier.necrotic.desc=§o我又活过来了!!§r\n依据对敌人造成的伤害,回复自己的生命值.
+modifier.necrotic.desc=§o我又活过来了！！§r\n依据对敌人造成的伤害，回复自己的生命值。
 modifier.necrotic.extra=生命窃取: +%s
 modifier.reinforced.name=耐久
 modifier.reinforced.unbreakable=不毁
@@ -755,39 +764,45 @@ modifier.sharpness.name2=锋利 II
 modifier.sharpness.name3=锋利 III
 modifier.sharpness.name4=锋利 IV
 modifier.sharpness.name5=锋利 V
-modifier.sharpness.desc=§o嗷！§r\n真锋利,光是看着它就感觉要受伤了.
+modifier.sharpness.desc=§o嗷！§r\n真锋利，光是看着它就感觉要受伤了。
 modifier.shulking.name=悬浮
 modifier.shulking.desc=§o飞吧飞吧！§r\n让你击中的那些敌人都飞走吧。
 modifier.shulking.extra=悬浮时间：%s秒
 modifier.silktouch.name=精准采集
 modifier.silktouch.desc=§o如丝绸般顺滑！§r\n可精准采集方块。
 modifier.smite.name=亡灵杀手
-modifier.smite.desc=§o为了正义！§r\n对亡灵生物会造成大量的伤害.
+modifier.smite.desc=§o为了正义！§r\n对亡灵生物会造成大量的伤害。
 modifier.smite.extra=对亡灵生物: +%s
 modifier.soulbound.name=灵魂绑定
-modifier.soulbound.desc=§o一对快乐的夫妇！§r\n你爱你的工具，甚至死亡也不能分开你们.
+modifier.soulbound.desc=§o一对快乐的夫妇！§r\n你爱你的工具，甚至死亡也不能分开你们。
 modifier.webbed.name=织网
 modifier.webbed.desc=§o呦吼！§r\n让你的敌人被蜘蛛网缠住吧。
 
 #################
 #   Tool Info   #
 #################
-item.tconstruct.pickaxe.desc=镐子是标准的挖矿工具.它对石头以及矿物有效.\n它能破坏方块么?
-item.tconstruct.shovel.desc=铲子是标准的挖掘工具.它对泥土,沙子和雪有效.\n不要用它来自掘坟墓就好!
-item.tconstruct.hatchet.desc=斧是基础的伐木工具.它对木头和树叶有效.也是一种还算凑的过去的武器\n砍吧！砍吧！
-item.tconstruct.mattock.desc=鹤嘴锄是种多功能的农用工具.它对木头,泥土和植物有效.当然攻击力也还可以\n右击:锄地
-item.tconstruct.broadsword.desc=大剑是一种普通武器.横扫可以攻击大片敌人\n对清除蜘蛛网也很有效!
-item.tconstruct.longsword.desc=长剑是种攻击型武器.通常用作全速切入战斗.\n右键: 冲刺
-item.tconstruct.rapier.desc=西洋剑是种特制武器,依靠快速的刺击来打败对手.\n右键: 后退
-item.tconstruct.frypan.desc=煎锅是种重型武器,它能给敌人沉重打击.\n右键: 重击
-item.tconstruct.battlesign.desc=战斗牌子是种高级的防御武器.非常适合对付大量僵尸猪人.\n当作盾使用时可以反弹远程攻击.
-item.tconstruct.hammer.desc=锤子是种范围挖矿工具.能采集大范围内的方块.\n能有效对付亡灵生物.
-item.tconstruct.lumberaxe.desc=伐木斧是种范围砍伐工具.能砍倒巨大的树木以收集的范围内的木头.\n伐木吧!
-item.tconstruct.excavator.desc=开掘铲是种的大范围挖掘的工具.能挖掘大范围内的泥土和雪.\n挖掘吧!
-item.tconstruct.cleaver.desc=劈刀是种重型防卫武器.能施以重击,但很难挥动.\n劈刀能提供很高的攻击力\n慢点，需要两只手挥动!
-item.tconstruct.battleaxe.desc=战斧是种重型攻击武器.它能砍伐小型树木或将敌人击飞.\n右键: 格挡
-item.tconstruct.scythe.desc=镰刀是用于大面积收割的工具,可一次性大范围收割作物.\n同时也可充当范围攻击武器.\n右击即可收菜并补种.
-item.tconstruct.shuriken.desc=回旋镖是一个发射速度快的短程攻击武器,数量很多但是攻击力底下\n也可以从副手投掷出去
+item.tconstruct.pickaxe.desc=镐子是标准的挖矿工具。它对石头以及矿物有效。\n它能破坏方块么？
+item.tconstruct.shovel.desc=铲子是标准的挖掘工具。它对泥土、沙子和雪有效。\n不要用它来自掘坟墓就好！
+item.tconstruct.hatchet.desc=斧是基础的伐木工具。它对木头和树叶有效。也是一种还算凑的过去的武器\n砍吧！砍吧！
+item.tconstruct.mattock.desc=鹤嘴锄是种多功能的农用工具。它对木头，泥土和植物有效。当然攻击力也还可以\n右击:锄地
+item.tconstruct.broadsword.desc=大剑是一种普通武器。横扫可以攻击大片敌人\n对清除蜘蛛网也很有效！
+item.tconstruct.longsword.desc=长剑是种攻击型武器。通常用作全速切入战斗。\n右键: 冲刺
+item.tconstruct.rapier.desc=西洋剑是种特制武器，依靠快速的刺击来打败对手。\n右键: 后退
+item.tconstruct.frypan.desc=煎锅是种重型武器，它能给敌人沉重打击。\n右键: 重击
+item.tconstruct.battlesign.desc=战斗牌子是种高级的防御武器。非常适合对付大量僵尸猪人。\n当作盾使用时可以反弹远程攻击。
+item.tconstruct.hammer.desc=锤子是种范围挖矿工具。能采集大范围内的方块。\n能有效对付亡灵生物。
+item.tconstruct.lumberaxe.desc=伐木斧是种范围砍伐工具。能砍倒巨大的树木以收集的范围内的木头。\n伐木吧！
+item.tconstruct.excavator.desc=开掘铲是种的大范围挖掘的工具。能挖掘大范围内的泥土和雪。\n挖掘吧！
+item.tconstruct.cleaver.desc=劈刀是种重型防卫武器。能施以重击，但很难挥动。\n劈刀能提供很高的攻击力\n慢点，需要两只手挥动！
+item.tconstruct.battleaxe.desc=战斧是种重型攻击武器。它能砍伐小型树木或将敌人击飞。\n右键: 格挡
+item.tconstruct.scythe.desc=镰刀是用于大面积收割的工具，可一次性大范围收割作物。\n同时也可充当范围攻击武器。\n右击即可收菜并补种。
+item.tconstruct.shuriken.desc=回旋镖是一个发射速度很快的短程攻击武器，数量多但是攻击力低下\n也可以从副手投掷出去
+item.tconstruct.shortbow.desc=短弓是种远程武器。向敌人快速精准地射出箭矢。\n使用匠魂的箭。
+item.tconstruct.longbow.desc=长弓是一个有力的远程武器。它能提供更高的伤害，但是射程要比短弓短。\n使用匠魂的箭。
+item.tconstruct.arrow.desc=箭矢是弓所用的弹药。一个箭矢可以多次发射，并且它也可以像其他工具一样被强化。
+item.tconstruct.crossbow.desc=十字弓是一个装填速度缓慢但威力强劲的武器。它可以事先通过右键来装填好，之后任意时刻就可以直接发射。\n使用匠魂的弩箭。
+item.tconstruct.bolt.desc=弩箭是十字弓所用的弹药。一个弩箭可以多次发射，并且它也可以像其他工具一样被强化。\n有几率能穿透敌人的装甲。
+
 
 ################
 #   Tooltips   #
@@ -806,9 +821,12 @@ tooltip.part.missing_info=部件没有数据
 tooltip.pattern.cost=材料消耗: %d
 
 tooltip.chest.has_items=包含物品
+tooltip.patternchest.holds_patterns=包含%d个模具
+tooltip.patternchest.holds_casts=包含%d个铸模
 
 tooltip.tank.fluid=%s
 tooltip.tank.amount=%d mB
+tooltip.tank.holdShift=按下§e§oShift§r§7以桶为单位
 
 ##################
 #   UI Strings   #
@@ -823,8 +841,10 @@ ui.mininglevel.obsidian=黑曜石
 ui.mininglevel.cobalt=钴
 
 # Death messages
-death.attack.smeltery=%s 被冶炼炉融化了
-death.attack.splinter=%s 被碎片扎成了马蜂窝
+death.attack.smeltery=%s被冶炼炉融化了
+death.attack.splinter=%s被碎片扎成了马蜂窝
+death.attack.bleed=%1$s流血致死，因为%2$s的攻击
+death.attack.bleed.item=%1$s流血致死，因为被%2$s用%3$s攻击了
 
 ######################
 # GUI Error messages #
@@ -870,7 +890,7 @@ gui.stenciltable.name=模具加工台
 # PartBuilder
 gui.partbuilder.name=部件加工台
 gui.partcrafter.name=部件合成台
-gui.partbuilder.info=在这里你可以制作工具部件来实现你的工匠梦想.\n\n要制作一个部件,你只需将模板放进左边的槽内,剩下的两个槽放上你想使用的材料就行了.
+gui.partbuilder.info=在这里你可以制作工具部件来实现你的工匠梦想.\n\n要制作一个部件，你只需将模板放进左边的槽内，剩下的两个槽放上你想使用的材料就行了.
 gui.partbuilder.material_value=材料值: %s %s
 
 # Tool Station/Forge
@@ -899,6 +919,7 @@ gui.smeltery.fuel.empty=没有燃料
 gui.smeltery.fuel.heat=温度: %d
 gui.smeltery.capacity=容量
 gui.smeltery.capacity_available=空
+gui.smeltery.capacity_used=使用:
 gui.smeltery.liquid.kilobucket=kB
 gui.smeltery.liquid.bucket=B
 gui.smeltery.liquid.millibucket=mB
@@ -924,7 +945,7 @@ gui.dryingrack.name=晾干架
 gui.jei.smelting.title=冶炼
 gui.jei.alloy.title=合金
 gui.jei.casting.title=浇铸
-gui.jei.casting.consume=消耗铸模!
+gui.jei.casting.consume=消耗铸模！
 gui.jei.drying.title=晾干架
 
 # WAILA Plugin
