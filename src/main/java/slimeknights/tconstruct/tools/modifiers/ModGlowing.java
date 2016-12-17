@@ -23,7 +23,7 @@ public class ModGlowing extends ModifierTrait {
     if(isSelected && !world.isRemote && !ToolHelper.isBroken(tool)) {
       BlockPos pos = entity.getPosition();
       // check light level at entity
-      if(world.getLight(pos) < 8) {
+      if(world.getLight(pos) < 8 && !entity.isInWater()) {
         for(BlockPos candidate : new BlockPos[]{pos, pos.up(), pos.north(), pos.east(), pos.south(), pos.west(), pos.down()}) {
           // addGlow tries all directions if the passed one doesn't work
           if(TinkerCommons.blockGlow.addGlow(world, candidate, EnumFacing.values()[random.nextInt(6)])) {
