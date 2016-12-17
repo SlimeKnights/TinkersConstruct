@@ -24,7 +24,7 @@ public class ModGlowing extends ModifierTrait {
       BlockPos pos = entity.getPosition();
       // check light level at entity
 
-      if(world.getLightFromNeighbors(pos) < 8 && !entity.isInWater()) {
+      if(world.getLightFromNeighbors(pos) < 8) {
         for(BlockPos candidate : new BlockPos[]{pos, pos.up(), pos.north(), pos.east(), pos.south(), pos.west(), pos.down()}) {
           // addGlow tries all directions if the passed one doesn't work
           if(TinkerCommons.blockGlow.addGlow(world, candidate, EnumFacing.values()[random.nextInt(6)])) {
