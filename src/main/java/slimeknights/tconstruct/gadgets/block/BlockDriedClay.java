@@ -17,7 +17,7 @@ public class BlockDriedClay extends EnumBlock<BlockDriedClay.DriedClayType> {
   public BlockDriedClay() {
     super(Material.ROCK, TYPE, DriedClayType.class);
     this.setCreativeTab(TinkerRegistry.tabGadgets);
-    this.setHardness(3F);
+    this.setHardness(1.5F);
     this.setResistance(20F);
     this.setSoundType(SoundType.STONE);
   }

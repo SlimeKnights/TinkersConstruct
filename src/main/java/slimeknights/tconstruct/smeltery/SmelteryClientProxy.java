@@ -19,11 +19,16 @@ import slimeknights.tconstruct.smeltery.client.CastingRenderer;
 import slimeknights.tconstruct.smeltery.client.FaucetRenderer;
 import slimeknights.tconstruct.smeltery.client.SmelteryRenderer;
 import slimeknights.tconstruct.smeltery.client.TankRenderer;
+import slimeknights.tconstruct.smeltery.client.TinkerTankRenderer;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
 import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
+import slimeknights.tconstruct.smeltery.tileentity.TileTinkerTank;
+
+import static slimeknights.tconstruct.common.ModelRegisterUtil.registerItemBlockMeta;
+import static slimeknights.tconstruct.common.ModelRegisterUtil.registerItemModel;
 
 public class SmelteryClientProxy extends ClientProxy {
 
@@ -40,9 +45,11 @@ public class SmelteryClientProxy extends ClientProxy {
     ModelLoader.setCustomStateMapper(TinkerSmeltery.searedGlass, (new StateMap.Builder()).ignore(BlockSearedGlass.TYPE).build());
 
     // Blocks
-    registerItemModel(Item.getItemFromBlock(TinkerSmeltery.smelteryController));
-    registerItemModel(Item.getItemFromBlock(TinkerSmeltery.faucet));
-    registerItemModel(Item.getItemFromBlock(TinkerSmeltery.searedGlass));
+    registerItemModel(TinkerSmeltery.smelteryController);
+    registerItemModel(TinkerSmeltery.faucet);
+    registerItemModel(TinkerSmeltery.searedGlass);
+    registerItemModel(TinkerSmeltery.searedFurnaceController);
+    registerItemModel(TinkerSmeltery.tinkerTankController);
     registerItemBlockMeta(TinkerSmeltery.searedBlock);
     registerItemBlockMeta(TinkerSmeltery.castingBlock);
 
@@ -91,10 +98,10 @@ public class SmelteryClientProxy extends ClientProxy {
     // TEs
     ClientRegistry.bindTileEntitySpecialRenderer(TileTank.class, new TankRenderer());
     ClientRegistry.bindTileEntitySpecialRenderer(TileSmeltery.class, new SmelteryRenderer());
+    ClientRegistry.bindTileEntitySpecialRenderer(TileTinkerTank.class, new TinkerTankRenderer());
     ClientRegistry.bindTileEntitySpecialRenderer(TileFaucet.class, new FaucetRenderer());
     ClientRegistry.bindTileEntitySpecialRenderer(TileCastingTable.class, new CastingRenderer.Table());
     ClientRegistry.bindTileEntitySpecialRenderer(TileCastingBasin.class, new CastingRenderer.Basin());
-
 
     // Items
     final ResourceLocation castLoc = SmelteryClientEvents.locBlankCast;

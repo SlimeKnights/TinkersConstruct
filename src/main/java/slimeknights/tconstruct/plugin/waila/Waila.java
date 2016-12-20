@@ -15,7 +15,7 @@ public class Waila {
 
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
-    FMLInterModComms.sendMessage("Waila", "register", "slimeknights.tconstruct.plugin.waila.WailaRegistrar.wailaCallback");
+    FMLInterModComms.sendMessage(modid, "register", "slimeknights.tconstruct.plugin.waila.WailaRegistrar.wailaCallback");
   }
 
 

@@ -41,8 +41,9 @@ public class BlockSearedGlass extends BlockEnumSmeltery<BlockSearedGlass.GlassTy
     return new BlockStateContainer(this, new IProperty[]{TYPE, BlockConnectedTexture.CONNECTED_DOWN, BlockConnectedTexture.CONNECTED_UP, BlockConnectedTexture.CONNECTED_NORTH, BlockConnectedTexture.CONNECTED_SOUTH, BlockConnectedTexture.CONNECTED_WEST, BlockConnectedTexture.CONNECTED_EAST});
   }
 
+  @Nonnull
   @Override
-  public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos position) {
+  public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos position) {
     // Creates the state to use for the block. This is where we check if every side is
     // connectable or not.
     return state.withProperty(BlockConnectedTexture.CONNECTED_DOWN,  this.isSideConnectable(world, position, EnumFacing.DOWN))
@@ -57,13 +58,14 @@ public class BlockSearedGlass extends BlockEnumSmeltery<BlockSearedGlass.GlassTy
     final IBlockState original = world.getBlockState(pos);
     final IBlockState connected = world.getBlockState(pos.offset(side));
 
-    return original != null && connected != null && canConnect(original, connected);
+    return canConnect(original, connected);
   }
 
   private boolean canConnect(IBlockState original, IBlockState connected) {
-    return connected.getBlock() == original.getBlock() && connected.getValue(prop) == original.getValue(prop);
+    return connected.getBlock() == original.getBlock() && original.getPropertyNames().contains(prop) && connected.getValue(prop) == original.getValue(prop);
   }
 
+  @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer() {

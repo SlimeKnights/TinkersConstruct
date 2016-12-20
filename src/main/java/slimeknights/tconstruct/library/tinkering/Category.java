@@ -19,6 +19,8 @@ public class Category {
   public static final Category PROJECTILE = new Category("projectile");
   /** Everything which does nothing on melee */
   public static final Category NO_MELEE = new Category("no_melee");
+  /** Everything that shoots other projectiles */
+  public static final Category LAUNCHER = new Category("launcher");
 
 
   public final String name;

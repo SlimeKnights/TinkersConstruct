@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.gadgets;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.Lists;
 
 import gnu.trove.map.hash.TObjectIntHashMap;
 import gnu.trove.procedure.TObjectIntProcedure;
@@ -35,7 +36,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.common.TinkerNetwork;
-import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
+import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 public class Exploder {
 
@@ -52,7 +53,7 @@ public class Exploder {
   protected int currentRadius;
   private int curX, curY, curZ;
 
-  protected TObjectIntHashMap<Pair<Item, Integer>> droppedItems; // map containing all items dropped by the explosion and their amounts
+  protected List<ItemStack> droppedItems; // map containing all items dropped by the explosion and their amounts
 
   public Exploder(World world, Explosion explosion, Entity exploder, BlockPos location, double r, double explosionStrength, int blocksPerIteration) {
     this.r = r;
@@ -73,7 +74,7 @@ public class Exploder {
     this.curY = 0;
     this.curZ = 0;
 
-    this.droppedItems = new TObjectIntHashMap<Pair<Item, Integer>>();
+    this.droppedItems = Lists.newArrayList();
   }
 
   public static void startExplosion(World world, Explosion explosion, Entity entity, BlockPos location, double r, double explosionStrength) {
@@ -139,19 +140,38 @@ public class Exploder {
     final int d = (int) r / 2;
     final BlockPos pos = new BlockPos(x - d, y - d, z - d);
     final Random random = new Random();
-    // drop items
-    droppedItems.forEachEntry(new TObjectIntProcedure<Pair<Item, Integer>>() {
-      @Override
-      public boolean execute(Pair<Item, Integer> a, int b) {
-        BlockPos spawnPos = pos.add(random.nextInt((int) r), random.nextInt((int) r), random.nextInt((int) r));
-        do {
-          int c = Math.min(b, 64);
-          Block.spawnAsEntity(world, spawnPos, new ItemStack(a.getKey(), c, a.getValue()));
-          b -= c;
-        } while(b > 0);
-        return true;
+
+    List<ItemStack> aggregatedDrops = Lists.newArrayList();
+
+    for(ItemStack drop : droppedItems) {
+      boolean notInList = true;
+
+      // check if it's already in our list
+      for(ItemStack stack : aggregatedDrops) {
+        if(ItemStack.areItemsEqual(drop, stack) && ItemStack.areItemStackTagsEqual(drop, stack)) {
+          stack.stackSize += drop.stackSize;
+          notInList = false;
+          break;
+        }
       }
-    });
+
+      if(notInList) {
+        aggregatedDrops.add(drop);
+      }
+    }
+
+    // actually drop the aggregated items
+    for(ItemStack drop : aggregatedDrops) {
+      int stacksize = drop.stackSize;
+      do {
+        BlockPos spawnPos = pos.add(random.nextInt((int) r), random.nextInt((int) r), random.nextInt((int) r));
+        ItemStack dropItemstack = drop.copy();
+        dropItemstack.stackSize = Math.min(stacksize, 64);
+        Block.spawnAsEntity(world, spawnPos, dropItemstack);
+        stacksize -= dropItemstack.stackSize;
+      } while(stacksize > 0);
+    }
+
     MinecraftForge.EVENT_BUS.unregister(this);
   }
 
@@ -221,12 +241,7 @@ public class Exploder {
     if(!world.isRemote && block.canDropFromExplosion(explosion)) {
       List<ItemStack> drops = block.getDrops(world, pos, state, 0);
       ForgeEventFactory.fireBlockHarvesting(drops, world, pos, state, 0, 1f, false, null);
-      for(ItemStack stack : drops) {
-        Pair<Item, Integer> pair = Pair.of(stack.getItem(), stack.getMetadata());
-        // add the items to the drops
-        droppedItems.put(pair, stack.stackSize + droppedItems.get(pair));
-      }
-      //block.dropBlockAsItemWithChance(world, pos, state, 1.0F, 0);
+      droppedItems.addAll(drops);
     }
 
     if(world instanceof WorldServer) {

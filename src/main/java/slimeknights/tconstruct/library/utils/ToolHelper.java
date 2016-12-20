@@ -44,14 +44,14 @@ import java.util.List;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
-import slimeknights.tconstruct.library.tools.IProjectileStats;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ranged.IProjectile;
 import slimeknights.tconstruct.library.traits.ITrait;
-import slimeknights.tconstruct.library.events.TinkerToolEvent;
-import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.network.ToolBreakAnimationPacket;
+import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.common.network.ToolBreakAnimationPacket;
 
 public final class ToolHelper {
 
@@ -118,9 +118,15 @@ public final class ToolHelper {
     return speed;
   }
 
-
   public static int getFreeModifiers(ItemStack stack) {
     return getIntTag(stack, Tags.FREE_MODIFIERS);
+  }
+
+  public static int getFortuneLevel(ItemStack stack) {
+    int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
+    int luck = TinkerModifiers.modLuck.getLuckLevel(stack);
+
+    return Math.max(fortune, luck);
   }
 
   public static List<ITrait> getTraits(ItemStack stack) {
@@ -185,7 +191,7 @@ public final class ToolHelper {
     }
 
     // this will be the only place besides fortify where a modifier is hardcoded. I promise. :L
-    if(TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), TinkerTools.modBlasting.getIdentifier())) {
+    if(TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), TinkerModifiers.modBlasting.getIdentifier()) && state.getMaterial().isToolNotRequired()) {
       return true;
     }
 
@@ -200,7 +206,7 @@ public final class ToolHelper {
     Block block = state.getBlock();
 
     // doesn't require a tool
-    if(block.getMaterial(state).isToolNotRequired()) {
+    if(state.getMaterial().isToolNotRequired()) {
       return true;
     }
 
@@ -225,20 +231,23 @@ public final class ToolHelper {
 
     // find out where the player is hitting the block
     IBlockState state = world.getBlockState(origin);
-    Block block = state.getBlock();
 
     if(!isToolEffective2(stack, state)) {
       return ImmutableList.of();
     }
 
-    if(block.getMaterial(state) == Material.AIR) {
+    if(state.getMaterial() == Material.AIR) {
       // what are you DOING?
       return ImmutableList.of();
     }
 
-    RayTraceResult mop = ((ToolCore) stack.getItem()).rayTrace(world, player, false);
-    if(mop == null) {
-      return ImmutableList.of();
+    // raytrace to get the side, but has to result in the same block
+    RayTraceResult mop = ((ToolCore) stack.getItem()).rayTrace(world, player, true);
+    if(mop == null || !origin.equals(mop.getBlockPos())) {
+      mop = ((ToolCore) stack.getItem()).rayTrace(world, player, false);
+      if(mop == null || !origin.equals(mop.getBlockPos())) {
+        return ImmutableList.of();
+      }
     }
 
     // fire event
@@ -372,7 +381,7 @@ public final class ToolHelper {
 
       // send update to client
       if(!world.isRemote) {
-        ((EntityPlayerMP) player).connection.sendPacket(new SPacketBlockChange(world, pos));
+        TinkerNetwork.sendPacket(player, new SPacketBlockChange(world, pos));
       }
       return;
     }
@@ -401,8 +410,7 @@ public final class ToolHelper {
       }
 
       // always send block update to client
-      EntityPlayerMP mpPlayer = (EntityPlayerMP) player;
-      mpPlayer.connection.sendPacket(new SPacketBlockChange(world, pos));
+      TinkerNetwork.sendPacket(player, new SPacketBlockChange(world, pos));
     }
     // client sided handling
     else {
@@ -523,13 +531,15 @@ public final class ToolHelper {
   }
 
   public static void unbreakTool(ItemStack stack) {
-    // ensure correct damage value
-    stack.setItemDamage(stack.getMaxDamage());
+    if(isBroken(stack)) {
+      // ensure correct damage value
+      stack.setItemDamage(stack.getMaxDamage());
 
-    // setItemDamage might break the tool again, so we do this afterwards
-    NBTTagCompound tag = TagUtil.getToolTag(stack);
-    tag.setBoolean(Tags.BROKEN, false);
-    TagUtil.setToolTag(stack, tag);
+      // setItemDamage might break the tool again, so we do this afterwards
+      NBTTagCompound tag = TagUtil.getToolTag(stack);
+      tag.setBoolean(Tags.BROKEN, false);
+      TagUtil.setToolTag(stack, tag);
+    }
   }
 
   public static void repairTool(ItemStack stack, int amount) {
@@ -538,9 +548,7 @@ public final class ToolHelper {
   }
 
   public static void repairTool(ItemStack stack, int amount, EntityLivingBase entity) {
-    if(isBroken(stack)) {
-      unbreakTool(stack);
-    }
+    unbreakTool(stack);
 
     TinkerToolEvent.OnRepair.fireEvent(stack, amount);
 
@@ -554,16 +562,17 @@ public final class ToolHelper {
     return attackEntity(stack, tool, attacker, targetEntity, null);
   }
 
+  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity) {
+    return attackEntity(stack, tool, attacker, targetEntity, projectileEntity, true);
+  }
+
   /**
    * Makes all the calls to attack an entity. Takes enchantments and potions and traits into account. Basically call this when a tool deals damage.
    * Most of this function is the same as {@link EntityPlayer#attackTargetEntityWithCurrentItem(Entity targetEntity)}
    */
-  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity) {
+  public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity, boolean applyCooldown) {
     // nothing to do, no target?
     if(targetEntity == null || !targetEntity.canBeAttackedWithItem() || targetEntity.hitByEntity(attacker) || !stack.hasTagCompound()) {
-      return false;
-    }
-    if(!(targetEntity instanceof EntityLivingBase)) {
       return false;
     }
     if(isBroken(stack)) {
@@ -573,9 +582,11 @@ public final class ToolHelper {
       return false;
     }
     boolean isProjectile = projectileEntity != null;
-    EntityLivingBase target = (EntityLivingBase) targetEntity;
-
+    EntityLivingBase target = null;
     EntityPlayer player = null;
+    if(targetEntity instanceof EntityLivingBase) {
+      target = (EntityLivingBase) targetEntity;
+    }
     if(attacker instanceof EntityPlayer) {
       player = (EntityPlayer) attacker;
     }
@@ -607,8 +618,10 @@ public final class ToolHelper {
 
     // calculate actual damage
     float damage = baseDamage;
-    for(ITrait trait : traits) {
-      damage = trait.damage(stack, attacker, target, baseDamage, damage, isCritical);
+    if(target != null) {
+      for(ITrait trait : traits) {
+        damage = trait.damage(stack, attacker, target, baseDamage, damage, isCritical);
+      }
     }
 
     // apply critical damage
@@ -621,43 +634,51 @@ public final class ToolHelper {
 
     // calculate actual knockback
     float knockback = baseKnockback;
-    for(ITrait trait : traits) {
-      knockback = trait.knockBack(stack, attacker, target, damage, baseKnockback, knockback, isCritical);
+    if(target != null) {
+      for(ITrait trait : traits) {
+        knockback = trait.knockBack(stack, attacker, target, damage, baseKnockback, knockback, isCritical);
+      }
     }
 
     // missing because not supported by tcon tools: vanilla fire aspect enchantments, we have our own modifiers
 
-    float oldHP = target.getHealth();
+    float oldHP = 0;
 
-    double oldVelX = target.motionX;
-    double oldVelY = target.motionY;
-    double oldVelZ = target.motionZ;
+    double oldVelX = targetEntity.motionX;
+    double oldVelY = targetEntity.motionY;
+    double oldVelZ = targetEntity.motionZ;
+
+    if(target != null) {
+      oldHP = target.getHealth();
+    }
 
     // apply cooldown damage decrease
     if(player != null) {
-      float f2 = player.getCooledAttackStrength(0.5F);
-      damage *= (0.2F + f2 * f2 * 0.8F);
+      float cooldown = ((EntityPlayer) attacker).getCooledAttackStrength(0.5F);
+      damage *= (0.2F + cooldown * cooldown * 0.8F);
     }
 
-    int hurtResistantTime = target.hurtResistantTime;
     // deal the damage
-    for(ITrait trait : traits) {
-      trait.onHit(stack, attacker, target, damage, isCritical);
-      // reset hurt reristant time
-      target.hurtResistantTime = hurtResistantTime;
+    if(target != null) {
+    int hurtResistantTime = target.hurtResistantTime;
+      for(ITrait trait : traits) {
+        trait.onHit(stack, attacker, target, damage, isCritical);
+        // reset hurt reristant time
+        target.hurtResistantTime = hurtResistantTime;
+      }
     }
 
     boolean hit = false;
-    if(isProjectile && tool instanceof IProjectileStats) {
-      hit = ((IProjectileStats) tool).dealDamageRanged(stack, projectileEntity, attacker, target, damage);
+    if(isProjectile && tool instanceof IProjectile) {
+      hit = ((IProjectile) tool).dealDamageRanged(stack, projectileEntity, attacker, targetEntity, damage);
     }
     else {
-      hit = tool.dealDamage(stack, attacker, target, damage);
+      hit = tool.dealDamage(stack, attacker, targetEntity, damage);
     }
 
 
     // did we hit?
-    if(hit) {
+    if(hit && target != null) {
       // actual damage dealt
       float damageDealt = oldHP - target.getHealth();
 
@@ -681,7 +702,7 @@ public final class ToolHelper {
       // Send movement changes caused by attacking directly to hit players.
       // I guess this is to allow better handling at the hit players side? No idea why it resets the motion though.
       if(targetEntity instanceof EntityPlayerMP && targetEntity.velocityChanged) {
-        ((EntityPlayerMP) targetEntity).connection.sendPacket(new SPacketEntityVelocity(targetEntity));
+        TinkerNetwork.sendPacket(player, new SPacketEntityVelocity(targetEntity));
         targetEntity.velocityChanged = false;
         targetEntity.motionX = oldVelX;
         targetEntity.motionY = oldVelY;
@@ -736,7 +757,7 @@ public final class ToolHelper {
         }
 
         // cooldown for non-projectiles
-        if(!isProjectile) {
+        if(!isProjectile && applyCooldown) {
           player.resetCooldown();
         }
       }

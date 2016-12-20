@@ -27,11 +27,12 @@ import javax.annotation.Nonnull;
 
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.item.ItemArmorTooltip;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.capability.CapabilityTinkerPiggyback;
-import slimeknights.tconstruct.library.capability.ITinkerPiggyback;
-import slimeknights.tconstruct.library.capability.TinkerPiggybackSerializer;
+import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
+import slimeknights.tconstruct.library.capability.piggyback.ITinkerPiggyback;
+import slimeknights.tconstruct.library.capability.piggyback.TinkerPiggybackSerializer;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
 
@@ -113,7 +114,7 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
       // todo: possibly throw off all passengers of the target
       if(target.startRiding(toRide, true)) {
         if(player instanceof EntityPlayerMP) {
-          ((EntityPlayerMP) player).connection.sendPacket(new SPacketSetPassengers(player));
+          TinkerNetwork.sendPacket(player, new SPacketSetPassengers(player));
         }
         return true;
       }

@@ -89,4 +89,10 @@ public class ModifierTrait extends AbstractTrait implements IModifierDisplay {
 
     return builder.build();
   }
+
+  public ModifierNBT.IntegerNBT getData(ItemStack tool) {
+    NBTTagCompound tag = TinkerUtil.getModifierTag(tool, getModifierIdentifier());
+    return ModifierNBT.readInteger(tag);
+  }
+
 }

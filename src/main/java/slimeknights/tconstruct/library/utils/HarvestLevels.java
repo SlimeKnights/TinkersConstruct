@@ -33,14 +33,20 @@ public class HarvestLevels {
     harvestLevelNames.put(DIAMOND, TextFormatting.AQUA + Util.translate("ui.mininglevel.diamond"));
     harvestLevelNames.put(OBSIDIAN, TinkerMaterials.obsidian.getTextColor() + Util.translate("ui.mininglevel.obsidian"));
     harvestLevelNames.put(COBALT, TinkerMaterials.cobalt.getTextColor() + Util.translate("ui.mininglevel.cobalt"));
-  }
 
-  // initialization
-  static {
+    // custom names via resource pack.. deprecated
     String base = "gui.mining";
     int i = 0;
-    while(I18n.canTranslate(String.format("%s%d", base, i + 1))) {
-      harvestLevelNames.put(i, I18n.translateToLocal(String.format("%s%d", base, i + 1)));
+    while(I18n.canTranslate(String.format("%s%d", base, i))) {
+      harvestLevelNames.put(i, I18n.translateToLocal(String.format("%s%d", base, i)));
+      i++;
+    }
+
+    // and new
+    base = "ui.mininglevel.";
+    i = 0;
+    while(I18n.canTranslate(String.format("%s%d", base, i))) {
+      harvestLevelNames.put(i, I18n.translateToLocal(String.format("%s%d", base, i)));
       i++;
     }
   }

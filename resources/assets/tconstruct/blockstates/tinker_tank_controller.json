@@ -1,0 +1,32 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "orientable",
+        "uvlock": true
+	},
+	"variants": {
+		"facing": {
+			"north": {},
+			"south": { "y": 180 },
+			"west": { "y": 270 },
+			"east": { "y": 90 }
+		},
+		"active": {
+			"true": { "model": "tconstruct:tinker_tank_active" },
+			"false": {
+				"textures": {
+					"top": "tconstruct:blocks/smeltery/seared_brick",
+					"front": "tconstruct:blocks/smeltery/tinker_tank",
+					"side": "#top"
+				}
+			}
+		},
+		"inventory": [{
+			"textures": {
+				"top": "tconstruct:blocks/smeltery/seared_brick",
+				"front": "tconstruct:blocks/smeltery/tinker_tank",
+				"side": "#top"
+			}
+		}]
+	}
+}

@@ -6,7 +6,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 
 import slimeknights.tconstruct.library.events.TinkerEvent;
-import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 

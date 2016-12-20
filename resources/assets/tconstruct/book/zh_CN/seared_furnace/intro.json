@@ -1,0 +1,11 @@
+{
+  "title":"焦黑熔炉",
+  "image": {
+	"file": "tconstruct:textures/gui/book/seared_furnace.png"
+  },
+  "text": [
+    {
+      "text": "焦黑熔炉是熔炉界的大师，一次可以烧制1/4组物品，拿来烧制食物绝对快极了。"
+    }
+  ]
+}

@@ -1,8 +1,5 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.Entity;
@@ -12,19 +9,13 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -36,7 +27,6 @@ import javax.annotation.Nonnull;
 
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.mantle.multiblock.IMasterLogic;
-import slimeknights.mantle.multiblock.IServantLogic;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -47,42 +37,30 @@ import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.TinkerFluids;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.BlockSmelteryController;
 import slimeknights.tconstruct.smeltery.client.GuiSmeltery;
 import slimeknights.tconstruct.smeltery.events.TinkerSmelteryEvent;
 import slimeknights.tconstruct.smeltery.inventory.ContainerSmeltery;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockSmeltery;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
-import slimeknights.tconstruct.smeltery.network.SmelteryFuelUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryInventoryUpdatePacket;
 
-public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, ITickable, IInventoryGui,
-                                                                  ISmelteryTankHandler {
+public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmeltery> implements ITickable, IInventoryGui,
+                                                                          ISmelteryTankHandler {
 
   public static final DamageSource smelteryDamage = new DamageSource("smeltery").setFireDamage();
 
   static final Logger log = Util.getLogger("Smeltery");
 
-  protected static final int MAX_SIZE = 9; // 9 to allow 8x8 smelteries which hold 1 stack and 9x9 for nugget/ingot processing.
+  // NBT tags
+  public static final String TAG_INSIDEPOS = "insidePos";
+
   protected static final int CAPACITY_PER_BLOCK = Material.VALUE_Ingot * 8;
   protected static final int ALLOYING_PER_TICK = 10; // how much liquid can be created per tick to make alloys
-
-  // Info about the smeltery structure/multiblock
-  public boolean active;
-  public MultiblockDetection.MultiblockStructure info;
-  public List<BlockPos> tanks;
-  public BlockPos currentTank;
-  public FluidStack currentFuel; // the fuel that was last consumed
-
-  public BlockPos minPos; // smallest coordinate INSIDE the smeltery
-  public BlockPos maxPos; // biggest coordinate INSIDE the smeltery
 
   // Info about the state of the smeltery. Liquids etc.
   protected SmelteryTank liquids;
 
-  protected MultiblockSmeltery multiblock;
   protected int tick;
 
   private BlockPos insideCheck; // last checked position for validity inside the smeltery
@@ -90,9 +68,8 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
 
   public TileSmeltery() {
     super("gui.smeltery.name", 0, 1);
-    multiblock = new MultiblockSmeltery(this);
+    setMultiblock(new MultiblockSmeltery(this));
     liquids = new SmelteryTank(this);
-    tanks = Lists.newLinkedList();
   }
 
   @Override
@@ -105,7 +82,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     if(!isActive()) {
       // check for smeltery once per second
       if(tick == 0) {
-        checkSmelteryStructure();
+        checkMultiblockStructure();
       }
     }
     else {
@@ -130,43 +107,50 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
         // called every second, we check every 15s or so
         if(++fullCheckCounter >= 15) {
           fullCheckCounter = 0;
-          checkSmelteryStructure();
+          checkMultiblockStructure();
         }
         else {
           // outside or unset?
-          if(insideCheck == null
-             || insideCheck.getX() < minPos.getX()
-             || insideCheck.getY() < minPos.getY()
-             || insideCheck.getZ() < minPos.getZ()
-             || insideCheck.getX() > maxPos.getX()
-             || insideCheck.getY() > maxPos.getY()
-             || insideCheck.getZ() > maxPos.getZ()) {
-            insideCheck = minPos;
-          }
+          updateInsideCheck();
 
           if(!worldObj.isAirBlock(insideCheck)) {
             // we broke. inside blocked. :(
-            this.active = false;
-            updateSmelteryInfo(null);
+            setInvalid();
             insideCheck = null;
             IBlockState state = worldObj.getBlockState(this.pos);
             worldObj.notifyBlockUpdate(getPos(), state, state, 3);
           }
           else {
             // advance to next block
-            insideCheck = insideCheck.add(1, 0, 0);
-            if(insideCheck.getX() > maxPos.getX()) {
-              insideCheck = new BlockPos(minPos.getX(), insideCheck.getY(), insideCheck.getZ() + 1);
-              if(insideCheck.getZ() > maxPos.getZ()) {
-                insideCheck = new BlockPos(minPos.getX(), insideCheck.getY() + 1, minPos.getZ());
-              }
-            }
+            progressInsideCheck();
           }
         }
       }
     }
 
     tick = (tick + 1) % 20;
+  }
+
+  private void updateInsideCheck() {
+    if(insideCheck == null
+       || insideCheck.getX() < minPos.getX()
+       || insideCheck.getY() < minPos.getY()
+       || insideCheck.getZ() < minPos.getZ()
+       || insideCheck.getX() > maxPos.getX()
+       || insideCheck.getY() > maxPos.getY()
+       || insideCheck.getZ() > maxPos.getZ()) {
+      insideCheck = minPos;
+    }
+  }
+
+  private void progressInsideCheck() {
+    insideCheck = insideCheck.add(1, 0, 0);
+    if(insideCheck.getX() > maxPos.getX()) {
+      insideCheck = new BlockPos(minPos.getX(), insideCheck.getY(), insideCheck.getZ() + 1);
+      if(insideCheck.getZ() > maxPos.getZ()) {
+        insideCheck = new BlockPos(minPos.getX(), insideCheck.getY() + 1, minPos.getZ());
+      }
+    }
   }
 
   /* Smeltery processing logic. Consuming fuel, heating stuff, creating alloys etc. */
@@ -200,7 +184,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
       return false;
     }
 
-    TinkerSmelteryEvent.OnMelting event = TinkerSmelteryEvent.OnMelting.fireEvent(this, stack, recipe.output);
+    TinkerSmelteryEvent.OnMelting event = TinkerSmelteryEvent.OnMelting.fireEvent(this, stack, recipe.output.copy());
 
     int filled = liquids.fill(event.result, false);
 
@@ -263,7 +247,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
           // hurt it
           if(entity.attackEntityFrom(smelteryDamage, 2f)) {
             // spill the blood
-            liquids.fill(fluid, true);
+            liquids.fill(fluid.copy(), true);
           }
         }
       }
@@ -302,195 +286,27 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     }
   }
 
+  /* Smeltery Multiblock Detection/Formation */
+
   @Override
-  protected void consumeFuel() {
-    // no need to consume fuel
-    if(hasFuel()) {
-      return;
-    }
+  protected void updateStructureInfo(MultiblockDetection.MultiblockStructure structure) {
+    super.updateStructureInfo(structure);
 
-    // get current tank
-    searchForFuel();
-
-    // got a tank?
-    if(currentTank != null) {
-      // consume fuel!
-      TileEntity te = worldObj.getTileEntity(currentTank);
-      if(te instanceof TileTank) {
-        IFluidTank tank = ((TileTank) te).getInternalTank();
-
-        FluidStack liquid = tank.getFluid();
-        if(liquid != null) {
-          FluidStack in = liquid.copy();
-          int bonusFuel = TinkerRegistry.consumeSmelteryFuel(in);
-          int amount = liquid.amount - in.amount;
-          FluidStack drained = tank.drain(amount, false);
-
-          // we can drain. actually drain and add the fuel
-          if(drained != null && drained.amount == amount) {
-            tank.drain(amount, true);
-            currentFuel = drained.copy();
-            addFuel(bonusFuel, drained.getFluid().getTemperature(drained) - 300); // convert to degree celcius
-
-            // notify client of fuel/temperature changes
-            if(worldObj != null && !worldObj.isRemote) {
-              TinkerNetwork.sendToAll(new SmelteryFuelUpdatePacket(pos, currentTank, temperature, currentFuel));
-            }
-          }
-        }
-      }
-    }
+    this.liquids.setCapacity(getSizeInventory() * CAPACITY_PER_BLOCK);
   }
 
-  private void searchForFuel() {
-    // is the current tank still up to date?
-    if(currentTank != null && hasFuel(currentTank, currentFuel)) {
-      return;
-    }
-
-    // nope, current tank is empty, check others for same fuel
-    for(BlockPos pos : tanks) {
-      if(hasFuel(pos, currentFuel)) {
-        currentTank = pos;
-        return;
-      }
-    }
-
-    // nothing found, try again with new fuel
-    for(BlockPos pos : tanks) {
-      if(hasFuel(pos, null)) {
-        currentTank = pos;
-        return;
-      }
-    }
-
-    currentTank = null;
-  }
-
-  // checks if the given location has a fluid tank that contains fuel
-  private boolean hasFuel(BlockPos pos, FluidStack preference) {
-    IFluidTank tank = getTankAt(pos);
-    if(tank != null && tank.getFluid() != null) {
-      if(tank.getFluidAmount() > 0 && TinkerRegistry.isSmelteryFuel(tank.getFluid())) {
-        // if we have a preference, only use that
-        if(preference != null && tank.getFluid().isFluidEqual(preference)) {
-          return true;
-        }
-        else if(preference == null) {
-          return true;
-        }
-      }
-    }
-
+  @Override
+  protected boolean hasCeiling() {
     return false;
   }
 
-  private IFluidTank getTankAt(BlockPos pos) {
-    TileEntity te = worldObj.getTileEntity(pos);
-    if(te instanceof TileTank) {
-      return ((TileTank) te).getInternalTank();
-    }
-
-    return null;
-  }
-
-  /* Smeltery Multiblock Detection/Formation */
-
-  /** Called by the servants */
   @Override
-  public void notifyChange(IServantLogic servant, BlockPos pos) {
-    checkSmelteryStructure();
+  protected int getUpdatedInventorySize(int width, int height, int depth) {
+    return width * height * depth;
   }
-
-  // Checks if the smeltery is fully built and updates status accordingly
-  public void checkSmelteryStructure() {
-    boolean wasActive = isActive();
-
-    IBlockState state = this.worldObj.getBlockState(getPos());
-    if(!(state.getBlock() instanceof BlockSmelteryController)) {
-      active = false;
-    }
-    else {
-      EnumFacing in = state.getValue(BlockSmelteryController.FACING).getOpposite();
-
-      MultiblockDetection.MultiblockStructure structure = multiblock.detectMultiblock(this.worldObj, this.getPos().offset(in), MAX_SIZE);
-      if(structure == null) {
-        active = false;
-        updateSmelteryInfo(null);
-      }
-      else {
-        // we found a valid smeltery. yay.
-        active = true;
-        MultiblockDetection.assignMultiBlock(this.worldObj, this.getPos(), structure.blocks);
-        updateSmelteryInfo(structure);
-        // we still have to update since something caused us to rebuild our stats
-        // might be the smeltery size changed
-        if(wasActive) {
-          worldObj.notifyBlockUpdate(getPos(), state, state, 3);
-        }
-      }
-    }
-
-    // mark the block for updating so the smeltery controller block updates its graphics
-    if(wasActive != isActive()) {
-      worldObj.notifyBlockUpdate(getPos(), state, state, 3);
-      this.markDirty();
-    }
-  }
-
-  protected void updateSmelteryInfo(MultiblockDetection.MultiblockStructure structure) {
-    info = structure;
-
-    if(structure == null) {
-      structure = new MultiblockDetection.MultiblockStructure(0, 0, 0, ImmutableList.<BlockPos>of(this.pos));
-    }
-
-    if(info != null) {
-      minPos = info.minPos.add(1, 1, 1); // add walls and floor
-      maxPos = info.maxPos.add(-1, 0, -1); // subtract walls, no ceiling
-    }
-    else {
-      minPos = maxPos = this.pos;
-    }
-
-    // find all tanks for input
-    tanks.clear();
-    for(BlockPos pos : structure.blocks) {
-      if(worldObj.getBlockState(pos).getBlock() == TinkerSmeltery.searedTank) {
-        tanks.add(pos);
-      }
-    }
-
-    int inventorySize = structure.xd * structure.yd * structure.zd;
-    // if the new smeltery is smaller we pop out all items that don't fit in anymore
-    if(this.getSizeInventory() > inventorySize) {
-      for(int i = inventorySize; i < getSizeInventory(); i++) {
-        if(getStackInSlot(i) != null) {
-          dropItem(getStackInSlot(i));
-        }
-      }
-    }
-
-    this.liquids.setCapacity(inventorySize * CAPACITY_PER_BLOCK);
-
-    // adjust inventory sizes
-    this.resize(inventorySize);
-
-    //System.out.println(String.format("[%s] Smeltery detected. Size: %d x %d x %d, %d slots", worldObj != null && worldObj.isRemote ? "Client" : "Server", structure.xd, structure.zd, structure.yd, inventorySize));
-  }
-
-  private void dropItem(ItemStack stack) {
-    EnumFacing direction = worldObj.getBlockState(pos).getValue(BlockSmelteryController.FACING);
-    BlockPos pos = this.getPos().offset(direction);
-
-    EntityItem entityitem = new EntityItem(worldObj, pos.getX(), pos.getY(), pos.getZ(), stack);
-    worldObj.spawnEntityInWorld(entityitem);
-  }
-
-
 
   /* Fluid handling */
-
+  @Override
   public SmelteryTank getTank() {
     return liquids;
   }
@@ -507,65 +323,6 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     return new GuiSmeltery((ContainerSmeltery) createContainer(inventoryplayer, world, pos), this);
   }
 
-  public float getMeltingProgress(int index) {
-    if(index < 0 || index > getSizeInventory() - 1) {
-      return -1f;
-    }
-
-    if(!canHeat(index)) {
-      return -1f;
-    }
-
-    return getProgress(index);
-  }
-
-  @SideOnly(Side.CLIENT)
-  public FuelInfo getFuelDisplay() {
-    FuelInfo info = new FuelInfo();
-
-    // we still have leftover fuel
-    if(hasFuel()) {
-      info.fluid = currentFuel.copy();
-      info.fluid.amount = 0;
-      info.heat = this.temperature;
-      info.maxCap = currentFuel.amount;
-    }
-    else if(currentTank != null) {
-      // we need to consume fuel, check the current tank
-      if(hasFuel(currentTank, currentFuel)) {
-        IFluidTank tank = getTankAt(currentTank);
-        info.fluid = tank.getFluid().copy();
-        info.heat = temperature;
-        info.maxCap = tank.getCapacity();
-      }
-    }
-
-    // check all other tanks (except the current one that we already checked) for more fuel
-    for(BlockPos pos : tanks) {
-      if(pos == currentTank) {
-        continue;
-      }
-
-      IFluidTank tank = getTankAt(pos);
-      // tank exists and has something in it
-      if(tank != null && tank.getFluidAmount() > 0) {
-        // we don't have fuel yet, use this
-        if(info.fluid == null) {
-          info.fluid = tank.getFluid().copy();
-          info.heat = info.fluid.getFluid().getTemperature(info.fluid);
-          info.maxCap = tank.getCapacity();
-        }
-        // otherwise add the same together
-        else if(tank.getFluid().isFluidEqual(info.fluid)) {
-          info.fluid.amount += tank.getFluidAmount();
-          info.maxCap += tank.getCapacity();
-        }
-      }
-    }
-
-    return info;
-  }
-
   @Nonnull
   @Override
   public AxisAlignedBB getRenderBoundingBox() {
@@ -576,7 +333,6 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   }
 
   /* Network & Saving */
-
   @Override
   public void setInventorySlotContents(int slot, ItemStack itemstack) {
     // send to client if needed
@@ -586,15 +342,7 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     super.setInventorySlotContents(slot, itemstack);
   }
 
-  @SideOnly(Side.CLIENT)
-  public void updateTemperatureFromPacket(int index, int heat) {
-    if(index < 0 || index > getSizeInventory() - 1) {
-      return;
-    }
-
-    itemTemperatures[index] = heat;
-  }
-
+  @Override
   @SideOnly(Side.CLIENT)
   public void updateFluidsFromPacket(List<FluidStack> fluids) {
     this.liquids.setFluids(fluids);
@@ -609,36 +357,12 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
     }
   }
 
-  @Override
-  public void validate() {
-    super.validate();
-    // on validation we set active to false so the smeltery checks anew if it's formed
-    active = false;
-  }
-
   @Nonnull
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
     compound = super.writeToNBT(compound);
     liquids.writeToNBT(compound);
-
-    compound.setBoolean("active", active);
-    compound.setTag("currentTank", TagUtil.writePos(currentTank));
-    NBTTagList tankList = new NBTTagList();
-    for(BlockPos pos : tanks) {
-      tankList.appendTag(TagUtil.writePos(pos));
-    }
-    compound.setTag("tanks", tankList);
-
-    NBTTagCompound fuelTag = new NBTTagCompound();
-    if(currentFuel != null) {
-      currentFuel.writeToNBT(fuelTag);
-    }
-    compound.setTag("currentFuel", fuelTag);
-
-    compound.setTag("minPos", TagUtil.writePos(minPos));
-    compound.setTag("maxPos", TagUtil.writePos(maxPos));
-    compound.setTag("insidePos", TagUtil.writePos(insideCheck));
+    compound.setTag(TAG_INSIDEPOS, TagUtil.writePos(insideCheck));
 
     return compound;
   }
@@ -647,64 +371,6 @@ public class TileSmeltery extends TileHeatingStructure implements IMasterLogic, 
   public void readFromNBT(NBTTagCompound compound) {
     super.readFromNBT(compound);
     liquids.readFromNBT(compound);
-
-    active = compound.getBoolean("active");
-    NBTTagList tankList = compound.getTagList("tanks", 10);
-    tanks.clear();
-    for(int i = 0; i < tankList.tagCount(); i++) {
-      tanks.add(TagUtil.readPos(tankList.getCompoundTagAt(i)));
-    }
-
-    NBTTagCompound fuelTag = compound.getCompoundTag("currentFuel");
-    currentFuel = FluidStack.loadFluidStackFromNBT(fuelTag);
-
-    minPos = TagUtil.readPos(compound.getCompoundTag("minPos"));
-    maxPos = TagUtil.readPos(compound.getCompoundTag("maxPos"));
-    insideCheck = TagUtil.readPos(compound.getCompoundTag("insidePos"));
-  }
-
-  @Override
-  public SPacketUpdateTileEntity getUpdatePacket() {
-    NBTTagCompound tag = new NBTTagCompound();
-    writeToNBT(tag);
-    return new SPacketUpdateTileEntity(this.getPos(), this.getBlockMetadata(), tag);
-  }
-
-  @Override
-  public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-    boolean wasActive = active;
-
-    readFromNBT(pkt.getNbtCompound());
-
-    // update chunk (rendering) if the active state changed
-    if(isActive() != wasActive) {
-      IBlockState state = worldObj.getBlockState(getPos());
-      worldObj.notifyBlockUpdate(getPos(), state, state, 3);
-    }
-  }
-
-  @Nonnull
-  @Override
-  public NBTTagCompound getUpdateTag() {
-    // new tag instead of super since default implementation calls the super of writeToNBT
-    return writeToNBT(new NBTTagCompound());
-  }
-
-  @Override
-  public void handleUpdateTag(@Nonnull NBTTagCompound tag) {
-    readFromNBT(tag);
-  }
-
-  /* Getter */
-
-  public boolean isActive() {
-    return active;
-  }
-
-  public static class FuelInfo {
-
-    public int heat;
-    public int maxCap;
-    public FluidStack fluid;
+    insideCheck = TagUtil.readPos(compound.getCompoundTag(TAG_INSIDEPOS));
   }
 }

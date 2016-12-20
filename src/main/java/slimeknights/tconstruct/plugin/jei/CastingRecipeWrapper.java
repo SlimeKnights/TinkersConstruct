@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
@@ -60,24 +61,14 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
     return recipe.cast != null;
   }
 
-  @Nonnull
   @Override
-  public List<FluidStack> getFluidInputs() {
-    return inputFluid;
+  public void getIngredients(IIngredients ingredients) {
+    ingredients.setInputLists(ItemStack.class, ImmutableList.of(cast));
+    ingredients.setInputs(FluidStack.class, inputFluid);
+    ingredients.setOutputs(ItemStack.class, lazyInitOutput());
   }
 
-  @Nonnull
-  @Override
-  public List getInputs() {
-    if(cast == null) {
-      return super.getInputs();
-    }
-    return cast;
-  }
-
-  @Nonnull
-  @Override
-  public List getOutputs() {
+  public List<ItemStack> lazyInitOutput() {
     if(output == null) {
       if(recipe.getResult() == null) {
         return ImmutableList.of();

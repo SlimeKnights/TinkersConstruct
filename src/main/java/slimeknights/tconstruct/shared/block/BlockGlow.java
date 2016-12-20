@@ -3,6 +3,7 @@ package slimeknights.tconstruct.shared.block;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -83,10 +84,17 @@ public class BlockGlow extends Block {
     super.neighborChanged(state, world, pos, blockIn);
   }
 
-  // function to determine if a side can contain a glow. Like the function from the ladder, only opposite
+  /**
+   *  Determines if a block side can contain a glow. 
+   *  Returns true if the block side is solid and the block at the given BlockPos is not a liquid
+   */
   protected boolean canBlockStay(World world, BlockPos pos, EnumFacing facing) {
     BlockPos placedOn = pos.offset(facing);
-    return world.getBlockState(placedOn).isSideSolid(world, placedOn, facing.getOpposite());
+    
+    boolean isSolidSide = world.getBlockState(placedOn).isSideSolid(world, placedOn, facing.getOpposite());
+    boolean isLiquid = world.getBlockState(pos).getBlock() instanceof BlockLiquid ;
+    
+    return !isLiquid && isSolidSide;
   }
 
   /**
@@ -107,14 +115,18 @@ public class BlockGlow extends Block {
 
       // if the location is valid, place the block directly
       if(this.canBlockStay(world, pos, facing)) {
-        world.setBlockState(pos, getDefaultState().withProperty(FACING, facing));
+        if(!world.isRemote) {
+          world.setBlockState(pos, getDefaultState().withProperty(FACING, facing));
+        }
         return true;
       }
       // otherwise, try and place it facing a different way
       else {
         for(EnumFacing enumfacing : EnumFacing.VALUES) {
           if(this.canBlockStay(world, pos, enumfacing)) {
-            world.setBlockState(pos, getDefaultState().withProperty(FACING, enumfacing));
+            if(!world.isRemote) {
+              world.setBlockState(pos, getDefaultState().withProperty(FACING, enumfacing));
+            }
             return true;
           }
         }
@@ -130,6 +142,7 @@ public class BlockGlow extends Block {
 
   /* Bounds */
   private static final ImmutableMap<EnumFacing, AxisAlignedBB> BOUNDS;
+
   static {
     ImmutableMap.Builder<EnumFacing, AxisAlignedBB> builder = ImmutableMap.builder();
     builder.put(EnumFacing.UP,    new AxisAlignedBB(0.0D, 0.9375D, 0.0D, 1.0D, 1.0D, 1.0D));

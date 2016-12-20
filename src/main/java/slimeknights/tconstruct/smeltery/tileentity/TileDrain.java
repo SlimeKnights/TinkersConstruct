@@ -11,6 +11,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.fluid.FluidHandlerExtractOnlyWrapper;
+import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
+import slimeknights.tconstruct.library.smeltery.SmelteryTank;
 
 /**
  * Drains allow access to the bottommost liquid in the smeltery.
@@ -19,12 +21,12 @@ import slimeknights.tconstruct.library.fluid.FluidHandlerExtractOnlyWrapper;
 public class TileDrain extends TileSmelteryComponent {
 
   private FluidHandlerExtractOnlyWrapper drainFluidHandler;
-  private WeakReference<TileEntity> oldSmeltery;
+  private WeakReference<TileEntity> oldSmelteryTank;
 
   @Override
   public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-      return getSmeltery() != null;
+      return getSmelteryTankHandler() != null;
     }
     return super.hasCapability(capability, facing);
   }
@@ -34,15 +36,25 @@ public class TileDrain extends TileSmelteryComponent {
   @Override
   public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
-      TileSmeltery smeltery = getSmeltery();
+      TileEntity te = this.getSmelteryTankHandler();
+      if(te == null || !(te instanceof ISmelteryTankHandler)) {
+        return super.getCapability(capability, facing);
+      }
+
+      SmelteryTank tank = ((ISmelteryTankHandler) te).getTank();
+
       if(facing == null) {
-        if(drainFluidHandler == null || oldSmeltery == null || oldSmeltery.get() == null || !oldSmeltery.get().getPos().equals(smeltery.getPos())) {
-          drainFluidHandler = new FluidHandlerExtractOnlyWrapper(smeltery.getTank());
-          oldSmeltery = new WeakReference<TileEntity>(smeltery);
+        // check if the TE's equal rather than just the position
+        // otherwise we could still be referencing a TE from a smeltery that was broken and replaced (garbage collector being slow to grab the TE)
+        if(drainFluidHandler == null || oldSmelteryTank.get() == null
+            || oldSmelteryTank == null || !drainFluidHandler.hasParent()
+            || !oldSmelteryTank.get().equals(te)) {
+          drainFluidHandler = new FluidHandlerExtractOnlyWrapper(tank);
+          oldSmelteryTank = new WeakReference<TileEntity>(te);
         }
         return (T) drainFluidHandler;
       }
-      return (T) smeltery.getTank();
+      return (T) tank;
     }
     return super.getCapability(capability, facing);
   }

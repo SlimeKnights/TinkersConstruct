@@ -1,0 +1,24 @@
+{
+  "modifier": "harvestheight",
+  "text": [
+    {
+      "text": "你是否期望过你的工具能有更大的使用范围，现在可以做到了"
+    }
+  ],
+  "effects": [
+    "增加工具竖直方向的使用范围",
+    "只对方块有效",
+    "对攻击性武器无效",
+    "多个等级"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:shovel",
+    "tconstruct:hatchet",
+    "tconstruct:mattock",
+    "tconstruct:hammer",
+    "tconstruct:lumberaxe",
+    "tconstruct:excavator",
+    "tconstruct:scythe"
+  ]
+}

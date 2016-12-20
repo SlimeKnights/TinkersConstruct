@@ -6,7 +6,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.network.InventoryCraftingSyncPacket;
+import slimeknights.tconstruct.tools.common.network.InventoryCraftingSyncPacket;
 
 // variant of InventoryCrafting that saves its itemstacks into the given inventory
 public class InventoryCraftingPersistent extends InventoryCrafting {

@@ -1,0 +1,17 @@
+{
+  "modifier": "smite",
+  "text": [
+    {
+      "text": "来自神圣土的原始力量能够强化你的武器，来，干掉那些高处的敌人吧。"
+    }
+  ],
+  "effects": [
+    "对亡灵生物造成额外的伤害",
+    "多个等级"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:hammer"
+  ]
+}

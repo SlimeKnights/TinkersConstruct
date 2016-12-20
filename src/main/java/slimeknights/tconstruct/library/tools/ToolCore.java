@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
@@ -28,12 +29,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.ClientProxy;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
@@ -41,9 +43,11 @@ import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tinkering.Category;
+import slimeknights.tconstruct.library.tinkering.IToolStationDisplay;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.traits.ITrait;
@@ -54,21 +58,15 @@ import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.traits.InfiTool;
-import slimeknights.tconstruct.tools.traits.ToolGrowth;
 
 /**
  * Intermediate abstraction layer for all tools/melee weapons. This class has all the callbacks for blocks and enemies
  * so tools and weapons can share behaviour.
  */
-public abstract class ToolCore extends TinkersItem {
+public abstract class ToolCore extends TinkersItem implements IToolStationDisplay {
 
-  protected final static int DEFAULT_MODIFIERS = 3;
-  protected final static ToolGrowth toolGrowth;
-
-  static {
-    toolGrowth = new ToolGrowth();
-    TinkerRegistry.addTrait(toolGrowth);
-  }
+  public final static int DEFAULT_MODIFIERS = 3;
+  public static final String TAG_SWITCHED_HAND_HAX = "SwitchedHand";
 
   public ToolCore(PartMaterialType... requiredComponents) {
     super(requiredComponents);
@@ -97,6 +95,11 @@ public abstract class ToolCore extends TinkersItem {
   @Override
   public boolean isDamageable() {
     return true;
+  }
+
+  @Override
+  public boolean showDurabilityBar(ItemStack stack) {
+    return super.showDurabilityBar(stack) && !ToolHelper.isBroken(stack);
   }
 
   /* Tool and Weapon specific properties */
@@ -139,7 +142,7 @@ public abstract class ToolCore extends TinkersItem {
    *
    * @return True if the entity was hit. Usually the return value of {@link Entity#attackEntityFrom(DamageSource, float)}
    */
-  public boolean dealDamage(ItemStack stack, EntityLivingBase player, EntityLivingBase entity, float damage) {
+  public boolean dealDamage(ItemStack stack, EntityLivingBase player, Entity entity, float damage) {
     if(player instanceof EntityPlayer) {
       return entity.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) player), damage);
     }
@@ -171,7 +174,7 @@ public abstract class ToolCore extends TinkersItem {
     return super.getStrVsBlock(stack, state);
   }
 
-  public boolean isEffective(IBlockState block) {
+  public boolean isEffective(IBlockState state) {
     return false;
   }
 
@@ -186,6 +189,19 @@ public abstract class ToolCore extends TinkersItem {
       for(BlockPos extraPos : ((IAoeTool) this).getAOEBlocks(itemstack, player.worldObj, player, pos)) {
         ToolHelper.breakExtraBlock(itemstack, player.worldObj, player, extraPos, pos);
       }
+    }
+
+    // this is a really dumb hack.
+    // Basically when something with silktouch harvests a block from the offhand
+    // the game can't detect that. so we have to switch around the items in the hands for the break call
+    // it's switched back in onBlockDestroyed
+    if(DualToolHarvestUtils.shouldUseOffhand(player, pos, player.getHeldItemMainhand())) {
+      ItemStack off = player.getHeldItemOffhand();
+      switchItemsInHands(player);
+      // remember, off is in the mainhand now
+      NBTTagCompound tag = TagUtil.getTagSafe(off);
+      tag.setLong(TAG_SWITCHED_HAND_HAX, player.worldObj.getTotalWorldTime());
+      off.setTagCompound(tag);
     }
 
     return super.onBlockStartBreak(itemstack, pos, player);
@@ -259,6 +275,11 @@ public abstract class ToolCore extends TinkersItem {
     if(hasCategory(Category.HARVEST)) {
       info.addHarvestLevel();
       info.addMiningSpeed();
+    }
+    if(hasCategory(Category.LAUNCHER)) {
+      info.addDrawSpeed();
+      info.addRange();
+      info.addProjectileBonusDamage();
     }
     info.addAttack();
 
@@ -343,31 +364,7 @@ public abstract class ToolCore extends TinkersItem {
       }
     }
 
-    String itemName = super.getItemStackDisplayName(stack);
-
-    // no material
-    if(nameMaterials.isEmpty()) {
-      return itemName;
-    }
-    // only one material - prefix
-    if(nameMaterials.size() == 1) {
-      return nameMaterials.iterator().next().getLocalizedItemName(itemName);
-    }
-
-    // multiple materials. we'll have to combine
-    StringBuilder sb = new StringBuilder();
-    Iterator<Material> iter = nameMaterials.iterator();
-    Material material = iter.next();
-    sb.append(material.getLocalizedName());
-    while(iter.hasNext()) {
-      material = iter.next();
-      sb.append("-");
-      sb.append(material.getLocalizedName());
-    }
-    sb.append(" ");
-    sb.append(itemName);
-
-    return sb.toString();
+    return Material.getCombinedItemName(super.getItemStackDisplayName(stack), nameMaterials);
   }
 
   // Creative tab items
@@ -376,23 +373,27 @@ public abstract class ToolCore extends TinkersItem {
     addDefaultSubItems(subItems);
   }
 
-  protected void addDefaultSubItems(List<ItemStack> subItems) {
+  protected void addDefaultSubItems(List<ItemStack> subItems, Material... fixedMaterials) {
     for(Material head : TinkerRegistry.getAllMaterials()) {
-      if(!head.hasStats(HeadMaterialStats.TYPE)) {
-        continue;
-      }
-
       List<Material> mats = new ArrayList<Material>(requiredComponents.length);
 
       for(int i = 0; i < requiredComponents.length; i++) {
-        // todo: check for applicability with stats
-        mats.add(head);
+        if(fixedMaterials.length > i && fixedMaterials[i] != null && requiredComponents[i].isValidMaterial(fixedMaterials[i])) {
+          mats.add(fixedMaterials[i]);
+        }
+        else {
+          // todo: check for applicability with stats
+          mats.add(head);
+        }
       }
 
       ItemStack tool = buildItem(mats);
       // only valid ones
       if(hasValidMaterials(tool)) {
         subItems.add(tool);
+        if(!Config.listAllMaterials) {
+          break;
+        }
       }
     }
   }
@@ -418,7 +419,6 @@ public abstract class ToolCore extends TinkersItem {
   @Override
   public int getHarvestLevel(ItemStack stack, @Nonnull String toolClass) {
     if(this.getToolClasses(stack).contains(toolClass)) {
-      NBTTagCompound tag = TagUtil.getToolTag(stack);
       // will return 0 if the tag has no info anyway
       return ToolHelper.getHarvestLevelStat(stack);
     }
@@ -431,6 +431,7 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   /** The tools name completely without material information */
+  @Override
   public String getLocalizedToolName() {
     return Util.translate(getUnlocalizedName() + ".name");
   }
@@ -445,12 +446,37 @@ public abstract class ToolCore extends TinkersItem {
     return Util.translate(getUnlocalizedName() + ".desc");
   }
 
+  @Override
+  protected int repairCustom(Material material, ItemStack[] repairItems) {
+    RecipeMatch.Match match = RecipeMatch.of(TinkerTools.sharpeningKit).matches(repairItems);
+    if(match == null) {
+      return 0;
+    }
+
+    for(ItemStack stacks : match.stacks) {
+      // invalid material?
+      if(TinkerTools.sharpeningKit.getMaterial(stacks) != material) {
+        return 0;
+      }
+    }
+
+    RecipeMatch.removeMatch(repairItems, match);
+    HeadMaterialStats stats = material.getStats(MaterialTypes.HEAD);
+    float durability = stats.durability * match.amount * TinkerTools.sharpeningKit.getCost();
+    durability /= Material.VALUE_Ingot;
+    return (int) (durability);
+  }
+
   /* Additional Trait callbacks */
 
   @Override
   public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
 
+    onUpdateTraits(stack, worldIn, entityIn, itemSlot, isSelected);
+  }
+
+  protected void onUpdateTraits(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
     NBTTagList list = TagUtil.getTraitsTagList(stack);
     for(int i = 0; i < list.tagCount(); i++) {
       ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
@@ -460,8 +486,19 @@ public abstract class ToolCore extends TinkersItem {
     }
   }
 
+
   @Override
   public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+    // move item back into offhand. See onBlockBreakStart
+    if(stack != null && entityLiving != null && stack.hasTagCompound()) {
+      NBTTagCompound tag = stack.getTagCompound();
+      if(tag.getLong(TAG_SWITCHED_HAND_HAX) == entityLiving.worldObj.getTotalWorldTime()) {
+        tag.removeTag(TAG_SWITCHED_HAND_HAX);
+        stack.setTagCompound(tag);
+
+        switchItemsInHands(entityLiving);
+      }
+    }
     if(ToolHelper.isBroken(stack)) {
       return false;
     }
@@ -472,6 +509,13 @@ public abstract class ToolCore extends TinkersItem {
     afterBlockBreak(stack, worldIn, state, pos, entityLiving, damage, effective);
 
     return hasCategory(Category.TOOL);
+  }
+
+  protected void switchItemsInHands(EntityLivingBase entityLiving) {
+    ItemStack main = entityLiving.getHeldItemMainhand();
+    ItemStack off = entityLiving.getHeldItemOffhand();
+    entityLiving.setHeldItem(EnumHand.OFF_HAND, main);
+    entityLiving.setHeldItem(EnumHand.MAIN_HAND, off);
   }
 
   public void afterBlockBreak(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase player, int damage, boolean wasEffective) {
@@ -487,9 +531,8 @@ public abstract class ToolCore extends TinkersItem {
   }
 
   // elevate to public
-  @Nonnull
   @Override
-  public RayTraceResult rayTrace(World worldIn, EntityPlayer playerIn, boolean useLiquids) {
+  public RayTraceResult rayTrace(@Nonnull World worldIn, @Nonnull EntityPlayer playerIn, boolean useLiquids) {
     return super.rayTrace(worldIn, playerIn, useLiquids);
   }
 
@@ -497,9 +540,18 @@ public abstract class ToolCore extends TinkersItem {
     TinkerTools.proxy.preventPlayerSlowdown(entityIn, originalSpeed, this);
   }
 
+  @Override
+  public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
+    return shouldCauseReequipAnimation(oldStack, newStack, false);
+  }
+
   @SideOnly(Side.CLIENT)
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
+    if(TagUtil.getResetFlag(newStack)) {
+      TagUtil.setResetFlag(newStack, false);
+      return true;
+    }
     if(oldStack == newStack) {
       return false;
     }
@@ -511,13 +563,22 @@ public abstract class ToolCore extends TinkersItem {
       return true;
     }
 
-    Multimap<String, AttributeModifier> attributes = newStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
-    for(Map.Entry<String, AttributeModifier> entry : oldStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND).entries()) {
-      if(!attributes.containsKey(entry.getKey())) {
+    Multimap<String, AttributeModifier> attributesNew = newStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
+    Multimap<String, AttributeModifier> attributesOld = oldStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
+
+    if(attributesNew.size() != attributesOld.size()) {
+      return true;
+    }
+    for(String key : attributesOld.keySet()) {
+      if(!attributesNew.containsKey(key)) {
         return true;
       }
-      if(!attributes.get(entry.getKey()).equals(entry.getValue())) {
-        return true;
+      Iterator<AttributeModifier> iter1 = attributesNew.get(key).iterator();
+      Iterator<AttributeModifier> iter2 = attributesOld.get(key).iterator();
+      while(iter1.hasNext() && iter2.hasNext()) {
+        if(!iter1.next().equals(iter2.next())) {
+          return true;
+        }
       }
     }
 
@@ -537,14 +598,14 @@ public abstract class ToolCore extends TinkersItem {
     ToolNBT data = new ToolNBT();
 
     if(materials.size() >= 2) {
-      HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(HandleMaterialStats.TYPE);
-      HeadMaterialStats head = materials.get(1).getStatsOrUnknown(HeadMaterialStats.TYPE);
+      HandleMaterialStats handle = materials.get(0).getStatsOrUnknown(MaterialTypes.HANDLE);
+      HeadMaterialStats head = materials.get(1).getStatsOrUnknown(MaterialTypes.HEAD);
       // start with head
       data.head(head);
 
       // add in accessoires if present
       if(materials.size() >= 3) {
-        ExtraMaterialStats binding = materials.get(2).getStatsOrUnknown(ExtraMaterialStats.TYPE);
+        ExtraMaterialStats binding = materials.get(2).getStatsOrUnknown(MaterialTypes.EXTRA);
         data.extra(binding);
       }
 

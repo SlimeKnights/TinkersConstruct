@@ -24,58 +24,6 @@ public final class RenderUtil {
 
   protected static Minecraft mc = Minecraft.getMinecraft();
 
-  /** Renders the given texture tiled into a GUI */
-  public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
-    Tessellator tessellator = Tessellator.getInstance();
-    VertexBuffer worldrenderer = tessellator.getBuffer();
-    worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-    mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-
-    putTiledTextureQuads(worldrenderer, x, y, width, height, depth, sprite);
-
-    tessellator.draw();
-  }
-
-  public static void renderTiledFluid(int x, int y, int width, int height, float depth, FluidStack fluidStack) {
-    TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(fluidStack.getFluid().getStill(fluidStack).toString());
-    RenderUtil.setColorRGBA(fluidStack.getFluid().getColor(fluidStack));
-    renderTiledTextureAtlas(x, y, width, height, depth, fluidSprite);
-  }
-
-  /** Adds a quad to the rendering pipeline. Call startDrawingQuads beforehand. You need to call draw() yourself. */
-  public static void putTiledTextureQuads(VertexBuffer renderer, int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
-    float u1 = sprite.getMinU();
-    float v1 = sprite.getMinV();
-
-    // tile vertically
-    do {
-      int renderHeight = Math.min(sprite.getIconHeight(), height);
-      height -= renderHeight;
-
-      float v2 = sprite.getInterpolatedV((16f * renderHeight) / (float) sprite.getIconHeight());
-
-      // we need to draw the quads per width too
-      int x2 = x;
-      int width2 = width;
-      // tile horizontally
-      do {
-        int renderWidth = Math.min(sprite.getIconWidth(), width2);
-        width2 -= renderWidth;
-
-        float u2 = sprite.getInterpolatedU((16f * renderWidth) / (float) sprite.getIconWidth());
-
-        renderer.pos(x2, y, depth).tex(u1, v1).endVertex();
-        renderer.pos(x2, y + renderHeight, depth).tex(u1, v2).endVertex();
-        renderer.pos(x2 + renderWidth, y + renderHeight, depth).tex(u2, v2).endVertex();
-        renderer.pos(x2 + renderWidth, y, depth).tex(u2, v1).endVertex();
-
-        x2 += renderWidth;
-      } while(width2 > 0);
-
-      y += renderHeight;
-    } while(height > 0);
-  }
-
   /**
    * Renders a fluid block, call from TESR. x/y/z is the rendering offset.
    *
@@ -130,6 +78,11 @@ public final class RenderUtil {
 
   public static void renderStackedFluidCuboid(FluidStack fluid, double px, double py, double pz, BlockPos pos,
                                               BlockPos from, BlockPos to, double ymin, double ymax) {
+    renderStackedFluidCuboid(fluid, px, py, pz, pos, from, to, ymin, ymax, FLUID_OFFSET);
+  }
+
+  public static void renderStackedFluidCuboid(FluidStack fluid, double px, double py, double pz, BlockPos pos,
+                                              BlockPos from, BlockPos to, double ymin, double ymax, float offsetToBlockEdge) {
     if(ymin >= ymax) {
       return;
     }
@@ -154,15 +107,24 @@ public final class RenderUtil {
     }
 
     int xd = to.getX() - from.getX();
-    int yd = (int) (ymax - ymin);
+
+    // the liquid can stretch over more blocks than the subtracted height is if ymin's decimal is bigger than ymax's decimal (causing UV over 1)
+    // ignoring the decimals prevents this, as yd then equals exactly how many ints are between the two
+    // for example, if ymax = 5.1 and ymin = 2.3, 2.8 (which rounds to 2), with the face array becoming 2.3, 3, 4, 5.1
+    int yminInt = (int)ymin;
+    int yd = (int) (ymax - yminInt);
+
+    // prevents a rare case of rendering the top face multiple times if ymax is perfectly aligned with the block
+    // for example, if ymax = 3 and ymin = 1, the values of the face array become 1, 2, 3, 3 as we then have middle ints
+    if(ymax % 1d == 0) yd--;
     int zd = to.getZ() - from.getZ();
 
-    double xmin = FLUID_OFFSET;
-    double xmax = xd + 1d - FLUID_OFFSET;
+    double xmin = offsetToBlockEdge;
+    double xmax = xd + 1d - offsetToBlockEdge;
     //double ymin = y1;
     //double ymax = y2;
-    double zmin = FLUID_OFFSET;
-    double zmax = zd + 1d - FLUID_OFFSET;
+    double zmin = offsetToBlockEdge;
+    double zmax = zd + 1d - offsetToBlockEdge;
 
     double[] xs = new double[2 + xd];
     double[] ys = new double[2 + yd];
@@ -172,8 +134,10 @@ public final class RenderUtil {
     for(int i = 1; i <= xd; i++) xs[i] = i;
     xs[xd+1] = xmax;
 
+    // we have to add the whole number for ymin or otherwise things render incorrectly if above the first block
+    // example, heights of 2 and 5 would produce array of 2, 1, 2, 5
     ys[0] = ymin;
-    for(int i = 1; i <= yd; i++) ys[i] = i;
+    for(int i = 1; i <= yd; i++) ys[i] = i + yminInt;
     ys[yd+1] = ymax;
 
     zs[0] = zmin;

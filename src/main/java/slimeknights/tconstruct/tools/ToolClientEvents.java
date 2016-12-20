@@ -31,7 +31,7 @@ import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.client.BakedTableModel;
-import slimeknights.tconstruct.tools.block.BlockToolTable;
+import slimeknights.tconstruct.tools.common.block.BlockToolTable;
 
 @SideOnly(Side.CLIENT)
 public class ToolClientEvents {

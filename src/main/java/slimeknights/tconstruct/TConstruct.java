@@ -30,16 +30,22 @@ import slimeknights.tconstruct.common.config.ConfigSync;
 import slimeknights.tconstruct.debug.TinkerDebug;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.tools.CapabilityTinkerProjectile;
+import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.plugin.ChiselAndBits;
 import slimeknights.tconstruct.plugin.CraftingTweaks;
+import slimeknights.tconstruct.plugin.theoneprobe.TheOneProbe;
 import slimeknights.tconstruct.plugin.waila.Waila;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tools.AggregateModelRegistrar;
 import slimeknights.tconstruct.tools.TinkerMaterials;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
+import slimeknights.tconstruct.tools.melee.TinkerMeleeWeapons;
+import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 /**
@@ -53,9 +59,10 @@ import slimeknights.tconstruct.world.TinkerWorld;
     name = TConstruct.modName,
     version = TConstruct.modVersion,
     guiFactory = "slimeknights.tconstruct.common.config.ConfigGui$ConfigGuiFactory",
-    dependencies = "required-after:Forge@[12.18.0.1993,);"
-                   + "required-after:mantle@[1.10-0.10.3,)",
-    acceptedMinecraftVersions = "[1.10, 1.11)")
+    dependencies = "required-after:Forge@[12.18.2.2115,);"
+                   + "required-after:mantle@[1.10.2-1.1.3,);"
+                   + "after:JEI@[3.13.6.387,)",
+    acceptedMinecraftVersions = "[1.10.2, 1.11)")
 public class TConstruct {
 
   public static final String modID = Util.MODID;
@@ -65,7 +72,6 @@ public class TConstruct {
   public static final Logger log = LogManager.getLogger(modID);
   public static final Random random = new Random();
 
-  /* Instance of this mod, used for grabbing prototype fields */
   @Mod.Instance(modID)
   public static TConstruct instance;
 
@@ -79,18 +85,28 @@ public class TConstruct {
   static {
     pulseManager.registerPulse(new TinkerCommons());
     pulseManager.registerPulse(new TinkerWorld());
+
     pulseManager.registerPulse(new TinkerTools());
+    pulseManager.registerPulse(new TinkerHarvestTools());
+    pulseManager.registerPulse(new TinkerMeleeWeapons());
+    pulseManager.registerPulse(new TinkerRangedWeapons());
+    pulseManager.registerPulse(new TinkerModifiers());
+
     pulseManager.registerPulse(new TinkerSmeltery());
     pulseManager.registerPulse(new TinkerGadgets());
+
     pulseManager.registerPulse(new TinkerOredict()); // oredict the items added in the pulses before, needed for integration
     pulseManager.registerPulse(new TinkerIntegration()); // takes care of adding all the fluids, materials, melting etc. together
     pulseManager.registerPulse(new TinkerFluids());
     pulseManager.registerPulse(new TinkerMaterials());
+
+    pulseManager.registerPulse(new AggregateModelRegistrar());
     // Plugins/Integration
     //pulseManager.registerPulse(new TinkerVintageCraft());
     pulseManager.registerPulse(new ChiselAndBits());
     pulseManager.registerPulse(new CraftingTweaks());
     pulseManager.registerPulse(new Waila());
+    pulseManager.registerPulse(new TheOneProbe());
 
     pulseManager.registerPulse(new TinkerDebug());
   }
@@ -109,7 +125,13 @@ public class TConstruct {
   //Force the client and server to have or not have this mod
   @NetworkCheckHandler()
   public boolean matchModVersions(Map<String, String> remoteVersions, Side side) {
-    return remoteVersions.containsKey(modID) && modVersion.equals(remoteVersions.get(modID));
+
+    // we don't accept clients without TiC
+    if(side == Side.CLIENT) {
+      return remoteVersions.containsKey(modID);
+    }
+    // but we can connect to servers without TiC when TiC is present on the client
+    return !remoteVersions.containsKey(modID) || modVersion.equals(remoteVersions.get(modID));
   }
 
   @Mod.EventHandler
@@ -130,7 +152,9 @@ public class TConstruct {
 
   @Mod.EventHandler
   public void init(FMLInitializationEvent event) {
-
+    if(event.getSide().isClient()) {
+      ClientProxy.initRenderMaterials();
+    }
   }
 
   @Mod.EventHandler
@@ -138,10 +162,10 @@ public class TConstruct {
     if(event.getSide().isClient()) {
       ClientProxy.initRenderer();
     }
-
-
-    // config syncing
-    MinecraftForge.EVENT_BUS.register(new ConfigSync());
+    else {
+      // config syncing
+      MinecraftForge.EVENT_BUS.register(new ConfigSync());
+    }
   }
 
   // Old version compatibility
@@ -151,7 +175,7 @@ public class TConstruct {
       // old universal bucket, got moved into Forge
       // glow is the leftover itemblock form which was removed
       if(mapping.type == GameRegistry.Type.ITEM
-          && (mapping.name.equals(Util.resource("bucket")) || mapping.name.equals(Util.resource("glow")))) {
+         && (mapping.name.equals(Util.resource("bucket")) || mapping.name.equals(Util.resource("glow")))) {
         mapping.ignore();
       }
     }

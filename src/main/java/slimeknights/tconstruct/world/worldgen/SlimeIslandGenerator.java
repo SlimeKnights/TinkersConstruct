@@ -7,6 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -121,7 +122,9 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     if(world.getWorldType() == WorldType.FLAT && !Config.genIslandsInSuperflat) {
       return;
     }
-
+    if(!Config.slimeIslandsOnlyGenerateInSurfaceWorlds && !world.provider.isSurfaceWorld()) {
+      return;
+    }
     // should generate in this dimension?
     if(!shouldGenerateInDimension(world.provider.getDimension())) {
       return;
@@ -284,7 +287,9 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     // save it
     SlimeIslandData data = getIslandData(world);
     data.islands.add(new StructureBoundingBox(start.getX(), start.getY(), start.getZ(),
-                                              start.getX() + xRange, start.getY() + yRange, start.getZ() + yRange));
+                                              start.getX() + xRange,
+                                              start.getY() + yRange,
+                                              start.getZ() + zRange));
     data.markDirty();
   }
 

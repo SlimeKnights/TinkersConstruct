@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.common;
 
-import net.minecraft.block.Block;
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
@@ -11,7 +12,9 @@ import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StringUtils;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -19,35 +22,55 @@ import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.GameData;
 
+import java.util.stream.Stream;
+
 import javax.annotation.Nonnull;
 
-import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.network.AbstractPacket;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.client.CustomFontRenderer;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.client.crosshair.CrosshairRenderEvents;
+import slimeknights.tconstruct.library.client.material.MaterialRenderInfoLoader;
+import slimeknights.tconstruct.library.client.material.deserializers.BlockRenderInfoDeserializer;
+import slimeknights.tconstruct.library.client.material.deserializers.ColoredRenderInfoDeserializer;
+import slimeknights.tconstruct.library.client.material.deserializers.InverseMultiColorRenderInfoDeserializer;
+import slimeknights.tconstruct.library.client.material.deserializers.MetalRenderInfoDeserializer;
+import slimeknights.tconstruct.library.client.material.deserializers.MultiColorRenderInfoDeserializer;
+import slimeknights.tconstruct.library.client.material.deserializers.TexturedMetalRenderInfoDeserializer;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
 import slimeknights.tconstruct.library.client.model.ModifierModelLoader;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.client.particle.EntitySlimeFx;
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
-import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialGUI;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.client.ParticleEffect;
-import slimeknights.tconstruct.tools.client.particle.ParticleAttackCleaver;
-import slimeknights.tconstruct.tools.client.particle.ParticleAttackFrypan;
-import slimeknights.tconstruct.tools.client.particle.ParticleAttackHammer;
-import slimeknights.tconstruct.tools.client.particle.ParticleAttackHatchet;
-import slimeknights.tconstruct.tools.client.particle.ParticleAttackLongsword;
-import slimeknights.tconstruct.tools.client.particle.ParticleAttackLumberAxe;
-import slimeknights.tconstruct.tools.client.particle.ParticleAttackRapier;
+import slimeknights.tconstruct.shared.client.ParticleEndspeed;
+import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackCleaver;
+import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackFrypan;
+import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackHammer;
+import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackHatchet;
+import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackLongsword;
+import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackLumberAxe;
+import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackRapier;
+import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
 
 public abstract class ClientProxy extends CommonProxy {
 
+  public static Material RenderMaterials[];
+  public static Material RenderMaterialString;
+
+  public static final ResourceLocation BOOK_MODIFY = Util.getResource("textures/gui/book/modify.png");
+
+  private static final Minecraft mc = Minecraft.getMinecraft();
   public static CustomFontRenderer fontRenderer;
 
   protected static final ToolModelLoader loader = new ToolModelLoader();
@@ -59,45 +82,84 @@ public abstract class ClientProxy extends CommonProxy {
     ModelLoaderRegistry.registerLoader(loader);
     ModelLoaderRegistry.registerLoader(materialLoader);
     ModelLoaderRegistry.registerLoader(modifierLoader);
+
+    MaterialRenderInfoLoader.addRenderInfo("colored", ColoredRenderInfoDeserializer.class);
+    MaterialRenderInfoLoader.addRenderInfo("multicolor", MultiColorRenderInfoDeserializer.class);
+    MaterialRenderInfoLoader.addRenderInfo("inverse_multicolor", InverseMultiColorRenderInfoDeserializer.class);
+    MaterialRenderInfoLoader.addRenderInfo("metal", MetalRenderInfoDeserializer.class);
+    MaterialRenderInfoLoader.addRenderInfo("metal_textured", TexturedMetalRenderInfoDeserializer.class);
+    MaterialRenderInfoLoader.addRenderInfo("block", BlockRenderInfoDeserializer.class);
+  }
+
+  public static void initRenderMaterials() {
+    RenderMaterials = new Material[4];
+    RenderMaterials[0] = new MaterialGUI("_internal_render1");
+    RenderMaterials[0].setRenderInfo(0x684e1e);
+    RenderMaterials[1] = new MaterialGUI("_internal_render2");
+    RenderMaterials[1].setRenderInfo(0xc1c1c1);
+    RenderMaterials[2] = new MaterialGUI("_internal_render3");
+    RenderMaterials[2].setRenderInfo(0x2376dd);
+    RenderMaterials[3] = new MaterialGUI("_internal_render4");
+    RenderMaterials[3].setRenderInfo(0x7146b0);
+
+    RenderMaterialString = new MaterialGUI("_internal_renderString");
+    RenderMaterialString.setRenderInfo(0xffffff);
+
+    // yes, these will only be registered clientside
+    // but it shouldn't matter because they're never used serverside and we don't use indices
+    Stream.concat(
+      Stream.of(RenderMaterials),
+      Stream.of(RenderMaterialString)
+    ).forEach(TinkerRegistry::addMaterial);
+
+    TinkerRegistry.tabTools.setDisplayIcon(TinkerHarvestTools.pickaxe.buildItemForRendering(ImmutableList.of(RenderMaterials[0], RenderMaterials[1], RenderMaterials[2])));
+    TinkerRegistry.tabParts.setDisplayIcon(TinkerTools.pickHead.getItemstackWithMaterial(RenderMaterials[2]));
   }
 
   public static void initRenderer() {
 
-    CustomTextureCreator creator = new CustomTextureCreator();
+    CustomTextureCreator creator = CustomTextureCreator.INSTANCE;
 
     MinecraftForge.EVENT_BUS.register(creator);
-    ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(creator);
-    ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(AbstractColoredTexture.CacheClearer.INSTANCE);
+    IReloadableResourceManager resourceManager = (IReloadableResourceManager) mc.getResourceManager();
+    resourceManager.registerReloadListener(MaterialRenderInfoLoader.INSTANCE);
+    resourceManager.registerReloadListener(AbstractColoredTexture.CacheClearer.INSTANCE);
+    resourceManager.registerReloadListener(creator);
 
     // Font renderer for tooltips and GUIs
-    fontRenderer = new CustomFontRenderer(Minecraft.getMinecraft().gameSettings,
+    fontRenderer = new CustomFontRenderer(mc.gameSettings,
                                           new ResourceLocation("textures/font/ascii.png"),
-                                          Minecraft.getMinecraft().renderEngine);
-    if(Minecraft.getMinecraft().gameSettings.language != null) {
-      fontRenderer.setUnicodeFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLocaleUnicode() || Minecraft.getMinecraft().gameSettings.forceUnicodeFont);
-      fontRenderer.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
+                                          mc.renderEngine);
+    if(mc.gameSettings.language != null) {
+      fontRenderer.setUnicodeFlag(mc.getLanguageManager().isCurrentLocaleUnicode() || mc.gameSettings.forceUnicodeFont);
+      fontRenderer.setBidiFlag(mc.getLanguageManager().isCurrentLanguageBidirectional());
     }
-    ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(fontRenderer);
+    resourceManager.registerReloadListener(fontRenderer);
 
 
     // Font Renderer for the tinker books
-    FontRenderer bookRenderer = new CustomFontRenderer(Minecraft.getMinecraft().gameSettings,
+    FontRenderer bookRenderer = new CustomFontRenderer(mc.gameSettings,
                                                        new ResourceLocation("textures/font/ascii.png"),
-                                                       Minecraft.getMinecraft().renderEngine);
+                                                       mc.renderEngine);
     bookRenderer.setUnicodeFlag(true);
-    if(Minecraft.getMinecraft().gameSettings.language != null) {
-      fontRenderer.setBidiFlag(Minecraft.getMinecraft().getLanguageManager().isCurrentLanguageBidirectional());
+    if(mc.gameSettings.language != null) {
+      fontRenderer.setBidiFlag(mc.getLanguageManager().isCurrentLanguageBidirectional());
     }
     TinkerBook.INSTANCE.fontRenderer = bookRenderer;
+
+    MinecraftForge.EVENT_BUS.register(CrosshairRenderEvents.INSTANCE);
   }
 
+  @Deprecated
   protected ResourceLocation registerModel(Item item, String... customVariants) {
     return registerModel(item, 0, customVariants);
   }
 
   /**
    * Registers a model variant for you. :3 The model-string is obtained through the game registry.
+   * @deprecated Use registerItemModel
    */
+  @Deprecated
   protected ResourceLocation registerModel(Item item, int meta, String... customVariants) {
     // get the registered name for the object
     Object o = GameData.getItemRegistry().getNameForObject(item);
@@ -132,111 +194,11 @@ public abstract class ClientProxy extends CommonProxy {
     return location;
   }
 
-  protected void registerItemModel(ItemStack item, String name) {
-
-    // tell Minecraft which textures it has to load. This is resource-domain sensitive
-    if(!name.contains(":")) {
-      name = Util.resource(name);
+  /** Register with name only, defaults to TiC domain */
+  protected void registerItemModelTiC(ItemStack item, String name) {
+    if(item != null && !StringUtils.isNullOrEmpty(name)) {
+      ModelRegisterUtil.registerItemModel(item, Util.getResource(name));
     }
-
-    ModelLoader.registerItemVariants(item.getItem(), new ResourceLocation(name));
-    // tell the game which model to use for this item-meta combination
-    ModelLoader.setCustomModelResourceLocation(item.getItem(), item
-        .getMetadata(), new ModelResourceLocation(name, "inventory"));
-  }
-
-  /**
-   * Registers a multimodel that should be loaded via our multimodel loader The model-string is obtained through the
-   * game registry.
-   */
-  protected ResourceLocation registerToolModel(Item item) {
-    ResourceLocation itemLocation = getItemLocation(item);
-    if(itemLocation == null) {
-      return null;
-    }
-
-    String path = "tools/" + itemLocation.getResourcePath() + ToolModelLoader.EXTENSION;
-
-    return registerToolModel(item, new ResourceLocation(itemLocation.getResourceDomain(), path));
-  }
-
-  protected ResourceLocation registerToolModel(Item item, final ResourceLocation location) {
-    if(!location.getResourcePath().endsWith(ToolModelLoader.EXTENSION)) {
-      TConstruct.log.error("The material-model " + location.toString() + " does not end with '"
-                           + ToolModelLoader.EXTENSION
-                           + "' and will therefore not be loaded by the custom model loader!");
-    }
-
-    return registerIt(item, location);
-  }
-
-  public ResourceLocation registerMaterialItemModel(Item item) {
-    ResourceLocation itemLocation = getItemLocation(item);
-    if(itemLocation == null) {
-      return null;
-    }
-    return registerMaterialModel(item, new ResourceLocation(itemLocation.getResourceDomain(),
-                                                            itemLocation.getResourcePath()
-                                                            + MaterialModelLoader.EXTENSION));
-  }
-
-  public ResourceLocation registerMaterialModel(Item item, final ResourceLocation location) {
-    if(!location.getResourcePath().endsWith(MaterialModelLoader.EXTENSION)) {
-      TConstruct.log.error("The material-model " + location.toString() + " does not end with '"
-                           + MaterialModelLoader.EXTENSION
-                           + "' and will therefore not be loaded by the custom model loader!");
-    }
-
-    return registerIt(item, location);
-  }
-
-  public void registerModifierModel(IModifier modifier, ResourceLocation location) {
-    modifierLoader.registerModifierFile(modifier.getIdentifier(), location);
-  }
-
-  public ResourceLocation registerItemModel(Item item) {
-    ResourceLocation itemLocation = getItemLocation(item);
-    if(itemLocation == null) {
-      return null;
-    }
-
-    return registerIt(item, itemLocation);
-  }
-
-  public ResourceLocation registerItemModel(Block block) {
-    return registerItemModel(Item.getItemFromBlock(block));
-  }
-
-  public void registerItemModel(Item item, int meta, String variant) {
-    ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), variant));
-  }
-
-  private static ResourceLocation registerIt(Item item, final ResourceLocation location) {
-    // plop it in.
-    // This here is needed for the model to be found ingame when the game looks for a model to render an Itemstack
-    // we use an ItemMeshDefinition because it allows us to do it no matter what metadata we use
-    ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
-      @Nonnull
-      @Override
-      public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
-        return new ModelResourceLocation(location, "inventory");
-      }
-    });
-
-    // We have to readd the default variant if we have custom variants, since it wont be added otherwise and therefore not loaded
-    ModelLoader.registerItemVariants(item, location);
-
-    return location;
-  }
-
-  protected void registerItemBlockMeta(Block block) {
-    if(block != null) {
-      ((ItemBlockMeta) Item.getItemFromBlock(block)).registerItemModels();
-    }
-  }
-
-  public static ResourceLocation getItemLocation(Item item) {
-    return Util.getItemLocation(item);
   }
 
   @Override
@@ -247,22 +209,22 @@ public abstract class ClientProxy extends CommonProxy {
   @Override
   public void spawnParticle(Particles particleType, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
     if(world == null) {
-      world = Minecraft.getMinecraft().theWorld;
+      world = mc.theWorld;
     }
     Particle effect = createParticle(particleType, world, x, y, z, xSpeed, ySpeed, zSpeed, data);
-    Minecraft.getMinecraft().effectRenderer.addEffect(effect);
+    mc.effectRenderer.addEffect(effect);
 
     if(particleType == Particles.EFFECT && data[0] > 1) {
       for(int i = 0; i < data[0] - 1; i++) {
         effect = createParticle(particleType, world, x, y, z, xSpeed, ySpeed, zSpeed, data);
-        Minecraft.getMinecraft().effectRenderer.addEffect(effect);
+        mc.effectRenderer.addEffect(effect);
       }
     }
   }
 
   @Override
   public void spawnSlimeParticle(World world, double x, double y, double z) {
-    Minecraft.getMinecraft().effectRenderer.addEffect(new EntitySlimeFx(world, x, y, z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage()));
+    mc.effectRenderer.addEffect(new EntitySlimeFx(world, x, y, z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage()));
   }
 
   public static Particle createParticle(Particles type, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
@@ -272,22 +234,24 @@ public abstract class ClientProxy extends CommonProxy {
         return new EntitySlimeFx(world, x, y, z, TinkerCommons.matSlimeBallBlue.getItem(), TinkerCommons.matSlimeBallBlue.getItemDamage());
       // attack
       case CLEAVER_ATTACK:
-        return new ParticleAttackCleaver(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+        return new ParticleAttackCleaver(world, x, y, z, xSpeed, ySpeed, zSpeed, mc.getTextureManager());
       case LONGSWORD_ATTACK:
-        return new ParticleAttackLongsword(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+        return new ParticleAttackLongsword(world, x, y, z, xSpeed, ySpeed, zSpeed, mc.getTextureManager());
       case RAPIER_ATTACK:
-        return new ParticleAttackRapier(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+        return new ParticleAttackRapier(world, x, y, z, xSpeed, ySpeed, zSpeed, mc.getTextureManager());
       case HATCHET_ATTACK:
-        return new ParticleAttackHatchet(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+        return new ParticleAttackHatchet(world, x, y, z, xSpeed, ySpeed, zSpeed, mc.getTextureManager());
       case LUMBERAXE_ATTACK:
-        return new ParticleAttackLumberAxe(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+        return new ParticleAttackLumberAxe(world, x, y, z, xSpeed, ySpeed, zSpeed, mc.getTextureManager());
       case FRYPAN_ATTACK:
-        return new ParticleAttackFrypan(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+        return new ParticleAttackFrypan(world, x, y, z, xSpeed, ySpeed, zSpeed, mc.getTextureManager());
       case HAMMER_ATTACK:
-        return new ParticleAttackHammer(world, x, y, z, xSpeed, ySpeed, zSpeed, Minecraft.getMinecraft().getTextureManager());
+        return new ParticleAttackHammer(world, x, y, z, xSpeed, ySpeed, zSpeed, mc.getTextureManager());
       // effects
       case EFFECT:
         return new ParticleEffect(data[1], world, x, y, z, xSpeed, ySpeed, zSpeed);
+      case ENDSPEED:
+        return new ParticleEndspeed(world, x, y, z, xSpeed, ySpeed, zSpeed);
     }
 
     return null;
@@ -298,7 +262,7 @@ public abstract class ClientProxy extends CommonProxy {
     // has to be done in onUpdate because onTickUsing is too early and gets overwritten. bleh.
     if(player instanceof EntityPlayerSP) {
       EntityPlayerSP playerSP = (EntityPlayerSP) player;
-      ItemStack usingItem = playerSP.inventory.getCurrentItem();
+      ItemStack usingItem = playerSP.getActiveItemStack();
       if(usingItem != null && usingItem.getItem() == item) {
         // no slowdown from charging it up
         playerSP.movementInput.moveForward *= originalSpeed * 5.0F;
@@ -337,5 +301,11 @@ public abstract class ClientProxy extends CommonProxy {
                                                             baseLocation.getResourcePath() + suffix),
                                        "inventory");
     }
+  }
+
+  @Override
+  public void updateEquippedItemForRendering(EnumHand hand) {
+    mc.getItemRenderer().resetEquippedProgress(hand);
+    mc.getItemRenderer().updateEquippedItem();
   }
 }

@@ -1,0 +1,21 @@
+{
+  "tool": "scythe",
+  "text": [
+    {
+      "text": "The Scythe is a broad reaping tool. It is effective on plants and attacks enemies in a wide range."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Rightclicking on crops or sugarcane harvests and replants all fully grown plants in the area."
+    }
+  ],
+  "properties": [
+    "Requires a Tool Forge",
+    "AOE Attack",
+    "3x3 AOE Harvesting",
+    "Effective on crops and plants",
+    "Rightclick: AOE Harvest and replant"
+  ]
+}

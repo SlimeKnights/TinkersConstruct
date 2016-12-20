@@ -1,0 +1,11 @@
+{
+  "title":"The Seared Furnace",
+  "image": {
+	"file": "tconstruct:textures/gui/book/seared_furnace.png"
+  },
+  "text": [
+    {
+      "text": "The Seared Furnace is a master to all furnaces, cooking quarter stacks at once and cooking food with greater speed."
+    }
+  ]
+}

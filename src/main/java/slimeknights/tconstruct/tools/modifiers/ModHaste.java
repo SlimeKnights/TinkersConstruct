@@ -1,17 +1,20 @@
 package slimeknights.tconstruct.tools.modifiers;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
+import java.util.Set;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.Category;
+import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -32,50 +35,64 @@ public class ModHaste extends ToolModifier {
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
     ModifierNBT.IntegerNBT modData = ModifierNBT.readInteger(modifierTag);
 
-    boolean harvest = false;
-
-    for(Category category : TagUtil.getCategories(rootCompound)) {
-      if(category == Category.HARVEST) {
-        harvest = true;
-      }
-    }
+    Set<Category> categories = ImmutableSet.copyOf(TagUtil.getCategories(rootCompound));
+    boolean harvest = categories.contains(Category.HARVEST);
+    boolean weapon = categories.contains(Category.WEAPON);
+    boolean launcher = categories.contains(Category.LAUNCHER);
 
     ToolNBT data = TagUtil.getToolStats(rootCompound);
     int level = modData.current / max;
 
     // only boost mining speed if we have a harvest tool
     if(harvest) {
-      float speed = data.speed;
-      for(int count = modData.current; count > 0; count--) {
-        if(speed <= 10f) {
-          // linear scaling from 0.08 to 0.06 per piece till 10 miningspeed
-          speed += 0.15f - 0.05f * speed / 10f;
-        }
-        else if(speed <= 20f) {
-          speed += 0.1f - 0.05 * speed / 20f;
-        }
-        else {
-          speed += 0.05;
-        }
-      }
-
-      // each full level gives a flat 0.5 bonus, not influenced by dimishing returns
-      speed += level * 0.5f;
-
-      // save it to the tool
-      data.speed = speed;
+      applyHarvestBoost(modData, data, level);
     }
 
     // attack speed: each total level adds 0.2 to the modifier, though individual redstone piece above the level add 0.004 each
-    data.attackSpeedMultiplier += getSpeedBonus(modData);
+    // so in short: 0.004 per redstone
+    if(weapon) {
+      data.attackSpeedMultiplier += getSpeedBonus(modData);
+    }
 
     TagUtil.setToolTag(rootCompound, data.get());
+
+    // bow speed:
+    if(launcher) {
+      ProjectileLauncherNBT launcherData = new ProjectileLauncherNBT(TagUtil.getToolTag(rootCompound));
+      launcherData.drawSpeed += launcherData.drawSpeed * getDrawspeedBonus(modData);
+      TagUtil.setToolTag(rootCompound, launcherData.get());
+    }
+  }
+
+  protected void applyHarvestBoost(ModifierNBT.IntegerNBT modData, ToolNBT data, int level) {
+    float speed = data.speed;
+    for(int count = modData.current; count > 0; count--) {
+      if(speed <= 10f) {
+        // linear scaling from 0.08 to 0.06 per piece till 10 miningspeed
+        speed += 0.15f - 0.05f * speed / 10f;
+      }
+      else if(speed <= 20f) {
+        speed += 0.1f - 0.05 * speed / 20f;
+      }
+      else {
+        speed += 0.05;
+      }
+    }
+
+    // each full level gives a flat 0.5 bonus, not influenced by dimishing returns
+    speed += level * 0.5f;
+
+    // save it to the tool
+    data.speed = speed;
   }
 
   protected float getSpeedBonus(ModifierNBT.IntegerNBT modData) {
     return 0.2f * modData.current / max;
   }
 
+  protected float getDrawspeedBonus(ModifierNBT.IntegerNBT modData) {
+    return 0.1f * modData.current / max;
+  }
 
   // don't allow on projectiles
   @Override
@@ -91,7 +108,21 @@ public class ModHaste extends ToolModifier {
   @Override
   public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
     String loc = String.format(LOC_Extra, getIdentifier());
-    float bonus = getSpeedBonus(ModifierNBT.readInteger(modifierTag));
-    return ImmutableList.of(Util.translateFormatted(loc, Util.dfPercent.format(bonus)));
+
+    Set<Category> categories = ImmutableSet.copyOf(TagUtil.getCategories(TagUtil.getTagSafe(tool)));
+    boolean weapon = categories.contains(Category.WEAPON);
+    boolean launcher = categories.contains(Category.LAUNCHER);
+
+    ImmutableList.Builder<String> builder = ImmutableList.builder();
+
+    if(weapon) {
+      float bonus = getSpeedBonus(ModifierNBT.readInteger(modifierTag));
+      builder.add(Util.translateFormatted(loc, Util.dfPercent.format(bonus)));
+    }
+    if(launcher) {
+      float bonus = getDrawspeedBonus(ModifierNBT.readInteger(modifierTag));
+      builder.add(Util.translateFormatted(loc, Util.dfPercent.format(bonus)));
+    }
+    return builder.build();
   }
 }

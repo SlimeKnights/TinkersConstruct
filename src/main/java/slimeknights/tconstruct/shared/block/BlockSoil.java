@@ -46,7 +46,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
 
     this.setSoundType(SoundType.SAND);
 
-    setHarvestLevel("Shovel", -1);
+    setHarvestLevel("shovel", -1);
     setCreativeTab(TinkerRegistry.tabGeneral);
   }
 

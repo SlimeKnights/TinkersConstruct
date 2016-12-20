@@ -15,6 +15,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.mantle.block.EnumBlockConnectedTexture;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -33,6 +35,7 @@ public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClear
     this.setCreativeTab(TinkerRegistry.tabGeneral);
   }
 
+  @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer() {
@@ -52,6 +55,7 @@ public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClear
   /**
    * Get the MapColor for this Block and the given BlockState
    */
+  @Nonnull
   @Override
   public MapColor getMapColor(IBlockState state) {
     return state.getValue(COLOR).getMapColor();
@@ -59,7 +63,7 @@ public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClear
 
   @Override
   @SuppressWarnings("deprecation")
-  public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+  public boolean shouldSideBeRendered(IBlockState blockState, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, EnumFacing side) {
     return canConnect(blockState, blockAccess.getBlockState(pos.offset(side))) ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
   }
 

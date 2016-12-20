@@ -14,9 +14,15 @@ import java.util.List;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomFontColor;
+import slimeknights.tconstruct.library.materials.BowMaterialStats;
+import slimeknights.tconstruct.library.materials.FletchingMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
+import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
+import slimeknights.tconstruct.library.tools.ProjectileNBT;
+import slimeknights.tconstruct.library.tools.ranged.BowCore;
+import slimeknights.tconstruct.library.tools.ranged.IAmmo;
 
 import static slimeknights.tconstruct.library.Util.df;
 import static slimeknights.tconstruct.library.materials.HeadMaterialStats.COLOR_Durability;
@@ -72,11 +78,14 @@ public class TooltipBuilder {
   }
 
   public TooltipBuilder addAmmo(boolean textIfEmpty) {
-    if(ToolHelper.isBroken(stack) && textIfEmpty) {
-      tips.add(String.format("%s: %s%s%s", Util.translate(LOC_Ammo), TextFormatting.DARK_RED, TextFormatting.BOLD, Util.translate(LOC_Empty)));
-    }
-    else {
-      tips.add(formatAmmo(ToolHelper.getCurrentDurability(stack), ToolHelper.getMaxDurability(stack)));
+    if(stack.getItem() instanceof IAmmo) {
+      if(ToolHelper.isBroken(stack) && textIfEmpty) {
+        tips.add(String.format("%s: %s%s%s", Util.translate(LOC_Ammo), TextFormatting.DARK_RED, TextFormatting.BOLD, Util.translate(LOC_Empty)));
+      }
+      else {
+        IAmmo ammoItem = (IAmmo) stack.getItem();
+        tips.add(formatAmmo(ammoItem.getCurrentAmmo(stack), ammoItem.getMaxAmmo(stack)));
+      }
     }
 
     return this;
@@ -128,5 +137,46 @@ public class TooltipBuilder {
     }
 
     return this;
+  }
+
+  public TooltipBuilder addDrawSpeed() {
+    float speed = ProjectileLauncherNBT.from(stack).drawSpeed;
+    // convert speed per tick to seconds drawtime
+    if(stack.getItem() instanceof BowCore) {
+      speed = (float)((BowCore) stack.getItem()).getDrawTime()/(20f * speed);
+    }
+    tips.add(BowMaterialStats.formatDrawspeed(speed));
+    return this;
+  }
+
+  public TooltipBuilder addRange() {
+    tips.add(BowMaterialStats.formatRange(ProjectileLauncherNBT.from(stack).range));
+    return this;
+  }
+
+  public TooltipBuilder addProjectileBonusDamage() {
+    tips.add(BowMaterialStats.formatDamage(ProjectileLauncherNBT.from(stack).bonusDamage));
+    return this;
+  }
+
+  public TooltipBuilder addAccuracy() {
+    this.add(FletchingMaterialStats.formatAccuracy(ProjectileNBT.from(stack).accuracy));
+    return this;
+  }
+
+  public static void addModifierTooltips(ItemStack stack, List<String> tooltips) {
+    NBTTagList tagList = TagUtil.getModifiersTagList(stack);
+    for(int i = 0; i < tagList.tagCount(); i++) {
+      NBTTagCompound tag = tagList.getCompoundTagAt(i);
+      ModifierNBT data = ModifierNBT.readTag(tag);
+
+      // get matching modifier
+      IModifier modifier = TinkerRegistry.getModifier(data.identifier);
+      if(modifier == null || modifier.isHidden()) {
+        continue;
+      }
+
+      tooltips.add(data.getColorString() + modifier.getTooltip(tag, false));
+    }
   }
 }

@@ -21,7 +21,7 @@ public class BlockDecoGround extends EnumBlock<BlockDecoGround.DecoGroundType> {
 
     this.setSoundType(SoundType.GROUND);
 
-    setHarvestLevel("Shovel", -1);
+    setHarvestLevel("shovel", -1);
     setCreativeTab(TinkerRegistry.tabGeneral);
   }
 

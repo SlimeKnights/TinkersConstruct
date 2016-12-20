@@ -8,7 +8,8 @@ import slimeknights.tconstruct.library.Util;
 
 public class ExtraMaterialStats extends AbstractMaterialStats {
 
-  public final static String TYPE = "extra";
+  @Deprecated
+  public final static String TYPE = MaterialTypes.EXTRA;
 
   public final static String LOC_Durability = "stat.extra.durability.name";
   public final static String LOC_DurabilityDesc = "stat.extra.durability.desc";
@@ -17,7 +18,7 @@ public class ExtraMaterialStats extends AbstractMaterialStats {
   public final int extraDurability; // usually between 0 and 500
 
   public ExtraMaterialStats(int extraDurability) {
-    super(TYPE);
+    super(MaterialTypes.EXTRA);
     this.extraDurability = extraDurability;
   }
 

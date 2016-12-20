@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
-import com.google.common.base.Optional;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
@@ -29,7 +27,6 @@ import javax.annotation.Nullable;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.fluid.FluidHandlerCasting;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
-import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.library.tileentity.IProgress;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
@@ -146,12 +143,12 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
 
             for(EntityPlayer player : worldObj.playerEntities) {
               if(player.getDistanceSq(pos) < 1024 && player instanceof EntityPlayerMP) {
-                ((EntityPlayerMP) player).connection.sendPacket(new SPacketParticles(EnumParticleTypes.FLAME, false,
-                                                                                     pos.getX() + 0.5f,
-                                                                                     pos.getY() + 1.1f,
-                                                                                     pos.getZ() + 0.5f,
-                                                                                     0.25f, 0.0125f, 0.25f,
-                                                                                     0.005f, 5));
+                TinkerNetwork.sendPacket(player, new SPacketParticles(EnumParticleTypes.FLAME, false,
+                                                                      pos.getX() + 0.5f,
+                                                                      pos.getY() + 1.1f,
+                                                                      pos.getZ() + 0.5f,
+                                                                      0.25f, 0.0125f, 0.25f,
+                                                                      0.005f, 5));
               }
             }
           }

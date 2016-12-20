@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools;
 
-import com.google.common.collect.Sets;
-
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
@@ -18,29 +17,26 @@ import net.minecraft.world.storage.loot.conditions.RandomChanceWithLooting;
 import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraft.world.storage.loot.functions.SetMetadata;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-import java.util.Random;
-import java.util.Set;
-
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
+import slimeknights.tconstruct.library.capability.projectile.ITinkerProjectile;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.library.events.TinkerToolEvent;
+import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
+import slimeknights.tconstruct.tools.modifiers.ModMendingMoss;
 
 public class ToolEvents {
-
-  private static final Random random = new Random();
-
-  public final static Set<ToolCore> smallTools = Sets.newHashSet();
 
   // Extra width/height modifier management
   @SubscribeEvent
   public void onExtraBlockBreak(TinkerToolEvent.ExtraBlockBreak event) {
-    if(TinkerTools.modHarvestWidth == null || TinkerTools.modHarvestHeight == null) {
+    if(TinkerModifiers.modHarvestWidth == null || TinkerModifiers.modHarvestHeight == null) {
       return;
     }
 
@@ -49,10 +45,10 @@ public class ToolEvents {
     boolean height = false;
     for(int i = 0; i < modifiers.tagCount(); i++) {
       String modId = modifiers.getStringTagAt(i);
-      if(modId.equals(TinkerTools.modHarvestWidth.getIdentifier())) {
+      if(modId.equals(TinkerModifiers.modHarvestWidth.getIdentifier())) {
         width = true;
       }
-      else if(modId.equals(TinkerTools.modHarvestHeight.getIdentifier())) {
+      else if(modId.equals(TinkerModifiers.modHarvestHeight.getIdentifier())) {
         height = true;
       }
     }
@@ -61,13 +57,13 @@ public class ToolEvents {
       return;
     }
 
-    if(event.tool == TinkerTools.pickaxe ||
-       event.tool == TinkerTools.hatchet ||
-       event.tool == TinkerTools.shovel) {
+    if(event.tool == TinkerHarvestTools.pickaxe ||
+       event.tool == TinkerHarvestTools.hatchet ||
+       event.tool == TinkerHarvestTools.shovel) {
       event.width += width ? 1 : 0;
       event.height += height ? 1 : 0;
     }
-    else if(event.tool == TinkerTools.mattock) {
+    else if(event.tool == TinkerHarvestTools.mattock) {
       int c = 0;
       if(width) {
         c++;
@@ -78,9 +74,10 @@ public class ToolEvents {
       event.width += c;
       event.height += c;
     }
-    else if(event.tool == TinkerTools.hammer ||
-            event.tool == TinkerTools.excavator ||
-            event.tool == TinkerTools.lumberAxe) {
+    else if(event.tool == TinkerHarvestTools.hammer ||
+            event.tool == TinkerHarvestTools.excavator ||
+            event.tool == TinkerHarvestTools.lumberAxe ||
+            event.tool == TinkerHarvestTools.scythe) {
       event.width += width ? 2 : 0;
       event.height += height ? 2 : 0;
       //event.distance = 1 + (width ? 1 : 0) + (height ? 1 : 0);
@@ -116,15 +113,15 @@ public class ToolEvents {
   public void onInteract(PlayerInteractEvent.RightClickBlock event) {
     // does the player clicks on an echanting table with moss with 5 levels?
     if(ItemStack.areItemsEqual(event.getItemStack(), TinkerCommons.matMoss)) {
-      if(event.getWorld().getBlockState(event.getPos()).getBlock() == Blocks.ENCHANTING_TABLE) {
-        if(event.getEntityPlayer().experienceLevel >= 5) {
+      if(event.getWorld().getBlockState(event.getPos()).getBlock() == Blocks.BOOKSHELF) {
+        if(event.getEntityPlayer().experienceLevel >= ModMendingMoss.MENDING_MOSS_LEVELS) {
           // convert moss to mending moss
           EntityPlayer player = event.getEntityPlayer();
           player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
 
           if(!event.getWorld().isRemote) {
             event.getItemStack().stackSize--;
-            player.removeExperienceLevel(5);
+            player.removeExperienceLevel(ModMendingMoss.MENDING_MOSS_LEVELS);
             ItemHandlerHelper.giveItemToPlayer(player, TinkerCommons.matMendingMoss.copy());
 
             event.setUseBlock(Event.Result.DENY);
@@ -134,5 +131,33 @@ public class ToolEvents {
         }
       }
     }
+  }
+
+  @SubscribeEvent
+  public void onLooting(LootingLevelEvent event) {
+    ItemStack item;
+    int level = event.getLootingLevel();
+
+    // ensure looting is taken into account for projectiles
+    Entity projectile = event.getDamageSource().getSourceOfDamage();
+    if(projectile != null && projectile.hasCapability(CapabilityTinkerProjectile.PROJECTILE_CAPABILITY, null)) {
+      ITinkerProjectile tinkerProjectile = projectile.getCapability(CapabilityTinkerProjectile.PROJECTILE_CAPABILITY, null);
+      item = tinkerProjectile.getItemStack();
+      level = Math.max(level, getLooting(item));
+    }
+    // or the item itself
+    else if(event.getDamageSource().getEntity() instanceof EntityPlayer) {
+      item = ((EntityPlayer) event.getDamageSource().getEntity()).getHeldItemMainhand();
+      level = Math.max(level, getLooting(item));
+    }
+
+    event.setLootingLevel(level);
+  }
+
+  private int getLooting(ItemStack item) {
+    if(item != null) {
+      return TinkerModifiers.modLuck.getLuckLevel(item);
+    }
+    return 0;
   }
 }

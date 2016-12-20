@@ -9,6 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemHangingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -21,7 +23,9 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import org.apache.logging.log4j.Logger;
 
+import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.mantle.pulsar.pulse.Pulse;
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.EntityIDs;
@@ -30,32 +34,40 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.gadgets.block.BlockBrownstone;
 import slimeknights.tconstruct.gadgets.block.BlockBrownstoneSlab;
 import slimeknights.tconstruct.gadgets.block.BlockBrownstoneSlab2;
-import slimeknights.tconstruct.gadgets.block.BlockSlimeChannel;
 import slimeknights.tconstruct.gadgets.block.BlockDriedClay;
 import slimeknights.tconstruct.gadgets.block.BlockDriedClaySlab;
 import slimeknights.tconstruct.gadgets.block.BlockPunji;
 import slimeknights.tconstruct.gadgets.block.BlockRack;
+import slimeknights.tconstruct.gadgets.block.BlockSlimeChannel;
 import slimeknights.tconstruct.gadgets.block.BlockStoneLadder;
 import slimeknights.tconstruct.gadgets.block.BlockStoneTorch;
 import slimeknights.tconstruct.gadgets.block.BlockWoodRail;
+import slimeknights.tconstruct.gadgets.block.BlockWoodRailDropper;
 import slimeknights.tconstruct.gadgets.entity.EntityFancyItemFrame;
 import slimeknights.tconstruct.gadgets.entity.EntityThrowball;
 import slimeknights.tconstruct.gadgets.item.ItemBlockRack;
 import slimeknights.tconstruct.gadgets.item.ItemFancyItemFrame;
+import slimeknights.tconstruct.gadgets.item.ItemMomsSpaghetti;
 import slimeknights.tconstruct.gadgets.item.ItemPiggybackPack;
 import slimeknights.tconstruct.gadgets.item.ItemSlimeBoots;
 import slimeknights.tconstruct.gadgets.item.ItemSlimeSling;
+import slimeknights.tconstruct.gadgets.item.ItemSpaghetti;
 import slimeknights.tconstruct.gadgets.item.ItemThrowball;
+import slimeknights.tconstruct.gadgets.modifiers.ModSpaghettiMeat;
+import slimeknights.tconstruct.gadgets.modifiers.ModSpaghettiSauce;
 import slimeknights.tconstruct.gadgets.tileentity.TileDryingRack;
 import slimeknights.tconstruct.gadgets.tileentity.TileItemRack;
 import slimeknights.tconstruct.gadgets.tileentity.TileSlimeChannel;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
-import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
-import slimeknights.tconstruct.tools.TableRecipe;
+import slimeknights.tconstruct.shared.block.BlockTable;
+import slimeknights.tconstruct.shared.item.ItemMetaDynamicTinkers;
+import slimeknights.tconstruct.tools.common.TableRecipe;
 
 @Pulse(id = TinkerGadgets.PulseId, description = "All the fun toys")
 public class TinkerGadgets extends TinkerPulse {
@@ -68,12 +80,14 @@ public class TinkerGadgets extends TinkerPulse {
 
   public static Block stoneTorch;
   public static Block stoneLadder;
-  public static Block woodRail;
   public static Block punji;
   public static BlockRack rack;
   public static BlockDriedClay driedClay;
   public static BlockBrownstone brownstone;
-  
+
+  public static Block woodRail;
+  public static Block woodRailTrapdoor;
+
   public static Block slimeChannel;
 
   public static Block driedClaySlab;
@@ -101,6 +115,11 @@ public class TinkerGadgets extends TinkerPulse {
   public static ItemThrowball throwball;
   public static Item stoneStick;
 
+  public static ItemMetaDynamic spaghetti;
+  public static ItemMomsSpaghetti momsSpaghetti;
+  public static Modifier modSpaghettiSauce;
+  public static Modifier modSpaghettiMeat;
+
   public static ItemHangingEntity fancyFrame;
 
   // PRE-INITIALIZATION
@@ -108,13 +127,15 @@ public class TinkerGadgets extends TinkerPulse {
   public void preInit(FMLPreInitializationEvent event) {
     stoneTorch = registerBlock(new BlockStoneTorch(), "stone_torch");
     stoneLadder = registerBlock(new BlockStoneLadder(), "stone_ladder");
-    woodRail = registerBlock(new BlockWoodRail(), "wood_rail");
     punji = registerBlock(new BlockPunji(), "punji");
     rack = registerBlock(new ItemBlockRack(new BlockRack()), "rack");
-    
+
+    woodRail = registerBlock(new BlockWoodRail(), "wood_rail");
+    woodRailTrapdoor = registerBlock(new BlockWoodRailDropper(), "wood_rail_trapdoor");
+
     // slime channels
     slimeChannel = registerEnumBlock(new BlockSlimeChannel(), "slime_channel");
-    
+
     // dried clay
     driedClay = registerEnumBlock(new BlockDriedClay(), "dried_clay");
     driedClaySlab = registerEnumBlockSlab(new BlockDriedClaySlab(), "dried_clay_slab");
@@ -153,6 +174,8 @@ public class TinkerGadgets extends TinkerPulse {
 
     fancyFrame = registerItem(new ItemFancyItemFrame(), "fancy_frame");
 
+    registerMomsSpaghetti();
+
     EntityRegistry.registerModEntity(EntityFancyItemFrame.class, "Fancy Item Frame", EntityIDs.FANCY_FRAME, TConstruct.instance, 160, Integer.MAX_VALUE, false);
     EntityRegistry.registerModEntity(EntityThrowball.class, "Throwball", EntityIDs.THROWBALL, TConstruct.instance, 64, 10, true);
     //EntityRegistry.instance().lookupModSpawn(EntityFancyItemFrame.class, false).setCustomSpawning(null, true);
@@ -162,6 +185,30 @@ public class TinkerGadgets extends TinkerPulse {
     proxy.preInit();
 
     TinkerRegistry.tabGadgets.setDisplayIcon(new ItemStack(slimeSling));
+  }
+
+  private void registerMomsSpaghetti() {
+    spaghetti = registerItem(new ItemSpaghetti(), "spaghetti");
+    momsSpaghetti = registerItem(new ItemMomsSpaghetti(), "moms_spaghetti");
+
+    ItemStack hardSpaghetti = spaghetti.addMeta(0, "hard");
+    ItemStack wetSpaghetti = spaghetti.addMeta(1, "soggy");
+    ItemStack coldSpaghetti = spaghetti.addMeta(2, "cold");
+
+    modSpaghettiSauce = new ModSpaghettiSauce();
+
+    modSpaghettiMeat = new ModSpaghettiMeat();
+    modSpaghettiMeat.addRecipeMatch(new RecipeMatch.ItemCombination(1,
+                                                                    new ItemStack(Items.COOKED_BEEF),
+                                                                    new ItemStack(Items.COOKED_CHICKEN),
+                                                                    new ItemStack(Items.COOKED_MUTTON),
+                                                                    new ItemStack(Items.COOKED_PORKCHOP)
+    ));
+
+    // Recipe for mom's spaghetti: soak em, dry em, cook em, eat em
+    TinkerRegistry.registerTableCasting(new CastingRecipe(wetSpaghetti, RecipeMatch.of(hardSpaghetti), FluidRegistry.WATER, Fluid.BUCKET_VOLUME * 3, 15*60*20));
+    TinkerRegistry.registerDryingRecipe(wetSpaghetti, coldSpaghetti, 15*60*20);
+    GameRegistry.addSmelting(coldSpaghetti, new ItemStack(momsSpaghetti), 0f);
   }
 
   // INITIALIZATION
@@ -191,6 +238,7 @@ public class TinkerGadgets extends TinkerPulse {
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneLadder, 3), "w w", "www", "w w", 'w', "rodStone"));
     // Wooden Rail Recipe
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(woodRail, 4, 0), "b b", "bxb", "b b", 'b', "plankWood", 'x', "stickWood"));
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(woodRailTrapdoor, 4, 0), "b b", "bxb", "b b", 'b', "plankWood", 'x', "trapdoorWood"));
 
     // Punji Sticks
     GameRegistry.addRecipe(new ItemStack(punji, 3, 0), "b b", " b ", "b b", 'b', new ItemStack(Items.REEDS));
@@ -222,11 +270,11 @@ public class TinkerGadgets extends TinkerPulse {
     GameRegistry.addRecipe(new ShapedOreRecipe(frame, "nnn", "nOn", "nnn", 'O', Blocks.OBSIDIAN, 'n', "nuggetGold"));
     frame = new ItemStack(TinkerGadgets.fancyFrame, 1, EntityFancyItemFrame.FrameType.CLEAR.ordinal());
     GameRegistry.addRecipe(new ShapedOreRecipe(frame, " n ", "nOn", " n ", 'O', "blockGlass", 'n', "paneGlass"));
-    
+
     // slime channels
     for(SlimeType type : SlimeType.values()) {
       GameRegistry.addSmelting(new ItemStack(TinkerCommons.blockSlimeCongealed, 1, type.getMeta()),
-                               new ItemStack(slimeChannel, 1, type.getMeta()), 0.1f);
+                               new ItemStack(slimeChannel, 3, type.getMeta()), 0.15f);
     }
 
     addFrameRecipe("nuggetGold", EntityFancyItemFrame.FrameType.JEWEL);
@@ -251,7 +299,7 @@ public class TinkerGadgets extends TinkerPulse {
     ItemStack efln = new ItemStack(throwball, 1, ItemThrowball.ThrowballType.EFLN.ordinal());
     GameRegistry.addShapelessRecipe(efln, Items.FLINT, Items.GUNPOWDER);
     GameRegistry.addRecipe(new ShapelessOreRecipe(efln, Items.FLINT, "dustSulfur"));
-    
+
     // brownstone
     ItemStack stackBrownstoneSmooth = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.SMOOTH.getMeta());
     ItemStack stackBrownstoneRough = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.ROUGH.getMeta());
@@ -265,7 +313,7 @@ public class TinkerGadgets extends TinkerPulse {
     ItemStack stackBrownstoneRoad = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.ROAD.getMeta());
     ItemStack stackBrownstoneTile = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.TILE.getMeta());
     ItemStack stackBrownstoneCreeper = new ItemStack(brownstone, 1, BlockBrownstone.BrownstoneType.CREEPER.getMeta());
-    
+
     // normal recipe
     // 2 redstone + sandstone =  brownstone
     ItemStack regularBrownstoneRecipeOut = stackBrownstoneRough.copy();
@@ -287,7 +335,7 @@ public class TinkerGadgets extends TinkerPulse {
     addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.TILE, BlockBrownstone.BrownstoneType.BRICK_SMALL);
     addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.ROAD, BlockBrownstone.BrownstoneType.TILE);
     addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.PAVER, BlockBrownstone.BrownstoneType.ROAD);
- 
+
     // slabs
     addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.SMOOTH.getMeta()), stackBrownstoneSmooth.copy());
     addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.ROUGH.getMeta()), stackBrownstoneRough.copy());
@@ -332,9 +380,10 @@ public class TinkerGadgets extends TinkerPulse {
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
     registerDrying();
-    
+
     // prevents items from despawning in slime channels
     MinecraftForge.EVENT_BUS.register(BlockSlimeChannel.EventHandler.instance);
+    MinecraftForge.EVENT_BUS.register(new GadgetEvents());
 
     proxy.postInit();
   }
@@ -363,7 +412,7 @@ public class TinkerGadgets extends TinkerPulse {
     // leather
     if(Config.leatherDryingRecipe) {
       ItemStack leather = new ItemStack(Items.LEATHER);
-      time = (int)(20 * 60 * 8.5);
+      time = (int) (20 * 60 * 8.5);
       TinkerRegistry.registerDryingRecipe(Items.COOKED_BEEF, leather, time);
       TinkerRegistry.registerDryingRecipe(Items.COOKED_CHICKEN, leather, time);
       TinkerRegistry.registerDryingRecipe(Items.COOKED_FISH, leather, time);

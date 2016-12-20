@@ -1,0 +1,11 @@
+{
+  "title":"工匠储罐",
+  "image": {
+	"file": "tconstruct:textures/gui/book/tinker_tank.png"
+  },
+  "text": [
+    {
+      "text": "工匠储罐是个巨大的液体储罐，容量比冶炼炉还大，但是不能熔化金属或者制作合金"
+    }
+  ]
+}

@@ -153,7 +153,7 @@ public abstract class AbstractColoredTexture extends TextureAtlasSprite {
 
       cache.put(id, sprite);
     } catch(IOException e) {
-      TinkerRegistry.log.error("Unable to generate " + this.getIconName() + ": unable to load " + resourceLocation + "!\nBase texture: " + baseTexture.getIconName(), e);
+      TinkerRegistry.log.error("Unable to generate " + this.getIconName() + ": unable to load " + resourceLocation + "!\nBase texture: " + backupTextureLocation, e);
       net.minecraftforge.fml.client.FMLClientHandler.instance().trackMissingTexture(resourceLocation);
       sprite = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
     } finally {

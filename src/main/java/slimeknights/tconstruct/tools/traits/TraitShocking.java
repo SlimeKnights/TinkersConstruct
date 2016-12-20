@@ -2,10 +2,10 @@ package slimeknights.tconstruct.tools.traits;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.world.World;
 
@@ -14,7 +14,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.ModifierTagHolder;
 import slimeknights.tconstruct.library.utils.TagUtil;
-import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.shared.client.ParticleEffect;
 import slimeknights.tconstruct.tools.TinkerTools;
 
@@ -50,8 +49,15 @@ public class TraitShocking extends AbstractTrait {
 
   @Override
   public void onUpdate(ItemStack tool, World world, Entity entity, int itemSlot, boolean isSelected) {
-    if(!isSelected || world.isRemote) {
+    if(!isSelected || world.isRemote || world.getTotalWorldTime() % 5 > 0) {
       return;
+    }
+    if(entity instanceof EntityPlayer) {
+      ItemStack stackInUse = ((EntityPlayer) entity).getActiveItemStack();
+      // "same" item
+      if(stackInUse != null && !tool.getItem().shouldCauseBlockBreakReset(tool, stackInUse)) {
+        return;
+      }
     }
     ModifierTagHolder modtag = ModifierTagHolder.getModifier(tool, getModifierIdentifier());
     Data data = modtag.getTagData(Data.class);

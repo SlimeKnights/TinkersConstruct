@@ -1,0 +1,20 @@
+[
+  {
+    "name": "intro",
+    "type": "image with text below",
+    "data": "seared_furnace/intro.json"
+  },
+  {
+    "name": "info",
+    "type": "text",
+    "data": "seared_furnace/structure.json"
+  },
+  {
+    "name": "structure",
+    "type": "structure",
+    "data": "seared_furnace/multiblock.json"
+  },
+  {
+    "type": "blank"
+  }
+]

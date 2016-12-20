@@ -1,0 +1,18 @@
+{
+  "modifier": "webbed",
+  "text": [
+    {
+      "text": "Все эти липкие паутины для чего-то, да и пригодны. Замедляем ими врагов!"
+    }
+  ],
+  "effects": [
+    "Каждый уровень увеличивает время эффекта",
+    "Слоу-мо",
+    "Несколько уровней"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
+  ]
+}

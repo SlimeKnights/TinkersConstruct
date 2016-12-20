@@ -18,22 +18,27 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.events.TinkerEvent;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
@@ -43,6 +48,7 @@ import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.library.utils.TooltipBuilder;
 
 /**
  * The base for each Tinker tool.
@@ -63,6 +69,10 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   /* Tool Information */
   public List<PartMaterialType> getRequiredComponents() {
     return ImmutableList.copyOf(requiredComponents);
+  }
+
+  public List<PartMaterialType> getToolBuildComponents() {
+    return getRequiredComponents();
   }
 
   protected void addCategory(Category... categories) {
@@ -177,7 +187,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     addMaterialTraits(basetag, materials);
 
     // fire toolbuilding event
-    TinkerEvent.OnItemBuilding.fireEvent(basetag, ImmutableList.copyOf(materials));
+    TinkerEvent.OnItemBuilding.fireEvent(basetag, ImmutableList.copyOf(materials), this);
 
     return basetag;
   }
@@ -215,6 +225,19 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     tool.setTagCompound(base);
 
     return tool;
+  }
+
+  public ItemStack buildItemForRenderingInGui() {
+    List<Material> materials = IntStream.range(0, getRequiredComponents().size())
+                                        .mapToObj(this::getMaterialForPartForGuiRendering)
+                                        .collect(Collectors.toList());
+
+    return buildItemForRendering(materials);
+  }
+
+  @SideOnly(Side.CLIENT)
+  public Material getMaterialForPartForGuiRendering(int index) {
+    return ClientProxy.RenderMaterials[index % ClientProxy.RenderMaterials.length];
   }
 
   public abstract NBTTagCompound buildTag(List<Material> materials);
@@ -287,6 +310,11 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     boolean foundMatch = false;
     for(int index : getRepairParts()) {
       Material material = materials.get(index);
+
+      if(repairCustom(material, items) > 0) {
+        foundMatch = true;
+      }
+
       RecipeMatch.Match match = material.matches(items);
 
       // not a single match -> nothing to repair with
@@ -331,36 +359,12 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       TagUtil.setExtraTag(item, tag);
     }
 
-    /*
-    for(int index : getRepairParts()) {
-      RecipeMatch.Match match;
-      Material material = materials.get(index);
-
-      // repair for each match so the end result is the same as if each one had been applied individually
-      while((match = material.matches(repairItems)) != null) {
-        // is the tool still damaged?
-        if(item.getItemDamage() == 0) {
-          // we're done
-          break;
-        }
-        // todo: fire event?
-        // do the actual repair
-        //int amount = calculateRepair(item, match.amount, index);
-        HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
-        int amount = (stats.durability * 144) / match.amount;
-        ToolHelper.repairTool(item, amount);
-
-        // save that we repaired it :I
-        NBTTagCompound tag = TagUtil.getExtraTag(item);
-        TagUtil.addInteger(tag, Tags.REPAIR_COUNT, 1);
-        TagUtil.setExtraTag(item, tag);
-
-        // use up items
-        RecipeMatch.removeMatch(repairItems, match);
-      }
-    }*/
-
     return item;
+  }
+
+  /** Allows for custom repair items. Remove used items from the array. */
+  protected int repairCustom(Material material, ItemStack[] repairItems) {
+    return 0;
   }
 
   protected int calculateRepairAmount(List<Material> materials, ItemStack[] repairItems) {
@@ -369,14 +373,17 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     // try to match each material once
     for(int index : getRepairParts()) {
       Material material = materials.get(index);
-      RecipeMatch.Match match = material.matches(repairItems);
 
       if(materialsMatched.contains(material)) {
         continue;
       }
 
+      // custom repairing
+      durability += repairCustom(material, repairItems) * getRepairModifierForPart(index);
+
+      RecipeMatch.Match match = material.matches(repairItems);
       if(match != null) {
-        HeadMaterialStats stats = material.getStats(HeadMaterialStats.TYPE);
+        HeadMaterialStats stats = material.getStats(MaterialTypes.HEAD);
         if(stats != null) {
           materialsMatched.add(material);
           durability += ((float) stats.durability * (float) match.amount * getRepairModifierForPart(index)) / 144f;
@@ -419,11 +426,11 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
     NBTTagCompound tag = TagUtil.getExtraTag(tool);
     int repair = tag.getInteger(Tags.REPAIR_COUNT);
-    float repairCount = (100 - repair) / 100f;
-    if(repairCount < 0.5f) {
-      repairCount = 0.5f;
+    float repairDimishingReturns = (100 - repair / 2) / 100f;
+    if(repairDimishingReturns < 0.5f) {
+      repairDimishingReturns = 0.5f;
     }
-    increase *= repairCount;
+    increase *= repairDimishingReturns;
 
     return (int) Math.ceil(increase);
   }
@@ -463,19 +470,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   @Override
   public void getTooltip(ItemStack stack, List<String> tooltips) {
     // Default tooltip: modifiers
-    NBTTagList tagList = TagUtil.getModifiersTagList(stack);
-    for(int i = 0; i < tagList.tagCount(); i++) {
-      NBTTagCompound tag = tagList.getCompoundTagAt(i);
-      ModifierNBT data = ModifierNBT.readTag(tag);
-
-      // get matching modifier
-      IModifier modifier = TinkerRegistry.getModifier(data.identifier);
-      if(modifier == null || modifier.isHidden()) {
-        continue;
-      }
-
-      tooltips.add(data.getColorString() + modifier.getTooltip(tag, false));
-    }
+    TooltipBuilder.addModifierTooltips(stack,tooltips);
   }
 
   @Nonnull
@@ -483,6 +478,11 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   public EnumRarity getRarity(ItemStack stack) {
     // prevents enchanted items to have a different name color
     return EnumRarity.COMMON;
+  }
+
+  @Override
+  public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+    return false;
   }
 
   /* NBT loading */

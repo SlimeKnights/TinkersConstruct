@@ -20,10 +20,14 @@ import net.minecraft.util.text.translation.I18n;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+
+import javax.annotation.Nullable;
 
 import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 
@@ -61,10 +65,18 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
 
   @Override
   public final boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException {
-    // aspects
-    for(ModifierAspect aspect : aspects) {
-      if(!aspect.canApply(stack, original)) {
-        return false;
+
+    Set<Enchantment> enchantments = EnchantmentHelper.getEnchantments(stack).keySet();
+
+    NBTTagList traits = TagUtil.getTraitsTagList(stack);
+    for(int i = 0; i < traits.tagCount(); i++) {
+      String id = traits.getStringTagAt(i);
+      ITrait trait = TinkerRegistry.getTrait(id);
+      if(trait != null) {
+        if(!canApplyTogether(trait) || !trait.canApplyTogether(this)) {
+          throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_trait", this.getLocalizedName(), trait.getLocalizedName()));
+        }
+        canApplyWithEnchantment(trait, enchantments);
       }
     }
 
@@ -72,26 +84,43 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
     for(int i = 0; i < modifiers.tagCount(); i++) {
       String id = modifiers.getStringTagAt(i);
       IModifier mod = TinkerRegistry.getModifier(id);
-      if(mod != null && !canApplyTogether(mod)) {
-        throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_modifiers", this.getLocalizedName(), mod.getLocalizedName()));
+      if(mod != null) {
+        if(!canApplyTogether(mod) || !mod.canApplyTogether(this)) {
+          throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_modifiers", this.getLocalizedName(), mod.getLocalizedName()));
+        }
+        canApplyWithEnchantment(mod, enchantments);
       }
     }
 
-    for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-      if(!canApplyTogether(enchantment)) {
-        String enchName = I18n.translateToLocal(enchantment.getName());
-        throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_enchantments", this.getLocalizedName(), enchName));
+    canApplyWithEnchantment(this, enchantments);
+
+    // aspects
+    for(ModifierAspect aspect : aspects) {
+      if(!aspect.canApply(stack, original)) {
+        return false;
       }
     }
 
     return canApplyCustom(stack);
   }
 
+  private static void canApplyWithEnchantment(IToolMod iToolMod, Set<Enchantment> enchantments)
+      throws TinkerGuiException {
+    for(Enchantment enchantment : enchantments) {
+      if(!iToolMod.canApplyTogether(enchantment)) {
+        String enchName = I18n.translateToLocal(enchantment.getName());
+        throw new TinkerGuiException(Util.translateFormatted("gui.error.incompatible_enchantments", iToolMod.getLocalizedName(), enchName));
+      }
+    }
+  }
+
+  @Override
   public boolean canApplyTogether(Enchantment enchantment) {
     return true;
   }
 
-  public boolean canApplyTogether(IModifier otherModifier) {
+  @Override
+  public boolean canApplyTogether(IToolMod otherModifier) {
     return true;
   }
 
@@ -177,28 +206,31 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
   }
 
   public String getLeveledTooltip(NBTTagCompound modifierTag, boolean detailed) {
-    // the most important function in the whole file!
     ModifierNBT data = ModifierNBT.readInteger(modifierTag);
+    return getLeveledTooltip(data.level, detailed ? " " + data.extraInfo : "");
+  }
+
+  public String getLeveledTooltip(int level, @Nullable String suffix) {
+    // the most important function in the whole file!
 
     String basic = getLocalizedName(); // backup
-    if(data.level == 0) {
+    if(level == 0) {
       return basic;
     }
-    else if(data.level > 1) {
-      basic += " " + TinkerUtil.getRomanNumeral(data.level);
+    else if(level > 1) {
+      basic += " " + TinkerUtil.getRomanNumeral(level);
     }
 
-    for(int i = data.level; i > 1; i--) {
+    for(int i = level; i > 1; i--) {
       if(I18n.canTranslate(String.format(LOC_Name + i, getIdentifier()))) {
         basic = I18n.translateToLocal(String.format(LOC_Name + i, getIdentifier()));
         break;
       }
     }
 
-    if(detailed) {
-      return basic + " " + data.extraInfo;
+    if(suffix != null) {
+      basic += suffix;
     }
-
     return basic;
   }
 
@@ -266,6 +298,11 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
     }
 
     return hit;
+  }
+
+  @Override
+  public boolean hasItemsToApplyWith() {
+    return !items.isEmpty();
   }
 
   private static final AttributeModifier ANTI_KNOCKBACK_MOD = new AttributeModifier("Anti Modifier Knockback", 1f, 0);

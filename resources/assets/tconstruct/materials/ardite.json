@@ -1,0 +1,10 @@
+{
+    "type": "metal_textured",
+    "parameters": {
+        "texture": "tconstruct:items/materials/ardite_rust",
+        "color": "f97217",
+        "shinyness": 0.6,
+        "brightness": 0.4,
+        "hueshift": 0.1
+    }
+}

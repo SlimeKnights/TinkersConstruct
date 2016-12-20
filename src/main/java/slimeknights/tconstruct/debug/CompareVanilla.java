@@ -36,7 +36,9 @@ import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerMaterials;
-import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
+import slimeknights.tconstruct.tools.melee.TinkerMeleeWeapons;
 
 public class CompareVanilla extends CommandBase {
 
@@ -66,40 +68,40 @@ public class CompareVanilla extends CommandBase {
     ImmutableList<Material> cobaltMaterials = ImmutableList.of(TinkerMaterials.wood, TinkerMaterials.cobalt, TinkerMaterials.cobalt);
     ImmutableList<Material> manyMaterials = ImmutableList.of(TinkerMaterials.wood, TinkerMaterials.manyullyn, TinkerMaterials.manyullyn);
     // Pickaxe
-    ItemStack wood = TinkerTools.pickaxe.buildItem(woodMaterials);
-    ItemStack stone = TinkerTools.pickaxe.buildItem(stoneMaterials);
-    ItemStack iron = TinkerTools.pickaxe.buildItem(ironMaterials);
-    ItemStack extra = TinkerTools.pickaxe.buildItem(cobaltMaterials);
+    ItemStack wood = TinkerHarvestTools.pickaxe.buildItem(woodMaterials);
+    ItemStack stone = TinkerHarvestTools.pickaxe.buildItem(stoneMaterials);
+    ItemStack iron = TinkerHarvestTools.pickaxe.buildItem(ironMaterials);
+    ItemStack extra = TinkerHarvestTools.pickaxe.buildItem(cobaltMaterials);
 
     testTools(Blocks.COBBLESTONE,
               wood, stone, iron, extra,
               new ItemStack(Items.WOODEN_PICKAXE), new ItemStack(Items.STONE_PICKAXE), new ItemStack(Items.IRON_PICKAXE),
               new ItemStack(Items.DIAMOND_PICKAXE), new ItemStack(Items.GOLDEN_PICKAXE));
 
-    wood = TinkerTools.shovel.buildItem(woodMaterials);
-    stone = TinkerTools.shovel.buildItem(stoneMaterials);
-    iron = TinkerTools.shovel.buildItem(ironMaterials);
-    extra = TinkerTools.shovel.buildItem(cobaltMaterials);
+    wood = TinkerHarvestTools.shovel.buildItem(woodMaterials);
+    stone = TinkerHarvestTools.shovel.buildItem(stoneMaterials);
+    iron = TinkerHarvestTools.shovel.buildItem(ironMaterials);
+    extra = TinkerHarvestTools.shovel.buildItem(cobaltMaterials);
 
     testTools(Blocks.DIRT,
               wood, stone, iron, extra,
               new ItemStack(Items.WOODEN_SHOVEL), new ItemStack(Items.STONE_SHOVEL), new ItemStack(Items.IRON_SHOVEL),
               new ItemStack(Items.DIAMOND_SHOVEL), new ItemStack(Items.GOLDEN_SHOVEL));
 
-    wood = TinkerTools.hatchet.buildItem(woodMaterials);
-    stone = TinkerTools.hatchet.buildItem(stoneMaterials);
-    iron = TinkerTools.hatchet.buildItem(ironMaterials);
-    extra = TinkerTools.hatchet.buildItem(cobaltMaterials);
+    wood = TinkerHarvestTools.hatchet.buildItem(woodMaterials);
+    stone = TinkerHarvestTools.hatchet.buildItem(stoneMaterials);
+    iron = TinkerHarvestTools.hatchet.buildItem(ironMaterials);
+    extra = TinkerHarvestTools.hatchet.buildItem(cobaltMaterials);
 
     testTools(Blocks.LOG,
               wood, stone, iron, extra,
               new ItemStack(Items.WOODEN_AXE), new ItemStack(Items.STONE_AXE), new ItemStack(Items.IRON_AXE),
               new ItemStack(Items.DIAMOND_AXE), new ItemStack(Items.GOLDEN_AXE));
 
-    wood = TinkerTools.broadSword.buildItem(woodMaterials);
-    stone = TinkerTools.broadSword.buildItem(stoneMaterials);
-    iron = TinkerTools.broadSword.buildItem(ironMaterials);
-    extra = TinkerTools.broadSword.buildItem(manyMaterials);
+    wood = TinkerMeleeWeapons.broadSword.buildItem(woodMaterials);
+    stone = TinkerMeleeWeapons.broadSword.buildItem(stoneMaterials);
+    iron = TinkerMeleeWeapons.broadSword.buildItem(ironMaterials);
+    extra = TinkerMeleeWeapons.broadSword.buildItem(manyMaterials);
 
     testTools(Blocks.MELON_BLOCK,
               wood, stone, iron, extra,
@@ -161,13 +163,13 @@ public class CompareVanilla extends CommandBase {
 
     // Redstone/Efficiency
     pw.println(genSection("Haste/Efficiency V", ""));
-    ItemStack tinkerModified = applyModifier(TinkerTools.modHaste, tinker);
+    ItemStack tinkerModified = applyModifier(TinkerModifiers.modHaste, tinker);
     ItemStack vanillaModified = applyEnchantment(Enchantments.EFFICIENCY, vanilla);
     pw.println(testToolSpeed(block, tinkerModified, vanillaModified));
 
     // Quartz/Sharpness
     pw.println(genSection("Sharpness V", ""));
-    tinkerModified = applyModifier(TinkerTools.modSharpness, tinker);
+    tinkerModified = applyModifier(TinkerModifiers.modSharpness, tinker);
     vanillaModified = applyEnchantment(Enchantments.SHARPNESS, vanilla);
     pw.println(testToolAttack(tinkerModified, vanillaModified));
   }

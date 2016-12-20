@@ -10,11 +10,20 @@
     }
   },
   {
+    "name": "tools",
+    "data": "sections/tools.json",
+    "icon": {
+      "item": {
+        "id": "minecraft:iron_pickaxe",
+        "damage": 0
+      }
+    }
+  },
+  {
     "name": "materials",
     "icon": {
       "item": {
-        "id": "minecraft:iron_ingot",
-        "damage": 0
+        "id": "minecraft:iron_ingot"
       }
     }
   },
@@ -24,6 +33,41 @@
     "icon": {
       "item": {
         "id": "minecraft:redstone"
+      }
+    }
+  },
+  {
+    "name": "smeltery",
+    "data": "sections/smeltery.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:smeltery_controller"
+      }
+    }
+  },
+  {
+    "name": "seared_furnace",
+    "data": "sections/seared_furnace.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:seared_furnace_controller"
+      }
+    }
+  },
+  {
+    "name": "tinker_tank",
+    "data": "sections/tinker_tank.json",
+    "icon": {
+      "item": {
+        "id": "tconstruct:tinker_tank_controller"
+      }
+    }
+  },
+  {
+    "name": "bowmaterials",
+    "icon": {
+      "item": {
+        "id": "minecraft:bow"
       }
     }
   }

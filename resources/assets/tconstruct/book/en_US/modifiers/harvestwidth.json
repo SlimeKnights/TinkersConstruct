@@ -9,7 +9,7 @@
     "Increases the width of the area affected",
     "Only affects blocks",
     "Does not work for weapons",
-    "Multiple levels"
+    "Can be combined with Height++"
   ],
   "demoTool": [
     "tconstruct:pickaxe",

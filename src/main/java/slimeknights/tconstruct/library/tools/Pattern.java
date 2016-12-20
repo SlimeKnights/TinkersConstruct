@@ -7,11 +7,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameData;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import java.text.DecimalFormat;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -32,12 +34,34 @@ public class Pattern extends Item implements IPattern {
   public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     subItems.add(new ItemStack(this));
 
-    for(Item toolpart : TinkerRegistry.getPatternItems()) {
+    for(Item toolpart : getSubItemToolparts()) {
       ItemStack stack = new ItemStack(this);
       setTagForPart(stack, toolpart);
 
-      subItems.add(stack);
+      if(isValidSubitem(toolpart)) {
+        subItems.add(stack);
+      }
     }
+  }
+
+  protected Collection<Item> getSubItemToolparts() {
+    return TinkerRegistry.getPatternItems();
+  }
+
+  protected boolean isValidSubitem(Item toolpart) {
+    if(toolpart instanceof IToolPart) {
+      for(Material material : TinkerRegistry.getAllMaterials()) {
+        if(isValidSubitemMaterial(material) && ((IToolPart) toolpart).canUseMaterial(material)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    return true;
+  }
+
+  protected boolean isValidSubitemMaterial(Material material) {
+    return material.isCraftable();
   }
 
   @Nonnull
@@ -52,19 +76,21 @@ public class Pattern extends Item implements IPattern {
     return Util.translateFormatted(unloc + ".name", part.getItemStackDisplayName(null));
   }
 
-  public static void setTagForPart(ItemStack stack, Item toolPart) {
+  public static ItemStack setTagForPart(ItemStack stack, Item toolPart) {
     NBTTagCompound tag = TagUtil.getTagSafe(stack);
 
     tag.setString(TAG_PARTTYPE, toolPart.getRegistryName().toString());
 
     stack.setTagCompound(tag);
+    return stack;
   }
 
+  @Nullable
   public static Item getPartFromTag(ItemStack stack) {
     NBTTagCompound tag = TagUtil.getTagSafe(stack);
     String part = tag.getString(TAG_PARTTYPE);
 
-    return GameData.getItemRegistry().getObject(new ResourceLocation(part));
+    return Item.getByNameOrId(part);
   }
 
   public boolean isBlankPattern(ItemStack stack) {

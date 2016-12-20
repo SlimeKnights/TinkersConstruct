@@ -1,16 +1,12 @@
 package slimeknights.tconstruct.library.smeltery;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
+import java.util.Collection;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.Pattern;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 public class Cast extends Pattern implements ICast {
 
@@ -19,16 +15,12 @@ public class Cast extends Pattern implements ICast {
   }
 
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
-    if(this == TinkerSmeltery.cast) {
-      subItems.add(new ItemStack(this));
-    }
+  protected Collection<Item> getSubItemToolparts() {
+    return TinkerRegistry.getCastItems();
+  }
 
-    for(Item toolpart : TinkerRegistry.getCastItems()) {
-      ItemStack stack = new ItemStack(this);
-      setTagForPart(stack, toolpart);
-
-      subItems.add(stack);
-    }
+  @Override
+  protected boolean isValidSubitemMaterial(Material material) {
+    return material.isCastable();
   }
 }

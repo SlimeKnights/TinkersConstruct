@@ -17,9 +17,11 @@ import net.minecraft.util.text.translation.I18n;
 
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import slimeknights.mantle.util.RecipeMatch;
@@ -38,6 +40,7 @@ import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.traits.ITrait;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 public final class ToolBuilder {
 
@@ -272,12 +275,17 @@ public final class ToolBuilder {
     }
 
     // we never modify the original. Caller can remove all of them if we return a result
-    final ItemStack[] toolParts = Util.copyItemStackArray(toolPartsIn);
+    List<ItemStack> inputItems = new ArrayList<>(Arrays.asList(Util.copyItemStackArray(toolPartsIn)));
+    if(!TinkerEvent.OnToolPartReplacement.fireEvent(inputItems, toolStack)) {
+      // event cancelled
+      return null;
+    }
+    final ItemStack[] toolParts = inputItems.toArray(new ItemStack[inputItems.size()]);
 
     TIntIntMap assigned = new TIntIntHashMap();
     TinkersItem tool = (TinkersItem) toolStack.getItem();
     // materiallist has to be copied because it affects the actual NBT on the tool if it's changed
-    final NBTTagList materialList = (NBTTagList) TagUtil.getBaseMaterialsTagList(toolStack).copy();
+    final NBTTagList materialList = TagUtil.getBaseMaterialsTagList(toolStack).copy();
 
     // assing each toolpart to a slot in the tool
     for(int i = 0; i < toolParts.length; i++) {
@@ -325,21 +333,35 @@ public final class ToolBuilder {
 
     // We now know which parts to replace with which inputs. Yay. Now we only have to do so.
     // to do so we simply switch out the materials used and rebuild the tool
-    assigned.forEachEntry(new TIntIntProcedure() {
-      @Override
-      public boolean execute(int i, int j) {
-        String mat = ((IToolPart) toolParts[i].getItem()).getMaterial(toolParts[i]).getIdentifier();
-        materialList.set(j, new NBTTagString(mat));
-        if(removeItems) {
+    assigned.forEachEntry((i, j) -> {
+      String mat = ((IToolPart) toolParts[i].getItem()).getMaterial(toolParts[i]).getIdentifier();
+      materialList.set(j, new NBTTagString(mat));
+      if(removeItems) {
+        if(i < toolPartsIn.length && toolPartsIn[i] != null) {
           toolPartsIn[i].stackSize--;
         }
-        return true;
       }
+      return true;
     });
+
+    // check that each material is still compatible with each modifier
+    TinkersItem tinkersItem = (TinkersItem) toolStack.getItem();
+    ItemStack copyToCheck = tinkersItem.buildItem(TinkerUtil.getMaterialsFromTagList(materialList));
+    // this includes traits
+    NBTTagList modifiers = TagUtil.getBaseModifiersTagList(toolStack);
+    for(int i = 0; i < modifiers.tagCount(); i++) {
+      String id = modifiers.getStringTagAt(i);
+      IModifier mod = TinkerRegistry.getModifier(id);
+
+      // will throw an exception if it can't apply
+      if(mod != null && !mod.canApply(copyToCheck, copyToCheck)) {
+        throw new TinkerGuiException();
+      }
+    }
 
     ItemStack output = toolStack.copy();
     TagUtil.setBaseMaterialsTagList(output, materialList);
-    NBTTagCompound tag = output.getTagCompound();
+    NBTTagCompound tag = TagUtil.getTagSafe(output);
     rebuildTool(tag, (TinkersItem) output.getItem());
     output.setTagCompound(tag);
 
@@ -408,6 +430,9 @@ public final class ToolBuilder {
     if(output == null) {
       return null;
     }
+    if(output.getItem() instanceof IToolPart && !((IToolPart) output.getItem()).canUseMaterial(foundMaterial)) {
+      return null;
+    }
 
     RecipeMatch.removeMatch(materialItems, match);
 
@@ -464,7 +489,7 @@ public final class ToolBuilder {
     tinkersItem.addMaterialTraits(rootNBT, materials);
 
     // fire event
-    TinkerEvent.OnItemBuilding.fireEvent(rootNBT, ImmutableList.copyOf(materials));
+    TinkerEvent.OnItemBuilding.fireEvent(rootNBT, ImmutableList.copyOf(materials), tinkersItem);
 
     // reapply modifiers
     NBTTagList modifiers = TagUtil.getBaseModifiersTagList(rootNBT);

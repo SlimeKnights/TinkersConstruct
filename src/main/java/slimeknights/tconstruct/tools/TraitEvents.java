@@ -9,11 +9,12 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.events.TinkerToolEvent;
+import slimeknights.tconstruct.library.tools.DualToolHarvestUtils;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
-import slimeknights.tconstruct.library.events.TinkerToolEvent;
 
 public class TraitEvents {
 
@@ -52,7 +53,7 @@ public class TraitEvents {
     if(event.getHarvester() == null) {
       return;
     }
-    ItemStack tool = event.getHarvester().inventory.getCurrentItem();
+    ItemStack tool = DualToolHarvestUtils.getItemstackToUse(event.getHarvester(), event.getState());
 
     if(isTool(tool) && !ToolHelper.isBroken(tool)) {
       NBTTagList list = TagUtil.getTraitsTagList(tool);
@@ -70,15 +71,16 @@ public class TraitEvents {
     if(event.getEntity() == null || !(event.getEntity() instanceof EntityPlayer) || !((EntityPlayer) event.getEntity()).isActiveItemStackBlocking()) {
       return;
     }
-    // item in use has to be current item, otherwise MC stops using it
-    ItemStack tool = ((EntityPlayer) event.getEntity()).inventory.getCurrentItem();
 
-    if(isTool(tool) && !ToolHelper.isBroken(tool)) {
-      NBTTagList list = TagUtil.getTraitsTagList(tool);
-      for(int i = 0; i < list.tagCount(); i++) {
-        ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
-        if(trait != null) {
-          trait.onBlock(tool, (EntityPlayer) event.getEntity(), event);
+    // we allow block traits to affect both main and offhand
+    for(ItemStack tool : event.getEntity().getHeldEquipment()) {
+      if(isTool(tool) && !ToolHelper.isBroken(tool)) {
+        NBTTagList list = TagUtil.getTraitsTagList(tool);
+        for(int i = 0; i < list.tagCount(); i++) {
+          ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+          if(trait != null) {
+            trait.onBlock(tool, (EntityPlayer) event.getEntity(), event);
+          }
         }
       }
     }

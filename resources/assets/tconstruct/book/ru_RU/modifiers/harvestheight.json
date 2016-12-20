@@ -1,0 +1,24 @@
+{
+  "modifier": "harvestheight",
+  "text": [
+    {
+      "text": "Вы когда-нибудь мечтали об увеличенной высоте добычи?"
+    }
+  ],
+  "effects": [
+    "Увеличивает линейную высоту зоны добычи",
+    "Влияет только на блоки",
+    "Не работает на оружиях",
+    "Может совмещаться с увеличением ширины"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:shovel",
+    "tconstruct:hatchet",
+    "tconstruct:mattock",
+    "tconstruct:hammer",
+    "tconstruct:lumberaxe",
+    "tconstruct:excavator",
+    "tconstruct:scythe"
+  ]
+}

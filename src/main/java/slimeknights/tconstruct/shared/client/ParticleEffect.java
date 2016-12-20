@@ -46,7 +46,7 @@ public class ParticleEffect extends ParticleCrit {
 
     this.textureManager = Minecraft.getMinecraft().getTextureManager();
 
-    // has to be set after constructor because parent class accesses layer-0-only furctions
+    // has to be set after constructor because parent class accesses layer-0-only functions
     this.layer = 3;
   }
 

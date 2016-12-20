@@ -1,0 +1,17 @@
+{
+  "modifier": "sharpness",
+  "text": [
+    {
+      "text": "你可以使用石英来强化你的工具的攻击力，当然，越多越好"
+    }
+  ],
+  "effects": [
+    "增加攻击力",
+    "不同武器增加的数值不同",
+    "多个等级"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver"
+  ]
+}

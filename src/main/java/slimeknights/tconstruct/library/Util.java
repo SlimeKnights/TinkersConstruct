@@ -18,6 +18,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 import slimeknights.mantle.util.RecipeMatchRegistry;
@@ -27,7 +28,7 @@ public class Util {
   public static final String MODID = "tconstruct";
   public static final String RESOURCE = MODID.toLowerCase(Locale.US);
 
-  public static final DecimalFormat df = new DecimalFormat("#,###,###.##");
+  public static final DecimalFormat df = new DecimalFormat("#,###,###.##", DecimalFormatSymbols.getInstance(Locale.US));
   public static final DecimalFormat dfPercent = new DecimalFormat("#%");
 
   public static Logger getLogger(String type) {
@@ -60,6 +61,10 @@ public class Util {
     return new ModelResourceLocation(resource(res), variant);
   }
 
+  public static ResourceLocation getModifierResource(String res) {
+    return getResource("models/item/modifiers/" + res);
+  }
+
   /**
    * Prefixes the given unlocalized name with tinkers prefix. Use this when passing unlocalized names for a uniform
    * namespace.
@@ -84,18 +89,13 @@ public class Util {
     return I18n.translateToLocal(I18n.translateToLocalFormatted(key, (Object[]) pars).trim()).trim();
   }
 
+  /**
+   * Will be removed!
+   * @deprecated use Item.getRegistryName
+   */
+  @Deprecated
   public static ResourceLocation getItemLocation(Item item) {
-    // get the registered name for the object
-    Object o = GameData.getItemRegistry().getNameForObject(item);
-
-    // are you trying to add an unregistered item...?
-    if(o == null) {
-      TinkerRegistry.log.error("Item %s is not registered!" + item.getUnlocalizedName());
-      // bad boi
-      return null;
-    }
-
-    return (ResourceLocation) o;
+    return item.getRegistryName();
   }
 
   public static ItemStack[] copyItemStackArray(ItemStack[] in) {

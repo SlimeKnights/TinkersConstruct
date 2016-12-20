@@ -1,9 +1,8 @@
 {
     "textures": {
         "layer0": "tconstruct:items/shuriken/shuriken",
-        "layer1": "tconstruct:items/shuriken/shuriken",
-		"layer2": "tconstruct:items/shuriken/shuriken",
-        "layer3": "tconstruct:items/shuriken/shuriken"
-    },
-    "layerrotation": [ 0, 270, 180, 90 ]
+        "layer1": "tconstruct:items/shuriken/shuriken2",
+		"layer2": "tconstruct:items/shuriken/shuriken3",
+        "layer3": "tconstruct:items/shuriken/shuriken4"
+    }
 }

@@ -9,10 +9,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
-import slimeknights.tconstruct.library.materials.HandleMaterialStats;
-import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.traits.ITrait;
 
@@ -97,14 +95,38 @@ public class PartMaterialType {
   }
 
   public static PartMaterialType head(IToolPart part) {
-    return new PartMaterialType(part, HeadMaterialStats.TYPE);
+    return new PartMaterialType(part, MaterialTypes.HEAD);
   }
 
   public static PartMaterialType handle(IToolPart part) {
-    return new PartMaterialType(part, HandleMaterialStats.TYPE);
+    return new PartMaterialType(part, MaterialTypes.HANDLE);
   }
 
   public static PartMaterialType extra(IToolPart part) {
-    return new PartMaterialType(part, ExtraMaterialStats.TYPE);
+    return new PartMaterialType(part, MaterialTypes.EXTRA);
+  }
+
+  public static PartMaterialType bow(IToolPart part) {
+    return new PartMaterialType(part, MaterialTypes.BOW, MaterialTypes.HEAD);
+  }
+
+  public static PartMaterialType bowstring(IToolPart part) {
+    return new PartMaterialType(part, MaterialTypes.BOWSTRING);
+  }
+
+  public static PartMaterialType arrowHead(IToolPart part) {
+    return new PartMaterialType(part, MaterialTypes.HEAD, MaterialTypes.PROJECTILE);
+  }
+
+  public static PartMaterialType arrowShaft(IToolPart part) {
+    return new PartMaterialType(part, MaterialTypes.SHAFT);
+  }
+
+  public static PartMaterialType fletching(IToolPart part) {
+    return new PartMaterialType(part, MaterialTypes.FLETCHING);
+  }
+
+  public static PartMaterialType crossbow(IToolPart part) {
+    return new PartMaterialType(part, MaterialTypes.HANDLE, MaterialTypes.EXTRA);
   }
 }

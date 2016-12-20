@@ -43,7 +43,7 @@ public class TinkerIntegration extends TinkerPulse {
 
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
-    integrate(TinkerMaterials.wood);
+    integrate(TinkerMaterials.wood, "plankWood");
     integrate(TinkerMaterials.stone);
     integrate(TinkerMaterials.flint);
     integrate(TinkerMaterials.cactus);
@@ -55,14 +55,15 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerMaterials.sponge);
     integrate(TinkerMaterials.firewood);
 
+    // listed here so it's the first in the toolforge listing
+    integrate(TinkerMaterials.iron, TinkerFluids.iron, "Iron").toolforge();
+    integrate(TinkerMaterials.pigiron, TinkerFluids.pigIron, "Pigiron").toolforge();
+
     integrate(TinkerMaterials.knightslime, TinkerFluids.knightslime, "Knightslime").toolforge();
     integrate(TinkerMaterials.slime, "slimecrystalGreen");
     integrate(TinkerMaterials.blueslime, "slimecrystalBlue");
     integrate(TinkerMaterials.magmaslime, "slimecrystalMagma");
-
-    integrate(TinkerMaterials.iron, TinkerFluids.iron, "Iron").toolforge();
-    integrate(TinkerMaterials.pigiron, TinkerFluids.pigIron, "Pigiron").toolforge();
-
+    
     // alubrass needs  both copper and aluminum
     add(new MaterialIntegration(null, TinkerFluids.alubrass, "Alubrass", "ingotCopper", "ingotAluminum")).toolforge();
 
@@ -87,6 +88,23 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerFluids.nickel, "Nickel").toolforge();
     integrate(TinkerFluids.zinc, "Zinc").toolforge();
     integrate(TinkerFluids.aluminum, "Aluminum").toolforge();
+
+    // bow stuff
+    integrate(TinkerMaterials.string);
+    integrate(TinkerMaterials.slimevine_blue);
+    integrate(TinkerMaterials.slimevine_purple);
+    integrate(TinkerMaterials.vine); // vine is last because its oredict also catches slimevines
+
+    integrate(TinkerMaterials.blaze);
+    integrate(TinkerMaterials.reed);
+    integrate(TinkerMaterials.ice);
+    integrate(TinkerMaterials.endrod);
+
+    integrate(TinkerMaterials.feather);
+    integrate(TinkerMaterials.slimeleaf_blue);
+    integrate(TinkerMaterials.slimeleaf_orange);
+    integrate(TinkerMaterials.slimeleaf_purple);
+    integrate(TinkerMaterials.leaf); // leaf is last because its oredict also catches slimeleaves
 
     for(MaterialIntegration integration : integrationList) {
       integration.integrate();
@@ -200,7 +218,9 @@ public class TinkerIntegration extends TinkerPulse {
   }
 
   public static MaterialIntegration integrate(Material material, String oreRequirement) {
-    return add(new MaterialIntegration(oreRequirement, material, null, null));
+    MaterialIntegration materialIntegration = new MaterialIntegration(oreRequirement, material, null, null);
+    materialIntegration.setRepresentativeItem(oreRequirement);
+    return add(materialIntegration);
   }
 
   public static MaterialIntegration integrate(Material material, Fluid fluid, String oreSuffix) {

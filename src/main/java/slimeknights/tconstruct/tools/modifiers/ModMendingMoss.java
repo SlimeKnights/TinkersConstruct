@@ -27,6 +27,8 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class ModMendingMoss extends ModifierTrait {
 
+  public static final int MENDING_MOSS_LEVELS = 10;
+
   private static final String TAG_STORED_XP = "stored_xp";
   private static final String TAG_LAST_HEAL = "heal_timestamp";
 
@@ -52,7 +54,7 @@ public class ModMendingMoss extends ModifierTrait {
       // needs ot be repaired and is in hotbar or offhand
       if(needsRepair(tool)) {
         if(useXp(tool, world)) {
-          ToolHelper.healTool(tool, 3, (EntityLivingBase) entity);
+          ToolHelper.healTool(tool, getDurabilityPerXP(tool), (EntityLivingBase) entity);
         }
       }
     }
@@ -82,13 +84,17 @@ public class ModMendingMoss extends ModifierTrait {
     return itemStack != null && itemStack.getItemDamage() > 0 && !ToolHelper.isBroken(itemStack);
   }
 
+  private int getDurabilityPerXP(ItemStack itemStack) {
+    return 2 + ModifierTagHolder.getModifier(itemStack, getModifierIdentifier()).getTagData(Data.class).level;
+  }
+
   // 100 * 3^(level-1)
   private int getMaxXp(int level) {
     if(level <= 1) {
       return 100;
     }
 
-    return getMaxXp(level-1) * 3;
+    return getMaxXp(level - 1) * 3;
   }
 
   private boolean canStoreXp(Data data) {
@@ -127,11 +133,12 @@ public class ModMendingMoss extends ModifierTrait {
     Data data = ModifierNBT.readTag(modifierTag, Data.class);
     String loc = String.format(LOC_Extra, getIdentifier());
     return ImmutableList.of(
-          Util.translateFormatted(loc, data.storedXp)
-        );
+        Util.translateFormatted(loc, data.storedXp)
+    );
   }
 
   public static class Data extends ModifierNBT {
+
     public int storedXp;
     public long lastHeal;
 

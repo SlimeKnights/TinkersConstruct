@@ -1,0 +1,133 @@
+{
+    "textures": {
+        "layer0": "tconstruct:items/crossbow/body",
+        "layer1": "tconstruct:items/crossbow/limb",
+        "layer2": "tconstruct:items/crossbow/binding",
+        "layer3": "tconstruct:items/crossbow/bowstring",
+        "broken3": "tconstruct:items/crossbow/bowstring_broken"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "pulling": 1,
+                "pull": 0
+            },
+            "textures": {
+                "layer3": "tconstruct:items/crossbow/bowstring_1"
+            },
+            "modifier_suffix": "1",
+            "display": {
+                "firstperson_righthand": {
+                    "rotation": [ -115, -25, -45 ],
+                    "translation": [ -3, 2.5, 1 ],
+                    "scale": [ 0.68, 0.68, 0.68 ]
+                },
+                "firstperson_lefthand": {
+                    "rotation": [ -115, -25, 45 ],
+                    "translation": [ -3, 2.5, 1 ],
+                    "scale": [ 0.68, 0.68, 0.68 ]
+                }
+            }
+        },
+        {
+            "predicate": {
+                "pulling": 1,
+                "pull": 0.5
+            },
+            "textures": {
+                "layer1": "tconstruct:items/crossbow/limb_2",
+                "layer3": "tconstruct:items/crossbow/bowstring_2"
+            },
+            "modifier_suffix": "2",
+            "display": {
+                "firstperson_righthand": {
+                    "rotation": [ -115, -25, -45 ],
+                    "translation": [ -3, 2.5, 1 ],
+                    "scale": [ 0.68, 0.68, 0.68 ]
+                },
+                "firstperson_lefthand": {
+                    "rotation": [ -115, -25, 45 ],
+                    "translation": [ -3, 2.5, 1 ],
+                    "scale": [ 0.68, 0.68, 0.68 ]
+                }
+            }
+        },
+        {
+            "predicate": {
+                "pulling": 1,
+                "pull": 0.999
+            },
+            "textures": {
+                "layer1": "tconstruct:items/crossbow/limb_3",
+                "layer3": "tconstruct:items/crossbow/bowstring_3"
+            },
+            "modifier_suffix": "3",
+            "display": {
+                "firstperson_righthand": {
+                    "rotation": [ -115, -25, -45 ],
+                    "translation": [ -3, 2.5, 1 ],
+                    "scale": [ 0.68, 0.68, 0.68 ]
+                },
+                "firstperson_lefthand": {
+                    "rotation": [ -115, -25, 45 ],
+                    "translation": [ -3, 2.5, 1 ],
+                    "scale": [ 0.68, 0.68, 0.68 ]
+                }
+            }
+        },
+        {
+            "predicate": {
+                "loaded": 1
+            },
+            "textures": {
+                "layer1": "tconstruct:items/crossbow/limb_3",
+                "layer3": "tconstruct:items/crossbow/bowstring_3"
+            },
+            "ammoPosition": {
+                "pos": [
+                    0.0625,
+                    -0.0625,
+                    0.0625
+                ],
+                "rot": [0, 0, 90]
+            },
+            "modifier_suffix": "3",
+            "display": {
+                "firstperson_righthand": {
+                    "rotation": [ -90, -5, -45 ],
+                    "translation": [ 0, 2, 0 ],
+                    "scale": [ 0.68, 0.68, 0.68 ]
+                },
+                "firstperson_lefthand": {
+                    "rotation": [ -90, -5, 45 ],
+                    "translation": [ 0, 2, 0 ],
+                    "scale": [ 0.68, 0.68, 0.68 ]
+                }
+            }
+        }
+    ],
+    "ammoPosition": {
+    },
+    "display": {
+        "thirdperson_righthand": {
+            "rotation": [ 0, 90, 15 ],
+            "translation": [ 0, 4.5, -1 ],
+            "scale": [ 0.85, 0.85, 0.85 ]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [ 0, -90, -15 ],
+            "translation": [ 0, 4.5, -1 ],
+            "scale": [ 0.85, 0.85, 0.85 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ -75, -5, -45 ],
+            "translation": [ 0, 2, 0 ],
+            "scale": [ 0.68, 0.68, 0.68 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ -75, -5, 45 ],
+            "translation": [ 0, 2, 0 ],
+            "scale": [ 0.68, 0.68, 0.68 ]
+        }
+    }
+}

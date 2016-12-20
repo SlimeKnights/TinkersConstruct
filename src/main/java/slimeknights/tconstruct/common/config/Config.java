@@ -2,7 +2,6 @@ package slimeknights.tconstruct.common.config;
 
 import com.google.common.collect.Lists;
 
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.ConfigCategory;
@@ -51,16 +50,19 @@ public final class Config {
   public static int slimeIslandsRate = 730; // Every x-th chunk will have a slime island. so 1 = every chunk, 100 = every 100th
   public static int magmaIslandsRate = 100; // Every x-th chunk will have a slime island. so 1 = every chunk, 100 = every 100th
   public static int[] slimeIslandBlacklist = new int[]{-1, 1};
+  public static boolean slimeIslandsOnlyGenerateInSurfaceWorlds = true;
   public static boolean genCobalt = true;
-  public static int cobaltRate = 16; // max. cobalt per chunk
+  public static int cobaltRate = 20; // max. cobalt per chunk
   public static boolean genArdite = true;
-  public static int arditeRate = 16; // max. ardite per chunk
+  public static int arditeRate = 20; // max. ardite per chunk
 
   // Clientside configs
   public static boolean renderTableItems = true;
   public static boolean extraTooltips = true;
+  public static boolean listAllTables = true;
+  public static boolean listAllMaterials = true;
   public static boolean enableForgeBucketModel = true; // enables the forge bucket model by default
-
+  public static boolean dumpTextureMap = false; // requires debug module
 
   /* Config File */
 
@@ -131,13 +133,13 @@ public final class Config {
       prop = configFile.get(cat, "enableClayCasts", claycasts);
       prop.setComment("Adds single-use clay casts.");
       claycasts = prop.getBoolean();
-      prop.requiresMcRestart();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "allowBrickCasting", castableBricks);
       prop.setComment("Allows the creation of bricks from molten clay");
       castableBricks = prop.getBoolean();
-      prop.requiresMcRestart();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "AutosmeltFortuneInteraction", autosmeltlapis);
@@ -153,32 +155,32 @@ public final class Config {
       prop = configFile.get(cat, "registerAllItems", forceRegisterAll);
       prop.setComment("Enables all items, even if the Module needed to obtain them is not active");
       forceRegisterAll = prop.getBoolean();
-      prop.requiresMcRestart();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "obsidianAlloy", obsidianAlloy);
       prop.setComment("Allows the creation of obsidian in the smeltery, using a bucket of lava and water.");
       obsidianAlloy = prop.getBoolean();
-      prop.requiresMcRestart();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "addLeatherDryingRecipe", leatherDryingRecipe);
       prop.setComment("Adds a recipe that allows you to get leather from drying cooked meat");
       leatherDryingRecipe = prop.getBoolean();
-      prop.requiresMcRestart();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "addFlintRecipe", gravelFlintRecipe);
       prop.setComment("Adds a recipe that allows you to craft 3 gravel into a flint");
       gravelFlintRecipe = prop.getBoolean();
-      prop.requiresMcRestart();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "oreToIngotRatio", oreToIngotRatio);
       prop.setComment("Determines the ratio of ore to ingot, or in other words how many ingots you get out of an ore. This ratio applies to all ores (including poor and dense). The ratio can be any decimal, including 1.5 and the like, but can't go below 1. THIS ALSO AFFECTS MELTING TEMPERATURE!");
       prop.setMinValue(1);
       oreToIngotRatio = prop.getDouble();
-      prop.requiresMcRestart();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
     }
     // Worldgen
@@ -211,6 +213,11 @@ public final class Config {
       prop = configFile.get(cat, "slimeIslandBlacklist", slimeIslandBlacklist);
       prop.setComment("Prevents generation of slime islands in the listed dimensions");
       slimeIslandBlacklist = prop.getIntList();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "slimeIslandsOnlyGenerateInSurfaceWorlds", slimeIslandsOnlyGenerateInSurfaceWorlds);
+      prop.setComment("If true, slime islands wont generate in dimensions which aren't of type surface. This means they wont generate in modded cave dimensions like the deep dark.");
+      slimeIslandsOnlyGenerateInSurfaceWorlds = prop.getBoolean();
       propOrder.add(prop.getName());
 
       // Nether ore generation
@@ -254,6 +261,16 @@ public final class Config {
       extraTooltips = prop.getBoolean();
       propOrder.add(prop.getName());
 
+      prop = configFile.get(cat, "listAllTables", listAllTables);
+      prop.setComment("If true all variants of the different tables will be listed in creative. Set to false to only have the oak variant for all tables.");
+      listAllTables = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "listAllMaterials", listAllMaterials);
+      prop.setComment("If true all material variants of the different parts, tools,... will be listed in creative. Set to false to only have the first found material for all items (usually wood).");
+      listAllMaterials = prop.getBoolean();
+      propOrder.add(prop.getName());
+
       prop = configFile.get(cat, "enableForgeBucketModel", enableForgeBucketModel);
       prop.setComment("If true tools will enable the forge bucket model on startup and then turn itself off. This is only there so that a fresh install gets the buckets turned on by default.");
       enableForgeBucketModel = prop.getBoolean();
@@ -266,6 +283,11 @@ public final class Config {
           ForgeModContainer.getConfig().save();
         }
       }
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "dumpTextureMap", dumpTextureMap);
+      prop.setComment("REQUIRES DEBUG MODULE. Will do nothing if debug module is disabled. If true the texture map will be dumped into the run directory, just like old forge did.");
+      dumpTextureMap = prop.getBoolean();
       propOrder.add(prop.getName());
 
       ClientSide.setPropertyOrder(propOrder);

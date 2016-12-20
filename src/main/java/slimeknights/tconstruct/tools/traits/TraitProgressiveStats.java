@@ -1,9 +1,6 @@
 package slimeknights.tconstruct.tools.traits;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
 
@@ -90,17 +87,6 @@ public abstract class TraitProgressiveStats extends AbstractTrait {
   }
 
   protected boolean playerIsBreakingBlock(Entity entity) {
-    if(entity instanceof EntityPlayerMP) {
-      if(((EntityPlayerMP) entity).interactionManager.isDestroyingBlock) {
-        return true;
-      }
-    }
-    else if(entity instanceof EntityPlayerSP) {
-      if(Minecraft.getMinecraft().playerController.isHittingBlock) {
-        return true;
-      }
-    }
-
     return false;
   }
 

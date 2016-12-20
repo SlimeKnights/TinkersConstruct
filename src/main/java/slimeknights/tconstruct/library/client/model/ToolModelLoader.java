@@ -3,6 +3,9 @@ package slimeknights.tconstruct.library.client.model;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+
+import gnu.trove.map.hash.TIntObjectHashMap;
 
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.resources.IResourceManager;
@@ -24,10 +27,21 @@ import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
+import slimeknights.tconstruct.library.client.model.format.AmmoPosition;
+import slimeknights.tconstruct.library.client.model.format.ToolModelOverride;
+import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.ToolCore;
 
 public class ToolModelLoader implements ICustomModelLoader {
 
   public static String EXTENSION = ".tcon";
+
+  // used to create only actually needed textures in the texturegenerator instead of ALL materials for all parts
+  private static final Map<ResourceLocation, ToolCore> modelItemMap = Maps.newHashMap();
+
+  public static void addPartMapping(ResourceLocation resourceLocation, ToolCore tool) {
+    modelItemMap.put(resourceLocation, tool);
+  }
 
   @Override
   public boolean accepts(ResourceLocation modelLocation) {
@@ -46,7 +60,8 @@ public class ToolModelLoader implements ICustomModelLoader {
       // it also provides us with the textures
       Map<String, String> textures = ModelHelper.loadTexturesFromJson(modelLocation);
       ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms = ModelHelper.loadTransformFromJson(modelLocation);
-      ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> blockingTransforms = ModelHelper.loadTransformFromJson(modelLocation, "blocking");
+      ImmutableList<ToolModelOverride> overrides = ModelHelper.loadToolModelOverridesFromJson(modelLocation);
+      AmmoPosition ammoPosition = ModelHelper.loadAmmoPositionFromJson(modelLocation);
       Float[] rotations = ModelHelper.loadLayerRotations(modelLocation);
 
       if(rotations.length > 0 && textures.size() != rotations.length) {
@@ -54,13 +69,11 @@ public class ToolModelLoader implements ICustomModelLoader {
         rotations = new Float[0];
       }
 
-      if(blockingTransforms.isEmpty()) {
-        blockingTransforms = transforms;
-      }
-
-      ImmutableList.Builder<ResourceLocation> builder = ImmutableList.builder();
+      ImmutableList.Builder<ResourceLocation> defaultTextureListBuilder = ImmutableList.builder();
       List<MaterialModel> parts = Lists.newArrayList();
       List<MaterialModel> brokenParts = Lists.newArrayList();
+
+      ToolCore toolCore = modelItemMap.get(MaterialModelLoader.getReducedPath(modelLocation));
 
       for(Map.Entry<String, String> entry : textures.entrySet()) {
         String name = entry.getKey();
@@ -89,41 +102,101 @@ public class ToolModelLoader implements ICustomModelLoader {
           }
           listToAdd.set(i, partModel);
 
-          builder.add(location);
+          defaultTextureListBuilder.add(location);
+          registerCustomTextures(i, location, toolCore);
         } catch(NumberFormatException e) {
           TinkerRegistry.log.error("Toolmodel {} has invalid texture entry {}; Skipping layer.", modelLocation, name);
         }
       }
 
+      // create overrides
+      for(ToolModelOverride override : overrides) {
+        for(Map.Entry<String, String> entry : override.textures.entrySet()) {
+          String name = entry.getKey();
+          try {
+            int i;
+            TIntObjectHashMap<MaterialModel> mapToAdd;
+
+            if(name.startsWith("layer")) {
+              i = Integer.valueOf(name.substring(5));
+              mapToAdd = override.partModelReplacement;
+            }
+            else if(name.startsWith("broken")) {
+              i = Integer.valueOf(name.substring(6));
+              mapToAdd = override.brokenPartModelReplacement;
+            }
+            // invalid entry, ignore
+            else {
+              TinkerRegistry.log.warn("Toolmodel {} has invalid texture override entry {}; Skipping layer.", modelLocation, name);
+              continue;
+            }
+
+            ResourceLocation location = new ResourceLocation(entry.getValue());
+            MaterialModel partModel = new MaterialModel(ImmutableList.of(location));
+            mapToAdd.put(i, partModel);
+
+            registerCustomTextures(i, location, toolCore);
+          } catch(NumberFormatException e) {
+            TinkerRegistry.log.error("Toolmodel {} has invalid texture entry {}; Skipping layer.", modelLocation, name);
+          }
+        }
+      }
+
+
       String toolName = FilenameUtils.getBaseName(modelLocation.getResourcePath());
       IModel mods;
+      ModifierModel modifiers = null;
       try {
         mods = ModelLoaderRegistry.getModel(ModifierModelLoader.getLocationForToolModifiers(toolName));
+
+        if(mods == null || !(mods instanceof ModifierModel)) {
+          TinkerRegistry.log.trace(
+              "Toolmodel {} does not have any modifiers associated with it. Be sure that the Tools internal name, the Toolmodels filename and the name used inside the Modifier Model Definition match!",
+              modelLocation);
+        }
+        else {
+          modifiers = (ModifierModel) mods;
+
+          for(ToolModelOverride toolModelOverride : overrides) {
+            if(toolModelOverride.modifierSuffix != null) {
+              String modifierName = toolName + toolModelOverride.modifierSuffix;
+              IModel extraModel = ModelLoaderRegistry.getModel(ModifierModelLoader.getLocationForToolModifiers(modifierName));
+              if(extraModel instanceof ModifierModel) {
+                ModifierModel overriddenModifierModel = new ModifierModel();
+                // fill in non-overridden modifiers
+                for(Map.Entry<String, String> entry : modifiers.getModels().entrySet()) {
+                  overriddenModifierModel.addModelForModifier(entry.getKey(), entry.getValue());
+                }
+                // overwrite overridden modifiers
+                for(Map.Entry<String, String> entry : ((ModifierModel) extraModel).getModels().entrySet()) {
+                  overriddenModifierModel.addModelForModifier(entry.getKey(), entry.getValue());
+                }
+                toolModelOverride.overrideModifierModel = overriddenModifierModel;
+              }
+            }
+          }
+        }
       } catch(Exception e) {
         TinkerRegistry.log.error(e);
-        mods = null;
-      }
-      ModifierModel modifiers = null;
-
-      if(mods == null || !(mods instanceof ModifierModel)) {
-        TinkerRegistry.log.trace(
-            "Toolmodel {} does not have any modifiers associated with it. Be sure that the Tools internal name, the Toolmodels filename and the name used inside the Modifier Model Definition match!",
-            modelLocation);
-      }
-      else {
-        modifiers = (ModifierModel) mods;
+        modifiers = null;
       }
 
-      IModel output = new ToolModel(builder.build(), parts, brokenParts, rotations, modifiers, transforms, blockingTransforms);
-
-      // inform the texture manager about the textures it has to process
-      CustomTextureCreator.registerTextures(builder.build());
-
-      return output;
+      return new ToolModel(defaultTextureListBuilder.build(), parts, brokenParts, rotations, modifiers, transforms, overrides, ammoPosition);
     } catch(IOException e) {
       TinkerRegistry.log.error("Could not load multimodel {}", modelLocation.toString());
     }
     return ModelLoaderRegistry.getMissingModel();
+  }
+
+  private void registerCustomTextures(int i, ResourceLocation resourceLocation, ToolCore toolCore) {
+    if(toolCore == null) {
+      CustomTextureCreator.registerTexture(resourceLocation);
+    }
+    else {
+      for(IToolPart part : toolCore.getRequiredComponents().get(i).getPossibleParts()) {
+        CustomTextureCreator.registerTextureForPart(resourceLocation, part);
+      }
+    }
   }
 
   @Override

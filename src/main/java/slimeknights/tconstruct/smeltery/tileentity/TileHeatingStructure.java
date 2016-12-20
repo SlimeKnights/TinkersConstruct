@@ -10,11 +10,18 @@ import java.util.Arrays;
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.tileentity.TileInventory;
+import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 
 /** Represents a structure that has an inventory where it heats its items. Like a smeltery. */
-public abstract class TileHeatingStructure extends TileInventory {
+public abstract class TileHeatingStructure<T extends MultiblockDetection> extends TileMultiblock<T> {
 
-  private static final int TIME_FACTOR = 8; // basically an "accuracy" so the heat can be more fine grained. required temp is multpilied by this
+  public static final String TAG_FUEL = "fuel";
+  public static final String TAG_TEMPERATURE = "temperature";
+  public static final String TAG_NEEDS_FUEL = "needsFuel";
+  public static final String TAG_ITEM_TEMPERATURES = "itemTemperatures";
+  public static final String TAG_ITEM_TEMP_REQUIRED = "itemTempRequired";
+
+  protected static final int TIME_FACTOR = 8; // basically an "accuracy" so the heat can be more fine grained. required temp is multiplied by this
 
   protected int fuel; // Ticks left until the current fuel is depleted and fuel is taken from the tanks. Depletes every tick
   protected int temperature; // internal temperature of the smeltery == speed of the smeltery
@@ -117,6 +124,13 @@ public abstract class TileHeatingStructure extends TileInventory {
     return itemTemperatures[i];
   }
 
+  public int getTempRequired(int i) {
+    if(i < 0 || i >= itemTempRequired.length) {
+      return 0;
+    }
+    return itemTempRequired[i];
+  }
+
   public int getTemperature() {
     return temperature;
   }
@@ -154,6 +168,29 @@ public abstract class TileHeatingStructure extends TileInventory {
     return fuel > 0;
   }
 
+  /* Networking */
+  public int getFuel() {
+    return fuel;
+  }
+
+  @SideOnly(Side.CLIENT)
+  public void updateTemperatureFromPacket(int index, int heat) {
+    if(index < 0 || index > getSizeInventory() - 1) {
+      return;
+    }
+
+    itemTemperatures[index] = heat;
+  }
+
+  @SideOnly(Side.CLIENT)
+  public void updateTempRequiredFromPacket(int index, int heat) {
+    if(index < 0 || index > getSizeInventory() - 1) {
+      return;
+    }
+
+    itemTempRequired[index] = heat;
+  }
+
   /* Loading and Saving */
 
   @SideOnly(Side.CLIENT)
@@ -165,21 +202,21 @@ public abstract class TileHeatingStructure extends TileInventory {
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound tags) {
     tags = super.writeToNBT(tags);
-    tags.setInteger("fuel", fuel);
-    tags.setInteger("temperature", temperature);
-    tags.setBoolean("needsFuel", needsFuel);
-    tags.setIntArray("itemTemperatures", itemTemperatures);
-    tags.setIntArray("itemTempRequired", itemTempRequired);
+    tags.setInteger(TAG_FUEL, fuel);
+    tags.setInteger(TAG_TEMPERATURE, temperature);
+    tags.setBoolean(TAG_NEEDS_FUEL, needsFuel);
+    tags.setIntArray(TAG_ITEM_TEMPERATURES, itemTemperatures);
+    tags.setIntArray(TAG_ITEM_TEMP_REQUIRED, itemTempRequired);
     return tags;
   }
 
   @Override
   public void readFromNBT(NBTTagCompound tags) {
     super.readFromNBT(tags);
-    fuel = tags.getInteger("fuel");
-    temperature = tags.getInteger("temperature");
-    needsFuel = tags.getBoolean("needsFuel");
-    itemTemperatures = tags.getIntArray("itemTemperatures");
-    itemTempRequired = tags.getIntArray("itemTempRequired");
+    fuel = tags.getInteger(TAG_FUEL);
+    temperature = tags.getInteger(TAG_TEMPERATURE);
+    needsFuel = tags.getBoolean(TAG_NEEDS_FUEL);
+    itemTemperatures = tags.getIntArray(TAG_ITEM_TEMPERATURES);
+    itemTempRequired = tags.getIntArray(TAG_ITEM_TEMP_REQUIRED);
   }
 }

@@ -3,6 +3,7 @@ package slimeknights.tconstruct.common;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -83,7 +84,7 @@ public class CommonProxy {
                   xd, yd, zd);
   }
 
-  public void spawnEffectParticle(ParticleEffect.Type type, EntityLivingBase entity, int count) {
+  public void spawnEffectParticle(ParticleEffect.Type type, Entity entity, int count) {
     spawnParticle(Particles.EFFECT, entity.getEntityWorld(), entity.posX, entity.posY + entity.height * 0.5f, entity.posZ, 0d, 1d, 0d, count, type.ordinal());
   }
 
@@ -138,5 +139,9 @@ public class CommonProxy {
         ((EntityPlayerMP)entityplayer).playerNetServerHandler.sendPacket(new SPacketExplosion(vec.xCoord, vec.yCoord, vec.zCoord, 1, explosion.getAffectedBlockPositions(), (Vec3d)explosion.getPlayerKnockbackMap().get(entityplayer)));
       }
     }*/
+  }
+
+  public void updateEquippedItemForRendering(EnumHand hand) {
+
   }
 }

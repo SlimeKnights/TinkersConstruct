@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
-public abstract class AoeToolCore extends ToolCore implements IAoeTool {
+public abstract class AoeToolCore extends TinkerToolCore implements IAoeTool {
 
   public AoeToolCore(PartMaterialType... requiredComponents) {
     super(requiredComponents);

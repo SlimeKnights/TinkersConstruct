@@ -1,5 +1,10 @@
 package slimeknights.tconstruct.library.tools;
 
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
@@ -23,4 +28,19 @@ public interface IToolPart extends IMaterialItem {
   boolean canUseMaterial(Material mat);
 
   boolean hasUseForStat(String stat);
+
+  /** Return true if the toolpart should be registered for crafting in the stencil table, with a pattern */
+  default boolean canBeCrafted() {
+    return true;
+  }
+
+  /** Return true if the toolpart should be registered for casting, using a cast */
+  default boolean canBeCasted() {
+    return true;
+  }
+
+  @SideOnly(Side.CLIENT)
+  default ItemStack getOutlineRenderStack() {
+    return getItemstackWithMaterial(CustomTextureCreator.guiMaterial);
+  }
 }

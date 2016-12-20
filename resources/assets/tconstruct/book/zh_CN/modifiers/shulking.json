@@ -1,0 +1,18 @@
+{
+  "modifier": "shulking",
+  "text": [
+    {
+      "text": "把悬浮属性强化到你的工具上面，让那些敌人们在半空中束手无策吧"
+    }
+  ],
+  "effects": [
+    "每次强化都可增加一点悬浮时间",
+    "可以给予击中的敌人以悬浮效果",
+    "这属性真喜感",
+    "单个等级"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword"
+  ]
+} 

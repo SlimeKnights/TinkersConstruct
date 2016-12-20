@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers;
 
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -26,4 +27,8 @@ public interface IToolMod {
    * Useful for internal stuff.
    */
   boolean isHidden();
+
+  boolean canApplyTogether(IToolMod iToolMod);
+
+  boolean canApplyTogether(Enchantment enchantment);
 }

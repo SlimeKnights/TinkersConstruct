@@ -11,6 +11,7 @@
     "Multiple levels"
   ],
   "demoTool": [
-    "tconstruct:broadsword"
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
   ]
 }

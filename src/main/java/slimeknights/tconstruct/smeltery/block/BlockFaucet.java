@@ -115,6 +115,7 @@ public class BlockFaucet extends BlockContainer {
   /* Bounds */
 
   private static final ImmutableMap<EnumFacing, AxisAlignedBB> BOUNDS;
+
   static {
     ImmutableMap.Builder<EnumFacing, AxisAlignedBB> builder = ImmutableMap.builder();
     builder.put(EnumFacing.UP,    new AxisAlignedBB(0.25,  0.625, 0.25,    0.75,  1,     0.75));

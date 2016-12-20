@@ -20,9 +20,9 @@ import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
+import slimeknights.tconstruct.library.capability.projectile.ITinkerProjectile;
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
-import slimeknights.tconstruct.library.tools.CapabilityTinkerProjectile;
-import slimeknights.tconstruct.library.tools.ITinkerProjectile;
 
 public class RenderProjectileBase<T extends EntityProjectileBase> extends Render<T> {
 
@@ -91,15 +91,22 @@ public class RenderProjectileBase<T extends EntityProjectileBase> extends Render
     GL11.glRotatef(entity.rotationYaw, 0f, 1f, 0f);
     GL11.glRotatef(-entity.rotationPitch, 1f, 0f, 0f);
 
-    // rotate it so it's "upright"
-    GL11.glRotatef(90, 0f, 0f, 1f);
+    // adjust "stuck" depth
+    if(entity.inGround) {
+      GL11.glTranslated(0, 0, -entity.getStuckDepth());
+    }
+
+    customCustomRendering(entity, x, y, z, entityYaw, partialTicks);
 
     // rotate it so it faces forward
-    GL11.glRotatef(90f, 1f, 0f, 0f);
+    GL11.glRotatef(-90f, 0f, 1f, 0f);
 
     // rotate the projectile it so it faces upwards
     GL11.glRotatef(-45, 0f, 0f, 1f);
   }
+
+  /** If you just want to rotate it or something but the overall "have it heading towards the target" should stay the same */
+  protected void customCustomRendering(T entity, double x, double y, double z, float entityYaw, float partialTicks) {}
 
   @Nonnull
   @Override

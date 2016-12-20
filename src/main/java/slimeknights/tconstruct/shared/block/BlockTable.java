@@ -14,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -132,6 +133,11 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
       if(tag.hasKey("inventory")) {
         table.readInventoryFromNBT(tag.getCompoundTag("inventory"));
       }
+
+      // check if we have a custom name
+      if (stack.hasDisplayName()) {
+        table.setCustomName(stack.getDisplayName());
+      }
     }
   }
 
@@ -169,18 +175,27 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     TileEntity te = world.getTileEntity(pos);
     if(te != null && te instanceof TileTable) {
       TileTable table = (TileTable) te;
+      NBTTagCompound tag = TagUtil.getTagSafe(item);
+
+      // texture
       NBTTagCompound data = table.getTextureBlock();
 
-      NBTTagCompound tag = TagUtil.getTagSafe(item);
-      tag.setTag(TileTable.FEET_TAG, data);
-      item.setTagCompound(tag);
+      if (!data.hasNoTags()) {
+        tag.setTag(TileTable.FEET_TAG, data);
+      }
 
-      // save inventory?
+      // save inventory, if not empty
       if(noInventorySave && keepInventory(state)) {
-        NBTTagCompound inventoryTag = new NBTTagCompound();
-        table.writeInventoryToNBT(inventoryTag);
-        tag.setTag("inventory", inventoryTag);
-        table.clear();
+        if (!table.isInventoryEmpty()) {
+          NBTTagCompound inventoryTag = new NBTTagCompound();
+          table.writeInventoryToNBT(inventoryTag);
+          tag.setTag("inventory", inventoryTag);
+          table.clear();
+        }
+      }
+
+      if (!tag.hasNoTags()) {
+        item.setTagCompound(tag);
       }
     }
   }
@@ -212,6 +227,16 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
         }
         // clear since otherwise we might dupe
         tileInventory.clear();
+
+        // if the TE had a custom name, let's propagate that to the ItemStack
+        if (tileInventory.hasCustomName()) {
+          for(ItemStack item : items) {
+            if(item.getItem() == Item.getItemFromBlock(this)) {
+              item.setStackDisplayName(tileInventory.getName());
+              item.setRepairCost(0); // seems to be always added when renaming in anvil, need to restore it here or won't stack
+            }
+          }
+        }
       }
 
       for(ItemStack item : items) {
@@ -247,7 +272,6 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
 
     return stack;
   }
-
 
   @Override
   public boolean isSideSolid(@Nonnull IBlockState base_state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
@@ -300,5 +324,18 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
     Vec3d vec3d1 = end.subtract((double) pos.getX(), (double) pos.getY(), (double) pos.getZ());
     RayTraceResult raytraceresult = boundingBox.calculateIntercept(vec3d, vec3d1);
     return raytraceresult == null ? null : new RayTraceResult(raytraceresult.hitVec.addVector((double) pos.getX(), (double) pos.getY(), (double) pos.getZ()), raytraceresult.sideHit, pos);
+  }
+
+  @Override
+  public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
+    TileEntity te = world.getTileEntity(pos);
+    if(te instanceof TileTable) {
+      TileTable table = (TileTable) te;
+      table.setFacing(table.getFacing().rotateY());
+      IBlockState state = world.getBlockState(pos);
+      world.notifyBlockUpdate(pos, state, state, 0);
+      return true;
+    }
+    return false;
   }
 }

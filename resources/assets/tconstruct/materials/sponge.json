@@ -1,0 +1,6 @@
+{
+    "type": "block",
+    "parameters": {
+        "texture": "minecraft:blocks/sponge"
+    }
+}

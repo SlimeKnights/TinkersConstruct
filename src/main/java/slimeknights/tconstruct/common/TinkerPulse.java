@@ -111,12 +111,12 @@ public abstract class TinkerPulse {
     register(itemBlock, name);
     return block;
   }
-  
+
   protected static <T extends Block> T registerBlockNoItem(T block, String name) {
     if(!name.equals(name.toLowerCase(Locale.US))) {
       throw new IllegalArgumentException(String.format("Unlocalized names need to be all lowercase! Block: %s", name));
     }
-    
+
     String prefixedName = Util.prefix(name);
     block.setUnlocalizedName(prefixedName);
 

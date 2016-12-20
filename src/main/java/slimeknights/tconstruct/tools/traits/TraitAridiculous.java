@@ -11,7 +11,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 
 /**
- * Increases mining speed and damage in hot/dry areas, decreases a bit in dry areas
+ * Increases mining speed and damage in hot/dry areas, decreases a bit in wet areas
  */
 public class TraitAridiculous extends AbstractTrait {
 

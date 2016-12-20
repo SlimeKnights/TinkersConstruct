@@ -354,4 +354,10 @@ public class BlockRack extends BlockTable {
 
     return ((TileDryingRack) te).comparatorStrength();
   }
+
+  @Override
+  public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
+    // todo: implement this properly
+    return false;
+  }
 }

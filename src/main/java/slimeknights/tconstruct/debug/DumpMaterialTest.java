@@ -22,12 +22,13 @@ import javax.annotation.Nonnull;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
-import slimeknights.tconstruct.tools.item.BroadSword;
-import slimeknights.tconstruct.tools.item.Hatchet;
-import slimeknights.tconstruct.tools.item.Pickaxe;
-import slimeknights.tconstruct.tools.item.Shovel;
+import slimeknights.tconstruct.tools.melee.item.BroadSword;
+import slimeknights.tconstruct.tools.tools.Hatchet;
+import slimeknights.tconstruct.tools.tools.Pickaxe;
+import slimeknights.tconstruct.tools.tools.Shovel;
 
 public class DumpMaterialTest extends CommandBase {
 
@@ -66,7 +67,7 @@ public class DumpMaterialTest extends CommandBase {
     printTool(new Shovel(), baseMaterial);
 
     for(Material mat1 : TinkerRegistry.getAllMaterials()) {
-      if(!mat1.hasStats(HeadMaterialStats.TYPE)) {
+      if(!mat1.hasStats(MaterialTypes.HEAD)) {
         continue;
       }
       printTool(new Pickaxe(), mat1);
@@ -91,11 +92,11 @@ public class DumpMaterialTest extends CommandBase {
     List<List<String>> rows = Lists.newArrayList();
 
     for(Material mat1 : TinkerRegistry.getAllMaterials()) {
-      if(!mat1.hasStats(HeadMaterialStats.TYPE)) {
+      if(!mat1.hasStats(MaterialTypes.HEAD)) {
         continue;
       }
 
-      HeadMaterialStats stats = mat1.getStats(HeadMaterialStats.TYPE);
+      HeadMaterialStats stats = mat1.getStats(MaterialTypes.HEAD);
       List<String> row = Lists.newArrayList();
       rows.add(row);
       row.add("<td>" + mat1.getIdentifier() + "</td>");
@@ -132,7 +133,7 @@ public class DumpMaterialTest extends CommandBase {
     }
 
     DecimalFormat df = new DecimalFormat("#.00");
-    HeadMaterialStats ref = baseMaterial.getStats(HeadMaterialStats.TYPE);// head.getStats(ToolMaterialStats.TYPE);
+    HeadMaterialStats ref = baseMaterial.getStats(MaterialTypes.HEAD);// head.getStats(ToolMaterialStats.TYPE);
 
     List<String> header = Lists.newArrayList();
     header.add("");
@@ -141,7 +142,7 @@ public class DumpMaterialTest extends CommandBase {
     List<List<String>> tableAttack = Lists.newArrayList();
 
     for(Material mat1 : TinkerRegistry.getAllMaterials()) {
-      if(!mat1.hasStats(HeadMaterialStats.TYPE)) {
+      if(!mat1.hasStats(MaterialTypes.HEAD)) {
         continue;
       }
       header.add(mat1.getIdentifier());
@@ -155,7 +156,7 @@ public class DumpMaterialTest extends CommandBase {
       List<String> att = Lists.newArrayList();
       tableAttack.add(att);
       for(Material mat2 : TinkerRegistry.getAllMaterials()) {
-        if(!mat2.hasStats(HeadMaterialStats.TYPE)) {
+        if(!mat2.hasStats(MaterialTypes.HEAD)) {
           continue;
         }
         ItemStack stack = tool.buildItem(ImmutableList.of(mat1, head, mat2));

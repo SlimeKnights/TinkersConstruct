@@ -1,0 +1,23 @@
+00:06:16 <+boni> well, here's my plan on how to structure it:
+00:07:02 <+boni> * I have a "multimodel" that contains multiple models. each model is a part of the tool. I create it during baking event from the loaded part-models and assign it to
+                 the tool item.
+00:07:31 <+boni> * I have a collection in the multimodel that has all the TextureAtlasses for the different textures
+00:08:16 <+boni> * I create/load the textures i need and add them to said collection. Not sure about the timing on this part yet, but worst case i can load the textures before i
+                 create the model itself. Important part is that they get stitched.
+00:09:06 <+boni> * multimodle is an ISmartBakedModel, so wen the handleItemStack is called I tell the multimodel to create a new model of the tool with the textures from the itemstack
+00:09:16 -!- Kihi|Work is now known as Kihira
+00:09:23 <+LexManos> {Unless already existing in memory}
+00:09:38 <+LexManos> Lazy load style
+00:10:05 <+boni> * "with the textures" means i modify the vertex data on creation. for that I need a reference for the UVs. so i will probably load the original part-models with a
+                 template texture, and save them in my MultiModel with 0-1 values os i can multiply the new UVs onto them
+00:10:16 <+boni> * (models will be cached of course, yes. ;))
+00:11:03 <+boni> the multimodel also has the "models" of all the modifiers. but those are simply fixed cubes with a texture and i simply add them or add them not on creation of a
+                 model for a specific itemstack.
+00:11:27 <+boni> well yeah, that's the approach i have in mind so far.
+00:11:34 <+LexManos> this could get really interesting looking if for example a texture pack changes the 'template' to a rectangle style texture, from a square one. textures would get
+                     streched.
+00:11:38 <+LexManos> But would be interesting to see
+00:11:54 <+LexManos> but graphically it just means 'hey you need to update your texture pack'
+00:12:03 <+boni> well, then the resource pack would be broken. ;P
+00:12:13 <+LexManos> So ya if you can do that, efficiently that'd be cool cuz thats the general idea of what I wanted people to do
+00:12:39 <+boni> efficiently... it'll eat a shitton of video memory because of all the textures. but tinkers already does that. it's HUGE.

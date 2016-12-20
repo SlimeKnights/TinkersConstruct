@@ -1,12 +1,20 @@
 package slimeknights.tconstruct.tools.traits;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.FakePlayer;
 
+import java.util.List;
+
+import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
@@ -69,7 +77,7 @@ public class TraitAlien extends TraitProgressiveStats {
     }
 
     // we don't update if the player is currently breaking a block because that'd reset it
-    if(playerIsBreakingBlock(entity)) {
+    if(playerIsBreakingBlock(entity) || (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).getActiveItemStack() == tool)) {
       return;
     }
 
@@ -104,5 +112,14 @@ public class TraitAlien extends TraitProgressiveStats {
     TagUtil.setToolTag(root, data.get());
     // update statistics on distributed stats
     setBonus(root, distributed);
+  }
+
+  @Override
+  public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
+    StatNBT pool = getBonus(TagUtil.getTagSafe(tool));
+
+    return ImmutableList.of(HeadMaterialStats.formatDurability(pool.durability),
+                            HeadMaterialStats.formatMiningSpeed(pool.speed),
+                            HeadMaterialStats.formatAttack(pool.attack));
   }
 }

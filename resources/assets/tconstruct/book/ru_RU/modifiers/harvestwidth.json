@@ -1,0 +1,24 @@
+{
+  "modifier": "harvestwidth",
+  "text": [
+    {
+      "text": "Вы когда-нибудь мечтали об увеличенной ширине добычи?"
+    }
+  ],
+  "effects": [
+    "Увеличивает линейную ширину зоны добычи",
+    "Влияет только на блоки",
+    "Не работает на оружиях",
+    "Может совмещаться с увеличением высоты"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:shovel",
+    "tconstruct:hatchet",
+    "tconstruct:mattock",
+    "tconstruct:hammer",
+    "tconstruct:lumberaxe",
+    "tconstruct:excavator",
+    "tconstruct:scythe"
+  ]
+}

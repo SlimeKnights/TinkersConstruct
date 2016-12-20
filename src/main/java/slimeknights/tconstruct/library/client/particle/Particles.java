@@ -15,5 +15,6 @@ public enum Particles {
   HAMMER_ATTACK,
 
   // Effects
-  EFFECT
+  EFFECT,
+  ENDSPEED
 }

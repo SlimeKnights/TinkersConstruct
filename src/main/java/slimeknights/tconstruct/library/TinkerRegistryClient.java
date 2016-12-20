@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
+import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 
 @SideOnly(Side.CLIENT)
 public final class TinkerRegistryClient {
@@ -37,4 +38,10 @@ public final class TinkerRegistryClient {
   public static void clear() {
     toolBuildInfo.clear();
   }
+
+  /*---------------------------------------------------------------------------
+  | MATERIAL TEXTURE CREATION                                                 |
+  ---------------------------------------------------------------------------*/
+  private static final Map<String, AbstractColoredTexture> textureProcessors = Maps.newHashMap();
+
 }

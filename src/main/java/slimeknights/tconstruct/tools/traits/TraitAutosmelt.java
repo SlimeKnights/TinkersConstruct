@@ -15,8 +15,12 @@ import net.minecraftforge.event.world.BlockEvent;
 import java.util.ListIterator;
 
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.library.modifiers.IToolMod;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.tools.TinkerMaterials;
+import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerTraits;
 
 public class TraitAutosmelt extends AbstractTrait {
 
@@ -30,8 +34,14 @@ public class TraitAutosmelt extends AbstractTrait {
   }
 
   @Override
+  public boolean canApplyTogether(IToolMod toolmod) {
+    return !toolmod.getIdentifier().equals(TinkerTraits.squeaky.getIdentifier())
+           && !toolmod.getIdentifier().equals(TinkerModifiers.modSilktouch.getIdentifier());
+  }
+
+  @Override
   public void blockHarvestDrops(ItemStack tool, BlockEvent.HarvestDropsEvent event) {
-    if(ToolHelper.isToolEffective(tool, event.getState())) {
+    if(ToolHelper.isToolEffective2(tool, event.getState())) {
       // go through the drops and replace them with their furnace'd variant if applicable
       ListIterator<ItemStack> iter = event.getDrops().listIterator();
       while(iter.hasNext()) {

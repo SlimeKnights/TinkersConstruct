@@ -7,6 +7,8 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.block.BlockConnectedTexture;
 import slimeknights.tconstruct.library.TinkerRegistry;
 
@@ -22,6 +24,7 @@ public class BlockClearGlass extends BlockConnectedTexture {
     this.setCreativeTab(TinkerRegistry.tabGeneral);
   }
 
+  @Nonnull
   @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer() {

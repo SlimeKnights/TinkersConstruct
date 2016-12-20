@@ -12,6 +12,8 @@
   ],
   "demoTool": [
     "tconstruct:pickaxe",
-    "tconstruct:hammer"
+    "tconstruct:hammer",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
   ]
 }

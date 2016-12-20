@@ -38,6 +38,10 @@ repositories {
         name "ProfMobius Maven FS"
         url "http://mobiusstrip.eu/maven"
     }
+    maven { // TOP
+        name 'tterrag maven'
+        url "http://maven.tterrag.com/"
+    }
     maven {
         name 'forge'
         url 'http://files.minecraftforge.net/maven'
@@ -46,8 +50,8 @@ repositories {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 //apply plugin: 'forge'
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 group= "slimeknights"
 archivesBaseName = "TConstruct"
@@ -76,7 +80,7 @@ task buildInfo {
     }
 
     if (System.getenv().BUILD_NUMBER != null) {
-        ext.buildNum = "jenkins${System.getenv().BUILD_NUMBER}"
+        ext.buildNum = "${System.getenv().BUILD_NUMBER}"
     } else {
         ext.buildNum = "DEV.${project.buildInfo.revision}"
     }
@@ -103,13 +107,14 @@ dependencies {
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version}-${config.mantle_version}"
-    deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
-    deobfCompile "mcp.mobius.waila:Waila:${config.waila_version}_1.9.4"
-    //compile "codechicken:CodeChickenLib:${config.minecraft_version2}-${config.CCLIB_version}:dev"
-    //compile "codechicken:CodeChickenCore:${config.minecraft_version2}-${config.ccc_version}:dev"
-    //compile "codechicken:NotEnoughItems:${config.minecraft_version2}-${config.NEI_version}:dev"
-    //compile "codechicken:ForgeMultipart:${config.minecraft_version}-${config.fmp_version}:dev"
-    //compile "mcp.mobius.waila:Waila:${config.waila_version}:dev"
+	
+    // compile against the JEI API
+    deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}:api"
+    // at runtime, use the full JEI jar
+    runtime "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
+	
+    deobfCompile "mcp.mobius.waila:Waila:${config.waila_version}"
+    deobfCompile "mcjty.theoneprobe:TheOneProbe:${config.probe_version}"
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 }
 

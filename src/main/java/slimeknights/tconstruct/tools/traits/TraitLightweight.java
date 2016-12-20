@@ -9,9 +9,12 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import java.util.List;
 
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.tinkering.Category;
+import slimeknights.tconstruct.library.tools.ProjectileLauncherNBT;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.TinkerUtil;
 
 public class TraitLightweight extends AbstractTrait {
 
@@ -33,6 +36,12 @@ public class TraitLightweight extends AbstractTrait {
 
     TagUtil.setToolTag(rootCompound, data.get());
 
+
+    if(TinkerUtil.hasCategory(rootCompound, Category.LAUNCHER)) {
+      ProjectileLauncherNBT launcherData = new ProjectileLauncherNBT(TagUtil.getToolTag(rootCompound));
+      launcherData.drawSpeed += launcherData.drawSpeed * bonus;
+      TagUtil.setToolTag(rootCompound, launcherData.get());
+    }
   }
 
   @Override

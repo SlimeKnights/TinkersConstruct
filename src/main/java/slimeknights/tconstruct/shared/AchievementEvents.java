@@ -9,9 +9,9 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.TagUtil;
-import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.item.Mattock;
-import slimeknights.tconstruct.tools.item.Pickaxe;
+import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
+import slimeknights.tconstruct.tools.tools.Mattock;
+import slimeknights.tconstruct.tools.tools.Pickaxe;
 
 public class AchievementEvents {
 
@@ -33,7 +33,7 @@ public class AchievementEvents {
       event.player.addStat(AchievementList.BUILD_HOE);
     }
     // sword == basic weapon achievement. Any weapon besides hatchet
-    if(item != TinkerTools.hatchet && item instanceof ToolCore && ((ToolCore) item).hasCategory(Category.WEAPON)) {
+    if(item != TinkerHarvestTools.hatchet && item instanceof ToolCore && ((ToolCore) item).hasCategory(Category.WEAPON)) {
       event.player.addStat(AchievementList.BUILD_SWORD);
     }
   }

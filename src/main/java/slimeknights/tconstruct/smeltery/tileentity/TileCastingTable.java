@@ -5,7 +5,6 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fluids.Fluid;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
@@ -26,6 +25,7 @@ public class TileCastingTable extends TileCasting {
         PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i), this.worldObj, null);
         item.s = 0.875f;// * 0.875f;
         item.y -= 1 / 16f * item.s;
+
         //item.s = 1f;
         toDisplay.items.add(item);
         if(i == 0) {

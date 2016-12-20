@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery.client;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockPane;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -106,7 +108,7 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
 
       // align item orientation with casting tile orientation
       GlStateManager.rotate(-90 * te.getFacing().getHorizontalIndex(), 0, 1, 0);
-      if(!(stack.getItem() instanceof ItemBlock)) {
+      if(!(stack.getItem() instanceof ItemBlock) || Block.getBlockFromItem(stack.getItem()) instanceof BlockPane) {
         GlStateManager.rotate(-90, 1, 0, 0);
       }
 

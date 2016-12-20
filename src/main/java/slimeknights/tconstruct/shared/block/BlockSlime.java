@@ -66,7 +66,7 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
     BLOOD(0xb50101),
     MAGMA(0xff970d);
 
-    private SlimeType(int color)  {
+    private SlimeType(int color) {
       this.meta = this.ordinal();
       this.color = color;
     }

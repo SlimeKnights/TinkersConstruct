@@ -1,0 +1,10 @@
+{
+  "image": {
+    "file": "tconstruct:textures/gui/book/inventory_repair.png"
+  },
+  "text": [
+    {
+      "text": "你只需要做一个对应材料的采掘升级工具，然后在合成界面中和工具一起合成就好。"
+    }
+  ]
+}

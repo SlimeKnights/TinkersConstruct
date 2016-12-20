@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 
 public class ModLuck extends ModifierTrait {
@@ -31,8 +32,18 @@ public class ModLuck extends ModifierTrait {
 
     aspects.clear();
     aspect = new LuckAspect(this);
-    addAspects(aspect, new ModifierAspect.CategoryAnyAspect(Category.HARVEST, Category.WEAPON));
+    addAspects(aspect, new ModifierAspect.CategoryAnyAspect(Category.HARVEST, Category.WEAPON, Category.PROJECTILE));
   }
+
+  public int getLuckLevel(ItemStack itemStack) {
+    return getLuckLevel(TinkerUtil.getModifierTag(itemStack, getModifierIdentifier()));
+  }
+
+  public int getLuckLevel(NBTTagCompound modifierTag) {
+    ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(modifierTag);
+    return aspect.getLevel(data.current);
+  }
+
 
   @Override
   public boolean canApplyTogether(Enchantment enchantment) {
@@ -42,9 +53,7 @@ public class ModLuck extends ModifierTrait {
   @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
     super.applyEffect(rootCompound, modifierTag);
-    ModifierNBT.IntegerNBT data = ModifierNBT.readInteger(modifierTag);
-
-    int lvl = aspect.getLevel(data.current);
+    int lvl = getLuckLevel(modifierTag);
 
     applyEnchantments(rootCompound, lvl);
   }
@@ -111,7 +120,18 @@ public class ModLuck extends ModifierTrait {
 
   @Override
   public String getTooltip(NBTTagCompound modifierTag, boolean detailed) {
-    return getLeveledTooltip(modifierTag, detailed);
+    int level = getLuckLevel(modifierTag);
+
+    String tooltip = getLocalizedName();
+    if(level > 0) {
+      tooltip += " " + TinkerUtil.getRomanNumeral(level);
+    }
+
+    if(detailed) {
+      ModifierNBT data = ModifierNBT.readInteger(modifierTag);
+      tooltip += " " + data.extraInfo;
+    }
+    return tooltip;
   }
 
   public static class LuckAspect extends ModifierAspect.MultiAspect {

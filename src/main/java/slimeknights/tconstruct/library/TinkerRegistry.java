@@ -22,6 +22,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -31,13 +32,19 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+
+import javax.annotation.Nullable;
 
 import slimeknights.mantle.client.CreativeTab;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.events.MaterialEvent;
+import slimeknights.tconstruct.library.events.TinkerRegisterEvent;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
+import slimeknights.tconstruct.library.materials.ProjectileMaterialStats;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
@@ -50,6 +57,7 @@ import slimeknights.tconstruct.library.tools.Shard;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 
+@SuppressWarnings("unused")
 public final class TinkerRegistry {
 
   // the logger for the library
@@ -76,9 +84,9 @@ public final class TinkerRegistry {
   private static final Map<String, Material> materials = Maps.newLinkedHashMap();
   private static final Map<String, ITrait> traits = new THashMap<String, ITrait>();
   // traceability information who registered what. Used to find errors.
-  private static final Map<String, String> materialRegisteredByMod = new THashMap<String, String>();
-  private static final Map<String, Map<String, String>> statRegisteredByMod = new THashMap<String, Map<String, String>>();
-  private static final Map<String, Map<String, String>> traitRegisteredByMod = new THashMap<String, Map<String, String>>();
+  private static final Map<String, ModContainer> materialRegisteredByMod = new THashMap<String, ModContainer>();
+  private static final Map<String, Map<String, ModContainer>> statRegisteredByMod = new THashMap<String, Map<String, ModContainer>>();
+  private static final Map<String, Map<String, ModContainer>> traitRegisteredByMod = new THashMap<String, Map<String, ModContainer>>();
 
   // contains all cancelled materials, allows us to eat calls regarding the material silently
   private static final Set<String> cancelledMaterials = new THashSet<String>();
@@ -116,11 +124,11 @@ public final class TinkerRegistry {
 
     // duplicate material
     if(materials.containsKey(material.identifier)) {
-      String registeredBy = materialRegisteredByMod.get(material.identifier);
+      ModContainer registeredBy = materialRegisteredByMod.get(material.identifier);
       error(String.format(
           "Could not register Material \"%s\": It was already registered by %s",
           material.identifier,
-          registeredBy));
+          registeredBy.getName()));
       return;
     }
 
@@ -143,14 +151,15 @@ public final class TinkerRegistry {
   }
 
   public static Collection<Material> getAllMaterials() {
-    return materials.values();
+    return ImmutableList.copyOf(materials.values());
   }
 
   public static Collection<Material> getAllMaterialsWithStats(String statType) {
     ImmutableList.Builder<Material> mats = ImmutableList.builder();
     for(Material material : materials.values()) {
-      if(material.hasStats(statType))
+      if(material.hasStats(statType)) {
         mats.add(material);
+      }
     }
 
     return mats.build();
@@ -169,7 +178,7 @@ public final class TinkerRegistry {
 
     traits.put(trait.getIdentifier(), trait);
 
-    String activeMod = Loader.instance().activeModContainer().getModId();
+    ModContainer activeMod = Loader.instance().activeModContainer();
     putTraitTrace(trait.getIdentifier(), trait, activeMod);
   }
 
@@ -207,9 +216,9 @@ public final class TinkerRegistry {
     // duplicate stats
     if(material.getStats(stats.getIdentifier()) != null) {
       String registeredBy = "Unknown";
-      Map<String, String> matReg = statRegisteredByMod.get(identifier);
+      Map<String, ModContainer> matReg = statRegisteredByMod.get(identifier);
       if(matReg != null) {
-        registeredBy = matReg.get(stats.getIdentifier());
+        registeredBy = matReg.get(stats.getIdentifier()).getName();
       }
 
       error(String.format(
@@ -236,8 +245,12 @@ public final class TinkerRegistry {
 
     material.addStats(stats);
 
-    String activeMod = Loader.instance().activeModContainer().getModId();
+    ModContainer activeMod = Loader.instance().activeModContainer();
     putStatTrace(identifier, stats, activeMod);
+
+    if(Objects.equals(stats.getIdentifier(), MaterialTypes.HEAD) && !material.hasStats(MaterialTypes.PROJECTILE)) {
+      addMaterialStats(material, new ProjectileMaterialStats());
+    }
   }
 
   public static void addMaterialTrait(String materialIdentifier, ITrait trait, String stats) {
@@ -277,9 +290,9 @@ public final class TinkerRegistry {
     // duplicate traits
     if(material.hasTrait(trait.getIdentifier(), stats)) {
       String registeredBy = "Unknown";
-      Map<String, String> matReg = traitRegisteredByMod.get(identifier);
+      Map<String, ModContainer> matReg = traitRegisteredByMod.get(identifier);
       if(matReg != null) {
-        registeredBy = matReg.get(trait.getIdentifier());
+        registeredBy = matReg.get(trait.getIdentifier()).getName();
       }
 
       error(String.format(
@@ -342,8 +355,12 @@ public final class TinkerRegistry {
   public static void registerToolPart(IToolPart part) {
     toolParts.add(part);
     if(part instanceof Item) {
-      addPatternForItem((Item) part);
-      addCastForItem((Item) part);
+      if(part.canBeCrafted()) {
+        addPatternForItem((Item) part);
+      }
+      if(part.canBeCasted()) {
+        addCastForItem((Item) part);
+      }
     }
   }
 
@@ -446,7 +463,7 @@ public final class TinkerRegistry {
   }
 
   public static Collection<IModifier> getAllModifiers() {
-    return modifiers.values();
+    return ImmutableList.copyOf(modifiers.values());
   }
 
   /*---------------------------------------------------------------------------
@@ -462,26 +479,28 @@ public final class TinkerRegistry {
   /** Registers this item with all its metadatas to melt into amount of the given fluid. */
   public static void registerMelting(Item item, Fluid fluid, int amount) {
     ItemStack stack = new ItemStack(item, 1, OreDictionary.WILDCARD_VALUE);
-    meltingRegistry.add(new MeltingRecipe(new RecipeMatch.Item(stack, 1, amount), fluid));
+    registerMelting(new MeltingRecipe(new RecipeMatch.Item(stack, 1, amount), fluid));
   }
 
   /** Registers this block with all its metadatas to melt into amount of the given fluid. */
   public static void registerMelting(Block block, Fluid fluid, int amount) {
     ItemStack stack = new ItemStack(block, 1, OreDictionary.WILDCARD_VALUE);
-    meltingRegistry.add(new MeltingRecipe(new RecipeMatch.Item(stack, 1, amount), fluid));
+    registerMelting(new MeltingRecipe(new RecipeMatch.Item(stack, 1, amount), fluid));
   }
 
   /** Registers this itemstack NBT-SENSITIVE to melt into amount of the given fluid. */
   public static void registerMelting(ItemStack stack, Fluid fluid, int amount) {
-    meltingRegistry.add(new MeltingRecipe(new RecipeMatch.ItemCombination(amount, stack), fluid));
+    registerMelting(new MeltingRecipe(new RecipeMatch.ItemCombination(amount, stack), fluid));
   }
 
   public static void registerMelting(String oredict, Fluid fluid, int amount) {
-    meltingRegistry.add(new MeltingRecipe(new RecipeMatch.Oredict(oredict, 1, amount), fluid));
+    registerMelting(new MeltingRecipe(new RecipeMatch.Oredict(oredict, 1, amount), fluid));
   }
 
   public static void registerMelting(MeltingRecipe recipe) {
-    meltingRegistry.add(recipe);
+    if(new TinkerRegisterEvent.MeltingRegisterEvent(recipe).fire()) {
+      meltingRegistry.add(recipe);
+    }
   }
 
   public static MeltingRecipe getMelting(ItemStack stack) {
@@ -495,7 +514,7 @@ public final class TinkerRegistry {
   }
 
   public static List<MeltingRecipe> getAllMeltingRecipies() {
-    return meltingRegistry;
+    return ImmutableList.copyOf(meltingRegistry);
   }
 
   public static void registerAlloy(FluidStack result, FluidStack... inputs) {
@@ -506,7 +525,13 @@ public final class TinkerRegistry {
       error("Alloy Recipe: Alloy for %s must consist of at least 2 liquids", result.getLocalizedName());
     }
 
-    alloyRegistry.add(new AlloyRecipe(result, inputs));
+    registerAlloy(new AlloyRecipe(result, inputs));
+  }
+
+  public static void registerAlloy(AlloyRecipe recipe) {
+    if(new TinkerRegisterEvent.AlloyRegisterEvent(recipe).fire()) {
+      alloyRegistry.add(recipe);
+    }
   }
 
   public static List<AlloyRecipe> getAlloys() {
@@ -514,19 +539,21 @@ public final class TinkerRegistry {
   }
 
   /** Registers a casting recipe for casting table */
-  public static void registerTableCasting(ItemStack output, ItemStack cast, Fluid fluid, int amount) {
+  public static void registerTableCasting(ItemStack output, @Nullable ItemStack cast, Fluid fluid, int amount) {
     RecipeMatch rm = null;
     if(cast != null) {
       rm = RecipeMatch.ofNBT(cast);
     }
-    tableCastRegistry.add(new CastingRecipe(output, rm, fluid, amount));
+    registerTableCasting(new CastingRecipe(output, rm, fluid, amount));
   }
 
   public static void registerTableCasting(ICastingRecipe recipe) {
-    tableCastRegistry.add(recipe);
+    if(new TinkerRegisterEvent.TableCastingRegisterEvent(recipe).fire()) {
+      tableCastRegistry.add(recipe);
+    }
   }
 
-  public static ICastingRecipe getTableCasting(ItemStack cast, Fluid fluid) {
+  public static ICastingRecipe getTableCasting(@Nullable ItemStack cast, Fluid fluid) {
     for(ICastingRecipe recipe : tableCastRegistry) {
       if(recipe.matches(cast, fluid)) {
         return recipe;
@@ -536,24 +563,26 @@ public final class TinkerRegistry {
   }
 
   public static List<ICastingRecipe> getAllTableCastingRecipes() {
-    return tableCastRegistry;
+    return ImmutableList.copyOf(tableCastRegistry);
   }
 
 
   /** Registers a casting recipe for the casting basin */
-  public static void registerBasinCasting(ItemStack output, ItemStack cast, Fluid fluid, int amount) {
+  public static void registerBasinCasting(ItemStack output, @Nullable ItemStack cast, Fluid fluid, int amount) {
     RecipeMatch rm = null;
     if(cast != null) {
       rm = RecipeMatch.ofNBT(cast);
     }
-    basinCastRegistry.add(new CastingRecipe(output, rm, fluid, amount));
+    registerBasinCasting(new CastingRecipe(output, rm, fluid, amount));
   }
 
   public static void registerBasinCasting(ICastingRecipe recipe) {
-    basinCastRegistry.add(recipe);
+    if(new TinkerRegisterEvent.BasinCastingRegisterEvent(recipe).fire()) {
+      basinCastRegistry.add(recipe);
+    }
   }
 
-  public static ICastingRecipe getBasinCasting(ItemStack cast, Fluid fluid) {
+  public static ICastingRecipe getBasinCasting(@Nullable ItemStack cast, Fluid fluid) {
     for(ICastingRecipe recipe : basinCastRegistry) {
       if(recipe.matches(cast, fluid)) {
         return recipe;
@@ -563,12 +592,13 @@ public final class TinkerRegistry {
   }
 
   public static List<ICastingRecipe> getAllBasinCastingRecipes() {
-    return basinCastRegistry;
+    return ImmutableList.copyOf(basinCastRegistry);
   }
 
   /**
    * Registers a liquid to be used as smeltery fuel.
    * Temperature is derived from fluid temperature.
+   *
    * @param fluidStack   The fluid. Amount is the minimal increment that is consumed at once.
    * @param fuelDuration How many ticks the consumtpion of the fluidStack lasts.
    */
@@ -594,7 +624,7 @@ public final class TinkerRegistry {
         FluidStack fuel = entry.getKey();
         int out = entry.getValue();
         if(in.amount < fuel.amount) {
-          float coeff = (float)in.amount/(float)fuel.amount;
+          float coeff = (float) in.amount / (float) fuel.amount;
           out = Math.round(coeff * in.amount);
           in.amount = 0;
         }
@@ -611,7 +641,7 @@ public final class TinkerRegistry {
 
   /** Returns all registered smeltery fuels */
   public static Collection<FluidStack> getSmelteryFuels() {
-    return smelteryFuels.keySet();
+    return ImmutableSet.copyOf(smelteryFuels.keySet());
   }
 
   /** Register an entity to melt into the given fluidstack. The fluidstack is returned for 1 heart damage */
@@ -622,7 +652,10 @@ public final class TinkerRegistry {
       error("Entity Melting: Entity %s is not registered in the EntityList", clazz.getSimpleName());
     }
 
-    entityMeltingRegistry.put(name, liquid);
+    TinkerRegisterEvent.EntityMeltingRegisterEvent event = new TinkerRegisterEvent.EntityMeltingRegisterEvent(clazz, liquid);
+    if(event.fire()) {
+      entityMeltingRegistry.put(name, event.getNewFluidStack());
+    }
   }
 
   public static FluidStack getMeltingForEntity(Entity entity) {
@@ -640,104 +673,117 @@ public final class TinkerRegistry {
    * @return The list of all drying rack recipes
    */
   public static List<DryingRecipe> getAllDryingRecipes() {
-    return dryingRegistry;
+    return ImmutableList.copyOf(dryingRegistry);
   }
-  
+
   /**
    * Adds a new drying recipe
-   * @param input Input ItemStack
+   *
+   * @param input  Input ItemStack
    * @param output Output ItemStack
-   * @param time Recipe time in ticks
+   * @param time   Recipe time in ticks
    */
-  public static void registerDryingRecipe (ItemStack input, ItemStack output, int time) {
-    if ( output == null || input == null ) {
+  public static void registerDryingRecipe(ItemStack input, ItemStack output, int time) {
+    if(output == null || input == null) {
       return;
     }
-    dryingRegistry.add(new DryingRecipe(new RecipeMatch.Item(input, 1), output, time));
+    addDryingReciye(new DryingRecipe(new RecipeMatch.Item(input, 1), output, time));
   }
-  
+
   /**
    * Adds a new drying recipe
-   * @param input Input Item
+   *
+   * @param input  Input Item
    * @param output Output ItemStack
-   * @param time Recipe time in ticks
-   */  
-  public static void registerDryingRecipe (Item input, ItemStack output, int time) {
-    if ( output == null || input == null ) {
+   * @param time   Recipe time in ticks
+   */
+  public static void registerDryingRecipe(Item input, ItemStack output, int time) {
+    if(output == null || input == null) {
       return;
     }
-    
+
     ItemStack stack = new ItemStack(input, 1, OreDictionary.WILDCARD_VALUE);
-    dryingRegistry.add(new DryingRecipe(new RecipeMatch.Item(stack, 1), output, time));
+    addDryingReciye(new DryingRecipe(new RecipeMatch.Item(stack, 1), output, time));
   }
-  
+
   /**
    * Adds a new drying recipe
-   * @param input Input Item
+   *
+   * @param input  Input Item
    * @param output Output Item
-   * @param time Recipe time in ticks
-   */   
-  public static void registerDryingRecipe (Item input, Item output, int time) {
-    if ( output == null || input == null ) {
+   * @param time   Recipe time in ticks
+   */
+  public static void registerDryingRecipe(Item input, Item output, int time) {
+    if(output == null || input == null) {
       return;
     }
 
     ItemStack stack = new ItemStack(input, 1, OreDictionary.WILDCARD_VALUE);
-    dryingRegistry.add(new DryingRecipe(new RecipeMatch.Item(stack, 1), new ItemStack(output), time));
+    addDryingReciye(new DryingRecipe(new RecipeMatch.Item(stack, 1), new ItemStack(output), time));
   }
-  
+
   /**
    * Adds a new drying recipe
-   * @param input Input Block
+   *
+   * @param input  Input Block
    * @param output Output Block
-   * @param time Recipe time in ticks
-   */   
-  public static void registerDryingRecipe (Block input, Block output, int time) {
-    if ( output == null || input == null ) {
+   * @param time   Recipe time in ticks
+   */
+  public static void registerDryingRecipe(Block input, Block output, int time) {
+    if(output == null || input == null) {
       return;
     }
-    
+
     ItemStack stack = new ItemStack(input, 1, OreDictionary.WILDCARD_VALUE);
-    dryingRegistry.add(new DryingRecipe(new RecipeMatch.Item(stack, 1), new ItemStack(output), time));
+    addDryingReciye(new DryingRecipe(new RecipeMatch.Item(stack, 1), new ItemStack(output), time));
   }
 
   /**
    * Adds a new drying recipe
-   * @param input Input ore dictionary entry
-   * @param output Output ItemStack
-   * @param time Recipe time in ticks
-   */ 
-  public static void registerDryingRecipe (String oredict, ItemStack output, int time) {
-    if ( output == null || oredict == null ) {
+   *
+   * @param oredict Input ore dictionary entry
+   * @param output  Output ItemStack
+   * @param time    Recipe time in ticks
+   */
+  public static void registerDryingRecipe(String oredict, ItemStack output, int time) {
+    if(output == null || oredict == null) {
       return;
     }
-    
-    dryingRegistry.add(new DryingRecipe(new RecipeMatch.Oredict(oredict, 1), output, time));
+
+    addDryingReciye(new DryingRecipe(new RecipeMatch.Oredict(oredict, 1), output, time));
   }
-  
+
+  private static void addDryingReciye(DryingRecipe dryingRecipe) {
+    if(new TinkerRegisterEvent.DryingRackRegisterEvent(dryingRecipe).fire()) {
+      dryingRegistry.add(dryingRecipe);
+    }
+  }
+
   /**
    * Gets the drying time for a drying recipe
+   *
    * @param input Input ItemStack
    * @return Output drying time, or -1 if no recipe is found
    */
-  public static int getDryingTime (ItemStack input) {
-    for (DryingRecipe r : dryingRegistry) {
-      if (r.matches(input)) {
+  public static int getDryingTime(ItemStack input) {
+    for(DryingRecipe r : dryingRegistry) {
+      if(r.matches(input)) {
         return r.getTime();
       }
     }
 
     return -1;
   }
-  
+
   /**
    * Gets the result for a drying recipe
+   *
    * @param input Input ItemStack
    * @return Output A copy of the output ItemStack, or null if no recipe is found
-   */  
-  public static ItemStack getDryingResult (ItemStack input) {
-    for (DryingRecipe r : dryingRegistry) {
-      if (r.matches(input)) {
+   */
+  public static ItemStack getDryingResult(ItemStack input) {
+    for(DryingRecipe r : dryingRegistry) {
+      if(r.matches(input)) {
         return r.getResult();
       }
     }
@@ -750,25 +796,25 @@ public final class TinkerRegistry {
   ---------------------------------------------------------------------------*/
 
   static void putMaterialTrace(String materialIdentifier) {
-    String activeMod = Loader.instance().activeModContainer().getName();
+    ModContainer activeMod = Loader.instance().activeModContainer();
     materialRegisteredByMod.put(materialIdentifier, activeMod);
   }
 
-  static void putStatTrace(String materialIdentifier, IMaterialStats stats, String trace) {
+  static void putStatTrace(String materialIdentifier, IMaterialStats stats, ModContainer trace) {
     if(!statRegisteredByMod.containsKey(materialIdentifier)) {
-      statRegisteredByMod.put(materialIdentifier, new HashMap<String, String>());
+      statRegisteredByMod.put(materialIdentifier, new HashMap<String, ModContainer>());
     }
     statRegisteredByMod.get(materialIdentifier).put(stats.getIdentifier(), trace);
   }
 
-  static void putTraitTrace(String materialIdentifier, ITrait trait, String trace) {
+  static void putTraitTrace(String materialIdentifier, ITrait trait, ModContainer trace) {
     if(!traitRegisteredByMod.containsKey(materialIdentifier)) {
-      traitRegisteredByMod.put(materialIdentifier, new HashMap<String, String>());
+      traitRegisteredByMod.put(materialIdentifier, new HashMap<String, ModContainer>());
     }
     traitRegisteredByMod.get(materialIdentifier).put(trait.getIdentifier(), trace);
   }
 
-  public static String getTrace(Material material) {
+  public static ModContainer getTrace(Material material) {
     return materialRegisteredByMod.get(material.identifier);
   }
 

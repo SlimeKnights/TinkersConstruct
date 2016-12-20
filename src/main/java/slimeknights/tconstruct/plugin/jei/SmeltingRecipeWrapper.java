@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
@@ -38,16 +39,10 @@ public class SmeltingRecipeWrapper extends BlankRecipeWrapper {
     fuels = builder.build();
   }
 
-  @Nonnull
   @Override
-  public List getInputs() {
-    return inputs;
-  }
-
-  @Nonnull
-  @Override
-  public List<FluidStack> getFluidOutputs() {
-    return outputs;
+  public void getIngredients(IIngredients ingredients) {
+    ingredients.setInputs(ItemStack.class, inputs);
+    ingredients.setOutputs(FluidStack.class, outputs);
   }
 
   @Override

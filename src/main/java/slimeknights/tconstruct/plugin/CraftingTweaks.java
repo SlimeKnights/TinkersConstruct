@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
-import slimeknights.tconstruct.tools.inventory.ContainerCraftingStation;
+import slimeknights.tconstruct.tools.common.inventory.ContainerCraftingStation;
 
 @Pulse(id = CraftingTweaks.PulseId, modsRequired = CraftingTweaks.modid, defaultEnable = true)
 public class CraftingTweaks {

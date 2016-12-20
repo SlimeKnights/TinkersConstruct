@@ -22,6 +22,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.common.ClientProxy;
+import slimeknights.tconstruct.common.ModelRegisterUtil;
 import slimeknights.tconstruct.library.client.renderer.RenderTinkerSlime;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass.FoliageType;
@@ -145,7 +146,7 @@ public class WorldClientProxy extends ClientProxy {
     ModelLoader.setCustomStateMapper(TinkerWorld.slimeVinePurple3, vineMap);
 
     // items
-    registerItemBlockMeta(TinkerWorld.slimeDirt);
+    ModelRegisterUtil.registerItemBlockMeta(TinkerWorld.slimeDirt);
 
     // slime grass
     Item grass = Item.getItemFromBlock(TinkerWorld.slimeGrass);
@@ -173,30 +174,30 @@ public class WorldClientProxy extends ClientProxy {
     IBlockState state = TinkerWorld.slimeSapling.getDefaultState();
     Item sapling = Item.getItemFromBlock(TinkerWorld.slimeSapling);
     ItemStack stack = new ItemStack(sapling, 1, TinkerWorld.slimeSapling.getMetaFromState(state.withProperty(BlockSlimeSapling.FOLIAGE, BlockSlimeGrass.FoliageType.BLUE)));
-    registerItemModel(stack, "slime_sapling_blue");
+    registerItemModelTiC(stack, "slime_sapling_blue");
     stack = new ItemStack(sapling, 1, TinkerWorld.slimeSapling.getMetaFromState(state.withProperty(BlockSlimeSapling.FOLIAGE, BlockSlimeGrass.FoliageType.PURPLE)));
-    registerItemModel(stack, "slime_sapling_purple");
+    registerItemModelTiC(stack, "slime_sapling_purple");
     stack = new ItemStack(sapling, 1, TinkerWorld.slimeSapling.getMetaFromState(state.withProperty(BlockSlimeSapling.FOLIAGE, BlockSlimeGrass.FoliageType.ORANGE)));
-    registerItemModel(stack, "slime_sapling_orange");
+    registerItemModelTiC(stack, "slime_sapling_orange");
 
     for(BlockSlimeGrass.FoliageType foliage : BlockSlimeGrass.FoliageType.values()) {
       state = TinkerWorld.slimeGrassTall.getDefaultState();
       state = state.withProperty(BlockTallSlimeGrass.FOLIAGE, foliage);
       state = state.withProperty(BlockTallSlimeGrass.TYPE, BlockTallSlimeGrass.SlimePlantType.TALL_GRASS);
       stack = new ItemStack(TinkerWorld.slimeGrassTall, 0, TinkerWorld.slimeGrassTall.getMetaFromState(state));
-      registerItemModel(stack, "slime_tall_grass");
+      registerItemModelTiC(stack, "slime_tall_grass");
 
       state = state.withProperty(BlockTallSlimeGrass.TYPE, BlockTallSlimeGrass.SlimePlantType.FERN);
       stack = new ItemStack(TinkerWorld.slimeGrassTall, 0, TinkerWorld.slimeGrassTall.getMetaFromState(state));
-      registerItemModel(stack, "slime_fern");
+      registerItemModelTiC(stack, "slime_fern");
     }
 
-    registerItemModel(new ItemStack(TinkerWorld.slimeVineBlue1), "slime_vine");
-    registerItemModel(new ItemStack(TinkerWorld.slimeVineBlue2), "slime_vine_mid");
-    registerItemModel(new ItemStack(TinkerWorld.slimeVineBlue3), "slime_vine_end");
-    registerItemModel(new ItemStack(TinkerWorld.slimeVinePurple1), "slime_vine");
-    registerItemModel(new ItemStack(TinkerWorld.slimeVinePurple2), "slime_vine_mid");
-    registerItemModel(new ItemStack(TinkerWorld.slimeVinePurple3), "slime_vine_end");
+    registerItemModelTiC(new ItemStack(TinkerWorld.slimeVineBlue1), "slime_vine");
+    registerItemModelTiC(new ItemStack(TinkerWorld.slimeVineBlue2), "slime_vine_mid");
+    registerItemModelTiC(new ItemStack(TinkerWorld.slimeVineBlue3), "slime_vine_end");
+    registerItemModelTiC(new ItemStack(TinkerWorld.slimeVinePurple1), "slime_vine");
+    registerItemModelTiC(new ItemStack(TinkerWorld.slimeVinePurple2), "slime_vine_mid");
+    registerItemModelTiC(new ItemStack(TinkerWorld.slimeVinePurple3), "slime_vine_end");
   }
 
   @Override

@@ -9,8 +9,10 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialTypes;
 
 public class Shard extends ToolPart {
 
@@ -22,10 +24,18 @@ public class Shard extends ToolPart {
   public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
     // this adds a variant of each material to the creative menu
     for(Material mat : TinkerRegistry.getAllMaterials()) {
-      if(mat.isCraftable() || mat.isCastable()) {
+      if(mat.hasStats(MaterialTypes.HEAD) && (mat.isCraftable() || mat.isCastable())) {
         subItems.add(getItemstackWithMaterial(mat));
+        if(!Config.listAllMaterials) {
+          break;
+        }
       }
     }
+  }
+
+  @Override
+  public boolean canUseMaterial(Material mat) {
+    return true;
   }
 
   @Override

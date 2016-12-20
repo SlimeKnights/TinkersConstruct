@@ -1,10 +1,14 @@
 package slimeknights.tconstruct.library.entity;
 
+import com.google.common.collect.Multimap;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.SoundEvents;
@@ -23,21 +27,29 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
+import java.util.UUID;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.common.Sounds;
-import slimeknights.tconstruct.library.tools.CapabilityTinkerProjectile;
-import slimeknights.tconstruct.library.tools.IProjectileStats;
-import slimeknights.tconstruct.library.tools.TinkerProjectileHandler;
+import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
+import slimeknights.tconstruct.library.capability.projectile.TinkerProjectileHandler;
+import slimeknights.tconstruct.library.events.ProjectileEvent;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.ranged.ILauncher;
+import slimeknights.tconstruct.library.tools.ranged.IProjectile;
+import slimeknights.tconstruct.library.traits.IProjectileTrait;
+import slimeknights.tconstruct.library.utils.AmmoHelper;
+import slimeknights.tconstruct.library.utils.TagUtil;
+import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
 // have to base this on EntityArrow, otherwise minecraft does derp things because everything is handled based on class.
 public abstract class EntityProjectileBase extends EntityArrow implements IEntityAdditionalSpawnData {
-  //public final static String woodSound = Reference.resource("woodHit");
-  //public final static String stoneSound = Reference.resource("stoneHit");
+
+  protected static final UUID PROJECTILE_POWER_MODIFIER = UUID.fromString("c6aefc21-081a-4c4a-b076-8f9d6cef9122");
 
   public TinkerProjectileHandler tinkerProjectile = new TinkerProjectileHandler();
 
@@ -55,7 +67,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.setPosition(d, d1, d2);
   }
 
-  public EntityProjectileBase(World world, EntityPlayer player, float speed, float accuracy, ItemStack stack) {
+  public EntityProjectileBase(World world, EntityPlayer player, float speed, float inaccuracy, float power, ItemStack stack, ItemStack launchingStack) {
     this(world);
 
     this.shootingEntity = player;
@@ -65,18 +77,22 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
     // stuff from the arrow
     this.setLocationAndAngles(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ, player.rotationYaw, player.rotationPitch);
-    this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
-    this.posY -= 0.10000000149011612D;
-    this.posZ -= MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
+
     this.setPosition(this.posX, this.posY, this.posZ);
     //this.yOffset = 0.0F;
     this.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI);
     this.motionZ = +MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float) Math.PI);
     this.motionY = -MathHelper.sin(this.rotationPitch / 180.0F * (float) Math.PI);
-    this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, speed, accuracy);
+    this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, speed, inaccuracy);
 
     // our stuff
     tinkerProjectile.setItemStack(stack);
+    tinkerProjectile.setLaunchingStack(launchingStack);
+    tinkerProjectile.setPower(power);
+
+    for(IProjectileTrait trait : tinkerProjectile.getProjectileTraits()) {
+      trait.onLaunch(this, world, player);
+    }
   }
 
   protected void init() {
@@ -125,49 +141,22 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   }
 
   protected void playHitEntitySound() {
-
+    this.playSound(SoundEvents.ENTITY_ARROW_HIT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
   }
 
   /**
-   * How deep the item enters stuff it hits. Should be bigger for bigger objects, and smaller for smaller objects.
-   * 1.0f is exactly halfway in.
+   * How deep the item enters stuff it hits. Best experiment.
    */
-  protected double getStuckDepth() {
-    return 0.5f;
+  public double getStuckDepth() {
+    return 0.4f;
   }
 
-  protected void doLivingHit(EntityLivingBase entityHit) {
-    /*
-    float knockback = returnStack.getTagCompound().getCompoundTag("InfiTool").getFloat("Knockback");
-    if(shootingEntity instanceof EntityLivingBase)
-      knockback += EnchantmentHelper.getKnockbackModifier((EntityLivingBase) shootingEntity, entityHit);
+  protected void onEntityHit(Entity entityHit) {
+    setDead();
+  }
 
-    if (!this.worldObj.isRemote)
-    {
-      entityHit.setArrowCountInEntity(entityHit.getArrowCountInEntity() + 1);
-    }
-
-    if (knockback > 0)
-    {
-      double horizontalSpeed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
-
-      if (horizontalSpeed > 0.0F)
-      {
-        entityHit.addVelocity(this.motionX * (double) knockback * 0.6000000238418579D / horizontalSpeed, 0.1D, this.motionZ * (double) knockback * 0.6000000238418579D / (double) horizontalSpeed);
-      }
-    }
-
-    if (this.shootingEntity != null && this.shootingEntity instanceof EntityLivingBase)
-    {
-      EnchantmentHelper.func_151384_a(entityHit, this.shootingEntity);
-      EnchantmentHelper.func_151385_b((EntityLivingBase)this.shootingEntity, entityHit);
-    }
-
-    if (this.shootingEntity != null && entityHit != this.shootingEntity && entityHit instanceof EntityPlayer && this.shootingEntity instanceof EntityPlayerMP)
-    {
-      ((EntityPlayerMP)this.shootingEntity).playerNetServerHandler.sendPacket(new SPacketChangeGameState(6, 0.0F));
-    }
-    */
+  protected float getSpeed() {
+    return MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
   }
 
   public void onHitBlock(RayTraceResult raytraceResult) {
@@ -181,12 +170,14 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.motionX = (double) ((float) (raytraceResult.hitVec.xCoord - this.posX));
     this.motionY = (double) ((float) (raytraceResult.hitVec.yCoord - this.posY));
     this.motionZ = (double) ((float) (raytraceResult.hitVec.zCoord - this.posZ));
-    float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+    float speed = getSpeed();
     this.posX -= this.motionX / (double) speed * 0.05000000074505806D;
     this.posY -= this.motionY / (double) speed * 0.05000000074505806D;
     this.posZ -= this.motionZ / (double) speed * 0.05000000074505806D;
 
     playHitBlockSound(speed, iblockstate);
+
+    ProjectileEvent.OnHitBlock.fireEvent(this, speed, blockpos, iblockstate);
 
     this.inGround = true;
     this.arrowShake = 7;
@@ -196,49 +187,76 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       this.inTile.onEntityCollidedWithBlock(this.worldObj, blockpos, iblockstate, this);
     }
 
-    this.defused = true; // defuse it so it doesn't hit stuff anymore, being weird
+    defuse(); // defuse it so it doesn't hit stuff anymore, being weird
   }
 
   public void onHitEntity(RayTraceResult raytraceResult) {
     ItemStack item = tinkerProjectile.getItemStack();
+    ItemStack launcher = tinkerProjectile.getLaunchingStack();
     boolean bounceOff = false;
+    Entity entityHit = raytraceResult.entityHit;
     // deal damage if we have everything
-    if(item != null && item.getItem() instanceof ToolCore && raytraceResult.entityHit instanceof EntityLivingBase && this.shootingEntity instanceof EntityLivingBase) {
+    if(item != null && item.getItem() instanceof ToolCore && this.shootingEntity instanceof EntityLivingBase) {
       EntityLivingBase attacker = (EntityLivingBase) this.shootingEntity;
-      EntityLivingBase target = (EntityLivingBase) raytraceResult.entityHit;
+      //EntityLivingBase target = (EntityLivingBase) raytraceResult.entityHit;
 
       // find the actual itemstack in the players inventory
-      ItemStack inventoryItem = tinkerProjectile.getMatchingItemstackFromInventory(attacker, false);
+      ItemStack inventoryItem = AmmoHelper.getMatchingItemstackFromInventory(tinkerProjectile.getItemStack(), attacker, false);
       if(inventoryItem == null || inventoryItem.getItem() != item.getItem()) {
         // backup, use saved itemstack
         inventoryItem = item;
       }
 
-      // remove stats from held items
-      unequip(attacker, EntityEquipmentSlot.OFFHAND);
-      unequip(attacker, EntityEquipmentSlot.MAINHAND);
 
-      // apply stats from projectile
-      if(item.getItem() instanceof IProjectileStats) {
-        attacker.getAttributeMap().applyAttributeModifiers(((IProjectileStats) item.getItem()).getProjectileAttributeModifier(inventoryItem));
+      // for the sake of dealing damage we always ensure that the impact itemstack has the correct broken state
+      // since the ammo stack can break while the arrow travels/if it's the last arrow
+      boolean brokenStateDiffers = ToolHelper.isBroken(inventoryItem) != ToolHelper.isBroken(item);
+      if(brokenStateDiffers) {
+        toggleBroken(inventoryItem);
       }
 
+      Multimap<String, AttributeModifier> projectileAttributes = null;
+      // remove stats from held items
+      if(!worldObj.isRemote) {
+        unequip(attacker, EntityEquipmentSlot.OFFHAND);
+        unequip(attacker, EntityEquipmentSlot.MAINHAND);
+
+        // apply stats from projectile
+        if(item.getItem() instanceof IProjectile) {
+          projectileAttributes = ((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem);
+
+          if(launcher != null && launcher.getItem() instanceof ILauncher) {
+            ((ILauncher) launcher.getItem()).modifyProjectileAttributes(projectileAttributes, tinkerProjectile.getLaunchingStack(), tinkerProjectile.getItemStack(), tinkerProjectile.getPower());
+          }
+
+          // factor in power
+          projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(),
+                                   new AttributeModifier(PROJECTILE_POWER_MODIFIER, "Weapon damage multiplier", tinkerProjectile.getPower() - 1f, 2));
+
+          attacker.getAttributeMap().applyAttributeModifiers(projectileAttributes);
+        }
+      }
       // deal the damage
       float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-      bounceOff = dealDamage(speed, inventoryItem, attacker, target);
+      bounceOff = !dealDamage(speed, inventoryItem, attacker, entityHit);
+      if(brokenStateDiffers) {
+        toggleBroken(inventoryItem);
+      }
 
       // remove stats from projectile
       // apply stats from projectile
-      if(item.getItem() instanceof IProjectileStats) {
-        attacker.getAttributeMap().removeAttributeModifiers(((IProjectileStats) item.getItem()).getProjectileAttributeModifier(inventoryItem));
+      if(!worldObj.isRemote) {
+        if(item.getItem() instanceof IProjectile) {
+          attacker.getAttributeMap().removeAttributeModifiers(projectileAttributes);
+        }
+
+        // readd stats from held items
+        equip(attacker, EntityEquipmentSlot.MAINHAND);
+        equip(attacker, EntityEquipmentSlot.OFFHAND);
       }
 
-      // readd stats from held items
-      equip(attacker, EntityEquipmentSlot.MAINHAND);
-      equip(attacker, EntityEquipmentSlot.OFFHAND);
-
       if(!bounceOff) {
-        doLivingHit(target);
+        onEntityHit(entityHit);
       }
     }
 
@@ -285,8 +303,14 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     }
   }
 
+  private void toggleBroken(ItemStack stack) {
+    NBTTagCompound tag = TagUtil.getToolTag(stack);
+    tag.setBoolean(Tags.BROKEN, !tag.getBoolean(Tags.BROKEN));
+    TagUtil.setToolTag(stack, tag);
+  }
+
   // returns true if it was successful
-  public boolean dealDamage(float speed, ItemStack item, EntityLivingBase attacker, EntityLivingBase target) {
+  public boolean dealDamage(float speed, ItemStack item, EntityLivingBase attacker, Entity target) {
     return ToolHelper.attackEntity(item, (ToolCore) item.getItem(), attacker, target, this);
   }
 
@@ -303,6 +327,10 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     // call the entity update routine
     // luckily we can call this directly and take the arrow-code, since we'd have to call super.onUpdate otherwise. Which would not work.
     onEntityUpdate();
+
+    for(IProjectileTrait trait : tinkerProjectile.getProjectileTraits()) {
+      trait.onProjectileUpdate(this, worldObj, tinkerProjectile.getItemStack());
+    }
 
     // boioioiooioing
     if(this.arrowShake > 0) {
@@ -337,7 +365,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   }
 
   // Update while we're stuck in a block
-  protected void updateInGround(IBlockState state) {
+  public void updateInGround(IBlockState state) {
     Block block = state.getBlock();
     int meta = block.getMetaFromState(state);
 
@@ -362,7 +390,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   }
 
   // update while traveling
-  protected void updateInAir() {
+  public void updateInAir() {
     // tick tock
     this.timeInGround = 0;
     ++this.ticksInAir;
@@ -430,7 +458,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       }
 
       // more slowdown in water
-      slowdown = 1d - 20d * getSlowdown();
+      slowdown *= 0.60d;
     }
 
     // phshshshshshs
@@ -443,7 +471,12 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.motionY *= slowdown;
     this.motionZ *= slowdown;
     // gravity
-    this.motionY -= getGravity();
+    if(!this.hasNoGravity()) {
+      this.motionY -= getGravity();
+    }
+    for(IProjectileTrait trait : tinkerProjectile.getProjectileTraits()) {
+      trait.onMovement(this, worldObj, slowdown);
+    }
     this.setPosition(this.posX, this.posY, this.posZ);
 
     // tell blocks we collided with, that we collided with them!
@@ -497,14 +530,14 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   /**
    * Factor for the slowdown. 0 = no slowdown, >0 = (1-slowdown)*speed slowdown, <0 = speedup
    */
-  protected double getSlowdown() {
+  public double getSlowdown() {
     return 0.01;
   }
 
   /**
    * Added to the y-velocity as gravitational pull. Otherwise stuff would simply float midair.
    */
-  protected double getGravity() {
+  public double getGravity() {
     return 0.05;
   }
 
@@ -558,6 +591,8 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     data.writeDouble(this.motionZ);
 
     ByteBufUtils.writeItemStack(data, tinkerProjectile.getItemStack());
+    ByteBufUtils.writeItemStack(data, tinkerProjectile.getLaunchingStack());
+    data.writeFloat(tinkerProjectile.getPower());
   }
 
   @Override
@@ -570,6 +605,12 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.motionZ = data.readDouble();
 
     tinkerProjectile.setItemStack(ByteBufUtils.readItemStack(data));
+    tinkerProjectile.setLaunchingStack(ByteBufUtils.readItemStack(data));
+    tinkerProjectile.setPower(data.readFloat());
+
+    this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
+    this.posY -= 0.10000000149011612D;
+    this.posZ -= MathHelper.sin(this.rotationYaw / 180.0F * (float) Math.PI) * 0.16F;
   }
 }
 

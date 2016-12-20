@@ -5,7 +5,7 @@ import net.minecraft.inventory.IContainerListener;
 
 import slimeknights.mantle.inventory.ContainerMultiModule;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
-import slimeknights.tconstruct.tools.inventory.ContainerSideInventory;
+import slimeknights.tconstruct.tools.common.inventory.ContainerSideInventory;
 
 public class ContainerSmeltery extends ContainerMultiModule<TileSmeltery> {
 
@@ -16,7 +16,7 @@ public class ContainerSmeltery extends ContainerMultiModule<TileSmeltery> {
   public ContainerSmeltery(InventoryPlayer inventoryPlayer, TileSmeltery tile) {
     super(tile);
 
-    sideInventory = new ContainerSideInventory<TileSmeltery>(tile, 0, 0, calcColumns());
+    sideInventory = new ContainerSmelterySideInventory(tile, 0, 0, calcColumns());
     addSubContainer(sideInventory, true);
 
     addPlayerInventory(inventoryPlayer, 8, 84);

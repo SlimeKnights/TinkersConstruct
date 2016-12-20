@@ -33,4 +33,12 @@ public abstract class AbstractMaterialStats implements IMaterialStats {
                          Util.df.format(number))
            + TextFormatting.RESET;
   }
+
+  public static String formatNumberPercent(String loc, String color, float number) {
+    return String.format("%s: %s%s",
+                         Util.translate(loc),
+                         color,
+                         Util.dfPercent.format(number))
+           + TextFormatting.RESET;
+  }
 }

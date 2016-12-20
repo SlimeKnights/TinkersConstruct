@@ -12,13 +12,18 @@
         }
     },
     "variants": {
-        "gold":      [{ "textures": { "wood": "minecraft:blocks/gold_block" } }],
-        "jewel":     [{ "textures": { "wood": "tconstruct:blocks/block_silky_jewel" } }],
-        "alubrass":  [{ "textures": { "wood": "tconstruct:blocks/block_alubrass" } }],
-        "cobalt":    [{ "textures": { "wood": "tconstruct:blocks/block_cobalt" } }],
-        "ardite":    [{ "textures": { "wood": "tconstruct:blocks/block_ardite" } }],
-        "manyullyn": [{ "textures": { "wood": "tconstruct:blocks/block_manyullyn" } }],
-        "clear":     [{ "textures": { "wood": "minecraft:blocks/glass", "back": "#wood" } }],
-        "map":       [{ "model": "item_frame_map" }]
+        "map": {
+            "true":  { "model": "item_frame_map" },
+            "false": { "model": "tconstruct:fancy_frame" }
+        },
+        "type": {
+            "gold":      { "textures": { "wood": "minecraft:blocks/gold_block" } },
+            "jewel":     { "textures": { "wood": "tconstruct:blocks/block_silky_jewel" } },
+            "alubrass":  { "textures": { "wood": "tconstruct:blocks/block_alubrass" } },
+            "cobalt":    { "textures": { "wood": "tconstruct:blocks/block_cobalt" } },
+            "ardite":    { "textures": { "wood": "tconstruct:blocks/block_ardite" } },
+            "manyullyn": { "textures": { "wood": "tconstruct:blocks/block_manyullyn" } },
+            "clear":     { "textures": { "wood": "minecraft:blocks/glass", "back": "#wood" } }
+        }
     }
 }
