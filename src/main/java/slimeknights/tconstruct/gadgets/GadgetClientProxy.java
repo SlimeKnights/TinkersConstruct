@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -50,7 +51,8 @@ public class GadgetClientProxy extends ClientProxy {
         },
         TinkerGadgets.slimeChannel);
 
-    minecraft.getItemColors().registerItemColorHandler(
+    ItemColors colors = minecraft.getItemColors();
+    colors.registerItemColorHandler(
         new IItemColor() {
           @Override
           public int getColorFromItemstack(@Nonnull ItemStack stack, int tintIndex) {
@@ -58,6 +60,15 @@ public class GadgetClientProxy extends ClientProxy {
           }
         },
         TinkerGadgets.slimeChannel);
+    colors.registerItemColorHandler(
+        new IItemColor() {
+          @Override
+          public int getColorFromItemstack(@Nonnull ItemStack stack, int tintIndex) {
+            return TinkerGadgets.slimeBoots.getColor(stack);
+          }
+        },
+        TinkerGadgets.slimeBoots);
+
 
     super.init();
   }

@@ -60,19 +60,20 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
   }
 
   public enum SlimeType implements IStringSerializable, EnumBlock.IEnumMeta {
-    GREEN(0x01cd4e),
-    BLUE(0x01cbcd),
-    PURPLE(0xaf4cf6),
-    BLOOD(0xb50101),
-    MAGMA(0xff970d);
+    GREEN(0x01cd4e, 0x69bc5e),
+    BLUE(0x01cbcd, 0x74c5c8),
+    PURPLE(0xaf4cf6, 0xcc68ff),
+    BLOOD(0xb50101, 0xb80000),
+    MAGMA(0xff970d, 0xffab49);
 
-    private SlimeType(int color) {
+    private SlimeType(int color, int ballColor) {
       this.meta = this.ordinal();
       this.color = color;
+      this.ballColor = ballColor;
     }
 
     public final int meta;
-    private final int color;
+    private final int color, ballColor;
 
     public static SlimeType fromMeta(int meta) {
       if(meta < 0 || meta >= values().length) {
@@ -92,8 +93,19 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
       return this.toString().toLowerCase(Locale.US);
     }
 
+    /**
+     * Returns the block color for this slime type
+     */
     public int getColor() {
       return color;
+    }
+
+
+    /**
+     * Returns the slimeball color for this slime type, usually it is less saturated
+     */
+    public int getBallColor() {
+      return ballColor;
     }
   }
 }
