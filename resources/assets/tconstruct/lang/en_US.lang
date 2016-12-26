@@ -406,7 +406,11 @@ item.tconstruct.bolt_core.name=Bolt Core
 # item.tconstruct.pickaxe.wood=Wooden Pickaxe
 
 # Gadgets
-item.tconstruct.slime_boots.name=Slime Boots
+item.tconstruct.slime_boots.green.name=Slime Boots
+item.tconstruct.slime_boots.blue.name=Slime Boots
+item.tconstruct.slime_boots.purple.name=Slime Boots
+item.tconstruct.slime_boots.blood.name=Congealed Blood Boots
+item.tconstruct.slime_boots.magma.name=Slime Boots
 item.tconstruct.slime_boots.tooltip=Makes you bounce when landing
 item.tconstruct.slimesling.name=Slimesling
 item.tconstruct.slimesling.tooltip=Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!

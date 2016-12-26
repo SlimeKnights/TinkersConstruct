@@ -1,20 +1,29 @@
 package slimeknights.tconstruct.gadgets.item;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import slimeknights.mantle.item.ItemArmorTooltip;
+import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
 
 public class ItemSlimeBoots extends ItemArmorTooltip {
 
@@ -25,6 +34,7 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
     super(SLIME_MATERIAL, 0, EntityEquipmentSlot.FEET);
     this.setCreativeTab(TinkerRegistry.tabGadgets);
     this.setMaxStackSize(1);
+    this.hasSubtypes = true;
   }
 
   @Override
@@ -43,6 +53,62 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
     }
 
     return stack;
+  }
+
+  /**
+   * Return whether the specified armor ItemStack has a color.
+   */
+  @Override
+  public boolean hasColor(ItemStack stack) {
+    return true;
+  }
+
+  /**
+   * Return the color for the specified armor ItemStack.
+   */
+  @Override
+  public int getColor(ItemStack stack) {
+    SlimeType type = SlimeType.fromMeta(stack.getMetadata());
+    return type.getBallColor();
+  }
+
+  /**
+   * Determines if this armor will be rendered with the secondary 'overlay'
+   * texture. If this is true, the first texture will be rendered using a tint
+   * of the color specified by getColor(ItemStack)
+   *
+   * @param stack
+   *          The stack
+   * @return true/false
+   */
+  @Override
+  public boolean hasOverlay(ItemStack stack) {
+    // use an overlay so we get a tint
+    return true;
+  }
+
+  @Nonnull
+  @Override
+  public String getUnlocalizedName(ItemStack stack) {
+    int meta = stack.getMetadata(); // should call getMetadata below
+    if(meta < SlimeType.values().length) {
+      return super.getUnlocalizedName(stack) + "." + LocUtils.makeLocString(SlimeType.values()[meta].name());
+    }
+    else {
+      return super.getUnlocalizedName(stack);
+    }
+  }
+
+  /**
+   * returns a list of items with the same ID, but different meta (eg: dye
+   * returns 16 items)
+   */
+  @Override
+  @SideOnly(Side.CLIENT)
+  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+    for(SlimeType type : SlimeType.values()) {
+      subItems.add(new ItemStack(this, 1, type.getMeta()));
+    }
   }
 
   // RUBBERY BOUNCY BOUNCERY WOOOOO

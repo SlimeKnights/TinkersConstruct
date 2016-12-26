@@ -66,7 +66,6 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockFirewood;
 import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
 import slimeknights.tconstruct.shared.block.BlockTable;
-import slimeknights.tconstruct.shared.item.ItemMetaDynamicTinkers;
 import slimeknights.tconstruct.tools.common.TableRecipe;
 
 @Pulse(id = TinkerGadgets.PulseId, description = "All the fun toys")
@@ -220,10 +219,20 @@ public class TinkerGadgets extends TinkerPulse {
   }
 
   private void registerRecipes() {
-    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeBoots), "   ", "s s", "b b", 's', "slimeball", 'b', "blockSlimeCongealed"));
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeSling), "fbf", "s s", " s ", 'f', Items.STRING, 's', "slimeball", 'b', "blockSlimeCongealed"));
 
     GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(piggybackPack), " s ", "l l", " s ", 's', "stickWood", 'l', "leather"));
+
+
+    // slimeboots
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeBoots, 1, 0), "s s", "b b", 's', "slimeballGreen", 'b', new ItemStack(TinkerCommons.blockSlimeCongealed, 1, 0)));
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeBoots, 1, 1), "s s", "b b", 's', "slimeballBlue", 'b', new ItemStack(TinkerCommons.blockSlimeCongealed, 1, 1)));
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeBoots, 1, 2), "s s", "b b", 's', "slimeballPurple", 'b', new ItemStack(TinkerCommons.blockSlimeCongealed, 1, 2)));
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeBoots, 1, 3), "s s", "b b", 's', "slimeballBlood", 'b', new ItemStack(TinkerCommons.blockSlimeCongealed, 1, 3)));
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeBoots, 1, 4), "s s", "b b", 's', "slimeballMagma", 'b', new ItemStack(TinkerCommons.blockSlimeCongealed, 1, 4)));
+
+    // fallback for other slime types
+    GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(slimeBoots, 1, 0), "s s", "b b", 's', "slimeball", 'b', "blockSlimeCongealed"));
 
     // Stonesticks Recipes
     ItemStack rod = new ItemStack(stoneStick);
