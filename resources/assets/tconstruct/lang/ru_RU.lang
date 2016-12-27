@@ -406,7 +406,11 @@ item.tconstruct.bolt_core.name=стержень болта
 # item.tconstruct.pickaxe.wood=Wooden Pickaxe
 
 # Примочки
-item.tconstruct.slime_boots.name=Слизневые ботинки
+item.tconstruct.slime_boots.green.name=Синеслизневые ботинки
+item.tconstruct.slime_boots.blue.name=Зелёнослизневые ботинки
+item.tconstruct.slime_boots.purple.name=Фиолетослизневые ботинки
+item.tconstruct.slime_boots.blood.name=Кровавые ботинки
+item.tconstruct.slime_boots.magma.name=Огнеслизневые ботинки
 item.tconstruct.slime_boots.tooltip=Отскакиваете при падении
 item.tconstruct.slimesling.name=Слизнерогатка
 item.tconstruct.slimesling.tooltip=Взведите, нацельтесь под ноги, отпустите!\nОдевайте слизневые ботинки, если жизнь дорога!
