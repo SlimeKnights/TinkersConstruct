@@ -429,7 +429,7 @@ item.tconstruct.fancy_frame.clear.name=Clear Item Frame
 item.tconstruct.throwball.glow.name=Glowball
 item.tconstruct.throwball.glow.tooltip=Not suited for consumption.
 item.tconstruct.throwball.efln.name=EFLN
-item.tconstruct.throwball.efln.tooltip=Explodes! Save for mining
+item.tconstruct.throwball.efln.tooltip=Explodes! Safe for mining
 
 ###################
 # Mom's Spaghetti #
