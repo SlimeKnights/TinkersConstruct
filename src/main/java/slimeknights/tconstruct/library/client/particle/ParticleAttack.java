@@ -59,7 +59,7 @@ public abstract class ParticleAttack extends Particle {
   public void renderParticle(VertexBuffer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
     float progress = ((float) life + partialTicks) / (float) lifeTime;
     int i = (int) (progress * (float) animPhases);
-    int rows = MathHelper.ceiling_float_int((float) animPhases / (float) animPerRow);
+    int rows = MathHelper.ceil((float) animPhases / (float) animPerRow);
 
     if(i < animPhases) {
       this.textureManager.bindTexture(getTexture());

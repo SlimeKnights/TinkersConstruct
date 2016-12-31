@@ -56,7 +56,7 @@ public final class RenderUtil {
     renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
     mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
     //RenderUtil.setColorRGBA(color);
-    int brightness = mc.theWorld.getCombinedLight(pos, fluid.getFluid().getLuminosity());
+    int brightness = mc.world.getCombinedLight(pos, fluid.getFluid().getLuminosity());
 
     pre(x, y, z);
 
@@ -91,7 +91,7 @@ public final class RenderUtil {
     renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
     mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
     int color = fluid.getFluid().getColor(fluid);
-    int brightness = mc.theWorld.getCombinedLight(pos, fluid.getFluid().getLuminosity());
+    int brightness = mc.world.getCombinedLight(pos, fluid.getFluid().getLuminosity());
 
     pre(px, py, pz);
     GlStateManager.translate(from.getX(), from.getY(), from.getZ());

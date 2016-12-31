@@ -106,7 +106,7 @@ public class LumberAxe extends AoeToolCore {
 
   @Override
   public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
-    if(!ToolHelper.isBroken(itemstack) && ToolHelper.isToolEffective2(itemstack, player.worldObj.getBlockState(pos)) && detectTree(player.worldObj, pos)) {
+    if(!ToolHelper.isBroken(itemstack) && ToolHelper.isToolEffective2(itemstack, player.getEntityWorld().getBlockState(pos)) && detectTree(player.getEntityWorld(), pos)) {
       return fellTree(itemstack, pos, player);
     }
     return super.onBlockStartBreak(itemstack, pos, player);
@@ -203,7 +203,7 @@ public class LumberAxe extends AoeToolCore {
   }
 
   public static boolean fellTree(ItemStack itemstack, BlockPos start, EntityPlayer player) {
-    if(player.worldObj.isRemote) {
+    if(player.getEntityWorld().isRemote) {
       return true;
     }
     TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(itemstack, player, player.getEntityWorld().getBlockState(start), 3, 3, 3, -1);

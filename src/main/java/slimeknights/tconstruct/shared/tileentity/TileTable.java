@@ -78,7 +78,7 @@ public class TileTable extends TileInventory {
     PropertyTableItem.TableItems toDisplay = new PropertyTableItem.TableItems();
     if(getStackInSlot(displaySlot) != null) {
       ItemStack stack = getStackInSlot(displaySlot);
-      PropertyTableItem.TableItem item = getTableItem(stack, worldObj, null);
+      PropertyTableItem.TableItem item = getTableItem(stack, getWorld(), null);
       if(item != null) {
         toDisplay.items.add(item);
       }
@@ -173,8 +173,8 @@ public class TileTable extends TileInventory {
   @Override
   public void setInventorySlotContents(int slot, ItemStack itemstack) {
     // we sync slot changes to all clients around
-    if(this.worldObj != null && this.worldObj instanceof WorldServer && !this.worldObj.isRemote && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot))) {
-      TinkerNetwork.sendToClients((WorldServer) this.worldObj, this.pos, new InventorySlotSyncPacket(itemstack, slot, pos));
+    if(getWorld() != null && getWorld() instanceof WorldServer && !getWorld().isRemote && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot))) {
+      TinkerNetwork.sendToClients((WorldServer) getWorld(), this.pos, new InventorySlotSyncPacket(itemstack, slot, pos));
     }
     super.setInventorySlotContents(slot, itemstack);
 

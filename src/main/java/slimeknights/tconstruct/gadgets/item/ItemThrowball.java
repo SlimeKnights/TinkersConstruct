@@ -60,7 +60,7 @@ public class ItemThrowball extends ItemSnowball {
   public void launchThrowball(World world, EntityPlayer player, ThrowballType type, EnumHand hand) {
     EntityThrowball entity = new EntityThrowball(world, player, type);
     entity.setHeadingFromThrower(player, player.rotationPitch, player.rotationYaw, 0.0F, 2.1F, 0.5F);
-    world.spawnEntityInWorld(entity);
+    world.spawnEntity(entity);
   }
 
   @Nonnull

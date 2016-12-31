@@ -28,7 +28,7 @@ public final class CrosshairRenderEvents {
       return;
     }
 
-    EntityPlayer entityPlayer = mc.thePlayer;
+    EntityPlayer entityPlayer = mc.player;
     ItemStack itemStack = getItemstack(entityPlayer);
 
     if(itemStack == null) {
@@ -61,7 +61,7 @@ public final class CrosshairRenderEvents {
       GlStateManager.enableBlend();
       GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.ONE_MINUS_DST_COLOR, GlStateManager.DestFactor.ONE_MINUS_SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
       GlStateManager.enableAlpha();
-      float f = mc.thePlayer.getCooledAttackStrength(0.0F);
+      float f = mc.player.getCooledAttackStrength(0.0F);
 
       if(f < 1.0F) {
         int i = resH / 2 - 7 + 16;

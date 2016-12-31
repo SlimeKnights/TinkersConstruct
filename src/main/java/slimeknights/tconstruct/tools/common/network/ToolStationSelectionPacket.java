@@ -32,7 +32,7 @@ public class ToolStationSelectionPacket extends AbstractPacketThreadsafe {
 
   @Override
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
-    Container container = Minecraft.getMinecraft().thePlayer.openContainer;
+    Container container = Minecraft.getMinecraft().player.openContainer;
     if(container instanceof ContainerToolStation) {
       ((ContainerToolStation) container).setToolSelection(tool, activeSlots);
       if(Minecraft.getMinecraft().currentScreen instanceof GuiToolStation) {

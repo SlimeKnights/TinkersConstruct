@@ -56,14 +56,14 @@ public class MetalColoredTexture extends AbstractColoredTexture {
     //float l = (brightness/255f)*(brightness/255f);
     // brightness of the template affects saturation. the brighter the less saturation to simulate shiny metal
     if(l > 0.9f) {
-      hsl[1] = MathHelper.clamp_float(hsl[1] - (l * l * shinyness), 0, 1);
+      hsl[1] = MathHelper.clamp(hsl[1] - (l * l * shinyness), 0, 1);
     }
 
     // lightness too!
     //hsl[2] = MathHelper.clamp_float(hsl[2] - 0.3f + l*l*0.8f, 0, 1);
     //hsl[2] = MathHelper.clamp_float(hsl[2], 0, 1);
     if(l > 0.8f) {
-      hsl[2] = MathHelper.clamp_float(hsl[2] + l * l * brightness, 0, 1);
+      hsl[2] = MathHelper.clamp(hsl[2] + l * l * brightness, 0, 1);
     }
     //else if(l > 0.4f)
     //hsl[2] = MathHelper.clamp_float(hsl[2] + l * l * 0.1f, 0, 1);

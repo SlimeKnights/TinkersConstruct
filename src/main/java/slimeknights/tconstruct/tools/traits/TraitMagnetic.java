@@ -59,7 +59,7 @@ public class TraitMagnetic extends AbstractTraitLeveled {
       double range = 1.8d;
       range += entity.getActivePotionEffect(this).getAmplifier() * 0.3f;
 
-      List<EntityItem> items = entity.worldObj.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
+      List<EntityItem> items = entity.getEntityWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
       int pulled = 0;
       for(EntityItem item : items) {
         if(item.getEntityItem() == null || item.getEntityItem().getItem() == null || item.isDead) {

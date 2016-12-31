@@ -94,8 +94,8 @@ public class GuiSmelterySideInventory extends GuiSideInventory {
         }
 
         int height = 1 + Math.round(progress * (bar.h - 1));
-        int x = slot.xDisplayPosition - 10 + this.xSize;
-        int y = slot.yDisplayPosition + bar.h - height;
+        int x = slot.xPos - 10 + this.xSize;
+        int y = slot.yPos + bar.h - height;
 
         if(tooltip != null &&
            x + guiLeft <= mouseX && x + guiLeft + bar.w > mouseX &&

@@ -51,19 +51,19 @@ public class ExplosionEFLN extends Explosion {
           if(d <= r) {
             BlockPos blockpos = new BlockPos(j, k, l).add(explosionX, explosionY, explosionZ);
             // no air blocks
-            if(worldObj.isAirBlock(blockpos)) {
+            if(world.isAirBlock(blockpos)) {
               continue;
             }
 
             // explosion "strength" at the current position
             float f = this.explosionSize * (1f - d / (r));
-            IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
+            IBlockState iblockstate = this.world.getBlockState(blockpos);
 
-            float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.worldObj, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance(worldObj, blockpos, (Entity) null, this);
+            float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.world, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance(world, blockpos, (Entity) null, this);
             f -= (f2 + 0.3F) * 0.3F;
 
 
-            if(f > 0.0F && (this.exploder == null || this.exploder.verifyExplosion(this, this.worldObj, blockpos, iblockstate, f))) {
+            if(f > 0.0F && (this.exploder == null || this.exploder.verifyExplosion(this, this.world, blockpos, iblockstate, f))) {
               builder.add(blockpos);
             }
           }
@@ -76,20 +76,20 @@ public class ExplosionEFLN extends Explosion {
 
   @Override
   public void doExplosionB(boolean spawnParticles) {
-    this.worldObj.playSound(null, this.explosionX, this.explosionY, this.explosionZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
+    this.world.playSound(null, this.explosionX, this.explosionY, this.explosionZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.2F) * 0.7F);
 
-    this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
+    this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
 
     for(BlockPos blockpos : this.affectedBlockPositions) {
-      IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
+      IBlockState iblockstate = this.world.getBlockState(blockpos);
       Block block = iblockstate.getBlock();
 
       /*
       if (spawnParticles)
       {
-        double d0 = (double)((float)blockpos.getX() + this.worldObj.rand.nextFloat());
-        double d1 = (double)((float)blockpos.getY() + this.worldObj.rand.nextFloat());
-        double d2 = (double)((float)blockpos.getZ() + this.worldObj.rand.nextFloat());
+        double d0 = (double)((float)blockpos.getX() + this.world.rand.nextFloat());
+        double d1 = (double)((float)blockpos.getY() + this.world.rand.nextFloat());
+        double d2 = (double)((float)blockpos.getZ() + this.world.rand.nextFloat());
         double d3 = d0 - this.explosionX;
         double d4 = d1 - this.explosionY;
         double d5 = d2 - this.explosionZ;
@@ -98,20 +98,20 @@ public class ExplosionEFLN extends Explosion {
         d4 = d4 / d6;
         d5 = d5 / d6;
         double d7 = 0.5D / (d6 / (double)this.explosionSize + 0.1D);
-        d7 = d7 * (double)(this.worldObj.rand.nextFloat() * this.worldObj.rand.nextFloat() + 0.3F);
+        d7 = d7 * (double)(this.world.rand.nextFloat() * this.world.rand.nextFloat() + 0.3F);
         d3 = d3 * d7;
         d4 = d4 * d7;
         d5 = d5 * d7;
-        this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (d0 + this.explosionX) / 2.0D, (d1 + this.explosionY) / 2.0D, (d2 + this.explosionZ) / 2.0D, d3, d4, d5, new int[0]);
-        this.worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5, new int[0]);
+        this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (d0 + this.explosionX) / 2.0D, (d1 + this.explosionY) / 2.0D, (d2 + this.explosionZ) / 2.0D, d3, d4, d5, new int[0]);
+        this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5, new int[0]);
       }*/
 
       if(iblockstate.getMaterial() != Material.AIR) {
         if(block.canDropFromExplosion(this)) {
-          block.dropBlockAsItemWithChance(this.worldObj, blockpos, this.worldObj.getBlockState(blockpos), 1.0F, 0);
+          block.dropBlockAsItemWithChance(this.world, blockpos, this.world.getBlockState(blockpos), 1.0F, 0);
         }
 
-        block.onBlockExploded(this.worldObj, blockpos, this);
+        block.onBlockExploded(this.world, blockpos, this);
       }
     }
   }

@@ -144,13 +144,12 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
    * IBlockState
    */
-  @Nonnull
   @Override
-  public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
     // we temporarily store the data in the blockstate until the TE is created
     return this.getDefaultState().withProperty(TYPE, SlimeType.fromMeta(meta))
-                                 .withProperty(SIDE, side.getOpposite())
-                                 .withProperty(DIRECTION, getPlacement(side.getOpposite(), hitX, hitY, hitZ, placer));  
+                                 .withProperty(SIDE, facing.getOpposite())
+                                 .withProperty(DIRECTION, getPlacement(facing.getOpposite(), hitX, hitY, hitZ, placer));
   }
 
   private ChannelDirection getPlacement(EnumFacing side, float hitX, float hitY, float hitZ, EntityLivingBase placer) {
@@ -225,7 +224,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
       }
       // exact center defaults to facing
       else {
-        int facing = MathHelper.floor_double(placer.rotationYaw * 8.0F / 360.0F + 0.5D) & 7;
+        int facing = MathHelper.floor(placer.rotationYaw * 8.0F / 360.0F + 0.5D) & 7;
         direction = ChannelDirection.fromIndex(facing);
         // if on a wall, we rotate it a bit to make sure facing directly towards the wall is up
         if(side.getAxis() != EnumFacing.Axis.Y) {

@@ -159,7 +159,7 @@ public class ToolGrowth extends TraitProgressiveStats {
   // Filling the pool with damage
   @Override
   public void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
-    if(player instanceof FakePlayer || player.worldObj.isRemote) {
+    if(player instanceof FakePlayer || player.getEntityWorld().isRemote) {
       return;
     }
     // 10% chance on hit to gain stats

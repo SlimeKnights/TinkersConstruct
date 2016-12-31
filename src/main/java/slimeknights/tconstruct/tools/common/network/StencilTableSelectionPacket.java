@@ -30,7 +30,7 @@ public class StencilTableSelectionPacket extends AbstractPacketThreadsafe {
 
   @Override
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
-    Container container = Minecraft.getMinecraft().thePlayer.openContainer;
+    Container container = Minecraft.getMinecraft().player.openContainer;
     if(container instanceof ContainerStencilTable) {
       ((ContainerStencilTable) container).setOutput(output);
       if(Minecraft.getMinecraft().currentScreen instanceof GuiStencilTable) {

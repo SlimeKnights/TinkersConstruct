@@ -36,7 +36,7 @@ public class EntityFancyItemFrame extends EntityItemFrame implements IEntityAddi
 
   @Override
   public void dropItemOrSelf(Entity entity, boolean dropFrame) {
-    if(this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
+    if(this.getEntityWorld().getGameRules().getBoolean("doEntityDrops")) {
       ItemStack itemstack = this.getDisplayedItem();
 
       if(entity instanceof EntityPlayer) {

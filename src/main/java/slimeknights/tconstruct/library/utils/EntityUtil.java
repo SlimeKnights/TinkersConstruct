@@ -30,7 +30,7 @@ public final class EntityUtil {
     Vec3d hit = null;
     AxisAlignedBB bb = entity.getEntityBoundingBox().addCoord(look.xCoord * range, look.yCoord * range, look.zCoord * range).expand(1, 1, 1);
     @SuppressWarnings("unchecked")
-    List<Entity> entitiesInArea = entity.worldObj.getEntitiesWithinAABBExcludingEntity(entity, bb);
+    List<Entity> entitiesInArea = entity.getEntityWorld().getEntitiesWithinAABBExcludingEntity(entity, bb);
     double range2 = range; // range to the current candidate. Used to find the closest entity.
 
     for(Entity candidate : entitiesInArea) {

@@ -188,8 +188,8 @@ public class GuiToolStation extends GuiTinkerStation {
       Point point = currentInfo.positions.get(i);
 
       Slot slot = inventorySlots.getSlot(i);
-      slot.xDisplayPosition = point.getX();
-      slot.yDisplayPosition = point.getY();
+      slot.xPos = point.getX();
+      slot.yPos = point.getY();
     }
 
     // remaining slots
@@ -198,14 +198,14 @@ public class GuiToolStation extends GuiTinkerStation {
       Slot slot = inventorySlots.getSlot(i);
 
       if(slot.getHasStack()) {
-        slot.xDisplayPosition = 87 + 20 * stillFilled;
-        slot.yDisplayPosition = 62;
+        slot.xPos = 87 + 20 * stillFilled;
+        slot.yPos = 62;
         stillFilled++;
       }
       else {
         // todo: slot.disable
-        slot.xDisplayPosition = 0;
-        slot.yDisplayPosition = 0;
+        slot.xPos = 0;
+        slot.yPos = 0;
       }
     }
 
@@ -332,7 +332,7 @@ public class GuiToolStation extends GuiTinkerStation {
     }
     else {
       if(keyCode == 1) {
-        this.mc.thePlayer.closeScreen();
+        this.mc.player.closeScreen();
       }
 
       textField.textboxKeyTyped(typedChar, keyCode);
@@ -414,7 +414,7 @@ public class GuiToolStation extends GuiTinkerStation {
     GlStateManager.color(1.0f, 1.0f, 1.0f, 0.28f);
     for(int i = 0; i < activeSlots; i++) {
       Slot slot = inventorySlots.getSlot(i);
-      SlotBackground.draw(x + this.cornerX + slot.xDisplayPosition - 1, y + this.cornerY + slot.yDisplayPosition - 1);
+      SlotBackground.draw(x + this.cornerX + slot.xPos - 1, y + this.cornerY + slot.yPos - 1);
     }
 
     // full opaque. Draw the borders of the slots
@@ -423,7 +423,7 @@ public class GuiToolStation extends GuiTinkerStation {
       Slot slot = inventorySlots.getSlot(i);
       if(slot instanceof SlotToolStationIn && (!((SlotToolStationIn) slot).isDormant() || slot.getHasStack())) {
         SlotBorder.draw(
-            x + this.cornerX + slot.xDisplayPosition - 1, y + this.cornerY + slot.yDisplayPosition - 1);
+            x + this.cornerX + slot.xPos - 1, y + this.cornerY + slot.yPos - 1);
       }
     }
 
@@ -446,8 +446,8 @@ public class GuiToolStation extends GuiTinkerStation {
         }
 
         itemRender.renderItemIntoGUI(stack,
-                                     x + this.cornerX + slot.xDisplayPosition,
-                                     y + this.cornerY + slot.yDisplayPosition);
+                                     x + this.cornerX + slot.xPos,
+                                     y + this.cornerY + slot.yPos);
       }
     }
 

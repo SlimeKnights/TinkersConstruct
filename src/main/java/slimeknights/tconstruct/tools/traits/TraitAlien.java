@@ -68,7 +68,7 @@ public class TraitAlien extends TraitProgressiveStats {
 
   @Override
   public void onUpdate(ItemStack tool, World world, Entity entity, int itemSlot, boolean isSelected) {
-    if(entity instanceof FakePlayer || entity.worldObj.isRemote) {
+    if(entity instanceof FakePlayer || entity.getEntityWorld().isRemote) {
       return;
     }
     // every 3.6 seconds we distribute one stat. This means 1h = 1000 applications

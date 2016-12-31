@@ -23,7 +23,7 @@ public class TraitTasty extends AbstractTrait {
   @Override
   public void onUpdate(ItemStack tool, World world, Entity entity, int itemSlot, boolean isSelected) {
     // needs to be in hand to be eaten!
-    if(!isSelected || !(entity instanceof EntityPlayer) || entity.worldObj.isRemote) {
+    if(!isSelected || !(entity instanceof EntityPlayer) || entity.getEntityWorld().isRemote) {
       return;
     }
 
@@ -57,7 +57,7 @@ public class TraitTasty extends AbstractTrait {
     }
 
     player.getFoodStats().addStats(1, 0);
-    player.worldObj.playSound(null, player.getPosition(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.PLAYERS, 0.8f, 1.0f);
+    player.getEntityWorld().playSound(null, player.getPosition(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.PLAYERS, 0.8f, 1.0f);
     ToolHelper.damageTool(tool, NOM_COST, player);
   }
 }

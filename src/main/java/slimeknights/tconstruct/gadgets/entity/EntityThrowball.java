@@ -46,13 +46,13 @@ public class EntityThrowball extends EntityThrowable implements IEntityAdditiona
       }
     }
 
-    if(!this.worldObj.isRemote) {
+    if(!this.getEntityWorld().isRemote) {
       this.setDead();
     }
   }
 
   private void placeGlow(RayTraceResult result) {
-    if(!worldObj.isRemote) {
+    if(!getEntityWorld().isRemote) {
       BlockPos pos = result.getBlockPos();
       if(pos == null && result.entityHit != null) {
         pos = result.entityHit.getPosition();
@@ -65,14 +65,14 @@ public class EntityThrowball extends EntityThrowable implements IEntityAdditiona
       }
 
       // add the glow using the special function in BlockGlow so it faces the right way after placing
-      TinkerCommons.blockGlow.addGlow(worldObj, pos, facing);
+      TinkerCommons.blockGlow.addGlow(getEntityWorld(), pos, facing);
     }
   }
 
   protected void explode(float strength) {
-    if(!worldObj.isRemote) {
+    if(!getEntityWorld().isRemote) {
       //TinkerGadgets.proxy.customExplosion(worldObj, new ExplosionEFLN(worldObj, this, posX, posY, posZ, strength, false, false));
-      Exploder.startExplosion(worldObj, new ExplosionEFLN(worldObj, this, posX, posY, posZ, strength, false, false), this, new BlockPos(posX, posY, posZ), strength, strength);
+      Exploder.startExplosion(getEntityWorld(), new ExplosionEFLN(getEntityWorld(), this, posX, posY, posZ, strength, false, false), this, new BlockPos(posX, posY, posZ), strength, strength);
     }
   }
 

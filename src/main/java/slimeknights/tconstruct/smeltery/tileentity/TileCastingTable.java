@@ -22,7 +22,7 @@ public class TileCastingTable extends TileCasting {
 
     for(int i = 0; i < this.getSizeInventory(); i++) {
       if(isStackInSlot(i)) {
-        PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i), this.worldObj, null);
+        PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i), this.getWorld(), null);
         item.s = 0.875f;// * 0.875f;
         item.y -= 1 / 16f * item.s;
 

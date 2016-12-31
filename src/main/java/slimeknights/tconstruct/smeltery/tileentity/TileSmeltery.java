@@ -74,7 +74,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
 
   @Override
   public void update() {
-    if(this.worldObj.isRemote) {
+    if(isClientWorld()) {
       return;
     }
 
@@ -113,12 +113,12 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
           // outside or unset?
           updateInsideCheck();
 
-          if(!worldObj.isAirBlock(insideCheck)) {
+          if(!getWorld().isAirBlock(insideCheck)) {
             // we broke. inside blocked. :(
             setInvalid();
             insideCheck = null;
-            IBlockState state = worldObj.getBlockState(this.pos);
-            worldObj.notifyBlockUpdate(getPos(), state, state, 3);
+            IBlockState state = getWorld().getBlockState(this.pos);
+            getWorld().notifyBlockUpdate(getPos(), state, state, 3);
           }
           else {
             // advance to next block
@@ -209,7 +209,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
 
     AxisAlignedBB bb = info.getBoundingBox().contract(1).offset(0, 0.5, 0).expand(0, 0.5, 0);
 
-    List<Entity> entities = worldObj.getEntitiesWithinAABB(Entity.class, bb);
+    List<Entity> entities = getWorld().getEntitiesWithinAABB(Entity.class, bb);
     for(Entity entity : entities) {
       // item?
       if(entity instanceof EntityItem) {
@@ -336,8 +336,8 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
   @Override
   public void setInventorySlotContents(int slot, ItemStack itemstack) {
     // send to client if needed
-    if(this.worldObj != null && this.worldObj instanceof WorldServer && !this.worldObj.isRemote && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot))) {
-      TinkerNetwork.sendToClients((WorldServer) this.worldObj, this.pos, new SmelteryInventoryUpdatePacket(itemstack, slot, pos));
+    if(this.getWorld() != null && this.getWorld() instanceof WorldServer && !this.getWorld().isRemote && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot))) {
+      TinkerNetwork.sendToClients((WorldServer) this.getWorld(), this.pos, new SmelteryInventoryUpdatePacket(itemstack, slot, pos));
     }
     super.setInventorySlotContents(slot, itemstack);
   }
@@ -352,7 +352,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
   public void onTankChanged(List<FluidStack> fluids, FluidStack changed) {
     // notify clients of liquid changes.
     // the null check is to prevent potential crashes during loading
-    if(worldObj != null && !worldObj.isRemote) {
+    if(isClientWorld()) {
       TinkerNetwork.sendToAll(new SmelteryFluidUpdatePacket(pos, fluids));
     }
   }

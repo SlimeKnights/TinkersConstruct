@@ -74,7 +74,7 @@ public class GuiTinkerTabs extends GuiModule {
     // highlighted tooltip
     if(tabs.highlighted > -1) {
       BlockPos pos = tabData.get(tabs.highlighted);
-      IBlockState state = Minecraft.getMinecraft().thePlayer.worldObj.getBlockState(pos);
+      IBlockState state = Minecraft.getMinecraft().player.getEntityWorld().getBlockState(pos);
       ItemStack stack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
       String name = stack.getDisplayName();
 

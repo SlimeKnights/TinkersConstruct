@@ -186,8 +186,8 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
   @Override
   public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
     if(!ToolHelper.isBroken(itemstack) && this instanceof IAoeTool && ((IAoeTool) this).isAoeHarvestTool()) {
-      for(BlockPos extraPos : ((IAoeTool) this).getAOEBlocks(itemstack, player.worldObj, player, pos)) {
-        ToolHelper.breakExtraBlock(itemstack, player.worldObj, player, extraPos, pos);
+      for(BlockPos extraPos : ((IAoeTool) this).getAOEBlocks(itemstack, player.getEntityWorld(), player, pos)) {
+        ToolHelper.breakExtraBlock(itemstack, player.getEntityWorld(), player, extraPos, pos);
       }
     }
 
@@ -200,7 +200,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
       switchItemsInHands(player);
       // remember, off is in the mainhand now
       NBTTagCompound tag = TagUtil.getTagSafe(off);
-      tag.setLong(TAG_SWITCHED_HAND_HAX, player.worldObj.getTotalWorldTime());
+      tag.setLong(TAG_SWITCHED_HAND_HAX, player.getEntityWorld().getTotalWorldTime());
       off.setTagCompound(tag);
     }
 
@@ -239,8 +239,8 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
     Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
     if(slot == EntityEquipmentSlot.MAINHAND && !ToolHelper.isBroken(stack)) {
-      multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double) ToolHelper.getActualAttack(stack), 0));
-      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getAttributeUnlocalizedName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double) ToolHelper.getActualAttackSpeed(stack) - 4d, 0));
+      multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double) ToolHelper.getActualAttack(stack), 0));
+      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double) ToolHelper.getActualAttackSpeed(stack) - 4d, 0));
     }
 
     return multimap;
@@ -492,7 +492,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
     // move item back into offhand. See onBlockBreakStart
     if(stack != null && entityLiving != null && stack.hasTagCompound()) {
       NBTTagCompound tag = stack.getTagCompound();
-      if(tag.getLong(TAG_SWITCHED_HAND_HAX) == entityLiving.worldObj.getTotalWorldTime()) {
+      if(tag.getLong(TAG_SWITCHED_HAND_HAX) == entityLiving.getEntityWorld().getTotalWorldTime()) {
         tag.removeTag(TAG_SWITCHED_HAND_HAX);
         stack.setTagCompound(tag);
 

@@ -15,15 +15,13 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class TestTool extends CommandBase {
 
-  @Nonnull
   @Override
-  public String getCommandName() {
+  public String getName() {
     return "testTool";
   }
 
-  @Nonnull
   @Override
-  public String getCommandUsage(@Nonnull ICommandSender sender) {
+  public String getUsage(ICommandSender sender) {
     return "/testTool";
   }
 
@@ -43,7 +41,7 @@ public class TestTool extends CommandBase {
         i++;
       }
 
-      sender.addChatMessage(new TextComponentString("Effective Durability: " + i));
+      sender.sendMessage(new TextComponentString("Effective Durability: " + i));
     }
   }
 }

@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -113,8 +114,10 @@ public class BlockSlimeLeaves extends BlockLeaves {
   }
 
   // item dropped on silktouching
+
+  @Nullable
   @Override
-  protected ItemStack createStackedBlock(@Nonnull IBlockState state) {
+  protected ItemStack getSilkTouchDrop(IBlockState state) {
     return new ItemStack(Item.getItemFromBlock(this), 1, (state.getValue(BlockSlimeGrass.FOLIAGE)).ordinal() & 3);
   }
 
@@ -163,7 +166,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
   @Override
   public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
     IBlockState state = world.getBlockState(pos);
-    return Lists.newArrayList(createStackedBlock(state));
+    return Lists.newArrayList(getSilkTouchDrop(state));
   }
 
   @Override

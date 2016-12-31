@@ -31,7 +31,7 @@ public class SmelteryFluidUpdatePacket extends AbstractPacketThreadsafe {
 
   @Override
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
-    TileEntity te = Minecraft.getMinecraft().theWorld.getTileEntity(pos);
+    TileEntity te = Minecraft.getMinecraft().world.getTileEntity(pos);
     if(te instanceof ISmelteryTankHandler) {
       ISmelteryTankHandler handler = (ISmelteryTankHandler) te;
       handler.updateFluidsFromPacket(liquids);

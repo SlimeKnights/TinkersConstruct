@@ -234,19 +234,19 @@ public class GuiSideInventory extends GuiModule {
         int x = (offset % columns) * this.slot.w;
         int y = (offset / columns) * this.slot.h;
 
-        slot.xDisplayPosition = xd + x + 1;
-        slot.yDisplayPosition = yd + y + 1;
+        slot.xPos = xd + x + 1;
+        slot.yPos = yd + y + 1;
 
         if(this.right) {
-          slot.xDisplayPosition += parent.realWidth;
+          slot.xPos += parent.realWidth;
         }
         else {
-          slot.xDisplayPosition -= this.xSize;
+          slot.xPos -= this.xSize;
         }
       }
       else {
-        slot.xDisplayPosition = 0;
-        slot.yDisplayPosition = 0;
+        slot.xPos = 0;
+        slot.yPos = 0;
       }
     }
   }

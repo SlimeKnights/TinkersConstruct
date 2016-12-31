@@ -5,6 +5,7 @@ import net.minecraft.block.BlockVine;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -41,14 +42,13 @@ public class BlockSlimeVine extends BlockVine {
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
    * IBlockstate
    */
-  @Nonnull
   @Override
-  public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
     IBlockState iblockstate = this.getDefaultState();
-    iblockstate = iblockstate.withProperty(NORTH, canAttachTo(worldIn, pos.north()));
-    iblockstate = iblockstate.withProperty(EAST, canAttachTo(worldIn, pos.east()));
-    iblockstate = iblockstate.withProperty(SOUTH, canAttachTo(worldIn, pos.south()));
-    iblockstate = iblockstate.withProperty(WEST, canAttachTo(worldIn, pos.west()));
+    iblockstate = iblockstate.withProperty(NORTH, canAttachTo(world, pos.north()));
+    iblockstate = iblockstate.withProperty(EAST, canAttachTo(world, pos.east()));
+    iblockstate = iblockstate.withProperty(SOUTH, canAttachTo(world, pos.south()));
+    iblockstate = iblockstate.withProperty(WEST, canAttachTo(world, pos.west()));
     return iblockstate;
   }
 

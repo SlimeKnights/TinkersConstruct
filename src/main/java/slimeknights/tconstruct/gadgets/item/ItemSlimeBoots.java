@@ -126,7 +126,7 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
     // thing is wearing slime boots. let's get bouncyyyyy
     if(!entity.isSneaking() && event.getDistance() > 2) {
       event.setDamageMultiplier(0);
-      if(entity.worldObj.isRemote) {
+      if(entity.getEntityWorld().isRemote) {
         entity.motionY *= -0.9;
         //entity.motionY = event.distance / 15;
         //entity.motionX = entity.posX - entity.lastTickPosX;
@@ -147,7 +147,7 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
       entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1f, 1f);
       SlimeBounceHandler.addBounceHandler(entity, entity.motionY);
     }
-    else if(!entity.worldObj.isRemote && entity.isSneaking()) {
+    else if(!entity.getEntityWorld().isRemote && entity.isSneaking()) {
       event.setDamageMultiplier(0.1f);
     }
   }

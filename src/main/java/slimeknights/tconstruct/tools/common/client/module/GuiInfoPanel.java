@@ -257,7 +257,7 @@ public class GuiInfoPanel extends GuiModule {
     if(hasTooltips()
        && mouseX >= guiRight() - border.w - fontRenderer.getCharWidth('?') / 2 && mouseX < guiRight()
        && mouseY > guiTop + 5 && mouseY < guiTop + 5 + fontRenderer.FONT_HEIGHT) {
-      int w = MathHelper.clamp_int(this.width - mouseX - 12, 10, 200);
+      int w = MathHelper.clamp(this.width - mouseX - 12, 10, 200);
       drawHoveringText(fontRenderer.listFormattedStringToWidth(Util.translate("gui.general.hover"), w), mouseX - guiLeft, mouseY - guiTop);
     }
 
@@ -304,7 +304,7 @@ public class GuiInfoPanel extends GuiModule {
       return;
     }
 
-    int w = MathHelper.clamp_int(this.width - mouseX - 12, 0, 200);
+    int w = MathHelper.clamp(this.width - mouseX - 12, 0, 200);
     if(w < 100) {
       mouseX -= 100 - w;
       w = 100;

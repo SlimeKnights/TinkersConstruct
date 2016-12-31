@@ -90,7 +90,7 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
   }
 
   public boolean pickupEntity(EntityPlayer player, Entity target) {
-    if(player.worldObj.isRemote) {
+    if(player.getEntityWorld().isRemote) {
       return false;
     }
     // silly players, clicking on entities they're already carrying or riding
@@ -190,7 +190,7 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
       }
       else if(chestArmor.getItem() == TinkerGadgets.piggybackPack) {
         TinkerGadgets.piggybackPack.matchCarriedEntitiesToCount(entityLivingBaseIn, chestArmor.stackSize);
-        if(!entityLivingBaseIn.worldObj.isRemote) {
+        if(!entityLivingBaseIn.getEntityWorld().isRemote) {
           if(entityLivingBaseIn.hasCapability(CapabilityTinkerPiggyback.PIGGYBACK, null)) {
             ITinkerPiggyback piggyback = entityLivingBaseIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null);
             piggyback.updatePassengers();

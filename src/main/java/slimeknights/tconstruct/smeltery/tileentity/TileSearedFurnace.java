@@ -36,7 +36,7 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
 
   @Override
   public void update() {
-    if(worldObj.isRemote) {
+    if(isClientWorld()) {
       return;
     }
 

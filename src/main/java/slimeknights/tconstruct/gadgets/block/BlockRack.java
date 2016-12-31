@@ -125,9 +125,8 @@ public class BlockRack extends BlockTable {
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
    * IBlockstate
    */
-  @Nonnull
   @Override
-  public IBlockState onBlockPlaced(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
     IBlockState state = this.getDefaultState();
 
     // playing a drying rack instead of an item rack

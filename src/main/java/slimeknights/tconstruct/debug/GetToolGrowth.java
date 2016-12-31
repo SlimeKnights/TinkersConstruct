@@ -21,15 +21,13 @@ public class GetToolGrowth extends CommandBase {
     return 0;
   }
 
-  @Nonnull
   @Override
-  public String getCommandName() {
+  public String getName() {
     return "getToolGrowth";
   }
 
-  @Nonnull
   @Override
-  public String getCommandUsage(@Nonnull ICommandSender sender) {
+  public String getUsage(ICommandSender sender) {
     return "Hold tool while calling /getToolGrowth";
   }
 
@@ -44,17 +42,17 @@ public class GetToolGrowth extends CommandBase {
 
       if(bonus != null) {
         String b = String.format("Applied bonus:\n  Durability: %d\n  Speed: %f\n  Attack: %f", bonus.durability, bonus.speed, bonus.attack);
-        sender.addChatMessage(new TextComponentString(b));
+        sender.sendMessage(new TextComponentString(b));
       }
       else {
-        sender.addChatMessage(new TextComponentString("No bonus"));
+        sender.sendMessage(new TextComponentString("No bonus"));
       }
       if(pool != null) {
         String p = String.format("Applied bonus:\n  Durability: %d\n  Speed: %f\n  Attack: %f", pool.durability, pool.speed, pool.attack);
-        sender.addChatMessage(new TextComponentString(p));
+        sender.sendMessage(new TextComponentString(p));
       }
       else {
-        sender.addChatMessage(new TextComponentString("No bonus"));
+        sender.sendMessage(new TextComponentString("No bonus"));
       }
 
 

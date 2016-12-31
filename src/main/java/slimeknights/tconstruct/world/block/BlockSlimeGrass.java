@@ -169,7 +169,7 @@ public class BlockSlimeGrass extends BlockGrass {
   @Nonnull
   @Override
   public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
-    return this.createStackedBlock(world.getBlockState(pos));
+    return this.getSilkTouchDrop(world.getBlockState(pos));
   }
 
   /** Returns the blockstate for the dirt underneath the grass */

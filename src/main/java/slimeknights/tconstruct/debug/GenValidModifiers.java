@@ -19,12 +19,12 @@ import slimeknights.tconstruct.tools.modifiers.ModFortify;
 public class GenValidModifiers extends CommandBase {
 
   @Override
-  public String getCommandName() {
+  public String getName() {
     return "genValidModifiers";
   }
 
   @Override
-  public String getCommandUsage(ICommandSender sender) {
+  public String getUsage(ICommandSender sender) {
     return "Hold tool while calling /genValidModifiers to generate all modified variants";
   }
 
@@ -34,7 +34,7 @@ public class GenValidModifiers extends CommandBase {
       EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
       ItemStack item = player.inventory.getCurrentItem();
 
-      sender.addChatMessage(new TextComponentString(item.getDisplayName() + " accepts the following modifiers:"));
+      sender.sendMessage(new TextComponentString(item.getDisplayName() + " accepts the following modifiers:"));
       for(IModifier mod : TinkerRegistry.getAllModifiers()) {
         if(!mod.hasItemsToApplyWith()) {
           continue;

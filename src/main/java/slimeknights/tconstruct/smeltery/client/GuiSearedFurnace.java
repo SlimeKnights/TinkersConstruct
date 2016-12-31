@@ -38,7 +38,7 @@ public class GuiSearedFurnace extends GuiHeatingStructureFuelTank {
     // furnace size changed
     if(furnace.getSizeInventory() != sideinventory.inventorySlots.inventorySlots.size()) {
       // close screen
-      this.mc.thePlayer.closeScreen();
+      this.mc.player.closeScreen();
     }
   }
 

@@ -55,7 +55,7 @@ public class Shuriken extends ProjectileCore {
     if(!worldIn.isRemote) {
       boolean usedAmmo = useAmmo(itemStackIn, playerIn);
       EntityProjectileBase projectile = getProjectile(itemStackIn, itemStackIn, worldIn, playerIn, 2.1f, 0f, 1f, usedAmmo);
-      worldIn.spawnEntityInWorld(projectile);
+      worldIn.spawnEntity(projectile);
     }
 
     return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);

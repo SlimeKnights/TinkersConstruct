@@ -59,8 +59,8 @@ public class RenderEvents implements IResourceManagerReloadListener {
   @SubscribeEvent
   public void renderExtraBlockBreak(RenderWorldLastEvent event) {
     PlayerControllerMP controllerMP = Minecraft.getMinecraft().playerController;
-    EntityPlayer player = Minecraft.getMinecraft().thePlayer;
-    World world = player.worldObj;
+    EntityPlayer player = Minecraft.getMinecraft().player;
+    World world = player.getEntityWorld();
 
     ItemStack tool = player.getHeldItemMainhand();
 
@@ -162,7 +162,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
 
   @SubscribeEvent
   public void handRenderEvent(RenderSpecificHandEvent event) {
-    EntityPlayer player = Minecraft.getMinecraft().thePlayer;
+    EntityPlayer player = Minecraft.getMinecraft().player;
 
     if(event.getHand() == EnumHand.OFF_HAND && player.isHandActive()) {
       ItemStack stack = player.getActiveItemStack();
@@ -193,7 +193,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
 
       ItemRenderer itemRenderer = Minecraft.getMinecraft().getItemRenderer();
       itemRenderer.renderItemInFirstPerson(
-          Minecraft.getMinecraft().thePlayer,
+          Minecraft.getMinecraft().player,
           event.getPartialTicks(),
           event.getInterpolatedPitch(),
           hand,

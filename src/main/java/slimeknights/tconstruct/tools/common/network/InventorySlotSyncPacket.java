@@ -30,7 +30,7 @@ public class InventorySlotSyncPacket extends AbstractPacketThreadsafe {
   @Override
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
     // only ever sent to players in the same dimension as the position
-    TileEntity tileEntity = Minecraft.getMinecraft().thePlayer.worldObj.getTileEntity(pos);
+    TileEntity tileEntity = Minecraft.getMinecraft().player.getEntityWorld().getTileEntity(pos);
     if(tileEntity == null || !(tileEntity instanceof TileInventory)) {
       return;
     }

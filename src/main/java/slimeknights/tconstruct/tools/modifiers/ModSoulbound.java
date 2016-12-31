@@ -37,7 +37,7 @@ public class ModSoulbound extends ToolModifier {
     if(event.getEntityPlayer() == null || event.getEntityPlayer() instanceof FakePlayer || event.isCanceled()) {
       return;
     }
-    if(event.getEntityPlayer().worldObj.getGameRules().getBoolean("keepInventory")) {
+    if(event.getEntityPlayer().getEntityWorld().getGameRules().getBoolean("keepInventory")) {
       return;
     }
 
@@ -63,7 +63,7 @@ public class ModSoulbound extends ToolModifier {
     if(evt.getOriginal() == null || evt.getEntityPlayer() == null || evt.getEntityPlayer() instanceof FakePlayer) {
       return;
     }
-    if(evt.getEntityPlayer().worldObj.getGameRules().getBoolean("keepInventory")) {
+    if(evt.getEntityPlayer().getEntityWorld().getGameRules().getBoolean("keepInventory")) {
       return;
     }
 

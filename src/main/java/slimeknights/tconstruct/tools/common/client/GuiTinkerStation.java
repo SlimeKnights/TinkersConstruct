@@ -66,7 +66,7 @@ public class GuiTinkerStation extends GuiMultiModule {
 
   protected void drawIcon(Slot slot, GuiElement element) {
     this.mc.getTextureManager().bindTexture(Icons.ICON);
-    element.draw(slot.xDisplayPosition + this.cornerX - 1, slot.yDisplayPosition + this.cornerY - 1);
+    element.draw(slot.xPos + this.cornerX - 1, slot.yPos + this.cornerY - 1);
   }
 
   protected void drawIconEmpty(Slot slot, GuiElement element) {

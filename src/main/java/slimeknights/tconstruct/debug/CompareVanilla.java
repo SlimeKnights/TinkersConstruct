@@ -47,15 +47,14 @@ public class CompareVanilla extends CommandBase {
     return 0;
   }
 
-  @Nonnull
   @Override
-  public String getCommandName() {
+  public String getName() {
     return "compareVanilla";
   }
 
-  @Nonnull
+
   @Override
-  public String getCommandUsage(@Nonnull ICommandSender sender) {
+  public String getUsage(ICommandSender sender) {
     return "";
   }
 
@@ -230,9 +229,9 @@ public class CompareVanilla extends CommandBase {
   }
 
   protected String testToolAttack(ItemStack tinker, ItemStack vanilla) {
-    float attack1 = ToolHelper.getActualDamage(tinker, Minecraft.getMinecraft().thePlayer);
+    float attack1 = ToolHelper.getActualDamage(tinker, Minecraft.getMinecraft().player);
     float attack2 = 1f;
-    for(AttributeModifier mod : vanilla.getItem().getAttributeModifiers(EntityEquipmentSlot.MAINHAND, vanilla).get(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName())) {
+    for(AttributeModifier mod : vanilla.getItem().getAttributeModifiers(EntityEquipmentSlot.MAINHAND, vanilla).get(SharedMonsterAttributes.ATTACK_DAMAGE.getName())) {
       attack2 += mod.getAmount();
     }
 

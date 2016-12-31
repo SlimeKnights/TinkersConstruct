@@ -14,6 +14,7 @@ import net.minecraft.util.text.translation.I18n;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
@@ -27,19 +28,19 @@ public class LocalizationCheckCommand extends CommandBase {
 
   @Nonnull
   @Override
-  public String getCommandName() {
+  public String getName() {
     return "checkLocalizationStrings";
   }
 
   @Nonnull
   @Override
-  public String getCommandUsage(@Nonnull ICommandSender sender) {
-    return "/" + getCommandName() + " [Material-Identifier]";
+  public String getUsage(@Nonnull ICommandSender sender) {
+    return "/" + getName() + " [Material-Identifier]";
   }
 
   @Nonnull
   @Override
-  public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
+  public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
     if(args.length != 1) {
       return null;
     }
@@ -59,7 +60,7 @@ public class LocalizationCheckCommand extends CommandBase {
   public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args)
       throws CommandException {
     if(args.length > 1) {
-      throw new WrongUsageException(getCommandUsage(sender));
+      throw new WrongUsageException(getUsage(sender));
     }
 
     if(args.length > 0) {
@@ -83,7 +84,7 @@ public class LocalizationCheckCommand extends CommandBase {
 
   private void checkStr(String str, ICommandSender sender) {
     if(!I18n.canTranslate(str)) {
-      sender.addChatMessage(new TextComponentString("Missing localization for name: " + str));
+      sender.sendMessage(new TextComponentString("Missing localization for name: " + str));
     }
   }
 }

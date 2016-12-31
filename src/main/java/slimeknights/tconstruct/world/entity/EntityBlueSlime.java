@@ -41,20 +41,20 @@ public class EntityBlueSlime extends EntitySlime {
   @Nonnull
   @Override
   protected EntitySlime createInstance() {
-    return new EntityBlueSlime(this.worldObj);
+    return new EntityBlueSlime(this.getEntityWorld());
   }
 
   @Override
   public boolean getCanSpawnHere() {
-    if(this.worldObj.getBlockState(this.getPosition()).getBlock() instanceof BlockLiquidSlime) {
+    if(this.getEntityWorld().getBlockState(this.getPosition()).getBlock() instanceof BlockLiquidSlime) {
       return true;
     }
-    return this.worldObj.getBlockState(this.getPosition().down()).getBlock() == TinkerWorld.slimeGrass;
+    return this.getEntityWorld().getBlockState(this.getPosition().down()).getBlock() == TinkerWorld.slimeGrass;
   }
 
   @Override
   protected boolean spawnCustomParticles() {
-    if(this.worldObj.isRemote) {
+    if(this.getEntityWorld().isRemote) {
       int i = this.getSlimeSize();
       for(int j = 0; j < i * 8; ++j) {
         float f = this.rand.nextFloat() * (float) Math.PI * 2.0F;
@@ -64,7 +64,7 @@ public class EntityBlueSlime extends EntitySlime {
         double d0 = this.posX + (double) f2;
         double d1 = this.posZ + (double) f3;
         double d2 = this.getEntityBoundingBox().minY;
-        TinkerWorld.proxy.spawnSlimeParticle(this.worldObj, d0, d2, d1);
+        TinkerWorld.proxy.spawnSlimeParticle(this.getEntityWorld(), d0, d2, d1);
       }
     }
     return true;

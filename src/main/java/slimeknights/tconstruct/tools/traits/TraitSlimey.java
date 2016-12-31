@@ -43,8 +43,8 @@ public class TraitSlimey extends AbstractTrait {
 
   @Override
   public void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
-    if(!target.isEntityAlive() && !target.worldObj.isRemote && random.nextFloat() < chance) {
-      spawnSlime(player, target.posX, target.posY, target.posZ, target.worldObj);
+    if(!target.isEntityAlive() && !target.getEntityWorld().isRemote && random.nextFloat() < chance) {
+      spawnSlime(player, target.posX, target.posY, target.posZ, target.getEntityWorld());
     }
   }
 
@@ -53,7 +53,7 @@ public class TraitSlimey extends AbstractTrait {
       EntitySlime entity = slime.getConstructor(World.class).newInstance(world);
       entity.setSlimeSize(1);
       entity.setPosition(x, y, z);
-      world.spawnEntityInWorld(entity);
+      world.spawnEntity(entity);
       entity.setLastAttacker(player);
       entity.playLivingSound();
     } catch(InstantiationException e) {

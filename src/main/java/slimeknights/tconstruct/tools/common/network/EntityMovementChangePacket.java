@@ -31,7 +31,7 @@ public class EntityMovementChangePacket extends AbstractPacketThreadsafe {
 
   @Override
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
-    Entity entity = Minecraft.getMinecraft().theWorld.getEntityByID(entityID);
+    Entity entity = Minecraft.getMinecraft().world.getEntityByID(entityID);
     if(entity != null) {
       entity.motionX = x;
       entity.motionY = y;

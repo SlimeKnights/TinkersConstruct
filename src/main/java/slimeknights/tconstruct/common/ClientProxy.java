@@ -209,7 +209,7 @@ public abstract class ClientProxy extends CommonProxy {
   @Override
   public void spawnParticle(Particles particleType, World world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, int... data) {
     if(world == null) {
-      world = mc.theWorld;
+      world = mc.world;
     }
     Particle effect = createParticle(particleType, world, x, y, z, xSpeed, ySpeed, zSpeed, data);
     mc.effectRenderer.addEffect(effect);

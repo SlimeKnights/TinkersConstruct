@@ -130,12 +130,12 @@ public class GuiDynInventory extends GuiModule {
         int x = (offset % columns) * GuiDynInventory.slot.w;
         int y = (offset / columns) * GuiDynInventory.slot.h;
 
-        slot.xDisplayPosition = xOffset + x + 1;
-        slot.yDisplayPosition = yOffset + y + 1;
+        slot.xPos = xOffset + x + 1;
+        slot.yPos = yOffset + y + 1;
       }
       else {
-        slot.xDisplayPosition = 0;
-        slot.yDisplayPosition = 0;
+        slot.xPos = 0;
+        slot.yPos = 0;
       }
     }
   }

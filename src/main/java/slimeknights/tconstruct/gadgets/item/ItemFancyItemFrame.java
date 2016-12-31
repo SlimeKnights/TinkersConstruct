@@ -77,7 +77,7 @@ public class ItemFancyItemFrame extends ItemHangingEntity {
 
         if(entityhanging.onValidSurface()) {
           if(!worldIn.isRemote) {
-            worldIn.spawnEntityInWorld(entityhanging);
+            worldIn.spawnEntity(entityhanging);
           }
 
           --stack.stackSize;

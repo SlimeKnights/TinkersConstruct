@@ -10,15 +10,13 @@ import javax.annotation.Nonnull;
 
 public class ReloadResources extends CommandBase {
 
-  @Nonnull
   @Override
-  public String getCommandName() {
+  public String getName() {
     return "reloadResources";
   }
 
-  @Nonnull
   @Override
-  public String getCommandUsage(@Nonnull ICommandSender sender) {
+  public String getUsage(ICommandSender sender) {
     return "/reloadResources";
   }
 

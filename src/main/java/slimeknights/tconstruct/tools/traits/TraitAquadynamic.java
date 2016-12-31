@@ -23,8 +23,8 @@ public class TraitAquadynamic extends AbstractTrait {
       coeff += 5.5f; // being in water causes speed to be 1/5th. These values work fine.
     }
     // is it raining?
-    if(event.getEntityPlayer().worldObj.isRaining()) {
-      coeff += event.getEntityPlayer().worldObj.getBiomeForCoordsBody(event.getEntityPlayer().getPosition()).getRainfall() / 1.6f;
+    if(event.getEntityPlayer().getEntityWorld().isRaining()) {
+      coeff += event.getEntityPlayer().getEntityWorld().getBiomeForCoordsBody(event.getEntityPlayer().getPosition()).getRainfall() / 1.6f;
     }
 
     event.setNewSpeed(event.getNewSpeed() + event.getOriginalSpeed() * coeff);

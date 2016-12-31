@@ -25,10 +25,10 @@ public class BlockEvents {
 
     // check if we jumped from a slime block
     BlockPos pos = new BlockPos(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
-    if(event.getEntity().worldObj.isAirBlock(pos)) {
+    if(event.getEntity().getEntityWorld().isAirBlock(pos)) {
       pos = pos.down();
     }
-    IBlockState state = event.getEntity().worldObj.getBlockState(pos);
+    IBlockState state = event.getEntity().getEntityWorld().getBlockState(pos);
     Block block = state.getBlock();
 
     if(block == TinkerCommons.blockSlimeCongealed) {

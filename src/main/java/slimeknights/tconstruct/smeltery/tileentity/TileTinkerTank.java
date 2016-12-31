@@ -49,7 +49,7 @@ public class TileTinkerTank extends TileMultiblock<MultiblockTinkerTank> impleme
 
   @Override
   public void update() {
-    if(this.worldObj.isRemote) {
+    if(this.getWorld().isRemote) {
       return;
     }
 
@@ -129,7 +129,7 @@ public class TileTinkerTank extends TileMultiblock<MultiblockTinkerTank> impleme
   public void onTankChanged(List<FluidStack> fluids, FluidStack changed) {
     // notify clients of liquid changes.
     // the null check is to prevent potential crashes during loading
-    if(worldObj != null && !worldObj.isRemote) {
+    if(getWorld() != null && !getWorld().isRemote) {
       TinkerNetwork.sendToAll(new SmelteryFluidUpdatePacket(pos, fluids));
     }
   }

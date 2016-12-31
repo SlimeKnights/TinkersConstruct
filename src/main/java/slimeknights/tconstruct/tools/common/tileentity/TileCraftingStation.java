@@ -45,7 +45,7 @@ public class TileCraftingStation extends TileTable implements IInventoryGui {
     float o = 3f / 16f; // we want to move it 3 pixel in a 16 width texture
     for(int i = 0; i < 9; i++) {
       ItemStack itemStack = getStackInSlot(i);
-      PropertyTableItem.TableItem item = getTableItem(itemStack, this.worldObj, null);
+      PropertyTableItem.TableItem item = getTableItem(itemStack, this.getWorld(), null);
       if(item != null) {
         item.x = +o - (i % 3) * o;
         item.z = +o - (i / 3) * o;

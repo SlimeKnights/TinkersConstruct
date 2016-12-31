@@ -85,20 +85,20 @@ public class Scythe extends AoeToolCore {
   protected void breakBlock(ItemStack stack, EntityPlayer player, BlockPos pos, BlockPos refPos) {
     // silktouch gives us shears :D
     if(EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0) {
-      if(ToolHelper.shearBlock(stack, player.worldObj, player, pos)) {
+      if(ToolHelper.shearBlock(stack, player.getEntityWorld(), player, pos)) {
         return;
       }
     }
 
     // can't be sheared or no silktouch. break it
-    ToolHelper.breakExtraBlock(stack, player.worldObj, player, pos, refPos);
+    ToolHelper.breakExtraBlock(stack, player.getEntityWorld(), player, pos, refPos);
   }
 
 
   @Override
   public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
     if(!ToolHelper.isBroken(stack) && this.isAoeHarvestTool()) {
-      for(BlockPos extraPos : this.getAOEBlocks(stack, player.worldObj, player, pos)) {
+      for(BlockPos extraPos : this.getAOEBlocks(stack, player.getEntityWorld(), player, pos)) {
         breakBlock(stack, player, extraPos, pos);
       }
     }
@@ -120,13 +120,13 @@ public class Scythe extends AoeToolCore {
     }
 
     // increase the size based on the AOE stuffs
-    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(stack, player, player.worldObj.getBlockState(target.getPosition()), 3, 3, 3, -1);
+    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(stack, player, player.getEntityWorld().getBlockState(target.getPosition()), 3, 3, 3, -1);
     if(event.isCanceled()) {
       return false;
     }
 
     // AOE attack!
-    player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
+    player.getEntityWorld().playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
     player.spawnSweepParticles();
 
     int distance = event.distance;
@@ -151,7 +151,7 @@ public class Scythe extends AoeToolCore {
     int height = (event.width - 1) / 2;
     AxisAlignedBB box = new AxisAlignedBB(target.posX, target.posY, target.posZ, target.posX + 1.0D, target.posY + 1.0D, target.posZ + 1.0D).expand(width, height, width);
 
-    return player.worldObj.getEntitiesWithinAABBExcludingEntity(player, box);
+    return player.getEntityWorld().getEntitiesWithinAABBExcludingEntity(player, box);
   }
 
   @Nonnull
@@ -171,7 +171,7 @@ public class Scythe extends AoeToolCore {
     BlockPos origin = trace.getBlockPos();
 
     boolean harvestedSomething = false;
-    for(BlockPos pos : this.getAOEBlocks(stack, player.worldObj, player, origin)) {
+    for(BlockPos pos : this.getAOEBlocks(stack, player.getEntityWorld(), player, origin)) {
       harvestedSomething |= harvestCrop(stack, world, player, pos, fortune);
     }
 
@@ -180,7 +180,7 @@ public class Scythe extends AoeToolCore {
 
     if(harvestedSomething) {
       player.swingArm(hand);
-      player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
+      player.getEntityWorld().playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
       player.spawnSweepParticles();
       return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
     }
@@ -208,7 +208,7 @@ public class Scythe extends AoeToolCore {
     }
 
     // increase the size based on the AOE stuffs
-    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(stack, player, player.worldObj.getBlockState(target.getPosition()), 3, 3, 3, -1);
+    TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(stack, player, player.getEntityWorld().getBlockState(target.getPosition()), 3, 3, 3, -1);
     if(event.isCanceled()) {
       return false;
     }
@@ -219,12 +219,12 @@ public class Scythe extends AoeToolCore {
     int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
     for(Entity entity : getAoeEntities(player, target, event)) {
       if(distance < 0 || entity.getDistanceToEntity(target) <= distance) {
-        shorn |= shearEntity(stack, player.worldObj, player, entity, fortune);
+        shorn |= shearEntity(stack, player.getEntityWorld(), player, entity, fortune);
       }
     }
 
     if(shorn) {
-      player.worldObj.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
+      player.getEntityWorld().playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
       player.spawnSweepParticles();
     }
 

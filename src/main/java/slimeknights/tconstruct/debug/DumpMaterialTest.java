@@ -45,15 +45,14 @@ public class DumpMaterialTest extends CommandBase {
     return 0;
   }
 
-  @Nonnull
+
   @Override
-  public String getCommandName() {
+  public String getName() {
     return "dumpMaterialTest";
   }
 
-  @Nonnull
   @Override
-  public String getCommandUsage(@Nonnull ICommandSender sender) {
+  public String getUsage(ICommandSender sender) {
     return "";
   }
 

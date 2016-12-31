@@ -25,7 +25,7 @@ public class TraitShocking extends AbstractTrait {
 
   @Override
   public void onHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, boolean isCritical) {
-    if(player.worldObj.isRemote) {
+    if(player.getEntityWorld().isRemote) {
       return;
     }
 

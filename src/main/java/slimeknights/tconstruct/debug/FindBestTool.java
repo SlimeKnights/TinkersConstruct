@@ -39,15 +39,13 @@ public class FindBestTool extends CommandBase {
     return 0;
   }
 
-  @Nonnull
   @Override
-  public String getCommandName() {
+  public String getName() {
     return "findBestTool";
   }
 
-  @Nonnull
   @Override
-  public String getCommandUsage(@Nonnull ICommandSender sender) {
+  public String getUsage(ICommandSender sender) {
     return "/findBestTool [number of tools to display] <filter type>";
   }
 
@@ -174,7 +172,7 @@ public class FindBestTool extends CommandBase {
       best = Collections2.filter(results, filter[filtertype]);
     } while(best.size() > num);
 
-    sender.addChatMessage(new TextComponentString(String.format("%d are in the top %d percentile of stats (%d; %f; %f)", best.size(), (int) (percentile * 100f), durPercentile, speedPercentile, attackPercentile)));
+    sender.sendMessage(new TextComponentString(String.format("%d are in the top %d percentile of stats (%d; %f; %f)", best.size(), (int) (percentile * 100f), durPercentile, speedPercentile, attackPercentile)));
 
     Collection<Triple<ItemStack, ImmutableList<Material>, Object[]>> sortedDurability = new Ordering<Triple<ItemStack, ImmutableList<Material>, Object[]>>() {
 
@@ -216,11 +214,11 @@ public class FindBestTool extends CommandBase {
       text.append(" Dmg: ");
       text.append((Float) foo.getRight()[2] * tool.damagePotential());
 
-      sender.addChatMessage(foo.getLeft().getTextComponent().appendSibling(new TextComponentString(text.toString())));
+      sender.sendMessage(foo.getLeft().getTextComponent().appendSibling(new TextComponentString(text.toString())));
       //System.out.println(text.toString());
     }
 
-    sender.addChatMessage(new TextComponentString("Top 5 Durability:"));
+    sender.sendMessage(new TextComponentString("Top 5 Durability:"));
     Iterator<Triple<ItemStack, ImmutableList<Material>, Object[]>> iter = sortedDurability.iterator();
     for(int i = 0; i < 5 && iter.hasNext(); i++) {
       Triple<ItemStack, ImmutableList<Material>, Object[]> foo = iter.next();
@@ -232,10 +230,10 @@ public class FindBestTool extends CommandBase {
         text.append(mat.getIdentifier());
         text.append(" ");
       }
-      sender.addChatMessage(foo.getLeft().getTextComponent().appendSibling(new TextComponentString(text.toString())));
+      sender.sendMessage(foo.getLeft().getTextComponent().appendSibling(new TextComponentString(text.toString())));
     }
 
-    sender.addChatMessage(new TextComponentString("Top 5 Speed:"));
+    sender.sendMessage(new TextComponentString("Top 5 Speed:"));
     iter = sortedSpeed.iterator();
     for(int i = 0; i < 5 && iter.hasNext(); i++) {
       Triple<ItemStack, ImmutableList<Material>, Object[]> foo = iter.next();
@@ -247,10 +245,10 @@ public class FindBestTool extends CommandBase {
         text.append(mat.getIdentifier());
         text.append(" ");
       }
-      sender.addChatMessage(foo.getLeft().getTextComponent().appendSibling(new TextComponentString(text.toString())));
+      sender.sendMessage(foo.getLeft().getTextComponent().appendSibling(new TextComponentString(text.toString())));
     }
 
-    sender.addChatMessage(new TextComponentString("Top 5 Attack:"));
+    sender.sendMessage(new TextComponentString("Top 5 Attack:"));
     iter = sortedAttack.iterator();
     for(int i = 0; i < 5 && iter.hasNext(); i++) {
       Triple<ItemStack, ImmutableList<Material>, Object[]> foo = iter.next();
@@ -262,7 +260,7 @@ public class FindBestTool extends CommandBase {
         text.append(mat.getIdentifier());
         text.append(" ");
       }
-      sender.addChatMessage(foo.getLeft().getTextComponent().appendSibling(new TextComponentString(text.toString())));
+      sender.sendMessage(foo.getLeft().getTextComponent().appendSibling(new TextComponentString(text.toString())));
     }
   }
 

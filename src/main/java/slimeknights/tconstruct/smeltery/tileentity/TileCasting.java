@@ -100,7 +100,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
 
       // send a block update for the comparator, needs to be done after the stack is removed
       if(slot == 1) {
-        this.worldObj.notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+        this.getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType());
       }
     }
   }
@@ -133,7 +133,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     // fully filled
     if(tank.getFluidAmount() == tank.getCapacity()) {
       timer++;
-      if(!worldObj.isRemote) {
+      if(!getWorld().isRemote) {
         if(timer >= recipe.getTime()) {
           TinkerCastingEvent.OnCasted event = TinkerCastingEvent.OnCasted.fire(recipe, this);
           // done, finish!
@@ -141,7 +141,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
             // todo: play breaking sound and animation
             setInventorySlotContents(0, null);
 
-            for(EntityPlayer player : worldObj.playerEntities) {
+            for(EntityPlayer player : getWorld().playerEntities) {
               if(player.getDistanceSq(pos) < 1024 && player instanceof EntityPlayerMP) {
                 TinkerNetwork.sendPacket(player, new SPacketParticles(EnumParticleTypes.FLAME, false,
                                                                       pos.getX() + 0.5f,
@@ -161,17 +161,17 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
           else {
             setInventorySlotContents(1, event.output);
           }
-          worldObj.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.AMBIENT, 0.07f, 4f);
+          getWorld().playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.AMBIENT, 0.07f, 4f);
 
           // comparator update
-          worldObj.notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+          getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType());
 
           // reset state
           reset();
         }
       }
-      else if(worldObj.rand.nextFloat() > 0.9f) {
-        worldObj.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, pos.getX() + worldObj.rand.nextDouble(), pos.getY() + 1.1, pos.getZ() + worldObj.rand.nextDouble(), 0.0D, 0.0D, 0.0D);
+      else if(getWorld().rand.nextFloat() > 0.9f) {
+        getWorld().spawnParticle(EnumParticleTypes.SMOKE_NORMAL, pos.getX() + getWorld().rand.nextDouble(), pos.getY() + 1.1, pos.getZ() + getWorld().rand.nextDouble(), 0.0D, 0.0D, 0.0D);
       }
     }
   }
@@ -229,8 +229,8 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     tank.setFluid(null);
     tank.renderOffset = 0;
 
-    if(worldObj != null && !worldObj.isRemote && worldObj instanceof WorldServer) {
-      TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FluidUpdatePacket(pos, null));
+    if(getWorld() != null && !getWorld().isRemote && getWorld() instanceof WorldServer) {
+      TinkerNetwork.sendToClients((WorldServer) getWorld(), pos, new FluidUpdatePacket(pos, null));
     }
   }
 

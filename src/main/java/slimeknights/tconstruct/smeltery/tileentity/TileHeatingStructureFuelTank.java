@@ -61,7 +61,7 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
     // got a tank?
     if(currentTank != null) {
       // consume fuel!
-      TileEntity te = worldObj.getTileEntity(currentTank);
+      TileEntity te = getWorld().getTileEntity(currentTank);
       if(te instanceof TileTank) {
         IFluidTank tank = ((TileTank) te).getInternalTank();
 
@@ -80,7 +80,7 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
             addFuel(bonusFuel, drained.getFluid().getTemperature(drained) - 300); // convert to degree celcius
 
             // notify client of fuel/temperature changes
-            if(worldObj != null && !worldObj.isRemote) {
+            if(isClientWorld()) {
               TinkerNetwork.sendToAll(new HeatingStructureFuelUpdatePacket(pos, currentTank, temperature, currentFuel));
             }
 
@@ -146,7 +146,7 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
     // find all tanks for input
     tanks.clear();
     for(BlockPos pos : structure.blocks) {
-      if(worldObj.getBlockState(pos).getBlock() == TinkerSmeltery.searedTank) {
+      if(getWorld().getBlockState(pos).getBlock() == TinkerSmeltery.searedTank) {
         tanks.add(pos);
       }
     }
@@ -170,18 +170,18 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
   protected abstract int getUpdatedInventorySize(int width, int height, int depth);
 
   protected void dropItem(ItemStack stack) {
-    EnumFacing direction = worldObj.getBlockState(pos).getValue(BlockSearedFurnaceController.FACING);
+    EnumFacing direction = getWorld().getBlockState(pos).getValue(BlockSearedFurnaceController.FACING);
     BlockPos pos = this.getPos().offset(direction);
 
-    EntityItem entityitem = new EntityItem(worldObj, pos.getX(), pos.getY(), pos.getZ(), stack);
-    worldObj.spawnEntityInWorld(entityitem);
+    EntityItem entityitem = new EntityItem(getWorld(), pos.getX(), pos.getY(), pos.getZ(), stack);
+    getWorld().spawnEntity(entityitem);
   }
 
   /**
    * Grabs the tank at the given location (if present)
    */
   private IFluidTank getTankAt(BlockPos pos) {
-    TileEntity te = worldObj.getTileEntity(pos);
+    TileEntity te = getWorld().getTileEntity(pos);
     if(te instanceof TileTank) {
       return ((TileTank) te).getInternalTank();
     }

@@ -162,13 +162,14 @@ public class BlockFaucet extends BlockContainer {
     return new TileFaucet();
   }
 
+
+
   /**
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the
    * IBlockstate
    */
-  @Nonnull
   @Override
-  public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
     EnumFacing enumfacing = facing.getOpposite();
 
     if(enumfacing == EnumFacing.DOWN) {

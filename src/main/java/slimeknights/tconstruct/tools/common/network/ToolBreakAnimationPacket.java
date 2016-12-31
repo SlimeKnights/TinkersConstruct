@@ -23,7 +23,7 @@ public class ToolBreakAnimationPacket extends AbstractPacketThreadsafe {
   @Override
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
     // play the animation
-    Minecraft.getMinecraft().thePlayer.renderBrokenItemStack(breakingTool);
+    Minecraft.getMinecraft().player.renderBrokenItemStack(breakingTool);
   }
 
   @Override

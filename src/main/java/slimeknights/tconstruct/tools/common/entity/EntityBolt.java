@@ -28,7 +28,7 @@ public class EntityBolt extends EntityProjectileBase {
   @Override
   protected void onEntityHit(Entity entityHit) {
     super.onEntityHit(entityHit);
-    if(!this.worldObj.isRemote && entityHit instanceof EntityLivingBase) {
+    if(!this.getEntityWorld().isRemote && entityHit instanceof EntityLivingBase) {
       EntityLivingBase entityLivingBaseHit = (EntityLivingBase) entityHit;
       entityLivingBaseHit.setArrowCountInEntity(entityLivingBaseHit.getArrowCountInEntity() + 1);
     }

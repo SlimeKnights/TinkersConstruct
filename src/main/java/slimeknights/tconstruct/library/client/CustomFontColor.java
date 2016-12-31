@@ -42,7 +42,7 @@ public class CustomFontColor {
     // 1.0 -> 1/3 = green
     // 1.5 -> 1/2 = aqua
     v /= 3f;
-    v = MathHelper.clamp_float(v, 0.01f, 0.5f);
+    v = MathHelper.clamp(v, 0.01f, 0.5f);
     int color = Color.HSBtoRGB(v, 0.65f, 0.8f);
     return encodeColor(color);
   }

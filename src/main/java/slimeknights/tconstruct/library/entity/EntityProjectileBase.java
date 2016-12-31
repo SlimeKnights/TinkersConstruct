@@ -156,7 +156,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   }
 
   protected float getSpeed() {
-    return MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+    return MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
   }
 
   public void onHitBlock(RayTraceResult raytraceResult) {
@@ -164,7 +164,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.xTile = blockpos.getX();
     this.yTile = blockpos.getY();
     this.zTile = blockpos.getZ();
-    IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
+    IBlockState iblockstate = this.getEntityWorld().getBlockState(blockpos);
     this.inTile = iblockstate.getBlock();
     this.inData = this.inTile.getMetaFromState(iblockstate);
     this.motionX = (double) ((float) (raytraceResult.hitVec.xCoord - this.posX));
@@ -184,7 +184,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.setIsCritical(false);
 
     if(iblockstate.getMaterial() != Material.AIR) {
-      this.inTile.onEntityCollidedWithBlock(this.worldObj, blockpos, iblockstate, this);
+      this.inTile.onEntityCollidedWithBlock(this.getEntityWorld(), blockpos, iblockstate, this);
     }
 
     defuse(); // defuse it so it doesn't hit stuff anymore, being weird
@@ -217,7 +217,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
       Multimap<String, AttributeModifier> projectileAttributes = null;
       // remove stats from held items
-      if(!worldObj.isRemote) {
+      if(!getEntityWorld().isRemote) {
         unequip(attacker, EntityEquipmentSlot.OFFHAND);
         unequip(attacker, EntityEquipmentSlot.MAINHAND);
 
@@ -230,14 +230,14 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
           }
 
           // factor in power
-          projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(),
+          projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
                                    new AttributeModifier(PROJECTILE_POWER_MODIFIER, "Weapon damage multiplier", tinkerProjectile.getPower() - 1f, 2));
 
           attacker.getAttributeMap().applyAttributeModifiers(projectileAttributes);
         }
       }
       // deal the damage
-      float speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+      float speed = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
       bounceOff = !dealDamage(speed, inventoryItem, attacker, entityHit);
       if(brokenStateDiffers) {
         toggleBroken(inventoryItem);
@@ -245,7 +245,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
       // remove stats from projectile
       // apply stats from projectile
-      if(!worldObj.isRemote) {
+      if(!getEntityWorld().isRemote) {
         if(item.getItem() instanceof IProjectile) {
           attacker.getAttributeMap().removeAttributeModifiers(projectileAttributes);
         }
@@ -329,7 +329,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     onEntityUpdate();
 
     for(IProjectileTrait trait : tinkerProjectile.getProjectileTraits()) {
-      trait.onProjectileUpdate(this, worldObj, tinkerProjectile.getItemStack());
+      trait.onProjectileUpdate(this, getEntityWorld(), tinkerProjectile.getItemStack());
     }
 
     // boioioiooioing
@@ -339,17 +339,17 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
     // If we don't have our rotation set correctly, infer it from our motion direction
     if(this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F) {
-      float f = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+      float f = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
       this.prevRotationYaw = this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
       this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(this.motionY, (double) f) * 180.0D / Math.PI);
     }
 
     // we previously hit something. Check if the block is still there.
     BlockPos blockpos = new BlockPos(this.xTile, this.yTile, this.zTile);
-    IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
+    IBlockState iblockstate = this.getEntityWorld().getBlockState(blockpos);
 
     if(iblockstate.getMaterial() != Material.AIR) {
-      AxisAlignedBB axisalignedbb = iblockstate.getCollisionBoundingBox(this.worldObj, blockpos);
+      AxisAlignedBB axisalignedbb = iblockstate.getCollisionBoundingBox(this.getEntityWorld(), blockpos);
 
       if(axisalignedbb != Block.NULL_AABB && axisalignedbb.offset(blockpos).isVecInside(new Vec3d(this.posX, this.posY, this.posZ))) {
         this.inGround = true;
@@ -398,7 +398,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     // do a raytrace from old to new position
     Vec3d oldPos = new Vec3d(this.posX, this.posY, this.posZ);
     Vec3d newPos = new Vec3d(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-    RayTraceResult raytraceResult = this.worldObj.rayTraceBlocks(oldPos, newPos, false, true, false);
+    RayTraceResult raytraceResult = this.getEntityWorld().rayTraceBlocks(oldPos, newPos, false, true, false);
 
     // raytrace messes with the positions. get new ones! (not anymore since vec3d is all final now?)
     //oldPos = Vec3d.createVectorHelper(this.posX, this.posY, this.posZ);
@@ -454,7 +454,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     if(this.isInWater()) {
       for(int l = 0; l < 4; ++l) {
         float f3 = 0.25F;
-        this.worldObj.spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * (double) f3, this.posY - this.motionY * (double) f3, this.posZ - this.motionZ * (double) f3, this.motionX, this.motionY, this.motionZ);
+        this.getEntityWorld().spawnParticle(EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * (double) f3, this.posY - this.motionY * (double) f3, this.posZ - this.motionZ * (double) f3, this.motionX, this.motionY, this.motionZ);
       }
 
       // more slowdown in water
@@ -475,7 +475,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       this.motionY -= getGravity();
     }
     for(IProjectileTrait trait : tinkerProjectile.getProjectileTraits()) {
-      trait.onMovement(this, worldObj, slowdown);
+      trait.onMovement(this, getEntityWorld(), slowdown);
     }
     this.setPosition(this.posX, this.posY, this.posZ);
 
@@ -494,7 +494,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
   public void drawCritParticles() {
     for(int k = 0; k < 4; ++k) {
-      this.worldObj.spawnParticle(EnumParticleTypes.CRIT, this.posX + this.motionX * (double) k / 4.0D, this.posY + this.motionY * (double) k / 4.0D, this.posZ + this.motionZ * (double) k / 4.0D, -this.motionX, -this.motionY + 0.2D, -this.motionZ);
+      this.getEntityWorld().spawnParticle(EnumParticleTypes.CRIT, this.posX + this.motionX * (double) k / 4.0D, this.posY + this.motionY * (double) k / 4.0D, this.posZ + this.motionZ * (double) k / 4.0D, -this.motionX, -this.motionY + 0.2D, -this.motionZ);
     }
   }
 
@@ -502,7 +502,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     this.posX += this.motionX;
     this.posY += this.motionY;
     this.posZ += this.motionZ;
-    double f2 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+    double f2 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
     this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
     this.rotationPitch = (float) (Math.atan2(this.motionY, f2) * 180.0D / Math.PI);
 
@@ -546,7 +546,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
    */
   @Override
   public void onCollideWithPlayer(@Nonnull EntityPlayer player) {
-    if(!this.worldObj.isRemote && this.inGround && this.arrowShake <= 0) {
+    if(!this.getEntityWorld().isRemote && this.inGround && this.arrowShake <= 0) {
       boolean pickedUp = this.pickupStatus == EntityArrow.PickupStatus.ALLOWED || this.pickupStatus == EntityArrow.PickupStatus.CREATIVE_ONLY && player.capabilities.isCreativeMode;
 
       if(pickedUp) {
@@ -598,7 +598,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   @Override
   public void readSpawnData(ByteBuf data) {
     rotationYaw = data.readFloat();
-    shootingEntity = worldObj.getEntityByID(data.readInt());
+    shootingEntity = getEntityWorld().getEntityByID(data.readInt());
 
     this.motionX = data.readDouble();
     this.motionY = data.readDouble();

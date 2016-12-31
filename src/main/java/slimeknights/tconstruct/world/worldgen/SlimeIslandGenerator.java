@@ -314,7 +314,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
     if(candidate != null) {
       // place the vine
-      world.setBlockState(candidate, vine.getBlock().onBlockPlaced(world, candidate, EnumFacing.UP, 0, 0, 0, 0, null), 2);
+      world.setBlockState(candidate, vine.getBlock().getStateForPlacement(world, candidate, EnumFacing.UP, 0, 0, 0, 0, null, null), 2);
 
       // and let it grow, let it grow, let it groooooow!
       pos = candidate;

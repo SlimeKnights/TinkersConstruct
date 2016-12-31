@@ -13,15 +13,13 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class DamageTool extends CommandBase {
 
-  @Nonnull
   @Override
-  public String getCommandName() {
+  public String getName() {
     return "damageTool";
   }
 
-  @Nonnull
   @Override
-  public String getCommandUsage(@Nonnull ICommandSender sender) {
+  public String getUsage(ICommandSender sender) {
     return "/damageTool <amount>";
   }
 

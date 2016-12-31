@@ -38,7 +38,7 @@ public abstract class Sounds {
   }
 
   public static void playSoundForAll(Entity entity, SoundEvent sound, float volume, float pitch) {
-    entity.worldObj.playSound(null, entity.getPosition(), sound, entity.getSoundCategory(), volume, pitch);
+    entity.getEntityWorld().playSound(null, entity.getPosition(), sound, entity.getSoundCategory(), volume, pitch);
   }
 
   public static void PlaySoundForPlayer(Entity entity, SoundEvent sound, float volume, float pitch) {

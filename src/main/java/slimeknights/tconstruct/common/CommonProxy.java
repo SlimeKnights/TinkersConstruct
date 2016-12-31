@@ -77,7 +77,7 @@ public class CommonProxy {
     //double yd = (double)(-MathHelper.sin(entity.rotationPitch * distance));
 
     spawnParticle(particleType,
-                  entity.worldObj,
+                  entity.getEntityWorld(),
                   entity.posX + xd,
                   entity.posY + entity.height * height,
                   entity.posZ + zd,

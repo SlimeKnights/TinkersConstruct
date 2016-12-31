@@ -52,12 +52,12 @@ public class TinkerStationTabPacket extends AbstractPacketThreadsafe {
     }
 
     BlockPos pos = new BlockPos(blockX, blockY, blockZ);
-    IBlockState state = player.worldObj.getBlockState(pos);
+    IBlockState state = player.getEntityWorld().getBlockState(pos);
     if(state.getBlock() instanceof ITinkerStationBlock) {
-      ((ITinkerStationBlock) state.getBlock()).openGui(player, player.worldObj, pos);
+      ((ITinkerStationBlock) state.getBlock()).openGui(player, player.getEntityWorld(), pos);
     }
     else {
-      player.openGui(TConstruct.instance, 0, player.worldObj, blockX, blockY, blockZ);
+      player.openGui(TConstruct.instance, 0, player.getEntityWorld(), blockX, blockY, blockZ);
     }
 
     // set held item again for the new container

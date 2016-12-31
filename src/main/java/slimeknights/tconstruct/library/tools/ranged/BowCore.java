@@ -206,7 +206,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
           if(!player.capabilities.isCreativeMode) {
             ToolHelper.damageTool(bow, 1, player);
           }
-          worldIn.spawnEntityInWorld(projectile);
+          worldIn.spawnEntity(projectile);
         }
       }
     }
@@ -282,10 +282,10 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     double dmg = baseProjectileDamage() * power;
     dmg += ProjectileLauncherNBT.from(launcher).bonusDamage;
     if(dmg != 0) {
-      projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(LAUNCHER_BONUS_DAMAGE, "Launcher bonus damage", dmg, 0));
+      projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(LAUNCHER_BONUS_DAMAGE, "Launcher bonus damage", dmg, 0));
     }
     if(projectileDamageModifier() != 0f) {
-      projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getAttributeUnlocalizedName(), new AttributeModifier(LAUNCHER_DAMAGE_MODIFIER, "Launcher damage modifier", projectileDamageModifier() - 1f, 1));
+      projectileAttributes.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(LAUNCHER_DAMAGE_MODIFIER, "Launcher damage modifier", projectileDamageModifier() - 1f, 1));
     }
   }
 

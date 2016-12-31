@@ -320,14 +320,14 @@ public final class ToolHelper {
     }
 
     ImmutableList.Builder<BlockPos> builder = ImmutableList.builder();
-    for(int xp = start.getX(); xp != start.getX() + x; xp += x / MathHelper.abs_int(x)) {
-      for(int yp = start.getY(); yp != start.getY() + y; yp += y / MathHelper.abs_int(y)) {
-        for(int zp = start.getZ(); zp != start.getZ() + z; zp += z / MathHelper.abs_int(z)) {
+    for(int xp = start.getX(); xp != start.getX() + x; xp += x / MathHelper.abs(x)) {
+      for(int yp = start.getY(); yp != start.getY() + y; yp += y / MathHelper.abs(y)) {
+        for(int zp = start.getZ(); zp != start.getZ() + z; zp += z / MathHelper.abs(z)) {
           // don't add the origin block
           if(xp == origin.getX() && yp == origin.getY() && zp == origin.getZ()) {
             continue;
           }
-          if(distance > 0 && MathHelper.abs_int(xp - origin.getX()) + MathHelper.abs_int(yp - origin.getY()) + MathHelper.abs_int(
+          if(distance > 0 && MathHelper.abs(xp - origin.getX()) + MathHelper.abs(yp - origin.getY()) + MathHelper.abs(
               zp - origin.getZ()) > distance) {
             continue;
           }
@@ -456,9 +456,9 @@ public final class ToolHelper {
           double d = (double) (TConstruct.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
           double d1 = (double) (TConstruct.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
           double d2 = (double) (TConstruct.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-          EntityItem entityitem = new EntityItem(player.worldObj, (double) pos.getX() + d, (double) pos.getY() + d1, (double) pos.getZ() + d2, stack);
+          EntityItem entityitem = new EntityItem(player.getEntityWorld(), (double) pos.getX() + d, (double) pos.getY() + d1, (double) pos.getZ() + d2, stack);
           entityitem.setDefaultPickupDelay();
-          world.spawnEntityInWorld(entityitem);
+          world.spawnEntity(entityitem);
         }
 
         itemstack.damageItem(1, player);
@@ -751,9 +751,9 @@ public final class ToolHelper {
         player.addStat(StatList.DAMAGE_DEALT, Math.round(damageDealt * 10f));
         player.addExhaustion(0.3f);
 
-        if(player.worldObj instanceof WorldServer && damageDealt > 2f) {
+        if(player.getEntityWorld() instanceof WorldServer && damageDealt > 2f) {
           int k = (int) (damageDealt * 0.5);
-          ((WorldServer) player.worldObj).spawnParticle(EnumParticleTypes.DAMAGE_INDICATOR, targetEntity.posX, targetEntity.posY + (double) (targetEntity.height * 0.5F), targetEntity.posZ, k, 0.1D, 0.0D, 0.1D, 0.2D);
+          ((WorldServer) player.getEntityWorld()).spawnParticle(EnumParticleTypes.DAMAGE_INDICATOR, targetEntity.posX, targetEntity.posY + (double) (targetEntity.height * 0.5F), targetEntity.posZ, k, 0.1D, 0.0D, 0.1D, 0.2D);
         }
 
         // cooldown for non-projectiles
@@ -807,8 +807,8 @@ public final class ToolHelper {
       entity.swingProgressInt = Math.min(4, -1 + speed);
       entity.isSwingInProgress = true;
 
-      if(entity.worldObj instanceof WorldServer) {
-        ((WorldServer) entity.worldObj).getEntityTracker().sendToAllTrackingEntity(entity, new SPacketAnimation(entity, 0));
+      if(entity.getEntityWorld() instanceof WorldServer) {
+        ((WorldServer) entity.getEntityWorld()).getEntityTracker().sendToTracking(entity, new SPacketAnimation(entity, 0));
       }
     }
   }

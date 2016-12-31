@@ -76,7 +76,7 @@ public class TinkerPiggybackSerializer implements ICapabilitySerializable<NBTTag
     Map<UUID, Entity> attachedTo = Maps.newHashMap();
     for(int i = 0; i < riderList.tagCount(); i++) {
       NBTTagCompound entityTag = riderList.getCompoundTagAt(i);
-      Entity entity = AnvilChunkLoader.readWorldEntity(entityTag.getCompoundTag("Entity"), player.worldObj, true);
+      Entity entity = AnvilChunkLoader.readWorldEntity(entityTag.getCompoundTag("Entity"), player.getEntityWorld(), true);
       if(entity != null) {
         UUID uuid = entityTag.getUniqueId("Attach");
 

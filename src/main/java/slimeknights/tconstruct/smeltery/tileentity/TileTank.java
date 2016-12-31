@@ -105,7 +105,7 @@ public class TileTank extends TileSmelteryComponent implements IFluidTankUpdater
   public void onTankContentsChanged() {
     int newStrength = this.comparatorStrength();
     if(newStrength != lastStrength) {
-      this.worldObj.notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+      this.getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType());
       this.lastStrength = newStrength;
     }
   }

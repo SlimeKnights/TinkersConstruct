@@ -104,7 +104,7 @@ public class TooltipBuilder {
   }
 
   public TooltipBuilder addAttack() {
-    float attack = ToolHelper.getActualDamage(stack, Minecraft.getMinecraft().thePlayer);
+    float attack = ToolHelper.getActualDamage(stack, Minecraft.getMinecraft().player);
     tips.add(HeadMaterialStats.formatAttack(attack));
 
     return this;

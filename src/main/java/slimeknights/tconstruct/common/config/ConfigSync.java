@@ -43,17 +43,15 @@ public class ConfigSync {
   @SubscribeEvent
   @SideOnly(Side.CLIENT)
   public void playerJoinedWorld(TickEvent.ClientTickEvent event) {
-    EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+    EntityPlayerSP player = Minecraft.getMinecraft().player;
     if(needsRestart) {
         //Minecraft.getMinecraft().theWorld.sendQuittingDisconnectingPacket();
         //Minecraft.getMinecraft().getNetHandler().getNetworkManager().closeChannel(new ChatComponentText("reboot pl0x"));
         //Minecraft.getMinecraft().loadWorld(null);
-        player
-            .addChatMessage(new TextComponentString("[TConstruct] " + I18n.translateToLocal("config.synced.restart")));
+        player.sendMessage(new TextComponentString("[TConstruct] " + I18n.translateToLocal("config.synced.restart")));
       }
       else {
-        player
-            .addChatMessage(new TextComponentString("[TConstruct] " + I18n.translateToLocal("config.synced.ok")));
+        player.sendMessage(new TextComponentString("[TConstruct] " + I18n.translateToLocal("config.synced.ok")));
       }
     MinecraftForge.EVENT_BUS.unregister(this);
   }

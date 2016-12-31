@@ -17,12 +17,12 @@ import slimeknights.tconstruct.tools.modifiers.ModFortify;
 public class ListValidModifiers extends CommandBase {
 
   @Override
-  public String getCommandName() {
+  public String getName() {
     return "listValidModifiers";
   }
 
   @Override
-  public String getCommandUsage(ICommandSender sender) {
+  public String getUsage(ICommandSender sender) {
     return "Hold tool while calling /listValidModifiers to get a list of all valid modifiers for a tool";
   }
 
@@ -32,14 +32,14 @@ public class ListValidModifiers extends CommandBase {
       EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
       ItemStack item = player.inventory.getCurrentItem();
 
-      sender.addChatMessage(new TextComponentString(item.getDisplayName() + " accepts the following modifiers:"));
+      sender.sendMessage(new TextComponentString(item.getDisplayName() + " accepts the following modifiers:"));
       for(IModifier mod : TinkerRegistry.getAllModifiers()) {
         if(!mod.hasItemsToApplyWith()) {
           continue;
         }
         try {
           if((mod instanceof ModifierTrait || !(mod instanceof AbstractTrait)) && mod.canApply(item.copy(), item) && (mod.getIdentifier().equals("fortified") || !(mod instanceof ModFortify))) {
-            sender.addChatMessage(new TextComponentString("* " + mod.getIdentifier()));
+            sender.sendMessage(new TextComponentString("* " + mod.getIdentifier()));
           }
         }
         catch (TinkerGuiException e) {

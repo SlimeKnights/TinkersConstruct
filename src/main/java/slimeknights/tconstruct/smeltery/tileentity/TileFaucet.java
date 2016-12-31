@@ -38,9 +38,9 @@ public class TileFaucet extends TileEntity implements ITickable {
 
   // begin pouring
   public boolean activate() {
-    IBlockState state = worldObj.getBlockState(pos);
+    IBlockState state = getWorld().getBlockState(pos);
     // invalid state
-    if(!state.getPropertyNames().contains(BlockFaucet.FACING)) {
+    if(!state.getPropertyKeys().contains(BlockFaucet.FACING)) {
       return false;
     }
 
@@ -50,7 +50,7 @@ public class TileFaucet extends TileEntity implements ITickable {
       return true;
     }
 
-    direction = worldObj.getBlockState(pos).getValue(BlockFaucet.FACING);
+    direction = getWorld().getBlockState(pos).getValue(BlockFaucet.FACING);
     doTransfer();
     return isPouring;
   }
@@ -66,7 +66,7 @@ public class TileFaucet extends TileEntity implements ITickable {
 
   @Override
   public void update() {
-    if(worldObj.isRemote) {
+    if(getWorld().isRemote) {
       return;
     }
     // nothing to do if not pouring
@@ -113,8 +113,8 @@ public class TileFaucet extends TileEntity implements ITickable {
           pour();
 
           // sync to clients
-          if(!worldObj.isRemote && worldObj instanceof WorldServer) {
-            TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FaucetActivationPacket(pos, drained));
+          if(!getWorld().isRemote && getWorld() instanceof WorldServer) {
+            TinkerNetwork.sendToClients((WorldServer) getWorld(), pos, new FaucetActivationPacket(pos, drained));
           }
 
           return;
@@ -159,13 +159,13 @@ public class TileFaucet extends TileEntity implements ITickable {
     lastRedstoneState = false;
 
     // sync to clients
-    if(worldObj != null && !worldObj.isRemote && worldObj instanceof WorldServer) {
-      TinkerNetwork.sendToClients((WorldServer) worldObj, pos, new FaucetActivationPacket(pos, null));
+    if(getWorld() != null && !getWorld().isRemote && getWorld() instanceof WorldServer) {
+      TinkerNetwork.sendToClients((WorldServer) getWorld(), pos, new FaucetActivationPacket(pos, null));
     }
   }
 
   protected IFluidHandler getFluidHandler(BlockPos pos, EnumFacing direction) {
-    TileEntity te = worldObj.getTileEntity(pos);
+    TileEntity te = getWorld().getTileEntity(pos);
     if(te != null && te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, direction)) {
       return te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, direction);
     }
@@ -210,7 +210,7 @@ public class TileFaucet extends TileEntity implements ITickable {
     else {
       drained = fluid;
       isPouring = true;
-      direction = worldObj.getBlockState(pos).getValue(BlockFaucet.FACING);
+      direction = getWorld().getBlockState(pos).getValue(BlockFaucet.FACING);
     }
   }
 

@@ -62,7 +62,7 @@ public class BlockSearedGlass extends BlockEnumSmeltery<BlockSearedGlass.GlassTy
   }
 
   private boolean canConnect(IBlockState original, IBlockState connected) {
-    return connected.getBlock() == original.getBlock() && original.getPropertyNames().contains(prop) && connected.getValue(prop) == original.getValue(prop);
+    return connected.getBlock() == original.getBlock() && original.getPropertyKeys().contains(prop) && connected.getValue(prop) == original.getValue(prop);
   }
 
   @Nonnull

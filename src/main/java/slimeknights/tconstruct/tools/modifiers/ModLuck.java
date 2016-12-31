@@ -65,7 +65,7 @@ public class ModLuck extends ModifierTrait {
 
   @Override
   public void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
-    if(player.worldObj.isRemote || !wasHit) {
+    if(player.world.isRemote || !wasHit) {
       return;
     }
     // we reward one chance per full heart damage dealt. No chance for 0.5 heart hits, sorry :(

@@ -45,7 +45,7 @@ public class TileSmelteryComponent extends MultiServantLogic {
    */
   protected TileEntity getSmelteryTankHandler() {
     if(getHasMaster()) {
-      TileEntity te = worldObj.getTileEntity(getMasterPosition());
+      TileEntity te = getWorld().getTileEntity(getMasterPosition());
       if(te instanceof ISmelteryTankHandler) {
         return te;
       }
