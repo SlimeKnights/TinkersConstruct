@@ -25,11 +25,11 @@ public class NetherOreGenerator implements IWorldGenerator {
 
   public NetherOreGenerator() {
     cobaltGen = new WorldGenMinable(TinkerCommons.blockOre.getStateFromMeta(BlockOre.OreTypes.COBALT.getMeta()),
-                                    3,
+                                    5,
                                     BlockMatcher.forBlock(Blocks.NETHERRACK));
 
     arditeGen = new WorldGenMinable(TinkerCommons.blockOre.getStateFromMeta(BlockOre.OreTypes.ARDITE.getMeta()),
-                                    3,
+                                    5,
                                     BlockMatcher.forBlock(Blocks.NETHERRACK));
   }
 
