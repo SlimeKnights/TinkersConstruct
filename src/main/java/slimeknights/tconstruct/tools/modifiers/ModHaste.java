@@ -66,13 +66,14 @@ public class ModHaste extends ToolModifier {
 
   protected void applyHarvestBoost(ModifierNBT.IntegerNBT modData, ToolNBT data, int level) {
     float speed = data.speed;
+    final float step1 = 15f;
+    final float step2 = 25f;
     for(int count = modData.current; count > 0; count--) {
-      if(speed <= 10f) {
-        // linear scaling from 0.08 to 0.06 per piece till 10 miningspeed
-        speed += 0.15f - 0.05f * speed / 10f;
+      if(speed <= step1) {
+        speed += 0.15f - 0.05f * speed / step1;
       }
-      else if(speed <= 20f) {
-        speed += 0.1f - 0.05 * speed / 20f;
+      else if(speed <= step2) {
+        speed += 0.1f - 0.05 * (speed-step1) / (step2-step1);
       }
       else {
         speed += 0.05;
