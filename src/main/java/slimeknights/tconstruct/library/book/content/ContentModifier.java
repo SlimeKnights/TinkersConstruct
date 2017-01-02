@@ -13,8 +13,6 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
-
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.element.ImageData;
 import slimeknights.mantle.client.book.data.element.TextData;
@@ -180,7 +178,7 @@ public class ContentModifier extends TinkerPage {
     list.add(new ElementImage(imgX + (img.width - 22) / 2, imgY - 27, -1, -1, IMG_SLOT_1, 0xffffff));
 
     if(inputItems != null) {
-      for(int i = 0; i < inCount; i++) {
+      for(int i = 0; i < inCount && i < 5; i++) {
         list.add(new ElementTinkerItem(imgX + slotX[i], imgY + slotY[i], 1f, inputItems[i]));
       }
     }
