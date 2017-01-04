@@ -129,7 +129,7 @@ public class TileTinkerTank extends TileMultiblock<MultiblockTinkerTank> impleme
   public void onTankChanged(List<FluidStack> fluids, FluidStack changed) {
     // notify clients of liquid changes.
     // the null check is to prevent potential crashes during loading
-    if(getWorld() != null && !getWorld().isRemote) {
+    if(!isClientWorld()) {
       TinkerNetwork.sendToAll(new SmelteryFluidUpdatePacket(pos, fluids));
     }
   }

@@ -80,7 +80,7 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
             addFuel(bonusFuel, drained.getFluid().getTemperature(drained) - 300); // convert to degree celcius
 
             // notify client of fuel/temperature changes
-            if(isClientWorld()) {
+            if(!isClientWorld()) {
               TinkerNetwork.sendToAll(new HeatingStructureFuelUpdatePacket(pos, currentTank, temperature, currentFuel));
             }
 

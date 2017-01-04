@@ -26,7 +26,6 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.common.IInventoryGui;
-import slimeknights.mantle.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -352,7 +351,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
   public void onTankChanged(List<FluidStack> fluids, FluidStack changed) {
     // notify clients of liquid changes.
     // the null check is to prevent potential crashes during loading
-    if(isClientWorld()) {
+    if(!isClientWorld()) {
       TinkerNetwork.sendToAll(new SmelteryFluidUpdatePacket(pos, fluids));
     }
   }

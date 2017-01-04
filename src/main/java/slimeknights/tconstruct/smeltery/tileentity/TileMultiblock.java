@@ -16,7 +16,6 @@ import slimeknights.mantle.multiblock.IServantLogic;
 import slimeknights.mantle.tileentity.TileInventory;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.smeltery.block.BlockMultiblockController;
-import slimeknights.tconstruct.smeltery.block.BlockTinkerTankController;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 
 public abstract class TileMultiblock<T extends MultiblockDetection> extends TileInventory implements IMasterLogic {
@@ -187,6 +186,6 @@ public abstract class TileMultiblock<T extends MultiblockDetection> extends Tile
   }
 
   public boolean isClientWorld() {
-    return this.getWorld() != null && this.getWorld().isRemote;
+    return this.getWorld() == null || this.getWorld().isRemote;
   }
 }
