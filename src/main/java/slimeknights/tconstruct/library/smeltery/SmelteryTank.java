@@ -77,6 +77,12 @@ public class SmelteryTank implements IFluidTank, IFluidHandler {
 
   @Override
   public IFluidTankProperties[] getTankProperties() {
+    // if the size is 0 (no fluids) simply return an empty properties
+    // some other mods expect having at least 1 value here
+    if(liquids.size() == 0) {
+      return new IFluidTankProperties[]{ new FluidTankProperties(null, maxCapacity, true, true) };
+    }
+
     IFluidTankProperties[] properties = new IFluidTankProperties[liquids.size()];
     for(int i = 0; i < liquids.size(); i++) {
       boolean first = i == 0;
