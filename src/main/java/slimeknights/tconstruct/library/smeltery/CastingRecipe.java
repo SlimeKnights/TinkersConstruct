@@ -30,6 +30,10 @@ public class CastingRecipe implements ICastingRecipe {
     this(output, null, new FluidStack(fluid, amount), time, false, false);
   }
 
+  public CastingRecipe(ItemStack output, RecipeMatch cast, Fluid fluid, int amount, boolean consumesCast, boolean switchOutputs) {
+    this(output, cast, new FluidStack(fluid, amount), calcCooldownTime(fluid, amount), consumesCast, switchOutputs);
+  }
+
   public CastingRecipe(ItemStack output, RecipeMatch cast, FluidStack fluid, boolean consumesCast, boolean switchOutputs) {
     this(output, cast, fluid, calcCooldownTime(fluid.getFluid(), fluid.amount), consumesCast, switchOutputs);
   }

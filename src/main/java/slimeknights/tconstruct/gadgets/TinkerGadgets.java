@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -205,7 +206,7 @@ public class TinkerGadgets extends TinkerPulse {
     ));
 
     // Recipe for mom's spaghetti: soak em, dry em, cook em, eat em
-    TinkerRegistry.registerTableCasting(new CastingRecipe(wetSpaghetti, RecipeMatch.of(hardSpaghetti), FluidRegistry.WATER, Fluid.BUCKET_VOLUME * 3, 15*60*20));
+    TinkerRegistry.registerTableCasting(new CastingRecipe(wetSpaghetti, RecipeMatch.of(hardSpaghetti), new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME * 3), 15*60*20, true, false));
     TinkerRegistry.registerDryingRecipe(wetSpaghetti, coldSpaghetti, 15*60*20);
     GameRegistry.addSmelting(coldSpaghetti, new ItemStack(momsSpaghetti), 0f);
   }
