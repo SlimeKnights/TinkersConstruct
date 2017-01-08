@@ -73,7 +73,8 @@ public class SlimeTreeGenerator implements IWorldGenerator {
     do {
       IBlockState state = world.getBlockState(pos);
       Block heightID = state.getBlock();
-      if((heightID == TinkerWorld.slimeDirt || heightID == TinkerWorld.slimeGrass) && !world.getBlockState(pos.up()).getBlock().isOpaqueCube(state)) {
+      IBlockState up = world.getBlockState(pos.up());
+      if((heightID == TinkerWorld.slimeDirt || heightID == TinkerWorld.slimeGrass) && !up.getBlock().isOpaqueCube(up)) {
         return pos.up();
       }
       pos = pos.down();
