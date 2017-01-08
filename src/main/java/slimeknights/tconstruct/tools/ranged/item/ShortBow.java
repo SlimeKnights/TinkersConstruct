@@ -16,7 +16,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.client.crosshair.Crosshairs;
 import slimeknights.tconstruct.library.client.crosshair.ICrosshair;
 import slimeknights.tconstruct.library.client.crosshair.ICustomCrosshairUser;
@@ -45,6 +44,11 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
 
     this.addPropertyOverride(PROPERTY_PULL_PROGRESS, pullProgressPropertyGetter);
     this.addPropertyOverride(PROPERTY_IS_PULLING, isPullingPropertyGetter);
+  }
+
+  @Override
+  public int[] getRepairParts() {
+    return new int[]{0, 1};
   }
 
   @Override
