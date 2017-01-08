@@ -24,7 +24,7 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
     super("gui.dryingrack.name", 2); // two slots, an input and an output. Should never both have something, output is just to stop item tranfer
 
     // use a SidedInventory Wrapper to respect the canInsert/Extract calls
-    this.itemHandler = new SidedInvWrapper(this, null);
+    this.itemHandler = new SidedInvWrapper(this, EnumFacing.DOWN);
   }
 
   @Override

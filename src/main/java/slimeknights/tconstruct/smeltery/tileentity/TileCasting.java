@@ -48,7 +48,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
     fluidHandler = new FluidHandlerCasting(this, tank);
 
     // use a SidedInventory Wrapper to respect the canInsert/Extract calls
-    this.itemHandler = new SidedInvWrapper(this, null);
+    this.itemHandler = new SidedInvWrapper(this, EnumFacing.DOWN);
   }
 
   // capability
