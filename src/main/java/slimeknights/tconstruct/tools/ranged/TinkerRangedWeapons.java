@@ -31,7 +31,7 @@ import slimeknights.tconstruct.tools.ranged.item.Shuriken;
 
 @Pulse(
     id = TinkerRangedWeapons.PulseId,
-    description = "All the melee weapons in one handy package",
+    description = "All the ranged weapons in one handy package",
     pulsesRequired = TinkerTools.PulseId,
     forced = true)
 public class TinkerRangedWeapons extends AbstractToolPulse {

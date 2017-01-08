@@ -27,7 +27,7 @@ import slimeknights.tconstruct.tools.tools.Shovel;
 
 @Pulse(
     id = TinkerHarvestTools.PulseId,
-    description = "All the melee weapons in one handy package",
+    description = "All the tools for harvest in one handy package",
     pulsesRequired = TinkerTools.PulseId,
     forced = true)
 public class TinkerHarvestTools extends AbstractToolPulse {
