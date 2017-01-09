@@ -16,6 +16,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.shared.inventory.InventoryCraftingPersistent;
 import slimeknights.tconstruct.tools.common.tileentity.TileCraftingStation;
 
@@ -56,6 +57,11 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
       if(!stationPart) {
         TileEntity te = world.getTileEntity(neighbor);
         if(te != null) {
+          // if blacklisted, skip checks entirely
+          if(blacklisted(te.getClass().getName())) {
+            continue;
+          }
+
           // try internal access first
           if(te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
             if(te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null) instanceof IItemHandlerModifiable) {
@@ -83,6 +89,16 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
     this.addPlayerInventory(playerInventory, 8, 84);
 
     this.onCraftMatrixChanged(this.craftMatrix);
+  }
+
+  private boolean blacklisted(String name) {
+    for(String te : Config.craftingStationBlacklist) {
+      if(name.equals(te)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   // update crafting

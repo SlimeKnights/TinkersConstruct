@@ -43,6 +43,10 @@ public final class Config {
   public static boolean leatherDryingRecipe = true;
   public static boolean gravelFlintRecipe = true;
   public static double oreToIngotRatio = 2;
+  public static String[] craftingStationBlacklist = new String[] {
+      "de.ellpeck.actuallyadditions.mod.tile.TileEntityItemViewer"
+  };
+  //public static List<String> craftingStationBlacklist = Collections.emptyList();
 
   // Worldgen
   public static boolean genSlimeIslands = true;
@@ -182,6 +186,13 @@ public final class Config {
       oreToIngotRatio = prop.getDouble();
       prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "craftingStationBlacklist", craftingStationBlacklist);
+      prop.setComment("Blacklist of TE classnames for the crafting station to connect to. Mainly for compatibility.");
+      craftingStationBlacklist = prop.getStringList();
+      propOrder.add(prop.getName());
+
+
     }
     // Worldgen
     {
