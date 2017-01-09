@@ -185,7 +185,13 @@ public abstract class TileMultiblock<T extends MultiblockDetection> extends Tile
     return writeToNBT(new NBTTagCompound());
   }
 
+  /** Returns true if it's a client world, false if no world or server */
   public boolean isClientWorld() {
-    return this.getWorld() == null || this.getWorld().isRemote;
+    return this.getWorld() != null && this.getWorld().isRemote;
+  }
+
+  /** Returns true if it's a server world, false if no world or client */
+  public boolean isServerWorld() {
+    return this.getWorld() != null && !this.getWorld().isRemote;
   }
 }

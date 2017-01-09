@@ -351,7 +351,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
   public void onTankChanged(List<FluidStack> fluids, FluidStack changed) {
     // notify clients of liquid changes.
     // the null check is to prevent potential crashes during loading
-    if(!isClientWorld()) {
+    if(isServerWorld()) {
       TinkerNetwork.sendToAll(new SmelteryFluidUpdatePacket(pos, fluids));
     }
   }
