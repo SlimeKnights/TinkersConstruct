@@ -46,11 +46,13 @@ public class TraitEndspeed extends AbstractProjectileTrait {
   public void onProjectileUpdate(EntityProjectileBase projectile, World world, ItemStack toolStack) {
     double sqrDistanceTraveled = 0d;
     double lastParticle = 0d;
-    while(!projectile.inGround && projectile.ticksInAir > 2 && sqrDistanceTraveled < 40) {
+    int ticks = projectile.ticksInAir;
+    while(!projectile.inGround && projectile.ticksInAir > 1 && sqrDistanceTraveled < 40) {
       double x = projectile.posX;
       double y = projectile.posY;
       double z = projectile.posZ;
 
+      projectile.ticksInAir = ticks;
       projectile.updateInAir();
 
       x -= projectile.posX;
@@ -73,6 +75,7 @@ public class TraitEndspeed extends AbstractProjectileTrait {
         lastParticle = 0;
       }
     }
+    projectile.ticksInAir = ticks;
   }
 
   @Override
