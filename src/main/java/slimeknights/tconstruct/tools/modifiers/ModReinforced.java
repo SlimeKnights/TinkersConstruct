@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.utils.TinkerUtil;
 public class ModReinforced extends ModifierTrait {
 
   private static final float chancePerLevel = 0.20f;
+  public static final String TAG_UNBREAKABLE = "Unbreakable";
 
   public ModReinforced() {
     super("reinforced", 0x502e83, 5, 0);
@@ -33,7 +34,7 @@ public class ModReinforced extends ModifierTrait {
     super.applyEffect(rootCompound, modifierTag);
 
     if(getReinforcedChance(modifierTag) >= 1f) {
-      rootCompound.setBoolean("Unbreakable", true);
+      rootCompound.setBoolean(TAG_UNBREAKABLE, true);
     }
   }
 

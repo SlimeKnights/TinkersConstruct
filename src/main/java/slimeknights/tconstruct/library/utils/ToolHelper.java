@@ -52,6 +52,7 @@ import slimeknights.tconstruct.library.tools.ranged.IProjectile;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.common.network.ToolBreakAnimationPacket;
+import slimeknights.tconstruct.tools.modifiers.ModReinforced;
 
 public final class ToolHelper {
 
@@ -501,6 +502,11 @@ public final class ToolHelper {
           actualAmount = trait.onToolHeal(stack, amount, actualAmount, entity);
         }
       }
+    }
+
+    // extra compatibility for unbreaking.. because things just love to mess it up.. like 3rd party stuff
+    if(actualAmount > 0 && TagUtil.getTagSafe(stack).getBoolean(ModReinforced.TAG_UNBREAKABLE)) {
+      actualAmount = 0;
     }
 
     // ensure we never deal more damage than durability
