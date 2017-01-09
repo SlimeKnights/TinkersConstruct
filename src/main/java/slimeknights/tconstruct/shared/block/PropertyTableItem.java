@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
 import java.util.List;
@@ -43,26 +44,68 @@ public class PropertyTableItem implements IUnlistedProperty<PropertyTableItem.Ta
 
   public static class TableItem {
 
+    public final ItemStack stack;
     public final IBakedModel model;
     public float x, y, z;
     public float s;
     public float r;
 
-    public TableItem(IBakedModel model) {
-      this(model, 0, 0, 0);
+    public TableItem(ItemStack stack, IBakedModel model) {
+      this(stack, model, 0, 0, 0);
     }
 
-    public TableItem(IBakedModel model, float x, float y, float z) {
-      this(model, x, y, z, 1, 0);
+    public TableItem(ItemStack stack, IBakedModel model, float x, float y, float z) {
+      this(stack, model, x, y, z, 1, 0);
     }
 
-    public TableItem(IBakedModel model, float x, float y, float z, float s, float r) {
+    public TableItem(ItemStack stack, IBakedModel model, float x, float y, float z, float s, float r) {
+      this.stack = stack;
       this.model = model;
       this.x = x;
       this.y = y;
       this.z = z;
       this.s = s;
       this.r = r;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if(this == o) {
+        return true;
+      }
+      if(o == null || getClass() != o.getClass()) {
+        return false;
+      }
+
+      TableItem tableItem = (TableItem) o;
+
+      if(Float.compare(tableItem.x, x) != 0) {
+        return false;
+      }
+      if(Float.compare(tableItem.y, y) != 0) {
+        return false;
+      }
+      if(Float.compare(tableItem.z, z) != 0) {
+        return false;
+      }
+      if(Float.compare(tableItem.s, s) != 0) {
+        return false;
+      }
+      if(Float.compare(tableItem.r, r) != 0) {
+        return false;
+      }
+      return stack != null ? stack.equals(tableItem.stack) : tableItem.stack == null;
+    }
+
+    @Override
+    public int hashCode() {
+      int result = stack != null ? stack.hashCode() : 0;
+      result = 31 * result + (x != +0.0f ? Float.floatToIntBits(x) : 0);
+      result = 31 * result + (y != +0.0f ? Float.floatToIntBits(y) : 0);
+      result = 31 * result + (z != +0.0f ? Float.floatToIntBits(z) : 0);
+      result = 31 * result + (s != +0.0f ? Float.floatToIntBits(s) : 0);
+      result = 31 * result + (r != +0.0f ? Float.floatToIntBits(r) : 0);
+      return result;
     }
   }
 }

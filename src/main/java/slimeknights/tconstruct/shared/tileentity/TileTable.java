@@ -104,12 +104,12 @@ public class TileTable extends TileInventory {
     }
 
     if(!Config.renderTableItems) {
-      return new PropertyTableItem.TableItem(null);
+      return new PropertyTableItem.TableItem(stack, null);
     }
 
     IBakedModel model = ModelHelper.getBakedModelForItem(stack, world, entity);
 
-    PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(model, 0, -0.46875f, 0, 0.8f, (float) (Math.PI / 2));
+    PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(stack, model, 0, -0.46875f, 0, 0.8f, (float) (Math.PI / 2));
     if(stack.getItem() instanceof ItemBlock) {
       if(!(Block.getBlockFromItem(stack.getItem())  instanceof BlockPane)) {
         item.y = -0.3125f;

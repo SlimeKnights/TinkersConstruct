@@ -1,6 +1,10 @@
 package slimeknights.tconstruct.shared.client;
 
 import com.google.common.base.Function;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -11,7 +15,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.block.model.ItemOverride;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -30,10 +33,12 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import javax.annotation.Nonnull;
 import javax.vecmath.Matrix4f;
@@ -41,6 +46,7 @@ import javax.vecmath.Matrix4f;
 import slimeknights.mantle.client.model.BakedCompositeModel;
 import slimeknights.mantle.client.model.TRSRBakedModel;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.block.BlockTable;
@@ -49,6 +55,8 @@ import slimeknights.tconstruct.shared.tileentity.TileTable;
 
 public class BakedTableModel implements IPerspectiveAwareModel {
 
+  static final Logger log = Util.getLogger("Table Model");
+
   private final IPerspectiveAwareModel standard;
   private final IRetexturableModel tableModel;
 
@@ -56,17 +64,26 @@ public class BakedTableModel implements IPerspectiveAwareModel {
   private final Function<ResourceLocation, TextureAtlasSprite> textureGetter;
   private final VertexFormat format;
   private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
+  private final LoadingCache<PropertyTableItem.TableItem, IBakedModel> tableItemCache = CacheBuilder
+      .newBuilder()
+      .maximumSize(250)
+      .build(new CacheLoader<PropertyTableItem.TableItem, IBakedModel>() {
+        @Override
+        public IBakedModel load(PropertyTableItem.TableItem key) throws Exception {
+          return BakedTableModel.this.getModelForTableItem(key);
+        }
+      });
+
+  private final Cache<TableItemCombinationCacheKey, IBakedModel> tableItemCombinedCache = CacheBuilder
+      .newBuilder()
+      .maximumSize(20)
+      .build();
 
   public BakedTableModel(IPerspectiveAwareModel standard, IRetexturableModel tableModel, VertexFormat format) {
     this.standard = standard;
     this.tableModel = tableModel;
 
-    this.textureGetter = new Function<ResourceLocation, TextureAtlasSprite>() {
-      @Override
-      public TextureAtlasSprite apply(ResourceLocation location) {
-        return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
-      }
-    };
+    this.textureGetter = location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
     this.format = format;
     this.transforms = ModelHelper.getTransforms(standard);
   }
@@ -91,22 +108,41 @@ public class BakedTableModel implements IPerspectiveAwareModel {
       }
     }
 
-    // add all the items to display on the table
-    if(items != null && !items.isEmpty()) {
-      BakedCompositeModel.Builder builder = new BakedCompositeModel.Builder();
-      builder.add(bakedModel, null, 0);
-      for(PropertyTableItem.TableItem item : items) {
-        builder.add(new TRSRBakedModel(item.model, item.x, item.y + 1f, item.z, item.r, (float) (Math.PI), 0, item.s), null, 0);
-      }
-
-      bakedModel = builder.build(bakedModel);
-    }
-
-    if(facing != null) {
-      bakedModel = new TRSRBakedModel(bakedModel, facing);
+    final IBakedModel parentModel = bakedModel;
+    try {
+      bakedModel = tableItemCombinedCache.get(new TableItemCombinationCacheKey(items, bakedModel, facing), () -> getCombinedBakedModel(items, facing, parentModel));
+    } catch(ExecutionException e) {
+      log.error(e);
     }
 
     return bakedModel;
+  }
+
+  private IBakedModel getCombinedBakedModel(List<PropertyTableItem.TableItem> items, EnumFacing facing, IBakedModel parentModel) {
+    IBakedModel out = parentModel;
+    // add all the items to display on the table
+    if(items != null && !items.isEmpty()) {
+      BakedCompositeModel.Builder builder = new BakedCompositeModel.Builder();
+      builder.add(parentModel, null, 0);
+      for(PropertyTableItem.TableItem item : items) {
+        try {
+          builder.add(tableItemCache.get(item), null, 0);
+        } catch(ExecutionException e) {
+          log.error(e);
+        }
+      }
+
+      out = builder.build(parentModel);
+    }
+
+    if(facing != null) {
+      out = new TRSRBakedModel(out, facing);
+    }
+    return out;
+  }
+
+  private IBakedModel getModelForTableItem(PropertyTableItem.TableItem item) {
+    return new TRSRBakedModel(item.model, item.x, item.y + 1f, item.z, item.r, (float) (Math.PI), 0, item.s);
   }
 
   @Nonnull
@@ -191,7 +227,7 @@ public class BakedTableModel implements IPerspectiveAwareModel {
     static TableItemOverrideList INSTANCE = new TableItemOverrideList();
 
     private TableItemOverrideList() {
-      super(ImmutableList.<ItemOverride>of());
+      super(ImmutableList.of());
     }
 
     @Nonnull
@@ -206,11 +242,51 @@ public class BakedTableModel implements IPerspectiveAwareModel {
           Block block = Block.getBlockFromItem(blockStack.getItem());
           String texture = ModelHelper.getTextureFromBlock(block, blockStack.getItemDamage()).getIconName();
           return ((BakedTableModel) originalModel)
-              .getActualModel(texture, Collections.<PropertyTableItem.TableItem>emptyList(), null);
+              .getActualModel(texture, Collections.emptyList(), null);
         }
       }
 
       return originalModel;
+    }
+  }
+
+  private static class TableItemCombinationCacheKey {
+    private final List<PropertyTableItem.TableItem> tableItems;
+    private final IBakedModel bakedBaseModel;
+    private final EnumFacing facing;
+
+    public TableItemCombinationCacheKey(List<PropertyTableItem.TableItem> tableItems, IBakedModel bakedBaseModel, EnumFacing facing) {
+      this.tableItems = tableItems;
+      this.bakedBaseModel = bakedBaseModel;
+      this.facing = facing;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if(this == o) {
+        return true;
+      }
+      if(o == null || getClass() != o.getClass()) {
+        return false;
+      }
+
+      TableItemCombinationCacheKey that = (TableItemCombinationCacheKey) o;
+
+      if(tableItems != null ? !tableItems.equals(that.tableItems) : that.tableItems != null) {
+        return false;
+      }
+      if(bakedBaseModel != null ? !bakedBaseModel.equals(that.bakedBaseModel) : that.bakedBaseModel != null) {
+        return false;
+      }
+      return facing == that.facing;
+    }
+
+    @Override
+    public int hashCode() {
+      int result = tableItems != null ? tableItems.hashCode() : 0;
+      result = 31 * result + (bakedBaseModel != null ? bakedBaseModel.hashCode() : 0);
+      result = 31 * result + (facing != null ? facing.hashCode() : 0);
+      return result;
     }
   }
 }
