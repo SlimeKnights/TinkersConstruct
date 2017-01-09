@@ -75,8 +75,8 @@ public class ModLuck extends ModifierTrait {
   }
 
   public void rewardProgress(ItemStack tool) {
-    // 2% chance
-    if(random.nextFloat() > 0.02f) {
+    // 3% chance
+    if(random.nextFloat() > 0.03f) {
       return;
     }
 
