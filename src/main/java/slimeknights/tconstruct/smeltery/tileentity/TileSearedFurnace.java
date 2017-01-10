@@ -152,13 +152,11 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
   protected void interactWithEntitiesInside() {
       AxisAlignedBB bb = info.getBoundingBox().contract(1).offset(0, 0.5, 0).expand(0, 0.5, 0);
 
-      List<Entity> entities = getWorld().getEntitiesWithinAABB(Entity.class, bb);
+      List<EntityLivingBase> entities = getWorld().getEntitiesWithinAABB(EntityLivingBase.class, bb);
 
-      for(Entity entity : entities) {
+      for(EntityLivingBase entity : entities) {
           if (entity instanceof EntityMob) {
-              EntityLivingBase entityLiving = (EntityLivingBase) entity;
-
-              entityLiving.setHealth(0F);
+              entity.setHealth(0F);
           }
       }
   }
