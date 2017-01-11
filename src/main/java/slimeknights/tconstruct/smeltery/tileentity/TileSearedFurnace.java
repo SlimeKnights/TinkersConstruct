@@ -7,7 +7,6 @@ import javax.annotation.Nonnull;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.InventoryPlayer;
