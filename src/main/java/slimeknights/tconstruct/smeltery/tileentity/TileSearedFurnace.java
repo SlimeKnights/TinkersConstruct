@@ -153,6 +153,7 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
   }
   
   protected void interactWithEntitiesInside() {
+      // find all monsters within the furnace and kill them 
       AxisAlignedBB bb = info.getBoundingBox().contract(1).offset(0, 0.5, 0).expand(0, 0.5, 0);
 
       List<EntityLivingBase> entities = getWorld().getEntitiesWithinAABB(EntityLivingBase.class, bb);
