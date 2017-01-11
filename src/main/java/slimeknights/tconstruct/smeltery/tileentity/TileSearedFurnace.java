@@ -58,7 +58,10 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
       // we heat items every tick, as otherwise we are quite slow compared to a vanilla furnace
       if(tick % 4 == 0) {
         heatItems();
-        interactWithEntitiesInside();
+      }
+      
+      if(tick == 0) {
+          interactWithEntitiesInside();
       }
 
       if(needsFuel) {
@@ -155,8 +158,8 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
       List<EntityLivingBase> entities = getWorld().getEntitiesWithinAABB(EntityLivingBase.class, bb);
 
       for(EntityLivingBase entity : entities) {
-          if (entity instanceof EntityMob) {
-              entity.setHealth(0F);
+          if(entity instanceof EntityMob) {
+              entity.setDead();
           }
       }
   }
