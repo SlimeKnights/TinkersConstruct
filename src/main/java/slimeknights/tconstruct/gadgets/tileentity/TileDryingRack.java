@@ -17,6 +17,9 @@ import slimeknights.tconstruct.library.tileentity.IProgress;
 
 public class TileDryingRack extends TileItemRack implements ITickable, ISidedInventory, IProgress {
 
+  private static final String TAG_TIME = "Time";
+  private static final String TAG_MAXTIME = "MaxTime";
+
   int currentTime;
   int maxTime;
 
@@ -125,16 +128,17 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
 
   @Override
   public void readFromNBT(NBTTagCompound tags) {
-    currentTime = tags.getInteger("Time");
-    maxTime = tags.getInteger("MaxTime");
     super.readFromNBT(tags);
+    currentTime = tags.getInteger(TAG_TIME);
+    maxTime = tags.getInteger(TAG_MAXTIME);
   }
 
   @Nonnull
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound tags) {
-    tags.setInteger("Time", currentTime);
-    tags.setInteger("MaxTime", maxTime);
-    return super.writeToNBT(tags);
+    tags = super.writeToNBT(tags);
+    tags.setInteger(TAG_TIME, currentTime);
+    tags.setInteger(TAG_MAXTIME, maxTime);
+    return tags;
   }
 }
