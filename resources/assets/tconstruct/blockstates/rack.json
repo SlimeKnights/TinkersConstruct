@@ -9,13 +9,13 @@
     "variants": {
         "facing": {
             "down_z": { "model": "tconstruct:rack_down" },
-            "down_x": { "model": "tconstruct:rack_down", "y": 90 },
+            "down_x": { "model": "tconstruct:rack_down" }, //"y": 90 },
             "up_z":   {},
-            "up_x":   { "y": 90 },
-            "north":  { "model": "tconstruct:rack_side", "y": 180 },
+            "up_x":   {}, // "y": 90 },
+            "north":  { "model": "tconstruct:rack_side" }, //"y": 180 },
             "south":  { "model": "tconstruct:rack_side" },
-            "east":   { "model": "tconstruct:rack_side", "y": 270 },
-            "west":   { "model": "tconstruct:rack_side", "y": 90 }
+            "east":   { "model": "tconstruct:rack_side" }, //"y": 270 },
+            "west":   { "model": "tconstruct:rack_side" } //, "y": 90 }
         },
         "drying": {
             "true": {},

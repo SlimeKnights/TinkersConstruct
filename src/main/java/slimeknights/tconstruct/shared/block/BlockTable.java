@@ -14,7 +14,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagString;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -170,7 +169,7 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   }
 
   // saves the info about the TE onto the itemstack
-  private void writeDataOntoItemstack(@Nonnull ItemStack item, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean noInventorySave) {
+  private void writeDataOntoItemstack(@Nonnull ItemStack item, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean inventorySave) {
     // get block data from the block
     TileEntity te = world.getTileEntity(pos);
     if(te != null && te instanceof TileTable) {
@@ -185,7 +184,7 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
       }
 
       // save inventory, if not empty
-      if(noInventorySave && keepInventory(state)) {
+      if(inventorySave && keepInventory(state)) {
         if (!table.isInventoryEmpty()) {
           NBTTagCompound inventoryTag = new NBTTagCompound();
           table.writeInventoryToNBT(inventoryTag);
@@ -252,7 +251,9 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
     List<ItemStack> drops = getDrops(world, pos, world.getBlockState(pos), 0);
     if(drops.size() > 0) {
-      return drops.get(0);
+      ItemStack stack = drops.get(0);
+      writeDataOntoItemstack(stack, world, pos, state, false);
+      return stack;
     }
 
     return super.getPickBlock(state, target, world, pos, player);
