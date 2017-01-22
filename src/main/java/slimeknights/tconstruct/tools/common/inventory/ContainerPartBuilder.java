@@ -57,7 +57,7 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
 
 
     // pattern slot
-    this.addSlotToContainer(patternSlot = new SlotStencil(craftMatrix, 2, 26, 35));
+    this.addSlotToContainer(patternSlot = new SlotStencil(craftMatrix, 2, 26, 35, false));
 
     // material slots
     this.addSlotToContainer(input1 = new Slot(craftMatrix, 0, 48, 26));

@@ -9,8 +9,11 @@ import slimeknights.tconstruct.library.tools.Pattern;
 
 public class SlotStencil extends Slot {
 
-  public SlotStencil(IInventory inventoryIn, int index, int xPosition, int yPosition) {
+  private boolean requireBlank;
+
+  public SlotStencil(IInventory inventoryIn, int index, int xPosition, int yPosition, boolean requireBlank) {
     super(inventoryIn, index, xPosition, yPosition);
+    this.requireBlank = requireBlank;
   }
 
   @Override
@@ -19,6 +22,6 @@ public class SlotStencil extends Slot {
       return false;
     }
 
-    return !(stack.getItem() instanceof IPattern) || ((Pattern) stack.getItem()).isBlankPattern(stack);
+    return !requireBlank || !(stack.getItem() instanceof Pattern) || ((Pattern) stack.getItem()).isBlankPattern(stack);
   }
 }

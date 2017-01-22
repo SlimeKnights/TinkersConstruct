@@ -47,7 +47,7 @@ public class ContainerPatternChest extends ContainerTinkerStation<TilePatternChe
     public final TilePatternChest patternChest;
 
     public SlotPatternChest(TilePatternChest inventoryIn, int index, int xPosition, int yPosition) {
-      super(inventoryIn, index, xPosition, yPosition);
+      super(inventoryIn, index, xPosition, yPosition, false);
 
       this.patternChest = inventoryIn;
     }

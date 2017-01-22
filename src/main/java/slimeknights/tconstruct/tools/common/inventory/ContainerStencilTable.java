@@ -36,7 +36,7 @@ public class ContainerStencilTable
     this.craftMatrix = new InventoryCraftingPersistent(this, tile, 1, 1);
     this.craftResult = new InventoryCraftResult();
 
-    this.addSlotToContainer(new SlotStencil(this.craftMatrix, 0, 48, 35));
+    this.addSlotToContainer(new SlotStencil(this.craftMatrix, 0, 48, 35, true));
     this.addSlotToContainer(new SlotCraftingCustom(this, playerInventory.player, craftMatrix, craftResult, 1, 106, 35));
 
     TilePatternChest chest = detectTE(TilePatternChest.class);
