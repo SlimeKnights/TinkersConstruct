@@ -31,11 +31,18 @@ public class RangedRenderEvents {
       left = EnumHand.MAIN_HAND;
     }
 
-    if(isCarryingLoadedCrossbow(player, right)) {
-      ((ModelBiped)event.getRenderer().getMainModel()).rightArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
-    }
-    else if(isCarryingLoadedCrossbow(player, left)) {
-      ((ModelBiped)event.getRenderer().getMainModel()).leftArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
+    try {
+      if(isCarryingLoadedCrossbow(player, right)) {
+        ((ModelBiped) event.getRenderer().getMainModel()).rightArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
+      }
+      else if(isCarryingLoadedCrossbow(player, left)) {
+        ((ModelBiped) event.getRenderer().getMainModel()).leftArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
+      }
+    } catch (ClassCastException ex) {
+      // Player is not a biped. Typically this means they are using some kind of
+      // morphing mod.
+
+      // log a message somewhere?
     }
   }
 
