@@ -31,11 +31,13 @@ public class RangedRenderEvents {
       left = EnumHand.MAIN_HAND;
     }
 
-    if(isCarryingLoadedCrossbow(player, right)) {
-      ((ModelBiped)event.getRenderer().getMainModel()).rightArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
-    }
-    else if(isCarryingLoadedCrossbow(player, left)) {
-      ((ModelBiped)event.getRenderer().getMainModel()).leftArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
+    if (event.getRenderer().getMainModel() instanceof ModelBiped) {
+      if(isCarryingLoadedCrossbow(player, right)) {
+        ((ModelBiped) event.getRenderer().getMainModel()).rightArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
+      }
+      else if(isCarryingLoadedCrossbow(player, left)) {
+        ((ModelBiped) event.getRenderer().getMainModel()).leftArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
+      }
     }
   }
 
