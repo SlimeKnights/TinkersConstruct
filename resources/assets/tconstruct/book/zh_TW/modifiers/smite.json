@@ -1,0 +1,18 @@
+{
+  "modifier": "smite",
+  "text": [
+    {
+      "text": "源自土壤的神聖原力強化你的武器，在高處重擊敵人。"
+    }
+  ],
+  "effects": [
+    "對不死生物造成大量的傷害",
+    "分為多個等級"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:hammer",
+    "tconstruct:arrow"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "image": {
+    "file": "tconstruct:textures/gui/book/inventory_repair.png"
+  },
+  "text": [
+    {
+      "text": "只要帶著幾個你需要的材質的磨刀石，並且把它和工具一起合成就可以做到這樣的效果。"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "modifier": "sharpness",
+  "text": [
+    {
+      "text": "你可以使用地獄石英來磨製武器的邊緣，並使它變得鋒利。石英使用越多，武器就會越鋒利。在鈍器上也有作用。"
+    }
+  ],
+  "effects": [
+    "增加攻擊傷害",
+    "不同的武器所造成的效果有所不同",
+    "分為多個等級"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:arrow"
+  ]
+}
