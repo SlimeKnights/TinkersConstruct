@@ -1,0 +1,18 @@
+{
+  "modifier": "beheading",
+  "text": [
+    {
+      "text": "在武器加上終界珍珠和一些黑曜石會有著奇怪的效果 — 將目標的頭和它的身體分離。 理髮師，頭頂稍微修一下就可以了?"
+    }
+  ],
+  "effects": [
+    "敵人會掉下它們的頭",
+    "添加多一點的終界珍珠與黑曜石可以增加掉頭的機率",
+    "分為多個等級"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:arrow"
+  ]
+}

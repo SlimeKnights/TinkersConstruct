@@ -1,0 +1,19 @@
+{
+  "modifier": "reinforced",
+  "text": [
+    {
+      "text": "在工具上加上黑曜石板似乎有助於耐久度，使工具更強壯。"
+    }
+  ],
+  "effects": [
+    "增加不消耗耐久度的機率",
+    "可疊加上先前的強化等級",
+    "分為多個等級"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:hammer",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
+  ]
+}

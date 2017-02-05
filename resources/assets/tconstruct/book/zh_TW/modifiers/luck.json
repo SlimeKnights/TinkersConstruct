@@ -1,0 +1,25 @@
+{
+  "modifier": "luck",
+  "text": [
+    {
+      "text": "在工具參雜青金石是給運氣之神的禮物。運氣之神將會祝福你的工具，使它有絕佳的運氣與掠奪能力。"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "對於遠距離武器，青金石必須被加在投射物上才有效果。"
+    }
+  ],
+  "effects": [
+    "增加幸運或掠奪",
+    "讓工具有機會增加幸運",
+    "添加更多的青金石只會消耗一個強化空間",
+    "與絲綢之觸不相容"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
+  ]
+}

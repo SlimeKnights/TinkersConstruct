@@ -1,0 +1,19 @@
+{
+  "modifier": "shulking",
+  "text": [
+    {
+      "text": "使你的工具有界伏蚌的能力。打一下敵人，讓它們無助地飄在半空中。"
+    }
+  ],
+  "effects": [
+    "每一點都會增加漂浮的時間。",
+    "讓敵人漂走",
+    "真好笑",
+    "單一等級"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
+  ]
+}

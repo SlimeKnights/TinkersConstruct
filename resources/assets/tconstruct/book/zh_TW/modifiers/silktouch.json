@@ -1,0 +1,20 @@
+
+{
+  "modifier": "silktouch",
+  "text": [
+    {
+      "text": "在工具中加上大量的黃金和線似乎可以給工具像絲綢般軟軟的觸感。"
+    },
+    { "text": "\n" },
+    { "text": "我真不敢相信，它竟然不是奶油" }
+  ],
+  "effects": [
+    "讓方塊可以直接被挖掘起來",
+    "不能與幸運和自動燒製相容",
+    "只能強化一次"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:hammer"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "modifier": "fins",
+  "text": [
+    {
+      "text": "首先我們先抓一隻魚，然後把它做成箭...... 當然，這支箭就可以在水裡游泳了! 現在我可以在水裡投射東西了!"
+    }
+  ],
+  "effects": [
+    "使投射物忽視水的存在",
+    "超合邏輯的",
+    "真的，很合理"
+  ],
+  "demoTool": [
+    "tconstruct:arrow",
+    "tconstruct:bolt",
+    "tconstruct:shuriken"
+  ]
+}

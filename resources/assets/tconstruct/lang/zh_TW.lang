@@ -1,0 +1,969 @@
+################
+#    Blocks    # #The translation is base on TConstruct's branch "master" on Github. (2017/2/5 15:20 UTC+8)
+################
+
+tile.tconstruct.tooltables.craftingstation.name=合成站
+tile.tconstruct.tooltables.stenciltable.name=模具桌
+tile.tconstruct.tooltables.partbuilder.name=部件加工台
+tile.tconstruct.tooltables.toolstation.name=工具組裝台
+tile.tconstruct.tooltables.patternchest.name=模具箱
+tile.tconstruct.tooltables.patternchest.tooltip=可以存放模具與鑄模
+tile.tconstruct.tooltables.partchest.name=部件箱
+tile.tconstruct.tooltables.partchest.tooltip=可以存放大量的部件
+tile.tconstruct.toolforge.name=工具裝配台
+
+tile.tconstruct.soil.grout.name=水泥
+tile.tconstruct.soil.grout.tooltip=我是水泥!
+tile.tconstruct.soil.slimy_mud_green.name=綠色史萊姆泥
+tile.tconstruct.soil.slimy_mud_green.tooltip=緩速，但是一樣可以讓你跳得更高
+tile.tconstruct.soil.slimy_mud_blue.name=藍色史萊姆泥
+tile.tconstruct.soil.slimy_mud_blue.tooltip=tile.tconstruct.soil.slimy_mud_green.tooltip
+tile.tconstruct.soil.slimy_mud_magma.name=熔岩史萊姆泥
+tile.tconstruct.soil.slimy_mud_magma.tooltip=tile.tconstruct.soil.slimy_mud_green.tooltip
+tile.tconstruct.soil.graveyard.name=墓園之土
+tile.tconstruct.soil.graveyard.tooltip=治療不死生物
+tile.tconstruct.soil.consecrated.name=神聖之土
+tile.tconstruct.soil.consecrated.tooltip=傷害不死生物
+
+tile.tconstruct.deco_ground.mudbrick.name=泥磚
+tile.tconstruct.deco_ground_slab.mudbrick.name=泥半磚
+tile.tconstruct.mudbrick_stairs.name=泥磚階梯
+
+tile.tconstruct.ore.cobalt.name=鈷礦
+tile.tconstruct.ore.ardite.name=阿迪特礦
+
+tile.tconstruct.metal.cobalt.name=鈷塊
+tile.tconstruct.metal.ardite.name=阿迪特塊
+tile.tconstruct.metal.manyullyn.name=瑪玉靈塊
+tile.tconstruct.metal.knightslime.name=騎士史萊姆塊
+tile.tconstruct.metal.pigiron.name=生鐵塊
+tile.tconstruct.metal.alubrass.name=鋁黃銅塊
+tile.tconstruct.metal.silky_jewel.name=精緻珠寶塊
+
+tile.tconstruct.firewood.lavawood.name=熔岩木
+tile.tconstruct.firewood.firewood.name=燃燒木
+tile.tconstruct.firewood_slab.lavawood.name=熔岩木半磚
+tile.tconstruct.firewood_slab.firewood.name=燃燒木半磚
+tile.tconstruct.lavawood_stairs.name=燃燒木階梯
+tile.tconstruct.firewood_stairs.name=燃燒木階梯
+
+tile.tconstruct.clear_glass.name=通透玻璃
+tile.tconstruct.clear_stained_glass.white.name=白色通透玻璃
+tile.tconstruct.clear_stained_glass.orange.name=橘色通透玻璃
+tile.tconstruct.clear_stained_glass.magenta.name=桃紅色通透玻璃
+tile.tconstruct.clear_stained_glass.light_blue.name=亮藍色通透玻璃
+tile.tconstruct.clear_stained_glass.yellow.name=黃色通透玻璃
+tile.tconstruct.clear_stained_glass.lime.name=亮綠色通透玻璃
+tile.tconstruct.clear_stained_glass.pink.name=粉紅色通透玻璃
+tile.tconstruct.clear_stained_glass.gray.name=灰色通透玻璃
+tile.tconstruct.clear_stained_glass.silver.name=淺灰色通透玻璃
+tile.tconstruct.clear_stained_glass.cyan.name=青色通透玻璃
+tile.tconstruct.clear_stained_glass.purple.name=紫色通透玻璃
+tile.tconstruct.clear_stained_glass.blue.name=藍色通透玻璃
+tile.tconstruct.clear_stained_glass.brown.name=棕色通透玻璃
+tile.tconstruct.clear_stained_glass.green.name=綠色通透玻璃
+tile.tconstruct.clear_stained_glass.red.name=紅色通透玻璃
+tile.tconstruct.clear_stained_glass.black.name=黑色通透玻璃
+
+tile.tconstruct.slime.green.name=綠色史萊姆方塊
+tile.tconstruct.slime.blue.name=藍色史萊姆方塊
+tile.tconstruct.slime.purple.name=紫色史萊姆方塊
+tile.tconstruct.slime.blood.name=血色史萊姆方塊
+tile.tconstruct.slime.magma.name=熔岩史萊姆方塊
+tile.tconstruct.slime.tooltip=不能與活塞一起使用。
+
+tile.tconstruct.slime_congealed.green.name=固化綠色史萊姆方塊
+tile.tconstruct.slime_congealed.blue.name=固化藍色史萊姆方塊
+tile.tconstruct.slime_congealed.purple.name=固化紫色史萊姆方塊
+tile.tconstruct.slime_congealed.blood.name=固化血色史萊姆方塊
+tile.tconstruct.slime_congealed.magma.name=固化熔岩史萊姆方塊
+tile.tconstruct.slime_congealed.tooltip=讓你跳得很高
+
+tile.tconstruct.slime_dirt.green.name=綠色史萊姆土
+tile.tconstruct.slime_dirt.blue.name=藍色史萊姆土
+tile.tconstruct.slime_dirt.purple.name=紫色史萊姆土
+tile.tconstruct.slime_dirt.blood.name=血色史萊姆土
+tile.tconstruct.slime_dirt.magma.name=熔岩史萊姆土
+tile.tconstruct.slime_dirt.tooltip=很黏，但是讓你跳得更高
+
+tile.tconstruct.slime_grass.vanilla.name=史萊姆草地
+tile.tconstruct.slime_grass.green.name=綠色史萊姆草地
+tile.tconstruct.slime_grass.blue.name=藍色史萊姆草地
+tile.tconstruct.slime_grass.purple.name=紫色史萊姆草地
+tile.tconstruct.slime_grass.blood.name=血色史萊姆草地
+tile.tconstruct.slime_grass.magma.name=熔岩史萊姆草地
+tile.tconstruct.slime_grass.tooltip=超軟! 讓你跳得更高
+
+tile.tconstruct.slime_leaves.blue.name=史萊姆樹葉
+tile.tconstruct.slime_leaves.purple.name=史萊姆樹葉
+tile.tconstruct.slime_leaves.orange.name=史萊姆樹葉
+
+tile.tconstruct.slime_grass_tall.tall_grass.name=史萊姆草
+tile.tconstruct.slime_grass_tall.fern.name=史萊姆蕨
+
+tile.tconstruct.slime_sapling.blue.name=藍色史萊姆樹苗
+tile.tconstruct.slime_sapling.purple.name=紫色史萊姆樹苗
+tile.tconstruct.slime_sapling.orange.name=熔岩史萊姆樹苗
+tile.tconstruct.slime_sapling.tooltip=只能在史萊姆土/史萊姆草地上種植
+
+tile.tconstruct.slime_vine_blue.name=藍色史萊姆藤蔓
+tile.tconstruct.slime_vine_blue_mid.name=藍色史萊姆藤蔓
+tile.tconstruct.slime_vine_blue_end.name=藍色史萊姆藤蔓
+tile.tconstruct.slime_vine_purple.name=紫色史萊姆藤蔓
+tile.tconstruct.slime_vine_purple_mid.name=紫色史萊姆藤蔓
+tile.tconstruct.slime_vine_purple_end.name=紫色史萊姆藤蔓
+
+tile.tconstruct.seared.stone.name=焦黑石
+tile.tconstruct.seared.cobble.name=焦黑鵝卵石
+tile.tconstruct.seared.paver.name=焦黑蓋板石
+tile.tconstruct.seared.brick.name=焦黑石磚
+tile.tconstruct.seared.brick_cracked.name=裂焦黑磚
+tile.tconstruct.seared.brick_fancy.name=平滑焦黑石磚
+tile.tconstruct.seared.brick_square.name=方紋焦黑石磚
+tile.tconstruct.seared.brick_triangle.name=三角紋焦黑石磚
+tile.tconstruct.seared.brick_small.name=細紋焦黑石磚
+tile.tconstruct.seared.road.name=焦黑鋪路石
+tile.tconstruct.seared.tile.name=焦黑石磁磚
+tile.tconstruct.seared.creeper.name=焦黑苦力怕臉石磚
+tile.tconstruct.seared.tooltip=冶煉爐的一部份。可以安心拿來做為裝飾。
+
+tile.tconstruct.seared_slab.stone.name=焦黑石半磚
+tile.tconstruct.seared_slab.cobble.name=焦黑鵝卵石半磚
+tile.tconstruct.seared_slab.paver.name=焦黑蓋板石半磚
+tile.tconstruct.seared_slab.brick.name=焦黑石磚半磚
+tile.tconstruct.seared_slab.brick_cracked.name=裂焦黑半磚
+tile.tconstruct.seared_slab.brick_fancy.name=平滑焦黑半磚
+tile.tconstruct.seared_slab.brick_square.name=方紋焦黑半磚
+tile.tconstruct.seared_slab.road.name=焦黑鋪路石半磚
+tile.tconstruct.seared_slab2.creeper.name=焦黑苦力怕臉半磚
+tile.tconstruct.seared_slab2.brick_triangle.name=三角紋焦黑半磚
+tile.tconstruct.seared_slab2.brick_small.name=細紋焦黑半磚
+tile.tconstruct.seared_slab2.tile.name=焦黑石磁磚半磚
+
+tile.tconstruct.seared_stairs_stone.name=焦黑石階梯
+tile.tconstruct.seared_stairs_cobble.name=焦黑鵝卵石階梯
+tile.tconstruct.seared_stairs_paver.name=焦黑蓋板石階梯
+tile.tconstruct.seared_stairs_brick.name=焦黑石磚階梯
+tile.tconstruct.seared_stairs_brick_cracked.name=裂焦黑磚階梯
+tile.tconstruct.seared_stairs_brick_fancy.name=平滑焦黑石磚階梯
+tile.tconstruct.seared_stairs_brick_square.name=方紋焦黑石磚階梯
+tile.tconstruct.seared_stairs_brick_triangle.name=三角紋焦黑石磚階梯
+tile.tconstruct.seared_stairs_brick_small.name=細紋焦黑半磚階梯
+tile.tconstruct.seared_stairs_road.name=焦黑鋪路石半磚階梯
+tile.tconstruct.seared_stairs_tile.name=焦黑石磁磚半磚階梯
+tile.tconstruct.seared_stairs_creeper.name=焦黑苦力怕臉石磚階梯
+
+tile.tconstruct.smeltery_controller.name=冶煉爐控制器
+tile.tconstruct.smeltery_controller.tooltip=冶煉爐的大腦
+tile.tconstruct.smeltery_io.drain.name=冶煉爐排液口
+tile.tconstruct.smeltery_io.drain.tooltip=為冶煉爐輸入/輸出液體
+tile.tconstruct.casting.table.name=澆鑄台
+tile.tconstruct.casting.basin.name=鑄造盆
+tile.tconstruct.casting.tooltip=使用冶煉爐裡的融化金屬澆鑄物品
+tile.tconstruct.faucet.name=澆注口
+tile.tconstruct.faucet.tooltip=從冶煉爐或是其他東西導出液體
+tile.tconstruct.seared_tank.tank.name=焦黑儲罐
+tile.tconstruct.seared_tank.gauge.name=焦黑量筒
+tile.tconstruct.seared_tank.window.name=焦黑窗
+tile.tconstruct.seared_tank.tooltip=冶煉爐的核心\n被破壞後還會保留液體。
+tile.tconstruct.seared_glass.glass.name=焦黑玻璃
+tile.tconstruct.seared_glass.glass.tooltip=冶煉爐的一部分。可以安心拿來做為裝飾。\n不能儲存液體。
+
+tile.tconstruct.seared_furnace_controller.name=焦黑熔爐控制器
+tile.tconstruct.tinker_tank_controller.name=工匠儲液槽控制器
+
+tile.tconstruct.stone_torch.name=石柄火把
+tile.tconstruct.stone_ladder.name=石頭梯子
+tile.tconstruct.wood_rail.name=木製軌道
+tile.tconstruct.wood_rail_trapdoor.name=陷阱門木製軌道
+tile.tconstruct.wood_rail_trapdoor.tooltip=漏斗礦車可以\n將物品輸入下方的方塊
+tile.tconstruct.punji.name=尖竹釘
+tile.tconstruct.punji.tooltip=尖的! 也可以黏在牆上。.
+tile.tconstruct.glow.name=螢光
+tile.tconstruct.rack.item.name=物品架
+tile.tconstruct.rack.item.tooltip=拿來展示物品用
+tile.tconstruct.rack.drying.name=晾乾架
+tile.tconstruct.rack.drying.tooltip=用來晾乾物品
+
+tile.tconstruct.slime_channel.green.name=綠色史萊姆通道
+tile.tconstruct.slime_channel.blue.name=藍色史萊姆通道
+tile.tconstruct.slime_channel.purple.name=紫色史萊姆通道
+tile.tconstruct.slime_channel.magma.name=烈焰史萊姆通道
+tile.tconstruct.slime_channel.blood.name=血之通道
+tile.tconstruct.slime_channel.tooltip=像水一樣流動，感覺像是凝膠
+
+tile.tconstruct.dried_clay.clay.name=乾燥黏土
+tile.tconstruct.dried_clay.brick.name=乾燥磚塊
+tile.tconstruct.dried_clay_slab.clay.name=乾燥黏土半磚
+tile.tconstruct.dried_clay_slab.brick.name=乾燥半磚
+tile.tconstruct.dried_clay_stairs.name=乾燥黏土階梯
+tile.tconstruct.dried_brick_stairs.name=乾燥磚塊階梯
+
+tile.tconstruct.brownstone.smooth.name=光滑褐岩塊
+tile.tconstruct.brownstone.rough.name=粗糙褐岩塊
+tile.tconstruct.brownstone.paver.name=蓋板褐岩塊
+tile.tconstruct.brownstone.brick.name=褐岩塊石磚
+tile.tconstruct.brownstone.brick_cracked.name=裂褐岩石磚
+tile.tconstruct.brownstone.brick_fancy.name=平滑褐岩石磚
+tile.tconstruct.brownstone.brick_square.name=方紋褐岩石磚
+tile.tconstruct.brownstone.brick_triangle.name=三角褐岩石磚
+tile.tconstruct.brownstone.brick_small.name=細紋褐岩石磚
+tile.tconstruct.brownstone.road.name=鋪路褐岩石
+tile.tconstruct.brownstone.tile.name=褐岩石磁磚
+tile.tconstruct.brownstone.creeper.name=苦力怕臉褐岩石
+tile.tconstruct.brownstone.tooltip=你在上面移動得快一點
+
+tile.tconstruct.brownstone_slab.smooth.name=光滑褐岩半磚
+tile.tconstruct.brownstone_slab.rough.name=粗糙褐岩半磚
+tile.tconstruct.brownstone_slab.paver.name=蓋板褐岩半磚
+tile.tconstruct.brownstone_slab.brick.name=褐岩塊石半磚
+tile.tconstruct.brownstone_slab.brick_cracked.name=裂褐岩半磚
+tile.tconstruct.brownstone_slab.brick_fancy.name=平滑褐岩半磚
+tile.tconstruct.brownstone_slab.brick_square.name=方紋褐岩半磚
+tile.tconstruct.brownstone_slab.road.name=鋪路褐岩半磚
+tile.tconstruct.brownstone_slab2.creeper.name=苦力怕臉褐岩半磚
+tile.tconstruct.brownstone_slab2.brick_triangle.name=三角褐岩半磚
+tile.tconstruct.brownstone_slab2.brick_small.name=細紋褐岩半磚
+tile.tconstruct.brownstone_slab2.tile.name=褐岩石磁磚半磚
+
+tile.tconstruct.brownstone_stairs_smooth.name=光滑褐岩階梯
+tile.tconstruct.brownstone_stairs_rough.name=粗糙褐岩階梯
+tile.tconstruct.brownstone_stairs_paver.name=蓋板褐岩階梯
+tile.tconstruct.brownstone_stairs_brick.name=褐岩塊石階梯
+tile.tconstruct.brownstone_stairs_brick_cracked.name=裂褐岩階梯
+tile.tconstruct.brownstone_stairs_brick_fancy.name=平滑褐岩階梯
+tile.tconstruct.brownstone_stairs_brick_square.name=方紋褐岩階梯
+tile.tconstruct.brownstone_stairs_brick_triangle.name=三角褐岩階梯
+tile.tconstruct.brownstone_stairs_brick_small.name=細紋褐岩階梯
+tile.tconstruct.brownstone_stairs_road.name=鋪路褐岩階梯
+tile.tconstruct.brownstone_stairs_tile.name=褐岩石磁磚階梯
+tile.tconstruct.brownstone_stairs_creeper.name=苦力怕臉褐岩階梯
+
+################
+#    Items     #
+################
+
+# General Items
+item.tconstruct.book.name=材料與你
+item.tconstruct.book.tooltip=每個工匠都需要這本書\nby Skyla
+
+item.tconstruct.edible.bacon.name=培根
+item.tconstruct.edible.slimeball_blue.name=史萊姆球
+item.tconstruct.edible.slimeball_purple.name=史萊姆球
+item.tconstruct.edible.slimeball_blood.name=凝固之血
+item.tconstruct.edible.slimeball_magma.name=史萊姆球
+item.tconstruct.edible.jerky_beef.name=牛肉乾
+item.tconstruct.edible.jerky_chicken.name=雞肉乾
+item.tconstruct.edible.jerky_pork.name=培根乾
+item.tconstruct.edible.jerky_mutton.name=羊肉乾
+item.tconstruct.edible.jerky_rabbit.name=兔肉乾
+item.tconstruct.edible.jerky_fish.name=魚乾
+item.tconstruct.edible.jerky_salmon.name=鮭魚乾
+item.tconstruct.edible.jerky_clownfish.name=小丑魚乾
+item.tconstruct.edible.jerky_pufferfish.name=河豚乾
+item.tconstruct.edible.jerky_monster.name=怪物肉乾
+item.tconstruct.edible.slimedrop_green.name=黏膠液滴
+item.tconstruct.edible.slimedrop_blue.name=黏膠液滴
+item.tconstruct.edible.slimedrop_purple.name=黏膠液滴
+item.tconstruct.edible.slimedrop_blood.name=凝固血滴
+item.tconstruct.edible.slimedrop_magma.name=黏膠液滴
+
+item.tconstruct.materials.seared_brick.name=焦黑磚塊
+item.tconstruct.materials.mud_brick.name=泥磚塊
+item.tconstruct.materials.mud_brick.tooltip=用來蓋出大小方塊
+item.tconstruct.materials.dried_brick.name=乾燥磚塊
+item.tconstruct.materials.slimecrystal_green.name=綠色史萊姆水晶
+item.tconstruct.materials.slimecrystal_green.tooltip=用來合成史萊姆工具
+item.tconstruct.materials.slimecrystal_blue.name=藍色史萊姆水晶
+item.tconstruct.materials.slimecrystal_blue.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
+item.tconstruct.materials.slimecrystal_magma.name=熔岩史萊姆水晶
+item.tconstruct.materials.slimecrystal_magma.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
+item.tconstruct.materials.expander_w.name=擴展器 (水平)
+item.tconstruct.materials.expander_w.tooltip=不要逃避健身的日子!
+item.tconstruct.materials.expander_h.name=擴展器 (垂直)
+item.tconstruct.materials.expander_h.tooltip=你有做重量訓練嗎?
+item.tconstruct.materials.reinforcement.name=增強
+item.tconstruct.materials.reinforcement.tooltip=增強強化
+item.tconstruct.materials.silky_cloth.name=絹布
+item.tconstruct.materials.silky_jewel.name=精緻珠寶
+item.tconstruct.materials.silky_jewel.tooltip=絲綢之觸強化
+item.tconstruct.materials.necrotic_bone.name=凋零之骨
+item.tconstruct.materials.necrotic_bone.tooltip=凋零強化
+item.tconstruct.materials.moss.name=苔蘚球
+item.tconstruct.materials.moss.tooltip=拿這個對著書櫃點右鍵\n可以轉變成為修復用苔蘚。\n§o消耗 10 等經驗
+item.tconstruct.materials.mending_moss.name=修復用苔蘚
+item.tconstruct.materials.mending_moss.tooltip=修復用苔蘚強化
+item.tconstruct.materials.creative_modifier.name=創造模式強化
+item.tconstruct.materials.creative_modifier.tooltip=增加額外的強化空間
+
+item.tconstruct.ingots.cobalt.name=鈷錠
+item.tconstruct.ingots.ardite.name=阿迪特錠
+item.tconstruct.ingots.manyullyn.name=瑪玉靈錠
+item.tconstruct.ingots.knightslime.name=騎士史萊姆錠
+item.tconstruct.ingots.knightslime.tooltip=黏黏的、有金屬的特質同時也是石頭? 真迷人!
+item.tconstruct.ingots.pigiron.name=生鐵錠
+item.tconstruct.ingots.pigiron.tooltip=嚄嚄!
+item.tconstruct.ingots.alubrass.name=鋁黃銅錠
+
+item.tconstruct.nuggets.cobalt.name=鈷粒
+item.tconstruct.nuggets.ardite.name=阿迪特粒
+item.tconstruct.nuggets.manyullyn.name=瑪玉靈粒
+item.tconstruct.nuggets.knightslime.name=騎士史萊姆粒
+item.tconstruct.nuggets.pigiron.name=生鐵粒
+item.tconstruct.nuggets.alubrass.name=鋁黃銅粒
+
+item.tconstruct.pattern.blank=空白模具
+item.tconstruct.pattern.name=%s模具
+item.tconstruct.cast.blank=空白鑄模
+item.tconstruct.cast.name=%s鑄模
+item.tconstruct.clay_cast.name=%s黏土鑄模
+item.tconstruct.cast_custom.ingot.name=錠鑄模
+item.tconstruct.cast_custom.nugget.name=粒鑄模
+item.tconstruct.cast_custom.gem.name=寶石鑄模
+item.tconstruct.cast_custom.plate.name=大板鑄模
+item.tconstruct.cast_custom.gear.name=齒輪鑄模
+
+item.tconstruct.sharpening_kit.name=磨刀石
+item.tconstruct.sharpening_kit.tooltip=與燧石結合\n可以強化工具的挖礦等級到該材質的等級。
+
+item.forge.bucketFilled.blood=血液桶
+
+# Tools
+item.tconstruct.pickaxe.name=鎬
+item.tconstruct.shovel.name=鏟
+item.tconstruct.hatchet.name=手斧
+item.tconstruct.mattock.name=鶴嘴鋤
+
+item.tconstruct.hammer.name=錘
+item.tconstruct.excavator.name=開掘鏟
+item.tconstruct.lumberaxe.name=伐木斧
+item.tconstruct.scythe.name=鐮刀
+
+# Melee Weapons
+
+item.tconstruct.frypan.name=煎鍋
+item.tconstruct.battlesign.name=戰鬥告示牌
+item.tconstruct.dagger.name=匕首
+item.tconstruct.broadsword.name=大劍
+item.tconstruct.longsword.name=長劍
+item.tconstruct.rapier.name=西洋劍
+item.tconstruct.cutlass.name=彎刀
+
+item.tconstruct.cleaver.name=劈刀
+item.tconstruct.battleaxe.name=戰斧
+
+# Ranged Weapons & Ammo
+
+item.tconstruct.shortbow.name=短弓
+item.tconstruct.longbow.name=長弓
+item.tconstruct.crossbow.name=十字弓
+
+item.tconstruct.arrow.name=箭矢
+item.tconstruct.bolt.name=弩箭
+
+item.tconstruct.shuriken.name=手裡劍
+
+# Tool Parts
+item.tconstruct.shard.name=碎片
+
+item.tconstruct.pick_head.name=鎬頭
+item.tconstruct.shovel_head.name=鏟頭
+item.tconstruct.axe_head.name=鎬頭
+item.tconstruct.pan_head.name=盤
+item.tconstruct.sign_head.name=牌板
+item.tconstruct.binding.name=綁定結
+item.tconstruct.tool_rod.name=手柄
+item.tconstruct.knife_blade.name=刀刃
+item.tconstruct.sword_blade.name=劍刃
+item.tconstruct.wide_guard.name=寬護手
+item.tconstruct.cross_guard.name=交叉護手
+item.tconstruct.hand_guard.name=護手
+item.tconstruct.full_guard.name=大型護手
+
+# Large Tool Parts
+item.tconstruct.hammer_head.name=錘頭
+item.tconstruct.excavator_head.name=開掘鏟頭
+item.tconstruct.broad_axe_head.name=寬斧刃
+item.tconstruct.large_plate.name=大板
+item.tconstruct.tough_binding.name=堅韌綁定結
+item.tconstruct.tough_tool_rod.name=堅韌手柄
+item.tconstruct.scythe_head.name=鐮刀刀刃
+item.tconstruct.large_sword_blade.name=大劍刃
+
+# Bow & Arrow Parts
+
+item.tconstruct.bow_limb.name=弓臂
+item.tconstruct.bow_string.name=弦
+
+item.tconstruct.arrow_head.name=箭頭
+item.tconstruct.arrow_shaft.name=箭桿
+item.tconstruct.fletching.name=箭羽
+
+item.tconstruct.bolt_core.name=弩箭核心
+
+# Material specific tools and toolparts
+# item.tconstruct.<tool>.<material>
+# item.tconstruct.pickaxe.wood=木鎬
+
+# Gadgets
+item.tconstruct.slime_boots.green.name=史萊姆靴
+item.tconstruct.slime_boots.blue.name=史萊姆靴
+item.tconstruct.slime_boots.purple.name=史萊姆靴
+item.tconstruct.slime_boots.blood.name=凝固血液靴
+item.tconstruct.slime_boots.magma.name=史萊姆靴
+item.tconstruct.slime_boots.tooltip=在你可以在落地時反彈
+item.tconstruct.slimesling.name=史萊姆彈弓
+item.tconstruct.slimesling.tooltip=蓄力，瞄準，彈出去!\n如果你愛惜生命的話請穿上史萊姆靴!
+item.tconstruct.piggybackpack.name=小豬背包
+item.tconstruct.piggybackpack.tooltip=對著生物點右鍵可以把他們背起來
+item.tconstruct.stone_stick.name=石製手柄
+
+item.tconstruct.fancy_frame.jewel.name=精緻物品展示框
+item.tconstruct.fancy_frame.alubrass.name=鋁黃銅物品展示框
+item.tconstruct.fancy_frame.cobalt.name=鈷物品展示框
+item.tconstruct.fancy_frame.ardite.name=阿迪特物品展示框
+item.tconstruct.fancy_frame.manyullyn.name=瑪玉靈物品展示框
+item.tconstruct.fancy_frame.gold.name=黃金物品展示框
+item.tconstruct.fancy_frame.clear.name=通透物品展示框
+
+item.tconstruct.throwball.glow.name=螢光球
+item.tconstruct.throwball.glow.tooltip=不適合消耗
+item.tconstruct.throwball.efln.name=EFLN
+item.tconstruct.throwball.efln.tooltip=Explosion! 爆炸! 對挖礦是很安全的
+
+###################
+# Mom's Spaghetti #
+###################
+
+item.tconstruct.moms_spaghetti.name=媽媽的義大利麵
+item.tconstruct.moms_spaghetti.desc=好吃!
+item.tconstruct.moms_spaghetti.tooltip1=§o我猜味道大概都對了... 但是還是有點不一樣。\n他們肯定需要一些醬汁，但它必須是紅色的。
+item.tconstruct.moms_spaghetti.tooltip2=§o少了一些東西... 可以加一些肉。 媽媽總是使用所有種類的肉。\n我應該取得至少三種以上不同的肉。
+item.tconstruct.moms_spaghetti.tooltip3=§o就像媽媽以前做的一樣。
+stat.spaghetti.uses.name=Noms
+stat.spaghetti.nourishment.name=回復飢餓值
+stat.spaghetti.saturation.name=隱藏飽食度
+modifier.spaghetti_sauce.name=伴著醬汁
+modifier.spaghetti_sauce.desc=§o有著媽媽做的甜菜根§r\n增加隱藏飽食度
+modifier.spaghetti_meat.name=有肉
+modifier.spaghetti_meat.desc=§o所有的肉!§r\n增加回復的飢餓值
+
+item.tconstruct.spaghetti.hard.name=超硬的小麥棒
+item.tconstruct.spaghetti.hard.tooltip=就如它的名稱一樣不可食用。\n它必須被軟化，就算你的手使盡全力也不能軟化它。\n他們應該泡在水裡一段時間。
+item.tconstruct.spaghetti.soggy.name=濕麵條
+item.tconstruct.spaghetti.soggy.tooltip=現在，它已經濕透了，就算是你軟趴趴的手臂也能夠折彎它。\n讓我們把它掛起來晾乾。
+item.tconstruct.spaghetti.cold.name=乾冷麵條
+item.tconstruct.spaghetti.cold.tooltip=嗯，好多了。但是它吃起來還是很噁心。\n加熱它應該可以使它變得更好入口。\n甚至它可能好到可以讓你重新站起來。
+
+#################
+#   Entities    #
+#################
+
+entity.tconstruct.blueslime.name=藍色史萊姆
+
+#################
+#    Liquids    #
+#################
+
+fluid.tconstruct.stone.name=焦黑石
+fluid.tconstruct.obsidian.name=熔融黑曜石
+fluid.tconstruct.clay.name=熔融黏土
+fluid.tconstruct.dirt.name=熔融土
+fluid.tconstruct.iron.name=熔融鐵
+fluid.tconstruct.gold.name=熔融黃金
+fluid.tconstruct.pigiron.name=熔融生鐵
+fluid.tconstruct.cobalt.name=熔融鈷
+fluid.tconstruct.ardite.name=熔融阿迪特
+fluid.tconstruct.manyullyn.name=熔融瑪玉靈
+fluid.tconstruct.knightslime.name=熔融史萊姆王
+fluid.tconstruct.emerald.name=熔融綠寶石
+fluid.tconstruct.glass.name=熔融玻璃
+fluid.tconstruct.blood.name=血液
+fluid.tconstruct.milk.name=牛奶
+fluid.tconstruct.blueslime.name=熔融藍色史萊姆
+fluid.tconstruct.purpleslime.name=熔融紫色史萊姆
+fluid.tconstruct.brass.name=熔融黃銅
+fluid.tconstruct.copper.name=熔融銅
+fluid.tconstruct.tin.name=熔融錫
+fluid.tconstruct.bronze.name=熔融青銅
+fluid.tconstruct.zinc.name=熔融鋅
+fluid.tconstruct.lead.name=熔融鉛
+fluid.tconstruct.nickel.name=熔融鎳
+fluid.tconstruct.silver.name=熔融銀
+fluid.tconstruct.electrum.name=熔融琥珀金
+fluid.tconstruct.steel.name=熔融鋼
+fluid.tconstruct.aluminum.name=熔融鋁
+fluid.tconstruct.alubrass.name=熔融鋁黃銅
+
+#################
+#    Potions    #
+#################
+
+potion.carry=攜帶生物
+
+#################
+#   Materials   #
+#################
+# material.<identifier>.name
+# material.<identifier>.prefix
+# material.wood.prefix=Wooden %s - Used for stuff like "Wooden Pickaxe" if no specific name is given
+
+material.wood.name=木頭
+material.wood.prefix=木%s
+material.stone.name=石頭
+material.flint.name=燧石
+material.cactus.name=仙人掌
+material.obsidian.name=黑曜石
+material.prismarine.name=海磷石
+material.netherrack.name=地獄石
+material.endstone.name=終界石
+material.bone.name=骨頭
+material.paper.name=紙
+material.sponge.name=海綿
+material.firewood.name=燃燒木
+material.slime.name=史萊姆
+material.blueslime.name=藍色史萊姆
+material.blueslime.prefix=史萊姆%s
+material.knightslime.name=騎士史萊姆
+material.magmaslime.name=熔岩史萊姆
+material.ardite.name=阿迪特
+material.cobalt.name=鈷
+material.manyullyn.name=瑪玉靈
+material.iron.name=鐵
+material.pigiron.name=生鐵
+material.copper.name=銅
+material.bronze.name=青銅
+material.lead.name=鉛
+material.silver.name=銀
+material.electrum.name=琥珀金
+material.steel.name=鋼
+
+material.string.name=線
+material.vine.name=藤蔓
+material.slimevine_blue.name=史萊姆
+material.slimevine_orange.name=material.slimevine_blue.name
+material.slimevine_purple.name=material.slimevine_blue.name
+
+material.blaze.name=烈焰桿
+material.reed.name=甘蔗
+material.ice.name=冰
+material.endrod.name=終界桿
+
+material.feather.name=羽毛
+material.leaf.name=樹葉
+material.slimeleaf_blue.name=史萊姆樹葉
+material.slimeleaf_orange.name=material.slimeleaf_blue.name
+material.slimeleaf_purple.name=material.slimeleaf_blue.name
+
+#############
+#   Stats   #
+#############
+stat.head.name=頭部
+stat.head.durability.name=耐久度
+stat.head.durability.desc=耐久度機算的基值。\n通常是決定整個工具耐久度的主要因素。
+stat.head.miningspeed.name=挖掘速度
+stat.head.miningspeed.desc=這個材質的工具頭部挖方快可以挖得多快。\n可能受到其他部件的影響。
+stat.head.harvestlevel.name=挖礦等級
+stat.head.harvestlevel.desc=這個材質的工具頭部可以挖哪種範圍的方塊。
+stat.head.attack.name=攻擊
+stat.head.attack.desc=計算攻擊的基本值。\n最終決果取決於工具本身以及其他部件的使用。
+
+stat.handle.name=握把
+stat.handle.modifier.name=增強
+stat.handle.modifier.desc=材料適合作為工具握把的程度。\n整體工具的耐久度被成以這個值。
+stat.handle.durability.name=stat.head.durability.name
+stat.handle.durability.desc=這個工具好拿的程度。\n工具的耐久度會被這個值影響。
+
+stat.extra.name=附加值
+stat.extra.durability.name=stat.head.durability.name
+stat.extra.durability.desc=作為部件使用時，該部件對於耐久度的貢獻程度。
+
+stat.mattock.axelevel.name=砍伐等級
+stat.mattock.shovellevel.name=挖掘等級
+
+stat.bow.name=弓
+stat.bow.drawspeed.name=拉弓速度
+stat.bow.drawspeed.desc=拉弓的速度。
+stat.bow.range.name=Range Multiplier
+stat.bow.range.desc=投射物可以射得多遠。
+stat.bow.damage.name=加成傷害
+stat.bow.damage.desc=在擊中時造成的額外傷害。\n箭矢的力道。
+
+stat.bowstring.name=弦
+stat.bowstring.modifier.name=增強
+stat.bowstring.modifier.desc=工具的耐久度會成以這個值。
+
+stat.shaft.name=箭桿
+stat.shaft.modifier.name=增強
+stat.shaft.modifier.desc=每個箭矢都需要適合的箭桿，這決定了它的滯空時間。\n工具總發數會成以著個值。
+stat.shaft.ammo.name=加成發數
+stat.shaft.ammo.desc=你可以得到多少發箭矢。\n這麼多發數會被加上。
+
+stat.fletching.name=箭羽
+stat.fletching.accuracy.name=準確率
+stat.fletching.accuracy.desc=使用這個箭羽的飛行路徑穩定度。\n影響整個投射物的準確率。
+stat.fletching.modifier.name=增強
+stat.fletching.modifier.desc=你使用這個物品可以合成多少箭矢。\n投射物的發數會成以這個值。
+
+stat.projectile.name=投射物
+stat.projectile.ammo.name=發數
+
+##############
+#   Traits   #
+##############
+
+# traits are also modifiers, they use the same prefix so they don't have to be localized twice
+modifier.alien.name=外星人
+modifier.alien.desc=§o從性狀感覺起來...§r\n...它們好像正在改變! 也許時間會證明一切?
+modifier.aquadynamic.name=水的力量
+modifier.aquadynamic.desc=§o這裡越來越潮濕了!§r\n這個工具不受水的阻礙，而且喜歡下雨的夜晚。
+modifier.aridiculous.name=乾熱
+modifier.aridiculous.desc=§o升高溫度!§r\n這個工具在熱的環境下工作的比較好。
+modifier.autosmelt.name=自動燒製
+modifier.autosmelt.desc=§o一個工具形式的熔爐!§r\n採集方塊並燒製。
+modifier.baconlicious.name=培根
+modifier.baconlicious.desc=§o培根!§r\n敲東西時有時候會掉出培根。
+modifier.cheap.name=便宜
+modifier.cheap.desc=§o更體恤你的荷包!§r\n在修復工具時獲得更多耐久度。
+modifier.cheapskate.name=一毛不拔
+modifier.cheapskate.desc=§o厚臉皮!§r\n石頭很差，工具只有少少的耐久度。
+modifier.coldblooded.name=冷血
+modifier.coldblooded.desc=§o野蠻!§r\n在目標物滿血時可以造成更多傷害。
+modifier.crude.name=粗糙
+modifier.crude.desc=§o給膽小鬼的裝備!§r\n對沒有裝備的目標造成傷害。
+modifier.crude.extra=對付無裝備 : +%s
+modifier.crumbling.name=崩塌
+modifier.crumbling.desc=§o轟隆隆§r\n這個工具破壞軟方塊比沒拿工具還快。
+modifier.dense.name=稠密
+modifier.dense.desc=§o比較...硬。§r\n你的工具在耐久度很少的時候撐得比較久。
+modifier.duritos.name=持久
+modifier.duritos.desc=§o用起來不像它聽起來那麼好。§r\n你的工具可以撐得比較久...大部分時候啦...
+modifier.ecological.name=生態學的
+modifier.ecological.desc=§o綠色的能量!§r\n再生資源真好，它們會自己再生!
+modifier.enderference.name=反對終界來的
+modifier.enderference.desc=§o反傳送!§r\n在短時間內可以防止終界使者傳送。
+modifier.established.name=建置妥當
+modifier.established.desc=§o額外的免費經驗值!§r\n你可以獲得額外的經驗值。
+modifier.flammable.name=易燃
+modifier.flammable.desc=§o火源不足!§r\n組當方塊火焰傷害並且讓敵人著火。
+modifier.fractured.name=破碎
+modifier.fractured.desc=§o痛!§r\n你工具的傷害程度增加了!
+modifier.hellish.name=來自地獄的
+modifier.hellish.desc=§o來自更深的地方!§r\n對非地獄的生物造成更多的傷害。
+modifier.hellish.extra=對付非地獄生物 : +%s
+modifier.holy.name=神聖
+modifier.holy.desc=§o閃閃發光!§r\n對不死生物造成更多傷害。
+modifier.holy.extra=modifier.smite.extra
+modifier.insatiable.name=貪得無厭
+modifier.insatiable.desc=§o狼吞虎嚥!§r\n在戰鬥中你造成的傷害會一次比一次強，但是也會消耗越來越多的耐久度。
+modifier.jagged.name=鋸齒狀的
+modifier.jagged.desc=§o就像有鋸齒狀的東西一樣!§r\n耐久度減少越多，傷害越高。
+modifier.jagged.extra=鋸齒傷害 : +%s
+modifier.lightweight.name=輕量的
+modifier.lightweight.desc=§o移動得像風一樣快!§r\n在挖礦或是攻擊時增加你工具的整體速度。
+modifier.lightweight.extra=速度加成 : +%s
+modifier.magnetic.name=磁性
+modifier.magnetic.desc=§o這是怎麼辦到的?!§r\n敲擊一個東西可以吸引周圍的東西?!
+modifier.momentum.name=氣勢
+modifier.momentum.desc=§o變得更快，繼續向前!§r\n當你連續挖掘時，可以藉由挖掘方塊來增加你的速度。
+modifier.petramor.name=更多岩石
+modifier.petramor.desc=§o好多石頭，一定要看到這一切!§r\n你的工具熱愛石頭，正確地來說它想要吸收石頭 (為了耐久度)。
+modifier.poisonous.name=有毒的
+modifier.poisonous.desc=§o並不完全不含鉛!§r\n在敲擊敵人時讓敵人中毒。
+modifier.prickly.name=尖刺
+modifier.prickly.desc=§o噢!§r\n在這些荊棘之下沒有人是安全的，它們總是很痛。
+modifier.sharp.name=銳利
+modifier.sharp.desc=§o甚至可以切斷文字!§r\n敲擊敵人，讓它們在短時間內流血。
+modifier.shocking.name=嚇人的
+modifier.shocking.desc=§oBzzzzzt!§r\n在你跑動的時候蓄力，在敲擊敵人的時候釋放。
+modifier.slimey.name=黏黏的
+modifier.slimey.desc=§o矮噁，黏黏的!§r\n它會洗掉的。
+modifier.spiky.name=釘滿釘子的
+modifier.spiky.desc=§o比釘鞋還要酷上200% !§r\n阻擋攻擊者造成的傷害。
+modifier.splintering.name=碎裂
+modifier.splintering.desc=§o給敵人的紀念品!§r\n打它們越多次可以造成更多傷害。
+modifier.splinters.name=碎片
+modifier.splinters.desc=§o噢!§r\n小心不要碰到碎片!
+modifier.squeaky.name=吱吱作響
+modifier.squeaky.desc=§o可愛.§r\n你的工具很柔軟，而且像玩具小鴨一樣吱吱作響。它具備絲綢之觸但是不會造成傷害。
+modifier.stiff.name=僵硬的
+modifier.stiff.desc=§o移動不了!§r\n阻擋減少了更多的傷害。
+modifier.stonebound.name=石塊邊界
+modifier.stonebound.desc=§o你的工具真的很喜歡石頭!§r\n這個工具在磨損時挖得更快，但是造成更小的傷害。
+modifier.stonebound.extra=石塊邊界速度: +%s
+modifier.superheat.name=過熱
+modifier.superheat.desc=§o增加熱源!§r\n在敵人著火時可以對敵人造成更多傷害。
+modifier.superheat.extra=對付燃燒者 : +%s
+modifier.unnatural.name=不自然
+modifier.unnatural.desc=§o令人憎恨!§r\n當你的工具挖礦等級高於你所挖的方塊時，這個工具挖掘得更快。
+modifier.tasty.name=好吃
+modifier.tasty.desc=§o(嚼嚼嚼...)§r\n好香啊... 你應該吃你的工具而不是挨餓。
+modifier.writable.name=可寫
+modifier.writable.desc=§o知識分子!§r\n更多文字，更多強化空間。就是很合理!
+
+modifier.breakable.name=易碎的
+modifier.breakable.desc=§o此面朝上!§r\n投射物有50％的機會在撞擊時斷裂。
+modifier.endspeed.name=終界速度
+modifier.endspeed.desc=§o量子速度!§r\n投射物瞬間移動到它的目的地。
+modifier.freezing.name=凍結
+modifier.freezing.desc=§o冬天來了§r\n成功命中後讓你的目標越來越慢。
+modifier.hovering.name=滯空
+modifier.hovering.desc=§o就像風一樣自由§r\n投射物移動得更慢，但是較不受重力影響。
+modifier.splitting.name=分裂
+modifier.splitting.desc=§o一個變兩個!§r\n在箭矢突然加速射出時，有機會分裂成兩個箭矢。
+
+#################
+#   Modifiers   #
+#################
+
+modifier.bane_of_arthopods.name=節肢剋星
+modifier.bane_of_arthopods.desc=§o反蜘蛛!§r\n對蜘蛛造成更多傷害。
+modifier.bane_of_arthopods.extra=對付蜘蛛 : +%s
+modifier.beheading.name=斬首
+modifier.beheading.desc=§o拿下它的頭!§r\n在擊殺時，每一等級增加10%機會來取得敵人的頭顱。
+modifier.blasting.name=爆破
+modifier.blasting.desc=§o喀-碰!§r\n你可以敲掉不被工具影響的方塊，但是方塊可能會被破壞。
+modifier.blasting.extra=爆破威力 : %s
+modifier.diamond.name=鑽石
+modifier.diamond.desc=§o閃亮!§r\n增加耐久度!
+modifier.emerald.name=綠寶石
+modifier.emerald.desc=§o漂亮!§r\n基於工具基礎的性能增加耐久度!
+modifier.fiery.name=火熱
+modifier.fiery.desc=§o現在好熱!§r\n造成火焰傷害，讓你的敵人著火。
+modifier.fiery.extra=火焰傷害 : +%s
+modifier.fiery.extra2=燃燒持續時間 : %ss
+modifier.fins.name=魚鰭
+modifier.fins.desc=§o有時候有點腥味...§r\n在投射物黏上魚鰭讓它就像水下生物一樣移動。
+modifier.fortify.name=強化
+modifier.fortify.desc=§o更要，更好，更快，更強壯!§r\n將挖礦等級提升到和%s一樣。
+modifier.glowing.name=閃光
+modifier.glowing.desc=§o閃亮§r\n每周圍變得太暗時，你的工具會犧牲自己的一部分來照亮你的道路。
+modifier.harvestwidth.name=寬度++
+modifier.harvestwidth.desc=§o擴張!§r\n增加你的工具可以影響的寬度，但是工具能作用的方塊種類不變。
+modifier.harvestheight.name=高度++
+modifier.harvestheight.desc=§o擴張!§r\n增加你的工具可以影響的高度，但是工具能作用的方塊種類不變。
+modifier.haste.name=匆促
+modifier.haste.name2=很匆促
+modifier.haste.name3=更匆促
+modifier.haste.name4=極其匆促
+modifier.haste.name5=超級無敵匆促
+modifier.haste.desc=§oWeeeeeee!§r\n在你使用你的工具時會發出紅時脈衝，這讓你的工具運作得更快。
+modifier.haste.extra=速度增量 : +%s
+modifier.knockback.name=擊回
+modifier.knockback.desc=§o全壘打!§r\n教一個東西怎麼飛 - 用很酷的方式。
+modifier.luck.name=幸運
+modifier.luck.desc=§o閃亮亮!§r\n你得到了所有好東西，而且是很多的好東西。
+modifier.mending_moss.name=修復用苔蘚
+modifier.mending_moss.desc=§o它是活的!§r\n撿起來的經驗值被存在工具裡。它會緩慢的使用經驗值來回復耐久度。
+modifier.mending_moss.extra=儲存的經驗值 : %d
+modifier.necrotic.name=凋零
+modifier.necrotic.desc=§o我覺得很有活力!!§r\n打擊敵人來回血，回血程度取決於造成的傷。
+modifier.necrotic.extra=生命竊取 : +%s
+modifier.reinforced.name=加強
+modifier.reinforced.unbreakable=牢不可破
+modifier.reinforced.desc=§o如此的強壯!§r\n每一等級增加 %s 的機會不消耗耐久度。
+modifier.reinforced.extra=加強 : %s
+modifier.sharpness.name=鋒利
+modifier.sharpness.name2=很鋒利
+modifier.sharpness.name3=更鋒利
+modifier.sharpness.name4=極其鋒利
+modifier.sharpness.name5=超級無敵鋒利
+modifier.sharpness.desc=§o噢!§r\n好鋒利，光看就覺得很痛。
+modifier.shulking.name=界浮蚌一般
+modifier.shulking.desc=§o往上，再往上!然後它就飛走了§r\n打擊敵人，讓它們漂走。
+modifier.shulking.extra=漂浮時間 : %ss
+modifier.silktouch.name=絲綢之觸
+modifier.silktouch.desc=§o就像絲綢一樣柔軟!§r\n掉落方塊本身而不是它們平時掉落的。
+modifier.smite.name=不死剋星
+modifier.smite.desc=§o為了正義!§r\n隊部死生物造成大量的傷害。
+modifier.smite.extra=對付不死 : +%s
+modifier.soulbound.name=靈魂綁定
+modifier.soulbound.desc=§o一對快樂的夫婦!§r\n你很愛你的工具，就算死亡回歸(咦?)也不能拆散你們。
+modifier.webbed.name=蜘蛛網
+modifier.webbed.desc=§o噁心!§r\n把你的敵人纏在蜘蛛網裡，減慢它們的速度。
+
+#################
+#   Tool Info   #
+#################
+item.tconstruct.pickaxe.desc=十字鎬是一個典型的挖礦工具，它可以做用在石頭和礦物。\n他是拿來敲方塊的好嗎?
+item.tconstruct.shovel.desc=鏟子可以把土挖起來，它作用於泥土、沙子、礫石和雪。\n不要拿來挖你自己的墳墓!
+item.tconstruct.hatchet.desc=手斧用來伐木，並且可以快速打掉樹葉。它也可能可以做為武器。\n砍砍砍!
+item.tconstruct.mattock.desc=鶴嘴鋤是一個多功能的農具， 它可以作用在木頭、泥土以及植物。它也可以造成重擊。\n右鍵 : 鋤地。
+item.tconstruct.broadsword.desc=大劍是一個多功能的武器。範圍攻擊讓一群敵人做困獸之鬥。\n同時也善於對付蜘蛛網!
+item.tconstruct.longsword.desc=長劍是一種進攻型武器，在全速衝入戰鬥時它常被使用。\n右鍵 : 向前跳躍
+item.tconstruct.rapier.desc=西洋劍是一個特別的武器，它以快速的突刺來擊敗敵人。\n右鍵 : 向後跳躍
+item.tconstruct.frypan.desc=煎鍋是一個自帶擊退的重型武器，可以和敵人保持一些距離。它也會煮東西!\n右鍵 : 重擊
+item.tconstruct.battlesign.desc=戰鬥告示牌是一個完全的防禦武器。一個高級的武器技術，不論在何處都和殭屍豬人很速配。\n它可以像盾牌一樣使用，反彈投射物。
+item.tconstruct.hammer.desc=錘是一個大範圍挖掘工具，它可以大範圍採集方塊。\n也可以有效的攻擊不死生物。
+item.tconstruct.lumberaxe.desc=伐木斧是一個大範圍伐木工具，它可以砍倒整棵樹或是大範圍的木頭。\n木材!
+item.tconstruct.excavator.desc=開掘鏟是一個大範圍挖掘工具，它可以挖掘大範圍的土和雪。\n創造地景!
+item.tconstruct.cleaver.desc=劈刀是一個很重的進攻武器，它能夠給予重擊但是很難揮動。\n劈刀的好處是可以造成高傷害。\n動作緩慢，要用雙手握著!
+item.tconstruct.battleaxe.desc=戰斧是一個重型進攻武器，展現出狂野的戰士形象。它可以砍倒小顆的數並且可以讓敵人飛走。\n右鍵 : 發狂
+item.tconstruct.scythe.desc=鐮刀是一個大範圍收割的工具，掃掉敵人就像掃掉植物一樣。\n具有範圍攻擊。\n右鍵 : 大範圍收割與重新種植
+item.tconstruct.shuriken.desc=手裡劍是一個快速、短程的頭值武器。它有很高的發數，但是低傷害。\n可以使用副手發射。
+item.tconstruct.shortbow.desc=短弓是一個快速且靈活的武器，可以讓你在射箭時快速移動。\n使用匠魂模組的箭矢。
+item.tconstruct.longbow.desc=長弓是一個有力的長程武器，它可以造成高傷害但是移動性較短弓差。\n使用匠魂模組的箭矢。
+item.tconstruct.arrow.desc=箭矢是匠魂模組弓箭的彈藥，一組可以提供多發彈藥，而且也可以像其他工具一樣被強化。
+item.tconstruct.crossbow.desc=十字弓是一個緩慢但是有力的武器，它必須在發射之前按著右鍵來裝填彈藥，但是裝填後可以在任何時刻發射。\n使用匠魂模組的弩箭。
+item.tconstruct.bolt.desc=弩箭是匠魂模組十字弓的彈藥，一組可以提供多發彈藥，而且也可以像其他工具一樣被強化。\n穿透敵人部分的盔甲。
+
+
+################
+#   Tooltips   #
+################
+tooltip.tool.modifiers=可強化的次數
+tooltip.tool.broken=已損壞
+tooltip.tool.empty=空
+tooltip.tool.holdShift=按著 §e§oShift§r§7 以檢視統計資料
+tooltip.tool.holdCtrl=按著 §e§bCtrl§r§7 以檢視更多資訊
+
+tooltip.part.material_added_by=由%s所新增的材料
+tooltip.part.missing_material=遺失材料 : %s
+tooltip.part.missing_stats=該材料的統計資料遺失 :\n%s
+tooltip.part.missing_info=部件沒有任何資料
+
+tooltip.pattern.cost=材料消耗數量 : %d
+
+tooltip.chest.has_items=內含 %d 個物品
+tooltip.patternchest.holds_patterns=內含 %d 個模板
+tooltip.patternchest.holds_casts=內含 %d 個鑄模
+
+tooltip.tank.fluid=%s
+tooltip.tank.amount=%d mb
+tooltip.tank.holdShift=按著 §e§oShift§r§7 將單位切換為桶
+
+##################
+#   UI Strings   #
+##################
+# general strings used in GUIs, tooltips and other display stuff
+
+ui.mininglevel.stone=石頭
+ui.mininglevel.iron=鐵
+#ui.mininglevel.redstone=紅石 # 被鑽石取代
+ui.mininglevel.diamond=鑽石
+ui.mininglevel.obsidian=黑曜石
+ui.mininglevel.cobalt=鈷
+
+# Death messages
+death.attack.smeltery=%s 試圖要把自己融化
+death.attack.splinter=%s 被碎片刺到。那個碎片一定很大。
+death.attack.bleed=%1$s 被打了 %2$s 下，失血過多致死
+death.attack.bleed.item=%1$s 被 %3$s 打了 %2$s 下，失血過多致死
+
+######################
+# GUI Error messages #
+######################
+
+gui.error=錯誤
+gui.warning=警告
+# GUI Errors from the different Tinker Tables
+gui.error.invalid_pattern=模板並不包含一個可用的部件!
+gui.error.useless_tool_part=這個部件不能被拿來合成任何工具!\n不是材料 %s 遺失了一些資訊，就是這個工具不需要 %s 作為合成材料。
+gui.error.wrong_material_part=有一個或多個物品是不被這個工具所支援的材料。
+gui.error.not_enough_durability=耐久度不足因此無法去代部件!\n還需要多 %d 點耐久度。
+# GUI Errors from modifiers
+gui.error.not_enough_modifiers=強化空間不足。 (需要%d個強化空間)
+gui.error.single_modifier=%s 只可以被使用一次。
+gui.error.max_level_modifier=已經達到 %s 的最高等級。
+gui.error.no_modifier_for_item=找不到 %s 的強化槽。
+gui.error.incompatible_modifiers= %s 強化和 %s 強化不能同時使用。
+gui.error.incompatible_trait=特徵 %s 和特徵 %s 不能同時使用。
+gui.error.incompatible_enchantments=%s 強化不能與 %s 附魔結合。
+
+################
+#     GUIs     #
+################
+
+# General things used in multiple GUIs
+gui.general.hover=將滑鼠移動到條目上以取得更多資訊
+
+# Creative Tabs
+itemGroup.TinkerGeneral=匠魂模組 所有物品
+itemGroup.TinkerTools=匠魂模組 工具
+itemGroup.TinkerToolParts=匠魂模組 部件
+itemGroup.TinkerSmeltery=匠魂模組 冶煉爐
+itemGroup.TinkerWorld=匠魂模組 世界生成
+itemGroup.TinkerGadgets=匠魂模組 小工具
+
+# Crafting Station
+gui.craftingstation.name=合成站
+
+# Stencil Table
+gui.stenciltable.name=模具加工台
+
+# PartBuilder
+gui.partbuilder.name=部件加工台
+gui.partcrafter.name=部件合成台
+gui.partbuilder.info=你可以合成工具的部件來實現你對工匠的想像。\n\n要合成一個部件只要將該部件的模板放置到左邊的欄位，剩下兩個欄位可以放入你想拿來做成部件的材料。
+gui.partbuilder.material_value=材料數量 : %s 個 %s
+
+# Tool Station/Forge
+gui.toolstation.name=工具組裝台
+gui.toolforge.name=工具裝配台
+gui.toolstation.repair=修理 & 工具強化
+gui.toolstation.traits=特徵
+gui.toolstation.components=組成元件
+gui.toolstation.info=改造或是修復你的工具的主要方法。在左邊放上一個工具或是材料來開始。
+gui.toolstation.noTraits=無 :[
+
+# Pattern Chest
+gui.patternchest.name=模具箱
+gui.castchest.name=鑄模箱
+
+# Part Chest
+gui.partchest.name=部件箱
+
+# Smeltery
+gui.smeltery.name=冶煉爐
+gui.smeltery.progress.no_recipe=物品無法被融化
+gui.smeltery.progress.no_heat=溫度不足以融化物品
+gui.smeltery.progress.no_space=冶煉爐裡空間不足
+gui.smeltery.fuel=燃料
+gui.smeltery.fuel.empty=找不到燃料
+gui.smeltery.fuel.heat=溫度 : %d
+gui.smeltery.capacity=容量 :
+gui.smeltery.capacity_available=剩餘空間 :
+gui.smeltery.capacity_used=已使用 :
+gui.smeltery.liquid.kilobucket=kb
+gui.smeltery.liquid.bucket=b
+gui.smeltery.liquid.millibucket=mb
+gui.smeltery.liquid.ingot=個錠
+gui.smeltery.liquid.nugget=個粒
+gui.smeltery.liquid.block=塊
+gui.smeltery.liquid.gem=顆寶石
+
+# Seared Furnace
+gui.searedfurnace.name=焦黑熔爐
+gui.searedfurnace.progress.complete=物品燒製完成
+gui.searedfurnace.progress.no_recipe=物品無法被燒製
+gui.searedfurnace.progress.no_space=燒製後的物品太大，放不進這個格
+
+# Tinker Tank
+gui.tinkertank.name=工匠儲液槽
+
+# These GUIs don't appear in game, but the titles can be viewed using the crafting station
+gui.itemrack.name=物品架
+gui.dryingrack.name=晾乾架
+
+# JEI Plugin
+gui.jei.smelting.title=冶煉
+gui.jei.alloy.title=合金
+gui.jei.casting.title=澆鑄
+gui.jei.casting.consume=消耗鑄模!
+gui.jei.drying.title=晾乾
+
+# WAILA Plugin
+gui.waila.tank.fluid=液體 : %s
+gui.waila.tank.amount=數量 : %d / %d mb
+gui.waila.tank.empty=空
+gui.waila.casting.progress=進度 : %s
+gui.waila.casting.recipe=配方 : %s
+
+option.tconstruct.tank=儲液罐液體
+option.tconstruct.casting=鑄造配方
+option.tconstruct.progress=製作進度
+
+
+# Config
+config.synced.restart=為了與伺服器相容，你的設定檔已被更新。請重新開啟Minecraft。
+config.synced.ok=設定檔已經與伺服器同步。
