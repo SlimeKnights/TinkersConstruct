@@ -1,0 +1,11 @@
+{
+  "title":"工匠液體槽",
+  "image": {
+	"file": "tconstruct:textures/gui/book/tinker_tank.png"
+  },
+  "text": [
+    {
+      "text": "工匠液體槽是一個巨大的儲液槽，它可以儲存比冶煉爐多出更多的液體。但是因為沒有熱源，所以不會合成任何合金。"
+    }
+  ]
+}

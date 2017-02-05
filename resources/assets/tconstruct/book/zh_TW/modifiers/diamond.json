@@ -1,0 +1,21 @@
+{
+  "modifier": "diamond",
+  "text": [
+    {
+      "text": "在工具的邊緣鑲上鑽石可以使工具更有彈性，也可以使工具挖掘更多東西。 另外，工具也變得更好看了。"
+    }
+  ],
+  "effects": [
+    "額外的耐久度",
+    "增加次要屬性",
+    "挖掘等級提升到了黑曜石等級",
+    "只能強化一次",
+    "完美!"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
+  ]
+}

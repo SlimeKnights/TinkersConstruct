@@ -1,0 +1,18 @@
+{
+  "modifier": "necrotic",
+  "text": [
+    {
+      "text": "將凋零骷髏的骨頭放在工具上會賦予工具邪惡的竊取生命能力。"
+    }
+  ],
+  "effects": [
+    "在傷害時治癒",
+    "增加更多骨頭來增加治癒",
+    "分為多個等級"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:arrow"
+  ]
+}

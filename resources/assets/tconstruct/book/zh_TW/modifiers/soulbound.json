@@ -1,0 +1,21 @@
+{
+  "modifier": "soulbound",
+  "text": [
+    {
+      "text": "一個完美的結合，你很愛你的工具，就算死亡回歸(咦?)也不能拆散你們。"
+    }
+  ],
+  "effects": [
+    "在你死後工具還會留在你身上",
+    "增強只能附加一次",
+    "不消耗修改次數"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:pickaxe",
+    "tconstruct:hammer",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
+  ]
+}

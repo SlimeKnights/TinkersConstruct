@@ -1,0 +1,17 @@
+{
+  "modifier": "fiery",
+  "text": [
+    {
+      "text": "把烈焰粉加進你的工具會使你的工具有火的色調，使武器的刀鋒就像灰燼一般。 只可惜這還不夠亮，不能拿來做為光源。"
+    }
+  ],
+  "effects": [
+    "讓敵人著火",
+    "在攻擊時造成額外的火焰傷害",
+    "分為多個等級"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
+  ]
+}
