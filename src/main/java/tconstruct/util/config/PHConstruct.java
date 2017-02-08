@@ -199,6 +199,7 @@ public class PHConstruct
         connectedTexturesMode = conTexMode.getInt(2);
 
         // dimension blacklist
+        cfgForbiddenDim = config.get("DimBlackList", "ForbiddenDim", new int[] {}, "Disallow Traveller's Belt ability to swap inventories for certain dimension ID's").getIntList();
         cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist", new int[] {}, "Add dimension ID's to prevent slime islands from generating in them").getIntList();
         slimeIslGenDim0Only = config.get("DimBlackList", "GenerateSlimeIslandInDim0Only", false, "True: slime islands wont generate in any ages other than overworld(if enabled); False: will generate in all non-blackisted ages").getBoolean(false);
         slimeIslGenDim0 = config.get("DimBlackList", "slimeIslGenDim0", true, "True: slime islands generate in overworld; False they do not generate").getBoolean(true);
@@ -382,6 +383,7 @@ public class PHConstruct
 
     // dimensionblacklist
     public static boolean slimeIslGenDim0Only;
+    public static int[] cfgForbiddenDim;
     public static int[] cfgDimBlackList;
     public static boolean slimeIslGenDim0;
     public static boolean genIslandsFlat;
