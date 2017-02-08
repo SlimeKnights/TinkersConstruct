@@ -39,8 +39,10 @@ public class TinkerGears {
     public void postInit(FMLPostInitializationEvent event) {
         ItemStack cast = new ItemStack(gearCast);
         FluidStack aluCastLiquid = new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue);
-        if(!PHConstruct.removeGoldCastRecipes)
-            FluidStack goldCastLiquid = new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue*2);
+        FluidStack goldCastLiquid = null;
+        if(!PHConstruct.removeGoldCastRecipes) {
+            goldCastLiquid = new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue*2);
+        }
 
         // find all gears in the registry
         for(String oreName : OreDictionary.getOreNames()) {
