@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.potion.*;
 import tconstruct.armor.player.*;
+import tconstruct.util.config.PHConstruct;
 
 public class PlayerAbilityHelper
 {
@@ -24,8 +25,19 @@ public class PlayerAbilityHelper
         }
     }
 
+    public static boolean isDimensionAllowed (EntityPlayer player) {
+        int currentDimID = player.worldObj.provider.dimensionId;
+        for (int id : PHConstruct.cfgForbiddenDim)
+        {
+            if (id == currentDimID)
+                return false;
+        }
+        return true;
+    }
+
     public static void swapBelt (EntityPlayer player, ArmorExtended armor)
     {
+        if (!isDimensionAllowed(player)) return;
         NBTTagList slots = new NBTTagList();
         InventoryPlayer hotbar = player.inventory;
         ItemStack belt = armor.inventory[3];
