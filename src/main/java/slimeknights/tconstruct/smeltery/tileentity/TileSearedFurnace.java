@@ -1,12 +1,15 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -14,10 +17,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.common.IInventoryGui;
-import slimeknights.mantle.multiblock.IMasterLogic;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.client.GuiSearedFurnace;
 import slimeknights.tconstruct.smeltery.inventory.ContainerSearedFurnace;
@@ -54,6 +58,10 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
       // we heat items every tick, as otherwise we are quite slow compared to a vanilla furnace
       if(tick % 4 == 0) {
         heatItems();
+      }
+      
+      if(tick == 0) {
+          interactWithEntitiesInside();
       }
 
       if(needsFuel) {
@@ -142,6 +150,19 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
   @Override
   protected int getUpdatedInventorySize(int width, int height, int depth) {
     return 9 + (3 * width * height * depth);
+  }
+  
+  protected void interactWithEntitiesInside() {
+      // find all monsters within the furnace and kill them 
+      AxisAlignedBB bb = info.getBoundingBox().contract(1).offset(0, 0.5, 0).expand(0, 0.5, 0);
+
+      List<EntityLivingBase> entities = getWorld().getEntitiesWithinAABB(EntityLivingBase.class, bb);
+
+      for(EntityLivingBase entity : entities) {
+          if(entity instanceof EntityMob && entity.isEntityAlive()) {
+              entity.setDead();
+          }
+      }
   }
 
   /* GUI */
