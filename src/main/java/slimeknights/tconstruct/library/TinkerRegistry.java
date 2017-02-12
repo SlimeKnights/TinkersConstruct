@@ -20,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
@@ -33,7 +34,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
@@ -451,11 +454,17 @@ public final class TinkerRegistry {
   private static final Map<String, IModifier> modifiers = new THashMap<String, IModifier>();
 
   public static void registerModifier(IModifier modifier) {
-    modifiers.put(modifier.getIdentifier(), modifier);
+    registerModifierAlias(modifier, modifier.getIdentifier());
   }
 
+  /** Registers an alternate name for a modifier. This is used for multi-level modifiers/traits where multiple exist, but one specific is needed for access */
   public static void registerModifierAlias(IModifier modifier, String alias) {
-    modifiers.put(alias, modifier);
+    if(new TinkerRegisterEvent.ModifierRegisterEvent(modifier).fire()) {
+      modifiers.put(alias, modifier);
+    }
+    else {
+      log.debug("Registration of modifier " + alias + " has been cancelled by event");
+    }
   }
 
   public static IModifier getModifier(String identifier) {
@@ -501,6 +510,14 @@ public final class TinkerRegistry {
     if(new TinkerRegisterEvent.MeltingRegisterEvent(recipe).fire()) {
       meltingRegistry.add(recipe);
     }
+    else {
+      try {
+        String input = recipe.input.getInputs().stream().findFirst().map(ItemStack::getUnlocalizedName).orElse("?");
+        log.debug("Registration of melting recipe for " + recipe.getResult().getUnlocalizedName() + " from " + input + " has been cancelled by event");
+      } catch(Exception e) {
+        log.error("Error when logging melting event", e);
+      }
+    }
   }
 
   public static MeltingRecipe getMelting(ItemStack stack) {
@@ -532,6 +549,15 @@ public final class TinkerRegistry {
     if(new TinkerRegisterEvent.AlloyRegisterEvent(recipe).fire()) {
       alloyRegistry.add(recipe);
     }
+    else {
+      try {
+        String input = recipe.getFluids().stream().map(FluidStack::getUnlocalizedName).collect(Collectors.joining(", "));
+        String output = recipe.getResult().getUnlocalizedName();
+        log.debug("Registration of alloy recipe for " + output + " from [" + input + "] has been cancelled by event");
+      } catch(Exception e) {
+        log.error("Error when logging alloy event", e);
+      }
+    }
   }
 
   public static List<AlloyRecipe> getAlloys() {
@@ -550,6 +576,14 @@ public final class TinkerRegistry {
   public static void registerTableCasting(ICastingRecipe recipe) {
     if(new TinkerRegisterEvent.TableCastingRegisterEvent(recipe).fire()) {
       tableCastRegistry.add(recipe);
+    }
+    else {
+      try {
+        String output = Optional.ofNullable(recipe.getResult(null, FluidRegistry.WATER)).map(ItemStack::getUnlocalizedName).orElse("Unknown");
+        log.debug("Registration of table casting recipe for " + output + " has been cancelled by event");
+      } catch(Exception e) {
+        log.error("Error when logging table casting event", e);
+      }
     }
   }
 
@@ -580,6 +614,14 @@ public final class TinkerRegistry {
     if(new TinkerRegisterEvent.BasinCastingRegisterEvent(recipe).fire()) {
       basinCastRegistry.add(recipe);
     }
+    else {
+      try {
+        String output = Optional.ofNullable(recipe.getResult(null, FluidRegistry.WATER)).map(ItemStack::getUnlocalizedName).orElse("Unknown");
+        log.debug("Registration of basin casting recipe for " + output + " has been cancelled by event");
+      } catch(Exception e) {
+        log.error("Error when logging basin casting event", e);
+      }
+    }
   }
 
   public static ICastingRecipe getBasinCasting(@Nullable ItemStack cast, Fluid fluid) {
@@ -603,7 +645,17 @@ public final class TinkerRegistry {
    * @param fuelDuration How many ticks the consumtpion of the fluidStack lasts.
    */
   public static void registerSmelteryFuel(FluidStack fluidStack, int fuelDuration) {
-    smelteryFuels.put(fluidStack, fuelDuration);
+    if(new TinkerRegisterEvent.SmelteryFuelRegisterEvent(fluidStack, fuelDuration).fire()) {
+      smelteryFuels.put(fluidStack, fuelDuration);
+    }
+    else {
+      try {
+        String input = fluidStack.getUnlocalizedName();
+        log.debug("Registration of smeltery fuel " + input + " has been cancelled by event");
+      } catch(Exception e) {
+        log.error("Error when logging smeltery fuel event", e);
+      }
+    }
   }
 
   /** Checks if the given fluidstack can be used as smeltery fuel */
@@ -656,6 +708,14 @@ public final class TinkerRegistry {
     if(event.fire()) {
       entityMeltingRegistry.put(name, event.getNewFluidStack());
     }
+    else {
+      try {
+        String output = liquid.getUnlocalizedName();
+        log.debug("Registration of entity melting for " + clazz.getName() + " into " + output + " has been cancelled by event");
+      } catch(Exception e) {
+        log.error("Error when logging entity melting event", e);
+      }
+    }
   }
 
   public static FluidStack getMeltingForEntity(Entity entity) {
@@ -687,7 +747,7 @@ public final class TinkerRegistry {
     if(output == null || input == null) {
       return;
     }
-    addDryingReciye(new DryingRecipe(new RecipeMatch.Item(input, 1), output, time));
+    addDryingRecipe(new DryingRecipe(new RecipeMatch.Item(input, 1), output, time));
   }
 
   /**
@@ -703,7 +763,7 @@ public final class TinkerRegistry {
     }
 
     ItemStack stack = new ItemStack(input, 1, OreDictionary.WILDCARD_VALUE);
-    addDryingReciye(new DryingRecipe(new RecipeMatch.Item(stack, 1), output, time));
+    addDryingRecipe(new DryingRecipe(new RecipeMatch.Item(stack, 1), output, time));
   }
 
   /**
@@ -719,7 +779,7 @@ public final class TinkerRegistry {
     }
 
     ItemStack stack = new ItemStack(input, 1, OreDictionary.WILDCARD_VALUE);
-    addDryingReciye(new DryingRecipe(new RecipeMatch.Item(stack, 1), new ItemStack(output), time));
+    addDryingRecipe(new DryingRecipe(new RecipeMatch.Item(stack, 1), new ItemStack(output), time));
   }
 
   /**
@@ -735,7 +795,7 @@ public final class TinkerRegistry {
     }
 
     ItemStack stack = new ItemStack(input, 1, OreDictionary.WILDCARD_VALUE);
-    addDryingReciye(new DryingRecipe(new RecipeMatch.Item(stack, 1), new ItemStack(output), time));
+    addDryingRecipe(new DryingRecipe(new RecipeMatch.Item(stack, 1), new ItemStack(output), time));
   }
 
   /**
@@ -750,12 +810,21 @@ public final class TinkerRegistry {
       return;
     }
 
-    addDryingReciye(new DryingRecipe(new RecipeMatch.Oredict(oredict, 1), output, time));
+    addDryingRecipe(new DryingRecipe(new RecipeMatch.Oredict(oredict, 1), output, time));
   }
 
-  private static void addDryingReciye(DryingRecipe dryingRecipe) {
-    if(new TinkerRegisterEvent.DryingRackRegisterEvent(dryingRecipe).fire()) {
-      dryingRegistry.add(dryingRecipe);
+  private static void addDryingRecipe(DryingRecipe recipe) {
+    if(new TinkerRegisterEvent.DryingRackRegisterEvent(recipe).fire()) {
+      dryingRegistry.add(recipe);
+    }
+    else {
+      try {
+        String input = recipe.input.getInputs().stream().findFirst().map(ItemStack::getUnlocalizedName).orElse("?");
+        String output = recipe.getResult().getUnlocalizedName();
+        log.debug("Registration of drying rack recipe for " + output + " from " + input + " has been cancelled by event");
+      } catch(Exception e) {
+        log.error("Error when logging drying rack event", e);
+      }
     }
   }
 

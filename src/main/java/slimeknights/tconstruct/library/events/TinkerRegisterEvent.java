@@ -6,6 +6,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 
 import slimeknights.tconstruct.library.DryingRecipe;
+import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
@@ -27,6 +28,14 @@ public abstract class TinkerRegisterEvent<T> extends TinkerEvent {
   /** Returns true on success, false if cancelled */
   public boolean fire() {
     return !MinecraftForge.EVENT_BUS.post(this);
+  }
+
+  /** Register a modifier */
+  public static class ModifierRegisterEvent extends TinkerRegisterEvent<IModifier> {
+
+    public ModifierRegisterEvent(IModifier recipe) {
+      super(recipe);
+    }
   }
 
   /** Register a drying rack recipe */
@@ -66,6 +75,20 @@ public abstract class TinkerRegisterEvent<T> extends TinkerEvent {
 
     public BasinCastingRegisterEvent(ICastingRecipe recipe) {
       super(recipe);
+    }
+  }
+
+  public static class SmelteryFuelRegisterEvent extends TinkerRegisterEvent<FluidStack> {
+
+    private final int fuelDuration;
+
+    public SmelteryFuelRegisterEvent(FluidStack recipe, int fuelDuration) {
+      super(recipe);
+      this.fuelDuration = fuelDuration;
+    }
+
+    public int getFuelDuration() {
+      return fuelDuration;
     }
   }
 
