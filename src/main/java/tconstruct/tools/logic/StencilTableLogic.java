@@ -54,12 +54,14 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
         super.setInventorySlotContents(slot, itemstack);
-        if (slot == 0 && itemstack != null && StencilBuilder.isBlank(itemstack))
-        {
-            setInventorySlotContents(1, selectedStack);
-        }else{
-            selectedStack=null;
-            setInventorySlotContents(1, selectedStack);
+        if (slot == 0){
+            if (itemstack != null && StencilBuilder.isBlank(itemstack))
+            {
+                setInventorySlotContents(1, selectedStack);
+            }else{
+                selectedStack=null;
+                setInventorySlotContents(1, selectedStack);
+            }
         }
     }
 
