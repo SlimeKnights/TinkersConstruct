@@ -59,7 +59,7 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
             {
                 setInventorySlotContents(1, selectedStack);
             }else{
-                selectedStack=inventory[0];
+                selectedStack=null;
                 setInventorySlotContents(1, selectedStack);
             }
         }
