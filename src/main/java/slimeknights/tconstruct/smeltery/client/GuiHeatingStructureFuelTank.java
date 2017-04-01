@@ -9,6 +9,7 @@ import java.util.List;
 
 import slimeknights.mantle.client.gui.GuiMultiModule;
 import slimeknights.mantle.inventory.ContainerMultiModule;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.smeltery.tileentity.TileHeatingStructureFuelTank;
@@ -48,13 +49,18 @@ public class GuiHeatingStructureFuelTank extends GuiMultiModule {
     FluidStack fuel = fuelInfo.fluid;
     text.add(TextFormatting.WHITE + Util.translate("gui.smeltery.fuel"));
     if(fuel != null) {
-      text.add(fuel.getLocalizedName());
-      GuiUtil.liquidToString(fuel, text);
+      if(TinkerRegistry.isSmelteryFuel(fuel)) {
+        text.add(fuel.getLocalizedName());
+        GuiUtil.liquidToString(fuel, text);
+        text.add(Util.translateFormatted("gui.smeltery.fuel.heat", fuelInfo.heat));
+      }
+      else {
+        text.add(Util.translateFormatted("gui.smeltery.fuel.invalid", fuel.getLocalizedName()));
+      }
     }
     else {
       text.add(Util.translate("gui.smeltery.fuel.empty"));
     }
-    text.add(Util.translateFormatted("gui.smeltery.fuel.heat", fuelInfo.heat));
     this.drawHoveringText(text, mouseX, mouseY);
   }
 }
