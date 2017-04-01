@@ -225,7 +225,7 @@ public final class TinkerMaterials {
     blueslime.addTrait(slimeyBlue);
 
     knightslime.setCraftable(true);
-    knightslime.addItemIngot("ingotKnightslime");
+    knightslime.addCommonItems("Knightslime");
     knightslime.addTrait(crumbling, HEAD);
     knightslime.addTrait(unnatural);
 
@@ -236,45 +236,45 @@ public final class TinkerMaterials {
     magmaslime.addTrait(flammable);
 
     // Metals
-    iron.addItemIngot("ingotIron");
+    iron.addCommonItems("Iron");
     iron.setRepresentativeItem(Items.IRON_INGOT);
     iron.addTrait(magnetic2, HEAD);
     iron.addTrait(magnetic);
 
-    pigiron.addItemIngot("ingotPigiron");
+    pigiron.addCommonItems("Pigiron");
     pigiron.addTrait(baconlicious, HEAD);
     pigiron.addTrait(tasty, HEAD);
     pigiron.addTrait(tasty);
 
-    cobalt.addItemIngot("ingotCobalt");
+    cobalt.addCommonItems("Cobalt");
     cobalt.addTrait(momentum, HEAD);
     cobalt.addTrait(lightweight);
 
-    ardite.addItemIngot("ingotArdite");
+    ardite.addCommonItems("Ardite");
     ardite.addTrait(stonebound, HEAD);
     ardite.addTrait(petramor);
 
-    manyullyn.addItemIngot("ingotManyullyn");
+    manyullyn.addCommonItems("Manyullyn");
     manyullyn.addTrait(insatiable, HEAD);
     manyullyn.addTrait(coldblooded);
 
     // mod integration
-    copper.addItemIngot("ingotCopper");
+    copper.addCommonItems("Copper");
     copper.addTrait(established);
 
-    bronze.addItemIngot("ingotBronze");
+    bronze.addCommonItems("Bronze");
     bronze.addTrait(dense);
 
-    lead.addItemIngot("ingotLead");
+    lead.addCommonItems("Lead");
     lead.addTrait(poisonous);
 
-    silver.addItemIngot("ingotSilver");
+    silver.addCommonItems("Silver");
     silver.addTrait(holy);
 
-    electrum.addItemIngot("ingotElectrum");
+    electrum.addCommonItems("Electrum");
     electrum.addTrait(shocking);
 
-    steel.addItemIngot("ingotSteel");
+    steel.addCommonItems("Steel");
     steel.addTrait(sharp, HEAD);
     steel.addTrait(stiff);
 

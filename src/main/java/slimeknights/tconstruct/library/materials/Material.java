@@ -315,6 +315,12 @@ public class Material extends RecipeMatchRegistry {
     this.addItem(oredict, 1, Material.VALUE_Ingot);
   }
 
+  public void addCommonItems(String oredictSuffix) {
+    this.addItem("ingot" + oredictSuffix, 1, Material.VALUE_Ingot);
+    this.addItem("nugget" + oredictSuffix, 1, Material.VALUE_Nugget);
+    this.addItem("block" + oredictSuffix, 1, Material.VALUE_Block);
+  }
+
   public void setRepresentativeItem(Item representativeItem) {
     setRepresentativeItem(new ItemStack(representativeItem));
   }
