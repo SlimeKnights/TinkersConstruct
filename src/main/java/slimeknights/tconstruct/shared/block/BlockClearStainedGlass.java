@@ -5,21 +5,26 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.mantle.block.EnumBlockConnectedTexture;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 
 public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClearStainedGlass.EnumGlassColor> {
 
@@ -67,6 +72,16 @@ public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClear
     return canConnect(blockState, blockAccess.getBlockState(pos.offset(side))) ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
   }
 
+  @Nullable
+  @Override
+  public float[] getBeaconColorMultiplier(IBlockState state, World world, BlockPos pos, BlockPos beaconPos) {
+    if(state.getProperties().containsKey(COLOR)) {
+      EnumGlassColor color = state.getValue(COLOR);
+      return color.rgb;
+    }
+    return null;
+  }
+
   // The default does not implement EnumBlock.IEnumMeta, and Enums cannot be extended
   public enum EnumGlassColor implements IStringSerializable, EnumBlock.IEnumMeta {
     WHITE(0xffffff, MapColor.SNOW),
@@ -89,11 +104,21 @@ public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClear
     private final int color;
     private final MapColor mapColor;
     private final int meta;
+    private final float[] rgb;
 
-    private EnumGlassColor(int color, MapColor mapColor) {
+    EnumGlassColor(int color, MapColor mapColor) {
       this.meta = ordinal();
       this.color = color;
       this.mapColor = mapColor;
+      this.rgb = calcRGB(color);
+    }
+
+    private static float[] calcRGB(int color) {
+      float[] out = new float[3];
+      out[0] = ((color >> 16) & 0xFF)/255f;
+      out[1] = ((color >> 8) & 0xFF)/255f;
+      out[2] = (color & 0xFF)/255f;
+      return out;
     }
 
     @Override
