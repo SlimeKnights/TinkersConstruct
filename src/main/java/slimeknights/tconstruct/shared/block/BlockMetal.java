@@ -3,9 +3,12 @@ package slimeknights.tconstruct.shared.block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -40,6 +43,11 @@ public class BlockMetal extends EnumBlock<BlockMetal.MetalTypes> {
       }
       list.add(new ItemStack(this, 1, type.getMeta()));
     }
+  }
+
+  @Override
+  public boolean isBeaconBase(IBlockAccess worldObj, BlockPos pos, BlockPos beacon) {
+    return true;
   }
 
   public enum MetalTypes implements IStringSerializable, EnumBlock.IEnumMeta {

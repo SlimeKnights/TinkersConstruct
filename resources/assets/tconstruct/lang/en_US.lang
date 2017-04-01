@@ -32,6 +32,7 @@ tile.tconstruct.mudbrick_stairs.name=Mud Bricks Stairs
 tile.tconstruct.ore.cobalt.name=Cobalt Ore
 tile.tconstruct.ore.ardite.name=Ardite Ore
 
+tile.tconstruct.metal.tooltip=Can be used as beacon base
 tile.tconstruct.metal.cobalt.name=Block of Cobalt
 tile.tconstruct.metal.ardite.name=Block of Ardite
 tile.tconstruct.metal.manyullyn.name=Block of Manyullyn
