@@ -1,7 +1,10 @@
 package slimeknights.tconstruct.tools.ranged;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArrow;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -9,6 +12,10 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
@@ -51,6 +58,12 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
   public static Bolt bolt;
 
   public static ToolCore shuriken;
+
+  private static List<Item> DISCOVERED_ARROWS = new ArrayList<>();
+
+  public static List<Item> getDiscoveredArrows() {
+    return DISCOVERED_ARROWS;
+  }
 
   // PRE-INITIALIZATION
   @Override
@@ -107,7 +120,24 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
   public void postInit(FMLPostInitializationEvent event) {
     super.postInit(event);
 
+    discoverArrows();
+
     TinkerRegistry.registerTableCasting(BoltCoreCastingRecipe.INSTANCE);
   }
 
+  private void discoverArrows() {
+    Iterator<Item> iter = Item.REGISTRY.iterator();
+    ImmutableList.Builder<Item> builder = ImmutableList.builder();
+    if(arrow != null) {
+      builder.add(arrow);
+    }
+    while(iter.hasNext()) {
+      Item item = iter.next();
+      // vanilla style arrow
+      if(item instanceof ItemArrow) {
+        builder.add(item);
+      }
+    }
+    DISCOVERED_ARROWS = builder.build();
+  }
 }

@@ -88,21 +88,9 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
     return 12;
   }
 
-  private ImmutableList<Item> arrowMatches = null;
-
   @Override
   protected List<Item> getAmmoItems() {
-    if(arrowMatches == null) {
-      ImmutableList.Builder<Item> builder = ImmutableList.builder();
-      if(TinkerRangedWeapons.arrow != null) {
-        builder.add(TinkerRangedWeapons.arrow);
-      }
-      builder.add(Items.ARROW);
-      builder.add(Items.TIPPED_ARROW);
-      builder.add(Items.SPECTRAL_ARROW);
-      arrowMatches = builder.build();
-    }
-    return arrowMatches;
+    return TinkerRangedWeapons.getDiscoveredArrows();
   }
 
   @Override
