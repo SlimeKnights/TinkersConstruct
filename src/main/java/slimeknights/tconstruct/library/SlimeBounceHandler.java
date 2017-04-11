@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -53,7 +54,7 @@ public class SlimeBounceHandler {
       }
 
       // preserve motion
-      if(!entityLiving.onGround && entityLiving.ticksExisted != bounceTick) {
+      if(!entityLiving.onGround && entityLiving.ticksExisted != bounceTick && !Loader.isModLoaded("Squake")) {
         if(lastMovX != entityLiving.motionX || lastMovZ != entityLiving.motionZ) {
           double f = 0.91d + 0.025d;
           //System.out.println((entityLiving.worldObj.isRemote ? "client: " : "server: ") + entityLiving.motionX);
