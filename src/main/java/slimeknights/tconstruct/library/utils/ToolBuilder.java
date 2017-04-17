@@ -161,13 +161,13 @@ public final class ToolBuilder {
    * @return The modified tool or null if something went wrong or no modifier applied.
    * @throws TinkerGuiException Thrown when not matching modifiers could be applied. Contains extra-information why the process failed.
    */
-  public static ItemStack tryModifyTool(ItemStack[] input, ItemStack toolStack, boolean removeItems)
+  public static ItemStack tryModifyTool(NonNullList<ItemStack> input, ItemStack toolStack, boolean removeItems)
       throws TinkerGuiException {
     ItemStack copy = toolStack.copy();
 
     // obtain a working copy of the items if the originals shouldn't be modified
-    ItemStack[] stacks = Util.copyItemStackArray(input);
-    ItemStack[] usedStacks = Util.copyItemStackArray(input);
+    NonNullList<ItemStack> stacks = Util.copyItemStackArray(input);
+    NonNullList<ItemStack> usedStacks = Util.copyItemStackArray(input);
 
     Set<IModifier> appliedModifiers = Sets.newHashSet();
     for(IModifier modifier : TinkerRegistry.getAllModifiers()) {
@@ -269,14 +269,14 @@ public final class ToolBuilder {
    * @param removeItems If true the applied items will be removed from the array
    * @return The tool with the replaced parts or null if the conditions have not been met.
    */
-  public static ItemStack tryReplaceToolParts(ItemStack toolStack, final ItemStack[] toolPartsIn, final boolean removeItems)
+  public static ItemStack tryReplaceToolParts(ItemStack toolStack, final NonNullList<ItemStack> toolPartsIn, final boolean removeItems)
       throws TinkerGuiException {
     if(toolStack == null || !(toolStack.getItem() instanceof TinkersItem)) {
       return null;
     }
 
     // we never modify the original. Caller can remove all of them if we return a result
-    List<ItemStack> inputItems = new ArrayList<>(Arrays.asList(Util.copyItemStackArray(toolPartsIn)));
+    NonNullList<ItemStack> inputItems = Util.copyItemStackArray(toolPartsIn);
     if(!TinkerEvent.OnToolPartReplacement.fireEvent(inputItems, toolStack)) {
       // event cancelled
       return null;

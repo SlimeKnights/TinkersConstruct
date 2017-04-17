@@ -3,11 +3,8 @@ package slimeknights.tconstruct.library.smeltery;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-
-import javax.annotation.Nullable;
 
 public class BucketCastingRecipe implements ICastingRecipe {
 
@@ -16,7 +13,7 @@ public class BucketCastingRecipe implements ICastingRecipe {
   protected BucketCastingRecipe() {}
 
   @Override
-  public ItemStack getResult(@Nullable ItemStack cast, Fluid fluid) {
+  public ItemStack getResult(ItemStack cast, Fluid fluid) {
     ItemStack output = new ItemStack(Items.BUCKET);
     IFluidHandler fluidHandler = FluidUtil.getFluidHandler(output);
     fluidHandler.fill(getFluid(cast, fluid), true);
@@ -25,8 +22,8 @@ public class BucketCastingRecipe implements ICastingRecipe {
   }
 
   @Override
-  public boolean matches(@Nullable ItemStack cast, Fluid fluid) {
-    return cast != null && cast.getItem() == Items.BUCKET;
+  public boolean matches(ItemStack cast, Fluid fluid) {
+    return cast.getItem() == Items.BUCKET;
   }
 
   @Override

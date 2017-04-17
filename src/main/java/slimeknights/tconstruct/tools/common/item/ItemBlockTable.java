@@ -34,7 +34,7 @@ public class ItemBlockTable extends ItemBlockMeta {
     }
 
     ItemStack legs = getLegStack(stack);
-    if(legs != null) {
+    if(legs.isEmpty()) {
       tooltip.add(legs.getDisplayName());
     }
 
@@ -50,17 +50,10 @@ public class ItemBlockTable extends ItemBlockMeta {
    */
   public static ItemStack getLegStack(ItemStack table) {
     NBTTagCompound tag = TagUtil.getTagSafe(table).getCompoundTag(TileTable.FEET_TAG);
-    ItemStack stack = ItemStack.loadItemStackFromNBT(tag);
-
-    // don't use a stack with a null item
-    if(stack == null || stack.getItem() == null) {
-      return null;
-    }
-
-    return stack;
+    return new ItemStack(tag);
   }
 
-  protected void addInventoryInformation(@Nonnull ItemStack stack, @Nonnull EntityPlayer playerIn, @Nonnull List<String> tooltip, boolean advanced) {
+  protected void addInventoryInformation(ItemStack stack, EntityPlayer playerIn, @Nonnull List<String> tooltip, boolean advanced) {
     // get the inventory, so we can inspect its items
     NBTTagCompound inventory = stack.getTagCompound().getCompoundTag("inventory");
 
@@ -81,9 +74,9 @@ public class ItemBlockTable extends ItemBlockMeta {
 
       for (int i = 0; i < items.tagCount(); ++i) {
         // iterate the item stacks, until we find a valid item
-        ItemStack inventoryStack = ItemStack.loadItemStackFromNBT(items.getCompoundTagAt(i));
+        ItemStack inventoryStack = new ItemStack(items.getCompoundTagAt(i));
 
-        if (inventoryStack == null) {
+        if (inventoryStack.isEmpty()) {
           continue; // unable to load any item for this NBT tag - assume invalid/removed item, so check next
         }
 

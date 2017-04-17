@@ -108,7 +108,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
     if(entity instanceof EntityLiving) {
       EntityLivingBase entityLiving = (EntityLivingBase) entity;
       if(entityLiving.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
-        entityLiving.attackEntityFrom(DamageSource.magic, 1);
+        entityLiving.attackEntityFrom(DamageSource.MAGIC, 1);
         entityLiving.setFire(1);
       }
     }

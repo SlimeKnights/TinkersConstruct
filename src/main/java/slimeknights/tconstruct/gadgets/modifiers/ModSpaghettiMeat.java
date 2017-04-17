@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class ModSpaghettiMeat extends ModSpaghettiMod {
     }
 
     @Override
-    public Match matches(ItemStack[] stacks) {
+    public Match matches(NonNullList<ItemStack> stacks) {
       List<ItemStack> matches = Lists.newArrayList();
 
       Match match = super.matches(stacks);
@@ -50,9 +51,9 @@ public class ModSpaghettiMeat extends ModSpaghettiMod {
         matches.add(stack);
 
         // remove all meats of the same kind
-        for(int i = 0; i < stacks.length; i++) {
-          if(stacks[i] != null && stacks[i].getItem() == stack.getItem()) {
-            stacks[i] = null;
+        for(int i = 0; i < stacks.size(); i++) {
+          if(stacks.get(i).getItem() == stack.getItem()) {
+            stacks.set(i, ItemStack.EMPTY);
           }
         }
 

@@ -7,6 +7,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
+import com.sun.istack.internal.NotNull;
+
 import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.THashSet;
 import gnu.trove.set.hash.TLinkedHashSet;
@@ -38,6 +40,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.mantle.client.CreativeTab;
@@ -422,7 +425,7 @@ public final class TinkerRegistry {
 
   public static ItemStack getShard(Material material) {
     ItemStack out = material.getShard();
-    if(out == null) {
+    if(out.isEmpty()) {
       out = shardItem.getItemstackWithMaterial(material);
     }
     return out;
@@ -565,9 +568,9 @@ public final class TinkerRegistry {
   }
 
   /** Registers a casting recipe for casting table */
-  public static void registerTableCasting(ItemStack output, @Nullable ItemStack cast, Fluid fluid, int amount) {
+  public static void registerTableCasting(ItemStack output, ItemStack cast, Fluid fluid, int amount) {
     RecipeMatch rm = null;
-    if(cast != null) {
+    if(cast != ItemStack.EMPTY) {
       rm = RecipeMatch.ofNBT(cast);
     }
     registerTableCasting(new CastingRecipe(output, rm, fluid, amount));
@@ -587,7 +590,7 @@ public final class TinkerRegistry {
     }
   }
 
-  public static ICastingRecipe getTableCasting(@Nullable ItemStack cast, Fluid fluid) {
+  public static ICastingRecipe getTableCasting(ItemStack cast, Fluid fluid) {
     for(ICastingRecipe recipe : tableCastRegistry) {
       if(recipe.matches(cast, fluid)) {
         return recipe;
@@ -602,9 +605,9 @@ public final class TinkerRegistry {
 
 
   /** Registers a casting recipe for the casting basin */
-  public static void registerBasinCasting(ItemStack output, @Nullable ItemStack cast, Fluid fluid, int amount) {
+  public static void registerBasinCasting(ItemStack output, ItemStack cast, Fluid fluid, int amount) {
     RecipeMatch rm = null;
-    if(cast != null) {
+    if(!cast.isEmpty()) {
       rm = RecipeMatch.ofNBT(cast);
     }
     registerBasinCasting(new CastingRecipe(output, rm, fluid, amount));
@@ -624,7 +627,7 @@ public final class TinkerRegistry {
     }
   }
 
-  public static ICastingRecipe getBasinCasting(@Nullable ItemStack cast, Fluid fluid) {
+  public static ICastingRecipe getBasinCasting(ItemStack cast, Fluid fluid) {
     for(ICastingRecipe recipe : basinCastRegistry) {
       if(recipe.matches(cast, fluid)) {
         return recipe;
@@ -744,7 +747,7 @@ public final class TinkerRegistry {
    * @param time   Recipe time in ticks
    */
   public static void registerDryingRecipe(ItemStack input, ItemStack output, int time) {
-    if(output == null || input == null) {
+    if(output.isEmpty() || input.isEmpty()) {
       return;
     }
     addDryingRecipe(new DryingRecipe(new RecipeMatch.Item(input, 1), output, time));
@@ -758,7 +761,7 @@ public final class TinkerRegistry {
    * @param time   Recipe time in ticks
    */
   public static void registerDryingRecipe(Item input, ItemStack output, int time) {
-    if(output == null || input == null) {
+    if(output.isEmpty() || input == null) {
       return;
     }
 
@@ -806,7 +809,7 @@ public final class TinkerRegistry {
    * @param time    Recipe time in ticks
    */
   public static void registerDryingRecipe(String oredict, ItemStack output, int time) {
-    if(output == null || oredict == null) {
+    if(output.isEmpty() || oredict == null) {
       return;
     }
 
@@ -848,7 +851,7 @@ public final class TinkerRegistry {
    * Gets the result for a drying recipe
    *
    * @param input Input ItemStack
-   * @return Output A copy of the output ItemStack, or null if no recipe is found
+   * @return Output A copy of the output ItemStack, or Itemstack.EMPTY if no recipe is found
    */
   public static ItemStack getDryingResult(ItemStack input) {
     for(DryingRecipe r : dryingRegistry) {
@@ -857,7 +860,7 @@ public final class TinkerRegistry {
       }
     }
 
-    return null;
+    return ItemStack.EMPTY;
   }
 
   /*---------------------------------------------------------------------------

@@ -43,14 +43,14 @@ public class ToolStationSelectionPacket extends AbstractPacketThreadsafe {
 
   @Override
   public void handleServerSafe(NetHandlerPlayServer netHandler) {
-    Container container = netHandler.playerEntity.openContainer;
+    Container container = netHandler.player.openContainer;
     if(container instanceof ContainerToolStation) {
       ((ContainerToolStation) container).setToolSelection(tool, activeSlots);
 
       // find all people who also have the same gui open and update them too
-      WorldServer server = netHandler.playerEntity.getServerWorld();
+      WorldServer server = netHandler.player.getServerWorld();
       for(EntityPlayer player : server.playerEntities) {
-        if(player == netHandler.playerEntity) {
+        if(player == netHandler.player) {
           continue;
         }
         if(player.openContainer instanceof ContainerToolStation) {

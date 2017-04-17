@@ -29,7 +29,7 @@ public class PartCrafterSelectionPacket extends AbstractPacketThreadsafe {
 
   @Override
   public void handleServerSafe(NetHandlerPlayServer netHandler) {
-    Container container = netHandler.playerEntity.openContainer;
+    Container container = netHandler.player.openContainer;
     if(container instanceof ContainerPartBuilder) {
       ((ContainerPartBuilder) container).setPattern(pattern);
     }

@@ -67,11 +67,11 @@ public class ModSoulbound extends ToolModifier {
       return;
     }
 
-    for(int i = 0; i < evt.getOriginal().inventory.mainInventory.length; i++) {
-      ItemStack stack = evt.getOriginal().inventory.mainInventory[i];
-      if(stack != null && TinkerUtil.hasModifier(stack.getTagCompound(), this.identifier)) {
+    for(int i = 0; i < evt.getOriginal().inventory.mainInventory.size(); i++) {
+      ItemStack stack = evt.getOriginal().inventory.mainInventory.get(i);
+      if(TinkerUtil.hasModifier(stack.getTagCompound(), this.identifier)) {
         evt.getEntityPlayer().inventory.addItemStackToInventory(stack);
-        evt.getOriginal().inventory.mainInventory[i] = null;
+        evt.getOriginal().inventory.mainInventory.set(i, ItemStack.EMPTY);
       }
     }
   }

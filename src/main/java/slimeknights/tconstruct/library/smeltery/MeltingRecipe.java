@@ -7,6 +7,7 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.utils.ListUtil;
 
 public class MeltingRecipe {
 
@@ -46,7 +47,7 @@ public class MeltingRecipe {
   }
 
   public boolean matches(ItemStack stack) {
-    return input.matches(new ItemStack[]{stack}) != null;
+    return input.matches(ListUtil.getListFrom(stack)) != null;
   }
 
   public FluidStack getResult() {

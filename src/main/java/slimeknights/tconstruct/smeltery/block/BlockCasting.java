@@ -99,16 +99,16 @@ public class BlockCasting extends BlockInventory {
   }
 
   @Override
-  public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float clickX, float clickY, float clickZ) {
-    if(player.isSneaking()) {
+  public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    if(playerIn.isSneaking()) {
       return false;
     }
-    TileEntity te = world.getTileEntity(pos);
+    TileEntity te = worldIn.getTileEntity(pos);
     if(te instanceof TileCasting) {
-      ((TileCasting) te).interact(player);
+      ((TileCasting) te).interact(playerIn);
       return true;
     }
-    return super.onBlockActivated(world, pos, state, player, hand, stack, side, clickX, clickY, clickZ);
+    return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
   }
 
   @Override

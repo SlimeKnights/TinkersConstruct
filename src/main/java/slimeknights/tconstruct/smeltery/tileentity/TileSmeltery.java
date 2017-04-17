@@ -219,11 +219,11 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
             if(!isStackInSlot(i)) {
               // remove 1 from the stack and add it to the smeltery
               ItemStack invStack = stack.copy();
-              stack.stackSize--;
-              invStack.stackSize = 1;
+              stack.shrink(1);
+              invStack.setCount(1);
               this.setInventorySlotContents(i, invStack);
             }
-            if(stack.stackSize <= 0) {
+            if(stack.isEmpty()) {
               // picked up whole stack
               entity.setDead();
               break;

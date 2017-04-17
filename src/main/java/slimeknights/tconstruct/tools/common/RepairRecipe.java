@@ -6,6 +6,7 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
 import java.util.Set;
@@ -35,17 +36,17 @@ public class RepairRecipe implements IRecipe {
   private ItemStack getRepairedTool(@Nonnull InventoryCrafting inv, boolean simulate) {
 
     ItemStack tool = null;
-    ItemStack[] input = new ItemStack[inv.getSizeInventory()];
+    NonNullList<ItemStack> input = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 
     for(int i = 0; i < inv.getSizeInventory(); i++) {
       ItemStack slot = inv.getStackInSlot(i);
       // empty slot
-      if(slot == null) {
+      if(slot.isEmpty()) {
         continue;
       }
 
       slot = slot.copy();
-      slot.stackSize = 1;
+      slot.setCount(1);
 
       Item item = slot.getItem();
 
@@ -59,7 +60,7 @@ public class RepairRecipe implements IRecipe {
       }
       // otherwise.. input material
       else if(repairItems.contains(item)) {
-        input[i] = slot;
+        input.set(i, slot);
       }
       // invalid item
       else {
@@ -84,16 +85,14 @@ public class RepairRecipe implements IRecipe {
     return 9;
   }
 
-  @Nullable
   @Override
   public ItemStack getRecipeOutput() {
-    return null;
+    return ItemStack.EMPTY;
   }
 
-  @Nonnull
   @Override
-  public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
-    return new ItemStack[inv.getSizeInventory()];
+  public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
+    return NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
     /*
     getRepairedTool(inv, false);
     for (int i = 0; i < inv.getSizeInventory(); ++i) {

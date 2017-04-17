@@ -8,6 +8,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.WorldServer;
 
 import java.util.List;
@@ -278,10 +279,10 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     }
   }
 
-  private ItemStack[] getInputs() {
-    ItemStack[] input = new ItemStack[tile.getSizeInventory() - 1];
+  private NonNullList<ItemStack> getInputs() {
+    NonNullList<ItemStack> input = NonNullList.withSize(tile.getSizeInventory() - 1, ItemStack.EMPTY);
     for(int i = 1; i < tile.getSizeInventory(); i++) {
-      input[i - 1] = tile.getStackInSlot(i);
+      input.set(i - 1, tile.getStackInSlot(i));
     }
 
     return input;

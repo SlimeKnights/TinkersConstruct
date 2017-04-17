@@ -9,7 +9,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -62,12 +61,13 @@ public class Shovel extends AoeToolCore {
   // grass paths
   @Nonnull
   @Override
-  public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+  public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    ItemStack stack = player.getHeldItem(hand);
     if(ToolHelper.isBroken(stack)) {
       return EnumActionResult.FAIL;
     }
 
-    EnumActionResult result = Items.DIAMOND_SHOVEL.onItemUse(stack, player, world, pos, hand, facing, hitX, hitY, hitZ);
+    EnumActionResult result = Items.DIAMOND_SHOVEL.onItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
     if(result == EnumActionResult.SUCCESS) {
       TinkerToolEvent.OnShovelMakePath.fireEvent(stack, player, world, pos);
     }
@@ -81,7 +81,7 @@ public class Shovel extends AoeToolCore {
           break;
         }
 
-        EnumActionResult aoeResult = Items.DIAMOND_SHOVEL.onItemUse(stack, player, world, aoePos, hand, facing, hitX, hitY, hitZ);
+        EnumActionResult aoeResult = Items.DIAMOND_SHOVEL.onItemUse(player, world, aoePos, hand, facing, hitX, hitY, hitZ);
         // if we pass on an earlier block, check if another block succeeds here instead
         if(result != EnumActionResult.SUCCESS) {
           result = aoeResult;

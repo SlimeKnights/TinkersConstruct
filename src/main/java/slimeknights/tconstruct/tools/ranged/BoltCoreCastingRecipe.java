@@ -3,8 +3,6 @@ package slimeknights.tconstruct.tools.ranged;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 
-import javax.annotation.Nullable;
-
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
@@ -20,7 +18,7 @@ public class BoltCoreCastingRecipe implements ICastingRecipe {
   protected BoltCoreCastingRecipe() {}
 
   @Override
-  public ItemStack getResult(@Nullable ItemStack cast, Fluid fluid) {
+  public ItemStack getResult(ItemStack cast, Fluid fluid) {
     Material shaftMaterial = TinkerTools.arrowShaft.getMaterial(cast);
     Material headMaterial = getMaterialForFluid(fluid);
 
@@ -35,10 +33,9 @@ public class BoltCoreCastingRecipe implements ICastingRecipe {
   }
 
   @Override
-  public boolean matches(@Nullable ItemStack cast, Fluid fluid) {
+  public boolean matches(ItemStack cast, Fluid fluid) {
     // cast needs to be a shaft with shaft material, fluid needs to belong to a material with head stats
-    return cast != null &&
-           cast.getItem() == TinkerTools.arrowShaft &&
+    return cast.getItem() == TinkerTools.arrowShaft &&
            TinkerTools.arrowShaft.getMaterial(cast).hasStats(MaterialTypes.SHAFT) &&
            isFluidWithHeadMaterial(fluid);
   }

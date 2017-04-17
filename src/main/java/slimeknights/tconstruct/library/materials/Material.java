@@ -96,12 +96,12 @@ public class Material extends RecipeMatchRegistry {
    * This item, if it is not null, represents the material for rendering.
    * In general if you want to give a person this material, you can give them this item.
    */
-  private ItemStack representativeItem;
+  private ItemStack representativeItem = ItemStack.EMPTY;
 
   /**
    * This item will be used instead of the generic shard item when returning leftovers.
    */
-  private ItemStack shardItem;
+  private ItemStack shardItem = ItemStack.EMPTY;
 
   // we use a specific map for 2 reasons:
   // * A Map so we can obtain the stats we want quickly
@@ -331,8 +331,8 @@ public class Material extends RecipeMatchRegistry {
 
 
   public void setRepresentativeItem(ItemStack representativeItem) {
-    if(representativeItem == null) {
-      this.representativeItem = null;
+    if(representativeItem == ItemStack.EMPTY) {
+      this.representativeItem = ItemStack.EMPTY;
     }
     else if(matches(representativeItem) != null) {
       this.representativeItem = representativeItem;
@@ -380,10 +380,10 @@ public class Material extends RecipeMatchRegistry {
   }
 
   public ItemStack getShard() {
-    if(shardItem != null) {
+    if(shardItem != ItemStack.EMPTY) {
       return shardItem.copy();
     }
-    return null;
+    return ItemStack.EMPTY;
   }
 
   public boolean hasItems() {
