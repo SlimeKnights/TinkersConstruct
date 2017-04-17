@@ -123,7 +123,7 @@ public class GuiToolStation extends GuiTinkerStation {
     this.guiTop += 4;
     this.cornerY += 4;
 
-    textField = new GuiTextField(0, fontRendererObj, cornerX + 70, cornerY + 7, 92, 12);
+    textField = new GuiTextField(0, fontRenderer, cornerX + 70, cornerY + 7, 92, 12);
     //textField.setFocused(true);
     //textField.setCanLoseFocus(false);
     textField.setEnableBackgroundDrawing(false);

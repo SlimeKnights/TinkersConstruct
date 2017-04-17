@@ -47,9 +47,9 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
   public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
     ItemStack itemstack = player.getItemStackFromSlot(EntityEquipmentSlot.FEET);
 
-    if(itemstack == null) {
+    if(itemstack.isEmpty()) {
       player.setItemStackToSlot(EntityEquipmentSlot.FEET, stack.copy());
-      stack.stackSize--;
+      stack.shrink(1);
     }
 
     return stack;

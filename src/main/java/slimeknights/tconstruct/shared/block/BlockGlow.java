@@ -15,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -23,7 +24,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nonnull;
@@ -71,17 +71,17 @@ public class BlockGlow extends Block {
     }
 
     // if unavailable, just return nothing, Minecraft will just not do anything on pick block
-    return null;
+    return ItemStack.EMPTY;
   }
 
   @Override
-  public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn) {
+  public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
     // if the location is not stable, break the block
-    if(!canBlockStay(world, pos, state.getValue(FACING))) {
-      world.setBlockToAir(pos);
+    if(!canBlockStay(worldIn, pos, state.getValue(FACING))) {
+      worldIn.setBlockToAir(pos);
     }
 
-    super.neighborChanged(state, world, pos, blockIn);
+    super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
   }
 
   /**
@@ -162,7 +162,7 @@ public class BlockGlow extends Block {
   }
 
   @Override
-  public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, @Nonnull World worldIn, @Nonnull BlockPos pos) {
+  public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
     return NULL_AABB;
   }
 

@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
 
 import org.apache.logging.log4j.Logger;
@@ -137,7 +138,7 @@ public final class ToolBuilder {
     traitModifier.applyEffect(rootCompound, tag);
   }
 
-  public static ItemStack tryRepairTool(ItemStack[] stacks, ItemStack toolStack, boolean removeItems) {
+  public static ItemStack tryRepairTool(NonNullList<ItemStack> stacks, ItemStack toolStack, boolean removeItems) {
     if(toolStack == null || !(toolStack.getItem() instanceof IRepairable)) {
       return null;
     }

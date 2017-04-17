@@ -4,8 +4,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.monster.SkeletonType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -92,9 +92,13 @@ public class ModBeheading extends ToolModifier {
   }
 
   private ItemStack getHeadDrop(EntityLivingBase entity) {
-    // meta 0,1: skeleton and wither skelly
+    // meta 0: skeleton
     if(entity instanceof EntitySkeleton) {
-      return new ItemStack(Items.SKULL, 1, ((EntitySkeleton) entity).getSkeletonType() == SkeletonType.WITHER ? 1 : 0);
+      return new ItemStack(Items.SKULL, 1, 0);
+    }
+    // meta 1: wither skelly
+    else if(entity instanceof EntityWitherSkeleton) {
+      return new ItemStack(Items.SKULL, 1, 1);
     }
     // meta 2: zombie
     else if(entity instanceof EntityZombie) {

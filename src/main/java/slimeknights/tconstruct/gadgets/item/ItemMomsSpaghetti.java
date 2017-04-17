@@ -147,7 +147,7 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
   }
 
   @Override
-  public ItemStack repair(ItemStack repairable, ItemStack[] repairItems) {
+  public ItemStack repair(ItemStack repairable, NonNullList<ItemStack> repairItems) {
     if(repairable.getItemDamage() == 0) {
       // nothing to repair, full durability
       return null;
@@ -163,14 +163,13 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
 
     ItemStack stack = repairable.copy();
     int index = 0;
-    while(stack.getItemDamage() > 0 && index < repairItems.length) {
-      ItemStack repairItem = repairItems[index];
-      if(repairItem != null && repairItem.stackSize > 0) {
-        repairItem.stackSize--;
+    while(stack.getItemDamage() > 0 && index < repairItems.size()) {
+      ItemStack repairItem = repairItems.get(index);
+      if(repairItem.getCount() > 0) {
+        repairItem.shrink(1);
 
-        int change = USES_PER_WHEAT;
         //change = Math.min(change, stack.getMaxDamage() - stack.getItemDamage());
-        stack.setItemDamage(stack.getItemDamage() - change);
+        stack.setItemDamage(stack.getItemDamage() - USES_PER_WHEAT);
 
         ToolHelper.healTool(stack, USES_PER_WHEAT, null);
       }
