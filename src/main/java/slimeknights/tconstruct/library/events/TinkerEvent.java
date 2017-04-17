@@ -12,7 +12,6 @@ import java.util.List;
 
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
-import slimeknights.tconstruct.library.tools.ToolCore;
 
 /**
  * Base class for all tinkers events
@@ -57,7 +56,7 @@ public abstract class TinkerEvent extends Event {
 
     public OnToolPartReplacement(List<ItemStack> replacementParts, ItemStack toolStack) {
       this.replacementParts = replacementParts;
-      this.toolStack = ItemStack.copyItemStack(toolStack);
+      this.toolStack = toolStack.copy();
     }
 
     public static boolean fireEvent(List<ItemStack> replacementParts, ItemStack toolStack) {

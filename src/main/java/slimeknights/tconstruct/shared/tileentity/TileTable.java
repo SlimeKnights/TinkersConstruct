@@ -54,8 +54,8 @@ public class TileTable extends TileInventory {
     // texture not loaded
     if(texture == null || texture.isEmpty()) {
       // load it from saved block
-      ItemStack stack = ItemStack.loadItemStackFromNBT(getTileData().getCompoundTag(FEET_TAG));
-      if(stack != null) {
+      ItemStack stack = new ItemStack(getTileData().getCompoundTag(FEET_TAG));
+      if(!stack.isEmpty()) {
         Block block = Block.getBlockFromItem(stack.getItem());
         texture = ModelHelper.getTextureFromBlock(block, stack.getItemDamage()).getIconName();
         getTileData().setString("texture", texture);

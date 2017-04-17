@@ -8,10 +8,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.fml.common.registry.GameData;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -98,7 +98,7 @@ public class Util {
     return item.getRegistryName();
   }
 
-  public static ItemStack[] copyItemStackArray(ItemStack[] in) {
+  public static NonNullList<ItemStack> copyItemStackArray(NonNullList<ItemStack> in) {
     return RecipeMatchRegistry.copyItemStackArray(in);
   }
 
