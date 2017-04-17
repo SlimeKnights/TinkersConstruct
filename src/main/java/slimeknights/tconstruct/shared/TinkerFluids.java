@@ -2,14 +2,10 @@ package slimeknights.tconstruct.shared;
 
 import com.google.common.eventbus.Subscribe;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -192,7 +188,6 @@ public class TinkerFluids extends TinkerPulse {
     milk = fluidMilk("milk", 0xffffff);
     milk.setTemperature(320);
     registerClassicBlock(milk);
-    FluidContainerRegistry.registerFluidContainer(new FluidStack(milk, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(Items.MILK_BUCKET), FluidContainerRegistry.EMPTY_BUCKET);
 
     if(isWorldLoaded()) {
       blueslime = fluidClassic("blueslime", 0xef67f0f5);

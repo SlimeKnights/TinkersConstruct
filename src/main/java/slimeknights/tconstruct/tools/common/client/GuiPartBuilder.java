@@ -28,6 +28,7 @@ import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.library.traits.ITrait;
+import slimeknights.tconstruct.library.utils.ListUtil;
 import slimeknights.tconstruct.tools.common.client.module.GuiButtonsPartCrafter;
 import slimeknights.tconstruct.tools.common.client.module.GuiInfoPanel;
 import slimeknights.tconstruct.tools.common.client.module.GuiSideInventory;
@@ -116,7 +117,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
     Material material = getMaterial(container.getSlot(3).getStack(), container.getSlot(4).getStack());
     if(material != null) {
       int count = 0;
-      RecipeMatch.Match match = material.matchesRecursively(new ItemStack[]{container.getSlot(3).getStack(), container.getSlot(4).getStack()});
+      RecipeMatch.Match match = material.matchesRecursively(ListUtil.getListFrom(container.getSlot(3).getStack(), container.getSlot(4).getStack()));
       if(match != null) {
         amount = Util.df.format(match.amount / (float) Material.VALUE_Ingot);
 
@@ -130,8 +131,8 @@ public class GuiPartBuilder extends GuiTinkerStation {
       int x = this.cornerX + this.realWidth / 2;
       int y = this.cornerY + 63;
       String text = Util.translateFormatted("gui.partbuilder.material_value", amount, material.getLocalizedName());
-      x -= fontRendererObj.getStringWidth(text) / 2;
-      fontRendererObj.renderString(text, x, y, 0x777777, false);
+      x -= fontRenderer.getStringWidth(text) / 2;
+      fontRenderer.renderString(text, x, y, 0x777777, false);
     }
 
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
@@ -141,7 +142,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
   public void updateDisplay() {
     // check if we have an output
     ItemStack output = container.getSlot(0).getStack();
-    if(output != null) {
+    if(!output.isEmpty()) {
       if(output.getItem() instanceof ToolPart) {
         ToolPart toolPart = (ToolPart) output.getItem();
         Material material = toolPart.getMaterial(output);
@@ -188,12 +189,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
   public void updateButtons() {
     if(buttons != null) {
       // this needs to be done threadsafe, since the buttons may be getting rendered currently
-      Minecraft.getMinecraft().addScheduledTask(new Runnable() {
-        @Override
-        public void run() {
-          buttons.updatePosition(cornerX, cornerY, realWidth, realHeight);
-        }
-      });
+      Minecraft.getMinecraft().addScheduledTask(() -> buttons.updatePosition(cornerX, cornerY, realWidth, realHeight));
     }
   }
 
@@ -233,7 +229,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
 
   protected Material getMaterial(ItemStack... stacks) {
     for(ItemStack stack : stacks) {
-      if(stack == null || stack.getItem() == null) {
+      if(stack.isEmpty()) {
         continue;
       }
       // material-item?

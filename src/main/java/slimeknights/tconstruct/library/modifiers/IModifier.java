@@ -7,7 +7,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.util.RecipeMatch;
-import slimeknights.tconstruct.library.utils.ListUtil;
 
 public interface IModifier extends IToolMod {
 
@@ -16,10 +15,6 @@ public interface IModifier extends IToolMod {
    * and how often the modifier can be applied with them
    */
   RecipeMatch.Match matches(NonNullList<ItemStack> stacks);
-
-  default RecipeMatch.Match matches(ItemStack... stacks) {
-    return this.matches(ListUtil.getListFrom(stacks));
-  }
 
   /**
    * Returns true if the modifier can be applied to the given itemstack.
