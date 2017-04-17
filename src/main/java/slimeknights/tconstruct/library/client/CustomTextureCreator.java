@@ -288,9 +288,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
       if(variants != null) {
         loc = variants.iterator().next();
       }
-    } catch(NoSuchFieldException e) {
-      e.printStackTrace();
-    } catch(IllegalAccessException e) {
+    } catch(NoSuchFieldException | IllegalAccessException e) {
       e.printStackTrace();
     }
 

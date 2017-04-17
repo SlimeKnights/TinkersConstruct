@@ -112,12 +112,12 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
 
   protected ItemStack getProjectileStack(ItemStack itemStack, World world, EntityPlayer player, boolean usedAmmo) {
     ItemStack reference = itemStack.copy();
-    reference.stackSize = 1;
+    reference.setCount(1);
     setAmmo(1, reference);
 
     // prevent a positive feedback loop with picking up ammo + durability retaining modifiers like reinforced
     if(!player.capabilities.isCreativeMode && !world.isRemote && !usedAmmo) {
-      reference.stackSize = 0;
+      reference.setCount(0);
       setAmmo(0, reference);
     }
 

@@ -99,7 +99,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
   }
 
   public float getDrawbackProgress(ItemStack itemstack, EntityLivingBase entityIn) {
-    if(itemstack != null && itemstack.getItem() == BowCore.this) {
+    if(itemstack.getItem() == BowCore.this) {
       int timePassed = itemstack.getMaxItemUseDuration() - entityIn.getItemInUseCount();
       return getDrawbackProgress(itemstack, timePassed);
     }
@@ -140,11 +140,11 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
       if(playerIn.capabilities.isCreativeMode || hasAmmo) {
         playerIn.setActiveHand(hand);
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+        return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
       }
     }
 
-    return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+    return new ActionResult<>(EnumActionResult.FAIL, itemStackIn);
   }
 
   @Override
@@ -244,8 +244,8 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
       return ((IAmmo) ammo.getItem()).useAmmo(ammo, player);
     }
     else {
-      ammo.stackSize--;
-      if (ammo.stackSize == 0)
+      ammo.shrink(1);
+      if (ammo.isEmpty())
       {
         player.inventory.deleteStack(ammo);
       }

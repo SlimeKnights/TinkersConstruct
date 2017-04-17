@@ -118,23 +118,18 @@ public class RenderProjectileBase<T extends EntityProjectileBase> extends Render
     try {
       final Constructor<? extends Render<? super T>> constr = clazz.getDeclaredConstructor(RenderManager.class);
 
-      return new IRenderFactory<T>() {
-        @Override
-        public Render<? super T> createRenderFor(RenderManager manager) {
-          try {
-            return constr.newInstance(manager);
-          } catch(InstantiationException e) {
-            TConstruct.log.error(e);
-          } catch(IllegalAccessException e) {
-            TConstruct.log.error(e);
-          } catch(InvocationTargetException e) {
-            TConstruct.log.error(e);
-          }
-
-          return null;
-        }
-      };
+      return manager -> getRender(constr, manager);
     } catch(NoSuchMethodException e) {
+      TConstruct.log.error(e);
+    }
+
+    return null;
+  }
+
+  protected static <T extends EntityProjectileBase> Render<? super T> getRender(Constructor<? extends Render<? super T>> constr, RenderManager manager) {
+    try {
+      return constr.newInstance(manager);
+    } catch(InstantiationException | IllegalAccessException | InvocationTargetException e) {
       TConstruct.log.error(e);
     }
 

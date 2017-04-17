@@ -399,10 +399,10 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
     }
   }
 
-  protected void addInfiTool(List<ItemStack> subitems, String name) {
+  protected void addInfiTool(List<ItemStack> subItems, String name) {
     ItemStack tool = getInfiTool(name);
     if(hasValidMaterials(tool)) {
-      subitems.add(tool);
+      subItems.add(tool);
     }
   }
 
@@ -448,7 +448,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
   }
 
   @Override
-  protected int repairCustom(Material material, ItemStack[] repairItems) {
+  protected int repairCustom(Material material, NonNullList<ItemStack> repairItems) {
     RecipeMatch.Match match = RecipeMatch.of(TinkerTools.sharpeningKit).matches(repairItems);
     if(match == null) {
       return 0;

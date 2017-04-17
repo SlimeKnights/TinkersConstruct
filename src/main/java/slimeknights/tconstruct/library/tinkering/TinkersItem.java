@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -293,7 +294,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   }
 
   @Override
-  public ItemStack repair(ItemStack repairable, ItemStack[] repairItems) {
+  public ItemStack repair(ItemStack repairable, NonNullList<ItemStack> repairItems) {
     if(repairable.getItemDamage() == 0 && !ToolHelper.isBroken(repairable)) {
       // undamaged and not broken - no need to repair
       return null;
@@ -363,11 +364,11 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   }
 
   /** Allows for custom repair items. Remove used items from the array. */
-  protected int repairCustom(Material material, ItemStack[] repairItems) {
+  protected int repairCustom(Material material, NonNullList<ItemStack> repairItems) {
     return 0;
   }
 
-  protected int calculateRepairAmount(List<Material> materials, ItemStack[] repairItems) {
+  protected int calculateRepairAmount(List<Material> materials, NonNullList<ItemStack> repairItems) {
     Set<Material> materialsMatched = Sets.newHashSet();
     float durability = 0f;
     // try to match each material once

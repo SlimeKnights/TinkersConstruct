@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.relauncher.Side;
@@ -235,7 +236,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
       String materialID = tag.getString(Tags.PART_MATERIAL);
 
       String error;
-      if(materialID != null && !materialID.isEmpty()) {
+      if(!materialID.isEmpty()) {
         error = I18n.translateToLocalFormatted("tooltip.part.missing_material", materialID);
       }
       else {
