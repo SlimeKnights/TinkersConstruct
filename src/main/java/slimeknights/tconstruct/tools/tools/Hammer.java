@@ -14,8 +14,6 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
@@ -42,7 +40,7 @@ public class Hammer extends Pickaxe {
   }
 
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     addDefaultSubItems(subItems);
     addInfiTool(subItems, "InfiMiner");
   }

@@ -156,36 +156,37 @@ public class Scythe extends AoeToolCore {
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
-    if(ToolHelper.isBroken(stack)) {
-      return ActionResult.newResult(EnumActionResult.FAIL, stack);
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
+    if(ToolHelper.isBroken(itemStackIn)) {
+      return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);
     }
 
-    RayTraceResult trace = this.rayTrace(world, player, true);
+    RayTraceResult trace = this.rayTrace(worldIn, playerIn, true);
     if(trace == null || trace.typeOfHit != RayTraceResult.Type.BLOCK) {
-      return ActionResult.newResult(EnumActionResult.PASS, stack);
+      return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
-    int fortune = ToolHelper.getFortuneLevel(stack);
+    int fortune = ToolHelper.getFortuneLevel(itemStackIn);
 
     BlockPos origin = trace.getBlockPos();
 
     boolean harvestedSomething = false;
-    for(BlockPos pos : this.getAOEBlocks(stack, player.getEntityWorld(), player, origin)) {
-      harvestedSomething |= harvestCrop(stack, world, player, pos, fortune);
+    for(BlockPos pos : this.getAOEBlocks(itemStackIn, playerIn.getEntityWorld(), playerIn, origin)) {
+      harvestedSomething |= harvestCrop(itemStackIn, worldIn, playerIn, pos, fortune);
     }
 
     // center space done after the loop to prevent from changing the hitbox before AOE runs
-    harvestedSomething |= harvestCrop(stack, world, player, origin, fortune);
+    harvestedSomething |= harvestCrop(itemStackIn, worldIn, playerIn, origin, fortune);
 
     if(harvestedSomething) {
-      player.swingArm(hand);
-      player.getEntityWorld().playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
-      player.spawnSweepParticles();
-      return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+      playerIn.swingArm(hand);
+      playerIn.getEntityWorld().playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, playerIn.getSoundCategory(), 1.0F, 1.0F);
+      playerIn.spawnSweepParticles();
+      return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
     }
 
-    return ActionResult.newResult(EnumActionResult.PASS, stack);
+    return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
   }
 
   protected boolean canHarvestCrop(IBlockState state) {
@@ -279,8 +280,8 @@ public class Scythe extends AoeToolCore {
     for(ItemStack drop : drops) {
       if(drop != null && drop.getItem() instanceof IPlantable) {
         seed = (IPlantable) drop.getItem();
-        drop.stackSize--;
-        if(drop.stackSize <= 0) {
+        drop.shrink(1);
+        if(drop.isEmpty()) {
           drops.remove(drop);
         }
 

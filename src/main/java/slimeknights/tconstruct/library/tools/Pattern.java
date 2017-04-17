@@ -5,9 +5,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameData;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.Collection;
 import java.util.List;
@@ -31,7 +28,7 @@ public class Pattern extends Item implements IPattern {
   }
 
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     subItems.add(new ItemStack(this));
 
     for(Item toolpart : getSubItemToolparts()) {

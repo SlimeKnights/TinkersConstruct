@@ -8,8 +8,6 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
 import slimeknights.tconstruct.library.materials.ArrowShaftMaterialStats;
 import slimeknights.tconstruct.library.materials.FletchingMaterialStats;
@@ -35,7 +33,7 @@ public class Arrow extends ProjectileCore {
   }
 
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     addDefaultSubItems(subItems, TinkerMaterials.wood, null, TinkerMaterials.feather);
   }
 

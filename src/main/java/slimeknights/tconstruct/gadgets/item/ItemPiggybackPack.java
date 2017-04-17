@@ -52,8 +52,9 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-    return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
+    return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
   }
 
   @Override

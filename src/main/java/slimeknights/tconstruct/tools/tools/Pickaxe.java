@@ -7,11 +7,8 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
-
-import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.Category;
@@ -48,7 +45,7 @@ public class Pickaxe extends AoeToolCore {
   }
 
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     addDefaultSubItems(subItems);
     addInfiTool(subItems, "InfiHarvester");
   }

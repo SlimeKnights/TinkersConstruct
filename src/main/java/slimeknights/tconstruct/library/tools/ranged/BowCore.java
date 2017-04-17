@@ -128,7 +128,8 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
     if(!ToolHelper.isBroken(itemStackIn)) {
       boolean hasAmmo = findAmmo(itemStackIn, playerIn) != null;
 

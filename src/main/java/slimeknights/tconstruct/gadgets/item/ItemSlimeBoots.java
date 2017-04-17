@@ -1,9 +1,5 @@
 package slimeknights.tconstruct.gadgets.item;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -12,12 +8,16 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.item.ItemArmorTooltip;
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
@@ -105,7 +105,7 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
    */
   @Override
   @SideOnly(Side.CLIENT)
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     for(SlimeType type : SlimeType.values()) {
       subItems.add(new ItemStack(this, 1, type.getMeta()));
     }

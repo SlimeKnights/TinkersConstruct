@@ -245,7 +245,7 @@ public class TinkerOredict {
   }
 
   public static void oredict(ItemStack stack, String... names) {
-    if(stack != null && stack.getItem() != null) {
+    if(stack != null && !stack.isEmpty()) {
       for(String name : names) {
         OreDictionary.registerOre(name, stack);
       }

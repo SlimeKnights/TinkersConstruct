@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import javax.annotation.Nonnull;
-
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
@@ -33,11 +31,8 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ProjectileNBT;
 import slimeknights.tconstruct.library.tools.ranged.ProjectileCore;
-import slimeknights.tconstruct.library.utils.TinkerUtil;
-import slimeknights.tconstruct.shared.client.ParticleEffect;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.common.entity.EntityArrow;
 import slimeknights.tconstruct.tools.common.entity.EntityBolt;
 import slimeknights.tconstruct.tools.melee.item.Rapier;
 import slimeknights.tconstruct.tools.traits.TraitEnderference;
@@ -61,7 +56,7 @@ public class Bolt extends ProjectileCore {
   }
 
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     for(Material head : TinkerRegistry.getAllMaterials()) {
       List<Material> mats = new ArrayList<Material>(3);
 

@@ -63,7 +63,8 @@ public class LongSword extends SwordCore {
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
     playerIn.setActiveHand(hand);
     return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
   }

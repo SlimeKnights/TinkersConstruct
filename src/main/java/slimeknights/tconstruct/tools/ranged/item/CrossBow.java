@@ -69,7 +69,7 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
   }
 
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     addDefaultSubItems(subItems, null, null, null, TinkerMaterials.string);
   }
 
@@ -129,13 +129,14 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
     if(isLoaded(itemStackIn) && !ToolHelper.isBroken(itemStackIn)) {
       super.onPlayerStoppedUsing(itemStackIn, worldIn, playerIn, 0);
       setLoaded(itemStackIn, false);
     }
     else {
-      return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+      return super.onItemRightClick(worldIn, playerIn, hand);
     }
     return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
   }

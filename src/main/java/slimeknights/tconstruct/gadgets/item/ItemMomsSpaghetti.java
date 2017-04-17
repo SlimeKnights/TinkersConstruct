@@ -16,6 +16,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -35,7 +36,6 @@ import slimeknights.tconstruct.library.client.CustomFontColor;
 import slimeknights.tconstruct.library.tinkering.IModifyable;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.IToolStationDisplay;
-import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -63,7 +63,7 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     // no creative items, nono
   }
 
@@ -131,7 +131,8 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, @Nonnull EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
     if(playerIn.canEat(false) && getUses(itemStackIn) > 0) {
       playerIn.setActiveHand(hand);
       return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);

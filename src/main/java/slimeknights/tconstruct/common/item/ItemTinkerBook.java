@@ -27,11 +27,12 @@ public class ItemTinkerBook extends Item {
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    ItemStack itemStack = playerIn.getHeldItem(handIn);
     if(worldIn.isRemote) {
-      TinkerBook.INSTANCE.openGui(itemStackIn);
+      TinkerBook.INSTANCE.openGui(itemStack);
     }
-    return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+    return new ActionResult<>(EnumActionResult.SUCCESS, itemStack);
   }
 
   @Override

@@ -33,7 +33,7 @@ public class ItemThrowball extends ItemSnowball {
   }
 
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     for(ThrowballType type : ThrowballType.values()) {
       subItems.add(new ItemStack(this, 1, type.ordinal()));
     }
@@ -41,9 +41,10 @@ public class ItemThrowball extends ItemSnowball {
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
     if(!playerIn.capabilities.isCreativeMode) {
-      --itemStackIn.stackSize;
+      itemStackIn.shrink(1);
     }
 
     worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));

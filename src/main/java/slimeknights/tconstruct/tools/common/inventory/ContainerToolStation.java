@@ -223,7 +223,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     ItemStack repairable = inventorySlots.get(0).getStack();
 
     // modifying possible?
-    if(repairable == null || !(repairable.getItem() instanceof IRepairable)) {
+    if(repairable.isEmpty() || !(repairable.getItem() instanceof IRepairable)) {
       return null;
     }
 
@@ -233,7 +233,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
   private ItemStack replaceToolParts(boolean remove) throws TinkerGuiException {
     ItemStack tool = inventorySlots.get(0).getStack();
 
-    if(tool == null || !(tool.getItem() instanceof TinkersItem)) {
+    if(tool.isEmpty() || !(tool.getItem() instanceof TinkersItem)) {
       return null;
     }
 
@@ -244,7 +244,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     ItemStack modifyable = inventorySlots.get(0).getStack();
 
     // modifying possible?
-    if(modifyable == null || !(modifyable.getItem() instanceof IModifyable)) {
+    if(modifyable.isEmpty() || !(modifyable.getItem() instanceof IModifyable)) {
       return null;
     }
 
@@ -270,10 +270,10 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
    */
   private void updateSlotsAfterToolAction() {
 // perfect, items already got removed but we still have to clean up 0-stacks and remove the tool
-    tile.setInventorySlotContents(0, null); // slot where the tool was
+    tile.setInventorySlotContents(0, ItemStack.EMPTY); // slot where the tool was
     for(int i = 1; i < tile.getSizeInventory(); i++) {
-      if(tile.getStackInSlot(i) != null && tile.getStackInSlot(i).stackSize == 0) {
-        tile.setInventorySlotContents(i, null);
+      if(tile.getStackInSlot(i) != null && tile.getStackInSlot(i).getCount() == 0) {
+        tile.setInventorySlotContents(i, ItemStack.EMPTY);
       }
     }
   }

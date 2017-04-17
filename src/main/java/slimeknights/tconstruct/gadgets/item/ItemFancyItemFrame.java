@@ -9,10 +9,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -28,7 +27,7 @@ public class ItemFancyItemFrame extends ItemHangingEntity {
   }
 
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     subItems.add(new ItemStack(itemIn, 1, EntityFancyItemFrame.FrameType.JEWEL.ordinal()));
 
     if(TinkerCommons.nuggetAlubrass != null) {
