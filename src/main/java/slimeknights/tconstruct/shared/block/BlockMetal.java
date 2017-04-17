@@ -36,7 +36,7 @@ public class BlockMetal extends EnumBlock<BlockMetal.MetalTypes> {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
     for(MetalTypes type : MetalTypes.values()) {
       if(type == MetalTypes.ALUBRASS && !TinkerIntegration.isIntegrated(TinkerFluids.alubrass)) {
         continue;

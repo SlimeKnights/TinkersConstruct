@@ -45,7 +45,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
     for(SlimePlantType type : SlimePlantType.values()) {
       for(FoliageType foliage : FoliageType.values()) {
         list.add(new ItemStack(this, 1, getMetaFromState(getDefaultState().withProperty(TYPE, type).withProperty(FOLIAGE, foliage))));

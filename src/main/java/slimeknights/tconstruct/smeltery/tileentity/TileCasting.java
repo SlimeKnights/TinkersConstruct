@@ -100,7 +100,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
 
       // send a block update for the comparator, needs to be done after the stack is removed
       if(slot == 1) {
-        this.getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+        this.getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
       }
     }
   }
@@ -164,7 +164,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
           getWorld().playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.AMBIENT, 0.07f, 4f);
 
           // comparator update
-          getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+          getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
 
           // reset state
           reset();

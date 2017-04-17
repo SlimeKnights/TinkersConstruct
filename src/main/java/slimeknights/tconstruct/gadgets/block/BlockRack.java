@@ -22,6 +22,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.Mirror;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -33,8 +34,6 @@ import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -64,7 +63,7 @@ public class BlockRack extends BlockTable {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
     list.add(createItemstack(this, 0, Blocks.WOODEN_SLAB, 0));
     list.add(createItemstack(this, 1, Blocks.WOODEN_SLAB, 0));
   }
@@ -104,10 +103,13 @@ public class BlockRack extends BlockTable {
 
   /* Activation */
   @Override
-  public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float hitX, float hitY, float hitZ) {
+  public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float clickX, float clickY, float clickZ) {
     if(!world.isRemote) {
-      ((TileItemRack) world.getTileEntity(pos)).interact(player);
-      world.scheduleUpdate(pos, this, 0);
+      TileItemRack tileItemRack = ((TileItemRack) world.getTileEntity(pos));
+      if(tileItemRack != null) {
+        tileItemRack.interact(player);
+        world.scheduleUpdate(pos, this, 0);
+      }
     }
 
     return true;
@@ -126,7 +128,7 @@ public class BlockRack extends BlockTable {
    * IBlockstate
    */
   @Override
-  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
+  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
     IBlockState state = this.getDefaultState();
 
     // playing a drying rack instead of an item rack
@@ -306,8 +308,8 @@ public class BlockRack extends BlockTable {
   }
 
   @Override
-  public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos) {
-    return BOUNDS.get(state.getValue(ORIENTATION));
+  public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+    return BOUNDS.get(blockState.getValue(ORIENTATION));
   }
 
   @Nonnull

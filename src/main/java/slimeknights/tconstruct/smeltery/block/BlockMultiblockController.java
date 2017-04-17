@@ -70,7 +70,7 @@ public abstract class BlockMultiblockController extends BlockInventoryTinkers {
   }
 
   @Override
-  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
+  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
     // set rotation
     return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite());
   }

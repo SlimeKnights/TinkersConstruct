@@ -189,6 +189,6 @@ public class BlockGlow extends Block {
   }
 
   @Override
-  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
   }
 }

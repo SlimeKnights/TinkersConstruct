@@ -12,10 +12,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -121,7 +121,7 @@ public class BlockPunji extends Block {
    * IBlockstate
    */
   @Override
-  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
+  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
     EnumFacing enumfacing = facing.getOpposite();
 
     return this.getDefaultState().withProperty(FACING, enumfacing);
@@ -134,7 +134,7 @@ public class BlockPunji extends Block {
 
 
   @Override
-  public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+  public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
     EnumFacing facing = state.getValue(FACING);
 
     if(!worldIn.isSideSolid(pos.offset(facing), facing.getOpposite(), true)) {
@@ -170,7 +170,7 @@ public class BlockPunji extends Block {
       if(entityIn.fallDistance > 0) {
         damage += entityIn.fallDistance * 1.5f + 2f;
       }
-      entityIn.attackEntityFrom(DamageSource.cactus, damage);
+      entityIn.attackEntityFrom(DamageSource.CACTUS, damage);
       ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 20, 1));
     }
   }

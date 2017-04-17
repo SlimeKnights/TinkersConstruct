@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.tools.common.block;
 
-import com.google.common.collect.Lists;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -16,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -28,7 +27,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -96,7 +94,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
     // crafting station is boring
     list.add(new ItemStack(this, 1, TableTypes.CraftingStation.meta));
 
@@ -116,13 +114,13 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
   }
 
-  private void addBlocksFromOredict(String oredict, int meta, List<ItemStack> list) {
+  private void addBlocksFromOredict(String oredict, int meta, NonNullList<ItemStack> list) {
     for(ItemStack stack : OreDictionary.getOres(oredict)) {
       Block block = getBlockFromItem(stack.getItem());
       int blockMeta = stack.getItemDamage();
 
       if(blockMeta == OreDictionary.WILDCARD_VALUE) {
-        List<ItemStack> subBlocks = Lists.newLinkedList();
+        NonNullList<ItemStack> subBlocks = NonNullList.create();
         block.getSubBlocks(stack.getItem(), null, subBlocks);
 
         for(ItemStack subBlock : subBlocks) {

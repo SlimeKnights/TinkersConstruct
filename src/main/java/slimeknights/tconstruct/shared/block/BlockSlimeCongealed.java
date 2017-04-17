@@ -41,7 +41,7 @@ public class BlockSlimeCongealed extends Block {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
     for(SlimeType type : SlimeType.values()) {
       list.add(new ItemStack(this, 1, type.meta));
     }

@@ -43,7 +43,7 @@ public class BlockSlimeVine extends BlockVine {
    * IBlockstate
    */
   @Override
-  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
+  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
     IBlockState iblockstate = this.getDefaultState();
     iblockstate = iblockstate.withProperty(NORTH, canAttachTo(world, pos.north()));
     iblockstate = iblockstate.withProperty(EAST, canAttachTo(world, pos.east()));

@@ -55,7 +55,7 @@ public class BlockCasting extends BlockInventory {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
     for(CastingType type : CastingType.values()) {
       list.add(new ItemStack(this, 1, type.getMeta()));
     }

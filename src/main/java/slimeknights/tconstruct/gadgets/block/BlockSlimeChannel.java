@@ -145,7 +145,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
    * IBlockState
    */
   @Override
-  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
+  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
     // we temporarily store the data in the blockstate until the TE is created
     return this.getDefaultState().withProperty(TYPE, SlimeType.fromMeta(meta))
                                  .withProperty(SIDE, facing.getOpposite())
@@ -397,7 +397,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
    * block, etc.
    */
   @Override
-  public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+  public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
     this.updateState(worldIn, pos, state);
   }
 
@@ -453,7 +453,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
   }
 
   @Override
-  public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos) {
+  public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
     return NULL_AABB;
   }
 
