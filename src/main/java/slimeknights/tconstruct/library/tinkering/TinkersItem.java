@@ -34,14 +34,11 @@ import javax.annotation.Nonnull;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.events.TinkerEvent;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
-import slimeknights.tconstruct.library.modifiers.IModifier;
-import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -307,7 +304,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     }
 
     // ensure the items only contain valid items
-    ItemStack[] items = Util.copyItemStackArray(repairItems);
+    NonNullList<ItemStack> items = Util.copyItemStackArray(repairItems);
     boolean foundMatch = false;
     for(int index : getRepairParts()) {
       Material material = materials.get(index);
@@ -334,9 +331,9 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     }
 
     // check if all items were used
-    for(int i = 0; i < repairItems.length; i++) {
+    for(int i = 0; i < repairItems.size(); i++) {
       // was non-null and did not get modified (stacksize changed or null now, usually)
-      if(repairItems[i] != null && ItemStack.areItemStacksEqual(repairItems[i], items[i])) {
+      if(!repairItems.get(i).isEmpty() && ItemStack.areItemStacksEqual(repairItems.get(i), items.get(i))) {
         // found an item that was not touched
         return null;
       }

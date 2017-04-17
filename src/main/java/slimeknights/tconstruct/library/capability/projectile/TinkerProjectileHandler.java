@@ -78,7 +78,7 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
   public boolean pickup(EntityLivingBase entity, boolean simulate) {
     ItemStack stack = AmmoHelper.getMatchingItemstackFromInventory(parent, entity, true);
     if(stack != null && stack.getItem() instanceof IAmmo) {
-      if(!simulate && parent.stackSize > 0) {
+      if(!simulate && parent.getCount() > 0) {
         ToolHelper.unbreakTool(stack);
         ((IAmmo) stack.getItem()).addAmmo(stack, entity);
       }
@@ -114,12 +114,12 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
 
   @Override
   public void deserializeNBT(NBTTagCompound nbt) {
-    parent = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag(TAG_PARENT));
+    parent = new ItemStack(nbt.getCompoundTag(TAG_PARENT));
     // backwards compatibility
-    if(parent == null) {
-      parent = ItemStack.loadItemStackFromNBT(nbt);
+    if(parent.isEmpty()) {
+      parent = new ItemStack(nbt);
     }
-    launcher = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag(TAG_LAUNCHER));
+    launcher = new ItemStack(nbt.getCompoundTag(TAG_LAUNCHER));
     power = nbt.getFloat(TAG_POWER);
     updateTraits();
   }
