@@ -42,6 +42,10 @@ repositories {
         name 'tterrag maven'
         url "http://maven.tterrag.com/"
     }
+    maven { // compatlayer
+        name 'K-4u maven'
+        url "http://maven.k-4u.nl/"
+    }
     maven {
         name 'forge'
         url 'http://files.minecraftforge.net/maven'
@@ -115,6 +119,7 @@ dependencies {
 	
     deobfCompile "mcp.mobius.waila:Waila:${config.waila_version}"
     deobfCompile "mcjty.theoneprobe:TheOneProbe:${config.probe_version}"
+    deobfCompile "com.github.mcjty:compatlayer:${config.minecraft_version}-${config.compat_version}"
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 }
 
