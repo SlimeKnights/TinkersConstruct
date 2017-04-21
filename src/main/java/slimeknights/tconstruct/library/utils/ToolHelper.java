@@ -60,7 +60,7 @@ public final class ToolHelper {
   }
 
   public static boolean hasCategory(ItemStack stack, Category category) {
-    if(stack == null || stack.getItem() == null || !(stack.getItem() instanceof TinkersItem)) {
+    if(stack.isEmpty() || !(stack.getItem() instanceof TinkersItem)) {
       return false;
     }
 
@@ -87,7 +87,7 @@ public final class ToolHelper {
 
   public static float getActualAttack(ItemStack stack) {
     float damage = getAttackStat(stack);
-    if(stack != null && stack.getItem() instanceof ToolCore) {
+    if(!stack.isEmpty() && stack.getItem() instanceof ToolCore) {
       damage *= ((ToolCore) stack.getItem()).damagePotential();
     }
     return damage;
@@ -104,7 +104,7 @@ public final class ToolHelper {
   /** Returns the actual attack speed */
   public static float getActualAttackSpeed(ItemStack stack) {
     float speed = getAttackSpeedStat(stack);
-    if(stack != null && stack.getItem() instanceof ToolCore) {
+    if(!stack.isEmpty() && stack.getItem() instanceof ToolCore) {
       speed *= ((ToolCore) stack.getItem()).attackSpeed();
     }
     return speed;
@@ -113,7 +113,7 @@ public final class ToolHelper {
   /** Returns the actual mining speed. */
   public static float getActualMiningSpeed(ItemStack stack) {
     float speed = getMiningSpeedStat(stack);
-    if(stack != null && stack.getItem() instanceof ToolCore) {
+    if(!stack.isEmpty() && stack.getItem() instanceof ToolCore) {
       speed *= ((ToolCore) stack.getItem()).miningSpeedModifier();
     }
     return speed;
@@ -226,7 +226,7 @@ public final class ToolHelper {
 
   public static ImmutableList<BlockPos> calcAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin, int width, int height, int depth, int distance) {
     // only works with toolcore because we need the raytrace call
-    if(stack == null || !(stack.getItem() instanceof ToolCore)) {
+    if(stack.isEmpty() || !(stack.getItem() instanceof ToolCore)) {
       return ImmutableList.of();
     }
 
@@ -427,9 +427,9 @@ public final class ToolHelper {
       // callback to the tool
       stack.onBlockDestroyed(world, state, pos, player);
 
-      if(stack.stackSize == 0 && stack == player.getHeldItemMainhand()) {
+      if(stack.getCount() == 0 && stack == player.getHeldItemMainhand()) {
         ForgeEventFactory.onPlayerDestroyItem(player, stack, EnumHand.MAIN_HAND);
-        player.setHeldItem(EnumHand.MAIN_HAND, null);
+        player.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
       }
 
       // send an update to the server, so we get an update back

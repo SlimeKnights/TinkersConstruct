@@ -130,20 +130,20 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
    * @param stacks Items to build with. Have to be in the correct order and have exact length. No nulls!
    * @return The built item or null if invalid input.
    */
-  public ItemStack buildItemFromStacks(ItemStack[] stacks) {
-    List<Material> materials = new ArrayList<Material>(stacks.length);
+  public ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks) {
+    List<Material> materials = new ArrayList<Material>(stacks.size());
 
-    if(stacks.length != requiredComponents.length) {
-      return null;
+    if(stacks.size() != requiredComponents.length) {
+      return ItemStack.EMPTY;
     }
 
     // not a valid part arrangement for this tool
-    for(int i = 0; i < stacks.length; i++) {
-      if(!validComponent(i, stacks[i])) {
-        return null;
+    for(int i = 0; i < stacks.size(); i++) {
+      if(!validComponent(i, stacks.get(i))) {
+        return ItemStack.EMPTY;
       }
 
-      materials.add(TinkerUtil.getMaterialFromStack(stacks[i]));
+      materials.add(TinkerUtil.getMaterialFromStack(stacks.get(i)));
     }
 
     return buildItem(materials);
@@ -353,7 +353,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       ToolHelper.repairTool(item, calculateRepair(item, amount));
       // save that we repaired it :I
       NBTTagCompound tag = TagUtil.getExtraTag(item);
-      TagUtil.addInteger(tag, Tags.REPAIR_COUNT, 1);
+      tag.setInteger(Tags.REPAIR_COUNT, tag.getInteger(Tags.REPAIR_COUNT) + 1);
       TagUtil.setExtraTag(item, tag);
     }
 

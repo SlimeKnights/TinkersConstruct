@@ -176,8 +176,8 @@ public class TinkerGadgets extends TinkerPulse {
 
     registerMomsSpaghetti();
 
-    EntityRegistry.registerModEntity(EntityFancyItemFrame.class, "Fancy Item Frame", EntityIDs.FANCY_FRAME, TConstruct.instance, 160, Integer.MAX_VALUE, false);
-    EntityRegistry.registerModEntity(EntityThrowball.class, "Throwball", EntityIDs.THROWBALL, TConstruct.instance, 64, 10, true);
+    EntityRegistry.registerModEntity(Util.getResource("fancy_frame"), EntityFancyItemFrame.class, "Fancy Item Frame", EntityIDs.FANCY_FRAME, TConstruct.instance, 160, Integer.MAX_VALUE, false);
+    EntityRegistry.registerModEntity(Util.getResource("throwball"), EntityThrowball.class, "Throwball", EntityIDs.THROWBALL, TConstruct.instance, 64, 10, true);
     //EntityRegistry.instance().lookupModSpawn(EntityFancyItemFrame.class, false).setCustomSpawning(null, true);
 
     MinecraftForge.EVENT_BUS.register(slimeBoots);
@@ -327,7 +327,7 @@ public class TinkerGadgets extends TinkerPulse {
     // normal recipe
     // 2 redstone + sandstone =  brownstone
     ItemStack regularBrownstoneRecipeOut = stackBrownstoneRough.copy();
-    regularBrownstoneRecipeOut.stackSize = 3;
+    regularBrownstoneRecipeOut.setCount(3);
     GameRegistry.addRecipe(new ShapedOreRecipe(regularBrownstoneRecipeOut, " s ", "rsr", " s ", 'r', "dustRedstone", 's', "sandstone"));
 
     // smelting to get smooth and cracked

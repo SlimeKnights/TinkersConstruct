@@ -5,7 +5,6 @@ import com.google.common.collect.Sets;
 
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.hash.TIntIntHashMap;
-import gnu.trove.procedure.TIntIntProcedure;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
@@ -18,11 +17,8 @@ import net.minecraft.util.text.translation.I18n;
 
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import slimeknights.mantle.util.RecipeMatch;
@@ -41,7 +37,6 @@ import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.traits.ITrait;
-import slimeknights.tconstruct.tools.TinkerTools;
 
 public final class ToolBuilder {
 
@@ -50,7 +45,7 @@ public final class ToolBuilder {
   private ToolBuilder() {
   }
 
-  public static ItemStack tryBuildTool(ItemStack[] stacks, String name) {
+  public static ItemStack tryBuildTool(NonNullList<ItemStack> stacks, String name) {
     return tryBuildTool(stacks, name, TinkerRegistry.getTools());
   }
 
@@ -60,27 +55,30 @@ public final class ToolBuilder {
    * @param stacks Input.
    * @return The built tool or null if none could be built.
    */
-  public static ItemStack tryBuildTool(ItemStack[] stacks, String name, Collection<ToolCore> possibleTools) {
+  public static ItemStack tryBuildTool(NonNullList<ItemStack> stacks, String name, Collection<ToolCore> possibleTools) {
     int length = -1;
-    ItemStack[] input;
-    // remove trailing nulls
-    for(int i = 0; i < stacks.length; i++) {
-      if(stacks[i] == null) {
+    NonNullList<ItemStack> input;
+    // remove trailing empty slots
+    for(int i = 0; i < stacks.size(); i++) {
+      if(stacks.get(i).isEmpty()) {
         if(length < 0) {
           length = i;
         }
       }
       else if(length >= 0) {
         // incorrect input. gap with null in the stacks passed
-        return null;
+        return ItemStack.EMPTY;
       }
     }
 
     if(length < 0) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
-    input = Arrays.copyOf(stacks, length);
+    input = NonNullList.withSize(length, ItemStack.EMPTY);
+    for(int i = 0; i < stacks.size(); i++) {
+      input.set(i, stacks.get(i));
+    }
 
     for(Item item : possibleTools) {
       if(!(item instanceof ToolCore)) {
@@ -97,7 +95,7 @@ public final class ToolBuilder {
       }
     }
 
-    return null;
+    return ItemStack.EMPTY;
   }
 
   /**
@@ -219,30 +217,26 @@ public final class ToolBuilder {
     }
 
     // check if all itemstacks were touched - otherwise there's an invalid item in the input
-    for(int i = 0; i < input.length; i++) {
-      if(input[i] != null && ItemStack.areItemStacksEqual(input[i], stacks[i])) {
+    for(int i = 0; i < input.size(); i++) {
+      if(ItemStack.areItemStacksEqual(input.get(i), stacks.get(i))) {
         if(!appliedModifiers.isEmpty()) {
-          String error =
-              I18n.translateToLocalFormatted("gui.error.no_modifier_for_item", input[i].getDisplayName());
+          String error = I18n.translateToLocalFormatted("gui.error.no_modifier_for_item", input.get(i).getDisplayName());
           throw new TinkerGuiException(error);
         }
-        return null;
+        return ItemStack.EMPTY;
       }
     }
 
     // update output itemstacks
     if(removeItems) {
-      for(int i = 0; i < input.length; i++) {
-        if(input[i] == null) {
-          continue;
-        }
+      for(int i = 0; i < input.size(); i++) {
         // stacks might be null because stacksize got 0 during processing, we have to reflect that in the input
         // so the caller can identify that
-        if(usedStacks[i] == null) {
-          input[i].stackSize = 0;
+        if(usedStacks.get(i).isEmpty()) {
+          input.get(i).setCount(0);
         }
         else {
-          input[i].stackSize = usedStacks[i].stackSize;
+          input.get(i).setCount(usedStacks.get(i).getCount());
         }
       }
     }
@@ -257,7 +251,7 @@ public final class ToolBuilder {
       return copy;
     }
 
-    return null;
+    return ItemStack.EMPTY;
   }
 
   /**
@@ -272,16 +266,17 @@ public final class ToolBuilder {
   public static ItemStack tryReplaceToolParts(ItemStack toolStack, final NonNullList<ItemStack> toolPartsIn, final boolean removeItems)
       throws TinkerGuiException {
     if(toolStack == null || !(toolStack.getItem() instanceof TinkersItem)) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     // we never modify the original. Caller can remove all of them if we return a result
     NonNullList<ItemStack> inputItems = Util.copyItemStackArray(toolPartsIn);
     if(!TinkerEvent.OnToolPartReplacement.fireEvent(inputItems, toolStack)) {
       // event cancelled
-      return null;
+      return ItemStack.EMPTY;
     }
-    final ItemStack[] toolParts = inputItems.toArray(new ItemStack[inputItems.size()]);
+    // technically we don't need a deep copy here, but meh. less code.
+    final NonNullList<ItemStack> toolParts = Util.copyItemStackArray(inputItems);
 
     TIntIntMap assigned = new TIntIntHashMap();
     TinkersItem tool = (TinkersItem) toolStack.getItem();
@@ -289,14 +284,14 @@ public final class ToolBuilder {
     final NBTTagList materialList = TagUtil.getBaseMaterialsTagList(toolStack).copy();
 
     // assing each toolpart to a slot in the tool
-    for(int i = 0; i < toolParts.length; i++) {
-      ItemStack part = toolParts[i];
-      if(part == null) {
+    for(int i = 0; i < toolParts.size(); i++) {
+      ItemStack part = toolParts.get(i);
+      if(part.isEmpty()) {
         continue;
       }
       if(!(part.getItem() instanceof IToolPart)) {
         // invalid item for toolpart replacement
-        return null;
+        return ItemStack.EMPTY;
       }
 
       int candidate = -1;
@@ -322,24 +317,24 @@ public final class ToolBuilder {
 
       // no assignment found for a part. Invalid input.
       if(candidate < 0) {
-        return null;
+        return ItemStack.EMPTY;
       }
       assigned.put(i, candidate);
     }
 
     // did we assign nothing?
     if(assigned.isEmpty()) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     // We now know which parts to replace with which inputs. Yay. Now we only have to do so.
     // to do so we simply switch out the materials used and rebuild the tool
     assigned.forEachEntry((i, j) -> {
-      String mat = ((IToolPart) toolParts[i].getItem()).getMaterial(toolParts[i]).getIdentifier();
+      String mat = ((IToolPart) toolParts.get(i).getItem()).getMaterial(toolParts.get(i)).getIdentifier();
       materialList.set(j, new NBTTagString(mat));
       if(removeItems) {
-        if(i < toolPartsIn.length && toolPartsIn[i] != null) {
-          toolPartsIn[i].stackSize--;
+        if(i < toolPartsIn.size() && !toolPartsIn.get(i).isEmpty()) {
+          toolPartsIn.get(i).shrink(1);
         }
       }
       return true;
@@ -387,7 +382,7 @@ public final class ToolBuilder {
    * @param removeItems   If true the match will be removed from the passed items
    * @return ItemStack[2] Array containing the built item in the first slot and eventual secondary output in the second one. Null if no item could be built.
    */
-  public static ItemStack[] tryBuildToolPart(ItemStack pattern, ItemStack[] materialItems, boolean removeItems)
+  public static NonNullList<ItemStack> tryBuildToolPart(ItemStack pattern, NonNullList<ItemStack> materialItems, boolean removeItems)
       throws TinkerGuiException {
     Item itemPart = Pattern.getPartFromTag(pattern);
     if(itemPart == null || !(itemPart instanceof MaterialItem) || !(itemPart instanceof IToolPart)) {
@@ -428,7 +423,7 @@ public final class ToolBuilder {
     }
 
     ItemStack output = ((MaterialItem) itemPart).getItemstackWithMaterial(foundMaterial);
-    if(output == null) {
+    if(output.isEmpty()) {
       return null;
     }
     if(output.getItem() instanceof IToolPart && !((IToolPart) output.getItem()).canUseMaterial(foundMaterial)) {
@@ -438,15 +433,15 @@ public final class ToolBuilder {
     RecipeMatch.removeMatch(materialItems, match);
 
     // check if we have secondary output
-    ItemStack secondary = null;
+    ItemStack secondary = ItemStack.EMPTY;
     int leftover = (match.amount - part.getCost()) / Material.VALUE_Shard;
     if(leftover > 0) {
       secondary = TinkerRegistry.getShard(foundMaterial);
-      secondary.stackSize = leftover;
+      secondary.setCount(leftover);
     }
 
     // build an item with this
-    return new ItemStack[]{output, secondary};
+    return ListUtil.getListFrom(output, secondary);
   }
 
   /**
@@ -547,9 +542,6 @@ public final class ToolBuilder {
 
   public static short getEnchantmentLevel(NBTTagCompound rootTag, Enchantment enchantment) {
     NBTTagList enchantments = rootTag.getTagList("ench", 10);
-    if(enchantments == null) {
-      enchantments = new NBTTagList();
-    }
 
     int id = Enchantment.getEnchantmentID(enchantment);
 
@@ -564,9 +556,6 @@ public final class ToolBuilder {
 
   public static void addEnchantment(NBTTagCompound rootTag, Enchantment enchantment) {
     NBTTagList enchantments = rootTag.getTagList("ench", 10);
-    if(enchantments == null) {
-      enchantments = new NBTTagList();
-    }
 
     NBTTagCompound enchTag = new NBTTagCompound();
     int enchId = Enchantment.getEnchantmentID(enchantment);
