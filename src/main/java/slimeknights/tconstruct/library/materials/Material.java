@@ -20,6 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.mantle.util.RecipeMatchRegistry;
@@ -334,7 +335,7 @@ public class Material extends RecipeMatchRegistry {
     if(representativeItem == ItemStack.EMPTY) {
       this.representativeItem = ItemStack.EMPTY;
     }
-    else if(matches(representativeItem) != null) {
+    else if(matches(representativeItem).isPresent()) {
       this.representativeItem = representativeItem;
     }
     else {
@@ -358,8 +359,9 @@ public class Material extends RecipeMatchRegistry {
       this.shardItem = null;
     }
     else {
-      RecipeMatch.Match match = matches(stack);
-      if(match != null) {
+      Optional<RecipeMatch.Match> matchOptional = matches(stack);
+      if(matchOptional.isPresent()) {
+        RecipeMatch.Match match = matchOptional.get();
         if(match.amount == VALUE_Shard) {
           this.shardItem = stack;
         }

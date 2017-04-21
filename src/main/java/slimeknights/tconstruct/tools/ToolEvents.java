@@ -120,7 +120,7 @@ public class ToolEvents {
           player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
 
           if(!event.getWorld().isRemote) {
-            event.getItemStack().stackSize--;
+            event.getItemStack().shrink(1);
             player.removeExperienceLevel(ModMendingMoss.MENDING_MOSS_LEVELS);
             ItemHandlerHelper.giveItemToPlayer(player, TinkerCommons.matMendingMoss.copy());
 

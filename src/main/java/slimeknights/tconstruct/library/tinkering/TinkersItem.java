@@ -25,6 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -313,16 +314,16 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
         foundMatch = true;
       }
 
-      RecipeMatch.Match match = material.matches(items);
+      Optional<RecipeMatch.Match> match = material.matches(items);
 
       // not a single match -> nothing to repair with
-      if(match == null) {
+      if(!match.isPresent()) {
         continue;
       }
       foundMatch = true;
 
-      while((match = material.matches(items)) != null) {
-        RecipeMatch.removeMatch(items, match);
+      while((match = material.matches(items)).isPresent()) {
+        RecipeMatch.removeMatch(items, match.get());
       }
     }
 
@@ -379,8 +380,9 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       // custom repairing
       durability += repairCustom(material, repairItems) * getRepairModifierForPart(index);
 
-      RecipeMatch.Match match = material.matches(repairItems);
-      if(match != null) {
+      Optional<RecipeMatch.Match> matchOptional = material.matches(repairItems);
+      if(matchOptional.isPresent()) {
+        RecipeMatch.Match match = matchOptional.get();
         HeadMaterialStats stats = material.getStats(MaterialTypes.HEAD);
         if(stats != null) {
           materialsMatched.add(material);

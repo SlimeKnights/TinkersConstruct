@@ -41,6 +41,18 @@ public class ConfigGui extends GuiConfig {
     }
 
     @Override
+    public boolean hasConfigGui() {
+      // todo: 1.11.2 need this?
+      return false;
+    }
+
+    @Override
+    public GuiScreen createConfigGui(GuiScreen parentScreen) {
+      // todo: 1.11.2 need this?
+      return null;
+    }
+
+    @Override
     public Class<? extends GuiScreen> mainConfigGuiClass() {
       return ConfigGui.class;
     }

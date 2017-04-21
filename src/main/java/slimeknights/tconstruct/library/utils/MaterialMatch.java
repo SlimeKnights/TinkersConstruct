@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
 import java.util.List;
+import java.util.Optional;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.materials.Material;
@@ -35,7 +36,7 @@ public class MaterialMatch extends RecipeMatch {
   }
 
   @Override
-  public Match matches(NonNullList<ItemStack> stacks) {
+  public Optional<Match> matches(NonNullList<ItemStack> stacks) {
     List<ItemStack> found = Lists.newLinkedList();
     int stillNeeded = amountNeeded;
 
@@ -51,12 +52,12 @@ public class MaterialMatch extends RecipeMatch {
 
           // we found enough
           if(stillNeeded <= 0) {
-            return new Match(found, amountMatched);
+            return Optional.of(new Match(found, amountMatched));
           }
         }
       }
     }
 
-    return null;
+    return Optional.empty();
   }
 }

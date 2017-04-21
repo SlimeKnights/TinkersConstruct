@@ -30,9 +30,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.ClientProxy;
@@ -418,12 +420,13 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
   }
 
   @Override
-  public int getHarvestLevel(ItemStack stack, @Nonnull String toolClass) {
+  public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
     if(this.getToolClasses(stack).contains(toolClass)) {
       // will return 0 if the tag has no info anyway
       return ToolHelper.getHarvestLevelStat(stack);
     }
-    return super.getHarvestLevel(stack, toolClass);
+
+    return super.getHarvestLevel(stack, toolClass, player, blockState);
   }
 
   /** A simple string identifier for the tool, used for identification in texture generation etc. */
@@ -449,11 +452,12 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   @Override
   protected int repairCustom(Material material, NonNullList<ItemStack> repairItems) {
-    RecipeMatch.Match match = RecipeMatch.of(TinkerTools.sharpeningKit).matches(repairItems);
-    if(match == null) {
+    Optional<RecipeMatch.Match> matchOptional = RecipeMatch.of(TinkerTools.sharpeningKit).matches(repairItems);
+    if(!matchOptional.isPresent()) {
       return 0;
     }
 
+    RecipeMatch.Match match = matchOptional.get();
     for(ItemStack stacks : match.stacks) {
       // invalid material?
       if(TinkerTools.sharpeningKit.getMaterial(stacks) != material) {

@@ -7,8 +7,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
-import com.sun.istack.internal.NotNull;
-
 import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.THashSet;
 import gnu.trove.set.hash.TLinkedHashSet;
@@ -20,6 +18,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -39,9 +38,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import slimeknights.mantle.client.CreativeTab;
 import slimeknights.mantle.util.RecipeMatch;
@@ -486,7 +482,7 @@ public final class TinkerRegistry {
   private static List<ICastingRecipe> basinCastRegistry = Lists.newLinkedList();
   private static List<AlloyRecipe> alloyRegistry = Lists.newLinkedList();
   private static Map<FluidStack, Integer> smelteryFuels = Maps.newHashMap();
-  private static Map<String, FluidStack> entityMeltingRegistry = Maps.newHashMap();
+  private static Map<ResourceLocation, FluidStack> entityMeltingRegistry = Maps.newHashMap();
 
   /** Registers this item with all its metadatas to melt into amount of the given fluid. */
   public static void registerMelting(Item item, Fluid fluid, int amount) {
@@ -701,7 +697,7 @@ public final class TinkerRegistry {
 
   /** Register an entity to melt into the given fluidstack. The fluidstack is returned for 1 heart damage */
   public static void registerEntityMelting(Class<? extends Entity> clazz, FluidStack liquid) {
-    String name = EntityList.CLASS_TO_NAME.get(clazz);
+    ResourceLocation name = EntityList.getKey(clazz);
 
     if(name == null) {
       error("Entity Melting: Entity %s is not registered in the EntityList", clazz.getSimpleName());
@@ -722,7 +718,7 @@ public final class TinkerRegistry {
   }
 
   public static FluidStack getMeltingForEntity(Entity entity) {
-    String name = EntityList.getEntityString(entity);
+    ResourceLocation name = EntityList.getKey(entity);
     return entityMeltingRegistry.get(name);
   }
 

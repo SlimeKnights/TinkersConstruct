@@ -16,6 +16,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+import java.util.Optional;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -117,12 +118,13 @@ public class GuiPartBuilder extends GuiTinkerStation {
     Material material = getMaterial(container.getSlot(3).getStack(), container.getSlot(4).getStack());
     if(material != null) {
       int count = 0;
-      RecipeMatch.Match match = material.matchesRecursively(ListUtil.getListFrom(container.getSlot(3).getStack(), container.getSlot(4).getStack()));
-      if(match != null) {
-        amount = Util.df.format(match.amount / (float) Material.VALUE_Ingot);
+      Optional<RecipeMatch.Match> matchOptional = material.matchesRecursively(ListUtil.getListFrom(container.getSlot(3).getStack(), container.getSlot(4).getStack()));
+      if(matchOptional.isPresent()) {
+        int matchAmount = matchOptional.get().amount;
+        amount = Util.df.format(matchAmount / (float) Material.VALUE_Ingot);
 
         Item part = Pattern.getPartFromTag(container.getSlot(2).getStack());
-        if(part instanceof IToolPart && match.amount < ((IToolPart) part).getCost()) {
+        if(part instanceof IToolPart && matchAmount < ((IToolPart) part).getCost()) {
           amount = TextFormatting.DARK_RED + amount + TextFormatting.RESET;
         }
       }
@@ -240,7 +242,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
 
     // regular item, check if it belongs to a material
     for(Material material : TinkerRegistry.getAllMaterials()) {
-      if(material.matches(stacks) != null) {
+      if(material.matches(stacks).isPresent()) {
         return material;
       }
     }

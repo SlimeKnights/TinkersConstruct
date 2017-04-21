@@ -115,7 +115,7 @@ public class Bolt extends ProjectileCore {
     // we only care about the material returned by getMaterial call
     ItemStack boltCoreHead = BoltCore.getHeadStack(boltCore);
 
-    return super.buildItemFromStacks(ListUtil.getListFrom(boltCore, boltCoreHead, fletching);
+    return super.buildItemFromStacks(ListUtil.getListFrom(boltCore, boltCoreHead, fletching));
   }
 
   @Override

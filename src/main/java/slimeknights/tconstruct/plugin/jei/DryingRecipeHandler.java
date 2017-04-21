@@ -16,13 +16,6 @@ public class DryingRecipeHandler implements IRecipeHandler<DryingRecipe> {
 
   @Nonnull
   @Override
-  @Deprecated
-  public String getRecipeCategoryUid() {
-    return DryingRecipeCategory.CATEGORY;
-  }
-
-  @Nonnull
-  @Override
   public String getRecipeCategoryUid(@Nonnull DryingRecipe recipe) {
     return DryingRecipeCategory.CATEGORY;
   }

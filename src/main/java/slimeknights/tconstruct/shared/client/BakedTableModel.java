@@ -235,9 +235,8 @@ public class BakedTableModel implements IPerspectiveAwareModel {
     public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
       if(originalModel instanceof BakedTableModel) {
         // read out the data on the itemstack
-        ItemStack blockStack = ItemStack
-            .loadItemStackFromNBT(TagUtil.getTagSafe(stack).getCompoundTag(TileTable.FEET_TAG));
-        if(blockStack != null) {
+        ItemStack blockStack = new ItemStack(TagUtil.getTagSafe(stack).getCompoundTag(TileTable.FEET_TAG));
+        if(!blockStack.isEmpty()) {
           // get model from data
           Block block = Block.getBlockFromItem(blockStack.getItem());
           String texture = ModelHelper.getTextureFromBlock(block, blockStack.getItemDamage()).getIconName();

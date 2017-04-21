@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 import slimeknights.mantle.inventory.BaseContainer;
+import slimeknights.mantle.util.ItemStackList;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerNetwork;
@@ -253,9 +254,9 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
   }
 
   private ItemStack buildTool() {
-    ItemStack[] input = new ItemStack[tile.getSizeInventory()];
-    for(int i = 0; i < input.length; i++) {
-      input[i] = tile.getStackInSlot(i);
+    NonNullList<ItemStack> input = ItemStackList.withSize(tile.getSizeInventory());
+    for(int i = 0; i < input.size(); i++) {
+      input.set(i, tile.getStackInSlot(i));
     }
 
     return ToolBuilder.tryBuildTool(input, toolName, getBuildableTools());

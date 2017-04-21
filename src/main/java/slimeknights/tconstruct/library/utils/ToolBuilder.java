@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import slimeknights.mantle.util.RecipeMatch;
@@ -169,13 +170,14 @@ public final class ToolBuilder {
 
     Set<IModifier> appliedModifiers = Sets.newHashSet();
     for(IModifier modifier : TinkerRegistry.getAllModifiers()) {
-      RecipeMatch.Match match;
+      Optional<RecipeMatch.Match> matchOptional;
       do {
-        match = modifier.matches(stacks);
+        matchOptional = modifier.matches(stacks);
         ItemStack backup = copy.copy();
 
         // found a modifier that is applicable. Try to apply the match
-        if(match != null) {
+        if(matchOptional.isPresent()) {
+          RecipeMatch.Match match = matchOptional.get();
           // we need to apply the whole match
           while(match.amount > 0) {
             TinkerGuiException caughtException = null;
@@ -213,7 +215,7 @@ public final class ToolBuilder {
             RecipeMatch.removeMatch(usedStacks, match);
           }
         }
-      } while(match != null);
+      } while(matchOptional.isPresent());
     }
 
     // check if all itemstacks were touched - otherwise there's an invalid item in the input
@@ -397,20 +399,20 @@ public final class ToolBuilder {
     }
 
     // find the material from the input
-    RecipeMatch.Match match = null;
+    Optional<RecipeMatch.Match> match = Optional.empty();
     Material foundMaterial = null;
     for(Material material : TinkerRegistry.getAllMaterials()) {
       // craftable?
       if(!material.isCraftable()) {
         continue;
       }
-      RecipeMatch.Match newMatch = material.matches(materialItems, part.getCost());
-      if(newMatch == null) {
+      Optional<RecipeMatch.Match> newMatch = material.matches(materialItems, part.getCost());
+      if(!newMatch.isPresent()) {
         continue;
       }
 
       // we found a match, yay
-      if(match == null) {
+      if(!match.isPresent()) {
         match = newMatch;
         foundMaterial = material;
         // is it more complex than the old one?
@@ -418,7 +420,7 @@ public final class ToolBuilder {
     }
 
     // nope, no material
-    if(match == null) {
+    if(!match.isPresent()) {
       return null;
     }
 
@@ -430,11 +432,11 @@ public final class ToolBuilder {
       return null;
     }
 
-    RecipeMatch.removeMatch(materialItems, match);
+    RecipeMatch.removeMatch(materialItems, match.get());
 
     // check if we have secondary output
     ItemStack secondary = ItemStack.EMPTY;
-    int leftover = (match.amount - part.getCost()) / Material.VALUE_Shard;
+    int leftover = (match.get().amount - part.getCost()) / Material.VALUE_Shard;
     if(leftover > 0) {
       secondary = TinkerRegistry.getShard(foundMaterial);
       secondary.setCount(leftover);

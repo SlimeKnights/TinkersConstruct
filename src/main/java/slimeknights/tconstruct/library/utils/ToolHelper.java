@@ -214,7 +214,7 @@ public final class ToolHelper {
     String type = block.getHarvestTool(state);
     int level = block.getHarvestLevel(state);
 
-    return stack.getItem().getHarvestLevel(stack, type) >= level;
+    return stack.getItem().getHarvestLevel(stack, type, null, state) >= level;
   }
 
   /* Harvesting */

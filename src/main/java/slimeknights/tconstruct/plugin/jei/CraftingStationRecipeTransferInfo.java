@@ -28,6 +28,11 @@ public class CraftingStationRecipeTransferInfo implements IRecipeTransferInfo<Co
     return VanillaRecipeCategoryUid.CRAFTING;
   }
 
+  @Override
+  public boolean canHandle(ContainerCraftingStation container) {
+    return true;
+  }
+
   @Nonnull
   @Override
   public List<Slot> getRecipeSlots(ContainerCraftingStation container) {

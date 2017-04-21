@@ -22,11 +22,11 @@ public class SlotToolStationOut extends Slot {
   }
 
   @Override
-  public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
+  public ItemStack onTake(EntityPlayer playerIn, ItemStack stack) {
     FMLCommonHandler.instance().firePlayerCraftingEvent(playerIn, stack, parent.getTile());
     parent.onResultTaken(playerIn, stack);
     stack.onCrafting(playerIn.getEntityWorld(), playerIn, 1);
 
-    super.onPickupFromSlot(playerIn, stack);
+    return super.onTake(playerIn, stack);
   }
 }

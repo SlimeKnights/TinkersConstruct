@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.plugin.jei;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -53,26 +55,16 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipeWrapper> 
 
   @Override
   public void drawExtras(@Nonnull Minecraft minecraft) {
-
-  }
-
-  @Override
-  public void drawAnimations(@Nonnull Minecraft minecraft) {
     arrow.draw(minecraft, 76, 22);
   }
 
-  @Override
-  @Deprecated
-  public void setRecipe(IRecipeLayout recipeLayout, AlloyRecipeWrapper recipeWrapper) {
-    // deprecated
-  }
 
   @Override
   public void setRecipe(IRecipeLayout recipeLayout, AlloyRecipeWrapper recipe, IIngredients ingredients) {
     IGuiFluidStackGroup fluids = recipeLayout.getFluidStacks();
 
     List<FluidStack> inputs = recipe.inputs;
-    List<FluidStack> outputs = ingredients.getOutputs(FluidStack.class);
+    /*List<FluidStack> outputs = ingredients.getOutputs(FluidStack.class);
 
     float w = 36f / inputs.size();
 
@@ -98,7 +90,12 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipeWrapper> 
 
     // output
     fluids.init(0, false, 118, 11, 18, 32, max_amount, false, null);
-    fluids.set(ingredients);
+    fluids.set(ingredients);*/
+  }
+
+  @Override
+  public List<String> getTooltipStrings(int mouseX, int mouseY) {
+    return ImmutableList.of();
   }
 
   @Override

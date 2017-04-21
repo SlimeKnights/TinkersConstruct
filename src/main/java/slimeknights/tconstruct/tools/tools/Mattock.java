@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
@@ -61,7 +62,7 @@ public class Mattock extends AoeToolCore {
   }
 
   @Override
-  public int getHarvestLevel(ItemStack stack, @Nonnull String toolClass) {
+  public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
     if(toolClass == null) {
       return -1;
     }
@@ -76,7 +77,7 @@ public class Mattock extends AoeToolCore {
     }
 
     // none of them
-    return super.getHarvestLevel(stack, toolClass);
+    return super.getHarvestLevel(stack, toolClass, player, blockState);
   }
 
   @Override
