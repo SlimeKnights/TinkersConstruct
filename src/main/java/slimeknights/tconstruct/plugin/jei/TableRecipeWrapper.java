@@ -39,8 +39,8 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
     for (Object input : this.recipe.getInput()) {
       if (input instanceof ItemStack) {
         ItemStack itemStack = (ItemStack) input;
-        if (itemStack.stackSize != 1) {
-          itemStack.stackSize = 1;
+        if (itemStack.getCount() != 1) {
+          itemStack.setCount(1);
         }
       }
     }

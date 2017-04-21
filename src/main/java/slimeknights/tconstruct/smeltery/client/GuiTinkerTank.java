@@ -1,13 +1,14 @@
 package slimeknights.tconstruct.smeltery.client;
 
-import java.io.IOException;
-import java.util.List;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
+
+import java.io.IOException;
+import java.util.List;
+
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.library.Util;
@@ -82,7 +83,7 @@ public class GuiTinkerTank extends GuiContainer implements IGuiLiquidTank {
     BaseContainer<?> multiContainer = (BaseContainer<?>) this.inventorySlots;
     String localizedName = multiContainer.getInventoryDisplayName();
     if(localizedName != null) {
-      this.fontRendererObj.drawString(localizedName, 8 + guiLeft, 6 + guiTop, 0x404040);
+      this.fontRenderer.drawString(localizedName, 8 + guiLeft, 6 + guiTop, 0x404040);
     }
   }
 

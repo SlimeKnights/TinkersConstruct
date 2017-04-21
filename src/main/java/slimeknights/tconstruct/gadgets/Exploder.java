@@ -3,15 +3,11 @@ package slimeknights.tconstruct.gadgets;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Lists;
 
-import gnu.trove.map.hash.TObjectIntHashMap;
-import gnu.trove.procedure.TObjectIntProcedure;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntitySelectors;
@@ -27,8 +23,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
 import java.util.Random;
@@ -149,7 +143,7 @@ public class Exploder {
       // check if it's already in our list
       for(ItemStack stack : aggregatedDrops) {
         if(ItemStack.areItemsEqual(drop, stack) && ItemStack.areItemStackTagsEqual(drop, stack)) {
-          stack.stackSize += drop.stackSize;
+          stack.grow(drop.getCount());
           notInList = false;
           break;
         }
@@ -162,13 +156,13 @@ public class Exploder {
 
     // actually drop the aggregated items
     for(ItemStack drop : aggregatedDrops) {
-      int stacksize = drop.stackSize;
+      int stacksize = drop.getCount();
       do {
         BlockPos spawnPos = pos.add(random.nextInt((int) r), random.nextInt((int) r), random.nextInt((int) r));
         ItemStack dropItemstack = drop.copy();
-        dropItemstack.stackSize = Math.min(stacksize, 64);
+        dropItemstack.setCount(Math.min(stacksize, 64));
         Block.spawnAsEntity(world, spawnPos, dropItemstack);
-        stacksize -= dropItemstack.stackSize;
+        stacksize -= dropItemstack.getCount();
       } while(stacksize > 0);
     }
 

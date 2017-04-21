@@ -111,25 +111,26 @@ public class Mattock extends AoeToolCore {
 
   @Nonnull
   @Override
-  public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+  public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    ItemStack stack = player.getHeldItem(hand);
     if(ToolHelper.isBroken(stack)) {
       return EnumActionResult.FAIL;
     }
 
-    EnumActionResult ret = useHoe(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
-    for(BlockPos blockPos : getAOEBlocks(stack, worldIn, playerIn, pos)) {
+    EnumActionResult ret = useHoe(stack, player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+    for(BlockPos blockPos : getAOEBlocks(stack, worldIn, player, pos)) {
       if(ToolHelper.isBroken(stack)) {
         break;
       }
 
-      EnumActionResult ret2 = useHoe(stack, playerIn, worldIn, blockPos, hand, facing, hitX, hitY, hitZ);
+      EnumActionResult ret2 = useHoe(stack, player, worldIn, blockPos, hand, facing, hitX, hitY, hitZ);
       if(ret != EnumActionResult.SUCCESS) {
         ret = ret2;
       }
     }
 
     if(ret == EnumActionResult.SUCCESS) {
-      TinkerToolEvent.OnMattockHoe.fireEvent(stack, playerIn, worldIn, pos);
+      TinkerToolEvent.OnMattockHoe.fireEvent(stack, player, worldIn, pos);
     }
 
     return ret;
@@ -138,7 +139,7 @@ public class Mattock extends AoeToolCore {
   private EnumActionResult useHoe(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos blockPos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
     // make sure no damage is taken
     int damage = stack.getItemDamage();
-    EnumActionResult ret = Items.DIAMOND_HOE.onItemUse(stack, playerIn, worldIn, blockPos, hand, facing, hitX, hitY, hitZ);
+    EnumActionResult ret = Items.DIAMOND_HOE.onItemUse(playerIn, worldIn, blockPos, hand, facing, hitX, hitY, hitZ);
     stack.setItemDamage(damage);
 
     // do tinkers damaging

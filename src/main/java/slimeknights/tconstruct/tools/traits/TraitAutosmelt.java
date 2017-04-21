@@ -18,7 +18,6 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.modifiers.IToolMod;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.ToolHelper;
-import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTraits;
 
@@ -47,12 +46,12 @@ public class TraitAutosmelt extends AbstractTrait {
       while(iter.hasNext()) {
         ItemStack drop = iter.next();
         ItemStack smelted = FurnaceRecipes.instance().getSmeltingResult(drop);
-        if(smelted != null) {
+        if(!smelted.isEmpty()) {
           smelted = smelted.copy();
-          smelted.stackSize = drop.stackSize;
+          smelted.setCount(drop.getCount());
           int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, tool);
           if(Config.autosmeltlapis && fortune > 0) {
-            smelted.stackSize *= random.nextInt(fortune + 1) + 1;
+            smelted.setCount(smelted.getCount() * random.nextInt(fortune + 1) + 1);
           }
           iter.set(smelted);
 

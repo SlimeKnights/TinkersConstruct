@@ -377,7 +377,7 @@ public class TinkerCommons extends TinkerPulse {
     if(blockSilkyJewel != null && matSilkyJewel != null) {
       GameRegistry.addShapedRecipe(blockSilkyJewel, "###", "###", "###", '#', matSilkyJewel);
       ItemStack silkyJewels = matSilkyJewel.copy();
-      silkyJewels.stackSize = 9;
+      silkyJewels.setCount(9);
       GameRegistry.addShapelessRecipe(silkyJewels, blockSilkyJewel);
     }
 
@@ -434,7 +434,7 @@ public class TinkerCommons extends TinkerPulse {
     GameRegistry.addRecipe(new ShapedOreRecipe(big, "###", "###", "###", '#', oreSmall));
     // block -> 9 ingot
     small = small.copy();
-    small.stackSize = 9;
+    small.setCount(9);
     //GameRegistry.addShapelessRecipe(small, big);
     GameRegistry.addRecipe(new ShapelessOreRecipe(small, oreBig));
   }
@@ -448,7 +448,7 @@ public class TinkerCommons extends TinkerPulse {
 
     GameRegistry.addRecipe(congealed.copy(), "##", "##", '#', slimeball);
     ItemStack slimeballOut = slimeball.copy();
-    slimeballOut.stackSize = 4;
+    slimeballOut.setCount(4);
     GameRegistry.addRecipe(slimeballOut, "#", '#', congealed.copy());
 
     GameRegistry.addRecipe(new ShapelessRecipes(block, ImmutableList.of(congealed, slimeball, slimeball, slimeball, slimeball, slimeball)));

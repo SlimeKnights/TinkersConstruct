@@ -7,6 +7,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,6 +26,7 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.utils.ListUtil;
 
 @Pulse(id = TinkerDebug.PulseId, description = "Debug utilities", defaultEnable = false)
 public class TinkerDebug {
@@ -68,8 +70,8 @@ public class TinkerDebug {
     // check all modifiers if they can be applied
     for(IModifier modifier : TinkerRegistry.getAllModifiers()) {
       try {
-        modifier.matches(new ItemStack[]{new ItemStack(Items.STICK)});
-        modifier.matches(new ItemStack[1]);
+        modifier.matches(ListUtil.getListFrom(new ItemStack(Items.STICK)));
+        modifier.matches(NonNullList.withSize(1, ItemStack.EMPTY));
       } catch(Exception e) {
         log.error("Caught exception in modifier " + modifier.getIdentifier(), e);
       }

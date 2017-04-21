@@ -66,8 +66,8 @@ public class BattleAxe extends AoeToolCore {
 
   @Nonnull
   @Override
-  public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-    // todo: special action
+  public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    // todo: special action - beserk rage stuff
     return EnumActionResult.FAIL;
   }
 

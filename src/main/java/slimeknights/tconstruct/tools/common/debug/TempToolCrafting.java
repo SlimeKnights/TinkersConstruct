@@ -3,15 +3,14 @@ package slimeknights.tconstruct.tools.common.debug;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.ToolCore;
 
 public class TempToolCrafting implements IRecipe {
@@ -30,15 +29,15 @@ public class TempToolCrafting implements IRecipe {
 
   @Override
   public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World worldIn) {
-    outputTool = null;
+    outputTool = ItemStack.EMPTY;
 
 
-    List<ItemStack> input = new LinkedList<ItemStack>();
+    NonNullList<ItemStack> input = NonNullList.create();
 
     for(int i = 0; i < inv.getSizeInventory(); i++) {
       ItemStack slot = inv.getStackInSlot(i);
       // empty slot
-      if(slot == null) {
+      if(slot.isEmpty()) {
         continue;
       }
 
@@ -46,7 +45,7 @@ public class TempToolCrafting implements IRecipe {
       input.add(slot);
     }
 
-    ItemStack[] inputs = input.toArray(new ItemStack[input.size()]);
+    NonNullList<ItemStack> inputs = Util.copyItemStackArray(input);
     for(ToolCore tool : TinkerRegistry.getTools()) {
       outputTool = tool.buildItemFromStacks(inputs);
       if(outputTool != null) {
@@ -69,7 +68,7 @@ public class TempToolCrafting implements IRecipe {
 
   @Nonnull
   @Override
-  public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
-    return new ItemStack[0];
+  public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
+    return NonNullList.create();
   }
 }

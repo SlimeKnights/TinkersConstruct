@@ -32,6 +32,7 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ProjectileNBT;
 import slimeknights.tconstruct.library.tools.ranged.ProjectileCore;
+import slimeknights.tconstruct.library.utils.ListUtil;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.common.entity.EntityBolt;
@@ -103,18 +104,18 @@ public class Bolt extends ProjectileCore {
   }
 
   @Override
-  public ItemStack buildItemFromStacks(ItemStack[] stacks) {
-    if(stacks.length != 2) {
+  public ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks) {
+    if(stacks.size() != 2) {
       return null;
     }
 
-    ItemStack boltCore = stacks[0];
-    ItemStack fletching = stacks[1];
+    ItemStack boltCore = stacks.get(0);
+    ItemStack fletching = stacks.get(1);
 
     // we only care about the material returned by getMaterial call
     ItemStack boltCoreHead = BoltCore.getHeadStack(boltCore);
 
-    return super.buildItemFromStacks(new ItemStack[]{boltCore, boltCoreHead, fletching});
+    return super.buildItemFromStacks(ListUtil.getListFrom(boltCore, boltCoreHead, fletching);
   }
 
   @Override

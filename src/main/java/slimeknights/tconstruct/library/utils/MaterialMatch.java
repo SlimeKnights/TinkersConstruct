@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class MaterialMatch extends RecipeMatch {
   }
 
   @Override
-  public Match matches(ItemStack[] stacks) {
+  public Match matches(NonNullList<ItemStack> stacks) {
     List<ItemStack> found = Lists.newLinkedList();
     int stillNeeded = amountNeeded;
 
@@ -44,9 +45,9 @@ public class MaterialMatch extends RecipeMatch {
         if(material == ((MaterialItem) stack.getItem()).getMaterial(stack)) {
           // add the amount found to the list
           ItemStack copy = stack.copy();
-          copy.stackSize = Math.min(copy.stackSize, stillNeeded);
+          copy.setCount(Math.min(copy.getCount(), stillNeeded));
           found.add(copy);
-          stillNeeded -= copy.stackSize;
+          stillNeeded -= copy.getCount();
 
           // we found enough
           if(stillNeeded <= 0) {
