@@ -184,11 +184,11 @@ public class WorldClientProxy extends ClientProxy {
       state = TinkerWorld.slimeGrassTall.getDefaultState();
       state = state.withProperty(BlockTallSlimeGrass.FOLIAGE, foliage);
       state = state.withProperty(BlockTallSlimeGrass.TYPE, BlockTallSlimeGrass.SlimePlantType.TALL_GRASS);
-      stack = new ItemStack(TinkerWorld.slimeGrassTall, 0, TinkerWorld.slimeGrassTall.getMetaFromState(state));
+      stack = new ItemStack(TinkerWorld.slimeGrassTall, 1, TinkerWorld.slimeGrassTall.getMetaFromState(state));
       registerItemModelTiC(stack, "slime_tall_grass");
 
       state = state.withProperty(BlockTallSlimeGrass.TYPE, BlockTallSlimeGrass.SlimePlantType.FERN);
-      stack = new ItemStack(TinkerWorld.slimeGrassTall, 0, TinkerWorld.slimeGrassTall.getMetaFromState(state));
+      stack = new ItemStack(TinkerWorld.slimeGrassTall, 1, TinkerWorld.slimeGrassTall.getMetaFromState(state));
       registerItemModelTiC(stack, "slime_fern");
     }
 

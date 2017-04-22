@@ -52,7 +52,7 @@ public class TileTable extends TileInventory {
     String texture = getTileData().getString("texture");
 
     // texture not loaded
-    if(texture == null || texture.isEmpty()) {
+    if(texture.isEmpty()) {
       // load it from saved block
       ItemStack stack = new ItemStack(getTileData().getCompoundTag(FEET_TAG));
       if(!stack.isEmpty()) {
@@ -62,7 +62,7 @@ public class TileTable extends TileInventory {
       }
     }
 
-    if(texture != null && !texture.isEmpty()) {
+    if(!texture.isEmpty()) {
       state = state.withProperty(BlockTable.TEXTURE, texture);
     }
 
@@ -76,7 +76,7 @@ public class TileTable extends TileInventory {
 
   protected IExtendedBlockState setInventoryDisplay(IExtendedBlockState state) {
     PropertyTableItem.TableItems toDisplay = new PropertyTableItem.TableItems();
-    if(getStackInSlot(displaySlot) != null) {
+    if(!getStackInSlot(displaySlot).isEmpty()) {
       ItemStack stack = getStackInSlot(displaySlot);
       PropertyTableItem.TableItem item = getTableItem(stack, getWorld(), null);
       if(item != null) {
@@ -99,7 +99,7 @@ public class TileTable extends TileInventory {
 
   @SideOnly(Side.CLIENT)
   public static PropertyTableItem.TableItem getTableItem(ItemStack stack, World world, EntityLivingBase entity) {
-    if(stack == null) {
+    if(stack.isEmpty()) {
       return null;
     }
 
