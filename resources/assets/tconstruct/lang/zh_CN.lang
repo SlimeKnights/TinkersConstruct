@@ -894,7 +894,7 @@ gui.partbuilder.info=在这里你可以制作工具部件来实现你的工匠�
 gui.partbuilder.material_value=材料值: %s %s
 
 # Tool Station/Forge
-gui.toolstation.name=Tool Station
+gui.toolstation.name=工具装配台
 gui.toolforge.name=工具装配台
 gui.toolstation.repair=修复&强化
 gui.toolstation.traits=特性
