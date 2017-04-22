@@ -1,0 +1,995 @@
+################
+#    Blocks    #
+################
+
+tile.tconstruct.tooltables.craftingstation.name=Estação de Trabalho
+tile.tconstruct.tooltables.stenciltable.name=Mesa de Padrões
+tile.tconstruct.tooltables.partbuilder.name=Montador de Partes
+tile.tconstruct.tooltables.toolstation.name=Estação de Ferramentas
+tile.tconstruct.tooltables.patternchest.name=Baú de Padrões
+tile.tconstruct.tooltables.patternchest.tooltip=Armazena padrões ou moldes
+tile.tconstruct.tooltables.partchest.name=Baú de Partes
+tile.tconstruct.tooltables.partchest.tooltip=Armazena uma grande quantidade de partes
+tile.tconstruct.toolforge.name=Forja de Ferramentas
+
+tile.tconstruct.soil.grout.name=Argamassa
+tile.tconstruct.soil.grout.tooltip=Eu sou Massa!
+tile.tconstruct.soil.slimy_mud_green.name=Solo Pegajoso Verde
+tile.tconstruct.soil.slimy_mud_green.tooltip=Lento, mas aumenta seu pulo
+tile.tconstruct.soil.slimy_mud_blue.name=Solo Pegajoso Azul
+tile.tconstruct.soil.slimy_mud_blue.tooltip=tile.tconstruct.soil.slimy_mud_green.tooltip
+tile.tconstruct.soil.slimy_mud_magma.name=Solo Pegajoso de Magma
+tile.tconstruct.soil.slimy_mud_magma.tooltip=tile.tconstruct.soil.slimy_mud_green.tooltip
+tile.tconstruct.soil.graveyard.name=Solo Amaldiçoado
+tile.tconstruct.soil.graveyard.tooltip=Cura mortos-vivos
+tile.tconstruct.soil.consecrated.name=Solo Sagrado
+tile.tconstruct.soil.consecrated.tooltip=Machuca mortos-vivos
+
+tile.tconstruct.deco_ground.mudbrick.name=Tijolos de Lama
+tile.tconstruct.deco_ground_slab.mudbrick.name=Laje de Tijolos de Lama
+tile.tconstruct.mudbrick_stairs.name=Escadas de Tijolos de Lama
+
+tile.tconstruct.ore.cobalt.name=Minério de Cobalto
+tile.tconstruct.ore.ardite.name=Minério de Ardite
+
+tile.tconstruct.metal.cobalt.name=Bloco de Cobalto
+tile.tconstruct.metal.ardite.name=Bloco de Ardite
+tile.tconstruct.metal.manyullyn.name=Bloco de Manyullyn
+tile.tconstruct.metal.knightslime.name=Bloco de Knightslime
+tile.tconstruct.metal.pigiron.name=Bloco de Pig Iron
+tile.tconstruct.metal.alubrass.name=Bloco de Latão de Alumínio
+tile.tconstruct.metal.silky_jewel.name=Bloco Sedoso de Jóias
+
+tile.tconstruct.firewood.lavawood.name=Lavawood
+tile.tconstruct.firewood.firewood.name=Firewood
+tile.tconstruct.firewood_slab.lavawood.name=Laje de Lavawood
+tile.tconstruct.firewood_slab.firewood.name=Laje de Firewood
+tile.tconstruct.lavawood_stairs.name=Escadas de Lavawood
+tile.tconstruct.firewood_stairs.name=Escadas de Firewood
+
+tile.tconstruct.clear_glass.name=Vidro Limpo
+tile.tconstruct.clear_stained_glass.white.name=Vidro Limpo Branco
+tile.tconstruct.clear_stained_glass.orange.name=Vidro Limpo Laranja
+tile.tconstruct.clear_stained_glass.magenta.name=Vidro Limpo Magenta
+tile.tconstruct.clear_stained_glass.light_blue.name=Vidro Limpo Azul Claro
+tile.tconstruct.clear_stained_glass.yellow.name=Vidro Limpo Amarelo
+tile.tconstruct.clear_stained_glass.lime.name=Vidro Limpo Verde Claro
+tile.tconstruct.clear_stained_glass.pink.name=Vidro Limpo Rosa
+tile.tconstruct.clear_stained_glass.gray.name=Vidro Limpo Cinza
+tile.tconstruct.clear_stained_glass.silver.name=Vidro Limpo Cinza Claro
+tile.tconstruct.clear_stained_glass.cyan.name=Vidro Limpo Ciano
+tile.tconstruct.clear_stained_glass.purple.name=Vidro Limpo Roxo
+tile.tconstruct.clear_stained_glass.blue.name=Vidro Limpo Azul
+tile.tconstruct.clear_stained_glass.brown.name=Vidro Limpo Marrom
+tile.tconstruct.clear_stained_glass.green.name=Vidro Limpo Verde
+tile.tconstruct.clear_stained_glass.red.name=Vidro Limpo Vermelho
+tile.tconstruct.clear_stained_glass.black.name=Vidro Limpo Preto
+
+tile.tconstruct.slime.green.name=Bloco de Slime Verde
+tile.tconstruct.slime.blue.name=Bloco de Slime Azul
+tile.tconstruct.slime.purple.name=Bloco de Slime Roxo
+tile.tconstruct.slime.blood.name=Bloco de Slime de Sangue
+tile.tconstruct.slime.magma.name=Bloco de Slime de Magma
+tile.tconstruct.slime.tooltip=Não funcionam com pistões.
+
+tile.tconstruct.slime_congealed.green.name=Bloco de Slime Verde Sólido
+tile.tconstruct.slime_congealed.blue.name=Bloco de Slime Azul Sólido
+tile.tconstruct.slime_congealed.purple.name=Bloco de Slime Roxo Sólido
+tile.tconstruct.slime_congealed.blood.name=Bloco de Slime de Sangue Sólido
+tile.tconstruct.slime_congealed.magma.name=Bloco de Slime de Magma Sólido
+tile.tconstruct.slime_congealed.tooltip=Aumenta bastante seu pulo
+
+tile.tconstruct.slime_dirt.green.name=Terra Pegajosa Verde
+tile.tconstruct.slime_dirt.blue.name=Terra Pegajosa Azul
+tile.tconstruct.slime_dirt.purple.name=Terra Pegajosa Roxa
+tile.tconstruct.slime_dirt.blood.name=Terra Pegajosa de Sangue
+tile.tconstruct.slime_dirt.magma.name=Terra Pegajosa de Magma
+tile.tconstruct.slime_dirt.tooltip=Grudenta, mas aumenta seu pulo
+
+tile.tconstruct.slime_grass.vanilla.name=Grama Pegajosa
+tile.tconstruct.slime_grass.green.name=Grama Pegajosa Verde
+tile.tconstruct.slime_grass.blue.name=Grama Pegajosa Azul
+tile.tconstruct.slime_grass.purple.name=Grama Pegajosa Roxa
+tile.tconstruct.slime_grass.blood.name=Grama Pegajosa de Sangue
+tile.tconstruct.slime_grass.magma.name=Grama Pegajosa de Magma
+tile.tconstruct.slime_grass.tooltip=Macia! Aumenta seu pulo
+
+tile.tconstruct.slime_leaves.blue.name=Folhas de Slime
+tile.tconstruct.slime_leaves.purple.name=Folhas de Slime
+tile.tconstruct.slime_leaves.orange.name=Folhas de Slime
+
+tile.tconstruct.slime_grass_tall.tall_grass.name=Grama Pegajosa Alta
+tile.tconstruct.slime_grass_tall.fern.name=Samambaia de Slime
+
+tile.tconstruct.slime_sapling.blue.name=Muda de Slime Azul
+tile.tconstruct.slime_sapling.purple.name=Muda de Slime Roxo
+tile.tconstruct.slime_sapling.orange.name=Muda de Slime de Magma
+tile.tconstruct.slime_sapling.tooltip=Cresce apenas em terra/grama de slime
+
+tile.tconstruct.slime_vine_blue.name=Vinhas Pegajosas Azuis
+tile.tconstruct.slime_vine_blue_mid.name=Vinhas Pegajosas Azuis
+tile.tconstruct.slime_vine_blue_end.name=Vinhas Pegajosas Azuis
+tile.tconstruct.slime_vine_purple.name=Vinhas Pegajosas Roxas
+tile.tconstruct.slime_vine_purple_mid.name=Vinhas Pegajosas Roxas
+tile.tconstruct.slime_vine_purple_end.name=Vinhas Pegajosas Roxas
+
+tile.tconstruct.seared.stone.name=Pedra de Forja
+tile.tconstruct.seared.cobble.name=Pedregulho de Forja
+tile.tconstruct.seared.paver.name=Pavimento de Forja
+tile.tconstruct.seared.brick.name=Tijolos de Forja
+tile.tconstruct.seared.brick_cracked.name=Tijolos de Forja Rachados
+tile.tconstruct.seared.brick_fancy.name=Tijolos de Forja Detalhados
+tile.tconstruct.seared.brick_square.name=Tijolos de Forja Quadrados
+tile.tconstruct.seared.brick_triangle.name=Tijolos de Forja Triangulares
+tile.tconstruct.seared.brick_small.name=Tijolos de Forja Pequenos
+tile.tconstruct.seared.road.name=Estrada de Forja
+tile.tconstruct.seared.tile.name=Ladrilho de Forja
+tile.tconstruct.seared.creeper.name=Tijolos de Cara de Creeper
+tile.tconstruct.seared.tooltip=Parte da Fornalha de Fundição. Seguro para decorar
+
+tile.tconstruct.seared_slab.stone.name=Laje de Pedra de Forja
+tile.tconstruct.seared_slab.cobble.name=Laje de Pedregulho de Forja
+tile.tconstruct.seared_slab.paver.name=Laje de Pavimento de Forja
+tile.tconstruct.seared_slab.brick.name=Laje de Tijolos de Forja
+tile.tconstruct.seared_slab.brick_cracked.name=Laje de Tijolos de Forja Rachados
+tile.tconstruct.seared_slab.brick_fancy.name=Laje de Tijolos de Forja Detalhados
+tile.tconstruct.seared_slab.brick_square.name=Laje de Tijolos de Forja Quadrados
+tile.tconstruct.seared_slab.road.name=Laje de Estrada de Forja
+tile.tconstruct.seared_slab2.creeper.name=Laje de Tijolos de Cara de Creeper
+tile.tconstruct.seared_slab2.brick_triangle.name=Laje de Tijolos de Forja Triangulares
+tile.tconstruct.seared_slab2.brick_small.name=Laje de Tijolos de Forja Pequenos
+tile.tconstruct.seared_slab2.tile.name=Laje de Ladrilho de Forja
+
+tile.tconstruct.seared_stairs_stone.name=Escadas de Pedra de Forja
+tile.tconstruct.seared_stairs_cobble.name=Escadas de Pedregulho de Forja
+tile.tconstruct.seared_stairs_paver.name=Escadas de Pavimento de Forja
+tile.tconstruct.seared_stairs_brick.name=Escadas de Tijolos de Forja
+tile.tconstruct.seared_stairs_brick_cracked.name=Escadas de Tijolos de Forja Rachados
+tile.tconstruct.seared_stairs_brick_fancy.name=Escadas de Tijolos de Forja Detalhados
+tile.tconstruct.seared_stairs_brick_square.name=Escadas de Tijolos de Forja Quadrados
+tile.tconstruct.seared_stairs_brick_triangle.name=Escadas de Tijolos de Forja Triangulares
+tile.tconstruct.seared_stairs_brick_small.name=Escadas de Tijolos de Forja Pequenos
+tile.tconstruct.seared_stairs_road.name=Escadas de Estrada de Forja
+tile.tconstruct.seared_stairs_tile.name=Escadas de Ladrilho de Forja
+tile.tconstruct.seared_stairs_creeper.name=Escadas de Tijolos de Cara de Creeper
+
+tile.tconstruct.smeltery_controller.name=Controlador da Fundição
+tile.tconstruct.smeltery_controller.tooltip=Cérebro da Fundição
+tile.tconstruct.smeltery_io.drain.name=Dreno da Fundição
+tile.tconstruct.smeltery_io.drain.tooltip=Entrada/saída de líquidos
+tile.tconstruct.casting.table.name=Mesa de Fundição
+tile.tconstruct.casting.basin.name=Bacia de Fundição
+tile.tconstruct.casting.tooltip=Modela items com metais da Fundição
+tile.tconstruct.faucet.name=Torneira
+tile.tconstruct.faucet.tooltip=Drena líquidos de qualquer interface
+tile.tconstruct.seared_tank.tank.name=Tanque de Fundição
+tile.tconstruct.seared_tank.gauge.name=Aferidor de Fundição
+tile.tconstruct.seared_tank.window.name=Janela de Fundição
+tile.tconstruct.seared_tank.tooltip=Coração da Fundição\nMantém liquidos quando quebrado
+tile.tconstruct.seared_glass.glass.name=Vidro da Fundição
+tile.tconstruct.seared_glass.glass.tooltip=Parte da Fundição. Seguro para decorar.\nNão retém líquidos.
+
+tile.tconstruct.seared_furnace_controller.name=Controlador da Fornalha de Fundição
+tile.tconstruct.tinker_tank_controller.name=Controlador do Tanque Reforçado
+
+tile.tconstruct.stone_torch.name=Tocha de Pedra
+tile.tconstruct.stone_ladder.name=Escada de Pedra
+tile.tconstruct.wood_rail.name=Trilho de Madeira
+tile.tconstruct.wood_rail_trapdoor.name=Trilho de Madeira com Alçapão
+tile.tconstruct.wood_rail_trapdoor.tooltip=Minecarts com um Funil podem\ninserir no bloco abaixo
+tile.tconstruct.punji.name=Vareta Punji
+tile.tconstruct.punji.tooltip=Pontudas! Também penduram em paredes
+tile.tconstruct.glow.name=Brilho
+tile.tconstruct.rack.item.name=Cabide de Items
+tile.tconstruct.rack.item.tooltip=Apenas para decoração
+tile.tconstruct.rack.drying.name=Cabide de Secagem
+tile.tconstruct.rack.drying.tooltip=Usado para secar coisas
+
+tile.tconstruct.slime_channel.green.name=Canal de Slime Verde
+tile.tconstruct.slime_channel.blue.name=Canal de Slime Azul
+tile.tconstruct.slime_channel.purple.name=Canal de Slime Roxo
+tile.tconstruct.slime_channel.magma.name=Canal de Slime de Magma
+tile.tconstruct.slime_channel.blood.name=Canal de Slime de Sangue
+tile.tconstruct.slime_channel.tooltip=Flui feito água, e parece gelatina
+
+tile.tconstruct.dried_clay.clay.name=Argila Seca
+tile.tconstruct.dried_clay.brick.name=Tijolos Secos
+tile.tconstruct.dried_clay_slab.clay.name=Laje de Argila Seca
+tile.tconstruct.dried_clay_slab.brick.name=Laje de Tijolos Secos
+tile.tconstruct.dried_clay_stairs.name=Escadas de Argila Seca
+tile.tconstruct.dried_brick_stairs.name=Escadas de Tijolos Secos
+
+tile.tconstruct.brownstone.smooth.name=Pedra-marrom Lisa
+tile.tconstruct.brownstone.rough.name=Pedra-marrom áspera
+tile.tconstruct.brownstone.paver.name=Pavimento de Pedra-marrom
+tile.tconstruct.brownstone.brick.name=Tijolos de Pedra-marrom
+tile.tconstruct.brownstone.brick_cracked.name=Tijolos de Pedra-marrom Rachados
+tile.tconstruct.brownstone.brick_fancy.name=Tijolos de Pedra-marrom Detalhados
+tile.tconstruct.brownstone.brick_square.name=Tijolos de Pedra-marrom Quadrados
+tile.tconstruct.brownstone.brick_triangle.name=Tijolos de Pedra-marrom Triangulares
+tile.tconstruct.brownstone.brick_small.name=Tijolos de Pedra-marrom Pequenos
+tile.tconstruct.brownstone.road.name=Estrada de Pedra-marrom
+tile.tconstruct.brownstone.tile.name=Ladrilho de Pedra-marrom
+tile.tconstruct.brownstone.creeper.name=Cara de Creeper de Pedra-marrom
+tile.tconstruct.brownstone.tooltip=Você se move mais rápido
+
+tile.tconstruct.brownstone_slab.smooth.name=Laje de Pedra-marrom Lisa
+tile.tconstruct.brownstone_slab.rough.name=Laje de Pedra-marrom Áspera
+tile.tconstruct.brownstone_slab.paver.name=Laje de Pavimento de Pedra-marrom
+tile.tconstruct.brownstone_slab.brick.name=Laje de Tijolos de Pedra-marrom
+tile.tconstruct.brownstone_slab.brick_cracked.name=Laje de Tijolos de Pedra-marrom Rachados
+tile.tconstruct.brownstone_slab.brick_fancy.name=Laje de Tijolos de Pedra-marrom Detalhados
+tile.tconstruct.brownstone_slab.brick_square.name=Laje de Tijolos de Pedra-marrom Quadrados
+tile.tconstruct.brownstone_slab.road.name=Laje de Estrada de Pedra-marrom
+tile.tconstruct.brownstone_slab2.creeper.name=Laje de Cara de Creeper de Pedra-marrom
+tile.tconstruct.brownstone_slab2.brick_triangle.name=Laje de Tijolos de Pedra-marrom Triangulares
+tile.tconstruct.brownstone_slab2.brick_small.name=Laje de Tijolos de Pedra-marrom Pequenos
+tile.tconstruct.brownstone_slab2.tile.name=Laje de Ladrilho de Pedra-marrom
+
+tile.tconstruct.brownstone_stairs_smooth.name=Escadas de Pedra-marrom Lisa
+tile.tconstruct.brownstone_stairs_rough.name=Escadas de Pedra-marrom Áspera
+tile.tconstruct.brownstone_stairs_paver.name=Escadas de Pavimento de Pedra-marrom
+tile.tconstruct.brownstone_stairs_brick.name=Escadas de Tijolos de Pedra-marrom
+tile.tconstruct.brownstone_stairs_brick_cracked.name=Escadas de Tijolos de Pedra-marrom Rachados
+tile.tconstruct.brownstone_stairs_brick_fancy.name=Escadas de Tijolos de Pedra-marrom Detalhados
+tile.tconstruct.brownstone_stairs_brick_square.name=Escadas de Tijolos de Pedra-marrom Quadrados
+tile.tconstruct.brownstone_stairs_brick_triangle.name=Escadas de Tijolos de Pedra-marrom Triangulares
+tile.tconstruct.brownstone_stairs_brick_small.name=Escadas de Tijolos de Pedra-marrom Pequenos
+tile.tconstruct.brownstone_stairs_road.name=Escadas de Estrada de Pedra-marrom
+tile.tconstruct.brownstone_stairs_tile.name=Escadas de Ladrilho de Pedra-marrom
+tile.tconstruct.brownstone_stairs_creeper.name=Escadas de Cara de Creeper de Pedra-marrom
+
+################
+#    Items     #
+################
+
+# General Items
+item.tconstruct.book.name=Materiais e você
+item.tconstruct.book.tooltip=Um livro essencial para todos\npor Skyla
+
+item.tconstruct.edible.bacon.name=Bacon
+item.tconstruct.edible.slimeball_blue.name=Gosma de Slime
+item.tconstruct.edible.slimeball_purple.name=Gosma de Slime
+item.tconstruct.edible.slimeball_blood.name=Sangue Coagulado
+item.tconstruct.edible.slimeball_magma.name=Gosma de Slime
+item.tconstruct.edible.jerky_beef.name=Charque
+item.tconstruct.edible.jerky_chicken.name=Charque de Frango
+item.tconstruct.edible.jerky_pork.name=Charque de Bacon
+item.tconstruct.edible.jerky_mutton.name=Charque de Carneiro
+item.tconstruct.edible.jerky_rabbit.name=Charque de Coelho
+item.tconstruct.edible.jerky_fish.name=Charque de Peixe
+item.tconstruct.edible.jerky_salmon.name=Charque de Salmão
+item.tconstruct.edible.jerky_clownfish.name=Charque de Peixe-palhaço
+item.tconstruct.edible.jerky_pufferfish.name=Fugu
+item.tconstruct.edible.jerky_monster.name=Charque de Monstro
+item.tconstruct.edible.slimedrop_green.name=Gota Gelatinosa de Slime
+item.tconstruct.edible.slimedrop_blue.name=Gota Gelatinosa de Slime
+item.tconstruct.edible.slimedrop_purple.name=Gota Gelatinosa de Slime
+item.tconstruct.edible.slimedrop_blood.name=Gota de Sangue Coagulado
+item.tconstruct.edible.slimedrop_magma.name=Gota Gelatinosa de Slime
+
+item.tconstruct.materials.seared_brick.name=Tijolo de Fundição
+item.tconstruct.materials.mud_brick.name=Tijolo de Lama
+item.tconstruct.materials.mud_brick.tooltip=Blocos de construção para o pequeno e o grande
+item.tconstruct.materials.dried_brick.name=Tijolo Seco
+item.tconstruct.materials.slimecrystal_green.name=Cristal de Slime Verde
+item.tconstruct.materials.slimecrystal_green.tooltip=Usado para criar ferramentas de Slime
+item.tconstruct.materials.slimecrystal_blue.name=Cristal de Slime Azul
+item.tconstruct.materials.slimecrystal_blue.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
+item.tconstruct.materials.slimecrystal_magma.name=Cristal de Slime de Magma
+item.tconstruct.materials.slimecrystal_magma.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
+item.tconstruct.materials.expander_w.name=Expansor (Horizontal)
+item.tconstruct.materials.expander_w.tooltip=Não pule o dia da perna!
+item.tconstruct.materials.expander_h.name=Expansor (Vertical)
+item.tconstruct.materials.expander_h.tooltip=E você levanta ferro?
+item.tconstruct.materials.reinforcement.name=Reforço
+item.tconstruct.materials.reinforcement.tooltip=Modificador: Reforço
+item.tconstruct.materials.silky_cloth.name=Pano Sedoso
+item.tconstruct.materials.silky_jewel.name=Jóia Sedosa
+item.tconstruct.materials.silky_jewel.tooltip=Modificador: Toque Suave
+item.tconstruct.materials.necrotic_bone.name=Osso Necrótico
+item.tconstruct.materials.necrotic_bone.tooltip=Modificador: Necrótico
+item.tconstruct.materials.moss.name=Bola de musgo
+item.tconstruct.materials.moss.tooltip=Clique em uma Estante de Livros para\nconverter em Musgo de Remendo.\n§oConsome 10 níveis
+item.tconstruct.materials.mending_moss.name=Musgo de Remendo
+item.tconstruct.materials.mending_moss.tooltip=Modificador: Remendo
+item.tconstruct.materials.creative_modifier.name=Modificador: Criativo
+item.tconstruct.materials.creative_modifier.tooltip=Adiciona um slot extra de modificador
+
+item.tconstruct.ingots.cobalt.name=Barra de Cobalto
+item.tconstruct.ingots.ardite.name=Barra de Ardite
+item.tconstruct.ingots.manyullyn.name=Barra de Manyullyn
+item.tconstruct.ingots.knightslime.name=Barra de Knightslime
+item.tconstruct.ingots.knightslime.tooltip=Mole, mas metálico e rochoso? Fascinante!
+item.tconstruct.ingots.pigiron.name=Barra de Pig Iron
+item.tconstruct.ingots.pigiron.tooltip=Oink!
+item.tconstruct.ingots.alubrass.name=Barra de Latão de Alumínio
+
+item.tconstruct.nuggets.cobalt.name=Pepita de Cobalto
+item.tconstruct.nuggets.ardite.name=Pepita de Ardite
+item.tconstruct.nuggets.manyullyn.name=Pepita de Manyullyn
+item.tconstruct.nuggets.knightslime.name=Pepita de Knightslime
+item.tconstruct.nuggets.pigiron.name=Pepita de Pig Iron
+item.tconstruct.nuggets.alubrass.name=Pepita de Latão de Alumínio
+
+item.tconstruct.pattern.blank=Padrão de Branco
+item.tconstruct.pattern.name=Padrão de %s
+item.tconstruct.cast.blank=Molde em Branco
+item.tconstruct.cast.name=Molde de %s
+item.tconstruct.clay_cast.name=Molde de Argila de %s
+item.tconstruct.cast_custom.ingot.name=Molde de Barra
+item.tconstruct.cast_custom.nugget.name=Molde de Pepita
+item.tconstruct.cast_custom.gem.name=Molde de Gema
+item.tconstruct.cast_custom.plate.name=Molde de Placa
+item.tconstruct.cast_custom.gear.name=Molde de Engrenagem
+
+item.tconstruct.sharpening_kit.name=Kit de Afiar
+item.tconstruct.sharpening_kit.tooltip=Combine com um pedaço de sílex\nMelhora o nivel de mineração de sua ferramenta.
+
+item.forge.bucketFilled.blood=Balde de Sangue
+
+# Tools
+item.tconstruct.pickaxe.name=Picareta
+item.tconstruct.shovel.name=Pá
+item.tconstruct.hatchet.name=Machadinha
+item.tconstruct.mattock.name=Enxadinha
+
+item.tconstruct.hammer.name=Martelo
+item.tconstruct.excavator.name=Excavador
+item.tconstruct.lumberaxe.name=Machado
+item.tconstruct.scythe.name=Foice
+
+# Melee Weapons
+
+item.tconstruct.frypan.name=Frigideira
+item.tconstruct.battlesign.name=Placa de Guerra
+item.tconstruct.dagger.name=Adaga
+item.tconstruct.broadsword.name=Espada
+item.tconstruct.longsword.name=Espada Longa
+item.tconstruct.rapier.name=Florete
+item.tconstruct.cutlass.name=Cutelo
+
+item.tconstruct.cleaver.name=Decepador
+item.tconstruct.battleaxe.name=Machado de Batalha
+
+# Ranged Weapons & Ammo
+
+item.tconstruct.shortbow.name=Arco Curto
+item.tconstruct.longbow.name=Arco Longo
+item.tconstruct.crossbow.name=Besta
+
+item.tconstruct.arrow.name=Flecha
+item.tconstruct.bolt.name=Dardo
+
+item.tconstruct.shuriken.name=Shuriken
+
+# Tool Parts
+item.tconstruct.shard.name=Fragmento
+
+item.tconstruct.pick_head.name=Cabeça de Picareta
+item.tconstruct.shovel_head.name=Cabeça de Pá
+item.tconstruct.axe_head.name=Cabeça de Machadinha
+item.tconstruct.pan_head.name=Bandeja
+item.tconstruct.sign_head.name=Placa
+item.tconstruct.binding.name=Ligamento
+item.tconstruct.tool_rod.name=Haste
+item.tconstruct.knife_blade.name=Lâmina de Faca
+item.tconstruct.sword_blade.name=Lâmina de Espada
+item.tconstruct.wide_guard.name=Guarda Ampla
+item.tconstruct.cross_guard.name=Guarda em Cruz
+item.tconstruct.hand_guard.name=Guarda Curvada
+item.tconstruct.full_guard.name=Guarda Completa
+
+#Large Tool Parts
+item.tconstruct.hammer_head.name=Cabeça de Martelo
+item.tconstruct.excavator_head.name=Cabeça de Excavador
+item.tconstruct.broad_axe_head.name=Cabeça de Machado
+item.tconstruct.large_plate.name=Placa Grande
+item.tconstruct.tough_binding.name=Ligamento Reforçado
+item.tconstruct.tough_tool_rod.name=Haste Reforçada
+item.tconstruct.scythe_head.name=Cabeça de Foice
+item.tconstruct.large_sword_blade.name=Lâmina Grande de Espada
+
+# Bow & Arrow Parts
+
+item.tconstruct.bow_limb.name=Corpo de Arco
+item.tconstruct.bow_string.name=Corda
+
+item.tconstruct.arrow_head.name=Ponta de Flecha
+item.tconstruct.arrow_shaft.name=Haste de Flecha
+item.tconstruct.fletching.name=Pluma
+
+item.tconstruct.bolt_core.name=Haste de dardo
+
+# Material specific tools and toolparts
+# item.tconstruct.<tool>.<material>
+# item.tconstruct.pickaxe.wood=Wooden Pickaxe
+
+# Gadgets
+item.tconstruct.slime_boots.green.name=Botas de Slime
+item.tconstruct.slime_boots.blue.name=Botas de Slime
+item.tconstruct.slime_boots.purple.name=Botas de Slime
+item.tconstruct.slime_boots.blood.name=Botas de Sangue Coagulado
+item.tconstruct.slime_boots.magma.name=Botas de Slime
+item.tconstruct.slime_boots.tooltip=Impede dano de queda
+item.tconstruct.slimesling.name=Slimesling
+item.tconstruct.slimesling.tooltip=Carregue, mire baixo, e voe!\nUse Botas de Slime se ama sua vida!
+item.tconstruct.piggybackpack.name=Piggybackpack
+item.tconstruct.piggybackpack.tooltip=Clique em mobs para levantá-los
+item.tconstruct.stone_stick.name=Graveto de Pedra
+
+item.tconstruct.fancy_frame.jewel.name=Moldura Bonita
+item.tconstruct.fancy_frame.alubrass.name=Moldura Bonita de Latão de Alumínio
+item.tconstruct.fancy_frame.cobalt.name=Moldura Bonita de Cobalto
+item.tconstruct.fancy_frame.ardite.name=Moldura Bonita de Ardite
+item.tconstruct.fancy_frame.manyullyn.name=Moldura Bonita de Manyullyn
+item.tconstruct.fancy_frame.gold.name=Moldura Bonita Dourada
+item.tconstruct.fancy_frame.clear.name=Moldura Bonita Transparente
+
+item.tconstruct.throwball.glow.name=Glowball
+item.tconstruct.throwball.glow.tooltip=Imprópria para consumo.
+item.tconstruct.throwball.efln.name=EFLN
+item.tconstruct.throwball.efln.tooltip=Explode! Use apenas para minerar
+
+###################
+# Mom's Spaghetti #
+###################
+
+item.tconstruct.moms_spaghetti.name=Espaguete da mamãe
+item.tconstruct.moms_spaghetti.desc=Delícia!
+item.tconstruct.moms_spaghetti.tooltip1=§oParece bom... mas não parece a mesma coisa.\nDefinitivamente precisa de molho, molho vermelho.
+item.tconstruct.moms_spaghetti.tooltip2=§oTá faltando algo... talvez carne. A mãe usa todo tipo de carne.\nAcho que três tipos bastam.
+item.tconstruct.moms_spaghetti.tooltip3=§oIgual ao que mãe fazia.
+stat.spaghetti.uses.name=Noms
+stat.spaghetti.nourishment.name=Saciação
+stat.spaghetti.saturation.name=Saturação
+modifier.spaghetti_sauce.name=com molho
+modifier.spaghetti_sauce.desc=§oCom beterraba§r\nAumenta a saturação
+modifier.spaghetti_meat.name=com carne
+modifier.spaghetti_meat.desc=§oToda a carne!§r\nAumenta a saciação
+
+item.tconstruct.spaghetti.hard.name=Gravetos de Trigo Impossivelmente Duros
+item.tconstruct.spaghetti.hard.tooltip=Completamente não comestível.\nEles precisam ser amolecidos, nem suas mãos suadas são o suficiente.\nProvavelmente um pouco de água e tempo ajude.
+item.tconstruct.spaghetti.soggy.name=Macarrão ensopado
+item.tconstruct.spaghetti.soggy.tooltip=Água de mais, até seus braços de espaguete podem dobrar agora.\nPendure pra secar um pouco.
+item.tconstruct.spaghetti.cold.name=Macarrão frio
+item.tconstruct.spaghetti.cold.tooltip=Bom, um pouco melhor, mas ainda tem um gosto ruim.\nAquecer um pouco deve servir.\nTalvez seja bom o bastante para levantar seus joelhos fracos.
+
+#################
+#   Entities    #
+#################
+
+entity.tconstruct.blueslime.name=Slime Azul
+
+#################
+#    Liquids    #
+#################
+
+fluid.tconstruct.stone.name=Pedra Fundida
+fluid.tconstruct.obsidian.name=Obsidiana Derretida
+fluid.tconstruct.clay.name=Argila Derretida
+fluid.tconstruct.dirt.name=Terra Líquida
+fluid.tconstruct.iron.name=Ferro Derretido
+fluid.tconstruct.gold.name=Ouro Derretido
+fluid.tconstruct.pigiron.name=Pig Iron Derretido
+fluid.tconstruct.cobalt.name=Cobalo Derretido
+fluid.tconstruct.ardite.name=Ardite Derretido
+fluid.tconstruct.manyullyn.name=Manyullyn Derretido
+fluid.tconstruct.knightslime.name=Knightslime Derretido
+fluid.tconstruct.emerald.name=Esmeralda Fundida
+fluid.tconstruct.glass.name=Vidro Fundido
+fluid.tconstruct.blood.name=Sangue
+fluid.tconstruct.milk.name=Leite
+fluid.tconstruct.blueslime.name=Slime Azul Líquido
+fluid.tconstruct.purpleslime.name=Slime Roxo Líquido
+fluid.tconstruct.brass.name=Latão Derretido
+fluid.tconstruct.copper.name=Cobre Derretido
+fluid.tconstruct.tin.name=Estanho Derretido
+fluid.tconstruct.bronze.name=Bronze Derretido
+fluid.tconstruct.zinc.name=Zinco Derretido
+fluid.tconstruct.lead.name=Chumbo Derretido
+fluid.tconstruct.nickel.name=Níquel Derretido
+fluid.tconstruct.silver.name=Prata Derretida
+fluid.tconstruct.electrum.name=Eléctro Derretido
+fluid.tconstruct.steel.name=Aço Fundido
+fluid.tconstruct.aluminum.name=Alumínio Derretido
+fluid.tconstruct.alubrass.name=Latão de Alumínio Derretido
+
+#################
+#    Potions    #
+#################
+
+potion.carry=Piggybacking
+
+#################
+#   Materials   #
+#################
+# material.<identifier>.name
+# material.<identifier>.prefix
+# material.wood.prefix=Wooden %s - Used for stuff like "Wooden Pickaxe" if no specific name is given // included at the file's end
+
+material.wood.name=Madeira
+material.wood.prefix=%s de Madeira
+material.stone.name=Pedra
+material.flint.name=Sílex
+material.cactus.name=Cacto
+material.obsidian.name=Obsidiana
+material.prismarine.name=Prismarinho
+material.netherrack.name=Netherrack
+material.endstone.name=Pedra do Fim
+material.bone.name=Osso
+material.paper.name=Papel
+material.sponge.name=Esponja
+material.firewood.name=Firewood
+material.slime.name=Slime
+material.blueslime.name=Slime Azul
+material.blueslime.prefix=%s de Slime
+material.knightslime.name=Knightslime
+material.magmaslime.name=Slime de Magma
+material.ardite.name=Ardite
+material.cobalt.name=Cobalto
+material.manyullyn.name=Manyullyn
+material.iron.name=Ferro
+material.pigiron.name=Pig Iron
+material.copper.name=Cobre
+material.bronze.name=Bronze
+material.lead.name=Chumbo
+material.silver.name=Prata
+material.electrum.name=Eléctro
+material.steel.name=Aço
+
+material.string.name=Linha
+material.vine.name=Vinhas
+material.slimevine_blue.name=Vinha de Slime
+material.slimevine_orange.name=material.slimevine_blue.name
+material.slimevine_purple.name=material.slimevine_blue.name
+
+material.blaze.name=Vara de Blaze
+material.reed.name=Cana
+material.ice.name=Gelo
+material.endrod.name=Vara do Fim
+
+material.feather.name=Pena
+material.leaf.name=Folha
+material.slimeleaf_blue.name=Folha de Slime
+material.slimeleaf_orange.name=material.slimeleaf_blue.name
+material.slimeleaf_purple.name=material.slimeleaf_blue.name
+
+#############
+#   Stats   #
+#############
+stat.head.name=Cabeça
+stat.head.durability.name=Durabilidade
+stat.head.durability.desc=O valor base para cálculo de durabilidade.\nNormalmente uma parte relevante para a durabilidade total da ferramenta.
+stat.head.miningspeed.name=Velocidade
+stat.head.miningspeed.desc=O quão rápido a ferramenta quebra blocos.\nPode ser influenciado por outras partes.
+stat.head.harvestlevel.name=Nível de mineração
+stat.head.harvestlevel.desc=Qual tipo de bloco pode ser minerado por esse material.
+stat.head.attack.name=Ataque
+stat.head.attack.desc=Valor base para cálculo de dano.\nO valor final depende de todas as partes usadas.
+
+stat.handle.name=Haste
+stat.handle.modifier.name=Modificador
+stat.handle.modifier.desc=Quanto o material é viável como haste.\nO valor total de durabilidade será multiplicado por isso.
+stat.handle.durability.name=stat.head.durability.name
+stat.handle.durability.desc=Quão adequado o material é para a ferramenta.\nA durabilidade é mudada por isso.
+
+stat.extra.name=Extra
+stat.extra.durability.name=stat.head.durability.name
+stat.extra.durability.desc=Quanto de durabilidade a parte contribui se usada como acessório.
+
+stat.mattock.axelevel.name=Nível de machado
+stat.mattock.shovellevel.name=Nível de pá
+
+stat.bow.name=Arco
+stat.bow.drawspeed.name=Carga
+stat.bow.drawspeed.desc=O quão rápido a corda pode ser puxada
+stat.bow.range.name=Multiplicador de alcance
+stat.bow.range.desc=Distância que o projétil é lançado
+stat.bow.damage.name=Dano bônus
+stat.bow.damage.desc=Dano acrescido no golpe.\nA força da flecha.
+
+stat.bowstring.name=Corda
+stat.bowstring.modifier.name=Modificador
+stat.bowstring.modifier.desc=Durabilidade será multiplicada por esse valor
+
+stat.shaft.name=Haste de Flecha
+stat.shaft.modifier.name=Modificador
+stat.shaft.modifier.desc=Toda flecha precisa de um núcleo. Determina a durabilidade.\nMunição total é multiplicada por esse valor.
+stat.shaft.ammo.name=Munição extra
+stat.shaft.ammo.desc=Quantas flechas o material vale.\nÉ apenas um valor base.
+
+stat.fletching.name=Pluma
+stat.fletching.accuracy.name=Precisão
+stat.fletching.accuracy.desc=O quão estável é o trajeto da flecha.\nAfeta a precisão geral do projétil.
+stat.fletching.modifier.name=Modificador
+stat.fletching.modifier.desc=Quantas flechas o material vale.\nMunição total é multiplicada por esse valor.
+
+stat.projectile.name=Projétil
+stat.projectile.ammo.name=Munição
+
+##############
+#   Traits   #
+##############
+
+# traits are also modifiers, they use the same prefix so they don't have to be localized twice
+modifier.alien.name=Alien
+modifier.alien.desc=§oOs valores estão...§r\n..mudando? Talvez o tempo dirá?
+modifier.aquadynamic.name=Aquadinâmico
+modifier.aquadynamic.desc=§oTá meio molhado aqui!§r\nA ferramenta é desimpedida por água e gosta de tardes chuvosas.
+modifier.aridiculous.name=Aridículo
+modifier.aridiculous.desc=§oA chapa vai esquentar!§r\nA ferramenta funciona melhor em climas quentes.
+modifier.autosmelt.name=Auto-queima
+modifier.autosmelt.desc=§oUma fornalha de bolso!§r\nBlocos derrubados são processados.
+modifier.baconlicious.name=Baconlicioso
+modifier.baconlicious.desc=§oBACON!§r\nBater em coisas dá bacon.
+modifier.cheap.name=Barato
+modifier.cheap.desc=§oOferta especial!§r\nReparos são mais eficientes.
+modifier.cheapskate.name=Caloteiro
+modifier.cheapskate.desc=§oLadrão!§r\nPedra é ruim. Sua ferramenta tem durabilidade reduzida.
+modifier.coldblooded.name=Sangue frio
+modifier.coldblooded.desc=§oSelvagem!§r\nDano extra em alvos com vida cheia.
+modifier.crude.name=Bruto
+modifier.crude.desc=§oArmadura é para os fracos!§r\nDano extra em alvos sem armadura.
+modifier.crude.extra=Vs desprotegidos: +%s
+modifier.crumbling.name=Despedaçando
+modifier.crumbling.desc=§oCrumble rumble rumble§r\nA ferramenta quebra facilmente blocos que não precisam de ferramenta.
+modifier.dense.name=Denso
+modifier.dense.desc=§oResistente... talvez.§r\nA ferramenta dura mais com menos durabilidade.
+modifier.duritos.name=Duritae
+modifier.duritos.desc=§oNão tem um gosto tão bom.§r\nA ferramenta dura mais... de vez em quando.
+modifier.ecological.name=Ecológico
+modifier.ecological.desc=§oPoder Verde!§r\nRecursos renováveis são bons, eles se regeneram!
+modifier.enderference.name=Enderferência
+modifier.enderference.desc=§oAnti-teleporte!§r\nImpede que Endermen se teleportem.
+modifier.established.name=Bem-estabelecido
+modifier.established.desc=§oXP em bônus!§r\nXP extra aleatório.
+modifier.flammable.name=Inflamável
+modifier.flammable.desc=§oNão tem fogo o bastante!§r\nBloquear nega dano de fogo e queima o atacante.
+modifier.fractured.name=Fraturado
+modifier.fractured.desc=§oIsso dói!§r\nA ferramenta tem dano extra.
+modifier.hellish.name=Infernal
+modifier.hellish.desc=§oDas profundezas!§r\nDano extra contra alvos que não são do Nether.
+modifier.hellish.extra=Vs Non-Nether: +%s
+modifier.holy.name=Santificado
+modifier.holy.desc=§oRadiante!§r\nDano extra contra mortos-vivos.
+modifier.holy.extra=modifier.smite.extra
+modifier.insatiable.name=Insaciável
+modifier.insatiable.desc=§oDevorar!§r\nDano aumentado em combate, drena durabilidade mais rapidamente.
+modifier.jagged.name=Jagged
+modifier.jagged.desc=§oMoves like jagged!§r\nMais dano com durabilidade baixa.
+modifier.jagged.extra=Dano extra: +%s
+modifier.lightweight.name=Peso-pena
+modifier.lightweight.desc=§oRápido como o vento!§r\nVelocidade aumentada para minerar ou atacar.
+modifier.lightweight.extra=Velocidade extra: +%s
+modifier.magnetic.name=Magnético
+modifier.magnetic.desc=§oComo funcionam?!§r\nAcertar coisas atrái coisas?!
+modifier.momentum.name=Momento
+modifier.momentum.desc=§oRápido, em frete!§r\nMinerar aumenta sua velocidade, desde que não pare.
+modifier.petramor.name=Petramor
+modifier.petramor.desc=§oTantas pedras, precisa ver!§r\nSua ferramenta ama pedras, e literalmente as absorve (por durabilidade).
+modifier.poisonous.name=Venenoso
+modifier.poisonous.desc=§oNão exatamente livre de chumbo!§r\nEnvenena o alvo.
+modifier.prickly.name=Espinhoso
+modifier.prickly.desc=§oAi!§r\nNinguém está a salvo de espinhos, eles sempre machucam.
+modifier.sharp.name=Afiado
+modifier.sharp.desc=§oPodem até cortar palavras!§r\nO alvo sangra por um curto período.
+modifier.shocking.name=Chocante
+modifier.shocking.desc=§oBzzzzzt!§r\nCorrer carrega sua ferramenta, acertar inimigos a descarrega.
+modifier.slimey.name=Grudento
+modifier.slimey.desc=§oEww!§r\nSai com água.
+modifier.spiky.name=Espetado
+modifier.spiky.desc=§o200% legal com espetos!§r\nBloquear devolve parte do dano.
+modifier.splintering.name=Traumatismo
+modifier.splintering.desc=§oUm presente para os inimigos!§r\nDano escalar em combos.
+modifier.splinters.name=Calejamento
+modifier.splinters.desc=§oAi!§r\nCuidado pra não criar um calo!
+modifier.squeaky.name=Guinchante
+modifier.squeaky.desc=§oCoisa fofa!§r\nSua ferramenta é leve e ganhou Toque Suave, mas não causa nenhum dano.
+modifier.stiff.name=Fixo
+modifier.stiff.desc=§oImóvel!§r\nBloquear reduz o dano recebido.
+modifier.stonebound.name=Pedregoso
+modifier.stonebound.desc=§oSua ferramenta ama pedra!§r\nMinera mais rápido com menos durabilidade, mas causa menos dano.
+modifier.stonebound.extra=Bônus de Pedregoso: +%s
+modifier.superheat.name=Super-aquecimento
+modifier.superheat.desc=§oA chapa vai esquentar!§r\nDano extra em alvos que estão em chamas.
+modifier.superheat.extra=Vs queimando: +%s
+modifier.unnatural.name=Anomalia
+modifier.unnatural.desc=§oAbominação!§r\nA ferramenta minera mais fácil se seu nível é maior que o necessário para o bloco.
+modifier.tasty.name=Saboroso
+modifier.tasty.desc=§oOm Nom Nom§r\nO cheiro é bom.. Você prefere comer a ferramenta do que morrer de fome.
+modifier.writable.name=Gravável
+modifier.writable.desc=§oIntelectual!§r\nMais palavras. Mais modificadores. Senso comum!
+
+modifier.breakable.name=Frágil
+modifier.breakable.desc=§oEsse lado pra cima!§r\nO projétil tem 50% de chance de quebrar no impacto.
+modifier.endspeed.name=Endspeed
+modifier.endspeed.desc=§oVelocidade quântica!§r\nO projétil tem nenhum tempo de deslocamento.
+modifier.freezing.name=Congelante
+modifier.freezing.desc=§oO inverno está vindo§r\nGolpes precisos deixam o alvo lento.
+modifier.hovering.name=Flutuante
+modifier.hovering.desc=§oLivre como o vento§r\nO projétil é mais lento, mas não liga tanto pra gravidade.
+modifier.splitting.name=Divisível
+modifier.splitting.desc=§oDois por um!§r\nA aceleração repentina pode fazer a flecha se dividir em duas.
+
+#################
+#   Modifiers   #
+#################
+
+modifier.bane_of_arthopods.name=Ruína dos Artrópodes
+modifier.bane_of_arthopods.desc=§oAnti-aranha!§r\nDano aumentado contra aranhas ou traças.
+modifier.bane_of_arthopods.extra=Vs artrópodes: +%s
+modifier.beheading.name=Decepador
+modifier.beheading.desc=§oCortem-lhes as cabeças!§r\nCada nível adiciona 10% de decapitação.
+modifier.blasting.name=Explosivo
+modifier.blasting.desc=§oKa-Boom!§r\nVocê pode quebrar blocos mais resistentes como normal, mas eles podem ser apagados.
+modifier.blasting.extra=Poder explosivo: %s
+modifier.diamond.name=Diamante
+modifier.diamond.desc=§oBrilhante!§r\nDurabilidade aumentada!
+modifier.emerald.name=Esmeralda
+modifier.emerald.desc=§oChique!§r\nDurabilidade aumentada baseada no valor base!
+modifier.fiery.name=Flamejante
+modifier.fiery.desc=§oTão na moda!§r\nDano extra de fogo, incendeia inimigos.
+modifier.fiery.extra=Dano de fogo: +%s
+modifier.fiery.extra2=Duração do fogo: %ss
+modifier.fortify.name=Fortificado
+modifier.fins.name=Barbatanas
+modifier.fins.desc=§oO mar tá pra peixe§r\nColocar barbatanas faz o projétil navegar em água sem problemas.
+modifier.fortify.desc=§oHarder, better, faster, stronger!§r\nNível de mineração igualado a %s.
+modifier.glowing.name=Brilhante
+modifier.glowing.desc=§oShine bright§r\nNo escuro, a ferramenta sacrifica durabilidade para iluminar o local.
+modifier.harvestwidth.name=Largura++
+modifier.harvestwidth.desc=§oExpandir!§r\nAumenta a largura de efeito da ferramenta. É específico para certas ferramentas.
+modifier.harvestheight.name=Altura++
+modifier.harvestheight.desc=§oExpandir!§r\nAumenta a altura de efeito da ferramenta. É específico para certas ferramentas.
+modifier.haste.name=Acelerado
+modifier.haste.name2=Acelerado II
+modifier.haste.name3=Acelerado III
+modifier.haste.name4=Acelerado IV
+modifier.haste.name5=Super-sônico
+modifier.haste.desc=§oWeeeeeee!§r\nUm impulso de redstone enche sua ferramenta com determinação.
+modifier.haste.extra=Velocidade extra: +%s
+modifier.knockback.name=Repulsão
+modifier.knockback.desc=§oHome-run!§r\nEnsine todos a voar - da maneira mais legal.
+modifier.luck.name=Sorte
+modifier.luck.desc=§oBrilhante!§r\nVocê ganha todas coisas legais, um monte delas.
+modifier.mending_moss.name=Remendo
+modifier.mending_moss.desc=§oEstá vivo!§r\nXP coletada é guardada na ferramenta. Ela lentamente a consome para se regenerar.
+modifier.mending_moss.extra=XP armazenado: %d
+modifier.necrotic.name=Necrótico
+modifier.necrotic.desc=§oMe sinto tão vivo!!§r\nConverte dano causado em cura.
+modifier.necrotic.extra=Sanguessuga: +%s
+modifier.reinforced.name=Reforço
+modifier.reinforced.unbreakable=Indestrutível
+modifier.reinforced.desc=§oMuito forte!§r\nCada nível adiciona %s de chance de manter durabilidade
+modifier.reinforced.extra=Reinforçado: %s
+modifier.sharpness.name=Afiado 
+modifier.sharpness.name2=Afiado II
+modifier.sharpness.name3=Afiado III
+modifier.sharpness.name4=Afiado IV
+modifier.sharpness.name5=Afiado V
+modifier.sharpness.desc=§oAi!§r\nÉ tão afiado, que dói só de olhar.
+modifier.shulking.name=Shulking
+modifier.shulking.desc=§oVoar, voar!§r\nImimigos acertados começam a flutuar.
+modifier.shulking.extra=Flutuação: %ss
+modifier.silktouch.name=Toque Suave
+modifier.silktouch.desc=§oSuave como seda!§r\nBlocos minerados caem inteiros ao invés do produtos.
+modifier.smite.name=Julgamento
+modifier.smite.desc=§oJustiça!§r\nDano aumentada contra mortos-vivos.
+modifier.smite.extra=Vs mortos-vivos: +%s
+modifier.soulbound.name=Soulbound
+modifier.soulbound.desc=§oCasamento perfeito!§r\nNem a morte separa você de sua ferramenta.
+modifier.webbed.name=Teias
+modifier.webbed.desc=§oYuck!§r\nEnrola seus inimigos em teias, os deixando lentos.
+
+#################
+#   Tool Info   #
+#################
+item.tconstruct.pickaxe.desc=A Picareta é uma ferramenta para coleta de blocos. Efetiva em pedra e minérios.\nEla só quebra blocos, OK?
+item.tconstruct.shovel.desc=A Pá cava terra. Efetiva em terra, areia, cascalho e neve.\nSó não cave seu túmulo!
+item.tconstruct.hatchet.desc=A Machadinha corta madeira e se livra facilmente de folhas. Também funciona como arma.\nCorta corta!
+item.tconstruct.mattock.desc=A Enxadinha é uma ferramenta agrícola versátil. Efetiva em madeira, terra e plantas. Ela pode machucar.\nClique direito: arar terra
+item.tconstruct.broadsword.desc=A Espada é uma arma universal. Seus ataques em cone facilitam o trabalho.\nTambém efetiva em teias!
+item.tconstruct.longsword.desc=A Espada Longa é uma arma ofensiva. Geralmente é usada para lutar sem hesitar.\nClique direito: Avanço
+item.tconstruct.rapier.desc=O Florete é uma arma especial que permite golpes rápidos.\nClique direito: Esquiva
+item.tconstruct.frypan.desc=A Frigideira é uma arma pesada com grande recuo.\nClique direito: Golpe Pesado
+item.tconstruct.battlesign.desc=A Placa de Guerra é uma arma defensiva.\nPode ser usada como escudo, reflete projéteis.
+item.tconstruct.hammer.desc=O Martelo é uma ferramenta de mineração em massa. Ele coleta blocos em área.\nEfetivo contra mortos-vivos.
+item.tconstruct.lumberaxe.desc=O Machado é uma ferramenta de coleta de madeira em massa. Pode derrubar árvores inteiras.\nMadeira!
+item.tconstruct.excavator.desc=O Excavador é uma ferramenta de cavar em massa. Ela cava solo em área.\nTerraformação!
+item.tconstruct.cleaver.desc=O Decepador é uma arma ofensiva pesada. É forte, mas difícil de manusear.\nEla se beneficia do alto dano.\nLenta, requer as duas mãos!
+item.tconstruct.battleaxe.desc=O Machado de Batalha é uma arma ofensiva pesada. Pode derrubar árvores pequenas e arremessar inimigos.\nClique direito: Fúria
+item.tconstruct.scythe.desc=A Foice é uma ferramenta agrícola em massa, moendo plantas e inimigos.\nÁrea de ataque maior.\nClique direito: Colhe e replanta plantas
+item.tconstruct.shuriken.desc=A Shuriken é uma arma de curta distância arremessável. Alta munição, baixo dano.\nPode ser usada na mão oposta.
+item.tconstruct.shortbow.desc=O Arco Curto é uma arma pequena e ágil. Ele possúi alta cadência de flechas.\nApenas flechas do Tinkers'.
+item.tconstruct.longbow.desc=O Arco Longo é uma poderosa arma de distância. Gera alto dano, mas é menos móvel que seu irmão mais novo.\nApenas flechas do Tinkers'.
+item.tconstruct.arrow.desc=Flechas são a munição de arcos do Tinkers'. Em uma stack podem haver várias flechas, que podem ser modificadas como qualquer ferramenta.
+item.tconstruct.crossbow.desc=A Besta é uma arma lenta, mas forte. Ela precisa ser carregada com o botão direito antes. Após isso, pode ser disparada.\nApenas dardos do Tinkers'.
+item.tconstruct.bolt.desc=Dardos são a munição usada em Bestas. Em uma stack podem haver vários dardos, que podem ser modificadas como qualquer ferramenta.\nPenetra parcialmente em armaduras.
+
+
+################
+#   Tooltips   #
+################
+tooltip.tool.modifiers=Modificadores
+tooltip.tool.broken=Quebrado
+tooltip.tool.empty=Vazio
+tooltip.tool.holdShift=Segure §e§oShift§r§7 para stats
+tooltip.tool.holdCtrl=Segure §e§bCtrl§r§7 para mais
+
+tooltip.part.material_added_by=Material adicionado por %s
+tooltip.part.missing_material=Material em falta: %s
+tooltip.part.missing_stats=Material não possui:\n%s
+tooltip.part.missing_info=Parte não possui dados
+
+tooltip.pattern.cost=Custo material: %d
+
+tooltip.chest.has_items=Contém itens
+tooltip.patternchest.holds_patterns=Contém %d padrões
+tooltip.patternchest.holds_casts=Contém %d molde(s)
+
+tooltip.tank.fluid=%s
+tooltip.tank.amount=%d mb
+tooltip.tank.holdShift=Segure §e§oShift§r§7 para baldes
+
+##################
+#   UI Strings   #
+##################
+# general strings used in GUIs, tooltips and other display stuff
+
+ui.mininglevel.stone=Pedra
+ui.mininglevel.iron=Ferro
+#ui.mininglevel.redstone=Redstone # replaced with diamond
+ui.mininglevel.diamond=Diamante
+ui.mininglevel.obsidian=Obsidiana
+ui.mininglevel.cobalt=Cobalto
+
+# Death messages
+death.attack.smeltery=%s tentou criar Jogador Derretido
+death.attack.splinter=%s pegou um calo. Deve ter sido grande
+death.attack.bleed=%1$s sangrou até a morte com um ataque de %2$
+death.attack.bleed.item=%1$s sangrou até a morte com um ataque de %2$ usando %3$s
+
+######################
+# GUI Error messages #
+######################
+
+gui.error=ERRO
+gui.warning=AVISO
+# GUI Errors from the different Tinker Tables
+gui.error.invalid_pattern=Padrão não contêm uma parte válida!
+gui.error.useless_tool_part=Essa parte não pode ser usada para criar ferramentas!\nOu o material %s não tem informações ou a ferramenta usa %s.
+gui.error.wrong_material_part=Uma ou mais partes possuem materiais não suportados para essa ferramenta.
+gui.error.not_enough_durability=Durabilidade insuficiente para trocar partes!\n%d de durabilidade necessária.
+# GUI Errors from modifiers
+gui.error.not_enough_modifiers=Modificadores insuficientes. (%d necessário)
+gui.error.single_modifier=%s só pode ser aplicado uma vez.
+gui.error.max_level_modifier=Nível máximo de %s alcançado.
+gui.error.no_modifier_for_item=Nenhum modificador encontrado para: %s.
+gui.error.incompatible_modifiers=Modificadores %s e %s não podem ser aplicados juntos
+gui.error.incompatible_trait=Modificador %s não pode ser aplicador com %s
+gui.error.incompatible_enchantments=Modificador %s não pode ser aplicado com encantamento %s
+
+################
+#     GUIs     #
+################
+
+# General things used in multiple GUIs
+gui.general.hover=Passe o mouse para mais informações
+
+# Creative Tabs
+itemGroup.TinkerGeneral=Tinkers' - Itens Gerais
+itemGroup.TinkerTools=Tinkers' - Ferramentas
+itemGroup.TinkerToolParts=Tinkers' - Partes de Ferramentas
+itemGroup.TinkerSmeltery=Tinkers' - Fundição
+itemGroup.TinkerWorld=Tinkers' - Mundo
+itemGroup.TinkerGadgets=Tinkers' - Gadgets
+
+# Crafting Station
+gui.craftingstation.name=Estação de Trabalho
+
+# Stencil Table
+gui.stenciltable.name=Mesa de Padrões
+
+# PartBuilder
+gui.partbuilder.name=Montador de Partes
+gui.partcrafter.name=Montador de Partes
+gui.partbuilder.info=Aqui você pode montar partes de ferramentas.\n\nPara criar uma parte ponha o padrão no slot esquerdo. Os outros dois recebem os materiais para criar a parte.
+gui.partbuilder.material_value=Valor material: %s %s
+
+# Tool Station/Forge
+gui.toolstation.name=Estação de Ferramentas
+gui.toolforge.name=Forja de Ferramentas
+gui.toolstation.repair=Reparo e modificação
+gui.toolstation.traits=Características
+gui.toolstation.components=Componentes
+gui.toolstation.info=A maneira de reparar e mudar suas ferramentas. Coloque a ferramenta e o material na esquerda para começar.
+gui.toolstation.noTraits=Nenhuma :[
+
+# Pattern Chest
+gui.patternchest.name=Baú de Padrões
+gui.castchest.name=Baú de Moldes
+
+# Part Chest
+gui.partchest.name=Baú de Partes
+
+# Smeltery
+gui.smeltery.name=Fundição
+gui.smeltery.progress.no_recipe=Item não pode ser derretido
+gui.smeltery.progress.no_heat=Calor insuficiente para fundir o item
+gui.smeltery.progress.no_space=Sem espaço livre na Fundição
+gui.smeltery.fuel=Combustível
+gui.smeltery.fuel.empty=Sem combustível
+gui.smeltery.fuel.heat=Temperatura: %d
+gui.smeltery.capacity=Capacidade:
+gui.smeltery.capacity_available=Livre:
+gui.smeltery.capacity_used=Usado:
+gui.smeltery.liquid.kilobucket=kb
+gui.smeltery.liquid.bucket=b
+gui.smeltery.liquid.millibucket=mb
+gui.smeltery.liquid.ingot=Barras
+gui.smeltery.liquid.nugget=Pepitas
+gui.smeltery.liquid.block=Blocos
+gui.smeltery.liquid.gem=Gemas
+
+# Seared Furnace
+gui.searedfurnace.name=Fornalha de Fundição
+gui.searedfurnace.progress.complete=Item terminou de processar
+gui.searedfurnace.progress.no_recipe=Item não pode ser processado
+gui.searedfurnace.progress.no_space=Stack resultante é muito grande
+
+# Tinker Tank
+gui.tinkertank.name=Tanque Reforçado
+
+# These GUIs don't appear in game, but the titles can be viewed using the crafting station
+gui.itemrack.name=Cabide de Itens
+gui.dryingrack.name=Cabide de Secagem
+
+# JEI Plugin
+gui.jei.smelting.title=Fundição
+gui.jei.alloy.title=Liga
+gui.jei.casting.title=Resfriamento
+gui.jei.casting.consume=Consome o molde!
+gui.jei.drying.title=Secagem
+
+# WAILA Plugin
+gui.waila.tank.fluid=Líquido: %s
+gui.waila.tank.amount=Quantidade: %d / %d mb
+gui.waila.tank.empty=Vazio
+gui.waila.casting.progress=Progresso: %s
+gui.waila.casting.recipe=Recipe: %s
+
+option.tconstruct.tank=Tank Liquid
+option.tconstruct.casting=Casting Recipe
+option.tconstruct.progress=Recipe Progress
+
+
+# Config
+config.synced.restart=Configurações alteradas pelo servidor. Reinicie o jogo.
+config.synced.ok=Configurações sincronizadas com o servidor.
+
+material.stone.prefix=%s de Pedra
+material.flint.prefix=%s de Sílex
+material.cactus.prefix=%s de Cacto
+material.obsidian.prefix=%s de Obsidiana
+material.prismarine.prefix=%s de Prismarinho
+material.netherrack.prefix=%s de Netherrack
+material.endstone.prefix=%s de Pedra do Fim
+material.bone.prefix=%s de Osso
+material.paper.prefix=%s de Papel
+material.sponge.prefix=%s de Esponja
+material.firewood.prefix=%s de Firewood
+material.slime.prefix=%s de Slime
+material.knightslime.prefix=%s de Knightslime
+material.magmaslime.prefix=%s de Slime de Magma
+material.ardite.prefix=%s de Ardite
+material.cobalt.prefix=%s de Cobalto
+material.manyullyn.prefix=%s de Manyullyn
+material.iron.prefix=%s de Ferro
+material.pigiron.prefix=%s de Pig Iron
+material.copper.prefix=%s de Cobre
+material.bronze.prefix=%s de Bronze
+material.lead.prefix=%s de Chumbo
+material.silver.prefix=%s de Prata
+material.electrum.prefix=%s de Eléctro
+material.steel.prefix=%s de Aço
