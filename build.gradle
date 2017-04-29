@@ -163,23 +163,25 @@ task deobfJar(type: Jar) {
         attributes 'FMLAT': 'tconstruct_at.cfg'
     }
 }
-/*
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+}
+
+
 // Create API library jar
 task libJar(type: Jar) {
-    from(sourceSets.main.java) {*/
-        //include "tconstruct/library/**/*"
-/*    }
+    from(sourceSets.main.java) {
+        include "tconstruct/library/**/*"
+    }
     classifier = 'lib'
 }
 
-// Create Maven source jar
-task sourceJar(type: Jar, dependsOn:classes) {
-    classifier = 'sources'
-    from sourceSets.main.allJava
-}
-*/
 artifacts {
     archives deobfJar
+    archives sourcesJar
+    archives libJar
 }
 
 // verify the properties exist.. or initialize.
@@ -250,6 +252,7 @@ publishing {
             artifact jar
             artifact deobfJar
             artifact sourcesJar
+            artifact libJar
         }
     }
 
