@@ -55,7 +55,7 @@ public class CastingRecipe implements ICastingRecipe {
 
   @Override
   public boolean matches(ItemStack cast, Fluid fluid) {
-    if((cast.isEmpty() && this.cast == null) || (this.cast != null && this.cast.matches(ListUtil.getListFrom(cast)) != null)) {
+    if((cast.isEmpty() && this.cast == null) || (this.cast != null && this.cast.matches(ListUtil.getListFrom(cast)).isPresent())) {
       return this.fluid.getFluid() == fluid;
     }
     return false;

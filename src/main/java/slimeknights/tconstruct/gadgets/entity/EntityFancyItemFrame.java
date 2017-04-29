@@ -54,7 +54,7 @@ public class EntityFancyItemFrame extends EntityItemFrame implements IEntityAddi
       }
 
       // drop item in frame
-      if(itemstack != null) {
+      if(!itemstack.isEmpty()) {
         itemstack = itemstack.copy();
         this.removeFrameFromMap(itemstack);
         this.entityDropItem(itemstack, 0.0F);

@@ -80,7 +80,7 @@ public class TileItemRack extends TileTable {
       int slot = isStackInSlot(1) ? 1 : 0;
 
       ItemHandlerHelper.giveItemToPlayer(player, getStackInSlot(slot));
-      setInventorySlotContents(slot, null);
+      setInventorySlotContents(slot, ItemStack.EMPTY);
     }
   }
 }

@@ -98,10 +98,10 @@ public class Hatchet extends AoeToolCore {
     if(hit && !ToolHelper.isBroken(stack) && !player.getEntityWorld().isRemote && entity instanceof EntityPlayer) {
       EntityPlayer entityplayer = (EntityPlayer) entity;
       ItemStack itemstack2 = player.getHeldItemMainhand();
-      ItemStack itemstack3 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : null;
+      ItemStack itemstack3 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
 
       // todo: possibly check for itemUseAction instead of is shield?
-      if(itemstack2 != null && itemstack3 != null && itemstack2.getItem() == this && itemstack3.getItem() == Items.SHIELD) {
+      if(itemstack2.getItem() == this && itemstack3.getItem() == Items.SHIELD) {
         float f3 = 0.25F + (float) EnchantmentHelper.getEfficiencyModifier(player) * 0.05F;
 
         if(player.isSprinting()) {

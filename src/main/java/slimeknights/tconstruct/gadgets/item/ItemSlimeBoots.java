@@ -119,7 +119,7 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
       return;
     }
     ItemStack feet = entity.getItemStackFromSlot(EntityEquipmentSlot.FEET);
-    if(feet == null || feet.getItem() != this) {
+    if(feet.getItem() != this) {
       return;
     }
 

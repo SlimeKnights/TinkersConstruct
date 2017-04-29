@@ -28,7 +28,7 @@ public class BlockWoodRailDropper extends BlockWoodRail {
 
     for(int i = 0; i < itemHandlerCart.getSlots(); i++) {
       ItemStack itemStack = itemHandlerCart.extractItem(i, 1, true);
-      if(ItemHandlerHelper.insertItem(itemHandlerTE, itemStack, true) == null) {
+      if(ItemHandlerHelper.insertItem(itemHandlerTE, itemStack, true).isEmpty()) {
         itemStack = itemHandlerCart.extractItem(i, 1, false);
         ItemHandlerHelper.insertItem(itemHandlerTE, itemStack, false);
         break;

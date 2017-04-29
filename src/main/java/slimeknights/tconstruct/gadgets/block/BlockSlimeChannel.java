@@ -359,7 +359,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
   }
 
   // tells the game that the entity is in water
-  @Nonnull
+  @Nullable
   @Override
   public Boolean isEntityInsideMaterial(IBlockAccess world, BlockPos pos, IBlockState state, Entity entity, double yToTest, Material material, boolean testingHead) {
     if(material != Material.WATER) {

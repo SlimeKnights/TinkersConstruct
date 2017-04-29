@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.book.sectiontransformer;
 
-import com.google.common.collect.Lists;
-
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -44,6 +42,10 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
                                                 .filter(Material::hasItems)
                                                 .filter(this::isValidMaterial)
                                                 .collect(Collectors.toList());
+
+    if(materialList.isEmpty()) {
+      return;
+    }
 
     // calculate pages needed
     List<ContentPageIconList> listPages = ContentPageIconList.getPagesNeededForItemCount(materialList.size(), data, book.translate(sectionName));

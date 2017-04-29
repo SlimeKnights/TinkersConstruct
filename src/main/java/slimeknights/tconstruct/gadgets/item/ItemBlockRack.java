@@ -21,7 +21,7 @@ public class ItemBlockRack extends ItemMultiTexture {
   public void addInformation(@Nonnull ItemStack stack, @Nonnull EntityPlayer playerIn, @Nonnull List<String> tooltip, boolean advanced) {
     if(stack.hasTagCompound()) {
       ItemStack legs = ItemBlockTable.getLegStack(stack);
-      if(legs != null) {
+      if(!legs.isEmpty()) {
         tooltip.add(legs.getDisplayName());
       }
 

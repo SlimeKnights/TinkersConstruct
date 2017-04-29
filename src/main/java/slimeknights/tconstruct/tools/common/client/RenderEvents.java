@@ -65,16 +65,18 @@ public class RenderEvents implements IResourceManagerReloadListener {
     ItemStack tool = player.getHeldItemMainhand();
 
     // AOE preview
-    if(tool != null) {
+    if(!tool.isEmpty()) {
       Entity renderEntity = Minecraft.getMinecraft().getRenderViewEntity();
-      double distance = controllerMP.getBlockReachDistance();
-      RayTraceResult mop = renderEntity.rayTrace(distance, event.getPartialTicks());
-      if(mop != null) {
-        tool = DualToolHarvestUtils.getItemstackToUse(player, world.getBlockState(mop.getBlockPos()));
-        if(tool.getItem() instanceof IAoeTool) {
-          ImmutableList<BlockPos> extraBlocks = ((IAoeTool) tool.getItem()).getAOEBlocks(tool, world, player, mop.getBlockPos());
-          for(BlockPos pos : extraBlocks) {
-            event.getContext().drawSelectionBox(player, new RayTraceResult(new Vec3d(0, 0, 0), null, pos), 0, event.getPartialTicks());
+      if(renderEntity != null) {
+        double distance = controllerMP.getBlockReachDistance();
+        RayTraceResult mop = renderEntity.rayTrace(distance, event.getPartialTicks());
+        if(mop != null) {
+          tool = DualToolHarvestUtils.getItemstackToUse(player, world.getBlockState(mop.getBlockPos()));
+          if(tool.getItem() instanceof IAoeTool) {
+            ImmutableList<BlockPos> extraBlocks = ((IAoeTool) tool.getItem()).getAOEBlocks(tool, world, player, mop.getBlockPos());
+            for(BlockPos pos : extraBlocks) {
+              event.getContext().drawSelectionBox(player, new RayTraceResult(new Vec3d(0, 0, 0), null, pos), 0, event.getPartialTicks());
+            }
           }
         }
       }
@@ -83,7 +85,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
     // extra-blockbreak animation
     if(controllerMP.isHittingBlock) {
       tool = DualToolHarvestUtils.getItemstackToUse(player, world.getBlockState(controllerMP.currentBlock));
-      if(tool != null && tool.getItem() instanceof IAoeTool && ((IAoeTool) tool.getItem()).isAoeHarvestTool()) {
+      if(tool.getItem() instanceof IAoeTool && ((IAoeTool) tool.getItem()).isAoeHarvestTool()) {
         BlockPos pos = controllerMP.currentBlock;
         drawBlockDamageTexture(Tessellator.getInstance(),
                                Tessellator.getInstance().getBuffer(),
@@ -166,14 +168,14 @@ public class RenderEvents implements IResourceManagerReloadListener {
 
     if(event.getHand() == EnumHand.OFF_HAND && player.isHandActive()) {
       ItemStack stack = player.getActiveItemStack();
-      if(stack != null && stack.getItemUseAction() == EnumAction.BOW) {
+      if(!stack.isEmpty() && stack.getItemUseAction() == EnumAction.BOW) {
         event.setCanceled(true);
       }
     }
 
     ItemStack mainStack = player.getHeldItemMainhand();
     RayTraceResult rt = Minecraft.getMinecraft().objectMouseOver;
-    if(mainStack != null
+    if(!mainStack.isEmpty()
        && rt != null
        && rt.typeOfHit == RayTraceResult.Type.BLOCK
        && DualToolHarvestUtils.shouldUseOffhand(player, rt.getBlockPos(), mainStack)) {
@@ -207,7 +209,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
   public void onFovEvent(FOVUpdateEvent event) {
     ItemStack stack = event.getEntity().getActiveItemStack();
 
-    if(stack != null) {
+    if(!stack.isEmpty()) {
       float zoom = 0f;
       float progress = 0f;
 

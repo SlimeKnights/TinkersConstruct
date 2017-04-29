@@ -25,8 +25,8 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
   public static final String TAG_PARENT = "parent";
   public static final String TAG_LAUNCHER = "launcher";
   public static final String TAG_POWER = "power";
-  private ItemStack parent;
-  private ItemStack launcher;
+  private ItemStack parent = ItemStack.EMPTY;
+  private ItemStack launcher = ItemStack.EMPTY;
   private List<IProjectileTrait> projectileTraitList = Lists.newArrayList();
   private float power = 1f;
 
@@ -77,7 +77,7 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
   @Override
   public boolean pickup(EntityLivingBase entity, boolean simulate) {
     ItemStack stack = AmmoHelper.getMatchingItemstackFromInventory(parent, entity, true);
-    if(stack != null && stack.getItem() instanceof IAmmo) {
+    if(stack.getItem() instanceof IAmmo) {
       if(!simulate && parent.getCount() > 0) {
         ToolHelper.unbreakTool(stack);
         ((IAmmo) stack.getItem()).addAmmo(stack, entity);

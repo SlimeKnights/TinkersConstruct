@@ -27,14 +27,14 @@ public class GuiButtonItem<T> extends GuiButton {
   private GuiElement guiHover = GUI_Button_hover;
   private ResourceLocation locBackground = Icons.ICON;
 
-  public GuiButtonItem(int buttonId, int x, int y, String displayName, T data) {
+  public GuiButtonItem(int buttonId, int x, int y, String displayName, @Nonnull T data) {
     super(buttonId, x, y, 18, 18, displayName);
 
     this.icon = null;
     this.data = data;
   }
 
-  public GuiButtonItem(int buttonId, int x, int y, ItemStack icon, T data) {
+  public GuiButtonItem(int buttonId, int x, int y, ItemStack icon, @Nonnull T data) {
     super(buttonId, x, y, 18, 18, icon.getDisplayName());
 
     this.icon = icon;

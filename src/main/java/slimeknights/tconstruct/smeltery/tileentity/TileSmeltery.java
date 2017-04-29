@@ -191,7 +191,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
       liquids.fill(event.result, true);
 
       // only clear out items n stuff if it was successful
-      setInventorySlotContents(slot, null);
+      setInventorySlotContents(slot, ItemStack.EMPTY);
       return true;
     }
     else {

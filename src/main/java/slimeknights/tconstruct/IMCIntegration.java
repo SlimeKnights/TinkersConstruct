@@ -33,7 +33,7 @@ public abstract class IMCIntegration {
 
     Fluid fluid = FluidRegistry.getFluid(fluidName);
 
-    if(fluid != null && ore != null && !ore.isEmpty()) {
+    if(fluid != null && !ore.isEmpty()) {
       boolean isNew = true;
       for(MaterialIntegration mi : TinkerIntegration.integrationList) {
         if(mi.fluid != null && mi.fluid.getName().equals(fluidName)) {

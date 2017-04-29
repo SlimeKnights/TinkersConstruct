@@ -39,7 +39,7 @@ public class TilePatternChest extends TileTinkerChest implements IInventoryGui {
   // we only allow one type (cast/pattern) and only one of each toolpart
   @Override
   public boolean isItemValidForSlot(int slot, @Nonnull ItemStack itemstack) {
-    if(itemstack == null || !(itemstack.getItem() instanceof IPattern || itemstack.getItem() instanceof ICast)) {
+    if(itemstack.isEmpty() || !(itemstack.getItem() instanceof IPattern || itemstack.getItem() instanceof ICast)) {
       return false;
     }
     Item part = Pattern.getPartFromTag(itemstack);

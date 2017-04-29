@@ -20,6 +20,7 @@ import slimeknights.mantle.client.gui.book.GuiBook;
 import slimeknights.mantle.client.gui.book.element.BookElement;
 import slimeknights.mantle.client.gui.book.element.ElementImage;
 import slimeknights.mantle.client.gui.book.element.ElementText;
+import slimeknights.mantle.util.ItemStackList;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -97,6 +98,9 @@ public class ContentModifier extends TinkerPage {
 
       for(int i = 0; i < 5; i++) {
         inputItems[i] = new ItemStack[inputList.size()];
+        for(int j = 0; j < inputItems[i].length; j++) {
+          inputItems[i][j] = ItemStack.EMPTY;
+        }
       }
 
       for(int i = 0; i < inputList.size(); i++) {
@@ -107,7 +111,7 @@ public class ContentModifier extends TinkerPage {
 
         for(int j = 0; j < inputs.size() && j < 5; j++) {
           ItemStack stack = inputs.get(j);
-          if(stack != null && stack.getMetadata() == OreDictionary.WILDCARD_VALUE) {
+          if(!stack.isEmpty() && stack.getMetadata() == OreDictionary.WILDCARD_VALUE) {
             stack = stack.copy();
             stack.setItemDamage(0);
           }
@@ -169,7 +173,7 @@ public class ContentModifier extends TinkerPage {
     list.add(new ElementImage(imgX + (img.width - IMG_TABLE.width) / 2, imgY - 24, -1, -1, IMG_TABLE));
     list.add(new ElementImage(imgX, imgY, -1, -1, img, book.appearance.slotColor));
 
-    ItemStack[] demo = getDemoTools(inputItems);
+    ItemStackList demo = getDemoTools(inputItems);
 
     ElementTinkerItem toolItem = new ElementTinkerItem(imgX + (img.width - 16) / 2, imgY - 24, 1f, demo);
     toolItem.noTooltip = true;
@@ -184,22 +188,22 @@ public class ContentModifier extends TinkerPage {
     }
   }
 
-  protected ItemStack[] getDemoTools(ItemStack[][] inputItems) {
-    ItemStack[] demo = new ItemStack[tool.size()];
+  protected ItemStackList getDemoTools(ItemStack[][] inputItems) {
+    ItemStackList demo = ItemStackList.withSize(tool.size());
 
     for(int i = 0; i < tool.size(); i++) {
       if(tool.get(i) instanceof ToolCore) {
         ToolCore core = (ToolCore) tool.get(i);
         List<Material> mats = ImmutableList.<Material>of(TinkerMaterials.wood, TinkerMaterials.cobalt, TinkerMaterials.ardite, TinkerMaterials.manyullyn);
         mats = mats.subList(0, core.getRequiredComponents().size());
-        demo[i] = ((ToolCore) tool.get(i)).buildItemForRendering(mats);
+        demo.set(i, ((ToolCore) tool.get(i)).buildItemForRendering(mats));
       }
       else if(tool != null) {
-        demo[i] = new ItemStack(tool.get(i));
+        demo.set(i, new ItemStack(tool.get(i)));
       }
 
-      if(demo[i] != null) {
-        modifier.apply(demo[i]);
+      if(!demo.get(i).isEmpty()) {
+        modifier.apply(demo.get(i));
       }
     }
 

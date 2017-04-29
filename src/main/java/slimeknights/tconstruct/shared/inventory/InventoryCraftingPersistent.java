@@ -56,7 +56,7 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
 
       if(this.getStackInSlot(index).getCount() <= count) {
         itemstack = this.getStackInSlot(index);
-        this.setInventorySlotContents(index, null);
+        this.setInventorySlotContents(index, ItemStack.EMPTY);
         this.eventHandler.onCraftMatrixChanged(this);
         return itemstack;
       }
@@ -64,7 +64,7 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
         itemstack = this.getStackInSlot(index).splitStack(count);
 
         if(this.getStackInSlot(index).getCount() == 0) {
-          this.setInventorySlotContents(index, null);
+          this.setInventorySlotContents(index, ItemStack.EMPTY);
         }
 
         this.eventHandler.onCraftMatrixChanged(this);

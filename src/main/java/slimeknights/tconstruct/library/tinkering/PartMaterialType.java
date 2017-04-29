@@ -27,16 +27,11 @@ public class PartMaterialType {
   }
 
   public boolean isValid(ItemStack stack) {
-    if(stack == null || stack.getItem() == null) {
-      return false;
+    if(stack.getItem() instanceof IToolPart) {
+      IToolPart toolPart = (IToolPart) stack.getItem();
+      return isValid(toolPart, toolPart.getMaterial(stack));
     }
-
-    if(!(stack.getItem() instanceof IToolPart)) {
-      return false;
-    }
-
-    IToolPart toolPart = (IToolPart) stack.getItem();
-    return isValid(toolPart, toolPart.getMaterial(stack));
+    return false;
   }
 
   public boolean isValid(IToolPart part, Material material) {

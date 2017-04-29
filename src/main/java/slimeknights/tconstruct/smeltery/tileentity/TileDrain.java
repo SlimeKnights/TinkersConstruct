@@ -32,7 +32,6 @@ public class TileDrain extends TileSmelteryComponent {
   }
 
   @SuppressWarnings("unchecked")
-  @Nonnull
   @Override
   public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {

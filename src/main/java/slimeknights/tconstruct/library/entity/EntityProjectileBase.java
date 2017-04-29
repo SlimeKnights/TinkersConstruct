@@ -100,13 +100,12 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   }
 
   @Override
-  public boolean hasCapability(@Nonnull Capability<?> capability, @Nonnull EnumFacing facing) {
+  public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
     return capability == CapabilityTinkerProjectile.PROJECTILE_CAPABILITY || super.hasCapability(capability, facing);
   }
 
-  @Nonnull
   @Override
-  public <T> T getCapability(@Nonnull Capability<T> capability, @Nonnull EnumFacing facing) {
+  public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
     if(capability == CapabilityTinkerProjectile.PROJECTILE_CAPABILITY) {
       return (T) tinkerProjectile;
     }
@@ -202,7 +201,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
       // find the actual itemstack in the players inventory
       ItemStack inventoryItem = AmmoHelper.getMatchingItemstackFromInventory(tinkerProjectile.getItemStack(), attacker, false);
-      if(inventoryItem == null || inventoryItem.getItem() != item.getItem()) {
+      if(inventoryItem.isEmpty() || inventoryItem.getItem() != item.getItem()) {
         // backup, use saved itemstack
         inventoryItem = item;
       }
@@ -291,14 +290,14 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
   private void unequip(EntityLivingBase entity, EntityEquipmentSlot slot) {
     ItemStack stack = entity.getItemStackFromSlot(slot);
-    if(stack != null) {
+    if(!stack.isEmpty()) {
       entity.getAttributeMap().removeAttributeModifiers(stack.getAttributeModifiers(slot));
     }
   }
 
   private void equip(EntityLivingBase entity, EntityEquipmentSlot slot) {
     ItemStack stack = entity.getItemStackFromSlot(slot);
-    if(stack != null) {
+    if(!stack.isEmpty()) {
       entity.getAttributeMap().applyAttributeModifiers(stack.getAttributeModifiers(slot));
     }
   }

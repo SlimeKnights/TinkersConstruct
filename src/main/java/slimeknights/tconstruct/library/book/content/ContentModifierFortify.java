@@ -1,13 +1,10 @@
 package slimeknights.tconstruct.library.book.content;
 
-import com.google.common.collect.Lists;
-
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
-
+import slimeknights.mantle.util.ItemStackList;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
@@ -26,27 +23,27 @@ public class ContentModifierFortify extends ContentModifier {
   }
 
   @Override
-  protected ItemStack[] getDemoTools(ItemStack[][] inputItems) {
+  protected ItemStackList getDemoTools(ItemStack[][] inputItems) {
     if(inputItems.length == 0) {
-      return new ItemStack[0];
+      return ItemStackList.create();
     }
 
-    ItemStack[] demo = super.getDemoTools(inputItems);
+    ItemStackList demo = super.getDemoTools(inputItems);
 
-    List<ItemStack> out = Lists.newArrayList();
+    ItemStackList out = ItemStackList.create();
 
     for(int i = 0; i < inputItems[0].length; i++) {
-      if(inputItems[0][i].getItem() != null && inputItems[0][i].getItem() == TinkerTools.sharpeningKit) {
+      if(inputItems[0][i].getItem() == TinkerTools.sharpeningKit) {
         Material material = TinkerTools.sharpeningKit.getMaterial(inputItems[0][i]);
         IModifier modifier = TinkerRegistry.getModifier("fortify" + material.getIdentifier());
         if(modifier != null) {
-          ItemStack stack = demo[i % demo.length].copy();
+          ItemStack stack = demo.get(i % demo.size()).copy();
           modifier.apply(stack);
           out.add(stack);
         }
       }
     }
 
-    return out.toArray(new ItemStack[out.size()]);
+    return out;
   }
 }

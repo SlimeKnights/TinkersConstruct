@@ -47,7 +47,7 @@ public class MeltingRecipe {
   }
 
   public boolean matches(ItemStack stack) {
-    return input.matches(ListUtil.getListFrom(stack)) != null;
+    return input.matches(ListUtil.getListFrom(stack)).isPresent();
   }
 
   public FluidStack getResult() {

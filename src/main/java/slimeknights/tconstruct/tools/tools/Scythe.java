@@ -10,6 +10,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.SoundEvents;
@@ -331,10 +332,12 @@ public class Scythe extends AoeToolCore {
         List<ItemStack> drops = shearable.onSheared(stack, world, entity.getPosition(), fortune);
         Random rand = world.rand;
         for(ItemStack drop : drops) {
-          net.minecraft.entity.item.EntityItem ent = entity.entityDropItem(drop, 1.0F);
-          ent.motionY += rand.nextFloat() * 0.05F;
-          ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-          ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+          EntityItem entityItem = entity.entityDropItem(drop, 1.0F);
+          if(entityItem != null) {
+            entityItem.motionY += rand.nextFloat() * 0.05F;
+            entityItem.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+            entityItem.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+          }
         }
       }
       ToolHelper.damageTool(stack, 1, player);

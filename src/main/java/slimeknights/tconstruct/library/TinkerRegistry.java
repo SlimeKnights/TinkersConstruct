@@ -578,7 +578,7 @@ public final class TinkerRegistry {
     }
     else {
       try {
-        String output = Optional.ofNullable(recipe.getResult(null, FluidRegistry.WATER)).map(ItemStack::getUnlocalizedName).orElse("Unknown");
+        String output = Optional.ofNullable(recipe.getResult(ItemStack.EMPTY, FluidRegistry.WATER)).map(ItemStack::getUnlocalizedName).orElse("Unknown");
         log.debug("Registration of table casting recipe for " + output + " has been cancelled by event");
       } catch(Exception e) {
         log.error("Error when logging table casting event", e);
@@ -615,7 +615,7 @@ public final class TinkerRegistry {
     }
     else {
       try {
-        String output = Optional.ofNullable(recipe.getResult(null, FluidRegistry.WATER)).map(ItemStack::getUnlocalizedName).orElse("Unknown");
+        String output = Optional.ofNullable(recipe.getResult(ItemStack.EMPTY, FluidRegistry.WATER)).map(ItemStack::getUnlocalizedName).orElse("Unknown");
         log.debug("Registration of basin casting recipe for " + output + " has been cancelled by event");
       } catch(Exception e) {
         log.error("Error when logging basin casting event", e);

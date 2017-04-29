@@ -217,14 +217,14 @@ public class GuiToolStation extends GuiTinkerStation {
     // tool info of existing or tool to build
     ContainerToolStation container = (ContainerToolStation) inventorySlots;
     ItemStack toolStack = container.getResult();
-    if(toolStack == null) {
+    if(toolStack.isEmpty()) {
       toolStack = inventorySlots.getSlot(0).getStack();
     }
 
 
 
     // current tool to build or repair/modify
-    if(toolStack != null && toolStack.getItem() instanceof IModifyable) {
+    if(toolStack.getItem() instanceof IModifyable) {
       if(toolStack.getItem() instanceof IToolStationDisplay) {
         IToolStationDisplay tool = (IToolStationDisplay) toolStack.getItem();
         toolInfo.setCaption(tool.getLocalizedToolName());
@@ -296,7 +296,7 @@ public class GuiToolStation extends GuiTinkerStation {
           sb.append(TextFormatting.RED);
 
           // is an item in the slot?
-          if(slotStack != null && slotStack.getItem() instanceof IToolPart) {
+          if(slotStack.getItem() instanceof IToolPart) {
             if(pmt.isValidItem((IToolPart) slotStack.getItem())) {
               // the item has an invalid material
               warning(Util.translate("gui.error.wrong_material_part"));

@@ -1,8 +1,9 @@
 package slimeknights.tconstruct.library.book.sectiontransformer;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -40,6 +41,11 @@ public class BowMaterialSectionTransformer extends SectionTransformer {
 
     addPage(data, sectionName, "", listing);
 
+    // don't do stuff during preinit etc, we only want to fill it once everything is added
+    if(!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
+      return;
+    }
+
     Stream.of(MaterialTypes.BOW, MaterialTypes.BOWSTRING, MaterialTypes.SHAFT, MaterialTypes.FLETCHING).forEach(type -> {
       int pageIndex = data.pages.size();
       generateContent(type, data);
@@ -57,10 +63,6 @@ public class BowMaterialSectionTransformer extends SectionTransformer {
                                                 .filter(Material::hasItems)
                                                 .filter(material -> material.hasStats(materialType))
                                                 .collect(Collectors.toList());
-
-    if(materialList.isEmpty()) {
-      return ImmutableList.of();
-    }
 
     List<ContentPageIconList> contentPages = ContentPageIconList.getPagesNeededForItemCount(materialList.size(), data, getStatName(materialType));
     ListIterator<ContentPageIconList> iter = contentPages.listIterator();

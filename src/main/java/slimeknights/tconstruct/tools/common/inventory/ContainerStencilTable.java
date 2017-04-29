@@ -90,7 +90,7 @@ public class ContainerStencilTable
   public void updateResult() {
     // no pattern :(
     if(craftMatrix.getStackInSlot(0) == null || output == null) {
-      craftResult.setInventorySlotContents(0, null);
+      craftResult.setInventorySlotContents(0, ItemStack.EMPTY);
     }
     else {
       // set pattern from selection (or null if no selection)
@@ -130,7 +130,7 @@ public class ContainerStencilTable
     ItemStack itemstack1 = craftMatrix.getStackInSlot(0);
 
     // Assumption: Only 1 input, will always be decreased by only 1
-    if(itemstack1 != null) {
+    if(!itemstack1.isEmpty()) {
       craftMatrix.decrStackSize(0, 1);
     }
 

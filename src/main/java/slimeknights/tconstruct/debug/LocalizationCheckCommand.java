@@ -42,7 +42,7 @@ public class LocalizationCheckCommand extends CommandBase {
   @Override
   public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos pos) {
     if(args.length != 1) {
-      return null;
+      return super.getTabCompletions(server, sender, args, pos);
     }
 
     List<String> completions = Lists.newLinkedList();

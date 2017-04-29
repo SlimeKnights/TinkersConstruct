@@ -259,15 +259,15 @@ public class GuiUtil {
         CastingRecipe recipe = (CastingRecipe) irecipe;
         if(recipe.getFluid().getFluid() == fluid && recipe.cast != null) {
           // nugget
-          if(recipe.cast.matches(ListUtil.getListFrom(TinkerSmeltery.castNugget)) != null) {
+          if(recipe.cast.matches(ListUtil.getListFrom(TinkerSmeltery.castNugget)).isPresent()) {
             list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.nugget"));
           }
           // ingot
-          if(recipe.cast.matches(ListUtil.getListFrom(TinkerSmeltery.castIngot)) != null) {
+          if(recipe.cast.matches(ListUtil.getListFrom(TinkerSmeltery.castIngot)).isPresent()) {
             list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.ingot"));
           }
           // gem
-          if(recipe.cast.matches(ListUtil.getListFrom(TinkerSmeltery.castGem)) != null) {
+          if(recipe.cast.matches(ListUtil.getListFrom(TinkerSmeltery.castGem)).isPresent()) {
             list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.gem"));
           }
         }

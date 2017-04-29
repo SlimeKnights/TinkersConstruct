@@ -17,7 +17,7 @@ public class AchievementEvents {
 
   @SubscribeEvent
   public void onCraft(PlayerEvent.ItemCraftedEvent event) {
-    if(event.player == null || event.crafting == null) {
+    if(event.player == null || event.crafting.isEmpty()) {
       return;
     }
     Item item = event.crafting.getItem();
@@ -40,7 +40,7 @@ public class AchievementEvents {
 
   @SubscribeEvent
   public void onSmelted(PlayerEvent.ItemSmeltedEvent event) {
-    if(event.player == null || event.smelting == null) {
+    if(event.player == null || event.smelting.isEmpty()) {
       return;
     }
 

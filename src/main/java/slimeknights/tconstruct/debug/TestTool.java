@@ -31,7 +31,7 @@ public class TestTool extends CommandBase {
     if(sender.getCommandSenderEntity() instanceof EntityPlayer) {
       EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
       ItemStack item = player.inventory.getCurrentItem();
-      if(item == null || !(item.getItem() instanceof ToolCore)) {
+      if(item.isEmpty() || !(item.getItem() instanceof ToolCore)) {
         throw new CommandException("Hold the tinkers tool to test in your hand");
       }
 

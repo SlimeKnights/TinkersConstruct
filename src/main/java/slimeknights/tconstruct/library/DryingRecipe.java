@@ -18,7 +18,7 @@ public class DryingRecipe {
   }
 
   public boolean matches(ItemStack input) {
-    return this.input != null && this.input.matches(ListUtil.getListFrom(input)) != null;
+    return this.input != null && this.input.matches(ListUtil.getListFrom(input)).isPresent();
 
   }
 

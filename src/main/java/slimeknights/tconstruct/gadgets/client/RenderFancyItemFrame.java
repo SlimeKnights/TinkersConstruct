@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelManager;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -52,12 +51,12 @@ public class RenderFancyItemFrame extends RenderItemFrame {
     this.renderManager.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
     // we don't render the clear variant if it has an item
-    if(entity.getDisplayedItem() == null || type != EntityFancyItemFrame.FrameType.CLEAR) {
+    if(entity.getDisplayedItem().isEmpty() || type != EntityFancyItemFrame.FrameType.CLEAR) {
       BlockRendererDispatcher blockrendererdispatcher = this.mc.getBlockRendererDispatcher();
       ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
       IBakedModel ibakedmodel;
 
-      boolean withMap = entity.getDisplayedItem() != null && entity.getDisplayedItem().getItem() == Items.FILLED_MAP;
+      boolean withMap = entity.getDisplayedItem().getItem() == Items.FILLED_MAP;
       String variant = getVariant(((EntityFancyItemFrame) entity).getType(), withMap);
 
       ibakedmodel = modelmanager.getModel(Util.getModelResource("fancy_frame", variant));

@@ -9,7 +9,6 @@ import java.util.Arrays;
 
 import javax.annotation.Nonnull;
 
-import slimeknights.mantle.tileentity.TileInventory;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 
 /** Represents a structure that has an inventory where it heats its items. Like a smeltery. */
@@ -138,7 +137,7 @@ public abstract class TileHeatingStructure<T extends MultiblockDetection> extend
   @Override
   public void setInventorySlotContents(int slot, ItemStack itemstack) {
     // reset heat if set to null or a different item
-    if(itemstack == null || (getStackInSlot(slot) != null && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot)))) {
+    if(itemstack.isEmpty() || (!getStackInSlot(slot).isEmpty() && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot)))) {
       itemTemperatures[slot] = 0;
     }
     super.setInventorySlotContents(slot, itemstack);

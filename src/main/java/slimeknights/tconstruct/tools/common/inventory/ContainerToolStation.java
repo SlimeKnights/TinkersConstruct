@@ -167,7 +167,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
       updateGUI();
     } catch(TinkerGuiException e) {
       // error ;(
-      out.inventory.setInventorySlotContents(0, null);
+      out.inventory.setInventorySlotContents(0, ItemStack.EMPTY);
       this.error(e.getMessage());
     }
     // sync output with other open containers on the server

@@ -186,9 +186,6 @@ public interface MaterialRenderInfo {
       if(blockTexture == null) {
         blockTexture = TinkerTexture.loadManually(texturePath);
       }
-      if(blockTexture == null) {
-        blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
-      }
 
       TextureColoredTexture sprite = new TextureColoredTexture(blockTexture, baseTexture, location);
       sprite.stencil = false;
