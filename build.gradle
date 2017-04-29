@@ -53,7 +53,9 @@ repositories {
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
-//apply plugin: 'forge'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -246,3 +248,19 @@ task signUniversal(type: SignJar, dependsOn: 'jar') {
 }
 uploadArchives.dependsOn signUniversal
 build.dependsOn signUniversal
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+            artifact deobfJar
+            artifact sourcesJar
+        }
+    }
+
+    repositories {
+        if (project.hasProperty('DEPLOY_DIR')) {
+            maven { url DEPLOY_DIR }
+        }
+    }
+}
