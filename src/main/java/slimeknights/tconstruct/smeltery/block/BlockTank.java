@@ -10,7 +10,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -21,6 +20,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -85,9 +85,14 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
 
     IFluidHandler fluidHandler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
     ItemStack heldItem = playerIn.getHeldItem(hand);
-    FluidUtil.interactWithFluidHandler(heldItem, fluidHandler, playerIn);
+    FluidActionResult result = FluidUtil.interactWithFluidHandler(heldItem, fluidHandler, playerIn);
+    if(result.isSuccess()) {
+      playerIn.setHeldItem(hand, result.getResult());
+      return true; // return true as we did something
+    }
+
     // prevent interaction so stuff like buckets and other things don't place the liquid block
-    return !heldItem.isEmpty() && !(heldItem.getItem() instanceof ItemBlock);
+    return FluidUtil.getFluidHandler(heldItem) != null;
   }
 
   /* Block breaking retains the liquid */
