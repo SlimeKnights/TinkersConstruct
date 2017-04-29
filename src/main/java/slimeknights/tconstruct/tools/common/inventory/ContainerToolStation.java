@@ -274,7 +274,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
 // perfect, items already got removed but we still have to clean up 0-stacks and remove the tool
     tile.setInventorySlotContents(0, ItemStack.EMPTY); // slot where the tool was
     for(int i = 1; i < tile.getSizeInventory(); i++) {
-      if(tile.getStackInSlot(i) != null && tile.getStackInSlot(i).getCount() == 0) {
+      if(!tile.getStackInSlot(i).isEmpty() && tile.getStackInSlot(i).getCount() == 0) {
         tile.setInventorySlotContents(i, ItemStack.EMPTY);
       }
     }

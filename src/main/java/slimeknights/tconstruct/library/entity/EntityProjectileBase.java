@@ -246,6 +246,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       // apply stats from projectile
       if(!getEntityWorld().isRemote) {
         if(item.getItem() instanceof IProjectile) {
+          assert projectileAttributes != null;
           attacker.getAttributeMap().removeAttributeModifiers(projectileAttributes);
         }
 
@@ -350,6 +351,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     if(iblockstate.getMaterial() != Material.AIR) {
       AxisAlignedBB axisalignedbb = iblockstate.getCollisionBoundingBox(this.getEntityWorld(), blockpos);
 
+      assert axisalignedbb != null;
       if(axisalignedbb != Block.NULL_AABB && axisalignedbb.offset(blockpos).isVecInside(new Vec3d(this.posX, this.posY, this.posZ))) {
         this.inGround = true;
       }

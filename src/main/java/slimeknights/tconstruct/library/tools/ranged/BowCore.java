@@ -15,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -171,7 +172,9 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
     shootProjectile(ammo, stack, worldIn, player, useTime);
 
-    player.addStat(StatList.getObjectUseStats(this));
+    StatBase statBase = StatList.getObjectUseStats(this);
+    assert statBase != null;
+    player.addStat(statBase);
 
     // needs to be done manually for the overrides to work out correctly
     // since TiC tools don't get updated by default due to their custom equip check

@@ -72,6 +72,7 @@ public class RenderFancyItemFrame extends RenderItemFrame {
     }
     this.renderItem(entity);
     GlStateManager.popMatrix();
+    assert entity.facingDirection != null;
     this.renderName(entity, x + (double) ((float) entity.facingDirection.getFrontOffsetX() * 0.3F), y - 0.25D, z + (double) ((float) entity.facingDirection.getFrontOffsetZ() * 0.3F));
   }
 

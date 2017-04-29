@@ -32,7 +32,7 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
 
   @Override
   public float getProgress() {
-    if(getStackInSlot(0) != null && currentTime < maxTime) {
+    if(!getStackInSlot(0).isEmpty() && currentTime < maxTime) {
       return (float) currentTime / (float) maxTime;
     }
     return 0;
@@ -84,7 +84,7 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
     currentTime = 0;
     ItemStack stack = getStackInSlot(0);
 
-    if(stack != null) {
+    if(!stack.isEmpty()) {
       maxTime = TinkerRegistry.getDryingTime(stack);
     }
     else {

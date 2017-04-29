@@ -76,7 +76,7 @@ public class TilePatternChest extends TileTinkerChest implements IInventoryGui {
     if(part == null) {
       for(int i = 0; i < getSizeInventory(); i++) {
         ItemStack inv = getStackInSlot(i);
-        if(inv == null) {
+        if(inv.isEmpty()) {
           continue;
         }
 
@@ -120,7 +120,7 @@ public class TilePatternChest extends TileTinkerChest implements IInventoryGui {
   public boolean isCastChest() {
     // do we hold casts instead of patterns?
     for(int i = 0; i < getSizeInventory(); i++) {
-      if(getStackInSlot(i) != null && getStackInSlot(i).getItem() instanceof ICast) {
+      if(getStackInSlot(i).getItem() instanceof ICast) {
         return true;
       }
     }

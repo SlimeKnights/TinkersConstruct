@@ -40,7 +40,7 @@ public class TileTinkerChest extends TileTable {
 
     // recalculate actual size from inventory:
     // decrease until it matches
-    while(actualSize > 0 && getStackInSlot(actualSize - 1) == null) {
+    while(actualSize > 0 && getStackInSlot(actualSize - 1).isEmpty()) {
       actualSize--;
     }
     actualSize++; // add empty slot
@@ -58,12 +58,12 @@ public class TileTinkerChest extends TileTable {
       // expand slots until the last visible slot is empty (could be something was in there through faulty state)
       do {
         actualSize++;
-      } while(getStackInSlot(actualSize - 1) != null);
+      } while(!getStackInSlot(actualSize - 1).isEmpty());
     }
     // null, gets taken from the slot before the last visible slot?
     else if(slot >= actualSize - 2 && itemstack.isEmpty()) {
       // decrease inventory size so that 1 free slot after the last non-empty slot is left
-      while(actualSize - 2 >= 0 && getStackInSlot(actualSize - 2) == null) {
+      while(actualSize - 2 >= 0 && getStackInSlot(actualSize - 2).isEmpty()) {
         actualSize--;
       }
     }

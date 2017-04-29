@@ -56,6 +56,7 @@ public class TileTank extends TileSmelteryComponent implements IFluidTankUpdater
 
   public int getBrightness() {
     if(containsFluid()) {
+      assert tank.getFluid() != null;
       return tank.getFluid().getFluid().getLuminosity();
     }
     return 0;

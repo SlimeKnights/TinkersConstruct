@@ -108,7 +108,7 @@ public class ContainerStencilTable
 
     Slot slot = this.inventorySlots.get(index);
     if(slot == null || !slot.getHasStack()) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     ItemStack itemstack = slot.getStack().copy();
@@ -116,7 +116,7 @@ public class ContainerStencilTable
 
     if(patternChestSideInventory != null) {
       if(moveToContainer(itemstack, patternChestSideInventory)) {
-        return null;
+        return ItemStack.EMPTY;
       }
 
       return notifySlotAfterTransfer(playerIn, itemstack, ret, slot);

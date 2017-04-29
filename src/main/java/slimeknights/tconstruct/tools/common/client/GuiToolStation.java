@@ -159,7 +159,7 @@ public class GuiToolStation extends GuiTinkerStation {
 
     ToolCore tool = null;
 
-    if(info.tool != null && info.tool.getItem() instanceof ToolCore) {
+    if(info.tool.getItem() instanceof ToolCore) {
       tool = (ToolCore) info.tool.getItem();
     }
 
@@ -261,7 +261,7 @@ public class GuiToolStation extends GuiTinkerStation {
       traitInfo.setText(mods, tips);
     }
     // repair info
-    else if(currentInfo.tool == null) {
+    else if(currentInfo.tool.isEmpty()) {
       toolInfo.setCaption(I18n.translateToLocal("gui.toolstation.repair"));
       toolInfo.setText();
 
@@ -385,7 +385,7 @@ public class GuiToolStation extends GuiTinkerStation {
       int logoY = (int) (this.cornerY / scale);
 
       if(currentInfo != null) {
-        if(currentInfo.tool != null) {
+        if(!currentInfo.tool.isEmpty()) {
           itemRender.renderItemIntoGUI(currentInfo.tool, logoX, logoY);
         }
         else if(currentInfo == GuiButtonRepair.info) {
@@ -433,7 +433,7 @@ public class GuiToolStation extends GuiTinkerStation {
     if(currentInfo == GuiButtonRepair.info) {
       drawRepairSlotIcons();
     }
-    else if(currentInfo.tool != null && currentInfo.tool.getItem() instanceof TinkersItem) {
+    else if(currentInfo.tool.getItem() instanceof TinkersItem) {
       for(int i = 0; i < activeSlots; i++) {
         Slot slot = inventorySlots.getSlot(i);
         if(!(slot instanceof SlotToolStationIn)) {

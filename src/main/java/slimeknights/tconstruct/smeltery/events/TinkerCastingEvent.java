@@ -47,6 +47,7 @@ public class TinkerCastingEvent extends TinkerEvent {
     public OnCasted(ICastingRecipe recipe, TileCasting tile) {
       super(recipe, tile);
       ItemStack cast = tile.getStackInSlot(0);
+      assert tile.tank.getFluid() != null;
       Fluid fluid = tile.tank.getFluid().getFluid();
       this.output = recipe.getResult(cast, fluid).copy();
       this.consumeCast = recipe.consumesCast();

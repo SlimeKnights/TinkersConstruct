@@ -131,6 +131,7 @@ public class ModMendingMoss extends ModifierTrait {
   @Override
   public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
     Data data = ModifierNBT.readTag(modifierTag, Data.class);
+    assert data != null;
     String loc = String.format(LOC_Extra, getIdentifier());
     return ImmutableList.of(
         Util.translateFormatted(loc, data.storedXp)

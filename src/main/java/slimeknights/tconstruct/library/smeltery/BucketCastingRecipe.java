@@ -16,6 +16,7 @@ public class BucketCastingRecipe implements ICastingRecipe {
   public ItemStack getResult(ItemStack cast, Fluid fluid) {
     ItemStack output = new ItemStack(Items.BUCKET);
     IFluidHandler fluidHandler = FluidUtil.getFluidHandler(output);
+    assert fluidHandler != null;
     fluidHandler.fill(getFluid(cast, fluid), true);
 
     return output;

@@ -14,13 +14,14 @@ import slimeknights.tconstruct.library.tinkering.TinkersItem;
 
 public class ToolBuildGuiInfo {
 
+  @Nonnull
   public final ItemStack tool;
   // the positions where the slots are located
   public final List<Point> positions = Lists.newArrayList();
 
   public ToolBuildGuiInfo() {
     // for repairing
-    this.tool = null;
+    this.tool = ItemStack.EMPTY;
   }
 
   public ToolBuildGuiInfo(@Nonnull TinkersItem tool) {

@@ -497,6 +497,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
     // move item back into offhand. See onBlockBreakStart
     if(stack != null && entityLiving != null && stack.hasTagCompound()) {
       NBTTagCompound tag = stack.getTagCompound();
+      assert tag != null;
       if(tag.getLong(TAG_SWITCHED_HAND_HAX) == entityLiving.getEntityWorld().getTotalWorldTime()) {
         tag.removeTag(TAG_SWITCHED_HAND_HAX);
         stack.setTagCompound(tag);

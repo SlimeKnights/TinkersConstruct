@@ -245,7 +245,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
     }
 
     // if sneaking, reverse direction
-    if(placer.isSneaking()) {
+    if(direction != null && placer.isSneaking()) {
       direction = direction.getOpposite();
     }
     return direction;
@@ -831,9 +831,9 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
           return SOUTH;
         case SOUTHEAST:
           return SOUTHWEST;
+        default:
+          throw new IllegalArgumentException("Unknown enum value? Impossibru!");
       }
-      // not possible, but here because eclipse wants it
-      return null;
     }
 
     /**

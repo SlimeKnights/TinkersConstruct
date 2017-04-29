@@ -78,7 +78,7 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
   @Override
   protected void updateHeatRequired(int index) {
     ItemStack stack = getStackInSlot(index);
-    if(stack != null) {
+    if(!stack.isEmpty()) {
       ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
       if(!result.isEmpty()) {
         int newSize = stack.getCount() * result.getCount();

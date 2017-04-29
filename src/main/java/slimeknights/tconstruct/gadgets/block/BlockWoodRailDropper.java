@@ -26,6 +26,7 @@ public class BlockWoodRailDropper extends BlockWoodRail {
     IItemHandler itemHandlerCart = cart.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
     IItemHandler itemHandlerTE = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
 
+    assert itemHandlerCart != null;
     for(int i = 0; i < itemHandlerCart.getSlots(); i++) {
       ItemStack itemStack = itemHandlerCart.extractItem(i, 1, true);
       if(ItemHandlerHelper.insertItem(itemHandlerTE, itemStack, true).isEmpty()) {

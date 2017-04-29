@@ -89,7 +89,7 @@ public class TileTable extends TileInventory {
 
   public boolean isInventoryEmpty() {
     for (int i = 0; i < this.getSizeInventory(); ++i) {
-      if (this.getStackInSlot(i) != null) {
+      if (!getStackInSlot(i).isEmpty()) {
         return false;
       }
     }

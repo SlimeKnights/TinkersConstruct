@@ -83,7 +83,10 @@ public class BakedTableModel implements IPerspectiveAwareModel {
     this.standard = standard;
     this.tableModel = tableModel;
 
-    this.textureGetter = location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+    this.textureGetter = location -> {
+      assert location != null;
+      return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+    };
     this.format = format;
     this.transforms = ModelHelper.getTransforms(standard);
   }

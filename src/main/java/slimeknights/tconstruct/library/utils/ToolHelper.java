@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
+import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -434,7 +435,9 @@ public final class ToolHelper {
 
       // send an update to the server, so we get an update back
       //if(PHConstruct.extraBlockUpdates)
-      Minecraft.getMinecraft().getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, Minecraft
+      NetHandlerPlayClient netHandlerPlayClient = Minecraft.getMinecraft().getConnection();
+      assert netHandlerPlayClient != null;
+      netHandlerPlayClient.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, Minecraft
           .getMinecraft().objectMouseOver.sideHit));
     }
   }
@@ -744,7 +747,7 @@ public final class ToolHelper {
 
       // call post-hit callbacks before reducing the durability
       for(ITrait trait : traits) {
-        trait.afterHit(stack, attacker, target, damageDealt, isCritical, hit); // hit is always true
+        trait.afterHit(stack, attacker, target, damageDealt, isCritical, true); // hit is always true
       }
 
       // damage the tool

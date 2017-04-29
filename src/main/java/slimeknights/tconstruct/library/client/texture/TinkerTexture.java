@@ -69,6 +69,7 @@ public class TinkerTexture extends TextureAtlasSprite {
   }
 
   // completely emulates the behaviour of the TextureMap texture loading process
+  @Deprecated
   protected TextureAtlasSprite backupLoadtextureAtlasSprite(ResourceLocation resourceLocation, IResourceManager resourceManager) {
     ResourceLocation resourcelocation1 = null;//this.completeResourceLocation(resourceLocation, 0);
     TextureAtlasSprite textureAtlasSprite = TextureAtlasSprite.makeAtlasSprite(resourceLocation);

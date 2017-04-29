@@ -38,6 +38,7 @@ public class TankDataProvider implements IWailaDataProvider {
 
       if(te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)) {
         IFluidHandler fluidHandler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+        assert fluidHandler != null;
         IFluidTankProperties[] fluidHandlerTankProperties = fluidHandler.getTankProperties();
         for(IFluidTankProperties fluidTankProperties : fluidHandlerTankProperties) {
           FluidStack fluidStack = fluidTankProperties.getContents();

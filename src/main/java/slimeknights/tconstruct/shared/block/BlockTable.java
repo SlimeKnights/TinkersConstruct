@@ -220,7 +220,7 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
 
         for(int i = 0; i < tileInventory.getSizeInventory(); i++) {
           ItemStack itemStack = tileInventory.getStackInSlot(i);
-          if(itemStack != null) {
+          if(!itemStack.isEmpty()) {
             items.add(itemStack);
           }
         }
@@ -296,7 +296,7 @@ public class BlockTable extends BlockInventory implements ITileEntityProvider {
   }
 
   public static RayTraceResult raytraceMultiAABB(List<AxisAlignedBB> aabbs, BlockPos pos, Vec3d start, Vec3d end) {
-    List<RayTraceResult> list = Lists.<RayTraceResult>newArrayList();
+    List<RayTraceResult> list = Lists.newArrayList();
 
     for(AxisAlignedBB axisalignedbb : aabbs) {
       list.add(rayTrace2(pos, start, end, axisalignedbb));

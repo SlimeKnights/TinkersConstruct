@@ -36,6 +36,7 @@ public final class AmmoHelper {
       ammo = validAmmoInRange(itemHandler, ammoItems, 0, InventoryPlayer.getHotbarSize());
       // then remaining inventory
       if(ammo.isEmpty()) {
+        assert itemHandler != null;
         ammo = validAmmoInRange(itemHandler, ammoItems, InventoryPlayer.getHotbarSize(), itemHandler.getSlots());
       }
     }
@@ -83,6 +84,7 @@ public final class AmmoHelper {
     IItemHandler itemHandler = entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
     // find an itemstack that matches our input
+    assert itemHandler != null;
     for(int i = 0; i < itemHandler.getSlots(); i++) {
       ItemStack in = itemHandler.getStackInSlot(i);
       if(ToolCore.isEqualTinkersItem(in, stack) && (!damagedOnly || in.getItemDamage() > 0)) {

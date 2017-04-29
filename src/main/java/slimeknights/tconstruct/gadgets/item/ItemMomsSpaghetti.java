@@ -12,6 +12,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -106,7 +107,9 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
       EntityPlayer entityplayer = (EntityPlayer) entityLiving;
       entityplayer.getFoodStats().addStats(this, stack);
       worldIn.playSound(null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
-      entityplayer.addStat(StatList.getObjectUseStats(this));
+      StatBase statBase = StatList.getObjectUseStats(this);
+      assert statBase != null;
+      entityplayer.addStat(statBase);
     }
 
     return stack;

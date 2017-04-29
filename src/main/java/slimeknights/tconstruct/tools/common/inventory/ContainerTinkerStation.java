@@ -16,7 +16,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Queue;
@@ -108,7 +107,7 @@ public class ContainerTinkerStation<T extends TileEntity & IInventory> extends C
 
     // sort the found blocks by priority
     TinkerBlockComp comp = new TinkerBlockComp();
-    Collections.sort(tinkerStationBlocks, comp);
+    tinkerStationBlocks.sort(comp);
 
     /*
     if(!hasMaster || foundBlocks.size() < 2) {

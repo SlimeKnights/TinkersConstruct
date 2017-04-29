@@ -90,6 +90,7 @@ public class EntityFancyItemFrame extends EntityItemFrame implements IEntityAddi
 
   @Override
   public void writeSpawnData(ByteBuf buffer) {
+    assert this.facingDirection != null;
     buffer.writeShort(this.facingDirection.getHorizontalIndex());
     buffer.writeShort(type != null ? this.type.ordinal() : 0);
   }

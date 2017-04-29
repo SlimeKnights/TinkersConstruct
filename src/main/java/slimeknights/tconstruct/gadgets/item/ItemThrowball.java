@@ -6,6 +6,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSnowball;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -55,7 +56,9 @@ public class ItemThrowball extends ItemSnowball {
       launchThrowball(worldIn, playerIn, type, hand);
     }
 
-    playerIn.addStat(StatList.getObjectUseStats(this));
+    StatBase statBase = StatList.getObjectUseStats(this);
+    assert statBase != null;
+    playerIn.addStat(statBase);
     return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
   }
 

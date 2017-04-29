@@ -77,7 +77,7 @@ public abstract class TileHeatingStructure<T extends MultiblockDetection> extend
     boolean heatedItem = false;
     for(int i = 0; i < getSizeInventory(); i++) {
       ItemStack stack = getStackInSlot(i);
-      if(stack != null) {
+      if(!stack.isEmpty()) {
         // heat item if possible
         if(itemTempRequired[i] > 0) {
           // fuel is present, turn up the heat

@@ -61,7 +61,9 @@ public class FluidHandlerCasting implements IFluidHandler {
     if(resource == null || tank.getFluidAmount() == 0) {
       return null;
     }
-    if(tank.getFluid().getFluid() != resource.getFluid()) {
+    FluidStack fluidStack = tank.getFluid();
+    assert fluidStack != null;
+    if(fluidStack.getFluid() != resource.getFluid()) {
       return null;
     }
 
