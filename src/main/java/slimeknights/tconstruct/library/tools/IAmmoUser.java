@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.tools;
 
-import com.sun.istack.internal.NotNull;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 
@@ -11,5 +9,5 @@ public interface IAmmoUser {
 
   ItemStack findAmmo(@Nonnull ItemStack weapon, EntityLivingBase player);
 
-  ItemStack getAmmoToRender(@NotNull ItemStack weapon, EntityLivingBase player);
+  ItemStack getAmmoToRender(@Nonnull ItemStack weapon, EntityLivingBase player);
 }
