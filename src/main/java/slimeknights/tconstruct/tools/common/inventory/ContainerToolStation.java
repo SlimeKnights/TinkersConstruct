@@ -151,15 +151,15 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
       // 1. try repairing
       result = repairTool(false);
       // 2. try swapping tool parts
-      if(result == null) {
+      if(result.isEmpty()) {
         result = replaceToolParts(false);
       }
       // 3. try modifying
-      if(result == null) {
+      if(result.isEmpty()) {
         result = modifyTool(false);
       }
       // 4. try building a new tool
-      if(result == null) {
+      if(result.isEmpty()) {
         result = buildTool();
       }
 
@@ -186,9 +186,9 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     boolean resultTaken = false;
 
     try {
-      resultTaken = repairTool(true) != null ||
-                    replaceToolParts(true) != null ||
-                    modifyTool(true) != null;
+      resultTaken = !repairTool(true).isEmpty() ||
+                    !replaceToolParts(true).isEmpty() ||
+                    !modifyTool(true).isEmpty();
     } catch(TinkerGuiException e) {
       // no error updating needed
       e.printStackTrace();
@@ -202,7 +202,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
       ItemStack tool = buildTool();
 
       // we built a tool
-      if(tool != null) {
+      if(!tool.isEmpty()) {
         // remove 1 of each in the slots
         // it's guaranteed that each slot that has an item has used exactly 1 item to build the tool
         for(int i = 0; i < tile.getSizeInventory(); i++) {
@@ -226,7 +226,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
 
     // modifying possible?
     if(repairable.isEmpty() || !(repairable.getItem() instanceof IRepairable)) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     return ToolBuilder.tryRepairTool(getInputs(), repairable, remove);
@@ -236,7 +236,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     ItemStack tool = inventorySlots.get(0).getStack();
 
     if(tool.isEmpty() || !(tool.getItem() instanceof TinkersItem)) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     return ToolBuilder.tryReplaceToolParts(tool, getInputs(), remove);
@@ -247,7 +247,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
 
     // modifying possible?
     if(modifyable.isEmpty() || !(modifyable.getItem() instanceof IModifyable)) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     return ToolBuilder.tryModifyTool(getInputs(), modifyable, remove);

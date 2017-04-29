@@ -132,14 +132,15 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
    * @return The built item or null if invalid input.
    */
   public ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks) {
+    long itemCount = stacks.stream().filter(ItemStack::isEmpty).count();
     List<Material> materials = new ArrayList<Material>(stacks.size());
 
-    if(stacks.size() != requiredComponents.length) {
+    if(itemCount != requiredComponents.length) {
       return ItemStack.EMPTY;
     }
 
     // not a valid part arrangement for this tool
-    for(int i = 0; i < stacks.size(); i++) {
+    for(int i = 0; i < itemCount; i++) {
       if(!validComponent(i, stacks.get(i))) {
         return ItemStack.EMPTY;
       }
@@ -295,13 +296,13 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   public ItemStack repair(ItemStack repairable, NonNullList<ItemStack> repairItems) {
     if(repairable.getItemDamage() == 0 && !ToolHelper.isBroken(repairable)) {
       // undamaged and not broken - no need to repair
-      return null;
+      return ItemStack.EMPTY;
     }
 
     // we assume the first required part exclusively determines repair material
     List<Material> materials = TinkerUtil.getMaterialsFromTagList(TagUtil.getBaseMaterialsTagList(repairable));
     if(materials.isEmpty()) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     // ensure the items only contain valid items
@@ -328,7 +329,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     }
 
     if(!foundMatch) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     // check if all items were used
@@ -336,7 +337,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       // was non-null and did not get modified (stacksize changed or null now, usually)
       if(!repairItems.get(i).isEmpty() && ItemStack.areItemStacksEqual(repairItems.get(i), items.get(i))) {
         // found an item that was not touched
-        return null;
+        return ItemStack.EMPTY;
       }
     }
 

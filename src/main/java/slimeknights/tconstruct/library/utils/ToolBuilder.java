@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
+import slimeknights.mantle.util.ItemStackList;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -46,6 +49,7 @@ public final class ToolBuilder {
   private ToolBuilder() {
   }
 
+  @Nonnull
   public static ItemStack tryBuildTool(NonNullList<ItemStack> stacks, String name) {
     return tryBuildTool(stacks, name, TinkerRegistry.getTools());
   }
@@ -56,6 +60,7 @@ public final class ToolBuilder {
    * @param stacks Input.
    * @return The built tool or null if none could be built.
    */
+  @Nonnull
   public static ItemStack tryBuildTool(NonNullList<ItemStack> stacks, String name, Collection<ToolCore> possibleTools) {
     int length = -1;
     NonNullList<ItemStack> input;
@@ -76,10 +81,7 @@ public final class ToolBuilder {
       return ItemStack.EMPTY;
     }
 
-    input = NonNullList.withSize(length, ItemStack.EMPTY);
-    for(int i = 0; i < stacks.size(); i++) {
-      input.set(i, stacks.get(i));
-    }
+    input = ItemStackList.of(stacks);
 
     for(Item item : possibleTools) {
       if(!(item instanceof ToolCore)) {
@@ -137,9 +139,10 @@ public final class ToolBuilder {
     traitModifier.applyEffect(rootCompound, tag);
   }
 
+  @Nonnull
   public static ItemStack tryRepairTool(NonNullList<ItemStack> stacks, ItemStack toolStack, boolean removeItems) {
     if(toolStack == null || !(toolStack.getItem() instanceof IRepairable)) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     // obtain a working copy of the items if the originals shouldn't be modified
@@ -160,6 +163,7 @@ public final class ToolBuilder {
    * @return The modified tool or null if something went wrong or no modifier applied.
    * @throws TinkerGuiException Thrown when not matching modifiers could be applied. Contains extra-information why the process failed.
    */
+  @Nonnull
   public static ItemStack tryModifyTool(NonNullList<ItemStack> input, ItemStack toolStack, boolean removeItems)
       throws TinkerGuiException {
     ItemStack copy = toolStack.copy();
@@ -220,7 +224,7 @@ public final class ToolBuilder {
 
     // check if all itemstacks were touched - otherwise there's an invalid item in the input
     for(int i = 0; i < input.size(); i++) {
-      if(ItemStack.areItemStacksEqual(input.get(i), stacks.get(i))) {
+      if(!input.get(i).isEmpty() && ItemStack.areItemStacksEqual(input.get(i), stacks.get(i))) {
         if(!appliedModifiers.isEmpty()) {
           String error = I18n.translateToLocalFormatted("gui.error.no_modifier_for_item", input.get(i).getDisplayName());
           throw new TinkerGuiException(error);
@@ -265,6 +269,7 @@ public final class ToolBuilder {
    * @param removeItems If true the applied items will be removed from the array
    * @return The tool with the replaced parts or null if the conditions have not been met.
    */
+  @Nonnull
   public static ItemStack tryReplaceToolParts(ItemStack toolStack, final NonNullList<ItemStack> toolPartsIn, final boolean removeItems)
       throws TinkerGuiException {
     if(toolStack == null || !(toolStack.getItem() instanceof TinkersItem)) {
