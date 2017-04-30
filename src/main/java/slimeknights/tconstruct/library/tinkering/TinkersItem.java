@@ -131,6 +131,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
    * @param stacks Items to build with. Have to be in the correct order and have exact length. No nulls!
    * @return The built item or null if invalid input.
    */
+  @Nonnull
   public ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks) {
     long itemCount = stacks.stream().filter(ItemStack::isEmpty).count();
     List<Material> materials = new ArrayList<Material>(stacks.size());
@@ -218,6 +219,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   /**
    * Builds an unusable tool that only has the rendering info
    */
+  @Nonnull
   public ItemStack buildItemForRendering(List<Material> materials) {
     ItemStack tool = new ItemStack(this);
     NBTTagCompound base = new NBTTagCompound();
@@ -227,6 +229,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     return tool;
   }
 
+  @Nonnull
   public ItemStack buildItemForRenderingInGui() {
     List<Material> materials = IntStream.range(0, getRequiredComponents().size())
                                         .mapToObj(this::getMaterialForPartForGuiRendering)

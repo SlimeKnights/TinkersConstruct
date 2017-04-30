@@ -25,7 +25,6 @@ import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.book.TinkerPage;
 import slimeknights.tconstruct.library.book.elements.ElementTinkerItem;
-import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IToolPart;
@@ -44,8 +43,8 @@ public class ContentTool extends TinkerPage {
   private transient ToolCore tool;
   private transient List<Collection<IToolPart>> parts;
 
-  public TextData[] text;
-  public String[] properties;
+  public TextData[] text = new TextData[0];
+  public String[] properties = new String[0];
 
   @SerializedName("tool")
   public String toolName;
