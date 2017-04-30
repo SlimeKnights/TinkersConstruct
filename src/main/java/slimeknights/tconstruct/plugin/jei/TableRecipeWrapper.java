@@ -11,15 +11,18 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import java.util.Arrays;
 import java.util.List;
 
+import mezz.jei.api.gui.IGuiIngredientGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.BlankRecipeWrapper;
+import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IStackHelper;
 import mezz.jei.api.recipe.wrapper.ICustomCraftingRecipeWrapper;
 import mezz.jei.api.recipe.wrapper.IShapedCraftingRecipeWrapper;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.tools.common.TableRecipe;
+import slimeknights.tconstruct.tools.common.item.ItemBlockTable;
 
 public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCraftingRecipeWrapper, ICustomCraftingRecipeWrapper {
 
@@ -104,7 +107,7 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
     IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
     List<List<ItemStack>> inputs = ingredients.getInputs(ItemStack.class);
-    /*List<ItemStack> outputs = ingredients.getOutputs(ItemStack.class);
+    List<ItemStack> outputs = ingredients.getOutputs(ItemStack.class).get(0);
 
     // determine the focused stack
     IFocus<?> ifocus = recipeLayout.getFocus();
@@ -141,9 +144,8 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
       }
     }
 
-    // todo
     // add the itemstacks to the grid
     JEIPlugin.craftingGridHelper.setInputStacks(guiItemStacks, inputs, this.getWidth(), this.getHeight());
-    JEIPlugin.craftingGridHelper.setOutput(guiItemStacks, outputs);*/
+    JEIPlugin.craftingGridHelper.setOutput(guiItemStacks, outputs);
   }
 }
