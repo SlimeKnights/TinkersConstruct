@@ -64,7 +64,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipeWrapper> 
     IGuiFluidStackGroup fluids = recipeLayout.getFluidStacks();
 
     List<FluidStack> inputs = recipe.inputs;
-    /*List<FluidStack> outputs = ingredients.getOutputs(FluidStack.class);
+    List<FluidStack> outputs = ingredients.getOutputs(FluidStack.class).get(0);
 
     float w = 36f / inputs.size();
 
@@ -90,7 +90,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipeWrapper> 
 
     // output
     fluids.init(0, false, 118, 11, 18, 32, max_amount, false, null);
-    fluids.set(ingredients);*/
+    fluids.set(ingredients);
   }
 
   @Override
