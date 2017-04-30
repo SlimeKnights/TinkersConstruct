@@ -109,9 +109,9 @@ public class Material extends RecipeMatchRegistry {
   // we use a specific map for 2 reasons:
   // * A Map so we can obtain the stats we want quickly
   // * the linked map to ensure the order when iterating
-  protected final Map<String, IMaterialStats> stats = new LinkedHashMap<String, IMaterialStats>();
+  protected final Map<String, IMaterialStats> stats = new LinkedHashMap<>();
   /** Stat-ID -> Traits */
-  protected final Map<String, List<ITrait>> traits = new LinkedHashMap<String, List<ITrait>>();
+  protected final Map<String, List<ITrait>> traits = new LinkedHashMap<>();
 
   public Material(String identifier, TextFormatting textColor) {
     this(identifier, Util.enumChatFormattingToColor(textColor));
@@ -261,7 +261,7 @@ public class Material extends RecipeMatchRegistry {
   /** Obtains the list of traits for the given stat, creates it if it doesn't exist yet. */
   protected List<ITrait> getStatTraits(String id) {
     if(!this.traits.containsKey(id)) {
-      this.traits.put(id, new LinkedList<ITrait>());
+      this.traits.put(id, new LinkedList<>());
     }
     return this.traits.get(id);
   }

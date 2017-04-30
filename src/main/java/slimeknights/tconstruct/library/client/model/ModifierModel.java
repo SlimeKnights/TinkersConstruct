@@ -32,7 +32,7 @@ import slimeknights.tconstruct.library.modifiers.IModifier;
  */
 public class ModifierModel implements IModel {
 
-  private Map<String, String> models = new THashMap<String, String>();
+  private Map<String, String> models = new THashMap<>();
 
   public ModifierModel() {
   }
@@ -69,7 +69,7 @@ public class ModifierModel implements IModel {
 
   public Map<String, IBakedModel> bakeModels(IModelState state, VertexFormat format,
                                              Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
-    Map<String, IBakedModel> bakedModels = new THashMap<String, IBakedModel>();
+    Map<String, IBakedModel> bakedModels = new THashMap<>();
 
     // we scale the modifier up slightly so it's always above the tool
     float s = 0.025f;

@@ -130,7 +130,7 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
             focus.getItemDamage());
 
         // and finally, set the focus override for the recipe
-        guiIngredients.setOverrideDisplayFocus(new Focus<ItemStack>(IFocus.Mode.OUTPUT, outputFocus));
+        guiIngredients.setOverrideDisplayFocus(new Focus<>(IFocus.Mode.OUTPUT, outputFocus));
       }
 
       // if we clicked the table, remove all items which affect the legs textures that are not the leg item
@@ -139,7 +139,7 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
         ItemStack legs = ItemBlockTable.getLegStack(focus);
         if(!legs.isEmpty()) {
           // and loop through all slots removing leg affecting inputs which don't match
-          guiIngredients.setOverrideDisplayFocus(new Focus<ItemStack>(IFocus.Mode.INPUT, legs));
+          guiIngredients.setOverrideDisplayFocus(new Focus<>(IFocus.Mode.INPUT, legs));
         }
       }
     }

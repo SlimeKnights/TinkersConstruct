@@ -926,7 +926,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
      * Returns a list of one or two directions for the sake of liquid flow
      */
     public ArrayList<EnumFacing> getFlowDiagonals(@Nonnull EnumFacing side) {
-      ArrayList<EnumFacing> list = new ArrayList<EnumFacing>();
+      ArrayList<EnumFacing> list = new ArrayList<>();
       switch(this) {
         case NORTH:
           list.add(NORTH.getFlow(side));

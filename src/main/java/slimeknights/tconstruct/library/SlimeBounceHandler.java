@@ -13,7 +13,7 @@ import java.util.IdentityHashMap;
 
 public class SlimeBounceHandler {
 
-  private static final IdentityHashMap<Entity, SlimeBounceHandler> bouncingEntities = new IdentityHashMap<Entity, SlimeBounceHandler>();
+  private static final IdentityHashMap<Entity, SlimeBounceHandler> bouncingEntities = new IdentityHashMap<>();
 
 
   public final EntityLivingBase entityLiving;

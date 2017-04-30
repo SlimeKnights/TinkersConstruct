@@ -45,7 +45,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
   protected IBlockState air;
 
-  protected TIntObjectHashMap<SlimeIslandData> islandData = new TIntObjectHashMap<SlimeIslandData>();
+  protected TIntObjectHashMap<SlimeIslandData> islandData = new TIntObjectHashMap<>();
 
   public SlimeIslandGenerator() {
     air = Blocks.AIR.getDefaultState();

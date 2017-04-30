@@ -84,14 +84,14 @@ public final class TinkerRegistry {
 
   // Identifier to Material mapping. Hashmap so we can look it up directly without iterating
   private static final Map<String, Material> materials = Maps.newLinkedHashMap();
-  private static final Map<String, ITrait> traits = new THashMap<String, ITrait>();
+  private static final Map<String, ITrait> traits = new THashMap<>();
   // traceability information who registered what. Used to find errors.
-  private static final Map<String, ModContainer> materialRegisteredByMod = new THashMap<String, ModContainer>();
-  private static final Map<String, Map<String, ModContainer>> statRegisteredByMod = new THashMap<String, Map<String, ModContainer>>();
-  private static final Map<String, Map<String, ModContainer>> traitRegisteredByMod = new THashMap<String, Map<String, ModContainer>>();
+  private static final Map<String, ModContainer> materialRegisteredByMod = new THashMap<>();
+  private static final Map<String, Map<String, ModContainer>> statRegisteredByMod = new THashMap<>();
+  private static final Map<String, Map<String, ModContainer>> traitRegisteredByMod = new THashMap<>();
 
   // contains all cancelled materials, allows us to eat calls regarding the material silently
-  private static final Set<String> cancelledMaterials = new THashSet<String>();
+  private static final Set<String> cancelledMaterials = new THashSet<>();
 
 
   public static void addMaterial(Material material, IMaterialStats stats, ITrait trait) {
@@ -236,7 +236,7 @@ public final class TinkerRegistry {
       return;
     }
 
-    MaterialEvent.StatRegisterEvent<?> event = new MaterialEvent.StatRegisterEvent<IMaterialStats>(material, stats);
+    MaterialEvent.StatRegisterEvent<?> event = new MaterialEvent.StatRegisterEvent<>(material, stats);
     MinecraftForge.EVENT_BUS.post(event);
 
     // overridden stats from event
@@ -303,7 +303,7 @@ public final class TinkerRegistry {
       return false;
     }
 
-    MaterialEvent.TraitRegisterEvent<?> event = new MaterialEvent.TraitRegisterEvent<ITrait>(material, trait);
+    MaterialEvent.TraitRegisterEvent<?> event = new MaterialEvent.TraitRegisterEvent<>(material, trait);
     if(MinecraftForge.EVENT_BUS.post(event)) {
       // cancelled
       log.trace("Trait {} on {} cancelled by event", trait.getIdentifier(), material.getIdentifier());
@@ -324,8 +324,8 @@ public final class TinkerRegistry {
   ---------------------------------------------------------------------------*/
 
   /** This set contains all known tools */
-  private static final Set<ToolCore> tools = new TLinkedHashSet<ToolCore>();
-  private static final Set<IToolPart> toolParts = new TLinkedHashSet<IToolPart>();
+  private static final Set<ToolCore> tools = new TLinkedHashSet<>();
+  private static final Set<IToolPart> toolParts = new TLinkedHashSet<>();
   private static final Set<ToolCore> toolStationCrafting = Sets.newLinkedHashSet();
   private static final Set<ToolCore> toolForgeCrafting = Sets.newLinkedHashSet();
   private static final List<ItemStack> stencilTableCrafting = Lists.newLinkedList();
@@ -450,7 +450,7 @@ public final class TinkerRegistry {
   /*---------------------------------------------------------------------------
   | Modifiers                                                                 |
   ---------------------------------------------------------------------------*/
-  private static final Map<String, IModifier> modifiers = new THashMap<String, IModifier>();
+  private static final Map<String, IModifier> modifiers = new THashMap<>();
 
   public static void registerModifier(IModifier modifier) {
     registerModifierAlias(modifier, modifier.getIdentifier());
@@ -870,14 +870,14 @@ public final class TinkerRegistry {
 
   static void putStatTrace(String materialIdentifier, IMaterialStats stats, ModContainer trace) {
     if(!statRegisteredByMod.containsKey(materialIdentifier)) {
-      statRegisteredByMod.put(materialIdentifier, new HashMap<String, ModContainer>());
+      statRegisteredByMod.put(materialIdentifier, new HashMap<>());
     }
     statRegisteredByMod.get(materialIdentifier).put(stats.getIdentifier(), trace);
   }
 
   static void putTraitTrace(String materialIdentifier, ITrait trait, ModContainer trace) {
     if(!traitRegisteredByMod.containsKey(materialIdentifier)) {
-      traitRegisteredByMod.put(materialIdentifier, new HashMap<String, ModContainer>());
+      traitRegisteredByMod.put(materialIdentifier, new HashMap<>());
     }
     traitRegisteredByMod.get(materialIdentifier).put(trait.getIdentifier(), trace);
   }

@@ -70,7 +70,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
 
     // we only load once. Without cache we'd have to load ALL modifier files again for each tool!
     if(cache == null) {
-      cache = new THashMap<String, Map<String, String>>();
+      cache = new THashMap<>();
       loadFilesIntoCache();
     }
 
@@ -110,7 +110,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
   }
 
   private void loadFilesIntoCache() {
-    cache.put(defaultName, new THashMap<String, String>());
+    cache.put(defaultName, new THashMap<>());
 
     // loop through all knows modifier-model-files
     for(Map.Entry<String, List<ResourceLocation>> entry : locations.entrySet()) {
@@ -127,7 +127,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
             String texture = textureEntry.getValue();
 
             if(!cache.containsKey(tool)) {
-              cache.put(tool, new THashMap<String, String>());
+              cache.put(tool, new THashMap<>());
             }
             // we don't allow overriding
             if(!cache.get(tool).containsKey(modifier)) {

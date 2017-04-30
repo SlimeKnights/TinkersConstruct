@@ -378,7 +378,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   protected void addDefaultSubItems(List<ItemStack> subItems, Material... fixedMaterials) {
     for(Material head : TinkerRegistry.getAllMaterials()) {
-      List<Material> mats = new ArrayList<Material>(requiredComponents.length);
+      List<Material> mats = new ArrayList<>(requiredComponents.length);
 
       for(int i = 0; i < requiredComponents.length; i++) {
         if(fixedMaterials.length > i && fixedMaterials[i] != null && requiredComponents[i].isValidMaterial(fixedMaterials[i])) {

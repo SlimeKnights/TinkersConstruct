@@ -59,7 +59,7 @@ public class ItemThrowball extends ItemSnowball {
     StatBase statBase = StatList.getObjectUseStats(this);
     assert statBase != null;
     playerIn.addStat(statBase);
-    return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+    return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
   }
 
   public void launchThrowball(World world, EntityPlayer player, ThrowballType type, EnumHand hand) {

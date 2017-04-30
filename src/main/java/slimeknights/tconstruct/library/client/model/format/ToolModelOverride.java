@@ -39,8 +39,8 @@ public class ToolModelOverride {
   public final String modifierSuffix;
 
   // those will be filled later on during the loading progress
-  public final TIntObjectHashMap<MaterialModel> partModelReplacement = new TIntObjectHashMap<MaterialModel>();
-  public final TIntObjectHashMap<MaterialModel> brokenPartModelReplacement = new TIntObjectHashMap<MaterialModel>();
+  public final TIntObjectHashMap<MaterialModel> partModelReplacement = new TIntObjectHashMap<>();
+  public final TIntObjectHashMap<MaterialModel> brokenPartModelReplacement = new TIntObjectHashMap<>();
   public ModifierModel overrideModifierModel;
 
   public ToolModelOverride(ImmutableMap<ResourceLocation, Float> predicates, ImmutableMap<String, String> textures, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms, AmmoPosition ammoPosition, String modifierSuffix) {

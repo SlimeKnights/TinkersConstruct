@@ -56,7 +56,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   protected final PartMaterialType[] requiredComponents;
   // used to classify what the thing can do
-  protected final Set<Category> categories = new THashSet<Category>();
+  protected final Set<Category> categories = new THashSet<>();
 
   public TinkersItem(PartMaterialType... requiredComponents) {
     this.requiredComponents = requiredComponents;
@@ -134,7 +134,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   @Nonnull
   public ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks) {
     long itemCount = stacks.stream().filter(ItemStack::isEmpty).count();
-    List<Material> materials = new ArrayList<Material>(stacks.size());
+    List<Material> materials = new ArrayList<>(stacks.size());
 
     if(itemCount != requiredComponents.length) {
       return ItemStack.EMPTY;

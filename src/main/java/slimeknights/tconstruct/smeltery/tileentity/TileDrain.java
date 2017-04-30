@@ -49,7 +49,7 @@ public class TileDrain extends TileSmelteryComponent {
             || oldSmelteryTank == null || !drainFluidHandler.hasParent()
             || !oldSmelteryTank.get().equals(te)) {
           drainFluidHandler = new FluidHandlerExtractOnlyWrapper(tank);
-          oldSmelteryTank = new WeakReference<TileEntity>(te);
+          oldSmelteryTank = new WeakReference<>(te);
         }
         return (T) drainFluidHandler;
       }

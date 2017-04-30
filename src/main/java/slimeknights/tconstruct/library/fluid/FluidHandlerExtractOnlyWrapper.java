@@ -17,7 +17,7 @@ public class FluidHandlerExtractOnlyWrapper extends FluidHandlerConcatenate {
 
   public FluidHandlerExtractOnlyWrapper(IFluidHandler parent) {
     super(parent);
-    this.parent = new WeakReference<IFluidHandler>(parent);
+    this.parent = new WeakReference<>(parent);
   }
 
   // checks if the parent is no longer available, for example the smeltery containing the tank was removed

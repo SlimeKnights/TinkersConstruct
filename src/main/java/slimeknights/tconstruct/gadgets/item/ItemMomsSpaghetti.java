@@ -138,10 +138,10 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
     ItemStack itemStackIn = playerIn.getHeldItem(hand);
     if(playerIn.canEat(false) && getUses(itemStackIn) > 0) {
       playerIn.setActiveHand(hand);
-      return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+      return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
     }
     else {
-      return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+      return new ActionResult<>(EnumActionResult.FAIL, itemStackIn);
     }
   }
 

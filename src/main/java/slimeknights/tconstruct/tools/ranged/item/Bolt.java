@@ -60,7 +60,7 @@ public class Bolt extends ProjectileCore {
   @Override
   public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     for(Material head : TinkerRegistry.getAllMaterials()) {
-      List<Material> mats = new ArrayList<Material>(3);
+      List<Material> mats = new ArrayList<>(3);
 
       if(head.hasStats(MaterialTypes.HEAD)) {
         mats.add(TinkerMaterials.wood);

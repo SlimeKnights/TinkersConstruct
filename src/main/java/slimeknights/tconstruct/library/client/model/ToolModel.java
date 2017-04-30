@@ -107,7 +107,7 @@ public class ToolModel implements IModel {
       modifierModels = modifiers.bakeModels(state, format, bakedTextureGetter);
     }
     else {
-      modifierModels = new THashMap<String, IBakedModel>();
+      modifierModels = new THashMap<>();
     }
 
     Map<TransformType, TRSRTransformation> builder = Maps.newHashMap();

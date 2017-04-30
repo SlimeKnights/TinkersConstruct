@@ -19,7 +19,7 @@ public class ContainerSearedFurnace extends ContainerMultiModule<TileSearedFurna
   public ContainerSearedFurnace(InventoryPlayer inventoryPlayer, TileSearedFurnace tile) {
     super(tile);
 
-    sideInventory = new ContainerSideInventory<TileSearedFurnace>(tile, 0, 0, calcColumns());
+    sideInventory = new ContainerSideInventory<>(tile, 0, 0, calcColumns());
     addSubContainer(sideInventory, true);
 
     // player stuffs

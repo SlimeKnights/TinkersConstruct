@@ -149,7 +149,7 @@ public class LumberAxe extends AoeToolCore {
 
   public static boolean detectTree(World world, BlockPos origin) {
     BlockPos pos = null;
-    Stack<BlockPos> candidates = new Stack<BlockPos>();
+    Stack<BlockPos> candidates = new Stack<>();
     candidates.add(origin);
 
     while(!candidates.isEmpty()) {
@@ -223,7 +223,7 @@ public class LumberAxe extends AoeToolCore {
     public final int blocksPerTick;
 
     public Queue<BlockPos> blocks = Lists.newLinkedList();
-    public Set<BlockPos> visited = new THashSet<BlockPos>();
+    public Set<BlockPos> visited = new THashSet<>();
 
 
     public TreeChopTask(ItemStack tool, BlockPos start, EntityPlayer player, int blocksPerTick) {

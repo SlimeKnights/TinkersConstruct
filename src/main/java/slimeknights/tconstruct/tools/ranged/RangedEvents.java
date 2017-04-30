@@ -26,7 +26,7 @@ public class RangedEvents {
                                                          .filter(stack -> stack.getItem() == TinkerTools.boltCore)
                                                          .map(BoltCore::getHeadStack)
                                                          .collect(Collectors.toList());
-      event.replacementParts.addAll(new ArrayList<ItemStack>(extraParts));
+      event.replacementParts.addAll(new ArrayList<>(extraParts));
     }
   }
 }

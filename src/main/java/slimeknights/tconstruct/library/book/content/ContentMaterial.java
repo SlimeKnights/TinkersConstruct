@@ -74,7 +74,7 @@ public class ContentMaterial extends TinkerPage {
     int x = left + 10;
     int w = GuiBook.PAGE_WIDTH / 2 - 10;
 
-    LinkedHashSet<ITrait> allTraits = new LinkedHashSet<ITrait>();
+    LinkedHashSet<ITrait> allTraits = new LinkedHashSet<>();
 
     // head stats
     addStatsDisplay(x, y, w, list, allTraits, MaterialTypes.HEAD);
