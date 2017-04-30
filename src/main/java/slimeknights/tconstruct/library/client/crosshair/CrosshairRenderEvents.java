@@ -13,6 +13,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nonnull;
+
 @SideOnly(Side.CLIENT)
 public final class CrosshairRenderEvents {
 
@@ -31,7 +33,7 @@ public final class CrosshairRenderEvents {
     EntityPlayer entityPlayer = mc.player;
     ItemStack itemStack = getItemstack(entityPlayer);
 
-    if(itemStack == null) {
+    if(itemStack.isEmpty()) {
       return;
     }
 
@@ -77,15 +79,16 @@ public final class CrosshairRenderEvents {
     GlStateManager.disableBlend();
   }
 
+  @Nonnull
   private ItemStack getItemstack(EntityPlayer entityPlayer) {
-    ItemStack itemStack = null;
+    ItemStack itemStack = ItemStack.EMPTY;
     if(entityPlayer.isHandActive() && isValidItem(entityPlayer.getActiveItemStack())) {
       itemStack = entityPlayer.getActiveItemStack();
     }
-    if(itemStack == null && isValidItem(entityPlayer.getHeldItemMainhand())) {
+    if(itemStack.isEmpty() && isValidItem(entityPlayer.getHeldItemMainhand())) {
       itemStack = entityPlayer.getHeldItemMainhand();
     }
-    if(itemStack == null && isValidItem(entityPlayer.getHeldItemOffhand())) {
+    if(itemStack.isEmpty() && isValidItem(entityPlayer.getHeldItemOffhand())) {
       itemStack = entityPlayer.getHeldItemOffhand();
     }
 
@@ -93,6 +96,6 @@ public final class CrosshairRenderEvents {
   }
 
   private boolean isValidItem(ItemStack itemStack) {
-    return itemStack != null && itemStack.getItem() instanceof ICustomCrosshairUser;
+    return itemStack.getItem() instanceof ICustomCrosshairUser;
   }
 }
