@@ -33,6 +33,7 @@ public class ContainerStencilTable
   public ContainerStencilTable(InventoryPlayer playerInventory, TileStencilTable tile) {
     super(tile);
 
+    this.output = ItemStack.EMPTY;
     this.craftMatrix = new InventoryCraftingPersistent(this, tile, 1, 1);
     this.craftResult = new InventoryCraftResult();
 
@@ -60,13 +61,13 @@ public class ContainerStencilTable
 
   protected void syncWithOtherContainer(ContainerStencilTable otherContainer, EntityPlayerMP player) {
     this.setOutput(otherContainer.output);
-    if(output != null) {
+    if(!output.isEmpty()) {
       TinkerNetwork.sendTo(new StencilTableSelectionPacket(output), player);
     }
   }
 
   public void setOutput(ItemStack stack) {
-    if(stack == null) {
+    if(stack.isEmpty()) {
       return;
     }
     // ensure that the output is valid
@@ -89,7 +90,7 @@ public class ContainerStencilTable
   // Sets the result in the output slot depending on if there's a pattern in the input and on which pattern was selected
   public void updateResult() {
     // no pattern :(
-    if(craftMatrix.getStackInSlot(0) == null || output == null) {
+    if(craftMatrix.getStackInSlot(0).isEmpty() || output.isEmpty()) {
       craftResult.setInventorySlotContents(0, ItemStack.EMPTY);
     }
     else {
