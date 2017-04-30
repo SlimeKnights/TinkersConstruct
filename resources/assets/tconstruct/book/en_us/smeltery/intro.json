@@ -1,0 +1,11 @@
+{
+  "title": "The Smeltery",
+  "image": {
+	"file": "tconstruct:textures/gui/book/smeltery.png"
+  },
+  "text": [
+    {
+      "text": "There are many smelteries. But this is mine. And it melts things really well."
+    }
+  ]
+}

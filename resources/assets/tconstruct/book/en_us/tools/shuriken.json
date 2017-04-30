@@ -1,0 +1,15 @@
+{
+  "tool": "shuriken",
+  "text": [
+    {
+      "text": "Shurikens are short ranged throwing weapon, thrown instantly. They can be used from the offhand too, and allow for a lot of control due to their fast speed."
+    }
+  ],
+  "properties": [
+    "Requires a Tool Forge",
+    "Fast ranged weapon",
+    "Deadly",
+    "Ninja",
+    "Can be thrown from the offhand"
+  ]
+}

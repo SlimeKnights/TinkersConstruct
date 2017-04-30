@@ -1,0 +1,21 @@
+{
+  "modifier": "mending_moss",
+  "text": [
+    {
+      "text": "有一些青苔長在你磨損的工具邊緣。提供一些經驗值使它與工具融合，它就會緩緩地修復工具。"
+    }
+  ],
+  "effects": [
+    "儲存撿起的經驗",
+    "儲存上限隨著修改等級上升",
+    "隨著時間緩慢地修復工具",
+    "工具必須放在快捷欄或是副手才能修復",
+    "分為多個等級"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
+  ]
+}

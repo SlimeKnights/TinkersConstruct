@@ -1,0 +1,18 @@
+{
+  "modifier": "webbed",
+  "text": [
+    {
+      "text": "那些黏呼呼的蜘蛛網在某些時候也是有好處的 – 使用蜘蛛網拖慢敵人的速度!"
+    }
+  ],
+  "effects": [
+    "每個等級都會增加減速的程度",
+    "慢動作",
+    "分為多個等級"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
+  ]
+}

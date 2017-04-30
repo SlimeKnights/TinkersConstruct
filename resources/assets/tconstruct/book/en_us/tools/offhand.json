@@ -1,0 +1,13 @@
+{
+  "title":"Offhand Harvesting",
+  "text": [
+    {
+      "text": "Tinkers' tools allow you to harvest blocks with both your main hand and your offhand. To do so, simply put a tool capable of harvesting blocks into your offhand, while holding another tool in your mainhand. When breaking a block the effective tool will automatically be used, so just walk up to those blocks and break them like usual."
+    }
+  ],
+  "image": {
+    "file": "tconstruct:textures/gui/book/offhand.png",
+    "width": 150,
+    "height": 75
+  }
+}

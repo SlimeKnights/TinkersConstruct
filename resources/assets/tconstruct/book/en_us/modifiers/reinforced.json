@@ -1,0 +1,19 @@
+{
+  "modifier": "reinforced",
+  "text": [
+    {
+      "text": "Adding a reinforced plate to the tool seems to help with its durability, making it stronger."
+    }
+  ],
+  "effects": [
+    "Adds a chance to not consume durability",
+    "Stacks with previous levels of Reinforced",
+    "Multiple levels"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:hammer",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
+  ]
+}

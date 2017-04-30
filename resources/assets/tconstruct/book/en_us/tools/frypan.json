@@ -1,0 +1,21 @@
+{
+  "tool": "frypan",
+  "text": [
+    {
+      "text": "The Frying Pan is a heavy weapon that uses sheer weight to impede foes. It possesses a natural knockback."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Holding rightclick charges up a powerful blow, so powerful that it deals bonus damage, knocks enemies farther away and cooks any drops."
+    }
+  ],
+  "properties": [
+    "Medium damage",
+    "Natural knockback",
+    "Rightclick: Charged Blow",
+    "Charged blow cooks food drops",
+    "No offhand"
+  ]
+}

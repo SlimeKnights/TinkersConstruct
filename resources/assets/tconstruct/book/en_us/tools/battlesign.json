@@ -1,0 +1,20 @@
+{
+  "tool": "battlesign",
+  "text": [
+    {
+      "text": "The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere. It's a defensive weapon which doubles as a shield."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Blocking gives increased damage reduction, reflecting a small portion of the damage and reflects any projectiles."
+    }
+  ],
+  "properties": [
+    "Defensive weapon",
+    "Low damage",
+    "Can be used as a shield",
+    "Blocking reflects projectiles"
+  ]
+}

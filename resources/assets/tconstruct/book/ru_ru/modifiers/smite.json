@@ -1,0 +1,18 @@
+{
+  "modifier": "smite",
+  "text": [
+    {
+      "text": "Магическая сила освящённой земли усиливает Ваше оружие святым уроном."
+    }
+  ],
+  "effects": [
+    "Наносит большой урон нежити",
+    "Несколько уровней"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:hammer",
+    "tconstruct:arrow"
+  ]
+}

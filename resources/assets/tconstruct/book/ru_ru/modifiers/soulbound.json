@@ -1,0 +1,21 @@
+{
+  "modifier": "soulbound",
+  "text": [
+    {
+      "text": "Отличная совместимость. Вы любите свой инструмент. И он тоже Вас любит. Даже смерть не разлучит Вас."
+    }
+  ],
+  "effects": [
+    "Инструмент остаётся в инвентаре после смерти",
+    "Одноразово",
+    "НЕ требует слота модификации"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:pickaxe",
+    "tconstruct:hammer",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
+  ]
+}

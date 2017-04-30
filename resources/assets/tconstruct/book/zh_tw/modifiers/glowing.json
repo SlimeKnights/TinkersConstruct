@@ -1,0 +1,17 @@
+{
+  "modifier": "glowing",
+  "text": [
+    {
+      "text": "需要一些螢光石與神奇的終界之眼。很明顯的，它們可以看到亮度等級。"
+    }
+  ],
+  "effects": [
+    "在低亮度時放下光源",
+    "消耗耐久度"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:hammer",
+    "tconstruct:broadsword"
+  ]
+}

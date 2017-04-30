@@ -1,0 +1,11 @@
+{
+  "title": "冶炼炉",
+  "image": {
+	"file": "tconstruct:textures/gui/book/smeltery.png"
+  },
+  "text": [
+    {
+      "text": "这里有许多冶炼炉。但是这个是我的。而且它熔化东西非常的棒。"
+    }
+  ]
+}

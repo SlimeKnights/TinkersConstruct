@@ -1,0 +1,20 @@
+{
+  "tool": "crossbow",
+  "text": [
+    {
+      "text": "The Crossbow is a strong ranged weapon which needs to be loaded beforehand. Its bolts deal a lot of damage and pierce a part of the enemies armor. Crossbows gain extra benefits from bonus damage."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Loading is relatively slow, but often you only need one shot. You only need to land it."
+    }
+  ],
+  "properties": [
+    "Requires a Tool Forge",
+    "Uses Tinkers' Bolts",
+    "Partially armor piercing",
+    "Needs to be loaded before firing"
+  ]
+}

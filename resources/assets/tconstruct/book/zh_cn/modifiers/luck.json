@@ -1,0 +1,18 @@
+{
+  "modifier": "luck",
+  "text": [
+    {
+      "text": "据说在工具上面包裹上青金石会带来好运？"
+    }
+  ],
+  "effects": [
+    "增加时运或者掠夺属性",
+    "工具能拥有时运或者抢夺属性",
+    "使用多个青金石只会消耗一个强化槽",
+    "不能和精准采集兼容"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword"
+  ]
+}

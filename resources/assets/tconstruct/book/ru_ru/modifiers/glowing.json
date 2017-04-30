@@ -1,0 +1,17 @@
+{
+  "modifier": "glowing",
+  "text": [
+    {
+      "text": "Немного светопыли и глаз Эндера. Кончено же это определяет яркость света."
+    }
+  ],
+  "effects": [
+    "Освещает местность при низком освещении",
+    "Тратит прочность"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:hammer",
+    "tconstruct:broadsword"
+  ]
+}
