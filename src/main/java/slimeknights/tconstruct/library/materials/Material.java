@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.common.config.Config;
@@ -354,9 +356,9 @@ public class Material extends RecipeMatchRegistry {
     setShard(new ItemStack(item));
   }
 
-  public void setShard(ItemStack stack) {
-    if(stack == null) {
-      this.shardItem = null;
+  public void setShard(@Nonnull ItemStack stack) {
+    if(stack.isEmpty()) {
+      this.shardItem = ItemStack.EMPTY;
     }
     else {
       Optional<RecipeMatch.Match> matchOptional = matches(stack);
