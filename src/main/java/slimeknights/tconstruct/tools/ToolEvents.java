@@ -2,10 +2,12 @@ package slimeknights.tconstruct.tools;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryItem;
 import net.minecraft.world.storage.loot.LootPool;
@@ -113,10 +115,12 @@ public class ToolEvents {
   public void onInteract(PlayerInteractEvent.RightClickBlock event) {
     // does the player clicks on an echanting table with moss with 5 levels?
     if(ItemStack.areItemsEqual(event.getItemStack(), TinkerCommons.matMoss)) {
-      if(event.getWorld().getBlockState(event.getPos()).getBlock() == Blocks.BOOKSHELF) {
+      World world = event.getWorld();
+      BlockPos pos = event.getPos();
+      if(world.getBlockState(pos).getBlock().getEnchantPowerBonus(world, pos) >= 1.0f) {
+        EntityPlayer player = event.getEntityPlayer();
         if(event.getEntityPlayer().experienceLevel >= ModMendingMoss.MENDING_MOSS_LEVELS) {
           // convert moss to mending moss
-          EntityPlayer player = event.getEntityPlayer();
           player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
 
           if(!event.getWorld().isRemote) {
@@ -128,6 +132,10 @@ public class ToolEvents {
             event.setUseItem(Event.Result.DENY);
             event.setCanceled(true);
           }
+        } else {
+          player.sendStatusMessage(new TextComponentTranslation("message.mending_moss.not_enough_levels", new Object[] {
+              ModMendingMoss.MENDING_MOSS_LEVELS
+          }), true);
         }
       }
     }
