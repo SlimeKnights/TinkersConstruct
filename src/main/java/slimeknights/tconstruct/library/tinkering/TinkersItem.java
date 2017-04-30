@@ -158,6 +158,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
    * @param materials Materials to build with. Have to be in the correct order. No nulls!
    * @return The built item or null if invalid input.
    */
+  @Nonnull
   public ItemStack buildItem(List<Material> materials) {
     ItemStack tool = new ItemStack(this);
     tool.setTagCompound(buildItemNBT(materials));

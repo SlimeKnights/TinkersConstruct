@@ -106,7 +106,7 @@ public class Bolt extends ProjectileCore {
   @Override
   public ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks) {
     if(stacks.size() != 2) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     ItemStack boltCore = stacks.get(0);

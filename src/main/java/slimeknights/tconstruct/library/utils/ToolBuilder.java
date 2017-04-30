@@ -88,7 +88,7 @@ public final class ToolBuilder {
         continue;
       }
       ItemStack output = ((ToolCore) item).buildItemFromStacks(input);
-      if(output != null) {
+      if(!output.isEmpty()) {
         // name the item
         if(name != null && !name.isEmpty()) {
           output.setStackDisplayName(name);
