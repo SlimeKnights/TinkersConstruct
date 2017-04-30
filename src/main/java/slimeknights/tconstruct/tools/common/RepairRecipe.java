@@ -20,7 +20,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 public class RepairRecipe implements IRecipe {
 
-  private static final Set<Item> repairItems = ImmutableSet.<Item>of(TinkerTools.sharpeningKit);
+  private static final Set<Item> repairItems = ImmutableSet.of(TinkerTools.sharpeningKit);
 
   @Override
   public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World worldIn) {

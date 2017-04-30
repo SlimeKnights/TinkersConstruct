@@ -194,7 +194,7 @@ public class ContentModifier extends TinkerPage {
     for(int i = 0; i < tool.size(); i++) {
       if(tool.get(i) instanceof ToolCore) {
         ToolCore core = (ToolCore) tool.get(i);
-        List<Material> mats = ImmutableList.<Material>of(TinkerMaterials.wood, TinkerMaterials.cobalt, TinkerMaterials.ardite, TinkerMaterials.manyullyn);
+        List<Material> mats = ImmutableList.of(TinkerMaterials.wood, TinkerMaterials.cobalt, TinkerMaterials.ardite, TinkerMaterials.manyullyn);
         mats = mats.subList(0, core.getRequiredComponents().size());
         demo.set(i, ((ToolCore) tool.get(i)).buildItemForRendering(mats));
       }

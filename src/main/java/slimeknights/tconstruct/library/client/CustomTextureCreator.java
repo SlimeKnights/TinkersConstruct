@@ -76,7 +76,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
 
   public static void registerTextureForPart(ResourceLocation texture, IToolPart toolPart) {
     if(!texturePartMapping.containsKey(texture)) {
-      texturePartMapping.put(texture, Sets.<IToolPart>newHashSet());
+      texturePartMapping.put(texture, Sets.newHashSet());
     }
     texturePartMapping.get(texture).add(toolPart);
     registerTexture(texture);

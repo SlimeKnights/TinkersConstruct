@@ -101,7 +101,7 @@ public abstract class TileMultiblock<T extends MultiblockDetection> extends Tile
     info = structure;
 
     if(structure == null) {
-      structure = new MultiblockDetection.MultiblockStructure(0, 0, 0, ImmutableList.<BlockPos>of(this.pos));
+      structure = new MultiblockDetection.MultiblockStructure(0, 0, 0, ImmutableList.of(this.pos));
     }
 
     if(info != null) {

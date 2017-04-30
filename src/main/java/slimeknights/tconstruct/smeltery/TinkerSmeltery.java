@@ -774,7 +774,7 @@ public class TinkerSmeltery extends TinkerPulse {
         inputs = Arrays.asList(((ShapedOreRecipe) irecipe).getInput());
       }
       else if(irecipe instanceof ShapelessRecipes) {
-        inputs = Lists.<Object>newLinkedList(((ShapelessRecipes) irecipe).recipeItems);
+        inputs = Lists.newLinkedList(((ShapelessRecipes) irecipe).recipeItems);
       }
       else if(irecipe instanceof ShapedRecipes) {
         inputs = Arrays.asList((Object[]) ((ShapedRecipes) irecipe).recipeItems);

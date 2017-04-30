@@ -227,9 +227,9 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
     return true;
   }
 
-  public static enum EnumFrameType {
+  public enum EnumFrameType {
     FLOOR,
     CEILING,
-    WALL;
+    WALL
   }
 }

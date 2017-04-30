@@ -662,11 +662,8 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
       case INNER:
         // on any of theses three sides, if it matches a direction below it should not cull, but culls otherwise
         if(offsetSide == side || offsetSide == face.getOpposite() || offsetSide == flow) {
-          if(offsetConnected == ChannelConnected.INNER
-             && (offsetFlow == side.getOpposite() || offsetFlow == face || offsetFlow == flow.getOpposite())) {
-            return true;
-          }
-          return false;
+          return offsetConnected == ChannelConnected.INNER
+                 && (offsetFlow == side.getOpposite() || offsetFlow == face || offsetFlow == flow.getOpposite());
         }
 
         // the other three can only possibly connect if on the outer side
@@ -689,10 +686,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
       return true;
     }
     // back side face, full if we are connected
-    if(orginFace == flow && connected == ChannelConnected.OUTER) {
-      return true;
-    }
-    return false;
+    return orginFace == flow && connected == ChannelConnected.OUTER;
   }
 
   private static boolean hasHalfSide(EnumFacing orginHalf, EnumFacing orginFace, EnumFacing side, EnumFacing flow, ChannelConnected connected) {
@@ -757,7 +751,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
 
     public final int index;
 
-    private ChannelDirection() {
+    ChannelDirection() {
       this.index = this.ordinal();
     }
 

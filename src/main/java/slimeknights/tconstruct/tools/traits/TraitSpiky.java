@@ -30,7 +30,7 @@ public class TraitSpiky extends AbstractTrait {
       damageSource.setDamageIsAbsolute();
 
       if(attackEntitySecondary(damageSource, damage, target, true, false)) {
-        TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_CACTUS, (EntityLivingBase) target, 1);
+        TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_CACTUS, target, 1);
       }
       target.hurtResistantTime = 4; // very short invulv time from that
     }

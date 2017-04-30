@@ -59,7 +59,7 @@ public class ExplosionEFLN extends Explosion {
             float f = this.explosionSize * (1f - d / (r));
             IBlockState iblockstate = this.world.getBlockState(blockpos);
 
-            float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.world, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance(world, blockpos, (Entity) null, this);
+            float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.world, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance(world, blockpos, null, this);
             f -= (f2 + 0.3F) * 0.3F;
 
 

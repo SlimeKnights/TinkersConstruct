@@ -71,7 +71,7 @@ public class ToolModelOverride {
       }
 
       if(texElem.isJsonObject()) {
-        return ImmutableList.of((ToolModelOverride) GSON.fromJson(texElem, ToolModelOverrideDeserializer.TYPE));
+        return ImmutableList.of(GSON.fromJson(texElem, ToolModelOverrideDeserializer.TYPE));
       }
 
       ImmutableList.Builder<ToolModelOverride> builder = ImmutableList.builder();
@@ -107,7 +107,7 @@ public class ToolModelOverride {
 
       ImmutableMap<String, String> textures;
       if(json.get("textures") != null) {
-        textures = ImmutableMap.copyOf((Map<String, String>)GSON.fromJson(json, ModelTextureDeserializer.TYPE));
+        textures = ImmutableMap.copyOf(GSON.fromJson(json, ModelTextureDeserializer.TYPE));
       }
       else {
         textures = ImmutableMap.of();

@@ -64,7 +64,7 @@ public class BakedMaterialModel extends BakedWrapper.Perspective implements IPer
     static MaterialItemOverrideList INSTANCE = new MaterialItemOverrideList();
 
     private MaterialItemOverrideList() {
-      super(ImmutableList.<ItemOverride>of());
+      super(ImmutableList.of());
     }
 
     @Nonnull

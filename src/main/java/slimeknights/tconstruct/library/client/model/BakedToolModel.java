@@ -75,7 +75,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
     static ToolItemOverrideList INSTANCE = new ToolItemOverrideList();
 
     protected ToolItemOverrideList() {
-      super(ImmutableList.<ItemOverride>of());
+      super(ImmutableList.of());
     }
 
     @Nonnull
