@@ -23,7 +23,7 @@ public final class DualToolHarvestUtils {
   public static boolean shouldUseOffhand(EntityLivingBase player, IBlockState blockState, ItemStack tool) {
     ItemStack offhand = player.getHeldItemOffhand();
 
-    return tool != null
+    return !tool.isEmpty()
            && !offhand.isEmpty()
            && tool.getItem() instanceof TinkerToolCore
            && !ToolHelper.isToolEffective2(tool, blockState)
