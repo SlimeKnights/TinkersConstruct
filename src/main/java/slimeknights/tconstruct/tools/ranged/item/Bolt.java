@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
@@ -103,6 +105,7 @@ public class Bolt extends ProjectileCore {
     return 1;
   }
 
+  @Nonnull
   @Override
   public ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks) {
     if(stacks.size() != 2) {

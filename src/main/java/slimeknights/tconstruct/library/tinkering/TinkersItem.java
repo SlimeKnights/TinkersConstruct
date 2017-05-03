@@ -133,7 +133,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
    */
   @Nonnull
   public ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks) {
-    long itemCount = stacks.stream().filter(ItemStack::isEmpty).count();
+    long itemCount = stacks.stream().filter(stack -> !stack.isEmpty()).count();
     List<Material> materials = new ArrayList<>(stacks.size());
 
     if(itemCount != requiredComponents.length) {
