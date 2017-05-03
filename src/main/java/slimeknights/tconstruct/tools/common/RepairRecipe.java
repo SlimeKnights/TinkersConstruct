@@ -27,12 +27,13 @@ public class RepairRecipe implements IRecipe {
     return getRepairedTool(inv, true) != null;
   }
 
-  @Nullable
+  @Nonnull
   @Override
   public ItemStack getCraftingResult(@Nonnull InventoryCrafting inv) {
     return getRepairedTool(inv, true);
   }
 
+  @Nonnull
   private ItemStack getRepairedTool(@Nonnull InventoryCrafting inv, boolean simulate) {
 
     ItemStack tool = null;
@@ -54,7 +55,7 @@ public class RepairRecipe implements IRecipe {
       if(item instanceof TinkersItem) {
         // stop if we already have a tool, 2 tools present
         if(tool != null) {
-          return null;
+          return ItemStack.EMPTY;
         }
         tool = slot;
       }
@@ -64,12 +65,12 @@ public class RepairRecipe implements IRecipe {
       }
       // invalid item
       else {
-        return null;
+        return ItemStack.EMPTY;
       }
     }
     // no tool found?
     if(tool == null) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     if(simulate) {
@@ -85,6 +86,7 @@ public class RepairRecipe implements IRecipe {
     return 9;
   }
 
+  @Nonnull
   @Override
   public ItemStack getRecipeOutput() {
     return ItemStack.EMPTY;

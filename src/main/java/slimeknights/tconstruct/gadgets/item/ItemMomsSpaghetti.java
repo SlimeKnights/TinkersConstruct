@@ -99,7 +99,7 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
   }
 
   @Override
-  @Nullable
+  @Nonnull
   public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
     stack.setItemDamage(stack.getItemDamage() + 1);
 

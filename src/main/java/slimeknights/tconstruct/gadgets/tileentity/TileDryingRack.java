@@ -56,7 +56,7 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
   }
 
   @Override
-  public void setInventorySlotContents(int slot, ItemStack stack) {
+  public void setInventorySlotContents(int slot, @Nonnull ItemStack stack) {
     // if there is no drying recipe, just place the item directly into the output slot for item output and tick efficiency
     if(slot == 0 && !isStackInSlot(1) && !stack.isEmpty() && TinkerRegistry.getDryingResult(stack) == null) {
       slot = 1;
@@ -72,6 +72,7 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
     }
   }
 
+  @Nonnull
   @Override
   public ItemStack decrStackSize(int slot, int quantity) {
     ItemStack stack = super.decrStackSize(slot, quantity);

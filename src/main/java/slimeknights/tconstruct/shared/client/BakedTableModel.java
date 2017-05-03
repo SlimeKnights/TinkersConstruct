@@ -235,7 +235,7 @@ public class BakedTableModel implements IPerspectiveAwareModel {
 
     @Nonnull
     @Override
-    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
+    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
       if(originalModel instanceof BakedTableModel) {
         // read out the data on the itemstack
         ItemStack blockStack = new ItemStack(TagUtil.getTagSafe(stack).getCompoundTag(TileTable.FEET_TAG));

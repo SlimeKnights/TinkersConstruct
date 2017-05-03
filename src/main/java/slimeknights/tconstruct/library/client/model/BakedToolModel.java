@@ -80,7 +80,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
 
     @Nonnull
     @Override
-    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, final ItemStack stack, @Nonnull final World world, @Nonnull final EntityLivingBase entity) {
+    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, final ItemStack stack, final World world, final EntityLivingBase entity) {
       NBTTagCompound baseTag = TagUtil.getBaseTag(stack);
       IBakedModel outputModel = originalModel;
       if(!baseTag.hasNoTags()) {

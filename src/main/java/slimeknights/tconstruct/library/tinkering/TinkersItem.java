@@ -296,6 +296,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     return 1f;
   }
 
+  @Nonnull
   @Override
   public ItemStack repair(ItemStack repairable, NonNullList<ItemStack> repairItems) {
     if(repairable.getItemDamage() == 0 && !ToolHelper.isBroken(repairable)) {

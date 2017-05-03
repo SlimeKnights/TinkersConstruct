@@ -6,6 +6,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
+import javax.annotation.Nonnull;
+
 public class SlotToolStationOut extends Slot {
 
   public ContainerToolStation parent;
@@ -21,8 +23,9 @@ public class SlotToolStationOut extends Slot {
     return false;
   }
 
+  @Nonnull
   @Override
-  public ItemStack onTake(EntityPlayer playerIn, ItemStack stack) {
+  public ItemStack onTake(EntityPlayer playerIn, @Nonnull ItemStack stack) {
     FMLCommonHandler.instance().firePlayerCraftingEvent(playerIn, stack, parent.getTile());
     parent.onResultTaken(playerIn, stack);
     stack.onCrafting(playerIn.getEntityWorld(), playerIn, 1);

@@ -116,7 +116,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
 
   // item dropped on silktouching
 
-  @Nullable
+  @Nonnull
   @Override
   protected ItemStack getSilkTouchDrop(IBlockState state) {
     return new ItemStack(Item.getItemFromBlock(this), 1, (state.getValue(BlockSlimeGrass.FOLIAGE)).ordinal() & 3);

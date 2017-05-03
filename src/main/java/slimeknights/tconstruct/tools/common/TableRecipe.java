@@ -10,6 +10,8 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.shared.block.BlockTable;
 
 import static net.minecraftforge.oredict.RecipeSorter.Category.SHAPED;
@@ -27,6 +29,7 @@ public class TableRecipe extends ShapedOreRecipe {
     this.outputBlocks = variantItems;
   }
 
+  @Nonnull
   @Override
   public ItemStack getCraftingResult(InventoryCrafting craftMatrix) {
     for(int i = 0; i < craftMatrix.getSizeInventory(); i++) {
@@ -43,6 +46,7 @@ public class TableRecipe extends ShapedOreRecipe {
     return super.getCraftingResult(craftMatrix);
   }
 
+  @Nonnull
   @Override
   public ItemStack getRecipeOutput() {
     if(!outputBlocks.isEmpty() && !output.isEmpty()) {

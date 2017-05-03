@@ -68,7 +68,7 @@ public class BakedMaterialModel extends BakedWrapper.Perspective implements IPer
 
     @Nonnull
     @Override
-    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
+    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
       String id = ((IMaterialItem) stack.getItem()).getMaterialID(stack);
       return ((BakedMaterialModel) originalModel).getModelByIdentifier(id);
     }
