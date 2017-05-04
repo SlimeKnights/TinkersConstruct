@@ -107,6 +107,6 @@ public class CastingRecipe implements ICastingRecipe {
     int time = 24;
     int temperature = fluid.getTemperature() - 300;
 
-    return time + (temperature * amount) / 1600;
+    return time + 1;
   }
 }
