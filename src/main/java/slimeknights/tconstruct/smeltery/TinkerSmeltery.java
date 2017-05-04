@@ -828,9 +828,13 @@ public class TinkerSmeltery extends TinkerPulse {
         ItemStack output = irecipe.getRecipeOutput().copy();
         int amount = known.get(fluid) / output.stackSize;
         output.stackSize = 1;
-        TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(output, amount), fluid));
-        log.trace("Added automatic melting recipe for {} ({} {})", irecipe.getRecipeOutput().toString(), amount, fluid
-            .getName());
+        try {
+          log.trace("Adding automatic melting recipe for {} ({} {})", irecipe.getRecipeOutput().toString(), amount, fluid
+                  .getName());
+          TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(output, amount), fluid));
+        } catch (NullPointerException e) {
+          e.printStackTrace();
+        }
       }
     }
   }
