@@ -89,6 +89,13 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
       // this also updates the needsFuel flag, which causes us to consume fuel at the end.
       // This way fuel is only consumed if it's actually needed
 
+      // if the smeltry is cloned using a structure block, smeltery is considered active but this.info is null. Try to rebuild the smeltery in this case.
+      if(info == null) {
+        checkSmelteryStructure();
+        // if the rebuild doesn't work (ie. the slave blocks still refers to an existing smeltery), skip the update to prevent a server crash.
+        if(info == null) return;
+      }
+      
       if(tick == 0) {
         interactWithEntitiesInside();
       }
