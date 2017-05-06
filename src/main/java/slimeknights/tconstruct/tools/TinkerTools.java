@@ -334,9 +334,9 @@ public class TinkerTools extends AbstractToolPulse {
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudMagma, slimeBallMagma, Items.MAGMA_CREAM, slimeBallMagma, Items.MAGMA_CREAM, Blocks.SOUL_SAND, Blocks.NETHERRACK));
 
     // recipies using congealed slime blocks
-    ItemStack congealed = new ItemStack(TinkerCommons.blockSlimeCongealed, 0, BlockSlime.SlimeType.GREEN.meta);
+    ItemStack congealed = new ItemStack(TinkerCommons.blockSlimeCongealed, 1, BlockSlime.SlimeType.GREEN.meta);
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudGreen, congealed, "sand", "dirt"));
-    congealed = new ItemStack(TinkerCommons.blockSlimeCongealed, 0, BlockSlime.SlimeType.BLUE.meta);
+    congealed = new ItemStack(TinkerCommons.blockSlimeCongealed, 1, BlockSlime.SlimeType.BLUE.meta);
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudBlue, congealed, "sand", "dirt"));
 
     // Slime crystals
