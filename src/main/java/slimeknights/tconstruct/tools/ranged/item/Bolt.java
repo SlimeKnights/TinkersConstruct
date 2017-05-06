@@ -107,7 +107,8 @@ public class Bolt extends ProjectileCore {
 
   @Nonnull
   @Override
-  public ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks) {
+  public ItemStack buildItemFromStacks(NonNullList<ItemStack> inputStacks) {
+    List<ItemStack> stacks = inputStacks.stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
     if(stacks.size() != 2) {
       return ItemStack.EMPTY;
     }
