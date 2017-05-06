@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.entity.EntityProjectileBase;
@@ -17,12 +18,12 @@ public interface IAmmo {
   /**
    * Returns the current ammo amount of the item.
    */
-  int getCurrentAmmo(ItemStack stack);
+  int getCurrentAmmo(@Nonnull ItemStack stack);
 
   /**
    * Returns the maximum amount of ammo the item can have
    */
-  int getMaxAmmo(ItemStack stack);
+  int getMaxAmmo(@Nonnull ItemStack stack);
 
   /**
    * Add one ammo. Usually used for picking up projectiles on the ground, etc.
@@ -30,7 +31,7 @@ public interface IAmmo {
    * @param player The player picking up the ammo. Used for particles and trait interaction.
    * @return True if ammo could be added, false if ammo already is full.
    */
-  boolean addAmmo(ItemStack stack, @Nullable EntityLivingBase player);
+  boolean addAmmo(@Nonnull ItemStack stack, @Nullable EntityLivingBase player);
 
   /**
    * Consumes one ammo. Usually when a projectile is shot.
@@ -38,7 +39,7 @@ public interface IAmmo {
    * @param player The player using the ammo. Used for particles and trait interaction.
    * @return True if ammo was used, false if no ammo is left or no ammo was used (due to traits,...).
    */
-  boolean useAmmo(ItemStack stack, @Nullable EntityLivingBase player);
+  boolean useAmmo(@Nonnull ItemStack stack, @Nullable EntityLivingBase player);
 
   /**
    * Sets the Ammo amount to that absolute value.
@@ -46,10 +47,10 @@ public interface IAmmo {
    * @param count Set count
    * @param stack The itemstack to set the ammo for. Has to have proper NBT.
    */
-  void setAmmo(int count, ItemStack stack);
+  void setAmmo(int count, @Nonnull ItemStack stack);
 
   /**
    * Gets the projectile to fire, matching the itemstacks data.
    */
-  EntityProjectileBase getProjectile(ItemStack stack, ItemStack launcher, World world, EntityPlayer player, float speed, float inaccuracy, float power, boolean usedAmmo);
+  EntityProjectileBase getProjectile(@Nonnull ItemStack stack, @Nonnull ItemStack launcher, World world, EntityPlayer player, float speed, float inaccuracy, float power, boolean usedAmmo);
 }

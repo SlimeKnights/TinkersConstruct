@@ -59,7 +59,7 @@ public class SlimeTreeGenerator implements IWorldGenerator {
     if(yPos >= 1 && yPos + height + 1 <= 256) {
       IBlockState state = world.getBlockState(pos.down());
       Block soil = state.getBlock();
-      boolean isSoil = (soil != null && soil.canSustainPlant(state, world, pos.down(), EnumFacing.UP, TinkerWorld.slimeSapling));
+      boolean isSoil = (soil == Blocks.AIR && soil.canSustainPlant(state, world, pos.down(), EnumFacing.UP, TinkerWorld.slimeSapling));
 
       if(isSoil) {
         soil.onPlantGrow(state, world, pos.down(), pos);

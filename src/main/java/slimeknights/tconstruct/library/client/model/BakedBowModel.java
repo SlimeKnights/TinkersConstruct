@@ -52,7 +52,7 @@ public class BakedBowModel extends BakedToolModel {
 
       if(original instanceof BakedBowModel && stack.getItem() instanceof IAmmoUser) {
         ItemStack ammo = ((IAmmoUser) stack.getItem()).getAmmoToRender(stack, entityLivingBase);
-        if(ammo != null) {
+        if(!ammo.isEmpty()) {
           key = new CacheKeyAmmo(original, stack, ammo);
         }
       }
@@ -64,7 +64,7 @@ public class BakedBowModel extends BakedToolModel {
     protected void addExtraQuads(ItemStack stack, BakedToolModel original, ImmutableList.Builder<BakedQuad> quads, World world, EntityLivingBase entityLivingBase) {
       if(original instanceof BakedBowModel && stack.getItem() instanceof IAmmoUser) {
         ItemStack ammo = ((IAmmoUser) stack.getItem()).getAmmoToRender(stack, entityLivingBase);
-        if(ammo != null) {
+        if(!ammo.isEmpty()) {
           AmmoPosition pos = ((BakedBowModel) original).ammoPosition;
           // ammo found, render it
           IBakedModel ammoModel = ModelHelper.getBakedModelForItem(ammo, world, entityLivingBase);

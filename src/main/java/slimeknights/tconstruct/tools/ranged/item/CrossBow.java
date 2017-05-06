@@ -161,7 +161,7 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
   @Override
   public ItemStack getAmmoToRender(ItemStack weapon, EntityLivingBase player) {
     if(!isLoaded(weapon)) {
-      return null;
+      return ItemStack.EMPTY;
     }
     return super.getAmmoToRender(weapon, player);
   }
