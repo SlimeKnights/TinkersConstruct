@@ -7,6 +7,7 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.traits.IProjectileTrait;
@@ -15,15 +16,16 @@ import slimeknights.tconstruct.library.traits.ITrait;
 public interface ITinkerProjectile extends INBTSerializable<NBTTagCompound> {
 
   /** The itemstack that represents the projectile */
+  @Nonnull
   ItemStack getItemStack();
 
-  void setItemStack(ItemStack stack);
+  void setItemStack(@Nonnull ItemStack stack);
 
   /** The itemstack the projectile has been launched with */
-  @Nullable
+  @Nonnull
   ItemStack getLaunchingStack();
 
-  void setLaunchingStack(ItemStack launchingStack);
+  void setLaunchingStack(@Nonnull ItemStack launchingStack);
 
   List<IProjectileTrait> getProjectileTraits();
 

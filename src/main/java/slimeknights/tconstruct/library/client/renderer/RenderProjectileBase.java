@@ -44,7 +44,7 @@ public class RenderProjectileBase<T extends EntityProjectileBase> extends Render
     if(handler == null) {
       return;
     }
-    ItemStack item = handler.getItemStack();
+    ItemStack itemStack = handler.getItemStack();
 
     GL11.glPushMatrix();
     GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -70,8 +70,8 @@ public class RenderProjectileBase<T extends EntityProjectileBase> extends Render
     // draw correct texture. not some weird block fragments.
     renderManager.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-    if(item != null) {
-      Minecraft.getMinecraft().getRenderItem().renderItem(item, ItemCameraTransforms.TransformType.NONE);
+    if(!itemStack.isEmpty()) {
+      Minecraft.getMinecraft().getRenderItem().renderItem(itemStack, ItemCameraTransforms.TransformType.NONE);
     }
     else {
       ItemStack dummy = new ItemStack(Items.STICK);

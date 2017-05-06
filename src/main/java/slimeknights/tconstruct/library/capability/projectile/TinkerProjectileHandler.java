@@ -44,7 +44,6 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
     updateTraits();
   }
 
-  @Nullable
   @Override
   public ItemStack getLaunchingStack() {
     return launcher;

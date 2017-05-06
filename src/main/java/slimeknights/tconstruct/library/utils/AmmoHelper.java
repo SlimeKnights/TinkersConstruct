@@ -21,9 +21,10 @@ public final class AmmoHelper {
 
   private AmmoHelper() {}
 
+  @Nonnull
   public static ItemStack findAmmoFromInventory(List<Item> ammoItems, Entity entity) {
     if(ammoItems == null || entity == null || !entity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     // we specifically check the equipment inventory first because it contains the offhand

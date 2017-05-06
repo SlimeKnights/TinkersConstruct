@@ -24,7 +24,7 @@ public class RepairRecipe implements IRecipe {
 
   @Override
   public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World worldIn) {
-    return getRepairedTool(inv, true) != null;
+    return !getRepairedTool(inv, true).isEmpty();
   }
 
   @Nonnull

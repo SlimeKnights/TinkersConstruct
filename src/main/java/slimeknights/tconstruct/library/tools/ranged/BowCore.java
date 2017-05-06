@@ -132,7 +132,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
   public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
     ItemStack itemStackIn = playerIn.getHeldItem(hand);
     if(!ToolHelper.isBroken(itemStackIn)) {
-      boolean hasAmmo = findAmmo(itemStackIn, playerIn) != null;
+      boolean hasAmmo = !findAmmo(itemStackIn, playerIn).isEmpty();
 
       ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onArrowNock(itemStackIn, worldIn, playerIn, hand, hasAmmo);
       if(ret != null) {
@@ -155,18 +155,18 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     }
     EntityPlayer player = (EntityPlayer) entityLiving;
     ItemStack ammo = findAmmo(stack, entityLiving);
-    if(ammo == null && !player.capabilities.isCreativeMode) {
+    if(ammo.isEmpty() && !player.capabilities.isCreativeMode) {
       return;
     }
 
     int useTime = this.getMaxItemUseDuration(stack) - timeLeft;
-    useTime = ForgeEventFactory.onArrowLoose(stack, worldIn, player, useTime, ammo != null);
+    useTime = ForgeEventFactory.onArrowLoose(stack, worldIn, player, useTime, !ammo.isEmpty());
 
     if(useTime < 5) {
       return;
     }
 
-    if(ammo == null) {
+    if(ammo.isEmpty()) {
       ammo = getCreativeProjectileStack();
     }
 
@@ -184,7 +184,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     TagUtil.setResetFlag(stack, true);
   }
 
-  public void shootProjectile(ItemStack ammo, ItemStack bow, World worldIn, EntityPlayer player, int useTime) {
+  public void shootProjectile(@Nonnull ItemStack ammo, @Nonnull ItemStack bow, World worldIn, EntityPlayer player, int useTime) {
     float progress = getDrawbackProgress(bow, useTime);
     float power = ItemBow.getArrowVelocity((int)(progress * 20f)) * progress * baseProjectileSpeed();
     power *= ProjectileLauncherNBT.from(bow).range;
@@ -256,6 +256,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     }
   }
 
+  @Nonnull
   protected ItemStack getCreativeProjectileStack() {
     return new ItemStack(Items.ARROW);
   }
@@ -272,7 +273,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
   @Override
   public ItemStack getAmmoToRender(ItemStack weapon, EntityLivingBase player) {
     if(ToolHelper.isBroken(weapon)) {
-      return null;
+      return ItemStack.EMPTY;
     }
     return findAmmo(weapon, player);
   }

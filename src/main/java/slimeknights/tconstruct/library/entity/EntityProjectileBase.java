@@ -195,7 +195,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     boolean bounceOff = false;
     Entity entityHit = raytraceResult.entityHit;
     // deal damage if we have everything
-    if(item != null && item.getItem() instanceof ToolCore && this.shootingEntity instanceof EntityLivingBase) {
+    if(item.getItem() instanceof ToolCore && this.shootingEntity instanceof EntityLivingBase) {
       EntityLivingBase attacker = (EntityLivingBase) this.shootingEntity;
       //EntityLivingBase target = (EntityLivingBase) raytraceResult.entityHit;
 
@@ -224,7 +224,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
         if(item.getItem() instanceof IProjectile) {
           projectileAttributes = ((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem);
 
-          if(launcher != null && launcher.getItem() instanceof ILauncher) {
+          if(launcher.getItem() instanceof ILauncher) {
             ((ILauncher) launcher.getItem()).modifyProjectileAttributes(projectileAttributes, tinkerProjectile.getLaunchingStack(), tinkerProjectile.getItemStack(), tinkerProjectile.getPower());
           }
 

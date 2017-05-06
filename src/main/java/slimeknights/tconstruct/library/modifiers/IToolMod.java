@@ -6,12 +6,15 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 /**
  * Contains the common things modifiers and traits share.
  * Basically basic information that relates to user display
  */
 public interface IToolMod {
 
+  @Nonnull
   String getIdentifier();
 
   String getLocalizedName();
