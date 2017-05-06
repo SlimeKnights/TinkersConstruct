@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.utils;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,17 +28,25 @@ public final class AmmoHelper {
 
     // we specifically check the equipment inventory first because it contains the offhand
     IItemHandler itemHandler = entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.NORTH);
-    ItemStack ammo = validAmmoInRange(itemHandler, ammoItems, 0, InventoryPlayer.getHotbarSize());
+    ItemStack ammo = ItemStack.EMPTY;
+    if(itemHandler != null) {
+      ammo = validAmmoInRange(itemHandler, ammoItems, 0, itemHandler.getSlots());
+    }
 
     // and then the remaining inventory
     if(ammo.isEmpty()) {
       itemHandler = entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
-      // find an itemstack that matches our input. Hotbar first
-      ammo = validAmmoInRange(itemHandler, ammoItems, 0, InventoryPlayer.getHotbarSize());
-      // then remaining inventory
-      if(ammo.isEmpty()) {
-        assert itemHandler != null;
-        ammo = validAmmoInRange(itemHandler, ammoItems, InventoryPlayer.getHotbarSize(), itemHandler.getSlots());
+      if(itemHandler != null) {
+        int hotbarSize = 0;
+        // find an itemstack that matches our input. Hotbar first
+        if(entity instanceof EntityPlayer) {
+          hotbarSize = Math.min(InventoryPlayer.getHotbarSize(), itemHandler.getSlots());
+          ammo = validAmmoInRange(itemHandler, ammoItems, 0, hotbarSize);
+        }
+        // then remaining inventory
+        if(ammo.isEmpty()) {
+          ammo = validAmmoInRange(itemHandler, ammoItems, hotbarSize, itemHandler.getSlots());
+        }
       }
     }
 
