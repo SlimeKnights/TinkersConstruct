@@ -81,11 +81,13 @@ public class BakedBowModel extends BakedToolModel {
   protected static class CacheKeyAmmo extends CacheKey {
 
     final Item ammoItem;
+    final int ammoMeta;
     final String ammoData;
 
     private CacheKeyAmmo(IBakedModel parent, ItemStack stack, ItemStack ammo) {
       super(parent, stack);
       ammoItem = ammo.getItem();
+      ammoMeta = ammo.getMetadata();
       ammoData = getDataFromStack(ammo);
     }
 
@@ -102,9 +104,17 @@ public class BakedBowModel extends BakedToolModel {
       }
 
       CacheKeyAmmo that = (CacheKeyAmmo) o;
-
-      if(ammoItem != null ? !ammoItem.equals(that.ammoItem) : that.ammoItem != null) {
-        return false;
+      // if we have an item
+      if(ammoItem != null) {
+        // it must be equal and have equal meta
+        if(!ammoItem.equals(that.ammoItem) || ammoMeta != that.ammoMeta) {
+          return false;
+        }
+      } else {
+        // if no item, both must have no item
+        if(that.ammoItem != null) {
+          return false;
+        }
       }
       return ammoData != null ? ammoData.equals(that.ammoData) : that.ammoData == null;
 
@@ -115,8 +125,8 @@ public class BakedBowModel extends BakedToolModel {
       int result = super.hashCode();
       result = 31 * result + (ammoItem != null ? ammoItem.hashCode() : 0);
       result = 31 * result + (ammoData != null ? ammoData.hashCode() : 0);
+      result = 31 * result + ammoMeta;
       return result;
     }
   }
-
 }
