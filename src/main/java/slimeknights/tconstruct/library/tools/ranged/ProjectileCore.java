@@ -76,7 +76,8 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
 
   @Override
   public void setAmmo(int count, ItemStack stack) {
-    stack.setItemDamage(count * durabilityPerAmmo);
+    // we are setting ammo remaining, but damage of 0 is full ammo
+    stack.setItemDamage((getMaxAmmo(stack) - count) * durabilityPerAmmo);
   }
 
   @Override
@@ -117,7 +118,6 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
 
     // prevent a positive feedback loop with picking up ammo + durability retaining modifiers like reinforced
     if(!player.capabilities.isCreativeMode && !world.isRemote && !usedAmmo) {
-      reference.setCount(0);
       setAmmo(0, reference);
     }
 

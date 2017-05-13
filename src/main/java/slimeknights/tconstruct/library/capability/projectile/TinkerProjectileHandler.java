@@ -10,8 +10,6 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tools.ranged.IAmmo;
 import slimeknights.tconstruct.library.traits.IProjectileTrait;
@@ -77,7 +75,7 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
   public boolean pickup(EntityLivingBase entity, boolean simulate) {
     ItemStack stack = AmmoHelper.getMatchingItemstackFromInventory(parent, entity, true);
     if(stack.getItem() instanceof IAmmo) {
-      if(!simulate && parent.getCount() > 0) {
+      if(!simulate && ((IAmmo) parent.getItem()).getCurrentAmmo(parent) > 0) {
         ToolHelper.unbreakTool(stack);
         ((IAmmo) stack.getItem()).addAmmo(stack, entity);
       }
