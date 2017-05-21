@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.events;
 
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 
+import slimeknights.tconstruct.library.MaterialIntegration;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
@@ -65,6 +66,20 @@ public abstract class MaterialEvent extends TinkerEvent {
     public TraitRegisterEvent(Material material, T trait) {
       super(material);
       this.trait = trait;
+    }
+  }
+
+  /**
+   * Fired when a material should be integrated the default way. If cancelled the integration will not take place.
+   */
+  @Cancelable
+  public static class IntegrationEvent extends MaterialEvent {
+
+    public final MaterialIntegration materialIntegration;
+
+    public IntegrationEvent(Material material, MaterialIntegration materialIntegration) {
+      super(material);
+      this.materialIntegration = materialIntegration;
     }
   }
 }
