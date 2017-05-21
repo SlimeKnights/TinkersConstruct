@@ -30,6 +30,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -857,6 +858,56 @@ public final class TinkerRegistry {
     }
 
     return ItemStack.EMPTY;
+  }
+
+  /*---------------------------------------------------------------------------
+  | MATERIAL INTEGRATION                                                      |
+  ---------------------------------------------------------------------------*/
+
+  private static List<MaterialIntegration> materialIntegrations = new ArrayList<>();
+
+  public static MaterialIntegration integrate(Material material) {
+    return integrate(new MaterialIntegration(material));
+  }
+
+  public static MaterialIntegration integrate(Material material, Fluid fluid) {
+    return integrate(new MaterialIntegration(material, fluid));
+  }
+
+  public static MaterialIntegration integrate(Material material, String oreRequirement) {
+    MaterialIntegration materialIntegration = new MaterialIntegration(oreRequirement, material, null, null);
+    materialIntegration.setRepresentativeItem(oreRequirement);
+    return integrate(materialIntegration);
+  }
+
+  public static MaterialIntegration integrate(Material material, Fluid fluid, String oreSuffix) {
+    return integrate(new MaterialIntegration(material, fluid, oreSuffix));
+  }
+
+  public static MaterialIntegration integrate(Fluid fluid, String oreSuffix) {
+    return integrate(new MaterialIntegration(null, fluid, oreSuffix));
+  }
+
+  /**
+   * Causes a material to be default-integrated with the provided information.
+   * Includes fluids, recipes and oredict integration
+   *
+   * Can be done during preInit and Init
+   */
+  public static MaterialIntegration integrate(MaterialIntegration materialIntegration) {
+    MaterialEvent.IntegrationEvent event = new MaterialEvent.IntegrationEvent(materialIntegration.material, materialIntegration);
+    if(MinecraftForge.EVENT_BUS.post(event)) {
+      // cancelled
+      log.debug("Registration of material integration for material " + materialIntegration.material + " has been cancelled by event");
+    }
+    else {
+      materialIntegrations.add(materialIntegration);
+    }
+    return materialIntegration;
+  }
+
+  public static List<MaterialIntegration> getMaterialIntegrations() {
+    return ImmutableList.copyOf(materialIntegrations);
   }
 
   /*---------------------------------------------------------------------------
