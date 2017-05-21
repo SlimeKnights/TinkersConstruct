@@ -4,19 +4,41 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.WorldSavedData;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Nonnull;
 
 public class SlimeIslandData extends WorldSavedData {
 
-  public final List<StructureBoundingBox> islands = Lists.newArrayList();
+  private final List<StructureBoundingBox> islands = Lists.newArrayList();
+  // I honestly don't know if we need a concurrent hashset, but can't be too sure for compatibility
+  private final Map<ChunkPos, Long> chunksToGenerate = new ConcurrentHashMap<>();
 
   public SlimeIslandData(String name) {
     super(name);
+  }
+
+  public void markChunkForGeneration(int chunkX, int chunkZ, long seed) {
+    chunksToGenerate.put(new ChunkPos(chunkX, chunkZ), seed);
+  }
+
+  public Optional<Long> getSeedForChunkToGenerate(int chunkX, int chunkZ) {
+    return Optional.ofNullable(chunksToGenerate.get(new ChunkPos(chunkX, chunkZ)));
+  }
+
+  public boolean markChunkAsGenerated(int chunkX, int chunkZ) {
+    return chunksToGenerate.remove(new ChunkPos(chunkX, chunkZ)) != null;
+  }
+
+  public List<StructureBoundingBox> getIslands() {
+    return islands;
   }
 
   @Override
