@@ -7,7 +7,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -15,6 +14,7 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 import java.awt.geom.Ellipse2D;
+import java.util.Optional;
 import java.util.Random;
 
 import slimeknights.tconstruct.common.config.Config;
@@ -31,7 +31,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
   public static SlimeIslandGenerator INSTANCE = new SlimeIslandGenerator();
 
   // defines the jaggedness of the surface/bottom
-  protected int randomness = 1; // 2% chance to have an abnormality in the surface
+  protected static final int RANDOMNESS = 1; // 2% chance to have an abnormality in the surface
 
   protected SlimeLakeGenerator lakeGenGreen;
   protected SlimeLakeGenerator lakeGenBlue;
@@ -78,7 +78,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
   }
 
   public boolean isSlimeIslandAt(World world, BlockPos pos) {
-    for(StructureBoundingBox data : getIslandData(world).islands) {
+    for(StructureBoundingBox data : getIslandData(world).getIslands()) {
       if(data.isVecInside(pos)) {
         return true;
       }
@@ -130,12 +130,50 @@ public class SlimeIslandGenerator implements IWorldGenerator {
       return;
     }
 
+    /*
+    we only want to generate in already generated chunks.
+    Our generation parameters are:
+    - 33 max width (x)
+    - 33 max depth (z)
+    - 14 max height (y)
+
+    From that it follows that we need at least a 3x3 chunk area (48x48) to generate safely, and can chose any point
+    that's 0 to 15 blocks away from the outer chunks borders (48-33 = 15)
+    Or simply put: We have a chunk surrounded by 8 other chunks, and generate the island between (4,4) and (11,11) in
+    the center chunk when all 9 are generated.
+    The coordinates are chosen so that the remaining worldgen (trees, vines,..) doesn't cause triggers either
+     */
+
+    // predetermine the seed so the generation is the same no matter if the island is generated directly
+    // or after the surrounding chunks have been generated
+    long generationSeed = random.nextLong();
+
     // do we generate in this chunk?
     if(random.nextInt(Config.slimeIslandsRate) > 0) {
+      SlimeIslandData slimeIslandData = getIslandData(world);
+      // check if we need to generate in one of the surrounding chunks
+      for(int x = chunkX - 1; x <= chunkX + 1; x++) {
+        for(int z = chunkZ - 1; z <= chunkZ + 1; z++) {
+          Optional<Long> optionalGenerationSeed = slimeIslandData.getSeedForChunkToGenerate(x, z);
+          if(optionalGenerationSeed.isPresent() && areSurroundingChunksLoaded(x, z, chunkProvider)) {
+            generateIslandInChunk(optionalGenerationSeed.get(), world, x, z);
+            slimeIslandData.markChunkAsGenerated(x, z);
+          }
+        }
+      }
+      return;
+    }
+    if(!areSurroundingChunksLoaded(chunkX, chunkZ, chunkProvider)) {
+      getIslandData(world).markChunkForGeneration(chunkX, chunkZ, generationSeed);
       return;
     }
 
-    // We do. determine parameters of the slime island!
+    generateIslandInChunk(generationSeed, world, chunkX, chunkZ);
+  }
+
+  protected void generateIslandInChunk(long seed, World world, int chunkX, int chunkZ) {
+    Random random = new Random(seed);
+    // determine parameters of the slime island!
     // default is a blue island
     BlockSlimeGrass.FoliageType grass = BlockSlimeGrass.FoliageType.BLUE;
     BlockSlimeDirt.DirtType dirt = BlockSlimeDirt.DirtType.BLUE;
@@ -163,8 +201,8 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     IBlockState dirtState = TinkerWorld.slimeDirt.getDefaultState().withProperty(BlockSlimeDirt.TYPE, dirt);
     IBlockState grassState = TinkerWorld.slimeGrass.getStateFromDirt(dirtState).withProperty(BlockSlimeGrass.FOLIAGE, grass);
 
-    int x = chunkX * 16 + 7 + random.nextInt(6) - 3;
-    int z = chunkZ * 16 + 7 + random.nextInt(6) - 3;
+    int x = chunkX * 16 + 4 + random.nextInt(8);
+    int z = chunkZ * 16 + 4 + random.nextInt(8);
     int y = world.getHeight(new BlockPos(x, 0, z)).getY() + 50 + random.nextInt(50) + 11;
 
     generateIsland(random, world, x, z, y, dirtState, grassState, vine, lakeGen, treeGen, plantGen);
@@ -212,7 +250,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
                  world.getBlockState(pos.add(+1, +1, 0)) != dirt ||
                  world.getBlockState(pos.add(0, +1, -1)) != dirt ||
                  world.getBlockState(pos.add(-1, +1, +1)) != dirt ||
-                 random.nextInt(100) <= randomness) {
+                 random.nextInt(100) <= RANDOMNESS) {
                 world.setBlockState(pos, air, 2);
               }
             }
@@ -286,7 +324,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
 
     // save it
     SlimeIslandData data = getIslandData(world);
-    data.islands.add(new StructureBoundingBox(start.getX(), start.getY(), start.getZ(),
+    data.getIslands().add(new StructureBoundingBox(start.getX(), start.getY(), start.getZ(),
                                               start.getX() + xRange,
                                               start.getY() + yRange,
                                               start.getZ() + zRange));
@@ -328,5 +366,20 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     }
   }
 
+  private void tryGenerateInPreviouslyGeneratedChunk(int chunkX, int chunkZ, IChunkProvider iChunkProvider) {
+
+  }
+
+
+  private boolean areSurroundingChunksLoaded(int chunkX, int chunkZ, IChunkProvider chunkprovider) {
+    for(int x = chunkX - 1; x <= chunkX + 1; x++) {
+      for(int z = chunkZ - 1; z <= chunkZ + 1; z++) {
+        if(chunkprovider.getLoadedChunk(x, z) == null) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
 
 }
