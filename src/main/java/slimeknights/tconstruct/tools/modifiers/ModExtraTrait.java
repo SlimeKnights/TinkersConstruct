@@ -78,7 +78,6 @@ public class ModExtraTrait extends ToolModifier {
 
   @Override
   public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
-    NBTTagCompound tag = TagUtil.getToolTag(rootCompound);
     traits.forEach(trait -> ToolBuilder.addTrait(rootCompound, trait, color));
   }
 
