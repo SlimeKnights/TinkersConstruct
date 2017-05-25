@@ -17,6 +17,9 @@ public abstract class MultiblockTinker extends MultiblockCuboid {
   }
 
   protected boolean isValidSlave(World world, BlockPos pos) {
+    if(!world.isBlockLoaded(pos)) {
+      return false;
+    }
     TileEntity te = world.getTileEntity(pos);
 
     // slave-blocks are only allowed if they already belong to this smeltery

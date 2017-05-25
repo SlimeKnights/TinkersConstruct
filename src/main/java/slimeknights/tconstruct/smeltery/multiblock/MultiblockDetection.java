@@ -147,10 +147,14 @@ public abstract class MultiblockDetection {
 
   /* Allowed blocks */
   public boolean isInnerBlock(World world, BlockPos pos) {
-    return world.isAirBlock(pos);
+    return world.isBlockLoaded(pos) && world.isAirBlock(pos);
   }
 
   public abstract boolean isValidBlock(World world, BlockPos pos);
+
+  public boolean checkIfMultiblockCanBeRechecked(World world, MultiblockStructure structure) {
+    return structure != null && structure.minPos.distanceSq(structure.maxPos) > 1 && world.isAreaLoaded(structure.minPos, structure.maxPos);
+  }
 
   public static void assignMultiBlock(World world, BlockPos master, List<BlockPos> servants) {
     TileEntity masterBlock = world.getTileEntity(master);
@@ -160,11 +164,13 @@ public abstract class MultiblockDetection {
 
     // assign master to each servant
     for(BlockPos pos : servants) {
-      TileEntity slave = world.getTileEntity(pos);
-      if(slave instanceof MultiServantLogic && slave.getWorld() != null) {
-        ((MultiServantLogic) slave).overrideMaster(master);
-        IBlockState state = world.getBlockState(pos);
-        world.notifyBlockUpdate(pos, state, state, 3);
+      if(world.isBlockLoaded(pos)) {
+        TileEntity slave = world.getTileEntity(pos);
+        if(slave instanceof MultiServantLogic && slave.getWorld() != null) {
+          ((MultiServantLogic) slave).overrideMaster(master);
+          IBlockState state = world.getBlockState(pos);
+          world.notifyBlockUpdate(pos, state, state, 3);
+        }
       }
     }
   }
