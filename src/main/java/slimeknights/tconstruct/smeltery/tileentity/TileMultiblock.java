@@ -72,20 +72,23 @@ public abstract class TileMultiblock<T extends MultiblockDetection> extends Tile
     else {
       EnumFacing in = state.getValue(BlockMultiblockController.FACING).getOpposite();
 
-      MultiblockDetection.MultiblockStructure structure = multiblock.detectMultiblock(this.getWorld(), this.getPos().offset(in), MAX_SIZE);
-      if(structure == null) {
-        active = false;
-        updateStructureInfoInternal(null);
-      }
-      else {
-        // we found a valid tank. booyah!
-        active = true;
-        MultiblockDetection.assignMultiBlock(this.getWorld(), this.getPos(), structure.blocks);
-        updateStructureInfoInternal(structure);
-        // we still have to update since something caused us to rebuild our stats
-        // might be the tank size changed
-        if(wasActive) {
-          this.getWorld().notifyBlockUpdate(getPos(), state, state, 3);
+      // we only check if the chunks we want to check are loaded. Otherwise we assume the previous state is/was correct
+      if(info == null || multiblock.checkIfMultiblockCanBeRechecked(world, info)) {
+        MultiblockDetection.MultiblockStructure structure = multiblock.detectMultiblock(this.getWorld(), this.getPos().offset(in), MAX_SIZE);
+        if(structure == null) {
+          active = false;
+          updateStructureInfoInternal(null);
+        }
+        else {
+          // we found a valid tank. booyah!
+          active = true;
+          MultiblockDetection.assignMultiBlock(this.getWorld(), this.getPos(), structure.blocks);
+          updateStructureInfoInternal(structure);
+          // we still have to update since something caused us to rebuild our stats
+          // might be the tank size changed
+          if(wasActive) {
+            this.getWorld().notifyBlockUpdate(getPos(), state, state, 3);
+          }
         }
       }
     }

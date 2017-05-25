@@ -119,6 +119,11 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
   protected boolean detectPlaneXZ(World world, BlockPos center, int[] edges, boolean ceiling, List<BlockPos> subBlocks) {
     BlockPos from = center.add(edges[1], 0, edges[2]);
     BlockPos to = center.add(edges[3], 0, edges[0]);
+
+    if(!world.isAreaLoaded(from, to)) {
+      return false;
+    }
+
     List<BlockPos> candidates = Lists.newArrayList();
 
     // validate frame first
@@ -168,6 +173,9 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
   protected boolean detectLayer(World world, BlockPos center, int layer, int[] edges, List<BlockPos> subBlocks) {
     BlockPos from = center.add(edges[1], 0, edges[2]);
     BlockPos to = center.add(edges[3], 0, edges[0]);
+    if(!world.isAreaLoaded(from, to)) {
+      return false;
+    }
     List<BlockPos> candidates = Lists.newArrayList();
 
     // validate frame first
