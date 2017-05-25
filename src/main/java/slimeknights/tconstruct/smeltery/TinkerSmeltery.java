@@ -402,7 +402,7 @@ public class TinkerSmeltery extends TinkerPulse {
     int bucket = Fluid.BUCKET_VOLUME;
 
     // bucket casting
-    TinkerRegistry.registerTableCasting(BucketCastingRecipe.INSTANCE);
+    TinkerRegistry.registerTableCasting(new BucketCastingRecipe(Items.BUCKET));
 
     // Water
     Fluid water = FluidRegistry.WATER;
