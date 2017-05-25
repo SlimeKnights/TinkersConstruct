@@ -3,11 +3,13 @@ package slimeknights.tconstruct.tools.modifiers;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -27,14 +29,17 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class ModExtraTrait extends ToolModifier {
 
+  public static final List<ItemStack> EMBOSSMENT_ITEMS = getEmbossmentItems();
   public static final String EXTRA_TRAIT_IDENTIFIER = "extratrait";
   private final Material material;
   private final Set<ToolCore> toolCores;
   private final Collection<ITrait> traits;
+
 
   public  ModExtraTrait(Material material, Collection<ITrait> traits) {
     super(EXTRA_TRAIT_IDENTIFIER + generateIdentifier(material, traits), material.materialTextColor);
@@ -47,9 +52,11 @@ public class ModExtraTrait extends ToolModifier {
 
   public <T extends Item & IToolPart> void addCombination(ToolCore toolCore, T toolPart) {
     toolCores.add(toolCore);
-    ItemStack kit = toolPart.getItemstackWithMaterial(material);
-    ItemStack diamond = new ItemStack(Blocks.DIAMOND_BLOCK);
-    addRecipeMatch(new RecipeMatch.ItemCombination(1, kit, diamond));
+    ItemStack toolPartItem = toolPart.getItemstackWithMaterial(material);
+    List<ItemStack> stacks = new ArrayList<>();
+    stacks.add(toolPartItem);
+    stacks.addAll(EMBOSSMENT_ITEMS);
+    addRecipeMatch(new RecipeMatch.ItemCombination(1, stacks.toArray(new ItemStack[stacks.size()])));
   }
 
   private static String generateIdentifier(Material material, Collection<ITrait> traits) {
@@ -127,5 +134,24 @@ public class ModExtraTrait extends ToolModifier {
     }
 
 
+  }
+
+  private static List<ItemStack> getEmbossmentItems() {
+    ItemStack green = TinkerCommons.matSlimeCrystalGreen;
+    ItemStack blue = TinkerCommons.matSlimeCrystalBlue;
+    ItemStack red = TinkerCommons.matSlimeCrystalMagma;
+    ItemStack expensive = new ItemStack(Blocks.GOLD_BLOCK);
+
+    if(green == null) {
+      green = new ItemStack(Items.SLIME_BALL);
+    }
+    if(blue == null) {
+      blue = new ItemStack(Items.SLIME_BALL);
+    }
+    if(red == null) {
+      red = new ItemStack(Items.SLIME_BALL);
+    }
+
+    return ImmutableList.of(green, blue, red, expensive);
   }
 }

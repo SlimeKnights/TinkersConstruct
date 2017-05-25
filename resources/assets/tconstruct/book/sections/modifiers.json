@@ -90,5 +90,9 @@
   {
     "type": "modifier",
     "data": "modifiers/fins.json"
+  },
+  {
+    "type": "modifier",
+    "data": "modifiers/extratrait.json"
   }
 ]
