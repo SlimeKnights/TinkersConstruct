@@ -11,12 +11,15 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.client.RenderUtil;
+import slimeknights.tconstruct.library.smeltery.IFaucetDepth;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
 import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
@@ -30,20 +33,15 @@ public class FaucetRenderer extends TileEntitySpecialRenderer<TileFaucet> {
     }
 
     // check how far into the 2nd block we want to render
-    float yMin = 0;
-    IBlockState state = te.getWorld().getBlockState(te.getPos().down());
+    World world = te.getWorld();
+    BlockPos below = te.getPos().down();
+    IBlockState state = world.getBlockState(below);
     Block block = state.getBlock();
 
-    if(block == TinkerSmeltery.searedTank) {
-      yMin = -1;
-    }
-    else if(block == TinkerSmeltery.castingBlock) {
-      if(state.getValue(BlockCasting.TYPE) == BlockCasting.CastingType.TABLE) {
-        yMin = -0.125f;
-      }
-      else {
-        yMin = -0.725f;
-      }
+    float yMin = 0;
+    if(block instanceof IFaucetDepth) {
+      // negated so the interface is easier to understand
+      yMin = -((IFaucetDepth)block).getFlowDepth(world, below, state);
     }
 
     if(te.direction == EnumFacing.UP) {

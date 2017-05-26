@@ -33,9 +33,10 @@ import java.util.Random;
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.block.EnumBlock;
+import slimeknights.tconstruct.library.smeltery.IFaucetDepth;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
-public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
+public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> implements IFaucetDepth {
 
   public static final PropertyEnum<TankType> TYPE = PropertyEnum.create("type", TankType.class);
   public static final PropertyBool KNOB = PropertyBool.create("has_knob");
@@ -183,6 +184,11 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> {
     }
 
     return ((TileTank) te).comparatorStrength();
+  }
+
+  @Override
+  public float getFlowDepth(World world, BlockPos pos, IBlockState state) {
+    return 1;
   }
 
   public enum TankType implements IStringSerializable, EnumBlock.IEnumMeta {
