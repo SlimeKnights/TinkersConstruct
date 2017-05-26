@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -135,11 +136,15 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
         //event.entityLiving.motionY += 0.8;
         event.getEntityLiving().isAirBorne = true;
         event.getEntityLiving().onGround = false;
-        double f = 0.91d + 0.04d;
-        //System.out.println((entityLiving.worldObj.isRemote ? "client: " : "server: ") + entityLiving.motionX);
-        // only slow down half as much when bouncing
-        entity.motionX /= f;
-        entity.motionZ /= f;
+
+        if(!Loader.isModLoaded("Squake"))
+        {
+          double f = 0.91d + 0.04d;
+          //System.out.println((entityLiving.worldObj.isRemote ? "client: " : "server: ") + entityLiving.motionX);
+          // only slow down half as much when bouncing
+          entity.motionX /= f;
+          entity.motionZ /= f;
+        }
       }
       else {
         event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
