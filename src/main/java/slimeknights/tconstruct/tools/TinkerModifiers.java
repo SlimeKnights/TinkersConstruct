@@ -227,7 +227,6 @@ public class TinkerModifiers extends AbstractToolPulse {
   private <T extends Item & IToolPart> void registerExtraTraitModifiers(Material material, ToolCore tool, PartMaterialType partMaterialType, IToolPart toolPart) {
     if(toolPart instanceof Item) {
       Collection<ITrait> traits = partMaterialType.getApplicableTraitsForMaterial(material);
-      TinkerModifiers.log.info("test {}", "successful");
       if(!traits.isEmpty()) {
         ModExtraTrait mod = extraTraitLookup.computeIfAbsent(traits, traits2 -> new ModExtraTrait(material, traits2));
         mod.addCombination(tool, (T) toolPart);
