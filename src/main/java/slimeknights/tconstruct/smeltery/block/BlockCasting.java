@@ -37,12 +37,13 @@ import javax.annotation.Nonnull;
 import slimeknights.mantle.block.BlockInventory;
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.smeltery.IFaucetDepth;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
 
-public class BlockCasting extends BlockInventory {
+public class BlockCasting extends BlockInventory implements IFaucetDepth {
 
   public static final PropertyEnum<CastingType> TYPE = PropertyEnum.create("type", CastingType.class);
 
@@ -211,6 +212,16 @@ public class BlockCasting extends BlockInventory {
   @Override
   public boolean shouldSideBeRendered(IBlockState blockState, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, EnumFacing side) {
     return true;
+  }
+
+  @Override
+  public float getFlowDepth(World world, BlockPos pos, IBlockState state) {
+    if(state.getValue(TYPE) == CastingType.TABLE) {
+      return 0.125f;
+    }
+    else {
+      return 0.725f;
+    }
   }
 
   public enum CastingType implements IStringSerializable, EnumBlock.IEnumMeta {
