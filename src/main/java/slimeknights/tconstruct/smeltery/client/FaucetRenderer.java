@@ -20,8 +20,6 @@ import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.client.RenderUtil;
 import slimeknights.tconstruct.library.smeltery.IFaucetDepth;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.BlockCasting;
 import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 
 public class FaucetRenderer extends TileEntitySpecialRenderer<TileFaucet> {
@@ -38,7 +36,7 @@ public class FaucetRenderer extends TileEntitySpecialRenderer<TileFaucet> {
     IBlockState state = world.getBlockState(below);
     Block block = state.getBlock();
 
-    float yMin = 0;
+    float yMin = -15f/16f;
     if(block instanceof IFaucetDepth) {
       // negated so the interface is easier to understand
       yMin = -((IFaucetDepth)block).getFlowDepth(world, below, state);

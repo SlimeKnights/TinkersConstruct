@@ -13,7 +13,9 @@ public interface IFaucetDepth {
 	 * @param world  World access
 	 * @param pos    Position of this block
 	 * @param state  Current state of the block
-	 * @return  A positive integer denoting how many blocks the flow extends. Generally less than one, default is 0 for blocks without this interface
+	 * @return  A positive float denoting how many blocks the flow extends.
+	 * 	    Generally less than one, default is 0 for blocks without this interface
+	 *          Return values best work between 0-1 in 1/16 intervalls, -1 being at the bottom of the block underneath
 	 */
 	float getFlowDepth(World world, BlockPos pos, IBlockState state);
 }
