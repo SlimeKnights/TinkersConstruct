@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
@@ -74,7 +73,7 @@ public class RepairRecipe implements IRecipe {
     }
 
     if(simulate) {
-      input = Util.copyItemStackArray(input);
+      input = Util.deepCopyFixedNonNullList(input);
     }
 
     // do the repairing, also checks for valid input

@@ -311,7 +311,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     }
 
     // ensure the items only contain valid items
-    NonNullList<ItemStack> items = Util.copyItemStackArray(repairItems);
+    NonNullList<ItemStack> items = Util.deepCopyFixedNonNullList(repairItems);
     boolean foundMatch = false;
     for(int index : getRepairParts()) {
       Material material = materials.get(index);

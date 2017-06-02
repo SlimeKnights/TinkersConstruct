@@ -147,7 +147,7 @@ public final class ToolBuilder {
 
     // obtain a working copy of the items if the originals shouldn't be modified
     if(!removeItems) {
-      stacks = Util.copyItemStackArray(stacks);
+      stacks = Util.deepCopyFixedNonNullList(stacks);
     }
 
     return ((IRepairable) toolStack.getItem()).repair(toolStack, stacks);
@@ -169,8 +169,8 @@ public final class ToolBuilder {
     ItemStack copy = toolStack.copy();
 
     // obtain a working copy of the items if the originals shouldn't be modified
-    NonNullList<ItemStack> stacks = Util.copyItemStackArray(input);
-    NonNullList<ItemStack> usedStacks = Util.copyItemStackArray(input);
+    NonNullList<ItemStack> stacks = Util.deepCopyFixedNonNullList(input);
+    NonNullList<ItemStack> usedStacks = Util.deepCopyFixedNonNullList(input);
 
     Set<IModifier> appliedModifiers = Sets.newHashSet();
     for(IModifier modifier : TinkerRegistry.getAllModifiers()) {
@@ -277,13 +277,13 @@ public final class ToolBuilder {
     }
 
     // we never modify the original. Caller can remove all of them if we return a result
-    NonNullList<ItemStack> inputItems = Util.copyItemStackArray(toolPartsIn);
+    NonNullList<ItemStack> inputItems = ItemStackList.of(Util.deepCopyFixedNonNullList(toolPartsIn));
     if(!TinkerEvent.OnToolPartReplacement.fireEvent(inputItems, toolStack)) {
       // event cancelled
       return ItemStack.EMPTY;
     }
     // technically we don't need a deep copy here, but meh. less code.
-    final NonNullList<ItemStack> toolParts = Util.copyItemStackArray(inputItems);
+    final NonNullList<ItemStack> toolParts = Util.deepCopyFixedNonNullList(inputItems);
 
     TIntIntMap assigned = new TIntIntHashMap();
     TinkersItem tool = (TinkersItem) toolStack.getItem();
@@ -400,7 +400,7 @@ public final class ToolBuilder {
     IToolPart part = (IToolPart) itemPart;
 
     if(!removeItems) {
-      materialItems = Util.copyItemStackArray(materialItems);
+      materialItems = Util.deepCopyFixedNonNullList(materialItems);
     }
 
     // find the material from the input

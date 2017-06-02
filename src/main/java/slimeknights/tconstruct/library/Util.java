@@ -98,8 +98,15 @@ public class Util {
     return item.getRegistryName();
   }
 
-  public static NonNullList<ItemStack> copyItemStackArray(NonNullList<ItemStack> in) {
+  /** Returns a fixed size DEEP copy of the list */
+  public static NonNullList<ItemStack> deepCopyFixedNonNullList(NonNullList<ItemStack> in) {
     return RecipeMatchRegistry.copyItemStackArray(in);
+  }
+
+  /** @deprecated use deepCopyFixedNonNullList */
+  @Deprecated
+  public static NonNullList<ItemStack> copyItemStackArray(NonNullList<ItemStack> in) {
+    return deepCopyFixedNonNullList(in);
   }
 
 

@@ -32,6 +32,7 @@ import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.IModifierDisplay;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.tools.TinkerMaterials;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 @SideOnly(Side.CLIENT)
 public class ContentModifier extends TinkerPage {
@@ -86,6 +87,7 @@ public class ContentModifier extends TinkerPage {
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
     if(modifier == null) {
+      TinkerModifiers.log.error("MOdifier " + modifierName + " not found");
       return;
     }
     int color = 0xdddddd;

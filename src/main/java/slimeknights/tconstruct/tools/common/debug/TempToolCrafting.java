@@ -45,7 +45,7 @@ public class TempToolCrafting implements IRecipe {
       input.add(slot);
     }
 
-    NonNullList<ItemStack> inputs = Util.copyItemStackArray(input);
+    NonNullList<ItemStack> inputs = Util.deepCopyFixedNonNullList(input);
     for(ToolCore tool : TinkerRegistry.getTools()) {
       outputTool = tool.buildItemFromStacks(inputs);
       if(!outputTool.isEmpty()) {
