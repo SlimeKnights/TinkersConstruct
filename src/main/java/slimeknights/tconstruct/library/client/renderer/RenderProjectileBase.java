@@ -114,9 +114,9 @@ public class RenderProjectileBase<T extends EntityProjectileBase> extends Render
     return TextureMap.LOCATION_MISSING_TEXTURE;
   }
 
-  public static <T extends EntityProjectileBase> IRenderFactory<T> getFactory(Class<? extends Render<? super T>> clazz) {
+  public static <T extends EntityProjectileBase, U extends Render<? super T>> IRenderFactory<T> getFactory(Class<U> clazz) {
     try {
-      final Constructor<? extends Render<? super T>> constr = clazz.getDeclaredConstructor(RenderManager.class);
+      final Constructor<U> constr = clazz.getDeclaredConstructor(RenderManager.class);
 
       return manager -> getRender(constr, manager);
     } catch(NoSuchMethodException e) {
