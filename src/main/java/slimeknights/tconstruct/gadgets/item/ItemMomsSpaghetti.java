@@ -27,8 +27,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -153,13 +151,13 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
   public ItemStack repair(ItemStack repairable, NonNullList<ItemStack> repairItems) {
     if(repairable.getItemDamage() == 0) {
       // nothing to repair, full durability
-      return null;
+      return ItemStack.EMPTY;
     }
 
     // don't accept anything that's not wheat
     for(ItemStack repairItem : repairItems) {
       if(repairItem != null && repairItem.getItem() != Items.WHEAT) {
-        return null;
+        return ItemStack.EMPTY;
       }
     }
 
