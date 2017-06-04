@@ -4,11 +4,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraft.world.gen.ChunkProviderHell;
-
 import java.util.Random;
 
 import slimeknights.tconstruct.common.config.Config;
@@ -58,7 +57,7 @@ public class MagmaSlimeIslandGenerator extends SlimeIslandGenerator {
     }
 
     // we only generate in hell
-    if(!(chunkGenerator instanceof ChunkProviderHell)) {
+    if(!(world.provider instanceof WorldProviderHell)) {
       return;
     }
 
