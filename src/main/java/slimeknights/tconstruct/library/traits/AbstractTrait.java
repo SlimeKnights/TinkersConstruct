@@ -8,6 +8,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -91,6 +94,11 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
 
   @Override
   public void blockHarvestDrops(ItemStack tool, BlockEvent.HarvestDropsEvent event) {
+  }
+
+  @Override
+  public EnumActionResult onToolUse(ItemStack tool, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+      return EnumActionResult.PASS;
   }
 
   /* Attacking */

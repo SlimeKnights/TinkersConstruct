@@ -131,6 +131,9 @@ public class Mattock extends AoeToolCore {
     if(ret == EnumActionResult.SUCCESS) {
       TinkerToolEvent.OnMattockHoe.fireEvent(stack, playerIn, worldIn, pos);
     }
+    else if(ret == EnumActionResult.PASS) {
+      return super.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+    }
 
     return ret;
   }
