@@ -334,17 +334,21 @@ public class TinkerGadgets extends TinkerPulse {
     GameRegistry.addSmelting(stackBrownstoneRough.copy(), stackBrownstoneSmooth.copy(), 0.1f);
     GameRegistry.addSmelting(stackBrownstoneBrick.copy(), stackBrownstoneBrickCracked.copy(), 0.1f);
 
-    // remaining brownstone types
+    // basic brownstone recipes
     addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.PAVER, BlockBrownstone.BrownstoneType.SMOOTH);
     addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK, BlockBrownstone.BrownstoneType.PAVER);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_FANCY, BlockBrownstone.BrownstoneType.BRICK);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_SQUARE, BlockBrownstone.BrownstoneType.BRICK_FANCY);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_TRIANGLE, BlockBrownstone.BrownstoneType.BRICK_SQUARE);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.CREEPER, BlockBrownstone.BrownstoneType.BRICK_TRIANGLE);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_SMALL, BlockBrownstone.BrownstoneType.CREEPER);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.TILE, BlockBrownstone.BrownstoneType.BRICK_SMALL);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.ROAD, BlockBrownstone.BrownstoneType.TILE);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.PAVER, BlockBrownstone.BrownstoneType.ROAD);
+
+    // remaining brownstone types unless chisel compat is loaded
+    if(!isChiselPluginLoaded()) {
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_FANCY, BlockBrownstone.BrownstoneType.BRICK);
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_SQUARE, BlockBrownstone.BrownstoneType.BRICK_FANCY);
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_TRIANGLE, BlockBrownstone.BrownstoneType.BRICK_SQUARE);
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.CREEPER, BlockBrownstone.BrownstoneType.BRICK_TRIANGLE);
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_SMALL, BlockBrownstone.BrownstoneType.CREEPER);
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.TILE, BlockBrownstone.BrownstoneType.BRICK_SMALL);
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.ROAD, BlockBrownstone.BrownstoneType.TILE);
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.PAVER, BlockBrownstone.BrownstoneType.ROAD);
+    }
 
     // slabs
     addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.SMOOTH.getMeta()), stackBrownstoneSmooth.copy());

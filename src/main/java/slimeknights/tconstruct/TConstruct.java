@@ -32,6 +32,7 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
+import slimeknights.tconstruct.plugin.Chisel;
 import slimeknights.tconstruct.plugin.ChiselAndBits;
 import slimeknights.tconstruct.plugin.CraftingTweaks;
 import slimeknights.tconstruct.plugin.theoneprobe.TheOneProbe;
@@ -104,6 +105,7 @@ public class TConstruct {
     pulseManager.registerPulse(new AggregateModelRegistrar());
     // Plugins/Integration
     //pulseManager.registerPulse(new TinkerVintageCraft());
+    pulseManager.registerPulse(new Chisel());
     pulseManager.registerPulse(new ChiselAndBits());
     pulseManager.registerPulse(new CraftingTweaks());
     pulseManager.registerPulse(new Waila());

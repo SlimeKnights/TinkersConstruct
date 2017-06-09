@@ -327,15 +327,17 @@ public class TinkerSmeltery extends TinkerPulse {
     addSearedBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.STONE);
     addSearedBrickRecipe(BlockSeared.SearedType.BRICK, BlockSeared.SearedType.PAVER);
 
-    // remaining seared bricks
-    addSearedBrickRecipe(BlockSeared.SearedType.BRICK_FANCY, BlockSeared.SearedType.BRICK);
-    addSearedBrickRecipe(BlockSeared.SearedType.BRICK_SQUARE, BlockSeared.SearedType.BRICK_FANCY);
-    addSearedBrickRecipe(BlockSeared.SearedType.BRICK_TRIANGLE, BlockSeared.SearedType.BRICK_SQUARE);
-    addSearedBrickRecipe(BlockSeared.SearedType.CREEPER, BlockSeared.SearedType.BRICK_TRIANGLE);
-    addSearedBrickRecipe(BlockSeared.SearedType.BRICK_SMALL, BlockSeared.SearedType.CREEPER);
-    addSearedBrickRecipe(BlockSeared.SearedType.TILE, BlockSeared.SearedType.BRICK_SMALL);
-    addSearedBrickRecipe(BlockSeared.SearedType.ROAD, BlockSeared.SearedType.TILE);
-    addSearedBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.ROAD);
+    // remaining seared bricks, but skip if Chisel compat is loaded
+    if(!isChiselPluginLoaded()) {
+      addSearedBrickRecipe(BlockSeared.SearedType.BRICK_FANCY, BlockSeared.SearedType.BRICK);
+      addSearedBrickRecipe(BlockSeared.SearedType.BRICK_SQUARE, BlockSeared.SearedType.BRICK_FANCY);
+      addSearedBrickRecipe(BlockSeared.SearedType.BRICK_TRIANGLE, BlockSeared.SearedType.BRICK_SQUARE);
+      addSearedBrickRecipe(BlockSeared.SearedType.CREEPER, BlockSeared.SearedType.BRICK_TRIANGLE);
+      addSearedBrickRecipe(BlockSeared.SearedType.BRICK_SMALL, BlockSeared.SearedType.CREEPER);
+      addSearedBrickRecipe(BlockSeared.SearedType.TILE, BlockSeared.SearedType.BRICK_SMALL);
+      addSearedBrickRecipe(BlockSeared.SearedType.ROAD, BlockSeared.SearedType.TILE);
+      addSearedBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.ROAD);
+    }
 
     GameRegistry.addSmelting(stackSearedBrick.copy(), stackSearedBrickCracked.copy(), 0.1f);
 
