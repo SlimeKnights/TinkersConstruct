@@ -1,5 +1,18 @@
 package slimeknights.tconstruct.library;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nullable;
+
+import org.apache.logging.log4j.Logger;
+
 import com.google.common.base.CharMatcher;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
@@ -10,7 +23,6 @@ import com.google.common.collect.Sets;
 import gnu.trove.map.hash.THashMap;
 import gnu.trove.set.hash.THashSet;
 import gnu.trove.set.hash.TLinkedHashSet;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
@@ -26,20 +38,6 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.oredict.OreDictionary;
-
-import org.apache.logging.log4j.Logger;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.annotation.Nullable;
-
 import slimeknights.mantle.client.CreativeTab;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.events.MaterialEvent;
@@ -53,6 +51,7 @@ import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
+import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IPattern;
 import slimeknights.tconstruct.library.tools.IToolPart;
@@ -325,7 +324,7 @@ public final class TinkerRegistry {
   ---------------------------------------------------------------------------*/
 
   /** This set contains all known tools */
-  private static final Set<ToolCore> tools = new TLinkedHashSet<ToolCore>();
+  private static final Set<ITinkerable> tools = new TLinkedHashSet<ITinkerable>();
   private static final Set<IToolPart> toolParts = new TLinkedHashSet<IToolPart>();
   private static final Set<ToolCore> toolStationCrafting = Sets.newLinkedHashSet();
   private static final Set<ToolCore> toolForgeCrafting = Sets.newLinkedHashSet();
@@ -348,7 +347,7 @@ public final class TinkerRegistry {
     }
   }
 
-  public static Set<ToolCore> getTools() {
+  public static Set<ITinkerable> getTools() {
     return ImmutableSet.copyOf(tools);
   }
 
@@ -382,7 +381,7 @@ public final class TinkerRegistry {
     toolStationCrafting.add(tool);
   }
 
-  public static Set<ToolCore> getToolStationCrafting() {
+  public static Set<ITinkerable> getToolStationCrafting() {
     return ImmutableSet.copyOf(toolStationCrafting);
   }
 
@@ -391,7 +390,7 @@ public final class TinkerRegistry {
     toolForgeCrafting.add(tool);
   }
 
-  public static Set<ToolCore> getToolForgeCrafting() {
+  public static Set<ITinkerable> getToolForgeCrafting() {
     return ImmutableSet.copyOf(toolForgeCrafting);
   }
 

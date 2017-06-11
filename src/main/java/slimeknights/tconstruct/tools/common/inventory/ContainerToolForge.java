@@ -9,6 +9,7 @@ import java.util.Set;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.tools.common.tileentity.TileToolStation;
 
@@ -19,7 +20,7 @@ public class ContainerToolForge extends ContainerToolStation {
   }
 
   @Override
-  protected Set<ToolCore> getBuildableTools() {
+  protected Set<ITinkerable> getBuildableTools() {
     return TinkerRegistry.getToolForgeCrafting();
   }
 

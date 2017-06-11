@@ -28,6 +28,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.traits.ITrait;
@@ -64,7 +65,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
 
   @Override
   public boolean canUseMaterial(Material mat) {
-    for(ToolCore tool : TinkerRegistry.getTools()) {
+    for(ITinkerable tool : TinkerRegistry.getTools()) {
       for(PartMaterialType pmt : tool.getRequiredComponents()) {
         if(pmt.isValid(this, mat)) {
           return true;
@@ -212,7 +213,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
 
   @Override
   public boolean hasUseForStat(String stat) {
-    for(ToolCore tool : TinkerRegistry.getTools()) {
+    for(ITinkerable tool : TinkerRegistry.getTools()) {
       for(PartMaterialType pmt : tool.getRequiredComponents()) {
         if(pmt.isValidItem(this) && pmt.usesStat(stat)) {
           return true;

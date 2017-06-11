@@ -10,6 +10,7 @@ import java.io.IOException;
 import slimeknights.tconstruct.library.TinkerRegistryClient;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
+import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.tools.common.client.GuiButtonItem;
 import slimeknights.tconstruct.tools.common.client.GuiButtonRepair;
 import slimeknights.tconstruct.tools.common.client.GuiToolStation;
@@ -42,8 +43,8 @@ public class GuiButtonsToolStation extends GuiSideButtons {
       addSideButton(button);
     }
 
-    for(Item item : parent.getBuildableItems()) {
-      ToolBuildGuiInfo info = TinkerRegistryClient.getToolBuildInfoForTool(item);
+    for(ITinkerable item : parent.getBuildableItems()) {
+      ToolBuildGuiInfo info = TinkerRegistryClient.getToolBuildInfoForTool((Item) item);
       if(info != null) {
         GuiButtonItem<ToolBuildGuiInfo> button = new GuiButtonItem<ToolBuildGuiInfo>(index++, -1, -1, info.tool, info);
         shiftButton(button, 0, -18 * style);

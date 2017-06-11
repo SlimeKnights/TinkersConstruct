@@ -17,6 +17,7 @@ import slimeknights.tconstruct.common.ModelRegisterUtil;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -54,7 +55,7 @@ public class AggregateModelRegistrar extends AbstractToolPulse {
   }
 
   private void registerStencil(Item pattern, ToolPart toolPart) {
-    for(ToolCore toolCore : TinkerRegistry.getTools()) {
+    for(ITinkerable toolCore : TinkerRegistry.getTools()) {
       for(PartMaterialType partMaterialType : toolCore.getRequiredComponents()) {
         if(partMaterialType.getPossibleParts().contains(toolPart)) {
           ItemStack stencil = new ItemStack(pattern);

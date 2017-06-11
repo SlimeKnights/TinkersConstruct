@@ -7,6 +7,7 @@ import net.minecraft.world.World;
 import java.util.Set;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.tools.common.tileentity.TileToolForge;
 
@@ -19,7 +20,7 @@ public class GuiToolForge extends GuiToolStation {
   }
 
   @Override
-  public Set<ToolCore> getBuildableItems() {
+  public Set<ITinkerable> getBuildableItems() {
     return TinkerRegistry.getToolForgeCrafting();
   }
 }

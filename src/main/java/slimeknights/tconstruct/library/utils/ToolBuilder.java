@@ -1,12 +1,18 @@
 package slimeknights.tconstruct.library.utils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.logging.log4j.Logger;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.hash.TIntIntHashMap;
-import gnu.trove.procedure.TIntIntProcedure;
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,16 +20,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.text.translation.I18n;
-
-import org.apache.logging.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -32,6 +28,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
+import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
@@ -40,7 +37,6 @@ import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.traits.ITrait;
-import slimeknights.tconstruct.tools.TinkerTools;
 
 public final class ToolBuilder {
 
@@ -59,7 +55,7 @@ public final class ToolBuilder {
    * @param stacks Input.
    * @return The built tool or null if none could be built.
    */
-  public static ItemStack tryBuildTool(ItemStack[] stacks, String name, Collection<ToolCore> possibleTools) {
+  public static ItemStack tryBuildTool(ItemStack[] stacks, String name, Collection<ITinkerable> possibleTools) {
     int length = -1;
     ItemStack[] input;
     // remove trailing nulls
@@ -81,7 +77,7 @@ public final class ToolBuilder {
 
     input = Arrays.copyOf(stacks, length);
 
-    for(Item item : possibleTools) {
+    for(ITinkerable item : possibleTools) {
       if(!(item instanceof ToolCore)) {
         continue;
       }

@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tools.ToolCore;
 
 public class TempToolCrafting implements IRecipe {
@@ -47,7 +48,7 @@ public class TempToolCrafting implements IRecipe {
     }
 
     ItemStack[] inputs = input.toArray(new ItemStack[input.size()]);
-    for(ToolCore tool : TinkerRegistry.getTools()) {
+    for(ITinkerable tool : TinkerRegistry.getTools()) {
       outputTool = tool.buildItemFromStacks(inputs);
       if(outputTool != null) {
         break;

@@ -10,6 +10,7 @@ import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.book.content.ContentListing;
 import slimeknights.tconstruct.library.book.content.ContentTool;
+import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tools.ToolCore;
 
 @SideOnly(Side.CLIENT)
@@ -24,11 +25,11 @@ public class ToolSectionTransformer extends ContentListingSectionTransformer {
     // only add tool pages if the tool exists
     if(page.content instanceof ContentTool) {
       String toolName = ((ContentTool) page.content).toolName;
-      Optional<ToolCore> tool = TinkerRegistry.getTools().stream()
-                                              .filter(toolCore -> toolName.equals(toolCore.getIdentifier()))
+      Optional<ITinkerable> tool = TinkerRegistry.getTools().stream()
+                                              .filter(toolCore -> toolName.equals(((ToolCore) toolCore).getIdentifier()))
                                               .findFirst();
 
-      tool.ifPresent(toolCore -> listing.addEntry(toolCore.getLocalizedName(), page));
+      tool.ifPresent(toolCore -> listing.addEntry(((ToolCore)toolCore).getLocalizedName(), page));
     }
     else {
       super.processPage(book, listing, page);

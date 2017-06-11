@@ -64,8 +64,8 @@ public class ContentTool extends TinkerPage {
       toolName = parent.name;
     }
     if(tool == null) {
-      tool = TinkerRegistry.getTools().stream()
-                           .filter(toolCore -> toolName.equals(toolCore.getIdentifier()))
+      tool = (ToolCore) TinkerRegistry.getTools().stream()
+                           .filter(toolCore -> toolName.equals(((ToolCore) toolCore).getIdentifier()))
                            .findFirst()
                            .orElseThrow(() -> new RuntimeException("Unknown tool " + toolName));
     }

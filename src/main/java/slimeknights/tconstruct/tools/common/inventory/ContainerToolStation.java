@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.IModifyable;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
+import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -260,7 +261,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     return ToolBuilder.tryBuildTool(input, toolName, getBuildableTools());
   }
 
-  protected Set<ToolCore> getBuildableTools() {
+  protected Set<ITinkerable> getBuildableTools() {
     return TinkerRegistry.getToolStationCrafting();
   }
 

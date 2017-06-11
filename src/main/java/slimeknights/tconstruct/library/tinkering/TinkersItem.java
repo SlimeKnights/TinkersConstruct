@@ -195,7 +195,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   /**
    * Creates an NBT Tag with the materials that were used to build the item.
    */
-  private NBTTagCompound buildData(List<Material> materials) {
+  public NBTTagCompound buildData(List<Material> materials) {
     NBTTagCompound base = new NBTTagCompound();
     NBTTagList materialList = new NBTTagList();
 

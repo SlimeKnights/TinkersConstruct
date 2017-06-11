@@ -39,6 +39,7 @@ import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tinkering.IModifyable;
+import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tinkering.IToolStationDisplay;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
@@ -149,7 +150,7 @@ public class GuiToolStation extends GuiTinkerStation {
     Keyboard.enableRepeatEvents(false);
   }
 
-  public Set<ToolCore> getBuildableItems() {
+  public Set<ITinkerable> getBuildableItems() {
     return TinkerRegistry.getToolStationCrafting();
   }
 
