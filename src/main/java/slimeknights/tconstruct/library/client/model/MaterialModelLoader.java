@@ -32,7 +32,7 @@ public class MaterialModelLoader implements ICustomModelLoader {
 
   public static void addPartMapping(ResourceLocation resourceLocation, IToolPart toolPart) {
     if(!partTextureRestriction.containsKey(resourceLocation)) {
-      partTextureRestriction.put(resourceLocation, Sets.<IToolPart>newHashSet());
+      partTextureRestriction.put(resourceLocation, Sets.newHashSet());
     }
 
     partTextureRestriction.get(resourceLocation).add(toolPart);

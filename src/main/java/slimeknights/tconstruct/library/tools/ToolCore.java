@@ -19,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextFormatting;
@@ -29,9 +30,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.ClientProxy;
@@ -369,13 +372,13 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   // Creative tab items
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     addDefaultSubItems(subItems);
   }
 
   protected void addDefaultSubItems(List<ItemStack> subItems, Material... fixedMaterials) {
     for(Material head : TinkerRegistry.getAllMaterials()) {
-      List<Material> mats = new ArrayList<Material>(requiredComponents.length);
+      List<Material> mats = new ArrayList<>(requiredComponents.length);
 
       for(int i = 0; i < requiredComponents.length; i++) {
         if(fixedMaterials.length > i && fixedMaterials[i] != null && requiredComponents[i].isValidMaterial(fixedMaterials[i])) {
@@ -398,10 +401,10 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
     }
   }
 
-  protected void addInfiTool(List<ItemStack> subitems, String name) {
+  protected void addInfiTool(List<ItemStack> subItems, String name) {
     ItemStack tool = getInfiTool(name);
     if(hasValidMaterials(tool)) {
-      subitems.add(tool);
+      subItems.add(tool);
     }
   }
 
@@ -417,12 +420,13 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
   }
 
   @Override
-  public int getHarvestLevel(ItemStack stack, @Nonnull String toolClass) {
+  public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
     if(this.getToolClasses(stack).contains(toolClass)) {
       // will return 0 if the tag has no info anyway
       return ToolHelper.getHarvestLevelStat(stack);
     }
-    return super.getHarvestLevel(stack, toolClass);
+
+    return super.getHarvestLevel(stack, toolClass, player, blockState);
   }
 
   /** A simple string identifier for the tool, used for identification in texture generation etc. */
@@ -447,12 +451,13 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
   }
 
   @Override
-  protected int repairCustom(Material material, ItemStack[] repairItems) {
-    RecipeMatch.Match match = RecipeMatch.of(TinkerTools.sharpeningKit).matches(repairItems);
-    if(match == null) {
+  protected int repairCustom(Material material, NonNullList<ItemStack> repairItems) {
+    Optional<RecipeMatch.Match> matchOptional = RecipeMatch.of(TinkerTools.sharpeningKit).matches(repairItems);
+    if(!matchOptional.isPresent()) {
       return 0;
     }
 
+    RecipeMatch.Match match = matchOptional.get();
     for(ItemStack stacks : match.stacks) {
       // invalid material?
       if(TinkerTools.sharpeningKit.getMaterial(stacks) != material) {
@@ -492,6 +497,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
     // move item back into offhand. See onBlockBreakStart
     if(stack != null && entityLiving != null && stack.hasTagCompound()) {
       NBTTagCompound tag = stack.getTagCompound();
+      assert tag != null;
       if(tag.getLong(TAG_SWITCHED_HAND_HAX) == entityLiving.getEntityWorld().getTotalWorldTime()) {
         tag.removeTag(TAG_SWITCHED_HAND_HAX);
         stack.setTagCompound(tag);

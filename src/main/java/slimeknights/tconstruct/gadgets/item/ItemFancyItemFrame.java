@@ -9,10 +9,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -28,7 +27,7 @@ public class ItemFancyItemFrame extends ItemHangingEntity {
   }
 
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     subItems.add(new ItemStack(itemIn, 1, EntityFancyItemFrame.FrameType.JEWEL.ordinal()));
 
     if(TinkerCommons.nuggetAlubrass != null) {
@@ -59,28 +58,29 @@ public class ItemFancyItemFrame extends ItemHangingEntity {
 
   @Nonnull
   @Override
-  public EnumActionResult onItemUse(@Nonnull ItemStack stack, @Nonnull EntityPlayer playerIn, @Nonnull World worldIn, BlockPos pos, EnumHand hand, @Nonnull EnumFacing side, float hitX, float hitY, float hitZ) {
-    if(side == EnumFacing.DOWN) {
+  public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    if(facing == EnumFacing.DOWN) {
       return EnumActionResult.FAIL;
     }
-    else if(side == EnumFacing.UP) {
+    else if(facing == EnumFacing.UP) {
       return EnumActionResult.FAIL;
     }
     else {
-      BlockPos blockpos = pos.offset(side);
+      ItemStack itemStack = player.getHeldItem(hand);
+      BlockPos blockpos = pos.offset(facing);
 
-      if(!playerIn.canPlayerEdit(blockpos, side, stack)) {
+      if(!player.canPlayerEdit(blockpos, facing, itemStack)) {
         return EnumActionResult.FAIL;
       }
       else {
-        EntityHanging entityhanging = new EntityFancyItemFrame(worldIn, blockpos, side, stack.getMetadata());
+        EntityHanging entityhanging = new EntityFancyItemFrame(worldIn, blockpos, facing, itemStack.getMetadata());
 
         if(entityhanging.onValidSurface()) {
           if(!worldIn.isRemote) {
             worldIn.spawnEntity(entityhanging);
           }
 
-          --stack.stackSize;
+          itemStack.shrink(1);
         }
 
         return EnumActionResult.SUCCESS;

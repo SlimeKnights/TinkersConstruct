@@ -85,11 +85,11 @@ public class CastingRecipeWrapper extends BlankRecipeWrapper {
 
     String s = String.format("%d s", recipe.getTime() / 20);
     int x = 92;
-    x -= minecraft.fontRendererObj.getStringWidth(s) / 2;
+    x -= minecraft.fontRenderer.getStringWidth(s) / 2;
 
-    minecraft.fontRendererObj.drawString(s, x, 16, Color.gray.getRGB());
+    minecraft.fontRenderer.drawString(s, x, 16, Color.gray.getRGB());
     if(recipe.consumesCast()) {
-      minecraft.fontRendererObj.drawString(Util.translate("gui.jei.casting.consume"), 78, 48, 0xaa0000);
+      minecraft.fontRenderer.drawString(Util.translate("gui.jei.casting.consume"), 78, 48, 0xaa0000);
     }
   }
 }

@@ -54,7 +54,7 @@ public class EntityFancyItemFrame extends EntityItemFrame implements IEntityAddi
       }
 
       // drop item in frame
-      if(itemstack != null) {
+      if(!itemstack.isEmpty()) {
         itemstack = itemstack.copy();
         this.removeFrameFromMap(itemstack);
         this.entityDropItem(itemstack, 0.0F);
@@ -90,6 +90,7 @@ public class EntityFancyItemFrame extends EntityItemFrame implements IEntityAddi
 
   @Override
   public void writeSpawnData(ByteBuf buffer) {
+    assert this.facingDirection != null;
     buffer.writeShort(this.facingDirection.getHorizontalIndex());
     buffer.writeShort(type != null ? this.type.ordinal() : 0);
   }

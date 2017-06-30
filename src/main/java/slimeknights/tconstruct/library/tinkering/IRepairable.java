@@ -1,6 +1,9 @@
 package slimeknights.tconstruct.library.tinkering;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
+
+import javax.annotation.Nonnull;
 
 /**
  * Items that can be repaired. They also break instead of getting removed.
@@ -18,5 +21,6 @@ public interface IRepairable {
    * @param repairItems The items to repair with
    * @return The returned item or null if repairItems retairns a non-null entry that can't be used for repairing or if the tool already is fully repaired.
    */
-  ItemStack repair(ItemStack repairable, ItemStack[] repairItems);
+  @Nonnull
+  ItemStack repair(ItemStack repairable, NonNullList<ItemStack> repairItems);
 }

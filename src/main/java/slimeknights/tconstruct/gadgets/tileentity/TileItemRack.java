@@ -29,6 +29,7 @@ public class TileItemRack extends TileTable {
     for(int i = 0; i < this.getSizeInventory(); i++) {
       if(isStackInSlot(i)) {
         PropertyTableItem.TableItem item = getTableItem(getStackInSlot(i), this.getWorld(), null);
+        assert item != null;
         item.y -= 11 / 16f;
 
         // changes based on item or block
@@ -80,7 +81,7 @@ public class TileItemRack extends TileTable {
       int slot = isStackInSlot(1) ? 1 : 0;
 
       ItemHandlerHelper.giveItemToPlayer(player, getStackInSlot(slot));
-      setInventorySlotContents(slot, null);
+      setInventorySlotContents(slot, ItemStack.EMPTY);
     }
   }
 }

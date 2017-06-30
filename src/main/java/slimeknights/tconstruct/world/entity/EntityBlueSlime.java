@@ -25,11 +25,10 @@ public class EntityBlueSlime extends EntitySlime {
   }
 
   // we're using this instead of getDropItem because we need the metadata
-  @Nonnull
   @Override
   public EntityItem dropItemWithOffset(@Nonnull Item itemIn, int size, float offsetY) {
     ItemStack stack = TinkerCommons.matSlimeBallBlue.copy();
-    stack.stackSize = size;
+    stack.setCount(size);
     return this.entityDropItem(stack, offsetY);
   }
 

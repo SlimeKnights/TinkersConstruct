@@ -8,8 +8,8 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -20,6 +20,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidActionResult;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
@@ -77,16 +78,22 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> implements 
   }
 
   @Override
-  public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+  public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
     TileEntity te = worldIn.getTileEntity(pos);
-    if(te == null || !te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side)) {
+    if(te == null || !te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing)) {
       return false;
     }
 
-    IFluidHandler fluidHandler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side);
-    FluidUtil.interactWithFluidHandler(heldItem, fluidHandler, playerIn);
+    IFluidHandler fluidHandler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
+    ItemStack heldItem = playerIn.getHeldItem(hand);
+    FluidActionResult result = FluidUtil.interactWithFluidHandler(heldItem, fluidHandler, playerIn);
+    if(result.isSuccess()) {
+      playerIn.setHeldItem(hand, result.getResult());
+      return true; // return true as we did something
+    }
+
     // prevent interaction so stuff like buckets and other things don't place the liquid block
-    return heldItem != null && !(heldItem.getItem() instanceof ItemBlock);
+    return FluidUtil.getFluidHandler(heldItem) != null;
   }
 
   /* Block breaking retains the liquid */
@@ -106,8 +113,8 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> implements 
     List<ItemStack> ret = Lists.newArrayList();
     Random rand = world instanceof World ? ((World) world).rand : RANDOM;
     Item item = this.getItemDropped(state, rand, fortune);
-    ItemStack stack = null;
-    if(item != null) {
+    ItemStack stack = ItemStack.EMPTY;
+    if(item != Items.AIR) {
       stack = new ItemStack(item, 1, this.damageDropped(state));
       ret.add(stack);
     }
@@ -115,7 +122,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> implements 
 
     // save liquid data on the stack
     TileEntity te = world.getTileEntity(pos);
-    if(te instanceof TileTank && stack != null) {
+    if(te instanceof TileTank && !stack.isEmpty()) {
       if(((TileTank) te).containsFluid()) {
         NBTTagCompound tag = new NBTTagCompound();
         ((TileTank) te).writeTankToNBT(tag);

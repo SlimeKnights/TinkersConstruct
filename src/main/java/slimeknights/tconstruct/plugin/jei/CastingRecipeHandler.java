@@ -15,13 +15,6 @@ public class CastingRecipeHandler implements IRecipeHandler<CastingRecipeWrapper
 
   @Nonnull
   @Override
-  @Deprecated
-  public String getRecipeCategoryUid() {
-    return CastingRecipeCategory.CATEGORY;
-  }
-
-  @Nonnull
-  @Override
   public String getRecipeCategoryUid(@Nonnull CastingRecipeWrapper recipe) {
     return CastingRecipeCategory.CATEGORY;
   }

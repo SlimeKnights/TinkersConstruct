@@ -1,7 +1,11 @@
 package slimeknights.tconstruct.plugin.jei;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -51,16 +55,6 @@ public class SmeltingRecipeCategory implements IRecipeCategory<SmeltingRecipeWra
 
   }
 
-  @Override
-  public void drawAnimations(@Nonnull Minecraft minecraft) {
-
-  }
-
-  @Override
-  @Deprecated
-  public void setRecipe(IRecipeLayout recipeLayout, SmeltingRecipeWrapper recipeWrapper) {
-    // deprecated
-  }
 
   @Override
   public void setRecipe(IRecipeLayout recipeLayout, SmeltingRecipeWrapper recipe, IIngredients ingredients) {
@@ -74,6 +68,11 @@ public class SmeltingRecipeCategory implements IRecipeCategory<SmeltingRecipeWra
 
     fluids.init(1, false, 72, 38, 16, 16, 1000, false, tankOverlay);
     fluids.set(1, recipe.fuels);
+  }
+
+  @Override
+  public List<String> getTooltipStrings(int mouseX, int mouseY) {
+    return ImmutableList.of();
   }
 
   @Override

@@ -20,6 +20,9 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
+import javax.annotation.Nonnull;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.mantle.util.RecipeMatchRegistry;
@@ -96,19 +99,19 @@ public class Material extends RecipeMatchRegistry {
    * This item, if it is not null, represents the material for rendering.
    * In general if you want to give a person this material, you can give them this item.
    */
-  private ItemStack representativeItem;
+  private ItemStack representativeItem = ItemStack.EMPTY;
 
   /**
    * This item will be used instead of the generic shard item when returning leftovers.
    */
-  private ItemStack shardItem;
+  private ItemStack shardItem = ItemStack.EMPTY;
 
   // we use a specific map for 2 reasons:
   // * A Map so we can obtain the stats we want quickly
   // * the linked map to ensure the order when iterating
-  protected final Map<String, IMaterialStats> stats = new LinkedHashMap<String, IMaterialStats>();
+  protected final Map<String, IMaterialStats> stats = new LinkedHashMap<>();
   /** Stat-ID -> Traits */
-  protected final Map<String, List<ITrait>> traits = new LinkedHashMap<String, List<ITrait>>();
+  protected final Map<String, List<ITrait>> traits = new LinkedHashMap<>();
 
   public Material(String identifier, TextFormatting textColor) {
     this(identifier, Util.enumChatFormattingToColor(textColor));
@@ -258,7 +261,7 @@ public class Material extends RecipeMatchRegistry {
   /** Obtains the list of traits for the given stat, creates it if it doesn't exist yet. */
   protected List<ITrait> getStatTraits(String id) {
     if(!this.traits.containsKey(id)) {
-      this.traits.put(id, new LinkedList<ITrait>());
+      this.traits.put(id, new LinkedList<>());
     }
     return this.traits.get(id);
   }
@@ -331,10 +334,10 @@ public class Material extends RecipeMatchRegistry {
 
 
   public void setRepresentativeItem(ItemStack representativeItem) {
-    if(representativeItem == null) {
-      this.representativeItem = null;
+    if(representativeItem == ItemStack.EMPTY) {
+      this.representativeItem = ItemStack.EMPTY;
     }
-    else if(matches(representativeItem) != null) {
+    else if(matches(representativeItem).isPresent()) {
       this.representativeItem = representativeItem;
     }
     else {
@@ -353,13 +356,14 @@ public class Material extends RecipeMatchRegistry {
     setShard(new ItemStack(item));
   }
 
-  public void setShard(ItemStack stack) {
-    if(stack == null) {
-      this.shardItem = null;
+  public void setShard(@Nonnull ItemStack stack) {
+    if(stack.isEmpty()) {
+      this.shardItem = ItemStack.EMPTY;
     }
     else {
-      RecipeMatch.Match match = matches(stack);
-      if(match != null) {
+      Optional<RecipeMatch.Match> matchOptional = matches(stack);
+      if(matchOptional.isPresent()) {
+        RecipeMatch.Match match = matchOptional.get();
         if(match.amount == VALUE_Shard) {
           this.shardItem = stack;
         }
@@ -380,10 +384,10 @@ public class Material extends RecipeMatchRegistry {
   }
 
   public ItemStack getShard() {
-    if(shardItem != null) {
+    if(shardItem != ItemStack.EMPTY) {
       return shardItem.copy();
     }
-    return null;
+    return ItemStack.EMPTY;
   }
 
   public boolean hasItems() {

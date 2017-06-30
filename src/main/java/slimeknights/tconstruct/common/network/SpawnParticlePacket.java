@@ -11,13 +11,13 @@ import slimeknights.tconstruct.tools.TinkerTools;
 public class SpawnParticlePacket extends AbstractPacketThreadsafe {
 
   public Particles particle;
-  double x;
-  double y;
-  double z;
-  double xSpeed;
-  double ySpeed;
-  double zSpeed;
-  int[] data;
+  private double x;
+  private double y;
+  private double z;
+  private double xSpeed;
+  private double ySpeed;
+  private double zSpeed;
+  private int[] data;
 
   public SpawnParticlePacket() {
   }

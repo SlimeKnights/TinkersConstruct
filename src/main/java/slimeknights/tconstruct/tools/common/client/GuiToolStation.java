@@ -123,7 +123,7 @@ public class GuiToolStation extends GuiTinkerStation {
     this.guiTop += 4;
     this.cornerY += 4;
 
-    textField = new GuiTextField(0, fontRendererObj, cornerX + 70, cornerY + 7, 92, 12);
+    textField = new GuiTextField(0, fontRenderer, cornerX + 70, cornerY + 7, 92, 12);
     //textField.setFocused(true);
     //textField.setCanLoseFocus(false);
     textField.setEnableBackgroundDrawing(false);
@@ -159,7 +159,7 @@ public class GuiToolStation extends GuiTinkerStation {
 
     ToolCore tool = null;
 
-    if(info.tool != null && info.tool.getItem() instanceof ToolCore) {
+    if(info.tool.getItem() instanceof ToolCore) {
       tool = (ToolCore) info.tool.getItem();
     }
 
@@ -217,14 +217,14 @@ public class GuiToolStation extends GuiTinkerStation {
     // tool info of existing or tool to build
     ContainerToolStation container = (ContainerToolStation) inventorySlots;
     ItemStack toolStack = container.getResult();
-    if(toolStack == null) {
+    if(toolStack.isEmpty()) {
       toolStack = inventorySlots.getSlot(0).getStack();
     }
 
 
 
     // current tool to build or repair/modify
-    if(toolStack != null && toolStack.getItem() instanceof IModifyable) {
+    if(toolStack.getItem() instanceof IModifyable) {
       if(toolStack.getItem() instanceof IToolStationDisplay) {
         IToolStationDisplay tool = (IToolStationDisplay) toolStack.getItem();
         toolInfo.setCaption(tool.getLocalizedToolName());
@@ -261,7 +261,7 @@ public class GuiToolStation extends GuiTinkerStation {
       traitInfo.setText(mods, tips);
     }
     // repair info
-    else if(currentInfo.tool == null) {
+    else if(currentInfo.tool.isEmpty()) {
       toolInfo.setCaption(I18n.translateToLocal("gui.toolstation.repair"));
       toolInfo.setText();
 
@@ -296,7 +296,7 @@ public class GuiToolStation extends GuiTinkerStation {
           sb.append(TextFormatting.RED);
 
           // is an item in the slot?
-          if(slotStack != null && slotStack.getItem() instanceof IToolPart) {
+          if(slotStack.getItem() instanceof IToolPart) {
             if(pmt.isValidItem((IToolPart) slotStack.getItem())) {
               // the item has an invalid material
               warning(Util.translate("gui.error.wrong_material_part"));
@@ -385,7 +385,7 @@ public class GuiToolStation extends GuiTinkerStation {
       int logoY = (int) (this.cornerY / scale);
 
       if(currentInfo != null) {
-        if(currentInfo.tool != null) {
+        if(!currentInfo.tool.isEmpty()) {
           itemRender.renderItemIntoGUI(currentInfo.tool, logoX, logoY);
         }
         else if(currentInfo == GuiButtonRepair.info) {
@@ -433,7 +433,7 @@ public class GuiToolStation extends GuiTinkerStation {
     if(currentInfo == GuiButtonRepair.info) {
       drawRepairSlotIcons();
     }
-    else if(currentInfo.tool != null && currentInfo.tool.getItem() instanceof TinkersItem) {
+    else if(currentInfo.tool.getItem() instanceof TinkersItem) {
       for(int i = 0; i < activeSlots; i++) {
         Slot slot = inventorySlots.getSlot(i);
         if(!(slot instanceof SlotToolStationIn)) {

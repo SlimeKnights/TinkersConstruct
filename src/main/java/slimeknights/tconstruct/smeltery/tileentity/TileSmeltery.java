@@ -157,7 +157,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
   @Override
   protected void updateHeatRequired(int index) {
     ItemStack stack = getStackInSlot(index);
-    if(stack != null) {
+    if(!stack.isEmpty()) {
       MeltingRecipe melting = TinkerRegistry.getMelting(stack);
       if(melting != null) {
         setHeatRequiredForSlot(index, Math.max(5, melting.getUsableTemperature()));
@@ -191,7 +191,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
       liquids.fill(event.result, true);
 
       // only clear out items n stuff if it was successful
-      setInventorySlotContents(slot, null);
+      setInventorySlotContents(slot, ItemStack.EMPTY);
       return true;
     }
     else {
@@ -219,11 +219,11 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
             if(!isStackInSlot(i)) {
               // remove 1 from the stack and add it to the smeltery
               ItemStack invStack = stack.copy();
-              stack.stackSize--;
-              invStack.stackSize = 1;
+              stack.shrink(1);
+              invStack.setCount(1);
               this.setInventorySlotContents(i, invStack);
             }
-            if(stack.stackSize <= 0) {
+            if(stack.isEmpty()) {
               // picked up whole stack
               entity.setDead();
               break;
@@ -267,6 +267,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
           FluidStack toDrain = liquid.copy();
           FluidStack drained = liquids.drain(toDrain, true);
           // error logging
+          assert drained != null;
           if(!drained.isFluidEqual(toDrain) || drained.amount != toDrain.amount) {
             log.error("Smeltery alloy creation drained incorrect amount: was %s:%d, should be %s:%d", drained
                 .getUnlocalizedName(), drained.amount, toDrain.getUnlocalizedName(), toDrain.amount);

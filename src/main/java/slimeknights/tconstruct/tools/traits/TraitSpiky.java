@@ -25,12 +25,12 @@ public class TraitSpiky extends AbstractTrait {
     Entity target = event.getSource().getEntity();
     if(target instanceof EntityLivingBase && target.isEntityAlive()) {
       float damage = ToolHelper.getActualDamage(tool, player) / 3f; // 1/3rd of weapon damage
-      EntityDamageSource damageSource = new EntityDamageSource(DamageSource.cactus.damageType, player);
+      EntityDamageSource damageSource = new EntityDamageSource(DamageSource.CACTUS.damageType, player);
       damageSource.setDamageBypassesArmor();
       damageSource.setDamageIsAbsolute();
 
       if(attackEntitySecondary(damageSource, damage, target, true, false)) {
-        TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_CACTUS, (EntityLivingBase) target, 1);
+        TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_CACTUS, target, 1);
       }
       target.hurtResistantTime = 4; // very short invulv time from that
     }

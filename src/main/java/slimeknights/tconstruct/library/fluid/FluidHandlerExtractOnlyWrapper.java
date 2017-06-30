@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.library.fluid;
 
-import java.lang.ref.WeakReference;
-
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.FluidTankProperties;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidHandlerConcatenate;
+
+import java.lang.ref.WeakReference;
 
 public class FluidHandlerExtractOnlyWrapper extends FluidHandlerConcatenate {
 
@@ -17,7 +17,7 @@ public class FluidHandlerExtractOnlyWrapper extends FluidHandlerConcatenate {
 
   public FluidHandlerExtractOnlyWrapper(IFluidHandler parent) {
     super(parent);
-    this.parent = new WeakReference<IFluidHandler>(parent);
+    this.parent = new WeakReference<>(parent);
   }
 
   // checks if the parent is no longer available, for example the smeltery containing the tank was removed
@@ -28,9 +28,11 @@ public class FluidHandlerExtractOnlyWrapper extends FluidHandlerConcatenate {
   @Override
   public IFluidTankProperties[] getTankProperties() {
     if(hasParent()) {
-      IFluidTankProperties[] iFluidTankPropertiesArray = parent.get().getTankProperties();
+      IFluidHandler iFluidHandler = parent.get();
+      assert iFluidHandler != null;
+      IFluidTankProperties[] iFluidTankPropertiesArray = iFluidHandler.getTankProperties();
       if(iFluidTankPropertiesArray.length > 0) {
-        IFluidTankProperties fluidTankProperties = parent.get().getTankProperties()[0];
+        IFluidTankProperties fluidTankProperties = iFluidHandler.getTankProperties()[0];
         return new IFluidTankProperties[]{new FluidTankProperties(fluidTankProperties.getContents(), fluidTankProperties.getCapacity(), true, false)};
       }
     }

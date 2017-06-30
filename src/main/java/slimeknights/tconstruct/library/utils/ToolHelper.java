@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
+import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -60,7 +61,7 @@ public final class ToolHelper {
   }
 
   public static boolean hasCategory(ItemStack stack, Category category) {
-    if(stack == null || stack.getItem() == null || !(stack.getItem() instanceof TinkersItem)) {
+    if(stack.isEmpty() || !(stack.getItem() instanceof TinkersItem)) {
       return false;
     }
 
@@ -87,7 +88,7 @@ public final class ToolHelper {
 
   public static float getActualAttack(ItemStack stack) {
     float damage = getAttackStat(stack);
-    if(stack != null && stack.getItem() instanceof ToolCore) {
+    if(!stack.isEmpty() && stack.getItem() instanceof ToolCore) {
       damage *= ((ToolCore) stack.getItem()).damagePotential();
     }
     return damage;
@@ -104,7 +105,7 @@ public final class ToolHelper {
   /** Returns the actual attack speed */
   public static float getActualAttackSpeed(ItemStack stack) {
     float speed = getAttackSpeedStat(stack);
-    if(stack != null && stack.getItem() instanceof ToolCore) {
+    if(!stack.isEmpty() && stack.getItem() instanceof ToolCore) {
       speed *= ((ToolCore) stack.getItem()).attackSpeed();
     }
     return speed;
@@ -113,7 +114,7 @@ public final class ToolHelper {
   /** Returns the actual mining speed. */
   public static float getActualMiningSpeed(ItemStack stack) {
     float speed = getMiningSpeedStat(stack);
-    if(stack != null && stack.getItem() instanceof ToolCore) {
+    if(!stack.isEmpty() && stack.getItem() instanceof ToolCore) {
       speed *= ((ToolCore) stack.getItem()).miningSpeedModifier();
     }
     return speed;
@@ -214,7 +215,7 @@ public final class ToolHelper {
     String type = block.getHarvestTool(state);
     int level = block.getHarvestLevel(state);
 
-    return stack.getItem().getHarvestLevel(stack, type) >= level;
+    return stack.getItem().getHarvestLevel(stack, type, null, state) >= level;
   }
 
   /* Harvesting */
@@ -226,7 +227,7 @@ public final class ToolHelper {
 
   public static ImmutableList<BlockPos> calcAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin, int width, int height, int depth, int distance) {
     // only works with toolcore because we need the raytrace call
-    if(stack == null || !(stack.getItem() instanceof ToolCore)) {
+    if(stack.isEmpty() || !(stack.getItem() instanceof ToolCore)) {
       return ImmutableList.of();
     }
 
@@ -427,14 +428,16 @@ public final class ToolHelper {
       // callback to the tool
       stack.onBlockDestroyed(world, state, pos, player);
 
-      if(stack.stackSize == 0 && stack == player.getHeldItemMainhand()) {
+      if(stack.getCount() == 0 && stack == player.getHeldItemMainhand()) {
         ForgeEventFactory.onPlayerDestroyItem(player, stack, EnumHand.MAIN_HAND);
-        player.setHeldItem(EnumHand.MAIN_HAND, null);
+        player.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
       }
 
       // send an update to the server, so we get an update back
       //if(PHConstruct.extraBlockUpdates)
-      Minecraft.getMinecraft().getConnection().sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, Minecraft
+      NetHandlerPlayClient netHandlerPlayClient = Minecraft.getMinecraft().getConnection();
+      assert netHandlerPlayClient != null;
+      netHandlerPlayClient.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.STOP_DESTROY_BLOCK, pos, Minecraft
           .getMinecraft().objectMouseOver.sideHit));
     }
   }
@@ -744,7 +747,7 @@ public final class ToolHelper {
 
       // call post-hit callbacks before reducing the durability
       for(ITrait trait : traits) {
-        trait.afterHit(stack, attacker, target, damageDealt, isCritical, hit); // hit is always true
+        trait.afterHit(stack, attacker, target, damageDealt, isCritical, true); // hit is always true
       }
 
       // damage the tool

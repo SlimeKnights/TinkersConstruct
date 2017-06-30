@@ -16,6 +16,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -23,7 +24,6 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -52,7 +52,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
     for(SoilTypes type : SoilTypes.values()) {
       if(isTypeEnabled(type)) {
         list.add(new ItemStack(this, 1, type.getMeta()));
@@ -108,7 +108,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
     if(entity instanceof EntityLiving) {
       EntityLivingBase entityLiving = (EntityLivingBase) entity;
       if(entityLiving.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
-        entityLiving.attackEntityFrom(DamageSource.magic, 1);
+        entityLiving.attackEntityFrom(DamageSource.MAGIC, 1);
         entityLiving.setFire(1);
       }
     }

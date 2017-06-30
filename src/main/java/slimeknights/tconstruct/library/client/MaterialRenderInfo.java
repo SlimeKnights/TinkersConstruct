@@ -1,19 +1,17 @@
 package slimeknights.tconstruct.library.client;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.texture.AnimatedColoredTexture;
 import slimeknights.tconstruct.library.client.texture.InverseColoredTexture;
 import slimeknights.tconstruct.library.client.texture.MetalColoredTexture;
 import slimeknights.tconstruct.library.client.texture.MetalTextureTexture;
 import slimeknights.tconstruct.library.client.texture.SimpleColoredTexture;
 import slimeknights.tconstruct.library.client.texture.TextureColoredTexture;
+import slimeknights.tconstruct.library.client.texture.TinkerTexture;
 
 /**
  * Determines the type of texture used for rendering a specific material
@@ -186,7 +184,7 @@ public interface MaterialRenderInfo {
       TextureAtlasSprite blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getTextureExtry(texturePath);
 
       if(blockTexture == null) {
-        blockTexture = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
+        blockTexture = TinkerTexture.loadManually(texturePath);
       }
 
       TextureColoredTexture sprite = new TextureColoredTexture(blockTexture, baseTexture, location);

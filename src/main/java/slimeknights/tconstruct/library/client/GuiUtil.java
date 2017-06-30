@@ -1,14 +1,5 @@
 package slimeknights.tconstruct.library.client;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.function.Consumer;
-
-import org.lwjgl.opengl.GL11;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -19,10 +10,17 @@ import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+
+import org.lwjgl.opengl.GL11;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Consumer;
+
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -31,6 +29,7 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.ICastingRecipe;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
+import slimeknights.tconstruct.library.utils.ListUtil;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.client.SmelteryRenderer;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidClicked;
@@ -260,15 +259,15 @@ public class GuiUtil {
         CastingRecipe recipe = (CastingRecipe) irecipe;
         if(recipe.getFluid().getFluid() == fluid && recipe.cast != null) {
           // nugget
-          if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castNugget}) != null) {
+          if(recipe.cast.matches(ListUtil.getListFrom(TinkerSmeltery.castNugget)).isPresent()) {
             list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.nugget"));
           }
           // ingot
-          if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castIngot}) != null) {
+          if(recipe.cast.matches(ListUtil.getListFrom(TinkerSmeltery.castIngot)).isPresent()) {
             list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.ingot"));
           }
           // gem
-          if(recipe.cast.matches(new ItemStack[]{TinkerSmeltery.castGem}) != null) {
+          if(recipe.cast.matches(ListUtil.getListFrom(TinkerSmeltery.castGem)).isPresent()) {
             list.add(new FluidGuiEntry(recipe.getFluid().amount, "gui.smeltery.liquid.gem"));
           }
         }
@@ -276,12 +275,7 @@ public class GuiUtil {
     }
 
     // sort by amount descending because the order in which they're accessed is important since it changes the remaining value during processing
-    Collections.sort(list, new Comparator<FluidGuiEntry>() {
-      @Override
-      public int compare(FluidGuiEntry o1, FluidGuiEntry o2) {
-        return o2.amount - o1.amount;
-      }
-    });
+    list.sort((o1, o2) -> o2.amount - o1.amount);
 
     return ImmutableList.copyOf(list);
   }

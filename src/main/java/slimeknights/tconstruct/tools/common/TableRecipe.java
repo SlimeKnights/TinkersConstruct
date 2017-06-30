@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.common;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -8,6 +9,8 @@ import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import java.util.List;
+
+import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.shared.block.BlockTable;
 
@@ -26,12 +29,13 @@ public class TableRecipe extends ShapedOreRecipe {
     this.outputBlocks = variantItems;
   }
 
+  @Nonnull
   @Override
   public ItemStack getCraftingResult(InventoryCrafting craftMatrix) {
     for(int i = 0; i < craftMatrix.getSizeInventory(); i++) {
       for(ItemStack ore : outputBlocks) {
         ItemStack stack = craftMatrix.getStackInSlot(i);
-        if(OreDictionary.itemMatches(ore, stack, false) && Block.getBlockFromItem(stack.getItem()) != null) {
+        if(OreDictionary.itemMatches(ore, stack, false) && Block.getBlockFromItem(stack.getItem()) != Blocks.AIR) {
           BlockTable block = (BlockTable) Block.getBlockFromItem(output.getItem());
           return BlockTable.createItemstack(block, output.getItemDamage(), Block.getBlockFromItem(stack.getItem()),
                                             stack.getItemDamage());
@@ -42,9 +46,10 @@ public class TableRecipe extends ShapedOreRecipe {
     return super.getCraftingResult(craftMatrix);
   }
 
+  @Nonnull
   @Override
   public ItemStack getRecipeOutput() {
-    if(!outputBlocks.isEmpty() && output != null) {
+    if(!outputBlocks.isEmpty() && !output.isEmpty()) {
       ItemStack stack = outputBlocks.get(0);
       BlockTable block = (BlockTable) Block.getBlockFromItem(output.getItem());
       int meta = stack.getItemDamage();

@@ -136,7 +136,7 @@ public class TinkerTools extends AbstractToolPulse {
 
     // register entities
 
-    EntityRegistry.registerModEntity(IndestructibleEntityItem.class, "Indestructible Item", EntityIDs.INDESTRUCTIBLE_ITEM, TConstruct.instance, 32, 5, true);
+    EntityRegistry.registerModEntity(Util.getResource("indestructible"), IndestructibleEntityItem.class, "Indestructible Item", EntityIDs.INDESTRUCTIBLE_ITEM, TConstruct.instance, 32, 5, true);
 
     proxy.preInit();
 
@@ -200,7 +200,7 @@ public class TinkerTools extends AbstractToolPulse {
     ItemStack pattern = new ItemStack(TinkerTools.pattern, 4);
     GameRegistry.addRecipe(new ShapedOreRecipe(pattern, "PS", "SP", 'P', "plankWood", 'S', "stickWood"));
     GameRegistry.addRecipe(new ShapedOreRecipe(pattern, "SP", "PS", 'P', "plankWood", 'S', "stickWood"));
-    pattern.stackSize = 1;
+    pattern.setCount(1);
 
     // pattern book recipe
     GameRegistry.addShapelessRecipe(new ItemStack(Items.BOOK), Items.PAPER, Items.PAPER, Items.PAPER, Items.STRING, pattern, pattern);
@@ -278,7 +278,7 @@ public class TinkerTools extends AbstractToolPulse {
 
       // pigiron
       ItemStack pigiron = TinkerCommons.ingotPigIron.copy();
-      pigiron.stackSize = 3;
+      pigiron.setCount(3);
       GameRegistry.addRecipe(new ShapelessOreRecipe(pigiron, "ingotIron", "ingotIron", "ingotIron", Items.PORKCHOP, Items.PORKCHOP, Items.PORKCHOP, "gemEmerald"));
     }
 
@@ -334,9 +334,9 @@ public class TinkerTools extends AbstractToolPulse {
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudMagma, slimeBallMagma, Items.MAGMA_CREAM, slimeBallMagma, Items.MAGMA_CREAM, Blocks.SOUL_SAND, Blocks.NETHERRACK));
 
     // recipies using congealed slime blocks
-    ItemStack congealed = new ItemStack(TinkerCommons.blockSlimeCongealed, 0, BlockSlime.SlimeType.GREEN.meta);
+    ItemStack congealed = new ItemStack(TinkerCommons.blockSlimeCongealed, 1, BlockSlime.SlimeType.GREEN.meta);
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudGreen, congealed, "sand", "dirt"));
-    congealed = new ItemStack(TinkerCommons.blockSlimeCongealed, 0, BlockSlime.SlimeType.BLUE.meta);
+    congealed = new ItemStack(TinkerCommons.blockSlimeCongealed, 1, BlockSlime.SlimeType.BLUE.meta);
     GameRegistry.addRecipe(new ShapelessOreRecipe(TinkerCommons.slimyMudBlue, congealed, "sand", "dirt"));
 
     // Slime crystals

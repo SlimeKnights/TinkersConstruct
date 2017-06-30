@@ -39,7 +39,9 @@ public class RenderTinkerSlime extends RenderSlime {
   }
 
   public RenderTinkerSlime(RenderManager renderManagerIn, int color, int colorLayer, ModelBase modelBaseIn, float shadowSizeIn, ResourceLocation texture) {
-    super(renderManagerIn, modelBaseIn, shadowSizeIn);
+    super(renderManagerIn);
+    this.mainModel = modelBaseIn;
+    this.shadowSize = shadowSizeIn;
     this.color = color;
     this.texture = texture;
 

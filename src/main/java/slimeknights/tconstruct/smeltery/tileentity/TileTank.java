@@ -38,7 +38,6 @@ public class TileTank extends TileSmelteryComponent implements IFluidTankUpdater
   }
 
   @SuppressWarnings("unchecked")
-  @Nonnull
   @Override
   public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
@@ -57,6 +56,7 @@ public class TileTank extends TileSmelteryComponent implements IFluidTankUpdater
 
   public int getBrightness() {
     if(containsFluid()) {
+      assert tank.getFluid() != null;
       return tank.getFluid().getFluid().getLuminosity();
     }
     return 0;
@@ -105,7 +105,7 @@ public class TileTank extends TileSmelteryComponent implements IFluidTankUpdater
   public void onTankContentsChanged() {
     int newStrength = this.comparatorStrength();
     if(newStrength != lastStrength) {
-      this.getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+      this.getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType(), false);
       this.lastStrength = newStrength;
     }
   }

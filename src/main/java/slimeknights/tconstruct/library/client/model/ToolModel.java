@@ -107,7 +107,7 @@ public class ToolModel implements IModel {
       modifierModels = modifiers.bakeModels(state, format, bakedTextureGetter);
     }
     else {
-      modifierModels = new THashMap<String, IBakedModel>();
+      modifierModels = new THashMap<>();
     }
 
     Map<TransformType, TRSRTransformation> builder = Maps.newHashMap();
@@ -150,7 +150,7 @@ public class ToolModel implements IModel {
         overriddenModifierModels = modifierModels;
       }
 
-      BakedToolModel bakedToolModel = getBakedToolModel(base, overridenPartModels, overridenBrokenPartModels, overriddenModifierModels, ImmutableMap.copyOf(builder2), ImmutableList.<BakedToolModelOverride>of(), override.ammoPosition);
+      BakedToolModel bakedToolModel = getBakedToolModel(base, overridenPartModels, overridenBrokenPartModels, overriddenModifierModels, ImmutableMap.copyOf(builder2), ImmutableList.of(), override.ammoPosition);
       overrideBuilder.add(new BakedToolModelOverride(override.predicates, bakedToolModel));
     }
 

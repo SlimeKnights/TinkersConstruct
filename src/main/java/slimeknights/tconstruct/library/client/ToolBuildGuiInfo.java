@@ -8,25 +8,27 @@ import org.lwjgl.util.Point;
 
 import java.util.List;
 
-import slimeknights.tconstruct.library.materials.Material;
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 
 public class ToolBuildGuiInfo {
 
+  @Nonnull
   public final ItemStack tool;
   // the positions where the slots are located
   public final List<Point> positions = Lists.newArrayList();
 
   public ToolBuildGuiInfo() {
     // for repairing
-    this.tool = null;
+    this.tool = ItemStack.EMPTY;
   }
 
-  public ToolBuildGuiInfo(TinkersItem tool) {
+  public ToolBuildGuiInfo(@Nonnull TinkersItem tool) {
     this.tool = tool.buildItemForRenderingInGui();
   }
 
-  public static ToolBuildGuiInfo default3Part(TinkersItem tool) {
+  public static ToolBuildGuiInfo default3Part(@Nonnull TinkersItem tool) {
     ToolBuildGuiInfo info = new ToolBuildGuiInfo(tool);
     info.addSlotPosition(33 - 20, 42 + 20);
     info.addSlotPosition(33 + 20, 42 - 20);

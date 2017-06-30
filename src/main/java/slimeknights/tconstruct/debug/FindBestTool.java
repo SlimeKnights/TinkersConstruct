@@ -96,7 +96,7 @@ public class FindBestTool extends CommandBase {
         }
     };
 
-    recurse(tool, ImmutableList.<Material>of(), results, functions);
+    recurse(tool, ImmutableList.of(), results, functions);
 
     //Collections.sort(results, Comp.INSTANCE);
 

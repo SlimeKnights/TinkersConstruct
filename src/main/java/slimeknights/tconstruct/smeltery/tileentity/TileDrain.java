@@ -32,7 +32,6 @@ public class TileDrain extends TileSmelteryComponent {
   }
 
   @SuppressWarnings("unchecked")
-  @Nonnull
   @Override
   public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
@@ -50,7 +49,7 @@ public class TileDrain extends TileSmelteryComponent {
             || oldSmelteryTank == null || !drainFluidHandler.hasParent()
             || !oldSmelteryTank.get().equals(te)) {
           drainFluidHandler = new FluidHandlerExtractOnlyWrapper(tank);
-          oldSmelteryTank = new WeakReference<TileEntity>(te);
+          oldSmelteryTank = new WeakReference<>(te);
         }
         return (T) drainFluidHandler;
       }

@@ -10,6 +10,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.SoundEvents;
@@ -156,36 +157,37 @@ public class Scythe extends AoeToolCore {
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
-    if(ToolHelper.isBroken(stack)) {
-      return ActionResult.newResult(EnumActionResult.FAIL, stack);
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
+    if(ToolHelper.isBroken(itemStackIn)) {
+      return ActionResult.newResult(EnumActionResult.FAIL, itemStackIn);
     }
 
-    RayTraceResult trace = this.rayTrace(world, player, true);
+    RayTraceResult trace = this.rayTrace(worldIn, playerIn, true);
     if(trace == null || trace.typeOfHit != RayTraceResult.Type.BLOCK) {
-      return ActionResult.newResult(EnumActionResult.PASS, stack);
+      return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
     }
 
-    int fortune = ToolHelper.getFortuneLevel(stack);
+    int fortune = ToolHelper.getFortuneLevel(itemStackIn);
 
     BlockPos origin = trace.getBlockPos();
 
     boolean harvestedSomething = false;
-    for(BlockPos pos : this.getAOEBlocks(stack, player.getEntityWorld(), player, origin)) {
-      harvestedSomething |= harvestCrop(stack, world, player, pos, fortune);
+    for(BlockPos pos : this.getAOEBlocks(itemStackIn, playerIn.getEntityWorld(), playerIn, origin)) {
+      harvestedSomething |= harvestCrop(itemStackIn, worldIn, playerIn, pos, fortune);
     }
 
     // center space done after the loop to prevent from changing the hitbox before AOE runs
-    harvestedSomething |= harvestCrop(stack, world, player, origin, fortune);
+    harvestedSomething |= harvestCrop(itemStackIn, worldIn, playerIn, origin, fortune);
 
     if(harvestedSomething) {
-      player.swingArm(hand);
-      player.getEntityWorld().playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
-      player.spawnSweepParticles();
-      return ActionResult.newResult(EnumActionResult.SUCCESS, stack);
+      playerIn.swingArm(hand);
+      playerIn.getEntityWorld().playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, playerIn.getSoundCategory(), 1.0F, 1.0F);
+      playerIn.spawnSweepParticles();
+      return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
     }
 
-    return ActionResult.newResult(EnumActionResult.PASS, stack);
+    return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
   }
 
   protected boolean canHarvestCrop(IBlockState state) {
@@ -279,8 +281,8 @@ public class Scythe extends AoeToolCore {
     for(ItemStack drop : drops) {
       if(drop != null && drop.getItem() instanceof IPlantable) {
         seed = (IPlantable) drop.getItem();
-        drop.stackSize--;
-        if(drop.stackSize <= 0) {
+        drop.shrink(1);
+        if(drop.isEmpty()) {
           drops.remove(drop);
         }
 
@@ -330,10 +332,12 @@ public class Scythe extends AoeToolCore {
         List<ItemStack> drops = shearable.onSheared(stack, world, entity.getPosition(), fortune);
         Random rand = world.rand;
         for(ItemStack drop : drops) {
-          net.minecraft.entity.item.EntityItem ent = entity.entityDropItem(drop, 1.0F);
-          ent.motionY += rand.nextFloat() * 0.05F;
-          ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-          ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+          EntityItem entityItem = entity.entityDropItem(drop, 1.0F);
+          if(entityItem != null) {
+            entityItem.motionY += rand.nextFloat() * 0.05F;
+            entityItem.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+            entityItem.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+          }
         }
       }
       ToolHelper.damageTool(stack, 1, player);

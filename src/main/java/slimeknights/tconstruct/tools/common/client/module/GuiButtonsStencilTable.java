@@ -44,7 +44,7 @@ public class GuiButtonsStencilTable extends GuiSideButtons {
       }
 
       ItemStack icon = ((MaterialItem) part).getItemstackWithMaterial(CustomTextureCreator.guiMaterial);
-      GuiButtonItem<ItemStack> button = new GuiButtonItem<ItemStack>(index++, -1, -1, icon, stencil);
+      GuiButtonItem<ItemStack> button = new GuiButtonItem<>(index++, -1, -1, icon, stencil);
       shiftButton(button, 0, 18);
       addSideButton(button);
 

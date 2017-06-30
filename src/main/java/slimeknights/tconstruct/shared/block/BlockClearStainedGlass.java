@@ -28,7 +28,7 @@ import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 
 public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClearStainedGlass.EnumGlassColor> {
 
-  public static final PropertyEnum<EnumGlassColor> COLOR = PropertyEnum.<EnumGlassColor>create("color", EnumGlassColor.class);
+  public static final PropertyEnum<EnumGlassColor> COLOR = PropertyEnum.create("color", EnumGlassColor.class);
 
   public BlockClearStainedGlass() {
     super(Material.GLASS, COLOR, EnumGlassColor.class);
@@ -69,7 +69,7 @@ public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClear
   @Override
   @SuppressWarnings("deprecation")
   public boolean shouldSideBeRendered(IBlockState blockState, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, EnumFacing side) {
-    return canConnect(blockState, blockAccess.getBlockState(pos.offset(side))) ? false : super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+    return !canConnect(blockState, blockAccess.getBlockState(pos.offset(side))) && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
   }
 
   @Nullable

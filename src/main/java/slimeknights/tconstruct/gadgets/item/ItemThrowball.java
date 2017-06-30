@@ -6,10 +6,12 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSnowball;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
@@ -33,7 +35,7 @@ public class ItemThrowball extends ItemSnowball {
   }
 
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     for(ThrowballType type : ThrowballType.values()) {
       subItems.add(new ItemStack(this, 1, type.ordinal()));
     }
@@ -41,9 +43,10 @@ public class ItemThrowball extends ItemSnowball {
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
     if(!playerIn.capabilities.isCreativeMode) {
-      --itemStackIn.stackSize;
+      itemStackIn.shrink(1);
     }
 
     worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
@@ -53,8 +56,10 @@ public class ItemThrowball extends ItemSnowball {
       launchThrowball(worldIn, playerIn, type, hand);
     }
 
-    playerIn.addStat(StatList.getObjectUseStats(this));
-    return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+    StatBase statBase = StatList.getObjectUseStats(this);
+    assert statBase != null;
+    playerIn.addStat(statBase);
+    return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
   }
 
   public void launchThrowball(World world, EntityPlayer player, ThrowballType type, EnumHand hand) {

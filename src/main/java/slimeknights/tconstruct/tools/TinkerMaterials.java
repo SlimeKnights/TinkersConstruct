@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
@@ -11,8 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.logging.log4j.Logger;
 
@@ -22,11 +19,6 @@ import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.MaterialRenderInfo;
-import slimeknights.tconstruct.library.client.material.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.client.texture.ExtraUtilityTexture;
-import slimeknights.tconstruct.library.client.texture.MetalColoredTexture;
-import slimeknights.tconstruct.library.client.texture.MetalTextureTexture;
 import slimeknights.tconstruct.library.materials.ArrowShaftMaterialStats;
 import slimeknights.tconstruct.library.materials.BowMaterialStats;
 import slimeknights.tconstruct.library.materials.BowStringMaterialStats;
@@ -35,8 +27,6 @@ import slimeknights.tconstruct.library.materials.FletchingMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.traits.AbstractTrait;
-import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -50,7 +40,54 @@ import static slimeknights.tconstruct.library.utils.HarvestLevels.DIAMOND;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.IRON;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.OBSIDIAN;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.STONE;
-import static slimeknights.tconstruct.tools.TinkerTraits.*;
+import static slimeknights.tconstruct.tools.TinkerTraits.alien;
+import static slimeknights.tconstruct.tools.TinkerTraits.aquadynamic;
+import static slimeknights.tconstruct.tools.TinkerTraits.aridiculous;
+import static slimeknights.tconstruct.tools.TinkerTraits.autosmelt;
+import static slimeknights.tconstruct.tools.TinkerTraits.baconlicious;
+import static slimeknights.tconstruct.tools.TinkerTraits.breakable;
+import static slimeknights.tconstruct.tools.TinkerTraits.cheap;
+import static slimeknights.tconstruct.tools.TinkerTraits.cheapskate;
+import static slimeknights.tconstruct.tools.TinkerTraits.coldblooded;
+import static slimeknights.tconstruct.tools.TinkerTraits.crude;
+import static slimeknights.tconstruct.tools.TinkerTraits.crude2;
+import static slimeknights.tconstruct.tools.TinkerTraits.crumbling;
+import static slimeknights.tconstruct.tools.TinkerTraits.dense;
+import static slimeknights.tconstruct.tools.TinkerTraits.duritos;
+import static slimeknights.tconstruct.tools.TinkerTraits.ecological;
+import static slimeknights.tconstruct.tools.TinkerTraits.enderference;
+import static slimeknights.tconstruct.tools.TinkerTraits.endspeed;
+import static slimeknights.tconstruct.tools.TinkerTraits.established;
+import static slimeknights.tconstruct.tools.TinkerTraits.flammable;
+import static slimeknights.tconstruct.tools.TinkerTraits.fractured;
+import static slimeknights.tconstruct.tools.TinkerTraits.freezing;
+import static slimeknights.tconstruct.tools.TinkerTraits.hellish;
+import static slimeknights.tconstruct.tools.TinkerTraits.holy;
+import static slimeknights.tconstruct.tools.TinkerTraits.hovering;
+import static slimeknights.tconstruct.tools.TinkerTraits.insatiable;
+import static slimeknights.tconstruct.tools.TinkerTraits.jagged;
+import static slimeknights.tconstruct.tools.TinkerTraits.lightweight;
+import static slimeknights.tconstruct.tools.TinkerTraits.magnetic;
+import static slimeknights.tconstruct.tools.TinkerTraits.magnetic2;
+import static slimeknights.tconstruct.tools.TinkerTraits.momentum;
+import static slimeknights.tconstruct.tools.TinkerTraits.petramor;
+import static slimeknights.tconstruct.tools.TinkerTraits.poisonous;
+import static slimeknights.tconstruct.tools.TinkerTraits.prickly;
+import static slimeknights.tconstruct.tools.TinkerTraits.sharp;
+import static slimeknights.tconstruct.tools.TinkerTraits.shocking;
+import static slimeknights.tconstruct.tools.TinkerTraits.slimeyBlue;
+import static slimeknights.tconstruct.tools.TinkerTraits.slimeyGreen;
+import static slimeknights.tconstruct.tools.TinkerTraits.spiky;
+import static slimeknights.tconstruct.tools.TinkerTraits.splintering;
+import static slimeknights.tconstruct.tools.TinkerTraits.splitting;
+import static slimeknights.tconstruct.tools.TinkerTraits.squeaky;
+import static slimeknights.tconstruct.tools.TinkerTraits.stiff;
+import static slimeknights.tconstruct.tools.TinkerTraits.stonebound;
+import static slimeknights.tconstruct.tools.TinkerTraits.superheat;
+import static slimeknights.tconstruct.tools.TinkerTraits.tasty;
+import static slimeknights.tconstruct.tools.TinkerTraits.unnatural;
+import static slimeknights.tconstruct.tools.TinkerTraits.writable;
+import static slimeknights.tconstruct.tools.TinkerTraits.writable2;
 
 /**
  * All the tool materials tcon supports.
@@ -330,11 +367,11 @@ public final class TinkerMaterials {
     material.setRepresentativeItem(representative);
   }
 
-  private void safeAdd(Material material, ItemStack item, int value, boolean representative) {
-    if(item != null && item.getItem() != null) {
-      material.addItem(item, 1, value);
+  private void safeAdd(Material material, ItemStack itemStack, int value, boolean representative) {
+    if(!itemStack.isEmpty()) {
+      material.addItem(itemStack, 1, value);
       if(representative) {
-        material.setRepresentativeItem(item);
+        material.setRepresentativeItem(itemStack);
       }
     }
   }

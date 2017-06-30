@@ -39,8 +39,8 @@ public class ToolModelOverride {
   public final String modifierSuffix;
 
   // those will be filled later on during the loading progress
-  public final TIntObjectHashMap<MaterialModel> partModelReplacement = new TIntObjectHashMap<MaterialModel>();
-  public final TIntObjectHashMap<MaterialModel> brokenPartModelReplacement = new TIntObjectHashMap<MaterialModel>();
+  public final TIntObjectHashMap<MaterialModel> partModelReplacement = new TIntObjectHashMap<>();
+  public final TIntObjectHashMap<MaterialModel> brokenPartModelReplacement = new TIntObjectHashMap<>();
   public ModifierModel overrideModifierModel;
 
   public ToolModelOverride(ImmutableMap<ResourceLocation, Float> predicates, ImmutableMap<String, String> textures, ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms, AmmoPosition ammoPosition, String modifierSuffix) {
@@ -71,7 +71,7 @@ public class ToolModelOverride {
       }
 
       if(texElem.isJsonObject()) {
-        return ImmutableList.of((ToolModelOverride) GSON.fromJson(texElem, ToolModelOverrideDeserializer.TYPE));
+        return ImmutableList.of(GSON.fromJson(texElem, ToolModelOverrideDeserializer.TYPE));
       }
 
       ImmutableList.Builder<ToolModelOverride> builder = ImmutableList.builder();
@@ -107,7 +107,7 @@ public class ToolModelOverride {
 
       ImmutableMap<String, String> textures;
       if(json.get("textures") != null) {
-        textures = ImmutableMap.copyOf((Map<String, String>)GSON.fromJson(json, ModelTextureDeserializer.TYPE));
+        textures = ImmutableMap.copyOf(GSON.fromJson(json, ModelTextureDeserializer.TYPE));
       }
       else {
         textures = ImmutableMap.of();

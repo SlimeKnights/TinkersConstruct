@@ -42,6 +42,10 @@ repositories {
         name 'tterrag maven'
         url "http://maven.tterrag.com/"
     }
+    maven { // compatlayer
+        name 'K-4u maven'
+        url "http://maven.k-4u.nl/"
+    }
     maven {
         name 'forge'
         url 'http://files.minecraftforge.net/maven'
@@ -98,7 +102,7 @@ if (System.getenv().ARTIFACT_VERSION != null) {
 version = "${config.minecraft_version}-${artifact_version}"
 
 minecraft {
-    version = config.minecraft_version + "-" + config.forge_version
+    version = config.minecraft_version_short + "-" + config.forge_version
     mappings = config.mappings
     runDir = "run"
     replace '${version}', project.version
@@ -117,6 +121,7 @@ dependencies {
 	
     deobfCompile "mcp.mobius.waila:Waila:${config.waila_version}"
     deobfCompile "mcjty.theoneprobe:TheOneProbe:${config.probe_version}"
+    deobfCompile "com.github.mcjty:compatlayer:${config.minecraft_version}-${config.compat_version}"
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 }
 
@@ -186,18 +191,18 @@ artifacts {
 
 // verify the properties exist.. or initialize.
 if (!project.hasProperty("keystore_location")) // keystore location
-    ext.keystore_location = ".";
+    ext.keystore_location = "."
     
 if (!project.hasProperty("keystore_user_alias")) // keystore user alias
-    ext.keystore_user_alias = "";
+    ext.keystore_user_alias = ""
 if (!project.hasProperty("sftp_username"))
-    ext.sftp_username = "";
+    ext.sftp_username = ""
 if (!project.hasProperty("sftp_key"))
-    ext.sftp_key = "";
+    ext.sftp_key = ""
 if (!project.hasProperty("keystore_user_password")) // keystore user pass
-    ext.keystore_user_password = "";
+    ext.keystore_user_password = ""
 if (System.getenv().KSK_PW != null)
-	ext.keystore_user_password =System.getenv().KSK_PW;
+	ext.keystore_user_password =System.getenv().KSK_PW
 
 
 task("uploadJars", dependsOn:"build") {
@@ -231,10 +236,10 @@ task signUniversal(type: SignJar, dependsOn: 'jar') {
         project.hasProperty('jarsigner')
     }
 
-    def jarsigner = [:];
+    def jarsigner = [:]
 
     if (project.hasProperty('jarsigner'))
-        jarsigner = project.jarsigner;
+        jarsigner = project.jarsigner
 
     alias = 'tcon'
     storePass = jarsigner.storepass

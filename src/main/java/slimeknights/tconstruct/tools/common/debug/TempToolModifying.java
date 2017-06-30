@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.common.debug;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.RecipeSorter;
 
@@ -30,18 +31,18 @@ public class TempToolModifying implements IRecipe {
   public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World worldIn) {
     outputTool = null;
 
-    ItemStack[] stacks = new ItemStack[inv.getSizeInventory()];
-    ItemStack tool = null;
+    NonNullList<ItemStack> stacks = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+    ItemStack tool = ItemStack.EMPTY;
 
     for(int i = 0; i < inv.getSizeInventory(); i++) {
-      stacks[i] = inv.getStackInSlot(i);
-      if(stacks[i] != null && stacks[i].getItem() instanceof TinkersItem) {
-        tool = stacks[i];
-        stacks[i] = null;
+      stacks.set(i, inv.getStackInSlot(i));
+      if(!stacks.get(i).isEmpty() && stacks.get(i).getItem() instanceof TinkersItem) {
+        tool = stacks.get(i);
+        stacks.set(i, ItemStack.EMPTY);
       }
     }
 
-    if(tool == null) {
+    if(tool.isEmpty()) {
       return false;
     }
 
@@ -66,15 +67,15 @@ public class TempToolModifying implements IRecipe {
 
   @Nonnull
   @Override
-  public ItemStack[] getRemainingItems(@Nonnull InventoryCrafting inv) {
-    ItemStack[] stacks = new ItemStack[inv.getSizeInventory()];
+  public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
+    NonNullList<ItemStack> stacks = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
     ItemStack tool = null;
 
     for(int i = 0; i < inv.getSizeInventory(); i++) {
-      stacks[i] = inv.getStackInSlot(i);
-      if(stacks[i] != null && stacks[i].getItem() instanceof TinkersItem) {
-        tool = stacks[i];
-        stacks[i] = null;
+      stacks.set(i, inv.getStackInSlot(i));
+      if(!stacks.get(i).isEmpty() && stacks.get(i).getItem() instanceof TinkersItem) {
+        tool = stacks.get(i);
+        stacks.set(i, ItemStack.EMPTY);
       }
     }
 

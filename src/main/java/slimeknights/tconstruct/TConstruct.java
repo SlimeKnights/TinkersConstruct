@@ -32,6 +32,7 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
+import slimeknights.tconstruct.plugin.Chisel;
 import slimeknights.tconstruct.plugin.ChiselAndBits;
 import slimeknights.tconstruct.plugin.CraftingTweaks;
 import slimeknights.tconstruct.plugin.theoneprobe.TheOneProbe;
@@ -59,10 +60,11 @@ import slimeknights.tconstruct.world.TinkerWorld;
     name = TConstruct.modName,
     version = TConstruct.modVersion,
     guiFactory = "slimeknights.tconstruct.common.config.ConfigGui$ConfigGuiFactory",
-    dependencies = "required-after:Forge@[12.18.2.2115,);"
-                   + "required-after:mantle@[1.10.2-1.1.4,);"
-                   + "after:JEI@[3.13.6.387,)",
-    acceptedMinecraftVersions = "[1.10.2, 1.11)")
+    dependencies = "required-after:forge@[13.20.0.2282,);"
+                   + "required-after:mantle@[1.11.2-1.2.0.25,);"
+                   + "after:jei@[4.2,);"
+                   + "after:chisel" ,
+    acceptedMinecraftVersions = "[1.11, 1.12)")
 public class TConstruct {
 
   public static final String modID = Util.MODID;
@@ -103,6 +105,7 @@ public class TConstruct {
     pulseManager.registerPulse(new AggregateModelRegistrar());
     // Plugins/Integration
     //pulseManager.registerPulse(new TinkerVintageCraft());
+    pulseManager.registerPulse(new Chisel());
     pulseManager.registerPulse(new ChiselAndBits());
     pulseManager.registerPulse(new CraftingTweaks());
     pulseManager.registerPulse(new Waila());

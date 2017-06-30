@@ -77,7 +77,7 @@ public abstract class AbstractToolPulse extends TinkerPulse {
     ToolPart ret = registerItem(part, name);
 
     if(pattern != null) {
-      toolPartPatterns.add(Pair.<Item, ToolPart>of(pattern, ret));
+      toolPartPatterns.add(Pair.of(pattern, ret));
     }
 
     toolparts.add(ret);

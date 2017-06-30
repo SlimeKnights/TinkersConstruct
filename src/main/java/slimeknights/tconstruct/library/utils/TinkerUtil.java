@@ -24,9 +24,6 @@ public final class TinkerUtil {
    * Safe way of getting the material from an itemstack.
    */
   public static Material getMaterialFromStack(ItemStack stack) {
-    if(stack == null || stack.getItem() == null) {
-      return Material.UNKNOWN;
-    }
     if(!(stack.getItem() instanceof IMaterialItem)) {
       return Material.UNKNOWN;
     }

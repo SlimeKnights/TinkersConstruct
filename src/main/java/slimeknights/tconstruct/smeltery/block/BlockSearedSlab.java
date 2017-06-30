@@ -108,7 +108,7 @@ public class BlockSearedSlab extends EnumBlockSlab<BlockSearedSlab.SearedType> i
         case ROAD:
           return BlockSeared.SearedType.ROAD;
         default:
-          return null;
+          throw new IllegalArgumentException("Unknown enum value? Impossibru!");
       }
     }
 

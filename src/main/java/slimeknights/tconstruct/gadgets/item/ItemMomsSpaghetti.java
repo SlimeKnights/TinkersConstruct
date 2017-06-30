@@ -12,10 +12,12 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -25,8 +27,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -35,7 +35,6 @@ import slimeknights.tconstruct.library.client.CustomFontColor;
 import slimeknights.tconstruct.library.tinkering.IModifyable;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.IToolStationDisplay;
-import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -63,7 +62,7 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     // no creative items, nono
   }
 
@@ -98,7 +97,7 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
   }
 
   @Override
-  @Nullable
+  @Nonnull
   public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
     stack.setItemDamage(stack.getItemDamage() + 1);
 
@@ -106,7 +105,9 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
       EntityPlayer entityplayer = (EntityPlayer) entityLiving;
       entityplayer.getFoodStats().addStats(this, stack);
       worldIn.playSound(null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 0.5F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
-      entityplayer.addStat(StatList.getObjectUseStats(this));
+      StatBase statBase = StatList.getObjectUseStats(this);
+      assert statBase != null;
+      entityplayer.addStat(statBase);
     }
 
     return stack;
@@ -131,13 +132,14 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, @Nonnull EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
     if(playerIn.canEat(false) && getUses(itemStackIn) > 0) {
       playerIn.setActiveHand(hand);
-      return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+      return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
     }
     else {
-      return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+      return new ActionResult<>(EnumActionResult.FAIL, itemStackIn);
     }
   }
 
@@ -146,30 +148,29 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
   }
 
   @Override
-  public ItemStack repair(ItemStack repairable, ItemStack[] repairItems) {
+  public ItemStack repair(ItemStack repairable, NonNullList<ItemStack> repairItems) {
     if(repairable.getItemDamage() == 0) {
       // nothing to repair, full durability
-      return null;
+      return ItemStack.EMPTY;
     }
 
     // don't accept anything that's not wheat
     for(ItemStack repairItem : repairItems) {
       if(repairItem != null && repairItem.getItem() != Items.WHEAT) {
-        return null;
+        return ItemStack.EMPTY;
       }
     }
 
 
     ItemStack stack = repairable.copy();
     int index = 0;
-    while(stack.getItemDamage() > 0 && index < repairItems.length) {
-      ItemStack repairItem = repairItems[index];
-      if(repairItem != null && repairItem.stackSize > 0) {
-        repairItem.stackSize--;
+    while(stack.getItemDamage() > 0 && index < repairItems.size()) {
+      ItemStack repairItem = repairItems.get(index);
+      if(repairItem.getCount() > 0) {
+        repairItem.shrink(1);
 
-        int change = USES_PER_WHEAT;
         //change = Math.min(change, stack.getMaxDamage() - stack.getItemDamage());
-        stack.setItemDamage(stack.getItemDamage() - change);
+        stack.setItemDamage(stack.getItemDamage() - USES_PER_WHEAT);
 
         ToolHelper.healTool(stack, USES_PER_WHEAT, null);
       }

@@ -7,7 +7,6 @@ import gnu.trove.map.hash.THashMap;
 
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
-import net.minecraft.client.renderer.block.model.ItemOverride;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -37,7 +36,7 @@ public class BakedMaterialModel extends BakedWrapper.Perspective implements IPer
   public BakedMaterialModel(IBakedModel base, ImmutableMap<TransformType, TRSRTransformation> transforms) {
     super(base, transforms);
 
-    this.parts = new THashMap<String, IBakedModel>(TinkerRegistry.getAllMaterials().size());
+    this.parts = new THashMap<>(TinkerRegistry.getAllMaterials().size());
   }
 
   public void addMaterialModel(Material material, IBakedModel model) {
@@ -64,12 +63,12 @@ public class BakedMaterialModel extends BakedWrapper.Perspective implements IPer
     static MaterialItemOverrideList INSTANCE = new MaterialItemOverrideList();
 
     private MaterialItemOverrideList() {
-      super(ImmutableList.<ItemOverride>of());
+      super(ImmutableList.of());
     }
 
     @Nonnull
     @Override
-    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
+    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
       String id = ((IMaterialItem) stack.getItem()).getMaterialID(stack);
       return ((BakedMaterialModel) originalModel).getModelByIdentifier(id);
     }

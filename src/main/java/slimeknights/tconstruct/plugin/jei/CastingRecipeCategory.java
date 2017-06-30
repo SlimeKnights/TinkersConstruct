@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.plugin.jei;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -62,18 +64,7 @@ public class CastingRecipeCategory implements IRecipeCategory<CastingRecipeWrapp
 
   @Override
   public void drawExtras(@Nonnull Minecraft minecraft) {
-
-  }
-
-  @Override
-  public void drawAnimations(@Nonnull Minecraft minecraft) {
     arrow.draw(minecraft, 79, 25);
-  }
-
-  @Override
-  @Deprecated
-  public void setRecipe(IRecipeLayout recipeLayout, CastingRecipeWrapper recipeWrapper) {
-    // deprecated
   }
 
   @Override
@@ -107,6 +98,11 @@ public class CastingRecipeCategory implements IRecipeCategory<CastingRecipeWrapp
     fluids.init(1, true, 64, 15, 6, h, cap, false, null);
     // otherwise it tries to get the second input fluidstack
     fluids.set(1, input);
+  }
+
+  @Override
+  public List<String> getTooltipStrings(int mouseX, int mouseY) {
+    return ImmutableList.of();
   }
 
   @Override

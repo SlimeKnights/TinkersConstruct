@@ -108,7 +108,7 @@ public class GuiSmelterySideInventory extends GuiSideInventory {
     }
 
     if(tooltipText != null) {
-      drawHoveringText(this.fontRendererObj.listFormattedStringToWidth(Util.translate(tooltipText), 100), mouseX - guiLeft, mouseY - guiTop);
+      drawHoveringText(this.fontRenderer.listFormattedStringToWidth(Util.translate(tooltipText), 100), mouseX - guiLeft, mouseY - guiTop);
     }
   }
 }

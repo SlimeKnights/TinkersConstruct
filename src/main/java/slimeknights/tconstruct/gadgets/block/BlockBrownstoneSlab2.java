@@ -76,7 +76,7 @@ public class BlockBrownstoneSlab2 extends EnumBlockSlab<BlockBrownstoneSlab2.Bro
         case TILE:
           return BlockBrownstone.BrownstoneType.TILE;
         default:
-          return null;
+          throw new IllegalArgumentException("Unknown enum value? Impossibru!");
       }
     }
 

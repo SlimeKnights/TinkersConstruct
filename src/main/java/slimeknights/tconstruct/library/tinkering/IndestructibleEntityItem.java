@@ -28,7 +28,7 @@ public class IndestructibleEntityItem extends EntityItem {
 
   @Override
   public boolean attackEntityFrom(@Nonnull DamageSource source, float amount) {
-    if(source.getDamageType().equals(DamageSource.outOfWorld.damageType)) {
+    if(source.getDamageType().equals(DamageSource.OUT_OF_WORLD.damageType)) {
       return true;
     }
     // prevent any damage besides out of world

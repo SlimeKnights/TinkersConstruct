@@ -5,8 +5,10 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 
 import java.util.List;
+import java.util.Optional;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.gadgets.item.ItemMomsSpaghetti;
@@ -40,19 +42,19 @@ public class ModSpaghettiMeat extends ModSpaghettiMod {
     }
 
     @Override
-    public Match matches(ItemStack[] stacks) {
+    public Optional<Match> matches(NonNullList<ItemStack> stacks) {
       List<ItemStack> matches = Lists.newArrayList();
 
-      Match match = super.matches(stacks);
+      Optional<Match> match = super.matches(stacks);
 
-      while(match != null && matches.size() < 3) {
-        ItemStack stack = match.stacks.get(0);
+      while(match.isPresent() && matches.size() < 3) {
+        ItemStack stack = match.get().stacks.get(0);
         matches.add(stack);
 
         // remove all meats of the same kind
-        for(int i = 0; i < stacks.length; i++) {
-          if(stacks[i] != null && stacks[i].getItem() == stack.getItem()) {
-            stacks[i] = null;
+        for(int i = 0; i < stacks.size(); i++) {
+          if(stacks.get(i).getItem() == stack.getItem()) {
+            stacks.set(i, ItemStack.EMPTY);
           }
         }
 
@@ -60,9 +62,9 @@ public class ModSpaghettiMeat extends ModSpaghettiMod {
       }
 
       if(matches.size() >= 3) {
-        return new Match(matches, 1);
+        return Optional.of(new Match(matches, 1));
       }
-      return null;
+      return Optional.empty();
     }
   }
 }

@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
@@ -24,6 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -33,14 +35,11 @@ import javax.annotation.Nonnull;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.events.TinkerEvent;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
-import slimeknights.tconstruct.library.modifiers.IModifier;
-import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -57,7 +56,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   protected final PartMaterialType[] requiredComponents;
   // used to classify what the thing can do
-  protected final Set<Category> categories = new THashSet<Category>();
+  protected final Set<Category> categories = new THashSet<>();
 
   public TinkersItem(PartMaterialType... requiredComponents) {
     this.requiredComponents = requiredComponents;
@@ -132,20 +131,22 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
    * @param stacks Items to build with. Have to be in the correct order and have exact length. No nulls!
    * @return The built item or null if invalid input.
    */
-  public ItemStack buildItemFromStacks(ItemStack[] stacks) {
-    List<Material> materials = new ArrayList<Material>(stacks.length);
+  @Nonnull
+  public ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks) {
+    long itemCount = stacks.stream().filter(stack -> !stack.isEmpty()).count();
+    List<Material> materials = new ArrayList<>(stacks.size());
 
-    if(stacks.length != requiredComponents.length) {
-      return null;
+    if(itemCount != requiredComponents.length) {
+      return ItemStack.EMPTY;
     }
 
     // not a valid part arrangement for this tool
-    for(int i = 0; i < stacks.length; i++) {
-      if(!validComponent(i, stacks[i])) {
-        return null;
+    for(int i = 0; i < itemCount; i++) {
+      if(!validComponent(i, stacks.get(i))) {
+        return ItemStack.EMPTY;
       }
 
-      materials.add(TinkerUtil.getMaterialFromStack(stacks[i]));
+      materials.add(TinkerUtil.getMaterialFromStack(stacks.get(i)));
     }
 
     return buildItem(materials);
@@ -157,6 +158,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
    * @param materials Materials to build with. Have to be in the correct order. No nulls!
    * @return The built item or null if invalid input.
    */
+  @Nonnull
   public ItemStack buildItem(List<Material> materials) {
     ItemStack tool = new ItemStack(this);
     tool.setTagCompound(buildItemNBT(materials));
@@ -218,6 +220,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   /**
    * Builds an unusable tool that only has the rendering info
    */
+  @Nonnull
   public ItemStack buildItemForRendering(List<Material> materials) {
     ItemStack tool = new ItemStack(this);
     NBTTagCompound base = new NBTTagCompound();
@@ -227,6 +230,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     return tool;
   }
 
+  @Nonnull
   public ItemStack buildItemForRenderingInGui() {
     List<Material> materials = IntStream.range(0, getRequiredComponents().size())
                                         .mapToObj(this::getMaterialForPartForGuiRendering)
@@ -292,21 +296,22 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     return 1f;
   }
 
+  @Nonnull
   @Override
-  public ItemStack repair(ItemStack repairable, ItemStack[] repairItems) {
+  public ItemStack repair(ItemStack repairable, NonNullList<ItemStack> repairItems) {
     if(repairable.getItemDamage() == 0 && !ToolHelper.isBroken(repairable)) {
       // undamaged and not broken - no need to repair
-      return null;
+      return ItemStack.EMPTY;
     }
 
     // we assume the first required part exclusively determines repair material
     List<Material> materials = TinkerUtil.getMaterialsFromTagList(TagUtil.getBaseMaterialsTagList(repairable));
     if(materials.isEmpty()) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     // ensure the items only contain valid items
-    ItemStack[] items = Util.copyItemStackArray(repairItems);
+    NonNullList<ItemStack> items = Util.deepCopyFixedNonNullList(repairItems);
     boolean foundMatch = false;
     for(int index : getRepairParts()) {
       Material material = materials.get(index);
@@ -315,29 +320,29 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
         foundMatch = true;
       }
 
-      RecipeMatch.Match match = material.matches(items);
+      Optional<RecipeMatch.Match> match = material.matches(items);
 
       // not a single match -> nothing to repair with
-      if(match == null) {
+      if(!match.isPresent()) {
         continue;
       }
       foundMatch = true;
 
-      while((match = material.matches(items)) != null) {
-        RecipeMatch.removeMatch(items, match);
+      while((match = material.matches(items)).isPresent()) {
+        RecipeMatch.removeMatch(items, match.get());
       }
     }
 
     if(!foundMatch) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     // check if all items were used
-    for(int i = 0; i < repairItems.length; i++) {
+    for(int i = 0; i < repairItems.size(); i++) {
       // was non-null and did not get modified (stacksize changed or null now, usually)
-      if(repairItems[i] != null && ItemStack.areItemStacksEqual(repairItems[i], items[i])) {
+      if(!repairItems.get(i).isEmpty() && ItemStack.areItemStacksEqual(repairItems.get(i), items.get(i))) {
         // found an item that was not touched
-        return null;
+        return ItemStack.EMPTY;
       }
     }
 
@@ -355,7 +360,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       ToolHelper.repairTool(item, calculateRepair(item, amount));
       // save that we repaired it :I
       NBTTagCompound tag = TagUtil.getExtraTag(item);
-      TagUtil.addInteger(tag, Tags.REPAIR_COUNT, 1);
+      tag.setInteger(Tags.REPAIR_COUNT, tag.getInteger(Tags.REPAIR_COUNT) + 1);
       TagUtil.setExtraTag(item, tag);
     }
 
@@ -363,11 +368,11 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   }
 
   /** Allows for custom repair items. Remove used items from the array. */
-  protected int repairCustom(Material material, ItemStack[] repairItems) {
+  protected int repairCustom(Material material, NonNullList<ItemStack> repairItems) {
     return 0;
   }
 
-  protected int calculateRepairAmount(List<Material> materials, ItemStack[] repairItems) {
+  protected int calculateRepairAmount(List<Material> materials, NonNullList<ItemStack> repairItems) {
     Set<Material> materialsMatched = Sets.newHashSet();
     float durability = 0f;
     // try to match each material once
@@ -381,8 +386,9 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       // custom repairing
       durability += repairCustom(material, repairItems) * getRepairModifierForPart(index);
 
-      RecipeMatch.Match match = material.matches(repairItems);
-      if(match != null) {
+      Optional<RecipeMatch.Match> matchOptional = material.matches(repairItems);
+      if(matchOptional.isPresent()) {
+        RecipeMatch.Match match = matchOptional.get();
         HeadMaterialStats stats = material.getStats(MaterialTypes.HEAD);
         if(stats != null) {
           materialsMatched.add(material);

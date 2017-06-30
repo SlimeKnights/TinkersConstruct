@@ -75,12 +75,12 @@ public class BakedToolModel extends BakedWrapper.Perspective {
     static ToolItemOverrideList INSTANCE = new ToolItemOverrideList();
 
     protected ToolItemOverrideList() {
-      super(ImmutableList.<ItemOverride>of());
+      super(ImmutableList.of());
     }
 
     @Nonnull
     @Override
-    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, final ItemStack stack, @Nonnull final World world, @Nonnull final EntityLivingBase entity) {
+    public IBakedModel handleItemState(@Nonnull IBakedModel originalModel, final ItemStack stack, final World world, final EntityLivingBase entity) {
       NBTTagCompound baseTag = TagUtil.getBaseTag(stack);
       IBakedModel outputModel = originalModel;
       if(!baseTag.hasNoTags()) {
@@ -101,7 +101,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
       return new CacheKey(original, stack);
     }
 
-    protected IBakedModel getCompleteModel(ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity, BakedToolModel original) {
+    protected IBakedModel getCompleteModel(ItemStack stack, World world, EntityLivingBase entity, BakedToolModel original) {
       // get the texture for each part
       ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
 
@@ -112,7 +112,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
       return new BakedSimple(quads.build(), original.transforms, original);
     }
 
-    private BakedToolModel getBaseModel(@Nonnull BakedToolModel originalModel, ItemStack stack, @Nonnull World world, @Nonnull EntityLivingBase entity) {
+    private BakedToolModel getBaseModel(@Nonnull BakedToolModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
       BakedToolModel original = originalModel;
 
       // check for an override

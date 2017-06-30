@@ -17,6 +17,7 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -29,7 +30,6 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -56,7 +56,7 @@ public class BlockCasting extends BlockInventory implements IFaucetDepth {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
     for(CastingType type : CastingType.values()) {
       list.add(new ItemStack(this, 1, type.getMeta()));
     }
@@ -100,16 +100,16 @@ public class BlockCasting extends BlockInventory implements IFaucetDepth {
   }
 
   @Override
-  public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack stack, EnumFacing side, float clickX, float clickY, float clickZ) {
-    if(player.isSneaking()) {
+  public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    if(playerIn.isSneaking()) {
       return false;
     }
-    TileEntity te = world.getTileEntity(pos);
+    TileEntity te = worldIn.getTileEntity(pos);
     if(te instanceof TileCasting) {
-      ((TileCasting) te).interact(player);
+      ((TileCasting) te).interact(playerIn);
       return true;
     }
-    return super.onBlockActivated(world, pos, state, player, hand, stack, side, clickX, clickY, clickZ);
+    return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
   }
 
   @Override

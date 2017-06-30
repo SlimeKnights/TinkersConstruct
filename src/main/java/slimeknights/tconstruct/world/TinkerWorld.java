@@ -78,7 +78,7 @@ public class TinkerWorld extends TinkerPulse {
     slimeVinePurple2 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.PURPLE, slimeVinePurple3), "slime_vine_purple_mid");
     slimeVinePurple1 = registerBlock(new BlockSlimeVine(BlockSlimeGrass.FoliageType.PURPLE, slimeVinePurple2), "slime_vine_purple");
 
-    EntityRegistry.registerModEntity(EntityBlueSlime.class, "blueslime", EntityIDs.BLUESLIME, TConstruct.instance, 64, 5, true, 0x47eff5, 0xacfff4);
+    EntityRegistry.registerModEntity(Util.getResource("blueslime"), EntityBlueSlime.class, "blueslime", EntityIDs.BLUESLIME, TConstruct.instance, 64, 5, true, 0x47eff5, 0xacfff4);
     LootTableList.register(EntityBlueSlime.LOOT_TABLE);
     //EntitySpawnPlacementRegistry.setPlacementType(EntityBlueSlime.class, EntityLiving.SpawnPlacementType.IN_WATER);
 

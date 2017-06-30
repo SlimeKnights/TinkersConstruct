@@ -95,7 +95,7 @@ public class BlockSearedSlab2 extends EnumBlockSlab<BlockSearedSlab2.SearedType>
         case TILE:
           return BlockSeared.SearedType.TILE;
         default:
-          return null;
+          throw new IllegalArgumentException("Unknown enum value? Impossibru!");
       }
     }
 

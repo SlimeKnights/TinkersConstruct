@@ -11,8 +11,6 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.gui.IGuiIngredientGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -39,8 +37,8 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
     for (Object input : this.recipe.getInput()) {
       if (input instanceof ItemStack) {
         ItemStack itemStack = (ItemStack) input;
-        if (itemStack.stackSize != 1) {
-          itemStack.stackSize = 1;
+        if (itemStack.getCount() != 1) {
+          itemStack.setCount(1);
         }
       }
     }
@@ -79,19 +77,6 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
     }
   }
 
-  @SuppressWarnings("rawtypes")
-  @Override
-  @Deprecated
-  public List getInputs() {
-    return Arrays.asList(recipe.getInput());
-  }
-
-  @Nonnull
-  @Override
-  public List<ItemStack> getOutputs() {
-    return outputs;
-  }
-
   @Override
   public int getWidth() {
     return width;
@@ -122,7 +107,7 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
     IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
     List<List<ItemStack>> inputs = ingredients.getInputs(ItemStack.class);
-    List<ItemStack> outputs = ingredients.getOutputs(ItemStack.class);
+    List<ItemStack> outputs = ingredients.getOutputs(ItemStack.class).get(0);
 
     // determine the focused stack
     IFocus<?> ifocus = recipeLayout.getFocus();
@@ -145,16 +130,16 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
             focus.getItemDamage());
 
         // and finally, set the focus override for the recipe
-        guiIngredients.setOverrideDisplayFocus(new Focus<ItemStack>(IFocus.Mode.OUTPUT, outputFocus));
+        guiIngredients.setOverrideDisplayFocus(new Focus<>(IFocus.Mode.OUTPUT, outputFocus));
       }
 
       // if we clicked the table, remove all items which affect the legs textures that are not the leg item
       else if(mode == IFocus.Mode.OUTPUT) {
         // so determine the legs
         ItemStack legs = ItemBlockTable.getLegStack(focus);
-        if(legs != null) {
+        if(!legs.isEmpty()) {
           // and loop through all slots removing leg affecting inputs which don't match
-          guiIngredients.setOverrideDisplayFocus(new Focus<ItemStack>(IFocus.Mode.INPUT, legs));
+          guiIngredients.setOverrideDisplayFocus(new Focus<>(IFocus.Mode.INPUT, legs));
         }
       }
     }

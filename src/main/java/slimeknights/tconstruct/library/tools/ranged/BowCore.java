@@ -15,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stats.StatBase;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -99,7 +100,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
   }
 
   public float getDrawbackProgress(ItemStack itemstack, EntityLivingBase entityIn) {
-    if(itemstack != null && itemstack.getItem() == BowCore.this) {
+    if(itemstack.getItem() == BowCore.this) {
       int timePassed = itemstack.getMaxItemUseDuration() - entityIn.getItemInUseCount();
       return getDrawbackProgress(itemstack, timePassed);
     }
@@ -128,9 +129,10 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
     if(!ToolHelper.isBroken(itemStackIn)) {
-      boolean hasAmmo = findAmmo(itemStackIn, playerIn) != null;
+      boolean hasAmmo = !findAmmo(itemStackIn, playerIn).isEmpty();
 
       ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onArrowNock(itemStackIn, worldIn, playerIn, hand, hasAmmo);
       if(ret != null) {
@@ -139,11 +141,11 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
 
       if(playerIn.capabilities.isCreativeMode || hasAmmo) {
         playerIn.setActiveHand(hand);
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+        return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
       }
     }
 
-    return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+    return new ActionResult<>(EnumActionResult.FAIL, itemStackIn);
   }
 
   @Override
@@ -153,24 +155,26 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     }
     EntityPlayer player = (EntityPlayer) entityLiving;
     ItemStack ammo = findAmmo(stack, entityLiving);
-    if(ammo == null && !player.capabilities.isCreativeMode) {
+    if(ammo.isEmpty() && !player.capabilities.isCreativeMode) {
       return;
     }
 
     int useTime = this.getMaxItemUseDuration(stack) - timeLeft;
-    useTime = ForgeEventFactory.onArrowLoose(stack, worldIn, player, useTime, ammo != null);
+    useTime = ForgeEventFactory.onArrowLoose(stack, worldIn, player, useTime, !ammo.isEmpty());
 
     if(useTime < 5) {
       return;
     }
 
-    if(ammo == null) {
+    if(ammo.isEmpty()) {
       ammo = getCreativeProjectileStack();
     }
 
     shootProjectile(ammo, stack, worldIn, player, useTime);
 
-    player.addStat(StatList.getObjectUseStats(this));
+    StatBase statBase = StatList.getObjectUseStats(this);
+    assert statBase != null;
+    player.addStat(statBase);
 
     // needs to be done manually for the overrides to work out correctly
     // since TiC tools don't get updated by default due to their custom equip check
@@ -180,7 +184,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     TagUtil.setResetFlag(stack, true);
   }
 
-  public void shootProjectile(ItemStack ammo, ItemStack bow, World worldIn, EntityPlayer player, int useTime) {
+  public void shootProjectile(@Nonnull ItemStack ammo, @Nonnull ItemStack bow, World worldIn, EntityPlayer player, int useTime) {
     float progress = getDrawbackProgress(bow, useTime);
     float power = ItemBow.getArrowVelocity((int)(progress * 20f)) * progress * baseProjectileSpeed();
     power *= ProjectileLauncherNBT.from(bow).range;
@@ -243,8 +247,8 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
       return ((IAmmo) ammo.getItem()).useAmmo(ammo, player);
     }
     else {
-      ammo.stackSize--;
-      if (ammo.stackSize == 0)
+      ammo.shrink(1);
+      if (ammo.isEmpty())
       {
         player.inventory.deleteStack(ammo);
       }
@@ -252,6 +256,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     }
   }
 
+  @Nonnull
   protected ItemStack getCreativeProjectileStack() {
     return new ItemStack(Items.ARROW);
   }
@@ -268,7 +273,7 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
   @Override
   public ItemStack getAmmoToRender(ItemStack weapon, EntityLivingBase player) {
     if(ToolHelper.isBroken(weapon)) {
-      return null;
+      return ItemStack.EMPTY;
     }
     return findAmmo(weapon, player);
   }

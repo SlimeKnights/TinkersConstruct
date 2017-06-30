@@ -18,6 +18,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -38,8 +39,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.annotation.Nullable;
 
 import slimeknights.mantle.client.CreativeTab;
 import slimeknights.mantle.util.RecipeMatch;
@@ -86,14 +85,14 @@ public final class TinkerRegistry {
 
   // Identifier to Material mapping. Hashmap so we can look it up directly without iterating
   private static final Map<String, Material> materials = Maps.newLinkedHashMap();
-  private static final Map<String, ITrait> traits = new THashMap<String, ITrait>();
+  private static final Map<String, ITrait> traits = new THashMap<>();
   // traceability information who registered what. Used to find errors.
-  private static final Map<String, ModContainer> materialRegisteredByMod = new THashMap<String, ModContainer>();
-  private static final Map<String, Map<String, ModContainer>> statRegisteredByMod = new THashMap<String, Map<String, ModContainer>>();
-  private static final Map<String, Map<String, ModContainer>> traitRegisteredByMod = new THashMap<String, Map<String, ModContainer>>();
+  private static final Map<String, ModContainer> materialRegisteredByMod = new THashMap<>();
+  private static final Map<String, Map<String, ModContainer>> statRegisteredByMod = new THashMap<>();
+  private static final Map<String, Map<String, ModContainer>> traitRegisteredByMod = new THashMap<>();
 
   // contains all cancelled materials, allows us to eat calls regarding the material silently
-  private static final Set<String> cancelledMaterials = new THashSet<String>();
+  private static final Set<String> cancelledMaterials = new THashSet<>();
 
 
   public static void addMaterial(Material material, IMaterialStats stats, ITrait trait) {
@@ -238,7 +237,7 @@ public final class TinkerRegistry {
       return;
     }
 
-    MaterialEvent.StatRegisterEvent<?> event = new MaterialEvent.StatRegisterEvent<IMaterialStats>(material, stats);
+    MaterialEvent.StatRegisterEvent<?> event = new MaterialEvent.StatRegisterEvent<>(material, stats);
     MinecraftForge.EVENT_BUS.post(event);
 
     // overridden stats from event
@@ -305,7 +304,7 @@ public final class TinkerRegistry {
       return false;
     }
 
-    MaterialEvent.TraitRegisterEvent<?> event = new MaterialEvent.TraitRegisterEvent<ITrait>(material, trait);
+    MaterialEvent.TraitRegisterEvent<?> event = new MaterialEvent.TraitRegisterEvent<>(material, trait);
     if(MinecraftForge.EVENT_BUS.post(event)) {
       // cancelled
       log.trace("Trait {} on {} cancelled by event", trait.getIdentifier(), material.getIdentifier());
@@ -326,8 +325,8 @@ public final class TinkerRegistry {
   ---------------------------------------------------------------------------*/
 
   /** This set contains all known tools */
-  private static final Set<ToolCore> tools = new TLinkedHashSet<ToolCore>();
-  private static final Set<IToolPart> toolParts = new TLinkedHashSet<IToolPart>();
+  private static final Set<ToolCore> tools = new TLinkedHashSet<>();
+  private static final Set<IToolPart> toolParts = new TLinkedHashSet<>();
   private static final Set<ToolCore> toolStationCrafting = Sets.newLinkedHashSet();
   private static final Set<ToolCore> toolForgeCrafting = Sets.newLinkedHashSet();
   private static final List<ItemStack> stencilTableCrafting = Lists.newLinkedList();
@@ -423,7 +422,7 @@ public final class TinkerRegistry {
 
   public static ItemStack getShard(Material material) {
     ItemStack out = material.getShard();
-    if(out == null) {
+    if(out.isEmpty()) {
       out = shardItem.getItemstackWithMaterial(material);
     }
     return out;
@@ -452,7 +451,7 @@ public final class TinkerRegistry {
   /*---------------------------------------------------------------------------
   | Modifiers                                                                 |
   ---------------------------------------------------------------------------*/
-  private static final Map<String, IModifier> modifiers = new THashMap<String, IModifier>();
+  private static final Map<String, IModifier> modifiers = new THashMap<>();
 
   public static void registerModifier(IModifier modifier) {
     registerModifierAlias(modifier, modifier.getIdentifier());
@@ -484,7 +483,7 @@ public final class TinkerRegistry {
   private static List<ICastingRecipe> basinCastRegistry = Lists.newLinkedList();
   private static List<AlloyRecipe> alloyRegistry = Lists.newLinkedList();
   private static Map<FluidStack, Integer> smelteryFuels = Maps.newHashMap();
-  private static Map<String, FluidStack> entityMeltingRegistry = Maps.newHashMap();
+  private static Map<ResourceLocation, FluidStack> entityMeltingRegistry = Maps.newHashMap();
 
   /** Registers this item with all its metadatas to melt into amount of the given fluid. */
   public static void registerMelting(Item item, Fluid fluid, int amount) {
@@ -566,9 +565,9 @@ public final class TinkerRegistry {
   }
 
   /** Registers a casting recipe for casting table */
-  public static void registerTableCasting(ItemStack output, @Nullable ItemStack cast, Fluid fluid, int amount) {
+  public static void registerTableCasting(ItemStack output, ItemStack cast, Fluid fluid, int amount) {
     RecipeMatch rm = null;
-    if(cast != null) {
+    if(cast != ItemStack.EMPTY) {
       rm = RecipeMatch.ofNBT(cast);
     }
     registerTableCasting(new CastingRecipe(output, rm, fluid, amount));
@@ -580,7 +579,7 @@ public final class TinkerRegistry {
     }
     else {
       try {
-        String output = Optional.ofNullable(recipe.getResult(null, FluidRegistry.WATER)).map(ItemStack::getUnlocalizedName).orElse("Unknown");
+        String output = Optional.ofNullable(recipe.getResult(ItemStack.EMPTY, FluidRegistry.WATER)).map(ItemStack::getUnlocalizedName).orElse("Unknown");
         log.debug("Registration of table casting recipe for " + output + " has been cancelled by event");
       } catch(Exception e) {
         log.error("Error when logging table casting event", e);
@@ -588,7 +587,7 @@ public final class TinkerRegistry {
     }
   }
 
-  public static ICastingRecipe getTableCasting(@Nullable ItemStack cast, Fluid fluid) {
+  public static ICastingRecipe getTableCasting(ItemStack cast, Fluid fluid) {
     for(ICastingRecipe recipe : tableCastRegistry) {
       if(recipe.matches(cast, fluid)) {
         return recipe;
@@ -603,9 +602,9 @@ public final class TinkerRegistry {
 
 
   /** Registers a casting recipe for the casting basin */
-  public static void registerBasinCasting(ItemStack output, @Nullable ItemStack cast, Fluid fluid, int amount) {
+  public static void registerBasinCasting(ItemStack output, ItemStack cast, Fluid fluid, int amount) {
     RecipeMatch rm = null;
-    if(cast != null) {
+    if(!cast.isEmpty()) {
       rm = RecipeMatch.ofNBT(cast);
     }
     registerBasinCasting(new CastingRecipe(output, rm, fluid, amount));
@@ -617,7 +616,7 @@ public final class TinkerRegistry {
     }
     else {
       try {
-        String output = Optional.ofNullable(recipe.getResult(null, FluidRegistry.WATER)).map(ItemStack::getUnlocalizedName).orElse("Unknown");
+        String output = Optional.ofNullable(recipe.getResult(ItemStack.EMPTY, FluidRegistry.WATER)).map(ItemStack::getUnlocalizedName).orElse("Unknown");
         log.debug("Registration of basin casting recipe for " + output + " has been cancelled by event");
       } catch(Exception e) {
         log.error("Error when logging basin casting event", e);
@@ -625,7 +624,7 @@ public final class TinkerRegistry {
     }
   }
 
-  public static ICastingRecipe getBasinCasting(@Nullable ItemStack cast, Fluid fluid) {
+  public static ICastingRecipe getBasinCasting(ItemStack cast, Fluid fluid) {
     for(ICastingRecipe recipe : basinCastRegistry) {
       if(recipe.matches(cast, fluid)) {
         return recipe;
@@ -699,7 +698,7 @@ public final class TinkerRegistry {
 
   /** Register an entity to melt into the given fluidstack. The fluidstack is returned for 1 heart damage */
   public static void registerEntityMelting(Class<? extends Entity> clazz, FluidStack liquid) {
-    String name = EntityList.CLASS_TO_NAME.get(clazz);
+    ResourceLocation name = EntityList.getKey(clazz);
 
     if(name == null) {
       error("Entity Melting: Entity %s is not registered in the EntityList", clazz.getSimpleName());
@@ -720,7 +719,7 @@ public final class TinkerRegistry {
   }
 
   public static FluidStack getMeltingForEntity(Entity entity) {
-    String name = EntityList.getEntityString(entity);
+    ResourceLocation name = EntityList.getKey(entity);
     return entityMeltingRegistry.get(name);
   }
 
@@ -745,7 +744,7 @@ public final class TinkerRegistry {
    * @param time   Recipe time in ticks
    */
   public static void registerDryingRecipe(ItemStack input, ItemStack output, int time) {
-    if(output == null || input == null) {
+    if(output.isEmpty() || input.isEmpty()) {
       return;
     }
     addDryingRecipe(new DryingRecipe(new RecipeMatch.Item(input, 1), output, time));
@@ -759,7 +758,7 @@ public final class TinkerRegistry {
    * @param time   Recipe time in ticks
    */
   public static void registerDryingRecipe(Item input, ItemStack output, int time) {
-    if(output == null || input == null) {
+    if(output.isEmpty() || input == null) {
       return;
     }
 
@@ -807,7 +806,7 @@ public final class TinkerRegistry {
    * @param time    Recipe time in ticks
    */
   public static void registerDryingRecipe(String oredict, ItemStack output, int time) {
-    if(output == null || oredict == null) {
+    if(output.isEmpty() || oredict == null) {
       return;
     }
 
@@ -849,7 +848,7 @@ public final class TinkerRegistry {
    * Gets the result for a drying recipe
    *
    * @param input Input ItemStack
-   * @return Output A copy of the output ItemStack, or null if no recipe is found
+   * @return Output A copy of the output ItemStack, or Itemstack.EMPTY if no recipe is found
    */
   public static ItemStack getDryingResult(ItemStack input) {
     for(DryingRecipe r : dryingRegistry) {
@@ -858,7 +857,7 @@ public final class TinkerRegistry {
       }
     }
 
-    return null;
+    return ItemStack.EMPTY;
   }
 
   /*---------------------------------------------------------------------------
@@ -922,14 +921,14 @@ public final class TinkerRegistry {
 
   static void putStatTrace(String materialIdentifier, IMaterialStats stats, ModContainer trace) {
     if(!statRegisteredByMod.containsKey(materialIdentifier)) {
-      statRegisteredByMod.put(materialIdentifier, new HashMap<String, ModContainer>());
+      statRegisteredByMod.put(materialIdentifier, new HashMap<>());
     }
     statRegisteredByMod.get(materialIdentifier).put(stats.getIdentifier(), trace);
   }
 
   static void putTraitTrace(String materialIdentifier, ITrait trait, ModContainer trace) {
     if(!traitRegisteredByMod.containsKey(materialIdentifier)) {
-      traitRegisteredByMod.put(materialIdentifier, new HashMap<String, ModContainer>());
+      traitRegisteredByMod.put(materialIdentifier, new HashMap<>());
     }
     traitRegisteredByMod.get(materialIdentifier).put(trait.getIdentifier(), trace);
   }

@@ -20,7 +20,7 @@ public class TraitUnnatural extends AbstractTrait {
   @Override
   public void miningSpeed(ItemStack tool, PlayerEvent.BreakSpeed event) {
     Block block = event.getState().getBlock();
-    int hlvl = tool.getItem().getHarvestLevel(tool, block.getHarvestTool(event.getState()));
+    int hlvl = tool.getItem().getHarvestLevel(tool, block.getHarvestTool(event.getState()), event.getEntityPlayer(), event.getState());
     int dif = hlvl - block.getHarvestLevel(event.getState());
 
     // 1 speed per harvest level above

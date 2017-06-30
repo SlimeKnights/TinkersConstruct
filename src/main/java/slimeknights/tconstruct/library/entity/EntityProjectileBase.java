@@ -100,13 +100,12 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
   }
 
   @Override
-  public boolean hasCapability(@Nonnull Capability<?> capability, @Nonnull EnumFacing facing) {
+  public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
     return capability == CapabilityTinkerProjectile.PROJECTILE_CAPABILITY || super.hasCapability(capability, facing);
   }
 
-  @Nonnull
   @Override
-  public <T> T getCapability(@Nonnull Capability<T> capability, @Nonnull EnumFacing facing) {
+  public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
     if(capability == CapabilityTinkerProjectile.PROJECTILE_CAPABILITY) {
       return (T) tinkerProjectile;
     }
@@ -196,13 +195,13 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     boolean bounceOff = false;
     Entity entityHit = raytraceResult.entityHit;
     // deal damage if we have everything
-    if(item != null && item.getItem() instanceof ToolCore && this.shootingEntity instanceof EntityLivingBase) {
+    if(item.getItem() instanceof ToolCore && this.shootingEntity instanceof EntityLivingBase) {
       EntityLivingBase attacker = (EntityLivingBase) this.shootingEntity;
       //EntityLivingBase target = (EntityLivingBase) raytraceResult.entityHit;
 
       // find the actual itemstack in the players inventory
       ItemStack inventoryItem = AmmoHelper.getMatchingItemstackFromInventory(tinkerProjectile.getItemStack(), attacker, false);
-      if(inventoryItem == null || inventoryItem.getItem() != item.getItem()) {
+      if(inventoryItem.isEmpty() || inventoryItem.getItem() != item.getItem()) {
         // backup, use saved itemstack
         inventoryItem = item;
       }
@@ -225,7 +224,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
         if(item.getItem() instanceof IProjectile) {
           projectileAttributes = ((IProjectile) item.getItem()).getProjectileAttributeModifier(inventoryItem);
 
-          if(launcher != null && launcher.getItem() instanceof ILauncher) {
+          if(launcher.getItem() instanceof ILauncher) {
             ((ILauncher) launcher.getItem()).modifyProjectileAttributes(projectileAttributes, tinkerProjectile.getLaunchingStack(), tinkerProjectile.getItemStack(), tinkerProjectile.getPower());
           }
 
@@ -247,6 +246,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
       // apply stats from projectile
       if(!getEntityWorld().isRemote) {
         if(item.getItem() instanceof IProjectile) {
+          assert projectileAttributes != null;
           attacker.getAttributeMap().removeAttributeModifiers(projectileAttributes);
         }
 
@@ -291,14 +291,14 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
   private void unequip(EntityLivingBase entity, EntityEquipmentSlot slot) {
     ItemStack stack = entity.getItemStackFromSlot(slot);
-    if(stack != null) {
+    if(!stack.isEmpty()) {
       entity.getAttributeMap().removeAttributeModifiers(stack.getAttributeModifiers(slot));
     }
   }
 
   private void equip(EntityLivingBase entity, EntityEquipmentSlot slot) {
     ItemStack stack = entity.getItemStackFromSlot(slot);
-    if(stack != null) {
+    if(!stack.isEmpty()) {
       entity.getAttributeMap().applyAttributeModifiers(stack.getAttributeModifiers(slot));
     }
   }
@@ -351,6 +351,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     if(iblockstate.getMaterial() != Material.AIR) {
       AxisAlignedBB axisalignedbb = iblockstate.getCollisionBoundingBox(this.getEntityWorld(), blockpos);
 
+      assert axisalignedbb != null;
       if(axisalignedbb != Block.NULL_AABB && axisalignedbb.offset(blockpos).isVecInside(new Vec3d(this.posX, this.posY, this.posZ))) {
         this.inGround = true;
       }

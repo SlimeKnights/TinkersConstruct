@@ -42,6 +42,7 @@ import slimeknights.tconstruct.library.client.texture.CastTexture;
 import slimeknights.tconstruct.library.client.texture.GuiOutlineTexture;
 import slimeknights.tconstruct.library.client.texture.PatternTexture;
 import slimeknights.tconstruct.library.client.texture.TextureColoredTexture;
+import slimeknights.tconstruct.library.client.texture.TinkerTexture;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialGUI;
 import slimeknights.tconstruct.library.tools.IToolPart;
@@ -75,7 +76,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
 
   public static void registerTextureForPart(ResourceLocation texture, IToolPart toolPart) {
     if(!texturePartMapping.containsKey(texture)) {
-      texturePartMapping.put(texture, Sets.<IToolPart>newHashSet());
+      texturePartMapping.put(texture, Sets.newHashSet());
     }
     texturePartMapping.get(texture).add(toolPart);
     registerTexture(texture);
@@ -122,11 +123,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         continue;
       }
 
-      TextureAtlasSprite base = map.getTextureExtry(baseTexture.toString());
-      if(base == null) {
-        log.error("Missing base texture: " + baseTexture.toString());
-        continue;
-      }
+      TextureAtlasSprite base = TinkerTexture.loadManually(baseTexture.toString());
       Set<IToolPart> parts = texturePartMapping.get(baseTexture);
 
       Map<String, TextureAtlasSprite> builtSprites = Maps.newHashMap();
@@ -190,7 +187,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
           };
 
           // save in the map so it's getting reused by the others and is available
-          map.setTextureEntry(loc2, base2);
+          map.setTextureEntry(base2);
         }
         if(base2 != null) {
           matBase = base2;
@@ -203,7 +200,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
 
     // stitch new textures
     if(sprite != null && material.renderInfo.isStitched()) {
-      map.setTextureEntry(location, sprite);
+      map.setTextureEntry(sprite);
     }
     return sprite;
   }
@@ -227,12 +224,8 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
       constructor = clazz.getConstructor(String.class, TextureAtlasSprite.class, String.class);
       IModel patternModel = ModelLoaderRegistry.getModel(baseTextureLoc);
       ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
-      baseTexture = map.getTextureExtry(patternLocation.toString());
+      baseTexture = TinkerTexture.loadManually(patternLocation.toString());
       baseTextureString = patternLocation.toString();
-      if(baseTexture == null) {
-        log.error("No basetexture found for pattern texture generation: " + patternLocation);
-        return null;
-      }
     } catch(Exception e) {
       log.error(e);
       return null;
@@ -247,7 +240,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         TextureAtlasSprite partPatternTexture;
         if(exists(partPatternLocation)) {
           partPatternTexture = map.registerSprite(new ResourceLocation(partPatternLocation));
-          map.setTextureEntry(partPatternLocation, partPatternTexture);
+          map.setTextureEntry(partPatternTexture);
         }
         else {
           /*
@@ -267,7 +260,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
               IPatternOffset offset = (IPatternOffset) partModel;
               ((TextureColoredTexture) partPatternTexture).setOffset(offset.getXOffset(), offset.getYOffset());
             }
-            map.setTextureEntry(partPatternLocation, partPatternTexture);
+            map.setTextureEntry(partPatternTexture);
           }
         }
       } catch(Exception e) {
@@ -288,9 +281,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
       if(variants != null) {
         loc = variants.iterator().next();
       }
-    } catch(NoSuchFieldException e) {
-      e.printStackTrace();
-    } catch(IllegalAccessException e) {
+    } catch(NoSuchFieldException | IllegalAccessException e) {
       e.printStackTrace();
     }
 
@@ -337,7 +328,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         TextureAtlasSprite outlineTexture = new GuiOutlineTexture(base, location);
 
         // add it to the loading list
-        map.setTextureEntry(location, outlineTexture);
+        map.setTextureEntry(outlineTexture);
         partTextures.put("_internal_gui", outlineTexture);
 
       } catch(Exception e) {

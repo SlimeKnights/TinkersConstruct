@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
@@ -47,7 +48,7 @@ public class FluidsClientProxy extends ClientProxy {
       FluidStateMapper mapper = new FluidStateMapper(fluid);
 
       // item-model
-      if(item != null) {
+      if(item != Items.AIR) {
         ModelLoader.registerItemVariants(item);
         ModelLoader.setCustomMeshDefinition(item, mapper);
       }

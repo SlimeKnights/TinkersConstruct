@@ -61,7 +61,6 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
   }
 
   @SuppressWarnings("unchecked")
-  @Nonnull
   @Override
   public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
@@ -96,11 +95,11 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
         FMLCommonHandler.instance().firePlayerSmeltedEvent(player, stack);
       }
       ItemHandlerHelper.giveItemToPlayer(player, stack);
-      setInventorySlotContents(slot, null);
+      setInventorySlotContents(slot, ItemStack.EMPTY);
 
       // send a block update for the comparator, needs to be done after the stack is removed
       if(slot == 1) {
-        this.getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+        this.getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
       }
     }
   }
@@ -139,7 +138,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
           // done, finish!
           if(event.consumeCast) {
             // todo: play breaking sound and animation
-            setInventorySlotContents(0, null);
+            setInventorySlotContents(0, ItemStack.EMPTY);
 
             for(EntityPlayer player : getWorld().playerEntities) {
               if(player.getDistanceSq(pos) < 1024 && player instanceof EntityPlayerMP) {
@@ -164,7 +163,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
           getWorld().playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.AMBIENT, 0.07f, 4f);
 
           // comparator update
-          getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+          getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
 
           // reset state
           reset();

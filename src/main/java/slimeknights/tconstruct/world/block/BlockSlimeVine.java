@@ -5,8 +5,8 @@ import net.minecraft.block.BlockVine;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -43,7 +43,7 @@ public class BlockSlimeVine extends BlockVine {
    * IBlockstate
    */
   @Override
-  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
+  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
     IBlockState iblockstate = this.getDefaultState();
     iblockstate = iblockstate.withProperty(NORTH, canAttachTo(world, pos.north()));
     iblockstate = iblockstate.withProperty(EAST, canAttachTo(world, pos.east()));
@@ -53,7 +53,7 @@ public class BlockSlimeVine extends BlockVine {
   }
 
   @Override
-  public void neighborChanged(@Nonnull IBlockState state, World worldIn, @Nonnull BlockPos pos, Block blockIn) {
+  public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
     if(worldIn.isRemote) {
       return;
     }

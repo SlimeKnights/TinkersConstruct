@@ -24,7 +24,7 @@ public class GuiWidgetTextField extends GuiWidget {
   public boolean highlighted;
   public String text;
 
-  public FontRenderer fontRenderer = Minecraft.getMinecraft().fontRendererObj;
+  public FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
 
   @Override
   public void draw() {

@@ -176,8 +176,8 @@ public class TinkerGadgets extends TinkerPulse {
 
     registerMomsSpaghetti();
 
-    EntityRegistry.registerModEntity(EntityFancyItemFrame.class, "Fancy Item Frame", EntityIDs.FANCY_FRAME, TConstruct.instance, 160, Integer.MAX_VALUE, false);
-    EntityRegistry.registerModEntity(EntityThrowball.class, "Throwball", EntityIDs.THROWBALL, TConstruct.instance, 64, 10, true);
+    EntityRegistry.registerModEntity(Util.getResource("fancy_frame"), EntityFancyItemFrame.class, "Fancy Item Frame", EntityIDs.FANCY_FRAME, TConstruct.instance, 160, Integer.MAX_VALUE, false);
+    EntityRegistry.registerModEntity(Util.getResource("throwball"), EntityThrowball.class, "Throwball", EntityIDs.THROWBALL, TConstruct.instance, 64, 10, true);
     //EntityRegistry.instance().lookupModSpawn(EntityFancyItemFrame.class, false).setCustomSpawning(null, true);
 
     MinecraftForge.EVENT_BUS.register(slimeBoots);
@@ -327,24 +327,28 @@ public class TinkerGadgets extends TinkerPulse {
     // normal recipe
     // 2 redstone + sandstone =  brownstone
     ItemStack regularBrownstoneRecipeOut = stackBrownstoneRough.copy();
-    regularBrownstoneRecipeOut.stackSize = 3;
+    regularBrownstoneRecipeOut.setCount(3);
     GameRegistry.addRecipe(new ShapedOreRecipe(regularBrownstoneRecipeOut, " s ", "rsr", " s ", 'r', "dustRedstone", 's', "sandstone"));
 
     // smelting to get smooth and cracked
     GameRegistry.addSmelting(stackBrownstoneRough.copy(), stackBrownstoneSmooth.copy(), 0.1f);
     GameRegistry.addSmelting(stackBrownstoneBrick.copy(), stackBrownstoneBrickCracked.copy(), 0.1f);
 
-    // remaining brownstone types
+    // basic brownstone recipes
     addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.PAVER, BlockBrownstone.BrownstoneType.SMOOTH);
     addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK, BlockBrownstone.BrownstoneType.PAVER);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_FANCY, BlockBrownstone.BrownstoneType.BRICK);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_SQUARE, BlockBrownstone.BrownstoneType.BRICK_FANCY);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_TRIANGLE, BlockBrownstone.BrownstoneType.BRICK_SQUARE);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.CREEPER, BlockBrownstone.BrownstoneType.BRICK_TRIANGLE);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_SMALL, BlockBrownstone.BrownstoneType.CREEPER);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.TILE, BlockBrownstone.BrownstoneType.BRICK_SMALL);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.ROAD, BlockBrownstone.BrownstoneType.TILE);
-    addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.PAVER, BlockBrownstone.BrownstoneType.ROAD);
+
+    // remaining brownstone types unless chisel compat is loaded
+    if(!isChiselPluginLoaded()) {
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_FANCY, BlockBrownstone.BrownstoneType.BRICK);
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_SQUARE, BlockBrownstone.BrownstoneType.BRICK_FANCY);
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_TRIANGLE, BlockBrownstone.BrownstoneType.BRICK_SQUARE);
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.CREEPER, BlockBrownstone.BrownstoneType.BRICK_TRIANGLE);
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.BRICK_SMALL, BlockBrownstone.BrownstoneType.CREEPER);
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.TILE, BlockBrownstone.BrownstoneType.BRICK_SMALL);
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.ROAD, BlockBrownstone.BrownstoneType.TILE);
+      addBrownstoneBrickRecipe(BlockBrownstone.BrownstoneType.PAVER, BlockBrownstone.BrownstoneType.ROAD);
+    }
 
     // slabs
     addSlabRecipe(new ItemStack(brownstoneSlab, 1, BlockBrownstoneSlab.BrownstoneType.SMOOTH.getMeta()), stackBrownstoneSmooth.copy());

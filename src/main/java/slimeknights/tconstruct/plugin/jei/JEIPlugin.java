@@ -170,8 +170,8 @@ public class JEIPlugin implements IModPlugin {
 
       // liquid recipe lookup for smeltery and tinker tank
       registry.addAdvancedGuiHandlers(
-          new TinkerGuiTankHandler<GuiTinkerTank>(GuiTinkerTank.class),
-          new TinkerGuiTankHandler<GuiSmeltery>(GuiSmeltery.class));
+          new TinkerGuiTankHandler<>(GuiTinkerTank.class),
+          new TinkerGuiTankHandler<>(GuiSmeltery.class));
     }
 
     // drying rack

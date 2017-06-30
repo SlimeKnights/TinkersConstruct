@@ -280,10 +280,10 @@ public class TinkerSmeltery extends TinkerPulse {
 
     // I AM GROUT
     ItemStack grout = TinkerCommons.grout.copy();
-    grout.stackSize = 2;
+    grout.setCount(2);
     GameRegistry.addRecipe(new ShapelessOreRecipe(grout, Items.CLAY_BALL, Blocks.GRAVEL, "sand"));
     grout = grout.copy();
-    grout.stackSize = 8;
+    grout.setCount(8);
     GameRegistry.addRecipe(new ShapelessOreRecipe(grout, Blocks.GRAVEL, "sand", Blocks.GRAVEL, "sand", Blocks.CLAY, "sand", Blocks.GRAVEL, "sand", Blocks.GRAVEL));
 
     // seared bricks
@@ -327,15 +327,17 @@ public class TinkerSmeltery extends TinkerPulse {
     addSearedBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.STONE);
     addSearedBrickRecipe(BlockSeared.SearedType.BRICK, BlockSeared.SearedType.PAVER);
 
-    // remaining seared bricks
-    addSearedBrickRecipe(BlockSeared.SearedType.BRICK_FANCY, BlockSeared.SearedType.BRICK);
-    addSearedBrickRecipe(BlockSeared.SearedType.BRICK_SQUARE, BlockSeared.SearedType.BRICK_FANCY);
-    addSearedBrickRecipe(BlockSeared.SearedType.BRICK_TRIANGLE, BlockSeared.SearedType.BRICK_SQUARE);
-    addSearedBrickRecipe(BlockSeared.SearedType.CREEPER, BlockSeared.SearedType.BRICK_TRIANGLE);
-    addSearedBrickRecipe(BlockSeared.SearedType.BRICK_SMALL, BlockSeared.SearedType.CREEPER);
-    addSearedBrickRecipe(BlockSeared.SearedType.TILE, BlockSeared.SearedType.BRICK_SMALL);
-    addSearedBrickRecipe(BlockSeared.SearedType.ROAD, BlockSeared.SearedType.TILE);
-    addSearedBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.ROAD);
+    // remaining seared bricks, but skip if Chisel compat is loaded
+    if(!isChiselPluginLoaded()) {
+      addSearedBrickRecipe(BlockSeared.SearedType.BRICK_FANCY, BlockSeared.SearedType.BRICK);
+      addSearedBrickRecipe(BlockSeared.SearedType.BRICK_SQUARE, BlockSeared.SearedType.BRICK_FANCY);
+      addSearedBrickRecipe(BlockSeared.SearedType.BRICK_TRIANGLE, BlockSeared.SearedType.BRICK_SQUARE);
+      addSearedBrickRecipe(BlockSeared.SearedType.CREEPER, BlockSeared.SearedType.BRICK_TRIANGLE);
+      addSearedBrickRecipe(BlockSeared.SearedType.BRICK_SMALL, BlockSeared.SearedType.CREEPER);
+      addSearedBrickRecipe(BlockSeared.SearedType.TILE, BlockSeared.SearedType.BRICK_SMALL);
+      addSearedBrickRecipe(BlockSeared.SearedType.ROAD, BlockSeared.SearedType.TILE);
+      addSearedBrickRecipe(BlockSeared.SearedType.PAVER, BlockSeared.SearedType.ROAD);
+    }
 
     GameRegistry.addSmelting(stackSearedBrick.copy(), stackSearedBrickCracked.copy(), 0.1f);
 
@@ -384,7 +386,7 @@ public class TinkerSmeltery extends TinkerPulse {
 
     // register remaining cast creation
     for(FluidStack fs : castCreationFluids) {
-      TinkerRegistry.registerTableCasting(new ItemStack(cast), null, fs.getFluid(), fs.amount);
+      TinkerRegistry.registerTableCasting(new ItemStack(cast), ItemStack.EMPTY, fs.getFluid(), fs.amount);
       TinkerRegistry.registerTableCasting(new CastingRecipe(castGem, RecipeMatch.of("gemEmerald"), fs, true, true));
       TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of("ingotBrick"), fs, true, true));
       TinkerRegistry.registerTableCasting(new CastingRecipe(castIngot, RecipeMatch.of("ingotBrickNether"), fs, true, true));
@@ -402,7 +404,7 @@ public class TinkerSmeltery extends TinkerPulse {
     int bucket = Fluid.BUCKET_VOLUME;
 
     // bucket casting
-    TinkerRegistry.registerTableCasting(BucketCastingRecipe.INSTANCE);
+    TinkerRegistry.registerTableCasting(new BucketCastingRecipe(Items.BUCKET));
 
     // Water
     Fluid water = FluidRegistry.WATER;
@@ -414,7 +416,7 @@ public class TinkerSmeltery extends TinkerPulse {
     // bloooooood
     TinkerRegistry.registerMelting(Items.ROTTEN_FLESH, TinkerFluids.blood, 5);
     if(TinkerCommons.matSlimeBallBlood != null) {
-      TinkerRegistry.registerTableCasting(TinkerCommons.matSlimeBallBlood.copy(), null, TinkerFluids.blood, 160);
+      TinkerRegistry.registerTableCasting(TinkerCommons.matSlimeBallBlood.copy(), ItemStack.EMPTY, TinkerFluids.blood, 160);
     }
 
     // purple slime
@@ -435,7 +437,7 @@ public class TinkerSmeltery extends TinkerPulse {
                                                            TinkerFluids.obsidian, Material.VALUE_Ore()));
     // note that obsidian casting gives you 2 ingot value per obsidian, while part crafting only gives 1 per obsidian
     registerToolpartMeltingCasting(TinkerMaterials.obsidian);
-    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.OBSIDIAN), null, TinkerFluids.obsidian, Material.VALUE_Ore());
+    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.OBSIDIAN), ItemStack.EMPTY, TinkerFluids.obsidian, Material.VALUE_Ore());
 
 
     // gold is melt and castable too, but no tools. Remaining materials are done directly in the MaterialIntegration
@@ -459,7 +461,7 @@ public class TinkerSmeltery extends TinkerPulse {
     ItemStack blockSeared = new ItemStack(searedBlock);
     blockSeared.setItemDamage(BlockSeared.SearedType.STONE.getMeta());
     TinkerRegistry.registerTableCasting(TinkerCommons.searedBrick, castIngot, TinkerFluids.searedStone, Material.VALUE_SearedMaterial);
-    TinkerRegistry.registerBasinCasting(blockSeared, null, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
+    TinkerRegistry.registerBasinCasting(blockSeared, ItemStack.EMPTY, TinkerFluids.searedStone, Material.VALUE_SearedBlock);
 
     ItemStack searedCobble = new ItemStack(searedBlock, 1, BlockSeared.SearedType.COBBLE.getMeta());
     TinkerRegistry.registerBasinCasting(new CastingRecipe(searedCobble, RecipeMatch.of("cobblestone"), TinkerFluids.searedStone, Material.VALUE_SearedBlock - Material.VALUE_SearedMaterial, true, false));
@@ -494,7 +496,7 @@ public class TinkerSmeltery extends TinkerPulse {
     // decided against support for melting hardened clay. Once it's hardened, it stays hard. Same for bricks.
     //TinkerRegistry.registerMelting(Blocks.hardened_clay, TinkerFluids.clay, Material.VALUE_BrickBlock);
     //TinkerRegistry.registerMelting(Blocks.stained_hardened_clay, TinkerFluids.clay, Material.VALUE_BrickBlock);
-    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.HARDENED_CLAY), null, TinkerFluids.clay, Material.VALUE_BrickBlock);
+    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.HARDENED_CLAY), ItemStack.EMPTY, TinkerFluids.clay, Material.VALUE_BrickBlock);
     // funny thing about hardened clay. If it's stained and you wash it with water, it turns back into regular hardened clay!
     TinkerRegistry.registerBasinCasting(new CastingRecipe(
         new ItemStack(Blocks.HARDENED_CLAY),
@@ -513,7 +515,7 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("oreEmerald", (int) (Material.VALUE_Gem * Config.oreToIngotRatio)), TinkerFluids.emerald));
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("blockEmerald", Material.VALUE_Gem * 9), TinkerFluids.emerald));
     TinkerRegistry.registerTableCasting(new ItemStack(Items.EMERALD), castGem, TinkerFluids.emerald, Material.VALUE_Gem);
-    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.EMERALD_BLOCK), null, TinkerFluids.emerald, Material.VALUE_Gem * 9);
+    TinkerRegistry.registerBasinCasting(new ItemStack(Blocks.EMERALD_BLOCK), ItemStack.EMPTY, TinkerFluids.emerald, Material.VALUE_Gem * 9);
 
     // glass melting and casting
     TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of("sand", Material.VALUE_Glass), TinkerFluids.glass));
@@ -694,12 +696,13 @@ public class TinkerSmeltery extends TinkerPulse {
     Pair<List<ItemStack>, Integer> oreOre = Pair.of(OreDictionary.getOres("ore" + ore), Material.VALUE_Ore());
     Pair<List<ItemStack>, Integer> oreNetherOre = Pair.of(OreDictionary.getOres("oreNether" + ore), (int) (2 * Material.VALUE_Ingot * Config.oreToIngotRatio));
     Pair<List<ItemStack>, Integer> oreDenseOre = Pair.of(OreDictionary.getOres("denseore" + ore), (int) (3 * Material.VALUE_Ingot * Config.oreToIngotRatio));
-    Pair<List<ItemStack>, Integer> orePoorOre = Pair.of(OreDictionary.getOres("orePoor" + ore), (int) (Material.VALUE_Nugget * Config.oreToIngotRatio));
+    Pair<List<ItemStack>, Integer> orePoorOre = Pair.of(OreDictionary.getOres("orePoor" + ore), (int) (Material.VALUE_Nugget * 3 * Config.oreToIngotRatio));
+    Pair<List<ItemStack>, Integer> oreNuggetOre = Pair.of(OreDictionary.getOres("oreNugget" + ore), (int) (Material.VALUE_Nugget * Config.oreToIngotRatio));
     Pair<List<ItemStack>, Integer> plateOre = Pair.of(OreDictionary.getOres("plate" + ore), Material.VALUE_Ingot);
     Pair<List<ItemStack>, Integer> gearOre = Pair.of(OreDictionary.getOres("gear" + ore), Material.VALUE_Ingot * 4);
     Pair<List<ItemStack>, Integer> dustOre = Pair.of(OreDictionary.getOres("dust" + ore), Material.VALUE_Ingot);
 
-    builder.add(nuggetOre, ingotOre, blockOre, oreOre, oreNetherOre, oreDenseOre, orePoorOre, plateOre, gearOre, dustOre);
+    builder.add(nuggetOre, ingotOre, blockOre, oreOre, oreNetherOre, oreDenseOre, orePoorOre, oreNuggetOre, plateOre, gearOre, dustOre);
     Set<Pair<List<ItemStack>, Integer>> knownOres = builder.build();
 
 
@@ -774,7 +777,7 @@ public class TinkerSmeltery extends TinkerPulse {
         inputs = Arrays.asList(((ShapedOreRecipe) irecipe).getInput());
       }
       else if(irecipe instanceof ShapelessRecipes) {
-        inputs = Lists.<Object>newLinkedList(((ShapelessRecipes) irecipe).recipeItems);
+        inputs = Lists.newLinkedList(((ShapelessRecipes) irecipe).recipeItems);
       }
       else if(irecipe instanceof ShapedRecipes) {
         inputs = Arrays.asList((Object[]) ((ShapedRecipes) irecipe).recipeItems);
@@ -826,8 +829,8 @@ public class TinkerSmeltery extends TinkerPulse {
       if(known.keySet().size() == 1) {
         Fluid fluid = known.keySet().iterator().next();
         ItemStack output = irecipe.getRecipeOutput().copy();
-        int amount = known.get(fluid) / output.stackSize;
-        output.stackSize = 1;
+        int amount = known.get(fluid) / output.getCount();
+        output.setCount(1);
         TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(output, amount), fluid));
         log.trace("Added automatic melting recipe for {} ({} {})", irecipe.getRecipeOutput().toString(), amount, fluid
             .getName());

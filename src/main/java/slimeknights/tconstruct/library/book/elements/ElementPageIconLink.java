@@ -51,7 +51,7 @@ public class ElementPageIconLink extends SizedBookElement {
   @Override
   public void drawOverlay(int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
     if(name != null && !name.isEmpty() && isHovered(mouseX, mouseY)) {
-      drawHoveringText(ImmutableList.<String>of(name), mouseX, mouseY, fontRenderer);
+      drawHoveringText(ImmutableList.of(name), mouseX, mouseY, fontRenderer);
     }
   }
 

@@ -8,7 +8,6 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Property;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -45,9 +44,6 @@ public class ConfigSync {
   public void playerJoinedWorld(TickEvent.ClientTickEvent event) {
     EntityPlayerSP player = Minecraft.getMinecraft().player;
     if(needsRestart) {
-        //Minecraft.getMinecraft().theWorld.sendQuittingDisconnectingPacket();
-        //Minecraft.getMinecraft().getNetHandler().getNetworkManager().closeChannel(new ChatComponentText("reboot pl0x"));
-        //Minecraft.getMinecraft().loadWorld(null);
         player.sendMessage(new TextComponentString("[TConstruct] " + I18n.translateToLocal("config.synced.restart")));
       }
       else {

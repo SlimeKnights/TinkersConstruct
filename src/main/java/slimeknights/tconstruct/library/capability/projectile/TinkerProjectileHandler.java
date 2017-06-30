@@ -10,8 +10,6 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tools.ranged.IAmmo;
 import slimeknights.tconstruct.library.traits.IProjectileTrait;
@@ -25,8 +23,8 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
   public static final String TAG_PARENT = "parent";
   public static final String TAG_LAUNCHER = "launcher";
   public static final String TAG_POWER = "power";
-  private ItemStack parent;
-  private ItemStack launcher;
+  private ItemStack parent = ItemStack.EMPTY;
+  private ItemStack launcher = ItemStack.EMPTY;
   private List<IProjectileTrait> projectileTraitList = Lists.newArrayList();
   private float power = 1f;
 
@@ -44,7 +42,6 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
     updateTraits();
   }
 
-  @Nullable
   @Override
   public ItemStack getLaunchingStack() {
     return launcher;
@@ -77,8 +74,8 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
   @Override
   public boolean pickup(EntityLivingBase entity, boolean simulate) {
     ItemStack stack = AmmoHelper.getMatchingItemstackFromInventory(parent, entity, true);
-    if(stack != null && stack.getItem() instanceof IAmmo) {
-      if(!simulate && parent.stackSize > 0) {
+    if(stack.getItem() instanceof IAmmo) {
+      if(!simulate && ((IAmmo) parent.getItem()).getCurrentAmmo(parent) > 0) {
         ToolHelper.unbreakTool(stack);
         ((IAmmo) stack.getItem()).addAmmo(stack, entity);
       }
@@ -114,12 +111,12 @@ public class TinkerProjectileHandler implements ITinkerProjectile, INBTSerializa
 
   @Override
   public void deserializeNBT(NBTTagCompound nbt) {
-    parent = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag(TAG_PARENT));
+    parent = new ItemStack(nbt.getCompoundTag(TAG_PARENT));
     // backwards compatibility
-    if(parent == null) {
-      parent = ItemStack.loadItemStackFromNBT(nbt);
+    if(parent.isEmpty()) {
+      parent = new ItemStack(nbt);
     }
-    launcher = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag(TAG_LAUNCHER));
+    launcher = new ItemStack(nbt.getCompoundTag(TAG_LAUNCHER));
     power = nbt.getFloat(TAG_POWER);
     updateTraits();
   }

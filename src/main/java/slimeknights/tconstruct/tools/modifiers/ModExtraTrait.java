@@ -34,7 +34,7 @@ public class ModExtraTrait extends ToolModifier {
   public static final List<ItemStack> EMBOSSMENT_ITEMS = getEmbossmentItems();
   public static final String EXTRA_TRAIT_IDENTIFIER = "extratrait";
   private final Material material;
-  private final Set<ToolCore> toolCores;
+  public final Set<ToolCore> toolCores;
   private final Collection<ITrait> traits;
 
 
@@ -62,7 +62,7 @@ public class ModExtraTrait extends ToolModifier {
   }
 
   @Override
-  protected boolean canApplyCustom(ItemStack stack) throws TinkerGuiException {
+  public boolean canApplyCustom(ItemStack stack) throws TinkerGuiException {
     return stack.getItem() instanceof ToolCore && toolCores.contains(stack.getItem());
   }
 

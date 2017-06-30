@@ -5,9 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameData;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraft.util.NonNullList;
 
 import java.util.Collection;
 import java.util.List;
@@ -31,7 +29,7 @@ public class Pattern extends Item implements IPattern {
   }
 
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     subItems.add(new ItemStack(this));
 
     for(Item toolpart : getSubItemToolparts()) {
@@ -73,7 +71,7 @@ public class Pattern extends Item implements IPattern {
       return Util.translate(unloc + ".blank");
     }
 
-    return Util.translateFormatted(unloc + ".name", part.getItemStackDisplayName(null));
+    return Util.translateFormatted(unloc + ".name", part.getItemStackDisplayName(ItemStack.EMPTY));
   }
 
   public static ItemStack setTagForPart(ItemStack stack, Item toolPart) {
@@ -94,7 +92,7 @@ public class Pattern extends Item implements IPattern {
   }
 
   public boolean isBlankPattern(ItemStack stack) {
-    if(stack == null || !(stack.getItem() instanceof IPattern)) {
+    if(stack.isEmpty() || !(stack.getItem() instanceof IPattern)) {
       return false;
     }
 

@@ -144,7 +144,7 @@ public class MaterialIntegration {
 
   public void registerRepresentativeItem() {
     // also set the representative item
-    if(material != null && material.getRepresentativeItem() == null && representativeItem != null && !representativeItem.isEmpty()) {
+    if(material != null && material.getRepresentativeItem().isEmpty() && representativeItem != null && !representativeItem.isEmpty()) {
       List<ItemStack> ore = OreDictionary.getOres(representativeItem, false);
       if(!ore.isEmpty()) {
         ItemStack itemStack = ore.get(0).copy();

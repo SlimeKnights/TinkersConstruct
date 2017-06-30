@@ -20,6 +20,7 @@ import slimeknights.mantle.item.ItemBlockSlab;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.plugin.Chisel;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -48,6 +49,10 @@ public abstract class TinkerPulse {
 
   protected static boolean isGadgetsLoaded() {
     return TConstruct.pulseManager.isPulseLoaded(TinkerGadgets.PulseId);
+  }
+
+  protected static boolean isChiselPluginLoaded() {
+    return TConstruct.pulseManager.isPulseLoaded(Chisel.PulseId);
   }
 
   /**
@@ -151,7 +156,6 @@ public abstract class TinkerPulse {
     ItemStack brickBlockIn = new ItemStack(block, 1, in.getMeta());
     ItemStack brickBlockOut = new ItemStack(block, 1, out.getMeta());
 
-    // todo: convert to chisel recipes if chisel is present
     //GameRegistry.addShapedRecipe(searedBrickBlockOut, "BB", "BB", 'B', searedBrickBlockIn);
     GameRegistry.addShapelessRecipe(brickBlockOut, brickBlockIn);
   }

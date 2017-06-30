@@ -156,7 +156,7 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
     // if the new multiblock is smaller we pop out all items that don't fit in anymore
     if(this.getSizeInventory() > inventorySize) {
       for(int i = inventorySize; i < getSizeInventory(); i++) {
-        if(getStackInSlot(i) != null) {
+        if(!getStackInSlot(i).isEmpty()) {
           dropItem(getStackInSlot(i));
         }
       }
@@ -225,7 +225,10 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
       // we need to consume fuel, check the current tank
       if(hasTankWithFuel(currentTank, currentFuel)) {
         IFluidTank tank = getTankAt(currentTank);
-        info.fluid = tank.getFluid().copy();
+        assert tank != null;
+        FluidStack tankFluid = tank.getFluid();
+        assert tankFluid != null;
+        info.fluid = tankFluid.copy();
         info.heat = temperature;
         info.maxCap = tank.getCapacity();
       }
@@ -240,6 +243,7 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
       IFluidTank tank = getTankAt(pos);
       // tank exists and has something in it
       if(tank != null && tank.getFluidAmount() > 0) {
+        assert tank.getFluid() != null;
         // we don't have fuel yet, use this
         if(info.fluid == null) {
           info.fluid = tank.getFluid().copy();

@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -17,6 +18,7 @@ import net.minecraft.world.World;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
@@ -61,8 +63,8 @@ public class Mattock extends AoeToolCore {
   }
 
   @Override
-  public int getHarvestLevel(ItemStack stack, @Nonnull String toolClass) {
-    if(toolClass == null) {
+  public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
+    if(StringUtils.isNullOrEmpty(toolClass)) {
       return -1;
     }
 
@@ -76,7 +78,7 @@ public class Mattock extends AoeToolCore {
     }
 
     // none of them
-    return super.getHarvestLevel(stack, toolClass);
+    return super.getHarvestLevel(stack, toolClass, player, blockState);
   }
 
   @Override
@@ -111,25 +113,26 @@ public class Mattock extends AoeToolCore {
 
   @Nonnull
   @Override
-  public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+  public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    ItemStack stack = player.getHeldItem(hand);
     if(ToolHelper.isBroken(stack)) {
       return EnumActionResult.FAIL;
     }
 
-    EnumActionResult ret = useHoe(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
-    for(BlockPos blockPos : getAOEBlocks(stack, worldIn, playerIn, pos)) {
+    EnumActionResult ret = useHoe(stack, player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+    for(BlockPos blockPos : getAOEBlocks(stack, worldIn, player, pos)) {
       if(ToolHelper.isBroken(stack)) {
         break;
       }
 
-      EnumActionResult ret2 = useHoe(stack, playerIn, worldIn, blockPos, hand, facing, hitX, hitY, hitZ);
+      EnumActionResult ret2 = useHoe(stack, player, worldIn, blockPos, hand, facing, hitX, hitY, hitZ);
       if(ret != EnumActionResult.SUCCESS) {
         ret = ret2;
       }
     }
 
     if(ret == EnumActionResult.SUCCESS) {
-      TinkerToolEvent.OnMattockHoe.fireEvent(stack, playerIn, worldIn, pos);
+      TinkerToolEvent.OnMattockHoe.fireEvent(stack, player, worldIn, pos);
     }
 
     return ret;
@@ -138,7 +141,7 @@ public class Mattock extends AoeToolCore {
   private EnumActionResult useHoe(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos blockPos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
     // make sure no damage is taken
     int damage = stack.getItemDamage();
-    EnumActionResult ret = Items.DIAMOND_HOE.onItemUse(stack, playerIn, worldIn, blockPos, hand, facing, hitX, hitY, hitZ);
+    EnumActionResult ret = Items.DIAMOND_HOE.onItemUse(playerIn, worldIn, blockPos, hand, facing, hitX, hitY, hitZ);
     stack.setItemDamage(damage);
 
     // do tinkers damaging

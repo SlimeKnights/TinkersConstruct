@@ -14,10 +14,6 @@ public abstract class Sounds {
   }
 
   public static final SoundEvent saw = sound("little_saw");
-  //public static final SoundEvent anvil_use = "random.anvil_use";
-  //public static final SoundEvent nom = "random.eat";
-  //public static final SoundEvent slime_big = "mob.slime.big";
-  //public static final SoundEvent slime_small = "mob.slime.small";
 
   public static final SoundEvent frypan_boing = sound("frypan_hit");
   public static final SoundEvent toy_squeak = sound("toy_squeak");

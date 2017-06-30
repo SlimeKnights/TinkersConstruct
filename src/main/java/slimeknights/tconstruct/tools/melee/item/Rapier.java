@@ -98,13 +98,14 @@ public class Rapier extends SwordCore {
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer player, EnumHand hand) {
-    if(player.onGround) {
-      player.addExhaustion(0.1f);
-      player.motionY += 0.32;
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
+    if(playerIn.onGround) {
+      playerIn.addExhaustion(0.1f);
+      playerIn.motionY += 0.32;
       float f = 0.5F;
-      player.motionX = (double) (MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * f);
-      player.motionZ = (double) (-MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * f);
+      playerIn.motionX = (double) (MathHelper.sin(playerIn.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(playerIn.rotationPitch / 180.0F * (float) Math.PI) * f);
+      playerIn.motionZ = (double) (-MathHelper.cos(playerIn.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(playerIn.rotationPitch / 180.0F * (float) Math.PI) * f);
     }
     return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
   }

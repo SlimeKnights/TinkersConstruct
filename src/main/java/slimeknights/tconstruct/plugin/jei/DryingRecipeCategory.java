@@ -1,7 +1,11 @@
 package slimeknights.tconstruct.plugin.jei;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -50,17 +54,7 @@ public class DryingRecipeCategory implements IRecipeCategory<DryingRecipeWrapper
 
   @Override
   public void drawExtras(@Nonnull Minecraft minecraft) {
-  }
-
-  @Override
-  public void drawAnimations(@Nonnull Minecraft minecraft) {
     arrow.draw(minecraft, 67, 18);
-  }
-
-  @Override
-  @Deprecated
-  public void setRecipe(IRecipeLayout recipeLayout, DryingRecipeWrapper recipe) {
-    // deprecated
   }
 
   @Override
@@ -72,6 +66,11 @@ public class DryingRecipeCategory implements IRecipeCategory<DryingRecipeWrapper
 
     items.init(1, false, 97, 17);
     items.set(ingredients);
+  }
+
+  @Override
+  public List<String> getTooltipStrings(int mouseX, int mouseY) {
+    return ImmutableList.of();
   }
 
   @Override

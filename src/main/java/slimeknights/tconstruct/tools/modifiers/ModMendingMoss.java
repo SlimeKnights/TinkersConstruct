@@ -69,7 +69,7 @@ public class ModMendingMoss extends ModifierTrait {
     EntityXPOrb entityXPOrb = event.getOrb();
 
     for(ItemStack itemStack : tools) {
-      if(itemStack != null && isMendingMossModified(itemStack)) {
+      if(!itemStack.isEmpty() && isMendingMossModified(itemStack)) {
         int stored = storeXp(entityXPOrb.xpValue, itemStack);
         entityXPOrb.xpValue -= stored;
       }
@@ -81,7 +81,7 @@ public class ModMendingMoss extends ModifierTrait {
   }
 
   private boolean needsRepair(ItemStack itemStack) {
-    return itemStack != null && itemStack.getItemDamage() > 0 && !ToolHelper.isBroken(itemStack);
+    return !itemStack.isEmpty() && itemStack.getItemDamage() > 0 && !ToolHelper.isBroken(itemStack);
   }
 
   private int getDurabilityPerXP(ItemStack itemStack) {
@@ -131,6 +131,7 @@ public class ModMendingMoss extends ModifierTrait {
   @Override
   public List<String> getExtraInfo(ItemStack tool, NBTTagCompound modifierTag) {
     Data data = ModifierNBT.readTag(modifierTag, Data.class);
+    assert data != null;
     String loc = String.format(LOC_Extra, getIdentifier());
     return ImmutableList.of(
         Util.translateFormatted(loc, data.storedXp)

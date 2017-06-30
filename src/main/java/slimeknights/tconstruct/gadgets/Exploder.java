@@ -143,7 +143,7 @@ public class Exploder {
       // check if it's already in our list
       for(ItemStack stack : aggregatedDrops) {
         if(ItemStack.areItemsEqual(drop, stack) && ItemStack.areItemStackTagsEqual(drop, stack)) {
-          stack.stackSize += drop.stackSize;
+          stack.grow(drop.getCount());
           notInList = false;
           break;
         }
@@ -156,13 +156,13 @@ public class Exploder {
 
     // actually drop the aggregated items
     for(ItemStack drop : aggregatedDrops) {
-      int stacksize = drop.stackSize;
+      int stacksize = drop.getCount();
       do {
         BlockPos spawnPos = pos.add(random.nextInt((int) r), random.nextInt((int) r), random.nextInt((int) r));
         ItemStack dropItemstack = drop.copy();
-        dropItemstack.stackSize = Math.min(stacksize, 64);
+        dropItemstack.setCount(Math.min(stacksize, 64));
         Block.spawnAsEntity(world, spawnPos, dropItemstack);
-        stacksize -= dropItemstack.stackSize;
+        stacksize -= dropItemstack.getCount();
       } while(stacksize > 0);
     }
 

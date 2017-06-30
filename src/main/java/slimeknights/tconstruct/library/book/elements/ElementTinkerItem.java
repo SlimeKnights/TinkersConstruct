@@ -55,7 +55,7 @@ public class ElementTinkerItem extends ElementItem {
       return;
     }
     if(tooltip == null) {
-      fontRenderer = mc.fontRendererObj;
+      fontRenderer = mc.fontRenderer;
     }
     super.drawOverlay(mouseX, mouseY, partialTicks, fontRenderer);
   }

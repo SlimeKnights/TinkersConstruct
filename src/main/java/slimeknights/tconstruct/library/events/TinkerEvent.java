@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -12,7 +13,6 @@ import java.util.List;
 
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
-import slimeknights.tconstruct.library.tools.ToolCore;
 
 /**
  * Base class for all tinkers events
@@ -52,15 +52,16 @@ public abstract class TinkerEvent extends Event {
   @Cancelable
   public static class OnToolPartReplacement extends TinkerEvent {
 
-    public List<ItemStack> replacementParts;
+    /** The items in the tool station. Can be manipulated. */
+    public NonNullList<ItemStack> replacementParts;
     public ItemStack toolStack;
 
-    public OnToolPartReplacement(List<ItemStack> replacementParts, ItemStack toolStack) {
+    public OnToolPartReplacement(NonNullList<ItemStack> replacementParts, ItemStack toolStack) {
       this.replacementParts = replacementParts;
-      this.toolStack = ItemStack.copyItemStack(toolStack);
+      this.toolStack = toolStack.copy();
     }
 
-    public static boolean fireEvent(List<ItemStack> replacementParts, ItemStack toolStack) {
+    public static boolean fireEvent(NonNullList<ItemStack> replacementParts, ItemStack toolStack) {
       return !MinecraftForge.EVENT_BUS.post(new OnToolPartReplacement(replacementParts, toolStack));
     }
   }

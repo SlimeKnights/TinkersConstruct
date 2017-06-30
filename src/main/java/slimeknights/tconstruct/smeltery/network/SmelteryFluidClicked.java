@@ -28,8 +28,8 @@ public class SmelteryFluidClicked extends AbstractPacketThreadsafe {
 
   @Override
   public void handleServerSafe(NetHandlerPlayServer netHandler) {
-    if(netHandler.playerEntity.openContainer instanceof BaseContainer) {
-      TileEntity te = ((BaseContainer<?>) netHandler.playerEntity.openContainer).getTile();
+    if(netHandler.player.openContainer instanceof BaseContainer) {
+      TileEntity te = ((BaseContainer<?>) netHandler.player.openContainer).getTile();
       if(te instanceof ISmelteryTankHandler) {
         ISmelteryTankHandler smeltery = (ISmelteryTankHandler)te;
 

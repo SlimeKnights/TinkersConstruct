@@ -4,6 +4,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -57,12 +58,15 @@ public class TraitMagnetic extends AbstractTraitLeveled {
       double y = entity.posY;
       double z = entity.posZ;
       double range = 1.8d;
-      range += entity.getActivePotionEffect(this).getAmplifier() * 0.3f;
+      PotionEffect activePotionEffect = entity.getActivePotionEffect(this);
+      if(activePotionEffect != null) {
+        range += activePotionEffect.getAmplifier() * 0.3f;
+      }
 
       List<EntityItem> items = entity.getEntityWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
       int pulled = 0;
       for(EntityItem item : items) {
-        if(item.getEntityItem() == null || item.getEntityItem().getItem() == null || item.isDead) {
+        if(item.getEntityItem().isEmpty() || item.isDead) {
           continue;
         }
 

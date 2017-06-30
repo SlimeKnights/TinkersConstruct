@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
@@ -33,11 +34,9 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ProjectileNBT;
 import slimeknights.tconstruct.library.tools.ranged.ProjectileCore;
-import slimeknights.tconstruct.library.utils.TinkerUtil;
-import slimeknights.tconstruct.shared.client.ParticleEffect;
+import slimeknights.tconstruct.library.utils.ListUtil;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.common.entity.EntityArrow;
 import slimeknights.tconstruct.tools.common.entity.EntityBolt;
 import slimeknights.tconstruct.tools.melee.item.Rapier;
 import slimeknights.tconstruct.tools.traits.TraitEnderference;
@@ -61,9 +60,9 @@ public class Bolt extends ProjectileCore {
   }
 
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     for(Material head : TinkerRegistry.getAllMaterials()) {
-      List<Material> mats = new ArrayList<Material>(3);
+      List<Material> mats = new ArrayList<>(3);
 
       if(head.hasStats(MaterialTypes.HEAD)) {
         mats.add(TinkerMaterials.wood);
@@ -106,19 +105,21 @@ public class Bolt extends ProjectileCore {
     return 1;
   }
 
+  @Nonnull
   @Override
-  public ItemStack buildItemFromStacks(ItemStack[] stacks) {
-    if(stacks.length != 2) {
-      return null;
+  public ItemStack buildItemFromStacks(NonNullList<ItemStack> inputStacks) {
+    List<ItemStack> stacks = inputStacks.stream().filter(itemStack -> !itemStack.isEmpty()).collect(Collectors.toList());
+    if(stacks.size() != 2) {
+      return ItemStack.EMPTY;
     }
 
-    ItemStack boltCore = stacks[0];
-    ItemStack fletching = stacks[1];
+    ItemStack boltCore = stacks.get(0);
+    ItemStack fletching = stacks.get(1);
 
     // we only care about the material returned by getMaterial call
     ItemStack boltCoreHead = BoltCore.getHeadStack(boltCore);
 
-    return super.buildItemFromStacks(new ItemStack[]{boltCore, boltCoreHead, fletching});
+    return super.buildItemFromStacks(ListUtil.getListFrom(boltCore, boltCoreHead, fletching));
   }
 
   @Override

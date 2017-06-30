@@ -20,7 +20,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.registry.GameData;
 
 import java.util.stream.Stream;
 
@@ -166,16 +165,14 @@ public abstract class ClientProxy extends CommonProxy {
   @Deprecated
   protected ResourceLocation registerModel(Item item, int meta, String... customVariants) {
     // get the registered name for the object
-    Object o = GameData.getItemRegistry().getNameForObject(item);
+    ResourceLocation location = item.getRegistryName();
 
     // are you trying to add an unregistered item...?
-    if(o == null) {
+    if(location == null) {
       TConstruct.log.error("Trying to register a model for an unregistered item: %s" + item.getUnlocalizedName());
       // bad boi
       return null;
     }
-
-    ResourceLocation location = (ResourceLocation) o;
 
     location = new ResourceLocation(location.getResourceDomain(), location.getResourcePath());
 
@@ -267,7 +264,7 @@ public abstract class ClientProxy extends CommonProxy {
     if(player instanceof EntityPlayerSP) {
       EntityPlayerSP playerSP = (EntityPlayerSP) player;
       ItemStack usingItem = playerSP.getActiveItemStack();
-      if(usingItem != null && usingItem.getItem() == item) {
+      if(!usingItem.isEmpty() && usingItem.getItem() == item) {
         // no slowdown from charging it up
         playerSP.movementInput.moveForward *= originalSpeed * 5.0F;
         playerSP.movementInput.moveStrafe *= originalSpeed * 5.0F;
@@ -277,9 +274,7 @@ public abstract class ClientProxy extends CommonProxy {
 
   @Override
   public void customExplosion(World world, Explosion explosion) {
-    if(net.minecraftforge.event.ForgeEventFactory.onExplosionStart(world, explosion)) {
-      ;
-    }
+    net.minecraftforge.event.ForgeEventFactory.onExplosionStart(world, explosion);
     explosion.doExplosionA();
     explosion.doExplosionB(true);
   }

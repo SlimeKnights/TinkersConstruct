@@ -76,12 +76,13 @@ public class BattleSign extends TinkerToolCore {
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
     if(!ToolHelper.isBroken(itemStackIn)) {
       playerIn.setActiveHand(hand);
-      return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+      return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
     }
-    return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStackIn);
+    return new ActionResult<>(EnumActionResult.FAIL, itemStackIn);
   }
 
   // Extra damage reduction when blocking with a battlesign

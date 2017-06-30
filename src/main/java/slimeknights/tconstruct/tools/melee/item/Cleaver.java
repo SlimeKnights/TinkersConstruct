@@ -43,7 +43,8 @@ public class Cleaver extends SwordCore {
   // no offhand for you
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(@Nonnull ItemStack itemStackIn, World worldIn, EntityPlayer player, EnumHand hand) {
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
     return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
   }
 

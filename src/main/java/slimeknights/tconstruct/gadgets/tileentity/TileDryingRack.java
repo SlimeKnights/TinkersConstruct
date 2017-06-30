@@ -32,7 +32,7 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
 
   @Override
   public float getProgress() {
-    if(getStackInSlot(0) != null && currentTime < maxTime) {
+    if(!getStackInSlot(0).isEmpty() && currentTime < maxTime) {
       return (float) currentTime / (float) maxTime;
     }
     return 0;
@@ -46,19 +46,19 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
       if(currentTime >= maxTime && !getWorld().isRemote) {
         // add the result to slot 1 and remove the original from slot 0
         setInventorySlotContents(1, TinkerRegistry.getDryingResult(getStackInSlot(0)));
-        setInventorySlotContents(0, null);
+        setInventorySlotContents(0, ItemStack.EMPTY);
         //drying time updated in setInventorySlotContents
 
         // comparator update
-        this.getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+        this.getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
       }
     }
   }
 
   @Override
-  public void setInventorySlotContents(int slot, ItemStack stack) {
+  public void setInventorySlotContents(int slot, @Nonnull ItemStack stack) {
     // if there is no drying recipe, just place the item directly into the output slot for item output and tick efficiency
-    if(slot == 0 && !isStackInSlot(1) && stack != null && TinkerRegistry.getDryingResult(stack) == null) {
+    if(slot == 0 && !isStackInSlot(1) && !stack.isEmpty() && TinkerRegistry.getDryingResult(stack) == null) {
       slot = 1;
     }
 
@@ -68,10 +68,11 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
     }
     else if(this.getWorld() != null) {
       // comparator update
-      this.getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType());
+      this.getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
     }
   }
 
+  @Nonnull
   @Override
   public ItemStack decrStackSize(int slot, int quantity) {
     ItemStack stack = super.decrStackSize(slot, quantity);
@@ -84,7 +85,7 @@ public class TileDryingRack extends TileItemRack implements ITickable, ISidedInv
     currentTime = 0;
     ItemStack stack = getStackInSlot(0);
 
-    if(stack != null) {
+    if(!stack.isEmpty()) {
       maxTime = TinkerRegistry.getDryingTime(stack);
     }
     else {

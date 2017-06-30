@@ -48,7 +48,7 @@ public class SmelteryFluidUpdatePacket extends AbstractPacketThreadsafe {
   public void fromBytes(ByteBuf buf) {
     pos = readPos(buf);
     int size = buf.readInt();
-    liquids = new ArrayList<FluidStack>(size);
+    liquids = new ArrayList<>(size);
     for(int i = 0; i < size; i++) {
       NBTTagCompound fluidTag = ByteBufUtils.readTag(buf);
       FluidStack liquid = FluidStack.loadFluidStackFromNBT(fluidTag);

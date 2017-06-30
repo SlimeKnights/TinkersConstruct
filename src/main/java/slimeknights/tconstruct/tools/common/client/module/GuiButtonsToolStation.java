@@ -45,7 +45,7 @@ public class GuiButtonsToolStation extends GuiSideButtons {
     for(Item item : parent.getBuildableItems()) {
       ToolBuildGuiInfo info = TinkerRegistryClient.getToolBuildInfoForTool(item);
       if(info != null) {
-        GuiButtonItem<ToolBuildGuiInfo> button = new GuiButtonItem<ToolBuildGuiInfo>(index++, -1, -1, info.tool, info);
+        GuiButtonItem<ToolBuildGuiInfo> button = new GuiButtonItem<>(index++, -1, -1, info.tool, info);
         shiftButton(button, 0, -18 * style);
         addSideButton(button);
 

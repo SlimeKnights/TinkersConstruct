@@ -10,6 +10,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -23,6 +24,7 @@ import slimeknights.mantle.inventory.SlotCraftingCustom;
 import slimeknights.mantle.inventory.SlotOut;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
+import slimeknights.tconstruct.library.utils.ListUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.shared.inventory.InventoryCraftingPersistent;
 import slimeknights.tconstruct.tools.common.block.BlockToolTable;
@@ -116,15 +118,14 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
   public void updateResult() {
     // no pattern -> no output
     if(!patternSlot.getHasStack() || (!input1.getHasStack() && !input2.getHasStack() && !secondarySlot.getHasStack())) {
-      craftResult.setInventorySlotContents(0, null);
+      craftResult.setInventorySlotContents(0, ItemStack.EMPTY);
       updateGUI();
     }
     else {
       Throwable throwable = null;
-      ItemStack[] toolPart;
+      NonNullList<ItemStack> toolPart;
       try {
-        toolPart = ToolBuilder.tryBuildToolPart(patternSlot.getStack(), new ItemStack[]{input1.getStack(),
-                                                                                        input2.getStack()}, false);
+        toolPart = ToolBuilder.tryBuildToolPart(patternSlot.getStack(), ListUtil.getListFrom(input1.getStack(), input2.getStack()), false);
       } catch(TinkerGuiException e) {
         toolPart = null;
         throwable = e;
@@ -135,11 +136,11 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
       // got output?
       if(toolPart != null &&
          // got no secondary output or does it stack with the current one?
-         (secondary == null || toolPart[1] == null || ItemStack.areItemsEqual(secondary, toolPart[1]) && ItemStack.areItemStackTagsEqual(secondary, toolPart[1]))) {
-        craftResult.setInventorySlotContents(0, toolPart[0]);
+         (secondary.isEmpty() || toolPart.get(1).isEmpty() || ItemStack.areItemsEqual(secondary, toolPart.get(1)) && ItemStack.areItemStackTagsEqual(secondary, toolPart.get(1)))) {
+        craftResult.setInventorySlotContents(0, toolPart.get(0));
       }
       else {
-        craftResult.setInventorySlotContents(0, null);
+        craftResult.setInventorySlotContents(0, ItemStack.EMPTY);
       }
 
       if(throwable != null) {
@@ -171,10 +172,9 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
 
   @Override
   public void onCrafting(EntityPlayer player, ItemStack output, IInventory craftMatrix) {
-    ItemStack[] toolPart = new ItemStack[0];
+    NonNullList<ItemStack> toolPart = NonNullList.create();
     try {
-      toolPart = ToolBuilder.tryBuildToolPart(patternSlot.getStack(), new ItemStack[]{input1.getStack(),
-                                                                                      input2.getStack()}, true);
+      toolPart = ToolBuilder.tryBuildToolPart(patternSlot.getStack(), ListUtil.getListFrom(input1.getStack(), input2.getStack()), true);
     } catch(TinkerGuiException e) {
       // don't need any user information at this stage
     }
@@ -183,20 +183,22 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
       return;
     }
 
+  ItemStack secondOutput = toolPart.get(1);
     ItemStack secondary = secondarySlot.getStack();
-    if(secondary == null) {
-      putStackInSlot(secondarySlot.slotNumber, toolPart[1]);
+    if(secondary.isEmpty()) {
+      putStackInSlot(secondarySlot.slotNumber, secondOutput);
     }
-    else if(toolPart[1] != null && ItemStack.areItemsEqual(secondary, toolPart[1]) && ItemStack.areItemStackTagsEqual(secondary, toolPart[1])) {
-      secondary.stackSize += toolPart[1].stackSize;
+    else if(!secondOutput.isEmpty() && ItemStack.areItemsEqual(secondary, secondOutput) && ItemStack.areItemStackTagsEqual(secondary, secondOutput)) {
+      secondary.grow(secondOutput.getCount());
     }
 
     // clean up 0 size stacks
-    for(int i = 0; i < craftMatrix.getSizeInventory(); i++) {
-      if(craftMatrix.getStackInSlot(i) != null && craftMatrix.getStackInSlot(i).stackSize == 0) {
+    // todo: this shouldn't be needed anymore, check
+    /*for(int i = 0; i < craftMatrix.getSizeInventory(); i++) {
+      if(craftMatrix.getStackInSlot(i).isEmpty() != null && craftMatrix.getStackInSlot(i).stackSize == 0) {
         craftMatrix.setInventorySlotContents(i, null);
       }
-    }
+    }*/
 
     updateResult();
   }

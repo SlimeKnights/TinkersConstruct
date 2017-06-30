@@ -33,7 +33,7 @@ public abstract class IMCIntegration {
 
     Fluid fluid = FluidRegistry.getFluid(fluidName);
 
-    if(fluid != null && ore != null && !ore.isEmpty()) {
+    if(fluid != null && !ore.isEmpty()) {
       boolean isNew = true;
       for(MaterialIntegration mi : TinkerRegistry.getMaterialIntegrations()) {
         if(mi.fluid != null && mi.fluid.getName().equals(fluidName)) {
@@ -89,15 +89,15 @@ public abstract class IMCIntegration {
     }
 
     NBTTagCompound tag = message.getNBTValue();
-    ItemStack input = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("input"));
-    ItemStack output = ItemStack.loadItemStackFromNBT(tag.getCompoundTag("output"));
+    ItemStack input = new ItemStack(tag.getCompoundTag("input"));
+    ItemStack output = new ItemStack(tag.getCompoundTag("output"));
     int time = tag.getInteger("time") * 20;
 
-    if(input != null && output != null && time > 0) {
+    if(!input.isEmpty() && !output.isEmpty() && time > 0) {
       TinkerRegistry.registerDryingRecipe(input, output, time);
       log.debug("Added drying rack recipe from " + input.getUnlocalizedName() + " to " + output.getUnlocalizedName());
     }
-    else if(input == null) {
+    else if(input.isEmpty()) {
       // try oredict
       String ore = tag.getString("input");
       if(!ore.isEmpty()) {

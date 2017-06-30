@@ -8,10 +8,10 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -31,7 +31,7 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
     for(SlimeType type : SlimeType.values()) {
       list.add(new ItemStack(this, 1, type.meta));
     }
@@ -66,7 +66,7 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
     BLOOD(0xb50101, 0xb80000),
     MAGMA(0xff970d, 0xffab49);
 
-    private SlimeType(int color, int ballColor) {
+    SlimeType(int color, int ballColor) {
       this.meta = this.ordinal();
       this.color = color;
       this.ballColor = ballColor;

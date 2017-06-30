@@ -15,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,8 +26,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
-
-import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.client.particle.Particles;
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
@@ -63,7 +62,7 @@ public class LumberAxe extends AoeToolCore {
   }
 
   @Override
-  public void getSubItems(@Nonnull Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
     addDefaultSubItems(subItems);
     addInfiTool(subItems, "InfiChopper");
   }
@@ -150,7 +149,7 @@ public class LumberAxe extends AoeToolCore {
 
   public static boolean detectTree(World world, BlockPos origin) {
     BlockPos pos = null;
-    Stack<BlockPos> candidates = new Stack<BlockPos>();
+    Stack<BlockPos> candidates = new Stack<>();
     candidates.add(origin);
 
     while(!candidates.isEmpty()) {
@@ -224,7 +223,7 @@ public class LumberAxe extends AoeToolCore {
     public final int blocksPerTick;
 
     public Queue<BlockPos> blocks = Lists.newLinkedList();
-    public Set<BlockPos> visited = new THashSet<BlockPos>();
+    public Set<BlockPos> visited = new THashSet<>();
 
 
     public TreeChopTask(ItemStack tool, BlockPos start, EntityPlayer player, int blocksPerTick) {

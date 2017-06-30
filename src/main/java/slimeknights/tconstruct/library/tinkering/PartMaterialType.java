@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.traits.ITrait;
 public class PartMaterialType {
 
   // ANY of these has to match
-  private final Set<IToolPart> neededPart = new HashSet<IToolPart>();
+  private final Set<IToolPart> neededPart = new HashSet<>();
   // ALL of the material stats have to be there
   private final String[] neededTypes;
 
@@ -27,16 +27,11 @@ public class PartMaterialType {
   }
 
   public boolean isValid(ItemStack stack) {
-    if(stack == null || stack.getItem() == null) {
-      return false;
+    if(stack.getItem() instanceof IToolPart) {
+      IToolPart toolPart = (IToolPart) stack.getItem();
+      return isValid(toolPart, toolPart.getMaterial(stack));
     }
-
-    if(!(stack.getItem() instanceof IToolPart)) {
-      return false;
-    }
-
-    IToolPart toolPart = (IToolPart) stack.getItem();
-    return isValid(toolPart, toolPart.getMaterial(stack));
+    return false;
   }
 
   public boolean isValid(IToolPart part, Material material) {

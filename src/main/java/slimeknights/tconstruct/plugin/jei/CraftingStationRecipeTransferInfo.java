@@ -28,10 +28,15 @@ public class CraftingStationRecipeTransferInfo implements IRecipeTransferInfo<Co
     return VanillaRecipeCategoryUid.CRAFTING;
   }
 
+  @Override
+  public boolean canHandle(ContainerCraftingStation container) {
+    return true;
+  }
+
   @Nonnull
   @Override
   public List<Slot> getRecipeSlots(ContainerCraftingStation container) {
-    List<Slot> slots = new ArrayList<Slot>();
+    List<Slot> slots = new ArrayList<>();
     for(int i = 1; i < 10; i++) {
       slots.add(container.getSlot(i));
     }
@@ -41,7 +46,7 @@ public class CraftingStationRecipeTransferInfo implements IRecipeTransferInfo<Co
   @Nonnull
   @Override
   public List<Slot> getInventorySlots(ContainerCraftingStation container) {
-    List<Slot> slots = new ArrayList<Slot>();
+    List<Slot> slots = new ArrayList<>();
 
     // we skip all slots from within the side inventory and crafting grid for transfer
     // side inventory can cause too many issues since transfer is not validated the same way as clicking does

@@ -23,8 +23,8 @@ public final class DualToolHarvestUtils {
   public static boolean shouldUseOffhand(EntityLivingBase player, IBlockState blockState, ItemStack tool) {
     ItemStack offhand = player.getHeldItemOffhand();
 
-    return tool != null
-           && offhand != null
+    return !tool.isEmpty()
+           && !offhand.isEmpty()
            && blockState != null
            && tool.getItem() instanceof TinkerToolCore
            && !ToolHelper.isToolEffective2(tool, blockState)
@@ -33,7 +33,7 @@ public final class DualToolHarvestUtils {
 
   public static ItemStack getItemstackToUse(EntityLivingBase player, IBlockState blockState) {
     ItemStack mainhand = player.getHeldItemMainhand();
-    if(mainhand != null && shouldUseOffhand(player, blockState, mainhand)) {
+    if(!mainhand.isEmpty() && shouldUseOffhand(player, blockState, mainhand)) {
       return player.getHeldItemOffhand();
     }
     return mainhand;
@@ -47,9 +47,9 @@ public final class DualToolHarvestUtils {
       ItemStack offhand = player.getHeldItemOffhand();
 
       // we use this instead of player.setItemStackToSlot because that one plays an equip sound ;_;
-      player.inventory.mainInventory[player.inventory.currentItem] = offhand;
+      player.inventory.mainInventory.set(player.inventory.currentItem, offhand);
       float speed = player.getDigSpeed(event.getState(), event.getPos());
-      player.inventory.mainInventory[player.inventory.currentItem] = main;
+      player.inventory.mainInventory.set(player.inventory.currentItem, main);
 
       event.setNewSpeed(speed);
     }

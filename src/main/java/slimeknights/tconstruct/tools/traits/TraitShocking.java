@@ -55,7 +55,7 @@ public class TraitShocking extends AbstractTrait {
     if(entity instanceof EntityPlayer) {
       ItemStack stackInUse = ((EntityPlayer) entity).getActiveItemStack();
       // "same" item
-      if(stackInUse != null && !tool.getItem().shouldCauseBlockBreakReset(tool, stackInUse)) {
+      if(!stackInUse.isEmpty() && !tool.getItem().shouldCauseBlockBreakReset(tool, stackInUse)) {
         return;
       }
     }

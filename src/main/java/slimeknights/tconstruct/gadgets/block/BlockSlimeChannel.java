@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -145,7 +146,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
    * IBlockState
    */
   @Override
-  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, ItemStack stack) {
+  public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
     // we temporarily store the data in the blockstate until the TE is created
     return this.getDefaultState().withProperty(TYPE, SlimeType.fromMeta(meta))
                                  .withProperty(SIDE, facing.getOpposite())
@@ -244,7 +245,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
     }
 
     // if sneaking, reverse direction
-    if(placer.isSneaking()) {
+    if(direction != null && placer.isSneaking()) {
       direction = direction.getOpposite();
     }
     return direction;
@@ -358,7 +359,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
   }
 
   // tells the game that the entity is in water
-  @Nonnull
+  @Nullable
   @Override
   public Boolean isEntityInsideMaterial(IBlockAccess world, BlockPos pos, IBlockState state, Entity entity, double yToTest, Material material, boolean testingHead) {
     if(material != Material.WATER) {
@@ -397,7 +398,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
    * block, etc.
    */
   @Override
-  public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+  public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
     this.updateState(worldIn, pos, state);
   }
 
@@ -453,7 +454,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
   }
 
   @Override
-  public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos) {
+  public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
     return NULL_AABB;
   }
 
@@ -661,11 +662,8 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
       case INNER:
         // on any of theses three sides, if it matches a direction below it should not cull, but culls otherwise
         if(offsetSide == side || offsetSide == face.getOpposite() || offsetSide == flow) {
-          if(offsetConnected == ChannelConnected.INNER
-             && (offsetFlow == side.getOpposite() || offsetFlow == face || offsetFlow == flow.getOpposite())) {
-            return true;
-          }
-          return false;
+          return offsetConnected == ChannelConnected.INNER
+                 && (offsetFlow == side.getOpposite() || offsetFlow == face || offsetFlow == flow.getOpposite());
         }
 
         // the other three can only possibly connect if on the outer side
@@ -688,10 +686,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
       return true;
     }
     // back side face, full if we are connected
-    if(orginFace == flow && connected == ChannelConnected.OUTER) {
-      return true;
-    }
-    return false;
+    return orginFace == flow && connected == ChannelConnected.OUTER;
   }
 
   private static boolean hasHalfSide(EnumFacing orginHalf, EnumFacing orginFace, EnumFacing side, EnumFacing flow, ChannelConnected connected) {
@@ -756,7 +751,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
 
     public final int index;
 
-    private ChannelDirection() {
+    ChannelDirection() {
       this.index = this.ordinal();
     }
 
@@ -830,9 +825,9 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
           return SOUTH;
         case SOUTHEAST:
           return SOUTHWEST;
+        default:
+          throw new IllegalArgumentException("Unknown enum value? Impossibru!");
       }
-      // not possible, but here because eclipse wants it
-      return null;
     }
 
     /**
@@ -931,7 +926,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
      * Returns a list of one or two directions for the sake of liquid flow
      */
     public ArrayList<EnumFacing> getFlowDiagonals(@Nonnull EnumFacing side) {
-      ArrayList<EnumFacing> list = new ArrayList<EnumFacing>();
+      ArrayList<EnumFacing> list = new ArrayList<>();
       switch(this) {
         case NORTH:
           list.add(NORTH.getFlow(side));

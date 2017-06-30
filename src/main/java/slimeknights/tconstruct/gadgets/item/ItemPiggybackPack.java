@@ -52,8 +52,9 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
 
   @Nonnull
   @Override
-  public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-    return new ActionResult<ItemStack>(EnumActionResult.PASS, itemStackIn);
+  public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    ItemStack itemStackIn = playerIn.getHeldItem(hand);
+    return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
   }
 
   @Override
@@ -62,25 +63,25 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
     ItemStack chestArmor = playerIn.getItemStackFromSlot(this.armorType);
 
     // need enough space to exchange the chest armor
-    if(chestArmor != null && chestArmor.getItem() != this && playerIn.inventory.getFirstEmptyStack() == -1) {
+    if(chestArmor.getItem() != this && playerIn.inventory.getFirstEmptyStack() == -1) {
       // not enough inventory space
       return false;
     }
 
     if(pickupEntity(playerIn, target)) {
       // unequip old armor
-      if(chestArmor != null && chestArmor.getItem() != this) {
+      if(chestArmor.getItem() != this) {
         ItemHandlerHelper.giveItemToPlayer(playerIn, chestArmor);
-        chestArmor = null;
+        chestArmor = ItemStack.EMPTY;
       }
 
       // we could pick it up just fine, check if we need to "equip" more of the item
-      if(chestArmor == null) {
+      if(chestArmor.isEmpty()) {
         playerIn.setItemStackToSlot(this.armorType, stack.splitStack(1));
       }
-      else if(chestArmor.stackSize < getEntitiesCarriedCount(playerIn)) {
+      else if(chestArmor.getCount() < getEntitiesCarriedCount(playerIn)) {
         stack.splitStack(1);
-        chestArmor.stackSize++;
+        chestArmor.grow(1);
       }
       // successfully picked up an entity
       return true;
@@ -185,11 +186,11 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
     @Override
     public void performEffect(@Nonnull EntityLivingBase entityLivingBaseIn, int p_76394_2_) {
       ItemStack chestArmor = entityLivingBaseIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-      if(chestArmor == null) {
+      if(chestArmor.isEmpty()) {
         TinkerGadgets.piggybackPack.matchCarriedEntitiesToCount(entityLivingBaseIn, 0);
       }
       else if(chestArmor.getItem() == TinkerGadgets.piggybackPack) {
-        TinkerGadgets.piggybackPack.matchCarriedEntitiesToCount(entityLivingBaseIn, chestArmor.stackSize);
+        TinkerGadgets.piggybackPack.matchCarriedEntitiesToCount(entityLivingBaseIn, chestArmor.getCount());
         if(!entityLivingBaseIn.getEntityWorld().isRemote) {
           if(entityLivingBaseIn.hasCapability(CapabilityTinkerPiggyback.PIGGYBACK, null)) {
             ITinkerPiggyback piggyback = entityLivingBaseIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null);

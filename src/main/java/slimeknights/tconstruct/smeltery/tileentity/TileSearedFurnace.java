@@ -78,10 +78,10 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
   @Override
   protected void updateHeatRequired(int index) {
     ItemStack stack = getStackInSlot(index);
-    if(stack != null) {
+    if(!stack.isEmpty()) {
       ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
-      if(result != null) {
-        int newSize = stack.stackSize * result.stackSize;
+      if(!result.isEmpty()) {
+        int newSize = stack.getCount() * result.getCount();
         if(newSize <= stack.getMaxStackSize() && newSize <= getInventoryStackLimit()) {
           // we like our steaks medium rare :)
           setHeatRequiredForSlot(index, getHeatForStack(stack, result));
@@ -113,7 +113,7 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
   private int getHeatForStack(@Nonnull ItemStack input, @Nonnull ItemStack result) {
     // base stack temp, here in case Forge adds a hook
     int base = 200;
-    float temp = base * input.stackSize / 4f;
+    float temp = base * input.getCount() / 4f;
 
     // adjust the speed based on if its a food or not
     // after adjustment with the base of 200, we get a temp of 160 for foods, though its slightly faster than that due to TileHeatingStructure logic
@@ -129,14 +129,14 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
   protected boolean onItemFinishedHeating(ItemStack stack, int slot) {
     ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
 
-    if(result == null) {
+    if(result.isEmpty()) {
       // recipe changed mid smelting...
       return false;
     }
 
     // remember, we can smelt a whole stack at once
     result = result.copy();
-    result.stackSize *= stack.stackSize;
+    result.setCount(result.getCount() * stack.getCount());
 
     setInventorySlotContents(slot, result);
     // we set to 1 so we get positive infinity instead of NaN for progress, since NaN is already defined as no recipe

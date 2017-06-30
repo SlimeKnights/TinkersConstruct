@@ -45,7 +45,7 @@ public class TilePartChest extends TileTinkerChest implements IInventoryGui {
       }
     }
 
-    return itemstack != null && itemstack.getItem() instanceof IToolPart;
+    return itemstack.getItem() instanceof IToolPart;
   }
 
 }

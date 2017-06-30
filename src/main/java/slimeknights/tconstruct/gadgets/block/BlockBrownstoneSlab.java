@@ -89,7 +89,7 @@ public class BlockBrownstoneSlab extends EnumBlockSlab<BlockBrownstoneSlab.Brown
         case ROAD:
           return BlockBrownstone.BrownstoneType.ROAD;
         default:
-          return null;
+          throw new IllegalArgumentException("Unknown enum value? Impossibru!");
       }
     }
 

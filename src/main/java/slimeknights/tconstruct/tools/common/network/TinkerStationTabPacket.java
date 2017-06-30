@@ -42,13 +42,13 @@ public class TinkerStationTabPacket extends AbstractPacketThreadsafe {
 
   @Override
   public void handleServerSafe(NetHandlerPlayServer netHandler) {
-    EntityPlayerMP player = netHandler.playerEntity;
+    EntityPlayerMP player = netHandler.player;
 
     ItemStack heldStack = null;
-    if(player.inventory.getItemStack() != null) {
+    if(!player.inventory.getItemStack().isEmpty()) {
       heldStack = player.inventory.getItemStack();
       // set it to null so it's not getting dropped
-      player.inventory.setItemStack(null);
+      player.inventory.setItemStack(ItemStack.EMPTY);
     }
 
     BlockPos pos = new BlockPos(blockX, blockY, blockZ);

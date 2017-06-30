@@ -16,6 +16,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+import java.util.Optional;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -28,6 +29,7 @@ import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolPart;
 import slimeknights.tconstruct.library.traits.ITrait;
+import slimeknights.tconstruct.library.utils.ListUtil;
 import slimeknights.tconstruct.tools.common.client.module.GuiButtonsPartCrafter;
 import slimeknights.tconstruct.tools.common.client.module.GuiInfoPanel;
 import slimeknights.tconstruct.tools.common.client.module.GuiSideInventory;
@@ -116,12 +118,13 @@ public class GuiPartBuilder extends GuiTinkerStation {
     Material material = getMaterial(container.getSlot(3).getStack(), container.getSlot(4).getStack());
     if(material != null) {
       int count = 0;
-      RecipeMatch.Match match = material.matchesRecursively(new ItemStack[]{container.getSlot(3).getStack(), container.getSlot(4).getStack()});
-      if(match != null) {
-        amount = Util.df.format(match.amount / (float) Material.VALUE_Ingot);
+      Optional<RecipeMatch.Match> matchOptional = material.matchesRecursively(ListUtil.getListFrom(container.getSlot(3).getStack(), container.getSlot(4).getStack()));
+      if(matchOptional.isPresent()) {
+        int matchAmount = matchOptional.get().amount;
+        amount = Util.df.format(matchAmount / (float) Material.VALUE_Ingot);
 
         Item part = Pattern.getPartFromTag(container.getSlot(2).getStack());
-        if(part instanceof IToolPart && match.amount < ((IToolPart) part).getCost()) {
+        if(part instanceof IToolPart && matchAmount < ((IToolPart) part).getCost()) {
           amount = TextFormatting.DARK_RED + amount + TextFormatting.RESET;
         }
       }
@@ -130,8 +133,8 @@ public class GuiPartBuilder extends GuiTinkerStation {
       int x = this.cornerX + this.realWidth / 2;
       int y = this.cornerY + 63;
       String text = Util.translateFormatted("gui.partbuilder.material_value", amount, material.getLocalizedName());
-      x -= fontRendererObj.getStringWidth(text) / 2;
-      fontRendererObj.renderString(text, x, y, 0x777777, false);
+      x -= fontRenderer.getStringWidth(text) / 2;
+      fontRenderer.renderString(text, x, y, 0x777777, false);
     }
 
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
@@ -141,7 +144,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
   public void updateDisplay() {
     // check if we have an output
     ItemStack output = container.getSlot(0).getStack();
-    if(output != null) {
+    if(!output.isEmpty()) {
       if(output.getItem() instanceof ToolPart) {
         ToolPart toolPart = (ToolPart) output.getItem();
         Material material = toolPart.getMaterial(output);
@@ -188,12 +191,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
   public void updateButtons() {
     if(buttons != null) {
       // this needs to be done threadsafe, since the buttons may be getting rendered currently
-      Minecraft.getMinecraft().addScheduledTask(new Runnable() {
-        @Override
-        public void run() {
-          buttons.updatePosition(cornerX, cornerY, realWidth, realHeight);
-        }
-      });
+      Minecraft.getMinecraft().addScheduledTask(() -> buttons.updatePosition(cornerX, cornerY, realWidth, realHeight));
     }
   }
 
@@ -233,7 +231,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
 
   protected Material getMaterial(ItemStack... stacks) {
     for(ItemStack stack : stacks) {
-      if(stack == null || stack.getItem() == null) {
+      if(stack.isEmpty()) {
         continue;
       }
       // material-item?
@@ -244,7 +242,7 @@ public class GuiPartBuilder extends GuiTinkerStation {
 
     // regular item, check if it belongs to a material
     for(Material material : TinkerRegistry.getAllMaterials()) {
-      if(material.matches(stacks) != null) {
+      if(material.matches(stacks).isPresent()) {
         return material;
       }
     }

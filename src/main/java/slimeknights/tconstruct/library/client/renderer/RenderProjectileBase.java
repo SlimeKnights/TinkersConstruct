@@ -44,7 +44,7 @@ public class RenderProjectileBase<T extends EntityProjectileBase> extends Render
     if(handler == null) {
       return;
     }
-    ItemStack item = handler.getItemStack();
+    ItemStack itemStack = handler.getItemStack();
 
     GL11.glPushMatrix();
     GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -70,8 +70,8 @@ public class RenderProjectileBase<T extends EntityProjectileBase> extends Render
     // draw correct texture. not some weird block fragments.
     renderManager.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-    if(item != null) {
-      Minecraft.getMinecraft().getRenderItem().renderItem(item, ItemCameraTransforms.TransformType.NONE);
+    if(!itemStack.isEmpty()) {
+      Minecraft.getMinecraft().getRenderItem().renderItem(itemStack, ItemCameraTransforms.TransformType.NONE);
     }
     else {
       ItemStack dummy = new ItemStack(Items.STICK);
@@ -114,27 +114,22 @@ public class RenderProjectileBase<T extends EntityProjectileBase> extends Render
     return TextureMap.LOCATION_MISSING_TEXTURE;
   }
 
-  public static <T extends EntityProjectileBase> IRenderFactory<T> getFactory(Class<? extends Render<? super T>> clazz) {
+  public static <T extends EntityProjectileBase, U extends Render<? super T>> IRenderFactory<T> getFactory(Class<U> clazz) {
     try {
-      final Constructor<? extends Render<? super T>> constr = clazz.getDeclaredConstructor(RenderManager.class);
+      final Constructor<U> constr = clazz.getDeclaredConstructor(RenderManager.class);
 
-      return new IRenderFactory<T>() {
-        @Override
-        public Render<? super T> createRenderFor(RenderManager manager) {
-          try {
-            return constr.newInstance(manager);
-          } catch(InstantiationException e) {
-            TConstruct.log.error(e);
-          } catch(IllegalAccessException e) {
-            TConstruct.log.error(e);
-          } catch(InvocationTargetException e) {
-            TConstruct.log.error(e);
-          }
-
-          return null;
-        }
-      };
+      return manager -> getRender(constr, manager);
     } catch(NoSuchMethodException e) {
+      TConstruct.log.error(e);
+    }
+
+    return null;
+  }
+
+  protected static <T extends EntityProjectileBase> Render<? super T> getRender(Constructor<? extends Render<? super T>> constr, RenderManager manager) {
+    try {
+      return constr.newInstance(manager);
+    } catch(InstantiationException | IllegalAccessException | InvocationTargetException e) {
       TConstruct.log.error(e);
     }
 

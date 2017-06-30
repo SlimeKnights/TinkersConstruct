@@ -55,7 +55,7 @@ public class DryingRecipeWrapper extends BlankRecipeWrapper {
 
     // center the string above the recipe then draw it
     String timeStr = minStr + secStr;
-    int x = 80 - minecraft.fontRendererObj.getStringWidth(timeStr) / 2;
-    minecraft.fontRendererObj.drawString(timeStr, x, 5, Color.gray.getRGB());
+    int x = 80 - minecraft.fontRenderer.getStringWidth(timeStr) / 2;
+    minecraft.fontRenderer.drawString(timeStr, x, 5, Color.gray.getRGB());
   }
 }
