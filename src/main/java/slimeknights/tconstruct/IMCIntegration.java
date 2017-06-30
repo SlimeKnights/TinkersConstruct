@@ -35,7 +35,7 @@ public abstract class IMCIntegration {
 
     if(fluid != null && ore != null && !ore.isEmpty()) {
       boolean isNew = true;
-      for(MaterialIntegration mi : TinkerIntegration.integrationList) {
+      for(MaterialIntegration mi : TinkerRegistry.getMaterialIntegrations()) {
         if(mi.fluid != null && mi.fluid.getName().equals(fluidName)) {
           isNew = false;
         }
@@ -46,7 +46,7 @@ public abstract class IMCIntegration {
         if(toolforge) {
           materialIntegration.toolforge();
         }
-        TinkerIntegration.integrationList.add(materialIntegration);
+        TinkerRegistry.integrate(materialIntegration);
         materialIntegration.integrate();
         log.debug("Added integration smelting for " + ore + " from " + message.getSender());
       }
@@ -64,7 +64,7 @@ public abstract class IMCIntegration {
   }
 
   private static void alloy(NBTTagList tagList) {
-    TinkerIntegration.alloys.add(tagList);
+    TinkerIntegration.addAlloyNBTTag(tagList);
     // logging happens in TinkerIntegration when the alloys are handled
   }
 

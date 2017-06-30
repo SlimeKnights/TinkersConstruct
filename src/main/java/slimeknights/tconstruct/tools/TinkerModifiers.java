@@ -6,15 +6,18 @@ import com.google.common.eventbus.Subscribe;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.oredict.OreDictionary;
 
 import org.apache.logging.log4j.Logger;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.mantle.util.RecipeMatch;
@@ -24,6 +27,10 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.modifiers.ModAntiMonsterType;
 import slimeknights.tconstruct.tools.modifiers.ModBeheading;
@@ -31,6 +38,7 @@ import slimeknights.tconstruct.tools.modifiers.ModBlasting;
 import slimeknights.tconstruct.tools.modifiers.ModCreative;
 import slimeknights.tconstruct.tools.modifiers.ModDiamond;
 import slimeknights.tconstruct.tools.modifiers.ModEmerald;
+import slimeknights.tconstruct.tools.modifiers.ModExtraTrait;
 import slimeknights.tconstruct.tools.modifiers.ModFiery;
 import slimeknights.tconstruct.tools.modifiers.ModFins;
 import slimeknights.tconstruct.tools.modifiers.ModFortify;
@@ -57,7 +65,7 @@ import slimeknights.tconstruct.tools.traits.InfiTool;
 public class TinkerModifiers extends AbstractToolPulse {
 
   public static final String PulseId = "TinkerModifiers";
-  static final Logger log = Util.getLogger(PulseId);
+  public static final Logger log = Util.getLogger(PulseId);
 
   @SidedProxy(clientSide = "slimeknights.tconstruct.tools.ToolClientProxy", serverSide = "slimeknights.tconstruct.common.CommonProxy")
   public static CommonProxy proxy;
@@ -89,6 +97,7 @@ public class TinkerModifiers extends AbstractToolPulse {
   public static Modifier modCreative;
 
   public static List<Modifier> fortifyMods;
+  public static List<Modifier> extraTraitMods;
 
   @Override
   @Subscribe
@@ -101,6 +110,7 @@ public class TinkerModifiers extends AbstractToolPulse {
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
     registerFortifyModifiers();
+    registerExtraTraitModifiers();
   }
 
   protected void registerModifiers() {
@@ -192,6 +202,35 @@ public class TinkerModifiers extends AbstractToolPulse {
     fortifyMods = Lists.newArrayList();
     for(Material mat : TinkerRegistry.getAllMaterialsWithStats(MaterialTypes.HEAD)) {
       fortifyMods.add(new ModFortify(mat));
+    }
+  }
+
+  private Map<Collection<ITrait>, ModExtraTrait> extraTraitLookup = new HashMap<>();
+
+  private void registerExtraTraitModifiers() {
+    TinkerRegistry.getAllMaterials().forEach(this::registerExtraTraitModifiers);
+    extraTraitMods = Lists.newArrayList(extraTraitLookup.values());
+  }
+
+  private void registerExtraTraitModifiers(Material material) {
+    TinkerRegistry.getTools().forEach(tool -> registerExtraTraitModifiers(material, tool));
+  }
+
+  private void registerExtraTraitModifiers(Material material, ToolCore tool) {
+    tool.getRequiredComponents().forEach(pmt -> registerExtraTraitModifiers(material, tool, pmt));
+  }
+
+  private void registerExtraTraitModifiers(Material material, ToolCore tool, PartMaterialType partMaterialType) {
+    partMaterialType.getPossibleParts().forEach(part -> registerExtraTraitModifiers(material, tool, partMaterialType, part));
+  }
+
+  private <T extends Item & IToolPart> void registerExtraTraitModifiers(Material material, ToolCore tool, PartMaterialType partMaterialType, IToolPart toolPart) {
+    if(toolPart instanceof Item) {
+      Collection<ITrait> traits = partMaterialType.getApplicableTraitsForMaterial(material);
+      if(!traits.isEmpty()) {
+        ModExtraTrait mod = extraTraitLookup.computeIfAbsent(traits, traits2 -> new ModExtraTrait(material, traits2));
+        mod.addCombination(tool, (T) toolPart);
+      }
     }
   }
 }

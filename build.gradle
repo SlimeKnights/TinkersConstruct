@@ -49,7 +49,9 @@ repositories {
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
-//apply plugin: 'forge'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -161,23 +163,25 @@ task deobfJar(type: Jar) {
         attributes 'FMLAT': 'tconstruct_at.cfg'
     }
 }
-/*
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+}
+
+
 // Create API library jar
 task libJar(type: Jar) {
-    from(sourceSets.main.java) {*/
-        //include "tconstruct/library/**/*"
-/*    }
+    from(sourceSets.main.java) {
+        include "tconstruct/library/**/*"
+    }
     classifier = 'lib'
 }
 
-// Create Maven source jar
-task sourceJar(type: Jar, dependsOn:classes) {
-    classifier = 'sources'
-    from sourceSets.main.allJava
-}
-*/
 artifacts {
     archives deobfJar
+    archives sourcesJar
+    archives libJar
 }
 
 // verify the properties exist.. or initialize.
@@ -241,3 +245,20 @@ task signUniversal(type: SignJar, dependsOn: 'jar') {
 }
 uploadArchives.dependsOn signUniversal
 build.dependsOn signUniversal
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+            artifact deobfJar
+            artifact sourcesJar
+            artifact libJar
+        }
+    }
+
+    repositories {
+        if (project.hasProperty('DEPLOY_DIR')) {
+            maven { url DEPLOY_DIR }
+        }
+    }
+}

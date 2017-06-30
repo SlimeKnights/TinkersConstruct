@@ -84,6 +84,9 @@ public class ContentModifier extends TinkerPage {
 
   @Override
   public void build(BookData book, ArrayList<BookElement> list, boolean rightSide) {
+    if(modifier == null) {
+      return;
+    }
     int color = 0xdddddd;
     int inCount = 1;
     ItemStack[][] inputItems = null;

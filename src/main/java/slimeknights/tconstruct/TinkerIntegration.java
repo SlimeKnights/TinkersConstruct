@@ -38,7 +38,7 @@ public class TinkerIntegration extends TinkerPulse {
 
   public static final String PulseId = "TinkerIntegration";
   static final Logger log = Util.getLogger(PulseId);
-  public static List<MaterialIntegration> integrationList = Lists.newLinkedList();
+  @Deprecated
   public static List<NBTTagList> alloys = Lists.newLinkedList();
 
   @Subscribe
@@ -65,7 +65,7 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerMaterials.magmaslime, "slimecrystalMagma");
     
     // alubrass needs  both copper and aluminum
-    add(new MaterialIntegration(null, TinkerFluids.alubrass, "Alubrass", "ingotCopper", "ingotAluminum")).toolforge();
+    TinkerRegistry.integrate(new MaterialIntegration(null, TinkerFluids.alubrass, "Alubrass", "ingotCopper", "ingotAluminum")).toolforge();
 
 
     integrate(TinkerMaterials.netherrack);
@@ -106,17 +106,21 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerMaterials.slimeleaf_purple);
     integrate(TinkerMaterials.leaf); // leaf is last because its oredict also catches slimeleaves
 
-    for(MaterialIntegration integration : integrationList) {
+    for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
       integration.integrate();
     }
 
     MinecraftForge.EVENT_BUS.register(this);
   }
 
+  public static void addAlloyNBTTag(NBTTagList alloyTagList) {
+    alloys.add(alloyTagList);
+  }
+
   public static boolean isIntegrated(Fluid fluid) {
     String name = FluidRegistry.getFluidName(fluid);
     if(name != null) {
-      for(MaterialIntegration integration : integrationList) {
+      for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
         if(integration.isIntegrated() && integration.fluid != null && name.equals(integration.fluid.getName())) {
           return true;
         }
@@ -131,7 +135,7 @@ public class TinkerIntegration extends TinkerPulse {
     handleIMCs();
 
     // do we got integration
-    for(MaterialIntegration integration : integrationList) {
+    for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
       // integrate again, some oredicts might not have been present in the previous attempt
       integration.integrateRecipes();
     }
@@ -141,7 +145,7 @@ public class TinkerIntegration extends TinkerPulse {
 
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
-    for(MaterialIntegration integration : integrationList) {
+    for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
       integration.registerRepresentativeItem();
     }
   }
@@ -154,7 +158,7 @@ public class TinkerIntegration extends TinkerPulse {
       return;
     }
     // the registered ore might be something we integrate and haven't yet
-    for(MaterialIntegration integration : ImmutableList.copyOf(integrationList)) {
+    for(MaterialIntegration integration : ImmutableList.copyOf(TinkerRegistry.getMaterialIntegrations())) {
       // calling this multiple time is ok because it does nothing once it was successful
       integration.integrate();
     }
@@ -209,30 +213,40 @@ public class TinkerIntegration extends TinkerPulse {
     }
   }
 
+
+  /** @deprecated use TinkerRegistry#integrate */
+  @Deprecated
   public static MaterialIntegration integrate(Material material) {
     return add(new MaterialIntegration(material));
   }
 
+  /** @deprecated use TinkerRegistry#integrate */
+  @Deprecated
   public static MaterialIntegration integrate(Material material, Fluid fluid) {
     return add(new MaterialIntegration(material, fluid));
   }
 
+  /** @deprecated use TinkerRegistry#integrate */
+  @Deprecated
   public static MaterialIntegration integrate(Material material, String oreRequirement) {
     MaterialIntegration materialIntegration = new MaterialIntegration(oreRequirement, material, null, null);
     materialIntegration.setRepresentativeItem(oreRequirement);
     return add(materialIntegration);
   }
 
+  /** @deprecated use TinkerRegistry#integrate */
+  @Deprecated
   public static MaterialIntegration integrate(Material material, Fluid fluid, String oreSuffix) {
     return add(new MaterialIntegration(material, fluid, oreSuffix));
   }
 
+  /** @deprecated use TinkerRegistry#integrate */
+  @Deprecated
   public static MaterialIntegration integrate(Fluid fluid, String oreSuffix) {
     return add(new MaterialIntegration(null, fluid, oreSuffix));
   }
 
   private static MaterialIntegration add(MaterialIntegration integration) {
-    integrationList.add(integration);
-    return integration;
+    return TinkerRegistry.integrate(integration);
   }
 }

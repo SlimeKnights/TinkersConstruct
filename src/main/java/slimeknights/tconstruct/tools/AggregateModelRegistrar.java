@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolPart;
+import slimeknights.tconstruct.tools.modifiers.ModExtraTraitDisplay;
 import slimeknights.tconstruct.tools.modifiers.ModFortifyDisplay;
 
 import static slimeknights.tconstruct.tools.TinkerModifiers.modCreative;
@@ -97,6 +98,7 @@ public class AggregateModelRegistrar extends AbstractToolPulse {
 
       // we add a temporary modifier that does nothing to work around the model restrictions for the fortify modifier
       ModelRegisterUtil.registerModifierModel(new ModFortifyDisplay(), Util.getResource("models/item/modifiers/fortify"));
+      new ModExtraTraitDisplay();
     }
   }
 }
