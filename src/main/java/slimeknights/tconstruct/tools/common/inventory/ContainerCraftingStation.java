@@ -105,7 +105,7 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
   @Override
   public void onCraftMatrixChanged(IInventory inventoryIn) {
     this.craftResult
-        .setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.world));
+        .setInventorySlotContents(0, CraftingManager.findMatchingResult(this.craftMatrix, this.world));
   }
 
   @Override

@@ -1,0 +1,24 @@
+{
+    "conditions": [
+        {
+            "type": "tconstruct:is_pulse_loaded",
+            "pulse_name": "TinkerGadgets"
+        },
+        {
+            "type": "tconstruct:is_pulse_loaded",
+            "invert": true,
+            "pulse_name": "chiselIntegration"
+        }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "tconstruct:brownstone",
+            "data": 5
+        }
+    ],
+    "result": {
+        "item": "tconstruct:brownstone",
+        "data": 6
+    }
+}

@@ -8,23 +8,22 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-import java.util.Arrays;
 import java.util.List;
 
 import mezz.jei.api.gui.IGuiIngredientGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IStackHelper;
 import mezz.jei.api.recipe.wrapper.ICustomCraftingRecipeWrapper;
 import mezz.jei.api.recipe.wrapper.IShapedCraftingRecipeWrapper;
 import slimeknights.tconstruct.shared.block.BlockTable;
-import slimeknights.tconstruct.tools.common.TableRecipe;
+import slimeknights.tconstruct.tools.common.TableRecipeFactory.TableRecipe;
 import slimeknights.tconstruct.tools.common.item.ItemBlockTable;
 
-public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCraftingRecipeWrapper, ICustomCraftingRecipeWrapper {
+public class TableRecipeWrapper implements IRecipeWrapper, IShapedCraftingRecipeWrapper, ICustomCraftingRecipeWrapper {
 
   private final TableRecipe recipe;
   private final int width;
@@ -34,7 +33,7 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
   public TableRecipeWrapper(TableRecipe recipe) {
     this.recipe = recipe;
 
-    for (Object input : this.recipe.getInput()) {
+    for(Object input : this.recipe.getIngredients()) {
       if (input instanceof ItemStack) {
         ItemStack itemStack = (ItemStack) input;
         if (itemStack.getCount() != 1) {
@@ -68,7 +67,7 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
   public void getIngredients(IIngredients ingredients) {
     IStackHelper stackHelper = JEIPlugin.jeiHelpers.getStackHelper();
 
-    List<List<ItemStack>> inputs = stackHelper.expandRecipeItemStackInputs(Arrays.asList(recipe.getInput()));
+    List<List<ItemStack>> inputs = stackHelper.expandRecipeItemStackInputs(recipe.getIngredients());
     ingredients.setInputLists(ItemStack.class, inputs);
 
     //ItemStack recipeOutput = recipe.getRecipeOutput();

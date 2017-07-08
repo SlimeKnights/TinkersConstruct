@@ -17,6 +17,7 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 
 public class DryingRecipeCategory implements IRecipeCategory<DryingRecipeWrapper> {
@@ -77,6 +78,11 @@ public class DryingRecipeCategory implements IRecipeCategory<DryingRecipeWrapper
   public IDrawable getIcon() {
     // use the default icon
     return null;
+  }
+
+  @Override
+  public String getModName() {
+    return TConstruct.modName;
   }
 
 }

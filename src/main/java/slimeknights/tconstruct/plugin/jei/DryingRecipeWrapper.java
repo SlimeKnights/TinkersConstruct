@@ -11,10 +11,10 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import slimeknights.tconstruct.library.DryingRecipe;
 
-public class DryingRecipeWrapper extends BlankRecipeWrapper {
+public class DryingRecipeWrapper implements IRecipeWrapper {
 
   protected final List<ItemStack> input;
   protected final List<ItemStack> output;

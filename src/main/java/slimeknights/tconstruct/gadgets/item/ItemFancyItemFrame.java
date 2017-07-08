@@ -3,7 +3,6 @@ package slimeknights.tconstruct.gadgets.item;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityHanging;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemHangingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -27,25 +26,26 @@ public class ItemFancyItemFrame extends ItemHangingEntity {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    subItems.add(new ItemStack(itemIn, 1, EntityFancyItemFrame.FrameType.JEWEL.ordinal()));
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      subItems.add(new ItemStack(this, 1, EntityFancyItemFrame.FrameType.JEWEL.ordinal()));
 
-    if(TinkerCommons.nuggetAlubrass != null) {
-      subItems.add(new ItemStack(itemIn, 1, EntityFancyItemFrame.FrameType.ALUBRASS.ordinal()));
-    }
-    if(TinkerCommons.nuggetCobalt != null) {
-      subItems.add(new ItemStack(itemIn, 1, EntityFancyItemFrame.FrameType.COBALT.ordinal()));
-    }
-    if(TinkerCommons.nuggetArdite != null) {
-      subItems.add(new ItemStack(itemIn, 1, EntityFancyItemFrame.FrameType.ARDITE.ordinal()));
-    }
-    if(TinkerCommons.nuggetManyullyn != null) {
-      subItems.add(new ItemStack(itemIn, 1, EntityFancyItemFrame.FrameType.MANYULLYN.ordinal()));
-    }
+      if(TinkerCommons.nuggetAlubrass != null) {
+        subItems.add(new ItemStack(this, 1, EntityFancyItemFrame.FrameType.ALUBRASS.ordinal()));
+      }
+      if(TinkerCommons.nuggetCobalt != null) {
+        subItems.add(new ItemStack(this, 1, EntityFancyItemFrame.FrameType.COBALT.ordinal()));
+      }
+      if(TinkerCommons.nuggetArdite != null) {
+        subItems.add(new ItemStack(this, 1, EntityFancyItemFrame.FrameType.ARDITE.ordinal()));
+      }
+      if(TinkerCommons.nuggetManyullyn != null) {
+        subItems.add(new ItemStack(this, 1, EntityFancyItemFrame.FrameType.MANYULLYN.ordinal()));
+      }
 
-    subItems.add(new ItemStack(itemIn, 1, EntityFancyItemFrame.FrameType.GOLD.ordinal()));
-    subItems.add(new ItemStack(itemIn, 1, EntityFancyItemFrame.FrameType.CLEAR.ordinal()));
-
+      subItems.add(new ItemStack(this, 1, EntityFancyItemFrame.FrameType.GOLD.ordinal()));
+      subItems.add(new ItemStack(this, 1, EntityFancyItemFrame.FrameType.CLEAR.ordinal()));
+    }
   }
 
   @Nonnull

@@ -24,13 +24,13 @@ public class TraitSharp extends AbstractTrait {
   @Override
   public void afterHit(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damageDealt, boolean wasCritical, boolean wasHit) {
     if(wasHit && target.isEntityAlive()) {
-      target.setLastAttacker(player);
+      target.setLastAttackedEntity(player);
       DOT.apply(target, 121);
     }
   }
 
   protected static void dealDamage(EntityLivingBase target, int level) {
-    EntityLivingBase lastAttacker = target.getLastAttacker();
+    EntityLivingBase lastAttacker = target.getLastAttackedEntity();
     DamageSource source;
     if(lastAttacker != null) {
       source = new EntityDamageSource("bleed", lastAttacker);
@@ -44,7 +44,6 @@ public class TraitSharp extends AbstractTrait {
     TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_BLOOD, target, 1);
     target.hurtResistantTime = hurtResistantTime;
   }
-
 
   public static class DoT extends TinkerPotion {
 

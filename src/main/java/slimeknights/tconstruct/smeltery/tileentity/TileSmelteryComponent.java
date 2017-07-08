@@ -7,7 +7,6 @@ import net.minecraft.tileentity.TileEntity;
 
 import javax.annotation.Nonnull;
 
-import slimeknights.mantle.multiblock.IMasterLogic;
 import slimeknights.mantle.multiblock.MultiServantLogic;
 import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
 

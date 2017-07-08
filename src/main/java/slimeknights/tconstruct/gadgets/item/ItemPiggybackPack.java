@@ -40,7 +40,7 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
 
   // todo: turn this into a config
   private static final int MAX_ENTITY_STACK = 3; // how many entities can be carried at once
-  public static ArmorMaterial PIGGYBACK_MATERIAL = EnumHelper.addArmorMaterial("PIGGYBACK", Util.resource("piggyback"), 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.BLOCK_SLIME_PLACE, 0);
+  public static ArmorMaterial PIGGYBACK_MATERIAL = EnumHelper.addArmorMaterial("PIGGYBACK", Util.resource("piggyback"), 0, new int[] { 0, 0, 0, 0 }, 0, SoundEvents.BLOCK_SLIME_PLACE, 0);
 
   public ItemPiggybackPack() {
     super(PIGGYBACK_MATERIAL, 0, EntityEquipmentSlot.CHEST);
@@ -161,9 +161,9 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
   }
 
   @SubscribeEvent
-  public void attachCapability(AttachCapabilitiesEvent.Entity event) {
-    if(event.getEntity() instanceof EntityPlayer) {
-      event.addCapability(Util.getResource("piggyback"), new TinkerPiggybackSerializer((EntityPlayer) event.getEntity()));
+  public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
+    if(event.getObject() instanceof EntityPlayer) {
+      event.addCapability(Util.getResource("piggyback"), new TinkerPiggybackSerializer((EntityPlayer) event.getObject()));
     }
   }
 

@@ -44,6 +44,11 @@ import static slimeknights.tconstruct.shared.TinkerCommons.stairsMudBrick;
 public class CommonsClientProxy extends ClientProxy {
 
   public static Minecraft minecraft = Minecraft.getMinecraft();
+  
+  @Override
+  public void preInit() {
+    TinkerBook.INSTANCE.equals(null); // instantiate book so it's loaded ._.
+  }
 
   @Override
   public void init() {
@@ -75,7 +80,7 @@ public class CommonsClientProxy extends ClientProxy {
   }
 
   @Override
-  protected void registerModels() {
+  public void registerModels() {
     // ignore color state for the clear stained glass, it is handled by tinting
     ModelLoader.setCustomStateMapper(blockClearStainedGlass, (new StateMap.Builder()).ignore(BlockClearStainedGlass.COLOR).build());
 
@@ -85,7 +90,6 @@ public class CommonsClientProxy extends ClientProxy {
     edibles.registerItemModels();
 
     registerItemModel(book, 0, "inventory");
-    TinkerBook.INSTANCE.equals(null); // instantiate book so it's loaded ._.
 
     registerItemBlockMeta(blockMetal);
     registerItemBlockMeta(blockSoil);

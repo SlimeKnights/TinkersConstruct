@@ -41,7 +41,6 @@ public class WorldClientProxy extends ClientProxy {
   public void preInit() {
     ((IReloadableResourceManager) minecraft.getResourceManager()).registerReloadListener(slimeColorizer);
 
-
     // Entities
     RenderingRegistry.registerEntityRenderingHandler(EntityBlueSlime.class, RenderTinkerSlime.FACTORY_BlueSlime);
 
@@ -125,7 +124,7 @@ public class WorldClientProxy extends ClientProxy {
   }
 
   @Override
-  protected void registerModels() {
+  public void registerModels() {
     // blocks
     ModelLoader.setCustomStateMapper(TinkerWorld.slimeGrass, (new StateMap.Builder()).ignore(BlockSlimeGrass.FOLIAGE).build());
     ModelLoader.setCustomStateMapper(TinkerWorld.slimeLeaves, (new StateMap.Builder())

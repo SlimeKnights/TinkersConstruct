@@ -33,7 +33,7 @@ public class ContainerSmeltery extends ContainerMultiModule<TileSmeltery> {
     super.addListener(listener);
 
     for(int i = 0; i < oldHeats.length; i++) {
-      listener.sendProgressBarUpdate(this, i, tile.getTemperature(i));
+      listener.sendWindowProperty(this, i, tile.getTemperature(i));
     }
   }
 
@@ -47,7 +47,7 @@ public class ContainerSmeltery extends ContainerMultiModule<TileSmeltery> {
       if(temp != oldHeats[i]) {
         oldHeats[i] = temp;
         for(IContainerListener crafter : this.listeners) {
-          crafter.sendProgressBarUpdate(this, i, temp);
+          crafter.sendWindowProperty(this, i, temp);
         }
       }
     }

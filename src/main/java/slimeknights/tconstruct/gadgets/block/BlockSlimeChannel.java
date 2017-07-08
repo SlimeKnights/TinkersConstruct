@@ -270,7 +270,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
   public int damageDropped(IBlockState state) {
     return state.getValue(TYPE).getMeta();
   }
-  
+
   /* Slimey flow */
 
   /**
@@ -300,7 +300,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
       EnumFacing side = state.getValue(SIDE);
 
       // only apply movement if the entity is within the liquid
-      if(entityAABB.intersectsWith(getBounds(state, world, pos).offset(pos))) {
+      if(entityAABB.intersects(getBounds(state, world, pos).offset(pos))) {
         inBounds = true; // tell the other bounding box not to reduce gravity again
         // no drowining in slime channels
         if(entity.isEntityAlive()) {
@@ -329,7 +329,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
 
       // apply additional movement based on the "connected" bounding box
       ChannelConnected connected = state.getValue(CONNECTED);
-      if(connected == ChannelConnected.OUTER && entityAABB.intersectsWith(getSecondaryBounds(state).offset(pos))) {
+      if(connected == ChannelConnected.OUTER && entityAABB.intersects(getSecondaryBounds(state).offset(pos))) {
         // only run this if not already in bounds above
         // mainly to remove redundancy, but it does have an effect with the fall speed
         if(!inBounds) {
@@ -374,12 +374,12 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
 
     // main bounding box
     state = state.getActualState(world, pos); // connected properties
-    if(entityAABB.intersectsWith(getBounds(state, world, pos).offset(pos))) {
+    if(entityAABB.intersects(getBounds(state, world, pos).offset(pos))) {
       return Boolean.TRUE;
     }
     // extra box used on sideways channels
     else if(state.getValue(CONNECTED) == ChannelConnected.OUTER
-            && entityAABB.intersectsWith(getSecondaryBounds(state).offset(pos))) {
+            && entityAABB.intersects(getSecondaryBounds(state).offset(pos))) {
       return Boolean.TRUE;
     }
 
@@ -423,33 +423,33 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
 
   static {
     ImmutableMap.Builder<EnumFacing, AxisAlignedBB> builder = ImmutableMap.builder();
-    builder.put(EnumFacing.UP,    new AxisAlignedBB(0,   0.5, 0,   1,   1,   1  ));
-    builder.put(EnumFacing.DOWN,  new AxisAlignedBB(0,   0,   0,   1,   0.5, 1  ));
-    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0,   0,   0,   1,   1,   0.5));
-    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0,   0,   0.5, 1,   1,   1  ));
-    builder.put(EnumFacing.WEST,  new AxisAlignedBB(0,   0,   0,   0.5, 1,   1  ));
-    builder.put(EnumFacing.EAST,  new AxisAlignedBB(0.5, 0,   0,   1,   1,   1  ));
+    builder.put(EnumFacing.UP, new AxisAlignedBB(0, 0.5, 0, 1, 1, 1));
+    builder.put(EnumFacing.DOWN, new AxisAlignedBB(0, 0, 0, 1, 0.5, 1));
+    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0, 0, 0, 1, 1, 0.5));
+    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0, 0, 0.5, 1, 1, 1));
+    builder.put(EnumFacing.WEST, new AxisAlignedBB(0, 0, 0, 0.5, 1, 1));
+    builder.put(EnumFacing.EAST, new AxisAlignedBB(0.5, 0, 0, 1, 1, 1));
     BOUNDS = builder.build();
 
     builder = ImmutableMap.builder();
-    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0,   0, 0,   1,   0.5, 0.5));
-    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0,   0, 0.5, 1,   0.5, 1  ));
-    builder.put(EnumFacing.WEST,  new AxisAlignedBB(0,   0, 0,   0.5, 0.5, 1  ));
-    builder.put(EnumFacing.EAST,  new AxisAlignedBB(0.5, 0, 0,   1,   0.5, 1  ));
+    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0, 0, 0, 1, 0.5, 0.5));
+    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0, 0, 0.5, 1, 0.5, 1));
+    builder.put(EnumFacing.WEST, new AxisAlignedBB(0, 0, 0, 0.5, 0.5, 1));
+    builder.put(EnumFacing.EAST, new AxisAlignedBB(0.5, 0, 0, 1, 0.5, 1));
     LOWER_BOUNDS = builder.build();
 
     builder = ImmutableMap.builder();
-    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0,   0, 0,   0.5, 1, 0.5));
-    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0.5, 0, 0.5, 1,   1, 1  ));
-    builder.put(EnumFacing.WEST,  new AxisAlignedBB(0,   0, 0.5, 0.5, 1, 1  ));
-    builder.put(EnumFacing.EAST,  new AxisAlignedBB(0.5, 0, 0,   1,   1, 0.5));
+    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0, 0, 0, 0.5, 1, 0.5));
+    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0.5, 0, 0.5, 1, 1, 1));
+    builder.put(EnumFacing.WEST, new AxisAlignedBB(0, 0, 0.5, 0.5, 1, 1));
+    builder.put(EnumFacing.EAST, new AxisAlignedBB(0.5, 0, 0, 1, 1, 0.5));
     SIDE_BOUNDS = builder.build();
 
     builder = ImmutableMap.builder();
-    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0,   0.5, 0,   1,   1, 0.5));
-    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0,   0.5, 0.5, 1,   1, 1  ));
-    builder.put(EnumFacing.WEST,  new AxisAlignedBB(0,   0.5, 0,   0.5, 1, 1  ));
-    builder.put(EnumFacing.EAST,  new AxisAlignedBB(0.5, 0.5, 0,   1,   1, 1  ));
+    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0, 0.5, 0, 1, 1, 0.5));
+    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0, 0.5, 0.5, 1, 1, 1));
+    builder.put(EnumFacing.WEST, new AxisAlignedBB(0, 0.5, 0, 0.5, 1, 1));
+    builder.put(EnumFacing.EAST, new AxisAlignedBB(0.5, 0.5, 0, 1, 1, 1));
     UPPER_BOUNDS = builder.build();
   }
 
@@ -529,7 +529,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
       }
     }
   }
-  
+
   /* Misc */
 
   @Nonnull
@@ -733,7 +733,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
 
     return false;
   }
-  
+
   /* Helpers */
 
   /**

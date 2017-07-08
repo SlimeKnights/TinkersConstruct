@@ -59,9 +59,9 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
       if(tick % 4 == 0) {
         heatItems();
       }
-      
+
       if(tick == 0) {
-          interactWithEntitiesInside();
+        interactWithEntitiesInside();
       }
 
       if(needsFuel) {
@@ -151,18 +151,18 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
   protected int getUpdatedInventorySize(int width, int height, int depth) {
     return 9 + (3 * width * height * depth);
   }
-  
+
   protected void interactWithEntitiesInside() {
-      // find all monsters within the furnace and kill them 
-      AxisAlignedBB bb = info.getBoundingBox().contract(1).offset(0, 0.5, 0).expand(0, 0.5, 0);
+    // find all monsters within the furnace and kill them 
+    AxisAlignedBB bb = info.getBoundingBox().contract(1, 1, 1).offset(0, 0.5, 0).expand(0, 0.5, 0);
 
-      List<EntityLivingBase> entities = getWorld().getEntitiesWithinAABB(EntityLivingBase.class, bb);
+    List<EntityLivingBase> entities = getWorld().getEntitiesWithinAABB(EntityLivingBase.class, bb);
 
-      for(EntityLivingBase entity : entities) {
-          if(entity instanceof EntityMob && entity.isEntityAlive()) {
-              entity.setDead();
-          }
+    for(EntityLivingBase entity : entities) {
+      if(entity instanceof EntityMob && entity.isEntityAlive()) {
+        entity.setDead();
       }
+    }
   }
 
   /* GUI */

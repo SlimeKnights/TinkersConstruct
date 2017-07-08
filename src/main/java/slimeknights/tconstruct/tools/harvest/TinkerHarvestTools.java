@@ -2,10 +2,15 @@ package slimeknights.tconstruct.tools.harvest;
 
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.logging.log4j.Logger;
 
@@ -48,25 +53,34 @@ public class TinkerHarvestTools extends AbstractToolPulse {
   public static ToolCore lumberAxe;
   public static ToolCore scythe;
 
-  // PRE-INITIALIZATION
   @Override
+  @SubscribeEvent
+  public void registerItems(Register<Item> event) {
+    super.registerItems(event);
+  }
+
+  @SubscribeEvent
+  public void registerModels(ModelRegistryEvent event) {
+    proxy.registerModels();
+  }
+
+  // PRE-INITIALIZATION
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
-    super.preInit(event);
     proxy.preInit();
   }
 
   @Override
-  protected void registerTools() {
-    pickaxe = registerTool(new Pickaxe(), "pickaxe");
-    shovel = registerTool(new Shovel(), "shovel");
-    hatchet = registerTool(new Hatchet(), "hatchet");
-    mattock = registerTool(new Mattock(), "mattock");
+  protected void registerTools(IForgeRegistry<Item> registry) {
+    pickaxe = registerTool(registry, new Pickaxe(), "pickaxe");
+    shovel = registerTool(registry, new Shovel(), "shovel");
+    hatchet = registerTool(registry, new Hatchet(), "hatchet");
+    mattock = registerTool(registry, new Mattock(), "mattock");
 
-    hammer = registerTool(new Hammer(), "hammer");
-    excavator = registerTool(new Excavator(), "excavator");
-    lumberAxe = registerTool(new LumberAxe(), "lumberaxe");
-    scythe = registerTool(new Scythe(), "scythe");
+    hammer = registerTool(registry, new Hammer(), "hammer");
+    excavator = registerTool(registry, new Excavator(), "excavator");
+    lumberAxe = registerTool(registry, new LumberAxe(), "lumberaxe");
+    scythe = registerTool(registry, new Scythe(), "scythe");
   }
 
   // INITIALIZATION

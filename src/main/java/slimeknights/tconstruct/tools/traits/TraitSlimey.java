@@ -54,7 +54,7 @@ public class TraitSlimey extends AbstractTrait {
       entity.setSlimeSize(1, true);
       entity.setPosition(x, y, z);
       world.spawnEntity(entity);
-      entity.setLastAttacker(player);
+      entity.setLastAttackedEntity(player);
       entity.playLivingSound();
     } catch(InstantiationException e) {
       e.printStackTrace();

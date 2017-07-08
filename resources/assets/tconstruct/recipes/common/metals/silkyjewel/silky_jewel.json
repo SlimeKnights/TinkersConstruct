@@ -1,0 +1,33 @@
+{
+    "conditions": [
+        {
+            "type": "forge:or",
+            "values": [
+                {
+                    "type": "tconstruct:is_pulse_loaded",
+                    "pulse_name": "TinkerTools"
+                },
+                {
+                    "type": "tconstruct:is_option_enabled",
+                    "config_setting": "registerAllItems"
+                }
+            ]
+        }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "tconstruct:materials",
+            "data": 16
+        },
+        {
+            "item": "tconstruct:metal",
+            "data": 6
+        }
+    ],
+    "result": {
+        "item": "tconstruct:materials",
+        "count": 9,
+        "data": 6
+    }
+}

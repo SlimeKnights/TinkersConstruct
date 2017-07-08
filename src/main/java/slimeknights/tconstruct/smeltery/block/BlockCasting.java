@@ -56,7 +56,7 @@ public class BlockCasting extends BlockInventory implements IFaucetDepth {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
+  public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     for(CastingType type : CastingType.values()) {
       list.add(new ItemStack(this, 1, type.getMeta()));
     }

@@ -24,8 +24,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
-import net.minecraftforge.client.model.IRetexturableModel;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -53,12 +51,12 @@ import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 
-public class BakedTableModel implements IPerspectiveAwareModel {
+public class BakedTableModel implements IBakedModel {
 
   static final Logger log = Util.getLogger("Table Model");
 
-  private final IPerspectiveAwareModel standard;
-  private final IRetexturableModel tableModel;
+  private final IBakedModel standard;
+  private final IModel tableModel;
 
   private final Map<String, IBakedModel> cache = Maps.newHashMap();
   private final Function<ResourceLocation, TextureAtlasSprite> textureGetter;
@@ -79,7 +77,7 @@ public class BakedTableModel implements IPerspectiveAwareModel {
       .maximumSize(20)
       .build();
 
-  public BakedTableModel(IPerspectiveAwareModel standard, IRetexturableModel tableModel, VertexFormat format) {
+  public BakedTableModel(IBakedModel standard, IModel tableModel, VertexFormat format) {
     this.standard = standard;
     this.tableModel = tableModel;
 
@@ -114,7 +112,8 @@ public class BakedTableModel implements IPerspectiveAwareModel {
     final IBakedModel parentModel = bakedModel;
     try {
       bakedModel = tableItemCombinedCache.get(new TableItemCombinationCacheKey(items, bakedModel, facing), () -> getCombinedBakedModel(items, facing, parentModel));
-    } catch(ExecutionException e) {
+    }
+    catch(ExecutionException e) {
       log.error(e);
     }
 
@@ -130,7 +129,8 @@ public class BakedTableModel implements IPerspectiveAwareModel {
       for(PropertyTableItem.TableItem item : items) {
         try {
           builder.add(tableItemCache.get(item), null, 0);
-        } catch(ExecutionException e) {
+        }
+        catch(ExecutionException e) {
           log.error(e);
         }
       }
@@ -209,6 +209,7 @@ public class BakedTableModel implements IPerspectiveAwareModel {
 
   @Nonnull
   @Override
+  @Deprecated
   public ItemCameraTransforms getItemCameraTransforms() {
     return standard.getItemCameraTransforms();
   }

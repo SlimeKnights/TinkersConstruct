@@ -15,8 +15,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
-import net.minecraftforge.client.model.IRetexturableModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -94,11 +92,10 @@ public class ToolClientEvents {
   public static void replaceTableModel(ModelResourceLocation modelVariantLocation, ResourceLocation modelLocation, ModelBakeEvent event) {
     try {
       IModel model = ModelLoaderRegistry.getModel(modelLocation);
-      if(model instanceof IRetexturableModel) {
-        IRetexturableModel tableModel = (IRetexturableModel) model;
+      if(model instanceof IModel) {
         IBakedModel standard = event.getModelRegistry().getObject(modelVariantLocation);
-        if(standard instanceof IPerspectiveAwareModel) {
-          IBakedModel finalModel = new BakedTableModel((IPerspectiveAwareModel) standard, tableModel, DefaultVertexFormats.BLOCK);
+        if(standard instanceof IBakedModel) {
+          IBakedModel finalModel = new BakedTableModel(standard, model, DefaultVertexFormats.BLOCK);
 
           event.getModelRegistry().putObject(modelVariantLocation, finalModel);
         }
@@ -115,15 +112,13 @@ public class ToolClientEvents {
   public static void replacePatternModel(ResourceLocation locPattern, ResourceLocation modelLocation, ModelBakeEvent event, String baseString, Iterable<Item> items, int color) {
     try {
       IModel model = ModelLoaderRegistry.getModel(modelLocation);
-      if(model instanceof IRetexturableModel) {
-        IRetexturableModel itemModel = (IRetexturableModel) model;
-
+      if(model instanceof IModel) {
         for(Item item : items) {
           String suffix = Pattern.getTextureIdentifier(item);
           // get texture
           String partPatternLocation = locPattern.toString() + suffix;
           String partPatternTexture = baseString + suffix;
-          IModel partPatternModel = itemModel.retexture(ImmutableMap.of("layer0", partPatternTexture));
+          IModel partPatternModel = model.retexture(ImmutableMap.of("layer0", partPatternTexture));
           IBakedModel baked = partPatternModel.bake(partPatternModel.getDefaultState(), DefaultVertexFormats.ITEM, textureGetter);
           if(color > -1) {
             ImmutableList.Builder<BakedQuad> quads = ImmutableList.builder();
@@ -131,7 +126,7 @@ public class ToolClientEvents {
             for(BakedQuad quad : baked.getQuads(null, null, 0)) {
               quads.add(ModelHelper.colorQuad(color, quad));
             }
-            baked = new BakedSimple.Wrapper(quads.build(), ((IPerspectiveAwareModel) baked));
+            baked = new BakedSimple.Wrapper(quads.build(), (baked));
           }
           event.getModelRegistry().putObject(new ModelResourceLocation(partPatternLocation, "inventory"), baked);
         }

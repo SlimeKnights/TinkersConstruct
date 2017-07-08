@@ -10,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 
@@ -48,7 +49,7 @@ public abstract class AbstractColoredTexture extends TinkerTexture {
   }
 
   @Override
-  public boolean load(IResourceManager manager, ResourceLocation location) {
+  public boolean load(IResourceManager manager, ResourceLocation location, Function<ResourceLocation, TextureAtlasSprite> textureGetter) {
     this.framesTextureData = Lists.newArrayList();
     this.frameCounter = 0;
     this.tickCounter = 0;
@@ -110,7 +111,6 @@ public abstract class AbstractColoredTexture extends TinkerTexture {
 
   protected abstract int colorPixel(int pixel, int mipmap, int pxCoord);
 
-
   // borrowed from Shadows of Physis
   // Thanks TTFTCUTS! :)
   public static int getPerceptualBrightness(int col) {
@@ -129,7 +129,7 @@ public abstract class AbstractColoredTexture extends TinkerTexture {
   }
 
   protected static int mult(int c1, int c2) {
-    return (int) ((float) c1 * (c2 / 255f));
+    return (int) (c1 * (c2 / 255f));
   }
 
   // Get coordinates from index and vice versa
@@ -144,7 +144,6 @@ public abstract class AbstractColoredTexture extends TinkerTexture {
   protected int coord(int x, int y) {
     return y * width + x;
   }
-
 
   public static class CacheClearer implements IResourceManagerReloadListener {
 

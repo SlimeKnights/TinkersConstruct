@@ -8,8 +8,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 import java.util.Random;
@@ -37,7 +37,6 @@ public class SlimeTreeGenerator implements IWorldGenerator {
   public SlimeTreeGenerator(int treeHeight, int treeRange, IBlockState log, IBlockState leaves, IBlockState vine) {
     this(treeHeight, treeRange, log, leaves, vine, true);
   }
-
 
   @Override
   public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
@@ -92,10 +91,10 @@ public class SlimeTreeGenerator implements IWorldGenerator {
     IBlockState air = Blocks.AIR.getDefaultState();
 
     pos = pos.down();
-    this.setBlockAndMetadata(world, pos.add(+4, 0,  0), air);
-    this.setBlockAndMetadata(world, pos.add(-4, 0,  0), air);
-    this.setBlockAndMetadata(world, pos.add( 0, 0, +4), air);
-    this.setBlockAndMetadata(world, pos.add( 0, 0, -4), air);
+    this.setBlockAndMetadata(world, pos.add(+4, 0, 0), air);
+    this.setBlockAndMetadata(world, pos.add(-4, 0, 0), air);
+    this.setBlockAndMetadata(world, pos.add(0, 0, +4), air);
+    this.setBlockAndMetadata(world, pos.add(0, 0, -4), air);
     this.setBlockAndMetadata(world, pos.add(+1, 0, +1), air);
     this.setBlockAndMetadata(world, pos.add(+1, 0, -1), air);
     this.setBlockAndMetadata(world, pos.add(-1, 0, +1), air);
@@ -103,20 +102,20 @@ public class SlimeTreeGenerator implements IWorldGenerator {
 
     //Drippers
     pos = pos.down();
-    this.setBlockAndMetadata(world, pos.add(+3, 0,  0), leaves);
-    this.setBlockAndMetadata(world, pos.add(-3, 0,  0), leaves);
-    this.setBlockAndMetadata(world, pos.add( 0, 0, -3), leaves);
-    this.setBlockAndMetadata(world, pos.add( 0, 0, +3), leaves);
+    this.setBlockAndMetadata(world, pos.add(+3, 0, 0), leaves);
+    this.setBlockAndMetadata(world, pos.add(-3, 0, 0), leaves);
+    this.setBlockAndMetadata(world, pos.add(0, 0, -3), leaves);
+    this.setBlockAndMetadata(world, pos.add(0, 0, +3), leaves);
     this.setBlockAndMetadata(world, pos.add(+2, 0, +2), leaves);
     this.setBlockAndMetadata(world, pos.add(+2, 0, -2), leaves);
     this.setBlockAndMetadata(world, pos.add(-2, 0, +2), leaves);
     this.setBlockAndMetadata(world, pos.add(-2, 0, -2), leaves);
 
     pos = pos.down();
-    this.setBlockAndMetadata(world, pos.add(+3, 0,  0), leaves);
-    this.setBlockAndMetadata(world, pos.add(-3, 0,  0), leaves);
-    this.setBlockAndMetadata(world, pos.add( 0, 0, -3), leaves);
-    this.setBlockAndMetadata(world, pos.add( 0, 0, +3), leaves);
+    this.setBlockAndMetadata(world, pos.add(+3, 0, 0), leaves);
+    this.setBlockAndMetadata(world, pos.add(-3, 0, 0), leaves);
+    this.setBlockAndMetadata(world, pos.add(0, 0, -3), leaves);
+    this.setBlockAndMetadata(world, pos.add(0, 0, +3), leaves);
     this.setBlockAndMetadata(world, pos.add(+2, 0, +2), leaves);
     this.setBlockAndMetadata(world, pos.add(+2, 0, -2), leaves);
     this.setBlockAndMetadata(world, pos.add(-2, 0, +2), leaves);
@@ -126,10 +125,10 @@ public class SlimeTreeGenerator implements IWorldGenerator {
     if(vine != null) {
       pos = pos.down();
 
-      this.setBlockAndMetadata(world, pos.add(+3, 0,  0), getRandomizedVine(random));
-      this.setBlockAndMetadata(world, pos.add(-3, 0,  0), getRandomizedVine(random));
-      this.setBlockAndMetadata(world, pos.add( 0, 0, -3), getRandomizedVine(random));
-      this.setBlockAndMetadata(world, pos.add( 0, 0, +3), getRandomizedVine(random));
+      this.setBlockAndMetadata(world, pos.add(+3, 0, 0), getRandomizedVine(random));
+      this.setBlockAndMetadata(world, pos.add(-3, 0, 0), getRandomizedVine(random));
+      this.setBlockAndMetadata(world, pos.add(0, 0, -3), getRandomizedVine(random));
+      this.setBlockAndMetadata(world, pos.add(0, 0, +3), getRandomizedVine(random));
       this.setBlockAndMetadata(world, pos.add(+2, 0, +2), getRandomizedVine(random));
       this.setBlockAndMetadata(world, pos.add(+2, 0, -2), getRandomizedVine(random));
       this.setBlockAndMetadata(world, pos.add(-2, 0, +2), getRandomizedVine(random));

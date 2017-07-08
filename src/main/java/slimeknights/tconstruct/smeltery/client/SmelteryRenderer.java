@@ -19,7 +19,7 @@ import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 public class SmelteryRenderer extends SmelteryTankRenderer<TileSmeltery> {
 
   @Override
-  public void renderTileEntityAt(@Nonnull TileSmeltery smeltery, double x, double y, double z, float partialTicks, int destroyStage) {
+  public void render(@Nonnull TileSmeltery smeltery, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
     if(!smeltery.isActive()) {
       return;
     }
@@ -66,8 +66,8 @@ public class SmelteryRenderer extends SmelteryTankRenderer<TileSmeltery> {
 
         ItemStack stack = smeltery.getStackInSlot(i);
         boolean isItem = !(stack.getItem() instanceof ItemBlock);
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) (brightness % 0x10000) / 1f,
-                                              (float) (brightness / 0x10000) / 1f);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, brightness % 0x10000 / 1f,
+                                              brightness / 0x10000 / 1f);
 
         //GlStateManager.pushMatrix();
         GlStateManager.translate(i2 % xd, h, i2 / xd);

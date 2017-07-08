@@ -20,6 +20,7 @@ import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 
@@ -109,5 +110,10 @@ public class CastingRecipeCategory implements IRecipeCategory<CastingRecipeWrapp
   public IDrawable getIcon() {
     // use the default icon
     return null;
+  }
+
+  @Override
+  public String getModName() {
+    return TConstruct.modName;
   }
 }

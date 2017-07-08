@@ -7,7 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -41,9 +40,11 @@ public class Hammer extends Pickaxe {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    addDefaultSubItems(subItems);
-    addInfiTool(subItems, "InfiMiner");
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      addDefaultSubItems(subItems);
+      addInfiTool(subItems, "InfiMiner");
+    }
   }
 
   @Override
@@ -82,7 +83,7 @@ public class Hammer extends Pickaxe {
 
   @Override
   public int[] getRepairParts() {
-    return new int[]{1, 2, 3};
+    return new int[] { 1, 2, 3 };
   }
 
   @Override

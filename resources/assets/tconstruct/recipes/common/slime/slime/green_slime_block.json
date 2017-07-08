@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "tconstruct:slime_blocks",
+    "ingredients": [
+        {
+            "item": "tconstruct:slime_congealed",
+            "data": 0
+        },
+        {
+            "item": "minecraft:slime_ball"
+        },
+        {
+            "item": "minecraft:slime_ball"
+        },
+        {
+            "item": "minecraft:slime_ball"
+        },
+        {
+            "item": "minecraft:slime_ball"
+        },
+        {
+            "item": "minecraft:slime_ball"
+        }
+    ],
+    "result": {
+        "item": "tconstruct:slime",
+        "data": 0
+    }
+}

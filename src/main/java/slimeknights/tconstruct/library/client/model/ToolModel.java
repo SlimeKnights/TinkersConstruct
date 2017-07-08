@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.client.model;
 
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -15,15 +14,16 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelStateComposition;
+import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import slimeknights.tconstruct.library.client.model.format.AmmoPosition;
 import slimeknights.tconstruct.library.client.model.format.ToolModelOverride;
@@ -111,7 +111,7 @@ public class ToolModel implements IModel {
     }
 
     Map<TransformType, TRSRTransformation> builder = Maps.newHashMap();
-    builder.putAll(IPerspectiveAwareModel.MapWrapper.getTransforms(state));
+    builder.putAll(PerspectiveMapWrapper.getTransforms(state));
     builder.putAll(transforms); // only contains actual entries, so we override default values
 
     // calculate all the overrides
@@ -138,7 +138,7 @@ public class ToolModel implements IModel {
       }
 
       Map<TransformType, TRSRTransformation> builder2 = Maps.newHashMap();
-      builder2.putAll(IPerspectiveAwareModel.MapWrapper.getTransforms(state));
+      builder2.putAll(PerspectiveMapWrapper.getTransforms(state));
       builder2.putAll(transforms);
       builder2.putAll(override.transforms); // only contains actual entries, so we override default values
 
@@ -154,7 +154,6 @@ public class ToolModel implements IModel {
       overrideBuilder.add(new BakedToolModelOverride(override.predicates, bakedToolModel));
     }
 
-
     return getBakedToolModel(base, partModels, brokenPartModels, modifierModels, ImmutableMap.copyOf(builder), overrideBuilder.build(), ammoPosition);
   }
 
@@ -166,7 +165,6 @@ public class ToolModel implements IModel {
     }
     return new BakedToolModel(base, partModels, brokenPartModels, modifierModels, transform, build);
   }
-
 
   private IModelState getStateForPart(int i, IModelState originalState) {
     if(layerRotations.length > i) {

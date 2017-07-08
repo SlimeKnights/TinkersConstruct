@@ -17,8 +17,9 @@ public class TinkerPotion extends Potion {
     super(badEffect, color);
     setPotionName("potion." + location.getResourcePath());
 
+    this.setRegistryName(location);
+
     this.show = showInInventory;
-    REGISTRY.register(-1, location, this);
   }
 
   @Override

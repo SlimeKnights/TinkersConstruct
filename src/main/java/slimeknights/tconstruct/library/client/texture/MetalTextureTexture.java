@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.client.texture;
 
+import java.util.function.Function;
+
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -19,10 +21,10 @@ public class MetalTextureTexture extends MetalColoredTexture {
   }
 
   @Override
-  public boolean load(IResourceManager manager, ResourceLocation location) {
+  public boolean load(IResourceManager manager, ResourceLocation location, Function<ResourceLocation, TextureAtlasSprite> textureGetter) {
     // at frist do the metal texture
-    texture2.load(manager, location);
-    return super.load(manager, location);
+    texture2.load(manager, location, textureGetter);
+    return super.load(manager, location, textureGetter);
   }
 
   @Override

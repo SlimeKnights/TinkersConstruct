@@ -1,0 +1,27 @@
+{
+    "conditions": [
+        {
+            "type": "tconstruct:is_pulse_loaded",
+            "pulse_name": "TinkerGadgets"
+        }
+    ],
+    "type": "forge:ore_shaped",
+    "pattern": [
+        "A",
+        "B"
+    ],
+    "key": {
+        "A": {
+            "item": "minecraft:coal",
+            "data": 32767
+        },
+        "B": {
+            "type": "forge:ore_dict",
+            "ore": "rodStone"
+        }
+    },
+    "result": {
+        "item": "tconstruct:stone_torch",
+        "data": 0
+    }
+}

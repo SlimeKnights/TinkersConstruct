@@ -4,10 +4,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import slimeknights.mantle.multiblock.MultiServantLogic;
+
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileTinkerTank;
 
@@ -63,7 +62,6 @@ public class MultiblockTinkerTank extends MultiblockTinker {
     // the bottom and top frames have to be seared blocks or drains, for structure
     return block == TinkerSmeltery.searedBlock || block == TinkerSmeltery.smelteryIO;
   }
-
 
   @Override
   public boolean isCeilingBlock(World world, BlockPos pos) {

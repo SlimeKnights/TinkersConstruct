@@ -142,7 +142,6 @@ public class ToolModelLoader implements ICustomModelLoader {
         }
       }
 
-
       String toolName = FilenameUtils.getBaseName(modelLocation.getResourcePath());
       IModel mods;
       ModifierModel modifiers = null;

@@ -40,7 +40,7 @@ public class SmelteryClientProxy extends ClientProxy {
   }
 
   @Override
-  protected void registerModels() {
+  public void registerModels() {
     // ignore color state for the clear stained glass, it is handled by tinting
     ModelLoader.setCustomStateMapper(TinkerSmeltery.searedGlass, (new StateMap.Builder()).ignore(BlockSearedGlass.TYPE).build());
 

@@ -4,8 +4,11 @@ import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.Logger;
@@ -44,13 +47,20 @@ public class AggregateModelRegistrar extends AbstractToolPulse {
   public static CommonProxy proxy;
 
   @Override
-  @Subscribe
-  public void preInit(FMLPreInitializationEvent event) {
+  @SubscribeEvent
+  public void registerItems(Register<Item> event) {
     for(Pair<Item, ToolPart> toolPartPattern : toolPartPatterns) {
       registerStencil(toolPartPattern.getLeft(), toolPartPattern.getRight());
     }
+  }
 
+  @SubscribeEvent
+  public void registerModels(ModelRegistryEvent event) {
+    proxy.registerModels();
+  }
 
+  @Subscribe
+  public void preInit(FMLPreInitializationEvent event) {
     proxy.preInit();
   }
 
@@ -71,7 +81,7 @@ public class AggregateModelRegistrar extends AbstractToolPulse {
   public static class AggregateClientProxy extends ClientProxy {
 
     @Override
-    protected void registerModels() {
+    public void registerModels() {
       super.registerModels();
 
       // toolparts

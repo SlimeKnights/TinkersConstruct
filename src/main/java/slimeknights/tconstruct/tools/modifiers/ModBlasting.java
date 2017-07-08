@@ -25,7 +25,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifierTrait;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
-import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTraits;
 
@@ -98,13 +97,12 @@ public class ModBlasting extends ModifierTrait {
     // we weight the speed depending on how much the current level is. So 0 = full old speed, 10 = full new speed, 5 = in the middle
     float totalSpeed = speed * weight1 + event.getOriginalSpeed() * weight2;
 
-
     event.setNewSpeed(totalSpeed);
   }
 
   private float getBlockDestroyChange(ItemStack tool) {
     float level = getLevel(tool);
-    float chancePerLevel = 1f / (float) maxLevel;
+    float chancePerLevel = 1f / maxLevel;
     return level * chancePerLevel;
   }
 

@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.RegistryDelegate;
+import net.minecraftforge.registries.IRegistryDelegate;
 
 import org.apache.logging.log4j.Logger;
 
@@ -231,7 +231,6 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
       return null;
     }
 
-
     for(Item item : items) {
       try {
         // get id
@@ -276,7 +275,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
     try {
       Field field = ModelBakery.class.getDeclaredField("customVariantNames");
       field.setAccessible(true);
-      Map<net.minecraftforge.fml.common.registry.RegistryDelegate<Item>, Set<String>> map = (Map<RegistryDelegate<Item>, Set<String>>) field.get(null);
+      Map<net.minecraftforge.registries.IRegistryDelegate<Item>, Set<String>> map = (Map<IRegistryDelegate<Item>, Set<String>>) field.get(null);
       Set<String> variants = map.get(item.delegate);
       if(variants != null) {
         loc = variants.iterator().next();
@@ -292,7 +291,6 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
     rl = new ResourceLocation(rl.getResourceDomain(), "item/" + rl.getResourcePath());
     return rl;
   }
-
 
   // the same as materialtextures but only creates the ones for toolparts for the gui
   private void createGUITextures(TextureMap map) {

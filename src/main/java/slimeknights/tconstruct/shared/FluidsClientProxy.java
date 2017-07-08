@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.Util;
 public class FluidsClientProxy extends ClientProxy {
 
   @Override
-  protected void registerModels() {
+  public void registerModels() {
     super.registerModels();
 
     registerFluidModels(TinkerFluids.searedStone);

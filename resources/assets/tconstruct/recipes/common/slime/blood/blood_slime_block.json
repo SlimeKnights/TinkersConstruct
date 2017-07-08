@@ -1,0 +1,34 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "group": "tconstruct:slime_blocks",
+    "ingredients": [
+        {
+            "item": "tconstruct:slime_congealed",
+            "data": 3
+        },
+        {
+            "item": "tconstruct:edible",
+            "data": 3
+        },
+        {
+            "item": "tconstruct:edible",
+            "data": 3
+        },
+        {
+            "item": "tconstruct:edible",
+            "data": 3
+        },
+        {
+            "item": "tconstruct:edible",
+            "data": 3
+        },
+        {
+            "item": "tconstruct:edible",
+            "data": 3
+        }
+    ],
+    "result": {
+        "item": "tconstruct:slime",
+        "data": 3
+    }
+}

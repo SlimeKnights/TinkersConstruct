@@ -21,7 +21,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
 /*
@@ -34,10 +34,6 @@ repositories {
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven'
     }
-    maven {
-        name "ProfMobius Maven FS"
-        url "http://mobiusstrip.eu/maven"
-    }
     maven { // TOP
         name 'tterrag maven'
         url "http://maven.tterrag.com/"
@@ -49,6 +45,14 @@ repositories {
     maven {
         name 'forge'
         url 'http://files.minecraftforge.net/maven'
+    }
+    maven {
+         name "Tehnut Maven FS"
+         url "http://tehnut.info/maven"
+    }
+    maven {
+        name = "CoFH Maven"
+        url = "http://maven.covers1624.net"
     }
 }
 
@@ -113,15 +117,15 @@ dependencies {
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version}-${config.mantle_version}"
-	
+
     // compile against the JEI API
-    deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}:api"
+    deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
     // at runtime, use the full JEI jar
-    runtime "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
-	
-    deobfCompile "mcp.mobius.waila:Waila:${config.waila_version}"
-    deobfCompile "mcjty.theoneprobe:TheOneProbe:${config.probe_version}"
-    deobfCompile "com.github.mcjty:compatlayer:${config.minecraft_version}-${config.compat_version}"
+    //runtime "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
+
+    deobfCompile "mcp.mobius.waila:Hwyla:${config.hwyla_version}"
+    deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${config.probe_version}"
+    deobfCompile "cofh:RedstoneFlux:${config.redstoneflux_version}:universal"
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 }
 

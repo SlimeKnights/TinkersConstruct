@@ -10,7 +10,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
@@ -52,7 +51,7 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
+  public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     for(SoilTypes type : SoilTypes.values()) {
       if(isTypeEnabled(type)) {
         list.add(new ItemStack(this, 1, type.getMeta()));

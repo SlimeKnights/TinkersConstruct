@@ -1,11 +1,9 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,8 +23,14 @@ import static slimeknights.tconstruct.tools.TinkerTools.sharpeningKit;
 public class ToolClientProxy extends ClientProxy {
 
   @Override
-  public void postInit() {
+  public void preInit() {
+    super.preInit();
+
     MinecraftForge.EVENT_BUS.register(new ToolClientEvents());
+  }
+
+  @Override
+  public void postInit() {
     RenderEvents renderEvents = new RenderEvents();
     MinecraftForge.EVENT_BUS.register(renderEvents);
     ((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(renderEvents);

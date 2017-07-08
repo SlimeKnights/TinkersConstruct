@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
@@ -157,7 +158,8 @@ public class MaterialIntegration {
   }
 
   public void registerFluidBlock() {
-    TinkerFluids.registerMoltenBlock(fluid);
+    TinkerFluids.registerMoltenBlock(ForgeRegistries.BLOCKS, fluid);
+    TinkerFluids.registerFluidItemBlock(ForgeRegistries.ITEMS, fluid.getBlock());
     TinkerFluids.proxy.registerFluidModels(fluid);
   }
 }

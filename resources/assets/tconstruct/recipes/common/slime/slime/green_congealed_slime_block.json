@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "tconstruct:congealed_slime_blocks",
+    "pattern": [
+        "AA",
+        "AA"
+    ],
+    "key": {
+        "A": {
+            "item": "minecraft:slime_ball"
+        }
+    },
+    "result": {
+        "item": "tconstruct:slime_congealed",
+        "data": 0
+    }
+}

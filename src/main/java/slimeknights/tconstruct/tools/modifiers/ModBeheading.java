@@ -69,8 +69,8 @@ public class ModBeheading extends ToolModifier {
 
   @SubscribeEvent
   public void onLivingDrops(LivingDropsEvent event) {
-    if(event.getSource().getEntity() instanceof EntityPlayer) {
-      ItemStack item = ((EntityPlayer) event.getSource().getEntity()).getHeldItem(EnumHand.MAIN_HAND);
+    if(event.getSource().getTrueSource() instanceof EntityPlayer) {
+      ItemStack item = ((EntityPlayer) event.getSource().getTrueSource()).getHeldItem(EnumHand.MAIN_HAND);
       NBTTagCompound tag = TinkerUtil.getModifierTag(item, getIdentifier());
       int level = ModifierNBT.readTag(tag).level;
 

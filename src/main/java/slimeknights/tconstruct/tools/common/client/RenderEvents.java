@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -98,10 +98,10 @@ public class RenderEvents implements IResourceManagerReloadListener {
   }
 
   // RenderGlobal.drawBlockDamageTexture
-  public void drawBlockDamageTexture(Tessellator tessellatorIn, VertexBuffer vertexBuffer, Entity entityIn, float partialTicks, World world, List<BlockPos> blocks) {
-    double d0 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * (double) partialTicks;
-    double d1 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * (double) partialTicks;
-    double d2 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * (double) partialTicks;
+  public void drawBlockDamageTexture(Tessellator tessellatorIn, BufferBuilder bufferBuilder, Entity entityIn, float partialTicks, World world, List<BlockPos> blocks) {
+    double d0 = entityIn.lastTickPosX + (entityIn.posX - entityIn.lastTickPosX) * partialTicks;
+    double d1 = entityIn.lastTickPosY + (entityIn.posY - entityIn.lastTickPosY) * partialTicks;
+    double d2 = entityIn.lastTickPosZ + (entityIn.posZ - entityIn.lastTickPosZ) * partialTicks;
 
     TextureManager renderEngine = Minecraft.getMinecraft().renderEngine;
     int progress = (int) (Minecraft.getMinecraft().playerController.curBlockDamageMP * 10f) - 1; // 0-10
@@ -122,14 +122,14 @@ public class RenderEvents implements IResourceManagerReloadListener {
     GlStateManager.pushMatrix();
     //preRenderDamagedBlocks END
 
-    vertexBuffer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-    vertexBuffer.setTranslation(-d0, -d1, -d2);
-    vertexBuffer.noColor();
+    bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
+    bufferBuilder.setTranslation(-d0, -d1, -d2);
+    bufferBuilder.noColor();
 
     for(BlockPos blockpos : blocks) {
-      double d3 = (double) blockpos.getX() - d0;
-      double d4 = (double) blockpos.getY() - d1;
-      double d5 = (double) blockpos.getZ() - d2;
+      double d3 = blockpos.getX() - d0;
+      double d4 = blockpos.getY() - d1;
+      double d5 = blockpos.getZ() - d2;
       Block block = world.getBlockState(blockpos).getBlock();
       TileEntity te = world.getTileEntity(blockpos);
       boolean hasBreak = block instanceof BlockChest || block instanceof BlockEnderChest
@@ -150,7 +150,7 @@ public class RenderEvents implements IResourceManagerReloadListener {
     }
 
     tessellatorIn.draw();
-    vertexBuffer.setTranslation(0.0D, 0.0D, 0.0D);
+    bufferBuilder.setTranslation(0.0D, 0.0D, 0.0D);
     // postRenderDamagedBlocks BEGIN
     GlStateManager.disableAlpha();
     GlStateManager.doPolygonOffset(0.0F, 0.0F);
@@ -160,7 +160,6 @@ public class RenderEvents implements IResourceManagerReloadListener {
     GlStateManager.popMatrix();
     // postRenderDamagedBlocks END
   }
-
 
   @SubscribeEvent
   public void handRenderEvent(RenderSpecificHandEvent event) {

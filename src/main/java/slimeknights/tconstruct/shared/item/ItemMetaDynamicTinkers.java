@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.shared.item;
 
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
@@ -16,14 +15,16 @@ public class ItemMetaDynamicTinkers extends ItemMetaDynamic {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    for(int i = 0; i <= availabilityMask.length; i++) {
-      if(isValid(i)) {
-        // prevent the addition of alubrass if it's not present
-        if((this == TinkerCommons.ingots || this == TinkerCommons.nuggets) && !TinkerIntegration.isIntegrated(TinkerFluids.alubrass) && i == 5) {
-          continue;
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      for(int i = 0; i <= availabilityMask.length; i++) {
+        if(isValid(i)) {
+          // prevent the addition of alubrass if it's not present
+          if((this == TinkerCommons.ingots || this == TinkerCommons.nuggets) && !TinkerIntegration.isIntegrated(TinkerFluids.alubrass) && i == 5) {
+            continue;
+          }
+          subItems.add(new ItemStack(this, 1, i));
         }
-        subItems.add(new ItemStack(itemIn, 1, i));
       }
     }
   }

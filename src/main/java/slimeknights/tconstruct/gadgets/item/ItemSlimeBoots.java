@@ -6,7 +6,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
@@ -28,7 +27,7 @@ import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
 public class ItemSlimeBoots extends ItemArmorTooltip {
 
   // todo: determine if this needs toughness
-  public static ArmorMaterial SLIME_MATERIAL = EnumHelper.addArmorMaterial("SLIME", Util.resource("slime"), 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.BLOCK_SLIME_PLACE, 0);
+  public static ArmorMaterial SLIME_MATERIAL = EnumHelper.addArmorMaterial("SLIME", Util.resource("slime"), 0, new int[] { 0, 0, 0, 0 }, 0, SoundEvents.BLOCK_SLIME_PLACE, 0);
 
   public ItemSlimeBoots() {
     super(SLIME_MATERIAL, 0, EntityEquipmentSlot.FEET);
@@ -105,9 +104,11 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
    */
   @Override
   @SideOnly(Side.CLIENT)
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    for(SlimeType type : SlimeType.values()) {
-      subItems.add(new ItemStack(this, 1, type.getMeta()));
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      for(SlimeType type : SlimeType.values()) {
+        subItems.add(new ItemStack(this, 1, type.getMeta()));
+      }
     }
   }
 

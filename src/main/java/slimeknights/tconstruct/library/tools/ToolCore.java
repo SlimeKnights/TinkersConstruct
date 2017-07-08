@@ -242,8 +242,8 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
     Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
     if(slot == EntityEquipmentSlot.MAINHAND && !ToolHelper.isBroken(stack)) {
-      multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double) ToolHelper.getActualAttack(stack), 0));
-      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double) ToolHelper.getActualAttackSpeed(stack) - 4d, 0));
+      multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", ToolHelper.getActualAttack(stack), 0));
+      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", ToolHelper.getActualAttackSpeed(stack) - 4d, 0));
     }
 
     return multimap;
@@ -372,8 +372,10 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   // Creative tab items
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    addDefaultSubItems(subItems);
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      addDefaultSubItems(subItems);
+    }
   }
 
   protected void addDefaultSubItems(List<ItemStack> subItems, Material... fixedMaterials) {
@@ -490,7 +492,6 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
       }
     }
   }
-
 
   @Override
   public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {

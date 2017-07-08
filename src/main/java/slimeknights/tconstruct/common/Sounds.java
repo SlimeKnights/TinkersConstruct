@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketSoundEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import slimeknights.tconstruct.library.Util;
 
 public abstract class Sounds {
@@ -29,7 +29,7 @@ public abstract class Sounds {
   private static SoundEvent sound(String name) {
     ResourceLocation location = Util.getResource(name);
     SoundEvent event = new SoundEvent(location);
-    SoundEvent.REGISTRY.register(-1, location, event);
+    event.setRegistryName(location);
     return event;
   }
 

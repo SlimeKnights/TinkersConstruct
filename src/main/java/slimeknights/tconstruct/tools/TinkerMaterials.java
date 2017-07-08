@@ -7,9 +7,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.logging.log4j.Logger;
 
@@ -29,6 +33,12 @@ import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
+import slimeknights.tconstruct.tools.traits.TraitEnderference;
+import slimeknights.tconstruct.tools.traits.TraitInsatiable;
+import slimeknights.tconstruct.tools.traits.TraitMagnetic;
+import slimeknights.tconstruct.tools.traits.TraitMomentum;
+import slimeknights.tconstruct.tools.traits.TraitSharp;
+import slimeknights.tconstruct.tools.traits.TraitSplintering;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 
@@ -169,6 +179,18 @@ public final class TinkerMaterials {
 
   static {
     xu = new Material("unstable", TextFormatting.WHITE);
+  }
+
+  @SubscribeEvent
+  public void registerPotions(Register<Potion> event) {
+    IForgeRegistry<Potion> registry = event.getRegistry();
+
+    registry.registerAll(TraitEnderference.Enderference,
+                         TraitInsatiable.Insatiable,
+                         TraitMagnetic.Magnetic,
+                         TraitMomentum.Momentum,
+                         TraitSharp.DOT,
+                         TraitSplintering.Splinter);
   }
 
   @Subscribe

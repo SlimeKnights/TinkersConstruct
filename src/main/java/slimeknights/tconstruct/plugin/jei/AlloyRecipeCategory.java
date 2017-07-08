@@ -18,6 +18,7 @@ import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 
 public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipeWrapper> {
@@ -102,5 +103,10 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipeWrapper> 
   public IDrawable getIcon() {
     // use the default icon
     return null;
+  }
+
+  @Override
+  public String getModName() {
+    return TConstruct.modName;
   }
 }

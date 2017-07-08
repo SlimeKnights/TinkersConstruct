@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.library.tinkering;
 
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Sets;
 
 import gnu.trove.set.hash.THashSet;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.ClientProxy;
@@ -123,7 +124,6 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
     return requiredComponents[slot].isValid(stack);
   }
-
 
   /**
    * Builds an Itemstack of this tool with the given materials, if applicable.
@@ -289,7 +289,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
 
   /** Returns indices of the parts that are used for repairing */
   public int[] getRepairParts() {
-    return new int[]{1}; // index 1 usually is the head. 0 is handle.
+    return new int[] { 1 }; // index 1 usually is the head. 0 is handle.
   }
 
   public float getRepairModifierForPart(int index) {
@@ -410,11 +410,10 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     // calculate in modifiers that change the total durability of a tool, like diamond
     // they should not punish the player with higher repair costs
     float durabilityFactor = actualDur / origDur;
-    float increase = (float) amount * Math.min(10f, durabilityFactor);
+    float increase = amount * Math.min(10f, durabilityFactor);
 
     increase = Math.max(increase, actualDur / 64f);
     //increase = Math.max(50, increase);
-
 
     int modifiersUsed = TagUtil.getBaseModifiersUsed(tool.getTagCompound());
     float mods = 1.0f;
@@ -444,8 +443,8 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   /* Information */
 
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip,
-                             boolean advanced) {
+  @SideOnly(Side.CLIENT)
+  public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
     boolean shift = Util.isShiftKeyDown();
     boolean ctrl = Util.isCtrlKeyDown();
     // modifiers
@@ -457,11 +456,12 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       tooltip.add(Util.translate("tooltip.tool.holdShift"));
       tooltip.add(Util.translate("tooltip.tool.holdCtrl"));
 
-      tooltip.add(TextFormatting.BLUE +
-                  I18n.translateToLocalFormatted("attribute.modifier.plus.0",
-                                                 Util.df.format(ToolHelper.getActualDamage(stack, playerIn)),
-                                                 I18n
-                                                     .translateToLocal("attribute.name.generic.attackDamage")));
+      if(worldIn != null) {
+        tooltip.add(TextFormatting.BLUE +
+                    I18n.translateToLocalFormatted("attribute.modifier.plus.0",
+                                                   Util.df.format(ToolHelper.getActualDamage(stack, Minecraft.getMinecraft().player)),
+                                                   I18n.translateToLocal("attribute.name.generic.attackDamage")));
+      }
     }
     // detailed data
     else if(Config.extraTooltips && shift) {
@@ -476,7 +476,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
   @Override
   public void getTooltip(ItemStack stack, List<String> tooltips) {
     // Default tooltip: modifiers
-    TooltipBuilder.addModifierTooltips(stack,tooltips);
+    TooltipBuilder.addModifierTooltips(stack, tooltips);
   }
 
   @Nonnull
@@ -499,7 +499,8 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     if(nbt.hasKey(Tags.BASE_DATA)) {
       try {
         ToolBuilder.rebuildTool(nbt, this);
-      } catch(TinkerGuiException e) {
+      }
+      catch(TinkerGuiException e) {
         // nothing to do
       }
     }

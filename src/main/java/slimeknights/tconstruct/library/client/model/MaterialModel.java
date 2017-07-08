@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.client.model;
 
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
@@ -11,14 +10,15 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.client.model.ItemLayerModel;
 import net.minecraftforge.client.model.ModelStateComposition;
+import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.vecmath.Vector3f;
 
@@ -46,21 +46,18 @@ public class MaterialModel implements IPatternOffset, IModel {
   }
 
   @Override
-  public IBakedModel bake(IModelState state, VertexFormat format,
-                          Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+  public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     return bakeIt(state, format, bakedTextureGetter);
   }
 
   // the only difference here is the return-type
-  public BakedMaterialModel bakeIt(IModelState state, VertexFormat format,
-                                   Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+  public BakedMaterialModel bakeIt(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     // take offset of texture into account
     if(offsetX != 0 || offsetY != 0) {
       state = new ModelStateComposition(state, TRSRTransformation
           .blockCenterToCorner(new TRSRTransformation(new Vector3f(offsetX / 16f, -offsetY / 16f, 0), null, null, null)));
     }
-    ImmutableMap<TransformType, TRSRTransformation> map = IPerspectiveAwareModel.MapWrapper.getTransforms(state);
-
+    ImmutableMap<TransformType, TRSRTransformation> map = PerspectiveMapWrapper.getTransforms(state);
 
     // normal model as the base
     IBakedModel base = new ItemLayerModel(textures).bake(state, format, bakedTextureGetter);

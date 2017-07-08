@@ -1,0 +1,27 @@
+{
+    "conditions": [
+        {
+            "type": "tconstruct:is_pulse_loaded",
+            "pulse_name": "TinkerWorld"
+        }
+    ],
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " B ",
+        "BAB",
+        " B "
+    ],
+    "key": {
+        "A": {
+            "item": "minecraft:grass"
+        },
+        "B": {
+            "item": "tconstruct:edible",
+            "data": 1
+        }
+    },
+    "result": {
+        "item": "tconstruct:slime_grass",
+        "data": 0
+    }
+}

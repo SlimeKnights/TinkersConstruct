@@ -40,7 +40,7 @@ public class ExplosionEFLN extends Explosion {
     ImmutableSet.Builder<BlockPos> builder = ImmutableSet.builder();
 
     // we do a sphere of a certain radius, and check if the blockpos is inside the radius
-    float r = explosionSize * explosionSize;
+    float r = size * size;
     int i = (int) r + 1;
 
     for(int j = -i; j < i; ++j) {
@@ -49,21 +49,20 @@ public class ExplosionEFLN extends Explosion {
           int d = j * j + k * k + l * l;
           // inside the sphere?
           if(d <= r) {
-            BlockPos blockpos = new BlockPos(j, k, l).add(explosionX, explosionY, explosionZ);
+            BlockPos blockpos = new BlockPos(j, k, l).add(x, y, z);
             // no air blocks
             if(world.isAirBlock(blockpos)) {
               continue;
             }
 
             // explosion "strength" at the current position
-            float f = this.explosionSize * (1f - d / (r));
+            float f = this.size * (1f - d / (r));
             IBlockState iblockstate = this.world.getBlockState(blockpos);
 
             float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.world, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance(world, blockpos, null, this);
             f -= (f2 + 0.3F) * 0.3F;
 
-
-            if(f > 0.0F && (this.exploder == null || this.exploder.verifyExplosion(this, this.world, blockpos, iblockstate, f))) {
+            if(f > 0.0F && (this.exploder == null || this.exploder.canExplosionDestroyBlock(this, this.world, blockpos, iblockstate, f))) {
               builder.add(blockpos);
             }
           }
@@ -76,9 +75,9 @@ public class ExplosionEFLN extends Explosion {
 
   @Override
   public void doExplosionB(boolean spawnParticles) {
-    this.world.playSound(null, this.explosionX, this.explosionY, this.explosionZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.2F) * 0.7F);
+    this.world.playSound(null, this.x, this.y, this.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.2F) * 0.7F);
 
-    this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
+    this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
 
     for(BlockPos blockpos : this.affectedBlockPositions) {
       IBlockState iblockstate = this.world.getBlockState(blockpos);

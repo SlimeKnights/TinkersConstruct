@@ -5,14 +5,14 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -21,6 +21,7 @@ import java.util.ListIterator;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.ClientProxy;
@@ -50,18 +51,19 @@ public class ToolPart extends MaterialItem implements IToolPart {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    for(Material mat : TinkerRegistry.getAllMaterials()) {
-      // check if the material makes sense for this item (is it usable to build stuff?)
-      if(canUseMaterial(mat)) {
-        subItems.add(getItemstackWithMaterial(mat));
-        if(!Config.listAllMaterials) {
-          break;
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      for(Material mat : TinkerRegistry.getAllMaterials()) {
+        // check if the material makes sense for this item (is it usable to build stuff?)
+        if(canUseMaterial(mat)) {
+          subItems.add(getItemstackWithMaterial(mat));
+          if(!Config.listAllMaterials) {
+            break;
+          }
         }
       }
     }
   }
-
 
   @Override
   public boolean canUseMaterial(Material mat) {
@@ -78,7 +80,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+  public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
     Material material = getMaterial(stack);
 
     // Material traits/info

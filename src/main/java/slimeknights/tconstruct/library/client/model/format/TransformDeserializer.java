@@ -9,7 +9,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.reflect.TypeToken;
 
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
+import net.minecraftforge.client.model.PerspectiveMapWrapper;
 import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.lang.reflect.Type;
@@ -32,7 +32,7 @@ public class TransformDeserializer
 
     if(texElem != null && texElem.isJsonObject()) {
       ItemCameraTransforms itemCameraTransforms = context.deserialize(texElem.getAsJsonObject(), ItemCameraTransforms.class);
-      return IPerspectiveAwareModel.MapWrapper.getTransforms(itemCameraTransforms);
+      return PerspectiveMapWrapper.getTransforms(itemCameraTransforms);
     }
 
     return ImmutableMap.of();

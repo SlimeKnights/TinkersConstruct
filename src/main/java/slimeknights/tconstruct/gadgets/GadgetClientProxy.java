@@ -36,6 +36,12 @@ import static slimeknights.tconstruct.common.ModelRegisterUtil.registerToolModel
 
 public class GadgetClientProxy extends ClientProxy {
 
+  @Override
+  public void preInit() {
+    super.preInit();
+
+    MinecraftForge.EVENT_BUS.register(new GadgetClientEvents());
+  }
 
   @Override
   public void init() {
@@ -74,7 +80,7 @@ public class GadgetClientProxy extends ClientProxy {
   }
 
   @Override
-  protected void registerModels() {
+  public void registerModels() {
     super.registerModels();
 
     // separate the sides into separate model files to make the blockstate rotations easier
@@ -151,7 +157,5 @@ public class GadgetClientProxy extends ClientProxy {
   @Override
   public void postInit() {
     super.postInit();
-
-    MinecraftForge.EVENT_BUS.register(new GadgetClientEvents());
   }
 }

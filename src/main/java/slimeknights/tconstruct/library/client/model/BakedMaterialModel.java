@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.Map;
@@ -29,7 +28,7 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
  *
  * ..basically it's a simple (Itemmeta -> Model) model
  */
-public class BakedMaterialModel extends BakedWrapper.Perspective implements IPerspectiveAwareModel {
+public class BakedMaterialModel extends BakedWrapper.Perspective implements IBakedModel {
 
   protected Map<String, IBakedModel> parts;
 

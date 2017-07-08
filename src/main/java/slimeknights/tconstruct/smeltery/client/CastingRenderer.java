@@ -34,7 +34,6 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
   protected float yOffset;
   protected float xzOffset;
 
-
   public CastingRenderer(float yMin, float yMax, float xzMin, float xzMax) {
     // we make the size a tad smaller because of casts so it doesn't overlap
     float s = 0.9995f;
@@ -42,7 +41,6 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
     this.yMax = yMax * s;
     this.xzMin = xzMin * s;
     this.xzMax = xzMax * s;
-
 
     this.yOffset = yMin + (yMax - yMin) / 2f;
     this.xzOffset = xzMin + (xzMax - xzMin) / 2f;
@@ -52,13 +50,13 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
   }
 
   @Override
-  public void renderTileEntityAt(@Nonnull T te, double x, double y, double z, float partialTicks, int destroyStage) {
+  public void render(@Nonnull T te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
     FluidTankAnimated tank = te.tank;
     if(tank.getFluidAmount() == 0 || tank.getCapacity() == 0) {
       return;
     }
 
-    float height = ((float) tank.getFluidAmount() - tank.renderOffset) / (float) tank.getCapacity();
+    float height = (tank.getFluidAmount() - tank.renderOffset) / tank.getCapacity();
 
     if(tank.renderOffset > 1.2f || tank.renderOffset < -1.2f) {
       tank.renderOffset -= (tank.renderOffset / 12f + 0.1f) * partialTicks;
@@ -101,8 +99,8 @@ public class CastingRenderer<T extends TileCasting> extends TileEntitySpecialRen
     if(progress > 0 && !stack.isEmpty() && te.getStackInSlot(1).isEmpty()) {
       RenderUtil.pre(x, y, z);
       int brightness = te.getWorld().getCombinedLight(te.getPos(), 0);
-      OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) (brightness % 0x10000) / 1f,
-                                            (float) (brightness / 0x10000) / 1f);
+      OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, brightness % 0x10000 / 1f,
+                                            brightness / 0x10000 / 1f);
 
       GlStateManager.translate(xzOffset, yOffset, xzOffset);
       GlStateManager.scale(xzScale, yScale, xzScale);

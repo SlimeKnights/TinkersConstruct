@@ -1,15 +1,17 @@
 package slimeknights.tconstruct.tools.common.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.world.World;
 
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.util.LocUtils;
@@ -27,8 +29,8 @@ public class ItemBlockTable extends ItemBlockMeta {
   }
 
   @Override
-  public void addInformation(@Nonnull ItemStack stack, @Nonnull EntityPlayer playerIn, @Nonnull List<String> tooltip, boolean advanced) {
-    super.addInformation(stack, playerIn, tooltip, advanced);
+  public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<String> tooltip, ITooltipFlag flagIn) {
+    super.addInformation(stack, worldIn, tooltip, flagIn);
     if(!stack.hasTagCompound()) {
       return;
     }
@@ -39,7 +41,7 @@ public class ItemBlockTable extends ItemBlockMeta {
     }
 
     if(stack.getTagCompound().hasKey("inventory")) {
-      this.addInventoryInformation(stack, playerIn, tooltip, advanced);
+      this.addInventoryInformation(stack, worldIn, tooltip, flagIn);
     }
   }
 
@@ -53,11 +55,11 @@ public class ItemBlockTable extends ItemBlockMeta {
     return new ItemStack(tag);
   }
 
-  protected void addInventoryInformation(ItemStack stack, EntityPlayer playerIn, @Nonnull List<String> tooltip, boolean advanced) {
+  protected void addInventoryInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
     // get the inventory, so we can inspect its items
     NBTTagCompound inventory = stack.getTagCompound().getCompoundTag("inventory");
 
-    if (!inventory.hasKey("Items")) {
+    if(!inventory.hasKey("Items")) {
       return;
     }
 
@@ -68,27 +70,27 @@ public class ItemBlockTable extends ItemBlockMeta {
     }
 
     // check if it's a PatternChest (damage value corresponds to TableTypes enum)
-    if (BlockToolTable.TableTypes.fromMeta(stack.getItemDamage()) == BlockToolTable.TableTypes.PatternChest) {
+    if(BlockToolTable.TableTypes.fromMeta(stack.getItemDamage()) == BlockToolTable.TableTypes.PatternChest) {
       // determine if it holds casts or patterns
       String desc = null;
 
-      for (int i = 0; i < items.tagCount(); ++i) {
+      for(int i = 0; i < items.tagCount(); ++i) {
         // iterate the item stacks, until we find a valid item
         ItemStack inventoryStack = new ItemStack(items.getCompoundTagAt(i));
 
-        if (inventoryStack.isEmpty()) {
+        if(inventoryStack.isEmpty()) {
           continue; // unable to load any item for this NBT tag - assume invalid/removed item, so check next
         }
 
         Item item = inventoryStack.getItem();
 
-        if (item instanceof ICast || item instanceof IPattern) {
+        if(item instanceof ICast || item instanceof IPattern) {
           desc = ((item instanceof ICast) ? "tooltip.patternchest.holds_casts" : "tooltip.patternchest.holds_patterns");
           break; // found the first valid Item, break loop
         }
       }
 
-      if (desc != null) {
+      if(desc != null) {
         tooltip.addAll(LocUtils.getTooltips(Util.translateFormatted(desc, items.tagCount())));
       }
     }

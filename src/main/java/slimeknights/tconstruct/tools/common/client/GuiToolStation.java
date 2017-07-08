@@ -95,7 +95,6 @@ public class GuiToolStation extends GuiTinkerStation {
 
   public ToolBuildGuiInfo currentInfo = GuiButtonRepair.info;
 
-
   public GuiToolStation(InventoryPlayer playerInv, World world, BlockPos pos, TileToolStation tile) {
     super(world, pos, (ContainerTinkerStation) tile.createContainer(playerInv, world, pos));
 
@@ -220,8 +219,6 @@ public class GuiToolStation extends GuiTinkerStation {
     if(toolStack.isEmpty()) {
       toolStack = inventorySlots.getSlot(0).getStack();
     }
-
-
 
     // current tool to build or repair/modify
     if(toolStack.getItem() instanceof IModifyable) {
@@ -451,7 +448,6 @@ public class GuiToolStation extends GuiTinkerStation {
       }
     }
 
-
     this.mc.getTextureManager().bindTexture(BACKGROUND);
     x = buttons.guiLeft - beamL.w;
     y = cornerY;
@@ -469,10 +465,10 @@ public class GuiToolStation extends GuiTinkerStation {
     for(Object o : buttons.buttonList) {
       GuiButton button = (GuiButton) o;
 
-      buttonDecorationTop.draw(button.xPosition, button.yPosition - buttonDecorationTop.h);
+      buttonDecorationTop.draw(button.x, button.y - buttonDecorationTop.h);
       // don't draw the bottom for the buttons in the last row
       if(button.id < buttons.buttonList.size() - Column_Count) {
-        buttonDecorationBot.draw(button.xPosition, button.yPosition + button.height);
+        buttonDecorationBot.draw(button.x, button.y + button.height);
       }
     }
 

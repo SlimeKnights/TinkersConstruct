@@ -1,0 +1,27 @@
+{
+    "conditions": [
+        {
+            "type": "tconstruct:is_pulse_loaded",
+            "pulse_name": "TinkerGadgets"
+        }
+    ],
+    "type": "forge:ore_shaped",
+    "pattern": [
+        "A A",
+        "B B"
+    ],
+    "key": {
+        "A": {
+            "type": "forge:ore_dict",
+            "ore": "slimeballGreen"
+        },
+        "B": {
+            "item": "tconstruct:slime_congealed",
+            "data": 0
+        }
+    },
+    "result": {
+        "item": "tconstruct:slime_boots",
+        "data": 0
+    }
+}

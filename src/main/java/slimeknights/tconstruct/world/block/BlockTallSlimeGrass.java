@@ -46,7 +46,7 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
+  public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     for(SlimePlantType type : SlimePlantType.values()) {
       for(FoliageType foliage : FoliageType.values()) {
         list.add(new ItemStack(this, 1, getMetaFromState(getDefaultState().withProperty(TYPE, type).withProperty(FOLIAGE, foliage))));
@@ -87,7 +87,6 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
 
     return state;
   }
-
 
   /* Logic stuff */
 
@@ -149,7 +148,6 @@ public class BlockTallSlimeGrass extends BlockBush implements IShearable {
   public enum SlimePlantType implements IStringSerializable, EnumBlock.IEnumMeta {
     TALL_GRASS,
     FERN;
-
 
     SlimePlantType() {
       this.meta = this.ordinal();

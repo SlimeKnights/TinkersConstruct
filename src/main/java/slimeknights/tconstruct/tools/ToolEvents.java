@@ -125,7 +125,7 @@ public class ToolEvents {
 
           if(!event.getWorld().isRemote) {
             event.getItemStack().shrink(1);
-            player.removeExperienceLevel(ModMendingMoss.MENDING_MOSS_LEVELS);
+            player.onEnchant(null, ModMendingMoss.MENDING_MOSS_LEVELS);
             ItemHandlerHelper.giveItemToPlayer(player, TinkerCommons.matMendingMoss.copy());
 
             event.setUseBlock(Event.Result.DENY);
@@ -147,15 +147,15 @@ public class ToolEvents {
     int level = event.getLootingLevel();
 
     // ensure looting is taken into account for projectiles
-    Entity projectile = event.getDamageSource().getSourceOfDamage();
+    Entity projectile = event.getDamageSource().getImmediateSource();
     if(projectile != null && projectile.hasCapability(CapabilityTinkerProjectile.PROJECTILE_CAPABILITY, null)) {
       ITinkerProjectile tinkerProjectile = projectile.getCapability(CapabilityTinkerProjectile.PROJECTILE_CAPABILITY, null);
       item = tinkerProjectile.getItemStack();
       level = Math.max(level, getLooting(item));
     }
     // or the item itself
-    else if(event.getDamageSource().getEntity() instanceof EntityPlayer) {
-      item = ((EntityPlayer) event.getDamageSource().getEntity()).getHeldItemMainhand();
+    else if(event.getDamageSource().getTrueSource() instanceof EntityPlayer) {
+      item = ((EntityPlayer) event.getDamageSource().getTrueSource()).getHeldItemMainhand();
       level = Math.max(level, getLooting(item));
     }
 

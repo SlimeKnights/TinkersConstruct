@@ -5,8 +5,8 @@ import com.google.common.collect.Lists;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.WorldSavedData;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
+import net.minecraft.world.storage.WorldSavedData;
 
 import java.util.List;
 import java.util.Map;

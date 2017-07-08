@@ -14,7 +14,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -63,7 +62,7 @@ public class BlockRack extends BlockTable {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
+  public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     list.add(createItemstack(this, 0, Blocks.WOODEN_SLAB, 0));
     list.add(createItemstack(this, 1, Blocks.WOODEN_SLAB, 0));
   }
@@ -289,7 +288,6 @@ public class BlockRack extends BlockTable {
   public IBlockState withMirror(@Nonnull IBlockState state, Mirror mirrorIn) {
     return state.withRotation(mirrorIn.toRotation(state.getValue(ORIENTATION).getFacing()));
   }
-
 
   /* Bounding boxes */
   private static final ImmutableMap<EnumOrientation, AxisAlignedBB> BOUNDS;

@@ -3,10 +3,8 @@ package slimeknights.tconstruct.tools.ranged;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 import slimeknights.tconstruct.common.ClientProxy;
-import slimeknights.tconstruct.common.ModelRegisterUtil;
 import slimeknights.tconstruct.library.TinkerRegistryClient;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
-import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.common.client.renderer.RenderArrow;
 import slimeknights.tconstruct.tools.common.client.renderer.RenderBolt;
 import slimeknights.tconstruct.tools.common.client.renderer.RenderShuriken;
@@ -17,7 +15,7 @@ import slimeknights.tconstruct.tools.common.entity.EntityShuriken;
 public class RangedClientProxy extends ClientProxy {
 
   @Override
-  protected void registerModels() {
+  public void registerModels() {
     super.registerModels();
 
     // entities

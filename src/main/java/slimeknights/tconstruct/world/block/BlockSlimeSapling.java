@@ -42,12 +42,11 @@ public class BlockSlimeSapling extends BlockSapling {
 
   @Override
   @SideOnly(Side.CLIENT)
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
+  public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     for(FoliageType type : FoliageType.values()) {
       list.add(new ItemStack(this, 1, getMetaFromState(getDefaultState().withProperty(FOLIAGE, type))));
     }
   }
-
 
   @Nonnull
   @Override

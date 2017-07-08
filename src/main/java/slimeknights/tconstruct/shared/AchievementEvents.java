@@ -1,8 +1,13 @@
 package slimeknights.tconstruct.shared;
 
+//TODO: FIX
+public class AchievementEvents {
+  
+}
+
+/*
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.stats.AchievementList;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
@@ -38,7 +43,7 @@ public class AchievementEvents {
     }
   }
 
-  @SubscribeEvent
+  //@SubscribeEvent
   public void onSmelted(PlayerEvent.ItemSmeltedEvent event) {
     if(event.player == null || event.smelting.isEmpty()) {
       return;
@@ -51,4 +56,4 @@ public class AchievementEvents {
   }
 
   // todo: bow
-}
+}*/

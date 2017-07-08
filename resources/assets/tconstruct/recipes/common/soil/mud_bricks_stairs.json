@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "A  ",
+        "AA ",
+        "AAA"
+    ],
+    "key": {
+        "A": {
+            "item": "tconstruct:deco_ground",
+            "data": 0
+        }
+    },
+    "result": {
+        "item": "tconstruct:mudbrick_stairs",
+        "count": 4,
+        "data": 0
+    }
+}

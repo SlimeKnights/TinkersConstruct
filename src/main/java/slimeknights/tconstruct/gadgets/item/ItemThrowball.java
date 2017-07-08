@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets.item;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -20,6 +21,7 @@ import net.minecraft.world.World;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.gadgets.entity.EntityThrowball;
@@ -35,9 +37,11 @@ public class ItemThrowball extends ItemSnowball {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    for(ThrowballType type : ThrowballType.values()) {
-      subItems.add(new ItemStack(this, 1, type.ordinal()));
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      for(ThrowballType type : ThrowballType.values()) {
+        subItems.add(new ItemStack(this, 1, type.ordinal()));
+      }
     }
   }
 
@@ -81,7 +85,7 @@ public class ItemThrowball extends ItemSnowball {
   }
 
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+  public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
     if(I18n.canTranslate(this.getUnlocalizedName(stack) + ".tooltip")) {
       tooltip.add(TextFormatting.GRAY.toString() + LocUtils.translateRecursive(this.getUnlocalizedName(stack) + ".tooltip"));
     }

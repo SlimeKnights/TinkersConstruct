@@ -19,7 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.IPerspectiveAwareModel;
 import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -44,7 +43,7 @@ import slimeknights.tconstruct.shared.client.BakedColoredItemModel;
 @SideOnly(Side.CLIENT)
 public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
 
-  public static final EnumFacing[] MODEL_SIDES = new EnumFacing[]{null, EnumFacing.DOWN, EnumFacing.UP, EnumFacing.NORTH, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.EAST};
+  public static final EnumFacing[] MODEL_SIDES = new EnumFacing[] { null, EnumFacing.DOWN, EnumFacing.UP, EnumFacing.NORTH, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.EAST };
 
   private static final Gson GSON = new GsonBuilder()
       .registerTypeAdapter(ModelTextureDeserializer.TYPE, ModelTextureDeserializer.INSTANCE)
@@ -108,7 +107,6 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
     }
   }
 
-
   public static ImmutableList<ToolModelOverride> loadToolModelOverridesFromJson(ResourceLocation location) throws IOException {
     Reader reader = getReaderForResource(location);
     try {
@@ -163,7 +161,7 @@ public class ModelHelper extends slimeknights.mantle.client.ModelHelper {
     }
   }
 
-  public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> getTransforms(IPerspectiveAwareModel model) {
+  public static ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> getTransforms(IBakedModel model) {
     ImmutableMap.Builder<ItemCameraTransforms.TransformType, TRSRTransformation> builder = ImmutableMap.builder();
     for(ItemCameraTransforms.TransformType type : ItemCameraTransforms.TransformType.values()) {
       TRSRTransformation transformation = new TRSRTransformation(model.handlePerspective(type).getRight());

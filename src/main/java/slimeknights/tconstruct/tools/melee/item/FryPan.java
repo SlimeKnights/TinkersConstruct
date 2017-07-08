@@ -8,7 +8,6 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.util.ActionResult;
@@ -51,17 +50,19 @@ public class FryPan extends TinkerToolCore {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    addDefaultSubItems(subItems);
-    ItemStack tool = getInfiTool("Bane of Pigs");
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      addDefaultSubItems(subItems);
+      ItemStack tool = getInfiTool("Bane of Pigs");
 
-    if(tool != null) {
-      for(int i = 0; i < 25 * 5; i++) {
-        TinkerModifiers.modFiery.apply(tool);
-      }
+      if(tool != null) {
+        for(int i = 0; i < 25 * 5; i++) {
+          TinkerModifiers.modFiery.apply(tool);
+        }
 
-      if(hasValidMaterials(tool)) {
-        subItems.add(tool);
+        if(hasValidMaterials(tool)) {
+          subItems.add(tool);
+        }
       }
     }
   }
@@ -72,13 +73,13 @@ public class FryPan extends TinkerToolCore {
       return;
     }
 
-    float progress = Math.min(1f, (float) (getMaxItemUseDuration(stack) - timeLeft) / 30f);
+    float progress = Math.min(1f, (getMaxItemUseDuration(stack) - timeLeft) / 30f);
     float strength = .1f + 2.5f * progress * progress;
 
     float range = 3.2f;
 
     // is the player currently looking at an entity?
-    Vec3d eye = new Vec3d(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ); // Entity.getPositionEyes
+    Vec3d eye = new Vec3d(player.posX, player.posY + player.getEyeHeight(), player.posZ); // Entity.getPositionEyes
     Vec3d look = player.getLook(1.0f);
     RayTraceResult mop = EntityUtil.raytraceEntity(player, eye, look, range, true);
 
@@ -90,9 +91,9 @@ public class FryPan extends TinkerToolCore {
     // we hit something. let it FLYYYYYYYYY
     if(mop.typeOfHit == RayTraceResult.Type.ENTITY) {
       Entity entity = mop.entityHit;
-      double x = look.xCoord * strength;
-      double y = look.yCoord / 3f * strength + 0.1f + 0.4f * progress;
-      double z = look.zCoord * strength;
+      double x = look.x * strength;
+      double y = look.y / 3f * strength + 0.1f + 0.4f * progress;
+      double z = look.z * strength;
 
       // bonus damage!
       AttributeModifier modifier = new AttributeModifier(FRYPAN_CHARGE_BONUS, "Frypan charge bonus", progress * 5f, 0);

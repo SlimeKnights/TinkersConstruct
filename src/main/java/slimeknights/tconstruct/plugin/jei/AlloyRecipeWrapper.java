@@ -6,13 +6,11 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.BlankRecipeWrapper;
+import mezz.jei.api.recipe.IRecipeWrapper;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 
-public class AlloyRecipeWrapper extends BlankRecipeWrapper {
+public class AlloyRecipeWrapper implements IRecipeWrapper {
 
   protected final List<FluidStack> inputs;
   protected final List<FluidStack> outputs;

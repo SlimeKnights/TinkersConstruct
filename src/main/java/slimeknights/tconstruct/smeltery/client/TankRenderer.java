@@ -15,13 +15,13 @@ public class TankRenderer extends TileEntitySpecialRenderer<TileTank> {
   protected static Minecraft mc = Minecraft.getMinecraft();
 
   @Override
-  public void renderTileEntityAt(@Nonnull TileTank tile, double x, double y, double z, float partialTicks, int destroyStage) {
+  public void render(@Nonnull TileTank tile, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
     FluidTankAnimated tank = tile.getInternalTank();
     FluidStack liquid = tank.getFluid();
 
     if(liquid != null) {
 
-      float height = ((float) liquid.amount - tank.renderOffset) / (float) tank.getCapacity();
+      float height = (liquid.amount - tank.renderOffset) / tank.getCapacity();
 
       if(tank.renderOffset > 1.2f || tank.renderOffset < -1.2f) {
         tank.renderOffset -= (tank.renderOffset / 12f + 0.1f) * partialTicks;

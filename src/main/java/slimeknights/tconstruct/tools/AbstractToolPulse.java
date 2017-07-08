@@ -3,9 +3,10 @@ package slimeknights.tconstruct.tools;
 import com.google.common.collect.Lists;
 
 import net.minecraft.item.Item;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -28,53 +29,53 @@ import slimeknights.tconstruct.library.tools.ToolPart;
 public abstract class AbstractToolPulse extends TinkerPulse {
 
   // Helper stuff
-  static List<ToolCore> tools = Lists.newLinkedList();      // contains all tools registered in this pulse
-  static List<ToolPart> toolparts = Lists.newLinkedList();  // ^ all toolparts
+  static List<ToolCore> tools = Lists.newLinkedList(); // contains all tools registered in this pulse
+  static List<ToolPart> toolparts = Lists.newLinkedList(); // ^ all toolparts
   static List<IModifier> modifiers = Lists.newLinkedList(); // ^ all modifiers
   static List<Pair<Item, ToolPart>> toolPartPatterns = Lists.newLinkedList();
 
-  // PRE-INITIALIZATION
-  public void preInit(FMLPreInitializationEvent event) {
-    registerToolParts();
-    registerTools();
+  public void registerItems(Register<Item> event) {
+    IForgeRegistry<Item> registry = event.getRegistry();
+
+    registerToolParts(registry);
+    registerTools(registry);
   }
 
-  protected void registerToolParts() {}
+  protected void registerToolParts(IForgeRegistry<Item> registry) {
+  }
 
-  protected void registerTools() {}
-
+  protected void registerTools(IForgeRegistry<Item> registry) {
+  }
 
   // INITIALIZATION
   public void init(FMLInitializationEvent event) {
     registerToolBuilding();
-    registerRecipies();
   }
 
-  protected void registerToolBuilding() {}
-
-  protected void registerRecipies() {}
-
+  protected void registerToolBuilding() {
+  }
 
   // POST-INITIALIZATION
   public void postInit(FMLPostInitializationEvent event) {
     registerEventHandlers();
   }
 
-  protected void registerEventHandlers() {}
+  protected void registerEventHandlers() {
+  }
 
   // HELPER FUNCTIONS
 
-  protected static <T extends ToolCore> T registerTool(T item, String unlocName) {
+  protected static <T extends ToolCore> T registerTool(IForgeRegistry<Item> registry, T item, String unlocName) {
     tools.add(item);
-    return registerItem(item, unlocName);
+    return registerItem(registry, item, unlocName);
   }
 
-  protected ToolPart registerToolPart(ToolPart part, String name) {
-    return registerToolPart(part, name, TinkerTools.pattern);
+  protected ToolPart registerToolPart(IForgeRegistry<Item> registry, ToolPart part, String name) {
+    return registerToolPart(registry, part, name, TinkerTools.pattern);
   }
 
-  protected <T extends Item & IPattern> ToolPart registerToolPart(ToolPart part, String name, T pattern) {
-    ToolPart ret = registerItem(part, name);
+  protected <T extends Item & IPattern> ToolPart registerToolPart(IForgeRegistry<Item> registry, ToolPart part, String name, T pattern) {
+    ToolPart ret = registerItem(registry, part, name);
 
     if(pattern != null) {
       toolPartPatterns.add(Pair.of(pattern, ret));

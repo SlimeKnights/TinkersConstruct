@@ -5,7 +5,7 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -56,21 +56,21 @@ public abstract class ParticleAttack extends Particle {
   }
 
   @Override
-  public void renderParticle(VertexBuffer worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
-    float progress = ((float) life + partialTicks) / (float) lifeTime;
-    int i = (int) (progress * (float) animPhases);
+  public void renderParticle(BufferBuilder worldRendererIn, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
+    float progress = (life + partialTicks) / lifeTime;
+    int i = (int) (progress * animPhases);
     int rows = MathHelper.ceil((float) animPhases / (float) animPerRow);
 
     if(i < animPhases) {
       this.textureManager.bindTexture(getTexture());
       float f = (float) (i % animPerRow) / (float) animPerRow;
-      float f1 = f + 1f / (float) animPerRow - 0.005f;
+      float f1 = f + 1f / animPerRow - 0.005f;
       float f2 = (float) (i / animPerRow) / (float) rows;
-      float f3 = f2 + 1f / (float) rows - 0.005f;
+      float f3 = f2 + 1f / rows - 0.005f;
       float f4 = 0.5F * this.size;
-      float f5 = (float) (this.prevPosX + (this.posX - this.prevPosX) * (double) partialTicks - interpPosX);
-      float f6 = (float) (this.prevPosY + (this.posY - this.prevPosY) * (double) partialTicks - interpPosY);
-      float f7 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * (double) partialTicks - interpPosZ);
+      float f5 = (float) (this.prevPosX + (this.posX - this.prevPosX) * partialTicks - interpPosX);
+      float f6 = (float) (this.prevPosY + (this.posY - this.prevPosY) * partialTicks - interpPosY);
+      float f7 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks - interpPosZ);
 
       // mirror the attack for left handed
       if(Minecraft.getMinecraft().gameSettings.mainHand == EnumHandSide.LEFT) {
@@ -84,10 +84,10 @@ public abstract class ParticleAttack extends Particle {
       GlStateManager.disableLighting();
       RenderHelper.disableStandardItemLighting();
       worldRendererIn.begin(7, getVertexFormat());
-      worldRendererIn.pos((double) (f5 - rotationX * f4 - rotationXY * f4), (f6 - rotationZ * f4 * height), (double) (f7 - rotationYZ * f4 - rotationXZ * f4)).tex((double) f1, (double) f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-      worldRendererIn.pos((double) (f5 - rotationX * f4 + rotationXY * f4), (f6 + rotationZ * f4 * height), (double) (f7 - rotationYZ * f4 + rotationXZ * f4)).tex((double) f1, (double) f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-      worldRendererIn.pos((double) (f5 + rotationX * f4 + rotationXY * f4), (f6 + rotationZ * f4 * height), (double) (f7 + rotationYZ * f4 + rotationXZ * f4)).tex((double) f, (double) f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-      worldRendererIn.pos((double) (f5 + rotationX * f4 - rotationXY * f4), (f6 - rotationZ * f4 * height), (double) (f7 + rotationYZ * f4 - rotationXZ * f4)).tex((double) f, (double) f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+      worldRendererIn.pos(f5 - rotationX * f4 - rotationXY * f4, (f6 - rotationZ * f4 * height), f7 - rotationYZ * f4 - rotationXZ * f4).tex(f1, f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+      worldRendererIn.pos(f5 - rotationX * f4 + rotationXY * f4, (f6 + rotationZ * f4 * height), f7 - rotationYZ * f4 + rotationXZ * f4).tex(f1, f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+      worldRendererIn.pos(f5 + rotationX * f4 + rotationXY * f4, (f6 + rotationZ * f4 * height), f7 + rotationYZ * f4 + rotationXZ * f4).tex(f, f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+      worldRendererIn.pos(f5 + rotationX * f4 - rotationXY * f4, (f6 - rotationZ * f4 * height), f7 + rotationYZ * f4 - rotationXZ * f4).tex(f, f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
       Tessellator.getInstance().draw();
       GlStateManager.enableLighting();
     }

@@ -5,8 +5,6 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
@@ -24,7 +22,6 @@ import javax.annotation.Nullable;
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.mantle.block.EnumBlockConnectedTexture;
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 
 public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClearStainedGlass.EnumGlassColor> {
 
@@ -62,7 +59,7 @@ public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClear
    */
   @Nonnull
   @Override
-  public MapColor getMapColor(IBlockState state) {
+  public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
     return state.getValue(COLOR).getMapColor();
   }
 
@@ -115,9 +112,9 @@ public class BlockClearStainedGlass extends EnumBlockConnectedTexture<BlockClear
 
     private static float[] calcRGB(int color) {
       float[] out = new float[3];
-      out[0] = ((color >> 16) & 0xFF)/255f;
-      out[1] = ((color >> 8) & 0xFF)/255f;
-      out[2] = (color & 0xFF)/255f;
+      out[0] = ((color >> 16) & 0xFF) / 255f;
+      out[1] = ((color >> 8) & 0xFF) / 255f;
+      out[2] = (color & 0xFF) / 255f;
       return out;
     }
 

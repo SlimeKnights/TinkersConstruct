@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.client.model;
 
-import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -19,6 +18,7 @@ import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.vecmath.Vector3f;
 
@@ -62,8 +62,7 @@ public class ModifierModel implements IModel {
   }
 
   @Override
-  public IBakedModel bake(IModelState state, VertexFormat format,
-                          Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
+  public IBakedModel bake(IModelState state, VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
     throw new UnsupportedOperationException("The modifier-Model is not built to be used as an item model");
   }
 
@@ -73,9 +72,7 @@ public class ModifierModel implements IModel {
 
     // we scale the modifier up slightly so it's always above the tool
     float s = 0.025f;
-    ITransformation
-        transformation =
-        new TRSRTransformation(new Vector3f(0, 0, 0.0001f - s / 2f), null, new Vector3f(1, 1, 1f + s), null);
+    ITransformation transformation = new TRSRTransformation(new Vector3f(0, 0, 0.0001f - s / 2f), null, new Vector3f(1, 1, 1f + s), null);
 
     for(Map.Entry<String, String> entry : models.entrySet()) {
       // todo: turn this into an event?

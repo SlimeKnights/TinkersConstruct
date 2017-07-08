@@ -1,0 +1,9 @@
+{
+    "recipes": {
+        "table_recipe": "slimeknights.tconstruct.tools.common.TableRecipeFactory"
+    },
+    "conditions": {
+        "is_pulse_loaded": "slimeknights.tconstruct.common.conditions.IsPulseLoadedConditionFactory",
+        "is_option_enabled": "slimeknights.tconstruct.common.conditions.IsConfigOptionEnabledConditionFactory"
+    }
+}

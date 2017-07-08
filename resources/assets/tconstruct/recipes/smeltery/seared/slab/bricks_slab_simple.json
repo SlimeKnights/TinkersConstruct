@@ -1,0 +1,22 @@
+{
+    "conditions": [
+        {
+            "type": "tconstruct:is_pulse_loaded",
+            "pulse_name": "TinkerSmeltery"
+        }
+    ],
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "AA"
+    ],
+    "key": {
+        "A": {
+            "item": "tconstruct:materials",
+            "data": 0
+        }
+    },
+    "result": {
+        "item": "tconstruct:seared_slab",
+        "data": 3
+    }
+}

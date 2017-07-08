@@ -107,7 +107,8 @@ public class ToolModelOverride {
 
       ImmutableMap<String, String> textures;
       if(json.get("textures") != null) {
-        textures = ImmutableMap.copyOf(GSON.fromJson(json, ModelTextureDeserializer.TYPE));
+        final Map<String, String> map = GSON.fromJson(json, ModelTextureDeserializer.TYPE);
+        textures = ImmutableMap.copyOf(map);
       }
       else {
         textures = ImmutableMap.of();
