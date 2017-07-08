@@ -36,7 +36,7 @@ public class ItemBlockTable extends ItemBlockMeta {
     }
 
     ItemStack legs = getLegStack(stack);
-    if(legs.isEmpty()) {
+    if(!legs.isEmpty()) {
       tooltip.add(legs.getDisplayName());
     }
 
