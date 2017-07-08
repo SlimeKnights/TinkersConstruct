@@ -29,7 +29,7 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
   private final TableRecipe recipe;
   private final int width;
   private final int height;
-  private final List<ItemStack> outputs;
+  private final List<List<ItemStack>> outputs;
 
   public TableRecipeWrapper(TableRecipe recipe) {
     this.recipe = recipe;
@@ -60,7 +60,7 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
         builder.add(BlockTable.createItemstack(block, recipe.getRecipeOutput().getItemDamage(), legBlock, stack.getItemDamage()));
       }
     }
-    outputs = builder.build();
+    outputs = ImmutableList.of(builder.build());
   }
 
 
@@ -73,7 +73,7 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
 
     //ItemStack recipeOutput = recipe.getRecipeOutput();
     if (!outputs.isEmpty()) {
-      ingredients.setOutputs(ItemStack.class, outputs);
+      ingredients.setOutputLists(ItemStack.class, outputs);
     }
   }
 
@@ -88,7 +88,7 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
   }
 
   private boolean isOutputBlock(ItemStack stack) {
-    if(stack == null) {
+    if(stack.isEmpty()) {
       return false;
     }
 
@@ -145,7 +145,7 @@ public class TableRecipeWrapper extends BlankRecipeWrapper implements IShapedCra
     }
 
     // add the itemstacks to the grid
-    JEIPlugin.craftingGridHelper.setInputStacks(guiItemStacks, inputs, this.getWidth(), this.getHeight());
-    JEIPlugin.craftingGridHelper.setOutput(guiItemStacks, outputs);
+    JEIPlugin.craftingGridHelper.setInputs(guiItemStacks, inputs, this.getWidth(), this.getHeight());
+    recipeLayout.getItemStacks().set(0, outputs);
   }
 }
