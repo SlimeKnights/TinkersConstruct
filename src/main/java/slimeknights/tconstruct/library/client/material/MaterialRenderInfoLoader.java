@@ -56,9 +56,6 @@ public class MaterialRenderInfoLoader implements IResourceManagerReloadListener 
   // we load from mods resource locations, in this order:
   // <mod that registered the material> -> tconstruct -> minecraft
   public void loadRenderInfo() {
-    if(!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
-      return;
-    }
     for(Material material : TinkerRegistry.getAllMaterials()) {
       // check if info exists in the form of json
       // if not, check if there already is data

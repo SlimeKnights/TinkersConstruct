@@ -112,7 +112,6 @@ public class TConstruct {
 
     pulseManager.registerPulse(new AggregateModelRegistrar());
     // Plugins/Integration
-    //pulseManager.registerPulse(new TinkerVintageCraft());
     pulseManager.registerPulse(new Chisel());
     pulseManager.registerPulse(new ChiselAndBits());
     pulseManager.registerPulse(new CraftingTweaks());

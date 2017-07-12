@@ -50,10 +50,6 @@ public class MaterialModelLoader implements ICustomModelLoader {
 
   @Override
   public IModel loadModel(ResourceLocation modelLocation) {
-    if(!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
-      return DummyModel.INSTANCE;
-    }
-
     try {
       Offset offset = ModelHelper.loadOffsetFromJson(modelLocation);
       IModel model = new MaterialModel(ModelHelper.loadTextureListFromJson(modelLocation), offset.x, offset.y);

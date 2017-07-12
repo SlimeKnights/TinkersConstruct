@@ -12,6 +12,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -194,6 +195,14 @@ public final class TinkerMaterials {
   }
 
   @Subscribe
+  public void setupMaterialStats(FMLPreInitializationEvent event) {
+    // stats need to be present before model loading/texture generation so we don't generate unneeded parts
+    registerToolMaterialStats();
+    registerBowMaterialStats();
+    registerProjectileMaterialStats();
+  }
+
+  @Subscribe
   public void setupMaterials(FMLInitializationEvent event) {
     // natural resources/blocks
     wood.setCraftable(true);
@@ -373,11 +382,6 @@ public final class TinkerMaterials {
     safeAdd(slimeleaf_blue, new ItemStack(TinkerWorld.slimeLeaves, 1, BlockSlimeGrass.FoliageType.BLUE.getMeta()), Material.VALUE_Shard, true);
     safeAdd(slimeleaf_orange, new ItemStack(TinkerWorld.slimeLeaves, 1, BlockSlimeGrass.FoliageType.ORANGE.getMeta()), Material.VALUE_Shard, true);
     safeAdd(slimeleaf_purple, new ItemStack(TinkerWorld.slimeLeaves, 1, BlockSlimeGrass.FoliageType.PURPLE.getMeta()), Material.VALUE_Shard, true);
-
-
-    registerToolMaterialStats();
-    registerBowMaterialStats();
-    registerProjectileMaterialStats();
   }
 
   private void safeAdd(Material material, ItemStack item, int value) {

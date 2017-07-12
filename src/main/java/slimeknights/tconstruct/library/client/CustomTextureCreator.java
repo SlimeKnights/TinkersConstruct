@@ -95,15 +95,8 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
   // low since other event-handlers might want to register textures beforehand
   @SubscribeEvent(priority = EventPriority.LOW)
   public void createCustomTextures(TextureStitchEvent.Pre event) {
-    // only do the processing once: at the end of the loading when the resource manager gets reloaded
-    // this is equivalent to a resourcepack change midgame
-
-    if(!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
-      return;
-    }
-
     // get the material info at this point, to override hardcoded material rendering with resources
-    MaterialRenderInfoLoader.INSTANCE.loadRenderInfo();
+    MaterialRenderInfoLoader.INSTANCE.onResourceManagerReload(Minecraft.getMinecraft().getResourceManager());
 
     createdTextures = 0;
     // create textures for each material where needed
@@ -196,6 +189,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
 
       sprite = material.renderInfo.getTexture(matBase, location);
       createdTextures++;
+      log.info("Created texture " + location);
     }
 
     // stitch new textures
