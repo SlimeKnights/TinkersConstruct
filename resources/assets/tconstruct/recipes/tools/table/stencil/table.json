@@ -6,7 +6,9 @@
         }
     ],
     "type": "tconstruct:table_recipe",
-    "ore_names": "logWood",
+    "variants": {
+        "item": "#STENCIL_TABLE"
+    },
     "pattern": [
         "A",
         "B"
@@ -18,12 +20,11 @@
             "data": 0
         },
         "B": {
-            "type": "forge:ore_dict",
-            "ore": "logWood"
+            "item": "#STENCIL_TABLE"
         }
     },
     "result": {
         "item": "tconstruct:tooltables",
-        "data": 2
+        "data": 1
     }
 }

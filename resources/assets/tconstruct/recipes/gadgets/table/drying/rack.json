@@ -6,7 +6,10 @@
         }
     ],
     "type": "tconstruct:table_recipe",
-    "ore_names": "slabWood",
+    "variants": {
+        "type": "forge:ore_dict",
+        "ore": "slabWood"
+    },
     "pattern": [
         "AAA"
     ],
