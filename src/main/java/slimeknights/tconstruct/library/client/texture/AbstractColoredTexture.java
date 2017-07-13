@@ -61,7 +61,7 @@ public abstract class AbstractColoredTexture extends TinkerTexture {
     // do the transformation on the data for mipmap level 0
     // looks like other mipmaps are generated correctly
     processData(data[0]);
-    
+
     if(this.framesTextureData.isEmpty()) {
       this.framesTextureData.add(data);
     }
@@ -83,9 +83,12 @@ public abstract class AbstractColoredTexture extends TinkerTexture {
   }
 
   /** called before the first colorPixel */
-  protected void preProcess(int[] data) {}
+  protected void preProcess(int[] data) {
+  }
+
   /** called after the last colorPixel */
-  protected void postProcess(int[] data) {}
+  protected void postProcess(int[] data) {
+  }
 
   protected abstract int colorPixel(int pixel, int pxCoord);
 

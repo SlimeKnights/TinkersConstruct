@@ -17,18 +17,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.network.AbstractPacket;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
@@ -47,7 +43,6 @@ import slimeknights.tconstruct.library.client.model.ModifierModelLoader;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.client.particle.EntitySlimeFx;
 import slimeknights.tconstruct.library.client.particle.Particles;
-import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialGUI;
 import slimeknights.tconstruct.library.tools.Pattern;
@@ -64,7 +59,6 @@ import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackLumber
 import slimeknights.tconstruct.tools.common.client.particle.ParticleAttackRapier;
 import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
 
-@Mod.EventBusSubscriber(value = Side.CLIENT, modid = Util.MODID)
 public abstract class ClientProxy extends CommonProxy {
 
   public static Material RenderMaterials[];
