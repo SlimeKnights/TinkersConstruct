@@ -1,14 +1,10 @@
-package slimeknights.tconstruct.plugin.jei;
-
-import com.google.common.collect.ImmutableList;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
+package slimeknights.tconstruct.plugin.jei.alloy;
 
 import java.util.List;
 
 import javax.annotation.Nonnull;
+
+import com.google.common.collect.ImmutableList;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
@@ -18,6 +14,9 @@ import mezz.jei.api.gui.IGuiFluidStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 
@@ -58,7 +57,6 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipeWrapper> 
   public void drawExtras(@Nonnull Minecraft minecraft) {
     arrow.draw(minecraft, 76, 22);
   }
-
 
   @Override
   public void setRecipe(IRecipeLayout recipeLayout, AlloyRecipeWrapper recipe, IIngredients ingredients) {

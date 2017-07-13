@@ -5,7 +5,10 @@
             "pulse_name": "TinkerTools"
         }
     ],
-    "type": "minecraft:crafting_shaped",
+    "type": "tconstruct:table_recipe",
+    "variants": {
+        "item": "#STENCIL_TABLE"
+    },
     "pattern": [
         "A",
         "B"
@@ -13,22 +16,15 @@
     "key": {
         "A": {
             "item": "tconstruct:pattern",
+            "count": 1,
             "data": 0
         },
         "B": {
-            "item": "minecraft:melon_block",
-            "data": 0
+            "item": "#STENCIL_TABLE"
         }
     },
     "result": {
         "item": "tconstruct:tooltables",
-        "data": 1,
-        "nbt": {
-            "textureBlock": {
-                "id": "minecraft:melon_block",
-                "Count": 1,
-                "Damage": 0
-            }
-        }
+        "data": 1
     }
 }

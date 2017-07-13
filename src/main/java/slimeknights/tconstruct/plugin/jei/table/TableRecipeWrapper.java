@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.plugin.jei;
+package slimeknights.tconstruct.plugin.jei.table;
 
 import com.google.common.collect.ImmutableList;
 
@@ -19,6 +19,7 @@ import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IStackHelper;
 import mezz.jei.api.recipe.wrapper.ICustomCraftingRecipeWrapper;
 import mezz.jei.api.recipe.wrapper.IShapedCraftingRecipeWrapper;
+import slimeknights.tconstruct.plugin.jei.JEIPlugin;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.tools.common.TableRecipeFactory.TableRecipe;
 import slimeknights.tconstruct.tools.common.item.ItemBlockTable;
@@ -34,9 +35,9 @@ public class TableRecipeWrapper implements IRecipeWrapper, IShapedCraftingRecipe
     this.recipe = recipe;
 
     for(Object input : this.recipe.getIngredients()) {
-      if (input instanceof ItemStack) {
+      if(input instanceof ItemStack) {
         ItemStack itemStack = (ItemStack) input;
-        if (itemStack.getCount() != 1) {
+        if(itemStack.getCount() != 1) {
           itemStack.setCount(1);
         }
       }
@@ -47,7 +48,7 @@ public class TableRecipeWrapper implements IRecipeWrapper, IShapedCraftingRecipe
 
     // sort the output entries into lists of items
     ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
-    for(ItemStack stack : recipe.outputBlocks) {
+    for(ItemStack stack : recipe.ingredients.getMatchingStacks()) {
       BlockTable block = (BlockTable) BlockTable.getBlockFromItem(recipe.getRecipeOutput().getItem());
       Block legBlock = Block.getBlockFromItem(stack.getItem());
       if(stack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
@@ -62,7 +63,6 @@ public class TableRecipeWrapper implements IRecipeWrapper, IShapedCraftingRecipe
     outputs = ImmutableList.of(builder.build());
   }
 
-
   @Override
   public void getIngredients(IIngredients ingredients) {
     IStackHelper stackHelper = JEIPlugin.jeiHelpers.getStackHelper();
@@ -71,7 +71,7 @@ public class TableRecipeWrapper implements IRecipeWrapper, IShapedCraftingRecipe
     ingredients.setInputLists(ItemStack.class, inputs);
 
     //ItemStack recipeOutput = recipe.getRecipeOutput();
-    if (!outputs.isEmpty()) {
+    if(!outputs.isEmpty()) {
       ingredients.setOutputLists(ItemStack.class, outputs);
     }
   }
@@ -91,7 +91,7 @@ public class TableRecipeWrapper implements IRecipeWrapper, IShapedCraftingRecipe
       return false;
     }
 
-    for(ItemStack output : recipe.outputBlocks) {
+    for(ItemStack output : recipe.ingredients.getMatchingStacks()) {
       // if the item matches the oredict entry, it is an output block
       if(OreDictionary.itemMatches(output, stack, false)) {
         return true;
@@ -115,7 +115,7 @@ public class TableRecipeWrapper implements IRecipeWrapper, IShapedCraftingRecipe
     // if the thing in focus is an itemstack
     if(focusObj instanceof ItemStack) {
       IGuiIngredientGroup<ItemStack> guiIngredients = recipeLayout.getIngredientsGroup(ItemStack.class);
-      ItemStack focus = (ItemStack)focusObj;
+      ItemStack focus = (ItemStack) focusObj;
       IFocus.Mode mode = ifocus.getMode();
 
       // input means we clicked on an ingredient, make sure it is one that affects the legs
@@ -126,10 +126,10 @@ public class TableRecipeWrapper implements IRecipeWrapper, IShapedCraftingRecipe
 
         // then create a stack with the focus item (which we already validated above)
         ItemStack outputFocus = BlockTable.createItemstack(block, output.getItemDamage(), Block.getBlockFromItem(focus.getItem()),
-            focus.getItemDamage());
+                                                           focus.getItemDamage());
 
         // and finally, set the focus override for the recipe
-        guiIngredients.setOverrideDisplayFocus(new Focus<>(IFocus.Mode.OUTPUT, outputFocus));
+        guiIngredients.setOverrideDisplayFocus(JEIPlugin.recipeRegistry.createFocus(IFocus.Mode.OUTPUT, outputFocus));
       }
 
       // if we clicked the table, remove all items which affect the legs textures that are not the leg item
@@ -138,7 +138,7 @@ public class TableRecipeWrapper implements IRecipeWrapper, IShapedCraftingRecipe
         ItemStack legs = ItemBlockTable.getLegStack(focus);
         if(!legs.isEmpty()) {
           // and loop through all slots removing leg affecting inputs which don't match
-          guiIngredients.setOverrideDisplayFocus(new Focus<>(IFocus.Mode.INPUT, legs));
+          guiIngredients.setOverrideDisplayFocus(JEIPlugin.recipeRegistry.createFocus(IFocus.Mode.INPUT, legs));
         }
       }
     }

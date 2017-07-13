@@ -11,10 +11,16 @@
         "B"
     ],
     "key": {
-        "A": {
-            "item": "minecraft:coal",
-            "data": 32767
-        },
+        "A": [
+            {
+                "item": "minecraft:coal",
+                "data": 0
+            },
+            {
+                "item": "minecraft:coal",
+                "data": 1
+            }
+        ],
         "B": {
             "type": "forge:ore_dict",
             "ore": "rodStone"
@@ -22,6 +28,7 @@
     },
     "result": {
         "item": "tconstruct:stone_torch",
+        "count": 4,
         "data": 0
     }
 }

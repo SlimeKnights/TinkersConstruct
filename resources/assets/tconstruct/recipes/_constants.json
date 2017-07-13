@@ -1,0 +1,44 @@
+[
+    {
+        "name": "STENCIL_TABLE",
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "plankWood"
+            },
+            {
+                "item": "minecraft:rail",
+                "data": 0
+            },
+            {
+                "item": "minecraft:melon_block",
+                "data": 0
+            },
+            {
+                "item": "tconstruct:firewood",
+                "data": 0
+            }
+        ]
+    },
+    {
+        "name": "PART_BUILDER",
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "logWood"
+            },
+            {
+                "item": "minecraft:golden_rail",
+                "data": 0
+            },
+            {
+                "item": "minecraft:cactus",
+                "data": 0
+            },
+            {
+                "item": "tconstruct:firewood",
+                "data": 1
+            }
+        ]
+    }
+]

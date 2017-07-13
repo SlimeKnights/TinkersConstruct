@@ -17,10 +17,6 @@
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
         {
-            "item": "tconstruct:materials",
-            "data": 16
-        },
-        {
             "item": "tconstruct:metal",
             "data": 6
         }
@@ -28,6 +24,6 @@
     "result": {
         "item": "tconstruct:materials",
         "count": 9,
-        "data": 6
+        "data": 16
     }
 }
