@@ -19,8 +19,7 @@ public class ExtraUtilityTexture extends AbstractColoredTexture {
   }
 
   @Override
-  protected void processData(int[] data) {
-    // preprocess
+  protected void preProcess(int[] data) {
     DirectColorModel color = new DirectColorModel(32, 16711680, '\uff00', 255, -16777216);
 
     edge = new boolean[width * height];
@@ -55,8 +54,6 @@ public class ExtraUtilityTexture extends AbstractColoredTexture {
         }
       }
     }
-
-    super.processData(data);
   }
 
   @Override
@@ -72,8 +69,7 @@ public class ExtraUtilityTexture extends AbstractColoredTexture {
           lum = 255 - (lum - 256);
         }
 
-        int col = alpha << 24 | lum << 16 | lum << 8 | lum;
-        return col;
+        return alpha << 24 | lum << 16 | lum << 8 | lum;
       }
       else {
         return 0;

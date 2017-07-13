@@ -13,7 +13,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -433,7 +432,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   /** A simple string identifier for the tool, used for identification in texture generation etc. */
   public String getIdentifier() {
-    return Util.getItemLocation(this).getResourcePath();
+    return getRegistryName().getResourcePath();
   }
 
   /** The tools name completely without material information */

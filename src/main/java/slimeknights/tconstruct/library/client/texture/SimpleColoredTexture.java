@@ -6,7 +6,13 @@ import slimeknights.tconstruct.library.client.RenderUtil;
 
 public class SimpleColoredTexture extends AbstractColoredTexture {
 
-  protected final int colorLow, colorMid, colorHigh;
+
+  protected final int colorLow;
+  protected final int colorMid;
+  protected final int colorHigh;
+  protected int minBrightness;
+  protected int maxBrightness;
+  protected int brightnessData[];
 
   public SimpleColoredTexture(int colorLow, int colorMid, int colorHigh, ResourceLocation baseTexture,
                               String spriteName) {
@@ -15,12 +21,6 @@ public class SimpleColoredTexture extends AbstractColoredTexture {
     this.colorMid = colorMid;
     this.colorHigh = colorHigh;
   }
-
-  int minBrightness;
-  int maxBrightness;
-  int brightnessData[];
-
-  float weight = 0.60f; // 60-40 split between main color and high/low color
 
   @Override
   protected void preProcess(int[] data) {

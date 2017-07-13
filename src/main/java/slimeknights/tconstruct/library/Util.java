@@ -6,7 +6,6 @@ package slimeknights.tconstruct.library;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -87,15 +86,6 @@ public class Util {
   public static String translateFormatted(String key, Object... pars) {
     // translates twice to allow rerouting/alias
     return I18n.translateToLocal(I18n.translateToLocalFormatted(key, (Object[]) pars).trim()).trim();
-  }
-
-  /**
-   * Will be removed!
-   * @deprecated use Item.getRegistryName
-   */
-  @Deprecated
-  public static ResourceLocation getItemLocation(Item item) {
-    return item.getRegistryName();
   }
 
   /** Returns a fixed size DEEP copy of the list */

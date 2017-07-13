@@ -43,7 +43,7 @@ public class PatternTexture extends TextureColoredTexture {
 
     int a = RenderUtil.alpha(c);
 
-    float mult = 1.0f;
+    float mult;
     if(a < 64) {
       return pixel;
     }
