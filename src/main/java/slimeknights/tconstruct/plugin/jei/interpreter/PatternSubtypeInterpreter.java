@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.plugin.jei;
+package slimeknights.tconstruct.plugin.jei.interpreter;
 
 import mezz.jei.api.ISubtypeRegistry.ISubtypeInterpreter;
 import net.minecraft.item.Item;

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.plugin.jei;
+package slimeknights.tconstruct.plugin.jei.interpreter;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

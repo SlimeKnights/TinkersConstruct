@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.plugin.jei;
+package slimeknights.tconstruct.plugin.jei.smelting;
 
 import com.google.common.collect.ImmutableList;
 
@@ -55,7 +55,6 @@ public class SmeltingRecipeCategory implements IRecipeCategory<SmeltingRecipeWra
   public void drawExtras(@Nonnull Minecraft minecraft) {
 
   }
-
 
   @Override
   public void setRecipe(IRecipeLayout recipeLayout, SmeltingRecipeWrapper recipe, IIngredients ingredients) {

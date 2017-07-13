@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.plugin.jei;
+package slimeknights.tconstruct.plugin.jei.casting;
 
 import com.google.common.collect.ImmutableList;
 
@@ -35,7 +35,7 @@ public class CastingRecipeCategory implements IRecipeCategory<CastingRecipeWrapp
   public final IDrawable castingTable;
   public final IDrawable castingBasin;
 
-  protected CastingRecipeCategory(IGuiHelper guiHelper) {
+  public CastingRecipeCategory(IGuiHelper guiHelper) {
     this.background = guiHelper.createDrawable(background_loc, 0, 0, 141, 61);
 
     IDrawableStatic arrowDrawable = guiHelper.createDrawable(background_loc, 141, 32, 24, 17);

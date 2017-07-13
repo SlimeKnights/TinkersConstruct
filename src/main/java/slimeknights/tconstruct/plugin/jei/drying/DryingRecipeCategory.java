@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.plugin.jei;
+package slimeknights.tconstruct.plugin.jei.drying;
 
 import com.google.common.collect.ImmutableList;
 

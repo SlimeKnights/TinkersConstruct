@@ -1,13 +1,12 @@
-package slimeknights.tconstruct.plugin.jei;
-
-import com.google.common.collect.ImmutableList;
-
-import net.minecraftforge.fluids.FluidStack;
+package slimeknights.tconstruct.plugin.jei.alloy;
 
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
+
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 
 public class AlloyRecipeWrapper implements IRecipeWrapper {
