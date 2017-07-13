@@ -48,19 +48,19 @@ public class TableRecipeFactory implements IRecipeFactory {
   }
 
   public static class TableRecipe extends ShapedOreRecipe {
-    public final ItemStack[] outputBlocks; // first one found of these determines the output block used
+    public final Ingredient ingredients; // first one found of these determines the output block used
 
-    public TableRecipe(ResourceLocation group, Ingredient ingredient, ItemStack result, ShapedPrimer primer) {
+    public TableRecipe(ResourceLocation group, Ingredient ingredientIn, ItemStack result, ShapedPrimer primer) {
       super(group, result, primer);
 
-      this.outputBlocks = ingredient.getMatchingStacks();
+      this.ingredients = ingredientIn;
     }
 
     @Nonnull
     @Override
     public ItemStack getCraftingResult(InventoryCrafting craftMatrix) {
       for(int i = 0; i < craftMatrix.getSizeInventory(); i++) {
-        for(ItemStack ore : outputBlocks) {
+        for(ItemStack ore : ingredients.getMatchingStacks()) {
           ItemStack stack = craftMatrix.getStackInSlot(i);
           if(OreDictionary.itemMatches(ore, stack, false) && Block.getBlockFromItem(stack.getItem()) != Blocks.AIR) {
             BlockTable block = (BlockTable) Block.getBlockFromItem(output.getItem());
@@ -75,17 +75,16 @@ public class TableRecipeFactory implements IRecipeFactory {
     @Nonnull
     @Override
     public ItemStack getRecipeOutput() {
-      if(!(outputBlocks.length == 0) && !output.isEmpty()) {
-        for(ItemStack stack : outputBlocks) {
-          BlockTable block = (BlockTable) Block.getBlockFromItem(output.getItem());
-          int meta = stack.getItemDamage();
+      if(!(ingredients.getMatchingStacks().length == 0) && !output.isEmpty()) {
+        ItemStack stack = ingredients.getMatchingStacks()[0];
+        BlockTable block = (BlockTable) Block.getBlockFromItem(output.getItem());
+        int meta = stack.getItemDamage();
 
-          if(meta == OreDictionary.WILDCARD_VALUE) {
-            meta = 0;
-          }
-
-          return BlockTable.createItemstack(block, output.getItemDamage(), Block.getBlockFromItem(stack.getItem()), meta);
+        if(meta == OreDictionary.WILDCARD_VALUE) {
+          meta = 0;
         }
+
+        return BlockTable.createItemstack(block, output.getItemDamage(), Block.getBlockFromItem(stack.getItem()), meta);
       }
 
       return super.getRecipeOutput();
