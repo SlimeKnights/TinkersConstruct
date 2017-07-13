@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Function;
 
-import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.TinkerAPIException;
 import slimeknights.tconstruct.library.client.RenderUtil;
 
 public abstract class AbstractColoredTexture extends TinkerTexture {
@@ -56,16 +56,12 @@ public abstract class AbstractColoredTexture extends TinkerTexture {
     int[][] data;
     int[][] original = baseTexture.getFrameTextureData(0);
     data = new int[original.length][];
-    for(int i = 0; i < original.length; i++) {
-      if(original[i] != null) {
-        data[i] = Arrays.copyOf(original[i], original[i].length);
-      }
-    }
+    data[0] = Arrays.copyOf(original[0], original[0].length);
 
     // do the transformation on the data for mipmap level 0
-    processData(data);
+    processData(data[0]);
 
-    this.generateMipmaps(data.length);
+    //this.generateMipmaps(data.length);
 
     if(this.framesTextureData.isEmpty()) {
       this.framesTextureData.add(data);
@@ -74,27 +70,25 @@ public abstract class AbstractColoredTexture extends TinkerTexture {
     return false;
   }
 
-  protected void processData(int[][] data) {
+  protected void processData(int[] data) {
     try {
+      preProcess(data);
       // go over the base texture and color it
-      for(int mipmap = 0; mipmap < 1; mipmap++) {
-        if(data[mipmap] == null) {
-          continue;
-        }
-        for(int pxCoord = 0; pxCoord < data[mipmap].length; pxCoord++) {
-          // we're not working per pixel
-          // we take the information in the base texture to calculate the luminosity of the pixel
-          // and then color it accordingly with the materials color
-          data[mipmap][pxCoord] = colorPixel(data[mipmap][pxCoord], mipmap, pxCoord);
-        }
+      for(int pxCoord = 0; pxCoord < data.length; pxCoord++) {
+        data[pxCoord] = colorPixel(data[pxCoord], pxCoord);
       }
+      postProcess(data);
     } catch(Exception e) {
-      TinkerRegistry.log.error("Error occured while processing: " + this.getIconName());
-      throw e;
+      throw new TinkerAPIException("Error occured while processing: " + this.getIconName(), e);
     }
   }
 
-  protected abstract int colorPixel(int pixel, int mipmap, int pxCoord);
+  /** called before the first colorPixel */
+  protected void preProcess(int[] data) {}
+  /** called after the last colorPixel */
+  protected void postProcess(int[] data) {}
+
+  protected abstract int colorPixel(int pixel, int pxCoord);
 
   // borrowed from Shadows of Physis
   // Thanks TTFTCUTS! :)

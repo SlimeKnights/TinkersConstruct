@@ -1,21 +1,17 @@
 package slimeknights.tconstruct.library.client.texture;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.ResourceLocation;
 
 import slimeknights.tconstruct.library.client.RenderUtil;
 
 public class GuiOutlineTexture extends ExtraUtilityTexture {
 
-  public GuiOutlineTexture(String baseTextureLocation, String spriteName) {
-    super(baseTextureLocation, spriteName);
-  }
-
-  public GuiOutlineTexture(TextureAtlasSprite baseTexture, String spriteName) {
+  public GuiOutlineTexture(ResourceLocation baseTexture, String spriteName) {
     super(baseTexture, spriteName);
   }
 
   @Override
-  protected int colorPixel(int pixel, int mipmap, int pxCoord) {
+  protected int colorPixel(int pixel, int pxCoord) {
     if(!trans[pxCoord]) {
       if(edge[pxCoord]) {
         return RenderUtil.compose(50, 50, 50, 255);

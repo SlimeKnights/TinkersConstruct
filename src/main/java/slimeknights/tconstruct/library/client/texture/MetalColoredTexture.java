@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.client.texture;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
 import java.awt.*;
@@ -14,7 +14,7 @@ public class MetalColoredTexture extends AbstractColoredTexture {
   protected float brightness;
   protected float hueshift;
 
-  public MetalColoredTexture(TextureAtlasSprite baseTexture, String spriteName, int baseColor, float shinyness, float brightness, float hueshift) {
+  public MetalColoredTexture(ResourceLocation baseTexture, String spriteName, int baseColor, float shinyness, float brightness, float hueshift) {
     super(baseTexture, spriteName);
     this.baseColor = baseColor;
     this.shinyness = shinyness;
@@ -22,16 +22,8 @@ public class MetalColoredTexture extends AbstractColoredTexture {
     this.hueshift = hueshift;
   }
 
-  public MetalColoredTexture(String baseTextureLocation, String spriteName, int baseColor, float shinyness, float brightness, float hueshift) {
-    super(baseTextureLocation, spriteName);
-    this.baseColor = baseColor;
-    this.shinyness = shinyness;
-    this.brightness = brightness;
-    this.hueshift = hueshift;
-  }
-
   @Override
-  protected int colorPixel(int pixel, int mipmap, int pxCoord) {
+  protected int colorPixel(int pixel, int pxCoord) {
     int a = RenderUtil.alpha(pixel);
     if(a == 0) {
       return pixel;

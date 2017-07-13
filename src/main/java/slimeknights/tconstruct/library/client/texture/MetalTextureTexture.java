@@ -1,43 +1,29 @@
 package slimeknights.tconstruct.library.client.texture;
 
-import java.util.function.Function;
-
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.function.Function;
 
 public class MetalTextureTexture extends MetalColoredTexture {
 
   protected TextureColoredTexture texture2;
 
-  public MetalTextureTexture(String addTextureLocation, TextureAtlasSprite baseTexture, String spriteName, int baseColor, float shinyness, float brightness, float hueshift) {
+  public MetalTextureTexture(ResourceLocation addTextureLocation, ResourceLocation baseTexture, String spriteName, int baseColor, float shinyness, float brightness, float hueshift) {
     super(baseTexture, spriteName, baseColor, shinyness, brightness, hueshift);
     texture2 = new TextureColoredTexture(addTextureLocation, baseTexture, spriteName);
   }
 
-  public MetalTextureTexture(TextureAtlasSprite addTexture, TextureAtlasSprite baseTexture, String spriteName, int baseColor, float shinyness, float brightness, float hueshift) {
-    super(baseTexture, spriteName, baseColor, shinyness, brightness, hueshift);
-    texture2 = new TextureColoredTexture(addTexture, baseTexture, spriteName);
-  }
-
   @Override
   public boolean load(IResourceManager manager, ResourceLocation location, Function<ResourceLocation, TextureAtlasSprite> textureGetter) {
-    // at frist do the metal texture
+    // at first do the metal texture
     texture2.load(manager, location, textureGetter);
     return super.load(manager, location, textureGetter);
   }
 
   @Override
-  protected void processData(int[][] data) {
-    // go over the base texture and color it
-    for(int mipmap = 0; mipmap < data.length; mipmap++) {
-      if(data[mipmap] == null) {
-        continue;
-      }
-      for(int pxCoord = 0; pxCoord < data[mipmap].length; pxCoord++) {
-        // get input from metal
-        data[mipmap][pxCoord] = colorPixel(texture2.getFrameTextureData(0)[mipmap][pxCoord], mipmap, pxCoord);
-      }
-    }
+  protected void processData(int[] data) {
+    super.processData(texture2.getFrameTextureData(0)[0]);
   }
 }

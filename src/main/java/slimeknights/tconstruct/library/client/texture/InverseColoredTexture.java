@@ -1,17 +1,17 @@
 package slimeknights.tconstruct.library.client.texture;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.ResourceLocation;
 
 import slimeknights.tconstruct.library.client.RenderUtil;
 
 public class InverseColoredTexture extends SimpleColoredTexture {
 
-  public InverseColoredTexture(int colorLow, int colorMid, int colorHigh, TextureAtlasSprite baseTexture, String spriteName) {
+  public InverseColoredTexture(int colorLow, int colorMid, int colorHigh, ResourceLocation baseTexture, String spriteName) {
     super(colorLow, colorMid, colorHigh, baseTexture, spriteName);
   }
 
   @Override
-  protected int colorPixel(int pixel, int mipmap, int pxCoord) {
+  protected int colorPixel(int pixel, int pxCoord) {
     int a = RenderUtil.alpha(pixel);
     if(a == 0) {
       return pixel;

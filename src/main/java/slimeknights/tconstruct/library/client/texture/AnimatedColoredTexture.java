@@ -1,22 +1,10 @@
 package slimeknights.tconstruct.library.client.texture;
 
-import com.google.common.collect.Lists;
-
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.client.resources.data.AnimationFrame;
-import net.minecraft.client.resources.data.AnimationMetadataSection;
 import net.minecraft.util.ResourceLocation;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.List;
 import java.util.function.Function;
-
-import slimeknights.tconstruct.library.TinkerAPIException;
-import slimeknights.tconstruct.library.TinkerRegistry;
 
 /**
  * ONLY USE THIS IF YOU KNOW WHAT YOU'RE DOING!
@@ -27,8 +15,7 @@ public class AnimatedColoredTexture extends TextureColoredTexture {
 
   private TextureAtlasSprite actualTexture;
 
-  public AnimatedColoredTexture(TextureAtlasSprite addTexture,
-      TextureAtlasSprite baseTexture, String spriteName) {
+  public AnimatedColoredTexture(ResourceLocation addTexture, ResourceLocation baseTexture, String spriteName) {
     super(addTexture, baseTexture, spriteName);
   }
 
@@ -38,7 +25,7 @@ public class AnimatedColoredTexture extends TextureColoredTexture {
       actualTexture = addTexture;
     }
     else {
-      actualTexture = textureGetter.apply(new ResourceLocation(addTextureLocation));
+      actualTexture = textureGetter.apply(addTextureLocation);
       //actualTexture = backupLoadtextureAtlasSprite(new ResourceLocation(addTextureLocation),
       //                                           Minecraft.getMinecraft().getResourceManager());
     }
@@ -47,9 +34,10 @@ public class AnimatedColoredTexture extends TextureColoredTexture {
   }
 
   @Override
-  protected void processData(int[][] data) {
+  protected void processData(int[] data) {
+    /*
     // get animation data again
-    ResourceLocation resourcelocation1 = this.getResourceLocation(new ResourceLocation(addTextureLocation));
+    ResourceLocation resourcelocation1 = this.getResourceLocation(addTextureLocation);
     IResource iresource = null;
     try {
       iresource = Minecraft.getMinecraft().getResourceManager().getResource(resourcelocation1);
@@ -133,6 +121,6 @@ public class AnimatedColoredTexture extends TextureColoredTexture {
     }
     catch(ReflectiveOperationException e) {
       e.printStackTrace();
-    }
+    }*/
   }
 }

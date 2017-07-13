@@ -5,15 +5,11 @@ import net.minecraft.util.ResourceLocation;
 
 public class TinkerTexture extends TextureAtlasSprite {
 
-  public static TextureAtlasSprite loadManually(String sprite) {
-    return new TinkerTexture(sprite);
+  public static TextureAtlasSprite loadManually(ResourceLocation sprite) {
+    return new TinkerTexture(sprite.toString());
   }
 
   protected TinkerTexture(String spriteName) {
     super(spriteName);
-  }
-
-  protected ResourceLocation getResourceLocation(ResourceLocation resourceLocation) {
-    return new ResourceLocation(resourceLocation.getResourceDomain(), String.format("%s/%s%s", "textures", resourceLocation.getResourcePath(), ".png"));
   }
 }

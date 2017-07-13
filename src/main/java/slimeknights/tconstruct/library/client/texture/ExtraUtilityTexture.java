@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.client.texture;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.ResourceLocation;
 
 import java.awt.image.DirectColorModel;
 
@@ -13,17 +13,13 @@ public class ExtraUtilityTexture extends AbstractColoredTexture {
   boolean[] trans;
   boolean[] edge;
 
-  public ExtraUtilityTexture(TextureAtlasSprite baseTexture,
+  public ExtraUtilityTexture(ResourceLocation baseTexture,
                              String spriteName) {
     super(baseTexture, spriteName);
   }
 
-  public ExtraUtilityTexture(String baseTextureLocation, String spriteName) {
-    super(baseTextureLocation, spriteName);
-  }
-
   @Override
-  protected void processData(int[][] data) {
+  protected void processData(int[] data) {
     // preprocess
     DirectColorModel color = new DirectColorModel(32, 16711680, '\uff00', 255, -16777216);
 
@@ -38,7 +34,7 @@ public class ExtraUtilityTexture extends AbstractColoredTexture {
           edge[coord(x, y)] = true;
         }
 
-        c = data[0][coord(x, y)];
+        c = data[coord(x, y)];
         if(c == 0 || color.getAlpha(c) < 64) {
           trans[coord(x, y)] = true;
           if(x > 0) {
@@ -64,7 +60,7 @@ public class ExtraUtilityTexture extends AbstractColoredTexture {
   }
 
   @Override
-  protected int colorPixel(int pixel, int mipmap, int pxCoord) {
+  protected int colorPixel(int pixel, int pxCoord) {
     if(!trans[pxCoord]) {
       int lum;
       if(edge[pxCoord]) {
