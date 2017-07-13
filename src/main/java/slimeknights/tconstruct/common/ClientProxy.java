@@ -127,7 +127,6 @@ public abstract class ClientProxy extends CommonProxy {
   public static void initRenderer() {
     IReloadableResourceManager resourceManager = (IReloadableResourceManager) mc.getResourceManager();
     resourceManager.registerReloadListener(MaterialRenderInfoLoader.INSTANCE);
-    resourceManager.registerReloadListener(AbstractColoredTexture.CacheClearer.INSTANCE);
     resourceManager.registerReloadListener(CustomTextureCreator.INSTANCE);
 
     // Font renderer for tooltips and GUIs

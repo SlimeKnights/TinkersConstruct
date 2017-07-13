@@ -1,8 +1,13 @@
 package slimeknights.tconstruct.library.client.texture;
 
-import net.minecraft.client.Minecraft;
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.Collection;
+import java.util.function.Function;
 
 import slimeknights.tconstruct.library.client.RenderUtil;
 
@@ -34,16 +39,29 @@ public class TextureColoredTexture extends AbstractColoredTexture {
   }
 
   @Override
+  public Collection<ResourceLocation> getDependencies() {
+    assert(!addTextureLocation.equals(this.getIconName()));
+    return ImmutableList.<ResourceLocation>builder()
+        .addAll(super.getDependencies())
+        .add(new ResourceLocation(addTextureLocation))
+        .build();
+  }
+
+  @Override
+  public boolean load(IResourceManager manager, ResourceLocation location, Function<ResourceLocation, TextureAtlasSprite> textureGetter) {
+    loadData(textureGetter);
+
+    super.load(manager, location, textureGetter);
+
+    return false;
+  }
+
+  @Override
   protected int colorPixel(int pixel, int mipmap, int pxCoord) {
     int a = RenderUtil.alpha(pixel);
     if(a == 0) {
       return pixel;
     }
-
-    if(textureData == null) {
-      loadData();
-    }
-
 
     int texCoord = pxCoord;
     if(width > textureW) {
@@ -66,9 +84,9 @@ public class TextureColoredTexture extends AbstractColoredTexture {
     return RenderUtil.compose(r, g, b, a);
   }
 
-  protected void loadData() {
+  protected void loadData(Function<ResourceLocation, TextureAtlasSprite> textureGetter) {
     if(addTexture == null || addTexture.getFrameCount() <= 0) {
-      addTexture = backupLoadTexture(new ResourceLocation(addTextureLocation), Minecraft.getMinecraft().getResourceManager());
+      addTexture = textureGetter.apply(new ResourceLocation(addTextureLocation));
     }
 
     textureData = addTexture.getFrameTextureData(0);
@@ -85,7 +103,11 @@ public class TextureColoredTexture extends AbstractColoredTexture {
     offsetY = y;
   }
 
-  protected int coord2(int x, int y) {
-    return y * textureW + x;
+  protected int coord2(int x, int y, int mipmap) {
+    int width = textureW;
+    for(; mipmap > 0; mipmap--) {
+      width /= 2;
+    }
+    return y * width + x;
   }
 }

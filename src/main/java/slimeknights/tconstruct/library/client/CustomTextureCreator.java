@@ -14,8 +14,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IRegistryDelegate;
@@ -37,7 +35,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.material.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.model.IPatternOffset;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
-import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
+import slimeknights.tconstruct.library.client.texture.BaseTexture;
 import slimeknights.tconstruct.library.client.texture.CastTexture;
 import slimeknights.tconstruct.library.client.texture.GuiOutlineTexture;
 import slimeknights.tconstruct.library.client.texture.PatternTexture;
@@ -172,13 +170,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         TextureAtlasSprite base2 = map.getTextureExtry(loc2);
         // can we manually load it?
         if(base2 == null && exists(loc2)) {
-          base2 = new AbstractColoredTexture(loc2, loc2) {
-            @Override
-            protected int colorPixel(int pixel, int mipmap, int pxCoord) {
-              return pixel;
-            }
-          };
-
+          base2 = new BaseTexture(loc2, loc2);
           // save in the map so it's getting reused by the others and is available
           map.setTextureEntry(base2);
         }

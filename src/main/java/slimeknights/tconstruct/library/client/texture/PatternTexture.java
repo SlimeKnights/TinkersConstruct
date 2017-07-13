@@ -16,10 +16,6 @@ public class PatternTexture extends TextureColoredTexture {
     if(RenderUtil.alpha(pixel) == 0) {
       return pixel;
     }
-    // textureData == toolpart
-    if(textureData == null) {
-      loadData();
-    }
 
     if(width > textureW) {
       // scale coordinates to match the other texture
@@ -44,7 +40,7 @@ public class PatternTexture extends TextureColoredTexture {
       return pixel;
     }
 
-    int c = textureData[mipmap][coord2(x2, y2)];
+    int c = textureData[mipmap][coord2(x2, y2, mipmap)];
 
     int a = RenderUtil.alpha(c);
 
@@ -55,25 +51,25 @@ public class PatternTexture extends TextureColoredTexture {
 
     boolean edge = false;
     if(x > 0) {
-      a = RenderUtil.alpha(textureData[mipmap][coord2(x - 1, y)]);
+      a = RenderUtil.alpha(textureData[mipmap][coord2(x - 1, y, mipmap)]);
       if(a < 64) {
         edge = true;
       }
     }
     if(y < height - 1) {
-      a = RenderUtil.alpha(textureData[mipmap][coord2(x, y + 1)]);
+      a = RenderUtil.alpha(textureData[mipmap][coord2(x, y + 1, mipmap)]);
       if(a < 64) {
         edge = true;
       }
     }
     if(x < width - 1) {
-      a = RenderUtil.alpha(textureData[mipmap][coord2(x + 1, y)]);
+      a = RenderUtil.alpha(textureData[mipmap][coord2(x + 1, y, mipmap)]);
       if(a < 64) {
         edge = true;
       }
     }
     if(y > 0) {
-      a = RenderUtil.alpha(textureData[mipmap][coord2(x, y - 1)]);
+      a = RenderUtil.alpha(textureData[mipmap][coord2(x, y - 1, mipmap)]);
       if(a < 64) {
         edge = true;
       }
