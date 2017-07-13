@@ -212,38 +212,27 @@ public class TinkerFluids extends TinkerPulse {
     IForgeRegistry<Item> registry = event.getRegistry();
 
     if(isSmelteryLoaded()) {
-      registerItemBlock(registry, searedStone.getBlock());
       FluidRegistry.addBucketForFluid(searedStone);
 
-      registerItemBlock(registry, obsidian.getBlock());
       FluidRegistry.addBucketForFluid(obsidian);
 
-      registerItemBlock(registry, clay.getBlock());
       FluidRegistry.addBucketForFluid(clay);
 
-      registerItemBlock(registry, dirt.getBlock());
       FluidRegistry.addBucketForFluid(dirt);
 
-      registerItemBlock(registry, emerald.getBlock());
       FluidRegistry.addBucketForFluid(emerald);
 
-      registerItemBlock(registry, glass.getBlock());
       FluidRegistry.addBucketForFluid(glass);
 
       // blood for the blood god
-      registerItemBlock(registry, blood.getBlock());
       FluidRegistry.addBucketForFluid(blood);
     }
 
-    registerItemBlock(registry, milk.getBlock());
-
     if(isWorldLoaded()) {
-      registerItemBlock(registry, blueslime.getBlock());
       FluidRegistry.addBucketForFluid(blueslime);
     }
 
     if(isWorldLoaded() || isSmelteryLoaded()) {
-      registerItemBlock(registry, purpleSlime.getBlock());
       FluidRegistry.addBucketForFluid(purpleSlime);
     }
   }
@@ -314,9 +303,5 @@ public class TinkerFluids extends TinkerPulse {
   /** Registers a hot lava-based block for the fluid, prefix with molten_ */
   public static BlockMolten registerMoltenBlock(IForgeRegistry<Block> registry, Fluid fluid) {
     return registerBlock(registry, new BlockMolten(fluid), "molten_" + fluid.getName()); // molten_foobar prefix
-  }
-
-  public static Block registerFluidItemBlock(IForgeRegistry<Item> registry, Block block) {
-    return registerItemBlock(registry, block);
   }
 }

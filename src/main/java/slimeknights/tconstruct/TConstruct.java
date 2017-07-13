@@ -8,7 +8,6 @@ import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -72,7 +71,6 @@ import slimeknights.tconstruct.world.TinkerWorld;
                     + "after:jei@[4.2,);"
                     + "after:chisel",
      acceptedMinecraftVersions = "[1.12, 1.13)")
-@EventBusSubscriber(modid = TConstruct.modID)
 public class TConstruct {
 
   public static final String modID = Util.MODID;
@@ -157,6 +155,8 @@ public class TConstruct {
 
     TinkerNetwork.instance.setup();
     CapabilityTinkerProjectile.register();
+
+    MinecraftForge.EVENT_BUS.register(this);
   }
 
   @Mod.EventHandler
@@ -170,7 +170,6 @@ public class TConstruct {
   public void postInit(FMLPostInitializationEvent event) {
     if(event.getSide().isClient()) {
       ClientProxy.initRenderer();
-      //Minecraft.getMinecraft().refreshResources(); Hack to fix tool models, used for testing.
     }
     else {
       // config syncing
@@ -188,8 +187,8 @@ public class TConstruct {
   public void missingItemMappings(MissingMappings<Item> event) {
     for(Mapping<Item> entry : event.getAllMappings()) {
       @Nonnull
-      String path = entry.key.getResourcePath();
-      if(path.equals(Util.resource("bucket")) || path.equals(Util.resource("glow"))) {
+      String path = entry.key.toString();
+      if(path.equals(Util.resource("bucket")) || path.equals(Util.resource("glow")) || path.equals(Util.resource("blood")) || path.equals(Util.resource("milk")) || path.equals(Util.resource("purpleslime")) || path.equals(Util.resource("blueslime")) || path.contains(Util.resource("molten"))) {
         entry.ignore();
       }
     }

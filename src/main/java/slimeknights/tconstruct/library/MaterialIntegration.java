@@ -159,7 +159,6 @@ public class MaterialIntegration {
 
   public void registerFluidBlock() {
     TinkerFluids.registerMoltenBlock(ForgeRegistries.BLOCKS, fluid);
-    TinkerFluids.registerFluidItemBlock(ForgeRegistries.ITEMS, fluid.getBlock());
     TinkerFluids.proxy.registerFluidModels(fluid);
   }
 }
