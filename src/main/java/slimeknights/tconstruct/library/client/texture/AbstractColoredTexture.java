@@ -59,10 +59,9 @@ public abstract class AbstractColoredTexture extends TinkerTexture {
     data[0] = Arrays.copyOf(original[0], original[0].length);
 
     // do the transformation on the data for mipmap level 0
+    // looks like other mipmaps are generated correctly
     processData(data[0]);
-
-    //this.generateMipmaps(data.length);
-
+    
     if(this.framesTextureData.isEmpty()) {
       this.framesTextureData.add(data);
     }
