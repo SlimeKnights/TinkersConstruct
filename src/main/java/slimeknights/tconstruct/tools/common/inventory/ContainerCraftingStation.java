@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCraftResult;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
@@ -24,8 +25,8 @@ import slimeknights.tconstruct.tools.common.tileentity.TileCraftingStation;
 public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftingStation> {
 
   private final EntityPlayer player;
-  public InventoryCraftingPersistent craftMatrix;
-  public InventoryCraftResult craftResult;
+  private final InventoryCraftingPersistent craftMatrix;
+  private final InventoryCraftResult craftResult;
 
   public ContainerCraftingStation(InventoryPlayer playerInventory, TileCraftingStation tile) {
     super(tile);
@@ -142,5 +143,9 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
    */
   public int getPlayerInventoryStart() {
     return playerInventoryStart;
+  }
+
+  public InventoryCrafting getCraftMatrix() {
+    return craftMatrix;
   }
 }
