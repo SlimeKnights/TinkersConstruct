@@ -4,12 +4,11 @@ import net.minecraft.item.Item;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
-import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -151,19 +150,13 @@ public class TConstruct {
 
     if(event.getSide().isClient()) {
       ClientProxy.initClient();
+      ClientProxy.initRenderMaterials();
     }
 
     TinkerNetwork.instance.setup();
     CapabilityTinkerProjectile.register();
 
     MinecraftForge.EVENT_BUS.register(this);
-  }
-
-  @Mod.EventHandler
-  public void init(FMLInitializationEvent event) {
-    if(event.getSide().isClient()) {
-      ClientProxy.initRenderMaterials();
-    }
   }
 
   @Mod.EventHandler
