@@ -72,8 +72,7 @@ public class TinkerIntegration extends TinkerPulse {
 
     integrate(TinkerMaterials.netherrack);
     integrate(TinkerMaterials.cobalt, TinkerFluids.cobalt, "Cobalt").toolforge();
-    // TODO: model loader for Ardite is broken
-    //integrate(TinkerMaterials.ardite, TinkerFluids.ardite, "Ardite").toolforge();
+    integrate(TinkerMaterials.ardite, TinkerFluids.ardite, "Ardite").toolforge();
     integrate(TinkerMaterials.manyullyn, TinkerFluids.manyullyn, "Manyullyn").toolforge();
 
     // mod integrations
