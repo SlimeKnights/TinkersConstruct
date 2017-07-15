@@ -64,7 +64,7 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
         icon = new ElementImage(ImageData.MISSING);
       }
 
-      if(!overview.addLink(icon, material.getLocalizedNameColored(), page)) {
+      while(!overview.addLink(icon, material.getLocalizedNameColored(), page)) {
         overview = iter.next();
       }
     }
