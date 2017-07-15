@@ -1,17 +1,11 @@
 package slimeknights.tconstruct;
 
-import net.minecraft.item.Item;
-import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent.MissingMappings;
-import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
-import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkCheckHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -22,13 +16,10 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 import java.util.Random;
 
-import javax.annotation.Nonnull;
-
 import slimeknights.mantle.common.GuiHandler;
 import slimeknights.mantle.pulsar.control.PulseManager;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.CommonProxy;
-import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.TinkerOredict;
 import slimeknights.tconstruct.common.config.Config;
@@ -129,7 +120,7 @@ public class TConstruct {
   }
 
   //Force the client and server to have or not have this mod
-  @NetworkCheckHandler()
+  @NetworkCheckHandler
   public boolean matchModVersions(Map<String, String> remoteVersions, Side side) {
 
     // we don't accept clients without TiC
@@ -167,23 +158,6 @@ public class TConstruct {
     else {
       // config syncing
       MinecraftForge.EVENT_BUS.register(new ConfigSync());
-    }
-  }
-
-  @SubscribeEvent
-  public void registerSoundEvent(Register<SoundEvent> event) {
-    event.getRegistry().registerAll(Sounds.saw, Sounds.frypan_boing, Sounds.toy_squeak, Sounds.slimesling, Sounds.shocking_charged, Sounds.shocking_discharge, Sounds.stone_hit, Sounds.wood_hit, Sounds.crossbow_reload);
-  }
-
-  //Old version compatibility
-  @SubscribeEvent
-  public void missingItemMappings(MissingMappings<Item> event) {
-    for(Mapping<Item> entry : event.getAllMappings()) {
-      @Nonnull
-      String path = entry.key.toString();
-      if(path.equals(Util.resource("bucket")) || path.equals(Util.resource("glow")) || path.equals(Util.resource("blood")) || path.equals(Util.resource("milk")) || path.equals(Util.resource("purpleslime")) || path.equals(Util.resource("blueslime")) || path.contains(Util.resource("molten"))) {
-        entry.ignore();
-      }
     }
   }
 }
