@@ -1,10 +1,11 @@
 package slimeknights.tconstruct.library;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class MaterialIntegration {
   public String[] oreRequirement; // required oredict entry for this integration
   public String representativeItem; // oredict entry for the representative item
   private boolean integrated;
+  private boolean preInit;
   private boolean toolforge = false;
 
   public MaterialIntegration(Material material) {
@@ -52,6 +54,7 @@ public class MaterialIntegration {
     this.oreRequirement = oreRequirement[0] == null ? new String[0] : oreRequirement; // API backwards compatibility
 
     this.integrated = false;
+    this.preInit = false;
   }
 
   public MaterialIntegration toolforge() {
@@ -68,30 +71,16 @@ public class MaterialIntegration {
     return integrated;
   }
 
-  public void integrate() {
-    if(integrated) {
+  /**
+   * Contains all registration as those need to be done regardless of oredict entries
+   */
+  public void preInit() {
+    // prevent running twice, mainly to prevent it from not getting registered as the mod may load after we register
+    if(preInit) {
       return;
     }
 
-    if(oreRequirement != null && oreRequirement.length > 0 && !Config.forceRegisterAll) {
-      int found = 0;
-      // we use this method because it doesn't add empty entries to the oredict, even though it is less performant
-      for(String ore : OreDictionary.getOreNames()) {
-        for(int i = 0; i < oreRequirement.length; i++) {
-          if(oreRequirement[i].equals(ore)) {
-            if(++found == oreRequirement.length) {
-              break;
-            }
-          }
-        }
-      }
-      // prerequisite not fulfilled
-      if(found < oreRequirement.length) {
-        return;
-      }
-    }
-
-    integrated = true;
+    preInit = true;
 
     // decativate fluids if smeltery isn't loaded
     if(!TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId)) {
@@ -101,11 +90,6 @@ public class MaterialIntegration {
     // fluid first.
     if(fluid != null) {
       Fluid registeredFluid = FluidRegistry.getFluid(fluid.getName());
-      // we only register blocks and buckets if it's our own fluid
-      if(registeredFluid == fluid && fluid.getBlock() == null) {
-        registerFluidBlock();
-      }
-
       // we register a bucket for the fluid if it's not done because we need it
       if(!FluidRegistry.getBucketFluids().contains(registeredFluid)) {
         FluidRegistry.addBucketForFluid(registeredFluid);
@@ -113,6 +97,7 @@ public class MaterialIntegration {
     }
 
     // register material
+    // TODO make material hidden and show it if we want it later
     if(material != null) {
       TinkerRegistry.addMaterial(material);
       if(fluid != null) {
@@ -130,10 +115,26 @@ public class MaterialIntegration {
     }
   }
 
+  /**
+   * Called to integrate the recipes based on oredictionary recipes
+   */
   public void integrateRecipes() {
-    if(!integrated) {
+    if(integrated) {
       return;
     }
+
+    if(oreRequirement != null && oreRequirement.length > 0 && !Config.forceRegisterAll) {
+      // loop through each ore string ensuring it is used
+      for(String ore : oreRequirement) {
+        // this is much more efficient then iterating through all entries and ensures we do not create entries
+        if(OreDictionary.getOres(ore, false).isEmpty()) {
+          return;
+        }
+      }
+    }
+
+    integrated = true;
+
     // register melting and casting
     if(fluid != null && oreSuffix != null) {
       TinkerSmeltery.registerOredictMeltingCasting(fluid, oreSuffix);
@@ -141,6 +142,8 @@ public class MaterialIntegration {
     if(material != null) {
       TinkerSmeltery.registerToolpartMeltingCasting(material);
     }
+
+    registerRepresentativeItem();
   }
 
   public void registerRepresentativeItem() {
@@ -157,8 +160,22 @@ public class MaterialIntegration {
     }
   }
 
-  public void registerFluidBlock() {
-    TinkerFluids.registerMoltenBlock(ForgeRegistries.BLOCKS, fluid);
-    TinkerFluids.proxy.registerFluidModels(fluid);
+  /**
+   * Called during the register blocks event to register fluid blocks. If no fluid is defined it does nothing for simplicity
+   * @param registry  Block Registry
+   */
+  public void registerFluidBlock(IForgeRegistry<Block> registry) {
+    if(fluid != null) {
+      TinkerFluids.registerMoltenBlock(registry, fluid);
+    }
+  }
+
+  /**
+   * Called during the register event to register fluid models. If no fluid is defined it does nothing for simplicity
+   */
+  public void registerFluidModel() {
+    if(fluid != null) {
+      TinkerFluids.proxy.registerFluidModels(fluid);
+    }
   }
 }

@@ -4,9 +4,11 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -18,6 +20,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.logging.log4j.Logger;
 
@@ -38,8 +41,7 @@ public class TinkerIntegration extends TinkerPulse {
 
   public static final String PulseId = "TinkerIntegration";
   static final Logger log = Util.getLogger(PulseId);
-  @Deprecated
-  public static List<NBTTagList> alloys = Lists.newLinkedList();
+  private static List<NBTTagList> alloys = Lists.newLinkedList();
 
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
@@ -63,14 +65,15 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerMaterials.slime, "slimecrystalGreen");
     integrate(TinkerMaterials.blueslime, "slimecrystalBlue");
     integrate(TinkerMaterials.magmaslime, "slimecrystalMagma");
-    
+
     // alubrass needs  both copper and aluminum
     TinkerRegistry.integrate(new MaterialIntegration(null, TinkerFluids.alubrass, "Alubrass", "ingotCopper", "ingotAluminum")).toolforge();
 
 
     integrate(TinkerMaterials.netherrack);
     integrate(TinkerMaterials.cobalt, TinkerFluids.cobalt, "Cobalt").toolforge();
-    integrate(TinkerMaterials.ardite, TinkerFluids.ardite, "Ardite").toolforge();
+    // TODO: model loader for Ardite is broken
+    //integrate(TinkerMaterials.ardite, TinkerFluids.ardite, "Ardite").toolforge();
     integrate(TinkerMaterials.manyullyn, TinkerFluids.manyullyn, "Manyullyn").toolforge();
 
     // mod integrations
@@ -106,11 +109,27 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerMaterials.slimeleaf_purple);
     integrate(TinkerMaterials.leaf); // leaf is last because its oredict also catches slimeleaves
 
+    // TODO: should this just iterate through our materials?
+    // this will not work for mods that register after Tinkers, so it might just be better for them to register it themselves
     for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
-      integration.integrate();
+      integration.preInit();
     }
+  }
 
-    MinecraftForge.EVENT_BUS.register(this);
+  @SubscribeEvent
+  public void registerBlocks(Register<Block> event) {
+    // we always register blocks for all integrated fluids to prevent issues with missing blocks
+    IForgeRegistry<Block> registry = event.getRegistry();
+    for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
+      integration.registerFluidBlock(registry);
+    }
+  }
+
+  @SubscribeEvent
+  public void registerModels(ModelRegistryEvent event) {
+    for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
+      integration.registerFluidModel();
+    }
   }
 
   public static void addAlloyNBTTag(NBTTagList alloyTagList) {
@@ -134,33 +153,28 @@ public class TinkerIntegration extends TinkerPulse {
   public void init(FMLInitializationEvent event) {
     handleIMCs();
 
-    // do we got integration
-    for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
-      // integrate again, some oredicts might not have been present in the previous attempt
-      integration.integrateRecipes();
-    }
-
     handleAlloyIMCs();
   }
 
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
     for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
-      integration.registerRepresentativeItem();
+      integration.integrateRecipes();
     }
   }
 
 
   @SubscribeEvent
   public void onOredictRegister(OreDictionary.OreRegisterEvent event) {
-    // we're only interested in preInit
-    if(Loader.instance().hasReachedState(LoaderState.INITIALIZATION)) {
+    // we have not done anything before postInit so skip firing before then
+    if(!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
       return;
     }
-    // the registered ore might be something we integrate and haven't yet
+
+    // the registered ore might be something we integrate, but something that did not get registered by our postInit
     for(MaterialIntegration integration : ImmutableList.copyOf(TinkerRegistry.getMaterialIntegrations())) {
       // calling this multiple time is ok because it does nothing once it was successful
-      integration.integrate();
+      integration.integrateRecipes();
     }
   }
 
@@ -213,36 +227,25 @@ public class TinkerIntegration extends TinkerPulse {
     }
   }
 
-
-  /** @deprecated use TinkerRegistry#integrate */
-  @Deprecated
-  public static MaterialIntegration integrate(Material material) {
+  private static MaterialIntegration integrate(Material material) {
     return add(new MaterialIntegration(material));
   }
 
-  /** @deprecated use TinkerRegistry#integrate */
-  @Deprecated
-  public static MaterialIntegration integrate(Material material, Fluid fluid) {
+  private static MaterialIntegration integrate(Material material, Fluid fluid) {
     return add(new MaterialIntegration(material, fluid));
   }
 
-  /** @deprecated use TinkerRegistry#integrate */
-  @Deprecated
-  public static MaterialIntegration integrate(Material material, String oreRequirement) {
+  private static MaterialIntegration integrate(Material material, String oreRequirement) {
     MaterialIntegration materialIntegration = new MaterialIntegration(oreRequirement, material, null, null);
     materialIntegration.setRepresentativeItem(oreRequirement);
     return add(materialIntegration);
   }
 
-  /** @deprecated use TinkerRegistry#integrate */
-  @Deprecated
-  public static MaterialIntegration integrate(Material material, Fluid fluid, String oreSuffix) {
+  private static MaterialIntegration integrate(Material material, Fluid fluid, String oreSuffix) {
     return add(new MaterialIntegration(material, fluid, oreSuffix));
   }
 
-  /** @deprecated use TinkerRegistry#integrate */
-  @Deprecated
-  public static MaterialIntegration integrate(Fluid fluid, String oreSuffix) {
+  private static MaterialIntegration integrate(Fluid fluid, String oreSuffix) {
     return add(new MaterialIntegration(null, fluid, oreSuffix));
   }
 
