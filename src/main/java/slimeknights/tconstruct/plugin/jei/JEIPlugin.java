@@ -25,6 +25,7 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.DryingRecipe;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
+import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.plugin.jei.alloy.AlloyRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.alloy.AlloyRecipeChecker;
@@ -41,6 +42,7 @@ import slimeknights.tconstruct.plugin.jei.interpreter.TableSubtypeInterpreter;
 import slimeknights.tconstruct.plugin.jei.interpreter.ToolPartSubtypeInterpreter;
 import slimeknights.tconstruct.plugin.jei.smelting.SmeltingRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.smelting.SmeltingRecipeChecker;
+import slimeknights.tconstruct.plugin.jei.smelting.SmeltingRecipeHandler;
 import slimeknights.tconstruct.plugin.jei.table.TableRecipeHandler;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -135,6 +137,8 @@ public class JEIPlugin implements IModPlugin {
     // Smeltery
     if(TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId)) {
       registry.handleRecipes(AlloyRecipe.class, new AlloyRecipeHandler(), AlloyRecipeCategory.CATEGORY);
+
+      registry.handleRecipes(MeltingRecipe.class, new SmeltingRecipeHandler(), SmeltingRecipeCategory.CATEGORY);
 
       registry.handleRecipes(CastingRecipeWrapper.class, new CastingRecipeHandler(), CastingRecipeCategory.CATEGORY);
 
