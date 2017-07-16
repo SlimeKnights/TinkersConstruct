@@ -16,8 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -32,8 +30,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -325,8 +321,6 @@ public class TinkerSmeltery extends TinkerPulse {
     registerSmelteryFuel();
     registerMeltingCasting();
     registerAlloys();
-
-    registerRecipeOredictMelting();
 
     // register remaining cast creation
     for(FluidStack fs : castCreationFluids) {
@@ -692,7 +686,7 @@ public class TinkerSmeltery extends TinkerPulse {
   }
 
   // take all fluids we registered oredicts for and scan all recipies for oredict-recipies that we can apply this to
-  private static void registerRecipeOredictMelting() {
+  public static void registerRecipeOredictMelting() {
     // we go through all recipies, and if it's an ore recipe we go through its contents and check if it
     // only consists of one of our known oredict entries
     for(IRecipe irecipe : CraftingManager.REGISTRY) {
@@ -710,30 +704,14 @@ public class TinkerSmeltery extends TinkerPulse {
         continue;
       }
 
-      NonNullList<Ingredient> inputs;
-      if(irecipe instanceof ShapelessOreRecipe) {
-        inputs = ((ShapelessOreRecipe) irecipe).getIngredients();
-      }
-      else if(irecipe instanceof ShapedOreRecipe) {
-        inputs = ((ShapedOreRecipe) irecipe).getIngredients();
-      }
-      else if(irecipe instanceof ShapelessRecipes) {
-        inputs = ((ShapelessRecipes) irecipe).recipeItems;
-      }
-      else if(irecipe instanceof ShapedRecipes) {
-        inputs = ((ShapedRecipes) irecipe).recipeItems;
-      }
-      else {
-        // not an ore recipe, stop here because we can't handle it
-        continue;
-      }
+      NonNullList<Ingredient> inputs = irecipe.getIngredients();
 
       // this map holds how much of which fluid is known of the recipe
       // if an recipe contains an itemstack that can't be mapped to a fluid calculation is aborted
       Map<Fluid, Integer> known = Maps.newHashMap();
-      for(Object o : inputs) {
-        // can contain nulls because of shapedrecipe
-        if(o == null) {
+      for(Ingredient ingredient : inputs) {
+        // can contain empty entries because of shapedrecipe
+        if(ingredient.getMatchingStacks().length == 0) {
           continue;
         }
         boolean found = false;
@@ -741,16 +719,21 @@ public class TinkerSmeltery extends TinkerPulse {
           // check if it's a known oredict (all oredict lists are equal if they match the same oredict)
           // OR if it's an itemstack contained in one of our oredicts
           for(Pair<List<ItemStack>, Integer> pair : entry.getValue()) {
-            if(o == pair.getLeft() || (o instanceof ItemStack && pair.getLeft().contains(o))) {
-              // matches! Update fluid amount known
-              Integer amount = known.get(entry.getKey()); // what we found for the liquid so far
-              if(amount == null) {
-                // nothing is what we found so far.
-                amount = 0;
+            for(ItemStack itemStack : pair.getLeft()) {
+              if(ingredient.apply(itemStack)) {
+                // matches! Update fluid amount known
+                Integer amount = known.get(entry.getKey()); // what we found for the liquid so far
+                if(amount == null) {
+                  // nothing is what we found so far.
+                  amount = 0;
+                }
+                amount += pair.getRight();
+                known.put(entry.getKey(), amount);
+                found = true;
+                break;
               }
-              amount += pair.getRight();
-              known.put(entry.getKey(), amount);
-              found = true;
+            }
+            if(found) {
               break;
             }
           }

@@ -34,6 +34,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.shared.TinkerFluids;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 
 // Takes care of adding all the generic-ish materials
@@ -173,6 +174,7 @@ public class TinkerIntegration extends TinkerPulse {
     for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
       integration.integrateRecipes();
     }
+    TinkerSmeltery.registerRecipeOredictMelting();
   }
 
 
