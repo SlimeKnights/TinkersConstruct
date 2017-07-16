@@ -13,6 +13,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -367,8 +368,6 @@ public class TinkerCommons extends TinkerPulse {
       slimedropBlood = edibles.addFood(33, 3, 1.5f, "slimedrop_blood", new PotionEffect(MobEffects.HEALTH_BOOST, 20 * 90));
       slimedropMagma = edibles.addFood(34, 6, 1f, "slimedrop_magma", new PotionEffect(MobEffects.FIRE_RESISTANCE, 20 * 90));
     }
-
-    TinkerRegistry.tabGeneral.setDisplayIcon(matSlimeBallBlue);
   }
 
   @SubscribeEvent
@@ -391,6 +390,12 @@ public class TinkerCommons extends TinkerPulse {
     // MinecraftForge.EVENT_BUS.register(new AchievementEvents()); TODO: FIX
     MinecraftForge.EVENT_BUS.register(new BlockEvents());
     MinecraftForge.EVENT_BUS.register(new PlayerDataEvents());
+  }
+
+  // POST-INITIALIZATION
+  @Subscribe
+  public void postInit(FMLPostInitializationEvent event) {
+    TinkerRegistry.tabGeneral.setDisplayIcon(matSlimeBallBlue);
   }
 
   private void registerSmeltingRecipes() {

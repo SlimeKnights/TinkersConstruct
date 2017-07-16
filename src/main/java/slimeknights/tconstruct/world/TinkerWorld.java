@@ -100,8 +100,6 @@ public class TinkerWorld extends TinkerPulse {
     slimeVinePurple3 = registerItemBlock(registry, slimeVinePurple3);
     slimeVinePurple2 = registerItemBlock(registry, slimeVinePurple2);
     slimeVinePurple1 = registerItemBlock(registry, slimeVinePurple1);
-
-    TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(slimeSapling));
   }
 
   @SubscribeEvent
@@ -137,5 +135,7 @@ public class TinkerWorld extends TinkerPulse {
     MinecraftForge.EVENT_BUS.register(new WorldEvents());
 
     proxy.postInit();
+
+    TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(slimeSapling));
   }
 }

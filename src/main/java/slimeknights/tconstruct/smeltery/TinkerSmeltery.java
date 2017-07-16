@@ -188,8 +188,6 @@ public class TinkerSmeltery extends TinkerPulse {
     registerTE(TileDrain.class, "smeltery_drain");
     registerTE(TileSearedFurnace.class, "seared_furnace");
     registerTE(TileTinkerTank.class, "tinker_tank");
-
-    TinkerRegistry.tabSmeltery.setDisplayIcon(new ItemStack(searedTank));
   }
 
   @SubscribeEvent
@@ -332,6 +330,7 @@ public class TinkerSmeltery extends TinkerPulse {
     }
 
     proxy.postInit();
+    TinkerRegistry.tabSmeltery.setDisplayIcon(new ItemStack(searedTank));
   }
 
   private void registerSmelteryFuel() {

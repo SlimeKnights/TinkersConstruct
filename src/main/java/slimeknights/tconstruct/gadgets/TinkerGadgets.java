@@ -233,8 +233,6 @@ public class TinkerGadgets extends TinkerPulse {
     GameRegistry.addSmelting(coldSpaghetti, new ItemStack(momsSpaghetti), 0f);
 
     MinecraftForge.EVENT_BUS.register(slimeBoots);
-
-    TinkerRegistry.tabGadgets.setDisplayIcon(new ItemStack(slimeSling));
   }
 
   @SubscribeEvent
@@ -289,6 +287,8 @@ public class TinkerGadgets extends TinkerPulse {
     MinecraftForge.EVENT_BUS.register(new GadgetEvents());
 
     proxy.postInit();
+
+    TinkerRegistry.tabGadgets.setDisplayIcon(new ItemStack(slimeSling));
   }
 
   private void registerDrying() {

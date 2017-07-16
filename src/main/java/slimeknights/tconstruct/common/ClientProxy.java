@@ -109,16 +109,16 @@ public abstract class ClientProxy extends CommonProxy {
       Stream.of(RenderMaterials),
       Stream.of(RenderMaterialString)
     ).forEach(TinkerRegistry::addMaterial);
+  }
 
+  public static void initRenderer() {
     if(TinkerHarvestTools.pickaxe != null) {
       TinkerRegistry.tabTools.setDisplayIcon(TinkerHarvestTools.pickaxe.buildItemForRendering(ImmutableList.of(RenderMaterials[0], RenderMaterials[1], RenderMaterials[2])));
     }
     if(TinkerTools.pickHead != null) {
       TinkerRegistry.tabParts.setDisplayIcon(TinkerTools.pickHead.getItemstackWithMaterial(RenderMaterials[2]));
     }
-  }
 
-  public static void initRenderer() {
     IReloadableResourceManager resourceManager = (IReloadableResourceManager) mc.getResourceManager();
     resourceManager.registerReloadListener(MaterialRenderInfoLoader.INSTANCE);
     resourceManager.registerReloadListener(CustomTextureCreator.INSTANCE);
