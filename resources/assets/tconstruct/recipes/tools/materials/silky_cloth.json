@@ -13,7 +13,7 @@
     ],
     "key": {
         "A": {
-            "item": "minecraft:gold_ingot"
+            "item": "minecraft:string"
         },
         "B": {
             "type": "forge:ore_dict",
