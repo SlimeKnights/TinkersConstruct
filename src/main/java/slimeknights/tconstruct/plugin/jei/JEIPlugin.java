@@ -127,6 +127,8 @@ public class JEIPlugin implements IModPlugin {
     craftingGridHelper = guiHelper.createCraftingGridHelper(craftInputSlot1, craftOutputSlot);
 
     if(TConstruct.pulseManager.isPulseLoaded(TinkerTools.PulseId)) {
+      registry.handleRecipes(TableRecipe.class, new TableRecipeHandler(), VanillaRecipeCategoryUid.CRAFTING);
+
       // crafting table shiftclicking
       registry.getRecipeTransferRegistry().addRecipeTransferHandler(new CraftingStationRecipeTransferInfo());
 
@@ -141,8 +143,6 @@ public class JEIPlugin implements IModPlugin {
       registry.handleRecipes(MeltingRecipe.class, new SmeltingRecipeHandler(), SmeltingRecipeCategory.CATEGORY);
 
       registry.handleRecipes(CastingRecipeWrapper.class, new CastingRecipeHandler(), CastingRecipeCategory.CATEGORY);
-
-      registry.handleRecipes(TableRecipe.class, new TableRecipeHandler(), VanillaRecipeCategoryUid.CRAFTING);
 
       registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.smelteryController), SmeltingRecipeCategory.CATEGORY, AlloyRecipeCategory.CATEGORY);
       registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.castingBlock, 1, BlockCasting.CastingType.TABLE.meta), CastingRecipeCategory.CATEGORY);
