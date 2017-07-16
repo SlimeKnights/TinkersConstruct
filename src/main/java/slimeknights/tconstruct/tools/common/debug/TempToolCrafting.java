@@ -5,7 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
 
 import javax.annotation.Nonnull;
@@ -16,9 +15,8 @@ import slimeknights.tconstruct.library.tools.ToolCore;
 
 public class TempToolCrafting extends Impl<IRecipe> implements IRecipe {
 
-  static {
-    // register the recipe with the recipesorter
-    RecipeSorter.register("tcon:tool", TempToolCrafting.class, RecipeSorter.Category.SHAPELESS, "");
+  public TempToolCrafting() {
+    this.setRegistryName(Util.getResource("tool"));
   }
 
   private ItemStack outputTool;
