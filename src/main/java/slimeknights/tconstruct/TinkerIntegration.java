@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -121,6 +122,18 @@ public class TinkerIntegration extends TinkerPulse {
     IForgeRegistry<Block> registry = event.getRegistry();
     for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
       integration.registerFluidBlock(registry);
+    }
+  }
+
+  @SubscribeEvent
+  public void registerRecipes(Register<IRecipe> event) {
+    IForgeRegistry<IRecipe> registry = event.getRegistry();
+
+    // add the tool forge recipes from all integrations
+    if(isToolsLoaded()) {
+      for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
+        integration.registerToolForgeRecipe(registry);
+      }
     }
   }
 

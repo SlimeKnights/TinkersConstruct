@@ -10,6 +10,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -19,7 +20,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreIngredient;
 import net.minecraftforge.registries.IForgeRegistry;
+
+import java.util.Locale;
 
 import org.apache.logging.log4j.Logger;
 
@@ -39,8 +43,10 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.common.RepairRecipe;
+import slimeknights.tconstruct.tools.common.TableRecipeFactory.TableRecipe;
 import slimeknights.tconstruct.tools.common.block.BlockToolForge;
 import slimeknights.tconstruct.tools.common.block.BlockToolTable;
+import slimeknights.tconstruct.tools.common.block.BlockToolTable.TableTypes;
 import slimeknights.tconstruct.tools.common.item.ItemBlockTable;
 import slimeknights.tconstruct.tools.common.item.SharpeningKit;
 import slimeknights.tconstruct.tools.common.tileentity.TileCraftingStation;
@@ -231,27 +237,36 @@ public class TinkerTools extends AbstractToolPulse {
     FurnaceRecipes.instance().addSmeltingRecipe(TinkerCommons.slimyMudMagma, TinkerCommons.matSlimeCrystalMagma, 0);
   }
 
-  public static void registerToolForgeBlock(String oredict) {
+  /**
+   * Adds a block to the tool Forge
+   * @param registry IForgeRegistry to register the recipe
+   * @param oredict oredict string for the block to add
+   */
+  public static void registerToolForgeBlock(IForgeRegistry<IRecipe> registry, String oredict) {
     if(toolForge != null) {
       toolForge.baseBlocks.add(oredict);
-      registerToolForgeRecipe(oredict);
+      registerToolForgeRecipe(registry, oredict);
     }
   }
 
-  private static void registerToolForgeRecipe(String oredict) {
+  private static void registerToolForgeRecipe(IForgeRegistry<IRecipe> registry, String oredict) {
+    // determine the brick we will use
     Block brick = TinkerSmeltery.searedBlock;
     if(brick == null) {
       brick = Blocks.STONEBRICK;
     }
-    // TODO: FIX
-    /*GameRegistry.addRecipe(new TableRecipe(OreDictionary.getOres(oredict), toolForge, 0,
-                                   "BBB",
-                                   "MTM",
-                                   "M M",
-                                   'B', brick,
-                                   'M', oredict,
-                                   'T', new ItemStack(toolTables, 1, BlockToolTable.TableTypes.ToolStation.meta)));*/
-    // Currently Broken ^
+
+    // create the recipe
+    TableRecipe recipe = new TableRecipe(Util.getResource("tool_forge"), new OreIngredient(oredict), new ItemStack(toolForge),
+        CraftingHelper.parseShaped("BBB", "MTM", "M M",
+            'B', brick,
+            'M', oredict,
+            'T', new ItemStack(TinkerTools.toolTables, 1, TableTypes.ToolStation.meta)));
+
+    // recipe location is tconstruct:tools/forge/<ore>, for example tconstruct:tools/forge/blockiron
+    recipe.setRegistryName(Util.getResource("tools/forge/" + oredict.toLowerCase(Locale.US)));
+
+    registry.register(recipe);
   }
 
   // POST-INITIALIZATION
