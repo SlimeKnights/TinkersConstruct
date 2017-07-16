@@ -32,6 +32,7 @@ import slimeknights.tconstruct.common.config.ConfigSync;
 import slimeknights.tconstruct.debug.TinkerDebug;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.plugin.Chisel;
@@ -112,6 +113,8 @@ public class TConstruct {
     pulseManager.registerPulse(new TheOneProbe());
 
     pulseManager.registerPulse(new TinkerDebug());
+
+    TinkerBook.init();
   }
 
   public TConstruct() {

@@ -15,7 +15,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.common.ClientProxy;
-import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.block.BlockClearStainedGlass;
 import slimeknights.tconstruct.shared.block.BlockClearStainedGlass.EnumGlassColor;
 
@@ -44,11 +43,6 @@ import static slimeknights.tconstruct.shared.TinkerCommons.stairsMudBrick;
 public class CommonsClientProxy extends ClientProxy {
 
   public static Minecraft minecraft = Minecraft.getMinecraft();
-  
-  @Override
-  public void preInit() {
-    TinkerBook.INSTANCE.equals(null); // instantiate book so it's loaded ._.
-  }
 
   @Override
   public void init() {
