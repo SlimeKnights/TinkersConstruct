@@ -17,21 +17,5 @@ public class IsPulseLoadedConditionFactory implements IConditionFactory {
     Boolean invert = JsonUtils.getBoolean(json, "invert", false);
 
     return () -> invert ? !TConstruct.pulseManager.isPulseLoaded(pulseName) : TConstruct.pulseManager.isPulseLoaded(pulseName);
-
-    /*if(invert)
-      if(!TConstruct.pulseManager.isPulseLoaded(pulseName)) {
-        return () -> true;
-      }
-      else {
-        return () -> false;
-      }
-    else {
-      if(TConstruct.pulseManager.isPulseLoaded(pulseName)) {
-        return () -> true;
-      }
-      else {
-        return () -> false;
-      }
-    }*/
   }
 }
