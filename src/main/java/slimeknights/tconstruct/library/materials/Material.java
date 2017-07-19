@@ -106,6 +106,11 @@ public class Material extends RecipeMatchRegistry {
    */
   private ItemStack shardItem = ItemStack.EMPTY;
 
+  /**
+   * If true, the material is not shown
+   */
+  private boolean hidden;
+
   // we use a specific map for 2 reasons:
   // * A Map so we can obtain the stats we want quickly
   // * the linked map to ensure the order when iterating
@@ -118,7 +123,13 @@ public class Material extends RecipeMatchRegistry {
   }
 
   public Material(String identifier, int color) {
+    this(identifier, color, false);
+  }
+
+  public Material(String identifier, int color, boolean hidden) {
     this.identifier = Util.sanitizeLocalizationString(identifier); // lowercases and removes whitespaces
+
+    this.hidden = hidden;
 
     // if invisible, make it fully opaque.
     if(((color >> 24) & 0xFF) == 0) {
@@ -131,9 +142,16 @@ public class Material extends RecipeMatchRegistry {
     }
   }
 
-  /*** If false the material will not be displayed to the user anywhere. Used for special or internal materials. */
+  /*** If true the material will not be displayed to the user anywhere. Used for special or internal materials. */
   public boolean isHidden() {
-    return false;
+    return hidden;
+  }
+
+  /**
+   * Call to declare the material is visible. Used by integration to make materials visible that were previously hidden
+   */
+  public void setVisible() {
+    hidden = false;
   }
 
   /** Associates this fluid with the material. Used for melting/casting items. */

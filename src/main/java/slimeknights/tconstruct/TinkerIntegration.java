@@ -1,6 +1,5 @@
 package slimeknights.tconstruct;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
@@ -13,14 +12,11 @@ import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.logging.log4j.Logger;
@@ -172,24 +168,12 @@ public class TinkerIntegration extends TinkerPulse {
   @Subscribe
   public void postInit(FMLPostInitializationEvent event) {
     for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
-      integration.integrateRecipes();
+      integration.integrate();
     }
     TinkerSmeltery.registerRecipeOredictMelting();
-  }
 
-
-  @SubscribeEvent
-  public void onOredictRegister(OreDictionary.OreRegisterEvent event) {
-    // we have not done anything before postInit so skip firing before then
-    if(!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
-      return;
-    }
-
-    // the registered ore might be something we integrate, but something that did not get registered by our postInit
-    for(MaterialIntegration integration : ImmutableList.copyOf(TinkerRegistry.getMaterialIntegrations())) {
-      // calling this multiple time is ok because it does nothing once it was successful
-      integration.integrateRecipes();
-    }
+    // remove any materials that did not integrate
+    TinkerRegistry.removeHiddenMaterials();
   }
 
   private void handleIMCs() {

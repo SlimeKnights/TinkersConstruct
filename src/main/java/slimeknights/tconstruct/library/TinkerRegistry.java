@@ -155,6 +155,14 @@ public final class TinkerRegistry {
     return ImmutableList.copyOf(materials.values());
   }
 
+  /**
+   * Called by TinkerIntegrtion at the end of postInit to remove any materials that are still hidden (unused)
+   * For internal use, should not need to be called by other mods
+   */
+  public static void removeHiddenMaterials() {
+    materials.entrySet().removeIf(entry->entry.getValue().isHidden());
+  }
+
   public static Collection<Material> getAllMaterialsWithStats(String statType) {
     ImmutableList.Builder<Material> mats = ImmutableList.builder();
     for(Material material : materials.values()) {

@@ -173,7 +173,8 @@ public final class TinkerMaterials {
   public static final Material slimeleaf_purple = mat("slimeleaf_purple", 0xc873c8);
 
   private static Material mat(String name, int color) {
-    Material mat = new Material(name, color);
+    // make materials hidden by default, integration will make them visible if integrated
+    Material mat = new Material(name, color, true);
     materials.add(mat);
     return mat;
   }

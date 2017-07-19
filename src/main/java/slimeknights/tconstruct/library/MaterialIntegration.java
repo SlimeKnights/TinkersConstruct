@@ -97,7 +97,6 @@ public class MaterialIntegration {
     }
 
     // register material
-    // TODO make material hidden and show it if we want it later
     if(material != null) {
       TinkerRegistry.addMaterial(material);
       if(fluid != null) {
@@ -113,7 +112,7 @@ public class MaterialIntegration {
   /**
    * Called to integrate the recipes based on oredictionary recipes
    */
-  public void integrateRecipes() {
+  public void integrate() {
     if(integrated) {
       return;
     }
@@ -135,15 +134,15 @@ public class MaterialIntegration {
       TinkerSmeltery.registerOredictMeltingCasting(fluid, oreSuffix);
     }
     if(material != null) {
+      material.setVisible();
       TinkerSmeltery.registerToolpartMeltingCasting(material);
+      registerRepresentativeItem();
     }
-
-    registerRepresentativeItem();
   }
 
-  public void registerRepresentativeItem() {
+  private void registerRepresentativeItem() {
     // also set the representative item
-    if(material != null && material.getRepresentativeItem().isEmpty() && representativeItem != null && !representativeItem.isEmpty()) {
+    if(material.getRepresentativeItem().isEmpty() && representativeItem != null && !representativeItem.isEmpty()) {
       List<ItemStack> ore = OreDictionary.getOres(representativeItem, false);
       if(!ore.isEmpty()) {
         ItemStack itemStack = ore.get(0).copy();
