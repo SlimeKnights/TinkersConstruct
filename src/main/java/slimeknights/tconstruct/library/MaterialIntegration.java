@@ -29,6 +29,7 @@ public class MaterialIntegration {
   private boolean integrated;
   private boolean preInit;
   private boolean toolforge = false;
+  private boolean addedFluidBlock;
 
   public MaterialIntegration(Material material) {
     this(material, null);
@@ -55,6 +56,7 @@ public class MaterialIntegration {
 
     this.integrated = false;
     this.preInit = false;
+    this.addedFluidBlock = false;
   }
 
   public MaterialIntegration toolforge() {
@@ -169,7 +171,9 @@ public class MaterialIntegration {
    * @param registry  Block Registry
    */
   public void registerFluidBlock(IForgeRegistry<Block> registry) {
-    if(fluid != null) {
+    // ensure the fluid block is not already registered
+    if(fluid != null && fluid.getBlock() == null) {
+      addedFluidBlock = true;
       TinkerFluids.registerMoltenBlock(registry, fluid);
     }
   }
@@ -178,7 +182,7 @@ public class MaterialIntegration {
    * Called during the register event to register fluid models. If no fluid is defined it does nothing for simplicity
    */
   public void registerFluidModel() {
-    if(fluid != null) {
+    if(addedFluidBlock) {
       TinkerFluids.proxy.registerFluidModels(fluid);
     }
   }
