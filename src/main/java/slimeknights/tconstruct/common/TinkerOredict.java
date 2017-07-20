@@ -43,6 +43,7 @@ import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallPurple;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeCrystalBlue;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeCrystalGreen;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeCrystalMagma;
+import static slimeknights.tconstruct.shared.TinkerCommons.matNecroticBone;
 import static slimeknights.tconstruct.shared.TinkerCommons.nuggetAlubrass;
 import static slimeknights.tconstruct.shared.TinkerCommons.nuggetArdite;
 import static slimeknights.tconstruct.shared.TinkerCommons.nuggetCobalt;
@@ -193,6 +194,7 @@ public class TinkerOredict {
   private static void registerTools() {
     // TinkerTools Pulse
     oredict(toolTables, BlockToolTable.TableTypes.CraftingStation.meta, "workbench");
+    oredict(matNecroticBone, "boneWithered");
 
     oredict(pickHead, "partPickHead");
     oredict(binding, "partBinding");

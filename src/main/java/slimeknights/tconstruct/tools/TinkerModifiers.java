@@ -9,11 +9,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -178,7 +176,7 @@ public class TinkerModifiers extends AbstractToolPulse {
     modMendingMoss.addItem(TinkerCommons.matMendingMoss, 1, 1);
 
     modNecrotic = registerModifier(new ModNecrotic());
-    modNecrotic.addItem(TinkerCommons.matNecroticBone, 1, 1);
+    modNecrotic.addItem("boneWithered");
 
     modReinforced = registerModifier(new ModReinforced());
     modReinforced.addItem(TinkerCommons.matReinforcement, 1, 1);
