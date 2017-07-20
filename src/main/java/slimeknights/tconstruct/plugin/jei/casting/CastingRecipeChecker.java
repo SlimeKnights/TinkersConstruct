@@ -39,7 +39,7 @@ public class CastingRecipeChecker {
 
             recipeWrapper = new CastingRecipeWrapper(list, recipe, JEIPlugin.castingCategory.castingTable);
 
-            if(!recipeWrapper.inputFluid.isEmpty() && recipeWrapper.inputFluid.get(0) != null && (!recipeWrapper.hasCast() || (!recipeWrapper.cast.isEmpty() && recipeWrapper.cast.get(0) != null)) && (recipeWrapper.output != null && !recipeWrapper.output.isEmpty() && recipeWrapper.output.get(0) != null)) {
+            if(recipeWrapper.isValid(false)) {
               recipes.add(recipeWrapper);
             }
           }
@@ -49,7 +49,7 @@ public class CastingRecipeChecker {
         else {
           recipeWrapper = new CastingRecipeWrapper(recipe, JEIPlugin.castingCategory.castingTable);
 
-          if(!recipeWrapper.inputFluid.isEmpty() && recipeWrapper.inputFluid.get(0) != null && (!recipeWrapper.hasCast() || (!recipeWrapper.cast.isEmpty() && recipeWrapper.cast.get(0) != null)) && (recipeWrapper.output != null && !recipeWrapper.output.isEmpty() && recipeWrapper.output.get(0) != null)) {
+          if(recipeWrapper.isValid(true)) {
             recipes.add(recipeWrapper);
           }
         }
@@ -62,7 +62,7 @@ public class CastingRecipeChecker {
 
         recipeWrapper = new CastingRecipeWrapper(recipe, JEIPlugin.castingCategory.castingBasin);
 
-        if(!recipeWrapper.inputFluid.isEmpty() && recipeWrapper.inputFluid.get(0) != null && (!recipeWrapper.hasCast() || (!recipeWrapper.cast.isEmpty() && recipeWrapper.cast.get(0) != null)) && (recipeWrapper.output != null && !recipeWrapper.output.isEmpty() && recipeWrapper.output.get(0) != null)) {
+        if(recipeWrapper.isValid(true)) {
           recipes.add(recipeWrapper);
         }
       }

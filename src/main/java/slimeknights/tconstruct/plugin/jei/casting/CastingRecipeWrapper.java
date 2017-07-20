@@ -92,4 +92,14 @@ public class CastingRecipeWrapper implements IRecipeWrapper {
       minecraft.fontRenderer.drawString(Util.translate("gui.jei.casting.consume"), 78, 48, 0xaa0000);
     }
   }
+
+  public boolean isValid(boolean checkCast) {
+    return !this.inputFluid.isEmpty()
+        && this.inputFluid.get(0) != null
+        && (!checkCast || !this.hasCast()
+            || (!this.cast.isEmpty()
+                && !this.cast.get(0).isEmpty()))
+        && !this.output.isEmpty()
+        && !this.output.get(0).isEmpty();
+  }
 }
