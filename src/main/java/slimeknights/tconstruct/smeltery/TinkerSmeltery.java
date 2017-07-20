@@ -315,7 +315,6 @@ public class TinkerSmeltery extends TinkerPulse {
   public void postInit(FMLPostInitializationEvent event) {
     registerSmelteryFuel();
     registerMeltingCasting();
-    registerAlloys();
 
     // register remaining cast creation
     for(FluidStack fs : castCreationFluids) {
@@ -474,7 +473,14 @@ public class TinkerSmeltery extends TinkerPulse {
     TinkerRegistry.registerEntityMelting(EntityVillager.class, new FluidStack(TinkerFluids.emerald, 6));
   }
 
-  private void registerAlloys() {
+  /**
+   * Called by Tinkers Integration to register allows, some are conditional on integrations being loaded
+   */
+  public static void registerAlloys() {
+    if(!isSmelteryLoaded()) {
+      return;
+    }
+
     // 1 bucket lava + 1 bucket water = 2 ingots = 1 block obsidian
     // 1000 + 1000 = 288
     // 125 + 125 = 36
@@ -549,6 +555,10 @@ public class TinkerSmeltery extends TinkerPulse {
     }
   }
 
+  /**
+   * Called by MaterialIntegration's to register tool part recipes
+   * @param material
+   */
   public static void registerToolpartMeltingCasting(Material material) {
     // melt ALL the toolparts n stuff. Also cast them.
     Fluid fluid = material.getFluid();
@@ -620,6 +630,7 @@ public class TinkerSmeltery extends TinkerPulse {
    * Registers melting for all directly supported pre- and suffixes of the ore.
    * E.g. "Iron" -> "ingotIron", "blockIron", "oreIron",
    */
+  @SuppressWarnings("unchecked")
   public static void registerOredictMeltingCasting(Fluid fluid, String ore) {
     ImmutableSet.Builder<Pair<List<ItemStack>, Integer>> builder = ImmutableSet.builder();
     Pair<List<ItemStack>, Integer> nuggetOre = Pair.of(OreDictionary.getOres("nugget" + ore), Material.VALUE_Nugget);
@@ -681,8 +692,15 @@ public class TinkerSmeltery extends TinkerPulse {
     knownOreFluids.put(fluid, knownOres);
   }
 
-  // take all fluids we registered oredicts for and scan all recipies for oredict-recipies that we can apply this to
+  /**
+   * take all fluids we registered oredicts for and scan all recipies for oredict-recipies that we can apply this to
+   *
+   * called in TinkerIntegration
+   */
   public static void registerRecipeOredictMelting() {
+    if(!isSmelteryLoaded()) {
+      return;
+    }
     // we go through all recipies, and if it's an ore recipe we go through its contents and check if it
     // only consists of one of our known oredict entries
     for(IRecipe irecipe : CraftingManager.REGISTRY) {

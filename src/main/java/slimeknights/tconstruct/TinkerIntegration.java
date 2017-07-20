@@ -170,6 +170,8 @@ public class TinkerIntegration extends TinkerPulse {
     for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
       integration.integrate();
     }
+    // called here since they are dependent on integrations
+    TinkerSmeltery.registerAlloys();
     TinkerSmeltery.registerRecipeOredictMelting();
 
     // remove any materials that did not integrate
