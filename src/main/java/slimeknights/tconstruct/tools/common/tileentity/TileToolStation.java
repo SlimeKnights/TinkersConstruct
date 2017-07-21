@@ -1,8 +1,11 @@
 package slimeknights.tconstruct.tools.common.tileentity;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemBlock;
@@ -75,5 +78,10 @@ public class TileToolStation extends TileTable implements IInventoryGui {
 
     // add inventory if needed
     return state.withProperty(BlockTable.INVENTORY, toDisplay);
+  }
+
+  @Override
+  public void fillWithLootFromTable(@Nullable EntityPlayer player) {
+    // No loot for this.
   }
 }

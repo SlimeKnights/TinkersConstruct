@@ -27,6 +27,7 @@ public class TilePatternChest extends TileTinkerChest implements IInventoryGui {
 
   @Override
   public Container createContainer(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
+    this.fillWithLootFromTable(inventoryplayer.player);
     return new ContainerPatternChest(inventoryplayer, this);
   }
 

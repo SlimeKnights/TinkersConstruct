@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.common.tileentity;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
@@ -10,6 +11,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.common.config.Config;
@@ -38,5 +40,10 @@ public class TileStencilTable extends TileTable implements IInventoryGui {
   @Override
   public boolean isItemValidForSlot(int slot, @Nonnull ItemStack itemstack) {
     return itemstack.getItem() == TinkerTools.pattern && (Config.reuseStencil || !itemstack.hasTagCompound());
+  }
+
+  @Override
+  public void fillWithLootFromTable(@Nullable EntityPlayer player) {
+    // No loot for this.
   }
 }

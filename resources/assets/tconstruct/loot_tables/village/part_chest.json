@@ -1,0 +1,134 @@
+{
+    "pools": [
+        {
+            "name": "village_part_chest",
+            "rolls": {
+                "min": 3,
+                "max": 27
+            },
+            "entries": [
+                {
+                    "type": "item",
+                    "entryName": "pickaxe_head",
+                    "name": "tconstruct:pick_head",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "tconstruct:random_material"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "shovel_head",
+                    "name": "tconstruct:shovel_head",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "tconstruct:random_material"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "axe_head",
+                    "name": "tconstruct:axe_head",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "tconstruct:random_material"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "binding",
+                    "name": "tconstruct:binding",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "tconstruct:random_material"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "sword_blade",
+                    "name": "tconstruct:sword_blade",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "tconstruct:random_material"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "wide_guard",
+                    "name": "tconstruct:wide_guard",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "tconstruct:random_material"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "hand_guard",
+                    "name": "tconstruct:hand_guard",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "tconstruct:random_material"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "cross_guard",
+                    "name": "tconstruct:cross_guard",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "tconstruct:random_material"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "knife_blade",
+                    "name": "tconstruct:knife_blade",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "tconstruct:random_material"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "pan_head",
+                    "name": "tconstruct:pan_head",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "tconstruct:random_material"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "sign_head",
+                    "name": "tconstruct:sign_head",
+                    "weight": 15,
+                    "functions": [
+                        {
+                            "function": "tconstruct:random_material"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

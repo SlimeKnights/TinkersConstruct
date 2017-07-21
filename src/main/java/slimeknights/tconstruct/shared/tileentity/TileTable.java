@@ -5,6 +5,7 @@ import net.minecraft.block.BlockPane;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -12,14 +13,21 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.storage.loot.ILootContainer;
+import net.minecraft.world.storage.loot.LootContext.Builder;
+import net.minecraft.world.storage.loot.LootTable;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.Random;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.mantle.tileentity.TileInventory;
 import slimeknights.tconstruct.common.TinkerNetwork;
@@ -29,11 +37,14 @@ import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
-public class TileTable extends TileInventory {
+public class TileTable extends TileInventory implements ILootContainer {
 
   public static final String FEET_TAG = "textureBlock";
   public static final String FACE_TAG = "facing";
   protected int displaySlot = 0;
+
+  protected ResourceLocation lootTable;
+  protected long lootTableSeed;
 
   // default constructor for loading
   public TileTable() {
@@ -88,8 +99,8 @@ public class TileTable extends TileInventory {
   }
 
   public boolean isInventoryEmpty() {
-    for (int i = 0; i < this.getSizeInventory(); ++i) {
-      if (!getStackInSlot(i).isEmpty()) {
+    for(int i = 0; i < this.getSizeInventory(); ++i) {
+      if(!getStackInSlot(i).isEmpty()) {
         return false;
       }
     }
@@ -111,7 +122,7 @@ public class TileTable extends TileInventory {
 
     PropertyTableItem.TableItem item = new PropertyTableItem.TableItem(stack, model, 0, -0.46875f, 0, 0.8f, (float) (Math.PI / 2));
     if(stack.getItem() instanceof ItemBlock) {
-      if(!(Block.getBlockFromItem(stack.getItem())  instanceof BlockPane)) {
+      if(!(Block.getBlockFromItem(stack.getItem()) instanceof BlockPane)) {
         item.y = -0.3125f;
         item.r = 0;
       }
@@ -170,16 +181,126 @@ public class TileTable extends TileInventory {
     return getTileData().getCompoundTag(FEET_TAG);
   }
 
-  @Override
-  public void setInventorySlotContents(int slot, ItemStack itemstack) {
-    // we sync slot changes to all clients around
-    if(getWorld() != null && getWorld() instanceof WorldServer && !getWorld().isRemote && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot))) {
-      TinkerNetwork.sendToClients((WorldServer) getWorld(), this.pos, new InventorySlotSyncPacket(itemstack, slot, pos));
-    }
-    super.setInventorySlotContents(slot, itemstack);
+  // Loot Tables Start
 
-    if(getWorld() != null && getWorld().isRemote && Config.renderTableItems) {
-      Minecraft.getMinecraft().renderGlobal.notifyBlockUpdate(null, pos, null, null, 0);
+  protected boolean checkLootTableAndRead(NBTTagCompound compound) {
+    if(compound.hasKey("LootTable", 8)) {
+      this.lootTable = new ResourceLocation(compound.getString("LootTable"));
+      this.lootTableSeed = compound.getLong("LootTableSeed");
+      return true;
     }
+    else {
+      return false;
+    }
+  }
+
+  protected boolean checkLootTableAndWrite(NBTTagCompound compound) {
+    if(this.lootTable != null) {
+      compound.setString("LootTable", this.lootTable.toString());
+
+      if(this.lootTableSeed != 0L) {
+        compound.setLong("LootTableSeed", this.lootTableSeed);
+      }
+
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  public void fillWithLootFromTable(@Nullable EntityPlayer player) {
+    if(this.lootTable != null && this.getWorld() instanceof WorldServer) {
+      LootTable loottable = this.getWorld().getLootTableManager().getLootTableFromLocation(this.lootTable);
+      this.lootTable = null;
+      Random random;
+
+      if(this.lootTableSeed == 0L) {
+        random = new Random();
+      }
+      else {
+        random = new Random(this.lootTableSeed);
+      }
+
+      Builder builder = new Builder((WorldServer) this.getWorld());
+
+      if(player != null) {
+        builder.withLuck(player.getLuck());
+      }
+
+      loottable.fillInventory(this, random, builder.build());
+    }
+  }
+
+  @Override
+  public ResourceLocation getLootTable() {
+    return this.lootTable;
+  }
+
+  public void setLootTable(ResourceLocation lootTableIn, long lootTableSeedIn) {
+    this.lootTable = lootTableIn;
+    this.lootTableSeed = lootTableSeedIn;
+  }
+
+  @Override
+  public void writeInventoryToNBT(NBTTagCompound tag) {
+    if(!this.checkLootTableAndWrite(tag)) {
+      super.writeInventoryToNBT(tag);
+    }
+  }
+
+  @Override
+  public void readInventoryFromNBT(NBTTagCompound tag) {
+    if(!this.checkLootTableAndRead(tag)) {
+      super.readInventoryFromNBT(tag);
+    }
+  }
+
+  @Nonnull
+  @Override
+  public ItemStack getStackInSlot(int slot) {
+    this.fillWithLootFromTable(null);
+
+    return super.getStackInSlot(slot);
+  }
+
+  @Override
+  public ItemStack decrStackSize(int slot, int quantity) {
+    this.fillWithLootFromTable(null);
+
+    return super.decrStackSize(slot, quantity);
+  }
+
+  @Nonnull
+  @Override
+  public ItemStack removeStackFromSlot(int slot) {
+    this.fillWithLootFromTable(null);
+
+    return super.removeStackFromSlot(slot);
+  }
+
+  @Override
+  public void setInventorySlotContents(int slot, @Nonnull ItemStack itemstack) {
+    // Ensure no one spawns a pattern chest with random items in it like iron etc.
+    if(isItemValidForSlot(slot, itemstack)) {
+      this.fillWithLootFromTable(null);
+
+      // we sync slot changes to all clients around
+      if(getWorld() != null && getWorld() instanceof WorldServer && !getWorld().isRemote && !ItemStack.areItemStacksEqual(itemstack, getStackInSlot(slot))) {
+        TinkerNetwork.sendToClients((WorldServer) getWorld(), this.pos, new InventorySlotSyncPacket(itemstack, slot, pos));
+      }
+      super.setInventorySlotContents(slot, itemstack);
+
+      if(getWorld() != null && getWorld().isRemote && Config.renderTableItems) {
+        Minecraft.getMinecraft().renderGlobal.notifyBlockUpdate(null, pos, null, null, 0);
+      }
+    }
+  }
+
+  @Override
+  public void clear() {
+    this.fillWithLootFromTable(null);
+
+    super.clear();
   }
 }

@@ -28,6 +28,7 @@ public class TileCraftingStation extends TileTable implements IInventoryGui {
 
   @Override
   public Container createContainer(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
+    this.fillWithLootFromTable(inventoryplayer.player);
     return new ContainerCraftingStation(inventoryplayer, this);
   }
 

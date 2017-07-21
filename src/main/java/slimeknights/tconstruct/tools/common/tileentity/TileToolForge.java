@@ -1,6 +1,9 @@
 package slimeknights.tconstruct.tools.common.tileentity;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.math.BlockPos;
@@ -26,5 +29,10 @@ public class TileToolForge extends TileToolStation {
   @Override
   public Container createContainer(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
     return new ContainerToolForge(inventoryplayer, this);
+  }
+
+  @Override
+  public void fillWithLootFromTable(@Nullable EntityPlayer player) {
+    // No loot for this.
   }
 }

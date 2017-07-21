@@ -1,0 +1,337 @@
+{
+    "pools": [
+        {
+            "name": "village_crafting_station",
+            "rolls": {
+                "min": 5,
+                "max": 30
+            },
+            "entries": [
+                {
+                    "type": "item",
+                    "entryName": "pickaxe_head_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:pick_head\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "shovel_head_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:shovel_head\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "axe_head_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:axe_head\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "broad_axe_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:broad_axe_head\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "sword_blade_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:sword_blade\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "large_sword_blade_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:large_sword_blade\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "hammer_head_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:hammer_head\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "excavator_head_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:excavator_head\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "scythe_head_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:scythe_head\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "pan_head_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:pan_head\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "sign_head_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:sign_head\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "tool_rod_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:tool_rod\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "tough_tool_rod_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:tough_tool_rod\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "binding_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:binding\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "tough_binding_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:tough_binding\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "wide_guard_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:wide_guard\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "hand_guard_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:hand_guard\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "cross_guard_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:cross_guard\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "large_plate_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:large_plate\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "knife_blade_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:knife_blade\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "bow_limb_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:bow_limb\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "bow_string_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:bow_string\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "arrow_head_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:arrow_head\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "arrow_shaft_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:arrow_shaft\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "fletching_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:fletching\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "shard_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:shard\"}"
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "entryName": "sharpening_kit_pattern",
+                    "name": "tconstruct:pattern",
+                    "weight": 20,
+                    "functions": [
+                        {
+                            "function": "set_nbt",
+                            "tag": "{PartType:\"tconstruct:sharpening_kit\"}"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -59,6 +59,8 @@ public final class Config {
   public static int cobaltRate = 20; // max. cobalt per chunk
   public static boolean genArdite = true;
   public static int arditeRate = 20; // max. ardite per chunk
+  public static boolean generateVillageHouses = true;
+  public static boolean enableVillagers = true;
 
   // Clientside configs
   public static boolean renderTableItems = true;
@@ -249,6 +251,17 @@ public final class Config {
 
       prop = configFile.get(cat, "arditeRate", arditeRate);
       arditeRate = prop.getInt();
+      propOrder.add(prop.getName());
+
+      // Village generation
+      prop = configFile.get(cat, "generateVillageHouses", generateVillageHouses);
+      prop.setComment("If true, village houses will spawn");
+      generateVillageHouses = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "enableVillagers", enableVillagers);
+      prop.setComment("If true, tinker villages will be added to the game");
+      enableVillagers = prop.getBoolean();
       propOrder.add(prop.getName());
 
       Worldgen.setPropertyOrder(propOrder);

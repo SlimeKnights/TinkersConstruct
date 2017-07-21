@@ -28,6 +28,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.EntityIDs;
 import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.world.block.BlockSlimeDirt;
@@ -40,6 +41,7 @@ import slimeknights.tconstruct.world.entity.EntityBlueSlime;
 import slimeknights.tconstruct.world.item.ItemBlockLeaves;
 import slimeknights.tconstruct.world.worldgen.MagmaSlimeIslandGenerator;
 import slimeknights.tconstruct.world.worldgen.SlimeIslandGenerator;
+import slimeknights.tconstruct.world.village.TinkerVillage;
 
 @Pulse(id = TinkerWorld.PulseId, description = "Everything that's found in the world and worldgen")
 public class TinkerWorld extends TinkerPulse {
@@ -124,6 +126,10 @@ public class TinkerWorld extends TinkerPulse {
   @Subscribe
   public void init(FMLInitializationEvent event) {
     proxy.init();
+
+    if(Config.generateVillageHouses) {
+      TinkerVillage.initVillage();
+    }
   }
 
   // POST-INITIALIZATION

@@ -28,6 +28,7 @@ public class TilePartBuilder extends TileTable implements IInventoryGui {
 
   @Override
   public Container createContainer(InventoryPlayer inventoryplayer, World world, BlockPos pos) {
+    this.fillWithLootFromTable(inventoryplayer.player);
     return new ContainerPartBuilder(inventoryplayer, this);
   }
 
