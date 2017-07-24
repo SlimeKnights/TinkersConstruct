@@ -99,7 +99,7 @@ public class CastingRecipeWrapper implements IRecipeWrapper {
         && (!checkCast || !this.hasCast()
             || (!this.cast.isEmpty()
                 && !this.cast.get(0).isEmpty()))
-        && !this.output.isEmpty()
-        && !this.output.get(0).isEmpty();
+        && (output == null || !this.output.isEmpty()
+            && !this.output.get(0).isEmpty());
   }
 }
