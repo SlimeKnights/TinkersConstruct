@@ -12,7 +12,6 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -100,7 +99,6 @@ public class BlockFaucet extends BlockContainer {
     return true;
   }
 
-
   @Override
   public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
     if(worldIn.isRemote) {
@@ -118,11 +116,11 @@ public class BlockFaucet extends BlockContainer {
 
   static {
     ImmutableMap.Builder<EnumFacing, AxisAlignedBB> builder = ImmutableMap.builder();
-    builder.put(EnumFacing.UP,    new AxisAlignedBB(0.25,  0.625, 0.25,    0.75,  1,     0.75));
-    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0.25,  0.25,  0,       0.75,  0.625, 0.375));
-    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0.25,  0.25,  0.625,   0.75,  0.625, 1.0));
-    builder.put(EnumFacing.EAST,  new AxisAlignedBB(0.625, 0.25,  0.25,    1,     0.625, 0.75));
-    builder.put(EnumFacing.WEST,  new AxisAlignedBB(0,     0.25,  0.25,    0.375, 0.625, 0.75));
+    builder.put(EnumFacing.UP, new AxisAlignedBB(0.25, 0.625, 0.25, 0.75, 1, 0.75));
+    builder.put(EnumFacing.NORTH, new AxisAlignedBB(0.25, 0.25, 0, 0.75, 0.625, 0.375));
+    builder.put(EnumFacing.SOUTH, new AxisAlignedBB(0.25, 0.25, 0.625, 0.75, 0.625, 1.0));
+    builder.put(EnumFacing.EAST, new AxisAlignedBB(0.625, 0.25, 0.25, 1, 0.625, 0.75));
+    builder.put(EnumFacing.WEST, new AxisAlignedBB(0, 0.25, 0.25, 0.375, 0.625, 0.75));
     builder.put(EnumFacing.DOWN, FULL_BLOCK_AABB);
 
     BOUNDS = builder.build();
@@ -161,8 +159,6 @@ public class BlockFaucet extends BlockContainer {
   public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
     return new TileFaucet();
   }
-
-
 
   /**
    * Called by ItemBlocks just before a block is actually set in the world, to allow for adjustments to the

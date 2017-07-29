@@ -17,7 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -26,7 +25,6 @@ import java.util.stream.Stream;
 import javax.annotation.Nonnull;
 
 import slimeknights.mantle.network.AbstractPacket;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
@@ -45,7 +43,6 @@ import slimeknights.tconstruct.library.client.model.ModifierModelLoader;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.client.particle.EntitySlimeFx;
 import slimeknights.tconstruct.library.client.particle.Particles;
-import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialGUI;
 import slimeknights.tconstruct.library.tools.Pattern;
@@ -88,6 +85,8 @@ public abstract class ClientProxy extends CommonProxy {
     MaterialRenderInfoLoader.addRenderInfo("metal", MetalRenderInfoDeserializer.class);
     MaterialRenderInfoLoader.addRenderInfo("metal_textured", TexturedMetalRenderInfoDeserializer.class);
     MaterialRenderInfoLoader.addRenderInfo("block", BlockRenderInfoDeserializer.class);
+
+    MinecraftForge.EVENT_BUS.register(CustomTextureCreator.INSTANCE);
   }
 
   public static void initRenderMaterials() {
@@ -110,24 +109,19 @@ public abstract class ClientProxy extends CommonProxy {
       Stream.of(RenderMaterials),
       Stream.of(RenderMaterialString)
     ).forEach(TinkerRegistry::addMaterial);
+  }
 
+  public static void initRenderer() {
     if(TinkerHarvestTools.pickaxe != null) {
       TinkerRegistry.tabTools.setDisplayIcon(TinkerHarvestTools.pickaxe.buildItemForRendering(ImmutableList.of(RenderMaterials[0], RenderMaterials[1], RenderMaterials[2])));
     }
     if(TinkerTools.pickHead != null) {
       TinkerRegistry.tabParts.setDisplayIcon(TinkerTools.pickHead.getItemstackWithMaterial(RenderMaterials[2]));
     }
-  }
 
-  public static void initRenderer() {
-
-    CustomTextureCreator creator = CustomTextureCreator.INSTANCE;
-
-    MinecraftForge.EVENT_BUS.register(creator);
     IReloadableResourceManager resourceManager = (IReloadableResourceManager) mc.getResourceManager();
     resourceManager.registerReloadListener(MaterialRenderInfoLoader.INSTANCE);
-    resourceManager.registerReloadListener(AbstractColoredTexture.CacheClearer.INSTANCE);
-    resourceManager.registerReloadListener(creator);
+    resourceManager.registerReloadListener(CustomTextureCreator.INSTANCE);
 
     // Font renderer for tooltips and GUIs
     fontRenderer = new CustomFontRenderer(mc.gameSettings,
@@ -151,48 +145,6 @@ public abstract class ClientProxy extends CommonProxy {
     TinkerBook.INSTANCE.fontRenderer = bookRenderer;
 
     MinecraftForge.EVENT_BUS.register(CrosshairRenderEvents.INSTANCE);
-  }
-
-  @Deprecated
-  protected ResourceLocation registerModel(Item item, String... customVariants) {
-    return registerModel(item, 0, customVariants);
-  }
-
-  /**
-   * Registers a model variant for you. :3 The model-string is obtained through the game registry.
-   * @deprecated Use registerItemModel
-   */
-  @Deprecated
-  protected ResourceLocation registerModel(Item item, int meta, String... customVariants) {
-    // get the registered name for the object
-    ResourceLocation location = item.getRegistryName();
-
-    // are you trying to add an unregistered item...?
-    if(location == null) {
-      TConstruct.log.error("Trying to register a model for an unregistered item: %s" + item.getUnlocalizedName());
-      // bad boi
-      return null;
-    }
-
-    location = new ResourceLocation(location.getResourceDomain(), location.getResourcePath());
-
-    // and plop it in.
-    // This here is needed for the model to be found ingame when the game looks for a model to render an Itemstack (Item:Meta)
-    ModelLoader.setCustomModelResourceLocation(item, meta,
-                                               new ModelResourceLocation(location,
-                                                                         "inventory"));
-
-    // We have to readd the default variant if we have custom variants, since it wont be added otherwise
-    if(customVariants.length > 0) {
-      ModelLoader.registerItemVariants(item, location);
-    }
-
-    for(String customVariant : customVariants) {
-      String custom = location.getResourceDomain() + ":" + customVariant;
-      ModelLoader.registerItemVariants(item, new ResourceLocation(custom));
-    }
-
-    return location;
   }
 
   /** Register with name only, defaults to TiC domain */

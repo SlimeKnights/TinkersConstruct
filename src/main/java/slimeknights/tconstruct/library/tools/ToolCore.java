@@ -13,7 +13,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -242,8 +241,8 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
     Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
 
     if(slot == EntityEquipmentSlot.MAINHAND && !ToolHelper.isBroken(stack)) {
-      multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", (double) ToolHelper.getActualAttack(stack), 0));
-      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", (double) ToolHelper.getActualAttackSpeed(stack) - 4d, 0));
+      multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", ToolHelper.getActualAttack(stack), 0));
+      multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", ToolHelper.getActualAttackSpeed(stack) - 4d, 0));
     }
 
     return multimap;
@@ -372,8 +371,10 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   // Creative tab items
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    addDefaultSubItems(subItems);
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      addDefaultSubItems(subItems);
+    }
   }
 
   protected void addDefaultSubItems(List<ItemStack> subItems, Material... fixedMaterials) {
@@ -431,7 +432,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   /** A simple string identifier for the tool, used for identification in texture generation etc. */
   public String getIdentifier() {
-    return Util.getItemLocation(this).getResourcePath();
+    return getRegistryName().getResourcePath();
   }
 
   /** The tools name completely without material information */
@@ -490,7 +491,6 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
       }
     }
   }
-
 
   @Override
   public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {

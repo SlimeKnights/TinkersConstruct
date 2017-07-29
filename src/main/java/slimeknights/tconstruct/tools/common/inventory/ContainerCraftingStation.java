@@ -1,13 +1,14 @@
 package slimeknights.tconstruct.tools.common.inventory;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCraftResult;
+import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -23,14 +24,16 @@ import slimeknights.tconstruct.tools.common.tileentity.TileCraftingStation;
 // nearly the same as ContainerWorkbench but uses the TileEntities inventory
 public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftingStation> {
 
-  public InventoryCraftingPersistent craftMatrix;
-  public IInventory craftResult;
+  private final EntityPlayer player;
+  private final InventoryCraftingPersistent craftMatrix;
+  private final InventoryCraftResult craftResult;
 
   public ContainerCraftingStation(InventoryPlayer playerInventory, TileCraftingStation tile) {
     super(tile);
 
     craftResult = new InventoryCraftResult();
     craftMatrix = new InventoryCraftingPersistent(this, tile, 3, 3);
+    player = playerInventory.player;
 
     this.addSlotToContainer(new SlotCrafting(playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35));
     int i;
@@ -104,8 +107,7 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
   // update crafting
   @Override
   public void onCraftMatrixChanged(IInventory inventoryIn) {
-    this.craftResult
-        .setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.world));
+    this.slotChangedCraftingGrid(this.world, this.player, this.craftMatrix, this.craftResult);
   }
 
   @Override
@@ -141,5 +143,9 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
    */
   public int getPlayerInventoryStart() {
     return playerInventoryStart;
+  }
+
+  public InventoryCrafting getCraftMatrix() {
+    return craftMatrix;
   }
 }

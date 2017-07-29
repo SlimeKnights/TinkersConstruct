@@ -3,13 +3,13 @@ package slimeknights.tconstruct.gadgets.item;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatBase;
@@ -27,6 +27,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -62,7 +64,7 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
     // no creative items, nono
   }
 
@@ -161,7 +163,6 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
       }
     }
 
-
     ItemStack stack = repairable.copy();
     int index = 0;
     while(stack.getItemDamage() > 0 && index < repairItems.size()) {
@@ -184,7 +185,7 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+  public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
     tooltip.add(String.format("%s: %s", Util.translate(LOC_USES),
                               CustomFontColor.formatPartialAmount(getUses(stack), getMaxDamage(stack))));
     TooltipBuilder.addModifierTooltips(stack, tooltip);
@@ -206,7 +207,6 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
   public FontRenderer getFontRenderer(ItemStack stack) {
     return ClientProxy.fontRenderer;
   }
-
 
   @Override
   public String getLocalizedToolName() {

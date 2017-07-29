@@ -8,18 +8,13 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.resources.IReloadableResourceManager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-
-import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.ModelRegisterUtil;
@@ -41,7 +36,6 @@ public class WorldClientProxy extends ClientProxy {
   public void preInit() {
     ((IReloadableResourceManager) minecraft.getResourceManager()).registerReloadListener(slimeColorizer);
 
-
     // Entities
     RenderingRegistry.registerEntityRenderingHandler(EntityBlueSlime.class, RenderTinkerSlime.FACTORY_BlueSlime);
 
@@ -54,68 +48,33 @@ public class WorldClientProxy extends ClientProxy {
 
     // slime grass, slime tall grass, and slime leaves
     blockColors.registerBlockColorHandler(
-        new IBlockColor() {
-          @Override
-          public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
-            FoliageType type = state.getValue(BlockSlimeGrass.FOLIAGE);
-            if(pos == null) {
-              return SlimeColorizer.getColorStatic(type);
-            }
-
-            return SlimeColorizer.getColorForPos(pos, type);
-          }
+        (state, access, pos, tintIndex) -> {
+          FoliageType type = state.getValue(BlockSlimeGrass.FOLIAGE);
+          return getSlimeColorByPos(pos, type, null);
         },
         TinkerWorld.slimeGrass, TinkerWorld.slimeGrassTall);
 
     // leaves are a bit shifted, so they have slightly different tone than the grass they accompany
     blockColors.registerBlockColorHandler(
-        new IBlockColor() {
-          @Override
-          public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
-            FoliageType type = state.getValue(BlockSlimeGrass.FOLIAGE);
-            if(pos == null) {
-              return SlimeColorizer.getColorStatic(type);
-            }
-
-            return SlimeColorizer.getColorForPos(pos.add(SlimeColorizer.loop / 2, 0, SlimeColorizer.loop / 2), type);
-          }
+        (state, access, pos, tintIndex) -> {
+          FoliageType type = state.getValue(BlockSlimeGrass.FOLIAGE);
+          return getSlimeColorByPos(pos, type, SlimeColorizer.LOOP_OFFSET);
         },
         TinkerWorld.slimeLeaves);
 
     // slime vines don't use a foliage color state, so color them directly
     blockColors.registerBlockColorHandler(
-        new IBlockColor() {
-          @Override
-          public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
-            if(pos == null) {
-              return SlimeColorizer.getColorStatic(BlockSlimeGrass.FoliageType.BLUE);
-            }
-
-            return SlimeColorizer.getColorForPos(pos.add(SlimeColorizer.loop / 2, 0, SlimeColorizer.loop / 2), BlockSlimeGrass.FoliageType.BLUE);
-          }
-        },
+        (state, access, pos, tintIndex) -> getSlimeColorByPos(pos, FoliageType.BLUE, SlimeColorizer.LOOP_OFFSET),
         TinkerWorld.slimeVineBlue1, TinkerWorld.slimeVineBlue2, TinkerWorld.slimeVineBlue3);
     blockColors.registerBlockColorHandler(
-        new IBlockColor() {
-          @Override
-          public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
-            if(pos == null) {
-              return SlimeColorizer.getColorStatic(BlockSlimeGrass.FoliageType.PURPLE);
-            }
-
-            return SlimeColorizer.getColorForPos(pos.add(SlimeColorizer.loop / 2, 0, SlimeColorizer.loop / 2), BlockSlimeGrass.FoliageType.PURPLE);
-          }
-        },
+        (state, access, pos, tintIndex) -> getSlimeColorByPos(pos, FoliageType.PURPLE, SlimeColorizer.LOOP_OFFSET),
         TinkerWorld.slimeVinePurple1, TinkerWorld.slimeVinePurple2, TinkerWorld.slimeVinePurple3);
 
     // item models simply pull the data from the block models, to make things easier for each separate type
     minecraft.getItemColors().registerItemColorHandler(
-        new IItemColor() {
-          @Override
-          public int getColorFromItemstack(@Nonnull ItemStack stack, int tintIndex) {
-            IBlockState iblockstate = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
-            return blockColors.colorMultiplier(iblockstate, null, null, tintIndex);
-          }
+        (stack, tintIndex) -> {
+          IBlockState iblockstate = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
+          return blockColors.colorMultiplier(iblockstate, null, null, tintIndex);
         },
         TinkerWorld.slimeGrass, TinkerWorld.slimeGrassTall, TinkerWorld.slimeLeaves,
         TinkerWorld.slimeVineBlue1, TinkerWorld.slimeVineBlue2, TinkerWorld.slimeVineBlue3,
@@ -125,15 +84,13 @@ public class WorldClientProxy extends ClientProxy {
   }
 
   @Override
-  protected void registerModels() {
+  public void registerModels() {
     // blocks
     ModelLoader.setCustomStateMapper(TinkerWorld.slimeGrass, (new StateMap.Builder()).ignore(BlockSlimeGrass.FOLIAGE).build());
     ModelLoader.setCustomStateMapper(TinkerWorld.slimeLeaves, (new StateMap.Builder())
         .ignore(BlockSlimeGrass.FOLIAGE, BlockLeaves.CHECK_DECAY, BlockLeaves.DECAYABLE).build());
     ModelLoader.setCustomStateMapper(TinkerWorld.slimeGrassTall, (new StateMap.Builder()).ignore(BlockSlimeGrass.FOLIAGE).build());
     ModelLoader.setCustomStateMapper(TinkerWorld.slimeSapling, (new StateMap.Builder()).ignore(BlockSlimeSapling.STAGE, BlockSapling.TYPE).build());
-
-    //ModelLoader.setCustomStateMapper(TinkerWorld.slimeVine, (new StateMap.Builder()).ignore(BlockSlimeVine.FOLIAGE).build());
 
     IStateMapper vineMap = new CustomStateMap("slime_vine");
     ModelLoader.setCustomStateMapper(TinkerWorld.slimeVineBlue1, vineMap);
@@ -200,9 +157,14 @@ public class WorldClientProxy extends ClientProxy {
     registerItemModelTiC(new ItemStack(TinkerWorld.slimeVinePurple3), "slime_vine_end");
   }
 
-  @Override
-  public void postInit() {
-    super.postInit();
+  private int getSlimeColorByPos(BlockPos pos, FoliageType type, BlockPos add) {
+    if(pos == null) {
+      return SlimeColorizer.getColorStatic(type);
+    }
+    if(add !=  null) {
+      pos = pos.add(add);
+    }
 
+    return SlimeColorizer.getColorForPos(pos, type);
   }
 }

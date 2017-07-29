@@ -62,7 +62,7 @@ public class ItemSlimeSling extends ItemTooltip {
 
     // copy chargeup code from bow \o/
     int i = this.getMaxItemUseDuration(stack) - timeLeft;
-    float f = (float) i / 20.0F;
+    float f = i / 20.0F;
     f = (f * f + f * 2.0F) / 3.0F;
     f *= 4f;
 
@@ -77,9 +77,9 @@ public class ItemSlimeSling extends ItemTooltip {
       // we fling the inverted player look vector
       Vec3d vec = player.getLookVec().normalize();
 
-      player.addVelocity(vec.xCoord * -f,
-                         vec.yCoord * -f / 3f,
-                         vec.zCoord * -f);
+      player.addVelocity(vec.x * -f,
+                         vec.y * -f / 3f,
+                         vec.z * -f);
 
       if(player instanceof EntityPlayerMP) {
         EntityPlayerMP playerMP = (EntityPlayerMP) player;

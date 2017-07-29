@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.ranged.item;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
@@ -33,8 +32,10 @@ public class LongBow extends ShortBow {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    addDefaultSubItems(subItems, null, null, null, TinkerMaterials.string);
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      addDefaultSubItems(subItems, null, null, null, TinkerMaterials.string);
+    }
   }
 
   /* Tic Tool Stuff */
@@ -81,7 +82,6 @@ public class LongBow extends ShortBow {
     BowMaterialStats limb2 = materials.get(1).getStatsOrUnknown(MaterialTypes.BOW);
     ExtraMaterialStats grip = materials.get(2).getStatsOrUnknown(MaterialTypes.EXTRA);
     BowStringMaterialStats bowstring = materials.get(3).getStatsOrUnknown(MaterialTypes.BOWSTRING);
-
 
     data.head(head1, head2);
     data.limb(limb1, limb2);

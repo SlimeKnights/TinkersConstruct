@@ -206,14 +206,14 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
   protected void interactWithEntitiesInside() {
     // find all entities inside the smeltery
 
-    AxisAlignedBB bb = info.getBoundingBox().contract(1).offset(0, 0.5, 0).expand(0, 0.5, 0);
+    AxisAlignedBB bb = info.getBoundingBox().contract(-2, -1, -2).offset(-1, 0, -1);
 
     List<Entity> entities = getWorld().getEntitiesWithinAABB(Entity.class, bb);
     for(Entity entity : entities) {
       // item?
       if(entity instanceof EntityItem) {
-        if(TinkerRegistry.getMelting(((EntityItem) entity).getEntityItem()) != null) {
-          ItemStack stack = ((EntityItem) entity).getEntityItem();
+        if(TinkerRegistry.getMelting(((EntityItem) entity).getItem()) != null) {
+          ItemStack stack = ((EntityItem) entity).getItem();
           // pick it up if we can melt it
           for(int i = 0; i < this.getSizeInventory(); i++) {
             if(!isStackInSlot(i)) {

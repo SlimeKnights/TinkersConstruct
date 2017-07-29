@@ -8,9 +8,12 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.logging.log4j.Logger;
 
@@ -22,6 +25,7 @@ import java.util.Map;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.common.CommonProxy;
+import slimeknights.tconstruct.gadgets.item.ItemPiggybackPack.CarryPotionEffect;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
@@ -100,9 +104,16 @@ public class TinkerModifiers extends AbstractToolPulse {
   public static List<Modifier> extraTraitMods;
 
   @Override
-  @Subscribe
-  public void preInit(FMLPreInitializationEvent event) {
+  @SubscribeEvent
+  public void registerItems(Register<Item> event) {
     registerModifiers();
+  }
+
+  @SubscribeEvent
+  public void registerPotions(Register<Potion> event) {
+    IForgeRegistry<Potion> registry = event.getRegistry();
+
+    registry.register(CarryPotionEffect.INSTANCE);
   }
 
   // POST-INITIALIZATION
@@ -165,7 +176,7 @@ public class TinkerModifiers extends AbstractToolPulse {
     modMendingMoss.addItem(TinkerCommons.matMendingMoss, 1, 1);
 
     modNecrotic = registerModifier(new ModNecrotic());
-    modNecrotic.addItem(TinkerCommons.matNecroticBone, 1, 1);
+    modNecrotic.addItem("boneWithered");
 
     modReinforced = registerModifier(new ModReinforced());
     modReinforced.addItem(TinkerCommons.matReinforcement, 1, 1);

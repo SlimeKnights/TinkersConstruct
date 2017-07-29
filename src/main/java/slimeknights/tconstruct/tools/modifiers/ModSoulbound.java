@@ -44,7 +44,7 @@ public class ModSoulbound extends ToolModifier {
     ListIterator<EntityItem> iter = event.getDrops().listIterator();
     while(iter.hasNext()) {
       EntityItem ei = iter.next();
-      ItemStack stack = ei.getEntityItem();
+      ItemStack stack = ei.getItem();
       // find soulbound items
       if(TinkerUtil.hasModifier(stack.getTagCompound(), this.identifier)) {
         // copy the items back into the dead players inventory

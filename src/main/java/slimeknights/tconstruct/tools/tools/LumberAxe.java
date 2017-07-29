@@ -62,9 +62,11 @@ public class LumberAxe extends AoeToolCore {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    addDefaultSubItems(subItems);
-    addInfiTool(subItems, "InfiChopper");
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      addDefaultSubItems(subItems);
+      addInfiTool(subItems, "InfiChopper");
+    }
   }
 
   @Override
@@ -121,7 +123,7 @@ public class LumberAxe extends AoeToolCore {
 
   @Override
   public int[] getRepairParts() {
-    return new int[]{1, 2};
+    return new int[] { 1, 2 };
   }
 
   @Override
@@ -225,7 +227,6 @@ public class LumberAxe extends AoeToolCore {
     public Queue<BlockPos> blocks = Lists.newLinkedList();
     public Set<BlockPos> visited = new THashSet<>();
 
-
     public TreeChopTask(ItemStack tool, BlockPos start, EntityPlayer player, int blocksPerTick) {
       this.world = player.getEntityWorld();
       this.player = player;
@@ -269,7 +270,7 @@ public class LumberAxe extends AoeToolCore {
         }
 
         // save its neighbours
-        for(EnumFacing facing : new EnumFacing[]{EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST}) {
+        for(EnumFacing facing : new EnumFacing[] { EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST }) {
           BlockPos pos2 = pos.offset(facing);
           if(!visited.contains(pos2)) {
             blocks.add(pos2);

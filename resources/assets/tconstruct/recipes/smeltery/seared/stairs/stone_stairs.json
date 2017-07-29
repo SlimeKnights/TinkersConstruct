@@ -1,0 +1,25 @@
+{
+    "conditions": [
+        {
+            "type": "tconstruct:is_pulse_loaded",
+            "pulse_name": "TinkerSmeltery"
+        }
+    ],
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "A  ",
+        "AA ",
+        "AAA"
+    ],
+    "key": {
+        "A": {
+            "item": "tconstruct:seared",
+            "data": 0
+        }
+    },
+    "result": {
+        "item": "tconstruct:seared_stairs_stone",
+        "count": 4,
+        "data": 0
+    }
+}

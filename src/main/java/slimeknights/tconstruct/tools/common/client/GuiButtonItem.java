@@ -51,22 +51,22 @@ public class GuiButtonItem<T> extends GuiButton {
   }
 
   @Override
-  public void drawButton(@Nonnull Minecraft mc, int mouseX, int mouseY) {
+  public void drawButton(@Nonnull Minecraft mc, int mouseX, int mouseY, float partialTicks) {
     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
     mc.getTextureManager().bindTexture(locBackground);
 
     if(this.visible) {
-      this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition &&
-                     mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+      this.hovered = mouseX >= this.x && mouseY >= this.y &&
+                     mouseX < this.x + this.width && mouseY < this.y + this.height;
 
       if(pressed) {
-        guiPressed.draw(xPosition, yPosition);
+        guiPressed.draw(x, y);
       }
       else if(hovered) {
-        guiHover.draw(xPosition, yPosition);
+        guiHover.draw(x, y);
       }
       else {
-        guiNormal.draw(xPosition, yPosition);
+        guiNormal.draw(x, y);
       }
 
       drawIcon(mc);
@@ -74,6 +74,6 @@ public class GuiButtonItem<T> extends GuiButton {
   }
 
   protected void drawIcon(Minecraft mc) {
-    mc.getRenderItem().renderItemIntoGUI(icon, xPosition + 1, yPosition + 1);
+    mc.getRenderItem().renderItemIntoGUI(icon, x + 1, y + 1);
   }
 }

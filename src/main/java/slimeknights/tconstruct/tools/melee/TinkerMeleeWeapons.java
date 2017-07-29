@@ -2,11 +2,16 @@ package slimeknights.tconstruct.tools.melee;
 
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.logging.log4j.Logger;
 
@@ -48,26 +53,34 @@ public class TinkerMeleeWeapons extends AbstractToolPulse {
   public static ToolCore cleaver;
   public static ToolCore battleAxe;
 
+  @Override
+  @SubscribeEvent
+  public void registerItems(Register<Item> event) {
+    super.registerItems(event);
+  }
+
+  @SubscribeEvent
+  public void registerModels(ModelRegistryEvent event) {
+    proxy.registerModels();
+  }
 
   // PRE-INITIALIZATION
-  @Override
   @Subscribe
   public void preInit(FMLPreInitializationEvent event) {
-    super.preInit(event);
     proxy.preInit();
   }
 
   @Override
-  protected void registerTools() {
-    broadSword = registerTool(new BroadSword(), "broadsword");
-    longSword = registerTool(new LongSword(), "longsword");
-    rapier = registerTool(new Rapier(), "rapier");
+  protected void registerTools(IForgeRegistry<Item> registry) {
+    broadSword = registerTool(registry, new BroadSword(), "broadsword");
+    longSword = registerTool(registry, new LongSword(), "longsword");
+    rapier = registerTool(registry, new Rapier(), "rapier");
     // cutlass
     // dagger
-    fryPan = registerTool(new FryPan(), "frypan");
-    battleSign = registerTool(new BattleSign(), "battlesign");
+    fryPan = registerTool(registry, new FryPan(), "frypan");
+    battleSign = registerTool(registry, new BattleSign(), "battlesign");
 
-    cleaver = registerTool(new Cleaver(), "cleaver");
+    cleaver = registerTool(registry, new Cleaver(), "cleaver");
     //battleAxe = registerTool(new BattleAxe(), "battleaxe");
   }
 

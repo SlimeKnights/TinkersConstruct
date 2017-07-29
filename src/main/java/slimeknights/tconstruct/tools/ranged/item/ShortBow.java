@@ -44,12 +44,14 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
 
   @Override
   public int[] getRepairParts() {
-    return new int[]{0, 1};
+    return new int[] { 0, 1 };
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    addDefaultSubItems(subItems, null, null, TinkerMaterials.string);
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      addDefaultSubItems(subItems, null, null, TinkerMaterials.string);
+    }
   }
 
   /* Tic Tool Stuff */
@@ -108,7 +110,6 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
     BowMaterialStats limb1 = materials.get(0).getStatsOrUnknown(MaterialTypes.BOW);
     BowMaterialStats limb2 = materials.get(1).getStatsOrUnknown(MaterialTypes.BOW);
     BowStringMaterialStats bowstring = materials.get(2).getStatsOrUnknown(MaterialTypes.BOWSTRING);
-
 
     data.head(head1, head2);
     data.limb(limb1, limb2);

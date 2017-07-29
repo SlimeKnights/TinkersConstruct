@@ -1,0 +1,26 @@
+{
+    "conditions": [
+        {
+            "type": "tconstruct:is_pulse_loaded",
+            "pulse_name": "TinkerSmeltery"
+        }
+    ],
+    "type": "forge:ore_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:clay_ball"
+        },
+        {
+            "item": "minecraft:gravel"
+        },
+        {
+            "type": "forge:ore_dict",
+            "ore": "sand"
+        }
+    ],
+    "result": {
+        "item": "tconstruct:soil",
+        "count": 2,
+        "data": 0
+    }
+}

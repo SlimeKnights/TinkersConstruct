@@ -1,30 +1,31 @@
 package slimeknights.tconstruct.shared;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.potion.PotionEffect;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.logging.log4j.Logger;
 
+import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.item.ItemEdible;
 import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
-import slimeknights.tconstruct.common.TinkerOredict;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.item.ItemTinkerBook;
@@ -44,7 +45,6 @@ import slimeknights.tconstruct.shared.block.BlockSlimeCongealed;
 import slimeknights.tconstruct.shared.block.BlockSoil;
 import slimeknights.tconstruct.shared.item.ItemMetaDynamicTinkers;
 import slimeknights.tconstruct.shared.worldgen.NetherOreGenerator;
-import slimeknights.tconstruct.tools.TinkerTools;
 
 /**
  * Contains items and blocks and stuff that is shared by multiple pulses, but might be required individually
@@ -69,8 +69,8 @@ public class TinkerCommons extends TinkerPulse {
   public static BlockSlime blockSlime;
   public static BlockSlimeCongealed blockSlimeCongealed;
 
-  public static Block slabDecoGround;
-  public static Block slabFirewood;
+  public static BlockDecoGroundSlab slabDecoGround;
+  public static BlockFirewoodSlab slabFirewood;
 
   // stairs
   public static Block stairsMudBrick;
@@ -79,7 +79,7 @@ public class TinkerCommons extends TinkerPulse {
 
   // glass
   public static Block blockClearGlass;
-  public static Block blockClearStainedGlass;
+  public static BlockClearStainedGlass blockClearStainedGlass;
 
   // block itemstacks
   public static ItemStack grout;
@@ -175,14 +175,60 @@ public class TinkerCommons extends TinkerPulse {
   // Misc.
   public static ItemStack bacon;
 
-  @Subscribe
-  public void preInit(FMLPreInitializationEvent event) {
+  @SubscribeEvent
+  public void registerBlocks(Register<Block> event) {
+    IForgeRegistry<Block> registry = event.getRegistry();
     boolean forced = Config.forceRegisterAll; // causes to always register all items
 
-    book = registerItem(new ItemTinkerBook(), "book");
+    // Soils
+    blockSoil = registerBlock(registry, new BlockSoil(), "soil");
+
+    // Slime Blocks
+    blockSlime = registerBlock(registry, new BlockSlime(), "slime");
+    blockSlimeCongealed = registerBlock(registry, new BlockSlimeCongealed(), "slime_congealed");
+
+    // Ores
+    blockOre = registerBlock(registry, new BlockOre(), "ore");
+
+    // Firewood
+    blockFirewood = registerBlock(registry, new BlockFirewood(), "firewood");
+    blockFirewood.setLightLevel(0.5f);
+    blockFirewood.setCreativeTab(TinkerRegistry.tabGeneral);
+
+    // Decorative Stuff
+    blockDecoGround = registerBlock(registry, new BlockDecoGround(), "deco_ground");
+
+    blockClearGlass = registerBlock(registry, new BlockClearGlass(), "clear_glass");
+    blockClearStainedGlass = registerBlock(registry, new BlockClearStainedGlass(), "clear_stained_glass");
+
+    // slabs
+    slabDecoGround = registerBlock(registry, new BlockDecoGroundSlab(), "deco_ground_slab");
+    slabFirewood = registerBlock(registry, new BlockFirewoodSlab(), "firewood_slab");
+
+    // stairs
+    stairsMudBrick = registerBlockStairsFrom(registry, blockDecoGround, BlockDecoGround.DecoGroundType.MUDBRICK, "mudbrick_stairs");
+    stairsFirewood = registerBlockStairsFrom(registry, blockFirewood, BlockFirewood.FirewoodType.FIREWOOD, "firewood_stairs");
+    stairsLavawood = registerBlockStairsFrom(registry, blockFirewood, BlockFirewood.FirewoodType.LAVAWOOD, "lavawood_stairs");
+
+    // Ingots and nuggets
+    if(isToolsLoaded() || isSmelteryLoaded() || forced) {
+      blockMetal = registerBlock(registry, new BlockMetal(), "metal");
+    }
+
+    if(isToolsLoaded() || isGadgetsLoaded()) {
+      blockGlow = registerBlock(registry, new BlockGlow(), "glow");
+    }
+  }
+
+  @SubscribeEvent
+  public void registerItems(Register<Item> event) {
+    IForgeRegistry<Item> registry = event.getRegistry();
+    boolean forced = Config.forceRegisterAll; // causes to always register all items
+
+    book = registerItem(registry, new ItemTinkerBook(), "book");
 
     // Soils
-    blockSoil = registerEnumBlock(new BlockSoil(), "soil");
+    blockSoil = registerEnumItemBlock(registry, blockSoil);
 
     grout = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.GROUT.getMeta());
     slimyMudGreen = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.SLIMY_MUD_GREEN.getMeta());
@@ -191,43 +237,44 @@ public class TinkerCommons extends TinkerPulse {
     graveyardSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.GRAVEYARD.getMeta());
     consecratedSoil = new ItemStack(blockSoil, 1, BlockSoil.SoilTypes.CONSECRATED.getMeta());
 
-    // slime blocks
-    blockSlime = registerBlock(new BlockSlime(), "slime", BlockSlime.TYPE);
-    blockSlimeCongealed = registerBlock(new BlockSlimeCongealed(), "slime_congealed", BlockSlime.TYPE);
+    // Slime Blocks
+    blockSlime = registerItemBlockProp(registry, new ItemBlockMeta(blockSlime), BlockSlime.TYPE);
+    blockSlimeCongealed = registerItemBlockProp(registry, new ItemBlockMeta(blockSlimeCongealed), BlockSlime.TYPE);
 
     // Ores
-    blockOre = registerEnumBlock(new BlockOre(), "ore");
+    blockOre = registerEnumItemBlock(registry, blockOre);
 
     oreCobalt = new ItemStack(blockOre, 1, BlockOre.OreTypes.COBALT.getMeta());
     oreArdite = new ItemStack(blockOre, 1, BlockOre.OreTypes.ARDITE.getMeta());
 
-    blockFirewood = registerEnumBlock(new BlockFirewood(), "firewood");
-    blockFirewood.setLightLevel(0.5f);
-    blockFirewood.setCreativeTab(TinkerRegistry.tabGeneral);
+    // Firewood
+    blockFirewood = registerEnumItemBlock(registry, blockFirewood);
+
     lavawood = new ItemStack(blockFirewood, 1, BlockFirewood.FirewoodType.LAVAWOOD.getMeta());
     firewood = new ItemStack(blockFirewood, 1, BlockFirewood.FirewoodType.FIREWOOD.getMeta());
 
-    // deco stuff
-    blockDecoGround = registerEnumBlock(new BlockDecoGround(), "deco_ground");
+    // Decorative Stuff
+    blockDecoGround = registerEnumItemBlock(registry, blockDecoGround);
+
     mudBrickBlock = new ItemStack(blockDecoGround, 1, BlockDecoGround.DecoGroundType.MUDBRICK.getMeta());
 
-    blockClearGlass = registerBlock(new BlockClearGlass(), "clear_glass");
-    blockClearStainedGlass = registerEnumBlock(new BlockClearStainedGlass(), "clear_stained_glass");
+    blockClearGlass = registerItemBlock(registry, blockClearGlass);
+    blockClearStainedGlass = registerEnumItemBlock(registry, blockClearStainedGlass);
 
-    // slabs
-    slabDecoGround = registerEnumBlockSlab(new BlockDecoGroundSlab(), "deco_ground_slab");
-    slabFirewood = registerEnumBlockSlab(new BlockFirewoodSlab(), "firewood_slab");
+    // Slabs
+    slabDecoGround = registerEnumItemBlockSlab(registry, slabDecoGround);
+    slabFirewood = registerEnumItemBlockSlab(registry, slabFirewood);
 
-    // stairs
-    stairsMudBrick = registerBlockStairsFrom(blockDecoGround, BlockDecoGround.DecoGroundType.MUDBRICK, "mudbrick_stairs");
-    stairsFirewood = registerBlockStairsFrom(blockFirewood, BlockFirewood.FirewoodType.FIREWOOD, "firewood_stairs");
-    stairsLavawood = registerBlockStairsFrom(blockFirewood, BlockFirewood.FirewoodType.LAVAWOOD, "lavawood_stairs");
+    // Stairs
+    stairsMudBrick = registerItemBlock(registry, stairsMudBrick);
+    stairsFirewood = registerItemBlock(registry, stairsFirewood);
+    stairsLavawood = registerItemBlock(registry, stairsLavawood);
 
     // create the items. We can probably always create them since they handle themselves dynamically
-    nuggets = registerItem(new ItemMetaDynamicTinkers(), "nuggets");
-    ingots = registerItem(new ItemMetaDynamicTinkers(), "ingots");
-    materials = registerItem(new ItemMetaDynamic(), "materials");
-    edibles = registerItem(new ItemEdible(), "edible");
+    nuggets = registerItem(registry, new ItemMetaDynamicTinkers(), "nuggets");
+    ingots = registerItem(registry, new ItemMetaDynamicTinkers(), "ingots");
+    materials = registerItem(registry, new ItemMetaDynamic(), "materials");
+    edibles = registerItem(registry, new ItemEdible(), "edible");
 
     nuggets.setCreativeTab(TinkerRegistry.tabGeneral);
     ingots.setCreativeTab(TinkerRegistry.tabGeneral);
@@ -264,7 +311,7 @@ public class TinkerCommons extends TinkerPulse {
       nuggetAlubrass = nuggets.addMeta(5, "alubrass");
       ingotAlubrass = ingots.addMeta(5, "alubrass");
 
-      blockMetal = registerEnumBlock(new BlockMetal(), "metal");
+      blockMetal = registerEnumItemBlock(registry, blockMetal);
 
       blockCobalt = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.COBALT.getMeta());
       blockArdite = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.ARDITE.getMeta());
@@ -321,136 +368,42 @@ public class TinkerCommons extends TinkerPulse {
       slimedropBlood = edibles.addFood(33, 3, 1.5f, "slimedrop_blood", new PotionEffect(MobEffects.HEALTH_BOOST, 20 * 90));
       slimedropMagma = edibles.addFood(34, 6, 1f, "slimedrop_magma", new PotionEffect(MobEffects.FIRE_RESISTANCE, 20 * 90));
     }
+  }
 
-    if(isToolsLoaded() || isGadgetsLoaded()) {
-      blockGlow = registerBlockNoItem(new BlockGlow(), "glow");
-    }
+  @SubscribeEvent
+  public void registerModels(ModelRegistryEvent event) {
+    proxy.registerModels();
+  }
 
+  @Subscribe
+  public void preInit(FMLPreInitializationEvent event) {
     proxy.preInit();
-
-    TinkerRegistry.tabGeneral.setDisplayIcon(matSlimeBallBlue);
   }
 
   @Subscribe
   public void init(FMLInitializationEvent event) {
-    registerRecipies();
+    registerSmeltingRecipes();
     proxy.init();
 
     GameRegistry.registerWorldGenerator(NetherOreGenerator.INSTANCE, 0);
 
-    MinecraftForge.EVENT_BUS.register(new AchievementEvents());
+    // MinecraftForge.EVENT_BUS.register(new AchievementEvents()); TODO: FIX
     MinecraftForge.EVENT_BUS.register(new BlockEvents());
     MinecraftForge.EVENT_BUS.register(new PlayerDataEvents());
   }
 
-  private void registerRecipies() {
-    // book
-    if(isToolsLoaded()) {
-      GameRegistry.addShapelessRecipe(new ItemStack(book), new ItemStack(Items.BOOK), new ItemStack(TinkerTools.pattern));
-    }
+  // POST-INITIALIZATION
+  @Subscribe
+  public void postInit(FMLPostInitializationEvent event) {
+    TinkerRegistry.tabGeneral.setDisplayIcon(matSlimeBallBlue);
+  }
 
-    // soils
+  private void registerSmeltingRecipes() {
     GameRegistry.addSmelting(graveyardSoil, consecratedSoil, 0);
-    GameRegistry.addShapelessRecipe(graveyardSoil, Blocks.DIRT, Items.ROTTEN_FLESH, new ItemStack(Items.DYE, 1, 15));
-    if(mudBrick != null) {
-      GameRegistry.addShapedRecipe(mudBrickBlock, "BB", "BB", 'B', mudBrick);
-      GameRegistry.addShapedRecipe(new ItemStack(slabDecoGround, 1, BlockDecoGround.DecoGroundType.MUDBRICK.getMeta()), "bb", 'b', mudBrick);
-    }
-    addSlabRecipe(new ItemStack(slabDecoGround, 1, BlockDecoGround.DecoGroundType.MUDBRICK.getMeta()), mudBrickBlock);
-    addStairRecipe(stairsMudBrick, mudBrickBlock);
 
-    // firewood
-    GameRegistry.addShapelessRecipe(firewood, Items.BLAZE_POWDER, lavawood, Items.BLAZE_POWDER);
-    addSlabRecipe(new ItemStack(slabFirewood, 1, BlockFirewood.FirewoodType.FIREWOOD.getMeta()), firewood);
-    addSlabRecipe(new ItemStack(slabFirewood, 1, BlockFirewood.FirewoodType.LAVAWOOD.getMeta()), lavawood);
-    addStairRecipe(stairsFirewood, firewood);
-    addStairRecipe(stairsLavawood, lavawood);
-
-    // metals
-    registerMetalRecipes("Cobalt", ingotCobalt, nuggetCobalt, blockCobalt);
-    registerMetalRecipes("Ardite", ingotArdite, nuggetArdite, blockArdite);
-    registerMetalRecipes("Manyullyn", ingotManyullyn, nuggetManyullyn, blockManyullyn);
-    registerMetalRecipes("Knightslime", ingotKnightSlime, nuggetKnightSlime, blockKnightSlime);
-    registerMetalRecipes("Pigiron", ingotPigIron, nuggetPigIron, blockPigIron);
-    registerMetalRecipes("Alubrass", ingotAlubrass, nuggetAlubrass, blockAlubrass);
-
-    if(blockSilkyJewel != null && matSilkyJewel != null) {
-      GameRegistry.addShapedRecipe(blockSilkyJewel, "###", "###", "###", '#', matSilkyJewel);
-      ItemStack silkyJewels = matSilkyJewel.copy();
-      silkyJewels.setCount(9);
-      GameRegistry.addShapelessRecipe(silkyJewels, blockSilkyJewel);
-    }
-
-    // glass
     if(!isSmelteryLoaded()) {
       // compat recipe if the smeltery is not available for melting
       GameRegistry.addSmelting(Blocks.GLASS, new ItemStack(blockClearGlass), 0.1f);
     }
-    for(int i = 0; i < 16; i++) {
-      GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockClearStainedGlass, 8, i), "GGG", "GDG", "GGG", 'G', blockClearGlass, 'D', "dye" + TinkerOredict.dyes[i]));
-    }
-
-    // flint recipe
-    if(Config.gravelFlintRecipe) {
-      GameRegistry.addRecipe(new ShapelessOreRecipe(
-          new ItemStack(Items.FLINT),
-          "gravel",
-          "gravel",
-          "gravel"));
-    }
-
-    // slime blocks
-
-    // green slime
-    addSlimeRecipes(new ItemStack(Items.SLIME_BALL), BlockSlime.SlimeType.GREEN);
-    // blue slime
-    addSlimeRecipes(TinkerCommons.matSlimeBallBlue, BlockSlime.SlimeType.BLUE);
-    // purple slime
-    addSlimeRecipes(TinkerCommons.matSlimeBallPurple, BlockSlime.SlimeType.PURPLE);
-    // blood slime
-    addSlimeRecipes(TinkerCommons.matSlimeBallBlood, BlockSlime.SlimeType.BLOOD);
-    // magma slime
-    addSlimeRecipes(TinkerCommons.matSlimeBallMagma, BlockSlime.SlimeType.MAGMA);
-  }
-
-  private static void registerMetalRecipes(String oreString, ItemStack ingot, ItemStack nugget, ItemStack block) {
-    if(ingot == null) {
-      return;
-    }
-
-    // nugget recipies
-    if(nugget != null) {
-      registerFullrecipe(nugget, ingot, "nugget" + oreString, "ingot" + oreString);
-    }
-    // block recipies
-    if(block != null) {
-      registerFullrecipe(ingot, block, "ingot" + oreString, "block" + oreString);
-    }
-  }
-
-  private static void registerFullrecipe(ItemStack small, ItemStack big, String oreSmall, String oreBig) {
-    // ingot -> block
-    //GameRegistry.addShapedRecipe(big, "###", "###", "###", '#', small);
-    GameRegistry.addRecipe(new ShapedOreRecipe(big, "###", "###", "###", '#', oreSmall));
-    // block -> 9 ingot
-    small = small.copy();
-    small.setCount(9);
-    //GameRegistry.addShapelessRecipe(small, big);
-    GameRegistry.addRecipe(new ShapelessOreRecipe(small, oreBig));
-  }
-
-  private void addSlimeRecipes(ItemStack slimeball, BlockSlime.SlimeType type) {
-    ItemStack congealed = new ItemStack(blockSlimeCongealed);
-    congealed.setItemDamage(blockSlimeCongealed.getMetaFromState(blockSlimeCongealed.getDefaultState().withProperty(BlockSlime.TYPE, type)));
-
-    ItemStack block = new ItemStack(blockSlime);
-    block.setItemDamage(blockSlime.getMetaFromState(blockSlime.getDefaultState().withProperty(BlockSlime.TYPE, type)));
-
-    GameRegistry.addRecipe(congealed.copy(), "##", "##", '#', slimeball);
-    ItemStack slimeballOut = slimeball.copy();
-    slimeballOut.setCount(4);
-    GameRegistry.addRecipe(slimeballOut, "#", '#', congealed.copy());
-
-    GameRegistry.addRecipe(new ShapelessRecipes(block, ImmutableList.of(congealed, slimeball, slimeball, slimeball, slimeball, slimeball)));
   }
 }

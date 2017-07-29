@@ -34,9 +34,11 @@ public class Excavator extends Shovel {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    addDefaultSubItems(subItems);
-    addInfiTool(subItems, "InfiDigger");
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      addDefaultSubItems(subItems);
+      addInfiTool(subItems, "InfiDigger");
+    }
   }
 
   @Override
@@ -61,7 +63,7 @@ public class Excavator extends Shovel {
 
   @Override
   public int[] getRepairParts() {
-    return new int[]{1, 2};
+    return new int[] { 1, 2 };
   }
 
   @Override

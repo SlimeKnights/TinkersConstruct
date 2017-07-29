@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.library.tools;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
+import net.minecraft.world.World;
 
 import java.util.Collection;
 import java.util.List;
@@ -29,15 +30,17 @@ public class Pattern extends Item implements IPattern {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    subItems.add(new ItemStack(this));
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      subItems.add(new ItemStack(this));
 
-    for(Item toolpart : getSubItemToolparts()) {
-      ItemStack stack = new ItemStack(this);
-      setTagForPart(stack, toolpart);
+      for(Item toolpart : getSubItemToolparts()) {
+        ItemStack stack = new ItemStack(this);
+        setTagForPart(stack, toolpart);
 
-      if(isValidSubitem(toolpart)) {
-        subItems.add(stack);
+        if(isValidSubitem(toolpart)) {
+          subItems.add(stack);
+        }
       }
     }
   }
@@ -104,7 +107,7 @@ public class Pattern extends Item implements IPattern {
   }
 
   @Override
-  public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+  public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
     Item part = getPartFromTag(stack);
     if(part != null && part instanceof IToolPart) {
       float cost = ((IToolPart) part).getCost() / (float) Material.VALUE_Ingot;

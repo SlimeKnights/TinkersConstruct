@@ -31,6 +31,7 @@ public class SlimeColorizer implements IResourceManagerReloadListener {
   private static int[] colorBufferOrange = new int[65536];
 
   public static final float loop = 256; // after how many blocks the pattern loops
+  public static final BlockPos LOOP_OFFSET = new BlockPos(SlimeColorizer.loop / 2, 0, SlimeColorizer.loop / 2);
 
   public static int getColorBlue(int x, int z) {
     return getColor(x, z, colorBufferBlue);

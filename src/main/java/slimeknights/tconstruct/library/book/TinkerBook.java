@@ -24,7 +24,7 @@ public class TinkerBook extends BookData {
 
   public final static BookData INSTANCE = BookLoader.registerBook(Util.RESOURCE, false, false);
 
-  static {
+  public static void init() {
     BookLoader.registerPageType(ContentMaterial.ID, ContentMaterial.class);
     BookLoader.registerPageType(ContentModifier.ID, ContentModifier.class);
     BookLoader.registerPageType(ContentModifierFortify.ID, ContentModifierFortify.class);

@@ -66,7 +66,7 @@ public class TraitMagnetic extends AbstractTraitLeveled {
       List<EntityItem> items = entity.getEntityWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
       int pulled = 0;
       for(EntityItem item : items) {
-        if(item.getEntityItem().isEmpty() || item.isDead) {
+        if(item.getItem().isEmpty() || item.isDead) {
           continue;
         }
 

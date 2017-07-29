@@ -1,5 +1,9 @@
 package slimeknights.tconstruct.tools.common;
 
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.inventory.InventoryCrafting;
@@ -8,16 +12,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-
+import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-public class RepairRecipe implements IRecipe {
+public class RepairRecipe extends Impl<IRecipe> implements IRecipe {
+
+  public RepairRecipe() {
+    this.setRegistryName(Util.getResource("repair"));
+  }
 
   private static final Set<Item> repairItems = ImmutableSet.of(TinkerTools.sharpeningKit);
 
@@ -80,11 +84,6 @@ public class RepairRecipe implements IRecipe {
     return ((TinkersItem) tool.getItem()).repair(tool.copy(), input);
   }
 
-  @Override
-  public int getRecipeSize() {
-    return 9;
-  }
-
   @Nonnull
   @Override
   public ItemStack getRecipeOutput() {
@@ -94,15 +93,16 @@ public class RepairRecipe implements IRecipe {
   @Override
   public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
     return NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-    /*
-    getRepairedTool(inv, false);
-    for (int i = 0; i < inv.getSizeInventory(); ++i) {
-      ItemStack itemstack = inv.getStackInSlot(i);
-      if(itemstack != null && (itemstack.stackSize == 0 || itemstack.getItem() instanceof TinkersItem)) {
-        inv.setInventorySlotContents(i, null);
-      }
-    }
-
-    return new ItemStack[0];*/
   }
+
+  @Override
+  public boolean canFit(int width, int height) {
+    return width >= 3 && height >= 3;
+  }
+
+  @Override
+  public boolean isHidden() {
+    return true;
+  }
+
 }

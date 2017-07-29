@@ -6,7 +6,7 @@ import com.google.common.collect.Maps;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -36,14 +36,15 @@ import slimeknights.tconstruct.smeltery.network.SmelteryFluidClicked;
 
 public class GuiUtil {
 
-  private GuiUtil() {}
+  private GuiUtil() {
+  }
 
   protected static Minecraft mc = Minecraft.getMinecraft();
 
   /** Renders the given texture tiled into a GUI */
   public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
     Tessellator tessellator = Tessellator.getInstance();
-    VertexBuffer worldrenderer = tessellator.getBuffer();
+    BufferBuilder worldrenderer = tessellator.getBuffer();
     worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
     mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
@@ -59,7 +60,7 @@ public class GuiUtil {
   }
 
   /** Adds a quad to the rendering pipeline. Call startDrawingQuads beforehand. You need to call draw() yourself. */
-  public static void putTiledTextureQuads(VertexBuffer renderer, int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
+  public static void putTiledTextureQuads(BufferBuilder renderer, int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
     float u1 = sprite.getMinU();
     float v1 = sprite.getMinV();
 
@@ -196,7 +197,6 @@ public class GuiUtil {
   /* Fluid amount displays */
   private static Map<Fluid, List<FluidGuiEntry>> fluidGui = Maps.newHashMap();
   private static boolean smelteryLoaded = TConstruct.pulseManager.isPulseLoaded(TinkerSmeltery.PulseId);
-
 
   /**
    * Adds information for the tooltip based on the fluid stacks size.

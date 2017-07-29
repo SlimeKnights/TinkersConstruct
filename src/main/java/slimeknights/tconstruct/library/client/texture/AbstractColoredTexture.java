@@ -1,45 +1,32 @@
 package slimeknights.tconstruct.library.client.texture;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResourceManager;
-import net.minecraft.client.resources.IResourceManagerReloadListener;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.Arrays;
-import java.util.Map;
+import java.util.Collection;
+import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-
+import slimeknights.tconstruct.library.TinkerAPIException;
 import slimeknights.tconstruct.library.client.RenderUtil;
 
 public abstract class AbstractColoredTexture extends TinkerTexture {
 
-  protected static Map<String, TextureAtlasSprite> cache = Maps.newHashMap();
+  private ResourceLocation backupTextureLocation;
 
-  private TextureAtlasSprite baseTexture;
-  private String backupTextureLocation;
-  private String extra;
-
-  protected AbstractColoredTexture(TextureAtlasSprite baseTexture, String spriteName) {
-    super(spriteName);
-    this.baseTexture = baseTexture;
-    this.backupTextureLocation = baseTexture.getIconName();
-  }
-
-  protected AbstractColoredTexture(String baseTextureLocation, String spriteName) {
+  protected AbstractColoredTexture(ResourceLocation baseTextureLocation, String spriteName) {
     super(spriteName);
 
-    this.baseTexture = null;
     this.backupTextureLocation = baseTextureLocation;
   }
 
-  public TextureAtlasSprite setSuffix(String suffix) {
-    this.extra = suffix;
-    this.baseTexture = null;
-    return this;
+  @Override
+  public Collection<ResourceLocation> getDependencies() {
+    return ImmutableList.of(backupTextureLocation);
   }
 
   @Override
@@ -48,43 +35,32 @@ public abstract class AbstractColoredTexture extends TinkerTexture {
   }
 
   @Override
-  public boolean load(IResourceManager manager, ResourceLocation location) {
+  public boolean load(IResourceManager manager, ResourceLocation location, Function<ResourceLocation, TextureAtlasSprite> textureGetter) {
     this.framesTextureData = Lists.newArrayList();
     this.frameCounter = 0;
     this.tickCounter = 0;
 
+    TextureAtlasSprite baseTexture = textureGetter.apply(backupTextureLocation);
     if(baseTexture == null || baseTexture.getFrameCount() <= 0) {
-      // ensure it's null so stuff gets loaded
-      baseTexture = null;
-      if(extra != null && !extra.isEmpty()) {
-        baseTexture = backupLoadTexture(new ResourceLocation(backupTextureLocation + "_" + extra), manager);
-      }
-      if(baseTexture == null) {
-        baseTexture = backupLoadTexture(new ResourceLocation(backupTextureLocation), manager);
-      }
-    }
-
-    // get the base texture to work on
-    int[][] data;
-    // basetexture is present and loaded
-    if(baseTexture != null && baseTexture.getFrameCount() > 0) {
-      this.copyFrom(baseTexture);
-      int[][] original = baseTexture.getFrameTextureData(0);
-      data = new int[original.length][];
-      for(int i = 0; i < original.length; i++) {
-        if(original[i] != null) {
-          data[i] = Arrays.copyOf(original[i], original[i].length);
-        }
-      }
-    }
-    else {
       this.width = 1; // needed so we don't crash
       this.height = 1;
       // failure
       return false;
     }
 
-    processData(data);
+    // copy data from base texture - we have the same properties/sizes as the base
+
+    this.copyFrom(baseTexture);
+    // todo: do this for every frame for animated textures and remove the old animation classes
+    // get the base texture to work on - aka copy the texture data into this texture
+    int[][] data;
+    int[][] original = baseTexture.getFrameTextureData(0);
+    data = new int[original.length][];
+    data[0] = Arrays.copyOf(original[0], original[0].length);
+
+    // do the transformation on the data for mipmap level 0
+    // looks like other mipmaps are generated correctly
+    processData(data[0]);
 
     if(this.framesTextureData.isEmpty()) {
       this.framesTextureData.add(data);
@@ -93,23 +69,28 @@ public abstract class AbstractColoredTexture extends TinkerTexture {
     return false;
   }
 
-  protected void processData(int[][] data) {
-    // go over the base texture and color it
-    for(int mipmap = 0; mipmap < data.length; mipmap++) {
-      if(data[mipmap] == null) {
-        continue;
+  protected void processData(int[] data) {
+    try {
+      preProcess(data);
+      // go over the base texture and color it
+      for(int pxCoord = 0; pxCoord < data.length; pxCoord++) {
+        data[pxCoord] = colorPixel(data[pxCoord], pxCoord);
       }
-      for(int pxCoord = 0; pxCoord < data[mipmap].length; pxCoord++) {
-        // we're not working per pixel
-        // we take the information in the base texture to calculate the luminosity of the pixel
-        // and then color it accordingly with the materials color
-        data[mipmap][pxCoord] = colorPixel(data[mipmap][pxCoord], mipmap, pxCoord);
-      }
+      postProcess(data);
+    } catch(Exception e) {
+      throw new TinkerAPIException("Error occured while processing: " + this.getIconName(), e);
     }
   }
 
-  protected abstract int colorPixel(int pixel, int mipmap, int pxCoord);
+  /** called before the first colorPixel */
+  protected void preProcess(int[] data) {
+  }
 
+  /** called after the last colorPixel */
+  protected void postProcess(int[] data) {
+  }
+
+  protected abstract int colorPixel(int pixel, int pxCoord);
 
   // borrowed from Shadows of Physis
   // Thanks TTFTCUTS! :)
@@ -129,7 +110,7 @@ public abstract class AbstractColoredTexture extends TinkerTexture {
   }
 
   protected static int mult(int c1, int c2) {
-    return (int) ((float) c1 * (c2 / 255f));
+    return (int) (c1 * (c2 / 255f));
   }
 
   // Get coordinates from index and vice versa
@@ -143,19 +124,5 @@ public abstract class AbstractColoredTexture extends TinkerTexture {
 
   protected int coord(int x, int y) {
     return y * width + x;
-  }
-
-
-  public static class CacheClearer implements IResourceManagerReloadListener {
-
-    public static CacheClearer INSTANCE = new CacheClearer();
-
-    private CacheClearer() {
-    }
-
-    @Override
-    public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {
-      AbstractColoredTexture.cache.clear();
-    }
   }
 }

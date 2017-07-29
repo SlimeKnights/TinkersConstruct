@@ -7,9 +7,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.logging.log4j.Logger;
 
@@ -29,6 +34,12 @@ import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerFluids;
+import slimeknights.tconstruct.tools.traits.TraitEnderference;
+import slimeknights.tconstruct.tools.traits.TraitInsatiable;
+import slimeknights.tconstruct.tools.traits.TraitMagnetic;
+import slimeknights.tconstruct.tools.traits.TraitMomentum;
+import slimeknights.tconstruct.tools.traits.TraitSharp;
+import slimeknights.tconstruct.tools.traits.TraitSplintering;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 
@@ -162,13 +173,34 @@ public final class TinkerMaterials {
   public static final Material slimeleaf_purple = mat("slimeleaf_purple", 0xc873c8);
 
   private static Material mat(String name, int color) {
-    Material mat = new Material(name, color);
+    // make materials hidden by default, integration will make them visible if integrated
+    Material mat = new Material(name, color, true);
     materials.add(mat);
     return mat;
   }
 
   static {
     xu = new Material("unstable", TextFormatting.WHITE);
+  }
+
+  @SubscribeEvent
+  public void registerPotions(Register<Potion> event) {
+    IForgeRegistry<Potion> registry = event.getRegistry();
+
+    registry.registerAll(TraitEnderference.Enderference,
+                         TraitInsatiable.Insatiable,
+                         TraitMagnetic.Magnetic,
+                         TraitMomentum.Momentum,
+                         TraitSharp.DOT,
+                         TraitSplintering.Splinter);
+  }
+
+  @Subscribe
+  public void setupMaterialStats(FMLPreInitializationEvent event) {
+    // stats need to be present before model loading/texture generation so we don't generate unneeded parts
+    registerToolMaterialStats();
+    registerBowMaterialStats();
+    registerProjectileMaterialStats();
   }
 
   @Subscribe
@@ -351,11 +383,6 @@ public final class TinkerMaterials {
     safeAdd(slimeleaf_blue, new ItemStack(TinkerWorld.slimeLeaves, 1, BlockSlimeGrass.FoliageType.BLUE.getMeta()), Material.VALUE_Shard, true);
     safeAdd(slimeleaf_orange, new ItemStack(TinkerWorld.slimeLeaves, 1, BlockSlimeGrass.FoliageType.ORANGE.getMeta()), Material.VALUE_Shard, true);
     safeAdd(slimeleaf_purple, new ItemStack(TinkerWorld.slimeLeaves, 1, BlockSlimeGrass.FoliageType.PURPLE.getMeta()), Material.VALUE_Shard, true);
-
-
-    registerToolMaterialStats();
-    registerBowMaterialStats();
-    registerProjectileMaterialStats();
   }
 
   private void safeAdd(Material material, ItemStack item, int value) {

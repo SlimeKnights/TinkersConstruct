@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.ranged.item;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
@@ -34,8 +33,10 @@ public class Arrow extends ProjectileCore {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    addDefaultSubItems(subItems, TinkerMaterials.wood, null, TinkerMaterials.feather);
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      addDefaultSubItems(subItems, TinkerMaterials.wood, null, TinkerMaterials.feather);
+    }
   }
 
   @Override
@@ -67,7 +68,7 @@ public class Arrow extends ProjectileCore {
 
   @Override
   public EntityProjectileBase getProjectile(ItemStack stack, ItemStack bow, World world, EntityPlayer player, float speed, float inaccuracy, float power, boolean usedAmmo) {
-    inaccuracy -= (1f - 1f/ProjectileNBT.from(stack).accuracy) * speed/2f;
+    inaccuracy -= (1f - 1f / ProjectileNBT.from(stack).accuracy) * speed / 2f;
     return new EntityArrow(world, player, speed, inaccuracy, power, getProjectileStack(stack, world, player, usedAmmo), bow);
   }
 }

@@ -2,7 +2,11 @@ package slimeknights.tconstruct.shared;
 
 import com.google.common.eventbus.Subscribe;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -10,6 +14,8 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.logging.log4j.Logger;
 
@@ -145,67 +151,99 @@ public class TinkerFluids extends TinkerPulse {
     aluminum.setTemperature(330);
   }
 
-  @Subscribe
-  public void preInit(FMLPreInitializationEvent event) {
+  @SubscribeEvent
+  public void registerBlocks(Register<Block> event) {
+    IForgeRegistry<Block> registry = event.getRegistry();
+
     if(isSmelteryLoaded()) {
       searedStone = fluidStone("stone", 0x777777);
       searedStone.setTemperature(800);
-      registerMoltenBlock(searedStone);
-      FluidRegistry.addBucketForFluid(searedStone);
+      registerMoltenBlock(registry, searedStone);
 
       obsidian = fluidStone(TinkerMaterials.obsidian.getIdentifier(), 0x2c0d59);
       obsidian.setTemperature(1000);
-      registerMoltenBlock(obsidian);
-      FluidRegistry.addBucketForFluid(obsidian);
+      registerMoltenBlock(registry, obsidian);
 
       clay = fluidStone("clay", 0xc67453);
       clay.setTemperature(700);
-      registerMoltenBlock(clay);
-      FluidRegistry.addBucketForFluid(clay);
+      registerMoltenBlock(registry, clay);
 
       dirt = fluidStone("dirt", 0xa68564);
       dirt.setTemperature(500);
-      registerMoltenBlock(dirt);
-      FluidRegistry.addBucketForFluid(dirt);
+      registerMoltenBlock(registry, dirt);
 
       emerald = fluidMetal("emerald", 0x58e78e);
       emerald.setTemperature(999);
-      registerMoltenBlock(emerald);
-      FluidRegistry.addBucketForFluid(emerald);
+      registerMoltenBlock(registry, emerald);
 
       glass = fluidMetal("glass", 0xc0f5fe);
       glass.setTemperature(625);
-      registerMoltenBlock(glass);
-      FluidRegistry.addBucketForFluid(glass);
+      registerMoltenBlock(registry, glass);
 
       // blood for the blood god
       blood = fluidClassic("blood", 0x540000);
       blood.setTemperature(420);
-      registerClassicBlock(blood);
-      FluidRegistry.addBucketForFluid(blood);
+      registerClassicBlock(registry, blood);
     }
 
     milk = fluidMilk("milk", 0xffffff);
     milk.setTemperature(320);
-    registerClassicBlock(milk);
+    registerClassicBlock(registry, milk);
 
     if(isWorldLoaded()) {
       blueslime = fluidClassic("blueslime", 0xef67f0f5);
       blueslime.setTemperature(310);
       blueslime.setViscosity(1500);
       blueslime.setDensity(1500);
-      registerBlock(new BlockLiquidSlime(blueslime, net.minecraft.block.material.Material.WATER), blueslime.getName());
-      FluidRegistry.addBucketForFluid(blueslime);
+      registerBlock(registry, new BlockLiquidSlime(blueslime, net.minecraft.block.material.Material.WATER), blueslime.getName());
     }
+
     if(isWorldLoaded() || isSmelteryLoaded()) {
       purpleSlime = fluidClassic("purpleslime", 0xefd236ff);
       purpleSlime.setTemperature(370);
       purpleSlime.setViscosity(1600);
       purpleSlime.setDensity(1600);
-      registerBlock(new BlockLiquidSlime(purpleSlime, net.minecraft.block.material.Material.WATER), purpleSlime.getName());
-      FluidRegistry.addBucketForFluid(purpleSlime);
+      registerBlock(registry, new BlockLiquidSlime(purpleSlime, net.minecraft.block.material.Material.WATER), purpleSlime.getName());
+    }
+  }
+
+  @SubscribeEvent
+  public void registerItems(Register<Item> event) {
+    IForgeRegistry<Item> registry = event.getRegistry();
+
+    if(isSmelteryLoaded()) {
+      FluidRegistry.addBucketForFluid(searedStone);
+
+      FluidRegistry.addBucketForFluid(obsidian);
+
+      FluidRegistry.addBucketForFluid(clay);
+
+      FluidRegistry.addBucketForFluid(dirt);
+
+      FluidRegistry.addBucketForFluid(emerald);
+
+      FluidRegistry.addBucketForFluid(glass);
+
+      // blood for the blood god
+      FluidRegistry.addBucketForFluid(blood);
     }
 
+    if(isWorldLoaded()) {
+      FluidRegistry.addBucketForFluid(blueslime);
+    }
+
+    if(isWorldLoaded() || isSmelteryLoaded()) {
+      FluidRegistry.addBucketForFluid(purpleSlime);
+    }
+  }
+
+  @SubscribeEvent
+  public void registerModels(ModelRegistryEvent event) {
+    proxy.registerModels();
+  }
+
+  @Subscribe
+  public void preInit(FMLPreInitializationEvent event) {
     proxy.preInit();
   }
 
@@ -258,14 +296,12 @@ public class TinkerFluids extends TinkerPulse {
   }
 
   /** Registers a non-burning water based block for the fluid */
-  public static BlockFluidBase registerClassicBlock(Fluid fluid) {
-    BlockFluidBase block = new BlockTinkerFluid(fluid, net.minecraft.block.material.Material.WATER);
-    return registerBlock(block, fluid.getName());
+  public static BlockFluidBase registerClassicBlock(IForgeRegistry<Block> registry, Fluid fluid) {
+    return registerBlock(registry, new BlockTinkerFluid(fluid, net.minecraft.block.material.Material.WATER), fluid.getName());
   }
 
   /** Registers a hot lava-based block for the fluid, prefix with molten_ */
-  public static BlockMolten registerMoltenBlock(Fluid fluid) {
-    BlockMolten block = new BlockMolten(fluid);
-    return registerBlock(block, "molten_" + fluid.getName()); // molten_foobar prefix
+  public static BlockMolten registerMoltenBlock(IForgeRegistry<Block> registry, Fluid fluid) {
+    return registerBlock(registry, new BlockMolten(fluid), "molten_" + fluid.getName()); // molten_foobar prefix
   }
 }

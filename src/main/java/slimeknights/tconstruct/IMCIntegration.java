@@ -47,7 +47,7 @@ public abstract class IMCIntegration {
           materialIntegration.toolforge();
         }
         TinkerRegistry.integrate(materialIntegration);
-        materialIntegration.integrate();
+        materialIntegration.preInit();
         log.debug("Added integration smelting for " + ore + " from " + message.getSender());
       }
     }

@@ -50,10 +50,6 @@ public class ToolModelLoader implements ICustomModelLoader {
 
   @Override
   public IModel loadModel(ResourceLocation modelLocation) {
-    if(!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
-      return DummyModel.INSTANCE;
-    }
-
     try {
       // Modelblock is used since our format is compatible to the vanilla format
       // and we don't have to write our own json deserializer
@@ -141,7 +137,6 @@ public class ToolModelLoader implements ICustomModelLoader {
           }
         }
       }
-
 
       String toolName = FilenameUtils.getBaseName(modelLocation.getResourcePath());
       IModel mods;

@@ -4,7 +4,6 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.IResourceManager;
@@ -14,17 +13,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.RegistryDelegate;
 
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -37,7 +32,6 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.material.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.model.IPatternOffset;
 import slimeknights.tconstruct.library.client.model.MaterialModelLoader;
-import slimeknights.tconstruct.library.client.texture.AbstractColoredTexture;
 import slimeknights.tconstruct.library.client.texture.CastTexture;
 import slimeknights.tconstruct.library.client.texture.GuiOutlineTexture;
 import slimeknights.tconstruct.library.client.texture.PatternTexture;
@@ -95,15 +89,8 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
   // low since other event-handlers might want to register textures beforehand
   @SubscribeEvent(priority = EventPriority.LOW)
   public void createCustomTextures(TextureStitchEvent.Pre event) {
-    // only do the processing once: at the end of the loading when the resource manager gets reloaded
-    // this is equivalent to a resourcepack change midgame
-
-    if(!Loader.instance().hasReachedState(LoaderState.POSTINITIALIZATION)) {
-      return;
-    }
-
     // get the material info at this point, to override hardcoded material rendering with resources
-    MaterialRenderInfoLoader.INSTANCE.loadRenderInfo();
+    MaterialRenderInfoLoader.INSTANCE.onResourceManagerReload(Minecraft.getMinecraft().getResourceManager());
 
     createdTextures = 0;
     // create textures for each material where needed
@@ -123,7 +110,6 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         continue;
       }
 
-      TextureAtlasSprite base = TinkerTexture.loadManually(baseTexture.toString());
       Set<IToolPart> parts = texturePartMapping.get(baseTexture);
 
       Map<String, TextureAtlasSprite> builtSprites = Maps.newHashMap();
@@ -140,7 +126,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         }
 
         if(usable) {
-          TextureAtlasSprite sprite = createTexture(material, baseTexture, base, map);
+          TextureAtlasSprite sprite = createTexture(material, baseTexture, map);
           if(sprite != null) {
             builtSprites.put(material.identifier, sprite);
           }
@@ -148,7 +134,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
       }
 
       if(belongsToToolPart(baseTexture)) {
-        TextureAtlasSprite sprite = createTexture(guiMaterial, baseTexture, base, map);
+        TextureAtlasSprite sprite = createTexture(guiMaterial, baseTexture, map);
         if(sprite != null) {
           builtSprites.put(guiMaterial.identifier, sprite);
         }
@@ -158,7 +144,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
     }
   }
 
-  private TextureAtlasSprite createTexture(Material material, ResourceLocation baseTexture, TextureAtlasSprite base, TextureMap map) {
+  private TextureAtlasSprite createTexture(Material material, ResourceLocation baseTexture, TextureMap map) {
     String location = baseTexture.toString() + "_" + material.identifier;
     TextureAtlasSprite sprite;
 
@@ -171,30 +157,22 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         return null;
       }
 
-      TextureAtlasSprite matBase = base;
-
       // different base texture?
       if(material.renderInfo.getTextureSuffix() != null) {
         String loc2 = baseTexture.toString() + "_" + material.renderInfo.getTextureSuffix();
         TextureAtlasSprite base2 = map.getTextureExtry(loc2);
         // can we manually load it?
         if(base2 == null && exists(loc2)) {
-          base2 = new AbstractColoredTexture(loc2, loc2) {
-            @Override
-            protected int colorPixel(int pixel, int mipmap, int pxCoord) {
-              return pixel;
-            }
-          };
-
+          base2 = TinkerTexture.loadManually(new ResourceLocation(loc2));
           // save in the map so it's getting reused by the others and is available
           map.setTextureEntry(base2);
         }
         if(base2 != null) {
-          matBase = base2;
+          baseTexture = new ResourceLocation(base2.getIconName());
         }
       }
 
-      sprite = material.renderInfo.getTexture(matBase, location);
+      sprite = material.renderInfo.getTexture(baseTexture, location);
       createdTextures++;
     }
 
@@ -219,18 +197,16 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
   public String createPatternTexturesFor(TextureMap map, ResourceLocation baseTextureLoc, Iterable<Item> items, Class<? extends TextureColoredTexture> clazz) {
     Constructor<? extends TextureColoredTexture> constructor;
     String baseTextureString;
-    TextureAtlasSprite baseTexture;
+    ResourceLocation patternLocation;
     try {
-      constructor = clazz.getConstructor(String.class, TextureAtlasSprite.class, String.class);
+      constructor = clazz.getConstructor(ResourceLocation.class, ResourceLocation.class, String.class);
       IModel patternModel = ModelLoaderRegistry.getModel(baseTextureLoc);
-      ResourceLocation patternLocation = patternModel.getTextures().iterator().next();
-      baseTexture = TinkerTexture.loadManually(patternLocation.toString());
+      patternLocation = patternModel.getTextures().iterator().next();
       baseTextureString = patternLocation.toString();
     } catch(Exception e) {
       log.error(e);
       return null;
     }
-
 
     for(Item item : items) {
       try {
@@ -243,11 +219,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
           map.setTextureEntry(partPatternTexture);
         }
         else {
-          /*
-          ResourceLocation modelLocation = getModelLocationForItem(item);
-          IModel partModel = ModelLoaderRegistry.getModel(modelLocation);
-          */
-          ResourceLocation modelLocation = Util.getItemLocation(item);
+          ResourceLocation modelLocation = item.getRegistryName();
           IModel partModel = ModelLoaderRegistry.getModel(new ResourceLocation(modelLocation.getResourceDomain(),
                                                                                "item/parts/" + modelLocation
                                                                                    .getResourcePath()
@@ -255,7 +227,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
           ResourceLocation partTexture = partModel.getTextures().iterator().next();
 
           if(partModel != ModelLoaderRegistry.getMissingModel()) {
-            partPatternTexture = constructor.newInstance(partTexture.toString(), baseTexture, partPatternLocation);
+            partPatternTexture = constructor.newInstance(partTexture, patternLocation, partPatternLocation);
             if(partModel instanceof IPatternOffset) {
               IPatternOffset offset = (IPatternOffset) partModel;
               ((TextureColoredTexture) partPatternTexture).setOffset(offset.getXOffset(), offset.getYOffset());
@@ -269,77 +241,6 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
     }
 
     return baseTextureString;
-  }
-
-  private ResourceLocation getModelLocationForItem(Item item) {
-    String loc = null;
-    try {
-      Field field = ModelBakery.class.getDeclaredField("customVariantNames");
-      field.setAccessible(true);
-      Map<net.minecraftforge.fml.common.registry.RegistryDelegate<Item>, Set<String>> map = (Map<RegistryDelegate<Item>, Set<String>>) field.get(null);
-      Set<String> variants = map.get(item.delegate);
-      if(variants != null) {
-        loc = variants.iterator().next();
-      }
-    } catch(NoSuchFieldException | IllegalAccessException e) {
-      e.printStackTrace();
-    }
-
-    if(loc == null) {
-      loc = Util.getItemLocation(item).toString();
-    }
-    ResourceLocation rl = new ResourceLocation(loc.replaceAll("#.*", ""));
-    rl = new ResourceLocation(rl.getResourceDomain(), "item/" + rl.getResourcePath());
-    return rl;
-  }
-
-
-  // the same as materialtextures but only creates the ones for toolparts for the gui
-  private void createGUITextures(TextureMap map) {
-    for(IToolPart toolpart : TinkerRegistry.getToolParts()) {
-      if(!(toolpart instanceof Item)) {
-        continue; // WHY?!
-      }
-
-      try {
-        // name and model location
-        ResourceLocation modelLocation = Util.getItemLocation((Item) toolpart);
-        IModel partModel = ModelLoaderRegistry.getModel(new ResourceLocation(modelLocation.getResourceDomain(),
-                                                                             "item/parts/" + modelLocation
-                                                                                 .getResourcePath()
-                                                                             + MaterialModelLoader.EXTENSION));
-        // the actual texture of the part
-        ResourceLocation baseTexture = partModel.getTextures().iterator().next();
-
-        TextureAtlasSprite base = map.getTextureExtry(baseTexture.toString());
-        if(base == null) {
-          log.error("Missing base texture: " + baseTexture.toString());
-          continue;
-        }
-
-        // does it have textures?
-        Map<String, TextureAtlasSprite> partTextures = sprites.get(baseTexture.toString());
-        if(partTextures == null) {
-          continue;
-        }
-
-        String location = baseTexture.toString() + "_internal_gui";
-        // the texture created
-        TextureAtlasSprite outlineTexture = new GuiOutlineTexture(base, location);
-
-        // add it to the loading list
-        map.setTextureEntry(outlineTexture);
-        partTextures.put("_internal_gui", outlineTexture);
-
-      } catch(Exception e) {
-        log.error(e);
-      }
-    }
-  }
-
-  public static String getItemLoc(String res) {
-    ResourceLocation loc = new ResourceLocation(res);
-    return String.format("%s:items/%s", loc.getResourceDomain(), loc.getResourcePath());
   }
 
   public static boolean exists(String res) {
@@ -362,21 +263,6 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
       map.clear();
     }
     sprites.clear();
-  }
-
-  public static ResourceLocation getTextureLocationFromToolPart(IToolPart toolpart) throws Exception {
-    if(!(toolpart instanceof Item)) {
-      return null; // WHY?!
-    }
-
-    ResourceLocation modelLocation = Util.getItemLocation((Item) toolpart);
-    IModel partModel = ModelLoaderRegistry.getModel(new ResourceLocation(modelLocation.getResourceDomain(),
-                                                                         "item/parts/" + modelLocation
-                                                                             .getResourcePath()
-                                                                         + MaterialModelLoader.EXTENSION));
-    ResourceLocation partTexture = partModel.getTextures().iterator().next();
-
-    return partTexture;
   }
 
   public static boolean belongsToToolPart(ResourceLocation location) {
@@ -408,7 +294,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
     guiMaterial = new MaterialGUI("_internal_gui");
     guiMaterial.setRenderInfo(new MaterialRenderInfo.AbstractMaterialRenderInfo() {
       @Override
-      public TextureAtlasSprite getTexture(TextureAtlasSprite baseTexture, String location) {
+      public TextureAtlasSprite getTexture(ResourceLocation baseTexture, String location) {
         return new GuiOutlineTexture(baseTexture, location);
       }
     });

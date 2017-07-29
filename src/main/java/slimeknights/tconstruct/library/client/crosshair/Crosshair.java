@@ -5,7 +5,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -51,15 +51,14 @@ public class Crosshair implements ICrosshair {
   }
 
   protected void drawSquareCrosshairPart(double x, double y, int part) {
-    int s = size/4;
+    int s = size / 4;
 
     double z = -90;
 
     double u1 = 0;
     double v1 = 0;
 
-    switch(part)
-    {
+    switch(part) {
       // top left
       case 0:
         x -= s;
@@ -87,7 +86,7 @@ public class Crosshair implements ICrosshair {
     double v2 = v1 + 0.5;
 
     Tessellator tessellator = Tessellator.getInstance();
-    VertexBuffer vb = tessellator.getBuffer();
+    BufferBuilder vb = tessellator.getBuffer();
     vb.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
     vb.pos(x - s, y - s, z).tex(u1, v1).endVertex();
     vb.pos(x - s, y + s, z).tex(u1, v2).endVertex();

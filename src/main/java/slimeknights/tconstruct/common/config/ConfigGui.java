@@ -42,29 +42,16 @@ public class ConfigGui extends GuiConfig {
 
     @Override
     public boolean hasConfigGui() {
-      // todo: 1.11.2 need this?
-      return false;
+      return true;
     }
 
     @Override
     public GuiScreen createConfigGui(GuiScreen parentScreen) {
-      // todo: 1.11.2 need this?
-      return null;
-    }
-
-    @Override
-    public Class<? extends GuiScreen> mainConfigGuiClass() {
-      return ConfigGui.class;
+      return new ConfigGui(parentScreen);
     }
 
     @Override
     public Set<RuntimeOptionCategoryElement> runtimeGuiCategories() {
-      // dead code
-      return null;
-    }
-
-    @Override
-    public RuntimeOptionGuiHandler getHandlerFor(RuntimeOptionCategoryElement element) {
       // dead code
       return null;
     }

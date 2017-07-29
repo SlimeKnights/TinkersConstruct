@@ -5,7 +5,6 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
@@ -31,7 +30,7 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
+  public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     for(SlimeType type : SlimeType.values()) {
       list.add(new ItemStack(this, 1, type.meta));
     }
@@ -99,7 +98,6 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
     public int getColor() {
       return color;
     }
-
 
     /**
      * Returns the slimeball color for this slime type, usually it is less saturated

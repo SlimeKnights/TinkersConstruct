@@ -38,11 +38,11 @@ public class GuiSideButtons extends GuiModule {
     int x = (offset % columns) * (button.width + spacing);
     int y = (offset / columns) * (button.height + spacing);
 
-    button.xPosition = guiLeft + x;
-    button.yPosition = guiTop + y;
+    button.x = guiLeft + x;
+    button.y = guiTop + y;
 
     if(this.right) {
-      button.xPosition += parent.xSize;
+      button.x += parent.xSize;
     }
 
     this.buttonList.add(button);
@@ -80,7 +80,7 @@ public class GuiSideButtons extends GuiModule {
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     for(GuiButton button : buttonList) {
-      button.drawButton(this.mc, mouseX, mouseY);
+      button.drawButton(this.mc, mouseX, mouseY, partialTicks);
     }
   }
 }

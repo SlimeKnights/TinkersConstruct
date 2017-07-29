@@ -1,16 +1,17 @@
 package slimeknights.tconstruct;
 
+import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLMissingMappingsEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkCheckHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +19,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 import java.util.Random;
+
+import javax.annotation.Nonnull;
 
 import slimeknights.mantle.common.GuiHandler;
 import slimeknights.mantle.pulsar.control.PulseManager;
@@ -30,6 +33,8 @@ import slimeknights.tconstruct.common.config.ConfigSync;
 import slimeknights.tconstruct.debug.TinkerDebug;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.book.TinkerBook;
+import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.plugin.Chisel;
@@ -55,16 +60,15 @@ import slimeknights.tconstruct.world.TinkerWorld;
  * @author mDiyo
  */
 
-
 @Mod(modid = TConstruct.modID,
-    name = TConstruct.modName,
-    version = TConstruct.modVersion,
-    guiFactory = "slimeknights.tconstruct.common.config.ConfigGui$ConfigGuiFactory",
-    dependencies = "required-after:forge@[13.20.0.2282,);"
-                   + "required-after:mantle@[1.11.2-1.2.0.25,);"
-                   + "after:jei@[4.2,);"
-                   + "after:chisel" ,
-    acceptedMinecraftVersions = "[1.11, 1.12)")
+     name = TConstruct.modName,
+     version = TConstruct.modVersion,
+     guiFactory = "slimeknights.tconstruct.common.config.ConfigGui$ConfigGuiFactory",
+     dependencies = "required-after:forge@[14.21.1.2387,);"
+                    + "required-after:mantle@[1.12-1.3.1,);"
+                    + "after:jei@[4.2,);"
+                    + "after:chisel",
+     acceptedMinecraftVersions = "[1.12, 1.13)")
 public class TConstruct {
 
   public static final String modID = Util.MODID;
@@ -104,7 +108,6 @@ public class TConstruct {
 
     pulseManager.registerPulse(new AggregateModelRegistrar());
     // Plugins/Integration
-    //pulseManager.registerPulse(new TinkerVintageCraft());
     pulseManager.registerPulse(new Chisel());
     pulseManager.registerPulse(new ChiselAndBits());
     pulseManager.registerPulse(new CraftingTweaks());
@@ -112,8 +115,12 @@ public class TConstruct {
     pulseManager.registerPulse(new TheOneProbe());
 
     pulseManager.registerPulse(new TinkerDebug());
-  }
 
+    if(FMLCommonHandler.instance().getSide() == Side.CLIENT)
+    {
+      TinkerBook.init();
+    }
+  }
 
   public TConstruct() {
     if(Loader.isModLoaded("Natura")) {
@@ -126,7 +133,7 @@ public class TConstruct {
   }
 
   //Force the client and server to have or not have this mod
-  @NetworkCheckHandler()
+  @NetworkCheckHandler
   public boolean matchModVersions(Map<String, String> remoteVersions, Side side) {
 
     // we don't accept clients without TiC
@@ -147,17 +154,14 @@ public class TConstruct {
 
     if(event.getSide().isClient()) {
       ClientProxy.initClient();
+      ClientProxy.initRenderMaterials();
     }
 
     TinkerNetwork.instance.setup();
+    CapabilityTinkerPiggyback.register();
     CapabilityTinkerProjectile.register();
-  }
 
-  @Mod.EventHandler
-  public void init(FMLInitializationEvent event) {
-    if(event.getSide().isClient()) {
-      ClientProxy.initRenderMaterials();
-    }
+    MinecraftForge.EVENT_BUS.register(this);
   }
 
   @Mod.EventHandler
@@ -171,15 +175,14 @@ public class TConstruct {
     }
   }
 
-  // Old version compatibility
-  @Mod.EventHandler
-  public void onMissingMapping(FMLMissingMappingsEvent event) {
-    for(FMLMissingMappingsEvent.MissingMapping mapping : event.get()) {
-      // old universal bucket, got moved into Forge
-      // glow is the leftover itemblock form which was removed
-      if(mapping.type == GameRegistry.Type.ITEM
-         && (mapping.name.equals(Util.resource("bucket")) || mapping.name.equals(Util.resource("glow")))) {
-        mapping.ignore();
+  //Old version compatibility
+  @SubscribeEvent
+  public void missingItemMappings(RegistryEvent.MissingMappings<Item> event) {
+    for(RegistryEvent.MissingMappings.Mapping<Item> entry : event.getAllMappings()) {
+      @Nonnull
+      String path = entry.key.toString();
+      if(path.equals(Util.resource("bucket")) || path.equals(Util.resource("glow")) || path.equals(Util.resource("blood")) || path.equals(Util.resource("milk")) || path.equals(Util.resource("purpleslime")) || path.equals(Util.resource("blueslime")) || path.contains(Util.resource("molten"))) {
+        entry.ignore();
       }
     }
   }

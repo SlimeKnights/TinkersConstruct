@@ -60,7 +60,6 @@ import slimeknights.tconstruct.library.tools.Shard;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.traits.ITrait;
 
-@SuppressWarnings("unused")
 public final class TinkerRegistry {
 
   // the logger for the library
@@ -94,7 +93,6 @@ public final class TinkerRegistry {
   // contains all cancelled materials, allows us to eat calls regarding the material silently
   private static final Set<String> cancelledMaterials = new THashSet<>();
 
-
   public static void addMaterial(Material material, IMaterialStats stats, ITrait trait) {
     addMaterial(material, stats);
     addMaterialTrait(material.identifier, trait, null);
@@ -116,11 +114,11 @@ public final class TinkerRegistry {
    */
   public static void addMaterial(Material material) {
     // ensure material identifiers are safe
-    if(CharMatcher.WHITESPACE.matchesAnyOf(material.getIdentifier())) {
+    if(CharMatcher.whitespace().matchesAnyOf(material.getIdentifier())) {
       error("Could not register Material \"%s\": Material identifier must not contain any spaces.", material.identifier);
       return;
     }
-    if(CharMatcher.JAVA_UPPER_CASE.matchesAnyOf(material.getIdentifier())) {
+    if(CharMatcher.javaUpperCase().matchesAnyOf(material.getIdentifier())) {
       error("Could not register Material \"%s\": Material identifier must be completely lowercase.", material.identifier);
       return;
     }
@@ -157,6 +155,14 @@ public final class TinkerRegistry {
     return ImmutableList.copyOf(materials.values());
   }
 
+  /**
+   * Called by TinkerIntegrtion at the end of postInit to remove any materials that are still hidden (unused)
+   * For internal use, should not need to be called by other mods
+   */
+  public static void removeHiddenMaterials() {
+    materials.entrySet().removeIf(entry->entry.getValue().isHidden());
+  }
+
   public static Collection<Material> getAllMaterialsWithStats(String statType) {
     ImmutableList.Builder<Material> mats = ImmutableList.builder();
     for(Material material : materials.values()) {
@@ -167,7 +173,6 @@ public final class TinkerRegistry {
 
     return mats.build();
   }
-
 
   /*---------------------------------------------------------------------------
   | TRAITS & STATS                                                            |
@@ -244,7 +249,6 @@ public final class TinkerRegistry {
     if(event.getResult() == Event.Result.ALLOW) {
       stats = event.newStats;
     }
-
 
     material.addStats(stats);
 
@@ -600,7 +604,6 @@ public final class TinkerRegistry {
     return ImmutableList.copyOf(tableCastRegistry);
   }
 
-
   /** Registers a casting recipe for the casting basin */
   public static void registerBasinCasting(ItemStack output, ItemStack cast, Fluid fluid, int amount) {
     RecipeMatch rm = null;
@@ -722,7 +725,6 @@ public final class TinkerRegistry {
     ResourceLocation name = EntityList.getKey(entity);
     return entityMeltingRegistry.get(name);
   }
-
 
   /*---------------------------------------------------------------------------
   | Drying Rack                                                               |
@@ -903,6 +905,7 @@ public final class TinkerRegistry {
     else {
       materialIntegrations.add(materialIntegration);
     }
+
     return materialIntegration;
   }
 

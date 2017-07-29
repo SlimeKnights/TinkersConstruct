@@ -20,13 +20,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -49,7 +46,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
+  public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     for(FoliageType type : FoliageType.values()) {
       list.add(new ItemStack(this, 1, getMetaFromState(this.getDefaultState().withProperty(BlockSlimeGrass.FOLIAGE, type))));
     }
@@ -161,7 +158,7 @@ public class BlockSlimeLeaves extends BlockLeaves {
   @Nonnull
   @Override
   public BlockPlanks.EnumType getWoodType(int meta) {
-    throw new NotImplementedException(); // unused by our code.
+    throw new UnsupportedOperationException(); // unused by our code.
   }
 
   @Override

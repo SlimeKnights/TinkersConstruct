@@ -1,57 +1,82 @@
 package slimeknights.tconstruct.library.client.texture;
 
-import net.minecraft.client.Minecraft;
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.Collection;
+import java.util.function.Function;
 
 import slimeknights.tconstruct.library.client.RenderUtil;
 
 public class TextureColoredTexture extends AbstractColoredTexture {
 
+  protected final ResourceLocation addTextureLocation;
   protected TextureAtlasSprite addTexture;
-  protected final String addTextureLocation;
-  protected int[][] textureData;
-  protected int textureW;
-  protected int textureH;
+  protected int[] textureData;
+  protected int addTextureWidth;
+  protected int addTextureHeight;
   protected float scale;
   protected int offsetX = 0;
   protected int offsetY = 0;
 
   public boolean stencil = false;
 
-  public TextureColoredTexture(String addTextureLocation, TextureAtlasSprite baseTexture,
-                               String spriteName) {
+  public TextureColoredTexture(ResourceLocation addTextureLocation, ResourceLocation baseTexture, String spriteName) {
     super(baseTexture, spriteName);
     this.addTextureLocation = addTextureLocation;
-    this.addTexture = null;
-  }
-
-  public TextureColoredTexture(TextureAtlasSprite addTexture, TextureAtlasSprite baseTexture,
-                               String spriteName) {
-    super(baseTexture, spriteName);
-    this.addTextureLocation = addTexture.getIconName();
-    this.addTexture = addTexture;
   }
 
   @Override
-  protected int colorPixel(int pixel, int mipmap, int pxCoord) {
+  public Collection<ResourceLocation> getDependencies() {
+    return ImmutableList.<ResourceLocation>builder()
+        .addAll(super.getDependencies())
+        .add(addTextureLocation)
+        .build();
+  }
+
+  @Override
+  public boolean load(IResourceManager manager, ResourceLocation location, Function<ResourceLocation, TextureAtlasSprite> textureGetter) {
+    addTexture = textureGetter.apply(addTextureLocation);
+
+    super.load(manager, location, textureGetter);
+
+    return false;
+  }
+
+  @Override
+  protected void preProcess(int[] data) {
+    textureData = addTexture.getFrameTextureData(0)[0];
+    // we need to keep the sizes, otherwise the secondary texture might set our size to a different value
+    // since it uses the same loading code as the main texture
+    // read: 32x32 block textures with 16x16 tool textures = stuff goes boom
+    addTextureWidth = addTexture.getIconWidth();
+    addTextureHeight = addTexture.getIconHeight();
+    scale = (float) addTextureHeight / (float) width;
+  }
+
+  @Override
+  protected void postProcess(int[] data) {
+    // not needed anymore, release memory
+    textureData = null;
+  }
+
+  @Override
+  protected int colorPixel(int pixel, int pxCoord) {
     int a = RenderUtil.alpha(pixel);
     if(a == 0) {
       return pixel;
     }
 
-    if(textureData == null) {
-      loadData();
-    }
-
-
     int texCoord = pxCoord;
-    if(width > textureW) {
-      int texX = (pxCoord % width) % textureW;
-      int texY = (pxCoord / height) % textureH;
-      texCoord = texY * textureW + texX;
+    if(width > addTextureWidth) {
+      int texX = (pxCoord % width) % addTextureWidth;
+      int texY = (pxCoord / height) % addTextureHeight;
+      texCoord = texY * addTextureWidth + texX;
     }
-    int c = textureData[mipmap][texCoord];
+    int c = textureData[texCoord];
 
     // multiply in the color
     int r = RenderUtil.red(c);
@@ -66,26 +91,12 @@ public class TextureColoredTexture extends AbstractColoredTexture {
     return RenderUtil.compose(r, g, b, a);
   }
 
-  protected void loadData() {
-    if(addTexture == null || addTexture.getFrameCount() <= 0) {
-      addTexture = backupLoadTexture(new ResourceLocation(addTextureLocation), Minecraft.getMinecraft().getResourceManager());
-    }
-
-    textureData = addTexture.getFrameTextureData(0);
-    // we need to keep the sizes, otherwise the secondary texture might set our size to a different value
-    // since it uses the same loading code as the main texture
-    // read: 32x32 block textures with 16x16 tool textures = stuff goes boom
-    textureW = addTexture.getIconWidth();
-    textureH = addTexture.getIconHeight();
-    scale = (float) textureH / (float) width;
-  }
-
   public void setOffset(int x, int y) {
     offsetX = x;
     offsetY = y;
   }
 
   protected int coord2(int x, int y) {
-    return y * textureW + x;
+    return y * addTextureWidth + x;
   }
 }

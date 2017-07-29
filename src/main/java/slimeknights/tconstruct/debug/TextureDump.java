@@ -30,7 +30,7 @@ public class TextureDump {
 
   private static String getName(TextureMap map) throws Exception {
     if(fName == null) {
-      fName = TextureMap.class.getDeclaredFields()[7];
+      fName = TextureMap.class.getDeclaredFields()[6];
       fName.setAccessible(true);
     }
     return ((String) fName.get(map)).replace('/', '_');
@@ -40,7 +40,7 @@ public class TextureDump {
 
   private static int getMip(TextureMap map) throws Exception {
     if(fMip == null) {
-      fMip = TextureMap.class.getDeclaredFields()[9];
+      fMip = TextureMap.class.getDeclaredFields()[8];
       fMip.setAccessible(true);
     }
     return fMip.getInt(map);

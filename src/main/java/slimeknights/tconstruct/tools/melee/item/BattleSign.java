@@ -110,8 +110,8 @@ public class BattleSign extends TinkerToolCore {
     event.setAmount(event.getAmount() * 0.7f);
 
     // reflect damage
-    if(event.getSource().getEntity() != null) {
-      event.getSource().getEntity().attackEntityFrom(DamageSource.causeThornsDamage(player), event.getAmount() / 2f);
+    if(event.getSource().getTrueSource() != null) {
+      event.getSource().getTrueSource().attackEntityFrom(DamageSource.causeThornsDamage(player), event.getAmount() / 2f);
       damage = damage * 3 / 2;
     }
     ToolHelper.damageTool(battlesign, damage, player);
@@ -120,7 +120,7 @@ public class BattleSign extends TinkerToolCore {
   @SubscribeEvent
   public void reflectProjectiles(LivingAttackEvent event) {
     // only blockable projectile damage
-    if(event.getSource().isUnblockable() || !event.getSource().isProjectile() || event.getSource().getSourceOfDamage() == null) {
+    if(event.getSource().isUnblockable() || !event.getSource().isProjectile() || event.getSource().getImmediateSource() == null) {
       return;
     }
     if(!shouldBlockDamage(event.getEntityLiving())) {
@@ -131,7 +131,7 @@ public class BattleSign extends TinkerToolCore {
     ItemStack battlesign = player.getActiveItemStack();
 
     // ensure the player is looking at the projectile (aka not getting shot into the back)
-    Entity projectile = event.getSource().getSourceOfDamage();
+    Entity projectile = event.getSource().getImmediateSource();
     Vec3d motion = new Vec3d(projectile.motionX, projectile.motionY, projectile.motionZ);
     Vec3d look = player.getLookVec();
 
@@ -152,9 +152,9 @@ public class BattleSign extends TinkerToolCore {
     speed += 0.2f; // we add a bit speed
 
     // and redirect it to where the player is looking
-    projectile.motionX = look.xCoord * speed;
-    projectile.motionY = look.yCoord * speed;
-    projectile.motionZ = look.zCoord * speed;
+    projectile.motionX = look.x * speed;
+    projectile.motionY = look.y * speed;
+    projectile.motionZ = look.z * speed;
 
     projectile.rotationYaw = (float) (Math.atan2(projectile.motionX, projectile.motionZ) * 180.0D / Math.PI);
     projectile.rotationPitch = (float) (Math.atan2(projectile.motionY, speed) * 180.0D / Math.PI);

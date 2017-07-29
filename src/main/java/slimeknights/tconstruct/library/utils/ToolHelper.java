@@ -7,7 +7,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -25,7 +24,6 @@ import net.minecraft.network.play.client.CPacketPlayerDigging;
 import net.minecraft.network.play.server.SPacketAnimation;
 import net.minecraft.network.play.server.SPacketBlockChange;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
-import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
@@ -220,7 +218,6 @@ public final class ToolHelper {
 
   /* Harvesting */
 
-
   public static ImmutableList<BlockPos> calcAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin, int width, int height, int depth) {
     return calcAOEBlocks(stack, world, player, origin, width, height, depth, -1);
   }
@@ -275,18 +272,18 @@ public final class ToolHelper {
         z = vec.getX() * width + vec.getZ() * height;
         start = start.add(-x / 2, 0, -z / 2);
         if(x % 2 == 0) {
-          if(x > 0 && mop.hitVec.xCoord - mop.getBlockPos().getX() > 0.5d) {
+          if(x > 0 && mop.hitVec.x - mop.getBlockPos().getX() > 0.5d) {
             start = start.add(1, 0, 0);
           }
-          else if(x < 0 && mop.hitVec.xCoord - mop.getBlockPos().getX() < 0.5d) {
+          else if(x < 0 && mop.hitVec.x - mop.getBlockPos().getX() < 0.5d) {
             start = start.add(-1, 0, 0);
           }
         }
         if(z % 2 == 0) {
-          if(z > 0 && mop.hitVec.zCoord - mop.getBlockPos().getZ() > 0.5d) {
+          if(z > 0 && mop.hitVec.z - mop.getBlockPos().getZ() > 0.5d) {
             start = start.add(0, 0, 1);
           }
-          else if(z < 0 && mop.hitVec.zCoord - mop.getBlockPos().getZ() < 0.5d) {
+          else if(z < 0 && mop.hitVec.z - mop.getBlockPos().getZ() < 0.5d) {
             start = start.add(0, 0, -1);
           }
         }
@@ -297,10 +294,10 @@ public final class ToolHelper {
         y = height;
         z = mop.sideHit.getAxisDirection().getOffset() * -depth;
         start = start.add(-x / 2, -y / 2, 0);
-        if(x % 2 == 0 && mop.hitVec.xCoord - mop.getBlockPos().getX() > 0.5d) {
+        if(x % 2 == 0 && mop.hitVec.x - mop.getBlockPos().getX() > 0.5d) {
           start = start.add(1, 0, 0);
         }
-        if(y % 2 == 0 && mop.hitVec.yCoord - mop.getBlockPos().getY() > 0.5d) {
+        if(y % 2 == 0 && mop.hitVec.y - mop.getBlockPos().getY() > 0.5d) {
           start = start.add(0, 1, 0);
         }
         break;
@@ -310,10 +307,10 @@ public final class ToolHelper {
         y = height;
         z = width;
         start = start.add(-0, -y / 2, -z / 2);
-        if(y % 2 == 0 && mop.hitVec.yCoord - mop.getBlockPos().getY() > 0.5d) {
+        if(y % 2 == 0 && mop.hitVec.y - mop.getBlockPos().getY() > 0.5d) {
           start = start.add(0, 1, 0);
         }
-        if(z % 2 == 0 && mop.hitVec.zCoord - mop.getBlockPos().getZ() > 0.5d) {
+        if(z % 2 == 0 && mop.hitVec.z - mop.getBlockPos().getZ() > 0.5d) {
           start = start.add(0, 0, 1);
         }
         break;
@@ -399,7 +396,6 @@ public final class ToolHelper {
         return;
       }
 
-
       // serverside we reproduce ItemInWorldManager.tryHarvestBlock
 
       TileEntity tileEntity = world.getTileEntity(pos);
@@ -416,7 +412,6 @@ public final class ToolHelper {
     }
     // client sided handling
     else {
-      PlayerControllerMP pcmp = Minecraft.getMinecraft().playerController;
       // clientside we do a "this clock has been clicked on long enough to be broken" call. This should not send any new packets
       // the code above, executed on the server, sends a block-updates that give us the correct state of the block we destroy.
 
@@ -457,10 +452,10 @@ public final class ToolHelper {
 
         for(ItemStack stack : drops) {
           float f = 0.7F;
-          double d = (double) (TConstruct.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-          double d1 = (double) (TConstruct.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-          double d2 = (double) (TConstruct.random.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
-          EntityItem entityitem = new EntityItem(player.getEntityWorld(), (double) pos.getX() + d, (double) pos.getY() + d1, (double) pos.getZ() + d2, stack);
+          double d = TConstruct.random.nextFloat() * f + (1.0F - f) * 0.5D;
+          double d1 = TConstruct.random.nextFloat() * f + (1.0F - f) * 0.5D;
+          double d2 = TConstruct.random.nextFloat() * f + (1.0F - f) * 0.5D;
+          EntityItem entityitem = new EntityItem(player.getEntityWorld(), pos.getX() + d, pos.getY() + d1, pos.getZ() + d2, stack);
           entityitem.setDefaultPickupDelay();
           world.spawnEntity(entityitem);
         }
@@ -475,7 +470,6 @@ public final class ToolHelper {
     }
     return false;
   }
-
 
   /* Tool Durability */
 
@@ -563,7 +557,6 @@ public final class ToolHelper {
 
     healTool(stack, amount, entity);
   }
-
 
   /* Dealing tons of damage */
 
@@ -669,7 +662,7 @@ public final class ToolHelper {
 
     // deal the damage
     if(target != null) {
-    int hurtResistantTime = target.hurtResistantTime;
+      int hurtResistantTime = target.hurtResistantTime;
       for(ITrait trait : traits) {
         trait.onHit(stack, attacker, target, damage, isCritical);
         // reset hurt reristant time
@@ -684,7 +677,6 @@ public final class ToolHelper {
     else {
       hit = tool.dealDamage(stack, attacker, targetEntity, damage);
     }
-
 
     // did we hit?
     if(hit && target != null) {
@@ -731,19 +723,18 @@ public final class ToolHelper {
         }
 
         // vanilla achievement support :D
-        if(damage >= 18f) {
-          player.addStat(AchievementList.OVERKILL);
-        }
+        // TODO: READD
+        //if(damage >= 18f) {
+        //  player.addStat(AchievementList.OVERKILL);
+        //}
       }
 
-      attacker.setLastAttacker(target);
+      attacker.setLastAttackedEntity(target);
       // Damage indicator particles
-
 
       // we don't support vanilla thorns or antispider enchantments
       //EnchantmentHelper.applyThornEnchantments(target, player);
       //EnchantmentHelper.applyArthropodEnchantments(player, target);
-
 
       // call post-hit callbacks before reducing the durability
       for(ITrait trait : traits) {
@@ -762,7 +753,7 @@ public final class ToolHelper {
 
         if(player.getEntityWorld() instanceof WorldServer && damageDealt > 2f) {
           int k = (int) (damageDealt * 0.5);
-          ((WorldServer) player.getEntityWorld()).spawnParticle(EnumParticleTypes.DAMAGE_INDICATOR, targetEntity.posX, targetEntity.posY + (double) (targetEntity.height * 0.5F), targetEntity.posZ, k, 0.1D, 0.0D, 0.1D, 0.2D);
+          ((WorldServer) player.getEntityWorld()).spawnParticle(EnumParticleTypes.DAMAGE_INDICATOR, targetEntity.posX, targetEntity.posY + targetEntity.height * 0.5F, targetEntity.posZ, k, 0.1D, 0.0D, 0.1D, 0.2D);
         }
 
         // cooldown for non-projectiles

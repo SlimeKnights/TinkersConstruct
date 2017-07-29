@@ -17,9 +17,8 @@ public class GuiButtonRepair extends GuiButtonItem<ToolBuildGuiInfo> {
   @Override
   protected void drawIcon(Minecraft mc) {
     mc.getTextureManager().bindTexture(Icons.ICON);
-    Icons.ICON_Anvil.draw(xPosition, yPosition);
+    Icons.ICON_Anvil.draw(x, y);
   }
-
 
   static {
     int x = 7 + 80 / 2 - 8 - 6;
@@ -30,9 +29,9 @@ public class GuiButtonRepair extends GuiButtonItem<ToolBuildGuiInfo> {
     info.addSlotPosition(x, y);
 
     info.addSlotPosition(x - 18, y + 20); // -20,+20
-    info.addSlotPosition(x - 22, y - 5);  // -22, -7
-    info.addSlotPosition(x, y - 23);      // +-0, -21
-    info.addSlotPosition(x + 22, y - 5);  // +22, -7
+    info.addSlotPosition(x - 22, y - 5); // -22, -7
+    info.addSlotPosition(x, y - 23); // +-0, -21
+    info.addSlotPosition(x + 22, y - 5); // +22, -7
     info.addSlotPosition(x + 18, y + 20); // +20,+20
   }
 }

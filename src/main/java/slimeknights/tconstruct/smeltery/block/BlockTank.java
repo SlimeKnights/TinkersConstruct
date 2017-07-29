@@ -86,9 +86,7 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> implements 
 
     IFluidHandler fluidHandler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, facing);
     ItemStack heldItem = playerIn.getHeldItem(hand);
-    FluidActionResult result = FluidUtil.interactWithFluidHandler(heldItem, fluidHandler, playerIn);
-    if(result.isSuccess()) {
-      playerIn.setHeldItem(hand, result.getResult());
+    if(FluidUtil.interactWithFluidHandler(playerIn, hand, fluidHandler)) {
       return true; // return true as we did something
     }
 
@@ -118,7 +116,6 @@ public class BlockTank extends BlockEnumSmeltery<BlockTank.TankType> implements 
       stack = new ItemStack(item, 1, this.damageDropped(state));
       ret.add(stack);
     }
-
 
     // save liquid data on the stack
     TileEntity te = world.getTileEntity(pos);

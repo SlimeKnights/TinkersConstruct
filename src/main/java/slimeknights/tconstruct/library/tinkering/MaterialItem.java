@@ -23,12 +23,14 @@ public class MaterialItem extends Item implements IMaterialItem {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    // this adds a variant of each material to the creative menu
-    for(Material mat : TinkerRegistry.getAllMaterials()) {
-      subItems.add(getItemstackWithMaterial(mat));
-      if(!Config.listAllMaterials) {
-        break;
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      // this adds a variant of each material to the creative menu
+      for(Material mat : TinkerRegistry.getAllMaterials()) {
+        subItems.add(getItemstackWithMaterial(mat));
+        if(!Config.listAllMaterials) {
+          break;
+        }
       }
     }
   }

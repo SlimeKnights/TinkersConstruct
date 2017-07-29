@@ -3,10 +3,10 @@ package slimeknights.tconstruct.gadgets.item;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
@@ -18,6 +18,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 import slimeknights.mantle.item.ItemArmorTooltip;
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
@@ -28,7 +31,7 @@ import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
 public class ItemSlimeBoots extends ItemArmorTooltip {
 
   // todo: determine if this needs toughness
-  public static ArmorMaterial SLIME_MATERIAL = EnumHelper.addArmorMaterial("SLIME", Util.resource("slime"), 0, new int[]{0, 0, 0, 0}, 0, SoundEvents.BLOCK_SLIME_PLACE, 0);
+  public static ArmorMaterial SLIME_MATERIAL = EnumHelper.addArmorMaterial("SLIME", Util.resource("slime"), 0, new int[] { 0, 0, 0, 0 }, 0, SoundEvents.BLOCK_SLIME_PLACE, 0);
 
   public ItemSlimeBoots() {
     super(SLIME_MATERIAL, 0, EntityEquipmentSlot.FEET);
@@ -87,6 +90,15 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
     return true;
   }
 
+  /**
+   * ItemStack sensitive version of getItemAttributeModifiers
+   */
+  @Override
+  public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+    // return an empty map as all our armor values are 0, causing a weird tooltip
+    return HashMultimap.<String, AttributeModifier>create();
+  }
+
   @Nonnull
   @Override
   public String getUnlocalizedName(ItemStack stack) {
@@ -105,9 +117,11 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
    */
   @Override
   @SideOnly(Side.CLIENT)
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    for(SlimeType type : SlimeType.values()) {
-      subItems.add(new ItemStack(this, 1, type.getMeta()));
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      for(SlimeType type : SlimeType.values()) {
+        subItems.add(new ItemStack(this, 1, type.getMeta()));
+      }
     }
   }
 

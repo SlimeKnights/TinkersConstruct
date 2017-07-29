@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.RecipeSorter;
+import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
 
 import javax.annotation.Nonnull;
 
@@ -13,11 +13,10 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.ToolCore;
 
-public class TempToolCrafting implements IRecipe {
+public class TempToolCrafting extends Impl<IRecipe> implements IRecipe {
 
-  static {
-    // register the recipe with the recipesorter
-    RecipeSorter.register("tcon:tool", TempToolCrafting.class, RecipeSorter.Category.SHAPELESS, "");
+  public TempToolCrafting() {
+    this.setRegistryName(Util.getResource("tool"));
   }
 
   private ItemStack outputTool;
@@ -30,7 +29,6 @@ public class TempToolCrafting implements IRecipe {
   @Override
   public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World worldIn) {
     outputTool = ItemStack.EMPTY;
-
 
     NonNullList<ItemStack> input = NonNullList.create();
 
@@ -57,11 +55,6 @@ public class TempToolCrafting implements IRecipe {
   }
 
   @Override
-  public int getRecipeSize() {
-    return 2;
-  }
-
-  @Override
   public ItemStack getRecipeOutput() {
     return outputTool;
   }
@@ -70,5 +63,10 @@ public class TempToolCrafting implements IRecipe {
   @Override
   public NonNullList<ItemStack> getRemainingItems(@Nonnull InventoryCrafting inv) {
     return NonNullList.create();
+  }
+
+  @Override
+  public boolean canFit(int width, int height) {
+    return width * height >= 2;
   }
 }

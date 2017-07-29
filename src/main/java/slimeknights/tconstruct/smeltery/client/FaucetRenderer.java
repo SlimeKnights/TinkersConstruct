@@ -5,7 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -25,7 +25,7 @@ import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 public class FaucetRenderer extends TileEntitySpecialRenderer<TileFaucet> {
 
   @Override
-  public void renderTileEntityAt(@Nonnull TileFaucet te, double x, double y, double z, float partialTicks, int destroyStage) {
+  public void render(@Nonnull TileFaucet te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
     if(!te.isPouring || te.drained == null) {
       return;
     }
@@ -36,10 +36,10 @@ public class FaucetRenderer extends TileEntitySpecialRenderer<TileFaucet> {
     IBlockState state = world.getBlockState(below);
     Block block = state.getBlock();
 
-    float yMin = -15f/16f;
+    float yMin = -15f / 16f;
     if(block instanceof IFaucetDepth) {
       // negated so the interface is easier to understand
-      yMin = -((IFaucetDepth)block).getFlowDepth(world, below, state);
+      yMin = -((IFaucetDepth) block).getFlowDepth(world, below, state);
     }
 
     if(te.direction == EnumFacing.UP) {
@@ -58,7 +58,7 @@ public class FaucetRenderer extends TileEntitySpecialRenderer<TileFaucet> {
       RenderUtil.pre(x, y, z);
 
       Tessellator tessellator = Tessellator.getInstance();
-      VertexBuffer renderer = tessellator.getBuffer();
+      BufferBuilder renderer = tessellator.getBuffer();
       renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
       Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
       int color = te.drained.getFluid().getColor(te.drained);
@@ -77,32 +77,32 @@ public class FaucetRenderer extends TileEntitySpecialRenderer<TileFaucet> {
       double z2 = 0.375;
 
       // the stuff in the faucet
-      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN,  color, brightness, true);
-      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH, color, brightness, true);
-      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.EAST,  color, brightness, true);
-      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.WEST,  color, brightness, true);
-      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.UP,    color, brightness, true);
+      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.DOWN, color, brightness, true);
+      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.NORTH, color, brightness, true);
+      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.EAST, color, brightness, true);
+      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.WEST, color, brightness, true);
+      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.UP, color, brightness, true);
 
       // the stuff flowing down
       y1 = 0;
       z1 = 0.375;
       z2 = 0.5;
-      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN,  color, brightness, true);
-      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH, color, brightness, true);
-      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.EAST,  color, brightness, true);
-      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.SOUTH, color, brightness, true);
-      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.WEST,  color, brightness, true);
-      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.UP,    color, brightness, true);
+      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.DOWN, color, brightness, true);
+      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.NORTH, color, brightness, true);
+      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.EAST, color, brightness, true);
+      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.SOUTH, color, brightness, true);
+      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.WEST, color, brightness, true);
+      RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.UP, color, brightness, true);
 
       // render in the block beneath
       if(yMin < 0) {
         y1 = yMin;
         y2 = 0;
-        RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.DOWN,  color, brightness, true);
-        RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.NORTH, color, brightness, true);
-        RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.EAST,  color, brightness, true);
-        RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.SOUTH, color, brightness, true);
-        RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2-x1, y2-y1, z2-z1, EnumFacing.WEST,  color, brightness, true);
+        RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.DOWN, color, brightness, true);
+        RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.NORTH, color, brightness, true);
+        RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.EAST, color, brightness, true);
+        RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.SOUTH, color, brightness, true);
+        RenderUtil.putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.WEST, color, brightness, true);
       }
 
       tessellator.draw();

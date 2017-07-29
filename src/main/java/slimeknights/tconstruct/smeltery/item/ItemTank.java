@@ -1,13 +1,14 @@
 package slimeknights.tconstruct.smeltery.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidTank;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.tconstruct.library.Util;
@@ -19,8 +20,8 @@ public class ItemTank extends ItemBlockMeta {
   }
 
   @Override
-  public void addInformation(@Nonnull ItemStack stack, @Nonnull EntityPlayer playerIn, @Nonnull List<String> tooltip, boolean advanced) {
-    super.addInformation(stack, playerIn, tooltip, advanced);
+  public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+    super.addInformation(stack, worldIn, tooltip, flagIn);
 
     if(stack.hasTagCompound()) {
       FluidTank tank = new FluidTank(0);

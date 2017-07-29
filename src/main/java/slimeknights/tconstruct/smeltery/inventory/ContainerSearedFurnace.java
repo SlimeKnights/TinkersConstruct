@@ -40,12 +40,12 @@ public class ContainerSearedFurnace extends ContainerMultiModule<TileSearedFurna
   public void addListener(IContainerListener listener) {
     super.addListener(listener);
 
-    listener.sendProgressBarUpdate(this, 0, tile.getFuel());
-    listener.sendProgressBarUpdate(this, 1, tile.fuelQuality);
+    listener.sendWindowProperty(this, 0, tile.getFuel());
+    listener.sendWindowProperty(this, 1, tile.fuelQuality);
 
     for(int i = 0; i < inventorySize; i++) {
-      listener.sendProgressBarUpdate(this, i + 2, tile.getTemperature(i));
-      listener.sendProgressBarUpdate(this, i + inventorySize + 2, tile.getTempRequired(i));
+      listener.sendWindowProperty(this, i + 2, tile.getTemperature(i));
+      listener.sendWindowProperty(this, i + inventorySize + 2, tile.getTempRequired(i));
     }
   }
 
@@ -58,14 +58,14 @@ public class ContainerSearedFurnace extends ContainerMultiModule<TileSearedFurna
     if(fuel != oldFuel) {
       oldFuel = fuel;
       for(IContainerListener crafter : this.listeners) {
-        crafter.sendProgressBarUpdate(this, 0, fuel);
+        crafter.sendWindowProperty(this, 0, fuel);
       }
     }
     fuel = tile.fuelQuality;
     if(fuel != oldFuelQuality) {
       oldFuelQuality = fuel;
       for(IContainerListener crafter : this.listeners) {
-        crafter.sendProgressBarUpdate(this, 1, fuel);
+        crafter.sendWindowProperty(this, 1, fuel);
       }
     }
 
@@ -75,14 +75,14 @@ public class ContainerSearedFurnace extends ContainerMultiModule<TileSearedFurna
       if(temp != oldHeats[i]) {
         oldHeats[i] = temp;
         for(IContainerListener crafter : this.listeners) {
-          crafter.sendProgressBarUpdate(this, i + 2, temp);
+          crafter.sendWindowProperty(this, i + 2, temp);
         }
       }
       temp = tile.getTempRequired(i);
       if(temp != oldHeatsRequired[i]) {
         oldHeatsRequired[i] = temp;
         for(IContainerListener crafter : this.listeners) {
-          crafter.sendProgressBarUpdate(this, i + 2 + inventorySize, temp);
+          crafter.sendWindowProperty(this, i + 2 + inventorySize, temp);
         }
       }
     }

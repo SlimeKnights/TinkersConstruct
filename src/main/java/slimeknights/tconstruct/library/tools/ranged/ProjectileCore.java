@@ -205,7 +205,7 @@ public abstract class ProjectileCore extends TinkerToolCore implements IProjecti
 
     @Nullable
     @Override
-    public Entity getSourceOfDamage() {
+    public Entity getImmediateSource() {
       return projectile;
     }
   }

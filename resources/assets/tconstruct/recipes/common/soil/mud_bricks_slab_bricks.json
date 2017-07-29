@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "AAA"
+    ],
+    "key": {
+        "A": {
+            "item": "tconstruct:deco_ground",
+            "data": 0
+        }
+    },
+    "result": {
+        "item": "tconstruct:deco_ground_slab",
+        "count": 6,
+        "data": 0
+    }
+}

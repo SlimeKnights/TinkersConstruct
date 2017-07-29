@@ -121,7 +121,7 @@ public class Exploder {
       str = Math.max(0.3, str);
       dir = dir.normalize();
       dir = dir.scale(explosionStrength * str * 0.3);
-      entity.addVelocity(dir.xCoord, dir.yCoord + 0.5, dir.zCoord);
+      entity.addVelocity(dir.x, dir.y + 0.5, dir.z);
       entity.attackEntityFrom(DamageSource.causeExplosionDamage(explosion), (float) (str * explosionStrength));
 
       if(entity instanceof EntityPlayerMP) {
@@ -190,7 +190,7 @@ public class Exploder {
           float f2 = exploder != null ? exploder.getExplosionResistance(explosion, world, pos, state) : state.getBlock().getExplosionResistance(world, pos, null, explosion);
           f -= (f2 + 0.3F) * 0.3F;
 
-          if(f > 0.0F && (exploder == null || exploder.verifyExplosion(explosion, world, pos, state, (float) f))) {
+          if(f > 0.0F && (exploder == null || exploder.canExplosionDestroyBlock(explosion, world, pos, state, (float) f))) {
             // block should be exploded
             count++;
             explodeBlock(state, pos);

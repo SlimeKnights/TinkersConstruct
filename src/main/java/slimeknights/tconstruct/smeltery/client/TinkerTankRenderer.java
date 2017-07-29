@@ -6,7 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -27,7 +27,7 @@ public class TinkerTankRenderer extends SmelteryTankRenderer<TileTinkerTank> {
   protected static Minecraft mc = Minecraft.getMinecraft();
 
   @Override
-  public void renderTileEntityAt(@Nonnull TileTinkerTank tinkerTank, double x, double y, double z, float partialTicks, int destroyStage) {
+  public void render(@Nonnull TileTinkerTank tinkerTank, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
     if(!tinkerTank.isActive()) {
       return;
     }
@@ -58,7 +58,7 @@ public class TinkerTankRenderer extends SmelteryTankRenderer<TileTinkerTank> {
       }
 
       Tessellator tessellator = Tessellator.getInstance();
-      VertexBuffer renderer = tessellator.getBuffer();
+      BufferBuilder renderer = tessellator.getBuffer();
 
       renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
       mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

@@ -7,7 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
@@ -60,21 +59,23 @@ public class Bolt extends ProjectileCore {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    for(Material head : TinkerRegistry.getAllMaterials()) {
-      List<Material> mats = new ArrayList<>(3);
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      for(Material head : TinkerRegistry.getAllMaterials()) {
+        List<Material> mats = new ArrayList<>(3);
 
-      if(head.hasStats(MaterialTypes.HEAD)) {
-        mats.add(TinkerMaterials.wood);
-        mats.add(head);
-        mats.add(TinkerMaterials.feather);
+        if(head.hasStats(MaterialTypes.HEAD)) {
+          mats.add(TinkerMaterials.wood);
+          mats.add(head);
+          mats.add(TinkerMaterials.feather);
 
-        ItemStack tool = buildItem(mats);
-        // only valid ones
-        if(hasValidMaterials(tool)) {
-          subItems.add(tool);
-          if(!Config.listAllMaterials) {
-            break;
+          ItemStack tool = buildItem(mats);
+          // only valid ones
+          if(hasValidMaterials(tool)) {
+            subItems.add(tool);
+            if(!Config.listAllMaterials) {
+              break;
+            }
           }
         }
       }
@@ -129,7 +130,6 @@ public class Bolt extends ProjectileCore {
       return target.attackEntityFrom(new DamageSourceProjectileForEndermen(DAMAGE_TYPE_PROJECTILE, projectile, player), damage);
     }
 
-
     DamageSource damageSource = new EntityDamageSourceIndirect(DAMAGE_TYPE_PROJECTILE, projectile, player).setProjectile();
     return Rapier.dealHybridDamage(damageSource, target, damage);
   }
@@ -153,7 +153,7 @@ public class Bolt extends ProjectileCore {
 
   @Override
   public EntityProjectileBase getProjectile(ItemStack stack, ItemStack bow, World world, EntityPlayer player, float speed, float inaccuracy, float power, boolean usedAmmo) {
-    inaccuracy -= (1f - 1f/ProjectileNBT.from(stack).accuracy) * speed/2f;
+    inaccuracy -= (1f - 1f / ProjectileNBT.from(stack).accuracy) * speed / 2f;
     return new EntityBolt(world, player, speed, inaccuracy, power, getProjectileStack(stack, world, player, usedAmmo), bow);
   }
 

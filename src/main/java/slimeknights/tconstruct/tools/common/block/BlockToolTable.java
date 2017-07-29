@@ -10,7 +10,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IStringSerializable;
@@ -59,7 +58,6 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
     this.setHarvestLevel("axe", 0);
   }
 
-
   @Nonnull
   @Override
   public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
@@ -94,7 +92,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
   @SideOnly(Side.CLIENT)
   @Override
-  public void getSubBlocks(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> list) {
+  public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     // crafting station is boring
     list.add(new ItemStack(this, 1, TableTypes.CraftingStation.meta));
 
@@ -121,7 +119,7 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
 
       if(blockMeta == OreDictionary.WILDCARD_VALUE) {
         NonNullList<ItemStack> subBlocks = NonNullList.create();
-        block.getSubBlocks(stack.getItem(), null, subBlocks);
+        block.getSubBlocks(null, subBlocks);
 
         for(ItemStack subBlock : subBlocks) {
           list.add(createItemstack(this, meta, getBlockFromItem(subBlock.getItem()), subBlock.getItemDamage()));

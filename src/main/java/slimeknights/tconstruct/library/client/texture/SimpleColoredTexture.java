@@ -1,14 +1,20 @@
 package slimeknights.tconstruct.library.client.texture;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.ResourceLocation;
 
 import slimeknights.tconstruct.library.client.RenderUtil;
 
 public class SimpleColoredTexture extends AbstractColoredTexture {
 
-  protected final int colorLow, colorMid, colorHigh;
 
-  public SimpleColoredTexture(int colorLow, int colorMid, int colorHigh, TextureAtlasSprite baseTexture,
+  protected final int colorLow;
+  protected final int colorMid;
+  protected final int colorHigh;
+  protected int minBrightness;
+  protected int maxBrightness;
+  protected int brightnessData[];
+
+  public SimpleColoredTexture(int colorLow, int colorMid, int colorHigh, ResourceLocation baseTexture,
                               String spriteName) {
     super(baseTexture, spriteName);
     this.colorLow = colorLow;
@@ -16,49 +22,48 @@ public class SimpleColoredTexture extends AbstractColoredTexture {
     this.colorHigh = colorHigh;
   }
 
-  int minBrightness;
-  int maxBrightness;
-
-  float weight = 0.60f; // 60-40 split between main color and high/low color
-
   @Override
-  protected void processData(int[][] data) {
+  protected void preProcess(int[] data) {
+    // setup brigthness data
     int max = 0;
     int min = 255;
-    // setup brigthness data
-    for(int x = 0; x < width; ++x) {
-      for(int y = 0; y < height; ++y) {
-        int c = data[0][y * width + x];
-        if(RenderUtil.alpha(c) == 0) {
-          continue;
-        }
-        int b = getPerceptualBrightness(c);
-        if(b < min) {
-          min = b;
-        }
-        if(b > max) {
-          max = b;
-        }
+    brightnessData = new int[data.length];
+    for(int i = 0; i < data.length; i++) {
+      int pixel = data[i];
+      if(RenderUtil.alpha(pixel) == 0) {
+        continue;
       }
+      int brightness = getPerceptualBrightness(pixel);
+      if(brightness < min) {
+        min = brightness;
+      }
+      if(brightness > max) {
+        max = brightness;
+      }
+      brightnessData[i] = brightness;
     }
 
     // calculate the actual limits where we change color
-    int d = max - min;
-    d /= 2;
-    minBrightness = Math.max(min + 1, min + (int) (d * 0.4f));
-    maxBrightness = Math.min(max - 1, max - (int) (d * 0.3f));
-
-    super.processData(data);
+    int brightnessDiff = max - min;
+    brightnessDiff /= 2;
+    minBrightness = Math.max(min + 1, min + (int) (brightnessDiff * 0.4f));
+    maxBrightness = Math.min(max - 1, max - (int) (brightnessDiff * 0.3f));
   }
 
   @Override
-  protected int colorPixel(int pixel, int mipmap, int pxCoord) {
+  protected void postProcess(int[] data) {
+    // delete memory that we don't need anymore. We only cached it for faster loading anyway
+    brightnessData = null;
+  }
+
+  @Override
+  protected int colorPixel(int pixel, int pxCoord) {
     int a = RenderUtil.alpha(pixel);
     if(a == 0) {
       return pixel;
     }
 
-    int brightness = getPerceptualBrightness(pixel);
+    int brightness = brightnessData[pxCoord];
     int c = colorMid;
     if(brightness < minBrightness) {
       c = colorLow;

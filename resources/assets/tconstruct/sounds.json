@@ -26,25 +26,25 @@
    "wood_hit": {
      "category": "block",
      "sounds": [
-       "tconstruct:woodHit1",
-	   "tconstruct:woodHit2",
-	   "tconstruct:woodHit3",
-	   "tconstruct:woodHit4",
-	   "tconstruct:woodHit5"
+       "tconstruct:woodhit1",
+	   "tconstruct:woodhit2",
+	   "tconstruct:woodhit3",
+	   "tconstruct:woodhit4",
+	   "tconstruct:woodhit5"
      ]
    },
    "stone_hit": {
      "category": "block",
      "sounds": [
-       "tconstruct:stoneHit1",
-	   "tconstruct:stoneHit2",
-	   "tconstruct:stoneHit3"
+       "tconstruct:stonehit1",
+	   "tconstruct:stonehit2",
+	   "tconstruct:stonehit3"
      ]
    },
    "crossbow_reload": {
 	"category": "player",
 	"sounds": [
-		"tconstruct:crossbowReload"
+		"tconstruct:crossbowreload"
 	]
    },
    "charged": {

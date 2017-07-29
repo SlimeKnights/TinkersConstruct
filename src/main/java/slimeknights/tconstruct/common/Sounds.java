@@ -5,13 +5,24 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.play.server.SPacketSoundEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import slimeknights.tconstruct.library.Util;
 
+@Mod.EventBusSubscriber(modid = Util.MODID)
 public abstract class Sounds {
 
   private Sounds() {
   }
+
+  // remember, this needs to be at the top because of initialization order
+  private static final List<SoundEvent> sounds = new ArrayList<>();
 
   public static final SoundEvent saw = sound("little_saw");
 
@@ -26,10 +37,12 @@ public abstract class Sounds {
 
   public static final SoundEvent crossbow_reload = sound("crossbow_reload");
 
+
   private static SoundEvent sound(String name) {
     ResourceLocation location = Util.getResource(name);
     SoundEvent event = new SoundEvent(location);
-    SoundEvent.REGISTRY.register(-1, location, event);
+    event.setRegistryName(location);
+    sounds.add(event);
     return event;
   }
 
@@ -41,5 +54,11 @@ public abstract class Sounds {
     if(entity instanceof EntityPlayerMP) {
       TinkerNetwork.sendPacket(entity, new SPacketSoundEffect(sound, entity.getSoundCategory(), entity.posX, entity.posY, entity.posZ, volume, pitch));
     }
+  }
+
+  @SubscribeEvent
+  public static void registerSoundEvent(RegistryEvent.Register<SoundEvent> event) {
+    IForgeRegistry<SoundEvent> registry = event.getRegistry();
+    sounds.forEach(registry::register);
   }
 }

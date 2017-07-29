@@ -9,7 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Set;
@@ -43,6 +43,7 @@ import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallPurple;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeCrystalBlue;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeCrystalGreen;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeCrystalMagma;
+import static slimeknights.tconstruct.shared.TinkerCommons.matNecroticBone;
 import static slimeknights.tconstruct.shared.TinkerCommons.nuggetAlubrass;
 import static slimeknights.tconstruct.shared.TinkerCommons.nuggetArdite;
 import static slimeknights.tconstruct.shared.TinkerCommons.nuggetCobalt;
@@ -104,7 +105,7 @@ public class TinkerOredict {
       .build();
 
   @Subscribe
-  public static void doTheOredict(FMLPreInitializationEvent event) {
+  public static void doTheOredict(FMLInitializationEvent event) {
     ensureOredict();
     registerCommon();
     registerTools();
@@ -193,6 +194,7 @@ public class TinkerOredict {
   private static void registerTools() {
     // TinkerTools Pulse
     oredict(toolTables, BlockToolTable.TableTypes.CraftingStation.meta, "workbench");
+    oredict(matNecroticBone, "boneWithered");
 
     oredict(pickHead, "partPickHead");
     oredict(binding, "partBinding");

@@ -70,8 +70,10 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
   }
 
   @Override
-  public void getSubItems(Item itemIn, CreativeTabs tab, NonNullList<ItemStack> subItems) {
-    addDefaultSubItems(subItems, null, null, null, TinkerMaterials.string);
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      addDefaultSubItems(subItems, null, null, null, TinkerMaterials.string);
+    }
   }
 
   @Override
@@ -147,7 +149,7 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
     if(!ToolHelper.isBroken(stack) && (entityLiving instanceof EntityPlayer)) {
       int useTime = this.getMaxItemUseDuration(stack) - timeLeft;
       if(getDrawbackProgress(stack, useTime) >= 1f) {
-        Sounds.PlaySoundForPlayer(entityLiving, Sounds.crossbow_reload, 1.5f, 0.9f + itemRand.nextFloat()*0.1f);
+        Sounds.PlaySoundForPlayer(entityLiving, Sounds.crossbow_reload, 1.5f, 0.9f + itemRand.nextFloat() * 0.1f);
         setLoaded(stack, true);
       }
     }
@@ -155,7 +157,7 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
 
   @Override
   public void playShootSound(float power, World world, EntityPlayer entityPlayer) {
-    world.playSound(null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 0.5f + itemRand.nextFloat()*0.1f);
+    world.playSound(null, entityPlayer.posX, entityPlayer.posY, entityPlayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 0.5f + itemRand.nextFloat() * 0.1f);
   }
 
   @Override
@@ -189,7 +191,6 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
     BowMaterialStats limb = materials.get(1).getStatsOrUnknown(MaterialTypes.BOW);
     ExtraMaterialStats binding = materials.get(2).getStatsOrUnknown(MaterialTypes.EXTRA);
     BowStringMaterialStats bowstring = materials.get(3).getStatsOrUnknown(MaterialTypes.BOWSTRING);
-
 
     data.head(head);
     data.limb(limb);

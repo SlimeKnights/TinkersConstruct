@@ -5,19 +5,19 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.RecipeSorter;
+import net.minecraftforge.registries.IForgeRegistryEntry.Impl;
 
 import javax.annotation.Nonnull;
 
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.TinkersItem;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 
-public class TempToolModifying implements IRecipe {
+public class TempToolModifying extends Impl<IRecipe> implements IRecipe {
 
-  static {
-    // register the recipe with the recipesorter
-    RecipeSorter.register("tcon:mod", TempToolModifying.class, RecipeSorter.Category.SHAPELESS, "");
+  public TempToolModifying() {
+    this.setRegistryName(Util.getResource("mod"));
   }
 
   private ItemStack outputTool;
@@ -48,16 +48,12 @@ public class TempToolModifying implements IRecipe {
 
     try {
       outputTool = ToolBuilder.tryModifyTool(stacks, tool, false);
-    } catch(TinkerGuiException e) {
+    }
+    catch(TinkerGuiException e) {
       System.out.println(e.getMessage());
     }
 
     return outputTool != null;
-  }
-
-  @Override
-  public int getRecipeSize() {
-    return 2;
   }
 
   @Override
@@ -81,10 +77,16 @@ public class TempToolModifying implements IRecipe {
 
     try {
       ToolBuilder.tryModifyTool(stacks, tool, true);
-    } catch(TinkerGuiException e) {
+    }
+    catch(TinkerGuiException e) {
       e.printStackTrace();
     }
 
     return stacks;
+  }
+
+  @Override
+  public boolean canFit(int width, int height) {
+    return width * height >= 2;
   }
 }

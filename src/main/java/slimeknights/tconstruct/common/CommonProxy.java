@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.common;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.MathHelper;
@@ -31,8 +30,6 @@ public class CommonProxy {
       TConstruct.log.error(
           "Proxy.preInit has to be called during Pre-Initialisation.");
     }
-
-    registerModels();
   }
 
   public void init() {
@@ -49,7 +46,7 @@ public class CommonProxy {
     }
   }
 
-  protected void registerModels() {
+  public void registerModels() {
     if(Loader.instance().hasReachedState(LoaderState.INITIALIZATION)) {
       TConstruct.log.error(
           "Proxy.registerModels has to be called during preInit. Otherwise the models wont be found on first load.");
@@ -124,7 +121,7 @@ public class CommonProxy {
     explosion.doExplosionA();
     explosion.doExplosionB(false);
 
-    if(!explosion.isSmoking) {
+    if(!explosion.damagesTerrain) {
       explosion.clearAffectedBlockPositions();
     }
 

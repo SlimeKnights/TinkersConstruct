@@ -5,11 +5,16 @@ import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArrow;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.logging.log4j.Logger;
 
@@ -65,31 +70,42 @@ public class TinkerRangedWeapons extends AbstractToolPulse {
     return DISCOVERED_ARROWS;
   }
 
-  // PRE-INITIALIZATION
   @Override
-  @Subscribe
-  public void preInit(FMLPreInitializationEvent event) {
-    super.preInit(event);
+  @SubscribeEvent
+  public void registerItems(Register<Item> event) {
+    super.registerItems(event);
+  }
 
+  @SubscribeEvent
+  public void registerEntities(Register<EntityEntry> event) {
     // entities
     EntityRegistry.registerModEntity(Util.getResource("arrow"), EntityArrow.class, "arrow", EntityIDs.ARROW, TConstruct.instance, 64, 1, false);
     EntityRegistry.registerModEntity(Util.getResource("bolt"), EntityBolt.class, "bolt", EntityIDs.BOLT, TConstruct.instance, 64, 1, false);
     EntityRegistry.registerModEntity(Util.getResource("shuriken"), EntityShuriken.class, "shuriken", EntityIDs.SHURIKEN, TConstruct.instance, 64, 1, false);
+  }
 
+  @SubscribeEvent
+  public void registerModels(ModelRegistryEvent event) {
+    proxy.registerModels();
+  }
+
+  // PRE-INITIALIZATION
+  @Subscribe
+  public void preInit(FMLPreInitializationEvent event) {
     proxy.preInit();
   }
 
   @Override
-  protected void registerTools() {
-    shortBow = registerTool(new ShortBow(), "shortbow");
-    longBow = registerTool(new LongBow(), "longbow");
+  protected void registerTools(IForgeRegistry<Item> registry) {
+    shortBow = registerTool(registry, new ShortBow(), "shortbow");
+    longBow = registerTool(registry, new LongBow(), "longbow");
 
-    crossBow = registerTool(new CrossBow(), "crossbow");
+    crossBow = registerTool(registry, new CrossBow(), "crossbow");
 
-    arrow = registerTool(new Arrow(), "arrow");
-    bolt = registerTool(new Bolt(), "bolt");
+    arrow = registerTool(registry, new Arrow(), "arrow");
+    bolt = registerTool(registry, new Bolt(), "bolt");
 
-    shuriken = registerTool(new Shuriken(), "shuriken");
+    shuriken = registerTool(registry, new Shuriken(), "shuriken");
   }
 
   // INITIALIZATION

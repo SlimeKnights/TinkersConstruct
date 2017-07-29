@@ -8,8 +8,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
-import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
@@ -268,7 +268,6 @@ public class SlimeIslandGenerator implements IWorldGenerator {
           BlockPos pos1 = start.add(x, y + height - erode_height + 2, z);
           BlockPos pos2 = start.add(xRange - x, y + height - erode_height + 2, zRange - z);
 
-
           for(BlockPos pos : new BlockPos[]{pos1, pos2}) {
             BlockPos below = pos.down();
             if(world.getBlockState(below.north()) != dirt
@@ -369,7 +368,6 @@ public class SlimeIslandGenerator implements IWorldGenerator {
   private void tryGenerateInPreviouslyGeneratedChunk(int chunkX, int chunkZ, IChunkProvider iChunkProvider) {
 
   }
-
 
   private boolean areSurroundingChunksLoaded(int chunkX, int chunkZ, IChunkProvider chunkprovider) {
     for(int x = chunkX - 1; x <= chunkX + 1; x++) {

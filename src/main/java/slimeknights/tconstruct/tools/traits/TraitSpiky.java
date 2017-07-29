@@ -22,7 +22,7 @@ public class TraitSpiky extends AbstractTrait {
 
   @Override
   public void onBlock(ItemStack tool, EntityPlayer player, LivingHurtEvent event) {
-    Entity target = event.getSource().getEntity();
+    Entity target = event.getSource().getTrueSource();
     if(target instanceof EntityLivingBase && target.isEntityAlive()) {
       float damage = ToolHelper.getActualDamage(tool, player) / 3f; // 1/3rd of weapon damage
       EntityDamageSource damageSource = new EntityDamageSource(DamageSource.CACTUS.damageType, player);

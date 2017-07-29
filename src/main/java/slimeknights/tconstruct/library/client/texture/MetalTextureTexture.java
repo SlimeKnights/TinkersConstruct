@@ -1,41 +1,46 @@
 package slimeknights.tconstruct.library.client.texture;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.Collection;
+import java.util.function.Function;
+
 public class MetalTextureTexture extends MetalColoredTexture {
 
+  private final ResourceLocation addTextureLocation;
   protected TextureColoredTexture texture2;
 
-  public MetalTextureTexture(String addTextureLocation, TextureAtlasSprite baseTexture, String spriteName, int baseColor, float shinyness, float brightness, float hueshift) {
+  public MetalTextureTexture(ResourceLocation addTextureLocation, ResourceLocation baseTexture, String spriteName, int baseColor, float shinyness, float brightness, float hueshift) {
     super(baseTexture, spriteName, baseColor, shinyness, brightness, hueshift);
+    this.addTextureLocation = addTextureLocation;
     texture2 = new TextureColoredTexture(addTextureLocation, baseTexture, spriteName);
   }
 
-  public MetalTextureTexture(TextureAtlasSprite addTexture, TextureAtlasSprite baseTexture, String spriteName, int baseColor, float shinyness, float brightness, float hueshift) {
-    super(baseTexture, spriteName, baseColor, shinyness, brightness, hueshift);
-    texture2 = new TextureColoredTexture(addTexture, baseTexture, spriteName);
+  @Override
+  public Collection<ResourceLocation> getDependencies() {
+    return ImmutableList.<ResourceLocation>builder()
+        .addAll(super.getDependencies())
+        .add(addTextureLocation)
+        .build();
   }
 
   @Override
-  public boolean load(IResourceManager manager, ResourceLocation location) {
-    // at frist do the metal texture
-    texture2.load(manager, location);
-    return super.load(manager, location);
+  public boolean load(IResourceManager manager, ResourceLocation location, Function<ResourceLocation, TextureAtlasSprite> textureGetter) {
+    // at first do the metal texture
+    texture2.load(manager, location, textureGetter);
+    return super.load(manager, location, textureGetter);
   }
 
   @Override
-  protected void processData(int[][] data) {
-    // go over the base texture and color it
-    for(int mipmap = 0; mipmap < data.length; mipmap++) {
-      if(data[mipmap] == null) {
-        continue;
-      }
-      for(int pxCoord = 0; pxCoord < data[mipmap].length; pxCoord++) {
-        // get input from metal
-        data[mipmap][pxCoord] = colorPixel(texture2.getFrameTextureData(0)[mipmap][pxCoord], mipmap, pxCoord);
-      }
+  protected void processData(int[] data) {
+    int[] textureData = texture2.getFrameTextureData(0)[0];
+    for(int i = 0; i < data.length && i < textureData.length; i++) {
+      data[i] = textureData[i];
     }
+    super.processData(data);
   }
 }
