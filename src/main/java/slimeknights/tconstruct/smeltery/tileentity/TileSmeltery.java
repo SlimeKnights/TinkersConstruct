@@ -208,8 +208,6 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
 
     AxisAlignedBB bb = info.getBoundingBox().contract(-2, -1, -2).offset(-1, 0, -1);
 
-    log.info(bb.toString());
-
     List<Entity> entities = getWorld().getEntitiesWithinAABB(Entity.class, bb);
     for(Entity entity : entities) {
       // item?
