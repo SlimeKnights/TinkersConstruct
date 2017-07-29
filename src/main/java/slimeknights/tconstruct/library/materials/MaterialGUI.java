@@ -4,7 +4,7 @@ package slimeknights.tconstruct.library.materials;
 public class MaterialGUI extends Material {
 
   public MaterialGUI(String identifier) {
-    super(identifier, 0xffffff);
+    super(identifier, 0xffffff, true);
   }
 
   @Override

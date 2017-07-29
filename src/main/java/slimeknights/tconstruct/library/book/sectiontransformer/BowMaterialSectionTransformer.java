@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.book.sectiontransformer;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
 import net.minecraftforge.fml.common.Loader;
@@ -10,7 +11,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
@@ -30,6 +30,10 @@ import slimeknights.tconstruct.library.materials.MaterialTypes;
 @SideOnly(Side.CLIENT)
 public class BowMaterialSectionTransformer extends SectionTransformer {
 
+  private static final List<String> MATERIAL_TYPES_ON_DISPLAY = ImmutableList.of(
+      MaterialTypes.BOW, MaterialTypes.BOWSTRING, MaterialTypes.SHAFT, MaterialTypes.FLETCHING
+  );
+
   public BowMaterialSectionTransformer() {
     super("bowmaterials");
   }
@@ -46,10 +50,12 @@ public class BowMaterialSectionTransformer extends SectionTransformer {
       return;
     }
 
-    Stream.of(MaterialTypes.BOW, MaterialTypes.BOWSTRING, MaterialTypes.SHAFT, MaterialTypes.FLETCHING).forEach(type -> {
+    MATERIAL_TYPES_ON_DISPLAY.forEach(type -> {
       int pageIndex = data.pages.size();
       generateContent(type, data);
-      listing.addEntry(getStatName(type), data.pages.get(pageIndex));
+      if(pageIndex < data.pages.size()) {
+        listing.addEntry(getStatName(type), data.pages.get(pageIndex));
+      }
     });
   }
 
@@ -63,6 +69,10 @@ public class BowMaterialSectionTransformer extends SectionTransformer {
                                                 .filter(Material::hasItems)
                                                 .filter(material -> material.hasStats(materialType))
                                                 .collect(Collectors.toList());
+
+    if(materialList.size() == 0) {
+      return ImmutableList.of();
+    }
 
     List<ContentPageIconList> contentPages = ContentPageIconList.getPagesNeededForItemCount(materialList.size(), data, getStatName(materialType));
     ListIterator<ContentPageIconList> iter = contentPages.listIterator();
