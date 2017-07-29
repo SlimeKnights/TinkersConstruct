@@ -4,11 +4,6 @@ package slimeknights.tconstruct.library.materials;
 public class MaterialGUI extends Material {
 
   public MaterialGUI(String identifier) {
-    super(identifier, 0xffffff, true);
-  }
-
-  @Override
-  public boolean isHidden() {
-    return true;
+    super(identifier, 0xffffff, false);
   }
 }
