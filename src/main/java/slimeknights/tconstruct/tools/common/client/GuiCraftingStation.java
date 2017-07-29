@@ -29,6 +29,7 @@ public class GuiCraftingStation extends GuiTinkerStation implements IRecipeShown
   private static final ResourceLocation BACKGROUND = new ResourceLocation("textures/gui/container/crafting_table.png");
   private static final ResourceLocation CRAFTING_TABLE_GUI_TEXTURES = new ResourceLocation("textures/gui/container/crafting_table.png");
   protected final TileCraftingStation tile;
+  private final boolean hasSideInventory;
   private final GuiRecipeBook recipeBookGui;
   private boolean widthTooNarrow;
   private GuiButtonImage recipeButton;
@@ -39,6 +40,8 @@ public class GuiCraftingStation extends GuiTinkerStation implements IRecipeShown
     this.recipeBookGui = new GuiRecipeBook();
     this.tile = tile;
 
+    boolean hasSideInventory = false;
+
     if(inventorySlots instanceof ContainerCraftingStation) {
       ContainerCraftingStation container = (ContainerCraftingStation) inventorySlots;
       ContainerSideInventory chestContainer = container.getSubContainer(ContainerSideInventory.class);
@@ -48,8 +51,10 @@ public class GuiCraftingStation extends GuiTinkerStation implements IRecipeShown
           ((TileEntityChest) chestContainer.getTile()).doubleChestHandler = null;
         }
         this.addModule(new GuiSideInventory(this, chestContainer, chestContainer.getSlotCount(), chestContainer.columns));
+        hasSideInventory = true;
       }
     }
+    this.hasSideInventory = hasSideInventory;
   }
 
   @Override
@@ -59,6 +64,12 @@ public class GuiCraftingStation extends GuiTinkerStation implements IRecipeShown
       widthTooNarrow = this.width < 379;
       recipeBookGui.init(this.width, this.height, this.mc, widthTooNarrow, this.container, ((ContainerCraftingStation) this.container).getCraftMatrix());
       recipeButton = new GuiButtonImage(10, this.cornerX + 5, this.height / 2 - 49, 20, 18, 0, 168, 19, CRAFTING_TABLE_GUI_TEXTURES);
+    }
+
+    if(hasSideInventory && recipeBookGui.isVisible()) {
+      recipeBookGui.toggleVisibility();
+    }
+    if(recipeBookGui.isVisible()) {
       buttonList.add(this.recipeButton);
       updateRecipeBook();
     }
@@ -133,7 +144,7 @@ public class GuiCraftingStation extends GuiTinkerStation implements IRecipeShown
 
   @Override
   protected void actionPerformed(GuiButton button) throws IOException {
-    if (button.id == recipeButton.id && (inventorySlots instanceof ContainerCraftingStation))
+    if (!hasSideInventory && button.id == recipeButton.id && (inventorySlots instanceof ContainerCraftingStation))
     {
       this.recipeBookGui.initVisuals(this.widthTooNarrow, ((ContainerCraftingStation)this.inventorySlots).getCraftMatrix());
       this.recipeBookGui.toggleVisibility();
