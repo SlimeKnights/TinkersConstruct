@@ -384,6 +384,9 @@ public class Material extends RecipeMatchRegistry {
         RecipeMatch.Match match = matchOptional.get();
         if(match.amount == VALUE_Shard) {
           this.shardItem = stack;
+          if(representativeItem.isEmpty()) {
+            this.setRepresentativeItem(shardItem.copy());
+          }
         }
         else {
           TinkerRegistry.log.warn("Itemstack {} cannot be shard of material {} since it does not have the correct value! (is {}, has to be {})",

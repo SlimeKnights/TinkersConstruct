@@ -3,6 +3,7 @@ package slimeknights.tconstruct.gadgets.item;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -16,6 +17,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 
 import slimeknights.mantle.item.ItemArmorTooltip;
 import slimeknights.mantle.util.LocUtils;
@@ -84,6 +88,15 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
   public boolean hasOverlay(ItemStack stack) {
     // use an overlay so we get a tint
     return true;
+  }
+
+  /**
+   * ItemStack sensitive version of getItemAttributeModifiers
+   */
+  @Override
+  public Multimap<String, AttributeModifier> getAttributeModifiers(EntityEquipmentSlot slot, ItemStack stack) {
+    // return an empty map as all our armor values are 0, causing a weird tooltip
+    return HashMultimap.<String, AttributeModifier>create();
   }
 
   @Nonnull

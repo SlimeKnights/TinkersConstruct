@@ -34,6 +34,7 @@ import slimeknights.tconstruct.debug.TinkerDebug;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
+import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.plugin.Chisel;
@@ -64,7 +65,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
      version = TConstruct.modVersion,
      guiFactory = "slimeknights.tconstruct.common.config.ConfigGui$ConfigGuiFactory",
      dependencies = "required-after:forge@[14.21.1.2387,);"
-                    + "required-after:mantle@[1.12-1.3.0.15,);"
+                    + "required-after:mantle@[1.12-1.3.1,);"
                     + "after:jei@[4.2,);"
                     + "after:chisel",
      acceptedMinecraftVersions = "[1.12, 1.13)")
@@ -157,6 +158,7 @@ public class TConstruct {
     }
 
     TinkerNetwork.instance.setup();
+    CapabilityTinkerPiggyback.register();
     CapabilityTinkerProjectile.register();
 
     MinecraftForge.EVENT_BUS.register(this);
