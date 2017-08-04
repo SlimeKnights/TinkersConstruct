@@ -193,6 +193,13 @@ tile.tconstruct.slime_channel.magma.name=Magma Slime Channel
 tile.tconstruct.slime_channel.blood.name=Blood Channel
 tile.tconstruct.slime_channel.tooltip=Flows like water, feels like gelatin
 
+tile.tconstruct.bounce_pad.green.name=Green Bounce Pad
+tile.tconstruct.bounce_pad.blue.name=Blue Bounce Pad
+tile.tconstruct.bounce_pad.purple.name=Purple Bounce Pad
+tile.tconstruct.bounce_pad.magma.name=Magma Bounce Pad
+tile.tconstruct.bounce_pad.blood.name=Blood Bounce Pad
+tile.tconstruct.bounce_pad.tooltip=This is life-ruiningly fun!
+
 tile.tconstruct.dried_clay.clay.name=Dried Clay
 tile.tconstruct.dried_clay.brick.name=Dried Bricks
 tile.tconstruct.dried_clay_slab.clay.name=Dried Clay Slab

@@ -1,0 +1,24 @@
+{
+	"conditions": [
+        {
+            "type": "tconstruct:is_pulse_loaded",
+            "pulse_name": "TinkerGadgets"
+        }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "group": "tconstruct:slime_blocks",
+    "ingredients": [
+        {
+            "item": "tconstruct:slime_channel",
+            "data": 0
+        },
+        {
+        		"type": "forge:ore_dict",
+            "ore": "slimeball"
+        }
+    ],
+    "result": {
+        "item": "tconstruct:bounce_pad",
+        "data": 0
+    }
+}

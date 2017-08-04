@@ -34,6 +34,7 @@ import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.EntityIDs;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.gadgets.block.BlockBouncePad;
 import slimeknights.tconstruct.gadgets.block.BlockBrownstone;
 import slimeknights.tconstruct.gadgets.block.BlockBrownstoneSlab;
 import slimeknights.tconstruct.gadgets.block.BlockBrownstoneSlab2;
@@ -58,6 +59,7 @@ import slimeknights.tconstruct.gadgets.item.ItemSpaghetti;
 import slimeknights.tconstruct.gadgets.item.ItemThrowball;
 import slimeknights.tconstruct.gadgets.modifiers.ModSpaghettiMeat;
 import slimeknights.tconstruct.gadgets.modifiers.ModSpaghettiSauce;
+import slimeknights.tconstruct.gadgets.tileentity.TileBouncePad;
 import slimeknights.tconstruct.gadgets.tileentity.TileDryingRack;
 import slimeknights.tconstruct.gadgets.tileentity.TileItemRack;
 import slimeknights.tconstruct.gadgets.tileentity.TileSlimeChannel;
@@ -88,6 +90,7 @@ public class TinkerGadgets extends TinkerPulse {
   public static Block woodRailTrapdoor;
 
   public static BlockSlimeChannel slimeChannel;
+  public static BlockBouncePad bouncePad;
 
   public static BlockDriedClaySlab driedClaySlab;
   public static BlockBrownstoneSlab brownstoneSlab;
@@ -133,8 +136,9 @@ public class TinkerGadgets extends TinkerPulse {
     woodRail = registerBlock(registry, new BlockWoodRail(), "wood_rail");
     woodRailTrapdoor = registerBlock(registry, new BlockWoodRailDropper(), "wood_rail_trapdoor");
 
-    // slime channels
+    // slime channels and bounce pads
     slimeChannel = registerBlock(registry, new BlockSlimeChannel(), "slime_channel");
+    bouncePad = registerBlock(registry, new BlockBouncePad(), "bounce_pad");
 
     // dried clay
     driedClay = registerBlock(registry, new BlockDriedClay(), "dried_clay");
@@ -164,6 +168,7 @@ public class TinkerGadgets extends TinkerPulse {
     registerTE(TileItemRack.class, "item_rack");
     registerTE(TileDryingRack.class, "drying_rack");
     registerTE(TileSlimeChannel.class, "slime_channel");
+    registerTE(TileBouncePad.class, "bounce_pad");
   }
 
   @SubscribeEvent
@@ -178,8 +183,9 @@ public class TinkerGadgets extends TinkerPulse {
     woodRail = registerItemBlock(registry, woodRail);
     woodRailTrapdoor = registerItemBlock(registry, woodRailTrapdoor);
 
-    // slime channels
+    // slime channels and bounce pads
     slimeChannel = registerEnumItemBlock(registry, slimeChannel);
+    bouncePad = registerEnumItemBlock(registry, bouncePad);
 
     // dried clay
     driedClay = registerEnumItemBlock(registry, driedClay);

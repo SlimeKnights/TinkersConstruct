@@ -3,6 +3,7 @@ package slimeknights.tconstruct.gadgets;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -18,6 +19,7 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.common.ClientProxy;
+import slimeknights.tconstruct.gadgets.block.BlockBouncePad;
 import slimeknights.tconstruct.gadgets.block.BlockSlimeChannel;
 import slimeknights.tconstruct.gadgets.client.RenderFancyItemFrame;
 import slimeknights.tconstruct.gadgets.client.RenderThrowball;
@@ -47,7 +49,7 @@ public class GadgetClientProxy extends ClientProxy {
   public void init() {
     Minecraft minecraft = Minecraft.getMinecraft();
 
-    // slime channels
+    // slime channels and bounce pads
     minecraft.getBlockColors().registerBlockColorHandler(
         new IBlockColor() {
           @Override
@@ -55,7 +57,7 @@ public class GadgetClientProxy extends ClientProxy {
             return state.getValue(BlockSlimeChannel.TYPE).getColor();
           }
         },
-        TinkerGadgets.slimeChannel);
+        TinkerGadgets.slimeChannel, TinkerGadgets.bouncePad);
 
     ItemColors colors = minecraft.getItemColors();
     colors.registerItemColorHandler(
@@ -65,7 +67,7 @@ public class GadgetClientProxy extends ClientProxy {
             return BlockSlime.SlimeType.fromMeta(stack.getItemDamage()).getColor();
           }
         },
-        TinkerGadgets.slimeChannel);
+        TinkerGadgets.slimeChannel, TinkerGadgets.bouncePad);
     colors.registerItemColorHandler(
         new IItemColor() {
           @Override
@@ -85,7 +87,10 @@ public class GadgetClientProxy extends ClientProxy {
 
     // separate the sides into separate model files to make the blockstate rotations easier
     ModelLoader.setCustomStateMapper(TinkerGadgets.slimeChannel, new PropertyStateMapper("slime_channel", BlockSlimeChannel.SIDE, BlockSlimeChannel.TYPE));
-
+    
+    // slime type is handled by the color handler
+    ModelLoader.setCustomStateMapper(TinkerGadgets.bouncePad, (new StateMap.Builder()).ignore(BlockBouncePad.TYPE).build());
+    
     // Blocks
     registerItemModel(TinkerGadgets.stoneTorch);
     registerItemModel(TinkerGadgets.stoneLadder);
@@ -96,6 +101,7 @@ public class GadgetClientProxy extends ClientProxy {
     registerItemModel(TinkerGadgets.woodRailTrapdoor);
 
     registerItemModel(TinkerGadgets.slimeChannel); //tinted for variants
+    registerItemModel(TinkerGadgets.bouncePad); //also tinted for variants
 
     registerItemBlockMeta(TinkerGadgets.driedClay);
     registerItemBlockMeta(TinkerGadgets.brownstone);
