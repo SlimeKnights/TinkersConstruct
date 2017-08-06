@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
 
-@Pulse(id = Waila.PulseId, modsRequired = Waila.modid, defaultEnable = true)
+@Pulse(id = Waila.PulseId, modsRequired = waila.modid, defaultEnable = true)
 public class Waila {
 
   public static final String modid = "Waila";
