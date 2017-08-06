@@ -15,6 +15,7 @@
         }
     ],
     "type": "minecraft:crafting_shapeless",
+    "group": "tconstruct:silky_jewel",
     "ingredients": [
         {
             "item": "tconstruct:metal",

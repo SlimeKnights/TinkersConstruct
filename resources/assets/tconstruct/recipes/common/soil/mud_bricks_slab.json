@@ -15,6 +15,7 @@
         }
     ],
     "type": "minecraft:crafting_shaped",
+    "group": "tconstruct:mud_brick_slab",
     "pattern": [
         "AA"
     ],

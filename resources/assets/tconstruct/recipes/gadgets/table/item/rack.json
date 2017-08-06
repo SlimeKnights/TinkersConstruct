@@ -6,6 +6,7 @@
         }
     ],
     "type": "tconstruct:table_recipe",
+    "group": "tconstruct:item_rack",
     "variants": {
         "type": "forge:ore_dict",
         "ore": "slabWood"

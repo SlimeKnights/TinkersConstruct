@@ -6,6 +6,7 @@
         }
     ],
     "type": "minecraft:crafting_shapeless",
+    "group": "tconstruct:seared_block",
     "ingredients": [
         {
             "item": "tconstruct:seared",

@@ -10,9 +10,15 @@
         {
             "item": "minecraft:flint"
         },
-        {
-            "item": "minecraft:gunpowder"
-        }
+        [
+            {
+                "item": "minecraft:gunpowder"
+            },
+            {
+                "type": "forge:ore_dict",
+                "ore": "dustSulfur"
+            }
+        ]
     ],
     "result": {
         "item": "tconstruct:throwball",

@@ -40,5 +40,32 @@
                 "data": 1
             }
         ]
+    },
+    {
+        "name": "REINFORCEMENT_CENTER",
+        "conditions": [
+            {
+                "type": "tconstruct:is_pulse_loaded",
+                "invert": true,
+                "pulse_name": "TinkerSmeltery"
+            }
+        ],
+        "ingredient": {
+            "type": "forge:ore_dict",
+            "ore": "ingotGold"
+        }
+    },
+    {
+        "name": "REINFORCEMENT_CENTER",
+        "conditions": [
+            {
+                "type": "tconstruct:is_pulse_loaded",
+                "pulse_name": "TinkerSmeltery"
+            }
+        ],
+        "ingredient": {
+            "type": "forge:ore_dict",
+            "ore": "cast"
+        }
     }
 ]

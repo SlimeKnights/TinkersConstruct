@@ -16,6 +16,7 @@
         }
     ],
     "type": "forge:ore_shapeless",
+    "group": "tconstruct:knightslime_ingot",
     "ingredients": [
         {
             "item": "minecraft:slime_ball"
