@@ -6,6 +6,7 @@
         }
     ],
     "type": "forge:ore_shapeless",
+    "group": "tconstruct:slimy_mud",
     "ingredients": [
         {
             "item": "tconstruct:slime_congealed",

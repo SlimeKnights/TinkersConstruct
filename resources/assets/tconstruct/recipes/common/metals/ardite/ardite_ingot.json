@@ -19,6 +19,7 @@
         }
     ],
     "type": "forge:ore_shapeless",
+    "group": "tconstruct:ardite_ingot",
     "ingredients": [
         {
             "type": "forge:ore_dict",

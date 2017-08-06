@@ -6,6 +6,7 @@
         }
     ],
     "type": "forge:ore_shaped",
+    "group": "tconstruct:pattern_chest",
     "pattern": [
         "BBB",
         "BAB",
