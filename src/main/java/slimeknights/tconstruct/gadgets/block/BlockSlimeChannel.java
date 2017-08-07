@@ -959,32 +959,6 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
       }
       return list;
     }
-    
-    /**
-     * Convert the direction to a vector with components being either -1, 0, or 1
-     */
-    public byte[] toVector() {
-      switch (this) {
-      case NORTH:
-        return new byte[] {0, -1};
-      case SOUTH:
-        return new byte[] {0, 1};
-      case WEST:
-        return new byte[] {-1, 0};
-      case EAST:
-        return new byte[] {1, 0};
-      case NORTHWEST:
-        return new byte[] {-1, -1};
-      case NORTHEAST:
-        return new byte[] {1, -1};
-      case SOUTHWEST:
-        return new byte[] {-1, 1};
-      case SOUTHEAST:
-        return new byte[] {1, 1};
-      default:
-        throw new IllegalArgumentException("Unknown enum value? Impossibru!");
-      }
-    }
   }
 
   /**

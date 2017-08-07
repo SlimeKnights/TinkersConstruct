@@ -1,0 +1,35 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "tconstruct:slime_channel",
+        "textures": {
+          "slime": "tconstruct:blocks/fluids/liquid_flow",
+		  "diagonal": "tconstruct:blocks/fluids/slime_channel_diagonal"
+        }
+    },
+    "variants": {
+	    "connected": {
+            "none": {},
+            "inner": { "model": "tconstruct:slime_channel_inner" },
+            "outer": { "model": "tconstruct:slime_channel_outer" }
+        },
+        "direction": {
+            "west": { "transform": { "post-rotation": { "z": 90 } } },
+            "east": { "transform": { "post-rotation": { "z": 90 }, "rotation": { "x": 180 } } },
+            "south": { "transform": { "post-rotation": { "z": 90 }, "rotation": { "x": 270 } } },
+            "north":  { "transform": { "post-rotation": { "z": 90 }, "rotation": { "x": 90 } } },
+			
+            "southwest": { "model": "tconstruct:slime_channel_diagonal", "transform": { "post-rotation": { "z": 90 } } },
+            "northeast": { "model": "tconstruct:slime_channel_diagonal", "transform": { "post-rotation": { "z": 90 }, "rotation": { "x": 180 } } },
+            "southeast": { "model": "tconstruct:slime_channel_diagonal", "transform": { "post-rotation": { "z": 90 }, "rotation": { "x": 270 } } },
+            "northwest":  { "model": "tconstruct:slime_channel_diagonal", "transform": { "post-rotation": { "z": 90 }, "rotation": { "x": 90 } } }
+        },
+        "powered": {
+            "true": { "textures": {
+			    "slime": "tconstruct:blocks/fluids/slime_channel_still",
+		        "diagonal": "tconstruct:blocks/fluids/slime_channel_still_diagonal"
+			} },
+            "false": {}
+        }
+    }
+}

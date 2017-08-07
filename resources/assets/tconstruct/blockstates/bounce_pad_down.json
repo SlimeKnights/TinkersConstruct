@@ -8,6 +8,11 @@
         }
     },
     "variants": {
+		"connected": {
+            "none": {},
+            "inner": { "model": "tconstruct:slime_channel_inner" },
+            "outer": { "model": "tconstruct:slime_channel_outer" }
+        },
         "direction": {
             "west": { "y": 270 },
             "east":  { "y": 90 },

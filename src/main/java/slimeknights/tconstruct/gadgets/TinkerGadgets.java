@@ -59,7 +59,6 @@ import slimeknights.tconstruct.gadgets.item.ItemSpaghetti;
 import slimeknights.tconstruct.gadgets.item.ItemThrowball;
 import slimeknights.tconstruct.gadgets.modifiers.ModSpaghettiMeat;
 import slimeknights.tconstruct.gadgets.modifiers.ModSpaghettiSauce;
-import slimeknights.tconstruct.gadgets.tileentity.TileBouncePad;
 import slimeknights.tconstruct.gadgets.tileentity.TileDryingRack;
 import slimeknights.tconstruct.gadgets.tileentity.TileItemRack;
 import slimeknights.tconstruct.gadgets.tileentity.TileSlimeChannel;
@@ -168,7 +167,6 @@ public class TinkerGadgets extends TinkerPulse {
     registerTE(TileItemRack.class, "item_rack");
     registerTE(TileDryingRack.class, "drying_rack");
     registerTE(TileSlimeChannel.class, "slime_channel");
-    registerTE(TileBouncePad.class, "bounce_pad");
   }
 
   @SubscribeEvent

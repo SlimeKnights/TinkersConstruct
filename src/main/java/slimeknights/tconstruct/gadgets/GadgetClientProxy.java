@@ -3,7 +3,6 @@ package slimeknights.tconstruct.gadgets;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -87,9 +86,7 @@ public class GadgetClientProxy extends ClientProxy {
 
     // separate the sides into separate model files to make the blockstate rotations easier
     ModelLoader.setCustomStateMapper(TinkerGadgets.slimeChannel, new PropertyStateMapper("slime_channel", BlockSlimeChannel.SIDE, BlockSlimeChannel.TYPE));
-    
-    // slime type is handled by the color handler
-    ModelLoader.setCustomStateMapper(TinkerGadgets.bouncePad, (new StateMap.Builder()).ignore(BlockBouncePad.TYPE).build());
+    ModelLoader.setCustomStateMapper(TinkerGadgets.bouncePad, new PropertyStateMapper("bounce_pad", BlockBouncePad.SIDE, BlockBouncePad.TYPE));
     
     // Blocks
     registerItemModel(TinkerGadgets.stoneTorch);

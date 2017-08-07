@@ -1,0 +1,35 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "tconstruct:slime_channel",
+        "textures": {
+          "slime": "tconstruct:blocks/fluids/liquid_flow",
+		  "diagonal": "tconstruct:blocks/fluids/slime_channel_diagonal"
+        }
+    },
+    "variants": {
+        "connected": {
+            "none": {},
+            "inner": { "model": "tconstruct:slime_channel_inner" },
+            "outer": { "model": "tconstruct:slime_channel_outer" }
+        },
+        "direction": {
+            "west": { "x": 180, "y": 90 },
+            "east":  { "x": 180, "y": 270 },
+            "south": { "x": 180 },
+            "north":  { "x": 180, "y": 180 },
+
+            "northwest": { "model": "tconstruct:slime_channel_diagonal", "x": 180, "y": 90 },
+            "southeast":  { "model": "tconstruct:slime_channel_diagonal", "x": 180, "y": 270 },
+            "southwest": { "model": "tconstruct:slime_channel_diagonal", "x": 180 },
+            "northeast":  { "model": "tconstruct:slime_channel_diagonal", "x": 180, "y": 180 }
+        },
+        "powered": {
+            "true": { "textures": {
+			    "slime": "tconstruct:blocks/fluids/slime_channel_still",
+		        "diagonal": "tconstruct:blocks/fluids/slime_channel_still_diagonal"
+			} },
+            "false": {}
+        }
+    }
+}
