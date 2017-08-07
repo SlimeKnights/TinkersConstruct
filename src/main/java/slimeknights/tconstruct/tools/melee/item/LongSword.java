@@ -65,6 +65,10 @@ public class LongSword extends SwordCore {
   @Override
   public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
     ItemStack itemStackIn = playerIn.getHeldItem(hand);
+    // don't allow free flight when using an elytra, should use fireworks
+    if(playerIn.isElytraFlying()) {
+      return ActionResult.newResult(EnumActionResult.PASS, itemStackIn);
+    }
     playerIn.setActiveHand(hand);
     return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
   }
