@@ -62,14 +62,15 @@ public class GuiCraftingStation extends GuiTinkerStation implements IRecipeShown
     super.initGui();
     if(inventorySlots instanceof ContainerCraftingStation) {
       widthTooNarrow = this.width < 379;
-      recipeBookGui.init(this.width, this.height, this.mc, widthTooNarrow, this.container, ((ContainerCraftingStation) this.container).getCraftMatrix());
+      recipeBookGui.func_194303_a(this.width, this.height, this.mc, widthTooNarrow, ((ContainerCraftingStation) this.container).getCraftMatrix());
+      //recipeBookGui.init(this.width, this.height, this.mc, widthTooNarrow, this.container, ((ContainerCraftingStation) this.container).getCraftMatrix());
       recipeButton = new GuiButtonImage(10, this.cornerX + 5, this.height / 2 - 49, 20, 18, 0, 168, 19, CRAFTING_TABLE_GUI_TEXTURES);
     }
 
     if(hasSideInventory && recipeBookGui.isVisible()) {
       recipeBookGui.toggleVisibility();
     }
-    if(recipeBookGui.isVisible()) {
+    if(!hasSideInventory) {
       buttonList.add(this.recipeButton);
       updateRecipeBook();
     }
@@ -169,6 +170,11 @@ public class GuiCraftingStation extends GuiTinkerStation implements IRecipeShown
   @Override
   public void recipesUpdated() {
     recipeBookGui.recipesUpdated();
+  }
+
+  @Override
+  public GuiRecipeBook func_194310_f() {
+    return this.recipeBookGui;
   }
 
   @Override
