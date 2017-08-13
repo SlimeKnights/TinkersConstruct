@@ -11,7 +11,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
 
-@Mod.EventBusSubscriber
+//@Mod.EventBusSubscriber
 public class EventTesting {
 
   @SubscribeEvent
