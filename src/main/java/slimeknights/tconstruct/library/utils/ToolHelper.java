@@ -591,6 +591,11 @@ public final class ToolHelper {
     }
     if(attacker instanceof EntityPlayer) {
       player = (EntityPlayer) attacker;
+      if(target instanceof EntityPlayer) {
+        if(!player.canAttackPlayer((EntityPlayer) target)) {
+          return false;
+        }
+      }
     }
 
     // traits on the tool
