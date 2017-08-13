@@ -232,17 +232,15 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
           attacker.getAttributeMap().applyAttributeModifiers(projectileAttributes);
         }
-      }
-      // deal the damage
-      float speed = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-      bounceOff = !dealDamage(speed, inventoryItem, attacker, entityHit);
-      if(brokenStateDiffers) {
-        toggleBroken(inventoryItem);
-      }
+        // deal the damage
+        float speed = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+        bounceOff = !dealDamage(speed, inventoryItem, attacker, entityHit);
+        if(brokenStateDiffers) {
+          toggleBroken(inventoryItem);
+        }
 
-      // remove stats from projectile
-      // apply stats from projectile
-      if(!getEntityWorld().isRemote) {
+        // remove stats from projectile
+        // apply stats from projectile
         if(item.getItem() instanceof IProjectile) {
           assert projectileAttributes != null;
           attacker.getAttributeMap().removeAttributeModifiers(projectileAttributes);
