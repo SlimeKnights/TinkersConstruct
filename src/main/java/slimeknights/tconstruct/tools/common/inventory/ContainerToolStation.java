@@ -247,7 +247,12 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
       return ItemStack.EMPTY;
     }
 
-    return ToolBuilder.tryReplaceToolParts(tool, getInputs(), remove);
+    NonNullList<ItemStack> inputs = getInputs();
+    ItemStack result = ToolBuilder.tryReplaceToolParts(tool, inputs, remove);
+    if(!result.isEmpty()) {
+      TinkerCraftingEvent.ToolPartReplaceEvent.fireEvent(result, player, inputs);
+    }
+    return result;
   }
 
   private ItemStack modifyTool(boolean remove) throws TinkerGuiException {
