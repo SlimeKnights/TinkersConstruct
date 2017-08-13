@@ -868,6 +868,7 @@ gui.error.wrong_material_part=One or multiple items have an unsupported material
 gui.error.not_enough_durability=Not enough durability to replace parts!\n%d more durability required.
 gui.error.craftevent.tool.default=Crafting of this item was prevented by another mod.
 gui.error.craftevent.modifier.default=Modifying this tool with these items was prevented by another mod.
+gui.error.craftevent.toolpart.default=Crafting of this toolpart was prevented by another mod.
 # GUI Errors from modifiers
 gui.error.not_enough_modifiers=Not enough Modifiers. (%d needed)
 gui.error.single_modifier=%s can only be applied once.

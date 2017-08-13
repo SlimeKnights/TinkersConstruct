@@ -20,7 +20,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.events.ToolStationEvent;
+import slimeknights.tconstruct.library.events.TinkerCraftingEvent;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.IModifyable;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
@@ -260,7 +260,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
 
     ItemStack result = ToolBuilder.tryModifyTool(getInputs(), modifyable, remove);
     if(!result.isEmpty()) {
-      ToolStationEvent.ToolModifyEvent.fireEvent(result, player, modifyable.copy());
+      TinkerCraftingEvent.ToolModifyEvent.fireEvent(result, player, modifyable.copy());
     }
     return result;
   }
@@ -273,7 +273,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
 
     ItemStack result = ToolBuilder.tryBuildTool(input, toolName, getBuildableTools());
     if(!result.isEmpty()) {
-      ToolStationEvent.ToolCraftingEvent.fireEvent(result, player);
+      TinkerCraftingEvent.ToolCraftingEvent.fireEvent(result, player);
     }
     return result;
   }

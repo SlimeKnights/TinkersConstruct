@@ -15,18 +15,18 @@ import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 
 /**
- * TinkerCraftingEvents are fired when the player crafts something using tinker blocks.
+ * These events are fired when the player crafts something using tinker blocks.
  * E.g. a pickaxe, a pattern, a toolpart,...
  * The events can be cancelled to prevent crafting. When doing so, it is advertised to give a localized
  * message to display to the player.
  */
 @Cancelable
-public class ToolStationEvent extends TinkerEvent {
+public class TinkerCraftingEvent extends TinkerEvent {
   private final ItemStack itemStack;
   private final EntityPlayer player;
   private String message;
 
-  protected ToolStationEvent(ItemStack itemStack, EntityPlayer player, String message) {
+  protected TinkerCraftingEvent(ItemStack itemStack, EntityPlayer player, String message) {
     this.itemStack = itemStack;
     this.player = player;
     this.message = message;
@@ -54,7 +54,7 @@ public class ToolStationEvent extends TinkerEvent {
    * Cancelable.
    * Be sure to provide a proper message when cancelling, so the user know what's going on!
    */
-  public static class ToolCraftingEvent extends ToolStationEvent {
+  public static class ToolCraftingEvent extends TinkerCraftingEvent {
 
     private ToolCraftingEvent(ItemStack itemStack, EntityPlayer player) {
       super(itemStack, player, Util.translate("gui.error.craftevent.tool.default"));
@@ -73,7 +73,7 @@ public class ToolStationEvent extends TinkerEvent {
    * Cancelable.
    * Be sure to provide a proper message when cancelling, so the user know what's going on!
    */
-  public static class ToolModifyEvent extends ToolStationEvent {
+  public static class ToolModifyEvent extends TinkerCraftingEvent {
     private final List<IModifier> modifiers;
     private final ItemStack toolBeforeModification;
 
@@ -99,6 +99,25 @@ public class ToolStationEvent extends TinkerEvent {
       ToolModifyEvent toolModifyEvent = new ToolModifyEvent(itemStack, player, toolBeforeModification);
       if(MinecraftForge.EVENT_BUS.post(toolModifyEvent)) {
         throw new TinkerGuiException(toolModifyEvent.getMessage());
+      }
+    }
+  }
+
+  /**
+   * Fired when a toolpart is being crafted in a partbuilder.
+   * Cancelable.
+   * Be sure to provide a proper message when cancelling, so the user know what's going on!
+   */
+  public static class ToolPartCraftingEvent extends TinkerCraftingEvent {
+
+    private ToolPartCraftingEvent(ItemStack itemStack, EntityPlayer player) {
+      super(itemStack, player, Util.translate("gui.error.craftevent.toolpart.default"));
+    }
+
+    public static void fireEvent(ItemStack itemStack, EntityPlayer player) throws TinkerGuiException {
+      ToolPartCraftingEvent toolPartCraftingEvent = new ToolPartCraftingEvent(itemStack, player);
+      if(MinecraftForge.EVENT_BUS.post(toolPartCraftingEvent)) {
+        throw new TinkerGuiException(toolPartCraftingEvent.getMessage());
       }
     }
   }
