@@ -5,12 +5,14 @@ import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.NonNullList;
 
 import java.util.Arrays;
 import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -108,6 +110,20 @@ public final class TinkerUtil {
 
     // returns new tag if index is out of scope
     return tagList.getCompoundTagAt(index);
+  }
+
+  public static NonNullList<IModifier> getModifiers(ItemStack itemStack) {
+    NonNullList<IModifier> result = NonNullList.create();
+    NBTTagList modifierList = TagUtil.getModifiersTagList(itemStack);
+    for(int i = 0; i < modifierList.tagCount(); i++) {
+      NBTTagCompound tag = modifierList.getCompoundTagAt(i);
+      ModifierNBT data = ModifierNBT.readTag(tag);
+      IModifier modifier = TinkerRegistry.getModifier(data.identifier);
+      if(modifier != null) {
+        result.add(modifier);
+      }
+    }
+    return result;
   }
 
   public static List<Material> getMaterialsFromTagList(NBTTagList tagList) {

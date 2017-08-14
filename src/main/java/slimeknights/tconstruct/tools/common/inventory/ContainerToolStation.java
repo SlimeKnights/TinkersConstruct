@@ -20,6 +20,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.events.TinkerCraftingEvent;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.IModifyable;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
@@ -35,6 +36,7 @@ import slimeknights.tconstruct.tools.common.tileentity.TileToolStation;
 // also tool forge
 public class ContainerToolStation extends ContainerTinkerStation<TileToolStation> {
 
+  private final EntityPlayer player;
   protected SlotToolStationOut out;
   protected ToolCore selectedTool; // needed for newly opened containers to sync
   protected int activeSlots;
@@ -52,9 +54,10 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     // output slot
     out = new SlotToolStationOut(i, 124, 38, this);
     addSlotToContainer(out);
-
     this.addPlayerInventory(playerInventory, 8, 84 + 8);
     onCraftMatrixChanged(null);
+
+    this.player = playerInventory.player;
   }
 
   public ItemStack getResult() {
@@ -199,17 +202,22 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     }
     else {
       // calculate the result again (serverside)
-      ItemStack tool = buildTool();
+      try {
+        ItemStack tool = buildTool();
 
-      // we built a tool
-      if(!tool.isEmpty()) {
-        // remove 1 of each in the slots
-        // it's guaranteed that each slot that has an item has used exactly 1 item to build the tool
-        for(int i = 0; i < tile.getSizeInventory(); i++) {
-          tile.decrStackSize(i, 1);
+        // we built a tool
+        if(!tool.isEmpty()) {
+          // remove 1 of each in the slots
+          // it's guaranteed that each slot that has an item has used exactly 1 item to build the tool
+          for(int i = 0; i < tile.getSizeInventory(); i++) {
+            tile.decrStackSize(i, 1);
+          }
+
+          setToolName("");
         }
-
-        setToolName("");
+      } catch(TinkerGuiException e) {
+        // no error updating needed
+        e.printStackTrace();
       }
     }
     onCraftMatrixChanged(null);
@@ -239,7 +247,12 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
       return ItemStack.EMPTY;
     }
 
-    return ToolBuilder.tryReplaceToolParts(tool, getInputs(), remove);
+    NonNullList<ItemStack> inputs = getInputs();
+    ItemStack result = ToolBuilder.tryReplaceToolParts(tool, inputs, remove);
+    if(!result.isEmpty()) {
+      TinkerCraftingEvent.ToolPartReplaceEvent.fireEvent(result, player, inputs);
+    }
+    return result;
   }
 
   private ItemStack modifyTool(boolean remove) throws TinkerGuiException {
@@ -250,16 +263,24 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
       return ItemStack.EMPTY;
     }
 
-    return ToolBuilder.tryModifyTool(getInputs(), modifyable, remove);
+    ItemStack result = ToolBuilder.tryModifyTool(getInputs(), modifyable, remove);
+    if(!result.isEmpty()) {
+      TinkerCraftingEvent.ToolModifyEvent.fireEvent(result, player, modifyable.copy());
+    }
+    return result;
   }
 
-  private ItemStack buildTool() {
+  private ItemStack buildTool() throws TinkerGuiException {
     NonNullList<ItemStack> input = ItemStackList.withSize(tile.getSizeInventory());
     for(int i = 0; i < input.size(); i++) {
       input.set(i, tile.getStackInSlot(i));
     }
 
-    return ToolBuilder.tryBuildTool(input, toolName, getBuildableTools());
+    ItemStack result = ToolBuilder.tryBuildTool(input, toolName, getBuildableTools());
+    if(!result.isEmpty()) {
+      TinkerCraftingEvent.ToolCraftingEvent.fireEvent(result, player);
+    }
+    return result;
   }
 
   protected Set<ToolCore> getBuildableTools() {

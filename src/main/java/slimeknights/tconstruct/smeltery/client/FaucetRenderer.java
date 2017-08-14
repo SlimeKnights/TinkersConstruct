@@ -46,7 +46,7 @@ public class FaucetRenderer extends TileEntitySpecialRenderer<TileFaucet> {
       RenderUtil.renderFluidCuboid(te.drained, te.getPos(), x, y, z, 0.375, 0, 0.375, 0.625, 1f, 0.625);
       // render in the block beneath
       if(yMin < 0) {
-        RenderUtil.renderFluidCuboid(te.drained, te.getPos(), x, y, z, 0.375, -1, 0.375, 0.625, 0f, 0.625);
+        RenderUtil.renderFluidCuboid(te.drained, te.getPos(), x, y, z, 0.375, yMin, 0.375, 0.625, 0f, 0.625);
       }
     }
     // for horizontal we use custom rendering so we can rotate it and have the flowing texture in the faucet part

@@ -1,4 +1,19 @@
 {
+    "conditions": [
+        {
+            "type": "forge:or",
+            "values": [
+                {
+                    "type": "tconstruct:is_pulse_loaded",
+                    "pulse_name": "TinkerSmeltery"
+                },
+                {
+                    "type": "tconstruct:is_option_enabled",
+                    "config_setting": "registerAllItems"
+                }
+            ]
+        }
+    ],
     "type": "minecraft:crafting_shaped",
     "pattern": [
         "A  ",

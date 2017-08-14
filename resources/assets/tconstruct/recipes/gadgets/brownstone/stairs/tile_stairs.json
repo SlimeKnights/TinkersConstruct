@@ -6,6 +6,7 @@
         }
     ],
     "type": "minecraft:crafting_shaped",
+    "group": "tconstruct:brownstone_stairs",
     "pattern": [
         "A  ",
         "AA ",

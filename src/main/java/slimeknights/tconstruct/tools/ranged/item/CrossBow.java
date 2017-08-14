@@ -78,7 +78,7 @@ public class CrossBow extends BowCore implements ICustomCrosshairUser {
 
   @Override
   public float damagePotential() {
-    return 1f;
+    return 0.8f;
   }
 
   @Override

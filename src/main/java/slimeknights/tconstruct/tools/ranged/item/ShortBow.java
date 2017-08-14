@@ -68,7 +68,7 @@ public class ShortBow extends BowCore implements ICustomCrosshairUser {
 
   @Override
   public double attackSpeed() {
-    return 3;
+    return 1.5;
   }
 
   @Override

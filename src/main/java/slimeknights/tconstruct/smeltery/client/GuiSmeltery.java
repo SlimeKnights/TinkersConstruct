@@ -51,11 +51,6 @@ public class GuiSmeltery extends GuiHeatingStructureFuelTank implements IGuiLiqu
     // we don't need to add the corner since the mouse is already reletive to the corner
     super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 
-    // draw the scale
-    this.mc.getTextureManager().bindTexture(BACKGROUND);
-    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-    scala.draw(8, 16);
-
     // draw the tooltips, if any
     // subtract the corner of the main module so the mouse location is relative to just the center, rather than the side inventory
     mouseX -= cornerX;
@@ -85,6 +80,11 @@ public class GuiSmeltery extends GuiHeatingStructureFuelTank implements IGuiLiqu
     // update fuel info
     fuelInfo = smeltery.getFuelDisplay();
     drawFuel(71, 16, 12, 52);
+
+    // draw the scala
+    this.mc.getTextureManager().bindTexture(BACKGROUND);
+    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+    scala.draw(8 + cornerX, 16 + cornerY);
   }
 
   @Override

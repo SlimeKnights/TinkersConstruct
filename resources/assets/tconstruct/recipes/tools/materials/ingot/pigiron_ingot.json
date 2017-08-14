@@ -11,6 +11,7 @@
         }
     ],
     "type": "forge:ore_shapeless",
+    "group": "tconstruct:pigiron_ingot",
     "ingredients": [
         {
             "item": "tconstruct:edible",

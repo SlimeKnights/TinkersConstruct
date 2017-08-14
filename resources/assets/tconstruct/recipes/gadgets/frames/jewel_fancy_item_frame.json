@@ -6,6 +6,7 @@
         }
     ],
     "type": "forge:ore_shaped",
+    "group": "tconstruct:fancy_frame",
     "pattern": [
         " A ",
         "ABA",
