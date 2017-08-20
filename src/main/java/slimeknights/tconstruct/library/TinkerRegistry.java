@@ -815,7 +815,7 @@ public final class TinkerRegistry {
     addDryingRecipe(new DryingRecipe(new RecipeMatch.Oredict(oredict, 1), output, time));
   }
 
-  private static void addDryingRecipe(DryingRecipe recipe) {
+  public static void addDryingRecipe(DryingRecipe recipe) {
     if(new TinkerRegisterEvent.DryingRackRegisterEvent(recipe).fire()) {
       dryingRegistry.add(recipe);
     }
