@@ -87,7 +87,6 @@ public class GadgetClientProxy extends ClientProxy {
     // separate the sides into separate model files to make the blockstate rotations easier
     ModelLoader.setCustomStateMapper(TinkerGadgets.slimeChannel, new PropertyStateMapper("slime_channel", BlockSlimeChannel.SIDE, BlockSlimeChannel.TYPE));
     ModelLoader.setCustomStateMapper(TinkerGadgets.bouncePad, new PropertyStateMapper("bounce_pad", BlockBouncePad.SIDE, BlockBouncePad.TYPE));
-    
     // Blocks
     registerItemModel(TinkerGadgets.stoneTorch);
     registerItemModel(TinkerGadgets.stoneLadder);

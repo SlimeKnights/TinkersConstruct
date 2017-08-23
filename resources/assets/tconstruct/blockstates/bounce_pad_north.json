@@ -1,17 +1,19 @@
 {
     "forge_marker": 1,
     "defaults": {
-        "model": "tconstruct:slime_channel",
+        "model": "tconstruct:bounce_pad",
         "textures": {
           "slime": "tconstruct:blocks/fluids/liquid_flow",
-		  "diagonal": "tconstruct:blocks/fluids/slime_channel_diagonal"
+		  "diagonal": "tconstruct:blocks/fluids/slime_channel_diagonal",
+		  "squish": "tconstruct:blocks/slime/slimeblock",
+		  "squish_face": "tconstruct:blocks/slime/slimeblock"
         }
     },
     "variants": {
 		"connected": {
             "none": {},
-            "inner": { "model": "tconstruct:slime_channel_inner" },
-            "outer": { "model": "tconstruct:slime_channel_outer" }
+            "inner": { "model": "tconstruct:bounce_pad_inner" },
+            "outer": { "model": "tconstruct:bounce_pad_outer" }
         },
         "direction": {
             "west": { "transform": { "post-rotation": { "x": 90 }, "rotation": { "z": 90 } } },
@@ -19,10 +21,10 @@
             "south": { "transform": { "post-rotation": { "x": 90 }, "rotation": { "z": 180 } } },
             "north":  { "transform": { "post-rotation": { "x": 90 } } },
 			
-            "southwest": { "model": "tconstruct:slime_channel_diagonal", "transform": { "post-rotation": { "x": 90 }, "rotation": { "z": 90 } } },
-            "northeast": { "model": "tconstruct:slime_channel_diagonal", "transform": { "post-rotation": { "x": 90 }, "rotation": { "z": 270 } } },
-            "southeast": { "model": "tconstruct:slime_channel_diagonal", "transform": { "post-rotation": { "x": 90 }, "rotation": { "z": 180 } } },
-            "northwest":  { "model": "tconstruct:slime_channel_diagonal", "transform": { "post-rotation": { "x": 90 } } }
+            "southwest": { "model": "tconstruct:bounce_pad_diagonal", "transform": { "post-rotation": { "x": 90 }, "rotation": { "z": 90 } } },
+            "northeast": { "model": "tconstruct:bounce_pad_diagonal", "transform": { "post-rotation": { "x": 90 }, "rotation": { "z": 270 } } },
+            "southeast": { "model": "tconstruct:bounce_pad_diagonal", "transform": { "post-rotation": { "x": 90 }, "rotation": { "z": 180 } } },
+            "northwest":  { "model": "tconstruct:bounce_pad_diagonal", "transform": { "post-rotation": { "x": 90 } } }
         },
         "powered": {
             "true": { "textures": {

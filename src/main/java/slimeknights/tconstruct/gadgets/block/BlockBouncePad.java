@@ -6,16 +6,21 @@ import javax.annotation.Nonnull;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import slimeknights.tconstruct.common.capability.BounceCap;
 import slimeknights.tconstruct.gadgets.tileentity.TileBouncePad;
 
 public class BlockBouncePad extends BlockSlimeChannel {
+  @CapabilityInject(BounceCap.class)
+  public static final Capability<BounceCap> bounce_cap = null;
+  
   public BlockBouncePad() {
     super();
   }
@@ -30,7 +35,7 @@ public class BlockBouncePad extends BlockSlimeChannel {
     if (!state.getValue(POWERED)) {
       Vec3d vec = Vec3d.ZERO;
 
-      double speed = 2;
+      double speed = 0.5;
 
       final EnumFacing side = state.getValue(SIDE);
       
@@ -48,9 +53,8 @@ public class BlockBouncePad extends BlockSlimeChannel {
       }
       entityIn.fallDistance = 0.0F;
       entityIn.addVelocity(vec.x, vec.y, vec.z);
-      TileEntity te = worldIn.getTileEntity(pos);
-      if (te instanceof TileBouncePad && entityIn instanceof EntityLivingBase) {
-        ((TileBouncePad)te).addToBounce((EntityLivingBase)entityIn);
+      if (entityIn.hasCapability(bounce_cap, null)) {
+        entityIn.getCapability(bounce_cap, null).set(true);
       }
       worldIn.playSound(null, pos, this.blockSoundType.getStepSound(), entityIn.getSoundCategory(), this.blockSoundType.getVolume() / 2, this.blockSoundType.getPitch() * 0.65f);
     }

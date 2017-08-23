@@ -1,6 +1,8 @@
 {
-    "parent": "tconstruct:block/slime_channel",
+    "parent": "tconstruct:block/bounce_pad",
     "textures": {
-        "slime": "tconstruct:blocks/fluids/liquid_flow"
+        "slime": "tconstruct:blocks/fluids/liquid_flow",
+        "squish": "tconstruct:blocks/slime/slimeblock",
+		"squish_face": "tconstruct:blocks/slime/slimeblock"
     }
 }

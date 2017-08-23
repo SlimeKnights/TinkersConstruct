@@ -1,0 +1,32 @@
+{
+    "textures": {
+        "particle": "#slime"
+    },
+    "elements": [
+        {
+            "from": [ 0, 0, 0 ], 
+            "to": [ 16, 8, 8 ], 
+            "faces": {
+                "north": { "texture": "#slime", "uv": [ 0, 4, 8, 8 ], "tintindex": 0, "cullface": "north" },
+                "east":  { "texture": "#slime", "uv": [ 0, 4, 4, 8 ], "tintindex": 0, "cullface": "east", "rotation": 270 },
+                "south": { "texture": "#slime", "uv": [ 0, 0, 8, 4 ], "tintindex": 0, "rotation": 180 },
+                "west":  { "texture": "#slime", "uv": [ 4, 0, 8, 8 ], "tintindex": 0, "cullface": "west", "rotation":  90 },
+                "up":    { "texture": "#slime", "uv": [ 0, 4, 8, 8 ], "tintindex": 0, "rotation": 180 },
+                "down":  { "texture": "#slime", "uv": [ 0, 4, 8, 8 ], "tintindex": 0, "cullface": "down" }
+            }
+        },
+        {
+			"__comment": "Pad",
+			"from": [2,1,2],
+			"to": [14,10,14],
+			"faces": {
+				"north": { "texture": "#squish", "tintindex": 0, "cullface": "north" },
+				"south": { "texture": "#squish", "tintindex": 0, "cullface": "south" },
+				"west": { "texture": "#squish", "tintindex": 0, "cullface": "west" },
+				"east": { "texture": "#squish", "tintindex": 0, "cullface": "east" },
+				"down": { "texture": "#squish", "tintindex": 0, "cullface": "down" },
+				"up": { "texture": "#squish_face", "tintindex": 0 }
+			}
+		}
+    ]
+}
