@@ -153,7 +153,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
                                  .withProperty(DIRECTION, getPlacement(facing.getOpposite(), hitX, hitY, hitZ, placer));
   }
 
-  public static ChannelDirection getPlacement(EnumFacing side, float hitX, float hitY, float hitZ, EntityLivingBase placer) {
+  private ChannelDirection getPlacement(EnumFacing side, float hitX, float hitY, float hitZ, EntityLivingBase placer) {
     // determine the coordinates that we hit the face on
     int u = 0,
         v = 0;
