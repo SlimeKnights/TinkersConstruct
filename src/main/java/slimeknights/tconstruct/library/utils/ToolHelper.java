@@ -192,7 +192,8 @@ public final class ToolHelper {
 
     // this will be the only place besides fortify where a modifier is hardcoded. I promise. :L
     if(TinkerUtil.hasModifier(TagUtil.getTagSafe(stack), TinkerModifiers.modBlasting.getIdentifier()) && state.getMaterial().isToolNotRequired()) {
-      return true;
+      // everything except fluids
+      return !state.getMaterial().isLiquid();
     }
 
     return stack.getItem() instanceof ToolCore && ((ToolCore) stack.getItem()).isEffective(state);
@@ -346,10 +347,6 @@ public final class ToolHelper {
     if(world.isAirBlock(pos)) {
       return;
     }
-
-    //if(!(player instanceof EntityPlayerMP)) {
-    //return;
-    //}
 
     // check if the block can be broken, since extra block breaks shouldn't instantly break stuff like obsidian
     // or precious ores you can't harvest while mining stone
