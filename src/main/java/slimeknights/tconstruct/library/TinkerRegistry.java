@@ -463,6 +463,9 @@ public final class TinkerRegistry {
 
   /** Registers an alternate name for a modifier. This is used for multi-level modifiers/traits where multiple exist, but one specific is needed for access */
   public static void registerModifierAlias(IModifier modifier, String alias) {
+    if(modifiers.containsKey(alias)) {
+      throw new TinkerAPIException("Trying to register a modifier with the name " + alias + " but it already is registered");
+    }
     if(new TinkerRegisterEvent.ModifierRegisterEvent(modifier).fire()) {
       modifiers.put(alias, modifier);
     }
