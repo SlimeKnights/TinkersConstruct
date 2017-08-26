@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
 
@@ -216,7 +217,7 @@ public class TinkerModifiers extends AbstractToolPulse {
     }
   }
 
-  private Map<Collection<ITrait>, ModExtraTrait> extraTraitLookup = new HashMap<>();
+  private Map<String, ModExtraTrait> extraTraitLookup = new HashMap<>();
 
   private void registerExtraTraitModifiers() {
     TinkerRegistry.getAllMaterials().forEach(this::registerExtraTraitModifiers);
@@ -239,7 +240,10 @@ public class TinkerModifiers extends AbstractToolPulse {
     if(toolPart instanceof Item) {
       Collection<ITrait> traits = partMaterialType.getApplicableTraitsForMaterial(material);
       if(!traits.isEmpty()) {
-        ModExtraTrait mod = extraTraitLookup.computeIfAbsent(traits, traits2 -> new ModExtraTrait(material, traits2));
+        // we turn it into a set to remove duplicates, reducing the total amount of modifiers created by roughly 25%!
+        final Collection<ITrait> traits2 = ImmutableSet.copyOf(traits);
+        String identifier = ModExtraTrait.generateIdentifier(material, traits2);
+        ModExtraTrait mod = extraTraitLookup.computeIfAbsent(identifier, id -> new ModExtraTrait(material, traits2, identifier));
         mod.addCombination(tool, (T) toolPart);
       }
     }
