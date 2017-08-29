@@ -19,6 +19,7 @@
         }
     ],
     "type": "forge:ore_shaped",
+    "group": "tconstruct:pigiron_ingot",
     "pattern": [
         "AAA",
         "AAA",

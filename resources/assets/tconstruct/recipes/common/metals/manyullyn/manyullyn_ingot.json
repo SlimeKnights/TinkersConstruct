@@ -19,6 +19,7 @@
         }
     ],
     "type": "forge:ore_shapeless",
+    "group": "tconstruct:manyullyn_ingot",
     "ingredients": [
         {
             "type": "forge:ore_dict",

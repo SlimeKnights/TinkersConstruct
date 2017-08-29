@@ -27,6 +27,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.tools.IToolPart;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.plugin.jei.alloy.AlloyRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.alloy.AlloyRecipeChecker;
 import slimeknights.tconstruct.plugin.jei.alloy.AlloyRecipeHandler;
@@ -40,6 +41,7 @@ import slimeknights.tconstruct.plugin.jei.drying.DryingRecipeHandler;
 import slimeknights.tconstruct.plugin.jei.interpreter.PatternSubtypeInterpreter;
 import slimeknights.tconstruct.plugin.jei.interpreter.TableSubtypeInterpreter;
 import slimeknights.tconstruct.plugin.jei.interpreter.ToolPartSubtypeInterpreter;
+import slimeknights.tconstruct.plugin.jei.interpreter.ToolSubtypeInterpreter;
 import slimeknights.tconstruct.plugin.jei.smelting.SmeltingRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.smelting.SmeltingRecipeChecker;
 import slimeknights.tconstruct.plugin.jei.smelting.SmeltingRecipeHandler;
@@ -88,6 +90,12 @@ public class JEIPlugin implements IModPlugin {
         if(part instanceof Item) {
           registry.registerSubtypeInterpreter((Item)part, toolPartInterpreter);
         }
+      }
+
+      // tool
+      ToolSubtypeInterpreter toolInterpreter = new ToolSubtypeInterpreter();
+      for(ToolCore tool : TinkerRegistry.getTools()) {
+        registry.registerSubtypeInterpreter(tool, toolInterpreter);
       }
 
       // tool patterns

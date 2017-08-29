@@ -11,6 +11,7 @@
         }
     ],
     "type": "minecraft:crafting_shapeless",
+    "group": "tconstruct:manyullyn_ingot",
     "ingredients": [
         {
             "item": "tconstruct:ingots",

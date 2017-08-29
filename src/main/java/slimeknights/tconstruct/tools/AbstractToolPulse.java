@@ -13,7 +13,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import java.util.List;
 
 import slimeknights.tconstruct.common.TinkerPulse;
-import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.tools.IPattern;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -87,7 +86,6 @@ public abstract class AbstractToolPulse extends TinkerPulse {
   }
 
   protected <T extends IModifier> T registerModifier(T modifier) {
-    TinkerRegistry.registerModifier(modifier);
     modifiers.add(modifier);
     return modifier;
   }
