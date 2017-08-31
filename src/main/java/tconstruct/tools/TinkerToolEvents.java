@@ -316,7 +316,7 @@ public class TinkerToolEvents
 
         if (event.recentlyHit)
         {
-            if (event.entityLiving.getClass() == EntitySkeleton.class)
+            if (event.entityLiving instanceof EntitySkeleton)
             {
                 EntitySkeleton enemy = (EntitySkeleton) event.entityLiving;
 
