@@ -13,6 +13,7 @@ import javax.annotation.Nonnull;
 
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.common.client.GuiStencilTable;
@@ -22,6 +23,7 @@ public class TileStencilTable extends TileTable implements IInventoryGui {
 
   public TileStencilTable() {
     super("gui.stenciltable.name", 1);
+    this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
   }
 
   @Override

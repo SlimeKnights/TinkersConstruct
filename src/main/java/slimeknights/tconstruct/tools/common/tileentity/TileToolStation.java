@@ -17,6 +17,7 @@ import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.library.client.ToolBuildGuiInfo;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
+import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.tools.common.client.GuiButtonRepair;
 import slimeknights.tconstruct.tools.common.client.GuiToolStation;
@@ -26,6 +27,7 @@ public class TileToolStation extends TileTable implements IInventoryGui {
 
   public TileToolStation() {
     super("gui.toolstation.name", 6);
+    this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
   }
 
   @Override

@@ -16,6 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
+import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.tools.common.client.GuiPartBuilder;
 import slimeknights.tconstruct.tools.common.inventory.ContainerPartBuilder;
@@ -24,6 +25,7 @@ public class TilePartBuilder extends TileTable implements IInventoryGui {
 
   public TilePartBuilder() {
     super("gui.partbuilder.name", 4);
+    this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
   }
 
   @Override
