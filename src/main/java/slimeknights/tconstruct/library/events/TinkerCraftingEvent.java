@@ -61,12 +61,15 @@ public class TinkerCraftingEvent extends TinkerEvent {
    */
   public static class ToolCraftingEvent extends TinkerCraftingEvent {
 
-    private ToolCraftingEvent(ItemStack itemStack, EntityPlayer player) {
+    private final NonNullList<ItemStack> toolParts;
+
+    private ToolCraftingEvent(ItemStack itemStack, EntityPlayer player, NonNullList<ItemStack> toolParts) {
       super(itemStack, player, Util.translate("gui.error.craftevent.tool.default"));
+      this.toolParts = toolParts;
     }
 
-    public static void fireEvent(ItemStack itemStack, EntityPlayer player) throws TinkerGuiException {
-      ToolCraftingEvent toolCraftingEvent = new ToolCraftingEvent(itemStack, player);
+    public static void fireEvent(ItemStack itemStack, EntityPlayer player, NonNullList<ItemStack> toolParts) throws TinkerGuiException {
+      ToolCraftingEvent toolCraftingEvent = new ToolCraftingEvent(itemStack, player, toolParts);
       if(MinecraftForge.EVENT_BUS.post(toolCraftingEvent)) {
         throw new TinkerGuiException(toolCraftingEvent.getMessage());
       }
