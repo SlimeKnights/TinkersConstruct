@@ -68,6 +68,10 @@ public class TinkerCraftingEvent extends TinkerEvent {
       this.toolParts = toolParts;
     }
 
+    public NonNullList<ItemStack> getToolParts() {
+      return toolParts;
+    }
+
     public static void fireEvent(ItemStack itemStack, EntityPlayer player, NonNullList<ItemStack> toolParts) throws TinkerGuiException {
       ToolCraftingEvent toolCraftingEvent = new ToolCraftingEvent(itemStack, player, toolParts);
       if(MinecraftForge.EVENT_BUS.post(toolCraftingEvent)) {
