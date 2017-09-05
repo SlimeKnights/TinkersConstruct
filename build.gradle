@@ -162,6 +162,8 @@ jar {
     manifest {
         attributes 'FMLAT': 'tconstruct_at.cfg'
     }
+    
+    finalizedBy reobfJar
 }
 
 // Create deobf dev jars

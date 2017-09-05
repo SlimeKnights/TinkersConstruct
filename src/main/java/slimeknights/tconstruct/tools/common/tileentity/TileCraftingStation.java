@@ -16,6 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
+import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.tools.common.client.GuiCraftingStation;
 import slimeknights.tconstruct.tools.common.inventory.ContainerCraftingStation;
@@ -24,6 +25,7 @@ public class TileCraftingStation extends TileTable implements IInventoryGui {
 
   public TileCraftingStation() {
     super("gui.craftingstation.name", 9);
+    this.itemHandler = new ConfigurableInvWrapperCapability(this, true, false);
   }
 
   @Override
