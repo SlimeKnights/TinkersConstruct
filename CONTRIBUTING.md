@@ -34,10 +34,6 @@ You can use gold (as always), brass (if present) and yes, even aluminum-brass to
 
 No. Armor in itself is way too complex to fit it into TiC the same way weapons do, I'll leave that for other people. I also don't have any plans to add shields in that style. Battlesigns, however, double as shields.
 
-* _What happened to Bows?_
-
-As I said before, the mod is a complete rewrite. Bows have not been readded yet, since they are quite complex in itself. They need to be redone, they have not been dropped from the mod.
-
 * _Why can't I add more modifiers?_
 
 The weight and meaning of modifiers got shifted. Modifiers have much more power than materials themselves, in old TiC it literally didn't matter what materials you chose, since durability was abundant and modifiers heavily outweighed material stats. Now modifiers are even stronger than before, but more limited in number. To keep the power similar, materials are more powerful now. So in short: Modifiers are stronger per modifier, but less modifiers overall. Use them in combination with the materials to achieve your goals.
