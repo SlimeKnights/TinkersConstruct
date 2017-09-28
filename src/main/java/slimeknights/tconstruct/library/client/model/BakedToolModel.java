@@ -8,7 +8,6 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
-import net.minecraft.client.renderer.block.model.ItemOverride;
 import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
@@ -18,13 +17,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
 
 import java.util.Map;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnull;
 
-import slimeknights.mantle.client.model.BakedSimple;
 import slimeknights.mantle.client.model.BakedWrapper;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -109,7 +106,7 @@ public class BakedToolModel extends BakedWrapper.Perspective {
       addModifierQuads(stack, original, quads);
       addExtraQuads(stack, original, quads, world, entity);
 
-      return new BakedSimple(quads.build(), original.transforms, original);
+      return new BakedSimpleItem(quads.build(), original.transforms, original);
     }
 
     private BakedToolModel getBaseModel(@Nonnull BakedToolModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {

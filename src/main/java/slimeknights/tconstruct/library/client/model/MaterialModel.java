@@ -22,7 +22,6 @@ import java.util.function.Function;
 
 import javax.vecmath.Vector3f;
 
-import slimeknights.mantle.client.model.BakedSimple;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.library.materials.Material;
@@ -87,7 +86,7 @@ public class MaterialModel implements IPatternOffset, IModel {
           }
 
           // create a new model with the colored quads
-          bakedModel2 = new BakedSimple(quads.build(), map, bakedModel2);
+          bakedModel2 = new BakedSimpleItem(quads.build(), map, bakedModel2);
         }
 
         bakedMaterialModel.addMaterialModel(material, bakedModel2);
