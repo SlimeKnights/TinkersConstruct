@@ -162,11 +162,11 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
           }
           getWorld().playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.AMBIENT, 0.07f, 4f);
 
-          // comparator update
-          getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
-
           // reset state
           reset();
+
+          // comparator update
+          getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockType(), true);
         }
       }
       else if(getWorld().rand.nextFloat() > 0.9f) {
