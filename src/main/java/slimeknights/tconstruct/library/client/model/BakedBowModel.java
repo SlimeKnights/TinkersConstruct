@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.block.model.ItemOverrideList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.model.TRSRTransformation;
 
@@ -20,6 +21,7 @@ import javax.annotation.Nonnull;
 import slimeknights.mantle.client.model.TRSRBakedModel;
 import slimeknights.tconstruct.library.client.model.format.AmmoPosition;
 import slimeknights.tconstruct.library.tools.IAmmoUser;
+import slimeknights.tconstruct.library.utils.TagUtil;
 
 public class BakedBowModel extends BakedToolModel {
 
@@ -82,13 +84,13 @@ public class BakedBowModel extends BakedToolModel {
 
     final Item ammoItem;
     final int ammoMeta;
-    final String ammoData;
+    final NBTTagCompound ammoData;
 
     private CacheKeyAmmo(IBakedModel parent, ItemStack stack, ItemStack ammo) {
       super(parent, stack);
       ammoItem = ammo.getItem();
       ammoMeta = ammo.getMetadata();
-      ammoData = getDataFromStack(ammo);
+      ammoData = TagUtil.getTagSafe(ammo);
     }
 
     @Override

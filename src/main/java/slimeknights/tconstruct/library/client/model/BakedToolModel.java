@@ -165,15 +165,11 @@ public class BakedToolModel extends BakedWrapper.Perspective {
   protected static class CacheKey {
 
     final IBakedModel parent;
-    final String data;
+    final NBTTagCompound data;
 
     protected CacheKey(IBakedModel parent, ItemStack stack) {
       this.parent = parent;
-      this.data = getDataFromStack(stack);
-    }
-
-    protected String getDataFromStack(ItemStack stack) {
-      return TagUtil.getTagSafe(stack).toString();
+      this.data = TagUtil.getTagSafe(stack);
     }
 
     @Override

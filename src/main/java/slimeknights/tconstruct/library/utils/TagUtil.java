@@ -29,7 +29,7 @@ public final class TagUtil {
   }
 
   public static NBTTagCompound getTagSafe(NBTTagCompound tag, String key) {
-    if(tag == null || !tag.hasKey(key)) {
+    if(tag == null) {
       return new NBTTagCompound();
     }
 
@@ -37,7 +37,7 @@ public final class TagUtil {
   }
 
   public static NBTTagList getTagListSafe(NBTTagCompound tag, String key, int type) {
-    if(tag == null || !tag.hasKey(key)) {
+    if(tag == null) {
       return new NBTTagList();
     }
 
