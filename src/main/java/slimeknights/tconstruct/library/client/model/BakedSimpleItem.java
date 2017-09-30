@@ -62,7 +62,9 @@ public class BakedSimpleItem implements IBakedModel {
   public TextureAtlasSprite getParticleTexture() { return particle; }
   public ItemOverrideList getOverrides() { return overrides; }
   public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
-    if(side == null) return quads;
+    if(side == null) {
+      return quads;
+    }
     return ImmutableList.of();
   }
 
