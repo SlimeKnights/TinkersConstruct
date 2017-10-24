@@ -32,6 +32,7 @@ tile.tconstruct.mudbrick_stairs.name=泥砖楼梯
 tile.tconstruct.ore.cobalt.name=钴矿石
 tile.tconstruct.ore.ardite.name=阿迪特矿石
 
+tile.tconstruct.metal.tooltip=可以作为信标基座使用
 tile.tconstruct.metal.cobalt.name=钴块
 tile.tconstruct.metal.ardite.name=阿迪特块
 tile.tconstruct.metal.manyullyn.name=玛玉灵块
@@ -406,7 +407,11 @@ item.tconstruct.bolt_core.name=弩箭核心
 # item.tconstruct.pickaxe.wood=Wooden Pickaxe
 
 # Gadgets
-item.tconstruct.slime_boots.name=史莱姆靴子
+item.tconstruct.slime_boots.green.name=史莱姆靴子
+item.tconstruct.slime_boots.blue.name=史莱姆靴子
+item.tconstruct.slime_boots.purple.name=史莱姆靴子
+item.tconstruct.slime_boots.blood.name=凝血靴子
+item.tconstruct.slime_boots.magma.name=史莱姆靴子
 item.tconstruct.slime_boots.tooltip=拥有一定能力的摔落保护
 item.tconstruct.slimesling.name=史莱姆弹弓
 item.tconstruct.slimesling.tooltip=蓄力，瞄准，发射！\n珍爱生命，记得穿史莱姆靴子！
@@ -502,7 +507,7 @@ potion.carry=肩托
 #################
 # material.<identifier>.name
 # material.<identifier>.prefix
-# material.wood.prefix=Wooden %s - Used for stuff like "Wooden Pickaxe" if no specific name is given
+# material.wood.prefix=木 %s - 如果没有修改特定的名称则后奏用‘木镐’代替
 
 material.wood.name=木
 material.wood.prefix=木 %s
@@ -724,6 +729,8 @@ modifier.diamond.name=钻石
 modifier.diamond.desc=§o闪耀！§r\n增加工具的耐久！
 modifier.emerald.name=绿宝石
 modifier.emerald.desc=§o昂贵！§r\n根据基础数据增加耐久！
+modifier.extratrait.name=剥削
+modifier.extratrait.desc=§o魔法亲和，或许更好！§r\n通过压制 %s其中的力量，来获得其中一些效果。
 modifier.fiery.name=炽热
 modifier.fiery.desc=§o现在好热！§r\n给予额外的火焰伤害，让你的敌人着火！
 modifier.fiery.extra=火焰伤害: +%s
@@ -737,7 +744,7 @@ modifier.glowing.desc=§o闪闪发光§r\n无论那里多么黑暗，你的工�
 modifier.harvestwidth.name=水平扩展
 modifier.harvestwidth.desc=§o扩展！§r\n增加工具作用区域的宽度。 只有特定的工具能有这个效果。
 modifier.harvestheight.name=竖直扩展
-modifier.harvestheight.desc=§o扩展！§r\n增加工具作用区域的高度.。只有特定的工具能有这个效果。
+modifier.harvestheight.desc=§o扩展！§r\n增加工具作用区域的高度。 只有特定的工具能有这个效果。
 modifier.haste.name=急速
 modifier.haste.name2=急速 II
 modifier.haste.name3=急速 III
@@ -846,6 +853,8 @@ death.attack.splinter=%s被碎片扎成了马蜂窝
 death.attack.bleed=%1$s流血致死，因为%2$s的攻击
 death.attack.bleed.item=%1$s流血致死，因为被%2$s用%3$s攻击了
 
+message.mending_moss.not_enough_levels=修复苔藓至少需要%s等级
+
 ######################
 # GUI Error messages #
 ######################
@@ -854,14 +863,19 @@ gui.error=错误
 gui.warning=警告
 # GUI Errors from the different Tinker Tables
 gui.error.invalid_pattern=模具不包含有效的工具部件！
-gui.error.useless_tool_part=这个部件不能被用来制作任何工具！\n不是%s材料缺少某些信息就是在它的合成中没有工具使用%s.
-gui.error.wrong_material_part=这个工具中的一个或者多个物品含有不支持的材料.
-gui.error.not_enough_durability=没有足够的耐久来替换部件！\n还需要%d 点耐久.
+gui.error.useless_tool_part=这个部件不能被用来制作任何工具！\n不是%s材料缺少某些信息就是在它的合成中没有工具使用%s。
+gui.error.wrong_material_part=这个工具中的一个或者多个物品含有不支持的材料。
+gui.error.not_enough_durability=没有足够的耐久来替换部件！\n还需要%d 点耐久。
+gui.error.craftevent.tool.default=这个物品的制作已经被另一个模组阻止了！
+gui.error.craftevent.modifier.default=使用这些物品强化/修改此工具已经被另一个模组阻止了！
+gui.error.craftevent.toolpart.default=这个工具的制作已经被另一个模组阻止了！
+gui.error.craftevent.replace.default=替换此工具的部件已被另一个模组阻止了！
 # GUI Errors from modifiers
 gui.error.not_enough_modifiers=剩余强化槽不足！\n(需要%d个)
 gui.error.single_modifier=%s只能强化一次。
 gui.error.max_level_modifier=已达到%s的最高等级。
 gui.error.no_modifier_for_item=未找到%s的强化槽。 
+gui.error.already_has_extratrait=该工具已经具有一个与此操作相同的强化，它只能具有一个！
 gui.error.incompatible_modifiers=%s和%s不能一起强化
 gui.error.incompatible_trait=%s强化不能和%s特性相结合
 gui.error.incompatible_enchantments=%s强化不能与%s附魔相结合
@@ -916,6 +930,7 @@ gui.smeltery.progress.no_heat=没有足够的热量来熔化这个物品
 gui.smeltery.progress.no_space=冶炼厂内空间不足
 gui.smeltery.fuel=燃料
 gui.smeltery.fuel.empty=没有燃料
+gui.smeltery.fuel.invalid=§4%s不是有效的冶炼厂燃烧燃料！
 gui.smeltery.fuel.heat=温度: %d
 gui.smeltery.capacity=容量
 gui.smeltery.capacity_available=空
