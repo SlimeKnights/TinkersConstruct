@@ -1,0 +1,101 @@
+{
+    "textures": {
+        "particle": "tconstruct:blocks/smeltery/seared_stone",
+        "texture":  "tconstruct:blocks/smeltery/seared_stone"
+    },
+    "elements": [
+        {
+            "name": "Top West",
+            "from": [ 5, 11, 5 ], 
+            "to": [ 6, 12, 11 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" },
+                "up":    { "texture": "#texture" },
+                "down":  { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "Top East",
+            "from": [ 10, 11, 5 ], 
+            "to": [ 11, 12, 11 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" },
+                "up":    { "texture": "#texture" },
+                "down":  { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "Top North",
+            "from": [ 6, 11, 5 ], 
+            "to": [ 10, 12, 6 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "up":    { "texture": "#texture" },
+                "down":  { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "Top South",
+            "from": [ 6, 11, 10 ], 
+            "to": [ 10, 12, 11 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "up":    { "texture": "#texture" },
+                "down":  { "texture": "#texture" }
+            }
+        },
+        
+        {
+            "name": "Post Southeast",
+            "from": [ 10, 8, 10 ], 
+            "to": [ 11, 11, 11 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "Post Southwest",
+            "from": [ 5, 8, 10 ], 
+            "to": [ 6, 11, 11 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "Post Northeast",
+            "from": [ 10, 8, 5 ], 
+            "to": [ 11, 11, 6 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "Post Northwest",
+            "from": [ 5, 8, 5 ], 
+            "to": [ 6, 11, 6 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" }
+            }
+        }
+    ]
+}

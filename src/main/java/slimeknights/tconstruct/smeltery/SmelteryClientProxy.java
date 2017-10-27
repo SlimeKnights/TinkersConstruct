@@ -16,12 +16,14 @@ import slimeknights.tconstruct.smeltery.block.BlockSearedGlass;
 import slimeknights.tconstruct.smeltery.block.BlockSmelteryIO;
 import slimeknights.tconstruct.smeltery.block.BlockTank;
 import slimeknights.tconstruct.smeltery.client.CastingRenderer;
+import slimeknights.tconstruct.smeltery.client.ChannelRenderer;
 import slimeknights.tconstruct.smeltery.client.FaucetRenderer;
 import slimeknights.tconstruct.smeltery.client.SmelteryRenderer;
 import slimeknights.tconstruct.smeltery.client.TankRenderer;
 import slimeknights.tconstruct.smeltery.client.TinkerTankRenderer;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingBasin;
 import slimeknights.tconstruct.smeltery.tileentity.TileCastingTable;
+import slimeknights.tconstruct.smeltery.tileentity.TileChannel;
 import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 import slimeknights.tconstruct.smeltery.tileentity.TileSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
@@ -47,6 +49,7 @@ public class SmelteryClientProxy extends ClientProxy {
     // Blocks
     registerItemModel(TinkerSmeltery.smelteryController);
     registerItemModel(TinkerSmeltery.faucet);
+    registerItemModel(TinkerSmeltery.channel);
     registerItemModel(TinkerSmeltery.searedGlass);
     registerItemModel(TinkerSmeltery.searedFurnaceController);
     registerItemModel(TinkerSmeltery.tinkerTankController);
@@ -100,6 +103,7 @@ public class SmelteryClientProxy extends ClientProxy {
     ClientRegistry.bindTileEntitySpecialRenderer(TileSmeltery.class, new SmelteryRenderer());
     ClientRegistry.bindTileEntitySpecialRenderer(TileTinkerTank.class, new TinkerTankRenderer());
     ClientRegistry.bindTileEntitySpecialRenderer(TileFaucet.class, new FaucetRenderer());
+    ClientRegistry.bindTileEntitySpecialRenderer(TileChannel.class, new ChannelRenderer());
     ClientRegistry.bindTileEntitySpecialRenderer(TileCastingTable.class, new CastingRenderer.Table());
     ClientRegistry.bindTileEntitySpecialRenderer(TileCastingBasin.class, new CastingRenderer.Basin());
 

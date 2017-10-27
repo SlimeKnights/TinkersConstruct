@@ -32,8 +32,9 @@ import slimeknights.tconstruct.library.tileentity.IProgress;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.smeltery.events.TinkerCastingEvent;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
+import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket.IFluidPacketReceiver;
 
-public abstract class TileCasting extends TileTable implements ITickable, ISidedInventory, IProgress {
+public abstract class TileCasting extends TileTable implements ITickable, ISidedInventory, IProgress, IFluidPacketReceiver {
 
   // the internal fluidtank of the casting block
   public FluidTankAnimated tank;
@@ -234,6 +235,7 @@ public abstract class TileCasting extends TileTable implements ITickable, ISided
   }
 
   // called clientside to sync with the server and on load
+  @Override
   public void updateFluidTo(FluidStack fluid) {
     int oldAmount = tank.getFluidAmount();
     tank.setFluid(fluid);

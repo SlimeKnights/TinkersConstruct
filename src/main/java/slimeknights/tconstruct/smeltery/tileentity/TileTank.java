@@ -6,16 +6,14 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.fluid.IFluidTankUpdater;
+import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket.IFluidPacketReceiver;
 
-public class TileTank extends TileSmelteryComponent implements IFluidTankUpdater {
+public class TileTank extends TileSmelteryComponent implements IFluidTankUpdater, IFluidPacketReceiver {
 
   public static final int CAPACITY = Fluid.BUCKET_VOLUME * 4;
 
@@ -63,7 +61,7 @@ public class TileTank extends TileSmelteryComponent implements IFluidTankUpdater
   }
 
   // called only clientside to sync with the server
-  @SideOnly(Side.CLIENT)
+  @Override
   public void updateFluidTo(FluidStack fluid) {
     int oldAmount = tank.getFluidAmount();
     tank.setFluid(fluid);
