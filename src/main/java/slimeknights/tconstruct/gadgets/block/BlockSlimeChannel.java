@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets.block;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.block.Block;
@@ -30,7 +31,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -310,7 +311,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
         entity.setFire(0);
         entity.fallDistance = 0;
 
-        ArrayList<EnumFacing> flow = state.getValue(DIRECTION).getFlowDiagonals(side);
+        List<EnumFacing> flow = state.getValue(DIRECTION).getFlowDiagonals(side);
         // its slimy, downward motion is reduced
         if(!flow.contains(EnumFacing.DOWN) && entity.motionY < 0) {
           entity.motionY /= 2;
@@ -925,39 +926,26 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
     /**
      * Returns a list of one or two directions for the sake of liquid flow
      */
-    public ArrayList<EnumFacing> getFlowDiagonals(@Nonnull EnumFacing side) {
-      ArrayList<EnumFacing> list = new ArrayList<>();
+    public List<EnumFacing> getFlowDiagonals(@Nonnull EnumFacing side) {
       switch(this) {
         case NORTH:
-          list.add(NORTH.getFlow(side));
-          break;
+          return ImmutableList.of(NORTH.getFlow(side));
         case SOUTH:
-          list.add(SOUTH.getFlow(side));
-          break;
+          return ImmutableList.of(SOUTH.getFlow(side));
         case WEST:
-          list.add(WEST.getFlow(side));
-          break;
+          return ImmutableList.of(WEST.getFlow(side));
         case EAST:
-          list.add(EAST.getFlow(side));
-          break;
+          return ImmutableList.of(EAST.getFlow(side));
         case NORTHWEST:
-          list.add(NORTH.getFlow(side));
-          list.add(WEST.getFlow(side));
-          break;
+          return ImmutableList.of(NORTH.getFlow(side), WEST.getFlow(side));
         case NORTHEAST:
-          list.add(NORTH.getFlow(side));
-          list.add(EAST.getFlow(side));
-          break;
+          return ImmutableList.of(NORTH.getFlow(side), EAST.getFlow(side));
         case SOUTHWEST:
-          list.add(SOUTH.getFlow(side));
-          list.add(WEST.getFlow(side));
-          break;
+          return ImmutableList.of(SOUTH.getFlow(side), WEST.getFlow(side));
         case SOUTHEAST:
-          list.add(SOUTH.getFlow(side));
-          list.add(EAST.getFlow(side));
-          break;
+          return ImmutableList.of(SOUTH.getFlow(side), EAST.getFlow(side));
       }
-      return list;
+      return ImmutableList.of();
     }
   }
 
