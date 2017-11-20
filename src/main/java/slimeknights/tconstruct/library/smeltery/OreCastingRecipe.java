@@ -50,7 +50,7 @@ public class OreCastingRecipe extends CastingRecipe {
   @Override
   public ItemStack getResult() {
     if(outputs.isEmpty()) {
-      return null;
+      return ItemStack.EMPTY;
     }
     return outputs.get(0);
   }
