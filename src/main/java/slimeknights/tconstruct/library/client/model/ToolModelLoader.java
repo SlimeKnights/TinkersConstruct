@@ -14,16 +14,13 @@ import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.model.TRSRTransformation;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.LoaderState;
-
-import org.apache.commons.io.FilenameUtils;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+
+import org.apache.commons.io.FilenameUtils;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
@@ -138,11 +135,12 @@ public class ToolModelLoader implements ICustomModelLoader {
         }
       }
 
-      String toolName = FilenameUtils.getBaseName(modelLocation.getResourcePath());
+      // remove models/item/ and .tcon
+      String toolName = FilenameUtils.removeExtension(modelLocation.getResourcePath().substring(12));
       IModel mods;
       ModifierModel modifiers = null;
       try {
-        mods = ModelLoaderRegistry.getModel(ModifierModelLoader.getLocationForToolModifiers(toolName));
+        mods = ModelLoaderRegistry.getModel(ModifierModelLoader.getLocationForToolModifiers(modelLocation.getResourceDomain(), toolName));
 
         if(mods == null || !(mods instanceof ModifierModel)) {
           TinkerRegistry.log.trace(
@@ -155,7 +153,7 @@ public class ToolModelLoader implements ICustomModelLoader {
           for(ToolModelOverride toolModelOverride : overrides) {
             if(toolModelOverride.modifierSuffix != null) {
               String modifierName = toolName + toolModelOverride.modifierSuffix;
-              IModel extraModel = ModelLoaderRegistry.getModel(ModifierModelLoader.getLocationForToolModifiers(modifierName));
+              IModel extraModel = ModelLoaderRegistry.getModel(ModifierModelLoader.getLocationForToolModifiers(modelLocation.getResourceDomain(), modifierName));
               if(extraModel instanceof ModifierModel) {
                 ModifierModel overriddenModifierModel = new ModifierModel();
                 // fill in non-overridden modifiers
