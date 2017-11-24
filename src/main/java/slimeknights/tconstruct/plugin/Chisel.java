@@ -3,6 +3,8 @@ package slimeknights.tconstruct.plugin;
 import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import slimeknights.mantle.pulsar.pulse.Pulse;
@@ -37,7 +39,12 @@ public class Chisel {
 
   protected void addChiselVariation(Block block, int meta, String groupName) {
     if(block != null) {
-      FMLInterModComms.sendMessage(modid, "variation:add", groupName + "|" + block.getRegistryName().toString() + "|" + meta);
+      NBTTagCompound nbt = new NBTTagCompound();
+      nbt.setString("group", groupName);
+      nbt.setTag("stack", new ItemStack(block, 1, meta).writeToNBT(new NBTTagCompound()));
+      nbt.setString("block", block.getRegistryName().toString());
+      nbt.setInteger("meta", meta);
+      FMLInterModComms.sendMessage(modid, "add_variation", nbt);
     }
   }
 }
