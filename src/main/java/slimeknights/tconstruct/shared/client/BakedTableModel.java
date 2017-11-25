@@ -20,9 +20,12 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.model.IModelState;
@@ -124,6 +127,12 @@ public class BakedTableModel implements IBakedModel {
     IBakedModel out = parentModel;
     // add all the items to display on the table
     if(items != null && !items.isEmpty()) {
+      BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
+      // use a null render layer while grabbing items so they give us all layers
+      // primarily affects chisel CTM rendering
+      if(Config.renderInventoryNullLayer) {
+        ForgeHooksClient.setRenderLayer(null);
+      }
       BakedCompositeModel.Builder builder = new BakedCompositeModel.Builder();
       builder.add(parentModel, null, 0);
       for(PropertyTableItem.TableItem item : items) {
@@ -136,6 +145,10 @@ public class BakedTableModel implements IBakedModel {
       }
 
       out = builder.build(parentModel);
+      // restore the original layer
+      if(Config.renderInventoryNullLayer) {
+        ForgeHooksClient.setRenderLayer(layer);
+      }
     }
 
     if(facing != null) {

@@ -62,6 +62,7 @@ public final class Config {
 
   // Clientside configs
   public static boolean renderTableItems = true;
+  public static boolean renderInventoryNullLayer = true;
   public static boolean extraTooltips = true;
   public static boolean listAllTables = true;
   public static boolean listAllMaterials = true;
@@ -265,6 +266,11 @@ public final class Config {
       prop = configFile.get(cat, "renderInventoryInWorld", renderTableItems);
       prop.setComment("If true all of Tinkers' blocks with contents (tables, basin, drying racks,...) will render their contents in the world");
       renderTableItems = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "renderInventoryNullLayer", renderInventoryNullLayer);
+      prop.setComment("If true use a null render layer when building the models to render tables. Fixes an issue with chisel, but the config is provide in case it breaks something.");
+      renderInventoryNullLayer = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "extraTooltips", extraTooltips);
