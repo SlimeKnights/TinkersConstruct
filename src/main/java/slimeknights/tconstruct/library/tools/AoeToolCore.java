@@ -6,7 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
+import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 
@@ -14,6 +14,8 @@ public abstract class AoeToolCore extends TinkerToolCore implements IAoeTool {
 
   public AoeToolCore(PartMaterialType... requiredComponents) {
     super(requiredComponents);
+
+    addCategory(Category.AOE);
   }
 
   @Override
