@@ -8,24 +8,24 @@ import slimeknights.tconstruct.smeltery.tileentity.TileChannel;
 
 public class ChannelSideTank extends FluidHandlerConcatenate {
 
-	private EnumFacing side;
-	private TileChannel channel;
-	public ChannelSideTank(TileChannel channel, ChannelTank tank, EnumFacing side) {
-		super(tank);
-		// only horizontals
-		assert side.getAxis() != Axis.Y;
-		this.channel = channel;
-		this.side = side;
-	}
+  private EnumFacing side;
+  private TileChannel channel;
+  public ChannelSideTank(TileChannel channel, ChannelTank tank, EnumFacing side) {
+    super(tank);
+    // only horizontals
+    assert side.getAxis() != Axis.Y;
+    this.channel = channel;
+    this.side = side;
+  }
 
-	@Override
-	public int fill(FluidStack resource, boolean doFill) {
-		int filled = super.fill(resource, doFill);
-		// tell the channel we got fluid from this side
-		if(doFill && filled > 0) {
-			channel.setFlow(side, true);
-		}
-		return filled;
-	}
+  @Override
+  public int fill(FluidStack resource, boolean doFill) {
+    int filled = super.fill(resource, doFill);
+    // tell the channel we got fluid from this side
+    if(doFill && filled > 0) {
+      channel.setFlow(side, true);
+    }
+    return filled;
+  }
 
 }
