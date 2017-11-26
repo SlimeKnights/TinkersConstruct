@@ -281,8 +281,9 @@ public class TileChannel extends TileEntity implements ITickable, IFluidPacketRe
   /**
    * Interacts with the tile entity, setting the side to show or hide
    * @param side  Side clicked
+   * @return true if the channel changed
    */
-  public void interact(EntityPlayer player, EnumFacing side) {
+  public boolean interact(EntityPlayer player, EnumFacing side) {
     // if placed below a channel, connect it to us
     TileEntity te = world.getTileEntity(pos.offset(side));
 
@@ -296,13 +297,13 @@ public class TileChannel extends TileEntity implements ITickable, IFluidPacketRe
       if(this.getConnection(side) == ChannelConnection.NONE) {
         // but for sides lets try again with the bottom connection
         if(side != EnumFacing.DOWN) {
-          this.interact(player, EnumFacing.DOWN);
+          return this.interact(player, EnumFacing.DOWN);
         }
       } else {
         this.setConnection(side, ChannelConnection.NONE);
         this.updateBlock(pos);
       }
-      return;
+      return false;
     }
 
     // if down, just reverse the connection
@@ -336,6 +337,7 @@ public class TileChannel extends TileEntity implements ITickable, IFluidPacketRe
       }
     }
     player.sendStatusMessage(new TextComponentTranslation(Util.prefix(message)), true);
+    return true;
   }
 
   /* Helper methods */
