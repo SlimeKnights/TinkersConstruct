@@ -170,7 +170,7 @@ public class TileChannel extends TileEntity implements ITickable, IFluidPacketRe
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
       // only allow inserting if the side is set to in
       // basically, block out and none, along with sides that cannot be in
-      return side != null && getConnection(side) == ChannelConnection.IN;
+      return side == null || getConnection(side) == ChannelConnection.IN;
     }
     return super.hasCapability(capability, side);
   }
@@ -180,7 +180,7 @@ public class TileChannel extends TileEntity implements ITickable, IFluidPacketRe
   public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing side) {
     if(capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
       // ensure we allow on that side
-      if(side != null && getConnection(side) == ChannelConnection.IN) {
+      if(side == null || getConnection(side) == ChannelConnection.IN) {
         return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.cast(getTank(side));
       }
     }
@@ -347,7 +347,7 @@ public class TileChannel extends TileEntity implements ITickable, IFluidPacketRe
   }
 
   protected IFluidHandler getTank(@Nonnull EnumFacing side) {
-    if(side == EnumFacing.UP) {
+    if(side == null || side == EnumFacing.UP) {
       return tank;
     }
 
