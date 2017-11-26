@@ -55,7 +55,7 @@ public class Kama extends AoeToolCore {
   public Kama(PartMaterialType... requiredComponents) {
     super(requiredComponents);
 
-    addCategory(Category.HARVEST);
+    addCategory(Category.HARVEST, Category.WEAPON);
   }
 
   public Kama() {
@@ -66,12 +66,12 @@ public class Kama extends AoeToolCore {
 
   @Override
   public float damagePotential() {
-    return 0.75f;
+    return 1f;
   }
 
   @Override
   public double attackSpeed() {
-    return 0.9f;
+    return 1.3f;
   }
 
   @Override

@@ -20,7 +20,6 @@ import slimeknights.tconstruct.library.materials.HandleMaterialStats;
 import slimeknights.tconstruct.library.materials.HeadMaterialStats;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
-import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolNBT;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -35,8 +34,16 @@ public class Scythe extends Kama {
         PartMaterialType.head(TinkerTools.scytheHead),
         PartMaterialType.extra(TinkerTools.toughBinding),
         PartMaterialType.handle(TinkerTools.toughToolRod));
+  }
 
-    addCategory(Category.WEAPON);
+  @Override
+  public float damagePotential() {
+    return 0.75f;
+  }
+
+  @Override
+  public double attackSpeed() {
+    return 0.9f;
   }
 
   @Override
