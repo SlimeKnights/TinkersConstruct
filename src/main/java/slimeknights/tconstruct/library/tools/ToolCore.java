@@ -189,7 +189,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
   public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
     if(!ToolHelper.isBroken(itemstack) && this instanceof IAoeTool && ((IAoeTool) this).isAoeHarvestTool()) {
       for(BlockPos extraPos : ((IAoeTool) this).getAOEBlocks(itemstack, player.getEntityWorld(), player, pos)) {
-        ToolHelper.breakExtraBlock(itemstack, player.getEntityWorld(), player, extraPos, pos);
+        breakExtraBlock(itemstack, player.getEntityWorld(), player, extraPos, pos);
       }
     }
 
@@ -207,6 +207,18 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
     }
 
     return super.onBlockStartBreak(itemstack, pos, player);
+  }
+
+  /**
+   * Called when an AOE block is broken by the tool. Use to oveerride the block breaking logic
+   * @param tool      Tool ItemStack
+   * @param world     World instance
+   * @param player    Player instance
+   * @param pos       Current position
+   * @param refPos    Base position
+   */
+  protected void breakExtraBlock(ItemStack tool, World world, EntityPlayer player, BlockPos pos, BlockPos refPos) {
+    ToolHelper.breakExtraBlock(tool, world, player, pos, refPos);
   }
 
   @Override

@@ -2,6 +2,7 @@
     "textures": {
         "pickaxe": "tconstruct:items/pickaxe/mod_fortified",
         "hatchet": "tconstruct:items/hatchet/mod_fortified",
+        "kama": "tconstruct:items/kama/mod_fortified",
         "scythe": "tconstruct:items/scythe/mod_fortified",
         "shovel": "tconstruct:items/shovel/mod_fortified",
         "hammer": "tconstruct:items/hammer/mod_fortified",

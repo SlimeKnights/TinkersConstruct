@@ -11,6 +11,7 @@
         "frypan": "tconstruct:items/frypan/mod_web",
         "hammer": "tconstruct:items/hammer/mod_web",
         "hatchet": "tconstruct:items/hatchet/mod_web",
+        "kama": "tconstruct:items/kama/mod_web",
         "longbow": "tconstruct:items/longbow/mod_web",
         "longbow1": "tconstruct:items/longbow/mod_web",
         "longbow2": "tconstruct:items/longbow/mod_web_2",

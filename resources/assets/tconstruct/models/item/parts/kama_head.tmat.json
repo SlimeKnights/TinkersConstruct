@@ -1,0 +1,9 @@
+{
+    "textures": {
+        "layer0": "tconstruct:items/kama/head"
+    },
+    "offset": {
+        "x": -2,
+        "y": 4
+    }
+}

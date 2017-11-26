@@ -1,0 +1,8 @@
+{
+	"textures": {
+		"layer0": "tconstruct:items/pickaxe/handle",
+		"layer1": "tconstruct:items/kama/head",
+		"layer2": "tconstruct:items/kama/binding",
+		"broken1": "tconstruct:items/kama/broken_head"
+	}
+}
