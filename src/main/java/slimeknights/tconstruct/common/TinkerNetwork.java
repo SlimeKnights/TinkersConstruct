@@ -14,6 +14,8 @@ import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.ConfigSyncPacket;
 import slimeknights.tconstruct.common.network.SpawnParticlePacket;
+import slimeknights.tconstruct.smeltery.network.ChannelConnectionPacket;
+import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.HeatingStructureFuelUpdatePacket;
@@ -61,6 +63,8 @@ public class TinkerNetwork extends NetworkWrapper {
     registerPacketServer(SmelteryFluidClicked.class);
     registerPacketClient(FluidUpdatePacket.class);
     registerPacketClient(FaucetActivationPacket.class);
+    registerPacketClient(ChannelConnectionPacket.class);
+    registerPacketClient(ChannelFlowPacket.class);
   }
 
   public static void sendPacket(Entity player, Packet<?> packet) {

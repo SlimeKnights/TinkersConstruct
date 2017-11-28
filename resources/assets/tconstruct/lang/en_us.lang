@@ -163,6 +163,8 @@ tile.tconstruct.casting.basin.name=Casting Basin
 tile.tconstruct.casting.tooltip=Cast items using molten metals from a smeltery
 tile.tconstruct.faucet.name=Faucet
 tile.tconstruct.faucet.tooltip=Drains liquids from Smelteries and other things
+tile.tconstruct.channel.name=Casting Channel
+tile.tconstruct.channel.tooltip=Filled with faucets to move liquids for casting
 tile.tconstruct.seared_tank.tank.name=Seared Tank
 tile.tconstruct.seared_tank.gauge.name=Seared Gauge
 tile.tconstruct.seared_tank.window.name=Seared Window
@@ -854,6 +856,11 @@ death.attack.bleed=%1$s bled to death from %2$s attack
 death.attack.bleed.item=%1$s bled to death from %2$s attack with %3$s
 
 message.mending_moss.not_enough_levels=Mending moss requires at least %s levels
+tconstruct.channel.connected.in=Set side to flow inwards
+tconstruct.channel.connected.out=Set side to flow outwards
+tconstruct.channel.connected.none=Disallowed flowing on side
+tconstruct.channel.connected_down.allow=Allowed flowing down
+tconstruct.channel.connected_down.disallow=Disallowed flowing down
 
 ######################
 # GUI Error messages #
