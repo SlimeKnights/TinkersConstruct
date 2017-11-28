@@ -80,16 +80,13 @@ public class Kama extends AoeToolCore {
   }
 
   @Override
-  protected void breakExtraBlock(ItemStack stack, World world, EntityPlayer player, BlockPos pos, BlockPos refPos) {
-    // silktouch gives us shears :D
-    if(EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0) {
-      if(ToolHelper.shearBlock(stack, world, player, pos)) {
-        return;
-      }
-    }
+  protected boolean breakBlock(ItemStack stack, BlockPos pos, EntityPlayer player) {
+    return ToolHelper.shearBlock(stack, player.getEntityWorld(), player, pos);
+  }
 
-    // can't be sheared or no silktouch. break it
-    ToolHelper.breakExtraBlock(stack, world, player, pos, refPos);
+  @Override
+  protected void breakExtraBlock(ItemStack stack, World world, EntityPlayer player, BlockPos pos, BlockPos refPos) {
+    ToolHelper.shearExtraBlock(stack, world, player, pos, refPos);
   }
 
   @Nonnull

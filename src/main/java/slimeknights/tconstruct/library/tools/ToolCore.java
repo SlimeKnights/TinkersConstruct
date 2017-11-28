@@ -206,6 +206,17 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
       off.setTagCompound(tag);
     }
 
+    return breakBlock(itemstack, pos, player);
+  }
+
+  /**
+   * Called to break the base block, return false to perform no breaking
+   * @param itemstack Tool ItemStack
+   * @param pos       Current position
+   * @param player    Player instance
+   * @return true if the normal block break code should be skipped
+   */
+  protected boolean breakBlock(ItemStack itemstack, BlockPos pos, EntityPlayer player) {
     return super.onBlockStartBreak(itemstack, pos, player);
   }
 

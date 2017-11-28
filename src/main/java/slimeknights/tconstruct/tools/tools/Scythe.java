@@ -47,6 +47,25 @@ public class Scythe extends Kama {
   }
 
   @Override
+  protected boolean breakBlock(ItemStack stack, BlockPos pos, EntityPlayer player) {
+    // only allow shears with silktouch :D
+    return EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0
+        && ToolHelper.shearBlock(stack, player.getEntityWorld(), player, pos);
+  }
+
+  @Override
+  protected void breakExtraBlock(ItemStack stack, World world, EntityPlayer player, BlockPos pos, BlockPos refPos) {
+    // only allow shears with silktouch :D
+    if(EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0) {
+      ToolHelper.shearExtraBlock(stack, world, player, pos, refPos);
+      return;
+    }
+
+    // can't be sheared or no silktouch. break it
+    ToolHelper.breakExtraBlock(stack, world, player, pos, refPos);
+  }
+
+  @Override
   public ImmutableList<BlockPos> getAOEBlocks(ItemStack stack, World world, EntityPlayer player, BlockPos origin) {
     return ToolHelper.calcAOEBlocks(stack, world, player, origin, 3, 3, 3);
   }
