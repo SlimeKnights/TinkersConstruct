@@ -21,6 +21,10 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.events.TinkerCraftingEvent;
+import slimeknights.tconstruct.library.events.TinkerCraftingEvent.ToolCraftingEvent;
+import slimeknights.tconstruct.library.events.TinkerCraftingEvent.ToolModifyEvent;
+import slimeknights.tconstruct.library.events.TinkerCraftingEvent.ToolPartReplaceEvent;
+import slimeknights.tconstruct.library.events.TinkerCraftingEvent.ToolRepairEvent;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.tinkering.IModifyable;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
@@ -229,15 +233,21 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     Sounds.playSoundForAll(player, Sounds.saw, 0.8f, 0.8f + 0.4f * TConstruct.random.nextFloat());
   }
 
-  private ItemStack repairTool(boolean remove) {
+  private ItemStack repairTool(boolean remove) throws TinkerGuiException {
     ItemStack repairable = inventorySlots.get(0).getStack();
 
     // modifying possible?
     if(repairable.isEmpty() || !(repairable.getItem() instanceof IRepairable)) {
       return ItemStack.EMPTY;
     }
-
-    return ToolBuilder.tryRepairTool(getInputs(), repairable, remove);
+    
+    NonNullList<ItemStack> inputs = getInputs();
+    ItemStack result = ToolBuilder.tryRepairTool(inputs, repairable, remove);
+    if(!result.isEmpty()) {
+      ToolRepairEvent event = TinkerCraftingEvent.ToolRepairEvent.fireEvent(result, player, inputs);
+      result = event.getItemStack();
+    }
+    return result;
   }
 
   private ItemStack replaceToolParts(boolean remove) throws TinkerGuiException {
@@ -250,7 +260,8 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     NonNullList<ItemStack> inputs = getInputs();
     ItemStack result = ToolBuilder.tryReplaceToolParts(tool, inputs, remove);
     if(!result.isEmpty()) {
-      TinkerCraftingEvent.ToolPartReplaceEvent.fireEvent(result, player, inputs);
+      ToolPartReplaceEvent event = TinkerCraftingEvent.ToolPartReplaceEvent.fireEvent(result, player, inputs);
+      result = event.getItemStack();
     }
     return result;
   }
@@ -265,7 +276,8 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
 
     ItemStack result = ToolBuilder.tryModifyTool(getInputs(), modifyable, remove);
     if(!result.isEmpty()) {
-      TinkerCraftingEvent.ToolModifyEvent.fireEvent(result, player, modifyable.copy());
+      ToolModifyEvent event = TinkerCraftingEvent.ToolModifyEvent.fireEvent(result, player, modifyable.copy());
+      result = event.getItemStack();
     }
     return result;
   }
@@ -278,7 +290,8 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
 
     ItemStack result = ToolBuilder.tryBuildTool(input, toolName, getBuildableTools());
     if(!result.isEmpty()) {
-      TinkerCraftingEvent.ToolCraftingEvent.fireEvent(result, player, input);
+      ToolCraftingEvent event = TinkerCraftingEvent.ToolCraftingEvent.fireEvent(result, player, input);
+      result = event.getItemStack();
     }
     return result;
   }
