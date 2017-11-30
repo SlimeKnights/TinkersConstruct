@@ -25,7 +25,7 @@ import slimeknights.tconstruct.library.utils.TinkerUtil;
  */
 @Cancelable
 public class TinkerCraftingEvent extends TinkerEvent {
-  private final ItemStack itemStack;
+  private ItemStack itemStack;
   private final EntityPlayer player;
   private String message;
 
@@ -41,6 +41,10 @@ public class TinkerCraftingEvent extends TinkerEvent {
     return itemStack;
   }
 
+  public void setItemStack(ItemStack outputIn) {
+	  this.itemStack = outputIn;
+  }
+  
   public String getMessage() {
     return message;
   }
@@ -52,6 +56,33 @@ public class TinkerCraftingEvent extends TinkerEvent {
   public void setCanceled(String localizedMessage) {
     this.message = localizedMessage;
     setCanceled(true);
+  }
+  
+  /**
+   * Fired when a tool is being repaired.
+   * Cancelable.
+   * Be sure to provide a proper message when cancelling, so the user know what's going on!
+   */
+  public static class ToolRepairEvent extends TinkerCraftingEvent {
+
+    private final NonNullList<ItemStack> toolParts;
+
+    private ToolRepairEvent(ItemStack itemStack, EntityPlayer player, NonNullList<ItemStack> toolParts) {
+      super(itemStack, player, Util.translate("gui.error.craftevent.repair.default"));
+      this.toolParts = toolParts;
+    }
+
+    public NonNullList<ItemStack> getToolParts() {
+      return toolParts;
+    }
+
+    public static ToolRepairEvent fireEvent(ItemStack itemStack, EntityPlayer player, NonNullList<ItemStack> toolParts) throws TinkerGuiException {
+    	ToolRepairEvent toolRepairEvent = new ToolRepairEvent(itemStack, player, toolParts);
+      if(MinecraftForge.EVENT_BUS.post(toolRepairEvent)) {
+        throw new TinkerGuiException(toolRepairEvent.getMessage());
+      }
+      return toolRepairEvent;
+    }
   }
 
   /**
@@ -72,11 +103,12 @@ public class TinkerCraftingEvent extends TinkerEvent {
       return toolParts;
     }
 
-    public static void fireEvent(ItemStack itemStack, EntityPlayer player, NonNullList<ItemStack> toolParts) throws TinkerGuiException {
+    public static ToolCraftingEvent fireEvent(ItemStack itemStack, EntityPlayer player, NonNullList<ItemStack> toolParts) throws TinkerGuiException {
       ToolCraftingEvent toolCraftingEvent = new ToolCraftingEvent(itemStack, player, toolParts);
       if(MinecraftForge.EVENT_BUS.post(toolCraftingEvent)) {
         throw new TinkerGuiException(toolCraftingEvent.getMessage());
       }
+      return toolCraftingEvent;
     }
   }
 
@@ -98,11 +130,12 @@ public class TinkerCraftingEvent extends TinkerEvent {
       return toolParts;
     }
 
-    public static void fireEvent(ItemStack itemStack, EntityPlayer player, NonNullList<ItemStack> toolParts) throws TinkerGuiException {
+    public static ToolPartReplaceEvent fireEvent(ItemStack itemStack, EntityPlayer player, NonNullList<ItemStack> toolParts) throws TinkerGuiException {
       ToolPartReplaceEvent toolPartReplaceEvent = new ToolPartReplaceEvent(itemStack, player, toolParts);
       if(MinecraftForge.EVENT_BUS.post(toolPartReplaceEvent)) {
         throw new TinkerGuiException(toolPartReplaceEvent.getMessage());
       }
+      return toolPartReplaceEvent;
     }
   }
 
@@ -133,11 +166,12 @@ public class TinkerCraftingEvent extends TinkerEvent {
       return toolBeforeModification;
     }
 
-    public static void fireEvent(ItemStack itemStack, EntityPlayer player, ItemStack toolBeforeModification) throws TinkerGuiException {
+    public static ToolModifyEvent fireEvent(ItemStack itemStack, EntityPlayer player, ItemStack toolBeforeModification) throws TinkerGuiException {
       ToolModifyEvent toolModifyEvent = new ToolModifyEvent(itemStack, player, toolBeforeModification);
       if(MinecraftForge.EVENT_BUS.post(toolModifyEvent)) {
         throw new TinkerGuiException(toolModifyEvent.getMessage());
       }
+      return toolModifyEvent;
     }
   }
 
@@ -152,11 +186,12 @@ public class TinkerCraftingEvent extends TinkerEvent {
       super(itemStack, player, Util.translate("gui.error.craftevent.toolpart.default"));
     }
 
-    public static void fireEvent(ItemStack itemStack, EntityPlayer player) throws TinkerGuiException {
+    public static ToolPartCraftingEvent fireEvent(ItemStack itemStack, EntityPlayer player) throws TinkerGuiException {
       ToolPartCraftingEvent toolPartCraftingEvent = new ToolPartCraftingEvent(itemStack, player);
       if(MinecraftForge.EVENT_BUS.post(toolPartCraftingEvent)) {
         throw new TinkerGuiException(toolPartCraftingEvent.getMessage());
       }
+      return toolPartCraftingEvent;
     }
   }
 }
