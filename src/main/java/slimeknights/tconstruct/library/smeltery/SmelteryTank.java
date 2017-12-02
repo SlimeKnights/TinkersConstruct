@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.StringUtils;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
@@ -98,6 +99,12 @@ public class SmelteryTank implements IFluidTank, IFluidHandler {
 
   @Override
   public int fill(FluidStack resource, boolean doFill) {
+    // Safeety check, it seems sometimes it can happen that something creates an invalid fluidstack?
+    // does some mod register a fluid with an empty string as name..?
+    if(StringUtils.isNullOrEmpty(FluidRegistry.getFluidName(resource.getFluid()))) {
+      return 0;
+    }
+
     // check how much space is left in the smeltery
     int used = getFluidAmount();
 
