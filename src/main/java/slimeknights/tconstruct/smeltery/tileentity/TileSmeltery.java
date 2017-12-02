@@ -34,6 +34,7 @@ import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
+import slimeknights.tconstruct.library.utils.FluidUtil;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.shared.TinkerFluids;
 import slimeknights.tconstruct.smeltery.client.GuiSmeltery;
@@ -185,10 +186,11 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
 
     TinkerSmelteryEvent.OnMelting event = TinkerSmelteryEvent.OnMelting.fireEvent(this, stack, recipe.output.copy());
 
-    int filled = liquids.fill(event.result, false);
+    FluidStack fluidStack = FluidUtil.getValidFluidStackOrNull(event.result);
+    int filled = liquids.fill(fluidStack, false);
 
-    if(filled == event.result.amount) {
-      liquids.fill(event.result, true);
+    if(filled == fluidStack.amount) {
+      liquids.fill(fluidStack, true);
 
       // only clear out items n stuff if it was successful
       setInventorySlotContents(slot, ItemStack.EMPTY);
@@ -275,7 +277,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
         }
 
         // and insert the alloy
-        FluidStack toFill = recipe.getResult().copy();
+        FluidStack toFill = FluidUtil.getValidFluidStackOrNull(recipe.getResult().copy());
         int filled = liquids.fill(toFill, true);
         if(filled != recipe.getResult().amount) {
           log.error("Smeltery alloy creation filled incorrect amount: was %d, should be %d (%s)", filled,
