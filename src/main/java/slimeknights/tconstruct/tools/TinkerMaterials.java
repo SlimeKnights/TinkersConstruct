@@ -245,6 +245,7 @@ public final class TinkerMaterials {
     prismarine.addItem("blockPrismarineDark", 1, Material.VALUE_Ingot * 2);
     prismarine.setRepresentativeItem(Blocks.PRISMARINE);
     prismarine.addTrait(jagged, HEAD);
+    prismarine.addTrait(aquadynamic, HEAD);
     prismarine.addTrait(aquadynamic);
 
     netherrack.setCraftable(true);
@@ -432,7 +433,7 @@ public final class TinkerMaterials {
                                     new HandleMaterialStats(0.90f, -100),
                                     new ExtraMaterialStats(90));
     TinkerRegistry.addMaterialStats(prismarine,
-                                    new HeadMaterialStats(430, 5.50f, 6.00f, IRON),
+                                    new HeadMaterialStats(430, 5.50f, 6.20f, IRON),
                                     new HandleMaterialStats(0.60f, -150),
                                     new ExtraMaterialStats(100));
     TinkerRegistry.addMaterialStats(endstone,
