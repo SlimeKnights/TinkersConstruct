@@ -728,7 +728,9 @@ public final class TinkerRegistry {
     ResourceLocation name = EntityList.getKey(entity);
     FluidStack fluidStack = entityMeltingRegistry.get(name);
     // check if the fluid is the correct one to use
-    return slimeknights.tconstruct.library.utils.FluidUtil.getValidFluidStackOrNull(fluidStack);
+    return Optional.ofNullable(fluidStack)
+                   .map(slimeknights.tconstruct.library.utils.FluidUtil::getValidFluidStackOrNull)
+                   .orElse(null);
   }
 
   /*---------------------------------------------------------------------------
