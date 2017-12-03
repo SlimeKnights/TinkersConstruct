@@ -63,7 +63,7 @@ public class TinkerWorld extends TinkerPulse {
   public static BlockSlimeVine slimeVinePurple3;
 
   public static final EnumPlantType slimePlantType = EnumPlantType.getPlantType("slime");
-  
+
   @SubscribeEvent
   public void registerBlocks(Register<Block> event) {
     IForgeRegistry<Block> registry = event.getRegistry();
@@ -104,7 +104,7 @@ public class TinkerWorld extends TinkerPulse {
 
   @SubscribeEvent
   public void registerEntities(Register<EntityEntry> event) {
-    EntityRegistry.registerModEntity(Util.getResource("blueslime"), EntityBlueSlime.class, "blueslime", EntityIDs.BLUESLIME, TConstruct.instance, 64, 5, true, 0x47eff5, 0xacfff4);
+    EntityRegistry.registerModEntity(Util.getResource("blueslime"), EntityBlueSlime.class, Util.prefix("blueslime"), EntityIDs.BLUESLIME, TConstruct.instance, 64, 5, true, 0x47eff5, 0xacfff4);
     LootTableList.register(EntityBlueSlime.LOOT_TABLE);
     //EntitySpawnPlacementRegistry.setPlacementType(EntityBlueSlime.class, EntityLiving.SpawnPlacementType.IN_WATER);
   }
