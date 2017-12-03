@@ -496,7 +496,7 @@ public final class TinkerMaterials {
                                     new ExtraMaterialStats(50));
     TinkerRegistry.addMaterialStats(pigiron,
                                     new HeadMaterialStats(380, 6.20f, 4.50f, OBSIDIAN),
-                                    new HandleMaterialStats(1.20f, -100),
+                                    new HandleMaterialStats(1.20f, 0),
                                     new ExtraMaterialStats(170));
 
     // Mod Integration
