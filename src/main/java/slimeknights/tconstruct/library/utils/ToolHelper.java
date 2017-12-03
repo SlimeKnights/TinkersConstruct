@@ -39,6 +39,7 @@ import net.minecraftforge.common.IShearable;
 import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerNetwork;
@@ -813,6 +814,17 @@ public final class ToolHelper {
         ((WorldServer) entity.getEntityWorld()).getEntityTracker().sendToTracking(entity, new SPacketAnimation(entity, 0));
       }
     }
+  }
+
+  public static ItemStack playerIsHoldingItemWith(EntityPlayer player, Predicate<ItemStack> predicate) {
+    ItemStack tool = player.getHeldItemMainhand();
+    if(!predicate.test(tool)) {
+      tool = player.getHeldItemOffhand();
+      if(!predicate.test(tool)) {
+        return ItemStack.EMPTY;
+      }
+    }
+    return tool;
   }
 
   /* Helper Functions */
