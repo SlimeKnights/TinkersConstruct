@@ -72,6 +72,7 @@ import static slimeknights.tconstruct.tools.TinkerTraits.established;
 import static slimeknights.tconstruct.tools.TinkerTraits.flammable;
 import static slimeknights.tconstruct.tools.TinkerTraits.fractured;
 import static slimeknights.tconstruct.tools.TinkerTraits.freezing;
+import static slimeknights.tconstruct.tools.TinkerTraits.heavy;
 import static slimeknights.tconstruct.tools.TinkerTraits.hellish;
 import static slimeknights.tconstruct.tools.TinkerTraits.holy;
 import static slimeknights.tconstruct.tools.TinkerTraits.hovering;
@@ -338,6 +339,7 @@ public final class TinkerMaterials {
 
     lead.addCommonItems("Lead");
     lead.addTrait(poisonous);
+    lead.addTrait(heavy);
 
     silver.addCommonItems("Silver");
     silver.addTrait(holy);
@@ -512,7 +514,7 @@ public final class TinkerMaterials {
                                     new ExtraMaterialStats(80));
 
     TinkerRegistry.addMaterialStats(lead,
-                                    new HeadMaterialStats(334, 5.25f, 3.50f, IRON),
+                                    new HeadMaterialStats(434, 5.25f, 3.50f, IRON),
                                     new HandleMaterialStats(0.70f, -50),
                                     new ExtraMaterialStats(100));
 

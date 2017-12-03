@@ -1,15 +1,21 @@
 package slimeknights.tconstruct.library.traits;
 
+import com.google.common.collect.Multimap;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
+
+import javax.annotation.Nonnull;
 
 import slimeknights.tconstruct.library.modifiers.IToolMod;
 
@@ -156,4 +162,14 @@ public interface ITrait extends IToolMod {
    * @param amount How much durability will be repaired. Can be bigger than the damage the tool has.
    */
   void onRepair(ItemStack tool, int amount);
+
+  /**
+   * When the tool is equipped, this is called to set the players attributes.
+   * See Item.getAttributeModifiers
+   *
+   * @param slot         Analogous to Item.getAttributeModifiers
+   * @param stack        Item.getAttributeModifiers
+   * @param attributeMap The map you usually return. Fill in your stuff, if needed
+   */
+  default void getAttributeModifiers(@Nonnull EntityEquipmentSlot slot, ItemStack stack, Multimap<String, AttributeModifier> attributeMap) {}
 }

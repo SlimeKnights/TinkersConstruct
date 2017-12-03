@@ -245,6 +245,14 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
       multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", ToolHelper.getActualAttackSpeed(stack) - 4d, 0));
     }
 
+    NBTTagList traitsTagList = TagUtil.getTraitsTagList(stack);
+    for(int i = 0; i < traitsTagList.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(traitsTagList.getStringTagAt(i));
+      if(trait != null) {
+        trait.getAttributeModifiers(slot, stack, multimap);
+      }
+    }
+
     return multimap;
   }
 

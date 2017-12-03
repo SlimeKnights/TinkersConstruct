@@ -24,6 +24,7 @@ import slimeknights.tconstruct.tools.traits.TraitEndspeed;
 import slimeknights.tconstruct.tools.traits.TraitEstablished;
 import slimeknights.tconstruct.tools.traits.TraitFlammable;
 import slimeknights.tconstruct.tools.traits.TraitFreezing;
+import slimeknights.tconstruct.tools.traits.TraitHeavy;
 import slimeknights.tconstruct.tools.traits.TraitHellish;
 import slimeknights.tconstruct.tools.traits.TraitHoly;
 import slimeknights.tconstruct.tools.traits.TraitHovering;
@@ -73,6 +74,7 @@ public class TinkerTraits {
   public static final AbstractTrait established = new TraitEstablished();
   public static final AbstractTrait flammable = new TraitFlammable();
   public static final AbstractTrait fractured = new TraitBonusDamage("fractured", 1.5f);
+  public static final AbstractTrait heavy = new TraitHeavy();
   public static final AbstractTrait hellish = new TraitHellish();
   public static final AbstractTrait holy = new TraitHoly();
   public static final AbstractTrait insatiable = new TraitInsatiable();
