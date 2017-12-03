@@ -140,7 +140,7 @@ public class TinkerSmeltery extends TinkerPulse {
   public static ItemStack castPlate;
   public static ItemStack castGear;
 
-  private static Map<Fluid, Set<Pair<List<ItemStack>, Integer>>> knownOreFluids = Maps.newHashMap();
+  private static Map<Fluid, Set<Pair<String, Integer>>> knownOreFluids = Maps.newHashMap();
   public static List<FluidStack> castCreationFluids = Lists.newLinkedList();
   public static List<FluidStack> clayCreationFluids = Lists.newLinkedList();
 
@@ -641,24 +641,24 @@ public class TinkerSmeltery extends TinkerPulse {
    */
   @SuppressWarnings("unchecked")
   public static void registerOredictMeltingCasting(Fluid fluid, String ore) {
-    ImmutableSet.Builder<Pair<List<ItemStack>, Integer>> builder = ImmutableSet.builder();
-    Pair<List<ItemStack>, Integer> nuggetOre = Pair.of(OreDictionary.getOres("nugget" + ore), Material.VALUE_Nugget);
-    Pair<List<ItemStack>, Integer> ingotOre = Pair.of(OreDictionary.getOres("ingot" + ore), Material.VALUE_Ingot);
-    Pair<List<ItemStack>, Integer> blockOre = Pair.of(OreDictionary.getOres("block" + ore), Material.VALUE_Block);
-    Pair<List<ItemStack>, Integer> oreOre = Pair.of(OreDictionary.getOres("ore" + ore), Material.VALUE_Ore());
-    Pair<List<ItemStack>, Integer> oreNetherOre = Pair.of(OreDictionary.getOres("oreNether" + ore), (int) (2 * Material.VALUE_Ingot * Config.oreToIngotRatio));
-    Pair<List<ItemStack>, Integer> oreDenseOre = Pair.of(OreDictionary.getOres("denseore" + ore), (int) (3 * Material.VALUE_Ingot * Config.oreToIngotRatio));
-    Pair<List<ItemStack>, Integer> orePoorOre = Pair.of(OreDictionary.getOres("orePoor" + ore), (int) (Material.VALUE_Nugget * 3 * Config.oreToIngotRatio));
-    Pair<List<ItemStack>, Integer> oreNuggetOre = Pair.of(OreDictionary.getOres("oreNugget" + ore), (int) (Material.VALUE_Nugget * Config.oreToIngotRatio));
-    Pair<List<ItemStack>, Integer> plateOre = Pair.of(OreDictionary.getOres("plate" + ore), Material.VALUE_Ingot);
-    Pair<List<ItemStack>, Integer> gearOre = Pair.of(OreDictionary.getOres("gear" + ore), Material.VALUE_Ingot * 4);
-    Pair<List<ItemStack>, Integer> dustOre = Pair.of(OreDictionary.getOres("dust" + ore), Material.VALUE_Ingot);
+    ImmutableSet.Builder<Pair<String, Integer>> builder = ImmutableSet.builder();
+    Pair<String, Integer> nuggetOre = Pair.of("nugget" + ore, Material.VALUE_Nugget);
+    Pair<String, Integer> ingotOre = Pair.of("ingot" + ore, Material.VALUE_Ingot);
+    Pair<String, Integer> blockOre = Pair.of("block" + ore, Material.VALUE_Block);
+    Pair<String, Integer> oreOre = Pair.of("ore" + ore, Material.VALUE_Ore());
+    Pair<String, Integer> oreNetherOre = Pair.of("oreNether" + ore, (int) (2 * Material.VALUE_Ingot * Config.oreToIngotRatio));
+    Pair<String, Integer> oreDenseOre = Pair.of("denseore" + ore, (int) (3 * Material.VALUE_Ingot * Config.oreToIngotRatio));
+    Pair<String, Integer> orePoorOre = Pair.of("orePoor" + ore, (int) (Material.VALUE_Nugget * 3 * Config.oreToIngotRatio));
+    Pair<String, Integer> oreNuggetOre = Pair.of("oreNugget" + ore, (int) (Material.VALUE_Nugget * Config.oreToIngotRatio));
+    Pair<String, Integer> plateOre = Pair.of("plate" + ore, Material.VALUE_Ingot);
+    Pair<String, Integer> gearOre = Pair.of("gear" + ore, Material.VALUE_Ingot * 4);
+    Pair<String, Integer> dustOre = Pair.of("dust" + ore, Material.VALUE_Ingot);
 
     builder.add(nuggetOre, ingotOre, blockOre, oreOre, oreNetherOre, oreDenseOre, orePoorOre, oreNuggetOre, plateOre, gearOre, dustOre);
-    Set<Pair<List<ItemStack>, Integer>> knownOres = builder.build();
+    Set<Pair<String, Integer>> knownOres = builder.build();
 
     // register oredicts
-    for(Pair<List<ItemStack>, Integer> pair : knownOres) {
+    for(Pair<String, Integer> pair : knownOres) {
       TinkerRegistry.registerMelting(new MeltingRecipe(RecipeMatch.of(pair.getLeft(), pair.getRight()), fluid));
     }
 
@@ -738,11 +738,11 @@ public class TinkerSmeltery extends TinkerPulse {
           continue;
         }
         boolean found = false;
-        for(Map.Entry<Fluid, Set<Pair<List<ItemStack>, Integer>>> entry : knownOreFluids.entrySet()) {
+        for(Map.Entry<Fluid, Set<Pair<String, Integer>>> entry : knownOreFluids.entrySet()) {
           // check if it's a known oredict (all oredict lists are equal if they match the same oredict)
           // OR if it's an itemstack contained in one of our oredicts
-          for(Pair<List<ItemStack>, Integer> pair : entry.getValue()) {
-            for(ItemStack itemStack : pair.getLeft()) {
+          for(Pair<String, Integer> pair : entry.getValue()) {
+            for(ItemStack itemStack : OreDictionary.getOres(pair.getLeft(), false)) {
               if(ingredient.apply(itemStack)) {
                 // matches! Update fluid amount known
                 Integer amount = known.get(entry.getKey()); // what we found for the liquid so far

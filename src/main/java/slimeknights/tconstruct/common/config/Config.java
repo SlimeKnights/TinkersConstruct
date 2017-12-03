@@ -18,6 +18,7 @@ import java.util.List;
 import slimeknights.mantle.pulsar.config.ForgeCFG;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.utils.RecipeUtil;
 
 public final class Config {
 
@@ -45,6 +46,10 @@ public final class Config {
   public static double oreToIngotRatio = 2;
   public static String[] craftingStationBlacklist = new String[] {
       "de.ellpeck.actuallyadditions.mod.tile.TileEntityItemViewer"
+  };
+  private static String[] orePreference = {
+      "minecraft",
+      "tconstruct"
   };
   //public static List<String> craftingStationBlacklist = Collections.emptyList();
 
@@ -193,7 +198,11 @@ public final class Config {
       craftingStationBlacklist = prop.getStringList();
       propOrder.add(prop.getName());
 
-
+      prop = configFile.get(cat, "orePreference", orePreference);
+      prop.setComment("Preferred mod ID for oredictionary outputs. Top most mod ID will be the preferred output ID, and if none is found the first output stack is used.");
+      orePreference = prop.getStringList();
+      RecipeUtil.setOrePreferences(orePreference);
+      propOrder.add(prop.getName());
     }
     // Worldgen
     {
