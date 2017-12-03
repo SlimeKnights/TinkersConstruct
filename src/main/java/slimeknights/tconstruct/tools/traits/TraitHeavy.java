@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.traits.AbstractTrait;
 
 public class TraitHeavy extends AbstractTrait {
 
-  protected static final UUID KNOCKBACK_MODIFIER = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
+  protected static final UUID KNOCKBACK_MODIFIER = UUID.fromString("cca17597-84ae-44fe-bf98-ca08a9047079");
 
   public TraitHeavy() {
     super("heavy", 0xffffff);
