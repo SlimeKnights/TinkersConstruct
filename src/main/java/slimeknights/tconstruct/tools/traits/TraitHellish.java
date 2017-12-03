@@ -16,7 +16,7 @@ import slimeknights.tconstruct.library.traits.AbstractTrait;
 
 public class TraitHellish extends AbstractTrait {
 
-  private static final float bonusDamage = 2f;
+  private static final float bonusDamage = 4f;
 
   public TraitHellish() {
     super("hellish", 0xff0000);

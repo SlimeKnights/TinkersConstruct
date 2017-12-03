@@ -252,6 +252,7 @@ public final class TinkerMaterials {
     netherrack.addItemIngot("netherrack");
     netherrack.setRepresentativeItem(Blocks.NETHERRACK);
     netherrack.addTrait(aridiculous, HEAD);
+    netherrack.addTrait(hellish, HEAD);
     netherrack.addTrait(hellish);
 
     endstone.setCraftable(true);
@@ -495,7 +496,7 @@ public final class TinkerMaterials {
                                     new HandleMaterialStats(0.85f, 60),
                                     new ExtraMaterialStats(50));
     TinkerRegistry.addMaterialStats(pigiron,
-                                    new HeadMaterialStats(380, 6.20f, 4.50f, OBSIDIAN),
+                                    new HeadMaterialStats(380, 6.20f, 4.50f, DIAMOND),
                                     new HandleMaterialStats(1.20f, 0),
                                     new ExtraMaterialStats(170));
 
