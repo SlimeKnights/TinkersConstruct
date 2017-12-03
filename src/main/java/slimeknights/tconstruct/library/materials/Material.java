@@ -352,7 +352,7 @@ public class Material extends RecipeMatchRegistry {
 
 
   public void setRepresentativeItem(ItemStack representativeItem) {
-    if(representativeItem == ItemStack.EMPTY) {
+    if(representativeItem == null || representativeItem.isEmpty()) {
       this.representativeItem = ItemStack.EMPTY;
     }
     else if(matches(representativeItem).isPresent()) {
