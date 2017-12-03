@@ -240,7 +240,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
         // no custom melting but a living entity that's alive?
         if(fluid == null && entity instanceof EntityLivingBase) {
           if(entity.isEntityAlive() && !entity.isDead) {
-            fluid = new FluidStack(TinkerFluids.blood, 10);
+            fluid = new FluidStack(TinkerFluids.blood, 20);
           }
         }
 
