@@ -50,6 +50,8 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 public abstract class EntityProjectileBase extends EntityArrow implements IEntityAdditionalSpawnData {
 
   protected static final UUID PROJECTILE_POWER_MODIFIER = UUID.fromString("c6aefc21-081a-4c4a-b076-8f9d6cef9122");
+  // projectiles tend to land about this far from any given block face
+  private static final AxisAlignedBB ON_BLOCK_AABB = new AxisAlignedBB(-0.05D, -0.05D, -0.05D, 0.05D, 0.05D, 0.05D);
 
   public TinkerProjectileHandler tinkerProjectile = new TinkerProjectileHandler();
 
@@ -366,8 +368,9 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     Block block = state.getBlock();
     int meta = block.getMetaFromState(state);
 
-    // check if it's still the same block
-    if(block == this.inTile && meta == this.inData) {
+    // check if it's still the same block or if it is already within tolerance of another hitbox
+    // second part prevents it from falling when the block changes but the hitbox does nots
+    if((block == this.inTile && meta == this.inData) || this.getEntityWorld().collidesWithAnyBlock(ON_BLOCK_AABB.offset(this.getPositionVector()))) {
       ++this.ticksInGround;
 
       if(this.ticksInGround >= 1200) {
