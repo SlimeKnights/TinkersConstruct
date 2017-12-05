@@ -29,6 +29,7 @@ import slimeknights.tconstruct.tools.tools.Mattock;
 import slimeknights.tconstruct.tools.tools.Pickaxe;
 import slimeknights.tconstruct.tools.tools.Scythe;
 import slimeknights.tconstruct.tools.tools.Shovel;
+import slimeknights.tconstruct.tools.tools.Kama;
 
 @Pulse(
     id = TinkerHarvestTools.PulseId,
@@ -47,6 +48,7 @@ public class TinkerHarvestTools extends AbstractToolPulse {
   public static ToolCore shovel;
   public static ToolCore hatchet;
   public static ToolCore mattock;
+  public static ToolCore kama;
 
   public static ToolCore hammer;
   public static ToolCore excavator;
@@ -76,6 +78,7 @@ public class TinkerHarvestTools extends AbstractToolPulse {
     shovel = registerTool(registry, new Shovel(), "shovel");
     hatchet = registerTool(registry, new Hatchet(), "hatchet");
     mattock = registerTool(registry, new Mattock(), "mattock");
+    kama = registerTool(registry, new Kama(), "kama");
 
     hammer = registerTool(registry, new Hammer(), "hammer");
     excavator = registerTool(registry, new Excavator(), "excavator");
@@ -97,6 +100,7 @@ public class TinkerHarvestTools extends AbstractToolPulse {
     TinkerRegistry.registerToolCrafting(shovel);
     TinkerRegistry.registerToolCrafting(hatchet);
     TinkerRegistry.registerToolCrafting(mattock);
+    TinkerRegistry.registerToolCrafting(kama);
 
     TinkerRegistry.registerToolForgeCrafting(hammer);
     TinkerRegistry.registerToolForgeCrafting(excavator);

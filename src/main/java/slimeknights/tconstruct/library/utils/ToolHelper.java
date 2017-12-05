@@ -343,10 +343,19 @@ public final class ToolHelper {
     return builder.build();
   }
 
-  public static void breakExtraBlock(ItemStack stack, World world, EntityPlayer player, BlockPos pos, BlockPos refPos) {
+  /**
+   * Preconditions for {@link #breakExtraBlock(ItemStack, World, EntityPlayer, BlockPos, BlockPos)} and {@link #shearExtraBlock(ItemStack, World, EntityPlayer, BlockPos, BlockPos)}
+   * @param stack
+   * @param world
+   * @param player
+   * @param pos
+   * @param refPos
+   * @return true if the extra block can be broken
+   */
+  private static boolean canBreakExtraBlock(ItemStack stack, World world, EntityPlayer player, BlockPos pos, BlockPos refPos) {
     // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
     if(world.isAirBlock(pos)) {
-      return;
+      return false;
     }
 
     // check if the block can be broken, since extra block breaks shouldn't instantly break stuff like obsidian
@@ -356,7 +365,7 @@ public final class ToolHelper {
 
     // only effective materials
     if(!isToolEffective2(stack, state)) {
-      return;
+      return false;
     }
 
     IBlockState refState = world.getBlockState(refPos);
@@ -365,7 +374,7 @@ public final class ToolHelper {
 
     // only harvestable blocks that aren't impossibly slow to harvest
     if(!ForgeHooks.canHarvestBlock(block, player, world, pos) || refStrength / strength > 10f) {
-      return;
+      return false;
     }
 
     // From this point on it's clear that the player CAN break the block
@@ -380,8 +389,18 @@ public final class ToolHelper {
       if(!world.isRemote) {
         TinkerNetwork.sendPacket(player, new SPacketBlockChange(world, pos));
       }
+      return false;
+    }
+    return true;
+  }
+
+  public static void breakExtraBlock(ItemStack stack, World world, EntityPlayer player, BlockPos pos, BlockPos refPos) {
+    if(!canBreakExtraBlock(stack, world, player, pos, refPos)) {
       return;
     }
+
+    IBlockState state = world.getBlockState(pos);
+    Block block = state.getBlock();
 
     // callback to the tool the player uses. Called on both sides. This damages the tool n stuff.
     stack.onBlockDestroyed(world, state, pos, player);
@@ -398,8 +417,7 @@ public final class ToolHelper {
 
       TileEntity tileEntity = world.getTileEntity(pos);
       // ItemInWorldManager.removeBlock
-      if(block.removedByPlayer(state, world, pos, player, true)) // boolean is if block can be harvested, checked above
-      {
+      if(block.removedByPlayer(state, world, pos, player, true)) { // boolean is if block can be harvested, checked above
         block.onBlockDestroyedByPlayer(world, pos, state);
         block.harvestBlock(world, player, pos, state, tileEntity, stack);
         block.dropXpOnBlockBreak(world, pos, xp);
@@ -435,13 +453,40 @@ public final class ToolHelper {
     }
   }
 
+  /**
+   * Same as {@link #breakExtraBlock(ItemStack, World, EntityPlayer, BlockPos, BlockPos)}, but attempts to shear the block first
+   * @param stack
+   * @param world
+   * @param player
+   * @param pos
+   * @param refPos
+   */
+  public static void shearExtraBlock(ItemStack stack, World world, EntityPlayer player, BlockPos pos, BlockPos refPos) {
+    if(!canBreakExtraBlock(stack, world, player, pos, refPos)) {
+      return;
+    }
+    // if we cannot shear the block, just run normal block break code
+    if(!shearBlock(stack, world, player, pos)) {
+      breakExtraBlock(stack, world, player, pos, refPos);
+    }
+  }
+
+  /**
+   * Attempts to shear a block using IShearable logic
+   * @param itemstack
+   * @param world
+   * @param player
+   * @param pos
+   * @return true if the block was successfully sheared
+   */
   public static boolean shearBlock(ItemStack itemstack, World world, EntityPlayer player, BlockPos pos) {
     // only serverside since it creates entities
     if(world.isRemote) {
       return false;
     }
 
-    Block block = world.getBlockState(pos).getBlock();
+    IBlockState state = world.getBlockState(pos);
+    Block block = state.getBlock();
     if(block instanceof IShearable) {
       IShearable target = (IShearable) block;
       if(target.isShearable(itemstack, world, pos)) {
@@ -458,7 +503,7 @@ public final class ToolHelper {
           world.spawnEntity(entityitem);
         }
 
-        itemstack.damageItem(1, player);
+        itemstack.onBlockDestroyed(world, state, pos, player);
         //player.addStat(net.minecraft.stats.StatList.mineBlockStatArray[Block.getIdFromBlock(block)], 1);
 
         world.setBlockToAir(pos);
