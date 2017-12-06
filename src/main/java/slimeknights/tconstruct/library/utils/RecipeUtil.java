@@ -31,20 +31,14 @@ public final class RecipeUtil {
    * @return  The preferred ItemStack, or ItemStack.EMPTY if the name is empty
    */
   public static ItemStack getPreference(String oreName) {
-    // if we found one before, use that
-    if(preferenceCache.containsKey(oreName)) {
-      return preferenceCache.get(oreName).copy();
-    }
+    ItemStack stack = preferenceCache.computeIfAbsent(oreName, RecipeUtil::cachePreference);
 
-    List<ItemStack> items = OreDictionary.getOres(oreName, false);
-
-    // if nothing matches the name, just return nothing
-    if(items.isEmpty()) {
+    // if nothing matches, return empty
+    // we would just return empty, but that would cache that value
+    if(stack == null) {
       return ItemStack.EMPTY;
     }
-
-    cachePreference(oreName, items);
-    return preferenceCache.get(oreName).copy();
+    return stack.copy();
   }
 
   /**
@@ -52,7 +46,13 @@ public final class RecipeUtil {
    * @param oreName  String to check
    * @param items    Items to search
    */
-  private static void cachePreference(String oreName, List<ItemStack> items) {
+  private static ItemStack cachePreference(String oreName) {
+    List<ItemStack> items = OreDictionary.getOres(oreName, false);
+
+    if(items.isEmpty()) {
+      return null;
+    }
+
     // search through each preference name, finding the first item for the name
     ItemStack preference = null;
     for(String mod : orePreferences) {
@@ -76,10 +76,18 @@ public final class RecipeUtil {
     if(preference.getMetadata() == OreDictionary.WILDCARD_VALUE) {
       NonNullList<ItemStack> subItems = NonNullList.create();
       preference.getItem().getSubItems(CreativeTab.SEARCH, subItems);
-      preference = subItems.get(0);
+      // just in case
+      if(subItems.isEmpty()) {
+        // so you have an oredicted item with no sub items? I guess all we can do is give damage 0
+        preference = preference.copy();
+        preference.setItemDamage(0);
+      } else {
+        // just grab the first sub item
+        preference = subItems.get(0);
+      }
     }
 
     // finally cache the preference
-    preferenceCache.put(oreName, preference);
+    return preference;
   }
 }
