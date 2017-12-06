@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
 import slimeknights.mantle.client.CreativeTab;
 
-public class RecipeUtil {
+public final class RecipeUtil {
   // list of orePreferences, to be filled by the config
   private static String[] orePreferences = new String[0];
   // cache to avoid grabing the same name twice
