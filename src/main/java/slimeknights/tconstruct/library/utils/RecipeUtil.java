@@ -58,7 +58,7 @@ public final class RecipeUtil {
     for(String mod : orePreferences) {
       Optional<ItemStack> optional = items
           .stream()
-          .filter(stack -> !stack.isEmpty() && stack.getItem().getRegistryName().getResourceDomain().equals(mod))
+          .filter(stack -> stack.getItem().getRegistryName().getResourceDomain().equals(mod))
           .findFirst();
 
       // if we found something, use that stack and stop searching
