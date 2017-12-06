@@ -54,7 +54,7 @@ import slimeknights.tconstruct.library.smeltery.BucketCastingRecipe;
 import slimeknights.tconstruct.library.smeltery.Cast;
 import slimeknights.tconstruct.library.smeltery.CastingRecipe;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
-import slimeknights.tconstruct.library.smeltery.OreCastingRecipe;
+import slimeknights.tconstruct.library.smeltery.PreferenceCastingRecipe;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -664,30 +664,30 @@ public class TinkerSmeltery extends TinkerPulse {
 
     // register oredict castings!
     // ingot casting
-    TinkerRegistry.registerTableCasting(new OreCastingRecipe(ingotOre.getLeft(),
-                                                             RecipeMatch.ofNBT(castIngot),
-                                                             fluid,
-                                                             ingotOre.getRight()));
+    TinkerRegistry.registerTableCasting(new PreferenceCastingRecipe(ingotOre.getLeft(),
+                                                                    RecipeMatch.ofNBT(castIngot),
+                                                                    fluid,
+                                                                    ingotOre.getRight()));
     // nugget casting
-    TinkerRegistry.registerTableCasting(new OreCastingRecipe(nuggetOre.getLeft(),
-                                                             RecipeMatch.ofNBT(castNugget),
-                                                             fluid,
-                                                             nuggetOre.getRight()));
+    TinkerRegistry.registerTableCasting(new PreferenceCastingRecipe(nuggetOre.getLeft(),
+                                                                    RecipeMatch.ofNBT(castNugget),
+                                                                    fluid,
+                                                                    nuggetOre.getRight()));
     // block casting
-    TinkerRegistry.registerBasinCasting(new OreCastingRecipe(blockOre.getLeft(),
-                                                             null, // no cast
-                                                             fluid,
-                                                             blockOre.getRight()));
+    TinkerRegistry.registerBasinCasting(new PreferenceCastingRecipe(blockOre.getLeft(),
+                                                                    null, // no cast
+                                                                    fluid,
+                                                                    blockOre.getRight()));
     // plate casting
-    TinkerRegistry.registerTableCasting(new OreCastingRecipe(plateOre.getLeft(),
-                                                             RecipeMatch.ofNBT(castPlate),
-                                                             fluid,
-                                                             plateOre.getRight()));
+    TinkerRegistry.registerTableCasting(new PreferenceCastingRecipe(plateOre.getLeft(),
+                                                                    RecipeMatch.ofNBT(castPlate),
+                                                                    fluid,
+                                                                    plateOre.getRight()));
     // gear casting
-    TinkerRegistry.registerTableCasting(new OreCastingRecipe(gearOre.getLeft(),
-                                                             RecipeMatch.ofNBT(castGear),
-                                                             fluid,
-                                                             gearOre.getRight()));
+    TinkerRegistry.registerTableCasting(new PreferenceCastingRecipe(gearOre.getLeft(),
+                                                                    RecipeMatch.ofNBT(castGear),
+                                                                    fluid,
+                                                                    gearOre.getRight()));
 
     // and also cast creation!
     for(FluidStack fs : castCreationFluids) {
