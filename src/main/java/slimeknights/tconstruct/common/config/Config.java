@@ -49,7 +49,12 @@ public final class Config {
   };
   private static String[] orePreference = {
       "minecraft",
-      "tconstruct"
+      "tconstruct",
+      "thermalfoundation",
+      "forestry",
+      "immersiveengineering",
+      "embers",
+      "ic2"
   };
   //public static List<String> craftingStationBlacklist = Collections.emptyList();
 
