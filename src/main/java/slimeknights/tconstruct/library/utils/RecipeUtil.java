@@ -31,14 +31,7 @@ public final class RecipeUtil {
    * @return  The preferred ItemStack, or ItemStack.EMPTY if the name is empty
    */
   public static ItemStack getPreference(String oreName) {
-    ItemStack stack = preferenceCache.computeIfAbsent(oreName, RecipeUtil::cachePreference);
-
-    // if nothing matches, return empty
-    // we would just return empty, but that would cache that value
-    if(stack == null) {
-      return ItemStack.EMPTY;
-    }
-    return stack.copy();
+    return preferenceCache.computeIfAbsent(oreName, RecipeUtil::cachePreference).copy();
   }
 
   /**
@@ -50,7 +43,7 @@ public final class RecipeUtil {
     List<ItemStack> items = OreDictionary.getOres(oreName, false);
 
     if(items.isEmpty()) {
-      return null;
+      return ItemStack.EMPTY;
     }
 
     // search through each preference name, finding the first item for the name
