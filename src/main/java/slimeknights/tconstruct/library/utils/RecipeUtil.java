@@ -28,10 +28,11 @@ public final class RecipeUtil {
   /**
    * Gets the preferred ore for the given oredict name
    * @param oreName  Oredictionary key
-   * @return  The preferred ItemStack, or ItemStack.EMPTY if the name is empty
+   * @return  The preferred ItemStack, or ItemStack.EMPTY if the name is empty.
+   *          This is the same ItemStack from the cache, so be sure to copy it if you plan to place it in an inventory or otherwise change it.
    */
   public static ItemStack getPreference(String oreName) {
-    return preferenceCache.computeIfAbsent(oreName, RecipeUtil::cachePreference).copy();
+    return preferenceCache.computeIfAbsent(oreName, RecipeUtil::cachePreference);
   }
 
   /**
