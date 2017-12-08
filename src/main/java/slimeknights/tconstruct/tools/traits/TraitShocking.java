@@ -1,12 +1,16 @@
 package slimeknights.tconstruct.tools.traits;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import slimeknights.tconstruct.common.Sounds;
@@ -35,15 +39,29 @@ public class TraitShocking extends AbstractTrait {
     if(data.charge >= 100f) {
       if(attackEntitySecondary(new EntityDamageSource("lightningBolt", player), 5f, target, false, true, false)) {
         TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_ELECTRO, target, 5);
-        if(player instanceof EntityPlayerMP) {
-          Sounds.playSoundForAll(player, Sounds.shocking_discharge, 2f, 1f);
-        }
-        data.charge = 0;
-
-        modtag.save();
-
-        TagUtil.setEnchantEffect(tool, false);
+        discharge(tool, player, modtag, data);
+        player.addPotionEffect(new PotionEffect(MobEffects.SPEED, 50, 5));
       }
+    } else if(player instanceof EntityPlayer) {
+      addCharge(15f * ((EntityPlayer) player).getCooledAttackStrength(1f), tool, player, data);
+      modtag.save();
+    }
+  }
+
+  @Override
+  public void afterBlockBreak(ItemStack tool, World world, IBlockState state, BlockPos pos, EntityLivingBase player, boolean wasEffective) {
+    if(player.getEntityWorld().isRemote) {
+      return;
+    }
+
+    ModifierTagHolder modtag = ModifierTagHolder.getModifier(tool, getModifierIdentifier());
+    Data data = modtag.getTagData(Data.class);
+    addCharge(15f, tool, player, data);
+    modtag.save();
+
+    if(data.charge >= 100f) {
+      discharge(tool, player, modtag, data);
+      player.addPotionEffect(new PotionEffect(MobEffects.HASTE, 50, 2));
     }
   }
 
@@ -79,21 +97,35 @@ public class TraitShocking extends AbstractTrait {
     else if(dist > 5f) {
       dist = 5f;
     }
-    data.charge += dist * 2f;
 
-    // play sound when fully charged
-    if(data.charge >= 100f) {
-      TagUtil.setEnchantEffect(tool, true);
-      // send only to the player that is charged
-      if(entity instanceof EntityPlayerMP) {
-        Sounds.PlaySoundForPlayer(entity, Sounds.shocking_charged, 1f, 0.8f + 0.2f * random.nextFloat());
-      }
-    }
+    addCharge((float)(dist * 2d), tool, entity, data);
 
     data.x = entity.posX;
     data.y = entity.posY;
     data.z = entity.posZ;
     modtag.save();
+  }
+
+  private void addCharge(float change, ItemStack tool, Entity entity, Data data) {
+    data.charge += change;
+    if(data.charge >= 100f) {
+      TagUtil.setEnchantEffect(tool, true);
+      // send only to the player that is charged
+      if(entity instanceof EntityPlayerMP) {
+        Sounds.PlaySoundForPlayer(entity, Sounds.shocking_charged, 0.8f, 0.8f + 0.2f * random.nextFloat());
+      }
+    }
+  }
+
+  private void discharge(ItemStack tool, EntityLivingBase player, ModifierTagHolder modtag, Data data) {
+    if(player instanceof EntityPlayerMP) {
+      Sounds.playSoundForAll(player, Sounds.shocking_discharge, 1f, 1f);
+    }
+    data.charge = 0;
+
+    modtag.save();
+
+    TagUtil.setEnchantEffect(tool, false);
   }
 
   public static class Data extends ModifierNBT {
