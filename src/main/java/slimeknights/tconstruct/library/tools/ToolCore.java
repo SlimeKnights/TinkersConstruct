@@ -491,6 +491,9 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
   }
 
   protected void onUpdateTraits(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
+    if(!isSelected && entityIn instanceof EntityPlayer && ((EntityPlayer) entityIn).getHeldItemOffhand() == stack) {
+      isSelected = true;
+    }
     NBTTagList list = TagUtil.getTraitsTagList(stack);
     for(int i = 0; i < list.tagCount(); i++) {
       ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
