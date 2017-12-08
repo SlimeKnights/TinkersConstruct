@@ -162,7 +162,7 @@ public class ContentMaterial extends TinkerPage {
     int y = 10;
 
     // representative item first
-    if(material.getRepresentativeItem() != null) {
+    if(!material.getRepresentativeItem().isEmpty()) {
       displayTools.add(new ElementTinkerItem(material.getRepresentativeItem()));
     }
     // then "craftability"

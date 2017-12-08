@@ -18,13 +18,13 @@ import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 
 public class SmeltingRecipeWrapper implements IRecipeWrapper {
 
-  protected final List<ItemStack> inputs;
+  protected final List<List<ItemStack>> inputs;
   protected final List<FluidStack> outputs;
   protected final int temperature;
   protected final List<FluidStack> fuels;
 
   public SmeltingRecipeWrapper(MeltingRecipe recipe) {
-    this.inputs = recipe.input.getInputs();
+    this.inputs = ImmutableList.of(recipe.input.getInputs());
     this.outputs = ImmutableList.of(recipe.getResult());
     this.temperature = recipe.getTemperature();
 
@@ -41,7 +41,7 @@ public class SmeltingRecipeWrapper implements IRecipeWrapper {
 
   @Override
   public void getIngredients(IIngredients ingredients) {
-    ingredients.setInputs(ItemStack.class, inputs);
+    ingredients.setInputLists(ItemStack.class, inputs);
     ingredients.setOutputs(FluidStack.class, outputs);
   }
 

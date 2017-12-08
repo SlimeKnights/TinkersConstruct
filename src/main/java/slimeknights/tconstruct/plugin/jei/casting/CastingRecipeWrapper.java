@@ -47,7 +47,7 @@ public class CastingRecipeWrapper implements IRecipeWrapper {
     this.inputFluid = ImmutableList.of(recipe.getFluid());
     this.recipe = recipe;
     // special treatment of oredict output recipies
-    if(recipe.getResult() == null) {
+    if(recipe.getResult().isEmpty()) {
       output = null;
     }
     else {

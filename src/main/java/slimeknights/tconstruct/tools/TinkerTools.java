@@ -85,6 +85,7 @@ public class TinkerTools extends AbstractToolPulse {
   public static ToolPart largeSwordBlade;
   public static ToolPart hammerHead;
   public static ToolPart excavatorHead;
+  public static ToolPart kamaHead;
   public static ToolPart scytheHead;
   public static ToolPart panHead;
   public static ToolPart signHead;
@@ -189,6 +190,7 @@ public class TinkerTools extends AbstractToolPulse {
     largeSwordBlade = registerToolPart(registry, new ToolPart(Material.VALUE_Ingot * 8), "large_sword_blade");
     hammerHead = registerToolPart(registry, new ToolPart(Material.VALUE_Ingot * 8), "hammer_head");
     excavatorHead = registerToolPart(registry, new ToolPart(Material.VALUE_Ingot * 8), "excavator_head");
+    kamaHead = registerToolPart(registry, new ToolPart(Material.VALUE_Ingot * 2), "kama_head");
     scytheHead = registerToolPart(registry, new ToolPart(Material.VALUE_Ingot * 8), "scythe_head");
     panHead = registerToolPart(registry, new ToolPart(Material.VALUE_Ingot * 3), "pan_head");
     signHead = registerToolPart(registry, new ToolPart(Material.VALUE_Ingot * 3), "sign_head");

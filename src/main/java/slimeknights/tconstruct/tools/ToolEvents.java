@@ -60,8 +60,9 @@ public class ToolEvents {
     }
 
     if(event.tool == TinkerHarvestTools.pickaxe ||
-       event.tool == TinkerHarvestTools.hatchet ||
-       event.tool == TinkerHarvestTools.shovel) {
+        event.tool == TinkerHarvestTools.hatchet ||
+        event.tool == TinkerHarvestTools.shovel ||
+        event.tool == TinkerHarvestTools.kama) {
       event.width += width ? 1 : 0;
       event.height += height ? 1 : 0;
     }

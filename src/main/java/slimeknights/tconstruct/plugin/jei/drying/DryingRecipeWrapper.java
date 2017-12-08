@@ -16,19 +16,19 @@ import slimeknights.tconstruct.library.DryingRecipe;
 
 public class DryingRecipeWrapper implements IRecipeWrapper {
 
-  protected final List<ItemStack> input;
+  protected final List<List<ItemStack>> input;
   protected final List<ItemStack> output;
   protected final int time;
 
   public DryingRecipeWrapper(DryingRecipe recipe) {
-    this.input = recipe.input.getInputs();
+    this.input = ImmutableList.of(recipe.input.getInputs());
     this.output = ImmutableList.of(recipe.getResult());
     this.time = recipe.getTime();
   }
 
   @Override
   public void getIngredients(IIngredients ingredients) {
-    ingredients.setInputs(ItemStack.class, input);
+    ingredients.setInputLists(ItemStack.class, input);
     ingredients.setOutputs(ItemStack.class, output);
   }
 
