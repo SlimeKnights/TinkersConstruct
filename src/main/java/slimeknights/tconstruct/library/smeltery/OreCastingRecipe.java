@@ -13,7 +13,9 @@ import slimeknights.mantle.util.RecipeMatch;
 /**
  * A casting recipe that takes its output from an oredict entry.
  * Used for ingot casting etc.
+ * @Deprecated Use {@link PreferenceCastingRecipe}
  */
+@Deprecated
 public class OreCastingRecipe extends CastingRecipe {
 
   protected final List<ItemStack> outputs;

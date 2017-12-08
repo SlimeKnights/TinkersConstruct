@@ -1,14 +1,12 @@
 package slimeknights.tconstruct.library;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import java.util.List;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.Material;
@@ -145,14 +143,7 @@ public class MaterialIntegration {
   private void registerRepresentativeItem() {
     // also set the representative item
     if(material.getRepresentativeItem().isEmpty() && representativeItem != null && !representativeItem.isEmpty()) {
-      List<ItemStack> ore = OreDictionary.getOres(representativeItem, false);
-      if(!ore.isEmpty()) {
-        ItemStack itemStack = ore.get(0).copy();
-        if(itemStack.getMetadata() == OreDictionary.WILDCARD_VALUE) {
-          itemStack.setItemDamage(0);
-        }
-        material.setRepresentativeItem(itemStack);
-      }
+      material.setRepresentativeItem(representativeItem);
     }
   }
 
