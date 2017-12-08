@@ -156,4 +156,9 @@ public class BoltCore extends ToolPart {
     }
     return GUI_RENDER_ITEMSTACK;
   }
+
+  @Override
+  public boolean canUseMaterialForRendering(Material mat) {
+    return mat.hasStats(MaterialTypes.HEAD) || canUseMaterial(mat);
+  }
 }

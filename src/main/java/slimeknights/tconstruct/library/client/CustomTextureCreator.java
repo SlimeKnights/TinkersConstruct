@@ -121,7 +121,7 @@ public class CustomTextureCreator implements IResourceManagerReloadListener {
         else {
           usable = false;
           for(IToolPart toolPart : parts) {
-            usable |= toolPart.canUseMaterial(material);
+            usable |= toolPart.canUseMaterialForRendering(material);
           }
         }
 

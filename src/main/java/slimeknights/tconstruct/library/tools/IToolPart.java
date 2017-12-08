@@ -27,6 +27,15 @@ public interface IToolPart extends IMaterialItem {
    */
   boolean canUseMaterial(Material mat);
 
+  /**
+   * Workaround for dual-materials like crossbow-bolts.
+   * E.g. Obsidian is not an "acceptable" material because those are only shaft materials
+   * but we still need to generate the texture for it.
+   */
+  default boolean canUseMaterialForRendering(Material mat) {
+    return canUseMaterial(mat);
+  }
+
   boolean hasUseForStat(String stat);
 
   /** Return true if the toolpart should be registered for crafting in the stencil table, with a pattern */
