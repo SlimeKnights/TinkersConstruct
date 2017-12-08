@@ -237,6 +237,11 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
         // deal the damage
         float speed = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
         bounceOff = !dealDamage(speed, inventoryItem, attacker, entityHit);
+        if(!bounceOff) {
+          for(IProjectileTrait trait : tinkerProjectile.getProjectileTraits()) {
+            trait.afterHit(this, getEntityWorld(), inventoryItem, attacker, entityHit, speed);
+          }
+        }
         if(brokenStateDiffers) {
           toggleBroken(inventoryItem);
         }

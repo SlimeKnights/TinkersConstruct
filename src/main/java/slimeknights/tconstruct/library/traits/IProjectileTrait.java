@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.traits;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -20,4 +21,9 @@ public interface IProjectileTrait extends ITrait {
 
 
   void onMovement(EntityProjectileBase projectile, World world, double slowdown);
+
+  /**
+   * Called after an entity was hit.
+   */
+  void afterHit(EntityProjectileBase projectile, World world, ItemStack ammoStack, EntityLivingBase attacker, Entity target, double impactSpeed);
 }

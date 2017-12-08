@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -32,6 +33,11 @@ public abstract class ProjectileModifierTrait extends ModifierTrait implements I
 
   @Override
   public void onMovement(EntityProjectileBase projectile, World world, double slowdown) {
+
+  }
+
+  @Override
+  public void afterHit(EntityProjectileBase projectile, World world, ItemStack ammoStack, EntityLivingBase attacker, Entity target, double impactSpeed) {
 
   }
 }
