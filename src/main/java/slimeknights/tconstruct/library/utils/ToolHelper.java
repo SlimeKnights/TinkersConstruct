@@ -522,6 +522,7 @@ public final class ToolHelper {
 
   public static void breakTool(ItemStack stack, EntityLivingBase entity) {
     NBTTagCompound tag = TagUtil.getToolTag(stack);
+    if (tag.getBoolean(ModReinforced.TAG_UNBREAKABLE)) return;
     tag.setBoolean(Tags.BROKEN, true);
     TagUtil.setToolTag(stack, tag);
 
