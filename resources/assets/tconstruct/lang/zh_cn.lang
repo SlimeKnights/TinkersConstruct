@@ -163,6 +163,8 @@ tile.tconstruct.casting.basin.name=铸造盆
 tile.tconstruct.casting.tooltip=基础铸造设备
 tile.tconstruct.faucet.name=浇注口
 tile.tconstruct.faucet.tooltip=让冶炼炉的内容物流出来
+tile.tconstruct.channel.name=浇注道
+tile.tconstruct.channel.tooltip=用于运输从浇注口输出的液体进行铸造
 tile.tconstruct.seared_tank.tank.name=焦黑储罐
 tile.tconstruct.seared_tank.gauge.name=焦黑容器
 tile.tconstruct.seared_tank.window.name=焦黑视窗
@@ -334,6 +336,7 @@ item.tconstruct.pickaxe.name=镐
 item.tconstruct.shovel.name=铲
 item.tconstruct.hatchet.name=手斧
 item.tconstruct.mattock.name=鹤嘴锄
+item.tconstruct.kama.name=园艺镰
 
 item.tconstruct.hammer.name=锤
 item.tconstruct.excavator.name=开掘铲
@@ -370,6 +373,7 @@ item.tconstruct.shard.name=碎片
 item.tconstruct.pick_head.name=镐头
 item.tconstruct.shovel_head.name=铲头
 item.tconstruct.axe_head.name=斧刃
+item.tconstruct.kama_head.name=园艺镰头
 item.tconstruct.pan_head.name=盘
 item.tconstruct.sign_head.name=牌板
 item.tconstruct.binding.name=绑定结
@@ -649,6 +653,8 @@ modifier.flammable.name=可燃
 modifier.flammable.desc=§o更多的火焰！§r\n格挡时可以消除火焰伤害，还会使攻击者着火.
 modifier.fractured.name=碎骨
 modifier.fractured.desc=§o疼！§r\n你的工具有了更高的伤害。
+modifier.heavy.name=沉重
+modifier.heavy.desc=§o责任重于泰山§r\n你的工具在进行攻击时不会击退目标。
 modifier.hellish.name=炼狱
 modifier.hellish.desc=§o来自深渊的最深处！§r\n对非下界生物会造成额外的伤害。
 modifier.hellish.extra=对非下界生物: +%s
@@ -730,7 +736,7 @@ modifier.diamond.desc=§o闪耀！§r\n增加工具的耐久！
 modifier.emerald.name=绿宝石
 modifier.emerald.desc=§o昂贵！§r\n根据基础数据增加耐久！
 modifier.extratrait.name=剥削
-modifier.extratrait.desc=§o魔法亲和，或许更好！§r\n通过压制 %s其中的力量，来获得其中一些效果。
+modifier.extratrait.desc=§o魔法亲和，或许更好！§r\n通过压榨 %s 的力量，来获取其中一些效果。
 modifier.fiery.name=炽热
 modifier.fiery.desc=§o现在好热！§r\n给予额外的火焰伤害，让你的敌人着火！
 modifier.fiery.extra=火焰伤害: +%s
@@ -791,7 +797,8 @@ modifier.webbed.desc=§o呦吼！§r\n让你的敌人被蜘蛛网缠住吧。
 item.tconstruct.pickaxe.desc=镐子是标准的挖矿工具。它对石头以及矿物有效。\n它能破坏方块么？
 item.tconstruct.shovel.desc=铲子是标准的挖掘工具。它对泥土、沙子和雪有效。\n不要用它来自掘坟墓就好！
 item.tconstruct.hatchet.desc=斧是基础的伐木工具。它对木头和树叶有效。也是一种还算凑的过去的武器\n砍吧！砍吧！
-item.tconstruct.mattock.desc=鹤嘴锄是种多功能的农用工具。它对木头，泥土和植物有效。当然攻击力也还可以\n右击:锄地
+item.tconstruct.mattock.desc=鹤嘴锄是种多功能的农用工具。它对木头，泥土和植物有效。当然攻击力也还可以\n右击：锄地
+item.tconstruct.kama.desc=园艺镰是一种十分实用的收割工具，它可以用于收割、裁剪植物也能用于修剪羊毛。\n右击：收获并重新播种作物
 item.tconstruct.broadsword.desc=大剑是一种普通武器。横扫可以攻击大片敌人\n对清除蜘蛛网也很有效！
 item.tconstruct.longsword.desc=长剑是种攻击型武器。通常用作全速切入战斗。\n右键: 冲刺
 item.tconstruct.rapier.desc=西洋剑是种特制武器，依靠快速的刺击来打败对手。\n右键: 后退
@@ -801,7 +808,7 @@ item.tconstruct.hammer.desc=锤子是种范围挖矿工具。能采集大范围�
 item.tconstruct.lumberaxe.desc=伐木斧是种范围砍伐工具。能砍倒巨大的树木以收集的范围内的木头。\n伐木吧！
 item.tconstruct.excavator.desc=开掘铲是种的大范围挖掘的工具。能挖掘大范围内的泥土和雪。\n挖掘吧！
 item.tconstruct.cleaver.desc=劈刀是种重型防卫武器。能施以重击，但很难挥动。\n劈刀能提供很高的攻击力\n慢点，需要两只手挥动！
-item.tconstruct.battleaxe.desc=战斧是种重型攻击武器。它能砍伐小型树木或将敌人击飞。\n右键: 格挡
+item.tconstruct.battleaxe.desc=战斧是种重型攻击武器。它能砍伐小型树木或将敌人击飞。\n右键：格挡
 item.tconstruct.scythe.desc=镰刀是用于大面积收割的工具，可一次性大范围收割作物。\n同时也可充当范围攻击武器。\n右击即可收菜并补种。
 item.tconstruct.shuriken.desc=回旋镖是一个发射速度很快的短程攻击武器，数量多但是攻击力低下\n也可以从副手投掷出去
 item.tconstruct.shortbow.desc=短弓是种远程武器。向敌人快速精准地射出箭矢。\n使用匠魂的箭。
@@ -821,11 +828,11 @@ tooltip.tool.holdShift=按下§e§oShift§r查看统计数据
 tooltip.tool.holdCtrl=按下§e§bCtrl§r查看详细信息
 
 tooltip.part.material_added_by=材料由%s添加
-tooltip.part.missing_material=缺失材料: %s
-tooltip.part.missing_stats=材料缺失必要的数据:\n%s
+tooltip.part.missing_material=缺失材料： %s
+tooltip.part.missing_stats=材料缺失必要的数据：\n%s
 tooltip.part.missing_info=部件没有数据
 
-tooltip.pattern.cost=材料消耗: %d
+tooltip.pattern.cost=材料消耗： %d
 
 tooltip.chest.has_items=包含物品
 tooltip.patternchest.holds_patterns=包含%d个模具
@@ -854,6 +861,11 @@ death.attack.bleed=%1$s流血致死，因为%2$s的攻击
 death.attack.bleed.item=%1$s流血致死，因为被%2$s用%3$s攻击了
 
 message.mending_moss.not_enough_levels=修复苔藓至少需要%s等级
+tconstruct.channel.connected.in=设置向内流动
+tconstruct.channel.connected.out=设置向外流动
+tconstruct.channel.connected.none=禁止流体流动
+tconstruct.channel.connected_down.allow=允许向外流动
+tconstruct.channel.connected_down.disallow=禁止向外流动
 
 ######################
 # GUI Error messages #
@@ -871,7 +883,7 @@ gui.error.craftevent.modifier.default=使用这些物品强化/修改此工具�
 gui.error.craftevent.toolpart.default=这个工具的制作已经被另一个模组阻止了！
 gui.error.craftevent.replace.default=替换此工具的部件已被另一个模组阻止了！
 # GUI Errors from modifiers
-gui.error.not_enough_modifiers=剩余强化槽不足！\n(需要%d个)
+gui.error.not_enough_modifiers=剩余强化槽不足！\n（需要%d个）
 gui.error.single_modifier=%s只能强化一次。
 gui.error.max_level_modifier=已达到%s的最高等级。
 gui.error.no_modifier_for_item=未找到%s的强化槽。 
