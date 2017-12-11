@@ -40,6 +40,11 @@
     "data": "tools/mattock.json"
   },
   {
+    "name": "kama",
+    "type": "tool",
+    "data": "tools/kama.json"
+  },
+  {
     "name": "scythe",
     "type": "tool",
     "data": "tools/scythe.json"
