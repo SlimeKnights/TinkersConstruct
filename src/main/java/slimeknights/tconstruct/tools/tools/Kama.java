@@ -81,7 +81,7 @@ public class Kama extends AoeToolCore {
 
   @Override
   protected boolean breakBlock(ItemStack stack, BlockPos pos, EntityPlayer player) {
-    return ToolHelper.shearBlock(stack, player.getEntityWorld(), player, pos);
+    return !ToolHelper.isBroken(stack) && ToolHelper.shearBlock(stack, player.getEntityWorld(), player, pos);
   }
 
   @Override
