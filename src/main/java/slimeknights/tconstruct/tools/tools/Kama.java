@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockNetherWart;
 import net.minecraft.block.BlockReed;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -128,6 +129,9 @@ public class Kama extends AoeToolCore {
     boolean canHarvest = state.getBlock() instanceof BlockReed;
 
     if(state.getBlock() instanceof BlockCrops && ((BlockCrops) state.getBlock()).isMaxAge(state)) {
+      canHarvest = true;
+    }
+    if(state.getBlock() instanceof BlockNetherWart && state.getValue(BlockNetherWart.AGE) == 3) {
       canHarvest = true;
     }
     return canHarvest;
