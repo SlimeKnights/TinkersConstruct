@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.gadgets.item;
 
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -17,8 +19,12 @@ import javax.annotation.Nonnull;
 import slimeknights.mantle.item.ItemTooltip;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerNetwork;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.client.particle.Particles;
+import slimeknights.tconstruct.library.utils.EntityUtil;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 public class ItemSlimeSling extends ItemTooltip {
@@ -72,10 +78,37 @@ public class ItemSlimeSling extends ItemTooltip {
 
     // check if player was targeting a block
     RayTraceResult mop = rayTrace(world, player, false);
+    if (Config.slingOther) {
+      Vec3d eye = new Vec3d(player.posX, player.posY + player.getEyeHeight(), player.posZ); // Entity.getPositionEyes
+      Vec3d look = player.getLook(1.0f);
+      RayTraceResult mopEnt = EntityUtil.raytraceEntity(player, eye, look, 3.2f, true);
 
-    if(mop != null && mop.typeOfHit == RayTraceResult.Type.BLOCK) {
+      if (mopEnt != null && mopEnt.typeOfHit == RayTraceResult.Type.ENTITY && mopEnt.entityHit instanceof EntityLivingBase)
+        mop = mopEnt;
+    }
+
+    if(mop != null &&
+            (mop.typeOfHit == RayTraceResult.Type.BLOCK ||
+            (Config.slingOther && mop.typeOfHit == RayTraceResult.Type.ENTITY))) {
       // we fling the inverted player look vector
       Vec3d vec = player.getLookVec().normalize();
+
+      if (mop.typeOfHit == RayTraceResult.Type.ENTITY) {
+        float sizeFactor = (mop.entityHit.width * mop.entityHit.width * mop.entityHit.height)
+                            / (entity.width * entity.width * entity.height);
+
+        if (!world.isRemote) {
+          mop.entityHit.addVelocity(vec.x * f / sizeFactor,
+                  vec.y * f / sizeFactor,
+                  vec.z * f / sizeFactor);
+          TinkerTools.proxy.spawnAttackParticle(Particles.FRYPAN_ATTACK, player, 0.6d);
+          if(mop.entityHit instanceof EntityPlayerMP) {
+            TinkerNetwork.sendPacket(player, new SPacketEntityVelocity(mop.entityHit));
+          }
+        }
+
+        f *= sizeFactor / (sizeFactor + 1);
+      }
 
       player.addVelocity(vec.x * -f,
                          vec.y * -f / 3f,
