@@ -1,6 +1,13 @@
 package tconstruct.items.tools;
 
+import java.util.Queue;
+import java.util.Set;
+import java.util.Stack;
+
+import com.google.common.collect.Lists;
+
 import cpw.mods.fml.relauncher.*;
+import gnu.trove.set.hash.THashSet;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -8,12 +15,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.world.BlockEvent;
 import tconstruct.library.*;
 import tconstruct.library.tools.*;
 import tconstruct.tools.TinkerTools;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 
 public class LumberAxe extends AOEHarvestTool
 {
@@ -95,10 +104,9 @@ public class LumberAxe extends AOEHarvestTool
             return super.onBlockStartBreak(stack, x, y, z, player);
 
         if (wood.isWood(world, x, y, z) || wood.getMaterial() == Material.sponge)
-            if(detectTree(world, x,y,z, wood)) {
-                NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-                int meta = world.getBlockMetadata(x, y, z);
-                breakTree(world, x, y, z, x, y, z, stack, tags, wood, meta, player);
+            if(detectTree(world, x,y,z)) {
+                TreeChopTask chopper = new TreeChopTask((AOEHarvestTool)this, stack, new ChunkPosition(x, y, z), player, 128);
+                FMLCommonHandler.instance().bus().register(chopper);
                 // custom block breaking code, don't call vanilla code
                 return true;
             }
@@ -106,106 +114,149 @@ public class LumberAxe extends AOEHarvestTool
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
 
-    private boolean detectTree(World world, int x, int y, int z, Block wood)
-    {
-        int height = y;
-        boolean foundTop = false;
-        do
-        {
-            height++;
-            Block block = world.getBlock(x, height, z);
-            if (block != wood)
-            {
-                height--;
-                foundTop = true;
-            }
-        } while (!foundTop);
+	public static boolean detectTree(World world, int pX, int pY, int pZ) {
+		ChunkPosition pos = null;
+		Stack<ChunkPosition> candidates = new Stack<>();
+		candidates.add(new ChunkPosition(pX, pY, pZ));
 
-        int numLeaves = 0;
-        if (height - y < 50)
-        {
-            for (int xPos = x - 1; xPos <= x + 1; xPos++)
-            {
-                for (int yPos = height - 1; yPos <= height + 1; yPos++)
-                {
-                    for (int zPos = z - 1; zPos <= z + 1; zPos++)
-                    {
-                        Block leaves = world.getBlock(xPos, yPos, zPos);
-                        if (leaves != null && leaves.isLeaves(world, xPos, yPos, zPos))
-                            numLeaves++;
-                    }
-                }
-            }
-        }
+		while (!candidates.isEmpty()) {
+			ChunkPosition candidate = candidates.pop();
+			int curX = candidate.chunkPosX, curY = candidate.chunkPosY, curZ = candidate.chunkPosZ;
 
-        return numLeaves > 3;
-    }
+			Block block = world.getBlock(curX, curY, curZ);
+			if ((pos == null || candidate.chunkPosY > pos.chunkPosY) && block.isWood(world, curX, curY, curZ)) {
+				pos = new ChunkPosition(curX, candidate.chunkPosY + 1, curZ);
+				// go up
+				while (world.getBlock(curX, pos.chunkPosY, curZ).isWood(world, curX, pos.chunkPosY, curZ)) {
+					pos = new ChunkPosition(curX, pos.chunkPosY + 1, curZ);
+				}
+				// check if we still have a way diagonally up
+				candidates.add(new ChunkPosition(curX + 1, pos.chunkPosY + 1, curZ    ));
+				candidates.add(new ChunkPosition(curX    , pos.chunkPosY + 1, curZ + 1));
+				candidates.add(new ChunkPosition(curX - 1, pos.chunkPosY + 1, curZ    ));
+				candidates.add(new ChunkPosition(curX    , pos.chunkPosY + 1, curZ - 1));
+			}
+		}
 
-    private void breakTree (World world, int x, int y, int z, int xStart, int yStart, int zStart, ItemStack stack, NBTTagCompound tags, Block bID, int meta, EntityPlayer player)
-    {
-        for (int xPos = x - 1; xPos <= x + 1; xPos++)
-        {
-            for (int yPos = y; yPos <= y + 1; yPos++)
-            {
-                for (int zPos = z - 1; zPos <= z + 1; zPos++)
-                {
-                    if (!(tags.getBoolean("Broken")))
-                    {
-                        Block localBlock = world.getBlock(xPos, yPos, zPos);
-                        if (bID == localBlock)
-                        {
-                            int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
-                            int hlvl = localBlock.getHarvestLevel(localMeta);
-                            float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
+		// not even one match, so there were no logs.
+		if (pos == null) {
+			return false;
+		}
 
-                            if (hlvl <= tags.getInteger("HarvestLevel") && !(localHardness < 0))
-                            {
-                                boolean cancelHarvest = false;
-                                for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
-                                {
-                                    if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, player))
-                                        cancelHarvest = true;
-                                }
+		// check if there were enough leaves around the last position
+		// pos now contains the block above the topmost log
+		// we want at least 5 leaves in the surrounding 26 blocks
+		int d = 3;
+		int leaves = 0;
+		for (int offX = 0; offX < d; offX++) {
+			for (int offY = 0; offY < d; offY++) {
+				for (int offZ = 0; offZ < d; offZ++) {
+					int xPos = pos.chunkPosX -1 + offX, yPos = pos.chunkPosY - 1 + offY, zPos = pos.chunkPosZ - 1 + offZ;
+					Block leaf = world.getBlock(xPos, yPos, zPos);
+					if (leaf != null && leaf.isLeaves(world, xPos, yPos, zPos)) {
+						if (++leaves >= 5) {
+							return true;
+						}
+					}
+				}
+			}
+		}
 
-                                // send blockbreak event
-                                BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(x, y, z, world, localBlock, localMeta, player);
-                                event.setCanceled(cancelHarvest);
-                                MinecraftForge.EVENT_BUS.post(event);
-                                cancelHarvest = event.isCanceled();
+		// not enough leaves. sorreh
+		return false;
+	}
 
-                                int xDist = xPos - xStart;
-                                int yDist = yPos - yStart;
-                                int zDist = zPos - zStart;
+    public static class TreeChopTask {
 
-                                if (9*xDist*xDist + yDist*yDist + 9*zDist*zDist < 2500 )
-                                {
-                                    if (cancelHarvest)
-                                    {
-                                        breakTree(world, xPos, yPos, zPos, xStart, yStart, zStart, stack, tags, bID, meta, player);
-                                    }
-                                    else
-                                    {
-                                        if (localBlock == bID && localMeta % 4 == meta % 4)
-                                        {
-                                            if (!player.capabilities.isCreativeMode)
-                                            {
-                                                localBlock.harvestBlock(world, player, x,y,z, localMeta);
-                                                onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
-                                            }
+        public final World world;
+        public final EntityPlayer player;
+        public final AOEHarvestTool tool;
+        public final ItemStack stack;
+        public final int blocksPerTick;
 
-                                            world.setBlockToAir(xPos, yPos, zPos);
-                                            if (!world.isRemote)
-                                                breakTree(world, xPos, yPos, zPos, xStart, yStart, zStart, stack, tags, bID, meta, player);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+        public Queue<ChunkPosition> blocks = Lists.newLinkedList();
+        public Set<ChunkPosition> visited = new THashSet<>();
+
+		public TreeChopTask(AOEHarvestTool tool, ItemStack stack, ChunkPosition start, EntityPlayer player, int blocksPerTick) {
+			this.world = player.getEntityWorld();
+			this.player = player;
+			this.tool = tool;
+			this.stack = stack;
+			this.blocksPerTick = blocksPerTick;
+
+			this.blocks.add(start);
+		}
+
+		private void queueCoordinate(int x, int y, int z) {
+			ChunkPosition pos = new ChunkPosition(x, y, z);
+			if (!visited.contains(pos)) {
+				blocks.add(pos);
+			}
+		}
+
+		@SubscribeEvent
+		public void onWorldTick(TickEvent.WorldTickEvent event) {
+			if (event.side.isClient()) {
+				finish();
+				return;
+			}
+			// only if same dimension
+			if (event.world.provider.dimensionId != world.provider.dimensionId) {
+				return;
+			}
+
+			// setup
+			int left = blocksPerTick;
+			NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+
+			// continue running
+			ChunkPosition pos;
+			while (left > 0) {
+				// completely done or can't do our job anymore?!
+				if (blocks.isEmpty() || tags.getBoolean("Broken")) {
+					finish();
+					return;
+				}
+
+				pos = blocks.remove();
+				if (!visited.add(pos)) {
+					continue;
+				}
+				int x = pos.chunkPosX, y = pos.chunkPosY, z = pos.chunkPosZ;
+
+				Block block = world.getBlock(x, y, z);
+				int meta = world.getBlockMetadata(x, y, z);
+
+				// can we harvest the block and is effective?
+				if (!block.isWood(world, x, y, z) || !tool.isEffective(block, meta)) {
+					continue;
+				}
+
+				// save its neighbors
+				queueCoordinate(x + 1, y, z    );
+				queueCoordinate(x,     y, z + 1);
+				queueCoordinate(x - 1, y, z    );
+				queueCoordinate(x,     y, z - 1);
+
+				// also add the layer above.. stupid acacia trees
+				for (int offX = 0; offX < 3; offX++) {
+					for (int offZ = 0; offZ < 3; offZ++) {
+						queueCoordinate(x - 1 + offX, y + 1, z - 1 + offZ);
+					}
+				}
+
+				// break it, wooo!
+				tool.breakExtraBlock(player.worldObj, x, y, z, 0, player, x, y, z);
+				left--;
+			}
+		}
+
+		private void finish() {
+			// goodbye cruel world
+			FMLCommonHandler.instance().bus().unregister(this);
+		}
+	}
+
     @Override
     public Item getHeadItem ()
     {

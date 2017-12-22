@@ -48,6 +48,9 @@ repositories {
 apply plugin: 'forge'
 group = 'tconstruct'
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 // Define properties file
 ext.configFile = file "build.properties"
 
