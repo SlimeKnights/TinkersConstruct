@@ -267,6 +267,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
           FluidStack toDrain = liquid.copy();
           FluidStack drained = liquids.drain(toDrain, true);
           // error logging
+          assert drained != null;
           if(!drained.isFluidEqual(toDrain) || drained.amount != toDrain.amount) {
             log.error("Smeltery alloy creation drained incorrect amount: was %s:%d, should be %s:%d", drained
                 .getUnlocalizedName(), drained.amount, toDrain.getUnlocalizedName(), toDrain.amount);
