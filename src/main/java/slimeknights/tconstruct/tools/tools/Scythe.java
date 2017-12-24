@@ -140,8 +140,7 @@ public class Scythe extends Kama {
     }
 
     if(shorn) {
-      player.getEntityWorld().playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1.0F, 1.0F);
-      player.spawnSweepParticles();
+      swingTool(player, hand);
     }
 
     return shorn;
