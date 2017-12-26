@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/GTNewHorizons/TinkersConstruct.svg?branch=1.7.10)](https://travis-ci.org/GTNewHorizons/TinkersConstruct)
+
 #TINKERS' CONSTRUCT IS UNDERGOING A REWRITE
 The current 1.7.10 version of Tinkers' Construct is the final one for this iteration. Only major bugs will be fixed.
 The rework is aimed at 1.8 and has no time-plan. It'll be ready when it's done.
