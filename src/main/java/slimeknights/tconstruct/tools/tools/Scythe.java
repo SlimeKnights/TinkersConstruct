@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.tools.tools;
 
 import com.google.common.collect.ImmutableList;
+
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,7 +15,13 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
+
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+
+import javax.annotation.Nullable;
+
 import slimeknights.tconstruct.library.events.TinkerToolEvent;
 import slimeknights.tconstruct.library.materials.ExtraMaterialStats;
 import slimeknights.tconstruct.library.materials.HandleMaterialStats;
@@ -49,20 +57,41 @@ public class Scythe extends Kama {
   @Override
   protected boolean breakBlock(ItemStack stack, BlockPos pos, EntityPlayer player) {
     // only allow shears with silktouch :D
-    return EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0
-        && super.breakBlock(stack, pos, player);
+    return isSilkTouch(stack) && super.breakBlock(stack, pos, player);
   }
 
   @Override
   protected void breakExtraBlock(ItemStack stack, World world, EntityPlayer player, BlockPos pos, BlockPos refPos) {
     // only allow shears with silktouch :D
-    if(EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0) {
+    if(isSilkTouch(stack)) {
       ToolHelper.shearExtraBlock(stack, world, player, pos, refPos);
       return;
     }
 
     // can't be sheared or no silktouch. break it
     ToolHelper.breakExtraBlock(stack, world, player, pos, refPos);
+  }
+
+  @Override
+  public Set<String> getToolClasses(ItemStack stack) {
+    // probably should have two lists here if we ever add a tool class apart from shears
+    if(!isSilkTouch(stack)) {
+      return Collections.emptySet();
+    }
+    return super.getToolClasses(stack);
+  }
+
+  @Override
+  public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
+    if(toolClass.equals("shears") && !isSilkTouch(stack)) {
+      return -1;
+    }
+
+    return super.getHarvestLevel(stack, toolClass, player, blockState);
+  }
+
+  private static boolean isSilkTouch(ItemStack stack) {
+    return EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
   }
 
   @Override

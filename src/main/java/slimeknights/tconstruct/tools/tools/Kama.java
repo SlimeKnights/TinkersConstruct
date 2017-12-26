@@ -57,6 +57,7 @@ public class Kama extends AoeToolCore {
     super(requiredComponents);
 
     addCategory(Category.HARVEST, Category.WEAPON);
+    setHarvestLevel("shears", 0);
   }
 
   public Kama() {
