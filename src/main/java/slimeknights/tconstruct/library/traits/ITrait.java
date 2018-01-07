@@ -131,6 +131,9 @@ public interface ITrait extends IToolMod {
   /** Called when the player holding the tool blocks an attack. */
   void onBlock(ItemStack tool, EntityPlayer player, LivingHurtEvent event);
 
+  /** Called when the player holding the tool is damaged. Only called if the player is NOT blocking! onBlock is called in that case.*/
+  default void onPlayerHurt(ItemStack tool, EntityPlayer player, EntityLivingBase attacker, LivingHurtEvent event) {}
+
   /* Damage tool */
 
   /**
