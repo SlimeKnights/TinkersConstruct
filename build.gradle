@@ -106,7 +106,7 @@ if (System.getenv().ARTIFACT_VERSION != null) {
 version = "${config.minecraft_version}-${artifact_version}"
 
 minecraft {
-    version = config.minecraft_version_short + "-" + config.forge_version
+    version = config.minecraft_version + "-" + config.forge_version
     mappings = config.mappings
     runDir = "run"
     replace '${version}', project.version
@@ -116,7 +116,7 @@ minecraft {
 dependencies {
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
-    deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version}-${config.mantle_version}"
+    deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version_short}-${config.mantle_version}"
 
     // compile against the JEI API
     deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}:api"
