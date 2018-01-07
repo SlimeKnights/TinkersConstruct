@@ -575,6 +575,9 @@ public class TinkerSmeltery extends TinkerPulse {
       if(!toolPart.canBeCasted()) {
         continue;
       }
+      if(!toolPart.canUseMaterial(material)) {
+        continue;
+      }
       if(toolPart instanceof MaterialItem) {
         ItemStack stack = toolPart.getItemstackWithMaterial(material);
         ItemStack cast = new ItemStack(TinkerSmeltery.cast);
