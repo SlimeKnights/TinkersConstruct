@@ -59,7 +59,7 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
       }
       if(!stationPart) {
         TileEntity te = world.getTileEntity(neighbor);
-        if(te != null) {
+        if(te != null && !(te instanceof TileCraftingStation)) {
           // if blacklisted, skip checks entirely
           if(blacklisted(te.getClass().getName())) {
             continue;
