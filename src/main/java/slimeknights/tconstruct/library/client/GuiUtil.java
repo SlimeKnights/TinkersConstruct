@@ -42,13 +42,13 @@ public class GuiUtil {
   protected static Minecraft mc = Minecraft.getMinecraft();
 
   /** Renders the given texture tiled into a GUI */
-  public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
+  public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite, boolean upsideDown) {
     Tessellator tessellator = Tessellator.getInstance();
     BufferBuilder worldrenderer = tessellator.getBuffer();
     worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
     mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-    putTiledTextureQuads(worldrenderer, x, y, width, height, depth, sprite);
+    putTiledTextureQuads(worldrenderer, x, y, width, height, depth, sprite, upsideDown);
 
     tessellator.draw();
   }
@@ -56,11 +56,11 @@ public class GuiUtil {
   public static void renderTiledFluid(int x, int y, int width, int height, float depth, FluidStack fluidStack) {
     TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(fluidStack.getFluid().getStill(fluidStack).toString());
     RenderUtil.setColorRGBA(fluidStack.getFluid().getColor(fluidStack));
-    renderTiledTextureAtlas(x, y, width, height, depth, fluidSprite);
+    renderTiledTextureAtlas(x, y, width, height, depth, fluidSprite, fluidStack.getFluid().isGaseous(fluidStack));
   }
 
   /** Adds a quad to the rendering pipeline. Call startDrawingQuads beforehand. You need to call draw() yourself. */
-  public static void putTiledTextureQuads(BufferBuilder renderer, int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
+  public static void putTiledTextureQuads(BufferBuilder renderer, int x, int y, int width, int height, float depth, TextureAtlasSprite sprite, boolean upsideDown) {
     float u1 = sprite.getMinU();
     float v1 = sprite.getMinV();
 
@@ -81,10 +81,17 @@ public class GuiUtil {
 
         float u2 = sprite.getInterpolatedU((16f * renderWidth) / (float) sprite.getIconWidth());
 
-        renderer.pos(x2, y, depth).tex(u1, v1).endVertex();
-        renderer.pos(x2, y + renderHeight, depth).tex(u1, v2).endVertex();
-        renderer.pos(x2 + renderWidth, y + renderHeight, depth).tex(u2, v2).endVertex();
-        renderer.pos(x2 + renderWidth, y, depth).tex(u2, v1).endVertex();
+        if(upsideDown) {
+          renderer.pos(x2, y, depth).tex(u2, v1).endVertex();
+          renderer.pos(x2, y + renderHeight, depth).tex(u2, v2).endVertex();
+          renderer.pos(x2 + renderWidth, y + renderHeight, depth).tex(u1, v2).endVertex();
+          renderer.pos(x2 + renderWidth, y, depth).tex(u1, v1).endVertex();
+        } else {
+          renderer.pos(x2, y, depth).tex(u1, v1).endVertex();
+          renderer.pos(x2, y + renderHeight, depth).tex(u1, v2).endVertex();
+          renderer.pos(x2 + renderWidth, y + renderHeight, depth).tex(u2, v2).endVertex();
+          renderer.pos(x2 + renderWidth, y, depth).tex(u2, v1).endVertex();
+        }
 
         x2 += renderWidth;
       } while(width2 > 0);

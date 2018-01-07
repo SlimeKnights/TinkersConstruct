@@ -31,7 +31,12 @@ public class TankRenderer extends TileEntitySpecialRenderer<TileTank> {
       }
 
       float d = RenderUtil.FLUID_OFFSET;
-      RenderUtil.renderFluidCuboid(liquid, tile.getPos(), x, y, z, d, d, d, 1d - d, height - d, 1d - d);
+
+      if(liquid.getFluid().isGaseous(liquid)) {
+        RenderUtil.renderFluidCuboid(liquid, tile.getPos(), x, y, z, d, 1f - (d + height), d, 1d - d, 1d - d, 1d - d);
+      } else {
+        RenderUtil.renderFluidCuboid(liquid, tile.getPos(), x, y, z, d, d, d, 1d - d, height - d, 1d - d);
+      }
     }
   }
 }
