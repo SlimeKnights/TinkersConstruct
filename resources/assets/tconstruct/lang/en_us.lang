@@ -891,6 +891,7 @@ gui.error.already_has_extratrait=The tool already has an embossment, it can only
 gui.error.incompatible_modifiers=Modifiers %s and %s cannot be applied together
 gui.error.incompatible_trait=Modifier %s can not be used together with trait %s
 gui.error.incompatible_enchantments=Modifier %s cannot be combined with enchantment %s
+gui.error.no_rename=This tool cannot be renamed
 
 ################
 #     GUIs     #

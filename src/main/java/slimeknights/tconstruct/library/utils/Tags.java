@@ -56,6 +56,8 @@ public final class Tags {
   public static final String ENCHANT_EFFECT = "EnchantEffect";
   public static final String RESET_FLAG = "ResetFlag";
 
+  public static final String NO_RENAME = "NoRename";
+
   private Tags() {
   }
 }

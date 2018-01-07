@@ -445,8 +445,8 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
     List<Material> materials = ImmutableList.of(TinkerMaterials.slime, TinkerMaterials.cobalt, TinkerMaterials.ardite, TinkerMaterials.ardite);
     materials = materials.subList(0, requiredComponents.length);
     ItemStack tool = buildItem(materials);
-    InfiTool.INSTANCE.apply(tool);
     tool.setStackDisplayName(name);
+    InfiTool.INSTANCE.apply(tool);
 
     return tool;
   }
