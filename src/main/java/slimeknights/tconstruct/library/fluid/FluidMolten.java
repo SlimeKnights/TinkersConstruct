@@ -22,8 +22,6 @@ public class FluidMolten extends FluidColored {
     this.setTemperature(1000); // not exactly lava, but still hot. Should depend on the material
     this.setLuminosity(10); // glowy by default!
 
-    this.setGaseous(true);
-
     // rare by default
     setRarity(EnumRarity.UNCOMMON);
   }
