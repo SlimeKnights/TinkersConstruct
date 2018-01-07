@@ -71,7 +71,7 @@ tile.tconstruct.slime.blue.name=藍色史萊姆方塊
 tile.tconstruct.slime.purple.name=紫色史萊姆方塊
 tile.tconstruct.slime.blood.name=血色史萊姆方塊
 tile.tconstruct.slime.magma.name=熔岩史萊姆方塊
-tile.tconstruct.slime.tooltip=不能與活塞一起使用。
+tile.tconstruct.slime.tooltip=適用於活塞
 
 tile.tconstruct.slime_congealed.green.name=固化綠色史萊姆方塊
 tile.tconstruct.slime_congealed.blue.name=固化藍色史萊姆方塊
