@@ -184,24 +184,27 @@ public abstract class BowCore extends ProjectileLauncherCore implements IAmmoUse
     TagUtil.setResetFlag(stack, true);
   }
 
-  public void shootProjectile(@Nonnull ItemStack ammo, @Nonnull ItemStack bow, World worldIn, EntityPlayer player, int useTime) {
+  public void shootProjectile(@Nonnull ItemStack ammoIn, @Nonnull ItemStack bow, World worldIn, EntityPlayer player, int useTime) {
     float progress = getDrawbackProgress(bow, useTime);
     float power = ItemBow.getArrowVelocity((int)(progress * 20f)) * progress * baseProjectileSpeed();
     power *= ProjectileLauncherNBT.from(bow).range;
 
     if(!worldIn.isRemote) {
-      TinkerToolEvent.OnBowShoot event = TinkerToolEvent.OnBowShoot.fireEvent(bow, ammo, player, useTime, baseInaccuracy());
+      TinkerToolEvent.OnBowShoot event = TinkerToolEvent.OnBowShoot.fireEvent(bow, ammoIn, player, useTime, baseInaccuracy());
+
+      // copied because consumeAmmo can delete vanilla stacks
+      ItemStack ammoStackToShoot = ammoIn.copy();
 
       for(int i = 0; i < event.projectileCount; i++) {
         boolean usedAmmo = false;
         if(i == 0 || event.consumeAmmoPerProjectile) {
-          usedAmmo = consumeAmmo(ammo, player);
+          usedAmmo = consumeAmmo(ammoIn, player);
         }
         float inaccuracy = event.getBaseInaccuracy();
         if(i > 0) {
           inaccuracy += event.bonusInaccuracy;
         }
-        EntityArrow projectile = getProjectileEntity(ammo, bow, worldIn, player, power, inaccuracy, progress*progress, usedAmmo);
+        EntityArrow projectile = getProjectileEntity(ammoStackToShoot, bow, worldIn, player, power, inaccuracy, progress*progress, usedAmmo);
 
         if(projectile != null && ProjectileEvent.OnLaunch.fireEvent(projectile, bow, player)) {
           if(progress >= 1f) {
