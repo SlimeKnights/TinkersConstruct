@@ -103,7 +103,7 @@ public class ItemSlimeSling extends ItemTooltip {
                   vec.z * f / sizeFactor);
           TinkerTools.proxy.spawnAttackParticle(Particles.FRYPAN_ATTACK, player, 0.6d);
           if(mop.entityHit instanceof EntityPlayerMP) {
-            TinkerNetwork.sendPacket(player, new SPacketEntityVelocity(mop.entityHit));
+            TinkerNetwork.sendPacket(mop.entityHit, new SPacketEntityVelocity(mop.entityHit));
           }
         }
 
