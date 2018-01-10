@@ -751,7 +751,7 @@ public final class ToolHelper {
       // Send movement changes caused by attacking directly to hit players.
       // I guess this is to allow better handling at the hit players side? No idea why it resets the motion though.
       if(targetEntity instanceof EntityPlayerMP && targetEntity.velocityChanged) {
-        TinkerNetwork.sendPacket(player, new SPacketEntityVelocity(targetEntity));
+        TinkerNetwork.sendPacket(targetEntity, new SPacketEntityVelocity(targetEntity));
         targetEntity.velocityChanged = false;
         targetEntity.motionX = oldVelX;
         targetEntity.motionY = oldVelY;
