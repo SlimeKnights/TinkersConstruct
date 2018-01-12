@@ -22,6 +22,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import slimeknights.mantle.client.model.BakedSimple;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
@@ -98,7 +99,11 @@ public class ToolClientEvents {
           IBakedModel finalModel = new BakedTableModel(standard, model, DefaultVertexFormats.BLOCK);
 
           event.getModelRegistry().putObject(modelVariantLocation, finalModel);
+        } else {
+          TConstruct.log.warn("Could not find " + modelVariantLocation);
         }
+      } else {
+        TConstruct.log.warn("Could not find " + modelLocation);
       }
     } catch(Exception e) {
       e.printStackTrace();
