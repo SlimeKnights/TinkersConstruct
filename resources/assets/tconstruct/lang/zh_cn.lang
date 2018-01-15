@@ -46,18 +46,18 @@ tile.tconstruct.firewood.firewood.name=烈焰木
 tile.tconstruct.firewood_slab.lavawood.name=熔岩木台阶
 tile.tconstruct.firewood_slab.firewood.name=烈焰木台阶
 tile.tconstruct.lavawood_stairs.name=熔岩木楼梯
-tile.tconstruct.firewood_stairs.name=烈焰木台阶
+tile.tconstruct.firewood_stairs.name=烈焰木楼梯
 
 tile.tconstruct.clear_glass.name=通透玻璃
 tile.tconstruct.clear_stained_glass.white.name=通透白色染色玻璃
 tile.tconstruct.clear_stained_glass.orange.name=通透橙色染色玻璃
 tile.tconstruct.clear_stained_glass.magenta.name=通透品红色染色玻璃
-tile.tconstruct.clear_stained_glass.light_blue.name=通透浅蓝色染色玻璃
+tile.tconstruct.clear_stained_glass.light_blue.name=通透淡蓝色染色玻璃
 tile.tconstruct.clear_stained_glass.yellow.name=通透黄色染色玻璃
-tile.tconstruct.clear_stained_glass.lime.name=通透浅绿色染色玻璃
-tile.tconstruct.clear_stained_glass.pink.name=通透粉色染色玻璃
+tile.tconstruct.clear_stained_glass.lime.name=通透黄绿色染色玻璃
+tile.tconstruct.clear_stained_glass.pink.name=通透粉红色染色玻璃
 tile.tconstruct.clear_stained_glass.gray.name=通透灰色染色玻璃
-tile.tconstruct.clear_stained_glass.silver.name=通透浅灰色染色玻璃
+tile.tconstruct.clear_stained_glass.silver.name=通透淡灰色染色玻璃
 tile.tconstruct.clear_stained_glass.cyan.name=通透青色染色玻璃
 tile.tconstruct.clear_stained_glass.purple.name=通透紫色染色玻璃
 tile.tconstruct.clear_stained_glass.blue.name=通透蓝色染色玻璃
@@ -126,7 +126,7 @@ tile.tconstruct.seared.brick_small.name=细纹焦黑石砖
 tile.tconstruct.seared.road.name=焦黑铺路石
 tile.tconstruct.seared.tile.name=焦黑瓷砖
 tile.tconstruct.seared.creeper.name=焦黑雕琢石砖块
-tile.tconstruct.seared.tooltip=既可以做冶炼炉的材料，也是一种美观的建材
+tile.tconstruct.seared.tooltip=既可用来搭建冶炼厂多结构，同时也是一种美观的建材
 
 tile.tconstruct.seared_slab.stone.name=焦黑石头台阶
 tile.tconstruct.seared_slab.cobble.name=焦黑圆石台阶
@@ -170,7 +170,7 @@ tile.tconstruct.seared_tank.gauge.name=焦黑容器
 tile.tconstruct.seared_tank.window.name=焦黑视窗
 tile.tconstruct.seared_tank.tooltip=敲掉时也能保存其中的流体
 tile.tconstruct.seared_glass.glass.name=焦黑玻璃
-tile.tconstruct.seared_glass.glass.tooltip=可以做冶炼炉的材料，也是美观的建材\n不能存储液体
+tile.tconstruct.seared_glass.glass.tooltip=既可用来搭建冶炼厂多结构，同时也是一种美观的建材\n不能存储液体
 
 tile.tconstruct.seared_furnace_controller.name=焦黑熔炉控制器
 tile.tconstruct.tinker_tank_controller.name=工匠储罐控制器
@@ -186,7 +186,7 @@ tile.tconstruct.glow.name=辉光
 tile.tconstruct.rack.item.name=物品架
 tile.tconstruct.rack.item.tooltip=仅仅是用来做装饰的
 tile.tconstruct.rack.drying.name=晾干架
-tile.tconstruct.rack.drying.tooltip=用来晾干东西
+tile.tconstruct.rack.drying.tooltip=用来晾晒东西
 
 tile.tconstruct.slime_channel.green.name=绿色史莱姆通道
 tile.tconstruct.slime_channel.blue.name=蓝色史莱姆通道
@@ -281,9 +281,9 @@ item.tconstruct.materials.slimecrystal_blue.name=蓝色史莱姆水晶
 item.tconstruct.materials.slimecrystal_blue.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
 item.tconstruct.materials.slimecrystal_magma.name=熔岩史莱姆水晶
 item.tconstruct.materials.slimecrystal_magma.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
-item.tconstruct.materials.expander_w.name=范围升级器(水平)
+item.tconstruct.materials.expander_w.name=范围升级器（水平）
 item.tconstruct.materials.expander_w.tooltip=水平方向各拓展一格
-item.tconstruct.materials.expander_h.name=范围升级器(垂直)
+item.tconstruct.materials.expander_h.name=范围升级器（垂直）
 item.tconstruct.materials.expander_h.tooltip=垂直方向各拓展一格
 item.tconstruct.materials.reinforcement.name=耐久强化大板
 item.tconstruct.materials.reinforcement.tooltip=耐久强化
@@ -305,7 +305,7 @@ item.tconstruct.ingots.manyullyn.name=玛玉灵锭
 item.tconstruct.ingots.knightslime.name=骑士史莱姆锭
 item.tconstruct.ingots.knightslime.tooltip=既黏滑又包含金属和石头？这就是它的迷人之处！
 item.tconstruct.ingots.pigiron.name=生铁锭
-item.tconstruct.ingots.pigiron.tooltip=哼~哼~(猪叫声)
+item.tconstruct.ingots.pigiron.tooltip=哼~哼~（猪叫声）
 item.tconstruct.ingots.alubrass.name=铝黄铜锭
 
 item.tconstruct.nuggets.cobalt.name=钴粒
@@ -416,9 +416,9 @@ item.tconstruct.slime_boots.blue.name=史莱姆靴子
 item.tconstruct.slime_boots.purple.name=史莱姆靴子
 item.tconstruct.slime_boots.blood.name=凝血靴子
 item.tconstruct.slime_boots.magma.name=史莱姆靴子
-item.tconstruct.slime_boots.tooltip=拥有一定能力的摔落保护
+item.tconstruct.slime_boots.tooltip=提供摔落保护以及粘液的弹跳效果
 item.tconstruct.slimesling.name=史莱姆弹弓
-item.tconstruct.slimesling.tooltip=蓄力，瞄准，发射！\n珍爱生命，记得穿史莱姆靴子！
+item.tconstruct.slimesling.tooltip=蓄力，瞄准，发射！\n珍爱生命，记得穿上史莱姆靴子！
 item.tconstruct.piggybackpack.name=肩托式背包
 item.tconstruct.piggybackpack.tooltip=右击怪物把它们背起来
 item.tconstruct.stone_stick.name=石棍
@@ -432,9 +432,9 @@ item.tconstruct.fancy_frame.gold.name=金制展示框
 item.tconstruct.fancy_frame.clear.name=通透展示框
 
 item.tconstruct.throwball.glow.name=荧光球
-item.tconstruct.throwball.glow.tooltip=不适合食用。
+item.tconstruct.throwball.glow.tooltip=不宜食用。
 item.tconstruct.throwball.efln.name=EFLN
-item.tconstruct.throwball.efln.tooltip=爆破！一种安全的挖矿方法.
+item.tconstruct.throwball.efln.tooltip=爆破！一种安全的挖矿方法。
 
 ###################
 # Mom's Spaghetti #
@@ -442,7 +442,7 @@ item.tconstruct.throwball.efln.tooltip=爆破！一种安全的挖矿方法.
 
 item.tconstruct.moms_spaghetti.name=妈妈做的意大利面
 item.tconstruct.moms_spaghetti.desc=美味！
-item.tconstruct.moms_spaghetti.tooltip1=§o我猜这样就可以了...但还是什么地方不一样。\n肯定要酱料，而且是那种红色酱料(番茄沙司)。
+item.tconstruct.moms_spaghetti.tooltip1=§o我猜这样就可以了...但还是什么地方不一样。\n肯定要酱料，而且是那种红色酱料（番茄沙司）。
 item.tconstruct.moms_spaghetti.tooltip2=§o还缺了什么...也许是肉。妈妈做的意面总是用各种肉的。\n我想我得找至少三种肉。
 item.tconstruct.moms_spaghetti.tooltip3=§o现在这意面就是妈妈的味道。
 stat.spaghetti.uses.name=Noms
@@ -891,6 +891,7 @@ gui.error.already_has_extratrait=该工具已经具有一个与此操作相同�
 gui.error.incompatible_modifiers=%s和%s不能一起强化
 gui.error.incompatible_trait=%s强化不能和%s特性相结合
 gui.error.incompatible_enchantments=%s强化不能与%s附魔相结合
+gui.error.no_rename=这个工具不能被重命名
 
 ################
 #     GUIs     #
