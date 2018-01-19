@@ -348,7 +348,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
     // now do it all over again with the real items, to actually repair \o/
     ItemStack item = repairable.copy();
 
-    while(item.getItemDamage() > 0 || ToolHelper.isBroken(item)) {
+    do {
       int amount = calculateRepairAmount(materials, repairItems);
 
       // nothing to repair with, we're therefore done
@@ -361,7 +361,7 @@ public abstract class TinkersItem extends Item implements ITinkerable, IModifyab
       NBTTagCompound tag = TagUtil.getExtraTag(item);
       tag.setInteger(Tags.REPAIR_COUNT, tag.getInteger(Tags.REPAIR_COUNT) + 1);
       TagUtil.setExtraTag(item, tag);
-    }
+    } while(item.getItemDamage() > 0);
 
     return item;
   }
