@@ -87,9 +87,10 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   @Override
   public void setDamage(ItemStack stack, int damage) {
-    super.setDamage(stack, damage);
+    int max = getMaxDamage(stack);
+    super.setDamage(stack, Math.min(max, damage));
 
-    if(getDamage(stack) == getMaxDamage(stack)) {
+    if(getDamage(stack) == max) {
       ToolHelper.breakTool(stack, null);
     }
   }
