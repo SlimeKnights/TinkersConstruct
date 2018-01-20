@@ -83,7 +83,7 @@ public class Scythe extends Kama {
 
   @Override
   public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
-    if(toolClass.equals("shears") && !isSilkTouch(stack)) {
+    if("shears".equals(toolClass) && !isSilkTouch(stack)) {
       return -1;
     }
 
