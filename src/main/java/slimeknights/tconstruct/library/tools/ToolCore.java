@@ -27,6 +27,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -454,12 +455,25 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   @Override
   public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
+    if(ToolHelper.isBroken(stack)) {
+      return -1;
+    }
+
     if(this.getToolClasses(stack).contains(toolClass)) {
       // will return 0 if the tag has no info anyway
       return ToolHelper.getHarvestLevelStat(stack);
     }
 
     return super.getHarvestLevel(stack, toolClass, player, blockState);
+  }
+
+  @Override
+  public Set<String> getToolClasses(ItemStack stack) {
+    // no classes if broken
+    if(ToolHelper.isBroken(stack)) {
+      return Collections.emptySet();
+    }
+    return super.getToolClasses(stack);
   }
 
   /** A simple string identifier for the tool, used for identification in texture generation etc. */
