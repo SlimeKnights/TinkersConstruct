@@ -453,7 +453,11 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   @Override
   public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
-    if(this.getToolClasses(stack).contains(toolClass)) {
+    if(toolClass==null) {
+    	return 0;
+    }
+	  
+	if(this.getToolClasses(stack).contains(toolClass)) {
       // will return 0 if the tag has no info anyway
       return ToolHelper.getHarvestLevelStat(stack);
     }
