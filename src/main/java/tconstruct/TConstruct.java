@@ -83,7 +83,9 @@ import java.util.Random;
                 "after:DynamicSkillsAPI;" +
                 "after:NotEnoughItems;" +
                 "after:Waila;" +
-                "before:UndergroundBiomes")
+                "before:GalacticraftCore;" +
+                "before:UndergroundBiomes"
+                )
 public class TConstruct
 {
     public static final String modVersion = "${version}";
