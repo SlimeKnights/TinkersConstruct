@@ -158,14 +158,13 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
         // only slow down half as much when bouncing
         entity.motionX /= f;
         entity.motionZ /= f;
+        TinkerNetwork.sendToServer(new BouncedPacket());
       }
       else {
         event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
       }
       entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1f, 1f);
       SlimeBounceHandler.addBounceHandler(entity, entity.motionY);
-
-      TinkerNetwork.sendToServer(new BouncedPacket());
     }
     else if(!isClient && entity.isSneaking()) {
       event.setDamageMultiplier(0.2f);
