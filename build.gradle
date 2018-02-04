@@ -80,13 +80,17 @@ configurations {
 
 // sets version to the slimeKnights version format
 task buildInfo {
-    def cmd = "git rev-parse --short HEAD"
-    def proc = cmd.execute()
-    proc.waitFor()
-    if (proc.exitValue() == 0) {
-        ext.revision = proc.text.trim()
-    } else {
-        ext.revision = "GITBORK"
+    try {
+        def cmd = "git rev-parse --short HEAD"
+        def proc = cmd.execute()
+        proc.waitFor()
+        if (proc.exitValue() == 0) {
+            ext.revision = proc.text.trim()
+        } else {
+            ext.revision = "GITBORK"
+        }
+    } catch(all) {
+        ext.revision = "gitgud"
     }
 
     if (System.getenv().BUILD_NUMBER != null) {
