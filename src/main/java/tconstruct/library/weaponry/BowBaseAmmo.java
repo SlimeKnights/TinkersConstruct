@@ -15,6 +15,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import tconstruct.library.crafting.ToolBuilder;
+import cpw.mods.fml.common.Loader;
+import mods.battlegear2.api.core.InventoryPlayerBattle;
 
 import java.util.List;
 
@@ -57,6 +59,14 @@ public abstract class BowBaseAmmo extends ProjectileWeapon {
     public ItemStack searchForAmmo(EntityPlayer player, ItemStack weapon)
     {
         // arrow priority: hotbar > inventory, tinker arrows > regular arrows
+        if(Loader.isModLoaded("battlegear2")){
+            ItemStack offhand = ((InventoryPlayerBattle) player.inventory).getCurrentOffhandWeapon();
+            if(offhand != null && (checkTinkerArrow(offhand) || checkVanillaArrow(offhand)))
+            {
+                return offhand;
+            }
+        }
+
         ItemStack[] inventory = player.inventory.mainInventory;
 
         // check hotbar for tinker arrows

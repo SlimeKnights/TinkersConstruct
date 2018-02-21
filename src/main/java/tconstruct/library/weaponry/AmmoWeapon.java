@@ -1,5 +1,6 @@
 package tconstruct.library.weaponry;
 
+import cpw.mods.fml.common.Optional;
 import tconstruct.weaponry.client.CrosshairType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -8,12 +9,18 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
+import tconstruct.tools.TinkerTools;
+import mods.battlegear2.api.PlayerEventChild;
+import mods.battlegear2.api.weapons.IBattlegearWeapon;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+@Optional.InterfaceList({
+    @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon")
+})
 /**
  * Throwing weapons that utilize the ammo system on themselves.
  * Throwing knifes etc.
  */
-public abstract class AmmoWeapon extends AmmoItem implements IAccuracy, IWindup {
+public abstract class AmmoWeapon extends AmmoItem implements IBattlegearWeapon, IAccuracy, IWindup {
     public AmmoWeapon(int baseDamage, String name) {
         super(baseDamage, name);
     }
@@ -133,5 +140,54 @@ public abstract class AmmoWeapon extends AmmoItem implements IAccuracy, IWindup 
     @Override
     public float getZoom(ItemStack itemStack) {
         return 1.0f;
+    }
+
+    /*---- Battlegear Support START ----*/
+
+    @Override
+    @Optional.Method(modid = "battlegear2")
+    public boolean sheatheOnBack(ItemStack item)
+    {
+        return true;
+    }
+
+    @Override
+    @Optional.Method(modid = "battlegear2")
+    public boolean isOffhandHandDual(ItemStack off) {
+        return true;
+    }
+
+    @Override
+    @Optional.Method(modid = "battlegear2")
+    public boolean offhandAttackEntity(PlayerEventChild.OffhandAttackEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
+        return true;
+    }
+
+    @Override
+    @Optional.Method(modid = "battlegear2")
+    public boolean offhandClickAir(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
+        onItemRightClick(offhandItem, event.entity.worldObj, event.entityPlayer);
+        return true;
+    }
+
+    @Override
+    @Optional.Method(modid = "battlegear2")
+    public boolean offhandClickBlock(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
+        return true;
+    }
+
+    @Override
+    @Optional.Method(modid = "battlegear2")
+    public void performPassiveEffects(Side effectiveSide, ItemStack mainhandItem, ItemStack offhandItem) {
+        // unused
+    }
+
+    @Override
+    @Optional.Method(modid = "battlegear2")
+    public boolean allowOffhand(ItemStack mainhand, ItemStack offhand) {
+        if(offhand == null)
+            return true;
+        return (mainhand != null && mainhand.getItem() != TinkerTools.cleaver && mainhand.getItem() != TinkerTools.battleaxe)
+                && (offhand.getItem() != TinkerTools.cleaver && offhand.getItem() != TinkerTools.battleaxe);
     }
 }
