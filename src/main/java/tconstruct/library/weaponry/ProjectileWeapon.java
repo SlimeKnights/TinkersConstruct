@@ -1,5 +1,6 @@
 package tconstruct.library.weaponry;
 
+import cpw.mods.fml.common.Optional;
 import net.minecraft.init.Items;
 import net.minecraft.util.StatCollector;
 import tconstruct.client.TProxyClient;
@@ -23,17 +24,24 @@ import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.TextureHelper;
+import tconstruct.tools.TinkerTools;
 import tconstruct.weaponry.entity.ArrowEntity;
+import mods.battlegear2.api.PlayerEventChild;
+import mods.battlegear2.api.weapons.IBattlegearWeapon;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Optional.InterfaceList({
+    @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon")
+})
 /**
  * Weapons that utilize ammo that uses the ammo system to shoot projectiles.
  * Bows,...
  */
-public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IWindup {
+public abstract class ProjectileWeapon extends ToolCore implements IBattlegearWeapon, IAccuracy, IWindup {
     public ProjectileWeapon(int baseDamage, String name) {
         super(baseDamage);
 
@@ -474,4 +482,54 @@ public abstract class ProjectileWeapon extends ToolCore implements IAccuracy, IW
         list.add(currentAmmo.getDisplayName());
         list.add(StatCollector.translateToLocal("attribute.name.ammo.maxAttackDamage") + ": " + TProxyClient.df.format(damage));
     }
+
+    /*---- Battlegear Support START ----*/
+
+    @Override
+    @Optional.Method(modid = "battlegear2")
+    public boolean sheatheOnBack(ItemStack item)
+    {
+        return true;
+    }
+
+    @Override
+    @Optional.Method(modid = "battlegear2")
+    public boolean isOffhandHandDual(ItemStack off) {
+        return true;
+    }
+
+    @Override
+    @Optional.Method(modid = "battlegear2")
+    public boolean offhandAttackEntity(PlayerEventChild.OffhandAttackEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
+        return false;
+    }
+
+    @Override
+    @Optional.Method(modid = "battlegear2")
+    public boolean offhandClickAir(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
+        return false;
+    }
+
+    @Override
+    @Optional.Method(modid = "battlegear2")
+    public boolean offhandClickBlock(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
+        return false;
+    }
+
+    @Override
+    @Optional.Method(modid = "battlegear2")
+    public void performPassiveEffects(Side effectiveSide, ItemStack mainhandItem, ItemStack offhandItem) {
+        // unused
+    }
+
+    @Override
+    @Optional.Method(modid = "battlegear2")
+    public boolean allowOffhand(ItemStack mainhand, ItemStack offhand) {
+        if(offhand == null)
+            return true;
+        return (mainhand != null && mainhand.getItem() != TinkerTools.cleaver && mainhand.getItem() != TinkerTools.battleaxe)
+                && (offhand.getItem() != TinkerTools.cleaver && offhand.getItem() != TinkerTools.battleaxe);
+    }
+
+    /*---- Battlegear Support END ----*/
 }

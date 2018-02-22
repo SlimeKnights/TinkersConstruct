@@ -23,6 +23,8 @@ import net.minecraft.world.World;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.tools.TinkerTools;
+import cpw.mods.fml.common.Loader;
+import mods.battlegear2.api.core.InventoryPlayerBattle;
 
 import java.util.List;
 
@@ -166,8 +168,14 @@ public class Crossbow extends ProjectileWeapon {
         // remove loaded item
         if(ammo.getItem() instanceof IAmmo)
             ((IAmmo) ammo.getItem()).consumeAmmo(1, ammo);
-        else
-            player.inventory.consumeInventoryItem(ammo.getItem());
+        else {
+            if(Loader.isModLoaded("battlegear2")) {
+                ((InventoryPlayerBattle)player.inventory).consumeInventoryItem(ammo.getItem());
+            }
+            else { 
+                player.inventory.consumeInventoryItem(ammo.getItem());
+            }
+        }
 
         playReloadSound(world, player, weapon, ammo);
 
@@ -248,6 +256,14 @@ public class Crossbow extends ProjectileWeapon {
     @Override
     public ItemStack searchForAmmo(EntityPlayer player, ItemStack weapon) {
         // arrow priority: hotbar > inventory, tinker arrows > regular arrows
+        if(Loader.isModLoaded("battlegear2")){
+            ItemStack offhand = ((InventoryPlayerBattle) player.inventory).getCurrentOffhandWeapon();
+            if(offhand != null && (offhand.getItem() instanceof BoltAmmo) && ((IAmmo) offhand.getItem()).getAmmoCount(offhand) > 0)
+            {
+                return offhand;
+            }
+        }
+
         ItemStack[] inventory = player.inventory.mainInventory;
 
         // check hotbar for tinker arrows
