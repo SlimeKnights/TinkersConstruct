@@ -218,7 +218,7 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
     if(hasFuel()) {
       info.fluid = currentFuel.copy();
       info.fluid.amount = 0;
-      info.heat = this.temperature;
+      info.heat = this.temperature + 300;
       info.maxCap = currentFuel.amount;
     }
     else if(currentTank != null) {
@@ -229,7 +229,7 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
         FluidStack tankFluid = tank.getFluid();
         assert tankFluid != null;
         info.fluid = tankFluid.copy();
-        info.heat = temperature;
+        info.heat = temperature + 300;
         info.maxCap = tank.getCapacity();
       }
     }
