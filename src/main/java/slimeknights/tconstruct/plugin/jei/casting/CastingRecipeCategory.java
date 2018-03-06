@@ -22,6 +22,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.materials.Material;
 
 public class CastingRecipeCategory implements IRecipeCategory<CastingRecipeWrapper> {
@@ -72,6 +73,7 @@ public class CastingRecipeCategory implements IRecipeCategory<CastingRecipeWrapp
   public void setRecipe(IRecipeLayout recipeLayout, CastingRecipeWrapper recipe, IIngredients ingredients) {
     IGuiItemStackGroup items = recipeLayout.getItemStacks();
     IGuiFluidStackGroup fluids = recipeLayout.getFluidStacks();
+    fluids.addTooltipCallback(GuiUtil::onFluidTooltip);
 
     List<FluidStack> input = ingredients.getInputs(FluidStack.class).get(0);
     List<List<ItemStack>> castsList = ingredients.getInputs(ItemStack.class);
