@@ -11,6 +11,7 @@ import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -61,7 +62,7 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
         TileEntity te = world.getTileEntity(neighbor);
         if(te != null && !(te instanceof TileCraftingStation)) {
           // if blacklisted, skip checks entirely
-          if(blacklisted(te.getClass().getName())) {
+          if(blacklisted(te.getClass())) {
             continue;
           }
 
@@ -94,11 +95,20 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
     this.onCraftMatrixChanged(this.craftMatrix);
   }
 
-  private boolean blacklisted(String name) {
-    for(String te : Config.craftingStationBlacklist) {
-      if(name.equals(te)) {
-        return true;
-      }
+  private boolean blacklisted(Class<? extends TileEntity> clazz) {
+    if(Config.craftingStationBlacklist.isEmpty()) {
+      return false;
+    }
+
+    // first, try registry name
+    ResourceLocation registryName = TileEntity.getKey(clazz);
+    if(registryName != null && Config.craftingStationBlacklist.contains(registryName.toString())) {
+      return true;
+    }
+
+    // then try class name
+    if(Config.craftingStationBlacklist.contains(clazz.getName())) {
+       return true;
     }
 
     return false;
