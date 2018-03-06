@@ -179,6 +179,9 @@ public abstract class AmmoItem extends ToolCore implements IBattlegearWeapon, IA
     @Override
     @Optional.Method(modid = "battlegear2")
     public boolean offhandAttackEntity(PlayerEventChild.OffhandAttackEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
+        event.cancelParent = false;
+        event.swingOffhand = false;
+        event.shouldAttack = false;
         return false;
     }
 
@@ -192,6 +195,7 @@ public abstract class AmmoItem extends ToolCore implements IBattlegearWeapon, IA
     @Override
     @Optional.Method(modid = "battlegear2")
     public boolean offhandClickBlock(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
+		event.setCanceled(false);
         return false;
     }
 
