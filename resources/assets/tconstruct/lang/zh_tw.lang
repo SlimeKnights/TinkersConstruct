@@ -735,7 +735,7 @@ modifier.diamond.name=鑽石
 modifier.diamond.desc=§o閃亮！§r\n增加耐久度！
 modifier.emerald.name=綠寶石
 modifier.emerald.desc=§o漂亮！§r\n基於工具基礎的性能增加耐久度！
-modifier.extratrait.name=剥削
+modifier.extratrait.name=鍍膜
 modifier.extratrait.desc=§o比魔法更神奇§r\n攝取 %s 的力量，來得到某些效果。
 
 modifier.fiery.name=火熱
