@@ -242,6 +242,8 @@ public class TinkerToolEvents
                     if (source.isProjectile())
                     {
                         Entity projectile = source.getSourceOfDamage();
+                        if(projectile == null)
+                            return;
                         Vec3 motion = Vec3.createVectorHelper(projectile.motionX, projectile.motionY, projectile.motionZ);
                         Vec3 look = player.getLookVec();
 
