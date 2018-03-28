@@ -43,6 +43,7 @@ public final class Config {
   public static boolean castableBricks = true;
   public static boolean leatherDryingRecipe = true;
   public static boolean gravelFlintRecipe = true;
+  public static boolean forgeKama = false;
   public static double oreToIngotRatio = 2;
   public static String[] craftingStationBlacklist = new String[] {
       "de.ellpeck.actuallyadditions.mod.tile.TileEntityItemViewer"
@@ -190,6 +191,12 @@ public final class Config {
       gravelFlintRecipe = prop.getBoolean();
       prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
+	  
+	    prop = configFile.get(cat, "kamaInToolForge", forgeKama);
+  	  prop.setComment("Moves the kama to only the Tool Forge.");
+	    forgeKama = prop.getBoolean();
+	    prop.setRequiresMcRestart(true);
+	    propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "oreToIngotRatio", oreToIngotRatio);
       prop.setComment("Determines the ratio of ore to ingot, or in other words how many ingots you get out of an ore. This ratio applies to all ores (including poor and dense). The ratio can be any decimal, including 1.5 and the like, but can't go below 1. THIS ALSO AFFECTS MELTING TEMPERATURE!");

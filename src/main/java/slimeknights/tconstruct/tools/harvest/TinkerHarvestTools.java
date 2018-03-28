@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.common.CommonProxy;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -100,8 +101,12 @@ public class TinkerHarvestTools extends AbstractToolPulse {
     TinkerRegistry.registerToolCrafting(shovel);
     TinkerRegistry.registerToolCrafting(hatchet);
     TinkerRegistry.registerToolCrafting(mattock);
-    TinkerRegistry.registerToolCrafting(kama);
-
+    if(Config.forgeKama) {
+      TinkerRegistry.registerToolForgeCrafting(kama);
+    } else {
+      TinkerRegistry.registerToolCrafting(kama);
+    }
+        
     TinkerRegistry.registerToolForgeCrafting(hammer);
     TinkerRegistry.registerToolForgeCrafting(excavator);
     TinkerRegistry.registerToolForgeCrafting(lumberAxe);
