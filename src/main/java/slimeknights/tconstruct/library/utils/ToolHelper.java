@@ -840,7 +840,11 @@ public final class ToolHelper {
   }
 
   public static float getActualDamage(ItemStack stack, EntityLivingBase player) {
-    float damage = (float) player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+    float damage = (float) SharedMonsterAttributes.ATTACK_DAMAGE.getDefaultValue();
+    if (player != null) {
+      damage = (float) player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+    }
+
     damage += ToolHelper.getActualAttack(stack);
 
     if(stack.getItem() instanceof ToolCore) {

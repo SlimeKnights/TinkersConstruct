@@ -18,6 +18,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.materials.Material;
 
 public class SmeltingRecipeCategory implements IRecipeCategory<SmeltingRecipeWrapper> {
@@ -63,6 +64,8 @@ public class SmeltingRecipeCategory implements IRecipeCategory<SmeltingRecipeWra
     items.set(ingredients);
 
     IGuiFluidStackGroup fluids = recipeLayout.getFluidStacks();
+    fluids.addTooltipCallback(GuiUtil::onFluidTooltip);
+
     fluids.init(0, false, 115, 6, 18, 32, Material.VALUE_Block, false, null);
     fluids.set(ingredients);
 

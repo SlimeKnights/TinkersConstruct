@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.common.config;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
@@ -13,7 +14,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import org.apache.logging.log4j.Logger;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import slimeknights.mantle.pulsar.config.ForgeCFG;
 import slimeknights.tconstruct.TConstruct;
@@ -44,7 +47,7 @@ public final class Config {
   public static boolean leatherDryingRecipe = true;
   public static boolean gravelFlintRecipe = true;
   public static double oreToIngotRatio = 2;
-  public static String[] craftingStationBlacklist = new String[] {
+  private static String[] craftingStationBlacklistArray = new String[] {
       "de.ellpeck.actuallyadditions.mod.tile.TileEntityItemViewer"
   };
   private static String[] orePreference = {
@@ -56,7 +59,7 @@ public final class Config {
       "embers",
       "ic2"
   };
-  //public static List<String> craftingStationBlacklist = Collections.emptyList();
+  public static Set<String> craftingStationBlacklist = Collections.emptySet();
 
   // Worldgen
   public static boolean genSlimeIslands = true;
@@ -198,9 +201,10 @@ public final class Config {
       prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
-      prop = configFile.get(cat, "craftingStationBlacklist", craftingStationBlacklist);
-      prop.setComment("Blacklist of TE classnames for the crafting station to connect to. Mainly for compatibility.");
-      craftingStationBlacklist = prop.getStringList();
+      prop = configFile.get(cat, "craftingStationBlacklist", craftingStationBlacklistArray);
+      prop.setComment("Blacklist of registry names or TE classnames for the crafting station to connect to. Mainly for compatibility.");
+      craftingStationBlacklistArray = prop.getStringList();
+      craftingStationBlacklist = Sets.newHashSet(craftingStationBlacklistArray);
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "orePreference", orePreference);

@@ -9,6 +9,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fml.relauncher.Side;
@@ -216,10 +217,17 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
 
     // we still have leftover fuel
     if(hasFuel()) {
-      info.fluid = currentFuel.copy();
-      info.fluid.amount = 0;
-      info.heat = this.temperature;
-      info.maxCap = currentFuel.amount;
+      // if the current fuel is null, something in the fluid registry changed
+      // just replace it with lava and ignore for now, it will fix next time we consume fuel
+      if(currentFuel == null) {
+        info.fluid = new FluidStack(FluidRegistry.LAVA, 0);
+        info.maxCap = 1;
+      } else {
+        info.fluid = currentFuel.copy();
+        info.fluid.amount = 0;
+        info.maxCap = currentFuel.amount;
+      }
+      info.heat = this.temperature + 300;
     }
     else if(currentTank != null) {
       // we need to consume fuel, check the current tank
@@ -229,7 +237,7 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
         FluidStack tankFluid = tank.getFluid();
         assert tankFluid != null;
         info.fluid = tankFluid.copy();
-        info.heat = temperature;
+        info.heat = temperature + 300;
         info.maxCap = tank.getCapacity();
       }
     }
