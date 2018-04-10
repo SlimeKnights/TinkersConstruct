@@ -40,6 +40,7 @@ public final class Config {
   public static boolean reuseStencil = true;
   public static boolean craftCastableMaterials = false;
   public static boolean chestsKeepInventory = true;
+  public static boolean slingOther = false;
   public static boolean autosmeltlapis = true;
   public static boolean obsidianAlloy = true;
   public static boolean claycasts = true;
@@ -146,6 +147,11 @@ public final class Config {
       prop = configFile.get(cat, "chestsKeepInventory", chestsKeepInventory);
       prop.setComment("Pattern and Part chests keep their inventory when harvested.");
       chestsKeepInventory = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "slimeslingOther", slingOther);
+      prop.setComment("Slime sling pushes away other entities.");
+      slingOther = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "enableClayCasts", claycasts);
