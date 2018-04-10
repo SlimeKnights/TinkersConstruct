@@ -3,8 +3,6 @@ package slimeknights.tconstruct.tools.traits;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -36,37 +34,6 @@ public class TraitAlien extends TraitProgressiveStats {
   }
 
   @Override
-  public void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag) {
-    // check if we have stats already distributed, and if not add them
-    if(!hasPool(rootCompound)) {
-      // ok, we need new stats. Let the fun begin!
-      ToolGrowth.StatNBT data = new ToolGrowth.StatNBT();
-
-      int statPoints = 800; // we distribute a whopping X points worth of stats!
-      for(; statPoints > 0; statPoints--) {
-        switch(random.nextInt(3)) {
-          // durability
-          case 0:
-            data.durability += DURABILITY_STEP;
-            break;
-          // speed
-          case 1:
-            data.speed += SPEED_STEP;
-            break;
-          // attack
-          case 2:
-            data.attack += ATTACK_STEP;
-            break;
-        }
-      }
-
-      setPool(rootCompound, data);
-    }
-
-    super.applyEffect(rootCompound, modifierTag);
-  }
-
-  @Override
   public void onUpdate(ItemStack tool, World world, Entity entity, int itemSlot, boolean isSelected) {
     if(entity instanceof FakePlayer || entity.getEntityWorld().isRemote) {
       return;
@@ -82,7 +49,7 @@ public class TraitAlien extends TraitProgressiveStats {
     }
 
     NBTTagCompound root = TagUtil.getTagSafe(tool);
-    StatNBT pool = getPool(root);
+    StatNBT pool = getPoolLazily(root);
     StatNBT distributed = getBonus(root);
     ToolNBT data = TagUtil.getToolStats(tool);
 
@@ -121,5 +88,33 @@ public class TraitAlien extends TraitProgressiveStats {
     return ImmutableList.of(HeadMaterialStats.formatDurability(pool.durability),
                             HeadMaterialStats.formatMiningSpeed(pool.speed),
                             HeadMaterialStats.formatAttack(pool.attack));
+  }
+
+  private StatNBT getPoolLazily(NBTTagCompound rootCompound) {
+    if(!hasPool(rootCompound)) {
+      // ok, we need new stats. Let the fun begin!
+      StatNBT data = new StatNBT();
+
+      int statPoints = 800; // we distribute a whopping X points worth of stats!
+      for(; statPoints > 0; statPoints--) {
+        switch(random.nextInt(3)) {
+          // durability
+          case 0:
+            data.durability += DURABILITY_STEP;
+            break;
+          // speed
+          case 1:
+            data.speed += SPEED_STEP;
+            break;
+          // attack
+          case 2:
+            data.attack += ATTACK_STEP;
+            break;
+        }
+      }
+
+      setPool(rootCompound, data);
+    }
+    return getPool(rootCompound);
   }
 }
