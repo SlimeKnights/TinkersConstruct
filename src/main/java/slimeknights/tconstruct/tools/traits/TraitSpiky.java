@@ -34,7 +34,7 @@ public class TraitSpiky extends AbstractTrait {
   }
 
   private void dealSpikyDamage(boolean isBlocking, ItemStack tool, EntityPlayer player, Entity target) {
-    if(target instanceof EntityLivingBase && target.isEntityAlive()) {
+    if(target instanceof EntityLivingBase && target.isEntityAlive() && target != player) {
       float damage = ToolHelper.getActualDamage(tool, player);
       if(!isBlocking) {
         damage /= 2;
