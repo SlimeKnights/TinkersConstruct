@@ -86,7 +86,9 @@ public class ModBeheading extends ToolModifier {
         if(head != null && level > random.nextInt(10)) {
           EntityItem entityitem = new EntityItem(event.getEntityLiving().getEntityWorld(), event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, head);
           entityitem.setDefaultPickupDelay();
-          event.getDrops().add(entityitem);
+          if(!event.getDrops().contains(entityitem)){
+            event.getDrops().add(entityitem);
+          }
         }
       }
     }
