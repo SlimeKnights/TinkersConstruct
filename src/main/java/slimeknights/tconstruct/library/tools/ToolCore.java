@@ -184,7 +184,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
 
   @Override
   public boolean canHarvestBlock(@Nonnull IBlockState state, ItemStack stack) {
-    return isEffective(state);
+    return isEffective(state) && !ToolHelper.isBroken(stack);
   }
 
   @Override

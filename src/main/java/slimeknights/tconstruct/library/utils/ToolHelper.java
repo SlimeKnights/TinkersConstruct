@@ -150,14 +150,14 @@ public final class ToolHelper {
     if(!stack.hasTagCompound()) {
       return 1f;
     }
+    
+    if(isBroken(stack)) {
+      return 0.3f;
+    }
 
     // check if the tool has the correct class and harvest level
     if(!canHarvest(stack, blockState)) {
       return 0f;
-    }
-
-    if(isBroken(stack)) {
-      return 0.3f;
     }
 
     // calculate speed depending on stats
