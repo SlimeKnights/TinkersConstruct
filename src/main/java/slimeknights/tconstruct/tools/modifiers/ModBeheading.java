@@ -83,13 +83,17 @@ public class ModBeheading extends ToolModifier {
       // has beheading
       if(level > 0) {
         ItemStack head = getHeadDrop(event.getEntityLiving());
-        if(head != null && level > random.nextInt(10)) {
+        if(head != null && !head.isEmpty() && level > random.nextInt(10) && !alreadyContainsDrop(event, head)) {
           EntityItem entityitem = new EntityItem(event.getEntityLiving().getEntityWorld(), event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, head);
           entityitem.setDefaultPickupDelay();
           event.getDrops().add(entityitem);
         }
       }
     }
+  }
+
+  private boolean alreadyContainsDrop(LivingDropsEvent event, ItemStack head) {
+    return event.getDrops().stream().map(EntityItem::getItem).anyMatch(drop -> ItemStack.areItemStacksEqual(drop, head));
   }
 
   private ItemStack getHeadDrop(EntityLivingBase entity) {
