@@ -101,7 +101,7 @@ public class TileFaucet extends TileEntity implements ITickable {
     if(drained != null) {
       return;
     }
-    IFluidHandler toDrain = getFluidHandler(pos.offset(direction), direction);
+    IFluidHandler toDrain = getFluidHandler(pos.offset(direction), direction.getOpposite());
     IFluidHandler toFill = getFluidHandler(pos.down(), EnumFacing.UP);
     if(toDrain != null && toFill != null) {
       // can we drain?
