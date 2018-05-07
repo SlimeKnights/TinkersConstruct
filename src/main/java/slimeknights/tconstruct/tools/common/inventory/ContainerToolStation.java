@@ -47,6 +47,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
 
   public ContainerToolStation(InventoryPlayer playerInventory, TileToolStation tile) {
     super(tile);
+    this.player = playerInventory.player;
 
     // input slots
     int i;
@@ -58,9 +59,7 @@ public class ContainerToolStation extends ContainerTinkerStation<TileToolStation
     out = new SlotToolStationOut(i, 124, 38, this);
     addSlotToContainer(out);
     this.addPlayerInventory(playerInventory, 8, 84 + 8);
-    onCraftMatrixChanged(null);
-
-    this.player = playerInventory.player;
+    onCraftMatrixChanged(playerInventory);
   }
 
   public ItemStack getResult() {
