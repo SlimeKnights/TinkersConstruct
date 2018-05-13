@@ -387,7 +387,7 @@ public class TinkerCommons extends TinkerPulse {
 
     GameRegistry.registerWorldGenerator(NetherOreGenerator.INSTANCE, 0);
 
-    // MinecraftForge.EVENT_BUS.register(new AchievementEvents()); TODO: FIX
+    MinecraftForge.EVENT_BUS.register(new AchievementEvents());
     MinecraftForge.EVENT_BUS.register(new BlockEvents());
     MinecraftForge.EVENT_BUS.register(new PlayerDataEvents());
   }
