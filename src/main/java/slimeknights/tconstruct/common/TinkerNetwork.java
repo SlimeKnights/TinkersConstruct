@@ -26,6 +26,7 @@ import slimeknights.tconstruct.tools.common.network.BouncedPacket;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.common.network.InventoryCraftingSyncPacket;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
+import slimeknights.tconstruct.tools.common.network.LastRecipeMessage;
 import slimeknights.tconstruct.tools.common.network.PartCrafterSelectionPacket;
 import slimeknights.tconstruct.tools.common.network.StencilTableSelectionPacket;
 import slimeknights.tconstruct.tools.common.network.TinkerStationTabPacket;
@@ -69,6 +70,7 @@ public class TinkerNetwork extends NetworkWrapper {
 
     // OTHER STUFF
     registerPacketServer(BouncedPacket.class);
+    registerPacketClient(LastRecipeMessage.class);
   }
 
   public static void sendPacket(Entity player, Packet<?> packet) {
