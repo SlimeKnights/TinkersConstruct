@@ -175,4 +175,20 @@ public interface ITrait extends IToolMod {
    * @param attributeMap The map you usually return. Fill in your stuff, if needed
    */
   default void getAttributeModifiers(@Nonnull EntityEquipmentSlot slot, ItemStack stack, Multimap<String, AttributeModifier> attributeMap) {}
+
+  /**
+   * Determines the order in which traits/modifiers are processed. Higher priority gets processed first.
+   * This is needed when the modifier interacts with the world, like modifying drops or preventing/dealing damage.
+   *
+   * Example: One modifier adds extra drops, while another consumes a specific drop.
+   * The one removing drops needs to run after the one adding drops, to work properly.
+   *
+   * Note that this has no impact if you use events rather than the trait callbacks! You should still respect it.
+   * Does NOT affect the order in which applyEffect on IModifier is called.
+   *
+   * @return Priority, default is 100, higher priority (>100) runs before lower.
+   */
+  default int getPriority() {
+    return 100;
+  }
 }

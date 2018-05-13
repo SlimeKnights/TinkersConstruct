@@ -531,16 +531,13 @@ public final class ToolHelper {
     }
 
     int actualAmount = amount;
-    NBTTagList list = TagUtil.getTraitsTagList(stack);
-    for(int i = 0; i < list.tagCount(); i++) {
-      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
-      if(trait != null) {
-        if(amount > 0) {
-          actualAmount = trait.onToolDamage(stack, amount, actualAmount, entity);
-        }
-        else {
-          actualAmount = trait.onToolHeal(stack, amount, actualAmount, entity);
-        }
+
+    for(ITrait trait : TinkerUtil.getTraitsOrdered(stack)) {
+      if(amount > 0) {
+        actualAmount = trait.onToolDamage(stack, amount, actualAmount, entity);
+      }
+      else {
+        actualAmount = trait.onToolHeal(stack, amount, actualAmount, entity);
       }
     }
 
@@ -642,14 +639,7 @@ public final class ToolHelper {
     }
 
     // traits on the tool
-    List<ITrait> traits = Lists.newLinkedList();
-    NBTTagList traitsTagList = TagUtil.getTraitsTagList(stack);
-    for(int i = 0; i < traitsTagList.tagCount(); i++) {
-      ITrait trait = TinkerRegistry.getTrait(traitsTagList.getStringTagAt(i));
-      if(trait != null) {
-        traits.add(trait);
-      }
-    }
+    List<ITrait> traits = TinkerUtil.getTraitsOrdered(stack);
 
     // players base damage (includes tools damage stat)
     float baseDamage = (float) attacker.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();

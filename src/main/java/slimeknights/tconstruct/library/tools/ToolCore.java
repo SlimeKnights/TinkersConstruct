@@ -270,13 +270,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
       multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", ToolHelper.getActualAttackSpeed(stack) - 4d, 0));
     }
 
-    NBTTagList traitsTagList = TagUtil.getTraitsTagList(stack);
-    for(int i = 0; i < traitsTagList.tagCount(); i++) {
-      ITrait trait = TinkerRegistry.getTrait(traitsTagList.getStringTagAt(i));
-      if(trait != null) {
-        trait.getAttributeModifiers(slot, stack, multimap);
-      }
-    }
+    TinkerUtil.getTraitsOrdered(stack).forEach(trait -> trait.getAttributeModifiers(slot, stack, multimap));
 
     return multimap;
   }
@@ -529,16 +523,10 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
   }
 
   protected void onUpdateTraits(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-    if(!isSelected && entityIn instanceof EntityPlayer && ((EntityPlayer) entityIn).getHeldItemOffhand() == stack) {
-      isSelected = true;
-    }
-    NBTTagList list = TagUtil.getTraitsTagList(stack);
-    for(int i = 0; i < list.tagCount(); i++) {
-      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
-      if(trait != null) {
-        trait.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
-      }
-    }
+    final boolean isSelectedOrOffhand = isSelected ||
+                                     (entityIn instanceof EntityPlayer && ((EntityPlayer) entityIn).getHeldItemOffhand() == stack);
+
+    TinkerUtil.getTraitsOrdered(stack).forEach(trait -> trait.onUpdate(stack, worldIn, entityIn, itemSlot, isSelectedOrOffhand));
   }
 
   @Override
@@ -574,14 +562,7 @@ public abstract class ToolCore extends TinkersItem implements IToolStationDispla
   }
 
   public void afterBlockBreak(ItemStack stack, World world, IBlockState state, BlockPos pos, EntityLivingBase player, int damage, boolean wasEffective) {
-    NBTTagList list = TagUtil.getTraitsTagList(stack);
-    for(int i = 0; i < list.tagCount(); i++) {
-      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
-      if(trait != null) {
-        trait.afterBlockBreak(stack, world, state, pos, player, wasEffective);
-      }
-    }
-
+    TinkerUtil.getTraitsOrdered(stack).forEach(trait -> trait.afterBlockBreak(stack, world, state, pos, player, wasEffective));
     ToolHelper.damageTool(stack, damage, player);
   }
 
