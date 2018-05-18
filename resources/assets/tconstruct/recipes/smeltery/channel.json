@@ -18,6 +18,7 @@
     },
     "result": {
         "item": "tconstruct:channel",
-        "data": 0
+        "data": 0,
+		"count": 3
     }
 }

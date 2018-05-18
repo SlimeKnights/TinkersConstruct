@@ -125,4 +125,10 @@ public class ModBlasting extends ModifierTrait {
 
     return ImmutableList.of(Util.translateFormatted(loc, Util.dfPercent.format(chance)));
   }
+
+  @Override
+  public int getPriority() {
+    // blasting destroys all the things, higher priority
+    return 200;
+  }
 }

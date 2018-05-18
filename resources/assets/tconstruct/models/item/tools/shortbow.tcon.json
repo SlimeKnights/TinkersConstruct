@@ -5,6 +5,28 @@
         "layer2": "tconstruct:items/shortbow/bowstring",
         "broken2": "tconstruct:items/shortbow/bowstring_broken"
     },
+	"display": {
+        "thirdperson_righthand": {
+            "rotation": [ -90, 260, -45 ],
+            "translation": [ -1, -2, 2.5 ],
+			"scale": [ 0.875, 0.875, 0.75 ]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [ -90, -260, 45 ],
+            "translation": [ -1, -2, 2.5 ],
+            "scale": [ 0.875, 0.875, 0.75 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, -90, 25 ],
+            "translation": [ 1.13, 3.2, 1.13],
+            "scale": [ 0.68, 0.68, 0.68 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ 0, 90, -25 ],
+            "translation": [ 1.13, 3.2, 1.13],
+            "scale": [ 0.68, 0.68, 0.68 ]
+        }
+    },
     "overrides": [
         {
             "predicate": {

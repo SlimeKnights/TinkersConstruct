@@ -71,7 +71,7 @@ tile.tconstruct.slime.blue.name=Blue Slime Block
 tile.tconstruct.slime.purple.name=Purple Slime Block
 tile.tconstruct.slime.blood.name=Blood Slime Block
 tile.tconstruct.slime.magma.name=Magma Slime Block
-tile.tconstruct.slime.tooltip=Doesn't work with pistons.
+tile.tconstruct.slime.tooltip=Works with pistons!
 
 tile.tconstruct.slime_congealed.green.name=Congealed Green Slime Block
 tile.tconstruct.slime_congealed.blue.name=Congealed Blue Slime Block
@@ -891,6 +891,7 @@ gui.error.already_has_extratrait=The tool already has an embossment, it can only
 gui.error.incompatible_modifiers=Modifiers %s and %s cannot be applied together
 gui.error.incompatible_trait=Modifier %s can not be used together with trait %s
 gui.error.incompatible_enchantments=Modifier %s cannot be combined with enchantment %s
+gui.error.no_rename=This tool cannot be renamed
 
 ################
 #     GUIs     #

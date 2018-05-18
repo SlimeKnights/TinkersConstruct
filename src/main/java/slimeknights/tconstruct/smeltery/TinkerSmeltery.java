@@ -383,8 +383,8 @@ public class TinkerSmeltery extends TinkerPulse {
     // gold is integrated via MaterialIntegration in TinkerIntegration now
 
     // special melting
-    TinkerRegistry.registerMelting(Items.IRON_HORSE_ARMOR, TinkerFluids.iron, Material.VALUE_Ingot * 8);
-    TinkerRegistry.registerMelting(Items.GOLDEN_HORSE_ARMOR, TinkerFluids.gold, Material.VALUE_Ingot * 8);
+    TinkerRegistry.registerMelting(Items.IRON_HORSE_ARMOR, TinkerFluids.iron, Material.VALUE_Ingot * 4);
+    TinkerRegistry.registerMelting(Items.GOLDEN_HORSE_ARMOR, TinkerFluids.gold, Material.VALUE_Ingot * 4);
 
     // register stone toolpart melting
     for(IToolPart toolPart : TinkerRegistry.getToolParts()) {
@@ -573,6 +573,9 @@ public class TinkerSmeltery extends TinkerPulse {
     Fluid fluid = material.getFluid();
     for(IToolPart toolPart : TinkerRegistry.getToolParts()) {
       if(!toolPart.canBeCasted()) {
+        continue;
+      }
+      if(!toolPart.canUseMaterial(material)) {
         continue;
       }
       if(toolPart instanceof MaterialItem) {

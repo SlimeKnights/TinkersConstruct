@@ -53,6 +53,7 @@ public class TinkerDebug {
     event.registerServerCommand(new DamageTool());
     event.registerServerCommand(new TestTool());
     event.registerServerCommand(new GenValidModifiers());
+    event.registerServerCommand(new BreakTool());
 
     if(event.getSide().isClient()) {
       ClientCommandHandler.instance.registerCommand(new LocalizationCheckCommand());

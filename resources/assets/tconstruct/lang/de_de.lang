@@ -70,7 +70,7 @@ tile.tconstruct.slime.blue.name=Blauschleimblock
 tile.tconstruct.slime.purple.name=Violetter Schleimblock
 tile.tconstruct.slime.blood.name=Blut-Schleimblock
 tile.tconstruct.slime.magma.name=Magma-Schleimblock
-tile.tconstruct.slime.tooltip=Funktioniert nicht mit Kolben.
+tile.tconstruct.slime.tooltip=Funktioniert mit Kolben!
 
 tile.tconstruct.slime_congealed.green.name=Erstarrter Grünschleimblock
 tile.tconstruct.slime_congealed.blue.name=Erstarrter Blauschleimblock

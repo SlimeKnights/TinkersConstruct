@@ -58,6 +58,11 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
     return getMetaFromState(state);
   }
 
+  @Override
+  public boolean isStickyBlock(IBlockState state) {
+    return true;
+  }
+
   public enum SlimeType implements IStringSerializable, EnumBlock.IEnumMeta {
     GREEN(0x01cd4e, 0x69bc5e),
     BLUE(0x01cbcd, 0x74c5c8),

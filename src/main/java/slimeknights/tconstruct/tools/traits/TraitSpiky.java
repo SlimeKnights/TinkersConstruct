@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.traits;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -10,7 +9,6 @@ import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import slimeknights.tconstruct.library.traits.AbstractTrait;
 import slimeknights.tconstruct.library.utils.ToolHelper;
@@ -24,23 +22,9 @@ public class TraitSpiky extends AbstractTrait {
     MinecraftForge.EVENT_BUS.register(this);
   }
 
-  @SubscribeEvent
-  public void onPlayerHurt(LivingHurtEvent livingHurtEvent) {
-    if(livingHurtEvent.getEntityLiving() instanceof EntityPlayer && !livingHurtEvent.getEntityLiving().getEntityWorld().isRemote) {
-      EntityPlayer entityPlayer = (EntityPlayer) livingHurtEvent.getEntityLiving();
-      Entity attacker = livingHurtEvent.getSource().getTrueSource();
-
-      if(attacker instanceof EntityLiving && !attacker.isDead && !playerIsBlockingWithSpikyTraitTool(entityPlayer)) {
-        ItemStack tool = ToolHelper.playerIsHoldingItemWith(entityPlayer, this::isToolWithTrait);
-        if(!tool.isEmpty() && !ToolHelper.isBroken(tool)) {
-          dealSpikyDamage(false, tool, entityPlayer, attacker);
-        }
-      }
-    }
-  }
-
-  private boolean playerIsBlockingWithSpikyTraitTool(EntityPlayer entityPlayer) {
-    return entityPlayer.isActiveItemStackBlocking() && isToolWithTrait(entityPlayer.getActiveItemStack());
+  @Override
+  public void onPlayerHurt(ItemStack tool, EntityPlayer player, EntityLivingBase attacker, LivingHurtEvent event) {
+    dealSpikyDamage(false, tool, player, attacker);
   }
 
   @Override
@@ -50,7 +34,7 @@ public class TraitSpiky extends AbstractTrait {
   }
 
   private void dealSpikyDamage(boolean isBlocking, ItemStack tool, EntityPlayer player, Entity target) {
-    if(target instanceof EntityLivingBase && target.isEntityAlive()) {
+    if(target instanceof EntityLivingBase && target.isEntityAlive() && target != player) {
       float damage = ToolHelper.getActualDamage(tool, player);
       if(!isBlocking) {
         damage /= 2;
@@ -58,6 +42,7 @@ public class TraitSpiky extends AbstractTrait {
       EntityDamageSource damageSource = new EntityDamageSource(DamageSource.CACTUS.damageType, player);
       damageSource.setDamageBypassesArmor();
       damageSource.setDamageIsAbsolute();
+      damageSource.setIsThornsDamage();
 
       int oldHurtResistantTime = target.hurtResistantTime;
       if(attackEntitySecondary(damageSource, damage, target, true, false)) {

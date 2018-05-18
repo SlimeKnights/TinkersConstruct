@@ -1,7 +1,8 @@
 package slimeknights.tconstruct.plugin.jei.interpreter;
 
-import mezz.jei.api.ISubtypeRegistry.ISubtypeInterpreter;
 import net.minecraft.item.ItemStack;
+
+import mezz.jei.api.ISubtypeRegistry.ISubtypeInterpreter;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 
@@ -9,10 +10,10 @@ import slimeknights.tconstruct.library.utils.TinkerUtil;
 public class ToolPartSubtypeInterpreter implements ISubtypeInterpreter {
 
   @Override
-  public String getSubtypeInfo(ItemStack stack) {
-    String meta = stack.getItemDamage() + ":";
+  public String apply(ItemStack itemStack) {
+    String meta = itemStack.getItemDamage() + ":";
 
-    Material material = TinkerUtil.getMaterialFromStack(stack);
+    Material material = TinkerUtil.getMaterialFromStack(itemStack);
     if(material == null) {
       return meta;
     }

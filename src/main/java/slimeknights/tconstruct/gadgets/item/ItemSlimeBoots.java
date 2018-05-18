@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.gadgets.item;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,15 +21,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
-
 import slimeknights.mantle.item.ItemArmorTooltip;
 import slimeknights.mantle.util.LocUtils;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
+import slimeknights.tconstruct.tools.common.network.BouncedPacket;
 
 public class ItemSlimeBoots extends ItemArmorTooltip {
 
@@ -138,22 +140,25 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
     }
 
     // thing is wearing slime boots. let's get bouncyyyyy
+    boolean isClient = entity.getEntityWorld().isRemote;
     if(!entity.isSneaking() && event.getDistance() > 2) {
       event.setDamageMultiplier(0);
-      if(entity.getEntityWorld().isRemote) {
+      entity.fallDistance = 0;
+      if(isClient) {
         entity.motionY *= -0.9;
         //entity.motionY = event.distance / 15;
         //entity.motionX = entity.posX - entity.lastTickPosX;
         //entity.motionZ = entity.posZ - entity.lastTickPosZ;
         //event.entityLiving.motionY *= -1.2;
         //event.entityLiving.motionY += 0.8;
-        event.getEntityLiving().isAirBorne = true;
-        event.getEntityLiving().onGround = false;
+        entity.isAirBorne = true;
+        entity.onGround = false;
         double f = 0.91d + 0.04d;
         //System.out.println((entityLiving.worldObj.isRemote ? "client: " : "server: ") + entityLiving.motionX);
         // only slow down half as much when bouncing
         entity.motionX /= f;
         entity.motionZ /= f;
+        TinkerNetwork.sendToServer(new BouncedPacket());
       }
       else {
         event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
@@ -161,8 +166,8 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
       entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1f, 1f);
       SlimeBounceHandler.addBounceHandler(entity, entity.motionY);
     }
-    else if(!entity.getEntityWorld().isRemote && entity.isSneaking()) {
-      event.setDamageMultiplier(0.1f);
+    else if(!isClient && entity.isSneaking()) {
+      event.setDamageMultiplier(0.2f);
     }
   }
 }

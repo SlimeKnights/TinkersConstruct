@@ -70,7 +70,7 @@ tile.tconstruct.slime.blue.name=Блок синей слизи
 tile.tconstruct.slime.purple.name=Блок фиолетовой слизи
 tile.tconstruct.slime.blood.name=Блок крови
 tile.tconstruct.slime.magma.name=Блок огненной слизи
-tile.tconstruct.slime.tooltip=Не работает с поршнями.
+tile.tconstruct.slime.tooltip=Работает с поршнями
 
 tile.tconstruct.slime_congealed.green.name=Блок застывшей зелёной слизи
 tile.tconstruct.slime_congealed.blue.name=Блок застывшей синей слизи

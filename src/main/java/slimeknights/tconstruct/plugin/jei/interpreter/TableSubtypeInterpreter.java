@@ -11,12 +11,12 @@ import slimeknights.tconstruct.shared.tileentity.TileTable;
 public class TableSubtypeInterpreter implements ISubtypeInterpreter {
 
   @Override
-  public String getSubtypeInfo(ItemStack stack) {
+  public String apply(ItemStack itemStack) {
     // we have to handle the metadata here
-    String meta = stack.getMetadata() + ":";
+    String meta = itemStack.getMetadata() + ":";
 
     // if the legs exist, return that for the identification key
-    NBTTagCompound tag = TagUtil.getTagSafe(stack).getCompoundTag(TileTable.FEET_TAG);
+    NBTTagCompound tag = TagUtil.getTagSafe(itemStack).getCompoundTag(TileTable.FEET_TAG);
     ItemStack legs = new ItemStack(tag);
     if(!legs.isEmpty()) {
       return meta + legs.getItem().getRegistryName() + ":" + legs.getMetadata();

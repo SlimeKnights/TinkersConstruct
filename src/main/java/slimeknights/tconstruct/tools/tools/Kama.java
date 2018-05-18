@@ -57,6 +57,7 @@ public class Kama extends AoeToolCore {
     super(requiredComponents);
 
     addCategory(Category.HARVEST, Category.WEAPON);
+    setHarvestLevel("shears", 0);
   }
 
   public Kama() {
@@ -116,9 +117,8 @@ public class Kama extends AoeToolCore {
     harvestedSomething |= harvestCrop(itemStackIn, worldIn, playerIn, origin, fortune);
 
     if(harvestedSomething) {
-      playerIn.swingArm(hand);
       playerIn.getEntityWorld().playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, playerIn.getSoundCategory(), 1.0F, 1.0F);
-      playerIn.spawnSweepParticles();
+      swingTool(playerIn, hand);
       return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
     }
 
@@ -145,10 +145,18 @@ public class Kama extends AoeToolCore {
     // only run AOE on shearable entities
     if(target instanceof IShearable) {
       int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-      return shearEntity(stack, player.getEntityWorld(), player, target, fortune);
+      if(shearEntity(stack, player.getEntityWorld(), player, target, fortune)) {
+        swingTool(player, hand);
+        return true;
+      }
     }
 
     return false;
+  }
+
+  protected void swingTool(EntityPlayer player, EnumHand hand) {
+    player.swingArm(hand);
+    player.spawnSweepParticles();
   }
 
   public boolean harvestCrop(ItemStack stack, World world, EntityPlayer player, BlockPos pos, int fortune) {

@@ -79,6 +79,7 @@ public class BlockSlimeCongealed extends Block {
     }
     if(entity.motionY < 0) {
       entity.motionY *= -1.2F;
+      entity.fallDistance = 0;
       if(entity instanceof EntityItem) {
         entity.onGround = false;
       }
