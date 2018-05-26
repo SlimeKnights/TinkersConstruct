@@ -87,12 +87,12 @@ tile.tconstruct.slime_dirt.blood.name=핏빛 점액질 흙
 tile.tconstruct.slime_dirt.magma.name=마그마 점액질 흙
 tile.tconstruct.slime_dirt.tooltip=끈적하지만 더욱 높게 도약할 수 있어!
 
-tile.tconstruct.slime_grass.vanilla.name=점액질 유리
-tile.tconstruct.slime_grass.green.name=초록색 점액질 유리
-tile.tconstruct.slime_grass.blue.name=파란색 점액질 유리
-tile.tconstruct.slime_grass.purple.name=보라색 점액질 유리
-tile.tconstruct.slime_grass.blood.name=핏빛 점액질 유리
-tile.tconstruct.slime_grass.magma.name=마그마 점액질 유리
+tile.tconstruct.slime_grass.vanilla.name=점액질 잔디
+tile.tconstruct.slime_grass.green.name=초록색 점액질 잔디
+tile.tconstruct.slime_grass.blue.name=파란색 점액질 잔디
+tile.tconstruct.slime_grass.purple.name=보라색 점액질 잔디
+tile.tconstruct.slime_grass.blood.name=핏빛 점액질 잔디
+tile.tconstruct.slime_grass.magma.name=마그마 점액질 
 tile.tconstruct.slime_grass.tooltip=너무 푹신해! 높게 도약할 수 있어!
 
 tile.tconstruct.slime_leaves.blue.name=파란색 점액질 나뭇잎
