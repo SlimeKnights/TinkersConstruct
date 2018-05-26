@@ -1,0 +1,18 @@
+{
+  "tool": "pickaxe",
+  "text": [
+    {
+      "text": "곡괭이는 암석, 광석 블록들을 파괴하는데 효과적인 도구입니다."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "It breaks blocks, OK?"
+    }
+  ],
+  "properties": [
+    "채굴 도구",
+    "암석류 채굴에 적합함"
+  ]
+}

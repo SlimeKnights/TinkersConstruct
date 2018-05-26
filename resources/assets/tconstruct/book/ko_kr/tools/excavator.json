@@ -1,0 +1,21 @@
+{
+  "tool": "excavator",
+  "text": [
+    {
+      "text": "굴착기는 흙, 모래, 눈 등을 넓은 범위로 파낼 수 있는 굴착 도구입니다."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "For when you need to dig a lot of graves."
+    }
+  ],
+  "properties": [
+    "도구 조립소",
+    "향상된 채굴 도구",
+    "3x3 채굴",
+    "흙, 모래, 자갈 블록에 효과적",
+    "잔디길 설치가능"
+  ]
+}

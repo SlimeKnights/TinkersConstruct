@@ -1,0 +1,20 @@
+{
+  "tool": "longbow",
+  "text": [
+    {
+      "text": "장궁은 긴 사거리를 가진 원거리 무기입니다. 단궁보다 움직임이 느립니다."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Perfect for abusing a positional advantage, you just need to nail the shot."
+    }
+  ],
+  "properties": [
+    "도구 조립소 필요",
+    "Tinker 화살 사용",
+    "느리지만 높은 데미지",
+    "바닐라 화살을 사용할 수 있지만 효과가 떨어짐"
+  ]
+}

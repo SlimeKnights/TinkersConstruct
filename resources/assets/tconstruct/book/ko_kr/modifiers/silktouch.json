@@ -1,0 +1,20 @@
+
+{
+  "modifier": "silktouch",
+  "text": [
+    {
+      "text": "Adding a large glob of gold and a bunch of string seems to give the tool silky-smooth properties."
+    },
+    { "text": "\n" },
+    { "text": "I can't believe it's not butter!" }
+  ],
+  "effects": [
+    "Allows blocks to be harvested directly",
+    "Not compatible with Luck or Auto-Smelt",
+    "Single use"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:hammer"
+  ]
+}

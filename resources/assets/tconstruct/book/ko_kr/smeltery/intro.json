@@ -1,0 +1,11 @@
+{
+  "title": "제련소",
+  "image": {
+	"file": "tconstruct:textures/gui/book/smeltery.png"
+  },
+  "text": [
+    {
+      "text": "다양한 것들을 융해할 수 있는 건축물입니다."
+    }
+  ]
+}
