@@ -18,6 +18,8 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
+import slimeknights.tconstruct.library.capability.projectile.ITinkerProjectile;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -71,7 +73,10 @@ public class ModBeheading extends ToolModifier {
   @SubscribeEvent
   public void onLivingDrops(LivingDropsEvent event) {
     if(event.getSource().getTrueSource() instanceof EntityPlayer) {
-      ItemStack item = ((EntityPlayer) event.getSource().getTrueSource()).getHeldItem(EnumHand.MAIN_HAND);
+      ItemStack item = CapabilityTinkerProjectile.getTinkerProjectile(event.getSource())
+                                                 .map(ITinkerProjectile::getItemStack)
+                                                 .orElse(((EntityPlayer) event.getSource().getTrueSource()).getHeldItem(EnumHand.MAIN_HAND));
+
       NBTTagCompound tag = TinkerUtil.getModifierTag(item, getIdentifier());
       int level = ModifierNBT.readTag(tag).level;
 
@@ -116,7 +121,7 @@ public class ModBeheading extends ToolModifier {
     // meta 3: player
     else if(entity instanceof EntityPlayer) {
       ItemStack head = new ItemStack(Items.SKULL, 1, 3);
-      NBTUtil.writeGameProfile(head.getOrCreateSubCompound("SkullOwner"), ((EntityPlayer)entity).getGameProfile());
+      NBTUtil.writeGameProfile(head.getOrCreateSubCompound("SkullOwner"), ((EntityPlayer) entity).getGameProfile());
       return head;
     }
 
