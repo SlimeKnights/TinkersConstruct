@@ -67,6 +67,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
      dependencies = "required-after:forge@[14.23.1.2577,);"
                     + "required-after:mantle@[1.12-1.3.1,);"
                     + "after:jei@[4.8,);"
+                    + "before:taiga@(1.12.2-1.3.0,);"
                     + "after:chisel",
      acceptedMinecraftVersions = "[1.12, 1.13)")
 public class TConstruct {
