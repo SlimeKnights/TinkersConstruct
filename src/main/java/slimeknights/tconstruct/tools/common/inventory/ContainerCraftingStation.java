@@ -101,8 +101,6 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
     }
 
     this.addPlayerInventory(playerInventory, 8, 84);
-
-    this.onCraftMatrixChanged(this.craftMatrix);
   }
 
   private boolean blacklisted(Class<? extends TileEntity> clazz) {
