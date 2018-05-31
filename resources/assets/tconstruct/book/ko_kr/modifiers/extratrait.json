@@ -1,0 +1,17 @@
+{
+  "modifier": "extratrait",
+  "text": [
+    {
+      "text": "Take a tool part and emboss it onto the tool! It's like replacing the tool part, but better! The tool gets the traits of the part in addition to the already present ones (but not the stats)."
+    }
+  ],
+  "effects": [
+    "Adds traits of another part",
+    "Traits are equal to swapping the part",
+    "The embossment is final and can't be changed",
+    "Requires no modifier"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe"
+  ]
+}

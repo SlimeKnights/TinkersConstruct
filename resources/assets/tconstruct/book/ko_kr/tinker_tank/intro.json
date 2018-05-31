@@ -1,0 +1,11 @@
+{
+  "title":"Tinker 탱크",
+  "image": {
+	"file": "tconstruct:textures/gui/book/tinker_tank.png"
+  },
+  "text": [
+    {
+      "text": "Tinker 탱크는 많은 액체를 저장할 수 있는 대용량 액체 탱크입니다."
+    }
+  ]
+}

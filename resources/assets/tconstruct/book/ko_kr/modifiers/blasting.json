@@ -1,0 +1,24 @@
+{
+  "modifier": "blasting",
+  "text": [
+    {
+      "text": "Blow up all the blocks! Make them go away FAST!"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "You can apply multiple levels to increase speed, but you probably lose all harvested blocks"
+    }
+  ],
+  "effects": [
+    "Breaks blocks fast",
+    "AOE Tools harvest uneffective blocks too",
+    "Will likely destroy harvested blocks",
+    "Requires only 1 modifier",
+    "Multiple levels"
+  ],
+  "demoTool": [
+    "tconstruct:hammer"
+  ]
+}

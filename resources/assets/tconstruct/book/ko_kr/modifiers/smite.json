@@ -1,0 +1,18 @@
+{
+  "modifier": "smite",
+  "text": [
+    {
+      "text": "The raw power of consecrated soil empowers your weapon, smiting enemies from on high."
+    }
+  ],
+  "effects": [
+    "Deals massive damage to undead enemies",
+    "Multiple levels"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:hammer",
+    "tconstruct:arrow"
+  ]
+}
