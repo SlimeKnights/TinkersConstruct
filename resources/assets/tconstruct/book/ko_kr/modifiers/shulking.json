@@ -1,0 +1,19 @@
+{
+  "modifier": "shulking",
+  "text": [
+    {
+      "text": "Empower your tool with the ability of a Shulker. Hit enemies to render them powerless in midair."
+    }
+  ],
+  "effects": [
+    "Each point increases floating duration",
+    "Causes enemies to float away",
+    "Hilarious",
+    "Single level"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
+  ]
+}

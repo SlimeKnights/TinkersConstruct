@@ -1,0 +1,18 @@
+{
+  "modifier": "webbed",
+  "text": [
+    {
+      "text": "All those sticky spider webs have to be good for something. Slow your enemies with them!"
+    }
+  ],
+  "effects": [
+    "Each level increases slow duration",
+    "Slow-motion",
+    "Multi level"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
+  ]
+}

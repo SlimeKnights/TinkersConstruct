@@ -1,0 +1,24 @@
+{
+  "modifier": "harvestwidth",
+  "text": [
+    {
+      "text": "Have you ever wished your tool could affect a wider area? Now it can!"
+    }
+  ],
+  "effects": [
+    "Increases the width of the area affected",
+    "Only affects blocks",
+    "Does not work for weapons",
+    "Can be combined with Height++"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:shovel",
+    "tconstruct:hatchet",
+    "tconstruct:mattock",
+    "tconstruct:hammer",
+    "tconstruct:lumberaxe",
+    "tconstruct:excavator",
+    "tconstruct:scythe"
+  ]
+}
