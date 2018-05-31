@@ -2,11 +2,12 @@ package slimeknights.tconstruct.tools.common.inventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+
+import slimeknights.tconstruct.shared.inventory.InventoryCraftingPersistent;
 
 /**
  *  SlotCraftingSucks from FastWorkbench adapted for the Crafting Station container (no change in functionality)
@@ -17,10 +18,12 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 public class SlotCraftingFastWorkbench extends SlotCrafting {
 
   private final ContainerCraftingStation containerCraftingStation;
+  private final InventoryCraftingPersistent craftMatrixPersistent;
 
-  public SlotCraftingFastWorkbench(ContainerCraftingStation containerCraftingStation, EntityPlayer player, InventoryCrafting craftingInventory, IInventory inventoryIn, int slotIndex, int xPosition, int yPosition) {
+  public SlotCraftingFastWorkbench(ContainerCraftingStation containerCraftingStation, EntityPlayer player, InventoryCraftingPersistent craftingInventory, IInventory inventoryIn, int slotIndex, int xPosition, int yPosition) {
     super(player, craftingInventory, inventoryIn, slotIndex, xPosition, yPosition);
     this.containerCraftingStation = containerCraftingStation;
+    this.craftMatrixPersistent = craftingInventory;
   }
 
   @Override
@@ -52,6 +55,9 @@ public class SlotCraftingFastWorkbench extends SlotCrafting {
     /* END OF CHANGE */
     net.minecraftforge.common.ForgeHooks.setCraftingPlayer(null);
 
+    // note: craftMatrixPersistent and this.craftMatrix are the same object!
+    craftMatrixPersistent.setDoNotCallUpdates(true);
+
     for (int i = 0; i < nonnulllist.size(); ++i)
     {
       ItemStack itemstack = this.craftMatrix.getStackInSlot(i);
@@ -80,6 +86,9 @@ public class SlotCraftingFastWorkbench extends SlotCrafting {
         }
       }
     }
+
+    craftMatrixPersistent.setDoNotCallUpdates(false);
+    containerCraftingStation.onCraftMatrixChanged(craftMatrixPersistent);
 
     return stack;
   }

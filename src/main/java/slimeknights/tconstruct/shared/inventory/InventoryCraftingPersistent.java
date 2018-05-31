@@ -16,6 +16,7 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
   private final int length;
   private final Container eventHandler;
   private final IInventory parent;
+  private boolean doNotCallUpdates;
 
   public InventoryCraftingPersistent(Container eventHandler, IInventory parent, int width, int height) {
     super(eventHandler, width, height);
@@ -26,6 +27,7 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
     this.parent = parent;
     this.length = k;
     this.eventHandler = eventHandler;
+    this.doNotCallUpdates = false;
   }
 
   @Override
@@ -62,7 +64,7 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
       if(this.getStackInSlot(index).getCount() <= count) {
         itemstack = this.getStackInSlot(index);
         this.setInventorySlotContents(index, ItemStack.EMPTY);
-        this.eventHandler.onCraftMatrixChanged(this);
+        onCraftMatrixChanged();
         return itemstack;
       }
       else {
@@ -72,7 +74,7 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
           this.setInventorySlotContents(index, ItemStack.EMPTY);
         }
 
-        this.eventHandler.onCraftMatrixChanged(this);
+        onCraftMatrixChanged();
         return itemstack;
       }
     }
@@ -84,13 +86,13 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
   @Override
   public void setInventorySlotContents(int index, @Nonnull ItemStack stack) {
     this.parent.setInventorySlotContents(index, stack);
-    this.eventHandler.onCraftMatrixChanged(this);
+    onCraftMatrixChanged();
   }
 
   @Override
   public void markDirty() {
     this.parent.markDirty();
-    this.eventHandler.onCraftMatrixChanged(this);
+    onCraftMatrixChanged();
 
     TinkerTools.proxy.sendPacketToServerOnly(new InventoryCraftingSyncPacket());
   }
@@ -98,5 +100,20 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
   @Override
   public void clear() {
     // inventory can't clear the tile container
+  }
+
+  /**
+   * If set to true no eventhandler.onCraftMatrixChanged calls will be made.
+   * This is used to prevent recipe check when changing the item slots when something is crafted
+   * (since each slot with an item is reduced by 1, it changes -> callback)
+   */
+  public void setDoNotCallUpdates(boolean doNotCallUpdates) {
+    this.doNotCallUpdates = doNotCallUpdates;
+  }
+
+  public void onCraftMatrixChanged() {
+    if(!doNotCallUpdates) {
+      this.eventHandler.onCraftMatrixChanged(this);
+    }
   }
 }

@@ -198,6 +198,9 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
 
   public void updateLastRecipeFromServer(IRecipe recipe) {
     lastRecipe = recipe;
+    if(recipe != null) {
+      this.craftResult.setInventorySlotContents(0, recipe.getCraftingResult(craftMatrix));
+    }
   }
 
 
