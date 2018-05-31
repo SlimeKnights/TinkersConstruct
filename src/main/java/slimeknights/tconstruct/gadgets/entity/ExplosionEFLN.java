@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ExplosionEFLN extends Explosion {
 
-  protected ImmutableSet<BlockPos> affectedBlockPositions;
+  protected ImmutableSet<BlockPos> affectedBlockPositionsInternal;
 
   @SideOnly(Side.CLIENT)
   public ExplosionEFLN(World worldIn, Entity entityIn, double x, double y, double z, float size, List<BlockPos> affectedPositions) {
@@ -70,7 +70,7 @@ public class ExplosionEFLN extends Explosion {
       }
     }
 
-    this.affectedBlockPositions = builder.build();
+    this.affectedBlockPositionsInternal = builder.build();
   }
 
   @Override
@@ -79,7 +79,7 @@ public class ExplosionEFLN extends Explosion {
 
     this.world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
 
-    for(BlockPos blockpos : this.affectedBlockPositions) {
+    for(BlockPos blockpos : this.affectedBlockPositionsInternal) {
       IBlockState iblockstate = this.world.getBlockState(blockpos);
       Block block = iblockstate.getBlock();
 
@@ -114,4 +114,9 @@ public class ExplosionEFLN extends Explosion {
       }
     }
   }
+
+  public void addAffectedBlock(BlockPos blockPos) {
+    this.affectedBlockPositions.add(blockPos);
+  }
+
 }

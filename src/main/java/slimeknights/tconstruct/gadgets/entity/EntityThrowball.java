@@ -6,7 +6,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
@@ -73,7 +72,7 @@ public class EntityThrowball extends EntityThrowable implements IEntityAdditiona
 
   protected void explode(float strength) {
     if(!getEntityWorld().isRemote) {
-      Explosion explosion = new ExplosionEFLN(getEntityWorld(), this, posX, posY, posZ, strength, false, false);
+      ExplosionEFLN explosion = new ExplosionEFLN(getEntityWorld(), this, posX, posY, posZ, strength, false, false);
       if(!ForgeEventFactory.onExplosionStart(world, explosion)) {
         Exploder.startExplosion(getEntityWorld(), explosion, this, new BlockPos(posX, posY, posZ), strength, strength);
       }
