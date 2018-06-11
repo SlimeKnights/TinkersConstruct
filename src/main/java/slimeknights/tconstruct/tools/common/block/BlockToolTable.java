@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.tools.common.block;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -12,6 +14,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -23,13 +27,13 @@ import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
-
-import com.google.common.collect.ImmutableList;
 
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.TConstruct;
@@ -41,6 +45,7 @@ import slimeknights.tconstruct.tools.common.tileentity.TilePartBuilder;
 import slimeknights.tconstruct.tools.common.tileentity.TilePartChest;
 import slimeknights.tconstruct.tools.common.tileentity.TilePatternChest;
 import slimeknights.tconstruct.tools.common.tileentity.TileStencilTable;
+import slimeknights.tconstruct.tools.common.tileentity.TileTinkerChest;
 import slimeknights.tconstruct.tools.common.tileentity.TileToolStation;
 
 public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
@@ -89,6 +94,23 @@ public class BlockToolTable extends BlockTable implements ITinkerStationBlock {
       }
     }
     return true;
+  }
+
+  @Override
+  public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float clickX, float clickY, float clickZ) {
+    TileEntity te = world.getTileEntity(pos);
+    ItemStack heldItem = player.inventory.getCurrentItem();
+    if(!heldItem.isEmpty() && te instanceof TileTinkerChest) {
+        IItemHandlerModifiable itemHandler = ((TileTinkerChest) te).getItemHandler();
+        ItemStack rest = ItemHandlerHelper.insertItem(itemHandler, heldItem, false);
+
+        if(rest.isEmpty() || rest.getCount() < heldItem.getCount()) {
+          player.inventory.mainInventory.set(player.inventory.currentItem, rest);
+          return true;
+        }
+    }
+
+    return super.onBlockActivated(world, pos, state, player, hand, side, clickX, clickY, clickZ);
   }
 
   @SideOnly(Side.CLIENT)
