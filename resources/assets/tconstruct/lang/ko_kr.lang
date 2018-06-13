@@ -247,8 +247,8 @@ tile.tconstruct.brownstone_stairs_creeper.name=브라운스톤 크리퍼 계단
 ################
 
 # General Items
-item.tconstruct.book.name=유 and 메테리얼
-item.tconstruct.book.tooltip=Tinker의 필수\nby Skyla
+item.tconstruct.book.name=너 & 재료
+item.tconstruct.book.tooltip=땜장이의 필독서\nby Skyla
 
 item.tconstruct.edible.bacon.name=베이컨
 item.tconstruct.edible.slimeball_blue.name=파란 슬라임볼
@@ -281,9 +281,9 @@ item.tconstruct.materials.slimecrystal_blue.name=파란 슬라임 결정
 item.tconstruct.materials.slimecrystal_blue.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
 item.tconstruct.materials.slimecrystal_magma.name=마그마 슬라임 결정
 item.tconstruct.materials.slimecrystal_magma.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
-item.tconstruct.materials.expander_w.name=확장기 (Horizontal)
+item.tconstruct.materials.expander_w.name=수평 확장기
 item.tconstruct.materials.expander_w.tooltip=면적 확장
-item.tconstruct.materials.expander_h.name=확장기 (Vertical)
+item.tconstruct.materials.expander_h.name=수직 확장기
 item.tconstruct.materials.expander_h.tooltip=높이 확장
 item.tconstruct.materials.reinforcement.name=강화
 item.tconstruct.materials.reinforcement.tooltip=강화 수식어
@@ -335,25 +335,25 @@ item.forge.bucketFilled.blood=피 양동이
 item.tconstruct.pickaxe.name=곡괭이
 item.tconstruct.shovel.name=삽
 item.tconstruct.hatchet.name=손도끼
-item.tconstruct.mattock.name=매톡
+item.tconstruct.mattock.name=야전삽
 item.tconstruct.kama.name=카마
 
-item.tconstruct.hammer.name=해머
+item.tconstruct.hammer.name=망치
 item.tconstruct.excavator.name=굴착기
-item.tconstruct.lumberaxe.name=럼버액스
-item.tconstruct.scythe.name=사이드
+item.tconstruct.lumberaxe.name=벌목도끼
+item.tconstruct.scythe.name=낫
 
 # Melee Weapons
 
 item.tconstruct.frypan.name=프라이팬
 item.tconstruct.battlesign.name=전투표지판
 item.tconstruct.dagger.name=단검
-item.tconstruct.broadsword.name=양날검
+item.tconstruct.broadsword.name=검
 item.tconstruct.longsword.name=장검
-item.tconstruct.rapier.name=래피어
+item.tconstruct.rapier.name=레이피어
 item.tconstruct.cutlass.name=커틀러스
 
-item.tconstruct.cleaver.name=식칼
+item.tconstruct.cleaver.name=클리버
 item.tconstruct.battleaxe.name=전투도끼
 
 # Ranged Weapons & Ammo
@@ -386,13 +386,13 @@ item.tconstruct.hand_guard.name=손 코등이
 item.tconstruct.full_guard.name=두꺼운 코등이
 
 # Large Tool Parts
-item.tconstruct.hammer_head.name=해머 머리
+item.tconstruct.hammer_head.name=망치 머리
 item.tconstruct.excavator_head.name=굴착기 머리
 item.tconstruct.broad_axe_head.name=큰 도끼 머리
 item.tconstruct.large_plate.name=큰 플레이트
 item.tconstruct.tough_binding.name=두꺼운 조임쇠
 item.tconstruct.tough_tool_rod.name=두꺼운 막대
-item.tconstruct.scythe_head.name=큰낫 머리
+item.tconstruct.scythe_head.name=낫 머리
 item.tconstruct.large_sword_blade.name=장검날
 
 # Bow & Arrow Parts
@@ -471,34 +471,34 @@ entity.tconstruct.blueslime.name=파란 슬라임
 #################
 
 fluid.tconstruct.stone.name=그을린 돌
-fluid.tconstruct.obsidian.name=융해된 흑요석
-fluid.tconstruct.clay.name=융해된 점토
+fluid.tconstruct.obsidian.name=녹은 흑요석
+fluid.tconstruct.clay.name=녹은 점토
 fluid.tconstruct.dirt.name=흘러내리는 흙
-fluid.tconstruct.iron.name=융해된 철
-fluid.tconstruct.gold.name=융해된 금
-fluid.tconstruct.pigiron.name=융해된 선철
-fluid.tconstruct.cobalt.name=융해된 코발트
-fluid.tconstruct.ardite.name=융해된 아르다이트
-fluid.tconstruct.manyullyn.name=융해된 마뉼린
-fluid.tconstruct.knightslime.name=융해된 나이트슬라임
-fluid.tconstruct.emerald.name=융해된 에메랄드
-fluid.tconstruct.glass.name=융해된 유리
+fluid.tconstruct.iron.name=녹은 철
+fluid.tconstruct.gold.name=녹은 금
+fluid.tconstruct.pigiron.name=녹은 선철
+fluid.tconstruct.cobalt.name=녹은 코발트
+fluid.tconstruct.ardite.name=녹은 아르다이트
+fluid.tconstruct.manyullyn.name=녹은 마뉼린
+fluid.tconstruct.knightslime.name=녹은 나이트슬라임
+fluid.tconstruct.emerald.name=녹은 에메랄드
+fluid.tconstruct.glass.name=녹은 유리
 fluid.tconstruct.blood.name=피
 fluid.tconstruct.milk.name=우유
 fluid.tconstruct.blueslime.name=파란 슬라임 액체
 fluid.tconstruct.purpleslime.name=보라 슬라임 액체
-fluid.tconstruct.brass.name=융해된 황동
-fluid.tconstruct.copper.name=융해된 구리
-fluid.tconstruct.tin.name=융해된 주석
-fluid.tconstruct.bronze.name=융해된 청동
-fluid.tconstruct.zinc.name=융해된 아연
-fluid.tconstruct.lead.name=융해된 납
-fluid.tconstruct.nickel.name=융해된 니켈
-fluid.tconstruct.silver.name=융해된 은
-fluid.tconstruct.electrum.name=융해된 합금
-fluid.tconstruct.steel.name=융해된 강철
-fluid.tconstruct.aluminum.name=융해된 알루미늄
-fluid.tconstruct.alubrass.name=융해된 알루미늄 황동
+fluid.tconstruct.brass.name=녹은 황동
+fluid.tconstruct.copper.name=녹은 구리
+fluid.tconstruct.tin.name=녹은 주석
+fluid.tconstruct.bronze.name=녹은 청동
+fluid.tconstruct.zinc.name=녹은 아연
+fluid.tconstruct.lead.name=녹은 납
+fluid.tconstruct.nickel.name=녹은 니켈
+fluid.tconstruct.silver.name=녹은 은
+fluid.tconstruct.electrum.name=녹은 합금
+fluid.tconstruct.steel.name=녹은 강철
+fluid.tconstruct.aluminum.name=녹은 알루미늄
+fluid.tconstruct.alubrass.name=녹은 알루미늄 황동
 
 #################
 #    Potions    #
@@ -519,7 +519,7 @@ material.stone.name=돌
 material.flint.name=부싯돌
 material.cactus.name=선인장
 material.obsidian.name=흑요석
-material.prismarine.name=프리즈머린
+material.prismarine.name=프리즈마린
 material.netherrack.name=네더랙
 material.endstone.name=엔드 돌
 material.bone.name=뼈
@@ -540,7 +540,7 @@ material.copper.name=구리
 material.bronze.name=청동
 material.lead.name=납
 material.silver.name=은
-material.electrum.name=합금
+material.electrum.name=일렉트럼
 material.steel.name=강철
 
 material.string.name=실
@@ -611,7 +611,7 @@ stat.fletching.modifier.name=수식어
 stat.fletching.modifier.desc=제작할 수 있는 화살 개수를 결정합니다.\n화살 개수에 이 값을 곱합니다.
 
 stat.projectile.name=화살 개수
-stat.projectile.ammo.name=탄수
+stat.projectile.ammo.name=장탄수
 
 ##############
 #   Traits   #
@@ -641,7 +641,7 @@ modifier.crumbling.name=분해
 modifier.crumbling.desc=§oCrumble rumble rumble§r\nThe tool breaks soft blocks that don't need a tool faster.
 modifier.dense.name=밀집
 modifier.dense.desc=§oHard...er.§r\nYour tool lasts longer when it has less durability.
-modifier.duritos.name=내구충
+modifier.duritos.name=내구성
 modifier.duritos.desc=§oDoesn't taste as good as it sounds.§r\nYour tool lasts longer ...most of the time.
 modifier.ecological.name=생태학
 modifier.ecological.desc=§oGreen Power!§r\nRenewable resources are so good, they regenerate by themselves!
@@ -723,7 +723,7 @@ modifier.splitting.desc=§oTwo for one!§r\nThe sudden acceleration of releasing
 #   Modifiers   #
 #################
 
-modifier.bane_of_arthopods.name=거미사냥꾼
+modifier.bane_of_arthopods.name=살충
 modifier.bane_of_arthopods.desc=§oAnti-Spider!§r\nDeal massive damage to spiders.
 modifier.bane_of_arthopods.extra=Vs Spiders: +%s
 modifier.beheading.name=참수
@@ -751,11 +751,11 @@ modifier.harvestwidth.name=너비++
 modifier.harvestwidth.desc=§oExpand!§r\nIncreases the width of the area affected by your tool. The effect is tool specific.
 modifier.harvestheight.name=높이++
 modifier.harvestheight.desc=§oExpand!§r\nIncreases the height of the area affected by your tool. The effect is tool specific.
-modifier.haste.name=헤이스트
-modifier.haste.name2=헤이스터
-modifier.haste.name3=헤이티스트
-modifier.haste.name4=헤이티스터
-modifier.haste.name5=헤이티스티스트
+modifier.haste.name=신속 I
+modifier.haste.name2=신속 II
+modifier.haste.name3=신속 III
+modifier.haste.name4=신속 IV
+modifier.haste.name5=신속 V
 modifier.haste.desc=§oWeeeeeee!§r\nThe redstone impulse when using your tool motivates your tool to move even faster.
 modifier.haste.extra=Bonus-Speed: +%s
 modifier.knockback.name=넉백
@@ -772,11 +772,11 @@ modifier.reinforced.name=강화
 modifier.reinforced.unbreakable=강인함
 modifier.reinforced.desc=§oSo strong!§r\nEach level adds a %s chance to not use durability.
 modifier.reinforced.extra=강화: %s
-modifier.sharpness.name=샤프
-modifier.sharpness.name2=샤퍼
-modifier.sharpness.name3=샤피스트
-modifier.sharpness.name4=샤피스터
-modifier.sharpness.name5=샤피스티스트
+modifier.sharpness.name=날카로움 I
+modifier.sharpness.name2=날카로움 II
+modifier.sharpness.name3=날카로움 III
+modifier.sharpness.name4=날카로움 IV
+modifier.sharpness.name5=날카로움 V
 modifier.sharpness.desc=§oOuch!§r\nSo sharp, it hurts to look at it.
 modifier.shulking.name=셜킹
 modifier.shulking.desc=§oUp up and away!§r\nHitting foes causes them to float away.
@@ -786,7 +786,7 @@ modifier.silktouch.desc=§oSmooth as silk!§r\nMined blocks drop themselves inst
 modifier.smite.name=강타
 modifier.smite.desc=§oFor Justice!§r\nDeal massive damage to undead.
 modifier.smite.extra=Vs Undead: +%s
-modifier.soulbound.name=영혼의 족쇄
+modifier.soulbound.name=영혼귀속
 modifier.soulbound.desc=§oA merry couple!§r\nYou love your tool. Not even death can part you.
 modifier.webbed.name=거미줄
 modifier.webbed.desc=§oYuck!§r\nEntangle your foes in cobwebs, slowing them.
@@ -905,7 +905,7 @@ itemGroup.TinkerGeneral=Tinkers' 기본 아이템
 itemGroup.TinkerTools=Tinkers' 도구
 itemGroup.TinkerToolParts=Tinkers' 부품
 itemGroup.TinkerSmeltery=Tinkers' 제련소
-itemGroup.TinkerWorld=Tinkers' 월드
+itemGroup.TinkerWorld=Tinkers' 세계
 itemGroup.TinkerGadgets=Tinkers' 장치
 
 # Crafting Station
