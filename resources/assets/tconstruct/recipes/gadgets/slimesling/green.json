@@ -7,24 +7,25 @@
     ],
     "type": "forge:ore_shaped",
     "pattern": [
-        "ABA",
-        "C C",
-        " C "
+        "SCS",
+        "B B",
+        " B "
     ],
     "key": {
-        "A": {
+        "S": {
             "item": "minecraft:string"
+        },
+        "C": {
+            "item": "tconstruct:slime_congealed",
+            "data": 0
         },
         "B": {
             "type": "forge:ore_dict",
-            "ore": "blockSlimeCongealed"
-        },
-        "C": {
-            "type": "forge:ore_dict",
-            "ore": "slimeball"
+            "ore": "slimeballGreen"
         }
     },
     "result": {
-        "item": "tconstruct:slimesling"
+        "item": "tconstruct:slimesling",
+        "data": 0
     }
 }
