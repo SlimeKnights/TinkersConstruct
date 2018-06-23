@@ -1,0 +1,18 @@
+{
+  "modifier": "fins",
+  "text": [
+    {
+      "text": "魚を手に取って...矢に貼り付ける。もちろん！それは水中で泳ぎます。これで水中の敵も撃てます！"
+    }
+  ],
+  "effects": [
+    "発射体が水を無視する",
+    "論理的",
+    "なるほど"
+  ],
+  "demoTool": [
+    "tconstruct:arrow",
+    "tconstruct:bolt",
+    "tconstruct:shuriken"
+  ]
+}

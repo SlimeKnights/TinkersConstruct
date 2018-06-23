@@ -1,0 +1,24 @@
+{
+  "modifier": "haste",
+  "text": [
+    {
+      "text": "道具にレッドストーンを追加すると、速度が上がるようです。レッドストーンの採掘速度増加の効果は、元が遅い道具であるほど効果的です。"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "レッドストーン。クレイジーだろ？"
+    }
+  ],
+  "effects": [
+    "レッドストーン1つ毎にわずかに採掘速度が増加する",
+    "攻撃速度が増加する",
+    "複数レベル"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:shortbow"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier": "bane_of_arthopods",
+  "text": [
+    {
+      "text": "クモの眼球でクモを攻撃すると、恐怖で怯みます。害虫でお困りですか？解決策があります。虫を倒しましょう。"
+    }
+  ],
+  "effects": [
+    "クモとシルバーフィッシュに追加ダメージ",
+    "複数レベル"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:hammer",
+    "tconstruct:arrow"
+  ]
+}

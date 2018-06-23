@@ -1,0 +1,19 @@
+{
+  "modifier": "reinforced",
+  "text": [
+    {
+      "text": "道具に補強プレートを追加すると、耐久度が向上し、強くなります。"
+    }
+  ],
+  "effects": [
+    "耐久度を消費しない可能性が発生する",
+    "補強のレベルは加算される",
+    "複数レベル"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:hammer",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
+  ]
+}

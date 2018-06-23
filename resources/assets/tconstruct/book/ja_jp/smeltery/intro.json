@@ -1,0 +1,11 @@
+{
+  "title": "乾式製錬炉",
+  "image": {
+	"file": "tconstruct:textures/gui/book/smeltery.png"
+  },
+  "text": [
+    {
+      "text": "精錬所には色々なものがあります。しかしこれは私のものです。これはアイテムを非常によく溶かします。"
+    }
+  ]
+}

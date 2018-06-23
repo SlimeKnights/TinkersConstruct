@@ -1,0 +1,55 @@
+{
+  "size": [5, 3, 5],
+  "structure": [
+    {
+      "pos": [1, 0, 1],
+      "endPos": [3, 0, 3],
+      "block": "tconstruct:seared",
+      "meta": 3
+    },
+    {
+      "pos": [0, 1, 1],
+      "endPos": [0, 2, 3],
+      "block": "tconstruct:seared",
+      "meta": 3
+    },
+    {
+      "pos": [4, 1, 1],
+      "endPos": [4, 2, 3],
+      "block": "tconstruct:seared",
+      "meta": 3
+    },
+    {
+      "pos": [1, 1, 4],
+      "endPos": [1, 1, 4],
+      "block": "tconstruct:seared_tank"
+    },
+    {
+      "pos": [2, 1, 4],
+      "endPos": [2, 1, 4],
+      "block": "tconstruct:smeltery_controller",
+      "state": {
+        "facing": "south",
+        "active": "true"
+      }
+    },
+    {
+      "pos": [3, 1, 4],
+      "endPos": [3, 1, 4],
+      "block": "tconstruct:smeltery_io",
+      "meta": 0
+    },
+    {
+      "pos": [1, 2, 4],
+      "endPos": [3, 2, 4],
+      "block": "tconstruct:seared",
+      "meta": 3
+    },
+    {
+      "pos": [1, 1, 0],
+      "endPos": [3, 2, 0],
+      "block": "tconstruct:seared",
+      "meta": 3
+    }
+  ]
+}

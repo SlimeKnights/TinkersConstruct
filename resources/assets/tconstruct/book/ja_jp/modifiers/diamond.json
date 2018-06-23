@@ -1,0 +1,21 @@
+{
+  "modifier": "diamond",
+  "text": [
+    {
+      "text": "道具の端にダイヤモンドを追加すると、耐久性が増し、採掘レベルが上がります。また、魅力的なファッションを与えます。"
+    }
+  ],
+  "effects": [
+    "追加の耐久度",
+    "小規模な状態の増加",
+    "採掘レベルが1つ上がる(黒曜石まで)",
+    "単一レベル",
+    "ファビュラス！"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier": "glowing",
+  "text": [
+    {
+      "text": "いくつかのグロウストーンとエンダーアイ。明らかに、これは明るさレベルを見ます。"
+    }
+  ],
+  "effects": [
+    "暗い場所に光源を設置する",
+    "耐久度を使う"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:hammer",
+    "tconstruct:broadsword"
+  ]
+}
