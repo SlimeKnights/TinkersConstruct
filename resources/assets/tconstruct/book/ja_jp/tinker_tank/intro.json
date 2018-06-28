@@ -1,0 +1,11 @@
+{
+  "title":"ティンカータンク",
+  "image": {
+	"file": "tconstruct:textures/gui/book/tinker_tank.png"
+  },
+  "text": [
+    {
+      "text": "ティンカータンクは、乾式精錬炉よりも多くの液体を保持できる巨大なタンクですが、熱源がないので合金化や製錬は起きません。"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "modifier": "mending_moss",
+  "text": [
+    {
+      "text": "いくつかの苔は、あなたの道具の傷ついた刃の上で成長します。経験値を与えると、それは道具と融合して徐々に回復させます。"
+    }
+  ],
+  "effects": [
+    "経験値を収集する",
+    "保持できる経験値の最大値はレベルによって増える",
+    "道具がゆっくりと修理される",
+    "ホットバーかオフハンドに持つ必要あり",
+    "複数レベル"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:shortbow",
+    "tconstruct:arrow"
+  ]
+}

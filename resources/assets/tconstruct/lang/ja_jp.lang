@@ -786,10 +786,10 @@ modifier.fortify.name=強化
 modifier.fortify.desc=§o固く、良く、早く、強く！§r\n採掘レベルが%sと同じレベルに増加する。
 modifier.glowing.name=発光
 modifier.glowing.desc=§o明るく輝く§r\n暗い場所にいると、道具が耐久度を使って明るくする。
-modifier.harvestwidth.name=高さ++
-modifier.harvestwidth.desc=§o拡張！§r\n道具の採掘可能なエリアの高さが広がる。効果は道具に固有。
-modifier.harvestheight.name=幅++
-modifier.harvestheight.desc=§o拡張！§r\n道具の採掘可能なエリアの幅が広がる。効果は道具に固有。
+modifier.harvestwidth.name=幅++
+modifier.harvestwidth.desc=§o拡張！§r\n道具の採掘可能なエリアの幅が広がる。効果は道具に固有。
+modifier.harvestheight.name=高さ++
+modifier.harvestheight.desc=§o拡張！§r\n道具の採掘可能なエリアの高さが広がる。効果は道具に固有。
 modifier.haste.name=加速
 modifier.haste.name2=超加速
 modifier.haste.name3=超超加速
@@ -900,11 +900,11 @@ death.attack.bleed=%1$sは%2$sからの攻撃で出血して死んだ
 death.attack.bleed.item=%1$sは%2$sの%3$sによる攻撃で出血して死んだ
 
 message.mending_moss.not_enough_levels=修復の苔を作るには %s レベル以上である必要があります
-tconstruct.channel.connected.in=側面を内側に向けて設定する
-tconstruct.channel.connected.out=側面を外側に向けて設定する
-tconstruct.channel.connected.none=そちら側に流すことはできません
-tconstruct.channel.connected_down.allow=流すことができます
-tconstruct.channel.connected_down.disallow=流すことができません
+tconstruct.channel.connected.in=手前側に流れるように設定
+tconstruct.channel.connected.out=奥側に流れるように設定
+tconstruct.channel.connected.none=流れないように設定
+tconstruct.channel.connected_down.allow=下に流れます
+tconstruct.channel.connected_down.disallow=下に流しません
 
 ######################
 # GUI Error messages #
