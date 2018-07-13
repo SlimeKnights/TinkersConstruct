@@ -3,27 +3,27 @@
 ################
 
 tile.tconstruct.tooltables.craftingstation.name=제작대
-tile.tconstruct.tooltables.stenciltable.name=거푸집 제작대
+tile.tconstruct.tooltables.stenciltable.name=도안 제작대
 tile.tconstruct.tooltables.partbuilder.name=부품 제작대
 tile.tconstruct.tooltables.toolstation.name=도구 조립대
-tile.tconstruct.tooltables.patternchest.name=거푸집 상자
-tile.tconstruct.tooltables.patternchest.tooltip=거푸집을 보관할 수 있는 상자
+tile.tconstruct.tooltables.patternchest.name=도안 상자
+tile.tconstruct.tooltables.patternchest.tooltip=도안을 보관할 수 있는 상자
 tile.tconstruct.tooltables.partchest.name=부품 상자
 tile.tconstruct.tooltables.partchest.tooltip=도구 부품들을 보관할 수 있는 상자
 tile.tconstruct.toolforge.name=도구 조립소
 
-tile.tconstruct.soil.grout.name=그라우트
+tile.tconstruct.soil.grout.name=회반죽
 tile.tconstruct.soil.grout.tooltip=아이 엠 그라우트!
 tile.tconstruct.soil.slimy_mud_green.name=초록색 점토
-tile.tconstruct.soil.slimy_mud_green.tooltip=느리지만 더욱 높게 도약할 수 있어!
+tile.tconstruct.soil.slimy_mud_green.tooltip=느리지만 더욱 높게
 tile.tconstruct.soil.slimy_mud_blue.name=파란색 점토
-tile.tconstruct.soil.slimy_mud_blue.tooltip=tile.tconstruct.soil.slimy_mud_green.tooltip
+tile.tconstruct.soil.slimy_mud_blue.tooltip=느리지만 더욱 높게
 tile.tconstruct.soil.slimy_mud_magma.name=마그마 점토
-tile.tconstruct.soil.slimy_mud_magma.tooltip=tile.tconstruct.soil.slimy_mud_green.tooltip
-tile.tconstruct.soil.graveyard.name=오염된 흙
-tile.tconstruct.soil.graveyard.tooltip=언데드를 회복시켜줍니다.
+tile.tconstruct.soil.slimy_mud_magma.tooltip=느리지만 더욱 높게
+tile.tconstruct.soil.graveyard.name=묘지 흙
+tile.tconstruct.soil.graveyard.tooltip=언데드의 홈그라운드
 tile.tconstruct.soil.consecrated.name=축성된 흙
-tile.tconstruct.soil.consecrated.tooltip=언데드에게 피해를 입힙니다.
+tile.tconstruct.soil.consecrated.tooltip=사악한 놈들! 저리 꺼져라! 꺼져!
 
 tile.tconstruct.deco_ground.mudbrick.name=진흙 벽돌
 tile.tconstruct.deco_ground_slab.mudbrick.name=진흙 벽돌 반 블록
@@ -71,21 +71,21 @@ tile.tconstruct.slime.blue.name=파란 슬라임 블록
 tile.tconstruct.slime.purple.name=보라 슬라임 블록
 tile.tconstruct.slime.blood.name=핏빛 슬라임 블록
 tile.tconstruct.slime.magma.name=마그마 슬라임 블록
-tile.tconstruct.slime.tooltip=피스톤과 작동됩니다!
+tile.tconstruct.slime.tooltip=피스톤과 호환됨
 
 tile.tconstruct.slime_congealed.green.name=굳은 슬라임 블록
 tile.tconstruct.slime_congealed.blue.name=굳은 파란 슬라임 블록
 tile.tconstruct.slime_congealed.purple.name=굳은 보라 슬라임 블록
 tile.tconstruct.slime_congealed.blood.name=굳은 핏빛 슬라임 블록
 tile.tconstruct.slime_congealed.magma.name=굳은 마그마 슬라임 블록
-tile.tconstruct.slime_congealed.tooltip=더 높게 도약할 수 있어!
+tile.tconstruct.slime_congealed.tooltip=더 높게 도약할 수 있어
 
 tile.tconstruct.slime_dirt.green.name=초록색 점액질 흙
 tile.tconstruct.slime_dirt.blue.name=파란색 점액질 흙
 tile.tconstruct.slime_dirt.purple.name=보라색 점액질 흙
 tile.tconstruct.slime_dirt.blood.name=핏빛 점액질 흙
 tile.tconstruct.slime_dirt.magma.name=마그마 점액질 흙
-tile.tconstruct.slime_dirt.tooltip=끈적하지만 더욱 높게 도약할 수 있어!
+tile.tconstruct.slime_dirt.tooltip=끈적끈적
 
 tile.tconstruct.slime_grass.vanilla.name=점액질 잔디
 tile.tconstruct.slime_grass.green.name=초록색 점액질 잔디
@@ -93,7 +93,7 @@ tile.tconstruct.slime_grass.blue.name=파란색 점액질 잔디
 tile.tconstruct.slime_grass.purple.name=보라색 점액질 잔디
 tile.tconstruct.slime_grass.blood.name=핏빛 점액질 잔디
 tile.tconstruct.slime_grass.magma.name=마그마 점액질 잔디
-tile.tconstruct.slime_grass.tooltip=너무 푹신해! 높게 도약할 수 있어!
+tile.tconstruct.slime_grass.tooltip=너무 푹신해!
 
 tile.tconstruct.slime_leaves.blue.name=파란색 점액질 나뭇잎
 tile.tconstruct.slime_leaves.purple.name=보라색 점액질 나뭇잎
@@ -126,7 +126,7 @@ tile.tconstruct.seared.brick_small.name=작은 그을린 벽돌
 tile.tconstruct.seared.road.name=그을린 도로 벽돌
 tile.tconstruct.seared.tile.name=그을린 타일 벽돌
 tile.tconstruct.seared.creeper.name=그을린 크리퍼 벽돌
-tile.tconstruct.seared.tooltip=제련소의 부품.
+tile.tconstruct.seared.tooltip=제련소의 부품
 
 tile.tconstruct.seared_slab.stone.name=그을린 돌 반 블록
 tile.tconstruct.seared_slab.cobble.name=그을린 조약돌 반 블록
@@ -179,10 +179,10 @@ tile.tconstruct.stone_torch.name=돌 횃불
 tile.tconstruct.stone_ladder.name=돌 사다리
 tile.tconstruct.wood_rail.name=나무 레일
 tile.tconstruct.wood_rail_trapdoor.name=나무 함정 레일
-tile.tconstruct.wood_rail_trapdoor.tooltip=깔때기가 실린 수레가 레일 아래로 아이템을 전달할 수 있음.
-tile.tconstruct.punji.name=죽창 함정
-tile.tconstruct.punji.tooltip=따끔! 벽면에 설치 가능.
-tile.tconstruct.glow.name=발광볼
+tile.tconstruct.wood_rail_trapdoor.tooltip=깔때기가 실린 수레가 레일 아래로 아이템을 전달할 수 있음
+tile.tconstruct.punji.name=죽창
+tile.tconstruct.punji.tooltip=벽면에도 설치 가능
+tile.tconstruct.glow.name=발광
 tile.tconstruct.rack.item.name=아이템 거치대
 tile.tconstruct.rack.item.tooltip=장식용 거치대
 tile.tconstruct.rack.drying.name=건조대
@@ -193,7 +193,7 @@ tile.tconstruct.slime_channel.blue.name=파란 슬라임 물길
 tile.tconstruct.slime_channel.purple.name=보라 슬라임 물길
 tile.tconstruct.slime_channel.magma.name=마그마 슬라임 물길
 tile.tconstruct.slime_channel.blood.name=핏빛 물길
-tile.tconstruct.slime_channel.tooltip=물처럼 흐르고 젤라틴같은 느낌.
+tile.tconstruct.slime_channel.tooltip=물처럼 흐르고 젤리같은 느낌
 
 tile.tconstruct.dried_clay.clay.name=건조된 점토
 tile.tconstruct.dried_clay.brick.name=건조된 벽돌
@@ -247,15 +247,15 @@ tile.tconstruct.brownstone_stairs_creeper.name=브라운스톤 크리퍼 계단
 ################
 
 # General Items
-item.tconstruct.book.name=유 and 메테리얼
-item.tconstruct.book.tooltip=Tinker의 필수\nby Skyla
+item.tconstruct.book.name=너 그리고 재료
+item.tconstruct.book.tooltip=땜장이의 필독서\nby Skyla
 
 item.tconstruct.edible.bacon.name=베이컨
 item.tconstruct.edible.slimeball_blue.name=파란 슬라임볼
 item.tconstruct.edible.slimeball_purple.name=보라 슬라임볼
 item.tconstruct.edible.slimeball_blood.name=응고된 혈액
 item.tconstruct.edible.slimeball_magma.name=마그마 슬라임볼
-item.tconstruct.edible.jerky_beef.name=소고기 육포
+item.tconstruct.edible.jerky_beef.name=쇠고기 육포
 item.tconstruct.edible.jerky_chicken.name=닭고기 육포
 item.tconstruct.edible.jerky_pork.name=베이컨 육포
 item.tconstruct.edible.jerky_mutton.name=양고기 육포
@@ -276,15 +276,15 @@ item.tconstruct.materials.mud_brick.name=진흙 벽돌
 item.tconstruct.materials.mud_brick.tooltip=크고 작은 건물들을 구축하는데 사용
 item.tconstruct.materials.dried_brick.name=건조된 벽돌
 item.tconstruct.materials.slimecrystal_green.name=슬라임 결정
-item.tconstruct.materials.slimecrystal_green.tooltip=슬라임 도구를 제작하는데 사용됨.
+item.tconstruct.materials.slimecrystal_green.tooltip=슬라임 도구의 재료
 item.tconstruct.materials.slimecrystal_blue.name=파란 슬라임 결정
 item.tconstruct.materials.slimecrystal_blue.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
 item.tconstruct.materials.slimecrystal_magma.name=마그마 슬라임 결정
 item.tconstruct.materials.slimecrystal_magma.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
-item.tconstruct.materials.expander_w.name=확장기 (Horizontal)
-item.tconstruct.materials.expander_w.tooltip=면적 확장
-item.tconstruct.materials.expander_h.name=확장기 (Vertical)
-item.tconstruct.materials.expander_h.tooltip=높이 확장
+item.tconstruct.materials.expander_w.name=수평 확장장치
+item.tconstruct.materials.expander_w.tooltip=가로로 길게
+item.tconstruct.materials.expander_h.name=수직 확장장치
+item.tconstruct.materials.expander_h.tooltip=세로로 길게
 item.tconstruct.materials.reinforcement.name=강화
 item.tconstruct.materials.reinforcement.tooltip=강화 수식어
 item.tconstruct.materials.silky_cloth.name=부드러운 천
@@ -303,7 +303,7 @@ item.tconstruct.ingots.cobalt.name=코발트 주괴
 item.tconstruct.ingots.ardite.name=아르다이트 주괴
 item.tconstruct.ingots.manyullyn.name=마뉼린 주괴
 item.tconstruct.ingots.knightslime.name=나이트슬라임 주괴
-item.tconstruct.ingots.knightslime.tooltip=말캉말캉한 금속? 놀라워!
+item.tconstruct.ingots.knightslime.tooltip=말랑말랑한 금속? 놀라워!
 item.tconstruct.ingots.pigiron.name=선철 주괴
 item.tconstruct.ingots.pigiron.tooltip=꿀꿀!
 item.tconstruct.ingots.alubrass.name=알루미늄 황동 주괴
@@ -315,8 +315,8 @@ item.tconstruct.nuggets.knightslime.name=나이트슬라임 조각
 item.tconstruct.nuggets.pigiron.name=선철 조각
 item.tconstruct.nuggets.alubrass.name=알루미늄 황동 조각
 
-item.tconstruct.pattern.blank=빈 거푸집
-item.tconstruct.pattern.name=%s 거푸집
+item.tconstruct.pattern.blank=빈 도안
+item.tconstruct.pattern.name=%s 도안
 item.tconstruct.cast.blank=빈 주형
 item.tconstruct.cast.name=%s 주형
 item.tconstruct.clay_cast.name=%s 점토 주형
@@ -326,7 +326,7 @@ item.tconstruct.cast_custom.gem.name=보석 주형
 item.tconstruct.cast_custom.plate.name=플레이트 주형
 item.tconstruct.cast_custom.gear.name=기어 주형
 
-item.tconstruct.sharpening_kit.name=연마 키트
+item.tconstruct.sharpening_kit.name=연마 킷
 item.tconstruct.sharpening_kit.tooltip=부싯돌과 함께 사용합니다\n도구의 채굴 레벨을 업그레이드합니다.
 
 item.forge.bucketFilled.blood=피 양동이
@@ -334,26 +334,26 @@ item.forge.bucketFilled.blood=피 양동이
 # Tools
 item.tconstruct.pickaxe.name=곡괭이
 item.tconstruct.shovel.name=삽
-item.tconstruct.hatchet.name=손도끼
-item.tconstruct.mattock.name=매톡
+item.tconstruct.hatchet.name=도끼
+item.tconstruct.mattock.name=야전삽
 item.tconstruct.kama.name=카마
 
-item.tconstruct.hammer.name=해머
+item.tconstruct.hammer.name=망치
 item.tconstruct.excavator.name=굴착기
-item.tconstruct.lumberaxe.name=럼버액스
-item.tconstruct.scythe.name=사이드
+item.tconstruct.lumberaxe.name=벌목도끼
+item.tconstruct.scythe.name=낫
 
 # Melee Weapons
 
 item.tconstruct.frypan.name=프라이팬
 item.tconstruct.battlesign.name=전투표지판
 item.tconstruct.dagger.name=단검
-item.tconstruct.broadsword.name=양날검
+item.tconstruct.broadsword.name=검
 item.tconstruct.longsword.name=장검
-item.tconstruct.rapier.name=래피어
+item.tconstruct.rapier.name=레이피어
 item.tconstruct.cutlass.name=커틀러스
 
-item.tconstruct.cleaver.name=식칼
+item.tconstruct.cleaver.name=클리버
 item.tconstruct.battleaxe.name=전투도끼
 
 # Ranged Weapons & Ammo
@@ -386,14 +386,14 @@ item.tconstruct.hand_guard.name=손 코등이
 item.tconstruct.full_guard.name=두꺼운 코등이
 
 # Large Tool Parts
-item.tconstruct.hammer_head.name=해머 머리
+item.tconstruct.hammer_head.name=망치 머리
 item.tconstruct.excavator_head.name=굴착기 머리
-item.tconstruct.broad_axe_head.name=큰 도끼 머리
+item.tconstruct.broad_axe_head.name=벌목도끼 머리
 item.tconstruct.large_plate.name=큰 플레이트
 item.tconstruct.tough_binding.name=두꺼운 조임쇠
 item.tconstruct.tough_tool_rod.name=두꺼운 막대
-item.tconstruct.scythe_head.name=큰낫 머리
-item.tconstruct.large_sword_blade.name=장검날
+item.tconstruct.scythe_head.name=낫 머리
+item.tconstruct.large_sword_blade.name=클리버 날
 
 # Bow & Arrow Parts
 
@@ -418,8 +418,8 @@ item.tconstruct.slime_boots.blood.name=응고된 혈액 부츠
 item.tconstruct.slime_boots.magma.name=마그마 슬라임 부츠
 item.tconstruct.slime_boots.tooltip=땅으로 추락할 때 튕겨 오릅니다
 item.tconstruct.slimesling.name=슬라임슬링
-item.tconstruct.slimesling.tooltip=땅을 주시하고, 준비하시고, 바운스!\n슬라임 부츠와 함께 사용하면 더욱 좋습니다!
-item.tconstruct.piggybackpack.name=돼지배낭
+item.tconstruct.slimesling.tooltip=준비하시고, 뛰세요!\n슬라임 부츠와 함께하면 더욱 좋습니다!
+item.tconstruct.piggybackpack.name=돼지 배낭
 item.tconstruct.piggybackpack.tooltip=우클릭으로 몹을 들어 올립니다!
 item.tconstruct.stone_stick.name=돌 막대기
 
@@ -434,7 +434,7 @@ item.tconstruct.fancy_frame.clear.name=선명한 아이템 액자
 item.tconstruct.throwball.glow.name=발광공
 item.tconstruct.throwball.glow.tooltip=맘껏 던져.
 item.tconstruct.throwball.efln.name=EFLN
-item.tconstruct.throwball.efln.tooltip=폭발! 아이템은 안전하다구
+item.tconstruct.throwball.efln.tooltip=쾅! 아이템은 안전하다고
 
 ###################
 # Mom's Spaghetti #
@@ -471,40 +471,40 @@ entity.tconstruct.blueslime.name=파란 슬라임
 #################
 
 fluid.tconstruct.stone.name=그을린 돌
-fluid.tconstruct.obsidian.name=융해된 흑요석
-fluid.tconstruct.clay.name=융해된 점토
+fluid.tconstruct.obsidian.name=녹은 흑요석
+fluid.tconstruct.clay.name=녹은 점토
 fluid.tconstruct.dirt.name=흘러내리는 흙
-fluid.tconstruct.iron.name=융해된 철
-fluid.tconstruct.gold.name=융해된 금
-fluid.tconstruct.pigiron.name=융해된 선철
-fluid.tconstruct.cobalt.name=융해된 코발트
-fluid.tconstruct.ardite.name=융해된 아르다이트
-fluid.tconstruct.manyullyn.name=융해된 마뉼린
-fluid.tconstruct.knightslime.name=융해된 나이트슬라임
-fluid.tconstruct.emerald.name=융해된 에메랄드
-fluid.tconstruct.glass.name=융해된 유리
+fluid.tconstruct.iron.name=녹은 철
+fluid.tconstruct.gold.name=녹은 금
+fluid.tconstruct.pigiron.name=녹은 선철
+fluid.tconstruct.cobalt.name=녹은 코발트
+fluid.tconstruct.ardite.name=녹은 아르다이트
+fluid.tconstruct.manyullyn.name=녹은 마뉼린
+fluid.tconstruct.knightslime.name=녹은 나이트슬라임
+fluid.tconstruct.emerald.name=녹은 에메랄드
+fluid.tconstruct.glass.name=녹은 유리
 fluid.tconstruct.blood.name=피
 fluid.tconstruct.milk.name=우유
 fluid.tconstruct.blueslime.name=파란 슬라임 액체
 fluid.tconstruct.purpleslime.name=보라 슬라임 액체
-fluid.tconstruct.brass.name=융해된 황동
-fluid.tconstruct.copper.name=융해된 구리
-fluid.tconstruct.tin.name=융해된 주석
-fluid.tconstruct.bronze.name=융해된 청동
-fluid.tconstruct.zinc.name=융해된 아연
-fluid.tconstruct.lead.name=융해된 납
-fluid.tconstruct.nickel.name=융해된 니켈
-fluid.tconstruct.silver.name=융해된 은
-fluid.tconstruct.electrum.name=융해된 합금
-fluid.tconstruct.steel.name=융해된 강철
-fluid.tconstruct.aluminum.name=융해된 알루미늄
-fluid.tconstruct.alubrass.name=융해된 알루미늄 황동
+fluid.tconstruct.brass.name=녹은 황동
+fluid.tconstruct.copper.name=녹은 구리
+fluid.tconstruct.tin.name=녹은 주석
+fluid.tconstruct.bronze.name=녹은 청동
+fluid.tconstruct.zinc.name=녹은 아연
+fluid.tconstruct.lead.name=녹은 납
+fluid.tconstruct.nickel.name=녹은 니켈
+fluid.tconstruct.silver.name=녹은 은
+fluid.tconstruct.electrum.name=녹은 호박금
+fluid.tconstruct.steel.name=녹은 강철
+fluid.tconstruct.aluminum.name=녹은 알루미늄
+fluid.tconstruct.alubrass.name=녹은 알루미늄 황동
 
 #################
 #    Potions    #
 #################
 
-potion.carry=돼지배낭
+potion.carry=돼지 배낭
 
 #################
 #   Materials   #
@@ -519,7 +519,7 @@ material.stone.name=돌
 material.flint.name=부싯돌
 material.cactus.name=선인장
 material.obsidian.name=흑요석
-material.prismarine.name=프리즈머린
+material.prismarine.name=프리즈마린
 material.netherrack.name=네더랙
 material.endstone.name=엔드 돌
 material.bone.name=뼈
@@ -540,7 +540,7 @@ material.copper.name=구리
 material.bronze.name=청동
 material.lead.name=납
 material.silver.name=은
-material.electrum.name=합금
+material.electrum.name=호박금
 material.steel.name=강철
 
 material.string.name=실
@@ -565,66 +565,66 @@ material.slimeleaf_purple.name=보라 슬라임 나뭇잎
 #############
 stat.head.name=머리
 stat.head.durability.name=내구도
-stat.head.durability.desc=도구의 기본 내구도 값.
+stat.head.durability.desc=도구의 기본 내구도 값
 stat.head.miningspeed.name=채굴 속도
-stat.head.miningspeed.desc=블록을 캐는 속도 값.\n다른 부품에 영향을 받을 수 있음.
+stat.head.miningspeed.desc=블록을 캐는 속도 값.\n다른 부품에 영향을 받을 수 있음
 stat.head.harvestlevel.name=채굴 단계
 stat.head.harvestlevel.desc=채광할 수 있는 광물 단계를 나타냄.
 stat.head.attack.name=공격력
-stat.head.attack.desc=도구의 기본 공격력 값.\n도구에 사용된 다른 구성 요소에 따라 최종 공격력이 달라집니다.
+stat.head.attack.desc=도구의 기본 공격력 값.\n도구에 사용된 재료와 구성요소에 따라 최종 공격력이 결정됩니다
 
 stat.handle.name=손잡이
 stat.handle.modifier.name=수식어
-stat.handle.modifier.desc=도구의 총 내구도에 이 값을 계산합니다.
+stat.handle.modifier.desc=도구의 내구도에 이 값을 곱합니다
 stat.handle.durability.name=stat.head.durability.name
-stat.handle.durability.desc=도구 내구도는 이 값만큼 변경됩니다.
+stat.handle.durability.desc=도구 내구도는 이 값만큼 변경됩니다
 
 stat.extra.name=부속품
 stat.extra.durability.name=stat.head.durability.name
-stat.extra.durability.desc=도구에 사용할 경우 내구성에 기여하는 값.
+stat.extra.durability.desc=도구에 사용할 경우 내구성에 기여하는 값
 
 stat.mattock.axelevel.name=도끼 레벨
 stat.mattock.shovellevel.name=삽 레벨
 
 stat.bow.name=활
-stat.bow.drawspeed.name=완력
-stat.bow.drawspeed.desc=활시위를 당기는데 걸리는 시간.
+stat.bow.drawspeed.name=장전 속도
+stat.bow.drawspeed.desc=활시위를 당기는데 걸리는 시간
 stat.bow.range.name=사거리
-stat.bow.range.desc=화살이 추진될 수 있는 거리.
+stat.bow.range.desc=화살이 추진될 수 있는 거리
 stat.bow.damage.name=추가 데미지
 stat.bow.damage.desc=공격의 추가 데미지.\n화살 데미지.
 
-stat.bowstring.name=활시위
+stat.bowstring.name=시위
 stat.bowstring.modifier.name=수식어
-stat.bowstring.modifier.desc=도구의 내구도에 이 값을 곱합니다.
+stat.bowstring.modifier.desc=도구의 내구도에 이 값을 곱합니다
 
 stat.shaft.name=화살대
 stat.shaft.modifier.name=수식어
-stat.shaft.modifier.desc=각 화살은 서브 코어가 필요합니다.\n도구의 총 화살 개수에 이 값을 곱합니다.
+stat.shaft.modifier.desc=각 화살은 서브 코어가 필요합니다\n도구의 총 화살 개수에 이 값을 곱합니다
 stat.shaft.ammo.name=추가 화살
-stat.shaft.ammo.desc=추가할 수 있는 화살 개수를 결정합니다.\n이 값만큼 화살 개수가 늘어납니다.
+stat.shaft.ammo.desc=추가할 수 있는 화살 개수를 결정합니다\n이 값만큼 화살 개수가 늘어납니다
 
 stat.fletching.name=화살깃
 stat.fletching.accuracy.name=정확도
-stat.fletching.accuracy.desc=화살의 비행 안정성을 결정합니다.\n화살의 전체적인 정확도에 영향을 미칩니다.
+stat.fletching.accuracy.desc=화살의 비행 안정성을 결정합니다\n화살의 정확도에 영향을 미칩니다
 stat.fletching.modifier.name=수식어
-stat.fletching.modifier.desc=제작할 수 있는 화살 개수를 결정합니다.\n화살 개수에 이 값을 곱합니다.
+stat.fletching.modifier.desc=제작할 수 있는 화살 개수를 결정합니다\n화살 개수에 이 값을 곱합니다
 
 stat.projectile.name=화살 개수
-stat.projectile.ammo.name=탄수
+stat.projectile.ammo.name=장탄수
 
 ##############
 #   Traits   #
 ##############
 
 # traits are also modifiers, they use the same prefix so they don't have to be localized twice
-modifier.alien.name=에일리언
+modifier.alien.name=외계의
 modifier.alien.desc=§oThe stats feel off...§r\n..as if they're changing! Maybe time will tell?
 modifier.aquadynamic.name=아쿠아다이나믹
 modifier.aquadynamic.desc=§oIt's getting wet in here!§r\nThe tool is unhindered by water and loves rainy evenings.
-modifier.aridiculous.name=아리디큘러스
+modifier.aridiculous.name=바싹마른
 modifier.aridiculous.desc=§oTurn up the heat!§r\nThe tool works better in hotter environments.
-modifier.autosmelt.name=자동 제련
+modifier.autosmelt.name=자동제련
 modifier.autosmelt.desc=§oA furnace in tool form!§r\nHarvested blocks get smelted.
 modifier.baconlicious.name=맛있는 베이컨
 modifier.baconlicious.desc=§oBACON!§r\nHitting things sometimes gives bacon.
@@ -632,22 +632,22 @@ modifier.cheap.name=저렴함
 modifier.cheap.desc=§oMore bang for your buck!§r\nIncreases durability gained when repairing the tool.
 modifier.cheapskate.name=구두쇠
 modifier.cheapskate.desc=§oCheeky!§r\nStone is bad. Your tool has less durability.
-modifier.coldblooded.name=냉혈
+modifier.coldblooded.name=냉혈한
 modifier.coldblooded.desc=§oSavage!§r\nDeal increased damage to targets at full health.
-modifier.crude.name=크루드
+modifier.crude.name=거친
 modifier.crude.desc=§oArmor is for cowards!§r\nBonus damage against unarmored targets.
 modifier.crude.extra=Vs Unarmored: +%s
-modifier.crumbling.name=분해
+modifier.crumbling.name=부스러짐
 modifier.crumbling.desc=§oCrumble rumble rumble§r\nThe tool breaks soft blocks that don't need a tool faster.
 modifier.dense.name=밀집
 modifier.dense.desc=§oHard...er.§r\nYour tool lasts longer when it has less durability.
-modifier.duritos.name=내구충
+modifier.duritos.name=튼튼함
 modifier.duritos.desc=§oDoesn't taste as good as it sounds.§r\nYour tool lasts longer ...most of the time.
-modifier.ecological.name=생태학
+modifier.ecological.name=친환경
 modifier.ecological.desc=§oGreen Power!§r\nRenewable resources are so good, they regenerate by themselves!
 modifier.enderference.name=엔더퍼런스
 modifier.enderference.desc=§oAnti-Teleport!§r\nPrevents Endermen from teleporting around for a short time.
-modifier.established.name=존경심
+modifier.established.name=잘 알려진
 modifier.established.desc=§oFree bonus XP!§r\nYou gain additional XP.
 modifier.flammable.name=가연성
 modifier.flammable.desc=§oCan't have enough fire!§r\nBlocking blocks fire damage and getting hit sets the attacker on fire.
@@ -658,12 +658,12 @@ modifier.heavy.desc=§oDo you even lift?§r\nPrevents knockback.
 modifier.hellish.name=섬뜩함
 modifier.hellish.desc=§oFrom down below!§r\nDeal bonus damage to non-Nether mobs.
 modifier.hellish.extra=Vs Non-Nether: +%s
-modifier.holy.name=빛
+modifier.holy.name=신성함
 modifier.holy.desc=§oRadiant!§r\nDeal bonus damage to undead enemies.
 modifier.holy.extra=modifier.smite.extra
-modifier.insatiable.name=욕망
+modifier.insatiable.name=탐욕적인
 modifier.insatiable.desc=§oDevour!§r\nDuring combat you deal more and more damage but also consume more and more durability.
-modifier.jagged.name=뾰족니
+modifier.jagged.name=뾰족뾰족
 modifier.jagged.desc=§oMoves like jagged!§r\nEvery point durability lost increases damage.
 modifier.jagged.extra=Jagged Damage: +%s
 modifier.lightweight.name=가벼움
@@ -679,13 +679,13 @@ modifier.poisonous.name=독성
 modifier.poisonous.desc=§oNot exactly lead-free!§r\nPoisons enemies on hit.
 modifier.prickly.name=따끔함
 modifier.prickly.desc=§oOuch!§r\nNobody is safe from those thorns, they always hurt.
-modifier.sharp.name=날카로움
+modifier.sharp.name=예리함
 modifier.sharp.desc=§oCan even cut words!§r\nHitting an enemy leaves them bleeding for a short time.
-modifier.shocking.name=충격
+modifier.shocking.name=대전된
 modifier.shocking.desc=§oBzzzzzt!§r\nRunning around, breaking blocks or hitting things charges your tool. Hitting an enemy discharges it, dealing damage and providing a speed boost. Mining a block discharges it, giving a mining speed boost.
 modifier.slimey.name=물컹함
 modifier.slimey.desc=§oEww, gooey!§r\nIt'll wash off.
-modifier.spiky.name=아빠의 수염
+modifier.spiky.name=울퉁불퉁
 modifier.spiky.desc=§o200% cooler with spikes!§r\nBlocking and getting hurt deals damage to the attacker.
 modifier.splintering.name=뼈조각
 modifier.splintering.desc=§oA souvenir for your enemies!§r\nHit them more to deal more damage.
@@ -693,19 +693,19 @@ modifier.splinters.name=파편
 modifier.splinters.desc=§oOuch!§r\nBe careful not to catch a splinter!
 modifier.squeaky.name=푹신함
 modifier.squeaky.desc=§oCute.§r\nYour tool is so soft and squeaky it gained silktouch, but deals no damage.
-modifier.stiff.name=까탈스러움
+modifier.stiff.name=딱딱한
 modifier.stiff.desc=§oUnmoving!§r\nBlocking reduces the damage taken even more.
 modifier.stonebound.name=돌같음
 modifier.stonebound.desc=§oYour tool absolutely loves stone!§r\nThe tool mines faster as it wears out, but does less damage.
 modifier.stonebound.extra=Stonebound Speed: +%s
-modifier.superheat.name=슈퍼히트
+modifier.superheat.name=과열
 modifier.superheat.desc=§oTurn up the heat!§r\nDeal bonus damage to enemies on fire.
 modifier.superheat.extra=Vs Burning: +%s
-modifier.unnatural.name=부자연스러움
+modifier.unnatural.name=부조화
 modifier.unnatural.desc=§oAbomination!§r\nThe tool mines faster the higher its mining level is above the required one.
 modifier.tasty.name=꿀맛
 modifier.tasty.desc=§oOm Nom Nom§r\nSmells so good.. You'd rather eat your tool than starve.
-modifier.writable.name=주문서
+modifier.writable.name=여백
 modifier.writable.desc=§oIntellectual!§r\nMore words. More Modifiers. It's only logical!
 
 modifier.breakable.name=물렁함
@@ -723,7 +723,7 @@ modifier.splitting.desc=§oTwo for one!§r\nThe sudden acceleration of releasing
 #   Modifiers   #
 #################
 
-modifier.bane_of_arthopods.name=거미사냥꾼
+modifier.bane_of_arthopods.name=살충
 modifier.bane_of_arthopods.desc=§oAnti-Spider!§r\nDeal massive damage to spiders.
 modifier.bane_of_arthopods.extra=Vs Spiders: +%s
 modifier.beheading.name=참수
@@ -737,7 +737,7 @@ modifier.emerald.name=에메랄드
 modifier.emerald.desc=§oFancy!§r\nIncreases durability depending on base stats!
 modifier.extratrait.name=부조
 modifier.extratrait.desc=§oLike magic, but better!§r\nEmbossed with the power of %s, obtaining some of its traits.
-modifier.fiery.name=파이어리
+modifier.fiery.name=타오르는
 modifier.fiery.desc=§oSo hot right now!§r\nBonus fire damage, sets your enemies on fire.
 modifier.fiery.extra=Fire Damage: +%s
 modifier.fiery.extra2=Burn Duration: %ss
@@ -751,20 +751,20 @@ modifier.harvestwidth.name=너비++
 modifier.harvestwidth.desc=§oExpand!§r\nIncreases the width of the area affected by your tool. The effect is tool specific.
 modifier.harvestheight.name=높이++
 modifier.harvestheight.desc=§oExpand!§r\nIncreases the height of the area affected by your tool. The effect is tool specific.
-modifier.haste.name=헤이스트
-modifier.haste.name2=헤이스터
-modifier.haste.name3=헤이티스트
-modifier.haste.name4=헤이티스터
-modifier.haste.name5=헤이티스티스트
+modifier.haste.name=효율 I
+modifier.haste.name2=효율 II
+modifier.haste.name3=효율 III
+modifier.haste.name4=효율 IV
+modifier.haste.name5=효율 V
 modifier.haste.desc=§oWeeeeeee!§r\nThe redstone impulse when using your tool motivates your tool to move even faster.
 modifier.haste.extra=Bonus-Speed: +%s
-modifier.knockback.name=넉백
+modifier.knockback.name=밀치기
 modifier.knockback.desc=§oHomerun!§r\nTeach things how to fly - the cool way.
 modifier.luck.name=행운
 modifier.luck.desc=§oShiny!§r\nYou're getting all the nice things. And a lot of them.
 modifier.mending_moss.name=수선된 이끼
 modifier.mending_moss.desc=§oIt's alive!§r\nPicked up XP is stored in the tool. It will slowly use up the XP to regenerate durability.
-modifier.mending_moss.extra=Stored XP: %d
+modifier.mending_moss.extra=저장된 경험치: %d
 modifier.necrotic.name=네크로틱
 modifier.necrotic.desc=§oI feel so Alive!!§r\nHitting enemies returns health to you depending on damage dealt.
 modifier.necrotic.extra=Lifesteal: +%s
@@ -772,11 +772,11 @@ modifier.reinforced.name=강화
 modifier.reinforced.unbreakable=강인함
 modifier.reinforced.desc=§oSo strong!§r\nEach level adds a %s chance to not use durability.
 modifier.reinforced.extra=강화: %s
-modifier.sharpness.name=샤프
-modifier.sharpness.name2=샤퍼
-modifier.sharpness.name3=샤피스트
-modifier.sharpness.name4=샤피스터
-modifier.sharpness.name5=샤피스티스트
+modifier.sharpness.name=날카로움 I
+modifier.sharpness.name2=날카로움 II
+modifier.sharpness.name3=날카로움 III
+modifier.sharpness.name4=날카로움 IV
+modifier.sharpness.name5=날카로움 V
 modifier.sharpness.desc=§oOuch!§r\nSo sharp, it hurts to look at it.
 modifier.shulking.name=셜킹
 modifier.shulking.desc=§oUp up and away!§r\nHitting foes causes them to float away.
@@ -794,28 +794,28 @@ modifier.webbed.desc=§oYuck!§r\nEntangle your foes in cobwebs, slowing them.
 #################
 #   Tool Info   #
 #################
-item.tconstruct.pickaxe.desc=곡괭이(Pickaxe)는 암석, 광석 블록들을 파괴하는데 효과적인 도구입니다.\nIt breaks blocks, OK?
-item.tconstruct.shovel.desc=삽(Shovel)은 흙, 모래, 자갈, 눈 같은 블록들을 파괴하는데 효과적인 도구입니다.\nJust don't dig your own grave!
-item.tconstruct.hatchet.desc=손도끼(Hatchet)는 나무와 나뭇잎을 파괴하는데 뛰어난 성능을 냅니다.\n무기로 사용하기에 적절한 성능을 보입니다.\nChop chop!
-item.tconstruct.mattock.desc=매톡(Mattock)은 다용도 기능을 가진 농기구입니다.\n매톡은 나무와 흙, 식물들을 파괴하는데 적합하고 흙을 개간할 수 있습니다.\n우클릭: 땅 개간
-item.tconstruct.kama.desc=카마(Kama)는 정밀한 수확 도구입니다.\n양털을 깎아낼 수 있고 농작물을 빠르게 수확하고 잔디나 나뭇잎 같은 식물들을 채집할 수 있습니다.\n우클릭: 농작물 수확
-item.tconstruct.broadsword.desc=양날검(Broadsword)은 적에게 준수한 피해를 줄 수 있는 가장 보편적인 무기입니다.\nAlso good against cobwebs!
-item.tconstruct.longsword.desc=장검(Longsword)는 매우 공격적인 무기입니다.\n장검은 기를 모아 약간의 거리를 돌진합니다.\n우클릭: 돌진
-item.tconstruct.rapier.desc=래피어는(Rapier)는 빠르게 적을 공격하는 무기입니다.\n우클릭: 백스텝
-item.tconstruct.frypan.desc=프라이팬(Frying Pan)은 강력한 공격으로 적을 멀리 날려보내는 무기입니다.\nIt also goes BOING!\n우클릭: 강타!
-item.tconstruct.battlesign.desc=전투표지판(Battlesign)은 뛰어난 수비 무기입니다.\nAn advance in weapon technology worthy of Zombie Pigmen everywhere.\n우클릭시 전방의 공격들을 막아내고 반사시킵니다.
-item.tconstruct.hammer.desc=해머(Hammer)는 암석을 광범위로 파괴할 수 있는 채굴 도구입니다.\n언데드 몬스터에게 추가 피해를 입힙니다.
-item.tconstruct.lumberaxe.desc=럼버액스(Lumber axe)는 뛰어난 성능의 벌목 도구입니다.\n럼버액스는 크고작은 나무들을 단번에 벌목할 수 있습니다.\nTimber!
-item.tconstruct.excavator.desc=굴착기(Excavator)는 흙을 매우 빠르게 파괴할 수 있는 도구입니다.\n모래나 눈 등등을 광범위하게 파냅니다.\nTerraforming!
-item.tconstruct.cleaver.desc=식칼(Cleaver)은 공격력이 매우 높지만 속도가 느린 무기입니다.\n식칼은 몬스터가 머리를 드랍할 확률을 높여줍니다.\nSlow, requires two hands!
-item.tconstruct.battleaxe.desc=전투도끼(Battleaxe)는 매우 강력한 무기입니다.\n전투도끼는 적들을 날려버리고 작은 나무를 벨 수 있습니다..\n우클릭: 버서커
-item.tconstruct.scythe.desc=사이드(Scythe)는 범위가 넓은 수확 도구입니다.\n사이드는 잔디와 같은 식물을 빠르게 제거하고 농작물을 수확합니다.\nHas an AOE Attack.\n우클릭: 농작물 수확
-item.tconstruct.shuriken.desc=수리검(Shuriken)은 빠르게 날아가는 원거리 무기입니다.\n여러번 던질 수 있지만 데미지가 낮습니다.\n왼손으로 던질 수 있습니다.
-item.tconstruct.shortbow.desc=단궁(Shortbow)은 민첩한 원거리 무기입니다.\n단궁은 활시위를 빠르게 당기고 민첩하게 움직일 수 있습니다.\nUses Tinkers' Arrows.
-item.tconstruct.longbow.desc=장궁(Longbow)은 긴 사거리를 가진 원거리 무기입니다.\n장궁은 적에게 강력한 피해를 입히지만 단궁보단 움직임이 느립니다.\nUses Tinkers' Arrows.
-item.tconstruct.arrow.desc=Tinker's 활(Bow)에 사용되는 화살(Arrow)입니다.\n화살의 내구도만큼 사용할 수 있으며 조립대에서 강화할 수 있습니다.
-item.tconstruct.crossbow.desc=석궁(Crossbow)은 강력한 공격력을 가진 원거리 무기입니다.\n우클릭을 유지해 미리 장전을 하고 언제든지 발사할 수 있습니다.\nUses Tinkers' Bolts.
-item.tconstruct.bolt.desc=Tinker's 석궁(Crossbow)에 사용되는 볼트(Bolt)입니다.\n볼트의 내구도만큼 사용할 수 있으며 조립대에서 강화할 수 있습니다.\n갑옷을 입은 적에게 약간의 관통 데미지가 있습니다.
+item.tconstruct.pickaxe.desc=곡괭이는 암석, 광석 블록들을 파괴하는데 효과적인 도구입니다.\nIt breaks blocks, OK?
+item.tconstruct.shovel.desc=삽은 흙, 모래, 자갈, 눈 같은 블록들을 파괴하는데 효과적인 도구입니다.\nJust don't dig your own grave!
+item.tconstruct.hatchet.desc=도끼는 나무와 나뭇잎을 파괴하는데 뛰어난 성능을 냅니다.\n무기로 사용하기에 적절한 성능을 보입니다.\nChop chop!
+item.tconstruct.mattock.desc=야전삽은 다용도 기능을 가진 농기구입니다.\n야전삽은 나무와 흙, 식물들을 파괴하는데 적합하고 흙을 개간할 수 있습니다.\n우클릭: 땅 개간
+item.tconstruct.kama.desc=카마는 정밀한 수확 도구입니다.\n양털을 깎아낼 수 있고 농작물을 빠르게 수확하고 잔디나 나뭇잎 같은 식물들을 채집할 수 있습니다.\n우클릭: 농작물 수확
+item.tconstruct.broadsword.desc=검은 적에게 준수한 피해를 줄 수 있는 가장 보편적인 무기입니다.\nAlso good against cobwebs!
+item.tconstruct.longsword.desc=장검은 매우 공격적인 무기입니다.\n장검은 기를 모아 약간의 거리를 돌진합니다.\n우클릭: 돌진
+item.tconstruct.rapier.desc=레이피어는 빠르게 적을 공격하는 무기입니다.\n우클릭: 백스텝
+item.tconstruct.frypan.desc=프라이팬은 강력한 공격으로 적을 멀리 날려보내는 무기입니다.\nIt also goes BOING!\n우클릭: 강타!
+item.tconstruct.battlesign.desc=전투표지판은 뛰어난 수비 무기입니다.\nAn advance in weapon technology worthy of Zombie Pigmen everywhere.\n우클릭시 전방의 공격들을 막아내고 반사시킵니다.
+item.tconstruct.hammer.desc=망치는 암석을 광범위로 파괴할 수 있는 채굴 도구입니다.\n언데드 몬스터에게 추가 피해를 입힙니다.
+item.tconstruct.lumberaxe.desc=럼버액스는 뛰어난 성능의 벌목 도구입니다.\n럼버액스는 크고작은 나무들을 단번에 벌목할 수 있습니다.\nTimber!
+item.tconstruct.excavator.desc=굴착기는 흙을 매우 빠르게 파괴할 수 있는 도구입니다.\n모래나 눈 등등을 광범위하게 파냅니다.\nTerraforming!
+item.tconstruct.cleaver.desc=클리버는 공격력이 매우 높지만 속도가 느린 무기입니다.\n클리버는 몬스터가 머리를 드랍할 확률을 높여줍니다.\nSlow, requires two hands!
+item.tconstruct.battleaxe.desc=전투도끼는 매우 강력한 무기입니다.\n전투도끼는 적들을 날려버리고 작은 나무를 벨 수 있습니다..\n우클릭: 버서커
+item.tconstruct.scythe.desc=낫은 범위가 넓은 수확 도구입니다.\n낫은 잔디와 같은 식물을 빠르게 제거하고 농작물을 수확합니다.\nHas an AOE Attack.\n우클릭: 농작물 수확
+item.tconstruct.shuriken.desc=수리검은 빠르게 날아가는 원거리 무기입니다.\n여러번 던질 수 있지만 데미지가 낮습니다.\n왼손으로 던질 수 있습니다.
+item.tconstruct.shortbow.desc=단궁은 민첩한 원거리 무기입니다.\n단궁은 활시위를 빠르게 당기고 민첩하게 움직일 수 있습니다.\nUses Tinkers' Arrows.
+item.tconstruct.longbow.desc=장궁은 긴 사거리를 가진 원거리 무기입니다.\n장궁은 적에게 강력한 피해를 입히지만 단궁보단 움직임이 느립니다.\nUses Tinkers' Arrows.
+item.tconstruct.arrow.desc=활에 사용되는 화살입니다.\n화살의 내구도만큼 사용할 수 있으며 조립대에서 강화할 수 있습니다.
+item.tconstruct.crossbow.desc=석궁은 강력한 공격력을 가진 원거리 무기입니다.\n우클릭을 유지해 미리 장전을 하고 언제든지 발사할 수 있습니다.\nUses Tinkers' Bolts.
+item.tconstruct.bolt.desc=석궁에 사용되는 볼트입니다.\n볼트의 내구도만큼 사용할 수 있으며 조립대에서 강화할 수 있습니다.\n갑옷을 입은 적에게 약간의 관통 데미지가 있습니다.
 
 
 ################
@@ -835,7 +835,7 @@ tooltip.part.missing_info=부품 데이터가 없습니다
 tooltip.pattern.cost=재료 비용: %d
 
 tooltip.chest.has_items=보관중인 아이템 %d
-tooltip.patternchest.holds_patterns=보관중인 거푸집 %d
+tooltip.patternchest.holds_patterns=보관중인 도안 %d
 tooltip.patternchest.holds_casts=보관중인 주형 %d
 
 tooltip.tank.fluid=%s
@@ -890,7 +890,7 @@ gui.error.no_modifier_for_item=수식어 %s 을(를) 찾을 수 없습니다.
 gui.error.already_has_extratrait=그 도구는 이미 "부조" 특성이 있습니다.
 gui.error.incompatible_modifiers=수식어 %s 와 %s 은(는) 같이 적용될 수 없습니다.
 gui.error.incompatible_trait=수식어 %s 특성 %s 은(는) 같이 적용될 수 없습니다. 
-gui.error.incompatible_enchantments=수식어 %s 인첸트 %s 은(는) 같이 적용될 수 없습니다.
+gui.error.incompatible_enchantments=수식어 %s 마법부여 %s 은(는) 같이 적용될 수 없습니다.
 gui.error.no_rename=이 도구의 이름을 바꿀 수 없습니다.
 
 ################
@@ -898,21 +898,21 @@ gui.error.no_rename=이 도구의 이름을 바꿀 수 없습니다.
 ################
 
 # General things used in multiple GUIs
-gui.general.hover=자세한 내용을 보려면 항목 위로 마우스를 이동하십시오.
+gui.general.hover=자세한 내용은 항목 위에 커서를 올려서 확인하세요
 
 # Creative Tabs
-itemGroup.TinkerGeneral=Tinkers' 기본 아이템
-itemGroup.TinkerTools=Tinkers' 도구
-itemGroup.TinkerToolParts=Tinkers' 부품
-itemGroup.TinkerSmeltery=Tinkers' 제련소
-itemGroup.TinkerWorld=Tinkers' 월드
-itemGroup.TinkerGadgets=Tinkers' 장치
+itemGroup.TinkerGeneral=기본 아이템
+itemGroup.TinkerTools=도구
+itemGroup.TinkerToolParts=부품
+itemGroup.TinkerSmeltery=제련소
+itemGroup.TinkerWorld=월드
+itemGroup.TinkerGadgets=장치
 
 # Crafting Station
 gui.craftingstation.name=제작대
 
 # Stencil Table
-gui.stenciltable.name=거푸집 제작대
+gui.stenciltable.name=도안 제작대
 
 # PartBuilder
 gui.partbuilder.name=부품 제작대
@@ -930,7 +930,7 @@ gui.toolstation.info=도구를 수리하거나 수정할 수 있습니다. 시�
 gui.toolstation.noTraits=None :[
 
 # Pattern Chest
-gui.patternchest.name=거푸집 상자
+gui.patternchest.name=도안 상자
 gui.castchest.name=주형 상자
 
 # Part Chest
@@ -938,14 +938,14 @@ gui.partchest.name=부품 상자
 
 # Smeltery
 gui.smeltery.name=제련소
-gui.smeltery.progress.no_recipe=아이템을 융해할 수 없음
-gui.smeltery.progress.no_heat=열이 부족합니다
+gui.smeltery.progress.no_recipe=아이템을 녹일 수 없습니다
+gui.smeltery.progress.no_heat=온도가 너무 낮습니다
 gui.smeltery.progress.no_space=제련소에 여유 공간이 부족합니다
 gui.smeltery.fuel=연료
 gui.smeltery.fuel.empty=연료를 찾을 수 없음
 gui.smeltery.fuel.invalid=§4%s (은)는 유효한 제련소 연료가 아닙니다!
 gui.smeltery.fuel.heat=온도: %d
-gui.smeltery.capacity=수용량:
+gui.smeltery.capacity=용량:
 gui.smeltery.capacity_available=여유공간:
 gui.smeltery.capacity_used=사용공간:
 gui.smeltery.liquid.kilobucket=kb
