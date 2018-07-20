@@ -173,7 +173,7 @@ tile.tconstruct.seared_glass.glass.name=그을린 유리
 tile.tconstruct.seared_glass.glass.tooltip=제련소의 부품. 용액을 보존시킬 수 없음.
 
 tile.tconstruct.seared_furnace_controller.name=그을린 화로 제어 장치
-tile.tconstruct.tinker_tank_controller.name=Tinker 탱크 제어 장치
+tile.tconstruct.tinker_tank_controller.name=팅커 탱크 제어 장치
 
 tile.tconstruct.stone_torch.name=돌 횃불
 tile.tconstruct.stone_ladder.name=돌 사다리
@@ -247,8 +247,8 @@ tile.tconstruct.brownstone_stairs_creeper.name=브라운스톤 크리퍼 계단
 ################
 
 # General Items
-item.tconstruct.book.name=유 and 메테리얼
-item.tconstruct.book.tooltip=Tinker의 필수\nby Skyla
+item.tconstruct.book.name=당신과 물질
+item.tconstruct.book.tooltip=팅커스 필수노트\nSkyla 지음
 
 item.tconstruct.edible.bacon.name=베이컨
 item.tconstruct.edible.slimeball_blue.name=파란 슬라임볼
@@ -299,14 +299,14 @@ item.tconstruct.materials.mending_moss.tooltip=수선된 이끼 수식어
 item.tconstruct.materials.creative_modifier.name=크리에이티브 수식어
 item.tconstruct.materials.creative_modifier.tooltip=수식어 추가
 
-item.tconstruct.ingots.cobalt.name=코발트 주괴
-item.tconstruct.ingots.ardite.name=아르다이트 주괴
-item.tconstruct.ingots.manyullyn.name=마뉼린 주괴
-item.tconstruct.ingots.knightslime.name=나이트슬라임 주괴
+item.tconstruct.ingots.cobalt.name=코발트괴
+item.tconstruct.ingots.ardite.name=아르다이트괴
+item.tconstruct.ingots.manyullyn.name=마뉼린괴
+item.tconstruct.ingots.knightslime.name=나이트슬라임괴
 item.tconstruct.ingots.knightslime.tooltip=말캉말캉한 금속? 놀라워!
-item.tconstruct.ingots.pigiron.name=선철 주괴
+item.tconstruct.ingots.pigiron.name=선철괴
 item.tconstruct.ingots.pigiron.tooltip=꿀꿀!
-item.tconstruct.ingots.alubrass.name=알루미늄 황동 주괴
+item.tconstruct.ingots.alubrass.name=알루미늄 황동괴
 
 item.tconstruct.nuggets.cobalt.name=코발트 조각
 item.tconstruct.nuggets.ardite.name=아르다이트 조각
@@ -794,28 +794,28 @@ modifier.webbed.desc=§oYuck!§r\nEntangle your foes in cobwebs, slowing them.
 #################
 #   Tool Info   #
 #################
-item.tconstruct.pickaxe.desc=곡괭이(Pickaxe)는 암석, 광석 블록들을 파괴하는데 효과적인 도구입니다.\nIt breaks blocks, OK?
-item.tconstruct.shovel.desc=삽(Shovel)은 흙, 모래, 자갈, 눈 같은 블록들을 파괴하는데 효과적인 도구입니다.\nJust don't dig your own grave!
-item.tconstruct.hatchet.desc=손도끼(Hatchet)는 나무와 나뭇잎을 파괴하는데 뛰어난 성능을 냅니다.\n무기로 사용하기에 적절한 성능을 보입니다.\nChop chop!
-item.tconstruct.mattock.desc=매톡(Mattock)은 다용도 기능을 가진 농기구입니다.\n매톡은 나무와 흙, 식물들을 파괴하는데 적합하고 흙을 개간할 수 있습니다.\n우클릭: 땅 개간
-item.tconstruct.kama.desc=카마(Kama)는 정밀한 수확 도구입니다.\n양털을 깎아낼 수 있고 농작물을 빠르게 수확하고 잔디나 나뭇잎 같은 식물들을 채집할 수 있습니다.\n우클릭: 농작물 수확
-item.tconstruct.broadsword.desc=양날검(Broadsword)은 적에게 준수한 피해를 줄 수 있는 가장 보편적인 무기입니다.\nAlso good against cobwebs!
-item.tconstruct.longsword.desc=장검(Longsword)는 매우 공격적인 무기입니다.\n장검은 기를 모아 약간의 거리를 돌진합니다.\n우클릭: 돌진
-item.tconstruct.rapier.desc=래피어는(Rapier)는 빠르게 적을 공격하는 무기입니다.\n우클릭: 백스텝
-item.tconstruct.frypan.desc=프라이팬(Frying Pan)은 강력한 공격으로 적을 멀리 날려보내는 무기입니다.\nIt also goes BOING!\n우클릭: 강타!
-item.tconstruct.battlesign.desc=전투표지판(Battlesign)은 뛰어난 수비 무기입니다.\nAn advance in weapon technology worthy of Zombie Pigmen everywhere.\n우클릭시 전방의 공격들을 막아내고 반사시킵니다.
-item.tconstruct.hammer.desc=해머(Hammer)는 암석을 광범위로 파괴할 수 있는 채굴 도구입니다.\n언데드 몬스터에게 추가 피해를 입힙니다.
-item.tconstruct.lumberaxe.desc=럼버액스(Lumber axe)는 뛰어난 성능의 벌목 도구입니다.\n럼버액스는 크고작은 나무들을 단번에 벌목할 수 있습니다.\nTimber!
-item.tconstruct.excavator.desc=굴착기(Excavator)는 흙을 매우 빠르게 파괴할 수 있는 도구입니다.\n모래나 눈 등등을 광범위하게 파냅니다.\nTerraforming!
-item.tconstruct.cleaver.desc=식칼(Cleaver)은 공격력이 매우 높지만 속도가 느린 무기입니다.\n식칼은 몬스터가 머리를 드랍할 확률을 높여줍니다.\nSlow, requires two hands!
-item.tconstruct.battleaxe.desc=전투도끼(Battleaxe)는 매우 강력한 무기입니다.\n전투도끼는 적들을 날려버리고 작은 나무를 벨 수 있습니다..\n우클릭: 버서커
-item.tconstruct.scythe.desc=사이드(Scythe)는 범위가 넓은 수확 도구입니다.\n사이드는 잔디와 같은 식물을 빠르게 제거하고 농작물을 수확합니다.\nHas an AOE Attack.\n우클릭: 농작물 수확
-item.tconstruct.shuriken.desc=수리검(Shuriken)은 빠르게 날아가는 원거리 무기입니다.\n여러번 던질 수 있지만 데미지가 낮습니다.\n왼손으로 던질 수 있습니다.
-item.tconstruct.shortbow.desc=단궁(Shortbow)은 민첩한 원거리 무기입니다.\n단궁은 활시위를 빠르게 당기고 민첩하게 움직일 수 있습니다.\nUses Tinkers' Arrows.
-item.tconstruct.longbow.desc=장궁(Longbow)은 긴 사거리를 가진 원거리 무기입니다.\n장궁은 적에게 강력한 피해를 입히지만 단궁보단 움직임이 느립니다.\nUses Tinkers' Arrows.
-item.tconstruct.arrow.desc=Tinker's 활(Bow)에 사용되는 화살(Arrow)입니다.\n화살의 내구도만큼 사용할 수 있으며 조립대에서 강화할 수 있습니다.
-item.tconstruct.crossbow.desc=석궁(Crossbow)은 강력한 공격력을 가진 원거리 무기입니다.\n우클릭을 유지해 미리 장전을 하고 언제든지 발사할 수 있습니다.\nUses Tinkers' Bolts.
-item.tconstruct.bolt.desc=Tinker's 석궁(Crossbow)에 사용되는 볼트(Bolt)입니다.\n볼트의 내구도만큼 사용할 수 있으며 조립대에서 강화할 수 있습니다.\n갑옷을 입은 적에게 약간의 관통 데미지가 있습니다.
+item.tconstruct.pickaxe.desc=곡괭이는 암석, 광석 블록들을 파괴하는데 효과적인 도구입니다.\n그것은 블록을 부수죠.
+item.tconstruct.shovel.desc=삽은 흙, 모래, 자갈, 눈 같은 블록들을 파괴하는데 효과적인 도구입니다.\n당신의 묘를 파지마세요!
+item.tconstruct.hatchet.desc=손도끼는 나무와 나뭇잎을 파괴하는데 뛰어난 성능을 냅니다.\n무기로 사용하기에 적절한 성능을 보입니다.\n찹 찹!
+item.tconstruct.mattock.desc=매톡은 다용도 기능을 가진 농기구입니다.\n매톡은 나무와 흙, 식물들을 파괴하는데 적합하고 흙을 개간할 수 있습니다.\n우클릭: 땅 개간
+item.tconstruct.kama.desc=카마는 정밀한 수확 도구입니다.\n양털을 깎아낼 수 있고 농작물을 빠르게 수확하고 잔디나 나뭇잎 같은 식물들을 채집할 수 있습니다.\n우클릭: 농작물 수확
+item.tconstruct.broadsword.desc=양날검은 적에게 준수한 피해를 줄 수 있는 가장 보편적인 무기입니다.\n잘 죽이는데!
+item.tconstruct.longsword.desc=장검은 매우 공격적인 무기입니다.\n장검은 기를 모아 약간의 거리를 돌진합니다.\n우클릭: 돌진
+item.tconstruct.rapier.desc=래피어는 빠르게 적을 공격하는 무기입니다.\n우클릭: 백스텝
+item.tconstruct.frypan.desc=프라이팬은 강력한 공격으로 적을 멀리 날려보내는 무기입니다.\nIt also goes BOING!\n우클릭: 강타!
+item.tconstruct.battlesign.desc=전투표지판은 뛰어난 수비 무기입니다.\n좀비 피그맨의 무기 기술 발전을 의미합니다.\n우클릭시 전방의 공격들을 막아내고 반사시킵니다.
+item.tconstruct.hammer.desc=망치는 암석을 광범위로 파괴할 수 있는 채굴 도구입니다.\n언데드 몬스터에게 추가 피해를 입힙니다.
+item.tconstruct.lumberaxe.desc=럼버액스는 뛰어난 성능의 벌목 도구입니다.\n럼버액스는 크고작은 나무들을 단번에 벌목할 수 있습니다.\n으싸!
+item.tconstruct.excavator.desc=굴착기는 흙을 매우 빠르게 파괴할 수 있는 도구입니다.\n모래나 눈 등등을 광범위하게 파냅니다.\n땅파자!
+item.tconstruct.cleaver.desc=식칼은 공격력이 매우 높지만 속도가 느린 무기입니다.\n식칼은 몬스터가 머리를 드랍할 확률을 높여줍니다.\n네 목은 내꺼다!
+item.tconstruct.battleaxe.desc=전투도끼는 매우 강력한 무기입니다.\n전투도끼는 적들을 날려버리고 작은 나무를 벨 수 있습니다..\n우클릭: 버서커
+item.tconstruct.scythe.desc=사이드는 범위가 넓은 수확 도구입니다.\n사이드는 잔디와 같은 식물을 빠르게 제거하고 농작물을 수확합니다.\n빠르네요.\n우클릭: 농작물 수확
+item.tconstruct.shuriken.desc=수리검은 빠르게 날아가는 원거리 무기입니다.\n여러번 던질 수 있지만 데미지가 낮습니다.\n왼손으로 던질 수 있습니다.
+item.tconstruct.shortbow.desc=단궁은 민첩한 원거리 무기입니다.\n단궁은 활시위를 빠르게 당기고 민첩하게 움직일 수 있습니다.\n팅커스 화살을 사용하세요.
+item.tconstruct.longbow.desc=장궁은 긴 사거리를 가진 원거리 무기입니다.\n장궁은 적에게 강력한 피해를 입히지만 단궁보단 움직임이 느립니다.\n팅커스 화살을 사용하세요.
+item.tconstruct.arrow.desc=팅커스 활에 사용되는 화살입니다.\n화살의 내구도만큼 사용할 수 있으며 조립대에서 강화할 수 있습니다.
+item.tconstruct.crossbow.desc=석궁은 강력한 공격력을 가진 원거리 무기입니다.\n우클릭을 유지해 미리 장전을 하고 언제든지 발사할 수 있습니다.\n팅커스 볼트를 사용하세요.
+item.tconstruct.bolt.desc=팅커스 석궁에 사용되는 볼트입니다.\n볼트의 내구도만큼 사용할 수 있으며 조립대에서 강화할 수 있습니다.\n갑옷을 입은 적에게 약간의 관통 데미지가 있습니다.
 
 
 ################
@@ -828,8 +828,8 @@ tooltip.tool.holdShift=스탯 정보 Hold §e§oShift§r§7
 tooltip.tool.holdCtrl=재료 Hold §e§bCtrl§r§7
 
 tooltip.part.material_added_by=재료 모드 %s
-tooltip.part.missing_material=Missing material: %s
-tooltip.part.missing_stats=Material is missing the required stats:\n%s
+tooltip.part.missing_material=잃어버린 재료: %s
+tooltip.part.missing_stats=재료에 필요한 통계가 없습니다:\n%s
 tooltip.part.missing_info=부품 데이터가 없습니다
 
 tooltip.pattern.cost=재료 비용: %d
@@ -840,7 +840,7 @@ tooltip.patternchest.holds_casts=보관중인 주형 %d
 
 tooltip.tank.fluid=%s
 tooltip.tank.amount=%d mb
-tooltip.tank.holdShift=담을수 있는 양 Hold §e§oShift§r§7
+tooltip.tank.holdShift=담을수 있는 양 §e§oShift§r§7
 
 ##################
 #   UI Strings   #
@@ -901,12 +901,12 @@ gui.error.no_rename=이 도구의 이름을 바꿀 수 없습니다.
 gui.general.hover=자세한 내용을 보려면 항목 위로 마우스를 이동하십시오.
 
 # Creative Tabs
-itemGroup.TinkerGeneral=Tinkers' 기본 아이템
-itemGroup.TinkerTools=Tinkers' 도구
-itemGroup.TinkerToolParts=Tinkers' 부품
-itemGroup.TinkerSmeltery=Tinkers' 제련소
-itemGroup.TinkerWorld=Tinkers' 월드
-itemGroup.TinkerGadgets=Tinkers' 장치
+itemGroup.TinkerGeneral=팅커스 기본 아이템
+itemGroup.TinkerTools=팅커스 도구
+itemGroup.TinkerToolParts=팅커스 부품
+itemGroup.TinkerSmeltery=팅커스 제련소
+itemGroup.TinkerWorld=팅커스 월드
+itemGroup.TinkerGadgets=팅커스 장치
 
 # Crafting Station
 gui.craftingstation.name=제작대
@@ -927,7 +927,7 @@ gui.toolstation.repair=수리 & 수정
 gui.toolstation.traits=특성
 gui.toolstation.components=요소
 gui.toolstation.info=도구를 수리하거나 수정할 수 있습니다. 시작하려면 도구와 재료를 배치하십시오.
-gui.toolstation.noTraits=None :[
+gui.toolstation.noTraits=도구를 조립할 
 
 # Pattern Chest
 gui.patternchest.name=거푸집 상자
@@ -990,4 +990,4 @@ option.tconstruct.progress=레시피 진행도
 
 # Config
 config.synced.restart=설정이 완료되었습니다. 클라이언트를 재시작하세요.
-config.synced.ok=Configuration synced with server.
+config.synced.ok=구성이 서버와 동기화되었습니다.
