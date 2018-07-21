@@ -10,6 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -550,6 +551,17 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
     return false;
   }
 
+  @Override
+  @Deprecated
+  public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face) {
+    state = state.getActualState(world, pos);
+    EnumFacing side = state.getValue(SIDE);
+    if(hasFullSide(face.getOpposite(), side, state.getValue(DIRECTION).getFlow(side), state.getValue(CONNECTED))) {
+      return BlockFaceShape.SOLID;
+    }
+    return BlockFaceShape.UNDEFINED;
+  }
+
   @SuppressWarnings("deprecation")
   @Override
   public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, EnumFacing face) {
@@ -704,7 +716,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
 
     // pressed up against this, basically the same as above only switched half and direction
     if(side == orginFace.getOpposite()) {
-      // inner connection must be on the same half as the direction its going 
+      // inner connection must be on the same half as the direction its going
       if(connected == ChannelConnected.INNER) {
         return flow == orginHalf;
       }
