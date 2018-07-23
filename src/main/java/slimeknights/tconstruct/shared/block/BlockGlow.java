@@ -7,6 +7,7 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -85,7 +86,7 @@ public class BlockGlow extends Block {
   }
 
   /**
-   *  Determines if a block side can contain a glow. 
+   *  Determines if a block side can contain a glow.
    *  Returns true if the block side is solid and the block at the given BlockPos is not a liquid
    */
   protected boolean canBlockStay(World world, BlockPos pos, EnumFacing facing) {
@@ -174,6 +175,12 @@ public class BlockGlow extends Block {
   @Override
   public boolean isFullCube(IBlockState state) {
     return false;
+  }
+
+  @Override
+  @Deprecated
+  public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+    return BlockFaceShape.UNDEFINED;
   }
 
   @Nonnull
