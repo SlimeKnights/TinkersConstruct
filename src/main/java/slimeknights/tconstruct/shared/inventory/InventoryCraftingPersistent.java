@@ -35,6 +35,11 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
     return this.length;
   }
 
+  @Override
+  public boolean isEmpty() {
+    return this.parent.isEmpty();
+  }
+  
   @Nonnull
   @Override
   public ItemStack getStackInSlot(int index) {
