@@ -178,7 +178,7 @@ tile.tconstruct.tinker_tank_controller.name=工匠储罐控制器
 tile.tconstruct.stone_torch.name=石柄火把
 tile.tconstruct.stone_ladder.name=石梯
 tile.tconstruct.wood_rail.name=木质轨道
-tile.tconstruct.wood_rail_trapdoor.name=带活版门的木质轨道
+tile.tconstruct.wood_rail_trapdoor.name=带活板门的木质轨道
 tile.tconstruct.wood_rail_trapdoor.tooltip=漏斗矿车可以\n穿过这个方块下面
 tile.tconstruct.punji.name=尖竹钉
 tile.tconstruct.punji.tooltip=非常尖锐！可以拿来做围墙
@@ -417,7 +417,11 @@ item.tconstruct.slime_boots.purple.name=史莱姆靴子
 item.tconstruct.slime_boots.blood.name=凝血靴子
 item.tconstruct.slime_boots.magma.name=史莱姆靴子
 item.tconstruct.slime_boots.tooltip=提供摔落保护以及粘液的弹跳效果
-item.tconstruct.slimesling.name=史莱姆弹弓
+item.tconstruct.slimesling.green.name=史莱姆弹弓
+item.tconstruct.slimesling.blue.name=史莱姆弹弓
+item.tconstruct.slimesling.purple.name=史莱姆弹弓
+item.tconstruct.slimesling.blood.name=凝血弹弓
+item.tconstruct.slimesling.magma.name=史莱姆弹弓
 item.tconstruct.slimesling.tooltip=蓄力，瞄准，发射！\n珍爱生命，记得穿上史莱姆靴子！
 item.tconstruct.piggybackpack.name=肩托式背包
 item.tconstruct.piggybackpack.tooltip=右击怪物把它们背起来
@@ -442,8 +446,8 @@ item.tconstruct.throwball.efln.tooltip=爆破！一种安全的挖矿方法。
 
 item.tconstruct.moms_spaghetti.name=妈妈做的意大利面
 item.tconstruct.moms_spaghetti.desc=美味！
-item.tconstruct.moms_spaghetti.tooltip1=§o我猜这样就可以了...但还是什么地方不一样。\n肯定要酱料，而且是那种红色酱料（番茄沙司）。
-item.tconstruct.moms_spaghetti.tooltip2=§o还缺了什么...也许是肉。妈妈做的意面总是用各种肉的。\n我想我得找至少三种肉。
+item.tconstruct.moms_spaghetti.tooltip1=§o我猜这样就可以了……但还是什么地方不一样。\n肯定要酱料，而且是那种红色酱料。
+item.tconstruct.moms_spaghetti.tooltip2=§o还缺了什么……也许是肉。妈妈做的意面总是用各种肉的。\n我想我得找至少三种肉。
 item.tconstruct.moms_spaghetti.tooltip3=§o现在这意面就是妈妈的味道。
 stat.spaghetti.uses.name=Noms
 stat.spaghetti.nourishment.name=营养水平
@@ -581,7 +585,7 @@ stat.handle.durability.desc=数值代表这种材料是否适合制作成手柄�
 
 stat.extra.name=其他部件
 stat.extra.durability.name=stat.head.durability.name
-stat.extra.durability.desc=反映了这个部件被用作次要部件时贡献的耐久。  
+stat.extra.durability.desc=反映了这个部件被用作次要部件时贡献的耐久。
 
 stat.mattock.axelevel.name=斧等级
 stat.mattock.shovellevel.name=铲等级
@@ -886,7 +890,7 @@ gui.error.craftevent.replace.default=替换此工具的部件已被另一个模�
 gui.error.not_enough_modifiers=剩余强化槽不足！\n（需要%d个）
 gui.error.single_modifier=%s只能强化一次。
 gui.error.max_level_modifier=已达到%s的最高等级。
-gui.error.no_modifier_for_item=未找到%s的强化槽。 
+gui.error.no_modifier_for_item=未找到%s的强化槽。
 gui.error.already_has_extratrait=该工具已经具有一个与此操作相同的强化，它只能具有一个！
 gui.error.incompatible_modifiers=%s和%s不能一起强化
 gui.error.incompatible_trait=%s强化不能和%s特性相结合
@@ -989,5 +993,5 @@ option.tconstruct.progress=制作进度
 
 
 # Config
-config.synced.restart=你的配置已与服务器的配置同步。请重启Minecraft。
+config.synced.restart=你的配置已与服务器的配置同步。请重启 Minecraft。
 config.synced.ok=配置已和服务器同步。
