@@ -13,7 +13,7 @@ offhand=副手采掘
 bolt_core=弩箭制作
 
 modifier.effect=特殊效果：
-tool.properties=弹药：
+tool.properties=属性：
 
 material.craft_partbuilder=在部件加工台制作
 material.craft_casting=可以用%s铸造
