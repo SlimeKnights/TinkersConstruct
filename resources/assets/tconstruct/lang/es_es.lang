@@ -549,7 +549,7 @@ material.ardite.prefix=%s de Ardita
 material.cobalt.name=Cobalto
 material.cobalt.prefix=%s de Cobalto
 material.manyullyn.name=Manilio
-meterial.manyyllyn.prefix=%s de Manilio
+meterial.manyllyn.prefix=%s de Manilio
 material.iron.name=Hierro
 material.iron.prefix=%s de Hierro
 material.pigiron.name=Acerdo
@@ -563,7 +563,7 @@ material.lead.prefix=%s de Plomo
 material.silver.name=Plata
 material.silver.prefix=%s de Plata
 material.electrum.name=Electro
-material.electrum.name=%s de Electro
+material.electrum.prefix=%s de Electro
 material.steel.name=Acero
 material.steel.prefix=%s de Acero
 
