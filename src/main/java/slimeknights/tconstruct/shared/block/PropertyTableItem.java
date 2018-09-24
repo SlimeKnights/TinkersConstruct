@@ -94,7 +94,7 @@ public class PropertyTableItem implements IUnlistedProperty<PropertyTableItem.Ta
       if(Float.compare(tableItem.r, r) != 0) {
         return false;
       }
-      return stack != null ? stack.equals(tableItem.stack) : tableItem.stack == null;
+      return !stack.isEmpty() ? stack.equals(tableItem.stack) : tableItem.stack.isEmpty();
     }
 
     @Override
