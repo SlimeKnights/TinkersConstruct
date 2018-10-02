@@ -1,3 +1,4 @@
+#X-Generator: crowdin.com
 ################
 #    Blocks    #
 ################
@@ -540,7 +541,7 @@ material.copper.name=Kupfer
 material.bronze.name=Bronze
 material.lead.name=Blei
 material.silver.name=Silber
-material.electrum.name=Electrum
+material.electrum.name=Elektrum
 material.steel.name=Stahl
 
 material.string.name=Faden
@@ -811,11 +812,11 @@ item.tconstruct.cleaver.desc=Das Hackbeil ist eine schwere Angriffswaffe. Es ver
 item.tconstruct.battleaxe.desc=Die Streitaxt ist eine schwere Angriffswaffe und lässt den Berserker in dir heraus. Sie kann kleine Bäume fällen und Feinde zum Fliegen bringen.\nRechtsklick: Berserker
 item.tconstruct.scythe.desc=Die Sense ist ein breites Erntewerkzeug und mäht Pflanzen und Feinde gleichermaßen nieder.\nRichtet Flächenschaden an.\nRechtsklick: Pflanzen ernten und erneut anpflanzen
 item.tconstruct.shuriken.desc=Der Shuriken ist eine schnelle Wurfwaffe mit kurzer Reichweite. Es hat eine hohe Menge, aber geringen Schaden.\nKann mit der Nebenhand geworfen werden.
-item.tconstruct.shortbow.desc=The Shortbow is a quick and nimble weapon. It allows for fast movements while shooting arrows at a rapid rate.\nUses Tinkers' Arrows.
-item.tconstruct.longbow.desc=The Longbow is a powerful long range weapon. It provides high damage but is less mobile than its short brother.\nUses Tinkers' Arrows.
-item.tconstruct.arrow.desc=The Arrows are the ammo used for Tinkers' Bows. One stack provides many shots, and they can be modified as any tool.
-item.tconstruct.crossbow.desc=The Crossbow is a slow but very powerful weapon. It has to be loaded beforehand by holding rightclick, but can be fired at any moment afterwards.\nUses Tinkers' Bolts.
-item.tconstruct.bolt.desc=The Bolts are the ammo used for Tinkers' Crossbows. One stack provides many shots, and they can be modified as any tool.\nPartially penetrates enemy armor.
+item.tconstruct.shortbow.desc=Die Shortbow ist eine schnelle und flinke Waffe. Er ermöglicht schnelle Bewegungen während Pfeile mit hoher Feuerrate abgeschossen werden.\nBenutzt Tinkers' Pfeile.
+item.tconstruct.longbow.desc=Der Langbogen ist eine mächtige Waffe mit hoher Reichweite. Er verursacht hohen Schaden aber ist nicht so mobil wie sein kleiner Bruder.\nBenutzt Tinkers' Pfeile.
+item.tconstruct.arrow.desc=Die Pfeile sind die Munition, die für Tinkers' Bögen benutzt wird. Ein Stapel stellt viele Schüsse bereit und sie können genauso modifiziert werden wie jedes Werkzeug.
+item.tconstruct.crossbow.desc=Die Armbrust ist eine langsame aber sehr mächtige Waffe. Sie muss schon vorher durch das halten der rechten Maustaste geladen werden, kann jedoch danach jederzeit schießen.\nNutzt Tinkers' Bolzen.
+item.tconstruct.bolt.desc=Die Bolzen sind die Munition, die von Tinkers' Armbrüsten benutzt wird. Ein Stapel stellt viele Schüsse bereit und sie können genauso modifiziert werden wie jedes Werkzeug.
 
 
 ################
@@ -840,7 +841,7 @@ tooltip.patternchest.holds_casts=Enthält %d Gussformen
 
 tooltip.tank.fluid=%s
 tooltip.tank.amount=%d ml
-tooltip.tank.holdShift=Hold §e§oShift§r§7 for buckets
+tooltip.tank.holdShift=Halte §e§oShift§r§7 für Eimer
 
 ##################
 #   UI Strings   #
@@ -857,15 +858,15 @@ ui.mininglevel.cobalt=Cobalt
 # Death messages
 death.attack.smeltery=%s hat versucht, einen geschmolzenen Spieler zu erschaffen
 death.attack.splinter=%s hat sich einen Splitter eingefangen. War anscheinend ein großer
-death.attack.bleed=%1$s bled to death from %2$s attack
-death.attack.bleed.item=%1$s bled to death from %2$s attack with %3$s
+death.attack.bleed=%1$s ist durch %2$s Angriff verblutet
+death.attack.bleed.item=%1$s verblutete durch %2$s Angriff mit %3$s
 
-message.mending_moss.not_enough_levels=Mending moss requires at least %s levels
-tconstruct.channel.connected.in=Set side to flow inwards
-tconstruct.channel.connected.out=Set side to flow outwards
-tconstruct.channel.connected.none=Disallowed flowing on side
-tconstruct.channel.connected_down.allow=Allowed flowing down
-tconstruct.channel.connected_down.disallow=Disallowed flowing down
+message.mending_moss.not_enough_levels=Reparierendes Moos benötigt mindestens %s Stufen
+tconstruct.channel.connected.in=Setze Seite um nach innen zu fließen
+tconstruct.channel.connected.out=Setze Seite um nach außen zu fließen
+tconstruct.channel.connected.none=Seitliches fließen wurde verboten
+tconstruct.channel.connected_down.allow=Herunterfließen ist erlaubt
+tconstruct.channel.connected_down.disallow=Herunterfließen ist verboten
 
 ######################
 # GUI Error messages #
@@ -878,20 +879,20 @@ gui.error.invalid_pattern=Schablone enthält kein gültiges Werkzeugteil!
 gui.error.useless_tool_part=Dieses Werkzeugteil kann nicht benutzt werden, um ein Werkzeug herzustellen.\nEntweder besitzt das Material %s nicht genügend Informationen oder kein Werkzeug benutzt %s im Herstellungsprozess.
 gui.error.wrong_material_part=Ein oder mehrere Gegenstände haben ein nicht unterstütztes Material für dieses Werkzeug.
 gui.error.not_enough_durability=Nicht genug Haltbarkeit, um Werkzeugteile auszutauschen!\n%d weitere Haltbarkeit benötigt.
-gui.error.craftevent.tool.default=Crafting of this item was prevented by another mod.
-gui.error.craftevent.modifier.default=Modifying this tool with these items was prevented by another mod.
-gui.error.craftevent.toolpart.default=Crafting of this toolpart was prevented by another mod.
-gui.error.craftevent.replace.default=Replacing this toolpart was prevented by another mod.
+gui.error.craftevent.tool.default=Die Herstellung dieses Gegenstands wurde durch eine andere Mod verhindert.
+gui.error.craftevent.modifier.default=Das Modifizieren dieses Werkzeugs mit diesen Gegenständen wurde durch eine andere Mod verhindert.
+gui.error.craftevent.toolpart.default=Die Herstellung dieses Werkzeugteils wurde durch eine andere Mod verhindert.
+gui.error.craftevent.replace.default=Das Ersetzen dieses Werkzeugteils wurde durch eine andere Mod verhindert.
 # GUI Errors from modifiers
 gui.error.not_enough_modifiers=Nicht genug Modifikatoren vorhanden. (%d benötigt)
 gui.error.single_modifier=%s kann nur einmal angewandt werden.
 gui.error.max_level_modifier=Maximales Level für %s ist bereits erreicht.
 gui.error.no_modifier_for_item=Keine Modifikatoren für %s gefunden.
-gui.error.already_has_extratrait=The tool already has an embossment, it can only have one.
+gui.error.already_has_extratrait=Dieses Werkzeug hat bereits eine Prägung. Es kann nur eine besitzen.
 gui.error.incompatible_modifiers=Modifikatoren %s und %s können nicht zusammen angewandt werden
 gui.error.incompatible_trait=Modifikator %s kann nicht zusammen mit Eigenschaft %s benutzt werden
 gui.error.incompatible_enchantments=Modifikator %s kann nicht mit Verzauberung %s kombiniert werden
-gui.error.no_rename=This tool cannot be renamed
+gui.error.no_rename=Dieses Werkzeug kann nicht umbenannt werden
 
 ################
 #     GUIs     #
@@ -943,7 +944,7 @@ gui.smeltery.progress.no_heat=Nicht genug hitze, um den Gegenstand zu schmelzen
 gui.smeltery.progress.no_space=Nicht genug freier Platz in der Schmelzerei
 gui.smeltery.fuel=Treibstoff
 gui.smeltery.fuel.empty=Keinen Treibstoff gefunden
-gui.smeltery.fuel.invalid=§4%s is not a valid smeltery fuel!
+gui.smeltery.fuel.invalid=§4%s ist kein gültiger Brennstoff für die Schmelzerei!
 gui.smeltery.fuel.heat=Temperatur: %d
 gui.smeltery.capacity=Kapazität:
 gui.smeltery.capacity_available=Frei:
