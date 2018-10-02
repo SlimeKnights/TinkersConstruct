@@ -710,9 +710,9 @@ modifier.writable.name=Beschreibbar
 modifier.writable.desc=§oIntellektuell!§r\nMehr Worte. Mehr Modifikatoren. Es ist nur logisch!
 
 modifier.breakable.name=Zerbrechlich
-modifier.breakable.desc=§oDiese Seite nach oben!§rProjektile haben eine 50%-Wahrscheinlichkeit, beim Einschlag zu zerbrechen.
+modifier.breakable.desc=§oDiese Seite nach oben!§r\Projektile haben eine 50%-Wahrscheinlichkeit, beim Einschlag zu zerbrechen.
 modifier.endspeed.name=Endgeschwindigkeit
-modifier.endspeed.desc=§oQuantum-Geschwindigkeit!§rProjektile erreichen sofort ihr Ziel.
+modifier.endspeed.desc=§oQuantum-Geschwindigkeit!§r\Projektile erreichen sofort ihr Ziel.
 modifier.freezing.name=Gefrierend
 modifier.freezing.desc=§oDer Winter kommt§r\nErfolgreiche Treffer verlangsamen dein Ziel mehr und mehr.
 modifier.hovering.name=Schwebend
