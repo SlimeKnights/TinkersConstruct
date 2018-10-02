@@ -593,7 +593,7 @@ stat.bow.drawspeed.desc=Wie schnell du den Bogen spannen kannst.
 stat.bow.range.name=Reichweiten-Multiplikator
 stat.bow.range.desc=Wie weit das Projektil geschossen werden kann.
 stat.bow.damage.name=Bonussschaden
-stat.bow.damage.desc=Bonusschaden bei Terffer.\nDie Kraft des Pfeils.
+stat.bow.damage.desc=Bonusschaden bei Treffer.\nDie Kraft des Pfeils.
 
 stat.bowstring.name=Bogensehne
 stat.bowstring.modifier.name=Modifikator
@@ -818,7 +818,6 @@ item.tconstruct.arrow.desc=Die Pfeile sind die Munition, die für Tinkers' Böge
 item.tconstruct.crossbow.desc=Die Armbrust ist eine langsame aber sehr mächtige Waffe. Sie muss schon vorher durch das halten der rechten Maustaste geladen werden, kann jedoch danach jederzeit schießen.\nNutzt Tinkers' Bolzen.
 item.tconstruct.bolt.desc=Die Bolzen sind die Munition, die von Tinkers' Armbrüsten benutzt wird. Ein Stapel stellt viele Schüsse bereit und sie können genauso modifiziert werden wie jedes Werkzeug.
 
-
 ################
 #   Tooltips   #
 ################
@@ -992,4 +991,3 @@ option.tconstruct.progress=Rezeptfortschritt
 # Config
 config.synced.restart=Deine Konfiguration wurde aktualisiert, um mit der des Servers übereinzustimmen. Starte Minecraft neu.
 config.synced.ok=Konfiguration mit Server synchronisiert.
-
