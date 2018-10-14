@@ -157,7 +157,7 @@ public final class ToolHelper {
 
     // check if the tool has the correct class and harvest level
     if(!canHarvest(stack, blockState)) {
-      return 0f;
+      return 1f;
     }
 
     // calculate speed depending on stats
