@@ -210,6 +210,7 @@ public class TinkerOredict {
 
   private static void registerSmeltery() {
     oredict(TinkerSmeltery.cast, "cast");
+    oredict(TinkerSmeltery.castCustom, "cast");
     oredict(TinkerSmeltery.searedBlock, OreDictionary.WILDCARD_VALUE, "blockSeared");
   }
 

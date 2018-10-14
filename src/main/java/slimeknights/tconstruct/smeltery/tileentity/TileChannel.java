@@ -346,7 +346,7 @@ public class TileChannel extends TileEntity implements ITickable, IFluidPacketRe
     return this.tank;
   }
 
-  protected IFluidHandler getTank(@Nonnull EnumFacing side) {
+  protected IFluidHandler getTank(@Nullable EnumFacing side) {
     if(side == null || side == EnumFacing.UP) {
       return tank;
     }
