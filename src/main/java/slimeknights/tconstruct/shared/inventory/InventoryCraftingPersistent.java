@@ -7,9 +7,6 @@ import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
-import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.common.network.InventoryCraftingSyncPacket;
-
 // variant of InventoryCrafting that saves its itemstacks into the given inventory
 public class InventoryCraftingPersistent extends InventoryCrafting {
 
@@ -64,7 +61,6 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
       if(this.getStackInSlot(index).getCount() <= count) {
         itemstack = this.getStackInSlot(index);
         this.setInventorySlotContents(index, ItemStack.EMPTY);
-        onCraftMatrixChanged();
         return itemstack;
       }
       else {
@@ -92,9 +88,6 @@ public class InventoryCraftingPersistent extends InventoryCrafting {
   @Override
   public void markDirty() {
     this.parent.markDirty();
-    onCraftMatrixChanged();
-
-    TinkerTools.proxy.sendPacketToServerOnly(new InventoryCraftingSyncPacket());
   }
 
   @Override

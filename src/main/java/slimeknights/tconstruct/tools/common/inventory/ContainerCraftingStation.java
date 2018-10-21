@@ -22,6 +22,10 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.config.Config;
@@ -31,7 +35,7 @@ import slimeknights.tconstruct.tools.common.tileentity.TileCraftingStation;
 
 // nearly the same as ContainerWorkbench but uses the TileEntities inventory
 public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftingStation> {
-
+  public static final Logger log = LogManager.getLogger("test");
   private final EntityPlayer player;
   private final InventoryCraftingPersistent craftMatrix;
   private final InventoryCraftResult craftResult;
@@ -123,6 +127,18 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
   }
 
   // update crafting
+  @Override
+  public void setAll(List<ItemStack> p_190896_1_) {
+    craftMatrix.setDoNotCallUpdates(true);
+    super.setAll(p_190896_1_);
+    craftMatrix.setDoNotCallUpdates(false);
+    craftMatrix.onCraftMatrixChanged();
+  }
+
+  public void onCraftMatrixChanged() {
+    this.onCraftMatrixChanged(this.craftMatrix);
+  }
+
   @Override
   public void onCraftMatrixChanged(IInventory inventoryIn) {
     this.slotChangedCraftingGrid(this.world, this.player, this.craftMatrix, this.craftResult);
