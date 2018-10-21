@@ -46,6 +46,7 @@ import slimeknights.tconstruct.gadgets.block.BlockStoneLadder;
 import slimeknights.tconstruct.gadgets.block.BlockStoneTorch;
 import slimeknights.tconstruct.gadgets.block.BlockWoodRail;
 import slimeknights.tconstruct.gadgets.block.BlockWoodRailDropper;
+import slimeknights.tconstruct.gadgets.block.BlockWoodenHopper;
 import slimeknights.tconstruct.gadgets.entity.EntityFancyItemFrame;
 import slimeknights.tconstruct.gadgets.entity.EntityThrowball;
 import slimeknights.tconstruct.gadgets.item.ItemBlockRack;
@@ -59,6 +60,7 @@ import slimeknights.tconstruct.gadgets.item.ItemThrowball;
 import slimeknights.tconstruct.gadgets.modifiers.ModSpaghettiMeat;
 import slimeknights.tconstruct.gadgets.modifiers.ModSpaghettiSauce;
 import slimeknights.tconstruct.gadgets.tileentity.TileDryingRack;
+import slimeknights.tconstruct.gadgets.tileentity.TileWoodenHopper;
 import slimeknights.tconstruct.gadgets.tileentity.TileItemRack;
 import slimeknights.tconstruct.gadgets.tileentity.TileSlimeChannel;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -86,6 +88,8 @@ public class TinkerGadgets extends TinkerPulse {
 
   public static Block woodRail;
   public static Block woodRailTrapdoor;
+
+  public static BlockWoodenHopper woodenHopper;
 
   public static BlockSlimeChannel slimeChannel;
 
@@ -133,6 +137,8 @@ public class TinkerGadgets extends TinkerPulse {
     woodRail = registerBlock(registry, new BlockWoodRail(), "wood_rail");
     woodRailTrapdoor = registerBlock(registry, new BlockWoodRailDropper(), "wood_rail_trapdoor");
 
+    woodenHopper = registerBlock(registry, new BlockWoodenHopper(), "wooden_hopper");
+
     // slime channels
     slimeChannel = registerBlock(registry, new BlockSlimeChannel(), "slime_channel");
 
@@ -163,6 +169,7 @@ public class TinkerGadgets extends TinkerPulse {
 
     registerTE(TileItemRack.class, "item_rack");
     registerTE(TileDryingRack.class, "drying_rack");
+    registerTE(TileWoodenHopper.class, "wooden_hopper");
     registerTE(TileSlimeChannel.class, "slime_channel");
   }
 
@@ -177,6 +184,8 @@ public class TinkerGadgets extends TinkerPulse {
 
     woodRail = registerItemBlock(registry, woodRail);
     woodRailTrapdoor = registerItemBlock(registry, woodRailTrapdoor);
+
+    woodenHopper = registerItemBlock(registry, woodenHopper);
 
     // slime channels
     slimeChannel = registerEnumItemBlock(registry, slimeChannel);
