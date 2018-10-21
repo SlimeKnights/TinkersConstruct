@@ -18,6 +18,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerContainerEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
@@ -34,6 +37,7 @@ import slimeknights.tconstruct.tools.common.network.LastRecipeMessage;
 import slimeknights.tconstruct.tools.common.tileentity.TileCraftingStation;
 
 // nearly the same as ContainerWorkbench but uses the TileEntities inventory
+@Mod.EventBusSubscriber
 public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftingStation> {
   public static final Logger log = LogManager.getLogger("test");
   private final EntityPlayer player;
@@ -42,6 +46,15 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
 
   private IRecipe lastRecipe;
   private IRecipe lastLastRecipe;
+
+  @SubscribeEvent
+  public static void onCraftingStationGuiOpened(PlayerContainerEvent.Open event) {
+    // by default the container does not update after it has been opened.
+    // we need it to check its recipe
+    if(event.getContainer() instanceof ContainerCraftingStation) {
+      ((ContainerCraftingStation) event.getContainer()).onCraftMatrixChanged();
+    }
+  }
 
   public ContainerCraftingStation(InventoryPlayer playerInventory, TileCraftingStation tile) {
     super(tile);

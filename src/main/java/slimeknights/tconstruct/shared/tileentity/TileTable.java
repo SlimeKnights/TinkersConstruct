@@ -27,7 +27,6 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
-import slimeknights.tconstruct.tools.common.inventory.ContainerCraftingStation;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
 public class TileTable extends TileInventory {
@@ -181,16 +180,6 @@ public class TileTable extends TileInventory {
 
     if(getWorld() != null && getWorld().isRemote && Config.renderTableItems) {
       Minecraft.getMinecraft().renderGlobal.notifyBlockUpdate(null, pos, null, null, 0);
-    }
-
-    // dirty workaround to get the crafting station to work with fastworkbench strategies
-    // basically the serverside container sends recipe udates to clients, clients don't check themselves
-    // but when something gets inserted via hopper/pipes etc. the container doesn't update
-    // so we call it manually here
-    if(getWorld() != null && !getWorld().isRemote) {
-      getWorld().playerEntities.stream()
-          .filter(player -> player.openContainer instanceof ContainerCraftingStation)
-          .forEach(player -> ((ContainerCraftingStation) player.openContainer).onCraftMatrixChanged());
     }
   }
 }
