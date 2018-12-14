@@ -32,6 +32,7 @@ tile.tconstruct.mudbrick_stairs.name=Escaliers en briques de boue
 tile.tconstruct.ore.cobalt.name=Minerai de cobalt
 tile.tconstruct.ore.ardite.name=Minerai d'ardite
 
+tile.tconstruct.metal.tooltip=Can be used as beacon base
 tile.tconstruct.metal.cobalt.name=Bloc de cobalt
 tile.tconstruct.metal.ardite.name=Bloc d'ardite
 tile.tconstruct.metal.manyullyn.name=Bloc de manyullyn
@@ -162,6 +163,8 @@ tile.tconstruct.casting.basin.name=Bassin de fonte
 tile.tconstruct.casting.tooltip=Réceptacle permettant de donner forme aux métaux fondus dans la fonderie.
 tile.tconstruct.faucet.name=Robinet
 tile.tconstruct.faucet.tooltip=Draine les liquides des fonderies et d'autres choses.
+tile.tconstruct.channel.name=Casting Channel
+tile.tconstruct.channel.tooltip=Filled with faucets to move liquids for casting
 tile.tconstruct.seared_tank.tank.name=Réservoir sombre
 tile.tconstruct.seared_tank.gauge.name=Jauge sombre
 tile.tconstruct.seared_tank.window.name=Fenêtre sombre
@@ -177,6 +180,8 @@ tile.tconstruct.stone_ladder.name=Échelle de pierre
 tile.tconstruct.wood_rail.name=Rail de bois
 tile.tconstruct.wood_rail_trapdoor.name=Rail de bois avec une trappe
 tile.tconstruct.wood_rail_trapdoor.tooltip=Les wagonnets à entonnoir peuvent être placés dans le bloc en dessous
+tile.tconstruct.wooden_hopper.name=Wooden Hopper
+item.tconstruct.wooden_hopper.tooltip=Slower, cheaper variant of the hopper
 tile.tconstruct.punji.name=Pointe en canne à sucre
 tile.tconstruct.punji.tooltip=Pointu! Peut être placé sur les murs.
 tile.tconstruct.glow.name=Lueur
@@ -333,6 +338,7 @@ item.tconstruct.pickaxe.name=Pioche
 item.tconstruct.shovel.name=Pelle
 item.tconstruct.hatchet.name=Hachette
 item.tconstruct.mattock.name=Bêche-binette-hache
+item.tconstruct.kama.name=Kama
 
 item.tconstruct.hammer.name=Marteau
 item.tconstruct.excavator.name=Excavateur
@@ -355,8 +361,11 @@ item.tconstruct.battleaxe.name=Hache de guerre
 # Ranged Weapons & Ammo
 
 item.tconstruct.shortbow.name=Arc court
+item.tconstruct.longbow.name=Longbow
+item.tconstruct.crossbow.name=Crossbow
 
 item.tconstruct.arrow.name=Flèche
+item.tconstruct.bolt.name=Bolt
 
 item.tconstruct.shuriken.name=Shuriken
 
@@ -366,6 +375,7 @@ item.tconstruct.shard.name=Eclat
 item.tconstruct.pick_head.name=Tête de pioche
 item.tconstruct.shovel_head.name=Tête de pelle
 item.tconstruct.axe_head.name=Tête de hachette
+item.tconstruct.kama_head.name=Kama Head
 item.tconstruct.pan_head.name=Batée
 item.tconstruct.sign_head.name=Plaque de pancarte
 item.tconstruct.binding.name=Connecteur
@@ -396,16 +406,26 @@ item.tconstruct.arrow_head.name=Pointe de flèche
 item.tconstruct.arrow_shaft.name=Hampe de flèche
 item.tconstruct.fletching.name=Empennage
 
+item.tconstruct.bolt_core.name=Bolt Core
+
 # Material specific tools and toolparts
 # item.tconstruct.<tool>.<material>
 # item.tconstruct.pickaxe.wood=Pioche en bois
 
 # Gadgets
-item.tconstruct.slime_boots.name=Bottes de Slime
-item.tconstruct.slime_boots.tooltip=Vous fait rebondir en atterrissant.\nUtilisez les bottes de Slime si vous accordez de l'importance à votre vie!
-item.tconstruct.slimesling.name=Fronde de Slime
-item.tconstruct.slimesling.tooltip=Chargement rapide, faible précision, tirez!.
-item.tconstruct.piggybackpack.name=Sac à dos à cochons
+item.tconstruct.slime_boots.green.name=Slime Boots
+item.tconstruct.slime_boots.blue.name=Slime Boots
+item.tconstruct.slime_boots.purple.name=Slime Boots
+item.tconstruct.slime_boots.blood.name=Congealed Blood Boots
+item.tconstruct.slime_boots.magma.name=Slime Boots
+item.tconstruct.slime_boots.tooltip=Makes you bounce when landing
+item.tconstruct.slimesling.green.name=Slimesling
+item.tconstruct.slimesling.blue.name=Slimesling
+item.tconstruct.slimesling.purple.name=Slimesling
+item.tconstruct.slimesling.blood.name=Congealed Bloodsling
+item.tconstruct.slimesling.magma.name=Slimesling
+item.tconstruct.slimesling.tooltip=Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!
+item.tconstruct.piggybackpack.name=Piggybackpack
 item.tconstruct.piggybackpack.tooltip=Faites un clic droit sur les créatures pour les ramasser.
 item.tconstruct.stone_stick.name=Tige de pierre
 
@@ -577,6 +597,8 @@ stat.bow.drawspeed.name=Vitesse de tir
 stat.bow.drawspeed.desc=Rapidité à laquelle tire l'arc.
 stat.bow.range.name=Multiplicateur de portée
 stat.bow.range.desc=Distance à laquelle le projectile peut être propulsé.
+stat.bow.damage.name=Bonus Damage
+stat.bow.damage.desc=Bonus damage dealt on hit.\nThe force of the arrow.
 
 stat.bowstring.name=Corde d'arc
 stat.bowstring.modifier.name=Modificateur
@@ -594,6 +616,7 @@ stat.fletching.accuracy.desc=Détermine la qualité de la trajectoire obtenue en
 stat.fletching.modifier.name=Modificateur
 stat.fletching.modifier.desc=How many arrows you can craft with this.\nProjectile ammo will be multiplied by this.
 
+stat.projectile.name=Projectile
 stat.projectile.ammo.name=Munitions
 
 ##############
@@ -636,6 +659,8 @@ modifier.flammable.name=Flammable
 modifier.flammable.desc=§oOn n'a jamais assez de feu!§r\nLe fait de bloquer arrête les dommages de feu et enflamme l'agresseur.
 modifier.fractured.name=Fracturé
 modifier.fractured.desc=§oCa fait mal!§r\nLes dommages de l'outil sont augmentés.
+modifier.heavy.name=Heavy
+modifier.heavy.desc=§oDo you even lift?§r\nPrevents knockback.
 modifier.hellish.name=Infernal
 modifier.hellish.desc=§oD'enfer!§r\nFait des dommages supplémentaires aux créatures Non-Nether.
 modifier.hellish.extra=Vs Non-Nether: +%s
@@ -663,7 +688,7 @@ modifier.prickly.desc=§oAïe!§r\nPersonne n'est à l'abris de ces épines, ell
 modifier.sharp.name=Tranchant
 modifier.sharp.desc=§oPeut même couper les mots!§r\nL'ennemi touché saigne pour un court moment.
 modifier.shocking.name=Electrisant
-modifier.shocking.desc=§oBzzzzzt!§r\nCourrir charge l'outil et toucher un ennemi le décharge.
+modifier.shocking.desc=§oBzzzzzt!§r\nRunning around, breaking blocks or hitting things charges your tool. Hitting an enemy discharges it, dealing damage and providing a speed boost. Mining a block discharges it, giving a mining speed boost.
 modifier.slimey.name=Visqueux
 modifier.slimey.desc=§oC'est dégoûtant!§r\nCa partira à l'eau.
 modifier.spiky.name=Piquant
@@ -716,10 +741,14 @@ modifier.diamond.name=Diamant
 modifier.diamond.desc=§oBrillant!§r\nDurabilité augmentée!
 modifier.emerald.name=Emeraude
 modifier.emerald.desc=§oChic!§r\nDurabilité augmentée en fonction des caractéristiques de base!
+modifier.extratrait.name=Embossment
+modifier.extratrait.desc=§oLike magic, but better!§r\nEmbossed with the power of %s, obtaining some of its traits.
 modifier.fiery.name=Incandescent
 modifier.fiery.desc=§oSi chaud maintenant!§r\nAjoute de dégâts de feu, enflamme votre ennemi.
 modifier.fiery.extra=Dégâts de feu: +%s
 modifier.fiery.extra2=Durée de combustion: %ss
+modifier.fins.name=Fins
+modifier.fins.desc=§oSomething's fishy...§r\nAttaching fins to the projectiles makes them travel like normal underwater.
 modifier.fortify.name=Renforcé (%s)
 modifier.fortify.desc=§oPlus dur, meilleur, plus rapide, plus fort!§r\nNivea ude minage augmenté au même niveau que %s.
 modifier.glowing.name=Rayonnant
@@ -775,6 +804,7 @@ item.tconstruct.pickaxe.desc=La Piche est un outil de minage précis. Elle est e
 item.tconstruct.shovel.desc=La Pelle creuse la terre. Elle est efficace sur la terre, le sable, le gravier et la neige.\nFaites juste attention à ne pas creuser votre tombe!
 item.tconstruct.hatchet.desc=La Hachette coupe le bois et  les feuilles en moins de deux. Elle fait également une arme passable.\nChop chop!
 item.tconstruct.mattock.desc=La Bêche-binette-hache est un outil d'agriculture polyvalent. Elle est efficace sur le bois, la terre et les plantes. Elle a également un peu de punch.\nClic-droit: bine le sol
+item.tconstruct.kama.desc=The Kama is a precision reaping tool, mowing down plants and shearing animals.\nRight Click: Harvest and replant crops
 item.tconstruct.broadsword.desc=L'Épée large est une arme universelle. Bloquer divise les dégâts par deux.\nfonctionne aussi contre les toiles d'araignées!
 item.tconstruct.longsword.desc=L'Épée longue est une arme offensive. Elle est souvent utilisée pour charger à pleine vitesse dans la bataille.\nClic-droit: Charger
 item.tconstruct.rapier.desc=La Rapièr est une arme speciale comptant sur des coups rapide pour vaincre les ennemis.\nClic-droit : Faire marche arrière
@@ -787,6 +817,11 @@ item.tconstruct.cleaver.desc=Le Couperet est une arme lourde offensive. Il donne
 item.tconstruct.battleaxe.desc=La Hache de guerre est une arme lourde offensive éveillant le fou furieux. Elle peut venir à bout de petits arbres et envoyer valser les ennemis.\nClic-droit : Fureur
 item.tconstruct.scythe.desc=La Faux est un large outil de récolte. Elle est efficace sur les plantes and récolte la faune et la flore sur une large zone.\nApporte la mort à la fois aux cultures et aux ennemis.
 item.tconstruct.shuriken.desc=Le Shuriken est une  arme de lancé rapide à courte portée. Il est en grand nombre, mais fait de faibles dégâts.\nPeut être lancé depuis la deuxième main.
+item.tconstruct.shortbow.desc=The Shortbow is a quick and nimble weapon. It allows for fast movements while shooting arrows at a rapid rate.\nUses Tinkers' Arrows.
+item.tconstruct.longbow.desc=The Longbow is a powerful long range weapon. It provides high damage but is less mobile than its short brother.\nUses Tinkers' Arrows.
+item.tconstruct.arrow.desc=The Arrows are the ammo used for Tinkers' Bows. One stack provides many shots, and they can be modified as any tool.
+item.tconstruct.crossbow.desc=The Crossbow is a slow but very powerful weapon. It has to be loaded beforehand by holding rightclick, but can be fired at any moment afterwards.\nUses Tinkers' Bolts.
+item.tconstruct.bolt.desc=The Bolts are the ammo used for Tinkers' Crossbows. One stack provides many shots, and they can be modified as any tool.\nPartially penetrates enemy armor.
 
 ################
 #  Infobulles  #
@@ -805,9 +840,12 @@ tooltip.part.missing_info=Information manquante
 tooltip.pattern.cost=Coût en materiau: %d
 
 tooltip.chest.has_items=Contient des objets
+tooltip.patternchest.holds_patterns=Contains %d pattern(s)
+tooltip.patternchest.holds_casts=Contains %d cast(s)
 
 tooltip.tank.fluid=%s
 tooltip.tank.amount=%d mb
+tooltip.tank.holdShift=Hold §e§oShift§r§7 for buckets
 
 ##################
 #   UI Strings   #
@@ -824,6 +862,15 @@ ui.mininglevel.cobalt=Cobalt
 # Death messages
 death.attack.smeltery=%s a essayé de créer un personnage fondu
 death.attack.splinter=%s a reçu une écharde. elle devait être énorme
+death.attack.bleed=%1$s bled to death from %2$s attack
+death.attack.bleed.item=%1$s bled to death from %2$s attack with %3$s
+
+message.mending_moss.not_enough_levels=Mending moss requires at least %s levels
+tconstruct.channel.connected.in=Set side to flow inwards
+tconstruct.channel.connected.out=Set side to flow outwards
+tconstruct.channel.connected.none=Disallowed flowing on side
+tconstruct.channel.connected_down.allow=Allowed flowing down
+tconstruct.channel.connected_down.disallow=Disallowed flowing down
 
 ######################
 # GUI Error messages #
@@ -836,14 +883,20 @@ gui.error.invalid_pattern=Le pochoir ne contient pas une pièce valide!
 gui.error.useless_tool_part=Cette pièce ne peut pas être utilisée pour fabriquer un outil!\nOu alors il manque des informations au matériau %s ou aucun outil n'utilise un(une) %s dans sa recette.
 gui.error.wrong_material_part=Une ou plusieurs pièces sont dans un matériau non supporté pour cet outil.
 gui.error.not_enough_durability=Manque de durabilité pour remplacer la pièce!\n%d à besoin de plus de durabilité.
+gui.error.craftevent.tool.default=Crafting of this item was prevented by another mod.
+gui.error.craftevent.modifier.default=Modifying this tool with these items was prevented by another mod.
+gui.error.craftevent.toolpart.default=Crafting of this toolpart was prevented by another mod.
+gui.error.craftevent.replace.default=Replacing this toolpart was prevented by another mod.
 # GUI Errors from modifiers
 gui.error.not_enough_modifiers=Pas assez de Modificateurs. (%d nécessaire(s))
 gui.error.single_modifier=%s ne peut êttre appliqué qu'une fois.
 gui.error.max_level_modifier=Le niveau maximum pour %s est déjà atteint.
 gui.error.no_modifier_for_item=Aucun modificateur trouvé pour %s.
+gui.error.already_has_extratrait=The tool already has an embossment, it can only have one.
 gui.error.incompatible_modifiers=Les modificateurs %s et %s ne peuvent pas être ajoutés ensemble
 gui.error.incompatible_trait=Le modificateur %s ne peut pas être utiliser avec le trait %s
 gui.error.incompatible_enchantments=Le modificateur %s ne peut pas être combiné avec l'enchantment %s
+gui.error.no_rename=This tool cannot be renamed
 
 ################
 #     GUIs     #
@@ -895,6 +948,7 @@ gui.smeltery.progress.no_heat=Pas assez de chaleur pour faire fondre cet objet
 gui.smeltery.progress.no_space=Pas assez de place dans la fonderie
 gui.smeltery.fuel=Combustible
 gui.smeltery.fuel.empty=Pas de combustible trouvé
+gui.smeltery.fuel.invalid=§4%s is not a valid smeltery fuel!
 gui.smeltery.fuel.heat=Température: %d
 gui.smeltery.capacity=Capacité
 gui.smeltery.capacity_available=Libre
