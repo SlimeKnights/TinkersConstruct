@@ -71,6 +71,11 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
       }
     }
 
+    // below lowest internal position
+    if (masterY < center.getY()) {
+      return null;
+    }
+
     // no walls?
     if(height < 1 + masterY - center.getY()) {
       return null;
