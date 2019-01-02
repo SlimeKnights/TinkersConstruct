@@ -1,0 +1,30 @@
+{
+    "parent": "block/block",
+    "textures": {
+        "fluid": "blocks/water_still"    
+    },
+    "elements": [
+        {   "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  { "texture": "#top" },
+                "up":    { "texture": "#top" },
+                "north": { "texture": "#side" },
+                "south": { "texture": "#side" },
+                "west":  { "texture": "#side" },
+                "east":  { "texture": "#side" }
+            }
+        },
+        {   "from": [ 0.08, 0.08, 0.08 ],
+            "to": [ 15.92, 2, 15.92 ],
+            "faces": {
+                "down":  { "texture": "#fluid", "tintindex": 0 },
+                "up":    { "texture": "#fluid", "tintindex": 0 },
+                "north": { "texture": "#fluid", "tintindex": 0 },
+                "south": { "texture": "#fluid", "tintindex": 0 },
+                "west":  { "texture": "#fluid", "tintindex": 0 },
+                "east":  { "texture": "#fluid", "tintindex": 0 }
+            }
+        }
+    ]
+}

@@ -1,7 +1,7 @@
 {
     "parent": "block/block",
     "textures": {
-        "particle": "#side"
+        "fluid": "blocks/water_still"
     },
     "elements": [
         {   "from": [ 0, 0, 0 ],
@@ -13,6 +13,13 @@
                 "south": { "texture": "#side" },
                 "west":  { "texture": "#side" },
                 "east":  { "texture": "#side" }
+            }
+        },
+        {   "from": [ 0.08, 0.08, 0.08 ],
+            "to": [ 15.92, 0.08, 15.92 ],
+            "faces": {
+                "down": { "texture": "#fluid", "tintindex": 0 },
+                "up":   { "texture": "#fluid", "tintindex": 0 }
             }
         }
     ]
