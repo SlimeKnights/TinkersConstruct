@@ -258,6 +258,9 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
   // check for alloys and create them
   protected void alloyAlloys() {
     for(AlloyRecipe recipe : TinkerRegistry.getAlloys()) {
+      if(!recipe.isValid()) {
+        continue;
+      }
       // find out how often we can apply the recipe
       int matched = recipe.matches(liquids.getFluids());
       if(matched > ALLOYING_PER_TICK) {
