@@ -45,19 +45,17 @@ public class BlockSearedGlass extends BlockEnumSmeltery<BlockSearedGlass.GlassTy
   public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos position) {
     // Creates the state to use for the block. This is where we check if every side is
     // connectable or not.
-    return state.withProperty(BlockConnectedTexture.CONNECTED_DOWN,  this.isSideConnectable(world, position, EnumFacing.DOWN))
-                .withProperty(BlockConnectedTexture.CONNECTED_EAST,  this.isSideConnectable(world, position, EnumFacing.EAST))
-                .withProperty(BlockConnectedTexture.CONNECTED_NORTH, this.isSideConnectable(world, position, EnumFacing.NORTH))
-                .withProperty(BlockConnectedTexture.CONNECTED_SOUTH, this.isSideConnectable(world, position, EnumFacing.SOUTH))
-                .withProperty(BlockConnectedTexture.CONNECTED_UP,    this.isSideConnectable(world, position, EnumFacing.UP))
-                .withProperty(BlockConnectedTexture.CONNECTED_WEST,  this.isSideConnectable(world, position, EnumFacing.WEST));
+    return state.withProperty(BlockConnectedTexture.CONNECTED_DOWN,  this.isSideConnectable(state, world, position, EnumFacing.DOWN))
+                .withProperty(BlockConnectedTexture.CONNECTED_EAST,  this.isSideConnectable(state, world, position, EnumFacing.EAST))
+                .withProperty(BlockConnectedTexture.CONNECTED_NORTH, this.isSideConnectable(state, world, position, EnumFacing.NORTH))
+                .withProperty(BlockConnectedTexture.CONNECTED_SOUTH, this.isSideConnectable(state, world, position, EnumFacing.SOUTH))
+                .withProperty(BlockConnectedTexture.CONNECTED_UP,    this.isSideConnectable(state, world, position, EnumFacing.UP))
+                .withProperty(BlockConnectedTexture.CONNECTED_WEST,  this.isSideConnectable(state, world, position, EnumFacing.WEST));
   }
 
-  private boolean isSideConnectable(IBlockAccess world, BlockPos pos, EnumFacing side) {
-    final IBlockState original = world.getBlockState(pos);
+  private boolean isSideConnectable(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
     final IBlockState connected = world.getBlockState(pos.offset(side));
-
-    return canConnect(original, connected);
+    return canConnect(state, connected);
   }
 
   private boolean canConnect(IBlockState original, IBlockState connected) {
