@@ -399,7 +399,7 @@ public class TinkerCommons extends TinkerPulse {
   }
 
   private void registerSmeltingRecipes() {
-    GameRegistry.addSmelting(graveyardSoil, consecratedSoil, 0);
+    GameRegistry.addSmelting(graveyardSoil, consecratedSoil, 0.1f);
 
     if(!isSmelteryLoaded()) {
       // compat recipe if the smeltery is not available for melting

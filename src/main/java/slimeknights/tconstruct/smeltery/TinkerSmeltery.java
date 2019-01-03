@@ -315,7 +315,7 @@ public class TinkerSmeltery extends TinkerPulse {
   }
 
   private void registerSmelting() {
-    GameRegistry.addSmelting(TinkerCommons.grout, TinkerCommons.searedBrick, 0);
+    GameRegistry.addSmelting(TinkerCommons.grout, TinkerCommons.searedBrick, 0.4f);
 
     GameRegistry.addSmelting(new ItemStack(searedBlock, 1, BlockSeared.SearedType.BRICK.getMeta()), new ItemStack(searedBlock, 1, BlockSeared.SearedType.BRICK_CRACKED.getMeta()), 0.1f);
   }

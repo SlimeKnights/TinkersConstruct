@@ -239,7 +239,7 @@ public class TinkerGadgets extends TinkerPulse {
     // Recipe for mom's spaghetti: soak em, dry em, cook em, eat em
     TinkerRegistry.registerTableCasting(new CastingRecipe(wetSpaghetti, RecipeMatch.of(hardSpaghetti), new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME * 3), 15 * 60 * 20, true, false));
     TinkerRegistry.registerDryingRecipe(wetSpaghetti, coldSpaghetti, 15 * 60 * 20);
-    GameRegistry.addSmelting(coldSpaghetti, new ItemStack(momsSpaghetti), 0f);
+    GameRegistry.addSmelting(coldSpaghetti, new ItemStack(momsSpaghetti), 2.0f);
 
     MinecraftForge.EVENT_BUS.register(slimeBoots);
   }
