@@ -1,4 +1,3 @@
-#X-Generator: crowdin.com
 ################
 #    Blocks    #
 ################
@@ -251,7 +250,7 @@ tile.tconstruct.brownstone_stairs_creeper.name=Braunstein-Creepergesichttreppe
 item.tconstruct.book.name=Materialien und du
 item.tconstruct.book.tooltip=Ein Muss für jeden Bastler\nvon Skyla
 
-item.tconstruct.edible.bacon.name=Schinken
+item.tconstruct.edible.bacon.name=Speck
 item.tconstruct.edible.slimeball_blue.name=Schleimball
 item.tconstruct.edible.slimeball_purple.name=Schleimball
 item.tconstruct.edible.slimeball_blood.name=Geronnenes Blut
@@ -340,7 +339,7 @@ item.tconstruct.mattock.name=Breithacke
 item.tconstruct.kama.name=Kama
 
 item.tconstruct.hammer.name=Hammer
-item.tconstruct.excavator.name=Ausgräber
+item.tconstruct.excavator.name=Exkavator
 item.tconstruct.lumberaxe.name=Holzfälleraxt
 item.tconstruct.scythe.name=Sense
 
@@ -533,7 +532,7 @@ material.blueslime.prefix=Schleim-%s
 material.knightslime.name=Ritterschleim
 material.magmaslime.name=Magmaschleim
 material.ardite.name=Ardit
-material.cobalt.name=Kobalt
+material.cobalt.name=Cobalt
 material.manyullyn.name=Manyullyn
 material.iron.name=Eisen
 material.pigiron.name=Schweineeisen
