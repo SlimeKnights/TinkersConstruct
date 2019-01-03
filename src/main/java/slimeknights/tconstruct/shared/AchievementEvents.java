@@ -6,7 +6,9 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
@@ -24,7 +26,10 @@ public class AchievementEvents {
 
   @SubscribeEvent
   public void onCraft(PlayerEvent.ItemCraftedEvent event) {
-    if(event.player == null || !(event.player instanceof EntityPlayerMP) || event.crafting.isEmpty()) {
+    if(event.player == null ||
+       event.player instanceof FakePlayer  ||
+       !(event.player instanceof EntityPlayerMP) ||
+       event.crafting.isEmpty()) {
       return;
     }
     EntityPlayerMP playerMP = (EntityPlayerMP) event.player;
@@ -46,10 +51,12 @@ public class AchievementEvents {
 
   @SubscribeEvent
   public void onDamageEntity(LivingHurtEvent event) {
-    if(event.getSource().isProjectile()
-       && event.getSource().getImmediateSource() instanceof EntityArrow
-       && event.getSource().getTrueSource() instanceof EntityPlayerMP) {
-        grantAdvancement((EntityPlayerMP) event.getSource().getTrueSource(), ADVANCEMENT_SHOOT_ARROW);
+    DamageSource source = event.getSource();
+    if(source.isProjectile()
+       && !(source.getTrueSource() instanceof FakePlayer)
+       && source.getTrueSource() instanceof EntityPlayerMP
+       && source.getImmediateSource() instanceof EntityArrow) {
+        grantAdvancement((EntityPlayerMP) source.getTrueSource(), ADVANCEMENT_SHOOT_ARROW);
     }
   }
 
