@@ -33,8 +33,14 @@ public class AlloyRecipe {
 
     ImmutableList.Builder<FluidStack> builder = ImmutableList.builder();
     for(FluidStack liquid : input) {
+      if(liquid == null) {
+        throw new TinkerAPIException("Invalid Alloy recipe: Input cannot be null");
+      }
       if(liquid.amount < 1) {
         throw new TinkerAPIException("Invalid Alloy recipe: Fluid amount can't be less than 1");
+      }
+      if(liquid.containsFluid(result)) {
+        throw new TinkerAPIException("Invalid Alloy recipe: Result cannot be contained in inputs");
       }
       builder.add(liquid);
     }
