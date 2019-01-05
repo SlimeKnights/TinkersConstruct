@@ -860,11 +860,11 @@ death.attack.bleed=%1$s ist durch %2$s Angriff verblutet
 death.attack.bleed.item=%1$s verblutete durch %2$s Angriff mit %3$s
 
 message.mending_moss.not_enough_levels=Reparierendes Moos benötigt mindestens %s Stufen
-tconstruct.channel.connected.in=Setze Seite um nach innen zu fließen
-tconstruct.channel.connected.out=Setze Seite um nach außen zu fließen
-tconstruct.channel.connected.none=Seitliches fließen wurde verboten
-tconstruct.channel.connected_down.allow=Herunterfließen ist erlaubt
-tconstruct.channel.connected_down.disallow=Herunterfließen ist verboten
+tconstruct.channel.connected.in=Nach innen fließend
+tconstruct.channel.connected.out=Nach außen fließend
+tconstruct.channel.connected.none=Kein Fluss
+tconstruct.channel.connected_down.allow=Nach unten fließend
+tconstruct.channel.connected_down.disallow=Nicht nach unten fließend
 
 ######################
 # GUI Error messages #
