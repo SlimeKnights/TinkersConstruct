@@ -46,3 +46,5 @@ options.txt
 /resources/assets/unused
 /design
 /classes/
+#custom
+*.tmp
