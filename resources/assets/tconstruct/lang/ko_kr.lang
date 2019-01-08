@@ -622,7 +622,7 @@ stat.projectile.ammo.name=장탄수
 # traits are also modifiers, they use the same prefix so they don't have to be localized twice
 modifier.alien.name=에일리언
 modifier.alien.desc=§o시간은 답을 알고 있다...§r\n능력치가 시간에 따라 변하는 것 같습니다.
-modifier.aquadynamic.name=아쿠아다이나믹
+modifier.aquadynamic.name=유체역학
 modifier.aquadynamic.desc=§oIt's getting wet in here!§r\n도구가 물의 방해를 받지 않습니다. and loves rainy evenings.
 modifier.aridiculous.name=열정
 modifier.aridiculous.desc=§o온도 최대로!§r\n뜨거운 곳에서 도구가 더 잘 작동합니다.
@@ -666,7 +666,7 @@ modifier.holy.extra=modifier.smite.extra
 modifier.insatiable.name=욕망
 modifier.insatiable.desc=§oDevour!§r\nDuring combat you deal more and more damage but also consume more and more durability.
 modifier.jagged.name=거칢
-modifier.jagged.desc=§oMoves like jagged!§r\n손상된 내구도만큼 추가 피해를 줍니다.
+modifier.jagged.desc=§o거친 벌판으로 달려나가자!§r\n손상된 내구도만큼 추가 피해를 줍니다.
 modifier.jagged.extra=손상 보너스: +%s
 modifier.lightweight.name=가벼움
 modifier.lightweight.desc=§oSwift like the wind!§r\nIncreases the overall speed of your tool when mining and attacking.
