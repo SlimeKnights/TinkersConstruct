@@ -13,7 +13,7 @@ tile.tconstruct.tooltables.partchest.tooltip=Можно хранить мног�
 tile.tconstruct.toolforge.name=Кузня
 
 tile.tconstruct.soil.grout.name=Цемент
-tile.tconstruct.soil.grout.tooltip=Я - Грут!
+tile.tconstruct.soil.grout.tooltip=Я есть Грут!
 tile.tconstruct.soil.slimy_mud_green.name=Конгломерат зелёной слизи
 tile.tconstruct.soil.slimy_mud_green.tooltip=Замедляет, но на нём можно высоко прыгать
 tile.tconstruct.soil.slimy_mud_blue.name=Конгломерат синей слизи
@@ -487,7 +487,7 @@ fluid.tconstruct.copper.name=Жидкая медь
 fluid.tconstruct.tin.name=Жидкое олово
 fluid.tconstruct.bronze.name=Жидкая бронза
 fluid.tconstruct.zinc.name=Жидкий цинк
-fluid.tconstruct.lead.name=Жидкий цинк
+fluid.tconstruct.lead.name=Жидкий свинец
 fluid.tconstruct.nickel.name=Жидкий никель
 fluid.tconstruct.silver.name=Жидкое серебро
 fluid.tconstruct.electrum.name=Жидкий электрум
