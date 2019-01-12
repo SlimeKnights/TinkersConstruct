@@ -39,7 +39,7 @@ public abstract class MultiblockCuboid extends MultiblockDetection {
     center = getOuterPos(world, center, EnumFacing.DOWN, 64).up();
 
     // below lowest internal position
-    if (masterY < center.getY()) {
+    if (!hasFrame && masterY < center.getY()) {
       return null;
     }
 
