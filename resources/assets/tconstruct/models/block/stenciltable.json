@@ -1,10 +1,10 @@
 {
 	"parent": "block/block",
 	"textures": {
-		"0": "tconstruct:chest/stencil_top",
-		"2": "tconstruct:chest/stencil_drawer_front",
-		"3": "tconstruct:chest/stencil_side",
-		"5": "blocks/planks_oak",
+		"top": "tconstruct:chest/stencil_top",
+		"drawer_front": "tconstruct:chest/stencil_drawer_front",
+		"side": "tconstruct:chest/stencil_side",
+		"leg": "blocks/planks_oak",
 		"particle": "tconstruct:chest/stencil_top"
 	},
 	"elements": [
@@ -14,12 +14,12 @@
 			"to": [15, 15, 15],
 			"shade": true,
 			"faces": {
-				"north": {"uv": [2, 3, 14, 8], "texture": "#5"},
-				"east": {"uv": [2, 3, 14, 8], "texture": "#5"},
-				"south": {"uv": [2, 3, 14, 8], "texture": "#5"},
-				"west": {"uv": [2, 3, 14, 8], "texture": "#5"},
-				"up": {"uv": [1, 1, 15, 15], "texture": "#3"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#0"}
+				"north": {"uv": [2, 3, 14, 8], "texture": "#leg"},
+				"east": {"uv": [2, 3, 14, 8], "texture": "#leg"},
+				"south": {"uv": [2, 3, 14, 8], "texture": "#leg"},
+				"west": {"uv": [2, 3, 14, 8], "texture": "#leg"},
+				"up": {"uv": [1, 1, 15, 15], "texture": "#drawer_front"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#top"}
 			}
 		},
 		{
@@ -28,20 +28,12 @@
 			"to": [16, 16, 16],
 			"shade": true,
 			"faces": {
-				"north": {"uv": [0, 15, 16, 16], "texture": "#0"},
-				"east": {
-					"uv": [0, 0, 1, 16],
-					"texture": "#0",
-					"rotation": 90
-				},
-				"south": {"uv": [0, 0, 16, 1], "texture": "#0"},
-				"west": {
-					"uv": [15, 0, 16, 16],
-					"texture": "#0",
-					"rotation": 90
-				},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#0"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#0"}
+				"north": {"uv": [0, 15, 16, 16], "texture": "#top"},
+				"east": {	"uv": [0, 0, 1, 16],	"texture": "#top",	"rotation": 90},
+				"south": {"uv": [0, 0, 16, 1], "texture": "#top"},
+				"west": {	"uv": [15, 0, 16, 16], "texture": "#top",	"rotation": 90},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#top"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#top"}
 			}
 		},
 		{
@@ -50,12 +42,12 @@
 			"to": [2.5, 15, 2.5],
 			"shade": true,
 			"faces": {
-				"north": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"east": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"south": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"west": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"up": {"uv": [0, 0, 1, 1], "texture": "#3"},
-				"down": {"uv": [0, 14, 1, 15], "texture": "#3"}
+				"north": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"east": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"south": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"west": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"up": {"uv": [0, 0, 1, 1], "texture": "#drawer_front"},
+				"down": {"uv": [0, 14, 1, 15], "texture": "#drawer_front"}
 			}
 		},
 		{
@@ -64,12 +56,12 @@
 			"to": [2.5, 15, 15.5],
 			"shade": true,
 			"faces": {
-				"north": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"east": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"south": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"west": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"up": {"uv": [0, 0, 1, 1], "texture": "#3"},
-				"down": {"uv": [0, 14, 1, 15], "texture": "#3"}
+				"north": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"east": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"south": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"west": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"up": {"uv": [0, 0, 1, 1], "texture": "#drawer_front"},
+				"down": {"uv": [0, 14, 1, 15], "texture": "#drawer_front"}
 			}
 		},
 		{
@@ -78,12 +70,12 @@
 			"to": [15.5, 15, 15.5],
 			"shade": true,
 			"faces": {
-				"north": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"east": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"south": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"west": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"up": {"uv": [0, 0, 1, 1], "texture": "#3"},
-				"down": {"uv": [0, 14, 1, 15], "texture": "#3"}
+				"north": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"east": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"south": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"west": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"up": {"uv": [0, 0, 1, 1], "texture": "#drawer_front"},
+				"down": {"uv": [0, 14, 1, 15], "texture": "#drawer_front"}
 			}
 		},
 		{
@@ -92,34 +84,26 @@
 			"to": [15.5, 15, 2.5],
 			"shade": true,
 			"faces": {
-				"north": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"east": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"south": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"west": {"uv": [0, 0, 1, 15], "texture": "#3"},
-				"up": {"uv": [0, 0, 1, 1], "texture": "#3"},
-				"down": {"uv": [0, 14, 1, 15], "texture": "#3"}
+				"north": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"east": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"south": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"west": {"uv": [0, 0, 1, 15], "texture": "#drawer_front"},
+				"up": {"uv": [0, 0, 1, 1], "texture": "#drawer_front"},
+				"down": {"uv": [0, 14, 1, 15], "texture": "#drawer_front"}
 			}
 		},
 		{
-			"name": "Drawer - Front",
-			"from": [3, 10, 0],
+			"name": "DrawerPiece - Front - E",
+			"from": [12, 10, 0],
 			"to": [13, 14, 1],
 			"shade": true,
 			"faces": {
-				"north": {"uv": [3, 2, 13, 6], "texture": "#2"},
-				"east": {"uv": [3, 2, 4, 6], "texture": "#2"},
-				"south": {
-					"uv": [3, 2, 13, 6],
-					"texture": "#2",
-					"rotation": 180
-				},
-				"west": {"uv": [12, 2, 13, 6], "texture": "#2"},
-				"up": {"uv": [3, 2, 13, 3], "texture": "#2"},
-				"down": {
-					"uv": [3, 5, 13, 6],
-					"texture": "#2",
-					"rotation": 180
-				}
+				"north": {"uv": [3, 2, 4, 6], "texture": "#drawer_front"},
+				"east": {"uv": [3, 2, 4, 6], "texture": "#drawer_front"},
+				"south": {	"uv": [3, 2, 4, 6],	"texture": "#drawer_front", "rotation": 180},
+				"west": {"uv": [3, 2, 4, 6], "texture": "#drawer_front"},
+				"up": {"uv": [3, 2, 4, 3], "texture": "#drawer_front"},
+				"down": {	"uv": [3, 5, 4, 6],	"texture": "#drawer_front",	"rotation": 180}
 			}
 		},
 		{
@@ -128,34 +112,68 @@
 			"to": [8.5, 12.5, 0],
 			"shade": true,
 			"faces": {
-				"north": {"uv": [7, 12, 8, 13], "texture": "#2"},
-				"east": {"uv": [6, 12, 7, 13], "texture": "#2"},
-				"south": {"uv": [7, 11, 8, 12], "texture": "#2"},
-				"west": {"uv": [8, 12, 9, 13], "texture": "#2"},
-				"up": {"uv": [7, 11, 8, 12], "texture": "#2"},
-				"down": {"uv": [8, 11, 9, 12], "texture": "#2"}
+				"north": {"uv": [7, 12, 8, 13], "texture": "#drawer_front"},
+				"east": {"uv": [6, 12, 7, 13], "texture": "#drawer_front"},
+				"south": {"uv": [7, 11, 8, 12], "texture": "#drawer_front"},
+				"west": {"uv": [8, 12, 9, 13], "texture": "#drawer_front"},
+				"up": {"uv": [7, 11, 8, 12], "texture": "#drawer_front"},
+				"down": {"uv": [8, 11, 9, 12], "texture": "#drawer_front"}
 			}
 		},
 		{
 			"name": "Drawer - Front - Inlay",
-			"from": [3.0625, 10.0625, 0.0625],
-			"to": [12.9375, 13.9375, 0.9375],
+			"from": [4, 11, 0],
+			"to": [12, 13, 1],
 			"shade": true,
 			"faces": {
-				"north": {"uv": [3, 2, 12.875, 5.875], "texture": "#5"},
-				"east": {"uv": [3, 2, 3.875, 5.875], "texture": "#5"},
-				"south": {
-					"uv": [3, 2, 12.875, 5.875],
-					"texture": "#5",
-					"rotation": 180
-				},
-				"west": {"uv": [12, 2, 12.875, 5.875], "texture": "#5"},
-				"up": {"uv": [3, 2, 12.875, 2.875], "texture": "#5"},
-				"down": {
-					"uv": [3, 5, 12.875, 5.875],
-					"texture": "#5",
-					"rotation": 180
-				}
+				"north": {"uv": [4, 1, 12, 3], "texture": "#leg"},
+				"east": {"uv": [3, 2, 4, 4], "texture": "#leg"},
+				"south": {	"uv": [3, 2, 11, 4],	"texture": "#leg",	"rotation": 180},
+				"west": {"uv": [12, 2, 13, 4], "texture": "#leg"},
+				"up": {"uv": [3, 2, 11, 3], "texture": "#leg"},
+				"down": {	"uv": [3, 5, 11, 6],	"texture": "#leg",	"rotation": 180}
+			}
+		},
+		{
+			"name": "DrawerPiece - Front - W",
+			"from": [3, 10, 0],
+			"to": [4, 14, 1],
+			"shade": true,
+			"faces": {
+				"north": {"uv": [12, 2, 13, 6], "texture": "#drawer_front"},
+				"east": {"uv": [12, 2, 13, 6], "texture": "#drawer_front"},
+				"south": {	"uv": [12, 2, 13, 6],	"texture": "#drawer_front",	"rotation": 180},
+				"west": {"uv": [12, 2, 13, 6], "texture": "#drawer_front"},
+				"up": {"uv": [12, 2, 13, 3], "texture": "#drawer_front"},
+				"down": {	"uv": [12, 5, 13, 6],	"texture": "#drawer_front",	"rotation": 180}
+			}
+		},
+		{
+			"name": "DrawerPiece - Front - T",
+			"from": [3, 13, 0],
+			"to": [13, 14, 1],
+			"shade": true,
+			"faces": {
+				"north": {"uv": [3, 2, 13, 3], "texture": "#drawer_front"},
+				"east": {"uv": [3, 2, 4, 3], "texture": "#drawer_front"},
+				"south": {"uv": [3, 2, 13, 3], "texture": "#drawer_front"},
+				"west": {"uv": [12, 2, 13, 3], "texture": "#drawer_front"},
+				"up": {	"uv": [3, 2, 13, 3],	"texture": "#drawer_front",	"rotation": 180},
+				"down": {"uv": [3, 2, 13, 3], "texture": "#drawer_front"}
+			}
+		},
+		{
+			"name": "DrawerPiece - Front - B",
+			"from": [3, 10, 0],
+			"to": [13, 11, 1],
+			"shade": true,
+			"faces": {
+				"north": {"uv": [3, 5, 13, 6], "texture": "#drawer_front"},
+				"east": {"uv": [3, 5, 4, 6], "texture": "#drawer_front"},
+				"south": {	"uv": [3, 2, 13, 3],	"texture": "#drawer_front",	"rotation": 180},
+				"west": {"uv": [12, 5, 13, 6], "texture": "#drawer_front"},
+				"up": {"uv": [3, 2, 13, 3], "texture": "#drawer_front"},
+				"down": {	"uv": [3, 5, 13, 6],	"texture": "#drawer_front",	"rotation": 180}
 			}
 		}
 	],
