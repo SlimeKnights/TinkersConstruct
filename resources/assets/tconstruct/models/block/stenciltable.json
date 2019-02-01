@@ -1,11 +1,11 @@
 {
 	"parent": "block/block",
 	"textures": {
-		"top": "tconstruct:chest/stencil_top",
-		"drawer_front": "tconstruct:chest/stencil_drawer_front",
-		"side": "tconstruct:chest/stencil_side",
+		"top": "tconstruct:blocks/chest/stencil_top",
+		"drawer_front": "tconstruct:blocks/chest/stencil_drawer_front",
+		"side": "tconstruct:blocks/chest/stencil_side",
 		"leg": "blocks/planks_oak",
-		"particle": "tconstruct:chest/stencil_top"
+		"particle": "tconstruct:blocks/chest/stencil_top"
 	},
 	"elements": [
 		{
