@@ -745,7 +745,7 @@ modifier.fiery.extra=화염 피해: +%s
 modifier.fiery.extra2=화염 지속: %s초
 modifier.fins.name=지느러미
 modifier.fins.desc=§o뭔가 비린내가 나는데...§r\n발사체에 지느러미를 달아 물 속에서도 평소처럼 이동하게 합니다.
-modifier.fortify.name=요새화
+modifier.fortify.name=강화
 modifier.fortify.desc=§oHarder, better, faster, stronger!§r\n채굴 단계가 %s 수준이 됩니다.
 modifier.glowing.name=발광
 modifier.glowing.desc=§o더욱 밝은 빛으로!§r\n어두운 곳에서 내구도를 소모하여 시야를 밝힙니다.
@@ -791,7 +791,7 @@ modifier.smite.extra=언데드에게: +%s
 modifier.soulbound.name=영혼 귀속
 modifier.soulbound.desc=§o우린 이제 영원히 하나야.§r\n너무나 사랑스러운 도구입니다. 죽음조차도 둘 사이를 갈라 놓지 못합니다.
 modifier.webbed.name=거미줄
-modifier.webbed.desc=§o아니, 이게 뭐야!§r\n적을 거미줄로 묶어 느리게 만듭니다.
+modifier.webbed.desc=§o친구라도 될 걸 그랬어...§r\n적을 거미줄로 묶어 느리게 만듭니다.
 
 #################
 #   Tool Info   #
