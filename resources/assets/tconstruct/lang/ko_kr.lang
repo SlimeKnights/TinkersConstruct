@@ -355,7 +355,7 @@ item.tconstruct.longsword.name=장검
 item.tconstruct.rapier.name=레이피어
 item.tconstruct.cutlass.name=커틀러스
 
-item.tconstruct.cleaver.name=식칼
+item.tconstruct.cleaver.name=클리버
 item.tconstruct.battleaxe.name=전투도끼
 
 # Ranged Weapons & Ammo
@@ -809,10 +809,10 @@ item.tconstruct.battlesign.desc=§l전투표지판§r은 뛰어난 수비 무기
 item.tconstruct.hammer.desc=§l망치§r는 암석을 광범위로 파괴할 수 있는 채굴 도구입니다.\n언데드 몬스터에게 추가 피해를 입힙니다.
 item.tconstruct.lumberaxe.desc=§l벌목도끼§r는 뛰어난 성능의 벌목 도구입니다.\n크고 작은 나무들을 단번에 벌목할 수 있습니다.
 item.tconstruct.excavator.desc=§l굴착기§r는 흙을 매우 빠르게 파괴할 수 있는 도구입니다.\n모래나 눈 등을 광범위하게 파냅니다.
-item.tconstruct.cleaver.desc=§l식칼§r은 공격력이 매우 높지만 속도가 느린 무기입니다.\n몬스터가 머리를 드랍할 확률이 높아집니다.\n양손 무기입니다.
+item.tconstruct.cleaver.desc=§l클리버§r는 공격력이 매우 높지만 속도가 느린 무기입니다.\n몬스터가 머리를 드랍할 확률이 높아집니다.\n양손 무기입니다.
 item.tconstruct.battleaxe.desc=§l전투도끼§r는 매우 강력한 무기입니다.\n적들을 날려 보내고 작은 나무를 벨 수 있습니다..\n(오른쪽 클릭하여 폭주)
 item.tconstruct.scythe.desc=§l벌낫§r은 범위가 넓은 수확 도구입니다.\n잔디와 같은 식물을 빠르게 제거하고 농작물을 수확합니다.\n범위 공격을 할 수 있습니다.\n(오른쪽 클릭하여 수확)
-item.tconstruct.shuriken.desc=§l수리검§r은 빠르게 날아가는 원거리 무기입니다.\n여러번 던질 수 있지만 피해량이 낮습니다.\n왼손으로 던질 수 있습니다.
+item.tconstruct.shuriken.desc=§l수리검§r은 빠르게 날아가는 원거리 무기입니다.\n여러번 던질 수 있지만 피해량이 낮습니다.\n반대 손으로도 던질 수 있습니다.
 item.tconstruct.shortbow.desc=§l단궁§r은 민첩한 원거리 무기입니다.\n활시위를 빠르게 당기고 민첩하게 움직일 수 있습니다.\n팅커 화살을 사용합니다.
 item.tconstruct.longbow.desc=§l장궁§r은 긴 사거리를 가진 원거리 무기입니다.\n적에게 강력한 피해를 입히지만 단궁보다는 움직임이 느립니다.\n팅커 화살을 사용합니다.
 item.tconstruct.arrow.desc=팅커 활에 사용되는 §l화살§r입니다.\n화살의 내구도만큼 사용할 수 있으며 조립대에서 강화할 수 있습니다.
