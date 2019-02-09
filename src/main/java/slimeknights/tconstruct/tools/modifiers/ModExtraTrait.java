@@ -57,7 +57,12 @@ public class ModExtraTrait extends ToolModifier {
     List<ItemStack> stacks = new ArrayList<>();
     stacks.add(toolPartItem);
     stacks.addAll(EMBOSSMENT_ITEMS);
-    addRecipeMatch(new RecipeMatch.ItemCombination(1, stacks.toArray(new ItemStack[stacks.size()])));
+    ItemStack[] itemStacks = stacks.toArray(new ItemStack[0]);
+
+    // only add new ones
+    if(!matches(itemStacks).isPresent()) {
+      addRecipeMatch(new RecipeMatch.ItemCombination(1, itemStacks));
+    }
   }
 
   public static String generateIdentifier(Material material, Collection<ITrait> traits) {
