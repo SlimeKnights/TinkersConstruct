@@ -23,6 +23,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
@@ -37,6 +38,7 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.capability.projectile.TinkerProjectileHandler;
 import slimeknights.tconstruct.library.events.ProjectileEvent;
+import slimeknights.tconstruct.library.events.TinkerProjectileImpactEvent;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ranged.ILauncher;
 import slimeknights.tconstruct.library.tools.ranged.IProjectile;
@@ -435,7 +437,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     }
 
     // time to hit the object
-    if(raytraceResult != null) {
+    if(raytraceResult != null && !MinecraftForge.EVENT_BUS.post(getProjectileImpactEvent(raytraceResult))) {
       if(raytraceResult.entityHit != null) {
         onHitEntity(raytraceResult);
       }
@@ -485,6 +487,10 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
     // tell blocks we collided with, that we collided with them!
     this.doBlockCollisions();
+  }
+
+  protected TinkerProjectileImpactEvent getProjectileImpactEvent(RayTraceResult rayTraceResult) {
+    return new TinkerProjectileImpactEvent(this, rayTraceResult, tinkerProjectile.getItemStack());
   }
 
   @Nullable
