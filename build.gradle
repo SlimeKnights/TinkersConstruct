@@ -15,7 +15,7 @@ buildscript {
         jcenter()
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            url = "https://files.minecraftforge.net/maven"
         }
         maven {
             name = "sonatype"
@@ -38,23 +38,23 @@ repositories {
     }
     maven { // TOP
         name 'tterrag maven'
-        url "http://maven.tterrag.com/"
+        url "https://maven.tterrag.com/"
     }
     maven { // compatlayer
         name 'K-4u maven'
-        url "http://maven.k-4u.nl/"
+        url "https://maven.k-4u.nl/"
     }
     maven {
         name 'forge'
-        url 'http://files.minecraftforge.net/maven'
+        url 'https://files.minecraftforge.net/maven'
     }
     maven {
          name "Tehnut Maven FS"
-         url "http://tehnut.info/maven"
+         url "https://tehnut.info/maven"
     }
     maven {
         name = "CoFH Maven"
-        url = "http://maven.covers1624.net"
+        url = "https://maven.covers1624.net"
     }
 }
 
