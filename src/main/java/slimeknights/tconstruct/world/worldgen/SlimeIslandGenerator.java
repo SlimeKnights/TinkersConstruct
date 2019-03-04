@@ -144,12 +144,16 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     The coordinates are chosen so that the remaining worldgen (trees, vines,..) doesn't cause triggers either
      */
 
+    markChunkForIslandGenerationAndGenerateMarked(random, chunkX, chunkZ, world, chunkProvider);
+  }
+
+  protected void markChunkForIslandGenerationAndGenerateMarked(Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkProvider) {
     // predetermine the seed so the generation is the same no matter if the island is generated directly
     // or after the surrounding chunks have been generated
     long generationSeed = random.nextLong();
 
     // do we generate in this chunk?
-    if(random.nextInt(Config.slimeIslandsRate) > 0) {
+    if(random.nextInt(getGenerationChance()) > 0) {
       SlimeIslandData slimeIslandData = getIslandData(world);
       // check if we need to generate in one of the surrounding chunks
       for(int x = chunkX - 1; x <= chunkX + 1; x++) {
@@ -169,6 +173,10 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     }
 
     generateIslandInChunk(generationSeed, world, chunkX, chunkZ);
+  }
+
+  protected int getGenerationChance() {
+    return Config.slimeIslandsRate;
   }
 
   protected void generateIslandInChunk(long seed, World world, int chunkX, int chunkZ) {
@@ -365,11 +373,7 @@ public class SlimeIslandGenerator implements IWorldGenerator {
     }
   }
 
-  private void tryGenerateInPreviouslyGeneratedChunk(int chunkX, int chunkZ, IChunkProvider iChunkProvider) {
-
-  }
-
-  private boolean areSurroundingChunksLoaded(int chunkX, int chunkZ, IChunkProvider chunkprovider) {
+  protected boolean areSurroundingChunksLoaded(int chunkX, int chunkZ, IChunkProvider chunkprovider) {
     for(int x = chunkX - 1; x <= chunkX + 1; x++) {
       for(int z = chunkZ - 1; z <= chunkZ + 1; z++) {
         if(chunkprovider.getLoadedChunk(x, z) == null) {

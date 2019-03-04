@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -61,7 +60,8 @@ public class ToolEvents {
 
     if(event.tool == TinkerHarvestTools.pickaxe ||
        event.tool == TinkerHarvestTools.hatchet ||
-       event.tool == TinkerHarvestTools.shovel) {
+       event.tool == TinkerHarvestTools.shovel ||
+       event.tool == TinkerHarvestTools.kama) {
       event.width += width ? 1 : 0;
       event.height += height ? 1 : 0;
     }
@@ -132,10 +132,9 @@ public class ToolEvents {
             event.setUseItem(Event.Result.DENY);
             event.setCanceled(true);
           }
-        } else {
-          player.sendStatusMessage(new TextComponentTranslation("message.mending_moss.not_enough_levels", new Object[] {
-              ModMendingMoss.MENDING_MOSS_LEVELS
-          }), true);
+        }
+        else {
+          player.sendStatusMessage(new TextComponentTranslation("message.mending_moss.not_enough_levels", ModMendingMoss.MENDING_MOSS_LEVELS), true);
         }
       }
     }
@@ -143,19 +142,17 @@ public class ToolEvents {
 
   @SubscribeEvent
   public void onLooting(LootingLevelEvent event) {
-    ItemStack item;
     int level = event.getLootingLevel();
 
     // ensure looting is taken into account for projectiles
-    Entity projectile = event.getDamageSource().getImmediateSource();
-    if(projectile != null && projectile.hasCapability(CapabilityTinkerProjectile.PROJECTILE_CAPABILITY, null)) {
-      ITinkerProjectile tinkerProjectile = projectile.getCapability(CapabilityTinkerProjectile.PROJECTILE_CAPABILITY, null);
-      item = tinkerProjectile.getItemStack();
-      level = Math.max(level, getLooting(item));
-    }
-    // or the item itself
-    else if(event.getDamageSource().getTrueSource() instanceof EntityPlayer) {
+    ItemStack item = CapabilityTinkerProjectile.getTinkerProjectile(event.getDamageSource())
+                                               .map(ITinkerProjectile::getItemStack)
+                                               .orElse(ItemStack.EMPTY);
+    if(item.isEmpty() && event.getDamageSource().getTrueSource() instanceof EntityPlayer) {
       item = ((EntityPlayer) event.getDamageSource().getTrueSource()).getHeldItemMainhand();
+    }
+
+    if(!item.isEmpty()) {
       level = Math.max(level, getLooting(item));
     }
 

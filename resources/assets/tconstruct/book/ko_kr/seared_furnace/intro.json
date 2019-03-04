@@ -1,0 +1,11 @@
+{
+  "title":"그을린 화로",
+  "image": {
+	"file": "tconstruct:textures/gui/book/seared_furnace.png"
+  },
+  "text": [
+    {
+      "text": "그을린 화로는 여러 개의 아이템을 동시에 구울 수 있는 전문적인 화로입니다."
+    }
+  ]
+}

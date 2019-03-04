@@ -19,11 +19,13 @@ import slimeknights.tconstruct.shared.block.PropertyTableItem;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 import slimeknights.tconstruct.tools.common.client.GuiCraftingStation;
 import slimeknights.tconstruct.tools.common.inventory.ContainerCraftingStation;
+import slimeknights.tconstruct.tools.common.inventory.CraftingStationItemHandler;
 
 public class TileCraftingStation extends TileTable implements IInventoryGui {
 
   public TileCraftingStation() {
     super("gui.craftingstation.name", 9);
+    this.itemHandler = new CraftingStationItemHandler(this, true, false);
   }
 
   @Override

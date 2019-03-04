@@ -70,7 +70,7 @@ tile.tconstruct.slime.blue.name=Bloco de Slime Azul
 tile.tconstruct.slime.purple.name=Bloco de Slime Roxo
 tile.tconstruct.slime.blood.name=Bloco de Slime de Sangue
 tile.tconstruct.slime.magma.name=Bloco de Slime de Magma
-tile.tconstruct.slime.tooltip=Não funcionam com pistões.
+tile.tconstruct.slime.tooltip=Funciona com pistões!.
 
 tile.tconstruct.slime_congealed.green.name=Bloco de Slime Verde Sólido
 tile.tconstruct.slime_congealed.blue.name=Bloco de Slime Azul Sólido

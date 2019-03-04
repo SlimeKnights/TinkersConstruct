@@ -24,6 +24,7 @@ public abstract class ModifierAspect {
   public static final ModifierAspect toolOnly = new CategoryAspect(Category.TOOL);
   public static final ModifierAspect harvestOnly = new CategoryAspect(Category.HARVEST);
   public static final ModifierAspect weaponOnly = new CategoryAspect(Category.WEAPON);
+  public static final ModifierAspect aoeOnly = new CategoryAspect(Category.AOE);
   public static final ModifierAspect projectileOnly = new CategoryAspect(Category.PROJECTILE);
 
   protected final IModifier parent;

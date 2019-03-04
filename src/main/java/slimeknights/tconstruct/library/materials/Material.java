@@ -32,6 +32,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomFontColor;
 import slimeknights.tconstruct.library.client.MaterialRenderInfo;
 import slimeknights.tconstruct.library.traits.ITrait;
+import slimeknights.tconstruct.library.utils.RecipeUtil;
 
 public class Material extends RecipeMatchRegistry {
 
@@ -100,6 +101,11 @@ public class Material extends RecipeMatchRegistry {
    * In general if you want to give a person this material, you can give them this item.
    */
   private ItemStack representativeItem = ItemStack.EMPTY;
+
+  /**
+   * Ore name that represents this material
+   */
+  private String representativeOre = null;
 
   /**
    * This item will be used instead of the generic shard item when returning leftovers.
@@ -342,6 +348,10 @@ public class Material extends RecipeMatchRegistry {
     this.addItem("block" + oredictSuffix, 1, Material.VALUE_Block);
   }
 
+  public void setRepresentativeItem(String representativeOre) {
+    this.representativeOre = representativeOre;
+  }
+
   public void setRepresentativeItem(Item representativeItem) {
     setRepresentativeItem(new ItemStack(representativeItem));
   }
@@ -352,7 +362,7 @@ public class Material extends RecipeMatchRegistry {
 
 
   public void setRepresentativeItem(ItemStack representativeItem) {
-    if(representativeItem == ItemStack.EMPTY) {
+    if(representativeItem == null || representativeItem.isEmpty()) {
       this.representativeItem = ItemStack.EMPTY;
     }
     else if(matches(representativeItem).isPresent()) {
@@ -366,6 +376,12 @@ public class Material extends RecipeMatchRegistry {
   }
 
   public ItemStack getRepresentativeItem() {
+    if(representativeOre != null) {
+      ItemStack ore = RecipeUtil.getPreference(representativeOre);
+      if(!ore.isEmpty()) {
+        return ore;
+      }
+    }
     return representativeItem;
   }
 

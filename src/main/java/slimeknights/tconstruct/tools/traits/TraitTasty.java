@@ -14,7 +14,7 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 
 public class TraitTasty extends AbstractTrait {
 
-  public static final int NOM_COST = 100;
+  public static final int NOM_COST = 5;
 
   public TraitTasty() {
     super("tasty", TextFormatting.RED);
@@ -28,20 +28,24 @@ public class TraitTasty extends AbstractTrait {
     }
 
     FoodStats foodStats = ((EntityPlayer) entity).getFoodStats();
+    float chance = 0.01f;
+    // faster nomming if we're damanged
+    if(((EntityPlayer) entity).getHealth() < ((EntityPlayer) entity).getMaxHealth()) {
+      chance += 0.02;
+    }
     // we only eat our tools if the food level is at least 3/4 empty
-    if(foodStats.getFoodLevel() > 15) {
+    if(!foodStats.needFood()) {
       return;
     }
     // more than 5 chickenwings left? we only take a bite randomly
     else if(foodStats.getFoodLevel() > 10) {
-      // on average we take a bite every 25 seconds (1/(25s * 20 ticks))
-      if(random.nextFloat() < 0.002f) {
+      // on average we take a bite every 5 seconds, 0.01 chance (1/(5s * 20 ticks))
+      if(random.nextFloat() < chance) {
         nom(tool, (EntityPlayer) entity);
       }
     }
     // less than 5 chickens left? we take a bite out before the situation becomes too.. dire(wolf20)
     else {
-      float chance = 0f;
       chance += (5 - foodStats.getFoodLevel()) * 0.0025f;
       chance -= foodStats.getSaturationLevel() * 0.005f;
 

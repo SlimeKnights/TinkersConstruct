@@ -42,13 +42,13 @@ public class GuiUtil {
   protected static Minecraft mc = Minecraft.getMinecraft();
 
   /** Renders the given texture tiled into a GUI */
-  public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
+  public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite, boolean upsideDown) {
     Tessellator tessellator = Tessellator.getInstance();
     BufferBuilder worldrenderer = tessellator.getBuffer();
     worldrenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
     mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
 
-    putTiledTextureQuads(worldrenderer, x, y, width, height, depth, sprite);
+    putTiledTextureQuads(worldrenderer, x, y, width, height, depth, sprite, upsideDown);
 
     tessellator.draw();
   }
@@ -56,11 +56,11 @@ public class GuiUtil {
   public static void renderTiledFluid(int x, int y, int width, int height, float depth, FluidStack fluidStack) {
     TextureAtlasSprite fluidSprite = mc.getTextureMapBlocks().getAtlasSprite(fluidStack.getFluid().getStill(fluidStack).toString());
     RenderUtil.setColorRGBA(fluidStack.getFluid().getColor(fluidStack));
-    renderTiledTextureAtlas(x, y, width, height, depth, fluidSprite);
+    renderTiledTextureAtlas(x, y, width, height, depth, fluidSprite, fluidStack.getFluid().isGaseous(fluidStack));
   }
 
   /** Adds a quad to the rendering pipeline. Call startDrawingQuads beforehand. You need to call draw() yourself. */
-  public static void putTiledTextureQuads(BufferBuilder renderer, int x, int y, int width, int height, float depth, TextureAtlasSprite sprite) {
+  public static void putTiledTextureQuads(BufferBuilder renderer, int x, int y, int width, int height, float depth, TextureAtlasSprite sprite, boolean upsideDown) {
     float u1 = sprite.getMinU();
     float v1 = sprite.getMinV();
 
@@ -81,10 +81,17 @@ public class GuiUtil {
 
         float u2 = sprite.getInterpolatedU((16f * renderWidth) / (float) sprite.getIconWidth());
 
-        renderer.pos(x2, y, depth).tex(u1, v1).endVertex();
-        renderer.pos(x2, y + renderHeight, depth).tex(u1, v2).endVertex();
-        renderer.pos(x2 + renderWidth, y + renderHeight, depth).tex(u2, v2).endVertex();
-        renderer.pos(x2 + renderWidth, y, depth).tex(u2, v1).endVertex();
+        if(upsideDown) {
+          renderer.pos(x2, y, depth).tex(u2, v1).endVertex();
+          renderer.pos(x2, y + renderHeight, depth).tex(u2, v2).endVertex();
+          renderer.pos(x2 + renderWidth, y + renderHeight, depth).tex(u1, v2).endVertex();
+          renderer.pos(x2 + renderWidth, y, depth).tex(u1, v1).endVertex();
+        } else {
+          renderer.pos(x2, y, depth).tex(u1, v1).endVertex();
+          renderer.pos(x2, y + renderHeight, depth).tex(u1, v2).endVertex();
+          renderer.pos(x2 + renderWidth, y + renderHeight, depth).tex(u2, v2).endVertex();
+          renderer.pos(x2 + renderWidth, y, depth).tex(u2, v1).endVertex();
+        }
 
         x2 += renderWidth;
       } while(width2 > 0);
@@ -221,6 +228,49 @@ public class GuiUtil {
 
     // standard display stuff: bucket amounts
     amountToString(amount, text);
+  }
+
+  /**
+   * Function called to show fluid tooltips in JEI. Placed in GuiUtils since it is not specific to any one handler
+   * it is easier to have access to GuiUtil internals
+   *
+   * @param slotIndex  Fluid slot index in JEI
+   * @param input      If true, this is an input, if false an output
+   * @param fluid      Input fluid stack
+   * @param text       Text to add information to.
+   */
+  public static void onFluidTooltip(int slotIndex, boolean input, FluidStack fluid, List<String> text) {
+    // first, store the original name and mod name from JEI
+    String ingredientName = text.get(0);
+    String modName = text.get(text.size() - 1);
+    text.clear();
+    text.add(ingredientName);
+
+    // next, determine smeltery amounts to show
+    int amount = fluid.amount;
+    int originalAmount = amount;
+    if(smelteryLoaded && !Util.isShiftKeyDown()) {
+      List<FluidGuiEntry> entries = fluidGui.get(fluid.getFluid());
+      if(entries == null) {
+        entries = calcFluidGuiEntries(fluid.getFluid());
+        fluidGui.put(fluid.getFluid(), entries);
+      }
+
+      for(FluidGuiEntry entry : entries) {
+        amount = calcLiquidText(amount, entry.amount, entry.getText(), text);
+      }
+    }
+
+    // finally, show standard mb amounts
+    calcLiquidText(amount, 1, Util.translate("gui.smeltery.liquid.millibucket"), text);
+
+    // if not just mb, state to hold shift to show buckets
+    if(!Util.isShiftKeyDown() && amount != originalAmount) {
+      text.add(Util.translate("tooltip.tank.holdShift"));
+    }
+
+    // add mod name back
+    text.add(modName);
   }
 
   public static void amountToIngotString(int amount, List<String> text) {

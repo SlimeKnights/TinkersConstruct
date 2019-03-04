@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.common;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.eventbus.Subscribe;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStoneBrick;
@@ -9,7 +8,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Set;
@@ -36,6 +36,7 @@ import static slimeknights.tconstruct.shared.TinkerCommons.ingotCobalt;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotKnightSlime;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotManyullyn;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotPigIron;
+import static slimeknights.tconstruct.shared.TinkerCommons.matNecroticBone;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallBlood;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallBlue;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallMagma;
@@ -43,7 +44,6 @@ import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallPurple;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeCrystalBlue;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeCrystalGreen;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeCrystalMagma;
-import static slimeknights.tconstruct.shared.TinkerCommons.matNecroticBone;
 import static slimeknights.tconstruct.shared.TinkerCommons.nuggetAlubrass;
 import static slimeknights.tconstruct.shared.TinkerCommons.nuggetArdite;
 import static slimeknights.tconstruct.shared.TinkerCommons.nuggetCobalt;
@@ -104,8 +104,13 @@ public class TinkerOredict {
       .add(Items.COOKED_RABBIT)
       .build();
 
-  @Subscribe
-  public static void doTheOredict(FMLInitializationEvent event) {
+  /**
+   * Registers all the blocks and item oredicts.
+   * Note that it's using the item registry event, since it's called after blocks.
+   * This relies on the TinkerOredict pulse being called after the pulses registering the items
+   */
+  @SubscribeEvent
+  public void registerItems(RegistryEvent.Register<Item> event) {
     ensureOredict();
     registerCommon();
     registerTools();
@@ -205,6 +210,7 @@ public class TinkerOredict {
 
   private static void registerSmeltery() {
     oredict(TinkerSmeltery.cast, "cast");
+    oredict(TinkerSmeltery.castCustom, "cast");
     oredict(TinkerSmeltery.searedBlock, OreDictionary.WILDCARD_VALUE, "blockSeared");
   }
 

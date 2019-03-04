@@ -16,7 +16,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,12 +23,12 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import javax.annotation.Nullable;
-
 import slimeknights.tconstruct.common.TinkerNetwork;
+import slimeknights.tconstruct.gadgets.entity.ExplosionEFLN;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 public class Exploder {
@@ -42,14 +41,14 @@ public class Exploder {
   public final int x, y, z;
   public final World world;
   public final Entity exploder;
-  public final Explosion explosion;
+  public final ExplosionEFLN explosion;
 
   protected int currentRadius;
   private int curX, curY, curZ;
 
   protected List<ItemStack> droppedItems; // map containing all items dropped by the explosion and their amounts
 
-  public Exploder(World world, Explosion explosion, Entity exploder, BlockPos location, double r, double explosionStrength, int blocksPerIteration) {
+  public Exploder(World world, ExplosionEFLN explosion, Entity exploder, BlockPos location, double r, double explosionStrength, int blocksPerIteration) {
     this.r = r;
     this.world = world;
     this.explosion = explosion;
@@ -71,7 +70,7 @@ public class Exploder {
     this.droppedItems = Lists.newArrayList();
   }
 
-  public static void startExplosion(World world, Explosion explosion, Entity entity, BlockPos location, double r, double explosionStrength) {
+  public static void startExplosion(World world, ExplosionEFLN explosion, Entity entity, BlockPos location, double r, double explosionStrength) {
     Exploder exploder = new Exploder(world, explosion, entity, location, r, explosionStrength, Math.max(50, (int) (r * r * r / 10d)));
     exploder.handleEntities();
     world.playSound(null, location, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
@@ -89,16 +88,11 @@ public class Exploder {
   }
 
   void handleEntities() {
-    final Predicate<Entity> predicate = new Predicate<Entity>() {
-      @Override
-      public boolean apply(@Nullable Entity entity) {
-        return entity != null
-               && !entity.isImmuneToExplosions()
-               && EntitySelectors.NOT_SPECTATING.apply(entity)
-               && EntitySelectors.IS_ALIVE.apply(entity)
-               && entity.getPositionVector().squareDistanceTo(x, y, z) <= r * r;
-      }
-    };
+    final Predicate<Entity> predicate = entity -> entity != null
+                                              && !entity.isImmuneToExplosions()
+                                              && EntitySelectors.NOT_SPECTATING.apply(entity)
+                                              && EntitySelectors.IS_ALIVE.apply(entity)
+                                              && entity.getPositionVector().squareDistanceTo(x, y, z) <= r * r;
 
     // damage and blast back entities
     List<Entity> list = world.getEntitiesInAABBexcluding(this.exploder,
@@ -175,6 +169,8 @@ public class Exploder {
   private boolean iteration() {
     int count = 0;
 
+    explosion.clearAffectedBlockPositions();
+
     while(count < blocksPerIteration && currentRadius < (int) r + 1) {
       double d = curX * curX + curY * curY + curZ * curZ;
       // inside the explosion?
@@ -193,13 +189,17 @@ public class Exploder {
           if(f > 0.0F && (exploder == null || exploder.canExplosionDestroyBlock(explosion, world, pos, state, (float) f))) {
             // block should be exploded
             count++;
-            explodeBlock(state, pos);
+            explosion.addAffectedBlock(pos);
           }
         }
       }
       // get next coordinate;
       step();
     }
+
+    net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(world, explosion, Collections.emptyList(), r * 2);
+
+    explosion.getAffectedBlockPositions().forEach(this::explodeBlock);
 
     return count == blocksPerIteration; // can lead to 1 more call where nothing is done, but that's ok
   }
@@ -230,7 +230,8 @@ public class Exploder {
     }
   }
 
-  private void explodeBlock(IBlockState state, BlockPos pos) {
+  private void explodeBlock(BlockPos pos) {
+    IBlockState state = world.getBlockState(pos);
     Block block = state.getBlock();
     if(!world.isRemote && block.canDropFromExplosion(explosion)) {
       List<ItemStack> drops = block.getDrops(world, pos, state, 0);

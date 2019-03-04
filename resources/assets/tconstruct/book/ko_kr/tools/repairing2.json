@@ -1,0 +1,10 @@
+{
+  "image": {
+    "file": "tconstruct:textures/gui/book/inventory_repair.png"
+  },
+  "text": [
+    {
+      "text": "도구에 사용된 재료와 같은 재료로 만들어진 연마 키트를 도구와 조합해 수리할 수 있습니다."
+    }
+  ]
+}

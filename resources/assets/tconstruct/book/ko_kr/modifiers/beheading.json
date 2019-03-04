@@ -1,0 +1,18 @@
+{
+  "modifier": "beheading",
+  "text": [
+    {
+      "text": "무기에 엔더 진주와 흑요석을 더하면 머리통을 날려 줄 수 있습니다. 키가 조금 줄어들겠네요."
+    }
+  ],
+  "effects": [
+    "몹이 머리를 드롭함",
+    "엔더 진주와 흑요석 추가 사용 시 참수 확률 상승",
+    "다중 단계"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:arrow"
+  ]
+}

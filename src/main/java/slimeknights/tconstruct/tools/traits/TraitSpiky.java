@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import slimeknights.tconstruct.library.traits.AbstractTrait;
@@ -18,21 +19,36 @@ public class TraitSpiky extends AbstractTrait {
 
   public TraitSpiky() {
     super("spiky", TextFormatting.DARK_GREEN);
+    MinecraftForge.EVENT_BUS.register(this);
+  }
+
+  @Override
+  public void onPlayerHurt(ItemStack tool, EntityPlayer player, EntityLivingBase attacker, LivingHurtEvent event) {
+    dealSpikyDamage(false, tool, player, attacker);
   }
 
   @Override
   public void onBlock(ItemStack tool, EntityPlayer player, LivingHurtEvent event) {
     Entity target = event.getSource().getTrueSource();
-    if(target instanceof EntityLivingBase && target.isEntityAlive()) {
-      float damage = ToolHelper.getActualDamage(tool, player) / 3f; // 1/3rd of weapon damage
+    dealSpikyDamage(true, tool, player, target);
+  }
+
+  private void dealSpikyDamage(boolean isBlocking, ItemStack tool, EntityPlayer player, Entity target) {
+    if(target instanceof EntityLivingBase && target.isEntityAlive() && target != player) {
+      float damage = ToolHelper.getActualDamage(tool, player);
+      if(!isBlocking) {
+        damage /= 2;
+      }
       EntityDamageSource damageSource = new EntityDamageSource(DamageSource.CACTUS.damageType, player);
       damageSource.setDamageBypassesArmor();
       damageSource.setDamageIsAbsolute();
+      damageSource.setIsThornsDamage();
 
+      int oldHurtResistantTime = target.hurtResistantTime;
       if(attackEntitySecondary(damageSource, damage, target, true, false)) {
         TinkerTools.proxy.spawnEffectParticle(ParticleEffect.Type.HEART_CACTUS, target, 1);
       }
-      target.hurtResistantTime = 4; // very short invulv time from that
+      target.hurtResistantTime = oldHurtResistantTime; // reset to old time
     }
   }
 }

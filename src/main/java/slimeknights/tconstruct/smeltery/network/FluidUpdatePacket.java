@@ -11,8 +11,6 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 
 import io.netty.buffer.ByteBuf;
 import slimeknights.mantle.network.AbstractPacketThreadsafe;
-import slimeknights.tconstruct.smeltery.tileentity.TileCasting;
-import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 
 public class FluidUpdatePacket extends AbstractPacketThreadsafe {
 
@@ -30,11 +28,8 @@ public class FluidUpdatePacket extends AbstractPacketThreadsafe {
   @Override
   public void handleClientSafe(NetHandlerPlayClient netHandler) {
     TileEntity te = Minecraft.getMinecraft().world.getTileEntity(pos);
-    if(te instanceof TileTank) {
-      ((TileTank) te).updateFluidTo(fluid);
-    }
-    else if(te instanceof TileCasting) {
-      ((TileCasting) te).updateFluidTo(fluid);
+    if(te instanceof IFluidPacketReceiver) {
+      ((IFluidPacketReceiver) te).updateFluidTo(fluid);
     }
   }
 
@@ -59,5 +54,13 @@ public class FluidUpdatePacket extends AbstractPacketThreadsafe {
       fluid.writeToNBT(tag);
     }
     ByteBufUtils.writeTag(buf, tag);
+  }
+
+  public static interface IFluidPacketReceiver {
+    /**
+     * Updates the current fluid to the specified value
+     * @param fluid  New fluidstack
+     */
+    void updateFluidTo(FluidStack fluid);
   }
 }

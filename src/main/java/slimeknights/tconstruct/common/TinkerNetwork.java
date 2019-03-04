@@ -14,15 +14,19 @@ import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.ConfigSyncPacket;
 import slimeknights.tconstruct.common.network.SpawnParticlePacket;
+import slimeknights.tconstruct.smeltery.network.ChannelConnectionPacket;
+import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.HeatingStructureFuelUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidClicked;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryInventoryUpdatePacket;
+import slimeknights.tconstruct.tools.common.network.BouncedPacket;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.common.network.InventoryCraftingSyncPacket;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
+import slimeknights.tconstruct.tools.common.network.LastRecipeMessage;
 import slimeknights.tconstruct.tools.common.network.PartCrafterSelectionPacket;
 import slimeknights.tconstruct.tools.common.network.StencilTableSelectionPacket;
 import slimeknights.tconstruct.tools.common.network.TinkerStationTabPacket;
@@ -61,6 +65,12 @@ public class TinkerNetwork extends NetworkWrapper {
     registerPacketServer(SmelteryFluidClicked.class);
     registerPacketClient(FluidUpdatePacket.class);
     registerPacketClient(FaucetActivationPacket.class);
+    registerPacketClient(ChannelConnectionPacket.class);
+    registerPacketClient(ChannelFlowPacket.class);
+
+    // OTHER STUFF
+    registerPacketServer(BouncedPacket.class);
+    registerPacketClient(LastRecipeMessage.class);
   }
 
   public static void sendPacket(Entity player, Packet<?> packet) {

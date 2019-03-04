@@ -11,7 +11,7 @@ public class DryingRecipe {
   public final RecipeMatch input;
   public final ItemStack output;
 
-  DryingRecipe(RecipeMatch input, ItemStack output, int time) {
+  public DryingRecipe(RecipeMatch input, ItemStack output, int time) {
     this.time = time;
     this.input = input;
     this.output = output;

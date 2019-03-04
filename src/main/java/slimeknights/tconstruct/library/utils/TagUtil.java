@@ -21,7 +21,7 @@ public final class TagUtil {
   public static NBTTagCompound getTagSafe(ItemStack stack) {
     // yes, the null checks aren't needed anymore, but they don't hurt either.
     // After all the whole purpose of this function is safety/processing possibly invalid input ;)
-    if(stack == null || stack.getItem() == null || !stack.hasTagCompound()) {
+    if(stack == null || stack.getItem() == null || stack.isEmpty() || !stack.hasTagCompound()) {
       return new NBTTagCompound();
     }
 
@@ -29,7 +29,7 @@ public final class TagUtil {
   }
 
   public static NBTTagCompound getTagSafe(NBTTagCompound tag, String key) {
-    if(tag == null || !tag.hasKey(key)) {
+    if(tag == null) {
       return new NBTTagCompound();
     }
 
@@ -37,7 +37,7 @@ public final class TagUtil {
   }
 
   public static NBTTagList getTagListSafe(NBTTagCompound tag, String key, int type) {
-    if(tag == null || !tag.hasKey(key)) {
+    if(tag == null) {
       return new NBTTagList();
     }
 
@@ -277,6 +277,26 @@ public final class TagUtil {
 
   public static boolean getResetFlag(ItemStack stack) {
     return getTagSafe(stack).getBoolean(Tags.RESET_FLAG);
+  }
+
+  public static void setNoRenameFlag(ItemStack stack, boolean active) {
+    NBTTagCompound root = getTagSafe(stack);
+    setNoRenameFlag(root, active);
+    stack.setTagCompound(root);
+  }
+
+  public static void setNoRenameFlag(NBTTagCompound root, boolean active) {
+    NBTTagCompound displayTag = root.getCompoundTag("display");
+    if(displayTag.hasKey("Name")) {
+      displayTag.setBoolean(Tags.NO_RENAME, active);
+      root.setTag("display", displayTag);
+    }
+  }
+
+  public static boolean getNoRenameFlag(ItemStack stack) {
+    NBTTagCompound root = getTagSafe(stack);
+    NBTTagCompound displayTag = root.getCompoundTag("display");
+    return displayTag.getBoolean(Tags.NO_RENAME);
   }
 
   /* Helper functions */

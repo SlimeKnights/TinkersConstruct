@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.traits;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
@@ -31,6 +32,11 @@ public abstract class AbstractProjectileTrait extends AbstractTrait implements I
 
   @Override
   public void onMovement(EntityProjectileBase projectile, World world, double slowdown) {
+
+  }
+
+  @Override
+  public void afterHit(EntityProjectileBase projectile, World world, ItemStack ammoStack, EntityLivingBase attacker, Entity target, double impactSpeed) {
 
   }
 }

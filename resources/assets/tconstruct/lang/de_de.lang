@@ -32,6 +32,7 @@ tile.tconstruct.mudbrick_stairs.name=Matschziegeltreppe
 tile.tconstruct.ore.cobalt.name=Cobalterz
 tile.tconstruct.ore.ardite.name=Arditerz
 
+tile.tconstruct.metal.tooltip=Kann als Leuchtfeuerbasis benutzt werden
 tile.tconstruct.metal.cobalt.name=Cobaltblock
 tile.tconstruct.metal.ardite.name=Arditblock
 tile.tconstruct.metal.manyullyn.name=Manyullynblock
@@ -70,7 +71,7 @@ tile.tconstruct.slime.blue.name=Blauschleimblock
 tile.tconstruct.slime.purple.name=Violetter Schleimblock
 tile.tconstruct.slime.blood.name=Blut-Schleimblock
 tile.tconstruct.slime.magma.name=Magma-Schleimblock
-tile.tconstruct.slime.tooltip=Funktioniert nicht mit Kolben.
+tile.tconstruct.slime.tooltip=Funktioniert mit Kolben!
 
 tile.tconstruct.slime_congealed.green.name=Erstarrter Grünschleimblock
 tile.tconstruct.slime_congealed.blue.name=Erstarrter Blauschleimblock
@@ -162,6 +163,8 @@ tile.tconstruct.casting.basin.name=Gussbecken
 tile.tconstruct.casting.tooltip=Gießt Gegenstände mithilfe von geschmolzenen Metallen aus einer Schmelzerei
 tile.tconstruct.faucet.name=Zapfhahn
 tile.tconstruct.faucet.tooltip=Gießt Flüssigkeiten aus Schmelzereien und anderen Sachen ab
+tile.tconstruct.channel.name=Gusskanal
+tile.tconstruct.channel.tooltip=Kann mit Zapfhähnen gefüllt werden, um Flüssigkeiten zum gießen zu befördern
 tile.tconstruct.seared_tank.tank.name=Versengter Tank
 tile.tconstruct.seared_tank.gauge.name=Versengtes Glas
 tile.tconstruct.seared_tank.window.name=Versengtes Fenster
@@ -247,7 +250,7 @@ tile.tconstruct.brownstone_stairs_creeper.name=Braunstein-Creepergesichttreppe
 item.tconstruct.book.name=Materialien und du
 item.tconstruct.book.tooltip=Ein Muss für jeden Bastler\nvon Skyla
 
-item.tconstruct.edible.bacon.name=Bacon
+item.tconstruct.edible.bacon.name=Speck
 item.tconstruct.edible.slimeball_blue.name=Schleimball
 item.tconstruct.edible.slimeball_purple.name=Schleimball
 item.tconstruct.edible.slimeball_blood.name=Geronnenes Blut
@@ -279,9 +282,9 @@ item.tconstruct.materials.slimecrystal_blue.tooltip=item.tconstruct.materials.sl
 item.tconstruct.materials.slimecrystal_magma.name=Magma-Schleimkristall
 item.tconstruct.materials.slimecrystal_magma.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
 item.tconstruct.materials.expander_w.name=Expander (horizontal)
-item.tconstruct.materials.expander_w.tooltip=Don't skip leg day!
+item.tconstruct.materials.expander_w.tooltip=Lasse keinen Beintag aus!
 item.tconstruct.materials.expander_h.name=Expander (vertikal)
-item.tconstruct.materials.expander_h.tooltip=Do you even lift?
+item.tconstruct.materials.expander_h.tooltip=Trainierst du überhaupt?
 item.tconstruct.materials.reinforcement.name=Verstärkung
 item.tconstruct.materials.reinforcement.tooltip=Verstärkungs-Modifikator
 item.tconstruct.materials.silky_cloth.name=Seidiger Stoff
@@ -333,6 +336,7 @@ item.tconstruct.pickaxe.name=Spitzhacke
 item.tconstruct.shovel.name=Schaufel
 item.tconstruct.hatchet.name=Beil
 item.tconstruct.mattock.name=Breithacke
+item.tconstruct.kama.name=Kama
 
 item.tconstruct.hammer.name=Hammer
 item.tconstruct.excavator.name=Exkavator
@@ -355,8 +359,11 @@ item.tconstruct.battleaxe.name=Streitaxt
 # Ranged Weapons & Ammo
 
 item.tconstruct.shortbow.name=Kurzbogen
+item.tconstruct.longbow.name=Langbogen
+item.tconstruct.crossbow.name=Armbrust
 
 item.tconstruct.arrow.name=Pfeil
+item.tconstruct.bolt.name=Bolzen
 
 item.tconstruct.shuriken.name=Shuriken
 
@@ -366,6 +373,7 @@ item.tconstruct.shard.name=Scherbe
 item.tconstruct.pick_head.name=Spitzhackenkopf
 item.tconstruct.shovel_head.name=Schaufelkopf
 item.tconstruct.axe_head.name=Axtkopf
+item.tconstruct.kama_head.name=Kama Kopf
 item.tconstruct.pan_head.name=Pfanne
 item.tconstruct.sign_head.name=Schildplatte
 item.tconstruct.binding.name=Bindung
@@ -396,12 +404,18 @@ item.tconstruct.arrow_head.name=Pfeilspitze
 item.tconstruct.arrow_shaft.name=Pfeilschaft
 item.tconstruct.fletching.name=Befiederung
 
+item.tconstruct.bolt_core.name=Bolzenkern
+
 # Material specific tools and toolparts
 # item.tconstruct.<tool>.<material>
 # item.tconstruct.pickaxe.wood=Wooden Pickaxe
 
 # Gadgets
-item.tconstruct.slime_boots.name=Schleimstiefel
+item.tconstruct.slime_boots.green.name=Schleim-Stiefel
+item.tconstruct.slime_boots.blue.name=Schleim-Stiefel
+item.tconstruct.slime_boots.purple.name=Schleim-Stiefel
+item.tconstruct.slime_boots.blood.name=Stiefel aus geronnenem Blut
+item.tconstruct.slime_boots.magma.name=Schleim-Stiefel
 item.tconstruct.slime_boots.tooltip=Lässt dich beim Landen hüpfen
 item.tconstruct.slimesling.name=Schleimschleuder
 item.tconstruct.slimesling.tooltip=Aufladen, zielen und schleudern!\nBenutze Schleimstiefel, wenn dir dein Leben wert ist!
@@ -490,7 +504,7 @@ fluid.tconstruct.alubrass.name=Geschmolzenes Duraluminium
 #    Potions    #
 #################
 
-potion.carry=Piggybacking
+potion.carry=Huckepack
 
 #################
 #   Materials   #
@@ -515,7 +529,7 @@ material.firewood.name=Feuerholz
 material.slime.name=Schleim
 material.blueslime.name=Blauschleim
 material.blueslime.prefix=Schleim-%s
-material.knightslime.name=Knightslime
+material.knightslime.name=Ritterschleim
 material.magmaslime.name=Magmaschleim
 material.ardite.name=Ardit
 material.cobalt.name=Cobalt
@@ -526,7 +540,7 @@ material.copper.name=Kupfer
 material.bronze.name=Bronze
 material.lead.name=Blei
 material.silver.name=Silber
-material.electrum.name=Electrum
+material.electrum.name=Elektrum
 material.steel.name=Stahl
 
 material.string.name=Faden
@@ -577,6 +591,8 @@ stat.bow.drawspeed.name=Ziehgeschwindigkeit
 stat.bow.drawspeed.desc=Wie schnell du den Bogen spannen kannst.
 stat.bow.range.name=Reichweiten-Multiplikator
 stat.bow.range.desc=Wie weit das Projektil geschossen werden kann.
+stat.bow.damage.name=Bonussschaden
+stat.bow.damage.desc=Bonusschaden bei Treffer.\nDie Kraft des Pfeils.
 
 stat.bowstring.name=Bogensehne
 stat.bowstring.modifier.name=Modifikator
@@ -594,6 +610,7 @@ stat.fletching.accuracy.desc=Wie stabil der Flugpfad mit dieser Befiederung sein
 stat.fletching.modifier.name=Modifikator
 stat.fletching.modifier.desc=Wie viele Pfeile du damit herstellen kannst.\nProjektil-Munition wird damit multipliziert.
 
+stat.projectile.name=Projektil
 stat.projectile.ammo.name=Munition
 
 ##############
@@ -601,7 +618,7 @@ stat.projectile.ammo.name=Munition
 ##############
 
 # traits are also modifiers, they use the same prefix so they don't have to be localized twice
-modifier.alien.name=Alien
+modifier.alien.name=Fremdartig
 modifier.alien.desc=§oDie Eigenschaften fühlen sich komisch an...§r\n..als ob sie sich ändern würden! Vielleicht wird es die Zeit zeigen?
 modifier.aquadynamic.name=Aquadynamisch
 modifier.aquadynamic.desc=§oEs wird nass hier drinnen!§r\nDas Werkzeug bleibt von Wasser ungehindert und liebt regnerische Abende.
@@ -628,7 +645,7 @@ modifier.duritos.name=Duritae
 modifier.duritos.desc=§oSchmeckt nicht so gut wie es klingt.§r\nDein Werkzeug hält länger ...meistens.
 modifier.ecological.name=Ökologisch
 modifier.ecological.desc=§oGrüne Energie!§r\nEneuerbare Ressourcen sind so gut, sie regenerieren sich selbst!
-modifier.enderference.name=Enderference
+modifier.enderference.name=Enderstörung
 modifier.enderference.desc=§oAnti-Teleport!§r\nVerbietet Endermen für kurze Zeit, sich zu teleportieren.
 modifier.established.name=Wohletabliert
 modifier.established.desc=§oKostenlose Bonus-Erfahrung!§r\nDu erhältst zusätzliche Erfahrung.
@@ -636,6 +653,8 @@ modifier.flammable.name=Brennbar
 modifier.flammable.desc=§oNiemals genug Feuer!§r\nBlocken wehrt Feuerschaden ab und setzt den Angreifer in Brand.
 modifier.fractured.name=Zerbrechlich
 modifier.fractured.desc=§oVerletzt!§r\nDein Werkzeugschaden ist erhöht.
+modifier.heavy.name=Schwer
+modifier.heavy.desc=§oTrainierst du überhaupt?§r\nVerhindert Rückstoß.
 modifier.hellish.name=Höllisch
 modifier.hellish.desc=§oVon ganz unten!§r\nRichte Bonus-Schaden gegen Nicht-Nether-Kreaturen an.
 modifier.hellish.extra=Gegen Nicht-Nether: +%s
@@ -716,10 +735,14 @@ modifier.diamond.name=Diamant
 modifier.diamond.desc=§oGlänzend!§r\nErhöhte Haltbarkeit!
 modifier.emerald.name=Smaragd
 modifier.emerald.desc=§oSchick!§r\nErhöht Haltbarkeit abhängig von den Standardwerten!
+modifier.extratrait.name=Prägung
+modifier.extratrait.desc=§oWie Magie, aber besser!§r\nMit der Kraft von %s geprägt, enthält es einige dessen Eigenschaften.
 modifier.fiery.name=Feurig
 modifier.fiery.desc=§oSo heiß gerade!§r\nBonus-Feuerschaden, setzt deine Gegner in Brand.
 modifier.fiery.extra=Feuerschaden: +%s
 modifier.fiery.extra2=Brenndauer: %ss
+modifier.fins.name=Flossen
+modifier.fins.desc=§oIrgendetwas ist faul...§r\nMit Flossen versehen fliegen die Projektile ungehindert durch Wasser.
 modifier.fortify.name=Verstärkt
 modifier.fortify.desc=§oHärter, besser, schneller, stärker!§r\nDas Abbaulevel hat sich auf %s erhöht.
 modifier.glowing.name=Leuchtend
@@ -775,6 +798,7 @@ item.tconstruct.pickaxe.desc=Die Spitzhacke ist ein präzises Bergbauwerkzeug. E
 item.tconstruct.shovel.desc=Die Schaufel gräbt Erde. Effektiv bei Erde, Sand, Kies und Schnee.\nGrab nur nicht dein eigenes Grab!
 item.tconstruct.hatchet.desc=Das Beil zerhackt Holz und macht kurzen Prozess mit Blättern. Es ist außerdem eine passable Waffe.\nZack, zack!
 item.tconstruct.mattock.desc=Die Breithacke ist ein vielseitiges Landwirtschaftswerkzeug. Effektiv bei Holz, Erde und Pflanzen. Außerdem setzt es ordentlich zu.\nRechtsklick: Acker bestellen
+item.tconstruct.kama.desc=Das Kama ist ein präzises Erntewerkzeug, mäht Pflanzen nieder und schert Tiere.\nRechtsklick: Pflanzen ernten und erneut pflanzen
 item.tconstruct.broadsword.desc=Das Breitschwert ist eine Universalwaffe. Streichattacken halten feindliche Horden in Schach.\nAuch gut gegen Spinnweben geeignet!
 item.tconstruct.longsword.desc=Das Langschwert ist eine Angriffswaffe. Es wird häufig benutzt, um mit hoher Geschwindigkeit in den Kampf zu ziehen.\nRechtsklick: Satz nach vorn
 item.tconstruct.rapier.desc=Der Stoßdegen ist eine Spezialwaffe, der auf schnelle Angriffe ausgelegt ist, um Feinde zu besiegen.\nRechtsklick: Satz nach hinten
@@ -787,6 +811,11 @@ item.tconstruct.cleaver.desc=Das Hackbeil ist eine schwere Angriffswaffe. Es ver
 item.tconstruct.battleaxe.desc=Die Streitaxt ist eine schwere Angriffswaffe und lässt den Berserker in dir heraus. Sie kann kleine Bäume fällen und Feinde zum Fliegen bringen.\nRechtsklick: Berserker
 item.tconstruct.scythe.desc=Die Sense ist ein breites Erntewerkzeug und mäht Pflanzen und Feinde gleichermaßen nieder.\nRichtet Flächenschaden an.\nRechtsklick: Pflanzen ernten und erneut anpflanzen
 item.tconstruct.shuriken.desc=Der Shuriken ist eine schnelle Wurfwaffe mit kurzer Reichweite. Es hat eine hohe Menge, aber geringen Schaden.\nKann mit der Nebenhand geworfen werden.
+item.tconstruct.shortbow.desc=Die Shortbow ist eine schnelle und flinke Waffe. Er ermöglicht schnelle Bewegungen während Pfeile mit hoher Feuerrate abgeschossen werden.\nBenutzt Tinkers' Pfeile.
+item.tconstruct.longbow.desc=Der Langbogen ist eine mächtige Waffe mit hoher Reichweite. Er verursacht hohen Schaden aber ist nicht so mobil wie sein kleiner Bruder.\nBenutzt Tinkers' Pfeile.
+item.tconstruct.arrow.desc=Die Pfeile sind die Munition, die für Tinkers' Bögen benutzt wird. Ein Stapel stellt viele Schüsse bereit und sie können genauso modifiziert werden wie jedes Werkzeug.
+item.tconstruct.crossbow.desc=Die Armbrust ist eine langsame aber sehr mächtige Waffe. Sie muss schon vorher durch das halten der rechten Maustaste geladen werden, kann jedoch danach jederzeit schießen.\nNutzt Tinkers' Bolzen.
+item.tconstruct.bolt.desc=Die Bolzen sind die Munition, die von Tinkers' Armbrüsten benutzt wird. Ein Stapel stellt viele Schüsse bereit und sie können genauso modifiziert werden wie jedes Werkzeug.
 
 ################
 #   Tooltips   #
@@ -810,6 +839,7 @@ tooltip.patternchest.holds_casts=Enthält %d Gussformen
 
 tooltip.tank.fluid=%s
 tooltip.tank.amount=%d ml
+tooltip.tank.holdShift=Halte §e§oShift§r§7 für Eimer
 
 ##################
 #   UI Strings   #
@@ -826,6 +856,15 @@ ui.mininglevel.cobalt=Cobalt
 # Death messages
 death.attack.smeltery=%s hat versucht, einen geschmolzenen Spieler zu erschaffen
 death.attack.splinter=%s hat sich einen Splitter eingefangen. War anscheinend ein großer
+death.attack.bleed=%1$s ist durch %2$s Angriff verblutet
+death.attack.bleed.item=%1$s verblutete durch %2$s Angriff mit %3$s
+
+message.mending_moss.not_enough_levels=Reparierendes Moos benötigt mindestens %s Stufen
+tconstruct.channel.connected.in=Nach innen fließend
+tconstruct.channel.connected.out=Nach außen fließend
+tconstruct.channel.connected.none=Kein Fluss
+tconstruct.channel.connected_down.allow=Nach unten fließend
+tconstruct.channel.connected_down.disallow=Nicht nach unten fließend
 
 ######################
 # GUI Error messages #
@@ -838,14 +877,20 @@ gui.error.invalid_pattern=Schablone enthält kein gültiges Werkzeugteil!
 gui.error.useless_tool_part=Dieses Werkzeugteil kann nicht benutzt werden, um ein Werkzeug herzustellen.\nEntweder besitzt das Material %s nicht genügend Informationen oder kein Werkzeug benutzt %s im Herstellungsprozess.
 gui.error.wrong_material_part=Ein oder mehrere Gegenstände haben ein nicht unterstütztes Material für dieses Werkzeug.
 gui.error.not_enough_durability=Nicht genug Haltbarkeit, um Werkzeugteile auszutauschen!\n%d weitere Haltbarkeit benötigt.
+gui.error.craftevent.tool.default=Die Herstellung dieses Gegenstands wurde durch eine andere Mod verhindert.
+gui.error.craftevent.modifier.default=Das Modifizieren dieses Werkzeugs mit diesen Gegenständen wurde durch eine andere Mod verhindert.
+gui.error.craftevent.toolpart.default=Die Herstellung dieses Werkzeugteils wurde durch eine andere Mod verhindert.
+gui.error.craftevent.replace.default=Das Ersetzen dieses Werkzeugteils wurde durch eine andere Mod verhindert.
 # GUI Errors from modifiers
 gui.error.not_enough_modifiers=Nicht genug Modifikatoren vorhanden. (%d benötigt)
 gui.error.single_modifier=%s kann nur einmal angewandt werden.
 gui.error.max_level_modifier=Maximales Level für %s ist bereits erreicht.
 gui.error.no_modifier_for_item=Keine Modifikatoren für %s gefunden.
+gui.error.already_has_extratrait=Dieses Werkzeug hat bereits eine Prägung. Es kann nur eine besitzen.
 gui.error.incompatible_modifiers=Modifikatoren %s und %s können nicht zusammen angewandt werden
 gui.error.incompatible_trait=Modifikator %s kann nicht zusammen mit Eigenschaft %s benutzt werden
 gui.error.incompatible_enchantments=Modifikator %s kann nicht mit Verzauberung %s kombiniert werden
+gui.error.no_rename=Dieses Werkzeug kann nicht umbenannt werden
 
 ################
 #     GUIs     #
@@ -897,6 +942,7 @@ gui.smeltery.progress.no_heat=Nicht genug hitze, um den Gegenstand zu schmelzen
 gui.smeltery.progress.no_space=Nicht genug freier Platz in der Schmelzerei
 gui.smeltery.fuel=Treibstoff
 gui.smeltery.fuel.empty=Keinen Treibstoff gefunden
+gui.smeltery.fuel.invalid=§4%s ist kein gültiger Brennstoff für die Schmelzerei!
 gui.smeltery.fuel.heat=Temperatur: %d
 gui.smeltery.capacity=Kapazität:
 gui.smeltery.capacity_available=Frei:

@@ -1,0 +1,45 @@
+{
+    "parent": "block/block",
+    "textures": {
+        "texture":  "tconstruct:blocks/smeltery/seared_stone"
+    },
+    "elements": [
+        {
+            "name": "Base",
+            "from": [ 5, 4, 0 ], 
+            "to": [ 11, 6, 16 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" },
+                "up":    { "texture": "#texture" },
+                "down":  { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "West",
+            "from": [ 10, 6, 0 ], 
+            "to": [ 11, 8, 16 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" },
+                "up":    { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "East",
+            "from": [ 5, 6, 0 ], 
+            "to": [ 6, 8, 16 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" },
+                "up":    { "texture": "#texture" }
+            }
+        }
+    ]
+}

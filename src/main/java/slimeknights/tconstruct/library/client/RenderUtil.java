@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.EnumFacing.Axis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -57,6 +58,7 @@ public final class RenderUtil {
     mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
     //RenderUtil.setColorRGBA(color);
     int brightness = mc.world.getCombinedLight(pos, fluid.getFluid().getLuminosity());
+    boolean upsideDown = fluid.getFluid().isGaseous(fluid);
 
     pre(x, y, z);
 
@@ -64,12 +66,12 @@ public final class RenderUtil {
     TextureAtlasSprite flowing = mc.getTextureMapBlocks().getTextureExtry(fluid.getFluid().getFlowing(fluid).toString());
 
     // x/y/z2 - x/y/z1 is because we need the width/height/depth
-    putTexturedQuad(renderer, still, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.DOWN, color, brightness, false);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.NORTH, color, brightness, true);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.EAST, color, brightness, true);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.SOUTH, color, brightness, true);
-    putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.WEST, color, brightness, true);
-    putTexturedQuad(renderer, still, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.UP, color, brightness, false);
+    putTexturedQuad(renderer, still, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.DOWN, color, brightness, false, upsideDown);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.NORTH, color, brightness, true, upsideDown);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.EAST, color, brightness, true, upsideDown);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.SOUTH, color, brightness, true, upsideDown);
+    putTexturedQuad(renderer, flowing, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.WEST, color, brightness, true, upsideDown);
+    putTexturedQuad(renderer, still, x1, y1, z1, x2 - x1, y2 - y1, z2 - z1, EnumFacing.UP, color, brightness, false, upsideDown);
 
     tessellator.draw();
 
@@ -105,6 +107,7 @@ public final class RenderUtil {
     if(flowing == null) {
       flowing = mc.getTextureMapBlocks().getMissingSprite();
     }
+    boolean upsideDown = fluid.getFluid().isGaseous(fluid);
 
     int xd = to.getX() - from.getX();
 
@@ -156,12 +159,12 @@ public final class RenderUtil {
           double z1 = zs[z];
           double z2 = zs[z + 1] - z1;
 
-          if(x == 0) putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.WEST, color, brightness, true);
-          if(x == xd) putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.EAST, color, brightness, true);
-          if(y == 0) putTexturedQuad(renderer, still, x1, y1, z1, x2, y2, z2, EnumFacing.DOWN, color, brightness, false);
-          if(y == yd) putTexturedQuad(renderer, still, x1, y1, z1, x2, y2, z2, EnumFacing.UP, color, brightness, false);
-          if(z == 0) putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.NORTH, color, brightness, true);
-          if(z == zd) putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.SOUTH, color, brightness, true);
+          if(x == 0) putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.WEST, color, brightness, true, upsideDown);
+          if(x == xd) putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.EAST, color, brightness, true, upsideDown);
+          if(y == 0) putTexturedQuad(renderer, still, x1, y1, z1, x2, y2, z2, EnumFacing.DOWN, color, brightness, false, upsideDown);
+          if(y == yd) putTexturedQuad(renderer, still, x1, y1, z1, x2, y2, z2, EnumFacing.UP, color, brightness, false, upsideDown);
+          if(z == 0) putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.NORTH, color, brightness, true, upsideDown);
+          if(z == zd) putTexturedQuad(renderer, flowing, x1, y1, z1, x2, y2, z2, EnumFacing.SOUTH, color, brightness, true, upsideDown);
         }
       }
     }
@@ -192,6 +195,11 @@ public final class RenderUtil {
 
   public static void putTexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
                                      int color, int brightness, boolean flowing) {
+    putTexturedQuad(renderer, sprite, x, y, z, w, h, d, face, color, brightness, flowing, false);
+  }
+
+  public static void putTexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
+                                     int color, int brightness, boolean flowing, boolean flipHorizontally) {
     int l1 = brightness >> 0x10 & 0xFFFF;
     int l2 = brightness & 0xFFFF;
 
@@ -200,12 +208,17 @@ public final class RenderUtil {
     int g = color >> 8 & 0xFF;
     int b = color & 0xFF;
 
-    putTexturedQuad(renderer, sprite, x, y, z, w, h, d, face, r, g, b, a, l1, l2, flowing);
+    putTexturedQuad(renderer, sprite, x, y, z, w, h, d, face, r, g, b, a, l1, l2, flowing, flipHorizontally);
+  }
+
+  public static void putTexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
+                                     int r, int g, int b, int a, int light1, int light2, boolean flowing) {
+    putTexturedQuad(renderer, sprite, x, y, z, w, h, d, face, r, g, b, a, light1, light2, flowing, false);
   }
 
   // x and x+w has to be within [0,1], same for y/h and z/d
   public static void putTexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
-                                     int r, int g, int b, int a, int light1, int light2, boolean flowing) {
+                                     int r, int g, int b, int a, int light1, int light2, boolean flowing, boolean flipHorizontally) {
     // safety
     if(sprite == null) {
       return;
@@ -273,6 +286,12 @@ public final class RenderUtil {
         maxV = sprite.getMaxV();
     }
 
+    if(flipHorizontally) {
+      double tmp = minV;
+      minV = maxV;
+      maxV = tmp;
+    }
+
     switch(face) {
       case DOWN:
         renderer.pos(x1, y1, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
@@ -309,6 +328,100 @@ public final class RenderUtil {
         renderer.pos(x2, y2, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
         renderer.pos(x2, y2, z2).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
         renderer.pos(x2, y1, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+        break;
+    }
+  }
+
+  /**
+   * Similar to putTexturedQuad, except its only for upwards quads and a rotation is specified
+   */
+  public static void putRotatedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double d, EnumFacing rotation,
+      int color, int brightness, boolean flowing) {
+    int l1 = brightness >> 0x10 & 0xFFFF;
+    int l2 = brightness & 0xFFFF;
+
+    int a = color >> 24 & 0xFF;
+    int r = color >> 16 & 0xFF;
+    int g = color >> 8 & 0xFF;
+    int b = color & 0xFF;
+
+    putRotatedQuad(renderer, sprite, x, y, z, w, d, rotation, r, g, b, a, l1, l2, flowing);
+  }
+
+  /**
+   * Similar to putTexturedQuad, except its only for upwards quads and a rotation is specified
+   */
+  public static void putRotatedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double d, EnumFacing rotation,
+      int r, int g, int b, int a, int light1, int light2, boolean flowing) {
+    // safety
+    if(sprite == null) {
+      return;
+    }
+
+    double size = 16f;
+    if(flowing) {
+      size = 8f;
+    }
+
+    // coordinates for the sprite are super simple
+    double x1 = x;
+    double x2 = x + w;
+    double z1 = z;
+    double z2 = z + d;
+
+    // textures
+    double xt1 = x1%1d;
+    double xt2 = xt1 + w;
+    double zt1 = z1%1d;
+    double zt2 = zt1 + d;
+
+    // when rotating by 90 or 270 the dimensions switch, so switch the U and V before hand
+    if(rotation.getAxis() == Axis.X) {
+      double temp = xt1;
+      xt1 = zt1;
+      zt1 = temp;
+      temp = xt2;
+      xt2 = zt2;
+      zt2 = temp;
+    }
+
+    // we want to start from the bottom for north or west textures as otherwise UV is backwards
+    // we also want to start from the bottom for flowing fluids, and both should cancel
+    if(flowing ^ (rotation == EnumFacing.NORTH || rotation == EnumFacing.WEST)) {
+      double tmp = 1d - zt1;
+      zt1 = 1d - zt2;
+      zt2 = tmp;
+    }
+
+    double minU = sprite.getInterpolatedU(xt1 * size);
+    double maxU = sprite.getInterpolatedU(xt2 * size);
+    double minV = sprite.getInterpolatedV(zt1 * size);
+    double maxV = sprite.getInterpolatedV(zt2 * size);
+
+    switch(rotation) {
+      case NORTH:
+        renderer.pos(x1, y, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x1, y, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+        break;
+      case WEST:
+        renderer.pos(x1, y, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x1, y, z2).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y, z1).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+        break;
+      case SOUTH:
+        renderer.pos(x1, y, z1).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x1, y, z2).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y, z2).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y, z1).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+        break;
+      case EAST:
+        renderer.pos(x1, y, z1).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x1, y, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y, z2).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+        renderer.pos(x2, y, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
         break;
     }
   }

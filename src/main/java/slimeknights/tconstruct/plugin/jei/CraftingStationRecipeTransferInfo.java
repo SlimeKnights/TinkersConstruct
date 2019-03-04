@@ -48,9 +48,8 @@ public class CraftingStationRecipeTransferInfo implements IRecipeTransferInfo<Co
   public List<Slot> getInventorySlots(ContainerCraftingStation container) {
     List<Slot> slots = new ArrayList<>();
 
-    // we skip all slots from within the side inventory and crafting grid for transfer
-    // side inventory can cause too many issues since transfer is not validated the same way as clicking does
-    for(int i = container.getPlayerInventoryStart(); i < container.inventorySlots.size(); i++) {
+    // skip the actual slots of the crafting table
+    for(int i = 10; i < container.inventorySlots.size(); i++) {
       slots.add(container.getSlot(i));
     }
     return slots;

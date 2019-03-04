@@ -387,7 +387,7 @@ public class TinkerCommons extends TinkerPulse {
 
     GameRegistry.registerWorldGenerator(NetherOreGenerator.INSTANCE, 0);
 
-    // MinecraftForge.EVENT_BUS.register(new AchievementEvents()); TODO: FIX
+    MinecraftForge.EVENT_BUS.register(new AchievementEvents());
     MinecraftForge.EVENT_BUS.register(new BlockEvents());
     MinecraftForge.EVENT_BUS.register(new PlayerDataEvents());
   }
@@ -399,7 +399,7 @@ public class TinkerCommons extends TinkerPulse {
   }
 
   private void registerSmeltingRecipes() {
-    GameRegistry.addSmelting(graveyardSoil, consecratedSoil, 0);
+    GameRegistry.addSmelting(graveyardSoil, consecratedSoil, 0.1f);
 
     if(!isSmelteryLoaded()) {
       // compat recipe if the smeltery is not available for melting

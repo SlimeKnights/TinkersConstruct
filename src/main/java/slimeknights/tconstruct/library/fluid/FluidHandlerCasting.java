@@ -39,11 +39,12 @@ public class FluidHandlerCasting implements IFluidHandler {
       int capacity = tileCasting.initNewCasting(fluid, doFill);
       if(capacity > 0) {
         // new tank with the wanted capacity so we can simulate fill with the correct capacity
-        IFluidTank calcTank = new FluidTank(capacity);
+        IFluidTank calcTank = new FluidTank(resource.getFluid(), 0, capacity);
 
         // no extra checks needed for the tank since it's empty and we have to set the capacity anyway
         if(doFill) {
           tank.setCapacity(capacity);
+          tank.setFluid(new FluidStack(resource.getFluid(), 0));
           calcTank = tank;
         }
 

@@ -1,5 +1,5 @@
 ################
-#    Blocks    # #The translation is base on TConstruct's branch "master" on Github. (2017/2/5 15:20 UTC+8)
+#    Blocks    # #The translation is base on TConstruct's branch “1.12r” on Github. (2018/3/5 23:00 UTC+8)
 ################
 
 tile.tconstruct.tooltables.craftingstation.name=合成站
@@ -71,7 +71,7 @@ tile.tconstruct.slime.blue.name=藍色史萊姆方塊
 tile.tconstruct.slime.purple.name=紫色史萊姆方塊
 tile.tconstruct.slime.blood.name=血色史萊姆方塊
 tile.tconstruct.slime.magma.name=熔岩史萊姆方塊
-tile.tconstruct.slime.tooltip=不能與活塞一起使用。
+tile.tconstruct.slime.tooltip=適用於活塞
 
 tile.tconstruct.slime_congealed.green.name=固化綠色史萊姆方塊
 tile.tconstruct.slime_congealed.blue.name=固化藍色史萊姆方塊
@@ -163,6 +163,8 @@ tile.tconstruct.casting.basin.name=鑄造盆
 tile.tconstruct.casting.tooltip=使用冶煉爐裡的融化金屬澆鑄物品
 tile.tconstruct.faucet.name=澆注口
 tile.tconstruct.faucet.tooltip=從冶煉爐或是其他東西導出液體
+tile.tconstruct.channel.name=澆注引道
+tile.tconstruct.channel.tooltip=從澆注口引流液體來鑄造
 tile.tconstruct.seared_tank.tank.name=焦黑儲罐
 tile.tconstruct.seared_tank.gauge.name=焦黑量筒
 tile.tconstruct.seared_tank.window.name=焦黑窗
@@ -334,11 +336,12 @@ item.tconstruct.pickaxe.name=鎬
 item.tconstruct.shovel.name=鏟
 item.tconstruct.hatchet.name=手斧
 item.tconstruct.mattock.name=鶴嘴鋤
+item.tconstruct.kama.name=鐮刀
 
 item.tconstruct.hammer.name=錘
 item.tconstruct.excavator.name=開掘鏟
 item.tconstruct.lumberaxe.name=伐木斧
-item.tconstruct.scythe.name=鐮刀
+item.tconstruct.scythe.name=大鐮刀
 
 # Melee Weapons
 
@@ -370,6 +373,7 @@ item.tconstruct.shard.name=碎片
 item.tconstruct.pick_head.name=鎬頭
 item.tconstruct.shovel_head.name=鏟頭
 item.tconstruct.axe_head.name=鎬頭
+item.tconstruct.kama_head.name=鐮刀頭
 item.tconstruct.pan_head.name=盤
 item.tconstruct.sign_head.name=牌板
 item.tconstruct.binding.name=綁定結
@@ -388,7 +392,7 @@ item.tconstruct.broad_axe_head.name=寬斧刃
 item.tconstruct.large_plate.name=大板
 item.tconstruct.tough_binding.name=堅韌綁定結
 item.tconstruct.tough_tool_rod.name=堅韌手柄
-item.tconstruct.scythe_head.name=鐮刀刀刃
+item.tconstruct.scythe_head.name=大鐮刀刀刃
 item.tconstruct.large_sword_blade.name=大劍刃
 
 # Bow & Arrow Parts
@@ -430,7 +434,7 @@ item.tconstruct.fancy_frame.clear.name=通透物品展示框
 item.tconstruct.throwball.glow.name=螢光球
 item.tconstruct.throwball.glow.tooltip=不適合消耗。
 item.tconstruct.throwball.efln.name=EFLN
-item.tconstruct.throwball.efln.tooltip=Explosion！爆炸！對挖礦是很安全的
+item.tconstruct.throwball.efln.tooltip=爆炸！對挖礦是很安全的
 
 ###################
 # Mom's Spaghetti #
@@ -541,7 +545,7 @@ material.steel.name=鋼
 
 material.string.name=線
 material.vine.name=藤蔓
-material.slimevine_blue.name=史萊姆
+material.slimevine_blue.name=史萊姆藤蔓
 material.slimevine_orange.name=material.slimevine_blue.name
 material.slimevine_purple.name=material.slimevine_blue.name
 
@@ -649,6 +653,8 @@ modifier.flammable.name=易燃
 modifier.flammable.desc=§o火源不足！§r\n組當方塊火焰傷害並且讓敵人著火。
 modifier.fractured.name=破碎
 modifier.fractured.desc=§o痛！§r\n你工具的傷害程度增加了！
+modifier.heavy.name=沉重
+modifier.heavy.desc=§o你有做重量訓練嗎？§r\n不會被擊退。
 modifier.hellish.name=地獄
 modifier.hellish.desc=§o來自更深的地方！§r\n對非地獄的生物造成更多的傷害。
 modifier.hellish.extra=對付非地獄生物：+%s
@@ -729,6 +735,9 @@ modifier.diamond.name=鑽石
 modifier.diamond.desc=§o閃亮！§r\n增加耐久度！
 modifier.emerald.name=綠寶石
 modifier.emerald.desc=§o漂亮！§r\n基於工具基礎的性能增加耐久度！
+modifier.extratrait.name=鍍膜
+modifier.extratrait.desc=§o比魔法更神奇§r\n攝取 %s 的力量，來得到某些效果。
+
 modifier.fiery.name=火熱
 modifier.fiery.desc=§o現在好熱！§r\n造成火焰傷害，讓你的敵人著火。
 modifier.fiery.extra=火焰傷害：+%s
@@ -790,6 +799,7 @@ item.tconstruct.pickaxe.desc=十字鎬是一個典型的挖礦工具，它可以
 item.tconstruct.shovel.desc=鏟子可以把土挖起來，它可以作用於泥土、沙子、礫石和雪。\n不要拿來挖你自己的墳墓！
 item.tconstruct.hatchet.desc=手斧用來伐木，並且可以快速打掉樹葉。它也可能可以做為武器。\n砍砍砍！
 item.tconstruct.mattock.desc=鶴嘴鋤是一個多功能的農具， 它可以作用在木頭、泥土以及植物。它也可以造成重擊。\n右鍵：鋤地。
+item.tconstruct.kama.desc=鐮刀是實用的收割工具，可用於收割、裁剪植物和羊毛。\n右鍵：收割作物並播種。
 item.tconstruct.broadsword.desc=大劍是一個多功能的武器。範圍攻擊讓一群敵人做困獸之鬥。\n同時也善於對付蜘蛛網！
 item.tconstruct.longsword.desc=長劍是一種進攻型武器，在全速衝入戰鬥時它常被使用。\n右鍵：向前跳躍
 item.tconstruct.rapier.desc=西洋劍是一個特別的武器，它以快速的突刺來擊敗敵人。\n右鍵：向後跳躍
@@ -800,7 +810,7 @@ item.tconstruct.lumberaxe.desc=伐木斧是一個大範圍伐木工具，它可�
 item.tconstruct.excavator.desc=開掘鏟是一個大範圍挖掘工具，它可以挖掘大範圍的土和雪。\n創造地景！
 item.tconstruct.cleaver.desc=劈刀是一個很重的進攻武器，它能夠給予重擊但是很難揮動。\n劈刀的好處是可以造成高傷害。\n動作緩慢，要用雙手握著！
 item.tconstruct.battleaxe.desc=戰斧是一個重型進攻武器，展現出狂野的戰士形象。它可以砍倒小顆的數並且可以讓敵人飛走。\n右鍵：發狂
-item.tconstruct.scythe.desc=鐮刀是一個大範圍收割的工具，掃掉敵人就像掃掉植物一樣。\n具有範圍攻擊。\n右鍵：大範圍收割與重新種植
+item.tconstruct.scythe.desc=大鐮刀是一個大範圍收割的工具，掃掉敵人就像掃掉植物一樣。\n具有範圍攻擊。\n右鍵：大範圍收割與重新種植
 item.tconstruct.shuriken.desc=手裡劍是一個快速、短程的頭值武器。它有很高的發數，但是低傷害。\n可以使用副手發射。
 item.tconstruct.shortbow.desc=短弓是一個快速且靈活的武器，可以讓你在射箭時快速移動。\n使用匠魂模組的箭矢。
 item.tconstruct.longbow.desc=長弓是一個有力的長程武器，它可以造成高傷害但是移動性較短弓差。\n使用匠魂模組的箭矢。
@@ -851,6 +861,13 @@ death.attack.splinter=%s 被碎片刺到。那個碎片一定很大。
 death.attack.bleed=%1$s 被打了 %2$s 下，失血過多致死
 death.attack.bleed.item=%1$s 被 %3$s 打了 %2$s 下，失血過多致死
 
+message.mending_moss.not_enough_levels=修復凸蘚至少需要%s等級
+tconstruct.channel.connected.in=向內流動
+tconstruct.channel.connected.out=向外流動
+tconstruct.channel.connected.none=不允許流動
+tconstruct.channel.connected_down.allow=允許向下流
+tconstruct.channel.connected_down.disallow=不允許向下流
+
 ######################
 # GUI Error messages #
 ######################
@@ -862,14 +879,20 @@ gui.error.invalid_pattern=模板並不包含一個可用的部件！
 gui.error.useless_tool_part=這個部件不能被拿來合成任何工具！\n不是材料 %s 遺失了一些資訊，就是這個工具不需要 %s 作為合成材料。
 gui.error.wrong_material_part=有一個或多個物品是不被這個工具所支援的材料。
 gui.error.not_enough_durability=耐久度不足因此無法去代部件！\n還需要多 %d 點耐久度。
+gui.error.craftevent.tool.default=其他的模組禁止此物件的製作。
+gui.error.craftevent.modifier.default=其他的模組禁止此物件的強化及修改。
+gui.error.craftevent.toolpart.default=其他的模組禁止此部件的製作。
+gui.error.craftevent.replace.default=其他的模組禁止此部件的替換。
 # GUI Errors from modifiers
 gui.error.not_enough_modifiers=強化空間不足。(需要%d個強化空間)
 gui.error.single_modifier=%s 只可以被使用一次。
 gui.error.max_level_modifier=已經達到 %s 的最高等級。
 gui.error.no_modifier_for_item=找不到 %s 的強化槽。
+gui.error.already_has_extratrait=此工具已具有相同的強化。這強化只能有一個。
 gui.error.incompatible_modifiers= %s 強化和 %s 強化不能同時使用。
 gui.error.incompatible_trait=特徵 %s 和特徵 %s 不能同時使用。
 gui.error.incompatible_enchantments=%s 強化不能與 %s 附魔結合。
+gui.error.no_rename=此工具不能被改名字。
 
 ################
 #     GUIs     #

@@ -23,6 +23,7 @@
         ]
     },
     "result": {
-        "item": "tconstruct:stone_stick"
+        "item": "tconstruct:stone_stick",
+        "count": 4
     }
 }

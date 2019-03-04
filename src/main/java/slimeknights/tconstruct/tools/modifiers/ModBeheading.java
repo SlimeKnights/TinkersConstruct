@@ -11,12 +11,15 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
+import slimeknights.tconstruct.library.capability.projectile.ITinkerProjectile;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -70,7 +73,10 @@ public class ModBeheading extends ToolModifier {
   @SubscribeEvent
   public void onLivingDrops(LivingDropsEvent event) {
     if(event.getSource().getTrueSource() instanceof EntityPlayer) {
-      ItemStack item = ((EntityPlayer) event.getSource().getTrueSource()).getHeldItem(EnumHand.MAIN_HAND);
+      ItemStack item = CapabilityTinkerProjectile.getTinkerProjectile(event.getSource())
+                                                 .map(ITinkerProjectile::getItemStack)
+                                                 .orElse(((EntityPlayer) event.getSource().getTrueSource()).getHeldItem(EnumHand.MAIN_HAND));
+
       NBTTagCompound tag = TinkerUtil.getModifierTag(item, getIdentifier());
       int level = ModifierNBT.readTag(tag).level;
 
@@ -82,13 +88,17 @@ public class ModBeheading extends ToolModifier {
       // has beheading
       if(level > 0) {
         ItemStack head = getHeadDrop(event.getEntityLiving());
-        if(head != null && level > random.nextInt(10)) {
+        if(head != null && !head.isEmpty() && level > random.nextInt(10) && !alreadyContainsDrop(event, head)) {
           EntityItem entityitem = new EntityItem(event.getEntityLiving().getEntityWorld(), event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, head);
           entityitem.setDefaultPickupDelay();
           event.getDrops().add(entityitem);
         }
       }
     }
+  }
+
+  private boolean alreadyContainsDrop(LivingDropsEvent event, ItemStack head) {
+    return event.getDrops().stream().map(EntityItem::getItem).anyMatch(drop -> ItemStack.areItemStacksEqual(drop, head));
   }
 
   private ItemStack getHeadDrop(EntityLivingBase entity) {
@@ -111,9 +121,7 @@ public class ModBeheading extends ToolModifier {
     // meta 3: player
     else if(entity instanceof EntityPlayer) {
       ItemStack head = new ItemStack(Items.SKULL, 1, 3);
-      NBTTagCompound nametag = new NBTTagCompound();
-      nametag.setString("SkullOwner", entity.getDisplayName().getFormattedText());
-      head.setTagCompound(nametag);
+      NBTUtil.writeGameProfile(head.getOrCreateSubCompound("SkullOwner"), ((EntityPlayer) entity).getGameProfile());
       return head;
     }
 

@@ -5,15 +5,20 @@ import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.NonNullList;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.modifiers.IModifier;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
+import slimeknights.tconstruct.library.traits.ITrait;
 
 public final class TinkerUtil {
 
@@ -29,6 +34,21 @@ public final class TinkerUtil {
     }
 
     return ((IMaterialItem) stack.getItem()).getMaterial(stack);
+  }
+
+  public static List<ITrait> getTraitsOrdered(ItemStack tool) {
+    List<ITrait> traits = new ArrayList<>();
+    NBTTagList list = TagUtil.getTraitsTagList(tool);
+    for(int i = 0; i < list.tagCount(); i++) {
+      ITrait trait = TinkerRegistry.getTrait(list.getStringTagAt(i));
+      if(trait != null) {
+        traits.add(trait);
+      }
+    }
+
+    traits.sort(Comparator.comparingInt(ITrait::getPriority).reversed());
+
+    return traits;
   }
 
   public static boolean hasCategory(NBTTagCompound root, Category category) {
@@ -108,6 +128,20 @@ public final class TinkerUtil {
 
     // returns new tag if index is out of scope
     return tagList.getCompoundTagAt(index);
+  }
+
+  public static NonNullList<IModifier> getModifiers(ItemStack itemStack) {
+    NonNullList<IModifier> result = NonNullList.create();
+    NBTTagList modifierList = TagUtil.getModifiersTagList(itemStack);
+    for(int i = 0; i < modifierList.tagCount(); i++) {
+      NBTTagCompound tag = modifierList.getCompoundTagAt(i);
+      ModifierNBT data = ModifierNBT.readTag(tag);
+      IModifier modifier = TinkerRegistry.getModifier(data.identifier);
+      if(modifier != null) {
+        result.add(modifier);
+      }
+    }
+    return result;
   }
 
   public static List<Material> getMaterialsFromTagList(NBTTagList tagList) {

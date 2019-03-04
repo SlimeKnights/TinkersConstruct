@@ -23,6 +23,7 @@ import slimeknights.mantle.inventory.IContainerCraftingCustom;
 import slimeknights.mantle.inventory.SlotCraftingCustom;
 import slimeknights.mantle.inventory.SlotOut;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.events.TinkerCraftingEvent;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.utils.ListUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
@@ -43,6 +44,7 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
   private final Slot input2;
 
   private final boolean partCrafter;
+  private final EntityPlayer player;
   public final IInventory patternChest;
 
   public ContainerPartBuilder(InventoryPlayer playerInventory, TilePartBuilder tile) {
@@ -50,6 +52,7 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
 
     InventoryCraftingPersistent craftMatrix = new InventoryCraftingPersistent(this, tile, 1, 3);
     this.craftResult = new InventoryCraftResult();
+    this.player = playerInventory.player;
     //InventoryCrafting craftMatrixSecondary = new InventoryCrafting(this, 1, 1);
     //this.craftResultSecondary = new InventoryCrafting(this, 1, 1);
 
@@ -102,7 +105,7 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
 
     this.addPlayerInventory(playerInventory, 8, 84);
 
-    onCraftMatrixChanged(null);
+    onCraftMatrixChanged(playerInventory);
   }
 
   public boolean isPartCrafter() {
@@ -126,6 +129,9 @@ public class ContainerPartBuilder extends ContainerTinkerStation<TilePartBuilder
       NonNullList<ItemStack> toolPart;
       try {
         toolPart = ToolBuilder.tryBuildToolPart(patternSlot.getStack(), ListUtil.getListFrom(input1.getStack(), input2.getStack()), false);
+        if(toolPart != null && !toolPart.get(0).isEmpty()) {
+          TinkerCraftingEvent.ToolPartCraftingEvent.fireEvent(toolPart.get(0), player);
+        }
       } catch(TinkerGuiException e) {
         toolPart = null;
         throwable = e;

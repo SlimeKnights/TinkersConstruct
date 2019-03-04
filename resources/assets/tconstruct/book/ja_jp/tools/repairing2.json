@@ -1,0 +1,10 @@
+{
+  "image": {
+    "file": "tconstruct:textures/gui/book/inventory_repair.png"
+  },
+  "text": [
+    {
+      "text": "その方法はとても簡単で、ヘッド部の素材のシャープニングキットを用意し、道具と一緒にクラフトします。"
+    }
+  ]
+}

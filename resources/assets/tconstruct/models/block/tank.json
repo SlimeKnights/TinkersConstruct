@@ -1,4 +1,5 @@
 {
+    "parent": "block/block",
     "textures": {
         "particle": "#side"
     },
@@ -7,7 +8,7 @@
             "to": [ 16, 16, 16 ],
             "faces": {
                 "down":  { "texture": "#top" },
-                "up":    { "texture": "#bottom" },
+                "up":    { "texture": "#top" },
                 "north": { "texture": "#side" },
                 "south": { "texture": "#side" },
                 "west":  { "texture": "#side" },

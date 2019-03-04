@@ -7,11 +7,14 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 
@@ -98,7 +101,7 @@ public class TileFaucet extends TileEntity implements ITickable {
     if(drained != null) {
       return;
     }
-    IFluidHandler toDrain = getFluidHandler(pos.offset(direction), direction);
+    IFluidHandler toDrain = getFluidHandler(pos.offset(direction), direction.getOpposite());
     IFluidHandler toFill = getFluidHandler(pos.down(), EnumFacing.UP);
     if(toDrain != null && toFill != null) {
       // can we drain?
@@ -170,6 +173,13 @@ public class TileFaucet extends TileEntity implements ITickable {
       return te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, direction);
     }
     return null;
+  }
+
+  // faucet flow may be in the block below, so still render if looking at that
+  @Override
+  @SideOnly(Side.CLIENT)
+  public AxisAlignedBB getRenderBoundingBox() {
+    return new AxisAlignedBB(pos.getX(), pos.getY() - 1, pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
   }
 
   /* Load & Save */

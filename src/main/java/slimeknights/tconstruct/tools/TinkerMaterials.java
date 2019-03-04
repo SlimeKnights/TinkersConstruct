@@ -72,6 +72,7 @@ import static slimeknights.tconstruct.tools.TinkerTraits.established;
 import static slimeknights.tconstruct.tools.TinkerTraits.flammable;
 import static slimeknights.tconstruct.tools.TinkerTraits.fractured;
 import static slimeknights.tconstruct.tools.TinkerTraits.freezing;
+import static slimeknights.tconstruct.tools.TinkerTraits.heavy;
 import static slimeknights.tconstruct.tools.TinkerTraits.hellish;
 import static slimeknights.tconstruct.tools.TinkerTraits.holy;
 import static slimeknights.tconstruct.tools.TinkerTraits.hovering;
@@ -245,12 +246,14 @@ public final class TinkerMaterials {
     prismarine.addItem("blockPrismarineDark", 1, Material.VALUE_Ingot * 2);
     prismarine.setRepresentativeItem(Blocks.PRISMARINE);
     prismarine.addTrait(jagged, HEAD);
+    prismarine.addTrait(aquadynamic, HEAD);
     prismarine.addTrait(aquadynamic);
 
     netherrack.setCraftable(true);
     netherrack.addItemIngot("netherrack");
     netherrack.setRepresentativeItem(Blocks.NETHERRACK);
     netherrack.addTrait(aridiculous, HEAD);
+    netherrack.addTrait(hellish, HEAD);
     netherrack.addTrait(hellish);
 
     endstone.setCraftable(true);
@@ -336,6 +339,7 @@ public final class TinkerMaterials {
 
     lead.addCommonItems("Lead");
     lead.addTrait(poisonous);
+    lead.addTrait(heavy);
 
     silver.addCommonItems("Silver");
     silver.addTrait(holy);
@@ -432,7 +436,7 @@ public final class TinkerMaterials {
                                     new HandleMaterialStats(0.90f, -100),
                                     new ExtraMaterialStats(90));
     TinkerRegistry.addMaterialStats(prismarine,
-                                    new HeadMaterialStats(430, 5.50f, 6.00f, IRON),
+                                    new HeadMaterialStats(430, 5.50f, 6.20f, IRON),
                                     new HandleMaterialStats(0.60f, -150),
                                     new ExtraMaterialStats(100));
     TinkerRegistry.addMaterialStats(endstone,
@@ -494,8 +498,8 @@ public final class TinkerMaterials {
                                     new HandleMaterialStats(0.85f, 60),
                                     new ExtraMaterialStats(50));
     TinkerRegistry.addMaterialStats(pigiron,
-                                    new HeadMaterialStats(380, 6.20f, 4.50f, OBSIDIAN),
-                                    new HandleMaterialStats(1.20f, -100),
+                                    new HeadMaterialStats(380, 6.20f, 4.50f, DIAMOND),
+                                    new HandleMaterialStats(1.20f, 0),
                                     new ExtraMaterialStats(170));
 
     // Mod Integration
@@ -510,7 +514,7 @@ public final class TinkerMaterials {
                                     new ExtraMaterialStats(80));
 
     TinkerRegistry.addMaterialStats(lead,
-                                    new HeadMaterialStats(334, 5.25f, 3.50f, IRON),
+                                    new HeadMaterialStats(434, 5.25f, 3.50f, IRON),
                                     new HandleMaterialStats(0.70f, -50),
                                     new ExtraMaterialStats(100));
 

@@ -1,13 +1,14 @@
 package slimeknights.tconstruct.smeltery.client;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
+
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import slimeknights.tconstruct.library.client.RenderUtil;
 import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
 import slimeknights.tconstruct.library.smeltery.SmelteryTank;
@@ -67,17 +68,25 @@ public class SmelteryTankRenderer<T extends TileEntity & ISmelteryTankHandler> e
   public static int[] calcLiquidHeights(List<FluidStack> liquids, int capacity, int height, int min) {
     int fluidHeights[] = new int[liquids.size()];
 
+    int totalFluidAmount = 0;
+
     if(liquids.size() > 0) {
 
       for(int i = 0; i < liquids.size(); i++) {
         FluidStack liquid = liquids.get(i);
 
         float h = (float) liquid.amount / (float) capacity;
+        totalFluidAmount += liquid.amount;
         fluidHeights[i] = Math.max(min, (int) Math.ceil(h * (float) height));
       }
 
+      // if not completely full, leave a few pixels for the empty tank display
+      if(totalFluidAmount < capacity) {
+        height -= min;
+      }
+
       // check if we have enough height to render everything, if not remove pixels from the tallest liquid
-      int sum = 0;
+      int sum;
       do {
         sum = 0;
         int biggest = -1;

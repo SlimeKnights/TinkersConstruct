@@ -1,0 +1,22 @@
+// Sections
+intro=소개
+materials=도구 재료
+bowmaterials=활 재료
+tools=도구
+modifiers=수식어
+smeltery=제련소
+seared_furnace=그을린 화로
+tinker_tank=Tinker 탱크
+
+repairing=수리
+offhand=반대 손으로 채집
+bolt_core=볼트 제작
+
+modifier.effect=효과:
+tool.properties=특성:
+
+material.craft_partbuilder=부품 제작대에서 제작 가능
+material.craft_casting=%s에서 주조 가능
+
+wood.flavour=나무로 나무를 자를 수 있다면 얼마나 많은 나무를 자를 수 있을까?
+stone.flavour=단단한 돌

@@ -3,8 +3,6 @@ package slimeknights.tconstruct.gadgets;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -32,7 +30,6 @@ import slimeknights.tconstruct.shared.block.BlockSlime;
 
 import static slimeknights.tconstruct.common.ModelRegisterUtil.registerItemBlockMeta;
 import static slimeknights.tconstruct.common.ModelRegisterUtil.registerItemModel;
-import static slimeknights.tconstruct.common.ModelRegisterUtil.registerModifierModel;
 import static slimeknights.tconstruct.common.ModelRegisterUtil.registerToolModel;
 
 public class GadgetClientProxy extends ClientProxy {
@@ -50,31 +47,16 @@ public class GadgetClientProxy extends ClientProxy {
 
     // slime channels and bounce pads
     minecraft.getBlockColors().registerBlockColorHandler(
-        new IBlockColor() {
-          @Override
-          public int colorMultiplier(@Nonnull IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
-            return state.getValue(BlockSlimeChannel.TYPE).getColor();
-          }
-        },
+        (@Nonnull IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) -> state.getValue(BlockSlimeChannel.TYPE).getColor(),
         TinkerGadgets.slimeChannel, TinkerGadgets.bouncePad);
 
     ItemColors colors = minecraft.getItemColors();
     colors.registerItemColorHandler(
-        new IItemColor() {
-          @Override
-          public int getColorFromItemstack(@Nonnull ItemStack stack, int tintIndex) {
-            return BlockSlime.SlimeType.fromMeta(stack.getItemDamage()).getColor();
-          }
-        },
+        (@Nonnull ItemStack stack, int tintIndex) -> BlockSlime.SlimeType.fromMeta(stack.getItemDamage()).getColor(),
         TinkerGadgets.slimeChannel, TinkerGadgets.bouncePad);
     colors.registerItemColorHandler(
-        new IItemColor() {
-          @Override
-          public int getColorFromItemstack(@Nonnull ItemStack stack, int tintIndex) {
-            return TinkerGadgets.slimeBoots.getColor(stack);
-          }
-        },
-        TinkerGadgets.slimeBoots);
+        (@Nonnull ItemStack stack, int tintIndex) -> TinkerGadgets.slimeBoots.getColor(stack),
+        TinkerGadgets.slimeBoots, TinkerGadgets.slimeSling);
 
 
     super.init();
@@ -95,6 +77,8 @@ public class GadgetClientProxy extends ClientProxy {
 
     registerItemModel(TinkerGadgets.woodRail);
     registerItemModel(TinkerGadgets.woodRailTrapdoor);
+
+    registerItemModel(TinkerGadgets.woodenHopper);
 
     registerItemModel(TinkerGadgets.slimeChannel); //tinted for variants
     registerItemModel(TinkerGadgets.bouncePad); //also tinted for variants
@@ -152,8 +136,6 @@ public class GadgetClientProxy extends ClientProxy {
     // Mom's Spaghetti
     TinkerGadgets.spaghetti.registerItemModels();
     registerToolModel(TinkerGadgets.momsSpaghetti, Util.getResource("moms_spaghetti" + ToolModelLoader.EXTENSION));
-    registerModifierModel(TinkerGadgets.modSpaghettiSauce, Util.getModifierResource(TinkerGadgets.modSpaghettiSauce.getIdentifier()));
-    registerModifierModel(TinkerGadgets.modSpaghettiMeat, Util.getModifierResource(TinkerGadgets.modSpaghettiMeat.getIdentifier()));
   }
 
   @Override

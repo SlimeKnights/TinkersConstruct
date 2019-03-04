@@ -29,24 +29,15 @@ import slimeknights.tconstruct.library.client.model.ModelHelper;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.tools.Pattern;
 import slimeknights.tconstruct.shared.client.BakedTableModel;
+import slimeknights.tconstruct.tools.client.BakedChestModel;
 import slimeknights.tconstruct.tools.common.block.BlockToolTable;
 
 @SideOnly(Side.CLIENT)
 public class ToolClientEvents {
 
-  public static Function<ResourceLocation, TextureAtlasSprite> textureGetter = new Function<ResourceLocation, TextureAtlasSprite>() {
-    @Override
-    public TextureAtlasSprite apply(ResourceLocation location) {
-      return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
-    }
-  };
+  public static Function<ResourceLocation, TextureAtlasSprite> textureGetter = location -> Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
 
   // tool tables
-  private static final ResourceLocation MODEL_CraftingStation = Util.getResource("block/craftingstation");
-  private static final ResourceLocation MODEL_StencilTable = Util.getResource("block/stenciltable");
-  private static final ResourceLocation MODEL_PartBuilder = Util.getResource("block/partbuilder");
-  private static final ResourceLocation MODEL_ToolStation = Util.getResource("block/toolstation");
-  private static final ResourceLocation MODEL_ToolForge = Util.getResource("block/toolforge");
   private static final String LOCATION_ToolTable = Util.resource("tooltables");
   private static final String LOCATION_ToolForge = Util.resource("toolforge");
 
@@ -78,28 +69,35 @@ public class ToolClientEvents {
     // replace the baked table models with smart variants
 
     // tool tables
-    replaceTableModel(locCraftingStation, MODEL_CraftingStation, event);
-    replaceTableModel(locStencilTable, MODEL_StencilTable, event);
-    replaceTableModel(locPartBuilder, MODEL_PartBuilder, event);
-    replaceTableModel(locToolStation, MODEL_ToolStation, event); // tool station has no variants but we want the item support
-    replaceTableModel(locToolForge, MODEL_ToolForge, event);
+    replaceTableModel(locCraftingStation, event);
+    replaceTableModel(locStencilTable, event);
+    replaceTableModel(locPartBuilder, event);
+    replaceTableModel(locToolStation, event); // tool station has no variants but we want the item support
+    replaceTableModel(locToolForge, event);
+    replaceChestModel(locPatternChest, event); // pattern and part chest have no variants or items but we want rotation
+    replaceChestModel(locPartChest, event);
 
     // silence the missing-model message for the default itemblock
     event.getModelRegistry().putObject(new ModelResourceLocation(LOCATION_ToolTable, "inventory"), event.getModelRegistry().getObject(locToolStation));
     event.getModelRegistry().putObject(new ModelResourceLocation(LOCATION_ToolForge, "inventory"), event.getModelRegistry().getObject(locToolForge));
   }
 
-  public static void replaceTableModel(ModelResourceLocation modelVariantLocation, ResourceLocation modelLocation, ModelBakeEvent event) {
+  public static void replaceTableModel(ModelResourceLocation location, ModelBakeEvent event) {
     try {
-      IModel model = ModelLoaderRegistry.getModel(modelLocation);
-      if(model instanceof IModel) {
-        IBakedModel standard = event.getModelRegistry().getObject(modelVariantLocation);
-        if(standard instanceof IBakedModel) {
-          IBakedModel finalModel = new BakedTableModel(standard, model, DefaultVertexFormats.BLOCK);
+      IModel model = ModelLoaderRegistry.getModel(location);
+      IBakedModel standard = event.getModelRegistry().getObject(location);
+      IBakedModel finalModel = new BakedTableModel(standard, model, DefaultVertexFormats.BLOCK);
+      event.getModelRegistry().putObject(location, finalModel);
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
+  }
 
-          event.getModelRegistry().putObject(modelVariantLocation, finalModel);
-        }
-      }
+  public static void replaceChestModel(ModelResourceLocation location, ModelBakeEvent event) {
+    try {
+      IBakedModel original = event.getModelRegistry().getObject(location);
+      IBakedModel finalModel = new BakedChestModel(original);
+      event.getModelRegistry().putObject(location, finalModel);
     } catch(Exception e) {
       e.printStackTrace();
     }

@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.smeltery.block;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.block.Block;
@@ -8,6 +7,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -32,12 +32,7 @@ import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 public class BlockFaucet extends BlockContainer {
 
   // Facing == input, can be any side except bottom, because down always is output direction
-  public static final PropertyDirection FACING = PropertyDirection.create("facing", new Predicate<EnumFacing>() {
-    @Override
-    public boolean apply(@Nullable EnumFacing input) {
-      return input != EnumFacing.DOWN;
-    }
-  });
+  public static final PropertyDirection FACING = PropertyDirection.create("facing", (@Nullable EnumFacing input) -> input != EnumFacing.DOWN);
 
   public BlockFaucet() {
     super(Material.ROCK);
@@ -152,6 +147,12 @@ public class BlockFaucet extends BlockContainer {
   @Override
   public boolean isOpaqueCube(IBlockState state) {
     return false;
+  }
+
+  @Override
+  @Deprecated
+  public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+    return BlockFaceShape.UNDEFINED;
   }
 
   @Nonnull

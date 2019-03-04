@@ -10,8 +10,8 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ICustomModelLoader;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
@@ -29,7 +29,7 @@ import slimeknights.tconstruct.library.modifiers.IModifier;
 
 public class ModifierModelLoader implements ICustomModelLoader {
 
-  public static String EXTENSION = ".mod";
+  public static final String EXTENSION = ".mod";
 
   private static final String defaultName = "default";
   private static final Logger log = Util.getLogger("modifier");
@@ -38,8 +38,15 @@ public class ModifierModelLoader implements ICustomModelLoader {
   protected Map<String, List<ResourceLocation>> locations = Maps.newHashMap();
   protected Map<String, Map<String, String>> cache;
 
+  /**
+   * Use {@link #getLocationForToolModifiers(String, String)} instead
+   */
+  @Deprecated
   public static ResourceLocation getLocationForToolModifiers(String toolName) {
     return new ResourceLocation(Util.RESOURCE, "modifiers/" + toolName + ModifierModelLoader.EXTENSION);
+  }
+  public static ResourceLocation getLocationForToolModifiers(String domain, String toolName) {
+    return new ResourceLocation(domain, "modifiers/" + toolName + ModifierModelLoader.EXTENSION);
   }
 
   public void registerModifierFile(String modifier, ResourceLocation location) {
@@ -62,16 +69,37 @@ public class ModifierModelLoader implements ICustomModelLoader {
     // this function is actually getting called on a PER TOOL basis, not per modifier
     // we therefore need to look through all modifiers to construct a model containing all modifiers for that tool
 
-    int start = modelLocation.getResourcePath().lastIndexOf('/');
-    String toolname = modelLocation.getResourcePath().substring(start < 0 ? 0 : start + 1,
-                                                                modelLocation.getResourcePath().length() - EXTENSION
-                                                                    .length());
+    String toolname = FilenameUtils.getBaseName(modelLocation.getResourcePath());
     toolname = toolname.toLowerCase(Locale.US);
 
     // we only load once. Without cache we'd have to load ALL modifier files again for each tool!
     if(cache == null) {
       cache = new THashMap<>();
       loadFilesIntoCache();
+    }
+
+    // next, try overrides from the tool .mod files
+    String location = modelLocation.getResourcePath().substring(17); // remove models/modifiers/
+    ResourceLocation toolModifiers = new ResourceLocation(modelLocation.getResourceDomain(), "models/item/" + location);
+    try {
+      Map<String, String> textureEntries = ModelHelper.loadTexturesFromJson(toolModifiers);
+
+      // might still be missing
+      if(!cache.containsKey(toolname)) {
+        cache.put(toolname, new THashMap<>());
+      }
+      Map<String, String> toolCache = cache.get(toolname);
+      // since this is the base tool model, allow overriding
+      for(Map.Entry<String, String> textureEntry : textureEntries.entrySet()) {
+        String modifier = textureEntry.getKey().toLowerCase(Locale.US);
+        String texture = textureEntry.getValue();
+        toolCache.put(modifier, texture);
+      }
+    } catch(IOException e) {
+      log.debug("No tool modifier model found at " + toolModifiers + ", skipping");
+    } catch(JsonParseException e) {
+      log.error("Cannot load tool modifier-model for " + toolModifiers, e);
+      throw e;
     }
 
     ModifierModel model = new ModifierModel();
@@ -135,9 +163,9 @@ public class ModifierModelLoader implements ICustomModelLoader {
             }
           }
         } catch(IOException e) {
-          log.error("Cannot load modifier-model " + entry.getValue(), e);
+          log.error("Cannot load modifier-model " + location, e);
         } catch(JsonParseException e) {
-          log.error("Cannot load modifier-model " + entry.getValue(), e);
+          log.error("Cannot load modifier-model " + location, e);
           throw e;
         }
       }
@@ -151,7 +179,7 @@ public class ModifierModelLoader implements ICustomModelLoader {
 
     // fill in defaults where models are missing
     Iterator<Map.Entry<String, Map<String, String>>> toolEntryIter = cache.entrySet().iterator();
-// todo: change this to iterate over all registered tools instead?
+    // todo: change this to iterate over all registered tools instead?
     while(toolEntryIter.hasNext()) {
       Map.Entry<String, Map<String, String>> toolEntry = toolEntryIter.next();
       //String tool = toolEntry.getKey();

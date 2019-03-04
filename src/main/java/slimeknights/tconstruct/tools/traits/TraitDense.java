@@ -19,7 +19,7 @@ public class TraitDense extends AbstractTrait {
     float durability = ToolHelper.getCurrentDurability(tool);
     float maxDurability = ToolHelper.getMaxDurability(tool);
 
-    float chance = 0.8f * (1f - durability / maxDurability);
+    float chance = 0.75f * (1f - durability / maxDurability);
     chance = chance * chance * chance;
 
     if(chance > random.nextFloat()) {

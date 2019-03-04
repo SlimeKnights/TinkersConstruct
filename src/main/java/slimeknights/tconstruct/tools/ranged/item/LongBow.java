@@ -41,6 +41,11 @@ public class LongBow extends ShortBow {
   /* Tic Tool Stuff */
 
   @Override
+  public double attackSpeed() {
+    return 1.3;
+  }
+
+  @Override
   public float baseProjectileDamage() {
     return 2.5f;
   }

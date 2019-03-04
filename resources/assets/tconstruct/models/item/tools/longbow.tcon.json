@@ -6,6 +6,28 @@
         "layer3": "tconstruct:items/longbow/bowstring",
         "broken3": "tconstruct:items/longbow/bowstring_broken"
     },
+	"display": {
+        "thirdperson_righthand": {
+            "rotation": [ -90, 260, -45 ],
+            "translation": [ -1.875, -1.25, 4.0 ],
+			"scale": [ 1.0625, 1.0625, 0.875 ]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [ -90, -260, 45 ],
+            "translation": [ -1.875, -1.25, 4.0 ],
+            "scale": [ 1.0625, 1.0625, 0.875 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, -90, 25 ],
+            "translation": [ 1.13, 3.2, 1.13],
+            "scale": [ 0.875, 0.875, 0.7 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ 0, 90, -25 ],
+            "translation": [ 1.13, 3.2, 1.13],
+            "scale": [ 0.875, 0.875, 0.7 ]
+        }
+    },
     "overrides": [
         {
             "predicate": {

@@ -1,3 +1,5 @@
+import scala.tools.nsc.io.Jar
+
 /*
  * Tinkers Construct
  * Master build file
@@ -80,13 +82,17 @@ configurations {
 
 // sets version to the slimeKnights version format
 task buildInfo {
-    def cmd = "git rev-parse --short HEAD"
-    def proc = cmd.execute()
-    proc.waitFor()
-    if (proc.exitValue() == 0) {
-        ext.revision = proc.text.trim()
-    } else {
-        ext.revision = "GITBORK"
+    try {
+        def cmd = "git rev-parse --short HEAD"
+        def proc = cmd.execute()
+        proc.waitFor()
+        if (proc.exitValue() == 0) {
+            ext.revision = proc.text.trim()
+        } else {
+            ext.revision = "GITBORK"
+        }
+    } catch(all) {
+        ext.revision = "gitgud"
     }
 
     if (System.getenv().BUILD_NUMBER != null) {
@@ -106,7 +112,7 @@ if (System.getenv().ARTIFACT_VERSION != null) {
 version = "${config.minecraft_version}-${artifact_version}"
 
 minecraft {
-    version = config.minecraft_version_short + "-" + config.forge_version
+    version = config.minecraft_version + "-" + config.forge_version
     mappings = config.mappings
     runDir = "run"
     replace '${version}', project.version
@@ -116,7 +122,7 @@ minecraft {
 dependencies {
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
-    deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version}-${config.mantle_version}"
+    deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version_short}-${config.mantle_version}"
 
     // compile against the JEI API
     deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}:api"
@@ -162,6 +168,8 @@ jar {
     manifest {
         attributes 'FMLAT': 'tconstruct_at.cfg'
     }
+    
+    finalizedBy reobfJar
 }
 
 // Create deobf dev jars
@@ -178,19 +186,9 @@ task sourcesJar(type: Jar) {
     classifier = 'sources'
 }
 
-
-// Create API library jar
-task libJar(type: Jar) {
-    from(sourceSets.main.java) {
-        include "tconstruct/library/**/*"
-    }
-    classifier = 'lib'
-}
-
 artifacts {
     archives deobfJar
     archives sourcesJar
-    archives libJar
 }
 
 // verify the properties exist.. or initialize.
@@ -258,10 +256,10 @@ build.dependsOn signUniversal
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            // todo: remove deobf and sources jar in 1.13
             artifact jar
             artifact deobfJar
             artifact sourcesJar
-            artifact libJar
         }
     }
 

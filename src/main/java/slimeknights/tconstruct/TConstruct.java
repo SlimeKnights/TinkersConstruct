@@ -1,5 +1,6 @@
 package slimeknights.tconstruct;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -64,9 +65,10 @@ import slimeknights.tconstruct.world.TinkerWorld;
      name = TConstruct.modName,
      version = TConstruct.modVersion,
      guiFactory = "slimeknights.tconstruct.common.config.ConfigGui$ConfigGuiFactory",
-     dependencies = "required-after:forge@[14.21.1.2387,);"
-                    + "required-after:mantle@[1.12-1.3.1,);"
-                    + "after:jei@[4.2,);"
+     dependencies = "required-after:forge@[14.23.1.2577,);"
+                    + "required-after:mantle@[1.12-1.3.3,);"
+                    + "after:jei@[4.8,);"
+                    + "before:taiga@(1.3.0,);"
                     + "after:chisel",
      acceptedMinecraftVersions = "[1.12, 1.13)")
 public class TConstruct {
@@ -175,6 +177,10 @@ public class TConstruct {
     }
   }
 
+
+  private static final String TINKERS_SKYBLOCK_MODID = "tinkerskyblock";
+  private static final String WOODEN_HOPPER = "wooden_hopper";
+
   //Old version compatibility
   @SubscribeEvent
   public void missingItemMappings(RegistryEvent.MissingMappings<Item> event) {
@@ -183,6 +189,21 @@ public class TConstruct {
       String path = entry.key.toString();
       if(path.equals(Util.resource("bucket")) || path.equals(Util.resource("glow")) || path.equals(Util.resource("blood")) || path.equals(Util.resource("milk")) || path.equals(Util.resource("purpleslime")) || path.equals(Util.resource("blueslime")) || path.contains(Util.resource("molten"))) {
         entry.ignore();
+      }
+
+      // wooder hopper, moved from skyblock to tic
+      if(entry.key.getResourceDomain().equals(TINKERS_SKYBLOCK_MODID) && entry.key.getResourcePath().equals(WOODEN_HOPPER)) {
+        entry.remap(Item.getItemFromBlock(TinkerGadgets.woodenHopper));
+      }
+    }
+  }
+
+  @SubscribeEvent
+  public void missingBlockMappings(RegistryEvent.MissingMappings<Block> event) {
+    for(RegistryEvent.MissingMappings.Mapping<Block> entry : event.getAllMappings()) {
+      // wooder hopper, moved from skyblock to tic
+      if(entry.key.getResourceDomain().equals(TINKERS_SKYBLOCK_MODID) && entry.key.getResourcePath().equals(WOODEN_HOPPER)) {
+        entry.remap(TinkerGadgets.woodenHopper);
       }
     }
   }

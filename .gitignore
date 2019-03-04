@@ -45,3 +45,6 @@ options.txt
 /resources/assets/tinker
 /resources/assets/unused
 /design
+/classes/
+#custom
+*.tmp

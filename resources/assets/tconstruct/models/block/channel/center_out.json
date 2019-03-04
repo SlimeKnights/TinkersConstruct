@@ -1,0 +1,104 @@
+{
+    "textures": {
+        "particle": "tconstruct:blocks/smeltery/seared_stone",
+        "texture":  "tconstruct:blocks/smeltery/seared_stone"
+    },
+    "elements": [
+        {
+            "name": "Base North",
+            "from": [ 5, 2, 5 ], 
+            "to": [ 11, 6, 6 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" },
+                "up":    { "texture": "#texture" },
+                "down":  { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "Base South",
+            "from": [ 5, 2, 10 ], 
+            "to": [ 11, 6, 11 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" },
+                "up":    { "texture": "#texture" },
+                "down":  { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "Base West",
+            "from": [ 5, 2, 6 ], 
+            "to": [ 6, 6, 10 ], 
+            "faces": {
+                "east": { "texture": "#texture" },
+                "west": { "texture": "#texture" },
+                "up":   { "texture": "#texture" },
+                "down": { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "Base East",
+            "from": [ 10, 2, 6 ], 
+            "to": [ 11, 6, 10 ], 
+            "faces": {
+                "east": { "texture": "#texture" },
+                "west": { "texture": "#texture" },
+                "up":   { "texture": "#texture" },
+                "down": { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "Northeast",
+            "from": [ 10, 6, 5 ], 
+            "to": [ 11, 8, 6 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" },
+                "up":    { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "Northwest",
+            "from": [ 5, 6, 5 ], 
+            "to": [ 6, 8, 6 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" },
+                "up":    { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "Southwest",
+            "from": [ 5, 6, 10 ], 
+            "to": [ 6, 8, 11 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" },
+                "up":    { "texture": "#texture" }
+            }
+        },
+        {
+            "name": "Southeast",
+            "from": [ 10, 6, 10 ], 
+            "to": [ 11, 8, 11 ], 
+            "faces": {
+                "north": { "texture": "#texture" },
+                "east":  { "texture": "#texture" },
+                "south": { "texture": "#texture" },
+                "west":  { "texture": "#texture" },
+                "up":    { "texture": "#texture" }
+            }
+        }
+    ]
+}

@@ -38,8 +38,12 @@ public class ModExtraTrait extends ToolModifier {
   private final Collection<ITrait> traits;
 
 
-  public  ModExtraTrait(Material material, Collection<ITrait> traits) {
-    super(EXTRA_TRAIT_IDENTIFIER + generateIdentifier(material, traits), material.materialTextColor);
+  public ModExtraTrait(Material material, Collection<ITrait> traits) {
+    this(material, traits, generateIdentifier(material, traits));
+  }
+
+  public ModExtraTrait(Material material, Collection<ITrait> traits, String customIdentifier) {
+      super(EXTRA_TRAIT_IDENTIFIER + customIdentifier, material.materialTextColor);
 
     this.material = material;
     this.toolCores = new HashSet<>();
@@ -53,10 +57,15 @@ public class ModExtraTrait extends ToolModifier {
     List<ItemStack> stacks = new ArrayList<>();
     stacks.add(toolPartItem);
     stacks.addAll(EMBOSSMENT_ITEMS);
-    addRecipeMatch(new RecipeMatch.ItemCombination(1, stacks.toArray(new ItemStack[stacks.size()])));
+    ItemStack[] itemStacks = stacks.toArray(new ItemStack[0]);
+
+    // only add new ones
+    if(!matches(itemStacks).isPresent()) {
+      addRecipeMatch(new RecipeMatch.ItemCombination(1, itemStacks));
+    }
   }
 
-  private static String generateIdentifier(Material material, Collection<ITrait> traits) {
+  public static String generateIdentifier(Material material, Collection<ITrait> traits) {
     String traitString = traits.stream().map(ITrait::getIdentifier).sorted().collect(Collectors.joining());
     return material.getIdentifier() + traitString;
   }

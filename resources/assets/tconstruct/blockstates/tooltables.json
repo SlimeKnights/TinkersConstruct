@@ -1,9 +1,6 @@
 {
-    "forge_marker": 1,
-    "defaults": {
-        "transform": "forge:default-block"
-    },
-	"variants": {
+  "forge_marker": 1,
+  "variants": {
         "type=craftingstation": { "model": "tconstruct:craftingstation" },
         "type=stenciltable": { "model": "tconstruct:stenciltable" },
         "type=partbuilder": { "model": "tconstruct:partbuilder" },
@@ -12,17 +9,21 @@
         "type=patternchest": {
             "model": "tconstruct:patternchest",
             "textures": {
-                "side": "tconstruct:blocks/patternchest",
-                "bottom": "#side",
-                "top": "#side"
+                "side": "tconstruct:blocks/chest/pattern_side",
+                "front": "tconstruct:blocks/chest/pattern_front",
+                "top": "tconstruct:blocks/chest/pattern_top",
+                "drawer_front": "tconstruct:blocks/chest/pattern_drawer_front",
+                "drawer_side": "tconstruct:blocks/chest/pattern_drawer_side"
             }
         },
         "type=partchest": {
             "model": "tconstruct:patternchest",
             "textures": {
-                "side": "tconstruct:blocks/partchest",
-                "bottom": "#side",
-                "top": "#side"
+                "side": "tconstruct:blocks/chest/part_side",
+                "front": "tconstruct:blocks/chest/part_front",
+                "top": "tconstruct:blocks/chest/part_top",
+                "drawer_front": "tconstruct:blocks/chest/part_drawer_front",
+                "drawer_side": "tconstruct:blocks/chest/part_drawer_side"
             }
         }
     }

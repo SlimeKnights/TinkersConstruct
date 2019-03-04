@@ -7,8 +7,12 @@ package slimeknights.tconstruct.library;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
 
@@ -16,12 +20,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
+import com.google.common.collect.ImmutableMap;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 import slimeknights.mantle.util.RecipeMatchRegistry;
 
+@SuppressWarnings("deprecation")
 public class Util {
 
   public static final String MODID = "tconstruct";
@@ -77,7 +84,7 @@ public class Util {
    */
   public static String translate(String key, Object... pars) {
     // translates twice to allow rerouting/alias
-    return I18n.translateToLocal(I18n.translateToLocal(String.format(key, (Object[]) pars)).trim()).trim();
+    return I18n.translateToLocal(I18n.translateToLocal(String.format(key, pars)).trim()).trim();
   }
 
   /**
@@ -85,7 +92,7 @@ public class Util {
    */
   public static String translateFormatted(String key, Object... pars) {
     // translates twice to allow rerouting/alias
-    return I18n.translateToLocal(I18n.translateToLocalFormatted(key, (Object[]) pars).trim()).trim();
+    return I18n.translateToLocal(I18n.translateToLocalFormatted(key, pars).trim()).trim();
   }
 
   /** Returns a fixed size DEEP copy of the list */
@@ -138,6 +145,50 @@ public class Util {
     }
 
     return (k & 255) << 16 | (l & 255) << 8 | i1 & 255;
+  }
+
+  /* Position helpers */
+  private static ImmutableMap<Vec3i, EnumFacing> offsetMap;
+  static {
+    ImmutableMap.Builder<Vec3i, EnumFacing> builder = ImmutableMap.builder();
+    for(EnumFacing facing : EnumFacing.VALUES) {
+      builder.put(facing.getDirectionVec(), facing);
+    }
+    offsetMap = builder.build();
+  }
+
+  /**
+   * Gets the offset direction from two blocks
+   * @param offset  Position offset
+   * @return  Direction of the offset, or null if no direction
+   */
+  public static EnumFacing facingFromOffset(BlockPos offset) {
+    return offsetMap.get(offset);
+  }
+
+  /**
+   * Gets the offset direction from two blocks
+   * @param pos       Base position
+   * @param neighbor  Position Neighbor position
+   * @return  Direction of the offset, or null if no direction
+   */
+  public static EnumFacing facingFromNeighbor(BlockPos pos, BlockPos neighbor) {
+    // neighbor is first. For example, neighbor height is 11, pos is 10, so result is 1 or up
+    return facingFromOffset(neighbor.subtract(pos));
+  }
+
+  /**
+   * Returns true if the player clicked within the specified bounding box
+   * @param aabb  Bounding box clicked
+   * @param hitX  X hit location
+   * @param hitY  Y hit location
+   * @param hitZ  Z hit location
+   * @return  True if the click was within the box
+   */
+  public static boolean clickedAABB(AxisAlignedBB aabb, float hitX, float hitY, float hitZ) {
+    return aabb.minX <= hitX && hitX <= aabb.maxX
+        && aabb.minY <= hitY && hitY <= aabb.maxY
+        && aabb.minZ <= hitZ && hitZ <= aabb.maxZ;
   }
 
 }

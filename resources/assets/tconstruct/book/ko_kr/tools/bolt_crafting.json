@@ -1,0 +1,13 @@
+{
+  "title":"볼트 제작",
+  "text": [
+    {
+      "text": "볼트 제작에는 볼트 코어가 필요합니다. 볼트 코어는 화살대를 주조 탁자 위에 올리고 머리 재료를 부어서 만들 수 있습니다."
+    }
+  ],
+  "image": {
+    "file": "tconstruct:textures/gui/book/bolt_core.png",
+    "width": 150,
+    "height": 75
+  }
+}

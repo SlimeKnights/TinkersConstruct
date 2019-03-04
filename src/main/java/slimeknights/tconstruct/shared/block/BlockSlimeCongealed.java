@@ -74,14 +74,18 @@ public class BlockSlimeCongealed extends Block {
   @Override
   public void onLanded(World world, Entity entity) {
     if(!(entity instanceof EntityLivingBase) && !(entity instanceof EntityItem)) {
+      super.onLanded(world, entity);
       // this is mostly needed to prevent XP orbs from bouncing. which completely breaks the game.
       return;
     }
-    if(entity.motionY < 0) {
+    if(entity.motionY < -0.25) {
       entity.motionY *= -1.2F;
+      entity.fallDistance = 0;
       if(entity instanceof EntityItem) {
         entity.onGround = false;
       }
+    } else {
+        super.onLanded(world, entity);
     }
   }
 

@@ -46,13 +46,7 @@ public class CastingRecipeWrapper implements IRecipeWrapper {
     }
     this.inputFluid = ImmutableList.of(recipe.getFluid());
     this.recipe = recipe;
-    // special treatment of oredict output recipies
-    if(recipe.getResult() == null) {
-      output = null;
-    }
-    else {
-      output = ImmutableList.of(recipe.getResult());
-    }
+    this.output = ImmutableList.of(recipe.getResult());
 
     this.castingBlock = castingBlock;
   }
@@ -99,7 +93,7 @@ public class CastingRecipeWrapper implements IRecipeWrapper {
         && (!checkCast || !this.hasCast()
             || (!this.cast.isEmpty()
                 && !this.cast.get(0).isEmpty()))
-        && (output == null || !this.output.isEmpty()
-            && !this.output.get(0).isEmpty());
+        && !this.output.isEmpty()
+        && !this.output.get(0).isEmpty();
   }
 }

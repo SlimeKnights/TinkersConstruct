@@ -11,6 +11,8 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.CustomTextureCreator;
 import slimeknights.tconstruct.shared.client.BakedTableModel;
+import slimeknights.tconstruct.smeltery.block.BlockTank;
+import slimeknights.tconstruct.smeltery.client.TankItemModel;
 import slimeknights.tconstruct.tools.ToolClientEvents;
 
 public class SmelteryClientEvents {
@@ -34,12 +36,23 @@ public class SmelteryClientEvents {
     // add the extra cast models. See ToolClientEvents for more info with the pattern
     ToolClientEvents.replacePatternModel(locBlankCast, MODEL_BlankCast, event, CustomTextureCreator.castLocString, TinkerRegistry.getCastItems());
     ToolClientEvents.replacePatternModel(locClayCast, MODEL_BlankCast, event, CustomTextureCreator.castLocString, TinkerRegistry.getCastItems(), 0xa77498);
+
+    for (BlockTank.TankType type : BlockTank.TankType.values()) {
+      replaceTankModel(event, new ModelResourceLocation(TinkerSmeltery.searedTank.getRegistryName(), type.getName()));
+    }
   }
 
   private void wrap(ModelBakeEvent event, ModelResourceLocation loc) {
     IBakedModel model = event.getModelRegistry().getObject(loc);
     if(model != null && model instanceof IBakedModel) {
       event.getModelRegistry().putObject(loc, new BakedTableModel(model, null, DefaultVertexFormats.ITEM));
+    }
+  }
+
+  private void replaceTankModel(ModelBakeEvent event, ModelResourceLocation loc) {
+    IBakedModel baked = event.getModelRegistry().getObject(loc);
+    if(baked != null) {
+      event.getModelRegistry().putObject(loc, new TankItemModel(baked));
     }
   }
 }

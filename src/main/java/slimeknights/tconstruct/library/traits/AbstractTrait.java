@@ -185,4 +185,8 @@ public abstract class AbstractTrait extends Modifier implements ITrait {
     traits.appendTag(new NBTTagString(identifier));
     TagUtil.setTraitsTagList(rootCompound, traits);
   }
+
+  protected boolean isToolWithTrait(ItemStack itemStack) {
+    return TinkerUtil.hasTrait(TagUtil.getTagSafe(itemStack), this.getIdentifier());
+  }
 }

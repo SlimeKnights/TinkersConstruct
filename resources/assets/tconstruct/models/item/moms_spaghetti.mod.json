@@ -1,0 +1,6 @@
+{
+    "textures": {
+        "spaghetti_sauce": "tconstruct:items/food/spaghetti_sauce",
+        "spaghetti_meat": "tconstruct:items/food/spaghetti_meat"
+    }
+}

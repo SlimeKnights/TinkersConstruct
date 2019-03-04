@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.common.config;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
@@ -13,11 +14,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import org.apache.logging.log4j.Logger;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import slimeknights.mantle.pulsar.config.ForgeCFG;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.utils.RecipeUtil;
 
 public final class Config {
 
@@ -43,10 +47,19 @@ public final class Config {
   public static boolean leatherDryingRecipe = true;
   public static boolean gravelFlintRecipe = true;
   public static double oreToIngotRatio = 2;
-  public static String[] craftingStationBlacklist = new String[] {
+  private static String[] craftingStationBlacklistArray = new String[] {
       "de.ellpeck.actuallyadditions.mod.tile.TileEntityItemViewer"
   };
-  //public static List<String> craftingStationBlacklist = Collections.emptyList();
+  private static String[] orePreference = {
+      "minecraft",
+      "tconstruct",
+      "thermalfoundation",
+      "forestry",
+      "immersiveengineering",
+      "embers",
+      "ic2"
+  };
+  public static Set<String> craftingStationBlacklist = Collections.emptySet();
 
   // Worldgen
   public static boolean genSlimeIslands = true;
@@ -62,6 +75,7 @@ public final class Config {
 
   // Clientside configs
   public static boolean renderTableItems = true;
+  public static boolean renderInventoryNullLayer = true;
   public static boolean extraTooltips = true;
   public static boolean listAllTables = true;
   public static boolean listAllMaterials = true;
@@ -187,12 +201,17 @@ public final class Config {
       prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
-      prop = configFile.get(cat, "craftingStationBlacklist", craftingStationBlacklist);
-      prop.setComment("Blacklist of TE classnames for the crafting station to connect to. Mainly for compatibility.");
-      craftingStationBlacklist = prop.getStringList();
+      prop = configFile.get(cat, "craftingStationBlacklist", craftingStationBlacklistArray);
+      prop.setComment("Blacklist of registry names or TE classnames for the crafting station to connect to. Mainly for compatibility.");
+      craftingStationBlacklistArray = prop.getStringList();
+      craftingStationBlacklist = Sets.newHashSet(craftingStationBlacklistArray);
       propOrder.add(prop.getName());
 
-
+      prop = configFile.get(cat, "orePreference", orePreference);
+      prop.setComment("Preferred mod ID for oredictionary outputs. Top most mod ID will be the preferred output ID, and if none is found the first output stack is used.");
+      orePreference = prop.getStringList();
+      RecipeUtil.setOrePreferences(orePreference);
+      propOrder.add(prop.getName());
     }
     // Worldgen
     {
@@ -265,6 +284,11 @@ public final class Config {
       prop = configFile.get(cat, "renderInventoryInWorld", renderTableItems);
       prop.setComment("If true all of Tinkers' blocks with contents (tables, basin, drying racks,...) will render their contents in the world");
       renderTableItems = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "renderInventoryNullLayer", renderInventoryNullLayer);
+      prop.setComment("If true use a null render layer when building the models to render tables. Fixes an issue with chisel, but the config is provide in case it breaks something.");
+      renderInventoryNullLayer = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "extraTooltips", extraTooltips);

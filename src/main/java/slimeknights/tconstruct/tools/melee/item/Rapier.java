@@ -104,8 +104,9 @@ public class Rapier extends SwordCore {
       playerIn.addExhaustion(0.1f);
       playerIn.motionY += 0.32;
       float f = 0.5F;
-      playerIn.motionX = (double) (MathHelper.sin(playerIn.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(playerIn.rotationPitch / 180.0F * (float) Math.PI) * f);
-      playerIn.motionZ = (double) (-MathHelper.cos(playerIn.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(playerIn.rotationPitch / 180.0F * (float) Math.PI) * f);
+      playerIn.motionX = MathHelper.sin(playerIn.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(playerIn.rotationPitch / 180.0F * (float) Math.PI) * f;
+      playerIn.motionZ = -MathHelper.cos(playerIn.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(playerIn.rotationPitch / 180.0F * (float) Math.PI) * f;
+      playerIn.getCooldownTracker().setCooldown(itemStackIn.getItem(), 4);
     }
     return ActionResult.newResult(EnumActionResult.SUCCESS, itemStackIn);
   }

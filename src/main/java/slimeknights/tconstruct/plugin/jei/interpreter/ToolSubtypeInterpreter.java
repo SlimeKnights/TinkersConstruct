@@ -1,20 +1,21 @@
 package slimeknights.tconstruct.plugin.jei.interpreter;
 
-import mezz.jei.api.ISubtypeRegistry.ISubtypeInterpreter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
+
+import mezz.jei.api.ISubtypeRegistry.ISubtypeInterpreter;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 // Handles all Tinker tool parts subtypes
 public class ToolSubtypeInterpreter implements ISubtypeInterpreter {
 
   @Override
-  public String getSubtypeInfo(ItemStack stack) {
+  public String apply(ItemStack itemStack) {
     StringBuilder builder = new StringBuilder();
-    builder.append(stack.getItemDamage());
+    builder.append(itemStack.getItemDamage());
 
     // just pull the list of materials from the NBT, no need to convert to materials then back again
-    NBTTagList materials = TagUtil.getBaseMaterialsTagList(stack);
+    NBTTagList materials = TagUtil.getBaseMaterialsTagList(itemStack);
     if(materials.getTagType() == TagUtil.TAG_TYPE_STRING) {
       builder.append(':');
       for(int i = 0; i < materials.tagCount(); i++) {

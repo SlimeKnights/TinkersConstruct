@@ -23,6 +23,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
@@ -37,6 +38,7 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.capability.projectile.TinkerProjectileHandler;
 import slimeknights.tconstruct.library.events.ProjectileEvent;
+import slimeknights.tconstruct.library.events.TinkerProjectileImpactEvent;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ranged.ILauncher;
 import slimeknights.tconstruct.library.tools.ranged.IProjectile;
@@ -50,6 +52,8 @@ import slimeknights.tconstruct.library.utils.ToolHelper;
 public abstract class EntityProjectileBase extends EntityArrow implements IEntityAdditionalSpawnData {
 
   protected static final UUID PROJECTILE_POWER_MODIFIER = UUID.fromString("c6aefc21-081a-4c4a-b076-8f9d6cef9122");
+  // projectiles tend to land about this far from any given block face
+  private static final AxisAlignedBB ON_BLOCK_AABB = new AxisAlignedBB(-0.05D, -0.05D, -0.05D, 0.05D, 0.05D, 0.05D);
 
   public TinkerProjectileHandler tinkerProjectile = new TinkerProjectileHandler();
 
@@ -232,17 +236,20 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
           attacker.getAttributeMap().applyAttributeModifiers(projectileAttributes);
         }
-      }
-      // deal the damage
-      float speed = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-      bounceOff = !dealDamage(speed, inventoryItem, attacker, entityHit);
-      if(brokenStateDiffers) {
-        toggleBroken(inventoryItem);
-      }
+        // deal the damage
+        float speed = MathHelper.sqrt(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+        bounceOff = !dealDamage(speed, inventoryItem, attacker, entityHit);
+        if(!bounceOff) {
+          for(IProjectileTrait trait : tinkerProjectile.getProjectileTraits()) {
+            trait.afterHit(this, getEntityWorld(), inventoryItem, attacker, entityHit, speed);
+          }
+        }
+        if(brokenStateDiffers) {
+          toggleBroken(inventoryItem);
+        }
 
-      // remove stats from projectile
-      // apply stats from projectile
-      if(!getEntityWorld().isRemote) {
+        // remove stats from projectile
+        // apply stats from projectile
         if(item.getItem() instanceof IProjectile) {
           assert projectileAttributes != null;
           attacker.getAttributeMap().removeAttributeModifiers(projectileAttributes);
@@ -368,8 +375,9 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     Block block = state.getBlock();
     int meta = block.getMetaFromState(state);
 
-    // check if it's still the same block
-    if(block == this.inTile && meta == this.inData) {
+    // check if it's still the same block or if it is already within tolerance of another hitbox
+    // second part prevents it from falling when the block changes but the hitbox does nots
+    if((block == this.inTile && meta == this.inData) || this.getEntityWorld().collidesWithAnyBlock(ON_BLOCK_AABB.offset(this.getPositionVector()))) {
       ++this.ticksInGround;
 
       if(this.ticksInGround >= 1200) {
@@ -429,7 +437,7 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
     }
 
     // time to hit the object
-    if(raytraceResult != null) {
+    if(raytraceResult != null && !MinecraftForge.EVENT_BUS.post(getProjectileImpactEvent(raytraceResult))) {
       if(raytraceResult.entityHit != null) {
         onHitEntity(raytraceResult);
       }
@@ -479,6 +487,10 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
 
     // tell blocks we collided with, that we collided with them!
     this.doBlockCollisions();
+  }
+
+  protected TinkerProjectileImpactEvent getProjectileImpactEvent(RayTraceResult rayTraceResult) {
+    return new TinkerProjectileImpactEvent(this, rayTraceResult, tinkerProjectile.getItemStack());
   }
 
   @Nullable

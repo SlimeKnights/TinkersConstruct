@@ -31,6 +31,7 @@ public class InfiTool extends AbstractTrait {
     stats.speed = 999999f;
     stats.modifiers = 0;
     TagUtil.setToolTag(rootCompound, stats.get());
+    TagUtil.setNoRenameFlag(rootCompound, true);
   }
 
   @Override

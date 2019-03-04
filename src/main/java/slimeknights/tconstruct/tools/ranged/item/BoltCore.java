@@ -1,18 +1,20 @@
 package slimeknights.tconstruct.tools.ranged.item;
 
-import com.google.common.collect.ImmutableList;
-
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,6 +40,21 @@ public class BoltCore extends ToolPart {
   }
 
   @Override
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      for(Material mat : TinkerRegistry.getAllMaterials()) {
+        // check if the material makes sense for this item (is it usable to build stuff?)
+        if(canUseMaterial(mat) && mat.hasStats(MaterialTypes.SHAFT)) {
+          subItems.add(getItemstackWithMaterials(mat, TinkerMaterials.iron));
+          if(!Config.listAllMaterials) {
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  @Override
   public Material getMaterial(ItemStack stack) {
     NBTTagList materials = TagUtil.getBaseMaterialsTagList(stack);
     return TinkerRegistry.getMaterial(materials.getStringTagAt(0));
@@ -51,9 +68,9 @@ public class BoltCore extends ToolPart {
   @Override
   public ItemStack getItemstackWithMaterial(Material material) {
     if(material.hasStats(MaterialTypes.SHAFT)) {
-      return getItemstackWithMaterials(material, TinkerMaterials.iron);
+      return getItemstackWithMaterials(material, Material.UNKNOWN);
     }
-    return getItemstackWithMaterials(TinkerMaterials.wood, material);
+    return getItemstackWithMaterials(Material.UNKNOWN, material);
   }
 
   public static ItemStack getItemstackWithMaterials(Material shaft, Material head) {
@@ -114,7 +131,11 @@ public class BoltCore extends ToolPart {
 
     String originalItemName = ("" + I18n.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name")).trim();
 
-    return Material.getCombinedItemName(originalItemName, ImmutableList.of(material, material2));
+    List<Material> materialList = Stream.of(material, material2)
+          .filter(mat -> mat != Material.UNKNOWN)
+          .collect(Collectors.toList());
+
+    return Material.getCombinedItemName(originalItemName, materialList);
   }
 
   @Override
@@ -134,5 +155,10 @@ public class BoltCore extends ToolPart {
       GUI_RENDER_ITEMSTACK = getItemstackWithMaterials(CustomTextureCreator.guiMaterial, CustomTextureCreator.guiMaterial);
     }
     return GUI_RENDER_ITEMSTACK;
+  }
+
+  @Override
+  public boolean canUseMaterialForRendering(Material mat) {
+    return mat.hasStats(MaterialTypes.HEAD) || canUseMaterial(mat);
   }
 }

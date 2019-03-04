@@ -20,13 +20,15 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.BakedModelWrapper;
+import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.IModel;
-import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.common.model.IModelState;
-import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
@@ -51,17 +53,18 @@ import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.shared.block.PropertyTableItem;
 import slimeknights.tconstruct.shared.tileentity.TileTable;
 
-public class BakedTableModel implements IBakedModel {
+public class BakedTableModel extends BakedModelWrapper<IBakedModel> {
 
   static final Logger log = Util.getLogger("Table Model");
 
-  private final IBakedModel standard;
   private final IModel tableModel;
 
   private final Map<String, IBakedModel> cache = Maps.newHashMap();
-  private final Function<ResourceLocation, TextureAtlasSprite> textureGetter;
+  private static final Function<ResourceLocation, TextureAtlasSprite> textureGetter = location -> {
+    assert location != null;
+    return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
+  };
   private final VertexFormat format;
-  private final ImmutableMap<ItemCameraTransforms.TransformType, TRSRTransformation> transforms;
   private final LoadingCache<PropertyTableItem.TableItem, IBakedModel> tableItemCache = CacheBuilder
       .newBuilder()
       .maximumSize(250)
@@ -78,19 +81,13 @@ public class BakedTableModel implements IBakedModel {
       .build();
 
   public BakedTableModel(IBakedModel standard, IModel tableModel, VertexFormat format) {
-    this.standard = standard;
+    super(standard);
     this.tableModel = tableModel;
-
-    this.textureGetter = location -> {
-      assert location != null;
-      return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite(location.toString());
-    };
     this.format = format;
-    this.transforms = ModelHelper.getTransforms(standard);
   }
 
   protected IBakedModel getActualModel(String texture, List<PropertyTableItem.TableItem> items, EnumFacing facing) {
-    IBakedModel bakedModel = standard;
+    IBakedModel bakedModel = originalModel;
 
     if(texture != null) {
       if(cache.containsKey(texture)) {
@@ -102,7 +99,7 @@ public class BakedTableModel implements IBakedModel {
         builder.put("leg", texture);
         builder.put("legBottom", texture);
         IModel retexturedModel = tableModel.retexture(builder.build());
-        IModelState modelState = new SimpleModelState(transforms);
+        IModelState modelState = retexturedModel.getDefaultState();
 
         bakedModel = retexturedModel.bake(modelState, format, textureGetter);
         cache.put(texture, bakedModel);
@@ -124,6 +121,12 @@ public class BakedTableModel implements IBakedModel {
     IBakedModel out = parentModel;
     // add all the items to display on the table
     if(items != null && !items.isEmpty()) {
+      BlockRenderLayer layer = MinecraftForgeClient.getRenderLayer();
+      // use a null render layer while grabbing items so they give us all layers
+      // primarily affects chisel CTM rendering
+      if(Config.renderInventoryNullLayer) {
+        ForgeHooksClient.setRenderLayer(null);
+      }
       BakedCompositeModel.Builder builder = new BakedCompositeModel.Builder();
       builder.add(parentModel, null, 0);
       for(PropertyTableItem.TableItem item : items) {
@@ -136,6 +139,10 @@ public class BakedTableModel implements IBakedModel {
       }
 
       out = builder.build(parentModel);
+      // restore the original layer
+      if(Config.renderInventoryNullLayer) {
+        ForgeHooksClient.setRenderLayer(layer);
+      }
     }
 
     if(facing != null) {
@@ -179,39 +186,11 @@ public class BakedTableModel implements IBakedModel {
 
     // models are symmetric, no need to rotate if there's nothing on it where rotation matters, so we just use default
     if(texture == null && items == null) {
-      return standard.getQuads(state, side, rand);
+      return originalModel.getQuads(state, side, rand);
     }
 
     // the model returned by getActualModel should be a simple model with no special handling
     return getActualModel(texture, items, face).getQuads(state, side, rand);
-  }
-
-  @Override
-  public boolean isAmbientOcclusion() {
-    return standard.isAmbientOcclusion();
-  }
-
-  @Override
-  public boolean isGui3d() {
-    return standard.isGui3d();
-  }
-
-  @Override
-  public boolean isBuiltInRenderer() {
-    return standard.isBuiltInRenderer();
-  }
-
-  @Nonnull
-  @Override
-  public TextureAtlasSprite getParticleTexture() {
-    return standard.getParticleTexture();
-  }
-
-  @Nonnull
-  @Override
-  @Deprecated
-  public ItemCameraTransforms getItemCameraTransforms() {
-    return standard.getItemCameraTransforms();
   }
 
   @Nonnull
@@ -222,7 +201,7 @@ public class BakedTableModel implements IBakedModel {
 
   @Override
   public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
-    Pair<? extends IBakedModel, Matrix4f> pair = standard.handlePerspective(cameraTransformType);
+    Pair<? extends IBakedModel, Matrix4f> pair = originalModel.handlePerspective(cameraTransformType);
     return Pair.of(this, pair.getRight());
   }
 

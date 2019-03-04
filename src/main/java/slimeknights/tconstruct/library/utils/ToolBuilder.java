@@ -356,8 +356,22 @@ public final class ToolBuilder {
       String id = modifiers.getStringTagAt(i);
       IModifier mod = TinkerRegistry.getModifier(id);
 
-      // will throw an exception if it can't apply
-      if(mod != null && !mod.canApply(copyToCheck, copyToCheck)) {
+      boolean canApply = false;
+      try {
+        // will throw an exception if it can't apply
+        canApply = mod != null && mod.canApply(copyToCheck, copyToCheck);
+      } catch(TinkerGuiException e) {
+        // try again with more modifiers, in case something modified them (tinkers tool leveling)
+        // ensure that free modifiers are present (
+        if(ToolHelper.getFreeModifiers(copyToCheck) < ToolCore.DEFAULT_MODIFIERS) {
+          ItemStack copyWithModifiers = copyToCheck.copy();
+          NBTTagCompound nbt = TagUtil.getToolTag(copyWithModifiers);
+          nbt.setInteger(Tags.FREE_MODIFIERS, ToolCore.DEFAULT_MODIFIERS);
+          TagUtil.setToolTag(copyWithModifiers, nbt);
+          canApply = mod.canApply(copyWithModifiers, copyWithModifiers);
+        }
+      }
+      if(!canApply) {
         throw new TinkerGuiException();
       }
     }

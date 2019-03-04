@@ -2,31 +2,59 @@ package slimeknights.tconstruct.tools.common.inventory;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
-import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.network.play.server.SPacketSetSlot;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerContainerEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.util.List;
+
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.shared.inventory.InventoryCraftingPersistent;
+import slimeknights.tconstruct.tools.common.network.LastRecipeMessage;
 import slimeknights.tconstruct.tools.common.tileentity.TileCraftingStation;
 
 // nearly the same as ContainerWorkbench but uses the TileEntities inventory
+@Mod.EventBusSubscriber
 public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftingStation> {
-
+  public static final Logger log = LogManager.getLogger("test");
   private final EntityPlayer player;
   private final InventoryCraftingPersistent craftMatrix;
   private final InventoryCraftResult craftResult;
+
+  private IRecipe lastRecipe;
+  private IRecipe lastLastRecipe;
+
+  @SubscribeEvent
+  public static void onCraftingStationGuiOpened(PlayerContainerEvent.Open event) {
+    // by default the container does not update after it has been opened.
+    // we need it to check its recipe
+    if(event.getContainer() instanceof ContainerCraftingStation) {
+      ((ContainerCraftingStation) event.getContainer()).onCraftMatrixChanged();
+    }
+  }
 
   public ContainerCraftingStation(InventoryPlayer playerInventory, TileCraftingStation tile) {
     super(tile);
@@ -35,7 +63,7 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
     craftMatrix = new InventoryCraftingPersistent(this, tile, 3, 3);
     player = playerInventory.player;
 
-    this.addSlotToContainer(new SlotCrafting(playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35));
+    this.addSlotToContainer(new SlotCraftingFastWorkbench(this, playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35));
     int i;
     int j;
 
@@ -59,9 +87,9 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
       }
       if(!stationPart) {
         TileEntity te = world.getTileEntity(neighbor);
-        if(te != null) {
+        if(te != null && !(te instanceof TileCraftingStation)) {
           // if blacklisted, skip checks entirely
-          if(blacklisted(te.getClass().getName())) {
+          if(blacklisted(te.getClass())) {
             continue;
           }
 
@@ -90,15 +118,22 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
     }
 
     this.addPlayerInventory(playerInventory, 8, 84);
-
-    this.onCraftMatrixChanged(this.craftMatrix);
   }
 
-  private boolean blacklisted(String name) {
-    for(String te : Config.craftingStationBlacklist) {
-      if(name.equals(te)) {
-        return true;
-      }
+  private boolean blacklisted(Class<? extends TileEntity> clazz) {
+    if(Config.craftingStationBlacklist.isEmpty()) {
+      return false;
+    }
+
+    // first, try registry name
+    ResourceLocation registryName = TileEntity.getKey(clazz);
+    if(registryName != null && Config.craftingStationBlacklist.contains(registryName.toString())) {
+      return true;
+    }
+
+    // then try class name
+    if(Config.craftingStationBlacklist.contains(clazz.getName())) {
+      return true;
     }
 
     return false;
@@ -106,8 +141,47 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
 
   // update crafting
   @Override
+  public void setAll(List<ItemStack> p_190896_1_) {
+    craftMatrix.setDoNotCallUpdates(true);
+    super.setAll(p_190896_1_);
+    craftMatrix.setDoNotCallUpdates(false);
+    craftMatrix.onCraftMatrixChanged();
+  }
+
+  public void onCraftMatrixChanged() {
+    this.onCraftMatrixChanged(this.craftMatrix);
+  }
+
+  @Override
   public void onCraftMatrixChanged(IInventory inventoryIn) {
     this.slotChangedCraftingGrid(this.world, this.player, this.craftMatrix, this.craftResult);
+  }
+
+  @Override
+  protected void slotChangedCraftingGrid(World world, EntityPlayer player, InventoryCrafting inv, InventoryCraftResult result) {
+    ItemStack itemstack = ItemStack.EMPTY;
+
+    if(lastRecipe == null || !lastRecipe.matches(inv, world)) {
+      lastRecipe = CraftingManager.findMatchingRecipe(inv, world);
+    }
+
+    if(lastRecipe != null) {
+      itemstack = lastRecipe.getCraftingResult(inv);
+    }
+
+    if(!world.isRemote) {
+      result.setInventorySlotContents(0, itemstack);
+      EntityPlayerMP entityplayermp = (EntityPlayerMP) player;
+      if(lastLastRecipe != lastRecipe) {
+        entityplayermp.connection.sendPacket(new SPacketSetSlot(this.windowId, 0, itemstack));
+      }
+      else if(lastLastRecipe != null && lastLastRecipe == lastRecipe && !ItemStack.areItemStacksEqual(lastLastRecipe.getCraftingResult(inv), lastRecipe.getCraftingResult(inv))) {
+        entityplayermp.connection.sendPacket(new SPacketSetSlot(this.windowId, 0, itemstack));
+      }
+      TinkerNetwork.sendTo(new LastRecipeMessage(lastRecipe), entityplayermp);
+    }
+
+    lastLastRecipe = lastRecipe;
   }
 
   @Override
@@ -147,5 +221,20 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
 
   public InventoryCrafting getCraftMatrix() {
     return craftMatrix;
+  }
+
+  public void updateLastRecipeFromServer(IRecipe recipe) {
+    lastRecipe = recipe;
+    if(recipe != null) {
+      this.craftResult.setInventorySlotContents(0, recipe.getCraftingResult(craftMatrix));
+    }
+  }
+
+
+  public NonNullList<ItemStack> getRemainingItems() {
+    if(lastRecipe != null && lastRecipe.matches(craftMatrix, world)) {
+      return lastRecipe.getRemainingItems(craftMatrix);
+    }
+    return craftMatrix.stackList;
   }
 }

@@ -1,0 +1,915 @@
+
+tile.tconstruct.tooltables.craftingstation.name=uoᴉʇɐʇS ᵷuᴉʇɟɐɹƆ
+tile.tconstruct.tooltables.stenciltable.name=ǝꞁqɐ⟘ ꞁᴉɔuǝʇS
+tile.tconstruct.tooltables.partbuilder.name=ɹǝpꞁᴉnᗺ ʇɹɐԀ
+tile.tconstruct.tooltables.toolstation.name=uoᴉʇɐʇS ꞁoo⟘
+tile.tconstruct.tooltables.patternchest.name=ʇsǝɥƆ uɹǝʇʇɐԀ
+tile.tconstruct.tooltables.patternchest.tooltip=sʇsɐɔ ɹo suɹǝʇʇɐd ɹǝɥʇᴉǝ spꞁoH
+tile.tconstruct.tooltables.partchest.name=ʇsǝɥƆ ʇɹɐԀ
+tile.tconstruct.tooltables.partchest.tooltip=sʇɹɐdꞁooʇ ɟo ʇunoɯɐ ǝᵷɹɐꞁ ɐ pꞁoɥ uɐƆ
+tile.tconstruct.toolforge.name=ǝᵷɹoℲ ꞁoo⟘
+
+tile.tconstruct.soil.grout.name=ʇnoɹ⅁
+tile.tconstruct.soil.grout.tooltip=¡ʇnoɹ⅁ ɯɐ I
+tile.tconstruct.soil.slimy_mud_green.name=pnW ʎɯᴉꞁS uǝǝɹ⅁
+tile.tconstruct.soil.slimy_mud_green.tooltip=ɹǝɥᵷᴉɥ uǝʌǝ dɯnɾ noʎ sʇǝꞁ ʇnq 'sʍoꞁS
+tile.tconstruct.soil.slimy_mud_blue.name=pnW ʎɯᴉꞁS ǝnꞁᗺ
+tile.tconstruct.soil.slimy_mud_blue.tooltip=dᴉʇꞁooʇ˙uǝǝɹᵷ‾pnɯ‾ʎɯᴉꞁs˙ꞁᴉos˙ʇɔnɹʇsuoɔʇ˙ǝꞁᴉʇ
+tile.tconstruct.soil.slimy_mud_magma.name=pnW ɐɯᵷɐW ʎɯᴉꞁS
+tile.tconstruct.soil.slimy_mud_magma.tooltip=dᴉʇꞁooʇ˙uǝǝɹᵷ‾pnɯ‾ʎɯᴉꞁs˙ꞁᴉos˙ʇɔnɹʇsuoɔʇ˙ǝꞁᴉʇ
+tile.tconstruct.soil.graveyard.name=ꞁᴉoS pɹɐʎǝʌɐɹ⅁
+tile.tconstruct.soil.graveyard.tooltip=pɐǝpun sꞁɐǝH
+tile.tconstruct.soil.consecrated.name=ꞁᴉoS pǝʇɐɹɔǝsuoƆ
+tile.tconstruct.soil.consecrated.tooltip=pɐǝpun sʇɹnH
+
+tile.tconstruct.deco_ground.mudbrick.name=sʞɔᴉɹᗺ pnW
+tile.tconstruct.deco_ground_slab.mudbrick.name=qɐꞁS sʞɔᴉɹᗺ pnW
+tile.tconstruct.mudbrick_stairs.name=sɹᴉɐʇS sʞɔᴉɹᗺ pnW
+
+tile.tconstruct.ore.cobalt.name=ǝɹO ʇꞁɐqoƆ
+tile.tconstruct.ore.ardite.name=ǝɹO ǝʇᴉpɹⱯ
+
+tile.tconstruct.metal.tooltip=ǝsɐq uoɔɐǝq sɐ pǝsn ǝq uɐƆ
+tile.tconstruct.metal.cobalt.name=ʇꞁɐqoƆ ɟo ʞɔoꞁᗺ
+tile.tconstruct.metal.ardite.name=ǝʇᴉpɹⱯ ɟo ʞɔoꞁᗺ
+tile.tconstruct.metal.manyullyn.name=uʎꞁꞁnʎuɐW ɟo ʞɔoꞁᗺ
+tile.tconstruct.metal.knightslime.name=ǝɯᴉꞁsʇɥᵷᴉuʞ ɟo ʞɔoꞁᗺ
+tile.tconstruct.metal.pigiron.name=uoɹᴉᵷᴉԀ ɟo ʞɔoꞁᗺ
+tile.tconstruct.metal.alubrass.name=ssɐɹᗺ ɯnuᴉɯnꞁⱯ ɟo ʞɔoꞁᗺ
+tile.tconstruct.metal.silky_jewel.name=ꞁǝʍǝՐ ɟo ʞɔoꞁᗺ ʎʞꞁᴉS
+
+tile.tconstruct.firewood.lavawood.name=pooʍɐʌɐꞀ
+tile.tconstruct.firewood.firewood.name=pooʍǝɹᴉℲ
+tile.tconstruct.firewood_slab.lavawood.name=qɐꞁS pooʍɐʌɐꞀ
+tile.tconstruct.firewood_slab.firewood.name=qɐꞁS pooʍǝɹᴉℲ
+tile.tconstruct.lavawood_stairs.name=sɹᴉɐʇS pooʍɐʌɐꞀ
+tile.tconstruct.firewood_stairs.name=sɹᴉɐʇS pooʍǝɹᴉℲ
+
+tile.tconstruct.clear_glass.name=ssɐꞁ⅁ ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.white.name=ssɐꞁ⅁ pǝuᴉɐʇS ǝʇᴉɥM ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.orange.name=ssɐꞁ⅁ pǝuᴉɐʇS ǝᵷuɐɹO ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.magenta.name=ssɐꞁ⅁ pǝuᴉɐʇS ɐʇuǝᵷɐW ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.light_blue.name=ssɐꞁ⅁ pǝuᴉɐʇS ǝnꞁᗺ ʇɥᵷᴉꞀ ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.yellow.name=ssɐꞁ⅁ pǝuᴉɐʇS ʍoꞁꞁǝ⅄ ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.lime.name=ssɐꞁ⅁ pǝuᴉɐʇS uǝǝɹ⅁ ʇɥᵷᴉꞀ ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.pink.name=ssɐꞁ⅁ pǝuᴉɐʇS ʞuᴉԀ ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.gray.name=ssɐꞁ⅁ pǝuᴉɐʇS ʎɐɹ⅁ ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.silver.name=ssɐꞁ⅁ pǝuᴉɐʇS ʎɐɹ⅁ ʇɥᵷᴉꞀ ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.cyan.name=ssɐꞁ⅁ pǝuᴉɐʇS uɐʎƆ ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.purple.name=ssɐꞁ⅁ pǝuᴉɐʇS ǝꞁdɹnԀ ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.blue.name=ssɐꞁ⅁ pǝuᴉɐʇS ǝnꞁᗺ ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.brown.name=ssɐꞁ⅁ pǝuᴉɐʇS uʍoɹᗺ ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.green.name=ssɐꞁ⅁ pǝuᴉɐʇS uǝǝɹ⅁ ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.red.name=ssɐꞁ⅁ pǝuᴉɐʇS pǝᴚ ɹɐǝꞁƆ
+tile.tconstruct.clear_stained_glass.black.name=ssɐꞁ⅁ pǝuᴉɐʇS ʞɔɐꞁᗺ ɹɐǝꞁƆ
+
+tile.tconstruct.slime.green.name=ʞɔoꞁᗺ ǝɯᴉꞁS uǝǝɹ⅁
+tile.tconstruct.slime.blue.name=ʞɔoꞁᗺ ǝɯᴉꞁS ǝnꞁᗺ
+tile.tconstruct.slime.purple.name=ʞɔoꞁᗺ ǝɯᴉꞁS ǝꞁdɹnԀ
+tile.tconstruct.slime.blood.name=ʞɔoꞁᗺ ǝɯᴉꞁS pooꞁᗺ
+tile.tconstruct.slime.magma.name=ʞɔoꞁᗺ ǝɯᴉꞁS ɐɯᵷɐW
+tile.tconstruct.slime.tooltip=˙suoʇsᴉd ɥʇᴉʍ ʞɹoʍ ʇ,usǝoᗡ
+
+tile.tconstruct.slime_congealed.green.name=ʞɔoꞁᗺ ǝɯᴉꞁS uǝǝɹ⅁ pǝꞁɐǝᵷuoƆ
+tile.tconstruct.slime_congealed.blue.name=ʞɔoꞁᗺ ǝɯᴉꞁS ǝnꞁᗺ pǝꞁɐǝᵷuoƆ
+tile.tconstruct.slime_congealed.purple.name=ʞɔoꞁᗺ ǝɯᴉꞁS ǝꞁdɹnԀ pǝꞁɐǝᵷuoƆ
+tile.tconstruct.slime_congealed.blood.name=ʞɔoꞁᗺ ǝɯᴉꞁS pooꞁᗺ pǝꞁɐǝᵷuoƆ
+tile.tconstruct.slime_congealed.magma.name=ʞɔoꞁᗺ ǝɯᴉꞁS ɐɯᵷɐW pǝꞁɐǝᵷuoƆ
+tile.tconstruct.slime_congealed.tooltip=ɥᵷᴉɥ ʎꞁꞁɐǝɹ dɯnɾ noʎ sʇǝꞀ
+
+tile.tconstruct.slime_dirt.green.name=ʇɹᴉᗡ ʎɯᴉꞁS uǝǝɹ⅁
+tile.tconstruct.slime_dirt.blue.name=ʇɹᴉᗡ ʎɯᴉꞁS ǝnꞁᗺ
+tile.tconstruct.slime_dirt.purple.name=ʇɹᴉᗡ ʎɯᴉꞁS ǝꞁdɹnԀ
+tile.tconstruct.slime_dirt.blood.name=ʇɹᴉᗡ ʎɯᴉꞁS pooꞁᗺ
+tile.tconstruct.slime_dirt.magma.name=ʇɹᴉᗡ ʎɯᴉꞁS ɐɯᵷɐW
+tile.tconstruct.slime_dirt.tooltip=ɹǝɥᵷᴉɥ dɯnɾ noʎ sʇǝꞁ ʇnq 'ʎɯᴉꞁS
+
+tile.tconstruct.slime_grass.vanilla.name=ssɐɹ⅁ ʎɯᴉꞁS
+tile.tconstruct.slime_grass.green.name=ssɐɹ⅁ ʎɯᴉꞁS uǝǝɹ⅁
+tile.tconstruct.slime_grass.blue.name=ssɐɹ⅁ ʎɯᴉꞁS ǝnꞁᗺ
+tile.tconstruct.slime_grass.purple.name=ssɐɹ⅁ ʎɯᴉꞁS ǝꞁdɹnԀ
+tile.tconstruct.slime_grass.blood.name=ssɐɹ⅁ ʎɯᴉꞁS pooꞁᗺ
+tile.tconstruct.slime_grass.magma.name=ssɐɹ⅁ ʎɯᴉꞁS ɐɯᵷɐW
+tile.tconstruct.slime_grass.tooltip=ɹǝɥᵷᴉɥ dɯnɾ noʎ sʇǝꞀ ¡ʇɟos oS
+
+tile.tconstruct.slime_leaves.blue.name=sǝʌɐǝꞀ ʎɯᴉꞁS
+tile.tconstruct.slime_leaves.purple.name=sǝʌɐǝꞀ ʎɯᴉꞁS
+tile.tconstruct.slime_leaves.orange.name=sǝʌɐǝꞀ ʎɯᴉꞁS
+
+tile.tconstruct.slime_grass_tall.tall_grass.name=ssɐɹ⅁ ʎɯᴉꞁS ꞁꞁɐ⟘
+tile.tconstruct.slime_grass_tall.fern.name=uɹǝℲ ʎɯᴉꞁS
+
+tile.tconstruct.slime_sapling.blue.name=ᵷuᴉꞁdɐS ǝɯᴉꞁS ǝnꞁᗺ
+tile.tconstruct.slime_sapling.purple.name=ᵷuᴉꞁdɐS ǝɯᴉꞁS ǝꞁdɹnԀ
+tile.tconstruct.slime_sapling.orange.name=ᵷuᴉꞁdɐS ǝɯᴉꞁS ɐɯᵷɐW
+tile.tconstruct.slime_sapling.tooltip=ssɐɹᵷ/ʇɹᴉp ʎɯᴉꞁs uo sʍoɹᵷ ʎꞁuO
+
+tile.tconstruct.slime_vine_blue.name=ǝuᴉᴧ ʎɯᴉꞁS ǝnꞁᗺ
+tile.tconstruct.slime_vine_blue_mid.name=ǝuᴉᴧ ʎɯᴉꞁS ǝnꞁᗺ
+tile.tconstruct.slime_vine_blue_end.name=ǝuᴉᴧ ʎɯᴉꞁS ǝnꞁᗺ
+tile.tconstruct.slime_vine_purple.name=ǝuᴉᴧ ʎɯᴉꞁS ǝꞁdɹnԀ
+tile.tconstruct.slime_vine_purple_mid.name=ǝuᴉᴧ ʎɯᴉꞁS ǝꞁdɹnԀ
+tile.tconstruct.slime_vine_purple_end.name=ǝuᴉᴧ ʎɯᴉꞁS ǝꞁdɹnԀ
+
+tile.tconstruct.seared.stone.name=ǝuoʇS pǝɹɐǝS
+tile.tconstruct.seared.cobble.name=ǝuoʇsǝꞁqqoƆ pǝɹɐǝS
+tile.tconstruct.seared.paver.name=ɹǝʌɐԀ pǝɹɐǝS
+tile.tconstruct.seared.brick.name=sʞɔᴉɹᗺ pǝɹɐǝS
+tile.tconstruct.seared.brick_cracked.name=sʞɔᴉɹᗺ pǝɹɐǝS pǝʞɔɐɹƆ
+tile.tconstruct.seared.brick_fancy.name=sʞɔᴉɹᗺ pǝɹɐǝS ʎɔuɐℲ
+tile.tconstruct.seared.brick_square.name=sʞɔᴉɹᗺ pǝɹɐǝS ǝɹɐnbS
+tile.tconstruct.seared.brick_triangle.name=sʞɔᴉɹᗺ pǝɹɐǝS ǝꞁᵷuɐᴉɹ⟘
+tile.tconstruct.seared.brick_small.name=sʞɔᴉɹᗺ pǝɹɐǝS ꞁꞁɐɯS
+tile.tconstruct.seared.road.name=pɐoᴚ pǝɹɐǝS
+tile.tconstruct.seared.tile.name=sǝꞁᴉ⟘ pǝɹɐǝS
+tile.tconstruct.seared.creeper.name=ǝɔɐɟɹǝdǝǝɹƆ pǝɹɐǝS
+tile.tconstruct.seared.tooltip=˙uoᴉʇɐɹoɔǝp ɹoɟ ǝɟɐS ˙ʎɹǝʇꞁǝɯS ǝɥʇ ɟo ʇɹɐԀ
+
+tile.tconstruct.seared_slab.stone.name=qɐꞁS ǝuoʇS pǝɹɐǝS
+tile.tconstruct.seared_slab.cobble.name=qɐꞁS ǝuoʇsǝꞁqqoƆ pǝɹɐǝS
+tile.tconstruct.seared_slab.paver.name=qɐꞁS ɹǝʌɐԀ pǝɹɐǝS
+tile.tconstruct.seared_slab.brick.name=qɐꞁS sʞɔᴉɹᗺ pǝɹɐǝS
+tile.tconstruct.seared_slab.brick_cracked.name=qɐꞁS sʞɔᴉɹᗺ pǝɹɐǝS pǝʞɔɐɹƆ
+tile.tconstruct.seared_slab.brick_fancy.name=qɐꞁS sʞɔᴉɹᗺ pǝɹɐǝS ʎɔuɐℲ
+tile.tconstruct.seared_slab.brick_square.name=qɐꞁS sʞɔᴉɹᗺ pǝɹɐǝS ǝɹɐnbS
+tile.tconstruct.seared_slab.road.name=qɐꞁS pɐoᴚ pǝɹɐǝS
+tile.tconstruct.seared_slab2.creeper.name=qɐꞁS ǝɔɐɟɹǝdǝǝɹƆ pǝɹɐǝS
+tile.tconstruct.seared_slab2.brick_triangle.name=qɐꞁS sʞɔᴉɹᗺ pǝɹɐǝS ǝꞁᵷuɐᴉɹ⟘
+tile.tconstruct.seared_slab2.brick_small.name=qɐꞁS sʞɔᴉɹᗺ pǝɹɐǝS ꞁꞁɐɯS
+tile.tconstruct.seared_slab2.tile.name=qɐꞁS ǝꞁᴉ⟘ pǝɹɐǝS
+
+tile.tconstruct.seared_stairs_stone.name=sɹᴉɐʇS ǝuoʇS pǝɹɐǝS
+tile.tconstruct.seared_stairs_cobble.name=sɹᴉɐʇS ǝuoʇsǝꞁqqoƆ pǝɹɐǝS
+tile.tconstruct.seared_stairs_paver.name=sɹᴉɐʇS ɹǝʌɐԀ pǝɹɐǝS
+tile.tconstruct.seared_stairs_brick.name=sɹᴉɐʇS sʞɔᴉɹᗺ pǝɹɐǝS
+tile.tconstruct.seared_stairs_brick_cracked.name=sɹᴉɐʇS sʞɔᴉɹᗺ pǝɹɐǝS pǝʞɔɐɹƆ
+tile.tconstruct.seared_stairs_brick_fancy.name=sɹᴉɐʇS sʞɔᴉɹᗺ pǝɹɐǝS ʎɔuɐℲ
+tile.tconstruct.seared_stairs_brick_square.name=sɹᴉɐʇS sʞɔᴉɹᗺ pǝɹɐǝS ǝɹɐnbS
+tile.tconstruct.seared_stairs_brick_triangle.name=sɹᴉɐʇS sʞɔᴉɹᗺ pǝɹɐǝS ǝꞁᵷuɐᴉɹ⟘
+tile.tconstruct.seared_stairs_brick_small.name=sɹᴉɐʇS sʞɔᴉɹᗺ pǝɹɐǝS ꞁꞁɐɯS
+tile.tconstruct.seared_stairs_road.name=sɹᴉɐʇS pɐoᴚ pǝɹɐǝS
+tile.tconstruct.seared_stairs_tile.name=sɹᴉɐʇS ǝꞁᴉ⟘ pǝɹɐǝS
+tile.tconstruct.seared_stairs_creeper.name=sɹᴉɐʇS ǝɔɐɟɹǝdǝǝɹƆ pǝɹɐǝS
+
+tile.tconstruct.smeltery_controller.name=ɹǝꞁꞁoɹʇuoƆ ʎɹǝʇꞁǝɯS
+tile.tconstruct.smeltery_controller.tooltip=ʎɹǝʇꞁǝɯS ǝɥʇ ɟo uᴉɐɹᗺ
+tile.tconstruct.smeltery_io.drain.name=uᴉɐɹᗡ ʎɹǝʇꞁǝɯS
+tile.tconstruct.smeltery_io.drain.tooltip=ʎɹǝʇꞁǝɯS ǝɥʇ ɹoɟ ʇndʇno puɐ -uᴉ pᴉnꞁℲ
+tile.tconstruct.casting.table.name=ǝꞁqɐ⟘ ᵷuᴉʇsɐƆ
+tile.tconstruct.casting.basin.name=uᴉsɐᗺ ᵷuᴉʇsɐƆ
+tile.tconstruct.casting.tooltip=ʎɹǝʇꞁǝɯs ɐ ɯoɹɟ sꞁɐʇǝɯ uǝʇꞁoɯ ᵷuᴉsn sɯǝʇᴉ ʇsɐƆ
+tile.tconstruct.faucet.name=ʇǝɔnɐℲ
+tile.tconstruct.faucet.tooltip=sᵷuᴉɥʇ ɹǝɥʇo puɐ sǝᴉɹǝʇꞁǝɯS ɯoɹɟ spᴉnbᴉꞁ suᴉɐɹᗡ
+tile.tconstruct.channel.name=ꞁǝuuɐɥƆ ᵷuᴉʇsɐƆ
+tile.tconstruct.channel.tooltip=ᵷuᴉʇsɐɔ ɹoɟ spᴉnbᴉꞁ ǝʌoɯ oʇ sʇǝɔnɐɟ ɥʇᴉʍ pǝꞁꞁᴉℲ
+tile.tconstruct.seared_tank.tank.name=ʞuɐ⟘ pǝɹɐǝS
+tile.tconstruct.seared_tank.gauge.name=ǝᵷnɐ⅁ pǝɹɐǝS
+tile.tconstruct.seared_tank.window.name=ʍopuᴉM pǝɹɐǝS
+tile.tconstruct.seared_tank.tooltip=˙uǝʞoɹq uǝɥʍ pᴉnbᴉꞁ suᴉɐʇǝᴚ\nʎɹǝʇꞁǝɯS ǝɥʇ ɟo ʇɹɐǝH
+tile.tconstruct.seared_glass.glass.name=ssɐꞁ⅁ pǝɹɐǝS
+tile.tconstruct.seared_glass.glass.tooltip=˙spᴉnbᴉꞁ ǝɹoʇs ʇouuɐƆ\n˙uoᴉʇɐɹoɔǝp ɹoɟ ǝɟɐS ˙ʎɹǝʇꞁǝɯS ǝɥʇ ɟo ʇɹɐԀ
+
+tile.tconstruct.seared_furnace_controller.name=ɹǝꞁꞁoɹʇuoƆ ǝɔɐuɹnℲ pǝɹɐǝS
+tile.tconstruct.tinker_tank_controller.name=ɹǝꞁꞁoɹʇuoƆ ʞuɐ⟘ ɹǝʞuᴉ⟘
+
+tile.tconstruct.stone_torch.name=ɥɔɹo⟘ ǝuoʇS
+tile.tconstruct.stone_ladder.name=ɹǝppɐꞀ ǝuoʇS
+tile.tconstruct.wood_rail.name=ꞁᴉɐᴚ uǝpooM
+tile.tconstruct.wood_rail_trapdoor.name=ɹoopdɐɹ⟘ ɐ ɥʇᴉʍ ꞁᴉɐᴚ uǝpooM
+tile.tconstruct.wood_rail_trapdoor.tooltip=ʍoꞁǝq ʞɔoꞁq ǝɥʇ oʇuᴉ ʇɹǝsuᴉ\nuɐɔ ɹǝddoH ɐ ɥʇᴉʍ sʇɹɐɔǝuᴉW
+tile.tconstruct.punji.name=sʞɔᴉʇS ᴉɾunԀ
+tile.tconstruct.punji.tooltip=˙sꞁꞁɐʍ oʇ sʞɔᴉʇs osꞁⱯ ¡ʎʇuᴉoԀ
+tile.tconstruct.glow.name=ʍoꞁ⅁
+tile.tconstruct.rack.item.name=ʞɔɐᴚ ɯǝʇI
+tile.tconstruct.rack.item.tooltip=ʎꞁuo ǝsodɹnd uoᴉʇɐɹoɔǝp ɹoℲ
+tile.tconstruct.rack.drying.name=ʞɔɐᴚ ᵷuᴉʎɹᗡ
+tile.tconstruct.rack.drying.tooltip=sɯǝʇᴉ ʎɹp oʇ pǝs∩
+
+tile.tconstruct.slime_channel.green.name=ꞁǝuuɐɥƆ ǝɯᴉꞁS uǝǝɹ⅁
+tile.tconstruct.slime_channel.blue.name=ꞁǝuuɐɥƆ ǝɯᴉꞁS ǝnꞁᗺ
+tile.tconstruct.slime_channel.purple.name=ꞁǝuuɐɥƆ ǝɯᴉꞁS ǝꞁdɹnԀ
+tile.tconstruct.slime_channel.magma.name=ꞁǝuuɐɥƆ ǝɯᴉꞁS ɐɯᵷɐW
+tile.tconstruct.slime_channel.blood.name=ꞁǝuuɐɥƆ pooꞁᗺ
+tile.tconstruct.slime_channel.tooltip=uᴉʇɐꞁǝᵷ ǝʞᴉꞁ sꞁǝǝɟ 'ɹǝʇɐʍ ǝʞᴉꞁ sʍoꞁℲ
+
+tile.tconstruct.dried_clay.clay.name=ʎɐꞁƆ pǝᴉɹᗡ
+tile.tconstruct.dried_clay.brick.name=sʞɔᴉɹᗺ pǝᴉɹᗡ
+tile.tconstruct.dried_clay_slab.clay.name=qɐꞁS ʎɐꞁƆ pǝᴉɹᗡ
+tile.tconstruct.dried_clay_slab.brick.name=qɐꞁS sʞɔᴉɹᗺ pǝᴉɹᗡ
+tile.tconstruct.dried_clay_stairs.name=sɹᴉɐʇS ʎɐꞁƆ pǝᴉɹᗡ
+tile.tconstruct.dried_brick_stairs.name=sɹᴉɐʇS sʞɔᴉɹᗺ pǝᴉɹᗡ
+
+tile.tconstruct.brownstone.smooth.name=ǝuoʇsuʍoɹᗺ ɥʇooɯS
+tile.tconstruct.brownstone.rough.name=ǝuoʇsuʍoɹᗺ ɥᵷnoᴚ
+tile.tconstruct.brownstone.paver.name=ɹǝʌɐԀ ǝuoʇsuʍoɹᗺ
+tile.tconstruct.brownstone.brick.name=sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ
+tile.tconstruct.brownstone.brick_cracked.name=sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ pǝʞɔɐɹƆ
+tile.tconstruct.brownstone.brick_fancy.name=sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ ʎɔuɐℲ
+tile.tconstruct.brownstone.brick_square.name=sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ ǝɹɐnbS
+tile.tconstruct.brownstone.brick_triangle.name=sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ ǝꞁᵷuɐᴉɹ⟘
+tile.tconstruct.brownstone.brick_small.name=sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ ꞁꞁɐɯS
+tile.tconstruct.brownstone.road.name=pɐoᴚ ǝuoʇsuʍoɹᗺ
+tile.tconstruct.brownstone.tile.name=sǝꞁᴉ⟘ ǝuoʇsuʍoɹᗺ
+tile.tconstruct.brownstone.creeper.name=ǝɔɐɟɹǝdǝǝɹƆ ǝuoʇsuʍoɹᗺ
+tile.tconstruct.brownstone.tooltip=ʇᴉ uo ɹǝʇsɐɟ ʇᴉq ɐ ǝʌoɯ no⅄
+
+tile.tconstruct.brownstone_slab.smooth.name=qɐꞁS ǝuoʇsuʍoɹᗺ ɥʇooɯS
+tile.tconstruct.brownstone_slab.rough.name=qɐꞁS ǝuoʇsuʍoɹᗺ ɥᵷnoᴚ
+tile.tconstruct.brownstone_slab.paver.name=qɐꞁS ɹǝʌɐԀ ǝuoʇsuʍoɹᗺ
+tile.tconstruct.brownstone_slab.brick.name=qɐꞁS sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ
+tile.tconstruct.brownstone_slab.brick_cracked.name=qɐꞁS sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ pǝʞɔɐɹƆ
+tile.tconstruct.brownstone_slab.brick_fancy.name=qɐꞁS sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ ʎɔuɐℲ
+tile.tconstruct.brownstone_slab.brick_square.name=qɐꞁS sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ ǝɹɐnbS
+tile.tconstruct.brownstone_slab.road.name=qɐꞁS pɐoᴚ ǝuoʇsuʍoɹᗺ
+tile.tconstruct.brownstone_slab2.creeper.name=qɐꞁS ǝɔɐɟɹǝdǝǝɹƆ ǝuoʇsuʍoɹᗺ
+tile.tconstruct.brownstone_slab2.brick_triangle.name=qɐꞁS sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ ǝꞁᵷuɐᴉɹ⟘
+tile.tconstruct.brownstone_slab2.brick_small.name=qɐꞁS sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ ꞁꞁɐɯS
+tile.tconstruct.brownstone_slab2.tile.name=qɐꞁS ǝꞁᴉ⟘ ǝuoʇsuʍoɹᗺ
+
+tile.tconstruct.brownstone_stairs_smooth.name=sɹᴉɐʇS ǝuoʇsuʍoɹᗺ ɥʇooɯS
+tile.tconstruct.brownstone_stairs_rough.name=sɹᴉɐʇS ǝuoʇsuʍoɹᗺ ɥᵷnoᴚ
+tile.tconstruct.brownstone_stairs_paver.name=sɹᴉɐʇS ɹǝʌɐԀ ǝuoʇsuʍoɹᗺ
+tile.tconstruct.brownstone_stairs_brick.name=sɹᴉɐʇS sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ
+tile.tconstruct.brownstone_stairs_brick_cracked.name=sɹᴉɐʇS sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ pǝʞɔɐɹƆ
+tile.tconstruct.brownstone_stairs_brick_fancy.name=sɹᴉɐʇS sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ ʎɔuɐℲ
+tile.tconstruct.brownstone_stairs_brick_square.name=sɹᴉɐʇS sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ ǝɹɐnbS
+tile.tconstruct.brownstone_stairs_brick_triangle.name=sɹᴉɐʇS sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ ǝꞁᵷuɐᴉɹ⟘
+tile.tconstruct.brownstone_stairs_brick_small.name=sɹᴉɐʇS sʞɔᴉɹᗺ ǝuoʇsuʍoɹᗺ ꞁꞁɐɯS
+tile.tconstruct.brownstone_stairs_road.name=sɹᴉɐʇS pɐoᴚ ǝuoʇsuʍoɹᗺ
+tile.tconstruct.brownstone_stairs_tile.name=sɹᴉɐʇS ǝꞁᴉ⟘ ǝuoʇsuʍoɹᗺ
+tile.tconstruct.brownstone_stairs_creeper.name=sɹᴉɐʇS ǝɔɐɟɹǝdǝǝɹƆ ǝuoʇsuʍoɹᗺ
+
+
+item.tconstruct.book.name=no⅄ puɐ sꞁɐᴉɹǝʇɐW
+item.tconstruct.book.tooltip=ɐꞁʎʞS ʎq\nspǝǝu ɹǝʞuᴉ⟘ ʎɹǝʌǝ ʞooq ǝɥ⟘
+
+item.tconstruct.edible.bacon.name=uoɔɐᗺ
+item.tconstruct.edible.slimeball_blue.name=ꞁꞁɐᗺ ǝɯᴉꞁS
+item.tconstruct.edible.slimeball_purple.name=ꞁꞁɐᗺ ǝɯᴉꞁS
+item.tconstruct.edible.slimeball_blood.name=pooꞁᗺ pǝʇɐꞁnᵷɐoƆ
+item.tconstruct.edible.slimeball_magma.name=ꞁꞁɐᗺ ǝɯᴉꞁS
+item.tconstruct.edible.jerky_beef.name=ʎʞɹǝՐ ɟǝǝᗺ
+item.tconstruct.edible.jerky_chicken.name=ʎʞɹǝՐ uǝʞɔᴉɥƆ
+item.tconstruct.edible.jerky_pork.name=ʎʞɹǝՐ uoɔɐᗺ
+item.tconstruct.edible.jerky_mutton.name=ʎʞɹǝՐ uoʇʇnW
+item.tconstruct.edible.jerky_rabbit.name=ʎʞɹǝՐ ʇᴉqqɐᴚ
+item.tconstruct.edible.jerky_fish.name=ʎʞɹǝՐ ɥsᴉℲ
+item.tconstruct.edible.jerky_salmon.name=ʎʞɹǝՐ uoɯꞁɐS
+item.tconstruct.edible.jerky_clownfish.name=ʎʞɹǝՐ ɥsᴉɟuʍoꞁƆ
+item.tconstruct.edible.jerky_pufferfish.name=ʎʞɹǝՐ nᵷnℲ
+item.tconstruct.edible.jerky_monster.name=ʎʞɹǝՐ ɹǝʇsuoW
+item.tconstruct.edible.slimedrop_green.name=doɹᗡ ǝɯᴉꞁS snouᴉʇɐꞁǝ⅁
+item.tconstruct.edible.slimedrop_blue.name=doɹᗡ ǝɯᴉꞁS snouᴉʇɐꞁǝ⅁
+item.tconstruct.edible.slimedrop_purple.name=doɹᗡ ǝɯᴉꞁS snouᴉʇɐꞁǝ⅁
+item.tconstruct.edible.slimedrop_blood.name=doɹᗡ pooꞁᗺ pǝʇɐꞁnᵷɐoƆ
+item.tconstruct.edible.slimedrop_magma.name=doɹᗡ ǝɯᴉꞁS snouᴉʇɐꞁǝ⅁
+
+item.tconstruct.materials.seared_brick.name=ʞɔᴉɹᗺ pǝɹɐǝS
+item.tconstruct.materials.mud_brick.name=ʞɔᴉɹᗺ pnW
+item.tconstruct.materials.mud_brick.tooltip=ᵷᴉq puɐ ꞁꞁɐɯs ɹoɟ sʞɔoꞁq ᵷuᴉpꞁᴉnᗺ
+item.tconstruct.materials.dried_brick.name=ʞɔᴉɹᗺ pǝᴉɹᗡ
+item.tconstruct.materials.slimecrystal_green.name=ꞁɐʇsʎɹƆ ǝɯᴉꞁS uǝǝɹ⅁
+item.tconstruct.materials.slimecrystal_green.tooltip=sꞁoo⟘ ǝɯᴉꞁS ʇɟɐɹɔ oʇ pǝs∩
+item.tconstruct.materials.slimecrystal_blue.name=ꞁɐʇsʎɹƆ ǝɯᴉꞁS ǝnꞁᗺ
+item.tconstruct.materials.slimecrystal_blue.tooltip=dᴉʇꞁooʇ˙uǝǝɹᵷ‾ꞁɐʇsʎɹɔǝɯᴉꞁs˙sꞁɐᴉɹǝʇɐɯ˙ʇɔnɹʇsuoɔʇ˙ɯǝʇᴉ
+item.tconstruct.materials.slimecrystal_magma.name=ꞁɐʇsʎɹƆ ǝɯᴉꞁS ɐɯᵷɐW
+item.tconstruct.materials.slimecrystal_magma.tooltip=dᴉʇꞁooʇ˙uǝǝɹᵷ‾ꞁɐʇsʎɹɔǝɯᴉꞁs˙sꞁɐᴉɹǝʇɐɯ˙ʇɔnɹʇsuoɔʇ˙ɯǝʇᴉ
+item.tconstruct.materials.expander_w.name=(ꞁɐʇuozᴉɹoH) ɹǝpuɐdxƎ
+item.tconstruct.materials.expander_w.tooltip=¡ʎɐp ᵷǝꞁ dᴉʞs ʇ,uoᗡ
+item.tconstruct.materials.expander_h.name=(ꞁɐɔᴉʇɹǝᴧ) ɹǝpuɐdxƎ
+item.tconstruct.materials.expander_h.tooltip=¿ʇɟᴉꞁ uǝʌǝ noʎ oᗡ
+item.tconstruct.materials.reinforcement.name=ʇuǝɯǝɔɹoɟuᴉǝᴚ
+item.tconstruct.materials.reinforcement.tooltip=ɹǝᴉɟᴉpoW pǝɔɹoɟuᴉǝᴚ
+item.tconstruct.materials.silky_cloth.name=ɥʇoꞁƆ ʎʞꞁᴉS
+item.tconstruct.materials.silky_jewel.name=ꞁǝʍǝՐ ʎʞꞁᴉS
+item.tconstruct.materials.silky_jewel.tooltip=ɹǝᴉɟᴉpoW ɥɔnoʇʞꞁᴉS
+item.tconstruct.materials.necrotic_bone.name=ǝuoᗺ ɔᴉʇoɹɔǝN
+item.tconstruct.materials.necrotic_bone.tooltip=ɹǝᴉɟᴉpoW ɔᴉʇoɹɔǝN
+item.tconstruct.materials.moss.name=ssoW ɟo ꞁꞁɐᗺ
+item.tconstruct.materials.moss.tooltip=§osꞁǝʌǝꞀ 0⥝ sǝɯnsuoƆ§f\n˙ssoW ᵷuᴉpuǝW oʇuᴉ ʇᴉ ʇɹǝʌuoɔ oʇ\nsᴉɥʇ ɥʇᴉʍ ɟꞁǝɥsʞooᗺ ɐ ʞɔᴉꞁɔ ʇɥᵷᴉᴚ
+item.tconstruct.materials.mending_moss.name=ssoW ᵷuᴉpuǝW
+item.tconstruct.materials.mending_moss.tooltip=ɹǝᴉɟᴉpoW ssoW ᵷuᴉpuǝW
+item.tconstruct.materials.creative_modifier.name=ɹǝᴉɟᴉpoW ǝʌᴉʇɐǝɹƆ
+item.tconstruct.materials.creative_modifier.tooltip=ɹǝᴉɟᴉpoɯ ꞁɐuoᴉʇᴉppɐ uɐ sppⱯ
+
+item.tconstruct.ingots.cobalt.name=ʇoᵷuI ʇꞁɐqoƆ
+item.tconstruct.ingots.ardite.name=ʇoᵷuI ǝʇᴉpɹⱯ
+item.tconstruct.ingots.manyullyn.name=ʇoᵷuI uʎꞁꞁnʎuɐW
+item.tconstruct.ingots.knightslime.name=ʇoᵷuI ǝɯᴉꞁsʇɥᵷᴉuʞ
+item.tconstruct.ingots.knightslime.tooltip=¡ᵷuᴉʇɐuᴉɔsɐℲ ¿ǝuoʇs osꞁɐ ʇnq ɔᴉꞁꞁɐʇǝɯ ʇǝʎ ʎɯᴉꞁS
+item.tconstruct.ingots.pigiron.name=ʇoᵷuI uoɹᴉᵷᴉԀ
+item.tconstruct.ingots.pigiron.tooltip=¡ʞuᴉO
+item.tconstruct.ingots.alubrass.name=ʇoᵷuI ssɐɹᗺ ɯnuᴉɯnꞁⱯ
+
+item.tconstruct.nuggets.cobalt.name=ʇǝᵷᵷnN ʇꞁɐqoƆ
+item.tconstruct.nuggets.ardite.name=ʇǝᵷᵷnN ǝʇᴉpɹⱯ
+item.tconstruct.nuggets.manyullyn.name=ʇǝᵷᵷnN uʎꞁꞁnʎuɐW
+item.tconstruct.nuggets.knightslime.name=ʇǝᵷᵷnN ǝɯᴉꞁsʇɥᵷᴉuʞ
+item.tconstruct.nuggets.pigiron.name=ʇǝᵷᵷnN uoɹᴉᵷᴉԀ
+item.tconstruct.nuggets.alubrass.name=ʇǝᵷᵷnN ssɐɹᗺ ɯnuᴉɯnꞁⱯ
+
+item.tconstruct.pattern.blank=uɹǝʇʇɐԀ ʞuɐꞁᗺ
+item.tconstruct.pattern.name=uɹǝʇʇɐԀ %s
+item.tconstruct.cast.blank=ʇsɐƆ ʞuɐꞁᗺ
+item.tconstruct.cast.name=ʇsɐƆ %s
+item.tconstruct.clay_cast.name=ʇsɐƆ ʎɐꞁƆ %s
+item.tconstruct.cast_custom.ingot.name=ʇsɐƆ ʇoᵷuI
+item.tconstruct.cast_custom.nugget.name=ʇsɐƆ ʇǝᵷᵷnN
+item.tconstruct.cast_custom.gem.name=ʇsɐƆ ɯǝ⅁
+item.tconstruct.cast_custom.plate.name=ʇsɐƆ ǝʇɐꞁԀ
+item.tconstruct.cast_custom.gear.name=ʇsɐƆ ɹɐǝ⅁
+
+item.tconstruct.sharpening_kit.name=ʇᴉʞ ᵷuᴉuǝdɹɐɥS
+item.tconstruct.sharpening_kit.tooltip=˙ꞁǝʌǝꞁ ᵷuᴉuᴉɯ s,ꞁɐᴉɹǝʇɐɯ ǝɥʇ oʇ ꞁooʇ ɹnoʎ sǝpɐɹᵷd∩\nʇuᴉꞁɟ ɐ ɥʇᴉʍ ǝuᴉqɯoƆ
+
+item.forge.bucketFilled.blood=pooꞁᗺ ,o ʇǝʞɔnᗺ
+
+item.tconstruct.pickaxe.name=ǝxɐʞɔᴉԀ
+item.tconstruct.shovel.name=ꞁǝʌoɥS
+item.tconstruct.hatchet.name=ʇǝɥɔʇɐH
+item.tconstruct.mattock.name=ʞɔoʇʇɐW
+item.tconstruct.kama.name=ɐɯɐʞ
+
+item.tconstruct.hammer.name=ɹǝɯɯɐH
+item.tconstruct.excavator.name=ɹoʇɐʌɐɔxƎ
+item.tconstruct.lumberaxe.name=ǝxɐɹǝqɯnꞀ
+item.tconstruct.scythe.name=ǝɥʇʎɔS
+
+
+item.tconstruct.frypan.name=uɐdʎɹℲ
+item.tconstruct.battlesign.name=uᵷᴉsǝꞁʇʇɐᗺ
+item.tconstruct.dagger.name=ɹǝᵷᵷɐᗡ
+item.tconstruct.broadsword.name=pɹoʍspɐoɹᗺ
+item.tconstruct.longsword.name=pɹoʍsᵷuoꞀ
+item.tconstruct.rapier.name=ɹǝᴉdɐᴚ
+item.tconstruct.cutlass.name=ssɐꞁʇnƆ
+
+item.tconstruct.cleaver.name=ɹǝʌɐǝꞁƆ
+item.tconstruct.battleaxe.name=ǝxɐǝꞁʇʇɐᗺ
+
+
+item.tconstruct.shortbow.name=ʍoqʇɹoɥS
+item.tconstruct.longbow.name=ʍoqᵷuoꞀ
+item.tconstruct.crossbow.name=ʍoqssoɹƆ
+
+item.tconstruct.arrow.name=ʍoɹɹⱯ
+item.tconstruct.bolt.name=ʇꞁoᗺ
+
+item.tconstruct.shuriken.name=uǝʞᴉɹnɥS
+
+item.tconstruct.shard.name=pɹɐɥS
+
+item.tconstruct.pick_head.name=pɐǝH ǝxɐʞɔᴉԀ
+item.tconstruct.shovel_head.name=pɐǝH ꞁǝʌoɥS
+item.tconstruct.axe_head.name=pɐǝH ǝxⱯ
+item.tconstruct.kama_head.name=pɐǝH ɐɯɐʞ
+item.tconstruct.pan_head.name=uɐԀ
+item.tconstruct.sign_head.name=ǝʇɐꞁԀ uᵷᴉS
+item.tconstruct.binding.name=ᵷuᴉpuᴉᗺ
+item.tconstruct.tool_rod.name=poᴚ ꞁoo⟘
+item.tconstruct.knife_blade.name=ǝpɐꞁᗺ ǝɟᴉuʞ
+item.tconstruct.sword_blade.name=ǝpɐꞁᗺ pɹoʍS
+item.tconstruct.wide_guard.name=pɹɐn⅁ ǝpᴉM
+item.tconstruct.cross_guard.name=pɹɐn⅁ ssoɹƆ
+item.tconstruct.hand_guard.name=pɹɐn⅁ puɐH
+item.tconstruct.full_guard.name=pɹɐn⅁ ꞁꞁnℲ
+
+item.tconstruct.hammer_head.name=pɐǝH ɹǝɯɯɐH
+item.tconstruct.excavator_head.name=pɐǝH ɹoʇɐʌɐɔxƎ
+item.tconstruct.broad_axe_head.name=pɐǝH ǝxⱯ pɐoɹᗺ
+item.tconstruct.large_plate.name=ǝʇɐꞁԀ ǝᵷɹɐꞀ
+item.tconstruct.tough_binding.name=ᵷuᴉpuᴉᗺ ɥᵷno⟘
+item.tconstruct.tough_tool_rod.name=poᴚ ꞁoo⟘ ɥᵷno⟘
+item.tconstruct.scythe_head.name=pɐǝH ǝɥʇʎɔS
+item.tconstruct.large_sword_blade.name=ǝpɐꞁᗺ pɹoʍS ǝᵷɹɐꞀ
+
+
+item.tconstruct.bow_limb.name=qɯᴉꞁʍoᗺ
+item.tconstruct.bow_string.name=ᵷuᴉɹʇsʍoᗺ
+
+item.tconstruct.arrow_head.name=pɐǝH ʍoɹɹⱯ
+item.tconstruct.arrow_shaft.name=ʇɟɐɥS ʍoɹɹⱯ
+item.tconstruct.fletching.name=ᵷuᴉɥɔʇǝꞁℲ
+
+item.tconstruct.bolt_core.name=ǝɹoƆ ʇꞁoᗺ
+
+# item.tconstruct.pickaxe.wood=ǝxɐʞɔᴉԀ uǝpooM
+
+item.tconstruct.slime_boots.green.name=sʇooᗺ ǝɯᴉꞁS
+item.tconstruct.slime_boots.blue.name=sʇooᗺ ǝɯᴉꞁS
+item.tconstruct.slime_boots.purple.name=sʇooᗺ ǝɯᴉꞁS
+item.tconstruct.slime_boots.blood.name=sʇooᗺ pooꞁᗺ pǝꞁɐǝᵷuoƆ
+item.tconstruct.slime_boots.magma.name=sʇooᗺ ǝɯᴉꞁS
+item.tconstruct.slime_boots.tooltip=ᵷuᴉpuɐꞁ uǝɥʍ ǝɔunoq noʎ sǝʞɐW
+item.tconstruct.slimesling.name=ᵷuᴉꞁsǝɯᴉꞁS
+item.tconstruct.slimesling.tooltip=¡ǝɟᴉꞁ ɹnoʎ ǝnꞁɐʌ noʎ ɟᴉ sʇooᗺ ǝɯᴉꞁS ǝs∩\n¡ᵷuᴉᵷuᴉꞁɟ ʇǝᵷ 'ʍoꞁ ɯᴉɐ 'dn ǝᵷɹɐɥƆ
+item.tconstruct.piggybackpack.name=ʞɔɐdʞɔɐqʎᵷᵷᴉԀ
+item.tconstruct.piggybackpack.tooltip=dn ɯǝɥʇ ʞɔᴉd oʇ sqoɯ ʞɔᴉꞁɔ-ʇɥᵷᴉᴚ
+item.tconstruct.stone_stick.name=poᴚ ǝuoʇS
+
+item.tconstruct.fancy_frame.jewel.name=ǝɯɐɹℲ ɯǝʇI ʎɔuɐℲ
+item.tconstruct.fancy_frame.alubrass.name=ǝɯɐɹℲ ɯǝʇI ssɐɹᗺ ɯnᴉuᴉɯnꞁⱯ
+item.tconstruct.fancy_frame.cobalt.name=ǝɯɐɹℲ ɯǝʇI ʇꞁɐqoƆ
+item.tconstruct.fancy_frame.ardite.name=ǝɯɐɹℲ ɯǝʇI ǝʇᴉpɹⱯ
+item.tconstruct.fancy_frame.manyullyn.name=ǝɯɐɹℲ ɯǝʇI uʎꞁꞁnʎuɐW
+item.tconstruct.fancy_frame.gold.name=ǝɯɐɹℲ ɯǝʇI uǝpꞁo⅁
+item.tconstruct.fancy_frame.clear.name=ǝɯɐɹℲ ɯǝʇI ɹɐǝꞁƆ
+
+item.tconstruct.throwball.glow.name=ꞁꞁɐqʍoꞁ⅁
+item.tconstruct.throwball.glow.tooltip=˙uoᴉʇdɯnsuoɔ ɹoɟ pǝʇᴉns ʇoN
+item.tconstruct.throwball.efln.name=NꞀℲƎ
+item.tconstruct.throwball.efln.tooltip=ᵷuᴉuᴉɯ ɹoɟ ǝɟɐS ¡sǝpoꞁdxƎ
+
+
+item.tconstruct.moms_spaghetti.name=ᴉʇʇǝɥᵷɐdS s,ɯoW
+item.tconstruct.moms_spaghetti.desc=¡snoᴉɔᴉꞁǝᗡ
+item.tconstruct.moms_spaghetti.tooltip1=§o˙pǝɹ ǝq oʇ sɐɥ ʇᴉ ʇnq 'ǝɔnɐs ǝɯos pǝǝu ʎꞁǝʇᴉuᴉɟǝp ʎǝɥ⟘\n˙ǝɯɐs ǝɥʇ ʇou ʇsnɾ s,ʇᴉ ʇnq ˙˙˙ʇɥᵷᴉɹ ꞁꞁɐ ǝɹ,ʎǝɥʇ ssǝnᵷ I§f
+item.tconstruct.moms_spaghetti.tooltip2=§o˙sǝdʎʇ ʇɐǝɯ ʇuǝɹǝɟɟᴉp ǝǝɹɥʇ ʇsɐǝꞁ ʇɐ ʇǝᵷ pꞁnoɥs I\n˙ʇɐǝɯ ǝɥʇ ꞀꞀⱯ pǝsn sʎɐʍꞁɐ ɐɯɐW ˙ʇɐǝɯ ǝɯos ǝsn pꞁnoɔ ˙˙ᵷuᴉssᴉɯ sᴉ ᵷuᴉɥʇǝɯoS§f
+item.tconstruct.moms_spaghetti.tooltip3=§o˙ɯǝɥʇ ǝʞɐɯ oʇ pǝsn ɐɯɐɯ ǝʞᴉꞁ ʇsnՐ§f
+stat.spaghetti.uses.name=sɯoN
+stat.spaghetti.nourishment.name=ʇuǝɯɥsᴉɹnoN
+stat.spaghetti.saturation.name=uoᴉʇɐɹnʇɐS
+modifier.spaghetti_sauce.name=ǝɔnɐS ɥʇᴉʍ
+modifier.spaghetti_sauce.desc=§ruoᴉʇɐɹnʇɐs ǝɥʇ sǝsɐǝɹɔuI\n§oɯoɯ ʎq sʇǝǝq ɥʇᴉM§f
+modifier.spaghetti_meat.name=ʇɐǝW ɥʇᴉʍ
+modifier.spaghetti_meat.desc=§rǝnꞁɐʌ ʇuǝɯɥsᴉɹnou ǝɥʇ sǝsɐǝɹɔuI\n§o¡ʇɐǝɯ ǝɥʇ ꞁꞁⱯ§f
+
+item.tconstruct.spaghetti.hard.name=sʞɔᴉʇS ʇɐǝɥM pɹɐH ʎꞁqᴉssodɯI
+item.tconstruct.spaghetti.hard.tooltip=˙ǝꞁᴉɥʍ ɐ ɹoɟ ɹǝʇɐʍ ǝɯos uᴉ ʞɐos ʎꞁqɐqoɹd pꞁnoɥs ʎǝɥ⟘\n˙ʇɐɥʇ ɹoɟ ɥᵷnouǝ ʇ,uǝɹɐ sɯꞁɐd ʎʇɐǝʍs ɹnoʎ uǝʌǝ 'dn pǝuǝʇɟos ǝq oʇ pǝǝu ʎǝɥ⟘\n˙ʇɐɥʇ ǝʞᴉꞁ ǝꞁqᴉpǝuᴉ ʎꞁǝʇǝꞁdɯoƆ
+item.tconstruct.spaghetti.soggy.name=sǝꞁpooN ʎᵷᵷoS
+item.tconstruct.spaghetti.soggy.tooltip=˙ʎɹp ɯǝɥʇ ʇǝᵷ puɐ dn ɯǝɥʇ ᵷuɐɥ s,ʇǝꞀ\n˙ʍou ɯǝɥʇ puǝq uɐɔ sɯɹɐ ᴉʇʇǝɥᵷɐds ɹnoʎ uǝʌǝ 'ʇǝʍ ꞁꞁɐ ǝɹ,ʎǝɥʇ ʍoN
+item.tconstruct.spaghetti.cold.name=sǝꞁpooN pǝᴉɹᗡ pꞁoƆ
+item.tconstruct.spaghetti.cold.tooltip=˙sǝǝuʞ ʞɐǝʍ ɹnoʎ ɟɟo noʎ ʇǝᵷ oʇ ɥᵷnouǝ pooᵷ ǝq uǝʌǝ ʇɥᵷᴉɯ ʎǝɥ⟘\n˙ǝꞁqᴉpǝ ɯǝɥʇ ǝʞɐɯ pꞁnoɥs dn ɯǝɥʇ ᵷuᴉɯɹɐM\n˙ssoɹᵷ ǝʇsɐʇ ꞁꞁᴉʇs ʎǝɥʇ ʇnq 'ɹǝʇʇǝq s,ʇɐɥʇ 'ꞁꞁǝM
+
+
+entity.tconstruct.blueslime.name=ǝɯᴉꞁS ǝnꞁᗺ
+
+
+fluid.tconstruct.stone.name=ǝuoʇS pǝɹɐǝS
+fluid.tconstruct.obsidian.name=uɐᴉpᴉsqO uǝʇꞁoW
+fluid.tconstruct.clay.name=ʎɐꞁƆ uǝʇꞁoW
+fluid.tconstruct.dirt.name=ʇɹᴉᗡ pᴉnbᴉꞀ
+fluid.tconstruct.iron.name=uoɹI uǝʇꞁoW
+fluid.tconstruct.gold.name=pꞁo⅁ uǝʇꞁoW
+fluid.tconstruct.pigiron.name=uoɹᴉᵷᴉԀ uǝʇꞁoW
+fluid.tconstruct.cobalt.name=ʇꞁɐqoƆ uǝʇꞁoW
+fluid.tconstruct.ardite.name=ǝʇᴉpɹⱯ uǝʇꞁoW
+fluid.tconstruct.manyullyn.name=uʎꞁꞁnʎuɐW uǝʇꞁoW
+fluid.tconstruct.knightslime.name=ǝɯᴉꞁsʇɥᵷᴉuʞ uǝʇꞁoW
+fluid.tconstruct.emerald.name=pꞁɐɹǝɯƎ uǝʇꞁoW
+fluid.tconstruct.glass.name=ssɐꞁ⅁ uǝʇꞁoW
+fluid.tconstruct.blood.name=pooꞁᗺ
+fluid.tconstruct.milk.name=ʞꞁᴉW
+fluid.tconstruct.blueslime.name=ǝɯᴉꞁS ǝnꞁᗺ pᴉnbᴉꞀ
+fluid.tconstruct.purpleslime.name=ǝɯᴉꞁS ǝꞁdɹnԀ pᴉnbᴉꞀ
+fluid.tconstruct.brass.name=ssɐɹᗺ uǝʇꞁoW
+fluid.tconstruct.copper.name=ɹǝddoƆ uǝʇꞁoW
+fluid.tconstruct.tin.name=uᴉ⟘ uǝʇꞁoW
+fluid.tconstruct.bronze.name=ǝzuoɹᗺ uǝʇꞁoW
+fluid.tconstruct.zinc.name=ɔuᴉZ uǝʇꞁoW
+fluid.tconstruct.lead.name=pɐǝꞀ uǝʇꞁoW
+fluid.tconstruct.nickel.name=ꞁǝʞɔᴉN uǝʇꞁoW
+fluid.tconstruct.silver.name=ɹǝʌꞁᴉS uǝʇꞁoW
+fluid.tconstruct.electrum.name=ɯnɹʇɔǝꞁƎ uǝʇꞁoW
+fluid.tconstruct.steel.name=ꞁǝǝʇS uǝʇꞁoW
+fluid.tconstruct.aluminum.name=ɯnuᴉɯnꞁⱯ uǝʇꞁoW
+fluid.tconstruct.alubrass.name=ssɐɹᗺ ɯnuᴉɯnꞁⱯ uǝʇꞁoW
+
+
+potion.carry=ᵷuᴉʞɔɐqʎᵷᵷᴉԀ
+
+# material.wood.prefix=uǝʌᴉᵷ sᴉ ǝɯɐu ɔᴉɟᴉɔǝds ou ɟᴉ „ǝxɐʞɔᴉԀ uǝpooM„ ǝʞᴉꞁ ɟɟnʇs ɹoɟ pǝs∩ - %s uǝpooM
+
+material.wood.name=pooM
+material.wood.prefix=%s uǝpooM
+material.stone.name=ǝuoʇS
+material.flint.name=ʇuᴉꞁℲ
+material.cactus.name=snʇɔɐƆ
+material.obsidian.name=uɐᴉpᴉsqO
+material.prismarine.name=ǝuᴉɹɐɯsᴉɹԀ
+material.netherrack.name=ʞɔɐɹɹǝɥʇǝN
+material.endstone.name=puƎ
+material.bone.name=ǝuoᗺ
+material.paper.name=ɹǝdɐԀ
+material.sponge.name=ǝᵷuodS
+material.firewood.name=pooʍǝɹᴉℲ
+material.slime.name=ǝɯᴉꞁS
+material.blueslime.name=ǝɯᴉꞁS ǝnꞁᗺ
+material.blueslime.prefix=%s ǝɯᴉꞁS
+material.knightslime.name=ǝɯᴉꞁsʇɥᵷᴉuʞ
+material.magmaslime.name=ǝɯᴉꞁS ɐɯᵷɐW
+material.ardite.name=ǝʇᴉpɹⱯ
+material.cobalt.name=ʇꞁɐqoƆ
+material.manyullyn.name=uʎꞁꞁnʎuɐW
+material.iron.name=uoɹI
+material.pigiron.name=uoɹI ᵷᴉԀ
+material.copper.name=ɹǝddoƆ
+material.bronze.name=ǝzuoɹᗺ
+material.lead.name=pɐǝꞀ
+material.silver.name=ɹǝʌꞁᴉS
+material.electrum.name=ɯnɹʇɔǝꞁƎ
+material.steel.name=ꞁǝǝʇS
+
+material.string.name=ᵷuᴉɹʇS
+material.vine.name=sǝuᴉᴧ
+material.slimevine_blue.name=ǝuᴉʌǝɯᴉꞁS
+material.slimevine_orange.name=ǝɯɐu˙ǝnꞁq‾ǝuᴉʌǝɯᴉꞁs˙ꞁɐᴉɹǝʇɐɯ
+material.slimevine_purple.name=ǝɯɐu˙ǝnꞁq‾ǝuᴉʌǝɯᴉꞁs˙ꞁɐᴉɹǝʇɐɯ
+
+material.blaze.name=poɹǝzɐꞁᗺ
+material.reed.name=spǝǝᴚ
+material.ice.name=ǝɔI
+material.endrod.name=poɹpuƎ
+
+material.feather.name=ɹǝɥʇɐǝℲ
+material.leaf.name=ɟɐǝꞀ
+material.slimeleaf_blue.name=ɟɐǝꞁǝɯᴉꞁS
+material.slimeleaf_orange.name=ǝɯɐu˙ǝnꞁq‾ɟɐǝꞁǝɯᴉꞁs˙ꞁɐᴉɹǝʇɐɯ
+material.slimeleaf_purple.name=ǝɯɐu˙ǝnꞁq‾ɟɐǝꞁǝɯᴉꞁs˙ꞁɐᴉɹǝʇɐɯ
+
+stat.head.name=pɐǝH
+stat.head.durability.name=ʎʇᴉꞁᴉqɐɹnᗡ
+stat.head.durability.desc=˙ꞁooʇ ɐ ɟo ʎʇᴉꞁᴉqɐɹnp ꞁꞁɐɹǝʌo ǝɥʇ oʇ ʇɹɐd ꞁɐɹᵷǝʇuᴉ uɐ ʎꞁꞁɐns∩\n˙suoᴉʇɐꞁnɔꞁɐɔ ʎʇᴉꞁᴉqɐɹnp ɹoɟ ǝnꞁɐʌ-ǝsɐq ǝɥ⟘
+stat.head.miningspeed.name=pǝǝdS ᵷuᴉuᴉW
+stat.head.miningspeed.desc=˙sʇɹɐdꞁooʇ ɹǝɥʇo ʎq pǝɔuǝnꞁɟuᴉ ǝq ʎɐW\n˙sʞɔoꞁq ǝuᴉɯ uɐɔ ꞁɐᴉɹǝʇɐɯ sᴉɥʇ ɟo pɐǝɥ ꞁooʇ ɐ ɥʇᴉʍ ꞁooʇ ɐ ʇsɐɟ ʍoH
+stat.head.harvestlevel.name=ꞁǝʌǝꞀ ᵷuᴉuᴉW
+stat.head.harvestlevel.desc=˙ǝuᴉɯ uɐɔ ꞁɐᴉɹǝʇɐɯ sᴉɥʇ ɟo pɐǝɥ ꞁooʇ ɐ ɥʇᴉʍ ꞁooʇ ɐ sʞɔoꞁq ɟo ǝᵷuɐɹ ʇɐɥM
+stat.head.attack.name=ʞɔɐʇʇⱯ
+stat.head.attack.desc=˙pǝsn sʇuǝuodɯoɔ ɹǝɥʇo ǝɥʇ puɐ ɟꞁǝsʇᴉ ꞁooʇ ǝɥʇ uo spuǝdǝp ʇꞁnsǝɹ puǝ ǝɥ⟘\n˙suoᴉʇɐꞁnɔꞁɐɔ ʞɔɐʇʇɐ ɹoɟ ǝnꞁɐʌ ǝsɐᗺ
+
+stat.handle.name=ǝꞁpuɐH
+stat.handle.modifier.name=ɹǝᴉɟᴉpoW
+stat.handle.modifier.desc=˙sᴉɥʇ ʎq pǝᴉꞁdᴉʇꞁnɯ ǝq ꞁꞁᴉʍ ꞁooʇ ǝɥʇ ɟo ʎʇᴉꞁᴉqɐɹnp ꞁɐʇoʇ ǝɥ⟘\n˙ǝꞁpuɐɥ ɐ sɐ sᴉ ꞁɐᴉɹǝʇɐɯ ꞁooʇ ǝɥʇ ǝꞁqɐʇᴉns ʍoH
+stat.handle.durability.name=ǝɯɐu˙ʎʇᴉꞁᴉqɐɹnp˙pɐǝɥ˙ʇɐʇs
+stat.handle.durability.desc=˙ʇunoɯɐ sᴉɥʇ ʎq pǝᵷuɐɥɔ ǝq ꞁꞁᴉʍ ʎʇᴉꞁᴉqɐɹnp ꞁoo⟘\n˙pꞁǝɥ ǝq uɐɔ ꞁɐᴉɹǝʇɐɯ ǝɥʇ ꞁꞁǝʍ ʍoH
+
+stat.extra.name=ɐɹʇxƎ
+stat.extra.durability.name=ǝɯɐu˙ʎʇᴉꞁᴉqɐɹnp˙pɐǝɥ˙ʇɐʇs
+stat.extra.durability.desc=˙ʎɹossǝɔɔɐ uɐ sɐ pǝsn uǝɥʍ sǝʇnqᴉɹʇuoɔ ʇɹɐd sᴉɥʇ ʎʇᴉꞁᴉqɐɹnp ɥɔnɯ ʍoH
+
+stat.mattock.axelevel.name=ꞁǝʌǝꞀ ǝxⱯ
+stat.mattock.shovellevel.name=ꞁǝʌǝꞀ ꞁǝʌoɥS
+
+stat.bow.name=ʍoᗺ
+stat.bow.drawspeed.name=pǝǝdsʍɐɹᗡ
+stat.bow.drawspeed.desc=˙ʍoq ǝɥʇ ʍɐɹp uɐɔ noʎ ʇsɐɟ ʍoH
+stat.bow.range.name=ɹǝᴉꞁdᴉʇꞁnW ǝᵷuɐᴚ
+stat.bow.range.desc=˙pǝꞁꞁǝdoɹd ǝq uɐɔ ǝꞁᴉʇɔǝɾoɹd ǝɥʇ ɹɐɟ ʍoH
+stat.bow.damage.name=ǝᵷɐɯɐᗡ snuoᗺ
+stat.bow.damage.desc=˙ʍoɹɹɐ ǝɥʇ ɟo ǝɔɹoɟ ǝɥ⟘\n˙ʇᴉɥ uo ʇꞁɐǝp ǝᵷɐɯɐp snuoᗺ
+
+stat.bowstring.name=ᵷuᴉɹʇsʍoᗺ
+stat.bowstring.modifier.name=ɹǝᴉɟᴉpoW
+stat.bowstring.modifier.desc=˙sᴉɥʇ ʎq pǝᴉꞁdᴉʇꞁnɯ ǝq ꞁꞁᴉʍ ʎʇᴉꞁᴉqɐɹnp ꞁoo⟘
+
+stat.shaft.name=ʇɟɐɥS ʍoɹɹⱯ
+stat.shaft.modifier.name=ɹǝᴉɟᴉpoW
+stat.shaft.modifier.desc=˙sᴉɥʇ ʎq pǝᴉꞁdᴉʇꞁnɯ ǝq ꞁꞁᴉʍ ꞁooʇ ǝɥʇ ɟo ʇunoɔ oɯɯɐ ꞁɐʇoʇ ǝɥ⟘\n˙sʇsɐꞁ ʇᴉ ꞁꞁǝʍ ʍoɥ sǝuᴉɯɹǝʇǝp ʇI ˙ǝɹoɔ ᵷuᴉʇᴉns ɐ spǝǝu ʍoɹɹɐ ɥɔɐƎ
+stat.shaft.ammo.name=oɯɯⱯ-snuoᗺ
+stat.shaft.ammo.desc=˙pǝppɐ ǝq ꞁꞁᴉʍ oɯɯɐ ʇɐꞁɟ ɥɔnɯ sᴉɥ⟘\n˙ʇᴉ ɟo ʇno ʇǝᵷ uɐɔ noʎ sʍoɹɹɐ ʎuɐɯ ʍoH
+
+stat.fletching.name=ᵷuᴉɥɔʇǝꞁℲ
+stat.fletching.accuracy.name=ʎɔɐɹnɔɔⱯ
+stat.fletching.accuracy.desc=˙ǝꞁᴉʇɔǝɾoɹd ǝɥʇ ɟo ʎɔɐɹnɔɔɐ ꞁꞁɐɹǝʌo ǝɥʇ sʇɔǝɟɟⱯ\n˙ᵷuᴉɥɔʇǝꞁɟ sᴉɥʇ ᵷuᴉsn ǝq ꞁꞁᴉʍ ɥʇɐd ʇɥᵷᴉꞁɟ ǝɥʇ ǝꞁqɐʇs ʍoH
+stat.fletching.modifier.name=ɹǝᴉɟᴉpoW
+stat.fletching.modifier.desc=˙sᴉɥʇ ʎq pǝᴉꞁdᴉʇꞁnɯ ǝq ꞁꞁᴉʍ oɯɯɐ ǝꞁᴉʇɔǝɾoɹԀ\n˙sᴉɥʇ ɥʇᴉʍ ʇɟɐɹɔ uɐɔ noʎ sʍoɹɹɐ ʎuɐɯ ʍoH
+
+stat.projectile.name=ǝꞁᴉʇɔǝɾoɹԀ
+stat.projectile.ammo.name=oɯɯⱯ
+
+
+modifier.alien.name=uǝᴉꞁⱯ
+modifier.alien.desc=§r¿ꞁꞁǝʇ ꞁꞁᴉʍ ǝɯᴉʇ ǝqʎɐW ¡ᵷuᴉᵷuɐɥɔ ǝɹ,ʎǝɥʇ ɟᴉ sɐ˙˙\n§o˙˙˙ɟɟo ꞁǝǝɟ sʇɐʇs ǝɥ⟘§f
+modifier.aquadynamic.name=ɔᴉɯɐuʎpɐnbⱯ
+modifier.aquadynamic.desc=§r˙sᵷuᴉuǝʌǝ ʎuᴉɐɹ sǝʌoꞁ puɐ ɹǝʇɐʍ ʎq pǝɹǝpuᴉɥun sᴉ ꞁooʇ ǝɥ⟘\n§o¡ǝɹǝɥ uᴉ ʇǝʍ ᵷuᴉʇʇǝᵷ s,ʇI§f
+modifier.aridiculous.name=snoꞁnɔᴉpᴉɹⱯ
+modifier.aridiculous.desc=§r˙sʇuǝɯuoɹᴉʌuǝ ɹǝʇʇoɥ uᴉ ɹǝʇʇǝq sʞɹoʍ ꞁooʇ ǝɥ⟘\n§o¡ʇɐǝɥ ǝɥʇ dn uɹn⟘§f
+modifier.autosmelt.name=ʇꞁǝɯsoʇnⱯ
+modifier.autosmelt.desc=§r˙pǝʇꞁǝɯs ʇǝᵷ sʞɔoꞁq pǝʇsǝʌɹɐH\n§o¡ɯɹoɟ ꞁooʇ uᴉ ǝɔɐuɹnɟ Ɐ§f
+modifier.baconlicious.name=snoᴉɔᴉꞁuoɔɐᗺ
+modifier.baconlicious.desc=§r˙uoɔɐq sǝʌᴉᵷ sǝɯᴉʇǝɯos sᵷuᴉɥʇ ᵷuᴉʇʇᴉH\n§o¡NOƆⱯᗺ§f
+modifier.cheap.name=dɐǝɥƆ
+modifier.cheap.desc=§r˙ꞁooʇ ǝɥʇ ᵷuᴉɹᴉɐdǝɹ uǝɥʍ pǝuᴉɐᵷ ʎʇᴉꞁᴉqɐɹnp sǝsɐǝɹɔuI\n§o¡ʞɔnq ɹnoʎ ɹoɟ ᵷuɐq ǝɹoW§f
+modifier.cheapskate.name=ǝʇɐʞsdɐǝɥƆ
+modifier.cheapskate.desc=§r˙ʎʇᴉꞁᴉqɐɹnp ssǝꞁ sɐɥ ꞁooʇ ɹno⅄ ˙pɐq sᴉ ǝuoʇS\n§o¡ʎʞǝǝɥƆ§f
+modifier.coldblooded.name=pǝpooꞁᗺ-pꞁoƆ
+modifier.coldblooded.desc=§r˙ɥʇꞁɐǝɥ ꞁꞁnɟ ʇɐ sʇǝᵷɹɐʇ oʇ ǝᵷɐɯɐp pǝsɐǝɹɔuᴉ ꞁɐǝᗡ\n§o¡ǝᵷɐʌɐS§f
+modifier.crude.name=ǝpnɹƆ
+modifier.crude.desc=§r˙sʇǝᵷɹɐʇ pǝɹoɯɹɐun ʇsuᴉɐᵷɐ ǝᵷɐɯɐp snuoᗺ\n§o¡spɹɐʍoɔ ɹoɟ sᴉ ɹoɯɹⱯ§f
+modifier.crude.extra=%s+ :pǝɹoɯɹɐu∩ sᴧ
+modifier.crumbling.name=ᵷuᴉꞁqɯnɹƆ
+modifier.crumbling.desc=§r˙ɹǝʇsɐɟ ꞁooʇ ɐ pǝǝu ʇ,uop ʇɐɥʇ sʞɔoꞁq ʇɟos sʞɐǝɹq ꞁooʇ ǝɥ⟘\n§oǝꞁqɯnɹ ǝꞁqɯnɹ ǝꞁqɯnɹƆ§f
+modifier.dense.name=ǝsuǝᗡ
+modifier.dense.desc=§r˙ʎʇᴉꞁᴉqɐɹnp ssǝꞁ sɐɥ ʇᴉ uǝɥʍ ɹǝᵷuoꞁ sʇsɐꞁ ꞁooʇ ɹno⅄\n§o˙ɹǝ˙˙˙pɹɐH§f
+modifier.duritos.name=ǝɐʇᴉɹnᗡ
+modifier.duritos.desc=§r˙ǝɯᴉʇ ǝɥʇ ɟo ʇsoɯ˙˙˙ ɹǝᵷuoꞁ sʇsɐꞁ ꞁooʇ ɹno⅄\n§o˙spunos ʇᴉ sɐ pooᵷ sɐ ǝʇsɐʇ ʇ,usǝoᗡ§f
+modifier.ecological.name=ꞁɐɔᴉᵷoꞁoɔƎ
+modifier.ecological.desc=§r¡sǝʌꞁǝsɯǝɥʇ ʎq ǝʇɐɹǝuǝᵷǝɹ ʎǝɥʇ 'pooᵷ os ǝɹɐ sǝɔɹnosǝɹ ǝꞁqɐʍǝuǝᴚ\n§o¡ɹǝʍoԀ uǝǝɹ⅁§f
+modifier.enderference.name=ǝɔuǝɹǝɟɹǝpuƎ
+modifier.enderference.desc=§r˙ǝɯᴉʇ ʇɹoɥs ɐ ɹoɟ punoɹɐ ᵷuᴉʇɹodǝꞁǝʇ ɯoɹɟ uǝɯɹǝpuƎ sʇuǝʌǝɹԀ\n§o¡ʇɹodǝꞁǝ⟘-ᴉʇuⱯ§f
+modifier.established.name=pǝɥsᴉꞁqɐʇsƎ-ꞁꞁǝM
+modifier.established.desc=§r˙ԀX ꞁɐuoᴉʇᴉppɐ uᴉɐᵷ no⅄\n§o¡ԀX snuoq ǝǝɹℲ§f
+modifier.flammable.name=ǝꞁqɐɯɯɐꞁℲ
+modifier.flammable.desc=§r˙ǝɹᴉɟ uo ɹǝʞɔɐʇʇɐ ǝɥʇ sʇǝs ʇᴉɥ ᵷuᴉʇʇǝᵷ puɐ ǝᵷɐɯɐp ǝɹᴉɟ sʞɔoꞁq ᵷuᴉʞɔoꞁᗺ\n§o¡ǝɹᴉɟ ɥᵷnouǝ ǝʌɐɥ ʇ,uɐƆ§f
+modifier.fractured.name=pǝɹnʇɔɐɹℲ
+modifier.fractured.desc=§r˙pǝsɐǝɹɔuᴉ sᴉ ǝᵷɐɯɐp sꞁooʇ ɹno⅄\n§o¡ʇɹnH§f
+modifier.heavy.name=ʎʌɐǝH
+modifier.heavy.desc=§r˙ʞɔɐqʞɔouʞ sʇuǝʌǝɹԀ\n§o¿ʇɟᴉꞁ uǝʌǝ noʎ oᗡ§f
+modifier.hellish.name=ɥsᴉꞁꞁǝH
+modifier.hellish.desc=§r˙sqoɯ ɹǝɥʇǝN-uou oʇ ǝᵷɐɯɐp snuoq ꞁɐǝᗡ\n§o¡ʍoꞁǝq uʍop ɯoɹℲ§f
+modifier.hellish.extra=%s+ :ɹǝɥʇǝN-uoN sᴧ
+modifier.holy.name=ʎꞁoH
+modifier.holy.desc=§r˙sǝᴉɯǝuǝ pɐǝpun oʇ ǝᵷɐɯɐp snuoq ꞁɐǝᗡ\n§o¡ʇuɐᴉpɐᴚ§f
+modifier.holy.extra=ɐɹʇxǝ˙ǝʇᴉɯs˙ɹǝᴉɟᴉpoɯ
+modifier.insatiable.name=ǝꞁqɐᴉʇɐsuI
+modifier.insatiable.desc=§r˙ʎʇᴉꞁᴉqɐɹnp ǝɹoɯ puɐ ǝɹoɯ ǝɯnsuoɔ osꞁɐ ʇnq ǝᵷɐɯɐp ǝɹoɯ puɐ ǝɹoɯ ꞁɐǝp noʎ ʇɐqɯoɔ ᵷuᴉɹnᗡ\n§o¡ɹnoʌǝᗡ§f
+modifier.jagged.name=pǝᵷᵷɐՐ
+modifier.jagged.desc=§r˙ǝᵷɐɯɐp sǝsɐǝɹɔuᴉ ʇsoꞁ ʎʇᴉꞁᴉqɐɹnp ʇuᴉod ʎɹǝʌƎ\n§o¡pǝᵷᵷɐɾ ǝʞᴉꞁ sǝʌoW§f
+modifier.jagged.extra=%s+ :ǝᵷɐɯɐᗡ pǝᵷᵷɐՐ
+modifier.lightweight.name=ʇɥᵷᴉǝʍʇɥᵷᴉꞀ
+modifier.lightweight.desc=§r˙ᵷuᴉʞɔɐʇʇɐ puɐ ᵷuᴉuᴉɯ uǝɥʍ ꞁooʇ ɹnoʎ ɟo pǝǝds ꞁꞁɐɹǝʌo ǝɥʇ sǝsɐǝɹɔuI\n§o¡puᴉʍ ǝɥʇ ǝʞᴉꞁ ʇɟᴉʍS§f
+modifier.lightweight.extra=%s+ :pǝǝdS snuoᗺ
+modifier.magnetic.name=ɔᴉʇǝuᵷɐW
+modifier.magnetic.desc=§r¡¿sᵷuᴉɥʇ ʎqɹɐǝu sʇɔɐɹʇʇɐ sᵷuᴉɥʇ ᵷuᴉʇʇᴉH\n§o¡¿ʞɹoʍ ʎǝɥʇ op ʍoH§f
+modifier.momentum.name=ɯnʇuǝɯoW
+modifier.momentum.desc=§r˙ᵷuᴉoᵷ dǝǝʞ noʎ sɐ ᵷuoꞁ sɐ 'pǝǝds ɹnoʎ sǝsɐǝɹɔuᴉ sʞɔoꞁq ᵷuᴉuᴉW\n§o¡ᵷuᴉoᵷ dǝǝʞ 'ɹǝʇsɐℲ§f
+modifier.petramor.name=ɹoɯɐɹʇǝԀ
+modifier.petramor.desc=§r˙(ʎʇᴉꞁᴉqɐɹnp ɹoɟ) ʇᴉ qɹosqɐ oʇ sʇuɐʍ ʎꞁꞁɐɹǝʇᴉꞁ ʇᴉ 'ǝuoʇs sǝʌoꞁ ꞁooʇ ɹno⅄\n§o¡ꞁꞁɐ ʇᴉ ǝǝs ʇsnɯ 'ǝuoʇs ɥɔnɯ oS§f
+modifier.poisonous.name=snouosᴉoԀ
+modifier.poisonous.desc=§r˙ʇᴉɥ uo sǝᴉɯǝuǝ suosᴉoԀ\n§o¡ǝǝɹɟ-pɐǝꞁ ʎꞁʇɔɐxǝ ʇoN§f
+modifier.prickly.name=ʎꞁʞɔᴉɹԀ
+modifier.prickly.desc=§r˙ʇɹnɥ sʎɐʍꞁɐ ʎǝɥʇ 'suɹoɥʇ ǝsoɥʇ ɯoɹɟ ǝɟɐs sᴉ ʎpoqoN\n§o¡ɥɔnO§f
+modifier.sharp.name=dɹɐɥS
+modifier.sharp.desc=§r˙ǝɯᴉʇ ʇɹoɥs ɐ ɹoɟ ᵷuᴉpǝǝꞁq ɯǝɥʇ sǝʌɐǝꞁ ʎɯǝuǝ uɐ ᵷuᴉʇʇᴉH\n§o¡spɹoʍ ʇnɔ uǝʌǝ uɐƆ§f
+modifier.shocking.name=ᵷuᴉʞɔoɥS
+modifier.shocking.desc=§r˙ʇsooq pǝǝds ᵷuᴉuᴉɯ ɐ ᵷuᴉʌᴉᵷ 'ʇᴉ sǝᵷɹɐɥɔsᴉp ʞɔoꞁq ɐ ᵷuᴉuᴉW ˙ʇsooq pǝǝds ɐ ᵷuᴉpᴉʌoɹd puɐ ǝᵷɐɯɐp ᵷuᴉꞁɐǝp 'ʇᴉ sǝᵷɹɐɥɔsᴉp ʎɯǝuǝ uɐ ᵷuᴉʇʇᴉH ˙ꞁooʇ ɹnoʎ sǝᵷɹɐɥɔ sᵷuᴉɥʇ ᵷuᴉʇʇᴉɥ ɹo sʞɔoꞁq ᵷuᴉʞɐǝɹq 'punoɹɐ ᵷuᴉuunᴚ\n§o¡ʇzzzzzᗺ§f
+modifier.slimey.name=ʎǝɯᴉꞁS
+modifier.slimey.desc=§r˙ɟɟo ɥsɐʍ ꞁꞁ,ʇI\n§o¡ʎǝooᵷ 'ʍʍƎ§f
+modifier.spiky.name=ʎʞᴉdS
+modifier.spiky.desc=§r˙ɹǝʞɔɐʇʇɐ ǝɥʇ oʇ ǝᵷɐɯɐp sꞁɐǝp ʇɹnɥ ᵷuᴉʇʇǝᵷ puɐ ᵷuᴉʞɔoꞁᗺ\n§o¡sǝʞᴉds ɥʇᴉʍ ɹǝꞁooɔ %00ᘔ§f
+modifier.splintering.name=ᵷuᴉɹǝʇuᴉꞁdS
+modifier.splintering.desc=§r˙ǝᵷɐɯɐp ǝɹoɯ ꞁɐǝp oʇ ǝɹoɯ ɯǝɥʇ ʇᴉH\n§o¡sǝᴉɯǝuǝ ɹnoʎ ɹoɟ ɹᴉuǝʌnos Ɐ§f
+modifier.splinters.name=sɹǝʇuᴉꞁdS
+modifier.splinters.desc=§r¡ɹǝʇuᴉꞁds ɐ ɥɔʇɐɔ oʇ ʇou ꞁnɟǝɹɐɔ ǝᗺ\n§o¡ɥɔnO§f
+modifier.squeaky.name=ʎʞɐǝnbS
+modifier.squeaky.desc=§r˙ǝᵷɐɯɐp ou sꞁɐǝp ʇnq 'ɥɔnoʇʞꞁᴉs pǝuᴉɐᵷ ʇᴉ ʎʞɐǝnbs puɐ ʇɟos os sᴉ ꞁooʇ ɹno⅄\n§o˙ǝʇnƆ§f
+modifier.stiff.name=ɟɟᴉʇS
+modifier.stiff.desc=§r˙ǝɹoɯ uǝʌǝ uǝʞɐʇ ǝᵷɐɯɐp ǝɥʇ sǝɔnpǝɹ ᵷuᴉʞɔoꞁᗺ\n§o¡ᵷuᴉʌoɯu∩§f
+modifier.stonebound.name=punoqǝuoʇS
+modifier.stonebound.desc=§r˙ǝᵷɐɯɐp ssǝꞁ sǝop ʇnq 'ʇno sɹɐǝʍ ʇᴉ sɐ ɹǝʇsɐɟ sǝuᴉɯ ꞁooʇ ǝɥ⟘\n§o¡ǝuoʇs sǝʌoꞁ ʎꞁǝʇnꞁosqɐ ꞁooʇ ɹno⅄§f
+modifier.stonebound.extra=%s+ :pǝǝdS punoqǝuoʇS
+modifier.superheat.name=ʇɐǝɥɹǝdnS
+modifier.superheat.desc=§r˙ǝɹᴉɟ uo sǝᴉɯǝuǝ oʇ ǝᵷɐɯɐp snuoq ꞁɐǝᗡ\n§o¡ʇɐǝɥ ǝɥʇ dn uɹn⟘§f
+modifier.superheat.extra=%s+ :ᵷuᴉuɹnᗺ sᴧ
+modifier.unnatural.name=ꞁɐɹnʇɐuu∩
+modifier.unnatural.desc=§r˙ǝuo pǝɹᴉnbǝɹ ǝɥʇ ǝʌoqɐ sᴉ ꞁǝʌǝꞁ ᵷuᴉuᴉɯ sʇᴉ ɹǝɥᵷᴉɥ ǝɥʇ ɹǝʇsɐɟ sǝuᴉɯ ꞁooʇ ǝɥ⟘\n§o¡uoᴉʇɐuᴉɯoqⱯ§f
+modifier.tasty.name=ʎʇsɐ⟘
+modifier.tasty.desc=§r˙ǝʌɹɐʇs uɐɥʇ ꞁooʇ ɹnoʎ ʇɐǝ ɹǝɥʇɐɹ p,no⅄ ˙˙pooᵷ os sꞁꞁǝɯS\n§oɯoN ɯoN ɯO§f
+modifier.writable.name=ǝꞁqɐʇᴉɹM
+modifier.writable.desc=§r¡ꞁɐɔᴉᵷoꞁ ʎꞁuo s,ʇI ˙sɹǝᴉɟᴉpoW ǝɹoW ˙spɹoʍ ǝɹoW\n§o¡ꞁɐnʇɔǝꞁꞁǝʇuI§f
+
+modifier.breakable.name=ǝꞁqɐʞɐǝɹᗺ
+modifier.breakable.desc=§r˙ʇɔɐdɯᴉ uo ʞɐǝɹq oʇ ǝɔuɐɥɔ %05 ɐ ǝʌɐɥ sǝꞁᴉʇɔǝɾoɹԀ\n§o¡dn ǝpᴉs sᴉɥ⟘§f
+modifier.endspeed.name=pǝǝdspuƎ
+modifier.endspeed.desc=§r˙uoᴉʇɐuᴉʇsǝp ɹᴉǝɥʇ oʇ ꞁǝʌɐɹʇ ʎꞁʇuɐʇsuᴉ sǝꞁᴉʇɔǝɾoɹԀ\n§o¡pǝǝds ɯnʇuɐnΌ§f
+modifier.freezing.name=ᵷuᴉzǝǝɹℲ
+modifier.freezing.desc=§r˙ǝɹoɯ puɐ ǝɹoɯ ʇǝᵷɹɐʇ ɹnoʎ ʍoꞁs sʇᴉɥ ꞁnɟssǝɔɔnS\n§oᵷuᴉɯoƆ sᴉ ɹǝʇuᴉM§f
+modifier.hovering.name=ᵷuᴉɹǝʌoH
+modifier.hovering.desc=§r˙ɥɔnɯ sɐ ʎʇᴉʌɐɹᵷ puᴉɯ ʇ,uop ʇnq ɹǝʍoꞁs ǝʌoɯ sǝꞁᴉʇɔǝɾoɹԀ\n§opuᴉʍ ǝɥʇ ǝʞᴉꞁ ǝǝɹℲ§f
+modifier.splitting.name=ᵷuᴉʇʇᴉꞁdS
+modifier.splitting.desc=§r˙oʍʇ oʇuᴉ ʇᴉꞁds oʇ ʇᴉ ǝsnɐɔ ʇɥᵷᴉɯ ʍoɹɹɐ uɐ ᵷuᴉsɐǝꞁǝɹ ɟo uoᴉʇɐɹǝꞁǝɔɔɐ uǝppns ǝɥ⟘\n§o¡ǝuo ɹoɟ oʍ⟘§f
+
+
+modifier.bane_of_arthopods.name=spodoɹɥʇɹⱯ ɟo ǝuɐᗺ
+modifier.bane_of_arthopods.desc=§r˙sɹǝpᴉds oʇ ǝᵷɐɯɐp ǝʌᴉssɐɯ ꞁɐǝᗡ\n§o¡ɹǝpᴉdS-ᴉʇuⱯ§f
+modifier.bane_of_arthopods.extra=%s+ :sɹǝpᴉdS sᴧ
+modifier.beheading.name=ᵷuᴉpɐǝɥǝᗺ
+modifier.beheading.desc=§r˙ꞁꞁᴉʞ uo pɐǝɥ sǝᴉɯǝuǝ ǝɥʇ ʇǝᵷ oʇ ǝɔuɐɥɔ %0⥝ ɐ sppɐ ꞁǝʌǝꞁ ɥɔɐƎ\n§o¡pɐǝɥ sᴉɥ ɥʇᴉʍ ɟɟO§f
+modifier.blasting.name=ᵷuᴉʇsɐꞁᗺ
+modifier.blasting.desc=§r˙pǝʎoɹʇsǝp ʇǝᵷ ʇɥᵷᴉɯ ʎǝɥʇ ʇnq 'sʞɔoꞁq ꞁɐɯɹou ǝʞᴉꞁ sʞɔoꞁq ǝʌᴉʇɔǝɟɟǝ-uou ʞɐǝɹq uɐɔ no⅄\n§o¡ɯooᗺ-ɐʞ§f
+modifier.blasting.extra=%s :ɹǝʍoԀ ʇsɐꞁᗺ
+modifier.diamond.name=puoɯɐᴉᗡ
+modifier.diamond.desc=§r¡ʎʇᴉꞁᴉqɐɹnp pǝsɐǝɹɔuI\n§o¡ʎuᴉɥS§f
+modifier.emerald.name=pꞁɐɹǝɯƎ
+modifier.emerald.desc=§r¡sʇɐʇs ǝsɐq uo ᵷuᴉpuǝdǝp ʎʇᴉꞁᴉqɐɹnp sǝsɐǝɹɔuI\n§o¡ʎɔuɐℲ§f
+modifier.extratrait.name=ʇuǝɯssoqɯƎ
+modifier.extratrait.desc=§r˙sʇᴉɐɹʇ sʇᴉ ɟo ǝɯos ᵷuᴉuᴉɐʇqo '%s ɟo ɹǝʍod ǝɥʇ ɥʇᴉʍ pǝssoqɯƎ\n§o¡ɹǝʇʇǝq ʇnq 'ɔᴉᵷɐɯ ǝʞᴉꞀ§f
+modifier.fiery.name=ʎɹǝᴉℲ
+modifier.fiery.desc=§r˙ǝɹᴉɟ uo sǝᴉɯǝuǝ ɹnoʎ sʇǝs 'ǝᵷɐɯɐp ǝɹᴉɟ snuoᗺ\n§o¡ʍou ʇɥᵷᴉɹ ʇoɥ oS§f
+modifier.fiery.extra=%s+ :ǝᵷɐɯɐᗡ ǝɹᴉℲ
+modifier.fiery.extra2=s%s :uoᴉʇɐɹnᗡ uɹnᗺ
+modifier.fins.name=suᴉℲ
+modifier.fins.desc=§r˙ɹǝʇɐʍɹǝpun ꞁɐɯɹou ǝʞᴉꞁ ꞁǝʌɐɹʇ ɯǝɥʇ sǝʞɐɯ sǝꞁᴉʇɔǝɾoɹd ǝɥʇ oʇ suᴉɟ ᵷuᴉɥɔɐʇʇⱯ\n§o˙˙˙ʎɥsᴉɟ s,ᵷuᴉɥʇǝɯoS§f
+modifier.fortify.name=pǝᴉɟᴉʇɹoℲ
+modifier.fortify.desc=§r˙%s sɐ ꞁǝʌǝꞁ ǝɯɐs ǝɥʇ oʇ pǝsɐǝɹɔuᴉ ꞁǝʌǝꞁ ᵷuᴉuᴉW\n§o¡ɹǝᵷuoɹʇs 'ɹǝʇsɐɟ 'ɹǝʇʇǝq 'ɹǝpɹɐH§f
+modifier.glowing.name=ᵷuᴉʍoꞁ⅁
+modifier.glowing.desc=§r˙ʎɐʍ ɹnoʎ dn ʇɥᵷᴉꞁ oʇ ɟꞁǝsʇᴉ ɟo ʇɹɐd ɐ sǝɔᴉɟᴉɹɔɐs ꞁooʇ ɹnoʎ ʞɹɐp ooʇ sʇǝᵷ ʇᴉ ɹǝʌǝuǝɥM\n§oʇɥᵷᴉɹq ǝuᴉɥS§f
+modifier.harvestwidth.name=++ɥʇpᴉM
+modifier.harvestwidth.desc=§r˙ɔᴉɟᴉɔǝds ꞁooʇ sᴉ ʇɔǝɟɟǝ ǝɥ⟘ ˙ꞁooʇ ɹnoʎ ʎq pǝʇɔǝɟɟɐ ɐǝɹɐ ǝɥʇ ɟo ɥʇpᴉʍ ǝɥʇ sǝsɐǝɹɔuI\n§o¡puɐdxƎ§f
+modifier.harvestheight.name=++ʇɥᵷᴉǝH
+modifier.harvestheight.desc=§r˙ɔᴉɟᴉɔǝds ꞁooʇ sᴉ ʇɔǝɟɟǝ ǝɥ⟘ ˙ꞁooʇ ɹnoʎ ʎq pǝʇɔǝɟɟɐ ɐǝɹɐ ǝɥʇ ɟo ʇɥᵷᴉǝɥ ǝɥʇ sǝsɐǝɹɔuI\n§o¡puɐdxƎ§f
+modifier.haste.name=ǝʇsɐH
+modifier.haste.name2=ɹǝʇsɐH
+modifier.haste.name3=ʇsǝʇsɐH
+modifier.haste.name4=ɹǝʇsǝʇsɐH
+modifier.haste.name5=ʇsǝʇsǝʇsɐH
+modifier.haste.desc=§r˙ɹǝʇsɐɟ uǝʌǝ ǝʌoɯ oʇ ꞁooʇ ɹnoʎ sǝʇɐʌᴉʇoɯ ꞁooʇ ɹnoʎ ᵷuᴉsn uǝɥʍ ǝsꞁndɯᴉ ǝuoʇspǝɹ ǝɥ⟘\n§o¡ǝǝǝǝǝǝǝM§f
+modifier.haste.extra=%s+ :pǝǝdS-snuoᗺ
+modifier.knockback.name=ʞɔɐqʞɔouʞ
+modifier.knockback.desc=§r˙ʎɐʍ ꞁooɔ ǝɥʇ - ʎꞁɟ oʇ ʍoɥ sᵷuᴉɥʇ ɥɔɐǝ⟘\n§o¡unɹǝɯoH§f
+modifier.luck.name=ʞɔnꞀ
+modifier.luck.desc=§r˙ɯǝɥʇ ɟo ʇoꞁ ɐ puⱯ ˙sᵷuᴉɥʇ ǝɔᴉu ǝɥʇ ꞁꞁɐ ᵷuᴉʇʇǝᵷ ǝɹ,no⅄\n§o¡ʎuᴉɥS§f
+modifier.mending_moss.name=ssoW ᵷuᴉpuǝW
+modifier.mending_moss.desc=§r˙ʎʇᴉꞁᴉqɐɹnp ǝʇɐɹǝuǝᵷǝɹ oʇ ԀX ǝɥʇ dn ǝsn ʎꞁʍoꞁs ꞁꞁᴉʍ ʇI ˙ꞁooʇ ǝɥʇ uᴉ pǝɹoʇs sᴉ ԀX dn pǝʞɔᴉԀ\n§o¡ǝʌᴉꞁɐ s,ʇI§f
+modifier.mending_moss.extra=%d :ԀX pǝɹoʇS
+modifier.necrotic.name=ɔᴉʇoɹɔǝN
+modifier.necrotic.desc=§r˙ʇꞁɐǝp ǝᵷɐɯɐp uo ᵷuᴉpuǝdǝp noʎ oʇ ɥʇꞁɐǝɥ suɹnʇǝɹ sǝᴉɯǝuǝ ᵷuᴉʇʇᴉH\n§o¡¡ǝʌᴉꞁⱯ os ꞁǝǝɟ I§f
+modifier.necrotic.extra=%s+ :ꞁɐǝʇsǝɟᴉꞀ
+modifier.reinforced.name=pǝɔɹoɟuᴉǝᴚ
+modifier.reinforced.unbreakable=ǝꞁqɐʞɐǝɹqu∩
+modifier.reinforced.desc=§r˙ʎʇᴉꞁᴉqɐɹnp ǝsn ʇou oʇ ǝɔuɐɥɔ %s ɐ sppɐ ꞁǝʌǝꞁ ɥɔɐƎ\n§o¡ᵷuoɹʇs oS§f
+modifier.reinforced.extra=%s :pǝɔɹoɟuᴉǝᴚ
+modifier.sharpness.name=dɹɐɥS
+modifier.sharpness.name2=ɹǝdɹɐɥS
+modifier.sharpness.name3=ʇsǝdɹɐɥS
+modifier.sharpness.name4=ɹǝʇsǝdɹɐɥS
+modifier.sharpness.name5=ʇsǝʇsǝdɹɐɥS
+modifier.sharpness.desc=§r˙ʇᴉ ʇɐ ʞooꞁ oʇ sʇɹnɥ ʇᴉ 'dɹɐɥs oS\n§o¡ɥɔnO§f
+modifier.shulking.name=ᵷuᴉʞꞁnɥS
+modifier.shulking.desc=§r˙ʎɐʍɐ ʇɐoꞁɟ oʇ ɯǝɥʇ sǝsnɐɔ sǝoɟ ᵷuᴉʇʇᴉH\n§o¡ʎɐʍɐ puɐ dn d∩§f
+modifier.shulking.extra=s%s :uoᴉʇɐɹnᗡ ʇɐoꞁℲ
+modifier.silktouch.name=ɥɔnoʇʞꞁᴉS
+modifier.silktouch.desc=§r˙sɯǝʇᴉ ꞁɐnsn ǝɥʇ ɟo pɐǝʇsuᴉ sǝʌꞁǝsɯǝɥʇ doɹp sʞɔoꞁq pǝuᴉW\n§o¡ʞꞁᴉs sɐ ɥʇooɯS§f
+modifier.smite.name=ǝʇᴉɯS
+modifier.smite.desc=§r˙pɐǝpun oʇ ǝᵷɐɯɐp ǝʌᴉssɐɯ ꞁɐǝᗡ\n§o¡ǝɔᴉʇsnՐ ɹoℲ§f
+modifier.smite.extra=%s+ :pɐǝpu∩ sᴧ
+modifier.soulbound.name=punoqꞁnoS
+modifier.soulbound.desc=§r˙noʎ ʇɹɐd uɐɔ ɥʇɐǝp uǝʌǝ ʇoN ˙ꞁooʇ ɹnoʎ ǝʌoꞁ no⅄\n§o¡ǝꞁdnoɔ ʎɹɹǝɯ Ɐ§f
+modifier.webbed.name=pǝqqǝM
+modifier.webbed.desc=§r˙ɯǝɥʇ ᵷuᴉʍoꞁs 'sqǝʍqoɔ uᴉ sǝoɟ ɹnoʎ ǝꞁᵷuɐʇuƎ\n§o¡ʞɔn⅄§f
+
+item.tconstruct.pickaxe.desc=¿ʞO 'sʞɔoꞁq sʞɐǝɹq ʇI\n˙sǝɹo puɐ ǝuoʇs uo ǝʌᴉʇɔǝɟɟǝ sᴉ ʇI ˙ꞁooʇ ᵷuᴉuᴉɯ ǝsᴉɔǝɹd ɐ sᴉ ǝxɐʞɔᴉԀ ǝɥ⟘
+item.tconstruct.shovel.desc=¡ǝʌɐɹᵷ uʍo ɹnoʎ ᵷᴉp ʇ,uop ʇsnՐ\n˙ʍous puɐ ꞁǝʌɐɹᵷ 'puɐs 'ʇɹᴉp uo ǝʌᴉʇɔǝɟɟǝ sᴉ ʇI ˙ʇɹᴉp dn sᵷᴉp ꞁǝʌoɥS ǝɥ⟘
+item.tconstruct.hatchet.desc=¡doɥɔ doɥƆ\n˙uodɐǝʍ ǝꞁqɐssɐd ɐ ɹoɟ sǝʞɐɯ osꞁɐ ʇI ˙sǝʌɐǝꞁ ɟo ʞɹoʍ ʇɹoɥs sǝʞɐɯ puɐ pooʍ dn sdoɥɔ ʇǝɥɔʇɐH ǝɥ⟘
+item.tconstruct.mattock.desc=punoɹᵷ ǝoH :ʞɔᴉꞁƆ ʇɥᵷᴉᴚ\n˙ɥɔund ɐ ǝʇᴉnb sʞɔɐd osꞁɐ ʇI ˙sʇuɐꞁd puɐ 'ʇɹᴉp 'pooʍ uo ǝʌᴉʇɔǝɟɟǝ sᴉ ʇI ˙ꞁooʇ ᵷuᴉɯɹɐɟ ǝꞁᴉʇɐsɹǝʌ ɐ sᴉ ʞɔoʇʇɐW ɹǝʇʇnƆ ǝɥ⟘
+item.tconstruct.kama.desc=sdoɹɔ ʇuɐꞁdǝɹ puɐ ʇsǝʌɹɐH :ʞɔᴉꞁƆ ʇɥᵷᴉᴚ\n˙sꞁɐɯᴉuɐ ᵷuᴉɹɐǝɥs puɐ sʇuɐꞁd uʍop ᵷuᴉʍoɯ 'ꞁooʇ ᵷuᴉdɐǝɹ uoᴉsᴉɔǝɹd ɐ sᴉ ɐɯɐʞ ǝɥ⟘
+item.tconstruct.broadsword.desc=¡sqǝʍqoɔ ʇsuᴉɐᵷɐ pooᵷ osꞁⱯ\n˙ʎɐq ʇɐ sǝpɹoɥ ʎɯǝuǝ dǝǝʞ sʞɔɐʇʇɐ dǝǝʍS ˙uodɐǝʍ ꞁɐsɹǝʌᴉun ɐ sᴉ pɹoʍspɐoɹᗺ ǝɥ⟘
+item.tconstruct.longsword.desc=ǝᵷunꞀ :ʞɔᴉꞁƆ ʇɥᵷᴉᴚ\n˙pǝǝds ꞁꞁnɟ ʇɐ ǝꞁʇʇɐq oʇuᴉ ᵷuᴉᵷɹɐɥɔ ɹoɟ pǝsn uǝʇɟo sᴉ ʇI ˙uodɐǝʍ ǝʌᴉsuǝɟɟo uɐ sᴉ pɹoʍsᵷuoꞀ ǝɥ⟘
+item.tconstruct.rapier.desc=ꞁɐpǝdʞɔɐᗺ :ʞɔᴉꞁƆ ʇɥᵷᴉᴚ\n˙sǝoɟ ʇɐǝɟǝp oʇ sǝʞᴉɹʇs ʞɔᴉnb uo sǝᴉꞁǝɹ ʇɐɥʇ uodɐǝʍ ꞁɐᴉɔǝds ɐ sᴉ ɹǝᴉdɐᴚ ǝɥ⟘
+item.tconstruct.frypan.desc=ʍoꞁᗺ ʎʌɐǝH :ʞɔᴉꞁƆ ʇɥᵷᴉᴚ\n¡⅁NIOᗺ sǝoᵷ osꞁɐ ʇI ˙ǝɔuɐʇsᴉp ǝɯos ǝʇɐǝɹɔ oʇ ʞɔɐqʞɔouʞ ɥʇᴉʍ uodɐǝʍ ʎʌɐǝɥ ɐ sᴉ uɐԀ ᵷuᴉʎɹℲ ǝɥ⟘
+item.tconstruct.battlesign.desc=˙sǝꞁᴉʇɔǝɾoɹd sʇɔǝꞁɟǝɹ 'pꞁǝᴉɥs ɐ sɐ pǝsn ǝq uɐƆ\n˙ǝɹǝɥʍʎɹǝʌǝ uǝɯᵷᴉԀ ǝᴉqɯoZ ɟo ʎɥʇɹoʍ ʎᵷoꞁouɥɔǝʇ uodɐǝʍ uᴉ ǝɔuɐʌpɐ uⱯ ˙uodɐǝʍ ǝʌᴉsuǝɟǝp ǝʇɐɯᴉʇꞁn ǝɥʇ sᴉ uᵷᴉsǝꞁʇʇɐᗺ ǝɥ⟘
+item.tconstruct.hammer.desc=˙pɐǝpun ʇsuᴉɐᵷɐ ǝʌᴉʇɔǝɟɟǝ osꞁⱯ\n˙ǝᵷuɐɹ ǝpᴉʍ ɐ uᴉ sʞɔoꞁq sʇsǝʌɹɐɥ ʇI ˙ꞁooʇ ᵷuᴉuᴉɯ pɐoɹq ɐ sᴉ ɹǝɯɯɐH ǝɥ⟘
+item.tconstruct.lumberaxe.desc=¡ɹǝqɯᴉ⟘\n˙ǝᵷuɐɹ ǝpᴉʍ ɐ uᴉ pooʍ ɹǝɥʇɐᵷ ɹo dooʍs ǝuo uᴉ sǝǝɹʇ ǝɹᴉʇuǝ ꞁꞁǝɟ uɐɔ ʇI ˙ꞁooʇ ᵷuᴉddoɥɔ pɐoɹq ɐ sᴉ ǝxⱯ ɹǝqɯnꞀ ǝɥ⟘
+item.tconstruct.excavator.desc=¡ᵷuᴉɯɹoɟɐɹɹǝ⟘\n˙ǝᵷuɐɹ ǝpᴉʍ ɐ uᴉ ʍous puɐ ꞁᴉos ɟo sɐǝɹɐ ǝᵷɹɐꞁ dn sᵷᴉp ʇI ˙ꞁooʇ ᵷuᴉᵷᵷᴉp pɐoɹq ɐ sᴉ ɹoʇɐʌɐɔxƎ ǝɥ⟘
+item.tconstruct.cleaver.desc=¡spuɐɥ oʍʇ sǝɹᴉnbǝɹ 'ʍoꞁS\n˙ǝᵷɐɯɐp ɥᵷᴉɥ ɯoɹɟ ʇᴉɟǝuǝq sɹǝʌɐǝꞁƆ\n˙pꞁǝᴉʍ oʇ ʇꞁnɔᴉɟɟᴉp sᴉ ʇnq 'sǝʞᴉɹʇs ꞁnɟɹǝʍod sɐɥ ʇI ˙uodɐǝʍ ǝʌᴉsuǝɟɟo ʎʌɐǝɥ ɐ sᴉ ɹǝʌɐǝꞁƆ ǝɥ⟘
+item.tconstruct.battleaxe.desc=ʞɹǝsɹǝᗺ :ʞɔᴉꞁƆ ʇɥᵷᴉᴚ\n˙ᵷuᴉʎꞁɟ sǝoɟ puǝs uɐɔ puɐ sǝǝɹʇ ꞁꞁɐɯs uʍop ᵷuᴉᵷuᴉɹq ɟo ǝꞁqɐdɐɔ sᴉ ʇI ˙ʇno ɹǝʞɹǝsɹǝq ǝɥʇ ᵷuᴉᵷuᴉɹq 'uodɐǝʍ ǝʌᴉsuǝɟɟo ʎʌɐǝɥ ɐ sᴉ ǝxɐǝꞁʇʇɐᗺ ǝɥ⟘
+item.tconstruct.scythe.desc=sdoɹɔ ʇuɐꞁdǝɹ puɐ ʇsǝʌɹɐH :ʞɔᴉꞁƆ ʇɥᵷᴉᴚ\n˙ʞɔɐʇʇⱯ ƎOⱯ uɐ sɐH\n˙ǝʞᴉꞁɐ sǝoɟ puɐ sʇuɐꞁd uʍop ᵷuᴉʍoɯ 'ꞁooʇ ᵷuᴉdɐǝɹ pɐoɹq ɐ sᴉ ǝɥʇʎɔS ǝɥ⟘
+item.tconstruct.shuriken.desc=˙puɐɥ-ɟɟo ǝɥʇ ɯoɹɟ uʍoɹɥʇ ǝq uɐƆ\n˙ǝᵷɐɯɐp ʍoꞁ ʇnq sǝᴉʇᴉʇuɐnb ɥᵷᴉɥ sɐɥ ʇI ˙uodɐǝʍ ᵷuᴉʍoɹɥʇ pǝᵷuɐɹ ʇɹoɥs 'ʇsɐɟ ɐ sᴉ uǝʞᴉɹnɥS ǝɥ⟘
+item.tconstruct.shortbow.desc=˙sʍoɹɹⱯ ,sɹǝʞuᴉ⟘ sǝs∩\n˙ǝʇɐɹ pᴉdɐɹ ɐ ʇɐ sʍoɹɹɐ ᵷuᴉʇooɥs ǝꞁᴉɥʍ sʇuǝɯǝʌoɯ ʇsɐɟ ɹoɟ sʍoꞁꞁɐ ʇI ˙uodɐǝʍ ǝꞁqɯᴉu puɐ ʞɔᴉnb ɐ sᴉ ʍoqʇɹoɥS ǝɥ⟘
+item.tconstruct.longbow.desc=˙sʍoɹɹⱯ ,sɹǝʞuᴉ⟘ sǝs∩\n˙ɹǝɥʇoɹq ʇɹoɥs sʇᴉ uɐɥʇ ǝꞁᴉqoɯ ssǝꞁ sᴉ ʇnq ǝᵷɐɯɐp ɥᵷᴉɥ sǝpᴉʌoɹd ʇI ˙uodɐǝʍ ǝᵷuɐɹ ᵷuoꞁ ꞁnɟɹǝʍod ɐ sᴉ ʍoqᵷuoꞀ ǝɥ⟘
+item.tconstruct.arrow.desc=˙ꞁooʇ ʎuɐ sɐ pǝᴉɟᴉpoɯ ǝq uɐɔ ʎǝɥʇ puɐ 'sʇoɥs ʎuɐɯ sǝpᴉʌoɹd ʞɔɐʇs ǝuO ˙sʍoᗺ ,sɹǝʞuᴉ⟘ ɹoɟ pǝsn oɯɯɐ ǝɥʇ ǝɹɐ sʍoɹɹⱯ ǝɥ⟘
+item.tconstruct.crossbow.desc=˙sʇꞁoᗺ ,sɹǝʞuᴉ⟘ sǝs∩\n˙spɹɐʍɹǝʇɟɐ ʇuǝɯoɯ ʎuɐ ʇɐ pǝɹᴉɟ ǝq uɐɔ ʇnq 'ʞɔᴉꞁɔʇɥᵷᴉɹ ᵷuᴉpꞁoɥ ʎq puɐɥǝɹoɟǝq pǝpɐoꞁ ǝq oʇ sɐɥ ʇI ˙uodɐǝʍ ꞁnɟɹǝʍod ʎɹǝʌ ʇnq ʍoꞁs ɐ sᴉ ʍoqssoɹƆ ǝɥ⟘
+item.tconstruct.bolt.desc=˙ɹoɯɹɐ ʎɯǝuǝ sǝʇɐɹʇǝuǝd ʎꞁꞁɐᴉʇɹɐԀ\n˙ꞁooʇ ʎuɐ sɐ pǝᴉɟᴉpoɯ ǝq uɐɔ ʎǝɥʇ puɐ 'sʇoɥs ʎuɐɯ sǝpᴉʌoɹd ʞɔɐʇs ǝuO ˙sʍoqssoɹƆ ,sɹǝʞuᴉ⟘ ɹoɟ pǝsn oɯɯɐ ǝɥʇ ǝɹɐ sʇꞁoᗺ ǝɥ⟘
+
+
+tooltip.tool.modifiers=sɹǝᴉɟᴉpoW
+tooltip.tool.broken=uǝʞoɹᗺ
+tooltip.tool.empty=ʎʇdɯƎ
+tooltip.tool.holdShift=§7sʇɐʇS ɹoɟ §r§oʇɟᴉɥS§e§f pꞁoH
+tooltip.tool.holdCtrl=§7ǝɹoɯ ɹoɟ §r§bꞁɹʇƆ§e§f pꞁoH
+
+tooltip.part.material_added_by=%s ʎq pǝppɐ ꞁɐᴉɹǝʇɐW
+tooltip.part.missing_material=%s :ꞁɐᴉɹǝʇɐɯ ᵷuᴉssᴉW
+tooltip.part.missing_stats=%s\n:sʇɐʇs pǝɹᴉnbǝɹ ǝɥʇ ᵷuᴉssᴉɯ sᴉ ꞁɐᴉɹǝʇɐW
+tooltip.part.missing_info=ɐʇɐp ou sɐɥ ʇɹɐԀ
+
+tooltip.pattern.cost=%d :ʇsoƆ ꞁɐᴉɹǝʇɐW
+
+tooltip.chest.has_items=(s)ɯǝʇᴉ %d suᴉɐʇuoƆ
+tooltip.patternchest.holds_patterns=(s)uɹǝʇʇɐd %d suᴉɐʇuoƆ
+tooltip.patternchest.holds_casts=(s)ʇsɐɔ %d suᴉɐʇuoƆ
+
+tooltip.tank.fluid=%s
+tooltip.tank.amount=qɯ %d
+tooltip.tank.holdShift=§7sʇǝʞɔnq ɹoɟ §r§oʇɟᴉɥS§e§f pꞁoH
+
+
+ui.mininglevel.stone=ǝuoʇS
+ui.mininglevel.iron=uoɹI
+#ui.mininglevel.redstone=puoɯɐᴉp ɥʇᴉʍ pǝɔɐꞁdǝɹ # ǝuoʇspǝᴚ
+ui.mininglevel.diamond=puoɯɐᴉᗡ
+ui.mininglevel.obsidian=uɐᴉpᴉsqO
+ui.mininglevel.cobalt=ʇꞁɐqoƆ
+
+death.attack.smeltery=ɹǝʎɐꞁd uǝʇꞁoɯ ǝʇɐǝɹɔ oʇ pǝᴉɹʇ %s
+death.attack.splinter=ǝʌᴉssɐɯ uǝǝq ǝʌ,ʇsnW ˙ɹǝʇuᴉꞁds ɐ ʇɥᵷnɐɔ %s
+death.attack.bleed=ʞɔɐʇʇɐ %2$s ɯoɹɟ ɥʇɐǝp oʇ pǝꞁq %1$s
+death.attack.bleed.item=%3$s ɥʇᴉʍ ʞɔɐʇʇɐ %2$s ɯoɹɟ ɥʇɐǝp oʇ pǝꞁq %1$s
+
+message.mending_moss.not_enough_levels=sꞁǝʌǝꞁ %s ʇsɐǝꞁ ʇɐ sǝɹᴉnbǝɹ ssoɯ ᵷuᴉpuǝW
+tconstruct.channel.connected.in=spɹɐʍuᴉ ʍoꞁɟ oʇ ǝpᴉs ʇǝS
+tconstruct.channel.connected.out=spɹɐʍʇno ʍoꞁɟ oʇ ǝpᴉs ʇǝS
+tconstruct.channel.connected.none=ǝpᴉs uo ᵷuᴉʍoꞁɟ pǝʍoꞁꞁɐsᴉᗡ
+tconstruct.channel.connected_down.allow=uʍop ᵷuᴉʍoꞁɟ pǝʍoꞁꞁⱯ
+tconstruct.channel.connected_down.disallow=uʍop ᵷuᴉʍoꞁɟ pǝʍoꞁꞁɐsᴉᗡ
+
+
+gui.error=ᴚOᴚᴚƎ
+gui.warning=⅁NINᴚⱯM
+gui.error.invalid_pattern=¡ʇɹɐd ꞁooʇ pᴉꞁɐʌ ɐ uᴉɐʇuoɔ ʇou sǝop uɹǝʇʇɐԀ
+gui.error.useless_tool_part=˙ᵷuᴉʇɟɐɹɔ sʇᴉ uᴉ %2$s (u)ɐ sǝsn ꞁooʇ ou ɹo uoᴉʇɐɯɹoɟuᴉ ǝɯos ᵷuᴉssᴉɯ sᴉ %1$s ꞁɐᴉɹǝʇɐɯ ǝɥʇ ɹǝɥʇᴉƎ\n¡ꞁooʇ ʎuɐ ʇɟɐɹɔ oʇ pǝsn ǝq ʇou uɐɔ ʇɹɐd sᴉɥ⟘
+gui.error.wrong_material_part=˙ꞁooʇ sᴉɥʇ ɹoɟ ꞁɐᴉɹǝʇɐɯ pǝʇɹoddnsun uɐ ǝʌɐɥ sɯǝʇᴉ ǝꞁdᴉʇꞁnɯ ɹo ǝuO
+gui.error.not_enough_durability=˙pǝɹᴉnbǝɹ ʎʇᴉꞁᴉqɐɹnp ǝɹoɯ %d\n¡sʇɹɐd ǝɔɐꞁdǝɹ oʇ ʎʇᴉꞁᴉqɐɹnp ɥᵷnouǝ ʇoN
+gui.error.craftevent.tool.default=˙poɯ ɹǝɥʇouɐ ʎq pǝʇuǝʌǝɹd sɐʍ ɯǝʇᴉ sᴉɥʇ ɟo ᵷuᴉʇɟɐɹƆ
+gui.error.craftevent.modifier.default=˙poɯ ɹǝɥʇouɐ ʎq pǝʇuǝʌǝɹd sɐʍ sɯǝʇᴉ ǝsǝɥʇ ɥʇᴉʍ ꞁooʇ sᴉɥʇ ᵷuᴉʎɟᴉpoW
+gui.error.craftevent.toolpart.default=˙poɯ ɹǝɥʇouɐ ʎq pǝʇuǝʌǝɹd sɐʍ ʇɹɐdꞁooʇ sᴉɥʇ ɟo ᵷuᴉʇɟɐɹƆ
+gui.error.craftevent.replace.default=˙poɯ ɹǝɥʇouɐ ʎq pǝʇuǝʌǝɹd sɐʍ ʇɹɐdꞁooʇ sᴉɥʇ ᵷuᴉɔɐꞁdǝᴚ
+gui.error.not_enough_modifiers=(pǝpǝǝu %d) ˙sɹǝᴉɟᴉpoW ɥᵷnouǝ ʇoN
+gui.error.single_modifier=˙ǝɔuo pǝᴉꞁddɐ ǝq ʎꞁuo uɐɔ %s
+gui.error.max_level_modifier=˙pǝɥɔɐǝɹ ʎpɐǝɹꞁɐ %s ɹoɟ ꞁǝʌǝꞀ ɯnɯᴉxɐW
+gui.error.no_modifier_for_item=˙%s ɹoɟ punoɟ ɹǝᴉɟᴉpoɯ oN
+gui.error.already_has_extratrait=˙ǝuo ǝʌɐɥ ʎꞁuo uɐɔ ʇᴉ 'ʇuǝɯssoqɯǝ uɐ sɐɥ ʎpɐǝɹꞁɐ ꞁooʇ ǝɥ⟘
+gui.error.incompatible_modifiers=ɹǝɥʇǝᵷoʇ pǝᴉꞁddɐ ǝq ʇouuɐɔ %2$s puɐ %1$s sɹǝᴉɟᴉpoW
+gui.error.incompatible_trait=%2$s ʇᴉɐɹʇ ɥʇᴉʍ ɹǝɥʇǝᵷoʇ pǝsn ǝq ʇou uɐɔ %1$s ɹǝᴉɟᴉpoW
+gui.error.incompatible_enchantments=%2$s ʇuǝɯʇuɐɥɔuǝ ɥʇᴉʍ pǝuᴉqɯoɔ ǝq ʇouuɐɔ %1$s ɹǝᴉɟᴉpoW
+
+
+gui.general.hover=oɟuᴉ ǝɹoɯ ɹoɟ sǝᴉɹʇuǝ ǝɥʇ ɹǝʌo ɹǝʌoH
+
+itemGroup.TinkerGeneral=sɯǝʇI ꞁɐɹǝuǝ⅁ ,sɹǝʞuᴉ⟘
+itemGroup.TinkerTools=sꞁoo⟘ ,sɹǝʞuᴉ⟘
+itemGroup.TinkerToolParts=sʇɹɐdꞁoo⟘ ,sɹǝʞuᴉ⟘
+itemGroup.TinkerSmeltery=ʎɹǝʇꞁǝɯS ,sɹǝʞuᴉ⟘
+itemGroup.TinkerWorld=pꞁɹoM ,sɹǝʞuᴉ⟘
+itemGroup.TinkerGadgets=sʇǝᵷpɐ⅁ ,sɹǝʞuᴉ⟘
+
+gui.craftingstation.name=uoᴉʇɐʇS ᵷuᴉʇɟɐɹƆ
+
+gui.stenciltable.name=ǝꞁqɐ⟘ ꞁᴉɔuǝʇS
+
+gui.partbuilder.name=ɹǝpꞁᴉnᗺ ʇɹɐԀ
+gui.partcrafter.name=ɹǝʇɟɐɹƆ ʇɹɐԀ
+gui.partbuilder.info=˙ɟo ʇno ʇɹɐd ɹnoʎ ʇɟɐɹɔ oʇ ʇuɐʍ noʎ ꞁɐᴉɹǝʇɐɯ ǝɥʇ pꞁoɥ sʇoꞁs ᵷuᴉuᴉɐɯǝɹ oʍʇ ǝɥ⟘ ˙ʇoꞁs ʇɟǝꞁ ǝɥʇ oʇuᴉ uɹǝʇʇɐd sʇᴉ ʇnd ʎꞁdɯᴉs ʇɹɐd ɐ ʇɟɐɹɔ o⟘\n\n˙sǝᴉsɐʇuɐɟ ᵷuᴉɹǝʞuᴉʇ ɹnoʎ ꞁꞁᴉɟꞁnɟ oʇ sʇɹɐd ꞁooʇ ʇɟɐɹɔ uɐɔ noʎ ǝɹǝH
+gui.partbuilder.material_value=%2$s %1$s :ǝnꞁɐᴧ ꞁɐᴉɹǝʇɐW
+
+gui.toolstation.name=uoᴉʇɐʇS ꞁoo⟘
+gui.toolforge.name=ǝᵷɹoℲ ꞁoo⟘
+gui.toolstation.repair=ʎɟᴉpoW ⅋ ɹᴉɐdǝᴚ
+gui.toolstation.traits=sʇᴉɐɹ⟘
+gui.toolstation.components=sʇuǝuodɯoƆ
+gui.toolstation.info=˙pǝʇɹɐʇs ʇǝᵷ oʇ ʇɟǝꞁ ǝɥʇ uo ꞁɐᴉɹǝʇɐɯ ɐ puɐ ꞁooʇ ɐ ǝɔɐꞁԀ ˙sꞁooʇ ɹnoʎ ǝᵷuɐɥɔ ɹo ɹᴉɐdǝɹ oʇ ʎɐʍ uᴉɐɯ ǝɥ⟘
+gui.toolstation.noTraits=]: ǝuoN
+
+gui.patternchest.name=ʇsǝɥƆ uɹǝʇʇɐԀ
+gui.castchest.name=ʇsǝɥƆ ʇsɐƆ
+
+gui.partchest.name=ʇsǝɥƆ ʇɹɐԀ
+
+gui.smeltery.name=ʎɹǝʇꞁǝɯS
+gui.smeltery.progress.no_recipe=uǝʇꞁoɯ ǝq ʇ,uɐɔ ɯǝʇI
+gui.smeltery.progress.no_heat=ɯǝʇᴉ sᴉɥʇ ʇꞁǝɯ oʇ ʇɐǝɥ ɥᵷnouǝ ʇoN
+gui.smeltery.progress.no_space=ʎɹǝʇꞁǝɯs ǝɥʇ uᴉ ǝɔɐds ǝǝɹɟ ɥᵷnouǝ ʇoN
+gui.smeltery.fuel=ꞁǝnℲ
+gui.smeltery.fuel.empty=punoɟ ꞁǝnɟ oN
+gui.smeltery.fuel.invalid=§4¡ꞁǝnɟ ʎɹǝʇꞁǝɯs pᴉꞁɐʌ ɐ ʇou sᴉ %s§f
+gui.smeltery.fuel.heat=%d :ǝɹnʇɐɹǝdɯǝ⟘
+gui.smeltery.capacity=:ʎʇᴉɔɐdɐƆ
+gui.smeltery.capacity_available=:ǝǝɹℲ
+gui.smeltery.capacity_used=:pǝs∩
+gui.smeltery.liquid.kilobucket=qʞ
+gui.smeltery.liquid.bucket=q
+gui.smeltery.liquid.millibucket=qɯ
+gui.smeltery.liquid.ingot=sʇoᵷuI
+gui.smeltery.liquid.nugget=sʇǝᵷᵷnN
+gui.smeltery.liquid.block=sʞɔoꞁᗺ
+gui.smeltery.liquid.gem=sɯǝ⅁
+
+gui.searedfurnace.name=ǝɔɐuɹnℲ pǝɹɐǝS
+gui.searedfurnace.progress.complete=ᵷuᴉʇꞁǝɯs pǝɥsᴉuᴉɟ sᴉ ɯǝʇI
+gui.searedfurnace.progress.no_recipe=pǝʞooɔ ǝq ʇ,uɐɔ ɯǝʇI
+gui.searedfurnace.progress.no_space=ʇoꞁs ǝɥʇ ɹoɟ ǝᵷɹɐꞁ ooʇ sᴉ ʞɔɐʇs ᵷuᴉʇꞁnsǝᴚ
+
+gui.tinkertank.name=ʞuɐ⟘ ɹǝʞuᴉ⟘
+
+gui.itemrack.name=ʞɔɐᴚ ɯǝʇI
+gui.dryingrack.name=ʞɔɐᴚ ᵷuᴉʎɹᗡ
+
+gui.jei.smelting.title=ᵷuᴉʇꞁǝɯS
+gui.jei.alloy.title=ᵷuᴉʎoꞁꞁⱯ
+gui.jei.casting.title=ᵷuᴉʇsɐƆ
+gui.jei.casting.consume=¡ʇsɐɔ sǝɯnsuoƆ
+gui.jei.drying.title=ᵷuᴉʎɹᗡ
+
+gui.waila.tank.fluid=%s :pᴉnbᴉꞀ
+gui.waila.tank.amount=qɯ %2$d / %1$d :ʇunoɯⱯ
+gui.waila.tank.empty=ʎʇdɯƎ
+gui.waila.casting.progress=%s :ssǝɹᵷoɹԀ
+gui.waila.casting.recipe=%s :ǝdᴉɔǝᴚ
+
+option.tconstruct.tank=pᴉnbᴉꞀ ʞuɐ⟘
+option.tconstruct.casting=ǝdᴉɔǝᴚ ᵷuᴉʇsɐƆ
+option.tconstruct.progress=ssǝɹᵷoɹԀ ǝdᴉɔǝᴚ
+
+
+config.synced.restart=˙ʇɟɐɹɔǝuᴉW ʇɹɐʇsǝᴚ ˙ɹǝʌɹǝs ǝɥʇ ɥɔʇɐɯ oʇ pǝʇɐpdn uǝǝq sɐɥ uoᴉʇɐɹnᵷᴉɟuoɔ ɹno⅄
+config.synced.ok=˙ɹǝʌɹǝs ɥʇᴉʍ pǝɔuʎs uoᴉʇɐɹnᵷᴉɟuoƆ

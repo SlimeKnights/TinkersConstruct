@@ -6,9 +6,6 @@
             "particle": "#wood",
             "wood": "tconstruct:blocks/block_ardite",
             "back": "tconstruct:blocks/itemframe_background"
-        },
-        "transform": {
-
         }
     },
     "variants": {
@@ -23,7 +20,7 @@
             "cobalt":    { "textures": { "wood": "tconstruct:blocks/block_cobalt" } },
             "ardite":    { "textures": { "wood": "tconstruct:blocks/block_ardite" } },
             "manyullyn": { "textures": { "wood": "tconstruct:blocks/block_manyullyn" } },
-            "clear":     { "textures": { "wood": "minecraft:blocks/glass", "back": "#wood" } }
+            "clear":     { "textures": { "wood": "minecraft:blocks/glass_white", "back": "minecraft:blocks/glass" } }
         }
     }
 }

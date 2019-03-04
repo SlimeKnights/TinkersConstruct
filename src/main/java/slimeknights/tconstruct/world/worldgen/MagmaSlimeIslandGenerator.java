@@ -62,14 +62,21 @@ public class MagmaSlimeIslandGenerator extends SlimeIslandGenerator {
       return;
     }
 
-    // do we generate in this chunk?
-    if(random.nextInt(Config.magmaIslandsRate) > 0) {
-      return;
-    }
+    markChunkForIslandGenerationAndGenerateMarked(random, chunkX, chunkZ, world, chunkProvider);
+  }
+
+  @Override
+  protected int getGenerationChance() {
+    return Config.magmaIslandsRate;
+  }
+
+  @Override
+  protected void generateIslandInChunk(long seed, World world, int chunkX, int chunkZ) {
+    Random random = new Random(seed);
 
     int y = 31; // lava lake surface is at 32
-    int x = chunkX * 16 + 7 + random.nextInt(6) - 3;
-    int z = chunkZ * 16 + 7 + random.nextInt(6) - 3;
+    int x = chunkX * 16 + 4 + random.nextInt(8);
+    int z = chunkZ * 16 + 4 + random.nextInt(8);
 
     BlockPos pos = new BlockPos(x, y, z);
 
@@ -79,6 +86,8 @@ public class MagmaSlimeIslandGenerator extends SlimeIslandGenerator {
        isLava(world, pos.east()) &&
        isLava(world, pos.south()) &&
        isLava(world, pos.west())) {
+      // technically this chunk counts as "island generated here" even if there was no lava
+      // this is due to marking and generating chunks later
       generateIsland(random, world, x, z, y + 1, dirtMagma, grassMagma, null, lakeGenMagma, treeGenMagma, plantGenMagma);
     }
   }

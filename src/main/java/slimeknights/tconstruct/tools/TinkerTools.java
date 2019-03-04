@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -85,6 +84,7 @@ public class TinkerTools extends AbstractToolPulse {
   public static ToolPart largeSwordBlade;
   public static ToolPart hammerHead;
   public static ToolPart excavatorHead;
+  public static ToolPart kamaHead;
   public static ToolPart scytheHead;
   public static ToolPart panHead;
   public static ToolPart signHead;
@@ -189,6 +189,7 @@ public class TinkerTools extends AbstractToolPulse {
     largeSwordBlade = registerToolPart(registry, new ToolPart(Material.VALUE_Ingot * 8), "large_sword_blade");
     hammerHead = registerToolPart(registry, new ToolPart(Material.VALUE_Ingot * 8), "hammer_head");
     excavatorHead = registerToolPart(registry, new ToolPart(Material.VALUE_Ingot * 8), "excavator_head");
+    kamaHead = registerToolPart(registry, new ToolPart(Material.VALUE_Ingot * 2), "kama_head");
     scytheHead = registerToolPart(registry, new ToolPart(Material.VALUE_Ingot * 8), "scythe_head");
     panHead = registerToolPart(registry, new ToolPart(Material.VALUE_Ingot * 3), "pan_head");
     signHead = registerToolPart(registry, new ToolPart(Material.VALUE_Ingot * 3), "sign_head");
@@ -232,9 +233,9 @@ public class TinkerTools extends AbstractToolPulse {
     GameRegistry.addSmelting(TinkerCommons.oreCobalt, TinkerCommons.ingotCobalt, 1.0f);
 
     // Slime crystals
-    FurnaceRecipes.instance().addSmeltingRecipe(TinkerCommons.slimyMudGreen, TinkerCommons.matSlimeCrystalGreen, 0);
-    FurnaceRecipes.instance().addSmeltingRecipe(TinkerCommons.slimyMudBlue, TinkerCommons.matSlimeCrystalBlue, 0);
-    FurnaceRecipes.instance().addSmeltingRecipe(TinkerCommons.slimyMudMagma, TinkerCommons.matSlimeCrystalMagma, 0);
+    GameRegistry.addSmelting(TinkerCommons.slimyMudGreen, TinkerCommons.matSlimeCrystalGreen, 0.75f);
+    GameRegistry.addSmelting(TinkerCommons.slimyMudBlue, TinkerCommons.matSlimeCrystalBlue, 0.75f);
+    GameRegistry.addSmelting(TinkerCommons.slimyMudMagma, TinkerCommons.matSlimeCrystalMagma, 0.75f);
   }
 
   /**

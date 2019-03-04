@@ -110,13 +110,13 @@
     },
     "display": {
         "thirdperson_righthand": {
-            "rotation": [ 0, 90, 15 ],
-            "translation": [ 0, 4.5, -1 ],
+            "rotation": [ 90, 180, -225 ],
+            "translation": [ -1, 0.75, -2.5 ],
             "scale": [ 0.85, 0.85, 0.85 ]
         },
         "thirdperson_lefthand": {
-            "rotation": [ 0, -90, -15 ],
-            "translation": [ 0, 4.5, -1 ],
+            "rotation": [ 90, 180, 225 ],
+            "translation": [ 1, 0.75, -2.5 ],
             "scale": [ 0.85, 0.85, 0.85 ]
         },
         "firstperson_righthand": {
