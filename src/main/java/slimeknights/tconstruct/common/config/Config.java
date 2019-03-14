@@ -81,6 +81,7 @@ public final class Config {
   public static boolean listAllMaterials = true;
   public static boolean enableForgeBucketModel = true; // enables the forge bucket model by default
   public static boolean dumpTextureMap = false; // requires debug module
+  public static boolean temperatureCelsius = true;
 
   /* Config File */
 
@@ -305,6 +306,12 @@ public final class Config {
       prop.setComment("If true all material variants of the different parts, tools,... will be listed in creative. Set to false to only have the first found material for all items (usually wood).");
       listAllMaterials = prop.getBoolean();
       propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "temperatureCelsius", temperatureCelsius);
+      prop.setComment("If true, temperatures in the smeltery and in JEI will display in celsius. If false they will use the internal units of Kelvin, which may be better for devs");
+      temperatureCelsius = prop.getBoolean();
+      propOrder.add(prop.getName());
+      Util.setTemperaturePref(temperatureCelsius);
 
       prop = configFile.get(cat, "enableForgeBucketModel", enableForgeBucketModel);
       prop.setComment("If true tools will enable the forge bucket model on startup and then turn itself off. This is only there so that a fresh install gets the buckets turned on by default.");

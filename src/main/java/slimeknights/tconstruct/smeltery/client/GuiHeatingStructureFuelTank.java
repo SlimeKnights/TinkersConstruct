@@ -52,7 +52,7 @@ public class GuiHeatingStructureFuelTank extends GuiMultiModule {
       if(TinkerRegistry.isSmelteryFuel(fuel)) {
         text.add(fuel.getLocalizedName());
         GuiUtil.liquidToString(fuel, text);
-        text.add(Util.translateFormatted("gui.smeltery.fuel.heat", fuelInfo.heat));
+        text.add(Util.translateFormatted("gui.smeltery.fuel.heat", Util.temperatureString(fuelInfo.heat)));
       }
       else {
         text.add(Util.translateFormatted("gui.smeltery.fuel.invalid", fuel.getLocalizedName()));
