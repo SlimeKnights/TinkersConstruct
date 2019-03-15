@@ -24,6 +24,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import slimeknights.mantle.tileentity.MantleTileEntity;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.fluid.ChannelSideTank;
@@ -32,7 +33,7 @@ import slimeknights.tconstruct.smeltery.network.ChannelConnectionPacket;
 import slimeknights.tconstruct.smeltery.network.ChannelFlowPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket.IFluidPacketReceiver;
 
-public class TileChannel extends TileEntity implements ITickable, IFluidPacketReceiver {
+public class TileChannel extends MantleTileEntity implements ITickable, IFluidPacketReceiver {
 
   /** Stores if the channel can be connected on the side */
   private ChannelConnection[] connections;

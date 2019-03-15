@@ -68,10 +68,11 @@ public class TileTinkerTank extends TileMultiblock<MultiblockTinkerTank> impleme
 
   @Override
   protected void updateStructureInfo(MultiblockDetection.MultiblockStructure structure) {
-    // we add 2 to the coordinates so we include the walls/floor/ceiling in the size caculation
+    // we add 2 to the coordinates so we include the walls/floor/ceiling in the size calculation
     // otherwise a 3x3x3 tank is way too little capacity
     int liquidSize = (structure.xd + 2) * (structure.yd + 2) * (structure.zd + 2);
     this.liquids.setCapacity(liquidSize * TileTinkerTank.CAPACITY_PER_BLOCK);
+    this.markDirtyFast();
   }
 
   /* Fluid handling */
@@ -132,6 +133,7 @@ public class TileTinkerTank extends TileMultiblock<MultiblockTinkerTank> impleme
     if(isServerWorld()) {
       TinkerNetwork.sendToAll(new SmelteryFluidUpdatePacket(pos, fluids));
     }
+    this.markDirtyFast();
   }
 
   @Nonnull

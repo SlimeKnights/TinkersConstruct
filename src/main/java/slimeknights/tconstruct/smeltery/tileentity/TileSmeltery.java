@@ -360,6 +360,8 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
     if(isServerWorld()) {
       TinkerNetwork.sendToAll(new SmelteryFluidUpdatePacket(pos, fluids));
     }
+    // tell the chunk the tank changed
+    this.markDirtyFast();
   }
 
   @Nonnull
