@@ -1,5 +1,3 @@
-import scala.tools.nsc.io.Jar
-
 /*
  * Tinkers Construct
  * Master build file

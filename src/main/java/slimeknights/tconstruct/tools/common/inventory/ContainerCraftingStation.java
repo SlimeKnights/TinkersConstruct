@@ -18,6 +18,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -29,7 +30,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.shared.inventory.InventoryCraftingPersistent;
@@ -40,6 +43,7 @@ import slimeknights.tconstruct.tools.common.tileentity.TileCraftingStation;
 @Mod.EventBusSubscriber
 public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftingStation> {
   public static final Logger log = LogManager.getLogger("test");
+  private static final int SLOT_RESULT = 0;
   private final EntityPlayer player;
   private final InventoryCraftingPersistent craftMatrix;
   private final InventoryCraftResult craftResult;
@@ -63,7 +67,7 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
     craftMatrix = new InventoryCraftingPersistent(this, tile, 3, 3);
     player = playerInventory.player;
 
-    this.addSlotToContainer(new SlotCraftingFastWorkbench(this, playerInventory.player, this.craftMatrix, this.craftResult, 0, 124, 35));
+    this.addSlotToContainer(new SlotCraftingFastWorkbench(this, playerInventory.player, this.craftMatrix, this.craftResult, SLOT_RESULT, 124, 35));
     int i;
     int j;
 
@@ -170,18 +174,38 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
     }
 
     if(!world.isRemote) {
-      result.setInventorySlotContents(0, itemstack);
+      result.setInventorySlotContents(SLOT_RESULT, itemstack);
       EntityPlayerMP entityplayermp = (EntityPlayerMP) player;
       if(lastLastRecipe != lastRecipe) {
-        entityplayermp.connection.sendPacket(new SPacketSetSlot(this.windowId, 0, itemstack));
+        syncResultToAllOpenWindows(itemstack, entityplayermp.getServerWorld());
       }
       else if(lastLastRecipe != null && lastLastRecipe == lastRecipe && !ItemStack.areItemStacksEqual(lastLastRecipe.getCraftingResult(inv), lastRecipe.getCraftingResult(inv))) {
-        entityplayermp.connection.sendPacket(new SPacketSetSlot(this.windowId, 0, itemstack));
+        syncResultToAllOpenWindows(itemstack, entityplayermp.getServerWorld());
       }
       TinkerNetwork.sendTo(new LastRecipeMessage(lastRecipe), entityplayermp);
     }
 
     lastLastRecipe = lastRecipe;
+  }
+
+  private void syncResultToAllOpenWindows(final ItemStack itemStack, WorldServer server) {
+    getAllPlayersWithThisContainerOpen(this, server)
+        .forEach(otherPlayer -> otherPlayer.connection.sendPacket(new SPacketSetSlot(this.windowId, SLOT_RESULT, itemStack)));
+  }
+
+  // todo: move this to Mantle
+  // server can be gotten from EntityPlayerMP
+  private <T extends TileEntity> List<EntityPlayerMP> getAllPlayersWithThisContainerOpen(BaseContainer<T> container, WorldServer server) {
+    return server.playerEntities.stream()
+        .filter(player -> hasSameContainerOpen(container, player))
+        .map(player -> (EntityPlayerMP)player)
+        .collect(Collectors.toList());
+  }
+
+  private <T extends TileEntity> boolean hasSameContainerOpen(BaseContainer<T> container, EntityPlayer playerToCheck) {
+    return playerToCheck instanceof EntityPlayerMP &&
+           playerToCheck.openContainer.getClass().isAssignableFrom(container.getClass()) &&
+        this.sameGui((BaseContainer<T>) playerToCheck.openContainer);
   }
 
   @Override
@@ -226,7 +250,7 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
   public void updateLastRecipeFromServer(IRecipe recipe) {
     lastRecipe = recipe;
     if(recipe != null) {
-      this.craftResult.setInventorySlotContents(0, recipe.getCraftingResult(craftMatrix));
+      this.craftResult.setInventorySlotContents(SLOT_RESULT, recipe.getCraftingResult(craftMatrix));
     }
   }
 
