@@ -11,7 +11,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.network.play.server.SPacketSetSlot;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
@@ -165,32 +164,47 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
   protected void slotChangedCraftingGrid(World world, EntityPlayer player, InventoryCrafting inv, InventoryCraftResult result) {
     ItemStack itemstack = ItemStack.EMPTY;
 
+    // if the recipe is no longer valid, update it
     if(lastRecipe == null || !lastRecipe.matches(inv, world)) {
       lastRecipe = CraftingManager.findMatchingRecipe(inv, world);
     }
 
+    // if we have a recipe, fetch its result
     if(lastRecipe != null) {
       itemstack = lastRecipe.getCraftingResult(inv);
     }
+    // set the slot on both sides, client is for display/so the client knows about the recipe
+    result.setInventorySlotContents(SLOT_RESULT, itemstack);
 
+    // update recipe on server
     if(!world.isRemote) {
-      result.setInventorySlotContents(SLOT_RESULT, itemstack);
       EntityPlayerMP entityplayermp = (EntityPlayerMP) player;
-      if(lastLastRecipe != lastRecipe) {
-        syncResultToAllOpenWindows(itemstack, entityplayermp.getServerWorld());
-      }
-      else if(lastLastRecipe != null && lastLastRecipe == lastRecipe && !ItemStack.areItemStacksEqual(lastLastRecipe.getCraftingResult(inv), lastRecipe.getCraftingResult(inv))) {
-        syncResultToAllOpenWindows(itemstack, entityplayermp.getServerWorld());
-      }
-      TinkerNetwork.sendTo(new LastRecipeMessage(lastRecipe), entityplayermp);
-    }
 
-    lastLastRecipe = lastRecipe;
+      // we need to sync to all players currently in the inventory
+      List<EntityPlayerMP> relevantPlayers = getAllPlayersWithThisContainerOpen(this, entityplayermp.getServerWorld());
+
+      // sync result to all serverside inventories to prevent duplications/recipes being blocked
+      // need to do this every time as otherwise taking items of the result causes desync
+      syncResultToAllOpenWindows(itemstack, relevantPlayers);
+
+      // if the recipe changed, update clients last recipe
+      // this also updates the client side display when the recipe is added
+      if(lastLastRecipe != lastRecipe) {
+        syncRecipeToAllOpenWindows(lastRecipe, relevantPlayers);
+        lastLastRecipe = lastRecipe;
+      }
+    }
   }
 
-  private void syncResultToAllOpenWindows(final ItemStack itemStack, WorldServer server) {
-    getAllPlayersWithThisContainerOpen(this, server)
-        .forEach(otherPlayer -> otherPlayer.connection.sendPacket(new SPacketSetSlot(this.windowId, SLOT_RESULT, itemStack)));
+  private void syncResultToAllOpenWindows(final ItemStack stack, List<EntityPlayerMP> players) {
+    players.forEach(otherPlayer -> {
+      otherPlayer.openContainer.putStackInSlot(SLOT_RESULT, stack);
+      //otherPlayer.connection.sendPacket(new SPacketSetSlot(otherPlayer.openContainer.windowId, SLOT_RESULT, stack));
+    });
+  }
+
+  private void syncRecipeToAllOpenWindows(final IRecipe lastRecipe, List<EntityPlayerMP> players) {
+    players.forEach(otherPlayer -> TinkerNetwork.sendTo(new LastRecipeMessage(lastRecipe), otherPlayer));
   }
 
   // todo: move this to Mantle
@@ -249,9 +263,8 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
 
   public void updateLastRecipeFromServer(IRecipe recipe) {
     lastRecipe = recipe;
-    if(recipe != null) {
-      this.craftResult.setInventorySlotContents(SLOT_RESULT, recipe.getCraftingResult(craftMatrix));
-    }
+    // if no recipe, set to empty to prevent ghost outputs when another player grabs the result
+    this.craftResult.setInventorySlotContents(SLOT_RESULT, recipe != null ? recipe.getCraftingResult(craftMatrix) : ItemStack.EMPTY);
   }
 
 
