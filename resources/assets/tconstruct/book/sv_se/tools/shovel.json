@@ -1,0 +1,19 @@
+{
+  "tool": "shovel",
+  "text": [
+    {
+      "text": "Spaden är ett ensidigt grävverktyg. Det är effektivt på jord, sand, grus och snö."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "När man högerklickar på gräs förvandlas gräsblocket till en stig."
+    }
+  ],
+  "properties": [
+    "Enkelt grävverktyg",
+    "Effektiv på jord, sand och grus",
+    "Kan skapa stigar"
+  ]
+}

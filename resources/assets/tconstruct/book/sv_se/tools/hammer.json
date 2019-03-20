@@ -1,0 +1,21 @@
+{
+  "tool": "hammer",
+  "text": [
+    {
+      "text": "Hammaren är ett mångsidigt grävverktyg. Det skördar block i ett brett område och är effektiv mot odöda."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Det är optimalt för att bryta större områden och långa malmbrytningsresor."
+    }
+  ],
+  "properties": [
+    "Kräver en verktygssmed",
+    "Avancerat grävverktyg",
+    "Gräver områden på 3x3",
+    "Effektiv på sten och malm",
+    "Bonusskada mot odöda"
+  ]
+}

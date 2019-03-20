@@ -1,0 +1,24 @@
+{
+  "modifier": "blasting",
+  "text": [
+    {
+      "text": "Spräng alla block! Få dem att försvinna SNABBT!"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Du kan lägga till flera nivåer för att öka hastigheten, men du kommer förmodligen förlora alla skördade block"
+    }
+  ],
+  "effects": [
+    "Bryter block snabbt",
+    "Områdesverktyg skördar också icke-effektiva block",
+    "Kommer troligen förstöra skördade block",
+    "Kräver endast 1 modifierare",
+    "Flera nivåer"
+  ],
+  "demoTool": [
+    "tconstruct:hammer"
+  ]
+}

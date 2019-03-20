@@ -1,0 +1,12 @@
+{
+  "title":"",
+  "text": [
+    {
+      "text": "Tinkertanken kan vara i alla storlekar mellan 3x3 och 11x11, samt en valfri höjd på minst 3. Större strukturer ökar tankstorleken. För att vara en giltig struktur, krävs ett golv och tak tillsammans med en ram runtomkring hela strukturen"
+    },
+    {
+      "text": "Tinkertanken kan byggas med en valfri kombination av brända block, glas och avtappningar. Golv- och takramen måste antingen vara brända block eller avtappningar. En enda tinkertankskontroll behövs. Den kan placeras i valfritt any lager förutom taket och får inte placeras på de yttre kanterna på ramen. Taket stödjer plattor och trappor, även i ramen, förutsett att de är vända nedåt.",
+	  "paragraph": true
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "modifier": "webbed",
+  "text": [
+    {
+      "text": "Alla dessa klibbiga spindelnät måste vara bra till någonting. Sakta ned dina fiender med dem!"
+    }
+  ],
+  "effects": [
+    "Varje nivå ökar hur länge dina fiender saktas ned",
+    "Ultrarapid",
+    "Flera nivåer"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
+  ]
+}
