@@ -945,7 +945,7 @@ gui.error.no_rename=Detta verktyg kan inte byta namn
 
 # General things used in multiple GUIs
 gui.general.hover=Lägg musen över uppslagen för mer information
-gui.general.temperature.celsius=%s °c
+gui.general.temperature.celsius=%s°C
 gui.general.temperature.kelvin=%s K
 
 # Creative Tabs
