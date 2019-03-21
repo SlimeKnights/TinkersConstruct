@@ -905,7 +905,7 @@ gui.error.no_rename=This tool cannot be renamed
 
 # General things used in multiple GUIs
 gui.general.hover=Hover over the entries for more info
-gui.general.temperature.celsius=%s°c
+gui.general.temperature.celsius=%s°C
 gui.general.temperature.kelvin=%sK
 
 # Creative Tabs
