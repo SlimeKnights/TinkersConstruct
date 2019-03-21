@@ -180,6 +180,8 @@ tile.tconstruct.stone_ladder.name=石梯
 tile.tconstruct.wood_rail.name=木质轨道
 tile.tconstruct.wood_rail_trapdoor.name=带活板门的木质轨道
 tile.tconstruct.wood_rail_trapdoor.tooltip=漏斗矿车可以\n穿过这个方块下面
+tile.tconstruct.wooden_hopper.name=木漏斗
+item.tconstruct.wooden_hopper.tooltip=更慢，但更便宜的漏斗替代品
 tile.tconstruct.punji.name=尖竹钉
 tile.tconstruct.punji.tooltip=非常尖锐！可以拿来做围墙
 tile.tconstruct.glow.name=辉光
@@ -392,7 +394,7 @@ item.tconstruct.broad_axe_head.name=宽斧刃
 item.tconstruct.large_plate.name=大板
 item.tconstruct.tough_binding.name=坚韧绑定结
 item.tconstruct.tough_tool_rod.name=坚韧手柄
-item.tconstruct.scythe_head.name=镰刀头模具
+item.tconstruct.scythe_head.name=镰刀头
 item.tconstruct.large_sword_blade.name=宽剑刃
 
 # Bow & Arrow Parts
@@ -903,6 +905,8 @@ gui.error.no_rename=这个工具不能被重命名
 
 # General things used in multiple GUIs
 gui.general.hover=悬停在条目上以获取更多信息
+gui.general.temperature.celsius=%s℃
+gui.general.temperature.kelvin=%sK
 
 # Creative Tabs
 itemGroup.TinkerGeneral=匠魂|一般物品
