@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import slimeknights.mantle.inventory.BaseContainer;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.shared.inventory.InventoryCraftingPersistent;
@@ -167,6 +168,7 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
     // if the recipe is no longer valid, update it
     if(lastRecipe == null || !lastRecipe.matches(inv, world)) {
       lastRecipe = CraftingManager.findMatchingRecipe(inv, world);
+      TConstruct.log.info("Finding new recipe for {}", player.getDisplayNameString());
     }
 
     // if we have a recipe, fetch its result
@@ -204,7 +206,11 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
   }
 
   private void syncRecipeToAllOpenWindows(final IRecipe lastRecipe, List<EntityPlayerMP> players) {
-    players.forEach(otherPlayer -> TinkerNetwork.sendTo(new LastRecipeMessage(lastRecipe), otherPlayer));
+    players.forEach(otherPlayer -> {
+      // safe cast since hasSameContainerOpen does class checks
+      ((ContainerCraftingStation)otherPlayer.openContainer).lastRecipe = lastRecipe;
+      TinkerNetwork.sendTo(new LastRecipeMessage(lastRecipe), otherPlayer);
+    });
   }
 
   // todo: move this to Mantle
