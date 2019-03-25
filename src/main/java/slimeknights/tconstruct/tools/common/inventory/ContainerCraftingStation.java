@@ -96,6 +96,9 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
           if(blacklisted(te.getClass())) {
             continue;
           }
+          if(te instanceof IInventory && !((IInventory) te).isUsableByPlayer(player)) {
+            continue;
+          }
 
           // try internal access first
           if(te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
