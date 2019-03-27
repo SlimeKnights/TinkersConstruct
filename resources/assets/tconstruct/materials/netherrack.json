@@ -1,5 +1,6 @@
 {
     "type": "block",
+    "suffix": "stone_base",
     "parameters": {
         "texture": "minecraft:blocks/netherrack"
     }

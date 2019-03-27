@@ -1,5 +1,6 @@
 {
     "type": "colored",
+    "suffix": "slime_base",
     "parameters": {
         "color": "82c873"
     }

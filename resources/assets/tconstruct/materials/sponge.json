@@ -1,5 +1,6 @@
 {
     "type": "block",
+    "suffix": "bright",
     "parameters": {
         "texture": "minecraft:blocks/sponge"
     }

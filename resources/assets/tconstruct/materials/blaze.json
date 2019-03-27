@@ -1,6 +1,8 @@
 {
-    "type": "colored",
+    "type": "multicolor",
     "parameters": {
-        "color": "ffd120"
+        "dark": "ff5400",
+        "mid": "ff9523",
+        "bright": "fff23d"
     }
 }

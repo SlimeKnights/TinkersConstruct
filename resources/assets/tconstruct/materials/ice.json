@@ -1,5 +1,6 @@
 {
     "type": "colored",
+    "suffix": "bright",
     "parameters": {
         "color": "97d7e0"
     }

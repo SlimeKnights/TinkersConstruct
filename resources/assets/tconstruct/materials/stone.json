@@ -1,6 +1,7 @@
 {
     "type": "colored",
+    "suffix": "stone_base",
     "parameters": {
-        "color": "696969"
+        "color": "9a9a9a"
     }
 }

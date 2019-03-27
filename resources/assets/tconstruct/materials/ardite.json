@@ -1,5 +1,6 @@
 {
     "type": "metal_textured",
+    "suffix": "stone_base",
     "parameters": {
         "texture": "tconstruct:items/materials/ardite_rust",
         "color": "f97217",
