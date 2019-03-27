@@ -171,7 +171,6 @@ public class ContainerCraftingStation extends ContainerTinkerStation<TileCraftin
     // if the recipe is no longer valid, update it
     if(lastRecipe == null || !lastRecipe.matches(inv, world)) {
       lastRecipe = CraftingManager.findMatchingRecipe(inv, world);
-      TConstruct.log.info("Finding new recipe for {}", player.getDisplayNameString());
     }
 
     // if we have a recipe, fetch its result
