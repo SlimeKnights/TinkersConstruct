@@ -1,0 +1,17 @@
+{
+  "modifier": "bane_of_arthopods",
+  "text": [
+    {
+      "text": "Om man slår en spindel med sitt eget öga ryggar den tillbaka i rädsla. Har du ett pestproblem? Här är lösningen. Detta tar kol på kryp."
+    }
+  ],
+  "effects": [
+    "Utdelar enorm skada mot spindlar och silverfiskar",
+    "Flera nivåer"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:hammer",
+    "tconstruct:arrow"
+  ]
+}

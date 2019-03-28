@@ -1,0 +1,20 @@
+{
+  "tool": "rapier",
+  "text": [
+    {
+      "text": "Värjan är ett speciellt vapen som förlitar sig på snabba stötar för att besegra fiender (i rustning). Varje träff med värjan tränger sig delvis igenom målets rustning."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Högerklicka för att utföra ett kort bakåthopp för att undvika attacker."
+    }
+  ],
+  "properties": [
+    "Snabb, men lite skada",
+    "Penetrerar rustning till 50 %",
+    "Högerklick: Backpedal",
+    "Inte i sekundära handen"
+  ]
+}

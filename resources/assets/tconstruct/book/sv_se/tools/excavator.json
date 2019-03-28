@@ -1,0 +1,21 @@
+{
+  "tool": "excavator",
+  "text": [
+    {
+      "text": "Utgrävaren är ett mångsidigt grävverktyg. Den skördar jord och snö i ett brett område."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "När du behöver gräva många gravar."
+    }
+  ],
+  "properties": [
+    "Kräver en verktygssmed",
+    "Avancerat grävverktyg",
+    "Gräver områden på 3x3",
+    "Effektiv på jord, sand och grus",
+    "Kan skapa stigar"
+  ]
+}

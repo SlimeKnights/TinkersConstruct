@@ -1,0 +1,20 @@
+{
+  "tool": "bolt",
+  "text": [
+    {
+      "text": "Armborstpilen är en tung, rustningsgenomträngande projektil. När den laddas i en armborst, utdelar den stora mängder skada medan den även tränger sig igenom hälften av målets rustning."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Den utdelade skadan beror på armborsten såväl som själva armborstpilarna. Sidan \"Hur man tillverkar armborstpilar\" förklarar hur man tillverkar delarna."
+    }
+  ],
+  "properties": [
+    "Ammunition för armborstar",
+    "Penetrerar rustning till 50 %",
+    "Kan plockas upp igen",
+    "En föremålsgrupp innehåller många skott"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "tool": "broadsword",
+  "text": [
+    {
+      "text": "Bredsvärdet är ett månsidigt vapen. Den utdelar medelmåttig skada, gör det möjligt att knuffa tillbaka fiender med en svepande attack medan din andra hand är ledig."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Kompatibel med andra vapen och verktyg i den sekundära handen."
+    }
+  ],
+  "properties": [
+    "Medelmåttig skada",
+    "Svepande attacker",
+    "Kan vara i den sekundära handen"
+  ]
+}

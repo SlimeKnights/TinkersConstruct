@@ -1,0 +1,17 @@
+{
+  "modifier": "knockback",
+  "text": [
+    {
+      "text": "När en kolv fästs på verktyget och aktiveras vid rätt tillfälle verkar det kasta iväg varelser längre bort."
+    }
+  ],
+  "effects": [
+    "Lägger till extra knuff",
+    "Varje kolv ökar knufflängden",
+    "Flera nivåer"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
+  ]
+}
