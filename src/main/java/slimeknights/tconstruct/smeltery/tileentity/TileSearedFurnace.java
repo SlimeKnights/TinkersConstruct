@@ -76,7 +76,7 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
 
   /* Grabs the heat for a furnace */
   @Override
-  protected void updateHeatRequired(int index) {
+  public void updateHeatRequired(int index) {
     ItemStack stack = getStackInSlot(index);
     if(!stack.isEmpty()) {
       ItemStack result = FurnaceRecipes.instance().getSmeltingResult(stack);
@@ -88,6 +88,7 @@ public class TileSearedFurnace extends TileHeatingStructureFuelTank<MultiblockSe
         }
         else {
           // if its too big, set the error state
+          setHeatRequiredForSlot(index, 0);
           itemTemperatures[index] = -1;
         }
 
