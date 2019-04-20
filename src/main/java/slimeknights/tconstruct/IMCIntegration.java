@@ -1,5 +1,8 @@
 package slimeknights.tconstruct;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -60,6 +63,9 @@ public abstract class IMCIntegration {
             break;
           case "addDryingRecipe":
             IMCIntegration.addDryingRecipe(message);
+            break;
+          case "addHeadDrop":
+            IMCIntegration.addHeadDrop(message);
             break;
           default:
             log.error("Got invalid IMC type {} from {}", message.key, message.getSender());
@@ -219,6 +225,33 @@ public abstract class IMCIntegration {
       }
     } else {
       log.error("Got invalid addDryingRecipe IMC from {},output must not be empty and time greater than 0", message.getSender());
+    }
+  }
+
+  /**
+   * Adds a head drop for the cleaver
+   * @param message  NBT IMC message containing the following tags:
+   * <ul>
+   * <li><b>entity:</b> Entity resource ID. For example, for creepers, the ID is "minecraft:creeper"</li>
+   * <li><b>head:</b> NBTTagCompound representing an itemstack for the head</li>
+   * </ul>
+   */
+  @SuppressWarnings("unchecked")
+  protected static void addHeadDrop(FMLInterModComms.IMCMessage message) {
+    if(!message.isNBTMessage()) {
+      return;
+    }
+
+    // get head and entity
+    NBTTagCompound tag = message.getNBTValue();
+    Class<? extends Entity> clazz = EntityList.getClassFromName(tag.getString("entity"));
+    ItemStack head = new ItemStack(tag.getCompoundTag("head"));
+
+    // ensure its EntityLivingBase and we got a valid head
+    if(clazz != null && EntityLivingBase.class.isAssignableFrom(clazz) && !head.isEmpty()) {
+      TinkerRegistry.registerHeadDrop((Class<? extends EntityLivingBase>)clazz, (e) -> head);
+    } else {
+      log.error("Got invalid addHeadDrop IMC from {}, head must not be empty and entity must be EntityLivingBase", message.getSender());
     }
   }
 }

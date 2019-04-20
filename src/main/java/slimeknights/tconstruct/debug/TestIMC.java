@@ -15,6 +15,7 @@ public class TestIMC {
     alloy();
     blacklistMelting();
     addDryingRecipe();
+    addHeadDrop();
   }
 
   public static void integrateSmeltery() {
@@ -102,5 +103,12 @@ public class TestIMC {
     tagCompound.setTag("output", new ItemStack(Blocks.IRON_BLOCK).writeToNBT(new NBTTagCompound()));
     tagCompound.setInteger("time", 40*3);
     FMLInterModComms.sendMessage("tconstruct", "addDryingRecipe", tagCompound);
+  }
+
+  private static void addHeadDrop() {
+    NBTTagCompound tagCompound = new NBTTagCompound();
+    tagCompound.setTag("head", new ItemStack(Blocks.GOLD_ORE).writeToNBT(new NBTTagCompound()));
+    tagCompound.setString("entity", "minecraft:sheep");
+    FMLInterModComms.sendMessage("tconstruct", "addHeadDrop", tagCompound);
   }
 }
