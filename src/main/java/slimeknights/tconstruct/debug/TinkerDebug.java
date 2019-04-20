@@ -11,12 +11,14 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
@@ -39,6 +41,16 @@ public class TinkerDebug {
     if(Config.dumpTextureMap) {
       MinecraftForge.EVENT_BUS.register(new TextureDump());
     }
+  }
+
+  @SubscribeEvent
+  public void testSmelteryIMC(Register<Item> event) {
+    TestIMC.integrateSmeltery();
+  }
+
+  @Subscribe
+  public void init(FMLInitializationEvent event) {
+    TestIMC.testAll();
   }
 
   @Subscribe
