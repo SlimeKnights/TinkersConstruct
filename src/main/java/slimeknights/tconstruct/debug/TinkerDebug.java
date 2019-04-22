@@ -45,12 +45,16 @@ public class TinkerDebug {
 
   @SubscribeEvent
   public void testSmelteryIMC(Register<Item> event) {
-    TestIMC.integrateSmeltery();
+    if(Config.testIMC) {
+      TestIMC.integrateSmeltery();
+    }
   }
 
   @Subscribe
   public void init(FMLInitializationEvent event) {
-    TestIMC.testAll();
+    if(Config.testIMC) {
+      TestIMC.testAll();
+    }
   }
 
   @Subscribe

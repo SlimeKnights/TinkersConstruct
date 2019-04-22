@@ -12,6 +12,7 @@ import slimeknights.tconstruct.shared.TinkerFluids;
 
 public class TestIMC {
   public static void testAll() {
+    TinkerDebug.log.warn("IMC testing enabled, this will add unexpected recipes to the registries");
     alloy();
     blacklistMelting();
     addDryingRecipe();

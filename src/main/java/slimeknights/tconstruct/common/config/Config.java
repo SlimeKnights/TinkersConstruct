@@ -81,6 +81,7 @@ public final class Config {
   public static boolean listAllMaterials = true;
   public static boolean enableForgeBucketModel = true; // enables the forge bucket model by default
   public static boolean dumpTextureMap = false; // requires debug module
+  public static boolean testIMC = false; // requires debug module
   public static boolean temperatureCelsius = true;
 
   /* Config File */
@@ -212,6 +213,11 @@ public final class Config {
       prop.setComment("Preferred mod ID for oredictionary outputs. Top most mod ID will be the preferred output ID, and if none is found the first output stack is used.");
       orePreference = prop.getStringList();
       RecipeUtil.setOrePreferences(orePreference);
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "testIMC", testIMC);
+      prop.setComment("REQUIRES DEBUG MODULE. Tests all IMC integrations with dummy recipes. May significantly impact gameplay, so its advised you disable this outside of dev environements.");
+      testIMC = prop.getBoolean();
       propOrder.add(prop.getName());
     }
     // Worldgen

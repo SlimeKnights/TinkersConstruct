@@ -12,6 +12,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.logging.log4j.Logger;
@@ -26,6 +27,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 public abstract class IMCIntegration {
 
   static final Logger log = Util.getLogger("IMC");
+  private static List<FMLInterModComms.IMCMessage> earlyMessages = new LinkedList<>();
 
   private IMCIntegration() {}
 
@@ -33,7 +35,6 @@ public abstract class IMCIntegration {
    * Handles IMCs that must be done by the recipe register event
    */
   public static void integrateSmeltery() {
-    // TODO: this might mess with timing of other messages
     for(FMLInterModComms.IMCMessage message : FMLInterModComms.fetchRuntimeMessages(TConstruct.instance)) {
       if(message.key.equals("integrateSmeltery")) {
         try {
@@ -41,6 +42,9 @@ public abstract class IMCIntegration {
         } catch(ClassCastException e) {
           log.error("Got invalid integrateSmeltery IMC from {}", message.getSender());
         }
+      } else {
+        // store the message to process later
+        earlyMessages.add(message);
       }
     }
   }
@@ -49,7 +53,16 @@ public abstract class IMCIntegration {
    * Handles main IMCs
    */
   public static void handleIMC(FMLInterModComms.IMCEvent event) {
-    for(FMLInterModComms.IMCMessage message : event.getMessages()) {
+    handleMessages(earlyMessages);
+    earlyMessages.clear();
+    handleMessages(event.getMessages());
+  }
+
+  /**
+   * Handles main IMCs
+   */
+  private static void handleMessages(List<FMLInterModComms.IMCMessage> messages) {
+    for(FMLInterModComms.IMCMessage message : messages) {
       try {
         switch(message.key) {
           case "integrateSmeltery":
