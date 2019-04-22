@@ -500,7 +500,8 @@ public final class TinkerRegistry {
    * @param head   Head that drops from that entity
    */
   public static void registerHeadDrop(Class<? extends EntityLivingBase> clazz, ItemStack head) {
-    registerHeadDrop(clazz, (e) -> head);
+    final ItemStack safeStack = head.copy();
+    registerHeadDrop(clazz, (e) -> safeStack);
   }
 
   /**
@@ -511,7 +512,7 @@ public final class TinkerRegistry {
   public static ItemStack getHeadDrop(EntityLivingBase entity) {
     Function<EntityLivingBase, ItemStack> callback = headDrops.get(entity.getClass());
     if(callback != null) {
-      return callback.apply(entity);
+      return callback.apply(entity).copy();
     }
     return ItemStack.EMPTY;
   }

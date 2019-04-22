@@ -14,6 +14,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
@@ -23,7 +24,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.TinkerUtil;
 
-// todo: make some kind of class->head registry that can be expanded via IMC for the lookup
 public class ModBeheading extends ToolModifier {
 
   private static String BEHEADING_ID = "beheading";
@@ -89,7 +89,7 @@ public class ModBeheading extends ToolModifier {
     if(event.getSource().getTrueSource() instanceof EntityPlayer) {
       // has beheading
       int level = getBeheadingLevel(event.getSource());
-      if(level > 0 && level > random.nextInt(10)) {
+      if(shouldDropHead(level)) {
         ItemStack head = TinkerRegistry.getHeadDrop(event.getEntityLiving());
         if(!head.isEmpty() && !alreadyContainsDrop(event, head)) {
           EntityItem entityitem = new EntityItem(event.getEntityLiving().getEntityWorld(), event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, head);
@@ -104,10 +104,10 @@ public class ModBeheading extends ToolModifier {
   public void playerDrop(LivingDeathEvent event) {
     // if keepInventory is true, players do not fire the living drops event
     EntityLivingBase entity = event.getEntityLiving();
-    if(entity.world.getGameRules().getBoolean("keepInventory") && entity instanceof EntityPlayerMP){
+    if(entity.world.getGameRules().getBoolean("keepInventory") && entity instanceof EntityPlayerMP) {
       int level = getBeheadingLevel(event.getSource());
 
-      if(level > 0 && level > random.nextInt(10)) {
+      if(shouldDropHead(level)) {
         ItemStack head = TinkerRegistry.getHeadDrop(entity);
         if(!head.isEmpty()) {
           ((EntityPlayerMP) entity).dropItem(head, true);
@@ -116,12 +116,18 @@ public class ModBeheading extends ToolModifier {
     }
   }
 
+  private boolean shouldDropHead(int level) {
+    return level > 0 && level > random.nextInt(10);
+  }
+
   private boolean alreadyContainsDrop(LivingDropsEvent event, ItemStack head) {
     // special case players: we want to add a new head drop even if they have their own head in their inventory
     if(event.getEntityLiving() instanceof EntityPlayerMP) {
       return false;
     }
-    return event.getDrops().stream().map(EntityItem::getItem).anyMatch(drop -> ItemStack.areItemStacksEqual(drop, head));
+    return event.getDrops().stream()
+                .map(EntityItem::getItem)
+                .anyMatch(drop -> ItemStack.areItemStacksEqual(drop, head));
   }
 
   private static class ModBeheadingCleaver extends ModBeheading {
