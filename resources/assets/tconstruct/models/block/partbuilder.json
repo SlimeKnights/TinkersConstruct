@@ -1,11 +1,139 @@
 {
-    "parent": "tconstruct:block/table",
-    "textures": {
-        "particle": "tconstruct:blocks/partbuilder_top",
-        "top": "tconstruct:blocks/partbuilder_top",
-        "side": "tconstruct:blocks/table_side",
-        "bottom": "minecraft:blocks/log_oak",
-        "leg": "minecraft:blocks/log_oak",
-        "legBottom": "minecraft:blocks/log_oak"
-    }
+	"parent": "block/block",
+	"textures": {
+		"top": "tconstruct:blocks/chest/partbuilder_top",
+		"particle": "tconstruct:blocks/chest/partbuilder_top",
+		"side": "tconstruct:blocks/chest/partbuilder_side",
+		"leg": "blocks/planks_oak"
+	},
+	"elements": [
+		{
+			"name": "Body",
+			"from": [1, 10, 1],
+			"to": [15, 15, 15],
+			"shade": true,
+			"faces": {
+				"north": {"uv": [1, 2, 15, 7], "texture": "#leg"},
+				"east": {"uv": [1, 2, 15, 7], "texture": "#leg"},
+				"south": {"uv": [1, 2, 15, 7], "texture": "#leg"},
+				"west": {"uv": [1, 2, 15, 7], "texture": "#leg"},
+				"up": {"uv": [1, 1, 15, 15],	"texture": "#drawer_front"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#side"}
+			}
+		},
+		{
+			"name": "Body - Bottom",
+			"from": [1, 9, 1],
+			"to": [15, 10, 15],
+			"shade": true,
+			"faces": {
+				"north": {"uv": [1, 15, 15, 16], "texture": "#side"},
+				"east": {"uv": [1, 15, 15, 16], "texture": "#side"},
+				"south": {"uv": [1, 15, 15, 16], "texture": "#side"},
+				"west": {"uv": [1, 15, 15, 16], "texture": "#side"},
+				"up": {"uv": [0, 0, 16, 16],	"texture": "#drawer_front"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#side"}
+			}
+		},
+		{
+			"name": "Top",
+			"from": [0, 15, 0],
+			"to": [16, 16, 16],
+			"shade": true,
+			"faces": {
+				"north": {"uv": [0, 15, 16, 16], "texture": "#top"},
+				"east": {
+					"uv": [15, 0, 16, 16],
+					"texture": "#top",
+					"rotation": 90
+				},
+				"south": {"uv": [0, 15, 16, 16], "texture": "#top"},
+				"west": {
+					"uv": [15, 0, 16, 16],
+					"texture": "#top",
+					"rotation": 90
+				},
+				"up": {"uv": [0, 0, 16, 16], "texture": "#top"},
+				"down": {"uv": [0, 0, 16, 16], "texture": "#top"}
+			}
+		},
+		{
+			"name": "Leg - NW",
+			"from": [0.5, 0, 0.5],
+			"to": [2.5, 15, 2.5],
+			"shade": true,
+			"faces": {
+				"north": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"east": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"south": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"west": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"up": {"uv": [0, 0, 1, 1], "texture": "#side"},
+				"down": {"uv": [0, 14, 1, 15], "texture": "#side"}
+			}
+		},
+		{
+			"name": "Leg - SW",
+			"from": [0.5, 0, 13.5],
+			"to": [2.5, 15, 15.5],
+			"shade": true,
+			"faces": {
+				"north": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"east": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"south": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"west": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"up": {"uv": [0, 0, 1, 1], "texture": "#side"},
+				"down": {"uv": [0, 14, 1, 15], "texture": "#side"}
+			}
+		},
+		{
+			"name": "Leg - SE",
+			"from": [13.5, 0, 13.5],
+			"to": [15.5, 15, 15.5],
+			"shade": true,
+			"faces": {
+				"north": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"east": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"south": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"west": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"up": {"uv": [0, 0, 1, 1], "texture": "#side"},
+				"down": {"uv": [0, 14, 1, 15], "texture": "#side"}
+			}
+		},
+		{
+			"name": "Leg - NE",
+			"from": [13.5, 0, 0.5],
+			"to": [15.5, 15, 2.5],
+			"shade": true,
+			"faces": {
+				"north": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"east": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"south": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"west": {"uv": [0, 0, 1, 15], "texture": "#side"},
+				"up": {"uv": [0, 0, 1, 1], "texture": "#side"},
+				"down": {"uv": [0, 14, 1, 15], "texture": "#side"}
+			}
+		}
+	],
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [75, 135, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [75, 135, 0],
+			"translation": [0, 2.5, 0],
+			"scale": [0.375, 0.375, 0.375]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 135, 0],
+			"translation": [0, 0, 0],
+			"scale": [0.4, 0.4, 0.4]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 135, 0],
+			"translation": [0, 0, 0],
+			"scale": [0.4, 0.4, 0.4]
+		}
+	}
 }
