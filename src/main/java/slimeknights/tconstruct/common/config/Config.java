@@ -58,7 +58,12 @@ public final class Config {
   };
   public static Set<String> craftingStationBlacklist = Collections.emptySet();
   public static String[] oredictMeltingIgnore = {
-          "stickWood"
+          "dustRedstone",
+          "plankWood",
+          "stickWood",
+          "stickTreatedWood",
+          "string",
+          "minecraft:chest:0"
   };
 
   // Worldgen

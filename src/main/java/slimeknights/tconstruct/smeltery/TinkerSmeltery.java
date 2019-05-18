@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.eventbus.Subscribe;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.monster.EntityEvoker;
 import net.minecraft.entity.monster.EntityIllusionIllager;
@@ -36,15 +35,8 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.IForgeRegistry;
-
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.Logger;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.pulsar.pulse.Pulse;
@@ -94,6 +86,11 @@ import slimeknights.tconstruct.smeltery.tileentity.TileSmelteryComponent;
 import slimeknights.tconstruct.smeltery.tileentity.TileTank;
 import slimeknights.tconstruct.smeltery.tileentity.TileTinkerTank;
 import slimeknights.tconstruct.tools.TinkerMaterials;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Pulse(id = TinkerSmeltery.PulseId, description = "The smeltery and items needed for it")
 public class TinkerSmeltery extends TinkerPulse {
@@ -392,6 +389,12 @@ public class TinkerSmeltery extends TinkerPulse {
     // special melting
     TinkerRegistry.registerMelting(Items.IRON_HORSE_ARMOR, TinkerFluids.iron, Material.VALUE_Ingot * 4);
     TinkerRegistry.registerMelting(Items.GOLDEN_HORSE_ARMOR, TinkerFluids.gold, Material.VALUE_Ingot * 4);
+
+    // rails, some of these are caught through registerOredictMelting, but for consistency all are just registered here
+    TinkerRegistry.registerMelting(Blocks.RAIL, TinkerFluids.iron, Material.VALUE_Ingot * 6 / 16);
+    TinkerRegistry.registerMelting(Blocks.ACTIVATOR_RAIL, TinkerFluids.iron, Material.VALUE_Ingot);
+    TinkerRegistry.registerMelting(Blocks.DETECTOR_RAIL, TinkerFluids.iron, Material.VALUE_Ingot);
+    TinkerRegistry.registerMelting(Blocks.GOLDEN_RAIL, TinkerFluids.gold, Material.VALUE_Ingot);
 
     // register stone toolpart melting
     for(IToolPart toolPart : TinkerRegistry.getToolParts()) {
