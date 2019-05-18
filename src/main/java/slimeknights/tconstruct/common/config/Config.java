@@ -2,7 +2,6 @@ package slimeknights.tconstruct.common.config;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.ConfigCategory;
@@ -11,17 +10,15 @@ import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
 import org.apache.logging.log4j.Logger;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
 import slimeknights.mantle.pulsar.config.ForgeCFG;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.RecipeUtil;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 public final class Config {
 
@@ -60,6 +57,9 @@ public final class Config {
       "ic2"
   };
   public static Set<String> craftingStationBlacklist = Collections.emptySet();
+  public static String[] oredictMeltingIgnore = {
+          "stickWood"
+  };
 
   // Worldgen
   public static boolean genSlimeIslands = true;
@@ -213,6 +213,11 @@ public final class Config {
       prop.setComment("Preferred mod ID for oredictionary outputs. Top most mod ID will be the preferred output ID, and if none is found the first output stack is used.");
       orePreference = prop.getStringList();
       RecipeUtil.setOrePreferences(orePreference);
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "oredictMeltingIgnore", oredictMeltingIgnore);
+      prop.setComment("List of items to ignore when generating melting recipes from the crafting registry. For example, ignoring sticks allows metal pickaxes to melt down.\nFormat: oreName or modid:item[:meta]. If meta is unset, uses wildcard");
+      oredictMeltingIgnore = prop.getStringList();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "testIMC", testIMC);
