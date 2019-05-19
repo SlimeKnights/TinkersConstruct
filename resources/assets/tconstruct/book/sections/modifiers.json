@@ -94,8 +94,5 @@
   {
     "type": "modifier",
     "data": "modifiers/extratrait.json"
-  },
-  {
-    "type": "blank"
   }
 ]
