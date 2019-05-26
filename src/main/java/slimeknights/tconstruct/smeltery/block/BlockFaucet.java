@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.smeltery.block;
 
 import com.google.common.collect.ImmutableMap;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
@@ -22,12 +21,12 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.smeltery.tileentity.TileFaucet;
+import java.util.Random;
 
 public class BlockFaucet extends BlockContainer {
 
@@ -95,13 +94,21 @@ public class BlockFaucet extends BlockContainer {
   }
 
   @Override
-  public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-    if(worldIn.isRemote) {
+  public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
+    if (world.isRemote) {
       return;
     }
-    TileEntity te = worldIn.getTileEntity(pos);
+    TileEntity te = world.getTileEntity(pos);
+    if (te instanceof TileFaucet) {
+      ((TileFaucet) te).handleRedstone(world.isBlockPowered(pos));
+    }
+  }
+
+  @Override
+  public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
+    TileEntity te = world.getTileEntity(pos);
     if(te instanceof TileFaucet) {
-      ((TileFaucet) te).handleRedstone(worldIn.isBlockPowered(pos));
+      ((TileFaucet) te).activate();
     }
   }
 
