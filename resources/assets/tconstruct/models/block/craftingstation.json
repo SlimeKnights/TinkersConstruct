@@ -1,23 +1,23 @@
 {
 	"parent": "block/block",
 	"textures": {
-		"particle": "tconstruct:blocks/chest/craftingstation_top",
 		"top": "tconstruct:blocks/chest/craftingstation_top",
+		"particle": "tconstruct:blocks/chest/craftingstation_top",
 		"side": "tconstruct:blocks/chest/craftingstation_side"
 	},
 	"elements": [
 		{
 			"name": "Body",
-			"from": [1, 9, 1],
+			"from": [1, 12, 1],
 			"to": [15, 15, 15],
 			"shade": true,
 			"faces": {
-				"north": {"uv": [1, 10, 15, 16], "texture": "#side"},
-				"east": {"uv": [1, 10, 15, 16], "texture": "#side"},
-				"south": {"uv": [1, 10, 15, 16], "texture": "#side"},
-				"west": {"uv": [1, 10, 15, 16], "texture": "#side"},
+				"north": {"uv": [1, 13, 15, 16], "texture": "#side"},
+				"east": {"uv": [1, 13, 15, 16], "texture": "#side"},
+				"south": {"uv": [1, 13, 15, 16], "texture": "#side"},
+				"west": {"uv": [1, 13, 15, 16], "texture": "#side"},
 				"up": {"uv": [1, 1, 15, 15], "texture": "#side"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#side"}
+				"down": {"uv": [0, 0, 14, 14], "texture": "#side"}
 			}
 		},
 		{
