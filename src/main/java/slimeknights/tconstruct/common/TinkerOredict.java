@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.common;
 
 import com.google.common.collect.ImmutableSet;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.init.Blocks;
@@ -11,12 +10,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.Set;
-
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.common.block.BlockToolTable;
+
+import java.util.Set;
 
 import static slimeknights.tconstruct.gadgets.TinkerGadgets.stoneStick;
 import static slimeknights.tconstruct.gadgets.TinkerGadgets.stoneTorch;
@@ -139,6 +137,10 @@ public class TinkerOredict {
     oredict(new ItemStack(Blocks.STONEBRICK, 1, BlockStoneBrick.MOSSY_META), "blockMossy");
 
     oredict(Blocks.TRAPDOOR, "trapdoorWood");
+
+    // clay melting
+    oredict(Items.CLAY_BALL, "clay");
+    oredict(Blocks.CLAY, "blockClay");
 
     // vanilla cooked meat
     // compatibility with pams harvestcraft
