@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.modifiers;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,7 +13,6 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
@@ -69,9 +67,16 @@ public class ModBeheading extends ToolModifier {
   }
 
   private int getBeheadingLevel(DamageSource source) {
+    if (!(source.getTrueSource() instanceof EntityLivingBase)) {
+      return 0;
+    }
     ItemStack item = CapabilityTinkerProjectile.getTinkerProjectile(source)
         .map(ITinkerProjectile::getItemStack)
-        .orElse(((EntityPlayer) source.getTrueSource()).getHeldItem(EnumHand.MAIN_HAND));
+        .orElse(((EntityLivingBase)source.getTrueSource()).getHeldItem(EnumHand.MAIN_HAND));
+
+    if (item.isEmpty()) {
+      return 0;
+    }
 
     NBTTagCompound tag = TinkerUtil.getModifierTag(item, getIdentifier());
     int level = ModifierNBT.readTag(tag).level;
@@ -86,16 +91,14 @@ public class ModBeheading extends ToolModifier {
 
   @SubscribeEvent
   public void onLivingDrops(LivingDropsEvent event) {
-    if(event.getSource().getTrueSource() instanceof EntityPlayer) {
-      // has beheading
-      int level = getBeheadingLevel(event.getSource());
-      if(shouldDropHead(level)) {
-        ItemStack head = TinkerRegistry.getHeadDrop(event.getEntityLiving());
-        if(!head.isEmpty() && !alreadyContainsDrop(event, head)) {
-          EntityItem entityitem = new EntityItem(event.getEntityLiving().getEntityWorld(), event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, head);
-          entityitem.setDefaultPickupDelay();
-          event.getDrops().add(entityitem);
-        }
+    // has beheading
+    int level = getBeheadingLevel(event.getSource());
+    if(shouldDropHead(level)) {
+      ItemStack head = TinkerRegistry.getHeadDrop(event.getEntityLiving());
+      if(!head.isEmpty() && !alreadyContainsDrop(event, head)) {
+        EntityItem entityitem = new EntityItem(event.getEntityLiving().getEntityWorld(), event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, head);
+        entityitem.setDefaultPickupDelay();
+        event.getDrops().add(entityitem);
       }
     }
   }
