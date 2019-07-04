@@ -1,9 +1,0 @@
-{
-    "parent": "item/handheld",
-    "textures": {
-        "layer0": "tconstruct:items/pickaxe/handle",
-        "layer1": "tconstruct:items/pickaxe/head",
-		"layer2": "tconstruct:items/pickaxe/binding",
-		"broken1": "tconstruct:items/pickaxe/broken_head"
-    }
-}

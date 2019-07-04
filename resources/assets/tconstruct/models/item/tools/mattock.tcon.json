@@ -1,8 +1,0 @@
-{
-    "textures": {
-        "layer0": "tconstruct:items/mattock/handle",
-        "layer1": "tconstruct:items/mattock/head",
-        "layer2": "tconstruct:items/mattock/back",
-        "broken1": "tconstruct:items/mattock/broken_head"
-    }
-}

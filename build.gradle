@@ -8,31 +8,36 @@
 
 buildscript {
     repositories {
-        mavenCentral()
-		mavenLocal()
+        mavenLocal()
+        maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
-        maven {
-            name = "forge"
-            url = "https://files.minecraftforge.net/maven"
-        }
+        mavenCentral()
         maven {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
-/*
-plugins {
-    id "net.minecraftforge.gradle.forge" version "2.0.1"
-}*/
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+import net.minecraftforge.gradle.common.task.SignJar
 
 repositories {
+    mavenLocal()
+    maven {
+        name 'ForgeFS'
+        url 'https://files.minecraftforge.net/maven'
+    }
     maven {
         name 'DVS1 Maven FS'
-        url 'http://dvs1.progwml6.com/files/maven'
+        url 'https://dvs1.progwml6.com/files/maven'
     }
     maven { // TOP
         name 'tterrag maven'
@@ -41,10 +46,6 @@ repositories {
     maven { // compatlayer
         name 'K-4u maven'
         url "https://maven.k-4u.nl/"
-    }
-    maven {
-        name 'forge'
-        url 'https://files.minecraftforge.net/maven'
     }
     maven {
          name "Tehnut Maven FS"
@@ -56,27 +57,7 @@ repositories {
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'maven'
-apply plugin: 'maven-publish'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-group= "slimeknights"
-archivesBaseName = "TConstruct"
-
-// External properties
-ext.configFile = file "build.properties"
-configFile.withReader {
-    // Load config.  It shall from now be referenced as simply config or project.config
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
-}
-configurations {
-    deployerJars
-}
+group = 'slimeknights.tconstruct'
 
 // sets version to the slimeKnights version format
 task buildInfo {
@@ -101,91 +82,129 @@ task buildInfo {
 }
 ext.artifact_version = 'NFG'
 if (System.getenv().ARTIFACT_VERSION == null) {
-    artifact_version = "${config.mod_version}.${project.buildInfo.buildNum}"
+    artifact_version = "${mod_version}.${project.buildInfo.buildNum}"
 }
 if (System.getenv().ARTIFACT_VERSION != null) {
     artifact_version = "${system.getenv().ARTIFACT_VERSION}"
 }
 
-version = "${config.minecraft_version}-${artifact_version}"
+version = "${minecraft_version}-${artifact_version}"
 
 minecraft {
-    version = config.minecraft_version + "-" + config.forge_version
-    mappings = config.mappings
-    runDir = "run"
-    replace '${version}', project.version
-    useDepAts = true
-}
+    mappings channel: 'snapshot', version: mappings_version
+    
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    
+    runs {
+        client {
+            workingDirectory project.file('run')
 
-dependencies {
-    // you may put jars on which you depend on in ./libs
-    // or you may define them like so..
-    deobfCompile "slimeknights.mantle:Mantle:${config.minecraft_version_short}-${config.mantle_version}"
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE,PULSARCONFIG'
 
-    // compile against the JEI API
-    deobfCompile "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}:api"
-    // at runtime, use the full JEI jar
-    runtime "mezz.jei:jei_${config.minecraft_version}:${config.jei_version}"
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
 
-    deobfCompile "mcp.mobius.waila:Hwyla:${config.hwyla_version}"
-    deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${config.probe_version}"
-    deobfCompile "cofh:RedstoneFlux:${config.redstoneflux_version}:universal"
-    deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
-}
+            mods {
+                mantle {
+                    source sourceSets.main
+                }
+            }
+        }
 
-sourceSets {
-    main {
-        resources {
-            srcDir 'resources'
+        server {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE,PULSARCONFIG'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                mantle {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE,PULSARCONFIG'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', 'tconstruct', '--all', '--output', file('generated/resources/')
+
+            mods {
+                tconstruct {
+                    source sourceSets.main
+                }
+            }
         }
     }
 }
 
+configurations {
+    deployerJars
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:' + minecraft_version + '-' + forge_version
+    
+    compile fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
+
+    // compile against the JEI API but do not include it at runtime
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    // at runtime, use the full JEI jar
+	runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
+    
+    //deobfCompile "mcp.mobius.waila:Hwyla:${config.hwyla_version}"
+    //deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${config.probe_version}"
+    //deobfCompile "cofh:RedstoneFlux:${config.redstoneflux_version}:universal"
+
+    deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
+}
+
 processResources
 {
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "MCversion", project.minecraft.version
+    inputs.property "version", artifact_version
+    inputs.property "MCversion", minecraft_version
 
-    // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'MCversion':project.minecraft.version
+        include 'META-INF/mods.toml'
+
+        expand 'version':artifact_version, 'MCversion':minecraft_version, 'forge_version':forge_version_toml
     }
-        
-    // copy everything else, thats not the mcmod.info
+
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        exclude 'META-INF/mods.toml'
     }
 }
 
-// Add Access Transformers Manifest
+
 jar {
     manifest {
-        attributes 'FMLAT': 'tconstruct_at.cfg'
-    }
-    
-    finalizedBy reobfJar
-}
-
-// Create deobf dev jars
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'deobf'
-	manifest {
-        attributes 'FMLAT': 'tconstruct_at.cfg'
+        attributes([
+                "Specification-Title"     : "Tinkers Construct",
+                "Specification-Vendor"    : "Slime Knights",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : "${version}",
+                "Implementation-Vendor"   : "Slime Knights",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
     }
 }
-
 task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
     classifier = 'sources'
 }
 
 artifacts {
-    archives deobfJar
     archives sourcesJar
 }
 
@@ -256,7 +275,6 @@ publishing {
         mavenJava(MavenPublication) {
             // todo: remove deobf and sources jar in 1.13
             artifact jar
-            artifact deobfJar
             artifact sourcesJar
         }
     }

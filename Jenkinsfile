@@ -9,12 +9,6 @@ pipeline {
             }
         }
 
-        stage('Setup') {
-            steps {
-                sh "./gradlew clean setupCIWorkspace --no-daemon"
-            }
-        }
-
         stage('Build') {
             steps {
                 sh "./gradlew build -PBUILD_NUMBER=${env.BUILD_NUMBER} --no-daemon"

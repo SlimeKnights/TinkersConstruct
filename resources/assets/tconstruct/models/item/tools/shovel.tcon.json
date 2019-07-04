@@ -1,8 +1,0 @@
-{
-    "textures": {
-        "layer0": "tconstruct:items/shovel/handle",
-        "layer1": "tconstruct:items/shovel/head",
-        "layer2": "tconstruct:items/shovel/binding",
-		"broken1": "tconstruct:items/shovel/broken_head"
-    }
-}
