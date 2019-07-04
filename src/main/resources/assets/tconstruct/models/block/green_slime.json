@@ -1,0 +1,7 @@
+{
+  "parent": "block/slime_block",
+  "textures": {
+    "particle": "minecraft:block/slime_block",
+    "texture": "minecraft:block/slime_block"
+  }
+}

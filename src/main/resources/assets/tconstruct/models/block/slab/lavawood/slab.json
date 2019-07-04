@@ -1,0 +1,8 @@
+{
+    "parent": "block/slab",
+    "textures": {
+        "bottom": "tconstruct:block/lavawood",
+        "top": "tconstruct:block/lavawood",
+        "side": "tconstruct:block/lavawood"
+    }
+}

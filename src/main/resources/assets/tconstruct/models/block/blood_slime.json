@@ -1,0 +1,7 @@
+{
+  "parent": "block/slime_block",
+  "textures": {
+    "particle": "tconstruct:block/slime/blood_slime",
+    "texture": "tconstruct:block/slime/blood_slime"
+  }
+}

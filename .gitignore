@@ -48,3 +48,5 @@ options.txt
 /classes/
 #custom
 *.tmp
+/generated/
+/run/
