@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.config.ForgeCFG;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.utils.RecipeUtil;
 
 import java.util.Collections;
@@ -88,6 +89,7 @@ public final class Config {
   public static boolean dumpTextureMap = false; // requires debug module
   public static boolean testIMC = false; // requires debug module
   public static boolean temperatureCelsius = true;
+  public static int minFluidHeight = 3;
 
   /* Config File */
 
@@ -328,6 +330,14 @@ public final class Config {
       temperatureCelsius = prop.getBoolean();
       propOrder.add(prop.getName());
       Util.setTemperaturePref(temperatureCelsius);
+
+      prop = configFile.get(cat, "minFluidHeight", minFluidHeight);
+      prop.setComment("Minimum fluid height to display in smeltery. Make those tiny amounts easier to click on. Can make the Smeltery appear more full than it really is.");
+      prop.setMinValue(1);
+      prop.setMaxValue(8);
+      minFluidHeight = prop.getInt();
+      propOrder.add(prop.getName());
+      GuiUtil.setMinFluidHeight(minFluidHeight);
 
       prop = configFile.get(cat, "enableForgeBucketModel", enableForgeBucketModel);
       prop.setComment("If true tools will enable the forge bucket model on startup and then turn itself off. This is only there so that a fresh install gets the buckets turned on by default.");

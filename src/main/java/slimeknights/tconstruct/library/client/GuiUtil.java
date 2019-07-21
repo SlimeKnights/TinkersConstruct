@@ -154,8 +154,18 @@ public class GuiUtil {
     return null;
   }
 
+  private static int minFluidHeight = 3;
+
+  /**
+   * Sets the preference from the config. For internal use only
+   * @param minHeight  integer minimum display height for fluids
+   */
+  public static void setMinFluidHeight(int minHeight) {
+    minFluidHeight = minHeight;
+  }
+
   private static int[] calcLiquidHeights(List<FluidStack> liquids, int capacity, int height) {
-    return SmelteryRenderer.calcLiquidHeights(liquids, capacity, height, 3);
+    return SmelteryRenderer.calcLiquidHeights(liquids, capacity, height, minFluidHeight);
   }
 
   public static void drawGuiTank(SmelteryTank liquids, int x, int y, int w, int height, float zLevel) {
