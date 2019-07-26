@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.config.ForgeCFG;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.utils.RecipeUtil;
 
 import java.util.Collections;
@@ -337,7 +336,7 @@ public final class Config {
       prop.setMaxValue(8);
       minFluidHeight = prop.getInt();
       propOrder.add(prop.getName());
-      GuiUtil.setMinFluidHeight(minFluidHeight);
+      Util.setMinFluidHeight(minFluidHeight);
 
       prop = configFile.get(cat, "enableForgeBucketModel", enableForgeBucketModel);
       prop.setComment("If true tools will enable the forge bucket model on startup and then turn itself off. This is only there so that a fresh install gets the buckets turned on by default.");
