@@ -48,8 +48,8 @@ repositories {
         url "https://maven.k-4u.nl/"
     }
     maven {
-         name "Tehnut Maven FS"
-         url "https://tehnut.info/maven"
+        name "Tehnut Maven FS"
+        url "https://tehnut.info/maven"
     }
     maven {
         name = "CoFH Maven"
@@ -70,7 +70,7 @@ task buildInfo {
         } else {
             ext.revision = "GITBORK"
         }
-    } catch(all) {
+    } catch (all) {
         ext.revision = "gitgud"
     }
 
@@ -92,15 +92,16 @@ version = "${minecraft_version}-${artifact_version}"
 
 minecraft {
     mappings channel: 'snapshot', version: mappings_version
-    
+
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-    
+
     runs {
         client {
             workingDirectory project.file('run')
 
             // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE,PULSARCONFIG'
+            property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP,CORE,PULSAR'
+            // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE,PULSAR' enable if you want spam from the scanner.
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
@@ -116,7 +117,7 @@ minecraft {
             workingDirectory project.file('run')
 
             // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE,PULSARCONFIG'
+            property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP,CORE,PULSAR'
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
@@ -132,7 +133,7 @@ minecraft {
             workingDirectory project.file('run')
 
             // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE,PULSARCONFIG'
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE,PULSAR'
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
@@ -154,14 +155,14 @@ configurations {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:' + minecraft_version + '-' + forge_version
-    
-    compile fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
+
+    compile fg.deobf("slimeknights.mantle:Mantle:${minecraft_version_previous}-${mantle_version}")
 
     // compile against the JEI API but do not include it at runtime
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
     // at runtime, use the full JEI jar
-	runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
-    
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
+
     //deobfCompile "mcp.mobius.waila:Hwyla:${config.hwyla_version}"
     //deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${config.probe_version}"
     //deobfCompile "cofh:RedstoneFlux:${config.redstoneflux_version}:universal"
@@ -169,15 +170,14 @@ dependencies {
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 }
 
-processResources
-{
+processResources {
     inputs.property "version", artifact_version
     inputs.property "MCversion", minecraft_version
 
     from(sourceSets.main.resources.srcDirs) {
         include 'META-INF/mods.toml'
 
-        expand 'version':artifact_version, 'MCversion':minecraft_version, 'forge_version':forge_version_toml
+        expand 'version': artifact_version, 'MCversion': minecraft_version, 'forge_version': forge_version_toml
     }
 
     from(sourceSets.main.resources.srcDirs) {
@@ -211,7 +211,7 @@ artifacts {
 // verify the properties exist.. or initialize.
 if (!project.hasProperty("keystore_location")) // keystore location
     ext.keystore_location = "."
-    
+
 if (!project.hasProperty("keystore_user_alias")) // keystore user alias
     ext.keystore_user_alias = ""
 if (!project.hasProperty("sftp_username"))
@@ -221,32 +221,32 @@ if (!project.hasProperty("sftp_key"))
 if (!project.hasProperty("keystore_user_password")) // keystore user pass
     ext.keystore_user_password = ""
 if (System.getenv().KSK_PW != null)
-	ext.keystore_user_password =System.getenv().KSK_PW
+    ext.keystore_user_password = System.getenv().KSK_PW
 
 
-task("uploadJars", dependsOn:"build") {
-    
+task("uploadJars", dependsOn: "build") {
+
     description = "uploads JARs"
 
     if (project.hasProperty("local_maven") || project.hasProperty("sftp_maven")) {
-	    apply plugin: 'maven'
+        apply plugin: 'maven'
         uploadArchives {
             repositories {
-		    	if(project.hasProperty("local_maven"))
-			    {
+                if (project.hasProperty("local_maven")) {
                     mavenDeployer {
                         repository(url: "file://${local_maven}")
-				    }
+                    }
                 }
-				if(project.hasProperty("sftp_maven")) {
+                if (project.hasProperty("sftp_maven")) {
                     repositories.mavenDeployer {
-					    configuration = configurations.deployerJars
-                        repository(url: "sftp://${sftp_maven}"){
-						authentication(userName: "${sftp_username}",privateKey: "${sftp_key}")}
-				    }
+                        configuration = configurations.deployerJars
+                        repository(url: "sftp://${sftp_maven}") {
+                            authentication(userName: "${sftp_username}", privateKey: "${sftp_key}")
+                        }
+                    }
                 }
             }
-        }    
+        }
     }
 }
 
