@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "tconstruct:block/congealed_green_slime"
+    "variants": {
+        "": {
+            "model": "tconstruct:block/congealed/green_slime"
+        }
     }
-  }
 }

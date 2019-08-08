@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "tconstruct:block/ardite_ore"
+    "variants": {
+        "": {
+            "model": "tconstruct:block/ardite_ore"
+        }
     }
-  }
 }

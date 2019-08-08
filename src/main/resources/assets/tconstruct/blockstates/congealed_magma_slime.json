@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "tconstruct:block/congealed_magma_slime"
+    "variants": {
+        "": {
+            "model": "tconstruct:block/congealed/magma_slime"
+        }
     }
-  }
 }

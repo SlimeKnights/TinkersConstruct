@@ -1,6 +1,6 @@
 {
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "tconstruct:block/slimy_mud_green"
-  }
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "tconstruct:block/slimy_mud_green"
+    }
 }

@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "tconstruct:block/graveyard_soil"
+    "variants": {
+        "": {
+            "model": "tconstruct:block/graveyard_soil"
+        }
     }
-  }
 }

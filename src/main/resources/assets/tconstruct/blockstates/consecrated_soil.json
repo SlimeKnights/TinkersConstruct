@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "tconstruct:block/consecrated_soil"
+    "variants": {
+        "": {
+            "model": "tconstruct:block/consecrated_soil"
+        }
     }
-  }
 }

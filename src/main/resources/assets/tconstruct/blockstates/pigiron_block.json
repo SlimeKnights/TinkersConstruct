@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "tconstruct:block/pigiron_block"
+    "variants": {
+        "": {
+            "model": "tconstruct:block/pigiron_block"
+        }
     }
-  }
 }

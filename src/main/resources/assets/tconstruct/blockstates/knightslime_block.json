@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "tconstruct:block/knightslime_block"
+    "variants": {
+        "": {
+            "model": "tconstruct:block/knightslime_block"
+        }
     }
-  }
 }

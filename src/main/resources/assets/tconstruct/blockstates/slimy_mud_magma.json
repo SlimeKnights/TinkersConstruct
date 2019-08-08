@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "tconstruct:block/slimy_mud_magma"
+    "variants": {
+        "": {
+            "model": "tconstruct:block/slimy_mud_magma"
+        }
     }
-  }
 }

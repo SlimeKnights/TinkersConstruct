@@ -1,6 +1,6 @@
 {
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "tconstruct:block/consecrated_soil"
-  }
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "tconstruct:block/consecrated_soil"
+    }
 }

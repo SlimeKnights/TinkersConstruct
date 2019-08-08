@@ -1,6 +1,6 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "tconstruct:item/creative_modifier"
-  }
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "tconstruct:item/creative_modifier"
+    }
 }
