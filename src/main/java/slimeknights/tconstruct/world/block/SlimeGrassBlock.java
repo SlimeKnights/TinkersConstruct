@@ -2,6 +2,7 @@ package slimeknights.tconstruct.world.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -120,6 +121,94 @@ public class SlimeGrassBlock extends Block implements IGrowable {
 
   public FoliageType getFoliageType() {
     return this.foliageType;
+  }
+
+  @Override
+  public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
+    if (worldIn.isRemote) {
+      return;
+    }
+
+    // spread to surrounding blocks
+    if (worldIn.getLightSubtracted(pos.up(), 0) >= 9) {
+      for (int i = 0; i < 4; ++i) {
+        BlockPos blockpos = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
+
+        if (blockpos.getY() >= 0 && blockpos.getY() < 256 && !worldIn.isBlockLoaded(blockpos)) {
+          return;
+        }
+
+        BlockState iblockstate = worldIn.getBlockState(blockpos.up());
+        BlockState iblockstate1 = worldIn.getBlockState(blockpos);
+
+        if (worldIn.getLightSubtracted(blockpos.up(), 0) >= 4 && iblockstate.getOpacity(worldIn, pos.up()) <= 2) {
+          this.convert(worldIn, blockpos, iblockstate1, this.foliageType);
+        }
+      }
+    }
+  }
+
+  private void convert(World world, BlockPos pos, BlockState state, FoliageType foliageType) {
+    BlockState newState = this.getStateFromDirt(state);
+    if (newState != null) {
+      world.setBlockState(pos, newState);
+    }
+  }
+
+  private BlockState getStateFromDirt(BlockState dirtState) {
+    if (dirtState.getBlock() == Blocks.DIRT) {
+      switch (this.foliageType) {
+        case BLUE:
+          return TinkerWorld.blue_vanilla_slime_grass.getDefaultState();
+        case PURPLE:
+          return TinkerWorld.purple_vanilla_slime_grass.getDefaultState();
+        case ORANGE:
+          return TinkerWorld.orange_vanilla_slime_grass.getDefaultState();
+      }
+    }
+
+    if (dirtState.getBlock() == TinkerWorld.green_slime_dirt) {
+      switch (this.foliageType) {
+        case BLUE:
+          return TinkerWorld.blue_green_slime_grass.getDefaultState();
+        case PURPLE:
+          return TinkerWorld.purple_green_slime_grass.getDefaultState();
+        case ORANGE:
+          return TinkerWorld.orange_green_slime_grass.getDefaultState();
+      }
+    }
+    else if (dirtState.getBlock() == TinkerWorld.blue_slime_dirt) {
+      switch (this.foliageType) {
+        case BLUE:
+          return TinkerWorld.blue_blue_slime_grass.getDefaultState();
+        case PURPLE:
+          return TinkerWorld.purple_blue_slime_grass.getDefaultState();
+        case ORANGE:
+          return TinkerWorld.orange_blue_slime_grass.getDefaultState();
+      }
+    }
+    else if (dirtState.getBlock() == TinkerWorld.purple_slime_dirt) {
+      switch (this.foliageType) {
+        case BLUE:
+          return TinkerWorld.blue_purple_slime_grass.getDefaultState();
+        case PURPLE:
+          return TinkerWorld.purple_purple_slime_grass.getDefaultState();
+        case ORANGE:
+          return TinkerWorld.orange_purple_slime_grass.getDefaultState();
+      }
+    }
+    else if (dirtState.getBlock() == TinkerWorld.magma_slime_dirt) {
+      switch (this.foliageType) {
+        case BLUE:
+          return TinkerWorld.blue_magma_slime_grass.getDefaultState();
+        case PURPLE:
+          return TinkerWorld.purple_magma_slime_grass.getDefaultState();
+        case ORANGE:
+          return TinkerWorld.orange_magma_slime_grass.getDefaultState();
+      }
+    }
+
+    return null;
   }
 
   public enum FoliageType implements IStringSerializable {

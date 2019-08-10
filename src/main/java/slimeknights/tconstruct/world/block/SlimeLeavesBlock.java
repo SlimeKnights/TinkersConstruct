@@ -13,7 +13,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Random;
 
@@ -64,7 +66,7 @@ public class SlimeLeavesBlock extends LeavesBlock {
   }
 
   private static int getDistance(BlockState neighbor) {
-    if (BlockTags.LOGS.contains(neighbor.getBlock())) {
+    if (TinkerWorld.SLIMY_LOGS.contains(neighbor.getBlock())) {
       return 0;
     }
     else {
@@ -93,5 +95,10 @@ public class SlimeLeavesBlock extends LeavesBlock {
   @Override
   public BlockState getStateForPlacement(BlockItemUseContext context) {
     return updateDistance(this.getDefaultState().with(PERSISTENT, Boolean.TRUE), context.getWorld(), context.getPos());
+  }
+
+  @Override
+  public boolean canBeReplacedByLeaves(BlockState state, IWorldReader world, BlockPos pos) {
+    return this.isAir(state, world, pos) || state.isIn(BlockTags.LEAVES) || state.isIn(TinkerWorld.SLIMY_LEAVES);
   }
 }

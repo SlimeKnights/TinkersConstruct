@@ -3,6 +3,9 @@ package slimeknights.tconstruct.world;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.event.RegistryEvent;
@@ -24,7 +27,11 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.world.block.SlimeDirtBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeLeavesBlock;
+import slimeknights.tconstruct.world.block.SlimeSaplingBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
+import slimeknights.tconstruct.world.worldgen.BlueSlimeTree;
+import slimeknights.tconstruct.world.worldgen.MagmaSlimeTree;
+import slimeknights.tconstruct.world.worldgen.PurpleSlimeGrass;
 
 @Pulse(id = TinkerPulseIds.TINKER_WORLD_PULSE_ID, description = "Everything that's found in the world and worldgen")
 @ObjectHolder(TConstruct.modID)
@@ -67,7 +74,14 @@ public class TinkerWorld extends TinkerPulse {
   public static final SlimeTallGrassBlock purple_slime_tall_grass = null;
   public static final SlimeTallGrassBlock orange_slime_tall_grass = null;
 
+  public static final SlimeSaplingBlock blue_slime_sapling = null;
+  public static final SlimeSaplingBlock orange_slime_sapling = null;
+  public static final SlimeSaplingBlock purple_slime_sapling = null;
+
   public static PlantType slimePlantType = PlantType.Nether;
+
+  public static Tag<Block> SLIMY_LOGS = new BlockTags.Wrapper(new ResourceLocation("tconstruct:slimy_logs"));
+  public static Tag<Block> SLIMY_LEAVES = new BlockTags.Wrapper(new ResourceLocation("tconstruct:slimy_leaves"));
 
   public TinkerWorld() {
     proxy.construct();
@@ -101,6 +115,10 @@ public class TinkerWorld extends TinkerPulse {
         register(registry, new SlimeTallGrassBlock(foliageType, plantType), foliageType.getName() + "_slime_" + plantType.getName());
       }
     }
+
+    register(registry, new SlimeSaplingBlock(new BlueSlimeTree()), "blue_slime_sapling");
+    register(registry, new SlimeSaplingBlock(new MagmaSlimeTree()), "orange_slime_sapling");
+    register(registry, new SlimeSaplingBlock(new PurpleSlimeGrass()), "purple_slime_sapling");
   }
 
   @SubscribeEvent
@@ -139,6 +157,10 @@ public class TinkerWorld extends TinkerPulse {
     registerBlockItem(registry, blue_slime_tall_grass, TinkerRegistry.tabWorld);
     registerBlockItem(registry, purple_slime_tall_grass, TinkerRegistry.tabWorld);
     registerBlockItem(registry, orange_slime_tall_grass, TinkerRegistry.tabWorld);
+
+    registerBlockItem(registry, blue_slime_sapling, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, orange_slime_sapling, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, purple_slime_sapling, TinkerRegistry.tabWorld);
   }
 
   @SubscribeEvent
