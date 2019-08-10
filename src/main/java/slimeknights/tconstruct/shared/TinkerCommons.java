@@ -1,15 +1,17 @@
 package slimeknights.tconstruct.shared;
 
 import com.google.common.eventbus.Subscribe;
-
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -17,10 +19,9 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreIngredient;
 import net.minecraftforge.registries.IForgeRegistry;
-
 import org.apache.logging.log4j.Logger;
-
 import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.item.ItemEdible;
 import slimeknights.mantle.item.ItemMetaDynamic;
@@ -29,6 +30,7 @@ import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.item.ItemTinkerBook;
+import slimeknights.tconstruct.library.ShapedFallbackRecipe;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.BlockClearGlass;
@@ -368,6 +370,21 @@ public class TinkerCommons extends TinkerPulse {
       slimedropBlood = edibles.addFood(33, 3, 1.5f, "slimedrop_blood", new PotionEffect(MobEffects.HEALTH_BOOST, 20 * 90));
       slimedropMagma = edibles.addFood(34, 6, 1f, "slimedrop_magma", new PotionEffect(MobEffects.FIRE_RESISTANCE, 20 * 90));
     }
+  }
+
+  @SubscribeEvent
+  public void registerRecipes(Register<IRecipe> event) {
+    // replace the vanilla slimeblock recipe with one that does not conflict with our slimeblocks
+    CraftingHelper.ShapedPrimer primer = CraftingHelper.parseShaped("###", "###", "###", '#', "slimeball");
+    Ingredient[] ignore = new Ingredient[] {
+        new OreIngredient("slimeballBlue"),
+        new OreIngredient("slimeballPurple"),
+        new OreIngredient("slimeballBlood"),
+        new OreIngredient("slimeballMagma")
+    };
+    ShapedFallbackRecipe recipe = new ShapedFallbackRecipe(Util.getResource("slime_blocks"), new ItemStack(Blocks.SLIME_BLOCK), primer, ignore, 9);
+    recipe.setRegistryName("minecraft:slime");
+    event.getRegistry().register(recipe);
   }
 
   @SubscribeEvent

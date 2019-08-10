@@ -32,7 +32,9 @@ public class BlockSlime extends net.minecraft.block.BlockSlime {
   @Override
   public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     for(SlimeType type : SlimeType.values()) {
-      list.add(new ItemStack(this, 1, type.meta));
+      if (type != SlimeType.GREEN) {
+        list.add(new ItemStack(this, 1, type.meta));
+      }
     }
   }
 
