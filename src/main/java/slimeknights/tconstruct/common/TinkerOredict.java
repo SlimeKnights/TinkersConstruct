@@ -38,6 +38,7 @@ import static slimeknights.tconstruct.shared.TinkerCommons.matNecroticBone;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallBlood;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallBlue;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallMagma;
+import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallPink;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallPurple;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeCrystalBlue;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeCrystalGreen;
@@ -159,6 +160,7 @@ public class TinkerOredict {
     oredict(matSlimeBallPurple, dict, dict + "Purple");
     oredict(matSlimeBallBlood, dict, dict + "Blood");
     oredict(matSlimeBallMagma, dict, dict + "Magma");
+    oredict(matSlimeBallPink, dict);
 
     oredictNIB(nuggetCobalt, ingotCobalt, blockCobalt, "Cobalt");
     oredictNIB(nuggetArdite, ingotArdite, blockArdite, "Ardite");

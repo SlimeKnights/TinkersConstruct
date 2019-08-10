@@ -17,11 +17,10 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
+
+import javax.annotation.Nonnull;
 
 public class BlockSlimeCongealed extends Block {
 
@@ -39,7 +38,7 @@ public class BlockSlimeCongealed extends Block {
   @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-    for(SlimeType type : SlimeType.values()) {
+    for(SlimeType type : SlimeType.VISIBLE_COLORS) {
       list.add(new ItemStack(this, 1, type.meta));
     }
   }

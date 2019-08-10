@@ -139,6 +139,7 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack matSlimeBallPurple;
   public static ItemStack matSlimeBallBlood;
   public static ItemStack matSlimeBallMagma;
+  public static ItemStack matSlimeBallPink;
 
   public static ItemStack matSlimeCrystalGreen;
   public static ItemStack matSlimeCrystalBlue;
@@ -288,6 +289,7 @@ public class TinkerCommons extends TinkerPulse {
     matSlimeBallPurple = edibles.addFood(2, 1, 2f, "slimeball_purple", new PotionEffect(MobEffects.UNLUCK, 20 * 45), new PotionEffect(MobEffects.LUCK, 20 * 60));
     matSlimeBallBlood = edibles.addFood(3, 1, 1.5f, "slimeball_blood", new PotionEffect(MobEffects.POISON, 20 * 45, 2), new PotionEffect(MobEffects.HEALTH_BOOST, 20 * 60));
     matSlimeBallMagma = edibles.addFood(4, 2, 1f, "slimeball_magma", new PotionEffect(MobEffects.WEAKNESS, 20 * 45), new PotionEffect(MobEffects.WITHER, 20 * 15), new PotionEffect(MobEffects.FIRE_RESISTANCE, 20 * 60));
+    matSlimeBallPink = edibles.addFood(5, 1, 1f, "slimeball_pink", new PotionEffect(MobEffects.NAUSEA, 20 * 10, 2)); // you mixed how many types of slime for this? its gross
 
     // All other items are either ingots or items for modifiers
 
@@ -377,12 +379,15 @@ public class TinkerCommons extends TinkerPulse {
     // replace the vanilla slimeblock recipe with one that does not conflict with our slimeblocks
     CraftingHelper.ShapedPrimer primer = CraftingHelper.parseShaped("###", "###", "###", '#', "slimeball");
     Ingredient[] ignore = new Ingredient[] {
+        Config.matchVanillaSlimeblock ? new OreIngredient("slimeballGreen") : Ingredient.fromStacks(matSlimeBallPink.copy()),
         new OreIngredient("slimeballBlue"),
         new OreIngredient("slimeballPurple"),
         new OreIngredient("slimeballBlood"),
         new OreIngredient("slimeballMagma")
     };
-    ShapedFallbackRecipe recipe = new ShapedFallbackRecipe(Util.getResource("slime_blocks"), new ItemStack(Blocks.SLIME_BLOCK), primer, ignore, 9);
+    // if enabled, mixing slimeballs gives you pink
+    ItemStack output = Config.matchVanillaSlimeblock ? new ItemStack(blockSlime, 1, BlockSlime.SlimeType.PINK.meta) : new ItemStack(Blocks.SLIME_BLOCK);
+    ShapedFallbackRecipe recipe = new ShapedFallbackRecipe(Util.getResource("slime_blocks"), output, primer, ignore, 9);
     recipe.setRegistryName("minecraft:slime");
     event.getRegistry().register(recipe);
   }

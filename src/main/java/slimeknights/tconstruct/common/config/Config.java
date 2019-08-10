@@ -44,6 +44,7 @@ public final class Config {
   public static boolean leatherDryingRecipe = true;
   public static boolean gravelFlintRecipe = true;
   public static double oreToIngotRatio = 2;
+  public static boolean matchVanillaSlimeblock = false;
   private static String[] craftingStationBlacklistArray = new String[] {
       "de.ellpeck.actuallyadditions.mod.tile.TileEntityItemViewer"
   };
@@ -205,6 +206,12 @@ public final class Config {
       prop.setComment("Determines the ratio of ore to ingot, or in other words how many ingots you get out of an ore. This ratio applies to all ores (including poor and dense). The ratio can be any decimal, including 1.5 and the like, but can't go below 1. THIS ALSO AFFECTS MELTING TEMPERATURE!");
       prop.setMinValue(1);
       oreToIngotRatio = prop.getDouble();
+      prop.setRequiresMcRestart(true);
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "matchVanillaSlimeblock", matchVanillaSlimeblock);
+      prop.setComment("If true, requires slimeballs in the vanilla slimeblock recipe to match in color, otherwise gives a pink slimeblock");
+      matchVanillaSlimeblock = prop.getBoolean();
       prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
 
