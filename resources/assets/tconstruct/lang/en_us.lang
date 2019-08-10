@@ -66,18 +66,18 @@ tile.tconstruct.clear_stained_glass.green.name=Clear Green Stained Glass
 tile.tconstruct.clear_stained_glass.red.name=Clear Red Stained Glass
 tile.tconstruct.clear_stained_glass.black.name=Clear Black Stained Glass
 
-tile.tconstruct.slime.green.name=Green Slime Block
-tile.tconstruct.slime.blue.name=Blue Slime Block
-tile.tconstruct.slime.purple.name=Purple Slime Block
+tile.tconstruct.slime.green.name=Slime Block
+tile.tconstruct.slime.blue.name=Slime Block
+tile.tconstruct.slime.purple.name=Slime Block
 tile.tconstruct.slime.blood.name=Blood Slime Block
-tile.tconstruct.slime.magma.name=Magma Slime Block
+tile.tconstruct.slime.magma.name=Slime Block
 tile.tconstruct.slime.tooltip=Works with pistons!
 
-tile.tconstruct.slime_congealed.green.name=Congealed Green Slime Block
-tile.tconstruct.slime_congealed.blue.name=Congealed Blue Slime Block
-tile.tconstruct.slime_congealed.purple.name=Congealed Purple Slime Block
-tile.tconstruct.slime_congealed.blood.name=Congealed Blood Slime Block
-tile.tconstruct.slime_congealed.magma.name=Congealed Magma Slime Block
+tile.tconstruct.slime_congealed.green.name=Congealed Slime Block
+tile.tconstruct.slime_congealed.blue.name=Congealed Slime Block
+tile.tconstruct.slime_congealed.purple.name=Congealed Slime Block
+tile.tconstruct.slime_congealed.blood.name=Congealed Bloodblock
+tile.tconstruct.slime_congealed.magma.name=Congealed Slime Block
 tile.tconstruct.slime_congealed.tooltip=Lets you jump really high
 
 tile.tconstruct.slime_dirt.green.name=Green Slimy Dirt
@@ -190,10 +190,10 @@ tile.tconstruct.rack.item.tooltip=For decoration purpose only
 tile.tconstruct.rack.drying.name=Drying Rack
 tile.tconstruct.rack.drying.tooltip=Used to dry items
 
-tile.tconstruct.slime_channel.green.name=Green Slime Channel
-tile.tconstruct.slime_channel.blue.name=Blue Slime Channel
-tile.tconstruct.slime_channel.purple.name=Purple Slime Channel
-tile.tconstruct.slime_channel.magma.name=Magma Slime Channel
+tile.tconstruct.slime_channel.green.name=Slime Channel
+tile.tconstruct.slime_channel.blue.name=Slime Channel
+tile.tconstruct.slime_channel.purple.name=Slime Channel
+tile.tconstruct.slime_channel.magma.name=Slime Channel
 tile.tconstruct.slime_channel.blood.name=Blood Channel
 tile.tconstruct.slime_channel.tooltip=Flows like water, feels like gelatin
 
@@ -253,10 +253,10 @@ item.tconstruct.book.name=Materials and You
 item.tconstruct.book.tooltip=The book every Tinker needs\nby Skyla
 
 item.tconstruct.edible.bacon.name=Bacon
-item.tconstruct.edible.slimeball_blue.name=Slime Ball
-item.tconstruct.edible.slimeball_purple.name=Slime Ball
+item.tconstruct.edible.slimeball_blue.name=Slimeball
+item.tconstruct.edible.slimeball_purple.name=Slimeball
 item.tconstruct.edible.slimeball_blood.name=Coagulated Blood
-item.tconstruct.edible.slimeball_magma.name=Slime Ball
+item.tconstruct.edible.slimeball_magma.name=Slimeball
 item.tconstruct.edible.jerky_beef.name=Beef Jerky
 item.tconstruct.edible.jerky_chicken.name=Chicken Jerky
 item.tconstruct.edible.jerky_pork.name=Bacon Jerky
