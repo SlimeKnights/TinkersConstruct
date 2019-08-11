@@ -11,6 +11,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import slimeknights.mantle.pulsar.pulse.Pulse;
+import slimeknights.tconstruct.shared.block.BlockSlime;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.common.block.BlockToolTable;
 
@@ -221,6 +222,11 @@ public class TinkerOredict {
   private static void registerWorld() {
     oredict(slimeSapling, "treeSapling");
     oredict(blockSlime, "blockSlime");
+    // quark compat
+    oredict(blockSlime, BlockSlime.SlimeType.GREEN.meta, "blockSlimeGreen");
+    oredict(blockSlime, BlockSlime.SlimeType.BLUE.meta, "blockSlimeBlue");
+    oredict(blockSlime, BlockSlime.SlimeType.BLOOD.meta, "blockSlimeRed");
+
     oredict(blockSlimeCongealed, "blockSlimeCongealed");
     oredict(slimeDirt, "blockSlimeDirt");
     oredict(slimeGrass, "blockSlimeGrass");

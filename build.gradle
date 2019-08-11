@@ -54,6 +54,10 @@ repositories {
         name = "CoFH Maven"
         url = "https://maven.covers1624.net"
     }
+    maven { // Quark and ARL
+        name = "BlameJared"
+        url = "https://maven.blamejared.com"
+    }
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -131,6 +135,9 @@ dependencies {
     deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${config.probe_version}"
     deobfCompile "cofh:RedstoneFlux:${config.redstoneflux_version}:universal"
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
+
+    //deobfCompile "vazkii.autoreglib:AutoRegLib:${config.arl_version}"
+    deobfCompile "vazkii.quark:Quark:${config.quark_version}:api"
 }
 
 sourceSets {

@@ -26,6 +26,7 @@ import slimeknights.mantle.item.ItemBlockMeta;
 import slimeknights.mantle.item.ItemEdible;
 import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.mantle.pulsar.pulse.Pulse;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.CommonProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.config.Config;
@@ -33,6 +34,7 @@ import slimeknights.tconstruct.common.item.ItemTinkerBook;
 import slimeknights.tconstruct.library.ShapedFallbackRecipe;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.plugin.quark.QuarkPlugin;
 import slimeknights.tconstruct.shared.block.BlockClearGlass;
 import slimeknights.tconstruct.shared.block.BlockClearStainedGlass;
 import slimeknights.tconstruct.shared.block.BlockDecoGround;
@@ -187,7 +189,10 @@ public class TinkerCommons extends TinkerPulse {
     blockSoil = registerBlock(registry, new BlockSoil(), "soil");
 
     // Slime Blocks
-    blockSlime = registerBlock(registry, new BlockSlime(), "slime");
+    // Quark plugin replaces this with one that works with the Quark colored slime feature
+    if(!TConstruct.pulseManager.isPulseLoaded(QuarkPlugin.PulseId)) {
+      blockSlime = registerBlock(registry, new BlockSlime(), "slime");
+    }
     blockSlimeCongealed = registerBlock(registry, new BlockSlimeCongealed(), "slime_congealed");
 
     // Ores
