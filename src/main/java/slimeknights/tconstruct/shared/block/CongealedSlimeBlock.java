@@ -7,6 +7,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -17,9 +20,11 @@ import net.minecraft.world.World;
 public class CongealedSlimeBlock extends Block {
 
   private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 16, 10, 16);
+  private final boolean shouldAddToCreative;
 
-  public CongealedSlimeBlock() {
+  public CongealedSlimeBlock(boolean shouldAddToCreative) {
     super(Block.Properties.create(Material.CLAY).slipperiness(0.5F).hardnessAndResistance(0.5F).sound(SoundType.SLIME));
+    this.shouldAddToCreative = shouldAddToCreative;
   }
 
   @Override
@@ -53,5 +58,12 @@ public class CongealedSlimeBlock extends Block {
   public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
     // no fall damage on congealed slime
     entityIn.fall(fallDistance, 0.0F);
+  }
+
+  @Override
+  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+    if (this.shouldAddToCreative) {
+      items.add(new ItemStack(this));
+    }
   }
 }

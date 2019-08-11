@@ -51,12 +51,14 @@ public class TinkerCommons extends TinkerPulse {
   public static final SlimeBlock purple_slime = null;
   public static final SlimeBlock blood_slime = null;
   public static final SlimeBlock magma_slime = null;
+  public static final SlimeBlock pink_slime = null;
 
   public static final CongealedSlimeBlock congealed_green_slime = null;
   public static final CongealedSlimeBlock congealed_blue_slime = null;
   public static final CongealedSlimeBlock congealed_purple_slime = null;
   public static final CongealedSlimeBlock congealed_blood_slime = null;
   public static final CongealedSlimeBlock congealed_magma_slime = null;
+  public static final CongealedSlimeBlock congealed_pink_slime = null;
 
   public static final OreBlock cobalt_ore = null;
   public static final OreBlock ardite_ore = null;
@@ -112,6 +114,7 @@ public class TinkerCommons extends TinkerPulse {
   public static final EdibleItem purple_slime_ball = null;
   public static final EdibleItem blood_slime_ball = null;
   public static final EdibleItem magma_slime_ball = null;
+  public static final EdibleItem pink_slime_ball = null;
 
   public static final GeneratedItem cobalt_nugget = null;
   public static final GeneratedItem cobalt_ingot = null;
@@ -179,12 +182,14 @@ public class TinkerCommons extends TinkerPulse {
     register(registry, new SlimeBlock(SlimeBlock.SlimeType.PURPLE), "purple_slime");
     register(registry, new SlimeBlock(SlimeBlock.SlimeType.BLOOD), "blood_slime");
     register(registry, new SlimeBlock(SlimeBlock.SlimeType.MAGMA), "magma_slime");
+    register(registry, new SlimeBlock(SlimeBlock.SlimeType.PINK), "pink_slime");
 
-    register(registry, new CongealedSlimeBlock(), "congealed_green_slime");
-    register(registry, new CongealedSlimeBlock(), "congealed_blue_slime");
-    register(registry, new CongealedSlimeBlock(), "congealed_purple_slime");
-    register(registry, new CongealedSlimeBlock(), "congealed_blood_slime");
-    register(registry, new CongealedSlimeBlock(), "congealed_magma_slime");
+    register(registry, new CongealedSlimeBlock(true), "congealed_green_slime");
+    register(registry, new CongealedSlimeBlock(true), "congealed_blue_slime");
+    register(registry, new CongealedSlimeBlock(true), "congealed_purple_slime");
+    register(registry, new CongealedSlimeBlock(true), "congealed_blood_slime");
+    register(registry, new CongealedSlimeBlock(true), "congealed_magma_slime");
+    register(registry, new CongealedSlimeBlock(false), "congealed_pink_slime");
 
     // Ores
     register(registry, new OreBlock(), "cobalt_ore");
@@ -263,12 +268,14 @@ public class TinkerCommons extends TinkerPulse {
     registerBlockItem(registry, purple_slime, TinkerRegistry.tabWorld);
     registerBlockItem(registry, blood_slime, TinkerRegistry.tabWorld);
     registerBlockItem(registry, magma_slime, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, pink_slime, TinkerRegistry.tabWorld);
 
     registerBlockItem(registry, congealed_green_slime, TinkerRegistry.tabWorld);
     registerBlockItem(registry, congealed_blue_slime, TinkerRegistry.tabWorld);
     registerBlockItem(registry, congealed_purple_slime, TinkerRegistry.tabWorld);
     registerBlockItem(registry, congealed_blood_slime, TinkerRegistry.tabWorld);
     registerBlockItem(registry, congealed_magma_slime, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, congealed_pink_slime, TinkerRegistry.tabWorld);
 
     // Ores
     registerBlockItem(registry, cobalt_ore, TinkerRegistry.tabWorld);
@@ -329,6 +336,7 @@ public class TinkerCommons extends TinkerPulse {
     register(registry, new EdibleItem(TinkerFood.PURPLE_SLIME_BALL, TinkerRegistry.tabGeneral), "purple_slime_ball");
     register(registry, new EdibleItem(TinkerFood.BLOOD_SLIME_BALL, TinkerRegistry.tabGeneral), "blood_slime_ball");
     register(registry, new EdibleItem(TinkerFood.MAGMA_SLIME_BALL, TinkerRegistry.tabGeneral), "magma_slime_ball");
+    register(registry, new EdibleItem(TinkerFood.PINK_SLIME_BALL, TinkerRegistry.tabGeneral), "pink_slime_ball");
 
     if (isSmelteryLoaded() || forced) {
       register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "seared_brick");
