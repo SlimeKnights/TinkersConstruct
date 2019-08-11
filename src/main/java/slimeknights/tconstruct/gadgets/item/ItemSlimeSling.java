@@ -13,8 +13,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import slimeknights.mantle.item.ItemTooltip;
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.Sounds;
@@ -112,7 +110,6 @@ public class ItemSlimeSling extends ItemTooltip {
   }
 
   @Override
-  @SideOnly(Side.CLIENT)
   public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
     if(this.isInCreativeTab(tab)) {
       for(SlimeType type : SlimeType.VISIBLE_COLORS) {

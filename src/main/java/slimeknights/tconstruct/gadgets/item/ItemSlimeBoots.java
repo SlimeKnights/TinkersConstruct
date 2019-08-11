@@ -15,8 +15,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import slimeknights.mantle.item.ItemArmorTooltip;
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.TinkerNetwork;
@@ -116,7 +114,6 @@ public class ItemSlimeBoots extends ItemArmorTooltip {
    * returns 16 items)
    */
   @Override
-  @SideOnly(Side.CLIENT)
   public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
     if(this.isInCreativeTab(tab)) {
       for(SlimeType type : SlimeType.VISIBLE_COLORS) {

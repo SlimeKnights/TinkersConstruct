@@ -3,9 +3,6 @@ package slimeknights.tconstruct.shared.item;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
 import slimeknights.mantle.item.ItemMetaDynamic;
 import slimeknights.tconstruct.TinkerIntegration;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -13,7 +10,6 @@ import slimeknights.tconstruct.shared.TinkerFluids;
 
 public class ItemMetaDynamicTinkers extends ItemMetaDynamic {
 
-  @SideOnly(Side.CLIENT)
   @Override
   public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
     if(this.isInCreativeTab(tab)) {

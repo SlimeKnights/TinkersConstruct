@@ -20,19 +20,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Locale;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.world.TinkerWorld;
+
+import javax.annotation.Nonnull;
+import java.util.Locale;
 
 public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
 
@@ -49,7 +45,6 @@ public class BlockSoil extends EnumBlock<BlockSoil.SoilTypes> {
     setCreativeTab(TinkerRegistry.tabGeneral);
   }
 
-  @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     for(SoilTypes type : SoilTypes.values()) {
