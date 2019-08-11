@@ -18,12 +18,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerNetwork;
@@ -37,6 +31,10 @@ import slimeknights.tconstruct.library.utils.EntityUtil;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.UUID;
 
 public class FryPan extends TinkerToolCore {
 
@@ -115,7 +113,7 @@ public class FryPan extends TinkerToolCore {
       entity.addVelocity(x, y, z);
       TinkerTools.proxy.spawnAttackParticle(Particles.FRYPAN_ATTACK, player, 0.6d);
       if(entity instanceof EntityPlayerMP) {
-        TinkerNetwork.sendPacket(player, new SPacketEntityVelocity(entity));
+        TinkerNetwork.sendPacket(entity, new SPacketEntityVelocity(entity));
       }
     }
   }

@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.utils;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -37,10 +36,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.event.ForgeEventFactory;
-
-import java.util.List;
-import java.util.function.Predicate;
-
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -53,6 +48,9 @@ import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.common.network.ToolBreakAnimationPacket;
 import slimeknights.tconstruct.tools.modifiers.ModReinforced;
+
+import java.util.List;
+import java.util.function.Predicate;
 
 public final class ToolHelper {
 
@@ -741,7 +739,7 @@ public final class ToolHelper {
       // Send movement changes caused by attacking directly to hit players.
       // I guess this is to allow better handling at the hit players side? No idea why it resets the motion though.
       if(targetEntity instanceof EntityPlayerMP && targetEntity.velocityChanged) {
-        TinkerNetwork.sendPacket(player, new SPacketEntityVelocity(targetEntity));
+        TinkerNetwork.sendPacket(targetEntity, new SPacketEntityVelocity(targetEntity));
         targetEntity.velocityChanged = false;
         targetEntity.motionX = oldVelX;
         targetEntity.motionY = oldVelY;
