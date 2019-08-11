@@ -106,7 +106,7 @@ public class SoilBlock extends Block {
 
   @Override
   public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable) {
-    if (this.soilType == SoilType.SLIMY_MUD_GREEN || soilType == SoilType.SLIMY_MUD_BLUE) {
+    if (this.soilType == SoilType.SLIMY_MUD_GREEN || this.soilType == SoilType.SLIMY_MUD_BLUE) {
       return plantable.getPlantType(world, pos) == null;
     }
 
@@ -132,6 +132,6 @@ public class SoilBlock extends Block {
     SLIMY_MUD_BLUE,
     GRAVEYARD,
     CONSECRATED,
-    SLIMY_MUD_MAGMA;
+    SLIMY_MUD_MAGMA
   }
 }

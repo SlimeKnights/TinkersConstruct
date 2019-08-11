@@ -52,6 +52,6 @@ public class MetalBlock extends Block {
     KNIGHTSLIME,
     PIGIRON,
     ALUBRASS,
-    SILKY_JEWEL;
+    SILKY_JEWEL
   }
 }

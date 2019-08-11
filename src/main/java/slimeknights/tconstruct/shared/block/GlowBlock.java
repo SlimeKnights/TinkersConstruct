@@ -122,7 +122,7 @@ public class GlowBlock extends Block {
 
   @Override
   public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean p_220069_6_) {
-    if (!canBlockStay(worldIn, pos, state.get(FACING))) {
+    if (!this.canBlockStay(worldIn, pos, state.get(FACING))) {
       worldIn.removeBlock(pos, false);
     }
 
