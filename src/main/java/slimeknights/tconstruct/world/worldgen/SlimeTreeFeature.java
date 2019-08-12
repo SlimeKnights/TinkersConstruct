@@ -4,6 +4,8 @@ import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.VineBlock;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -22,12 +24,12 @@ import java.util.function.Function;
 
 public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
-  protected final int minTreeHeight;
-  protected final int treeHeightRange;
+  private final int minTreeHeight;
+  private final int treeHeightRange;
   private final BlockState trunk;
   private final BlockState leaf;
   private final BlockState vine;
-  public final boolean seekHeight;
+  private final boolean seekHeight;
 
   public SlimeTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn, boolean doBlockNotifyOnPlace, int minTreeHeightIn, int treeHeightRangeIn, BlockState trunkState, BlockState leafState, BlockState vineState, Block sapling, boolean seekHeightIn) {
     super(configFactoryIn, doBlockNotifyOnPlace);
@@ -110,9 +112,38 @@ public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     this.placeAtPosition(changedBlocks, world, position.add(+2, 0, -2), this.leaf, boundingBox);
     this.placeAtPosition(changedBlocks, world, position.add(-2, 0, +2), this.leaf, boundingBox);
     this.placeAtPosition(changedBlocks, world, position.add(-2, 0, -2), this.leaf, boundingBox);
+
+    if (this.vine != null) {
+      position = position.down();
+
+      this.placeAtPosition(changedBlocks, world, position.add(+3, 0, 0), this.getRandomizedVine(random), boundingBox);
+      this.placeAtPosition(changedBlocks, world, position.add(-3, 0, 0), this.getRandomizedVine(random), boundingBox);
+      this.placeAtPosition(changedBlocks, world, position.add(0, 0, -3), this.getRandomizedVine(random), boundingBox);
+      this.placeAtPosition(changedBlocks, world, position.add(0, 0, +3), this.getRandomizedVine(random), boundingBox);
+      this.placeAtPosition(changedBlocks, world, position.add(+2, 0, +2), this.getRandomizedVine(random), boundingBox);
+      this.placeAtPosition(changedBlocks, world, position.add(+2, 0, -2), this.getRandomizedVine(random), boundingBox);
+      this.placeAtPosition(changedBlocks, world, position.add(-2, 0, +2), this.getRandomizedVine(random), boundingBox);
+      this.placeAtPosition(changedBlocks, world, position.add(-2, 0, -2), this.getRandomizedVine(random), boundingBox);
+    }
   }
 
-  protected void placeDiamondLayer(Set<BlockPos> changedBlocks, IWorldGenerationReader world, BlockPos pos, int range, MutableBoundingBox boundingBox) {
+  private BlockState getRandomizedVine(Random random) {
+    BlockState state = this.vine;
+
+    BooleanProperty[] sides = new BooleanProperty[] { VineBlock.NORTH, VineBlock.EAST, VineBlock.SOUTH, VineBlock.WEST };
+
+    for (BooleanProperty side : sides) {
+      state = state.with(side, false);
+    }
+
+    for (int i = random.nextInt(3) + 1; i > 0; i--) {
+      state = state.with(sides[random.nextInt(sides.length)], true);
+    }
+
+    return state;
+  }
+
+  private void placeDiamondLayer(Set<BlockPos> changedBlocks, IWorldGenerationReader world, BlockPos pos, int range, MutableBoundingBox boundingBox) {
     for (int x = -range; x <= range; x++) {
       for (int z = -range; z <= range; z++) {
         if (Math.abs(x) + Math.abs(z) <= range) {
@@ -125,7 +156,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     }
   }
 
-  protected void placeTrunk(Set<BlockPos> changedBlocks, IWorldGenerationReader world, BlockPos pos, int height, MutableBoundingBox boundingBox) {
+  private void placeTrunk(Set<BlockPos> changedBlocks, IWorldGenerationReader world, BlockPos pos, int height, MutableBoundingBox boundingBox) {
     while (height >= 0) {
       if (isAirOrLeaves(world, pos)) {
         this.setSlimyLogState(changedBlocks, world, pos, this.trunk, boundingBox);
@@ -136,25 +167,22 @@ public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     }
   }
 
-  protected void placeAtPosition(Set<BlockPos> changedBlocks, IWorldGenerationReader world, BlockPos pos, BlockState state, MutableBoundingBox boundingBox) {
+  private void placeAtPosition(Set<BlockPos> changedBlocks, IWorldGenerationReader world, BlockPos pos, BlockState state, MutableBoundingBox boundingBox) {
     if (isAirOrLeaves(world, pos)) {
       this.setSlimyLogState(changedBlocks, world, pos, state, boundingBox);
     }
   }
 
   protected static boolean isAirOrLeaves(IWorldGenerationBaseReader worldIn, BlockPos pos) {
-    if (!(worldIn instanceof net.minecraft.world.IWorldReader)) // FORGE: Redirect to state method when possible
-    {
-      return worldIn.hasBlockState(pos, (state) -> {
-        return state.isAir() || state.isIn(BlockTags.LEAVES) || state.isIn(TinkerWorld.SLIMY_LEAVES);
-      });
+    if (!(worldIn instanceof net.minecraft.world.IWorldReader)) { // FORGE: Redirect to state method when possible
+      return worldIn.hasBlockState(pos, (state) -> state.isAir() || state.isIn(BlockTags.LEAVES) || state.isIn(TinkerWorld.SLIMY_LEAVES));
     }
     else {
       return worldIn.hasBlockState(pos, state -> state.canBeReplacedByLeaves((net.minecraft.world.IWorldReader) worldIn, pos));
     }
   }
 
-  BlockPos findGround(IWorld reader, BlockPos position) {
+  private BlockPos findGround(IWorld reader, BlockPos position) {
     do {
       BlockState state = reader.getBlockState(position);
       Block block = state.getBlock();
@@ -186,14 +214,14 @@ public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     return reader.hasBlockState(pos, state -> state.canSustainPlant((net.minecraft.world.IBlockReader) reader, pos, Direction.UP, sapling));
   }
 
-  protected void setSlimeDirtAt(IWorldGenerationReader reader, BlockPos pos, BlockPos origin) {
+  private void setSlimeDirtAt(IWorldGenerationReader reader, BlockPos pos, BlockPos origin) {
     if (!(reader instanceof IWorld)) {
       return;
     }
     ((IWorld) reader).getBlockState(pos).onPlantGrow((IWorld) reader, pos, origin);
   }
 
-  protected final void setSlimyLogState(Set<BlockPos> changedBlocks, IWorldWriter worldIn, BlockPos pos, BlockState state, MutableBoundingBox boundingBox) {
+  private void setSlimyLogState(Set<BlockPos> changedBlocks, IWorldWriter worldIn, BlockPos pos, BlockState state, MutableBoundingBox boundingBox) {
     if (this.doBlockNotify) {
       worldIn.setBlockState(pos, state, 19);
     }

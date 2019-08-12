@@ -13,6 +13,7 @@ import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 import slimeknights.tconstruct.world.block.SlimeLeavesBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
+import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
 import slimeknights.tconstruct.world.client.slime.BlueColorReloadListener;
 import slimeknights.tconstruct.world.client.slime.OrangeColorReloadListener;
@@ -72,10 +73,21 @@ public class WorldClientProxy extends ClientProxy {
       return materialColor != null ? materialColor.colorValue : -1;
     }, TinkerWorld.blue_slime_fern, TinkerWorld.purple_slime_fern, TinkerWorld.orange_slime_fern, TinkerWorld.blue_slime_tall_grass, TinkerWorld.purple_slime_tall_grass, TinkerWorld.orange_slime_tall_grass);
 
+    blockColors.register((state, reader, blockPos, tintIndex) -> {
+      if (state != null && state.getBlock() instanceof SlimeVineBlock) {
+        SlimeVineBlock slimeVineBlock = (SlimeVineBlock) state.getBlock();
+        return this.getSlimeColorByPos(blockPos, slimeVineBlock.getFoliageType(), SlimeColorizer.LOOP_OFFSET);
+      }
+
+      MaterialColor materialColor = state.getMaterialColor(reader, blockPos);
+      return materialColor != null ? materialColor.colorValue : -1;
+    }, TinkerWorld.purple_slime_vine, TinkerWorld.purple_slime_vine_middle, TinkerWorld.purple_slime_vine_end, TinkerWorld.blue_slime_vine, TinkerWorld.blue_slime_vine_middle, TinkerWorld.blue_slime_vine_end);
+
     minecraft.getItemColors().register((itemStack, tintIndex) -> {
-      BlockState blockstate = ((BlockItem) itemStack.getItem()).getBlock().getDefaultState();
-      return blockColors.getColor(blockstate, (IEnviromentBlockReader) null, (BlockPos) null, tintIndex);
-    }, TinkerWorld.blue_vanilla_slime_grass, TinkerWorld.purple_vanilla_slime_grass, TinkerWorld.orange_vanilla_slime_grass, TinkerWorld.blue_green_slime_grass, TinkerWorld.purple_green_slime_grass, TinkerWorld.orange_green_slime_grass, TinkerWorld.blue_blue_slime_grass, TinkerWorld.purple_blue_slime_grass, TinkerWorld.orange_blue_slime_grass, TinkerWorld.blue_purple_slime_grass, TinkerWorld.purple_purple_slime_grass, TinkerWorld.orange_purple_slime_grass, TinkerWorld.blue_magma_slime_grass, TinkerWorld.purple_magma_slime_grass, TinkerWorld.orange_magma_slime_grass, TinkerWorld.blue_slime_leaves, TinkerWorld.purple_slime_leaves, TinkerWorld.orange_slime_leaves, TinkerWorld.blue_slime_fern, TinkerWorld.purple_slime_fern, TinkerWorld.orange_slime_fern, TinkerWorld.blue_slime_tall_grass, TinkerWorld.purple_slime_tall_grass, TinkerWorld.orange_slime_tall_grass);
+              BlockState blockstate = ((BlockItem) itemStack.getItem()).getBlock().getDefaultState();
+              return blockColors.getColor(blockstate, (IEnviromentBlockReader) null, (BlockPos) null, tintIndex);
+            }, TinkerWorld.blue_vanilla_slime_grass, TinkerWorld.purple_vanilla_slime_grass, TinkerWorld.orange_vanilla_slime_grass, TinkerWorld.blue_green_slime_grass, TinkerWorld.purple_green_slime_grass, TinkerWorld.orange_green_slime_grass, TinkerWorld.blue_blue_slime_grass, TinkerWorld.purple_blue_slime_grass, TinkerWorld.orange_blue_slime_grass, TinkerWorld.blue_purple_slime_grass, TinkerWorld.purple_purple_slime_grass, TinkerWorld.orange_purple_slime_grass, TinkerWorld.blue_magma_slime_grass, TinkerWorld.purple_magma_slime_grass, TinkerWorld.orange_magma_slime_grass, TinkerWorld.blue_slime_leaves, TinkerWorld.purple_slime_leaves, TinkerWorld.orange_slime_leaves, TinkerWorld.blue_slime_fern, TinkerWorld.purple_slime_fern, TinkerWorld.orange_slime_fern, TinkerWorld.blue_slime_tall_grass, TinkerWorld.purple_slime_tall_grass, TinkerWorld.orange_slime_tall_grass, TinkerWorld.purple_slime_vine, TinkerWorld.purple_slime_vine_middle, TinkerWorld.purple_slime_vine_end,
+            TinkerWorld.blue_slime_vine, TinkerWorld.blue_slime_vine_middle, TinkerWorld.blue_slime_vine_end);
 
     super.init();
   }

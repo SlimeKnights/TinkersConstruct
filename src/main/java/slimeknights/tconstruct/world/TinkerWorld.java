@@ -29,6 +29,7 @@ import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeLeavesBlock;
 import slimeknights.tconstruct.world.block.SlimeSaplingBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
+import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.worldgen.BlueSlimeTree;
 import slimeknights.tconstruct.world.worldgen.MagmaSlimeTree;
 import slimeknights.tconstruct.world.worldgen.PurpleSlimeGrass;
@@ -78,6 +79,14 @@ public class TinkerWorld extends TinkerPulse {
   public static final SlimeSaplingBlock orange_slime_sapling = null;
   public static final SlimeSaplingBlock purple_slime_sapling = null;
 
+  public static final SlimeVineBlock purple_slime_vine = null;
+  public static final SlimeVineBlock purple_slime_vine_middle = null;
+  public static final SlimeVineBlock purple_slime_vine_end = null;
+
+  public static final SlimeVineBlock blue_slime_vine = null;
+  public static final SlimeVineBlock blue_slime_vine_middle = null;
+  public static final SlimeVineBlock blue_slime_vine_end = null;
+
   public static PlantType slimePlantType = PlantType.Nether;
 
   public static Tag<Block> SLIMY_LOGS = new BlockTags.Wrapper(new ResourceLocation("tconstruct:slimy_logs"));
@@ -119,6 +128,14 @@ public class TinkerWorld extends TinkerPulse {
     register(registry, new SlimeSaplingBlock(new BlueSlimeTree()), "blue_slime_sapling");
     register(registry, new SlimeSaplingBlock(new MagmaSlimeTree()), "orange_slime_sapling");
     register(registry, new SlimeSaplingBlock(new PurpleSlimeGrass()), "purple_slime_sapling");
+
+    register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), "purple_slime_vine");
+    register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), "purple_slime_vine_middle");
+    register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.END), "purple_slime_vine_end");
+
+    register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.START), "blue_slime_vine");
+    register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.MIDDLE), "blue_slime_vine_middle");
+    register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.END), "blue_slime_vine_end");
   }
 
   @SubscribeEvent
@@ -161,6 +178,14 @@ public class TinkerWorld extends TinkerPulse {
     registerBlockItem(registry, blue_slime_sapling, TinkerRegistry.tabWorld);
     registerBlockItem(registry, orange_slime_sapling, TinkerRegistry.tabWorld);
     registerBlockItem(registry, purple_slime_sapling, TinkerRegistry.tabWorld);
+
+    registerBlockItem(registry, purple_slime_vine, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, purple_slime_vine_middle, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, purple_slime_vine_end, TinkerRegistry.tabWorld);
+
+    registerBlockItem(registry, blue_slime_vine, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, blue_slime_vine_middle, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, blue_slime_vine_end, TinkerRegistry.tabWorld);
   }
 
   @SubscribeEvent

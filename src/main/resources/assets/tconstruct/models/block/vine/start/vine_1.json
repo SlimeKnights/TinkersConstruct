@@ -1,0 +1,18 @@
+{
+    "ambientocclusion": false,
+    "textures": {
+        "particle": "tconstruct:block/slime/slime_vine",
+        "vine": "tconstruct:block/slime/slime_vine"
+    },
+    "elements": [
+        {
+            "from": [ 0, 0, 15.2 ],
+            "to": [ 16, 16, 15.2 ],
+            "shade": false,
+            "faces": {
+                "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#vine", "tintindex": 0 },
+                "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#vine", "tintindex": 0 }
+            }
+        }
+    ]
+}

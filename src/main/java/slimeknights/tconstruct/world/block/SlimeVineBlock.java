@@ -7,26 +7,31 @@ import net.minecraft.block.VineBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.util.Direction;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.world.TinkerWorld;
 
+import java.util.Locale;
 import java.util.Random;
 
 public class SlimeVineBlock extends VineBlock {
 
-  protected final SlimeGrassBlock.FoliageType foliage;
-  protected final SlimeVineBlock nextStage;
+  private final SlimeGrassBlock.FoliageType foliage;
+  private final VineStage vineStage;
 
-  public SlimeVineBlock(SlimeGrassBlock.FoliageType foliage, SlimeVineBlock nextStage) {
+  public SlimeVineBlock(SlimeGrassBlock.FoliageType foliage, VineStage vineStage) {
     super(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.2F).sound(SoundType.PLANT));
     this.foliage = foliage;
-    this.nextStage = nextStage;
+    this.vineStage = vineStage;
   }
 
   @Override
   public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
     if (!worldIn.isRemote) {
-      if (random.nextInt(4) == 0) {
+      if (random.nextInt(1) == 0) {
         this.grow(worldIn, random, pos, state);
       }
     }
@@ -34,7 +39,7 @@ public class SlimeVineBlock extends VineBlock {
 
   private void grow(World worldIn, Random rand, BlockPos pos, BlockState state) {
     // end parts don't grow
-    if (this.nextStage == null) {
+    if (this.getStateFromStage() == null) {
       return;
     }
 
@@ -50,16 +55,34 @@ public class SlimeVineBlock extends VineBlock {
         }
 
         if (i > 2 || rand.nextInt(2) == 0) {
-          state = this.nextStage.getDefaultState()
-                  .with(NORTH, state.get(NORTH))
-                  .with(EAST, state.get(EAST))
-                  .with(SOUTH, state.get(SOUTH))
-                  .with(WEST, state.get(WEST));
+          state = this.getStateFromStage().getDefaultState().with(NORTH, state.get(NORTH)).with(EAST, state.get(EAST)).with(SOUTH, state.get(SOUTH)).with(WEST, state.get(WEST));
         }
       }
 
       worldIn.setBlockState(below, state);
     }
+  }
+
+  private Block getStateFromStage() {
+    switch (this.vineStage) {
+      case START:
+        if (this.foliage == SlimeGrassBlock.FoliageType.BLUE) {
+          return TinkerWorld.blue_slime_vine_middle;
+        }
+        else if (this.foliage == SlimeGrassBlock.FoliageType.PURPLE) {
+          return TinkerWorld.purple_slime_vine_middle;
+        }
+      case MIDDLE:
+        if (this.foliage == SlimeGrassBlock.FoliageType.BLUE) {
+          return TinkerWorld.blue_slime_vine_end;
+        }
+        else if (this.foliage == SlimeGrassBlock.FoliageType.PURPLE) {
+          return TinkerWorld.purple_slime_vine_end;
+        }
+      case END:
+        return null;
+    }
+    return null;
   }
 
   private boolean freeFloating(World world, BlockPos pos, BlockState state) {
@@ -81,18 +104,10 @@ public class SlimeVineBlock extends VineBlock {
     BlockState oldState = state;
 
     // check each side to see if it can stay
-    for (Direction side : Direction.Plane.HORIZONTAL) {
-      BooleanProperty prop = getPropertyFor(side);
-      if (state.get(prop) && !canAttachTo(worldIn, pos, side.getOpposite())) {
-        BlockState above = worldIn.getBlockState(pos.up());
-        if (!(above.getBlock() instanceof VineBlock) || !above.get(prop)) {
-          state = state.with(prop, false);
-        }
-      }
-    }
+    state = this.getCurrentState(state, worldIn, pos);
 
     // is our position still valid?
-    if (this.getNumOfFaces(state) == 0) {
+    if (this.getNumOfFaces(state) > 0) {
       spawnDrops(state, worldIn, pos);
       worldIn.removeBlock(pos, false);
     }
@@ -109,6 +124,53 @@ public class SlimeVineBlock extends VineBlock {
     }
   }
 
+  private BlockState getCurrentState(BlockState state, IBlockReader world, BlockPos pos) {
+    BlockPos blockpos = pos.up();
+    if (state.get(UP)) {
+      state = state.with(UP, canAttachTo(world, blockpos, Direction.DOWN));
+    }
+
+    BlockState blockstate = null;
+
+    for (Direction direction : Direction.Plane.HORIZONTAL) {
+      BooleanProperty booleanproperty = getPropertyFor(direction);
+      if (state.get(booleanproperty)) {
+        boolean flag = this.getFlagFromState(world, pos, direction);
+        if (!flag) {
+          if (blockstate == null) {
+            blockstate = world.getBlockState(blockpos);
+          }
+
+          flag = blockstate.getBlock() == this && blockstate.get(booleanproperty);
+        }
+
+        state = state.with(booleanproperty, flag);
+      }
+    }
+
+    return state;
+  }
+
+  private boolean getFlagFromState(IBlockReader world, BlockPos pos, Direction direction) {
+    if (direction == Direction.DOWN) {
+      return false;
+    }
+    else {
+      BlockPos blockpos = pos.offset(direction);
+      if (canAttachTo(world, blockpos, direction)) {
+        return true;
+      }
+      else if (direction.getAxis() == Direction.Axis.Y) {
+        return false;
+      }
+      else {
+        BooleanProperty booleanproperty = FACING_TO_PROPERTY_MAP.get(direction);
+        BlockState blockstate = world.getBlockState(pos.up());
+        return blockstate.getBlock() == this && blockstate.get(booleanproperty);
+      }
+    }
+  }
+
   private int getNumOfFaces(BlockState state) {
     int i = 0;
 
@@ -119,6 +181,31 @@ public class SlimeVineBlock extends VineBlock {
     }
 
     return i;
+  }
+
+  public static boolean canAttachTo(IBlockReader worldIn, BlockPos pos, Direction direction) {
+    BlockState blockstate = worldIn.getBlockState(pos);
+    return Block.doesSideFillSquare(blockstate.getCollisionShape(worldIn, pos), direction.getOpposite());
+  }
+
+  @Override
+  public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+    return this.getNumOfFaces(this.getCurrentState(state, worldIn, pos)) > 0;
+  }
+
+  public SlimeGrassBlock.FoliageType getFoliageType() {
+    return this.foliage;
+  }
+
+  public enum VineStage implements IStringSerializable {
+    START,
+    MIDDLE,
+    END;
+
+    @Override
+    public String getName() {
+      return this.toString().toLowerCase(Locale.US);
+    }
   }
 
 }
