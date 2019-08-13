@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.MobEffects;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -27,6 +28,7 @@ import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
@@ -691,8 +693,10 @@ public final class ToolHelper {
     }
 
     // apply cooldown damage decrease
+    SoundEvent sound = null;
     if(player != null) {
       float cooldown = ((EntityPlayer) attacker).getCooledAttackStrength(0.5F);
+      sound = cooldown > 0.9f ? SoundEvents.ENTITY_PLAYER_ATTACK_STRONG : SoundEvents.ENTITY_PLAYER_ATTACK_WEAK;
       damage *= (0.2F + cooldown * cooldown * 0.8F);
     }
 
@@ -750,6 +754,7 @@ public final class ToolHelper {
         // vanilla critical callback
         if(isCritical) {
           player.onCriticalHit(target);
+          sound = SoundEvents.ENTITY_PLAYER_ATTACK_CRIT;
         }
 
         // "magical" critical damage? (aka caused by modifiers)
@@ -800,6 +805,12 @@ public final class ToolHelper {
       else if(!isProjectile) {
         tool.reduceDurabilityOnHit(stack, null, damage);
       }
+    } else {
+      sound = SoundEvents.ENTITY_PLAYER_ATTACK_NODAMAGE;
+    }
+
+    if (player != null && sound != null) {
+      player.world.playSound(null, player.posX, player.posY, player.posZ, sound, player.getSoundCategory(), 1.0F, 1.0F);
     }
 
     return true;
