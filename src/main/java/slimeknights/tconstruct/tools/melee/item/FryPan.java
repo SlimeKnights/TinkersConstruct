@@ -15,6 +15,7 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -128,6 +129,11 @@ public class FryPan extends TinkerToolCore {
       TinkerTools.proxy.spawnAttackParticle(Particles.FRYPAN_ATTACK, player, 0.8d);
     }
     return hit;
+  }
+
+  @Override
+  public boolean canDestroyBlockInCreative(World world, BlockPos pos, ItemStack stack, EntityPlayer player) {
+    return false;
   }
 
   @Override
