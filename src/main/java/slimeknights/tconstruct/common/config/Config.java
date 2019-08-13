@@ -84,7 +84,8 @@ public final class Config {
   public static boolean renderInventoryNullLayer = true;
   public static boolean extraTooltips = true;
   public static boolean listAllTables = true;
-  public static boolean listAllMaterials = true;
+  public static boolean listAllToolMaterials = true;
+  public static boolean listAllPartMaterials = true;
   public static boolean enableForgeBucketModel = true; // enables the forge bucket model by default
   public static boolean dumpTextureMap = false; // requires debug module
   public static boolean testIMC = false; // requires debug module
@@ -325,9 +326,15 @@ public final class Config {
       listAllTables = prop.getBoolean();
       propOrder.add(prop.getName());
 
-      prop = configFile.get(cat, "listAllMaterials", listAllMaterials);
-      prop.setComment("If true all material variants of the different parts, tools,... will be listed in creative. Set to false to only have the first found material for all items (usually wood).");
-      listAllMaterials = prop.getBoolean();
+      configFile.renameProperty(cat, "listAllMaterials", "listAllToolMaterials");
+      prop = configFile.get(cat, "listAllToolMaterials", listAllToolMaterials);
+      prop.setComment("If true all material variants of the different tools will be listed in creative. Set to false to only have the first found material for all tools (usually wood).");
+      listAllToolMaterials = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "listAllPartMaterials", listAllToolMaterials); // property was split, so defailt to the value of tool materials
+      prop.setComment("If true all material variants of the different parts will be listed in creative. Set to false to only have the first found material for all parts (usually wood).");
+      listAllPartMaterials = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "temperatureCelsius", temperatureCelsius);

@@ -5,15 +5,13 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialTypes;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class Shard extends ToolPart {
 
@@ -28,7 +26,7 @@ public class Shard extends ToolPart {
       for(Material mat : TinkerRegistry.getAllMaterials()) {
         if(mat.hasStats(MaterialTypes.HEAD) && (mat.isCraftable() || mat.isCastable())) {
           subItems.add(getItemstackWithMaterial(mat));
-          if(!Config.listAllMaterials) {
+          if(!Config.listAllPartMaterials) {
             break;
           }
         }
