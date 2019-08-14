@@ -125,9 +125,9 @@ public class TinkerWorld extends TinkerPulse {
       }
     }
 
-    register(registry, new SlimeSaplingBlock(new BlueSlimeTree()), "blue_slime_sapling");
+    register(registry, new SlimeSaplingBlock(new BlueSlimeTree(false)), "blue_slime_sapling");
     register(registry, new SlimeSaplingBlock(new MagmaSlimeTree()), "orange_slime_sapling");
-    register(registry, new SlimeSaplingBlock(new PurpleSlimeGrass()), "purple_slime_sapling");
+    register(registry, new SlimeSaplingBlock(new PurpleSlimeGrass(false)), "purple_slime_sapling");
 
     register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), "purple_slime_vine");
     register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), "purple_slime_vine_middle");

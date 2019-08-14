@@ -11,9 +11,20 @@ import java.util.Random;
 
 public class BlueSlimeTree extends Tree {
 
+  private final boolean isIslandTree;
+
+  public BlueSlimeTree(boolean isIslandTreeIn) {
+    this.isIslandTree = isIslandTreeIn;
+  }
+
   @Override
   @Nullable
   protected AbstractTreeFeature<NoFeatureConfig> getTreeFeature(Random random) {
-    return new SlimeTreeFeature(NoFeatureConfig::deserialize, true, 5, 4, TinkerCommons.congealed_green_slime.getDefaultState(), TinkerWorld.blue_slime_leaves.getDefaultState(), null, TinkerWorld.blue_slime_sapling, true);
+    if (this.isIslandTree) {
+      return new SlimeTreeFeature(NoFeatureConfig::deserialize, true, 5, 4, TinkerCommons.congealed_green_slime.getDefaultState(), TinkerWorld.blue_slime_leaves.getDefaultState(), TinkerWorld.blue_slime_vine_middle.getDefaultState(), TinkerWorld.blue_slime_sapling, true);
+    }
+    else {
+      return new SlimeTreeFeature(NoFeatureConfig::deserialize, true, 5, 4, TinkerCommons.congealed_green_slime.getDefaultState(), TinkerWorld.blue_slime_leaves.getDefaultState(), null, TinkerWorld.blue_slime_sapling, true);
+    }
   }
 }

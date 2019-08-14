@@ -2,18 +2,22 @@ package slimeknights.tconstruct.world.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.VineBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Random;
 
@@ -31,7 +35,7 @@ public class SlimeVineBlock extends VineBlock {
   @Override
   public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
     if (!worldIn.isRemote) {
-      if (random.nextInt(1) == 0) {
+      if (random.nextInt(4) == 0) {
         this.grow(worldIn, random, pos, state);
       }
     }
@@ -107,7 +111,7 @@ public class SlimeVineBlock extends VineBlock {
     state = this.getCurrentState(state, worldIn, pos);
 
     // is our position still valid?
-    if (this.getNumOfFaces(state) > 0) {
+    if (this.getNumOfFaces(state) < 0) {
       spawnDrops(state, worldIn, pos);
       worldIn.removeBlock(pos, false);
     }
@@ -118,7 +122,7 @@ public class SlimeVineBlock extends VineBlock {
     // notify bottom block to update its state since ours might have changed as well
     BlockPos down = pos.down();
     BlockState state2;
-    while ((state2 = worldIn.getBlockState(down)).getBlock() instanceof VineBlock) {
+    while ((state2 = worldIn.getBlockState(down)).getBlock() instanceof SlimeVineBlock) {
       worldIn.notifyBlockUpdate(down, state2, state2, 3);
       down = down.down();
     }
@@ -141,7 +145,7 @@ public class SlimeVineBlock extends VineBlock {
             blockstate = world.getBlockState(blockpos);
           }
 
-          flag = blockstate.getBlock() == this && blockstate.get(booleanproperty);
+          flag = blockstate.getBlock() instanceof SlimeLeavesBlock || (blockstate.getBlock() instanceof SlimeVineBlock && blockstate.get(booleanproperty));
         }
 
         state = state.with(booleanproperty, flag);
@@ -166,7 +170,7 @@ public class SlimeVineBlock extends VineBlock {
       else {
         BooleanProperty booleanproperty = FACING_TO_PROPERTY_MAP.get(direction);
         BlockState blockstate = world.getBlockState(pos.up());
-        return blockstate.getBlock() == this && blockstate.get(booleanproperty);
+        return blockstate.getBlock() instanceof SlimeVineBlock && blockstate.get(booleanproperty);
       }
     }
   }
@@ -191,6 +195,43 @@ public class SlimeVineBlock extends VineBlock {
   @Override
   public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
     return this.getNumOfFaces(this.getCurrentState(state, worldIn, pos)) > 0;
+  }
+
+  /**
+   * Update the provided state given the provided neighbor facing and neighbor state, returning a new state.
+   * For example, fences make their connections to the passed in state if possible, and wet concrete powder immediately
+   * returns its solidified counterpart.
+   * Note that this method should ideally consider only the specific face passed in.
+   */
+  @Override
+  public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    if (facing == Direction.DOWN) {
+      return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    }
+    else {
+      BlockState blockstate = this.getCurrentState(stateIn, worldIn, currentPos);
+      return !(this.getNumOfFaces(blockstate) > 0) ? Blocks.AIR.getDefaultState() : blockstate;
+    }
+  }
+
+  @Override
+  @Nullable
+  public BlockState getStateForPlacement(BlockItemUseContext context) {
+    BlockState blockstate = context.getWorld().getBlockState(context.getPos());
+    boolean flag = blockstate.getBlock() == this;
+    BlockState blockstate1 = flag ? blockstate : this.getDefaultState();
+
+    for (Direction direction : context.getNearestLookingDirections()) {
+      if (direction != Direction.DOWN) {
+        BooleanProperty booleanproperty = getPropertyFor(direction);
+        boolean flag1 = flag && blockstate.get(booleanproperty);
+        if (!flag1 && this.getFlagFromState(context.getWorld(), context.getPos(), direction)) {
+          return blockstate1.with(booleanproperty, Boolean.TRUE);
+        }
+      }
+    }
+
+    return flag ? blockstate1 : null;
   }
 
   public SlimeGrassBlock.FoliageType getFoliageType() {

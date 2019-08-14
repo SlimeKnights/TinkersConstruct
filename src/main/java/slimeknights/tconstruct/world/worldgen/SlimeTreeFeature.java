@@ -61,8 +61,8 @@ public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     if (position.getY() >= 1 && position.getY() + height + 1 <= worldIn.getMaxHeight()) {
       if (isSoil(worldIn, position.down(), this.getSapling())) {
         this.setSlimeDirtAt(worldIn, position.down(), position);
+        this.placeTrunk(changedBlocks, worldIn, position, height, boundingBox);
         this.placeCanopy(changedBlocks, worldIn, rand, position, height, boundingBox);
-        this.placeTrunk(changedBlocks, worldIn, position, height - 3, boundingBox);
         return true;
       }
       else {
@@ -79,51 +79,53 @@ public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     for (int i = 0; i < 4; i++) {
       this.placeDiamondLayer(changedBlocks, world, position.down(i), i + 1, boundingBox);
     }
-
     BlockState air = Blocks.AIR.getDefaultState();
 
-    position = position.down();
+    position = position.down(3);
     this.placeAtPosition(changedBlocks, world, position.add(+4, 0, 0), air, boundingBox);
     this.placeAtPosition(changedBlocks, world, position.add(-4, 0, 0), air, boundingBox);
     this.placeAtPosition(changedBlocks, world, position.add(0, 0, +4), air, boundingBox);
     this.placeAtPosition(changedBlocks, world, position.add(0, 0, -4), air, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(+1, 0, +1), air, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(+1, 0, -1), air, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(-1, 0, +1), air, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(-1, 0, -1), air, boundingBox);
+    if (this.vine != null) {
+      this.placeAtPosition(changedBlocks, world, position.add(+1, 0, +1), air, boundingBox);
+      this.placeAtPosition(changedBlocks, world, position.add(+1, 0, -1), air, boundingBox);
+      this.placeAtPosition(changedBlocks, world, position.add(-1, 0, +1), air, boundingBox);
+      this.placeAtPosition(changedBlocks, world, position.add(-1, 0, -1), air, boundingBox);
+    }
 
     //Drippers
+    // stuck with only one block down because of leaf decay distance
     position = position.down();
     this.placeAtPosition(changedBlocks, world, position.add(+3, 0, 0), this.leaf, boundingBox);
     this.placeAtPosition(changedBlocks, world, position.add(-3, 0, 0), this.leaf, boundingBox);
     this.placeAtPosition(changedBlocks, world, position.add(0, 0, -3), this.leaf, boundingBox);
     this.placeAtPosition(changedBlocks, world, position.add(0, 0, +3), this.leaf, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(+2, 0, +2), this.leaf, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(+2, 0, -2), this.leaf, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(-2, 0, +2), this.leaf, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(-2, 0, -2), this.leaf, boundingBox);
-
-    position = position.down();
-    this.placeAtPosition(changedBlocks, world, position.add(+3, 0, 0), this.leaf, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(-3, 0, 0), this.leaf, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(0, 0, -3), this.leaf, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(0, 0, +3), this.leaf, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(+2, 0, +2), this.leaf, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(+2, 0, -2), this.leaf, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(-2, 0, +2), this.leaf, boundingBox);
-    this.placeAtPosition(changedBlocks, world, position.add(-2, 0, -2), this.leaf, boundingBox);
+    if (this.vine == null) {
+      this.placeAtPosition(changedBlocks, world, position.add(+1, 0, +1), this.leaf, boundingBox);
+      this.placeAtPosition(changedBlocks, world, position.add(+1, 0, -1), this.leaf, boundingBox);
+      this.placeAtPosition(changedBlocks, world, position.add(-1, 0, +1), this.leaf, boundingBox);
+      this.placeAtPosition(changedBlocks, world, position.add(-1, 0, -1), this.leaf, boundingBox);
+    }
 
     if (this.vine != null) {
       position = position.down();
 
-      this.placeAtPosition(changedBlocks, world, position.add(+3, 0, 0), this.getRandomizedVine(random), boundingBox);
-      this.placeAtPosition(changedBlocks, world, position.add(-3, 0, 0), this.getRandomizedVine(random), boundingBox);
-      this.placeAtPosition(changedBlocks, world, position.add(0, 0, -3), this.getRandomizedVine(random), boundingBox);
-      this.placeAtPosition(changedBlocks, world, position.add(0, 0, +3), this.getRandomizedVine(random), boundingBox);
-      this.placeAtPosition(changedBlocks, world, position.add(+2, 0, +2), this.getRandomizedVine(random), boundingBox);
-      this.placeAtPosition(changedBlocks, world, position.add(+2, 0, -2), this.getRandomizedVine(random), boundingBox);
-      this.placeAtPosition(changedBlocks, world, position.add(-2, 0, +2), this.getRandomizedVine(random), boundingBox);
-      this.placeAtPosition(changedBlocks, world, position.add(-2, 0, -2), this.getRandomizedVine(random), boundingBox);
+      this.placeVineAtPosition(world, position.add(+3, 0, 0), this.getRandomizedVine(random));
+      this.placeVineAtPosition(world, position.add(-3, 0, 0), this.getRandomizedVine(random));
+      this.placeVineAtPosition(world, position.add(0, 0, -3), this.getRandomizedVine(random));
+      this.placeVineAtPosition(world, position.add(0, 0, +3), this.getRandomizedVine(random));
+      BlockState randomVine = this.getRandomizedVine(random);
+      this.placeVineAtPosition(world, position.add(+2, 1, +2), randomVine);
+      this.placeVineAtPosition(world, position.add(+2, 0, +2), randomVine);
+      randomVine = this.getRandomizedVine(random);
+      this.placeVineAtPosition(world, position.add(+2, 1, -2), randomVine);
+      this.placeVineAtPosition(world, position.add(+2, 0, -2), randomVine);
+      randomVine = this.getRandomizedVine(random);
+      this.placeVineAtPosition(world, position.add(-2, 1, +2), randomVine);
+      this.placeVineAtPosition(world, position.add(-2, 0, +2), randomVine);
+      randomVine = this.getRandomizedVine(random);
+      this.placeVineAtPosition(world, position.add(-2, 1, -2), randomVine);
+      this.placeVineAtPosition(world, position.add(-2, 0, -2), randomVine);
     }
   }
 
@@ -157,13 +159,19 @@ public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
   }
 
   private void placeTrunk(Set<BlockPos> changedBlocks, IWorldGenerationReader world, BlockPos pos, int height, MutableBoundingBox boundingBox) {
-    while (height >= 0) {
+    while (height > 0) {
       if (isAirOrLeaves(world, pos)) {
         this.setSlimyLogState(changedBlocks, world, pos, this.trunk, boundingBox);
       }
 
       pos = pos.up();
       height--;
+    }
+  }
+
+  private void placeVineAtPosition(IWorldGenerationReader world, BlockPos pos, BlockState state) {
+    if (isAirOrLeaves(world, pos)) {
+      this.setBlockState(world, pos, state);
     }
   }
 
