@@ -110,21 +110,21 @@ public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     if (this.vine != null) {
       position = position.down();
 
-      this.placeVineAtPosition(world, position.add(+3, 0, 0), this.getRandomizedVine(random));
-      this.placeVineAtPosition(world, position.add(-3, 0, 0), this.getRandomizedVine(random));
-      this.placeVineAtPosition(world, position.add(0, 0, -3), this.getRandomizedVine(random));
-      this.placeVineAtPosition(world, position.add(0, 0, +3), this.getRandomizedVine(random));
+      this.placeVineAtPosition(world, position.add(+3, 0, 0), this.getRandomizedVine(random).with(VineBlock.UP, true));
+      this.placeVineAtPosition(world, position.add(-3, 0, 0), this.getRandomizedVine(random).with(VineBlock.UP, true));
+      this.placeVineAtPosition(world, position.add(0, 0, -3), this.getRandomizedVine(random).with(VineBlock.UP, true));
+      this.placeVineAtPosition(world, position.add(0, 0, +3), this.getRandomizedVine(random).with(VineBlock.UP, true));
       BlockState randomVine = this.getRandomizedVine(random);
-      this.placeVineAtPosition(world, position.add(+2, 1, +2), randomVine);
+      this.placeVineAtPosition(world, position.add(+2, 1, +2), randomVine.with(VineBlock.UP, true));
       this.placeVineAtPosition(world, position.add(+2, 0, +2), randomVine);
       randomVine = this.getRandomizedVine(random);
-      this.placeVineAtPosition(world, position.add(+2, 1, -2), randomVine);
+      this.placeVineAtPosition(world, position.add(+2, 1, -2), randomVine.with(VineBlock.UP, true));
       this.placeVineAtPosition(world, position.add(+2, 0, -2), randomVine);
       randomVine = this.getRandomizedVine(random);
-      this.placeVineAtPosition(world, position.add(-2, 1, +2), randomVine);
+      this.placeVineAtPosition(world, position.add(-2, 1, +2), randomVine.with(VineBlock.UP, true));
       this.placeVineAtPosition(world, position.add(-2, 0, +2), randomVine);
       randomVine = this.getRandomizedVine(random);
-      this.placeVineAtPosition(world, position.add(-2, 1, -2), randomVine);
+      this.placeVineAtPosition(world, position.add(-2, 1, -2), randomVine.with(VineBlock.UP, true));
       this.placeVineAtPosition(world, position.add(-2, 0, -2), randomVine);
     }
   }

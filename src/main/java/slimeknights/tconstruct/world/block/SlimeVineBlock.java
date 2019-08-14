@@ -63,6 +63,8 @@ public class SlimeVineBlock extends VineBlock {
         }
       }
 
+      state = state.with(UP, false);
+
       worldIn.setBlockState(below, state);
     }
   }
