@@ -76,7 +76,7 @@ public class SoilBlock extends Block {
   }
 
   // slow down
-  protected void processSlimyMud(Entity entity) {
+  private void processSlimyMud(Entity entity) {
     entity.getMotion().mul(0.4D, 1.0D, 0.4D);
     if (entity instanceof LivingEntity) {
       ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.WEAKNESS, 1));
@@ -84,7 +84,7 @@ public class SoilBlock extends Block {
   }
 
   // damage and set undead entities on fire
-  protected void processConsecratedSoil(Entity entity) {
+  private void processConsecratedSoil(Entity entity) {
     if (entity instanceof MobEntity) {
       LivingEntity entityLiving = (LivingEntity) entity;
       if (entityLiving.getCreatureAttribute() == CreatureAttribute.UNDEAD) {
@@ -95,7 +95,7 @@ public class SoilBlock extends Block {
   }
 
   // heal undead entities
-  protected void processGraveyardSoil(Entity entity) {
+  private void processGraveyardSoil(Entity entity) {
     if (entity instanceof MobEntity) {
       LivingEntity entityLiving = (LivingEntity) entity;
       if (entityLiving.getCreatureAttribute() == CreatureAttribute.UNDEAD) {

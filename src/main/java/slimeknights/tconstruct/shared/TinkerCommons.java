@@ -46,7 +46,6 @@ public class TinkerCommons extends TinkerPulse {
   public static final SoilBlock consecrated_soil = null;
   public static final SoilBlock slimy_mud_magma = null;
 
-  public static final SlimeBlock green_slime = null;
   public static final SlimeBlock blue_slime = null;
   public static final SlimeBlock purple_slime = null;
   public static final SlimeBlock blood_slime = null;
@@ -177,12 +176,11 @@ public class TinkerCommons extends TinkerPulse {
     register(registry, new SoilBlock(SoilBlock.SoilType.SLIMY_MUD_MAGMA), "slimy_mud_magma");
 
     // Slimes
-    register(registry, new SlimeBlock(SlimeBlock.SlimeType.GREEN), "green_slime");
-    register(registry, new SlimeBlock(SlimeBlock.SlimeType.BLUE), "blue_slime");
-    register(registry, new SlimeBlock(SlimeBlock.SlimeType.PURPLE), "purple_slime");
-    register(registry, new SlimeBlock(SlimeBlock.SlimeType.BLOOD), "blood_slime");
-    register(registry, new SlimeBlock(SlimeBlock.SlimeType.MAGMA), "magma_slime");
-    register(registry, new SlimeBlock(SlimeBlock.SlimeType.PINK), "pink_slime");
+    register(registry, new SlimeBlock(true), "blue_slime");
+    register(registry, new SlimeBlock(true), "purple_slime");
+    register(registry, new SlimeBlock(true), "blood_slime");
+    register(registry, new SlimeBlock(true), "magma_slime");
+    register(registry, new SlimeBlock(false), "pink_slime");
 
     register(registry, new CongealedSlimeBlock(true), "congealed_green_slime");
     register(registry, new CongealedSlimeBlock(true), "congealed_blue_slime");
@@ -263,7 +261,6 @@ public class TinkerCommons extends TinkerPulse {
     registerBlockItem(registry, slimy_mud_magma, TinkerRegistry.tabGeneral);
 
     // Slimes
-    registerBlockItem(registry, green_slime, TinkerRegistry.tabWorld);
     registerBlockItem(registry, blue_slime, TinkerRegistry.tabWorld);
     registerBlockItem(registry, purple_slime, TinkerRegistry.tabWorld);
     registerBlockItem(registry, blood_slime, TinkerRegistry.tabWorld);

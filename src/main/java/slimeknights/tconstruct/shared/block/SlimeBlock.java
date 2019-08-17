@@ -11,12 +11,12 @@ import net.minecraft.util.NonNullList;
 
 public class SlimeBlock extends net.minecraft.block.SlimeBlock {
 
-  private final SlimeType slimeType;
+  private final boolean shouldAddToCreative;
 
-  public SlimeBlock(SlimeType slimeType) {
+  public SlimeBlock(boolean shouldAddToCreative) {
     super(Block.Properties.create(Material.CLAY, MaterialColor.GRASS).slipperiness(0.8F).sound(SoundType.SLIME));
 
-    this.slimeType = slimeType;
+    this.shouldAddToCreative = shouldAddToCreative;
   }
 
   @Override
@@ -26,7 +26,7 @@ public class SlimeBlock extends net.minecraft.block.SlimeBlock {
 
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.slimeType != SlimeType.PINK) {
+    if (this.shouldAddToCreative) {
       items.add(new ItemStack(this));
     }
   }
