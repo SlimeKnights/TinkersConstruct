@@ -33,7 +33,7 @@ public class TinkerBookItem extends Item {
   public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
     ItemStack itemStack = playerIn.getHeldItem(handIn);
     if (worldIn.isRemote) {
-      TinkerBook.INSTANCE.openGui(new TranslationTextComponent("Tinker's Book"), itemStack);
+      TinkerBook.INSTANCE.openGui(new TranslationTextComponent("item.tconstruct.book"), itemStack);
     }
     return new ActionResult<>(ActionResultType.SUCCESS, itemStack);
   }
