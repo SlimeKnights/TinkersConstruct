@@ -39,12 +39,14 @@ public class TinkerCommons extends TinkerPulse {
 
   public static ServerProxy proxy = DistExecutor.runForDist(() -> CommonsClientProxy::new, () -> ServerProxy::new);
 
-  public static final SoilBlock grout = null;
-  public static final SoilBlock slimy_mud_green = null;
-  public static final SoilBlock slimy_mud_blue = null;
-  public static final SoilBlock graveyard_soil = null;
-  public static final SoilBlock consecrated_soil = null;
-  public static final SoilBlock slimy_mud_magma = null;
+  public static final GroutBlock grout = null;
+
+  public static final GraveyardSoilBlock graveyard_soil = null;
+  public static final ConsecratedSoilBlock consecrated_soil = null;
+
+  public static final SlimyMudBlock slimy_mud_green = null;
+  public static final SlimyMudBlock slimy_mud_blue = null;
+  public static final SlimyMudBlock slimy_mud_magma = null;
 
   public static final SlimeBlock blue_slime = null;
   public static final SlimeBlock purple_slime = null;
@@ -168,12 +170,14 @@ public class TinkerCommons extends TinkerPulse {
     boolean forced = Config.forceRegisterAll; // causes to always register all items
 
     // Soils
-    register(registry, new SoilBlock(SoilBlock.SoilType.GROUT), "grout");
-    register(registry, new SoilBlock(SoilBlock.SoilType.SLIMY_MUD_GREEN), "slimy_mud_green");
-    register(registry, new SoilBlock(SoilBlock.SoilType.SLIMY_MUD_BLUE), "slimy_mud_blue");
-    register(registry, new SoilBlock(SoilBlock.SoilType.GRAVEYARD), "graveyard_soil");
-    register(registry, new SoilBlock(SoilBlock.SoilType.CONSECRATED), "consecrated_soil");
-    register(registry, new SoilBlock(SoilBlock.SoilType.SLIMY_MUD_MAGMA), "slimy_mud_magma");
+    register(registry, new GroutBlock(), "grout");
+
+    register(registry, new GraveyardSoilBlock(), "graveyard_soil");
+    register(registry, new ConsecratedSoilBlock(), "consecrated_soil");
+
+    register(registry, new SlimyMudBlock(SlimyMudBlock.MudType.SLIMY_MUD_GREEN), "slimy_mud_green");
+    register(registry, new SlimyMudBlock(SlimyMudBlock.MudType.SLIMY_MUD_BLUE), "slimy_mud_blue");
+    register(registry, new SlimyMudBlock(SlimyMudBlock.MudType.SLIMY_MUD_MAGMA), "slimy_mud_magma");
 
     // Slimes
     register(registry, new SlimeBlock(true), "blue_slime");
@@ -254,10 +258,12 @@ public class TinkerCommons extends TinkerPulse {
 
     // Soils
     registerBlockItem(registry, grout, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, slimy_mud_green, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, slimy_mud_blue, TinkerRegistry.tabGeneral);
+
     registerBlockItem(registry, graveyard_soil, TinkerRegistry.tabGeneral);
     registerBlockItem(registry, consecrated_soil, TinkerRegistry.tabGeneral);
+
+    registerBlockItem(registry, slimy_mud_green, TinkerRegistry.tabGeneral);
+    registerBlockItem(registry, slimy_mud_blue, TinkerRegistry.tabGeneral);
     registerBlockItem(registry, slimy_mud_magma, TinkerRegistry.tabGeneral);
 
     // Slimes
