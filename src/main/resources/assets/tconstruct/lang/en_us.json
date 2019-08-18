@@ -237,6 +237,8 @@
     "block.tconstruct.blue_slime_vine_middle": "Blue Slimy Vine",
     "block.tconstruct.blue_slime_vine_end": "Blue Slimy Vine",
 
+    "item.tconstruct.blue_slime_spawn_egg": "Blue Slime Spawn Egg",
+
     "_comment": "GUIs",
     "itemGroup.TinkerGeneral": "Tinkers' General Items",
     "itemGroup.TinkerTools": "Tinkers' Tools",

@@ -9,7 +9,7 @@ public class WorldEvents {
 
   // Custom slime spawning on slime islands
   Biome.SpawnListEntry magmaSlimeSpawn = new Biome.SpawnListEntry(EntityType.MAGMA_CUBE, 150, 4, 6);
-  //TODO Biome.SpawnListEntry blueSlimeSpawn = new Biome.SpawnListEntry(BlueSlimeEntity.class, 15, 2, 4);
+  Biome.SpawnListEntry blueSlimeSpawn = new Biome.SpawnListEntry(TinkerWorld.blue_slime_entity, 15, 2, 4);
 
   @SubscribeEvent
   public void extraSlimeSpawn(WorldEvent.PotentialSpawns event) {

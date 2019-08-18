@@ -1,11 +1,13 @@
 package slimeknights.tconstruct.world;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.event.RegistryEvent;
@@ -30,6 +32,7 @@ import slimeknights.tconstruct.world.block.SlimeLeavesBlock;
 import slimeknights.tconstruct.world.block.SlimeSaplingBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
+import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
 import slimeknights.tconstruct.world.worldgen.BlueSlimeTree;
 import slimeknights.tconstruct.world.worldgen.MagmaSlimeTree;
 import slimeknights.tconstruct.world.worldgen.PurpleSlimeGrass;
@@ -87,6 +90,8 @@ public class TinkerWorld extends TinkerPulse {
   public static final SlimeVineBlock blue_slime_vine_middle = null;
   public static final SlimeVineBlock blue_slime_vine_end = null;
 
+  public static final EntityType<BlueSlimeEntity> blue_slime_entity = null;
+
   public static PlantType slimePlantType = PlantType.Nether;
 
   public TinkerWorld() {
@@ -139,6 +144,8 @@ public class TinkerWorld extends TinkerPulse {
   public void registerItems(final RegistryEvent.Register<Item> event) {
     IForgeRegistry<Item> registry = event.getRegistry();
 
+    register(registry, new SpawnEggItem(WorldEntities.blue_slime_entity, 0x47eff5, 0xacfff4, (new Item.Properties()).group(ItemGroup.MISC)), "blue_slime_spawn_egg");
+
     registerBlockItem(registry, green_slime_dirt, TinkerRegistry.tabWorld);
     registerBlockItem(registry, blue_slime_dirt, TinkerRegistry.tabWorld);
     registerBlockItem(registry, purple_slime_dirt, TinkerRegistry.tabWorld);
@@ -183,6 +190,13 @@ public class TinkerWorld extends TinkerPulse {
     registerBlockItem(registry, blue_slime_vine, TinkerRegistry.tabWorld);
     registerBlockItem(registry, blue_slime_vine_middle, TinkerRegistry.tabWorld);
     registerBlockItem(registry, blue_slime_vine_end, TinkerRegistry.tabWorld);
+  }
+
+  @SubscribeEvent
+  public void registerEntities(final RegistryEvent.Register<EntityType<?>> event) {
+    IForgeRegistry<EntityType<?>> registry = event.getRegistry();
+
+    registry.register(WorldEntities.blue_slime_entity.setRegistryName("tconstruct:blue_slime_entity"));
   }
 
   @SubscribeEvent

@@ -8,7 +8,9 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IEnviromentBlockReader;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import slimeknights.tconstruct.common.ClientProxy;
+import slimeknights.tconstruct.library.client.renderer.BlueSlimeRenderer;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 import slimeknights.tconstruct.world.block.SlimeLeavesBlock;
@@ -18,6 +20,7 @@ import slimeknights.tconstruct.world.client.SlimeColorizer;
 import slimeknights.tconstruct.world.client.slime.BlueColorReloadListener;
 import slimeknights.tconstruct.world.client.slime.OrangeColorReloadListener;
 import slimeknights.tconstruct.world.client.slime.PurpleColorReloadListener;
+import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
 
 public class WorldClientProxy extends ClientProxy {
 
@@ -36,6 +39,8 @@ public class WorldClientProxy extends ClientProxy {
   @Override
   public void preInit() {
     super.preInit();
+
+    RenderingRegistry.registerEntityRenderingHandler(BlueSlimeEntity.class, BlueSlimeRenderer.BLUE_SLIME_FACTORY);
   }
 
   @Override
