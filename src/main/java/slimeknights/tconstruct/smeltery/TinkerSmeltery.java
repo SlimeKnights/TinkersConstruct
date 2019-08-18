@@ -403,7 +403,9 @@ public class TinkerSmeltery extends TinkerPulse {
       if(toolPart.canBeCasted()) {
         if(toolPart instanceof MaterialItem) {
           ItemStack stack = toolPart.getItemstackWithMaterial(TinkerMaterials.stone);
-          TinkerRegistry.registerMelting(stack, TinkerFluids.searedStone, (toolPart.getCost() * Material.VALUE_SearedMaterial) / Material.VALUE_Ingot);
+          TinkerRegistry.registerMelting(MeltingRecipe.forAmount(
+              RecipeMatch.of(stack, (toolPart.getCost() * Material.VALUE_SearedMaterial) / Material.VALUE_Ingot),
+              TinkerFluids.searedStone, (int)(toolPart.getCost() * Config.oreToIngotRatio)));
         }
       }
     }
