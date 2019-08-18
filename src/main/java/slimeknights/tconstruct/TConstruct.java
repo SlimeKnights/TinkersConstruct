@@ -11,12 +11,16 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.control.PulseManager;
+import slimeknights.mantle.util.BlankBlockDropJsonGenerator;
 import slimeknights.mantle.util.BlockStateJsonGenerator;
 import slimeknights.mantle.util.LanguageJsonGenerator;
 import slimeknights.mantle.util.ModelJsonGenerator;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.data.TConstructBlockTagsProvider;
+import slimeknights.tconstruct.common.data.TConstructItemTagsProvider;
+import slimeknights.tconstruct.common.data.TConstructLootTableProvider;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -70,12 +74,19 @@ public class TConstruct {
   }
 
   private void gatherData(final GatherDataEvent event) {
-    DataGenerator gen = event.getGenerator();
+    DataGenerator datagenerator = event.getGenerator();
 
     if (event.includeServer()) {
-      gen.addProvider(new BlockStateJsonGenerator(gen, modID));
-      gen.addProvider(new ModelJsonGenerator(gen, modID));
-      gen.addProvider(new LanguageJsonGenerator(gen, modID));
+      datagenerator.addProvider(new TConstructBlockTagsProvider(datagenerator));
+      datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator));
+      datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
+
+      if (false) {
+        datagenerator.addProvider(new BlockStateJsonGenerator(datagenerator, modID));
+        datagenerator.addProvider(new ModelJsonGenerator(datagenerator, modID));
+        datagenerator.addProvider(new LanguageJsonGenerator(datagenerator, modID));
+        datagenerator.addProvider(new BlankBlockDropJsonGenerator(datagenerator, modID));
+      }
     }
   }
 }
