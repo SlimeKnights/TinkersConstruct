@@ -16,6 +16,7 @@ import net.minecraft.world.gen.IWorldGenerationBaseReader;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import slimeknights.tconstruct.common.Tags;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Random;
@@ -183,7 +184,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
   protected static boolean isAirOrLeaves(IWorldGenerationBaseReader worldIn, BlockPos pos) {
     if (!(worldIn instanceof net.minecraft.world.IWorldReader)) { // FORGE: Redirect to state method when possible
-      return worldIn.hasBlockState(pos, (state) -> state.isAir() || state.isIn(BlockTags.LEAVES) || state.isIn(TinkerWorld.SLIMY_LEAVES));
+      return worldIn.hasBlockState(pos, (state) -> state.isAir() || state.isIn(BlockTags.LEAVES) || state.isIn(Tags.Blocks.SLIMY_LEAVES));
     }
     else {
       return worldIn.hasBlockState(pos, state -> state.canBeReplacedByLeaves((net.minecraft.world.IWorldReader) worldIn, pos));
@@ -239,7 +240,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
     boundingBox.expandTo(new MutableBoundingBox(pos, pos));
 
-    if (TinkerWorld.SLIMY_LOGS.contains(state.getBlock())) {
+    if (Tags.Blocks.SLIMY_LOGS.contains(state.getBlock())) {
       changedBlocks.add(pos.toImmutable());
     }
   }

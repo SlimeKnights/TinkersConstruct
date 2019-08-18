@@ -89,9 +89,6 @@ public class TinkerWorld extends TinkerPulse {
 
   public static PlantType slimePlantType = PlantType.Nether;
 
-  public static Tag<Block> SLIMY_LOGS = new BlockTags.Wrapper(new ResourceLocation("tconstruct:slimy_logs"));
-  public static Tag<Block> SLIMY_LEAVES = new BlockTags.Wrapper(new ResourceLocation("tconstruct:slimy_leaves"));
-
   public TinkerWorld() {
     proxy.construct();
     //slimePlantType = PlantType.create("slime");
@@ -202,7 +199,7 @@ public class TinkerWorld extends TinkerPulse {
   public void postInit(final InterModProcessEvent event) {
     MinecraftForge.EVENT_BUS.register(new WorldEvents());
     proxy.postInit();
-    TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(blue_vanilla_slime_grass));
+    TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(blue_slime_sapling));
   }
 
 }
