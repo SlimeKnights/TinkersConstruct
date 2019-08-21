@@ -569,6 +569,7 @@ public final class ToolHelper {
     TagUtil.setToolTag(stack, tag);
 
     if(entity instanceof EntityPlayerMP) {
+      entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ITEM_BREAK, entity.getSoundCategory(), 0.8F, 0.8F + entity.world.rand.nextFloat() * 0.4F);
       TinkerNetwork.sendTo(new ToolBreakAnimationPacket(stack), (EntityPlayerMP) entity);
     }
   }
