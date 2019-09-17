@@ -58,33 +58,6 @@ public class TinkerFluids extends TinkerPulse {
     FLUIDS.register(modEventBus);
   }
 
-  /*@SubscribeEvent
-  public void registerBlocks(final RegistryEvent.Register<Block> event) {
-    IForgeRegistry<Block> registry = event.getRegistry();
-
-    (milk = new MilkFluid.Source()).setRegistryName("tconstruct:milk");
-    flowing_milk = new MilkFluid.Flowing().setRegistryName("tconstruct:flowing_milk");
-    register(registry, new MilkFlowingFluidBlock(), "milk_liquid");
-
-    (pink_slime = new PinkSlimeFluid.Source()).setRegistryName("tconstruct:pink_slime");
-    flowing_pink_slime = new PinkSlimeFluid.Flowing().setRegistryName("tconstruct:flowing_pink_slime");
-    register(registry, new PinkSlimeFlowingFluidBlock(), "pink_slime_liquid");
-  }
-
-  @SubscribeEvent
-  public void registerItems(final RegistryEvent.Register<Item> event) {
-    IForgeRegistry<Item> registry = event.getRegistry();
-
-    register(registry, new MilkBucketItem(), "milk_bucket");
-
-    register(registry, new PinkSlimeBucketItem(), "pink_slime_bucket");
-  }
-
-  @SubscribeEvent
-  public void registerFluids(final RegistryEvent.Register<Fluid> event) {
-    event.getRegistry().registerAll(milk, flowing_milk, pink_slime, flowing_pink_slime);
-  }*/
-
   public static int applyAlphaIfNotPresent(int color) {
     if (((color >> 24) & 0xFF) == 0) {
       color |= 0xFF << 24;

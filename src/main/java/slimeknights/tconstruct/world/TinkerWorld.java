@@ -46,6 +46,8 @@ import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
 import slimeknights.tconstruct.world.worldgen.BlueSlimeTree;
 import slimeknights.tconstruct.world.worldgen.MagmaSlimeTree;
+import slimeknights.tconstruct.world.worldgen.NetherSlimeIslandPiece;
+import slimeknights.tconstruct.world.worldgen.NetherSlimeIslandStructure;
 import slimeknights.tconstruct.world.worldgen.PurpleSlimeTree;
 import slimeknights.tconstruct.world.worldgen.SlimeIslandPiece;
 import slimeknights.tconstruct.world.worldgen.SlimeIslandStructure;
@@ -109,6 +111,9 @@ public class TinkerWorld extends TinkerPulse {
 
   public static IStructurePieceType SLIME_ISLAND_PIECE;
   public static final Structure<NoFeatureConfig> SLIME_ISLAND = null;
+
+  public static IStructurePieceType NETHER_SLIME_ISLAND_PIECE;
+  public static final Structure<NoFeatureConfig> NETHER_SLIME_ISLAND = null;
 
   public TinkerWorld() {
     proxy.construct();
@@ -218,16 +223,19 @@ public class TinkerWorld extends TinkerPulse {
   @SubscribeEvent
   public void onFeaturesRegistry(RegistryEvent.Register<Feature<?>> event) {
     IForgeRegistry<Feature<?>> registry = event.getRegistry();
+
     SLIME_ISLAND_PIECE = Registry.register(Registry.STRUCTURE_PIECE, "tconstruct:slime_island_piece", SlimeIslandPiece::new);
     register(registry, new SlimeIslandStructure(NoFeatureConfig::deserialize), "slime_island");
-    //registerFeature(event, new SlimeIslandStructure(NoFeatureConfig::deserialize), "slime_island");
+
+    NETHER_SLIME_ISLAND_PIECE = Registry.register(Registry.STRUCTURE_PIECE, "tconstruct:nether_slime_island_piece", NetherSlimeIslandPiece::new);
+    register(registry, new NetherSlimeIslandStructure(NoFeatureConfig::deserialize), "nether_slime_island");
   }
 
   @SubscribeEvent
   public void preInit(final FMLCommonSetupEvent event) {
     proxy.preInit();
 
-    applyFeatures(event);
+    applyFeatures(false);
   }
 
   @SubscribeEvent
@@ -242,21 +250,48 @@ public class TinkerWorld extends TinkerPulse {
     TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(blue_slime_sapling));
   }
 
-  private static void registerFeature(RegistryEvent.Register<Feature<?>> event, Feature<?> feature, String name) {
-    feature.setRegistryName(TConstruct.modID, name);
-    event.getRegistry().register(feature);
-  }
+  public static void applyFeatures(boolean isInDebugMode) {
+    if (isInDebugMode) {
+      for (Biome biome : ForgeRegistries.BIOMES.getValues()) {
+        addStructure(biome, GenerationStage.Decoration.SURFACE_STRUCTURES, SLIME_ISLAND);
+        addStructure(biome, GenerationStage.Decoration.UNDERGROUND_DECORATION, NETHER_SLIME_ISLAND);
+      }
 
-  public static void applyFeatures(FMLCommonSetupEvent event) {
-    for (Biome biome : ForgeRegistries.BIOMES.getValues()) {
-      addStructure(biome, GenerationStage.Decoration.SURFACE_STRUCTURES, SLIME_ISLAND);
+      ConfiguredFeature<?> SLIME_ISLAND_FEATURE = Biome.createDecoratedFeature(SLIME_ISLAND, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG);
+
+      FlatGenerationSettings.FEATURE_STAGES.put(SLIME_ISLAND_FEATURE, GenerationStage.Decoration.SURFACE_STRUCTURES);
+      FlatGenerationSettings.STRUCTURES.put("tconstruct:slime_island", new ConfiguredFeature[] { SLIME_ISLAND_FEATURE });
+      FlatGenerationSettings.FEATURE_CONFIGS.put(SLIME_ISLAND_FEATURE, IFeatureConfig.NO_FEATURE_CONFIG);
+
+      ConfiguredFeature<?> NETHER_SLIME_ISLAND_FEATURE = Biome.createDecoratedFeature(NETHER_SLIME_ISLAND, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG);
+
+      FlatGenerationSettings.FEATURE_STAGES.put(NETHER_SLIME_ISLAND_FEATURE, GenerationStage.Decoration.UNDERGROUND_DECORATION);
+      FlatGenerationSettings.STRUCTURES.put("tconstruct:nether_slime_island", new ConfiguredFeature[] { NETHER_SLIME_ISLAND_FEATURE });
+      FlatGenerationSettings.FEATURE_CONFIGS.put(NETHER_SLIME_ISLAND_FEATURE, IFeatureConfig.NO_FEATURE_CONFIG);
     }
+    else {
+      for (Biome biome : ForgeRegistries.BIOMES.getValues()) {
+        if (biome.getCategory() != Biome.Category.NETHER && biome.getCategory() != Biome.Category.THEEND) {
+          addStructure(biome, GenerationStage.Decoration.SURFACE_STRUCTURES, SLIME_ISLAND);
+        }
+        else {
+          addStructure(biome, GenerationStage.Decoration.UNDERGROUND_DECORATION, NETHER_SLIME_ISLAND);
+        }
+      }
 
-    ConfiguredFeature<?> SLIME_ISLAND_FEATURE = Biome.createDecoratedFeature(SLIME_ISLAND, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG);
-
-    FlatGenerationSettings.FEATURE_STAGES.put(SLIME_ISLAND_FEATURE, GenerationStage.Decoration.SURFACE_STRUCTURES);
-    FlatGenerationSettings.STRUCTURES.put("tconstruct:slime_island", new ConfiguredFeature[] { SLIME_ISLAND_FEATURE });
-    FlatGenerationSettings.FEATURE_CONFIGS.put(SLIME_ISLAND_FEATURE, IFeatureConfig.NO_FEATURE_CONFIG);
+      ConfiguredFeature<?> SLIME_ISLAND_FEATURE = Biome.createDecoratedFeature(SLIME_ISLAND, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG);
+      FlatGenerationSettings.FEATURE_STAGES.put(SLIME_ISLAND_FEATURE, GenerationStage.Decoration.SURFACE_STRUCTURES);
+      FlatGenerationSettings.STRUCTURES.put("tconstruct:slime_island", new ConfiguredFeature[] { SLIME_ISLAND_FEATURE });
+      FlatGenerationSettings.FEATURE_CONFIGS.put(SLIME_ISLAND_FEATURE, IFeatureConfig.NO_FEATURE_CONFIG);
+    }
+    for (Biome biome : ForgeRegistries.BIOMES.getValues()) {
+      if (biome.getCategory() != Biome.Category.NETHER && biome.getCategory() != Biome.Category.THEEND) {
+        addStructure(biome, GenerationStage.Decoration.SURFACE_STRUCTURES, SLIME_ISLAND);
+      }
+      else {
+        addStructure(biome, GenerationStage.Decoration.UNDERGROUND_DECORATION, NETHER_SLIME_ISLAND);
+      }
+    }
   }
 
   private static void addStructure(Biome biome, GenerationStage.Decoration stage, Structure structure) {

@@ -13,8 +13,8 @@ public class BlueSlimeTree extends Tree {
 
   private final boolean isIslandTree;
 
-  public BlueSlimeTree(boolean isIslandTreeIn) {
-    this.isIslandTree = isIslandTreeIn;
+  public BlueSlimeTree(boolean isIslandTree) {
+    this.isIslandTree = isIslandTree;
   }
 
   @Override
