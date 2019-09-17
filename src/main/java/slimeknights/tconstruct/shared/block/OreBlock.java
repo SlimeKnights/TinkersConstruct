@@ -16,7 +16,7 @@ public class OreBlock extends Block {
   }
 
   public OreBlock(Material material) {
-    super(Block.Properties.create(material).hardnessAndResistance(10.0F));
+    super(Block.Properties.create(material).hardnessAndResistance(1.0F));
   }
 
   @Override
@@ -34,6 +34,6 @@ public class OreBlock extends Block {
   @Override
   //TODO: Replace when forge Re-Evaluates
   public int getHarvestLevel(BlockState state) {
-    return HarvestLevels.COBALT;
+    return 1;
   }
 }

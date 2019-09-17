@@ -11,12 +11,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.lighting.LightEngine;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Locale;
@@ -24,13 +28,18 @@ import java.util.Random;
 
 public class SlimeGrassBlock extends Block implements IGrowable {
 
-  public static final BooleanProperty SNOWY = BlockStateProperties.SNOWY;
+  private static final BooleanProperty SNOWY = BlockStateProperties.SNOWY;
   private final FoliageType foliageType;
 
   public SlimeGrassBlock(FoliageType foliageType) {
     super(Block.Properties.create(Material.ORGANIC).hardnessAndResistance(0.65F).sound(SoundType.PLANT).tickRandomly().slipperiness(0.65F));
     this.setDefaultState(this.stateContainer.getBaseState().with(SNOWY, Boolean.FALSE));
     this.foliageType = foliageType;
+  }
+
+  @Override
+  public boolean isSolid(BlockState state) {
+    return true;
   }
 
   @Override
@@ -125,34 +134,61 @@ public class SlimeGrassBlock extends Block implements IGrowable {
 
   @Override
   public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
-    if (worldIn.isRemote) {
-      return;
-    }
+    if (!worldIn.isRemote) {
+      if (!worldIn.isAreaLoaded(pos, 3)) {
+        return; // Forge: prevent loading unloaded chunks when checking neighbor's light and spreading
+      }
+      if (!canBecomeSlimeGrass(state, worldIn, pos)) {
+        BlockState dirtState = this.getDirtState(state);
 
-    // spread to surrounding blocks
-    if (worldIn.getLightSubtracted(pos.up(), 0) >= 9) {
-      for (int i = 0; i < 4; ++i) {
-        BlockPos blockpos = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
-
-        if (blockpos.getY() >= 0 && blockpos.getY() < 256 && !worldIn.isBlockLoaded(blockpos)) {
-          return;
+        if (dirtState != null) {
+          worldIn.setBlockState(pos, dirtState);
         }
-
-        BlockState iblockstate = worldIn.getBlockState(blockpos.up());
-        BlockState iblockstate1 = worldIn.getBlockState(blockpos);
-
-        if (worldIn.getLightSubtracted(blockpos.up(), 0) >= 4 && iblockstate.getOpacity(worldIn, pos.up()) <= 2) {
-          this.convert(worldIn, blockpos, iblockstate1, this.foliageType);
+      }
+      else {
+        if (worldIn.getLight(pos.up()) >= 9) {
+          for (int i = 0; i < 4; ++i) {
+            BlockPos blockpos = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
+            BlockState newState = this.getStateFromDirt(worldIn.getBlockState(blockpos));
+            if (newState != null && canSlimeGrassSpread(newState, worldIn, blockpos)) {
+              worldIn.setBlockState(blockpos, newState);
+            }
+          }
         }
       }
     }
   }
 
-  private void convert(World world, BlockPos pos, BlockState state, FoliageType foliageType) {
-    BlockState newState = this.getStateFromDirt(state);
-    if (newState != null) {
-      world.setBlockState(pos, newState);
+  private static boolean canBecomeSlimeGrass(BlockState stateIn, IWorldReader worldReader, BlockPos pos) {
+    BlockPos blockpos = pos.up();
+    BlockState state = worldReader.getBlockState(blockpos);
+    int i = LightEngine.func_215613_a(worldReader, stateIn, pos, state, blockpos, Direction.UP, state.getOpacity(worldReader, blockpos));
+    return i < worldReader.getMaxLightLevel();
+  }
+
+  private static boolean canSlimeGrassSpread(BlockState state, IWorldReader worldReader, BlockPos pos) {
+    BlockPos blockpos = pos.up();
+    return canBecomeSlimeGrass(state, worldReader, pos) && !worldReader.getFluidState(blockpos).isTagged(FluidTags.WATER);
+  }
+
+  public BlockState getDirtState(BlockState grassState) {
+    if (grassState.getBlock() == TinkerWorld.blue_vanilla_slime_grass || grassState.getBlock() == TinkerWorld.purple_vanilla_slime_grass || grassState.getBlock() == TinkerWorld.orange_vanilla_slime_grass) {
+      return Blocks.DIRT.getDefaultState();
     }
+    if (grassState.getBlock() == TinkerWorld.blue_green_slime_grass || grassState.getBlock() == TinkerWorld.purple_green_slime_grass || grassState.getBlock() == TinkerWorld.orange_green_slime_grass) {
+      return TinkerWorld.green_slime_dirt.getDefaultState();
+    }
+    if (grassState.getBlock() == TinkerWorld.blue_blue_slime_grass || grassState.getBlock() == TinkerWorld.purple_blue_slime_grass || grassState.getBlock() == TinkerWorld.orange_blue_slime_grass) {
+      return TinkerWorld.blue_slime_dirt.getDefaultState();
+    }
+    if (grassState.getBlock() == TinkerWorld.blue_purple_slime_grass || grassState.getBlock() == TinkerWorld.purple_purple_slime_grass || grassState.getBlock() == TinkerWorld.orange_purple_slime_grass) {
+      return TinkerWorld.purple_slime_dirt.getDefaultState();
+    }
+    if (grassState.getBlock() == TinkerWorld.blue_magma_slime_grass || grassState.getBlock() == TinkerWorld.purple_magma_slime_grass || grassState.getBlock() == TinkerWorld.orange_magma_slime_grass) {
+      return TinkerWorld.magma_slime_dirt.getDefaultState();
+    }
+
+    return null;
   }
 
   private BlockState getStateFromDirt(BlockState dirtState) {

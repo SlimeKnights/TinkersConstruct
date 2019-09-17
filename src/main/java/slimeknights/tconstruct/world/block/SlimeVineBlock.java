@@ -41,7 +41,7 @@ public class SlimeVineBlock extends VineBlock {
     }
   }
 
-  private void grow(World worldIn, Random rand, BlockPos pos, BlockState state) {
+  public void grow(IWorld worldIn, Random rand, BlockPos pos, BlockState state) {
     // end parts don't grow
     if (this.getStateFromStage() == null) {
       return;
@@ -65,7 +65,7 @@ public class SlimeVineBlock extends VineBlock {
 
       state = state.with(UP, false);
 
-      worldIn.setBlockState(below, state);
+      worldIn.setBlockState(below, state, 3);
     }
   }
 
@@ -91,7 +91,7 @@ public class SlimeVineBlock extends VineBlock {
     return null;
   }
 
-  private boolean freeFloating(World world, BlockPos pos, BlockState state) {
+  private boolean freeFloating(IWorld world, BlockPos pos, BlockState state) {
     for (Direction side : Direction.Plane.HORIZONTAL) {
       if (state.get(getPropertyFor(side)) && canAttachTo(world, pos.offset(side), side.getOpposite())) {
         return false;
@@ -234,6 +234,24 @@ public class SlimeVineBlock extends VineBlock {
     }
 
     return flag ? blockstate1 : null;
+  }
+
+  public BlockState getStateToPlace(IWorld world, BlockPos pos) {
+    BlockState blockstate = world.getBlockState(pos);
+    boolean flag = blockstate.getBlock() == this;
+    BlockState blockstate1 = flag ? blockstate : this.getDefaultState();
+
+    for (Direction direction : new Direction[] { Direction.EAST, Direction.UP, Direction.SOUTH, Direction.NORTH, Direction.WEST }) {
+      if (direction != Direction.DOWN) {
+        BooleanProperty booleanproperty = getPropertyFor(direction);
+        boolean flag1 = flag && blockstate.get(booleanproperty);
+        if (!flag1 && this.getFlagFromState(world, pos, direction)) {
+          blockstate1 = blockstate1.with(booleanproperty, Boolean.TRUE);
+        }
+      }
+    }
+
+    return blockstate1;
   }
 
   public SlimeGrassBlock.FoliageType getFoliageType() {

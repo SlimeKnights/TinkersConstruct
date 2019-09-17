@@ -18,12 +18,12 @@ public final class TinkerRegistry {
   /*---------------------------------------------------------------------------
   | ITEM GROUPS                                                               |
   ---------------------------------------------------------------------------*/
-  public static CreativeTab tabGeneral = new CreativeTab("TinkerGeneral", new ItemStack(Items.SLIME_BALL));
-  public static CreativeTab tabTools = new CreativeTab("TinkerTools", new ItemStack(Items.IRON_PICKAXE));
-  public static CreativeTab tabParts = new CreativeTab("TinkerToolParts", new ItemStack(Items.STICK));
-  public static CreativeTab tabSmeltery = new CreativeTab("TinkerSmeltery", new ItemStack(Item.getItemFromBlock(Blocks.STONE_BRICKS)));
-  public static CreativeTab tabWorld = new CreativeTab("TinkerWorld", new ItemStack(Item.getItemFromBlock(Blocks.SLIME_BLOCK)));
-  public static CreativeTab tabGadgets = new CreativeTab("TinkerGadgets", new ItemStack(Blocks.TNT));
+  public static CreativeTab tabGeneral = new CreativeTab("tinkers_general", new ItemStack(Items.SLIME_BALL));
+  public static CreativeTab tabTools = new CreativeTab("tinkers_tools", new ItemStack(Items.IRON_PICKAXE));
+  public static CreativeTab tabParts = new CreativeTab("tinkers_tool_parts", new ItemStack(Items.STICK));
+  public static CreativeTab tabSmeltery = new CreativeTab("tinkers_smeltery", new ItemStack(Item.getItemFromBlock(Blocks.STONE_BRICKS)));
+  public static CreativeTab tabWorld = new CreativeTab("tinkers_world", new ItemStack(Item.getItemFromBlock(Blocks.SLIME_BLOCK)));
+  public static CreativeTab tabGadgets = new CreativeTab("tinkers_gadgets", new ItemStack(Blocks.TNT));
 
   /*---------------------------------------------------------------------------
   | Traceability & Internal stuff                                             |

@@ -13,9 +13,14 @@ public class Tags {
 
     public static final Tag<Block> SLIMY_LOGS = tag("slimy_logs");
     public static final Tag<Block> SLIMY_LEAVES = tag("slimy_leaves");
+    public static final Tag<Block> COBBLE_STONE = tag("cobblestone_stone");
 
     private static Tag<Block> tag(String name) {
       return new BlockTags.Wrapper(new ResourceLocation("tconstruct", name));
+    }
+
+    private static Tag<Block> forgeTag(String name) {
+      return new BlockTags.Wrapper(new ResourceLocation("forge", name));
     }
   }
 
@@ -23,9 +28,14 @@ public class Tags {
 
     public static final Tag<Item> SLIMY_LOGS = tag("slimy_logs");
     public static final Tag<Item> SLIMY_LEAVES = tag("slimy_leaves");
+    public static final Tag<Item> COBBLE_STONE = tag("cobblestone_stone");
 
     private static Tag<Item> tag(String name) {
       return new ItemTags.Wrapper(new ResourceLocation("tconstruct", name));
+    }
+
+    private static Tag<Item> forgeTag(String name) {
+      return new ItemTags.Wrapper(new ResourceLocation("forge", name));
     }
   }
 }

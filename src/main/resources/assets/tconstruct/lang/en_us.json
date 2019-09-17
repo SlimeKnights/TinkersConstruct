@@ -127,7 +127,7 @@
     "item.tconstruct.magma_slime_crystal": "Magma Slime Crystal",
     "item.tconstruct.magma_slime_crystal.tooltip": "item.tconstruct.green_slime_crystal.tooltip",
     "item.tconstruct.width_expander": "Expander (Horizontal)",
-    "item.tconstruct.width_expander.tooltip":"Don't skip leg day!",
+    "item.tconstruct.width_expander.tooltip": "Don't skip leg day!",
     "item.tconstruct.height_expander": "Expander (Vertical)",
     "item.tconstruct.height_expander.tooltip": "Do you even lift?",
     "item.tconstruct.reinforcement": "Reinforcement",
@@ -240,10 +240,11 @@
     "item.tconstruct.blue_slime_spawn_egg": "Blue Slime Spawn Egg",
 
     "_comment": "GUIs",
-    "itemGroup.TinkerGeneral": "Tinkers' General Items",
-    "itemGroup.TinkerTools": "Tinkers' Tools",
-    "itemGroup.TinkerToolParts": "Tinkers' Toolparts",
-    "itemGroup.TinkerSmeltery": "Tinkers' Smeltery",
-    "itemGroup.TinkerWorld": "Tinkers' World",
-    "itemGroup.TinkerGadgets":"Tinkers' Gadgets"
+
+    "itemGroup.tinkers_general": "Tinkers' General Items",
+    "itemGroup.tinkers_tools": "Tinkers' Tools",
+    "itemGroup.tinkers_tool_parts": "Tinkers' Toolparts",
+    "itemGroup.tinkers_smeltery": "Tinkers' Smeltery",
+    "itemGroup.tinkers_world": "Tinkers' World",
+    "itemGroup.tinkers_gadgets": "Tinkers' Gadgets"
 }

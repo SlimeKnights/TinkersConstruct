@@ -17,7 +17,7 @@ public class PlayerDataEvents {
   @SubscribeEvent
   public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
     if (Config.spawnWithBook) {
-      CompoundNBT playerData = event.getPlayer().getEntityData();
+      CompoundNBT playerData = event.getPlayer().getPersistentData();
       CompoundNBT data = TagUtil.getTagSafe(playerData, PlayerEntity.PERSISTED_NBT_TAG);
 
       if (!data.getBoolean(TAG_PLAYER_HAS_BOOK)) {

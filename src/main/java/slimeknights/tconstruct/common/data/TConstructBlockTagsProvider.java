@@ -9,11 +9,12 @@ import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-import static slimeknights.tconstruct.common.Tags.Blocks.*;
-
 import java.nio.file.Path;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static slimeknights.tconstruct.common.Tags.Blocks.SLIMY_LEAVES;
+import static slimeknights.tconstruct.common.Tags.Blocks.SLIMY_LOGS;
 
 public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
@@ -31,7 +32,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
     this.getBuilder(SLIMY_LOGS).add(TinkerCommons.congealed_green_slime, TinkerCommons.congealed_blue_slime, TinkerCommons.congealed_purple_slime, TinkerCommons.congealed_blood_slime, TinkerCommons.congealed_magma_slime);
 
-    if(TConstruct.pulseManager.isPulseLoaded(TinkerPulseIds.TINKER_WORLD_PULSE_ID)) {
+    if (TConstruct.pulseManager.isPulseLoaded(TinkerPulseIds.TINKER_WORLD_PULSE_ID)) {
       this.getBuilder(SLIMY_LEAVES).add(TinkerWorld.blue_slime_leaves, TinkerWorld.purple_slime_leaves, TinkerWorld.orange_slime_leaves);
     }
   }
@@ -43,7 +44,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
   @Override
   public String getName() {
-    return "Tconstruct Item Tags";
+    return "Tconstruct Block Tags";
   }
 
 }

@@ -1,0 +1,7 @@
+{
+    "replace": false,
+    "values": [
+        "#forge:cobblestone",
+        "#forge:stone"
+    ]
+}

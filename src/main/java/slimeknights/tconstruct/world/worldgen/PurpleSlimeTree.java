@@ -9,12 +9,12 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class PurpleSlimeGrass extends Tree {
+public class PurpleSlimeTree extends Tree {
 
   private final boolean isIslandTree;
 
-  public PurpleSlimeGrass(boolean isIslandTreeIn) {
-    this.isIslandTree = isIslandTreeIn;
+  public PurpleSlimeTree(boolean isIslandTree) {
+    this.isIslandTree = isIslandTree;
   }
 
   @Override

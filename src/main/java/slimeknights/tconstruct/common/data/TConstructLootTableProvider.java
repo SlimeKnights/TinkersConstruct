@@ -87,6 +87,6 @@ public class TConstructLootTableProvider implements IDataProvider {
    */
   @Override
   public String getName() {
-    return "LootTables";
+    return "TConstruct LootTables";
   }
 }

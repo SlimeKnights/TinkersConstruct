@@ -29,6 +29,7 @@ public class Config {
   public static boolean castableBricks = true;
   public static boolean leatherDryingRecipe = true;
   public static boolean gravelFlintRecipe = true;
+  public static boolean matchVanillaSlimeblock = false;
   private static String[] craftingStationBlacklistArray = new String[] {
           "de.ellpeck.actuallyadditions.mod.tile.TileEntityItemViewer"
   };

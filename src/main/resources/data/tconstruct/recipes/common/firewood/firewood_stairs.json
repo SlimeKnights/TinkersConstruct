@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "tconstruct:firewood"
+    }
+  },
+  "result": {
+    "item": "tconstruct:firewood_stairs",
+    "count": 4
+  }
+}

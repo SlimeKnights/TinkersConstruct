@@ -26,6 +26,7 @@ import java.util.function.Function;
 
 import static slimeknights.tconstruct.shared.TinkerCommons.*;
 import static slimeknights.tconstruct.world.TinkerWorld.*;
+import static slimeknights.tconstruct.gadgets.TinkerGadgets.*;
 
 public class TConstructBlockLootTables extends BlockLootTables {
 
@@ -108,21 +109,6 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.func_218492_c(pigiron_block);
     this.func_218492_c(alubrass_block);
     this.func_218492_c(silky_jewel_block);
-
-    //this.registerLootTable(Blocks.GRASS_BLOCK, (p_218529_0_) -> {
-    //  return func_218515_b(p_218529_0_, Blocks.DIRT);
-    //});
-
-    /*this.registerLootTable(Blocks.SNOW, (p_218508_0_) -> {
-      return LootTable.builder().addLootPool(LootPool.builder().acceptCondition(EntityHasProperty.builder(LootContext.EntityTarget.THIS))
-              .addEntry(AlternativesLootEntry.func_216149_a(
-                      AlternativesLootEntry.func_216149_a(ItemLootEntry.builder(Items.SNOWBALL).acceptCondition(BlockStateProperty.builder(p_218508_0_).with(SnowBlock.LAYERS, 1))
-                              , ((StandaloneLootEntry.Builder) ItemLootEntry.builder(Items.SNOWBALL).acceptCondition(BlockStateProperty.builder(p_218508_0_).with(SnowBlock.LAYERS, 2))).acceptFunction(SetCount.func_215932_a(ConstantRange.of(2))), ((StandaloneLootEntry.Builder) ItemLootEntry.builder(Items.SNOWBALL).acceptCondition(BlockStateProperty.builder(p_218508_0_).with(SnowBlock.LAYERS, 3))).acceptFunction(SetCount.func_215932_a(ConstantRange.of(3))), ((StandaloneLootEntry.Builder) ItemLootEntry.builder(Items.SNOWBALL).acceptCondition(BlockStateProperty.builder(p_218508_0_).with(SnowBlock.LAYERS, 4))).acceptFunction(SetCount.func_215932_a(ConstantRange.of(4))),
-                      ((StandaloneLootEntry.Builder) ItemLootEntry.builder(Items.SNOWBALL).acceptCondition(BlockStateProperty.builder(p_218508_0_).with(SnowBlock.LAYERS, 5))).acceptFunction(SetCount.func_215932_a(ConstantRange.of(5))), ((StandaloneLootEntry.Builder) ItemLootEntry.builder(Items.SNOWBALL).acceptCondition(BlockStateProperty.builder(p_218508_0_).with(SnowBlock.LAYERS, 6))).acceptFunction(SetCount.func_215932_a(ConstantRange.of(6))), ((StandaloneLootEntry.Builder) ItemLootEntry.builder(Items.SNOWBALL).acceptCondition(BlockStateProperty.builder(p_218508_0_).with(SnowBlock.LAYERS, 7))).acceptFunction(SetCount.func_215932_a(ConstantRange.of(7))), ItemLootEntry.builder(Items.SNOWBALL).acceptFunction(SetCount.func_215932_a(ConstantRange.of(8)))).acceptCondition(field_218574_b),
-                      AlternativesLootEntry
-                      .func_216149_a(ItemLootEntry.builder(p_218508_0_).acceptCondition(BlockStateProperty.builder(p_218508_0_).with(SnowBlock.LAYERS, 1)), ItemLootEntry.builder(p_218508_0_).acceptFunction(SetCount.func_215932_a(ConstantRange.of(2))).acceptCondition(BlockStateProperty.builder(p_218508_0_).with(SnowBlock.LAYERS, 2)), ItemLootEntry.builder(p_218508_0_).acceptFunction(SetCount.func_215932_a(ConstantRange.of(3))).acceptCondition(BlockStateProperty.builder(p_218508_0_).with(SnowBlock.LAYERS, 3)), ItemLootEntry.builder(p_218508_0_).acceptFunction(SetCount.func_215932_a(ConstantRange.of(4))).acceptCondition(BlockStateProperty.builder(p_218508_0_).with(SnowBlock.LAYERS, 4)), ItemLootEntry.builder(p_218508_0_).acceptFunction(SetCount.func_215932_a(ConstantRange.of(5))).acceptCondition(BlockStateProperty.builder(p_218508_0_).with(SnowBlock.LAYERS, 5)),
-                              ItemLootEntry.builder(p_218508_0_).acceptFunction(SetCount.func_215932_a(ConstantRange.of(6))).acceptCondition(BlockStateProperty.builder(p_218508_0_).with(SnowBlock.LAYERS, 6)), ItemLootEntry.builder(p_218508_0_).acceptFunction(SetCount.func_215932_a(ConstantRange.of(7))).acceptCondition(BlockStateProperty.builder(p_218508_0_).with(SnowBlock.LAYERS, 7)), ItemLootEntry.builder(Blocks.SNOW_BLOCK)))));
-    });*/
   }
 
   private void addWorld() {
@@ -214,12 +200,29 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerLootTable(blue_slime_vine_end, BlockLootTables::func_218486_d);
   }
 
+  private void addGadgets() {
+    this.func_218492_c(stone_ladder);
+
+    this.func_218492_c(stone_torch);
+
+    this.func_218493_a(wall_stone_torch, stone_torch);
+
+    this.func_218492_c(punji);
+
+    this.func_218492_c(wooden_rail);
+    this.func_218492_c(wooden_dropper_rail);
+  }
+
   @Override
   public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
     this.addCommon();
 
     if (TConstruct.pulseManager.isPulseLoaded(TinkerPulseIds.TINKER_WORLD_PULSE_ID)) {
       this.addWorld();
+    }
+
+    if (TConstruct.pulseManager.isPulseLoaded(TinkerPulseIds.TINKER_GADGETS_PULSE_ID)) {
+      this.addGadgets();
     }
 
     Set<ResourceLocation> visited = Sets.newHashSet();

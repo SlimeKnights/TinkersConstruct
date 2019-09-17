@@ -1,6 +1,8 @@
 package slimeknights.tconstruct;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.gen.feature.structure.IStructurePieceType;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -21,7 +23,11 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.TConstructBlockTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructItemTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructLootTableProvider;
+import slimeknights.tconstruct.common.data.TConstructRecipeProvider;
+import slimeknights.tconstruct.fluids.TinkerFluids;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -57,8 +63,12 @@ public class TConstruct {
 
     pulseManager = new PulseManager(Config.pulseConfig);
     pulseManager.registerPulse(new TinkerCommons());
+    pulseManager.registerPulse(new TinkerFluids());
     pulseManager.registerPulse(new TinkerWorld());
+    pulseManager.registerPulse(new TinkerGadgets());
     pulseManager.enablePulses();
+
+    DistExecutor.runWhenOn(Dist.CLIENT, () -> TinkerBook::initBook);
   }
 
   private void preInit(final FMLCommonSetupEvent event) {
@@ -80,6 +90,7 @@ public class TConstruct {
       datagenerator.addProvider(new TConstructBlockTagsProvider(datagenerator));
       datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator));
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
+      datagenerator.addProvider(new TConstructRecipeProvider(datagenerator));
 
       if (false) {
         datagenerator.addProvider(new BlockStateJsonGenerator(datagenerator, modID));

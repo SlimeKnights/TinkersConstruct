@@ -1,13 +1,23 @@
 package slimeknights.tconstruct.world;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.FlatGenerationSettings;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.structure.IStructurePieceType;
+import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.placement.IPlacementConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.event.RegistryEvent;
@@ -16,6 +26,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 import org.apache.logging.log4j.Logger;
@@ -35,7 +46,9 @@ import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
 import slimeknights.tconstruct.world.worldgen.BlueSlimeTree;
 import slimeknights.tconstruct.world.worldgen.MagmaSlimeTree;
-import slimeknights.tconstruct.world.worldgen.PurpleSlimeGrass;
+import slimeknights.tconstruct.world.worldgen.PurpleSlimeTree;
+import slimeknights.tconstruct.world.worldgen.SlimeIslandPiece;
+import slimeknights.tconstruct.world.worldgen.SlimeIslandStructure;
 
 @Pulse(id = TinkerPulseIds.TINKER_WORLD_PULSE_ID, description = "Everything that's found in the world and worldgen")
 @ObjectHolder(TConstruct.modID)
@@ -94,6 +107,9 @@ public class TinkerWorld extends TinkerPulse {
 
   public static PlantType slimePlantType = PlantType.Nether;
 
+  public static IStructurePieceType SLIME_ISLAND_PIECE;
+  public static final Structure<NoFeatureConfig> SLIME_ISLAND = null;
+
   public TinkerWorld() {
     proxy.construct();
     //slimePlantType = PlantType.create("slime");
@@ -129,7 +145,7 @@ public class TinkerWorld extends TinkerPulse {
 
     register(registry, new SlimeSaplingBlock(new BlueSlimeTree(false)), "blue_slime_sapling");
     register(registry, new SlimeSaplingBlock(new MagmaSlimeTree()), "orange_slime_sapling");
-    register(registry, new SlimeSaplingBlock(new PurpleSlimeGrass(false)), "purple_slime_sapling");
+    register(registry, new SlimeSaplingBlock(new PurpleSlimeTree(false)), "purple_slime_sapling");
 
     register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), "purple_slime_vine");
     register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), "purple_slime_vine_middle");
@@ -200,8 +216,18 @@ public class TinkerWorld extends TinkerPulse {
   }
 
   @SubscribeEvent
+  public void onFeaturesRegistry(RegistryEvent.Register<Feature<?>> event) {
+    IForgeRegistry<Feature<?>> registry = event.getRegistry();
+    SLIME_ISLAND_PIECE = Registry.register(Registry.STRUCTURE_PIECE, "tconstruct:slime_island_piece", SlimeIslandPiece::new);
+    register(registry, new SlimeIslandStructure(NoFeatureConfig::deserialize), "slime_island");
+    //registerFeature(event, new SlimeIslandStructure(NoFeatureConfig::deserialize), "slime_island");
+  }
+
+  @SubscribeEvent
   public void preInit(final FMLCommonSetupEvent event) {
     proxy.preInit();
+
+    applyFeatures(event);
   }
 
   @SubscribeEvent
@@ -214,6 +240,28 @@ public class TinkerWorld extends TinkerPulse {
     MinecraftForge.EVENT_BUS.register(new WorldEvents());
     proxy.postInit();
     TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(blue_slime_sapling));
+  }
+
+  private static void registerFeature(RegistryEvent.Register<Feature<?>> event, Feature<?> feature, String name) {
+    feature.setRegistryName(TConstruct.modID, name);
+    event.getRegistry().register(feature);
+  }
+
+  public static void applyFeatures(FMLCommonSetupEvent event) {
+    for (Biome biome : ForgeRegistries.BIOMES.getValues()) {
+      addStructure(biome, GenerationStage.Decoration.SURFACE_STRUCTURES, SLIME_ISLAND);
+    }
+
+    ConfiguredFeature<?> SLIME_ISLAND_FEATURE = Biome.createDecoratedFeature(SLIME_ISLAND, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG);
+
+    FlatGenerationSettings.FEATURE_STAGES.put(SLIME_ISLAND_FEATURE, GenerationStage.Decoration.SURFACE_STRUCTURES);
+    FlatGenerationSettings.STRUCTURES.put("tconstruct:slime_island", new ConfiguredFeature[] { SLIME_ISLAND_FEATURE });
+    FlatGenerationSettings.FEATURE_CONFIGS.put(SLIME_ISLAND_FEATURE, IFeatureConfig.NO_FEATURE_CONFIG);
+  }
+
+  private static void addStructure(Biome biome, GenerationStage.Decoration stage, Structure structure) {
+    biome.addFeature(stage, Biome.createDecoratedFeature(structure, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG));
+    biome.addStructure(structure, IFeatureConfig.NO_FEATURE_CONFIG);
   }
 
 }

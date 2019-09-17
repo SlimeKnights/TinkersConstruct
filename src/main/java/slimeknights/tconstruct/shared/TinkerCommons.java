@@ -3,7 +3,9 @@ package slimeknights.tconstruct.shared;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -20,6 +22,7 @@ import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
 import slimeknights.tconstruct.library.TinkerPulseIds;
@@ -400,6 +403,11 @@ public class TinkerCommons extends TinkerPulse {
       register(registry, new EdibleItem(TinkerFood.BLOOD_SLIME_DROP, TinkerRegistry.tabGeneral), "blood_slime_drop");
       register(registry, new EdibleItem(TinkerFood.MAGMA_SLIME_DROP, TinkerRegistry.tabGeneral), "magma_slime_drop");
     }
+  }
+
+  @SubscribeEvent
+  public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+    CraftingHelper.register(ConfigOptionEnabledCondition.Serializer.INSTANCE);
   }
 
   @SubscribeEvent
