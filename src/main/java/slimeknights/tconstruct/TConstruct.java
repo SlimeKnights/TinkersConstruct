@@ -1,7 +1,6 @@
 package slimeknights.tconstruct;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;

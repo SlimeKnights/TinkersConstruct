@@ -1,9 +1,7 @@
 package slimeknights.tconstruct.common.data;
 
-import com.google.gson.JsonObject;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
 import net.minecraft.data.ShapedRecipeBuilder;
@@ -13,7 +11,6 @@ import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 
-import java.nio.file.Path;
 import java.util.function.Consumer;
 
 import static slimeknights.tconstruct.shared.TinkerCommons.*;

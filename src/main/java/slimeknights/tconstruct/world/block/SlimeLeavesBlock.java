@@ -16,7 +16,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import slimeknights.tconstruct.common.Tags;
-import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Random;
 
