@@ -5,7 +5,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.util.math.MathHelper;
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.client.gui.GuiElementScalable;
 import slimeknights.mantle.client.gui.GuiMultiModule;
@@ -90,10 +90,15 @@ public class GuiSearedFurnaceSideInventory extends GuiSideInventory {
           progress = 1f;
           tooltip = "gui.searedfurnace.progress.no_space";
         }
+        else if(furnace.getFuel() == 0) {
+          bar = unprogressBar;
+          progress = MathHelper.clamp(progress, 0, 1);
+          tooltip = "gui.searedfurnace.progress.no_fuel";
+        }
         else if(progress < 0) {
           bar = unprogressBar;
           progress = 1f;
-          tooltip = "gui.smeltery.progress.no_heat";
+          tooltip = "gui.searedfurnace.progress.no_heat";
         }
         else if(progress > 1f) {
           progress = 1f;
@@ -101,7 +106,7 @@ public class GuiSearedFurnaceSideInventory extends GuiSideInventory {
 
         int height = 1 + Math.round(progress * (bar.h - 1));
         int x = slot.xPos - 10 + this.xSize;
-        int y = slot.yPos + bar.h - height;
+        int y = slot.yPos;
 
         if(tooltip != null &&
            x + guiLeft <= mouseX && x + guiLeft + bar.w > mouseX &&
@@ -109,7 +114,7 @@ public class GuiSearedFurnaceSideInventory extends GuiSideInventory {
           tooltipText = tooltip;
         }
 
-        GuiScreen.drawModalRectWithCustomSizedTexture(x, y, bar.x, bar.y + bar.h - height, bar.w, height, bar.texW, bar.texH);
+        GuiScreen.drawModalRectWithCustomSizedTexture(x, y + bar.h - height, bar.x, bar.y + bar.h - height, bar.w, height, bar.texW, bar.texH);
       }
     }
 
