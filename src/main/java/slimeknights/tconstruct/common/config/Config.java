@@ -78,6 +78,10 @@ public final class Config {
   public static int cobaltRate = 20; // max. cobalt per chunk
   public static boolean genArdite = true;
   public static int arditeRate = 20; // max. ardite per chunk
+  public static boolean genEnderitum = true;
+  public static int enderitumRate = 3; // max. enderitum per chunk
+  public static boolean genTitanium = true;
+  public static int titaniumRate = 1; // max. enderitum per chunk
 
   // Clientside configs
   public static boolean renderTableItems = true;
@@ -286,6 +290,14 @@ public final class Config {
       genArdite = prop.getBoolean();
       propOrder.add(prop.getName());
 
+      prop = configFile.get(cat, "genEnderitum", genEnderitum);
+      genEnderitum = prop.getBoolean();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "genTitanium", genTitanium);
+      genTitanium = prop.getBoolean();
+      propOrder.add(prop.getName());
+
       prop = configFile.get(cat, "cobaltRate", cobaltRate);
       prop.setComment("Approx Ores per chunk");
       cobaltRate = prop.getInt();
@@ -293,6 +305,14 @@ public final class Config {
 
       prop = configFile.get(cat, "arditeRate", arditeRate);
       arditeRate = prop.getInt();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "enderitumRate", enderitumRate);
+      enderitumRate = prop.getInt();
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "titaniumRate", titaniumRate);
+      titaniumRate = prop.getInt();
       propOrder.add(prop.getName());
 
       Worldgen.setPropertyOrder(propOrder);

@@ -228,9 +228,11 @@ public class TinkerTools extends AbstractToolPulse {
   }
 
   protected void registerSmeltingRecipes() {
-    // cobalt ardite manyullyn
+    // cobalt ardite manyullyn enderitum
     GameRegistry.addSmelting(TinkerCommons.oreArdite, TinkerCommons.ingotArdite, 1.0f);
     GameRegistry.addSmelting(TinkerCommons.oreCobalt, TinkerCommons.ingotCobalt, 1.0f);
+    GameRegistry.addSmelting(TinkerCommons.oreEnderitum, TinkerCommons.ingotEnderitum, 1.2f);
+    GameRegistry.addSmelting(TinkerCommons.oreTitanium, TinkerCommons.ingotTitanium, 1.2f);
 
     // Slime crystals
     GameRegistry.addSmelting(TinkerCommons.slimyMudGreen, TinkerCommons.matSlimeCrystalGreen, 0.75f);

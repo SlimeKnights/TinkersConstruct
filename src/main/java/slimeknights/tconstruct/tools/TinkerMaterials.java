@@ -46,6 +46,7 @@ import slimeknights.tconstruct.world.block.BlockSlimeGrass;
 import static slimeknights.tconstruct.library.materials.MaterialTypes.HEAD;
 import static slimeknights.tconstruct.library.materials.MaterialTypes.PROJECTILE;
 import static slimeknights.tconstruct.library.materials.MaterialTypes.SHAFT;
+import static slimeknights.tconstruct.library.utils.HarvestLevels.ENDERITUM;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.COBALT;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.DIAMOND;
 import static slimeknights.tconstruct.library.utils.HarvestLevels.IRON;
@@ -121,7 +122,6 @@ public final class TinkerMaterials {
   public static final Material bone       = mat("bone", 0xede6bf);
   public static final Material obsidian   = mat("obsidian", 0x601cc4);
   public static final Material prismarine = mat("prismarine", 0x7edebc);
-  public static final Material endstone   = mat("endstone", 0xe0d890);
   public static final Material paper      = mat("paper", 0xffffff);
   public static final Material sponge     = mat("sponge", 0xcacc4e);
   public static final Material firewood   = mat("firewood", 0xcc5300);
@@ -141,6 +141,11 @@ public final class TinkerMaterials {
   public static final Material ardite     = mat("ardite", 0xd14210);
   public static final Material cobalt     = mat("cobalt", 0x2882d4);
   public static final Material manyullyn  = mat("manyullyn", 0xa15cf8);
+
+  // End Materials
+  public static final Material endstone   = mat("endstone", 0xe0d890);
+  public static final Material enderitum  = mat("enderitum", 0x2f0257);
+  public static final Material titanium   = mat("titanium", 0xcfd1dc);
 
   // mod integration
   public static final Material copper     = mat("copper", 0xed9f07);
@@ -330,6 +335,13 @@ public final class TinkerMaterials {
     manyullyn.addTrait(insatiable, HEAD);
     manyullyn.addTrait(coldblooded);
 
+    enderitum.addCommonItems("Enderitum");
+    enderitum.addTrait(alien, HEAD);
+    // TODO: add special trait for Enderitum.
+
+    titanium.addCommonItems("Titanium");
+    // TODO: add special trait(s) for Titanium.
+
     // mod integration
     copper.addCommonItems("Copper");
     copper.addTrait(established);
@@ -439,10 +451,6 @@ public final class TinkerMaterials {
                                     new HeadMaterialStats(430, 5.50f, 6.20f, IRON),
                                     new HandleMaterialStats(0.60f, -150),
                                     new ExtraMaterialStats(100));
-    TinkerRegistry.addMaterialStats(endstone,
-                                    new HeadMaterialStats(420, 3.23f, 3.23f, OBSIDIAN),
-                                    new HandleMaterialStats(0.85f, 0),
-                                    new ExtraMaterialStats(42));
     TinkerRegistry.addMaterialStats(paper,
                                     new HeadMaterialStats(12, 0.51f, 0.05f, STONE),
                                     new HandleMaterialStats(0.10f, 5),
@@ -484,13 +492,27 @@ public final class TinkerMaterials {
                                     new HandleMaterialStats(1.40f, -200),
                                     new ExtraMaterialStats(450));
     TinkerRegistry.addMaterialStats(manyullyn,
-                                    new HeadMaterialStats(820, 7.02f, 8.72f, COBALT),
+                                    new HeadMaterialStats(820, 7.02f, 8.72f, ENDERITUM),
                                     new HandleMaterialStats(0.50f, 250),
                                     new ExtraMaterialStats(50));
     TinkerRegistry.addMaterialStats(firewood,
                                     new HeadMaterialStats(550, 6.00f, 5.50f, STONE),
                                     new HandleMaterialStats(1.0f, -200),
                                     new ExtraMaterialStats(150));
+
+    //End
+    TinkerRegistry.addMaterialStats(endstone,
+                                    new HeadMaterialStats(420, 3.23f, 3.23f, OBSIDIAN),
+                                    new HandleMaterialStats(0.85f, 0),
+                                    new ExtraMaterialStats(42));
+    TinkerRegistry.addMaterialStats(enderitum,
+                                    new HeadMaterialStats(950, 12.00f, 6.20f, ENDERITUM),
+                                    new HandleMaterialStats(1.10f, 70),
+                                    new ExtraMaterialStats(250));
+    TinkerRegistry.addMaterialStats(titanium,
+                                    new HeadMaterialStats(1020, 12.90f, 9.10f, ENDERITUM),
+                                    new HandleMaterialStats(1.10f, 200),
+                                    new ExtraMaterialStats(300));
 
     // Metals
     TinkerRegistry.addMaterialStats(iron,
@@ -546,7 +568,6 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(bone, new BowMaterialStats(0.95f, 1.15f, 0));
     TinkerRegistry.addMaterialStats(obsidian, whyWouldYouMakeABowOutOfThis);
     TinkerRegistry.addMaterialStats(prismarine, whyWouldYouMakeABowOutOfThis);
-    TinkerRegistry.addMaterialStats(endstone, whyWouldYouMakeABowOutOfThis);
     TinkerRegistry.addMaterialStats(paper, new BowMaterialStats(1.5f, 0.4f, -2f));
     TinkerRegistry.addMaterialStats(sponge, new BowMaterialStats(1.15f, 0.75f, 0));
 
@@ -563,6 +584,11 @@ public final class TinkerMaterials {
     TinkerRegistry.addMaterialStats(ardite, new BowMaterialStats(0.45f, 0.8f, 1f));
     TinkerRegistry.addMaterialStats(manyullyn, new BowMaterialStats(0.65f, 1.2f, 4f));
     TinkerRegistry.addMaterialStats(firewood, new BowMaterialStats(1f, 1f, 0f));
+
+    //End
+    TinkerRegistry.addMaterialStats(endstone, whyWouldYouMakeABowOutOfThis);
+    TinkerRegistry.addMaterialStats(enderitum, new BowMaterialStats(0.70f, 1.25f, 2.8f));
+    TinkerRegistry.addMaterialStats(titanium, new BowMaterialStats(0.90f, 1.3f, 4.2f));
 
     // Metals
     TinkerRegistry.addMaterialStats(iron, new BowMaterialStats(0.5f, 1.5f, 7f));

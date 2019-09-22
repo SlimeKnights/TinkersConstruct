@@ -31,11 +31,15 @@ tile.tconstruct.mudbrick_stairs.name=Mud Bricks Stairs
 
 tile.tconstruct.ore.cobalt.name=Cobalt Ore
 tile.tconstruct.ore.ardite.name=Ardite Ore
+tile.tconstruct.ore_2.enderitum.name=Enderitum Ore
+tile.tconstruct.ore_2.titanium.name=Titanium Ore
 
 tile.tconstruct.metal.tooltip=Can be used as beacon base
 tile.tconstruct.metal.cobalt.name=Block of Cobalt
 tile.tconstruct.metal.ardite.name=Block of Ardite
 tile.tconstruct.metal.manyullyn.name=Block of Manyullyn
+tile.tconstruct.metal.enderitum.name=Block of Enderitum
+tile.tconstruct.metal.titanium.name=Block of Titanium
 tile.tconstruct.metal.knightslime.name=Block of Knightslime
 tile.tconstruct.metal.pigiron.name=Block of Pigiron
 tile.tconstruct.metal.alubrass.name=Block of Aluminum Brass
@@ -313,6 +317,8 @@ item.tconstruct.ingots.knightslime.tooltip=Slimy yet metallic but also stone? Fa
 item.tconstruct.ingots.pigiron.name=Pigiron Ingot
 item.tconstruct.ingots.pigiron.tooltip=Oink!
 item.tconstruct.ingots.alubrass.name=Aluminum Brass Ingot
+item.tconstruct.ingots.enderitum.name=Enderitum Ingot
+item.tconstruct.ingots.titanium.name=Titanium Ingot
 
 item.tconstruct.nuggets.cobalt.name=Cobalt Nugget
 item.tconstruct.nuggets.ardite.name=Ardite Nugget
@@ -320,6 +326,8 @@ item.tconstruct.nuggets.manyullyn.name=Manyullyn Nugget
 item.tconstruct.nuggets.knightslime.name=Knightslime Nugget
 item.tconstruct.nuggets.pigiron.name=Pigiron Nugget
 item.tconstruct.nuggets.alubrass.name=Aluminum Brass Nugget
+item.tconstruct.nuggets.enderitum.name=Enderitum Nugget
+item.tconstruct.nuggets.titanium.name=Titanium Nugget
 
 item.tconstruct.pattern.blank=Blank Pattern
 item.tconstruct.pattern.name=%s Pattern
@@ -440,6 +448,7 @@ item.tconstruct.fancy_frame.alubrass.name=Aluminium Brass Item Frame
 item.tconstruct.fancy_frame.cobalt.name=Cobalt Item Frame
 item.tconstruct.fancy_frame.ardite.name=Ardite Item Frame
 item.tconstruct.fancy_frame.manyullyn.name=Manyullyn Item Frame
+item.tconstruct.fancy_frame.enderitum.name=Enderitum Item Frame
 item.tconstruct.fancy_frame.gold.name=Golden Item Frame
 item.tconstruct.fancy_frame.clear.name=Clear Item Frame
 
@@ -493,6 +502,8 @@ fluid.tconstruct.cobalt.name=Molten Cobalt
 fluid.tconstruct.ardite.name=Molten Ardite
 fluid.tconstruct.manyullyn.name=Molten Manyullyn
 fluid.tconstruct.knightslime.name=Molten Knightslime
+fluid.tconstruct.enderitum.name=Molten Enderitum
+fluid.tconstruct.titanium.name=Molten Titanium
 fluid.tconstruct.emerald.name=Molten Emerald
 fluid.tconstruct.glass.name=Molten Glass
 fluid.tconstruct.blood.name=Blood
@@ -546,6 +557,8 @@ material.magmaslime.name=Magma Slime
 material.ardite.name=Ardite
 material.cobalt.name=Cobalt
 material.manyullyn.name=Manyullyn
+material.enderitum.name=Enderitum
+material.titanium.name=Titanium
 material.iron.name=Iron
 material.pigiron.name=Pig Iron
 material.copper.name=Copper
@@ -691,6 +704,8 @@ modifier.poisonous.name=Poisonous
 modifier.poisonous.desc=§oNot exactly lead-free!§r\nPoisons enemies on hit.
 modifier.prickly.name=Prickly
 modifier.prickly.desc=§oOuch!§r\nNobody is safe from those thorns, they always hurt.
+modifier.resistent.name=Resistent
+modifier.resistent.desc=§oThis one is strong, I feel it...§r
 modifier.sharp.name=Sharp
 modifier.sharp.desc=§oCan even cut words!§r\nHitting an enemy leaves them bleeding for a short time.
 modifier.shocking.name=Shocking
@@ -865,6 +880,7 @@ ui.mininglevel.iron=Iron
 ui.mininglevel.diamond=Diamond
 ui.mininglevel.obsidian=Obsidian
 ui.mininglevel.cobalt=Cobalt
+ui.mininglevel.enderitum=Enderitum
 
 # Death messages
 death.attack.smeltery=%s tried to create molten player

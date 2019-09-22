@@ -115,6 +115,7 @@ public class EntityFancyItemFrame extends EntityItemFrame implements IEntityAddi
     COBALT,
     ARDITE,
     MANYULLYN,
+    ENDERITUM,
     GOLD,
     CLEAR;
 

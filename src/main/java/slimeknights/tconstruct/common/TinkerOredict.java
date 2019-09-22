@@ -29,12 +29,16 @@ import static slimeknights.tconstruct.shared.TinkerCommons.blockManyullyn;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockPigIron;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockSlime;
 import static slimeknights.tconstruct.shared.TinkerCommons.blockSlimeCongealed;
+import static slimeknights.tconstruct.shared.TinkerCommons.blockEnderitum;
+import static slimeknights.tconstruct.shared.TinkerCommons.blockTitanium;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotAlubrass;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotArdite;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotCobalt;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotKnightSlime;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotManyullyn;
 import static slimeknights.tconstruct.shared.TinkerCommons.ingotPigIron;
+import static slimeknights.tconstruct.shared.TinkerCommons.ingotEnderitum;
+import static slimeknights.tconstruct.shared.TinkerCommons.ingotTitanium;
 import static slimeknights.tconstruct.shared.TinkerCommons.matNecroticBone;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallBlood;
 import static slimeknights.tconstruct.shared.TinkerCommons.matSlimeBallBlue;
@@ -50,8 +54,12 @@ import static slimeknights.tconstruct.shared.TinkerCommons.nuggetCobalt;
 import static slimeknights.tconstruct.shared.TinkerCommons.nuggetKnightSlime;
 import static slimeknights.tconstruct.shared.TinkerCommons.nuggetManyullyn;
 import static slimeknights.tconstruct.shared.TinkerCommons.nuggetPigIron;
+import static slimeknights.tconstruct.shared.TinkerCommons.nuggetEnderitum;
+import static slimeknights.tconstruct.shared.TinkerCommons.nuggetTitanium;
 import static slimeknights.tconstruct.shared.TinkerCommons.oreArdite;
 import static slimeknights.tconstruct.shared.TinkerCommons.oreCobalt;
+import static slimeknights.tconstruct.shared.TinkerCommons.oreEnderitum;
+import static slimeknights.tconstruct.shared.TinkerCommons.oreTitanium;
 import static slimeknights.tconstruct.shared.TinkerCommons.searedBrick;
 import static slimeknights.tconstruct.tools.TinkerTools.binding;
 import static slimeknights.tconstruct.tools.TinkerTools.pattern;
@@ -166,6 +174,8 @@ public class TinkerOredict {
     oredictNIB(nuggetCobalt, ingotCobalt, blockCobalt, "Cobalt");
     oredictNIB(nuggetArdite, ingotArdite, blockArdite, "Ardite");
     oredictNIB(nuggetManyullyn, ingotManyullyn, blockManyullyn, "Manyullyn");
+    oredictNIB(nuggetEnderitum, ingotEnderitum, blockEnderitum, "Enderitum");
+    oredictNIB(nuggetTitanium, ingotTitanium, blockTitanium, "Titanium");
     oredictNIB(nuggetKnightSlime, ingotKnightSlime, blockKnightSlime, "Knightslime");
     oredictNIB(nuggetPigIron, ingotPigIron, blockPigIron, "Pigiron");
     oredictNIB(nuggetAlubrass, ingotAlubrass, blockAlubrass, "Alubrass");
@@ -184,6 +194,8 @@ public class TinkerOredict {
     // Ores
     oredict(oreCobalt, "oreCobalt");
     oredict(oreArdite, "oreArdite");
+    oredict(oreEnderitum, "oreEnderitum");
+    oredict(oreTitanium, "oreTitanium");
 
     // glass
     oredict(blockClearGlass, "blockGlass"); // no blockGlassColorless as then it is assumed as available for staining

@@ -15,6 +15,12 @@
             "manyullyn": {
                 "textures": { "all": "tconstruct:blocks/block_manyullyn" }
             },
+            "enderitum": {
+                "textures": { "all": "tconstruct:blocks/block_enderitum" }
+            },
+            "titanium": {
+                "textures": { "all": "tconstruct:blocks/block_titanium" }
+            },
             "knightslime": {
                 "textures": { "all": "tconstruct:blocks/block_knightslime" }
             },

@@ -28,6 +28,12 @@
         "manyullyn": [{
             "custom": { "fluid": "manyullyn" }
         }],
+        "enderitum": [{
+            "custom": { "fluid": "enderitum" }
+        }],
+        "titanium": [{
+            "custom": { "fluid": "titanium" }
+        }],
         "knightslime": [{
             "custom": { "fluid": "knightslime" }
         }],

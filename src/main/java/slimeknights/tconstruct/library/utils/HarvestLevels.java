@@ -17,6 +17,7 @@ public class HarvestLevels {
   public static final int DIAMOND = 2;
   public static final int OBSIDIAN = 3;
   public static final int COBALT = 4;
+  public static final int ENDERITUM = 5;
 
   private HarvestLevels() {
   } // non-instantiable
@@ -33,6 +34,7 @@ public class HarvestLevels {
     harvestLevelNames.put(DIAMOND, TextFormatting.AQUA + Util.translate("ui.mininglevel.diamond"));
     harvestLevelNames.put(OBSIDIAN, TinkerMaterials.obsidian.getTextColor() + Util.translate("ui.mininglevel.obsidian"));
     harvestLevelNames.put(COBALT, TinkerMaterials.cobalt.getTextColor() + Util.translate("ui.mininglevel.cobalt"));
+    harvestLevelNames.put(ENDERITUM, TinkerMaterials.enderitum.getTextColor() + Util.translate("ui.mininglevel.enderitum"));
 
     // custom names via resource pack.. deprecated
     String base = "gui.mining";

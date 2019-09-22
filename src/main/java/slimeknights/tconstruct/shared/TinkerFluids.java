@@ -52,6 +52,8 @@ public class TinkerFluids extends TinkerPulse {
   public static FluidMolten cobalt;
   public static FluidMolten ardite;
   public static FluidMolten manyullyn;
+  public static FluidMolten enderitum;
+  public static FluidMolten titanium;
   public static FluidMolten knightslime;
   public static FluidMolten emerald;
   public static FluidMolten glass;
@@ -113,6 +115,14 @@ public class TinkerFluids extends TinkerPulse {
 
     alubrass = fluidMetal("alubrass", 0xece347);
     alubrass.setTemperature(500);
+
+    enderitum = fluidMetal(TinkerMaterials.enderitum);
+    enderitum.setTemperature(980);
+    enderitum.setRarity(EnumRarity.EPIC);
+
+    titanium = fluidMetal(TinkerMaterials.titanium);
+    titanium.setTemperature(1000);
+    titanium.setRarity(EnumRarity.EPIC);
 
     // Mod Integration fluids
     brass = fluidMetal("brass", 0xede38b);

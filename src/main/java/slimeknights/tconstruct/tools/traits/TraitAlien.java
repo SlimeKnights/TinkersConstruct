@@ -25,7 +25,7 @@ public class TraitAlien extends TraitProgressiveStats {
 
   protected static int TICK_PER_STAT = 72;
 
-  protected static int DURABILITY_STEP = 1;
+  protected static float DURABILITY_STEP = 1;
   protected static float SPEED_STEP = 0.007f;
   protected static float ATTACK_STEP = 0.005f;
 

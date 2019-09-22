@@ -34,6 +34,7 @@ import slimeknights.tconstruct.common.item.ItemTinkerBook;
 import slimeknights.tconstruct.library.ShapedFallbackRecipe;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.plugin.quark.QuarkPlugin;
 import slimeknights.tconstruct.shared.block.BlockClearGlass;
 import slimeknights.tconstruct.shared.block.BlockClearStainedGlass;
@@ -44,10 +45,12 @@ import slimeknights.tconstruct.shared.block.BlockFirewoodSlab;
 import slimeknights.tconstruct.shared.block.BlockGlow;
 import slimeknights.tconstruct.shared.block.BlockMetal;
 import slimeknights.tconstruct.shared.block.BlockOre;
+import slimeknights.tconstruct.shared.block.BlockOre2;
 import slimeknights.tconstruct.shared.block.BlockSlime;
 import slimeknights.tconstruct.shared.block.BlockSlimeCongealed;
 import slimeknights.tconstruct.shared.block.BlockSoil;
 import slimeknights.tconstruct.shared.item.ItemMetaDynamicTinkers;
+import slimeknights.tconstruct.shared.worldgen.EndOreGenerator;
 import slimeknights.tconstruct.shared.worldgen.NetherOreGenerator;
 
 /**
@@ -64,6 +67,7 @@ public class TinkerCommons extends TinkerPulse {
 
   public static BlockSoil blockSoil;
   public static BlockOre blockOre;
+  public static BlockOre2 blockOre2;
   public static BlockMetal blockMetal;
   public static BlockFirewood blockFirewood;
   public static BlockGlow blockGlow;
@@ -97,6 +101,8 @@ public class TinkerCommons extends TinkerPulse {
 
   public static ItemStack oreCobalt;
   public static ItemStack oreArdite;
+  public static ItemStack oreEnderitum;
+  public static ItemStack oreTitanium;
 
   public static ItemStack blockCobalt;
   public static ItemStack blockArdite;
@@ -105,6 +111,8 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack blockKnightSlime;
   public static ItemStack blockSilkyJewel;
   public static ItemStack blockAlubrass;
+  public static ItemStack blockEnderitum;
+  public static ItemStack blockTitanium;
 
   public static ItemStack lavawood;
   public static ItemStack firewood;
@@ -123,6 +131,8 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack nuggetPigIron;
   public static ItemStack nuggetKnightSlime;
   public static ItemStack nuggetAlubrass;
+  public static ItemStack nuggetEnderitum;
+  public static ItemStack nuggetTitanium;
 
   // Ingot Itemstacks
   public static ItemStack ingotCobalt;
@@ -131,6 +141,8 @@ public class TinkerCommons extends TinkerPulse {
   public static ItemStack ingotPigIron;
   public static ItemStack ingotKnightSlime;
   public static ItemStack ingotAlubrass;
+  public static ItemStack ingotEnderitum;
+  public static ItemStack ingotTitanium;
 
   // Material Itemstacks
   public static ItemStack searedBrick;
@@ -197,6 +209,7 @@ public class TinkerCommons extends TinkerPulse {
 
     // Ores
     blockOre = registerBlock(registry, new BlockOre(), "ore");
+    blockOre2 = registerBlock(registry, new BlockOre2(), "ore_2");
 
     // Firewood
     blockFirewood = registerBlock(registry, new BlockFirewood(), "firewood");
@@ -251,9 +264,12 @@ public class TinkerCommons extends TinkerPulse {
 
     // Ores
     blockOre = registerEnumItemBlock(registry, blockOre);
+    blockOre2 = registerEnumItemBlock(registry, blockOre2);
 
     oreCobalt = new ItemStack(blockOre, 1, BlockOre.OreTypes.COBALT.getMeta());
     oreArdite = new ItemStack(blockOre, 1, BlockOre.OreTypes.ARDITE.getMeta());
+    oreEnderitum = new ItemStack(blockOre2, 1, BlockOre2.OreTypes.ENDERITUM.getMeta());
+    oreTitanium = new ItemStack(blockOre2, 1, BlockOre2.OreTypes.TITANIUM.getMeta());
 
     // Firewood
     blockFirewood = registerEnumItemBlock(registry, blockFirewood);
@@ -320,6 +336,12 @@ public class TinkerCommons extends TinkerPulse {
       nuggetAlubrass = nuggets.addMeta(5, "alubrass");
       ingotAlubrass = ingots.addMeta(5, "alubrass");
 
+      nuggetEnderitum = nuggets.addMeta(6, "enderitum");
+      ingotEnderitum = ingots.addMeta(6, "enderitum");
+
+      nuggetTitanium = nuggets.addMeta(7, "titanium");
+      ingotTitanium = ingots.addMeta(7, "titanium");
+
       blockMetal = registerEnumItemBlock(registry, blockMetal);
 
       blockCobalt = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.COBALT.getMeta());
@@ -328,6 +350,8 @@ public class TinkerCommons extends TinkerPulse {
       blockKnightSlime = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.KNIGHTSLIME.getMeta());
       blockPigIron = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.PIGIRON.getMeta());
       blockAlubrass = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.ALUBRASS.getMeta());
+      blockEnderitum = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.ENDERITUM.getMeta());
+      blockTitanium = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.TITANIUM.getMeta());
       blockSilkyJewel = new ItemStack(blockMetal, 1, BlockMetal.MetalTypes.SILKY_JEWEL.getMeta());
     }
 
@@ -413,6 +437,7 @@ public class TinkerCommons extends TinkerPulse {
     proxy.init();
 
     GameRegistry.registerWorldGenerator(NetherOreGenerator.INSTANCE, 0);
+    GameRegistry.registerWorldGenerator(EndOreGenerator.INSTANCE, 0);
 
     MinecraftForge.EVENT_BUS.register(new AchievementEvents());
     MinecraftForge.EVENT_BUS.register(new BlockEvents());

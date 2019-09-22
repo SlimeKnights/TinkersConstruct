@@ -64,6 +64,8 @@ public class TinkerIntegration extends TinkerPulse {
     integrate(TinkerMaterials.cobalt, TinkerFluids.cobalt, "Cobalt").toolforge();
     integrate(TinkerMaterials.ardite, TinkerFluids.ardite, "Ardite").toolforge();
     integrate(TinkerMaterials.manyullyn, TinkerFluids.manyullyn, "Manyullyn").toolforge();
+    integrate(TinkerMaterials.enderitum, TinkerFluids.enderitum, "Enderitum").toolforge();
+    integrate(TinkerMaterials.titanium, TinkerFluids.titanium, "Titanium").toolforge();
 
     // mod integrations
     integrate(TinkerMaterials.copper, TinkerFluids.copper, "Copper").toolforge();

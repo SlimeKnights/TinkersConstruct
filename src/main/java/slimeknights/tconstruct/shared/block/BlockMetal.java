@@ -46,6 +46,8 @@ public class BlockMetal extends EnumBlock<BlockMetal.MetalTypes> {
     COBALT,
     ARDITE,
     MANYULLYN,
+    ENDERITUM,
+    TITANIUM,
     KNIGHTSLIME,
     PIGIRON,
     ALUBRASS,
