@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import com.google.common.collect.Lists;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,11 +13,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.utils.TagUtil;
@@ -26,6 +20,9 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockSearedFurnaceController;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 import slimeknights.tconstruct.smeltery.network.HeatingStructureFuelUpdatePacket;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection> extends TileHeatingStructure<T> {
 
@@ -155,7 +152,7 @@ public abstract class TileHeatingStructureFuelTank<T extends MultiblockDetection
     int inventorySize = getUpdatedInventorySize(structure.xd, structure.yd, structure.zd);
 
     // if the new multiblock is smaller we pop out all items that don't fit in anymore
-    if(this.getSizeInventory() > inventorySize) {
+    if(!world.isRemote && this.getSizeInventory() > inventorySize) {
       for(int i = inventorySize; i < getSizeInventory(); i++) {
         if(!getStackInSlot(i).isEmpty()) {
           dropItem(getStackInSlot(i));

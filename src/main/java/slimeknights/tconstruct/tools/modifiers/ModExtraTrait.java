@@ -1,24 +1,17 @@
 package slimeknights.tconstruct.tools.modifiers;
 
 import com.google.common.collect.ImmutableList;
-
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.modifiers.IToolMod;
 import slimeknights.tconstruct.library.modifiers.ModifierAspect;
 import slimeknights.tconstruct.library.modifiers.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
@@ -28,6 +21,13 @@ import slimeknights.tconstruct.library.traits.ITrait;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.ToolBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ModExtraTrait extends ToolModifier {
 
@@ -68,6 +68,27 @@ public class ModExtraTrait extends ToolModifier {
   public static String generateIdentifier(Material material, Collection<ITrait> traits) {
     String traitString = traits.stream().map(ITrait::getIdentifier).sorted().collect(Collectors.joining());
     return material.getIdentifier() + traitString;
+  }
+
+  @Override
+  public boolean canApplyTogether(Enchantment enchantment) {
+    for(ITrait trait : traits) {
+      if(!trait.canApplyTogether(enchantment)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  @Override
+  public boolean canApplyTogether(IToolMod otherModifier) {
+    for(ITrait trait : traits) {
+      // check both directions because otherModifier.canApplyTogether will always return true for ModExtraTrait
+      if(!trait.canApplyTogether(otherModifier) || !otherModifier.canApplyTogether(trait)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   @Override

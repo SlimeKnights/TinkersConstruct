@@ -570,6 +570,10 @@ public final class ToolHelper {
 
     if(entity instanceof EntityPlayerMP) {
       entity.world.playSound(null, entity.posX, entity.posY, entity.posZ, SoundEvents.ENTITY_ITEM_BREAK, entity.getSoundCategory(), 0.8F, 0.8F + entity.world.rand.nextFloat() * 0.4F);
+      // work around MC-86252, this is needed since damaging the tool does not clear the active hand, even if the player is no longer blocking
+      if(entity.isHandActive() && entity.getActiveItemStack().equals(stack)) {
+        entity.resetActiveHand();
+      }
       TinkerNetwork.sendTo(new ToolBreakAnimationPacket(stack), (EntityPlayerMP) entity);
     }
   }
