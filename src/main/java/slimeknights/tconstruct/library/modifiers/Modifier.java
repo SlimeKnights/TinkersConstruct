@@ -306,31 +306,4 @@ public abstract class Modifier extends RecipeMatchRegistry implements IModifier 
 
   private static final AttributeModifier ANTI_KNOCKBACK_MOD = new AttributeModifier("Anti Modifier Knockback", 1f, 0);
 
-  private static class AntiKnockbackHandler {
-
-    private boolean applied = false;
-
-    private final IAttributeInstance knockbackAttribute;
-
-    public AntiKnockbackHandler(Entity entity) {
-      if(entity instanceof EntityLivingBase) {
-        this.knockbackAttribute = ((EntityLivingBase) entity).getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE);
-      } else {
-        knockbackAttribute = null;
-      }
-    }
-
-    public void applyAntiKnockback() {
-      if(knockbackAttribute != null && !knockbackAttribute.hasModifier(ANTI_KNOCKBACK_MOD)) {
-        knockbackAttribute.applyModifier(ANTI_KNOCKBACK_MOD);
-        applied = true;
-      }
-    }
-
-    public void cleanup() {
-      if(knockbackAttribute != null && applied) {
-        knockbackAttribute.removeModifier(ANTI_KNOCKBACK_MOD);
-      }
-    }
-  }
 }
