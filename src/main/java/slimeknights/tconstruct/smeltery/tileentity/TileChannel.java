@@ -269,7 +269,7 @@ public class TileChannel extends MantleTileEntity implements ITickable, IFluidPa
     }
 
     // redstone power
-    if(isPowered != wasPowered && side != EnumFacing.DOWN) {
+    if(isPowered != wasPowered && side != null && side != EnumFacing.DOWN) {
       TileEntity te = world.getTileEntity(pos.down());
       boolean isValid2 = te != null && (te instanceof TileChannel || te.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite()));
       this.connectedDown = isValid2 && isPowered;
