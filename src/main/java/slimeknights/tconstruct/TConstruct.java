@@ -18,6 +18,7 @@ import slimeknights.mantle.util.LanguageJsonGenerator;
 import slimeknights.mantle.util.ModelJsonGenerator;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.ServerProxy;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.TConstructBlockTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructItemTagsProvider;
@@ -72,6 +73,8 @@ public class TConstruct {
 
   private void preInit(final FMLCommonSetupEvent event) {
     proxy.preInit();
+
+    TinkerNetwork.instance.setup();
   }
 
   private void init(final InterModEnqueueEvent event) {

@@ -7,7 +7,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
+
+import java.util.Locale;
 
 public class SlimeBlock extends net.minecraft.block.SlimeBlock {
 
@@ -31,7 +34,7 @@ public class SlimeBlock extends net.minecraft.block.SlimeBlock {
     }
   }
 
-  public enum SlimeType {
+  public enum SlimeType implements IStringSerializable {
     GREEN(0x01cd4e, 0x69bc5e),
     BLUE(0x01cbcd, 0x74c5c8),
     PURPLE(0xaf4cf6, 0xcc68ff),
@@ -47,6 +50,7 @@ public class SlimeBlock extends net.minecraft.block.SlimeBlock {
 
     public final int meta;
     private final int color, ballColor;
+    public static final SlimeType[] VISIBLE_COLORS = { GREEN, BLUE, PURPLE, BLOOD, MAGMA };
 
     /**
      * Returns the block color for this slime type
@@ -60,6 +64,11 @@ public class SlimeBlock extends net.minecraft.block.SlimeBlock {
      */
     public int getBallColor() {
       return this.ballColor;
+    }
+
+    @Override
+    public String getName() {
+      return this.toString().toLowerCase(Locale.US);
     }
   }
 }

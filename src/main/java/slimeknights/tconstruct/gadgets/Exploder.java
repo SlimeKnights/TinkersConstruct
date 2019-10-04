@@ -23,7 +23,9 @@ import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.gadgets.entity.EFLNExplosion;
+import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 import java.util.Collections;
 import java.util.List;
@@ -106,7 +108,7 @@ public class Exploder {
       entity.attackEntityFrom(DamageSource.causeExplosionDamage(this.explosion), (float) (str * this.explosionStrength));
 
       if (entity instanceof ServerPlayerEntity) {
-        //TinkerNetwork.sendTo(new EntityMovementChangePacket(entity), (ServerPlayerEntity) entity);
+        TinkerNetwork.instance.sendTo(new EntityMovementChangePacket(entity), (ServerPlayerEntity) entity);
       }
     }
   }

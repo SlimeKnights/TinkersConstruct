@@ -8,19 +8,21 @@ public class ServerProxy {
   }
 
   public void preInit() {
-
   }
 
   public void init() {
-
   }
 
   public void postInit() {
+  }
 
+  public void registerModels() {
+  }
+
+  public void clientSetup() {
   }
 
   public void spawnSlimeParticle(World world, double x, double y, double z) {
-
   }
 
 }

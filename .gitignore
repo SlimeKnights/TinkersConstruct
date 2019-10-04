@@ -50,3 +50,4 @@ options.txt
 *.tmp
 /generated/
 /run/
+/build.old/

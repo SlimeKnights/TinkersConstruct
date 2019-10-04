@@ -15,21 +15,6 @@ public class ClientProxy extends ServerProxy {
   private static final Minecraft mc = Minecraft.getInstance();
 
   @Override
-  public void preInit() {
-
-  }
-
-  @Override
-  public void init() {
-
-  }
-
-  @Override
-  public void postInit() {
-
-  }
-
-  @Override
   public void spawnSlimeParticle(World world, double x, double y, double z) {
     mc.particles.addEffect(new SlimeFxParticle(world, x, y, z, new ItemStack(TinkerCommons.blue_slime_ball)));
   }

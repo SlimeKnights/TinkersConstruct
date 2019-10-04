@@ -1,0 +1,31 @@
+{
+    "comment": "Setting display tags for the item form",
+    "parent": "block/item_frame",
+    "display": {
+        "fixed": {
+            "translation": [ 0, 0, -7 ]
+        },
+        "ground": {
+            "translation": [ 0, 0, -2 ],
+            "scale": [ 0.25, 0.25, 0.25 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ -20, 90, 0 ],
+            "translation": [ -3, 0.5, 0 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ -20, 90, 0 ],
+            "translation": [ -3, 0.5, 0 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 2, 3.25 ],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 2, 3.25 ],
+            "scale": [ 0.5, 0.5, 0.5 ]
+        }
+    }
+}

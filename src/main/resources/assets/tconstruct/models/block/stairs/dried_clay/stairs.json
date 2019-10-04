@@ -1,0 +1,8 @@
+{
+    "parent": "block/stairs",
+    "textures": {
+        "bottom": "tconstruct:block/dried_clay",
+        "top": "tconstruct:block/dried_clay",
+        "side": "tconstruct:block/dried_clay"
+    }
+}

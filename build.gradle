@@ -163,7 +163,7 @@ dependencies {
     // at runtime, use the full JEI jar
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
-    //deobfCompile "mcp.mobius.waila:Hwyla:${config.hwyla_version}"
+    compile fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}")
     //deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${config.probe_version}"
     //deobfCompile "cofh:RedstoneFlux:${config.redstoneflux_version}:universal"
 

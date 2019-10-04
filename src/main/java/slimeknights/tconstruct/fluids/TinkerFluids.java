@@ -10,9 +10,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -56,6 +60,21 @@ public class TinkerFluids extends TinkerPulse {
     BLOCKS.register(modEventBus);
     ITEMS.register(modEventBus);
     FLUIDS.register(modEventBus);
+  }
+
+  @SubscribeEvent
+  public void preInit(final FMLCommonSetupEvent event) {
+    proxy.preInit();
+  }
+
+  @SubscribeEvent
+  public void init(final InterModEnqueueEvent event) {
+    proxy.init();
+  }
+
+  @SubscribeEvent
+  public void postInit(final InterModProcessEvent event) {
+    proxy.postInit();
   }
 
   public static int applyAlphaIfNotPresent(int color) {

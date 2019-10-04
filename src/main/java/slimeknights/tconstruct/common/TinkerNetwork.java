@@ -1,8 +1,12 @@
 package slimeknights.tconstruct.common;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.network.IPacket;
 import slimeknights.mantle.network.NetworkWrapper;
-import slimeknights.mantle.network.book.PacketUpdateSavedPage;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.tools.common.network.BouncedPacket;
+import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 public class TinkerNetwork extends NetworkWrapper {
 
@@ -13,6 +17,13 @@ public class TinkerNetwork extends NetworkWrapper {
   }
 
   public void setup() {
-    this.registerPacket(PacketUpdateSavedPage.class, PacketUpdateSavedPage::encode, PacketUpdateSavedPage::new, PacketUpdateSavedPage::handle);
+    this.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::encode, EntityMovementChangePacket::new, EntityMovementChangePacket::handle);
+    this.registerPacket(BouncedPacket.class, BouncedPacket::encode, BouncedPacket::new, BouncedPacket::handle);
+  }
+
+  public void sendVanillaPacket(Entity player, IPacket<?> packet) {
+    if (player instanceof ServerPlayerEntity && ((ServerPlayerEntity) player).connection != null) {
+      ((ServerPlayerEntity) player).connection.sendPacket(packet);
+    }
   }
 }

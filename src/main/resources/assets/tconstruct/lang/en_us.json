@@ -92,7 +92,7 @@
     "block.tconstruct.glow": "Glow",
 
     "item.tconstruct.book": "Materials and You",
-    "item.tconstruct.book.tooltip": "The book every Tinker needs\\nby Skyla",
+    "item.tconstruct.book.tooltip": "The book every Tinker needs\nby Skyla",
 
     "item.tconstruct.bacon": "Bacon",
     "item.tconstruct.blue_slime_ball": "Slimeball",
@@ -138,7 +138,7 @@
     "item.tconstruct.necrotic_bone": "Necrotic Bone",
     "item.tconstruct.necrotic_bone.tooltip": "Necrotic Modifier",
     "item.tconstruct.moss": "Ball of Moss",
-    "item.tconstruct.moss.tooltip": "Right click a Bookshelf with this\\nto convert it into Mending Moss.\\n§oConsumes 10 Levels",
+    "item.tconstruct.moss.tooltip": "Right click a Bookshelf with this\nto convert it into Mending Moss.\n§oConsumes 10 Levels",
     "item.tconstruct.mending_moss": "Mending Moss",
     "item.tconstruct.mending_moss.tooltip": "Mending Moss Modifier",
     "item.tconstruct.creative_modifier": "Creative Modifier",
@@ -159,6 +159,103 @@
     "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
     "item.tconstruct.pigiron_nugget": "Pigiron Nugget",
     "item.tconstruct.alubrass_nugget": "Aluminum Brass Nugget",
+
+    "_comment": "Tinkers Fluids",
+
+    "block.tconstruct.blue_slime_fluid_block": "Blue Slime",
+    "block.tconstruct.blue_slime_fluid": "Blue Slime",
+    "block.tconstruct.blue_slime_fluid_flowing": "Flowing Blue Slime",
+
+    "block.tconstruct.purple_slime_fluid_block": "Purple Slime",
+    "block.tconstruct.purple_slime_fluid": "Purple Slime",
+    "block.tconstruct.purple_slime_fluid_flowing": "Flowing Purple Slime",
+
+    "fluid.tconstruct.blue_slime_fluid_block": "Blue Slime",
+    "fluid.tconstruct.blue_slime_fluid": "Blue Slime",
+    "fluid.tconstruct.blue_slime_fluid_flowing": "Flowing Blue Slime",
+
+    "fluid.tconstruct.purple_slime_fluid_block": "Purple Slime",
+    "fluid.tconstruct.purple_slime_fluid": "Purple Slime",
+    "fluid.tconstruct.purple_slime_fluid_flowing": "Flowing Purple Slime",
+
+    "item.tconstruct.blue_slime_bucket": "Blue Slime Bucket",
+
+    "item.tconstruct.purple_slime_bucket": "Purple Slime Bucket",
+
+    "_comment": "Tinkers Gadgets",
+
+    "block.tconstruct.stone_torch": "Stone Torch",
+    "block.tconstruct.stone_ladder": "Stone Ladder",
+
+    "block.tconstruct.punji": "Punji Sticks",
+    "block.tconstruct.punji.tooltip": "Pointy! Also sticks to walls.",
+
+    "block.tconstruct.wooden_rail": "Wooden Rail",
+    "block.tconstruct.wooden_dropper_rail": "Wooden Dropper Rail",
+    "block.tconstruct.wooden_dropper_rail.tooltip": "Minecarts with a Hopper can\ninsert into the block below",
+
+    "block.tconstruct.wooden_hopper": "Wooden Hopper",
+    "block.tconstruct.wooden_hopper.tooltip": "Slower, cheaper variant of the hopper",
+
+    "block.tconstruct.dried_clay": "Dried Clay",
+    "block.tconstruct.dried_clay_bricks": "Dried Bricks",
+    "block.tconstruct.dried_clay_slab": "Dried Clay Slab",
+    "block.tconstruct.dried_clay_bricks_slab": "Dried Bricks Slab",
+    "block.tconstruct.dried_clay_stairs": "Dried Clay Stairs",
+    "block.tconstruct.dried_clay_bricks_stairs": "Dried Bricks Stairs",
+
+    "item.tconstruct.stone_stick": "Stone Rod",
+
+    "item.tconstruct.jewel_item_frame": "Fancy Item Frame",
+    "item.tconstruct.aluminum_brass_item_frame": "Aluminium Brass Item Frame",
+    "item.tconstruct.cobalt_item_frame": "Cobalt Item Frame",
+    "item.tconstruct.ardite_item_frame": "Ardite Item Frame",
+    "item.tconstruct.manyullyn_item_frame": "Manyullyn Item Frame",
+    "item.tconstruct.gold_item_frame": "Golden Item Frame",
+    "item.tconstruct.clear_item_frame": "Clear Item Frame",
+
+    "item.tconstruct.glow_ball": "Glowball",
+    "item.tconstruct.glow_ball.tooltip": "Not suited for consumption.",
+    "item.tconstruct.efln_ball": "EFLN",
+    "item.tconstruct.efln_ball.tooltip": "Explodes! Safe for mining",
+
+    "item.tconstruct.slime_sling_green": "Slimesling",
+    "item.tconstruct.slime_sling_green.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.slime_sling_blue": "Slimesling",
+    "item.tconstruct.slime_sling_blue.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.slime_sling_purple": "Slimesling",
+    "item.tconstruct.slime_sling_purple.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.slime_sling_blood": "Congealed Slimesling",
+    "item.tconstruct.slime_sling_blood.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.slime_sling_magma": "Slimesling",
+    "item.tconstruct.slime_sling_magma.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.slime_sling_pink": "Slimesling",
+    "item.tconstruct.slime_sling_pink.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.slime_sling.tooltip": "Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!",
+
+    "item.tconstruct.slime_boots_green": "Slime Boots",
+    "item.tconstruct.slime_boots_green.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.slime_boots_blue": "Slime Boots",
+    "item.tconstruct.slime_boots_blue.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.slime_boots_purple": "Slime Boots",
+    "item.tconstruct.slime_boots_purple.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.slime_boots_blood": "Congealed Blood Boots",
+    "item.tconstruct.slime_boots_blood.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.slime_boots_magma": "Slime Boots",
+    "item.tconstruct.slime_boots_magma.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.slime_boots_pink": "Slime Boots",
+    "item.tconstruct.slime_boots_pink.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.slime_boots.tooltip": "Makes you bounce when landing",
+
+    "item.tconstruct.piggy_backpack": "Piggybackpack",
+    "item.tconstruct.piggy_backpack.tooltip": "Right-click mobs to pick them up",
+
+    "item.tconstruct.hard_spaghetti": "Impossibly Hard Wheat Sticks",
+    "item.tconstruct.hard_spaghetti.tooltip": "Impossibly Hard Wheat Sticks",
+    "item.tconstruct.soggy_spaghetti": "Soggy Noodles",
+    "item.tconstruct.soggy_spaghetti.tooltip": "Now they're all wet, even your spaghetti arms can bend them now.\nLet's hang them up and get them dry.",
+    "item.tconstruct.cold_spaghetti": "Cold Dried Noodles",
+    "item.tconstruct.cold_spaghetti.tooltip": "Well, that's better, but they still taste gross.\nWarming them up should make them edible.\nThey might even be good enough to get you off your weak knees.",
 
     "_comment": "Tinkers World",
 

@@ -136,10 +136,37 @@ public class GlowBlock extends Block {
   protected boolean canBlockStay(World world, BlockPos pos, Direction facing) {
     BlockPos placedOn = pos.offset(facing);
 
-    boolean isSolidSide = Block.hasSolidSide(world.getBlockState(pos), world, pos, facing.getOpposite());
+    boolean isSolidSide = Block.hasSolidSide(world.getBlockState(placedOn), world, placedOn, facing.getOpposite());
     boolean isLiquid = world.getBlockState(pos).getBlock() instanceof FlowingFluidBlock;
 
     return !isLiquid && isSolidSide;
+  }
+
+  public boolean addGlow(World world, BlockPos pos, Direction direction) {
+    // only place the block if the current block at the location is replacable (eg, air, tall grass, etc.)
+    BlockState oldState = world.getBlockState(pos);
+
+    if (oldState.getBlock().getMaterial(oldState).isReplaceable()) {
+      // if the location is valid, place the block directly
+      if (this.canBlockStay(world, pos, direction)) {
+        if (!world.isRemote) {
+          world.setBlockState(pos, this.getDefaultState().with(FACING, direction));
+        }
+        return true;
+      }
+      else {
+        for (Direction direction1 : Direction.values()) {
+          if (this.canBlockStay(world, pos, direction1)) {
+            if (!world.isRemote) {
+              world.setBlockState(pos, this.getDefaultState().with(FACING, direction1));
+            }
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
   }
 
 }
