@@ -2,9 +2,9 @@
     "forge_marker": 1,
     "defaults": {
         "textures": {
-            "all": "tconstruct:blocks/punji"
+            "all": "tconstruct:block/punji"
         },
-        "model": "tconstruct:punji"
+        "model": "tconstruct:block/punji"
     },
     "variants": {
         "facing": {
@@ -16,19 +16,19 @@
             "north": { "transform": { "rotation": { "x": 90 }, "post-rotation": { "y": 90 } } }
         },
         "north": {
-            "true": { "submodel": { "stick_north": { "model": "tconstruct:punji_stick", "transform": { "translation": [ 0, 0, -0.5 ] } } } },
+            "true": { "submodel": { "stick_north": { "model": "tconstruct:block/punji_stick", "transform": { "translation": [ 0, 0, -0.5 ] } } } },
             "false": { }
         },
         "east": {
-            "true": { "submodel": { "stick_east": { "model": "tconstruct:punji_stick", "transform": { "translation": [ -0.5, 0, 0 ] } } } };
+            "true": { "submodel": { "stick_east": { "model": "tconstruct:block/punji_stick", "transform": { "translation": [ -0.5, 0, 0 ] } } } };
             "false": { }
         },
         "northeast": {
-            "true": { "submodel": { "stick_northeast": { "model": "tconstruct:punji_stick", "transform": { "translation": [ -0.5, 0, -0.5 ] } } } },
+            "true": { "submodel": { "stick_northeast": { "model": "tconstruct:block/punji_stick", "transform": { "translation": [ -0.5, 0, -0.5 ] } } } },
             "false": { }
         },
         "northwest": {
-            "true": { "submodel": { "stick_northwest": { "model": "tconstruct:punji_stick", "transform": { "translation": [ 0.5, 0, -0.5 ] } } } },
+            "true": { "submodel": { "stick_northwest": { "model": "tconstruct:block/punji_stick", "transform": { "translation": [ 0.5, 0, -0.5 ] } } } },
             "false": { }
         },
         "inventory": [ { } ]
