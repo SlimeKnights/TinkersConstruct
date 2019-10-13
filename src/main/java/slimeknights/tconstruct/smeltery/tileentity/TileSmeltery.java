@@ -176,8 +176,12 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
   // melt stuff
   @Override
   protected boolean onItemFinishedHeating(ItemStack stack, int slot) {
-    MeltingRecipe recipe = TinkerRegistry.getMelting(stack);
+    // skip if full, as there is no case where we can melt an item into a full smeltery
+    if (liquids.getFluidAmount() >= liquids.getCapacity()) {
+      return false;
+    }
 
+    MeltingRecipe recipe = TinkerRegistry.getMelting(stack);
     if(recipe == null) {
       return false;
     }
