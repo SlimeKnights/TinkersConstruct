@@ -22,9 +22,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.mantle.client.gui.GuiElement;
 import slimeknights.mantle.item.ItemArmorTooltip;
 import slimeknights.tconstruct.common.TinkerNetwork;
@@ -35,6 +32,8 @@ import slimeknights.tconstruct.library.capability.piggyback.ITinkerPiggyback;
 import slimeknights.tconstruct.library.capability.piggyback.TinkerPiggybackSerializer;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.potion.TinkerPotion;
+
+import javax.annotation.Nonnull;
 
 public class ItemPiggybackPack extends ItemArmorTooltip {
 
@@ -186,10 +185,10 @@ public class ItemPiggybackPack extends ItemArmorTooltip {
     @Override
     public void performEffect(@Nonnull EntityLivingBase entityLivingBaseIn, int p_76394_2_) {
       ItemStack chestArmor = entityLivingBaseIn.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
-      if(chestArmor.isEmpty()) {
+      if(chestArmor.isEmpty() || chestArmor.getItem() != TinkerGadgets.piggybackPack) {
         TinkerGadgets.piggybackPack.matchCarriedEntitiesToCount(entityLivingBaseIn, 0);
       }
-      else if(chestArmor.getItem() == TinkerGadgets.piggybackPack) {
+      else {
         TinkerGadgets.piggybackPack.matchCarriedEntitiesToCount(entityLivingBaseIn, chestArmor.getCount());
         if(!entityLivingBaseIn.getEntityWorld().isRemote) {
           if(entityLivingBaseIn.hasCapability(CapabilityTinkerPiggyback.PIGGYBACK, null)) {
