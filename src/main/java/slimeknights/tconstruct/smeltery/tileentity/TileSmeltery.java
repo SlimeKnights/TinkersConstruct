@@ -40,6 +40,7 @@ import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.SmelteryInventoryUpdatePacket;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmeltery> implements ITickable, IInventoryGui,
@@ -313,8 +314,9 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
 
   /* Fluid handling */
   @Override
+  @Nullable
   public SmelteryTank getTank() {
-    return liquids;
+    return isActive() ? liquids : null;
   }
 
   /* GUI */

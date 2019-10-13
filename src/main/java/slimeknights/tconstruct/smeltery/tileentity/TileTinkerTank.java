@@ -15,11 +15,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.mantle.common.IInventoryGui;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
@@ -29,6 +24,10 @@ import slimeknights.tconstruct.smeltery.inventory.ContainerTinkerTank;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockDetection;
 import slimeknights.tconstruct.smeltery.multiblock.MultiblockTinkerTank;
 import slimeknights.tconstruct.smeltery.network.SmelteryFluidUpdatePacket;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
 
 public class TileTinkerTank extends TileMultiblock<MultiblockTinkerTank> implements ITickable, IInventoryGui, ISmelteryTankHandler {
 
@@ -77,8 +76,9 @@ public class TileTinkerTank extends TileMultiblock<MultiblockTinkerTank> impleme
 
   /* Fluid handling */
   @Override
+  @Nullable
   public SmelteryTank getTank() {
-    return liquids;
+    return isActive() ? liquids : null;
   }
 
   @Override
