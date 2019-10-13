@@ -605,12 +605,18 @@ public final class ToolHelper {
 
   /* Dealing tons of damage */
 
+  /**
+   * General version of attackEntity. Applies cooldowns but has no projectile entity
+   */
   public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity) {
-    return attackEntity(stack, tool, attacker, targetEntity, null);
+    return attackEntity(stack, tool, attacker, targetEntity, null, true);
   }
 
+  /**
+   * Version of attackEntity for use with projectiles. Does not apply cooldowns and has a separate projectile for logic
+   */
   public static boolean attackEntity(ItemStack stack, ToolCore tool, EntityLivingBase attacker, Entity targetEntity, Entity projectileEntity) {
-    return attackEntity(stack, tool, attacker, targetEntity, projectileEntity, true);
+    return attackEntity(stack, tool, attacker, targetEntity, projectileEntity, false);
   }
 
   /**
