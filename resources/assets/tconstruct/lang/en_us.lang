@@ -873,6 +873,7 @@ death.attack.bleed=%1$s bled to death from %2$s attack
 death.attack.bleed.item=%1$s bled to death from %2$s attack with %3$s
 
 message.mending_moss.not_enough_levels=Mending moss requires at least %s levels
+message.piggybackpack.cannot_pick_up=Mob cannot be picked up
 tconstruct.channel.connected.in=Set side to flow inwards
 tconstruct.channel.connected.out=Set side to flow outwards
 tconstruct.channel.connected.none=Disallowed flowing on side

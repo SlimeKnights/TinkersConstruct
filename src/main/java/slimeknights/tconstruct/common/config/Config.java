@@ -45,6 +45,7 @@ public final class Config {
   public static boolean gravelFlintRecipe = true;
   public static double oreToIngotRatio = 2;
   public static boolean matchVanillaSlimeblock = false;
+  public static boolean limitPiggybackpack = false;
   private static String[] craftingStationBlacklistArray = new String[] {
       "de.ellpeck.actuallyadditions.mod.tile.TileEntityItemViewer"
   };
@@ -214,6 +215,11 @@ public final class Config {
       prop.setComment("If true, requires slimeballs in the vanilla slimeblock recipe to match in color, otherwise gives a pink slimeblock");
       matchVanillaSlimeblock = prop.getBoolean();
       prop.setRequiresMcRestart(true);
+      propOrder.add(prop.getName());
+
+      prop = configFile.get(cat, "limitPiggybackpack", limitPiggybackpack);
+      prop.setComment("If true, piggybackpacks can only pick up players and mobs that can be leashed in vanilla. If false any mob can be picked up.");
+      limitPiggybackpack = prop.getBoolean();
       propOrder.add(prop.getName());
 
       prop = configFile.get(cat, "craftingStationBlacklist", craftingStationBlacklistArray);
