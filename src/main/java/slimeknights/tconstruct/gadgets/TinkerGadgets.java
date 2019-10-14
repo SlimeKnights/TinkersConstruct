@@ -56,53 +56,53 @@ public class TinkerGadgets extends TinkerPulse {
 
   public static ServerProxy proxy = DistExecutor.runForDist(() -> GadgetClientProxy::new, () -> ServerProxy::new);
 
-  public static final StoneLadderBlock stone_ladder = null;
+  public static final StoneLadderBlock stone_ladder = injected();
 
-  public static final StoneTorchBlock stone_torch = null;
-  public static final WallStoneTorchBlock wall_stone_torch = null;
+  public static final StoneTorchBlock stone_torch = injected();
+  public static final WallStoneTorchBlock wall_stone_torch = injected();
 
-  public static final PunjiBlock punji = null;
+  public static final PunjiBlock punji = injected();
 
-  public static final WoodenRailBlock wooden_rail = null;
-  public static final WoodenDropperRailBlock wooden_dropper_rail = null;
+  public static final WoodenRailBlock wooden_rail = injected();
+  public static final WoodenDropperRailBlock wooden_dropper_rail = injected();
 
   public static DriedClayBlock dried_clay;
   public static DriedClayBlock dried_clay_bricks;
 
-  public static final DriedClaySlabBlock dried_clay_slab = null;
-  public static final DriedClaySlabBlock dried_clay_bricks_slab = null;
+  public static final DriedClaySlabBlock dried_clay_slab = injected();
+  public static final DriedClaySlabBlock dried_clay_bricks_slab = injected();
 
-  public static final StairsBaseBlock dried_clay_stairs = null;
-  public static final StairsBaseBlock dried_clay_bricks_stairs = null;
+  public static final StairsBaseBlock dried_clay_stairs = injected();
+  public static final StairsBaseBlock dried_clay_bricks_stairs = injected();
 
-  public static final SlimeSlingItem slime_sling_blue = null;
-  public static final SlimeSlingItem slime_sling_purple = null;
-  public static final SlimeSlingItem slime_sling_magma = null;
-  public static final SlimeSlingItem slime_sling_green = null;
-  public static final SlimeSlingItem slime_sling_blood = null;
+  public static final SlimeSlingItem slime_sling_blue = injected();
+  public static final SlimeSlingItem slime_sling_purple = injected();
+  public static final SlimeSlingItem slime_sling_magma = injected();
+  public static final SlimeSlingItem slime_sling_green = injected();
+  public static final SlimeSlingItem slime_sling_blood = injected();
 
-  public static final SlimeBootsItem slime_boots_blue = null;
-  public static final SlimeBootsItem slime_boots_purple = null;
-  public static final SlimeBootsItem slime_boots_magma = null;
-  public static final SlimeBootsItem slime_boots_green = null;
-  public static final SlimeBootsItem slime_boots_blood = null;
+  public static final SlimeBootsItem slime_boots_blue = injected();
+  public static final SlimeBootsItem slime_boots_purple = injected();
+  public static final SlimeBootsItem slime_boots_magma = injected();
+  public static final SlimeBootsItem slime_boots_green = injected();
+  public static final SlimeBootsItem slime_boots_blood = injected();
 
-  public static final PiggyBackPackItem piggy_backpack = null;
+  public static final PiggyBackPackItem piggy_backpack = injected();
 
-  public static final FancyItemFrameItem jewel_item_frame = null;
-  public static final FancyItemFrameItem aluminum_brass_item_frame = null;
-  public static final FancyItemFrameItem cobalt_item_frame = null;
-  public static final FancyItemFrameItem ardite_item_frame = null;
-  public static final FancyItemFrameItem manyullyn_item_frame = null;
-  public static final FancyItemFrameItem gold_item_frame = null;
-  public static final FancyItemFrameItem clear_item_frame = null;
+  public static final FancyItemFrameItem jewel_item_frame = injected();
+  public static final FancyItemFrameItem aluminum_brass_item_frame = injected();
+  public static final FancyItemFrameItem cobalt_item_frame = injected();
+  public static final FancyItemFrameItem ardite_item_frame = injected();
+  public static final FancyItemFrameItem manyullyn_item_frame = injected();
+  public static final FancyItemFrameItem gold_item_frame = injected();
+  public static final FancyItemFrameItem clear_item_frame = injected();
 
-  public static final GlowBallItem glow_ball = null;
-  public static final EflnBallItem efln_ball = null;
+  public static final GlowBallItem glow_ball = injected();
+  public static final EflnBallItem efln_ball = injected();
 
-  public static final SpaghettiItem hard_spaghetti = null;
-  public static final SpaghettiItem soggy_spaghetti = null;
-  public static final SpaghettiItem cold_spaghetti = null;
+  public static final SpaghettiItem hard_spaghetti = injected();
+  public static final SpaghettiItem soggy_spaghetti = injected();
+  public static final SpaghettiItem cold_spaghetti = injected();
 
   public static EntityType<FancyItemFrameEntity> fancy_item_frame;
   public static EntityType<GlowballEntity> throwable_glow_ball;

@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.common;
 
+import javax.annotation.Nonnull;
+
 import slimeknights.mantle.common.IRegisterUtil;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerPulseIds;
@@ -14,6 +16,17 @@ public class TinkerPulse implements IRegisterUtil {
   @Override
   public String getModId() {
     return TConstruct.modID;
+  }
+
+  /**
+   * This is to initialize fields that are injected via {@link net.minecraftforge.registries.ObjectHolder} annotation.
+   * It just returns null, but it removes all the static code analysis varnings regarding this.
+   * @return null.
+   */
+  @Nonnull
+  @SuppressWarnings("ConstantConditions")
+  protected static <T> T injected() {
+    return null;
   }
 
   protected static boolean isToolsLoaded() {

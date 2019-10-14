@@ -42,130 +42,130 @@ public class TinkerCommons extends TinkerPulse {
 
   public static ServerProxy proxy = DistExecutor.runForDist(() -> CommonsClientProxy::new, () -> ServerProxy::new);
 
-  public static final GroutBlock grout = null;
+  public static final GroutBlock grout = injected();
 
-  public static final GraveyardSoilBlock graveyard_soil = null;
-  public static final ConsecratedSoilBlock consecrated_soil = null;
+  public static final GraveyardSoilBlock graveyard_soil = injected();
+  public static final ConsecratedSoilBlock consecrated_soil = injected();
 
-  public static final SlimyMudBlock slimy_mud_green = null;
-  public static final SlimyMudBlock slimy_mud_blue = null;
-  public static final SlimyMudBlock slimy_mud_magma = null;
+  public static final SlimyMudBlock slimy_mud_green = injected();
+  public static final SlimyMudBlock slimy_mud_blue = injected();
+  public static final SlimyMudBlock slimy_mud_magma = injected();
 
-  public static final SlimeBlock blue_slime = null;
-  public static final SlimeBlock purple_slime = null;
-  public static final SlimeBlock blood_slime = null;
-  public static final SlimeBlock magma_slime = null;
-  public static final SlimeBlock pink_slime = null;
+  public static final SlimeBlock blue_slime = injected();
+  public static final SlimeBlock purple_slime = injected();
+  public static final SlimeBlock blood_slime = injected();
+  public static final SlimeBlock magma_slime = injected();
+  public static final SlimeBlock pink_slime = injected();
 
-  public static final CongealedSlimeBlock congealed_green_slime = null;
-  public static final CongealedSlimeBlock congealed_blue_slime = null;
-  public static final CongealedSlimeBlock congealed_purple_slime = null;
-  public static final CongealedSlimeBlock congealed_blood_slime = null;
-  public static final CongealedSlimeBlock congealed_magma_slime = null;
-  public static final CongealedSlimeBlock congealed_pink_slime = null;
+  public static final CongealedSlimeBlock congealed_green_slime = injected();
+  public static final CongealedSlimeBlock congealed_blue_slime = injected();
+  public static final CongealedSlimeBlock congealed_purple_slime = injected();
+  public static final CongealedSlimeBlock congealed_blood_slime = injected();
+  public static final CongealedSlimeBlock congealed_magma_slime = injected();
+  public static final CongealedSlimeBlock congealed_pink_slime = injected();
 
-  public static final OreBlock cobalt_ore = null;
-  public static final OreBlock ardite_ore = null;
+  public static final OreBlock cobalt_ore = injected();
+  public static final OreBlock ardite_ore = injected();
 
   public static FirewoodBlock lavawood;
   public static FirewoodBlock firewood;
 
   public static DecoGroundBlock mud_bricks;
 
-  public static final ClearGlassBlock clear_glass = null;
+  public static final ClearGlassBlock clear_glass = injected();
 
-  public static final ClearStainedGlassBlock white_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock orange_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock magenta_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock light_blue_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock yellow_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock lime_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock pink_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock gray_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock light_gray_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock cyan_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock purple_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock blue_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock brown_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock green_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock red_clear_stained_glass = null;
-  public static final ClearStainedGlassBlock black_clear_stained_glass = null;
+  public static final ClearStainedGlassBlock white_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock orange_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock magenta_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock light_blue_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock yellow_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock lime_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock pink_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock gray_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock light_gray_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock cyan_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock purple_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock blue_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock brown_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock green_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock red_clear_stained_glass = injected();
+  public static final ClearStainedGlassBlock black_clear_stained_glass = injected();
 
-  public static final DecoGroundSlabBlock mud_bricks_slab = null;
-  public static final FirewoodSlabBlock lavawood_slab = null;
-  public static final FirewoodSlabBlock firewood_slab = null;
+  public static final DecoGroundSlabBlock mud_bricks_slab = injected();
+  public static final FirewoodSlabBlock lavawood_slab = injected();
+  public static final FirewoodSlabBlock firewood_slab = injected();
 
-  public static final StairsBaseBlock mud_bricks_stairs = null;
-  public static final StairsBaseBlock firewood_stairs = null;
-  public static final StairsBaseBlock lavawood_stairs = null;
+  public static final StairsBaseBlock mud_bricks_stairs = injected();
+  public static final StairsBaseBlock firewood_stairs = injected();
+  public static final StairsBaseBlock lavawood_stairs = injected();
 
-  public static final MetalBlock cobalt_block = null;
-  public static final MetalBlock ardite_block = null;
-  public static final MetalBlock manyullyn_block = null;
-  public static final MetalBlock knightslime_block = null;
-  public static final MetalBlock pigiron_block = null;
-  public static final MetalBlock alubrass_block = null;
-  public static final MetalBlock silky_jewel_block = null;
+  public static final MetalBlock cobalt_block = injected();
+  public static final MetalBlock ardite_block = injected();
+  public static final MetalBlock manyullyn_block = injected();
+  public static final MetalBlock knightslime_block = injected();
+  public static final MetalBlock pigiron_block = injected();
+  public static final MetalBlock alubrass_block = injected();
+  public static final MetalBlock silky_jewel_block = injected();
 
-  public static final GlowBlock glow = null;
+  public static final GlowBlock glow = injected();
 
-  public static final TinkerBookItem book = null;
+  public static final TinkerBookItem book = injected();
 
-  public static final GeneratedItem seared_brick = null;
-  public static final GeneratedItem mud_brick = null;
+  public static final GeneratedItem seared_brick = injected();
+  public static final GeneratedItem mud_brick = injected();
 
-  public static final EdibleItem blue_slime_ball = null;
-  public static final EdibleItem purple_slime_ball = null;
-  public static final EdibleItem blood_slime_ball = null;
-  public static final EdibleItem magma_slime_ball = null;
-  public static final EdibleItem pink_slime_ball = null;
+  public static final EdibleItem blue_slime_ball = injected();
+  public static final EdibleItem purple_slime_ball = injected();
+  public static final EdibleItem blood_slime_ball = injected();
+  public static final EdibleItem magma_slime_ball = injected();
+  public static final EdibleItem pink_slime_ball = injected();
 
-  public static final GeneratedItem cobalt_nugget = null;
-  public static final GeneratedItem cobalt_ingot = null;
-  public static final GeneratedItem ardite_nugget = null;
-  public static final GeneratedItem ardite_ingot = null;
-  public static final GeneratedItem manyullyn_nugget = null;
-  public static final GeneratedItem manyullyn_ingot = null;
-  public static final GeneratedItem pigiron_nugget = null;
-  public static final GeneratedItem pigiron_ingot = null;
-  public static final GeneratedItem alubrass_nugget = null;
-  public static final AlubrassItem alubrass_ingot = null;
+  public static final GeneratedItem cobalt_nugget = injected();
+  public static final GeneratedItem cobalt_ingot = injected();
+  public static final GeneratedItem ardite_nugget = injected();
+  public static final GeneratedItem ardite_ingot = injected();
+  public static final GeneratedItem manyullyn_nugget = injected();
+  public static final GeneratedItem manyullyn_ingot = injected();
+  public static final GeneratedItem pigiron_nugget = injected();
+  public static final GeneratedItem pigiron_ingot = injected();
+  public static final GeneratedItem alubrass_nugget = injected();
+  public static final AlubrassItem alubrass_ingot = injected();
 
-  public static final EdibleItem bacon = null;
+  public static final EdibleItem bacon = injected();
 
-  public static final GeneratedItem green_slime_crystal = null;
-  public static final GeneratedItem blue_slime_crystal = null;
-  public static final GeneratedItem magma_slime_crystal = null;
-  public static final GeneratedItem width_expander = null;
-  public static final GeneratedItem height_expander = null;
-  public static final GeneratedItem reinforcement = null;
-  public static final GeneratedItem silky_cloth = null;
-  public static final GeneratedItem silky_jewel = null;
-  public static final GeneratedItem necrotic_bone = null;
-  public static final GeneratedItem moss = null;
-  public static final GeneratedItem mending_moss = null;
-  public static final GeneratedItem creative_modifier = null;
+  public static final GeneratedItem green_slime_crystal = injected();
+  public static final GeneratedItem blue_slime_crystal = injected();
+  public static final GeneratedItem magma_slime_crystal = injected();
+  public static final GeneratedItem width_expander = injected();
+  public static final GeneratedItem height_expander = injected();
+  public static final GeneratedItem reinforcement = injected();
+  public static final GeneratedItem silky_cloth = injected();
+  public static final GeneratedItem silky_jewel = injected();
+  public static final GeneratedItem necrotic_bone = injected();
+  public static final GeneratedItem moss = injected();
+  public static final GeneratedItem mending_moss = injected();
+  public static final GeneratedItem creative_modifier = injected();
 
-  public static final GeneratedItem knightslime_nugget = null;
-  public static final GeneratedItem knightslime_ingot = null;
+  public static final GeneratedItem knightslime_nugget = injected();
+  public static final GeneratedItem knightslime_ingot = injected();
 
-  public static final GeneratedItem dried_brick = null;
+  public static final GeneratedItem dried_brick = injected();
 
-  public static final EdibleItem monster_jerky = null;
-  public static final EdibleItem beef_jerky = null;
-  public static final EdibleItem chicken_jerky = null;
-  public static final EdibleItem pork_jerky = null;
-  public static final EdibleItem mutton_jerky = null;
-  public static final EdibleItem rabbit_jerky = null;
-  public static final EdibleItem fish_jerky = null;
-  public static final EdibleItem salmon_jerky = null;
-  public static final EdibleItem clownfish_jerky = null;
-  public static final EdibleItem pufferfish_jerky = null;
-  public static final EdibleItem green_slime_drop = null;
-  public static final EdibleItem blue_slime_drop = null;
-  public static final EdibleItem purple_slime_drop = null;
-  public static final EdibleItem blood_slime_drop = null;
-  public static final EdibleItem magma_slime_drop = null;
+  public static final EdibleItem monster_jerky = injected();
+  public static final EdibleItem beef_jerky = injected();
+  public static final EdibleItem chicken_jerky = injected();
+  public static final EdibleItem pork_jerky = injected();
+  public static final EdibleItem mutton_jerky = injected();
+  public static final EdibleItem rabbit_jerky = injected();
+  public static final EdibleItem fish_jerky = injected();
+  public static final EdibleItem salmon_jerky = injected();
+  public static final EdibleItem clownfish_jerky = injected();
+  public static final EdibleItem pufferfish_jerky = injected();
+  public static final EdibleItem green_slime_drop = injected();
+  public static final EdibleItem blue_slime_drop = injected();
+  public static final EdibleItem purple_slime_drop = injected();
+  public static final EdibleItem blood_slime_drop = injected();
+  public static final EdibleItem magma_slime_drop = injected();
 
   @SubscribeEvent
   public void registerBlocks(final RegistryEvent.Register<Block> event) {
