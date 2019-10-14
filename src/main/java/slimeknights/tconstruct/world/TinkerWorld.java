@@ -29,6 +29,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
+
 import org.apache.logging.log4j.Logger;
 
 import slimeknights.mantle.client.CreativeTab;
@@ -62,60 +63,60 @@ public class TinkerWorld extends TinkerPulse {
 
   public static ServerProxy proxy = DistExecutor.runForDist(() -> WorldClientProxy::new, () -> ServerProxy::new);
 
-  public static final SlimeDirtBlock green_slime_dirt = null;
-  public static final SlimeDirtBlock blue_slime_dirt = null;
-  public static final SlimeDirtBlock purple_slime_dirt = null;
-  public static final SlimeDirtBlock magma_slime_dirt = null;
+  public static final SlimeDirtBlock green_slime_dirt = injected();
+  public static final SlimeDirtBlock blue_slime_dirt = injected();
+  public static final SlimeDirtBlock purple_slime_dirt = injected();
+  public static final SlimeDirtBlock magma_slime_dirt = injected();
 
-  public static final SlimeGrassBlock blue_vanilla_slime_grass = null;
-  public static final SlimeGrassBlock purple_vanilla_slime_grass = null;
-  public static final SlimeGrassBlock orange_vanilla_slime_grass = null;
-  public static final SlimeGrassBlock blue_green_slime_grass = null;
-  public static final SlimeGrassBlock purple_green_slime_grass = null;
-  public static final SlimeGrassBlock orange_green_slime_grass = null;
-  public static final SlimeGrassBlock blue_blue_slime_grass = null;
-  public static final SlimeGrassBlock purple_blue_slime_grass = null;
-  public static final SlimeGrassBlock orange_blue_slime_grass = null;
-  public static final SlimeGrassBlock blue_purple_slime_grass = null;
-  public static final SlimeGrassBlock purple_purple_slime_grass = null;
-  public static final SlimeGrassBlock orange_purple_slime_grass = null;
-  public static final SlimeGrassBlock blue_magma_slime_grass = null;
-  public static final SlimeGrassBlock purple_magma_slime_grass = null;
-  public static final SlimeGrassBlock orange_magma_slime_grass = null;
+  public static final SlimeGrassBlock blue_vanilla_slime_grass = injected();
+  public static final SlimeGrassBlock purple_vanilla_slime_grass = injected();
+  public static final SlimeGrassBlock orange_vanilla_slime_grass = injected();
+  public static final SlimeGrassBlock blue_green_slime_grass = injected();
+  public static final SlimeGrassBlock purple_green_slime_grass = injected();
+  public static final SlimeGrassBlock orange_green_slime_grass = injected();
+  public static final SlimeGrassBlock blue_blue_slime_grass = injected();
+  public static final SlimeGrassBlock purple_blue_slime_grass = injected();
+  public static final SlimeGrassBlock orange_blue_slime_grass = injected();
+  public static final SlimeGrassBlock blue_purple_slime_grass = injected();
+  public static final SlimeGrassBlock purple_purple_slime_grass = injected();
+  public static final SlimeGrassBlock orange_purple_slime_grass = injected();
+  public static final SlimeGrassBlock blue_magma_slime_grass = injected();
+  public static final SlimeGrassBlock purple_magma_slime_grass = injected();
+  public static final SlimeGrassBlock orange_magma_slime_grass = injected();
 
-  public static final SlimeLeavesBlock blue_slime_leaves = null;
-  public static final SlimeLeavesBlock purple_slime_leaves = null;
-  public static final SlimeLeavesBlock orange_slime_leaves = null;
+  public static final SlimeLeavesBlock blue_slime_leaves = injected();
+  public static final SlimeLeavesBlock purple_slime_leaves = injected();
+  public static final SlimeLeavesBlock orange_slime_leaves = injected();
 
-  public static final SlimeTallGrassBlock blue_slime_fern = null;
-  public static final SlimeTallGrassBlock purple_slime_fern = null;
-  public static final SlimeTallGrassBlock orange_slime_fern = null;
+  public static final SlimeTallGrassBlock blue_slime_fern = injected();
+  public static final SlimeTallGrassBlock purple_slime_fern = injected();
+  public static final SlimeTallGrassBlock orange_slime_fern = injected();
 
-  public static final SlimeTallGrassBlock blue_slime_tall_grass = null;
-  public static final SlimeTallGrassBlock purple_slime_tall_grass = null;
-  public static final SlimeTallGrassBlock orange_slime_tall_grass = null;
+  public static final SlimeTallGrassBlock blue_slime_tall_grass = injected();
+  public static final SlimeTallGrassBlock purple_slime_tall_grass = injected();
+  public static final SlimeTallGrassBlock orange_slime_tall_grass = injected();
 
-  public static final SlimeSaplingBlock blue_slime_sapling = null;
-  public static final SlimeSaplingBlock orange_slime_sapling = null;
-  public static final SlimeSaplingBlock purple_slime_sapling = null;
+  public static final SlimeSaplingBlock blue_slime_sapling = injected();
+  public static final SlimeSaplingBlock orange_slime_sapling = injected();
+  public static final SlimeSaplingBlock purple_slime_sapling = injected();
 
-  public static final SlimeVineBlock purple_slime_vine = null;
-  public static final SlimeVineBlock purple_slime_vine_middle = null;
-  public static final SlimeVineBlock purple_slime_vine_end = null;
+  public static final SlimeVineBlock purple_slime_vine = injected();
+  public static final SlimeVineBlock purple_slime_vine_middle = injected();
+  public static final SlimeVineBlock purple_slime_vine_end = injected();
 
-  public static final SlimeVineBlock blue_slime_vine = null;
-  public static final SlimeVineBlock blue_slime_vine_middle = null;
-  public static final SlimeVineBlock blue_slime_vine_end = null;
+  public static final SlimeVineBlock blue_slime_vine = injected();
+  public static final SlimeVineBlock blue_slime_vine_middle = injected();
+  public static final SlimeVineBlock blue_slime_vine_end = injected();
 
-  public static final EntityType<BlueSlimeEntity> blue_slime_entity = null;
+  public static final EntityType<BlueSlimeEntity> blue_slime_entity = injected();
 
   public static PlantType slimePlantType = PlantType.Nether;
 
   public static IStructurePieceType SLIME_ISLAND_PIECE;
-  public static final Structure<NoFeatureConfig> SLIME_ISLAND = null;
+  public static final Structure<NoFeatureConfig> SLIME_ISLAND = injected();
 
   public static IStructurePieceType NETHER_SLIME_ISLAND_PIECE;
-  public static final Structure<NoFeatureConfig> NETHER_SLIME_ISLAND = null;
+  public static final Structure<NoFeatureConfig> NETHER_SLIME_ISLAND = injected();
 
   public TinkerWorld() {
     proxy.construct();
