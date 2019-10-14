@@ -30,6 +30,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 import org.apache.logging.log4j.Logger;
+
+import slimeknights.mantle.client.CreativeTab;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ServerProxy;
@@ -166,51 +168,52 @@ public class TinkerWorld extends TinkerPulse {
     IForgeRegistry<Item> registry = event.getRegistry();
 
     register(registry, new SpawnEggItem(WorldEntities.blue_slime_entity, 0x47eff5, 0xacfff4, (new Item.Properties()).group(ItemGroup.MISC)), "blue_slime_spawn_egg");
+    CreativeTab tabWorld = TinkerRegistry.tabWorld;
 
-    registerBlockItem(registry, green_slime_dirt, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, blue_slime_dirt, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, purple_slime_dirt, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, magma_slime_dirt, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, green_slime_dirt, tabWorld);
+    registerBlockItem(registry, blue_slime_dirt, tabWorld);
+    registerBlockItem(registry, purple_slime_dirt, tabWorld);
+    registerBlockItem(registry, magma_slime_dirt, tabWorld);
 
-    registerBlockItem(registry, blue_vanilla_slime_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, purple_vanilla_slime_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, orange_vanilla_slime_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, blue_green_slime_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, purple_green_slime_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, orange_green_slime_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, blue_blue_slime_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, purple_blue_slime_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, orange_blue_slime_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, blue_purple_slime_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, purple_purple_slime_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, orange_purple_slime_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, blue_magma_slime_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, purple_magma_slime_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, orange_magma_slime_grass, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, blue_vanilla_slime_grass, tabWorld);
+    registerBlockItem(registry, purple_vanilla_slime_grass, tabWorld);
+    registerBlockItem(registry, orange_vanilla_slime_grass, tabWorld);
+    registerBlockItem(registry, blue_green_slime_grass, tabWorld);
+    registerBlockItem(registry, purple_green_slime_grass, tabWorld);
+    registerBlockItem(registry, orange_green_slime_grass, tabWorld);
+    registerBlockItem(registry, blue_blue_slime_grass, tabWorld);
+    registerBlockItem(registry, purple_blue_slime_grass, tabWorld);
+    registerBlockItem(registry, orange_blue_slime_grass, tabWorld);
+    registerBlockItem(registry, blue_purple_slime_grass, tabWorld);
+    registerBlockItem(registry, purple_purple_slime_grass, tabWorld);
+    registerBlockItem(registry, orange_purple_slime_grass, tabWorld);
+    registerBlockItem(registry, blue_magma_slime_grass, tabWorld);
+    registerBlockItem(registry, purple_magma_slime_grass, tabWorld);
+    registerBlockItem(registry, orange_magma_slime_grass, tabWorld);
 
-    registerBlockItem(registry, blue_slime_leaves, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, purple_slime_leaves, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, orange_slime_leaves, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, blue_slime_leaves, tabWorld);
+    registerBlockItem(registry, purple_slime_leaves, tabWorld);
+    registerBlockItem(registry, orange_slime_leaves, tabWorld);
 
-    registerBlockItem(registry, blue_slime_fern, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, purple_slime_fern, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, orange_slime_fern, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, blue_slime_fern, tabWorld);
+    registerBlockItem(registry, purple_slime_fern, tabWorld);
+    registerBlockItem(registry, orange_slime_fern, tabWorld);
 
-    registerBlockItem(registry, blue_slime_tall_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, purple_slime_tall_grass, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, orange_slime_tall_grass, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, blue_slime_tall_grass, tabWorld);
+    registerBlockItem(registry, purple_slime_tall_grass, tabWorld);
+    registerBlockItem(registry, orange_slime_tall_grass, tabWorld);
 
-    registerBlockItem(registry, blue_slime_sapling, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, orange_slime_sapling, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, purple_slime_sapling, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, blue_slime_sapling, tabWorld);
+    registerBlockItem(registry, orange_slime_sapling, tabWorld);
+    registerBlockItem(registry, purple_slime_sapling, tabWorld);
 
-    registerBlockItem(registry, purple_slime_vine, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, purple_slime_vine_middle, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, purple_slime_vine_end, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, purple_slime_vine, tabWorld);
+    registerBlockItem(registry, purple_slime_vine_middle, tabWorld);
+    registerBlockItem(registry, purple_slime_vine_end, tabWorld);
 
-    registerBlockItem(registry, blue_slime_vine, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, blue_slime_vine_middle, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, blue_slime_vine_end, TinkerRegistry.tabWorld);
+    registerBlockItem(registry, blue_slime_vine, tabWorld);
+    registerBlockItem(registry, blue_slime_vine_middle, tabWorld);
+    registerBlockItem(registry, blue_slime_vine_end, tabWorld);
   }
 
   @SubscribeEvent
