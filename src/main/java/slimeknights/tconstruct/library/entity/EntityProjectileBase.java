@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.entity;
 
 import com.google.common.collect.Multimap;
-
+import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.SoundEvents;
@@ -27,13 +28,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-
-import java.util.UUID;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import io.netty.buffer.ByteBuf;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.capability.projectile.CapabilityTinkerProjectile;
 import slimeknights.tconstruct.library.capability.projectile.TinkerProjectileHandler;
@@ -47,6 +41,10 @@ import slimeknights.tconstruct.library.utils.AmmoHelper;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.UUID;
 
 // have to base this on EntityArrow, otherwise minecraft does derp things because everything is handled based on class.
 public abstract class EntityProjectileBase extends EntityArrow implements IEntityAdditionalSpawnData {
@@ -242,6 +240,11 @@ public abstract class EntityProjectileBase extends EntityArrow implements IEntit
         if(!bounceOff) {
           for(IProjectileTrait trait : tinkerProjectile.getProjectileTraits()) {
             trait.afterHit(this, getEntityWorld(), inventoryItem, attacker, entityHit, speed);
+          }
+
+          // if on fire, set the entity on fire, like vanilla arrows
+          if (this.isBurning() && !(entityHit instanceof EntityEnderman)) {
+            entityHit.setFire(5);
           }
         }
         if(brokenStateDiffers) {
