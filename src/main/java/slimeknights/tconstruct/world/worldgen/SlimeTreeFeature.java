@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.world.worldgen;
 
 import com.mojang.datafixers.Dynamic;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -16,12 +17,13 @@ import net.minecraft.world.gen.IWorldGenerationBaseReader;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import slimeknights.tconstruct.common.Tags;
-import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
+
+import slimeknights.tconstruct.common.Tags;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
@@ -32,6 +34,19 @@ public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
   private final BlockState vine;
   private final boolean seekHeight;
 
+  /**
+   * Slimetree feature with all the configs for it. Cannot use IFeatureConfig currently since vanilla trees don't support
+   * it currently. Will be there in 1.15
+   *
+   * @param doBlockNotifyOnPlace True by default, set to false for biome worldgen stuff
+   * @param minTreeHeightIn Minimum tree height. This refers to the trunk
+   * @param treeHeightRangeIn Height variation, total tree height = minTreeHeight + variation
+   * @param trunkState Blockstate to use for the trunk, usually congealed slimeblocks
+   * @param leafState Blockstate to use for the leaves, usually slimeleaves
+   * @param vineState Blockstate to use for the vines at the leaves, can be null for no leaves. Trees out of saplings don't have vines.
+   * @param sapling Sapling that grows into this tree
+   * @param seekHeightIn If true the y-coordinate will be lowered until it hits the ground. Used for island generation
+   */
   public SlimeTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn, boolean doBlockNotifyOnPlace, int minTreeHeightIn, int treeHeightRangeIn, BlockState trunkState, BlockState leafState, BlockState vineState, Block sapling, boolean seekHeightIn) {
     super(configFactoryIn, doBlockNotifyOnPlace);
 

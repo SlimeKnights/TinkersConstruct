@@ -19,6 +19,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.block.StairsBaseBlock;
+import slimeknights.mantle.client.CreativeTab;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ServerProxy;
@@ -135,25 +136,26 @@ public class TinkerGadgets extends TinkerPulse {
   public void registerItems(final RegistryEvent.Register<Item> event) {
     IForgeRegistry<Item> registry = event.getRegistry();
 
-    registerBlockItem(registry, stone_ladder, TinkerRegistry.tabGadgets);
+    CreativeTab tabGadgets = TinkerRegistry.tabGadgets;
+    registerBlockItem(registry, stone_ladder, tabGadgets);
 
-    registerBlockItem(registry, new WallOrFloorItem(stone_torch, wall_stone_torch, (new Item.Properties()).group(TinkerRegistry.tabGadgets)));
+    registerBlockItem(registry, new WallOrFloorItem(stone_torch, wall_stone_torch, (new Item.Properties()).group(tabGadgets)));
 
-    registerBlockItem(registry, punji, TinkerRegistry.tabGadgets);
+    registerBlockItem(registry, punji, tabGadgets);
 
-    registerBlockItem(registry, wooden_rail, TinkerRegistry.tabGadgets);
-    registerBlockItem(registry, wooden_dropper_rail, TinkerRegistry.tabGadgets);
+    registerBlockItem(registry, wooden_rail, tabGadgets);
+    registerBlockItem(registry, wooden_dropper_rail, tabGadgets);
 
-    registerBlockItem(registry, dried_clay, TinkerRegistry.tabGadgets);
-    registerBlockItem(registry, dried_clay_bricks, TinkerRegistry.tabGadgets);
+    registerBlockItem(registry, dried_clay, tabGadgets);
+    registerBlockItem(registry, dried_clay_bricks, tabGadgets);
 
-    registerBlockItem(registry, dried_clay_slab, TinkerRegistry.tabGadgets);
-    registerBlockItem(registry, dried_clay_bricks_slab, TinkerRegistry.tabGadgets);
+    registerBlockItem(registry, dried_clay_slab, tabGadgets);
+    registerBlockItem(registry, dried_clay_bricks_slab, tabGadgets);
 
-    registerBlockItem(registry, dried_clay_stairs, TinkerRegistry.tabGadgets);
-    registerBlockItem(registry, dried_clay_bricks_stairs, TinkerRegistry.tabGadgets);
+    registerBlockItem(registry, dried_clay_stairs, tabGadgets);
+    registerBlockItem(registry, dried_clay_bricks_stairs, tabGadgets);
 
-    register(registry, new Item((new Item.Properties()).group(TinkerRegistry.tabGadgets)), "stone_stick");
+    register(registry, new Item((new Item.Properties()).group(tabGadgets)), "stone_stick");
 
     for (SlimeBlock.SlimeType type : SlimeBlock.SlimeType.VISIBLE_COLORS) {
       register(registry, new SlimeSlingItem(), "slime_sling_" + type.getName());
