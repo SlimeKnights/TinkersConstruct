@@ -12,10 +12,12 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
+
 import org.apache.logging.log4j.Logger;
+
 import slimeknights.mantle.block.StairsBaseBlock;
+import slimeknights.mantle.client.CreativeTab;
 import slimeknights.mantle.item.EdibleItem;
 import slimeknights.mantle.item.GeneratedItem;
 import slimeknights.mantle.pulsar.pulse.Pulse;
@@ -25,10 +27,26 @@ import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
+import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
+import slimeknights.tconstruct.common.registry.ItemRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.shared.block.*;
+import slimeknights.tconstruct.shared.block.ClearGlassBlock;
+import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
+import slimeknights.tconstruct.shared.block.CongealedSlimeBlock;
+import slimeknights.tconstruct.shared.block.ConsecratedSoilBlock;
+import slimeknights.tconstruct.shared.block.DecoGroundBlock;
+import slimeknights.tconstruct.shared.block.DecoGroundSlabBlock;
+import slimeknights.tconstruct.shared.block.FirewoodBlock;
+import slimeknights.tconstruct.shared.block.FirewoodSlabBlock;
+import slimeknights.tconstruct.shared.block.GlowBlock;
+import slimeknights.tconstruct.shared.block.GraveyardSoilBlock;
+import slimeknights.tconstruct.shared.block.GroutBlock;
+import slimeknights.tconstruct.shared.block.MetalBlock;
+import slimeknights.tconstruct.shared.block.OreBlock;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.shared.block.SlimyMudBlock;
 import slimeknights.tconstruct.shared.item.AlubrassItem;
 
 /**
@@ -169,239 +187,241 @@ public class TinkerCommons extends TinkerPulse {
 
   @SubscribeEvent
   public void registerBlocks(final RegistryEvent.Register<Block> event) {
-    IForgeRegistry<Block> registry = event.getRegistry();
+    BaseRegistryAdapter<Block> registry = new BaseRegistryAdapter<>(event.getRegistry());
     boolean forced = Config.forceRegisterAll; // causes to always register all items
 
     // Soils
-    register(registry, new GroutBlock(), "grout");
+    registry.register(new GroutBlock(), "grout");
 
-    register(registry, new GraveyardSoilBlock(), "graveyard_soil");
-    register(registry, new ConsecratedSoilBlock(), "consecrated_soil");
+    registry.register(new GraveyardSoilBlock(), "graveyard_soil");
+    registry.register(new ConsecratedSoilBlock(), "consecrated_soil");
 
-    register(registry, new SlimyMudBlock(SlimyMudBlock.MudType.SLIMY_MUD_GREEN), "slimy_mud_green");
-    register(registry, new SlimyMudBlock(SlimyMudBlock.MudType.SLIMY_MUD_BLUE), "slimy_mud_blue");
-    register(registry, new SlimyMudBlock(SlimyMudBlock.MudType.SLIMY_MUD_MAGMA), "slimy_mud_magma");
+    registry.register(new SlimyMudBlock(SlimyMudBlock.MudType.SLIMY_MUD_GREEN), "slimy_mud_green");
+    registry.register(new SlimyMudBlock(SlimyMudBlock.MudType.SLIMY_MUD_BLUE), "slimy_mud_blue");
+    registry.register(new SlimyMudBlock(SlimyMudBlock.MudType.SLIMY_MUD_MAGMA), "slimy_mud_magma");
 
     // Slimes
-    register(registry, new SlimeBlock(true), "blue_slime");
-    register(registry, new SlimeBlock(true), "purple_slime");
-    register(registry, new SlimeBlock(true), "blood_slime");
-    register(registry, new SlimeBlock(true), "magma_slime");
-    register(registry, new SlimeBlock(false), "pink_slime");
+    registry.register(new SlimeBlock(true), "blue_slime");
+    registry.register(new SlimeBlock(true), "purple_slime");
+    registry.register(new SlimeBlock(true), "blood_slime");
+    registry.register(new SlimeBlock(true), "magma_slime");
+    registry.register(new SlimeBlock(false), "pink_slime");
 
-    register(registry, new CongealedSlimeBlock(true), "congealed_green_slime");
-    register(registry, new CongealedSlimeBlock(true), "congealed_blue_slime");
-    register(registry, new CongealedSlimeBlock(true), "congealed_purple_slime");
-    register(registry, new CongealedSlimeBlock(true), "congealed_blood_slime");
-    register(registry, new CongealedSlimeBlock(true), "congealed_magma_slime");
-    register(registry, new CongealedSlimeBlock(false), "congealed_pink_slime");
+    registry.register(new CongealedSlimeBlock(true), "congealed_green_slime");
+    registry.register(new CongealedSlimeBlock(true), "congealed_blue_slime");
+    registry.register(new CongealedSlimeBlock(true), "congealed_purple_slime");
+    registry.register(new CongealedSlimeBlock(true), "congealed_blood_slime");
+    registry.register(new CongealedSlimeBlock(true), "congealed_magma_slime");
+    registry.register(new CongealedSlimeBlock(false), "congealed_pink_slime");
 
     // Ores
-    register(registry, new OreBlock(), "cobalt_ore");
-    register(registry, new OreBlock(), "ardite_ore");
+    registry.register(new OreBlock(), "cobalt_ore");
+    registry.register(new OreBlock(), "ardite_ore");
 
     // Firewood
-    lavawood = register(registry, new FirewoodBlock(), "lavawood");
-    firewood = register(registry, new FirewoodBlock(), "firewood");
+    lavawood = registry.register(new FirewoodBlock(), "lavawood");
+    firewood = registry.register(new FirewoodBlock(), "firewood");
 
     // Decorative Stuff
-    mud_bricks = register(registry, new DecoGroundBlock(), "mud_bricks");
+    mud_bricks = registry.register(new DecoGroundBlock(), "mud_bricks");
 
-    register(registry, new ClearGlassBlock(), "clear_glass");
+    registry.register(new ClearGlassBlock(), "clear_glass");
 
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.WHITE), "white_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.ORANGE), "orange_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.MAGENTA), "magenta_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.LIGHT_BLUE), "light_blue_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.YELLOW), "yellow_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.LIME), "lime_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.PINK), "pink_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.GRAY), "gray_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.LIGHT_GRAY), "light_gray_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.CYAN), "cyan_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.PURPLE), "purple_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.BLUE), "blue_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.BROWN), "brown_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.GREEN), "green_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.RED), "red_clear_stained_glass");
-    register(registry, new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.BLACK), "black_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.WHITE), "white_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.ORANGE), "orange_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.MAGENTA), "magenta_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.LIGHT_BLUE), "light_blue_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.YELLOW), "yellow_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.LIME), "lime_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.PINK), "pink_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.GRAY), "gray_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.LIGHT_GRAY), "light_gray_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.CYAN), "cyan_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.PURPLE), "purple_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.BLUE), "blue_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.BROWN), "brown_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.GREEN), "green_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.RED), "red_clear_stained_glass");
+    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.BLACK), "black_clear_stained_glass");
 
     // Slabs
-    register(registry, new DecoGroundSlabBlock(), "mud_bricks_slab");
-    register(registry, new FirewoodSlabBlock(), "lavawood_slab");
-    register(registry, new FirewoodSlabBlock(), "firewood_slab");
+    registry.register(new DecoGroundSlabBlock(), "mud_bricks_slab");
+    registry.register(new FirewoodSlabBlock(), "lavawood_slab");
+    registry.register(new FirewoodSlabBlock(), "firewood_slab");
 
     // Stairs
-    register(registry, new StairsBaseBlock(mud_bricks), "mud_bricks_stairs");
-    register(registry, new StairsBaseBlock(lavawood), "lavawood_stairs");
-    register(registry, new StairsBaseBlock(firewood), "firewood_stairs");
+    registry.register(new StairsBaseBlock(mud_bricks), "mud_bricks_stairs");
+    registry.register(new StairsBaseBlock(lavawood), "lavawood_stairs");
+    registry.register(new StairsBaseBlock(firewood), "firewood_stairs");
 
     // Metals
     if (isToolsLoaded() || isSmelteryLoaded() || forced) {
-      register(registry, new MetalBlock(MetalBlock.MetalType.COBALT), "cobalt_block");
-      register(registry, new MetalBlock(MetalBlock.MetalType.ARDITE), "ardite_block");
-      register(registry, new MetalBlock(MetalBlock.MetalType.MANYULLYN), "manyullyn_block");
-      register(registry, new MetalBlock(MetalBlock.MetalType.KNIGHTSLIME), "knightslime_block");
-      register(registry, new MetalBlock(MetalBlock.MetalType.PIGIRON), "pigiron_block");
-      register(registry, new MetalBlock(MetalBlock.MetalType.ALUBRASS), "alubrass_block");
-      register(registry, new MetalBlock(MetalBlock.MetalType.SILKY_JEWEL), "silky_jewel_block");
+      registry.register(new MetalBlock(MetalBlock.MetalType.COBALT), "cobalt_block");
+      registry.register(new MetalBlock(MetalBlock.MetalType.ARDITE), "ardite_block");
+      registry.register(new MetalBlock(MetalBlock.MetalType.MANYULLYN), "manyullyn_block");
+      registry.register(new MetalBlock(MetalBlock.MetalType.KNIGHTSLIME), "knightslime_block");
+      registry.register(new MetalBlock(MetalBlock.MetalType.PIGIRON), "pigiron_block");
+      registry.register(new MetalBlock(MetalBlock.MetalType.ALUBRASS), "alubrass_block");
+      registry.register(new MetalBlock(MetalBlock.MetalType.SILKY_JEWEL), "silky_jewel_block");
     }
 
     if (isToolsLoaded() || isGadgetsLoaded() || forced) {
-      register(registry, new GlowBlock(), "glow");
+      registry.register(new GlowBlock(), "glow");
     }
   }
 
   @SubscribeEvent
   public void registerItems(final RegistryEvent.Register<Item> event) {
-    IForgeRegistry<Item> registry = event.getRegistry();
+    ItemRegistryAdapter registry = new ItemRegistryAdapter(event.getRegistry());
+    CreativeTab tabGeneral = TinkerRegistry.tabGeneral;
+    CreativeTab tabWorld = TinkerRegistry.tabWorld;
     boolean forced = Config.forceRegisterAll; // causes to always register all items
 
-    register(registry, new TinkerBookItem(), "book");
+    registry.register(new TinkerBookItem(), "book");
 
     // Soils
-    registerBlockItem(registry, grout, TinkerRegistry.tabGeneral);
+    registry.registerBlockItem(grout, tabGeneral);
 
-    registerBlockItem(registry, graveyard_soil, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, consecrated_soil, TinkerRegistry.tabGeneral);
+    registry.registerBlockItem(graveyard_soil, tabGeneral);
+    registry.registerBlockItem(consecrated_soil, tabGeneral);
 
-    registerBlockItem(registry, slimy_mud_green, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, slimy_mud_blue, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, slimy_mud_magma, TinkerRegistry.tabGeneral);
+    registry.registerBlockItem(slimy_mud_green, tabGeneral);
+    registry.registerBlockItem(slimy_mud_blue, tabGeneral);
+    registry.registerBlockItem(slimy_mud_magma, tabGeneral);
 
     // Slimes
-    registerBlockItem(registry, blue_slime, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, purple_slime, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, blood_slime, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, magma_slime, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, pink_slime, TinkerRegistry.tabWorld);
+    registry.registerBlockItem(blue_slime, tabWorld);
+    registry.registerBlockItem(purple_slime, tabWorld);
+    registry.registerBlockItem(blood_slime, tabWorld);
+    registry.registerBlockItem(magma_slime, tabWorld);
+    registry.registerBlockItem(pink_slime, tabWorld);
 
-    registerBlockItem(registry, congealed_green_slime, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, congealed_blue_slime, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, congealed_purple_slime, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, congealed_blood_slime, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, congealed_magma_slime, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, congealed_pink_slime, TinkerRegistry.tabWorld);
+    registry.registerBlockItem(congealed_green_slime, tabWorld);
+    registry.registerBlockItem(congealed_blue_slime, tabWorld);
+    registry.registerBlockItem(congealed_purple_slime, tabWorld);
+    registry.registerBlockItem(congealed_blood_slime, tabWorld);
+    registry.registerBlockItem(congealed_magma_slime, tabWorld);
+    registry.registerBlockItem(congealed_pink_slime, tabWorld);
 
     // Ores
-    registerBlockItem(registry, cobalt_ore, TinkerRegistry.tabWorld);
-    registerBlockItem(registry, ardite_ore, TinkerRegistry.tabWorld);
+    registry.registerBlockItem(cobalt_ore, tabWorld);
+    registry.registerBlockItem(ardite_ore, tabWorld);
 
     // Firewood
-    registerBlockItem(registry, lavawood, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, firewood, TinkerRegistry.tabGeneral);
+    registry.registerBlockItem(lavawood, tabGeneral);
+    registry.registerBlockItem(firewood, tabGeneral);
 
     // Decorative Stuff
-    registerBlockItem(registry, mud_bricks, TinkerRegistry.tabGeneral);
+    registry.registerBlockItem(mud_bricks, tabGeneral);
 
-    registerBlockItem(registry, clear_glass, TinkerRegistry.tabGeneral);
+    registry.registerBlockItem(clear_glass, tabGeneral);
 
-    registerBlockItem(registry, white_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, orange_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, magenta_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, light_blue_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, yellow_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, lime_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, pink_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, gray_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, light_gray_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, cyan_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, purple_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, blue_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, brown_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, green_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, red_clear_stained_glass, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, black_clear_stained_glass, TinkerRegistry.tabGeneral);
+    registry.registerBlockItem(white_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(orange_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(magenta_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(light_blue_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(yellow_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(lime_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(pink_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(gray_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(light_gray_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(cyan_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(purple_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(blue_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(brown_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(green_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(red_clear_stained_glass, tabGeneral);
+    registry.registerBlockItem(black_clear_stained_glass, tabGeneral);
 
     // Slabs
-    registerBlockItem(registry, mud_bricks_slab, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, lavawood_slab, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, firewood_slab, TinkerRegistry.tabGeneral);
+    registry.registerBlockItem(mud_bricks_slab, tabGeneral);
+    registry.registerBlockItem(lavawood_slab, tabGeneral);
+    registry.registerBlockItem(firewood_slab, tabGeneral);
 
     // Stairs
-    registerBlockItem(registry, mud_bricks_stairs, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, lavawood_stairs, TinkerRegistry.tabGeneral);
-    registerBlockItem(registry, firewood_stairs, TinkerRegistry.tabGeneral);
+    registry.registerBlockItem(mud_bricks_stairs, tabGeneral);
+    registry.registerBlockItem(lavawood_stairs, tabGeneral);
+    registry.registerBlockItem(firewood_stairs, tabGeneral);
 
     // Metals
     if (isToolsLoaded() || isSmelteryLoaded() || forced) {
-      registerBlockItem(registry, cobalt_block, TinkerRegistry.tabGeneral);
-      registerBlockItem(registry, ardite_block, TinkerRegistry.tabGeneral);
-      registerBlockItem(registry, manyullyn_block, TinkerRegistry.tabGeneral);
-      registerBlockItem(registry, knightslime_block, TinkerRegistry.tabGeneral);
-      registerBlockItem(registry, pigiron_block, TinkerRegistry.tabGeneral);
-      registerBlockItem(registry, alubrass_block, TinkerRegistry.tabGeneral);
-      registerBlockItem(registry, silky_jewel_block, TinkerRegistry.tabGeneral);
+      registry.registerBlockItem(cobalt_block, tabGeneral);
+      registry.registerBlockItem(ardite_block, tabGeneral);
+      registry.registerBlockItem(manyullyn_block, tabGeneral);
+      registry.registerBlockItem(knightslime_block, tabGeneral);
+      registry.registerBlockItem(pigiron_block, tabGeneral);
+      registry.registerBlockItem(alubrass_block, tabGeneral);
+      registry.registerBlockItem(silky_jewel_block, tabGeneral);
     }
 
     if (isToolsLoaded() || isGadgetsLoaded() || forced) {
-      registerBlockItem(registry, glow);
+      registry.registerBlockItem(glow, TinkerRegistry.tabGadgets);
     }
 
-    register(registry, new EdibleItem(TinkerFood.BLUE_SLIME_BALL, TinkerRegistry.tabGeneral), "blue_slime_ball");
-    register(registry, new EdibleItem(TinkerFood.PURPLE_SLIME_BALL, TinkerRegistry.tabGeneral), "purple_slime_ball");
-    register(registry, new EdibleItem(TinkerFood.BLOOD_SLIME_BALL, TinkerRegistry.tabGeneral), "blood_slime_ball");
-    register(registry, new EdibleItem(TinkerFood.MAGMA_SLIME_BALL, TinkerRegistry.tabGeneral), "magma_slime_ball");
-    register(registry, new EdibleItem(TinkerFood.PINK_SLIME_BALL, TinkerRegistry.tabGeneral), "pink_slime_ball");
+    registry.register(new EdibleItem(TinkerFood.BLUE_SLIME_BALL, tabGeneral), "blue_slime_ball");
+    registry.register(new EdibleItem(TinkerFood.PURPLE_SLIME_BALL, tabGeneral), "purple_slime_ball");
+    registry.register(new EdibleItem(TinkerFood.BLOOD_SLIME_BALL, tabGeneral), "blood_slime_ball");
+    registry.register(new EdibleItem(TinkerFood.MAGMA_SLIME_BALL, tabGeneral), "magma_slime_ball");
+    registry.register(new EdibleItem(TinkerFood.PINK_SLIME_BALL, tabGeneral), "pink_slime_ball");
 
     if (isSmelteryLoaded() || forced) {
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "seared_brick");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "mud_brick");
+      registry.register(new GeneratedItem(tabGeneral), "seared_brick");
+      registry.register(new GeneratedItem(tabGeneral), "mud_brick");
     }
 
     // Ingots and nuggets
     if (isToolsLoaded() || isSmelteryLoaded() || forced) {
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "cobalt_nugget");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "cobalt_ingot");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "ardite_nugget");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "ardite_ingot");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "manyullyn_nugget");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "manyullyn_ingot");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "pigiron_nugget");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "pigiron_ingot");
-      register(registry, new AlubrassItem(TinkerRegistry.tabGeneral), "alubrass_nugget");
-      register(registry, new AlubrassItem(TinkerRegistry.tabGeneral), "alubrass_ingot");
+      registry.register(new GeneratedItem(tabGeneral), "cobalt_nugget");
+      registry.register(new GeneratedItem(tabGeneral), "cobalt_ingot");
+      registry.register(new GeneratedItem(tabGeneral), "ardite_nugget");
+      registry.register(new GeneratedItem(tabGeneral), "ardite_ingot");
+      registry.register(new GeneratedItem(tabGeneral), "manyullyn_nugget");
+      registry.register(new GeneratedItem(tabGeneral), "manyullyn_ingot");
+      registry.register(new GeneratedItem(tabGeneral), "pigiron_nugget");
+      registry.register(new GeneratedItem(tabGeneral), "pigiron_ingot");
+      registry.register(new AlubrassItem(tabGeneral), "alubrass_nugget");
+      registry.register(new AlubrassItem(tabGeneral), "alubrass_ingot");
     }
 
     if (isToolsLoaded() || forced) {
-      register(registry, new EdibleItem(TinkerFood.BACON, TinkerRegistry.tabGeneral), "bacon");
+      registry.register(new EdibleItem(TinkerFood.BACON, tabGeneral), "bacon");
 
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "green_slime_crystal");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "blue_slime_crystal");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "magma_slime_crystal");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "width_expander");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "height_expander");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "reinforcement");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "silky_cloth");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "silky_jewel");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "necrotic_bone");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "moss");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "mending_moss");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "creative_modifier");
+      registry.register(new GeneratedItem(tabGeneral), "green_slime_crystal");
+      registry.register(new GeneratedItem(tabGeneral), "blue_slime_crystal");
+      registry.register(new GeneratedItem(tabGeneral), "magma_slime_crystal");
+      registry.register(new GeneratedItem(tabGeneral), "width_expander");
+      registry.register(new GeneratedItem(tabGeneral), "height_expander");
+      registry.register(new GeneratedItem(tabGeneral), "reinforcement");
+      registry.register(new GeneratedItem(tabGeneral), "silky_cloth");
+      registry.register(new GeneratedItem(tabGeneral), "silky_jewel");
+      registry.register(new GeneratedItem(tabGeneral), "necrotic_bone");
+      registry.register(new GeneratedItem(tabGeneral), "moss");
+      registry.register(new GeneratedItem(tabGeneral), "mending_moss");
+      registry.register(new GeneratedItem(tabGeneral), "creative_modifier");
 
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "knightslime_nugget");
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "knightslime_ingot");
+      registry.register(new GeneratedItem(tabGeneral), "knightslime_nugget");
+      registry.register(new GeneratedItem(tabGeneral), "knightslime_ingot");
     }
 
     if (isGadgetsLoaded() || forced) {
-      register(registry, new GeneratedItem(TinkerRegistry.tabGeneral), "dried_brick");
+      registry.register(new GeneratedItem(tabGeneral), "dried_brick");
 
-      register(registry, new EdibleItem(TinkerFood.MONSTER_JERKY, TinkerRegistry.tabGeneral), "monster_jerky");
-      register(registry, new EdibleItem(TinkerFood.BEEF_JERKY, TinkerRegistry.tabGeneral), "beef_jerky");
-      register(registry, new EdibleItem(TinkerFood.CHICKEN_JERKY, TinkerRegistry.tabGeneral), "chicken_jerky");
-      register(registry, new EdibleItem(TinkerFood.PORK_JERKY, TinkerRegistry.tabGeneral), "pork_jerky");
-      register(registry, new EdibleItem(TinkerFood.MUTTON_JERKY, TinkerRegistry.tabGeneral), "mutton_jerky");
-      register(registry, new EdibleItem(TinkerFood.RABBIT_JERKY, TinkerRegistry.tabGeneral), "rabbit_jerky");
-      register(registry, new EdibleItem(TinkerFood.FISH_JERKY, TinkerRegistry.tabGeneral), "fish_jerky");
-      register(registry, new EdibleItem(TinkerFood.SALMON_JERKY, TinkerRegistry.tabGeneral), "salmon_jerky");
-      register(registry, new EdibleItem(TinkerFood.CLOWNFISH_JERKY, TinkerRegistry.tabGeneral), "clownfish_jerky");
-      register(registry, new EdibleItem(TinkerFood.PUFFERFISH_JERKY, TinkerRegistry.tabGeneral), "pufferfish_jerky");
+      registry.register(new EdibleItem(TinkerFood.MONSTER_JERKY, tabGeneral), "monster_jerky");
+      registry.register(new EdibleItem(TinkerFood.BEEF_JERKY, tabGeneral), "beef_jerky");
+      registry.register(new EdibleItem(TinkerFood.CHICKEN_JERKY, tabGeneral), "chicken_jerky");
+      registry.register(new EdibleItem(TinkerFood.PORK_JERKY, tabGeneral), "pork_jerky");
+      registry.register(new EdibleItem(TinkerFood.MUTTON_JERKY, tabGeneral), "mutton_jerky");
+      registry.register(new EdibleItem(TinkerFood.RABBIT_JERKY, tabGeneral), "rabbit_jerky");
+      registry.register(new EdibleItem(TinkerFood.FISH_JERKY, tabGeneral), "fish_jerky");
+      registry.register(new EdibleItem(TinkerFood.SALMON_JERKY, tabGeneral), "salmon_jerky");
+      registry.register(new EdibleItem(TinkerFood.CLOWNFISH_JERKY, tabGeneral), "clownfish_jerky");
+      registry.register(new EdibleItem(TinkerFood.PUFFERFISH_JERKY, tabGeneral), "pufferfish_jerky");
 
-      register(registry, new EdibleItem(TinkerFood.GREEN_SLIME_DROP, TinkerRegistry.tabGeneral), "green_slime_drop");
-      register(registry, new EdibleItem(TinkerFood.BLUE_SLIME_DROP, TinkerRegistry.tabGeneral), "blue_slime_drop");
-      register(registry, new EdibleItem(TinkerFood.PURPLE_SLIME_DROP, TinkerRegistry.tabGeneral), "purple_slime_drop");
-      register(registry, new EdibleItem(TinkerFood.BLOOD_SLIME_DROP, TinkerRegistry.tabGeneral), "blood_slime_drop");
-      register(registry, new EdibleItem(TinkerFood.MAGMA_SLIME_DROP, TinkerRegistry.tabGeneral), "magma_slime_drop");
+      registry.register(new EdibleItem(TinkerFood.GREEN_SLIME_DROP, tabGeneral), "green_slime_drop");
+      registry.register(new EdibleItem(TinkerFood.BLUE_SLIME_DROP, tabGeneral), "blue_slime_drop");
+      registry.register(new EdibleItem(TinkerFood.PURPLE_SLIME_DROP, tabGeneral), "purple_slime_drop");
+      registry.register(new EdibleItem(TinkerFood.BLOOD_SLIME_DROP, tabGeneral), "blood_slime_drop");
+      registry.register(new EdibleItem(TinkerFood.MAGMA_SLIME_DROP, tabGeneral), "magma_slime_drop");
     }
   }
 
