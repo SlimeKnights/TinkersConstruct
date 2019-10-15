@@ -10,7 +10,9 @@ import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockButton;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockLever;
+import net.minecraft.block.BlockWall;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -304,8 +306,12 @@ public class BlockChannel extends BlockContainer implements IFaucetDepth {
   @Override
   @Deprecated
   public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
-    // allows placing levers on the sides
-    return side.getAxis() == Axis.Y ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
+    if(side.getAxis() == Axis.Y) {
+      return BlockFaceShape.UNDEFINED;
+    }
+    // slightly hacky as we want to avoid fences connecting, but they use the same logic as lever placement
+    Block block = world.getBlockState(pos.offset(side)).getBlock();
+    return block instanceof BlockFence || block instanceof BlockWall ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
   }
 
   @Override

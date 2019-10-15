@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.gadgets.block;
 
 import com.google.common.collect.ImmutableMap;
-
 import net.minecraft.block.BlockLever.EnumOrientation;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -33,14 +33,13 @@ import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.tileentity.TileDryingRack;
 import slimeknights.tconstruct.gadgets.tileentity.TileItemRack;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.BlockTable;
+
+import javax.annotation.Nonnull;
 
 public class BlockRack extends BlockTable {
 
@@ -60,7 +59,6 @@ public class BlockRack extends BlockTable {
     );
   }
 
-  @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     list.add(createItemstack(this, 0, Blocks.WOODEN_SLAB, 0));
@@ -358,5 +356,14 @@ public class BlockRack extends BlockTable {
   public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
     // todo: implement this properly
     return false;
+  }
+
+  @Override
+  @Deprecated
+  public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing side) {
+    if(side == state.getValue(ORIENTATION).getFacing()) {
+      return BlockFaceShape.SOLID;
+    }
+    return BlockFaceShape.UNDEFINED;
   }
 }

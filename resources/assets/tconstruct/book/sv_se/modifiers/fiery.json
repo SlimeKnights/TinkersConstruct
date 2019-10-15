@@ -1,0 +1,17 @@
+{
+  "modifier": "fiery",
+  "text": [
+    {
+      "text": "När man lägger till brännpulver på ett verktyg för den en eldaktig färgton. Vapnets kanter ser ut att glöda. Tyvärr lyser den inte tillräckligt mycket för att fungera som en ljuskälla."
+    }
+  ],
+  "effects": [
+    "Antänder fiender",
+    "Utdelar ytterligare eldskada vid träff",
+    "Flera nivåer"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "tool": "crossbow",
+  "text": [
+    {
+      "text": "Armborsten är ett starkt avståndsvapen som behöver laddas om innan den kan avfyras. Dess pilar utdelar mycket skada och tränger sig igenom en del av fiendens rustning. Fördelen med armborstar är dess bonusskada."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Det går långsamt att ladda om, men oftast behöver du bara ett skott. Du behöver bara se till att du träffar."
+    }
+  ],
+  "properties": [
+    "Kräver en verktygssmed",
+    "Använder Tinkers armborstpilar",
+    "Penetrerar delvis rustningar",
+    "Behöver laddas innan den avfyras"
+  ]
+}

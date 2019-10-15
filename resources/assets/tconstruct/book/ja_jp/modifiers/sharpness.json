@@ -1,0 +1,18 @@
+{
+  "modifier": "sharpness",
+  "text": [
+    {
+      "text": "石英を使うと、武器の先端を磨くことが出来ます。石英の使用量が多いほど刃を鋭利にすることができます。 刃を持たないアイテムにも使えます。"
+    }
+  ],
+  "effects": [
+    "攻撃力を増加させる",
+    "武器によって効果は異なる",
+    "複数レベル"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:arrow"
+  ]
+}

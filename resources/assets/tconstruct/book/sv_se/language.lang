@@ -1,0 +1,22 @@
+// Sections
+intro=Introduktion
+materials=Verktygsmaterial
+bowmaterials=Pilbågsmaterial
+tools=Verktyg
+modifiers=Modifierare
+smeltery=Smältverk
+seared_furnace=Bränd ugn
+tinker_tank=Tinkertank
+
+repairing=Reparera
+offhand=Skörda m. sekundär h.
+bolt_core=Tillv. armborstspilar
+
+modifier.effect=Effekter:
+tool.properties=Egenskaper:
+
+material.craft_partbuilder=Kan tillverkas i delbyggaren
+material.craft_casting=%s kan gjutas
+
+wood.flavour=Om ett träd faller i skogen men ingen hör det, gör det då något ljud?
+stone.flavour=Stenhårt

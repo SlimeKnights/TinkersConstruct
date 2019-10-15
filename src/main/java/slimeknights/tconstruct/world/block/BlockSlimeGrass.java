@@ -27,15 +27,13 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Locale;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.world.TinkerWorld;
+
+import javax.annotation.Nonnull;
+import java.util.Locale;
+import java.util.Random;
 
 public class BlockSlimeGrass extends Block implements IGrowable {
 
@@ -53,7 +51,6 @@ public class BlockSlimeGrass extends Block implements IGrowable {
     this.slipperiness += 0.05f;
   }
 
-  @SideOnly(Side.CLIENT)
   @Override
   public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
     for(FoliageType grass : FoliageType.values()) {
@@ -244,6 +241,7 @@ public class BlockSlimeGrass extends Block implements IGrowable {
     return plantable.getPlantType(world, pos) == TinkerWorld.slimePlantType || plantable.getPlantType(world, pos) == EnumPlantType.Plains;
   }
 
+  @Override
   @SideOnly(Side.CLIENT)
   public BlockRenderLayer getBlockLayer()
   {

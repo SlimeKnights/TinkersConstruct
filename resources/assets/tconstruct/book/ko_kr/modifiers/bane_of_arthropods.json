@@ -2,12 +2,12 @@
   "modifier": "bane_of_arthopods",
   "text": [
     {
-      "text": "Striking a spider with its own eyeball causes it to recoil in fear. Got a pest problem? Here is the solution. Kills bugs dead."
+      "text": "거미는 동족의 눈알에 맞으면 공포를 느낍니다. 해충 문제가 있나요? 이제 해결책이 있습니다. 해충을 박멸합시다."
     }
   ],
   "effects": [
-    "Deals massive damage to spiders and silverfish",
-    "Multiple levels"
+    "거미와 좀벌레에 추가 피해",
+    "다중 단계"
   ],
   "demoTool": [
     "tconstruct:broadsword",

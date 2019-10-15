@@ -176,10 +176,12 @@ tile.tconstruct.seared_furnace_controller.name=焦黑熔炉控制器
 tile.tconstruct.tinker_tank_controller.name=工匠储罐控制器
 
 tile.tconstruct.stone_torch.name=石柄火把
-tile.tconstruct.stone_ladder.name=石头楼梯
+tile.tconstruct.stone_ladder.name=石梯
 tile.tconstruct.wood_rail.name=木质轨道
-tile.tconstruct.wood_rail_trapdoor.name=带活版门的木质轨道
+tile.tconstruct.wood_rail_trapdoor.name=带活板门的木质轨道
 tile.tconstruct.wood_rail_trapdoor.tooltip=漏斗矿车可以\n穿过这个方块下面
+tile.tconstruct.wooden_hopper.name=木漏斗
+item.tconstruct.wooden_hopper.tooltip=更慢，但更便宜的漏斗替代品
 tile.tconstruct.punji.name=尖竹钉
 tile.tconstruct.punji.tooltip=非常尖锐！可以拿来做围墙
 tile.tconstruct.glow.name=辉光
@@ -392,7 +394,7 @@ item.tconstruct.broad_axe_head.name=宽斧刃
 item.tconstruct.large_plate.name=大板
 item.tconstruct.tough_binding.name=坚韧绑定结
 item.tconstruct.tough_tool_rod.name=坚韧手柄
-item.tconstruct.scythe_head.name=镰刀头模具
+item.tconstruct.scythe_head.name=镰刀头
 item.tconstruct.large_sword_blade.name=宽剑刃
 
 # Bow & Arrow Parts
@@ -417,7 +419,11 @@ item.tconstruct.slime_boots.purple.name=史莱姆靴子
 item.tconstruct.slime_boots.blood.name=凝血靴子
 item.tconstruct.slime_boots.magma.name=史莱姆靴子
 item.tconstruct.slime_boots.tooltip=提供摔落保护以及粘液的弹跳效果
-item.tconstruct.slimesling.name=史莱姆弹弓
+item.tconstruct.slimesling.green.name=史莱姆弹弓
+item.tconstruct.slimesling.blue.name=史莱姆弹弓
+item.tconstruct.slimesling.purple.name=史莱姆弹弓
+item.tconstruct.slimesling.blood.name=凝血弹弓
+item.tconstruct.slimesling.magma.name=史莱姆弹弓
 item.tconstruct.slimesling.tooltip=蓄力，瞄准，发射！\n珍爱生命，记得穿上史莱姆靴子！
 item.tconstruct.piggybackpack.name=肩托式背包
 item.tconstruct.piggybackpack.tooltip=右击怪物把它们背起来
@@ -442,8 +448,8 @@ item.tconstruct.throwball.efln.tooltip=爆破！一种安全的挖矿方法。
 
 item.tconstruct.moms_spaghetti.name=妈妈做的意大利面
 item.tconstruct.moms_spaghetti.desc=美味！
-item.tconstruct.moms_spaghetti.tooltip1=§o我猜这样就可以了...但还是什么地方不一样。\n肯定要酱料，而且是那种红色酱料（番茄沙司）。
-item.tconstruct.moms_spaghetti.tooltip2=§o还缺了什么...也许是肉。妈妈做的意面总是用各种肉的。\n我想我得找至少三种肉。
+item.tconstruct.moms_spaghetti.tooltip1=§o我猜这样就可以了……但还是什么地方不一样。\n肯定要酱料，而且是那种红色酱料。
+item.tconstruct.moms_spaghetti.tooltip2=§o还缺了什么……也许是肉。妈妈做的意面总是用各种肉的。\n我想我得找至少三种肉。
 item.tconstruct.moms_spaghetti.tooltip3=§o现在这意面就是妈妈的味道。
 stat.spaghetti.uses.name=Noms
 stat.spaghetti.nourishment.name=营养水平
@@ -552,7 +558,7 @@ material.slimevine_purple.name=material.slimevine_blue.name
 material.blaze.name=烈焰棒
 material.reed.name=甘蔗
 material.ice.name=冰
-material.endrod.name=末影杆
+material.endrod.name=末地烛
 
 material.feather.name=羽毛
 material.leaf.name=树叶
@@ -581,7 +587,7 @@ stat.handle.durability.desc=数值代表这种材料是否适合制作成手柄�
 
 stat.extra.name=其他部件
 stat.extra.durability.name=stat.head.durability.name
-stat.extra.durability.desc=反映了这个部件被用作次要部件时贡献的耐久。  
+stat.extra.durability.desc=反映了这个部件被用作次要部件时贡献的耐久。
 
 stat.mattock.axelevel.name=斧等级
 stat.mattock.shovellevel.name=铲等级
@@ -710,14 +716,14 @@ modifier.writable.desc=§o知识分子！§r\n更多的文字，更多强化槽�
 
 modifier.breakable.name=易碎
 modifier.breakable.desc=§o这面朝上！§r\n投掷物发生碰撞时有50%概率直接损坏。
-modifier.endspeed.name=末影速度
+modifier.endspeed.name=折跃
 modifier.endspeed.desc=§o量子移动！§r\n投掷物会直接传送到目标上。
 modifier.freezing.name=霜冻
 modifier.freezing.desc=§o寒冬将至§r\n命中后会让目标迟缓。
 modifier.hovering.name=悬浮
 modifier.hovering.desc=§o轻盈如风§r\n投掷物会忽略一部分重力，但速度会下降。
-modifier.splitting.name=分弹
-modifier.splitting.desc=§o一分为二！§r\n箭头突然加速时也许会一分为二。
+modifier.splitting.name=散射
+modifier.splitting.desc=§o一分为二！§r\n箭头突然加速时有概率一分为二。
 
 #################
 #   Modifiers   #
@@ -800,9 +806,9 @@ item.tconstruct.hatchet.desc=斧是基础的伐木工具。它对木头和树叶
 item.tconstruct.mattock.desc=鹤嘴锄是种多功能的农用工具。它对木头，泥土和植物有效。当然攻击力也还可以\n右击：锄地
 item.tconstruct.kama.desc=园艺镰是一种十分实用的收割工具，它可以用于收割、裁剪植物也能用于修剪羊毛。\n右击：收获并重新播种作物
 item.tconstruct.broadsword.desc=大剑是一种普通武器。横扫可以攻击大片敌人\n对清除蜘蛛网也很有效！
-item.tconstruct.longsword.desc=长剑是种攻击型武器。通常用作全速切入战斗。\n右键: 冲刺
-item.tconstruct.rapier.desc=西洋剑是种特制武器，依靠快速的刺击来打败对手。\n右键: 后退
-item.tconstruct.frypan.desc=煎锅是种重型武器，它能给敌人沉重打击。\n右键: 重击
+item.tconstruct.longsword.desc=长剑是种攻击型武器。通常用作全速切入战斗。\n右键：冲刺
+item.tconstruct.rapier.desc=西洋剑是种特制武器，依靠快速的刺击来打败对手。\n右键：后退
+item.tconstruct.frypan.desc=煎锅是种重型武器，它能给敌人沉重打击。\n右键：重击
 item.tconstruct.battlesign.desc=战斗牌子是种高级的防御武器。非常适合对付大量僵尸猪人。\n当作盾使用时可以反弹远程攻击。
 item.tconstruct.hammer.desc=锤子是种范围挖矿工具。能采集大范围内的方块。\n能有效对付亡灵生物。
 item.tconstruct.lumberaxe.desc=伐木斧是种范围砍伐工具。能砍倒巨大的树木以收集的范围内的木头。\n伐木吧！
@@ -822,8 +828,8 @@ item.tconstruct.bolt.desc=弩箭是十字弓所用的弹药。一个弩箭可以
 #   Tooltips   #
 ################
 tooltip.tool.modifiers=剩余强化次数
-tooltip.tool.broken=损坏的
-tooltip.tool.empty=空的
+tooltip.tool.broken=损坏
+tooltip.tool.empty=空
 tooltip.tool.holdShift=按下§e§oShift§r查看统计数据
 tooltip.tool.holdCtrl=按下§e§bCtrl§r查看详细信息
 
@@ -886,7 +892,7 @@ gui.error.craftevent.replace.default=替换此工具的部件已被另一个模�
 gui.error.not_enough_modifiers=剩余强化槽不足！\n（需要%d个）
 gui.error.single_modifier=%s只能强化一次。
 gui.error.max_level_modifier=已达到%s的最高等级。
-gui.error.no_modifier_for_item=未找到%s的强化槽。 
+gui.error.no_modifier_for_item=未找到%s的强化槽。
 gui.error.already_has_extratrait=该工具已经具有一个与此操作相同的强化，它只能具有一个！
 gui.error.incompatible_modifiers=%s和%s不能一起强化
 gui.error.incompatible_trait=%s强化不能和%s特性相结合
@@ -899,6 +905,8 @@ gui.error.no_rename=这个工具不能被重命名
 
 # General things used in multiple GUIs
 gui.general.hover=悬停在条目上以获取更多信息
+gui.general.temperature.celsius=%s℃
+gui.general.temperature.kelvin=%sK
 
 # Creative Tabs
 itemGroup.TinkerGeneral=匠魂|一般物品
@@ -918,7 +926,7 @@ gui.stenciltable.name=模具加工台
 gui.partbuilder.name=部件加工台
 gui.partcrafter.name=部件合成台
 gui.partbuilder.info=在这里你可以制作工具部件来实现你的工匠梦想.\n\n要制作一个部件，你只需将模板放进左边的槽内，剩下的两个槽放上你想使用的材料就行了.
-gui.partbuilder.material_value=材料值: %s %s
+gui.partbuilder.material_value=材料值：%s %s
 
 # Tool Station/Forge
 gui.toolstation.name=工具装配台
@@ -944,10 +952,10 @@ gui.smeltery.progress.no_space=冶炼厂内空间不足
 gui.smeltery.fuel=燃料
 gui.smeltery.fuel.empty=没有燃料
 gui.smeltery.fuel.invalid=§4%s不是有效的冶炼厂燃烧燃料！
-gui.smeltery.fuel.heat=温度: %d
+gui.smeltery.fuel.heat=温度：%d
 gui.smeltery.capacity=容量
 gui.smeltery.capacity_available=空
-gui.smeltery.capacity_used=使用:
+gui.smeltery.capacity_used=使用：
 gui.smeltery.liquid.kilobucket=kB
 gui.smeltery.liquid.bucket=B
 gui.smeltery.liquid.millibucket=mB
@@ -989,5 +997,5 @@ option.tconstruct.progress=制作进度
 
 
 # Config
-config.synced.restart=你的配置已与服务器的配置同步。请重启Minecraft。
+config.synced.restart=你的配置已与服务器的配置同步。请重启 Minecraft。
 config.synced.ok=配置已和服务器同步。

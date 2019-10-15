@@ -1,5 +1,6 @@
 package slimeknights.tconstruct;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -13,15 +14,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkCheckHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.Map;
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.mantle.common.GuiHandler;
 import slimeknights.mantle.pulsar.control.PulseManager;
 import slimeknights.tconstruct.common.ClientProxy;
@@ -40,6 +34,7 @@ import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.plugin.Chisel;
 import slimeknights.tconstruct.plugin.ChiselAndBits;
 import slimeknights.tconstruct.plugin.CraftingTweaks;
+import slimeknights.tconstruct.plugin.quark.QuarkPlugin;
 import slimeknights.tconstruct.plugin.theoneprobe.TheOneProbe;
 import slimeknights.tconstruct.plugin.waila.Waila;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -54,6 +49,10 @@ import slimeknights.tconstruct.tools.melee.TinkerMeleeWeapons;
 import slimeknights.tconstruct.tools.ranged.TinkerRangedWeapons;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import javax.annotation.Nonnull;
+import java.util.Map;
+import java.util.Random;
+
 /**
  * TConstruct, the tool mod. Craft your tools with style, then modify until the original is gone!
  *
@@ -65,10 +64,11 @@ import slimeknights.tconstruct.world.TinkerWorld;
      version = TConstruct.modVersion,
      guiFactory = "slimeknights.tconstruct.common.config.ConfigGui$ConfigGuiFactory",
      dependencies = "required-after:forge@[14.23.1.2577,);"
-                    + "required-after:mantle@[1.12-1.3.1,);"
+                    + "required-after:mantle@[1.12-1.3.3.49,);"
                     + "after:jei@[4.8,);"
-                    + "before:taiga@(1.12.2-1.3.0,);"
-                    + "after:chisel",
+                    + "before:taiga@(1.3.0,);"
+                    + "after:chisel;"
+                    + "after:quark@[r1.6-177,)",
      acceptedMinecraftVersions = "[1.12, 1.13)")
 public class TConstruct {
 
@@ -114,6 +114,7 @@ public class TConstruct {
     pulseManager.registerPulse(new CraftingTweaks());
     pulseManager.registerPulse(new Waila());
     pulseManager.registerPulse(new TheOneProbe());
+    pulseManager.registerPulse(new QuarkPlugin());
 
     pulseManager.registerPulse(new TinkerDebug());
 
@@ -176,6 +177,10 @@ public class TConstruct {
     }
   }
 
+
+  private static final String TINKERS_SKYBLOCK_MODID = "tinkerskyblock";
+  private static final String WOODEN_HOPPER = "wooden_hopper";
+
   //Old version compatibility
   @SubscribeEvent
   public void missingItemMappings(RegistryEvent.MissingMappings<Item> event) {
@@ -184,6 +189,21 @@ public class TConstruct {
       String path = entry.key.toString();
       if(path.equals(Util.resource("bucket")) || path.equals(Util.resource("glow")) || path.equals(Util.resource("blood")) || path.equals(Util.resource("milk")) || path.equals(Util.resource("purpleslime")) || path.equals(Util.resource("blueslime")) || path.contains(Util.resource("molten"))) {
         entry.ignore();
+      }
+
+      // wooder hopper, moved from skyblock to tic
+      if(entry.key.getResourceDomain().equals(TINKERS_SKYBLOCK_MODID) && entry.key.getResourcePath().equals(WOODEN_HOPPER)) {
+        entry.remap(Item.getItemFromBlock(TinkerGadgets.woodenHopper));
+      }
+    }
+  }
+
+  @SubscribeEvent
+  public void missingBlockMappings(RegistryEvent.MissingMappings<Block> event) {
+    for(RegistryEvent.MissingMappings.Mapping<Block> entry : event.getAllMappings()) {
+      // wooder hopper, moved from skyblock to tic
+      if(entry.key.getResourceDomain().equals(TINKERS_SKYBLOCK_MODID) && entry.key.getResourcePath().equals(WOODEN_HOPPER)) {
+        entry.remap(TinkerGadgets.woodenHopper);
       }
     }
   }

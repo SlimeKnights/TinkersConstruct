@@ -2,7 +2,6 @@ package slimeknights.tconstruct.gadgets.block;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -10,8 +9,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -21,6 +22,7 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -30,18 +32,16 @@ import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
-import java.util.Locale;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import slimeknights.mantle.block.EnumBlock;
 import slimeknights.tconstruct.gadgets.tileentity.TileSlimeChannel;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.BlockSlime;
 import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Locale;
 
 public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEntityProvider {
 
@@ -270,6 +270,13 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
   @Override
   public int damageDropped(IBlockState state) {
     return state.getValue(TYPE).getMeta();
+  }
+
+  @Override
+  public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
+    for(SlimeType type : SlimeType.VISIBLE_COLORS) {
+      list.add(new ItemStack(this, 1, type.getMeta()));
+    }
   }
 
   /* Slimey flow */
@@ -550,6 +557,17 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
     return false;
   }
 
+  @Override
+  @Deprecated
+  public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face) {
+    state = state.getActualState(world, pos);
+    EnumFacing side = state.getValue(SIDE);
+    if(hasFullSide(face.getOpposite(), side, state.getValue(DIRECTION).getFlow(side), state.getValue(CONNECTED))) {
+      return BlockFaceShape.SOLID;
+    }
+    return BlockFaceShape.UNDEFINED;
+  }
+
   @SuppressWarnings("deprecation")
   @Override
   public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, EnumFacing face) {
@@ -704,7 +722,7 @@ public class BlockSlimeChannel extends EnumBlock<SlimeType> implements ITileEnti
 
     // pressed up against this, basically the same as above only switched half and direction
     if(side == orginFace.getOpposite()) {
-      // inner connection must be on the same half as the direction its going 
+      // inner connection must be on the same half as the direction its going
       if(connected == ChannelConnected.INNER) {
         return flow == orginHalf;
       }

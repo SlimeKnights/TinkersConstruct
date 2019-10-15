@@ -14,6 +14,7 @@ import gnu.trove.set.hash.TLinkedHashSet;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -38,6 +39,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import slimeknights.mantle.client.CreativeTab;
@@ -456,6 +458,7 @@ public final class TinkerRegistry {
   | Modifiers                                                                 |
   ---------------------------------------------------------------------------*/
   private static final Map<String, IModifier> modifiers = new THashMap<>();
+  private static final Map<Class<? extends EntityLivingBase>, Function<EntityLivingBase,ItemStack>> headDrops = new THashMap<>();
 
   public static void registerModifier(IModifier modifier) {
     registerModifierAlias(modifier, modifier.getIdentifier());
@@ -480,6 +483,38 @@ public final class TinkerRegistry {
 
   public static Collection<IModifier> getAllModifiers() {
     return ImmutableList.copyOf(modifiers.values());
+  }
+
+  /**
+   * Registers a beheading head drop for an entity
+   * @param clazz     Entity class
+   * @param callback  Callback function, takes entity as a parameter and returns an item stack
+   */
+  public static void registerHeadDrop(Class<? extends EntityLivingBase> clazz, Function<EntityLivingBase,ItemStack> callback) {
+    headDrops.put(clazz, callback);
+  }
+
+  /**
+   * Registers a beheading head drop for an entity
+   * @param clazz  Entity class
+   * @param head   Head that drops from that entity
+   */
+  public static void registerHeadDrop(Class<? extends EntityLivingBase> clazz, ItemStack head) {
+    final ItemStack safeStack = head.copy();
+    registerHeadDrop(clazz, (e) -> safeStack);
+  }
+
+  /**
+   * Gets the head that would be dropped by an entity
+   * @param entity  Entity to check
+   * @return  The entity's head
+   */
+  public static ItemStack getHeadDrop(EntityLivingBase entity) {
+    Function<EntityLivingBase, ItemStack> callback = headDrops.get(entity.getClass());
+    if(callback != null) {
+      return callback.apply(entity).copy();
+    }
+    return ItemStack.EMPTY;
   }
 
   /*---------------------------------------------------------------------------

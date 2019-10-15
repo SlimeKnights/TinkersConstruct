@@ -32,22 +32,23 @@ public class GuiTinkerTank extends GuiContainer implements IGuiLiquidTank {
   }
 
   @Override
+  public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    this.drawDefaultBackground();
+    super.drawScreen(mouseX, mouseY, partialTicks);
+
+    // draw the tooltips, if any
+    List<String> tooltip = GuiUtil.getTankTooltip(tinkerTank.getTank(), mouseX - guiLeft, mouseY - guiTop, 8, 16, 114, 122);
+    if(tooltip != null) {
+      this.drawHoveringText(tooltip, mouseX, mouseY);
+    }
+  }
+
+  @Override
   protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
     // draw the scale
     this.mc.getTextureManager().bindTexture(BACKGROUND);
     GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
     scala.draw(8, 16);
-
-    // draw the tooltips, if any
-    // subtract the corner of the GUI location so the mouse location is relative to just the center, rather than the inventory center
-    mouseX -= guiLeft;
-    mouseY -= guiTop;
-
-    // Liquids
-    List<String> tooltip = GuiUtil.getTankTooltip(tinkerTank.getTank(), mouseX, mouseY, 8, 16, 114, 122);
-    if(tooltip != null) {
-      this.drawHoveringText(tooltip, mouseX, mouseY);
-    }
   }
 
   @Override

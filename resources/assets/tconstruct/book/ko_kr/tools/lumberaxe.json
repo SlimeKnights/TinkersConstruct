@@ -2,13 +2,13 @@
   "tool": "lumberaxe",
   "text": [
     {
-      "text": "럼버액스는 뛰어난 성능의 벌목 도구입니다. 크고작은 나무들을 단번에 벌목할 수 있습니다"
+      "text": "§l벌목도끼§r는 뛰어난 성능의 벌목 도구입니다. 크고작은 나무들을 단번에 벌목할 수 있습니다."
     },
     {
       "text": "\n"
     },
     {
-      "text": "A tree is only detected if it has leaves on top."
+      "text": "상단에 나뭇잎이 있어야만 나무로 인정됩니다."
     }
   ],
   "properties": [

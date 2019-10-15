@@ -1,0 +1,17 @@
+{
+  "modifier": "knockback",
+  "text": [
+    {
+      "text": "道具にピストンを取り付け、適切なタイミングで作動させると、mobを遠くに弾き飛ばします。"
+    }
+  ],
+  "effects": [
+    "追加のノックバック効果",
+    "レベルが上がるとノックバック距離が伸びる",
+    "複数レベル"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:arrow"
+  ]
+}

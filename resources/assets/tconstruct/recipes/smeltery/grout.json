@@ -9,14 +9,16 @@
     "group": "tconstruct:grout",
     "ingredients": [
         {
-            "item": "minecraft:gravel"
+            "type": "forge:ore_dict",
+            "ore": "gravel"
         },
         {
             "type": "forge:ore_dict",
             "ore": "sand"
         },
         {
-            "item": "minecraft:gravel"
+            "type": "forge:ore_dict",
+            "ore": "gravel"
         },
         {
             "type": "forge:ore_dict",
@@ -30,14 +32,16 @@
             "ore": "sand"
         },
         {
-            "item": "minecraft:gravel"
+            "type": "forge:ore_dict",
+            "ore": "gravel"
         },
         {
             "type": "forge:ore_dict",
             "ore": "sand"
         },
         {
-            "item": "minecraft:gravel"
+            "type": "forge:ore_dict",
+            "ore": "gravel"
         }
     ],
     "result": {

@@ -1,12 +1,16 @@
 package slimeknights.tconstruct.smeltery;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMap;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 import slimeknights.tconstruct.common.ClientProxy;
@@ -31,6 +35,8 @@ import slimeknights.tconstruct.smeltery.tileentity.TileTinkerTank;
 
 import static slimeknights.tconstruct.common.ModelRegisterUtil.registerItemBlockMeta;
 import static slimeknights.tconstruct.common.ModelRegisterUtil.registerItemModel;
+
+import javax.annotation.Nonnull;
 
 public class SmelteryClientProxy extends ClientProxy {
 
@@ -89,13 +95,7 @@ public class SmelteryClientProxy extends ClientProxy {
     // seared tank items
     Item tank = Item.getItemFromBlock(TinkerSmeltery.searedTank);
     for(BlockTank.TankType type : BlockTank.TankType.values()) {
-      String variant = String.format("%s=%s,%s=%s",
-                                     BlockTank.KNOB.getName(),
-                                     BlockTank.KNOB.getName(type == BlockTank.TankType.TANK),
-                                     BlockTank.TYPE.getName(),
-                                     BlockTank.TYPE.getName(type)
-      );
-      ModelLoader.setCustomModelResourceLocation(tank, type.meta, new ModelResourceLocation(tank.getRegistryName(), variant));
+      ModelLoader.setCustomModelResourceLocation(tank, type.meta, new ModelResourceLocation(tank.getRegistryName(), type.getName()));
     }
 
     // TEs
@@ -120,5 +120,26 @@ public class SmelteryClientProxy extends ClientProxy {
     }
 
     TinkerSmeltery.castCustom.registerItemModels();
+  }
+
+  @Override
+  public void init() {
+    Minecraft minecraft = Minecraft.getMinecraft();
+
+    // slime channels
+    ItemColors colors = minecraft.getItemColors();
+    colors.registerItemColorHandler(
+        (@Nonnull ItemStack stack, int tintIndex) -> {
+          if(!stack.hasTagCompound()) {
+            return 0xFFFFFF;
+          }
+          FluidStack fluid = FluidStack.loadFluidStackFromNBT(stack.getTagCompound());
+          if (fluid != null && fluid.amount > 0 && fluid.getFluid() != null) {
+            return fluid.getFluid().getColor(fluid);
+          }
+          return 0xFFFFFF;
+        },
+        TinkerSmeltery.searedTank);
+    super.init();
   }
 }

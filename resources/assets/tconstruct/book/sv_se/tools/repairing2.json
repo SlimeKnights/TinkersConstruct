@@ -1,0 +1,10 @@
+{
+  "image": {
+    "file": "tconstruct:textures/gui/book/inventory_repair.png"
+  },
+  "text": [
+    {
+      "text": "För att göra så lägger du helt enkelt ett slipredskap av materialet du behöver i en tillverkningsruta tillsammans med verktyget."
+    }
+  ]
+}

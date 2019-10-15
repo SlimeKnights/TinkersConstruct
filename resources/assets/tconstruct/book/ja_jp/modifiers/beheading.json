@@ -1,0 +1,18 @@
+{
+  "modifier": "beheading",
+  "text": [
+    {
+      "text": "武器にエンダーパールといくつかの黒曜石を付けると、敵の頭を身体から分離させる興味深い効果が起こります。ちょうど少し上から？"
+    }
+  ],
+  "effects": [
+    "敵が自身の頭をドロップする",
+    "複数付けると、斬首の可能性が増加する",
+    "複数レベル"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:arrow"
+  ]
+}

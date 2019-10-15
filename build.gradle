@@ -13,7 +13,7 @@ buildscript {
         jcenter()
         maven {
             name = "forge"
-            url = "http://files.minecraftforge.net/maven"
+            url = "https://files.minecraftforge.net/maven"
         }
         maven {
             name = "sonatype"
@@ -36,23 +36,27 @@ repositories {
     }
     maven { // TOP
         name 'tterrag maven'
-        url "http://maven.tterrag.com/"
+        url "https://maven.tterrag.com/"
     }
     maven { // compatlayer
         name 'K-4u maven'
-        url "http://maven.k-4u.nl/"
+        url "https://maven.k-4u.nl/"
     }
     maven {
         name 'forge'
-        url 'http://files.minecraftforge.net/maven'
+        url 'https://files.minecraftforge.net/maven'
     }
     maven {
          name "Tehnut Maven FS"
-         url "http://tehnut.info/maven"
+         url "https://tehnut.info/maven"
     }
     maven {
         name = "CoFH Maven"
-        url = "http://maven.covers1624.net"
+        url = "https://maven.covers1624.net"
+    }
+    maven { // Quark and ARL
+        name = "BlameJared"
+        url = "https://maven.blamejared.com"
     }
 }
 
@@ -131,6 +135,9 @@ dependencies {
     deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${config.probe_version}"
     deobfCompile "cofh:RedstoneFlux:${config.redstoneflux_version}:universal"
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
+
+    //deobfCompile "vazkii.autoreglib:AutoRegLib:${config.arl_version}"
+    deobfCompile "vazkii.quark:Quark:${config.quark_version}:api"
 }
 
 sourceSets {
@@ -184,19 +191,9 @@ task sourcesJar(type: Jar) {
     classifier = 'sources'
 }
 
-
-// Create API library jar
-task libJar(type: Jar) {
-    from(sourceSets.main.java) {
-        include "tconstruct/library/**/*"
-    }
-    classifier = 'lib'
-}
-
 artifacts {
     archives deobfJar
     archives sourcesJar
-    archives libJar
 }
 
 // verify the properties exist.. or initialize.
@@ -264,10 +261,10 @@ build.dependsOn signUniversal
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            // todo: remove deobf and sources jar in 1.13
             artifact jar
             artifact deobfJar
             artifact sourcesJar
-            artifact libJar
         }
     }
 

@@ -1,0 +1,19 @@
+{
+  "tool": "arrow",
+  "text": [
+    {
+      "text": "Pilar är dödliga projektiler som avfyras från en pilbåge. Man får flera skott när man tillverkar en pil som kan plockas upp igen."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Den utdelade skadan beror på pilbågen såväl som själva pilarna. Deras beteende varierar med olika material."
+    }
+  ],
+  "properties": [
+    "Ammunition för pilbågar",
+    "Kan plockas upp igen",
+    "En föremålsgrupp innehåller många skott"
+  ]
+}

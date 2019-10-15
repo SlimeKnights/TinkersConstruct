@@ -1,0 +1,18 @@
+{
+  "modifier": "sharpness",
+  "text": [
+    {
+      "text": "Du kan använda kvarts för att vässa och slipa eggen/klingan på vapen. Ju mer kvarts som används desto mer kan du vässa eggen/klingan. Fungerar också med trubbiga föremål."
+    }
+  ],
+  "effects": [
+    "Ökar attackskada",
+    "Olika vapen påverkas annorlunda",
+    "Flera nivåer"
+  ],
+  "demoTool": [
+    "tconstruct:broadsword",
+    "tconstruct:cleaver",
+    "tconstruct:arrow"
+  ]
+}

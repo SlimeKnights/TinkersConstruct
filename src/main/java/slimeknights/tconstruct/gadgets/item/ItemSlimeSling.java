@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.gadgets.item;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -8,24 +9,27 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.mantle.item.ItemTooltip;
+import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerNetwork;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.shared.block.BlockSlime.SlimeType;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
+
+import javax.annotation.Nonnull;
 
 public class ItemSlimeSling extends ItemTooltip {
 
   public ItemSlimeSling() {
     this.setMaxStackSize(1);
     this.setCreativeTab(TinkerRegistry.tabGadgets);
+    this.hasSubtypes = true;
   }
 
   @Nonnull
@@ -88,6 +92,29 @@ public class ItemSlimeSling extends ItemTooltip {
       }
       player.playSound(Sounds.slimesling, 1f, 1f);
       SlimeBounceHandler.addBounceHandler(player);
+    }
+  }
+
+  /* colors */
+
+  @Nonnull
+  @Override
+  public String getUnlocalizedName(ItemStack stack) {
+    int meta = stack.getMetadata(); // should call getMetadata below
+    if(meta < SlimeType.values().length) {
+      return super.getUnlocalizedName(stack) + "." + LocUtils.makeLocString(SlimeType.values()[meta].name());
+    }
+    else {
+      return super.getUnlocalizedName(stack);
+    }
+  }
+
+  @Override
+  public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
+    if(this.isInCreativeTab(tab)) {
+      for(SlimeType type : SlimeType.VISIBLE_COLORS) {
+        subItems.add(new ItemStack(this, 1, type.getMeta()));
+      }
     }
   }
 }

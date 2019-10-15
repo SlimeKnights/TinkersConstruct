@@ -358,12 +358,15 @@ public class GuiToolStation extends GuiTinkerStation {
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     drawBackground(BACKGROUND);
 
-    if(textField.isFocused()) {
-      TextFieldActive.draw(cornerX + 68, cornerY + 6);
-    }
+    // looks like there's a weird case where this is called before init? Not reproducible but meh.
+    if(textField != null) {
+      if(textField.isFocused()) {
+        TextFieldActive.draw(cornerX + 68, cornerY + 6);
+      }
 
-    // draw textfield
-    textField.drawTextBox();
+      // draw textfield
+      textField.drawTextBox();
+    }
 
     //int xOff = 3;
     //int yOff = 6;

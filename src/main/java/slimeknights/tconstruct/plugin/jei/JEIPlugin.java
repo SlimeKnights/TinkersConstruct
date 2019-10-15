@@ -1,13 +1,5 @@
 package slimeknights.tconstruct.plugin.jei;
 
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.IJeiRuntime;
@@ -17,13 +9,22 @@ import mezz.jei.api.IRecipeRegistry;
 import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.gui.IAdvancedGuiHandler;
 import mezz.jei.api.gui.ICraftingGridHelper;
-import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
+import mezz.jei.api.ingredients.IIngredientBlacklist;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
-
+import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.DryingRecipe;
+import slimeknights.tconstruct.library.MaterialIntegration;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.fluid.FluidColored;
 import slimeknights.tconstruct.library.smeltery.AlloyRecipe;
 import slimeknights.tconstruct.library.smeltery.MeltingRecipe;
 import slimeknights.tconstruct.library.tools.IToolPart;
@@ -46,6 +47,7 @@ import slimeknights.tconstruct.plugin.jei.smelting.SmeltingRecipeCategory;
 import slimeknights.tconstruct.plugin.jei.smelting.SmeltingRecipeChecker;
 import slimeknights.tconstruct.plugin.jei.smelting.SmeltingRecipeHandler;
 import slimeknights.tconstruct.plugin.jei.table.TableRecipeHandler;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.BlockTable;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.BlockCasting;
@@ -55,6 +57,9 @@ import slimeknights.tconstruct.smeltery.client.IGuiLiquidTank;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.common.TableRecipeFactory.TableRecipe;
 import slimeknights.tconstruct.tools.common.block.BlockToolTable;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 @mezz.jei.api.JEIPlugin
 public class JEIPlugin implements IModPlugin {
@@ -130,9 +135,13 @@ public class JEIPlugin implements IModPlugin {
   public void register(@Nonnull IModRegistry registry) {
     jeiHelpers = registry.getJeiHelpers();
     IGuiHelper guiHelper = jeiHelpers.getGuiHelper();
+    IIngredientBlacklist blacklist = registry.getJeiHelpers().getIngredientBlacklist();
 
     // crafting helper used by the shaped table wrapper
     craftingGridHelper = guiHelper.createCraftingGridHelper(craftInputSlot1, craftOutputSlot);
+
+    // its a pain to hide this using getSubItems because how ItemEdible is coded, so just hide from JEI
+    blacklist.addIngredientToBlacklist(TinkerCommons.matSlimeBallPink);
 
     if(TConstruct.pulseManager.isPulseLoaded(TinkerTools.PulseId)) {
       registry.handleRecipes(TableRecipe.class, new TableRecipeHandler(), VanillaRecipeCategoryUid.CRAFTING);
@@ -169,6 +178,16 @@ public class JEIPlugin implements IModPlugin {
 
       // liquid recipe lookup for smeltery and tinker tank
       registry.addAdvancedGuiHandlers(new TinkerGuiTankHandler<>(GuiTinkerTank.class), new TinkerGuiTankHandler<>(GuiSmeltery.class));
+
+      // hide unused fluids from JEI
+      for(MaterialIntegration integration : TinkerRegistry.getMaterialIntegrations()) {
+        // if it has a fluid and that fluid is one of ours, hide it
+        if(!integration.isIntegrated() && integration.fluid instanceof FluidColored) {
+          FluidStack stack = new FluidStack(integration.fluid, Fluid.BUCKET_VOLUME);
+          blacklist.addIngredientToBlacklist(stack);
+          blacklist.addIngredientToBlacklist(FluidUtil.getFilledBucket(stack));
+        }
+      }
     }
 
     // drying rack

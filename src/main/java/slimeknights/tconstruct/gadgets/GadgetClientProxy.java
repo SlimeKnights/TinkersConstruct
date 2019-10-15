@@ -55,7 +55,7 @@ public class GadgetClientProxy extends ClientProxy {
         TinkerGadgets.slimeChannel);
     colors.registerItemColorHandler(
         (@Nonnull ItemStack stack, int tintIndex) -> TinkerGadgets.slimeBoots.getColor(stack),
-        TinkerGadgets.slimeBoots);
+        TinkerGadgets.slimeBoots, TinkerGadgets.slimeSling);
 
 
     super.init();
@@ -76,6 +76,8 @@ public class GadgetClientProxy extends ClientProxy {
 
     registerItemModel(TinkerGadgets.woodRail);
     registerItemModel(TinkerGadgets.woodRailTrapdoor);
+
+    registerItemModel(TinkerGadgets.woodenHopper);
 
     registerItemModel(TinkerGadgets.slimeChannel); //tinted for variants
 

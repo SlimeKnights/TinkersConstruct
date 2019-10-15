@@ -1,0 +1,24 @@
+{
+  "modifier": "harvestheight",
+  "text": [
+    {
+      "text": "道具の効果が上下に伸びたらよいと思ったことはありませんか？今ならできます！"
+    }
+  ],
+  "effects": [
+    "道具の採掘効果が上下に伸びる",
+    "ブロックだけに有効",
+    "武器には効果がない",
+    "幅++と合わせて使える"
+  ],
+  "demoTool": [
+    "tconstruct:pickaxe",
+    "tconstruct:shovel",
+    "tconstruct:hatchet",
+    "tconstruct:mattock",
+    "tconstruct:hammer",
+    "tconstruct:lumberaxe",
+    "tconstruct:excavator",
+    "tconstruct:scythe"
+  ]
+}

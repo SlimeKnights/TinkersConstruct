@@ -13,8 +13,5 @@
     "name": "structure",
     "type": "structure",
     "data": "seared_furnace/multiblock.json"
-  },
-  {
-    "type": "blank"
   }
 ]

@@ -1,0 +1,19 @@
+{
+  "parent": "tconstruct:block/tank",
+  "textures": {
+    "side": "tconstruct:blocks/smeltery/seared_gauge_side",
+    "top": "tconstruct:blocks/smeltery/seared_window_top"
+  },
+  "overrides": [
+    { "predicate": { "amount": 0.0000 }, "model": "tconstruct:block/tank/gauge" },
+    { "predicate": { "amount": 0.0001 }, "model": "tconstruct:block/tank/gauge/0" },
+    { "predicate": { "amount": 0.0625 }, "model": "tconstruct:block/tank/gauge/1" },
+    { "predicate": { "amount": 0.1875 }, "model": "tconstruct:block/tank/gauge/2" },
+    { "predicate": { "amount": 0.3125 }, "model": "tconstruct:block/tank/gauge/3" },
+    { "predicate": { "amount": 0.4375 }, "model": "tconstruct:block/tank/gauge/4" },
+    { "predicate": { "amount": 0.5625 }, "model": "tconstruct:block/tank/gauge/5" },
+    { "predicate": { "amount": 0.6875 }, "model": "tconstruct:block/tank/gauge/6" },
+    { "predicate": { "amount": 0.8125 }, "model": "tconstruct:block/tank/gauge/7" },
+    { "predicate": { "amount": 0.9375 }, "model": "tconstruct:block/tank/gauge/8" }
+  ]
+}

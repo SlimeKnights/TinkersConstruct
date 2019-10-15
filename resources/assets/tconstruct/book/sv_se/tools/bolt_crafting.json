@@ -1,0 +1,13 @@
+{
+  "title":"Hur man tillverkar armborstpilar",
+  "text": [
+    {
+      "text": "För att tillverka armborstpilar behöver du en armborstpilkärna. Armborstpilkärnor skapas genom att lägga ett pilhuvud i en avgjutningsbänk och hälla materialet för huvudet på den."
+    }
+  ],
+  "image": {
+    "file": "tconstruct:textures/gui/book/bolt_core.png",
+    "width": 150,
+    "height": 75
+  }
+}
