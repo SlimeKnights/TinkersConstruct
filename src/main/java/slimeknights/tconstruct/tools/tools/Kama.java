@@ -206,7 +206,7 @@ public class Kama extends AoeToolCore {
 
     IPlantable seed = null;
     for(ItemStack drop : drops) {
-      if(drop != null && drop.getItem() instanceof IPlantable) {
+      if(!drop.isEmpty() && drop.getItem() instanceof IPlantable) {
         seed = (IPlantable) drop.getItem();
         drop.shrink(1);
         if(drop.isEmpty()) {
