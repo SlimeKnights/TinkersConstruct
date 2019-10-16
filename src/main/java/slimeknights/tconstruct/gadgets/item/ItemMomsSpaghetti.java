@@ -178,8 +178,6 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
         repairItem.shrink(1);
 
         //change = Math.min(change, stack.getMaxDamage() - stack.getItemDamage());
-        stack.setItemDamage(stack.getItemDamage() - USES_PER_WHEAT);
-
         ToolHelper.healTool(stack, USES_PER_WHEAT, null);
       }
       else {
