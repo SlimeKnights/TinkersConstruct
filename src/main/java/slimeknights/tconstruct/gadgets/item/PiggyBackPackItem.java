@@ -25,7 +25,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.item.ArmorTooltipItem;
@@ -86,8 +85,6 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
 
   public PiggyBackPackItem() {
     super(PIGGYBACK, EquipmentSlotType.CHEST, (new Properties()).group(TinkerRegistry.tabGadgets).maxStackSize(16));
-
-    MinecraftForge.EVENT_BUS.register(this);
   }
 
   @Nonnull
@@ -222,10 +219,10 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
     @Override
     public void performEffect(@Nonnull LivingEntity livingEntityIn, int p_76394_2_) {
       ItemStack chestArmor = livingEntityIn.getItemStackFromSlot(EquipmentSlotType.CHEST);
-      if (chestArmor.isEmpty()) {
+      if (chestArmor.isEmpty() || chestArmor.getItem() != TinkerGadgets.piggy_backpack) {
         TinkerGadgets.piggy_backpack.matchCarriedEntitiesToCount(livingEntityIn, 0);
       }
-      else if (chestArmor.getItem() == TinkerGadgets.piggy_backpack) {
+      else {
         TinkerGadgets.piggy_backpack.matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
         if (!livingEntityIn.getEntityWorld().isRemote) {
           if (livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).isPresent()) {

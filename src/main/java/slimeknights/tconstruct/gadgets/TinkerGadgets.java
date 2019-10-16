@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.potion.Effect;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -233,6 +234,7 @@ public class TinkerGadgets extends TinkerPulse {
 
   @SubscribeEvent
   public void postInit(final InterModProcessEvent event) {
+    MinecraftForge.EVENT_BUS.register(new GadgetEvents());
     proxy.postInit();
 
     TinkerRegistry.tabGadgets.setDisplayIcon(new ItemStack(slime_sling_green));
