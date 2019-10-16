@@ -156,18 +156,25 @@ public class ItemMomsSpaghetti extends ItemFood implements IRepairable, IModifya
       return ItemStack.EMPTY;
     }
 
-    // don't accept anything that's not wheat
+    // don't accept anything that's not wheat and don't accept all empty
+    boolean allEmpty = true;
     for(ItemStack repairItem : repairItems) {
-      if(repairItem != null && repairItem.getItem() != Items.WHEAT) {
-        return ItemStack.EMPTY;
+      if(!repairItem.isEmpty()) {
+        allEmpty = false;
+        if(repairItem.getItem() != Items.WHEAT) {
+          return ItemStack.EMPTY;
+        }
       }
+    }
+    if (allEmpty) {
+      return ItemStack.EMPTY;
     }
 
     ItemStack stack = repairable.copy();
     int index = 0;
     while(stack.getItemDamage() > 0 && index < repairItems.size()) {
       ItemStack repairItem = repairItems.get(index);
-      if(repairItem.getCount() > 0) {
+      if(!repairItem.isEmpty() && repairItem.getCount() > 0) {
         repairItem.shrink(1);
 
         //change = Math.min(change, stack.getMaxDamage() - stack.getItemDamage());
