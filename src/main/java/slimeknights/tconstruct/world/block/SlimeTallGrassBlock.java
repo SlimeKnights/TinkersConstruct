@@ -32,7 +32,7 @@ public class SlimeTallGrassBlock extends BushBlock implements IShearable {
   private final SlimePlantType plantType;
 
   public SlimeTallGrassBlock(SlimeGrassBlock.FoliageType foliageType, SlimePlantType plantType) {
-    super(Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).tickRandomly());
+    super(Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement().hardnessAndResistance(0.0F).tickRandomly());
     this.foliageType = foliageType;
     this.plantType = plantType;
   }

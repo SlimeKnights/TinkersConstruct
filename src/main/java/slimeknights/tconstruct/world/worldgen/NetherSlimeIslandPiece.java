@@ -124,9 +124,7 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
 
   @Override
   public boolean addComponentParts(IWorld worldIn, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPosIn) {
-    System.out.println(this.templatePosition);
     if (this.isLava(worldIn, this.templatePosition.up()) && this.isLava(worldIn, this.templatePosition.up().north()) && this.isLava(worldIn, this.templatePosition.up().east()) && this.isLava(worldIn, this.templatePosition.up().south()) && this.isLava(worldIn, this.templatePosition.up().west())) {
-      System.out.println(this.templatePosition + " placed!");
       return super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn, chunkPosIn);
     }
     else {
