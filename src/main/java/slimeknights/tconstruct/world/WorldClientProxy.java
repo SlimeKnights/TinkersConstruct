@@ -9,6 +9,8 @@ import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IEnviromentBlockReader;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+
+import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.library.client.renderer.BlueSlimeRenderer;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
@@ -56,7 +58,7 @@ public class WorldClientProxy extends ClientProxy {
       MaterialColor materialcolor = state.getMaterialColor(reader, blockPos);
       return materialcolor != null ? materialcolor.colorValue : -1;
 
-    }, TinkerWorld.blue_vanilla_slime_grass, TinkerWorld.purple_vanilla_slime_grass, TinkerWorld.orange_vanilla_slime_grass, TinkerWorld.blue_green_slime_grass, TinkerWorld.purple_green_slime_grass, TinkerWorld.orange_green_slime_grass, TinkerWorld.blue_blue_slime_grass, TinkerWorld.purple_blue_slime_grass, TinkerWorld.orange_blue_slime_grass, TinkerWorld.blue_purple_slime_grass, TinkerWorld.purple_purple_slime_grass, TinkerWorld.orange_purple_slime_grass, TinkerWorld.blue_magma_slime_grass, TinkerWorld.purple_magma_slime_grass, TinkerWorld.orange_magma_slime_grass);
+    }, WorldBlocks.blue_vanilla_slime_grass, WorldBlocks.purple_vanilla_slime_grass, WorldBlocks.orange_vanilla_slime_grass, WorldBlocks.blue_green_slime_grass, WorldBlocks.purple_green_slime_grass, WorldBlocks.orange_green_slime_grass, WorldBlocks.blue_blue_slime_grass, WorldBlocks.purple_blue_slime_grass, WorldBlocks.orange_blue_slime_grass, WorldBlocks.blue_purple_slime_grass, WorldBlocks.purple_purple_slime_grass, WorldBlocks.orange_purple_slime_grass, WorldBlocks.blue_magma_slime_grass, WorldBlocks.purple_magma_slime_grass, WorldBlocks.orange_magma_slime_grass);
 
     blockColors.register((state, reader, blockPos, tintIndex) -> {
       if (state != null && state.getBlock() instanceof SlimeLeavesBlock) {
@@ -66,7 +68,7 @@ public class WorldClientProxy extends ClientProxy {
 
       MaterialColor materialColor = state.getMaterialColor(reader, blockPos);
       return materialColor != null ? materialColor.colorValue : -1;
-    }, TinkerWorld.blue_slime_leaves, TinkerWorld.purple_slime_leaves, TinkerWorld.orange_slime_leaves);
+    }, WorldBlocks.blue_slime_leaves, WorldBlocks.purple_slime_leaves, WorldBlocks.orange_slime_leaves);
 
     blockColors.register((state, reader, blockPos, tintIndex) -> {
       if (state != null && state.getBlock() instanceof SlimeTallGrassBlock) {
@@ -76,7 +78,7 @@ public class WorldClientProxy extends ClientProxy {
 
       MaterialColor materialColor = state.getMaterialColor(reader, blockPos);
       return materialColor != null ? materialColor.colorValue : -1;
-    }, TinkerWorld.blue_slime_fern, TinkerWorld.purple_slime_fern, TinkerWorld.orange_slime_fern, TinkerWorld.blue_slime_tall_grass, TinkerWorld.purple_slime_tall_grass, TinkerWorld.orange_slime_tall_grass);
+    }, WorldBlocks.blue_slime_fern, WorldBlocks.purple_slime_fern, WorldBlocks.orange_slime_fern, WorldBlocks.blue_slime_tall_grass, WorldBlocks.purple_slime_tall_grass, WorldBlocks.orange_slime_tall_grass);
 
     blockColors.register((state, reader, blockPos, tintIndex) -> {
       if (state != null && state.getBlock() instanceof SlimeVineBlock) {
@@ -86,13 +88,13 @@ public class WorldClientProxy extends ClientProxy {
 
       MaterialColor materialColor = state.getMaterialColor(reader, blockPos);
       return materialColor != null ? materialColor.colorValue : -1;
-    }, TinkerWorld.purple_slime_vine, TinkerWorld.purple_slime_vine_middle, TinkerWorld.purple_slime_vine_end, TinkerWorld.blue_slime_vine, TinkerWorld.blue_slime_vine_middle, TinkerWorld.blue_slime_vine_end);
+    }, WorldBlocks.purple_slime_vine, WorldBlocks.purple_slime_vine_middle, WorldBlocks.purple_slime_vine_end, WorldBlocks.blue_slime_vine, WorldBlocks.blue_slime_vine_middle, WorldBlocks.blue_slime_vine_end);
 
     minecraft.getItemColors().register((itemStack, tintIndex) -> {
               BlockState blockstate = ((BlockItem) itemStack.getItem()).getBlock().getDefaultState();
               return blockColors.getColor(blockstate, (IEnviromentBlockReader) null, (BlockPos) null, tintIndex);
-            }, TinkerWorld.blue_vanilla_slime_grass, TinkerWorld.purple_vanilla_slime_grass, TinkerWorld.orange_vanilla_slime_grass, TinkerWorld.blue_green_slime_grass, TinkerWorld.purple_green_slime_grass, TinkerWorld.orange_green_slime_grass, TinkerWorld.blue_blue_slime_grass, TinkerWorld.purple_blue_slime_grass, TinkerWorld.orange_blue_slime_grass, TinkerWorld.blue_purple_slime_grass, TinkerWorld.purple_purple_slime_grass, TinkerWorld.orange_purple_slime_grass, TinkerWorld.blue_magma_slime_grass, TinkerWorld.purple_magma_slime_grass, TinkerWorld.orange_magma_slime_grass, TinkerWorld.blue_slime_leaves, TinkerWorld.purple_slime_leaves, TinkerWorld.orange_slime_leaves, TinkerWorld.blue_slime_fern, TinkerWorld.purple_slime_fern, TinkerWorld.orange_slime_fern, TinkerWorld.blue_slime_tall_grass, TinkerWorld.purple_slime_tall_grass, TinkerWorld.orange_slime_tall_grass, TinkerWorld.purple_slime_vine, TinkerWorld.purple_slime_vine_middle, TinkerWorld.purple_slime_vine_end,
-            TinkerWorld.blue_slime_vine, TinkerWorld.blue_slime_vine_middle, TinkerWorld.blue_slime_vine_end);
+            }, WorldBlocks.blue_vanilla_slime_grass, WorldBlocks.purple_vanilla_slime_grass, WorldBlocks.orange_vanilla_slime_grass, WorldBlocks.blue_green_slime_grass, WorldBlocks.purple_green_slime_grass, WorldBlocks.orange_green_slime_grass, WorldBlocks.blue_blue_slime_grass, WorldBlocks.purple_blue_slime_grass, WorldBlocks.orange_blue_slime_grass, WorldBlocks.blue_purple_slime_grass, WorldBlocks.purple_purple_slime_grass, WorldBlocks.orange_purple_slime_grass, WorldBlocks.blue_magma_slime_grass, WorldBlocks.purple_magma_slime_grass, WorldBlocks.orange_magma_slime_grass, WorldBlocks.blue_slime_leaves, WorldBlocks.purple_slime_leaves, WorldBlocks.orange_slime_leaves, WorldBlocks.blue_slime_fern, WorldBlocks.purple_slime_fern, WorldBlocks.orange_slime_fern, WorldBlocks.blue_slime_tall_grass, WorldBlocks.purple_slime_tall_grass, WorldBlocks.orange_slime_tall_grass, WorldBlocks.purple_slime_vine, WorldBlocks.purple_slime_vine_middle, WorldBlocks.purple_slime_vine_end,
+                                       WorldBlocks.blue_slime_vine, WorldBlocks.blue_slime_vine_middle, WorldBlocks.blue_slime_vine_end);
 
     super.init();
   }

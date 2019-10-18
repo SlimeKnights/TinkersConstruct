@@ -3,7 +3,8 @@ package slimeknights.tconstruct.gadgets.entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.IStringSerializable;
-import slimeknights.tconstruct.gadgets.TinkerGadgets;
+
+import slimeknights.tconstruct.items.GadgetItems;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -47,19 +48,19 @@ public enum FrameType implements IStringSerializable {
   public static Item getFrameFromType(FrameType type) {
     switch (type) {
       case JEWEL:
-        return TinkerGadgets.jewel_item_frame;
+        return GadgetItems.jewel_item_frame;
       case ALUMINUM_BRASS:
-        return TinkerGadgets.aluminum_brass_item_frame;
+        return GadgetItems.aluminum_brass_item_frame;
       case COBALT:
-        return TinkerGadgets.cobalt_item_frame;
+        return GadgetItems.cobalt_item_frame;
       case ARDITE:
-        return TinkerGadgets.ardite_item_frame;
+        return GadgetItems.ardite_item_frame;
       case MANYULLYN:
-        return TinkerGadgets.manyullyn_item_frame;
+        return GadgetItems.manyullyn_item_frame;
       case GOLD:
-        return TinkerGadgets.gold_item_frame;
+        return GadgetItems.gold_item_frame;
       case CLEAR:
-        return TinkerGadgets.clear_item_frame;
+        return GadgetItems.clear_item_frame;
       default:
         return Items.ITEM_FRAME;
     }

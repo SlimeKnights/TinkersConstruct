@@ -16,10 +16,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
-import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nullable;
+
+import slimeknights.tconstruct.items.CommonItems;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 public class SlimyMudBlock extends Block {
 
@@ -36,10 +37,10 @@ public class SlimyMudBlock extends Block {
 
     switch (this.mudType) {
       case SLIMY_MUD_BLUE:
-        shouldAdd = TinkerCommons.blue_slime_ball != null;
+        shouldAdd = CommonItems.blue_slime_ball != null;
         break;
       case SLIMY_MUD_MAGMA:
-        shouldAdd = TinkerCommons.magma_slime_ball != null;
+        shouldAdd = CommonItems.magma_slime_ball != null;
         break;
       case SLIMY_MUD_GREEN:
         shouldAdd = true;

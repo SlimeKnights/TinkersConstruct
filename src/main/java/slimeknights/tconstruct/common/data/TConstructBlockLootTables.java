@@ -2,6 +2,7 @@ package slimeknights.tconstruct.common.data;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.loot.BlockLootTables;
@@ -15,8 +16,6 @@ import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTables;
 import net.minecraft.world.storage.loot.conditions.TableBonus;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.TinkerPulseIds;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -24,9 +23,19 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-import static slimeknights.tconstruct.shared.TinkerCommons.*;
-import static slimeknights.tconstruct.world.TinkerWorld.*;
-import static slimeknights.tconstruct.gadgets.TinkerGadgets.*;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.blocks.DecorativeBlocks;
+import slimeknights.tconstruct.library.TinkerPulseIds;
+import slimeknights.tconstruct.blocks.CommonBlocks;
+import slimeknights.tconstruct.items.CommonItems;
+import slimeknights.tconstruct.blocks.WorldBlocks;
+
+import static slimeknights.tconstruct.blocks.GadgetBlocks.punji;
+import static slimeknights.tconstruct.blocks.GadgetBlocks.stone_ladder;
+import static slimeknights.tconstruct.blocks.GadgetBlocks.stone_torch;
+import static slimeknights.tconstruct.blocks.GadgetBlocks.wall_stone_torch;
+import static slimeknights.tconstruct.blocks.GadgetBlocks.wooden_dropper_rail;
+import static slimeknights.tconstruct.blocks.GadgetBlocks.wooden_rail;
 
 public class TConstructBlockLootTables extends BlockLootTables {
 
@@ -39,165 +48,165 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private static LootTable.Builder randomDropPurpleSlimeBall(Block blockIn, Block saplingIn, float... fortuneIn) {
-    return dropSapling(blockIn, saplingIn, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(field_218577_e).addEntry(func_218560_a(blockIn, ItemLootEntry.builder(purple_slime_ball)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
+    return dropSapling(blockIn, saplingIn, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(field_218577_e).addEntry(func_218560_a(blockIn, ItemLootEntry.builder(CommonItems.purple_slime_ball)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
   }
 
   private static LootTable.Builder randomDropBlueOrGreenSlimeBall(Block blockIn, Block saplingIn, float... fortuneIn) {
-    return dropSapling(blockIn, saplingIn, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(field_218577_e).addEntry(AlternativesLootEntry.func_216149_a(func_218560_a(blockIn, ItemLootEntry.builder(blue_slime_ball)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)), func_218560_a(blockIn, ItemLootEntry.builder(Items.SLIME_BALL)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)))));
+    return dropSapling(blockIn, saplingIn, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(field_218577_e).addEntry(AlternativesLootEntry.func_216149_a(func_218560_a(blockIn, ItemLootEntry.builder(CommonItems.blue_slime_ball)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)), func_218560_a(blockIn, ItemLootEntry.builder(Items.SLIME_BALL)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)))));
   }
 
   private void addCommon() {
-    this.func_218492_c(grout);
-    this.func_218492_c(slimy_mud_green);
-    this.func_218492_c(slimy_mud_blue);
-    this.func_218492_c(graveyard_soil);
-    this.func_218492_c(consecrated_soil);
-    this.func_218492_c(slimy_mud_magma);
+    this.func_218492_c(CommonBlocks.grout);
+    this.func_218492_c(CommonBlocks.slimy_mud_green);
+    this.func_218492_c(CommonBlocks.slimy_mud_blue);
+    this.func_218492_c(CommonBlocks.graveyard_soil);
+    this.func_218492_c(CommonBlocks.consecrated_soil);
+    this.func_218492_c(CommonBlocks.slimy_mud_magma);
 
-    this.func_218492_c(blue_slime);
-    this.func_218492_c(purple_slime);
-    this.func_218492_c(blood_slime);
-    this.func_218492_c(magma_slime);
-    this.func_218492_c(pink_slime);
+    this.func_218492_c(WorldBlocks.blue_slime);
+    this.func_218492_c(WorldBlocks.purple_slime);
+    this.func_218492_c(WorldBlocks.blood_slime);
+    this.func_218492_c(WorldBlocks.magma_slime);
+    this.func_218492_c(WorldBlocks.pink_slime);
 
-    this.func_218492_c(congealed_green_slime);
-    this.func_218492_c(congealed_blue_slime);
-    this.func_218492_c(congealed_purple_slime);
-    this.func_218492_c(congealed_blood_slime);
-    this.func_218492_c(congealed_magma_slime);
-    this.func_218492_c(congealed_pink_slime);
+    this.func_218492_c(WorldBlocks.congealed_green_slime);
+    this.func_218492_c(WorldBlocks.congealed_blue_slime);
+    this.func_218492_c(WorldBlocks.congealed_purple_slime);
+    this.func_218492_c(WorldBlocks.congealed_blood_slime);
+    this.func_218492_c(WorldBlocks.congealed_magma_slime);
+    this.func_218492_c(WorldBlocks.congealed_pink_slime);
 
-    this.func_218492_c(cobalt_ore);
-    this.func_218492_c(ardite_ore);
+    this.func_218492_c(CommonBlocks.cobalt_ore);
+    this.func_218492_c(CommonBlocks.ardite_ore);
 
-    this.func_218492_c(lavawood);
-    this.func_218492_c(firewood);
+    this.func_218492_c(CommonBlocks.lavawood);
+    this.func_218492_c(CommonBlocks.firewood);
 
-    this.func_218492_c(mud_bricks);
+    this.func_218492_c(DecorativeBlocks.mud_bricks);
 
-    this.func_218492_c(clear_glass);
+    this.func_218492_c(DecorativeBlocks.clear_glass);
 
-    this.func_218492_c(white_clear_stained_glass);
-    this.func_218492_c(orange_clear_stained_glass);
-    this.func_218492_c(magenta_clear_stained_glass);
-    this.func_218492_c(light_blue_clear_stained_glass);
-    this.func_218492_c(yellow_clear_stained_glass);
-    this.func_218492_c(lime_clear_stained_glass);
-    this.func_218492_c(pink_clear_stained_glass);
-    this.func_218492_c(gray_clear_stained_glass);
-    this.func_218492_c(light_gray_clear_stained_glass);
-    this.func_218492_c(cyan_clear_stained_glass);
-    this.func_218492_c(purple_clear_stained_glass);
-    this.func_218492_c(blue_clear_stained_glass);
-    this.func_218492_c(brown_clear_stained_glass);
-    this.func_218492_c(green_clear_stained_glass);
-    this.func_218492_c(red_clear_stained_glass);
-    this.func_218492_c(black_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.white_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.orange_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.magenta_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.light_blue_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.yellow_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.lime_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.pink_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.gray_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.light_gray_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.cyan_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.purple_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.blue_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.brown_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.green_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.red_clear_stained_glass);
+    this.func_218492_c(DecorativeBlocks.black_clear_stained_glass);
 
-    this.registerLootTable(mud_bricks_slab, BlockLootTables::func_218513_d);
-    this.registerLootTable(lavawood_slab, BlockLootTables::func_218513_d);
-    this.registerLootTable(firewood_slab, BlockLootTables::func_218513_d);
+    this.registerLootTable(DecorativeBlocks.mud_bricks_slab, BlockLootTables::func_218513_d);
+    this.registerLootTable(CommonBlocks.lavawood_slab, BlockLootTables::func_218513_d);
+    this.registerLootTable(CommonBlocks.firewood_slab, BlockLootTables::func_218513_d);
 
-    this.func_218492_c(mud_bricks_stairs);
-    this.func_218492_c(firewood_stairs);
-    this.func_218492_c(lavawood_stairs);
+    this.func_218492_c(DecorativeBlocks.mud_bricks_stairs);
+    this.func_218492_c(CommonBlocks.firewood_stairs);
+    this.func_218492_c(CommonBlocks.lavawood_stairs);
 
-    this.func_218492_c(cobalt_block);
-    this.func_218492_c(ardite_block);
-    this.func_218492_c(manyullyn_block);
-    this.func_218492_c(knightslime_block);
-    this.func_218492_c(pigiron_block);
-    this.func_218492_c(alubrass_block);
-    this.func_218492_c(silky_jewel_block);
+    this.func_218492_c(CommonBlocks.cobalt_block);
+    this.func_218492_c(CommonBlocks.ardite_block);
+    this.func_218492_c(CommonBlocks.manyullyn_block);
+    this.func_218492_c(CommonBlocks.knightslime_block);
+    this.func_218492_c(CommonBlocks.pigiron_block);
+    this.func_218492_c(CommonBlocks.alubrass_block);
+    this.func_218492_c(CommonBlocks.silky_jewel_block);
   }
 
   private void addWorld() {
-    this.func_218492_c(green_slime_dirt);
-    this.func_218492_c(blue_slime_dirt);
-    this.func_218492_c(purple_slime_dirt);
-    this.func_218492_c(magma_slime_dirt);
+    this.func_218492_c(WorldBlocks.green_slime_dirt);
+    this.func_218492_c(WorldBlocks.blue_slime_dirt);
+    this.func_218492_c(WorldBlocks.purple_slime_dirt);
+    this.func_218492_c(WorldBlocks.magma_slime_dirt);
 
-    this.registerLootTable(blue_vanilla_slime_grass, (block) -> {
+    this.registerLootTable(WorldBlocks.blue_vanilla_slime_grass, (block) -> {
       return func_218515_b(block, Blocks.DIRT);
     });
-    this.registerLootTable(purple_vanilla_slime_grass, (block) -> {
+    this.registerLootTable(WorldBlocks.purple_vanilla_slime_grass, (block) -> {
       return func_218515_b(block, Blocks.DIRT);
     });
-    this.registerLootTable(orange_vanilla_slime_grass, (block) -> {
+    this.registerLootTable(WorldBlocks.orange_vanilla_slime_grass, (block) -> {
       return func_218515_b(block, Blocks.DIRT);
     });
 
-    this.registerLootTable(blue_green_slime_grass, (block) -> {
-      return func_218515_b(block, green_slime_dirt);
+    this.registerLootTable(WorldBlocks.blue_green_slime_grass, (block) -> {
+      return func_218515_b(block, WorldBlocks.green_slime_dirt);
     });
-    this.registerLootTable(purple_green_slime_grass, (block) -> {
-      return func_218515_b(block, green_slime_dirt);
+    this.registerLootTable(WorldBlocks.purple_green_slime_grass, (block) -> {
+      return func_218515_b(block, WorldBlocks.green_slime_dirt);
     });
-    this.registerLootTable(orange_green_slime_grass, (block) -> {
-      return func_218515_b(block, green_slime_dirt);
-    });
-
-    this.registerLootTable(blue_blue_slime_grass, (block) -> {
-      return func_218515_b(block, blue_slime_dirt);
-    });
-    this.registerLootTable(purple_blue_slime_grass, (block) -> {
-      return func_218515_b(block, blue_slime_dirt);
-    });
-    this.registerLootTable(orange_blue_slime_grass, (block) -> {
-      return func_218515_b(block, blue_slime_dirt);
+    this.registerLootTable(WorldBlocks.orange_green_slime_grass, (block) -> {
+      return func_218515_b(block, WorldBlocks.green_slime_dirt);
     });
 
-    this.registerLootTable(blue_purple_slime_grass, (block) -> {
-      return func_218515_b(block, purple_slime_dirt);
+    this.registerLootTable(WorldBlocks.blue_blue_slime_grass, (block) -> {
+      return func_218515_b(block, WorldBlocks.blue_slime_dirt);
     });
-    this.registerLootTable(purple_purple_slime_grass, (block) -> {
-      return func_218515_b(block, purple_slime_dirt);
+    this.registerLootTable(WorldBlocks.purple_blue_slime_grass, (block) -> {
+      return func_218515_b(block, WorldBlocks.blue_slime_dirt);
     });
-    this.registerLootTable(orange_purple_slime_grass, (block) -> {
-      return func_218515_b(block, purple_slime_dirt);
-    });
-
-    this.registerLootTable(blue_magma_slime_grass, (block) -> {
-      return func_218515_b(block, magma_slime_dirt);
-    });
-    this.registerLootTable(purple_magma_slime_grass, (block) -> {
-      return func_218515_b(block, magma_slime_dirt);
-    });
-    this.registerLootTable(orange_magma_slime_grass, (block) -> {
-      return func_218515_b(block, magma_slime_dirt);
+    this.registerLootTable(WorldBlocks.orange_blue_slime_grass, (block) -> {
+      return func_218515_b(block, WorldBlocks.blue_slime_dirt);
     });
 
-    this.registerLootTable(blue_slime_leaves, (block) -> {
-      return randomDropBlueOrGreenSlimeBall(block, blue_slime_sapling, field_218579_g);
+    this.registerLootTable(WorldBlocks.blue_purple_slime_grass, (block) -> {
+      return func_218515_b(block, WorldBlocks.purple_slime_dirt);
+    });
+    this.registerLootTable(WorldBlocks.purple_purple_slime_grass, (block) -> {
+      return func_218515_b(block, WorldBlocks.purple_slime_dirt);
+    });
+    this.registerLootTable(WorldBlocks.orange_purple_slime_grass, (block) -> {
+      return func_218515_b(block, WorldBlocks.purple_slime_dirt);
     });
 
-    this.registerLootTable(purple_slime_leaves, (block) -> {
-      return randomDropPurpleSlimeBall(block, blue_slime_sapling, field_218579_g);
+    this.registerLootTable(WorldBlocks.blue_magma_slime_grass, (block) -> {
+      return func_218515_b(block, WorldBlocks.magma_slime_dirt);
+    });
+    this.registerLootTable(WorldBlocks.purple_magma_slime_grass, (block) -> {
+      return func_218515_b(block, WorldBlocks.magma_slime_dirt);
+    });
+    this.registerLootTable(WorldBlocks.orange_magma_slime_grass, (block) -> {
+      return func_218515_b(block, WorldBlocks.magma_slime_dirt);
     });
 
-    this.registerLootTable(orange_slime_leaves, (block) -> {
-      return dropSapling(block, blue_slime_sapling, field_218579_g);
+    this.registerLootTable(WorldBlocks.blue_slime_leaves, (block) -> {
+      return randomDropBlueOrGreenSlimeBall(block, WorldBlocks.blue_slime_sapling, field_218579_g);
     });
 
-    this.registerLootTable(blue_slime_fern, BlockLootTables::func_218486_d);
-    this.registerLootTable(purple_slime_fern, BlockLootTables::func_218486_d);
-    this.registerLootTable(orange_slime_fern, BlockLootTables::func_218486_d);
+    this.registerLootTable(WorldBlocks.purple_slime_leaves, (block) -> {
+      return randomDropPurpleSlimeBall(block, WorldBlocks.blue_slime_sapling, field_218579_g);
+    });
 
-    this.registerLootTable(blue_slime_tall_grass, BlockLootTables::func_218486_d);
-    this.registerLootTable(purple_slime_tall_grass, BlockLootTables::func_218486_d);
-    this.registerLootTable(orange_slime_tall_grass, BlockLootTables::func_218486_d);
+    this.registerLootTable(WorldBlocks.orange_slime_leaves, (block) -> {
+      return dropSapling(block, WorldBlocks.blue_slime_sapling, field_218579_g);
+    });
 
-    this.func_218492_c(blue_slime_sapling);
-    this.func_218492_c(orange_slime_sapling);
-    this.func_218492_c(purple_slime_sapling);
+    this.registerLootTable(WorldBlocks.blue_slime_fern, BlockLootTables::func_218486_d);
+    this.registerLootTable(WorldBlocks.purple_slime_fern, BlockLootTables::func_218486_d);
+    this.registerLootTable(WorldBlocks.orange_slime_fern, BlockLootTables::func_218486_d);
 
-    this.registerLootTable(purple_slime_vine, BlockLootTables::func_218486_d);
-    this.registerLootTable(purple_slime_vine_middle, BlockLootTables::func_218486_d);
-    this.registerLootTable(purple_slime_vine_end, BlockLootTables::func_218486_d);
+    this.registerLootTable(WorldBlocks.blue_slime_tall_grass, BlockLootTables::func_218486_d);
+    this.registerLootTable(WorldBlocks.purple_slime_tall_grass, BlockLootTables::func_218486_d);
+    this.registerLootTable(WorldBlocks.orange_slime_tall_grass, BlockLootTables::func_218486_d);
 
-    this.registerLootTable(blue_slime_vine, BlockLootTables::func_218486_d);
-    this.registerLootTable(blue_slime_vine_middle, BlockLootTables::func_218486_d);
-    this.registerLootTable(blue_slime_vine_end, BlockLootTables::func_218486_d);
+    this.func_218492_c(WorldBlocks.blue_slime_sapling);
+    this.func_218492_c(WorldBlocks.orange_slime_sapling);
+    this.func_218492_c(WorldBlocks.purple_slime_sapling);
+
+    this.registerLootTable(WorldBlocks.purple_slime_vine, BlockLootTables::func_218486_d);
+    this.registerLootTable(WorldBlocks.purple_slime_vine_middle, BlockLootTables::func_218486_d);
+    this.registerLootTable(WorldBlocks.purple_slime_vine_end, BlockLootTables::func_218486_d);
+
+    this.registerLootTable(WorldBlocks.blue_slime_vine, BlockLootTables::func_218486_d);
+    this.registerLootTable(WorldBlocks.blue_slime_vine_middle, BlockLootTables::func_218486_d);
+    this.registerLootTable(WorldBlocks.blue_slime_vine_end, BlockLootTables::func_218486_d);
   }
 
   private void addGadgets() {

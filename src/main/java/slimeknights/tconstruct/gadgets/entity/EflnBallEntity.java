@@ -4,8 +4,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
@@ -17,6 +15,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.tconstruct.gadgets.Exploder;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.items.GadgetItems;
 
 import javax.annotation.Nonnull;
 
@@ -36,7 +35,7 @@ public class EflnBallEntity extends ProjectileItemEntity implements IEntityAddit
 
   @Override
   protected Item func_213885_i() {
-    return TinkerGadgets.efln_ball;
+    return GadgetItems.efln_ball;
   }
 
   @Override

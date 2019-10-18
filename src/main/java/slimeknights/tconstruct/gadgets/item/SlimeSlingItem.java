@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.item.TooltipItem;
 import slimeknights.tconstruct.common.TinkerNetwork;
-import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
@@ -101,19 +101,19 @@ public class SlimeSlingItem extends TooltipItem {
 
   @OnlyIn(Dist.CLIENT)
   public static int getColorFromStack(ItemStack stack) {
-    if (stack.getItem() == TinkerGadgets.slime_sling_blue) {
+    if (stack.getItem() == GadgetItems.slime_sling_blue) {
       return SlimeBlock.SlimeType.BLUE.getBallColor();
     }
-    else if (stack.getItem() == TinkerGadgets.slime_sling_purple) {
+    else if (stack.getItem() == GadgetItems.slime_sling_purple) {
       return SlimeBlock.SlimeType.PURPLE.getBallColor();
     }
-    else if (stack.getItem() == TinkerGadgets.slime_sling_magma) {
+    else if (stack.getItem() == GadgetItems.slime_sling_magma) {
       return SlimeBlock.SlimeType.MAGMA.getBallColor();
     }
-    else if (stack.getItem() == TinkerGadgets.slime_sling_green) {
+    else if (stack.getItem() == GadgetItems.slime_sling_green) {
       return SlimeBlock.SlimeType.GREEN.getBallColor();
     }
-    else if (stack.getItem() == TinkerGadgets.slime_sling_blood) {
+    else if (stack.getItem() == GadgetItems.slime_sling_blood) {
       return SlimeBlock.SlimeType.BLOOD.getBallColor();
     } else {
       return SlimeBlock.SlimeType.GREEN.getBallColor();

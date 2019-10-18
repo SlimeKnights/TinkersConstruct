@@ -3,8 +3,8 @@ package slimeknights.tconstruct.world.worldgen;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.world.TinkerWorld;
+
+import slimeknights.tconstruct.blocks.WorldBlocks;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -21,10 +21,10 @@ public class BlueSlimeTree extends Tree {
   @Nullable
   protected AbstractTreeFeature<NoFeatureConfig> getTreeFeature(Random random) {
     if (this.isIslandTree) {
-      return new SlimeTreeFeature(NoFeatureConfig::deserialize, true, 5, 4, TinkerCommons.congealed_green_slime.getDefaultState(), TinkerWorld.blue_slime_leaves.getDefaultState(), TinkerWorld.blue_slime_vine_middle.getDefaultState(), TinkerWorld.blue_slime_sapling, true);
+      return new SlimeTreeFeature(NoFeatureConfig::deserialize, true, 5, 4, WorldBlocks.congealed_green_slime.getDefaultState(), WorldBlocks.blue_slime_leaves.getDefaultState(), WorldBlocks.blue_slime_vine_middle.getDefaultState(), WorldBlocks.blue_slime_sapling, true);
     }
     else {
-      return new SlimeTreeFeature(NoFeatureConfig::deserialize, true, 5, 4, TinkerCommons.congealed_green_slime.getDefaultState(), TinkerWorld.blue_slime_leaves.getDefaultState(), null, TinkerWorld.blue_slime_sapling, true);
+      return new SlimeTreeFeature(NoFeatureConfig::deserialize, true, 5, 4, WorldBlocks.congealed_green_slime.getDefaultState(), WorldBlocks.blue_slime_leaves.getDefaultState(), null, WorldBlocks.blue_slime_sapling, true);
     }
   }
 }

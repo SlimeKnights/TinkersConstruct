@@ -4,25 +4,25 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.IStringSerializable;
+
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.blocks.WorldBlocks;
 
 import java.util.Locale;
 
 public enum SlimeIslandVariant implements IStringSerializable {
-  BLUE(0, TinkerWorld.blue_blue_slime_grass.getDefaultState(), TinkerFluids.blue_slime_fluid_block.get(),
-          createArray(TinkerCommons.congealed_blue_slime.getDefaultState(), TinkerCommons.congealed_green_slime.getDefaultState()),
-          TinkerWorld.blue_slime_vine.getDefaultState(), createArray(TinkerWorld.purple_slime_fern.getDefaultState(), TinkerWorld.purple_slime_tall_grass.getDefaultState())),
-  GREEN(1, TinkerWorld.blue_green_slime_grass.getDefaultState(), TinkerFluids.blue_slime_fluid_block.get(),
-          createArray(TinkerCommons.congealed_blue_slime.getDefaultState(), TinkerCommons.congealed_green_slime.getDefaultState()),
-          TinkerWorld.blue_slime_vine.getDefaultState(), createArray(TinkerWorld.purple_slime_fern.getDefaultState(), TinkerWorld.purple_slime_tall_grass.getDefaultState())),
-  PURPLE(2, TinkerWorld.purple_purple_slime_grass.getDefaultState(), TinkerFluids.purple_slime_fluid_block.get(),
-          createArray(TinkerCommons.congealed_purple_slime.getDefaultState()),
-          TinkerWorld.purple_slime_vine.getDefaultState(), createArray(TinkerWorld.blue_slime_fern.getDefaultState(), TinkerWorld.blue_slime_tall_grass.getDefaultState())),
-  MAGMA(3, TinkerWorld.orange_magma_slime_grass.getDefaultState(), Blocks.LAVA,
-          createArray(TinkerCommons.congealed_magma_slime.getDefaultState(), TinkerCommons.congealed_blood_slime.getDefaultState()),
-          null, createArray(TinkerWorld.orange_slime_fern.getDefaultState(), TinkerWorld.orange_slime_tall_grass.getDefaultState()));
+  BLUE(0, WorldBlocks.blue_blue_slime_grass.getDefaultState(), TinkerFluids.blue_slime_fluid_block.get(),
+       createArray(WorldBlocks.congealed_blue_slime.getDefaultState(), WorldBlocks.congealed_green_slime.getDefaultState()),
+       WorldBlocks.blue_slime_vine.getDefaultState(), createArray(WorldBlocks.purple_slime_fern.getDefaultState(), WorldBlocks.purple_slime_tall_grass.getDefaultState())),
+  GREEN(1, WorldBlocks.blue_green_slime_grass.getDefaultState(), TinkerFluids.blue_slime_fluid_block.get(),
+        createArray(WorldBlocks.congealed_blue_slime.getDefaultState(), WorldBlocks.congealed_green_slime.getDefaultState()),
+        WorldBlocks.blue_slime_vine.getDefaultState(), createArray(WorldBlocks.purple_slime_fern.getDefaultState(), WorldBlocks.purple_slime_tall_grass.getDefaultState())),
+  PURPLE(2, WorldBlocks.purple_purple_slime_grass.getDefaultState(), TinkerFluids.purple_slime_fluid_block.get(),
+         createArray(WorldBlocks.congealed_purple_slime.getDefaultState()),
+         WorldBlocks.purple_slime_vine.getDefaultState(), createArray(WorldBlocks.blue_slime_fern.getDefaultState(), WorldBlocks.blue_slime_tall_grass.getDefaultState())),
+  MAGMA(3, WorldBlocks.orange_magma_slime_grass.getDefaultState(), Blocks.LAVA,
+        createArray(WorldBlocks.congealed_magma_slime.getDefaultState(), WorldBlocks.congealed_blood_slime.getDefaultState()),
+        null, createArray(WorldBlocks.orange_slime_fern.getDefaultState(), WorldBlocks.orange_slime_tall_grass.getDefaultState()));
 
   private final int index;
   private final BlockState lakeBottom;
