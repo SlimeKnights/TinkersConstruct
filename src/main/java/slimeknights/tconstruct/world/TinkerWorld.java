@@ -27,7 +27,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 
 import org.apache.logging.log4j.Logger;
@@ -37,6 +36,8 @@ import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
+import slimeknights.tconstruct.common.registry.ItemRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -126,113 +127,114 @@ public class TinkerWorld extends TinkerPulse {
 
   @SubscribeEvent
   public void registerBlocks(final RegistryEvent.Register<Block> event) {
-    IForgeRegistry<Block> registry = event.getRegistry();
+    BaseRegistryAdapter<Block> registry = new BaseRegistryAdapter<>(event.getRegistry());
 
-    register(registry, new SlimeDirtBlock(), "green_slime_dirt");
-    register(registry, new SlimeDirtBlock(), "blue_slime_dirt");
-    register(registry, new SlimeDirtBlock(), "purple_slime_dirt");
-    register(registry, new SlimeDirtBlock(), "magma_slime_dirt");
+    registry.register(new SlimeDirtBlock(), "green_slime_dirt");
+    registry.register(new SlimeDirtBlock(), "blue_slime_dirt");
+    registry.register(new SlimeDirtBlock(), "purple_slime_dirt");
+    registry.register(new SlimeDirtBlock(), "magma_slime_dirt");
 
     for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
-      register(registry, new SlimeGrassBlock(type), type.getName() + "_vanilla_slime_grass");
-      register(registry, new SlimeGrassBlock(type), type.getName() + "_green_slime_grass");
-      register(registry, new SlimeGrassBlock(type), type.getName() + "_blue_slime_grass");
-      register(registry, new SlimeGrassBlock(type), type.getName() + "_purple_slime_grass");
-      register(registry, new SlimeGrassBlock(type), type.getName() + "_magma_slime_grass");
+      registry.register(new SlimeGrassBlock(type), type.getName() + "_vanilla_slime_grass");
+      registry.register(new SlimeGrassBlock(type), type.getName() + "_green_slime_grass");
+      registry.register(new SlimeGrassBlock(type), type.getName() + "_blue_slime_grass");
+      registry.register(new SlimeGrassBlock(type), type.getName() + "_purple_slime_grass");
+      registry.register(new SlimeGrassBlock(type), type.getName() + "_magma_slime_grass");
     }
 
-    register(registry, new SlimeLeavesBlock(SlimeGrassBlock.FoliageType.BLUE), "blue_slime_leaves");
-    register(registry, new SlimeLeavesBlock(SlimeGrassBlock.FoliageType.PURPLE), "purple_slime_leaves");
-    register(registry, new SlimeLeavesBlock(SlimeGrassBlock.FoliageType.ORANGE), "orange_slime_leaves");
+    registry.register(new SlimeLeavesBlock(SlimeGrassBlock.FoliageType.BLUE), "blue_slime_leaves");
+    registry.register(new SlimeLeavesBlock(SlimeGrassBlock.FoliageType.PURPLE), "purple_slime_leaves");
+    registry.register(new SlimeLeavesBlock(SlimeGrassBlock.FoliageType.ORANGE), "orange_slime_leaves");
 
     for (SlimeGrassBlock.FoliageType foliageType : SlimeGrassBlock.FoliageType.values()) {
       for (SlimeTallGrassBlock.SlimePlantType plantType : SlimeTallGrassBlock.SlimePlantType.values()) {
-        register(registry, new SlimeTallGrassBlock(foliageType, plantType), foliageType.getName() + "_slime_" + plantType.getName());
+        registry.register(new SlimeTallGrassBlock(foliageType, plantType), foliageType.getName() + "_slime_" + plantType.getName());
       }
     }
 
-    register(registry, new SlimeSaplingBlock(new BlueSlimeTree(false)), "blue_slime_sapling");
-    register(registry, new SlimeSaplingBlock(new MagmaSlimeTree()), "orange_slime_sapling");
-    register(registry, new SlimeSaplingBlock(new PurpleSlimeTree(false)), "purple_slime_sapling");
+    registry.register(new SlimeSaplingBlock(new BlueSlimeTree(false)), "blue_slime_sapling");
+    registry.register(new SlimeSaplingBlock(new MagmaSlimeTree()), "orange_slime_sapling");
+    registry.register(new SlimeSaplingBlock(new PurpleSlimeTree(false)), "purple_slime_sapling");
 
-    register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), "purple_slime_vine");
-    register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), "purple_slime_vine_middle");
-    register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.END), "purple_slime_vine_end");
+    registry.register(new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), "purple_slime_vine");
+    registry.register(new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), "purple_slime_vine_middle");
+    registry.register(new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.END), "purple_slime_vine_end");
 
-    register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.START), "blue_slime_vine");
-    register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.MIDDLE), "blue_slime_vine_middle");
-    register(registry, new SlimeVineBlock(SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.END), "blue_slime_vine_end");
+    registry.register(new SlimeVineBlock(SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.START), "blue_slime_vine");
+    registry.register(new SlimeVineBlock(SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.MIDDLE), "blue_slime_vine_middle");
+    registry.register(new SlimeVineBlock(SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.END), "blue_slime_vine_end");
   }
 
   @SubscribeEvent
   public void registerItems(final RegistryEvent.Register<Item> event) {
-    IForgeRegistry<Item> registry = event.getRegistry();
-
-    register(registry, new SpawnEggItem(WorldEntities.blue_slime_entity, 0x47eff5, 0xacfff4, (new Item.Properties()).group(ItemGroup.MISC)), "blue_slime_spawn_egg");
+    ItemRegistryAdapter registry = new ItemRegistryAdapter(event.getRegistry());
     CreativeTab tabWorld = TinkerRegistry.tabWorld;
 
-    registerBlockItem(registry, green_slime_dirt, tabWorld);
-    registerBlockItem(registry, blue_slime_dirt, tabWorld);
-    registerBlockItem(registry, purple_slime_dirt, tabWorld);
-    registerBlockItem(registry, magma_slime_dirt, tabWorld);
+    SpawnEggItem blueSlimeSpawnEgg = new SpawnEggItem(WorldEntities.blue_slime_entity, 0x47eff5, 0xacfff4, (new Item.Properties()).group(ItemGroup.MISC));
+    registry.register(blueSlimeSpawnEgg, "blue_slime_spawn_egg");
 
-    registerBlockItem(registry, blue_vanilla_slime_grass, tabWorld);
-    registerBlockItem(registry, purple_vanilla_slime_grass, tabWorld);
-    registerBlockItem(registry, orange_vanilla_slime_grass, tabWorld);
-    registerBlockItem(registry, blue_green_slime_grass, tabWorld);
-    registerBlockItem(registry, purple_green_slime_grass, tabWorld);
-    registerBlockItem(registry, orange_green_slime_grass, tabWorld);
-    registerBlockItem(registry, blue_blue_slime_grass, tabWorld);
-    registerBlockItem(registry, purple_blue_slime_grass, tabWorld);
-    registerBlockItem(registry, orange_blue_slime_grass, tabWorld);
-    registerBlockItem(registry, blue_purple_slime_grass, tabWorld);
-    registerBlockItem(registry, purple_purple_slime_grass, tabWorld);
-    registerBlockItem(registry, orange_purple_slime_grass, tabWorld);
-    registerBlockItem(registry, blue_magma_slime_grass, tabWorld);
-    registerBlockItem(registry, purple_magma_slime_grass, tabWorld);
-    registerBlockItem(registry, orange_magma_slime_grass, tabWorld);
+    registry.registerBlockItem(green_slime_dirt, tabWorld);
+    registry.registerBlockItem(blue_slime_dirt, tabWorld);
+    registry.registerBlockItem(purple_slime_dirt, tabWorld);
+    registry.registerBlockItem(magma_slime_dirt, tabWorld);
 
-    registerBlockItem(registry, blue_slime_leaves, tabWorld);
-    registerBlockItem(registry, purple_slime_leaves, tabWorld);
-    registerBlockItem(registry, orange_slime_leaves, tabWorld);
+    registry.registerBlockItem(blue_vanilla_slime_grass, tabWorld);
+    registry.registerBlockItem(purple_vanilla_slime_grass, tabWorld);
+    registry.registerBlockItem(orange_vanilla_slime_grass, tabWorld);
+    registry.registerBlockItem(blue_green_slime_grass, tabWorld);
+    registry.registerBlockItem(purple_green_slime_grass, tabWorld);
+    registry.registerBlockItem(orange_green_slime_grass, tabWorld);
+    registry.registerBlockItem(blue_blue_slime_grass, tabWorld);
+    registry.registerBlockItem(purple_blue_slime_grass, tabWorld);
+    registry.registerBlockItem(orange_blue_slime_grass, tabWorld);
+    registry.registerBlockItem(blue_purple_slime_grass, tabWorld);
+    registry.registerBlockItem(purple_purple_slime_grass, tabWorld);
+    registry.registerBlockItem(orange_purple_slime_grass, tabWorld);
+    registry.registerBlockItem(blue_magma_slime_grass, tabWorld);
+    registry.registerBlockItem(purple_magma_slime_grass, tabWorld);
+    registry.registerBlockItem(orange_magma_slime_grass, tabWorld);
 
-    registerBlockItem(registry, blue_slime_fern, tabWorld);
-    registerBlockItem(registry, purple_slime_fern, tabWorld);
-    registerBlockItem(registry, orange_slime_fern, tabWorld);
+    registry.registerBlockItem(blue_slime_leaves, tabWorld);
+    registry.registerBlockItem(purple_slime_leaves, tabWorld);
+    registry.registerBlockItem(orange_slime_leaves, tabWorld);
 
-    registerBlockItem(registry, blue_slime_tall_grass, tabWorld);
-    registerBlockItem(registry, purple_slime_tall_grass, tabWorld);
-    registerBlockItem(registry, orange_slime_tall_grass, tabWorld);
+    registry.registerBlockItem(blue_slime_fern, tabWorld);
+    registry.registerBlockItem(purple_slime_fern, tabWorld);
+    registry.registerBlockItem(orange_slime_fern, tabWorld);
 
-    registerBlockItem(registry, blue_slime_sapling, tabWorld);
-    registerBlockItem(registry, orange_slime_sapling, tabWorld);
-    registerBlockItem(registry, purple_slime_sapling, tabWorld);
+    registry.registerBlockItem(blue_slime_tall_grass, tabWorld);
+    registry.registerBlockItem(purple_slime_tall_grass, tabWorld);
+    registry.registerBlockItem(orange_slime_tall_grass, tabWorld);
 
-    registerBlockItem(registry, purple_slime_vine, tabWorld);
-    registerBlockItem(registry, purple_slime_vine_middle, tabWorld);
-    registerBlockItem(registry, purple_slime_vine_end, tabWorld);
+    registry.registerBlockItem(blue_slime_sapling, tabWorld);
+    registry.registerBlockItem(orange_slime_sapling, tabWorld);
+    registry.registerBlockItem(purple_slime_sapling, tabWorld);
 
-    registerBlockItem(registry, blue_slime_vine, tabWorld);
-    registerBlockItem(registry, blue_slime_vine_middle, tabWorld);
-    registerBlockItem(registry, blue_slime_vine_end, tabWorld);
+    registry.registerBlockItem(purple_slime_vine, tabWorld);
+    registry.registerBlockItem(purple_slime_vine_middle, tabWorld);
+    registry.registerBlockItem(purple_slime_vine_end, tabWorld);
+
+    registry.registerBlockItem(blue_slime_vine, tabWorld);
+    registry.registerBlockItem(blue_slime_vine_middle, tabWorld);
+    registry.registerBlockItem(blue_slime_vine_end, tabWorld);
   }
 
   @SubscribeEvent
   public void registerEntities(final RegistryEvent.Register<EntityType<?>> event) {
-    IForgeRegistry<EntityType<?>> registry = event.getRegistry();
+    BaseRegistryAdapter<EntityType<?>> registry = new BaseRegistryAdapter<>(event.getRegistry());
 
-    registry.register(WorldEntities.blue_slime_entity.setRegistryName("tconstruct:blue_slime_entity"));
+    registry.register(WorldEntities.blue_slime_entity, "blue_slime_entity");
   }
 
   @SubscribeEvent
   public void onFeaturesRegistry(RegistryEvent.Register<Feature<?>> event) {
-    IForgeRegistry<Feature<?>> registry = event.getRegistry();
+    BaseRegistryAdapter<Feature<?>> registry = new BaseRegistryAdapter<>(event.getRegistry());
 
-    SLIME_ISLAND_PIECE = Registry.register(Registry.STRUCTURE_PIECE, "tconstruct:slime_island_piece", SlimeIslandPiece::new);
-    register(registry, new SlimeIslandStructure(NoFeatureConfig::deserialize), "slime_island");
+    SLIME_ISLAND_PIECE = Registry.register(Registry.STRUCTURE_PIECE, registry.getResource("slime_island_piece"), SlimeIslandPiece::new);
+    registry.register(new SlimeIslandStructure(NoFeatureConfig::deserialize), "slime_island");
 
-    NETHER_SLIME_ISLAND_PIECE = Registry.register(Registry.STRUCTURE_PIECE, "tconstruct:nether_slime_island_piece", NetherSlimeIslandPiece::new);
-    register(registry, new NetherSlimeIslandStructure(NoFeatureConfig::deserialize), "nether_slime_island");
+    NETHER_SLIME_ISLAND_PIECE = Registry.register(Registry.STRUCTURE_PIECE, registry.getResource("nether_slime_island_piece"), NetherSlimeIslandPiece::new);
+    registry.register(new NetherSlimeIslandStructure(NoFeatureConfig::deserialize), "nether_slime_island");
   }
 
   @SubscribeEvent

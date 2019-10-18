@@ -25,6 +25,8 @@ import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
+import slimeknights.tconstruct.common.registry.ItemRegistryAdapter;
 import slimeknights.tconstruct.gadgets.block.DriedClayBlock;
 import slimeknights.tconstruct.gadgets.block.DriedClaySlabBlock;
 import slimeknights.tconstruct.gadgets.block.PunjiBlock;
@@ -111,70 +113,70 @@ public class TinkerGadgets extends TinkerPulse {
 
   @SubscribeEvent
   public void registerBlocks(final RegistryEvent.Register<Block> event) {
-    IForgeRegistry<Block> registry = event.getRegistry();
+    BaseRegistryAdapter<Block> registry = new BaseRegistryAdapter<>(event.getRegistry());
 
-    register(registry, new StoneLadderBlock(), "stone_ladder");
+    registry.register(new StoneLadderBlock(), "stone_ladder");
 
-    register(registry, new StoneTorchBlock(), "stone_torch");
-    register(registry, new WallStoneTorchBlock(), "wall_stone_torch");
+    registry.register(new StoneTorchBlock(), "stone_torch");
+    registry.register(new WallStoneTorchBlock(), "wall_stone_torch");
 
-    register(registry, new PunjiBlock(), "punji");
+    registry.register(new PunjiBlock(), "punji");
 
-    register(registry, new WoodenRailBlock(), "wooden_rail");
-    register(registry, new WoodenDropperRailBlock(), "wooden_dropper_rail");
+    registry.register(new WoodenRailBlock(), "wooden_rail");
+    registry.register(new WoodenDropperRailBlock(), "wooden_dropper_rail");
 
-    dried_clay = register(registry, new DriedClayBlock(), "dried_clay");
-    dried_clay_bricks = register(registry, new DriedClayBlock(), "dried_clay_bricks");
+    dried_clay = registry.register(new DriedClayBlock(), "dried_clay");
+    dried_clay_bricks = registry.register(new DriedClayBlock(), "dried_clay_bricks");
 
-    register(registry, new DriedClaySlabBlock(), "dried_clay_slab");
-    register(registry, new DriedClaySlabBlock(), "dried_clay_bricks_slab");
+    registry.register(new DriedClaySlabBlock(), "dried_clay_slab");
+    registry.register(new DriedClaySlabBlock(), "dried_clay_bricks_slab");
 
-    register(registry, new StairsBaseBlock(dried_clay), "dried_clay_stairs");
-    register(registry, new StairsBaseBlock(dried_clay_bricks), "dried_clay_bricks_stairs");
+    registry.register(new StairsBaseBlock(dried_clay), "dried_clay_stairs");
+    registry.register(new StairsBaseBlock(dried_clay_bricks), "dried_clay_bricks_stairs");
   }
 
   @SubscribeEvent
   public void registerItems(final RegistryEvent.Register<Item> event) {
-    IForgeRegistry<Item> registry = event.getRegistry();
+    ItemRegistryAdapter registry = new ItemRegistryAdapter(event.getRegistry());
 
     CreativeTab tabGadgets = TinkerRegistry.tabGadgets;
-    registerBlockItem(registry, stone_ladder, tabGadgets);
+    registry.registerBlockItem(stone_ladder, tabGadgets);
 
-    registerBlockItem(registry, new WallOrFloorItem(stone_torch, wall_stone_torch, (new Item.Properties()).group(tabGadgets)));
+    registry.registerBlockItem(new WallOrFloorItem(stone_torch, wall_stone_torch, (new Item.Properties()).group(tabGadgets)));
 
-    registerBlockItem(registry, punji, tabGadgets);
+    registry.registerBlockItem(punji, tabGadgets);
 
-    registerBlockItem(registry, wooden_rail, tabGadgets);
-    registerBlockItem(registry, wooden_dropper_rail, tabGadgets);
+    registry.registerBlockItem(wooden_rail, tabGadgets);
+    registry.registerBlockItem(wooden_dropper_rail, tabGadgets);
 
-    registerBlockItem(registry, dried_clay, tabGadgets);
-    registerBlockItem(registry, dried_clay_bricks, tabGadgets);
+    registry.registerBlockItem(dried_clay, tabGadgets);
+    registry.registerBlockItem(dried_clay_bricks, tabGadgets);
 
-    registerBlockItem(registry, dried_clay_slab, tabGadgets);
-    registerBlockItem(registry, dried_clay_bricks_slab, tabGadgets);
+    registry.registerBlockItem(dried_clay_slab, tabGadgets);
+    registry.registerBlockItem(dried_clay_bricks_slab, tabGadgets);
 
-    registerBlockItem(registry, dried_clay_stairs, tabGadgets);
-    registerBlockItem(registry, dried_clay_bricks_stairs, tabGadgets);
+    registry.registerBlockItem(dried_clay_stairs, tabGadgets);
+    registry.registerBlockItem(dried_clay_bricks_stairs, tabGadgets);
 
-    register(registry, new Item((new Item.Properties()).group(tabGadgets)), "stone_stick");
+    registry.register(new Item((new Item.Properties()).group(tabGadgets)), "stone_stick");
 
     for (SlimeBlock.SlimeType type : SlimeBlock.SlimeType.VISIBLE_COLORS) {
-      register(registry, new SlimeSlingItem(), "slime_sling_" + type.getName());
-      register(registry, new SlimeBootsItem(type), "slime_boots_" + type.getName());
+      registry.register(new SlimeSlingItem(), "slime_sling_" + type.getName());
+      registry.register(new SlimeBootsItem(type), "slime_boots_" + type.getName());
     }
 
-    register(registry, new PiggyBackPackItem(), "piggy_backpack");
+    registry.register(new PiggyBackPackItem(), "piggy_backpack");
 
     for (FrameType frameType : FrameType.values()) {
-      register(registry, new FancyItemFrameItem((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, frameType.getId())), frameType.getName() + "_item_frame");
+      registry.register(new FancyItemFrameItem((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, frameType.getId())), frameType.getName() + "_item_frame");
     }
 
-    register(registry, new GlowBallItem(), "glow_ball");
-    register(registry, new EflnBallItem(), "efln_ball");
+    registry.register(new GlowBallItem(), "glow_ball");
+    registry.register(new EflnBallItem(), "efln_ball");
 
-    register(registry, new SpaghettiItem(), "hard_spaghetti");
-    register(registry, new SpaghettiItem(), "soggy_spaghetti");
-    register(registry, new SpaghettiItem(), "cold_spaghetti");
+    registry.register(new SpaghettiItem(), "hard_spaghetti");
+    registry.register(new SpaghettiItem(), "soggy_spaghetti");
+    registry.register(new SpaghettiItem(), "cold_spaghetti");
   }
 
   @SubscribeEvent
