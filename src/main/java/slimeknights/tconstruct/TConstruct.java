@@ -2,16 +2,13 @@ package slimeknights.tconstruct;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.javafmlmod.FMLModContainer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,10 +20,6 @@ import slimeknights.mantle.util.BlankBlockDropJsonGenerator;
 import slimeknights.mantle.util.BlockStateJsonGenerator;
 import slimeknights.mantle.util.LanguageJsonGenerator;
 import slimeknights.mantle.util.ModelJsonGenerator;
-import slimeknights.tconstruct.blocks.CommonBlocks;
-import slimeknights.tconstruct.blocks.DecorativeBlocks;
-import slimeknights.tconstruct.blocks.GadgetBlocks;
-import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.TinkerNetwork;
@@ -37,11 +30,6 @@ import slimeknights.tconstruct.common.data.TConstructLootTableProvider;
 import slimeknights.tconstruct.common.data.TConstructRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.tconstruct.items.CommonItems;
-import slimeknights.tconstruct.items.FoodItems;
-import slimeknights.tconstruct.items.GadgetItems;
-import slimeknights.tconstruct.items.ToolItems;
-import slimeknights.tconstruct.items.WorldItems;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -83,19 +71,6 @@ public class TConstruct {
     pulseManager.enablePulses();
 
     DistExecutor.runWhenOn(Dist.CLIENT, () -> TinkerBook::initBook);
-
-    if(ModLoadingContext.get().getActiveContainer() instanceof FMLModContainer) {
-      IEventBus eventBus = ((FMLModContainer) ModLoadingContext.get().getActiveContainer()).getEventBus();
-      eventBus.register(CommonBlocks.class);
-      eventBus.register(WorldBlocks.class);
-      eventBus.register(GadgetBlocks.class);
-      eventBus.register(DecorativeBlocks.class);
-      eventBus.register(CommonItems.class);
-      eventBus.register(WorldItems.class);
-      eventBus.register(GadgetItems.class);
-      eventBus.register(ToolItems.class);
-      eventBus.register(FoodItems.class);
-    }
   }
 
   private void preInit(final FMLCommonSetupEvent event) {

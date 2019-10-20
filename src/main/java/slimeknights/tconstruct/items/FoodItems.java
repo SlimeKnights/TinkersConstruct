@@ -4,6 +4,7 @@ import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.mantle.item.EdibleItem;
@@ -18,6 +19,7 @@ import static slimeknights.tconstruct.common.TinkerPulse.injected;
 
 @SuppressWarnings("unused")
 @ObjectHolder(TConstruct.modID)
+@Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class FoodItems {
 
   /* Drool stimulant */

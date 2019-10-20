@@ -5,6 +5,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.tconstruct.TConstruct;
@@ -15,6 +16,7 @@ import static slimeknights.tconstruct.common.TinkerPulse.injected;
 
 @SuppressWarnings("unused")
 @ObjectHolder(TConstruct.modID)
+@Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class WorldItems {
 
   public static final SpawnEggItem blue_slime_spawn_egg = injected();

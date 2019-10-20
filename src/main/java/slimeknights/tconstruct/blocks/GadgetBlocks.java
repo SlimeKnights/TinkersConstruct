@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.tconstruct.TConstruct;
@@ -20,6 +21,7 @@ import slimeknights.tconstruct.gadgets.block.WoodenRailBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 
 @ObjectHolder(TConstruct.modID)
+@Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class GadgetBlocks {
 
   public static final StoneLadderBlock stone_ladder = TinkerPulse.injected();

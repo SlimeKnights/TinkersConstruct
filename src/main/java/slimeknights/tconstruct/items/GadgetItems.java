@@ -3,6 +3,7 @@ package slimeknights.tconstruct.items;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.tconstruct.TConstruct;
@@ -20,7 +21,9 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 
 @ObjectHolder(TConstruct.modID)
+@Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class GadgetItems {
+
   public static final SlimeSlingItem slime_sling_blue = TinkerPulse.injected();
   public static final SlimeSlingItem slime_sling_purple = TinkerPulse.injected();
   public static final SlimeSlingItem slime_sling_magma = TinkerPulse.injected();
