@@ -1,20 +1,18 @@
 package slimeknights.tconstruct.common.config;
 
 import org.apache.logging.log4j.Logger;
-import slimeknights.mantle.pulsar.config.PulsarConfig;
-import slimeknights.tconstruct.library.Util;
 
 import java.util.Collections;
 import java.util.Set;
+
+import slimeknights.mantle.pulsar.config.PulsarConfig;
+import slimeknights.tconstruct.library.Util;
 
 public class Config {
 
   public static PulsarConfig pulseConfig = new PulsarConfig("TinkerModules", "Modules");
   public static Config instance = new Config();
   public static Logger log = Util.getLogger("Config");
-
-  private Config() {
-  }
 
   public static boolean forceRegisterAll = true; // enables all common items, even if their module is not present
 
@@ -74,4 +72,8 @@ public class Config {
   public static boolean dumpTextureMap = false; // requires debug module
   public static boolean testIMC = false; // requires debug module
   public static boolean temperatureCelsius = true;
+
+  private Config() {
+  }
+
 }

@@ -1,11 +1,8 @@
 package slimeknights.tconstruct.gadgets;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.potion.Effect;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -18,38 +15,21 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
+
 import org.apache.logging.log4j.Logger;
-import slimeknights.mantle.block.StairsBaseBlock;
-import slimeknights.mantle.client.CreativeTab;
+
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
-import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
-import slimeknights.tconstruct.common.registry.ItemRegistryAdapter;
-import slimeknights.tconstruct.gadgets.block.DriedClayBlock;
-import slimeknights.tconstruct.gadgets.block.DriedClaySlabBlock;
-import slimeknights.tconstruct.gadgets.block.PunjiBlock;
-import slimeknights.tconstruct.gadgets.block.StoneLadderBlock;
-import slimeknights.tconstruct.gadgets.block.StoneTorchBlock;
-import slimeknights.tconstruct.gadgets.block.WallStoneTorchBlock;
-import slimeknights.tconstruct.gadgets.block.WoodenDropperRailBlock;
-import slimeknights.tconstruct.gadgets.block.WoodenRailBlock;
 import slimeknights.tconstruct.gadgets.entity.EflnBallEntity;
 import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
-import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.gadgets.entity.GlowballEntity;
-import slimeknights.tconstruct.gadgets.item.EflnBallItem;
-import slimeknights.tconstruct.gadgets.item.FancyItemFrameItem;
-import slimeknights.tconstruct.gadgets.item.GlowBallItem;
 import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem;
-import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
-import slimeknights.tconstruct.gadgets.item.SlimeSlingItem;
-import slimeknights.tconstruct.gadgets.item.SpaghettiItem;
+import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
 
 @Pulse(id = TinkerPulseIds.TINKER_GADGETS_PULSE_ID, description = "All the fun toys")
 @ObjectHolder(TConstruct.modID)
@@ -59,125 +39,9 @@ public class TinkerGadgets extends TinkerPulse {
 
   public static ServerProxy proxy = DistExecutor.runForDist(() -> GadgetClientProxy::new, () -> ServerProxy::new);
 
-  public static final StoneLadderBlock stone_ladder = injected();
-
-  public static final StoneTorchBlock stone_torch = injected();
-  public static final WallStoneTorchBlock wall_stone_torch = injected();
-
-  public static final PunjiBlock punji = injected();
-
-  public static final WoodenRailBlock wooden_rail = injected();
-  public static final WoodenDropperRailBlock wooden_dropper_rail = injected();
-
-  public static DriedClayBlock dried_clay;
-  public static DriedClayBlock dried_clay_bricks;
-
-  public static final DriedClaySlabBlock dried_clay_slab = injected();
-  public static final DriedClaySlabBlock dried_clay_bricks_slab = injected();
-
-  public static final StairsBaseBlock dried_clay_stairs = injected();
-  public static final StairsBaseBlock dried_clay_bricks_stairs = injected();
-
-  public static final SlimeSlingItem slime_sling_blue = injected();
-  public static final SlimeSlingItem slime_sling_purple = injected();
-  public static final SlimeSlingItem slime_sling_magma = injected();
-  public static final SlimeSlingItem slime_sling_green = injected();
-  public static final SlimeSlingItem slime_sling_blood = injected();
-
-  public static final SlimeBootsItem slime_boots_blue = injected();
-  public static final SlimeBootsItem slime_boots_purple = injected();
-  public static final SlimeBootsItem slime_boots_magma = injected();
-  public static final SlimeBootsItem slime_boots_green = injected();
-  public static final SlimeBootsItem slime_boots_blood = injected();
-
-  public static final PiggyBackPackItem piggy_backpack = injected();
-
-  public static final FancyItemFrameItem jewel_item_frame = injected();
-  public static final FancyItemFrameItem aluminum_brass_item_frame = injected();
-  public static final FancyItemFrameItem cobalt_item_frame = injected();
-  public static final FancyItemFrameItem ardite_item_frame = injected();
-  public static final FancyItemFrameItem manyullyn_item_frame = injected();
-  public static final FancyItemFrameItem gold_item_frame = injected();
-  public static final FancyItemFrameItem clear_item_frame = injected();
-
-  public static final GlowBallItem glow_ball = injected();
-  public static final EflnBallItem efln_ball = injected();
-
-  public static final SpaghettiItem hard_spaghetti = injected();
-  public static final SpaghettiItem soggy_spaghetti = injected();
-  public static final SpaghettiItem cold_spaghetti = injected();
-
   public static EntityType<FancyItemFrameEntity> fancy_item_frame;
   public static EntityType<GlowballEntity> throwable_glow_ball;
   public static EntityType<EflnBallEntity> throwable_efln_ball;
-
-  @SubscribeEvent
-  public void registerBlocks(final RegistryEvent.Register<Block> event) {
-    BaseRegistryAdapter<Block> registry = new BaseRegistryAdapter<>(event.getRegistry());
-
-    registry.register(new StoneLadderBlock(), "stone_ladder");
-
-    registry.register(new StoneTorchBlock(), "stone_torch");
-    registry.register(new WallStoneTorchBlock(), "wall_stone_torch");
-
-    registry.register(new PunjiBlock(), "punji");
-
-    registry.register(new WoodenRailBlock(), "wooden_rail");
-    registry.register(new WoodenDropperRailBlock(), "wooden_dropper_rail");
-
-    dried_clay = registry.register(new DriedClayBlock(), "dried_clay");
-    dried_clay_bricks = registry.register(new DriedClayBlock(), "dried_clay_bricks");
-
-    registry.register(new DriedClaySlabBlock(), "dried_clay_slab");
-    registry.register(new DriedClaySlabBlock(), "dried_clay_bricks_slab");
-
-    registry.register(new StairsBaseBlock(dried_clay), "dried_clay_stairs");
-    registry.register(new StairsBaseBlock(dried_clay_bricks), "dried_clay_bricks_stairs");
-  }
-
-  @SubscribeEvent
-  public void registerItems(final RegistryEvent.Register<Item> event) {
-    ItemRegistryAdapter registry = new ItemRegistryAdapter(event.getRegistry());
-
-    CreativeTab tabGadgets = TinkerRegistry.tabGadgets;
-    registry.registerBlockItem(stone_ladder, tabGadgets);
-
-    registry.registerBlockItem(new WallOrFloorItem(stone_torch, wall_stone_torch, (new Item.Properties()).group(tabGadgets)));
-
-    registry.registerBlockItem(punji, tabGadgets);
-
-    registry.registerBlockItem(wooden_rail, tabGadgets);
-    registry.registerBlockItem(wooden_dropper_rail, tabGadgets);
-
-    registry.registerBlockItem(dried_clay, tabGadgets);
-    registry.registerBlockItem(dried_clay_bricks, tabGadgets);
-
-    registry.registerBlockItem(dried_clay_slab, tabGadgets);
-    registry.registerBlockItem(dried_clay_bricks_slab, tabGadgets);
-
-    registry.registerBlockItem(dried_clay_stairs, tabGadgets);
-    registry.registerBlockItem(dried_clay_bricks_stairs, tabGadgets);
-
-    registry.register(new Item((new Item.Properties()).group(tabGadgets)), "stone_stick");
-
-    for (SlimeBlock.SlimeType type : SlimeBlock.SlimeType.VISIBLE_COLORS) {
-      registry.register(new SlimeSlingItem(), "slime_sling_" + type.getName());
-      registry.register(new SlimeBootsItem(type), "slime_boots_" + type.getName());
-    }
-
-    registry.register(new PiggyBackPackItem(), "piggy_backpack");
-
-    for (FrameType frameType : FrameType.values()) {
-      registry.register(new FancyItemFrameItem((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, frameType.getId())), frameType.getName() + "_item_frame");
-    }
-
-    registry.register(new GlowBallItem(), "glow_ball");
-    registry.register(new EflnBallItem(), "efln_ball");
-
-    registry.register(new SpaghettiItem(), "hard_spaghetti");
-    registry.register(new SpaghettiItem(), "soggy_spaghetti");
-    registry.register(new SpaghettiItem(), "cold_spaghetti");
-  }
 
   @SubscribeEvent
   public void registerEntities(final RegistryEvent.Register<EntityType<?>> event) {
@@ -239,7 +103,7 @@ public class TinkerGadgets extends TinkerPulse {
     MinecraftForge.EVENT_BUS.register(new GadgetEvents());
     proxy.postInit();
 
-    TinkerRegistry.tabGadgets.setDisplayIcon(new ItemStack(slime_sling_green));
+    TinkerRegistry.tabGadgets.setDisplayIcon(new ItemStack(GadgetItems.slime_sling_green));
   }
 
   @SubscribeEvent

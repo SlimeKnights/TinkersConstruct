@@ -25,7 +25,7 @@ public class TinkerPulse implements IRegisterUtil {
    */
   @Nonnull
   @SuppressWarnings("ConstantConditions")
-  protected static <T> T injected() {
+  public static <T> T injected() {
     return null;
   }
 

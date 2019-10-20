@@ -8,8 +8,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.blocks.CommonBlocks;
 import slimeknights.tconstruct.library.TinkerPulseIds;
-import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.blocks.WorldBlocks;
 
 public class BlockEvents {
 
@@ -30,13 +31,13 @@ public class BlockEvents {
     BlockState state = event.getEntity().getEntityWorld().getBlockState(pos);
     Block block = state.getBlock();
 
-    if (block == TinkerCommons.congealed_green_slime || block == TinkerCommons.congealed_blue_slime || block == TinkerCommons.congealed_purple_slime || block == TinkerCommons.congealed_blood_slime || block == TinkerCommons.congealed_magma_slime) {
+    if (block == WorldBlocks.congealed_green_slime || block == WorldBlocks.congealed_blue_slime || block == WorldBlocks.congealed_purple_slime || block == WorldBlocks.congealed_blood_slime || block == WorldBlocks.congealed_magma_slime) {
       this.bounce(event.getEntity(), 0.25f);
     }
-    else if (block == TinkerCommons.slimy_mud_green || block == TinkerCommons.slimy_mud_blue) {
+    else if (block == CommonBlocks.slimy_mud_green || block == CommonBlocks.slimy_mud_blue) {
       this.bounce(event.getEntity(), 0.15f);
     }
-    else if (worldLoaded && (block == TinkerWorld.green_slime_dirt || block == TinkerWorld.blue_slime_dirt || block == TinkerWorld.purple_slime_dirt || block == TinkerWorld.magma_slime_dirt || block == TinkerWorld.blue_vanilla_slime_grass || block == TinkerWorld.purple_vanilla_slime_grass || block == TinkerWorld.orange_vanilla_slime_grass || block == TinkerWorld.blue_green_slime_grass || block == TinkerWorld.purple_green_slime_grass || block == TinkerWorld.orange_green_slime_grass || block == TinkerWorld.blue_blue_slime_grass || block == TinkerWorld.purple_blue_slime_grass || block == TinkerWorld.orange_blue_slime_grass || block == TinkerWorld.blue_purple_slime_grass || block == TinkerWorld.purple_purple_slime_grass || block == TinkerWorld.orange_purple_slime_grass || block == TinkerWorld.blue_magma_slime_grass || block == TinkerWorld.purple_magma_slime_grass || block == TinkerWorld.orange_magma_slime_grass)) {
+    else if (worldLoaded && (block == WorldBlocks.green_slime_dirt || block == WorldBlocks.blue_slime_dirt || block == WorldBlocks.purple_slime_dirt || block == WorldBlocks.magma_slime_dirt || block == WorldBlocks.blue_vanilla_slime_grass || block == WorldBlocks.purple_vanilla_slime_grass || block == WorldBlocks.orange_vanilla_slime_grass || block == WorldBlocks.blue_green_slime_grass || block == WorldBlocks.purple_green_slime_grass || block == WorldBlocks.orange_green_slime_grass || block == WorldBlocks.blue_blue_slime_grass || block == WorldBlocks.purple_blue_slime_grass || block == WorldBlocks.orange_blue_slime_grass || block == WorldBlocks.blue_purple_slime_grass || block == WorldBlocks.purple_purple_slime_grass || block == WorldBlocks.orange_purple_slime_grass || block == WorldBlocks.blue_magma_slime_grass || block == WorldBlocks.purple_magma_slime_grass || block == WorldBlocks.orange_magma_slime_grass)) {
       this.bounce(event.getEntity(), 0.06f);
     }
   }

@@ -15,10 +15,13 @@ import slimeknights.mantle.item.BlockTooltipItem;
 /**
  * Provides utility registration methods when registering itemblocks.
  */
-public class ItemRegistryAdapter extends BaseRegistryAdapter<Item> {
+public class BlockItemRegistryAdapter extends BaseRegistryAdapter<Item> {
 
-  public ItemRegistryAdapter(IForgeRegistry<Item> registry) {
+  private final ItemGroup defaultItemGroup;
+
+  public BlockItemRegistryAdapter(IForgeRegistry<Item> registry, @Nullable ItemGroup defaultItemGroup) {
     super(registry);
+    this.defaultItemGroup = defaultItemGroup;
   }
 
   /**
@@ -26,10 +29,16 @@ public class ItemRegistryAdapter extends BaseRegistryAdapter<Item> {
    * If your block does not have its own item, just use this method to make it available as an item.
    * The item uses the same name as the block for registration.
    * The registered BlockItem has tooltip support by default, see {@link BlockTooltipItem}
+   * It will be added to the creative itemgroup passed in in the constructor. If you want a different one, use the method with a ItemGroup parameter.
    * @param block The block you want to have an item for
-   * @param itemGroup The creative tab the item shall be available in.
-   *                  Can be null for no creative tab.
    * @return The registered item for the block
+   */
+  public BlockItem registerBlockItem(Block block) {
+    return registerBlockItem(block, defaultItemGroup);
+  }
+
+  /**
+   * Same as the variant without ItemGroup, but registers it for the given itemgroup.
    */
   public BlockItem registerBlockItem(Block block, @Nullable ItemGroup itemGroup) {
     Item.Properties itemProperties = new Item.Properties();

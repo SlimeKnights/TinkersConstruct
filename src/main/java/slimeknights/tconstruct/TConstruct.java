@@ -9,8 +9,12 @@ import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.Random;
+
 import slimeknights.mantle.pulsar.control.PulseManager;
 import slimeknights.mantle.util.BlankBlockDropJsonGenerator;
 import slimeknights.mantle.util.BlockStateJsonGenerator;
@@ -30,8 +34,6 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.world.TinkerWorld;
-
-import java.util.Random;
 
 /**
  * TConstruct, the tool mod. Craft your tools with style, then modify until the original is gone!

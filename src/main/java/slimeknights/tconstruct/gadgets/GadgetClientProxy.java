@@ -17,6 +17,7 @@ import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.gadgets.entity.GlowballEntity;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
 import slimeknights.tconstruct.gadgets.item.SlimeSlingItem;
+import slimeknights.tconstruct.items.GadgetItems;
 
 import javax.annotation.Nonnull;
 
@@ -35,8 +36,8 @@ public class GadgetClientProxy extends ClientProxy {
 
     final ItemColors colors = minecraft.getItemColors();
 
-    colors.register((@Nonnull ItemStack stack, int tintIndex) -> SlimeSlingItem.getColorFromStack(stack), TinkerGadgets.slime_sling_blue, TinkerGadgets.slime_sling_purple, TinkerGadgets.slime_sling_magma, TinkerGadgets.slime_sling_green, TinkerGadgets.slime_sling_blood);
-    colors.register((@Nonnull ItemStack stack, int tintIndex) -> SlimeBootsItem.getColorFromStack(stack), TinkerGadgets.slime_boots_blue, TinkerGadgets.slime_boots_purple, TinkerGadgets.slime_boots_magma, TinkerGadgets.slime_boots_green, TinkerGadgets.slime_boots_blood);
+    colors.register((@Nonnull ItemStack stack, int tintIndex) -> SlimeSlingItem.getColorFromStack(stack), GadgetItems.slime_sling_blue, GadgetItems.slime_sling_purple, GadgetItems.slime_sling_magma, GadgetItems.slime_sling_green, GadgetItems.slime_sling_blood);
+    colors.register((@Nonnull ItemStack stack, int tintIndex) -> SlimeBootsItem.getColorFromStack(stack), GadgetItems.slime_boots_blue, GadgetItems.slime_boots_purple, GadgetItems.slime_boots_magma, GadgetItems.slime_boots_green, GadgetItems.slime_boots_blood);
   }
 
   @Override

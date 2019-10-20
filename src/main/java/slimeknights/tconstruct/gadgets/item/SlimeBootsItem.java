@@ -18,7 +18,7 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import slimeknights.mantle.item.ArmorTooltipItem;
 import slimeknights.tconstruct.common.TinkerNetwork;
-import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -135,19 +135,19 @@ public class SlimeBootsItem extends ArmorTooltipItem implements IDyeableArmorIte
 
   @OnlyIn(Dist.CLIENT)
   public static int getColorFromStack(ItemStack stack) {
-    if (stack.getItem() == TinkerGadgets.slime_boots_blue) {
+    if (stack.getItem() == GadgetItems.slime_boots_blue) {
       return SlimeBlock.SlimeType.BLUE.getBallColor();
     }
-    else if (stack.getItem() == TinkerGadgets.slime_boots_purple) {
+    else if (stack.getItem() == GadgetItems.slime_boots_purple) {
       return SlimeBlock.SlimeType.PURPLE.getBallColor();
     }
-    else if (stack.getItem() == TinkerGadgets.slime_boots_magma) {
+    else if (stack.getItem() == GadgetItems.slime_boots_magma) {
       return SlimeBlock.SlimeType.MAGMA.getBallColor();
     }
-    else if (stack.getItem() == TinkerGadgets.slime_boots_green) {
+    else if (stack.getItem() == GadgetItems.slime_boots_green) {
       return SlimeBlock.SlimeType.GREEN.getBallColor();
     }
-    else if (stack.getItem() == TinkerGadgets.slime_boots_blood) {
+    else if (stack.getItem() == GadgetItems.slime_boots_blood) {
       return SlimeBlock.SlimeType.BLOOD.getBallColor();
     }
     else {

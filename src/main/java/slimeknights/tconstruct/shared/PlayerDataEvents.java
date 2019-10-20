@@ -7,6 +7,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.items.CommonItems;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
@@ -21,7 +22,7 @@ public class PlayerDataEvents {
       CompoundNBT data = TagUtil.getTagSafe(playerData, PlayerEntity.PERSISTED_NBT_TAG);
 
       if (!data.getBoolean(TAG_PLAYER_HAS_BOOK)) {
-        ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), new ItemStack(TinkerCommons.book));
+        ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), new ItemStack(CommonItems.book));
         data.putBoolean(TAG_PLAYER_HAS_BOOK, true);
         playerData.put(PlayerEntity.PERSISTED_NBT_TAG, data);
       }

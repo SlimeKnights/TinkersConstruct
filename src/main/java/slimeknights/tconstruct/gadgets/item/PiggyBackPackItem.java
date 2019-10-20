@@ -29,7 +29,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.item.ArmorTooltipItem;
 import slimeknights.tconstruct.common.TinkerNetwork;
-import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
@@ -219,11 +219,11 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
     @Override
     public void performEffect(@Nonnull LivingEntity livingEntityIn, int p_76394_2_) {
       ItemStack chestArmor = livingEntityIn.getItemStackFromSlot(EquipmentSlotType.CHEST);
-      if (chestArmor.isEmpty() || chestArmor.getItem() != TinkerGadgets.piggy_backpack) {
-        TinkerGadgets.piggy_backpack.matchCarriedEntitiesToCount(livingEntityIn, 0);
+      if (chestArmor.isEmpty() || chestArmor.getItem() != GadgetItems.piggy_backpack) {
+        GadgetItems.piggy_backpack.matchCarriedEntitiesToCount(livingEntityIn, 0);
       }
       else {
-        TinkerGadgets.piggy_backpack.matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
+        GadgetItems.piggy_backpack.matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
         if (!livingEntityIn.getEntityWorld().isRemote) {
           if (livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).isPresent()) {
             ITinkerPiggyback piggyback = livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).orElse(null);
