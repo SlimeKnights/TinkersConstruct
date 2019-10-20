@@ -23,7 +23,7 @@ public class MetalBlock extends Block {
 
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    //if(this.metalType == MetalType.ALUBRASS)
+    //if (this.metalType == MetalType.ALUBRASS && !TinkerIntegration.isIntegrated(TinkerFluids.alubrass)) {}
     super.fillItemGroup(group, items);
   }
 

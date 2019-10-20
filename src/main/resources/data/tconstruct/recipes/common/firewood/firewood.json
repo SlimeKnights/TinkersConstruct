@@ -1,17 +1,29 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "minecraft:blaze_powder"
-    },
-    {
-      "item": "tconstruct:lavawood"
-    },
-    {
-      "item": "minecraft:blaze_powder"
-    }
-  ],
-  "result": {
-    "item": "tconstruct:firewood"
-  }
+    "type": "forge:conditional",
+    "recipes": [
+        {
+            "conditions": [
+                {
+                    "type": "forge:true"
+                }
+            ],
+            "recipe": {
+                "type": "minecraft:crafting_shapeless",
+                "ingredients": [
+                    {
+                        "item": "minecraft:blaze_powder"
+                    },
+                    {
+                        "item": "tconstruct:lavawood"
+                    },
+                    {
+                        "item": "minecraft:blaze_powder"
+                    }
+                ],
+                "result": {
+                    "item": "tconstruct:firewood"
+                }
+            }
+        }
+    ]
 }

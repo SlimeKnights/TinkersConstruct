@@ -211,6 +211,15 @@ public class TConstructBlockLootTables extends BlockLootTables {
 
     this.func_218492_c(wooden_rail);
     this.func_218492_c(wooden_dropper_rail);
+
+    this.func_218492_c(dried_clay);
+    this.func_218492_c(dried_clay_bricks);
+
+    this.registerLootTable(dried_clay_slab, BlockLootTables::func_218513_d);
+    this.registerLootTable(dried_clay_bricks_slab, BlockLootTables::func_218513_d);
+
+    this.func_218492_c(dried_clay_stairs);
+    this.func_218492_c(dried_clay_bricks_stairs);
   }
 
   @Override

@@ -1,0 +1,36 @@
+{
+    "advancements": [
+        {
+            "conditions": [
+                {
+                    "type": "forge:true"
+                }
+            ],
+            "advancement": {
+                "parent": "minecraft:recipes/root",
+                "rewards": {
+                    "recipes": [
+                        "tconstruct:common/firewood/firewood"
+                    ]
+                },
+                "criteria": {
+                    "has_lavawood": {
+                        "trigger": "minecraft:inventory_changed",
+                        "conditions": {
+                            "items": [
+                                {
+                                    "item": "tconstruct:lavawood"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "requirements": [
+                    [
+                        "has_lavawood"
+                    ]
+                ]
+            }
+        }
+    ]
+}

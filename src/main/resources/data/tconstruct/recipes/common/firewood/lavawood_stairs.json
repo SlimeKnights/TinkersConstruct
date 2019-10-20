@@ -1,17 +1,29 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#  ",
-    "## ",
-    "###"
-  ],
-  "key": {
-    "#": {
-      "item": "tconstruct:firewood"
-    }
-  },
-  "result": {
-    "item": "tconstruct:lavawood_stairs",
-    "count": 4
-  }
+    "type": "forge:conditional",
+    "recipes": [
+        {
+            "conditions": [
+                {
+                    "type": "forge:true"
+                }
+            ],
+            "recipe": {
+                "type": "minecraft:crafting_shaped",
+                "pattern": [
+                    "#  ",
+                    "## ",
+                    "###"
+                ],
+                "key": {
+                    "#": {
+                        "item": "tconstruct:lavawood"
+                    }
+                },
+                "result": {
+                    "item": "tconstruct:lavawood_stairs",
+                    "count": 4
+                }
+            }
+        }
+    ]
 }

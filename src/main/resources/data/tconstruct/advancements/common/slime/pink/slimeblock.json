@@ -1,0 +1,40 @@
+{
+    "advancements": [
+        {
+            "conditions": [
+                {
+                    "value": {
+                        "config_setting": "matchVanillaSlimeblock",
+                        "type": "tconstruct:config_option_enabled"
+                    },
+                    "type": "forge:not"
+                }
+            ],
+            "advancement": {
+                "parent": "minecraft:recipes/root",
+                "rewards": {
+                    "recipes": [
+                        "tconstruct:common/slime/pink/slimeblock"
+                    ]
+                },
+                "criteria": {
+                    "has_pink_slimeball": {
+                        "trigger": "minecraft:inventory_changed",
+                        "conditions": {
+                            "items": [
+                                {
+                                    "item": "tconstruct:pink_slime_ball"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "requirements": [
+                    [
+                        "has_pink_slimeball"
+                    ]
+                ]
+            }
+        }
+    ]
+}

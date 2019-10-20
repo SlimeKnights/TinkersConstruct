@@ -1,0 +1,39 @@
+{
+    "type": "forge:conditional",
+    "recipes": [
+        {
+            "conditions": [
+                {
+                    "values": [
+                        {
+                            "pulseid": "tinker_smeltery",
+                            "type": "tconstruct:pulse_loaded"
+                        },
+                        {
+                            "config_setting": "registerAllItems",
+                            "type": "tconstruct:config_option_enabled"
+                        }
+                    ],
+                    "type": "forge:or"
+                }
+            ],
+            "recipe": {
+                "type": "minecraft:crafting_shaped",
+                "pattern": [
+                    "#  ",
+                    "## ",
+                    "###"
+                ],
+                "key": {
+                    "#": {
+                        "item": "tconstruct:mud_bricks"
+                    }
+                },
+                "result": {
+                    "item": "tconstruct:mud_bricks_stairs",
+                    "count": 4
+                }
+            }
+        }
+    ]
+}

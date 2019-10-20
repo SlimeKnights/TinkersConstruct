@@ -4,6 +4,12 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.placement.CountRangeConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
@@ -12,10 +18,9 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
-
 import org.apache.logging.log4j.Logger;
-
 import slimeknights.mantle.block.StairsBaseBlock;
 import slimeknights.mantle.client.CreativeTab;
 import slimeknights.mantle.item.EdibleItem;
@@ -25,6 +30,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
+import slimeknights.tconstruct.common.conditions.PulseLoadedCondition;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
@@ -188,7 +194,7 @@ public class TinkerCommons extends TinkerPulse {
   @SubscribeEvent
   public void registerBlocks(final RegistryEvent.Register<Block> event) {
     BaseRegistryAdapter<Block> registry = new BaseRegistryAdapter<>(event.getRegistry());
-    boolean forced = Config.forceRegisterAll; // causes to always register all items
+    boolean forced = Config.CONFIG.shouldRegisterAllItems.get(); // causes to always register all items
 
     // Soils
     registry.register(new GroutBlock(), "grout");
@@ -275,7 +281,7 @@ public class TinkerCommons extends TinkerPulse {
     ItemRegistryAdapter registry = new ItemRegistryAdapter(event.getRegistry());
     CreativeTab tabGeneral = TinkerRegistry.tabGeneral;
     CreativeTab tabWorld = TinkerRegistry.tabWorld;
-    boolean forced = Config.forceRegisterAll; // causes to always register all items
+    boolean forced = Config.CONFIG.shouldRegisterAllItems.get(); // causes to always register all items
 
     registry.register(new TinkerBookItem(), "book");
 
@@ -428,11 +434,14 @@ public class TinkerCommons extends TinkerPulse {
   @SubscribeEvent
   public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
     CraftingHelper.register(ConfigOptionEnabledCondition.Serializer.INSTANCE);
+    CraftingHelper.register(PulseLoadedCondition.Serializer.INSTANCE);
   }
 
   @SubscribeEvent
   public void preInit(final FMLCommonSetupEvent event) {
     proxy.preInit();
+
+    applyFeatures();
   }
 
   @SubscribeEvent
@@ -448,5 +457,31 @@ public class TinkerCommons extends TinkerPulse {
   public void postInit(final InterModProcessEvent event) {
     proxy.postInit();
     TinkerRegistry.tabGeneral.setDisplayIcon(new ItemStack(blue_slime_ball));
+  }
+
+  private static void applyFeatures() {
+    for (Biome biome : ForgeRegistries.BIOMES.getValues()) {
+      if (biome.getCategory() == Biome.Category.NETHER) {
+        if (Config.CONFIG.generateCobalt.get()) {
+          addCobaltOre(biome);
+        }
+
+        if (Config.CONFIG.generateArdite.get()) {
+          addArditeOre(biome);
+        }
+      }
+    }
+  }
+
+  private static void addCobaltOre(Biome biome) {
+    int veinCount = Config.CONFIG.veinCountCobalt.get() / 2;
+    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, TinkerCommons.cobalt_ore.getDefaultState(), 5), Placement.COUNT_RANGE, new CountRangeConfig(veinCount, 32, 0, 64)));
+    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, TinkerCommons.cobalt_ore.getDefaultState(), 5), Placement.COUNT_RANGE, new CountRangeConfig(veinCount, 0, 0, 128)));
+  }
+
+  private static void addArditeOre(Biome biome) {
+    int veinCount = Config.CONFIG.veinCountArdite.get() / 2;
+    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, TinkerCommons.ardite_ore.getDefaultState(), 5), Placement.COUNT_RANGE, new CountRangeConfig(veinCount, 32, 0, 64)));
+    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, TinkerCommons.ardite_ore.getDefaultState(), 5), Placement.COUNT_RANGE, new CountRangeConfig(veinCount, 0, 0, 128)));
   }
 }

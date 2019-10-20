@@ -1,0 +1,46 @@
+{
+    "advancements": [
+        {
+            "conditions": [
+                {
+                    "values": [
+                        {
+                            "pulseid": "tinker_smeltery",
+                            "type": "tconstruct:pulse_loaded"
+                        },
+                        {
+                            "config_setting": "registerAllItems",
+                            "type": "tconstruct:config_option_enabled"
+                        }
+                    ],
+                    "type": "forge:or"
+                }
+            ],
+            "advancement": {
+                "parent": "minecraft:recipes/root",
+                "rewards": {
+                    "recipes": [
+                        "tconstruct:common/soil/mud_bricks_block"
+                    ]
+                },
+                "criteria": {
+                    "has_mud_brick": {
+                        "trigger": "minecraft:inventory_changed",
+                        "conditions": {
+                            "items": [
+                                {
+                                    "item": "tconstruct:mud_brick"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "requirements": [
+                    [
+                        "has_mud_brick"
+                    ]
+                ]
+            }
+        }
+    ]
+}

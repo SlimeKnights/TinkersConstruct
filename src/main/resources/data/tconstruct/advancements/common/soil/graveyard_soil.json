@@ -1,0 +1,50 @@
+{
+    "advancements": [
+        {
+            "conditions": [
+                {
+                    "pulseid": "tinker_tools",
+                    "type": "tconstruct:pulse_loaded"
+                }
+            ],
+            "advancement": {
+                "parent": "minecraft:recipes/root",
+                "rewards": {
+                    "recipes": [
+                        "tconstruct:common/soil/graveyard_soil"
+                    ]
+                },
+                "criteria": {
+                    "has_rotten_flesh": {
+                        "trigger": "minecraft:inventory_changed",
+                        "conditions": {
+                            "items": [
+                                {
+                                    "item": "minecraft:rotten_flesh"
+                                }
+                            ]
+                        }
+                    },
+                    "has_bone_meal": {
+                        "trigger": "minecraft:inventory_changed",
+                        "conditions": {
+                            "items": [
+                                {
+                                    "item": "minecraft:bone_meal"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "requirements": [
+                    [
+                        "has_rotten_flesh"
+                    ],
+                    [
+                        "has_bone_meal"
+                    ]
+                ]
+            }
+        }
+    ]
+}

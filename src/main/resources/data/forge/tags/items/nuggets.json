@@ -1,0 +1,11 @@
+{
+    "replace": false,
+    "values": [
+        "#forge:nuggets/cobalt",
+        "#forge:nuggets/ardite",
+        "#forge:nuggets/manyullyn",
+        "#forge:nuggets/knightslime",
+        "#forge:nuggets/pigiron",
+        "#forge:nuggets/alubrass"
+    ]
+}

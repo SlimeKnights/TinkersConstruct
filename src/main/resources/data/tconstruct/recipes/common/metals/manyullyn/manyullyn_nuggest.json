@@ -1,0 +1,38 @@
+{
+    "type": "forge:conditional",
+    "recipes": [
+        {
+            "conditions": [
+                {
+                    "values": [
+                        {
+                            "pulseid": "tinker_tools",
+                            "type": "tconstruct:pulse_loaded"
+                        },
+                        {
+                            "pulseid": "tinker_smeltery",
+                            "type": "tconstruct:pulse_loaded"
+                        },
+                        {
+                            "config_setting": "registerAllItems",
+                            "type": "tconstruct:config_option_enabled"
+                        }
+                    ],
+                    "type": "forge:or"
+                }
+            ],
+            "recipe": {
+                "type": "minecraft:crafting_shapeless",
+                "ingredients": [
+                    {
+                        "tag": "forge:ingots/manyullyn"
+                    }
+                ],
+                "result": {
+                    "item": "tconstruct:manyullyn_nugget",
+                    "count": 9
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "advancements": [
+        {
+            "conditions": [
+                {
+                    "type": "forge:true"
+                }
+            ],
+            "advancement": {
+                "parent": "minecraft:recipes/root",
+                "rewards": {
+                    "recipes": [
+                        "tconstruct:common/consecrated_soil"
+                    ]
+                },
+                "criteria": {
+                    "has_graveyard_soil": {
+                        "trigger": "minecraft:inventory_changed",
+                        "conditions": {
+                            "items": [
+                                {
+                                    "item": "tconstruct:graveyard_soil"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "requirements": [
+                    [
+                        "has_graveyard_soil"
+                    ]
+                ]
+            }
+        }
+    ]
+}

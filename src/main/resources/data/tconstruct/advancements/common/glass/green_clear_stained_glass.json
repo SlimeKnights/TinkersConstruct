@@ -1,0 +1,36 @@
+{
+    "advancements": [
+        {
+            "conditions": [
+                {
+                    "type": "forge:true"
+                }
+            ],
+            "advancement": {
+                "parent": "minecraft:recipes/root",
+                "rewards": {
+                    "recipes": [
+                        "tconstruct:common/glass/green_clear_stained_glass"
+                    ]
+                },
+                "criteria": {
+                    "has_clear_glass": {
+                        "trigger": "minecraft:inventory_changed",
+                        "conditions": {
+                            "items": [
+                                {
+                                    "item": "tconstruct:clear_glass"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "requirements": [
+                    [
+                        "has_clear_glass"
+                    ]
+                ]
+            }
+        }
+    ]
+}

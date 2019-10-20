@@ -1,0 +1,50 @@
+{
+    "advancements": [
+        {
+            "conditions": [
+                {
+                    "values": [
+                        {
+                            "pulseid": "tinker_tools",
+                            "type": "tconstruct:pulse_loaded"
+                        },
+                        {
+                            "pulseid": "tinker_smeltery",
+                            "type": "tconstruct:pulse_loaded"
+                        },
+                        {
+                            "config_setting": "registerAllItems",
+                            "type": "tconstruct:config_option_enabled"
+                        }
+                    ],
+                    "type": "forge:or"
+                }
+            ],
+            "advancement": {
+                "parent": "minecraft:recipes/root",
+                "rewards": {
+                    "recipes": [
+                        "tconstruct:common/metals/silkyjewel/silky_jewel_block"
+                    ]
+                },
+                "criteria": {
+                    "has_silky_jewel": {
+                        "trigger": "minecraft:inventory_changed",
+                        "conditions": {
+                            "items": [
+                                {
+                                    "item": "tconstruct:silky_jewel"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "requirements": [
+                    [
+                        "has_silky_jewel"
+                    ]
+                ]
+            }
+        }
+    ]
+}

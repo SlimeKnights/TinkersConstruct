@@ -1,0 +1,36 @@
+{
+    "advancements": [
+        {
+            "conditions": [
+                {
+                    "type": "forge:true"
+                }
+            ],
+            "advancement": {
+                "parent": "minecraft:recipes/root",
+                "rewards": {
+                    "recipes": [
+                        "tconstruct:common/slime/purple/congealed"
+                    ]
+                },
+                "criteria": {
+                    "has_purple_slimeball": {
+                        "trigger": "minecraft:inventory_changed",
+                        "conditions": {
+                            "items": [
+                                {
+                                    "tag": "forge:slimeball/purple"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "requirements": [
+                    [
+                        "has_purple_slimeball"
+                    ]
+                ]
+            }
+        }
+    ]
+}
