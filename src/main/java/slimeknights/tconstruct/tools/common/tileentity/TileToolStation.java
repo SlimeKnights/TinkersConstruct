@@ -27,7 +27,7 @@ public class TileToolStation extends TileTable implements IInventoryGui {
 
   public TileToolStation() {
     super("gui.toolstation.name", 6);
-    this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
+    this.itemHandler = new ConfigurableInvWrapperCapability(this, true, false);
   }
 
   @Override

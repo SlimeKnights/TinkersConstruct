@@ -23,7 +23,7 @@ public class TileStencilTable extends TileTable implements IInventoryGui {
 
   public TileStencilTable() {
     super("gui.stenciltable.name", 1);
-    this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
+    this.itemHandler = new ConfigurableInvWrapperCapability(this, true, false);
   }
 
   @Override

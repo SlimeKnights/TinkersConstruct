@@ -25,7 +25,7 @@ public class TilePartBuilder extends TileTable implements IInventoryGui {
 
   public TilePartBuilder() {
     super("gui.partbuilder.name", 4);
-    this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
+    this.itemHandler = new ConfigurableInvWrapperCapability(this, true, false);
   }
 
   @Override
