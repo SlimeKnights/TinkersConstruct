@@ -76,8 +76,8 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.func_218492_c(WorldBlocks.congealed_magma_slime);
     this.func_218492_c(WorldBlocks.congealed_pink_slime);
 
-    this.func_218492_c(CommonBlocks.cobalt_ore);
-    this.func_218492_c(CommonBlocks.ardite_ore);
+    this.func_218492_c(WorldBlocks.cobalt_ore);
+    this.func_218492_c(WorldBlocks.ardite_ore);
 
     this.func_218492_c(CommonBlocks.lavawood);
     this.func_218492_c(CommonBlocks.firewood);

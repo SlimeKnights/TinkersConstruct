@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SlabBlock;
+import net.minecraft.block.StairsBlock;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
-import slimeknights.mantle.block.StairsBaseBlock;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
-import slimeknights.tconstruct.common.registry.ItemRegistryAdapter;
+import slimeknights.tconstruct.common.registry.BlockItemRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.ConsecratedSoilBlock;
-import slimeknights.tconstruct.shared.block.FirewoodBlock;
-import slimeknights.tconstruct.shared.block.FirewoodSlabBlock;
 import slimeknights.tconstruct.shared.block.GlowBlock;
 import slimeknights.tconstruct.shared.block.GraveyardSoilBlock;
 import slimeknights.tconstruct.shared.block.GroutBlock;
@@ -24,7 +24,7 @@ import static slimeknights.tconstruct.common.TinkerPulse.injected;
 /** General things and crafting related blocks */
 @SuppressWarnings("unused")
 @ObjectHolder(TConstruct.modID)
-public class CommonBlocks {
+public final class CommonBlocks {
 
   /* Crafting related items */
   public static final GroutBlock grout = injected();
@@ -33,8 +33,8 @@ public class CommonBlocks {
   public static final SlimyMudBlock slimy_mud_green = injected();
   public static final SlimyMudBlock slimy_mud_blue = injected();
   public static final SlimyMudBlock slimy_mud_magma = injected();
-  public static final FirewoodBlock lavawood = injected();
-  public static final FirewoodBlock firewood = injected();
+  public static final Block lavawood = injected();
+  public static final Block firewood = injected();
 
   /* Metal Blocks */
   public static final MetalBlock cobalt_block = injected();
@@ -45,14 +45,14 @@ public class CommonBlocks {
   public static final MetalBlock alubrass_block = injected();
   public static final MetalBlock silky_jewel_block = injected();
 
-  public static final FirewoodSlabBlock lavawood_slab = injected();
-  public static final FirewoodSlabBlock firewood_slab = injected();
-
-  public static final StairsBaseBlock firewood_stairs = injected();
-  public static final StairsBaseBlock lavawood_stairs = injected();
+  public static final SlabBlock lavawood_slab = injected();
+  public static final SlabBlock firewood_slab = injected();
+  public static final StairsBlock firewood_stairs = injected();
+  public static final StairsBlock lavawood_stairs = injected();
 
   public static final GlowBlock glow = injected();
 
+  @SubscribeEvent
   static void registerBlocks(final RegistryEvent.Register<Block> event) {
     BaseRegistryAdapter<Block> registry = new BaseRegistryAdapter<>(event.getRegistry());
 
@@ -66,16 +66,8 @@ public class CommonBlocks {
     registry.register(new SlimyMudBlock(SlimyMudBlock.MudType.SLIMY_MUD_BLUE), "slimy_mud_blue");
     registry.register(new SlimyMudBlock(SlimyMudBlock.MudType.SLIMY_MUD_MAGMA), "slimy_mud_magma");
 
-    registry.register(new FirewoodBlock(), "lavawood");
-    registry.register(new FirewoodBlock(), "firewood");
-
-    // Decorative Stuff
-    registry.register(new FirewoodSlabBlock(), "lavawood_slab");
-    registry.register(new FirewoodSlabBlock(), "firewood_slab");
-
-    // Stairs
-    registry.register(new StairsBaseBlock(lavawood), "lavawood_stairs");
-    registry.register(new StairsBaseBlock(firewood), "firewood_stairs");
+    DecorativeBlocks.registerSlabsAndStairs(registry, "lavawood", BlockProperties.LAVAWOOD);
+    DecorativeBlocks.registerSlabsAndStairs(registry, "firewood", BlockProperties.FIREWOOD);
 
     // Metal Blocks
     registry.register(new MetalBlock(MetalBlock.MetalType.COBALT), "cobalt_block");
@@ -89,8 +81,9 @@ public class CommonBlocks {
     registry.register(new GlowBlock(), "glow");
   }
 
+  @SubscribeEvent
   static void registerBlockItems(final RegistryEvent.Register<Item> event) {
-    ItemRegistryAdapter registry = new ItemRegistryAdapter(event.getRegistry(), TinkerRegistry.tabGeneral);
+    BlockItemRegistryAdapter registry = new BlockItemRegistryAdapter(event.getRegistry(), TinkerRegistry.tabGeneral);
 
     registry.registerBlockItem(grout);
 
@@ -117,8 +110,6 @@ public class CommonBlocks {
     registry.registerBlockItem(pigiron_block);
     registry.registerBlockItem(alubrass_block);
     registry.registerBlockItem(silky_jewel_block);
-
-    registry.registerBlockItem(glow);
   }
 
   private CommonBlocks() {}

@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.world;
 
-import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -35,7 +33,6 @@ import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
-import slimeknights.tconstruct.items.WorldItems;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -67,16 +64,6 @@ public class TinkerWorld extends TinkerPulse {
     proxy.construct();
     //slimePlantType = PlantType.create("slime");
     //System.out.println(slimePlantType);
-  }
-
-  @SubscribeEvent
-  public void registerBlocks(final RegistryEvent.Register<Block> event) {
-    WorldBlocks.registerBlocks(event);
-  }
-
-  @SubscribeEvent
-  public void registerItems(final RegistryEvent.Register<Item> event) {
-    WorldItems.registerItems(event);
   }
 
   @SubscribeEvent

@@ -2,22 +2,25 @@ package slimeknights.tconstruct.items;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerPulse;
-import slimeknights.tconstruct.common.registry.ItemRegistryAdapter;
+import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
+import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
+import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.gadgets.item.EflnBallItem;
 import slimeknights.tconstruct.gadgets.item.FancyItemFrameItem;
 import slimeknights.tconstruct.gadgets.item.GlowBallItem;
 import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
 import slimeknights.tconstruct.gadgets.item.SlimeSlingItem;
-import slimeknights.tconstruct.gadgets.item.SpaghettiItem;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
 
 @ObjectHolder(TConstruct.modID)
-public class GadgetItems {
+public final class GadgetItems {
   public static final SlimeSlingItem slime_sling_blue = TinkerPulse.injected();
   public static final SlimeSlingItem slime_sling_purple = TinkerPulse.injected();
   public static final SlimeSlingItem slime_sling_magma = TinkerPulse.injected();
@@ -43,12 +46,25 @@ public class GadgetItems {
   public static final GlowBallItem glow_ball = TinkerPulse.injected();
   public static final EflnBallItem efln_ball = TinkerPulse.injected();
 
-  public static final SpaghettiItem hard_spaghetti = TinkerPulse.injected();
-  public static final SpaghettiItem soggy_spaghetti = TinkerPulse.injected();
-  public static final SpaghettiItem cold_spaghetti = TinkerPulse.injected();
+  @SubscribeEvent
+  static void registerItems(final RegistryEvent.Register<Item> event) {
+    BaseRegistryAdapter<Item> registry = new BaseRegistryAdapter<>(event.getRegistry());
 
-  static void registerSpaghetti(final RegistryEvent.Register<Item> event) {
-    ItemRegistryAdapter registry = new ItemRegistryAdapter(event.getRegistry(), TinkerRegistry.tabWorld);
+    registry.register(new Item((new Item.Properties()).group(TinkerRegistry.tabGadgets)), "stone_stick");
+
+    for (SlimeBlock.SlimeType type : SlimeBlock.SlimeType.VISIBLE_COLORS) {
+      registry.register(new SlimeSlingItem(), "slime_sling_" + type.getName());
+      registry.register(new SlimeBootsItem(type), "slime_boots_" + type.getName());
+    }
+
+    registry.register(new PiggyBackPackItem(), "piggy_backpack");
+
+    for (FrameType frameType : FrameType.values()) {
+      registry.register(new FancyItemFrameItem((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, frameType.getId())), frameType.getName() + "_item_frame");
+    }
+
+    registry.register(new GlowBallItem(), "glow_ball");
+    registry.register(new EflnBallItem(), "efln_ball");
   }
 
   private GadgetItems() {}

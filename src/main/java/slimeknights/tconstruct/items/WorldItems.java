@@ -4,11 +4,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.registry.ItemRegistryAdapter;
-import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.world.WorldEntities;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
@@ -19,8 +19,9 @@ public final class WorldItems {
 
   public static final SpawnEggItem blue_slime_spawn_egg = injected();
 
+  @SubscribeEvent
   static void registerItems(final RegistryEvent.Register<Item> event) {
-    ItemRegistryAdapter registry = new ItemRegistryAdapter(event.getRegistry(), TinkerRegistry.tabWorld);
+    BaseRegistryAdapter<Item> registry = new BaseRegistryAdapter<>(event.getRegistry());
 
     registry.register(getBlueSlimeSpawnEgg(), "blue_slime_spawn_egg");
   }

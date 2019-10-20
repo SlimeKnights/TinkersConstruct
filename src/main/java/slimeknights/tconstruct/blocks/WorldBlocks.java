@@ -3,11 +3,12 @@ package slimeknights.tconstruct.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
-import slimeknights.tconstruct.common.registry.ItemRegistryAdapter;
+import slimeknights.tconstruct.common.registry.BlockItemRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.CongealedSlimeBlock;
 import slimeknights.tconstruct.shared.block.OreBlock;
@@ -89,6 +90,7 @@ public final class WorldBlocks {
   public static final SlimeVineBlock blue_slime_vine_middle = injected();
   public static final SlimeVineBlock blue_slime_vine_end = injected();
 
+  @SubscribeEvent
   static void registerBlocks(final RegistryEvent.Register<Block> event) {
     BaseRegistryAdapter<Block> registry = new BaseRegistryAdapter<>(event.getRegistry());
 
@@ -146,8 +148,9 @@ public final class WorldBlocks {
     registry.register(new SlimeVineBlock(SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.END), "blue_slime_vine_end");
   }
 
+  @SubscribeEvent
   static void registerBlockItems(final RegistryEvent.Register<Item> event) {
-    ItemRegistryAdapter registry = new ItemRegistryAdapter(event.getRegistry(), TinkerRegistry.tabWorld);
+    BlockItemRegistryAdapter registry = new BlockItemRegistryAdapter(event.getRegistry(), TinkerRegistry.tabWorld);
 
     // Ores
     registry.registerBlockItem(cobalt_ore);

@@ -10,7 +10,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 /**
  * A convenience wrapper for forge registries, to be used in combination with the {@link net.minecraftforge.event.RegistryEvent.Register} event.
  * Simply put it allows you to register things by passing (thing, name) instead of having to set the name inline.
- * There also is a convenience variant for items and itemblocks, see {@link ItemRegistryAdapter}.
+ * There also is a convenience variant for items and itemblocks, see {@link BlockItemRegistryAdapter}.
  */
 public class BaseRegistryAdapter<T extends IForgeRegistryEntry<T>> {
 

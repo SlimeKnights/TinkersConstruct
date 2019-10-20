@@ -15,11 +15,11 @@ import slimeknights.mantle.item.BlockTooltipItem;
 /**
  * Provides utility registration methods when registering itemblocks.
  */
-public class ItemRegistryAdapter extends BaseRegistryAdapter<Item> {
+public class BlockItemRegistryAdapter extends BaseRegistryAdapter<Item> {
 
   private final ItemGroup defaultItemGroup;
 
-  public ItemRegistryAdapter(IForgeRegistry<Item> registry, @Nullable ItemGroup defaultItemGroup) {
+  public BlockItemRegistryAdapter(IForgeRegistry<Item> registry, @Nullable ItemGroup defaultItemGroup) {
     super(registry);
     this.defaultItemGroup = defaultItemGroup;
   }

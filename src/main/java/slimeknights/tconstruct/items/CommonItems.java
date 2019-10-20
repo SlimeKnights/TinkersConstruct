@@ -2,26 +2,28 @@ package slimeknights.tconstruct.items;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.mantle.item.EdibleItem;
 import slimeknights.mantle.item.GeneratedItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
-import slimeknights.tconstruct.common.registry.ItemRegistryAdapter;
+import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerRegistry;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
 
 @SuppressWarnings("unused")
 @ObjectHolder(TConstruct.modID)
-public class CommonItems {
+public final class CommonItems {
 
   public static final TinkerBookItem book = injected();
 
   /* Bricks */
   public static final GeneratedItem seared_brick = injected();
   public static final GeneratedItem mud_brick = injected();
+  public static final GeneratedItem dried_brick = injected();
 
   /* Slime Balls */
   public static final EdibleItem blue_slime_ball = injected();
@@ -41,30 +43,37 @@ public class CommonItems {
   public static final GeneratedItem pigiron_ingot = injected();
   public static final GeneratedItem alubrass_nugget = injected();
   public static final GeneratedItem alubrass_ingot = injected();
-
-  public static final GeneratedItem green_slime_crystal = injected();
-  public static final GeneratedItem blue_slime_crystal = injected();
-  public static final GeneratedItem magma_slime_crystal = injected();
-  public static final GeneratedItem width_expander = injected();
-  public static final GeneratedItem height_expander = injected();
-  public static final GeneratedItem reinforcement = injected();
-  public static final GeneratedItem silky_cloth = injected();
-  public static final GeneratedItem silky_jewel = injected();
-  public static final GeneratedItem necrotic_bone = injected();
-  public static final GeneratedItem moss = injected();
-  public static final GeneratedItem mending_moss = injected();
-  public static final GeneratedItem creative_modifier = injected();
-
   public static final GeneratedItem knightslime_nugget = injected();
   public static final GeneratedItem knightslime_ingot = injected();
 
-  public static final GeneratedItem dried_brick = injected();
-
+  @SubscribeEvent
   static void registerItems(final RegistryEvent.Register<Item> event) {
-    ItemRegistryAdapter registry = new ItemRegistryAdapter(event.getRegistry(), TinkerRegistry.tabGeneral);
+    BaseRegistryAdapter<Item> registry = new BaseRegistryAdapter<>(event.getRegistry());
 
+    registry.register(new TinkerBookItem(), "book");
 
+    // extra bricks
+    registerBrick(registry, "seared");
+    registerBrick(registry, "mud");
+    registerBrick(registry, "dried");
+
+    // Ingots and nuggets
+    registerIngotNugget(registry, "cobalt");
+    registerIngotNugget(registry, "ardite");
+    registerIngotNugget(registry, "manyullyn");
+    registerIngotNugget(registry, "pigiron");
+    registerIngotNugget(registry, "alubrass");
+    registerIngotNugget(registry, "knightslime");
   }
 
+  private static void registerBrick(BaseRegistryAdapter<Item> registry, String name) {
+    registry.register(new GeneratedItem(TinkerRegistry.tabGeneral), name + "_brick");
+  }
 
+  private static void registerIngotNugget(BaseRegistryAdapter<Item> registry, String name) {
+    registry.register(new GeneratedItem(TinkerRegistry.tabGeneral), name + "_nugget");
+    registry.register(new GeneratedItem(TinkerRegistry.tabGeneral), name + "_ingot");
+  }
+
+  private CommonItems() {}
 }

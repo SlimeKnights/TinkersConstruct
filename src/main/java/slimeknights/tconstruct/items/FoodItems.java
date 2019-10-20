@@ -3,11 +3,14 @@ package slimeknights.tconstruct.items;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.mantle.item.EdibleItem;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.registry.ItemRegistryAdapter;
+import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
+import slimeknights.tconstruct.gadgets.item.SpaghettiItem;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.TinkerFood;
 
@@ -15,7 +18,7 @@ import static slimeknights.tconstruct.common.TinkerPulse.injected;
 
 @SuppressWarnings("unused")
 @ObjectHolder(TConstruct.modID)
-public class TinkerFoodItems {
+public final class FoodItems {
 
   /* Drool stimulant */
   public static final EdibleItem bacon = injected();
@@ -39,25 +42,33 @@ public class TinkerFoodItems {
   public static final EdibleItem blood_slime_drop = injected();
   public static final EdibleItem magma_slime_drop = injected();
 
-  static void registerCommonFoodItems(final RegistryEvent.Register<Item> event) {
-    ItemRegistryAdapter registry = new ItemRegistryAdapter(event.getRegistry(), TinkerRegistry.tabGeneral);
+  /* Spicy Memes */
+  public static final SpaghettiItem hard_spaghetti = TinkerPulse.injected();
+  public static final SpaghettiItem soggy_spaghetti = TinkerPulse.injected();
+  public static final SpaghettiItem cold_spaghetti = TinkerPulse.injected();
 
+
+  @SubscribeEvent
+  static void registerFoodItems(final RegistryEvent.Register<Item> event) {
+    BaseRegistryAdapter<Item> registry = new BaseRegistryAdapter<>(event.getRegistry());
+
+    // slimeballs are edible, believe it or not
     registry.register(createEdible(TinkerFood.BLUE_SLIME_BALL), "blue_slime_ball");
     registry.register(createEdible(TinkerFood.PURPLE_SLIME_BALL), "purple_slime_ball");
     registry.register(createEdible(TinkerFood.BLOOD_SLIME_BALL), "blood_slime_ball");
     registry.register(createEdible(TinkerFood.MAGMA_SLIME_BALL), "magma_slime_ball");
     registry.register(createEdible(TinkerFood.PINK_SLIME_BALL), "pink_slime_ball");
-  }
-
-  static void registerToolsFoodItems(final RegistryEvent.Register<Item> event) {
-    ItemRegistryAdapter registry = new ItemRegistryAdapter(event.getRegistry(), TinkerRegistry.tabGeneral);
 
     registry.register(createEdible(TinkerFood.BACON), "bacon");
+
+    registerJerkies(registry);
+
+    registry.register(new SpaghettiItem(), "hard_spaghetti");
+    registry.register(new SpaghettiItem(), "soggy_spaghetti");
+    registry.register(new SpaghettiItem(), "cold_spaghetti");
   }
 
-  static void registerGadgetFoodItems(final RegistryEvent.Register<Item> event) {
-    ItemRegistryAdapter registry = new ItemRegistryAdapter(event.getRegistry(), TinkerRegistry.tabGeneral);
-
+  private static void registerJerkies(BaseRegistryAdapter<Item> registry) {
     registry.register(createEdible(TinkerFood.MONSTER_JERKY), "monster_jerky");
     registry.register(createEdible(TinkerFood.BEEF_JERKY), "beef_jerky");
     registry.register(createEdible(TinkerFood.CHICKEN_JERKY), "chicken_jerky");
@@ -79,4 +90,6 @@ public class TinkerFoodItems {
   private static Item createEdible(Food food) {
     return new EdibleItem(food, TinkerRegistry.tabGeneral);
   }
+
+  private FoodItems() {}
 }
