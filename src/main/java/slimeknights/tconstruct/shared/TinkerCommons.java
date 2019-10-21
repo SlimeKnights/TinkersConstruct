@@ -2,7 +2,6 @@ package slimeknights.tconstruct.shared;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -49,10 +48,6 @@ public class TinkerCommons extends TinkerPulse {
   @SubscribeEvent
   public void init(final InterModEnqueueEvent event) {
     proxy.init();
-
-    MinecraftForge.EVENT_BUS.register(new AchievementEvents());
-    MinecraftForge.EVENT_BUS.register(new BlockEvents());
-    MinecraftForge.EVENT_BUS.register(new PlayerDataEvents());
   }
 
   @SubscribeEvent

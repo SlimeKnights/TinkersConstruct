@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.world;
 
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -36,7 +35,6 @@ import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
 import slimeknights.tconstruct.world.worldgen.NetherSlimeIslandPiece;
 import slimeknights.tconstruct.world.worldgen.NetherSlimeIslandStructure;
 import slimeknights.tconstruct.world.worldgen.SlimeIslandPiece;
@@ -50,7 +48,7 @@ public class TinkerWorld extends TinkerPulse {
 
   public static ServerProxy proxy = DistExecutor.runForDist(() -> WorldClientProxy::new, () -> ServerProxy::new);
 
-  public static final EntityType<BlueSlimeEntity> blue_slime_entity = injected();
+
 
   public static PlantType slimePlantType = PlantType.Nether;
 
@@ -64,13 +62,6 @@ public class TinkerWorld extends TinkerPulse {
     proxy.construct();
     //slimePlantType = PlantType.create("slime");
     //System.out.println(slimePlantType);
-  }
-
-  @SubscribeEvent
-  public void registerEntities(final RegistryEvent.Register<EntityType<?>> event) {
-    BaseRegistryAdapter<EntityType<?>> registry = new BaseRegistryAdapter<>(event.getRegistry());
-
-    registry.register(WorldEntities.blue_slime_entity, "blue_slime_entity");
   }
 
   @SubscribeEvent

@@ -1,0 +1,7 @@
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
+package slimeknights.tconstruct.items;
+
+import javax.annotation.ParametersAreNonnullByDefault;
+
+import mcp.MethodsReturnNonnullByDefault;

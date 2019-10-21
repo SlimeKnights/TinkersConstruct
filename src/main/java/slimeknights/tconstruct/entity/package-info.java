@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.world.entity;
+package slimeknights.tconstruct.entity;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 

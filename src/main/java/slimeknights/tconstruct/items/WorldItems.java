@@ -10,7 +10,7 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
-import slimeknights.tconstruct.world.WorldEntities;
+import slimeknights.tconstruct.entity.WorldEntities;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
 

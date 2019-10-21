@@ -5,7 +5,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 
 @SuppressWarnings("WeakerAccess")
-public class TinkerFood {
+public final class TinkerFood {
 
   /* Slime balls are not exactly food items, but you CAN eat them.. if you really want to. */
   public static final Food BLUE_SLIME_BALL = (new Food.Builder()).hunger(1).saturation(1.0F).setAlwaysEdible().effect(new EffectInstance(Effects.SLOWNESS, 20 * 45, 2), 1.0F).effect(new EffectInstance(Effects.JUMP_BOOST, 20 * 60, 2), 1.0F).build();
@@ -36,4 +36,5 @@ public class TinkerFood {
   public static final Food BLOOD_SLIME_DROP = (new Food.Builder()).hunger(3).saturation(1.5F).setAlwaysEdible().effect(new EffectInstance(Effects.HEALTH_BOOST, 20 * 90), 1.0F).build();
   public static final Food MAGMA_SLIME_DROP = (new Food.Builder()).hunger(6).saturation(1.0F).setAlwaysEdible().effect(new EffectInstance(Effects.FIRE_RESISTANCE, 20 * 90), 1.0F).build();
 
+  private TinkerFood() {}
 }

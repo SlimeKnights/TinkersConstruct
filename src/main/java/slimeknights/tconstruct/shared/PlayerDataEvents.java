@@ -5,18 +5,22 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.ItemHandlerHelper;
+
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.items.CommonItems;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
+@Mod.EventBusSubscriber(modid = TConstruct.modID)
 public class PlayerDataEvents {
 
-  public static final String TAG_PLAYER_HAS_BOOK = Util.prefix("spawned_book");
+  private static final String TAG_PLAYER_HAS_BOOK = Util.prefix("spawned_book");
 
   @SubscribeEvent
-  public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+  public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
     if (Config.spawnWithBook) {
       CompoundNBT playerData = event.getPlayer().getPersistentData();
       CompoundNBT data = TagUtil.getTagSafe(playerData, PlayerEntity.PERSISTED_NBT_TAG);
@@ -28,4 +32,6 @@ public class PlayerDataEvents {
       }
     }
   }
+
+  private PlayerDataEvents() {}
 }
