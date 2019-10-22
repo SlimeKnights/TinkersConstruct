@@ -48,8 +48,6 @@ public class TinkerWorld extends TinkerPulse {
 
   public static ServerProxy proxy = DistExecutor.runForDist(() -> WorldClientProxy::new, () -> ServerProxy::new);
 
-
-
   public static PlantType slimePlantType = PlantType.Nether;
 
   public static IStructurePieceType SLIME_ISLAND_PIECE;
@@ -60,8 +58,8 @@ public class TinkerWorld extends TinkerPulse {
 
   public TinkerWorld() {
     proxy.construct();
-    //slimePlantType = PlantType.create("slime");
-    //System.out.println(slimePlantType);
+    //slimePlantType = PlantType.create("slime"); TODO: RE-ENABLE THIS AFTER FORGE FIXES IT
+
   }
 
   @SubscribeEvent

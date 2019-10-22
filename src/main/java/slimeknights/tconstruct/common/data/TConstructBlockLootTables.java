@@ -2,7 +2,6 @@ package slimeknights.tconstruct.common.data;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.loot.BlockLootTables;
@@ -16,26 +15,17 @@ import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTables;
 import net.minecraft.world.storage.loot.conditions.TableBonus;
+import slimeknights.tconstruct.blocks.CommonBlocks;
+import slimeknights.tconstruct.blocks.DecorativeBlocks;
+import slimeknights.tconstruct.blocks.GadgetBlocks;
+import slimeknights.tconstruct.blocks.WorldBlocks;
+import slimeknights.tconstruct.items.CommonItems;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.blocks.DecorativeBlocks;
-import slimeknights.tconstruct.library.TinkerPulseIds;
-import slimeknights.tconstruct.blocks.CommonBlocks;
-import slimeknights.tconstruct.items.CommonItems;
-import slimeknights.tconstruct.blocks.WorldBlocks;
-
-import static slimeknights.tconstruct.blocks.GadgetBlocks.punji;
-import static slimeknights.tconstruct.blocks.GadgetBlocks.stone_ladder;
-import static slimeknights.tconstruct.blocks.GadgetBlocks.stone_torch;
-import static slimeknights.tconstruct.blocks.GadgetBlocks.wall_stone_torch;
-import static slimeknights.tconstruct.blocks.GadgetBlocks.wooden_dropper_rail;
-import static slimeknights.tconstruct.blocks.GadgetBlocks.wooden_rail;
 
 public class TConstructBlockLootTables extends BlockLootTables {
 
@@ -63,27 +53,24 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.func_218492_c(CommonBlocks.consecrated_soil);
     this.func_218492_c(CommonBlocks.slimy_mud_magma);
 
-    this.func_218492_c(WorldBlocks.blue_slime);
-    this.func_218492_c(WorldBlocks.purple_slime);
-    this.func_218492_c(WorldBlocks.blood_slime);
-    this.func_218492_c(WorldBlocks.magma_slime);
-    this.func_218492_c(WorldBlocks.pink_slime);
-
-    this.func_218492_c(WorldBlocks.congealed_green_slime);
-    this.func_218492_c(WorldBlocks.congealed_blue_slime);
-    this.func_218492_c(WorldBlocks.congealed_purple_slime);
-    this.func_218492_c(WorldBlocks.congealed_blood_slime);
-    this.func_218492_c(WorldBlocks.congealed_magma_slime);
-    this.func_218492_c(WorldBlocks.congealed_pink_slime);
-
-    this.func_218492_c(WorldBlocks.cobalt_ore);
-    this.func_218492_c(WorldBlocks.ardite_ore);
-
     this.func_218492_c(CommonBlocks.lavawood);
+    this.registerLootTable(CommonBlocks.lavawood_slab, BlockLootTables::func_218513_d);
+    this.func_218492_c(CommonBlocks.firewood_stairs);
+
     this.func_218492_c(CommonBlocks.firewood);
+    this.registerLootTable(CommonBlocks.firewood_slab, BlockLootTables::func_218513_d);
+    this.func_218492_c(CommonBlocks.lavawood_stairs);
 
-    this.func_218492_c(DecorativeBlocks.mud_bricks);
+    this.func_218492_c(CommonBlocks.cobalt_block);
+    this.func_218492_c(CommonBlocks.ardite_block);
+    this.func_218492_c(CommonBlocks.manyullyn_block);
+    this.func_218492_c(CommonBlocks.knightslime_block);
+    this.func_218492_c(CommonBlocks.pigiron_block);
+    this.func_218492_c(CommonBlocks.alubrass_block);
+    this.func_218492_c(CommonBlocks.silky_jewel_block);
+  }
 
+  private void addDecorative() {
     this.func_218492_c(DecorativeBlocks.clear_glass);
 
     this.func_218492_c(DecorativeBlocks.white_clear_stained_glass);
@@ -103,24 +90,36 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.func_218492_c(DecorativeBlocks.red_clear_stained_glass);
     this.func_218492_c(DecorativeBlocks.black_clear_stained_glass);
 
+    this.func_218492_c(DecorativeBlocks.mud_bricks);
     this.registerLootTable(DecorativeBlocks.mud_bricks_slab, BlockLootTables::func_218513_d);
-    this.registerLootTable(CommonBlocks.lavawood_slab, BlockLootTables::func_218513_d);
-    this.registerLootTable(CommonBlocks.firewood_slab, BlockLootTables::func_218513_d);
-
     this.func_218492_c(DecorativeBlocks.mud_bricks_stairs);
-    this.func_218492_c(CommonBlocks.firewood_stairs);
-    this.func_218492_c(CommonBlocks.lavawood_stairs);
 
-    this.func_218492_c(CommonBlocks.cobalt_block);
-    this.func_218492_c(CommonBlocks.ardite_block);
-    this.func_218492_c(CommonBlocks.manyullyn_block);
-    this.func_218492_c(CommonBlocks.knightslime_block);
-    this.func_218492_c(CommonBlocks.pigiron_block);
-    this.func_218492_c(CommonBlocks.alubrass_block);
-    this.func_218492_c(CommonBlocks.silky_jewel_block);
+    this.func_218492_c(DecorativeBlocks.dried_clay);
+    this.registerLootTable(DecorativeBlocks.dried_clay_slab, BlockLootTables::func_218513_d);
+    this.func_218492_c(DecorativeBlocks.dried_clay_stairs);
+
+    this.func_218492_c(DecorativeBlocks.dried_clay_bricks);
+    this.registerLootTable(DecorativeBlocks.dried_clay_bricks_slab, BlockLootTables::func_218513_d);
+    this.func_218492_c(DecorativeBlocks.dried_clay_bricks_stairs);
   }
 
   private void addWorld() {
+    this.func_218492_c(WorldBlocks.cobalt_ore);
+    this.func_218492_c(WorldBlocks.ardite_ore);
+
+    this.func_218492_c(WorldBlocks.blue_slime);
+    this.func_218492_c(WorldBlocks.purple_slime);
+    this.func_218492_c(WorldBlocks.blood_slime);
+    this.func_218492_c(WorldBlocks.magma_slime);
+    this.func_218492_c(WorldBlocks.pink_slime);
+
+    this.func_218492_c(WorldBlocks.congealed_green_slime);
+    this.func_218492_c(WorldBlocks.congealed_blue_slime);
+    this.func_218492_c(WorldBlocks.congealed_purple_slime);
+    this.func_218492_c(WorldBlocks.congealed_blood_slime);
+    this.func_218492_c(WorldBlocks.congealed_magma_slime);
+    this.func_218492_c(WorldBlocks.congealed_pink_slime);
+
     this.func_218492_c(WorldBlocks.green_slime_dirt);
     this.func_218492_c(WorldBlocks.blue_slime_dirt);
     this.func_218492_c(WorldBlocks.purple_slime_dirt);
@@ -210,29 +209,24 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private void addGadgets() {
-    this.func_218492_c(stone_ladder);
+    this.func_218492_c(GadgetBlocks.stone_ladder);
 
-    this.func_218492_c(stone_torch);
+    this.func_218492_c(GadgetBlocks.stone_torch);
 
-    this.func_218493_a(wall_stone_torch, stone_torch);
+    this.func_218493_a(GadgetBlocks.wall_stone_torch, GadgetBlocks.stone_torch);
 
-    this.func_218492_c(punji);
+    this.func_218492_c(GadgetBlocks.punji);
 
-    this.func_218492_c(wooden_rail);
-    this.func_218492_c(wooden_dropper_rail);
+    this.func_218492_c(GadgetBlocks.wooden_rail);
+    this.func_218492_c(GadgetBlocks.wooden_dropper_rail);
   }
 
   @Override
   public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
     this.addCommon();
-
-    if (TConstruct.pulseManager.isPulseLoaded(TinkerPulseIds.TINKER_WORLD_PULSE_ID)) {
-      this.addWorld();
-    }
-
-    if (TConstruct.pulseManager.isPulseLoaded(TinkerPulseIds.TINKER_GADGETS_PULSE_ID)) {
-      this.addGadgets();
-    }
+    this.addDecorative();
+    this.addWorld();
+    this.addGadgets();
 
     Set<ResourceLocation> visited = Sets.newHashSet();
 
