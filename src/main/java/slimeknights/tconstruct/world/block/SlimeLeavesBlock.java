@@ -1,10 +1,7 @@
 package slimeknights.tconstruct.world.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.tags.BlockTags;
@@ -15,16 +12,18 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.common.Tags;
 
 import java.util.Random;
 
+import slimeknights.tconstruct.common.Tags;
+
+// todo: evaluate this block
 public class SlimeLeavesBlock extends LeavesBlock {
 
   private final SlimeGrassBlock.FoliageType foliageType;
 
-  public SlimeLeavesBlock(SlimeGrassBlock.FoliageType foliageType) {
-    super(Block.Properties.create(Material.LEAVES).hardnessAndResistance(0.3F).tickRandomly().sound(SoundType.PLANT));
+  public SlimeLeavesBlock(Properties properties, SlimeGrassBlock.FoliageType foliageType) {
+    super(properties);
     this.foliageType = foliageType;
   }
 

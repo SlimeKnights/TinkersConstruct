@@ -1,6 +1,10 @@
 package slimeknights.tconstruct.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.LadderBlock;
+import net.minecraft.block.RailBlock;
+import net.minecraft.block.TorchBlock;
+import net.minecraft.block.WallTorchBlock;
 import net.minecraft.item.Item;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraftforge.event.RegistryEvent;
@@ -13,37 +17,33 @@ import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.common.registry.BlockItemRegistryAdapter;
 import slimeknights.tconstruct.gadgets.block.PunjiBlock;
-import slimeknights.tconstruct.gadgets.block.StoneLadderBlock;
-import slimeknights.tconstruct.gadgets.block.StoneTorchBlock;
-import slimeknights.tconstruct.gadgets.block.WallStoneTorchBlock;
-import slimeknights.tconstruct.gadgets.block.WoodenDropperRailBlock;
-import slimeknights.tconstruct.gadgets.block.WoodenRailBlock;
+import slimeknights.tconstruct.gadgets.block.DropperRailBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 
 @ObjectHolder(TConstruct.modID)
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class GadgetBlocks {
 
-  public static final StoneLadderBlock stone_ladder = TinkerPulse.injected();
-  public static final StoneTorchBlock stone_torch = TinkerPulse.injected();
-  public static final WallStoneTorchBlock wall_stone_torch = TinkerPulse.injected();
+  public static final LadderBlock stone_ladder = TinkerPulse.injected();
+  public static final TorchBlock stone_torch = TinkerPulse.injected();
+  public static final WallTorchBlock wall_stone_torch = TinkerPulse.injected();
   public static final PunjiBlock punji = TinkerPulse.injected();
-  public static final WoodenRailBlock wooden_rail = TinkerPulse.injected();
-  public static final WoodenDropperRailBlock wooden_dropper_rail = TinkerPulse.injected();
+  public static final RailBlock wooden_rail = TinkerPulse.injected();
+  public static final DropperRailBlock wooden_dropper_rail = TinkerPulse.injected();
 
   @SubscribeEvent
   static void registerBlocks(final RegistryEvent.Register<Block> event) {
     BaseRegistryAdapter<Block> registry = new BaseRegistryAdapter<>(event.getRegistry());
 
-    registry.register(new StoneLadderBlock(), "stone_ladder");
+    registry.register(new LadderBlock(BlockProperties.STONE_LADDER) {}, "stone_ladder");
 
-    registry.register(new StoneTorchBlock(), "stone_torch");
-    registry.register(new WallStoneTorchBlock(), "wall_stone_torch");
+    registry.register(new TorchBlock(BlockProperties.STONE_TORCH) {}, "stone_torch");
+    registry.register(new WallTorchBlock(BlockProperties.STONE_TORCH) {}, "wall_stone_torch");
 
-    registry.register(new PunjiBlock(), "punji");
+    registry.register(new RailBlock(BlockProperties.WOODEN_RAIL) {}, "wooden_rail");
+    registry.register(new DropperRailBlock(BlockProperties.WOODEN_RAIL), "wooden_dropper_rail");
 
-    registry.register(new WoodenRailBlock(), "wooden_rail");
-    registry.register(new WoodenDropperRailBlock(), "wooden_dropper_rail");
+    registry.register(new PunjiBlock(BlockProperties.PUNJI), "punji");
   }
 
   @SubscribeEvent

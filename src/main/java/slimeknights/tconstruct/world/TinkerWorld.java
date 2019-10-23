@@ -51,6 +51,7 @@ public class TinkerWorld extends TinkerPulse {
 
   public static ServerProxy proxy = DistExecutor.runForDist(() -> WorldClientProxy::new, () -> ServerProxy::new);
 
+  // todo: create own planttype
   public static PlantType slimePlantType = PlantType.Nether;
 
   public static IStructurePieceType SLIME_ISLAND_PIECE;

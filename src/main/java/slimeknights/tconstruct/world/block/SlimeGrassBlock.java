@@ -4,8 +4,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.IGrowable;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
@@ -22,18 +20,19 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.lighting.LightEngine;
 
-import slimeknights.tconstruct.blocks.WorldBlocks;
-
 import java.util.Locale;
 import java.util.Random;
 
+import slimeknights.tconstruct.blocks.WorldBlocks;
+
+// todo: evaluate this block
 public class SlimeGrassBlock extends Block implements IGrowable {
 
   private static final BooleanProperty SNOWY = BlockStateProperties.SNOWY;
   private final FoliageType foliageType;
 
-  public SlimeGrassBlock(FoliageType foliageType) {
-    super(Block.Properties.create(Material.ORGANIC).hardnessAndResistance(0.65F).sound(SoundType.PLANT).tickRandomly().slipperiness(0.65F));
+  public SlimeGrassBlock(Properties properties, FoliageType foliageType) {
+    super(properties);
     this.setDefaultState(this.stateContainer.getBaseState().with(SNOWY, Boolean.FALSE));
     this.foliageType = foliageType;
   }

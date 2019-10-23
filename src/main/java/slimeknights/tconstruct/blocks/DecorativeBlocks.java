@@ -59,9 +59,9 @@ public final class DecorativeBlocks {
 
     registerGlass(registry);
 
-    registerSlabsAndStairs(registry, "mud_bricks", BlockProperties.MUD_BRICKS);
-    registerSlabsAndStairs(registry, "dried_clay", BlockProperties.DRIED_CLAY);
-    registerSlabsAndStairs(registry, "dried_clay_bricks", BlockProperties.DRIED_CLAY_BRICKS);
+    registerSlabsAndStairs(registry, "mud_bricks", new Block(BlockProperties.MUD_BRICKS));
+    registerSlabsAndStairs(registry, "dried_clay", new Block(BlockProperties.DRIED_CLAY));
+    registerSlabsAndStairs(registry, "dried_clay_bricks", new Block(BlockProperties.DRIED_CLAY_BRICKS));
   }
 
   @SubscribeEvent
@@ -99,32 +99,19 @@ public final class DecorativeBlocks {
     registry.registerBlockItem(dried_clay_bricks_stairs);
   }
 
-  static void registerSlabsAndStairs(BaseRegistryAdapter<Block> registry, String name, Block.Properties properties) {
-    Block baseBlock = new Block(properties);
-    registry.register(baseBlock, name);
-    registry.register(new SlabBlock(properties), name + "_slab");
-    registry.register(new StairsBlock(baseBlock::getDefaultState, properties), name + "_stairs");
+  static void registerSlabsAndStairs(BaseRegistryAdapter<Block> registry, String name, Block parent) {
+    registry.register(parent, name);
+    registry.register(new SlabBlock(Block.Properties.from(parent)), name + "_slab");
+    registry.register(new StairsBlock(parent::getDefaultState, Block.Properties.from(parent)), name + "_stairs");
   }
 
   private static void registerGlass(BaseRegistryAdapter<Block> registry) {
-    registry.register(new ClearGlassBlock(), "clear_glass");
+    registry.register(new ClearGlassBlock(BlockProperties.GENERIC_GLASS_BLOCK), "clear_glass");
 
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.WHITE), "white_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.ORANGE), "orange_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.MAGENTA), "magenta_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.LIGHT_BLUE), "light_blue_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.YELLOW), "yellow_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.LIME), "lime_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.PINK), "pink_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.GRAY), "gray_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.LIGHT_GRAY), "light_gray_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.CYAN), "cyan_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.PURPLE), "purple_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.BLUE), "blue_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.BROWN), "brown_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.GREEN), "green_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.RED), "red_clear_stained_glass");
-    registry.register(new ClearStainedGlassBlock(ClearStainedGlassBlock.GlassColor.BLACK), "black_clear_stained_glass");
+    for(ClearStainedGlassBlock.GlassColor glassColor : ClearStainedGlassBlock.GlassColor.values()) {
+      String registryName = glassColor.name().toLowerCase() + "_clear_stained_glass";
+      registry.register(new ClearStainedGlassBlock(BlockProperties.GENERIC_GLASS_BLOCK, glassColor), registryName);
+    }
   }
 
   private DecorativeBlocks() {}

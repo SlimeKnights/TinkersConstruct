@@ -1,9 +1,6 @@
 package slimeknights.tconstruct.shared.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.BlockRenderLayer;
@@ -13,18 +10,17 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.ToolType;
-import slimeknights.mantle.block.ConnectedTextureBlock;
 
 import javax.annotation.Nullable;
+
+import slimeknights.mantle.block.ConnectedTextureBlock;
 
 public class ClearStainedGlassBlock extends ConnectedTextureBlock {
 
   private final GlassColor glassColor;
 
-  public ClearStainedGlassBlock(GlassColor glassColor) {
-    super(Block.Properties.create(Material.GLASS, glassColor.getMaterialColor()).hardnessAndResistance(0.3F).sound(SoundType.GLASS));
-
+  public ClearStainedGlassBlock(Properties properties, GlassColor glassColor) {
+    super(properties);
     this.glassColor = glassColor;
   }
 
@@ -80,19 +76,7 @@ public class ClearStainedGlassBlock extends ConnectedTextureBlock {
     return this.glassColor;
   }
 
-  @Nullable
-  @Override
-  //TODO: Replace when forge Re-Evaluates
-  public net.minecraftforge.common.ToolType getHarvestTool(BlockState state) {
-    return ToolType.PICKAXE;
-  }
-
-  @Override
-  //TODO: Replace when forge Re-Evaluates
-  public int getHarvestLevel(BlockState state) {
-    return -1;
-  }
-
+  // do not change enum names, they're used for block registries
   public enum GlassColor {
     WHITE(0xffffff, MaterialColor.SNOW),
     ORANGE(0xd87f33, MaterialColor.ADOBE),

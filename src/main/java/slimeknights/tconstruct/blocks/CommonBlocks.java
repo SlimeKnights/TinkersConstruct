@@ -16,8 +16,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.ConsecratedSoilBlock;
 import slimeknights.tconstruct.shared.block.GlowBlock;
 import slimeknights.tconstruct.shared.block.GraveyardSoilBlock;
-import slimeknights.tconstruct.shared.block.GroutBlock;
-import slimeknights.tconstruct.shared.block.MetalBlock;
+import slimeknights.tconstruct.shared.block.BeaconBaseBlock;
 import slimeknights.tconstruct.shared.block.SlimyMudBlock;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
@@ -29,7 +28,7 @@ import static slimeknights.tconstruct.common.TinkerPulse.injected;
 public final class CommonBlocks {
 
   /* Crafting related items */
-  public static final GroutBlock grout = injected();
+  public static final Block grout = injected();
   public static final GraveyardSoilBlock graveyard_soil = injected();
   public static final ConsecratedSoilBlock consecrated_soil = injected();
   public static final SlimyMudBlock slimy_mud_green = injected();
@@ -39,13 +38,13 @@ public final class CommonBlocks {
   public static final Block firewood = injected();
 
   /* Metal Blocks */
-  public static final MetalBlock cobalt_block = injected();
-  public static final MetalBlock ardite_block = injected();
-  public static final MetalBlock manyullyn_block = injected();
-  public static final MetalBlock knightslime_block = injected();
-  public static final MetalBlock pigiron_block = injected();
-  public static final MetalBlock alubrass_block = injected();
-  public static final MetalBlock silky_jewel_block = injected();
+  public static final BeaconBaseBlock cobalt_block = injected();
+  public static final BeaconBaseBlock ardite_block = injected();
+  public static final BeaconBaseBlock manyullyn_block = injected();
+  public static final BeaconBaseBlock knightslime_block = injected();
+  public static final BeaconBaseBlock pigiron_block = injected();
+  public static final BeaconBaseBlock alubrass_block = injected();
+  public static final BeaconBaseBlock silky_jewel_block = injected();
 
   public static final SlabBlock lavawood_slab = injected();
   public static final SlabBlock firewood_slab = injected();
@@ -59,28 +58,28 @@ public final class CommonBlocks {
     BaseRegistryAdapter<Block> registry = new BaseRegistryAdapter<>(event.getRegistry());
 
     // crafting related
-    registry.register(new GroutBlock(), "grout");
+    registry.register(new Block(BlockProperties.GENERIC_SAND_BLOCK), "grout");
 
-    registry.register(new GraveyardSoilBlock(), "graveyard_soil");
-    registry.register(new ConsecratedSoilBlock(), "consecrated_soil");
+    registry.register(new GraveyardSoilBlock(BlockProperties.GENERIC_SAND_BLOCK), "graveyard_soil");
+    registry.register(new ConsecratedSoilBlock(BlockProperties.GENERIC_SAND_BLOCK), "consecrated_soil");
 
-    registry.register(new SlimyMudBlock(SlimyMudBlock.MudType.SLIMY_MUD_GREEN), "slimy_mud_green");
-    registry.register(new SlimyMudBlock(SlimyMudBlock.MudType.SLIMY_MUD_BLUE), "slimy_mud_blue");
-    registry.register(new SlimyMudBlock(SlimyMudBlock.MudType.SLIMY_MUD_MAGMA), "slimy_mud_magma");
+    registry.register(new SlimyMudBlock(BlockProperties.GENERIC_SAND_BLOCK, SlimyMudBlock.MudType.SLIMY_MUD_GREEN), "slimy_mud_green");
+    registry.register(new SlimyMudBlock(BlockProperties.GENERIC_SAND_BLOCK, SlimyMudBlock.MudType.SLIMY_MUD_BLUE), "slimy_mud_blue");
+    registry.register(new SlimyMudBlock(BlockProperties.GENERIC_SAND_BLOCK, SlimyMudBlock.MudType.SLIMY_MUD_MAGMA), "slimy_mud_magma");
 
-    DecorativeBlocks.registerSlabsAndStairs(registry, "lavawood", BlockProperties.LAVAWOOD);
-    DecorativeBlocks.registerSlabsAndStairs(registry, "firewood", BlockProperties.FIREWOOD);
+    DecorativeBlocks.registerSlabsAndStairs(registry, "lavawood", new Block(BlockProperties.LAVAWOOD));
+    DecorativeBlocks.registerSlabsAndStairs(registry, "firewood", new Block(BlockProperties.FIREWOOD));
 
     // Metal Blocks
-    registry.register(new MetalBlock(MetalBlock.MetalType.COBALT), "cobalt_block");
-    registry.register(new MetalBlock(MetalBlock.MetalType.ARDITE), "ardite_block");
-    registry.register(new MetalBlock(MetalBlock.MetalType.MANYULLYN), "manyullyn_block");
-    registry.register(new MetalBlock(MetalBlock.MetalType.KNIGHTSLIME), "knightslime_block");
-    registry.register(new MetalBlock(MetalBlock.MetalType.PIGIRON), "pigiron_block");
-    registry.register(new MetalBlock(MetalBlock.MetalType.ALUBRASS), "alubrass_block");
-    registry.register(new MetalBlock(MetalBlock.MetalType.SILKY_JEWEL), "silky_jewel_block");
+    registry.register(new BeaconBaseBlock(BlockProperties.GENERIC_METAL_BLOCK), "cobalt_block");
+    registry.register(new BeaconBaseBlock(BlockProperties.GENERIC_METAL_BLOCK), "ardite_block");
+    registry.register(new BeaconBaseBlock(BlockProperties.GENERIC_METAL_BLOCK), "manyullyn_block");
+    registry.register(new BeaconBaseBlock(BlockProperties.GENERIC_METAL_BLOCK), "knightslime_block");
+    registry.register(new BeaconBaseBlock(BlockProperties.GENERIC_METAL_BLOCK), "pigiron_block");
+    registry.register(new BeaconBaseBlock(BlockProperties.GENERIC_METAL_BLOCK), "alubrass_block");
+    registry.register(new BeaconBaseBlock(BlockProperties.GENERIC_GEM_BLOCK), "silky_jewel_block");
 
-    registry.register(new GlowBlock(), "glow");
+    registry.register(new GlowBlock(BlockProperties.GLOW), "glow");
   }
 
   @SubscribeEvent

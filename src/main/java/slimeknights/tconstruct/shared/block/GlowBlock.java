@@ -1,12 +1,11 @@
 package slimeknights.tconstruct.shared.block;
 
 import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
@@ -25,17 +24,13 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTables;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
-import java.util.Random;
 
 public class GlowBlock extends Block {
 
   public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
-  public GlowBlock() {
-    super(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.0F).sound(SoundType.CLOTH).tickRandomly().lightValue(14));
+  public GlowBlock(Properties properties) {
+    super(properties);
     this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.DOWN));
   }
 
@@ -46,12 +41,6 @@ public class GlowBlock extends Block {
 
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-  }
-
-  @Override
-  @OnlyIn(Dist.CLIENT)
-  public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-    super.animateTick(stateIn, worldIn, pos, rand);
   }
 
   private static final ImmutableMap<Direction, VoxelShape> BOUNDS;

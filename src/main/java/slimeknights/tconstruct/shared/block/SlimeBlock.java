@@ -1,10 +1,6 @@
 package slimeknights.tconstruct.shared.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
@@ -14,12 +10,11 @@ import java.util.Locale;
 
 public class SlimeBlock extends net.minecraft.block.SlimeBlock {
 
-  private final boolean shouldAddToCreative;
+  private final boolean hideFromCreativeMenu;
 
-  public SlimeBlock(boolean shouldAddToCreative) {
-    super(Block.Properties.create(Material.CLAY, MaterialColor.GRASS).slipperiness(0.8F).sound(SoundType.SLIME));
-
-    this.shouldAddToCreative = shouldAddToCreative;
+  public SlimeBlock(Properties properties, boolean hideFromCreativeMenu) {
+    super(properties);
+    this.hideFromCreativeMenu = hideFromCreativeMenu;
   }
 
   @Override
@@ -29,8 +24,8 @@ public class SlimeBlock extends net.minecraft.block.SlimeBlock {
 
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.shouldAddToCreative) {
-      items.add(new ItemStack(this));
+    if (!hideFromCreativeMenu) {
+      super.fillItemGroup(group, items);
     }
   }
 

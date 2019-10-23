@@ -2,54 +2,24 @@ package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ToolType;
 
-import javax.annotation.Nullable;
-
-import slimeknights.tconstruct.items.CommonItems;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 public class SlimyMudBlock extends Block {
 
   private final MudType mudType;
 
-  public SlimyMudBlock(MudType mudType) {
-    super(Block.Properties.create(Material.SAND).hardnessAndResistance(3.0f).slipperiness(0.8F).sound(SoundType.SAND));
+  public SlimyMudBlock(Properties properties, MudType mudType) {
+    super(properties);
     this.mudType = mudType;
-  }
-
-  @Override
-  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    boolean shouldAdd = true;
-
-    switch (this.mudType) {
-      case SLIMY_MUD_BLUE:
-        shouldAdd = CommonItems.blue_slime_ball != null;
-        break;
-      case SLIMY_MUD_MAGMA:
-        shouldAdd = CommonItems.magma_slime_ball != null;
-        break;
-      case SLIMY_MUD_GREEN:
-        shouldAdd = true;
-        break;
-    }
-
-    if (shouldAdd) {
-      super.fillItemGroup(group, items);
-    }
   }
 
   @Override
@@ -77,19 +47,6 @@ public class SlimyMudBlock extends Block {
     }
 
     return super.canSustainPlant(state, world, pos, facing, plantable);
-  }
-
-  @Nullable
-  @Override
-  //TODO: Replace when forge Re-Evaluates
-  public net.minecraftforge.common.ToolType getHarvestTool(BlockState state) {
-    return ToolType.SHOVEL;
-  }
-
-  @Override
-  //TODO: Replace when forge Re-Evaluates
-  public int getHarvestLevel(BlockState state) {
-    return -1;
   }
 
   public enum MudType {

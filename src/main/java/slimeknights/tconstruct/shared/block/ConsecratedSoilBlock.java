@@ -2,8 +2,6 @@ package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -17,8 +15,8 @@ import javax.annotation.Nullable;
 
 public class ConsecratedSoilBlock extends Block {
 
-  public ConsecratedSoilBlock() {
-    super(Block.Properties.create(Material.SAND).hardnessAndResistance(3.0f).slipperiness(0.8F).sound(SoundType.SAND));
+  public ConsecratedSoilBlock(Properties properties) {
+    super(properties);
   }
 
   @Override

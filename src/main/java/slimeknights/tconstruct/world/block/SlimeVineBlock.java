@@ -3,9 +3,7 @@ package slimeknights.tconstruct.world.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.VineBlock;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.util.Direction;
@@ -16,19 +14,21 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
-import slimeknights.tconstruct.blocks.WorldBlocks;
-
-import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
+import slimeknights.tconstruct.blocks.WorldBlocks;
+
+// todo: evaluate block
 public class SlimeVineBlock extends VineBlock {
 
   private final SlimeGrassBlock.FoliageType foliage;
   private final VineStage vineStage;
 
-  public SlimeVineBlock(SlimeGrassBlock.FoliageType foliage, VineStage vineStage) {
-    super(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.2F).sound(SoundType.PLANT));
+  public SlimeVineBlock(Properties properties, SlimeGrassBlock.FoliageType foliage, VineStage vineStage) {
+    super(properties);
     this.foliage = foliage;
     this.vineStage = vineStage;
   }

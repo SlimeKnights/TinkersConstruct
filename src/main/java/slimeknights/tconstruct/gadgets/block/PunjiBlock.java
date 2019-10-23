@@ -1,11 +1,10 @@
 package slimeknights.tconstruct.gadgets.block;
 
 import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.Fluids;
@@ -40,8 +39,8 @@ public class PunjiBlock extends Block {
   public static final BooleanProperty NORTHWEST = BooleanProperty.create("northwest");
   public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-  public PunjiBlock() {
-    super(Block.Properties.create(Material.PLANTS).hardnessAndResistance(3.0F).sound(SoundType.PLANT));
+  public PunjiBlock(Properties properties) {
+    super(properties);
     this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.DOWN).with(NORTH, false).with(EAST, false).with(NORTHEAST, false).with(NORTHWEST, false).with(WATERLOGGED, false));
   }
 

@@ -12,7 +12,7 @@ import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.common.registry.BlockItemRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.CongealedSlimeBlock;
-import slimeknights.tconstruct.shared.block.OreBlock;
+import slimeknights.tconstruct.shared.block.OverlayBlock;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.world.block.SlimeDirtBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
@@ -31,8 +31,8 @@ import static slimeknights.tconstruct.common.TinkerPulse.injected;
 public final class WorldBlocks {
 
   /* Ores */
-  public static final OreBlock cobalt_ore = injected();
-  public static final OreBlock ardite_ore = injected();
+  public static final Block cobalt_ore = injected();
+  public static final Block ardite_ore = injected();
 
   /* Slimestuff */
   public static final SlimeBlock blue_slime = injected();
@@ -97,57 +97,57 @@ public final class WorldBlocks {
     BaseRegistryAdapter<Block> registry = new BaseRegistryAdapter<>(event.getRegistry());
 
     // Ores
-    registry.register(new OreBlock(), "cobalt_ore");
-    registry.register(new OreBlock(), "ardite_ore");
+    registry.register(new OverlayBlock(BlockProperties.ORE), "cobalt_ore");
+    registry.register(new OverlayBlock(BlockProperties.ORE), "ardite_ore");
 
     // Slimestuff
-    registry.register(new SlimeBlock(true), "blue_slime");
-    registry.register(new SlimeBlock(true), "purple_slime");
-    registry.register(new SlimeBlock(true), "blood_slime");
-    registry.register(new SlimeBlock(true), "magma_slime");
-    registry.register(new SlimeBlock(false), "pink_slime");
+    registry.register(new SlimeBlock(BlockProperties.SLIME, false), "blue_slime");
+    registry.register(new SlimeBlock(BlockProperties.SLIME, false), "purple_slime");
+    registry.register(new SlimeBlock(BlockProperties.SLIME, false), "blood_slime");
+    registry.register(new SlimeBlock(BlockProperties.SLIME, false), "magma_slime");
+    registry.register(new SlimeBlock(BlockProperties.SLIME, true), "pink_slime");
 
-    registry.register(new CongealedSlimeBlock(true), "congealed_green_slime");
-    registry.register(new CongealedSlimeBlock(true), "congealed_blue_slime");
-    registry.register(new CongealedSlimeBlock(true), "congealed_purple_slime");
-    registry.register(new CongealedSlimeBlock(true), "congealed_blood_slime");
-    registry.register(new CongealedSlimeBlock(true), "congealed_magma_slime");
-    registry.register(new CongealedSlimeBlock(false), "congealed_pink_slime");
+    registry.register(new CongealedSlimeBlock(BlockProperties.CONGEALED_SLIME, false), "congealed_green_slime");
+    registry.register(new CongealedSlimeBlock(BlockProperties.CONGEALED_SLIME, false), "congealed_blue_slime");
+    registry.register(new CongealedSlimeBlock(BlockProperties.CONGEALED_SLIME, false), "congealed_purple_slime");
+    registry.register(new CongealedSlimeBlock(BlockProperties.CONGEALED_SLIME, false), "congealed_blood_slime");
+    registry.register(new CongealedSlimeBlock(BlockProperties.CONGEALED_SLIME, false), "congealed_magma_slime");
+    registry.register(new CongealedSlimeBlock(BlockProperties.CONGEALED_SLIME, true), "congealed_pink_slime");
 
-    registry.register(new SlimeDirtBlock(), "green_slime_dirt");
-    registry.register(new SlimeDirtBlock(), "blue_slime_dirt");
-    registry.register(new SlimeDirtBlock(), "purple_slime_dirt");
-    registry.register(new SlimeDirtBlock(), "magma_slime_dirt");
+    registry.register(new SlimeDirtBlock(BlockProperties.SLIME_DIRT), "green_slime_dirt");
+    registry.register(new SlimeDirtBlock(BlockProperties.SLIME_DIRT), "blue_slime_dirt");
+    registry.register(new SlimeDirtBlock(BlockProperties.SLIME_DIRT), "purple_slime_dirt");
+    registry.register(new SlimeDirtBlock(BlockProperties.SLIME_DIRT), "magma_slime_dirt");
 
     for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
-      registry.register(new SlimeGrassBlock(type), type.getName() + "_vanilla_slime_grass");
-      registry.register(new SlimeGrassBlock(type), type.getName() + "_green_slime_grass");
-      registry.register(new SlimeGrassBlock(type), type.getName() + "_blue_slime_grass");
-      registry.register(new SlimeGrassBlock(type), type.getName() + "_purple_slime_grass");
-      registry.register(new SlimeGrassBlock(type), type.getName() + "_magma_slime_grass");
+      registry.register(new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), type.getName() + "_vanilla_slime_grass");
+      registry.register(new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), type.getName() + "_green_slime_grass");
+      registry.register(new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), type.getName() + "_blue_slime_grass");
+      registry.register(new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), type.getName() + "_purple_slime_grass");
+      registry.register(new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), type.getName() + "_magma_slime_grass");
     }
 
-    registry.register(new SlimeLeavesBlock(SlimeGrassBlock.FoliageType.BLUE), "blue_slime_leaves");
-    registry.register(new SlimeLeavesBlock(SlimeGrassBlock.FoliageType.PURPLE), "purple_slime_leaves");
-    registry.register(new SlimeLeavesBlock(SlimeGrassBlock.FoliageType.ORANGE), "orange_slime_leaves");
+    registry.register(new SlimeLeavesBlock(BlockProperties.SLIME_LEAVES, SlimeGrassBlock.FoliageType.BLUE), "blue_slime_leaves");
+    registry.register(new SlimeLeavesBlock(BlockProperties.SLIME_LEAVES, SlimeGrassBlock.FoliageType.PURPLE), "purple_slime_leaves");
+    registry.register(new SlimeLeavesBlock(BlockProperties.SLIME_LEAVES, SlimeGrassBlock.FoliageType.ORANGE), "orange_slime_leaves");
 
     for (SlimeGrassBlock.FoliageType foliageType : SlimeGrassBlock.FoliageType.values()) {
       for (SlimeTallGrassBlock.SlimePlantType plantType : SlimeTallGrassBlock.SlimePlantType.values()) {
-        registry.register(new SlimeTallGrassBlock(foliageType, plantType), foliageType.getName() + "_slime_" + plantType.getName());
+        registry.register(new SlimeTallGrassBlock(BlockProperties.TALL_GRASS, foliageType, plantType), foliageType.getName() + "_slime_" + plantType.getName());
       }
     }
 
-    registry.register(new SlimeSaplingBlock(new BlueSlimeTree(false)), "blue_slime_sapling");
-    registry.register(new SlimeSaplingBlock(new MagmaSlimeTree()), "orange_slime_sapling");
-    registry.register(new SlimeSaplingBlock(new PurpleSlimeTree(false)), "purple_slime_sapling");
+    registry.register(new SlimeSaplingBlock(new BlueSlimeTree(false), BlockProperties.SAPLING), "blue_slime_sapling");
+    registry.register(new SlimeSaplingBlock(new MagmaSlimeTree(), BlockProperties.SAPLING), "orange_slime_sapling");
+    registry.register(new SlimeSaplingBlock(new PurpleSlimeTree(false), BlockProperties.SAPLING), "purple_slime_sapling");
 
-    registry.register(new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), "purple_slime_vine");
-    registry.register(new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), "purple_slime_vine_middle");
-    registry.register(new SlimeVineBlock(SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.END), "purple_slime_vine_end");
+    registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), "purple_slime_vine");
+    registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), "purple_slime_vine_middle");
+    registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.END), "purple_slime_vine_end");
 
-    registry.register(new SlimeVineBlock(SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.START), "blue_slime_vine");
-    registry.register(new SlimeVineBlock(SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.MIDDLE), "blue_slime_vine_middle");
-    registry.register(new SlimeVineBlock(SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.END), "blue_slime_vine_end");
+    registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.START), "blue_slime_vine");
+    registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.MIDDLE), "blue_slime_vine_middle");
+    registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.END), "blue_slime_vine_end");
   }
 
   @SubscribeEvent

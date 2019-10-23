@@ -3,22 +3,21 @@ package slimeknights.tconstruct.world.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SaplingBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.trees.Tree;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.PlantType;
-import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.blocks.WorldBlocks;
 
 import javax.annotation.Nonnull;
 
+import slimeknights.tconstruct.blocks.WorldBlocks;
+import slimeknights.tconstruct.world.TinkerWorld;
+
 public class SlimeSaplingBlock extends SaplingBlock {
 
-  public SlimeSaplingBlock(Tree tree) {
-    super(tree, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.0F).sound(SoundType.PLANT));
+  public SlimeSaplingBlock(Tree treeIn, Properties properties) {
+    super(treeIn, properties);
   }
 
   @Override

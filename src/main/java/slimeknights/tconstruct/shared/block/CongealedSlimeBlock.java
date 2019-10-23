@@ -2,8 +2,6 @@ package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -20,11 +18,11 @@ import net.minecraft.world.World;
 public class CongealedSlimeBlock extends Block {
 
   private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 16, 10, 16);
-  private final boolean shouldAddToCreative;
+  private final boolean hideFromCreativeMenu;
 
-  public CongealedSlimeBlock(boolean shouldAddToCreative) {
-    super(Block.Properties.create(Material.CLAY).slipperiness(0.5F).hardnessAndResistance(0.5F).sound(SoundType.SLIME));
-    this.shouldAddToCreative = shouldAddToCreative;
+  public CongealedSlimeBlock(Properties properties, boolean hideFromCreativeMenu) {
+    super(properties);
+    this.hideFromCreativeMenu = hideFromCreativeMenu;
   }
 
   @Override
@@ -62,8 +60,8 @@ public class CongealedSlimeBlock extends Block {
 
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-    if (this.shouldAddToCreative) {
-      items.add(new ItemStack(this));
+    if (!hideFromCreativeMenu) {
+      super.fillItemGroup(group, items);
     }
   }
 }

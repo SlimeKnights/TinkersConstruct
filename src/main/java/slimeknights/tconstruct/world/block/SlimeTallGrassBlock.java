@@ -1,11 +1,10 @@
 package slimeknights.tconstruct.world.block;
 
 import com.google.common.collect.Lists;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BushBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
@@ -18,13 +17,16 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.common.PlantType;
-import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.blocks.WorldBlocks;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
+
+import slimeknights.tconstruct.blocks.WorldBlocks;
+import slimeknights.tconstruct.world.TinkerWorld;
+
+// todo: evaluate block
 public class SlimeTallGrassBlock extends BushBlock implements IShearable {
 
   protected static final VoxelShape SHAPE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
@@ -32,8 +34,8 @@ public class SlimeTallGrassBlock extends BushBlock implements IShearable {
   private final SlimeGrassBlock.FoliageType foliageType;
   private final SlimePlantType plantType;
 
-  public SlimeTallGrassBlock(SlimeGrassBlock.FoliageType foliageType, SlimePlantType plantType) {
-    super(Block.Properties.create(Material.PLANTS).sound(SoundType.PLANT).doesNotBlockMovement().hardnessAndResistance(0.0F).tickRandomly());
+  public SlimeTallGrassBlock(Properties properties, SlimeGrassBlock.FoliageType foliageType, SlimePlantType plantType) {
+    super(properties);
     this.foliageType = foliageType;
     this.plantType = plantType;
   }

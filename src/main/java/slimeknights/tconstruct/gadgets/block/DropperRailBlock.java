@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.gadgets.block;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.RailBlock;
 import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.IHopper;
@@ -12,7 +13,11 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-public class WoodenDropperRailBlock extends WoodenRailBlock {
+public class DropperRailBlock extends RailBlock {
+
+  public DropperRailBlock(Properties properties) {
+    super(properties);
+  }
 
   @Override
   public void onMinecartPass(BlockState state, World world, BlockPos pos, AbstractMinecartEntity cart) {
@@ -24,6 +29,7 @@ public class WoodenDropperRailBlock extends WoodenRailBlock {
       return;
     }
 
+    // todo: fix this optional usage
     IItemHandler itemHandlerCart = cart.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).orElse(null);
     IItemHandler itemHandlerTE = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).orElse(null);
 
