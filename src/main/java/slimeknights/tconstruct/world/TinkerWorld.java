@@ -9,8 +9,10 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.MinecraftForge;
@@ -110,6 +112,14 @@ public class TinkerWorld extends TinkerPulse {
         }
         else if (biome.getCategory() == Biome.Category.NETHER) {
           addStructure(biome, GenerationStage.Decoration.UNDERGROUND_DECORATION, NETHER_SLIME_ISLAND);
+
+          if (Config.SERVER.generateCobalt.get()) {
+            addCobaltOre(biome);
+          }
+
+          if (Config.SERVER.generateArdite.get()) {
+            addArditeOre(biome);
+          }
         }
       }
     }
@@ -118,6 +128,18 @@ public class TinkerWorld extends TinkerPulse {
   private static void addStructure(Biome biome, GenerationStage.Decoration stage, Structure structure) {
     biome.addFeature(stage, Biome.createDecoratedFeature(structure, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG));
     biome.addStructure(structure, IFeatureConfig.NO_FEATURE_CONFIG);
+  }
+
+  private static void addCobaltOre(Biome biome) {
+    int veinCount = Config.SERVER.veinCountCobalt.get() / 2;
+    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, WorldBlocks.cobalt_ore.getDefaultState(), 5), Placement.COUNT_RANGE, new CountRangeConfig(veinCount, 32, 0, 64)));
+    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, WorldBlocks.cobalt_ore.getDefaultState(), 5), Placement.COUNT_RANGE, new CountRangeConfig(veinCount, 0, 0, 128)));
+  }
+
+  private static void addArditeOre(Biome biome) {
+    int veinCount = Config.SERVER.veinCountArdite.get() / 2;
+    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, WorldBlocks.ardite_ore.getDefaultState(), 5), Placement.COUNT_RANGE, new CountRangeConfig(veinCount, 32, 0, 64)));
+    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Biome.createDecoratedFeature(Feature.ORE, new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, WorldBlocks.ardite_ore.getDefaultState(), 5), Placement.COUNT_RANGE, new CountRangeConfig(veinCount, 0, 0, 128)));
   }
 
 }
