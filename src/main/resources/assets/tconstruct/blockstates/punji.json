@@ -20,7 +20,7 @@
             "false": { }
         },
         "east": {
-            "true": { "submodel": { "stick_east": { "model": "tconstruct:block/punji_stick", "transform": { "translation": [ -0.5, 0, 0 ] } } } };
+            "true": { "submodel": { "stick_east": { "model": "tconstruct:block/punji_stick", "transform": { "translation": [ -0.5, 0, 0 ] } } } },
             "false": { }
         },
         "northeast": {
@@ -30,7 +30,6 @@
         "northwest": {
             "true": { "submodel": { "stick_northwest": { "model": "tconstruct:block/punji_stick", "transform": { "translation": [ 0.5, 0, -0.5 ] } } } },
             "false": { }
-        },
-        "inventory": [ { } ]
+        }
     }
 }

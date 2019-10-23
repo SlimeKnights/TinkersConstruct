@@ -18,6 +18,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
+import slimeknights.tconstruct.common.conditions.PulseLoadedCondition;
 import slimeknights.tconstruct.items.CommonItems;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -34,10 +35,10 @@ public class TinkerCommons extends TinkerPulse {
 
   public static ServerProxy proxy = DistExecutor.runForDist(() -> CommonsClientProxy::new, () -> ServerProxy::new);
 
-
   @SubscribeEvent
   public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
     CraftingHelper.register(ConfigOptionEnabledCondition.Serializer.INSTANCE);
+    CraftingHelper.register(PulseLoadedCondition.Serializer.INSTANCE);
   }
 
   @SubscribeEvent

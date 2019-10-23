@@ -3,7 +3,9 @@ package slimeknights.tconstruct;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
@@ -62,6 +64,9 @@ public class TConstruct {
     FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
     FMLJavaModLoadingContext.get().getModEventBus().addListener(this::postInit);
     FMLJavaModLoadingContext.get().getModEventBus().addListener(this::gatherData);
+
+    ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.serverSpec);
+    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
 
     pulseManager = new PulseManager(Config.pulseConfig);
     pulseManager.registerPulse(new TinkerCommons());
