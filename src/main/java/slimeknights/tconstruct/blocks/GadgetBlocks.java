@@ -14,10 +14,10 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerPulse;
-import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.common.registry.BlockItemRegistryAdapter;
-import slimeknights.tconstruct.gadgets.block.PunjiBlock;
+import slimeknights.tconstruct.common.registry.BlockRegistryAdapter;
 import slimeknights.tconstruct.gadgets.block.DropperRailBlock;
+import slimeknights.tconstruct.gadgets.block.PunjiBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 
 @ObjectHolder(TConstruct.modID)
@@ -33,7 +33,7 @@ public final class GadgetBlocks {
 
   @SubscribeEvent
   static void registerBlocks(final RegistryEvent.Register<Block> event) {
-    BaseRegistryAdapter<Block> registry = new BaseRegistryAdapter<>(event.getRegistry());
+    BlockRegistryAdapter registry = new BlockRegistryAdapter(event.getRegistry());
 
     registry.register(new LadderBlock(BlockProperties.STONE_LADDER) {}, "stone_ladder");
 

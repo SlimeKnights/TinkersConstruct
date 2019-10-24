@@ -10,13 +10,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.common.registry.BlockItemRegistryAdapter;
+import slimeknights.tconstruct.common.registry.BlockRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.shared.block.BeaconBaseBlock;
 import slimeknights.tconstruct.shared.block.ConsecratedSoilBlock;
 import slimeknights.tconstruct.shared.block.GlowBlock;
 import slimeknights.tconstruct.shared.block.GraveyardSoilBlock;
-import slimeknights.tconstruct.shared.block.BeaconBaseBlock;
 import slimeknights.tconstruct.shared.block.SlimyMudBlock;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
@@ -55,7 +55,7 @@ public final class CommonBlocks {
 
   @SubscribeEvent
   static void registerBlocks(final RegistryEvent.Register<Block> event) {
-    BaseRegistryAdapter<Block> registry = new BaseRegistryAdapter<>(event.getRegistry());
+    BlockRegistryAdapter registry = new BlockRegistryAdapter(event.getRegistry());
 
     // crafting related
     registry.register(new Block(BlockProperties.GENERIC_SAND_BLOCK), "grout");
@@ -67,8 +67,8 @@ public final class CommonBlocks {
     registry.register(new SlimyMudBlock(BlockProperties.GENERIC_SAND_BLOCK, SlimyMudBlock.MudType.SLIMY_MUD_BLUE), "slimy_mud_blue");
     registry.register(new SlimyMudBlock(BlockProperties.GENERIC_SAND_BLOCK, SlimyMudBlock.MudType.SLIMY_MUD_MAGMA), "slimy_mud_magma");
 
-    DecorativeBlocks.registerSlabsAndStairs(registry, "lavawood", new Block(BlockProperties.LAVAWOOD));
-    DecorativeBlocks.registerSlabsAndStairs(registry, "firewood", new Block(BlockProperties.FIREWOOD));
+    registry.registerSlabsAndStairs(new Block(BlockProperties.LAVAWOOD), "lavawood");
+    registry.registerSlabsAndStairs(new Block(BlockProperties.FIREWOOD), "firewood");
 
     // Metal Blocks
     registry.register(new BeaconBaseBlock(BlockProperties.GENERIC_METAL_BLOCK), "cobalt_block");

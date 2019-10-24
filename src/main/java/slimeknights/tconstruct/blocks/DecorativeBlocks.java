@@ -12,6 +12,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.common.registry.BlockItemRegistryAdapter;
+import slimeknights.tconstruct.common.registry.BlockRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.ClearGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
@@ -55,13 +56,13 @@ public final class DecorativeBlocks {
 
   @SubscribeEvent
   static void registerBlocks(final RegistryEvent.Register<Block> event) {
-    BaseRegistryAdapter<Block> registry = new BaseRegistryAdapter<>(event.getRegistry());
+    BlockRegistryAdapter registry = new BlockRegistryAdapter(event.getRegistry());
 
     registerGlass(registry);
 
-    registerSlabsAndStairs(registry, "mud_bricks", new Block(BlockProperties.MUD_BRICKS));
-    registerSlabsAndStairs(registry, "dried_clay", new Block(BlockProperties.DRIED_CLAY));
-    registerSlabsAndStairs(registry, "dried_clay_bricks", new Block(BlockProperties.DRIED_CLAY_BRICKS));
+    registry.registerSlabsAndStairs(new Block(BlockProperties.MUD_BRICKS), "mud_bricks");
+    registry.registerSlabsAndStairs(new Block(BlockProperties.DRIED_CLAY), "dried_clay");
+    registry.registerSlabsAndStairs(new Block(BlockProperties.DRIED_CLAY_BRICKS), "dried_clay_bricks");
   }
 
   @SubscribeEvent
@@ -97,12 +98,6 @@ public final class DecorativeBlocks {
     registry.registerBlockItem(dried_clay_bricks);
     registry.registerBlockItem(dried_clay_bricks_slab);
     registry.registerBlockItem(dried_clay_bricks_stairs);
-  }
-
-  static void registerSlabsAndStairs(BaseRegistryAdapter<Block> registry, String name, Block parent) {
-    registry.register(parent, name);
-    registry.register(new SlabBlock(Block.Properties.from(parent)), name + "_slab");
-    registry.register(new StairsBlock(parent::getDefaultState, Block.Properties.from(parent)), name + "_stairs");
   }
 
   private static void registerGlass(BaseRegistryAdapter<Block> registry) {

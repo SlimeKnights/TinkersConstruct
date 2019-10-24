@@ -8,8 +8,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.common.registry.BlockItemRegistryAdapter;
+import slimeknights.tconstruct.common.registry.BlockRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.CongealedSlimeBlock;
 import slimeknights.tconstruct.shared.block.OverlayBlock;
@@ -94,7 +94,7 @@ public final class WorldBlocks {
 
   @SubscribeEvent
   static void registerBlocks(final RegistryEvent.Register<Block> event) {
-    BaseRegistryAdapter<Block> registry = new BaseRegistryAdapter<>(event.getRegistry());
+    BlockRegistryAdapter registry = new BlockRegistryAdapter(event.getRegistry());
 
     // Ores
     registry.register(new OverlayBlock(BlockProperties.ORE), "cobalt_ore");
