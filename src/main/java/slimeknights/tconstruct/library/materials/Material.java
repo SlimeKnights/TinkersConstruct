@@ -19,11 +19,12 @@ import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
+import slimeknights.tconstruct.library.materials.stats.PartType;
 import slimeknights.tconstruct.library.traits.ITrait;
 
 public class Material extends RecipeMatchRegistry implements IMaterial {
 
-  public static final Material UNKNOWN = new Material("unknown");
 
   // todo config
 //  public static int VALUE_Ore() {
@@ -47,15 +48,17 @@ public class Material extends RecipeMatchRegistry implements IMaterial {
    */
   private final String identifier;
 
-  /** The fluid associated with this material, can be null */
+  /**
+   * The fluid associated with this material, can be null.
+   * If non-null also indicates that the material can be cast.
+   */
   @Nullable
   protected Fluid fluid;
 
-  /** Material can be crafted into parts in the PartBuilder */
+  /**
+   * Material can be crafted into parts in the PartBuilder
+   */
   private boolean craftable;
-
-  /** Material can be cast into parts using the Smeltery and a Cast. Fluid must be NON NULL */
-  private boolean castable;
 
   /**
    * This item will be used instead of the generic shard item when returning leftovers.
@@ -65,12 +68,12 @@ public class Material extends RecipeMatchRegistry implements IMaterial {
   // we use a specific map for 2 reasons:
   // * A Map so we can obtain the stats we want quickly
   // * the linked map to ensure the order when iterating
-  private final LinkedHashMap<MaterialStatsType, IMaterialStats> stats = new LinkedHashMap<>();
+  private final LinkedHashMap<PartType, IMaterialStats> stats = new LinkedHashMap<>();
   /**
    * Stat-ID -> Traits used in conjunction with these stats.
    * <em>null</em> is an allowed key, and is used for general traits that are not stats specific.
    */
-  private final LinkedHashMap<MaterialStatsType, List<ITrait>> traitsByStats = new LinkedHashMap<>();
+  private final LinkedHashMap<PartType, List<ITrait>> traitsByStats = new LinkedHashMap<>();
 
   public Material(String identifier) {
     // lowercases and removes whitespaces
@@ -82,7 +85,9 @@ public class Material extends RecipeMatchRegistry implements IMaterial {
     return identifier;
   }
 
-  /** Setting this to true allows to craft parts in the PartBuilder */
+  /**
+   * Setting this to true allows to craft parts in the PartBuilder
+   */
   public Material setCraftable(boolean craftable) {
     this.craftable = craftable;
     return this;
@@ -93,23 +98,14 @@ public class Material extends RecipeMatchRegistry implements IMaterial {
     return this.craftable;
   }
 
-  /** Setting this to true allows to cast parts of this material. NEEDS TO HAVE A FLUID SET BEFOREHAND! */
-  public Material setCastable(boolean castable) {
-    this.castable = castable;
-    return this;
-  }
-
-  @Override
-  public boolean isCastable() {
-    return this.castable && getFluid().isPresent();
-  }
-
   @Override
   public Optional<Fluid> getFluid() {
     return Optional.ofNullable(fluid);
   }
 
-  /** Associates this fluid with the material. Used for melting/casting items. */
+  /**
+   * Associates this fluid with the material. Used for melting/casting items.
+   */
   public Material setFluid(@Nullable Fluid fluid) {
     if(fluid != null && !ForgeRegistries.FLUIDS.containsValue(fluid)) {
       TinkerRegistry.log.warn("Materials cannot have an unregistered fluid associated with them!");
@@ -131,14 +127,14 @@ public class Material extends RecipeMatchRegistry implements IMaterial {
   /**
    * Returns the material stats of the given type of this material.
    *
-   * @param ofStatsType Identifier of the material.
-   * @param <T>        Type of the Stats are determined by return value. Use the correct
+   * @param partType Identifier of the material.
+   * @param <T>      Type of the Stats are determined by return value. Use the correct
    * @return The stats found or null if none present.
    */
   @Override
   @SuppressWarnings("unchecked")
-  public <T extends IMaterialStats> Optional<T> getStatsOfType(MaterialStatsType ofStatsType) {
-    return Optional.ofNullable((T) stats.get(ofStatsType));
+  public <T extends IMaterialStats> Optional<T> getStatsForType(PartType partType) {
+    return Optional.ofNullable((T) stats.get(partType));
   }
 
   @Override
@@ -158,30 +154,28 @@ public class Material extends RecipeMatchRegistry implements IMaterial {
   /**
    * Adds the trait to be added if the specified stats are used.
    */
-  public Material addTrait(ITrait materialTrait, MaterialStatsType forStatsType) {
+  public Material addTrait(ITrait materialTrait, PartType forStatsType) {
     // todo: we don't register traits automatically on addition anymore, check if all are present
     getStatTraits(forStatsType).add(materialTrait);
     return this;
   }
 
   @Override
-  public List<ITrait> getDefaultTraits() {
-    return ImmutableList.copyOf(getStatTraits(null));
+  public List<ITrait> getAllTraitsForStats(PartType partType) {
+    List<ITrait> traits = traitsByStats.get(partType);
+
+    if(traits == null) {
+      return traitsByStats.getOrDefault(null, ImmutableList.of());
+    }
+    else {
+      return traits;
+    }
   }
 
-  @Override
-  public List<ITrait> getAllTraitsForStats(MaterialStatsType forStatsType) {
-    if(this.traitsByStats.containsKey(forStatsType)) {
-      return ImmutableList.copyOf(this.traitsByStats.get(forStatsType));
-    }
-    else if(this.traitsByStats.containsKey(null)) {
-      return ImmutableList.copyOf(this.traitsByStats.get(null));
-    }
-    return ImmutableList.of();
-  }
-
-  /** Obtains the list of traits for the given stat, creates it if it doesn't exist yet. */
-  protected List<ITrait> getStatTraits(MaterialStatsType forStatsType) {
+  /**
+   * Obtains the list of traits for the given stat, creates it if it doesn't exist yet.
+   */
+  protected List<ITrait> getStatTraits(PartType forStatsType) {
     if(!this.traitsByStats.containsKey(forStatsType)) {
       // linked list since we're only ever iterating over the list
       this.traitsByStats.put(forStatsType, new LinkedList<>());
@@ -192,8 +186,8 @@ public class Material extends RecipeMatchRegistry implements IMaterial {
   @Override
   public Collection<ITrait> getAllTraits() {
     return traitsByStats.values().stream()
-        .flatMap(Collection::stream)
-        .collect(Collectors.toList());
+                        .flatMap(Collection::stream)
+                        .collect(Collectors.toList());
   }
 
   public void setShard(ItemStack stack) {
