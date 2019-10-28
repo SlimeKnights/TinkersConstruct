@@ -1,30 +1,20 @@
 package slimeknights.tconstruct.library.materials;
 
 import com.google.common.collect.ImmutableList;
-
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.annotation.Nullable;
-
-import slimeknights.mantle.util.RecipeMatch;
-import slimeknights.mantle.util.RecipeMatchRegistry;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.PartType;
 import slimeknights.tconstruct.library.traits.ITrait;
 
-public class Material extends RecipeMatchRegistry implements IMaterial {
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.stream.Collectors;
 
+public class Material implements IMaterial {
 
   // todo config
 //  public static int VALUE_Ore() {
@@ -107,7 +97,7 @@ public class Material extends RecipeMatchRegistry implements IMaterial {
    * Associates this fluid with the material. Used for melting/casting items.
    */
   public Material setFluid(@Nullable Fluid fluid) {
-    if(fluid != null && !ForgeRegistries.FLUIDS.containsValue(fluid)) {
+    if (fluid != null && !ForgeRegistries.FLUIDS.containsValue(fluid)) {
       TinkerRegistry.log.warn("Materials cannot have an unregistered fluid associated with them!");
     }
     this.fluid = fluid;
@@ -164,10 +154,9 @@ public class Material extends RecipeMatchRegistry implements IMaterial {
   public List<ITrait> getAllTraitsForStats(PartType partType) {
     List<ITrait> traits = traitsByStats.get(partType);
 
-    if(traits == null) {
+    if (traits == null) {
       return traitsByStats.getOrDefault(null, ImmutableList.of());
-    }
-    else {
+    } else {
       return traits;
     }
   }
@@ -175,8 +164,9 @@ public class Material extends RecipeMatchRegistry implements IMaterial {
   /**
    * Obtains the list of traits for the given stat, creates it if it doesn't exist yet.
    */
+  @SuppressWarnings("WeakerAccess")
   protected List<ITrait> getStatTraits(PartType forStatsType) {
-    if(!this.traitsByStats.containsKey(forStatsType)) {
+    if (!this.traitsByStats.containsKey(forStatsType)) {
       // linked list since we're only ever iterating over the list
       this.traitsByStats.put(forStatsType, new LinkedList<>());
     }
@@ -186,20 +176,21 @@ public class Material extends RecipeMatchRegistry implements IMaterial {
   @Override
   public Collection<ITrait> getAllTraits() {
     return traitsByStats.values().stream()
-                        .flatMap(Collection::stream)
-                        .collect(Collectors.toList());
+      .flatMap(Collection::stream)
+      .collect(Collectors.toList());
   }
 
   public void setShard(ItemStack stack) {
-    if(stack.isEmpty()) {
+    if (stack.isEmpty()) {
       this.shardItem = ItemStack.EMPTY;
-    }
-    else {
+    } else {
+      // todo: shard matching. Reimplement or move it somewhere else? OK like this? Do we keep recipematchregistry?
+      /*
       Optional<RecipeMatch.Match> matchOptional = matches(stack);
       if(matchOptional.isPresent()) {
         RecipeMatch.Match match = matchOptional.get();
-        if(match.amount == MaterialValues.VALUE_Shard) {
-          this.shardItem = stack;
+        if(match.amount == MaterialValues.VALUE_Shard) {*/
+      this.shardItem = stack;/*
         }
         else {
           TinkerRegistry.log.warn("Itemstack {} cannot be shard of material {} since it does not have the correct material value! (is {}, has to be {})",
@@ -213,13 +204,13 @@ public class Material extends RecipeMatchRegistry implements IMaterial {
         TinkerRegistry.log.warn("Itemstack {} cannot be shard of material {} since it is not associated with the material!",
                                 stack.toString(),
                                 identifier);
-      }
+      }*/
     }
   }
 
   @Override
   public ItemStack getShard() {
-    if(shardItem != ItemStack.EMPTY) {
+    if (shardItem != ItemStack.EMPTY) {
       return shardItem.copy();
     }
     return ItemStack.EMPTY;

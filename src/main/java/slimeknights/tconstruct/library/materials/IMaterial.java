@@ -2,14 +2,13 @@ package slimeknights.tconstruct.library.materials;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
+import slimeknights.tconstruct.library.materials.stats.PartType;
+import slimeknights.tconstruct.library.traits.ITrait;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-
-import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
-import slimeknights.tconstruct.library.materials.stats.PartType;
-import slimeknights.tconstruct.library.traits.ITrait;
 
 public interface IMaterial {
 
