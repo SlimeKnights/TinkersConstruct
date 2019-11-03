@@ -1,0 +1,6 @@
+{
+    "id": "invalid",
+    "craftable": "blue",
+    "fluid": "in:valid",
+    "shardItem": "in:valid"
+}
