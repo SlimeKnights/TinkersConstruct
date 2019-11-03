@@ -1,0 +1,11 @@
+{
+    "id": "lul",
+    "craftable": true,
+    "fluid": "minecraft:water",
+    "shardItem": "minecraft:stick",
+    "stats": [
+        {
+            "id": "fails"
+        }
+    ]
+}

@@ -48,7 +48,7 @@ public class Util {
    * Removes all whitespaces from the given string and makes it lowerspace.
    */
   public static String sanitizeLocalizationString(String string) {
-    return string.toLowerCase(Locale.US).replaceAll(" ", "");
+    return string.toLowerCase(Locale.US).replaceAll(" ", "").trim();
   }
 
   /**

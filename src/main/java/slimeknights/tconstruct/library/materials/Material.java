@@ -3,14 +3,12 @@ package slimeknights.tconstruct.library.materials;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.tconstruct.library.TinkerRegistry;
+import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.PartType;
 import slimeknights.tconstruct.library.traits.ITrait;
 
-import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -36,24 +34,23 @@ public class Material implements IMaterial {
   /**
    * This String uniquely identifies a material.
    */
-  private final String identifier;
+  private final ResourceLocation identifier;
 
   /**
-   * The fluid associated with this material, can be null.
+   * The fluid associated with this material, can not be null, but Fluids.EMPTY.
    * If non-null also indicates that the material can be cast.
    */
-  @Nullable
-  protected Fluid fluid;
+  protected final Fluid fluid;
 
   /**
    * Material can be crafted into parts in the PartBuilder
    */
-  private boolean craftable;
+  private final boolean craftable;
 
   /**
    * This item will be used instead of the generic shard item when returning leftovers.
    */
-  private ItemStack shardItem = ItemStack.EMPTY;
+  private final ItemStack shardItem;
 
   // we use a specific map for 2 reasons:
   // * A Map so we can obtain the stats we want quickly
@@ -65,22 +62,17 @@ public class Material implements IMaterial {
    */
   private final LinkedHashMap<PartType, List<ITrait>> traitsByStats = new LinkedHashMap<>();
 
-  public Material(String identifier) {
+  public Material(ResourceLocation identifier, Fluid fluid, boolean craftable, ItemStack shardItem) {
     // lowercases and removes whitespaces
-    this.identifier = Util.sanitizeLocalizationString(identifier);
+    this.identifier = new ResourceLocation(identifier.getNamespace(), Util.sanitizeLocalizationString(identifier.getPath()));
+    this.fluid = fluid;
+    this.craftable = craftable;
+    this.shardItem = shardItem;
   }
 
   @Override
-  public String getIdentifier() {
+  public ResourceLocation getIdentifier() {
     return identifier;
-  }
-
-  /**
-   * Setting this to true allows to craft parts in the PartBuilder
-   */
-  public Material setCraftable(boolean craftable) {
-    this.craftable = craftable;
-    return this;
   }
 
   @Override
@@ -89,19 +81,8 @@ public class Material implements IMaterial {
   }
 
   @Override
-  public Optional<Fluid> getFluid() {
-    return Optional.ofNullable(fluid);
-  }
-
-  /**
-   * Associates this fluid with the material. Used for melting/casting items.
-   */
-  public Material setFluid(@Nullable Fluid fluid) {
-    if (fluid != null && !ForgeRegistries.FLUIDS.containsValue(fluid)) {
-      TinkerRegistry.log.warn("Materials cannot have an unregistered fluid associated with them!");
-    }
-    this.fluid = fluid;
-    return this;
+  public Fluid getFluid() {
+    return fluid;
   }
 
   /* Stats */
@@ -182,7 +163,7 @@ public class Material implements IMaterial {
 
   public void setShard(ItemStack stack) {
     if (stack.isEmpty()) {
-      this.shardItem = ItemStack.EMPTY;
+      //this.shardItem = ItemStack.EMPTY;
     } else {
       // todo: shard matching. Reimplement or move it somewhere else? OK like this? Do we keep recipematchregistry?
       /*
@@ -190,7 +171,8 @@ public class Material implements IMaterial {
       if(matchOptional.isPresent()) {
         RecipeMatch.Match match = matchOptional.get();
         if(match.amount == MaterialValues.VALUE_Shard) {*/
-      this.shardItem = stack;/*
+      //this.shardItem = stack;
+      /*
         }
         else {
           TinkerRegistry.log.warn("Itemstack {} cannot be shard of material {} since it does not have the correct material value! (is {}, has to be {})",

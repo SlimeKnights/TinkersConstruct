@@ -1,7 +1,11 @@
 package slimeknights.tconstruct;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -10,13 +14,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-
+import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.Random;
-
 import slimeknights.mantle.pulsar.control.PulseManager;
 import slimeknights.mantle.util.BlankBlockDropJsonGenerator;
 import slimeknights.mantle.util.BlockStateJsonGenerator;
@@ -34,8 +34,12 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
+import slimeknights.tconstruct.library.materials.MaterialManager;
+import slimeknights.tconstruct.library.materials.client.MaterialRenderManager;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.world.TinkerWorld;
+
+import java.util.Random;
 
 /**
  * TConstruct, the tool mod. Craft your tools with style, then modify until the original is gone!
@@ -44,6 +48,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
  */
 
 @Mod(TConstruct.modID)
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TConstruct {
 
   public static final String modID = Util.MODID;
@@ -60,10 +65,6 @@ public class TConstruct {
 
   public TConstruct() {
     instance = this;
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::preInit);
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::postInit);
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::gatherData);
 
     ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.serverSpec);
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
@@ -76,23 +77,30 @@ public class TConstruct {
     pulseManager.enablePulses();
 
     DistExecutor.runWhenOn(Dist.CLIENT, () -> TinkerBook::initBook);
+
+    ((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(new MaterialRenderManager());
+    MinecraftForge.EVENT_BUS.register(this);
   }
 
-  private void preInit(final FMLCommonSetupEvent event) {
+  @SubscribeEvent
+  public static void preInit(final FMLCommonSetupEvent event) {
     proxy.preInit();
 
     TinkerNetwork.instance.setup();
   }
 
-  private void init(final InterModEnqueueEvent event) {
+  @SubscribeEvent
+  public static void init(final InterModEnqueueEvent event) {
     proxy.init();
   }
 
-  private void postInit(final InterModProcessEvent event) {
+  @SubscribeEvent
+  public static void postInit(final InterModProcessEvent event) {
     proxy.postInit();
   }
 
-  private void gatherData(final GatherDataEvent event) {
+  @SubscribeEvent
+  public static void gatherData(final GatherDataEvent event) {
     DataGenerator datagenerator = event.getGenerator();
 
     if (event.includeServer()) {
@@ -108,5 +116,10 @@ public class TConstruct {
         datagenerator.addProvider(new BlankBlockDropJsonGenerator(datagenerator, modID));
       }
     }
+  }
+
+  @SubscribeEvent
+  public void onServerAboutToStart(final FMLServerAboutToStartEvent event) {
+    event.getServer().getResourceManager().addReloadListener(new MaterialManager());
   }
 }

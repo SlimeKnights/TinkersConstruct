@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.materials;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.PartType;
 import slimeknights.tconstruct.library.traits.ITrait;
@@ -19,7 +21,7 @@ public interface IMaterial {
    *
    * The fallback material needs to have all part types associated with it.
    */
-  Material UNKNOWN = new Material("unknown");
+  Material UNKNOWN = new Material(Util.getResource("unknown"), null, false, ItemStack.EMPTY);
 
   /**
    * Convenience method. Default stats for all part types must exist, to be used when an invalid material with missing stats is used.
@@ -32,7 +34,7 @@ public interface IMaterial {
    * Used to identify the material in NBT and other constructs.
    * Basically everywhere where the material has to be referenced and persisted.
    */
-  String getIdentifier();
+  ResourceLocation getIdentifier();
 
   /**
    * If the material can be crafted into items in the part builder.
@@ -42,13 +44,14 @@ public interface IMaterial {
   boolean isCraftable();
 
   /**
-   * The fluid associated with this material.
+   * The fluid associated with this material, if not Fluids.EMPTY.
    * Prerequisite for parts to be cast using the casting table and a cast.
    * Just to make this completely clear: This is the indicator if a material is castable.
    *
-   * @return Optional with the associated fluid or empty optional if no fluid has been associated.
+   * @return The associated fluid or Fluids.EMPTY if material is not castable
    */
-  Optional<Fluid> getFluid();
+  // todo: check if we should replace this with a FluidStack or IFluidState. Probably best done after we know usage
+  Fluid getFluid();
 
   /**
    * Shards are the leftovers when crafting parts, e.g. sticks for wood.
