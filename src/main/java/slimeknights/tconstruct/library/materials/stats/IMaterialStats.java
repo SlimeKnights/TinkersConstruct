@@ -7,7 +7,7 @@ public interface IMaterialStats {
   /**
    * Returns a unique String to identify the type of stats the material has.
    */
-  PartType getIdentifier();
+  MaterialStatType getIdentifier();
 
   /**
    * Returns the name of the stat type, to be displayed to the player.

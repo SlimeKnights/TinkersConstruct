@@ -1,8 +1,14 @@
 package slimeknights.tconstruct.library.materials;
 
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Bootstrap;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
-import slimeknights.tconstruct.library.materials.stats.PartType;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 
 import java.util.List;
 
@@ -10,10 +16,15 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class MaterialTest {
 
-  private static final PartType TEST_PART_TYPE = new PartType.PartTypeImpl("testPartType");
-  private static final PartType TEST_PART_TYPE2 = new PartType.PartTypeImpl("testPartType2");
+  private static final MaterialStatType TEST_PART_TYPE = new MaterialStatType(new ResourceLocation("testPartType"));
+  private static final MaterialStatType TEST_PART_TYPE2 = new MaterialStatType(new ResourceLocation("testPartType2"));
 
-  private Material material;// = new Material("test");
+  private Material material = new Material(new ResourceLocation("test", "material"), Fluids.WATER, true, new ItemStack(Items.STICK));
+
+  @BeforeAll
+  static void setUpRegistries() {
+    Bootstrap.register();
+  }
 
   @Test
   void ensureStatsAreAlwaysInOrder() {
@@ -44,8 +55,8 @@ class MaterialTest {
   private IMaterialStats generateStats(final String id) {
     return new IMaterialStats() {
       @Override
-      public PartType getIdentifier() {
-        return new PartType.PartTypeImpl(id);
+      public MaterialStatType getIdentifier() {
+        return new MaterialStatType(new ResourceLocation(id));
       }
 
       @Override

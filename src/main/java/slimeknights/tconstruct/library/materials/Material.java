@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
-import slimeknights.tconstruct.library.materials.stats.PartType;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.traits.ITrait;
 
 import java.util.*;
@@ -55,12 +55,12 @@ public class Material implements IMaterial {
   // we use a specific map for 2 reasons:
   // * A Map so we can obtain the stats we want quickly
   // * the linked map to ensure the order when iterating
-  private final LinkedHashMap<PartType, IMaterialStats> stats = new LinkedHashMap<>();
+  private final LinkedHashMap<MaterialStatType, IMaterialStats> stats = new LinkedHashMap<>();
   /**
    * Stat-ID -> Traits used in conjunction with these stats.
    * <em>null</em> is an allowed key, and is used for general traits that are not stats specific.
    */
-  private final LinkedHashMap<PartType, List<ITrait>> traitsByStats = new LinkedHashMap<>();
+  private final LinkedHashMap<MaterialStatType, List<ITrait>> traitsByStats = new LinkedHashMap<>();
 
   public Material(ResourceLocation identifier, Fluid fluid, boolean craftable, ItemStack shardItem) {
     // lowercases and removes whitespaces
@@ -104,7 +104,7 @@ public class Material implements IMaterial {
    */
   @Override
   @SuppressWarnings("unchecked")
-  public <T extends IMaterialStats> Optional<T> getStatsForType(PartType partType) {
+  public <T extends IMaterialStats> Optional<T> getStatsForType(MaterialStatType partType) {
     return Optional.ofNullable((T) stats.get(partType));
   }
 
@@ -125,14 +125,14 @@ public class Material implements IMaterial {
   /**
    * Adds the trait to be added if the specified stats are used.
    */
-  public Material addTrait(ITrait materialTrait, PartType forStatsType) {
+  public Material addTrait(ITrait materialTrait, MaterialStatType forStatsType) {
     // todo: we don't register traits automatically on addition anymore, check if all are present
     getStatTraits(forStatsType).add(materialTrait);
     return this;
   }
 
   @Override
-  public List<ITrait> getAllTraitsForStats(PartType partType) {
+  public List<ITrait> getAllTraitsForStats(MaterialStatType partType) {
     List<ITrait> traits = traitsByStats.get(partType);
 
     if (traits == null) {
@@ -146,7 +146,7 @@ public class Material implements IMaterial {
    * Obtains the list of traits for the given stat, creates it if it doesn't exist yet.
    */
   @SuppressWarnings("WeakerAccess")
-  protected List<ITrait> getStatTraits(PartType forStatsType) {
+  protected List<ITrait> getStatTraits(MaterialStatType forStatsType) {
     if (!this.traitsByStats.containsKey(forStatsType)) {
       // linked list since we're only ever iterating over the list
       this.traitsByStats.put(forStatsType, new LinkedList<>());

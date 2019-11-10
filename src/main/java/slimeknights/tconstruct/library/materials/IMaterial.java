@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
-import slimeknights.tconstruct.library.materials.stats.PartType;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.traits.ITrait;
 
 import java.util.Collection;
@@ -26,7 +26,7 @@ public interface IMaterial {
   /**
    * Convenience method. Default stats for all part types must exist, to be used when an invalid material with missing stats is used.
    */
-  static <T extends IMaterialStats> T getDefaultStatsForType(PartType partType) {
+  static <T extends IMaterialStats> T getDefaultStatsForType(MaterialStatType partType) {
     return (T) UNKNOWN.getStatsForType(partType).orElseThrow(() -> new IllegalStateException("Trying to get the fallback materials stats for a type that doesn't exist. You're either using something unregistered or some external influence messed things up, since that's impossible by design."));
   }
 
@@ -68,14 +68,14 @@ public interface IMaterial {
    *
    * @return Optional containing the stats, or empty optional if there are no stats for the given type.
    */
-  <T extends IMaterialStats> Optional<T> getStatsForType(PartType partType);
+  <T extends IMaterialStats> Optional<T> getStatsForType(MaterialStatType partType);
 
   /**
    * Get the traits that shall be added to a tool if the given part type is used.
    *
    * @return List of traits to be used.
    */
-  List<ITrait> getAllTraitsForStats(PartType partType);
+  List<ITrait> getAllTraitsForStats(MaterialStatType partType);
 
   /**
    * All stats available with this material. Usually only used for display purposes.

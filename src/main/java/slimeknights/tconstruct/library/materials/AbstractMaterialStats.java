@@ -3,18 +3,18 @@ package slimeknights.tconstruct.library.materials;
 import net.minecraft.util.text.TextFormatting;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
-import slimeknights.tconstruct.library.materials.stats.PartType;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 
 public abstract class AbstractMaterialStats implements IMaterialStats {
 
-  protected final PartType partType;
+  protected final MaterialStatType partType;
 
-  public AbstractMaterialStats(PartType partType) {
+  public AbstractMaterialStats(MaterialStatType partType) {
     this.partType = partType;
   }
 
   @Override
-  public PartType getIdentifier() {
+  public MaterialStatType getIdentifier() {
     return partType;
   }
 

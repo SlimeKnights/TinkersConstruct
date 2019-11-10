@@ -15,7 +15,6 @@ import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
@@ -40,19 +39,10 @@ public class MaterialManager extends JsonReloadListener {
     .disableHtmlEscaping()
     .create();
 
-  // these are passed in for testing reasons
-  private final IForgeRegistry<Fluid> fluidRegistry;
-  private final IForgeRegistry<Item> itemRegistry;
   private Map<ResourceLocation, IMaterial> materials = ImmutableMap.of();
 
   public MaterialManager() {
-    this(ForgeRegistries.FLUIDS, ForgeRegistries.ITEMS);
-  }
-
-  protected MaterialManager(IForgeRegistry<Fluid> fluidRegistry, IForgeRegistry<Item> itemRegistry) {
     super(GSON, "materials");
-    this.fluidRegistry = fluidRegistry;
-    this.itemRegistry = itemRegistry;
   }
 
   public Collection<IMaterial> getAllMaterials() {
@@ -92,7 +82,7 @@ public class MaterialManager extends JsonReloadListener {
     ResourceLocation shardItemId = materialJson.getShardItem();
     ItemStack shard = ItemStack.EMPTY;
     if(shardItemId != null) {
-      Item shardItem = itemRegistry.getValue(shardItemId);
+      Item shardItem = ForgeRegistries.ITEMS.getValue(shardItemId);
       // air is the default, but the contract also allows null
       if(shardItem != null && shardItem != Items.AIR) {
         shard = new ItemStack(shardItem);
@@ -103,14 +93,14 @@ public class MaterialManager extends JsonReloadListener {
     return shard;
   }
 
-  @Nullable
   private Fluid loadFluid(MaterialJson materialJson) {
     ResourceLocation fluidId = materialJson.getFluid();
     Fluid fluid = Fluids.EMPTY;
     if (fluidId != null) {
-      fluid = fluidRegistry.getValue(fluidId);
+      fluid = ForgeRegistries.FLUIDS.getValue(fluidId);
       if (fluid == null || fluid.getDefaultState().isEmpty()) {
         LOGGER.warn("Could not find fluid {} for material {}", fluidId, materialJson.getId());
+        fluid = Fluids.EMPTY;
       }
     }
     return fluid;
