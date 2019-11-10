@@ -1,5 +1,9 @@
 package slimeknights.tconstruct.library.materials.stats;
 
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
+import slimeknights.tconstruct.library.Util;
+
 import java.util.List;
 
 /**
@@ -8,15 +12,15 @@ import java.util.List;
  */
 public class BaseMaterialStats implements IMaterialStats {
 
-  private final MaterialStatType identifier;
+  private final ResourceLocation id;
 
-  public BaseMaterialStats(MaterialStatType identifier) {
-    this.identifier = identifier;
+  public BaseMaterialStats(ResourceLocation identifier) {
+    this.id = identifier;
   }
 
   @Override
-  public MaterialStatType getIdentifier() {
-    return identifier;
+  public ResourceLocation getIdentifier() {
+    return id;
   }
 
   @Override
@@ -35,5 +39,25 @@ public class BaseMaterialStats implements IMaterialStats {
   public List<String> getLocalizedDesc() {
     // todo
     return null;
+  }
+
+  public static String formatNumber(String loc, String color, int number) {
+    return formatNumber(loc, color, (float) number);
+  }
+
+  public static String formatNumber(String loc, String color, float number) {
+    return String.format("%s: %s%s%s",
+      Util.translate(loc),
+      color,
+      Util.df.format(number),
+      TextFormatting.RESET);
+  }
+
+  public static String formatNumberPercent(String loc, String color, float number) {
+    return String.format("%s: %s%s%s",
+      Util.translate(loc),
+      color,
+      Util.dfPercent.format(number),
+      TextFormatting.RESET);
   }
 }

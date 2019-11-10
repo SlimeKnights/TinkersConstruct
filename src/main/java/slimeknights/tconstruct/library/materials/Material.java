@@ -55,12 +55,12 @@ public class Material implements IMaterial {
   // we use a specific map for 2 reasons:
   // * A Map so we can obtain the stats we want quickly
   // * the linked map to ensure the order when iterating
-  private final LinkedHashMap<MaterialStatType, IMaterialStats> stats = new LinkedHashMap<>();
+  private final LinkedHashMap<ResourceLocation, IMaterialStats> stats = new LinkedHashMap<ResourceLocation, IMaterialStats>();
   /**
    * Stat-ID -> Traits used in conjunction with these stats.
    * <em>null</em> is an allowed key, and is used for general traits that are not stats specific.
    */
-  private final LinkedHashMap<MaterialStatType, List<ITrait>> traitsByStats = new LinkedHashMap<>();
+  private final LinkedHashMap<ResourceLocation, List<ITrait>> traitsByStats = new LinkedHashMap<ResourceLocation, List<ITrait>>();
 
   public Material(ResourceLocation identifier, Fluid fluid, boolean craftable, ItemStack shardItem) {
     // lowercases and removes whitespaces
@@ -125,7 +125,7 @@ public class Material implements IMaterial {
   /**
    * Adds the trait to be added if the specified stats are used.
    */
-  public Material addTrait(ITrait materialTrait, MaterialStatType forStatsType) {
+  public Material addTrait(ITrait materialTrait, ResourceLocation forStatsType) {
     // todo: we don't register traits automatically on addition anymore, check if all are present
     getStatTraits(forStatsType).add(materialTrait);
     return this;
@@ -146,7 +146,7 @@ public class Material implements IMaterial {
    * Obtains the list of traits for the given stat, creates it if it doesn't exist yet.
    */
   @SuppressWarnings("WeakerAccess")
-  protected List<ITrait> getStatTraits(MaterialStatType forStatsType) {
+  protected List<ITrait> getStatTraits(ResourceLocation forStatsType) {
     if (!this.traitsByStats.containsKey(forStatsType)) {
       // linked list since we're only ever iterating over the list
       this.traitsByStats.put(forStatsType, new LinkedList<>());

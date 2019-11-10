@@ -32,6 +32,9 @@ import java.util.stream.Collectors;
 public class MaterialManager extends JsonReloadListener {
 
   private static final Logger LOGGER = LogManager.getLogger();
+
+  @VisibleForTesting
+  protected static final String FOLDER = "materials";
   @VisibleForTesting
   protected static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
@@ -42,7 +45,7 @@ public class MaterialManager extends JsonReloadListener {
   private Map<ResourceLocation, IMaterial> materials = ImmutableMap.of();
 
   public MaterialManager() {
-    super(GSON, "materials");
+    super(GSON, FOLDER);
   }
 
   public Collection<IMaterial> getAllMaterials() {

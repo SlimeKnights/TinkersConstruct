@@ -55,8 +55,8 @@ class MaterialTest {
   private IMaterialStats generateStats(final String id) {
     return new IMaterialStats() {
       @Override
-      public MaterialStatType getIdentifier() {
-        return new MaterialStatType(new ResourceLocation(id));
+      public ResourceLocation getIdentifier() {
+        return new ResourceLocation(id);
       }
 
       @Override

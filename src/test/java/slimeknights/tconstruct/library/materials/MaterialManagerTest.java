@@ -9,35 +9,26 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Bootstrap;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import slimeknights.tconstruct.BaseMcTest;
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.util.JsonFileLoader;
 
-import java.io.*;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
 import java.util.Collection;
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-class MaterialManagerTest {
+class MaterialManagerTest extends BaseMcTest {
 
   private MaterialManager materialManager = new MaterialManager();
-
-  @BeforeAll
-  static void setUpRegistries() {
-    Bootstrap.register();
-  }
+  private JsonFileLoader fileLoader = new JsonFileLoader(MaterialManager.GSON, MaterialManager.FOLDER);
 
   @Test
-  void loadFullMaterial_allStatsPresent() throws Exception {
-    ResourceLocation file = new ResourceLocation("test", "full");
-    JsonObject jsonObject = loadMaterialJson(file.getPath());
+  void loadFullMaterial_allStatsPresent() {
+    ResourceLocation file = Util.getResource("full");
+    JsonObject jsonObject = fileLoader.loadJson(file);
 
 
     ImmutableMap<ResourceLocation, JsonObject> splashList = ImmutableMap.of(file, jsonObject);
@@ -47,16 +38,16 @@ class MaterialManagerTest {
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
     IMaterial testMaterial = allMaterials.iterator().next();
-    assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new ResourceLocation("test", "full"));
+    assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new ResourceLocation("tconstruct", "full"));
     assertThat(testMaterial.getFluid()).isEqualTo(Fluids.WATER);
     assertThat(testMaterial.isCraftable()).isTrue();
     assertThat(testMaterial.getShard()).matches(itemStack -> ItemStack.areItemStacksEqual(itemStack, new ItemStack(Items.STICK)));
   }
 
   @Test
-  void loadMinimalMaterial_succeedWithDefaults() throws Exception {
-    ResourceLocation file = new ResourceLocation("test", "minimal");
-    JsonObject jsonObject = loadMaterialJson(file.getPath());
+  void loadMinimalMaterial_succeedWithDefaults() {
+    ResourceLocation file = Util.getResource("minimal");
+    JsonObject jsonObject = fileLoader.loadJson(file);
 
 
     ImmutableMap<ResourceLocation, JsonObject> splashList = ImmutableMap.of(file, jsonObject);
@@ -66,17 +57,18 @@ class MaterialManagerTest {
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
     IMaterial testMaterial = allMaterials.iterator().next();
-    assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new ResourceLocation("test", "minimal"));
+    assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new ResourceLocation("tconstruct", "minimal"));
     assertThat(testMaterial.getFluid()).extracting(Fluid::getDefaultState).matches(IFluidState::isEmpty);
     assertThat(testMaterial.isCraftable()).isFalse();
     assertThat(testMaterial.getShard()).matches(ItemStack::isEmpty);
-    assertThat(testMaterial.getAllStats()).hasSize(1);
+    assertThat(testMaterial.getAllStats()).isEmpty();
+    assertThat(testMaterial.getAllTraits()).isEmpty();
   }
 
   @Test
-  void invalidFluid_useDefault() throws Exception {
-    ResourceLocation file = new ResourceLocation("test", "invalid");
-    JsonObject jsonObject = loadMaterialJson(file.getPath());
+  void invalidFluid_useDefault() {
+    ResourceLocation file = Util.getResource( "invalid");
+    JsonObject jsonObject = fileLoader.loadJson(file);
 
 
     ImmutableMap<ResourceLocation, JsonObject> splashList = ImmutableMap.of(file, jsonObject);
@@ -90,9 +82,9 @@ class MaterialManagerTest {
   }
 
   @Test
-  void invalidShard_useDefault() throws Exception {
-    ResourceLocation file = new ResourceLocation("test", "invalid");
-    JsonObject jsonObject = loadMaterialJson(file.getPath());
+  void invalidShard_useDefault() {
+    ResourceLocation file = Util.getResource("invalid");
+    JsonObject jsonObject = fileLoader.loadJson(file);
 
 
     ImmutableMap<ResourceLocation, JsonObject> splashList = ImmutableMap.of(file, jsonObject);
@@ -117,19 +109,5 @@ class MaterialManagerTest {
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).isEmpty();
-  }
-
-  private JsonObject loadMaterialJson(String filename) throws IOException {
-    String path = Paths.get("data/tconstruct/materials/", filename + ".json").toString();
-    URL resource = materialManager.getClass().getClassLoader().getResource(path);
-    if(resource == null) {
-      throw new IllegalArgumentException("Resource with path " + path + " doesn't exist");
-    }
-    try (
-      InputStream inputstream = resource.openStream();
-      Reader reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8))
-    ) {
-      return Objects.requireNonNull(JSONUtils.fromJson(MaterialManager.GSON, reader, JsonObject.class));
-    }
   }
 }

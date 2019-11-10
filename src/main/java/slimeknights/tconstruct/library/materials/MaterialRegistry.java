@@ -42,7 +42,7 @@ public final class MaterialRegistry {
    */
   public void registerMaterial(MaterialStatType type, IMaterialStats defaultStats) {
     if(materialStatDefaults.containsKey(type)) {
-      throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(type);
+      throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(type.getIdentifier());
     }
     materialStatDefaults.put(type, defaultStats);
   }

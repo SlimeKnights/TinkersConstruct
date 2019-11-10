@@ -47,7 +47,7 @@ public class Util {
   }
 
   public static Optional<String> getCurrentlyActiveExternalMod() {
-    return Optional.of(ModLoadingContext.get().getActiveContainer().getModId())
+    return Optional.ofNullable(ModLoadingContext.get().getActiveContainer().getModId())
       .filter(activeModId -> !MODID.equals(activeModId));
   }
 

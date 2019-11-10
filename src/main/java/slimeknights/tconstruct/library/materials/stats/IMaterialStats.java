@@ -1,13 +1,19 @@
 package slimeknights.tconstruct.library.materials.stats;
 
+import net.minecraft.util.ResourceLocation;
+
 import java.util.List;
 
+/**
+ * Basic interface for all material stats.
+ * Note that you should extend {@link BaseMaterialStats} for your material to load from the JSONs.
+ */
 public interface IMaterialStats {
 
   /**
-   * Returns a unique String to identify the type of stats the material has.
+   * Returns a unique ResourceLocation to identify the type of stats the material has.
    */
-  MaterialStatType getIdentifier();
+  ResourceLocation getIdentifier();
 
   /**
    * Returns the name of the stat type, to be displayed to the player.
