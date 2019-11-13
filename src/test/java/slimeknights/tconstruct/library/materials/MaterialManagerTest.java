@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.materials;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonObject;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -11,11 +10,11 @@ import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import org.junit.jupiter.api.Test;
-import slimeknights.tconstruct.BaseMcTest;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.util.JsonFileLoader;
+import slimeknights.tconstruct.test.BaseMcTest;
+import slimeknights.tconstruct.test.JsonFileLoader;
 
 import java.util.Collection;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -27,13 +26,9 @@ class MaterialManagerTest extends BaseMcTest {
 
   @Test
   void loadFullMaterial_allStatsPresent() {
-    ResourceLocation file = Util.getResource("full");
-    JsonObject jsonObject = fileLoader.loadJson(file);
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist("full");
 
-
-    ImmutableMap<ResourceLocation, JsonObject> splashList = ImmutableMap.of(file, jsonObject);
     materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
-
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
@@ -46,13 +41,9 @@ class MaterialManagerTest extends BaseMcTest {
 
   @Test
   void loadMinimalMaterial_succeedWithDefaults() {
-    ResourceLocation file = Util.getResource("minimal");
-    JsonObject jsonObject = fileLoader.loadJson(file);
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist("minimal");
 
-
-    ImmutableMap<ResourceLocation, JsonObject> splashList = ImmutableMap.of(file, jsonObject);
     materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
-
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
@@ -67,13 +58,9 @@ class MaterialManagerTest extends BaseMcTest {
 
   @Test
   void invalidFluid_useDefault() {
-    ResourceLocation file = Util.getResource( "invalid");
-    JsonObject jsonObject = fileLoader.loadJson(file);
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist("invalid");
 
-
-    ImmutableMap<ResourceLocation, JsonObject> splashList = ImmutableMap.of(file, jsonObject);
     materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
-
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
@@ -83,13 +70,9 @@ class MaterialManagerTest extends BaseMcTest {
 
   @Test
   void invalidShard_useDefault() {
-    ResourceLocation file = Util.getResource("invalid");
-    JsonObject jsonObject = fileLoader.loadJson(file);
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist("invalid");
 
-
-    ImmutableMap<ResourceLocation, JsonObject> splashList = ImmutableMap.of(file, jsonObject);
     materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
-
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
@@ -99,13 +82,9 @@ class MaterialManagerTest extends BaseMcTest {
 
   @Test
   void craftableIsRequired_failOnMissing() {
-    ResourceLocation file = new ResourceLocation("test", "nonexistant");
-    JsonObject jsonObject = new JsonObject();
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist("nonexistant");
 
-
-    ImmutableMap<ResourceLocation, JsonObject> splashList = ImmutableMap.of(file, jsonObject);
     materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
-
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).isEmpty();

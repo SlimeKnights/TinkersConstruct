@@ -1,4 +1,4 @@
-package slimeknights.tconstruct;
+package slimeknights.tconstruct.test;
 
 import net.minecraft.util.registry.Bootstrap;
 import net.minecraftforge.fml.ModContainer;

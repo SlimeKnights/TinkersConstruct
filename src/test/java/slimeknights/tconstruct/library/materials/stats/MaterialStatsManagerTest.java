@@ -6,9 +6,9 @@ import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import org.junit.jupiter.api.Test;
-import slimeknights.tconstruct.BaseMcTest;
+import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.util.JsonFileLoader;
+import slimeknights.tconstruct.test.JsonFileLoader;
 
 import java.util.Optional;
 
