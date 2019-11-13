@@ -98,7 +98,7 @@ class MaterialManagerTest extends BaseMcTest {
   }
 
   @Test
-  void materialIdIsRequired_failOnMissing() {
+  void craftableIsRequired_failOnMissing() {
     ResourceLocation file = new ResourceLocation("test", "nonexistant");
     JsonObject jsonObject = new JsonObject();
 

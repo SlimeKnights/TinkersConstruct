@@ -17,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
 
 import javax.annotation.Nullable;
@@ -64,24 +65,26 @@ public class MaterialManager extends JsonReloadListener {
   }
 
   @Nullable
-  private IMaterial loadMaterial(ResourceLocation resourceLocation, JsonObject jsonObject) {
+  private IMaterial loadMaterial(ResourceLocation materialId, JsonObject jsonObject) {
     try {
       MaterialJson materialJson = GSON.fromJson(jsonObject, MaterialJson.class);
 
-      String id = Objects.requireNonNull(materialJson.getId()).getPath();
-      ResourceLocation materialId = new ResourceLocation(resourceLocation.getNamespace(), id);
+      if(materialJson.getCraftable() == null) {
+        throw TinkerJSONException.materialJsonWithoutRequiredData(materialId);
+      }
+
       boolean isCraftable = Boolean.TRUE.equals(materialJson.getCraftable());
-      Fluid fluid = loadFluid(materialJson);
-      ItemStack shard = loadShardItem(materialJson);
+      Fluid fluid = loadFluid(materialId, materialJson);
+      ItemStack shard = loadShardItem(materialId, materialJson);
 
       return new Material(materialId, fluid, isCraftable, shard);
     } catch (Exception e) {
-      LOGGER.error("Could not deserialize material {}. JSON: {}", resourceLocation, jsonObject, e);
+      LOGGER.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;
     }
   }
 
-  private ItemStack loadShardItem(MaterialJson materialJson) {
+  private ItemStack loadShardItem(ResourceLocation materialId, MaterialJson materialJson) {
     ResourceLocation shardItemId = materialJson.getShardItem();
     ItemStack shard = ItemStack.EMPTY;
     if(shardItemId != null) {
@@ -90,19 +93,19 @@ public class MaterialManager extends JsonReloadListener {
       if(shardItem != null && shardItem != Items.AIR) {
         shard = new ItemStack(shardItem);
       } else {
-        LOGGER.warn("Could not find shard item {} for material {}", shardItemId, materialJson.getId());
+        LOGGER.warn("Could not find shard item {} for material {}", shardItemId, materialId);
       }
     }
     return shard;
   }
 
-  private Fluid loadFluid(MaterialJson materialJson) {
+  private Fluid loadFluid(ResourceLocation materialId, MaterialJson materialJson) {
     ResourceLocation fluidId = materialJson.getFluid();
     Fluid fluid = Fluids.EMPTY;
     if (fluidId != null) {
       fluid = ForgeRegistries.FLUIDS.getValue(fluidId);
       if (fluid == null || fluid.getDefaultState().isEmpty()) {
-        LOGGER.warn("Could not find fluid {} for material {}", fluidId, materialJson.getId());
+        LOGGER.warn("Could not find fluid {} for material {}", fluidId, materialId);
         fluid = Fluids.EMPTY;
       }
     }
