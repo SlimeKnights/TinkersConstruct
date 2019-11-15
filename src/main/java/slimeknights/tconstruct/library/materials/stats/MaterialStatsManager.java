@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
-import slimeknights.tconstruct.library.materials.json.MaterialStatJson;
+import slimeknights.tconstruct.library.materials.json.MaterialStatJsonWrapper;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -81,11 +81,8 @@ public class MaterialStatsManager extends JsonReloadListener {
 
 
   @Nullable
-  private Map<ResourceLocation, List<BaseMaterialStats>> loadMaterialStats(ResourceLocation resourceLocation, JsonObject jsonObject) {
+  private Map<ResourceLocation, List<BaseMaterialStats>> loadMaterialStats(ResourceLocation materialId, JsonObject jsonObject) {
     try {
-      MaterialStatJson overallJson = GSON.fromJson(jsonObject, MaterialStatJson.class);
-
-      ResourceLocation materialId = Objects.requireNonNull(overallJson.getMaterialId());
       JsonArray statsJsonArray = jsonObject.getAsJsonArray("stats");
       List<BaseMaterialStats> stats = new ArrayList<>();
 
@@ -94,23 +91,23 @@ public class MaterialStatsManager extends JsonReloadListener {
           try {
             stats.add(deserializeMaterialStat(statJson));
           } catch (Exception e) {
-            LOGGER.error("Could not deserialize material stats from file {}. JSON: {}", resourceLocation, statJson, e);
+            LOGGER.error("Could not deserialize material stats from file {}. JSON: {}", materialId, statJson, e);
           }
         }
       }
 
       return ImmutableMap.of(materialId, stats);
     } catch (Exception e) {
-      LOGGER.error("Could not deserialize material stats file {}. JSON: {}", resourceLocation, jsonObject, e);
+      LOGGER.error("Could not deserialize material stats file {}. JSON: {}", materialId, jsonObject, e);
       return null;
     }
   }
 
   private BaseMaterialStats deserializeMaterialStat(JsonElement statsJson) {
-    MaterialStatJson.MaterialStatsWrapper materialStatsWrapper = GSON.fromJson(statsJson, MaterialStatJson.MaterialStatsWrapper.class);
-    Class<? extends BaseMaterialStats> materialStatClass = materialStatClasses.get(materialStatsWrapper.getId());
+    MaterialStatJsonWrapper.BaseMaterialStatsJson baseMaterialStatsJson = GSON.fromJson(statsJson, MaterialStatJsonWrapper.BaseMaterialStatsJson.class);
+    Class<? extends BaseMaterialStats> materialStatClass = materialStatClasses.get(baseMaterialStatsJson.getId());
     if(materialStatClass == null) {
-      throw TinkerAPIMaterialException.materialNotRegistered(materialStatsWrapper.getId());
+      throw TinkerAPIMaterialException.materialNotRegistered(baseMaterialStatsJson.getId());
     }
     return GSON.fromJson(statsJson, materialStatClass);
   }

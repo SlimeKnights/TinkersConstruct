@@ -30,8 +30,15 @@ public class JsonFileLoader {
   }
 
   public Map<ResourceLocation, JsonObject> loadFilesAsSplashlist(String... files) {
-    Map<ResourceLocation, JsonObject> splashlist = Arrays.stream(files)
+    ResourceLocation[] resourceLocations = Arrays.stream(files)
       .map(Util::getResource)
+      .toArray(ResourceLocation[]::new);
+
+    return loadFilesAsSplashlist(resourceLocations);
+  }
+
+  public Map<ResourceLocation, JsonObject> loadFilesAsSplashlist(ResourceLocation... files) {
+    Map<ResourceLocation, JsonObject> splashlist = Arrays.stream(files)
       .collect(Collectors.toMap(Function.identity(), this::loadJson));
 
     return ImmutableMap.copyOf(splashlist);

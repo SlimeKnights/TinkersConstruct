@@ -9,9 +9,9 @@ public class MaterialJson {
   private final Boolean craftable;
   private final ResourceLocation fluid;
   private final ResourceLocation shardItem;
-  private final List<MaterialStatJson> stats;
+  private final List<MaterialStatJsonWrapper> stats;
 
-  public MaterialJson(Boolean craftable, ResourceLocation fluid, ResourceLocation shardItem, List<MaterialStatJson> stats) {
+  public MaterialJson(Boolean craftable, ResourceLocation fluid, ResourceLocation shardItem, List<MaterialStatJsonWrapper> stats) {
     this.craftable = craftable;
     this.fluid = fluid;
     this.shardItem = shardItem;
@@ -26,7 +26,7 @@ public class MaterialJson {
     return fluid;
   }
 
-  public List<MaterialStatJson> getStats() {
+  public List<MaterialStatJsonWrapper> getStats() {
     return stats;
   }
 

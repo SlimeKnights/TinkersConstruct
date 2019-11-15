@@ -1,0 +1,10 @@
+{
+    "stats": [
+        {
+            "id": "test:stat1"
+        },
+        {
+            "id": "test:stat2"
+        }
+    ]
+}

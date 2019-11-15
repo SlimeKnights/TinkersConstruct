@@ -8,28 +8,22 @@ import java.util.List;
  * This json is mostly used for automatic consistency checks and for easier deserialization.
  * The actual stats deserialization is done in {@link slimeknights.tconstruct.library.materials.stats.MaterialStatsManager}
  */
-public class MaterialStatJson {
+public class MaterialStatJsonWrapper {
 
-  private final ResourceLocation materialId;
-  private final List<MaterialStatsWrapper> stats;
+  private final List<BaseMaterialStatsJson> stats;
 
-  public MaterialStatJson(ResourceLocation materialId, List<MaterialStatsWrapper> stats) {
-    this.materialId = materialId;
+  public MaterialStatJsonWrapper(List<BaseMaterialStatsJson> stats) {
     this.stats = stats;
   }
 
-  public ResourceLocation getMaterialId() {
-    return materialId;
-  }
-
-  public List<MaterialStatsWrapper> getStats() {
+  public List<BaseMaterialStatsJson> getStats() {
     return stats;
   }
 
-  public static class MaterialStatsWrapper {
+  public static class BaseMaterialStatsJson {
     private final ResourceLocation id;
 
-    private MaterialStatsWrapper(ResourceLocation id) {
+    private BaseMaterialStatsJson(ResourceLocation id) {
       this.id = id;
     }
 

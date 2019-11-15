@@ -1,9 +1,5 @@
 {
-    "materialId": "test:foobar",
     "stats": [
-        {
-            "id": "test:fails"
-        },
         {
             "id": "test:stat",
             "num": 123,
