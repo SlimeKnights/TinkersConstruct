@@ -28,7 +28,11 @@ import java.util.stream.Collectors;
 
 /**
  * Loads the material data from datapacks and provides them to whatever needs them.
- * Contains stats and which traits the material has. Traits need to have been registered beforehand.
+ * Contains only the very basic material information, craftability, traits, but no stats.
+ * See {@link slimeknights.tconstruct.library.materials.stats.MaterialStatsManager} for stats.
+ *
+ * The location inside datapacks is "materials".
+ * So if your mods name is "foobar", the location for your mods materials is "data/foobar/materials".
  */
 public class MaterialManager extends JsonReloadListener {
 

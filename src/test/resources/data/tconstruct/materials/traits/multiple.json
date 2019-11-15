@@ -1,0 +1,8 @@
+{
+    "default": ["a1:foo", "a2:bar", "a3:baz"],
+    "perStat": {
+        "test1:stat1": ["b1:foo", "b2:bar", "b3:baz"],
+        "test2:stat2": ["c1:foo", "c2:bar", "c3:baz"],
+        "test3:stat3": ["d1:foo", "d2:bar", "d3:baz"]
+    }
+}

@@ -1,7 +1,8 @@
-package slimeknights.tconstruct.library.materials;
+package slimeknights.tconstruct.library;
 
 import com.google.common.collect.ImmutableMap;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
+import slimeknights.tconstruct.library.materials.MaterialManager;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;

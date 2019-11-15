@@ -17,6 +17,10 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * The location inside datapacks is "materials/stats".
+ * So if your mods name is "foobar", the location for your mads material stats is "data/foobar/materials/stats".
+ */
 public class MaterialStatsManager extends JsonReloadListener {
 
   private static final Logger LOGGER = LogManager.getLogger();
@@ -59,7 +63,7 @@ public class MaterialStatsManager extends JsonReloadListener {
 
   @Override
   protected void apply(Map<ResourceLocation, JsonObject> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
-    // Combine all loaded material files
+    // Combine all loaded material files into one map
     Map<ResourceLocation, List<BaseMaterialStats>> reducedMaterials = splashList.entrySet().stream()
       .map(entry -> loadMaterialStats(entry.getKey(), entry.getValue()))
       .filter(Objects::nonNull)
