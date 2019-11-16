@@ -18,6 +18,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
+ * Loads the different material stats from the datapacks.
+ * The file locations match the materials they belong to, and contain one or multiple stats.
+ * The stats must be registered with TiC before loading or it'll fail.
+ *
+ * todo: part about how to add stats to existing materials
+ *
  * The location inside datapacks is "materials/stats".
  * So if your mods name is "foobar", the location for your mads material stats is "data/foobar/materials/stats".
  */

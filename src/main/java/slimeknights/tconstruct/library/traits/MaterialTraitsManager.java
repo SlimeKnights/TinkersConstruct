@@ -19,8 +19,16 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * The location inside datapacks is "materials/stats".
- * So if your mods name is "foobar", the location for your mads material stats is "data/foobar/materials/stats".
+ * Loads the different material traits from the datapacks.
+ * The file locations match the materials they belong to, and contain default traits and traits per stat type.
+ * If no traits are present for a stat type, the default traits will be used.
+ *
+ * Note that this manager only contains the references per IDs. The actual combining is done in the registry.
+ *
+ * todo: part about how to add traits for new stats to existing materials
+ *
+ * The location inside datapacks is "materials/traits".
+ * So if your mods name is "foobar", the location for your mads material stats is "data/foobar/materials/traits".
  */
 public class MaterialTraitsManager extends JsonReloadListener {
 
@@ -68,24 +76,15 @@ public class MaterialTraitsManager extends JsonReloadListener {
       .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().get()));
   }
 
-  private Map<ResourceLocation, List<ResourceLocation>> collectDefaultTraits(Map<ResourceLocation, TraitMappingJson> parsedSplashList) {
-    return parsedSplashList.entrySet().stream()
-      .map(entry -> {
-        Map<ResourceLocation, List<ResourceLocation>> theMap = new HashMap<>();
-        theMap.put(entry.getKey(), entry.getValue().getDefaultTraits());
-        return theMap;
-      })
-      .reduce((entry1, entry2) -> {
-        entry1.putAll(entry2);
-        return entry1;
-      }).orElse(Collections.emptyMap());
-  }
-
   private <T> Map<ResourceLocation, T> collectTraits(Map<ResourceLocation, TraitMappingJson> parsedSplashList, Function<TraitMappingJson, T> mapper) {
     return parsedSplashList.entrySet().stream()
       .map(entry -> {
         Map<ResourceLocation, T> theMap = new HashMap<>();
-        theMap.put(entry.getKey(), mapper.apply(entry.getValue()));
+        T value = mapper.apply(entry.getValue());
+        // value might be null if defaults or stats field is missing
+        if(value != null) {
+          theMap.put(entry.getKey(), value);
+        }
         return theMap;
       })
       .reduce((entry1, entry2) -> {

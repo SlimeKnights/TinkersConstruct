@@ -84,7 +84,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
   }
 
   @Test
-  void loadMissingFile_failByNotExisting() {
+  void loadMissingFile_ignored() {
     ResourceLocation materialId = Util.getResource("nonexistant");
     Map<ResourceLocation, JsonObject> splashList = ImmutableMap.of(materialId, new JsonObject());
 
