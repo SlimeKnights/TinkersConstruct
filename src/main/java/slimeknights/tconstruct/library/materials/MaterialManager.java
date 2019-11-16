@@ -47,7 +47,7 @@ public class MaterialManager extends JsonReloadListener {
     .disableHtmlEscaping()
     .create();
 
-  private Map<ResourceLocation, IMaterial> materials = ImmutableMap.of();
+  private Map<MaterialId, IMaterial> materials = ImmutableMap.of();
 
   public MaterialManager() {
     super(GSON, FOLDER);

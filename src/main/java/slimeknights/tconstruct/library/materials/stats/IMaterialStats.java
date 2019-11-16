@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.materials.stats;
 
-import net.minecraft.util.ResourceLocation;
-
 import java.util.List;
 
 /**
@@ -13,7 +11,7 @@ public interface IMaterialStats {
   /**
    * Returns a unique ResourceLocation to identify the type of stats the material has.
    */
-  ResourceLocation getIdentifier();
+  MaterialStatsId getIdentifier();
 
   /**
    * Returns the name of the stat type, to be displayed to the player.

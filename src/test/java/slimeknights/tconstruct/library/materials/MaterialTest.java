@@ -9,15 +9,17 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.test.BaseMcTest;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-class MaterialTest {
+class MaterialTest extends BaseMcTest {
 
-  private static final MaterialStatType TEST_PART_TYPE = new MaterialStatType(new ResourceLocation("testPartType"));
-  private static final MaterialStatType TEST_PART_TYPE2 = new MaterialStatType(new ResourceLocation("testPartType2"));
+  private static final MaterialStatType TEST_PART_TYPE = new MaterialStatType(new ResourceLocation("testparttype"));
+  private static final MaterialStatType TEST_PART_TYPE2 = new MaterialStatType(new ResourceLocation("testparttype2"));
 
   private Material material = new Material(new ResourceLocation("test", "material"), Fluids.WATER, true, new ItemStack(Items.STICK));
 
@@ -55,8 +57,8 @@ class MaterialTest {
   private IMaterialStats generateStats(final String id) {
     return new IMaterialStats() {
       @Override
-      public ResourceLocation getIdentifier() {
-        return new ResourceLocation(id);
+      public MaterialStatsId getIdentifier() {
+        return new MaterialStatsId("tconstruct", id);
       }
 
       @Override

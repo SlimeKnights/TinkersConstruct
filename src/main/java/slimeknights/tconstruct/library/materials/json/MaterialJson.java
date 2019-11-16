@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.materials.json;
 
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nullable;
+
 public class MaterialJson {
 
   private final Boolean craftable;
@@ -14,14 +16,17 @@ public class MaterialJson {
     this.shardItem = shardItem;
   }
 
+  @Nullable
   public Boolean getCraftable() {
     return craftable;
   }
 
+  @Nullable
   public ResourceLocation getFluid() {
     return fluid;
   }
 
+  @Nullable
   public ResourceLocation getShardItem() {
     return shardItem;
   }

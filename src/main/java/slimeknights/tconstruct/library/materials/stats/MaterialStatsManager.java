@@ -10,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
+import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJsonWrapper;
 
 import javax.annotation.Nullable;
@@ -44,23 +45,23 @@ public class MaterialStatsManager extends JsonReloadListener {
    * Usually they're registered by the registry, when a new material stats type is registered.
    * It is not cleared on reload, since it does not represend loaded data. Think of it as a GSON type adapter.
    */
-  private Map<ResourceLocation, Class<? extends BaseMaterialStats>> materialStatClasses = new HashMap<>();
+  private Map<MaterialStatsId, Class<? extends BaseMaterialStats>> materialStatClasses = new HashMap<>();
 
-  private Map<ResourceLocation, Map<ResourceLocation, BaseMaterialStats>> materialToStatsPerType = ImmutableMap.of();
+  private Map<MaterialId, Map<MaterialStatsId, BaseMaterialStats>> materialToStatsPerType = ImmutableMap.of();
 
   public MaterialStatsManager() {
     super(GSON, FOLDER);
   }
 
-  public void registerMaterialStat(ResourceLocation materialStatType, Class<? extends BaseMaterialStats> statsClass) {
+  public void registerMaterialStat(MaterialStatsId materialStatType, Class<? extends BaseMaterialStats> statsClass) {
     if (materialStatClasses.containsKey(materialStatType)) {
       throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(materialStatType);
     }
     materialStatClasses.put(materialStatType, statsClass);
   }
 
-  public <T extends BaseMaterialStats> Optional<T> getStats(ResourceLocation materialId, ResourceLocation statId) {
-    Map<ResourceLocation, BaseMaterialStats> materialStats = materialToStatsPerType.getOrDefault(materialId, ImmutableMap.of());
+  public <T extends BaseMaterialStats> Optional<T> getStats(MaterialId materialId, MaterialStatsId statId) {
+    Map<MaterialStatsId, BaseMaterialStats> materialStats = materialToStatsPerType.getOrDefault(materialId, ImmutableMap.of());
     IMaterialStats stats = materialStats.get(statId);
     // class will always match, since it's only filled by deserialization, which only puts it in if it's the registered type
     //noinspection unchecked
@@ -70,7 +71,7 @@ public class MaterialStatsManager extends JsonReloadListener {
   @Override
   protected void apply(Map<ResourceLocation, JsonObject> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
     // Combine all loaded material files into one map
-    Map<ResourceLocation, List<BaseMaterialStats>> reducedMaterials = splashList.entrySet().stream()
+    Map<MaterialId, List<BaseMaterialStats>> reducedMaterials = splashList.entrySet().stream()
       .map(entry -> loadMaterialStats(entry.getKey(), entry.getValue()))
       .filter(Objects::nonNull)
       .reduce((resourceLocationListMap, resourceLocationListMap2) -> {
@@ -79,19 +80,19 @@ public class MaterialStatsManager extends JsonReloadListener {
       }).orElse(Collections.emptyMap());
 
     // make them immutable and save them
-    ImmutableMap.Builder<ResourceLocation, Map<ResourceLocation, BaseMaterialStats>> builder = ImmutableMap.builder();
+    ImmutableMap.Builder<MaterialId, Map<MaterialStatsId, BaseMaterialStats>> builder = ImmutableMap.builder();
     reducedMaterials.forEach((resourceLocation, iMaterialStatsList) -> builder.put(resourceLocation, convertToImmutableMap(iMaterialStatsList)));
     materialToStatsPerType = builder.build();
   }
 
-  private Map<ResourceLocation, BaseMaterialStats> convertToImmutableMap(List<BaseMaterialStats> stats) {
+  private Map<MaterialStatsId, BaseMaterialStats> convertToImmutableMap(List<BaseMaterialStats> stats) {
     return stats.stream()
       .collect(Collectors.toMap(BaseMaterialStats::getIdentifier, Function.identity()));
   }
 
 
   @Nullable
-  private Map<ResourceLocation, List<BaseMaterialStats>> loadMaterialStats(ResourceLocation materialId, JsonObject jsonObject) {
+  private Map<MaterialId, List<BaseMaterialStats>> loadMaterialStats(ResourceLocation materialId, JsonObject jsonObject) {
     try {
       JsonArray statsJsonArray = jsonObject.getAsJsonArray("stats");
       List<BaseMaterialStats> stats = new ArrayList<>();
@@ -106,7 +107,7 @@ public class MaterialStatsManager extends JsonReloadListener {
         }
       }
 
-      return ImmutableMap.of(materialId, stats);
+      return ImmutableMap.of(new MaterialId(materialId), stats);
     } catch (Exception e) {
       LOGGER.error("Could not deserialize material stats file {}. JSON: {}", materialId, jsonObject, e);
       return null;
@@ -115,7 +116,7 @@ public class MaterialStatsManager extends JsonReloadListener {
 
   private BaseMaterialStats deserializeMaterialStat(JsonElement statsJson) {
     MaterialStatJsonWrapper.BaseMaterialStatsJson baseMaterialStatsJson = GSON.fromJson(statsJson, MaterialStatJsonWrapper.BaseMaterialStatsJson.class);
-    Class<? extends BaseMaterialStats> materialStatClass = materialStatClasses.get(baseMaterialStatsJson.getId());
+    Class<? extends BaseMaterialStats> materialStatClass = materialStatClasses.get(new MaterialStatsId(baseMaterialStatsJson.getId()));
     if(materialStatClass == null) {
       throw TinkerAPIMaterialException.materialNotRegistered(baseMaterialStatsJson.getId());
     }

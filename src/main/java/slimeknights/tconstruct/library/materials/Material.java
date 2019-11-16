@@ -34,7 +34,7 @@ public class Material implements IMaterial {
   /**
    * This String uniquely identifies a material.
    */
-  private final ResourceLocation identifier;
+  private final MaterialId identifier;
 
   /**
    * The fluid associated with this material, can not be null, but Fluids.EMPTY.
@@ -64,14 +64,14 @@ public class Material implements IMaterial {
 
   public Material(ResourceLocation identifier, Fluid fluid, boolean craftable, ItemStack shardItem) {
     // lowercases and removes whitespaces
-    this.identifier = new ResourceLocation(identifier.getNamespace(), Util.sanitizeLocalizationString(identifier.getPath()));
+    this.identifier = new MaterialId(identifier.getNamespace(), Util.sanitizeLocalizationString(identifier.getPath()));
     this.fluid = fluid;
     this.craftable = craftable;
     this.shardItem = shardItem;
   }
 
   @Override
-  public ResourceLocation getIdentifier() {
+  public MaterialId getIdentifier() {
     return identifier;
   }
 

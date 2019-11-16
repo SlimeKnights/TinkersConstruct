@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.materials;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
@@ -34,7 +33,7 @@ public interface IMaterial {
    * Used to identify the material in NBT and other constructs.
    * Basically everywhere where the material has to be referenced and persisted.
    */
-  ResourceLocation getIdentifier();
+  MaterialId getIdentifier();
 
   /**
    * If the material can be crafted into items in the part builder.

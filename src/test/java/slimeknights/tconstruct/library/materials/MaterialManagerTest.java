@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.materials;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonObject;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -10,6 +11,7 @@ import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import org.junit.jupiter.api.Test;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.test.JsonFileLoader;
 
@@ -33,7 +35,7 @@ class MaterialManagerTest extends BaseMcTest {
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
     IMaterial testMaterial = allMaterials.iterator().next();
-    assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new ResourceLocation("tconstruct", "full"));
+    assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new MaterialId("tconstruct", "full"));
     assertThat(testMaterial.getFluid()).isEqualTo(Fluids.WATER);
     assertThat(testMaterial.isCraftable()).isTrue();
     assertThat(testMaterial.getShard()).matches(itemStack -> ItemStack.areItemStacksEqual(itemStack, new ItemStack(Items.STICK)));
@@ -48,7 +50,7 @@ class MaterialManagerTest extends BaseMcTest {
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
     IMaterial testMaterial = allMaterials.iterator().next();
-    assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new ResourceLocation("tconstruct", "minimal"));
+    assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new MaterialId("tconstruct", "minimal"));
     assertThat(testMaterial.getFluid()).extracting(Fluid::getDefaultState).matches(IFluidState::isEmpty);
     assertThat(testMaterial.isCraftable()).isFalse();
     assertThat(testMaterial.getShard()).matches(ItemStack::isEmpty);
@@ -82,7 +84,8 @@ class MaterialManagerTest extends BaseMcTest {
 
   @Test
   void craftableIsRequired_failOnMissing() {
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist("nonexistant");
+    ResourceLocation materialId = Util.getResource("nonexistant");
+    Map<ResourceLocation, JsonObject> splashList = ImmutableMap.of(materialId, new JsonObject());
 
     materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 

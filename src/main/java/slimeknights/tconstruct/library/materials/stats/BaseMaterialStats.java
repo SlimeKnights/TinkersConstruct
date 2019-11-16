@@ -12,15 +12,16 @@ import java.util.List;
  */
 public class BaseMaterialStats implements IMaterialStats {
 
+  // needs to be resourceLocation to be easily deserializable
   private final ResourceLocation id;
 
-  public BaseMaterialStats(ResourceLocation identifier) {
+  public BaseMaterialStats(MaterialStatsId identifier) {
     this.id = identifier;
   }
 
   @Override
-  public ResourceLocation getIdentifier() {
-    return id;
+  public MaterialStatsId getIdentifier() {
+    return new MaterialStatsId(id);
   }
 
   @Override
