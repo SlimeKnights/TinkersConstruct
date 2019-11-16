@@ -10,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
+import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJsonWrapper;
 
@@ -100,7 +101,7 @@ public class MaterialStatsManager extends JsonReloadListener {
       if (statsJsonArray != null) {
         for (JsonElement statJson : statsJsonArray) {
           try {
-            stats.add(deserializeMaterialStat(statJson));
+            stats.add(deserializeMaterialStat(materialId, statJson));
           } catch (Exception e) {
             LOGGER.error("Could not deserialize material stats from file {}. JSON: {}", materialId, statJson, e);
           }
@@ -114,11 +115,15 @@ public class MaterialStatsManager extends JsonReloadListener {
     }
   }
 
-  private BaseMaterialStats deserializeMaterialStat(JsonElement statsJson) {
+  private BaseMaterialStats deserializeMaterialStat(ResourceLocation materialId, JsonElement statsJson) {
     MaterialStatJsonWrapper.BaseMaterialStatsJson baseMaterialStatsJson = GSON.fromJson(statsJson, MaterialStatJsonWrapper.BaseMaterialStatsJson.class);
-    Class<? extends BaseMaterialStats> materialStatClass = materialStatClasses.get(new MaterialStatsId(baseMaterialStatsJson.getId()));
+    ResourceLocation statsId = baseMaterialStatsJson.getId();
+    if(statsId == null) {
+      throw TinkerJSONException.materialStatsJsonWithoutId(materialId);
+    }
+    Class<? extends BaseMaterialStats> materialStatClass = materialStatClasses.get(new MaterialStatsId(statsId));
     if(materialStatClass == null) {
-      throw TinkerAPIMaterialException.materialNotRegistered(baseMaterialStatsJson.getId());
+      throw TinkerAPIMaterialException.materialNotRegistered(statsId);
     }
     return GSON.fromJson(statsJson, materialStatClass);
   }

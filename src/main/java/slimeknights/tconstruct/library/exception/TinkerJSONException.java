@@ -9,6 +9,10 @@ public class TinkerJSONException extends TinkerAPIException {
     return new TinkerJSONException("Malformed JSON for the material '" + materialId + "'. Missing craftable information.");
   }
 
+  public static TinkerJSONException materialStatsJsonWithoutId(ResourceLocation materialId) {
+    return new TinkerJSONException("Malformed JSON for the stats of material '" + materialId + "'. Missing stat id information.");
+  }
+
   private TinkerJSONException(String message) {
     super(message);
   }

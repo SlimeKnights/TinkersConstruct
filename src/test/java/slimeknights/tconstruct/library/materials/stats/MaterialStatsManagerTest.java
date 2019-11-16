@@ -107,6 +107,17 @@ class MaterialStatsManagerTest extends BaseMcTest {
     assertThat(optionalStats).isEmpty();
   }
 
+  @Test
+  void loadStatsWithMissingId_doNothing() {
+    MaterialId materialId = new MaterialId(Util.getResource("missing_stat_id"));
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(materialId);
+
+    materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+
+    Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(materialId, new MaterialStatsId("test", "fails"));
+    assertThat(optionalStats).isEmpty();
+  }
+
   private static class ComplexTestStats extends BaseMaterialStats {
 
     private final int num;
