@@ -19,35 +19,37 @@ import static org.mockito.Mockito.mock;
 
 class MaterialStatsManagerTest extends BaseMcTest {
 
+  private static final MaterialId MATERIAL_ID = new MaterialId(Util.MODID, "material");
+  private static final MaterialStatsId STATS_ID_SIMPLE = new MaterialStatsId("test", "stat");
+  private static final MaterialStatsId STATS_ID_DONT_CARE = new MaterialStatsId("dont", "care");
+
   private MaterialStatsManager materialStatsManager = new MaterialStatsManager();
   private JsonFileLoader fileLoader = new JsonFileLoader(MaterialStatsManager.GSON, MaterialStatsManager.FOLDER);
 
   @Test
   void testLoadFile_statsExist() {
-    // material id doubles as filename
-    MaterialId materialId = new MaterialId(Util.getResource("teststat"));
-    MaterialStatsId statId = new MaterialStatsId("test", "stat");
-    materialStatsManager.registerMaterialStat(statId, BaseMaterialStats.class);
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(materialId);
+    materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, BaseMaterialStats.class);
+
+    ResourceLocation file = Util.getResource("teststat");
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
 
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
-    Optional<BaseMaterialStats> optionalStats = materialStatsManager.getStats(materialId, statId);
+    Optional<BaseMaterialStats> optionalStats = materialStatsManager.getStats(MATERIAL_ID, STATS_ID_SIMPLE);
     assertThat(optionalStats).isNotEmpty();
-    assertThat(optionalStats.get().getIdentifier()).isEqualByComparingTo(statId);
+    assertThat(optionalStats.get().getIdentifier()).isEqualByComparingTo(STATS_ID_SIMPLE);
   }
 
   @Test
   void testLoadFile_complexStats() {
-    // material id doubles as filename
-    MaterialId materialId = new MaterialId(Util.getResource("teststat"));
-    MaterialStatsId statId = new MaterialStatsId("test", "stat");
-    materialStatsManager.registerMaterialStat(statId, ComplexTestStats.class);
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(materialId);
+    materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, ComplexTestStats.class);
+
+    ResourceLocation file = Util.getResource("teststat");
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
 
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
-    Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(materialId, statId);
+    Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(MATERIAL_ID, STATS_ID_SIMPLE);
     assertThat(optionalStats).isNotEmpty();
     ComplexTestStats stats = optionalStats.get();
     assertThat(stats.num).isEqualTo(123);
@@ -57,64 +59,94 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
   @Test
   void testLoadFile_multipleStatsInOneFile() {
-    // material id doubles as filename
-    MaterialId materialId = new MaterialId(Util.getResource("multiple"));
+    ResourceLocation file = Util.getResource("multiple");
     MaterialStatsId statId1 = new MaterialStatsId("test", "stat1");
     materialStatsManager.registerMaterialStat(statId1, BaseMaterialStats.class);
     MaterialStatsId statId2 = new MaterialStatsId("test", "stat2");
     materialStatsManager.registerMaterialStat(statId2, BaseMaterialStats.class);
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(materialId);
 
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
-    assertThat(materialStatsManager.getStats(materialId, statId1)).isNotEmpty();
-    assertThat(materialStatsManager.getStats(materialId, statId2)).isNotEmpty();
+    assertThat(materialStatsManager.getStats(MATERIAL_ID, statId1)).isNotEmpty();
+    assertThat(materialStatsManager.getStats(MATERIAL_ID, statId2)).isNotEmpty();
   }
 
   @Test
   void testLoadFileWithoutStats_ok() {
-    // material id doubles as filename
-    MaterialId materialId = new MaterialId(Util.getResource("empty"));
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(materialId);
+    ResourceLocation file = Util.getResource("empty");
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
 
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
     // ensure that we get this far and that querying the missing material causes no errors
-    Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(materialId, new MaterialStatsId("dont", "care"));
+    Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(MATERIAL_ID, STATS_ID_DONT_CARE);
     assertThat(optionalStats).isEmpty();
   }
 
   @Test
+  void testLoadMultipleFiles_addDifferentStatsToSameMaterial() {
+    ResourceLocation file1 = Util.getResource("teststat");
+    ResourceLocation file2 = Util.getResource("teststat_extrastats");
+    MaterialStatsId otherStatId = new MaterialStatsId("test", "otherstat");
+    materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, BaseMaterialStats.class);
+    materialStatsManager.registerMaterialStat(otherStatId, BaseMaterialStats.class);
+
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file1, file2);
+    materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+
+    assertThat(materialStatsManager.getStats(MATERIAL_ID, STATS_ID_SIMPLE)).isNotEmpty();
+    assertThat(materialStatsManager.getStats(MATERIAL_ID, otherStatId)).isNotEmpty();
+  }
+
+  // Tests the behaviour when multiple mods try to add the same material
+  // we use "keep first" to ensure that existence is actually checked in the code
+  // since the default behaviour for maps would be to overwrite the existing value
+  @Test
+  void testLoadMultipleFiles_addSameStatsFromDifferentSources_useFirst() {
+    ResourceLocation file1 = Util.getResource("teststat");
+    ResourceLocation file2 = Util.getResource("teststat_duplicate");
+    materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, ComplexTestStats.class);
+
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file1, file2);
+    materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+
+    Optional<ComplexTestStats> stats = materialStatsManager.getStats(MATERIAL_ID, STATS_ID_SIMPLE);
+    assertThat(stats).isNotEmpty();
+    assertThat(stats.get().num).isEqualTo(123);
+  }
+
+  @Test
   void loadMissingFile_ignored() {
-    MaterialId materialId = new MaterialId(Util.getResource("nonexistant"));
-    Map<ResourceLocation, JsonObject> splashList = ImmutableMap.of(materialId, new JsonObject());
+    ResourceLocation file = Util.getResource("nonexistant");
+    Map<ResourceLocation, JsonObject> splashList = ImmutableMap.of(file, new JsonObject());
 
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
     // ensure that we get this far and that querying the missing material causes no errors
-    Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(materialId, new MaterialStatsId("dont", "care"));
+    Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(MATERIAL_ID, STATS_ID_DONT_CARE);
     assertThat(optionalStats).isEmpty();
   }
 
   @Test
   void loadFileWithOnlyUnregisteredStats_doNothing() {
-    MaterialId materialId = new MaterialId(Util.getResource("invalid"));
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(materialId);
+    ResourceLocation file = Util.getResource("invalid");
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
 
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
-    Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(materialId, new MaterialStatsId("test", "fails"));
+    Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(MATERIAL_ID, new MaterialStatsId("test", "fails"));
     assertThat(optionalStats).isEmpty();
   }
 
   @Test
   void loadStatsWithMissingId_doNothing() {
-    MaterialId materialId = new MaterialId(Util.getResource("missing_stat_id"));
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(materialId);
+    ResourceLocation file = Util.getResource("missing_stat_id");
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
 
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
-    Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(materialId, new MaterialStatsId("test", "fails"));
+    Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(MATERIAL_ID, new MaterialStatsId("test", "fails"));
     assertThat(optionalStats).isEmpty();
   }
 

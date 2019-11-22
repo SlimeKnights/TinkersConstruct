@@ -74,7 +74,7 @@ public class MaterialManager extends JsonReloadListener {
       MaterialJson materialJson = GSON.fromJson(jsonObject, MaterialJson.class);
 
       if(materialJson.getCraftable() == null) {
-        throw TinkerJSONException.materialJsonWithoutRequiredData(materialId);
+        throw TinkerJSONException.materialJsonWithoutCraftingInformation(materialId);
       }
 
       boolean isCraftable = Boolean.TRUE.equals(materialJson.getCraftable());
