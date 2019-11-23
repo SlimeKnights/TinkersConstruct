@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.traits;
 
 import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,23 +11,30 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.traits.json.TraitMappingJson;
 
-import java.util.*;
-import java.util.function.Function;
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Loads the different material traits from the datapacks.
- * The file locations match the materials they belong to, and contain default traits and traits per stat type.
- * If no traits are present for a stat type, the default traits will be used.
- *
+ * The file locations do not matter per se, the file must specify for which material it contains traits.
+ * Each file contains traits for one material.
+ * The data is split in default traits and traits per stat type. If no traits are present for a stat type, the default traits will be used.
+ * <p>
  * Note that this manager only contains the references per IDs. The actual combining is done in the registry.
- *
- * todo: part about how to add traits for new stats to existing materials
- *
+ * <p>
+ * The reason for the material id inside the file is so that multiple mods can add different traits to the same material.
+ * Note that, as opposed to stats, this is <em>additive</em>, meaning if two mods add traits to the same material, both will be applied.
+ * <p>
  * The location inside datapacks is "materials/traits".
  * So if your mods name is "foobar", the location for your mads material stats is "data/foobar/materials/traits".
  */
@@ -62,51 +68,58 @@ public class MaterialTraitsManager extends JsonReloadListener {
 
   @Override
   protected void apply(Map<ResourceLocation, JsonObject> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
-    Map<MaterialId, TraitMappingJson> parsedSplashList = parseSplashlist(splashList);
+    List<TraitMappingJson> parsedSplashList = parseSplashlist(splashList);
 
-    materialDefaultTraits = makeImmutable(collectTraits(parsedSplashList, TraitMappingJson::getDefaultTraits));
-    materialToTraitsPerStatsType = collectTraits(parsedSplashList, TraitMappingJson::getPerStat).entrySet().stream()
-      .collect(Collectors.toMap(Map.Entry::getKey, entry -> makeImmutable(entry.getValue())));
+    materialDefaultTraits = parsedSplashList.stream()
+      .collect(Collectors.toMap(
+        TraitMappingJson::getMaterialId,
+        TraitMappingJson::getDefaultTraits,
+        this::concatLists
+      ));
+
+    materialToTraitsPerStatsType = parsedSplashList.stream()
+      .collect(Collectors.toMap(
+        TraitMappingJson::getMaterialId,
+        TraitMappingJson::getPerStat,
+        this::combineMaps));
   }
 
-  private Map<MaterialId, TraitMappingJson> parseSplashlist(Map<ResourceLocation, JsonObject> splashList) {
+  private Map<MaterialStatsId, List<TraitId>> combineMaps(Map<MaterialStatsId, List<TraitId>> materialStatsIdListMap, Map<MaterialStatsId, List<TraitId>> materialStatsIdListMap2) {
+    return Stream.concat(materialStatsIdListMap.keySet().stream(), materialStatsIdListMap2.keySet().stream())
+      // take all keys combined in both maps, and just add everything from both sets at once for each key
+      .distinct()
+      .collect(Collectors.toMap(
+        materialStatsId -> materialStatsId,
+        materialStatsId -> concatLists(
+          materialStatsIdListMap.getOrDefault(materialStatsId, Collections.emptyList()),
+          materialStatsIdListMap2.getOrDefault(materialStatsId, Collections.emptyList())
+        ))
+      );
+  }
+
+  private List<TraitMappingJson> parseSplashlist(Map<ResourceLocation, JsonObject> splashList) {
     return splashList.entrySet().stream()
-      .collect(Collectors.toMap(Map.Entry::getKey, this::parseJsonEntry))
-      // all this just to not break when an invalid json is encountered...
-      .entrySet().stream()
-      .filter(entry -> entry.getValue().isPresent())
-      .collect(Collectors.toMap(entry -> new MaterialId(entry.getKey()), entry -> entry.getValue().get()));
+      .map(this::parseJsonEntry)
+      .filter(Objects::nonNull)
+      .collect(Collectors.toList());
   }
 
-  private <T> Map<MaterialId, T> collectTraits(Map<MaterialId, TraitMappingJson> parsedSplashList, Function<TraitMappingJson, T> mapper) {
-    return parsedSplashList.entrySet().stream()
-      .map(entry -> {
-        Map<MaterialId, T> theMap = new HashMap<>();
-        T value = mapper.apply(entry.getValue());
-        // value might be null if defaults or stats field is missing
-        if(value != null) {
-          theMap.put(entry.getKey(), value);
-        }
-        return theMap;
-      })
-      .reduce((entry1, entry2) -> {
-        entry1.putAll(entry2);
-        return entry1;
-      }).orElse(Collections.emptyMap());
+  private <T> List<T> concatLists(List<T> list1, List<T> list2) {
+    return Stream.concat(list1.stream(), list2.stream()).collect(Collectors.toList());
   }
 
-  private Optional<TraitMappingJson> parseJsonEntry(Map.Entry<ResourceLocation, JsonObject> entry) {
+  @Nullable
+  private TraitMappingJson parseJsonEntry(Map.Entry<ResourceLocation, JsonObject> entry) {
     try {
-      return Optional.ofNullable(GSON.fromJson(entry.getValue(), TraitMappingJson.class));
+      TraitMappingJson traitMappingJson = GSON.fromJson(entry.getValue(), TraitMappingJson.class);
+      if (traitMappingJson.getMaterialId() == null) {
+        throw TinkerJSONException.materialTraitsJsonWithoutMaterial(entry.getKey());
+      }
+      return traitMappingJson;
     } catch (Exception e) {
       LOGGER.error("Could not deserialize material trait mapping from file {}. JSON: {}", entry.getKey(), entry.getValue(), e);
-      return Optional.empty();
+      return null;
     }
-  }
-
-  private <K, V> Map<K, List<V>> makeImmutable(Map<K, List<V>> collectTraits) {
-    return collectTraits.entrySet().stream()
-      .collect(Collectors.toMap(Map.Entry::getKey, entry -> ImmutableList.copyOf(entry.getValue())));
   }
 
 }

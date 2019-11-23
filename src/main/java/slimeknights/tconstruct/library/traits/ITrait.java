@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.traits;
 
 import com.google.common.collect.Multimap;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -14,10 +13,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import slimeknights.tconstruct.library.modifiers.IToolMod;
 
 import javax.annotation.Nonnull;
 
-import slimeknights.tconstruct.library.modifiers.IToolMod;
+// todo: move defaults to abstractTrait or all abstract to defaults
 
 /**
  * Traits are specific properties on tools with special effects.

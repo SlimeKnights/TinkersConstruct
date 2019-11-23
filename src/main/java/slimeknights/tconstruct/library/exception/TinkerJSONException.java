@@ -13,6 +13,10 @@ public class TinkerJSONException extends TinkerAPIException {
     return new TinkerJSONException("Malformed JSON for the stats. Missing material id which the stats belong to.");
   }
 
+  public static TinkerJSONException materialTraitsJsonWithoutMaterial(ResourceLocation file) {
+    return new TinkerJSONException("Malformed JSON for traits in file " + file + ". Missing material id which the traits belong to.");
+  }
+
   public static TinkerJSONException materialStatsJsonWithoutId(ResourceLocation materialId) {
     return new TinkerJSONException("Malformed JSON for the stats of material '" + materialId + "'. Missing stat id information.");
   }

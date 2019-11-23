@@ -21,8 +21,8 @@ import java.util.stream.Stream;
 
 /**
  * Loads the different material stats from the datapacks.
- * The file locations do not matter per se, the file must contain which material it contains stats for.
- * Each file contains stats for one material.
+ * The file locations do not matter per se, the file must specify which material it contains stats for.
+ * Each file contains stats for exactly one one material.
  * The stats must be registered with TiC before loading or it'll fail.
  *
  * The reason for the material id inside the file is so that multiple mods can add different stats to the same material.

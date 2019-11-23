@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.traits.json;
 
 import com.google.gson.annotations.SerializedName;
 import net.minecraft.util.ResourceLocation;
+import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.traits.TraitId;
 
@@ -13,14 +14,21 @@ import java.util.stream.Collectors;
 
 public class TraitMappingJson {
 
-  // these should be TraitIds and StatIds respectively, but are kept ResourceLocations to make deserialization easier
+  // these should be MaterialIds, TraitIds and StatIds respectively, but are kept ResourceLocations to make deserialization easier
+  private final ResourceLocation materialId;
   @SerializedName("default")
   private final List<ResourceLocation> defaultTraits;
   private final Map<ResourceLocation, List<ResourceLocation>> perStat;
 
-  public TraitMappingJson(List<ResourceLocation> defaultTraits, Map<ResourceLocation, List<ResourceLocation>> perStat) {
+  public TraitMappingJson(ResourceLocation materialId, List<ResourceLocation> defaultTraits, Map<ResourceLocation, List<ResourceLocation>> perStat) {
+    this.materialId = materialId;
     this.defaultTraits = defaultTraits;
     this.perStat = perStat;
+  }
+
+  @Nullable
+  public MaterialId getMaterialId() {
+    return materialId != null ? new MaterialId(materialId) : null;
   }
 
   public List<TraitId> getDefaultTraits() {

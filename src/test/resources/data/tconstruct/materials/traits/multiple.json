@@ -1,4 +1,5 @@
 {
+    "materialId": "tconstruct:material",
     "default": ["a1:foo", "a2:bar", "a3:baz"],
     "perStat": {
         "test1:stat1": ["b1:foo", "b2:bar", "b3:baz"],
