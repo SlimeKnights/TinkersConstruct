@@ -73,8 +73,20 @@ class MaterialStatsManagerTest extends BaseMcTest {
   }
 
   @Test
-  void testLoadFileWithoutStats_ok() {
+  void testLoadFileWithEmptyStats_ok() {
     ResourceLocation file = Util.getResource("empty");
+    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
+
+    materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
+
+    // ensure that we get this far and that querying the missing material causes no errors
+    Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(MATERIAL_ID, STATS_ID_DONT_CARE);
+    assertThat(optionalStats).isEmpty();
+  }
+
+  @Test
+  void testLoadFileWithoutStats_ok() {
+    ResourceLocation file = Util.getResource("missing_stats");
     Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
 
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
