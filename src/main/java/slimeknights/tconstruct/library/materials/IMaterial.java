@@ -58,6 +58,7 @@ public interface IMaterial {
    *
    * @return The itemstack to use for leftovers when crafting parts or empty itemstack if the shard item shall be used
    */
+  // todo: evaluate if shards are still needed
   ItemStack getShard();
 
   /**

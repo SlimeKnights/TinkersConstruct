@@ -21,7 +21,7 @@ public class MaterialDisplay implements IMaterialDisplay {
    * How the material will be rendered on tinker tools etc.
    * Loaded from resources
    */
-  private MaterialRenderInfo renderInfo;
+  private IMaterialRenderInfo renderInfo;
 
   /**
    * This item, if it is not null, represents the material for rendering.
@@ -90,7 +90,7 @@ public class MaterialDisplay implements IMaterialDisplay {
    *
    * @param renderInfo How the textures for the material are generated
    */
-  public void setRenderInfo(MaterialRenderInfo renderInfo) {
+  public void setRenderInfo(IMaterialRenderInfo renderInfo) {
     this.renderInfo = renderInfo;
   }
   // todo fix commented out code
