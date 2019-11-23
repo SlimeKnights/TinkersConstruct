@@ -14,6 +14,9 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 
 import java.util.Map;
 
+/**
+ * This class takes care of loading all the rendering information for materials
+ */
 public class MaterialRenderManager extends JsonReloadListener {
 
   private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
@@ -27,6 +30,7 @@ public class MaterialRenderManager extends JsonReloadListener {
 
   @Override
   protected void apply(Map<ResourceLocation, JsonObject> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+    // todo: actually keep the data
     splashList.forEach((resourceLocation, jsonObject) -> LOGGER.info("{}: {}", resourceLocation, jsonObject));
   }
 }

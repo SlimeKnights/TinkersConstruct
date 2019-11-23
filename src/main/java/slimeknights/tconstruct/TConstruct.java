@@ -77,8 +77,8 @@ public class TConstruct {
     pulseManager.enablePulses();
 
     DistExecutor.runWhenOn(Dist.CLIENT, () -> TinkerBook::initBook);
+    DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> ((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(new MaterialRenderManager()));
 
-    ((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(new MaterialRenderManager());
     MinecraftForge.EVENT_BUS.register(this);
   }
 
