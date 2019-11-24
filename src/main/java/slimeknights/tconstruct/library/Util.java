@@ -17,6 +17,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.ModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
@@ -27,6 +28,7 @@ import slimeknights.mantle.util.RecipeMatchRegistry;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
+import java.util.Optional;
 
 @SuppressWarnings("deprecation")
 public class Util {
@@ -44,11 +46,16 @@ public class Util {
     return LogManager.getLogger(log + "-" + type);
   }
 
+  public static Optional<String> getCurrentlyActiveExternalMod() {
+    return Optional.ofNullable(ModLoadingContext.get().getActiveContainer().getModId())
+      .filter(activeModId -> !MODID.equals(activeModId));
+  }
+
   /**
    * Removes all whitespaces from the given string and makes it lowerspace.
    */
   public static String sanitizeLocalizationString(String string) {
-    return string.toLowerCase(Locale.US).replaceAll(" ", "");
+    return string.toLowerCase(Locale.US).replaceAll(" ", "").trim();
   }
 
   /**

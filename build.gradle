@@ -168,6 +168,16 @@ dependencies {
     //deobfCompile "cofh:RedstoneFlux:${config.redstoneflux_version}:universal"
 
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+    testImplementation 'org.mockito:mockito-core:3.1.0'
+    testImplementation 'org.assertj:assertj-core:3.14.0'
+
+}
+
+test {
+    useJUnitPlatform()
 }
 
 processResources {
