@@ -34,7 +34,7 @@ public class TConstructLootTableProvider implements IDataProvider {
   private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
   private final DataGenerator dataGenerator;
   private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> field_218444_e = ImmutableList.of(
-          Pair.of(TConstructBlockLootTables::new, LootParameterSets.BLOCK));
+    Pair.of(TConstructBlockLootTables::new, LootParameterSets.BLOCK));
 
   public TConstructLootTableProvider(DataGenerator dataGeneratorIn) {
     this.dataGenerator = dataGeneratorIn;

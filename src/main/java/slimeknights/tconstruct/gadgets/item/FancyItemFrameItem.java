@@ -3,6 +3,7 @@ package slimeknights.tconstruct.gadgets.item;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.HangingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -11,16 +12,15 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import slimeknights.mantle.item.GeneratedItem;
 
 import javax.annotation.Nonnull;
 
-public class FancyItemFrameItem extends GeneratedItem {
+public class FancyItemFrameItem extends Item {
 
   private final TriFunction<? extends HangingEntity, World, BlockPos, Direction> entityProvider;
 
   public FancyItemFrameItem(TriFunction<? extends HangingEntity, World, BlockPos, Direction> entityProvider) {
-    super(ItemGroup.DECORATIONS);
+    super(new Properties().group(ItemGroup.DECORATIONS));
     this.entityProvider = entityProvider;
   }
 

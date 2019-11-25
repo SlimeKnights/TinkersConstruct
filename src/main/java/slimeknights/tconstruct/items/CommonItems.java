@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.mantle.item.EdibleItem;
-import slimeknights.mantle.item.GeneratedItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
@@ -23,9 +22,9 @@ public final class CommonItems {
   public static final TinkerBookItem book = injected();
 
   /* Bricks */
-  public static final GeneratedItem seared_brick = injected();
-  public static final GeneratedItem mud_brick = injected();
-  public static final GeneratedItem dried_brick = injected();
+  public static final Item seared_brick = injected();
+  public static final Item mud_brick = injected();
+  public static final Item dried_brick = injected();
 
   /* Slime Balls */
   public static final EdibleItem blue_slime_ball = injected();
@@ -35,18 +34,18 @@ public final class CommonItems {
   public static final EdibleItem pink_slime_ball = injected();
 
   /* Metals */
-  public static final GeneratedItem cobalt_nugget = injected();
-  public static final GeneratedItem cobalt_ingot = injected();
-  public static final GeneratedItem ardite_nugget = injected();
-  public static final GeneratedItem ardite_ingot = injected();
-  public static final GeneratedItem manyullyn_nugget = injected();
-  public static final GeneratedItem manyullyn_ingot = injected();
-  public static final GeneratedItem pigiron_nugget = injected();
-  public static final GeneratedItem pigiron_ingot = injected();
-  public static final GeneratedItem alubrass_nugget = injected();
-  public static final GeneratedItem alubrass_ingot = injected();
-  public static final GeneratedItem knightslime_nugget = injected();
-  public static final GeneratedItem knightslime_ingot = injected();
+  public static final Item cobalt_nugget = injected();
+  public static final Item cobalt_ingot = injected();
+  public static final Item ardite_nugget = injected();
+  public static final Item ardite_ingot = injected();
+  public static final Item manyullyn_nugget = injected();
+  public static final Item manyullyn_ingot = injected();
+  public static final Item pigiron_nugget = injected();
+  public static final Item pigiron_ingot = injected();
+  public static final Item alubrass_nugget = injected();
+  public static final Item alubrass_ingot = injected();
+  public static final Item knightslime_nugget = injected();
+  public static final Item knightslime_ingot = injected();
 
   @SubscribeEvent
   static void registerItems(final RegistryEvent.Register<Item> event) {
@@ -69,12 +68,12 @@ public final class CommonItems {
   }
 
   private static void registerBrick(BaseRegistryAdapter<Item> registry, String name) {
-    registry.register(new GeneratedItem(TinkerRegistry.tabGeneral), name + "_brick");
+    registry.register(new Item(new Item.Properties().group(TinkerRegistry.tabGeneral)), name + "_brick");
   }
 
   private static void registerIngotNugget(BaseRegistryAdapter<Item> registry, String name) {
-    registry.register(new GeneratedItem(TinkerRegistry.tabGeneral), name + "_nugget");
-    registry.register(new GeneratedItem(TinkerRegistry.tabGeneral), name + "_ingot");
+    registry.register(new Item(new Item.Properties().group(TinkerRegistry.tabGeneral)), name + "_nugget");
+    registry.register(new Item(new Item.Properties().group(TinkerRegistry.tabGeneral)), name + "_ingot");
   }
 
   private CommonItems() {}

@@ -14,8 +14,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
-import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.blocks.CommonBlocks;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.items.GadgetItems;
 
 import javax.annotation.Nonnull;
@@ -35,7 +35,7 @@ public class GlowballEntity extends ProjectileItemEntity implements IEntityAddit
   }
 
   @Override
-  protected Item func_213885_i() {
+  protected Item getDefaultItem() {
     return GadgetItems.glow_ball;
   }
 
@@ -73,7 +73,7 @@ public class GlowballEntity extends ProjectileItemEntity implements IEntityAddit
 
   @Override
   public void readSpawnData(PacketBuffer additionalData) {
-    this.func_213884_b(additionalData.readItemStack());
+    this.setItem(additionalData.readItemStack());
   }
 
   @Nonnull

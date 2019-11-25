@@ -34,7 +34,7 @@ public class EflnBallEntity extends ProjectileItemEntity implements IEntityAddit
   }
 
   @Override
-  protected Item func_213885_i() {
+  protected Item getDefaultItem() {
     return GadgetItems.efln_ball;
   }
 
@@ -60,7 +60,7 @@ public class EflnBallEntity extends ProjectileItemEntity implements IEntityAddit
 
   @Override
   public void readSpawnData(PacketBuffer additionalData) {
-    this.func_213884_b(additionalData.readItemStack());
+    this.setItem(additionalData.readItemStack());
   }
 
   @Nonnull

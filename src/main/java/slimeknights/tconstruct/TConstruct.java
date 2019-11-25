@@ -18,10 +18,6 @@ import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.control.PulseManager;
-import slimeknights.mantle.util.BlankBlockDropJsonGenerator;
-import slimeknights.mantle.util.BlockStateJsonGenerator;
-import slimeknights.mantle.util.LanguageJsonGenerator;
-import slimeknights.mantle.util.ModelJsonGenerator;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.TinkerNetwork;
@@ -108,13 +104,6 @@ public class TConstruct {
       datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator));
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
       datagenerator.addProvider(new TConstructRecipeProvider(datagenerator));
-
-      if (false) {
-        datagenerator.addProvider(new BlockStateJsonGenerator(datagenerator, modID));
-        datagenerator.addProvider(new ModelJsonGenerator(datagenerator, modID));
-        datagenerator.addProvider(new LanguageJsonGenerator(datagenerator, modID));
-        datagenerator.addProvider(new BlankBlockDropJsonGenerator(datagenerator, modID));
-      }
     }
   }
 
