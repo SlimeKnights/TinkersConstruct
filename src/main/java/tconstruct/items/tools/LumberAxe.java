@@ -3,11 +3,14 @@ package tconstruct.items.tools;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
+import java.lang.LinkageError;
 
 import com.google.common.collect.Lists;
 
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.*;
 import gnu.trove.set.hash.THashSet;
+import mantle.player.PlayerUtils;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -106,7 +109,12 @@ public class LumberAxe extends AOEHarvestTool
         if (wood.isWood(world, x, y, z) || wood.getMaterial() == Material.sponge)
             if(detectTree(world, x,y,z)) {
                 TreeChopTask chopper = new TreeChopTask((AOEHarvestTool)this, stack, new ChunkPosition(x, y, z), player, 128);
-                FMLCommonHandler.instance().bus().register(chopper);
+                try {
+                    FMLCommonHandler.instance().bus().register(chopper);
+                } catch (LinkageError l) {
+                    PlayerUtils.sendChatMessage(player, "Well, that's embarrassing, you missed!");
+                    FMLLog.warning("Unable to spawn TreeChopTask due to LinkageError");
+                }
                 // custom block breaking code, don't call vanilla code
                 return true;
             }
