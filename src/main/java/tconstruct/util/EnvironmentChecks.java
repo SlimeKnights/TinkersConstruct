@@ -26,14 +26,6 @@ public class EnvironmentChecks
     {
         List<String> modIds = new ArrayList<String>();
 
-        if (Loader.isModLoaded("gregtech"))
-        {
-            TConstruct.logger.error("Tinkers' Construct and GregTech are incompatible for the following reasons:");
-            TConstruct.logger.error(modCompatDetails("GregTech", true));
-            modIds.add("gregtech");
-            incompatibilities.add("GregTech");
-        }
-
         // Bukkit/Magic Launcher/Optifine are caught by Mantle, so we no longer
         // check for those.
 
@@ -57,10 +49,6 @@ public class EnvironmentChecks
     public static String modCompatDetails (String type, boolean consoleFormat)
     {
         String n = consoleFormat ? System.getProperty("line.separator") : "\n";
-        if (type.equals("GregTech"))
-        {
-            return "- GregTech is a meta-mod that changes how a lot of mods interact with the base game and with each other." + n + "- The mod restructures the registration of various ores within the Ore Dictionary. This may alter or break the original design intention of various other mods." + n + "- This mod alters various fundamental recipes from vanilla Minecraft.";
-        }
         return "";
     }
 
