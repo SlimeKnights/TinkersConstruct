@@ -64,7 +64,7 @@ public class MaterialStatsManager extends JsonReloadListener {
     materialStatClasses.put(materialStatType, statsClass);
   }
 
-  public <T extends BaseMaterialStats> Optional<T> getStats(MaterialId materialId, MaterialStatsId statId) {
+  public <T extends IMaterialStats> Optional<T> getStats(MaterialId materialId, MaterialStatsId statId) {
     Map<MaterialStatsId, BaseMaterialStats> materialStats = materialToStatsPerType.getOrDefault(materialId, ImmutableMap.of());
     IMaterialStats stats = materialStats.get(statId);
     // class will always match, since it's only filled by deserialization, which only puts it in if it's the registered type

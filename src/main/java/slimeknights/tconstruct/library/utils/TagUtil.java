@@ -49,7 +49,7 @@ public final class TagUtil {
   }
 
   public static CompoundNBT getBaseTag(CompoundNBT root) {
-    return getTagSafe(root, Tags.BASE_DATA);
+    return getTagSafe(root, Tags.BASE);
   }
 
   public static void setBaseTag(ItemStack stack, CompoundNBT tag) {
@@ -61,7 +61,7 @@ public final class TagUtil {
 
   public static void setBaseTag(CompoundNBT root, CompoundNBT tag) {
     if (root != null) {
-      root.put(Tags.BASE_DATA, tag);
+      root.put(Tags.BASE, tag);
     }
   }
 
@@ -119,7 +119,7 @@ public final class TagUtil {
   }
 
   public static CompoundNBT getToolTag(CompoundNBT root) {
-    return getTagSafe(root, Tags.TOOL_DATA);
+    return getTagSafe(root, Tags.TOOL_STATS);
   }
 
   public static void setToolTag(ItemStack stack, CompoundNBT tag) {
@@ -131,7 +131,7 @@ public final class TagUtil {
 
   public static void setToolTag(CompoundNBT root, CompoundNBT tag) {
     if (root != null) {
-      root.put(Tags.TOOL_DATA, tag);
+      root.put(Tags.TOOL_STATS, tag);
     }
   }
 

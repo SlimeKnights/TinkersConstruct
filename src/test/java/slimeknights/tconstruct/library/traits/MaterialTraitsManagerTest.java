@@ -18,7 +18,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-class MaterialTraitsManagerTest  extends BaseMcTest {
+class MaterialTraitsManagerTest extends BaseMcTest {
 
   private static final MaterialId MATERIAL_ID = new MaterialId(Util.getResource("material"));
   private static final ResourceLocation MULTIPLE_TRAITS_FILE = Util.getResource("multiple");
