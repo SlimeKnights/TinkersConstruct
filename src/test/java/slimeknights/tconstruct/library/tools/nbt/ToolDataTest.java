@@ -23,7 +23,6 @@ class ToolDataTest extends BaseMcTest {
     assertThat(nbt.getTagId(ToolData.TAG_MATERIALS)).isEqualTo((byte)Constants.NBT.TAG_LIST);
   }
 
-
   @Test
   void deserializeNBT_item() {
     CompoundNBT nbt = new CompoundNBT();
@@ -44,5 +43,13 @@ class ToolDataTest extends BaseMcTest {
     assertThat(toolData.getMaterials()).isNotNull();
   }
 
+  @Test
+  void deserialize_empty() {
+    CompoundNBT nbt = new CompoundNBT();
 
+    ToolData toolData = ToolData.readFromNBT(nbt);
+
+    assertThat(toolData.getToolItem()).isNotNull();
+    assertThat(toolData.getMaterials()).isNotNull();
+  }
 }

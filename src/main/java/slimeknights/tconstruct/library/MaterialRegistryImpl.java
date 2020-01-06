@@ -5,13 +5,14 @@ import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialManager;
+import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
-import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
 import slimeknights.tconstruct.library.traits.MaterialTraitsManager;
 
 import java.util.Map;
+import java.util.Optional;
 
 class MaterialRegistryImpl {
 
@@ -20,9 +21,10 @@ class MaterialRegistryImpl {
   private final MaterialTraitsManager materialTraitsManager;
 
   /**
-   * Used for the defaults and for existance/class checks.
+   * Used for the defaults and for existence/class checks.
+   * Basically all existing stat types need to be in this map.. or they don't exist
    */
-  private Map<MaterialStatType, IMaterialStats> materialStatDefaults = ImmutableMap.of();
+  private Map<MaterialStatsId, IMaterialStats> materialStatDefaults = ImmutableMap.of();
 
   protected MaterialRegistryImpl(MaterialManager materialManager, MaterialStatsManager materialStatsManager, MaterialTraitsManager materialTraitsManager) {
     this.materialManager = materialManager;
@@ -34,9 +36,13 @@ class MaterialRegistryImpl {
     return materialManager.getMaterial(id).orElse(IMaterial.UNKNOWN);
   }
 
-  public <T extends IMaterialStats> T getMaterialStats(MaterialId materialId, MaterialStatsId statsId) {
+  public <T extends IMaterialStats> Optional<T> getMaterialStats(MaterialId materialId, MaterialStatsId statsId) {
+    return materialStatsManager.getStats(materialId, statsId);
+  }
+
+  public <T extends IMaterialStats> T getDefaultStats(MaterialStatsId statsId) {
     //noinspection unchecked
-    return (T)materialStatsManager.getStats(materialId, statsId).get();
+    return (T) materialStatDefaults.get(statsId);
   }
 
   /**
@@ -55,10 +61,11 @@ class MaterialRegistryImpl {
    * @param type
    * @param defaultStats
    */
-  public void registerMaterial(MaterialStatType type, IMaterialStats defaultStats) {
+  public <T extends BaseMaterialStats> void registerMaterial(MaterialStatsId type, T defaultStats, Class<T> clazz) {
     if(materialStatDefaults.containsKey(type)) {
-      throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(type.getIdentifier());
+      throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(type);
     }
+    materialStatsManager.registerMaterialStat(type, clazz);
     materialStatDefaults.put(type, defaultStats);
   }
 }
