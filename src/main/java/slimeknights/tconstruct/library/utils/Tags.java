@@ -6,7 +6,7 @@ package slimeknights.tconstruct.library.utils;
 public final class Tags {
 
   /** The base data of the tinker item. What it is built from. */
-  public static final String BASE_DATA = "TinkerData";
+  public static final String BASE = "TinkerData";
   /** Contains the materials of the parts the tool was built from */
   public static final String BASE_MATERIALS = "Materials";
   /** Contains all the applied modifiers */
@@ -22,7 +22,7 @@ public final class Tags {
 
   //public static final String TOOL_RENDER = "Render";
   /** The tag that contains all the actual calculated runtime-information of the tools */
-  public static final String TOOL_DATA = "Stats";
+  public static final String TOOL_STATS = "Stats";
   public static final String TOOL_DATA_ORIG = "StatsOriginal";
 
   public static final String TOOL_MODIFIERS = "Modifiers";

@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -55,6 +56,10 @@ public class MaterialManager extends JsonReloadListener {
 
   public Collection<IMaterial> getAllMaterials() {
     return materials.values();
+  }
+
+  public Optional<IMaterial> getMaterial(MaterialId materialId) {
+    return Optional.ofNullable(materials.get(materialId));
   }
 
   @Override
