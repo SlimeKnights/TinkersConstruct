@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.tinkering;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
+import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
@@ -20,7 +21,7 @@ public class PartMaterialType {
   }
 
   public boolean isValid(ItemStack stack) {
-    if(stack.getItem() instanceof IMaterialItem) {
+    if (stack.getItem() instanceof IMaterialItem) {
       IMaterialItem toolPart = (IMaterialItem) stack.getItem();
       return isValid(toolPart, toolPart.getMaterial(stack));
     }
@@ -36,13 +37,9 @@ public class PartMaterialType {
   }
 
   public boolean isValidMaterial(IMaterial material) {
-    for(MaterialStatsId type : neededTypes) {
-      //if(!material.hasStats(type)) {
-        return false;
-      //}
-    }
-
-    return true;
+    return neededTypes.stream().allMatch(
+      statsId -> MaterialRegistry.getMaterialStats(material.getIdentifier(), statsId).isPresent()
+    );
   }
 
   /**
@@ -50,8 +47,8 @@ public class PartMaterialType {
    * This does NOT mean that a material having this stat is usable, since multiple stats might be required!
    */
   public boolean usesStat(MaterialStatsId statID) {
-    for(MaterialStatsId type : neededTypes) {
-      if(type.equals(statID)) {
+    for (MaterialStatsId type : neededTypes) {
+      if (type.equals(statID)) {
         return true;
       }
     }

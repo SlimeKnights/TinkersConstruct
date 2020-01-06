@@ -1,18 +1,19 @@
 package slimeknights.tconstruct.fixture;
 
-import net.minecraft.item.Item;
-import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 
 public final class PartMaterialTypeFixture {
 
-  public static PartMaterialType getTestPartMaterialType() {
-    return new PartMaterialType(
-      new MaterialItem(new Item.Properties()),
-      new MaterialStatsId("test", "mat_stat")
-    );
-  }
+  public static final PartMaterialType PART_MATERIAL_TYPE = new PartMaterialType(
+    MaterialItemFixture.MATERIAL_ITEM,
+    MaterialStatsFixture.STATS_TYPE
+  );
+
+  public static final PartMaterialType PART_MATERIAL_TYPE_2 = new PartMaterialType(
+    MaterialItemFixture.MATERIAL_ITEM_2,
+    MaterialStatsFixture.STATS_TYPE_2
+  );
+
 
   private PartMaterialTypeFixture() {
   }
