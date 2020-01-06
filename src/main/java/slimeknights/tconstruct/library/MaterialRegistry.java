@@ -5,6 +5,8 @@ import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
+import java.util.Optional;
+
 public final class MaterialRegistry {
 
   private static MaterialRegistryImpl INSTANCE;
@@ -17,8 +19,11 @@ public final class MaterialRegistry {
     return INSTANCE.getMaterial(id);
   }
 
-  public static <T extends IMaterialStats> T getMaterialStats(MaterialId materialId, MaterialStatsId statsId) {
-    //noinspection unchecked
-    return (T)INSTANCE.getMaterialStats(materialId, statsId);
+  public static <T extends IMaterialStats> Optional<T> getMaterialStats(MaterialId materialId, MaterialStatsId statsId) {
+    return INSTANCE.getMaterialStats(materialId, statsId);
+  }
+
+  public <T extends IMaterialStats> T getDefaultStats(MaterialStatsId statsId) {
+    return INSTANCE.getDefaultStats(statsId);
   }
 }
