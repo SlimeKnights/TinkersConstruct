@@ -1,13 +1,10 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
-import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.StringNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tools.ToolCore;
 
-import java.util.Optional;
+import java.util.List;
 
 /**
  * The data of t he tool. Persisted in NBT.
@@ -19,10 +16,9 @@ public class ToolData {
   protected static final String TAG_STATS = "tic_stats";
 
   // tool so we don't need categories and original stats?
-
-  public final ToolCore toolItem;
+  private final ToolItemNBT toolItem;
   //components=materials
-  public final MaterialNBT materials;
+  private final MaterialNBT materials;
 
   //stats
   // modifiers
@@ -37,37 +33,33 @@ public class ToolData {
 
   //private final StatsNBT stats;
 
-  public ToolData(ToolCore toolItem, MaterialNBT materials) {
+  public ToolData(ToolItemNBT toolItem, MaterialNBT materials) {
     this.toolItem = toolItem;
     this.materials = materials;
   }
 
+  public ToolCore getToolItem() {
+    return toolItem.getToolItem();
+  }
+
+  public List<IMaterial> getMaterials() {
+    return materials.getMaterials();
+  }
 
   // todo: keep backing NBT and lazily initialize all the values? Might be worth it.. or a severe case of optimizing too early
 
   public static ToolData readFromNBT(CompoundNBT nbt) {
-    ToolCore toolCore = deserializeItem(nbt);
+    ToolItemNBT toolCore = ToolItemNBT.readFromNBT(nbt.get(TAG_ITEM));
     MaterialNBT materialNBT = MaterialNBT.readFromNBT(nbt.get(TAG_MATERIALS));
 
     return new ToolData(toolCore, materialNBT);
   }
 
-  private static ToolCore deserializeItem(CompoundNBT nbt) {
-    ResourceLocation itemRegistryName = new ResourceLocation(nbt.getString(TAG_ITEM));
-    Item item = ForgeRegistries.ITEMS.getValue(itemRegistryName);
-    if(item instanceof ToolCore) {
-      return (ToolCore) item;
-    }
-    // todo: can we have a default?
-    return null;
-  }
-
   public CompoundNBT serializeToNBT() {
     CompoundNBT nbt = new CompoundNBT();
 
-    nbt.put(TAG_ITEM, serializeItem());
+    nbt.put(TAG_ITEM, toolItem.serializeToNBT());
     nbt.put(TAG_MATERIALS, materials.serializeToNBT());
-    //nbt.put(TAG_MATERIALS, stats.write();)
 
     // base data about the tool, what it's built out of
 //    nbt.put(Tags.BASE, null);
@@ -83,14 +75,6 @@ public class ToolData {
 //    nbt.put(Tags.TOOL_STATS, null);
 
     return nbt;
-  }
-
-  private StringNBT serializeItem() {
-    return Optional.ofNullable(toolItem)
-      .map(Item::getRegistryName)
-      .map(ResourceLocation::toString)
-      .map(StringNBT::new)
-      .orElse(new StringNBT());
   }
 
 //
