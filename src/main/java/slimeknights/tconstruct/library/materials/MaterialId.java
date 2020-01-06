@@ -7,6 +7,10 @@ import net.minecraft.util.ResourceLocation;
  */
 public class MaterialId extends ResourceLocation {
 
+  public MaterialId(String resourceName) {
+    super(resourceName);
+  }
+
   public MaterialId(String namespaceIn, String pathIn) {
     super(namespaceIn, pathIn);
   }
