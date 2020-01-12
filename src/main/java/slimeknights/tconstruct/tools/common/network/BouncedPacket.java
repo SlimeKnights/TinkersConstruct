@@ -21,8 +21,9 @@ public class BouncedPacket extends AbstractPacketThreadsafe {
 
   @Override
   public void handleServerSafe(NetHandlerPlayServer netHandler) {
-	if(netHandler.player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemSlimeBoots)
+    if(netHandler.player.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemSlimeBoots) {
       netHandler.player.fallDistance = 0;
+    }
   }
 
   @Override
