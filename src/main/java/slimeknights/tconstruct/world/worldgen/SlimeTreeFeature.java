@@ -197,7 +197,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     }
   }
 
-  protected static boolean isAirOrLeaves(IWorldGenerationBaseReader worldIn, BlockPos pos) {
+  public static boolean isAirOrLeaves(IWorldGenerationBaseReader worldIn, BlockPos pos) {
     if (!(worldIn instanceof net.minecraft.world.IWorldReader)) { // FORGE: Redirect to state method when possible
       return worldIn.hasBlockState(pos, (state) -> state.isAir() || state.isIn(BlockTags.LEAVES) || state.isIn(Tags.Blocks.SLIMY_LEAVES));
     }
@@ -246,12 +246,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
   }
 
   private void setSlimyLogState(Set<BlockPos> changedBlocks, IWorldWriter worldIn, BlockPos pos, BlockState state, MutableBoundingBox boundingBox) {
-    if (this.doBlockNotify) {
-      worldIn.setBlockState(pos, state, 19);
-    }
-    else {
-      worldIn.setBlockState(pos, state, 18);
-    }
+    worldIn.setBlockState(pos, state, 19);
 
     boundingBox.expandTo(new MutableBoundingBox(pos, pos));
 

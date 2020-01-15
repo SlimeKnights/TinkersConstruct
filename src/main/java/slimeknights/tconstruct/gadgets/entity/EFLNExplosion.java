@@ -1,9 +1,12 @@
 package slimeknights.tconstruct.gadgets.entity;
 
 import com.google.common.collect.ImmutableSet;
+import com.mojang.datafixers.util.Pair;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.ItemStack;
@@ -21,6 +24,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.List;
 
 public class EFLNExplosion extends Explosion {
@@ -90,26 +94,39 @@ public class EFLNExplosion extends Explosion {
 
   @Override
   public void doExplosionB(boolean spawnParticles) {
-    this.world.playSound(null, this.x, this.y, this.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.2F) * 0.7F);
+    if (this.world.isRemote) {
+      this.world.playSound(this.x, this.y, this.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.2F) * 0.7F, false);
+    }
 
     this.world.addParticle(ParticleTypes.EXPLOSION, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
 
-    for (BlockPos blockpos : this.affectedBlockPositionsInternal) {
+    ObjectArrayList<Pair<ItemStack, BlockPos>> arrayList = new ObjectArrayList<>();
+    Collections.shuffle(this.affectedBlockPositions, this.world.rand);
+
+    for (BlockPos blockpos : this.affectedBlockPositions) {
       BlockState blockstate = this.world.getBlockState(blockpos);
       Block block = blockstate.getBlock();
 
       if (!blockstate.isAir(this.world, blockpos)) {
-        if (this.world instanceof ServerWorld && blockstate.canDropFromExplosion(this.world, blockpos, this)) {
+        BlockPos blockpos1 = blockpos.toImmutable();
+
+        this.world.getProfiler().startSection("explosion_blocks");
+
+        if (blockstate.canDropFromExplosion(this.world, blockpos, this) && this.world instanceof ServerWorld) {
           TileEntity tileentity = blockstate.hasTileEntity() ? this.world.getTileEntity(blockpos) : null;
-          LootContext.Builder lootcontext$builder = (new LootContext.Builder((ServerWorld) this.world)).withRandom(this.world.rand).withParameter(LootParameters.POSITION, blockpos).withParameter(LootParameters.TOOL, ItemStack.EMPTY).withNullableParameter(LootParameters.BLOCK_ENTITY, tileentity);
+          LootContext.Builder builder = (new LootContext.Builder((ServerWorld) this.world)).withRandom(this.world.rand).withParameter(LootParameters.POSITION, blockpos).withParameter(LootParameters.TOOL, ItemStack.EMPTY).withNullableParameter(LootParameters.BLOCK_ENTITY, tileentity).withNullableParameter(LootParameters.THIS_ENTITY, this.exploder);
+
           if (this.mode == Explosion.Mode.DESTROY) {
-            lootcontext$builder.withParameter(LootParameters.EXPLOSION_RADIUS, this.size);
+            builder.withParameter(LootParameters.EXPLOSION_RADIUS, this.size);
           }
 
-          Block.spawnDrops(blockstate, lootcontext$builder);
+          blockstate.getDrops(builder).forEach((p_229977_2_) -> {
+            func_229976_a_(arrayList, p_229977_2_, blockpos1);
+          });
         }
 
         blockstate.onBlockExploded(this.world, blockpos, this);
+        this.world.getProfiler().endSection();
       }
     }
   }
@@ -118,4 +135,23 @@ public class EFLNExplosion extends Explosion {
     this.affectedBlockPositions.add(blockPos);
   }
 
+  private static void func_229976_a_(ObjectArrayList<Pair<ItemStack, BlockPos>> arrayList, ItemStack itemStack, BlockPos blockPos) {
+    int i = arrayList.size();
+
+    for (int j = 0; j < i; ++j) {
+      Pair<ItemStack, BlockPos> pair = arrayList.get(j);
+      ItemStack itemstack = pair.getFirst();
+
+      if (ItemEntity.func_226532_a_(itemstack, itemStack)) {
+        ItemStack itemstack1 = ItemEntity.func_226533_a_(itemstack, itemStack, 16);
+        arrayList.set(j, Pair.of(itemstack1, pair.getSecond()));
+
+        if (itemStack.isEmpty()) {
+          return;
+        }
+      }
+    }
+
+    arrayList.add(Pair.of(itemStack, blockPos));
+  }
 }

@@ -10,7 +10,6 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
@@ -19,11 +18,11 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.lighting.LightEngine;
+import net.minecraft.world.server.ServerWorld;
+import slimeknights.tconstruct.blocks.WorldBlocks;
 
 import java.util.Locale;
 import java.util.Random;
-
-import slimeknights.tconstruct.blocks.WorldBlocks;
 
 // todo: evaluate this block
 public class SlimeGrassBlock extends Block implements IGrowable {
@@ -38,11 +37,6 @@ public class SlimeGrassBlock extends Block implements IGrowable {
   }
 
   @Override
-  public boolean isSolid(BlockState state) {
-    return true;
-  }
-
-  @Override
   protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
     builder.add(SNOWY);
   }
@@ -50,11 +44,6 @@ public class SlimeGrassBlock extends Block implements IGrowable {
   @Override
   public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
     items.add(new ItemStack(this));
-  }
-
-  @Override
-  public BlockRenderLayer getRenderLayer() {
-    return BlockRenderLayer.CUTOUT_MIPPED;
   }
 
   @Override
@@ -68,7 +57,7 @@ public class SlimeGrassBlock extends Block implements IGrowable {
   }
 
   @Override
-  public void grow(World worldIn, Random rand, BlockPos pos, BlockState state) {
+  public void func_225535_a_(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
     BlockPos blockpos1 = pos.up();
     int i = 0;
 
@@ -133,7 +122,7 @@ public class SlimeGrassBlock extends Block implements IGrowable {
   }
 
   @Override
-  public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
+  public void func_225534_a_(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
     if (!worldIn.isRemote) {
       if (!worldIn.isAreaLoaded(pos, 3)) {
         return; // Forge: prevent loading unloaded chunks when checking neighbor's light and spreading

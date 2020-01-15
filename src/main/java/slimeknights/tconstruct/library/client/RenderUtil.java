@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.client;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.renderer.BufferBuilder;
 
 public final class RenderUtil {
@@ -18,11 +18,7 @@ public final class RenderUtil {
     float g = green(color) / 255.0F;
     float b = blue(color) / 255.0F;
 
-    GlStateManager.color4f(r, g, b, a);
-  }
-
-  public static void setBrightness(BufferBuilder renderer, int brightness) {
-    renderer.putBrightness4(brightness, brightness, brightness, brightness);
+    RenderSystem.color4f(r, g, b, a);
   }
 
   public static int compose(int r, int g, int b, int a) {

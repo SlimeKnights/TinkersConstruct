@@ -68,11 +68,6 @@ public class GlowBlock extends Block {
     return VoxelShapes.empty();
   }
 
-  @Override
-  public BlockRenderLayer getRenderLayer() {
-    return BlockRenderLayer.TRANSLUCENT;
-  }
-
   /**
    * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
    * LIQUID for vanilla liquids, INVISIBLE to skip all rendering

@@ -73,8 +73,8 @@ public class NetherSlimeIslandStructure extends ScatteredStructure<NoFeatureConf
 
   public static class Start extends StructureStart {
 
-    public Start(Structure<?> structureIn, int p_i50515_2_, int p_i50515_3_, Biome p_i50515_4_, MutableBoundingBox p_i50515_5_, int p_i50515_6_, long p_i50515_7_) {
-      super(structureIn, p_i50515_2_, p_i50515_3_, p_i50515_4_, p_i50515_5_, p_i50515_6_, p_i50515_7_);
+    public Start(Structure<?> structureIn, int chunkPosX, int chunkPosZ, MutableBoundingBox bounds, int references, long seed) {
+      super(structureIn, chunkPosX, chunkPosZ, bounds, references, seed);
     }
 
     @Override

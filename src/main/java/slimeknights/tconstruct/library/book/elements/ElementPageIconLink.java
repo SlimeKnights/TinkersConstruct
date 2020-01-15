@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.book.elements;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -35,14 +35,14 @@ public class ElementPageIconLink extends SizedBookElement {
   @Override
   public void draw(int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
     boolean hover = this.isHovered(mouseX, mouseY);
-    GlStateManager.color4f(1F, 1F, 1F, hover ? 1F : 0.5F);
-    //GlStateManager.scale(scale, scale, 1f);
+    RenderSystem.color4f(1F, 1F, 1F, hover ? 1F : 0.5F);
+    //RenderSystem.scale(scale, scale, 1f);
     if (this.isHovered(mouseX, mouseY)) {
       fill(this.x, this.y, this.x + this.width, this.y + this.height, this.parent.book.appearance.hoverColor | (0x77 << 24));
     }
 
     this.displayElement.draw(mouseX, mouseY, partialTicks, fontRenderer);
-    //GlStateManager.scale(1/scale, 1/scale, 1f);
+    //RenderSystem.scale(1/scale, 1/scale, 1f);
   }
 
   @Override

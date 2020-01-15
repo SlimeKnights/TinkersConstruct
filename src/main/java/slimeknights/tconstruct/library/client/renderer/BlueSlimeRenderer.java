@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.client.renderer;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -36,29 +38,30 @@ public class BlueSlimeRenderer extends MobRenderer<SlimeEntity, SlimeModel<Slime
   }
 
   @Override
-  public void doRender(SlimeEntity entity, double x, double y, double z, float entityYaw, float partialTicks) {
+  public void func_225623_a_(SlimeEntity entity, float p_225623_2_, float p_225623_3_, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int p_225623_6_) {
     RenderUtil.setColorRGBA(this.color);
     this.shadowSize = 0.25F * (float) entity.getSlimeSize();
-    super.doRender(entity, x, y, z, entityYaw, partialTicks);
+    super.func_225623_a_(entity, p_225623_2_, p_225623_3_, matrixStack, renderTypeBuffer, p_225623_6_);
   }
 
   @Override
-  protected void preRenderCallback(SlimeEntity entitylivingbaseIn, float partialTickTime) {
+  protected void func_225620_a_(SlimeEntity entity, MatrixStack matrixStack, float p_225620_3_) {
     float f = 0.999F;
-    GlStateManager.scalef(0.999F, 0.999F, 0.999F);
-    float f1 = (float) entitylivingbaseIn.getSlimeSize();
-    float f2 = MathHelper.lerp(partialTickTime, entitylivingbaseIn.prevSquishFactor, entitylivingbaseIn.squishFactor) / (f1 * 0.5F + 1.0F);
+    matrixStack.func_227862_a_(0.999F, 0.999F, 0.999F);
+    matrixStack.func_227861_a_(0.0D, (double) 0.001F, 0.0D);
+    float f1 = (float) entity.getSlimeSize();
+    float f2 = MathHelper.lerp(p_225620_3_, entity.prevSquishFactor, entity.squishFactor) / (f1 * 0.5F + 1.0F);
     float f3 = 1.0F / (f2 + 1.0F);
-    GlStateManager.scalef(f3 * f1, 1.0F / f3 * f1, f3 * f1);
+    matrixStack.func_227862_a_(f3 * f1, 1.0F / f3 * f1, f3 * f1);
   }
 
   @Override
-  protected int getColorMultiplier(SlimeEntity entitylivingbaseIn, float lightBrightness, float partialTickTime) {
+  protected float func_225625_b_(SlimeEntity p_225625_1_, float p_225625_2_) {
     return this.color;
   }
 
   @Override
-  protected ResourceLocation getEntityTexture(SlimeEntity entity) {
+  public ResourceLocation getEntityTexture(SlimeEntity entity) {
     return SLIME_TEXTURE;
   }
 

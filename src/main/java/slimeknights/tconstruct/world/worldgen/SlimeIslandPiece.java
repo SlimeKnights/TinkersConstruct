@@ -10,9 +10,7 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.gen.feature.AbstractTreeFeature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
@@ -108,16 +106,16 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
       case "tconstruct:slime_tree":
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 
-        AbstractTreeFeature<NoFeatureConfig> treeFeature = null;
+        ConfiguredFeature<TreeFeatureConfig, ?> treeFeature = null;
 
         if (rand.nextBoolean() && this.numberOfTreesPlaced < 3) {
           switch (this.variant) {
             case BLUE:
             case GREEN:
-              treeFeature = purpleSlimeTree.getTreeFeature(rand);
+              treeFeature = purpleSlimeTree.func_225546_b_(rand);
               break;
             case PURPLE:
-              treeFeature = blueSlimeTree.getTreeFeature(rand);
+              treeFeature = blueSlimeTree.func_225546_b_(rand);
               break;
             default:
               throw new IllegalStateException("Unexpected variant: " + this.variant);

@@ -80,20 +80,20 @@ public class Exploder {
 
   private void handleEntities() {
     final Predicate<Entity> predicate = entity -> entity != null
-            && !entity.isImmuneToExplosions()
-            && EntityPredicates.NOT_SPECTATING.test(entity)
-            && EntityPredicates.IS_ALIVE.test(entity)
-            && entity.getPositionVector().squareDistanceTo(this.x, this.y, this.z) <= this.r * this.r;
+      && !entity.isImmuneToExplosions()
+      && EntityPredicates.NOT_SPECTATING.test(entity)
+      && EntityPredicates.IS_ALIVE.test(entity)
+      && entity.getPositionVector().squareDistanceTo(this.x, this.y, this.z) <= this.r * this.r;
 
     // damage and blast back entities
     List<Entity> list = this.world.getEntitiesInAABBexcluding(this.exploder,
-            new AxisAlignedBB(this.x - this.r - 1,
-                    this.y - this.r - 1,
-                    this.z - this.r - 1,
-                    this.x + this.r + 1,
-                    this.y + this.r + 1,
-                    this.z + this.r + 1),
-            predicate
+      new AxisAlignedBB(this.x - this.r - 1,
+        this.y - this.r - 1,
+        this.z - this.r - 1,
+        this.x + this.r + 1,
+        this.y + this.r + 1,
+        this.z + this.r + 1),
+      predicate
     );
     net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.world, this.explosion, list, this.r * 2);
 

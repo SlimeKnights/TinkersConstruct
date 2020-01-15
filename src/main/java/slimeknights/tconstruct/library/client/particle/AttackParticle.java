@@ -1,19 +1,15 @@
 package slimeknights.tconstruct.library.client.particle;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.Minecraft;
+import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.util.HandSide;
+import net.minecraft.client.renderer.vertex.VertexFormatElement;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -21,7 +17,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public abstract class AttackParticle extends Particle {
 
-  public static final VertexFormat VERTEX_FORMAT = (new VertexFormat()).addElement(DefaultVertexFormats.POSITION_3F).addElement(DefaultVertexFormats.TEX_2F).addElement(DefaultVertexFormats.COLOR_4UB).addElement(DefaultVertexFormats.TEX_2S).addElement(DefaultVertexFormats.NORMAL_3B).addElement(DefaultVertexFormats.PADDING_1B);
+  public static final VertexFormat VERTEX_FORMAT = new VertexFormat(ImmutableList.<VertexFormatElement>builder().add(DefaultVertexFormats.POSITION_3F).add(DefaultVertexFormats.TEX_2F).add(DefaultVertexFormats.COLOR_4UB).add(DefaultVertexFormats.TEX_2S).add(DefaultVertexFormats.NORMAL_3B).add(DefaultVertexFormats.PADDING_1B).build());
 
   protected TextureManager textureManager;
   protected int life;
@@ -57,7 +53,10 @@ public abstract class AttackParticle extends Particle {
   }
 
   @Override
-  public void renderParticle(BufferBuilder worldRendererIn, ActiveRenderInfo entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
+  public void func_225606_a_(IVertexBuilder vertexBuilder, ActiveRenderInfo renderInfo, float partialTicks) {
+    // TODO: FIX PARTICLE
+    /*Vec3d projectedView = renderInfo.getProjectedView();
+
     float progress = (this.life + partialTicks) / this.lifeTime;
     int i = (int) (progress * this.animPhases);
     int rows = MathHelper.ceil((float) this.animPhases / (float) this.animPerRow);
@@ -69,9 +68,9 @@ public abstract class AttackParticle extends Particle {
       float f2 = (float) (i / this.animPerRow) / (float) rows;
       float f3 = f2 + 1f / rows - 0.005f;
       float f4 = 0.5F * this.size;
-      float f5 = (float) (this.prevPosX + (this.posX - this.prevPosX) * partialTicks - interpPosX);
-      float f6 = (float) (this.prevPosY + (this.posY - this.prevPosY) * partialTicks - interpPosY);
-      float f7 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks - interpPosZ);
+      float f5 = (float) (this.prevPosX + (this.posX - this.prevPosX) * partialTicks - projectedView.getX());
+      float f6 = (float) (this.prevPosY + (this.posY - this.prevPosY) * partialTicks - projectedView.getY());
+      float f7 = (float) (this.prevPosZ + (this.posZ - this.prevPosZ) * partialTicks - projectedView.getZ());
 
       // mirror the attack for left handed
       if (Minecraft.getInstance().gameSettings.mainHand == HandSide.LEFT) {
@@ -81,17 +80,19 @@ public abstract class AttackParticle extends Particle {
         f1 = t;
       }
 
-      GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-      GlStateManager.disableLighting();
+      Quaternion quaternion = renderInfo.func_227995_f_();
+
+
+      RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+      RenderSystem.disableLighting();
       RenderHelper.disableStandardItemLighting();
-      worldRendererIn.begin(7, this.getVertexFormat());
-      worldRendererIn.pos(f5 - rotationX * f4 - rotationXY * f4, (f6 - rotationZ * f4 * this.height), f7 - rotationYZ * f4 - rotationXZ * f4).tex(f1, f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-      worldRendererIn.pos(f5 - rotationX * f4 + rotationXY * f4, (f6 + rotationZ * f4 * this.height), f7 - rotationYZ * f4 + rotationXZ * f4).tex(f1, f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-      worldRendererIn.pos(f5 + rotationX * f4 + rotationXY * f4, (f6 + rotationZ * f4 * this.height), f7 + rotationYZ * f4 + rotationXZ * f4).tex(f, f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
-      worldRendererIn.pos(f5 + rotationX * f4 - rotationXY * f4, (f6 - rotationZ * f4 * this.height), f7 + rotationYZ * f4 - rotationXZ * f4).tex(f, f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).normal(0.0F, 1.0F, 0.0F).endVertex();
+      vertexBuilder.func_225582_a_(f5 - rotationX * f4 - rotationXY * f4, (f6 - rotationZ * f4 * this.height), f7 - rotationYZ * f4 - rotationXZ * f4).func_225583_a_(f1, f3).func_225586_a_(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).func_225587_b_(0, 240).func_227887_a_(0.0F, 1.0F, 0.0F).endVertex();
+      vertexBuilder.func_225582_a_(f5 - rotationX * f4 + rotationXY * f4, (f6 + rotationZ * f4 * this.height), f7 - rotationYZ * f4 + rotationXZ * f4).func_225583_a_(f1, f2).func_225586_a_(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).func_225587_b_(0, 240).func_227887_a_(0.0F, 1.0F, 0.0F).endVertex();
+      vertexBuilder.func_225582_a_(f5 + rotationX * f4 + rotationXY * f4, (f6 + rotationZ * f4 * this.height), f7 + rotationYZ * f4 + rotationXZ * f4).func_225583_a_(f, f2).func_225586_a_(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).func_225587_b_(0, 240).func_227887_a_(0.0F, 1.0F, 0.0F).endVertex();
+      vertexBuilder.func_225582_a_(f5 + rotationX * f4 - rotationXY * f4, (f6 - rotationZ * f4 * this.height), f7 + rotationYZ * f4 - rotationXZ * f4).func_225583_a_(f, f3).func_225586_a_(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).func_225587_b_(0, 240).func_227887_a_(0.0F, 1.0F, 0.0F).endVertex();
       Tessellator.getInstance().draw();
-      GlStateManager.enableLighting();
-    }
+      RenderSystem.enableLighting();
+    }*/
   }
 
   @Override

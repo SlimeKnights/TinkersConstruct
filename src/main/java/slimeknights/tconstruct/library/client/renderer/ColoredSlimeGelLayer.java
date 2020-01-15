@@ -1,11 +1,15 @@
 package slimeknights.tconstruct.library.client.renderer;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.IEntityRenderer;
+import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.SlimeModel;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.tconstruct.library.client.RenderUtil;
@@ -13,7 +17,7 @@ import slimeknights.tconstruct.library.client.RenderUtil;
 import java.awt.*;
 
 @OnlyIn(Dist.CLIENT)
-public class ColoredSlimeGelLayer<T extends Entity> extends LayerRenderer<T, SlimeModel<T>> {
+public class ColoredSlimeGelLayer<T extends LivingEntity> extends LayerRenderer<T, SlimeModel<T>> {
 
   private final EntityModel<T> slimeModel = new SlimeModel<>(0);
 
@@ -29,10 +33,8 @@ public class ColoredSlimeGelLayer<T extends Entity> extends LayerRenderer<T, Sli
   }
 
   @Override
-  public void render(T entityIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-    this.ticking += partialTicks;
-
-    if (!entityIn.isInvisible()) {
+  public void func_225628_a_(MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int p_225628_3_, T entity, float p_225628_5_, float p_225628_6_, float p_225628_7_, float p_225628_8_, float p_225628_9_, float p_225628_10_) {
+    if (!entity.isInvisible()) {
       if (magicMushrooms) {
         RenderUtil.setColorRGBA(Color.HSBtoRGB(this.ticking / 100f, 0.65f, 0.8f) | (this.color & (0xFF << 24)));
       }
@@ -40,20 +42,12 @@ public class ColoredSlimeGelLayer<T extends Entity> extends LayerRenderer<T, Sli
         RenderUtil.setColorRGBA(this.color);
       }
 
-      GlStateManager.enableNormalize();
-      GlStateManager.enableBlend();
-      GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-
       this.getEntityModel().setModelAttributes(this.slimeModel);
-      this.slimeModel.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+      this.slimeModel.setLivingAnimations(entity, p_225628_5_, p_225628_6_, p_225628_7_);
+      this.slimeModel.func_225597_a_(entity, p_225628_5_, p_225628_6_, p_225628_8_, p_225628_9_, p_225628_10_);
 
-      GlStateManager.disableBlend();
-      GlStateManager.disableNormalize();
+      IVertexBuilder ivertexbuilder = renderTypeBuffer.getBuffer(RenderType.func_228644_e_(this.func_229139_a_(entity)));
+      this.slimeModel.func_225598_a_(matrixStack, ivertexbuilder, p_225628_3_, LivingRenderer.func_229117_c_(entity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
     }
-  }
-
-  @Override
-  public boolean shouldCombineTextures() {
-    return true;
   }
 }

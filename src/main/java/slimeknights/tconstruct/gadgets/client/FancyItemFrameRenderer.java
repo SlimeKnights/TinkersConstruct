@@ -1,28 +1,32 @@
 package slimeknights.tconstruct.gadgets.client;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Matrix4f;
+import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.model.ModelManager;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.storage.MapData;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderItemInFrameEvent;
-import net.minecraftforge.common.MinecraftForge;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
@@ -47,7 +51,7 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
   public FancyItemFrameRenderer(EntityRendererManager renderManagerIn, ItemRenderer itemRendererIn) {
     super(renderManagerIn);
     this.itemRenderer = itemRendererIn;
-    this.defaultRenderer = renderManagerIn.getRenderer(ItemFrameEntity.class);
+    this.defaultRenderer = (ItemFrameRenderer) renderManagerIn.renderers.get(EntityType.ITEM_FRAME);
 
     for (FrameType frameType : FrameType.values()) {
       // TODO: reinstate when Forge fixes itself
@@ -60,95 +64,75 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
   }
 
   @Override
-  public void doRender(FancyItemFrameEntity entity, double x, double y, double z, float entityYaw, float partialTicks) {
-    GlStateManager.pushMatrix();
-    BlockPos blockpos = entity.getHangingPosition();
-    double d0 = (double) blockpos.getX() - entity.posX + x;
-    double d1 = (double) blockpos.getY() - entity.posY + y;
-    double d2 = (double) blockpos.getZ() - entity.posZ + z;
-    GlStateManager.translated(d0 + 0.5D, d1 + 0.5D, d2 + 0.5D);
-    GlStateManager.rotatef(entity.rotationPitch, 1.0F, 0.0F, 0.0F);
-    GlStateManager.rotatef(180.0F - entity.rotationYaw, 0.0F, 1.0F, 0.0F);
-    this.renderManager.textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+  public void func_225623_a_(FancyItemFrameEntity entity, float p_225623_2_, float p_225623_3_, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int p_225623_6_) {
+    super.func_225623_a_(entity, p_225623_2_, p_225623_3_, matrixStack, renderTypeBuffer, p_225623_6_);
+    matrixStack.func_227860_a_();
+    Direction direction = entity.getHorizontalFacing();
+    Vec3d vec3d = this.func_225627_b_(entity, p_225623_3_);
+    matrixStack.func_227861_a_(-vec3d.getX(), -vec3d.getY(), -vec3d.getZ());
+    double d0 = 0.46875D;
+    matrixStack.func_227861_a_((double) direction.getXOffset() * 0.46875D, (double) direction.getYOffset() * 0.46875D, (double) direction.getZOffset() * 0.46875D);
+    matrixStack.func_227863_a_(Vector3f.field_229179_b_.func_229187_a_(entity.rotationPitch));
+    matrixStack.func_227863_a_(Vector3f.field_229181_d_.func_229187_a_(180.0F - entity.rotationYaw));
     BlockRendererDispatcher blockrendererdispatcher = this.mc.getBlockRendererDispatcher();
     ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
-
     FrameType frameType = entity.getFrameType();
     ModelResourceLocation modelresourcelocation = entity.getDisplayedItem().getItem() instanceof FilledMapItem ? LOCATIONS_MODEL_MAP.get(frameType) : LOCATIONS_MODEL.get(frameType);
-    GlStateManager.pushMatrix();
-    GlStateManager.translatef(-0.5F, -0.5F, -0.5F);
-    if (this.renderOutlines) {
-      GlStateManager.enableColorMaterial();
-      GlStateManager.setupSolidRenderingTextureCombine(this.getTeamColor(entity));
+    matrixStack.func_227860_a_();
+    matrixStack.func_227861_a_(-0.5D, -0.5D, -0.5D);
+    blockrendererdispatcher.getBlockModelRenderer().func_228804_a_(matrixStack.func_227866_c_(), renderTypeBuffer.getBuffer(Atlases.func_228782_g_()), null, modelmanager.getModel(modelresourcelocation), 1.0F, 1.0F, 1.0F, p_225623_6_, OverlayTexture.field_229196_a_);
+    matrixStack.func_227865_b_();
+    ItemStack itemstack = entity.getDisplayedItem();
+    if (!itemstack.isEmpty()) {
+      MapData mapdata = FilledMapItem.getMapData(itemstack, entity.world);
+      matrixStack.func_227861_a_(0.0D, 0.0D, 0.4375D);
+      int i = mapdata != null ? entity.getRotation() % 4 * 2 : entity.getRotation();
+      matrixStack.func_227863_a_(Vector3f.field_229183_f_.func_229187_a_((float) i * 360.0F / 8.0F));
+      if (!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderItemInFrameEvent(entity, this.defaultRenderer))) {
+        if (mapdata != null) {
+          matrixStack.func_227863_a_(Vector3f.field_229183_f_.func_229187_a_(180.0F));
+          float f = 0.0078125F;
+          matrixStack.func_227862_a_(0.0078125F, 0.0078125F, 0.0078125F);
+          matrixStack.func_227861_a_(-64.0D, -64.0D, 0.0D);
+          matrixStack.func_227861_a_(0.0D, 0.0D, -1.0D);
+          if (mapdata != null) {
+            this.mc.gameRenderer.getMapItemRenderer().func_228086_a_(matrixStack, renderTypeBuffer, mapdata, true, p_225623_6_);
+          }
+        }
+        else {
+          matrixStack.func_227862_a_(0.5F, 0.5F, 0.5F);
+          this.itemRenderer.func_229110_a_(itemstack, ItemCameraTransforms.TransformType.FIXED, p_225623_6_, OverlayTexture.field_229196_a_, matrixStack, renderTypeBuffer);
+        }
+      }
     }
 
-    blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(modelmanager.getModel(modelresourcelocation), 1.0F, 1.0F, 1.0F, 1.0F);
-    if (this.renderOutlines) {
-      GlStateManager.tearDownSolidRenderingTextureCombine();
-      GlStateManager.disableColorMaterial();
-    }
-
-    GlStateManager.popMatrix();
-    GlStateManager.enableLighting();
-    if (entity.getDisplayedItem().getItem() == Items.FILLED_MAP) {
-      GlStateManager.pushLightingAttributes();
-      RenderHelper.enableStandardItemLighting();
-    }
-
-    GlStateManager.translatef(0.0F, 0.0F, 0.4375F);
-    this.renderItem(entity);
-    if (entity.getDisplayedItem().getItem() == Items.FILLED_MAP) {
-      RenderHelper.disableStandardItemLighting();
-      GlStateManager.popAttributes();
-    }
-
-    GlStateManager.enableLighting();
-    GlStateManager.popMatrix();
-    this.renderName(entity, x + (double) ((float) entity.getHorizontalFacing().getXOffset() * 0.3F), y - 0.25D, z + (double) ((float) entity.getHorizontalFacing().getZOffset() * 0.3F));
+    matrixStack.func_227865_b_();
   }
 
   @Nullable
   @Override
-  protected ResourceLocation getEntityTexture(@Nonnull FancyItemFrameEntity entity) {
+  public ResourceLocation getEntityTexture(@Nonnull FancyItemFrameEntity entity) {
     return null;
   }
 
-  private void renderItem(FancyItemFrameEntity itemFrame) {
-    ItemStack stack = itemFrame.getDisplayedItem();
-    if (!stack.isEmpty()) {
-      GlStateManager.pushMatrix();
-      MapData mapdata = FilledMapItem.getMapData(stack, itemFrame.world);
-      int rotation = (mapdata != null) ? ((itemFrame.getRotation() % 4) * 2) : itemFrame.getRotation();
-      GlStateManager.rotatef((float) rotation * 360.0F / 8.0F, 0.0F, 0.0F, 1.0F);
-      if (!MinecraftForge.EVENT_BUS.post(new RenderItemInFrameEvent(itemFrame, this.defaultRenderer))) {
-        if (mapdata != null) {
-          GlStateManager.disableLighting();
-          this.renderManager.textureManager.bindTexture(MAP_BACKGROUND_TEXTURES);
-          GlStateManager.rotatef(180.0F, 0.0F, 0.0F, 1.0F);
-          GlStateManager.scalef(0.0078125F, 0.0078125F, 0.0078125F);
-          GlStateManager.translatef(-64.0F, -64.0F, 0.0F);
-          GlStateManager.translatef(0.0F, 0.0F, -1.0F);
-          this.mc.gameRenderer.getMapItemRenderer().renderMap(mapdata, true);
-        }
-        else {
-          GlStateManager.scalef(0.5F, 0.5F, 0.5F);
-          this.itemRenderer.renderItem(stack, ItemCameraTransforms.TransformType.FIXED);
-        }
-      }
+  public Vec3d getOffsetPosition(FancyItemFrameEntity p_225627_1_, float p_225627_2_) {
+    return new Vec3d((float) p_225627_1_.getHorizontalFacing().getXOffset() * 0.3F, -0.25D, (float) p_225627_1_.getHorizontalFacing().getZOffset() * 0.3F);
+  }
 
-      GlStateManager.popMatrix();
+  @Override
+  protected boolean canRenderName(FancyItemFrameEntity entity) {
+    if (Minecraft.isGuiEnabled() && !entity.getDisplayedItem().isEmpty() && entity.getDisplayedItem().hasDisplayName() && this.renderManager.pointedEntity == entity) {
+      double d0 = this.renderManager.func_229099_b_(entity);
+      float f = entity.func_226273_bm_() ? 32.0F : 64.0F;
+      return d0 < (double) (f * f);
+    }
+    else {
+      return false;
     }
   }
 
   @Override
-  protected void renderName(@Nonnull FancyItemFrameEntity entity, double x, double y, double z) {
-    if (Minecraft.isGuiEnabled() && !entity.getDisplayedItem().isEmpty() && entity.getDisplayedItem().hasDisplayName() && this.renderManager.pointedEntity == entity) {
-      double d0 = entity.getDistanceSq(this.renderManager.info.getProjectedView());
-      float f = entity.shouldRenderSneaking() ? 32.0F : 64.0F;
-      if (!(d0 >= (double) (f * f))) {
-        String s = entity.getDisplayedItem().getDisplayName().getFormattedText();
-        this.renderLivingLabel(entity, s, x, y, z, 64);
-      }
-    }
+  protected void func_225629_a_(FancyItemFrameEntity itemFrameEntity, String name, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int lighting) {
+    super.func_225629_a_(itemFrameEntity, itemFrameEntity.getDisplayedItem().getDisplayName().getFormattedText(), matrixStack, renderTypeBuffer, lighting);
   }
 }

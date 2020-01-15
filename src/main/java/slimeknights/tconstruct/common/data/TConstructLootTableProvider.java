@@ -16,7 +16,7 @@ import net.minecraft.world.storage.loot.LootParameterSets;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableManager;
 import net.minecraft.world.storage.loot.LootTables;
-import net.minecraft.world.storage.loot.ValidationResults;
+import net.minecraft.world.storage.loot.ValidationTracker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -54,28 +54,43 @@ public class TConstructLootTableProvider implements IDataProvider {
         }
       });
     });
-    ValidationResults validationresults = new ValidationResults();
+    ValidationTracker validationtracker = new ValidationTracker(LootParameterSets.GENERIC, (p_229442_0_) -> {
+      return null;
+    }, map::get);
 
-    for (ResourceLocation resourcelocation : Sets.difference(LootTables.func_215796_a(), map.keySet())) {
-      validationresults.addProblem("Missing built-in table: " + resourcelocation);
+    for (ResourceLocation resourcelocation : Sets.difference(LootTables.func_215796_a(), map.keySet()))
+    {
+      validationtracker.func_227530_a_("Missing built-in table: " + resourcelocation);
     }
 
     map.forEach((p_218436_2_, p_218436_3_) -> {
-      LootTableManager.func_215302_a(validationresults, p_218436_2_, p_218436_3_, map::get);
+      LootTableManager.func_227508_a_(validationtracker, p_218436_2_, p_218436_3_);
     });
-    Multimap<String, String> multimap = validationresults.getProblems();
 
-    map.forEach((p_218440_2_, p_218440_3_) -> {
-      Path path1 = getPath(path, p_218440_2_);
+    Multimap<String, String> multimap = validationtracker.func_227527_a_();
+    if (!multimap.isEmpty())
+    {
+      multimap.forEach((p_229440_0_, p_229440_1_) -> {
+        LOGGER.warn("Found validation problem in " + p_229440_0_ + ": " + p_229440_1_);
+      });
+      throw new IllegalStateException("Failed to validate loot tables, see logs");
+    }
+    else
+    {
+      map.forEach((p_229441_2_, p_229441_3_) -> {
+        Path path1 = getPath(path, p_229441_2_);
 
-      try {
-        IDataProvider.save(GSON, cache, LootTableManager.toJson(p_218440_3_), path1);
-      }
-      catch (IOException ioexception) {
-        LOGGER.error("Couldn't save loot table {}", path1, ioexception);
-      }
+        try
+        {
+          IDataProvider.save(GSON, cache, LootTableManager.toJson(p_229441_3_), path1);
+        }
+        catch (IOException ioexception)
+        {
+          LOGGER.error("Couldn't save loot table {}", path1, ioexception);
+        }
 
-    });
+      });
+    }
   }
 
   private static Path getPath(Path pathIn, ResourceLocation id) {

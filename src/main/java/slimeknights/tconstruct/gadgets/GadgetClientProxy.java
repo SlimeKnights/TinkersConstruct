@@ -65,9 +65,9 @@ public class GadgetClientProxy extends ClientProxy {
 
     Minecraft mc = Minecraft.getInstance();
 
-    RenderingRegistry.registerEntityRenderingHandler(FancyItemFrameEntity.class, (manager) -> new FancyItemFrameRenderer(manager, mc.getItemRenderer()));
-    RenderingRegistry.registerEntityRenderingHandler(GlowballEntity.class, (manager) -> new SpriteRenderer(manager, mc.getItemRenderer()));
-    RenderingRegistry.registerEntityRenderingHandler(EflnBallEntity.class, (manager) -> new SpriteRenderer(manager, mc.getItemRenderer()));
+    RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.fancy_item_frame, (manager) -> new FancyItemFrameRenderer(manager, mc.getItemRenderer()));
+    RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.throwable_glow_ball, (manager) -> new SpriteRenderer<>(manager, mc.getItemRenderer()));
+    RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.throwable_efln_ball, (manager) -> new SpriteRenderer<>(manager, mc.getItemRenderer()));
   }
 
 }
