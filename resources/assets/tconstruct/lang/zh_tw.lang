@@ -30,11 +30,11 @@ tile.tconstruct.deco_ground_slab.mudbrick.name=泥磚半磚
 tile.tconstruct.mudbrick_stairs.name=泥磚樓梯
 
 tile.tconstruct.ore.cobalt.name=鈷礦
-tile.tconstruct.ore.ardite.name=阿爾迪特礦
+tile.tconstruct.ore.ardite.name=阿迪特礦
 
 tile.tconstruct.metal.tooltip=可作為烽火臺底座
 tile.tconstruct.metal.cobalt.name=鈷塊
-tile.tconstruct.metal.ardite.name=阿爾迪特塊
+tile.tconstruct.metal.ardite.name=阿迪特塊
 tile.tconstruct.metal.manyullyn.name=瑪玉靈塊
 tile.tconstruct.metal.knightslime.name=騎士史萊姆塊
 tile.tconstruct.metal.pigiron.name=豬鐵塊
@@ -66,26 +66,26 @@ tile.tconstruct.clear_stained_glass.green.name=綠色透明玻璃
 tile.tconstruct.clear_stained_glass.red.name=紅色透明玻璃
 tile.tconstruct.clear_stained_glass.black.name=黑色透明玻璃
 
-tile.tconstruct.slime.green.name=史萊姆方塊
-tile.tconstruct.slime.blue.name=史萊姆方塊
-tile.tconstruct.slime.purple.name=史萊姆方塊
-tile.tconstruct.slime.blood.name=凝血方塊
-tile.tconstruct.slime.magma.name=史萊姆方塊
+tile.tconstruct.slime.green.name=綠色史萊姆方塊
+tile.tconstruct.slime.blue.name=藍色史萊姆方塊
+tile.tconstruct.slime.purple.name=紫色史萊姆方塊
+tile.tconstruct.slime.blood.name=血色史萊姆方塊
+tile.tconstruct.slime.magma.name=熔岩史萊姆方塊
 tile.tconstruct.slime.pink.name=史萊姆方塊
-tile.tconstruct.slime.tooltip=用於活塞！
+tile.tconstruct.slime.tooltip=適用於活塞！
 
-tile.tconstruct.slime_congealed.green.name=凝固的史萊姆方塊
-tile.tconstruct.slime_congealed.blue.name=凝固的史萊姆方塊
-tile.tconstruct.slime_congealed.purple.name=凝固的史萊姆方塊
-tile.tconstruct.slime_congealed.blood.name=凝固的血塊
-tile.tconstruct.slime_congealed.magma.name=凝固的史萊姆方塊
+tile.tconstruct.slime_congealed.green.name=凝固的綠色史萊姆方塊	
+tile.tconstruct.slime_congealed.blue.name=凝固的藍色史萊姆方塊
+tile.tconstruct.slime_congealed.purple.name=凝固的紫色史萊姆方塊
+tile.tconstruct.slime_congealed.blood.name=凝固的血色史萊姆方塊
+tile.tconstruct.slime_congealed.magma.name=凝固的熔岩史萊姆方塊
 tile.tconstruct.slime_congealed.pink.name=凝固的史萊姆方塊
 tile.tconstruct.slime_congealed.tooltip=讓你跳得很高
 
 tile.tconstruct.slime_dirt.green.name=綠色史萊姆土
 tile.tconstruct.slime_dirt.blue.name=藍色史萊姆土
 tile.tconstruct.slime_dirt.purple.name=紫色史萊姆土
-tile.tconstruct.slime_dirt.blood.name=凝血土
+tile.tconstruct.slime_dirt.blood.name=血色史萊姆土
 tile.tconstruct.slime_dirt.magma.name=熔岩史萊姆土
 tile.tconstruct.slime_dirt.tooltip=很黏, 但讓你跳得更高
 
@@ -93,13 +93,13 @@ tile.tconstruct.slime_grass.vanilla.name=史萊姆草地
 tile.tconstruct.slime_grass.green.name=綠色史萊姆草地
 tile.tconstruct.slime_grass.blue.name=藍色史萊姆草地
 tile.tconstruct.slime_grass.purple.name=紫色史萊姆草地
-tile.tconstruct.slime_grass.blood.name=凝血草地
+tile.tconstruct.slime_grass.blood.name=血色史萊姆草地
 tile.tconstruct.slime_grass.magma.name=熔岩史萊姆草地
 tile.tconstruct.slime_grass.tooltip=很軟！ 讓你跳得更高
 
-tile.tconstruct.slime_leaves.blue.name=黏液樹葉
-tile.tconstruct.slime_leaves.purple.name=黏液樹葉
-tile.tconstruct.slime_leaves.orange.name=黏液樹葉
+tile.tconstruct.slime_leaves.blue.name=史萊姆樹葉
+tile.tconstruct.slime_leaves.purple.name=史萊姆樹葉
+tile.tconstruct.slime_leaves.orange.name=史萊姆樹葉
 
 tile.tconstruct.slime_grass_tall.tall_grass.name=史萊姆草
 tile.tconstruct.slime_grass_tall.fern.name=史萊姆蕨
@@ -175,7 +175,7 @@ tile.tconstruct.seared_glass.glass.name=黑焦玻璃
 tile.tconstruct.seared_glass.glass.tooltip=冶煉爐的一部分，適用於裝飾。\n無法儲存液體。
 
 tile.tconstruct.seared_furnace_controller.name=黑焦熔爐控制器
-tile.tconstruct.tinker_tank_controller.name=打鐵儲液槽控制器
+tile.tconstruct.tinker_tank_controller.name=工匠儲液槽控制器
 
 tile.tconstruct.stone_torch.name=石製火把
 tile.tconstruct.stone_ladder.name=石製梯子
@@ -253,7 +253,7 @@ tile.tconstruct.brownstone_stairs_creeper.name=苦力怕臉褐色石樓梯
 
 # General Items
 item.tconstruct.book.name=匠魂材料手冊
-item.tconstruct.book.tooltip=每個鐵匠都必備的書\n作者 Skyla
+item.tconstruct.book.tooltip=每個工匠都必備的書\n作者 Skyla
 
 item.tconstruct.edible.bacon.name=培根
 item.tconstruct.edible.slimeball_blue.name=史萊姆球
@@ -263,7 +263,7 @@ item.tconstruct.edible.slimeball_magma.name=史萊姆球
 item.tconstruct.edible.slimeball_pink.name=史萊姆球
 item.tconstruct.edible.jerky_beef.name=牛肉乾
 item.tconstruct.edible.jerky_chicken.name=雞肉乾
-item.tconstruct.edible.jerky_pork.name=豬肉乾
+item.tconstruct.edible.jerky_pork.name=培根乾
 item.tconstruct.edible.jerky_mutton.name=羊肉乾
 item.tconstruct.edible.jerky_rabbit.name=兔肉乾
 item.tconstruct.edible.jerky_fish.name=魚乾
@@ -288,7 +288,7 @@ item.tconstruct.materials.slimecrystal_blue.tooltip=item.tconstruct.materials.sl
 item.tconstruct.materials.slimecrystal_magma.name=熔岩史萊姆水晶
 item.tconstruct.materials.slimecrystal_magma.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
 item.tconstruct.materials.expander_w.name=擴展器(水平)
-item.tconstruct.materials.expander_w.tooltip=別逃避練腿日！
+item.tconstruct.materials.expander_w.tooltip=不要逃避健身的日子！
 item.tconstruct.materials.expander_h.name=擴展器(垂直)
 item.tconstruct.materials.expander_h.tooltip=你有做過重量訓練嗎？
 item.tconstruct.materials.reinforcement.name=強化
@@ -306,16 +306,16 @@ item.tconstruct.materials.creative_modifier.name=創造模式改造器
 item.tconstruct.materials.creative_modifier.tooltip=增加額外的改造空間
 
 item.tconstruct.ingots.cobalt.name=鈷錠
-item.tconstruct.ingots.ardite.name=阿爾迪特錠
+item.tconstruct.ingots.ardite.name=阿迪特錠
 item.tconstruct.ingots.manyullyn.name=瑪玉靈錠
 item.tconstruct.ingots.knightslime.name=騎士史萊姆錠
 item.tconstruct.ingots.knightslime.tooltip=黏黏滑滑既是金屬也是石頭？ 多麼迷人啊！
 item.tconstruct.ingots.pigiron.name=豬鐵錠
-item.tconstruct.ingots.pigiron.tooltip=(豬叫聲)～！
+item.tconstruct.ingots.pigiron.tooltip=嚄嚄～！
 item.tconstruct.ingots.alubrass.name=鋁黃銅錠
 
 item.tconstruct.nuggets.cobalt.name=鈷粒
-item.tconstruct.nuggets.ardite.name=阿爾迪特粒
+item.tconstruct.nuggets.ardite.name=阿迪特粒
 item.tconstruct.nuggets.manyullyn.name=瑪玉靈粒
 item.tconstruct.nuggets.knightslime.name=騎士史萊姆粒
 item.tconstruct.nuggets.pigiron.name=豬鐵粒
@@ -330,13 +330,13 @@ item.tconstruct.clay_cast.blank=空白鑄模黏土
 item.tconstruct.cast_custom.ingot.name=錠狀鑄模
 item.tconstruct.cast_custom.nugget.name=粒狀鑄模
 item.tconstruct.cast_custom.gem.name=寶石鑄模
-item.tconstruct.cast_custom.plate.name=板子鑄模
+item.tconstruct.cast_custom.plate.name=大板鑄模
 item.tconstruct.cast_custom.gear.name=齒輪鑄模
 
 item.tconstruct.sharpening_kit.name=磨刀器
 item.tconstruct.sharpening_kit.tooltip=與燧石結合\n將工具升級到該材質的挖掘等級。
 
-item.forge.bucketFilled.blood=桶裝血液
+item.forge.bucketFilled.blood=血液桶
 
 # Tools
 item.tconstruct.pickaxe.name=鎬
@@ -367,7 +367,7 @@ item.tconstruct.battleaxe.name=戰斧
 
 item.tconstruct.shortbow.name=短弓
 item.tconstruct.longbow.name=長弓
-item.tconstruct.crossbow.name=弩
+item.tconstruct.crossbow.name=十字弓
 
 item.tconstruct.arrow.name=箭矢
 item.tconstruct.bolt.name=弩箭
@@ -404,14 +404,14 @@ item.tconstruct.large_sword_blade.name=大刀刀刃
 
 # Bow & Arrow Parts
 
-item.tconstruct.bow_limb.name=弩臂
+item.tconstruct.bow_limb.name=弓臂
 item.tconstruct.bow_string.name=弓弦
 
 item.tconstruct.arrow_head.name=箭頭
 item.tconstruct.arrow_shaft.name=箭桿
 item.tconstruct.fletching.name=箭羽
 
-item.tconstruct.bolt_core.name=弩箭心
+item.tconstruct.bolt_core.name=弩箭核心
 
 # Material specific tools and toolparts
 # item.tconstruct.<tool>.<material>
@@ -439,7 +439,7 @@ item.tconstruct.stone_stick.name=石桿
 item.tconstruct.fancy_frame.jewel.name=精緻物品展示框
 item.tconstruct.fancy_frame.alubrass.name=鋁黃銅物品展示框
 item.tconstruct.fancy_frame.cobalt.name=鈷物品展示框
-item.tconstruct.fancy_frame.ardite.name=阿爾迪特物品展示框
+item.tconstruct.fancy_frame.ardite.name=阿迪特物品展示框
 item.tconstruct.fancy_frame.manyullyn.name=瑪玉靈物品展示框
 item.tconstruct.fancy_frame.gold.name=黃金物品展示框
 item.tconstruct.fancy_frame.clear.name=透明物品展示框
@@ -484,34 +484,34 @@ entity.tconstruct.blueslime.name=藍色史萊姆
 #################
 
 fluid.tconstruct.stone.name=黑焦石
-fluid.tconstruct.obsidian.name=熔化的黑曜石
-fluid.tconstruct.clay.name=熔化的黏土
+fluid.tconstruct.obsidian.name=熔融黑曜石
+fluid.tconstruct.clay.name=熔融黏土
 fluid.tconstruct.dirt.name=液態泥土
-fluid.tconstruct.iron.name=熔化的鐵
-fluid.tconstruct.gold.name=熔化的黃金
-fluid.tconstruct.pigiron.name=熔化的豬鐵
-fluid.tconstruct.cobalt.name=熔化的鈷
-fluid.tconstruct.ardite.name=熔化的阿爾迪特
-fluid.tconstruct.manyullyn.name=熔化的瑪玉靈
-fluid.tconstruct.knightslime.name=熔化的騎士史萊姆
-fluid.tconstruct.emerald.name=熔化的綠寶石
-fluid.tconstruct.glass.name=熔化的玻璃
+fluid.tconstruct.iron.name=熔融鐵
+fluid.tconstruct.gold.name=熔融黃金
+fluid.tconstruct.pigiron.name=熔融豬鐵
+fluid.tconstruct.cobalt.name=熔融鈷
+fluid.tconstruct.ardite.name=熔融阿迪特
+fluid.tconstruct.manyullyn.name=熔融瑪玉靈
+fluid.tconstruct.knightslime.name=熔融騎士史萊姆
+fluid.tconstruct.emerald.name=熔融綠寶石
+fluid.tconstruct.glass.name=熔融玻璃
 fluid.tconstruct.blood.name=血液
 fluid.tconstruct.milk.name=牛奶
 fluid.tconstruct.blueslime.name=液態藍色史萊姆
 fluid.tconstruct.purpleslime.name=液態紫色史萊姆
-fluid.tconstruct.brass.name=熔化的黃銅
-fluid.tconstruct.copper.name=熔化的銅
-fluid.tconstruct.tin.name=熔化的錫
-fluid.tconstruct.bronze.name=熔化的青銅
-fluid.tconstruct.zinc.name=熔化的鋅
-fluid.tconstruct.lead.name=熔化的鉛
-fluid.tconstruct.nickel.name=熔化的鎳
-fluid.tconstruct.silver.name=熔化的銀
-fluid.tconstruct.electrum.name=熔化的金銀合金
-fluid.tconstruct.steel.name=熔化的鋼
-fluid.tconstruct.aluminum.name=熔化的鋁
-fluid.tconstruct.alubrass.name=熔化的鋁黃銅
+fluid.tconstruct.brass.name=熔融黃銅
+fluid.tconstruct.copper.name=熔融銅
+fluid.tconstruct.tin.name=熔融錫
+fluid.tconstruct.bronze.name=熔融青銅
+fluid.tconstruct.zinc.name=熔融鋅
+fluid.tconstruct.lead.name=熔融鉛
+fluid.tconstruct.nickel.name=熔融鎳
+fluid.tconstruct.silver.name=熔融銀
+fluid.tconstruct.electrum.name=熔融金銀合金
+fluid.tconstruct.steel.name=熔融鋼
+fluid.tconstruct.aluminum.name=熔融鋁
+fluid.tconstruct.alubrass.name=熔融鋁黃銅
 
 #################
 #    Potions    #
@@ -544,7 +544,7 @@ material.blueslime.name=藍色史萊姆
 material.blueslime.prefix=史萊姆%s
 material.knightslime.name=騎士史萊姆
 material.magmaslime.name=熔岩史萊姆
-material.ardite.name=阿爾迪特
+material.ardite.name=阿迪特
 material.cobalt.name=鈷
 material.manyullyn.name=瑪玉靈
 material.iron.name=鐵
@@ -553,7 +553,7 @@ material.copper.name=銅
 material.bronze.name=青銅
 material.lead.name=鉛
 material.silver.name=銀
-material.electrum.name=金銀合金
+material.electrum.name=琥珀金
 material.steel.name=鋼
 
 material.string.name=線
@@ -587,7 +587,7 @@ material.firewood.prefix=燃燒木%s
 material.slime.prefix=史萊姆%s
 material.knightslime.prefix=騎士史萊姆%s
 material.magmaslime.prefix=熔岩史萊姆%s
-material.ardite.prefix=阿爾迪特%s
+material.ardite.prefix=阿迪特%s
 material.cobalt.prefix=鈷%s
 material.manyullyn.prefix=瑪玉靈%s
 material.iron.prefix=鐵%s
@@ -803,9 +803,9 @@ modifier.fortify.name=強化
 modifier.fortify.desc=§o更硬、更好、更快、更強！§r\n將挖掘等級提高到與%s一樣的等級。
 modifier.glowing.name=發光
 modifier.glowing.desc=§o閃耀著光芒§r\n當周圍的光線太暗時，你的工具就會犧牲部分的自己來照亮你的路。
-modifier.harvestwidth.name=加寬
+modifier.harvestwidth.name=寬度++
 modifier.harvestwidth.desc=§o擴大！§r\n加寬工具影響的面積。\n此為工具特定的效果。
-modifier.harvestheight.name=加高
+modifier.harvestheight.name=高度++
 modifier.harvestheight.desc=§o擴大！§r\n加高工具影響的面積。\n此為工具特定的效果。
 modifier.haste.name=迅速
 modifier.haste.name2=更迅速
@@ -870,7 +870,7 @@ item.tconstruct.shuriken.desc=《飛鏢》是種快速的近距離投擲武器�
 item.tconstruct.shortbow.desc=《短弓》是種快速且靈活的武器，它讓你可以在高速移動的同時快速射箭。\n使用打鐵模組的箭矢。
 item.tconstruct.longbow.desc=《長弓》是強力的遠距離武器。它能造成較高的殺傷力，但移動性就比它的短弓兄弟來得差了。\n使用打鐵模組的箭矢。
 item.tconstruct.arrow.desc=《箭矢》是打鐵模組中的弓用來發射的彈藥，一組可以多次發射，並能像其它工具一樣被改造強化。
-item.tconstruct.crossbow.desc=《弩》是種速度慢但威力非常強大的武器。它必須事先按住滑鼠右鍵來裝填弩箭，之後便可在任何時刻進行發射。\n使用打鐵模組的弩箭
+item.tconstruct.crossbow.desc=《十字弓》是種速度慢但威力非常強大的武器。它必須事先按住滑鼠右鍵來裝填弩箭，之後便可在任何時刻進行發射。\n使用打鐵模組的弩箭
 item.tconstruct.bolt.desc=《弩箭》是打鐵模組中的弩用來發射的彈藥。一組可以多次發射，並能像其它工具一樣被改造強化。\n可穿透敵人部分護甲。
 
 
@@ -911,7 +911,7 @@ ui.mininglevel.obsidian=黑曜石
 ui.mininglevel.cobalt=鈷
 
 # Death messages
-death.attack.smeltery=%s試著要製作熔化的玩家
+death.attack.smeltery=%s試著要製作熔融玩家
 death.attack.splinter=%s被碎片扎到。一定是很大的碎片。
 death.attack.bleed=%1$s受到%2$s的攻擊而流血致死
 death.attack.bleed.item=%1$s受到%2$s用%3$s攻擊而流血致死
@@ -1025,7 +1025,7 @@ gui.searedfurnace.progress.no_heat=燒製這個物品的熱度不夠
 gui.searedfurnace.progress.no_space=成品的堆疊量太大, 無法放入這個槽
 
 # Tinker Tank
-gui.tinkertank.name=打鐵儲液槽
+gui.tinkertank.name==工匠儲液槽
 
 # These GUIs don't appear in game, but the titles can be viewed using the crafting station
 gui.itemrack.name=物品架
