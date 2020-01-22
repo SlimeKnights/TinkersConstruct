@@ -51,7 +51,7 @@ public class ClearStainedGlassBlock extends ConnectedTextureBlock {
   @Override
   @OnlyIn(Dist.CLIENT)
   public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-    return !this.canConnect(state, adjacentBlockState) && super.isSideInvisible(state, adjacentBlockState, side);
+    return this.canConnect(state, adjacentBlockState);
   }
 
   @Nullable
