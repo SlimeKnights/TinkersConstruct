@@ -64,49 +64,49 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
   }
 
   @Override
-  public void func_225623_a_(FancyItemFrameEntity entity, float p_225623_2_, float p_225623_3_, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int p_225623_6_) {
-    super.func_225623_a_(entity, p_225623_2_, p_225623_3_, matrixStack, renderTypeBuffer, p_225623_6_);
-    matrixStack.func_227860_a_();
+  public void render(FancyItemFrameEntity entity, float p_225623_2_, float p_225623_3_, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int p_225623_6_) {
+    super.render(entity, p_225623_2_, p_225623_3_, matrixStack, renderTypeBuffer, p_225623_6_);
+    matrixStack.push();
     Direction direction = entity.getHorizontalFacing();
     Vec3d vec3d = this.func_225627_b_(entity, p_225623_3_);
-    matrixStack.func_227861_a_(-vec3d.getX(), -vec3d.getY(), -vec3d.getZ());
+    matrixStack.translate(-vec3d.getX(), -vec3d.getY(), -vec3d.getZ());
     double d0 = 0.46875D;
-    matrixStack.func_227861_a_((double) direction.getXOffset() * 0.46875D, (double) direction.getYOffset() * 0.46875D, (double) direction.getZOffset() * 0.46875D);
-    matrixStack.func_227863_a_(Vector3f.field_229179_b_.func_229187_a_(entity.rotationPitch));
-    matrixStack.func_227863_a_(Vector3f.field_229181_d_.func_229187_a_(180.0F - entity.rotationYaw));
+    matrixStack.translate((double) direction.getXOffset() * 0.46875D, (double) direction.getYOffset() * 0.46875D, (double) direction.getZOffset() * 0.46875D);
+    matrixStack.rotate(Vector3f.field_229179_b_.func_229187_a_(entity.rotationPitch));
+    matrixStack.rotate(Vector3f.field_229181_d_.func_229187_a_(180.0F - entity.rotationYaw));
     BlockRendererDispatcher blockrendererdispatcher = this.mc.getBlockRendererDispatcher();
     ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
     FrameType frameType = entity.getFrameType();
     ModelResourceLocation modelresourcelocation = entity.getDisplayedItem().getItem() instanceof FilledMapItem ? LOCATIONS_MODEL_MAP.get(frameType) : LOCATIONS_MODEL.get(frameType);
-    matrixStack.func_227860_a_();
-    matrixStack.func_227861_a_(-0.5D, -0.5D, -0.5D);
-    blockrendererdispatcher.getBlockModelRenderer().func_228804_a_(matrixStack.func_227866_c_(), renderTypeBuffer.getBuffer(Atlases.func_228782_g_()), null, modelmanager.getModel(modelresourcelocation), 1.0F, 1.0F, 1.0F, p_225623_6_, OverlayTexture.field_229196_a_);
-    matrixStack.func_227865_b_();
+    matrixStack.push();
+    matrixStack. translate(-0.5D, -0.5D, -0.5D);
+    blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(matrixStack.getLast(), renderTypeBuffer.getBuffer(Atlases.func_228782_g_()), null, modelmanager.getModel(modelresourcelocation), 1.0F, 1.0F, 1.0F, p_225623_6_, OverlayTexture.DEFAULT_LIGHT);
+    matrixStack.pop();
     ItemStack itemstack = entity.getDisplayedItem();
     if (!itemstack.isEmpty()) {
       MapData mapdata = FilledMapItem.getMapData(itemstack, entity.world);
-      matrixStack.func_227861_a_(0.0D, 0.0D, 0.4375D);
+      matrixStack. translate(0.0D, 0.0D, 0.4375D);
       int i = mapdata != null ? entity.getRotation() % 4 * 2 : entity.getRotation();
-      matrixStack.func_227863_a_(Vector3f.field_229183_f_.func_229187_a_((float) i * 360.0F / 8.0F));
+      matrixStack.rotate(Vector3f.field_229183_f_.func_229187_a_((float) i * 360.0F / 8.0F));
       if (!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderItemInFrameEvent(entity, this.defaultRenderer))) {
         if (mapdata != null) {
-          matrixStack.func_227863_a_(Vector3f.field_229183_f_.func_229187_a_(180.0F));
+          matrixStack.rotate(Vector3f.field_229183_f_.func_229187_a_(180.0F));
           float f = 0.0078125F;
-          matrixStack.func_227862_a_(0.0078125F, 0.0078125F, 0.0078125F);
-          matrixStack.func_227861_a_(-64.0D, -64.0D, 0.0D);
-          matrixStack.func_227861_a_(0.0D, 0.0D, -1.0D);
+          matrixStack.scale(0.0078125F, 0.0078125F, 0.0078125F);
+          matrixStack. translate(-64.0D, -64.0D, 0.0D);
+          matrixStack. translate(0.0D, 0.0D, -1.0D);
           if (mapdata != null) {
-            this.mc.gameRenderer.getMapItemRenderer().func_228086_a_(matrixStack, renderTypeBuffer, mapdata, true, p_225623_6_);
+            this.mc.gameRenderer.getMapItemRenderer().renderMap(matrixStack, renderTypeBuffer, mapdata, true, p_225623_6_);
           }
         }
         else {
-          matrixStack.func_227862_a_(0.5F, 0.5F, 0.5F);
-          this.itemRenderer.func_229110_a_(itemstack, ItemCameraTransforms.TransformType.FIXED, p_225623_6_, OverlayTexture.field_229196_a_, matrixStack, renderTypeBuffer);
+          matrixStack.scale(0.5F, 0.5F, 0.5F);
+          this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED, p_225623_6_, OverlayTexture.DEFAULT_LIGHT, matrixStack, renderTypeBuffer);
         }
       }
     }
 
-    matrixStack.func_227865_b_();
+    matrixStack.pop();
   }
 
   @Nullable

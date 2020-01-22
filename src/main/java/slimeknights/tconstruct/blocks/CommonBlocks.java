@@ -3,12 +3,14 @@ package slimeknights.tconstruct.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.ObjectHolder;
-
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registry.BlockItemRegistryAdapter;
 import slimeknights.tconstruct.common.registry.BlockRegistryAdapter;
@@ -21,7 +23,9 @@ import slimeknights.tconstruct.shared.block.SlimyMudBlock;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
 
-/** General things and crafting related blocks */
+/**
+ * General things and crafting related blocks
+ */
 @SuppressWarnings("unused")
 @ObjectHolder(TConstruct.modID)
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -113,5 +117,11 @@ public final class CommonBlocks {
     registry.registerBlockItem(silky_jewel_block);
   }
 
-  private CommonBlocks() {}
+  @SubscribeEvent
+  static void clientSetup(final FMLClientSetupEvent event) {
+    RenderTypeLookup.setRenderLayer(glow, (layer) -> layer == RenderType.translucent());
+  }
+
+  private CommonBlocks() {
+  }
 }

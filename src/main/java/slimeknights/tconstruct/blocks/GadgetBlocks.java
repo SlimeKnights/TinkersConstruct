@@ -5,11 +5,14 @@ import net.minecraft.block.LadderBlock;
 import net.minecraft.block.RailBlock;
 import net.minecraft.block.TorchBlock;
 import net.minecraft.block.WallTorchBlock;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.Item;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
 import slimeknights.tconstruct.TConstruct;
@@ -58,6 +61,16 @@ public final class GadgetBlocks {
 
     registry.registerBlockItem(GadgetBlocks.wooden_rail);
     registry.registerBlockItem(GadgetBlocks.wooden_dropper_rail);
+  }
+
+  @SubscribeEvent
+  static void clientSetup(final FMLClientSetupEvent event) {
+    RenderTypeLookup.setRenderLayer(stone_ladder, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(stone_torch, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(wall_stone_torch, (layer) -> layer == RenderType.cutout());
+
+    RenderTypeLookup.setRenderLayer(wooden_rail, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(wooden_dropper_rail, (layer) -> layer == RenderType.cutout());
   }
 
   private GadgetBlocks() {}

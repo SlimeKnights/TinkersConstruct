@@ -41,8 +41,8 @@ public class BlueSlimeEntity extends SlimeEntity {
         float f1 = this.rand.nextFloat() * 0.5F + 0.5F;
         float f2 = MathHelper.sin(f) * (float) i * 0.5F * f1;
         float f3 = MathHelper.cos(f) * (float) i * 0.5F * f1;
-        double d0 = this.func_226277_ct_() + (double) f2;
-        double d1 = this.func_226281_cx_() + (double) f3;
+        double d0 = this.getPosX() + (double) f2;
+        double d1 = this.getPosZ() + (double) f3;
         double d2 = this.getBoundingBox().minY;
         TinkerWorld.proxy.spawnSlimeParticle(this.getEntityWorld(), d0, d2, d1);
       }

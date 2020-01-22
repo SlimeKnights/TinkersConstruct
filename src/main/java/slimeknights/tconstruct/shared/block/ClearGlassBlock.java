@@ -2,23 +2,16 @@ package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
 import slimeknights.mantle.block.ConnectedTextureBlock;
 
 public class ClearGlassBlock extends ConnectedTextureBlock {
 
   public ClearGlassBlock(Properties properties) {
     super(properties);
-  }
-
-  @Override
-  public BlockRenderLayer getRenderLayer() {
-    return BlockRenderLayer.CUTOUT;
   }
 
   @Override

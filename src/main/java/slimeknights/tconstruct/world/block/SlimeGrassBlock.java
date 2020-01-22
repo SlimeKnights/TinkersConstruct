@@ -57,7 +57,7 @@ public class SlimeGrassBlock extends Block implements IGrowable {
   }
 
   @Override
-  public void func_225535_a_(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+  public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
     BlockPos blockpos1 = pos.up();
     int i = 0;
 
@@ -122,7 +122,7 @@ public class SlimeGrassBlock extends Block implements IGrowable {
   }
 
   @Override
-  public void func_225534_a_(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+  public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
     if (!worldIn.isRemote) {
       if (!worldIn.isAreaLoaded(pos, 3)) {
         return; // Forge: prevent loading unloaded chunks when checking neighbor's light and spreading

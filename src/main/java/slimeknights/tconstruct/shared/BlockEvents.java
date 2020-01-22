@@ -27,7 +27,7 @@ public class BlockEvents {
     }
 
     // check if we jumped from a slime block
-    BlockPos pos = new BlockPos(event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ);
+    BlockPos pos = new BlockPos(event.getEntity().getPosX(), event.getEntity().getPosY(), event.getEntity().getPosZ());
     if (event.getEntity().getEntityWorld().isAirBlock(pos)) {
       pos = pos.down();
     }

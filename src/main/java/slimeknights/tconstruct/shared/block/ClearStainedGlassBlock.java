@@ -3,17 +3,15 @@ package slimeknights.tconstruct.shared.block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityType;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import slimeknights.mantle.block.ConnectedTextureBlock;
 
 import javax.annotation.Nullable;
-
-import slimeknights.mantle.block.ConnectedTextureBlock;
 
 public class ClearStainedGlassBlock extends ConnectedTextureBlock {
 
@@ -22,12 +20,6 @@ public class ClearStainedGlassBlock extends ConnectedTextureBlock {
   public ClearStainedGlassBlock(Properties properties, GlassColor glassColor) {
     super(properties);
     this.glassColor = glassColor;
-  }
-
-  @Override
-  @OnlyIn(Dist.CLIENT)
-  public BlockRenderLayer getRenderLayer() {
-    return BlockRenderLayer.TRANSLUCENT;
   }
 
   @Override

@@ -1,12 +1,14 @@
 package slimeknights.tconstruct.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.ObjectHolder;
-
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registry.BlockItemRegistryAdapter;
 import slimeknights.tconstruct.common.registry.BlockRegistryAdapter;
@@ -20,9 +22,9 @@ import slimeknights.tconstruct.world.block.SlimeLeavesBlock;
 import slimeknights.tconstruct.world.block.SlimeSaplingBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
-import slimeknights.tconstruct.world.worldgen.BlueSlimeTree;
+//import slimeknights.tconstruct.world.worldgen.old.BlueSlimeTree;
 import slimeknights.tconstruct.world.worldgen.MagmaSlimeTree;
-import slimeknights.tconstruct.world.worldgen.PurpleSlimeTree;
+//import slimeknights.tconstruct.world.worldgen.old.PurpleSlimeTree;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
 
@@ -137,9 +139,9 @@ public final class WorldBlocks {
       }
     }
 
-    registry.register(new SlimeSaplingBlock(new BlueSlimeTree(false), BlockProperties.SAPLING), "blue_slime_sapling");
+    registry.register(new SlimeSaplingBlock(new MagmaSlimeTree(), BlockProperties.SAPLING), "blue_slime_sapling");
     registry.register(new SlimeSaplingBlock(new MagmaSlimeTree(), BlockProperties.SAPLING), "orange_slime_sapling");
-    registry.register(new SlimeSaplingBlock(new PurpleSlimeTree(false), BlockProperties.SAPLING), "purple_slime_sapling");
+    registry.register(new SlimeSaplingBlock(new MagmaSlimeTree(), BlockProperties.SAPLING), "purple_slime_sapling");
 
     registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), "purple_slime_vine");
     registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), "purple_slime_vine_middle");
@@ -218,5 +220,51 @@ public final class WorldBlocks {
     registry.registerBlockItem(blue_slime_vine_end);
   }
 
-  private WorldBlocks() {}
+  @SubscribeEvent
+  static void clientSetup(final FMLClientSetupEvent event) {
+    RenderTypeLookup.setRenderLayer(cobalt_ore, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(ardite_ore, (layer) -> layer == RenderType.cutoutMipped());
+
+    RenderTypeLookup.setRenderLayer(blue_slime_leaves, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(purple_slime_leaves, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(orange_slime_leaves, (layer) -> layer == RenderType.cutoutMipped());
+
+    RenderTypeLookup.setRenderLayer(blue_vanilla_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(purple_vanilla_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(orange_vanilla_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(blue_green_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(purple_green_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(orange_green_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(blue_blue_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(purple_blue_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(orange_blue_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(blue_purple_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(purple_purple_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(orange_purple_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(blue_magma_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(purple_magma_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+    RenderTypeLookup.setRenderLayer(orange_magma_slime_grass, (layer) -> layer == RenderType.cutoutMipped());
+
+    RenderTypeLookup.setRenderLayer(blue_slime_sapling, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(orange_slime_sapling, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(purple_slime_sapling, (layer) -> layer == RenderType.cutout());
+
+    RenderTypeLookup.setRenderLayer(blue_slime_fern, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(purple_slime_fern, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(orange_slime_fern, (layer) -> layer == RenderType.cutout());
+
+    RenderTypeLookup.setRenderLayer(blue_slime_tall_grass, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(purple_slime_tall_grass, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(orange_slime_tall_grass, (layer) -> layer == RenderType.cutout());
+
+    RenderTypeLookup.setRenderLayer(purple_slime_vine, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(purple_slime_vine_middle, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(purple_slime_vine_end, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(blue_slime_vine, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(blue_slime_vine_middle, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(blue_slime_vine_end, (layer) -> layer == RenderType.cutout());
+  }
+
+  private WorldBlocks() {
+  }
 }

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.world.worldgen;
+package slimeknights.tconstruct.world.worldgen.old;
 
 import net.minecraft.block.trees.Tree;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
@@ -9,7 +9,7 @@ import slimeknights.tconstruct.blocks.WorldBlocks;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class PurpleSlimeTree extends Tree {
+public class PurpleSlimeTree { /*extends Tree {
 
   private final boolean isIslandTree;
 
@@ -26,6 +26,6 @@ public class PurpleSlimeTree extends Tree {
     else {
       return new SlimeTreeFeature(NoFeatureConfig::deserialize, true, 5, 4, WorldBlocks.congealed_green_slime.getDefaultState(), WorldBlocks.purple_slime_leaves.getDefaultState(), null, WorldBlocks.purple_slime_sapling, true);
     }
-  }
+  }*/
 }
 

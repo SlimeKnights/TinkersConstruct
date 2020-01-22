@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.shared.block;
 
 import com.google.common.collect.ImmutableMap;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -11,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.NonNullList;
@@ -71,6 +69,7 @@ public class GlowBlock extends Block {
   /**
    * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
    * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
+   *
    * @deprecated call via {@link BlockState#getRenderType()} whenever possible. Implementing/overriding is fine.
    */
   @Override
@@ -81,6 +80,7 @@ public class GlowBlock extends Block {
   /**
    * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
    * blockstate.
+   *
    * @deprecated call via {@link BlockState#rotate(Rotation)} whenever possible. Implementing/overriding is
    * fine.
    */
@@ -92,6 +92,7 @@ public class GlowBlock extends Block {
   /**
    * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
    * blockstate.
+   *
    * @deprecated call via {@link BlockState#mirror(Mirror)} whenever possible. Implementing/overriding is fine.
    */
   @Override
@@ -114,8 +115,8 @@ public class GlowBlock extends Block {
   }
 
   /**
-   *  Determines if a block side can contain a glow.
-   *  Returns true if the block side is solid and the block at the given BlockPos is not a liquid
+   * Determines if a block side can contain a glow.
+   * Returns true if the block side is solid and the block at the given BlockPos is not a liquid
    */
   protected boolean canBlockStay(World world, BlockPos pos, Direction facing) {
     BlockPos placedOn = pos.offset(facing);
@@ -137,8 +138,7 @@ public class GlowBlock extends Block {
           world.setBlockState(pos, this.getDefaultState().with(FACING, direction));
         }
         return true;
-      }
-      else {
+      } else {
         for (Direction direction1 : Direction.values()) {
           if (this.canBlockStay(world, pos, direction1)) {
             if (!world.isRemote) {

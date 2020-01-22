@@ -44,10 +44,10 @@ public class ColoredSlimeGelLayer<T extends LivingEntity> extends LayerRenderer<
 
       this.getEntityModel().setModelAttributes(this.slimeModel);
       this.slimeModel.setLivingAnimations(entity, p_225628_5_, p_225628_6_, p_225628_7_);
-      this.slimeModel.func_225597_a_(entity, p_225628_5_, p_225628_6_, p_225628_8_, p_225628_9_, p_225628_10_);
+      this.slimeModel.render(entity, p_225628_5_, p_225628_6_, p_225628_8_, p_225628_9_, p_225628_10_);
 
-      IVertexBuilder ivertexbuilder = renderTypeBuffer.getBuffer(RenderType.func_228644_e_(this.func_229139_a_(entity)));
-      this.slimeModel.func_225598_a_(matrixStack, ivertexbuilder, p_225628_3_, LivingRenderer.func_229117_c_(entity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
+      IVertexBuilder ivertexbuilder = renderTypeBuffer.getBuffer(RenderType.entityTranslucent(this.func_229139_a_(entity)));
+      this.slimeModel.render(matrixStack, ivertexbuilder, p_225628_3_, LivingRenderer.func_229117_c_(entity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
     }
   }
 }

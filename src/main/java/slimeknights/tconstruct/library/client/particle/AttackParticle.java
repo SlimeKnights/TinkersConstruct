@@ -53,7 +53,7 @@ public abstract class AttackParticle extends Particle {
   }
 
   @Override
-  public void func_225606_a_(IVertexBuilder vertexBuilder, ActiveRenderInfo renderInfo, float partialTicks) {
+  public void renderParticle(IVertexBuilder vertexBuilder, ActiveRenderInfo renderInfo, float partialTicks) {
     // TODO: FIX PARTICLE
     /*Vec3d projectedView = renderInfo.getProjectedView();
 
@@ -86,10 +86,10 @@ public abstract class AttackParticle extends Particle {
       RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
       RenderSystem.disableLighting();
       RenderHelper.disableStandardItemLighting();
-      vertexBuilder.func_225582_a_(f5 - rotationX * f4 - rotationXY * f4, (f6 - rotationZ * f4 * this.height), f7 - rotationYZ * f4 - rotationXZ * f4).func_225583_a_(f1, f3).func_225586_a_(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).func_225587_b_(0, 240).func_227887_a_(0.0F, 1.0F, 0.0F).endVertex();
-      vertexBuilder.func_225582_a_(f5 - rotationX * f4 + rotationXY * f4, (f6 + rotationZ * f4 * this.height), f7 - rotationYZ * f4 + rotationXZ * f4).func_225583_a_(f1, f2).func_225586_a_(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).func_225587_b_(0, 240).func_227887_a_(0.0F, 1.0F, 0.0F).endVertex();
-      vertexBuilder.func_225582_a_(f5 + rotationX * f4 + rotationXY * f4, (f6 + rotationZ * f4 * this.height), f7 + rotationYZ * f4 + rotationXZ * f4).func_225583_a_(f, f2).func_225586_a_(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).func_225587_b_(0, 240).func_227887_a_(0.0F, 1.0F, 0.0F).endVertex();
-      vertexBuilder.func_225582_a_(f5 + rotationX * f4 - rotationXY * f4, (f6 - rotationZ * f4 * this.height), f7 + rotationYZ * f4 - rotationXZ * f4).func_225583_a_(f, f3).func_225586_a_(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).func_225587_b_(0, 240).func_227887_a_(0.0F, 1.0F, 0.0F).endVertex();
+      vertexBuilder.pos(f5 - rotationX * f4 - rotationXY * f4, (f6 - rotationZ * f4 * this.height), f7 - rotationYZ * f4 - rotationXZ * f4).tex(f1, f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).func_227887_a_(0.0F, 1.0F, 0.0F).endVertex();
+      vertexBuilder.pos(f5 - rotationX * f4 + rotationXY * f4, (f6 + rotationZ * f4 * this.height), f7 - rotationYZ * f4 + rotationXZ * f4).tex(f1, f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).func_227887_a_(0.0F, 1.0F, 0.0F).endVertex();
+      vertexBuilder.pos(f5 + rotationX * f4 + rotationXY * f4, (f6 + rotationZ * f4 * this.height), f7 + rotationYZ * f4 + rotationXZ * f4).tex(f, f2).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).func_227887_a_(0.0F, 1.0F, 0.0F).endVertex();
+      vertexBuilder.pos(f5 + rotationX * f4 - rotationXY * f4, (f6 - rotationZ * f4 * this.height), f7 + rotationYZ * f4 - rotationXZ * f4).tex(f, f3).color(this.particleRed, this.particleGreen, this.particleBlue, 1.0F).lightmap(0, 240).func_227887_a_(0.0F, 1.0F, 0.0F).endVertex();
       Tessellator.getInstance().draw();
       RenderSystem.enableLighting();
     }*/

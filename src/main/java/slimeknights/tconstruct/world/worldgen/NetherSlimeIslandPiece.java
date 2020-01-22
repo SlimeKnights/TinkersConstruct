@@ -10,6 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -20,6 +21,7 @@ import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
+import slimeknights.tconstruct.world.worldgen.old.MagmaSlimeTree;
 
 import java.util.Random;
 
@@ -30,6 +32,7 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
   private final Rotation rotation;
   private final Mirror mirror;
   private int numberOfTreesPlaced;
+  private ChunkGenerator<?> chunkGenerator;
 
   private static final MagmaSlimeTree magmaSlimeTree = new MagmaSlimeTree();
 
@@ -94,10 +97,10 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 
         if (rand.nextBoolean() && this.numberOfTreesPlaced < 3) {
-          AbstractTreeFeature<NoFeatureConfig> treeFeature = magmaSlimeTree.getTreeFeature(rand);
-          if (treeFeature != null) {
-            treeFeature.place(worldIn, worldIn.getChunkProvider().getChunkGenerator(), rand, pos, IFeatureConfig.NO_FEATURE_CONFIG);
-          }
+          //AbstractTreeFeature<NoFeatureConfig> treeFeature = magmaSlimeTree.getTreeFeature(rand);
+          //if (treeFeature != null) {
+          //  treeFeature.place(worldIn, this.chunkGenerator, rand, pos, IFeatureConfig.NO_FEATURE_CONFIG);
+          //}
         }
 
         this.numberOfTreesPlaced++;
@@ -123,9 +126,10 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
   }
 
   @Override
-  public boolean addComponentParts(IWorld worldIn, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPosIn) {
+  public boolean func_225577_a_(IWorld worldIn, ChunkGenerator<?> chunkGenerator, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPosIn) {
+    this.chunkGenerator = chunkGenerator;
     if (this.isLava(worldIn, this.templatePosition.up()) && this.isLava(worldIn, this.templatePosition.up().north()) && this.isLava(worldIn, this.templatePosition.up().east()) && this.isLava(worldIn, this.templatePosition.up().south()) && this.isLava(worldIn, this.templatePosition.up().west())) {
-      return super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn, chunkPosIn);
+      return super.func_225577_a_(worldIn, chunkGenerator, randomIn, structureBoundingBoxIn, chunkPosIn);
     }
     else {
       return false;

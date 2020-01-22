@@ -38,11 +38,11 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private static LootTable.Builder randomDropPurpleSlimeBall(Block blockIn, Block saplingIn, float... fortuneIn) {
-    return dropSapling(blockIn, saplingIn, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(field_218577_e).addEntry(withSurvivesExplosion(blockIn, ItemLootEntry.builder(CommonItems.purple_slime_ball)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
+    return dropSapling(blockIn, saplingIn, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(withSurvivesExplosion(blockIn, ItemLootEntry.builder(CommonItems.purple_slime_ball)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
   }
 
   private static LootTable.Builder randomDropBlueOrGreenSlimeBall(Block blockIn, Block saplingIn, float... fortuneIn) {
-    return dropSapling(blockIn, saplingIn, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(field_218577_e).addEntry(AlternativesLootEntry.builder(withSurvivesExplosion(blockIn, ItemLootEntry.builder(CommonItems.blue_slime_ball)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)), withSurvivesExplosion(blockIn, ItemLootEntry.builder(Items.SLIME_BALL)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)))));
+    return dropSapling(blockIn, saplingIn, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(AlternativesLootEntry.builder(withSurvivesExplosion(blockIn, ItemLootEntry.builder(CommonItems.blue_slime_ball)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)), withSurvivesExplosion(blockIn, ItemLootEntry.builder(Items.SLIME_BALL)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)))));
   }
 
   private void addCommon() {
@@ -145,11 +145,11 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerLootTable(WorldBlocks.purple_magma_slime_grass, (block) -> droppingWithSilkTouch(block, WorldBlocks.magma_slime_dirt));
     this.registerLootTable(WorldBlocks.orange_magma_slime_grass, (block) -> droppingWithSilkTouch(block, WorldBlocks.magma_slime_dirt));
 
-    this.registerLootTable(WorldBlocks.blue_slime_leaves, (block) -> randomDropBlueOrGreenSlimeBall(block, WorldBlocks.blue_slime_sapling, field_218579_g));
+    this.registerLootTable(WorldBlocks.blue_slime_leaves, (block) -> randomDropBlueOrGreenSlimeBall(block, WorldBlocks.blue_slime_sapling, DEFAULT_SAPLING_DROP_RATES));
 
-    this.registerLootTable(WorldBlocks.purple_slime_leaves, (block) -> randomDropPurpleSlimeBall(block, WorldBlocks.blue_slime_sapling, field_218579_g));
+    this.registerLootTable(WorldBlocks.purple_slime_leaves, (block) -> randomDropPurpleSlimeBall(block, WorldBlocks.blue_slime_sapling, DEFAULT_SAPLING_DROP_RATES));
 
-    this.registerLootTable(WorldBlocks.orange_slime_leaves, (block) -> dropSapling(block, WorldBlocks.blue_slime_sapling, field_218579_g));
+    this.registerLootTable(WorldBlocks.orange_slime_leaves, (block) -> dropSapling(block, WorldBlocks.blue_slime_sapling, DEFAULT_SAPLING_DROP_RATES));
 
     this.registerLootTable(WorldBlocks.blue_slime_fern, BlockLootTables::onlyWithShears);
     this.registerLootTable(WorldBlocks.purple_slime_fern, BlockLootTables::onlyWithShears);
@@ -197,7 +197,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
     for (Block block : this.knownBlocks) {
       ResourceLocation lootTable = block.getLootTable();
       if (lootTable != LootTables.EMPTY && visited.add(lootTable)) {
-        LootTable.Builder builder = this.field_218581_i.remove(lootTable);
+        LootTable.Builder builder = this.lootTables.remove(lootTable);
         if (builder == null) {
           throw new IllegalStateException(String.format("Missing loottable '%s' for '%s'", lootTable, block.getRegistryName()));
         }
@@ -206,8 +206,8 @@ public class TConstructBlockLootTables extends BlockLootTables {
       }
     }
 
-    if (!this.field_218581_i.isEmpty()) {
-      throw new IllegalStateException("Created block loot tables for non-blocks: " + this.field_218581_i.keySet());
+    if (!this.lootTables.isEmpty()) {
+      throw new IllegalStateException("Created block loot tables for non-blocks: " + this.lootTables.keySet());
     }
   }
 
