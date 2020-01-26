@@ -1,8 +1,18 @@
 package slimeknights.tconstruct.library.tools;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.ITinkerable;
+import slimeknights.tconstruct.library.tools.nbt.ToolData;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * An indestructible item constructed from different parts.
@@ -218,11 +228,22 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
 //
 //  /* Information */
 //
-//  @OnlyIn(Dist.CLIENT)
-//  @Override
-//  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-//    //TooltipHandler
-//  }
+
+  @Override
+  public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    // todo: evaluate if we want to keep the material info
+    CompoundNBT tag = stack.getTag();
+    if(tag == null) {
+      tooltip.add(new StringTextComponent("No tool data. NBT missing."));
+      return;
+    }
+    ToolData toolData = ToolData.readFromNBT(tag);
+
+    toolData.getMaterials().stream()
+      .map(material -> new StringTextComponent(material.getIdentifier().toString()))
+      .forEach(tooltip::add);
+  }
+
 //
 //  @Override
 //  public Rarity getRarity(ItemStack stack) {

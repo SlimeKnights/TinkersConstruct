@@ -22,6 +22,10 @@ public class ServerProxy {
   public void clientSetup() {
   }
 
+  public void debug() {
+
+  }
+
   public void spawnSlimeParticle(World world, double x, double y, double z) {
   }
 

@@ -22,7 +22,7 @@ public class MaterialRegistryExtension implements BeforeEachCallback, AfterAllCa
   @Override
   public void beforeEach(ExtensionContext context) {
     MaterialRegistryImpl mock = mock(MaterialRegistryImpl.class);
-    new MaterialRegistry().init(mock);
+    MaterialRegistry.init(mock);
 
     ALL_MATERIALS.forEach(material -> mockMaterial(mock, material));
     when(mock.getMaterialStats(eq(MATERIAL_1.getIdentifier()), eq(STATS_TYPE))).thenReturn(Optional.of(MATERIAL_STATS));
@@ -32,7 +32,7 @@ public class MaterialRegistryExtension implements BeforeEachCallback, AfterAllCa
   @Override
   public void afterAll(ExtensionContext context) {
     // cleanup
-    new MaterialRegistry().init(mock(MaterialRegistryImpl.class));
+    MaterialRegistry.init(mock(MaterialRegistryImpl.class));
   }
 
   private void mockMaterial(MaterialRegistryImpl mock, IMaterial testMaterial1) {
