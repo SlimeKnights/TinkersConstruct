@@ -33,7 +33,7 @@ class ToolItemNBTTest extends BaseMcTest {
 
   @Test
   void deserializeNBT_item() {
-    StringNBT nbt = new StringNBT(TEST_REGISTRY_NAME.toString());
+    StringNBT nbt = StringNBT.valueOf(TEST_REGISTRY_NAME.toString());
 
     ToolItemNBT toolItemNBT = ToolItemNBT.readFromNBT(nbt);
 
@@ -53,7 +53,7 @@ class ToolItemNBTTest extends BaseMcTest {
 
   @Test
   void deserializeMissingTool_invalidItem_dummy() {
-    StringNBT nbt = new StringNBT("test:nonexistant");
+    StringNBT nbt = StringNBT.valueOf("test:nonexistant");
 
     ToolItemNBT toolItemNBT = ToolItemNBT.readFromNBT(nbt);
 
