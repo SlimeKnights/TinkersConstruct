@@ -43,8 +43,8 @@ class MaterialNBTTest extends BaseMcTest {
   void deserialize() {
     ListNBT nbtList = new ListNBT();
     // note we switched the order here to ensure that the order is as defined, and not ordered in some way
-    nbtList.add(new StringNBT(TEST_MATERIAL_2.getIdentifier().toString()));
-    nbtList.add(new StringNBT(TEST_MATERIAL_1.getIdentifier().toString()));
+    nbtList.add(StringNBT.valueOf(TEST_MATERIAL_2.getIdentifier().toString()));
+    nbtList.add(StringNBT.valueOf(TEST_MATERIAL_1.getIdentifier().toString()));
 
     MaterialNBT materialNBT = MaterialNBT.readFromNBT(nbtList);
 

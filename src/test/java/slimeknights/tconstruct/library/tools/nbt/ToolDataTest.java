@@ -26,7 +26,7 @@ class ToolDataTest extends BaseMcTest {
   @Test
   void deserializeNBT_item() {
     CompoundNBT nbt = new CompoundNBT();
-    nbt.put(ToolData.TAG_ITEM, new StringNBT("test:tool_item"));
+    nbt.put(ToolData.TAG_ITEM, StringNBT.valueOf("test:tool_item"));
 
     ToolData toolData = ToolData.readFromNBT(nbt);
 
