@@ -53,7 +53,7 @@ public class MaterialNBT {
     return materials.stream()
       .map(IMaterial::getIdentifier)
       .map(MaterialId::toString)
-      .map(StringNBT::new)
+      .map(StringNBT::valueOf)
       .collect(Collectors.toCollection(ListNBT::new));
   }
 }

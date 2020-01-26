@@ -68,8 +68,8 @@ public class ToolItemNBT {
     return Optional.ofNullable(toolItem)
       .map(Item::getRegistryName)
       .map(ResourceLocation::toString)
-      .map(StringNBT::new)
-      .orElse(new StringNBT());
+      .map(StringNBT::valueOf)
+      .orElse(StringNBT.valueOf(""));
   }
 
 }
