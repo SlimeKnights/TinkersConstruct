@@ -11,7 +11,7 @@ public final class MaterialRegistry {
 
   private static MaterialRegistryImpl INSTANCE;
 
-  void init(MaterialRegistryImpl materialRegistry) {
+  static void init(MaterialRegistryImpl materialRegistry) {
     INSTANCE = materialRegistry;
   }
 

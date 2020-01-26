@@ -1,19 +1,25 @@
 package slimeknights.tconstruct.library;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.client.CreativeTab;
+import slimeknights.tconstruct.library.materials.MaterialManager;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
+import slimeknights.tconstruct.library.traits.MaterialTraitsManager;
 
 public final class TinkerRegistry {
 
   // the logger for the library
   public static final Logger log = Util.getLogger("API");
 
+  public static void init() {
+    MaterialRegistry.init(new MaterialRegistryImpl(new MaterialManager(), new MaterialStatsManager(), new MaterialTraitsManager()));
+  }
+
   private TinkerRegistry() {
   }
+
 
   /*---------------------------------------------------------------------------
   | ITEM GROUPS                                                               |

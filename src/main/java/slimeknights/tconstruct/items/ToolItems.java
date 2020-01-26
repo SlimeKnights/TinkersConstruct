@@ -10,6 +10,9 @@ import net.minecraftforge.registries.ObjectHolder;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.tinkering.MaterialItem;
+import slimeknights.tconstruct.library.tools.*;
+import slimeknights.tconstruct.tools.*;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
 
@@ -30,10 +33,15 @@ public final class ToolItems {
   public static final Item mending_moss = injected();
   public static final Item creative_modifier = injected();
 
+  public static final MaterialItem test_part = new MaterialItem(new Item.Properties().group(TinkerRegistry.tabParts));
+  public static final ToolCore test_tool = injected();
+
   @SubscribeEvent
   static void registerItems(final RegistryEvent.Register<Item> event) {
     BaseRegistryAdapter<Item> registry = new BaseRegistryAdapter<>(event.getRegistry());
     ItemGroup tabGeneral = TinkerRegistry.tabGeneral;
+
+    registerTools(registry);
 
     // modifier items
     registry.register(new Item(new Item.Properties().group(tabGeneral)), "green_slime_crystal");
@@ -50,5 +58,9 @@ public final class ToolItems {
     registry.register(new Item(new Item.Properties().group(tabGeneral)), "creative_modifier");
   }
 
+  private static void registerTools(BaseRegistryAdapter<Item> registry) {
+    registry.register(test_part, "test_part");
+    registry.register(new TestTool(new Item.Properties().group(TinkerRegistry.tabTools), ToolDefinitions.PICKAXE), "test_tool");
+  }
   private ToolItems() {}
 }
