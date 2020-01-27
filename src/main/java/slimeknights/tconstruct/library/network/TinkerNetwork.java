@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library;
+package slimeknights.tconstruct.library.network;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -10,7 +10,6 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.materials.network.UpdateMaterialsPacket;
 import slimeknights.tconstruct.tools.common.network.BouncedPacket;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
@@ -34,31 +33,6 @@ public class TinkerNetwork extends NetworkWrapper {
     this.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::encode, InventorySlotSyncPacket::new, InventorySlotSyncPacket::handle);
 
     this.registerPacket(UpdateMaterialsPacket.class, UpdateMaterialsPacket::encode, UpdateMaterialsPacket::new, UpdateMaterialsPacket::handle);
-/*
-    // OK this breaks login. Guess we need the event.
-    this.network.messageBuilder(UpdateMaterialsPacketVanillaStyle.class, 55)
-      .encoder((updateMaterialsPacket, buf) -> {
-        updateMaterialsPacket.writePacketData(buf);
-        Collection<IMaterial> materials = MaterialRegistry.getMaterials();
-        buf.writeInt(materials.size());
-        materials.forEach(material -> {
-          buf.writeString(material.getIdentifier().toString());
-          buf.writeBoolean(material.isCraftable());
-          buf.writeString(material.getFluid().getRegistryName().toString());
-          buf.writeItemStack(material.getShard());
-        });
-      })
-      .decoder(packetBuffer -> {
-        UpdateMaterialsPacketVanillaStyle updateMaterialsPacket = new UpdateMaterialsPacketVanillaStyle();
-        updateMaterialsPacket.readPacketData(packetBuffer);
-        return updateMaterialsPacket;
-      })
-      .consumer((updateMaterialsPacket, contextSupplier) -> {
-        updateMaterialsPacket.processPacket(null);
-        return true;
-      })
-      .markAsLoginPacket()
-      .add();*/
   }
 
   public void sendVanillaPacket(Entity player, IPacket<?> packet) {

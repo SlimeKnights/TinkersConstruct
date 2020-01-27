@@ -30,7 +30,7 @@ import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.control.PulseManager;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.ServerProxy;
-import slimeknights.tconstruct.library.TinkerNetwork;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.TConstructBlockTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructItemTagsProvider;
