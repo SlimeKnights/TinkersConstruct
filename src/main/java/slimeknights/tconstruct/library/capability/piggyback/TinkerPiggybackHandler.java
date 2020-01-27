@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.play.server.SSetPassengersPacket;
-import slimeknights.tconstruct.library.TinkerNetwork;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
 
 import java.util.List;
 

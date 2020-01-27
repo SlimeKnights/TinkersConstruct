@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.materials.network;
+package slimeknights.tconstruct.library.network;
 
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
@@ -13,9 +13,8 @@ import slimeknights.tconstruct.library.materials.MaterialId;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.function.Supplier;
 
-public class UpdateMaterialsPacket {
+public class UpdateMaterialsPacket implements ITinkerPacket {
 
   private Collection<IMaterial> materials;
 
@@ -30,6 +29,7 @@ public class UpdateMaterialsPacket {
     decode(buffer);
   }
 
+  @Override
   public void decode(PacketBuffer buffer) {
     int materialCount = buffer.readInt();
     materials = new ArrayList<>(materialCount);
@@ -44,6 +44,7 @@ public class UpdateMaterialsPacket {
     }
   }
 
+  @Override
   public void encode(PacketBuffer buffer) {
     buffer.writeInt(materials.size());
     materials.forEach(material -> {
@@ -54,12 +55,7 @@ public class UpdateMaterialsPacket {
     });
   }
 
-  public void handle(Supplier<NetworkEvent.Context> contextSupplier) {
-    NetworkEvent.Context context = contextSupplier.get();
-    this.handle(context);
-    context.setPacketHandled(true);
-  }
-
+  @Override
   public void handle(NetworkEvent.Context context) {
     MaterialRegistry.updateMaterialsFromServer(materials);
   }

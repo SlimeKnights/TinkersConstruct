@@ -20,10 +20,10 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import slimeknights.tconstruct.library.TinkerNetwork;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
-import slimeknights.tconstruct.library.materials.network.UpdateMaterialsPacket;
+import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
 
 import javax.annotation.Nullable;
 import java.util.Collection;

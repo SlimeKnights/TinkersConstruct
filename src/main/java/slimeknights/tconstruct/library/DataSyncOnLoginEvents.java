@@ -5,7 +5,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.materials.network.UpdateMaterialsPacket;
+import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
 
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class DataSyncOnLoginEvents {

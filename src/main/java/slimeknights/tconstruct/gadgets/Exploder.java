@@ -23,7 +23,7 @@ import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import slimeknights.tconstruct.library.TinkerNetwork;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.gadgets.entity.EFLNExplosion;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
