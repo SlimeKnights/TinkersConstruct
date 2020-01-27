@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.materials;
 
 import net.minecraft.util.ResourceLocation;
+import slimeknights.tconstruct.library.Util;
 
 /**
  * This is just a copy of ResourceLocation for type safety.

@@ -20,25 +20,29 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.*;
-import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.control.PulseManager;
-import slimeknights.tconstruct.common.*;
+import slimeknights.tconstruct.common.ClientProxy;
+import slimeknights.tconstruct.common.ServerProxy;
+import slimeknights.tconstruct.library.TinkerNetwork;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.common.data.*;
+import slimeknights.tconstruct.common.data.TConstructBlockTagsProvider;
+import slimeknights.tconstruct.common.data.TConstructItemTagsProvider;
+import slimeknights.tconstruct.common.data.TConstructLootTableProvider;
+import slimeknights.tconstruct.common.data.TConstructRecipeProvider;
 import slimeknights.tconstruct.debug.ToolDebugContainer;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
-import slimeknights.tconstruct.library.materials.MaterialManager;
 import slimeknights.tconstruct.library.materials.client.MaterialRenderManager;
-import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
-import slimeknights.tconstruct.library.traits.MaterialTraitsManager;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -90,8 +94,7 @@ public class TConstruct {
     proxy.preInit();
 
     TinkerNetwork.instance.setup();
-
-    TinkerRegistry.init();
+    MaterialRegistry.init();
   }
 
   @SubscribeEvent
@@ -115,13 +118,6 @@ public class TConstruct {
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
       datagenerator.addProvider(new TConstructRecipeProvider(datagenerator));
     }
-  }
-
-  @SubscribeEvent
-  public void onServerAboutToStart(final FMLServerAboutToStartEvent event) {
-    event.getServer().getResourceManager().addReloadListener(new MaterialManager());
-    event.getServer().getResourceManager().addReloadListener(new MaterialStatsManager());
-    event.getServer().getResourceManager().addReloadListener(new MaterialTraitsManager());
   }
 
   @SubscribeEvent

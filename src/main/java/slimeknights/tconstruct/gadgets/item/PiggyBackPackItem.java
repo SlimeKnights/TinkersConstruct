@@ -28,7 +28,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.item.ArmorTooltipItem;
-import slimeknights.tconstruct.common.TinkerNetwork;
+import slimeknights.tconstruct.library.TinkerNetwork;
 import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
