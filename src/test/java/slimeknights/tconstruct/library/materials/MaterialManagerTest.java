@@ -10,7 +10,10 @@ import net.minecraft.item.Items;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import slimeknights.tconstruct.library.TinkerNetwork;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.test.JsonFileLoader;
@@ -20,11 +23,19 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class MaterialManagerTest extends BaseMcTest {
 
-  private MaterialManager materialManager = new MaterialManager();
+  private MaterialManager materialManager;
   private JsonFileLoader fileLoader = new JsonFileLoader(MaterialManager.GSON, MaterialManager.FOLDER);
+
+  @BeforeEach
+  void setUp() {
+    TinkerNetwork mock = mock(TinkerNetwork.class);
+    materialManager = new MaterialManager(mock);
+    when(mock.getChannel()).thenReturn(mock(SimpleChannel.class));
+  }
 
   @Test
   void loadFullMaterial_allStatsPresent() {
@@ -54,8 +65,6 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(testMaterial.getFluid()).extracting(Fluid::getDefaultState).matches(IFluidState::isEmpty);
     assertThat(testMaterial.isCraftable()).isFalse();
     assertThat(testMaterial.getShard()).matches(ItemStack::isEmpty);
-    assertThat(testMaterial.getAllStats()).isEmpty();
-    assertThat(testMaterial.getAllTraits()).isEmpty();
   }
 
   @Test

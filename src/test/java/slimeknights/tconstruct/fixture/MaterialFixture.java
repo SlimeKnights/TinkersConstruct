@@ -6,6 +6,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.TestMaterial;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public final class MaterialFixture {
   public static final List<Material> ALL_MATERIALS = ALL_MATERIALS_BUILDER.build();
 
   private static Material material(String mat1, FlowingFluid water, boolean b) {
-    Material material = new Material(new ResourceLocation("test", mat1), water, b, ItemStack.EMPTY);
+    Material material = new TestMaterial(new ResourceLocation("test", mat1), water, b, ItemStack.EMPTY);
     ALL_MATERIALS_BUILDER.add(material);
     return material;
   }

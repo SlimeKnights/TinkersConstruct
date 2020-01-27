@@ -14,11 +14,16 @@ import net.minecraft.item.Items;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import slimeknights.tconstruct.library.TinkerNetwork;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
+import slimeknights.tconstruct.library.materials.network.UpdateMaterialsPacket;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -48,10 +53,17 @@ public class MaterialManager extends JsonReloadListener {
     .disableHtmlEscaping()
     .create();
 
+  private final TinkerNetwork tinkerNetwork;
   private Map<MaterialId, IMaterial> materials = ImmutableMap.of();
 
   public MaterialManager() {
+    this(TinkerNetwork.instance);
+  }
+
+  @VisibleForTesting
+  protected MaterialManager(TinkerNetwork tinkerNetwork) {
     super(GSON, FOLDER);
+    this.tinkerNetwork = tinkerNetwork;
   }
 
   public Collection<IMaterial> getAllMaterials() {
@@ -64,13 +76,15 @@ public class MaterialManager extends JsonReloadListener {
 
   @Override
   protected void apply(Map<ResourceLocation, JsonObject> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
-    materials = splashList.entrySet().stream()
+    this.materials = splashList.entrySet().stream()
       .map(entry -> loadMaterial(entry.getKey(), entry.getValue()))
       .filter(Objects::nonNull)
       .collect(Collectors.toMap(
         IMaterial::getIdentifier,
         material -> material)
       );
+
+    tinkerNetwork.getChannel().send(PacketDistributor.ALL.noArg(), new UpdateMaterialsPacket(materials.values()));
   }
 
   @Nullable
@@ -121,4 +135,13 @@ public class MaterialManager extends JsonReloadListener {
     return fluid;
   }
 
+  @OnlyIn(Dist.CLIENT)
+  public void updateMaterialsFromServer(Collection<IMaterial> materialList) {
+    this.materials = materialList.stream()
+      .filter(Objects::nonNull)
+      .collect(Collectors.toMap(
+        IMaterial::getIdentifier,
+        material -> material)
+      );
+  }
 }

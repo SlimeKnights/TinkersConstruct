@@ -11,9 +11,17 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
 import slimeknights.tconstruct.library.traits.MaterialTraitsManager;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Holds all materials and the extra information registered for them (stat classes).
+ * Materials are reset on every world load/join. Registered extra stuff is not.
+ *
+ * For the Server, materials are loaded on server start/reload from the data packs.
+ * For the Client, materials are synced from the server on server join.
+ */
 class MaterialRegistryImpl {
 
   private final MaterialManager materialManager;
@@ -34,6 +42,10 @@ class MaterialRegistryImpl {
 
   public IMaterial getMaterial(MaterialId id) {
     return materialManager.getMaterial(id).orElse(IMaterial.UNKNOWN);
+  }
+
+  public Collection<IMaterial> getMaterials() {
+    return materialManager.getAllMaterials();
   }
 
   public <T extends IMaterialStats> Optional<T> getMaterialStats(MaterialId materialId, MaterialStatsId statsId) {
