@@ -9,11 +9,6 @@ import java.util.List;
 public interface IMaterialStats {
 
   /**
-   * Returns a unique ResourceLocation to identify the type of stats the material has.
-   */
-  MaterialStatsId getIdentifier();
-
-  /**
    * Returns the name of the stat type, to be displayed to the player.
    */
   String getLocalizedName();
