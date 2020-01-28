@@ -34,9 +34,9 @@ public class UpdateMaterialsPacket implements ITinkerPacket {
     int materialCount = buffer.readInt();
     materials = new ArrayList<>(materialCount);
     for (int i = 0; i < materialCount; i++) {
-      MaterialId id = new MaterialId(buffer.readString());
+      MaterialId id = new MaterialId(buffer.readResourceLocation());
       boolean craftable = buffer.readBoolean();
-      ResourceLocation fluidId = new ResourceLocation(buffer.readString());
+      ResourceLocation fluidId = buffer.readResourceLocation();
       Fluid fluid = ForgeRegistries.FLUIDS.getValue(fluidId);
       ItemStack shard = buffer.readItemStack();
 
@@ -48,9 +48,9 @@ public class UpdateMaterialsPacket implements ITinkerPacket {
   public void encode(PacketBuffer buffer) {
     buffer.writeInt(materials.size());
     materials.forEach(material -> {
-      buffer.writeString(material.getIdentifier().toString());
+      buffer.writeResourceLocation(material.getIdentifier());
       buffer.writeBoolean(material.isCraftable());
-      buffer.writeString(material.getFluid().getRegistryName().toString());
+      buffer.writeResourceLocation(material.getFluid().getRegistryName());
       buffer.writeItemStack(material.getShard());
     });
   }

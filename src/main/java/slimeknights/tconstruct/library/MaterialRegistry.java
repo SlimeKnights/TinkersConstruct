@@ -10,10 +10,12 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialManager;
+import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
 import slimeknights.tconstruct.library.traits.MaterialTraitsManager;
+import slimeknights.tconstruct.tools.stats.CommonMaterialStats;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -32,6 +34,9 @@ public final class MaterialRegistry {
     MATERIAL_STATS_MANAGER = new MaterialStatsManager();
     MATERIAL_TRAITS_MANAGER = new MaterialTraitsManager();
     INSTANCE = new MaterialRegistryImpl(MATERIAL_MANAGER, MATERIAL_STATS_MANAGER, MATERIAL_TRAITS_MANAGER);
+
+    CommonMaterialStats commonMaterialStats = new CommonMaterialStats(1, 1);
+    INSTANCE.registerMaterial(new MaterialStatsId(Util.getResource("common")), commonMaterialStats, CommonMaterialStats.class);
   }
 
   @SubscribeEvent
@@ -58,8 +63,12 @@ public final class MaterialRegistry {
     return INSTANCE.getMaterialStats(materialId, statsId);
   }
 
-  public <T extends IMaterialStats> T getDefaultStats(MaterialStatsId statsId) {
+  public static <T extends IMaterialStats> T getDefaultStats(MaterialStatsId statsId) {
     return INSTANCE.getDefaultStats(statsId);
+  }
+
+  public static Collection<BaseMaterialStats> getAllStats(MaterialId materialId) {
+    return INSTANCE.getAllStats(materialId);
   }
 
   /**

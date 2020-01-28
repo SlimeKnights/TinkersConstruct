@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library;
 
-import com.google.common.collect.ImmutableMap;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -12,6 +11,7 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
 import slimeknights.tconstruct.library.traits.MaterialTraitsManager;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -32,7 +32,7 @@ class MaterialRegistryImpl {
    * Used for the defaults and for existence/class checks.
    * Basically all existing stat types need to be in this map.. or they don't exist
    */
-  private Map<MaterialStatsId, IMaterialStats> materialStatDefaults = ImmutableMap.of();
+  private Map<MaterialStatsId, IMaterialStats> materialStatDefaults = new HashMap<>();
 
   protected MaterialRegistryImpl(MaterialManager materialManager, MaterialStatsManager materialStatsManager, MaterialTraitsManager materialTraitsManager) {
     this.materialManager = materialManager;
@@ -50,6 +50,10 @@ class MaterialRegistryImpl {
 
   public <T extends IMaterialStats> Optional<T> getMaterialStats(MaterialId materialId, MaterialStatsId statsId) {
     return materialStatsManager.getStats(materialId, statsId);
+  }
+
+  public Collection<BaseMaterialStats> getAllStats(MaterialId materialId) {
+    return materialStatsManager.getAllStats(materialId);
   }
 
   public <T extends IMaterialStats> T getDefaultStats(MaterialStatsId statsId) {
@@ -77,6 +81,7 @@ class MaterialRegistryImpl {
     if(materialStatDefaults.containsKey(type)) {
       throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(type);
     }
+    // todo: implement check if class is compatible with the requirements for a network syncable stats class
     materialStatsManager.registerMaterialStat(type, clazz);
     materialStatDefaults.put(type, defaultStats);
   }
