@@ -26,13 +26,14 @@ public class TinkerNetwork extends NetworkWrapper {
     return network;
   }
 
-  public void setup() {
+  public static void setup() {
     instance = new TinkerNetwork();
-    this.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::encode, EntityMovementChangePacket::new, EntityMovementChangePacket::handle);
-    this.registerPacket(BouncedPacket.class, BouncedPacket::encode, BouncedPacket::new, BouncedPacket::handle);
-    this.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::encode, InventorySlotSyncPacket::new, InventorySlotSyncPacket::handle);
+    instance.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::encode, EntityMovementChangePacket::new, EntityMovementChangePacket::handle);
+    instance.registerPacket(BouncedPacket.class, BouncedPacket::encode, BouncedPacket::new, BouncedPacket::handle);
+    instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::encode, InventorySlotSyncPacket::new, InventorySlotSyncPacket::handle);
 
-    this.registerPacket(UpdateMaterialsPacket.class, UpdateMaterialsPacket::encode, UpdateMaterialsPacket::new, UpdateMaterialsPacket::handle);
+    instance.registerPacket(UpdateMaterialsPacket.class, UpdateMaterialsPacket::encode, UpdateMaterialsPacket::new, UpdateMaterialsPacket::handle);
+    instance.registerPacket(UpdateMaterialStatsPacket.class, UpdateMaterialStatsPacket::encode, UpdateMaterialStatsPacket::new, UpdateMaterialStatsPacket::handle);
   }
 
   public void sendVanillaPacket(Entity player, IPacket<?> packet) {

@@ -30,7 +30,6 @@ import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.control.PulseManager;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.ServerProxy;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.TConstructBlockTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructItemTagsProvider;
@@ -43,6 +42,7 @@ import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.materials.client.MaterialRenderManager;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -93,7 +93,7 @@ public class TConstruct {
   public static void preInit(final FMLCommonSetupEvent event) {
     proxy.preInit();
 
-    TinkerNetwork.instance.setup();
+    TinkerNetwork.setup();
     MaterialRegistry.init();
   }
 

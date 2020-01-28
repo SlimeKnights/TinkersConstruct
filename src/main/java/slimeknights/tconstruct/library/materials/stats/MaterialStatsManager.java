@@ -2,8 +2,12 @@ package slimeknights.tconstruct.library.materials.stats;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
-import com.google.gson.*;
 import lombok.AllArgsConstructor;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
@@ -16,7 +20,14 @@ import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJsonWrapper;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -71,6 +82,10 @@ public class MaterialStatsManager extends JsonReloadListener {
     // class will always match, since it's only filled by deserialization, which only puts it in if it's the registered type
     //noinspection unchecked
     return Optional.ofNullable((T) stats);
+  }
+
+  public Collection<BaseMaterialStats> getAllStats(MaterialId materialId) {
+    return materialToStatsPerType.getOrDefault(materialId, ImmutableMap.of()).values();
   }
 
   @Override

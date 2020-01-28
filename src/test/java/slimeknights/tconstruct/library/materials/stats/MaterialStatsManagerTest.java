@@ -51,9 +51,9 @@ class MaterialStatsManagerTest extends BaseMcTest {
     Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(MATERIAL_ID, STATS_ID_SIMPLE);
     assertThat(optionalStats).isNotEmpty();
     ComplexTestStats stats = optionalStats.get();
-    assertThat(stats.num).isEqualTo(123);
-    assertThat(stats.floating).isEqualTo(12.34f);
-    assertThat(stats.text).isEqualTo("why would you ever do this for stats");
+    assertThat(stats.getNum()).isEqualTo(123);
+    assertThat(stats.getFloating()).isEqualTo(12.34f);
+    assertThat(stats.getText()).isEqualTo("why would you ever do this for stats");
   }
 
   @Test
@@ -124,7 +124,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
     Optional<ComplexTestStats> stats = materialStatsManager.getStats(MATERIAL_ID, STATS_ID_SIMPLE);
     assertThat(stats).isNotEmpty();
-    assertThat(stats.get().num).isEqualTo(123);
+    assertThat(stats.get().getNum()).isEqualTo(123);
   }
 
   @Test
@@ -161,16 +161,4 @@ class MaterialStatsManagerTest extends BaseMcTest {
     assertThat(optionalStats).isEmpty();
   }
 
-  private static class ComplexTestStats extends BaseMaterialStats {
-
-    private final int num;
-    private final float floating;
-    private final String text;
-
-    public ComplexTestStats(int num, float floating, String text) {
-      this.num = num;
-      this.floating = floating;
-      this.text = text;
-    }
-  }
 }
