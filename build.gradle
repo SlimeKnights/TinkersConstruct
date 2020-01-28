@@ -16,9 +16,13 @@ buildscript {
             name = "sonatype"
             url = "https://oss.sonatype.org/content/repositories/snapshots/"
         }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath "io.freefair.gradle:lombok-plugin:4.1.6"
     }
 }
 
@@ -26,6 +30,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply plugin: "io.freefair.lombok"
 
 import net.minecraftforge.gradle.common.task.SignJar
 

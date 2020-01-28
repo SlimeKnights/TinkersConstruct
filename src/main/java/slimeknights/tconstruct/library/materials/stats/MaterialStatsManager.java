@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.materials.stats;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.*;
+import lombok.AllArgsConstructor;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
@@ -169,23 +170,15 @@ public class MaterialStatsManager extends JsonReloadListener {
     return Optional.ofNullable(GSON.fromJson(statsJson, materialStatClass));
   }
 
+  @AllArgsConstructor
   private static class StatContent {
     private final MaterialStatsId statsId;
     private final JsonElement json;
-
-    public StatContent(MaterialStatsId statsId, JsonElement json) {
-      this.statsId = statsId;
-      this.json = json;
-    }
   }
 
+  @AllArgsConstructor
   private static class StatsFileContent {
     private final MaterialId materialId;
     private final List<StatContent> stats;
-
-    StatsFileContent(MaterialId materialId, List<StatContent> stats) {
-      this.materialId = materialId;
-      this.stats = stats;
-    }
   }
 }

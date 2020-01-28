@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.library.materials;
 
+import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+@Getter
 public class Material implements IMaterial {
 
   // todo config
@@ -54,21 +56,6 @@ public class Material implements IMaterial {
     this.fluid = fluid;
     this.craftable = craftable;
     this.shardItem = shardItem;
-  }
-
-  @Override
-  public MaterialId getIdentifier() {
-    return identifier;
-  }
-
-  @Override
-  public boolean isCraftable() {
-    return this.craftable;
-  }
-
-  @Override
-  public Fluid getFluid() {
-    return fluid;
   }
 
   @Override
