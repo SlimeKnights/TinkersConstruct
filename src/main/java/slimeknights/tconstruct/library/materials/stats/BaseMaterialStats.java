@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.materials.stats;
 
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import slimeknights.tconstruct.library.Util;
 
@@ -11,18 +10,6 @@ import java.util.List;
  * This class is meant to be extended with custom stats added to it for your use.
  */
 public class BaseMaterialStats implements IMaterialStats {
-
-  // needs to be resourceLocation to be easily deserializable
-  private final ResourceLocation id;
-
-  public BaseMaterialStats(MaterialStatsId identifier) {
-    this.id = identifier;
-  }
-
-  @Override
-  public MaterialStatsId getIdentifier() {
-    return new MaterialStatsId(id);
-  }
 
   @Override
   public String getLocalizedName() {

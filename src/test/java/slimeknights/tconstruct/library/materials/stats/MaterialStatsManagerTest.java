@@ -37,7 +37,6 @@ class MaterialStatsManagerTest extends BaseMcTest {
 
     Optional<BaseMaterialStats> optionalStats = materialStatsManager.getStats(MATERIAL_ID, STATS_ID_SIMPLE);
     assertThat(optionalStats).isNotEmpty();
-    assertThat(optionalStats.get().getIdentifier()).isEqualByComparingTo(STATS_ID_SIMPLE);
   }
 
   @Test
@@ -168,8 +167,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
     private final float floating;
     private final String text;
 
-    public ComplexTestStats(MaterialStatsId identifier, int num, float floating, String text) {
-      super(identifier);
+    public ComplexTestStats(int num, float floating, String text) {
       this.num = num;
       this.floating = floating;
       this.text = text;

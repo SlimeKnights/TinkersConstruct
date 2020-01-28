@@ -75,31 +75,55 @@ public class MaterialStatsManager extends JsonReloadListener {
   @Override
   protected void apply(Map<ResourceLocation, JsonObject> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
     // Combine all loaded material files into one map, removing possible conflicting stats and printing a warning about them
-    materialToStatsPerType = splashList.entrySet().stream()
-      .map(entry -> loadMaterialStats(entry.getKey(), entry.getValue()))
+    // this map can't contain any duplicate material stats in one material anymore.
+    Map<MaterialId, Map<MaterialStatsId, StatContent>> statContentMappedByMaterial = splashList.entrySet().stream()
+      .map(entry -> loadFileContent(entry.getKey(), entry.getValue()))
       .filter(Objects::nonNull)
       .collect(Collectors.toMap(
         statsFileContent -> statsFileContent.materialId,
         statsFileContent -> transformAndCombineStatsForMaterial(statsFileContent.stats, Collections.emptyList()),
         (map1, map2) -> transformAndCombineStatsForMaterial(map1.values(), map2.values())
       ));
+
+    // Take the final structure and actually load the different material stats. This drops all invalid stats
+    materialToStatsPerType = statContentMappedByMaterial.entrySet().stream()
+      .collect(Collectors.toMap(
+        Map.Entry::getKey,
+        entry -> deserializeMaterialStatsFromContent(entry.getValue())
+      ));
   }
 
-  private Map<MaterialStatsId, BaseMaterialStats> transformAndCombineStatsForMaterial(Collection<BaseMaterialStats> statsList1, Collection<BaseMaterialStats> statsList2) {
+  private Map<MaterialStatsId, BaseMaterialStats> deserializeMaterialStatsFromContent(Map<MaterialStatsId, StatContent> contents) {
+    Map<MaterialStatsId, Optional<BaseMaterialStats>> loadedStats = contents.entrySet().stream()
+      .collect(Collectors.toMap(
+        Map.Entry::getKey,
+        entry -> deserializeMaterialStat(entry.getValue().statsId, entry.getValue().json)
+      ));
+
+    // drop all entries that couldn't be deserialized
+    return loadedStats.entrySet().stream()
+      .filter(entry -> entry.getValue().isPresent())
+      .collect(Collectors.toMap(
+        Map.Entry::getKey,
+        entry -> entry.getValue().get()
+      ));
+  }
+
+  private Map<MaterialStatsId, StatContent> transformAndCombineStatsForMaterial(Collection<StatContent> statsList1, Collection<StatContent> statsList2) {
     return Stream.concat(statsList1.stream(), statsList2.stream())
       .collect(Collectors.toMap(
-        BaseMaterialStats::getIdentifier,
-        baseMaterialStats -> baseMaterialStats,
-        (baseMaterialStats, baseMaterialStats2) -> {
+        o -> o.statsId,
+        statContent -> statContent,
+        (statContent, statContent2) -> {
           LOGGER.error("Duplicate stats {} for a material, ignoring additional definitions. " +
-            "Some mod is probably trying to add duplicate stats to another mods material.", baseMaterialStats2.getIdentifier());
-          return baseMaterialStats;
+            "Some mod is probably trying to add duplicate stats to another mods material.", statContent.statsId);
+          return statContent;
         }
       ));
   }
 
   @Nullable
-  private StatsFileContent loadMaterialStats(ResourceLocation file, JsonObject jsonObject) {
+  private StatsFileContent loadFileContent(ResourceLocation file, JsonObject jsonObject) {
     try {
       MaterialStatJsonWrapper materialStatJsonWrapper = GSON.fromJson(jsonObject, MaterialStatJsonWrapper.class);
       MaterialId materialId = materialStatJsonWrapper.getMaterialId();
@@ -107,12 +131,12 @@ public class MaterialStatsManager extends JsonReloadListener {
         throw TinkerJSONException.materialStatsJsonWithoutMaterial();
       }
       JsonArray statsJsonArray = jsonObject.getAsJsonArray("stats");
-      List<BaseMaterialStats> stats = new ArrayList<>();
+      List<StatContent> stats = new ArrayList<>();
 
       if (statsJsonArray != null) {
         for (JsonElement statJson : statsJsonArray) {
           try {
-            stats.add(deserializeMaterialStat(materialId, statJson));
+            stats.add(loadStatContent(statJson));
           } catch (Exception e) {
             LOGGER.error("Could not deserialize material stats from file {}. JSON: {}", file, statJson, e);
           }
@@ -126,24 +150,40 @@ public class MaterialStatsManager extends JsonReloadListener {
     }
   }
 
-  private BaseMaterialStats deserializeMaterialStat(ResourceLocation materialId, JsonElement statsJson) {
+  private StatContent loadStatContent(JsonElement statsJson) {
     MaterialStatJsonWrapper.BaseMaterialStatsJson baseMaterialStatsJson = GSON.fromJson(statsJson, MaterialStatJsonWrapper.BaseMaterialStatsJson.class);
     ResourceLocation statsId = baseMaterialStatsJson.getId();
     if(statsId == null) {
-      throw TinkerJSONException.materialStatsJsonWithoutId(materialId);
+      throw TinkerJSONException.materialStatsJsonWithoutId();
     }
-    Class<? extends BaseMaterialStats> materialStatClass = materialStatClasses.get(new MaterialStatsId(statsId));
+
+    return new StatContent(new MaterialStatsId(statsId), statsJson);
+  }
+
+  private Optional<BaseMaterialStats> deserializeMaterialStat(MaterialStatsId statsId, JsonElement statsJson) {
+    Class<? extends BaseMaterialStats> materialStatClass = materialStatClasses.get(statsId);
     if(materialStatClass == null) {
-      throw TinkerAPIMaterialException.materialNotRegistered(statsId);
+      LOGGER.error("The material stat of type '" + statsId + "' has not been registered");
+      return Optional.empty();
     }
-    return GSON.fromJson(statsJson, materialStatClass);
+    return Optional.ofNullable(GSON.fromJson(statsJson, materialStatClass));
+  }
+
+  private static class StatContent {
+    private final MaterialStatsId statsId;
+    private final JsonElement json;
+
+    public StatContent(MaterialStatsId statsId, JsonElement json) {
+      this.statsId = statsId;
+      this.json = json;
+    }
   }
 
   private static class StatsFileContent {
     private final MaterialId materialId;
-    private final List<BaseMaterialStats> stats;
+    private final List<StatContent> stats;
 
-    StatsFileContent(MaterialId materialId, List<BaseMaterialStats> stats) {
+    StatsFileContent(MaterialId materialId, List<StatContent> stats) {
       this.materialId = materialId;
       this.stats = stats;
     }
