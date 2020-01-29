@@ -45,7 +45,7 @@ public class BlueSlimeRenderer extends MobRenderer<SlimeEntity, SlimeModel<Slime
   }
 
   @Override
-  protected void func_225620_a_(SlimeEntity entity, MatrixStack matrixStack, float p_225620_3_) {
+  protected void preRenderCallback(SlimeEntity entity, MatrixStack matrixStack, float p_225620_3_) {
     float f = 0.999F;
     matrixStack.scale(0.999F, 0.999F, 0.999F);
     matrixStack.translate(0.0D, (double) 0.001F, 0.0D);
@@ -56,7 +56,7 @@ public class BlueSlimeRenderer extends MobRenderer<SlimeEntity, SlimeModel<Slime
   }
 
   @Override
-  protected float func_225625_b_(SlimeEntity p_225625_1_, float p_225625_2_) {
+  protected float getOverlayProgress(SlimeEntity p_225625_1_, float p_225625_2_) {
     return this.color;
   }
 

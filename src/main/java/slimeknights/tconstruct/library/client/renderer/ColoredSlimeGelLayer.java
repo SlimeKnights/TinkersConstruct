@@ -33,7 +33,7 @@ public class ColoredSlimeGelLayer<T extends LivingEntity> extends LayerRenderer<
   }
 
   @Override
-  public void func_225628_a_(MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int p_225628_3_, T entity, float p_225628_5_, float p_225628_6_, float p_225628_7_, float p_225628_8_, float p_225628_9_, float p_225628_10_) {
+  public void render(MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int p_225628_3_, T entity, float p_225628_5_, float p_225628_6_, float p_225628_7_, float p_225628_8_, float p_225628_9_, float p_225628_10_) {
     if (!entity.isInvisible()) {
       if (magicMushrooms) {
         RenderUtil.setColorRGBA(Color.HSBtoRGB(this.ticking / 100f, 0.65f, 0.8f) | (this.color & (0xFF << 24)));
@@ -46,8 +46,8 @@ public class ColoredSlimeGelLayer<T extends LivingEntity> extends LayerRenderer<
       this.slimeModel.setLivingAnimations(entity, p_225628_5_, p_225628_6_, p_225628_7_);
       this.slimeModel.render(entity, p_225628_5_, p_225628_6_, p_225628_8_, p_225628_9_, p_225628_10_);
 
-      IVertexBuilder ivertexbuilder = renderTypeBuffer.getBuffer(RenderType.entityTranslucent(this.func_229139_a_(entity)));
-      this.slimeModel.render(matrixStack, ivertexbuilder, p_225628_3_, LivingRenderer.func_229117_c_(entity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
+      IVertexBuilder ivertexbuilder = renderTypeBuffer.getBuffer(RenderType.entityTranslucent(this.getEntityTexture(entity)));
+      this.slimeModel.render(matrixStack, ivertexbuilder, p_225628_3_, LivingRenderer.getPackedOverlay(entity, 0.0F), 1.0F, 1.0F, 1.0F, 1.0F);
     }
   }
 }

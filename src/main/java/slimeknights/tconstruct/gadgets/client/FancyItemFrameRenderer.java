@@ -68,29 +68,29 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
     super.render(entity, p_225623_2_, p_225623_3_, matrixStack, renderTypeBuffer, p_225623_6_);
     matrixStack.push();
     Direction direction = entity.getHorizontalFacing();
-    Vec3d vec3d = this.func_225627_b_(entity, p_225623_3_);
+    Vec3d vec3d = this.getRenderOffset(entity, p_225623_3_);
     matrixStack.translate(-vec3d.getX(), -vec3d.getY(), -vec3d.getZ());
     double d0 = 0.46875D;
     matrixStack.translate((double) direction.getXOffset() * 0.46875D, (double) direction.getYOffset() * 0.46875D, (double) direction.getZOffset() * 0.46875D);
-    matrixStack.rotate(Vector3f.field_229179_b_.func_229187_a_(entity.rotationPitch));
-    matrixStack.rotate(Vector3f.field_229181_d_.func_229187_a_(180.0F - entity.rotationYaw));
+    matrixStack.rotate(Vector3f.XP.rotationDegrees(entity.rotationPitch));
+    matrixStack.rotate(Vector3f.YP.rotationDegrees(180.0F - entity.rotationYaw));
     BlockRendererDispatcher blockrendererdispatcher = this.mc.getBlockRendererDispatcher();
     ModelManager modelmanager = blockrendererdispatcher.getBlockModelShapes().getModelManager();
     FrameType frameType = entity.getFrameType();
     ModelResourceLocation modelresourcelocation = entity.getDisplayedItem().getItem() instanceof FilledMapItem ? LOCATIONS_MODEL_MAP.get(frameType) : LOCATIONS_MODEL.get(frameType);
     matrixStack.push();
     matrixStack. translate(-0.5D, -0.5D, -0.5D);
-    blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(matrixStack.getLast(), renderTypeBuffer.getBuffer(Atlases.func_228782_g_()), null, modelmanager.getModel(modelresourcelocation), 1.0F, 1.0F, 1.0F, p_225623_6_, OverlayTexture.DEFAULT_LIGHT);
+    blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(matrixStack.getLast(), renderTypeBuffer.getBuffer(Atlases.getSolidBlockType()), null, modelmanager.getModel(modelresourcelocation), 1.0F, 1.0F, 1.0F, p_225623_6_, OverlayTexture.DEFAULT_LIGHT);
     matrixStack.pop();
     ItemStack itemstack = entity.getDisplayedItem();
     if (!itemstack.isEmpty()) {
       MapData mapdata = FilledMapItem.getMapData(itemstack, entity.world);
       matrixStack. translate(0.0D, 0.0D, 0.4375D);
       int i = mapdata != null ? entity.getRotation() % 4 * 2 : entity.getRotation();
-      matrixStack.rotate(Vector3f.field_229183_f_.func_229187_a_((float) i * 360.0F / 8.0F));
+      matrixStack.rotate(Vector3f.ZP.rotationDegrees((float) i * 360.0F / 8.0F));
       if (!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.RenderItemInFrameEvent(entity, this.defaultRenderer))) {
         if (mapdata != null) {
-          matrixStack.rotate(Vector3f.field_229183_f_.func_229187_a_(180.0F));
+          matrixStack.rotate(Vector3f.ZP.rotationDegrees(180.0F));
           float f = 0.0078125F;
           matrixStack.scale(0.0078125F, 0.0078125F, 0.0078125F);
           matrixStack. translate(-64.0D, -64.0D, 0.0D);
@@ -122,8 +122,8 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
   @Override
   protected boolean canRenderName(FancyItemFrameEntity entity) {
     if (Minecraft.isGuiEnabled() && !entity.getDisplayedItem().isEmpty() && entity.getDisplayedItem().hasDisplayName() && this.renderManager.pointedEntity == entity) {
-      double d0 = this.renderManager.func_229099_b_(entity);
-      float f = entity.func_226273_bm_() ? 32.0F : 64.0F;
+      double d0 = this.renderManager.squareDistanceTo(entity);
+      float f = entity.isDiscrete() ? 32.0F : 64.0F;
       return d0 < (double) (f * f);
     }
     else {
@@ -132,7 +132,7 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
   }
 
   @Override
-  protected void func_225629_a_(FancyItemFrameEntity itemFrameEntity, String name, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int lighting) {
-    super.func_225629_a_(itemFrameEntity, itemFrameEntity.getDisplayedItem().getDisplayName().getFormattedText(), matrixStack, renderTypeBuffer, lighting);
+  protected void renderName(FancyItemFrameEntity itemFrameEntity, String name, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int lighting) {
+    super.renderName(itemFrameEntity, itemFrameEntity.getDisplayedItem().getDisplayName().getFormattedText(), matrixStack, renderTypeBuffer, lighting);
   }
 }

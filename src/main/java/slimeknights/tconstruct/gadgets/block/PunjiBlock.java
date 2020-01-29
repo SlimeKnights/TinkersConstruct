@@ -159,7 +159,7 @@ public class PunjiBlock extends Block {
     Direction direction = state.get(FACING);
     BlockPos blockpos = pos.offset(direction);
     BlockState blockstate = worldIn.getBlockState(blockpos);
-    return blockstate.func_224755_d(worldIn, blockpos, direction.getOpposite());
+    return blockstate.isSolidSide(worldIn, blockpos, direction.getOpposite());
   }
 
   @Override

@@ -12,7 +12,7 @@ public class MagmaSlimeTree extends Tree {
 
   @Override
   @Nullable
-  protected ConfiguredFeature<TreeFeatureConfig, ?> func_225546_b_(Random random) {
-    return TinkerWorld.MAGMA_TREE.func_225566_b_(TinkerWorld.MAGMA_TREE_CONFIG);
+  protected ConfiguredFeature<TreeFeatureConfig, ?> func_225546_b_(Random random, boolean bool) {
+    return TinkerWorld.MAGMA_TREE.withConfiguration(TinkerWorld.MAGMA_TREE_CONFIG);
   }
 }
