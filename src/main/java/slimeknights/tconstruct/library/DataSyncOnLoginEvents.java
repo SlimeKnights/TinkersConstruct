@@ -25,7 +25,7 @@ public class DataSyncOnLoginEvents {
 
     TinkerNetwork.instance.network.send(PacketDistributor.ALL.noArg(), new UpdateMaterialsPacket(allMaterials));
 
-    Map<MaterialId, Collection<BaseMaterialStats>> materialStats = allMaterials.stream()
+    Map<MaterialId, Collection<? extends BaseMaterialStats>> materialStats = allMaterials.stream()
       .collect(Collectors.toMap(
         IMaterial::getIdentifier,
         material -> MaterialRegistry.getAllStats(material.getIdentifier())
