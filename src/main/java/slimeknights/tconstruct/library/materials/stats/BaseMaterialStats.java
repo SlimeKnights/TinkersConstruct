@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.materials.stats;
 
 import net.minecraft.util.text.TextFormatting;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.network.INetworkSendable;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * A simple material class without stats.
  * This class is meant to be extended with custom stats added to it for your use.
  */
-public class BaseMaterialStats implements IMaterialStats {
+public abstract class BaseMaterialStats implements IMaterialStats, INetworkSendable {
 
   @Override
   public String getLocalizedName() {

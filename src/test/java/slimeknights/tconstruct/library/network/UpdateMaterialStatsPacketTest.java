@@ -8,8 +8,9 @@ import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
-import slimeknights.tconstruct.library.materials.stats.NetworkTestStats;
+import slimeknights.tconstruct.library.materials.stats.ComplexTestStats;
 import slimeknights.tconstruct.test.BaseMcTest;
+import slimeknights.tconstruct.tools.stats.CommonMaterialStats;
 
 import java.util.Collection;
 import java.util.Map;
@@ -18,13 +19,40 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class UpdateMaterialStatsPacketTest extends BaseMcTest {
 
+  public static final MaterialId MATERIAL_ID = MaterialFixture.MATERIAL_1.getIdentifier();
+
   @Test
   void testGenericEncodeDecode() {
-
-    MaterialId materialId = MaterialFixture.MATERIAL_1.getIdentifier();
-    Map<MaterialId, Collection<BaseMaterialStats>> materialToStats = ImmutableMap.of(
-      materialId, ImmutableList.of(new NetworkTestStats(1, 2, 3f, 4f, 5d, 6d, "7"))
+    Map<MaterialId, Collection<? extends BaseMaterialStats>> materialToStats = ImmutableMap.of(
+      MATERIAL_ID, ImmutableList.of(new ComplexTestStats(1, 2f, "3"))
     );
+
+    UpdateMaterialStatsPacket packetToDecode = sendAndReceivePacket(materialToStats);
+    assertThat(packetToDecode.materialToStats).hasSize(1);
+    assertThat(packetToDecode.materialToStats).containsKey(MATERIAL_ID);
+    assertThat(packetToDecode.materialToStats.get(MATERIAL_ID)).hasSize(1);
+
+    BaseMaterialStats materialStats = packetToDecode.materialToStats.get(MATERIAL_ID).iterator().next();
+    assertThat(materialStats).isExactlyInstanceOf(ComplexTestStats.class);
+    ComplexTestStats realStats = (ComplexTestStats) materialStats;
+    assertThat(realStats.getNum()).isEqualTo(1);
+    assertThat(realStats.getFloating()).isEqualTo(2f);
+    assertThat(realStats.getText()).isEqualTo("3");
+  }
+
+  @Test
+  void testAllTicDefaults() {
+    ImmutableList<? extends BaseMaterialStats> stats = ImmutableList.of(CommonMaterialStats.DEFAULT);
+    Map<MaterialId, Collection<? extends BaseMaterialStats>> materialToStats = ImmutableMap.of(
+      MATERIAL_ID, stats
+    );
+
+    UpdateMaterialStatsPacket packet = sendAndReceivePacket(materialToStats);
+
+    assertThat(packet.materialToStats.get(MATERIAL_ID)).isEqualTo(stats);
+  }
+
+  private UpdateMaterialStatsPacket sendAndReceivePacket(Map<MaterialId, Collection<? extends BaseMaterialStats>> materialToStats) {
     PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
 
     UpdateMaterialStatsPacket packetToEncode = new UpdateMaterialStatsPacket(materialToStats);
@@ -32,20 +60,6 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
 
     UpdateMaterialStatsPacket packetToDecode = new UpdateMaterialStatsPacket();
     packetToDecode.decode(buffer);
-
-    assertThat(packetToDecode.materialToStats).hasSize(1);
-    assertThat(packetToDecode.materialToStats).containsKey(materialId);
-    assertThat(packetToDecode.materialToStats.get(materialId)).hasSize(1);
-
-    BaseMaterialStats materialStats = packetToDecode.materialToStats.get(materialId).iterator().next();
-    assertThat(materialStats).isExactlyInstanceOf(NetworkTestStats.class);
-    NetworkTestStats realStats = (NetworkTestStats) materialStats;
-    assertThat(realStats.getNum1()).isEqualTo(1);
-    assertThat(realStats.getNum2()).isEqualTo(2);
-    assertThat(realStats.getFloating1()).isEqualTo(3f);
-    assertThat(realStats.getFloating2()).isEqualTo(4f);
-    assertThat(realStats.getDouble1()).isEqualTo(5d);
-    assertThat(realStats.getDouble2()).isEqualTo(6d);
-    assertThat(realStats.getText()).isNullOrEmpty();
+    return packetToDecode;
   }
 }
