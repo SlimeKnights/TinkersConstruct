@@ -2,7 +2,6 @@ package slimeknights.tconstruct;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.data.DataGenerator;
@@ -10,7 +9,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -33,7 +31,6 @@ import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.TConstructBlockTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructItemTagsProvider;
-import slimeknights.tconstruct.common.data.TConstructLootTableProvider;
 import slimeknights.tconstruct.common.data.TConstructRecipeProvider;
 import slimeknights.tconstruct.debug.ToolDebugContainer;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -41,9 +38,9 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
-import slimeknights.tconstruct.library.materials.client.MaterialRenderManager;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Random;
@@ -84,7 +81,6 @@ public class TConstruct {
     pulseManager.enablePulses();
 
     DistExecutor.runWhenOn(Dist.CLIENT, () -> TinkerBook::initBook);
-    DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> ((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(new MaterialRenderManager()));
 
     MinecraftForge.EVENT_BUS.register(this);
   }
@@ -115,8 +111,9 @@ public class TConstruct {
     if (event.includeServer()) {
       datagenerator.addProvider(new TConstructBlockTagsProvider(datagenerator));
       datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator));
-      datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
+      //datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
       datagenerator.addProvider(new TConstructRecipeProvider(datagenerator));
+      datagenerator.addProvider(new MaterialDataProvider());
     }
   }
 

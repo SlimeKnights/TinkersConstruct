@@ -45,10 +45,8 @@ public class MaterialManager extends JsonReloadListener {
 
   private static final Logger LOGGER = LogManager.getLogger();
 
-  @VisibleForTesting
-  protected static final String FOLDER = "materials";
-  @VisibleForTesting
-  protected static final Gson GSON = (new GsonBuilder())
+  public static final String FOLDER = "materials";
+  public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
     .setPrettyPrinting()
     .disableHtmlEscaping()
