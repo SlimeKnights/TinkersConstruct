@@ -2,22 +2,27 @@ package slimeknights.tconstruct.library.materials.stats;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
-import lombok.AllArgsConstructor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import lombok.AllArgsConstructor;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.PacketDistributor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJsonWrapper;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.library.network.UpdateMaterialStatsPacket;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -28,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -36,11 +42,11 @@ import java.util.stream.Stream;
  * The file locations do not matter per se, the file must specify which material it contains stats for.
  * Each file contains stats for exactly one one material.
  * The stats must be registered with TiC before loading or it'll fail.
- *
+ * <p>
  * The reason for the material id inside the file is so that multiple mods can add different stats to the same material.
  * If two different sources add the same stats to the same material the first one encountered will be used, and the second one will be skipped.
  * (e.g. having a 'Laser' stat type, and there are 2 mods who add Laser stat types to the iron material)
- *
+ * <p>
  * The location inside datapacks is "materials/stats".
  * So if your mods name is "foobar", the location for your mads material stats is "data/foobar/materials/stats".
  */
@@ -56,17 +62,24 @@ public class MaterialStatsManager extends JsonReloadListener {
     .disableHtmlEscaping()
     .create();
 
+  private final TinkerNetwork tinkerNetwork;
   /**
    * This map represents the known stats of the manager. Only known materials can be loaded.
    * Usually they're registered by the registry, when a new material stats type is registered.
    * It is not cleared on reload, since it does not represend loaded data. Think of it as a GSON type adapter.
    */
-  private Map<MaterialStatsId, Class<? extends BaseMaterialStats>> materialStatClasses = new HashMap<>();
+  private final Map<MaterialStatsId, Class<? extends BaseMaterialStats>> materialStatClasses = new HashMap<>();
 
   private Map<MaterialId, Map<MaterialStatsId, BaseMaterialStats>> materialToStatsPerType = ImmutableMap.of();
 
   public MaterialStatsManager() {
+    this(TinkerNetwork.instance);
+  }
+
+  @VisibleForTesting
+  public MaterialStatsManager(TinkerNetwork tinkerNetwork) {
     super(GSON, FOLDER);
+    this.tinkerNetwork = tinkerNetwork;
   }
 
   public void registerMaterialStat(MaterialStatsId materialStatType, Class<? extends BaseMaterialStats> statsClass) {
@@ -74,6 +87,10 @@ public class MaterialStatsManager extends JsonReloadListener {
       throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(materialStatType);
     }
     materialStatClasses.put(materialStatType, statsClass);
+  }
+
+  public Class<? extends IMaterialStats> getClassForStat(MaterialStatsId id) {
+    return materialStatClasses.get(id);
   }
 
   public <T extends IMaterialStats> Optional<T> getStats(MaterialId materialId, MaterialStatsId statId) {
@@ -86,6 +103,19 @@ public class MaterialStatsManager extends JsonReloadListener {
 
   public Collection<BaseMaterialStats> getAllStats(MaterialId materialId) {
     return materialToStatsPerType.getOrDefault(materialId, ImmutableMap.of()).values();
+  }
+
+  @OnlyIn(Dist.CLIENT)
+  public void updateMaterialStatsFromServer(Map<MaterialId, Collection<BaseMaterialStats>> materialStats) {
+    this.materialToStatsPerType = materialStats.entrySet().stream()
+      .collect(Collectors.toMap(
+        Map.Entry::getKey,
+        entry -> entry.getValue().stream()
+          .collect(Collectors.toMap(
+            IMaterialStats::getIdentifier,
+            Function.identity()
+          )))
+      );
   }
 
   @Override
@@ -107,6 +137,14 @@ public class MaterialStatsManager extends JsonReloadListener {
         Map.Entry::getKey,
         entry -> deserializeMaterialStatsFromContent(entry.getValue())
       ));
+
+    // send the newly loaded stats over the network
+    Map<MaterialId, Collection<BaseMaterialStats>> networkPayload = materialToStatsPerType.entrySet().stream()
+      .collect(Collectors.toMap(
+        Map.Entry::getKey,
+        entry -> entry.getValue().values()
+      ));
+    tinkerNetwork.getChannel().send(PacketDistributor.ALL.noArg(), new UpdateMaterialStatsPacket(networkPayload));
   }
 
   private Map<MaterialStatsId, BaseMaterialStats> deserializeMaterialStatsFromContent(Map<MaterialStatsId, StatContent> contents) {
@@ -143,7 +181,7 @@ public class MaterialStatsManager extends JsonReloadListener {
     try {
       MaterialStatJsonWrapper materialStatJsonWrapper = GSON.fromJson(jsonObject, MaterialStatJsonWrapper.class);
       MaterialId materialId = materialStatJsonWrapper.getMaterialId();
-      if(materialId == null) {
+      if (materialId == null) {
         throw TinkerJSONException.materialStatsJsonWithoutMaterial();
       }
       JsonArray statsJsonArray = jsonObject.getAsJsonArray("stats");
@@ -169,7 +207,7 @@ public class MaterialStatsManager extends JsonReloadListener {
   private StatContent loadStatContent(JsonElement statsJson) {
     MaterialStatJsonWrapper.BaseMaterialStatsJson baseMaterialStatsJson = GSON.fromJson(statsJson, MaterialStatJsonWrapper.BaseMaterialStatsJson.class);
     ResourceLocation statsId = baseMaterialStatsJson.getId();
-    if(statsId == null) {
+    if (statsId == null) {
       throw TinkerJSONException.materialStatsJsonWithoutId();
     }
 
@@ -178,7 +216,7 @@ public class MaterialStatsManager extends JsonReloadListener {
 
   private Optional<BaseMaterialStats> deserializeMaterialStat(MaterialStatsId statsId, JsonElement statsJson) {
     Class<? extends BaseMaterialStats> materialStatClass = materialStatClasses.get(statsId);
-    if(materialStatClass == null) {
+    if (materialStatClass == null) {
       LOGGER.error("The material stat of type '" + statsId + "' has not been registered");
       return Optional.empty();
     }
@@ -187,12 +225,14 @@ public class MaterialStatsManager extends JsonReloadListener {
 
   @AllArgsConstructor
   private static class StatContent {
+
     private final MaterialStatsId statsId;
     private final JsonElement json;
   }
 
   @AllArgsConstructor
   private static class StatsFileContent {
+
     private final MaterialId materialId;
     private final List<StatContent> stats;
   }

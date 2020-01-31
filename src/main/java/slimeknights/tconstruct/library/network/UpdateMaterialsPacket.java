@@ -1,12 +1,13 @@
 package slimeknights.tconstruct.library.network;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -14,16 +15,12 @@ import slimeknights.tconstruct.library.materials.MaterialId;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class UpdateMaterialsPacket implements ITinkerPacket {
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class UpdateMaterialsPacket implements INetworkSendable {
 
   private Collection<IMaterial> materials;
-
-  public UpdateMaterialsPacket() {
-  }
-
-  public UpdateMaterialsPacket(Collection<IMaterial> materials) {
-    this.materials = materials;
-  }
 
   public UpdateMaterialsPacket(PacketBuffer buffer) {
     decode(buffer);
@@ -53,10 +50,5 @@ public class UpdateMaterialsPacket implements ITinkerPacket {
       buffer.writeResourceLocation(material.getFluid().getRegistryName());
       buffer.writeItemStack(material.getShard());
     });
-  }
-
-  @Override
-  public void handle(NetworkEvent.Context context) {
-    MaterialRegistry.updateMaterialsFromServer(materials);
   }
 }

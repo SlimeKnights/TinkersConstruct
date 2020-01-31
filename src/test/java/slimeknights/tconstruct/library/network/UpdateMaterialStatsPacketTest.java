@@ -6,16 +6,21 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.network.PacketBuffer;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialFixture;
+import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.ComplexTestStats;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.tools.stats.CommonMaterialStats;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.function.Function;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class UpdateMaterialStatsPacketTest extends BaseMcTest {
 
@@ -23,8 +28,8 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
 
   @Test
   void testGenericEncodeDecode() {
-    Map<MaterialId, Collection<? extends BaseMaterialStats>> materialToStats = ImmutableMap.of(
-      MATERIAL_ID, ImmutableList.of(new ComplexTestStats(1, 2f, "3"))
+    Map<MaterialId, Collection<BaseMaterialStats>> materialToStats = ImmutableMap.of(
+      MATERIAL_ID, ImmutableList.of(MaterialStatsFixture.MATERIAL_STATS)
     );
 
     UpdateMaterialStatsPacket packetToDecode = sendAndReceivePacket(materialToStats);
@@ -42,8 +47,8 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
 
   @Test
   void testAllTicDefaults() {
-    ImmutableList<? extends BaseMaterialStats> stats = ImmutableList.of(CommonMaterialStats.DEFAULT);
-    Map<MaterialId, Collection<? extends BaseMaterialStats>> materialToStats = ImmutableMap.of(
+    ImmutableList<BaseMaterialStats> stats = ImmutableList.of(CommonMaterialStats.DEFAULT);
+    Map<MaterialId, Collection<BaseMaterialStats>> materialToStats = ImmutableMap.of(
       MATERIAL_ID, stats
     );
 
@@ -52,14 +57,23 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
     assertThat(packet.materialToStats.get(MATERIAL_ID)).isEqualTo(stats);
   }
 
-  private UpdateMaterialStatsPacket sendAndReceivePacket(Map<MaterialId, Collection<? extends BaseMaterialStats>> materialToStats) {
+  private UpdateMaterialStatsPacket sendAndReceivePacket(Map<MaterialId, Collection<BaseMaterialStats>> materialToStats) {
     PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+    Function<MaterialStatsId, Class<?>> classResolverMock = createClassResolverMock(materialToStats);
 
     UpdateMaterialStatsPacket packetToEncode = new UpdateMaterialStatsPacket(materialToStats);
     packetToEncode.encode(buffer);
 
     UpdateMaterialStatsPacket packetToDecode = new UpdateMaterialStatsPacket();
-    packetToDecode.decode(buffer);
+    packetToDecode.decode(buffer, classResolverMock);
     return packetToDecode;
+  }
+
+  private Function<MaterialStatsId, Class<?>> createClassResolverMock(Map<MaterialId, Collection<BaseMaterialStats>> materialToStats) {
+    Function<MaterialStatsId, Class<?>> classResolverMock = mock(Function.class);
+    materialToStats.values().stream()
+      .flatMap(Collection::stream)
+      .forEach(stat -> when(classResolverMock.apply(stat.getIdentifier())).thenReturn((Class)stat.getClass()));
+    return classResolverMock;
   }
 }

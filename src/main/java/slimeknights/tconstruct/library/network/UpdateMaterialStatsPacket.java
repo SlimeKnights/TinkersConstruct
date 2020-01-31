@@ -1,12 +1,15 @@
 package slimeknights.tconstruct.library.network;
 
 import com.google.common.annotations.VisibleForTesting;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,27 +17,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 
-public class UpdateMaterialStatsPacket implements ITinkerPacket {
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+public class UpdateMaterialStatsPacket {
 
   public static final Logger log = Util.getLogger("NetworkSync");
 
   @VisibleForTesting
-  protected Map<MaterialId, Collection<? extends BaseMaterialStats>> materialToStats;
+  protected Map<MaterialId, Collection<BaseMaterialStats>> materialToStats;
 
-  public UpdateMaterialStatsPacket() {
+  public UpdateMaterialStatsPacket(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
+    decode(buffer, classResolver);
   }
 
-  public UpdateMaterialStatsPacket(Map<MaterialId, Collection<? extends BaseMaterialStats>> materialToStatsPerType) {
-    this.materialToStats = materialToStatsPerType;
-  }
-
-  public UpdateMaterialStatsPacket(PacketBuffer buffer) {
-    decode(buffer);
-  }
-
-  @Override
-  public void decode(PacketBuffer buffer) {
+  public void decode(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
     int materialCount = buffer.readInt();
     materialToStats = new HashMap<>(materialCount);
     for (int i = 0; i < materialCount; i++) {
@@ -42,27 +41,25 @@ public class UpdateMaterialStatsPacket implements ITinkerPacket {
       int statCount = buffer.readInt();
       List<BaseMaterialStats> statList = new ArrayList<>();
       for (int j = 0; j < statCount; j++) {
-        decodeStat(buffer).ifPresent(statList::add);
+        decodeStat(buffer, classResolver).ifPresent(statList::add);
       }
       materialToStats.put(id, statList);
     }
   }
 
-  private Optional<BaseMaterialStats> decodeStat(PacketBuffer buffer) {
-    //MaterialStatsId statsId = new MaterialStatsId(buffer.readResourceLocation());
-    String className = buffer.readString();
+  private Optional<BaseMaterialStats> decodeStat(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
+    MaterialStatsId statsId = new MaterialStatsId(buffer.readResourceLocation());
     try {
-      Class<?> clazz = buffer.getClass().getClassLoader().loadClass(className);
+      Class<?> clazz = classResolver.apply(statsId);
       BaseMaterialStats stats = (BaseMaterialStats) clazz.newInstance();
       stats.decode(buffer);
       return Optional.of(stats);
     } catch (Exception e) {
-      log.error("Could not load class {} for deserialization of stats", className, e);
+      log.error("Could not load class for deserialization of stats {}. Are client and server in sync?", statsId, e);
       return Optional.empty();
     }
   }
 
-  @Override
   public void encode(PacketBuffer buffer) {
     buffer.writeInt(materialToStats.size());
     materialToStats.forEach((materialId, stats) -> {
@@ -73,14 +70,7 @@ public class UpdateMaterialStatsPacket implements ITinkerPacket {
   }
 
   private void encodeStat(PacketBuffer buffer, BaseMaterialStats stat) {
-    Class<? extends BaseMaterialStats> clazz = stat.getClass();
-    buffer.writeString(clazz.getCanonicalName());
+    buffer.writeResourceLocation(stat.getIdentifier());
     stat.encode(buffer);
-  }
-
-  @Override
-  public void handle(NetworkEvent.Context context) {
-    // todo: handle new stats
-    log.info("GOT NEW STATS");
   }
 }

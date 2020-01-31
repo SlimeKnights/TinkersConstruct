@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.traits.MaterialTraitsManager;
 import slimeknights.tconstruct.tools.stats.CommonMaterialStats;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.Optional;
 
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -47,8 +48,18 @@ public final class MaterialRegistry {
   }
 
   @OnlyIn(Dist.CLIENT)
-  public static void updateMaterialsFromServer(Collection<IMaterial> materials) {
+  static void updateMaterialsFromServer(Collection<IMaterial> materials) {
     MATERIAL_MANAGER.updateMaterialsFromServer(materials);
+  }
+
+  @OnlyIn(Dist.CLIENT)
+  static void updateMaterialStatsFromServer(Map<MaterialId, Collection<BaseMaterialStats>> materialStats) {
+    MATERIAL_STATS_MANAGER.updateMaterialStatsFromServer(materialStats);
+  }
+
+  @OnlyIn(Dist.CLIENT)
+  static Class<? extends IMaterialStats> getClassForStat(MaterialStatsId id) {
+    return MATERIAL_STATS_MANAGER.getClassForStat(id);
   }
 
   public static IMaterial getMaterial(MaterialId id) {

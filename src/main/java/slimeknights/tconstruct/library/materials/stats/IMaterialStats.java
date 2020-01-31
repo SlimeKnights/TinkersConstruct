@@ -8,6 +8,8 @@ import java.util.List;
  */
 public interface IMaterialStats {
 
+  MaterialStatsId getIdentifier();
+
   /**
    * Returns the name of the stat type, to be displayed to the player.
    */
