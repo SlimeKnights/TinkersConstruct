@@ -10,10 +10,10 @@ import net.minecraft.network.PacketBuffer;
 @Getter
 public class ComplexTestStats extends BaseMaterialStats {
 
+  private MaterialStatsId identifier;
   private int num;
   private float floating;
   private String text;
-
 
   @Override
   public void encode(PacketBuffer buffer) {

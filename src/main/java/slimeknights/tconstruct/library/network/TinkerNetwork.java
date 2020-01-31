@@ -10,6 +10,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.DataSyncOnLoginEvents;
 import slimeknights.tconstruct.tools.common.network.BouncedPacket;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
@@ -32,8 +33,7 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(BouncedPacket.class, BouncedPacket::encode, BouncedPacket::new, BouncedPacket::handle);
     instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::encode, InventorySlotSyncPacket::new, InventorySlotSyncPacket::handle);
 
-    instance.registerPacket(UpdateMaterialsPacket.class, UpdateMaterialsPacket::encode, UpdateMaterialsPacket::new, UpdateMaterialsPacket::handle);
-    instance.registerPacket(UpdateMaterialStatsPacket.class, UpdateMaterialStatsPacket::encode, UpdateMaterialStatsPacket::new, UpdateMaterialStatsPacket::handle);
+    DataSyncOnLoginEvents.setupMaterialDataSyncPackets();
   }
 
   public void sendVanillaPacket(Entity player, IPacket<?> packet) {

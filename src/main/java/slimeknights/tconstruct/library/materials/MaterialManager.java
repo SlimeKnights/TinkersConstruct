@@ -20,9 +20,9 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
 
 import javax.annotation.Nullable;
@@ -30,6 +30,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -72,6 +73,16 @@ public class MaterialManager extends JsonReloadListener {
 
   public Optional<IMaterial> getMaterial(MaterialId materialId) {
     return Optional.ofNullable(materials.get(materialId));
+  }
+
+  @OnlyIn(Dist.CLIENT)
+  public void updateMaterialsFromServer(Collection<IMaterial> materialList) {
+    this.materials = materialList.stream()
+      .filter(Objects::nonNull)
+      .collect(Collectors.toMap(
+        IMaterial::getIdentifier,
+        Function.identity())
+      );
   }
 
   @Override
@@ -133,15 +144,5 @@ public class MaterialManager extends JsonReloadListener {
       }
     }
     return fluid;
-  }
-
-  @OnlyIn(Dist.CLIENT)
-  public void updateMaterialsFromServer(Collection<IMaterial> materialList) {
-    this.materials = materialList.stream()
-      .filter(Objects::nonNull)
-      .collect(Collectors.toMap(
-        IMaterial::getIdentifier,
-        material -> material)
-      );
   }
 }
