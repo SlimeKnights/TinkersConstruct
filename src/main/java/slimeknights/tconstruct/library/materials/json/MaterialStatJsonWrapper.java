@@ -33,7 +33,7 @@ public class MaterialStatJsonWrapper {
   public static class BaseMaterialStatsJson {
     private final ResourceLocation id;
 
-    private BaseMaterialStatsJson(ResourceLocation id) {
+    protected BaseMaterialStatsJson(ResourceLocation id) {
       this.id = id;
     }
 

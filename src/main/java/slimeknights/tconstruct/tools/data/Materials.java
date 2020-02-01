@@ -3,9 +3,9 @@ package slimeknights.tconstruct.tools.data;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.MaterialId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ final class Materials {
   public static final IMaterial slimeleaf_orange = mat(MaterialIds.slimeleaf_orange, Fluids.EMPTY, true, ItemStack.EMPTY);
   public static final IMaterial slimeleaf_purple = mat(MaterialIds.slimeleaf_purple, Fluids.EMPTY, true, ItemStack.EMPTY);
 
-  private static IMaterial mat(ResourceLocation location, Fluid fluid, boolean craftable, ItemStack shard) {
+  private static IMaterial mat(MaterialId location, Fluid fluid, boolean craftable, ItemStack shard) {
     Material material = new Material(location, fluid, craftable, shard);
     allMaterials.add(material);
     return material;

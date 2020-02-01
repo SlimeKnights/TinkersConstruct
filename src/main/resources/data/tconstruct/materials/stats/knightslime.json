@@ -1,27 +1,27 @@
 {
   "materialId": {
     "namespace": "tconstruct",
-    "path": "stone"
+    "path": "knightslime"
   },
   "stats": [
     {
       "id": "tconstruct:common",
-      "durability": 120,
-      "attack": 3.0
+      "durability": 850,
+      "attack": 5.1
     },
     {
       "id": "tconstruct:harvest",
-      "miningSpeed": 4.0,
-      "harvestLevel": 1
+      "miningSpeed": 5.8,
+      "harvestLevel": 3
     },
     {
       "id": "tconstruct:handle",
       "modifier": 0.5,
-      "durability": -50
+      "durability": 500
     },
     {
       "id": "tconstruct:extra",
-      "durability": 20
+      "durability": 125
     }
   ]
 }

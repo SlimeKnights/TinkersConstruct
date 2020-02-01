@@ -1,27 +1,27 @@
 {
   "materialId": {
     "namespace": "tconstruct",
-    "path": "stone"
+    "path": "prismarine"
   },
   "stats": [
     {
       "id": "tconstruct:common",
-      "durability": 120,
-      "attack": 3.0
+      "durability": 430,
+      "attack": 6.2
     },
     {
       "id": "tconstruct:harvest",
-      "miningSpeed": 4.0,
+      "miningSpeed": 5.5,
       "harvestLevel": 1
     },
     {
       "id": "tconstruct:handle",
-      "modifier": 0.5,
-      "durability": -50
+      "modifier": 0.6,
+      "durability": -150
     },
     {
       "id": "tconstruct:extra",
-      "durability": 20
+      "durability": 100
     }
   ]
 }

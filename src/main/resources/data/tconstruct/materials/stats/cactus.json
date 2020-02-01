@@ -1,13 +1,13 @@
 {
   "materialId": {
     "namespace": "tconstruct",
-    "path": "stone"
+    "path": "cactus"
   },
   "stats": [
     {
       "id": "tconstruct:common",
-      "durability": 120,
-      "attack": 3.0
+      "durability": 210,
+      "attack": 3.4
     },
     {
       "id": "tconstruct:harvest",
@@ -16,12 +16,12 @@
     },
     {
       "id": "tconstruct:handle",
-      "modifier": 0.5,
-      "durability": -50
+      "modifier": 0.85,
+      "durability": 20
     },
     {
       "id": "tconstruct:extra",
-      "durability": 20
+      "durability": 50
     }
   ]
 }
