@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -18,8 +19,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
@@ -41,9 +41,8 @@ import java.util.stream.Collectors;
  * The location inside datapacks is "materials".
  * So if your mods name is "foobar", the location for your mods materials is "data/foobar/materials".
  */
+@Log4j2
 public class MaterialManager extends JsonReloadListener {
-
-  private static final Logger LOGGER = LogManager.getLogger();
 
   public static final String FOLDER = "materials/definition";
   public static final Gson GSON = (new GsonBuilder())
@@ -93,6 +92,9 @@ public class MaterialManager extends JsonReloadListener {
         material -> material)
       );
 
+    log.debug("Loaded materials: {}", Util.toIdentedStringList(materials.keySet()));
+    log.info("{} materials loaded", materials.size());
+
     tinkerNetwork.getChannel().send(PacketDistributor.ALL.noArg(), new UpdateMaterialsPacket(materials.values()));
   }
 
@@ -111,7 +113,7 @@ public class MaterialManager extends JsonReloadListener {
 
       return new Material(materialId, fluid, isCraftable, shard);
     } catch (Exception e) {
-      LOGGER.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
+      log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;
     }
   }
@@ -125,7 +127,7 @@ public class MaterialManager extends JsonReloadListener {
       if(shardItem != null && shardItem != Items.AIR) {
         shard = new ItemStack(shardItem);
       } else {
-        LOGGER.warn("Could not find shard item {} for material {}", shardItemId, materialId);
+        log.warn("Could not find shard item {} for material {}", shardItemId, materialId);
       }
     }
     return shard;
@@ -137,7 +139,7 @@ public class MaterialManager extends JsonReloadListener {
     if (fluidId != null) {
       fluid = ForgeRegistries.FLUIDS.getValue(fluidId);
       if (fluid == null || fluid.getDefaultState().isEmpty()) {
-        LOGGER.warn("Could not find fluid {} for material {}", fluidId, materialId);
+        log.warn("Could not find fluid {} for material {}", fluidId, materialId);
         fluid = Fluids.EMPTY;
       }
     }

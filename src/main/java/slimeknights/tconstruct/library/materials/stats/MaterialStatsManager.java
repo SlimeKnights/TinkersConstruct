@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
@@ -15,8 +16,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.PacketDistributor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -26,6 +26,7 @@ import slimeknights.tconstruct.library.network.UpdateMaterialStatsPacket;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -50,9 +51,9 @@ import java.util.stream.Stream;
  * The location inside datapacks is "materials/stats".
  * So if your mods name is "foobar", the location for your mads material stats is "data/foobar/materials/stats".
  */
+@Log4j2
 public class MaterialStatsManager extends JsonReloadListener {
 
-  private static final Logger LOGGER = LogManager.getLogger();
   @VisibleForTesting
   protected static final String FOLDER = "materials/stats";
   @VisibleForTesting
@@ -138,6 +139,14 @@ public class MaterialStatsManager extends JsonReloadListener {
         entry -> deserializeMaterialStatsFromContent(entry.getValue())
       ));
 
+    log.debug("Loaded stats for materials:{}",
+      Util.toIdentedStringList(materialToStatsPerType.entrySet().stream()
+        .map(entry -> String.format("%s - %s", entry.getKey(), Arrays.toString(entry.getValue().keySet().toArray())))
+        .collect(Collectors.toList())));
+    log.info("{} stats loaded for {} materials",
+      materialToStatsPerType.values().stream().mapToInt(stats -> stats.keySet().size()).sum(),
+      materialToStatsPerType.size());
+
     // send the newly loaded stats over the network
     Map<MaterialId, Collection<BaseMaterialStats>> networkPayload = materialToStatsPerType.entrySet().stream()
       .collect(Collectors.toMap(
@@ -169,7 +178,7 @@ public class MaterialStatsManager extends JsonReloadListener {
         o -> o.statsId,
         statContent -> statContent,
         (statContent, statContent2) -> {
-          LOGGER.error("Duplicate stats {} for a material, ignoring additional definitions. " +
+          log.error("Duplicate stats {} for a material, ignoring additional definitions. " +
             "Some mod is probably trying to add duplicate stats to another mods material.", statContent.statsId);
           return statContent;
         }
@@ -192,14 +201,14 @@ public class MaterialStatsManager extends JsonReloadListener {
           try {
             stats.add(loadStatContent(statJson));
           } catch (Exception e) {
-            LOGGER.error("Could not deserialize material stats from file {}. JSON: {}", file, statJson, e);
+            log.error("Could not deserialize material stats from file {}. JSON: {}", file, statJson, e);
           }
         }
       }
 
       return new StatsFileContent(new MaterialId(materialId), stats);
     } catch (Exception e) {
-      LOGGER.error("Could not deserialize material stats file {}. JSON: {}", file, jsonObject, e);
+      log.error("Could not deserialize material stats file {}. JSON: {}", file, jsonObject, e);
       return null;
     }
   }
@@ -217,7 +226,7 @@ public class MaterialStatsManager extends JsonReloadListener {
   private Optional<BaseMaterialStats> deserializeMaterialStat(MaterialStatsId statsId, JsonElement statsJson) {
     Class<? extends BaseMaterialStats> materialStatClass = materialStatClasses.get(statsId);
     if (materialStatClass == null) {
-      LOGGER.error("The material stat of type '" + statsId + "' has not been registered");
+      log.error("The material stat of type '" + statsId + "' has not been registered");
       return Optional.empty();
     }
     return Optional.ofNullable(GSON.fromJson(statsJson, materialStatClass));
