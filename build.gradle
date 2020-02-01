@@ -64,7 +64,6 @@ configurations {
     deployerJars
 }
 
-
 dependencies {
     compile "mantle:Mantle:${config.minecraft_version}-${config.mantle_version}:deobf"
     compile "codechicken:CodeChickenLib:${config.minecraft_version}-${config.CCLIB_version}:dev"
@@ -115,6 +114,10 @@ sourceSets {
         }
     }
 }
+sourceSets {
+    main { output.resourcesDir = output.classesDir }
+}
+
 processResources
 {
     inputs.property "version", artifact_version

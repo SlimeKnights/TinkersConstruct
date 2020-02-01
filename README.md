@@ -1,10 +1,6 @@
-[![Build Status](https://travis-ci.org/GTNewHorizons/TinkersConstruct.svg?branch=1.7.10)](https://travis-ci.org/GTNewHorizons/TinkersConstruct)
+#[Tinkers' Construct - GTNH](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2218638-tinkers-construct)
 
-#TINKERS' CONSTRUCT IS UNDERGOING A REWRITE
-The current 1.7.10 version of Tinkers' Construct is the final one for this iteration. Only major bugs will be fixed.
-The rework is aimed at 1.8 and has no time-plan. It'll be ready when it's done.
-
-#[Tinkers' Construct](http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2218638-tinkers-construct)
+Forked version of Tinker's Construct being maintained for 1.7.10 for use in the GTNH modpack.
 
 Modify all the things, then do it again!   
 Melt down any metals you find. 	 
@@ -16,13 +12,13 @@ Install Forge as usual, and setup your IDE as with any other Forge project. Forg
 ## IMC
 All IMC support and examples can be found here: https://gist.github.com/bonii-xx/e46f9d9e81e29d796b1b
 
-##Compile from Source
+## Compile from Source
 Note: Git MUST be installed and in the system path to use our scripts.
 * Setup: Run [gradle]in the repository root: `gradlew[.bat] [setupDevWorkspace|setupDecompWorkspace] [eclipse|idea]`
 * Build: Run [gradle]in the repository root: `gradlew[.bat] build'
 * If obscure Gradle issues are found try running 'gradlew clean' and 'gradlew cleanCache'
 
-##Issue reporting
+## Issue reporting
 Please include the following:
 
 * Minecraft version
@@ -34,7 +30,7 @@ Please include the following:
 	* Steps to reproduce
 	* ForgeModLoader-client-0.log (the FML log) from the root folder of the client
 
-##Licenses
+## Licenses
 Most code is public domain under [Creative Commons 0](http://creativecommons.org/publicdomain/zero/1.0/). The rework will be licensed under the [MIT License](https://tldrlegal.com/license/mit-license)
 
 Textures and binaries are licensed under [Creative Commons 3](http://creativecommons.org/licenses/by/3.0/).
@@ -44,6 +40,3 @@ Any modpack which uses Tinkers' Construct takes **full** responsibility for user
 If you have queries about any license or the above support restrictions, please drop by our IRC channel, #TinkersConstruct on irc.esper.net
 
 Any alternate licenses are noted where appropriate.
-
-##Jar Signing
-Some jars from our build servers may be signed. Under no circumstances does anyone have permission to verify the signatures on those jars from other mods. The signing is for informational purposes only.
