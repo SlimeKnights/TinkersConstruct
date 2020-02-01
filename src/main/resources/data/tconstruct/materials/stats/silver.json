@@ -1,27 +1,27 @@
 {
   "materialId": {
     "namespace": "tconstruct",
-    "path": "stone"
+    "path": "silver"
   },
   "stats": [
     {
       "id": "tconstruct:common",
-      "durability": 120,
-      "attack": 3.0
+      "durability": 250,
+      "attack": 5.0
     },
     {
       "id": "tconstruct:harvest",
-      "miningSpeed": 4.0,
+      "miningSpeed": 5.0,
       "harvestLevel": 1
     },
     {
       "id": "tconstruct:handle",
-      "modifier": 0.5,
-      "durability": -50
+      "modifier": 0.95,
+      "durability": 50
     },
     {
       "id": "tconstruct:extra",
-      "durability": 20
+      "durability": 150
     }
   ]
 }

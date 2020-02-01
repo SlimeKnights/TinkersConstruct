@@ -1,27 +1,27 @@
 {
   "materialId": {
     "namespace": "tconstruct",
-    "path": "stone"
+    "path": "firewood"
   },
   "stats": [
     {
       "id": "tconstruct:common",
-      "durability": 120,
-      "attack": 3.0
+      "durability": 550,
+      "attack": 5.5
     },
     {
       "id": "tconstruct:harvest",
-      "miningSpeed": 4.0,
-      "harvestLevel": 1
+      "miningSpeed": 6.0,
+      "harvestLevel": 0
     },
     {
       "id": "tconstruct:handle",
-      "modifier": 0.5,
-      "durability": -50
+      "modifier": 1.0,
+      "durability": -200
     },
     {
       "id": "tconstruct:extra",
-      "durability": 20
+      "durability": 150
     }
   ]
 }

@@ -41,6 +41,7 @@ import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
+import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Random;
@@ -113,6 +114,8 @@ public class TConstruct {
       datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator));
       //datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
       datagenerator.addProvider(new TConstructRecipeProvider(datagenerator));
+      datagenerator.addProvider(new MaterialDataProvider());
+      datagenerator.addProvider(new MaterialStatsDataProvider());
     }
   }
 

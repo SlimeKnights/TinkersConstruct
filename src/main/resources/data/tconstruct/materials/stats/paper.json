@@ -1,27 +1,27 @@
 {
   "materialId": {
     "namespace": "tconstruct",
-    "path": "stone"
+    "path": "paper"
   },
   "stats": [
     {
       "id": "tconstruct:common",
-      "durability": 120,
-      "attack": 3.0
+      "durability": 12,
+      "attack": 0.05
     },
     {
       "id": "tconstruct:harvest",
-      "miningSpeed": 4.0,
-      "harvestLevel": 1
+      "miningSpeed": 0.51,
+      "harvestLevel": 0
     },
     {
       "id": "tconstruct:handle",
-      "modifier": 0.5,
-      "durability": -50
+      "modifier": 0.1,
+      "durability": 5
     },
     {
       "id": "tconstruct:extra",
-      "durability": 20
+      "durability": 15
     }
   ]
 }

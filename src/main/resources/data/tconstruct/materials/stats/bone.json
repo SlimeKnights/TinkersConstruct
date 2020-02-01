@@ -1,27 +1,27 @@
 {
   "materialId": {
     "namespace": "tconstruct",
-    "path": "stone"
+    "path": "bone"
   },
   "stats": [
     {
       "id": "tconstruct:common",
-      "durability": 120,
-      "attack": 3.0
+      "durability": 200,
+      "attack": 2.5
     },
     {
       "id": "tconstruct:harvest",
-      "miningSpeed": 4.0,
+      "miningSpeed": 5.09,
       "harvestLevel": 1
     },
     {
       "id": "tconstruct:handle",
-      "modifier": 0.5,
-      "durability": -50
+      "modifier": 1.1,
+      "durability": 50
     },
     {
       "id": "tconstruct:extra",
-      "durability": 20
+      "durability": 65
     }
   ]
 }

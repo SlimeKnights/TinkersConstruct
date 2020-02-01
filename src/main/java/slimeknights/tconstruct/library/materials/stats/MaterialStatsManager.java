@@ -54,10 +54,8 @@ import java.util.stream.Stream;
 @Log4j2
 public class MaterialStatsManager extends JsonReloadListener {
 
-  @VisibleForTesting
-  protected static final String FOLDER = "materials/stats";
-  @VisibleForTesting
-  protected static final Gson GSON = (new GsonBuilder())
+  public static final String FOLDER = "materials/stats";
+  public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
     .setPrettyPrinting()
     .disableHtmlEscaping()
