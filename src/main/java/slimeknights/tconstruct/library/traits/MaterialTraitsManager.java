@@ -5,18 +5,19 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.traits.json.TraitMappingJson;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -38,9 +39,9 @@ import java.util.stream.Stream;
  * The location inside datapacks is "materials/traits".
  * So if your mods name is "foobar", the location for your mads material stats is "data/foobar/materials/traits".
  */
+@Log4j2
 public class MaterialTraitsManager extends JsonReloadListener {
 
-  private static final Logger LOGGER = LogManager.getLogger();
   @VisibleForTesting
   protected static final String FOLDER = "materials/traits";
   @VisibleForTesting
@@ -82,6 +83,15 @@ public class MaterialTraitsManager extends JsonReloadListener {
         TraitMappingJson::getMaterialId,
         TraitMappingJson::getPerStat,
         this::combineMaps));
+
+    materialToTraitsPerStatsType.forEach((materialId, traitsMap) -> {
+      log.debug("Loaded traits for material '{}': \n\tDefault - {}{}",
+        materialId,
+        Arrays.toString(materialDefaultTraits.getOrDefault(materialId, Collections.emptyList()).toArray()),
+        Util.toIdentedStringList(traitsMap.entrySet().stream()
+          .map(entry -> String.format("%s - %s", entry.getKey(), Arrays.toString(entry.getValue().toArray())))
+          .collect(Collectors.toList())));
+    });
   }
 
   private Map<MaterialStatsId, List<TraitId>> combineMaps(Map<MaterialStatsId, List<TraitId>> materialStatsIdListMap, Map<MaterialStatsId, List<TraitId>> materialStatsIdListMap2) {
@@ -117,7 +127,7 @@ public class MaterialTraitsManager extends JsonReloadListener {
       }
       return traitMappingJson;
     } catch (Exception e) {
-      LOGGER.error("Could not deserialize material trait mapping from file {}. JSON: {}", entry.getKey(), entry.getValue(), e);
+      log.error("Could not deserialize material trait mapping from file {}. JSON: {}", entry.getKey(), entry.getValue(), e);
       return null;
     }
   }

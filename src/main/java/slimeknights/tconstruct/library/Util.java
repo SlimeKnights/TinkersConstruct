@@ -27,8 +27,10 @@ import slimeknights.mantle.util.RecipeMatchRegistry;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.Collection;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("deprecation")
 public class Util {
@@ -196,4 +198,9 @@ public class Util {
             && aabb.minZ <= hitZ && hitZ <= aabb.maxZ;
   }
 
+  public static String toIdentedStringList(Collection<?> list) {
+    return list.stream()
+      .map(Object::toString)
+      .collect(Collectors.joining("\n\t", "\n\t", ""));
+  }
 }
