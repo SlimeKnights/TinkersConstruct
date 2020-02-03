@@ -22,7 +22,6 @@ public class TraitHellish extends AbstractTrait {
   public float damage(ItemStack tool, EntityLivingBase player, EntityLivingBase target, float damage, float newDamage, boolean isCritical) {
     if (!target.isImmuneToFire()) {
       newDamage += bonusDamage;
-      TConstruct.log.info("Boosted");
     }
     return super.damage(tool, player, target, damage, newDamage, isCritical);
   }
