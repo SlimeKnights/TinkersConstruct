@@ -65,7 +65,7 @@ public class TinkerWorld extends TinkerPulse {
 
   public static TreeFeatureConfig MAGMA_TREE_CONFIG = (new TreeFeatureConfig.Builder(new SupplierBlockStateProvider(() -> WorldBlocks.congealed_magma_slime.getDefaultState()),
     new SupplierBlockStateProvider(() -> WorldBlocks.orange_slime_leaves.getDefaultState()),
-    new BlobFoliagePlacer(2, 0))).baseHeight(4).func_227354_b_(2).func_227360_i_(3).func_227352_a_().setSapling((net.minecraftforge.common.IPlantable) WorldBlocks.orange_slime_sapling).build();
+    new BlobFoliagePlacer(2, 0))).baseHeight(4).heightRandA(2).foliageHeight(3).ignoreVines().setSapling((net.minecraftforge.common.IPlantable) WorldBlocks.orange_slime_sapling).build();
 
   public TinkerWorld() {
     proxy.construct();

@@ -10,9 +10,12 @@ import java.util.Random;
 
 public class MagmaSlimeTree extends Tree {
 
+  /**
+   * Get a {@link net.minecraft.world.gen.feature.ConfiguredFeature} of tree
+   */
   @Override
   @Nullable
-  protected ConfiguredFeature<TreeFeatureConfig, ?> func_225546_b_(Random random, boolean bool) {
+  protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bool) {
     return TinkerWorld.MAGMA_TREE.withConfiguration(TinkerWorld.MAGMA_TREE_CONFIG);
   }
 }
