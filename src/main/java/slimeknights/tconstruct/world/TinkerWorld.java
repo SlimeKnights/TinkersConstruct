@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.world;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
@@ -11,8 +13,12 @@ import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
+import net.minecraft.world.gen.foliageplacer.FoliagePlacerType;
 import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.gen.treedecorator.TreeDecorator;
+import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
+import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.event.RegistryEvent;
@@ -34,12 +40,18 @@ import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.world.worldgen.NetherSlimeIslandPiece;
-import slimeknights.tconstruct.world.worldgen.NetherSlimeIslandStructure;
-import slimeknights.tconstruct.world.worldgen.SlimeIslandPiece;
-import slimeknights.tconstruct.world.worldgen.SlimeIslandStructure;
-import slimeknights.tconstruct.world.worldgen.SlimeTreeFeature;
-import slimeknights.tconstruct.world.worldgen.SupplierBlockStateProvider;
+import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeature;
+import slimeknights.tconstruct.world.worldgen.islands.nether.NetherSlimeIslandPiece;
+import slimeknights.tconstruct.world.worldgen.islands.nether.NetherSlimeIslandStructure;
+import slimeknights.tconstruct.world.worldgen.islands.overworld.SlimeIslandPiece;
+import slimeknights.tconstruct.world.worldgen.islands.overworld.SlimeIslandStructure;
+import slimeknights.tconstruct.world.worldgen.trees.feature.NoSlimeVineTreeDecorator;
+import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeFoliagePlacer;
+import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeLeaveVineTreeDecorator;
+import slimeknights.tconstruct.world.worldgen.trees.feature.SupplierBlockStateProvider;
+
+import java.util.List;
+import java.util.function.Supplier;
 
 @Pulse(id = TinkerPulseIds.TINKER_WORLD_PULSE_ID, description = "Everything that's found in the world and worldgen")
 @ObjectHolder(TConstruct.modID)
@@ -58,7 +70,12 @@ public class TinkerWorld extends TinkerPulse {
   public static IStructurePieceType NETHER_SLIME_ISLAND_PIECE;
   public static final Structure<NoFeatureConfig> NETHER_SLIME_ISLAND = injected();
 
-  public static final Feature<TreeFeatureConfig> MAGMA_TREE = injected();
+  public static final Feature<TreeFeatureConfig> TREE = injected();
+
+  public static BlockStateProviderType<SupplierBlockStateProvider> SUPPLIER_BLOCKSTATE_PROVIDER = Registry.register(Registry.BLOCK_STATE_PROVIDER_TYPE, "tconstruct:supplier_state_provider", new BlockStateProviderType<>(SupplierBlockStateProvider::new));
+  public static FoliagePlacerType<SlimeFoliagePlacer> SLIME_FOLIAGE_PLACER = Registry.register(Registry.FOLIAGE_PLACER_TYPE, "tconstruct:slime_foliage_placer", new FoliagePlacerType<>(SlimeFoliagePlacer::new));
+  public static TreeDecoratorType<SlimeLeaveVineTreeDecorator> SLIME_LEAVE_VINE_TREE_DECORATOR = Registry.register(Registry.TREE_DECORATOR_TYPE, "tconstruct:slime_leave_vine", new TreeDecoratorType<>(SlimeLeaveVineTreeDecorator::new));
+  public static TreeDecoratorType<NoSlimeVineTreeDecorator> SLIME_NO_VINE_TREE_DECORATOR = Registry.register(Registry.TREE_DECORATOR_TYPE, "tconstruct:slime_no_vine", new TreeDecoratorType<>(NoSlimeVineTreeDecorator::new));
 
   public static TreeFeatureConfig MAGMA_TREE_CONFIG = (new TreeFeatureConfig.Builder(new SupplierBlockStateProvider(() -> WorldBlocks.congealed_magma_slime.getDefaultState()),
     new SupplierBlockStateProvider(() -> WorldBlocks.orange_slime_leaves.getDefaultState()),
@@ -98,7 +115,7 @@ public class TinkerWorld extends TinkerPulse {
   public void postInit(final InterModProcessEvent event) {
     MinecraftForge.EVENT_BUS.register(new WorldEvents());
     proxy.postInit();
-    TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(WorldBlocks.orange_slime_sapling));//WorldBlocks.blue_slime_sapling));
+    TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(WorldBlocks.blue_slime_sapling));
   }
 
   public static void applyFeatures() {
@@ -160,6 +177,12 @@ public class TinkerWorld extends TinkerPulse {
 
     biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, WorldBlocks.ardite_ore.getDefaultState(), 5))
       .func_227228_a_(Placement.COUNT_RANGE.func_227446_a_(new CountRangeConfig(veinCount, 0, 0, 128))));
+  }
+
+  public static TreeFeatureConfig createTreeConfig(Supplier<BlockState> logSupplierIn, Supplier<BlockState> leafSupplierIn, int foliageRadiusIn, int foliageRandomRadiusIn, int baseHeightIn, int randomHeightIn, int foliageHeightIn, List<TreeDecorator> decoratorsIn, IPlantable saplingIn) {
+    return (new TreeFeatureConfig.Builder(new SupplierBlockStateProvider(logSupplierIn), new SupplierBlockStateProvider(leafSupplierIn), new SlimeFoliagePlacer(foliageRadiusIn, foliageRandomRadiusIn)))
+      .baseHeight(baseHeightIn).heightRandA(randomHeightIn).foliageHeight(foliageHeightIn).ignoreVines()
+      .decorators(decoratorsIn).setSapling(saplingIn).build();
   }
 
 }
