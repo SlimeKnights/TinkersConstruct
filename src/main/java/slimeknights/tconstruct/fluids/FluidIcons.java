@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.fluids;
 
 import net.minecraft.util.ResourceLocation;
-
 import slimeknights.tconstruct.library.Util;
 
 public class FluidIcons {

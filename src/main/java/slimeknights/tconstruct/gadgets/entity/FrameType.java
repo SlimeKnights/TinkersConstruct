@@ -3,7 +3,6 @@ package slimeknights.tconstruct.gadgets.entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.IStringSerializable;
-
 import slimeknights.tconstruct.items.GadgetItems;
 
 import java.util.Arrays;

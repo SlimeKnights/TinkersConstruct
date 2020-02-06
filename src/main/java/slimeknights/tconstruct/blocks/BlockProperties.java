@@ -5,10 +5,9 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraftforge.common.ToolType;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
 
 import javax.annotation.Nullable;
-
-import slimeknights.tconstruct.library.utils.HarvestLevels;
 
 public final class BlockProperties {
   /* Properties should be set in the following order for consistency:

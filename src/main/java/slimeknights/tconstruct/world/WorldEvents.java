@@ -5,7 +5,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-
 import slimeknights.tconstruct.entity.WorldEntities;
 
 public class WorldEvents {

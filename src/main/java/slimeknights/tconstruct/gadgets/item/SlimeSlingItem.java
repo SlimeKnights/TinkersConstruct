@@ -15,10 +15,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.item.TooltipItem;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 

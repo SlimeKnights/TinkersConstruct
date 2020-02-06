@@ -8,11 +8,10 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.PlantType;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.world.TinkerWorld;
+
+import javax.annotation.Nonnull;
 
 public class SlimeSaplingBlock extends SaplingBlock {
 

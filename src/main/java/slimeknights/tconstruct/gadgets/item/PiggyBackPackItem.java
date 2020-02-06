@@ -28,7 +28,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.item.ArmorTooltipItem;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -36,6 +35,7 @@ import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPigg
 import slimeknights.tconstruct.library.capability.piggyback.ITinkerPiggyback;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.effect.TinkerEffect;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
 
 import javax.annotation.Nonnull;
 

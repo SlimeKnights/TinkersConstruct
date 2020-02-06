@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.renderer.BufferBuilder;
 
 public final class RenderUtil {
 

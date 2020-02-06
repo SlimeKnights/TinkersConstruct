@@ -8,14 +8,13 @@ import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.Items;
 import net.minecraftforge.common.Tags;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.blocks.CommonBlocks;
+import slimeknights.tconstruct.blocks.DecorativeBlocks;
+import slimeknights.tconstruct.items.CommonItems;
+import slimeknights.tconstruct.library.TinkerPulseIds;
 
 import java.util.function.Consumer;
-
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.blocks.DecorativeBlocks;
-import slimeknights.tconstruct.library.TinkerPulseIds;
-import slimeknights.tconstruct.blocks.CommonBlocks;
-import slimeknights.tconstruct.items.CommonItems;
 
 public class TConstructRecipeProvider extends RecipeProvider {
 

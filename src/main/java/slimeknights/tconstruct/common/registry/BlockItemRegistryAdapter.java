@@ -5,10 +5,9 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.registries.IForgeRegistry;
+import slimeknights.mantle.item.BlockTooltipItem;
 
 import javax.annotation.Nullable;
-
-import slimeknights.mantle.item.BlockTooltipItem;
 
 // MANTLE
 // TODO: move to mantle

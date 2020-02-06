@@ -5,7 +5,6 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
-
 import slimeknights.mantle.item.EdibleItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.item.TinkerBookItem;

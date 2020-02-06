@@ -10,7 +10,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-
 import slimeknights.tconstruct.world.TinkerWorld;
 
 public class SlimyMudBlock extends Block {
