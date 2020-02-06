@@ -66,15 +66,13 @@ public class PunjiBlock extends Block {
 
     if (north.getBlock() == this && north.get(FACING) == direction) {
       stateIn = stateIn.with(NORTH, true);
-    }
-    else {
+    } else {
       stateIn = stateIn.with(NORTH, false);
     }
 
     if (east.getBlock() == this && east.get(FACING) == direction) {
       stateIn = stateIn.with(EAST, true);
-    }
-    else {
+    } else {
       stateIn = stateIn.with(EAST, false);
     }
 
@@ -84,15 +82,13 @@ public class PunjiBlock extends Block {
 
     if (northeast.getBlock() == this && northeast.get(FACING) == direction) {
       stateIn = stateIn.with(NORTHEAST, true);
-    }
-    else {
+    } else {
       stateIn = stateIn.with(NORTHEAST, false);
     }
 
     if (northwest.getBlock() == this && northwest.get(FACING) == direction) {
       stateIn = stateIn.with(NORTHWEST, true);
-    }
-    else {
+    } else {
       stateIn = stateIn.with(NORTHWEST, false);
     }
 
@@ -147,8 +143,7 @@ public class PunjiBlock extends Block {
 
     if (state.isValidPosition(iworldreader, blockpos)) {
       return state;
-    }
-    else {
+    } else {
       return null;
     }
   }

@@ -11,8 +11,13 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static slimeknights.tconstruct.fixture.MaterialFixture.*;
-import static slimeknights.tconstruct.fixture.MaterialStatsFixture.*;
+import static slimeknights.tconstruct.fixture.MaterialFixture.ALL_MATERIALS;
+import static slimeknights.tconstruct.fixture.MaterialFixture.MATERIAL_1;
+import static slimeknights.tconstruct.fixture.MaterialFixture.MATERIAL_2;
+import static slimeknights.tconstruct.fixture.MaterialStatsFixture.MATERIAL_STATS;
+import static slimeknights.tconstruct.fixture.MaterialStatsFixture.MATERIAL_STATS_2;
+import static slimeknights.tconstruct.fixture.MaterialStatsFixture.STATS_TYPE;
+import static slimeknights.tconstruct.fixture.MaterialStatsFixture.STATS_TYPE_2;
 
 /**
  * Makes all materials from the {@link MaterialFixture} available during tests.

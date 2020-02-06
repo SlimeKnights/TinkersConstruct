@@ -46,8 +46,7 @@ public class CongealedSlimeBlock extends Block {
       if (entityIn instanceof ItemEntity) {
         entityIn.onGround = false;
       }
-    }
-    else {
+    } else {
       super.onLanded(worldIn, entityIn);
     }
   }

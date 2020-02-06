@@ -33,12 +33,16 @@ public interface IToolPart extends IMaterialItem {
 
   boolean hasUseForStat(String stat);
 
-  /** Return true if the toolpart should be registered for crafting in the stencil table, with a pattern */
+  /**
+   * Return true if the toolpart should be registered for crafting in the stencil table, with a pattern
+   */
   default boolean canBeCrafted() {
     return true;
   }
 
-  /** Return true if the toolpart should be registered for casting, using a cast */
+  /**
+   * Return true if the toolpart should be registered for casting, using a cast
+   */
   default boolean canBeCasted() {
     return true;
   }

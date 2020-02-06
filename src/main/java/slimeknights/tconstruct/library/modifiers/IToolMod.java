@@ -18,10 +18,14 @@ public interface IToolMod {
 
   String getLocalizedName();
 
-  /** A short description to tell the user what the trait does */
+  /**
+   * A short description to tell the user what the trait does
+   */
   String getLocalizedDesc();
 
-  /** Extra info to display in the tool station. Each entry adds a line. */
+  /**
+   * Extra info to display in the tool station. Each entry adds a line.
+   */
   List<String> getExtraInfo(ItemStack tool, CompoundNBT modifierTag);
 
   /**

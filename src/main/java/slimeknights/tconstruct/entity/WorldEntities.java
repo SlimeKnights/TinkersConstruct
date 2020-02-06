@@ -14,13 +14,13 @@ import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
 public final class WorldEntities {
 
   public static final EntityType<BlueSlimeEntity> blue_slime_entity = EntityType.Builder
-      .create(BlueSlimeEntity::new, EntityClassification.MONSTER)
-      .setShouldReceiveVelocityUpdates(true)
-      .setUpdateInterval(5)
-      .setTrackingRange(64)
-      .size(2.04F, 2.04F)
-      .setCustomClientFactory((spawnEntity, world) -> WorldEntities.blue_slime_entity.create(world))
-      .build(Util.prefix("blue_slime_entity"));
+    .create(BlueSlimeEntity::new, EntityClassification.MONSTER)
+    .setShouldReceiveVelocityUpdates(true)
+    .setUpdateInterval(5)
+    .setTrackingRange(64)
+    .size(2.04F, 2.04F)
+    .setCustomClientFactory((spawnEntity, world) -> WorldEntities.blue_slime_entity.create(world))
+    .build(Util.prefix("blue_slime_entity"));
 
   @SubscribeEvent
   public static void registerEntities(final RegistryEvent.Register<EntityType<?>> event) {

@@ -5,13 +5,21 @@ package slimeknights.tconstruct.library.utils;
  */
 public final class Tags {
 
-  /** The base data of the tinker item. What it is built from. */
+  /**
+   * The base data of the tinker item. What it is built from.
+   */
   public static final String BASE = "TinkerData";
-  /** Contains the materials of the parts the tool was built from */
+  /**
+   * Contains the materials of the parts the tool was built from
+   */
   public static final String BASE_MATERIALS = "Materials";
-  /** Contains all the applied modifiers */
+  /**
+   * Contains all the applied modifiers
+   */
   public static final String BASE_MODIFIERS = "Modifiers";
-  /** An integer indicating how many free modifiers have been used */
+  /**
+   * An integer indicating how many free modifiers have been used
+   */
   public static final String BASE_USED_MODIFIERS = "UsedModifiers";
   /**
    * Extra-data that is specific to this Itemstack and is used to build the item. An example would be if a special
@@ -21,14 +29,18 @@ public final class Tags {
   public static final String EXTRA_CATEGORIES = "Categories";
 
   //public static final String TOOL_RENDER = "Render";
-  /** The tag that contains all the actual calculated runtime-information of the tools */
+  /**
+   * The tag that contains all the actual calculated runtime-information of the tools
+   */
   public static final String TOOL_STATS = "Stats";
   public static final String TOOL_DATA_ORIG = "StatsOriginal";
 
   public static final String TOOL_MODIFIERS = "Modifiers";
   public static final String TOOL_TRAITS = "Traits";
 
-  /** The tag that saves the material information on toolparts */
+  /**
+   * The tag that saves the material information on toolparts
+   */
   public static final String PART_MATERIAL = "Material";
 
   // tools

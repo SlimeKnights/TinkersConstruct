@@ -24,8 +24,7 @@ public class BlueColorReloadListener extends ReloadListener<int[]> {
   protected int[] prepare(IResourceManager resourceManager, IProfiler profiler) {
     try {
       return ColorMapLoader.loadColors(resourceManager, BLUE_GRASS_LOCATION);
-    }
-    catch (IOException ioexception) {
+    } catch (IOException ioexception) {
       throw new IllegalStateException("Failed to load blue grass color texture", ioexception);
     }
   }

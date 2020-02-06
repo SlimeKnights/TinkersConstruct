@@ -105,7 +105,7 @@ public final class DecorativeBlocks {
   private static void registerGlass(BaseRegistryAdapter<Block> registry) {
     registry.register(new ClearGlassBlock(BlockProperties.GENERIC_GLASS_BLOCK), "clear_glass");
 
-    for(ClearStainedGlassBlock.GlassColor glassColor : ClearStainedGlassBlock.GlassColor.values()) {
+    for (ClearStainedGlassBlock.GlassColor glassColor : ClearStainedGlassBlock.GlassColor.values()) {
       String registryName = glassColor.name().toLowerCase() + "_clear_stained_glass";
       registry.register(new ClearStainedGlassBlock(BlockProperties.GENERIC_GLASS_BLOCK, glassColor), registryName);
     }

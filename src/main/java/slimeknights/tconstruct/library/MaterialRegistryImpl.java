@@ -18,7 +18,7 @@ import java.util.Optional;
 /**
  * Holds all materials and the extra information registered for them (stat classes).
  * Materials are reset on every world load/join. Registered extra stuff is not.
- *
+ * <p>
  * For the Server, materials are loaded on server start/reload from the data packs.
  * For the Client, materials are synced from the server on server join.
  */
@@ -71,14 +71,14 @@ class MaterialRegistryImpl {
    * The default stats are used when something tries to create something out of material with these stats,
    * but for some reason the material does not have the given stats.<br/>
    * e.g. building an arrow with stone fletchings (stone cannot be used for fletchings)
-   *
+   * <p>
    * All material stats for the same materialStatType <em>must</em> have the same class as its default after it's registered.
    *
    * @param type
    * @param defaultStats
    */
   public <T extends BaseMaterialStats> void registerMaterial(MaterialStatsId type, T defaultStats, Class<T> clazz) {
-    if(materialStatDefaults.containsKey(type)) {
+    if (materialStatDefaults.containsKey(type)) {
       throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(type);
     }
     // todo: implement check if class is compatible with the requirements for a network syncable stats class

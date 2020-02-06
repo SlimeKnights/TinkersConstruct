@@ -128,10 +128,14 @@ public interface ITrait extends IToolMod {
    */
   void afterHit(ItemStack tool, LivingEntity player, LivingEntity target, float damageDealt, boolean wasCritical, boolean wasHit);
 
-  /** Called when the player holding the tool blocks an attack. */
+  /**
+   * Called when the player holding the tool blocks an attack.
+   */
   void onBlock(ItemStack tool, PlayerEntity player, LivingHurtEvent event);
 
-  /** Called when the player holding the tool is damaged. Only called if the player is NOT blocking! onBlock is called in that case.*/
+  /**
+   * Called when the player holding the tool is damaged. Only called if the player is NOT blocking! onBlock is called in that case.
+   */
   default void onPlayerHurt(ItemStack tool, PlayerEntity player, LivingEntity attacker, LivingHurtEvent event) {}
 
   /* Damage tool */
@@ -179,10 +183,10 @@ public interface ITrait extends IToolMod {
   /**
    * Determines the order in which traits/modifiers are processed. Higher priority gets processed first.
    * This is needed when the modifier interacts with the world, like modifying drops or preventing/dealing damage.
-   *
+   * <p>
    * Example: One modifier adds extra drops, while another consumes a specific drop.
    * The one removing drops needs to run after the one adding drops, to work properly.
-   *
+   * <p>
    * Note that this has no impact if you use events rather than the trait callbacks! You should still respect it.
    * Does NOT affect the order in which applyEffect on IModifier is called.
    *

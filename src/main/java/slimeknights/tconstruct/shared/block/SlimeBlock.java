@@ -45,7 +45,7 @@ public class SlimeBlock extends net.minecraft.block.SlimeBlock {
 
     public final int meta;
     private final int color, ballColor;
-    public static final SlimeType[] VISIBLE_COLORS = { GREEN, BLUE, PURPLE, BLOOD, MAGMA };
+    public static final SlimeType[] VISIBLE_COLORS = {GREEN, BLUE, PURPLE, BLOOD, MAGMA};
 
     /**
      * Returns the block color for this slime type

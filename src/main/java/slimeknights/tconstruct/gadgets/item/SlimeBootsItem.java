@@ -120,15 +120,13 @@ public class SlimeBootsItem extends ArmorTooltipItem implements IDyeableArmorIte
         // only slow down half as much when bouncing
         entity.setMotion(entity.getMotion().x / f, entity.getMotion().y, entity.getMotion().z / f);
         TinkerNetwork.instance.sendToServer(new BouncedPacket());
-      }
-      else {
+      } else {
         event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
       }
 
       entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1f, 1f);
       SlimeBounceHandler.addBounceHandler(entity, entity.getMotion().y);
-    }
-    else if (!isClient && entity.isCrouching()) {
+    } else if (!isClient && entity.isCrouching()) {
       event.setDamageMultiplier(0.2f);
     }
   }
@@ -137,20 +135,15 @@ public class SlimeBootsItem extends ArmorTooltipItem implements IDyeableArmorIte
   public static int getColorFromStack(ItemStack stack) {
     if (stack.getItem() == GadgetItems.slime_boots_blue) {
       return SlimeBlock.SlimeType.BLUE.getBallColor();
-    }
-    else if (stack.getItem() == GadgetItems.slime_boots_purple) {
+    } else if (stack.getItem() == GadgetItems.slime_boots_purple) {
       return SlimeBlock.SlimeType.PURPLE.getBallColor();
-    }
-    else if (stack.getItem() == GadgetItems.slime_boots_magma) {
+    } else if (stack.getItem() == GadgetItems.slime_boots_magma) {
       return SlimeBlock.SlimeType.MAGMA.getBallColor();
-    }
-    else if (stack.getItem() == GadgetItems.slime_boots_green) {
+    } else if (stack.getItem() == GadgetItems.slime_boots_green) {
       return SlimeBlock.SlimeType.GREEN.getBallColor();
-    }
-    else if (stack.getItem() == GadgetItems.slime_boots_blood) {
+    } else if (stack.getItem() == GadgetItems.slime_boots_blood) {
       return SlimeBlock.SlimeType.BLOOD.getBallColor();
-    }
-    else {
+    } else {
       return SlimeBlock.SlimeType.GREEN.getBallColor();
     }
   }

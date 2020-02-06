@@ -18,9 +18,9 @@ class ToolDataTest extends BaseMcTest {
     CompoundNBT nbt = testToolData.serializeToNBT();
 
     assertThat(nbt.contains(ToolData.TAG_ITEM)).isTrue();
-    assertThat(nbt.getTagId(ToolData.TAG_ITEM)).isEqualTo((byte)Constants.NBT.TAG_STRING);
+    assertThat(nbt.getTagId(ToolData.TAG_ITEM)).isEqualTo((byte) Constants.NBT.TAG_STRING);
     assertThat(nbt.contains(ToolData.TAG_MATERIALS)).isTrue();
-    assertThat(nbt.getTagId(ToolData.TAG_MATERIALS)).isEqualTo((byte)Constants.NBT.TAG_LIST);
+    assertThat(nbt.getTagId(ToolData.TAG_MATERIALS)).isEqualTo((byte) Constants.NBT.TAG_LIST);
   }
 
   @Test

@@ -37,8 +37,7 @@ public class ColoredSlimeGelLayer<T extends LivingEntity> extends LayerRenderer<
     if (!entity.isInvisible()) {
       if (magicMushrooms) {
         RenderUtil.setColorRGBA(Color.HSBtoRGB(this.ticking / 100f, 0.65f, 0.8f) | (this.color & (0xFF << 24)));
-      }
-      else {
+      } else {
         RenderUtil.setColorRGBA(this.color);
       }
 

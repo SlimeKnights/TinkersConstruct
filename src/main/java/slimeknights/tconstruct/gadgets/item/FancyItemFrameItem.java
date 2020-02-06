@@ -37,8 +37,7 @@ public class FancyItemFrameItem extends Item {
     ItemStack stack = context.getItem();
     if (player != null && !this.canPlace(player, facing, stack, placeLocation)) {
       return ActionResultType.FAIL;
-    }
-    else {
+    } else {
       World world = context.getWorld();
       HangingEntity frame = this.entityProvider.apply(world, placeLocation, facing);
 

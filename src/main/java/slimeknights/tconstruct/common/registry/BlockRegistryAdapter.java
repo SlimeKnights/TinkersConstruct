@@ -22,7 +22,7 @@ public class BlockRegistryAdapter extends BaseRegistryAdapter<Block> {
    * Uses the vanilla slab and stair blocks. Uses the passed blocks properties for both.
    * Slabs and stairs are registered with a "_slab" and "_stairs" prefix
    *
-   * @param block The main block to register and whose properties to use
+   * @param block        The main block to register and whose properties to use
    * @param registryName The registry name to use for the block and as base for the slab and stairs
    */
   public void registerSlabsAndStairs(Block block, String registryName) {

@@ -4,7 +4,7 @@ package slimeknights.tconstruct.library.materials;
  * These values define how much an item is "worth".
  * The values are used for liquids as well as part crafting.
  * e.g. we use them to determine how much fluid shall be generated, or how much the item counts as for part building.
- *
+ * <p>
  * In general, use these values when registering items/item-interactions unless you have a very good reason.
  */
 public final class MaterialValues {

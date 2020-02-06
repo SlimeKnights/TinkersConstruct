@@ -32,13 +32,13 @@ public class ToolDebugContainer extends Container {
     this.inventory = new Inventory(1);
 
     this.addSlot(new OutSlot(inventory, 0, 50, 50));
-    for(int i = 0; i < 3; ++i) {
-      for(int j = 0; j < 9; ++j) {
+    for (int i = 0; i < 3; ++i) {
+      for (int j = 0; j < 9; ++j) {
         this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
       }
     }
 
-    for(int k = 0; k < 9; ++k) {
+    for (int k = 0; k < 9; ++k) {
       this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 142));
     }
   }

@@ -12,5 +12,5 @@ public abstract class TinkerPacket implements INetworkSendable {
     context.setPacketHandled(true);
   }
 
-  protected abstract  void handle(NetworkEvent.Context context);
+  protected abstract void handle(NetworkEvent.Context context);
 }

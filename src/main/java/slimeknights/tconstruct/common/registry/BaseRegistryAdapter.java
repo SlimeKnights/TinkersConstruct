@@ -7,6 +7,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 // MANTLE
 // TODO: move to mantle
+
 /**
  * A convenience wrapper for forge registries, to be used in combination with the {@link net.minecraftforge.event.RegistryEvent.Register} event.
  * Simply put it allows you to register things by passing (thing, name) instead of having to set the name inline.
@@ -52,7 +53,7 @@ public class BaseRegistryAdapter<T extends IForgeRegistryEntry<T>> {
   /**
    * General purpose backup registration method. In case you want to set a very specific resource location.
    * You should probably use the special purpose methods instead of this.
-   *
+   * <p>
    * Note: changes the things registry name. Do not call this with already registered objects!
    */
   public <I extends T> I register(I forgeRegistryEntry, ResourceLocation location) {

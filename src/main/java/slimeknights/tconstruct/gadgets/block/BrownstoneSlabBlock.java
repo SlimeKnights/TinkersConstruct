@@ -17,8 +17,7 @@ public class BrownstoneSlabBlock extends SlabBlock {
   public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
     if (entityIn.isInWater()) {
       entityIn.setMotion(entityIn.getMotion().mul(1.20D, 1.0D, 1.20D));
-    }
-    else {
+    } else {
       entityIn.setMotion(entityIn.getMotion().mul(1.25D, 1.0D, 1.25D));
     }
   }

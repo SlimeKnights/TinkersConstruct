@@ -32,8 +32,7 @@ public class SlimeBounceHandler {
 
     if (bounce != 0) {
       this.bounceTick = entityLiving.ticksExisted;
-    }
-    else {
+    } else {
       this.bounceTick = 0;
     }
 
@@ -69,14 +68,12 @@ public class SlimeBounceHandler {
       if (this.wasInAir && this.entityLiving.onGround) {
         if (this.timer == 0) {
           this.timer = this.entityLiving.ticksExisted;
-        }
-        else if (this.entityLiving.ticksExisted - this.timer > 5) {
+        } else if (this.entityLiving.ticksExisted - this.timer > 5) {
           MinecraftForge.EVENT_BUS.unregister(this);
           bouncingEntities.remove(this.entityLiving);
           //entityLiving.addChatMessage(new ChatComponentText("removed " + entityLiving.worldObj.isRemote));
         }
-      }
-      else {
+      } else {
         this.timer = 0;
         this.wasInAir = true;
       }
@@ -96,8 +93,7 @@ public class SlimeBounceHandler {
     if (handler == null) {
       // wasn't bouncing yet, register it
       MinecraftForge.EVENT_BUS.register(new SlimeBounceHandler(entity, bounce));
-    }
-    else if (bounce != 0) {
+    } else if (bounce != 0) {
       // updated bounce if needed
       handler.bounce = bounce;
       handler.bounceTick = entity.ticksExisted;

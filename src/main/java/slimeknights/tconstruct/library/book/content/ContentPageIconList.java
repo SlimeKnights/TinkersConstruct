@@ -40,7 +40,9 @@ public class ContentPageIconList extends TinkerPage {
     this.height = height;
   }
 
-  /** Returns false if the page is full */
+  /**
+   * Returns false if the page is full
+   */
   public boolean addLink(SizedBookElement element, String name, PageData pageData) {
     if (this.elements.size() >= this.getMaxIconCount()) {
       return false;

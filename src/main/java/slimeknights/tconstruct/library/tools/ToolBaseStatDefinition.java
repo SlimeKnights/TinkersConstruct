@@ -14,7 +14,9 @@ public final class ToolBaseStatDefinition {
    */
   private final float miningSpeedModifer;
 
-  /** Multiplier for damage from materials. Should be defined per tool. */
+  /**
+   * Multiplier for damage from materials. Should be defined per tool.
+   */
   private final float damageModifier;
 
   /**
@@ -67,6 +69,7 @@ public final class ToolBaseStatDefinition {
   }
 
   public static class Builder {
+
     private float miningSpeedModifer = 1;
     private float damageModifier = 0;
     private float damageCutoff = 15;
@@ -99,7 +102,7 @@ public final class ToolBaseStatDefinition {
     }
 
     public ToolBaseStatDefinition build() {
-      if(damageModifier < 0.001) {
+      if (damageModifier < 0.001) {
         throw new TinkerAPIException("Trying to define a tool without damage modifier set. Damage modifier has to be defined per tool and should be greater than 0.001 and non-negative.");
       }
 

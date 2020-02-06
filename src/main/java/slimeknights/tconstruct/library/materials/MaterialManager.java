@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  * Loads the material data from datapacks and provides them to whatever needs them.
  * Contains only the very basic material information, craftability, traits, but no stats.
  * See {@link slimeknights.tconstruct.library.materials.stats.MaterialStatsManager} for stats.
- *
+ * <p>
  * The location inside datapacks is "materials".
  * So if your mods name is "foobar", the location for your mods materials is "data/foobar/materials".
  */
@@ -103,7 +103,7 @@ public class MaterialManager extends JsonReloadListener {
     try {
       MaterialJson materialJson = GSON.fromJson(jsonObject, MaterialJson.class);
 
-      if(materialJson.getCraftable() == null) {
+      if (materialJson.getCraftable() == null) {
         throw TinkerJSONException.materialJsonWithoutCraftingInformation(materialId);
       }
 
@@ -121,10 +121,10 @@ public class MaterialManager extends JsonReloadListener {
   private ItemStack loadShardItem(ResourceLocation materialId, MaterialJson materialJson) {
     ResourceLocation shardItemId = materialJson.getShardItem();
     ItemStack shard = ItemStack.EMPTY;
-    if(shardItemId != null) {
+    if (shardItemId != null) {
       Item shardItem = ForgeRegistries.ITEMS.getValue(shardItemId);
       // air is the default, but the contract also allows null
-      if(shardItem != null && shardItem != Items.AIR) {
+      if (shardItem != null && shardItem != Items.AIR) {
         shard = new ItemStack(shardItem);
       } else {
         log.warn("Could not find shard item {} for material {}", shardItemId, materialId);

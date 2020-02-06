@@ -33,8 +33,7 @@ public class ElementListingCentered extends ElementText {
       }
 
       this.x = this.originalX - fontRenderer.getStringWidth(this.text[0].text);
-    }
-    else {
+    } else {
       this.text[0].text = "";
       this.text[this.text.length - 1].text = "";
       for (int i = 1; i < this.text.length - 1; i++) {

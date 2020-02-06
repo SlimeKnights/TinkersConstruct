@@ -104,12 +104,16 @@ public class Util {
     return I18n.format(I18n.format(key, pars).trim()).trim();
   }
 
-  /** Returns a fixed size DEEP copy of the list */
+  /**
+   * Returns a fixed size DEEP copy of the list
+   */
   public static NonNullList<ItemStack> deepCopyFixedNonNullList(NonNullList<ItemStack> in) {
     return RecipeMatchRegistry.copyItemStackArray(in);
   }
 
-  /** @deprecated use deepCopyFixedNonNullList */
+  /**
+   * @deprecated use deepCopyFixedNonNullList
+   */
   @Deprecated
   public static NonNullList<ItemStack> copyItemStackArray(NonNullList<ItemStack> in) {
     return deepCopyFixedNonNullList(in);
@@ -166,7 +170,8 @@ public class Util {
 
   /**
    * Gets the offset direction from two blocks
-   * @param offset  Position offset
+   *
+   * @param offset Position offset
    * @return Direction of the offset, or null if no direction
    */
   public static Direction facingFromOffset(BlockPos offset) {
@@ -175,8 +180,9 @@ public class Util {
 
   /**
    * Gets the offset direction from two blocks
-   * @param pos       Base position
-   * @param neighbor  Position Neighbor position
+   *
+   * @param pos      Base position
+   * @param neighbor Position Neighbor position
    * @return Direction of the offset, or null if no direction
    */
   public static Direction facingFromNeighbor(BlockPos pos, BlockPos neighbor) {
@@ -186,22 +192,24 @@ public class Util {
 
   /**
    * Returns true if the player clicked within the specified bounding box
-   * @param aabb  Bounding box clicked
-   * @param hitX  X hit location
-   * @param hitY  Y hit location
-   * @param hitZ  Z hit location
+   *
+   * @param aabb Bounding box clicked
+   * @param hitX X hit location
+   * @param hitY Y hit location
+   * @param hitZ Z hit location
    * @return True if the click was within the box
    */
   public static boolean clickedAABB(AxisAlignedBB aabb, float hitX, float hitY, float hitZ) {
     return aabb.minX <= hitX && hitX <= aabb.maxX
-            && aabb.minY <= hitY && hitY <= aabb.maxY
-            && aabb.minZ <= hitZ && hitZ <= aabb.maxZ;
+      && aabb.minY <= hitY && hitY <= aabb.maxY
+      && aabb.minZ <= hitZ && hitZ <= aabb.maxZ;
   }
 
   /**
    * Helper to create a indented list of entries in a single message.
    * Takes a list of objects, and converts them into a string with one entry on each line, prefixed by a tab for indentation.
    * The strings are created using the objects toString representation.
+   *
    * @param list A list of objects to create a list of lines from
    * @return A single string with all entries seperated into a new line, and indented.
    */

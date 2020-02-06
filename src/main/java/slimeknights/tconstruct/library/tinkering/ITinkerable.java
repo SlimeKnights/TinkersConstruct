@@ -10,6 +10,8 @@ import java.util.List;
  */
 public interface ITinkerable {
 
-  /** The default tooltip for the item */
+  /**
+   * The default tooltip for the item
+   */
   void getTooltip(ItemStack stack, List<String> tooltips);
 }

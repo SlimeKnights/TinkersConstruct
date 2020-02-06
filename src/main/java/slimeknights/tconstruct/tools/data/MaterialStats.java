@@ -22,6 +22,7 @@ final class MaterialStats {
   private static final int COBALT = 4;
 
   static final Map<MaterialId, List<IMaterialStats>> allMaterialStats = new HashMap<>();
+
   static {
     addMaterialStats(MaterialIds.wood,
       new CommonMaterialStats(35, 2.00f),

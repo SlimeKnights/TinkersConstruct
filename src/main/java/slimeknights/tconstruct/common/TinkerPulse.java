@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 /**
  * Just a small helper class that provides some function for cleaner Pulses.
- *
+ * <p>
  * Items should be registered during PreInit
  */
 public class TinkerPulse implements IRegisterUtil {
@@ -21,6 +21,7 @@ public class TinkerPulse implements IRegisterUtil {
   /**
    * This is to initialize fields that are injected via {@link net.minecraftforge.registries.ObjectHolder} annotation.
    * It just returns null, but it removes all the static code analysis varnings regarding this.
+   *
    * @return null.
    */
   @Nonnull

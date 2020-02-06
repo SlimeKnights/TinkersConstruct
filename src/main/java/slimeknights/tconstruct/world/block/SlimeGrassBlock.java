@@ -73,8 +73,7 @@ public class SlimeGrassBlock extends Block implements IGrowable {
             ++j;
             continue;
           }
-        }
-        else if (worldIn.isAirBlock(blockpos2)) {
+        } else if (worldIn.isAirBlock(blockpos2)) {
           BlockState plantState = null;
 
           if (rand.nextInt(8) == 0) {
@@ -89,8 +88,7 @@ public class SlimeGrassBlock extends Block implements IGrowable {
                 plantState = WorldBlocks.orange_slime_fern.getDefaultState();
                 break;
             }
-          }
-          else {
+          } else {
             switch (this.foliageType) {
               case BLUE:
                 plantState = WorldBlocks.blue_slime_tall_grass.getDefaultState();
@@ -133,8 +131,7 @@ public class SlimeGrassBlock extends Block implements IGrowable {
         if (dirtState != null) {
           worldIn.setBlockState(pos, dirtState);
         }
-      }
-      else {
+      } else {
         if (worldIn.getLight(pos.up()) >= 9) {
           for (int i = 0; i < 4; ++i) {
             BlockPos blockpos = pos.add(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
@@ -201,8 +198,7 @@ public class SlimeGrassBlock extends Block implements IGrowable {
         case ORANGE:
           return WorldBlocks.orange_green_slime_grass.getDefaultState();
       }
-    }
-    else if (dirtState.getBlock() == WorldBlocks.blue_slime_dirt) {
+    } else if (dirtState.getBlock() == WorldBlocks.blue_slime_dirt) {
       switch (this.foliageType) {
         case BLUE:
           return WorldBlocks.blue_blue_slime_grass.getDefaultState();
@@ -211,8 +207,7 @@ public class SlimeGrassBlock extends Block implements IGrowable {
         case ORANGE:
           return WorldBlocks.orange_blue_slime_grass.getDefaultState();
       }
-    }
-    else if (dirtState.getBlock() == WorldBlocks.purple_slime_dirt) {
+    } else if (dirtState.getBlock() == WorldBlocks.purple_slime_dirt) {
       switch (this.foliageType) {
         case BLUE:
           return WorldBlocks.blue_purple_slime_grass.getDefaultState();
@@ -221,8 +216,7 @@ public class SlimeGrassBlock extends Block implements IGrowable {
         case ORANGE:
           return WorldBlocks.orange_purple_slime_grass.getDefaultState();
       }
-    }
-    else if (dirtState.getBlock() == WorldBlocks.magma_slime_dirt) {
+    } else if (dirtState.getBlock() == WorldBlocks.magma_slime_dirt) {
       switch (this.foliageType) {
         case BLUE:
           return WorldBlocks.blue_magma_slime_grass.getDefaultState();

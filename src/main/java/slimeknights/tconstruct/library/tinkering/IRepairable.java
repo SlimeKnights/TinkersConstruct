@@ -13,7 +13,7 @@ public interface IRepairable {
   /**
    * Try repairing the item with the given itemstacks.
    * ALL non-null itemstacks in repairItems have to be usable.
-   *
+   * <p>
    * Remove the used items from repairItems. Decrease their stacksize or set their entries to null.
    * Returns the repaired item.
    *

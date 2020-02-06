@@ -8,6 +8,7 @@ public interface IToolStationDisplay {
 
   /**
    * The "title" displayed in the GUI
+   *
    * @deprecated Use getLocalizedName for consistency
    */
   @Deprecated
