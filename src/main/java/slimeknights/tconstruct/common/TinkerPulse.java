@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.common;
 
-import javax.annotation.Nonnull;
-
 import slimeknights.mantle.common.IRegisterUtil;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerPulseIds;
+
+import javax.annotation.Nonnull;
 
 /**
  * Just a small helper class that provides some function for cleaner Pulses.

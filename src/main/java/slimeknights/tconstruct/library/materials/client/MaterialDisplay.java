@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.materials.client;
 
 import net.minecraft.item.ItemStack;
-
 import slimeknights.tconstruct.library.materials.IMaterial;
 
 public class MaterialDisplay implements IMaterialDisplay {

@@ -6,13 +6,13 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ObjectHolder;
-
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
-import slimeknights.tconstruct.library.tools.*;
-import slimeknights.tconstruct.tools.*;
+import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.tools.TestTool;
+import slimeknights.tconstruct.tools.ToolDefinitions;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
 

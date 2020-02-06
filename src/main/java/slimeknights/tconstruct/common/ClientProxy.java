@@ -5,12 +5,11 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
 import slimeknights.tconstruct.debug.ToolDebugContainer;
 import slimeknights.tconstruct.debug.ToolDebugScreen;
+import slimeknights.tconstruct.items.CommonItems;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.particle.SlimeFxParticle;
-import slimeknights.tconstruct.items.CommonItems;
 
 public class ClientProxy extends ServerProxy {
 

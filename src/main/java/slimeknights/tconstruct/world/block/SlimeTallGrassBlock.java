@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.world.block;
 
 import com.google.common.collect.Lists;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BushBlock;
@@ -17,14 +16,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.common.PlantType;
-
-import java.util.List;
-import java.util.Locale;
-
-import javax.annotation.Nonnull;
-
 import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.world.TinkerWorld;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Locale;
 
 // todo: evaluate block
 public class SlimeTallGrassBlock extends BushBlock implements IShearable {

@@ -22,11 +22,12 @@ import slimeknights.tconstruct.world.block.SlimeLeavesBlock;
 import slimeknights.tconstruct.world.block.SlimeSaplingBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
-//import slimeknights.tconstruct.world.worldgen.old.BlueSlimeTree;
 import slimeknights.tconstruct.world.worldgen.MagmaSlimeTree;
-//import slimeknights.tconstruct.world.worldgen.old.PurpleSlimeTree;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
+
+//import slimeknights.tconstruct.world.worldgen.old.BlueSlimeTree;
+//import slimeknights.tconstruct.world.worldgen.old.PurpleSlimeTree;
 
 @ObjectHolder(TConstruct.modID)
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)

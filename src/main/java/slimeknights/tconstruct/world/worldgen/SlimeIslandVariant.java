@@ -4,9 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.IStringSerializable;
-
-import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.blocks.WorldBlocks;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 
 import java.util.Locale;
 

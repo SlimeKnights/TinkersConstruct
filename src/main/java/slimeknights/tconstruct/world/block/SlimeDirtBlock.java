@@ -6,7 +6,6 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.PlantType;
-
 import slimeknights.tconstruct.world.TinkerWorld;
 
 public class SlimeDirtBlock extends Block {

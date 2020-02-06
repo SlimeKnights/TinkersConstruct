@@ -1,14 +1,5 @@
 package slimeknights.tconstruct.world.worldgen.old;
 
-import net.minecraft.block.trees.Tree;
-import net.minecraft.world.gen.feature.AbstractTreeFeature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-
-import slimeknights.tconstruct.blocks.WorldBlocks;
-
-import javax.annotation.Nullable;
-import java.util.Random;
-
 public class PurpleSlimeTree { /*extends Tree {
 
   private final boolean isIslandTree;

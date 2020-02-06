@@ -1,30 +1,5 @@
 package slimeknights.tconstruct.world.worldgen.old;
 
-import com.mojang.datafixers.Dynamic;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.VineBlock;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldWriter;
-import net.minecraft.world.gen.IWorldGenerationBaseReader;
-import net.minecraft.world.gen.IWorldGenerationReader;
-import net.minecraft.world.gen.feature.AbstractTreeFeature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-
-import java.util.Random;
-import java.util.Set;
-import java.util.function.Function;
-
-import slimeknights.tconstruct.common.Tags;
-import slimeknights.tconstruct.blocks.WorldBlocks;
-
 public class SlimeTreeFeature {/* extends AbstractTreeFeature<NoFeatureConfig> {
 
   private final int minTreeHeight;
