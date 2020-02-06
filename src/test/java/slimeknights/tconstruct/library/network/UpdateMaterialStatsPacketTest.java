@@ -73,7 +73,7 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
     Function<MaterialStatsId, Class<?>> classResolverMock = mock(Function.class);
     materialToStats.values().stream()
       .flatMap(Collection::stream)
-      .forEach(stat -> when(classResolverMock.apply(stat.getIdentifier())).thenReturn((Class)stat.getClass()));
+      .forEach(stat -> when(classResolverMock.apply(stat.getIdentifier())).thenReturn((Class) stat.getClass()));
     return classResolverMock;
   }
 }

@@ -11,6 +11,7 @@ import javax.annotation.Nullable;
 
 // MANTLE
 // TODO: move to mantle
+
 /**
  * Provides utility registration methods when registering itemblocks.
  */
@@ -29,6 +30,7 @@ public class BlockItemRegistryAdapter extends BaseRegistryAdapter<Item> {
    * The item uses the same name as the block for registration.
    * The registered BlockItem has tooltip support by default, see {@link BlockTooltipItem}
    * It will be added to the creative itemgroup passed in in the constructor. If you want a different one, use the method with a ItemGroup parameter.
+   *
    * @param block The block you want to have an item for
    * @return The registered item for the block
    */
@@ -41,7 +43,7 @@ public class BlockItemRegistryAdapter extends BaseRegistryAdapter<Item> {
    */
   public BlockItem registerBlockItem(Block block, @Nullable ItemGroup itemGroup) {
     Item.Properties itemProperties = new Item.Properties();
-    if(itemGroup != null) {
+    if (itemGroup != null) {
       itemProperties.group(itemGroup);
     }
     BlockItem itemBlock = new BlockTooltipItem(block, itemProperties);

@@ -46,35 +46,35 @@ public class TinkerGadgets extends TinkerPulse {
     IForgeRegistry<EntityType<?>> registry = event.getRegistry();
 
     fancy_item_frame = EntityType.Builder.<FancyItemFrameEntity>create(
-            FancyItemFrameEntity::new, EntityClassification.MISC)
-            .size(0.5F, 0.5F)
-            .setTrackingRange(160)
-            .setUpdateInterval(Integer.MAX_VALUE)
-            .setCustomClientFactory((spawnEntity, world) -> new FancyItemFrameEntity(fancy_item_frame, world))
-            .setShouldReceiveVelocityUpdates(false)
-            .build("fancy_item_frame");
+      FancyItemFrameEntity::new, EntityClassification.MISC)
+      .size(0.5F, 0.5F)
+      .setTrackingRange(160)
+      .setUpdateInterval(Integer.MAX_VALUE)
+      .setCustomClientFactory((spawnEntity, world) -> new FancyItemFrameEntity(fancy_item_frame, world))
+      .setShouldReceiveVelocityUpdates(false)
+      .build("fancy_item_frame");
 
     registry.register(fancy_item_frame.setRegistryName("tconstruct:fancy_item_frame"));
 
     throwable_glow_ball = EntityType.Builder.<GlowballEntity>create(
-            GlowballEntity::new, EntityClassification.MISC)
-            .size(0.25F, 0.25F)
-            .setTrackingRange(64)
-            .setUpdateInterval(10)
-            .setCustomClientFactory((spawnEntity, world) -> new GlowballEntity(throwable_glow_ball, world))
-            .setShouldReceiveVelocityUpdates(true)
-            .build("glow_ball");
+      GlowballEntity::new, EntityClassification.MISC)
+      .size(0.25F, 0.25F)
+      .setTrackingRange(64)
+      .setUpdateInterval(10)
+      .setCustomClientFactory((spawnEntity, world) -> new GlowballEntity(throwable_glow_ball, world))
+      .setShouldReceiveVelocityUpdates(true)
+      .build("glow_ball");
 
     registry.register(throwable_glow_ball.setRegistryName("tconstruct:glow_ball"));
 
     throwable_efln_ball = EntityType.Builder.<EflnBallEntity>create(
-            EflnBallEntity::new, EntityClassification.MISC)
-            .size(0.25F, 0.25F)
-            .setTrackingRange(64)
-            .setUpdateInterval(10)
-            .setCustomClientFactory((spawnEntity, world) -> new EflnBallEntity(throwable_efln_ball, world))
-            .setShouldReceiveVelocityUpdates(true)
-            .build("efln_ball");
+      EflnBallEntity::new, EntityClassification.MISC)
+      .size(0.25F, 0.25F)
+      .setTrackingRange(64)
+      .setUpdateInterval(10)
+      .setCustomClientFactory((spawnEntity, world) -> new EflnBallEntity(throwable_efln_ball, world))
+      .setShouldReceiveVelocityUpdates(true)
+      .build("efln_ball");
 
     registry.register(throwable_efln_ball.setRegistryName("tconstruct:efln_ball"));
   }

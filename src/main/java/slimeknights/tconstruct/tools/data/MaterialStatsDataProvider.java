@@ -58,12 +58,14 @@ public class MaterialStatsDataProvider extends GenericDataProvider {
    */
   @AllArgsConstructor
   private static class JsonWrapper {
+
     private final ResourceLocation materialId;
     private final List<JsonStatWrapper> stats;
   }
 
   @Getter
   private static class JsonStatWrapper extends MaterialStatJsonWrapper.BaseMaterialStatsJson {
+
     private final IMaterialStats stat;
 
     public JsonStatWrapper(MaterialStatsId id, IMaterialStats stat) {

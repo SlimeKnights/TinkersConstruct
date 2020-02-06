@@ -88,12 +88,10 @@ public class SlimeIslandStructure extends ScatteredStructure<NoFeatureConfig> {
       int j = 5;
       if (rotation == Rotation.CLOCKWISE_90) {
         i = -5;
-      }
-      else if (rotation == Rotation.CLOCKWISE_180) {
+      } else if (rotation == Rotation.CLOCKWISE_180) {
         i = -5;
         j = -5;
-      }
-      else if (rotation == Rotation.COUNTERCLOCKWISE_90) {
+      } else if (rotation == Rotation.COUNTERCLOCKWISE_90) {
         j = -5;
       }
 
@@ -108,12 +106,11 @@ public class SlimeIslandStructure extends ScatteredStructure<NoFeatureConfig> {
 
       int rnr = this.rand.nextInt(10);
       SlimeIslandVariant variant = SlimeIslandVariant.BLUE;
-      String[] sizes = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
+      String[] sizes = new String[]{"0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11"};
 
       if (rnr <= 1) {
         variant = SlimeIslandVariant.PURPLE;
-      }
-      else if (rnr < 6) {
+      } else if (rnr < 6) {
         variant = SlimeIslandVariant.GREEN;
       }
 

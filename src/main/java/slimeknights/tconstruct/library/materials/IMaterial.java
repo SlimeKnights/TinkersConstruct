@@ -10,7 +10,7 @@ public interface IMaterial {
    * Fallback material. Used for operations where a material or specific aspects of a material are used,
    * but the given input is missing or does not match the requirements.
    * Think of this as "anti-crash" when trying to build invalid tools.
-   *
+   * <p>
    * The fallback material needs to have all part types associated with it.
    */
   Material UNKNOWN = new Material(Util.getResource("unknown"), null, false, ItemStack.EMPTY);

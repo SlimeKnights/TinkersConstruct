@@ -4,10 +4,14 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-/** Stuff needed for a modifier to be displayed in books */
+/**
+ * Stuff needed for a modifier to be displayed in books
+ */
 public interface IModifierDisplay {
 
-  /** Color of the modifier, used for the title header */
+  /**
+   * Color of the modifier, used for the title header
+   */
   int getColor();
 
 

@@ -10,7 +10,6 @@ import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.test.BaseMcTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MaterialRegistryExtension.class)
 class PartMaterialTypeTest extends BaseMcTest {

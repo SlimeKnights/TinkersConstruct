@@ -24,7 +24,9 @@ public interface IModifier extends IToolMod {
    */
   boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException;
 
-  /** Apply the modifier to that itemstack. The complete procedure */
+  /**
+   * Apply the modifier to that itemstack. The complete procedure
+   */
   void apply(ItemStack stack);
 
   /**
@@ -61,7 +63,9 @@ public interface IModifier extends IToolMod {
    */
 //  String getTooltip(NBTTagCompound modifierTag, boolean detailed);
 
-  /** Used for specific modifiers that need a texture variant for each material */
+  /**
+   * Used for specific modifiers that need a texture variant for each material
+   */
 //  @SideOnly(Side.CLIENT)
   boolean hasTexturePerMaterial();
 

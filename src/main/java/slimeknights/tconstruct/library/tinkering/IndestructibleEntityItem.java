@@ -44,7 +44,7 @@ public class IndestructibleEntityItem extends ItemEntity {
 
     @SubscribeEvent
     public void onExpire(ItemExpireEvent event) {
-      if(event.getEntityItem() instanceof IndestructibleEntityItem) {
+      if (event.getEntityItem() instanceof IndestructibleEntityItem) {
         event.setCanceled(true);
       }
     }

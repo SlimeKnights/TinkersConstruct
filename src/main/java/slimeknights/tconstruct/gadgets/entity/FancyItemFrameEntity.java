@@ -70,8 +70,7 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
     ItemStack held = this.getDisplayedItem();
     if (held.isEmpty()) {
       return new ItemStack(FrameType.getFrameFromType(this.getFrameType()));
-    }
-    else {
+    } else {
       return held.copy();
     }
   }
@@ -121,8 +120,7 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
       ITextComponent textComponent = itextcomponent.deepCopy();
       removeClickEvents(textComponent);
       return textComponent;
-    }
-    else {
+    } else {
       String translationKey = this.getType().getTranslationKey();
 
       return new TranslationTextComponent(translationKey + "." + this.getFrameType().getName());

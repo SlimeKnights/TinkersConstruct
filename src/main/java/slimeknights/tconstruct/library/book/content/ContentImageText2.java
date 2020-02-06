@@ -23,8 +23,7 @@ public class ContentImageText2 extends ContentImageText {
 
     if (this.title == null || this.title.isEmpty()) {
       y = 0;
-    }
-    else {
+    } else {
       this.addTitle(list, this.title);
     }
 
@@ -32,8 +31,7 @@ public class ContentImageText2 extends ContentImageText {
       int x = (BookScreen.PAGE_HEIGHT - this.image.width) / 2;
       list.add(new ElementImage(x, y, -1, -1, this.image));
       y += this.image.height;
-    }
-    else {
+    } else {
       list.add(new ElementImage(0, y, 32, 32, ImageData.MISSING));
     }
 

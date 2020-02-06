@@ -62,5 +62,6 @@ public final class ToolItems {
     registry.register(test_part, "test_part");
     registry.register(new TestTool(new Item.Properties().group(TinkerRegistry.tabTools), ToolDefinitions.PICKAXE), "test_tool");
   }
+
   private ToolItems() {}
 }

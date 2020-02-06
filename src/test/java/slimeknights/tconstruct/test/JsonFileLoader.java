@@ -7,7 +7,11 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.Util;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
@@ -51,7 +55,7 @@ public class JsonFileLoader {
   public JsonObject loadJson(String namespace, String filename) {
     String path = Paths.get("data", namespace, folder, filename + ".json").toString();
     URL resource = gson.getClass().getClassLoader().getResource(path);
-    if(resource == null) {
+    if (resource == null) {
       throw new IllegalArgumentException("Resource with path " + path + " doesn't exist");
     }
     try (

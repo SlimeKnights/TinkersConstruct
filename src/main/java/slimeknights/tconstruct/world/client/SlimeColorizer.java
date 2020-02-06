@@ -59,32 +59,36 @@ public class SlimeColorizer {
     return buffer[(int) (x * 255f) << 8 | (int) (z * 255f)];
   }
 
-  /** Block.getRenderColor needs BGR instead of RGB for some reason */
+  /**
+   * Block.getRenderColor needs BGR instead of RGB for some reason
+   */
   public static int getColorStaticBGR(SlimeGrassBlock.FoliageType type) {
     int color = getColorStatic(type);
     return (color >> 16) & 0xff |
-            (color & 0xff) << 16 |
-            (color & 0xff00);
+      (color & 0xff) << 16 |
+      (color & 0xff00);
   }
 
-  /** Position independant Slime foliage color */
+  /**
+   * Position independant Slime foliage color
+   */
   public static int getColorStatic(SlimeGrassBlock.FoliageType type) {
     if (type == SlimeGrassBlock.FoliageType.PURPLE) {
       return SlimeColorizer.colorPurple;
-    }
-    else if (type == SlimeGrassBlock.FoliageType.ORANGE) {
+    } else if (type == SlimeGrassBlock.FoliageType.ORANGE) {
       return SlimeColorizer.colorOrange;
     }
 
     return SlimeColorizer.colorBlue;
   }
 
-  /** Position dependant Slime foliage color */
+  /**
+   * Position dependant Slime foliage color
+   */
   public static int getColorForPos(BlockPos pos, SlimeGrassBlock.FoliageType type) {
     if (type == SlimeGrassBlock.FoliageType.PURPLE) {
       return SlimeColorizer.getColorPurple(pos.getX(), pos.getZ());
-    }
-    else if (type == SlimeGrassBlock.FoliageType.ORANGE) {
+    } else if (type == SlimeGrassBlock.FoliageType.ORANGE) {
       return SlimeColorizer.getColorOrange(pos.getX(), pos.getZ());
     }
     return SlimeColorizer.getColorBlue(pos.getX(), pos.getZ());

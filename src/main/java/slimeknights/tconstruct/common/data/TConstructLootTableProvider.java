@@ -58,8 +58,7 @@ public class TConstructLootTableProvider implements IDataProvider {
       return null;
     }, map::get);
 
-    for (ResourceLocation resourcelocation : Sets.difference(LootTables.func_215796_a(), map.keySet()))
-    {
+    for (ResourceLocation resourcelocation : Sets.difference(LootTables.func_215796_a(), map.keySet())) {
       validationtracker.func_227530_a_("Missing built-in table: " + resourcelocation);
     }
 
@@ -68,24 +67,18 @@ public class TConstructLootTableProvider implements IDataProvider {
     });
 
     Multimap<String, String> multimap = validationtracker.func_227527_a_();
-    if (!multimap.isEmpty())
-    {
+    if (!multimap.isEmpty()) {
       multimap.forEach((p_229440_0_, p_229440_1_) -> {
         LOGGER.warn("Found validation problem in " + p_229440_0_ + ": " + p_229440_1_);
       });
       throw new IllegalStateException("Failed to validate loot tables, see logs");
-    }
-    else
-    {
+    } else {
       map.forEach((p_229441_2_, p_229441_3_) -> {
         Path path1 = getPath(path, p_229441_2_);
 
-        try
-        {
+        try {
           IDataProvider.save(GSON, cache, LootTableManager.toJson(p_229441_3_), path1);
-        }
-        catch (IOException ioexception)
-        {
+        } catch (IOException ioexception) {
           LOGGER.error("Couldn't save loot table {}", path1, ioexception);
         }
 

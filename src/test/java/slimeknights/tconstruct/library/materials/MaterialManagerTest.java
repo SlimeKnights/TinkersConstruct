@@ -13,8 +13,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.test.JsonFileLoader;
 

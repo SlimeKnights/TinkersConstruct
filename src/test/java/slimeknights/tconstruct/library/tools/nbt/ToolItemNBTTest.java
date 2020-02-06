@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ToolItemNBTTest extends BaseMcTest {
 
   private static final TestToolCore testToolItem = new TestToolCore();
-  private static final ResourceLocation TEST_REGISTRY_NAME = new ResourceLocation("test","tool_item");
+  private static final ResourceLocation TEST_REGISTRY_NAME = new ResourceLocation("test", "tool_item");
   private final ToolItemNBT testToolItemNBT = new ToolItemNBT(testToolItem);
 
   @BeforeAll

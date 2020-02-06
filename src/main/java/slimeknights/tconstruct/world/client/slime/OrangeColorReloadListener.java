@@ -24,8 +24,7 @@ public class OrangeColorReloadListener extends ReloadListener<int[]> {
   protected int[] prepare(IResourceManager resourceManager, IProfiler profiler) {
     try {
       return ColorMapLoader.loadColors(resourceManager, ORANGE_GRASS_LOCATION);
-    }
-    catch (IOException ioexception) {
+    } catch (IOException ioexception) {
       throw new IllegalStateException("Failed to load orange grass color texture", ioexception);
     }
   }

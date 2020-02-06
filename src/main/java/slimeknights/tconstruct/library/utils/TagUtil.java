@@ -251,8 +251,7 @@ public final class TagUtil {
   public static void setEnchantEffect(CompoundNBT root, boolean active) {
     if (active) {
       root.putBoolean(Tags.ENCHANT_EFFECT, true);
-    }
-    else {
+    } else {
       root.remove(Tags.ENCHANT_EFFECT);
     }
   }

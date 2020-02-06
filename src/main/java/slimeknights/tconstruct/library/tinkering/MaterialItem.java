@@ -17,7 +17,7 @@ import java.util.Optional;
 public class MaterialItem extends Item implements IMaterialItem {
 
   public static IMaterial getMaterialFromStack(ItemStack stack) {
-    if((stack.getItem() instanceof IMaterialItem)) {
+    if ((stack.getItem() instanceof IMaterialItem)) {
       return ((IMaterialItem) stack.getItem()).getMaterial(stack);
     }
 

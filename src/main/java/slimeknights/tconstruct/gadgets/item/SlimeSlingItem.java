@@ -70,8 +70,8 @@ public class SlimeSlingItem extends TooltipItem {
       Vec3d vec = player.getLookVec().normalize();
 
       player.addVelocity(vec.x * -f,
-              vec.y * -f / 3f,
-              vec.z * -f);
+        vec.y * -f / 3f,
+        vec.z * -f);
 
       if (player instanceof ServerPlayerEntity) {
         ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
@@ -103,17 +103,13 @@ public class SlimeSlingItem extends TooltipItem {
   public static int getColorFromStack(ItemStack stack) {
     if (stack.getItem() == GadgetItems.slime_sling_blue) {
       return SlimeBlock.SlimeType.BLUE.getBallColor();
-    }
-    else if (stack.getItem() == GadgetItems.slime_sling_purple) {
+    } else if (stack.getItem() == GadgetItems.slime_sling_purple) {
       return SlimeBlock.SlimeType.PURPLE.getBallColor();
-    }
-    else if (stack.getItem() == GadgetItems.slime_sling_magma) {
+    } else if (stack.getItem() == GadgetItems.slime_sling_magma) {
       return SlimeBlock.SlimeType.MAGMA.getBallColor();
-    }
-    else if (stack.getItem() == GadgetItems.slime_sling_green) {
+    } else if (stack.getItem() == GadgetItems.slime_sling_green) {
       return SlimeBlock.SlimeType.GREEN.getBallColor();
-    }
-    else if (stack.getItem() == GadgetItems.slime_sling_blood) {
+    } else if (stack.getItem() == GadgetItems.slime_sling_blood) {
       return SlimeBlock.SlimeType.BLOOD.getBallColor();
     } else {
       return SlimeBlock.SlimeType.GREEN.getBallColor();

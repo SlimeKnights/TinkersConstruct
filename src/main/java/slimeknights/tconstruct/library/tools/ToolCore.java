@@ -233,7 +233,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
     // todo: evaluate if we want to keep the material info
     CompoundNBT tag = stack.getTag();
-    if(tag == null) {
+    if (tag == null) {
       tooltip.add(new StringTextComponent("No tool data. NBT missing."));
       return;
     }

@@ -38,6 +38,7 @@ public interface IMaterialDisplay {
    * This is a special function since different materials require different handling in different languages.
    * E.g. the material is "wood", but the item name is "wood<em>en</em>> spatula", while in french
    * it'd be "pioche <em>de bois</em>", as suffix.
+   *
    * @param itemName The already translated itemname
    * @return The items name combined with the material to create the name of the item made out of the material
    */

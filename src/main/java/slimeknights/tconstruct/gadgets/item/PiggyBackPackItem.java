@@ -115,8 +115,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
       // we could pick it up just fine, check if we need to "equip" more of the item
       if (chestArmor.isEmpty()) {
         playerIn.setItemStackToSlot(this.slot, stack.split(1));
-      }
-      else if (chestArmor.getCount() < this.getEntitiesCarriedCount(playerIn)) {
+      } else if (chestArmor.getCount() < this.getEntitiesCarriedCount(playerIn)) {
         stack.split(1);
         chestArmor.grow(1);
       }
@@ -221,8 +220,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
       ItemStack chestArmor = livingEntityIn.getItemStackFromSlot(EquipmentSlotType.CHEST);
       if (chestArmor.isEmpty() || chestArmor.getItem() != GadgetItems.piggy_backpack) {
         GadgetItems.piggy_backpack.matchCarriedEntitiesToCount(livingEntityIn, 0);
-      }
-      else {
+      } else {
         GadgetItems.piggy_backpack.matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
         if (!livingEntityIn.getEntityWorld().isRemote) {
           if (livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).isPresent()) {

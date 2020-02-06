@@ -32,11 +32,11 @@ public class MaterialNBT {
   }
 
   public static MaterialNBT readFromNBT(@Nullable INBT nbt) {
-    if(nbt == null || nbt.getId() != Constants.NBT.TAG_LIST) {
+    if (nbt == null || nbt.getId() != Constants.NBT.TAG_LIST) {
       return EMPTY;
     }
     ListNBT listNBT = (ListNBT) nbt;
-    if(listNBT.getTagType() != Constants.NBT.TAG_STRING) {
+    if (listNBT.getTagType() != Constants.NBT.TAG_STRING) {
       return EMPTY;
     }
 

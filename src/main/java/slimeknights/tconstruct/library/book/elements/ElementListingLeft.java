@@ -24,8 +24,7 @@ public class ElementListingLeft extends ElementText {
       for (int i = 1; i < this.text.length; i++) {
         this.text[i].color = "dark red";
       }
-    }
-    else {
+    } else {
       this.text[0].text = "- ";
       for (int i = 1; i < this.text.length; i++) {
         this.text[i].color = "black";

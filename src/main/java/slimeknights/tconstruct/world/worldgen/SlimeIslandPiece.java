@@ -98,12 +98,10 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
         if (this.variant.getVine() != null) {
           if (rand.nextBoolean()) {
             this.placeVine(worldIn, pos, rand, this.variant.getVine());
-          }
-          else {
+          } else {
             worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
           }
-        }
-        else {
+        } else {
           worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
         }
         break;

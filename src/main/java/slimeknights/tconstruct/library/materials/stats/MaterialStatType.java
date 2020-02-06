@@ -15,17 +15,17 @@ import java.util.Objects;
  * <p>Each instance of this class should be unique. If two instances with the same id exist, internal systems might break.</p>
  */
 public final class MaterialStatType {
-  
-   public static final MaterialStatType HEAD = new MaterialStatType(Util.getResource("head"));
-   public static final MaterialStatType HANDLE = new MaterialStatType(Util.getResource("handle"));
-   public static final MaterialStatType EXTRA = new MaterialStatType(Util.getResource("extra"));
- 
-   public static final MaterialStatType BOW = new MaterialStatType(Util.getResource("bow"));
-   public static final MaterialStatType BOWSTRING = new MaterialStatType(Util.getResource("bowstring"));
 
-   public static final MaterialStatType PROJECTILE = new MaterialStatType(Util.getResource("projectile"));
-   public static final MaterialStatType SHAFT = new MaterialStatType(Util.getResource("shaft"));
-   public static final MaterialStatType FLETCHING = new MaterialStatType(Util.getResource("fletching"));
+  public static final MaterialStatType HEAD = new MaterialStatType(Util.getResource("head"));
+  public static final MaterialStatType HANDLE = new MaterialStatType(Util.getResource("handle"));
+  public static final MaterialStatType EXTRA = new MaterialStatType(Util.getResource("extra"));
+
+  public static final MaterialStatType BOW = new MaterialStatType(Util.getResource("bow"));
+  public static final MaterialStatType BOWSTRING = new MaterialStatType(Util.getResource("bowstring"));
+
+  public static final MaterialStatType PROJECTILE = new MaterialStatType(Util.getResource("projectile"));
+  public static final MaterialStatType SHAFT = new MaterialStatType(Util.getResource("shaft"));
+  public static final MaterialStatType FLETCHING = new MaterialStatType(Util.getResource("fletching"));
 
   private final ResourceLocation identifier;
 

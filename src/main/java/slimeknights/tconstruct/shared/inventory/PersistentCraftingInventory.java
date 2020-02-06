@@ -57,8 +57,7 @@ public class PersistentCraftingInventory extends CraftingInventory {
         itemstack = this.getStackInSlot(index);
         this.setInventorySlotContents(index, ItemStack.EMPTY);
         return itemstack;
-      }
-      else {
+      } else {
         itemstack = this.getStackInSlot(index).split(count);
 
         if (this.getStackInSlot(index).getCount() == 0) {
@@ -68,8 +67,7 @@ public class PersistentCraftingInventory extends CraftingInventory {
         this.onCraftMatrixChanged();
         return itemstack;
       }
-    }
-    else {
+    } else {
       return ItemStack.EMPTY;
     }
   }
