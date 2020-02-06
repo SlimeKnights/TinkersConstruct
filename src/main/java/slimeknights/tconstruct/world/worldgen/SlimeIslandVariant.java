@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.world.worldgen.islands;
+package slimeknights.tconstruct.world.worldgen;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

@@ -22,11 +22,12 @@ import slimeknights.tconstruct.world.block.SlimeLeavesBlock;
 import slimeknights.tconstruct.world.block.SlimeSaplingBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
-import slimeknights.tconstruct.world.worldgen.trees.BlueSlimeTree;
-import slimeknights.tconstruct.world.worldgen.trees.MagmaSlimeTree;
-import slimeknights.tconstruct.world.worldgen.trees.PurpleSlimeTree;
+import slimeknights.tconstruct.world.worldgen.MagmaSlimeTree;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
+
+//import slimeknights.tconstruct.world.worldgen.old.BlueSlimeTree;
+//import slimeknights.tconstruct.world.worldgen.old.PurpleSlimeTree;
 
 @ObjectHolder(TConstruct.modID)
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -139,9 +140,9 @@ public final class WorldBlocks {
       }
     }
 
-    registry.register(new SlimeSaplingBlock(new BlueSlimeTree(), BlockProperties.SAPLING), "blue_slime_sapling");
+    registry.register(new SlimeSaplingBlock(new MagmaSlimeTree(), BlockProperties.SAPLING), "blue_slime_sapling");
     registry.register(new SlimeSaplingBlock(new MagmaSlimeTree(), BlockProperties.SAPLING), "orange_slime_sapling");
-    registry.register(new SlimeSaplingBlock(new PurpleSlimeTree(), BlockProperties.SAPLING), "purple_slime_sapling");
+    registry.register(new SlimeSaplingBlock(new MagmaSlimeTree(), BlockProperties.SAPLING), "purple_slime_sapling");
 
     registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), "purple_slime_vine");
     registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), "purple_slime_vine_middle");

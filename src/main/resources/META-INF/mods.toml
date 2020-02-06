@@ -5,7 +5,7 @@ logoFile="logo.png"
 
 [[mods]]
     modId="tconstruct"
-    version="3.0.1.DEV.f1f2d41"
+    version="${version}"
     displayName="Tinkers' Construct"
     authors="Slime Knights"
     description='''
@@ -15,6 +15,6 @@ A little of this, a little of that, a lot of tinkering, and a lot of tools
     [[dependencies.mantle]]
         modId="forge"
         mandatory=true
-        versionRange="[31,)"
+        versionRange="[${forge_version},)"
         ordering="NONE"
         side="BOTH"

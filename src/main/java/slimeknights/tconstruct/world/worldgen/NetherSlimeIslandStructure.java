@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.world.worldgen.islands.nether;
+package slimeknights.tconstruct.world.worldgen;
 
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.util.Rotation;
@@ -13,7 +13,6 @@ import net.minecraft.world.gen.feature.structure.ScatteredStructure;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
 
 import java.util.Random;
 import java.util.function.Function;

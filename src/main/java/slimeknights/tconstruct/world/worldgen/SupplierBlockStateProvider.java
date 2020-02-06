@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.world.worldgen.trees.feature;
+package slimeknights.tconstruct.world.worldgen;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.Dynamic;
@@ -8,7 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
-import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -18,7 +17,7 @@ public class SupplierBlockStateProvider extends BlockStateProvider {
   private final Supplier<BlockState> blockStateSupplier;
 
   public SupplierBlockStateProvider(Supplier<BlockState> blockStateSupplier) {
-    super(TinkerWorld.SUPPLIER_BLOCKSTATE_PROVIDER);
+    super(BlockStateProviderType.field_227394_a_);
     this.blockStateSupplier = blockStateSupplier;
   }
 
