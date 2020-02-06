@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.world.worldgen;
+package slimeknights.tconstruct.world.worldgen.islands.nether;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -11,6 +11,8 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
@@ -18,7 +20,8 @@ import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
-import slimeknights.tconstruct.world.worldgen.old.MagmaSlimeTree;
+import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
+import slimeknights.tconstruct.world.worldgen.trees.MagmaSlimeTree;
 
 import java.util.Random;
 
@@ -94,10 +97,11 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 
         if (rand.nextBoolean() && this.numberOfTreesPlaced < 3) {
-          //AbstractTreeFeature<NoFeatureConfig> treeFeature = magmaSlimeTree.getTreeFeature(rand);
-          //if (treeFeature != null) {
-          //  treeFeature.place(worldIn, this.chunkGenerator, rand, pos, IFeatureConfig.NO_FEATURE_CONFIG);
-          //}
+          ConfiguredFeature<TreeFeatureConfig, ?> treeFeature = magmaSlimeTree.getTreeFeature(rand, false);
+
+          if (treeFeature != null) {
+            treeFeature.place(worldIn, this.chunkGenerator, rand, pos);
+          }
         }
 
         this.numberOfTreesPlaced++;
@@ -125,6 +129,7 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
   @Override
   public boolean func_225577_a_(IWorld worldIn, ChunkGenerator<?> chunkGenerator, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPosIn) {
     this.chunkGenerator = chunkGenerator;
+
     if (this.isLava(worldIn, this.templatePosition.up()) && this.isLava(worldIn, this.templatePosition.up().north()) && this.isLava(worldIn, this.templatePosition.up().east()) && this.isLava(worldIn, this.templatePosition.up().south()) && this.isLava(worldIn, this.templatePosition.up().west())) {
       return super.func_225577_a_(worldIn, chunkGenerator, randomIn, structureBoundingBoxIn, chunkPosIn);
     } else {

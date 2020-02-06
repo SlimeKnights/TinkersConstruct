@@ -25,11 +25,11 @@ public class ConfigOptionEnabledCondition implements ICondition {
   public boolean test() {
     switch (this.configSetting) {
       case "registerAllRecipes":
-        return Config.SERVER.registerAllRecipes.get();
+        return Config.COMMON.registerAllRecipes.get();
       case "addGravelToFlintRecipe":
-        return Config.SERVER.addGravelToFlintRecipe.get();
+        return Config.COMMON.addGravelToFlintRecipe.get();
       case "matchVanillaSlimeblock":
-        return Config.SERVER.requireSlimeballsToMatchInVanillaRecipe.get();
+        return Config.COMMON.requireSlimeballsToMatchInVanillaRecipe.get();
       default:
         throw new RuntimeException(String.format("Invalid config setting: %s", this.configSetting));
     }

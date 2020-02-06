@@ -9,9 +9,9 @@ public class Config {
   public static PulsarConfig pulseConfig = new PulsarConfig("TinkerModules", "Modules");
 
   /**
-   * Server specific configuration
+   * Common specific configuration
    */
-  public static class Server {
+  public static class Common {
 
     public final ForgeConfigSpec.BooleanValue shouldSpawnWithTinkersBook;
 
@@ -29,7 +29,7 @@ public class Config {
 
     public final ForgeConfigSpec.BooleanValue generateSlimeIslands;
 
-    Server(ForgeConfigSpec.Builder builder) {
+    Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
 
       this.shouldSpawnWithTinkersBook = builder
@@ -128,13 +128,13 @@ public class Config {
     CLIENT = specPair.getLeft();
   }
 
-  public static final ForgeConfigSpec serverSpec;
-  public static final Server SERVER;
+  public static final ForgeConfigSpec commonSpec;
+  public static final Common COMMON;
 
   static {
-    final Pair<Server, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Server::new);
-    serverSpec = specPair.getRight();
-    SERVER = specPair.getLeft();
+    final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
+    commonSpec = specPair.getRight();
+    COMMON = specPair.getLeft();
   }
 
 }

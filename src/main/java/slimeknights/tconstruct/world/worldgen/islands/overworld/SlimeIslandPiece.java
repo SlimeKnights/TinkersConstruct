@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.world.worldgen;
+package slimeknights.tconstruct.world.worldgen.islands.overworld;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -22,6 +22,9 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
+import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
+import slimeknights.tconstruct.world.worldgen.trees.BlueSlimeTree;
+import slimeknights.tconstruct.world.worldgen.trees.PurpleSlimeTree;
 
 import java.util.Random;
 
@@ -34,8 +37,8 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   private int numberOfTreesPlaced;
   private ChunkGenerator<?> chunkGenerator;
 
-  //private static final BlueSlimeTree blueSlimeTree = new BlueSlimeTree(true);
-  //private static final PurpleSlimeTree purpleSlimeTree = new PurpleSlimeTree(true);
+  private static final BlueSlimeTree blueSlimeTree = new BlueSlimeTree(true);
+  private static final PurpleSlimeTree purpleSlimeTree = new PurpleSlimeTree(true);
 
   public SlimeIslandPiece(TemplateManager templateManager, SlimeIslandVariant variant, String templateName, BlockPos templatePosition, Rotation rotation) {
     this(templateManager, variant, templateName, templatePosition, rotation, Mirror.NONE);
@@ -114,17 +117,17 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
           switch (this.variant) {
             case BLUE:
             case GREEN:
-              //treeFeature = purpleSlimeTree.func_225546_b_(rand);
+              treeFeature = purpleSlimeTree.getTreeFeature(rand, false);
               break;
             case PURPLE:
-              //treeFeature = blueSlimeTree.func_225546_b_(rand);
+              treeFeature = blueSlimeTree.getTreeFeature(rand, false);
               break;
             default:
               throw new IllegalStateException("Unexpected variant: " + this.variant);
           }
 
           if (treeFeature != null) {
-            //treeFeature.place(worldIn, chunkGenerator, rand, pos, IFeatureConfig.NO_FEATURE_CONFIG);
+            treeFeature.place(worldIn, this.chunkGenerator, rand, pos);
           }
         }
 
@@ -170,6 +173,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   @Override
   public boolean func_225577_a_(IWorld worldIn, ChunkGenerator<?> chunkGenerator, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPosIn) {
     this.chunkGenerator = chunkGenerator;
-    return func_225577_a_(worldIn, chunkGenerator, randomIn, structureBoundingBoxIn, chunkPosIn);
+
+    return super.func_225577_a_(worldIn, chunkGenerator, randomIn, structureBoundingBoxIn, chunkPosIn);
   }
 }

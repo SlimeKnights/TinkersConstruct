@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.world.worldgen;
+package slimeknights.tconstruct.world.worldgen.trees;
 
 import net.minecraft.block.trees.Tree;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
@@ -15,7 +15,7 @@ public class MagmaSlimeTree extends Tree {
    */
   @Override
   @Nullable
-  protected ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bool) {
-    return TinkerWorld.MAGMA_TREE.withConfiguration(TinkerWorld.MAGMA_TREE_CONFIG);
+  public ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bool) {
+    return TinkerWorld.TREE.withConfiguration(TinkerWorld.MAGMA_SLIME_TREE_CONFIG);
   }
 }

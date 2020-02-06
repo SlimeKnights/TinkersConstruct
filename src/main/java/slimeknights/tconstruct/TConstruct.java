@@ -71,7 +71,7 @@ public class TConstruct {
   public TConstruct() {
     instance = this;
 
-    ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.serverSpec);
+    ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
 
     pulseManager = new PulseManager(Config.pulseConfig);

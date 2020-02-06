@@ -13,6 +13,7 @@ public class Tags {
 
     public static final Tag<Block> SLIMY_LOGS = tag("slimy_logs");
     public static final Tag<Block> SLIMY_LEAVES = tag("slimy_leaves");
+    public static final Tag<Block> SLIMY_SAPLINGS = tag("slimy_saplings");
 
     public static final Tag<Block> STORAGE_BLOCKS_COBALT = forgeTag("storage_blocks/cobalt");
     public static final Tag<Block> STORAGE_BLOCKS_ARDITE = forgeTag("storage_blocks/ardite");
@@ -34,6 +35,7 @@ public class Tags {
 
     public static final Tag<Item> SLIMY_LOGS = tag("slimy_logs");
     public static final Tag<Item> SLIMY_LEAVES = tag("slimy_leaves");
+    public static final Tag<Item> SLIMY_SAPLINGS = tag("slimy_saplings");
 
     public static final Tag<Item> STORAGE_BLOCKS_COBALT = forgeTag("storage_blocks/cobalt");
     public static final Tag<Item> STORAGE_BLOCKS_ARDITE = forgeTag("storage_blocks/ardite");

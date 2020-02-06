@@ -1,6 +1,29 @@
 package slimeknights.tconstruct.world.worldgen.old;
 
-public class SlimeTreeFeature {/* extends AbstractTreeFeature<NoFeatureConfig> {
+import com.mojang.datafixers.Dynamic;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.VineBlock;
+import net.minecraft.state.BooleanProperty;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldWriter;
+import net.minecraft.world.gen.IWorldGenerationBaseReader;
+import net.minecraft.world.gen.IWorldGenerationReader;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraftforge.common.IPlantable;
+import slimeknights.tconstruct.blocks.WorldBlocks;
+import slimeknights.tconstruct.common.Tags;
+
+import java.util.Random;
+import java.util.Set;
+import java.util.function.Function;
+
+public class SlimeTreeFeature {
 
   private final int minTreeHeight;
   private final int treeHeightRange;
@@ -14,16 +37,17 @@ public class SlimeTreeFeature {/* extends AbstractTreeFeature<NoFeatureConfig> {
    * it currently. Will be there in 1.15
    *
    * @param doBlockNotifyOnPlace True by default, set to false for biome worldgen stuff
-   * @param minTreeHeightIn Minimum tree height. This refers to the trunk
-   * @param treeHeightRangeIn Height variation, total tree height = minTreeHeight + variation
-   * @param trunkState Blockstate to use for the trunk, usually congealed slimeblocks
-   * @param leafState Blockstate to use for the leaves, usually slimeleaves
-   * @param vineState Blockstate to use for the vines at the leaves, can be null for no leaves. Trees out of saplings don't have vines.
-   * @param sapling Sapling that grows into this tree
-   * @param seekHeightIn If true the y-coordinate will be lowered until it hits the ground. Used for island generation
+   * @param minTreeHeightIn      Minimum tree height. This refers to the trunk
+   * @param treeHeightRangeIn    Height variation, total tree height = minTreeHeight + variation
+   * @param trunkState           Blockstate to use for the trunk, usually congealed slimeblocks
+   * @param leafState            Blockstate to use for the leaves, usually slimeleaves
+   * @param vineState            Blockstate to use for the vines at the leaves, can be null for no leaves. Trees out of saplings don't have vines.
+   * @param sapling              Sapling that grows into this tree
+   * @param seekHeightIn         If true the y-coordinate will be lowered until it hits the ground. Used for island generation
+   */
 
   public SlimeTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn, boolean doBlockNotifyOnPlace, int minTreeHeightIn, int treeHeightRangeIn, BlockState trunkState, BlockState leafState, BlockState vineState, Block sapling, boolean seekHeightIn) {
-    super(configFactoryIn, doBlockNotifyOnPlace);
+    //super(configFactoryIn, doBlockNotifyOnPlace);
 
     this.minTreeHeight = minTreeHeightIn;
     this.treeHeightRange = treeHeightRangeIn;
@@ -31,10 +55,9 @@ public class SlimeTreeFeature {/* extends AbstractTreeFeature<NoFeatureConfig> {
     this.leaf = leafState;
     this.vine = vineState;
     this.seekHeight = seekHeightIn;
-    this.setSapling((net.minecraftforge.common.IPlantable) sapling);
+    //this.setSapling((net.minecraftforge.common.IPlantable) sapling);
   }
 
-  @Override
   protected boolean place(Set<BlockPos> changedBlocks, IWorldGenerationReader worldIn, Random rand, BlockPos position, MutableBoundingBox boundingBox) {
     int height = rand.nextInt(this.treeHeightRange) + this.minTreeHeight;
 
@@ -55,12 +78,10 @@ public class SlimeTreeFeature {/* extends AbstractTreeFeature<NoFeatureConfig> {
         this.placeTrunk(changedBlocks, worldIn, position, height, boundingBox);
         this.placeCanopy(changedBlocks, worldIn, rand, position, height, boundingBox);
         return true;
-      }
-      else {
+      } else {
         return false;
       }
-    }
-    else {
+    } else {
       return false;
     }
   }
@@ -123,7 +144,7 @@ public class SlimeTreeFeature {/* extends AbstractTreeFeature<NoFeatureConfig> {
   private BlockState getRandomizedVine(Random random) {
     BlockState state = this.vine;
 
-    BooleanProperty[] sides = new BooleanProperty[] { VineBlock.NORTH, VineBlock.EAST, VineBlock.SOUTH, VineBlock.WEST };
+    BooleanProperty[] sides = new BooleanProperty[]{VineBlock.NORTH, VineBlock.EAST, VineBlock.SOUTH, VineBlock.WEST};
 
     for (BooleanProperty side : sides) {
       state = state.with(side, false);
@@ -166,6 +187,9 @@ public class SlimeTreeFeature {/* extends AbstractTreeFeature<NoFeatureConfig> {
     }
   }
 
+  private void setBlockState(IWorldGenerationReader world, BlockPos pos, BlockState state) {
+  }
+
   private void placeAtPosition(Set<BlockPos> changedBlocks, IWorldGenerationReader world, BlockPos pos, BlockState state, MutableBoundingBox boundingBox) {
     if (isAirOrLeaves(world, pos)) {
       this.setSlimyLogState(changedBlocks, world, pos, state, boundingBox);
@@ -175,8 +199,7 @@ public class SlimeTreeFeature {/* extends AbstractTreeFeature<NoFeatureConfig> {
   public static boolean isAirOrLeaves(IWorldGenerationBaseReader worldIn, BlockPos pos) {
     if (!(worldIn instanceof net.minecraft.world.IWorldReader)) { // FORGE: Redirect to state method when possible
       return worldIn.hasBlockState(pos, (state) -> state.isAir() || state.isIn(BlockTags.LEAVES) || state.isIn(Tags.Blocks.SLIMY_LEAVES));
-    }
-    else {
+    } else {
       return worldIn.hasBlockState(pos, state -> state.canBeReplacedByLeaves((net.minecraft.world.IWorldReader) worldIn, pos));
     }
   }
@@ -187,7 +210,7 @@ public class SlimeTreeFeature {/* extends AbstractTreeFeature<NoFeatureConfig> {
       Block block = state.getBlock();
       BlockState upState = reader.getBlockState(position.up());
       if ((block == WorldBlocks.green_slime_dirt || block == WorldBlocks.blue_slime_dirt || block == WorldBlocks.purple_slime_dirt || block == WorldBlocks.magma_slime_dirt || block == WorldBlocks.blue_vanilla_slime_grass || block == WorldBlocks.purple_vanilla_slime_grass || block == WorldBlocks.orange_vanilla_slime_grass || block == WorldBlocks.blue_green_slime_grass || block == WorldBlocks.purple_green_slime_grass || block == WorldBlocks.orange_green_slime_grass || block == WorldBlocks.blue_blue_slime_grass || block == WorldBlocks.purple_blue_slime_grass || block == WorldBlocks.orange_blue_slime_grass || block == WorldBlocks.blue_purple_slime_grass || block == WorldBlocks.purple_purple_slime_grass || block == WorldBlocks.orange_purple_slime_grass
-           || block == WorldBlocks.blue_magma_slime_grass || block == WorldBlocks.purple_magma_slime_grass || block == WorldBlocks.orange_magma_slime_grass) && !upState.getBlock().isOpaqueCube(upState, reader, position)) {
+        || block == WorldBlocks.blue_magma_slime_grass || block == WorldBlocks.purple_magma_slime_grass || block == WorldBlocks.orange_magma_slime_grass) && !upState.getBlock().isOpaqueCube(upState, reader, position)) {
         return position.up();
       }
       position = position.down();
@@ -202,7 +225,7 @@ public class SlimeTreeFeature {/* extends AbstractTreeFeature<NoFeatureConfig> {
     return worldIn.hasBlockState(pos, (p_214582_0_) -> {
       Block block = p_214582_0_.getBlock();
       return block == WorldBlocks.green_slime_dirt || block == WorldBlocks.blue_slime_dirt || block == WorldBlocks.purple_slime_dirt || block == WorldBlocks.magma_slime_dirt || block == WorldBlocks.blue_vanilla_slime_grass || block == WorldBlocks.purple_vanilla_slime_grass || block == WorldBlocks.orange_vanilla_slime_grass || block == WorldBlocks.blue_green_slime_grass || block == WorldBlocks.purple_green_slime_grass || block == WorldBlocks.orange_green_slime_grass || block == WorldBlocks.blue_blue_slime_grass || block == WorldBlocks.purple_blue_slime_grass || block == WorldBlocks.orange_blue_slime_grass || block == WorldBlocks.blue_purple_slime_grass || block == WorldBlocks.purple_purple_slime_grass || block == WorldBlocks.orange_purple_slime_grass
-             || block == WorldBlocks.blue_magma_slime_grass || block == WorldBlocks.purple_magma_slime_grass || block == WorldBlocks.orange_magma_slime_grass;
+        || block == WorldBlocks.blue_magma_slime_grass || block == WorldBlocks.purple_magma_slime_grass || block == WorldBlocks.orange_magma_slime_grass;
     });
   }
 
@@ -228,5 +251,9 @@ public class SlimeTreeFeature {/* extends AbstractTreeFeature<NoFeatureConfig> {
     if (Tags.Blocks.SLIMY_LOGS.contains(state.getBlock())) {
       changedBlocks.add(pos.toImmutable());
     }
-  }*/
+  }
+
+  private IPlantable getSapling() {
+    return null;
+  }
 }
