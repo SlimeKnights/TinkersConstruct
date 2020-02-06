@@ -88,7 +88,7 @@ public class MaterialTraitsManager extends JsonReloadListener {
       log.debug("Loaded traits for material '{}': \n\tDefault - {}{}",
         materialId,
         Arrays.toString(materialDefaultTraits.getOrDefault(materialId, Collections.emptyList()).toArray()),
-        Util.toIdentedStringList(traitsMap.entrySet().stream()
+        Util.toIndentedStringList(traitsMap.entrySet().stream()
           .map(entry -> String.format("%s - %s", entry.getKey(), Arrays.toString(entry.getValue().toArray())))
           .collect(Collectors.toList())));
     });

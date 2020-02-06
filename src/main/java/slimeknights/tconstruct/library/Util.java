@@ -198,7 +198,14 @@ public class Util {
             && aabb.minZ <= hitZ && hitZ <= aabb.maxZ;
   }
 
-  public static String toIdentedStringList(Collection<?> list) {
+  /**
+   * Helper to create a indented list of entries in a single message.
+   * Takes a list of objects, and converts them into a string with one entry on each line, prefixed by a tab for indentation.
+   * The strings are created using the objects toString representation.
+   * @param list A list of objects to create a list of lines from
+   * @return A single string with all entries seperated into a new line, and indented.
+   */
+  public static String toIndentedStringList(Collection<?> list) {
     return list.stream()
       .map(Object::toString)
       .collect(Collectors.joining("\n\t", "\n\t", ""));

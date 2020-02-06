@@ -92,7 +92,7 @@ public class MaterialManager extends JsonReloadListener {
         material -> material)
       );
 
-    log.debug("Loaded materials: {}", Util.toIdentedStringList(materials.keySet()));
+    log.debug("Loaded materials: {}", Util.toIndentedStringList(materials.keySet()));
     log.info("{} materials loaded", materials.size());
 
     tinkerNetwork.getChannel().send(PacketDistributor.ALL.noArg(), new UpdateMaterialsPacket(materials.values()));

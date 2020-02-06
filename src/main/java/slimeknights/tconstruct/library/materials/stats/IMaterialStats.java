@@ -8,6 +8,9 @@ import java.util.List;
  */
 public interface IMaterialStats {
 
+  /**
+   * Returns a unique ResourceLocation to identify the type of stats the material has.
+   */
   MaterialStatsId getIdentifier();
 
   /**
