@@ -22,6 +22,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
 import slimeknights.tconstruct.world.worldgen.trees.MagmaSlimeTree;
+import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeatureConfig;
 
 import java.util.Random;
 
@@ -97,7 +98,7 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 
         if (rand.nextBoolean() && this.numberOfTreesPlaced < 3) {
-          ConfiguredFeature<TreeFeatureConfig, ?> treeFeature = magmaSlimeTree.getTreeFeature(rand, false);
+          ConfiguredFeature<SlimeTreeFeatureConfig, ?> treeFeature = magmaSlimeTree.getSlimeTreeFeature(rand, false);
 
           if (treeFeature != null) {
             treeFeature.place(worldIn, this.chunkGenerator, rand, pos);

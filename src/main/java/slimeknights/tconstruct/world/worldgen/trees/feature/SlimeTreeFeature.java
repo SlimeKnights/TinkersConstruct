@@ -4,6 +4,8 @@ import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.VineBlock;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -79,11 +81,65 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
     this.placeAir(worldIn, randomIn, blockPos.add(0, 0, +4), blockPosSet, mutableBoundingBoxIn);
     this.placeAir(worldIn, randomIn, blockPos.add(0, 0, -4), blockPosSet, mutableBoundingBoxIn);
 
-    if (treeFeatureConfigIn.vineProvider.func_225574_a_(randomIn, blockPos).getBlock() != Blocks.AIR) {
+    if (treeFeatureConfigIn.hasVines) {
       this.placeAir(worldIn, randomIn, blockPos.add(+1, 0, +1), blockPosSet, mutableBoundingBoxIn);
       this.placeAir(worldIn, randomIn, blockPos.add(+1, 0, -1), blockPosSet, mutableBoundingBoxIn);
       this.placeAir(worldIn, randomIn, blockPos.add(-1, 0, +1), blockPosSet, mutableBoundingBoxIn);
       this.placeAir(worldIn, randomIn, blockPos.add(-1, 0, -1), blockPosSet, mutableBoundingBoxIn);
+    }
+
+    //Drippers
+    // stuck with only one block down because of leaf decay distance
+    blockPos = blockPos.down();
+    this.func_227219_b_(worldIn, randomIn, blockPos.add(+3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+    this.func_227219_b_(worldIn, randomIn, blockPos.add(-3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+    this.func_227219_b_(worldIn, randomIn, blockPos.add(0, 0, -3), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+    this.func_227219_b_(worldIn, randomIn, blockPos.add(0, 0, +3), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+
+    if (!treeFeatureConfigIn.hasVines) {
+      this.func_227219_b_(worldIn, randomIn, blockPos.add(+1, 0, +1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+      this.func_227219_b_(worldIn, randomIn, blockPos.add(-3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+      this.func_227219_b_(worldIn, randomIn, blockPos.add(-1, 0, +1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+      this.func_227219_b_(worldIn, randomIn, blockPos.add(-1, 0, -1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+    }
+
+    if (treeFeatureConfigIn.hasVines) {
+      blockPos = blockPos.down();
+      this.placeVine(worldIn, randomIn, blockPos.add(+3, 0, 0), blockPosSet, mutableBoundingBoxIn,
+        this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn).with(VineBlock.UP, true));
+
+      this.placeVine(worldIn, randomIn, blockPos.add(-3, 0, 0), blockPosSet, mutableBoundingBoxIn,
+        this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn).with(VineBlock.UP, true));
+
+      this.placeVine(worldIn, randomIn, blockPos.add(0, 0, -3), blockPosSet, mutableBoundingBoxIn,
+        this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn).with(VineBlock.UP, true));
+
+      this.placeVine(worldIn, randomIn, blockPos.add(0, 0, +3), blockPosSet, mutableBoundingBoxIn,
+        this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn).with(VineBlock.UP, true));
+
+      BlockState randomVine = this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn);
+      this.placeVine(worldIn, randomIn, blockPos.add(+2, 1, +2), blockPosSet, mutableBoundingBoxIn,
+        randomVine.with(VineBlock.UP, true));
+      this.placeVine(worldIn, randomIn, blockPos.add(+2, 0, +2), blockPosSet, mutableBoundingBoxIn,
+        randomVine);
+
+      randomVine = this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn);
+      this.placeVine(worldIn, randomIn, blockPos.add(+2, 1, -2), blockPosSet, mutableBoundingBoxIn,
+        randomVine.with(VineBlock.UP, true));
+      this.placeVine(worldIn, randomIn, blockPos.add(+2, 0, -2), blockPosSet, mutableBoundingBoxIn,
+        randomVine);
+
+      randomVine = this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn);
+      this.placeVine(worldIn, randomIn, blockPos.add(-2, 1, +2), blockPosSet, mutableBoundingBoxIn,
+        randomVine.with(VineBlock.UP, true));
+      this.placeVine(worldIn, randomIn, blockPos.add(-2, 0, +2), blockPosSet, mutableBoundingBoxIn,
+        randomVine);
+
+      randomVine = this.getRandomizedVine(randomIn, blockPos, treeFeatureConfigIn);
+      this.placeVine(worldIn, randomIn, blockPos.add(-2, 1, -2), blockPosSet, mutableBoundingBoxIn,
+        randomVine.with(VineBlock.UP, true));
+      this.placeVine(worldIn, randomIn, blockPos.add(-2, 0, -2), blockPosSet, mutableBoundingBoxIn,
+        randomVine);
     }
   }
 
@@ -134,11 +190,26 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
     if (!isAirOrLeaves(worldIn, blockPos)) {
       return false;
     } else {
-      //treeFeatureConfigIn.vineProvider.func_225574_a_(random, blockPos)
       this.func_227217_a_(worldIn, blockPos, vineState, mutableBoundingBoxIn);
       blockPosSet.add(blockPos.toImmutable());
       return true;
     }
+  }
+
+  private BlockState getRandomizedVine(Random random, BlockPos blockPos, SlimeTreeFeatureConfig treeFeatureConfigIn) {
+    BlockState state = treeFeatureConfigIn.vineProvider.func_225574_a_(random, blockPos);
+
+    BooleanProperty[] sides = new BooleanProperty[]{VineBlock.NORTH, VineBlock.EAST, VineBlock.SOUTH, VineBlock.WEST};
+
+    for (BooleanProperty side : sides) {
+      state = state.with(side, false);
+    }
+
+    for (int i = random.nextInt(3) + 1; i > 0; i--) {
+      state = state.with(sides[random.nextInt(sides.length)], true);
+    }
+
+    return state;
   }
 
   @Deprecated

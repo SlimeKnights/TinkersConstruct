@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.world;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -13,14 +13,12 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.foliageplacer.FoliagePlacerType;
 import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.gen.treedecorator.TreeDecorator;
 import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.MinecraftForge;
@@ -55,7 +53,6 @@ import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeature;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeatureConfig;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SupplierBlockStateProvider;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 @Pulse(id = TinkerPulseIds.TINKER_WORLD_PULSE_ID, description = "Everything that's found in the world and worldgen")
@@ -75,27 +72,27 @@ public class TinkerWorld extends TinkerPulse {
   public static IStructurePieceType NETHER_SLIME_ISLAND_PIECE;
   public static final Structure<NoFeatureConfig> NETHER_SLIME_ISLAND = injected();
 
-  public static final Feature<TreeFeatureConfig> TREE = injected();
+  public static final Feature<SlimeTreeFeatureConfig> TREE = injected();
 
   public static BlockStateProviderType<SupplierBlockStateProvider> SUPPLIER_BLOCKSTATE_PROVIDER = Registry.register(Registry.BLOCK_STATE_PROVIDER_TYPE, "tconstruct:supplier_state_provider", new BlockStateProviderType<>(SupplierBlockStateProvider::new));
   public static FoliagePlacerType<SlimeFoliagePlacer> SLIME_FOLIAGE_PLACER = Registry.register(Registry.FOLIAGE_PLACER_TYPE, "tconstruct:slime_foliage_placer", new FoliagePlacerType<>(SlimeFoliagePlacer::new));
   public static TreeDecoratorType<SlimeLeaveVineTreeDecorator> SLIME_LEAVE_VINE_TREE_DECORATOR = Registry.register(Registry.TREE_DECORATOR_TYPE, "tconstruct:slime_leave_vine", new TreeDecoratorType<>(SlimeLeaveVineTreeDecorator::new));
   public static TreeDecoratorType<NoSlimeVineTreeDecorator> SLIME_NO_VINE_TREE_DECORATOR = Registry.register(Registry.TREE_DECORATOR_TYPE, "tconstruct:slime_no_vine", new TreeDecoratorType<>(NoSlimeVineTreeDecorator::new));
 
-  public static TreeFeatureConfig BLUE_SLIME_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_green_slime.getDefaultState(), () -> WorldBlocks.blue_slime_leaves.getDefaultState(),
-    2, 0, 5, 3, 3, ImmutableList.of(new NoSlimeVineTreeDecorator()), WorldBlocks.blue_slime_sapling);
+  public static SlimeTreeFeatureConfig BLUE_SLIME_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_green_slime.getDefaultState(), () -> WorldBlocks.blue_slime_leaves.getDefaultState(),
+    () -> Blocks.AIR.getDefaultState(), 5, 4, false, WorldBlocks.blue_slime_sapling);
 
-  public static TreeFeatureConfig BLUE_SLIME_ISLAND_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_green_slime.getDefaultState(), () -> WorldBlocks.blue_slime_leaves.getDefaultState(),
-    2, 0, 5, 3, 3, ImmutableList.of(new SlimeLeaveVineTreeDecorator()), WorldBlocks.blue_slime_sapling);
+  public static SlimeTreeFeatureConfig BLUE_SLIME_ISLAND_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_green_slime.getDefaultState(), () -> WorldBlocks.blue_slime_leaves.getDefaultState(),
+    () -> WorldBlocks.blue_slime_vine_middle.getDefaultState(), 5, 4, true, WorldBlocks.blue_slime_sapling);
 
-  public static TreeFeatureConfig PURPLE_SLIME_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_green_slime.getDefaultState(), () -> WorldBlocks.purple_slime_leaves.getDefaultState(),
-    2, 0, 5, 3, 3, ImmutableList.of(new NoSlimeVineTreeDecorator()), WorldBlocks.purple_slime_sapling);
+  public static SlimeTreeFeatureConfig PURPLE_SLIME_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_green_slime.getDefaultState(), () -> WorldBlocks.purple_slime_leaves.getDefaultState(),
+    () -> Blocks.AIR.getDefaultState(), 5, 4, false, WorldBlocks.purple_slime_sapling);
 
-  public static TreeFeatureConfig PURPLE_SLIME_ISLAND_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_green_slime.getDefaultState(), () -> WorldBlocks.purple_slime_leaves.getDefaultState(),
-    2, 0, 5, 3, 3, ImmutableList.of(new SlimeLeaveVineTreeDecorator()), WorldBlocks.purple_slime_sapling);
+  public static SlimeTreeFeatureConfig PURPLE_SLIME_ISLAND_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_green_slime.getDefaultState(), () -> WorldBlocks.purple_slime_leaves.getDefaultState(),
+    () -> WorldBlocks.purple_slime_vine_middle.getDefaultState(), 5, 4, true, WorldBlocks.purple_slime_sapling);
 
-  public static TreeFeatureConfig MAGMA_SLIME_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_magma_slime.getDefaultState(), () -> WorldBlocks.orange_slime_leaves.getDefaultState(),
-    2, 0, 5, 3, 3, ImmutableList.of(new NoSlimeVineTreeDecorator()), WorldBlocks.orange_slime_sapling);
+  public static SlimeTreeFeatureConfig MAGMA_SLIME_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_magma_slime.getDefaultState(), () -> WorldBlocks.orange_slime_leaves.getDefaultState(),
+    () -> Blocks.AIR.getDefaultState(), 5, 4, false, WorldBlocks.orange_slime_sapling);
 
   public TinkerWorld() {
     proxy.construct();
@@ -106,7 +103,7 @@ public class TinkerWorld extends TinkerPulse {
   public void onFeaturesRegistry(RegistryEvent.Register<Feature<?>> event) {
     BaseRegistryAdapter<Feature<?>> registry = new BaseRegistryAdapter<>(event.getRegistry());
 
-    registry.register(new SlimeTreeFeature(TreeFeatureConfig::func_227338_a_), "tree");
+    registry.register(new SlimeTreeFeature(SlimeTreeFeatureConfig::deserialize), "tree");
 
     SLIME_ISLAND_PIECE = Registry.register(Registry.STRUCTURE_PIECE, registry.getResource("slime_island_piece"), SlimeIslandPiece::new);
     registry.register(new SlimeIslandStructure(NoFeatureConfig::deserialize), "slime_island");
@@ -188,16 +185,9 @@ public class TinkerWorld extends TinkerPulse {
       .func_227228_a_(Placement.COUNT_RANGE.func_227446_a_(new CountRangeConfig(veinCount, 0, 0, 128))));
   }
 
-  public static TreeFeatureConfig createTreeConfig(Supplier<BlockState> logSupplierIn, Supplier<BlockState> leafSupplierIn, int foliageRadiusIn, int foliageRandomRadiusIn, int baseHeightIn, int randomHeightIn, int foliageHeightIn, List<TreeDecorator> decoratorsIn, IPlantable saplingIn) {
-    return (new TreeFeatureConfig.Builder(new SupplierBlockStateProvider(logSupplierIn), new SupplierBlockStateProvider(leafSupplierIn), new SlimeFoliagePlacer(foliageRadiusIn, foliageRandomRadiusIn)))
-      .baseHeight(baseHeightIn).heightRandA(randomHeightIn).foliageHeight(foliageHeightIn).ignoreVines()
-      .decorators(decoratorsIn).setSapling(saplingIn).build();
-  }
-
-  public static SlimeTreeFeatureConfig createTreeConfig(Supplier<BlockState> logSupplierIn, Supplier<BlockState> leafSupplierIn, Supplier<BlockState> vineSupplierIn, int baseHeightIn, int randomHeightIn, List<TreeDecorator> decoratorsIn, IPlantable saplingIn) {
+  public static SlimeTreeFeatureConfig createTreeConfig(Supplier<BlockState> logSupplierIn, Supplier<BlockState> leafSupplierIn, Supplier<BlockState> vineSupplierIn, int baseHeightIn, int randomHeightIn, boolean hasVines, IPlantable saplingIn) {
     return (new SlimeTreeFeatureConfig.Builder(new SupplierBlockStateProvider(logSupplierIn),
-      new SupplierBlockStateProvider(leafSupplierIn), new SupplierBlockStateProvider(vineSupplierIn))).baseHeight(baseHeightIn).randomHeight(randomHeightIn)
-      .decorators(decoratorsIn).setSapling(saplingIn).build();
+      new SupplierBlockStateProvider(leafSupplierIn), new SupplierBlockStateProvider(vineSupplierIn))).baseHeight(baseHeightIn).randomHeight(randomHeightIn).hasVines(hasVines).setSapling(saplingIn).build();
   }
 
 }

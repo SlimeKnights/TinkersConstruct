@@ -17,19 +17,19 @@ public class SlimeTreeFeatureConfig extends BaseTreeFeatureConfig {
 
   public final BlockStateProvider vineProvider;
   public final int randomTreeHeight;
-  public final boolean noVines;
+  public final boolean hasVines;
 
-  protected SlimeTreeFeatureConfig(BlockStateProvider trunkProviderIn, BlockStateProvider leavesProviderIn, BlockStateProvider vineProviderIn, List<TreeDecorator> decoratorsIn, int baseHeightIn, int randomTreeHeightIn, boolean noVines) {
+  protected SlimeTreeFeatureConfig(BlockStateProvider trunkProviderIn, BlockStateProvider leavesProviderIn, BlockStateProvider vineProviderIn, List<TreeDecorator> decoratorsIn, int baseHeightIn, int randomTreeHeightIn, boolean hasVinesIn) {
     super(trunkProviderIn, leavesProviderIn, decoratorsIn, baseHeightIn);
     this.vineProvider = vineProviderIn;
     this.randomTreeHeight = randomTreeHeightIn;
-    this.noVines = noVines;
+    this.hasVines = hasVinesIn;
   }
 
   @Override
   public <T> Dynamic<T> serialize(DynamicOps<T> ops) {
     ImmutableMap.Builder<T, T> builder = ImmutableMap.builder();
-    builder.put(ops.createString("vine_provider"), this.vineProvider.serialize(ops)).put(ops.createString("random_height"), ops.createInt(this.randomTreeHeight)).put(ops.createString("no_vines"), ops.createBoolean(this.noVines));
+    builder.put(ops.createString("vine_provider"), this.vineProvider.serialize(ops)).put(ops.createString("random_height"), ops.createInt(this.randomTreeHeight)).put(ops.createString("has_vines"), ops.createBoolean(this.hasVines));
     Dynamic<T> dynamic = new Dynamic<>(ops, ops.createMap(builder.build()));
     return dynamic.merge(super.serialize(ops));
   }
@@ -43,7 +43,7 @@ public class SlimeTreeFeatureConfig extends BaseTreeFeatureConfig {
   public static <T> SlimeTreeFeatureConfig deserialize(Dynamic<T> dynamic) {
     BaseTreeFeatureConfig basetreefeatureconfig = BaseTreeFeatureConfig.deserialize(dynamic);
     BlockStateProviderType<?> blockstateprovidertype = Registry.BLOCK_STATE_PROVIDER_TYPE.getOrDefault(new ResourceLocation(dynamic.get("vine_provider").get("type").asString().orElseThrow(RuntimeException::new)));
-    return new SlimeTreeFeatureConfig(basetreefeatureconfig.trunkProvider, basetreefeatureconfig.leavesProvider, blockstateprovidertype.func_227399_a_(dynamic.get("vine_provider").orElseEmptyMap()), basetreefeatureconfig.decorators, basetreefeatureconfig.baseHeight, dynamic.get("random_height").asInt(0), dynamic.get("no_vines").asBoolean(false));
+    return new SlimeTreeFeatureConfig(basetreefeatureconfig.trunkProvider, basetreefeatureconfig.leavesProvider, blockstateprovidertype.func_227399_a_(dynamic.get("vine_provider").orElseEmptyMap()), basetreefeatureconfig.decorators, basetreefeatureconfig.baseHeight, dynamic.get("random_height").asInt(0), dynamic.get("has_vines").asBoolean(false));
   }
 
   public static class Builder extends BaseTreeFeatureConfig.Builder {
@@ -52,7 +52,7 @@ public class SlimeTreeFeatureConfig extends BaseTreeFeatureConfig {
     private List<TreeDecorator> decorators = ImmutableList.of();
     private int baseHeight;
     private int randomHeight;
-    private boolean noVines;
+    private boolean hasVines;
 
     public Builder(BlockStateProvider trunkProviderIn, BlockStateProvider leavesProviderIn, BlockStateProvider vineProviderIn) {
       super(trunkProviderIn, leavesProviderIn);
@@ -75,8 +75,8 @@ public class SlimeTreeFeatureConfig extends BaseTreeFeatureConfig {
       return this;
     }
 
-    public SlimeTreeFeatureConfig.Builder noVines() {
-      this.noVines = true;
+    public SlimeTreeFeatureConfig.Builder hasVines(boolean hasVinesIn) {
+      this.hasVines = hasVinesIn;
       return this;
     }
 
@@ -88,7 +88,7 @@ public class SlimeTreeFeatureConfig extends BaseTreeFeatureConfig {
 
     @Override
     public SlimeTreeFeatureConfig build() {
-      return new SlimeTreeFeatureConfig(this.trunkProvider, this.leavesProvider, this.vineProvider, this.decorators, this.baseHeight, this.randomHeight, this.noVines).setSapling(this.sapling);
+      return new SlimeTreeFeatureConfig(this.trunkProvider, this.leavesProvider, this.vineProvider, this.decorators, this.baseHeight, this.randomHeight, this.hasVines).setSapling(this.sapling);
     }
   }
 }

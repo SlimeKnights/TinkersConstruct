@@ -25,6 +25,7 @@ import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
 import slimeknights.tconstruct.world.worldgen.trees.BlueSlimeTree;
 import slimeknights.tconstruct.world.worldgen.trees.PurpleSlimeTree;
+import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeatureConfig;
 
 import java.util.Random;
 
@@ -111,16 +112,16 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
       case "tconstruct:slime_tree":
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 
-        ConfiguredFeature<TreeFeatureConfig, ?> treeFeature = null;
+        ConfiguredFeature<SlimeTreeFeatureConfig, ?> treeFeature = null;
 
         if (rand.nextBoolean() && this.numberOfTreesPlaced < 3) {
           switch (this.variant) {
             case BLUE:
             case GREEN:
-              treeFeature = purpleSlimeTree.getTreeFeature(rand, false);
+              treeFeature = purpleSlimeTree.getSlimeTreeFeature(rand, false);
               break;
             case PURPLE:
-              treeFeature = blueSlimeTree.getTreeFeature(rand, false);
+              treeFeature = blueSlimeTree.getSlimeTreeFeature(rand, false);
               break;
             default:
               throw new IllegalStateException("Unexpected variant: " + this.variant);

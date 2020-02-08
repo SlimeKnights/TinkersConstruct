@@ -4,11 +4,12 @@ import net.minecraft.block.trees.Tree;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeatureConfig;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class PurpleSlimeTree extends Tree {
+public class PurpleSlimeTree extends SlimeTree {
 
   private final boolean isIslandTree;
 
@@ -25,7 +26,7 @@ public class PurpleSlimeTree extends Tree {
    */
   @Override
   @Nullable
-  public ConfiguredFeature<TreeFeatureConfig, ?> getTreeFeature(Random random, boolean bool) {
+  public ConfiguredFeature<SlimeTreeFeatureConfig, ?> getSlimeTreeFeature(Random random, boolean bool) {
     if (this.isIslandTree) {
       return TinkerWorld.TREE.withConfiguration(TinkerWorld.PURPLE_SLIME_ISLAND_TREE_CONFIG);
     } else {
