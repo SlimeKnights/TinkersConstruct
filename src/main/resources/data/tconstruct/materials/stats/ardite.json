@@ -1,8 +1,5 @@
 {
-  "materialId": {
-    "namespace": "tconstruct",
-    "path": "ardite"
-  },
+  "materialId": "tconstruct:ardite",
   "stats": [
     {
       "id": "tconstruct:common",

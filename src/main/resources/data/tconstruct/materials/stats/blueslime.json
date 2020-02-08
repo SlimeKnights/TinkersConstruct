@@ -1,8 +1,5 @@
 {
-  "materialId": {
-    "namespace": "tconstruct",
-    "path": "blueslime"
-  },
+  "materialId": "tconstruct:blueslime",
   "stats": [
     {
       "id": "tconstruct:common",

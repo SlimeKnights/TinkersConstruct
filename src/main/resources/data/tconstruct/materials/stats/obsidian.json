@@ -1,8 +1,5 @@
 {
-  "materialId": {
-    "namespace": "tconstruct",
-    "path": "obsidian"
-  },
+  "materialId": "tconstruct:obsidian",
   "stats": [
     {
       "id": "tconstruct:common",

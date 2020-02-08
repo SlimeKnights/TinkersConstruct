@@ -1,8 +1,5 @@
 {
-  "materialId": {
-    "namespace": "tconstruct",
-    "path": "endstone"
-  },
+  "materialId": "tconstruct:endstone",
   "stats": [
     {
       "id": "tconstruct:common",

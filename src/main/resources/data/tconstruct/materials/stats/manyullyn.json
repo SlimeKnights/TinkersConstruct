@@ -1,8 +1,5 @@
 {
-  "materialId": {
-    "namespace": "tconstruct",
-    "path": "manyullyn"
-  },
+  "materialId": "tconstruct:manyullyn",
   "stats": [
     {
       "id": "tconstruct:common",

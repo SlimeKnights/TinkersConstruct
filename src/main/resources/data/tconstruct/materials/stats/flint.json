@@ -1,8 +1,5 @@
 {
-  "materialId": {
-    "namespace": "tconstruct",
-    "path": "flint"
-  },
+  "materialId": "tconstruct:flint",
   "stats": [
     {
       "id": "tconstruct:common",

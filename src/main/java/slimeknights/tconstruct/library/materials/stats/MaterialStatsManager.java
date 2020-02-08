@@ -138,7 +138,7 @@ public class MaterialStatsManager extends JsonReloadListener {
       ));
 
     log.debug("Loaded stats for materials:{}",
-      Util.toIdentedStringList(materialToStatsPerType.entrySet().stream()
+      Util.toIndentedStringList(materialToStatsPerType.entrySet().stream()
         .map(entry -> String.format("%s - %s", entry.getKey(), Arrays.toString(entry.getValue().keySet().toArray())))
         .collect(Collectors.toList())));
     log.info("{} stats loaded for {} materials",

@@ -25,6 +25,7 @@ public class MaterialStatsDataProvider extends GenericDataProvider {
 
   private static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(JsonStatWrapper.class, new StatSerializer(MaterialStatsManager.GSON))
+    .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
@@ -88,7 +89,7 @@ public class MaterialStatsDataProvider extends GenericDataProvider {
       original.getAsJsonObject().entrySet().stream()
         .filter(entry -> entry.getValue().isJsonPrimitive())
         .forEach(entry -> output.add(entry.getKey(), entry.getValue()));
-      // copy over everything from the stat serialization
+      // copy over everything from the stat serialization. The "stat" here is the variable name of the JsonStatWrapper above
       original.getAsJsonObject().get("stat").getAsJsonObject().entrySet().forEach(entry -> output.add(entry.getKey(), entry.getValue()));
       return output;
     }

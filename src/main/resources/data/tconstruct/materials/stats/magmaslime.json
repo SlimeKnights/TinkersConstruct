@@ -1,8 +1,5 @@
 {
-  "materialId": {
-    "namespace": "tconstruct",
-    "path": "magmaslime"
-  },
+  "materialId": "tconstruct:magmaslime",
   "stats": [
     {
       "id": "tconstruct:common",

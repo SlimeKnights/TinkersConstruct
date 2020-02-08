@@ -1,8 +1,5 @@
 {
-  "materialId": {
-    "namespace": "tconstruct",
-    "path": "copper"
-  },
+  "materialId": "tconstruct:copper",
   "stats": [
     {
       "id": "tconstruct:common",

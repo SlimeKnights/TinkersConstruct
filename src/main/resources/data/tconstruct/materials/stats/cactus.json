@@ -1,8 +1,5 @@
 {
-  "materialId": {
-    "namespace": "tconstruct",
-    "path": "cactus"
-  },
+  "materialId": "tconstruct:cactus",
   "stats": [
     {
       "id": "tconstruct:common",

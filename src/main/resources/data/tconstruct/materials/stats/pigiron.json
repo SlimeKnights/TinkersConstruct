@@ -1,8 +1,5 @@
 {
-  "materialId": {
-    "namespace": "tconstruct",
-    "path": "pigiron"
-  },
+  "materialId": "tconstruct:pigiron",
   "stats": [
     {
       "id": "tconstruct:common",

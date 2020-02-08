@@ -1,8 +1,5 @@
 {
-  "materialId": {
-    "namespace": "tconstruct",
-    "path": "prismarine"
-  },
+  "materialId": "tconstruct:prismarine",
   "stats": [
     {
       "id": "tconstruct:common",

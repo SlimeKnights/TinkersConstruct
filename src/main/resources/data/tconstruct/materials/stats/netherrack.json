@@ -1,8 +1,5 @@
 {
-  "materialId": {
-    "namespace": "tconstruct",
-    "path": "netherrack"
-  },
+  "materialId": "tconstruct:netherrack",
   "stats": [
     {
       "id": "tconstruct:common",

@@ -1,8 +1,5 @@
 {
-  "materialId": {
-    "namespace": "tconstruct",
-    "path": "sponge"
-  },
+  "materialId": "tconstruct:sponge",
   "stats": [
     {
       "id": "tconstruct:common",
