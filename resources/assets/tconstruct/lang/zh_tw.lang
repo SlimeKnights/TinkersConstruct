@@ -372,7 +372,7 @@ item.tconstruct.crossbow.name=十字弓
 item.tconstruct.arrow.name=箭矢
 item.tconstruct.bolt.name=弩箭
 
-item.tconstruct.shuriken.name=飛鏢
+item.tconstruct.shuriken.name=手裏劍
 
 # Tool Parts
 item.tconstruct.shard.name=碎片
@@ -866,7 +866,7 @@ item.tconstruct.excavator.desc=《挖掘鏟》是大面積的挖掘工具，它�
 item.tconstruct.cleaver.desc=《大砍刀》是沉重的進攻型武器，它具有強大的攻擊力，但揮動起來卻很費力。\n大砍刀的優點是很高的傷害力。\n缺點是速度慢，需要使用雙手！
 item.tconstruct.battleaxe.desc=《戰斧》是沉重的進攻型武器，激發出狂暴戰士的性格。它能砍下小樹，還能打飛敵人。\n滑鼠右鍵: 發狂
 item.tconstruct.scythe.desc=《大鐮刀》是大面積的收割工具，能收割植物及掃除敵人。\n具範圍性攻擊能力。\n滑鼠右鍵: 收割作物並重新種植
-item.tconstruct.shuriken.desc=《飛鏢》是種快速的近距離投擲武器，它能大量丟出但殺傷力不高。\n能使用副手投擲。
+item.tconstruct.shuriken.desc=《手裏劍》是種快速的近距離投擲武器，它能大量丟出但殺傷力不高。\n能使用副手投擲。
 item.tconstruct.shortbow.desc=《短弓》是種快速且靈活的武器，它讓你可以在高速移動的同時快速射箭。\n使用打鐵模組的箭矢。
 item.tconstruct.longbow.desc=《長弓》是強力的遠距離武器。它能造成較高的殺傷力，但移動性就比它的短弓兄弟來得差了。\n使用打鐵模組的箭矢。
 item.tconstruct.arrow.desc=《箭矢》是打鐵模組中的弓用來發射的彈藥，一組可以多次發射，並能像其它工具一樣被改造強化。
