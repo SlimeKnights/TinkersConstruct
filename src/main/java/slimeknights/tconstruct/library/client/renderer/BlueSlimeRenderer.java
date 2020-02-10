@@ -37,25 +37,24 @@ public class BlueSlimeRenderer extends MobRenderer<SlimeEntity, SlimeModel<Slime
   }
 
   @Override
-  public void render(SlimeEntity entity, float p_225623_2_, float p_225623_3_, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int p_225623_6_) {
+  public void render(SlimeEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
     RenderUtil.setColorRGBA(this.color);
-    this.shadowSize = 0.25F * (float) entity.getSlimeSize();
-    super.render(entity, p_225623_2_, p_225623_3_, matrixStack, renderTypeBuffer, p_225623_6_);
+    this.shadowSize = 0.25F * (float) entityIn.getSlimeSize();
+    super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
   }
 
   @Override
-  protected void preRenderCallback(SlimeEntity entity, MatrixStack matrixStack, float p_225620_3_) {
-    float f = 0.999F;
-    matrixStack.scale(0.999F, 0.999F, 0.999F);
-    matrixStack.translate(0.0D, (double) 0.001F, 0.0D);
-    float f1 = (float) entity.getSlimeSize();
-    float f2 = MathHelper.lerp(p_225620_3_, entity.prevSquishFactor, entity.squishFactor) / (f1 * 0.5F + 1.0F);
+  protected void preRenderCallback(SlimeEntity slimeEntity, MatrixStack matrixStackIn, float partialTickTime) {
+    matrixStackIn.scale(0.999F, 0.999F, 0.999F);
+    matrixStackIn.translate(0.0D, (double) 0.001F, 0.0D);
+    float f1 = (float) slimeEntity.getSlimeSize();
+    float f2 = MathHelper.lerp(partialTickTime, slimeEntity.prevSquishFactor, slimeEntity.squishFactor) / (f1 * 0.5F + 1.0F);
     float f3 = 1.0F / (f2 + 1.0F);
-    matrixStack.scale(f3 * f1, 1.0F / f3 * f1, f3 * f1);
+    matrixStackIn.scale(f3 * f1, 1.0F / f3 * f1, f3 * f1);
   }
 
   @Override
-  protected float getOverlayProgress(SlimeEntity p_225625_1_, float p_225625_2_) {
+  protected float getOverlayProgress(SlimeEntity slimeEntity, float partialTicks) {
     return this.color;
   }
 
