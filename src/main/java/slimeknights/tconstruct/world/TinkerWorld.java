@@ -15,11 +15,9 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.foliageplacer.FoliagePlacerType;
 import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.PlantType;
@@ -46,9 +44,6 @@ import slimeknights.tconstruct.world.worldgen.islands.nether.NetherSlimeIslandPi
 import slimeknights.tconstruct.world.worldgen.islands.nether.NetherSlimeIslandStructure;
 import slimeknights.tconstruct.world.worldgen.islands.overworld.SlimeIslandPiece;
 import slimeknights.tconstruct.world.worldgen.islands.overworld.SlimeIslandStructure;
-import slimeknights.tconstruct.world.worldgen.trees.feature.NoSlimeVineTreeDecorator;
-import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeFoliagePlacer;
-import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeLeaveVineTreeDecorator;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeature;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeatureConfig;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SupplierBlockStateProvider;
@@ -75,9 +70,6 @@ public class TinkerWorld extends TinkerPulse {
   public static final Feature<SlimeTreeFeatureConfig> TREE = injected();
 
   public static BlockStateProviderType<SupplierBlockStateProvider> SUPPLIER_BLOCKSTATE_PROVIDER = Registry.register(Registry.BLOCK_STATE_PROVIDER_TYPE, "tconstruct:supplier_state_provider", new BlockStateProviderType<>(SupplierBlockStateProvider::new));
-  public static FoliagePlacerType<SlimeFoliagePlacer> SLIME_FOLIAGE_PLACER = Registry.register(Registry.FOLIAGE_PLACER_TYPE, "tconstruct:slime_foliage_placer", new FoliagePlacerType<>(SlimeFoliagePlacer::new));
-  public static TreeDecoratorType<SlimeLeaveVineTreeDecorator> SLIME_LEAVE_VINE_TREE_DECORATOR = Registry.register(Registry.TREE_DECORATOR_TYPE, "tconstruct:slime_leave_vine", new TreeDecoratorType<>(SlimeLeaveVineTreeDecorator::new));
-  public static TreeDecoratorType<NoSlimeVineTreeDecorator> SLIME_NO_VINE_TREE_DECORATOR = Registry.register(Registry.TREE_DECORATOR_TYPE, "tconstruct:slime_no_vine", new TreeDecoratorType<>(NoSlimeVineTreeDecorator::new));
 
   public static SlimeTreeFeatureConfig BLUE_SLIME_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_green_slime.getDefaultState(), () -> WorldBlocks.blue_slime_leaves.getDefaultState(),
     () -> Blocks.AIR.getDefaultState(), 5, 4, false, WorldBlocks.blue_slime_sapling);
