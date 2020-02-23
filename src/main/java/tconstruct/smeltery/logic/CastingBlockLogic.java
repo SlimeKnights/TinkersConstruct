@@ -22,6 +22,7 @@ import tconstruct.library.util.IPattern;
 public abstract class CastingBlockLogic extends InventoryLogic implements IFluidTank, IFluidHandler, ISidedInventory
 {
     public FluidStack liquid;
+    protected int maxCastingDelay = 0;
     protected int castingDelay = 0;
     protected int renderOffset = 0;
     protected int capacity = 0;
@@ -195,7 +196,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
                 {
                     if (copyLiquid.amount == this.capacity)
                     {
-                        castingDelay = recipe.coolTime;
+                        maxCastingDelay= castingDelay = recipe.coolTime;
                     }
                     renderOffset = copyLiquid.amount;
                     worldObj.func_147479_m(xCoord, yCoord, zCoord);
@@ -217,7 +218,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
                 if (doFill && roomInTank > 0)
                 {
                     renderOffset = roomInTank;
-                    castingDelay = liquidCasting.getCastingDelay(this.liquid, inventory[0]);
+                    maxCastingDelay = castingDelay = liquidCasting.getCastingDelay(this.liquid, inventory[0]);
                     this.liquid.amount = this.capacity;
                     worldObj.func_147479_m(xCoord, yCoord, zCoord);
                     needsUpdate = true;
@@ -447,6 +448,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
         {
             SmelteryCastedEvent event = getCastedEvent(recipe, recipe.getResult());
             MinecraftForge.EVENT_BUS.post(event);
+            maxCastingDelay = 0;
 
             inventory[1] = event.output;
             if (event.consumeCast)
@@ -485,6 +487,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
         else
             this.capacity = updateCapacity();
         this.castingDelay = tags.getInteger("castingDelay");
+        this.maxCastingDelay = tags.getInteger("maxCastingDelay");
         this.renderOffset = tags.getInteger("RenderOffset");
     }
 
@@ -507,6 +510,7 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
         tags.setBoolean("Initialized", init);
         tags.setInteger("Capacity", capacity);
         tags.setInteger("castingDelay", castingDelay);
+        tags.setInteger("maxCastingDelay", maxCastingDelay);
         tags.setInteger("RenderOffset", renderOffset);
     }
 
@@ -524,5 +528,13 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     {
         readFromNBT(packet.func_148857_g());
         worldObj.func_147479_m(xCoord, yCoord, zCoord);
+    }
+
+    public int getProgress() {
+        if(castingDelay == 0 || maxCastingDelay == 0) {
+            return 0;
+        }
+
+        return (int)(( (maxCastingDelay - castingDelay) / (double)maxCastingDelay) * 100);
     }
 }
