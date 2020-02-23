@@ -1,10 +1,13 @@
 package tconstruct.plugins.waila;
 
-import java.util.List;
-import mcp.mobius.waila.api.*;
+import mcp.mobius.waila.api.IWailaConfigHandler;
+import mcp.mobius.waila.api.IWailaDataAccessor;
+import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import tconstruct.smeltery.logic.CastingTableLogic;
+
+import java.util.List;
 
 public class TableDataProvider implements IWailaDataProvider
 {
@@ -40,6 +43,8 @@ public class TableDataProvider implements IWailaDataProvider
             {
                 currenttip.add(StatCollector.translateToLocal("tconstruct.waila.liquidtag") + WailaRegistrar.fluidNameHelper(te.getFluid()));
                 currenttip.add(StatCollector.translateToLocal("tconstruct.waila.amounttag") + te.getFluidAmount() + "/" + te.getCapacity());
+                final int progress = te.getProgress();
+                currenttip.add(StatCollector.translateToLocal("tconstruct.waila.progress") + progress + "%");
             }
         }
         return currenttip;

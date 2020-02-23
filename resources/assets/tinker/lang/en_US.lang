@@ -777,6 +777,7 @@ frypankill.tooltip=This poor animal met its demise with a loud *bang*
 
 tconstruct.waila.empty=Empty
 tconstruct.waila.liquidtag=Liquid: 
+tconstruct.waila.progress=Casting Progress: 
 tconstruct.waila.amounttag=Amount: 
 tconstruct.waila.contains=Contains: 
 tconstruct.waila.subtanks=Subtanks:
