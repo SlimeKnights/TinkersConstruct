@@ -8,6 +8,10 @@ public class MaterialItemFixture {
   public static final MaterialItem MATERIAL_ITEM = new MaterialItem(new Item.Properties());
   public static final MaterialItem MATERIAL_ITEM_2 = new MaterialItem(new Item.Properties());
 
+  public static final MaterialItem MATERIAL_ITEM_HEAD = new MaterialItem(new Item.Properties());
+  public static final MaterialItem MATERIAL_ITEM_HANDLE = new MaterialItem(new Item.Properties());
+  public static final MaterialItem MATERIAL_ITEM_EXTRA = new MaterialItem(new Item.Properties());
+
   private MaterialItemFixture() {
   }
 }

@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.fixture;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.fluid.FlowingFluid;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -16,9 +16,15 @@ public final class MaterialFixture {
   private static final ImmutableList.Builder<Material> ALL_MATERIALS_BUILDER = ImmutableList.builder();
   public static final Material MATERIAL_1 = material("mat1", Fluids.WATER, true);
   public static final Material MATERIAL_2 = material("mat2", Fluids.LAVA, false);
+
+  public static final Material MATERIAL_WITH_HEAD = material("mat_head", Fluids.EMPTY, false);
+  public static final Material MATERIAL_WITH_HANDLE = material("mat_handle", Fluids.EMPTY, false);
+  public static final Material MATERIAL_WITH_EXTRA = material("mat_extra", Fluids.EMPTY, false);
+  public static final Material MATERIAL_WITH_ALL_STATS = material("mat_all_stats", Fluids.EMPTY, false);
+
   public static final List<Material> ALL_MATERIALS = ALL_MATERIALS_BUILDER.build();
 
-  private static Material material(String mat1, FlowingFluid water, boolean b) {
+  private static Material material(String mat1, Fluid water, boolean b) {
     Material material = new TestMaterial(new ResourceLocation("test", mat1), water, b, ItemStack.EMPTY);
     ALL_MATERIALS_BUILDER.add(material);
     return material;

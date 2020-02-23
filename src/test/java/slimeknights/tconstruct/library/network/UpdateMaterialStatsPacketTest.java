@@ -12,7 +12,9 @@ import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.ComplexTestStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.test.BaseMcTest;
-import slimeknights.tconstruct.tools.stats.CommonMaterialStats;
+import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
+import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
+import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.Collection;
 import java.util.Map;
@@ -47,7 +49,10 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
 
   @Test
   void testAllTicDefaults() {
-    ImmutableList<BaseMaterialStats> stats = ImmutableList.of(CommonMaterialStats.DEFAULT);
+    ImmutableList<BaseMaterialStats> stats = ImmutableList.of(
+      HeadMaterialStats.DEFAULT,
+      HandleMaterialStats.DEFAULT,
+      ExtraMaterialStats.DEFAULT);
     Map<MaterialId, Collection<BaseMaterialStats>> materialToStats = ImmutableMap.of(
       MATERIAL_ID, stats
     );
