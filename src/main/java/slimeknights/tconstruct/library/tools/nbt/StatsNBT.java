@@ -11,15 +11,15 @@ public class StatsNBT {
   public int durability;
   public int harvestLevel;
   public float attack;
-  public float speed; // mining speed
+  public float miningSpeed; // mining speed
   public float attackSpeedMultiplier;
   public int modifiers; // free modifiers
 
   public StatsNBT() {
     durability = 0;
     harvestLevel = 0;
-    attack = 0;
-    speed = 0;
+    attack = 1;
+    miningSpeed = 0;
     attackSpeedMultiplier = 1;
     modifiers = DEFAULT_MODIFIERS;
   }

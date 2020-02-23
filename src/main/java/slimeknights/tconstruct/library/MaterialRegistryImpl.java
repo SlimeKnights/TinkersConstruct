@@ -22,7 +22,7 @@ import java.util.Optional;
  * For the Server, materials are loaded on server start/reload from the data packs.
  * For the Client, materials are synced from the server on server join.
  */
-class MaterialRegistryImpl {
+public class MaterialRegistryImpl {
 
   private final MaterialManager materialManager;
   private final MaterialStatsManager materialStatsManager;

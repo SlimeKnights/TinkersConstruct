@@ -3,6 +3,9 @@ package slimeknights.tconstruct.library;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.ParameterResolutionException;
+import org.junit.jupiter.api.extension.ParameterResolver;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.library.materials.IMaterial;
 
@@ -22,12 +25,15 @@ import static slimeknights.tconstruct.fixture.MaterialStatsFixture.STATS_TYPE_2;
 /**
  * Makes all materials from the {@link MaterialFixture} available during tests.
  */
-public class MaterialRegistryExtension implements BeforeEachCallback, AfterAllCallback {
+public class MaterialRegistryExtension implements BeforeEachCallback, AfterAllCallback, ParameterResolver {
+
+  private MaterialRegistryImpl materialRegistry;
 
   @Override
   public void beforeEach(ExtensionContext context) {
     MaterialRegistryImpl mock = mock(MaterialRegistryImpl.class);
     MaterialRegistry.INSTANCE = mock;
+    materialRegistry = mock;
 
     ALL_MATERIALS.forEach(material -> mockMaterial(mock, material));
     when(mock.getMaterialStats(eq(MATERIAL_1.getIdentifier()), eq(STATS_TYPE))).thenReturn(Optional.of(MATERIAL_STATS));
@@ -42,5 +48,15 @@ public class MaterialRegistryExtension implements BeforeEachCallback, AfterAllCa
 
   private void mockMaterial(MaterialRegistryImpl mock, IMaterial testMaterial1) {
     when(mock.getMaterial(testMaterial1.getIdentifier())).thenReturn(testMaterial1);
+  }
+
+  @Override
+  public boolean supportsParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+    return MaterialRegistryImpl.class.isAssignableFrom(parameterContext.getParameter().getType());
+  }
+
+  @Override
+  public Object resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
+    return materialRegistry;
   }
 }

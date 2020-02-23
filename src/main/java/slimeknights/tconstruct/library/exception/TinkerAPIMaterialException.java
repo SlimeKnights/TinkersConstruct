@@ -20,6 +20,13 @@ public class TinkerAPIMaterialException extends TinkerAPIException {
       "Is '" + invalidStatClass.getCanonicalName() + "' but should be '" + wantedStatClass.getCanonicalName() + "'");
   }
 
+  public static TinkerAPIMaterialException statBuilderWithInvalidMaterialCount() {
+    return new TinkerAPIMaterialException(
+      "Somehow something is trying to build a tool with a non-matching amount of materials. " +
+        "Number of materials and required parts differ. " +
+        "This should never happen and is a bug in whatever called this in the stacktrace.");
+  }
+
   private TinkerAPIMaterialException(String message) {
     super(message);
   }

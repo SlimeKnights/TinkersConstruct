@@ -1,18 +1,23 @@
 package slimeknights.tconstruct.library.tools;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import slimeknights.tconstruct.library.TinkerAPIException;
 
 /**
  * This class defines the innate properties of a tool.
  * Everything before materials are factored in.
  */
+@Getter
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public final class ToolBaseStatDefinition {
 
   /**
    * Multiplier applied to the actual mining speed of the tool
    * Internally a hammer and pick have the same speed, but a hammer is 2/3 slower
    */
-  private final float miningSpeedModifer;
+  private final float miningSpeedModifier;
 
   /**
    * Multiplier for damage from materials. Should be defined per tool.
@@ -38,35 +43,6 @@ public final class ToolBaseStatDefinition {
    * Knockback modifier. Basically this takes the vanilla knockback on hit and modifies it by this factor.
    */
   private final float knockbackModifier;
-
-  protected ToolBaseStatDefinition(float miningSpeedModifer, float damageModifier, float damageCutoff, double attackSpeed, float knockbackModifier) {
-    this.miningSpeedModifer = miningSpeedModifer;
-    this.damageModifier = damageModifier;
-    this.damageCutoff = damageCutoff;
-    this.attackSpeed = attackSpeed;
-    this.knockbackModifier = knockbackModifier;
-  }
-
-
-  public float getMiningSpeedModifer() {
-    return miningSpeedModifer;
-  }
-
-  public float getDamageModifier() {
-    return damageModifier;
-  }
-
-  public float getDamageCutoff() {
-    return damageCutoff;
-  }
-
-  public double getAttackSpeed() {
-    return attackSpeed;
-  }
-
-  public float getKnockbackModifier() {
-    return knockbackModifier;
-  }
 
   public static class Builder {
 
