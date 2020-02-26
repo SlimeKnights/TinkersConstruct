@@ -64,12 +64,12 @@ public final class GadgetBlocks {
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    RenderTypeLookup.setRenderLayer(stone_ladder, (layer) -> layer == RenderType.cutout());
-    RenderTypeLookup.setRenderLayer(stone_torch, (layer) -> layer == RenderType.cutout());
-    RenderTypeLookup.setRenderLayer(wall_stone_torch, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(stone_ladder, (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(stone_torch, (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(wall_stone_torch, (layer) -> layer == RenderType.getCutout());
 
-    RenderTypeLookup.setRenderLayer(wooden_rail, (layer) -> layer == RenderType.cutout());
-    RenderTypeLookup.setRenderLayer(wooden_dropper_rail, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(wooden_rail, (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(wooden_dropper_rail, (layer) -> layer == RenderType.getCutout());
   }
 
   private GadgetBlocks() {}

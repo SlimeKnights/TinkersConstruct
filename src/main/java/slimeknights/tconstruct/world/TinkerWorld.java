@@ -124,12 +124,12 @@ public class TinkerWorld extends TinkerPulse {
   }
 
   public static void applyFeatures() {
-    ConfiguredFeature<?, ?> SLIME_ISLAND_FEATURE = SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).func_227228_a_(Placement.NOPE.func_227446_a_(IPlacementConfig.NO_PLACEMENT_CONFIG));
+    ConfiguredFeature<?, ?> SLIME_ISLAND_FEATURE = SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
     FlatGenerationSettings.FEATURE_STAGES.put(SLIME_ISLAND_FEATURE, GenerationStage.Decoration.SURFACE_STRUCTURES);
     FlatGenerationSettings.STRUCTURES.put("tconstruct:slime_island", new ConfiguredFeature[]{SLIME_ISLAND_FEATURE});
     FlatGenerationSettings.FEATURE_CONFIGS.put(SLIME_ISLAND_FEATURE, IFeatureConfig.NO_FEATURE_CONFIG);
 
-    ConfiguredFeature<?, ?> NETHER_SLIME_ISLAND_FEATURE = NETHER_SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).func_227228_a_(Placement.NOPE.func_227446_a_(IPlacementConfig.NO_PLACEMENT_CONFIG));
+    ConfiguredFeature<?, ?> NETHER_SLIME_ISLAND_FEATURE = NETHER_SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
     FlatGenerationSettings.FEATURE_STAGES.put(NETHER_SLIME_ISLAND_FEATURE, GenerationStage.Decoration.UNDERGROUND_DECORATION);
     FlatGenerationSettings.STRUCTURES.put("tconstruct:nether_slime_island", new ConfiguredFeature[]{NETHER_SLIME_ISLAND_FEATURE});
     FlatGenerationSettings.FEATURE_CONFIGS.put(NETHER_SLIME_ISLAND_FEATURE, IFeatureConfig.NO_FEATURE_CONFIG);
@@ -137,7 +137,7 @@ public class TinkerWorld extends TinkerPulse {
     ForgeRegistries.BIOMES.forEach(biome -> {
       if (biome.getCategory() == Biome.Category.NETHER) {
         if (Config.COMMON.generateSlimeIslands.get()) {
-          biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, NETHER_SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).func_227228_a_(Placement.NOPE.func_227446_a_(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+          biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, NETHER_SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
           biome.addStructure(NETHER_SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
         }
 
@@ -150,7 +150,7 @@ public class TinkerWorld extends TinkerPulse {
         }
       } else if (biome.getCategory() != Biome.Category.THEEND) {
         if (Config.COMMON.generateSlimeIslands.get()) {
-          biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).func_227228_a_(Placement.NOPE.func_227446_a_(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+          biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
           biome.addStructure(SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
         }
       }
@@ -161,20 +161,20 @@ public class TinkerWorld extends TinkerPulse {
     int veinCount = Config.COMMON.veinCountCobalt.get() / 2;
 
     biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, WorldBlocks.cobalt_ore.getDefaultState(), 5))
-      .func_227228_a_(Placement.COUNT_RANGE.func_227446_a_(new CountRangeConfig(veinCount, 32, 0, 64))));
+      .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(veinCount, 32, 0, 64))));
 
     biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, WorldBlocks.cobalt_ore.getDefaultState(), 5))
-      .func_227228_a_(Placement.COUNT_RANGE.func_227446_a_(new CountRangeConfig(veinCount, 0, 0, 128))));
+      .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(veinCount, 0, 0, 128))));
   }
 
   private static void addArditeOre(Biome biome) {
     int veinCount = Config.COMMON.veinCountArdite.get() / 2;
 
     biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, WorldBlocks.ardite_ore.getDefaultState(), 5))
-      .func_227228_a_(Placement.COUNT_RANGE.func_227446_a_(new CountRangeConfig(veinCount, 32, 0, 64))));
+      .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(veinCount, 32, 0, 64))));
 
     biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, WorldBlocks.ardite_ore.getDefaultState(), 5))
-      .func_227228_a_(Placement.COUNT_RANGE.func_227446_a_(new CountRangeConfig(veinCount, 0, 0, 128))));
+      .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(veinCount, 0, 0, 128))));
   }
 
   public static SlimeTreeFeatureConfig createTreeConfig(Supplier<BlockState> logSupplierIn, Supplier<BlockState> leafSupplierIn, Supplier<BlockState> vineSupplierIn, int baseHeightIn, int randomHeightIn, boolean hasVines, IPlantable saplingIn) {

@@ -119,7 +119,7 @@ public final class CommonBlocks {
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    RenderTypeLookup.setRenderLayer(glow, (layer) -> layer == RenderType.translucent());
+    RenderTypeLookup.setRenderLayer(glow, (layer) -> layer == RenderType.getTranslucent());
   }
 
   private CommonBlocks() {

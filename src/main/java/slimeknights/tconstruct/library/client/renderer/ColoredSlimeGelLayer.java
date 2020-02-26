@@ -59,11 +59,11 @@ public class ColoredSlimeGelLayer<T extends LivingEntity> extends LayerRenderer<
         RenderUtil.setColorRGBA(this.color);
       }
 
-      this.getEntityModel().setModelAttributes(this.slimeModel);
+      this.getEntityModel().copyModelAttributesTo(this.slimeModel);
       this.slimeModel.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
-      this.slimeModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+      this.slimeModel.setRotationAngles(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 
-      IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.entityTranslucent(this.getEntityTexture(entitylivingbaseIn)));
+      IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityTranslucent(this.getEntityTexture(entitylivingbaseIn)));
       this.slimeModel.render(matrixStackIn, ivertexbuilder, packedLightIn, LivingRenderer.getPackedOverlay(entitylivingbaseIn, 0.0F), red, green, blue, alpha);
     }
   }

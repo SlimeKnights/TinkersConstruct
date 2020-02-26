@@ -75,7 +75,7 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
     ModelResourceLocation modelresourcelocation = entityIn.getDisplayedItem().getItem() instanceof FilledMapItem ? LOCATIONS_MODEL_MAP.get(frameType) : LOCATIONS_MODEL.get(frameType);
     matrixStackIn.push();
     matrixStackIn.translate(-0.5D, -0.5D, -0.5D);
-    blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(matrixStackIn.getLast(), bufferIn.getBuffer(Atlases.getSolidBlockType()), null, modelmanager.getModel(modelresourcelocation), 1.0F, 1.0F, 1.0F, packedLightIn, OverlayTexture.DEFAULT_LIGHT);
+    blockrendererdispatcher.getBlockModelRenderer().renderModelBrightnessColor(matrixStackIn.getLast(), bufferIn.getBuffer(Atlases.getSolidBlockType()), null, modelmanager.getModel(modelresourcelocation), 1.0F, 1.0F, 1.0F, packedLightIn, OverlayTexture.NO_OVERLAY);
     matrixStackIn.pop();
     ItemStack itemstack = entityIn.getDisplayedItem();
     if (!itemstack.isEmpty()) {
@@ -95,7 +95,7 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
           }
         } else {
           matrixStackIn.scale(0.5F, 0.5F, 0.5F);
-          this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, OverlayTexture.DEFAULT_LIGHT, matrixStackIn, bufferIn);
+          this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
         }
       }
     }

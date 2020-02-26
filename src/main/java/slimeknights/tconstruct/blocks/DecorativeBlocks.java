@@ -113,24 +113,24 @@ public final class DecorativeBlocks {
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    RenderTypeLookup.setRenderLayer(clear_glass, (layer) -> layer == RenderType.cutout());
+    RenderTypeLookup.setRenderLayer(clear_glass, (layer) -> layer == RenderType.getCutout());
 
-    RenderTypeLookup.setRenderLayer(white_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(orange_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(magenta_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(light_blue_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(yellow_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(lime_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(pink_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(gray_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(light_gray_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(cyan_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(purple_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(blue_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(brown_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(green_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(red_clear_stained_glass, (layer) -> layer == RenderType.translucent());
-    RenderTypeLookup.setRenderLayer(black_clear_stained_glass, (layer) -> layer == RenderType.translucent());
+    RenderTypeLookup.setRenderLayer(white_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(orange_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(magenta_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(light_blue_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(yellow_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(lime_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(pink_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(gray_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(light_gray_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(cyan_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(purple_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(blue_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(brown_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(green_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(red_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    RenderTypeLookup.setRenderLayer(black_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
   }
 
   private DecorativeBlocks() {}

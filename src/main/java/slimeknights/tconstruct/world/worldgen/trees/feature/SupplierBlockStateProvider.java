@@ -7,7 +7,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
-import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Random;
@@ -27,14 +26,14 @@ public class SupplierBlockStateProvider extends BlockStateProvider {
   }
 
   @Override
-  public BlockState func_225574_a_(Random random, BlockPos blockPos) {
+  public BlockState getBlockState(Random random, BlockPos blockPos) {
     return this.blockStateSupplier.get();
   }
 
   @Override
   public <T> T serialize(DynamicOps<T> dynamicOps) {
     ImmutableMap.Builder<T, T> builder = ImmutableMap.builder();
-    builder.put(dynamicOps.createString("type"), dynamicOps.createString(Registry.BLOCK_STATE_PROVIDER_TYPE.getKey(this.field_227393_a_).toString())).put(dynamicOps.createString("state"), BlockState.serialize(dynamicOps, this.blockStateSupplier.get()).getValue());
+    builder.put(dynamicOps.createString("type"), dynamicOps.createString(Registry.BLOCK_STATE_PROVIDER_TYPE.getKey(this.blockStateProvider).toString())).put(dynamicOps.createString("state"), BlockState.serialize(dynamicOps, this.blockStateSupplier.get()).getValue());
     return (new Dynamic<>(dynamicOps, dynamicOps.createMap(builder.build()))).getValue();
   }
 }

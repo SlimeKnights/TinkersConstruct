@@ -159,7 +159,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
     if (!isAirOrLeaves(worldIn, blockPos)) {
       return false;
     } else {
-      this.func_227217_a_(worldIn, blockPos, treeFeatureConfigIn.trunkProvider.func_225574_a_(randomIn, blockPos), mutableBoundingBoxIn);
+      this.func_227217_a_(worldIn, blockPos, treeFeatureConfigIn.trunkProvider.getBlockState(randomIn, blockPos), mutableBoundingBoxIn);
       blockPosSet.add(blockPos.toImmutable());
       return true;
     }
@@ -180,7 +180,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
     if (!isAirOrLeaves(worldIn, blockPos)) {
       return false;
     } else {
-      this.func_227217_a_(worldIn, blockPos, treeFeatureConfigIn.leavesProvider.func_225574_a_(random, blockPos), mutableBoundingBoxIn);
+      this.func_227217_a_(worldIn, blockPos, treeFeatureConfigIn.leavesProvider.getBlockState(random, blockPos), mutableBoundingBoxIn);
       blockPosSet.add(blockPos.toImmutable());
       return true;
     }
@@ -197,7 +197,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
   }
 
   private BlockState getRandomizedVine(Random random, BlockPos blockPos, SlimeTreeFeatureConfig treeFeatureConfigIn) {
-    BlockState state = treeFeatureConfigIn.vineProvider.func_225574_a_(random, blockPos);
+    BlockState state = treeFeatureConfigIn.vineProvider.getBlockState(random, blockPos);
 
     BooleanProperty[] sides = new BooleanProperty[]{VineBlock.NORTH, VineBlock.EAST, VineBlock.SOUTH, VineBlock.WEST};
 
