@@ -82,12 +82,13 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
    * @param defaultStats
    */
   @Override
-  public <T extends IMaterialStats> void registerMaterial(MaterialStatsId type, T defaultStats, Class<T> clazz) {
-    if (materialStatDefaults.containsKey(type)) {
-      throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(type);
+  public <T extends IMaterialStats> void registerMaterial(T defaultStats, Class<T> clazz) {
+    MaterialStatsId statsId = defaultStats.getIdentifier();
+    if (materialStatDefaults.containsKey(statsId)) {
+      throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(statsId);
     }
     // todo: implement check if class is compatible with the requirements for a network syncable stats class
-    materialStatsManager.registerMaterialStat(type, clazz);
-    materialStatDefaults.put(type, defaultStats);
+    materialStatsManager.registerMaterialStat(statsId, clazz);
+    materialStatDefaults.put(statsId, defaultStats);
   }
 }

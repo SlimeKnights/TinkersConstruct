@@ -55,7 +55,7 @@ public class MaterialManager extends JsonReloadListener {
   private Map<MaterialId, IMaterial> materials = ImmutableMap.of();
 
   public MaterialManager() {
-    this(TinkerNetwork.instance);
+    this(TinkerNetwork.getInstance());
   }
 
   @VisibleForTesting

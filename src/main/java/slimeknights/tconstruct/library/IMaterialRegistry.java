@@ -20,5 +20,5 @@ public interface IMaterialRegistry {
 
   <T extends IMaterialStats> T getDefaultStats(MaterialStatsId statsId);
 
-  <T extends IMaterialStats> void registerMaterial(MaterialStatsId type, T defaultStats, Class<T> clazz);
+  <T extends IMaterialStats> void registerMaterial(T defaultStats, Class<T> clazz);
 }

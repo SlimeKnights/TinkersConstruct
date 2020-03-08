@@ -72,7 +72,7 @@ public class MaterialStatsManager extends JsonReloadListener {
   private Map<MaterialId, Map<MaterialStatsId, IMaterialStats>> materialToStatsPerType = ImmutableMap.of();
 
   public MaterialStatsManager() {
-    this(TinkerNetwork.instance);
+    this(TinkerNetwork.getInstance());
   }
 
   @VisibleForTesting

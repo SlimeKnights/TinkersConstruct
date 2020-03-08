@@ -8,7 +8,6 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialStatsPacket;
@@ -26,7 +25,7 @@ public class DataSyncOnLoginEvents {
   public static void onLogin(PlayerEvent.PlayerLoggedInEvent playerLoggedInEvent) {
     Collection<IMaterial> allMaterials = MaterialRegistry.getInstance().getMaterials();
 
-    TinkerNetwork.instance.network.send(PacketDistributor.ALL.noArg(), new UpdateMaterialsPacket(allMaterials));
+    TinkerNetwork.getInstance().network.send(PacketDistributor.ALL.noArg(), new UpdateMaterialsPacket(allMaterials));
 
     Map<MaterialId, Collection<IMaterialStats>> materialStats = allMaterials.stream()
       .collect(Collectors.toMap(
@@ -34,12 +33,12 @@ public class DataSyncOnLoginEvents {
         material -> MaterialRegistry.getInstance().getAllStats(material.getIdentifier())
       ));
 
-    TinkerNetwork.instance.network.send(PacketDistributor.ALL.noArg(), new UpdateMaterialStatsPacket(materialStats));
+    TinkerNetwork.getInstance().network.send(PacketDistributor.ALL.noArg(), new UpdateMaterialStatsPacket(materialStats));
   }
 
   public static void setupMaterialDataSyncPackets() {
-    TinkerNetwork.instance.registerPacket(UpdateMaterialsPacket.class, UpdateMaterialsPacket::encode, UpdateMaterialsPacket::new, DataSyncOnLoginEvents::handleMaterialPacket);
-    TinkerNetwork.instance.registerPacket(UpdateMaterialStatsPacket.class, UpdateMaterialStatsPacket::encode, buffer -> new UpdateMaterialStatsPacket(buffer, MaterialRegistry::getClassForStat), DataSyncOnLoginEvents::handleMaterialStatsPacket);
+    TinkerNetwork.getInstance().registerPacket(UpdateMaterialsPacket.class, UpdateMaterialsPacket::encode, UpdateMaterialsPacket::new, DataSyncOnLoginEvents::handleMaterialPacket);
+    TinkerNetwork.getInstance().registerPacket(UpdateMaterialStatsPacket.class, UpdateMaterialStatsPacket::encode, buffer -> new UpdateMaterialStatsPacket(buffer, MaterialRegistry::getClassForStat), DataSyncOnLoginEvents::handleMaterialStatsPacket);
   }
 
   private static void handleMaterialPacket(UpdateMaterialsPacket packet, Supplier<NetworkEvent.Context> contextSupplier) {

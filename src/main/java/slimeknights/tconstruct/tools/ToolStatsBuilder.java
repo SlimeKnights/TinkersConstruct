@@ -12,14 +12,15 @@ import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -36,10 +37,6 @@ public final class ToolStatsBuilder {
   private final List<HeadMaterialStats> heads;
   private final List<HandleMaterialStats> handles;
   private final List<ExtraMaterialStats> extras;
-
-  public ToolStatsBuilder() {
-    this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-  }
 
   public static ToolStatsBuilder from(List<IMaterial> materials, ToolDefinition toolDefinition) {
     List<PartMaterialType> requiredComponents = toolDefinition.getRequiredComponents();
@@ -71,4 +68,56 @@ public final class ToolStatsBuilder {
     }
   }
 
+  public StatsNBT buildDefaultStats() {
+    return new StatsNBT(
+      buildDurability(),
+      buildHarvestLevel(),
+      buildAttack(),
+      buildMiningSpeed(),
+      1f,
+      StatsNBT.DEFAULT_MODIFIERS
+    );
+  }
+
+  public int buildDurability() {
+    double averageHeadDurability = getAverageValue(heads, HeadMaterialStats::getDurability);
+    double averageExtraDurability = getAverageValue(extras, ExtraMaterialStats::getDurability);
+    double averageHandleDurability = getAverageValue(handles, HandleMaterialStats::getDurability);
+    double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getModifier, 1);
+
+    double durability = (averageHeadDurability + averageExtraDurability) * averageHandleModifier + averageHandleDurability;
+
+    // durability should never be below 1
+    return Math.max(1, (int)durability);
+  }
+
+  public float buildMiningSpeed() {
+    double averageHeadSpeed = getAverageValue(heads, HeadMaterialStats::getMiningSpeed);
+
+    return (float)Math.max(0.1d, averageHeadSpeed);
+  }
+
+  public int buildHarvestLevel() {
+    return heads.stream()
+      .mapToInt(HeadMaterialStats::getHarvestLevel)
+      .max()
+      .orElse(0);
+  }
+
+  public float buildAttack() {
+    double averageHeadAttack = getAverageValue(heads, HeadMaterialStats::getAttack);
+
+    return (float)Math.max(0.1d, averageHeadAttack);
+  }
+
+  private <T extends IMaterialStats> double getAverageValue(List<T> stats, Function<T, ? extends Number> statGetter) {
+    return getAverageValue(stats, statGetter, 0);
+  }
+
+  private <T extends IMaterialStats, N extends Number> double getAverageValue(List<T> stats, Function<T, N> statGetter, double missingValue ) {
+    return stats.stream()
+      .mapToDouble(value -> statGetter.apply(value).doubleValue())
+      .average()
+      .orElse(missingValue);
+  }
 }

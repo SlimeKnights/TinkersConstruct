@@ -7,9 +7,12 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.ITinkerable;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.tools.ToolStatsBuilder;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -30,6 +33,10 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
 
   public ToolDefinition getToolDefinition() {
     return toolDefinition;
+  }
+
+  public StatsNBT buildToolStats(List<IMaterial> materials) {
+    return ToolStatsBuilder.from(materials, toolDefinition).buildDefaultStats();
   }
 //
 //  @Override
@@ -242,6 +249,8 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
     toolData.getMaterials().stream()
       .map(material -> new StringTextComponent(material.getIdentifier().toString()))
       .forEach(tooltip::add);
+
+    tooltip.add(new StringTextComponent(toolData.getStats().toString()));
   }
 
 //

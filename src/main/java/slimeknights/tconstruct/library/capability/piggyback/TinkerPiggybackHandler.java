@@ -24,7 +24,7 @@ public class TinkerPiggybackHandler implements ITinkerPiggyback {
       // tell the player itself if his riders changed serverside
       if (!this.riddenPlayer.getPassengers().equals(this.lastPassengers)) {
         if (this.riddenPlayer instanceof ServerPlayerEntity) {
-          TinkerNetwork.instance.sendVanillaPacket(this.riddenPlayer, new SSetPassengersPacket(this.riddenPlayer));
+          TinkerNetwork.getInstance().sendVanillaPacket(this.riddenPlayer, new SSetPassengersPacket(this.riddenPlayer));
         }
       }
       this.lastPassengers = this.riddenPlayer.getPassengers();

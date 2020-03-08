@@ -49,7 +49,7 @@ public class MaterialRegistryFixture implements IMaterialRegistry {
   }
 
   @Override
-  public <T extends IMaterialStats> void registerMaterial(MaterialStatsId type, T defaultStats, Class<T> clazz) {
+  public <T extends IMaterialStats> void registerMaterial(T defaultStats, Class<T> clazz) {
     throw new UnsupportedOperationException("No registration possible in test mock");
   }
 }

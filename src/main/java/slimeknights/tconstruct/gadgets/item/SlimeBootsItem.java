@@ -119,7 +119,7 @@ public class SlimeBootsItem extends ArmorTooltipItem implements IDyeableArmorIte
         //System.out.println((entityLiving.worldObj.isRemote ? "client: " : "server: ") + entityLiving.motionX);
         // only slow down half as much when bouncing
         entity.setMotion(entity.getMotion().x / f, entity.getMotion().y, entity.getMotion().z / f);
-        TinkerNetwork.instance.sendToServer(new BouncedPacket());
+        TinkerNetwork.getInstance().sendToServer(new BouncedPacket());
       } else {
         event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
       }

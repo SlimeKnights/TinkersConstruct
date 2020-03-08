@@ -7,6 +7,7 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialType;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.library.tools.nbt.ToolItemNBT;
 
@@ -33,9 +34,12 @@ public final class ToolBuildHandler {
       .map(MaterialItem::getMaterialFromStack)
       .collect(Collectors.toList());
 
+    StatsNBT stats = tool.buildToolStats(materials);
+
     ToolData toolData = new ToolData(
       new ToolItemNBT(tool),
-      new MaterialNBT(materials)
+      new MaterialNBT(materials),
+      stats
     );
 
     ItemStack output = new ItemStack(tool);

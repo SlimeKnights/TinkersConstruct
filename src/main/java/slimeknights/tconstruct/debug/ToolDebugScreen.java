@@ -25,7 +25,9 @@ public class ToolDebugScreen extends ContainerScreen<ToolDebugContainer> {
 
     addButton(new Button(guiLeft, guiTop, 20, 20, "test", button -> {
       ItemStack st = ToolItems.test_part.getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:stone")));
-      ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(NonNullList.from(ItemStack.EMPTY, st), ToolItems.test_tool);
+      ItemStack st2 = ToolItems.test_part.getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:wood")));
+      ItemStack st3 = ToolItems.test_part.getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:ardite")));
+      ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(NonNullList.from(ItemStack.EMPTY, st, st2, st3), ToolItems.test_tool);
       container.inventory.setInventorySlotContents(0, itemStack);
     }));
   }
