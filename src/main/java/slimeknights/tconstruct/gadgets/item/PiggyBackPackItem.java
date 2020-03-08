@@ -151,7 +151,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
       // todo: possibly throw off all passengers of the target
       if (target.startRiding(toRide, true)) {
         if (player instanceof ServerPlayerEntity) {
-          TinkerNetwork.instance.sendVanillaPacket(player, new SSetPassengersPacket(player));
+          TinkerNetwork.getInstance().sendVanillaPacket(player, new SSetPassengersPacket(player));
         }
         return true;
       }

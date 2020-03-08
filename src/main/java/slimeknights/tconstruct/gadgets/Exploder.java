@@ -108,7 +108,7 @@ public class Exploder {
       entity.attackEntityFrom(DamageSource.causeExplosionDamage(this.explosion), (float) (str * this.explosionStrength));
 
       if (entity instanceof ServerPlayerEntity) {
-        TinkerNetwork.instance.sendTo(new EntityMovementChangePacket(entity), (ServerPlayerEntity) entity);
+        TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(entity), (ServerPlayerEntity) entity);
       }
     }
   }

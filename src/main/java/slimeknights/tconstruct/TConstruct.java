@@ -37,7 +37,6 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
@@ -88,8 +87,6 @@ public class TConstruct {
   @SubscribeEvent
   public static void preInit(final FMLCommonSetupEvent event) {
     proxy.preInit();
-
-    TinkerNetwork.setup();
   }
 
   @SubscribeEvent

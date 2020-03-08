@@ -14,6 +14,8 @@ import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
 import slimeknights.tconstruct.library.traits.MaterialTraitsManager;
+import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
+import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.Collection;
@@ -46,8 +48,9 @@ public final class MaterialRegistry {
     materialTraitsManager = new MaterialTraitsManager();
     registry = new MaterialRegistryImpl(materialManager, materialStatsManager, materialTraitsManager);
 
-    HeadMaterialStats commonMaterialStats = new HeadMaterialStats(1, 1, 1, 1);
-    registry.registerMaterial(new MaterialStatsId(Util.getResource("common")), commonMaterialStats, HeadMaterialStats.class);
+    registry.registerMaterial(HeadMaterialStats.DEFAULT, HeadMaterialStats.class);
+    registry.registerMaterial(HandleMaterialStats.DEFAULT, HandleMaterialStats.class);
+    registry.registerMaterial(ExtraMaterialStats.DEFAULT, ExtraMaterialStats.class);
   }
 
   @VisibleForTesting

@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import net.minecraft.nbt.CompoundNBT;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -9,6 +12,9 @@ import java.util.List;
 /**
  * The data of t he tool. Persisted in NBT.
  */
+@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class ToolData {
 
   protected static final String TAG_ITEM = "tic_item";
@@ -19,6 +25,7 @@ public class ToolData {
   private final ToolItemNBT toolItem;
   //components=materials
   private final MaterialNBT materials;
+  private final StatsNBT stats;
 
   //stats
   // modifiers
@@ -33,11 +40,6 @@ public class ToolData {
 
   //private final StatsNBT stats;
 
-  public ToolData(ToolItemNBT toolItem, MaterialNBT materials) {
-    this.toolItem = toolItem;
-    this.materials = materials;
-  }
-
   public ToolCore getToolItem() {
     return toolItem.getToolItem();
   }
@@ -46,13 +48,18 @@ public class ToolData {
     return materials.getMaterials();
   }
 
+  public StatsNBT getStats() {
+    return stats;
+  }
+
   // todo: keep backing NBT and lazily initialize all the values? Might be worth it.. or a severe case of optimizing too early
 
   public static ToolData readFromNBT(CompoundNBT nbt) {
     ToolItemNBT toolCore = ToolItemNBT.readFromNBT(nbt.get(TAG_ITEM));
     MaterialNBT materialNBT = MaterialNBT.readFromNBT(nbt.get(TAG_MATERIALS));
+    StatsNBT statsNBT = StatsNBT.readFromNBT(nbt.get(TAG_STATS));
 
-    return new ToolData(toolCore, materialNBT);
+    return new ToolData(toolCore, materialNBT, statsNBT);
   }
 
   public CompoundNBT serializeToNBT() {
@@ -60,6 +67,7 @@ public class ToolData {
 
     nbt.put(TAG_ITEM, toolItem.serializeToNBT());
     nbt.put(TAG_MATERIALS, materials.serializeToNBT());
+    nbt.put(TAG_STATS, stats.serializeToNBT());
 
     // base data about the tool, what it's built out of
 //    nbt.put(Tags.BASE, null);

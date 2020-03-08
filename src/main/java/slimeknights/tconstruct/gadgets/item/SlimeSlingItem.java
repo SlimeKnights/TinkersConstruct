@@ -75,7 +75,7 @@ public class SlimeSlingItem extends TooltipItem {
 
       if (player instanceof ServerPlayerEntity) {
         ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
-        TinkerNetwork.instance.sendTo(new EntityMovementChangePacket(player), playerMP);
+        TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(player), playerMP);
         //playerMP.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(player));
       }
       //player.playSound(Sounds.slimesling, 1f, 1f);

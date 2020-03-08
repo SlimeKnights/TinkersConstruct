@@ -16,10 +16,17 @@ import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
 public class TinkerNetwork extends NetworkWrapper {
 
-  public static TinkerNetwork instance;
+  private static TinkerNetwork instance;
 
   private TinkerNetwork() {
     super(TConstruct.modID);
+  }
+
+  public static synchronized TinkerNetwork getInstance() {
+    if(instance == null) {
+      setup();
+    }
+    return instance;
   }
 
   public static void setup() {

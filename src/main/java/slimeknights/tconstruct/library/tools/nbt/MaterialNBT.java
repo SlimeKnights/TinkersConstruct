@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
 import com.google.common.collect.ImmutableList;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
@@ -17,6 +19,8 @@ import java.util.stream.Collectors;
  * All the stats that every tool must have.
  * Some may not be used explicitly by all tools (e.g. weapons and harvest  level)
  */
+@EqualsAndHashCode
+@ToString
 public class MaterialNBT {
 
   final static MaterialNBT EMPTY = new MaterialNBT(ImmutableList.of());
