@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.ComplexTestStats;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
@@ -30,7 +30,7 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
 
   @Test
   void testGenericEncodeDecode() {
-    Map<MaterialId, Collection<BaseMaterialStats>> materialToStats = ImmutableMap.of(
+    Map<MaterialId, Collection<IMaterialStats>> materialToStats = ImmutableMap.of(
       MATERIAL_ID, ImmutableList.of(MaterialStatsFixture.MATERIAL_STATS)
     );
 
@@ -39,7 +39,7 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
     assertThat(packetToDecode.materialToStats).containsKey(MATERIAL_ID);
     assertThat(packetToDecode.materialToStats.get(MATERIAL_ID)).hasSize(1);
 
-    BaseMaterialStats materialStats = packetToDecode.materialToStats.get(MATERIAL_ID).iterator().next();
+    IMaterialStats materialStats = packetToDecode.materialToStats.get(MATERIAL_ID).iterator().next();
     assertThat(materialStats).isExactlyInstanceOf(ComplexTestStats.class);
     ComplexTestStats realStats = (ComplexTestStats) materialStats;
     assertThat(realStats.getNum()).isEqualTo(1);
@@ -49,11 +49,11 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
 
   @Test
   void testAllTicDefaults() {
-    ImmutableList<BaseMaterialStats> stats = ImmutableList.of(
+    ImmutableList<IMaterialStats> stats = ImmutableList.of(
       HeadMaterialStats.DEFAULT,
       HandleMaterialStats.DEFAULT,
       ExtraMaterialStats.DEFAULT);
-    Map<MaterialId, Collection<BaseMaterialStats>> materialToStats = ImmutableMap.of(
+    Map<MaterialId, Collection<IMaterialStats>> materialToStats = ImmutableMap.of(
       MATERIAL_ID, stats
     );
 
@@ -62,7 +62,7 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
     assertThat(packet.materialToStats.get(MATERIAL_ID)).isEqualTo(stats);
   }
 
-  private UpdateMaterialStatsPacket sendAndReceivePacket(Map<MaterialId, Collection<BaseMaterialStats>> materialToStats) {
+  private UpdateMaterialStatsPacket sendAndReceivePacket(Map<MaterialId, Collection<IMaterialStats>> materialToStats) {
     PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
     Function<MaterialStatsId, Class<?>> classResolverMock = createClassResolverMock(materialToStats);
 
@@ -74,7 +74,7 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
     return packetToDecode;
   }
 
-  private Function<MaterialStatsId, Class<?>> createClassResolverMock(Map<MaterialId, Collection<BaseMaterialStats>> materialToStats) {
+  private Function<MaterialStatsId, Class<?>> createClassResolverMock(Map<MaterialId, Collection<IMaterialStats>> materialToStats) {
     Function<MaterialStatsId, Class<?>> classResolverMock = mock(Function.class);
     materialToStats.values().stream()
       .flatMap(Collection::stream)

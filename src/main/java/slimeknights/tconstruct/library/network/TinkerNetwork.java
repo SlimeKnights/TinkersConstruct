@@ -7,7 +7,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.DataSyncOnLoginEvents;
@@ -23,10 +22,6 @@ public class TinkerNetwork extends NetworkWrapper {
     super(TConstruct.modID);
   }
 
-  public SimpleChannel getChannel() {
-    return network;
-  }
-
   public static void setup() {
     instance = new TinkerNetwork();
     instance.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::encode, EntityMovementChangePacket::new, EntityMovementChangePacket::handle);
@@ -34,6 +29,10 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::encode, InventorySlotSyncPacket::new, InventorySlotSyncPacket::handle);
 
     DataSyncOnLoginEvents.setupMaterialDataSyncPackets();
+  }
+
+  public <MSG> void send(PacketDistributor.PacketTarget target, MSG message) {
+    network.send(target, message);
   }
 
   public void sendVanillaPacket(Entity player, IPacket<?> packet) {

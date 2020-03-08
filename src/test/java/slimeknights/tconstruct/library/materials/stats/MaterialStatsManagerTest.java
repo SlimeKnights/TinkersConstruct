@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.test.JsonFileLoader;
 
@@ -23,12 +24,12 @@ class MaterialStatsManagerTest extends BaseMcTest {
   private static final MaterialStatsId STATS_ID_SIMPLE = new MaterialStatsId("test", "stat");
   private static final MaterialStatsId STATS_ID_DONT_CARE = new MaterialStatsId("dont", "care");
 
-  private MaterialStatsManager materialStatsManager = new MaterialStatsManager();
+  private MaterialStatsManager materialStatsManager = new MaterialStatsManager(mock(TinkerNetwork.class));
   private JsonFileLoader fileLoader = new JsonFileLoader(MaterialStatsManager.GSON, MaterialStatsManager.FOLDER);
 
   @Test
   void testLoadFile_statsExist() {
-    materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, BaseMaterialStats.class);
+    materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, ComplexTestStats.class);
 
     ResourceLocation file = Util.getResource("teststat");
     Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
@@ -60,9 +61,9 @@ class MaterialStatsManagerTest extends BaseMcTest {
   void testLoadFile_multipleStatsInOneFile() {
     ResourceLocation file = Util.getResource("multiple");
     MaterialStatsId statId1 = new MaterialStatsId("test", "stat1");
-    materialStatsManager.registerMaterialStat(statId1, BaseMaterialStats.class);
+    materialStatsManager.registerMaterialStat(statId1, ComplexTestStats.class);
     MaterialStatsId statId2 = new MaterialStatsId("test", "stat2");
-    materialStatsManager.registerMaterialStat(statId2, BaseMaterialStats.class);
+    materialStatsManager.registerMaterialStat(statId2, ComplexTestStats.class);
 
     Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
@@ -100,8 +101,8 @@ class MaterialStatsManagerTest extends BaseMcTest {
     ResourceLocation file1 = Util.getResource("teststat");
     ResourceLocation file2 = Util.getResource("teststat_extrastats");
     MaterialStatsId otherStatId = new MaterialStatsId("test", "otherstat");
-    materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, BaseMaterialStats.class);
-    materialStatsManager.registerMaterialStat(otherStatId, BaseMaterialStats.class);
+    materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, ComplexTestStats.class);
+    materialStatsManager.registerMaterialStat(otherStatId, ComplexTestStats.class);
 
     Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file1, file2);
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));

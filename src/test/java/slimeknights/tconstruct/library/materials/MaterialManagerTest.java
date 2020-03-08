@@ -10,7 +10,6 @@ import net.minecraft.item.Items;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.Util;
@@ -23,7 +22,6 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class MaterialManagerTest extends BaseMcTest {
 
@@ -34,7 +32,6 @@ class MaterialManagerTest extends BaseMcTest {
   void setUp() {
     TinkerNetwork mock = mock(TinkerNetwork.class);
     materialManager = new MaterialManager(mock);
-    when(mock.getChannel()).thenReturn(mock(SimpleChannel.class));
   }
 
   @Test

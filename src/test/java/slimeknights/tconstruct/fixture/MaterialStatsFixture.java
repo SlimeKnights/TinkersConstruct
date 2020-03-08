@@ -1,11 +1,15 @@
 package slimeknights.tconstruct.fixture;
 
+import com.google.common.collect.ImmutableList;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.ComplexTestStats;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
+
+import java.util.List;
 
 public final class MaterialStatsFixture {
 
@@ -18,6 +22,12 @@ public final class MaterialStatsFixture {
   public static final HeadMaterialStats MATERIAL_STATS_HEAD = new HeadMaterialStats(100, 1f, 1, 1f);
   public static final HandleMaterialStats MATERIAL_STATS_HANDLE = new HandleMaterialStats(1.5f, 10);
   public static final ExtraMaterialStats MATERIAL_STATS_EXTRA = new ExtraMaterialStats(50);
+
+  public static final List<IMaterialStats> TIC_DEFAULT_STATS = ImmutableList.of(
+    HeadMaterialStats.DEFAULT,
+    HandleMaterialStats.DEFAULT,
+    ExtraMaterialStats.DEFAULT
+  );
 
   private MaterialStatsFixture() {
   }

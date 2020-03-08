@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.materials.stats;
 import lombok.EqualsAndHashCode;
 import net.minecraft.util.text.TextFormatting;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.network.INetworkSendable;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
  * This class is meant to be extended with custom stats added to it for your use.
  */
 @EqualsAndHashCode
-public abstract class BaseMaterialStats implements IMaterialStats, INetworkSendable {
+public abstract class BaseMaterialStats implements IMaterialStats {
 
   @Override
   public String getLocalizedName() {
