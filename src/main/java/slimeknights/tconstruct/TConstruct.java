@@ -35,7 +35,6 @@ import slimeknights.tconstruct.common.data.TConstructRecipeProvider;
 import slimeknights.tconstruct.debug.ToolDebugContainer;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
@@ -91,7 +90,6 @@ public class TConstruct {
     proxy.preInit();
 
     TinkerNetwork.setup();
-    MaterialRegistry.init();
   }
 
   @SubscribeEvent

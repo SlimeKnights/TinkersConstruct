@@ -4,7 +4,6 @@ import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialManager;
-import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
@@ -22,7 +21,7 @@ import java.util.Optional;
  * For the Server, materials are loaded on server start/reload from the data packs.
  * For the Client, materials are synced from the server on server join.
  */
-public class MaterialRegistryImpl {
+public class MaterialRegistryImpl implements IMaterialRegistry {
 
   private final MaterialManager materialManager;
   private final MaterialStatsManager materialStatsManager;
@@ -40,22 +39,27 @@ public class MaterialRegistryImpl {
     this.materialTraitsManager = materialTraitsManager;
   }
 
+  @Override
   public IMaterial getMaterial(MaterialId id) {
     return materialManager.getMaterial(id).orElse(IMaterial.UNKNOWN);
   }
 
+  @Override
   public Collection<IMaterial> getMaterials() {
     return materialManager.getAllMaterials();
   }
 
+  @Override
   public <T extends IMaterialStats> Optional<T> getMaterialStats(MaterialId materialId, MaterialStatsId statsId) {
     return materialStatsManager.getStats(materialId, statsId);
   }
 
-  public Collection<BaseMaterialStats> getAllStats(MaterialId materialId) {
+  @Override
+  public Collection<IMaterialStats> getAllStats(MaterialId materialId) {
     return materialStatsManager.getAllStats(materialId);
   }
 
+  @Override
   public <T extends IMaterialStats> T getDefaultStats(MaterialStatsId statsId) {
     //noinspection unchecked
     return (T) materialStatDefaults.get(statsId);
@@ -77,7 +81,8 @@ public class MaterialRegistryImpl {
    * @param type
    * @param defaultStats
    */
-  public <T extends BaseMaterialStats> void registerMaterial(MaterialStatsId type, T defaultStats, Class<T> clazz) {
+  @Override
+  public <T extends IMaterialStats> void registerMaterial(MaterialStatsId type, T defaultStats, Class<T> clazz) {
     if (materialStatDefaults.containsKey(type)) {
       throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(type);
     }

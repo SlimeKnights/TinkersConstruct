@@ -64,7 +64,7 @@ public final class ToolStatsBuilder {
   @Nullable
   private static <T extends IMaterialStats> T foo(MaterialStatsId statsId, IMaterial material, PartMaterialType requiredComponent) {
     if (requiredComponent.usesStat(statsId)) {
-      return (T) MaterialRegistry.getMaterialStats(material.getIdentifier(), statsId).orElseGet(() -> MaterialRegistry.getDefaultStats(statsId));
+      return (T) MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), statsId).orElseGet(() -> MaterialRegistry.getInstance().getDefaultStats(statsId));
     } else {
       return null;
     }

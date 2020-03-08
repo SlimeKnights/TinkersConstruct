@@ -38,7 +38,7 @@ public class PartMaterialType {
 
   public boolean isValidMaterial(IMaterial material) {
     return neededTypes.stream().allMatch(
-      statsId -> MaterialRegistry.getMaterialStats(material.getIdentifier(), statsId).isPresent()
+      statsId -> MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), statsId).isPresent()
     );
   }
 

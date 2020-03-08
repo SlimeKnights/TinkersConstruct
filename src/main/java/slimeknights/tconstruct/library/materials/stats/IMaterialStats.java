@@ -1,12 +1,14 @@
 package slimeknights.tconstruct.library.materials.stats;
 
+import slimeknights.tconstruct.library.network.INetworkSendable;
+
 import java.util.List;
 
 /**
  * Basic interface for all material stats.
  * Note that you should extend {@link BaseMaterialStats} for your material to load from the JSONs.
  */
-public interface IMaterialStats {
+public interface IMaterialStats extends INetworkSendable {
 
   /**
    * Returns a unique ResourceLocation to identify the type of stats the material has.

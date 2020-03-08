@@ -67,9 +67,9 @@ public class MaterialStatsManager extends JsonReloadListener {
    * Usually they're registered by the registry, when a new material stats type is registered.
    * It is not cleared on reload, since it does not represend loaded data. Think of it as a GSON type adapter.
    */
-  private final Map<MaterialStatsId, Class<? extends BaseMaterialStats>> materialStatClasses = new HashMap<>();
+  private final Map<MaterialStatsId, Class<? extends IMaterialStats>> materialStatClasses = new HashMap<>();
 
-  private Map<MaterialId, Map<MaterialStatsId, BaseMaterialStats>> materialToStatsPerType = ImmutableMap.of();
+  private Map<MaterialId, Map<MaterialStatsId, IMaterialStats>> materialToStatsPerType = ImmutableMap.of();
 
   public MaterialStatsManager() {
     this(TinkerNetwork.instance);
@@ -81,7 +81,7 @@ public class MaterialStatsManager extends JsonReloadListener {
     this.tinkerNetwork = tinkerNetwork;
   }
 
-  public void registerMaterialStat(MaterialStatsId materialStatType, Class<? extends BaseMaterialStats> statsClass) {
+  public void registerMaterialStat(MaterialStatsId materialStatType, Class<? extends IMaterialStats> statsClass) {
     if (materialStatClasses.containsKey(materialStatType)) {
       throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(materialStatType);
     }
@@ -93,19 +93,19 @@ public class MaterialStatsManager extends JsonReloadListener {
   }
 
   public <T extends IMaterialStats> Optional<T> getStats(MaterialId materialId, MaterialStatsId statId) {
-    Map<MaterialStatsId, BaseMaterialStats> materialStats = materialToStatsPerType.getOrDefault(materialId, ImmutableMap.of());
+    Map<MaterialStatsId, IMaterialStats> materialStats = materialToStatsPerType.getOrDefault(materialId, ImmutableMap.of());
     IMaterialStats stats = materialStats.get(statId);
     // class will always match, since it's only filled by deserialization, which only puts it in if it's the registered type
     //noinspection unchecked
     return Optional.ofNullable((T) stats);
   }
 
-  public Collection<BaseMaterialStats> getAllStats(MaterialId materialId) {
+  public Collection<IMaterialStats> getAllStats(MaterialId materialId) {
     return materialToStatsPerType.getOrDefault(materialId, ImmutableMap.of()).values();
   }
 
   @OnlyIn(Dist.CLIENT)
-  public void updateMaterialStatsFromServer(Map<MaterialId, Collection<BaseMaterialStats>> materialStats) {
+  public void updateMaterialStatsFromServer(Map<MaterialId, Collection<IMaterialStats>> materialStats) {
     this.materialToStatsPerType = materialStats.entrySet().stream()
       .collect(Collectors.toMap(
         Map.Entry::getKey,
@@ -146,16 +146,16 @@ public class MaterialStatsManager extends JsonReloadListener {
       materialToStatsPerType.size());
 
     // send the newly loaded stats over the network
-    Map<MaterialId, Collection<BaseMaterialStats>> networkPayload = materialToStatsPerType.entrySet().stream()
+    Map<MaterialId, Collection<IMaterialStats>> networkPayload = materialToStatsPerType.entrySet().stream()
       .collect(Collectors.toMap(
         Map.Entry::getKey,
         entry -> entry.getValue().values()
       ));
-    tinkerNetwork.getChannel().send(PacketDistributor.ALL.noArg(), new UpdateMaterialStatsPacket(networkPayload));
+    tinkerNetwork.send(PacketDistributor.ALL.noArg(), new UpdateMaterialStatsPacket(networkPayload));
   }
 
-  private Map<MaterialStatsId, BaseMaterialStats> deserializeMaterialStatsFromContent(Map<MaterialStatsId, StatContent> contents) {
-    Map<MaterialStatsId, Optional<BaseMaterialStats>> loadedStats = contents.entrySet().stream()
+  private Map<MaterialStatsId, IMaterialStats> deserializeMaterialStatsFromContent(Map<MaterialStatsId, StatContent> contents) {
+    Map<MaterialStatsId, Optional<IMaterialStats>> loadedStats = contents.entrySet().stream()
       .collect(Collectors.toMap(
         Map.Entry::getKey,
         entry -> deserializeMaterialStat(entry.getValue().statsId, entry.getValue().json)
@@ -212,8 +212,8 @@ public class MaterialStatsManager extends JsonReloadListener {
   }
 
   private StatContent loadStatContent(JsonElement statsJson) {
-    MaterialStatJsonWrapper.BaseMaterialStatsJson baseMaterialStatsJson = GSON.fromJson(statsJson, MaterialStatJsonWrapper.BaseMaterialStatsJson.class);
-    ResourceLocation statsId = baseMaterialStatsJson.getId();
+    MaterialStatJsonWrapper.BaseMaterialStatsJson IMaterialStatsJson = GSON.fromJson(statsJson, MaterialStatJsonWrapper.BaseMaterialStatsJson.class);
+    ResourceLocation statsId = IMaterialStatsJson.getId();
     if (statsId == null) {
       throw TinkerJSONException.materialStatsJsonWithoutId();
     }
@@ -221,8 +221,8 @@ public class MaterialStatsManager extends JsonReloadListener {
     return new StatContent(new MaterialStatsId(statsId), statsJson);
   }
 
-  private Optional<BaseMaterialStats> deserializeMaterialStat(MaterialStatsId statsId, JsonElement statsJson) {
-    Class<? extends BaseMaterialStats> materialStatClass = materialStatClasses.get(statsId);
+  private Optional<IMaterialStats> deserializeMaterialStat(MaterialStatsId statsId, JsonElement statsJson) {
+    Class<? extends IMaterialStats> materialStatClass = materialStatClasses.get(statsId);
     if (materialStatClass == null) {
       log.error("The material stat of type '" + statsId + "' has not been registered");
       return Optional.empty();

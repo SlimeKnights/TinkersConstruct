@@ -7,47 +7,53 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 import slimeknights.tconstruct.fixture.MaterialFixture;
+import slimeknights.tconstruct.fixture.MaterialRegistryFixture;
+import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static slimeknights.tconstruct.fixture.MaterialFixture.ALL_MATERIALS;
-import static slimeknights.tconstruct.fixture.MaterialFixture.MATERIAL_1;
-import static slimeknights.tconstruct.fixture.MaterialFixture.MATERIAL_2;
-import static slimeknights.tconstruct.fixture.MaterialStatsFixture.MATERIAL_STATS;
-import static slimeknights.tconstruct.fixture.MaterialStatsFixture.MATERIAL_STATS_2;
-import static slimeknights.tconstruct.fixture.MaterialStatsFixture.STATS_TYPE;
-import static slimeknights.tconstruct.fixture.MaterialStatsFixture.STATS_TYPE_2;
 
 /**
  * Makes all materials from the {@link MaterialFixture} available during tests.
  */
 public class MaterialRegistryExtension implements BeforeEachCallback, AfterAllCallback, ParameterResolver {
 
-  private MaterialRegistryImpl materialRegistry;
+  private IMaterialRegistry materialRegistry;
 
   @Override
   public void beforeEach(ExtensionContext context) {
-    MaterialRegistryImpl mock = mock(MaterialRegistryImpl.class);
-    MaterialRegistry.INSTANCE = mock;
-    materialRegistry = mock;
+    Map<IMaterial, List<IMaterialStats>> materialSetup = MaterialFixture.ALL_MATERIAL_FIXTURES;
 
-    ALL_MATERIALS.forEach(material -> mockMaterial(mock, material));
-    when(mock.getMaterialStats(eq(MATERIAL_1.getIdentifier()), eq(STATS_TYPE))).thenReturn(Optional.of(MATERIAL_STATS));
-    when(mock.getMaterialStats(eq(MATERIAL_2.getIdentifier()), eq(STATS_TYPE_2))).thenReturn(Optional.of(MATERIAL_STATS_2));
+    Map<MaterialId, IMaterial> materials = materialSetup.keySet().stream()
+      .collect(Collectors.toMap(IMaterial::getIdentifier, Function.identity()));
+    Map<MaterialId, Map<MaterialStatsId, IMaterialStats>> stats = materialSetup.entrySet().stream()
+      .collect(Collectors.toMap(
+        entry -> entry.getKey().getIdentifier(),
+        entry -> entry.getValue().stream().collect(Collectors.toMap(
+          IMaterialStats::getIdentifier,
+          Function.identity()
+        ))
+      ));
+
+    Map<MaterialStatsId, IMaterialStats> defaultStats = MaterialStatsFixture.TIC_DEFAULT_STATS.stream()
+      .collect(Collectors.toMap(IMaterialStats::getIdentifier, Function.identity()));
+
+    materialRegistry = new MaterialRegistryFixture(materials, stats, defaultStats);
+    MaterialRegistry.INSTANCE = new MaterialRegistry(materialRegistry);
   }
 
   @Override
   public void afterAll(ExtensionContext context) {
     // cleanup
-    MaterialRegistry.INSTANCE = mock(MaterialRegistryImpl.class);
-  }
-
-  private void mockMaterial(MaterialRegistryImpl mock, IMaterial testMaterial1) {
-    when(mock.getMaterial(testMaterial1.getIdentifier())).thenReturn(testMaterial1);
+    MaterialRegistry.INSTANCE = new MaterialRegistry(mock(IMaterialRegistry.class));
   }
 
   @Override

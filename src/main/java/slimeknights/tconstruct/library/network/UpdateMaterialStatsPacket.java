@@ -8,7 +8,7 @@ import net.minecraft.network.PacketBuffer;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class UpdateMaterialStatsPacket {
   public static final Logger log = Util.getLogger("NetworkSync");
 
   @VisibleForTesting
-  protected Map<MaterialId, Collection<BaseMaterialStats>> materialToStats;
+  protected Map<MaterialId, Collection<IMaterialStats>> materialToStats;
 
   public UpdateMaterialStatsPacket(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
     decode(buffer, classResolver);
@@ -39,7 +39,7 @@ public class UpdateMaterialStatsPacket {
     for (int i = 0; i < materialCount; i++) {
       MaterialId id = new MaterialId(buffer.readResourceLocation());
       int statCount = buffer.readInt();
-      List<BaseMaterialStats> statList = new ArrayList<>();
+      List<IMaterialStats> statList = new ArrayList<>();
       for (int j = 0; j < statCount; j++) {
         decodeStat(buffer, classResolver).ifPresent(statList::add);
       }
@@ -47,11 +47,11 @@ public class UpdateMaterialStatsPacket {
     }
   }
 
-  private Optional<BaseMaterialStats> decodeStat(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
+  private Optional<IMaterialStats> decodeStat(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
     MaterialStatsId statsId = new MaterialStatsId(buffer.readResourceLocation());
     try {
       Class<?> clazz = classResolver.apply(statsId);
-      BaseMaterialStats stats = (BaseMaterialStats) clazz.newInstance();
+      IMaterialStats stats = (IMaterialStats) clazz.newInstance();
       stats.decode(buffer);
       return Optional.of(stats);
     } catch (Exception e) {
@@ -69,7 +69,7 @@ public class UpdateMaterialStatsPacket {
     });
   }
 
-  private void encodeStat(PacketBuffer buffer, BaseMaterialStats stat) {
+  private void encodeStat(PacketBuffer buffer, IMaterialStats stat) {
     buffer.writeResourceLocation(stat.getIdentifier());
     stat.encode(buffer);
   }

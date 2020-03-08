@@ -9,6 +9,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialStatsPacket;
 import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
@@ -23,14 +24,14 @@ public class DataSyncOnLoginEvents {
 
   @SubscribeEvent
   public static void onLogin(PlayerEvent.PlayerLoggedInEvent playerLoggedInEvent) {
-    Collection<IMaterial> allMaterials = MaterialRegistry.getMaterials();
+    Collection<IMaterial> allMaterials = MaterialRegistry.getInstance().getMaterials();
 
     TinkerNetwork.instance.network.send(PacketDistributor.ALL.noArg(), new UpdateMaterialsPacket(allMaterials));
 
-    Map<MaterialId, Collection<BaseMaterialStats>> materialStats = allMaterials.stream()
+    Map<MaterialId, Collection<IMaterialStats>> materialStats = allMaterials.stream()
       .collect(Collectors.toMap(
         IMaterial::getIdentifier,
-        material -> MaterialRegistry.getAllStats(material.getIdentifier())
+        material -> MaterialRegistry.getInstance().getAllStats(material.getIdentifier())
       ));
 
     TinkerNetwork.instance.network.send(PacketDistributor.ALL.noArg(), new UpdateMaterialStatsPacket(materialStats));

@@ -10,7 +10,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialManager;
-import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
@@ -19,68 +18,80 @@ import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Optional;
 
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class MaterialRegistry {
 
-  private static MaterialManager MATERIAL_MANAGER;
-  private static MaterialStatsManager MATERIAL_STATS_MANAGER;
-  private static MaterialTraitsManager MATERIAL_TRAITS_MANAGER;
-  @VisibleForTesting
-  protected static MaterialRegistryImpl INSTANCE;
+  protected static MaterialRegistry INSTANCE = new MaterialRegistry();
 
-  public static void init() {
-    MATERIAL_MANAGER = new MaterialManager();
-    MATERIAL_STATS_MANAGER = new MaterialStatsManager();
-    MATERIAL_TRAITS_MANAGER = new MaterialTraitsManager();
-    INSTANCE = new MaterialRegistryImpl(MATERIAL_MANAGER, MATERIAL_STATS_MANAGER, MATERIAL_TRAITS_MANAGER);
+  private final MaterialManager materialManager;
+  private final MaterialStatsManager materialStatsManager;
+  private final MaterialTraitsManager materialTraitsManager;
+  private final IMaterialRegistry registry;
 
-    HeadMaterialStats commonMaterialStats = new HeadMaterialStats(1, 1, 1, 1);
-    INSTANCE.registerMaterial(new MaterialStatsId(Util.getResource("common")), commonMaterialStats, HeadMaterialStats.class);
+  public static IMaterialRegistry getInstance() {
+    return INSTANCE.registry;
   }
 
   @SubscribeEvent
   public static void onServerAboutToStart(final FMLServerAboutToStartEvent event) {
-    event.getServer().getResourceManager().addReloadListener(MATERIAL_MANAGER);
-    event.getServer().getResourceManager().addReloadListener(MATERIAL_STATS_MANAGER);
-    event.getServer().getResourceManager().addReloadListener(MATERIAL_TRAITS_MANAGER);
+    event.getServer().getResourceManager().addReloadListener(INSTANCE.materialManager);
+    event.getServer().getResourceManager().addReloadListener(INSTANCE.materialStatsManager);
+    event.getServer().getResourceManager().addReloadListener(INSTANCE.materialTraitsManager);
+  }
+
+  public MaterialRegistry() {
+    materialManager = new MaterialManager();
+    materialStatsManager = new MaterialStatsManager();
+    materialTraitsManager = new MaterialTraitsManager();
+    registry = new MaterialRegistryImpl(materialManager, materialStatsManager, materialTraitsManager);
+
+    HeadMaterialStats commonMaterialStats = new HeadMaterialStats(1, 1, 1, 1);
+    registry.registerMaterial(new MaterialStatsId(Util.getResource("common")), commonMaterialStats, HeadMaterialStats.class);
+  }
+
+  @VisibleForTesting
+  MaterialRegistry(IMaterialRegistry registry) {
+    this.registry = registry;
+    this.materialManager = null;
+    this.materialStatsManager = null;
+    this.materialTraitsManager = null;
   }
 
   @OnlyIn(Dist.CLIENT)
   static void updateMaterialsFromServer(Collection<IMaterial> materials) {
-    MATERIAL_MANAGER.updateMaterialsFromServer(materials);
+    INSTANCE.materialManager.updateMaterialsFromServer(materials);
   }
 
   @OnlyIn(Dist.CLIENT)
-  static void updateMaterialStatsFromServer(Map<MaterialId, Collection<BaseMaterialStats>> materialStats) {
-    MATERIAL_STATS_MANAGER.updateMaterialStatsFromServer(materialStats);
+  static void updateMaterialStatsFromServer(Map<MaterialId, Collection<IMaterialStats>> materialStats) {
+    INSTANCE.materialStatsManager.updateMaterialStatsFromServer(materialStats);
   }
 
   @OnlyIn(Dist.CLIENT)
   static Class<? extends IMaterialStats> getClassForStat(MaterialStatsId id) {
-    return MATERIAL_STATS_MANAGER.getClassForStat(id);
+    return INSTANCE.materialStatsManager.getClassForStat(id);
   }
 
   public static IMaterial getMaterial(MaterialId id) {
-    return INSTANCE.getMaterial(id);
+    return INSTANCE.registry.getMaterial(id);
   }
-
-  public static Collection<IMaterial> getMaterials() {
-    return INSTANCE.getMaterials();
-  }
-
-  public static <T extends IMaterialStats> Optional<T> getMaterialStats(MaterialId materialId, MaterialStatsId statsId) {
-    return INSTANCE.getMaterialStats(materialId, statsId);
-  }
-
-  public static <T extends IMaterialStats> T getDefaultStats(MaterialStatsId statsId) {
-    return INSTANCE.getDefaultStats(statsId);
-  }
-
-  public static Collection<BaseMaterialStats> getAllStats(MaterialId materialId) {
-    return INSTANCE.getAllStats(materialId);
-  }
+//
+//  public static Collection<IMaterial> getMaterials() {
+//    return INSTANCE.getMaterials();
+//  }
+//
+//  public static <T extends IMaterialStats> Optional<T> getMaterialStats(MaterialId materialId, MaterialStatsId statsId) {
+//    return INSTANCE.getMaterialStats(materialId, statsId);
+//  }
+//
+//  public static <T extends IMaterialStats> T getDefaultStats(MaterialStatsId statsId) {
+//    return INSTANCE.getDefaultStats(statsId);
+//  }
+//
+//  public static Collection<IMaterialStats> getAllStats(MaterialId materialId) {
+//    return INSTANCE.getAllStats(materialId);
+//  }
 
   /**
    * Convenience method. Default stats for all part types must exist, to be used when an invalid material with missing stats is used.
