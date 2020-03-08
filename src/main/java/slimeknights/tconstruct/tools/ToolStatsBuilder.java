@@ -56,15 +56,16 @@ public final class ToolStatsBuilder {
 
   private static <T extends IMaterialStats> List<T> listOfCompatibleWith(MaterialStatsId statsId, List<IMaterial> materials, List<PartMaterialType> requiredComponents) {
     return Streams.zip(materials.stream(), requiredComponents.stream(),
-      (material, partMaterialType) -> (T) foo(statsId, material, partMaterialType))
+      (material, partMaterialType) -> ToolStatsBuilder.<T>fetchStatsOrDefault(statsId, material, partMaterialType))
       .filter(Objects::nonNull)
       .collect(Collectors.toList());
   }
 
   @Nullable
-  private static <T extends IMaterialStats> T foo(MaterialStatsId statsId, IMaterial material, PartMaterialType requiredComponent) {
+  private static <T extends IMaterialStats> T fetchStatsOrDefault(MaterialStatsId statsId, IMaterial material, PartMaterialType requiredComponent) {
     if (requiredComponent.usesStat(statsId)) {
-      return (T) MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), statsId).orElseGet(() -> MaterialRegistry.getInstance().getDefaultStats(statsId));
+      return MaterialRegistry.getInstance().<T>getMaterialStats(material.getIdentifier(), statsId)
+        .orElseGet(() -> MaterialRegistry.getInstance().getDefaultStats(statsId));
     } else {
       return null;
     }

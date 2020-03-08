@@ -74,6 +74,7 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
     return packetToDecode;
   }
 
+  @SuppressWarnings("unchecked")
   private Function<MaterialStatsId, Class<?>> createClassResolverMock(Map<MaterialId, Collection<IMaterialStats>> materialToStats) {
     Function<MaterialStatsId, Class<?>> classResolverMock = mock(Function.class);
     materialToStats.values().stream()
