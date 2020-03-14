@@ -24,7 +24,7 @@ import java.util.Map;
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class MaterialRegistry {
 
-  protected static MaterialRegistry INSTANCE = new MaterialRegistry();
+  protected static MaterialRegistry INSTANCE;
 
   private final MaterialManager materialManager;
   private final MaterialStatsManager materialStatsManager;
@@ -33,6 +33,10 @@ public final class MaterialRegistry {
 
   public static IMaterialRegistry getInstance() {
     return INSTANCE.registry;
+  }
+
+  public static void init() {
+    MaterialRegistry.INSTANCE = new MaterialRegistry();
   }
 
   @SubscribeEvent
