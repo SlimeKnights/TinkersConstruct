@@ -353,4 +353,16 @@ public class GuiUtil {
       return Util.translate(unlocName);
     }
   }
+
+  /*
+   * VANILLA FIX ANTI-HACK SECTION
+   * Basically vanillafix changes the method content, which causes crashes.
+   * So we renamed the methods since the author is MIA for many months now.
+   * These methods are only here to let vanillafix think their hacks still work, since the game wont start otherwise.
+   */
+
+  @Deprecated
+  public static void renderTiledTextureAtlas(int x, int y, int width, int height, float depth, TextureAtlasSprite sprite, boolean upsideDown) {
+
+  }
 }

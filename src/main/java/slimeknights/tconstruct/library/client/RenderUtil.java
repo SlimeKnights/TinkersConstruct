@@ -489,4 +489,23 @@ public final class RenderUtil {
   public static int blue(int c) {
     return (c) & 0xFF;
   }
+
+  /*
+   * VANILLA FIX ANTI-HACK SECTION
+   * Basically vanillafix changes the method content, which causes crashes.
+   * So we renamed the methods since the author is MIA for many months now.
+   * These methods are only here to let vanillafix think their hacks still work, since the game wont start otherwise.
+   */
+
+  @Deprecated
+  public static void putTexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, EnumFacing face,
+                                      int r, int g, int b, int a, int light1, int light2, boolean flowing, boolean flipHorizontally) {
+
+  }
+
+  @Deprecated
+  public static void putRotatedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double d, EnumFacing rotation,
+                                     int r, int g, int b, int a, int light1, int light2, boolean flowing) {
+
+  }
 }
