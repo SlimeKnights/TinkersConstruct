@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:graveyard_soil"
+      "tconstruct:common/soil/graveyard_soil"
     ]
   },
   "criteria": {
@@ -39,7 +39,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:graveyard_soil"
+        "recipe": "tconstruct:common/soil/graveyard_soil"
       }
     }
   },

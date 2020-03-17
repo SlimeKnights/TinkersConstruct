@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tconstruct:common/soil/mud_bricks_slab_block"
+    ]
+  },
+  "criteria": {
+    "has_mud_bricks": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:mud_bricks"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tconstruct:common/soil/mud_bricks_slab_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_mud_bricks",
+      "has_the_recipe"
+    ]
+  ]
+}

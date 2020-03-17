@@ -1,0 +1,30 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "config_setting": "addGravelToFlintRecipe",
+          "type": "tconstruct:config_option_enabled"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shapeless",
+        "ingredients": [
+          {
+            "item": "minecraft:gravel"
+          },
+          {
+            "item": "minecraft:gravel"
+          },
+          {
+            "item": "minecraft:gravel"
+          }
+        ],
+        "result": {
+          "item": "minecraft:flint"
+        }
+      }
+    }
+  ]
+}

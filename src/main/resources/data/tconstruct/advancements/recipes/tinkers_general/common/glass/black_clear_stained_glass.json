@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tconstruct:common/glass/black_clear_stained_glass"
+    ]
+  },
+  "criteria": {
+    "has_clear_glass": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:clear_glass"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tconstruct:common/glass/black_clear_stained_glass"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_clear_glass",
+      "has_the_recipe"
+    ]
+  ]
+}
