@@ -2,14 +2,11 @@
   "materialId": "tconstruct:iron",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 204,
-      "attack": 4.0
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 6.0,
-      "harvestLevel": 2
+      "harvestLevel": 2,
+      "attack": 4.0
     },
     {
       "id": "tconstruct:handle",

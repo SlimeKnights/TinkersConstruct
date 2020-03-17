@@ -2,14 +2,11 @@
   "materialId": "tconstruct:pigiron",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 380,
-      "attack": 4.5
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 6.2,
-      "harvestLevel": 2
+      "harvestLevel": 2,
+      "attack": 4.5
     },
     {
       "id": "tconstruct:handle",

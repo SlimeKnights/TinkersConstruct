@@ -2,14 +2,11 @@
   "materialId": "tconstruct:magmaslime",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 600,
-      "attack": 7.0
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 2.1,
-      "harvestLevel": 0
+      "harvestLevel": 0,
+      "attack": 7.0
     },
     {
       "id": "tconstruct:handle",

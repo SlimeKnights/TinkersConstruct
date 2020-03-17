@@ -2,14 +2,11 @@
   "materialId": "tconstruct:wood",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 35,
-      "attack": 2.0
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 2.0,
-      "harvestLevel": 0
+      "harvestLevel": 0,
+      "attack": 2.0
     },
     {
       "id": "tconstruct:handle",

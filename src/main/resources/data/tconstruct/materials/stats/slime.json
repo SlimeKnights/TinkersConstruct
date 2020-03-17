@@ -2,14 +2,11 @@
   "materialId": "tconstruct:slime",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 1000,
-      "attack": 1.8
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 4.24,
-      "harvestLevel": 0
+      "harvestLevel": 0,
+      "attack": 1.8
     },
     {
       "id": "tconstruct:handle",

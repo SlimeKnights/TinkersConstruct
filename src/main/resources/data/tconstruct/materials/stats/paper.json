@@ -2,14 +2,11 @@
   "materialId": "tconstruct:paper",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 12,
-      "attack": 0.05
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 0.51,
-      "harvestLevel": 0
+      "harvestLevel": 0,
+      "attack": 0.05
     },
     {
       "id": "tconstruct:handle",

@@ -2,14 +2,11 @@
   "materialId": "tconstruct:knightslime",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 850,
-      "attack": 5.1
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 5.8,
-      "harvestLevel": 3
+      "harvestLevel": 3,
+      "attack": 5.1
     },
     {
       "id": "tconstruct:handle",

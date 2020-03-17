@@ -2,14 +2,11 @@
   "materialId": "tconstruct:firewood",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 550,
-      "attack": 5.5
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 6.0,
-      "harvestLevel": 0
+      "harvestLevel": 0,
+      "attack": 5.5
     },
     {
       "id": "tconstruct:handle",

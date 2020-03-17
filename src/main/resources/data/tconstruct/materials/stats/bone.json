@@ -2,14 +2,11 @@
   "materialId": "tconstruct:bone",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 200,
-      "attack": 2.5
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 5.09,
-      "harvestLevel": 1
+      "harvestLevel": 1,
+      "attack": 2.5
     },
     {
       "id": "tconstruct:handle",

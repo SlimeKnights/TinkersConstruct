@@ -2,14 +2,11 @@
   "materialId": "tconstruct:manyullyn",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 820,
-      "attack": 8.72
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 7.02,
-      "harvestLevel": 4
+      "harvestLevel": 4,
+      "attack": 8.72
     },
     {
       "id": "tconstruct:handle",

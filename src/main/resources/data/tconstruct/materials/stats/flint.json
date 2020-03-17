@@ -2,14 +2,11 @@
   "materialId": "tconstruct:flint",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 150,
-      "attack": 2.9
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 5.0,
-      "harvestLevel": 1
+      "harvestLevel": 1,
+      "attack": 2.9
     },
     {
       "id": "tconstruct:handle",

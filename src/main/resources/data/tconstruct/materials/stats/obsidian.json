@@ -2,14 +2,11 @@
   "materialId": "tconstruct:obsidian",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 139,
-      "attack": 4.2
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 7.07,
-      "harvestLevel": 4
+      "harvestLevel": 4,
+      "attack": 4.2
     },
     {
       "id": "tconstruct:handle",

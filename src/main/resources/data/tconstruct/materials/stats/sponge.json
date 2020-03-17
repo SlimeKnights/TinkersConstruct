@@ -2,14 +2,11 @@
   "materialId": "tconstruct:sponge",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 1050,
-      "attack": 0.0
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 3.02,
-      "harvestLevel": 0
+      "harvestLevel": 0,
+      "attack": 0.0
     },
     {
       "id": "tconstruct:handle",

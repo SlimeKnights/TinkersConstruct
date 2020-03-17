@@ -2,14 +2,11 @@
   "materialId": "tconstruct:ardite",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 990,
-      "attack": 3.6
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 3.5,
-      "harvestLevel": 4
+      "harvestLevel": 4,
+      "attack": 3.6
     },
     {
       "id": "tconstruct:handle",

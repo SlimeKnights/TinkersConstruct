@@ -2,14 +2,11 @@
   "materialId": "tconstruct:endstone",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 420,
-      "attack": 3.23
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 3.23,
-      "harvestLevel": 3
+      "harvestLevel": 3,
+      "attack": 3.23
     },
     {
       "id": "tconstruct:handle",

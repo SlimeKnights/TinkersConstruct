@@ -2,14 +2,11 @@
   "materialId": "tconstruct:prismarine",
   "stats": [
     {
-      "id": "tconstruct:common",
+      "id": "tconstruct:head",
       "durability": 430,
-      "attack": 6.2
-    },
-    {
-      "id": "tconstruct:harvest",
       "miningSpeed": 5.5,
-      "harvestLevel": 1
+      "harvestLevel": 1,
+      "attack": 6.2
     },
     {
       "id": "tconstruct:handle",
