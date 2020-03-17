@@ -23,7 +23,6 @@ public class BlueSlimeEntity extends SlimeEntity {
   }
 
   public static boolean canSpawnHere(EntityType<BlueSlimeEntity> entityType, IWorld worldIn, SpawnReason spawnReason, BlockPos pos, Random random) {
-    System.out.println("canSpawnHere called at " + pos);
     IFluidState ifluidstate = worldIn.getFluidState(pos);
     BlockPos down = pos.down();
 
