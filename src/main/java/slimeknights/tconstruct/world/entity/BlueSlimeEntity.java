@@ -3,12 +3,14 @@ package slimeknights.tconstruct.world.entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.monster.SlimeEntity;
+import net.minecraft.fluid.IFluidState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTables;
+import slimeknights.tconstruct.common.Tags;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
@@ -20,11 +22,16 @@ public class BlueSlimeEntity extends SlimeEntity {
     super(type, worldIn);
   }
 
-  public static boolean canSpawnHere(EntityType<BlueSlimeEntity> entityType, IWorld world, SpawnReason spawnReason, BlockPos pos, Random random) {
-    //if (world.getBlockState(pos).getBlock() instanceof LiquidSlimeBlock) {
-    //  return true;
-    //}
-    return world.getBlockState(pos.down()).getBlock() instanceof SlimeGrassBlock;
+  public static boolean canSpawnHere(EntityType<BlueSlimeEntity> entityType, IWorld worldIn, SpawnReason spawnReason, BlockPos pos, Random random) {
+    System.out.println("canSpawnHere called at " + pos);
+    IFluidState ifluidstate = worldIn.getFluidState(pos);
+    BlockPos down = pos.down();
+
+    if (ifluidstate.isTagged(Tags.Fluids.SLIME) && worldIn.getFluidState(down).isTagged(Tags.Fluids.SLIME)) {
+      return true;
+    }
+
+    return worldIn.getBlockState(pos.down()).getBlock() instanceof SlimeGrassBlock;
   }
 
   @Override

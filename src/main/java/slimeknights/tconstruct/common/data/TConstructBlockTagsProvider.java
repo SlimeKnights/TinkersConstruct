@@ -55,7 +55,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
   @Override
   public String getName() {
-    return "Tconstruct Block Tags";
+    return "Tinkers Construct Block Tags";
   }
 
 }

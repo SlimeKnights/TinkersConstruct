@@ -30,6 +30,7 @@ import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.TConstructBlockTagsProvider;
+import slimeknights.tconstruct.common.data.TConstructFluidTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructItemTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructRecipeProvider;
 import slimeknights.tconstruct.debug.ToolDebugContainer;
@@ -109,6 +110,7 @@ public class TConstruct {
     if (event.includeServer()) {
       datagenerator.addProvider(new TConstructBlockTagsProvider(datagenerator));
       datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator));
+      datagenerator.addProvider(new TConstructFluidTagsProvider(datagenerator));
       //datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
       datagenerator.addProvider(new TConstructRecipeProvider(datagenerator));
       datagenerator.addProvider(new MaterialDataProvider());

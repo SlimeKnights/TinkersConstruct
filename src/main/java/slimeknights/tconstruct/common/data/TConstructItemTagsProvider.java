@@ -75,7 +75,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
   @Override
   public String getName() {
-    return "Tconstruct Item Tags";
+    return "Tinkers Construct Item Tags";
   }
 
 }

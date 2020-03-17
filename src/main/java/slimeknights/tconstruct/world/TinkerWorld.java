@@ -2,11 +2,14 @@ package slimeknights.tconstruct.world;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
@@ -37,9 +40,11 @@ import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
+import slimeknights.tconstruct.entity.WorldEntities;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
 import slimeknights.tconstruct.world.worldgen.islands.nether.NetherSlimeIslandPiece;
 import slimeknights.tconstruct.world.worldgen.islands.nether.NetherSlimeIslandStructure;
 import slimeknights.tconstruct.world.worldgen.islands.overworld.SlimeIslandPiece;
@@ -121,6 +126,8 @@ public class TinkerWorld extends TinkerPulse {
     MinecraftForge.EVENT_BUS.register(new WorldEvents());
     proxy.postInit();
     TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(WorldBlocks.blue_slime_sapling));
+
+    EntitySpawnPlacementRegistry.register(WorldEntities.blue_slime_entity, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
   }
 
   public static void applyFeatures() {
@@ -152,6 +159,7 @@ public class TinkerWorld extends TinkerPulse {
         if (Config.COMMON.generateSlimeIslands.get()) {
           biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
           biome.addStructure(SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+          biome.getSpawns(EntityClassification.MONSTER).add(new Biome.SpawnListEntry(WorldEntities.blue_slime_entity, 15, 2, 4));
         }
       }
     });

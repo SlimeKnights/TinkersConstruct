@@ -1,8 +1,10 @@
 package slimeknights.tconstruct.common;
 
 import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
@@ -70,6 +72,21 @@ public class Tags {
 
     private static Tag<Item> forgeTag(String name) {
       return new ItemTags.Wrapper(new ResourceLocation("forge", name));
+    }
+  }
+
+  public static class Fluids {
+
+    public static final Tag<Fluid> BLUE_SLIME = tag("blue_slime");
+    public static final Tag<Fluid> PINK_SLIME = tag("pink_slime");
+    public static final Tag<Fluid> SLIME = tag("slime");
+
+    private static Tag<Fluid> tag(String name) {
+      return new FluidTags.Wrapper(new ResourceLocation("tconstruct", name));
+    }
+
+    private static Tag<Fluid> forgeTag(String name) {
+      return new FluidTags.Wrapper(new ResourceLocation("forge", name));
     }
   }
 }
