@@ -103,12 +103,12 @@ public class SlimeIslandGenerator implements IWorldGenerator {
   }
 
   protected boolean shouldGenerateInDimension(int id) {
-    for(int dim : Config.slimeIslandBlacklist) {
+    for(int dim : Config.slimeIslandDimensions) {
       if(dim == id) {
-        return false;
+        return !Config.slimeIslandDimensionsIsBlacklist;
       }
     }
-    return true;
+    return Config.slimeIslandDimensionsIsBlacklist;
   }
 
   @Override
