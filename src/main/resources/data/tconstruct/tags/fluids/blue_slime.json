@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:blue_slime_fluid",
+    "tconstruct:blue_slime_fluid_flowing",
+    "tconstruct:purple_slime_fluid",
+    "tconstruct:blue_slime_fluid_flowing"
+  ]
+}
