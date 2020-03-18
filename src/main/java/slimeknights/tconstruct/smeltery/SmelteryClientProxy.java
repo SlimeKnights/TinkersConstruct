@@ -25,6 +25,8 @@ public class SmelteryClientProxy extends ClientProxy {
   public void init() {
     Minecraft minecraft = Minecraft.getInstance();
 
+    /*
+    TODO
     // slime channels
     ItemColors colors = minecraft.getItemColors();
 
@@ -40,7 +42,7 @@ public class SmelteryClientProxy extends ClientProxy {
       }
 
       return 0xFFFFFF;
-    }, WorldBlocks.blue_slime_vine);
+    }, WorldBlocks.blue_slime_vine);*/
     super.init();
   }
 }
