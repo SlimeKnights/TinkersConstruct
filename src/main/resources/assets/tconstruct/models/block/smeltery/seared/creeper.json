@@ -1,0 +1,9 @@
+{
+    "parent": "block/cube_bottom_top",
+    "textures": {
+        "side": "tconstruct:block/smeltery/seared/creeper",
+        "particle": "#side",
+        "top": "tconstruct:block/smeltery/seared/paver",
+        "bottom": "#top"
+    }
+}
