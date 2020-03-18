@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.common;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
@@ -87,6 +89,19 @@ public class Tags {
 
     private static Tag<Fluid> forgeTag(String name) {
       return new FluidTags.Wrapper(new ResourceLocation("forge", name));
+    }
+  }
+
+  public static class EntityTypes {
+
+    public static final Tag<EntityType<?>> SLIMES = forgeTag("slimes");
+
+    private static Tag<EntityType<?>> tag(String name) {
+      return new EntityTypeTags.Wrapper(new ResourceLocation("tconstruct", name));
+    }
+
+    private static Tag<EntityType<?>> forgeTag(String name) {
+      return new EntityTypeTags.Wrapper(new ResourceLocation("forge", name));
     }
   }
 }
