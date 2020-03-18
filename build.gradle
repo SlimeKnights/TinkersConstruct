@@ -214,6 +214,9 @@ jar {
         ])
     }
 }
+
+jar.finalizedBy('reobfJar')
+
 task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
     classifier = 'sources'
