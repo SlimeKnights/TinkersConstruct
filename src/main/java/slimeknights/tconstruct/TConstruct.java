@@ -116,8 +116,8 @@ public class TConstruct {
       //datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
       datagenerator.addProvider(new TConstructRecipeProvider(datagenerator));
 
-      //datagenerator.addProvider(new MaterialDataProvider());
-      //datagenerator.addProvider(new MaterialStatsDataProvider());
+      datagenerator.addProvider(new MaterialDataProvider());
+      datagenerator.addProvider(new MaterialStatsDataProvider());
     }
   }
 
