@@ -7,6 +7,7 @@ import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.common.Tags;
 import slimeknights.tconstruct.items.CommonItems;
+import slimeknights.tconstruct.items.GadgetItems;
 
 import java.nio.file.Path;
 import java.util.Set;
@@ -58,6 +59,11 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.copy(Tags.Blocks.SLIMY_LEAVES, Tags.Items.SLIMY_LEAVES);
   }
 
+  public void addGadgets() {
+    this.getBuilder(net.minecraftforge.common.Tags.Items.RODS).add(Tags.Items.RODS_STONE);
+    this.getBuilder(Tags.Items.RODS_STONE).add(GadgetItems.stone_stick);
+  }
+
   @Override
   public void registerTags() {
     super.registerTags();
@@ -65,6 +71,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.filter = this.tagToBuilder.keySet().stream().map(Tag::getId).collect(Collectors.toSet());
 
     this.addCommon();
+    this.addGadgets();
     this.addWorld();
   }
 

@@ -19,34 +19,38 @@ import slimeknights.tconstruct.gadgets.item.SlimeSlingItem;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 
+import static slimeknights.tconstruct.common.TinkerPulse.injected;
+
 @ObjectHolder(TConstruct.modID)
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class GadgetItems {
 
-  public static final SlimeSlingItem slime_sling_blue = TinkerPulse.injected();
-  public static final SlimeSlingItem slime_sling_purple = TinkerPulse.injected();
-  public static final SlimeSlingItem slime_sling_magma = TinkerPulse.injected();
-  public static final SlimeSlingItem slime_sling_green = TinkerPulse.injected();
-  public static final SlimeSlingItem slime_sling_blood = TinkerPulse.injected();
+  public static final Item stone_stick = injected();
 
-  public static final SlimeBootsItem slime_boots_blue = TinkerPulse.injected();
-  public static final SlimeBootsItem slime_boots_purple = TinkerPulse.injected();
-  public static final SlimeBootsItem slime_boots_magma = TinkerPulse.injected();
-  public static final SlimeBootsItem slime_boots_green = TinkerPulse.injected();
-  public static final SlimeBootsItem slime_boots_blood = TinkerPulse.injected();
+  public static final SlimeSlingItem slime_sling_blue = injected();
+  public static final SlimeSlingItem slime_sling_purple = injected();
+  public static final SlimeSlingItem slime_sling_magma = injected();
+  public static final SlimeSlingItem slime_sling_green = injected();
+  public static final SlimeSlingItem slime_sling_blood = injected();
 
-  public static final PiggyBackPackItem piggy_backpack = TinkerPulse.injected();
+  public static final SlimeBootsItem slime_boots_blue = injected();
+  public static final SlimeBootsItem slime_boots_purple = injected();
+  public static final SlimeBootsItem slime_boots_magma = injected();
+  public static final SlimeBootsItem slime_boots_green = injected();
+  public static final SlimeBootsItem slime_boots_blood = injected();
 
-  public static final FancyItemFrameItem jewel_item_frame = TinkerPulse.injected();
-  public static final FancyItemFrameItem aluminum_brass_item_frame = TinkerPulse.injected();
-  public static final FancyItemFrameItem cobalt_item_frame = TinkerPulse.injected();
-  public static final FancyItemFrameItem ardite_item_frame = TinkerPulse.injected();
-  public static final FancyItemFrameItem manyullyn_item_frame = TinkerPulse.injected();
-  public static final FancyItemFrameItem gold_item_frame = TinkerPulse.injected();
-  public static final FancyItemFrameItem clear_item_frame = TinkerPulse.injected();
+  public static final PiggyBackPackItem piggy_backpack = injected();
 
-  public static final GlowBallItem glow_ball = TinkerPulse.injected();
-  public static final EflnBallItem efln_ball = TinkerPulse.injected();
+  public static final FancyItemFrameItem jewel_item_frame = injected();
+  public static final FancyItemFrameItem aluminum_brass_item_frame = injected();
+  public static final FancyItemFrameItem cobalt_item_frame = injected();
+  public static final FancyItemFrameItem ardite_item_frame = injected();
+  public static final FancyItemFrameItem manyullyn_item_frame = injected();
+  public static final FancyItemFrameItem gold_item_frame = injected();
+  public static final FancyItemFrameItem clear_item_frame = injected();
+
+  public static final GlowBallItem glow_ball = injected();
+  public static final EflnBallItem efln_ball = injected();
 
   @SubscribeEvent
   static void registerItems(final RegistryEvent.Register<Item> event) {

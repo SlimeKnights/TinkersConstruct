@@ -1,27 +1,14 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
     {
-      "conditions": [
-        {
-          "pulseid": "tinker_tools",
-          "type": "tconstruct:pulse_loaded"
-        }
-      ],
-      "recipe": {
-        "type": "minecraft:crafting_shapeless",
-        "ingredients": [
-          {
-            "item": "minecraft:book"
-          },
-          {
-            "item": "minecraft:gravel"
-          }
-        ],
-        "result": {
-          "item": "tconstruct:book"
-        }
-      }
+      "item": "minecraft:book"
+    },
+    {
+      "item": "minecraft:gravel"
     }
-  ]
+  ],
+  "result": {
+    "item": "tconstruct:book"
+  }
 }

@@ -3,7 +3,7 @@
     {
       "conditions": [
         {
-          "pulseid": "tinker_tools",
+          "pulseid": "tinker_gadgets",
           "type": "tconstruct:pulse_loaded"
         }
       ],
@@ -11,7 +11,7 @@
         "parent": "minecraft:recipes/root",
         "rewards": {
           "recipes": [
-            "tconstruct:common/book"
+            "tconstruct:gadgets/throwball/efln"
           ]
         },
         "criteria": {
@@ -20,7 +20,7 @@
             "conditions": {
               "items": [
                 {
-                  "item": "minecraft:book"
+                  "item": "minecraft:gunpowder"
                 }
               ]
             }
@@ -28,7 +28,7 @@
           "has_the_recipe": {
             "trigger": "minecraft:recipe_unlocked",
             "conditions": {
-              "recipe": "tconstruct:common/book"
+              "recipe": "tconstruct:gadgets/throwball/efln"
             }
           }
         },

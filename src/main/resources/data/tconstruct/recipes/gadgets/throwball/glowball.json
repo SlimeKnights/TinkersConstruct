@@ -1,0 +1,33 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "pulseid": "tinker_gadgets",
+          "type": "tconstruct:pulse_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "###",
+          "#X#",
+          "###"
+        ],
+        "key": {
+          "#": {
+            "item": "minecraft:snowball"
+          },
+          "X": {
+            "tag": "forge:dusts/glowstone"
+          }
+        },
+        "result": {
+          "item": "tconstruct:glow_ball",
+          "count": 8
+        }
+      }
+    }
+  ]
+}

@@ -49,7 +49,7 @@ public final class BlockProperties {
   // MISC
   static Block.Properties GLOW = builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.CLOTH).hardnessAndResistance(0.0F).lightValue(14).notSolid();
   static Block.Properties STONE_TORCH = builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.STONE).doesNotBlockMovement().hardnessAndResistance(0.0F).lightValue(14);
-  static Block.Properties STONE_LADDER = builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.STONE).hardnessAndResistance(0.1F);
+  static Block.Properties STONE_LADDER = builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.STONE).hardnessAndResistance(0.1F).notSolid();
   static Block.Properties WOODEN_RAIL = builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.WOOD).doesNotBlockMovement().hardnessAndResistance(0.2F);
   static Block.Properties PUNJI = builder(Material.PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(3.0F);
 

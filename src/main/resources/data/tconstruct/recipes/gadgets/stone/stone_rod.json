@@ -1,0 +1,34 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "pulseid": "tinker_gadgets",
+          "type": "tconstruct:pulse_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "#",
+          "#"
+        ],
+        "key": {
+          "#": [
+            {
+              "tag": "forge:stone"
+            },
+            {
+              "tag": "forge:cobblestone"
+            }
+          ]
+        },
+        "result": {
+          "item": "tconstruct:stone_stick",
+          "count": 4
+        }
+      }
+    }
+  ]
+}

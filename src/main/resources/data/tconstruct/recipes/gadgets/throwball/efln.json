@@ -1,0 +1,65 @@
+{
+    "type": "forge:conditional",
+    "recipes": [
+        {
+            "conditions": [
+                {
+                    "pulseid": "tinker_gadgets",
+                    "type": "tconstruct:pulse_loaded"
+                },
+                {
+                    "tag": "forge:dusts/sulfur",
+                    "type": "forge:tag_empty"
+                }
+            ],
+            "recipe": {
+                "type": "minecraft:crafting_shapeless",
+                "ingredients": [
+                    {
+                        "item": "minecraft:flint"
+                    },
+                    {
+                        "item": "minecraft:gunpowder"
+                    }
+                ],
+                "result": {
+                    "item": "tconstruct:efln_ball"
+                }
+            }
+        },
+        {
+            "conditions": [
+                {
+                    "pulseid": "tinker_gadgets",
+                    "type": "tconstruct:pulse_loaded"
+                },
+                {
+                    "value": {
+                        "tag": "forge:dusts/sulfur",
+                        "type": "forge:tag_empty"
+                    },
+                    "type": "forge:not"
+                }
+            ],
+            "recipe": {
+                "type": "minecraft:crafting_shapeless",
+                "ingredients": [
+                    {
+                        "tag": "forge:dusts/sulfur"
+                    },
+                    [
+                        {
+                            "tag": "forge:dusts/sulfur"
+                        },
+                        {
+                            "item": "minecraft:gunpowder"
+                        }
+                    ]
+                ],
+                "result": {
+                    "item": "tconstruct:efln_ball"
+                }
+            }
+        }
+    ]
+}

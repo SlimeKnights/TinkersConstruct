@@ -1,0 +1,36 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "pulseid": "tinker_gadgets",
+          "type": "tconstruct:pulse_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "tconstruct:slimesling",
+        "pattern": [
+          "#X#",
+          "L L",
+          " L "
+        ],
+        "key": {
+          "#": {
+            "item": "minecraft:string"
+          },
+          "X": {
+            "item": "tconstruct:congealed_purple_slime"
+          },
+          "L": {
+            "tag": "forge:slimeball/purple"
+          }
+        },
+        "result": {
+          "item": "tconstruct:slime_sling_purple"
+        }
+      }
+    }
+  ]
+}

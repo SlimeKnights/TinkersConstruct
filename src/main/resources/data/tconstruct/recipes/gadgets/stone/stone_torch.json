@@ -1,0 +1,37 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "pulseid": "tinker_gadgets",
+          "type": "tconstruct:pulse_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "#",
+          "X"
+        ],
+        "key": {
+          "#": [
+            {
+              "item": "minecraft:coal"
+            },
+            {
+              "item": "minecraft:charcoal"
+            }
+          ],
+          "X": {
+            "tag": "forge:rods/stone"
+          }
+        },
+        "result": {
+          "item": "tconstruct:stone_torch",
+          "count": 4
+        }
+      }
+    }
+  ]
+}

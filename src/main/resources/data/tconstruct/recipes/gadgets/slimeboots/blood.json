@@ -1,0 +1,32 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "pulseid": "tinker_gadgets",
+          "type": "tconstruct:pulse_loaded"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "group": "tconstruct:slime_boots",
+        "pattern": [
+          "X X",
+          "# #"
+        ],
+        "key": {
+          "#": {
+            "item": "tconstruct:congealed_blood_slime"
+          },
+          "X": {
+            "tag": "forge:slimeball/blood"
+          }
+        },
+        "result": {
+          "item": "tconstruct:slime_boots_blood"
+        }
+      }
+    }
+  ]
+}

@@ -22,16 +22,18 @@ import slimeknights.tconstruct.gadgets.block.DropperRailBlock;
 import slimeknights.tconstruct.gadgets.block.PunjiBlock;
 import slimeknights.tconstruct.library.TinkerRegistry;
 
+import static slimeknights.tconstruct.common.TinkerPulse.injected;
+
 @ObjectHolder(TConstruct.modID)
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class GadgetBlocks {
 
-  public static final LadderBlock stone_ladder = TinkerPulse.injected();
-  public static final TorchBlock stone_torch = TinkerPulse.injected();
-  public static final WallTorchBlock wall_stone_torch = TinkerPulse.injected();
-  public static final PunjiBlock punji = TinkerPulse.injected();
-  public static final RailBlock wooden_rail = TinkerPulse.injected();
-  public static final DropperRailBlock wooden_dropper_rail = TinkerPulse.injected();
+  public static final LadderBlock stone_ladder = injected();
+  public static final TorchBlock stone_torch = injected();
+  public static final WallTorchBlock wall_stone_torch = injected();
+  public static final PunjiBlock punji = injected();
+  public static final RailBlock wooden_rail = injected();
+  public static final DropperRailBlock wooden_dropper_rail = injected();
 
   @SubscribeEvent
   static void registerBlocks(final RegistryEvent.Register<Block> event) {

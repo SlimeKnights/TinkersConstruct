@@ -10,23 +10,30 @@ import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
+import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.blocks.CommonBlocks;
 import slimeknights.tconstruct.blocks.DecorativeBlocks;
+import slimeknights.tconstruct.blocks.GadgetBlocks;
 import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.Tags;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
 import slimeknights.tconstruct.common.conditions.PulseLoadedCondition;
 import slimeknights.tconstruct.items.CommonItems;
+import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
-public class TConstructRecipeProvider extends RecipeProvider {
+public class TConstructRecipeProvider extends RecipeProvider implements IConditionBuilder {
 
   public TConstructRecipeProvider(DataGenerator generatorIn) {
     super(generatorIn);
@@ -113,22 +120,11 @@ public class TConstructRecipeProvider extends RecipeProvider {
       .addCriterion("has_mud_bricks", this.hasItem(DecorativeBlocks.mud_bricks))
       .build(consumer, "tconstruct:common/soil/mud_bricks_stairs");
 
-    ResourceLocation bookId = new ResourceLocation(TConstruct.modID, "common/book");
-    ConditionalRecipe.builder()
-      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_TOOLS_PULSE_ID))
-      .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(CommonItems.book)
-        .addIngredient(Items.BOOK)
-        .addIngredient(Blocks.GRAVEL)
-        .addCriterion("has_item", this.hasItem(Items.BOOK))::build)
-      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tconstruct/book"), ConditionalAdvancement.builder()
-        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_TOOLS_PULSE_ID))
-        .addAdvancement(Advancement.Builder.builder()
-          .withParentId(new ResourceLocation("recipes/root"))
-          .withRewards(AdvancementRewards.Builder.recipe(bookId))
-          .withCriterion("has_item", hasItem(Items.BOOK))
-          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(bookId))
-          .withRequirementsStrategy(IRequirementsStrategy.OR))
-      ).build(consumer, bookId);
+    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.book)
+      .addIngredient(Items.BOOK)
+      .addIngredient(Blocks.GRAVEL)
+      .addCriterion("has_gravel", this.hasItem(Blocks.GRAVEL))
+      .build(consumer, "tconstruct:common/book");
 
     ResourceLocation flintId = new ResourceLocation(TConstruct.modID, "common/flint");
     ConditionalRecipe.builder()
@@ -138,7 +134,7 @@ public class TConstructRecipeProvider extends RecipeProvider {
         .addIngredient(Blocks.GRAVEL)
         .addIngredient(Blocks.GRAVEL)
         .addCriterion("has_item", this.hasItem(Blocks.GRAVEL))::build)
-      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tconstruct/flint"), ConditionalAdvancement.builder()
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_general/common/flint"), ConditionalAdvancement.builder()
         .addCondition(new ConfigOptionEnabledCondition("addGravelToFlintRecipe"))
         .addAdvancement(Advancement.Builder.builder()
           .withParentId(new ResourceLocation("recipes/root"))
@@ -154,7 +150,95 @@ public class TConstructRecipeProvider extends RecipeProvider {
   }
 
   private void addGadgets(Consumer<IFinishedRecipe> consumer) {
+    this.addSlimeBootsRecipes(consumer);
+    this.addSlimeSlingRecipes(consumer);
+    this.addStoneRecipes(consumer);
 
+    ResourceLocation eflnBallId = new ResourceLocation(TConstruct.modID, "gadgets/throwball/efln");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addCondition(new TagEmptyCondition("forge", "dusts/sulfur"))
+      .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(GadgetItems.efln_ball)
+        .addIngredient(Items.FLINT)
+        .addIngredient(Items.GUNPOWDER)
+        .addCriterion("has_item", this.hasItem(net.minecraftforge.common.Tags.Items.DUSTS_GLOWSTONE))::build)
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addCondition(not(new TagEmptyCondition("forge", "dusts/sulfur")))
+      .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(GadgetItems.efln_ball)
+        .addIngredient(Tags.Items.DUSTS_SULFUR)
+        .addIngredient(Ingredient.fromItemListStream(Stream.of(
+          new Ingredient.TagList(Tags.Items.DUSTS_SULFUR),
+          new Ingredient.SingleItemList(new ItemStack(Items.GUNPOWDER)))
+        ))
+        .addCriterion("has_item", this.hasItem(Items.GUNPOWDER))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/throwball/efln"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(eflnBallId))
+          .withCriterion("has_item", hasItem(Items.GUNPOWDER))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(eflnBallId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, eflnBallId);
+
+    ResourceLocation glowBallId = new ResourceLocation(TConstruct.modID, "gadgets/throwball/glowball");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.glow_ball, 8)
+        .key('#', Items.SNOWBALL)
+        .key('X', net.minecraftforge.common.Tags.Items.DUSTS_GLOWSTONE)
+        .patternLine("###")
+        .patternLine("#X#")
+        .patternLine("###")
+        .addCriterion("has_item", this.hasItem(net.minecraftforge.common.Tags.Items.DUSTS_GLOWSTONE))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/throwball/glowball"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(glowBallId))
+          .withCriterion("has_item", hasItem(net.minecraftforge.common.Tags.Items.DUSTS_GLOWSTONE))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(glowBallId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, glowBallId);
+
+    ResourceLocation piggyBackpackId = new ResourceLocation(TConstruct.modID, "gadgets/piggy_backpack");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.piggy_backpack)
+        .key('#', net.minecraftforge.common.Tags.Items.RODS_WOODEN)
+        .key('X', net.minecraftforge.common.Tags.Items.LEATHER)
+        .patternLine(" X ")
+        .patternLine("# #")
+        .patternLine(" X ")
+        .addCriterion("has_item", this.hasItem(net.minecraftforge.common.Tags.Items.RODS_WOODEN))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/piggy_backpack"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(piggyBackpackId))
+          .withCriterion("has_item", hasItem(net.minecraftforge.common.Tags.Items.RODS_WOODEN))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(piggyBackpackId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, piggyBackpackId);
+
+    ResourceLocation punjiSticksId = new ResourceLocation(TConstruct.modID, "gadgets/punji_sticks");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.punji, 3)
+        .key('#', Items.SUGAR_CANE)
+        .patternLine("# #")
+        .patternLine(" # ")
+        .patternLine("# #")
+        .addCriterion("has_item", this.hasItem(Items.SUGAR_CANE))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/punji_sticks"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(punjiSticksId))
+          .withCriterion("has_item", hasItem(Items.SUGAR_CANE))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(punjiSticksId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, punjiSticksId);
   }
 
   private void addSlimeRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -483,5 +567,303 @@ public class TConstructRecipeProvider extends RecipeProvider {
       .setGroup("tconstruct:stained_clear_glass")
       .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
       .build(consumer, "tconstruct:common/glass/yellow_clear_stained_glass");
+  }
+
+  private void addStoneRecipes(Consumer<IFinishedRecipe> consumer) {
+    ResourceLocation jackOLanternId = new ResourceLocation(TConstruct.modID, "gadgets/stone/jack_o_lantern");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(Blocks.JACK_O_LANTERN)
+        .key('#', Blocks.CARVED_PUMPKIN)
+        .key('X', GadgetBlocks.stone_torch)
+        .patternLine("#")
+        .patternLine("X")
+        .addCriterion("has_item", this.hasItem(Blocks.CARVED_PUMPKIN))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/stone/jack_o_lantern"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(jackOLanternId))
+          .withCriterion("has_item", hasItem(Blocks.CARVED_PUMPKIN))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(jackOLanternId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, jackOLanternId);
+
+    ResourceLocation stoneLadderId = new ResourceLocation(TConstruct.modID, "gadgets/stone/stone_ladder");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.stone_ladder, 3)
+        .key('#', Tags.Items.RODS_STONE)
+        .patternLine("# #")
+        .patternLine("###")
+        .patternLine("# #")
+        .addCriterion("has_item", this.hasItem(Tags.Items.RODS_STONE))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/stone/stone_ladder"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(stoneLadderId))
+          .withCriterion("has_item", hasItem(Tags.Items.RODS_STONE))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(stoneLadderId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, stoneLadderId);
+
+    ResourceLocation stoneRodId = new ResourceLocation(TConstruct.modID, "gadgets/stone/stone_rod");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.stone_stick, 4)
+        .key('#', Ingredient.fromItemListStream(Stream.of(
+          new Ingredient.TagList(net.minecraftforge.common.Tags.Items.STONE),
+          new Ingredient.TagList(net.minecraftforge.common.Tags.Items.COBBLESTONE))
+        ))
+        .patternLine("#")
+        .patternLine("#")
+        .addCriterion("has_item", this.hasItem(net.minecraftforge.common.Tags.Items.STONE))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/stone/stone_rod"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(stoneRodId))
+          .withCriterion("has_item", hasItem(net.minecraftforge.common.Tags.Items.STONE))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(stoneRodId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, stoneRodId);
+
+    ResourceLocation stoneTorchId = new ResourceLocation(TConstruct.modID, "gadgets/stone/stone_torch");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.stone_torch, 4)
+        .key('#', Ingredient.fromItemListStream(Stream.of(
+          new Ingredient.SingleItemList(new ItemStack(Items.COAL)),
+          new Ingredient.SingleItemList(new ItemStack(Items.CHARCOAL))
+        )))
+        .key('X', Tags.Items.RODS_STONE)
+        .patternLine("#")
+        .patternLine("X")
+        .addCriterion("has_item", this.hasItem(Tags.Items.RODS_STONE))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/stone/stone_torch"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(stoneTorchId))
+          .withCriterion("has_item", hasItem(Tags.Items.RODS_STONE))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(stoneTorchId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, stoneTorchId);
+  }
+
+  private void addSlimeSlingRecipes(Consumer<IFinishedRecipe> consumer) {
+    ResourceLocation bloodSlimeSlingId = new ResourceLocation(TConstruct.modID, "gadgets/slimesling/blood");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_sling_blood)
+        .setGroup("tconstruct:slimesling")
+        .key('#', Items.STRING)
+        .key('X', WorldBlocks.congealed_blood_slime)
+        .key('L', Tags.Items.BLOOD_SLIMEBALL)
+        .patternLine("#X#")
+        .patternLine("L L")
+        .patternLine(" L ")
+        .addCriterion("has_item", this.hasItem(Items.STRING))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimesling/blood"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(bloodSlimeSlingId))
+          .withCriterion("has_item", hasItem(Items.STRING))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(bloodSlimeSlingId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, bloodSlimeSlingId);
+
+
+    ResourceLocation blueSlimeSlingId = new ResourceLocation(TConstruct.modID, "gadgets/slimesling/blue");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_sling_blue)
+        .setGroup("tconstruct:slimesling")
+        .key('#', Items.STRING)
+        .key('X', WorldBlocks.congealed_blue_slime)
+        .key('L', Tags.Items.BLUE_SLIMEBALL)
+        .patternLine("#X#")
+        .patternLine("L L")
+        .patternLine(" L ")
+        .addCriterion("has_item", this.hasItem(Items.STRING))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimesling/blue"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(blueSlimeSlingId))
+          .withCriterion("has_item", hasItem(Items.STRING))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(blueSlimeSlingId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, blueSlimeSlingId);
+
+    ResourceLocation greenSlimeSlingId = new ResourceLocation(TConstruct.modID, "gadgets/slimesling/green");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_sling_green)
+        .setGroup("tconstruct:slimesling")
+        .key('#', Items.STRING)
+        .key('X', WorldBlocks.congealed_green_slime)
+        .key('L', Tags.Items.GREEN_SLIMEBALL)
+        .patternLine("#X#")
+        .patternLine("L L")
+        .patternLine(" L ")
+        .addCriterion("has_item", this.hasItem(Items.STRING))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimesling/green"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(greenSlimeSlingId))
+          .withCriterion("has_item", hasItem(Items.STRING))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(greenSlimeSlingId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, greenSlimeSlingId);
+
+    ResourceLocation magmaSlimeSlingId = new ResourceLocation(TConstruct.modID, "gadgets/slimesling/magma");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_sling_magma)
+        .setGroup("tconstruct:slimesling")
+        .key('#', Items.STRING)
+        .key('X', WorldBlocks.congealed_magma_slime)
+        .key('L', Tags.Items.MAGMA_SLIMEBALL)
+        .patternLine("#X#")
+        .patternLine("L L")
+        .patternLine(" L ")
+        .addCriterion("has_item", this.hasItem(Items.STRING))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimesling/magma"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(magmaSlimeSlingId))
+          .withCriterion("has_item", hasItem(Items.STRING))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(magmaSlimeSlingId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, magmaSlimeSlingId);
+
+    ResourceLocation purpleSlimeSlingId = new ResourceLocation(TConstruct.modID, "gadgets/slimesling/purple");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_sling_purple)
+        .setGroup("tconstruct:slimesling")
+        .key('#', Items.STRING)
+        .key('X', WorldBlocks.congealed_purple_slime)
+        .key('L', Tags.Items.PURPLE_SLIMEBALL)
+        .patternLine("#X#")
+        .patternLine("L L")
+        .patternLine(" L ")
+        .addCriterion("has_item", this.hasItem(Items.STRING))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimesling/purple"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(purpleSlimeSlingId))
+          .withCriterion("has_item", hasItem(Items.STRING))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(purpleSlimeSlingId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, purpleSlimeSlingId);
+  }
+
+  private void addSlimeBootsRecipes(Consumer<IFinishedRecipe> consumer) {
+    ResourceLocation bloodSlimeBootsId = new ResourceLocation(TConstruct.modID, "gadgets/slimeboots/blood");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_boots_blood)
+        .setGroup("tconstruct:slime_boots")
+        .key('#', WorldBlocks.congealed_blood_slime)
+        .key('X', Tags.Items.BLOOD_SLIMEBALL)
+        .patternLine("X X")
+        .patternLine("# #")
+        .addCriterion("has_item", this.hasItem(Items.SLIME_BALL))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimeboots/blood"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(bloodSlimeBootsId))
+          .withCriterion("has_item", hasItem(Items.SLIME_BALL))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(bloodSlimeBootsId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, bloodSlimeBootsId);
+
+    ResourceLocation blueSlimeBootsId = new ResourceLocation(TConstruct.modID, "gadgets/slimeboots/blue");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_boots_blue)
+        .setGroup("tconstruct:slime_boots")
+        .key('#', WorldBlocks.congealed_blue_slime)
+        .key('X', Tags.Items.BLUE_SLIMEBALL)
+        .patternLine("X X")
+        .patternLine("# #")
+        .addCriterion("has_item", this.hasItem(Items.SLIME_BALL))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimeboots/blue"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(blueSlimeBootsId))
+          .withCriterion("has_item", hasItem(Items.SLIME_BALL))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(blueSlimeBootsId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, blueSlimeBootsId);
+
+    ResourceLocation greenSlimeBootsId = new ResourceLocation(TConstruct.modID, "gadgets/slimeboots/green");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_boots_green)
+        .setGroup("tconstruct:slime_boots")
+        .key('#', WorldBlocks.congealed_green_slime)
+        .key('X', Tags.Items.GREEN_SLIMEBALL)
+        .patternLine("X X")
+        .patternLine("# #")
+        .addCriterion("has_item", this.hasItem(Items.SLIME_BALL))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimeboots/green"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(greenSlimeBootsId))
+          .withCriterion("has_item", hasItem(Items.SLIME_BALL))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(greenSlimeBootsId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, greenSlimeBootsId);
+
+    ResourceLocation magmaSlimeBootsId = new ResourceLocation(TConstruct.modID, "gadgets/slimeboots/magma");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_boots_magma)
+        .setGroup("tconstruct:slime_boots")
+        .key('#', WorldBlocks.congealed_magma_slime)
+        .key('X', Tags.Items.MAGMA_SLIMEBALL)
+        .patternLine("X X")
+        .patternLine("# #")
+        .addCriterion("has_item", this.hasItem(Items.SLIME_BALL))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimeboots/magma"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(magmaSlimeBootsId))
+          .withCriterion("has_item", hasItem(Items.SLIME_BALL))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(magmaSlimeBootsId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, magmaSlimeBootsId);
+
+    ResourceLocation purpleSlimeBootsId = new ResourceLocation(TConstruct.modID, "gadgets/slimeboots/purple");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_boots_purple)
+        .setGroup("tconstruct:slime_boots")
+        .key('#', WorldBlocks.congealed_purple_slime)
+        .key('X', Tags.Items.PURPLE_SLIMEBALL)
+        .patternLine("X X")
+        .patternLine("# #")
+        .addCriterion("has_item", this.hasItem(Items.SLIME_BALL))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimeboots/purple"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(purpleSlimeBootsId))
+          .withCriterion("has_item", hasItem(Items.SLIME_BALL))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(purpleSlimeBootsId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, purpleSlimeBootsId);
   }
 }
