@@ -26,25 +26,6 @@ public class Tags {
     public static final Tag<Block> STORAGE_BLOCKS_PIGIRON = forgeTag("storage_blocks/pigiron");
     public static final Tag<Block> STORAGE_BLOCKS_ALUBRASS = forgeTag("storage_blocks/alubrass");
 
-    public static final Tag<Block> GLASS = forgeTag("glass");
-    public static final Tag<Block> GLASS_BLACK = forgeTag("glass/black");
-    public static final Tag<Block> GLASS_BLUE = forgeTag("glass/blue");
-    public static final Tag<Block> GLASS_BROWN = forgeTag("glass/brown");
-    public static final Tag<Block> GLASS_COLORLESS = forgeTag("glass/colorless");
-    public static final Tag<Block> GLASS_CYAN = forgeTag("glass/cyan");
-    public static final Tag<Block> GLASS_GRAY = forgeTag("glass/gray");
-    public static final Tag<Block> GLASS_GREEN = forgeTag("glass/green");
-    public static final Tag<Block> GLASS_LIGHT_BLUE = forgeTag("glass/light_blue");
-    public static final Tag<Block> GLASS_LIGHT_GRAY = forgeTag("glass/light_gray");
-    public static final Tag<Block> GLASS_LIME = forgeTag("glass/lime");
-    public static final Tag<Block> GLASS_MAGENTA = forgeTag("glass/magenta");
-    public static final Tag<Block> GLASS_ORANGE = forgeTag("glass/orange");
-    public static final Tag<Block> GLASS_PINK = forgeTag("glass/pink");
-    public static final Tag<Block> GLASS_PURPLE = forgeTag("glass/purple");
-    public static final Tag<Block> GLASS_RED = forgeTag("glass/red");
-    public static final Tag<Block> GLASS_WHITE = forgeTag("glass/white");
-    public static final Tag<Block> GLASS_YELLOW = forgeTag("glass/yellow");
-
     private static Tag<Block> tag(String name) {
       return new BlockTags.Wrapper(new ResourceLocation("tconstruct", name));
     }
@@ -90,25 +71,6 @@ public class Tags {
     public static final Tag<Item> DUSTS_SULFUR = forgeTag("dusts/sulfur");
 
     public static final Tag<Item> RODS_STONE = forgeTag("rods/stone");
-
-    public static final Tag<Item> GLASS = forgeTag("glass");
-    public static final Tag<Item> GLASS_BLACK = forgeTag("glass/black");
-    public static final Tag<Item> GLASS_BLUE = forgeTag("glass/blue");
-    public static final Tag<Item> GLASS_BROWN = forgeTag("glass/brown");
-    public static final Tag<Item> GLASS_COLORLESS = forgeTag("glass/colorless");
-    public static final Tag<Item> GLASS_CYAN = forgeTag("glass/cyan");
-    public static final Tag<Item> GLASS_GRAY = forgeTag("glass/gray");
-    public static final Tag<Item> GLASS_GREEN = forgeTag("glass/green");
-    public static final Tag<Item> GLASS_LIGHT_BLUE = forgeTag("glass/light_blue");
-    public static final Tag<Item> GLASS_LIGHT_GRAY = forgeTag("glass/light_gray");
-    public static final Tag<Item> GLASS_LIME = forgeTag("glass/lime");
-    public static final Tag<Item> GLASS_MAGENTA = forgeTag("glass/magenta");
-    public static final Tag<Item> GLASS_ORANGE = forgeTag("glass/orange");
-    public static final Tag<Item> GLASS_PINK = forgeTag("glass/pink");
-    public static final Tag<Item> GLASS_PURPLE = forgeTag("glass/purple");
-    public static final Tag<Item> GLASS_RED = forgeTag("glass/red");
-    public static final Tag<Item> GLASS_WHITE = forgeTag("glass/white");
-    public static final Tag<Item> GLASS_YELLOW = forgeTag("glass/yellow");
 
     private static Tag<Item> tag(String name) {
       return new ItemTags.Wrapper(new ResourceLocation("tconstruct", name));

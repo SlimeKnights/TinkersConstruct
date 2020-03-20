@@ -11,24 +11,20 @@
       "recipe": {
         "type": "minecraft:crafting_shaped",
         "pattern": [
-          "#",
-          "X"
+          "# #",
+          "#X#",
+          "# #"
         ],
         "key": {
-          "#": [
-            {
-              "item": "minecraft:coal"
-            },
-            {
-              "item": "minecraft:charcoal"
-            }
-          ],
+          "#": {
+            "tag": "minecraft:planks"
+          },
           "X": {
-            "tag": "forge:rods/stone"
+            "tag": "forge:rods/wooden"
           }
         },
         "result": {
-          "item": "tconstruct:stone_torch",
+          "item": "tconstruct:wooden_rail",
           "count": 4
         }
       }

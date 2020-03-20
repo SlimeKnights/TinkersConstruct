@@ -5,14 +5,18 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.IRequirementsStrategy;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.block.Blocks;
+import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.ItemTagsProvider;
 import net.minecraft.data.RecipeProvider;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
@@ -152,6 +156,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
   private void addGadgets(Consumer<IFinishedRecipe> consumer) {
     this.addSlimeBootsRecipes(consumer);
     this.addSlimeSlingRecipes(consumer);
+    this.addWoodenRailRecipes(consumer);
     this.addStoneRecipes(consumer);
 
     ResourceLocation eflnBallId = new ResourceLocation(TConstruct.modID, "gadgets/throwball/efln");
@@ -865,5 +870,47 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
           .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(purpleSlimeBootsId))
           .withRequirementsStrategy(IRequirementsStrategy.OR))
       ).build(consumer, purpleSlimeBootsId);
+  }
+
+  private void addWoodenRailRecipes(Consumer<IFinishedRecipe> consumer) {
+    ResourceLocation woodenRailId = new ResourceLocation(TConstruct.modID, "gadgets/rail/wooden_rail");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.wooden_rail, 4)
+        .key('#', ItemTags.PLANKS)
+        .key('X', net.minecraftforge.common.Tags.Items.RODS_WOODEN)
+        .patternLine("# #")
+        .patternLine("#X#")
+        .patternLine("# #")
+        .addCriterion("has_item", this.hasItem(ItemTags.PLANKS))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/rail/wooden_rail"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(woodenRailId))
+          .withCriterion("has_item", hasItem(ItemTags.PLANKS))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(woodenRailId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, woodenRailId);
+
+    ResourceLocation woodenDropperRailId = new ResourceLocation(TConstruct.modID, "gadgets/rail/wooden_dropper_rail");
+    ConditionalRecipe.builder()
+      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.wooden_dropper_rail, 4)
+        .key('#', ItemTags.PLANKS)
+        .key('X', ItemTags.WOODEN_TRAPDOORS)
+        .patternLine("# #")
+        .patternLine("#X#")
+        .patternLine("# #")
+        .addCriterion("has_item", this.hasItem(ItemTags.PLANKS))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/rail/wooden_dropper_rail"), ConditionalAdvancement.builder()
+        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(woodenDropperRailId))
+          .withCriterion("has_item", hasItem(ItemTags.PLANKS))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(woodenDropperRailId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, woodenDropperRailId);
   }
 }

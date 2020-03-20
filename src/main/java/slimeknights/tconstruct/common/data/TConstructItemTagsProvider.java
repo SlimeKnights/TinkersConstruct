@@ -1,7 +1,10 @@
 package slimeknights.tconstruct.common.data;
 
+import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
@@ -10,6 +13,7 @@ import slimeknights.tconstruct.items.CommonItems;
 import slimeknights.tconstruct.items.GadgetItems;
 
 import java.nio.file.Path;
+import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -52,6 +56,9 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.copy(Tags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME, Tags.Items.STORAGE_BLOCKS_KNIGHTSLIME);
     this.copy(Tags.Blocks.STORAGE_BLOCKS_PIGIRON, Tags.Items.STORAGE_BLOCKS_PIGIRON);
     this.copy(Tags.Blocks.STORAGE_BLOCKS_ALUBRASS, Tags.Items.STORAGE_BLOCKS_ALUBRASS);
+
+    copyColored(net.minecraftforge.common.Tags.Blocks.GLASS, net.minecraftforge.common.Tags.Items.GLASS);
+    copy(net.minecraftforge.common.Tags.Blocks.STAINED_GLASS, net.minecraftforge.common.Tags.Items.STAINED_GLASS);
   }
 
   private void addWorld() {
@@ -83,6 +90,46 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   @Override
   public String getName() {
     return "Tinkers Construct Item Tags";
+  }
+
+  /*
+   * Credit to forge for this code to generate the tags.
+   */
+  private void copyColored(Tag<Block> blockGroup, Tag<Item> itemGroup) {
+    String blockPre = blockGroup.getId().getPath().toUpperCase(Locale.ENGLISH) + '_';
+    String itemPre = itemGroup.getId().getPath().toUpperCase(Locale.ENGLISH) + '_';
+    for (DyeColor color : DyeColor.values()) {
+      Tag<Block> from = getForgeBlockTag(blockPre + color.getTranslationKey());
+      Tag<Item> to = getForgeItemTag(itemPre + color.getTranslationKey());
+      copy(from, to);
+    }
+    copy(getForgeBlockTag(blockPre + "colorless"), getForgeItemTag(itemPre + "colorless"));
+  }
+
+  /*
+   * Credit to forge for this code to generate the tags.
+   */
+  @SuppressWarnings("unchecked")
+  private Tag<Block> getForgeBlockTag(String name) {
+    try {
+      name = name.toUpperCase(Locale.ENGLISH);
+      return (Tag<Block>) net.minecraftforge.common.Tags.Blocks.class.getDeclaredField(name).get(null);
+    } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+      throw new IllegalStateException(net.minecraftforge.common.Tags.Blocks.class.getName() + " is missing tag name: " + name);
+    }
+  }
+
+  /*
+   * Credit to forge for this code to generate the tags.
+   */
+  @SuppressWarnings("unchecked")
+  private Tag<Item> getForgeItemTag(String name) {
+    try {
+      name = name.toUpperCase(Locale.ENGLISH);
+      return (Tag<Item>) net.minecraftforge.common.Tags.Items.class.getDeclaredField(name).get(null);
+    } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+      throw new IllegalStateException(net.minecraftforge.common.Tags.Items.class.getName() + " is missing tag name: " + name);
+    }
   }
 
 }
