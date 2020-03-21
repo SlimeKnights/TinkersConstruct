@@ -64,6 +64,11 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   private void addWorld() {
     this.copy(Tags.Blocks.SLIMY_LOGS, Tags.Items.SLIMY_LOGS);
     this.copy(Tags.Blocks.SLIMY_LEAVES, Tags.Items.SLIMY_LEAVES);
+    this.copy(Tags.Blocks.SLIMY_SAPLINGS, Tags.Items.SLIMY_SAPLINGS);
+
+    this.copy(net.minecraftforge.common.Tags.Blocks.ORES, net.minecraftforge.common.Tags.Items.ORES);
+    this.copy(Tags.Blocks.ORES_COBALT, Tags.Items.ORES_COBALT);
+    this.copy(Tags.Blocks.ORES_ARDITE, Tags.Items.ORES_ARDITE);
   }
 
   public void addGadgets() {

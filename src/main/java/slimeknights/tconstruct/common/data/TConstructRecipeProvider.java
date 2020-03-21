@@ -5,17 +5,15 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.IRequirementsStrategy;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.block.Blocks;
-import net.minecraft.data.BlockTagsProvider;
+import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.ItemTagsProvider;
 import net.minecraft.data.RecipeProvider;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.ConditionalAdvancement;
@@ -147,6 +145,21 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
           .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(flintId))
           .withRequirementsStrategy(IRequirementsStrategy.OR))
       ).build(consumer, flintId);
+
+    ResourceLocation clearGlassSmeltingId = new ResourceLocation(TConstruct.modID, "common/glass/clear_glass_from_smelting");
+    ConditionalRecipe.builder()
+      .addCondition(not(new PulseLoadedCondition(TinkerPulseIds.TINKER_SMELTERY_PULSE_ID)))
+      .addRecipe(CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Blocks.GLASS.asItem()), DecorativeBlocks.clear_glass.asItem(), 0.1F, 200)
+        .addCriterion("has_item", this.hasItem(Blocks.GLASS))::build)
+      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_general/common/glass/clear_glass_from_smelting"), ConditionalAdvancement.builder()
+        .addCondition(not(new PulseLoadedCondition(TinkerPulseIds.TINKER_SMELTERY_PULSE_ID)))
+        .addAdvancement(Advancement.Builder.builder()
+          .withParentId(new ResourceLocation("recipes/root"))
+          .withRewards(AdvancementRewards.Builder.recipe(clearGlassSmeltingId))
+          .withCriterion("has_item", hasItem(Blocks.GLASS))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(clearGlassSmeltingId))
+          .withRequirementsStrategy(IRequirementsStrategy.OR))
+      ).build(consumer, clearGlassSmeltingId);
   }
 
   private void addWorld(Consumer<IFinishedRecipe> consumer) {

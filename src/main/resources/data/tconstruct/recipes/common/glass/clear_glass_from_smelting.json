@@ -1,0 +1,25 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "value": {
+            "pulseid": "tinker_smeltery",
+            "type": "tconstruct:pulse_loaded"
+          },
+          "type": "forge:not"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:smelting",
+        "ingredient": {
+          "item": "minecraft:glass"
+        },
+        "result": "tconstruct:clear_glass",
+        "experience": 0.1,
+        "cookingtime": 200
+      }
+    }
+  ]
+}

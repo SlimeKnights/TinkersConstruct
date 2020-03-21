@@ -43,6 +43,11 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
   private void addWorld() {
     this.getBuilder(Tags.Blocks.SLIMY_LOGS).add(WorldBlocks.congealed_green_slime, WorldBlocks.congealed_blue_slime, WorldBlocks.congealed_purple_slime, WorldBlocks.congealed_blood_slime, WorldBlocks.congealed_magma_slime);
     this.getBuilder(Tags.Blocks.SLIMY_LEAVES).add(WorldBlocks.blue_slime_leaves, WorldBlocks.purple_slime_leaves, WorldBlocks.orange_slime_leaves);
+    this.getBuilder(Tags.Blocks.SLIMY_SAPLINGS).add(WorldBlocks.blue_slime_sapling, WorldBlocks.orange_slime_sapling, WorldBlocks.purple_slime_sapling);
+
+    this.getBuilder(net.minecraftforge.common.Tags.Blocks.ORES).add(Tags.Blocks.ORES_COBALT, Tags.Blocks.ORES_ARDITE);
+    this.getBuilder(Tags.Blocks.ORES_COBALT).add(WorldBlocks.cobalt_ore);
+    this.getBuilder(Tags.Blocks.ORES_ARDITE).add(WorldBlocks.ardite_ore);
   }
 
   private void addGadgets() {
