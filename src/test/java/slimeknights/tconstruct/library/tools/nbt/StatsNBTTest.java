@@ -12,26 +12,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(MaterialRegistryExtension.class)
 class StatsNBTTest extends BaseMcTest {
 
-  private final StatsNBT testStatsNBT = new StatsNBT(1, 2, 3, 4, 5, 6);
+  private final StatsNBT testStatsNBT = new StatsNBT(1, 2, 3, 4, 5, 6, true);
 
   @Test
   void serialize() {
     CompoundNBT nbt = testStatsNBT.serializeToNBT();
-
-    assertThat(nbt.size()).isEqualTo(6);
+    
     assertThat(nbt.getInt(StatsNBT.TAG_DURABILITY)).isEqualTo(1);
     assertThat(nbt.getInt(StatsNBT.TAG_HARVESTLEVEL)).isEqualTo(2);
     assertThat(nbt.getFloat(StatsNBT.TAG_ATTACK)).isEqualTo(3);
     assertThat(nbt.getFloat(StatsNBT.TAG_MININGSPEED)).isEqualTo(4);
     assertThat(nbt.getFloat(StatsNBT.TAG_ATTACKSPEEDMULTIPLIER)).isEqualTo(5);
     assertThat(nbt.getInt(StatsNBT.TAG_FREE_MODIFIERS)).isEqualTo(6);
+    assertThat(nbt.getBoolean(StatsNBT.TAG_BROKEN)).isTrue();
   }
 
   @Test
   void serializeEmpty_emptyList() {
     CompoundNBT nbt = StatsNBT.EMPTY.serializeToNBT();
 
-    assertThat(nbt.size()).isEqualTo(6);
+    assertThat(nbt.size()).isEqualTo(7);
   }
 
   @Test
@@ -43,6 +43,7 @@ class StatsNBTTest extends BaseMcTest {
     nbt.putFloat(StatsNBT.TAG_MININGSPEED, 3);
     nbt.putFloat(StatsNBT.TAG_ATTACKSPEEDMULTIPLIER, 2);
     nbt.putInt(StatsNBT.TAG_FREE_MODIFIERS, 1);
+    nbt.putBoolean(StatsNBT.TAG_BROKEN, false);
 
     StatsNBT statsNBT = StatsNBT.readFromNBT(nbt);
 
@@ -52,6 +53,7 @@ class StatsNBTTest extends BaseMcTest {
     assertThat(statsNBT.miningSpeed).isEqualTo(3);
     assertThat(statsNBT.attackSpeedMultiplier).isEqualTo(2);
     assertThat(statsNBT.freeModifiers).isEqualTo(1);
+    assertThat(statsNBT.broken).isFalse();
   }
 
   @Test

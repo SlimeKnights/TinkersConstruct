@@ -38,33 +38,37 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
   public StatsNBT buildToolStats(List<IMaterial> materials) {
     return ToolStatsBuilder.from(materials, toolDefinition).buildDefaultStats();
   }
-//
-//  @Override
-//  public int getMaxDamage(ItemStack stack) {
-//    return ToolHelper.getDurabilityStat(stack);
-//  }
-//
-//  @Override
-//  public void setDamage(ItemStack stack, int damage) {
-//    int max = getMaxDamage(stack);
-//    super.setDamage(stack, Math.min(max, damage));
-//
-//    if(getDamage(stack) == max) {
-//      ToolHelper.breakTool(stack, null);
-//    }
-//  }
-//
-//  @Override
-//  public boolean isDamageable() {
-//    return !ToolHelper.isBroken(stack);
-//  }
-//
-//  @Override
-//  public boolean showDurabilityBar(ItemStack stack) {
-//    return super.showDurabilityBar(stack) && !ToolHelper.isBroken(stack);
-//  }
-//
-//
+
+  @Override
+  public int getMaxDamage(ItemStack stack) {
+    return ToolData.from(stack).getStats().durability;
+  }
+
+  @Override
+  public void setDamage(ItemStack stack, int damage) {
+    int max = getMaxDamage(stack);
+    super.setDamage(stack, Math.min(max, damage));
+
+    if(getDamage(stack) >= max) {
+      ToolData newData = ToolData.from(stack).createNewDataWithBroken(true);
+      newData.updateStack(stack);
+    }
+  }
+
+  @Override
+  public boolean isDamageable() {
+    return true;
+  }
+
+  @Override
+  public boolean showDurabilityBar(ItemStack stack) {
+    return super.showDurabilityBar(stack) && !ToolData.from(stack).getStats().broken;
+  }
+
+  public static int getCurrentDurability(ItemStack stack) {
+    return stack.getMaxDamage() - stack.getDamage();
+  }
+
 //  /* World interaction */
 //
 //  @Override

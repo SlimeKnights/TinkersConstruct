@@ -1,8 +1,11 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.With;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -25,6 +28,7 @@ public class ToolData {
   private final ToolItemNBT toolItem;
   //components=materials
   private final MaterialNBT materials;
+  @With(AccessLevel.PRIVATE)
   private final StatsNBT stats;
 
   //stats
@@ -52,7 +56,20 @@ public class ToolData {
     return stats;
   }
 
+  public ToolData createNewDataWithBroken(boolean isBroken) {
+    StatsNBT newStats = getStats().withBroken(isBroken);
+    return this.withStats(newStats);
+  }
+
+  public void updateStack(ItemStack stack) {
+    stack.getOrCreateTag().merge(serializeToNBT());
+  }
+
   // todo: keep backing NBT and lazily initialize all the values? Might be worth it.. or a severe case of optimizing too early
+
+  public static ToolData from(ItemStack stack) {
+    return readFromNBT(stack.getOrCreateTag());
+  }
 
   public static ToolData readFromNBT(CompoundNBT nbt) {
     ToolItemNBT toolCore = ToolItemNBT.readFromNBT(nbt.get(TAG_ITEM));
