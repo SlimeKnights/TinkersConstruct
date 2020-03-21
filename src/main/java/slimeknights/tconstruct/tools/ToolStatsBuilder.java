@@ -75,7 +75,8 @@ public final class ToolStatsBuilder {
       buildAttack(),
       buildMiningSpeed(),
       1f,
-      StatsNBT.DEFAULT_MODIFIERS
+      StatsNBT.DEFAULT_MODIFIERS,
+      false
     );
   }
 
