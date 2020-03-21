@@ -1,0 +1,24 @@
+All sounds that were not in ogg format were transcoded to Ogg Vorbis.
+All sounds are licensed under Creative Commons Attribution (http://creativecommons.org/licenses/by/3.0/) or CC0.
+
+Slimesling:
+Squelchy squirt by DrMinky
+https://www.freesound.org/people/DrMinky/sounds/167073/
+
+Stone-Hit:
+Pickaxe mining stone by ryanconway
+https://www.freesound.org/people/ryanconway/sounds/240801/
+metal falling on stone by p3n10
+https://www.freesound.org/people/p3n10/sounds/171294/
+
+Wood-Hit:
+Hitting Wood by altfuture
+https://www.freesound.org/people/altfuture/sounds/174633/
+
+charged:
+spark(fm_tri-90_sin-110).wav by FreqMan
+https://www.freesound.org/people/FreqMan/sounds/24726/
+
+discharge:
+ELECTRIC_ZAP_001.wav by JoelAUdio
+https://www.freesound.org/people/JoelAudio/sounds/136542/

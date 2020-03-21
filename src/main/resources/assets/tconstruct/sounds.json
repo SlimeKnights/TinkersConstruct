@@ -1,0 +1,62 @@
+{
+    "frypan_hit": {
+        "category": "player",
+        "sounds": [
+            "tconstruct:frypan_hit"
+        ]
+    },
+    "toy_squeak": {
+        "category": "player",
+        "sounds": [
+            "tconstruct:toy_squeak"
+        ]
+    },
+    "little_saw": {
+        "category": "player",
+        "sounds": [
+            "tconstruct:little_saw"
+        ]
+    },
+    "slime_sling": {
+        "category": "player",
+        "sounds": [
+            "tconstruct:slime_sling"
+        ]
+    },
+    "wood_hit": {
+        "category": "block",
+        "sounds": [
+            "tconstruct:wood_hit1",
+            "tconstruct:wood_hit2",
+            "tconstruct:wood_hit3",
+            "tconstruct:wood_hit4",
+            "tconstruct:wood_hit5"
+        ]
+    },
+    "stone_hit": {
+        "category": "block",
+        "sounds": [
+            "tconstruct:stone_hit1",
+            "tconstruct:stone_hit2",
+            "tconstruct:stone_hit3"
+        ]
+    },
+    "crossbow_reload": {
+        "category": "player",
+        "sounds": [
+            "tconstruct:crossbow_reload"
+        ]
+    },
+    "charged": {
+        "category": "player",
+        "sounds": [
+            "tconstruct:charged"
+        ]
+    },
+    "discharge": {
+        "category": "player",
+        "sounds": [
+            "tconstruct:discharge"
+        ]
+    }
+}

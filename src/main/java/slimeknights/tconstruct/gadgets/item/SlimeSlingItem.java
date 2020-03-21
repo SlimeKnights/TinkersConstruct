@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.item.TooltipItem;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.TinkerRegistry;
@@ -46,6 +47,7 @@ public class SlimeSlingItem extends TooltipItem {
     if (!(entityLiving instanceof PlayerEntity)) {
       return;
     }
+
     PlayerEntity player = (PlayerEntity) entityLiving;
     // has to be on ground to do something
     if (!player.onGround) {
@@ -76,9 +78,9 @@ public class SlimeSlingItem extends TooltipItem {
       if (player instanceof ServerPlayerEntity) {
         ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
         TinkerNetwork.getInstance().sendTo(new EntityMovementChangePacket(player), playerMP);
-        //playerMP.playerNetServerHandler.sendPacket(new S12PacketEntityVelocity(player));
       }
-      //player.playSound(Sounds.slimesling, 1f, 1f);
+
+      player.playSound(Sounds.SLIME_SLING.getSound(), 1f, 1f);
       SlimeBounceHandler.addBounceHandler(player);
     }
   }
@@ -115,5 +117,4 @@ public class SlimeSlingItem extends TooltipItem {
       return SlimeBlock.SlimeType.GREEN.getBallColor();
     }
   }
-
 }
