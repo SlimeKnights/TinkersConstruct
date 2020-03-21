@@ -88,49 +88,6 @@ public class SlimeBootsItem extends ArmorTooltipItem implements IDyeableArmorIte
     return HashMultimap.<String, AttributeModifier>create();
   }
 
-  @SubscribeEvent
-  public void onFall(LivingFallEvent event) {
-    LivingEntity entity = event.getEntityLiving();
-    if (entity == null) {
-      return;
-    }
-
-    ItemStack feet = entity.getItemStackFromSlot(EquipmentSlotType.FEET);
-    if (feet.getItem() != this) {
-      return;
-    }
-
-    // thing is wearing slime boots. let's get bouncyyyyy
-    boolean isClient = entity.getEntityWorld().isRemote;
-    if (!entity.isCrouching() && event.getDistance() > 2) {
-      event.setDamageMultiplier(0);
-      entity.fallDistance = 0;
-
-      if (isClient) {
-        entity.setMotion(entity.getMotion().x, entity.getMotion().y * -0.9, entity.getMotion().z);
-        //entity.motionY = event.distance / 15;
-        //entity.motionX = entity.posX - entity.lastTickPosX;
-        //entity.motionZ = entity.posZ - entity.lastTickPosZ;
-        //event.entityLiving.motionY *= -1.2;
-        //event.entityLiving.motionY += 0.8;
-        entity.isAirBorne = true;
-        entity.onGround = false;
-        double f = 0.91d + 0.04d;
-        //System.out.println((entityLiving.worldObj.isRemote ? "client: " : "server: ") + entityLiving.motionX);
-        // only slow down half as much when bouncing
-        entity.setMotion(entity.getMotion().x / f, entity.getMotion().y, entity.getMotion().z / f);
-        TinkerNetwork.getInstance().sendToServer(new BouncedPacket());
-      } else {
-        event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
-      }
-
-      entity.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1f, 1f);
-      SlimeBounceHandler.addBounceHandler(entity, entity.getMotion().y);
-    } else if (!isClient && entity.isCrouching()) {
-      event.setDamageMultiplier(0.2f);
-    }
-  }
-
   @OnlyIn(Dist.CLIENT)
   public static int getColorFromStack(ItemStack stack) {
     if (stack.getItem() == GadgetItems.slime_boots_blue) {
