@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -45,10 +46,14 @@ public class ToolInteractionUtil {
     actualAmount = Math.min(actualAmount, currentDurability);
     stack.setDamage(stack.getDamage() + actualAmount);
 
-    if (currentDurability <= 0) {
-      ToolBreakUtil.breakTool(stack);
-      // todo: move this to proxy
-      if(entity instanceof ServerPlayerEntity) {
+    if (entity instanceof ServerPlayerEntity) {
+      if (actualAmount != 0) {
+        CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger((ServerPlayerEntity) entity, stack, stack.getDamage() + actualAmount);
+      }
+
+      if (currentDurability <= 0) {
+        ToolBreakUtil.breakTool(stack);
+        // todo: move this to proxy
         ToolBreakUtil.triggerToolBreakAnimation(stack, (ServerPlayerEntity) entity);
       }
     }
@@ -59,6 +64,6 @@ public class ToolInteractionUtil {
    */
   private static boolean isVanillaUnbreakable(ItemStack stack) {
     CompoundNBT compoundnbt = stack.getTag();
-    return compoundnbt == null || !compoundnbt.getBoolean("Unbreakable");
+    return compoundnbt != null && compoundnbt.getBoolean("Unbreakable");
   }
 }

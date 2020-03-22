@@ -1,21 +1,30 @@
 package slimeknights.tconstruct.library.tools;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.ITinkerable;
+import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.tools.ToolStatsBuilder;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * An indestructible item constructed from different parts.
@@ -41,7 +50,9 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
 
   @Override
   public int getMaxDamage(ItemStack stack) {
-    return ToolData.from(stack).getStats().durability;
+    StatsNBT stats = ToolData.from(stack).getStats();
+    // the tool can only have damage when it's not broken, to prevent vanilla from deleting the itemstack
+    return stats.broken ? 0 : stats.durability;
   }
 
   @Override
@@ -49,10 +60,20 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
     int max = getMaxDamage(stack);
     super.setDamage(stack, Math.min(max, damage));
 
-    if(getDamage(stack) >= max) {
-      ToolData newData = ToolData.from(stack).createNewDataWithBroken(true);
-      newData.updateStack(stack);
+    if (getDamage(stack) >= max) {
+      ToolData toolData = ToolData.from(stack);
+      if (!toolData.getStats().broken) {
+        ToolData newData = toolData.createNewDataWithBroken(true);
+        newData.updateStack(stack);
+      }
     }
+  }
+
+  @Override
+  public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
+    ToolInteractionUtil.damageTool(stack, amount, damager);
+
+    return 0;
   }
 
   @Override
@@ -69,30 +90,36 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
     return stack.getMaxDamage() - stack.getDamage();
   }
 
-//  /* World interaction */
-//
-//  @Override
-//  public int getHarvestLevel(ItemStack stack, ToolType toolClass, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
-//    if(ToolHelper.isBroken(stack)) {
-//      return -1;
-//    }
-//
-//    if(this.getToolClasses(stack).contains(toolClass)) {
-//      // will return 0 if the tag has no info anyway
-//      return ToolHelper.getHarvestLevelStat(stack);
-//    }
-//
-//    return super.getHarvestLevel(stack, toolClass, player, blockState);
-//  }
-//
-//  @Override
-//  public Set<ToolType> getToolTypes(ItemStack stack) {
-//    // no classes if broken
-//    if(ToolHelper.isBroken(stack)) {
-//      return Collections.emptySet();
-//    }
-//    return super.getToolClasses(stack);
-//  }
+  /* Mining */
+
+
+  @Override
+  public Set<ToolType> getToolTypes(ItemStack stack) {
+    // no classes if broken
+    if (ToolData.from(stack).getStats().broken) {
+      return Collections.emptySet();
+    }
+    return super.getToolTypes(stack);
+  }
+
+  @Override
+  public int getHarvestLevel(ItemStack stack, ToolType toolClass, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
+    StatsNBT stats = ToolData.from(stack).getStats();
+
+    // brokenness is calculated in by the toolTypes check
+    if (getToolTypes(stack).contains(toolClass)) {
+      return stats.harvestLevel;
+    }
+
+    return -1;
+  }
+
+  public void afterBlockBreak(ItemStack stack, World world, BlockState state, BlockPos pos, PlayerEntity player, int damage, boolean wasEffective) {
+    //TinkerUtil.getTraitsOrdered(stack).forEach(trait -> trait.afterBlockBreak(stack, world, state, pos, player, wasEffective));
+    //stack.damageItem(damage, player, );
+
+  }
+  /* World interaction */
 //
 //
 //  @Override
