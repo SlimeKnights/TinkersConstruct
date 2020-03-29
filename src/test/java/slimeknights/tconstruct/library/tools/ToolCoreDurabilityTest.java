@@ -4,8 +4,9 @@ import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.test.TestLivingEntity;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class ToolCoreDurabilityTest extends ToolCoreTest {
 
@@ -59,11 +60,12 @@ public class ToolCoreDurabilityTest extends ToolCoreTest {
 
   @Test
   void testVanillaBreakCallback() {
+    AtomicBoolean callbackCalled = new AtomicBoolean(false);
     testItemStack.damageItem(99999, TestLivingEntity.getTestLivingEntity(),
-      testLivingEntity -> fail("Vanilla on-break-callback got called. " +
-        "This means the itemstack got reduced, removing the item. " +
-        "This should never happen with TiC tools"));
+      testLivingEntity -> callbackCalled.set(true));
 
+    // this works because the callback is called synchronously
+    assertThat(callbackCalled.get()).isTrue();
     assertThat(isTestitemBroken()).isTrue();
   }
 

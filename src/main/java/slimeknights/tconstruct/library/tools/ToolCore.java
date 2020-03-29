@@ -4,6 +4,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -13,9 +14,11 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
+import slimeknights.tconstruct.library.tools.helper.TraitUtil;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.tools.ToolStatsBuilder;
@@ -69,9 +72,17 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
     }
   }
 
+  /**
+   * We basically emulate Itemstack.damageItem here. We always return 0 to skip the handling in ItemStack.
+   * If we don't broken tools will be deleted.
+   */
   @Override
   public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
     ToolInteractionUtil.damageTool(stack, amount, damager);
+
+    if(ToolData.from(stack).getStats().broken) {
+      onBroken.accept(damager);
+    }
 
     return 0;
   }
@@ -114,13 +125,32 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
     return -1;
   }
 
-  public void afterBlockBreak(ItemStack stack, World world, BlockState state, BlockPos pos, PlayerEntity player, int damage, boolean wasEffective) {
-    //TinkerUtil.getTraitsOrdered(stack).forEach(trait -> trait.afterBlockBreak(stack, world, state, pos, player, wasEffective));
-    //stack.damageItem(damage, player, );
-
+  private void afterBlockBreak(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity player, int damage, boolean wasEffective) {
+    TraitUtil.forEachTrait(stack, trait -> trait.afterBlockBreak(stack, world, state, pos, player, wasEffective));
+    stack.damageItem(damage, player,
+      livingEntity -> livingEntity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
   }
+
   /* World interaction */
-//
+
+  @Override
+  public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+    StatsNBT stats = ToolData.from(stack).getStats();
+    if(stats.broken) {
+      return false;
+    }
+
+    boolean effective = isEffective(state) || ToolInteractionUtil.isToolEffectiveAgainstBlock(stack, worldIn.getBlockState(pos));
+    int damage = effective ? 1 : 2;
+
+    afterBlockBreak(stack, worldIn, state, pos, entityLiving, damage, effective);
+
+    return effective && toolDefinition.hasCategory(Category.HARVEST);
+  }
+
+  public abstract boolean isEffective(BlockState state);
+
+  //
 //
 //  @Override
 //  public float getDestroySpeed(ItemStack stack, BlockState state) {

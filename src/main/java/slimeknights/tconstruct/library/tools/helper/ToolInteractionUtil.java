@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.tools.helper;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -15,7 +16,16 @@ import slimeknights.tconstruct.library.tools.nbt.ToolData;
 public class ToolInteractionUtil {
 
   /**
-   * Damages the tool. Entity is only needed in case the tool breaks for rendering the break effect.
+   * Returns true if the tool is effective for harvesting the given block.
+   */
+  public static boolean isToolEffectiveAgainstBlock(ItemStack stack, BlockState state) {
+    return stack.getItem().getToolTypes(stack).stream()
+      .anyMatch(toolType -> state.getBlock().isToolEffective(state, toolType));
+  }
+
+  /**
+   * Damages the tool.
+   * Should not be called directly, just use ItemStack.damageItem
    */
   public static void damageTool(ItemStack stack, int amount, LivingEntity entity) {
     ToolData toolData = ToolData.from(stack);
@@ -53,8 +63,6 @@ public class ToolInteractionUtil {
 
       if (currentDurability <= 0) {
         ToolBreakUtil.breakTool(stack);
-        // todo: move this to proxy
-        ToolBreakUtil.triggerToolBreakAnimation(stack, (ServerPlayerEntity) entity);
       }
     }
   }
