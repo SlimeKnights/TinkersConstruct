@@ -1,9 +1,7 @@
 package slimeknights.tconstruct.library.tools.helper;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundEvents;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 
 import static slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil.damageTool;
@@ -23,16 +21,6 @@ public class ToolBreakUtil {
       ToolData newData = toolData.createNewDataWithBroken(true);
       stack.setTag(newData.serializeToNBT());
     }
-  }
-
-  public static void triggerToolBreakAnimation(ItemStack stack, ServerPlayerEntity entity) {
-    entity.world.playSound(null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), SoundEvents.ENTITY_ITEM_BREAK, entity.getSoundCategory(), 0.8F, 0.8F + entity.world.rand.nextFloat() * 0.4F);
-    // work around MC-86252, this is needed since damaging the tool does not clear the active hand, even if the player is no longer blocking
-    if (entity.isHandActive() && entity.getActiveItemStack().equals(stack)) {
-      entity.resetActiveHand();
-    }
-    // todo: send animation event if still needed
-    //TinkerNetwork.sendTo(new ToolBreakAnimationPacket(stack), (EntityPlayerMP) entity);
   }
 
   public static void unbreakTool(ItemStack stack) {

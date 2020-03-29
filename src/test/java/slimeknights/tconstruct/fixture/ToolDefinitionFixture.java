@@ -30,7 +30,7 @@ public final class ToolDefinitionFixture {
         new PartMaterialType(MaterialItemFixture.MATERIAL_ITEM_HANDLE, HandleMaterialStats.ID),
         new PartMaterialType(MaterialItemFixture.MATERIAL_ITEM_EXTRA, ExtraMaterialStats.ID)
       ),
-      ImmutableSet.of(TEST_CATEGORY)
+      ImmutableSet.of(TEST_CATEGORY, Category.HARVEST)
     );
   }
 

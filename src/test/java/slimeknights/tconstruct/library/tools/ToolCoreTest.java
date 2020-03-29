@@ -21,13 +21,15 @@ abstract class ToolCoreTest extends BaseMcTest {
   protected ItemStack testItemStack;
 
   @BeforeAll
-  static void beforeAllToolCore() {
-    Item.Properties properties = new Item.Properties()
-      .addToolType(ToolType.PICKAXE, 1)
-      .maxStackSize(1);
-    tool = new TestToolCore(properties, ToolDefinitionFixture.getStandardToolDefinition());
-    tool.setRegistryName("test:toolcore");
-    ForgeRegistries.ITEMS.register(tool);
+  synchronized static void beforeAllToolCore() {
+    if (tool == null) {
+      Item.Properties properties = new Item.Properties()
+        .addToolType(ToolType.PICKAXE, 1)
+        .maxStackSize(1);
+      tool = new TestToolCore(properties, ToolDefinitionFixture.getStandardToolDefinition());
+      tool.setRegistryName("test:toolcore");
+      ForgeRegistries.ITEMS.register(tool);
+    }
   }
 
   @BeforeEach
