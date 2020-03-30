@@ -10,7 +10,7 @@ import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.tconstruct.library.book.TinkerPage;
-import slimeknights.tconstruct.library.book.elements.ElementListingLeft;
+import slimeknights.tconstruct.library.book.elements.ListingLeftElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,7 @@ public class ContentListing extends TinkerPage {
     }
   }
 
-  private ElementListingLeft createListingElement(int y, int x, int w, int line_height, TextData data) {
-    return new ElementListingLeft(x, y, w, line_height, data);
+  private ListingLeftElement createListingElement(int y, int x, int w, int line_height, TextData data) {
+    return new ListingLeftElement(x, y, w, line_height, data);
   }
 }

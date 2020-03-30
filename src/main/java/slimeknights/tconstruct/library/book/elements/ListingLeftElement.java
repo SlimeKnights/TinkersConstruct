@@ -5,12 +5,12 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.data.element.TextData;
-import slimeknights.mantle.client.screen.book.element.ElementText;
+import slimeknights.mantle.client.screen.book.element.TextElement;
 
 @OnlyIn(Dist.CLIENT)
-public class ElementListingLeft extends ElementText {
+public class ListingLeftElement extends TextElement {
 
-  public ElementListingLeft(int x, int y, int width, int height, TextData... text) {
+  public ListingLeftElement(int x, int y, int width, int height, TextData... text) {
     super(x, y, width, height, text);
 
     this.text = Lists.asList(new TextData(), this.text).toArray(new TextData[this.text.length + 1]);

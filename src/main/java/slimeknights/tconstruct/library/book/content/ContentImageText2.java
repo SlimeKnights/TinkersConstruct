@@ -7,8 +7,8 @@ import slimeknights.mantle.client.book.data.content.ContentImageText;
 import slimeknights.mantle.client.book.data.element.ImageData;
 import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
-import slimeknights.mantle.client.screen.book.element.ElementImage;
-import slimeknights.mantle.client.screen.book.element.ElementText;
+import slimeknights.mantle.client.screen.book.element.ImageElement;
+import slimeknights.mantle.client.screen.book.element.TextElement;
 
 import java.util.ArrayList;
 
@@ -29,15 +29,15 @@ public class ContentImageText2 extends ContentImageText {
 
     if (this.image != null && this.image.location != null) {
       int x = (BookScreen.PAGE_HEIGHT - this.image.width) / 2;
-      list.add(new ElementImage(x, y, -1, -1, this.image));
+      list.add(new ImageElement(x, y, -1, -1, this.image));
       y += this.image.height;
     } else {
-      list.add(new ElementImage(0, y, 32, 32, ImageData.MISSING));
+      list.add(new ImageElement(0, y, 32, 32, ImageData.MISSING));
     }
 
     if (this.text != null && this.text.length > 0) {
       y += 5;
-      list.add(new ElementText(0, y, BookScreen.PAGE_WIDTH, BookScreen.PAGE_HEIGHT - y, this.text));
+      list.add(new TextElement(0, y, BookScreen.PAGE_WIDTH, BookScreen.PAGE_HEIGHT - y, this.text));
     }
   }
 }

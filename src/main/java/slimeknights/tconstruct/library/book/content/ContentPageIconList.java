@@ -8,10 +8,10 @@ import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.SectionData;
 import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
-import slimeknights.mantle.client.screen.book.element.ElementItem;
+import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.SizedBookElement;
 import slimeknights.tconstruct.library.book.TinkerPage;
-import slimeknights.tconstruct.library.book.elements.ElementPageIconLink;
+import slimeknights.tconstruct.library.book.elements.PageIconLinkElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class ContentPageIconList extends TinkerPage {
   public String title;
   public float maxScale = 2.5f;
 
-  protected List<ElementPageIconLink> elements = Lists.newArrayList();
+  protected List<PageIconLinkElement> elements = Lists.newArrayList();
 
   public ContentPageIconList() {
     this(20);
@@ -47,7 +47,7 @@ public class ContentPageIconList extends TinkerPage {
     if (this.elements.size() >= this.getMaxIconCount()) {
       return false;
     }
-    this.elements.add(new ElementPageIconLink(0, 0, element, name, pageData));
+    this.elements.add(new PageIconLinkElement(0, 0, element, name, pageData));
     return true;
   }
 
@@ -90,7 +90,7 @@ public class ContentPageIconList extends TinkerPage {
       fits = rows * cols >= this.elements.size();
     }
 
-    for (ElementPageIconLink element : this.elements) {
+    for (PageIconLinkElement element : this.elements) {
       element.x = x;
       element.y = y;
       element.displayElement.x = x + (int) (scale * (this.width - element.displayElement.width) / 2);
@@ -98,8 +98,8 @@ public class ContentPageIconList extends TinkerPage {
 
       element.width = scaledWidth;
       element.height = scaledHeight;
-      if (element.displayElement instanceof ElementItem) {
-        ((ElementItem) element.displayElement).scale = scale;
+      if (element.displayElement instanceof ItemElement) {
+        ((ItemElement) element.displayElement).scale = scale;
       }
 
       list.add(element);

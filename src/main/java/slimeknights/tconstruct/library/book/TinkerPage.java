@@ -6,7 +6,7 @@ import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
-import slimeknights.mantle.client.screen.book.element.ElementText;
+import slimeknights.mantle.client.screen.book.element.TextElement;
 
 import java.util.ArrayList;
 
@@ -28,6 +28,6 @@ public abstract class TinkerPage extends PageContent {
     int w = (int) Math.ceil(this.parent.parent.parent.fontRenderer.getStringWidth(titleText) * title.scale);
     int x = (BookScreen.PAGE_WIDTH - w) / 2;
 
-    list.add(new ElementText(x, y, w, 24, title));
+    list.add(new TextElement(x, y, w, 24, title));
   }
 }

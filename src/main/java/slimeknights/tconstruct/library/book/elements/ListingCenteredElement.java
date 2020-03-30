@@ -5,14 +5,14 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.data.element.TextData;
-import slimeknights.mantle.client.screen.book.element.ElementText;
+import slimeknights.mantle.client.screen.book.element.TextElement;
 
 @OnlyIn(Dist.CLIENT)
-public class ElementListingCentered extends ElementText {
+public class ListingCenteredElement extends TextElement {
 
   private final int originalX;
 
-  public ElementListingCentered(int x, int y, int width, int height, TextData... text) {
+  public ListingCenteredElement(int x, int y, int width, int height, TextData... text) {
     super(x, y, width, height, text);
 
     this.originalX = this.x;

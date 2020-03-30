@@ -10,7 +10,7 @@ import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.BookScreen;
 import slimeknights.mantle.client.screen.book.element.BookElement;
 import slimeknights.tconstruct.library.book.TinkerPage;
-import slimeknights.tconstruct.library.book.elements.ElementListingCentered;
+import slimeknights.tconstruct.library.book.elements.ListingCenteredElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class ContentListingCentered extends TinkerPage {
     for (TextData data : this.entries) {
       int ex = x + w / 2 - book.fontRenderer.getStringWidth(data.text) / 2;
 
-      list.add(new ElementListingCentered(ex, y, w, 9, data));
+      list.add(new ListingCenteredElement(ex, y, w, 9, data));
       y += 9;
     }
   }

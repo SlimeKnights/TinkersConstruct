@@ -11,7 +11,7 @@ import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.element.SizedBookElement;
 
 @OnlyIn(Dist.CLIENT)
-public class ElementPageIconLink extends SizedBookElement {
+public class PageIconLinkElement extends SizedBookElement {
 
   public PageData pageData;
   public SizedBookElement displayElement;
@@ -19,11 +19,11 @@ public class ElementPageIconLink extends SizedBookElement {
   public String action;
   public String name;
 
-  public ElementPageIconLink(int x, int y, SizedBookElement displayElement, String name, PageData pageData) {
+  public PageIconLinkElement(int x, int y, SizedBookElement displayElement, String name, PageData pageData) {
     this(x, y, displayElement.width, displayElement.height, displayElement, name, pageData);
   }
 
-  public ElementPageIconLink(int x, int y, int w, int h, SizedBookElement displayElement, String name, PageData pageData) {
+  public PageIconLinkElement(int x, int y, int w, int h, SizedBookElement displayElement, String name, PageData pageData) {
     super(x, y, w, h);
     this.displayElement = displayElement;
     this.pageData = pageData;
