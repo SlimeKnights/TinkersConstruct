@@ -21,13 +21,13 @@ public class ToolCoreHarvestTest extends ToolCoreTest {
   private PlayerEntity player = spy(new TestPlayerEntity(TestServerWorld.getTestServerWorld()));
 
   @Test
-  void getToolTypes_ok_notBroken() {
+  void getToolTypes_notBroken_ok() {
     assertThat(testItemStack.getToolTypes()).contains(ToolType.PICKAXE);
     assertThat(isTestitemBroken()).isFalse();
   }
 
   @Test
-  void getToolTypes_none_mroken() {
+  void getToolTypes_broken_none() {
     breakTool(testItemStack);
 
     assertThat(testItemStack.getToolTypes()).isEmpty();
@@ -35,13 +35,13 @@ public class ToolCoreHarvestTest extends ToolCoreTest {
   }
 
   @Test
-  void getHarvestLevel_ok_notBroken() {
+  void getHarvestLevel_notBroken_ok() {
     assertThat(testItemStack.getHarvestLevel(ToolType.PICKAXE, null, null)).isEqualTo(1);
     assertThat(testItemStack.getHarvestLevel(ToolType.SHOVEL, null, null)).isEqualTo(-1);
   }
 
   @Test
-  void getHarvestLevel_none_broken() {
+  void getHarvestLevel_broken_none() {
     breakTool(testItemStack);
 
     assertThat(testItemStack.getHarvestLevel(ToolType.PICKAXE, null, null)).isEqualTo(-1);
