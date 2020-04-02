@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.test.BaseMcTest;
 
 @ExtendWith(MaterialRegistryExtension.class)
-abstract class ToolCoreTest extends BaseMcTest {
+public abstract class ToolCoreTest extends BaseMcTest {
 
   protected static TestToolCore tool;
   protected ItemStack testItemStack;
@@ -34,7 +34,11 @@ abstract class ToolCoreTest extends BaseMcTest {
 
   @BeforeEach
   void setUpToolCore() {
-    testItemStack = ToolBuildHandler.buildItemFromMaterials(
+    testItemStack = buildTestTool(tool);
+  }
+
+  protected ItemStack buildTestTool(ToolCore tool) {
+    return ToolBuildHandler.buildItemFromMaterials(
       tool,
       ImmutableList.of(
         MaterialFixture.MATERIAL_WITH_HEAD,

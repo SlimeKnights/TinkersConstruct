@@ -67,6 +67,10 @@ public class ToolData {
 
   // todo: keep backing NBT and lazily initialize all the values? Might be worth it.. or a severe case of optimizing too early
 
+  public static boolean isBroken(ItemStack stack) {
+    return from(stack).getStats().broken;
+  }
+
   public static ToolData from(ItemStack stack) {
     return readFromNBT(stack.getOrCreateTag());
   }

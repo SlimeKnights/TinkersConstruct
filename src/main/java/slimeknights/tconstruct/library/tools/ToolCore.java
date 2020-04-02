@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolMiningLogic;
 import slimeknights.tconstruct.library.tools.helper.TraitUtil;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
@@ -37,10 +38,16 @@ import java.util.function.Consumer;
 public abstract class ToolCore extends Item implements ITinkerable, IModifiable {
 
   private final ToolDefinition toolDefinition;
+  private final ToolMiningLogic toolMiningLogic;
 
   public ToolCore(Properties properties, ToolDefinition toolDefinition) {
-    super(properties.maxStackSize(1).setNoRepair());
+    this(properties.maxStackSize(1).setNoRepair(), toolDefinition, new ToolMiningLogic());
+  }
+
+  protected ToolCore(Properties properties, ToolDefinition toolDefinition, ToolMiningLogic toolMiningLogic) {
+    super(properties);
     this.toolDefinition = toolDefinition;
+    this.toolMiningLogic = toolMiningLogic;
   }
 
   public ToolDefinition getToolDefinition() {
@@ -131,8 +138,6 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
       livingEntity -> livingEntity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
   }
 
-  /* World interaction */
-
   @Override
   public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
     StatsNBT stats = ToolData.from(stack).getStats();
@@ -150,24 +155,21 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
 
   public abstract boolean isEffective(BlockState state);
 
-  //
-//
-//  @Override
-//  public float getDestroySpeed(ItemStack stack, BlockState state) {
-//    if(isEffective(state) || ToolHelper.isToolEffective(stack, state)) {
-//      return ToolHelper.calcDigSpeed(stack, state);
-//    }
-//    return super.getDestroySpeed(stack, state);
-//  }
-//
-//  public boolean isEffective(BlockState state) {
-//    return false;
-//  }
-//
-//  @Override
-//  public boolean canHarvestBlock(ItemStack stack, BlockState state) {
-//    return isEffective(state) && !ToolHelper.isBroken(stack);
-//  }
+    @Override
+  public float getDestroySpeed(ItemStack stack, BlockState state) {
+    if(isEffective(state) || ToolInteractionUtil.isToolEffectiveAgainstBlock(stack, state)) {
+      return toolMiningLogic.calcDigSpeed(stack, state);
+    }
+    return super.getDestroySpeed(stack, state);
+  }
+
+  @Override
+  public boolean canHarvestBlock(ItemStack stack, BlockState state) {
+    return isEffective(state) && !ToolData.isBroken(stack);
+  }
+
+  /* World interaction */
+
 //
 //  @Override
 //  public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, PlayerEntity player) {
