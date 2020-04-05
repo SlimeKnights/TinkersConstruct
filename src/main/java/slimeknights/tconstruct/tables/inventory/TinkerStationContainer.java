@@ -4,15 +4,20 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.inventory.MultiModuleContainer;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
+import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -29,6 +34,7 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
     super(containerType, id, inv, tile);
 
     this.tinkerStationBlocks = Lists.newLinkedList();
+
     if (tile == null) {
       this.hasCraftingStation = false;
     } else {
@@ -116,6 +122,66 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
     tinkerStationBlocks.sort(comp);
 
     return hasMaster;
+  }
+
+  public void updateGUI() {
+    if (this.tile != null) {
+      if (this.tile.getWorld() != null) {
+        if (tile.getWorld().isRemote) {
+          Minecraft.getInstance().execute(TinkerStationContainer::clientGuiUpdate);
+        }
+      }
+    }
+  }
+
+  /**
+   * Tells the client to display the LOCALIZED error message
+   */
+  public void error(final String message) {
+    if (this.tile != null) {
+      if (this.tile.getWorld() != null) {
+        if (tile.getWorld().isRemote) {
+          Minecraft.getInstance().execute(() -> TinkerStationContainer.clientError(message));
+        }
+      }
+    }
+  }
+
+  /**
+   * Tells the client to display the LOCALIZED warning message
+   */
+  public void warning(final String message) {
+    if (this.tile != null) {
+      if (this.tile.getWorld() != null) {
+        if (tile.getWorld().isRemote) {
+          Minecraft.getInstance().execute(() -> TinkerStationContainer.clientWarning(message));
+        }
+      }
+    }
+  }
+
+  @OnlyIn(Dist.CLIENT)
+  private static void clientGuiUpdate() {
+    Screen screen = Minecraft.getInstance().currentScreen;
+    if (screen instanceof TinkerStationScreen) {
+      ((TinkerStationScreen) screen).updateDisplay();
+    }
+  }
+
+  @OnlyIn(Dist.CLIENT)
+  private static void clientError(String message) {
+    Screen screen = Minecraft.getInstance().currentScreen;
+    if (screen instanceof TinkerStationScreen) {
+      ((TinkerStationScreen) screen).error(message);
+    }
+  }
+
+  @OnlyIn(Dist.CLIENT)
+  private static void clientWarning(String message) {
+    Screen screen = Minecraft.getInstance().currentScreen;
+    if (screen instanceof TinkerStationScreen) {
+      ((TinkerStationScreen) screen).warning(message);
+    }
   }
 
   private static class TinkerBlockComp implements Comparator<Pair<BlockPos, BlockState>> {

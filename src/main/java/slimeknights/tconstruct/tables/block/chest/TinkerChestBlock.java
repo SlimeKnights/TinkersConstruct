@@ -22,7 +22,7 @@ import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
 
 public abstract class TinkerChestBlock extends TinkerTableBlock {
 
-  public static final VoxelShape shape = VoxelShapes.or(
+  public static final VoxelShape SHAPE = VoxelShapes.or(
     Block.makeCuboidShape(0.0D, 15.0D, 0.0D, 16.0D, 16.0D, 16.0D), //top
     Block.makeCuboidShape(1.0D, 3.0D, 1.0D, 15.0D, 16.0D, 15.0D), //middle
     Block.makeCuboidShape(0.5D, 0.0D, 0.5D, 2.5D, 15.0D, 2.5D), //leg
@@ -38,7 +38,7 @@ public abstract class TinkerChestBlock extends TinkerTableBlock {
   @Override
   @Deprecated
   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-    return shape;
+    return SHAPE;
   }
 
   @Override

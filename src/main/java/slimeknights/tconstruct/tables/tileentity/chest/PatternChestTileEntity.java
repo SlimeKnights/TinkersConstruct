@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 public class PatternChestTileEntity extends TinkerChestTileEntity {
 
   public PatternChestTileEntity() {
-    super(TablesTileEntities.pattern_chest, "gui.patternchest.name", TinkerChestTileEntity.MAX_INVENTORY, 1);
+    super(TablesTileEntities.pattern_chest, "gui.tconstruct.pattern_chest", TinkerChestTileEntity.MAX_INVENTORY, 1);
   }
 
   @Nullable
@@ -104,7 +104,7 @@ public class PatternChestTileEntity extends TinkerChestTileEntity {
   public ITextComponent getName() {
     // do we hold casts instead of patterns?
     if (this.isCastChest()) {
-      return new TranslationTextComponent("gui.castchest.name");
+      return new TranslationTextComponent("gui.tconstruct.cast_chest");
     }
     return super.getName();
   }

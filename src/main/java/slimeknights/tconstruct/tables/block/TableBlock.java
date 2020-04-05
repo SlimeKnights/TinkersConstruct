@@ -5,10 +5,14 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -22,9 +26,12 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.Constants;
 import slimeknights.mantle.block.InventoryBlock;
 import slimeknights.mantle.tileentity.InventoryTileEntity;
+import slimeknights.tconstruct.library.TinkerNBTConstants;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tables.tileentity.TableTileEntity;
 
@@ -34,8 +41,9 @@ import javax.annotation.Nullable;
 public abstract class TableBlock extends InventoryBlock {
 
   public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+  public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-  public static final VoxelShape shape = VoxelShapes.or(
+  public static final VoxelShape SHAPE = VoxelShapes.or(
     Block.makeCuboidShape(0.0D, 12.0D, 0.0D, 16.0D, 16.0D, 16.0D), //top
     Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 4.0D, 15.0D, 4.0D), //leg
     Block.makeCuboidShape(12.0D, 0.0D, 0.0D, 16.0D, 15.0D, 4.0D), //leg
@@ -46,7 +54,7 @@ public abstract class TableBlock extends InventoryBlock {
   protected TableBlock(Properties builder) {
     super(builder);
 
-    this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
+    this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
   }
 
   @Nonnull
@@ -68,16 +76,22 @@ public abstract class TableBlock extends InventoryBlock {
 
     if (tileEntity instanceof TableTileEntity) {
       TableTileEntity tableTileEntity = (TableTileEntity) tileEntity;
-      CompoundNBT feetTag = tag.getCompound(TableTileEntity.FEET_TAG);
 
-      if (feetTag == null) {
-        feetTag = new CompoundNBT();
-      }
+      if (tag.contains(TinkerNBTConstants.TINKER_DATA, Constants.NBT.TAG_COMPOUND)) {
+        CompoundNBT data = tag.getCompound(TinkerNBTConstants.TINKER_DATA);
 
-      tableTileEntity.updateTextureBlock(feetTag);
+        if (data.contains(TinkerNBTConstants.ITEMS)) {
+          tableTileEntity.readInventoryFromNBT(data);
+        }
 
-      if (tag.hasUniqueId("inventory")) {
-        tableTileEntity.readInventoryFromNBT(tag.getCompound("inventory"));
+        if (data.contains(TinkerNBTConstants.LEG_TEXTURE, Constants.NBT.TAG_COMPOUND)) {
+          CompoundNBT legTexture = data.getCompound(TinkerNBTConstants.LEG_TEXTURE);
+          tableTileEntity.setLegTexture(legTexture);
+        } else {
+          tableTileEntity.setLegTexture(new CompoundNBT());
+        }
+      } else {
+        tableTileEntity.setLegTexture(new CompoundNBT());
       }
 
       if (stack.hasDisplayName()) {
@@ -94,7 +108,7 @@ public abstract class TableBlock extends InventoryBlock {
       this.harvestBlock(world, player, pos, state, world.getTileEntity(pos), player.getHeldItemMainhand());
     }
 
-    if (keepInventory(state)) {
+    if (this.keepInventory(state)) {
       TileEntity te = world.getTileEntity(pos);
 
       if (te instanceof InventoryTileEntity) {
@@ -107,6 +121,19 @@ public abstract class TableBlock extends InventoryBlock {
     return false;
   }
 
+  @Override
+  public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+    if (state.getBlock() != newState.getBlock()) {
+      TileEntity tileentity = worldIn.getTileEntity(pos);
+      if (tileentity instanceof InventoryTileEntity) {
+        InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileentity);
+        worldIn.updateComparatorOutputLevel(pos, this);
+      }
+    }
+
+    super.onReplaced(state, worldIn, pos, newState, isMoving);
+  }
+
   protected boolean keepInventory(BlockState state) {
     return false;
   }
@@ -114,36 +141,46 @@ public abstract class TableBlock extends InventoryBlock {
   private void writeDataOntoItemStack(@Nonnull ItemStack item, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean inventorySave) {
     TileEntity tileEntity = world.getTileEntity(pos);
 
-    if (tileEntity != null && tileEntity instanceof TableTileEntity) {
-      TableTileEntity table = (TableTileEntity) tileEntity;
-      CompoundNBT tag = TagUtil.getTagSafe(item);
+    if (tileEntity != null) {
+      if (tileEntity instanceof TableTileEntity) {
+        TableTileEntity table = (TableTileEntity) tileEntity;
+        CompoundNBT tag = TagUtil.getTagSafe(item);
 
-      // texture
-      CompoundNBT data = table.getTextureBlock();
-
-      if (!data.isEmpty()) {
-        tag.put(TableTileEntity.FEET_TAG, data);
-      }
-
-      // save inventory, if not empty
-      if (inventorySave && keepInventory(state)) {
-        if (!table.isInventoryEmpty()) {
-          CompoundNBT inventoryTag = new CompoundNBT();
-          table.writeInventoryToNBT(inventoryTag);
-          tag.put("inventory", inventoryTag);
-          table.clear();
+        if (!tag.contains(TinkerNBTConstants.TINKER_DATA, Constants.NBT.TAG_COMPOUND)) {
+          tag.put(TinkerNBTConstants.TINKER_DATA, new CompoundNBT());
         }
-      }
 
-      if (!tag.isEmpty()) {
-        item.setTag(tag);
+        // save inventory, if not empty
+        if (inventorySave && keepInventory(state)) {
+          if (!table.isInventoryEmpty()) {
+            CompoundNBT inventoryTag = new CompoundNBT();
+            table.writeInventoryToNBT(inventoryTag);
+            tag.put(TinkerNBTConstants.TINKER_DATA, inventoryTag);
+            table.clear();
+          }
+        }
+
+        // texture
+        CompoundNBT data = table.getLegTexture();
+
+        if (data != null && !data.isEmpty()) {
+          tag.getCompound(TinkerNBTConstants.TINKER_DATA).put(TinkerNBTConstants.LEG_TEXTURE, data);
+        }
+
+        if (!tag.isEmpty()) {
+          item.setTag(tag);
+        }
       }
     }
   }
 
   @Override
   public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {
-    return super.getPickBlock(state, target, world, pos, player);
+    ItemStack itemStack = new ItemStack(this);
+
+    this.writeDataOntoItemStack(itemStack, world, pos, state, true);
+
+    return itemStack;
   }
 
   public static ItemStack createItemStack(TableBlock table, Block block) {
@@ -154,17 +191,30 @@ public abstract class TableBlock extends InventoryBlock {
       CompoundNBT tag = new CompoundNBT();
       CompoundNBT subTag = new CompoundNBT();
 
+      if (!tag.contains(TinkerNBTConstants.TINKER_DATA, Constants.NBT.TAG_COMPOUND)) {
+        tag.put(TinkerNBTConstants.TINKER_DATA, new CompoundNBT());
+      }
+
       blockStack.write(subTag);
-      tag.put(TableTileEntity.FEET_TAG, subTag);
+      tag.getCompound(TinkerNBTConstants.TINKER_DATA).put(TinkerNBTConstants.LEG_TEXTURE, subTag);
       stack.setTag(tag);
     }
 
     return stack;
   }
 
+  /*@Override
+  public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+    items.add(new ItemStack(this));
+    items.add(createItemStack(this, Blocks.COAL_BLOCK));
+  }*/
+
   @Override
   public BlockState getStateForPlacement(BlockItemUseContext context) {
-    return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
+    IWorld iworld = context.getWorld();
+    BlockPos blockpos = context.getPos();
+    boolean flag = iworld.getFluidState(blockpos).getFluid() == Fluids.WATER;
+    return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite()).with(WATERLOGGED, flag);
   }
 
   /**
@@ -187,12 +237,27 @@ public abstract class TableBlock extends InventoryBlock {
 
   @Override
   protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-    builder.add(FACING);
+    builder.add(FACING, WATERLOGGED);
   }
 
   @Override
   @Deprecated
   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-    return shape;
+    return SHAPE;
   }
+
+  @Override
+  public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+    if (stateIn.get(WATERLOGGED)) {
+      worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+    }
+
+    return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+  }
+
+  @Override
+  public IFluidState getFluidState(BlockState state) {
+    return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+  }
+
 }

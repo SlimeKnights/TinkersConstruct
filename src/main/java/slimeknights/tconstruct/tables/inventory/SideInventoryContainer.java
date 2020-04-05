@@ -24,7 +24,7 @@ public class SideInventoryContainer<TILE extends TileEntity> extends BaseContain
     this(containerType, windowId, inv, tile, null, x, y, columns);
   }
 
-  public SideInventoryContainer(ContainerType<?> containerType, int windowId, PlayerInventory inv, TILE tile, Direction inventoryDirection, int x, int y, int columns) {
+  public SideInventoryContainer(ContainerType<?> containerType, int windowId, PlayerInventory inv, TILE tile, @Nullable Direction inventoryDirection, int x, int y, int columns) {
     super(containerType, windowId, inv, tile);
 
     if (tile == null) {
@@ -40,9 +40,9 @@ public class SideInventoryContainer<TILE extends TileEntity> extends BaseContain
     this.columns = columns;
     this.slotCount = this.getItemHandler().getSlots();
 
-    int rows = slotCount / columns;
+    int rows = this.slotCount / columns;
 
-    if (slotCount % columns != 0) {
+    if (this.slotCount % columns != 0) {
       rows++;
     }
 
@@ -50,7 +50,7 @@ public class SideInventoryContainer<TILE extends TileEntity> extends BaseContain
 
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < columns; c++) {
-        if (index >= slotCount) {
+        if (index >= this.slotCount) {
           break;
         }
 

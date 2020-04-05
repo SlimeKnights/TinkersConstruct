@@ -6,7 +6,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntityType;
@@ -15,6 +14,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.client.model.data.IModelData;
 import slimeknights.mantle.tileentity.InventoryTileEntity;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.library.TinkerNBTConstants;
 import slimeknights.tconstruct.library.client.util.CombinedModelData;
 import slimeknights.tconstruct.library.client.util.SinglePropertyModelData;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
@@ -24,9 +24,9 @@ import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TableTileEntity extends InventoryTileEntity {
+public abstract class TableTileEntity extends InventoryTileEntity {
 
-  public static final String FEET_TAG = "textureBlock";
+  private CompoundNBT legTexture;
 
   public TableTileEntity(TileEntityType<?> tileEntityTypeIn) {
     super(tileEntityTypeIn, new TranslationTextComponent(""), 0, 0);
@@ -40,10 +40,21 @@ public class TableTileEntity extends InventoryTileEntity {
     super(tileEntityTypeIn, new TranslationTextComponent(name), inventorySize, maxStackSize);
   }
 
-  @Nullable
   @Override
-  public Container createMenu(int menuId, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-    return null;
+  public void read(CompoundNBT tag) {
+    super.read(tag);
+
+    this.legTexture = tag.getCompound(TinkerNBTConstants.LEG_TEXTURE);
+  }
+
+  @Nonnull
+  @Override
+  public CompoundNBT write(CompoundNBT tags) {
+    super.write(tags);
+
+    tags.put(TinkerNBTConstants.LEG_TEXTURE, this.legTexture);
+
+    return tags;
   }
 
   public boolean isInventoryEmpty() {
@@ -62,17 +73,12 @@ public class TableTileEntity extends InventoryTileEntity {
 
     this.write(tag);
 
-    return new SUpdateTileEntityPacket(this.getPos(), -9999, tag);
+    return new SUpdateTileEntityPacket(this.getPos(), 0, tag);
   }
 
   @Override
   public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
     CompoundNBT tag = pkt.getNbtCompound();
-    INBT feet = tag.get(FEET_TAG);
-
-    if (feet != null) {
-      this.getTileData().put(FEET_TAG, feet);
-    }
 
     this.read(tag);
     this.requestModelDataUpdate();
@@ -80,7 +86,7 @@ public class TableTileEntity extends InventoryTileEntity {
 
   @Override
   public void requestModelDataUpdate() {
-    updateModelData();
+    this.updateModelData();
     super.requestModelDataUpdate();
   }
 
@@ -91,7 +97,7 @@ public class TableTileEntity extends InventoryTileEntity {
   @Nonnull
   @Override
   public IModelData getModelData() {
-    return new CombinedModelData(new SinglePropertyModelData<>(this.getTextureBlock(), ModelProperties.TEXTURE));
+    return new CombinedModelData(new SinglePropertyModelData<>(this.getLegTexture(), ModelProperties.TEXTURE));
   }
 
   @Nonnull
@@ -105,12 +111,12 @@ public class TableTileEntity extends InventoryTileEntity {
     this.read(tag);
   }
 
-  public void updateTextureBlock(CompoundNBT tag) {
-    this.getTileData().put(FEET_TAG, tag);
+  public void setLegTexture(CompoundNBT tag) {
+    this.legTexture = tag;
   }
 
-  public CompoundNBT getTextureBlock() {
-    return this.getTileData().getCompound(FEET_TAG);
+  public CompoundNBT getLegTexture() {
+    return this.legTexture;
   }
 
   @Override

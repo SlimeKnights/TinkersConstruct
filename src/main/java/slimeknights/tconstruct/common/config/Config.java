@@ -4,6 +4,9 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.pulsar.config.PulsarConfig;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Config {
 
   public static PulsarConfig pulseConfig = new PulsarConfig("TinkerModules", "Modules");
@@ -30,6 +33,8 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue generateSlimeIslands;
 
     public final ForgeConfigSpec.BooleanValue chestsKeepInventory;
+
+    public final ForgeConfigSpec.ConfigValue<List<String>> craftingStationBlacklist;
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -63,6 +68,12 @@ public class Config {
         .translation("tconstruct.configgui.chestsKeepInventory")
         .worldRestart()
         .define("chestsKeepInventory", true);
+
+      this.craftingStationBlacklist = builder
+        .comment("Blacklist of registry names or TE class names for the crafting station to connect to. Mainly for compatibility.")
+        .translation("tconstruct.configgui.craftingStationBlacklist")
+        .worldRestart()
+        .define("craftingStationBlacklist", new ArrayList<>());
 
       builder.pop();
 

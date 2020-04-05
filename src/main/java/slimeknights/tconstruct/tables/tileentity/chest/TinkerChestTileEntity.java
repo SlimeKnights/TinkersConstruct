@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import slimeknights.tconstruct.tables.tileentity.TableTileEntity;
 
-public class TinkerChestTileEntity extends TableTileEntity {
+public abstract class TinkerChestTileEntity extends TableTileEntity {
 
   public static final int MAX_INVENTORY = 256;
   // how big the 'perceived' inventory is

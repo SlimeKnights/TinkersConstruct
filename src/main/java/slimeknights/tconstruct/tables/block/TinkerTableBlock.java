@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tables.block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -33,5 +34,19 @@ public abstract class TinkerTableBlock extends TableBlock implements ITinkerStat
   @Override
   public boolean isMaster() {
     return false;
+  }
+
+  public TableTypes getType() {
+    return TableTypes.NoTableTypeAssigned;
+  }
+
+  public enum TableTypes {
+    CraftingStation,
+    StencilTable,
+    PartBuilder,
+    ToolStation,
+    PatternChest,
+    PartChest,
+    NoTableTypeAssigned
   }
 }

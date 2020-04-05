@@ -25,7 +25,7 @@ public class PatternChestBlock extends TinkerChestBlock {
   }
 
   @Override
-  public boolean isMaster() {
-    return true;
+  public TableTypes getType() {
+    return TableTypes.PatternChest;
   }
 }

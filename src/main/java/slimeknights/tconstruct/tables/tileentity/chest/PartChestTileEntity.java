@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 public class PartChestTileEntity extends TinkerChestTileEntity {
 
   public PartChestTileEntity() {
-    super(TablesTileEntities.part_chest, "gui.partchest.name");
+    super(TablesTileEntities.part_chest, "gui.tconstruct.part_chest");
   }
 
   @Override

@@ -257,6 +257,16 @@
     "item.tconstruct.cold_spaghetti": "Cold Dried Noodles",
     "item.tconstruct.cold_spaghetti.tooltip": "Well, that's better, but they still taste gross.\nWarming them up should make them edible.\nThey might even be good enough to get you off your weak knees.",
 
+    "_comment": "Tinkers Tables",
+
+    "block.tconstruct.crafting_station": "Crafting Station",
+
+    "block.tconstruct.part_chest": "Part Chest",
+    "block.tconstruct.part_chest.tooltip": "Can hold a large amount of toolparts",
+
+    "block.tconstruct.pattern_chest": "Pattern Chest",
+    "block.tconstruct.pattern_chest.tooltip": "Holds either patterns or casts",
+
     "_comment": "Tinkers World",
 
     "block.tconstruct.green_slime_dirt": "Green Slimy Dirt",
@@ -343,5 +353,10 @@
     "itemGroup.tinkers_tool_parts": "Tinkers' Toolparts",
     "itemGroup.tinkers_smeltery": "Tinkers' Smeltery",
     "itemGroup.tinkers_world": "Tinkers' World",
-    "itemGroup.tinkers_gadgets": "Tinkers' Gadgets"
+    "itemGroup.tinkers_gadgets": "Tinkers' Gadgets",
+
+    "gui.tconstruct.pattern_chest": "Pattern Chest",
+    "gui.tconstruct.cast_chest": "Cast Chest",
+    "gui.tconstruct.part_chest": "Part Chest",
+    "gui.tconstruct.crafting_station": "Crafting Station"
 }

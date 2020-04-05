@@ -22,7 +22,7 @@ public class PatternChestContainer extends TinkerStationContainer<PatternChestTi
   public PatternChestContainer(int id, PlayerInventory inv, PatternChestTileEntity tileEntity) {
     super(TableContainerTypes.pattern_chest, id, inv, tileEntity);
 
-    this.inventory = new PatternChestContainer.DynamicChestInventory(TableContainerTypes.pattern_chest, windowId, inv, tile, 8, 18, 8); // columns don't matter since they get set by gui
+    this.inventory = new PatternChestContainer.DynamicChestInventory(TableContainerTypes.pattern_chest, this.windowId, inv, this.tile, 8, 18, 8); // columns don't matter since they get set by gui
     this.addSubContainer(inventory, true);
 
     this.addInventorySlots();

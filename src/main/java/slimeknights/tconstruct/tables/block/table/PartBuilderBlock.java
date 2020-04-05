@@ -1,31 +1,32 @@
-package slimeknights.tconstruct.tables.block.chest;
+package slimeknights.tconstruct.tables.block.table;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
-import slimeknights.tconstruct.tables.tileentity.chest.PartChestTileEntity;
+import slimeknights.tconstruct.tables.block.TinkerTableBlock;
+import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
 import javax.annotation.Nonnull;
 
-public class PartChestBlock extends TinkerChestBlock {
+public class PartBuilderBlock extends TinkerTableBlock {
 
-  public PartChestBlock(Properties builder) {
+  public PartBuilderBlock(Properties builder) {
     super(builder);
   }
 
   @Nonnull
   @Override
   public TileEntity createTileEntity(BlockState blockState, IBlockReader iBlockReader) {
-    return new PartChestTileEntity();
+    return new PartBuilderTileEntity();
   }
 
   @Override
   public int getGuiNumber(BlockState state) {
-    return 16;
+    return 20;
   }
 
   @Override
   public TableTypes getType() {
-    return TableTypes.PartChest;
+    return TableTypes.PartBuilder;
   }
 }
