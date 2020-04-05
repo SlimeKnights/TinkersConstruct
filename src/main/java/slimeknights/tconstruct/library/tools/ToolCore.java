@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.tools;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -17,6 +18,7 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.ITinkerable;
+import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolMiningLogic;
 import slimeknights.tconstruct.library.tools.helper.TraitUtil;
@@ -57,6 +59,22 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
   public StatsNBT buildToolStats(List<IMaterial> materials) {
     return ToolStatsBuilder.from(materials, toolDefinition).buildDefaultStats();
   }
+
+  /* Item Entity -> INDESTRUCTIBLE */
+
+  @Override
+  public boolean hasCustomEntity(ItemStack stack) {
+    return true;
+  }
+
+  @Override
+  public Entity createEntity(World world, Entity original, ItemStack itemstack) {
+    IndestructibleEntityItem entity = new IndestructibleEntityItem(world, original.getPosX(), original.getPosY(), original.getPosZ(), itemstack);
+    entity.setPickupDelayFrom(original);
+    return entity;
+  }
+
+  /* Damage/Durability */
 
   @Override
   public int getMaxDamage(ItemStack stack) {
@@ -109,7 +127,6 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
   }
 
   /* Mining */
-
 
   @Override
   public Set<ToolType> getToolTypes(ItemStack stack) {
@@ -275,29 +292,10 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
 //
 //    TinkerUtil.getTraitsOrdered(stack).forEach(trait -> trait.onUpdate(stack, worldIn, entityIn, itemSlot, isSelectedOrOffhand));
 //  }
-//
-//  /* INDESTRUCTIBLE */
-//
-//  @Override
-//  public boolean hasCustomEntity(ItemStack stack) {
-//    return true;
-//  }
-//
-//  @Override
-//  public Entity createEntity(World world, Entity original, ItemStack itemstack) {
-//    ItemEntity entity = new IndestructibleEntityItem(world, original.posX, original.posY, original.posZ, itemstack);
-//    // workaround for private access on pickup delay. We simply read it from the items NBT representation ;)
-//    if(original instanceof ItemEntity) {
-//      CompoundNBT tag = new CompoundNBT();
-//      ((ItemEntity) original).writeAdditional(tag);
-//      entity.setPickupDelay(tag.getShort("PickupDelay"));
-//    }
-//    entity.setMotion(original.getMotion());
-//    return entity;
-//  }
-//
-//  /* Information */
-//
+
+
+  /* Information */
+
 
   @Override
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {

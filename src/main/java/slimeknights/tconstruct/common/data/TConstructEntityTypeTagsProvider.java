@@ -2,12 +2,10 @@ package slimeknights.tconstruct.common.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.EntityTypeTagsProvider;
-import net.minecraft.data.FluidTagsProvider;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.common.Tags;
 import slimeknights.tconstruct.entity.WorldEntities;
-import slimeknights.tconstruct.fluids.TinkerFluids;
 
 import java.nio.file.Path;
 import java.util.Set;
