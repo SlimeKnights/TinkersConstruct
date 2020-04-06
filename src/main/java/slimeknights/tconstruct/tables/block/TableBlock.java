@@ -48,7 +48,7 @@ public abstract class TableBlock extends InventoryBlock {
     Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 4.0D, 15.0D, 4.0D), //leg
     Block.makeCuboidShape(12.0D, 0.0D, 0.0D, 16.0D, 15.0D, 4.0D), //leg
     Block.makeCuboidShape(12.0D, 0.0D, 12.0D, 16.0D, 15.0D, 16.0D), //leg
-    Block.makeCuboidShape(0.5D, 0.0D, 12.0D, 4.0D, 15.0D, 16.0D) //leg
+    Block.makeCuboidShape(0.0D, 0.0D, 12.0D, 4.0D, 15.0D, 16.0D) //leg
   );
 
   protected TableBlock(Properties builder) {
