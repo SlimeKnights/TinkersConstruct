@@ -37,7 +37,7 @@ public class SideInventoryScreen extends ModuleScreen {
 
   protected static final ResourceLocation GENERIC_INVENTORY = Util.getResource("textures/gui/generic.png");
 
-  protected WidgetBorder border = new WidgetBorder();
+  protected BorderWidget border = new BorderWidget();
 
   protected int columns;
   protected int slotCount;

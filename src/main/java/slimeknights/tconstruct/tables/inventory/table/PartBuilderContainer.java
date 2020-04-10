@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tables.inventory.table;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -131,6 +132,8 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
       Throwable throwable = null;
       NonNullList<ItemStack> toolPart;
 
+      /*
+      TODO FIX
       try {
         toolPart = ToolBuilder.tryBuildToolPart(this.patternSlot.getStack(), ListUtil.getListFrom(this.input1.getStack(), this.input2.getStack()), false);
         if(toolPart != null && !toolPart.get(0).isEmpty()) {
@@ -139,7 +142,9 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
       } catch(TinkerGuiException e) {
         toolPart = null;
         throwable = e;
-      }
+      }*/
+
+      toolPart = NonNullList.from(ItemStack.EMPTY, new ItemStack(Blocks.PUMPKIN));
 
       ItemStack secondary = this.secondarySlot.getStack();
 
@@ -183,11 +188,14 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
   public void onCrafting(PlayerEntity playerEntity, ItemStack output, IInventory craftMatrix) {
     NonNullList<ItemStack> toolPart = NonNullList.create();
 
+    /*
+    TODO FIX
     try {
       toolPart = ToolBuilder.tryBuildToolPart(this.patternSlot.getStack(), ListUtil.getListFrom(this.input1.getStack(), this.input2.getStack()), true);
     } catch (TinkerGuiException e) {
       // don't need any user information at this stage
-    }
+    }*/
+    toolPart = NonNullList.from(ItemStack.EMPTY, new ItemStack(Blocks.PUMPKIN), ItemStack.EMPTY);
 
     if (toolPart == null) {
       // undefined :I
@@ -209,14 +217,6 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
   @Override
   public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
     return slotIn.inventory != this.craftResult && super.canMergeSlot(stack, slotIn);
-  }
-
-  public String getInventoryDisplayName() {
-    if (partCrafter) {
-      return Util.translate("gui.partcrafter.name");
-    }
-
-    return super.getInventoryDisplayName();
   }
 
   @Override

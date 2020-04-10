@@ -5,7 +5,7 @@ import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.client.screen.Widget;
 
-public class WidgetBorder extends Widget {
+public class BorderWidget extends Widget {
   // all elements based on generic screen
   public ElementScreen cornerTopLeft = GenericScreen.cornerTopLeft;
   public ElementScreen cornerTopRight = GenericScreen.cornerTopRight;

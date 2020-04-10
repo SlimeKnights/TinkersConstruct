@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tables.client.inventory.table;
 
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -18,19 +19,25 @@ public class CraftingStationScreen extends TinkerStationScreen<CraftingStationTi
   public CraftingStationScreen(TinkerStationContainer<CraftingStationTileEntity> container, PlayerInventory playerInventory, ITextComponent title) {
     super(container, playerInventory, title);
 
-    if(this.container instanceof CraftingStationContainer) {
+    if (this.container instanceof CraftingStationContainer) {
       CraftingStationContainer craftingStationContainer = (CraftingStationContainer) container;
       SideInventoryContainer sideInventoryContainer = container.getSubContainer(SideInventoryContainer.class);
 
-      if(sideInventoryContainer != null) {
-        if(sideInventoryContainer.getTileEntity() != null) {
-          if(sideInventoryContainer.getTileEntity() instanceof ChestTileEntity) {
+      if (sideInventoryContainer != null) {
+        ITextComponent sideInventoryName = title;
+
+        if (sideInventoryContainer.getTileEntity() != null) {
+          if (sideInventoryContainer.getTileEntity() instanceof ChestTileEntity) {
             // Fix: chests don't update their single/double chest status clientside once accessed
             //((ChestTileEntity) sideInventoryContainer.getTileEntity()).chestHandler = null;
           }
+
+          if (sideInventoryContainer.getTileEntity() instanceof INamedContainerProvider) {
+            sideInventoryName = ((INamedContainerProvider) sideInventoryContainer.getTileEntity()).getDisplayName();
+          }
         }
 
-        this.addModule(new SideInventoryScreen(this, sideInventoryContainer, playerInventory, title, sideInventoryContainer.getSlotCount(), sideInventoryContainer.columns));
+        this.addModule(new SideInventoryScreen(this, sideInventoryContainer, playerInventory, sideInventoryName, sideInventoryContainer.getSlotCount(), sideInventoryContainer.columns));
       }
     }
   }

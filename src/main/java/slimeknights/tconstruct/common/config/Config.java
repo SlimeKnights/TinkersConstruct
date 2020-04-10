@@ -36,6 +36,8 @@ public class Config {
 
     public final ForgeConfigSpec.ConfigValue<List<String>> craftingStationBlacklist;
 
+    public final ForgeConfigSpec.BooleanValue allowStencilsToBeReused;
+
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
 
@@ -74,6 +76,12 @@ public class Config {
         .translation("tconstruct.configgui.craftingStationBlacklist")
         .worldRestart()
         .define("craftingStationBlacklist", new ArrayList<>());
+
+      this.allowStencilsToBeReused = builder
+        .comment("Allows reusing of stencils in the stencil table to turn them into other stencils")
+        .translation("tconstruct.configgui.allowStencilsToBeReused")
+        .worldRestart()
+        .define("allowStencilsToBeReused", true);
 
       builder.pop();
 
