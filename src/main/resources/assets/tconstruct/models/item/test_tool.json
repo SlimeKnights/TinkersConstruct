@@ -1,0 +1,53 @@
+{
+    "loader": "tconstruct:tool",
+    "parent": "forge:item/default-tool",
+    "parts": {
+        "head": {
+            "parent": "item/generated",
+            "textures": {
+                "layer0": "tconstruct:block/stone_ladder"
+            },
+            "transform": {
+                "rotation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": 0.5,
+                "translation": [
+                    0,
+                    0,
+                    0
+                ]
+            }
+        },
+        "handle": {
+            "parent": "item/generated",
+            "textures": {
+                "layer0": "tconstruct:item/food/bacon"
+            },
+            "transform": {
+                "translation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": 0.8
+            }
+        },
+        "binding": {
+            "parent": "item/generated",
+            "textures": {
+                "layer0": "tconstruct:item/materials/moss"
+            },
+            "transform": {
+                "translation": [
+                    0,
+                    0,
+                    0
+                ],
+                "scale": 0.6
+            }
+        }
+    }
+}

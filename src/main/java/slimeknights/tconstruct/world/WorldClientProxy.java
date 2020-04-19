@@ -9,11 +9,14 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ILightReader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.entity.ToolEntities;
 import slimeknights.tconstruct.entity.WorldEntities;
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.client.renderer.BlueSlimeRenderer;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
@@ -45,6 +48,9 @@ public class WorldClientProxy extends ClientProxy {
 
     RenderingRegistry.registerEntityRenderingHandler(WorldEntities.blue_slime_entity, BlueSlimeRenderer.BLUE_SLIME_FACTORY);
     RenderingRegistry.registerEntityRenderingHandler(ToolEntities.indestructible_item, manager -> new ItemRenderer(manager, Minecraft.getInstance().getItemRenderer()));
+
+    // todo: move to ToolClientProxy
+    ModelLoaderRegistry.registerLoader(Util.getResource("tool"), ToolModelLoader.INSTANCE);
   }
 
   @Override
