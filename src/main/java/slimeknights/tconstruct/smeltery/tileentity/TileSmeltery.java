@@ -63,6 +63,7 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
 
   private BlockPos insideCheck; // last checked position for validity inside the smeltery
   private int fullCheckCounter = 0;
+  private MeltingRecipe cache;
 
   public TileSmeltery() {
     super("gui.smeltery.name", 0, 1);
@@ -183,7 +184,10 @@ public class TileSmeltery extends TileHeatingStructureFuelTank<MultiblockSmelter
       itemTemperatures[slot] = itemTempRequired[slot] * 2 + 1;
       return false;
     }
-    MeltingRecipe recipe = TinkerRegistry.getMelting(stack);
+    if (cache == null || !cache.matches(stack)) {
+      cache = TinkerRegistry.getMelting(stack);
+    }
+    MeltingRecipe recipe = cache;
 
     if(recipe == null) {
       return false;
