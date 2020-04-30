@@ -168,8 +168,8 @@ dependencies {
     // at runtime, use the full JEI jar
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
-    //compile fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}")
-    //deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${config.probe_version}"
+    compile fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}")
+    compile fg.deobf("mcjty.theoneprobe:TheOneProbe-1.15:${probe_version}")
     //deobfCompile "cofh:RedstoneFlux:${config.redstoneflux_version}:universal"
 
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
