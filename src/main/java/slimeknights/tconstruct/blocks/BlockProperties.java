@@ -54,8 +54,8 @@ public final class BlockProperties {
   static Block.Properties PUNJI = builder(Material.PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(3.0F);
 
   // SMELTERY
-  static Block.Properties SMELTERY = builder(Material.ROCK, NO_TOOL, SoundType.METAL).hardnessAndResistance(3.0F, 20.0F);
-  static Block.Properties SMELTERY_GLASS = builder(Material.ROCK, NO_TOOL, SoundType.METAL).hardnessAndResistance(3.0F, 20.0F).notSolid();
+  static Block.Properties SMELTERY = builder(Material.ROCK, NO_TOOL, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F);
+  static Block.Properties SMELTERY_GLASS = builder(Material.ROCK, NO_TOOL, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).notSolid();
 
   /**
    * We use this builder to ensure that our blocks all have the most important properties set.
