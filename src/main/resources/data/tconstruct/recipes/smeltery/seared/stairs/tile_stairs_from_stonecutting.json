@@ -1,0 +1,21 @@
+{
+    "type": "forge:conditional",
+    "recipes": [
+        {
+            "conditions": [
+                {
+                    "pulseid": "tinker_smeltery",
+                    "type": "tconstruct:pulse_loaded"
+                }
+            ],
+            "recipe": {
+                "type": "minecraft:stonecutting",
+                "ingredient": {
+                    "tag": "tconstruct:seared/seared_tile"
+                },
+                "result": "tconstruct:seared_tile_stairs",
+                "count": 1
+            }
+        }
+    ]
+}

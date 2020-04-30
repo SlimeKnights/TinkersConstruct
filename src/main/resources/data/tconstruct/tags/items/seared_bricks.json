@@ -1,0 +1,15 @@
+{
+    "replaces": false,
+    "values": [
+        "#tconstruct:seared/seared_stone",
+        "#tconstruct:seared/seared_bricks",
+        "#tconstruct:seared/seared_creeper",
+        "#tconstruct:seared/seared_fancy_bricks",
+        "#tconstruct:seared/seared_paver",
+        "#tconstruct:seared/seared_road",
+        "#tconstruct:seared/seared_small_bricks",
+        "#tconstruct:seared/seared_square_bricks",
+        "#tconstruct:seared/seared_tile",
+        "#tconstruct:seared/seared_triangle_bricks"
+    ]
+}
