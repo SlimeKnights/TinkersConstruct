@@ -1,0 +1,24 @@
+{
+    "type": "forge:conditional",
+    "recipes": [
+        {
+            "conditions": [
+                {
+                    "pulseid": "tinker_smeltery",
+                    "type": "tconstruct:pulse_loaded"
+                }
+            ],
+            "recipe": {
+                "type": "minecraft:smelting",
+                "ingredient": [
+                    {
+                        "item": "tconstruct:grout"
+                    }
+                ],
+                "result": "tconstruct:seared_brick",
+                "experience": 0.4,
+                "cookingtime": 200
+            }
+        }
+    ]
+}
