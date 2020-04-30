@@ -1,0 +1,49 @@
+{
+    "type": "forge:conditional",
+    "recipes": [
+        {
+            "conditions": [
+                {
+                    "pulseid": "tinker_smeltery",
+                    "type": "tconstruct:pulse_loaded"
+                }
+            ],
+            "recipe": {
+                "type": "minecraft:crafting_shapeless",
+                "ingredients": [
+                    {
+                        "tag": "forge:sand"
+                    },
+                    {
+                        "tag": "forge:gravel"
+                    },
+                    {
+                        "tag": "forge:sand"
+                    },
+                    {
+                        "tag": "forge:gravel"
+                    },
+                    {
+                        "tag": "forge:sand"
+                    },
+                    {
+                        "tag": "forge:gravel"
+                    },
+                    {
+                        "tag": "forge:sand"
+                    },
+                    {
+                        "tag": "forge:gravel"
+                    },
+                    {
+                        "item": "minecraft:clay"
+                    }
+                ],
+                "result": {
+                    "item": "tconstruct:grout",
+                    "count": 8
+                }
+            }
+        }
+    ]
+}

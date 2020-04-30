@@ -1,0 +1,30 @@
+{
+    "type": "forge:conditional",
+    "recipes": [
+        {
+            "conditions": [
+                {
+                    "pulseid": "tinker_smeltery",
+                    "type": "tconstruct:pulse_loaded"
+                }
+            ],
+            "recipe": {
+                "type": "minecraft:crafting_shaped",
+                "pattern": [
+                    "x  ",
+                    "xx ",
+                    "xxx"
+                ],
+                "key": {
+                    "x": {
+                        "item": "tconstruct:seared_small_bricks"
+                    }
+                },
+                "result": {
+                    "item": "tconstruct:seared_small_bricks_stairs",
+                    "count": 4
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+{
+    "type": "forge:conditional",
+    "recipes": [
+        {
+            "conditions": [
+                {
+                    "pulseid": "tinker_smeltery",
+                    "type": "tconstruct:pulse_loaded"
+                }
+            ],
+            "recipe": {
+                "type": "minecraft:crafting_shaped",
+                "pattern": [
+                    "X",
+                    "X"
+                ],
+                "key": {
+                    "X": {
+                        "item": "tconstruct:seared_bricks_slab"
+                    }
+                },
+                "result": {
+                    "item": "tconstruct:seared_square_bricks",
+                    "count": 1
+                }
+            }
+        }
+    ]
+}

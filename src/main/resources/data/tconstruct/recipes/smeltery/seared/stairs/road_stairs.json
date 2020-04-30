@@ -1,0 +1,30 @@
+{
+    "type": "forge:conditional",
+    "recipes": [
+        {
+            "conditions": [
+                {
+                    "pulseid": "tinker_smeltery",
+                    "type": "tconstruct:pulse_loaded"
+                }
+            ],
+            "recipe": {
+                "type": "minecraft:crafting_shaped",
+                "pattern": [
+                    "x  ",
+                    "xx ",
+                    "xxx"
+                ],
+                "key": {
+                    "x": {
+                        "item": "tconstruct:seared_road"
+                    }
+                },
+                "result": {
+                    "item": "tconstruct:seared_road_stairs",
+                    "count": 4
+                }
+            }
+        }
+    ]
+}
