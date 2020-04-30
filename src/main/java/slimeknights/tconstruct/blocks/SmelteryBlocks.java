@@ -18,6 +18,7 @@ import slimeknights.tconstruct.smeltery.block.SearedBlock;
 import slimeknights.tconstruct.smeltery.block.SearedGlassBlock;
 import slimeknights.tconstruct.smeltery.block.SearedSlabBlock;
 import slimeknights.tconstruct.smeltery.block.SearedStairsBlock;
+import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
 
@@ -74,6 +75,9 @@ public class SmelteryBlocks {
   public static final SearedStairsBlock seared_tile_stairs = injected();
 
   public static final SearedGlassBlock seared_glass = injected();
+  public static final SearedTankBlock seared_tank = injected();
+  public static final SearedTankBlock seared_gauge = injected();
+  public static final SearedTankBlock seared_window = injected();
 
   public static ImmutableSet<Block> validSmelteryBlocks;
   public static ImmutableSet<Block> searedStairsSlabs;
@@ -98,6 +102,9 @@ public class SmelteryBlocks {
     registry.registerSmelterySlabsAndStairs(new SearedBlock(BlockProperties.SMELTERY), "seared_tile");
 
     registry.register(new SearedGlassBlock(BlockProperties.SMELTERY_GLASS), "seared_glass");
+    registry.register(new SearedTankBlock(BlockProperties.SMELTERY_GLASS), "seared_tank");
+    registry.register(new SearedTankBlock(BlockProperties.SMELTERY_GLASS), "seared_gauge");
+    registry.register(new SearedTankBlock(BlockProperties.SMELTERY_GLASS), "seared_window");
   }
 
   @SubscribeEvent
@@ -153,6 +160,9 @@ public class SmelteryBlocks {
     registry.registerBlockItem(seared_tile_stairs);
 
     registry.registerBlockItem(seared_glass);
+    registry.registerBlockItem(seared_tank);
+    registry.registerBlockItem(seared_gauge);
+    registry.registerBlockItem(seared_window);
 
     ImmutableSet.Builder<Block> builder = ImmutableSet.builder();
     builder.add(seared_stone);
@@ -224,5 +234,8 @@ public class SmelteryBlocks {
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
     RenderTypeLookup.setRenderLayer(seared_glass, (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(seared_tank, (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(seared_gauge, (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(seared_window, (layer) -> layer == RenderType.getCutout());
   }
 }
