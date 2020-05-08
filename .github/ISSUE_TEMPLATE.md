@@ -8,4 +8,6 @@
 * Mantle: 
 * Tinkers Construct: 
 
-**Can it be reproduced with *just* Tinkers Construct? If not, list the other mods *required* to reproduce the issue.**
+**Can it be reproduced with *just* Tinkers Construct? Remove any mods besides Mantle and Tinkers Construct to test.**
+
+If other mods are required to reproduce the issue, list them here.
