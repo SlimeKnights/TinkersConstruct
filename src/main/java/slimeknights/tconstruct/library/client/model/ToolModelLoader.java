@@ -7,7 +7,6 @@ import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.TransformationMatrix;
 import net.minecraft.client.renderer.model.BlockModel;
 import net.minecraft.client.renderer.model.IModelTransform;
@@ -52,13 +51,8 @@ public class ToolModelLoader implements IModelLoader<Geometry> {
           subPartModel = ModelLoader.instance().getModelOrMissing(new ResourceLocation("forge:missing"));
         }*/
         //IModelTransform modelTransform = getModelTransform(deserializationContext, part.getValue());
-        Matrix4f matrix4f = ((TransformationMatrix)((SimpleModelTransform)((BlockModel) subPartModel).customData.getCustomModelState()).getRotation()).getMatrix();
-        matrix4f.invert();
-//        IModelTransform modelTransform = new ModelTransformComposition(
-//          ((BlockModel) subPartModel).customData.getCustomModelState(),
-//          new SimpleModelTransform(new TransformationMatrix(matrix4f))
-//        );
-        IModelTransform modelTransform = new SimpleModelTransform(new TransformationMatrix(matrix4f));
+
+        IModelTransform modelTransform = SimpleModelTransform.IDENTITY;
 
         parts.put(part.getKey(), new Submodel(
           part.getKey(),

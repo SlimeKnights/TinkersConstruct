@@ -2,8 +2,6 @@ package slimeknights.tconstruct.library.client.model.composite;
 
 import com.mojang.datafixers.util.Pair;
 import lombok.AllArgsConstructor;
-import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.TransformationMatrix;
 import net.minecraft.client.renderer.model.BlockModel;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IModelTransform;
@@ -16,7 +14,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModelBuilder;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.ModelTransformComposition;
-import net.minecraftforge.client.model.SimpleModelTransform;
 import net.minecraftforge.client.model.geometry.IModelGeometryPart;
 
 import java.util.Collection;
@@ -50,17 +47,6 @@ public class Submodel implements IModelGeometryPart {
       BlockModel blockmodel = (BlockModel)model;
       if (blockmodel.getRootModel() == MODEL_GENERATED) {
         unbakedModel = new ItemModelGenerator().makeItemModel(spriteGetter, blockmodel);
-
-        Matrix4f m1 = new Matrix4f();
-        m1.setIdentity();
-        m1.setTranslation(0.5f, 0.5f, 0.5f);
-
-        Matrix4f m2 = new Matrix4f();
-        m2.setIdentity();
-        m2.setTranslation(-0.5f, -0.5f, -0.5f);
-        IModelTransform t1 = new SimpleModelTransform(new TransformationMatrix(m1));
-        IModelTransform t2 = new SimpleModelTransform(new TransformationMatrix(m2));
-        transform = t1;
       }
     }
     return unbakedModel.bakeModel(bakery, spriteGetter, transform, modelLocation);

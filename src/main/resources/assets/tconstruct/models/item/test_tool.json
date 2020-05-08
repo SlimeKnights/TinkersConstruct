@@ -5,48 +5,19 @@
         "head": {
             "parent": "item/generated",
             "textures": {
-                "layer0": "tconstruct:block/stone_ladder"
-            },
-            "transform": {
-                "rotation": [
-                    0,
-                    0,
-                    0
-                ],
-                "scale": 0.5,
-                "translation": [
-                    0,
-                    0,
-                    0
-                ]
+                "layer0": "tconstruct:items/pickaxe/head"
             }
         },
         "handle": {
             "parent": "item/generated",
             "textures": {
-                "layer0": "tconstruct:item/food/bacon"
-            },
-            "transform": {
-                "translation": [
-                    0,
-                    0,
-                    0
-                ],
-                "scale": 0.8
+                "layer0": "tconstruct:items/pickaxe/handle"
             }
         },
         "binding": {
             "parent": "item/generated",
             "textures": {
-                "layer0": "tconstruct:item/materials/moss"
-            },
-            "transform": {
-                "translation": [
-                    0,
-                    0,
-                    0
-                ],
-                "scale": 0.6
+                "layer0": "tconstruct:items/pickaxe/binding"
             }
         }
     }
