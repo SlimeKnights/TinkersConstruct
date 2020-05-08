@@ -1,7 +1,7 @@
 {
     "parent": "minecraft:block/cube_column",
     "textures": {
-        "particle": "tconstruct:block/smeltery/tank/seared_tank_top",
+        "particle": "tconstruct:block/smeltery/tank/seared_tank_side",
         "top":  "tconstruct:block/smeltery/tank/seared_tank_top",
         "side": "tconstruct:block/smeltery/tank/seared_tank_side"
     },
@@ -41,5 +41,17 @@
                 }
             }
         }
+    ],
+    "overrides": [
+        { "predicate": { "tconstruct:amount": 0.0000 }, "model": "tconstruct:block/smeltery/tank/tank" },
+        { "predicate": { "tconstruct:amount": 0.0001 }, "model": "tconstruct:block/smeltery/tank/tank/0" },
+        { "predicate": { "tconstruct:amount": 0.0625 }, "model": "tconstruct:block/smeltery/tank/tank/1" },
+        { "predicate": { "tconstruct:amount": 0.1875 }, "model": "tconstruct:block/smeltery/tank/tank/2" },
+        { "predicate": { "tconstruct:amount": 0.3125 }, "model": "tconstruct:block/smeltery/tank/tank/3" },
+        { "predicate": { "tconstruct:amount": 0.4375 }, "model": "tconstruct:block/smeltery/tank/tank/4" },
+        { "predicate": { "tconstruct:amount": 0.5625 }, "model": "tconstruct:block/smeltery/tank/tank/5" },
+        { "predicate": { "tconstruct:amount": 0.6875 }, "model": "tconstruct:block/smeltery/tank/tank/6" },
+        { "predicate": { "tconstruct:amount": 0.8125 }, "model": "tconstruct:block/smeltery/tank/tank/7" },
+        { "predicate": { "tconstruct:amount": 0.9375 }, "model": "tconstruct:block/smeltery/tank/tank/8" }
     ]
 }
