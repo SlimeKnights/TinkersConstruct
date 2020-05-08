@@ -10,6 +10,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.blocks.SmelteryBlocks;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
 
@@ -19,6 +20,7 @@ import static slimeknights.tconstruct.common.TinkerPulse.injected;
 public class SmelteryTileEntities {
 
   public static final TileEntityType<SmelteryComponentTileEntity> SMELTERY_COMPONENT = injected();
+  public static final TileEntityType<TankTileEntity> TANK = injected();
 
   @SubscribeEvent
   static void registerTileEntities(final RegistryEvent.Register<TileEntityType<?>> event) {
@@ -32,5 +34,6 @@ public class SmelteryTileEntities {
       SmelteryBlocks.seared_road_slab, SmelteryBlocks.seared_tile_slab, SmelteryBlocks.seared_stone_stairs, SmelteryBlocks.seared_cobble_stairs, SmelteryBlocks.seared_bricks_stairs, SmelteryBlocks.seared_cracked_bricks_stairs,
       SmelteryBlocks.seared_fancy_bricks_stairs, SmelteryBlocks.seared_square_bricks_stairs, SmelteryBlocks.seared_small_bricks_stairs, SmelteryBlocks.seared_triangle_bricks_stairs, SmelteryBlocks.seared_creeper_stairs, SmelteryBlocks.seared_paver_stairs,
       SmelteryBlocks.seared_road_stairs, SmelteryBlocks.seared_tile_stairs, SmelteryBlocks.seared_glass), null), "smeltery_component");
+    registry.register(new TileEntityType<>(TankTileEntity::new, Sets.newHashSet(SmelteryBlocks.seared_tank, SmelteryBlocks.seared_gauge, SmelteryBlocks.seared_window), null), "tank");
   }
 }

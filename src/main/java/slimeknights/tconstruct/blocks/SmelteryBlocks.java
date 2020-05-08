@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -19,6 +20,8 @@ import slimeknights.tconstruct.smeltery.block.SearedGlassBlock;
 import slimeknights.tconstruct.smeltery.block.SearedSlabBlock;
 import slimeknights.tconstruct.smeltery.block.SearedStairsBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
+import slimeknights.tconstruct.smeltery.item.TankItem;
+import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
 
@@ -160,9 +163,9 @@ public class SmelteryBlocks {
     registry.registerBlockItem(seared_tile_stairs);
 
     registry.registerBlockItem(seared_glass);
-    registry.registerBlockItem(seared_tank);
-    registry.registerBlockItem(seared_gauge);
-    registry.registerBlockItem(seared_window);
+    registry.registerBlockItem(new TankItem(seared_tank, new Item.Properties().group(TinkerRegistry.tabSmeltery)));
+    registry.registerBlockItem(new TankItem(seared_gauge, new Item.Properties().group(TinkerRegistry.tabSmeltery)));
+    registry.registerBlockItem(new TankItem(seared_window, new Item.Properties().group(TinkerRegistry.tabSmeltery)));
 
     ImmutableSet.Builder<Block> builder = ImmutableSet.builder();
     builder.add(seared_stone);
@@ -178,7 +181,9 @@ public class SmelteryBlocks {
     builder.add(seared_road);
     builder.add(seared_tile);
 
-    //builder.add(searedTank);
+    builder.add(seared_tank);
+    builder.add(seared_gauge);
+    builder.add(seared_window);
     //builder.add(smelteryIO);
     builder.add(seared_glass);
 
