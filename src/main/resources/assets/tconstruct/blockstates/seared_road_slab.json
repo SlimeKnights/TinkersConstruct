@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "tconstruct:block/smeltery/slab/road/slab" },
+        "type=top": { "model": "tconstruct:block/smeltery/slab/road/slab_top" },
+        "type=double": { "model": "tconstruct:block/smeltery/seared/road" }
+    }
+}

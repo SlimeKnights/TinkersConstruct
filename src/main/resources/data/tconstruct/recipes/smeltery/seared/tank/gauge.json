@@ -1,0 +1,33 @@
+{
+    "type": "forge:conditional",
+    "recipes": [
+        {
+            "conditions": [
+                {
+                    "pulseid": "tinker_smeltery",
+                    "type": "tconstruct:pulse_loaded"
+                }
+            ],
+            "recipe": {
+                "type": "minecraft:crafting_shaped",
+                "pattern": [
+                    "ABA",
+                    "BBB",
+                    "ABA"
+                ],
+                "key": {
+                    "A": {
+                        "item": "tconstruct:seared_brick"
+                    },
+                    "B": {
+                        "tag": "forge:glass"
+                    }
+                },
+                "result": {
+                    "item": "tconstruct:seared_gauge",
+                    "count": 1
+                }
+            }
+        }
+    ]
+}

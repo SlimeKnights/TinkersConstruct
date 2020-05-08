@@ -1,0 +1,16 @@
+{
+    "parent": "mantle:block/connected_3_t2",
+    "textures": {
+        "normal": "tconstruct:block/connected/seared_glass/normal",
+        "u": "tconstruct:block/connected/seared_glass/u",
+        "r": "tconstruct:block/connected/seared_glass/r",
+        "ud": "tconstruct:block/connected/seared_glass/ud",
+        "ul": "tconstruct:block/connected/seared_glass/ul",
+        "ur": "tconstruct:block/connected/seared_glass/ur",
+        "lr": "tconstruct:block/connected/seared_glass/lr",
+        "udr": "tconstruct:block/connected/seared_glass/udr",
+        "udl": "tconstruct:block/connected/seared_glass/udl",
+        "ulr": "tconstruct:block/connected/seared_glass/ulr",
+        "udlr": "tconstruct:block/connected/seared_glass/udlr"
+    }
+}

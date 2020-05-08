@@ -34,6 +34,7 @@ import slimeknights.tconstruct.common.data.TConstructEntityTypeTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructFluidTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructItemTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructRecipeProvider;
+import slimeknights.tconstruct.debug.CommandDev;
 import slimeknights.tconstruct.debug.ToolDebugContainer;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -41,6 +42,7 @@ import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -80,6 +82,7 @@ public class TConstruct {
     pulseManager.registerPulse(new TinkerFluids());
     pulseManager.registerPulse(new TinkerWorld());
     pulseManager.registerPulse(new TinkerGadgets());
+    pulseManager.registerPulse(new TinkerSmeltery());
     pulseManager.enablePulses();
 
     DistExecutor.runWhenOn(Dist.CLIENT, () -> TinkerBook::initBook);
@@ -141,5 +144,6 @@ public class TConstruct {
         return Command.SINGLE_SUCCESS;
       });
     event.getCommandDispatcher().register(executes);
+    CommandDev.register(event.getCommandDispatcher());
   }
 }

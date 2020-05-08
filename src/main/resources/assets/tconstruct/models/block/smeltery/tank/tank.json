@@ -1,0 +1,57 @@
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+        "particle": "tconstruct:block/smeltery/tank/seared_tank_side",
+        "top":  "tconstruct:block/smeltery/tank/seared_tank_top",
+        "side": "tconstruct:block/smeltery/tank/seared_tank_side"
+    },
+    "elements": [
+        {
+            "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  { "texture": "#top" },
+                "up":    { "texture": "#top" },
+                "north": { "texture": "#side" },
+                "south": { "texture": "#side" },
+                "west":  { "texture": "#side" },
+                "east":  { "texture": "#side" }
+            }
+        },
+        {
+            "from": [ 3, 16, 3 ],
+            "to": [ 13, 17, 13 ],
+            "faces": {
+                "up": { "texture": "#top" },
+                "north": {
+                    "uv": [ 0, 0, 10, 1 ],
+                    "texture": "#side"
+                },
+                "south": {
+                    "uv": [ 0, 0, 10, 1],
+                    "texture": "#side"
+                },
+                "west": {
+                    "uv": [ 0, 0, 10, 1],
+                    "texture": "#side"
+                },
+                "east": {
+                    "uv": [ 0, 0, 10, 1],
+                    "texture": "#side"
+                }
+            }
+        }
+    ],
+    "overrides": [
+        { "predicate": { "tconstruct:amount": 0.0000 }, "model": "tconstruct:block/smeltery/tank/tank" },
+        { "predicate": { "tconstruct:amount": 0.0001 }, "model": "tconstruct:block/smeltery/tank/tank/0" },
+        { "predicate": { "tconstruct:amount": 0.0625 }, "model": "tconstruct:block/smeltery/tank/tank/1" },
+        { "predicate": { "tconstruct:amount": 0.1875 }, "model": "tconstruct:block/smeltery/tank/tank/2" },
+        { "predicate": { "tconstruct:amount": 0.3125 }, "model": "tconstruct:block/smeltery/tank/tank/3" },
+        { "predicate": { "tconstruct:amount": 0.4375 }, "model": "tconstruct:block/smeltery/tank/tank/4" },
+        { "predicate": { "tconstruct:amount": 0.5625 }, "model": "tconstruct:block/smeltery/tank/tank/5" },
+        { "predicate": { "tconstruct:amount": 0.6875 }, "model": "tconstruct:block/smeltery/tank/tank/6" },
+        { "predicate": { "tconstruct:amount": 0.8125 }, "model": "tconstruct:block/smeltery/tank/tank/7" },
+        { "predicate": { "tconstruct:amount": 0.9375 }, "model": "tconstruct:block/smeltery/tank/tank/8" }
+    ]
+}
