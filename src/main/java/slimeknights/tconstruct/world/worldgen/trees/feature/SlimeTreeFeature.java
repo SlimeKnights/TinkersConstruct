@@ -29,7 +29,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
   }
 
   @Override
-  protected boolean func_225557_a_(IWorldGenerationReader worldIn, Random random, BlockPos blockPos, Set<BlockPos> trunkBlockPosSet, Set<BlockPos> foliageBlockPosSet, MutableBoundingBox boundingBox, SlimeTreeFeatureConfig treeFeatureConfig) {
+  protected boolean place(IWorldGenerationReader worldIn, Random random, BlockPos blockPos, Set<BlockPos> trunkBlockPosSet, Set<BlockPos> foliageBlockPosSet, MutableBoundingBox boundingBox, SlimeTreeFeatureConfig treeFeatureConfig) {
     int height = random.nextInt(treeFeatureConfig.randomTreeHeight) + treeFeatureConfig.baseHeight;
 
     if (!(worldIn instanceof IWorld)) {
