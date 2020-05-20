@@ -29,4 +29,12 @@ public interface ITinkerStationBlock {
   boolean openGui(PlayerEntity player, World world, BlockPos pos);
 
   boolean isMaster();
+
+  public final class GuiNumbers {
+    public static final int STENCIL_TABLE = 10;
+    public static final int PATTERN_CHEST = 15;
+    public static final int PART_BUILDER = 20;
+    public static final int TOOL_STATION = 25;
+    public static final int CRAFTING_STATION = 50;
+  }
 }

@@ -22,7 +22,7 @@ public class CraftingStationBlock extends TinkerTableBlock {
 
   @Override
   public int getGuiNumber(BlockState state) {
-    return 50;
+    return GuiNumbers.CRAFTING_STATION;
   }
 
   @Override

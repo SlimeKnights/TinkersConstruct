@@ -22,7 +22,7 @@ public class PartBuilderBlock extends TinkerTableBlock {
 
   @Override
   public int getGuiNumber(BlockState state) {
-    return 20;
+    return GuiNumbers.PART_BUILDER;
   }
 
   @Override
