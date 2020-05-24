@@ -18,11 +18,11 @@ tile.tconstruct.soil.slimy_mud_green.name=Конгломерат зелёной 
 tile.tconstruct.soil.slimy_mud_green.tooltip=Замедляет, но на нём можно высоко прыгать
 tile.tconstruct.soil.slimy_mud_blue.name=Конгломерат синей слизи
 tile.tconstruct.soil.slimy_mud_blue.tooltip=Замедляет, но на нём можно высоко прыгать
-tile.tconstruct.soil.slimy_mud_magma.name=Конгломерат огненной слизи
+tile.tconstruct.soil.slimy_mud_magma.name=Конгломерат магмавой слизи
 tile.tconstruct.soil.slimy_mud_magma.tooltip=Слабо замедляет
-tile.tconstruct.soil.graveyard.name=Кладбищенская земля
+tile.tconstruct.soil.graveyard.name=Кладбищенская почва
 tile.tconstruct.soil.graveyard.tooltip=Лечит нежить
-tile.tconstruct.soil.consecrated.name=Освящённая земля
+tile.tconstruct.soil.consecrated.name=Освящённая почва
 tile.tconstruct.soil.consecrated.tooltip=Ранит нежить
 
 tile.tconstruct.deco_ground.mudbrick.name=Грязевой кирпич
@@ -32,13 +32,14 @@ tile.tconstruct.mudbrick_stairs.name=Грязевые ступеньки
 tile.tconstruct.ore.cobalt.name=Кобальтовая руда
 tile.tconstruct.ore.ardite.name=Ардитовая руда
 
+tile.tconstruct.metal.tooltip=Может использоваться в качестве маяка
 tile.tconstruct.metal.cobalt.name=Блок кобальта
 tile.tconstruct.metal.ardite.name=Блок ардита
-tile.tconstruct.metal.manyullyn.name=Блок маньюлина
-tile.tconstruct.metal.knightslime.name=Блок слизестали
-tile.tconstruct.metal.pigiron.name=Блок свинстали
+tile.tconstruct.metal.manyullyn.name=Блок манюллина
+tile.tconstruct.metal.knightslime.name=Блок рыцарской слизи
+tile.tconstruct.metal.pigiron.name=Блок чугуна
 tile.tconstruct.metal.alubrass.name=Блок алюминиевой латуни
-tile.tconstruct.metal.silky_jewel.name=Шёлковый блок
+tile.tconstruct.metal.silky_jewel.name=Шёлковый блок драгоц-ного камня
 
 tile.tconstruct.firewood.lavawood.name=Лаводерево
 tile.tconstruct.firewood.firewood.name=Огнедерево
@@ -84,15 +85,15 @@ tile.tconstruct.slime_dirt.blue.name=Грязь из синей слизи
 tile.tconstruct.slime_dirt.purple.name=Грязь из фиолетовой слизи
 tile.tconstruct.slime_dirt.blood.name=Кровавая грязь
 tile.tconstruct.slime_dirt.magma.name=Грязь из огненной слизи
-tile.tconstruct.slime_dirt.tooltip=Скользкая, но позволяет прыгать
+tile.tconstruct.slime_dirt.tooltip=Скользкая, но позволяет прыгать выше
 
 tile.tconstruct.slime_grass.vanilla.name=Слизневая трава
 tile.tconstruct.slime_grass.green.name=Трава из зелёной слизи
 tile.tconstruct.slime_grass.blue.name=Трава из синей слизи
 tile.tconstruct.slime_grass.purple.name=Трава из фиолетовой слизи
-tile.tconstruct.slime_grass.blood.name=Кровавая трава
+tile.tconstruct.slime_grass.blood.name=Трава из кровавой слизи
 tile.tconstruct.slime_grass.magma.name=Трава из огненной слизи
-tile.tconstruct.slime_grass.tooltip=Такая лёгкая! Позволяет прыгать
+tile.tconstruct.slime_grass.tooltip=Такая лёгкая! Позволяет прыгать выше
 
 tile.tconstruct.slime_leaves.blue.name=Листья синей слизи
 tile.tconstruct.slime_leaves.purple.name=Листья фиолетовой слизи
@@ -104,7 +105,7 @@ tile.tconstruct.slime_grass_tall.fern.name=Слизневый папоротни
 tile.tconstruct.slime_sapling.blue.name=Саженец синей слизи
 tile.tconstruct.slime_sapling.purple.name=Саженец фиолетовой слизи
 tile.tconstruct.slime_sapling.orange.name=Саженец огненной слизи
-tile.tconstruct.slime_sapling.tooltip=Растёт только на слизневой грязи/траве
+tile.tconstruct.slime_sapling.tooltip=Растёт только на слизневой земле / траве
 
 tile.tconstruct.slime_vine_blue.name=Лоза синей слизи
 tile.tconstruct.slime_vine_blue_mid.name=Лоза синей слизи
@@ -155,37 +156,39 @@ tile.tconstruct.seared_stairs_creeper.name=Сушёные ступеньки (к
 
 tile.tconstruct.smeltery_controller.name=Контроллер плавильни
 tile.tconstruct.smeltery_controller.tooltip=Мозги плавильни
-tile.tconstruct.smeltery_io.drain.name=Слив плавильни
-tile.tconstruct.smeltery_io.drain.tooltip=Слив и влив жидкостей плавильни
-tile.tconstruct.casting.table.name=Стол отливок
-tile.tconstruct.casting.basin.name=Резервуар отливок
-tile.tconstruct.casting.tooltip=Отливает предметы жидкостями из плавильни
-tile.tconstruct.faucet.name=Горн
-tile.tconstruct.faucet.tooltip=Сливает жидкости из плавильни и других резервуаров
+tile.tconstruct.smeltery_io.drain.name=Сушённый слив плавильни
+tile.tconstruct.smeltery_io.drain.tooltip=Вход и выход жидкости для Плавильни и Резервуара
+tile.tconstruct.casting.table.name=Литейный стол
+tile.tconstruct.casting.basin.name=Литейный резервуар
+tile.tconstruct.casting.tooltip=Отливает предметы используя расплавленный металл из Плавильни
+tile.tconstruct.faucet.name=Сушённый горн
+tile.tconstruct.faucet.tooltip=Сливает жидкости из Плавильни и Резервуаров
+tile.tconstruct.channel.name=Отливочный канал
+tile.tconstruct.channel.tooltip=Заполняется жидкость в горнах для перемещения для отливки 
 tile.tconstruct.seared_tank.tank.name=Сушёный резервуар
 tile.tconstruct.seared_tank.gauge.name=Сушёный мерный резервуар
 tile.tconstruct.seared_tank.window.name=Сушёное окно
-tile.tconstruct.seared_tank.tooltip=Сердце плавильни\nСохраняет жидкости при снятии.
+tile.tconstruct.seared_tank.tooltip=Сердце плавильни\nСохраняет жидкости после ломания резервуара.
 tile.tconstruct.seared_glass.glass.name=Сушёное стекло
-tile.tconstruct.seared_glass.glass.tooltip=Часть плавильни. Подходит для декорации.\nНе вмещает жидкости.
+tile.tconstruct.seared_glass.glass.tooltip=Часть плавильни. Подходит для декорации.\nНе хранит жидкости.
 
-tile.tconstruct.seared_furnace_controller.name=Контроллер печи
-tile.tconstruct.tinker_tank_controller.name=Контроллер цистерны
+tile.tconstruct.seared_furnace_controller.name=Сушённый контроллер печи
+tile.tconstruct.tinker_tank_controller.name=Контроллер резервуара
 
 tile.tconstruct.stone_torch.name=Каменный факел
 tile.tconstruct.stone_ladder.name=Каменная лестница
 tile.tconstruct.wood_rail.name=Деревянные рельсы
 tile.tconstruct.wood_rail_trapdoor.name=Деревянные рельсы с люком
-tile.tconstruct.wood_rail_trapdoor.tooltip=Тележки с воронкой могут\nвыгружать предметы вниз
-tile.tconstruct.wooden_hopper.name=Деревянная загрузочная воронка
-item.tconstruct.wooden_hopper.tooltip=Дешевле, пусть и медленнее обычной
+tile.tconstruct.wood_rail_trapdoor.tooltip=Тележки с воронкой могут\nпомещать в блок ниже
+tile.tconstruct.wooden_hopper.name=Деревянная воронка
+item.tconstruct.wooden_hopper.tooltip=Более медленный, более дешевый вариант воронки.
 tile.tconstruct.punji.name=Тростниковые колья
-tile.tconstruct.punji.tooltip=Острые! Можно крепить на стены.
+tile.tconstruct.punji.tooltip=Острые! Также прилипает к стенам.
 tile.tconstruct.glow.name=Светящаяся жидкость
 tile.tconstruct.rack.item.name=Вешалка
-tile.tconstruct.rack.item.tooltip=Только как декорация
-tile.tconstruct.rack.drying.name=Сушилка
-tile.tconstruct.rack.drying.tooltip=Позволяет сушить предметы
+tile.tconstruct.rack.item.tooltip=Всего-лишь, только для декоративных целях
+tile.tconstruct.rack.drying.name=Сушильный стеллаж
+tile.tconstruct.rack.drying.tooltip=Используется для сушки предметов
 
 tile.tconstruct.slime_channel.green.name=Жёлоб из зелёной слизи
 tile.tconstruct.slime_channel.blue.name=Жёлоб из синей слизи
@@ -247,7 +250,7 @@ tile.tconstruct.brownstone_stairs_creeper.name=Ступеньки из брау�
 
 # Основные
 item.tconstruct.book.name=Материалы и Вы
-item.tconstruct.book.tooltip=Книга инженера\nSkyla
+item.tconstruct.book.tooltip=Книга, которая нужна каждому\nSkyla
 
 item.tconstruct.edible.bacon.name=Бекон
 item.tconstruct.edible.slimeball_blue.name=Шарик синей слизи
@@ -272,150 +275,158 @@ item.tconstruct.edible.slimedrop_magma.name=Засохшая огненная с
 
 item.tconstruct.materials.seared_brick.name=Сушёный кирпич
 item.tconstruct.materials.mud_brick.name=Грязевой кирпич
-item.tconstruct.materials.mud_brick.tooltip=Строительные блоки для стара и млада
-item.tconstruct.materials.dried_brick.name=Кирпич сушёной глины
+item.tconstruct.materials.mud_brick.tooltip=Строительные блоки для малово и большого
+item.tconstruct.materials.dried_brick.name=Сушённый кирпич
 item.tconstruct.materials.slimecrystal_green.name=Кристалл зелёной слизи
-item.tconstruct.materials.slimecrystal_green.tooltip=Материал для инструментов
+item.tconstruct.materials.slimecrystal_green.tooltip=Используется для создания Слизневых инструментов
 item.tconstruct.materials.slimecrystal_blue.name=Кристалл синей слизи
-item.tconstruct.materials.slimecrystal_blue.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
+item.tconstruct.materials.slimecrystal_blue.tooltip=Вскоре будет информация
+item.tconstruct.materials.slimecrystal_green.tooltip=Вскоре будет информация
 item.tconstruct.materials.slimecrystal_magma.name=Кристалл огненной слизи
-item.tconstruct.materials.slimecrystal_magma.tooltip=item.tconstruct.materials.slimecrystal_green.tooltip
-item.tconstruct.materials.expander_w.name=Экспандер (Горизонталь)
+item.tconstruct.materials.slimecrystal_magma.tooltip=Вскоре будет информация
+item.tconstruct.materials.slimecrystal_green.tooltip=Вскоре будет информация
+item.tconstruct.materials.expander_w.name=Расширитель (Горизонталь)
 item.tconstruct.materials.expander_w.tooltip=Не пропусти день ног!
-item.tconstruct.materials.expander_h.name=Экспандер (Вертикаль)
+item.tconstruct.materials.expander_h.name=Расширитель (Вертикаль)
 item.tconstruct.materials.expander_h.tooltip=Ты хотя бы жмёшь?
 item.tconstruct.materials.reinforcement.name=Укрепитель
 item.tconstruct.materials.reinforcement.tooltip=Модификатор прочности
 item.tconstruct.materials.silky_cloth.name=Шёлковая ткань
-item.tconstruct.materials.silky_jewel.name=Шёлковый камень
+item.tconstruct.materials.silky_jewel.name=Шёлковый драгоценный камень
 item.tconstruct.materials.silky_jewel.tooltip=Модификатор шёлкового касания
-item.tconstruct.materials.necrotic_bone.name=Кость нежити
-item.tconstruct.materials.necrotic_bone.tooltip=Модификатор вампиризма
+item.tconstruct.materials.necrotic_bone.name=Некротическая кость
+item.tconstruct.materials.necrotic_bone.tooltip=Модификатор некротизма
 item.tconstruct.materials.moss.name=Шар мха
-item.tconstruct.materials.moss.tooltip=ПКМ на книжной полке для трансфор\nмации в запоминающий мох.\n§oЗабирает 10 уровней
-item.tconstruct.materials.mending_moss.name=Запоминающий мох
-item.tconstruct.materials.mending_moss.tooltip=Модификатор памяти
+item.tconstruct.materials.moss.tooltip=ПКМ по книжной полке с этим\nдля преобразовании в ремонтный мох.\n§oПоглощает 10 уровней
+item.tconstruct.materials.mending_moss.name=Ремонтный мох
+item.tconstruct.materials.mending_moss.tooltip=Модификатор ремонтного мха
 item.tconstruct.materials.creative_modifier.name=Креативный модификатор
-item.tconstruct.materials.creative_modifier.tooltip=Добавляет слот модификации
+item.tconstruct.materials.creative_modifier.tooltip=Добавляет доп. модификацию
 
 item.tconstruct.ingots.cobalt.name=Кобальтовый слиток
 item.tconstruct.ingots.ardite.name=Ардитовый слиток
-item.tconstruct.ingots.manyullyn.name=Маньюлиновый слиток
-item.tconstruct.ingots.knightslime.name=Слиток слизестали
-item.tconstruct.ingots.knightslime.tooltip=Слизь как металл и как камень? Очаровательно!
-item.tconstruct.ingots.pigiron.name=Слиток свиностали
+item.tconstruct.ingots.manyullyn.name=Манюллиновый слиток
+item.tconstruct.ingots.knightslime.name=Слиток рыцарской слизи
+item.tconstruct.ingots.knightslime.tooltip=Слизистый как металл, но и как камень? Очаровательно!
+item.tconstruct.ingots.pigiron.name=Слиток чугуна
 item.tconstruct.ingots.pigiron.tooltip=Хрю!
 item.tconstruct.ingots.alubrass.name=Слиток алюминиевой латуни
 
 item.tconstruct.nuggets.cobalt.name=Кобальтовый самородок
 item.tconstruct.nuggets.ardite.name=Ардитовый самородок
-item.tconstruct.nuggets.manyullyn.name=Маньюлиновый самородок
-item.tconstruct.nuggets.knightslime.name=Слизестальный самородок
-item.tconstruct.nuggets.pigiron.name=Самородок свиностали
-item.tconstruct.nuggets.alubrass.name=Самородок алюминиевой латуни
+item.tconstruct.nuggets.manyullyn.name=Манюллиновый самородок
+item.tconstruct.nuggets.knightslime.name=Самородок из рыцарской слизи
+item.tconstruct.nuggets.pigiron.name=Самородок из чугуна
+item.tconstruct.nuggets.alubrass.name=Самородок из алюминиевой латуни
 
-item.tconstruct.pattern.blank=Пустая схема
-item.tconstruct.pattern.name=Схема - %s
+item.tconstruct.pattern.blank=Пустой шаблон
+item.tconstruct.pattern.name=Шаблон - %s
 item.tconstruct.cast.blank=Пустая отливка
 item.tconstruct.cast.name=Отливка - %s
 item.tconstruct.clay_cast.name=Глиняная отливка - %s
 item.tconstruct.cast_custom.ingot.name=Отливка слитка
 item.tconstruct.cast_custom.nugget.name=Отливка самородка
-item.tconstruct.cast_custom.gem.name=Отливка камня
+item.tconstruct.cast_custom.gem.name=Отливка драгоценного камня
 item.tconstruct.cast_custom.plate.name=Отливка пластины
 item.tconstruct.cast_custom.gear.name=Отливка шестерни
 
-item.tconstruct.sharpening_kit.name=оселок
-item.tconstruct.sharpening_kit.tooltip=Объедините с кремнем и инструментом\nдля увеличения до уровня добычи этого материала.
+item.tconstruct.sharpening_kit.name=Точильный набор
+item.tconstruct.sharpening_kit.tooltip=Объедините с кремнем\nУлучшает уровень добычи вашего инструмента.
 
 item.forge.bucketFilled.blood=Ведро крови
 
 # Инструменты
-item.tconstruct.pickaxe.name=кирка
-item.tconstruct.shovel.name=лопата
-item.tconstruct.hatchet.name=топор
-item.tconstruct.mattock.name=мотыготопор
+item.tconstruct.pickaxe.name=Кирка
+item.tconstruct.shovel.name=Лопата
+item.tconstruct.hatchet.name=Топор
+item.tconstruct.mattock.name=Мотыготопор
+item.tconstruct.kama.name=Серп
 
-item.tconstruct.hammer.name=молот
-item.tconstruct.excavator.name=большая лопата
-item.tconstruct.lumberaxe.name=большой топор
-item.tconstruct.scythe.name=коса
+item.tconstruct.hammer.name=мМолот
+item.tconstruct.excavator.name=Экскаватор
+item.tconstruct.lumberaxe.name=Большой топор
+item.tconstruct.scythe.name=Коса
 
 # Милишки
 
-item.tconstruct.frypan.name=сковорода
-item.tconstruct.battlesign.name=боевая табличка
-item.tconstruct.dagger.name=кинжал
-item.tconstruct.broadsword.name=палаш
-item.tconstruct.longsword.name=меч
-item.tconstruct.rapier.name=рапира
-item.tconstruct.cutlass.name=сабля
+item.tconstruct.frypan.name=Сковорода
+item.tconstruct.battlesign.name=Боевая табличка
+item.tconstruct.dagger.name=Кинжал
+item.tconstruct.broadsword.name=Палаш
+item.tconstruct.longsword.name=Длинный меч
+item.tconstruct.rapier.name=Рапира
+item.tconstruct.cutlass.name=Сабля
 
-item.tconstruct.cleaver.name=гигантский меч
-item.tconstruct.battleaxe.name=боевой топор
+item.tconstruct.cleaver.name=Гигантский меч
+item.tconstruct.battleaxe.name=Боевой топор
 
 # Дальний бой
 
-item.tconstruct.shortbow.name=короткий лук
-item.tconstruct.longbow.name=длинный лук
-item.tconstruct.crossbow.name=арбалет
+item.tconstruct.shortbow.name=Короткий лук
+item.tconstruct.longbow.name=Длинный лук
+item.tconstruct.crossbow.name=Арбалет
 
-item.tconstruct.arrow.name=стрела
-item.tconstruct.bolt.name=болт
+item.tconstruct.arrow.name=Стрела
+item.tconstruct.bolt.name=Болт
 
-item.tconstruct.shuriken.name=сюрикен
+item.tconstruct.shuriken.name=Сюрикэн
 
 # Инструментальные части
-item.tconstruct.shard.name=осколок
+item.tconstruct.shard.name=Осколок
 
-item.tconstruct.pick_head.name=навершие кирки
-item.tconstruct.shovel_head.name=полотно лопаты
-item.tconstruct.axe_head.name=лезвие топора
-item.tconstruct.pan_head.name=полотно сковороды
-item.tconstruct.sign_head.name=табличка
-item.tconstruct.binding.name=крепление
-item.tconstruct.tool_rod.name=рукоять
-item.tconstruct.knife_blade.name=лезвие ножа
-item.tconstruct.sword_blade.name=лезвие меча
-item.tconstruct.wide_guard.name=широкая карда
-item.tconstruct.cross_guard.name=поперечная гарда
-item.tconstruct.hand_guard.name=малая гарда
-item.tconstruct.full_guard.name=полная гарда
+item.tconstruct.pick_head.name=Навершие кирки
+item.tconstruct.shovel_head.name=Полотно лопаты
+item.tconstruct.axe_head.name=Лезвие топора
+item.tconstruct.pan_head.name=Полотно сковороды
+item.tconstruct.sign_head.name=Табличка
+item.tconstruct.binding.name=Крепление
+item.tconstruct.tool_rod.name=Рукоять
+item.tconstruct.knife_blade.name=Лезвие ножа
+item.tconstruct.sword_blade.name=Лезвие меча
+item.tconstruct.wide_guard.name=Широкая карда
+item.tconstruct.cross_guard.name=Поперечная гарда
+item.tconstruct.hand_guard.name=Малая гарда
+item.tconstruct.full_guard.name=Полная гарда
 
 # Части больших инструментов
-item.tconstruct.hammer_head.name=боёк молота
-item.tconstruct.excavator_head.name=большое полотно лопаты
-item.tconstruct.broad_axe_head.name=большое лезвие топора
-item.tconstruct.large_plate.name=большая пластина
-item.tconstruct.tough_binding.name=мощное крепление
-item.tconstruct.tough_tool_rod.name=мощная рукоять
-item.tconstruct.scythe_head.name=навершие косы
-item.tconstruct.large_sword_blade.name=широкое лезвие меча
+item.tconstruct.hammer_head.name=Боёк молота
+item.tconstruct.excavator_head.name=Большое полотно лопаты
+item.tconstruct.broad_axe_head.name=Большое лезвие топора
+item.tconstruct.large_plate.name=Большая пластина
+item.tconstruct.tough_binding.name=Мощное крепление
+item.tconstruct.tough_tool_rod.name=Мощная рукоять
+item.tconstruct.scythe_head.name=Навершие косы
+item.tconstruct.large_sword_blade.name=Широкое лезвие меча
 
-# Лук и стрелы
+# Части для лука и стрел
 
-item.tconstruct.bow_limb.name=плечо лука
-item.tconstruct.bow_string.name=тетива
+item.tconstruct.bow_limb.name=Плечо лука
+item.tconstruct.bow_string.name=Тетива
 
-item.tconstruct.arrow_head.name=наконечник
-item.tconstruct.arrow_shaft.name=древко стрелы
-item.tconstruct.fletching.name=оперение
+item.tconstruct.arrow_head.name=Наконечник
+item.tconstruct.arrow_shaft.name=Древко стрелы
+item.tconstruct.fletching.name=Оперение
 
-item.tconstruct.bolt_core.name=стержень болта
+item.tconstruct.bolt_core.name=Стержень болта
 
 # Material specific tools and toolparts
 # item.tconstruct.<tool>.<material>
-# item.tconstruct.pickaxe.wood=Wooden Pickaxe
+# item.tconstruct.pickaxe.wood=Деревянная кирка
 
 # Примочки
-item.tconstruct.slime_boots.green.name=Синеслизневые ботинки
-item.tconstruct.slime_boots.blue.name=Зелёнослизневые ботинки
+item.tconstruct.slime_boots.green.name=Зелёнослизневые ботинки
+item.tconstruct.slime_boots.blue.name=Синеслизневые ботинки
 item.tconstruct.slime_boots.purple.name=Фиолетослизневые ботинки
 item.tconstruct.slime_boots.blood.name=Кровавые ботинки
 item.tconstruct.slime_boots.magma.name=Огнеслизневые ботинки
-item.tconstruct.slime_boots.tooltip=Отскакиваете при падении
-item.tconstruct.slimesling.name=Слизнерогатка
-item.tconstruct.slimesling.tooltip=Взведите, нацельтесь под ноги, отпустите!\nНадевайте слизневые ботинки, если жизнь дорога!
+item.tconstruct.slime_boots.tooltip=Заставляет вас прыгать при приземлении
+item.tconstruct.slimesling.green.name=Зелёная слизнерогатка
+item.tconstruct.slimesling.blue.name=Синяя слизнерогатка
+item.tconstruct.slimesling.purple.name=Фиолетовая слизнерогатка
+item.tconstruct.slimesling.blood.name=Застывшая кроваворогатка
+item.tconstruct.slimesling.magma.name=Огненная слизнерогатка
+item.tconstruct.slimesling.pink.name=Розовая слизнерогатка
+item.tconstruct.slimesling.tooltip=Заряжайте, прицеливайтесь под ноги, бросайте!\nИспользуйте Слизневые ботинки, если цените свою жизнь!
 item.tconstruct.piggybackpack.name=Рюкзак-седло
 item.tconstruct.piggybackpack.tooltip=ПКМ на мобе или игроке для его поднятия
 item.tconstruct.stone_stick.name=Каменный стержень
@@ -424,7 +435,7 @@ item.tconstruct.fancy_frame.jewel.name=Красивая рамка
 item.tconstruct.fancy_frame.alubrass.name=Рамка из алюминиевой латуни
 item.tconstruct.fancy_frame.cobalt.name=Рамка из кобальта
 item.tconstruct.fancy_frame.ardite.name=Рамка из ардита
-item.tconstruct.fancy_frame.manyullyn.name=Рамка из маньюлина
+item.tconstruct.fancy_frame.manyullyn.name=Рамка из манюллина
 item.tconstruct.fancy_frame.gold.name=Золотая рамка
 item.tconstruct.fancy_frame.clear.name=Стеклянная рамка
 
@@ -448,7 +459,7 @@ stat.spaghetti.saturation.name=Сытность
 modifier.spaghetti_sauce.name=с соусом
 modifier.spaghetti_sauce.desc=§oСо свеклой§r\nБолее сытно
 modifier.spaghetti_meat.name=с мясом
-modifier.spaghetti_meat.desc=§oВсе типы!§r\nНасыщает лучше
+modifier.spaghetti_meat.desc=§oВсе мясо!§r\nУвеличивает питательную ценность
 
 item.tconstruct.spaghetti.hard.name=Невероятно твёрдая лапша
 item.tconstruct.spaghetti.hard.tooltip=Абсолютно несъедобна.\nЕё надо размягчить, но Ваши потные ладошки не могут это сделать.\nНаверное, её надо отмочить в воде.
@@ -473,11 +484,11 @@ fluid.tconstruct.clay.name=Расплавленная глина
 fluid.tconstruct.dirt.name=Жидкая земля
 fluid.tconstruct.iron.name=Расплавленное железо
 fluid.tconstruct.gold.name=Расплавленное золото
-fluid.tconstruct.pigiron.name=Расплавленная свиносталь
+fluid.tconstruct.pigiron.name=Расплавленный чугун
 fluid.tconstruct.cobalt.name=Расплавленный кобальт
 fluid.tconstruct.ardite.name=Расплавленный ардит
-fluid.tconstruct.manyullyn.name=Расплавленный маньюлин
-fluid.tconstruct.knightslime.name=Расплавленная слизесталь
+fluid.tconstruct.manyullyn.name=Расплавленный манюллин
+fluid.tconstruct.knightslime.name=Расплавленная рыцарская слизь
 fluid.tconstruct.emerald.name=Жидкий изумруд
 fluid.tconstruct.glass.name=Жидкое стекло
 fluid.tconstruct.blood.name=Кровь
@@ -508,78 +519,79 @@ potion.carry=Вы несёте кого-то
 #################
 # material.<identifier>.name
 # material.<identifier>.prefix
-# material.wood.prefix=Wooden %s - Used for stuff like "Wooden Pickaxe" if no specific name is given
+# material.wood.prefix=Деревянная  %s - Используется для таких вещей, как "Деревянный кирка", если нет конкретного названия
 
 material.wood.name=Дерево
-material.wood.prefix=Деревянн. %s
+material.wood.prefix=Деревянный(ая) %s
 material.stone.name=Камень
-material.stone.prefix=Каменн. %s
+material.stone.prefix=Каменный(ая) %s
 material.flint.name=Кремень
-material.flint.prefix=Кремнев. %s
+material.flint.prefix=Кремневый(ая) %s
 material.cactus.name=Кактус
-material.cactus.prefix=Кактусов. %s
+material.cactus.prefix=Кактусовый(ая) %s
 material.obsidian.name=Обсидиан
-material.obsidian.prefix=Обсидианов. %s
+material.obsidian.prefix=Обсидиановый(ая) %s
 material.prismarine.name=Призмарин
-material.prismarine.prefix=Призмаринов. %s
+material.prismarine.prefix=Призмариновый(ая) %s
 material.netherrack.name=Адский камень
-material.netherrack.prefix=Адокаменн. %s
+material.netherrack.prefix=Адокаменный(ая) %s
 material.endstone.name=Камень Края
-material.endstone.prefix=Эндеровск. %s
+material.endstone.prefix=Эндеровский(ая) %s
 material.bone.name=Кость
-material.bone.prefix=Костян. %s
+material.bone.prefix=Костяной(ая) %s
 material.paper.name=Бумага
-material.paper.prefix=Бумажн. %s
+material.paper.prefix=Бумажный(ая) %s
 material.sponge.name=Губка
-material.sponge.prefix=Губочн. %s
+material.sponge.prefix=Губочный(ая) %s
 material.firewood.name=Огнедерево
-material.firewood.prefix=Огнедерев. %s
+material.firewood.prefix=Огнедеревный(ая) %s
 material.slime.name=Слизь
-material.slime.prefix=Слизнев. %s
+material.slime.prefix=Слизневый(ая) %s
 material.blueslime.name=Синяя слизь
-material.blueslime.prefix=Синеслизнев. %s
-material.knightslime.name=Слизесталь
-material.knightslime.prefix=Слизестальн. %s
+material.blueslime.prefix=Синеслизневый(ая) %s
+material.knightslime.name=Рыцарская слизь
+material.knightslime.prefix=Рыцарскослизневый(ая) %s
 material.magmaslime.name=Огненная слизь
-material.magmaslime.prefix=Огнеслизнев. %s
+material.magmaslime.prefix=Огнеслизневый(ая) %s
 material.ardite.name=Ардит
-material.ardite.prefix=Ардитов. %s
+material.ardite.prefix=Ардитовый(ая) %s
 material.cobalt.name=Кобальт
-material.cobalt.prefix=Кобальтов. %s
-material.manyullyn.name=Маньюлин
-material.manyullyn.prefix=Маньюлинов. %s
+material.cobalt.prefix=Кобальтовый(ая) %s
+material.manyullyn.name=Манюллин
+material.manyullyn.prefix=Манюллиновый(ая) %s
 material.iron.name=Железо
-material.iron.prefix=Железн. %s
-material.pigiron.name=Свиносталь
-material.pigiron.prefix=Свиностальн. %s
+material.iron.prefix=Железный(ая) %s
+material.pigiron.name=Чугун
+material.pigiron.prefix=Чугунный(ая) %s
 material.copper.name=Медь
-material.copper.prefix=Медн. %s
+material.copper.prefix=Медный(ая) %s
 material.bronze.name=Бронза
-material.bronze.prefix=Бронзов. %s
+material.bronze.prefix=Бронзовый(ая) %s
 material.lead.name=Свинец
-material.lead.prefix=Свинцов. %s
+material.lead.prefix=Свинцовый(ая) %s
 material.silver.name=Серебро
-material.silver.prefix=Серебрян. %s
+material.silver.prefix=Серебряный(ая) %s
 material.electrum.name=Электрум
-material.electrum.prefix=Электрумов. %s
+material.electrum.prefix=Электрумовый(ая) %s
 material.steel.name=Сталь
-material.steel.prefix=Стальн. %s
+material.steel.prefix=Стальной(ая) %s
 
 material.string.name=Нить
 material.string.prefix=Нитяная %s
 material.vine.name=Лоза
 material.vine.prefix=Из лозы %s
-material.slimevine_blue.name=Слизневая лоза
+material.slimevine_blue.name=Синяя слизневая лоза
 material.slimevine_blue.prefix=Слизнелозная %s
-material.slimevine_orange.name=material.slimevine_blue.name
-material.slimevine_orange.prefix=material.slimevine_blue.prefix
-material.slimevine_purple.prefix=material.slimevine_blue.prefix
-material.slimevine_purple.name=material.slimevine_blue.name
+material.slimevine_orange.name=Оранжевая слизневая лоза
+material.slimevine_orange.prefix=Слизнелозная %s
+material.slimevine_purple.name=Фиолетовая слизневая лоза
+material.slimevine_purple.prefix=Слизнелозная %s
 
 material.blaze.name=Огненный стержень
-material.reed.name=Тростник
+material.reed.name=Тростники
 material.ice.name=Лёд
 material.endrod.name=Стержень Края
+
 material.blaze.prefix=Огненное %s
 material.reed.prefix=Тростниковое %s
 material.ice.prefix=Ледяное %s
@@ -587,63 +599,66 @@ material.endrod.prefix=Стержня Края %s
 
 material.feather.name=Перо
 material.leaf.name=Листья
-material.slimeleaf_blue.name=Слизнелистья
-material.slimeleaf_orange.name=material.slimeleaf_blue.name
-material.slimeleaf_purple.name=material.slimeleaf_blue.name
+material.slimeleaf_blue.name=Синие слизнелистья
+material.slimeleaf_orange.name=Оранжевые слизнелистья
+material.slimeleaf_blue.nameСиние слизнелистья
+material.slimeleaf_purple.name=Фиолетовые слизнелистья
+
 material.feather.prefix=Перьевое %s
 material.leaf.prefix=Лиственное %s
 material.slimeleaf_blue.prefix=Слизнелиственное %s
-material.slimeleaf_orange.prefix=material.slimeleaf_blue.prefix
-material.slimeleaf_purple.prefix=material.slimeleaf_blue.prefix
+material.slimeleaf_orange.prefix=Слизнелиственное %s
+material.slimeleaf_purple.prefix=Слизнелиственное %s
+
 #############
-#   Статы   #
+#   Характеристики  #
 #############
 stat.head.name=Навершие
 stat.head.durability.name=Прочность
-stat.head.durability.desc=Главная величина для прочности.\nКак правило, определяющая.
-stat.head.miningspeed.name=Скор. добычи
-stat.head.miningspeed.desc=Как быстро инструмент с этим навершием может добывать.\nДругие части могут влиять.
-stat.head.harvestlevel.name=Уров. добычи
-stat.head.harvestlevel.desc=Блоки какой прочности может добывать данный инструмент.
-stat.head.attack.name=Урон
-stat.head.attack.desc=Главная величина для общего урона.\nКонечный результат зависит от других частей.
+stat.head.durability.desc=Базовое значение для расчета прочности.\nОбычно, это неотъемлемая часть общей долговечности инструмента.
+stat.head.miningspeed.name=Скорость добычи
+stat.head.miningspeed.desc=Как быстро инструмент с головкой инструмента из этого материала может добывать блоки.\nМожет быть под влиянием других частей инструмента.
+stat.head.harvestlevel.name=Уровень добычи
+stat.head.harvestlevel.desc=Какой радиус блоков может добывать инструмент с головкой инструмента из этого материала.
+stat.head.attack.name=Атака
+stat.head.attack.desc=Базовое значение для расчёта атаки.\nКонечный результат зависит от самого инструмента и других используемых компонентов.
 
 stat.handle.name=Рукоять
-stat.handle.modifier.name=Квантификатор
-stat.handle.modifier.desc=Удобство использования инструмента с этой рукоятью.\nИтоговая прочность умножается на него.
+stat.handle.modifier.name=Модификатор
+stat.handle.modifier.desc=Насколько подходит материал для инструмента, как рукоять.\nОбщая прочность инструмента будет умножаться на него.
 stat.handle.durability.name=Прочность
-stat.handle.durability.desc=Как прочно материал может быть удержан.\nПрочность инструмента изменяется от этой характеристики.
+stat.handle.durability.desc=Как прочно материал может быть удержан.\nНа эту сумму будет изменена прочность инструмента.
 
 stat.extra.name=Дополнительно
 stat.extra.durability.name=Прочность
-stat.extra.durability.desc=Сколько прочности эта часть добавляет при использовании в виде аксессуара.
+stat.extra.durability.desc=Насколько прочна эта часть при использовании в качестве аксессуара.
 
 stat.mattock.axelevel.name=Уровень топора
 stat.mattock.shovellevel.name=Уровень лопаты
 
 stat.bow.name=Лук
-stat.bow.drawspeed.name=Скорость взвода
-stat.bow.drawspeed.desc=Как быстро натягивается лук.
-stat.bow.range.name=Дальности
-stat.bow.range.desc=Насколько далеко снаряд полетит.
+stat.bow.drawspeed.name=Скорость натяжения
+stat.bow.drawspeed.desc=Как быстро вы можете натянуть лук.
+stat.bow.range.name=Множитель дальности
+stat.bow.range.desc=Насколько далеко можно запустить снаряд.
 stat.bow.damage.name=Дополнительный урон
 stat.bow.damage.desc=Дополнительный урон при ударе.\nСила стрелы.
 
 stat.bowstring.name=Тетива
-stat.bowstring.modifier.name=Квантификатор
+stat.bowstring.modifier.name=Модификатор
 stat.bowstring.modifier.desc=Прочность лука будет умножена на это число.
 
 stat.shaft.name=Древко
 stat.shaft.modifier.name=Модификатор
 stat.shaft.modifier.desc=Каждой стреле нужен свой стержень. От материала зависит количество получаемых стрел.\nИтоговое количество умножается на это число.
-stat.shaft.ammo.name=Снаряды
-stat.shaft.ammo.desc=Точное количество стрел.\nЭто - число добавляемых снарядов.
+stat.shaft.ammo.name=Доп. снаряды
+stat.shaft.ammo.desc=Сколько стрел вы можете извлечь из него.\nБудет добавлено много единобразных снарядов
 
 stat.fletching.name=Оперение
 stat.fletching.accuracy.name=Точность
 stat.fletching.accuracy.desc=Насколько стабильна в полёте будет стрела с таким оперением.\nВлияет на общую точность снаряда.
 stat.fletching.modifier.name=Модификатор
-stat.fletching.modifier.desc=Сколько стрел можно с ним собрать.\nИтоговое количество умножается на это число.
+stat.fletching.modifier.desc=Как много стрел вы можете создать с ним.\nСнаряды боеприпасов будут умножается на это число.
 
 stat.projectile.name=Снаряд
 stat.projectile.ammo.name=Аммуниция
@@ -656,152 +671,156 @@ stat.projectile.ammo.name=Аммуниция
 modifier.alien.name=Чуждость
 modifier.alien.desc=§oЧто-то не так с характеристиками...§r\n..как будто они меняются! Может, время подскажет?
 modifier.aquadynamic.name=Гидродинамика
-modifier.aquadynamic.desc=§oЗдесь становится влажновато!§r\nИнструмент очень любит воду и дожди.
+modifier.aquadynamic.desc=§oЗдесь становится влажновато!§r\nИнструмент очень любит воду и любит дождливые вечера.
 modifier.aridiculous.name=Пустынность
-modifier.aridiculous.desc=§oВключи тепло!§r\nИнструмент работает лучше в горячих средах.
+modifier.aridiculous.desc=§oВключи тепло!§r\nИнструмент лучше работает в более жаркой среде.
 modifier.autosmelt.name=Автоплавка
-modifier.autosmelt.desc=§oПечь в инструменте!§r\nСобранные блоки переплавляются.
+modifier.autosmelt.desc=§oПечь в форме инструмента!§r\nСобранные блоки переплавляются.
 modifier.baconlicious.name=Беконность
 modifier.baconlicious.desc=§oБЕКОН!§r\nПри атаках иногда выпадает бекон.
 modifier.cheap.name=Дешевизна
-modifier.cheap.desc=§oДебит с кредитом!§r\nДополнительная прочность при ремонте.
+modifier.cheap.desc=§oБольше хлопот за доллар!§r\nУвеличивает прочность полученную при ремонте инструмента
 modifier.cheapskate.name=Скряга
-modifier.cheapskate.desc=§oГад!§r\nКамень плох. У инструмента меньше прочности.
+modifier.cheapskate.desc=§oГад!§r\nКамень плох. Инструмент менее долговечен.
 modifier.coldblooded.name=Хладнокровность
 modifier.coldblooded.desc=§oДикарь!§r\nНаносит больше урона целям с полным здоровьем.
 modifier.crude.name=Грубость
-modifier.crude.desc=§oБроня для лохов!§r\nБонусный урон против небронированных целей.
+modifier.crude.desc=§oБроня для трусов!§r\nБонусный урон против небронированных целей.
 modifier.crude.extra=Против небронированных: +%s
 modifier.crumbling.name=Дробитель
-modifier.crumbling.desc=§oХрусть-хрясть§r\nИнструмент ломает блоки, которым не нужен инструмент, быстрее.
+modifier.crumbling.desc=§oХрусть-хрясть§r\nИнструмент ломает мягкие блоки быстрее, которым не нужен инструмент.
 modifier.dense.name=Плотность
 modifier.dense.desc=§oПлот...нее.§r\nВаш инструмент дольше не теряет прочность, когда почти сломан.
 modifier.duritos.name=Твёрдость
-modifier.duritos.desc=§oНу даже не знаю.§r\nВаш инструмент более прочен ...большую часть времени.
+modifier.duritos.desc=§oНа вкус не очень, как кажется.§r\nВаш инструмент более прочен ...большую часть времени.
 modifier.ecological.name=Экологичность
-modifier.ecological.desc=§oСила зелени!§r\nВозобнавляемые ресурсы восстанавливаются сами по себе!
+modifier.ecological.desc=§oСила зелени!§r\nВозобнавляемые ресурсы настолько хороши, что они восстанавливаются сами по себе!
 modifier.enderference.name=Эндерференция
-modifier.enderference.desc=§oПрерывание телепортации!§r\nЗапрещает Эндерманам телепортироваться на короткое время.
+modifier.enderference.desc=§oАнти-телепортация!§r\nЗапрещает Эндерманам телепортироваться на короткое время.
 modifier.established.name=Хорошая сборка
-modifier.established.desc=§oХалявный опыт!§r\nВы получаете дополнительный опыт.
+modifier.established.desc=§oБесплатный бонус к опыту!§r\nВы получаете дополнительный опыт.
 modifier.flammable.name=Горючесть
-modifier.flammable.desc=§oМало огна, нужно больше!§r\nБлокирование убирает огненный урон и отражает его в атакующего.
+modifier.flammable.desc=§oНе хватает огня!§r\nБлокирование, блокирует урон от огня, а попадя в цель поджигает нападающего.
 modifier.fractured.name=Осколочность
-modifier.fractured.desc=§oБольно!§r\nУрон оружия увеличен.
+modifier.fractured.desc=§oБольно!§r\nУрон вашего инструмента увеличен.
+modifier.heavy.name=Тяжеловесный
+modifier.heavy.desc=§oТы вообще поднимешь?§r\nПредотвращает отбрасывание.
 modifier.hellish.name=Адский
-modifier.hellish.desc=§oУдар из бездны!§r\nНаносит дополнительный урон мобам не из Незера.
+modifier.hellish.desc=§oИз низа!§r\nНаносит дополнительный урон мобам не из Незера.
 modifier.hellish.extra=Против не-огненных созданий: +%s
 modifier.holy.name=Святой
-modifier.holy.desc=§oСветится!§r\nНаносит урон нежити.
+modifier.holy.desc=§oСветится!§r\nНаносит бонусный урон врагам нежити.
 modifier.holy.extra=modifier.smite.extra
 modifier.insatiable.name=Ненасытность
-modifier.insatiable.desc=§oПроглатывай!§r\nВ бою Вы наносите всё больше и больше урона за потери прочности.
+modifier.insatiable.desc=§oПроглатывай!§r\nВо время боя вы наносите всё больше и больше урона, но также потребляете всё больше и больше прочности.
 modifier.jagged.name=Зазубренность
 modifier.jagged.desc=§oДвигаюсь, как зазубренный!§r\nКаждая потерянная единица прочности увеличивает урон.
 modifier.jagged.extra=Урон от зазубрин: +%s
 modifier.lightweight.name=Легковесность
-modifier.lightweight.desc=§oЛети, как ветер!§r\nУвеличивает скорость вашего инструмента при ударах и копании.
+modifier.lightweight.desc=§oБыстрый, как ветер!§r\nУвеличивает общую скорость вашего инструмента при добычи и атаке.
 modifier.lightweight.extra=Дополнительная скорость: +%s
 modifier.magnetic.name=Магнетизм
 modifier.magnetic.desc=§oКак они работают?!§r\nУдары по вещам притягивают другие вещи?!
 modifier.momentum.name=Импульс
-modifier.momentum.desc=§oБыстрее, продолжай!§r\nНепрерывное копание блоков увеличивает скорость копки.
+modifier.momentum.desc=§oБыстрее, не останавливайся!§r\nНепрерывное копание блоков увеличивает скорость копки.
 modifier.petramor.name=Камнелюбие
-modifier.petramor.desc=§oТак много камня, надо весь посмотреть!§r\nВаш инструмент любит камень и поглощает его для восстановления прочности.
+modifier.petramor.desc=§oТак много камня, надо всё посмотреть!§r\nВаш инструмент любит камень, он буквально хочет поглотить его (для прочности).
 modifier.poisonous.name=Токсичность
-modifier.poisonous.desc=§oНе совсем без свинка!§r\nОтравляет врагов при ударе.
+modifier.poisonous.desc=§oНе совсем без свинца!§r\nОтравляет врагов при ударе.
 modifier.prickly.name=Шипастость
 modifier.prickly.desc=§oАй!§r\nНикто не спасён от этих шипов, они всегда колятся.
 modifier.sharp.name=Острый
-modifier.sharp.desc=§oМожет резать слова!§r\nУдар по врагу накладывает кровотечение.
+modifier.sharp.desc=§oМожет даже вырезать слова!§r\nУдар по врагу накладывает кровотечение, на короткое время.
 modifier.shocking.name=Шокирующий
-modifier.shocking.desc=§oБзззз!§r\nБег с инструментом заряжает его, удар разряжает во врагов.
+modifier.shocking.desc=§oБзззз!§r\nБегая, ломая блоки или ударяя по предметам, вы заряжаете свой инструмент. Удары по врагу разряжают его, нанося урон - обеспечивает повышение скорости. Добывая блок приводит к увеличению скорости добычи.
 modifier.slimey.name=Слизневый
 modifier.slimey.desc=§oФююю!§r\nНадеюсь, оно смоется.
 modifier.spiky.name=Колючесть
-modifier.spiky.desc=§oНа 200% лучше с иглами!§r\nБлокирование наносит урон врагам.
+modifier.spiky.desc=§oНа 200% лучше с иглами!§r\nБлокирование и причинение вреда наносит урон нападающему.
 modifier.splintering.name=Боевой раж
-modifier.splintering.desc=§oСувенир для врагов!§r\nБольше ударов - больше урон.
+modifier.splintering.desc=§oСувенир для врагов!§r\nБейте их больше, чтобы нанести больше урона.
 modifier.splinters.name=Занозистость
-modifier.splinters.desc=§oОй!§r\nСмотрите, не получите занозу!
+modifier.splinters.desc=§oОй!§r\nБудьте осторожны, не зацепите занозу!
 modifier.squeaky.name=Губчатость
-modifier.squeaky.desc=§oМило.§r\nВаш инструмент настолько лёгок и мягок, что получил шёлковое касание, но наносит меньше урона.
+modifier.squeaky.desc=§oМило.§r\nВаш инструмент настолько лёгок и скрипучий, что получил шёлковое касание, но не наносит урона.
 modifier.stiff.name=Вязкость
-modifier.stiff.desc=§oСтоять-бояться!§r\nБлокирование еще больше защищает от урона.
+modifier.stiff.desc=§oСтоять-бояться!§r\nБлокирование ещё больше уменьшает урон.
 modifier.stonebound.name=Камнерождённость
-modifier.stonebound.desc=§oВаш инструмент абсолютно любит камень!§r\nИнструмент копает быстрее при износе, но наносит меньше урона.
-modifier.stonebound.extra=Дополнительная скорость: +%s
+modifier.stonebound.desc=§oВаш инструмент абсолютно любит камень!§r\nИнструмент копает быстрее т.к изнашивается, но наносит меньше урона.
+modifier.stonebound.extra=Камнерожденная скорость: +%s
 modifier.superheat.name=Перегрев
 modifier.superheat.desc=§oВыкрути огонь!§r\nНаносит дополнительный урон горящим целям.
 modifier.superheat.extra=Против горящих целей: +%s
 modifier.unnatural.name=Ненатуральность
-modifier.unnatural.desc=§oОмерзительно!§r\nИнструмент копает быстрее, чем больше разница между уровнями добычи (относительно блока).
+modifier.unnatural.desc=§oОмерзительно!§r\nИнструмент копает быстрее, чем выше уровень добычи, тем выше требуемый уровень.
 modifier.tasty.name=Вкусный
 modifier.tasty.desc=§oАм-ням-ням§r\nТак вкусно пахнет.. Вы скорее съедите инструмент, нежели умрёте от голода.
 modifier.writable.name=Переписываемость
-modifier.writable.desc=§oИнтеллектуальность!§r\nБольше слов. Больше улучшений. Это логика!
+modifier.writable.desc=§oИнтеллектуальность!§r\nБольше слов. Больше модификаторов. Это вполне логично!
 
 modifier.breakable.name=Хрупкость
 modifier.breakable.desc=§oХрясь!§r\nСнаряды с 50% шансом ломаются при ударе.
 modifier.endspeed.name=Сверхскорость
 modifier.endspeed.desc=§oКвантовая скорость!§r\nСнаряды долетают до цели мгновенно.
 modifier.freezing.name=Заморозка
-modifier.freezing.desc=§oЗима близко§r\nУдачные попадания замедляют цель.
+modifier.freezing.desc=§oЗима близко§r\nУдачные попадания замедляют вашу цель всё больше и больше.
 modifier.hovering.name=Парение
-modifier.hovering.desc=§oСвободен, как ветер§r\nСнаряды летят медленнее, но слабаа подвержены гравитации.
+modifier.hovering.desc=§oСвободен, как ветер§r\nСнаряды летят медленнее, но гравитация их не волнует.
 modifier.splitting.name=Раскол
-modifier.splitting.desc=§oДва по цене одного!§r\nВнезапное ускорение стрелы может расколоть её на два осколка.
+modifier.splitting.desc=§oДва по цене одного!§r\nВнезапное ускоренное высвобождение стрелы может привести к тому, что она разделится на 2 части.
 
 #################
 #   Modifiers   #
 #################
 
 modifier.bane_of_arthopods.name=Бич членистоногих
-modifier.bane_of_arthopods.desc=§oДезинсектант!§r\nНаносит большой урон паукообразным.
-modifier.bane_of_arthopods.extra=против пауков: +%s
+modifier.bane_of_arthopods.desc=§oАнти-паук!§r\nНаносит значительный урон паукам.
+modifier.bane_of_arthopods.extra=Против пауков: +%s
 modifier.beheading.name=Палач
-modifier.beheading.desc=§oГолову с плеч!§r\nКаждый уровень добавляет 10% шанс на снятие головы.
+modifier.beheading.desc=§oГолову ему с плеч!§r\nКаждый уровень добавляет 10% шанс получения головы после убийства врага.
 modifier.blasting.name=Взрывоопасность
-modifier.blasting.desc=§oБум!§r\nВы можете ломать неэффективные для этого инструмента блоки как обычно, но они могут взрываться.
+modifier.blasting.desc=§oКа-Бум!§r\nВы можете ломать неэффективные блоки как обычные блоки, но они могут быть уничтожены.
 modifier.blasting.extra=Сила взрыва: %s
 modifier.diamond.name=Алмаз
 modifier.diamond.desc=§oБлестящий!§r\nУвеличенная прочность!
 modifier.emerald.name=Изумруд
-modifier.emerald.desc=§oКрасивый!§r\nУвеличение прочности в зависимости от характеристик!
+modifier.emerald.desc=§oКрасивый!§r\nУвеличение прочности в зависимости от базовых характеристик!
+modifier.extratrait.name=Embossment
+modifier.extratrait.desc=§oLike magic, but better!§r\nEmbossed with the power of %s, obtaining some of its traits.
 modifier.fiery.name=Огнеопасность
-modifier.fiery.desc=§oТак горячо!§r\nДополнительный урон огнём и поджигание.
+modifier.fiery.desc=§oСейчас так горячо!§r\nБонусный урон огнём позволяет вам поджигать врагов
 modifier.fiery.extra=Урон огнём: +%s
 modifier.fiery.extra2=Время горения: %s с.
 modifier.fins.name=Плавники
-modifier.fins.desc=§oЧто-то рыбное...§r\nПриклеивание плавников к снаряду позволяет ему спокойно проходить воду.
+modifier.fins.desc=§oЧто-то рыбное...§r\nЗакрепляя плавники к снаряду, заставляет их двигаться, как обычно, под водой.
 modifier.fortify.name=Усиление
-modifier.fortify.desc=§oТвёрже, лучше, быстрее, сильнее!§r\nУровень добычи становится равным %s.
+modifier.fortify.desc=§oТвёрже, лучше, быстрее, сильнее!§r\nУровень добычи увеличивается до того же уровня, что и %s.
 modifier.glowing.name=Свечение
-modifier.glowing.desc=§oСияй!§r\nКогда становится слишком темно, инструмент жертвует свою прочность на подсветку.
+modifier.glowing.desc=§oСияй!§r\nКогда становится слишком темно, инструмент жертвует частью себя, чтобы осветить ваш путь.
 modifier.harvestwidth.name=Ширина++
-modifier.harvestwidth.desc=§oРасширяй!§r\nУвеличивает ширину действия инструмента. Зависит от инструмента.
+modifier.harvestwidth.desc=§oРасширяй!§r\nУвеличивает ширину области, затрагиваемой вашим инструментом. Эффект зависит от инструмента.
 modifier.harvestheight.name=Высота++
-modifier.harvestheight.desc=§oРасширяй!§r\nУвеличивает высоту действия инструмента. Зависит от инструмента.
+modifier.harvestheight.desc=§oРасширяй!§r\nУвеличивает высоту области, затрагиваемой вашим инструментом. Эффект зависит от инструмента.
 modifier.haste.name=Скорость
 modifier.haste.name2=Быстрее
 modifier.haste.name3=Ещё быстрее
 modifier.haste.name4=Совсем быстро
 modifier.haste.name5=Супер быстро
-modifier.haste.desc=§oУииииии!§r\nИмпульсы красного камня заставляют Ваш инструмент копать быстрее.
-modifier.haste.extra=Дополнительная скорость: +%s
+modifier.haste.desc=§oУииииии!§r\nИмпульсы красного камня при использовании инструмента мотивирует инструмент двигаться ещё быстрее.
+modifier.haste.extra=Бонус-скорость: +%s
 modifier.knockback.name=Отдача
-modifier.knockback.desc=§oДо дома!§r\nЗапускает врагов в воздух.
+modifier.knockback.desc=§oДо дома!§r\nНаучите вещам летать, классный способ. (поднимает в воздух)
 modifier.luck.name=Удача
 modifier.luck.desc=§oЦветасто!§r\nВы получаете все красивые вещи. Много вещей.
-modifier.mending_moss.name=Запоминающий мох
-modifier.mending_moss.desc=§oОн живой!§r\nПоднятый опыт сохраняется в инструменте. Он будет медленно его использовать для восстановления.
-modifier.mending_moss.extra=Сохранено опыта: %d
-modifier.necrotic.name=Вампиризм
-modifier.necrotic.desc=§oЯ чувствую жизнь!!§r\nАтаки по врагам возвращают Вам часть урона в виде здоровья.
+modifier.mending_moss.name=Ремонтный мох
+modifier.mending_moss.desc=§oОн живой!§r\nПоднятый опыт хранится в инструменте. Он будет медленно использовать Опыт для восстановления прочности.
+modifier.mending_moss.extra=Хранит опыта: %d
+modifier.necrotic.name=Некротизм
+modifier.necrotic.desc=§oЯ чувствую себя живым!§r\nПопадая по врагам возвращает вам здоровье в зависимости от нанесенного урона.
 modifier.necrotic.extra=Воровство жизни: +%s
 modifier.reinforced.name=Укрепление
 modifier.reinforced.unbreakable=Неразрушимость
-modifier.reinforced.desc=§oТакая сила!§r\nКаждый уровень добавляет %s шанс не потратить прочность.
+modifier.reinforced.desc=§oТакая сила!§r\nКаждый уровень добавляет %s шанс не использовать прочность.
 modifier.reinforced.extra=Укрепление: %s
 modifier.sharpness.name=Острота
 modifier.sharpness.name2=Острее
@@ -810,111 +829,128 @@ modifier.sharpness.name4=Совсем остро
 modifier.sharpness.name5=Супер остро
 modifier.sharpness.desc=§oОй!§r\nТак остро, ранит даже при взгляде.
 modifier.shulking.name=Вознесение
-modifier.shulking.desc=§oВверх к звёздам!§r\nАтаки заставляют врагов медленно подниматься в воздух.
+modifier.shulking.desc=§oВверх, вверх и прочь!§r\nУдаряя врагов, заставляет их медленно подниматься в воздух.
 modifier.shulking.extra=Длительность парения: %s с.
 modifier.silktouch.name=Шёлковое касание
-modifier.silktouch.desc=§oГладкий, как шёлк!§r\nДобытые блоки выпадают в виде самих себя.
-modifier.smite.name=Святой урон
-modifier.smite.desc=§oВо имя Справедливости!§r\nНаносит большой урон нежити.
+modifier.silktouch.desc=§oГладкий, как шёлк!§r\nДобытые блоки выпадают в виде самих себя, вместо обычных предметов.
+modifier.smite.name=Карание
+modifier.smite.desc=§oЗа справедливость!§r\nНаносит значительный урон нежити.
 modifier.smite.extra=Против нежити: +%s
 modifier.soulbound.name=Связь души
-modifier.soulbound.desc=§oСладкая парочка!§r\nВы любите свой инструмент. Даже смерть не разлучит Вас.
+modifier.soulbound.desc=§oВесёлая парочка!§r\nВы любите свой инструмент. Даже смерть не разлучит Вас.
 modifier.webbed.name=Запутанность
-modifier.webbed.desc=§oБе!§r\nЗапакуйте врагов в паутину, замедляя их.
+modifier.webbed.desc=§oГадость!§r\nЗапутывайте врагов в паутину, замедляя их.
 
 #################
 #   Tool Info   #
 #################
-item.tconstruct.pickaxe.desc=Кирка это точный инструмент шахтёра. Она эффективна при добыче руд и камня.\nОна ломает блоки, так?
-item.tconstruct.shovel.desc=Лопата роет землю. Она эффективна на земле, песке, гравии и снегу.\nНе копайте под собой!
-item.tconstruct.hatchet.desc=Топор рубит дерево и режет листья. Он так же пригоден как оружие.\nТук-тук!
-item.tconstruct.mattock.desc=Мотыготопор - это инструмент фермера. Эффективен на дереве, грязи и траве. Довольно тяжёлый.\nПКМ взрыхляет землю.
-item.tconstruct.broadsword.desc=Палаш - универсальное оружие. Широкие атаки позволяют держать врагов на расстоянии.\nМожно резать паутину!
-item.tconstruct.longsword.desc=Меч - оружие наступления. Часто использется для скачков в центр битвы на полной скорости.\nПКМ - выпад
-item.tconstruct.rapier.desc=Рапира это специальное оружие, предназначенное для быстрых атак.\nПКМ - отскок
-item.tconstruct.frypan.desc=Сковорода - тяжёлое оружие с сильноё отдачей. Также она делает ДЗИНЬ!\nПКМ - сильный удар
-item.tconstruct.battlesign.desc=Боевая табличка в основном используется в защите.\nМожет быть использована как щит, отражает стрелы.
-item.tconstruct.hammer.desc=Молот - мощный инструмент добычи. Он рушит блоки в большом радиусе.\nТакже эффективен против нежити.
-item.tconstruct.lumberaxe.desc=Большой топор предназначен для промышленной рубки дерева. Может срубать деревья полностью.\nЛесоповал!
-item.tconstruct.excavator.desc=Большая лопата направлена на глубокое рытьё. Она выкапывает огромные массы почвы, песка и снега.\nТерраформинг!
-item.tconstruct.cleaver.desc=Гигантский меч - мощное оружие наступления. Наносит огромный урон, но очень тяжел.\nУрон реально большой.\nТяжёлый, нужны обе руки! Зато рубит головы.
-item.tconstruct.battleaxe.desc=Боевой топор - тяжёлое оружие, предназначенное для берсеркеров. Способен сносить деревья и запускать врагов в воздух.\nПКМ - берсерк
-item.tconstruct.scythe.desc=Коса предназначена для жнецов. Очень эффективно срубает флору и фауну в большом радиусе.\nПриносит смерть как растениям, так и врагам.
-item.tconstruct.shuriken.desc=Сюрикен это быстрое метательное оружие. Делается сразу много, но у него малый урон.\nМожно метать левой рукой.
-item.tconstruct.shortbow.desc=Короткий лук - быстрое и мобильное оружие. Он позволяет быстро передвигаться при натянутой тетиве, а также быстро стрелять.\nИспользует стрелы инженера.
-item.tconstruct.longbow.desc=Длинный лук - сильное дальнобойное оружие. Наносит много урона, но менее мобилен, чем его короткий собрат.\nИспользует стрелы инженера.
-item.tconstruct.arrow.desc=Стрелы - амуниция для луков инженера. В одной пачке может быть много стрел, и кроме того, их можно модифицировать.
-item.tconstruct.crossbow.desc=Арбалет - самое медленное, но самое сильное дальнобойное оружие. Должен быть заряжен перед выстрелом, но из него можно выстрелить в любое время после зарядки.\nИспользует болты инженера.
-item.tconstruct.bolt.desc=Болты - амуниция для арбалетов инженера. В одной пачке может быть много болтов, и кроме того, их можно модифицировать.\nЧастично пробивают броню врагов.
+item.tconstruct.pickaxe.desc=Кирка - точный инструмент для добычи. Она эффективна при добыче камня и руд.\nОна ломает блоки, понятно?
+item.tconstruct.shovel.desc=Лопата копает землю. Она эффективна на земле, песке, гравии и снегу.\nНе копайте себе могилу!
+item.tconstruct.hatchet.desc=Топор - инструмент который рубит дерево и выполняет короткую работу за листьев. Он также подходит для оружия.\nТук-тук!
+item.tconstruct.mattock.desc=Мотыготопор - это универсальный сельскохозяйственный инструмент. Он эффективен на дереве, земле и растениях. А ещё он неплохо бьет.\nПКМ: Взрыхляет землю.
+item.tconstruct.kama.desc=Серп - точный жатвенный инструмент, который косит растения и стрижет животных.\nПКМ: Собирает урожай и пересаживает посевы.
+item.tconstruct.broadsword.desc=Палаш - универсальное оружие. Широкие атаки сдерживают вражеские орды на расстоянии.\nК тому же, хорош против паутины!
+item.tconstruct.longsword.desc=Длинный меч - оружие наступления. Часто используется для атаки в бою на полной скорости.\nПКМ: броситься.
+item.tconstruct.rapier.desc=Рапира - специальное оружие, которое полагается на быстрые удары, чтобы победить врагов.\nПКМ: отскочить.
+item.tconstruct.frypan.desc=Сковорода - тяжёлое оружие с сильноё отдачей. Также она делает ДЗИНЬ!\nПКМ: мощный удар.
+item.tconstruct.battlesign.desc=Боевая табличка - абсолютное оборонительное оружие.\nПрогресс в оружейных технологиях где-то достоина Свинозомби.\nМожет использоваться в качестве щита, отражает снаряды.
+item.tconstruct.hammer.desc=Молот - это широкое орудие добычи. Он собирает блоки в широком радиусе.\nТакже эффективен против нежити.
+item.tconstruct.lumberaxe.desc=Лесоповал - это широкий инструмент для рубки. Он валит деревья одним махом или собирает дерево в широком диапазоне.\nЛесоповал!
+item.tconstruct.excavator.desc=Экскаватор - инструмент для раскопок. Он выкапывает большие участки почвы и снега в широком диапазоне.\nТерраформирование!
+item.tconstruct.cleaver.desc=Тесак - тяжёлое оружие наступления. Оно имеет мощные удары, но им трудно владеть.\nТесак выигрывает от большого урона.\nМедленный, нужны обе руки!
+item.tconstruct.battleaxe.desc=Боевой топор - тяжёлое оружие наступления, который выводит берсерка. Способен сносить деревья и запускать врагов в воздух.\nПКМ: Берсерк
+item.tconstruct.scythe.desc=Коса - это широко жатвенный инструмент, который косит как растения, так и врагов.\nИмеет область действия атаки.\nСобирает урожай и пересаживает посевы.
+item.tconstruct.shuriken.desc=Сюрикэн - быстродействующее метательное оружие короткого радиуса действия. Делается сразу много, но с небольшим уроном.\nМожно метать левой рукой.
+item.tconstruct.shortbow.desc=Короткий лук - быстрое и ловкое оружие. Он позволяет быстро передвигаться при натянутой тетиве, а также быстро стрелять.\nИспользует стрелы Инженера.
+item.tconstruct.longbow.desc=Длинный лук - мощное оружие дальнего действия. Он наносит много урона, но менее мобилен, чем его короткий брат.\nИспользует стрелы Инженера.
+item.tconstruct.arrow.desc=Стрелы - боеприпасы, используемые для луков Инженера. Один стэк обеспечивает много выстрелов, и они могут быть модифицированы как любой инструмент.
+item.tconstruct.crossbow.desc=Арбалет - медленное, но очень мощное оружие. Он должен быть заряжен заранее, держа правый клик, но после этого снаряд можно запустить в любой момент.\nИспользует болты Инженера.
+item.tconstruct.bolt.desc=Болты - боеприпасы, используемые в арбалетах Инженера. Один стэк обеспечивает много выстрелов, и они могут быть модифицированы как любой инструмент.\nЧастично пробивают броню врагов.
 
 ################
 #   Подсказки  #
 ################
-tooltip.tool.modifiers=Улучшения
+tooltip.tool.modifiers=Модификаторы
 tooltip.tool.broken=Сломано
 tooltip.tool.empty=Пусто
-tooltip.tool.holdShift=Зажмите §e§oShift§r§7 для характеристик
-tooltip.tool.holdCtrl=Зажмите §e§bCtrl§r§7 для информации
+tooltip.tool.holdShift=Зажмите §e§oShift§r§7 для Характеристик
+tooltip.tool.holdCtrl=Зажмите §e§bCtrl§r§7 для большей информации
 
 tooltip.part.material_added_by=Материал добавлен %s
-tooltip.part.missing_material=Не хватает материала: %s
-tooltip.part.missing_stats=Материалу не хватает характеристик:\n%s
-tooltip.part.missing_info=У части нет инфорамции
+tooltip.part.missing_material=Отсутствует материал: %s
+tooltip.part.missing_stats=У материала отсутствует требуемая характеристика:\n%s
+tooltip.part.missing_info=Часть не имеет данных
 
 tooltip.pattern.cost=Затрат материала: %d
 
-tooltip.chest.has_items=Содержит %d предм.
-tooltip.patternchest.holds_patterns=Содержит %d схем(-ы).
-tooltip.patternchest.holds_casts=Содержит %d отливок.
+tooltip.chest.has_items=Содержит %d предмет(ов)
+tooltip.patternchest.holds_patterns=Содержит %d шаблоны(ов).
+tooltip.patternchest.holds_casts=Содержит %d отливок(ки).
 
 tooltip.tank.fluid=%s
 tooltip.tank.amount=%d мВ
-tooltip.tank.holdShift=Зажмите §e§oShift§r§7 для кол-ва вёдер
+tooltip.tank.holdShift=Зажмите §e§oShift§r§7 для вёдер
 
 ##################
-#   Строки инт   #
+#   UI Strings   #
 ##################
-# интерфейсовая фигня
+# Основные строки используются в GUI's, подсказки и другие отображения вещей
 
 ui.mininglevel.stone=Камень
 ui.mininglevel.iron=Железо
-#ui.mininglevel.redstone=Redstone # replaced with diamond
+#ui.mininglevel.redstone=Красный камень # заменяется алмазом
 ui.mininglevel.diamond=Алмаз
 ui.mininglevel.obsidian=Обсидиан
 ui.mininglevel.cobalt=Кобальт
 
 # Death messages
-death.attack.smeltery=%s попытался получить жидкого игрока
+death.attack.smeltery=%s попытался создать жидкого игрока
 death.attack.splinter=%s поймал занозу. Видимо, большую
-death.attack.bleed=%1$s умер от потери крови после атак %2$s
-death.attack.bleed.item=%1$s умер от потери крови после атак %2$s с помощью %3$s
+death.attack.bleed=%1$s истёк кровью до смерти от атаки %2$s
+death.attack.bleed.item=%1$s истёк кровью до смерти от атаки %2$s с помощью %3$s
+
+message.mending_moss.not_enough_levels=Ремонтный мох требует как минимум %s уровней
+message.piggybackpack.cannot_pick_up=Нельзя поднять этого моба
+tconstruct.channel.connected.in=Установлена сторона потока во внутрь
+tconstruct.channel.connected.out=Установлена сторона потока в наружу
+tconstruct.channel.connected.none=Отклоняется поток по бокам
+tconstruct.channel.connected_down.allow=Допускается течь вниз
+tconstruct.channel.connected_down.disallow=Отклоняется поток вниз
  
 ######################
 # Ошибки интерфейсов #
 ######################
 
-gui.error=Ошибка
-gui.warning=Внимание
 # GUI Errors from the different Tinker Tables
-gui.error.invalid_pattern=Схема не содержит нужных частей!
-gui.error.useless_tool_part=Эта часть неприменима для инструментов!\nЛибо материал %s не имеет информации, либо у него нет прочности или он непригоден для инструмента %s.
-gui.error.wrong_material_part=Одна или несколько частей непригодны для этого инструмента.
-gui.error.not_enough_durability=Недостаточно прочности для смены частей!\n%d требует больше прочности.
+gui.error=ОШИБКА
+gui.warning=ВНИМАНИЕ
+gui.error.invalid_pattern=Шаблон не содержит допустимой части инструмента!
+gui.error.useless_tool_part=Эта часть нельзя использовать для создания какого-либо инструмента!\nЛибо материал %s отсутствует некая информация, либо ни один инструмент не используется при его создании %s
+gui.error.wrong_material_part=Один или несколько предметов имеют неподдерживаемый материал для этого инструмента.
+gui.error.not_enough_durability=Недостаточно прочности для замены частей!\n%d требует больше прочности.
+gui.error.craftevent.modifier.default=Модифицируя этот инструмент с помощью этих предметов, было предотвращено другим модом.
+gui.error.craftevent.toolpart.default=Создание этой части инструмента, было предотвращено другим модом.
+gui.error.craftevent.replace.default=Замена этой части инструмента, было предотвращено другим модом.
+
 # GUI Errors from modifiers
-gui.error.not_enough_modifiers=Недостаточно слотов улучшения. (надо %d)
-gui.error.single_modifier=%s можно применять единоразово.
-gui.error.max_level_modifier=Максимальный уровень для черты %s достигнут.
-gui.error.no_modifier_for_item=Не найдены улучшения для %s.
-gui.error.incompatible_modifiers=Улучшения %s и %s нельзя накладывать одновременно
-gui.error.incompatible_trait=Улучшение %s cнесовместимо с %s
-gui.error.incompatible_enchantments=Улучшение %s несовместимо с зачарованием %s
+gui.error.not_enough_modifiers=Недостаточно модификаторов. (необходимо %d)
+gui.error.single_modifier=%s может применяться только один раз.
+gui.error.max_level_modifier=Максимальный уровень для характеристики %s уже достигнуто.
+gui.error.no_modifier_for_item=Не найдены модификаторы для %s.
+gui.error.already_has_extratrait=Инструмент уже имеет тиснение, оно может быть только одно.
+gui.error.incompatible_modifiers=Модификаторы %s и %s нельзя накладывать одновременно
+gui.error.incompatible_trait=Модификатор %s не может использоваться вместе с характеристикой %s
+gui.error.incompatible_enchantments=Модификатор %s не может сочетаться с ззачарованием %s
+gui.error.no_rename=Этот инструмент нельзя переименовать
 
 ################
 #     GUIs     #
 ################
 
 # General things used in multiple GUIs
-gui.general.hover=Наведите на ссылки для большей информации
+gui.general.hover=Наведите на ссылки для для получения дополнительной информации
+gui.general.temperature.celsius=%s°C
+gui.general.temperature.kelvin=%sK
 
 # Creative Tabs
 itemGroup.TinkerGeneral=TC: Основные предметы 
@@ -925,24 +961,24 @@ itemGroup.TinkerWorld=TC: Мир
 itemGroup.TinkerGadgets=TC: Устройства
 
 # Crafting Station
-gui.craftingstation.name=Инженерный верстак
+gui.craftingstation.name=Верстак
 
 # Stencil Table
-gui.stenciltable.name=Стол для вырезки схем
+gui.stenciltable.name=Трафаретный стол
 
 # PartBuilder
-gui.partbuilder.name=Стол для вырезки частей
-gui.partcrafter.name=Сборщик частей
-gui.partbuilder.info=Здесь Вы можете вырезать части инструментов из нужных материалов.\n\nЧтобы вырезать часть, положите схему в левый слот и материал в правый.
+gui.partbuilder.name=Конструктор частей
+gui.partcrafter.name=Изготовщик частей
+gui.partbuilder.info=Здесь, Вы можете создавать части инструментов чтобы исполнить ваши фантазии.\n\nЧтобы создать часть, просто поместите её в левый слот. 2 оставшихся слота удерживают материал, из которого Вы хотите создать свою часть.
 gui.partbuilder.material_value=Затраты: %s %s
 
 # Tool Station/Forge
-gui.toolstation.name=Инженерная станция
-gui.toolforge.name=Кузня
-gui.toolstation.repair=Ремонт & Улучшение
-gui.toolstation.traits=Черты
-gui.toolstation.components=Части
-gui.toolstation.info=Главный способ починки или сборки инструментов. Поместите материал и инструмент слева для ремонта.
+gui.toolstation.name=Инструментальня станция
+gui.toolforge.name=Инструментальная кузница
+gui.toolstation.repair=Ремонт и Модифицирование
+gui.toolstation.traits=Характеристики
+gui.toolstation.components=Компоненты
+gui.toolstation.info=Основной способ починить или изменить инструменты. Поместите инструмент и материал слева, чтобы начать.
 gui.toolstation.noTraits=Ничего :[
 
 # Pattern Chest
@@ -954,45 +990,50 @@ gui.partchest.name=Ящик для частей
 
 # Smeltery
 gui.smeltery.name=Плавильня
-gui.smeltery.progress.no_recipe=Предмет непереплавляем
-gui.smeltery.progress.no_heat=Недостаточно тепла для плавки предмета
-gui.smeltery.progress.no_space=Недостаточно свободного места
-gui.smeltery.fuel=Горючее
-gui.smeltery.fuel.empty=Нет горючего
+gui.smeltery.progress.no_recipe=Предмет нельзя расплавить
+gui.smeltery.progress.no_fuel=Недопустимое топливо в Сушёной печи
+gui.smeltery.progress.no_heat=Недостаточно тепла, чтобы переплавить этот предмет
+gui.smeltery.progress.no_space=Недостаточно свободного места в Плавильне
+gui.smeltery.fuel=Топливо
+gui.smeltery.fuel.empty=Топливо не найдено
+gui.smeltery.fuel.invalid=§4%s не является действительным топливом для Плавильни!
 gui.smeltery.fuel.heat=Температура: %d
 gui.smeltery.capacity=Ёмкость
 gui.smeltery.capacity_available=Свободно
+gui.smeltery.capacity_used=Использовано:
 gui.smeltery.liquid.kilobucket=кВ
 gui.smeltery.liquid.bucket=В
 gui.smeltery.liquid.millibucket=мВ
-gui.smeltery.liquid.ingot=Слитк.
-gui.smeltery.liquid.nugget=Самородк.
-gui.smeltery.liquid.block=Блок.
-gui.smeltery.liquid.gem=Камн.
+gui.smeltery.liquid.ingot=Слитки(ов)
+gui.smeltery.liquid.nugget=Самородки(ов)
+gui.smeltery.liquid.block=Блоки(ов)
+gui.smeltery.liquid.gem=Камни(ей)
 
 # Seared Furnace
-gui.searedfurnace.name=Большая печь
-gui.searedfurnace.progress.complete=Предмет переработан
-gui.searedfurnace.progress.no_recipe=Предмет нельзя больше перерабатывать
-gui.searedfurnace.progress.no_space=Стопка на выходе больше слота входа
+gui.searedfurnace.name=Сушёная печь
+gui.searedfurnace.progress.complete=Плавка предмета закончена
+gui.searedfurnace.progress.no_recipe=Предмет нельзя переплавить
+gui.searedfurnace.progress.no_fuel=Недопустимое топливо в Сушёной печи
+gui.searedfurnace.progress.no_heat=Недостаточно тепла, чтобы переплавить этот предмет
+gui.searedfurnace.progress.no_space=Получившийся стэк слишком велик для слота
 
 # Цистерна
-gui.tinkertank.name=Цистерна
+gui.tinkertank.name=Резервуар
 
-# Этих интерфейсов в игре в явном виде нет
+# Эти GUI's не появляется в игре, но названия можно просмотреть используя Верстак.
 gui.itemrack.name=Вешалка
-gui.dryingrack.name=Сушилка
+gui.dryingrack.name=Сушильная вешалка
 
 # JEI Plugin
 gui.jei.smelting.title=Плавка
 gui.jei.alloy.title=Смешивание
 gui.jei.casting.title=Отливка
-gui.jei.casting.consume=Забирает форму отливки!
+gui.jei.casting.consume=Потребляет форму отливки
 gui.jei.drying.title=Сушка
 
 # WAILA Plugin
-gui.waila.tank.fluid=Жидкости: %s
-gui.waila.tank.amount=Количество: %d / %d мВ
+gui.waila.tank.fluid=Жидкость: %s
+gui.waila.tank.amount=Кол-во: %d / %d мВ
 gui.waila.tank.empty=Пусто
 gui.waila.casting.progress=Прогресс: %s
 gui.waila.casting.recipe=Рецепт: %s
@@ -1003,5 +1044,5 @@ option.tconstruct.progress=Прогресс рецепта
 
 
 # Config
-config.synced.restart=Ваша конфигурация была обновлена относительно сервера. Перезагрузите игру.
+config.synced.restart=Ваша конфигурация была обновлена чтобы, соответствовать серверу. Перезапустите Minecraft.
 config.synced.ok=Конфигурация синхронизирована с сервером.
