@@ -2,15 +2,15 @@
 #    Блоки     # 
 ################
 
-tile.tconstruct.tooltables.craftingstation.name=Инженерный верстак
-tile.tconstruct.tooltables.stenciltable.name=Стол для вырезки схем
-tile.tconstruct.tooltables.partbuilder.name=Стол для вырезки частей
-tile.tconstruct.tooltables.toolstation.name=Инженерная станция
-tile.tconstruct.tooltables.patternchest.name=Ящик для схем
+tile.tconstruct.tooltables.craftingstation.name=Верстак
+tile.tconstruct.tooltables.stenciltable.name=трафаретный стол
+tile.tconstruct.tooltables.partbuilder.name=Конструктор частей
+tile.tconstruct.tooltables.toolstation.name=Инструментальная станция
+tile.tconstruct.tooltables.patternchest.name=Ящик для шаблонов
 tile.tconstruct.tooltables.patternchest.tooltip=Можно хранить схемы и отливки
 tile.tconstruct.tooltables.partchest.name=Ящик для частей
 tile.tconstruct.tooltables.partchest.tooltip=Можно хранить много частей инструментов
-tile.tconstruct.toolforge.name=Кузня
+tile.tconstruct.toolforge.name=Инструментальная кузница
 
 tile.tconstruct.soil.grout.name=Цемент
 tile.tconstruct.soil.grout.tooltip=Я есть Грут!
@@ -32,7 +32,7 @@ tile.tconstruct.mudbrick_stairs.name=Грязевые ступеньки
 tile.tconstruct.ore.cobalt.name=Кобальтовая руда
 tile.tconstruct.ore.ardite.name=Ардитовая руда
 
-tile.tconstruct.metal.tooltip=Может использоваться в качестве маяка
+tile.tconstruct.metal.tooltip=Может использоваться в качестве основы маяка
 tile.tconstruct.metal.cobalt.name=Блок кобальта
 tile.tconstruct.metal.ardite.name=Блок ардита
 tile.tconstruct.metal.manyullyn.name=Блок манюллина
@@ -117,15 +117,15 @@ tile.tconstruct.slime_vine_purple_end.name=Лоза фиолетовой сли�
 tile.tconstruct.seared.stone.name=Сушёный камень
 tile.tconstruct.seared.cobble.name=Сушёный булыжник
 tile.tconstruct.seared.paver.name=Сушёная плитка
-tile.tconstruct.seared.brick.name=Сушёная кладка
-tile.tconstruct.seared.brick_cracked.name=Сушёная кладка (трещины)
-tile.tconstruct.seared.brick_fancy.name=Сушёная кладка (орнамент)
-tile.tconstruct.seared.brick_square.name=Сушёная кладка (узор)
-tile.tconstruct.seared.brick_triangle.name=Сушёная кладка (треугольник)
-tile.tconstruct.seared.brick_small.name=Сушёная кладка (малая)
+tile.tconstruct.seared.brick.name=Сушёные кирпичи
+tile.tconstruct.seared.brick_cracked.name=Сушёная кирпичи (трещины)
+tile.tconstruct.seared.brick_fancy.name=Сушёная кирпичи (орнамент)
+tile.tconstruct.seared.brick_square.name=Сушёная кирпичи (узор)
+tile.tconstruct.seared.brick_triangle.name=Сушёная кирпичи (треугольник)
+tile.tconstruct.seared.brick_small.name=Сушёная кирпичи (малая)
 tile.tconstruct.seared.road.name=Сушёная дорога
 tile.tconstruct.seared.tile.name=Сушёные мини-плитки
-tile.tconstruct.seared.creeper.name=Сушёная кладка (крипер)
+tile.tconstruct.seared.creeper.name=Сушёная кирпичи (крипер)
 tile.tconstruct.seared.tooltip=Часть плавильни. Подходят для декораций
 
 tile.tconstruct.seared_slab.stone.name=Сушёная плита (камень)
@@ -187,7 +187,7 @@ tile.tconstruct.punji.tooltip=Острые! Также прилипает к с�
 tile.tconstruct.glow.name=Светящаяся жидкость
 tile.tconstruct.rack.item.name=Вешалка
 tile.tconstruct.rack.item.tooltip=Всего-лишь, только для декоративных целях
-tile.tconstruct.rack.drying.name=Сушильный стеллаж
+tile.tconstruct.rack.drying.name=Сушильная вешалка
 tile.tconstruct.rack.drying.tooltip=Используется для сушки предметов
 
 tile.tconstruct.slime_channel.green.name=Жёлоб из зелёной слизи
@@ -276,7 +276,7 @@ item.tconstruct.edible.slimedrop_magma.name=Засохшая огненная с
 item.tconstruct.materials.seared_brick.name=Сушёный кирпич
 item.tconstruct.materials.mud_brick.name=Грязевой кирпич
 item.tconstruct.materials.mud_brick.tooltip=Строительные блоки для малово и большого
-item.tconstruct.materials.dried_brick.name=Сушённый кирпич
+item.tconstruct.materials.dried_brick.name=Высохший кирпич
 item.tconstruct.materials.slimecrystal_green.name=Кристалл зелёной слизи
 item.tconstruct.materials.slimecrystal_green.tooltip=Используется для создания Слизневых инструментов
 item.tconstruct.materials.slimecrystal_blue.name=Кристалл синей слизи
@@ -342,7 +342,7 @@ item.tconstruct.hatchet.name=Топор
 item.tconstruct.mattock.name=Мотыготопор
 item.tconstruct.kama.name=Серп
 
-item.tconstruct.hammer.name=мМолот
+item.tconstruct.hammer.name=Молот
 item.tconstruct.excavator.name=Экскаватор
 item.tconstruct.lumberaxe.name=Большой топор
 item.tconstruct.scythe.name=Коса
@@ -357,7 +357,7 @@ item.tconstruct.longsword.name=Длинный меч
 item.tconstruct.rapier.name=Рапира
 item.tconstruct.cutlass.name=Сабля
 
-item.tconstruct.cleaver.name=Гигантский меч
+item.tconstruct.cleaver.name=Тесак
 item.tconstruct.battleaxe.name=Боевой топор
 
 # Дальний бой
@@ -377,6 +377,7 @@ item.tconstruct.shard.name=Осколок
 item.tconstruct.pick_head.name=Навершие кирки
 item.tconstruct.shovel_head.name=Полотно лопаты
 item.tconstruct.axe_head.name=Лезвие топора
+item.tconstruct.kama_head.name=Лезвие серпа
 item.tconstruct.pan_head.name=Полотно сковороды
 item.tconstruct.sign_head.name=Табличка
 item.tconstruct.binding.name=Крепление
@@ -522,59 +523,59 @@ potion.carry=Вы несёте кого-то
 # material.wood.prefix=Деревянная  %s - Используется для таких вещей, как "Деревянный кирка", если нет конкретного названия
 
 material.wood.name=Дерево
-material.wood.prefix=Деревянный(ая) %s
+material.wood.prefix=Деревянн. %s
 material.stone.name=Камень
-material.stone.prefix=Каменный(ая) %s
+material.stone.prefix=Каменн. %s
 material.flint.name=Кремень
-material.flint.prefix=Кремневый(ая) %s
+material.flint.prefix=Кремнев. %s
 material.cactus.name=Кактус
-material.cactus.prefix=Кактусовый(ая) %s
+material.cactus.prefix=Кактусов.) %s
 material.obsidian.name=Обсидиан
-material.obsidian.prefix=Обсидиановый(ая) %s
+material.obsidian.prefix=Обсидианов. %s
 material.prismarine.name=Призмарин
-material.prismarine.prefix=Призмариновый(ая) %s
+material.prismarine.prefix=Призмаринов. %s
 material.netherrack.name=Адский камень
-material.netherrack.prefix=Адокаменный(ая) %s
+material.netherrack.prefix=Адокаменн. %s
 material.endstone.name=Камень Края
-material.endstone.prefix=Эндеровский(ая) %s
+material.endstone.prefix=Эндеровск. %s
 material.bone.name=Кость
-material.bone.prefix=Костяной(ая) %s
+material.bone.prefix=Костян. %s
 material.paper.name=Бумага
-material.paper.prefix=Бумажный(ая) %s
+material.paper.prefix=Бумажн. %s
 material.sponge.name=Губка
-material.sponge.prefix=Губочный(ая) %s
+material.sponge.prefix=Губочн.) %s
 material.firewood.name=Огнедерево
-material.firewood.prefix=Огнедеревный(ая) %s
+material.firewood.prefix=Огнедеревян. %s
 material.slime.name=Слизь
-material.slime.prefix=Слизневый(ая) %s
+material.slime.prefix=Слизнев.) %s
 material.blueslime.name=Синяя слизь
-material.blueslime.prefix=Синеслизневый(ая) %s
+material.blueslime.prefix=Синеслизнев. %s
 material.knightslime.name=Рыцарская слизь
-material.knightslime.prefix=Рыцарскослизневый(ая) %s
+material.knightslime.prefix=Рыцарскослизнев. %s
 material.magmaslime.name=Огненная слизь
-material.magmaslime.prefix=Огнеслизневый(ая) %s
+material.magmaslime.prefix=Огнеслизнев. %s
 material.ardite.name=Ардит
-material.ardite.prefix=Ардитовый(ая) %s
+material.ardite.prefix=Ардитов. %s
 material.cobalt.name=Кобальт
-material.cobalt.prefix=Кобальтовый(ая) %s
+material.cobalt.prefix=Кобальтов. %s
 material.manyullyn.name=Манюллин
-material.manyullyn.prefix=Манюллиновый(ая) %s
+material.manyullyn.prefix=Манюллинов. %s
 material.iron.name=Железо
-material.iron.prefix=Железный(ая) %s
+material.iron.prefix=Железн. %s
 material.pigiron.name=Чугун
-material.pigiron.prefix=Чугунный(ая) %s
+material.pigiron.prefix=Чугунн. %s
 material.copper.name=Медь
 material.copper.prefix=Медный(ая) %s
 material.bronze.name=Бронза
-material.bronze.prefix=Бронзовый(ая) %s
+material.bronze.prefix=Бронзов. %s
 material.lead.name=Свинец
-material.lead.prefix=Свинцовый(ая) %s
+material.lead.prefix=Свинцов. %s
 material.silver.name=Серебро
-material.silver.prefix=Серебряный(ая) %s
+material.silver.prefix=Серебрян. %s
 material.electrum.name=Электрум
-material.electrum.prefix=Электрумовый(ая) %s
+material.electrum.prefix=Электрумов. %s
 material.steel.name=Сталь
-material.steel.prefix=Стальной(ая) %s
+material.steel.prefix=Стальн. %s
 
 material.string.name=Нить
 material.string.prefix=Нитяная %s
@@ -913,9 +914,9 @@ message.mending_moss.not_enough_levels=Ремонтный мох требует 
 message.piggybackpack.cannot_pick_up=Нельзя поднять этого моба
 tconstruct.channel.connected.in=Установлена сторона потока во внутрь
 tconstruct.channel.connected.out=Установлена сторона потока в наружу
-tconstruct.channel.connected.none=Отклоняется поток по бокам
-tconstruct.channel.connected_down.allow=Допускается течь вниз
-tconstruct.channel.connected_down.disallow=Отклоняется поток вниз
+tconstruct.channel.connected.none=Убран поток по бокам
+tconstruct.channel.connected_down.allow=Допущен поток вниз
+tconstruct.channel.connected_down.disallow=Убран поток вниз
  
 ######################
 # Ошибки интерфейсов #
@@ -948,7 +949,7 @@ gui.error.no_rename=Этот инструмент нельзя переимен�
 ################
 
 # General things used in multiple GUIs
-gui.general.hover=Наведите на ссылки для для получения дополнительной информации
+gui.general.hover=Наведите на ссылки для получения дополнительной информации
 gui.general.temperature.celsius=%s°C
 gui.general.temperature.kelvin=%sK
 
@@ -982,7 +983,7 @@ gui.toolstation.info=Основной способ починить или из�
 gui.toolstation.noTraits=Ничего :[
 
 # Pattern Chest
-gui.patternchest.name=Ящик для схем
+gui.patternchest.name=Ящик для шаблонов
 gui.castchest.name=Ящик для отливок
 
 # Part Chest
