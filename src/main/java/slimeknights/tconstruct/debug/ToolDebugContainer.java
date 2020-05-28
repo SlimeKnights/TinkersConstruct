@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.Mod;
 import slimeknights.mantle.inventory.OutSlot;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.items.ToolItems;
+import slimeknights.tconstruct.items.ToolParts;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -48,10 +49,10 @@ public class ToolDebugContainer extends Container {
       this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 142));
     }
 
-    ItemStack st = ToolItems.test_part.getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:stone")));
-    ItemStack st2 = ToolItems.test_part.getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:wood")));
-    ItemStack st3 = ToolItems.test_part.getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:ardite")));
-    ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(NonNullList.from(ItemStack.EMPTY, st, st2, st3), ToolItems.test_tool);
+    ItemStack st = ToolParts.pickaxe_head.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:stone")));
+    ItemStack st2 = ToolParts.tool_rod.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:wood")));
+    ItemStack st3 = ToolParts.small_binding.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:ardite")));
+    ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(NonNullList.from(ItemStack.EMPTY, st, st2, st3), ToolItems.pickaxe);
     inventory.setInventorySlotContents(0, itemStack);
   }
 

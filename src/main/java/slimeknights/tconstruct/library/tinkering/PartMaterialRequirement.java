@@ -1,21 +1,24 @@
 package slimeknights.tconstruct.library.tinkering;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Supplier;
 
-public class PartMaterialType {
+public class PartMaterialRequirement {
 
   // ANY of these has to match
-  private final IMaterialItem neededPart;
+  private final Supplier<? extends Item> neededPart;
   // ALL of the material stats have to be there
   private final List<MaterialStatsId> neededTypes;
 
-  public PartMaterialType(IMaterialItem part, MaterialStatsId... statIDs) {
+  public PartMaterialRequirement(Supplier<? extends Item> part, MaterialStatsId... statIDs) {
     neededPart = part;
     neededTypes = ImmutableList.copyOf(statIDs);
   }
@@ -23,17 +26,17 @@ public class PartMaterialType {
   public boolean isValid(ItemStack stack) {
     if (stack.getItem() instanceof IMaterialItem) {
       IMaterialItem toolPart = (IMaterialItem) stack.getItem();
-      return isValid(toolPart, toolPart.getMaterial(stack));
+      return isValid(stack.getItem(), toolPart.getMaterial(stack));
     }
     return false;
   }
 
-  public boolean isValid(IMaterialItem part, IMaterial material) {
+  public boolean isValid(Item part, IMaterial material) {
     return isValidItem(part) && isValidMaterial(material);
   }
 
-  public boolean isValidItem(IMaterialItem part) {
-    return neededPart == part;
+  public boolean isValidItem(Item part) {
+    return Objects.equals(part.getRegistryName(), neededPart.get().getRegistryName());
   }
 
   public boolean isValidMaterial(IMaterial material) {

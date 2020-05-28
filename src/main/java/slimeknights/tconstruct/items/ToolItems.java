@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.items;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
@@ -9,15 +11,14 @@ import net.minecraftforge.registries.ObjectHolder;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerRegistry;
-import slimeknights.tconstruct.library.tinkering.MaterialItem;
-import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.tools.TestTool;
 import slimeknights.tconstruct.tools.ToolDefinitions;
+import slimeknights.tconstruct.tools.harvest.PickaxeTool;
 
 import static slimeknights.tconstruct.common.TinkerPulse.injected;
 
 @ObjectHolder(TConstruct.modID)
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ToolItems {
 
   public static final Item green_slime_crystal = injected();
@@ -33,8 +34,7 @@ public final class ToolItems {
   public static final Item mending_moss = injected();
   public static final Item creative_modifier = injected();
 
-  public static final MaterialItem test_part = new MaterialItem(new Item.Properties().group(TinkerRegistry.tabParts));
-  public static final ToolCore test_tool = injected();
+  public static final PickaxeTool pickaxe = injected();
 
   @SubscribeEvent
   static void registerItems(final RegistryEvent.Register<Item> event) {
@@ -59,9 +59,7 @@ public final class ToolItems {
   }
 
   private static void registerTools(BaseRegistryAdapter<Item> registry) {
-    registry.register(test_part, "test_part");
-    registry.register(new TestTool(new Item.Properties().group(TinkerRegistry.tabTools), ToolDefinitions.PICKAXE), "test_tool");
+    registry.register(new PickaxeTool(new Item.Properties().group(TinkerRegistry.tabTools), ToolDefinitions.PICKAXE), "pickaxe");
   }
 
-  private ToolItems() {}
 }

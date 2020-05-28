@@ -31,9 +31,9 @@ import slimeknights.tconstruct.library.Util;
 @Pulse(id = TinkerPulseIds.TINKER_FLUIDS_PULSE_ID, forced = true)
 public class TinkerFluids extends TinkerPulse {
 
-  public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, TConstruct.modID);
-  public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, TConstruct.modID);
-  public static final DeferredRegister<Fluid> FLUIDS = new DeferredRegister<>(ForgeRegistries.FLUIDS, TConstruct.modID);
+  private static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, TConstruct.modID);
+  private static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, TConstruct.modID);
+  private static final DeferredRegister<Fluid> FLUIDS = new DeferredRegister<>(ForgeRegistries.FLUIDS, TConstruct.modID);
 
   public static RegistryObject<FlowingFluid> blue_slime_fluid = FLUIDS.register("blue_slime_fluid", () -> new SlimeFluid.Source(TinkerFluids.blue_slime_fluid_properties));
   public static RegistryObject<FlowingFluid> blue_slime_fluid_flowing = FLUIDS.register("blue_slime_fluid_flowing", () -> new SlimeFluid.Flowing(TinkerFluids.blue_slime_fluid_properties));
