@@ -3,7 +3,7 @@
 ################
 
 tile.tconstruct.tooltables.craftingstation.name=Инженерный верстак
-tile.tconstruct.tooltables.stenciltable.name=трафаретный стол
+tile.tconstruct.tooltables.stenciltable.name=Трафаретный стол
 tile.tconstruct.tooltables.partbuilder.name=Конструктор частей
 tile.tconstruct.tooltables.toolstation.name=Инструментальная станция
 tile.tconstruct.tooltables.patternchest.name=Ящик для шаблонов
