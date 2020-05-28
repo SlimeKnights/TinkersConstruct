@@ -339,7 +339,7 @@ item.forge.bucketFilled.blood=Ведро крови
 item.tconstruct.pickaxe.name=Кирка
 item.tconstruct.shovel.name=Лопата
 item.tconstruct.hatchet.name=Топор
-item.tconstruct.mattock.name=Мотыготопор
+item.tconstruct.mattock.name=Заточенная мотыга
 item.tconstruct.kama.name=Серп
 
 item.tconstruct.hammer.name=Молот
