@@ -97,9 +97,9 @@ tile.tconstruct.slime_grass.blood.name=血色史萊姆草地
 tile.tconstruct.slime_grass.magma.name=熔岩史萊姆草地
 tile.tconstruct.slime_grass.tooltip=很軟！ 讓你跳得更高
 
-tile.tconstruct.slime_leaves.blue.name=史萊姆樹葉
-tile.tconstruct.slime_leaves.purple.name=史萊姆樹葉
-tile.tconstruct.slime_leaves.orange.name=史萊姆樹葉
+tile.tconstruct.slime_leaves.blue.name=藍色史萊姆樹葉
+tile.tconstruct.slime_leaves.purple.name=紫色史萊姆樹葉
+tile.tconstruct.slime_leaves.orange.name=熔岩史萊姆樹葉
 
 tile.tconstruct.slime_grass_tall.tall_grass.name=史萊姆草
 tile.tconstruct.slime_grass_tall.fern.name=史萊姆蕨
@@ -116,65 +116,65 @@ tile.tconstruct.slime_vine_purple.name=紫色史萊姆藤蔓
 tile.tconstruct.slime_vine_purple_mid.name=紫色史萊姆藤蔓
 tile.tconstruct.slime_vine_purple_end.name=紫色史萊姆藤蔓
 
-tile.tconstruct.seared.stone.name=黑焦石
-tile.tconstruct.seared.cobble.name=黑焦鵝卵石
-tile.tconstruct.seared.paver.name=黑焦路面石
-tile.tconstruct.seared.brick.name=黑焦石磚
-tile.tconstruct.seared.brick_cracked.name=裂紋黑焦石磚
-tile.tconstruct.seared.brick_fancy.name=平滑黑焦石磚
-tile.tconstruct.seared.brick_square.name=方紋黑焦石磚
-tile.tconstruct.seared.brick_triangle.name=三角紋黑焦石磚
-tile.tconstruct.seared.brick_small.name=細紋黑焦石磚
-tile.tconstruct.seared.road.name=黑焦鋪路石
-tile.tconstruct.seared.tile.name=黑焦磁磚
-tile.tconstruct.seared.creeper.name=黑焦苦力怕臉磚
+tile.tconstruct.seared.stone.name=焦黑石
+tile.tconstruct.seared.cobble.name=焦黑鵝卵石
+tile.tconstruct.seared.paver.name=焦黑路面石
+tile.tconstruct.seared.brick.name=焦黑石磚
+tile.tconstruct.seared.brick_cracked.name=裂紋焦黑石磚
+tile.tconstruct.seared.brick_fancy.name=平滑焦黑石磚
+tile.tconstruct.seared.brick_square.name=方紋焦黑石磚
+tile.tconstruct.seared.brick_triangle.name=三角紋焦黑石磚
+tile.tconstruct.seared.brick_small.name=細紋焦黑石磚
+tile.tconstruct.seared.road.name=焦黑鋪路石
+tile.tconstruct.seared.tile.name=焦黑磁磚
+tile.tconstruct.seared.creeper.name=焦黑苦力怕紋磚
 tile.tconstruct.seared.tooltip=冶煉爐的一部份，適用於裝飾。
 
-tile.tconstruct.seared_slab.stone.name=黑焦石半磚
-tile.tconstruct.seared_slab.cobble.name=黑焦鵝卵石半磚
-tile.tconstruct.seared_slab.paver.name=黑焦路面石半磚
-tile.tconstruct.seared_slab.brick.name=黑焦石磚半磚
-tile.tconstruct.seared_slab.brick_cracked.name=裂紋黑焦石磚半磚
-tile.tconstruct.seared_slab.brick_fancy.name=平滑黑焦石磚半磚
-tile.tconstruct.seared_slab.brick_square.name=方紋黑焦石磚半磚
-tile.tconstruct.seared_slab.road.name=黑焦鋪路石半磚
-tile.tconstruct.seared_slab2.creeper.name=黑焦苦力怕臉半磚
-tile.tconstruct.seared_slab2.brick_triangle.name=三角紋黑焦石磚半磚
-tile.tconstruct.seared_slab2.brick_small.name=細紋黑焦石磚半磚
-tile.tconstruct.seared_slab2.tile.name=黑焦磁磚半磚
+tile.tconstruct.seared_slab.stone.name=焦黑石半磚
+tile.tconstruct.seared_slab.cobble.name=焦黑鵝卵石半磚
+tile.tconstruct.seared_slab.paver.name=焦黑路面石半磚
+tile.tconstruct.seared_slab.brick.name=焦黑石磚半磚
+tile.tconstruct.seared_slab.brick_cracked.name=裂紋焦黑石磚半磚
+tile.tconstruct.seared_slab.brick_fancy.name=平滑焦黑石磚半磚
+tile.tconstruct.seared_slab.brick_square.name=方紋焦黑石磚半磚
+tile.tconstruct.seared_slab.road.name=焦黑鋪路石半磚
+tile.tconstruct.seared_slab2.creeper.name=焦黑苦力怕紋半磚
+tile.tconstruct.seared_slab2.brick_triangle.name=三角紋焦黑石磚半磚
+tile.tconstruct.seared_slab2.brick_small.name=細紋焦黑石磚半磚
+tile.tconstruct.seared_slab2.tile.name=焦黑磁磚半磚
 
-tile.tconstruct.seared_stairs_stone.name=黑焦石樓梯
-tile.tconstruct.seared_stairs_cobble.name=黑焦鵝卵石樓梯
-tile.tconstruct.seared_stairs_paver.name=黑焦路面石樓梯
-tile.tconstruct.seared_stairs_brick.name=黑焦石磚樓梯
-tile.tconstruct.seared_stairs_brick_cracked.name=裂紋黑焦石磚樓梯
-tile.tconstruct.seared_stairs_brick_fancy.name=平滑黑焦石磚樓梯
-tile.tconstruct.seared_stairs_brick_square.name=方紋黑焦石磚樓梯
-tile.tconstruct.seared_stairs_brick_triangle.name=三角紋黑焦石磚樓梯
-tile.tconstruct.seared_stairs_brick_small.name=細紋黑焦石磚樓梯
-tile.tconstruct.seared_stairs_road.name=黑焦鋪路石樓梯
-tile.tconstruct.seared_stairs_tile.name=黑焦磁磚樓梯
-tile.tconstruct.seared_stairs_creeper.name=黑焦苦力怕臉樓梯
+tile.tconstruct.seared_stairs_stone.name=焦黑石樓梯
+tile.tconstruct.seared_stairs_cobble.name=焦黑鵝卵石樓梯
+tile.tconstruct.seared_stairs_paver.name=焦黑路面石樓梯
+tile.tconstruct.seared_stairs_brick.name=焦黑石磚樓梯
+tile.tconstruct.seared_stairs_brick_cracked.name=裂紋焦黑石磚樓梯
+tile.tconstruct.seared_stairs_brick_fancy.name=平滑焦黑石磚樓梯
+tile.tconstruct.seared_stairs_brick_square.name=方紋焦黑石磚樓梯
+tile.tconstruct.seared_stairs_brick_triangle.name=三角紋焦黑石磚樓梯
+tile.tconstruct.seared_stairs_brick_small.name=細紋焦黑石磚樓梯
+tile.tconstruct.seared_stairs_road.name=焦黑鋪路石樓梯
+tile.tconstruct.seared_stairs_tile.name=焦黑磁磚樓梯
+tile.tconstruct.seared_stairs_creeper.name=焦黑苦力怕紋樓梯
 
 tile.tconstruct.smeltery_controller.name=冶煉爐控制器
 tile.tconstruct.smeltery_controller.tooltip=冶煉爐的大腦
-tile.tconstruct.smeltery_io.drain.name=黑焦排液口
+tile.tconstruct.smeltery_io.drain.name=焦黑排液口
 tile.tconstruct.smeltery_io.drain.tooltip=為冶煉爐及打鐵儲液槽輸入及輸出液體
 tile.tconstruct.casting.table.name=鑄造台
 tile.tconstruct.casting.basin.name=鑄造盆
 tile.tconstruct.casting.tooltip=用冶煉爐裡的融化金屬來澆鑄物品
-tile.tconstruct.faucet.name=黑焦排液流嘴
+tile.tconstruct.faucet.name=焦黑排液流嘴
 tile.tconstruct.faucet.tooltip=從冶煉爐或槽中導出液體
 tile.tconstruct.channel.name=鑄造通道
 tile.tconstruct.channel.tooltip=填滿排液流嘴以引導液體進行澆鑄
-tile.tconstruct.seared_tank.tank.name=黑焦儲液槽
-tile.tconstruct.seared_tank.gauge.name=黑焦計量表
-tile.tconstruct.seared_tank.window.name=黑焦窗
+tile.tconstruct.seared_tank.tank.name=焦黑儲液槽
+tile.tconstruct.seared_tank.gauge.name=焦黑計量表
+tile.tconstruct.seared_tank.window.name=焦黑窗
 tile.tconstruct.seared_tank.tooltip=冶煉爐的核心\n被破壞後還會保留液體。
-tile.tconstruct.seared_glass.glass.name=黑焦玻璃
+tile.tconstruct.seared_glass.glass.name=焦黑玻璃
 tile.tconstruct.seared_glass.glass.tooltip=冶煉爐的一部分，適用於裝飾。\n無法儲存液體。
 
-tile.tconstruct.seared_furnace_controller.name=黑焦熔爐控制器
+tile.tconstruct.seared_furnace_controller.name=焦黑熔爐控制器
 tile.tconstruct.tinker_tank_controller.name=工匠儲液槽控制器
 
 tile.tconstruct.stone_torch.name=石製火把
@@ -218,7 +218,7 @@ tile.tconstruct.brownstone.brick_triangle.name=三角紋褐色石磚
 tile.tconstruct.brownstone.brick_small.name=細紋褐色石磚
 tile.tconstruct.brownstone.road.name=褐色鋪路石
 tile.tconstruct.brownstone.tile.name=褐色石磁磚
-tile.tconstruct.brownstone.creeper.name=苦力怕臉褐色石
+tile.tconstruct.brownstone.creeper.name=苦力怕紋褐色石
 tile.tconstruct.brownstone.tooltip=你在上面移動會快一點
 
 tile.tconstruct.brownstone_slab.smooth.name=光滑褐色石半磚
@@ -229,7 +229,7 @@ tile.tconstruct.brownstone_slab.brick_cracked.name=裂紋褐色石磚半磚
 tile.tconstruct.brownstone_slab.brick_fancy.name=平滑褐色石磚半磚
 tile.tconstruct.brownstone_slab.brick_square.name=方紋褐色石磚半磚
 tile.tconstruct.brownstone_slab.road.name=褐色鋪路石半磚
-tile.tconstruct.brownstone_slab2.creeper.name=苦力怕臉褐色石半磚
+tile.tconstruct.brownstone_slab2.creeper.name=苦力怕紋褐色石半磚
 tile.tconstruct.brownstone_slab2.brick_triangle.name=三角紋褐色石磚半磚
 tile.tconstruct.brownstone_slab2.brick_small.name=細紋褐色石磚半磚
 tile.tconstruct.brownstone_slab2.tile.name=褐色石磁磚半磚
@@ -245,7 +245,7 @@ tile.tconstruct.brownstone_stairs_brick_triangle.name=三角紋褐色石磚樓�
 tile.tconstruct.brownstone_stairs_brick_small.name=細紋褐色石磚樓梯
 tile.tconstruct.brownstone_stairs_road.name=褐色鋪路石樓梯
 tile.tconstruct.brownstone_stairs_tile.name=褐色石磁磚樓梯
-tile.tconstruct.brownstone_stairs_creeper.name=苦力怕臉褐色石樓梯
+tile.tconstruct.brownstone_stairs_creeper.name=苦力怕紋褐色石樓梯
 
 ################
 #    Items     #
@@ -277,7 +277,7 @@ item.tconstruct.edible.slimedrop_purple.name=史萊姆黏液滴
 item.tconstruct.edible.slimedrop_blood.name=凝固的血滴
 item.tconstruct.edible.slimedrop_magma.name=史萊姆黏液滴
 
-item.tconstruct.materials.seared_brick.name=黑焦磚
+item.tconstruct.materials.seared_brick.name=焦黑磚
 item.tconstruct.materials.mud_brick.name=泥磚
 item.tconstruct.materials.mud_brick.tooltip=建造各種大小的方塊
 item.tconstruct.materials.dried_brick.name=乾燥磚
@@ -372,7 +372,7 @@ item.tconstruct.crossbow.name=十字弓
 item.tconstruct.arrow.name=箭矢
 item.tconstruct.bolt.name=弩箭
 
-item.tconstruct.shuriken.name=飛鏢
+item.tconstruct.shuriken.name=手裏劍
 
 # Tool Parts
 item.tconstruct.shard.name=碎片
@@ -432,7 +432,7 @@ item.tconstruct.slimesling.blood.name=凝血彈弓
 item.tconstruct.slimesling.magma.name=史萊姆彈弓
 item.tconstruct.slimesling.pink.name=史萊姆彈弓
 item.tconstruct.slimesling.tooltip=拉弓、瞄準、發射！\n如果你愛惜生命的話請穿上史萊姆靴！
-item.tconstruct.piggybackpack.name=豬豬背帶
+item.tconstruct.piggybackpack.name=小豬背包
 item.tconstruct.piggybackpack.tooltip=對著生物點擊滑鼠右鍵可以將它們背起來
 item.tconstruct.stone_stick.name=石桿
 
@@ -483,7 +483,7 @@ entity.tconstruct.blueslime.name=藍色史萊姆
 #    Liquids    #
 #################
 
-fluid.tconstruct.stone.name=黑焦石
+fluid.tconstruct.stone.name=焦黑石
 fluid.tconstruct.obsidian.name=熔融黑曜石
 fluid.tconstruct.clay.name=熔融黏土
 fluid.tconstruct.dirt.name=液態泥土
@@ -508,7 +508,7 @@ fluid.tconstruct.zinc.name=熔融鋅
 fluid.tconstruct.lead.name=熔融鉛
 fluid.tconstruct.nickel.name=熔融鎳
 fluid.tconstruct.silver.name=熔融銀
-fluid.tconstruct.electrum.name=熔融金銀合金
+fluid.tconstruct.electrum.name=熔融琥珀金
 fluid.tconstruct.steel.name=熔融鋼
 fluid.tconstruct.aluminum.name=熔融鋁
 fluid.tconstruct.alubrass.name=熔融鋁黃銅
@@ -596,7 +596,7 @@ material.copper.prefix=銅%s
 material.bronze.prefix=青銅%s
 material.lead.prefix=鉛%s
 material.silver.prefix=銀%s
-material.electrum.prefix=金銀合金%s
+material.electrum.prefix=琥珀金%s
 material.steel.prefix=鋼%s
 
 material.string.prefix=線%s
@@ -766,7 +766,7 @@ modifier.writable.desc=§o智者！§r\n更多文字，更多改造，就這個�
 
 modifier.breakable.name=易碎
 modifier.breakable.desc=§o此面朝上！§r\n發射物有50%的機率會在撞擊時斷裂。
-modifier.endspeed.name=終界瞬移
+modifier.endspeed.name=終界速度
 modifier.endspeed.desc=§o量子速度！§r\n發射物會瞬間移動到其目的地。
 modifier.freezing.name=凍結
 modifier.freezing.desc=§o寒冬降臨§r\n成功命中後會使目標速度愈來愈慢。
@@ -866,7 +866,7 @@ item.tconstruct.excavator.desc=《挖掘鏟》是大面積的挖掘工具，它�
 item.tconstruct.cleaver.desc=《大砍刀》是沉重的進攻型武器，它具有強大的攻擊力，但揮動起來卻很費力。\n大砍刀的優點是很高的傷害力。\n缺點是速度慢，需要使用雙手！
 item.tconstruct.battleaxe.desc=《戰斧》是沉重的進攻型武器，激發出狂暴戰士的性格。它能砍下小樹，還能打飛敵人。\n滑鼠右鍵: 發狂
 item.tconstruct.scythe.desc=《大鐮刀》是大面積的收割工具，能收割植物及掃除敵人。\n具範圍性攻擊能力。\n滑鼠右鍵: 收割作物並重新種植
-item.tconstruct.shuriken.desc=《飛鏢》是種快速的近距離投擲武器，它能大量丟出但殺傷力不高。\n能使用副手投擲。
+item.tconstruct.shuriken.desc=《手裏劍》是種快速的近距離投擲武器，它能大量丟出但殺傷力不高。\n能使用副手投擲。
 item.tconstruct.shortbow.desc=《短弓》是種快速且靈活的武器，它讓你可以在高速移動的同時快速射箭。\n使用打鐵模組的箭矢。
 item.tconstruct.longbow.desc=《長弓》是強力的遠距離武器。它能造成較高的殺傷力，但移動性就比它的短弓兄弟來得差了。\n使用打鐵模組的箭矢。
 item.tconstruct.arrow.desc=《箭矢》是打鐵模組中的弓用來發射的彈藥，一組可以多次發射，並能像其它工具一樣被改造強化。
@@ -1017,10 +1017,10 @@ gui.smeltery.liquid.block=塊
 gui.smeltery.liquid.gem=顆寶石
 
 # Seared Furnace
-gui.searedfurnace.name=黑焦熔爐
+gui.searedfurnace.name=焦黑熔爐
 gui.searedfurnace.progress.complete=物品已燒製完成
 gui.searedfurnace.progress.no_recipe=物品無法被燒製
-gui.searedfurnace.progress.no_fuel=黑焦熔爐內的燃料無效
+gui.searedfurnace.progress.no_fuel=焦黑熔爐內的燃料無效
 gui.searedfurnace.progress.no_heat=燒製這個物品的熱度不夠
 gui.searedfurnace.progress.no_space=成品的堆疊量太大, 無法放入這個槽
 
