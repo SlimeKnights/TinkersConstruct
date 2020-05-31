@@ -59,14 +59,14 @@ public class TConstructLootTableProvider implements IDataProvider {
     }, map::get);
 
     for (ResourceLocation resourcelocation : Sets.difference(LootTables.func_215796_a(), map.keySet())) {
-      validationtracker.func_227530_a_("Missing built-in table: " + resourcelocation);
+      validationtracker.addProblem("Missing built-in table: " + resourcelocation);
     }
 
     map.forEach((p_218436_2_, p_218436_3_) -> {
       LootTableManager.func_227508_a_(validationtracker, p_218436_2_, p_218436_3_);
     });
 
-    Multimap<String, String> multimap = validationtracker.func_227527_a_();
+    Multimap<String, String> multimap = validationtracker.getProblems();
     if (!multimap.isEmpty()) {
       multimap.forEach((p_229440_0_, p_229440_1_) -> {
         LOGGER.warn("Found validation problem in " + p_229440_0_ + ": " + p_229440_1_);

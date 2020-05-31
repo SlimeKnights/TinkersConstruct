@@ -31,7 +31,7 @@ public abstract class SlimeTree extends Tree {
   protected abstract ConfiguredFeature<SlimeTreeFeatureConfig, ?> getSlimeTreeFeature(Random randomIn, boolean bool);
 
   @Override
-  public boolean func_225545_a_(IWorld worldIn, ChunkGenerator<?> chunkGenerator, BlockPos blockPos, BlockState state, Random random) {
+  public boolean place(IWorld worldIn, ChunkGenerator<?> chunkGenerator, BlockPos blockPos, BlockState state, Random random) {
     ConfiguredFeature<SlimeTreeFeatureConfig, ?> configuredfeature = this.getSlimeTreeFeature(random, this.func_230140_a_(worldIn, blockPos));
     if (configuredfeature == null) {
       return false;
