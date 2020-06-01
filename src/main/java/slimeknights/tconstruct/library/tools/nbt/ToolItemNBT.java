@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.tools.nbt;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.INBT;
@@ -32,6 +33,11 @@ public class ToolItemNBT {
     new Item.Properties(),
     new ToolDefinition(new ToolBaseStatDefinition.Builder().setDamageModifier(1f).build(), ImmutableList.of(), ImmutableSet.of())
   ) {
+    @Override
+    public boolean isEffective(BlockState state) {
+      return false;
+    }
+
     @Override
     public void getTooltip(ItemStack stack, List<String> tooltips) {
       tooltips.add("Something went wrong, this shouldn't exist. Probably broken data or a bug.");

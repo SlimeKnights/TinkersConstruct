@@ -46,8 +46,8 @@ public class BaseRegistryAdapter<T extends IForgeRegistryEntry<T>> {
   /**
    * General purpose registration method. Just pass the string you want your thing registered as.
    */
-  public <I extends T> I register(I forgeRegitryEntry, String name) {
-    return this.register(forgeRegitryEntry, this.getResource(name));
+  public <I extends T> I register(I forgeRegistryEntry, String name) {
+    return this.register(forgeRegistryEntry, this.getResource(name));
   }
 
   /**

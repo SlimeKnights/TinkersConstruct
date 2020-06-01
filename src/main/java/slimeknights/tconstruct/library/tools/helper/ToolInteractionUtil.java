@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -14,7 +16,16 @@ import slimeknights.tconstruct.library.tools.nbt.ToolData;
 public class ToolInteractionUtil {
 
   /**
-   * Damages the tool. Entity is only needed in case the tool breaks for rendering the break effect.
+   * Returns true if the tool is effective for harvesting the given block.
+   */
+  public static boolean isToolEffectiveAgainstBlock(ItemStack stack, BlockState state) {
+    return stack.getItem().getToolTypes(stack).stream()
+      .anyMatch(toolType -> state.getBlock().isToolEffective(state, toolType));
+  }
+
+  /**
+   * Damages the tool.
+   * Should not be called directly, just use ItemStack.damageItem
    */
   public static void damageTool(ItemStack stack, int amount, LivingEntity entity) {
     ToolData toolData = ToolData.from(stack);
@@ -45,11 +56,13 @@ public class ToolInteractionUtil {
     actualAmount = Math.min(actualAmount, currentDurability);
     stack.setDamage(stack.getDamage() + actualAmount);
 
-    if (currentDurability <= 0) {
-      ToolBreakUtil.breakTool(stack);
-      // todo: move this to proxy
-      if(entity instanceof ServerPlayerEntity) {
-        ToolBreakUtil.triggerToolBreakAnimation(stack, (ServerPlayerEntity) entity);
+    if (entity instanceof ServerPlayerEntity) {
+      if (actualAmount != 0) {
+        CriteriaTriggers.ITEM_DURABILITY_CHANGED.trigger((ServerPlayerEntity) entity, stack, stack.getDamage() + actualAmount);
+      }
+
+      if (currentDurability <= 0) {
+        ToolBreakUtil.breakTool(stack);
       }
     }
   }
@@ -59,6 +72,6 @@ public class ToolInteractionUtil {
    */
   private static boolean isVanillaUnbreakable(ItemStack stack) {
     CompoundNBT compoundnbt = stack.getTag();
-    return compoundnbt == null || !compoundnbt.getBoolean("Unbreakable");
+    return compoundnbt != null && compoundnbt.getBoolean("Unbreakable");
   }
 }

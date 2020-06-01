@@ -12,7 +12,7 @@ import slimeknights.tconstruct.test.BaseMcTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MaterialRegistryExtension.class)
-class PartMaterialTypeTest extends BaseMcTest {
+class PartMaterialRequirementTest extends BaseMcTest {
 
   @Test
   void isValid() {

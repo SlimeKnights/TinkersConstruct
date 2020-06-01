@@ -28,6 +28,7 @@ import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 
 @Pulse(id = TinkerPulseIds.TINKER_GADGETS_PULSE_ID, description = "All the fun toys")
 @ObjectHolder(TConstruct.modID)
@@ -89,6 +90,8 @@ public class TinkerGadgets extends TinkerPulse {
   @SubscribeEvent
   public void preInit(final FMLCommonSetupEvent event) {
     proxy.preInit();
+
+    CapabilityTinkerPiggyback.register();
   }
 
   @SubscribeEvent

@@ -9,6 +9,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.items.ToolItems;
+import slimeknights.tconstruct.items.ToolParts;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
@@ -24,10 +25,10 @@ public class ToolDebugScreen extends ContainerScreen<ToolDebugContainer> {
     super.init();
 
     addButton(new Button(guiLeft, guiTop, 20, 20, "test", button -> {
-      ItemStack st = ToolItems.test_part.getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:stone")));
-      ItemStack st2 = ToolItems.test_part.getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:wood")));
-      ItemStack st3 = ToolItems.test_part.getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:ardite")));
-      ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(NonNullList.from(ItemStack.EMPTY, st, st2, st3), ToolItems.test_tool);
+      ItemStack st = ToolParts.pickaxe_head.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:stone")));
+      ItemStack st2 = ToolParts.tool_rod.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:wood")));
+      ItemStack st3 = ToolParts.small_binding.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:ardite")));
+      ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(NonNullList.from(ItemStack.EMPTY, st, st2, st3), ToolItems.pickaxe);
       container.inventory.setInventorySlotContents(0, itemStack);
     }));
   }

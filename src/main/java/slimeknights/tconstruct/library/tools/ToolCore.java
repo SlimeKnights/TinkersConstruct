@@ -1,21 +1,36 @@
 package slimeknights.tconstruct.library.tools;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.ITinkerable;
+import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
+import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolMiningLogic;
+import slimeknights.tconstruct.library.tools.helper.TraitUtil;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.tools.ToolStatsBuilder;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * An indestructible item constructed from different parts.
@@ -25,10 +40,16 @@ import java.util.List;
 public abstract class ToolCore extends Item implements ITinkerable, IModifiable {
 
   private final ToolDefinition toolDefinition;
+  private final ToolMiningLogic toolMiningLogic;
 
   public ToolCore(Properties properties, ToolDefinition toolDefinition) {
-    super(properties.maxStackSize(1).setNoRepair());
+    this(properties.maxStackSize(1).setNoRepair(), toolDefinition, new ToolMiningLogic());
+  }
+
+  protected ToolCore(Properties properties, ToolDefinition toolDefinition, ToolMiningLogic toolMiningLogic) {
+    super(properties);
     this.toolDefinition = toolDefinition;
+    this.toolMiningLogic = toolMiningLogic;
   }
 
   public ToolDefinition getToolDefinition() {
@@ -39,9 +60,27 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
     return ToolStatsBuilder.from(materials, toolDefinition).buildDefaultStats();
   }
 
+  /* Item Entity -> INDESTRUCTIBLE */
+
+  @Override
+  public boolean hasCustomEntity(ItemStack stack) {
+    return true;
+  }
+
+  @Override
+  public Entity createEntity(World world, Entity original, ItemStack itemstack) {
+    IndestructibleEntityItem entity = new IndestructibleEntityItem(world, original.getPosX(), original.getPosY(), original.getPosZ(), itemstack);
+    entity.setPickupDelayFrom(original);
+    return entity;
+  }
+
+  /* Damage/Durability */
+
   @Override
   public int getMaxDamage(ItemStack stack) {
-    return ToolData.from(stack).getStats().durability;
+    StatsNBT stats = ToolData.from(stack).getStats();
+    // the tool can only have damage when it's not broken, to prevent vanilla from deleting the itemstack
+    return stats.broken ? 0 : stats.durability;
   }
 
   @Override
@@ -49,10 +88,28 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
     int max = getMaxDamage(stack);
     super.setDamage(stack, Math.min(max, damage));
 
-    if(getDamage(stack) >= max) {
-      ToolData newData = ToolData.from(stack).createNewDataWithBroken(true);
-      newData.updateStack(stack);
+    if (getDamage(stack) >= max) {
+      ToolData toolData = ToolData.from(stack);
+      if (!toolData.getStats().broken) {
+        ToolData newData = toolData.createNewDataWithBroken(true);
+        newData.updateStack(stack);
+      }
     }
+  }
+
+  /**
+   * We basically emulate Itemstack.damageItem here. We always return 0 to skip the handling in ItemStack.
+   * If we don't broken tools will be deleted.
+   */
+  @Override
+  public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
+    ToolInteractionUtil.damageTool(stack, amount, damager);
+
+    if(ToolData.from(stack).getStats().broken) {
+      onBroken.accept(damager);
+    }
+
+    return 0;
   }
 
   @Override
@@ -69,48 +126,67 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
     return stack.getMaxDamage() - stack.getDamage();
   }
 
-//  /* World interaction */
-//
-//  @Override
-//  public int getHarvestLevel(ItemStack stack, ToolType toolClass, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
-//    if(ToolHelper.isBroken(stack)) {
-//      return -1;
-//    }
-//
-//    if(this.getToolClasses(stack).contains(toolClass)) {
-//      // will return 0 if the tag has no info anyway
-//      return ToolHelper.getHarvestLevelStat(stack);
-//    }
-//
-//    return super.getHarvestLevel(stack, toolClass, player, blockState);
-//  }
-//
-//  @Override
-//  public Set<ToolType> getToolTypes(ItemStack stack) {
-//    // no classes if broken
-//    if(ToolHelper.isBroken(stack)) {
-//      return Collections.emptySet();
-//    }
-//    return super.getToolClasses(stack);
-//  }
-//
-//
-//  @Override
-//  public float getDestroySpeed(ItemStack stack, BlockState state) {
-//    if(isEffective(state) || ToolHelper.isToolEffective(stack, state)) {
-//      return ToolHelper.calcDigSpeed(stack, state);
-//    }
-//    return super.getDestroySpeed(stack, state);
-//  }
-//
-//  public boolean isEffective(BlockState state) {
-//    return false;
-//  }
-//
-//  @Override
-//  public boolean canHarvestBlock(ItemStack stack, BlockState state) {
-//    return isEffective(state) && !ToolHelper.isBroken(stack);
-//  }
+  /* Mining */
+
+  @Override
+  public Set<ToolType> getToolTypes(ItemStack stack) {
+    // no classes if broken
+    if (ToolData.from(stack).getStats().broken) {
+      return Collections.emptySet();
+    }
+    return super.getToolTypes(stack);
+  }
+
+  @Override
+  public int getHarvestLevel(ItemStack stack, ToolType toolClass, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
+    StatsNBT stats = ToolData.from(stack).getStats();
+
+    // brokenness is calculated in by the toolTypes check
+    if (getToolTypes(stack).contains(toolClass)) {
+      return stats.harvestLevel;
+    }
+
+    return -1;
+  }
+
+  private void afterBlockBreak(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity player, int damage, boolean wasEffective) {
+    TraitUtil.forEachTrait(stack, trait -> trait.afterBlockBreak(stack, world, state, pos, player, wasEffective));
+    stack.damageItem(damage, player,
+      livingEntity -> livingEntity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
+  }
+
+  @Override
+  public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+    StatsNBT stats = ToolData.from(stack).getStats();
+    if(stats.broken) {
+      return false;
+    }
+
+    boolean effective = isEffective(state) || ToolInteractionUtil.isToolEffectiveAgainstBlock(stack, worldIn.getBlockState(pos));
+    int damage = effective ? 1 : 2;
+
+    afterBlockBreak(stack, worldIn, state, pos, entityLiving, damage, effective);
+
+    return effective && toolDefinition.hasCategory(Category.HARVEST);
+  }
+
+  public abstract boolean isEffective(BlockState state);
+
+    @Override
+  public float getDestroySpeed(ItemStack stack, BlockState state) {
+    if(isEffective(state) || ToolInteractionUtil.isToolEffectiveAgainstBlock(stack, state)) {
+      return toolMiningLogic.calcDigSpeed(stack, state);
+    }
+    return super.getDestroySpeed(stack, state);
+  }
+
+  @Override
+  public boolean canHarvestBlock(ItemStack stack, BlockState state) {
+    return isEffective(state) && !ToolData.isBroken(stack);
+  }
+
+  /* World interaction */
+
 //
 //  @Override
 //  public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, PlayerEntity player) {
@@ -216,29 +292,10 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable 
 //
 //    TinkerUtil.getTraitsOrdered(stack).forEach(trait -> trait.onUpdate(stack, worldIn, entityIn, itemSlot, isSelectedOrOffhand));
 //  }
-//
-//  /* INDESTRUCTIBLE */
-//
-//  @Override
-//  public boolean hasCustomEntity(ItemStack stack) {
-//    return true;
-//  }
-//
-//  @Override
-//  public Entity createEntity(World world, Entity original, ItemStack itemstack) {
-//    ItemEntity entity = new IndestructibleEntityItem(world, original.posX, original.posY, original.posZ, itemstack);
-//    // workaround for private access on pickup delay. We simply read it from the items NBT representation ;)
-//    if(original instanceof ItemEntity) {
-//      CompoundNBT tag = new CompoundNBT();
-//      ((ItemEntity) original).writeAdditional(tag);
-//      entity.setPickupDelay(tag.getShort("PickupDelay"));
-//    }
-//    entity.setMotion(original.getMotion());
-//    return entity;
-//  }
-//
-//  /* Information */
-//
+
+
+  /* Information */
+
 
   @Override
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {

@@ -78,7 +78,7 @@ public class TinkerPiggybackSerializer implements ICapabilitySerializable<Compou
 
       for (int i = 0; i < riderList.size(); i++) {
         CompoundNBT entityTag = riderList.getCompound(i);
-        Entity entity = EntityType.func_220335_a(entityTag.getCompound("Entity"), serverWorld, (p_217885_1_) -> {
+        Entity entity = EntityType.loadEntityAndExecute(entityTag.getCompound("Entity"), serverWorld, (p_217885_1_) -> {
           return !serverWorld.summonEntity(p_217885_1_) ? null : p_217885_1_;
         });
         if (entity != null) {

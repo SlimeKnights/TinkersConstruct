@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.tools;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import slimeknights.tconstruct.library.tinkering.Category;
-import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 
 import java.util.List;
 import java.util.Set;
@@ -22,13 +22,13 @@ public class ToolDefinition {
   /**
    * The tool parts required to build this tool.
    */
-  protected final List<PartMaterialType> requiredComponents;
+  protected final List<PartMaterialRequirement> requiredComponents;
   /**
    * Categories determine behaviour of the tool when interacting with things or displaying information.
    */
   protected final Set<Category> categories;
 
-  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, List<PartMaterialType> requiredComponents, Set<Category> categories) {
+  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, List<PartMaterialRequirement> requiredComponents, Set<Category> categories) {
     this.baseStatDefinition = baseStatDefinition;
     this.requiredComponents = ImmutableList.copyOf(requiredComponents);
     this.categories = ImmutableSet.copyOf(categories);
@@ -38,7 +38,7 @@ public class ToolDefinition {
     return baseStatDefinition;
   }
 
-  public List<PartMaterialType> getRequiredComponents() {
+  public List<PartMaterialRequirement> getRequiredComponents() {
     return requiredComponents;
   }
 
