@@ -41,6 +41,7 @@ import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -80,11 +81,14 @@ public class TConstruct {
     pulseManager.registerPulse(new TinkerFluids());
     pulseManager.registerPulse(new TinkerWorld());
     pulseManager.registerPulse(new TinkerGadgets());
+    pulseManager.registerPulse(new TinkerTables());
     pulseManager.enablePulses();
 
     DistExecutor.runWhenOn(Dist.CLIENT, () -> TinkerBook::initBook);
 
     MinecraftForge.EVENT_BUS.register(this);
+
+    //DistExecutor.runWhenOn(Dist.CLIENT, ModelLoaderRegisterHelper::registerModelLoader);
   }
 
   @SubscribeEvent

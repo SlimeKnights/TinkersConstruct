@@ -4,6 +4,9 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.pulsar.config.PulsarConfig;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Config {
 
   public static PulsarConfig pulseConfig = new PulsarConfig("TinkerModules", "Modules");
@@ -28,6 +31,12 @@ public class Config {
     public final ForgeConfigSpec.ConfigValue<Integer> veinCountArdite;
 
     public final ForgeConfigSpec.BooleanValue generateSlimeIslands;
+
+    public final ForgeConfigSpec.BooleanValue chestsKeepInventory;
+
+    public final ForgeConfigSpec.ConfigValue<List<String>> craftingStationBlacklist;
+
+    public final ForgeConfigSpec.BooleanValue allowStencilsToBeReused;
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -55,6 +64,24 @@ public class Config {
         .translation("tconstruct.configgui.registerAllRecipes")
         .worldRestart()
         .define("registerAllRecipes", false);
+
+      this.chestsKeepInventory = builder
+        .comment("Pattern and Part chests keep their inventory when harvested.")
+        .translation("tconstruct.configgui.chestsKeepInventory")
+        .worldRestart()
+        .define("chestsKeepInventory", true);
+
+      this.craftingStationBlacklist = builder
+        .comment("Blacklist of registry names or TE class names for the crafting station to connect to. Mainly for compatibility.")
+        .translation("tconstruct.configgui.craftingStationBlacklist")
+        .worldRestart()
+        .define("craftingStationBlacklist", new ArrayList<>());
+
+      this.allowStencilsToBeReused = builder
+        .comment("Allows reusing of stencils in the stencil table to turn them into other stencils")
+        .translation("tconstruct.configgui.allowStencilsToBeReused")
+        .worldRestart()
+        .define("allowStencilsToBeReused", true);
 
       builder.pop();
 
@@ -102,6 +129,8 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue renderInventoryInWorld;
     public final ForgeConfigSpec.BooleanValue temperatureInCelsius;
 
+    public final ForgeConfigSpec.BooleanValue renderTableItems;
+
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
 
@@ -114,6 +143,11 @@ public class Config {
         .comment("If true, temperatures in the smeltery and in JEI will display in celsius. If false they will use the internal units of Kelvin, which may be better for developers")
         .translation("tconstruct.configgui.temperatureInCelsius")
         .define("temperatureInCelsius", true);
+
+      this.renderTableItems = builder
+        .comment("If true all of Tinkers' blocks with contents (tables, basin, drying racks,...) will render their contents in the world")
+        .translation("tconstruct.configgui.renderTableItems")
+        .define("renderTableItems", true);
 
       builder.pop();
     }

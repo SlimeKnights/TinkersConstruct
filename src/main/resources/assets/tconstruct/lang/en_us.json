@@ -257,6 +257,18 @@
     "item.tconstruct.cold_spaghetti": "Cold Dried Noodles",
     "item.tconstruct.cold_spaghetti.tooltip": "Well, that's better, but they still taste gross.\nWarming them up should make them edible.\nThey might even be good enough to get you off your weak knees.",
 
+    "_comment": "Tinkers Tables",
+
+    "block.tconstruct.crafting_station": "Crafting Station",
+
+    "block.tconstruct.part_builder": "Part Builder",
+
+    "block.tconstruct.part_chest": "Part Chest",
+    "block.tconstruct.part_chest.tooltip": "Can hold a large amount of toolparts",
+
+    "block.tconstruct.pattern_chest": "Pattern Chest",
+    "block.tconstruct.pattern_chest.tooltip": "Holds either patterns or casts",
+
     "_comment": "Tinkers Smeltery",
 
     "block.tconstruct.seared_stone": "Seared Stone",
@@ -400,5 +412,26 @@
     "itemGroup.tinkers_tool_parts": "Tinkers' Toolparts",
     "itemGroup.tinkers_smeltery": "Tinkers' Smeltery",
     "itemGroup.tinkers_world": "Tinkers' World",
-    "itemGroup.tinkers_gadgets": "Tinkers' Gadgets"
+    "itemGroup.tinkers_gadgets": "Tinkers' Gadgets",
+
+    "gui.tconstruct.crafting_station": "Crafting Station",
+
+    "gui.tconstruct.part_builder": "Part Builder",
+    "gui.tconstruct.part_builder.info": "Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put its pattern into the left slot. The two remaining slots hold the material you want to craft your part out of.",
+    "gui.tconstruct.part_builder.material_value": "Material Value: %s %s",
+
+    "gui.tconstruct.part_crafter": "Part Crafter",
+
+    "gui.tconstruct.pattern_chest": "Pattern Chest",
+    "gui.tconstruct.cast_chest": "Cast Chest",
+    "gui.tconstruct.part_chest": "Part Chest",
+
+    "_comment": "GUIs Messages",
+
+    "gui.tconstruct.caption": "Caption",
+    "gui.tconstruct.error": "ERROR",
+    "gui.tconstruct.warning": "WARNING",
+    "gui.tconstruct.general.hover": "Hover over the entries for more information",
+    "gui.tconstruct.error.invalid_pattern": "Pattern does not contain a valid tool part!",
+    "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting."
 }
