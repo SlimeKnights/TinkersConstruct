@@ -27,6 +27,7 @@ import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.items.CommonItems;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.world.block.SlimeDirtBlock;
+import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import javax.annotation.Nonnull;
@@ -82,36 +83,23 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private void addDecorative() {
-    this.registerDropSelfLootTable(DecorativeBlocks.clear_glass);
+    this.registerDropSelfLootTable(DecorativeBlocks.clear_glass.get());
 
-    this.registerDropSelfLootTable(DecorativeBlocks.white_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.orange_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.magenta_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.light_blue_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.yellow_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.lime_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.pink_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.gray_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.light_gray_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.cyan_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.purple_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.blue_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.brown_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.green_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.red_clear_stained_glass);
-    this.registerDropSelfLootTable(DecorativeBlocks.black_clear_stained_glass);
+    for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
+      this.registerDropSelfLootTable(DecorativeBlocks.clear_stained_glass.get(color));
+    }
 
-    this.registerDropSelfLootTable(DecorativeBlocks.mud_bricks);
-    this.registerLootTable(DecorativeBlocks.mud_bricks_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(DecorativeBlocks.mud_bricks_stairs);
+    this.registerDropSelfLootTable(DecorativeBlocks.mud_bricks.get());
+    this.registerLootTable(DecorativeBlocks.mud_bricks.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(DecorativeBlocks.mud_bricks.getStairs());
 
-    this.registerDropSelfLootTable(DecorativeBlocks.dried_clay);
-    this.registerLootTable(DecorativeBlocks.dried_clay_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(DecorativeBlocks.dried_clay_stairs);
+    this.registerDropSelfLootTable(DecorativeBlocks.dried_clay.get());
+    this.registerLootTable(DecorativeBlocks.dried_clay.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(DecorativeBlocks.dried_clay.getStairs());
 
-    this.registerDropSelfLootTable(DecorativeBlocks.dried_clay_bricks);
-    this.registerLootTable(DecorativeBlocks.dried_clay_bricks_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(DecorativeBlocks.dried_clay_bricks_stairs);
+    this.registerDropSelfLootTable(DecorativeBlocks.dried_clay_bricks.get());
+    this.registerLootTable(DecorativeBlocks.dried_clay_bricks.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(DecorativeBlocks.dried_clay_bricks.getStairs());
   }
 
   private void addTools() {

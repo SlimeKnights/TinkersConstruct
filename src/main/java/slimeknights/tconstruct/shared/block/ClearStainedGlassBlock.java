@@ -4,6 +4,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
@@ -12,6 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.block.ConnectedTextureBlock;
 
 import javax.annotation.Nullable;
+import java.util.Locale;
 
 public class ClearStainedGlassBlock extends ConnectedTextureBlock {
 
@@ -69,7 +71,7 @@ public class ClearStainedGlassBlock extends ConnectedTextureBlock {
   }
 
   // do not change enum names, they're used for block registries
-  public enum GlassColor {
+  public enum GlassColor implements IStringSerializable {
     WHITE(0xffffff, MaterialColor.SNOW),
     ORANGE(0xd87f33, MaterialColor.ADOBE),
     MAGENTA(0xb24cd8, MaterialColor.MAGENTA),
@@ -90,11 +92,13 @@ public class ClearStainedGlassBlock extends ConnectedTextureBlock {
     private final int color;
     private final MaterialColor materialColor;
     private final float[] rgb;
+    private final String name;
 
     GlassColor(int color, MaterialColor mapColor) {
       this.color = color;
       this.materialColor = mapColor;
       this.rgb = calcRGB(color);
+      this.name = this.name().toLowerCase(Locale.US);
     }
 
     private static float[] calcRGB(int color) {
@@ -114,5 +118,15 @@ public class ClearStainedGlassBlock extends ConnectedTextureBlock {
       return this.materialColor;
     }
 
+
+    @Override
+    public String toString() {
+      return name;
+    }
+
+    @Override
+    public String getName() {
+      return name;
+    }
   }
 }
