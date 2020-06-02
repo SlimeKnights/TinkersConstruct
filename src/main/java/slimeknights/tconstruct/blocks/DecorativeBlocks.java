@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.blocks;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.renderer.RenderType;
@@ -24,6 +26,7 @@ import slimeknights.tconstruct.shared.block.ClearGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DecorativeBlocks {
 
   private static final Item.Properties generalProps = new Item.Properties().group(TinkerRegistry.tabGeneral);

@@ -31,6 +31,7 @@ import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.control.PulseManager;
 import slimeknights.tconstruct.blocks.DecorativeBlocks;
 import slimeknights.tconstruct.blocks.GadgetBlocks;
+import slimeknights.tconstruct.blocks.SmelteryBlocks;
 import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.ServerProxy;
@@ -93,6 +94,7 @@ public class TConstruct {
     WorldBlocks.init();
     TinkerWorld.init();
     DecorativeBlocks.init();
+    SmelteryBlocks.init();
 
     pulseManager = new PulseManager(Config.pulseConfig);
     pulseManager.registerPulse(new TinkerCommons());

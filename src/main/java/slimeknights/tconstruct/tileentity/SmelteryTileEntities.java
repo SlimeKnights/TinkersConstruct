@@ -24,13 +24,13 @@ public class SmelteryTileEntities {
   static void registerTileEntities(final RegistryEvent.Register<TileEntityType<?>> event) {
     BaseRegistryAdapter<TileEntityType<?>> registry = new BaseRegistryAdapter<>(event.getRegistry());
 
-    registry.register(new TileEntityType<>(SmelteryComponentTileEntity::new, Sets.newHashSet(SmelteryBlocks.seared_stone, SmelteryBlocks.seared_cobble, SmelteryBlocks.seared_bricks,
-      SmelteryBlocks.seared_cracked_bricks, SmelteryBlocks.seared_fancy_bricks, SmelteryBlocks.seared_square_bricks, SmelteryBlocks.seared_small_bricks,
-      SmelteryBlocks.seared_triangle_bricks, SmelteryBlocks.seared_creeper, SmelteryBlocks.seared_paver, SmelteryBlocks.seared_road, SmelteryBlocks.seared_tile,
-      SmelteryBlocks.seared_stone_slab, SmelteryBlocks.seared_cobble_slab, SmelteryBlocks.seared_bricks_slab, SmelteryBlocks.seared_cracked_bricks_slab, SmelteryBlocks.seared_fancy_bricks_slab,
-      SmelteryBlocks.seared_square_bricks_slab, SmelteryBlocks.seared_small_bricks_slab, SmelteryBlocks.seared_triangle_bricks_slab, SmelteryBlocks.seared_creeper_slab, SmelteryBlocks.seared_paver_slab,
-      SmelteryBlocks.seared_road_slab, SmelteryBlocks.seared_tile_slab, SmelteryBlocks.seared_stone_stairs, SmelteryBlocks.seared_cobble_stairs, SmelteryBlocks.seared_bricks_stairs, SmelteryBlocks.seared_cracked_bricks_stairs,
-      SmelteryBlocks.seared_fancy_bricks_stairs, SmelteryBlocks.seared_square_bricks_stairs, SmelteryBlocks.seared_small_bricks_stairs, SmelteryBlocks.seared_triangle_bricks_stairs, SmelteryBlocks.seared_creeper_stairs, SmelteryBlocks.seared_paver_stairs,
-      SmelteryBlocks.seared_road_stairs, SmelteryBlocks.seared_tile_stairs, SmelteryBlocks.seared_glass), null), "smeltery_component");
+    registry.register(new TileEntityType<>(SmelteryComponentTileEntity::new, Sets.newHashSet(SmelteryBlocks.seared_stone.get(), SmelteryBlocks.seared_cobble.get(), SmelteryBlocks.seared_bricks.get(),
+      SmelteryBlocks.seared_cracked_bricks.get(), SmelteryBlocks.seared_fancy_bricks.get(), SmelteryBlocks.seared_square_bricks.get(), SmelteryBlocks.seared_small_bricks.get(),
+      SmelteryBlocks.seared_triangle_bricks.get(), SmelteryBlocks.seared_creeper.get(), SmelteryBlocks.seared_paver.get(), SmelteryBlocks.seared_road.get(), SmelteryBlocks.seared_tile.get(),
+      SmelteryBlocks.seared_stone.getSlab(), SmelteryBlocks.seared_cobble.getSlab(), SmelteryBlocks.seared_bricks.getSlab(), SmelteryBlocks.seared_cracked_bricks.getSlab(), SmelteryBlocks.seared_fancy_bricks.getSlab(),
+      SmelteryBlocks.seared_square_bricks.getSlab(), SmelteryBlocks.seared_small_bricks.getSlab(), SmelteryBlocks.seared_triangle_bricks.getSlab(), SmelteryBlocks.seared_creeper.getSlab(), SmelteryBlocks.seared_paver.getSlab(),
+      SmelteryBlocks.seared_road.getSlab(), SmelteryBlocks.seared_tile.getSlab(), SmelteryBlocks.seared_stone.getStairs(), SmelteryBlocks.seared_cobble.getStairs(), SmelteryBlocks.seared_bricks.getStairs(), SmelteryBlocks.seared_cracked_bricks.getStairs(),
+      SmelteryBlocks.seared_fancy_bricks.getStairs(), SmelteryBlocks.seared_square_bricks.getStairs(), SmelteryBlocks.seared_small_bricks.getStairs(), SmelteryBlocks.seared_triangle_bricks.getStairs(), SmelteryBlocks.seared_creeper.getStairs(), SmelteryBlocks.seared_paver.getStairs(),
+      SmelteryBlocks.seared_road.getStairs(), SmelteryBlocks.seared_tile.getStairs(), SmelteryBlocks.seared_glass.get()), null), "smeltery_component");
   }
 }

@@ -177,55 +177,55 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private void addSmeltery() {
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_stone);
-    this.registerLootTable(SmelteryBlocks.seared_stone_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_stone_stairs);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_stone.get());
+    this.registerLootTable(SmelteryBlocks.seared_stone.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_stone.getStairs());
 
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_cobble);
-    this.registerLootTable(SmelteryBlocks.seared_cobble_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_cobble_stairs);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_cobble.get());
+    this.registerLootTable(SmelteryBlocks.seared_cobble.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_cobble.getStairs());
 
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_paver);
-    this.registerLootTable(SmelteryBlocks.seared_paver_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_paver_stairs);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_paver.get());
+    this.registerLootTable(SmelteryBlocks.seared_paver.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_paver.getStairs());
 
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_bricks);
-    this.registerLootTable(SmelteryBlocks.seared_bricks_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_bricks_stairs);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_bricks.get());
+    this.registerLootTable(SmelteryBlocks.seared_bricks.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_bricks.getStairs());
 
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_cracked_bricks);
-    this.registerLootTable(SmelteryBlocks.seared_cracked_bricks_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_cracked_bricks_stairs);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_cracked_bricks.get());
+    this.registerLootTable(SmelteryBlocks.seared_cracked_bricks.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_cracked_bricks.getStairs());
 
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_fancy_bricks);
-    this.registerLootTable(SmelteryBlocks.seared_fancy_bricks_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_fancy_bricks_stairs);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_fancy_bricks.get());
+    this.registerLootTable(SmelteryBlocks.seared_fancy_bricks.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_fancy_bricks.getStairs());
 
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_square_bricks);
-    this.registerLootTable(SmelteryBlocks.seared_square_bricks_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_square_bricks_stairs);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_square_bricks.get());
+    this.registerLootTable(SmelteryBlocks.seared_square_bricks.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_square_bricks.getStairs());
 
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_small_bricks);
-    this.registerLootTable(SmelteryBlocks.seared_small_bricks_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_small_bricks_stairs);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_small_bricks.get());
+    this.registerLootTable(SmelteryBlocks.seared_small_bricks.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_small_bricks.getStairs());
 
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_triangle_bricks);
-    this.registerLootTable(SmelteryBlocks.seared_triangle_bricks_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_triangle_bricks_stairs);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_triangle_bricks.get());
+    this.registerLootTable(SmelteryBlocks.seared_triangle_bricks.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_triangle_bricks.getStairs());
 
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_creeper);
-    this.registerLootTable(SmelteryBlocks.seared_creeper_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_creeper_stairs);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_creeper.get());
+    this.registerLootTable(SmelteryBlocks.seared_creeper.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_creeper.getStairs());
 
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_road);
-    this.registerLootTable(SmelteryBlocks.seared_road_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_road_stairs);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_road.get());
+    this.registerLootTable(SmelteryBlocks.seared_road.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_road.getStairs());
 
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_tile);
-    this.registerLootTable(SmelteryBlocks.seared_tile_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_tile_stairs);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_tile.get());
+    this.registerLootTable(SmelteryBlocks.seared_tile.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_tile.getStairs());
 
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_glass);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_glass.get());
   }
 
   /*
