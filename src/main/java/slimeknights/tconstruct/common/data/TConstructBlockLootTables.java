@@ -146,13 +146,11 @@ public class TConstructBlockLootTables extends BlockLootTables {
       this.registerLootTable(WorldBlocks.blue_slime_grass.get(type), (block) -> droppingWithSilkTouch(block, WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.BLUE)));
       this.registerLootTable(WorldBlocks.purple_slime_grass.get(type), (block) -> droppingWithSilkTouch(block, WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.PURPLE)));
       this.registerLootTable(WorldBlocks.magma_slime_grass.get(type), (block) -> droppingWithSilkTouch(block, WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.MAGMA)));
-      this.registerLootTable(WorldBlocks.slime_leaves.get(type), (block) -> randomDropSlimeBallOrSapling(type, block, WorldBlocks.blue_slime_sapling.get(), DEFAULT_SAPLING_DROP_RATES));
+      this.registerLootTable(WorldBlocks.slime_leaves.get(type), (block) -> randomDropSlimeBallOrSapling(type, block, WorldBlocks.slime_sapling.get(type), DEFAULT_SAPLING_DROP_RATES));
       this.registerLootTable(WorldBlocks.slime_fern.get(type), BlockLootTables::onlyWithShears);
       this.registerLootTable(WorldBlocks.slime_tall_grass.get(type), BlockLootTables::onlyWithShears);
+      this.registerDropSelfLootTable(WorldBlocks.slime_sapling.get(type));
     }
-    this.registerDropSelfLootTable(WorldBlocks.blue_slime_sapling.get());
-    this.registerDropSelfLootTable(WorldBlocks.orange_slime_sapling.get());
-    this.registerDropSelfLootTable(WorldBlocks.purple_slime_sapling.get());
 
     this.registerLootTable(WorldBlocks.purple_slime_vine.get(), BlockLootTables::onlyWithShears);
     this.registerLootTable(WorldBlocks.purple_slime_vine_middle.get(), BlockLootTables::onlyWithShears);

@@ -104,19 +104,20 @@ public class TinkerWorld extends TinkerPulse {
   public void commonSetup(final FMLCommonSetupEvent event) {
 
     BLUE_SLIME_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.GREEN).getDefaultState(), () -> WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState(),
-      Blocks.AIR::getDefaultState, 5, 4, false, WorldBlocks.blue_slime_sapling.get());
+      Blocks.AIR::getDefaultState, 5, 4, false, WorldBlocks.slime_sapling.get(SlimeGrassBlock.FoliageType.BLUE));
     BLUE_SLIME_ISLAND_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.GREEN).getDefaultState(), () -> WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState(),
-      () -> WorldBlocks.blue_slime_vine_middle.get().getDefaultState(), 5, 4, true, WorldBlocks.blue_slime_sapling.get());
+      () -> WorldBlocks.blue_slime_vine_middle.get().getDefaultState(), 5, 4, true, WorldBlocks.slime_sapling.get(SlimeGrassBlock.FoliageType.BLUE));
     PURPLE_SLIME_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.GREEN).getDefaultState(), () -> WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState(),
-      Blocks.AIR::getDefaultState, 5, 4, false, WorldBlocks.purple_slime_sapling.get());
+      Blocks.AIR::getDefaultState, 5, 4, false, WorldBlocks.slime_sapling.get(SlimeGrassBlock.FoliageType.PURPLE));
     PURPLE_SLIME_ISLAND_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.GREEN).getDefaultState(), () -> WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState(),
-      () -> WorldBlocks.purple_slime_vine_middle.get().getDefaultState(), 5, 4, true, WorldBlocks.purple_slime_sapling.get());
+      () -> WorldBlocks.purple_slime_vine_middle.get().getDefaultState(), 5, 4, true, WorldBlocks.slime_sapling.get(SlimeGrassBlock.FoliageType.PURPLE));
     MAGMA_SLIME_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.MAGMA).getDefaultState(), () -> WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.ORANGE).getDefaultState(),
-      Blocks.AIR::getDefaultState, 5, 4, false, WorldBlocks.orange_slime_sapling.get());
+      Blocks.AIR::getDefaultState, 5, 4, false, WorldBlocks.slime_sapling.get(SlimeGrassBlock.FoliageType.ORANGE));
 
     applyFeatures();
     MinecraftForge.EVENT_BUS.register(new WorldEvents());
-    TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(WorldBlocks.blue_slime_sapling));
+
+    TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(WorldBlocks.slime_sapling.get(SlimeGrassBlock.FoliageType.BLUE)));
 
     EntitySpawnPlacementRegistry.register(WorldEntities.blue_slime_entity, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
   }

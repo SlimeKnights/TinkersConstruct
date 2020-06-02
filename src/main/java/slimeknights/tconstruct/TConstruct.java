@@ -52,6 +52,7 @@ import slimeknights.tconstruct.items.FoodItems;
 import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.items.ToolItems;
 import slimeknights.tconstruct.items.ToolParts;
+import slimeknights.tconstruct.items.WorldItems;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
@@ -96,6 +97,7 @@ public class TConstruct {
     ToolItems.init();
     GadgetItems.init();
     GadgetBlocks.init();
+    WorldItems.init();
     WorldBlocks.init();
     TinkerWorld.init();
     DecorativeBlocks.init();

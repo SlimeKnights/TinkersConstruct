@@ -48,8 +48,10 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
   private void addWorld() {
     this.getBuilder(Tags.Blocks.SLIMY_LOGS).add(WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.GREEN), WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.BLUE), WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.PURPLE), WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.BLOOD), WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.MAGMA));
-    this.getBuilder(Tags.Blocks.SLIMY_LEAVES).add(WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.BLUE), WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.PURPLE), WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.ORANGE));
-    this.getBuilder(Tags.Blocks.SLIMY_SAPLINGS).add(WorldBlocks.blue_slime_sapling.get(), WorldBlocks.orange_slime_sapling.get(), WorldBlocks.purple_slime_sapling.get());
+    for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
+      this.getBuilder(Tags.Blocks.SLIMY_LEAVES).add(WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.BLUE), WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.PURPLE), WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.ORANGE));
+      this.getBuilder(Tags.Blocks.SLIMY_SAPLINGS).add(WorldBlocks.slime_sapling.get(type));
+    }
 
     this.getBuilder(net.minecraftforge.common.Tags.Blocks.ORES).add(Tags.Blocks.ORES_COBALT, Tags.Blocks.ORES_ARDITE);
     this.getBuilder(Tags.Blocks.ORES_COBALT).add(WorldBlocks.cobalt_ore.get());

@@ -39,9 +39,7 @@ import slimeknights.tconstruct.world.block.SlimeSaplingBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
-import slimeknights.tconstruct.world.worldgen.trees.BlueSlimeTree;
-import slimeknights.tconstruct.world.worldgen.trees.MagmaSlimeTree;
-import slimeknights.tconstruct.world.worldgen.trees.PurpleSlimeTree;
+import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
 
 import javax.annotation.Nullable;
 import java.util.EnumMap;
@@ -94,9 +92,7 @@ public final class WorldBlocks {
 
   public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeTallGrassBlock> slime_tall_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_tall_grass", (type) -> new SlimeTallGrassBlock(BlockProperties.TALL_GRASS, type, SlimeTallGrassBlock.SlimePlantType.TALL_GRASS), worldProps);
 
-  public static final BlockItemObject<SlimeSaplingBlock> blue_slime_sapling = BLOCKS.register("blue_slime_sapling", () -> new SlimeSaplingBlock(new BlueSlimeTree(), BlockProperties.SAPLING), worldProps);
-  public static final BlockItemObject<SlimeSaplingBlock> orange_slime_sapling = BLOCKS.register("orange_slime_sapling", () -> new SlimeSaplingBlock(new MagmaSlimeTree(), BlockProperties.SAPLING), worldProps);
-  public static final BlockItemObject<SlimeSaplingBlock> purple_slime_sapling = BLOCKS.register("purple_slime_sapling", () -> new SlimeSaplingBlock(new PurpleSlimeTree(), BlockProperties.SAPLING), worldProps);
+  public static final EnumObject<SlimeGrassBlock.FoliageType,SlimeSaplingBlock> slime_sapling = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_sapling", (type) -> new SlimeSaplingBlock(new SlimeTree(type, false), BlockProperties.SAPLING), worldProps);
 
   public static final BlockItemObject<SlimeVineBlock> purple_slime_vine = BLOCKS.register("purple_slime_vine", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), worldProps);
   public static final BlockItemObject<SlimeVineBlock> purple_slime_vine_middle = BLOCKS.register("purple_slime_vine_middle", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), worldProps);
@@ -119,11 +115,8 @@ public final class WorldBlocks {
       RenderTypeLookup.setRenderLayer(magma_slime_grass.get(type), (layer) -> layer == RenderType.getCutoutMipped());
       RenderTypeLookup.setRenderLayer(slime_fern.get(type), (layer) -> layer == RenderType.getCutout());
       RenderTypeLookup.setRenderLayer(slime_tall_grass.get(type), (layer) -> layer == RenderType.getCutout());
+      RenderTypeLookup.setRenderLayer(slime_sapling.get(type), (layer) -> layer == RenderType.getCutout());
     }
-
-    RenderTypeLookup.setRenderLayer(blue_slime_sapling.get(), (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(orange_slime_sapling.get(), (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(purple_slime_sapling.get(), (layer) -> layer == RenderType.getCutout());
 
     RenderTypeLookup.setRenderLayer(purple_slime_vine.get(), (layer) -> layer == RenderType.getCutout());
     RenderTypeLookup.setRenderLayer(purple_slime_vine_middle.get(), (layer) -> layer == RenderType.getCutout());
