@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:common/slime/blue/slimeball_from_congealed"
+      "tconstruct:common/slime/pink/slimeblock"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:blue_congealed_slime"
+            "tag": "forge:slimeball/pink"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:common/slime/blue/slimeball_from_congealed"
+        "recipe": "tconstruct:common/slime/pink/slimeblock"
       }
     }
   },

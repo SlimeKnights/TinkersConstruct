@@ -2,6 +2,7 @@ package slimeknights.tconstruct;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -29,6 +30,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.control.PulseManager;
 import slimeknights.tconstruct.blocks.GadgetBlocks;
+import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.config.Config;
@@ -87,6 +89,8 @@ public class TConstruct {
     ToolItems.init();
     GadgetItems.init();
     GadgetBlocks.init();
+    WorldBlocks.init();
+    TinkerWorld.init();
 
     pulseManager = new PulseManager(Config.pulseConfig);
     pulseManager.registerPulse(new TinkerCommons());
@@ -165,6 +169,24 @@ public class TConstruct {
           // Remap slime_boots_$slime
           if (entry.key.getPath().equals("slime_boots_" + slime.getName())) {
             entry.remap(GadgetItems.slime_boots.get(slime));
+          }
+          // Remap congealed_$slime_slime
+          if (entry.key.getNamespace().equals(TConstruct.modID) && entry.key.getPath().equals(String.format("congealed_%s_slime", slime.getName()))) {
+            entry.remap(WorldBlocks.congealed_slime.get(slime).asItem());
+          }
+        }
+      }
+    }
+  }
+
+  @SubscribeEvent // TODO: Remove after a while, maybe at release.
+  public void missingBlockMappings(RegistryEvent.MissingMappings<Block> event) {
+    for (RegistryEvent.MissingMappings.Mapping<Block> entry : event.getAllMappings()) {
+      if (entry.key.getNamespace().equals(TConstruct.modID)) {
+        for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
+          // Remap congealed_$slime_slime
+          if (entry.key.getPath().equals(String.format("congealed_%s_slime", slime.getName()))) {
+            entry.remap(WorldBlocks.congealed_slime.get(slime));
           }
         }
       }

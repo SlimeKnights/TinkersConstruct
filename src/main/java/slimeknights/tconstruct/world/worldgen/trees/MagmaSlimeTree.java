@@ -17,6 +17,6 @@ public class MagmaSlimeTree extends SlimeTree {
   @Override
   @Nullable
   public ConfiguredFeature<SlimeTreeFeatureConfig, ?> getSlimeTreeFeature(Random random, boolean bool) {
-    return TinkerWorld.TREE.withConfiguration(TinkerWorld.MAGMA_SLIME_TREE_CONFIG);
+    return TinkerWorld.TREE.get().withConfiguration(TinkerWorld.MAGMA_SLIME_TREE_CONFIG);
   }
 }

@@ -14,6 +14,8 @@ import slimeknights.tconstruct.blocks.DecorativeBlocks;
 import slimeknights.tconstruct.blocks.GadgetBlocks;
 import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.Tags;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import java.util.Locale;
 import java.util.function.Consumer;
@@ -45,13 +47,13 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
   }
 
   private void addWorld() {
-    this.getBuilder(Tags.Blocks.SLIMY_LOGS).add(WorldBlocks.congealed_green_slime, WorldBlocks.congealed_blue_slime, WorldBlocks.congealed_purple_slime, WorldBlocks.congealed_blood_slime, WorldBlocks.congealed_magma_slime);
-    this.getBuilder(Tags.Blocks.SLIMY_LEAVES).add(WorldBlocks.blue_slime_leaves, WorldBlocks.purple_slime_leaves, WorldBlocks.orange_slime_leaves);
-    this.getBuilder(Tags.Blocks.SLIMY_SAPLINGS).add(WorldBlocks.blue_slime_sapling, WorldBlocks.orange_slime_sapling, WorldBlocks.purple_slime_sapling);
+    this.getBuilder(Tags.Blocks.SLIMY_LOGS).add(WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.GREEN), WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.BLUE), WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.PURPLE), WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.BLOOD), WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.MAGMA));
+    this.getBuilder(Tags.Blocks.SLIMY_LEAVES).add(WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.BLUE), WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.PURPLE), WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.ORANGE));
+    this.getBuilder(Tags.Blocks.SLIMY_SAPLINGS).add(WorldBlocks.blue_slime_sapling.get(), WorldBlocks.orange_slime_sapling.get(), WorldBlocks.purple_slime_sapling.get());
 
     this.getBuilder(net.minecraftforge.common.Tags.Blocks.ORES).add(Tags.Blocks.ORES_COBALT, Tags.Blocks.ORES_ARDITE);
-    this.getBuilder(Tags.Blocks.ORES_COBALT).add(WorldBlocks.cobalt_ore);
-    this.getBuilder(Tags.Blocks.ORES_ARDITE).add(WorldBlocks.ardite_ore);
+    this.getBuilder(Tags.Blocks.ORES_COBALT).add(WorldBlocks.cobalt_ore.get());
+    this.getBuilder(Tags.Blocks.ORES_ARDITE).add(WorldBlocks.ardite_ore.get());
   }
 
   private void addGadgets() {

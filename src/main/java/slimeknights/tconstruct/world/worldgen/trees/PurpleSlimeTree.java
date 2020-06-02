@@ -28,9 +28,9 @@ public class PurpleSlimeTree extends SlimeTree {
   @Nullable
   public ConfiguredFeature<SlimeTreeFeatureConfig, ?> getSlimeTreeFeature(Random random, boolean bool) {
     if (this.isIslandTree) {
-      return TinkerWorld.TREE.withConfiguration(TinkerWorld.PURPLE_SLIME_ISLAND_TREE_CONFIG);
+      return TinkerWorld.TREE.get().withConfiguration(TinkerWorld.PURPLE_SLIME_ISLAND_TREE_CONFIG);
     } else {
-      return TinkerWorld.TREE.withConfiguration(TinkerWorld.PURPLE_SLIME_TREE_CONFIG);
+      return TinkerWorld.TREE.get().withConfiguration(TinkerWorld.PURPLE_SLIME_TREE_CONFIG);
     }
   }
 }

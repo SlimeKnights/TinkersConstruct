@@ -50,7 +50,14 @@ public class SlimeBlock extends net.minecraft.block.SlimeBlock {
     public final int meta;
     private final int color, ballColor;
     private final Tag<Item> slimeBallTag;
+    /**
+     * Slime types which are used in more visual blocks (dirt and grass)
+     */
     public static final SlimeType[] VISIBLE_COLORS = {GREEN, BLUE, PURPLE, BLOOD, MAGMA};
+    /**
+     * Slime types added by the mod
+     */
+    public static final SlimeType[] TINKER = {BLUE, PURPLE, BLOOD, MAGMA, PINK};
 
     /**
      * Returns the block color for this slime type

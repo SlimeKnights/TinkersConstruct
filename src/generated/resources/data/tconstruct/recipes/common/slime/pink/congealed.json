@@ -7,10 +7,10 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:slimeball/blue"
+      "tag": "forge:slimeball/pink"
     }
   },
   "result": {
-    "item": "tconstruct:blue_congealed_slime"
+    "item": "tconstruct:pink_congealed_slime"
   }
 }

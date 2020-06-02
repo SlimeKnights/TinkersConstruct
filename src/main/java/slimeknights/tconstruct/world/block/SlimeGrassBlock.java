@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.lighting.LightEngine;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.blocks.WorldBlocks;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
 
 import java.util.Locale;
 import java.util.Random;
@@ -77,29 +78,9 @@ public class SlimeGrassBlock extends Block implements IGrowable {
           BlockState plantState = null;
 
           if (rand.nextInt(8) == 0) {
-            switch (this.foliageType) {
-              case BLUE:
-                plantState = WorldBlocks.blue_slime_fern.getDefaultState();
-                break;
-              case PURPLE:
-                plantState = WorldBlocks.purple_slime_fern.getDefaultState();
-                break;
-              case ORANGE:
-                plantState = WorldBlocks.orange_slime_fern.getDefaultState();
-                break;
-            }
+            plantState = WorldBlocks.slime_fern.get(this.foliageType).getDefaultState();
           } else {
-            switch (this.foliageType) {
-              case BLUE:
-                plantState = WorldBlocks.blue_slime_tall_grass.getDefaultState();
-                break;
-              case PURPLE:
-                plantState = WorldBlocks.purple_slime_tall_grass.getDefaultState();
-                break;
-              case ORANGE:
-                plantState = WorldBlocks.orange_slime_tall_grass.getDefaultState();
-                break;
-            }
+            plantState = WorldBlocks.slime_tall_grass.get(this.foliageType).getDefaultState();
           }
 
           if (plantState != null) {
@@ -158,20 +139,20 @@ public class SlimeGrassBlock extends Block implements IGrowable {
   }
 
   public BlockState getDirtState(BlockState grassState) {
-    if (grassState.getBlock() == WorldBlocks.blue_vanilla_slime_grass || grassState.getBlock() == WorldBlocks.purple_vanilla_slime_grass || grassState.getBlock() == WorldBlocks.orange_vanilla_slime_grass) {
+    if (WorldBlocks.vanilla_slime_grass.contains(grassState.getBlock())) {
       return Blocks.DIRT.getDefaultState();
     }
-    if (grassState.getBlock() == WorldBlocks.blue_green_slime_grass || grassState.getBlock() == WorldBlocks.purple_green_slime_grass || grassState.getBlock() == WorldBlocks.orange_green_slime_grass) {
-      return WorldBlocks.green_slime_dirt.getDefaultState();
+    if (WorldBlocks.green_slime_grass.contains(grassState.getBlock())) {
+      return WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.GREEN).getDefaultState();
     }
-    if (grassState.getBlock() == WorldBlocks.blue_blue_slime_grass || grassState.getBlock() == WorldBlocks.purple_blue_slime_grass || grassState.getBlock() == WorldBlocks.orange_blue_slime_grass) {
-      return WorldBlocks.blue_slime_dirt.getDefaultState();
+    if (WorldBlocks.blue_slime_grass.contains(grassState.getBlock())) {
+      return WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.BLUE).getDefaultState();
     }
-    if (grassState.getBlock() == WorldBlocks.blue_purple_slime_grass || grassState.getBlock() == WorldBlocks.purple_purple_slime_grass || grassState.getBlock() == WorldBlocks.orange_purple_slime_grass) {
-      return WorldBlocks.purple_slime_dirt.getDefaultState();
+    if (WorldBlocks.purple_slime_grass.contains(grassState.getBlock())) {
+      return WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.PURPLE).getDefaultState();
     }
-    if (grassState.getBlock() == WorldBlocks.blue_magma_slime_grass || grassState.getBlock() == WorldBlocks.purple_magma_slime_grass || grassState.getBlock() == WorldBlocks.orange_magma_slime_grass) {
-      return WorldBlocks.magma_slime_dirt.getDefaultState();
+    if (WorldBlocks.magma_slime_grass.contains(grassState.getBlock())) {
+      return WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.MAGMA).getDefaultState();
     }
 
     return null;
@@ -179,52 +160,17 @@ public class SlimeGrassBlock extends Block implements IGrowable {
 
   private BlockState getStateFromDirt(BlockState dirtState) {
     if (dirtState.getBlock() == Blocks.DIRT) {
-      switch (this.foliageType) {
-        case BLUE:
-          return WorldBlocks.blue_vanilla_slime_grass.getDefaultState();
-        case PURPLE:
-          return WorldBlocks.purple_vanilla_slime_grass.getDefaultState();
-        case ORANGE:
-          return WorldBlocks.orange_vanilla_slime_grass.getDefaultState();
-      }
+      return WorldBlocks.vanilla_slime_grass.get(this.foliageType).getDefaultState();
     }
 
-    if (dirtState.getBlock() == WorldBlocks.green_slime_dirt) {
-      switch (this.foliageType) {
-        case BLUE:
-          return WorldBlocks.blue_green_slime_grass.getDefaultState();
-        case PURPLE:
-          return WorldBlocks.purple_green_slime_grass.getDefaultState();
-        case ORANGE:
-          return WorldBlocks.orange_green_slime_grass.getDefaultState();
-      }
-    } else if (dirtState.getBlock() == WorldBlocks.blue_slime_dirt) {
-      switch (this.foliageType) {
-        case BLUE:
-          return WorldBlocks.blue_blue_slime_grass.getDefaultState();
-        case PURPLE:
-          return WorldBlocks.purple_blue_slime_grass.getDefaultState();
-        case ORANGE:
-          return WorldBlocks.orange_blue_slime_grass.getDefaultState();
-      }
-    } else if (dirtState.getBlock() == WorldBlocks.purple_slime_dirt) {
-      switch (this.foliageType) {
-        case BLUE:
-          return WorldBlocks.blue_purple_slime_grass.getDefaultState();
-        case PURPLE:
-          return WorldBlocks.purple_purple_slime_grass.getDefaultState();
-        case ORANGE:
-          return WorldBlocks.orange_purple_slime_grass.getDefaultState();
-      }
-    } else if (dirtState.getBlock() == WorldBlocks.magma_slime_dirt) {
-      switch (this.foliageType) {
-        case BLUE:
-          return WorldBlocks.blue_magma_slime_grass.getDefaultState();
-        case PURPLE:
-          return WorldBlocks.purple_magma_slime_grass.getDefaultState();
-        case ORANGE:
-          return WorldBlocks.orange_magma_slime_grass.getDefaultState();
-      }
+    if (dirtState.getBlock() == WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.GREEN)) {
+      return WorldBlocks.green_slime_grass.get(this.foliageType).getDefaultState();
+    } else if (dirtState.getBlock() == WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.BLUE)) {
+      return WorldBlocks.blue_slime_grass.get(this.foliageType).getDefaultState();
+    } else if (dirtState.getBlock() == WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.PURPLE)) {
+      return WorldBlocks.purple_slime_grass.get(this.foliageType).getDefaultState();
+    } else if (dirtState.getBlock() == WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.MAGMA)) {
+      return WorldBlocks.magma_slime_grass.get(this.foliageType).getDefaultState();
     }
 
     return null;
@@ -238,6 +184,12 @@ public class SlimeGrassBlock extends Block implements IGrowable {
     @Override
     public String getName() {
       return this.toString().toLowerCase(Locale.US);
+    }
+
+
+    @Override
+    public String toString() {
+      return name().toLowerCase(Locale.US);
     }
   }
 }

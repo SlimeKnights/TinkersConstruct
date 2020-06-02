@@ -17,7 +17,7 @@
         ],
         "key": {
           "#": {
-            "item": "tconstruct:congealed_blood_slime"
+            "item": "tconstruct:green_congealed_slime"
           },
           "X": {
             "tag": "forge:slimeball/green"

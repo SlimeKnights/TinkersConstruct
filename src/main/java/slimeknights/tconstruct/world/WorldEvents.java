@@ -22,13 +22,13 @@ public class WorldEvents {
   public void extraSlimeSpawn(WorldEvent.PotentialSpawns event) {
     if (event.getType() == EntityClassification.MONSTER) {
       // inside a magma slime island?
-      if (TinkerWorld.NETHER_SLIME_ISLAND.isPositionInsideStructure(event.getWorld(), event.getPos().down(3)) && shouldSpawn(event.getWorld(), event.getPos())) {
+      if (TinkerWorld.NETHER_SLIME_ISLAND.get().isPositionInsideStructure(event.getWorld(), event.getPos().down(3)) && shouldSpawn(event.getWorld(), event.getPos())) {
         // spawn magma slime, pig zombies have weight 100
         event.getList().clear();
         event.getList().add(this.magmaSlimeSpawn);
       }
       // inside a slime island?
-      if (TinkerWorld.SLIME_ISLAND.isPositionInsideStructure(event.getWorld(), event.getPos().down(3)) && shouldSpawn(event.getWorld(), event.getPos())) {
+      if (TinkerWorld.SLIME_ISLAND.get().isPositionInsideStructure(event.getWorld(), event.getPos().down(3)) && shouldSpawn(event.getWorld(), event.getPos())) {
         // spawn blue slime, most regular mobs have weight 10
         event.getList().clear();
         event.getList().add(this.blueSlimeSpawn);

@@ -261,184 +261,40 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
   }
 
   private void addSlimeRecipes(Consumer<IFinishedRecipe> consumer) {
-    //BLOOD
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_blood_slime)
-      .key('#', Tags.Items.BLOOD_SLIMEBALL)
-      .patternLine("##")
-      .patternLine("##")
-      .addCriterion("has_item", this.hasItem(Tags.Items.BLOOD_SLIMEBALL))
-      .setGroup("tconstruct:congealed_slime")
-      .build(consumer, "tconstruct:common/slime/blood/congealed");
+    // Add recipe for all slimeball<->congealed
+    for (SlimeBlock.SlimeType slimeType : SlimeBlock.SlimeType.values()) {
+      ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_slime.get(slimeType))
+        .key('#', slimeType.getSlimeBallTag())
+        .patternLine("##")
+        .patternLine("##")
+        .addCriterion("has_item", this.hasItem(slimeType.getSlimeBallTag()))
+        .setGroup("tconstruct:congealed_slime")
+        .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/congealed");
 
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.blood_slime_ball, 9)
-      .addIngredient(WorldBlocks.blood_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.blood_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/blood/slimeball_from_block");
+      ShapelessRecipeBuilder.shapelessRecipe(CommonItems.blood_slime_ball, 4) // TODO:
+        .addIngredient(WorldBlocks.congealed_slime.get(slimeType))
+        .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_slime.get(slimeType)))
+        .setGroup("tconstruct:slime_balls")
+        .build(consumer, "tconstruct:common/slime/"+ slimeType.getName() + "/slimeball_from_congealed");
+    }
 
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.blood_slime_ball, 4)
-      .addIngredient(WorldBlocks.congealed_blood_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_blood_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/blood/slimeball_from_congealed");
+    // Don't re add recipe for vanilla slime_block and slime_ball
+    for (SlimeBlock.SlimeType slimeType : SlimeBlock.SlimeType.TINKER) {
+      ShapedRecipeBuilder.shapedRecipe(WorldBlocks.slime.get(slimeType))
+        .key('#', slimeType.getSlimeBallTag())
+        .patternLine("###")
+        .patternLine("###")
+        .patternLine("###")
+        .addCriterion("has_item", this.hasItem(slimeType.getSlimeBallTag()))
+        .setGroup("tconstruct:slime_blocks")
+        .build(consumer, "tconstruct:common/slime/"+ slimeType.getName() + "/slimeblock");
 
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.blood_slime)
-      .key('#', Tags.Items.BLOOD_SLIMEBALL)
-      .patternLine("###")
-      .patternLine("###")
-      .patternLine("###")
-      .addCriterion("has_item", this.hasItem(Tags.Items.BLOOD_SLIMEBALL))
-      .setGroup("tconstruct:slime_blocks")
-      .build(consumer, "tconstruct:common/slime/blood/slimeblock");
-
-    //BLUE
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_blue_slime)
-      .key('#', Tags.Items.BLUE_SLIMEBALL)
-      .patternLine("##")
-      .patternLine("##")
-      .addCriterion("has_item", this.hasItem(Tags.Items.BLUE_SLIMEBALL))
-      .setGroup("tconstruct:congealed_slime")
-      .build(consumer, "tconstruct:common/slime/blue/congealed");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.blue_slime_ball, 9)
-      .addIngredient(WorldBlocks.blue_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.blue_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/blue/slimeball_from_block");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.blue_slime_ball, 4)
-      .addIngredient(WorldBlocks.congealed_blue_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_blue_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/blue/slimeball_from_congealed");
-
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.blue_slime)
-      .key('#', Tags.Items.BLUE_SLIMEBALL)
-      .patternLine("###")
-      .patternLine("###")
-      .patternLine("###")
-      .addCriterion("has_item", this.hasItem(Tags.Items.BLUE_SLIMEBALL))
-      .setGroup("tconstruct:slime_blocks")
-      .build(consumer, "tconstruct:common/slime/blue/slimeblock");
-
-    //GREEN
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_green_slime)
-      .key('#', Tags.Items.GREEN_SLIMEBALL)
-      .patternLine("##")
-      .patternLine("##")
-      .addCriterion("has_item", this.hasItem(Tags.Items.GREEN_SLIMEBALL))
-      .setGroup("tconstruct:congealed_slime")
-      .build(consumer, "tconstruct:common/slime/green/congealed");
-
-    ShapelessRecipeBuilder.shapelessRecipe(Items.SLIME_BALL, 4)
-      .addIngredient(WorldBlocks.congealed_green_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_green_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/green/slimeball_from_congealed");
-
-    /*
-    TODO GREEN
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.green_slime)
-      .key('#', Tags.Items.GREEN_SLIMEBALL)
-      .patternLine("###")
-      .patternLine("###")
-      .patternLine("###")
-      .addCriterion("has_item", this.hasItem(Tags.Items.GREEN_SLIMEBALL))
-      .setGroup("tconstruct:slime_blocks")
-      .build(consumer, "tconstruct:common/slime/green/slimeblock");*/
-
-    //MAGMA
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_magma_slime)
-      .key('#', Tags.Items.MAGMA_SLIMEBALL)
-      .patternLine("##")
-      .patternLine("##")
-      .addCriterion("has_item", this.hasItem(Tags.Items.MAGMA_SLIMEBALL))
-      .setGroup("tconstruct:congealed_slime")
-      .build(consumer, "tconstruct:common/slime/magma/congealed");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.magma_slime_ball, 9)
-      .addIngredient(WorldBlocks.magma_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.magma_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/magma/slimeball_from_block");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.magma_slime_ball, 4)
-      .addIngredient(WorldBlocks.congealed_magma_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_magma_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/magma/slimeball_from_congealed");
-
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.magma_slime)
-      .key('#', Tags.Items.MAGMA_SLIMEBALL)
-      .patternLine("###")
-      .patternLine("###")
-      .patternLine("###")
-      .addCriterion("has_item", this.hasItem(Tags.Items.MAGMA_SLIMEBALL))
-      .setGroup("tconstruct:slime_blocks")
-      .build(consumer, "tconstruct:common/slime/magma/slimeblock");
-
-    /*
-    TODO PINK
-    //PINK
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_pink_slime)
-      .key('#', Tags.Items.PINK_SLIMEBALL)
-      .patternLine("##")
-      .patternLine("##")
-      .addCriterion("has_item", this.hasItem(Tags.Items.PINK_SLIMEBALL))
-      .setGroup("tconstruct:congealed_slime")
-      .build(consumer, "tconstruct:common/slime/pink/congealed");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.pink_slime_ball, 9)
-      .addIngredient(WorldBlocks.pink_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.pink_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/pink/slimeball_from_block");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.pink_slime_ball, 4)
-      .addIngredient(WorldBlocks.congealed_pink_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_pink_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/blue/slimeball_from_congealed");
-
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.pink_slime)
-      .key('#', Tags.Items.PINK_SLIMEBALL)
-      .patternLine("###")
-      .patternLine("###")
-      .patternLine("###")
-      .addCriterion("has_item", this.hasItem(Tags.Items.PINK_SLIMEBALL))
-      .setGroup("tconstruct:slime_blocks")
-      .build(consumer, "tconstruct:common/slime/pink/slimeblock");
-    */
-
-    //PURPLE
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_purple_slime)
-      .key('#', Tags.Items.PURPLE_SLIMEBALL)
-      .patternLine("##")
-      .patternLine("##")
-      .addCriterion("has_item", this.hasItem(Tags.Items.PURPLE_SLIMEBALL))
-      .setGroup("tconstruct:congealed_slime")
-      .build(consumer, "tconstruct:common/slime/purple/congealed");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.purple_slime_ball, 9)
-      .addIngredient(WorldBlocks.purple_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.purple_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/purple/slimeball_from_block");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.purple_slime_ball, 4)
-      .addIngredient(WorldBlocks.congealed_purple_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_purple_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/purple/slimeball_from_congealed");
-
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.purple_slime)
-      .key('#', Tags.Items.PURPLE_SLIMEBALL)
-      .patternLine("###")
-      .patternLine("###")
-      .patternLine("###")
-      .addCriterion("has_item", this.hasItem(Tags.Items.PURPLE_SLIMEBALL))
-      .setGroup("tconstruct:slime_blocks")
-      .build(consumer, "tconstruct:common/slime/purple/slimeblock");
+      ShapelessRecipeBuilder.shapelessRecipe(CommonItems.blood_slime_ball, 9) // TODO:
+        .addIngredient(WorldBlocks.slime.get(slimeType))
+        .addCriterion("has_item", this.hasItem(WorldBlocks.slime.get(slimeType)))
+        .setGroup("tconstruct:slime_balls")
+        .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeball_from_block");
+    }
   }
 
   private void addGlassRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -679,7 +535,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
         .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_sling.get(slime))
           .setGroup("tconstruct:slimesling")
           .key('#', Items.STRING)
-          .key('X', WorldBlocks.congealed_blood_slime) // TODO:
+          .key('X', WorldBlocks.congealed_slime.get(slime))
           .key('L', slime.getSlimeBallTag())
           .patternLine("#X#")
           .patternLine("L L")
@@ -704,7 +560,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
         .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
         .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_boots.get(slime))
           .setGroup("tconstruct:slime_boots")
-          .key('#', WorldBlocks.congealed_blood_slime) // TODO:
+          .key('#', WorldBlocks.congealed_slime.get(slime))
           .key('X', slime.getSlimeBallTag())
           .patternLine("X X")
           .patternLine("# #")
