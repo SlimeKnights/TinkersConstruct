@@ -202,16 +202,16 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private void addGadgets() {
-    this.registerDropSelfLootTable(GadgetBlocks.stone_ladder);
+    this.registerDropSelfLootTable(GadgetBlocks.stone_ladder.get());
 
-    this.registerDropSelfLootTable(GadgetBlocks.stone_torch);
+    this.registerDropSelfLootTable(GadgetBlocks.stone_torch.get());
 
-    this.registerDropping(GadgetBlocks.wall_stone_torch, GadgetBlocks.stone_torch);
+    this.registerDropping(GadgetBlocks.wall_stone_torch.get(), GadgetBlocks.stone_torch.get());
 
-    this.registerDropSelfLootTable(GadgetBlocks.punji);
+    this.registerDropSelfLootTable(GadgetBlocks.punji.get());
 
-    this.registerDropSelfLootTable(GadgetBlocks.wooden_rail);
-    this.registerDropSelfLootTable(GadgetBlocks.wooden_dropper_rail);
+    this.registerDropSelfLootTable(GadgetBlocks.wooden_rail.get());
+    this.registerDropSelfLootTable(GadgetBlocks.wooden_dropper_rail.get());
   }
 
   private void addSmeltery() {

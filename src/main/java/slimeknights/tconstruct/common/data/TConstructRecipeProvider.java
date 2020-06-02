@@ -243,7 +243,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ResourceLocation punjiSticksId = new ResourceLocation(TConstruct.modID, "gadgets/punji_sticks");
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.punji, 3)
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.punji.get(), 3)
         .key('#', Items.SUGAR_CANE)
         .patternLine("# #")
         .patternLine(" # ")
@@ -594,7 +594,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
       .addRecipe(ShapedRecipeBuilder.shapedRecipe(Blocks.JACK_O_LANTERN)
         .key('#', Blocks.CARVED_PUMPKIN)
-        .key('X', GadgetBlocks.stone_torch)
+        .key('X', GadgetBlocks.stone_torch.get())
         .patternLine("#")
         .patternLine("X")
         .addCriterion("has_item", this.hasItem(Blocks.CARVED_PUMPKIN))::build)
@@ -611,7 +611,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ResourceLocation stoneLadderId = new ResourceLocation(TConstruct.modID, "gadgets/stone/stone_ladder");
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.stone_ladder, 3)
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.stone_ladder.get(), 3)
         .key('#', Tags.Items.RODS_STONE)
         .patternLine("# #")
         .patternLine("###")
@@ -651,7 +651,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ResourceLocation stoneTorchId = new ResourceLocation(TConstruct.modID, "gadgets/stone/stone_torch");
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.stone_torch, 4)
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.stone_torch.get(), 4)
         .key('#', Ingredient.fromItemListStream(Stream.of(
           new Ingredient.SingleItemList(new ItemStack(Items.COAL)),
           new Ingredient.SingleItemList(new ItemStack(Items.CHARCOAL))
@@ -725,7 +725,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ResourceLocation woodenRailId = new ResourceLocation(TConstruct.modID, "gadgets/rail/wooden_rail");
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.wooden_rail, 4)
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.wooden_rail.get(), 4)
         .key('#', ItemTags.PLANKS)
         .key('X', net.minecraftforge.common.Tags.Items.RODS_WOODEN)
         .patternLine("# #")
@@ -745,7 +745,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ResourceLocation woodenDropperRailId = new ResourceLocation(TConstruct.modID, "gadgets/rail/wooden_dropper_rail");
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.wooden_dropper_rail, 4)
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.wooden_dropper_rail.get(), 4)
         .key('#', ItemTags.PLANKS)
         .key('X', ItemTags.WOODEN_TRAPDOORS)
         .patternLine("# #")

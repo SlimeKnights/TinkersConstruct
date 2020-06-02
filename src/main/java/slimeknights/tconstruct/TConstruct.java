@@ -28,6 +28,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.control.PulseManager;
+import slimeknights.tconstruct.blocks.GadgetBlocks;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.config.Config;
@@ -85,6 +86,7 @@ public class TConstruct {
 
     ToolItems.init();
     GadgetItems.init();
+    GadgetBlocks.init();
 
     pulseManager = new PulseManager(Config.pulseConfig);
     pulseManager.registerPulse(new TinkerCommons());

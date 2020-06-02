@@ -55,7 +55,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
   }
 
   private void addGadgets() {
-    this.getBuilder(BlockTags.RAILS).add(GadgetBlocks.wooden_rail, GadgetBlocks.wooden_dropper_rail);
+    this.getBuilder(BlockTags.RAILS).add(GadgetBlocks.wooden_rail.get(), GadgetBlocks.wooden_dropper_rail.get());
   }
 
   @Override
