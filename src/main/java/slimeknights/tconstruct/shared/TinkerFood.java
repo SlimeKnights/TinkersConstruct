@@ -35,6 +35,7 @@ public final class TinkerFood {
   public static final Food PURPLE_SLIME_DROP = (new Food.Builder()).hunger(3).saturation(2.0F).setAlwaysEdible().effect(new EffectInstance(Effects.LUCK, 20 * 90), 1.0F).build();
   public static final Food BLOOD_SLIME_DROP = (new Food.Builder()).hunger(3).saturation(1.5F).setAlwaysEdible().effect(new EffectInstance(Effects.HEALTH_BOOST, 20 * 90), 1.0F).build();
   public static final Food MAGMA_SLIME_DROP = (new Food.Builder()).hunger(6).saturation(1.0F).setAlwaysEdible().effect(new EffectInstance(Effects.FIRE_RESISTANCE, 20 * 90), 1.0F).build();
+  public static final Food PINK_SLIME_DROP = (new Food.Builder()).hunger(1).saturation(1.0F).setAlwaysEdible().build();
 
   private TinkerFood() {}
 }

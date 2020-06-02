@@ -273,7 +273,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
         .setGroup("tconstruct:congealed_slime")
         .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/congealed");
 
-      ShapelessRecipeBuilder.shapelessRecipe(FoodItems.blood_slime_ball, 4) // TODO:
+      ShapelessRecipeBuilder.shapelessRecipe(FoodItems.slime_ball.get(slimeType), 4)
         .addIngredient(WorldBlocks.congealed_slime.get(slimeType))
         .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_slime.get(slimeType)))
         .setGroup("tconstruct:slime_balls")
@@ -291,7 +291,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
         .setGroup("tconstruct:slime_blocks")
         .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeblock");
 
-      ShapelessRecipeBuilder.shapelessRecipe(FoodItems.blood_slime_ball, 9) // TODO:
+      ShapelessRecipeBuilder.shapelessRecipe(FoodItems.slime_ball.get(slimeType), 9)
         .addIngredient(WorldBlocks.slime.get(slimeType))
         .addCriterion("has_item", this.hasItem(WorldBlocks.slime.get(slimeType)))
         .setGroup("tconstruct:slime_balls")

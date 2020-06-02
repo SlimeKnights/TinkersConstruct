@@ -17,6 +17,7 @@ import slimeknights.tconstruct.items.FoodItems;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
 
 /**
  * Contains items and blocks and stuff that is shared by multiple pulses, but might be required individually
@@ -35,6 +36,6 @@ public class TinkerCommons extends TinkerPulse {
   
   @SubscribeEvent
   public void commonSetup(final FMLCommonSetupEvent event) {
-    TinkerRegistry.tabGeneral.setDisplayIcon(new ItemStack(FoodItems.blue_slime_ball));
+    TinkerRegistry.tabGeneral.setDisplayIcon(new ItemStack(FoodItems.slime_ball.get(SlimeBlock.SlimeType.BLUE)));
   }
 }

@@ -14,6 +14,7 @@ import slimeknights.tconstruct.common.Tags;
 import slimeknights.tconstruct.items.CommonItems;
 import slimeknights.tconstruct.items.FoodItems;
 import slimeknights.tconstruct.items.GadgetItems;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
 
 import java.util.Locale;
 import java.util.Set;
@@ -37,11 +38,11 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
     this.getBuilder(net.minecraftforge.common.Tags.Items.SLIMEBALLS).add(Tags.Items.BLUE_SLIMEBALL, Tags.Items.PURPLE_SLIMEBALL, Tags.Items.BLOOD_SLIMEBALL, Tags.Items.MAGMA_SLIMEBALL, Tags.Items.PINK_SLIMEBALL);
     this.getBuilder(Tags.Items.GREEN_SLIMEBALL).add(Items.SLIME_BALL);
-    this.getBuilder(Tags.Items.BLUE_SLIMEBALL).add(FoodItems.blue_slime_ball);
-    this.getBuilder(Tags.Items.PURPLE_SLIMEBALL).add(FoodItems.purple_slime_ball);
-    this.getBuilder(Tags.Items.BLOOD_SLIMEBALL).add(FoodItems.blood_slime_ball);
-    this.getBuilder(Tags.Items.MAGMA_SLIMEBALL).add(FoodItems.magma_slime_ball);
-    this.getBuilder(Tags.Items.PINK_SLIMEBALL).add(FoodItems.pink_slime_ball);
+    this.getBuilder(Tags.Items.BLUE_SLIMEBALL).add(FoodItems.slime_ball.get(SlimeBlock.SlimeType.BLUE));
+    this.getBuilder(Tags.Items.PURPLE_SLIMEBALL).add(FoodItems.slime_ball.get(SlimeBlock.SlimeType.PURPLE));
+    this.getBuilder(Tags.Items.BLOOD_SLIMEBALL).add(FoodItems.slime_ball.get(SlimeBlock.SlimeType.BLOOD));
+    this.getBuilder(Tags.Items.MAGMA_SLIMEBALL).add(FoodItems.slime_ball.get(SlimeBlock.SlimeType.MAGMA));
+    this.getBuilder(Tags.Items.PINK_SLIMEBALL).add(FoodItems.slime_ball.get(SlimeBlock.SlimeType.PINK));
 
     this.getBuilder(net.minecraftforge.common.Tags.Items.INGOTS).add(Tags.Items.INGOTS_COBALT, Tags.Items.INGOTS_ARDITE, Tags.Items.INGOTS_MANYULLYN, Tags.Items.INGOTS_KNIGHTSLIME, Tags.Items.INGOTS_PIGIRON, Tags.Items.INGOTS_ALUBRASS);
     this.getBuilder(Tags.Items.INGOTS_COBALT).add(CommonItems.cobalt_ingot.get());

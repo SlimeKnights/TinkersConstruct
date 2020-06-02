@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -8,6 +9,7 @@ import net.minecraft.tags.Tag;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.NonNullList;
 import slimeknights.tconstruct.common.Tags;
+import slimeknights.tconstruct.shared.TinkerFood;
 
 import java.util.Locale;
 
@@ -76,6 +78,51 @@ public class SlimeBlock extends net.minecraft.block.SlimeBlock {
     public Tag<Item> getSlimeBallTag() {
       return slimeBallTag;
     }
+
+    /**
+     * Returns the slimeball food item for this slime type
+     * @param type  SlimeType
+     * @return  Appropriate TinkerFood
+     */
+    public Food getSlimeFood(SlimeType type) {
+      switch (type) {
+        case BLUE:
+          return TinkerFood.BLUE_SLIME_BALL;
+        case PURPLE:
+          return TinkerFood.PURPLE_SLIME_BALL;
+        case BLOOD:
+          return TinkerFood.BLOOD_SLIME_BALL;
+        case MAGMA:
+          return TinkerFood.MAGMA_SLIME_BALL;
+        case PINK:
+        default:
+          return TinkerFood.PINK_SLIME_BALL;
+      }
+    }
+
+    /**
+     * Returns the slime_drop food item for this slime type
+     * @param type  SlimeType
+     * @return  Appropriate TinkerFood
+     */
+    public Food getSlimeDropFood(SlimeType type) {
+      switch (type) {
+        case GREEN:
+          return TinkerFood.GREEN_SLIME_DROP;
+        case BLUE:
+          return TinkerFood.BLUE_SLIME_DROP;
+        case PURPLE:
+          return TinkerFood.PURPLE_SLIME_DROP;
+        case BLOOD:
+          return TinkerFood.BLOOD_SLIME_DROP;
+        case MAGMA:
+          return TinkerFood.MAGMA_SLIME_DROP;
+        case PINK:
+        default:
+          return TinkerFood.PINK_SLIME_DROP;
+      }
+    }
+
     @Override
     public String getName() {
       return this.toString().toLowerCase(Locale.US);

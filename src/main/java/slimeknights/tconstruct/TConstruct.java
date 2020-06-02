@@ -48,6 +48,7 @@ import slimeknights.tconstruct.debug.ToolDebugScreen;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.items.CommonItems;
+import slimeknights.tconstruct.items.FoodItems;
 import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.items.ToolItems;
 import slimeknights.tconstruct.library.MaterialRegistry;
@@ -99,6 +100,7 @@ public class TConstruct {
     SmelteryBlocks.init();
     CommonBlocks.init();
     CommonItems.init();
+    FoodItems.init();
 
     pulseManager = new PulseManager(Config.pulseConfig);
     pulseManager.registerPulse(new TinkerCommons());
