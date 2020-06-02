@@ -23,6 +23,7 @@ import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
 
 @Pulse(id = TinkerPulseIds.TINKER_GADGETS_PULSE_ID, description = "All the fun toys")
 @ObjectHolder(TConstruct.modID)
@@ -83,6 +84,6 @@ public class TinkerGadgets extends TinkerPulse {
   public void commonSetup(final FMLCommonSetupEvent event) {
     CapabilityTinkerPiggyback.register();
     MinecraftForge.EVENT_BUS.register(new GadgetEvents());
-    TinkerRegistry.tabGadgets.setDisplayIcon(new ItemStack(GadgetItems.slime_sling_green));
+    TinkerRegistry.tabGadgets.setDisplayIcon(new ItemStack(GadgetItems.slime_sling.get(SlimeBlock.SlimeType.GREEN)));
   }
 }

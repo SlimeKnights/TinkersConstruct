@@ -59,6 +59,7 @@ public class Tags {
     public static final Tag<Item> PURPLE_SLIMEBALL = forgeTag("slimeball/purple");
     public static final Tag<Item> BLOOD_SLIMEBALL = forgeTag("slimeball/blood");
     public static final Tag<Item> MAGMA_SLIMEBALL = forgeTag("slimeball/magma");
+    public static final Tag<Item> PINK_SLIMEBALL = forgeTag("slimeball/pink");
 
     public static final Tag<Item> INGOTS_COBALT = forgeTag("ingots/cobalt");
     public static final Tag<Item> INGOTS_ARDITE = forgeTag("ingots/ardite");

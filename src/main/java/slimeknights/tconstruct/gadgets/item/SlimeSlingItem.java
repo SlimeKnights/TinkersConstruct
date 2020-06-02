@@ -100,21 +100,4 @@ public class SlimeSlingItem extends TooltipItem {
   public UseAction getUseAction(ItemStack stack) {
     return UseAction.BOW;
   }
-
-  @OnlyIn(Dist.CLIENT)
-  public static int getColorFromStack(ItemStack stack) {
-    if (stack.getItem() == GadgetItems.slime_sling_blue) {
-      return SlimeBlock.SlimeType.BLUE.getBallColor();
-    } else if (stack.getItem() == GadgetItems.slime_sling_purple) {
-      return SlimeBlock.SlimeType.PURPLE.getBallColor();
-    } else if (stack.getItem() == GadgetItems.slime_sling_magma) {
-      return SlimeBlock.SlimeType.MAGMA.getBallColor();
-    } else if (stack.getItem() == GadgetItems.slime_sling_green) {
-      return SlimeBlock.SlimeType.GREEN.getBallColor();
-    } else if (stack.getItem() == GadgetItems.slime_sling_blood) {
-      return SlimeBlock.SlimeType.BLOOD.getBallColor();
-    } else {
-      return SlimeBlock.SlimeType.GREEN.getBallColor();
-    }
-  }
 }

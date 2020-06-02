@@ -21,6 +21,7 @@ import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
 import slimeknights.tconstruct.gadgets.item.SlimeSlingItem;
 import slimeknights.tconstruct.items.GadgetItems;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
 
 import javax.annotation.Nonnull;
 
@@ -29,8 +30,9 @@ public class GadgetClientEvents {
   @SubscribeEvent
   public static void registerItemColors(ColorHandlerEvent.Item event) {
     final ItemColors colors = event.getItemColors();
-    colors.register((@Nonnull ItemStack stack, int tintIndex) -> SlimeSlingItem.getColorFromStack(stack), GadgetItems.slime_sling_blue, GadgetItems.slime_sling_purple, GadgetItems.slime_sling_magma, GadgetItems.slime_sling_green, GadgetItems.slime_sling_blood);
-    colors.register((@Nonnull ItemStack stack, int tintIndex) -> SlimeBootsItem.getColorFromStack(stack), GadgetItems.slime_boots_blue, GadgetItems.slime_boots_purple, GadgetItems.slime_boots_magma, GadgetItems.slime_boots_green, GadgetItems.slime_boots_blood);
+    for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
+      colors.register((stack,index)->slime.getBallColor(), GadgetItems.slime_sling.get(slime), GadgetItems.slime_boots.get(slime));
+    }
   }
 
   @SubscribeEvent

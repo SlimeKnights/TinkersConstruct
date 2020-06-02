@@ -36,7 +36,7 @@ public class GlowballEntity extends ProjectileItemEntity implements IEntityAddit
 
   @Override
   protected Item getDefaultItem() {
-    return GadgetItems.glow_ball;
+    return GadgetItems.glow_ball.get();
   }
 
   @Override

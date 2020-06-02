@@ -35,7 +35,7 @@ public class EflnBallEntity extends ProjectileItemEntity implements IEntityAddit
 
   @Override
   protected Item getDefaultItem() {
-    return GadgetItems.efln_ball;
+    return GadgetItems.efln_ball.get();
   }
 
   @Override

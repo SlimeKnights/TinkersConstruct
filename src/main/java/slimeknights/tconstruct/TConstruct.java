@@ -10,10 +10,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.Item;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -39,11 +41,13 @@ import slimeknights.tconstruct.debug.ToolDebugContainer;
 import slimeknights.tconstruct.debug.ToolDebugScreen;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.items.ToolItems;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
@@ -80,6 +84,7 @@ public class TConstruct {
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
 
     ToolItems.init();
+    GadgetItems.init();
 
     pulseManager = new PulseManager(Config.pulseConfig);
     pulseManager.registerPulse(new TinkerCommons());
@@ -144,5 +149,23 @@ public class TConstruct {
         return Command.SINGLE_SUCCESS;
       });
     event.getCommandDispatcher().register(executes);
+  }
+
+  @SubscribeEvent // TODO: Remove after a while, maybe at release.
+  public void missingItemMappings(RegistryEvent.MissingMappings<Item> event) {
+    for (RegistryEvent.MissingMappings.Mapping<Item> entry : event.getAllMappings()) {
+      if (entry.key.getNamespace().equals(TConstruct.modID)) {
+        for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
+          // Remap slime_sling_$slime
+          if (entry.key.getPath().equals("slime_sling_" + slime.getName())) {
+            entry.remap(GadgetItems.slime_sling.get(slime));
+          }
+          // Remap slime_boots_$slime
+          if (entry.key.getPath().equals("slime_boots_" + slime.getName())) {
+            entry.remap(GadgetItems.slime_boots.get(slime));
+          }
+        }
+      }
+    }
   }
 }

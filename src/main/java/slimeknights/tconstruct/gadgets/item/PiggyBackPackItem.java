@@ -218,10 +218,10 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
     @Override
     public void performEffect(@Nonnull LivingEntity livingEntityIn, int p_76394_2_) {
       ItemStack chestArmor = livingEntityIn.getItemStackFromSlot(EquipmentSlotType.CHEST);
-      if (chestArmor.isEmpty() || chestArmor.getItem() != GadgetItems.piggy_backpack) {
-        GadgetItems.piggy_backpack.matchCarriedEntitiesToCount(livingEntityIn, 0);
+      if (chestArmor.isEmpty() || chestArmor.getItem() != GadgetItems.piggy_backpack.get()) {
+        GadgetItems.piggy_backpack.get().matchCarriedEntitiesToCount(livingEntityIn, 0);
       } else {
-        GadgetItems.piggy_backpack.matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
+        GadgetItems.piggy_backpack.get().matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
         if (!livingEntityIn.getEntityWorld().isRemote) {
           if (livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).isPresent()) {
             ITinkerPiggyback piggyback = livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).orElse(null);

@@ -33,12 +33,13 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   }
 
   private void addCommon() {
-    this.getBuilder(net.minecraftforge.common.Tags.Items.SLIMEBALLS).add(Tags.Items.BLUE_SLIMEBALL, Tags.Items.PURPLE_SLIMEBALL, Tags.Items.BLOOD_SLIMEBALL, Tags.Items.MAGMA_SLIMEBALL).add(CommonItems.pink_slime_ball);
+    this.getBuilder(net.minecraftforge.common.Tags.Items.SLIMEBALLS).add(Tags.Items.BLUE_SLIMEBALL, Tags.Items.PURPLE_SLIMEBALL, Tags.Items.BLOOD_SLIMEBALL, Tags.Items.MAGMA_SLIMEBALL, Tags.Items.PINK_SLIMEBALL);
     this.getBuilder(Tags.Items.GREEN_SLIMEBALL).add(Items.SLIME_BALL);
     this.getBuilder(Tags.Items.BLUE_SLIMEBALL).add(CommonItems.blue_slime_ball);
     this.getBuilder(Tags.Items.PURPLE_SLIMEBALL).add(CommonItems.purple_slime_ball);
     this.getBuilder(Tags.Items.BLOOD_SLIMEBALL).add(CommonItems.blood_slime_ball);
     this.getBuilder(Tags.Items.MAGMA_SLIMEBALL).add(CommonItems.magma_slime_ball);
+    this.getBuilder(Tags.Items.PINK_SLIMEBALL).add(CommonItems.pink_slime_ball);
 
     this.getBuilder(net.minecraftforge.common.Tags.Items.INGOTS).add(Tags.Items.INGOTS_COBALT, Tags.Items.INGOTS_ARDITE, Tags.Items.INGOTS_MANYULLYN, Tags.Items.INGOTS_KNIGHTSLIME, Tags.Items.INGOTS_PIGIRON, Tags.Items.INGOTS_ALUBRASS);
     this.getBuilder(Tags.Items.INGOTS_COBALT).add(CommonItems.cobalt_ingot);
@@ -81,7 +82,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   private void addGadgets() {
     this.copy(BlockTags.RAILS, ItemTags.RAILS);
     this.getBuilder(net.minecraftforge.common.Tags.Items.RODS).add(Tags.Items.RODS_STONE);
-    this.getBuilder(Tags.Items.RODS_STONE).add(GadgetItems.stone_stick);
+    this.getBuilder(Tags.Items.RODS_STONE).add(GadgetItems.stone_stick.get());
   }
 
   @Override
