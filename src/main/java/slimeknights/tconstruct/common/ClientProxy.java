@@ -4,7 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.items.CommonItems;
+import slimeknights.tconstruct.items.FoodItems;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.particle.SlimeFxParticle;
 
@@ -17,6 +17,6 @@ public class ClientProxy extends ServerProxy {
 
   @Override
   public void spawnSlimeParticle(World world, double x, double y, double z) {
-    mc.particles.addEffect(new SlimeFxParticle(world, x, y, z, new ItemStack(CommonItems.blue_slime_ball)));
+    mc.particles.addEffect(new SlimeFxParticle(world, x, y, z, new ItemStack(FoodItems.blue_slime_ball)));
   }
 }

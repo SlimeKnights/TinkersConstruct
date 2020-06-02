@@ -13,7 +13,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
 import slimeknights.tconstruct.common.conditions.PulseLoadedCondition;
-import slimeknights.tconstruct.items.CommonItems;
+import slimeknights.tconstruct.items.FoodItems;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -32,10 +32,9 @@ public class TinkerCommons extends TinkerPulse {
     CraftingHelper.register(ConfigOptionEnabledCondition.Serializer.INSTANCE);
     CraftingHelper.register(PulseLoadedCondition.Serializer.INSTANCE);
   }
-
-
+  
   @SubscribeEvent
   public void commonSetup(final FMLCommonSetupEvent event) {
-    TinkerRegistry.tabGeneral.setDisplayIcon(new ItemStack(CommonItems.blue_slime_ball));
+    TinkerRegistry.tabGeneral.setDisplayIcon(new ItemStack(FoodItems.blue_slime_ball));
   }
 }

@@ -25,7 +25,7 @@ public class PlayerDataEvents {
       CompoundNBT data = TagUtil.getTagSafe(playerData, PlayerEntity.PERSISTED_NBT_TAG);
 
       if (!data.getBoolean(TAG_PLAYER_HAS_BOOK)) {
-        ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), new ItemStack(CommonItems.book));
+        ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), new ItemStack(CommonItems.book.get()));
         data.putBoolean(TAG_PLAYER_HAS_BOOK, true);
         playerData.put(PlayerEntity.PERSISTED_NBT_TAG, data);
       }

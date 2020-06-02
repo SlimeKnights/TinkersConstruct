@@ -36,6 +36,13 @@ public final class FoodItems {
   public static final EdibleItem clownfish_jerky = injected();
   public static final EdibleItem pufferfish_jerky = injected();
 
+  /* Slime Balls */
+  public static final EdibleItem blue_slime_ball = injected();
+  public static final EdibleItem purple_slime_ball = injected();
+  public static final EdibleItem blood_slime_ball = injected();
+  public static final EdibleItem magma_slime_ball = injected();
+  public static final EdibleItem pink_slime_ball = injected();
+
   /* Slime Drops */
   public static final EdibleItem green_slime_drop = injected();
   public static final EdibleItem blue_slime_drop = injected();

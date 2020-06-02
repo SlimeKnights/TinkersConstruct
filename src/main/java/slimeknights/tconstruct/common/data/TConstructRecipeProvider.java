@@ -29,6 +29,7 @@ import slimeknights.tconstruct.common.Tags;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
 import slimeknights.tconstruct.common.conditions.PulseLoadedCondition;
 import slimeknights.tconstruct.items.CommonItems;
+import slimeknights.tconstruct.items.FoodItems;
 import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
@@ -99,10 +100,10 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .addCriterion("has_bone_meal", this.hasItem(Items.BONE_MEAL))
       .build(consumer, "tconstruct:common/soil/graveyard_soil");
     ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks.get())
-      .key('#', CommonItems.mud_brick)
+      .key('#', CommonItems.mud_brick.get())
       .patternLine("##")
       .patternLine("##")
-      .addCriterion("has_mud_brick", this.hasItem(CommonItems.mud_brick))
+      .addCriterion("has_mud_brick", this.hasItem(CommonItems.mud_brick.get()))
       .build(consumer, "tconstruct:common/soil/mud_bricks_block");
     ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks.getSlab(), 6)
       .key('#', DecorativeBlocks.mud_bricks.get())
@@ -111,10 +112,10 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .addCriterion("has_mud_bricks", this.hasItem(DecorativeBlocks.mud_bricks.get()))
       .build(consumer, "tconstruct:common/soil/mud_bricks_slab_block");
     ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks.getSlab())
-      .key('#', CommonItems.mud_brick)
+      .key('#', CommonItems.mud_brick.get())
       .patternLine("##")
       .setGroup("tconstruct:mud_brick_slab")
-      .addCriterion("has_mud_brick", this.hasItem(CommonItems.mud_brick))
+      .addCriterion("has_mud_brick", this.hasItem(CommonItems.mud_brick.get()))
       .build(consumer, "tconstruct:common/soil/mud_bricks_slab");
     ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks.getStairs(), 4)
       .key('#', DecorativeBlocks.mud_bricks.get())
@@ -124,7 +125,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .addCriterion("has_mud_bricks", this.hasItem(DecorativeBlocks.mud_bricks.get()))
       .build(consumer, "tconstruct:common/soil/mud_bricks_stairs");
 
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.book)
+    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.book.get())
       .addIngredient(Items.BOOK)
       .addIngredient(Blocks.GRAVEL)
       .addCriterion("has_gravel", this.hasItem(Blocks.GRAVEL))
@@ -272,11 +273,11 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
         .setGroup("tconstruct:congealed_slime")
         .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/congealed");
 
-      ShapelessRecipeBuilder.shapelessRecipe(CommonItems.blood_slime_ball, 4) // TODO:
+      ShapelessRecipeBuilder.shapelessRecipe(FoodItems.blood_slime_ball, 4) // TODO:
         .addIngredient(WorldBlocks.congealed_slime.get(slimeType))
         .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_slime.get(slimeType)))
         .setGroup("tconstruct:slime_balls")
-        .build(consumer, "tconstruct:common/slime/"+ slimeType.getName() + "/slimeball_from_congealed");
+        .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeball_from_congealed");
     }
 
     // Don't re add recipe for vanilla slime_block and slime_ball
@@ -288,9 +289,9 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
         .patternLine("###")
         .addCriterion("has_item", this.hasItem(slimeType.getSlimeBallTag()))
         .setGroup("tconstruct:slime_blocks")
-        .build(consumer, "tconstruct:common/slime/"+ slimeType.getName() + "/slimeblock");
+        .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeblock");
 
-      ShapelessRecipeBuilder.shapelessRecipe(CommonItems.blood_slime_ball, 9) // TODO:
+      ShapelessRecipeBuilder.shapelessRecipe(FoodItems.blood_slime_ball, 9) // TODO:
         .addIngredient(WorldBlocks.slime.get(slimeType))
         .addCriterion("has_item", this.hasItem(WorldBlocks.slime.get(slimeType)))
         .setGroup("tconstruct:slime_balls")
