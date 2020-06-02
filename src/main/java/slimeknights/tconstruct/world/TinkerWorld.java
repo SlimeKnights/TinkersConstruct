@@ -26,17 +26,13 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ObjectHolder;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.blocks.WorldBlocks;
-import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
@@ -60,8 +56,6 @@ import java.util.function.Supplier;
 public class TinkerWorld extends TinkerPulse {
 
   static final Logger log = Util.getLogger(TinkerPulseIds.TINKER_WORLD_PULSE_ID);
-
-  public static ServerProxy proxy = DistExecutor.runForDist(() -> WorldClientProxy::new, () -> ServerProxy::new);
   
   public static PlantType slimePlantType = PlantType.create("slime");
 
@@ -90,10 +84,6 @@ public class TinkerWorld extends TinkerPulse {
   public static SlimeTreeFeatureConfig MAGMA_SLIME_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_magma_slime.getDefaultState(), () -> WorldBlocks.orange_slime_leaves.getDefaultState(),
     () -> Blocks.AIR.getDefaultState(), 5, 4, false, WorldBlocks.orange_slime_sapling);
 
-  public TinkerWorld() {
-    proxy.construct();
-  }
-
   @SubscribeEvent
   public void onFeaturesRegistry(RegistryEvent.Register<Feature<?>> event) {
     BaseRegistryAdapter<Feature<?>> registry = new BaseRegistryAdapter<>(event.getRegistry());
@@ -108,27 +98,15 @@ public class TinkerWorld extends TinkerPulse {
   }
 
   @SubscribeEvent
-  public void preInit(final FMLCommonSetupEvent event) {
-    proxy.preInit();
-
+  public void commonSetup(final FMLCommonSetupEvent event) {
     applyFeatures();
-  }
-
-  @SubscribeEvent
-  public void init(final InterModEnqueueEvent event) {
-    proxy.init();
-  }
-
-  @SubscribeEvent
-  public void postInit(final InterModProcessEvent event) {
     MinecraftForge.EVENT_BUS.register(new WorldEvents());
-    proxy.postInit();
     TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(WorldBlocks.blue_slime_sapling));
 
     EntitySpawnPlacementRegistry.register(WorldEntities.blue_slime_entity, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
   }
 
-  public static void applyFeatures() {
+  private static void applyFeatures() {
     ConfiguredFeature<?, ?> SLIME_ISLAND_FEATURE = SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
     FlatGenerationSettings.FEATURE_STAGES.put(SLIME_ISLAND_FEATURE, GenerationStage.Decoration.SURFACE_STRUCTURES);
     FlatGenerationSettings.STRUCTURES.put("tconstruct:slime_island", new ConfiguredFeature[]{SLIME_ISLAND_FEATURE});
@@ -183,7 +161,7 @@ public class TinkerWorld extends TinkerPulse {
       .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(veinCount, 0, 0, 128))));
   }
 
-  public static SlimeTreeFeatureConfig createTreeConfig(Supplier<BlockState> logSupplierIn, Supplier<BlockState> leafSupplierIn, Supplier<BlockState> vineSupplierIn, int baseHeightIn, int randomHeightIn, boolean hasVines, IPlantable saplingIn) {
+  private static SlimeTreeFeatureConfig createTreeConfig(Supplier<BlockState> logSupplierIn, Supplier<BlockState> leafSupplierIn, Supplier<BlockState> vineSupplierIn, int baseHeightIn, int randomHeightIn, boolean hasVines, IPlantable saplingIn) {
     return (new SlimeTreeFeatureConfig.Builder(new SupplierBlockStateProvider(logSupplierIn),
       new SupplierBlockStateProvider(leafSupplierIn), new SupplierBlockStateProvider(vineSupplierIn))).baseHeight(baseHeightIn).randomHeight(randomHeightIn).hasVines(hasVines).setSapling(saplingIn).build();
   }

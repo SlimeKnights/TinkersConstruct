@@ -6,10 +6,16 @@ import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.gadgets.client.FancyItemFrameRenderer;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
@@ -18,29 +24,17 @@ import slimeknights.tconstruct.items.GadgetItems;
 
 import javax.annotation.Nonnull;
 
-public class GadgetClientProxy extends ClientProxy {
-
-  public static Minecraft minecraft = Minecraft.getInstance();
-
-  @Override
-  public void preInit() {
-    super.preInit();
-  }
-
-  @Override
-  public void init() {
-    super.init();
-
-    final ItemColors colors = minecraft.getItemColors();
-
+@EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)
+public class GadgetClientEvents {
+  @SubscribeEvent
+  public static void registerItemColors(ColorHandlerEvent.Item event) {
+    final ItemColors colors = event.getItemColors();
     colors.register((@Nonnull ItemStack stack, int tintIndex) -> SlimeSlingItem.getColorFromStack(stack), GadgetItems.slime_sling_blue, GadgetItems.slime_sling_purple, GadgetItems.slime_sling_magma, GadgetItems.slime_sling_green, GadgetItems.slime_sling_blood);
     colors.register((@Nonnull ItemStack stack, int tintIndex) -> SlimeBootsItem.getColorFromStack(stack), GadgetItems.slime_boots_blue, GadgetItems.slime_boots_purple, GadgetItems.slime_boots_magma, GadgetItems.slime_boots_green, GadgetItems.slime_boots_blood);
   }
 
-  @Override
-  public void registerModels() {
-    super.registerModels();
-
+  @SubscribeEvent
+  public static void registerModels(ModelRegistryEvent event) {
     // TODO: reinstate when Forge fixes itself
     //StateContainer<Block, BlockState> dummyContainer = new StateContainer.Builder<Block, BlockState>(Blocks.AIR).add(BooleanProperty.create("map")).create(BlockState::new);
     //for (FrameType frameType : FrameType.values()) {
@@ -56,15 +50,12 @@ public class GadgetClientProxy extends ClientProxy {
     }
   }
 
-  @Override
-  public void clientSetup() {
-    super.clientSetup();
-
+  @SubscribeEvent
+  public static void clientSetup(FMLClientSetupEvent event) {
     Minecraft mc = Minecraft.getInstance();
 
     RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.fancy_item_frame, (manager) -> new FancyItemFrameRenderer(manager, mc.getItemRenderer()));
     RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.throwable_glow_ball, (manager) -> new SpriteRenderer<>(manager, mc.getItemRenderer()));
     RenderingRegistry.registerEntityRenderingHandler(TinkerGadgets.throwable_efln_ball, (manager) -> new SpriteRenderer<>(manager, mc.getItemRenderer()));
   }
-
 }

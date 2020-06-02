@@ -10,20 +10,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.Util;
@@ -49,31 +43,12 @@ public class TinkerFluids extends TinkerPulse {
 
   static final Logger log = Util.getLogger(TinkerPulseIds.TINKER_FLUIDS_PULSE_ID);
 
-  public static ServerProxy proxy = DistExecutor.runForDist(() -> FluidsClientProxy::new, () -> ServerProxy::new);
-
   public TinkerFluids() {
-    proxy.construct();
-
     IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
     BLOCKS.register(modEventBus);
     ITEMS.register(modEventBus);
     FLUIDS.register(modEventBus);
-  }
-
-  @SubscribeEvent
-  public void preInit(final FMLCommonSetupEvent event) {
-    proxy.preInit();
-  }
-
-  @SubscribeEvent
-  public void init(final InterModEnqueueEvent event) {
-    proxy.init();
-  }
-
-  @SubscribeEvent
-  public void postInit(final InterModProcessEvent event) {
-    proxy.postInit();
   }
 
   public static int applyAlphaIfNotPresent(int color) {

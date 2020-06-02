@@ -10,8 +10,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTables;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Tags;
-import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import java.util.Random;
@@ -50,7 +50,7 @@ public class BlueSlimeEntity extends SlimeEntity {
         double d0 = this.getPosX() + (double) f2;
         double d1 = this.getPosZ() + (double) f3;
         double d2 = this.getBoundingBox().minY;
-        TinkerWorld.proxy.spawnSlimeParticle(this.getEntityWorld(), d0, d2, d1);
+        TConstruct.proxy.spawnSlimeParticle(this.getEntityWorld(), d0, d2, d1);
       }
     }
     return true;

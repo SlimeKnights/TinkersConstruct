@@ -8,8 +8,6 @@ import javax.annotation.Nonnull;
 
 /**
  * Just a small helper class that provides some function for cleaner Pulses.
- * <p>
- * Items should be registered during PreInit
  */
 public class TinkerPulse implements IRegisterUtil {
 

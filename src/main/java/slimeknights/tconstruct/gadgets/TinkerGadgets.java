@@ -4,21 +4,15 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effect;
-import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.ObjectHolder;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.TinkerPulse;
 import slimeknights.tconstruct.gadgets.entity.EflnBallEntity;
 import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
@@ -35,8 +29,6 @@ import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPigg
 public class TinkerGadgets extends TinkerPulse {
 
   static final Logger log = Util.getLogger(TinkerPulseIds.TINKER_GADGETS_PULSE_ID);
-
-  public static ServerProxy proxy = DistExecutor.runForDist(() -> GadgetClientProxy::new, () -> ServerProxy::new);
 
   public static EntityType<FancyItemFrameEntity> fancy_item_frame;
   public static EntityType<GlowballEntity> throwable_glow_ball;
@@ -88,33 +80,9 @@ public class TinkerGadgets extends TinkerPulse {
   }
 
   @SubscribeEvent
-  public void preInit(final FMLCommonSetupEvent event) {
-    proxy.preInit();
-
+  public void commonSetup(final FMLCommonSetupEvent event) {
     CapabilityTinkerPiggyback.register();
-  }
-
-  @SubscribeEvent
-  public void init(final InterModEnqueueEvent event) {
-    proxy.init();
-  }
-
-  @SubscribeEvent
-  public void postInit(final InterModProcessEvent event) {
     MinecraftForge.EVENT_BUS.register(new GadgetEvents());
-    proxy.postInit();
-
     TinkerRegistry.tabGadgets.setDisplayIcon(new ItemStack(GadgetItems.slime_sling_green));
   }
-
-  @SubscribeEvent
-  public void registerModels(final ModelRegistryEvent event) {
-    proxy.registerModels();
-  }
-
-  @SubscribeEvent
-  public void clientSetup(final FMLClientSetupEvent event) {
-    proxy.clientSetup();
-  }
-
 }
