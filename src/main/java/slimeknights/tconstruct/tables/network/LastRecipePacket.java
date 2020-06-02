@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tables.network;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipe;
@@ -37,13 +36,11 @@ public class LastRecipePacket extends AbstractPacket {
   @Override
   public void handle(Supplier<NetworkEvent.Context> supplier) {
     supplier.get().enqueueWork(() -> {
-      PlayerEntity playerEntity = Minecraft.getInstance().player;
-
-      if (playerEntity != null) {
+      if (Minecraft.getInstance().player != null) {
         Container container = Minecraft.getInstance().player.openContainer;
 
         if (this.recipe != NO_RECIPE) {
-          Optional<? extends IRecipe<?>> optional = playerEntity.getEntityWorld().getRecipeManager().getRecipe(this.recipe);
+          Optional<? extends IRecipe<?>> optional = Minecraft.getInstance().player.getEntityWorld().getRecipeManager().getRecipe(this.recipe);
 
           if (optional.isPresent()) {
             IRecipe<?> recipe = optional.get();
