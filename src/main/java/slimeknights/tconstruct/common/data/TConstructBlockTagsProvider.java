@@ -35,12 +35,12 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
   private void addCommon() {
     this.getBuilder(net.minecraftforge.common.Tags.Blocks.STORAGE_BLOCKS).add(Tags.Blocks.STORAGE_BLOCKS_COBALT, Tags.Blocks.STORAGE_BLOCKS_ARDITE, Tags.Blocks.STORAGE_BLOCKS_MANYULLYN, Tags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME, Tags.Blocks.STORAGE_BLOCKS_PIGIRON, Tags.Blocks.STORAGE_BLOCKS_ALUBRASS);
-    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_COBALT).add(CommonBlocks.cobalt_block);
-    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_ARDITE).add(CommonBlocks.ardite_block);
-    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_MANYULLYN).add(CommonBlocks.manyullyn_block);
-    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME).add(CommonBlocks.knightslime_block);
-    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_PIGIRON).add(CommonBlocks.pigiron_block);
-    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_ALUBRASS).add(CommonBlocks.alubrass_block);
+    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_COBALT).add(CommonBlocks.cobalt_block.get());
+    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_ARDITE).add(CommonBlocks.ardite_block.get());
+    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_MANYULLYN).add(CommonBlocks.manyullyn_block.get());
+    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME).add(CommonBlocks.knightslime_block.get());
+    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_PIGIRON).add(CommonBlocks.pigiron_block.get());
+    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_ALUBRASS).add(CommonBlocks.alubrass_block.get());
 
     this.getBuilder(net.minecraftforge.common.Tags.Blocks.GLASS_COLORLESS).add(DecorativeBlocks.clear_glass.get());
     addColored(getBuilder(net.minecraftforge.common.Tags.Blocks.STAINED_GLASS)::add, net.minecraftforge.common.Tags.Blocks.GLASS, "{color}_clear_stained_glass");

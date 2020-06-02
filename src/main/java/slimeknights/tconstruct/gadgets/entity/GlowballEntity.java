@@ -56,7 +56,7 @@ public class GlowballEntity extends ProjectileItemEntity implements IEntityAddit
       }
 
       if (position != null) {
-        CommonBlocks.glow.addGlow(this.world, position, direction);
+        CommonBlocks.glow.get().addGlow(this.world, position, direction);
       }
     }
 

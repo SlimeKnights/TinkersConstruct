@@ -58,28 +58,28 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private void addCommon() {
-    this.registerDropSelfLootTable(CommonBlocks.grout);
-    this.registerDropSelfLootTable(CommonBlocks.slimy_mud_green);
-    this.registerDropSelfLootTable(CommonBlocks.slimy_mud_blue);
-    this.registerDropSelfLootTable(CommonBlocks.graveyard_soil);
-    this.registerDropSelfLootTable(CommonBlocks.consecrated_soil);
-    this.registerDropSelfLootTable(CommonBlocks.slimy_mud_magma);
+    this.registerDropSelfLootTable(CommonBlocks.grout.get());
+    this.registerDropSelfLootTable(CommonBlocks.slimy_mud_green.get());
+    this.registerDropSelfLootTable(CommonBlocks.slimy_mud_blue.get());
+    this.registerDropSelfLootTable(CommonBlocks.graveyard_soil.get());
+    this.registerDropSelfLootTable(CommonBlocks.consecrated_soil.get());
+    this.registerDropSelfLootTable(CommonBlocks.slimy_mud_magma.get());
 
-    this.registerDropSelfLootTable(CommonBlocks.lavawood);
-    this.registerLootTable(CommonBlocks.lavawood_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(CommonBlocks.firewood_stairs);
+    this.registerDropSelfLootTable(CommonBlocks.lavawood.get());
+    this.registerLootTable(CommonBlocks.lavawood.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(CommonBlocks.firewood.getStairs());
 
-    this.registerDropSelfLootTable(CommonBlocks.firewood);
-    this.registerLootTable(CommonBlocks.firewood_slab, BlockLootTables::droppingSlab);
-    this.registerDropSelfLootTable(CommonBlocks.lavawood_stairs);
+    this.registerDropSelfLootTable(CommonBlocks.firewood.get());
+    this.registerLootTable(CommonBlocks.firewood.getSlab(), BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(CommonBlocks.lavawood.getStairs());
 
-    this.registerDropSelfLootTable(CommonBlocks.cobalt_block);
-    this.registerDropSelfLootTable(CommonBlocks.ardite_block);
-    this.registerDropSelfLootTable(CommonBlocks.manyullyn_block);
-    this.registerDropSelfLootTable(CommonBlocks.knightslime_block);
-    this.registerDropSelfLootTable(CommonBlocks.pigiron_block);
-    this.registerDropSelfLootTable(CommonBlocks.alubrass_block);
-    this.registerDropSelfLootTable(CommonBlocks.silky_jewel_block);
+    this.registerDropSelfLootTable(CommonBlocks.cobalt_block.get());
+    this.registerDropSelfLootTable(CommonBlocks.ardite_block.get());
+    this.registerDropSelfLootTable(CommonBlocks.manyullyn_block.get());
+    this.registerDropSelfLootTable(CommonBlocks.knightslime_block.get());
+    this.registerDropSelfLootTable(CommonBlocks.pigiron_block.get());
+    this.registerDropSelfLootTable(CommonBlocks.alubrass_block.get());
+    this.registerDropSelfLootTable(CommonBlocks.silky_jewel_block.get());
   }
 
   private void addDecorative() {

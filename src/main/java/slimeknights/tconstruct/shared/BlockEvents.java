@@ -37,7 +37,7 @@ public class BlockEvents {
 
     if (WorldBlocks.congealed_slime.contains(block)) {
       bounce(event.getEntity(), 0.25f);
-    } else if (block == CommonBlocks.slimy_mud_green || block == CommonBlocks.slimy_mud_blue) {
+    } else if (block == CommonBlocks.slimy_mud_green.get() || block == CommonBlocks.slimy_mud_blue.get()) {
       bounce(event.getEntity(), 0.15f);
     } else if (worldLoaded && (WorldBlocks.slime_dirt.contains(block) || WorldBlocks.vanilla_slime_grass.contains(block) || WorldBlocks.green_slime_grass.contains(block) || WorldBlocks.blue_slime_grass.contains(block) || WorldBlocks.purple_slime_grass.contains(block) || WorldBlocks.magma_slime_grass.contains(block))) {
       bounce(event.getEntity(), 0.06f);
