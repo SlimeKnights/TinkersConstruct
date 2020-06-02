@@ -51,6 +51,7 @@ import slimeknights.tconstruct.items.CommonItems;
 import slimeknights.tconstruct.items.FoodItems;
 import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.items.ToolItems;
+import slimeknights.tconstruct.items.ToolParts;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
@@ -91,6 +92,7 @@ public class TConstruct {
     ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
 
+    ToolParts.init();
     ToolItems.init();
     GadgetItems.init();
     GadgetBlocks.init();
