@@ -62,9 +62,8 @@ public class TinkerWorld extends TinkerPulse {
   static final Logger log = Util.getLogger(TinkerPulseIds.TINKER_WORLD_PULSE_ID);
 
   public static ServerProxy proxy = DistExecutor.runForDist(() -> WorldClientProxy::new, () -> ServerProxy::new);
-
-  // todo: create own planttype
-  public static PlantType slimePlantType = PlantType.Nether;
+  
+  public static PlantType slimePlantType = PlantType.create("slime");
 
   public static IStructurePieceType SLIME_ISLAND_PIECE;
   public static final Structure<NoFeatureConfig> SLIME_ISLAND = injected();
@@ -93,7 +92,6 @@ public class TinkerWorld extends TinkerPulse {
 
   public TinkerWorld() {
     proxy.construct();
-    //slimePlantType = PlantType.create("slime"); TODO: RE-ENABLE THIS AFTER FORGE FIXES IT
   }
 
   @SubscribeEvent
