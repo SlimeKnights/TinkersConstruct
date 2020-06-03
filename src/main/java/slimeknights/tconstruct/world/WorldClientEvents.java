@@ -39,8 +39,7 @@ public class WorldClientEvents {
 
   public static SlimeColorizer slimeColorizer = new SlimeColorizer();
 
-  @SubscribeEvent
-  public static void clientSetup(FMLClientSetupEvent event) {
+  static {
     IResourceManager iManager = Minecraft.getInstance().getResourceManager();
     if (iManager instanceof IReloadableResourceManager) {
       IReloadableResourceManager reloadable = (IReloadableResourceManager)iManager;
@@ -48,6 +47,10 @@ public class WorldClientEvents {
       reloadable.addReloadListener(new PurpleColorReloadListener());
       reloadable.addReloadListener(new OrangeColorReloadListener());
     }
+  }
+
+  @SubscribeEvent
+  public static void clientSetup(FMLClientSetupEvent event) {
     RenderingRegistry.registerEntityRenderingHandler(WorldEntities.blue_slime_entity, BlueSlimeRenderer.BLUE_SLIME_FACTORY);
     RenderingRegistry.registerEntityRenderingHandler(ToolEntities.indestructible_item, manager -> new ItemRenderer(manager, Minecraft.getInstance().getItemRenderer()));
   }
