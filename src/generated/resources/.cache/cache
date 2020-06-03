@@ -438,8 +438,8 @@ ce2340054049f74e2ee2c1fa2dedfe0e067cb2af data/tconstruct/recipes/gadgets/throwba
 106c933df25cb74193e62bd38f234aa2e2845ef9 data/tconstruct/tags/blocks/slimy_leaves.json
 8ff83857b3738e3d86266802b15ef0c38bdd0722 data/tconstruct/tags/blocks/slimy_logs.json
 eeae619a17c48148978c0330c318ac6b6067ca46 data/tconstruct/tags/blocks/slimy_saplings.json
-7434329a3c01d7b1422289a091aba8a685a05077 data/tconstruct/tags/fluids/blue_slime.json
-1d339b48ec1a6b3ae568ccc8eb0940915c615519 data/tconstruct/tags/fluids/purple_slime.json
+581e504bfe14b5a2625e26971f009e9bd107b6ea data/tconstruct/tags/fluids/blue_slime.json
+ac96c25c8756f7acb58d90411bca2c2b01b45640 data/tconstruct/tags/fluids/purple_slime.json
 603e5f70707aaa2ce1278b3f107e50d0e3a7d0d5 data/tconstruct/tags/fluids/slime.json
 106c933df25cb74193e62bd38f234aa2e2845ef9 data/tconstruct/tags/items/slimy_leaves.json
 8ff83857b3738e3d86266802b15ef0c38bdd0722 data/tconstruct/tags/items/slimy_logs.json

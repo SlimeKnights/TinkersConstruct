@@ -12,13 +12,13 @@ import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import java.util.Locale;
 
 public enum SlimeIslandVariant implements IStringSerializable {
-  BLUE(0, WorldBlocks.blue_slime_grass.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState(), TinkerFluids.blue_slime_fluid_block.get(),
+  BLUE(0, WorldBlocks.blue_slime_grass.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState(), TinkerFluids.blue_slime.getBlock(),
     createArray(WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.BLUE).getDefaultState(), WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.GREEN).getDefaultState()),
     WorldBlocks.blue_slime_vine.get().getDefaultState(), createArray(WorldBlocks.slime_fern.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState(), WorldBlocks.slime_tall_grass.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState())),
-  GREEN(1, WorldBlocks.green_slime_grass.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState(), TinkerFluids.blue_slime_fluid_block.get(),
+  GREEN(1, WorldBlocks.green_slime_grass.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState(), TinkerFluids.blue_slime.getBlock(),
     createArray(WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.BLUE).getDefaultState(), WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.GREEN).getDefaultState()),
     WorldBlocks.blue_slime_vine.get().getDefaultState(), createArray(WorldBlocks.slime_fern.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState(), WorldBlocks.slime_tall_grass.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState())),
-  PURPLE(2, WorldBlocks.purple_slime_grass.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState(), TinkerFluids.purple_slime_fluid_block.get(),
+  PURPLE(2, WorldBlocks.purple_slime_grass.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState(), TinkerFluids.purple_slime.getBlock(),
     createArray(WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.PURPLE).getDefaultState()),
     WorldBlocks.purple_slime_vine.get().getDefaultState(), createArray(WorldBlocks.slime_fern.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState(), WorldBlocks.slime_tall_grass.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState())),
   MAGMA(3, WorldBlocks.magma_slime_grass.get(SlimeGrassBlock.FoliageType.ORANGE).getDefaultState(), Blocks.LAVA,

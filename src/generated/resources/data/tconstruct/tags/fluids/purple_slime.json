@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "tconstruct:purple_slime_fluid",
-    "tconstruct:purple_slime_fluid_flowing"
+    "tconstruct:purple_slime",
+    "tconstruct:flowing_purple_slime"
   ]
 }

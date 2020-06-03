@@ -9,6 +9,7 @@ import net.minecraft.command.Commands;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
@@ -202,6 +203,37 @@ public class TConstruct {
           if (entry.key.getPath().equals(String.format("congealed_%s_slime", slime.getName()))) {
             entry.remap(WorldBlocks.congealed_slime.get(slime));
           }
+        }
+
+        if (entry.key.getPath().equals("purple_slime_fluid_block")) {
+          entry.remap(TinkerFluids.purple_slime.getBlock());
+        }
+
+        if (entry.key.getPath().equals("blue_slime_fluid_block")) {
+          entry.remap(TinkerFluids.blue_slime.getBlock());
+        }
+      }
+    }
+  }
+
+  @SubscribeEvent // TODO: Remove after a while, maybe at release.
+  public void missingFluidMappings(RegistryEvent.MissingMappings<Fluid> event) {
+    for (RegistryEvent.MissingMappings.Mapping<Fluid> entry : event.getAllMappings()) {
+      if (entry.key.getNamespace().equals(TConstruct.modID)) {
+        if (entry.key.getPath().equals("blue_slime_fluid")) {
+          entry.remap(TinkerFluids.blue_slime.getStill());
+        }
+
+        if (entry.key.getPath().equals("blue_slime_fluid_flowing")) {
+          entry.remap(TinkerFluids.blue_slime.getFlowing());
+        }
+
+        if (entry.key.getPath().equals("purple_slime_fluid")) {
+          entry.remap(TinkerFluids.purple_slime.getStill());
+        }
+
+        if (entry.key.getPath().equals("purple_slime_fluid_flowing")) {
+          entry.remap(TinkerFluids.purple_slime.getFlowing());
         }
       }
     }
