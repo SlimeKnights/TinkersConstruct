@@ -6,16 +6,16 @@ import net.minecraft.data.ItemTagsProvider;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.common.Tags;
 import slimeknights.tconstruct.items.CommonItems;
 import slimeknights.tconstruct.items.GadgetItems;
 
-import java.nio.file.Path;
 import java.util.Locale;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class TConstructItemTagsProvider extends ItemTagsProvider {
 
@@ -23,6 +23,13 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
   public TConstructItemTagsProvider(DataGenerator generatorIn) {
     super(generatorIn);
+  }
+
+  @Override
+  protected void registerTags() {
+    this.addCommon();
+    this.addGadgets();
+    this.addWorld();
   }
 
   private void addCommon() {
@@ -71,25 +78,10 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.copy(Tags.Blocks.ORES_ARDITE, Tags.Items.ORES_ARDITE);
   }
 
-  public void addGadgets() {
+  private void addGadgets() {
+    this.copy(BlockTags.RAILS, ItemTags.RAILS);
     this.getBuilder(net.minecraftforge.common.Tags.Items.RODS).add(Tags.Items.RODS_STONE);
     this.getBuilder(Tags.Items.RODS_STONE).add(GadgetItems.stone_stick);
-  }
-
-  @Override
-  public void registerTags() {
-    super.registerTags();
-
-    this.filter = this.tagToBuilder.keySet().stream().map(Tag::getId).collect(Collectors.toSet());
-
-    this.addCommon();
-    this.addGadgets();
-    this.addWorld();
-  }
-
-  @Override
-  protected Path makePath(ResourceLocation id) {
-    return this.filter != null && this.filter.contains(id) ? null : super.makePath(id); //We don't want to save vanilla tags.
   }
 
   @Override

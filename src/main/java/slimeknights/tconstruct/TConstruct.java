@@ -33,6 +33,7 @@ import slimeknights.tconstruct.common.data.TConstructBlockTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructEntityTypeTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructFluidTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructItemTagsProvider;
+import slimeknights.tconstruct.common.data.TConstructLootTableProvider;
 import slimeknights.tconstruct.common.data.TConstructRecipeProvider;
 import slimeknights.tconstruct.debug.ToolDebugContainer;
 import slimeknights.tconstruct.debug.ToolDebugScreen;
@@ -112,11 +113,11 @@ public class TConstruct {
       datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator));
       datagenerator.addProvider(new TConstructFluidTagsProvider(datagenerator));
       datagenerator.addProvider(new TConstructEntityTypeTagsProvider(datagenerator));
-      //datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
+      datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
       datagenerator.addProvider(new TConstructRecipeProvider(datagenerator));
 
-      datagenerator.addProvider(new MaterialDataProvider());
-      datagenerator.addProvider(new MaterialStatsDataProvider());
+      datagenerator.addProvider(new MaterialDataProvider(datagenerator));
+      datagenerator.addProvider(new MaterialStatsDataProvider(datagenerator));
     }
   }
 

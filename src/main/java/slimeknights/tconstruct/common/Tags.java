@@ -90,7 +90,7 @@ public class Tags {
   public static class Fluids {
 
     public static final Tag<Fluid> BLUE_SLIME = tag("blue_slime");
-    public static final Tag<Fluid> PINK_SLIME = tag("pink_slime");
+    public static final Tag<Fluid> PURPLE_SLIME = tag("purple_slime");
     public static final Tag<Fluid> SLIME = tag("slime");
 
     private static Tag<Fluid> tag(String name) {

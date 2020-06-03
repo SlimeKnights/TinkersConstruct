@@ -5,26 +5,30 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.DyeColor;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.blocks.CommonBlocks;
 import slimeknights.tconstruct.blocks.DecorativeBlocks;
+import slimeknights.tconstruct.blocks.GadgetBlocks;
 import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.Tags;
 
-import java.nio.file.Path;
 import java.util.Locale;
-import java.util.Set;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
-  private Set<ResourceLocation> filter = null;
-
   public TConstructBlockTagsProvider(DataGenerator generatorIn) {
     super(generatorIn);
+  }
+
+  @Override
+  protected void registerTags() {
+    this.addCommon();
+    this.addGadgets();
+    this.addWorld();
   }
 
   private void addCommon() {
@@ -51,22 +55,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
   }
 
   private void addGadgets() {
-  }
-
-  @Override
-  public void registerTags() {
-    super.registerTags();
-
-    this.filter = this.tagToBuilder.keySet().stream().map(Tag::getId).collect(Collectors.toSet());
-
-    this.addCommon();
-    this.addGadgets();
-    this.addWorld();
-  }
-
-  @Override
-  protected Path makePath(ResourceLocation id) {
-    return this.filter != null && this.filter.contains(id) ? null : super.makePath(id); //We don't want to save vanilla tags.
+    this.getBuilder(BlockTags.RAILS).add(GadgetBlocks.wooden_rail, GadgetBlocks.wooden_dropper_rail);
   }
 
   @Override

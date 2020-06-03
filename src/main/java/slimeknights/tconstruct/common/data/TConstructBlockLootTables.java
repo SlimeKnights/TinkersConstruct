@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.common.data;
 
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.loot.BlockLootTables;
@@ -13,36 +12,45 @@ import net.minecraft.world.storage.loot.ConstantRange;
 import net.minecraft.world.storage.loot.ItemLootEntry;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTable;
-import net.minecraft.world.storage.loot.LootTables;
 import net.minecraft.world.storage.loot.conditions.TableBonus;
+import net.minecraft.world.storage.loot.functions.CopyName;
+import net.minecraft.world.storage.loot.functions.CopyNbt;
+import net.minecraft.world.storage.loot.functions.CopyNbt.Action;
+import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.blocks.CommonBlocks;
 import slimeknights.tconstruct.blocks.DecorativeBlocks;
 import slimeknights.tconstruct.blocks.GadgetBlocks;
+import slimeknights.tconstruct.blocks.SmelteryBlocks;
+import slimeknights.tconstruct.blocks.TableBlocks;
 import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.items.CommonItems;
 
-import java.util.HashSet;
+import javax.annotation.Nonnull;
 import java.util.Map;
-import java.util.Set;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class TConstructBlockLootTables extends BlockLootTables {
 
   private final Map<ResourceLocation, LootTable.Builder> loot_tables = Maps.newHashMap();
 
-  private Set<Block> knownBlocks = new HashSet<>();
-
-  private static LootTable.Builder dropSapling(Block blockIn, Block saplingIn, float... fortuneIn) {
-    return droppingWithSilkTouchOrShears(blockIn, withSurvivesExplosion(blockIn, ItemLootEntry.builder(saplingIn)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, fortuneIn)));
+  @Nonnull
+  @Override
+  protected Iterable<Block> getKnownBlocks() {
+    return ForgeRegistries.BLOCKS.getValues().stream()
+                                 .filter((block) -> TConstruct.modID.equals(block.getRegistryName().getNamespace()))
+                                 .collect(Collectors.toList());
   }
 
-  private static LootTable.Builder randomDropPurpleSlimeBall(Block blockIn, Block saplingIn, float... fortuneIn) {
-    return dropSapling(blockIn, saplingIn, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(withSurvivesExplosion(blockIn, ItemLootEntry.builder(CommonItems.purple_slime_ball)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
-  }
-
-  private static LootTable.Builder randomDropBlueOrGreenSlimeBall(Block blockIn, Block saplingIn, float... fortuneIn) {
-    return dropSapling(blockIn, saplingIn, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(AlternativesLootEntry.builder(withSurvivesExplosion(blockIn, ItemLootEntry.builder(CommonItems.blue_slime_ball)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)), withSurvivesExplosion(blockIn, ItemLootEntry.builder(Items.SLIME_BALL)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)))));
+  @Override
+  protected void addTables() {
+    this.addCommon();
+    this.addDecorative();
+    this.addGadgets();
+    this.addWorld();
+    this.addTools();
+    this.addSmeltery();
   }
 
   private void addCommon() {
@@ -103,6 +111,27 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerDropSelfLootTable(DecorativeBlocks.dried_clay_bricks_stairs);
   }
 
+  private void addTools() {
+    this.registerDropSelfLootTable(TableBlocks.crafting_station);
+    for (Block block : new Block[] {TableBlocks.pattern_chest, TableBlocks.part_chest}) {
+      this.registerLootTable(block, droppingWithFunctions(block, (builder) -> {
+        return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
+                 .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation("Items", "TinkerData.Items"));
+      }));
+    }
+    for (Block block : new Block[] {TableBlocks.part_builder}) {
+      this.registerLootTable(block, droppingWithFunctions(block, (builder) -> {
+        return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
+               .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).addOperation("LegTexture", "TinkerData.LegTexture", Action.REPLACE));
+      }));
+    }
+    this.registerLootTable(TableBlocks.crafting_station, (block) -> {
+      return droppingWithFunctions(block, (builder) -> {
+        return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY));
+      });
+    });
+  }
+
   private void addWorld() {
     this.registerDropSelfLootTable(WorldBlocks.cobalt_ore);
     this.registerDropSelfLootTable(WorldBlocks.ardite_ore);
@@ -147,9 +176,9 @@ public class TConstructBlockLootTables extends BlockLootTables {
 
     this.registerLootTable(WorldBlocks.blue_slime_leaves, (block) -> randomDropBlueOrGreenSlimeBall(block, WorldBlocks.blue_slime_sapling, DEFAULT_SAPLING_DROP_RATES));
 
-    this.registerLootTable(WorldBlocks.purple_slime_leaves, (block) -> randomDropPurpleSlimeBall(block, WorldBlocks.blue_slime_sapling, DEFAULT_SAPLING_DROP_RATES));
+    this.registerLootTable(WorldBlocks.purple_slime_leaves, (block) -> randomDropPurpleSlimeBall(block, WorldBlocks.purple_slime_sapling, DEFAULT_SAPLING_DROP_RATES));
 
-    this.registerLootTable(WorldBlocks.orange_slime_leaves, (block) -> dropSapling(block, WorldBlocks.blue_slime_sapling, DEFAULT_SAPLING_DROP_RATES));
+    this.registerLootTable(WorldBlocks.orange_slime_leaves, (block) -> dropSapling(block, WorldBlocks.orange_slime_sapling, DEFAULT_SAPLING_DROP_RATES));
 
     this.registerLootTable(WorldBlocks.blue_slime_fern, BlockLootTables::onlyWithShears);
     this.registerLootTable(WorldBlocks.purple_slime_fern, BlockLootTables::onlyWithShears);
@@ -185,53 +214,75 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerDropSelfLootTable(GadgetBlocks.wooden_dropper_rail);
   }
 
-  @Override
-  public void accept(BiConsumer<ResourceLocation, LootTable.Builder> consumer) {
-    this.addCommon();
-    this.addDecorative();
-    this.addWorld();
-    this.addGadgets();
+  private void addSmeltery() {
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_stone);
+    this.registerLootTable(SmelteryBlocks.seared_stone_slab, BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_stone_stairs);
 
-    Set<ResourceLocation> visited = Sets.newHashSet();
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_cobble);
+    this.registerLootTable(SmelteryBlocks.seared_cobble_slab, BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_cobble_stairs);
 
-    for (Block block : this.knownBlocks) {
-      ResourceLocation lootTable = block.getLootTable();
-      if (lootTable != LootTables.EMPTY && visited.add(lootTable)) {
-        LootTable.Builder builder = this.lootTables.remove(lootTable);
-        if (builder == null) {
-          throw new IllegalStateException(String.format("Missing loottable '%s' for '%s'", lootTable, block.getRegistryName()));
-        }
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_paver);
+    this.registerLootTable(SmelteryBlocks.seared_paver_slab, BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_paver_stairs);
 
-        consumer.accept(lootTable, builder);
-      }
-    }
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_bricks);
+    this.registerLootTable(SmelteryBlocks.seared_bricks_slab, BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_bricks_stairs);
 
-    if (!this.lootTables.isEmpty()) {
-      throw new IllegalStateException("Created block loot tables for non-blocks: " + this.lootTables.keySet());
-    }
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_cracked_bricks);
+    this.registerLootTable(SmelteryBlocks.seared_cracked_bricks_slab, BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_cracked_bricks_stairs);
+
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_fancy_bricks);
+    this.registerLootTable(SmelteryBlocks.seared_fancy_bricks_slab, BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_fancy_bricks_stairs);
+
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_square_bricks);
+    this.registerLootTable(SmelteryBlocks.seared_square_bricks_slab, BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_square_bricks_stairs);
+
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_small_bricks);
+    this.registerLootTable(SmelteryBlocks.seared_small_bricks_slab, BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_small_bricks_stairs);
+
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_triangle_bricks);
+    this.registerLootTable(SmelteryBlocks.seared_triangle_bricks_slab, BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_triangle_bricks_stairs);
+
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_creeper);
+    this.registerLootTable(SmelteryBlocks.seared_creeper_slab, BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_creeper_stairs);
+
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_road);
+    this.registerLootTable(SmelteryBlocks.seared_road_slab, BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_road_stairs);
+
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_tile);
+    this.registerLootTable(SmelteryBlocks.seared_tile_slab, BlockLootTables::droppingSlab);
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_tile_stairs);
+
+    this.registerDropSelfLootTable(SmelteryBlocks.seared_glass);
   }
 
-  @Override
-  public void registerSilkTouch(Block blockIn, Block droppedBlockIn) {
-    this.knownBlocks.add(blockIn);
-    super.registerSilkTouch(blockIn, droppedBlockIn);
+  /*
+   * Utils
+   */
+
+  private static LootTable.Builder dropSapling(Block blockIn, Block saplingIn, float... fortuneIn) {
+    return droppingWithSilkTouchOrShears(blockIn, withSurvivesExplosion(blockIn, ItemLootEntry.builder(saplingIn)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, fortuneIn)));
   }
 
-  @Override
-  public void registerDropSelfLootTable(Block block) {
-    this.knownBlocks.add(block);
-    super.registerDropSelfLootTable(block);
+  private static LootTable.Builder randomDropPurpleSlimeBall(Block blockIn, Block sapling, float... fortuneIn) {
+    return dropSapling(blockIn, sapling, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(withSurvivesExplosion(blockIn, ItemLootEntry.builder(CommonItems.purple_slime_ball)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
   }
 
-  @Override
-  public void registerLootTable(Block blockIn, Function<Block, LootTable.Builder> builderFunction) {
-    this.knownBlocks.add(blockIn);
-    super.registerLootTable(blockIn, builderFunction);
+  private static LootTable.Builder randomDropBlueOrGreenSlimeBall(Block blockIn, Block sapling, float... fortuneIn) {
+    return dropSapling(blockIn, sapling, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(AlternativesLootEntry.builder(withSurvivesExplosion(blockIn, ItemLootEntry.builder(CommonItems.blue_slime_ball)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)), withSurvivesExplosion(blockIn, ItemLootEntry.builder(Items.SLIME_BALL)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)))));
   }
 
-  @Override
-  public void registerLootTable(Block blockIn, LootTable.Builder builder) {
-    this.knownBlocks.add(blockIn);
-    super.registerLootTable(blockIn, builder);
+  private static LootTable.Builder droppingWithFunctions(Block block, Function<ItemLootEntry.Builder,ItemLootEntry.Builder> mapping) {
+    return LootTable.builder().addLootPool(withSurvivesExplosion(block, LootPool.builder().rolls(ConstantRange.of(1)).addEntry(mapping.apply(ItemLootEntry.builder(block)))));
   }
 }

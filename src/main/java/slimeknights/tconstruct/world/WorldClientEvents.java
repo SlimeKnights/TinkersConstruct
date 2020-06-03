@@ -40,12 +40,15 @@ public class WorldClientEvents {
   public static SlimeColorizer slimeColorizer = new SlimeColorizer();
 
   static {
-    IResourceManager iManager = Minecraft.getInstance().getResourceManager();
-    if (iManager instanceof IReloadableResourceManager) {
-      IReloadableResourceManager reloadable = (IReloadableResourceManager)iManager;
-      reloadable.addReloadListener(new BlueColorReloadListener());
-      reloadable.addReloadListener(new PurpleColorReloadListener());
-      reloadable.addReloadListener(new OrangeColorReloadListener());
+    Minecraft minecraft = Minecraft.getInstance();
+    if (minecraft != null) {
+      IResourceManager iManager = Minecraft.getInstance().getResourceManager();
+      if (iManager instanceof IReloadableResourceManager) {
+        IReloadableResourceManager reloadable = (IReloadableResourceManager)iManager;
+        reloadable.addReloadListener(new BlueColorReloadListener());
+        reloadable.addReloadListener(new PurpleColorReloadListener());
+        reloadable.addReloadListener(new OrangeColorReloadListener());
+      }
     }
   }
 

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.fluid.Fluids;
@@ -32,17 +33,18 @@ public abstract class GenericDataProvider implements IDataProvider {
 
   IMaterial test = new Material(Util.getResource("test"), Fluids.EMPTY, true, ItemStack.EMPTY);
 
+  protected final DataGenerator generator;
   private final String folder;
   private final Gson gson;
 
-  public GenericDataProvider(String folder) {
-    this(folder, GSON);
+  public GenericDataProvider(DataGenerator generator, String folder) {
+    this(generator, folder, GSON);
   }
 
   protected void saveThing(DirectoryCache cache, ResourceLocation location, Object materialJson) {
     try {
       String json = gson.toJson(materialJson);
-      Path path = Paths.get("data", location.getNamespace(), folder, location.getPath() + ".json");
+      Path path = this.generator.getOutputFolder().resolve(Paths.get("data", location.getNamespace(), folder, location.getPath() + ".json"));
       String hash = HASH_FUNCTION.hashUnencodedChars(json).toString();
       if (!Objects.equals(cache.getPreviousHash(path), hash) || !Files.exists(path)) {
         Files.createDirectories(path.getParent());
