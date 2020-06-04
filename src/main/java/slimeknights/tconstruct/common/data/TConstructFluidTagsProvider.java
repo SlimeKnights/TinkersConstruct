@@ -26,8 +26,9 @@ public class TConstructFluidTagsProvider extends FluidTagsProvider {
     this.filter = this.tagToBuilder.keySet().stream().map(Tag::getId).collect(Collectors.toSet());
 
     this.getBuilder(Tags.Fluids.SLIME).add(Tags.Fluids.BLUE_SLIME, Tags.Fluids.PURPLE_SLIME);
-    this.getBuilder(Tags.Fluids.BLUE_SLIME).add(TinkerFluids.blue_slime_fluid.get(), TinkerFluids.blue_slime_fluid_flowing.get());
-    this.getBuilder(Tags.Fluids.PURPLE_SLIME).add(TinkerFluids.purple_slime_fluid.get(), TinkerFluids.purple_slime_fluid_flowing.get());
+
+    this.getBuilder(Tags.Fluids.BLUE_SLIME).add(TinkerFluids.blue_slime.get(), TinkerFluids.blue_slime.getFlowing());
+    this.getBuilder(Tags.Fluids.PURPLE_SLIME).add(TinkerFluids.purple_slime.get(), TinkerFluids.purple_slime.getFlowing());
   }
 
   @Override

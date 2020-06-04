@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "tconstruct:congealed_magma_slime"
+          "name": "tconstruct:pink_congealed_slime"
         }
       ],
       "conditions": [

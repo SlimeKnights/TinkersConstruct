@@ -87,21 +87,4 @@ public class SlimeBootsItem extends ArmorTooltipItem implements IDyeableArmorIte
   public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
     return HashMultimap.<String, AttributeModifier>create();
   }
-
-  @OnlyIn(Dist.CLIENT)
-  public static int getColorFromStack(ItemStack stack) {
-    if (stack.getItem() == GadgetItems.slime_boots_blue) {
-      return SlimeBlock.SlimeType.BLUE.getBallColor();
-    } else if (stack.getItem() == GadgetItems.slime_boots_purple) {
-      return SlimeBlock.SlimeType.PURPLE.getBallColor();
-    } else if (stack.getItem() == GadgetItems.slime_boots_magma) {
-      return SlimeBlock.SlimeType.MAGMA.getBallColor();
-    } else if (stack.getItem() == GadgetItems.slime_boots_green) {
-      return SlimeBlock.SlimeType.GREEN.getBallColor();
-    } else if (stack.getItem() == GadgetItems.slime_boots_blood) {
-      return SlimeBlock.SlimeType.BLOOD.getBallColor();
-    } else {
-      return SlimeBlock.SlimeType.GREEN.getBallColor();
-    }
-  }
 }

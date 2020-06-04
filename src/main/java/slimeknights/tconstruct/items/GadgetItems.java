@@ -1,13 +1,15 @@
 package slimeknights.tconstruct.items;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.minecraft.item.Item;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerPulse;
-import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.gadgets.item.EflnBallItem;
@@ -17,61 +19,33 @@ import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
 import slimeknights.tconstruct.gadgets.item.SlimeSlingItem;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.registration.ItemDeferredRegister;
+import slimeknights.tconstruct.library.registration.object.EnumObject;
+import slimeknights.tconstruct.library.registration.object.ItemObject;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 
-import static slimeknights.tconstruct.common.TinkerPulse.injected;
-
-@ObjectHolder(TConstruct.modID)
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class GadgetItems {
 
-  public static final Item stone_stick = injected();
+  private static final Item.Properties gadgetProps = new Item.Properties().group(TinkerRegistry.tabGadgets);
+  private static final ItemDeferredRegister ITEMS = new ItemDeferredRegister(TConstruct.modID);
 
-  public static final SlimeSlingItem slime_sling_blue = injected();
-  public static final SlimeSlingItem slime_sling_purple = injected();
-  public static final SlimeSlingItem slime_sling_magma = injected();
-  public static final SlimeSlingItem slime_sling_green = injected();
-  public static final SlimeSlingItem slime_sling_blood = injected();
+  public static void init() {
+    IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-  public static final SlimeBootsItem slime_boots_blue = injected();
-  public static final SlimeBootsItem slime_boots_purple = injected();
-  public static final SlimeBootsItem slime_boots_magma = injected();
-  public static final SlimeBootsItem slime_boots_green = injected();
-  public static final SlimeBootsItem slime_boots_blood = injected();
-
-  public static final PiggyBackPackItem piggy_backpack = injected();
-
-  public static final FancyItemFrameItem jewel_item_frame = injected();
-  public static final FancyItemFrameItem aluminum_brass_item_frame = injected();
-  public static final FancyItemFrameItem cobalt_item_frame = injected();
-  public static final FancyItemFrameItem ardite_item_frame = injected();
-  public static final FancyItemFrameItem manyullyn_item_frame = injected();
-  public static final FancyItemFrameItem gold_item_frame = injected();
-  public static final FancyItemFrameItem clear_item_frame = injected();
-
-  public static final GlowBallItem glow_ball = injected();
-  public static final EflnBallItem efln_ball = injected();
-
-  @SubscribeEvent
-  static void registerItems(final RegistryEvent.Register<Item> event) {
-    BaseRegistryAdapter<Item> registry = new BaseRegistryAdapter<>(event.getRegistry());
-
-    registry.register(new Item((new Item.Properties()).group(TinkerRegistry.tabGadgets)), "stone_stick");
-
-    for (SlimeBlock.SlimeType type : SlimeBlock.SlimeType.VISIBLE_COLORS) {
-      registry.register(new SlimeSlingItem(), "slime_sling_" + type.getName());
-      registry.register(new SlimeBootsItem(type), "slime_boots_" + type.getName());
-    }
-
-    registry.register(new PiggyBackPackItem(), "piggy_backpack");
-
-    for (FrameType frameType : FrameType.values()) {
-      registry.register(new FancyItemFrameItem((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, frameType.getId())), frameType.getName() + "_item_frame");
-    }
-
-    registry.register(new GlowBallItem(), "glow_ball");
-    registry.register(new EflnBallItem(), "efln_ball");
+    ITEMS.register(modEventBus);
   }
 
-  private GadgetItems() {}
+  public static final ItemObject<Item> stone_stick = ITEMS.register("stone_stick", gadgetProps);
+
+  public static final EnumObject<SlimeBlock.SlimeType,SlimeSlingItem> slime_sling = ITEMS.registerEnum(SlimeBlock.SlimeType.values(), "slime_sling", (type) -> new SlimeSlingItem());
+  public static final EnumObject<SlimeBlock.SlimeType,SlimeBootsItem> slime_boots = ITEMS.registerEnum(SlimeBlock.SlimeType.values(), "slime_boots", SlimeBootsItem::new);
+
+  public static final ItemObject<PiggyBackPackItem> piggy_backpack = ITEMS.register("piggy_backpack", PiggyBackPackItem::new);
+
+  public static final EnumObject<FrameType,FancyItemFrameItem> item_frame = ITEMS.registerEnum(FrameType.values(), "jewel_item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
+
+  public static final ItemObject<GlowBallItem> glow_ball = ITEMS.register("glow_ball", GlowBallItem::new);
+  public static final ItemObject<EflnBallItem> efln_ball = ITEMS.register("efln_ball", EflnBallItem::new);
 }

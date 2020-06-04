@@ -21,14 +21,14 @@
             "item": "minecraft:string"
           },
           "X": {
-            "item": "tconstruct:congealed_blood_slime"
+            "item": "tconstruct:blood_congealed_slime"
           },
           "L": {
             "tag": "forge:slimeball/blood"
           }
         },
         "result": {
-          "item": "tconstruct:slime_sling_blood"
+          "item": "tconstruct:blood_slime_sling"
         }
       }
     }

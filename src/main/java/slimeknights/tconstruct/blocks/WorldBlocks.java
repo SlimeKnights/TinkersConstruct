@@ -1,18 +1,34 @@
 package slimeknights.tconstruct.blocks;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.registry.BlockItemRegistryAdapter;
-import slimeknights.tconstruct.common.registry.BlockRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.registration.BlockDeferredRegister;
+import slimeknights.tconstruct.library.registration.ItemDeferredRegister;
+import slimeknights.tconstruct.library.registration.object.BlockItemObject;
+import slimeknights.tconstruct.library.registration.object.EnumObject;
 import slimeknights.tconstruct.shared.block.CongealedSlimeBlock;
 import slimeknights.tconstruct.shared.block.OverlayBlock;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
@@ -22,249 +38,156 @@ import slimeknights.tconstruct.world.block.SlimeLeavesBlock;
 import slimeknights.tconstruct.world.block.SlimeSaplingBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
-import slimeknights.tconstruct.world.worldgen.trees.BlueSlimeTree;
-import slimeknights.tconstruct.world.worldgen.trees.MagmaSlimeTree;
-import slimeknights.tconstruct.world.worldgen.trees.PurpleSlimeTree;
+import slimeknights.tconstruct.world.client.SlimeColorizer;
+import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
 
-import static slimeknights.tconstruct.common.TinkerPulse.injected;
+import javax.annotation.Nullable;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
-@ObjectHolder(TConstruct.modID)
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class WorldBlocks {
 
+  private static final Item.Properties worldProps = new Item.Properties().group(TinkerRegistry.tabWorld);
+  private static final BlockDeferredRegister BLOCKS = new BlockDeferredRegister(TConstruct.modID);
+
+  public static void init() {
+    IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+    BLOCKS.register(modEventBus);
+  }
+
   /* Ores */
-  public static final Block cobalt_ore = injected();
-  public static final Block ardite_ore = injected();
+  public static final BlockItemObject<OverlayBlock> cobalt_ore = BLOCKS.register("cobalt_ore", () -> new OverlayBlock(BlockProperties.ORE), worldProps);
+  public static final BlockItemObject<OverlayBlock> ardite_ore = BLOCKS.register("ardite_ore", () -> new OverlayBlock(BlockProperties.ORE), worldProps);
 
   /* Slimestuff */
-  public static final SlimeBlock blue_slime = injected();
-  public static final SlimeBlock purple_slime = injected();
-  public static final SlimeBlock blood_slime = injected();
-  public static final SlimeBlock magma_slime = injected();
-  public static final SlimeBlock pink_slime = injected();
+  public static final EnumObject<SlimeBlock.SlimeType, Block> slime;
 
-  public static final CongealedSlimeBlock congealed_green_slime = injected();
-  public static final CongealedSlimeBlock congealed_blue_slime = injected();
-  public static final CongealedSlimeBlock congealed_purple_slime = injected();
-  public static final CongealedSlimeBlock congealed_blood_slime = injected();
-  public static final CongealedSlimeBlock congealed_magma_slime = injected();
-  public static final CongealedSlimeBlock congealed_pink_slime = injected();
-
-  public static final SlimeDirtBlock green_slime_dirt = injected();
-  public static final SlimeDirtBlock blue_slime_dirt = injected();
-  public static final SlimeDirtBlock purple_slime_dirt = injected();
-  public static final SlimeDirtBlock magma_slime_dirt = injected();
-
-  public static final SlimeGrassBlock blue_vanilla_slime_grass = injected();
-  public static final SlimeGrassBlock purple_vanilla_slime_grass = injected();
-  public static final SlimeGrassBlock orange_vanilla_slime_grass = injected();
-  public static final SlimeGrassBlock blue_green_slime_grass = injected();
-  public static final SlimeGrassBlock purple_green_slime_grass = injected();
-  public static final SlimeGrassBlock orange_green_slime_grass = injected();
-  public static final SlimeGrassBlock blue_blue_slime_grass = injected();
-  public static final SlimeGrassBlock purple_blue_slime_grass = injected();
-  public static final SlimeGrassBlock orange_blue_slime_grass = injected();
-  public static final SlimeGrassBlock blue_purple_slime_grass = injected();
-  public static final SlimeGrassBlock purple_purple_slime_grass = injected();
-  public static final SlimeGrassBlock orange_purple_slime_grass = injected();
-  public static final SlimeGrassBlock blue_magma_slime_grass = injected();
-  public static final SlimeGrassBlock purple_magma_slime_grass = injected();
-  public static final SlimeGrassBlock orange_magma_slime_grass = injected();
-
-  public static final SlimeLeavesBlock blue_slime_leaves = injected();
-  public static final SlimeLeavesBlock purple_slime_leaves = injected();
-  public static final SlimeLeavesBlock orange_slime_leaves = injected();
-
-  public static final SlimeTallGrassBlock blue_slime_fern = injected();
-  public static final SlimeTallGrassBlock purple_slime_fern = injected();
-  public static final SlimeTallGrassBlock orange_slime_fern = injected();
-
-  public static final SlimeTallGrassBlock blue_slime_tall_grass = injected();
-  public static final SlimeTallGrassBlock purple_slime_tall_grass = injected();
-  public static final SlimeTallGrassBlock orange_slime_tall_grass = injected();
-
-  public static final SlimeSaplingBlock blue_slime_sapling = injected();
-  public static final SlimeSaplingBlock orange_slime_sapling = injected();
-  public static final SlimeSaplingBlock purple_slime_sapling = injected();
-
-  public static final SlimeVineBlock purple_slime_vine = injected();
-  public static final SlimeVineBlock purple_slime_vine_middle = injected();
-  public static final SlimeVineBlock purple_slime_vine_end = injected();
-  public static final SlimeVineBlock blue_slime_vine = injected();
-  public static final SlimeVineBlock blue_slime_vine_middle = injected();
-  public static final SlimeVineBlock blue_slime_vine_end = injected();
-
-  @SubscribeEvent
-  static void registerBlocks(final RegistryEvent.Register<Block> event) {
-    BlockRegistryAdapter registry = new BlockRegistryAdapter(event.getRegistry());
-
-    // Ores
-    registry.register(new OverlayBlock(BlockProperties.ORE), "cobalt_ore");
-    registry.register(new OverlayBlock(BlockProperties.ORE), "ardite_ore");
-
-    // Slimestuff
-    registry.register(new SlimeBlock(BlockProperties.SLIME, false), "blue_slime");
-    registry.register(new SlimeBlock(BlockProperties.SLIME, false), "purple_slime");
-    registry.register(new SlimeBlock(BlockProperties.SLIME, false), "blood_slime");
-    registry.register(new SlimeBlock(BlockProperties.SLIME, false), "magma_slime");
-    registry.register(new SlimeBlock(BlockProperties.SLIME, true), "pink_slime");
-
-    registry.register(new CongealedSlimeBlock(BlockProperties.CONGEALED_SLIME, false), "congealed_green_slime");
-    registry.register(new CongealedSlimeBlock(BlockProperties.CONGEALED_SLIME, false), "congealed_blue_slime");
-    registry.register(new CongealedSlimeBlock(BlockProperties.CONGEALED_SLIME, false), "congealed_purple_slime");
-    registry.register(new CongealedSlimeBlock(BlockProperties.CONGEALED_SLIME, false), "congealed_blood_slime");
-    registry.register(new CongealedSlimeBlock(BlockProperties.CONGEALED_SLIME, false), "congealed_magma_slime");
-    registry.register(new CongealedSlimeBlock(BlockProperties.CONGEALED_SLIME, true), "congealed_pink_slime");
-
-    registry.register(new SlimeDirtBlock(BlockProperties.SLIME_DIRT), "green_slime_dirt");
-    registry.register(new SlimeDirtBlock(BlockProperties.SLIME_DIRT), "blue_slime_dirt");
-    registry.register(new SlimeDirtBlock(BlockProperties.SLIME_DIRT), "purple_slime_dirt");
-    registry.register(new SlimeDirtBlock(BlockProperties.SLIME_DIRT), "magma_slime_dirt");
-
-    for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
-      registry.register(new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), type.getName() + "_vanilla_slime_grass");
-      registry.register(new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), type.getName() + "_green_slime_grass");
-      registry.register(new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), type.getName() + "_blue_slime_grass");
-      registry.register(new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), type.getName() + "_purple_slime_grass");
-      registry.register(new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), type.getName() + "_magma_slime_grass");
+  static {
+    EnumObject<SlimeBlock.SlimeType, SlimeBlock> tinkerSlimeBlocks = BLOCKS.registerEnum(SlimeBlock.SlimeType.TINKER, "slime", (type) -> new SlimeBlock(BlockProperties.SLIME, (type == SlimeBlock.SlimeType.PINK)), worldProps);
+    Map<SlimeBlock.SlimeType, Supplier<? extends Block>> map = new EnumMap(SlimeBlock.SlimeType.class);
+    for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.TINKER) {
+      map.put(slime, tinkerSlimeBlocks.getSupplier(slime));
     }
-
-    registry.register(new SlimeLeavesBlock(BlockProperties.SLIME_LEAVES, SlimeGrassBlock.FoliageType.BLUE), "blue_slime_leaves");
-    registry.register(new SlimeLeavesBlock(BlockProperties.SLIME_LEAVES, SlimeGrassBlock.FoliageType.PURPLE), "purple_slime_leaves");
-    registry.register(new SlimeLeavesBlock(BlockProperties.SLIME_LEAVES, SlimeGrassBlock.FoliageType.ORANGE), "orange_slime_leaves");
-
-    for (SlimeGrassBlock.FoliageType foliageType : SlimeGrassBlock.FoliageType.values()) {
-      for (SlimeTallGrassBlock.SlimePlantType plantType : SlimeTallGrassBlock.SlimePlantType.values()) {
-        registry.register(new SlimeTallGrassBlock(BlockProperties.TALL_GRASS, foliageType, plantType), foliageType.getName() + "_slime_" + plantType.getName());
-      }
-    }
-
-    registry.register(new SlimeSaplingBlock(new BlueSlimeTree(), BlockProperties.SAPLING), "blue_slime_sapling");
-    registry.register(new SlimeSaplingBlock(new MagmaSlimeTree(), BlockProperties.SAPLING), "orange_slime_sapling");
-    registry.register(new SlimeSaplingBlock(new PurpleSlimeTree(), BlockProperties.SAPLING), "purple_slime_sapling");
-
-    registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), "purple_slime_vine");
-    registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), "purple_slime_vine_middle");
-    registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.END), "purple_slime_vine_end");
-
-    registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.START), "blue_slime_vine");
-    registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.MIDDLE), "blue_slime_vine_middle");
-    registry.register(new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.END), "blue_slime_vine_end");
+    map.put(SlimeBlock.SlimeType.GREEN, Blocks.SLIME_BLOCK.delegate);
+    slime = new EnumObject<>(map);
   }
 
-  @SubscribeEvent
-  static void registerBlockItems(final RegistryEvent.Register<Item> event) {
-    BlockItemRegistryAdapter registry = new BlockItemRegistryAdapter(event.getRegistry(), TinkerRegistry.tabWorld);
+  public static final EnumObject<SlimeBlock.SlimeType, CongealedSlimeBlock> congealed_slime = BLOCKS.registerEnum(SlimeBlock.SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(BlockProperties.SLIME, (type == SlimeBlock.SlimeType.PINK)), worldProps);
 
-    // Ores
-    registry.registerBlockItem(cobalt_ore);
-    registry.registerBlockItem(ardite_ore);
+  public static final EnumObject<SlimeDirtBlock.SlimeDirtType, SlimeDirtBlock> slime_dirt = BLOCKS.registerEnum(SlimeDirtBlock.SlimeDirtType.values(), "slime_dirt", (type) -> new SlimeDirtBlock(BlockProperties.SLIME_DIRT), worldProps);
 
-    // Slimes
-    registry.registerBlockItem(blue_slime);
-    registry.registerBlockItem(purple_slime);
-    registry.registerBlockItem(blood_slime);
-    registry.registerBlockItem(magma_slime);
-    registry.registerBlockItem(pink_slime);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> vanilla_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "vanilla_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), worldProps);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> green_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "green_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), worldProps);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> blue_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "blue_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), worldProps);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> purple_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "purple_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), worldProps);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> magma_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "magma_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), worldProps);
 
-    registry.registerBlockItem(congealed_green_slime);
-    registry.registerBlockItem(congealed_blue_slime);
-    registry.registerBlockItem(congealed_purple_slime);
-    registry.registerBlockItem(congealed_blood_slime);
-    registry.registerBlockItem(congealed_magma_slime);
-    registry.registerBlockItem(congealed_pink_slime);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeLeavesBlock> slime_leaves = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_leaves", (type) -> new SlimeLeavesBlock(BlockProperties.SLIME_LEAVES, type), worldProps);
 
-    registry.registerBlockItem(green_slime_dirt);
-    registry.registerBlockItem(blue_slime_dirt);
-    registry.registerBlockItem(purple_slime_dirt);
-    registry.registerBlockItem(magma_slime_dirt);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeTallGrassBlock> slime_fern = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_fern", (type) -> new SlimeTallGrassBlock(BlockProperties.TALL_GRASS, type, SlimeTallGrassBlock.SlimePlantType.FERN), worldProps);
 
-    registry.registerBlockItem(blue_vanilla_slime_grass);
-    registry.registerBlockItem(purple_vanilla_slime_grass);
-    registry.registerBlockItem(orange_vanilla_slime_grass);
-    registry.registerBlockItem(blue_green_slime_grass);
-    registry.registerBlockItem(purple_green_slime_grass);
-    registry.registerBlockItem(orange_green_slime_grass);
-    registry.registerBlockItem(blue_blue_slime_grass);
-    registry.registerBlockItem(purple_blue_slime_grass);
-    registry.registerBlockItem(orange_blue_slime_grass);
-    registry.registerBlockItem(blue_purple_slime_grass);
-    registry.registerBlockItem(purple_purple_slime_grass);
-    registry.registerBlockItem(orange_purple_slime_grass);
-    registry.registerBlockItem(blue_magma_slime_grass);
-    registry.registerBlockItem(purple_magma_slime_grass);
-    registry.registerBlockItem(orange_magma_slime_grass);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeTallGrassBlock> slime_tall_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_tall_grass", (type) -> new SlimeTallGrassBlock(BlockProperties.TALL_GRASS, type, SlimeTallGrassBlock.SlimePlantType.TALL_GRASS), worldProps);
 
-    registry.registerBlockItem(blue_slime_leaves);
-    registry.registerBlockItem(purple_slime_leaves);
-    registry.registerBlockItem(orange_slime_leaves);
+  public static final EnumObject<SlimeGrassBlock.FoliageType,SlimeSaplingBlock> slime_sapling = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_sapling", (type) -> new SlimeSaplingBlock(new SlimeTree(type, false), BlockProperties.SAPLING), worldProps);
 
-    registry.registerBlockItem(blue_slime_fern);
-    registry.registerBlockItem(purple_slime_fern);
-    registry.registerBlockItem(orange_slime_fern);
-
-    registry.registerBlockItem(blue_slime_tall_grass);
-    registry.registerBlockItem(purple_slime_tall_grass);
-    registry.registerBlockItem(orange_slime_tall_grass);
-
-    registry.registerBlockItem(blue_slime_sapling);
-    registry.registerBlockItem(orange_slime_sapling);
-    registry.registerBlockItem(purple_slime_sapling);
-
-    registry.registerBlockItem(purple_slime_vine);
-    registry.registerBlockItem(purple_slime_vine_middle);
-    registry.registerBlockItem(purple_slime_vine_end);
-
-    registry.registerBlockItem(blue_slime_vine);
-    registry.registerBlockItem(blue_slime_vine_middle);
-    registry.registerBlockItem(blue_slime_vine_end);
-  }
+  public static final BlockItemObject<SlimeVineBlock> purple_slime_vine = BLOCKS.register("purple_slime_vine", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), worldProps);
+  public static final BlockItemObject<SlimeVineBlock> purple_slime_vine_middle = BLOCKS.register("purple_slime_vine_middle", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), worldProps);
+  public static final BlockItemObject<SlimeVineBlock> purple_slime_vine_end = BLOCKS.register("purple_slime_vine_end", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.END), worldProps);
+  public static final BlockItemObject<SlimeVineBlock> blue_slime_vine = BLOCKS.register("blue_slime_vine", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.START), worldProps);
+  public static final BlockItemObject<SlimeVineBlock> blue_slime_vine_middle = BLOCKS.register("blue_slime_vine_middle", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.MIDDLE), worldProps);
+  public static final BlockItemObject<SlimeVineBlock> blue_slime_vine_end = BLOCKS.register("blue_slime_vine_end", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.END), worldProps);
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    RenderTypeLookup.setRenderLayer(cobalt_ore, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(ardite_ore, (layer) -> layer == RenderType.getCutoutMipped());
+    RenderTypeLookup.setRenderLayer(cobalt_ore.get(), (layer) -> layer == RenderType.getCutoutMipped());
+    RenderTypeLookup.setRenderLayer(ardite_ore.get(), (layer) -> layer == RenderType.getCutoutMipped());
 
-    RenderTypeLookup.setRenderLayer(blue_slime_leaves, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(purple_slime_leaves, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(orange_slime_leaves, (layer) -> layer == RenderType.getCutoutMipped());
+    for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
+      RenderTypeLookup.setRenderLayer(slime_leaves.get(type), (layer) -> layer == RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(vanilla_slime_grass.get(type), (layer) -> layer == RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(green_slime_grass.get(type), (layer) -> layer == RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(blue_slime_grass.get(type), (layer) -> layer == RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(purple_slime_grass.get(type), (layer) -> layer == RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(magma_slime_grass.get(type), (layer) -> layer == RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(slime_fern.get(type), (layer) -> layer == RenderType.getCutout());
+      RenderTypeLookup.setRenderLayer(slime_tall_grass.get(type), (layer) -> layer == RenderType.getCutout());
+      RenderTypeLookup.setRenderLayer(slime_sapling.get(type), (layer) -> layer == RenderType.getCutout());
+    }
 
-    RenderTypeLookup.setRenderLayer(blue_vanilla_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(purple_vanilla_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(orange_vanilla_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(blue_green_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(purple_green_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(orange_green_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(blue_blue_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(purple_blue_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(orange_blue_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(blue_purple_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(purple_purple_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(orange_purple_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(blue_magma_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(purple_magma_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(orange_magma_slime_grass, (layer) -> layer == RenderType.getCutoutMipped());
-
-    RenderTypeLookup.setRenderLayer(blue_slime_sapling, (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(orange_slime_sapling, (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(purple_slime_sapling, (layer) -> layer == RenderType.getCutout());
-
-    RenderTypeLookup.setRenderLayer(blue_slime_fern, (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(purple_slime_fern, (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(orange_slime_fern, (layer) -> layer == RenderType.getCutout());
-
-    RenderTypeLookup.setRenderLayer(blue_slime_tall_grass, (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(purple_slime_tall_grass, (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(orange_slime_tall_grass, (layer) -> layer == RenderType.getCutout());
-
-    RenderTypeLookup.setRenderLayer(purple_slime_vine, (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(purple_slime_vine_middle, (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(purple_slime_vine_end, (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(blue_slime_vine, (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(blue_slime_vine_middle, (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(blue_slime_vine_end, (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(purple_slime_vine.get(), (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(purple_slime_vine_middle.get(), (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(purple_slime_vine_end.get(), (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(blue_slime_vine.get(), (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(blue_slime_vine_middle.get(), (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(blue_slime_vine_end.get(), (layer) -> layer == RenderType.getCutout());
   }
 
-  private WorldBlocks() {
+  @SubscribeEvent
+  static void registerColorHandlers(ColorHandlerEvent.Item event) {
+    BlockColors blockColors = event.getBlockColors();
+    ItemColors itemColors = event.getItemColors();
+
+    for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
+      blockColors.register((state, reader, pos, index) -> getSlimeColorByPos(pos, type, null),
+        WorldBlocks.vanilla_slime_grass.get(type), WorldBlocks.green_slime_grass.get(type), WorldBlocks.blue_slime_grass.get(type),
+        WorldBlocks.purple_slime_grass.get(type), WorldBlocks.magma_slime_grass.get(type));
+
+      itemColors.register((stack, index) -> {
+        BlockState state = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
+        return blockColors.getColor(state, null, null, index);
+      }, vanilla_slime_grass.get(type), green_slime_grass.get(type), blue_slime_grass.get(type), purple_slime_grass.get(type), magma_slime_grass.get(type));
+
+      blockColors.register((state, reader, pos, index) -> getSlimeColorByPos(pos, type, SlimeColorizer.LOOP_OFFSET),
+        slime_leaves.get(type));
+
+      itemColors.register((stack, index) -> {
+        BlockState state = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
+        return blockColors.getColor(state, null, null, index);
+      }, slime_leaves.get(type));
+
+      blockColors.register((state, reader, pos, index) -> getSlimeColorByPos(pos, type, null),
+        slime_fern.get(type), slime_tall_grass.get(type));
+
+      itemColors.register((stack, index) -> {
+        BlockState state = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
+        return blockColors.getColor(state, null, null, index);
+      }, slime_fern.get(type), slime_tall_grass.get(type));
+    }
+
+    blockColors.register((state, reader, pos, index) -> {
+        if (state.getBlock() instanceof SlimeVineBlock) {
+          SlimeVineBlock block = (SlimeVineBlock) state.getBlock();
+          return getSlimeColorByPos(pos, block.getFoliageType(), SlimeColorizer.LOOP_OFFSET);
+        }
+
+        MaterialColor materialColor = state.getMaterialColor(reader, pos);
+        return materialColor != null ? materialColor.colorValue : -1;
+      },
+      blue_slime_vine.get(), blue_slime_vine_middle.get(), blue_slime_vine_end.get(),
+      purple_slime_vine.get(), purple_slime_vine_middle.get(), purple_slime_vine_end.get()
+    );
+
+    itemColors.register((stack, index) -> {
+        BlockState state = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
+        return blockColors.getColor(state, null, null, index);
+      },
+      blue_slime_vine, blue_slime_vine_middle, blue_slime_vine_end,
+      purple_slime_vine, purple_slime_vine_middle, purple_slime_vine_end
+    );
+  }
+
+  private static int getSlimeColorByPos(@Nullable BlockPos pos, SlimeGrassBlock.FoliageType type, @Nullable BlockPos add) {
+    if (pos == null) {
+      return SlimeColorizer.getColorStatic(type);
+    }
+    if (add != null) {
+      pos = pos.add(add);
+    }
+
+    return SlimeColorizer.getColorForPos(pos, type);
   }
 }

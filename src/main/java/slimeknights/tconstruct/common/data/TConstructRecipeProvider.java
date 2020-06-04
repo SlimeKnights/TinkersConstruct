@@ -29,8 +29,11 @@ import slimeknights.tconstruct.common.Tags;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
 import slimeknights.tconstruct.common.conditions.PulseLoadedCondition;
 import slimeknights.tconstruct.items.CommonItems;
+import slimeknights.tconstruct.items.FoodItems;
 import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.TinkerPulseIds;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -57,38 +60,38 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
   }
 
   private void addCommon(Consumer<IFinishedRecipe> consumer) {
-    ShapelessRecipeBuilder.shapelessRecipe(CommonBlocks.firewood)
+    ShapelessRecipeBuilder.shapelessRecipe(CommonBlocks.firewood.get())
       .addIngredient(Items.BLAZE_POWDER)
-      .addIngredient(CommonBlocks.lavawood)
+      .addIngredient(CommonBlocks.lavawood.get())
       .addIngredient(Items.BLAZE_POWDER)
-      .addCriterion("has_lavawood", this.hasItem(CommonBlocks.lavawood))
+      .addCriterion("has_lavawood", this.hasItem(CommonBlocks.lavawood.get()))
       .build(consumer, "tconstruct:common/firewood/firewood");
-    ShapedRecipeBuilder.shapedRecipe(CommonBlocks.firewood_slab, 6)
-      .key('#', CommonBlocks.firewood)
+    ShapedRecipeBuilder.shapedRecipe(CommonBlocks.firewood.getSlab(), 6)
+      .key('#', CommonBlocks.firewood.get())
       .patternLine("###")
-      .addCriterion("has_firewood", this.hasItem(CommonBlocks.firewood))
+      .addCriterion("has_firewood", this.hasItem(CommonBlocks.firewood.get()))
       .build(consumer, "tconstruct:common/firewood/firewood_slab");
-    ShapedRecipeBuilder.shapedRecipe(CommonBlocks.firewood_stairs, 4)
-      .key('#', CommonBlocks.firewood)
+    ShapedRecipeBuilder.shapedRecipe(CommonBlocks.firewood.getStairs(), 4)
+      .key('#', CommonBlocks.firewood.get())
       .patternLine("#  ")
       .patternLine("## ")
       .patternLine("###")
-      .addCriterion("has_firewood", this.hasItem(CommonBlocks.firewood))
+      .addCriterion("has_firewood", this.hasItem(CommonBlocks.firewood.get()))
       .build(consumer, "tconstruct:common/firewood/firewood_stairs");
-    ShapedRecipeBuilder.shapedRecipe(CommonBlocks.lavawood_slab, 6)
-      .key('#', CommonBlocks.firewood)
+    ShapedRecipeBuilder.shapedRecipe(CommonBlocks.lavawood.getSlab(), 6)
+      .key('#', CommonBlocks.firewood.get())
       .patternLine("###")
-      .addCriterion("has_firewood", this.hasItem(CommonBlocks.firewood))
+      .addCriterion("has_firewood", this.hasItem(CommonBlocks.firewood.get()))
       .build(consumer, "tconstruct:common/firewood/lavawood_slab");
-    ShapedRecipeBuilder.shapedRecipe(CommonBlocks.lavawood_stairs, 4)
-      .key('#', CommonBlocks.firewood)
+    ShapedRecipeBuilder.shapedRecipe(CommonBlocks.lavawood.getStairs(), 4)
+      .key('#', CommonBlocks.firewood.get())
       .patternLine("#  ")
       .patternLine("## ")
       .patternLine("###")
-      .addCriterion("has_firewood", this.hasItem(CommonBlocks.firewood))
+      .addCriterion("has_firewood", this.hasItem(CommonBlocks.firewood.get()))
       .build(consumer, "tconstruct:common/firewood/lavawood_stairs");
 
-    ShapelessRecipeBuilder.shapelessRecipe(CommonBlocks.graveyard_soil)
+    ShapelessRecipeBuilder.shapelessRecipe(CommonBlocks.graveyard_soil.get())
       .addIngredient(Blocks.DIRT)
       .addIngredient(Items.ROTTEN_FLESH)
       .addIngredient(Items.BONE_MEAL)
@@ -96,33 +99,33 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .addCriterion("has_rotten_flesh", this.hasItem(Items.ROTTEN_FLESH))
       .addCriterion("has_bone_meal", this.hasItem(Items.BONE_MEAL))
       .build(consumer, "tconstruct:common/soil/graveyard_soil");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks)
-      .key('#', CommonItems.mud_brick)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks.get())
+      .key('#', CommonItems.mud_brick.get())
       .patternLine("##")
       .patternLine("##")
-      .addCriterion("has_mud_brick", this.hasItem(CommonItems.mud_brick))
+      .addCriterion("has_mud_brick", this.hasItem(CommonItems.mud_brick.get()))
       .build(consumer, "tconstruct:common/soil/mud_bricks_block");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks_slab, 6)
-      .key('#', DecorativeBlocks.mud_bricks)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks.getSlab(), 6)
+      .key('#', DecorativeBlocks.mud_bricks.get())
       .patternLine("###")
       .setGroup("tconstruct:mud_brick_slab")
-      .addCriterion("has_mud_bricks", this.hasItem(DecorativeBlocks.mud_bricks))
+      .addCriterion("has_mud_bricks", this.hasItem(DecorativeBlocks.mud_bricks.get()))
       .build(consumer, "tconstruct:common/soil/mud_bricks_slab_block");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks_slab)
-      .key('#', CommonItems.mud_brick)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks.getSlab())
+      .key('#', CommonItems.mud_brick.get())
       .patternLine("##")
       .setGroup("tconstruct:mud_brick_slab")
-      .addCriterion("has_mud_brick", this.hasItem(CommonItems.mud_brick))
+      .addCriterion("has_mud_brick", this.hasItem(CommonItems.mud_brick.get()))
       .build(consumer, "tconstruct:common/soil/mud_bricks_slab");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks_stairs, 4)
-      .key('#', DecorativeBlocks.mud_bricks)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks.getStairs(), 4)
+      .key('#', DecorativeBlocks.mud_bricks.get())
       .patternLine("#  ")
       .patternLine("## ")
       .patternLine("###")
-      .addCriterion("has_mud_bricks", this.hasItem(DecorativeBlocks.mud_bricks))
+      .addCriterion("has_mud_bricks", this.hasItem(DecorativeBlocks.mud_bricks.get()))
       .build(consumer, "tconstruct:common/soil/mud_bricks_stairs");
 
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.book)
+    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.book.get())
       .addIngredient(Items.BOOK)
       .addIngredient(Blocks.GRAVEL)
       .addCriterion("has_gravel", this.hasItem(Blocks.GRAVEL))
@@ -149,7 +152,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ResourceLocation clearGlassSmeltingId = new ResourceLocation(TConstruct.modID, "common/glass/clear_glass_from_smelting");
     ConditionalRecipe.builder()
       .addCondition(not(new PulseLoadedCondition(TinkerPulseIds.TINKER_SMELTERY_PULSE_ID)))
-      .addRecipe(CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Blocks.GLASS.asItem()), DecorativeBlocks.clear_glass.asItem(), 0.1F, 200)
+      .addRecipe(CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Blocks.GLASS.asItem()), DecorativeBlocks.clear_glass.get().asItem(), 0.1F, 200)
         .addCriterion("has_item", this.hasItem(Blocks.GLASS))::build)
       .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_general/common/glass/clear_glass_from_smelting"), ConditionalAdvancement.builder()
         .addCondition(not(new PulseLoadedCondition(TinkerPulseIds.TINKER_SMELTERY_PULSE_ID)))
@@ -176,13 +179,13 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
       .addCondition(new TagEmptyCondition("forge", "dusts/sulfur"))
-      .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(GadgetItems.efln_ball)
+      .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(GadgetItems.efln_ball.get())
         .addIngredient(Items.FLINT)
         .addIngredient(Items.GUNPOWDER)
         .addCriterion("has_item", this.hasItem(net.minecraftforge.common.Tags.Items.DUSTS_GLOWSTONE))::build)
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
       .addCondition(not(new TagEmptyCondition("forge", "dusts/sulfur")))
-      .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(GadgetItems.efln_ball)
+      .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(GadgetItems.efln_ball.get())
         .addIngredient(Tags.Items.DUSTS_SULFUR)
         .addIngredient(Ingredient.fromItemListStream(Stream.of(
           new Ingredient.TagList(Tags.Items.DUSTS_SULFUR),
@@ -202,7 +205,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ResourceLocation glowBallId = new ResourceLocation(TConstruct.modID, "gadgets/throwball/glowball");
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.glow_ball, 8)
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.glow_ball.get(), 8)
         .key('#', Items.SNOWBALL)
         .key('X', net.minecraftforge.common.Tags.Items.DUSTS_GLOWSTONE)
         .patternLine("###")
@@ -222,7 +225,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ResourceLocation piggyBackpackId = new ResourceLocation(TConstruct.modID, "gadgets/piggy_backpack");
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.piggy_backpack)
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.piggy_backpack.get())
         .key('#', net.minecraftforge.common.Tags.Items.RODS_WOODEN)
         .key('X', net.minecraftforge.common.Tags.Items.LEATHER)
         .patternLine(" X ")
@@ -242,7 +245,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ResourceLocation punjiSticksId = new ResourceLocation(TConstruct.modID, "gadgets/punji_sticks");
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.punji, 3)
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.punji.get(), 3)
         .key('#', Items.SUGAR_CANE)
         .patternLine("# #")
         .patternLine(" # ")
@@ -260,330 +263,186 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
   }
 
   private void addSlimeRecipes(Consumer<IFinishedRecipe> consumer) {
-    //BLOOD
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_blood_slime)
-      .key('#', Tags.Items.BLOOD_SLIMEBALL)
-      .patternLine("##")
-      .patternLine("##")
-      .addCriterion("has_item", this.hasItem(Tags.Items.BLOOD_SLIMEBALL))
-      .setGroup("tconstruct:congealed_slime")
-      .build(consumer, "tconstruct:common/slime/blood/congealed");
+    // Add recipe for all slimeball<->congealed
+    for (SlimeBlock.SlimeType slimeType : SlimeBlock.SlimeType.values()) {
+      ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_slime.get(slimeType))
+        .key('#', slimeType.getSlimeBallTag())
+        .patternLine("##")
+        .patternLine("##")
+        .addCriterion("has_item", this.hasItem(slimeType.getSlimeBallTag()))
+        .setGroup("tconstruct:congealed_slime")
+        .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/congealed");
 
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.blood_slime_ball, 9)
-      .addIngredient(WorldBlocks.blood_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.blood_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/blood/slimeball_from_block");
+      ShapelessRecipeBuilder.shapelessRecipe(FoodItems.slime_ball.get(slimeType), 4)
+        .addIngredient(WorldBlocks.congealed_slime.get(slimeType))
+        .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_slime.get(slimeType)))
+        .setGroup("tconstruct:slime_balls")
+        .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeball_from_congealed");
+    }
 
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.blood_slime_ball, 4)
-      .addIngredient(WorldBlocks.congealed_blood_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_blood_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/blood/slimeball_from_congealed");
+    // Don't re add recipe for vanilla slime_block and slime_ball
+    for (SlimeBlock.SlimeType slimeType : SlimeBlock.SlimeType.TINKER) {
+      ShapedRecipeBuilder.shapedRecipe(WorldBlocks.slime.get(slimeType))
+        .key('#', slimeType.getSlimeBallTag())
+        .patternLine("###")
+        .patternLine("###")
+        .patternLine("###")
+        .addCriterion("has_item", this.hasItem(slimeType.getSlimeBallTag()))
+        .setGroup("tconstruct:slime_blocks")
+        .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeblock");
 
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.blood_slime)
-      .key('#', Tags.Items.BLOOD_SLIMEBALL)
-      .patternLine("###")
-      .patternLine("###")
-      .patternLine("###")
-      .addCriterion("has_item", this.hasItem(Tags.Items.BLOOD_SLIMEBALL))
-      .setGroup("tconstruct:slime_blocks")
-      .build(consumer, "tconstruct:common/slime/blood/slimeblock");
-
-    //BLUE
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_blue_slime)
-      .key('#', Tags.Items.BLUE_SLIMEBALL)
-      .patternLine("##")
-      .patternLine("##")
-      .addCriterion("has_item", this.hasItem(Tags.Items.BLUE_SLIMEBALL))
-      .setGroup("tconstruct:congealed_slime")
-      .build(consumer, "tconstruct:common/slime/blue/congealed");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.blue_slime_ball, 9)
-      .addIngredient(WorldBlocks.blue_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.blue_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/blue/slimeball_from_block");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.blue_slime_ball, 4)
-      .addIngredient(WorldBlocks.congealed_blue_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_blue_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/blue/slimeball_from_congealed");
-
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.blue_slime)
-      .key('#', Tags.Items.BLUE_SLIMEBALL)
-      .patternLine("###")
-      .patternLine("###")
-      .patternLine("###")
-      .addCriterion("has_item", this.hasItem(Tags.Items.BLUE_SLIMEBALL))
-      .setGroup("tconstruct:slime_blocks")
-      .build(consumer, "tconstruct:common/slime/blue/slimeblock");
-
-    //GREEN
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_green_slime)
-      .key('#', Tags.Items.GREEN_SLIMEBALL)
-      .patternLine("##")
-      .patternLine("##")
-      .addCriterion("has_item", this.hasItem(Tags.Items.GREEN_SLIMEBALL))
-      .setGroup("tconstruct:congealed_slime")
-      .build(consumer, "tconstruct:common/slime/green/congealed");
-
-    ShapelessRecipeBuilder.shapelessRecipe(Items.SLIME_BALL, 4)
-      .addIngredient(WorldBlocks.congealed_green_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_green_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/green/slimeball_from_congealed");
-
-    /*
-    TODO GREEN
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.green_slime)
-      .key('#', Tags.Items.GREEN_SLIMEBALL)
-      .patternLine("###")
-      .patternLine("###")
-      .patternLine("###")
-      .addCriterion("has_item", this.hasItem(Tags.Items.GREEN_SLIMEBALL))
-      .setGroup("tconstruct:slime_blocks")
-      .build(consumer, "tconstruct:common/slime/green/slimeblock");*/
-
-    //MAGMA
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_magma_slime)
-      .key('#', Tags.Items.MAGMA_SLIMEBALL)
-      .patternLine("##")
-      .patternLine("##")
-      .addCriterion("has_item", this.hasItem(Tags.Items.MAGMA_SLIMEBALL))
-      .setGroup("tconstruct:congealed_slime")
-      .build(consumer, "tconstruct:common/slime/magma/congealed");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.magma_slime_ball, 9)
-      .addIngredient(WorldBlocks.magma_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.magma_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/magma/slimeball_from_block");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.magma_slime_ball, 4)
-      .addIngredient(WorldBlocks.congealed_magma_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_magma_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/magma/slimeball_from_congealed");
-
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.magma_slime)
-      .key('#', Tags.Items.MAGMA_SLIMEBALL)
-      .patternLine("###")
-      .patternLine("###")
-      .patternLine("###")
-      .addCriterion("has_item", this.hasItem(Tags.Items.MAGMA_SLIMEBALL))
-      .setGroup("tconstruct:slime_blocks")
-      .build(consumer, "tconstruct:common/slime/magma/slimeblock");
-
-    /*
-    TODO PINK
-    //PINK
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_pink_slime)
-      .key('#', Tags.Items.PINK_SLIMEBALL)
-      .patternLine("##")
-      .patternLine("##")
-      .addCriterion("has_item", this.hasItem(Tags.Items.PINK_SLIMEBALL))
-      .setGroup("tconstruct:congealed_slime")
-      .build(consumer, "tconstruct:common/slime/pink/congealed");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.pink_slime_ball, 9)
-      .addIngredient(WorldBlocks.pink_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.pink_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/pink/slimeball_from_block");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.pink_slime_ball, 4)
-      .addIngredient(WorldBlocks.congealed_pink_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_pink_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/blue/slimeball_from_congealed");
-
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.pink_slime)
-      .key('#', Tags.Items.PINK_SLIMEBALL)
-      .patternLine("###")
-      .patternLine("###")
-      .patternLine("###")
-      .addCriterion("has_item", this.hasItem(Tags.Items.PINK_SLIMEBALL))
-      .setGroup("tconstruct:slime_blocks")
-      .build(consumer, "tconstruct:common/slime/pink/slimeblock");
-    */
-
-    //PURPLE
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_purple_slime)
-      .key('#', Tags.Items.PURPLE_SLIMEBALL)
-      .patternLine("##")
-      .patternLine("##")
-      .addCriterion("has_item", this.hasItem(Tags.Items.PURPLE_SLIMEBALL))
-      .setGroup("tconstruct:congealed_slime")
-      .build(consumer, "tconstruct:common/slime/purple/congealed");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.purple_slime_ball, 9)
-      .addIngredient(WorldBlocks.purple_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.purple_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/purple/slimeball_from_block");
-
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.purple_slime_ball, 4)
-      .addIngredient(WorldBlocks.congealed_purple_slime)
-      .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_purple_slime))
-      .setGroup("tconstruct:slime_balls")
-      .build(consumer, "tconstruct:common/slime/purple/slimeball_from_congealed");
-
-    ShapedRecipeBuilder.shapedRecipe(WorldBlocks.purple_slime)
-      .key('#', Tags.Items.PURPLE_SLIMEBALL)
-      .patternLine("###")
-      .patternLine("###")
-      .patternLine("###")
-      .addCriterion("has_item", this.hasItem(Tags.Items.PURPLE_SLIMEBALL))
-      .setGroup("tconstruct:slime_blocks")
-      .build(consumer, "tconstruct:common/slime/purple/slimeblock");
+      ShapelessRecipeBuilder.shapelessRecipe(FoodItems.slime_ball.get(slimeType), 9)
+        .addIngredient(WorldBlocks.slime.get(slimeType))
+        .addCriterion("has_item", this.hasItem(WorldBlocks.slime.get(slimeType)))
+        .setGroup("tconstruct:slime_balls")
+        .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeball_from_block");
+    }
   }
 
   private void addGlassRecipes(Consumer<IFinishedRecipe> consumer) {
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.black_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.BLACK), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_BLACK)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/black_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.blue_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.BLUE), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_BLUE)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/blue_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.brown_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.BROWN), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_BROWN)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/brown_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.cyan_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.CYAN), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_CYAN)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/cyan_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.gray_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.GRAY), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_GRAY)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/gray_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.green_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.GREEN), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_GREEN)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/green_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.light_blue_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.LIGHT_BLUE), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_LIGHT_BLUE)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/light_blue_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.light_gray_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.LIGHT_GRAY), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_LIGHT_GRAY)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/light_gray_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.lime_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.LIME), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_LIME)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/lime_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.magenta_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.MAGENTA), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_MAGENTA)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/magenta_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.orange_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.ORANGE), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_ORANGE)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/orange_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.pink_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.PINK), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_PINK)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/pink_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.purple_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.PURPLE), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_PURPLE)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/purple_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.red_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.RED), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_RED)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/red_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.white_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.WHITE), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_WHITE)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/white_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.yellow_clear_stained_glass, 8)
-      .key('#', DecorativeBlocks.clear_glass)
+    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.YELLOW), 8)
+      .key('#', DecorativeBlocks.clear_glass.get())
       .key('X', net.minecraftforge.common.Tags.Items.DYES_YELLOW)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass))
+      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
       .build(consumer, "tconstruct:common/glass/yellow_clear_stained_glass");
   }
 
@@ -593,7 +452,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
       .addRecipe(ShapedRecipeBuilder.shapedRecipe(Blocks.JACK_O_LANTERN)
         .key('#', Blocks.CARVED_PUMPKIN)
-        .key('X', GadgetBlocks.stone_torch)
+        .key('X', GadgetBlocks.stone_torch.get())
         .patternLine("#")
         .patternLine("X")
         .addCriterion("has_item", this.hasItem(Blocks.CARVED_PUMPKIN))::build)
@@ -610,7 +469,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ResourceLocation stoneLadderId = new ResourceLocation(TConstruct.modID, "gadgets/stone/stone_ladder");
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.stone_ladder, 3)
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.stone_ladder.get(), 3)
         .key('#', Tags.Items.RODS_STONE)
         .patternLine("# #")
         .patternLine("###")
@@ -629,7 +488,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ResourceLocation stoneRodId = new ResourceLocation(TConstruct.modID, "gadgets/stone/stone_rod");
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.stone_stick, 4)
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.stone_stick.get(), 4)
         .key('#', Ingredient.fromItemListStream(Stream.of(
           new Ingredient.TagList(net.minecraftforge.common.Tags.Items.STONE),
           new Ingredient.TagList(net.minecraftforge.common.Tags.Items.COBBLESTONE))
@@ -650,7 +509,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ResourceLocation stoneTorchId = new ResourceLocation(TConstruct.modID, "gadgets/stone/stone_torch");
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.stone_torch, 4)
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.stone_torch.get(), 4)
         .key('#', Ingredient.fromItemListStream(Stream.of(
           new Ingredient.SingleItemList(new ItemStack(Items.COAL)),
           new Ingredient.SingleItemList(new ItemStack(Items.CHARCOAL))
@@ -671,225 +530,60 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
   }
 
   private void addSlimeSlingRecipes(Consumer<IFinishedRecipe> consumer) {
-    ResourceLocation bloodSlimeSlingId = new ResourceLocation(TConstruct.modID, "gadgets/slimesling/blood");
-    ConditionalRecipe.builder()
-      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_sling_blood)
-        .setGroup("tconstruct:slimesling")
-        .key('#', Items.STRING)
-        .key('X', WorldBlocks.congealed_blood_slime)
-        .key('L', Tags.Items.BLOOD_SLIMEBALL)
-        .patternLine("#X#")
-        .patternLine("L L")
-        .patternLine(" L ")
-        .addCriterion("has_item", this.hasItem(Items.STRING))::build)
-      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimesling/blood"), ConditionalAdvancement.builder()
+    for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
+      ResourceLocation slimeSlingId = new ResourceLocation(TConstruct.modID, "gadgets/slimesling/" + slime.getName());
+      ConditionalRecipe.builder()
         .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-        .addAdvancement(Advancement.Builder.builder()
-          .withParentId(new ResourceLocation("recipes/root"))
-          .withRewards(AdvancementRewards.Builder.recipe(bloodSlimeSlingId))
-          .withCriterion("has_item", hasItem(Items.STRING))
-          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(bloodSlimeSlingId))
-          .withRequirementsStrategy(IRequirementsStrategy.OR))
-      ).build(consumer, bloodSlimeSlingId);
-
-
-    ResourceLocation blueSlimeSlingId = new ResourceLocation(TConstruct.modID, "gadgets/slimesling/blue");
-    ConditionalRecipe.builder()
-      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_sling_blue)
-        .setGroup("tconstruct:slimesling")
-        .key('#', Items.STRING)
-        .key('X', WorldBlocks.congealed_blue_slime)
-        .key('L', Tags.Items.BLUE_SLIMEBALL)
-        .patternLine("#X#")
-        .patternLine("L L")
-        .patternLine(" L ")
-        .addCriterion("has_item", this.hasItem(Items.STRING))::build)
-      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimesling/blue"), ConditionalAdvancement.builder()
-        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-        .addAdvancement(Advancement.Builder.builder()
-          .withParentId(new ResourceLocation("recipes/root"))
-          .withRewards(AdvancementRewards.Builder.recipe(blueSlimeSlingId))
-          .withCriterion("has_item", hasItem(Items.STRING))
-          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(blueSlimeSlingId))
-          .withRequirementsStrategy(IRequirementsStrategy.OR))
-      ).build(consumer, blueSlimeSlingId);
-
-    ResourceLocation greenSlimeSlingId = new ResourceLocation(TConstruct.modID, "gadgets/slimesling/green");
-    ConditionalRecipe.builder()
-      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_sling_green)
-        .setGroup("tconstruct:slimesling")
-        .key('#', Items.STRING)
-        .key('X', WorldBlocks.congealed_green_slime)
-        .key('L', Tags.Items.GREEN_SLIMEBALL)
-        .patternLine("#X#")
-        .patternLine("L L")
-        .patternLine(" L ")
-        .addCriterion("has_item", this.hasItem(Items.STRING))::build)
-      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimesling/green"), ConditionalAdvancement.builder()
-        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-        .addAdvancement(Advancement.Builder.builder()
-          .withParentId(new ResourceLocation("recipes/root"))
-          .withRewards(AdvancementRewards.Builder.recipe(greenSlimeSlingId))
-          .withCriterion("has_item", hasItem(Items.STRING))
-          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(greenSlimeSlingId))
-          .withRequirementsStrategy(IRequirementsStrategy.OR))
-      ).build(consumer, greenSlimeSlingId);
-
-    ResourceLocation magmaSlimeSlingId = new ResourceLocation(TConstruct.modID, "gadgets/slimesling/magma");
-    ConditionalRecipe.builder()
-      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_sling_magma)
-        .setGroup("tconstruct:slimesling")
-        .key('#', Items.STRING)
-        .key('X', WorldBlocks.congealed_magma_slime)
-        .key('L', Tags.Items.MAGMA_SLIMEBALL)
-        .patternLine("#X#")
-        .patternLine("L L")
-        .patternLine(" L ")
-        .addCriterion("has_item", this.hasItem(Items.STRING))::build)
-      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimesling/magma"), ConditionalAdvancement.builder()
-        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-        .addAdvancement(Advancement.Builder.builder()
-          .withParentId(new ResourceLocation("recipes/root"))
-          .withRewards(AdvancementRewards.Builder.recipe(magmaSlimeSlingId))
-          .withCriterion("has_item", hasItem(Items.STRING))
-          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(magmaSlimeSlingId))
-          .withRequirementsStrategy(IRequirementsStrategy.OR))
-      ).build(consumer, magmaSlimeSlingId);
-
-    ResourceLocation purpleSlimeSlingId = new ResourceLocation(TConstruct.modID, "gadgets/slimesling/purple");
-    ConditionalRecipe.builder()
-      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_sling_purple)
-        .setGroup("tconstruct:slimesling")
-        .key('#', Items.STRING)
-        .key('X', WorldBlocks.congealed_purple_slime)
-        .key('L', Tags.Items.PURPLE_SLIMEBALL)
-        .patternLine("#X#")
-        .patternLine("L L")
-        .patternLine(" L ")
-        .addCriterion("has_item", this.hasItem(Items.STRING))::build)
-      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimesling/purple"), ConditionalAdvancement.builder()
-        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-        .addAdvancement(Advancement.Builder.builder()
-          .withParentId(new ResourceLocation("recipes/root"))
-          .withRewards(AdvancementRewards.Builder.recipe(purpleSlimeSlingId))
-          .withCriterion("has_item", hasItem(Items.STRING))
-          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(purpleSlimeSlingId))
-          .withRequirementsStrategy(IRequirementsStrategy.OR))
-      ).build(consumer, purpleSlimeSlingId);
+        .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_sling.get(slime))
+          .setGroup("tconstruct:slimesling")
+          .key('#', Items.STRING)
+          .key('X', WorldBlocks.congealed_slime.get(slime))
+          .key('L', slime.getSlimeBallTag())
+          .patternLine("#X#")
+          .patternLine("L L")
+          .patternLine(" L ")
+          .addCriterion("has_item", this.hasItem(Items.STRING))::build)
+        .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimesling/" + slime.getName()), ConditionalAdvancement.builder()
+          .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+          .addAdvancement(Advancement.Builder.builder()
+            .withParentId(new ResourceLocation("recipes/root"))
+            .withRewards(AdvancementRewards.Builder.recipe(slimeSlingId))
+            .withCriterion("has_item", hasItem(Items.STRING))
+            .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(slimeSlingId))
+            .withRequirementsStrategy(IRequirementsStrategy.OR))
+        ).build(consumer, slimeSlingId);
+    }
   }
 
   private void addSlimeBootsRecipes(Consumer<IFinishedRecipe> consumer) {
-    ResourceLocation bloodSlimeBootsId = new ResourceLocation(TConstruct.modID, "gadgets/slimeboots/blood");
-    ConditionalRecipe.builder()
-      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_boots_blood)
-        .setGroup("tconstruct:slime_boots")
-        .key('#', WorldBlocks.congealed_blood_slime)
-        .key('X', Tags.Items.BLOOD_SLIMEBALL)
-        .patternLine("X X")
-        .patternLine("# #")
-        .addCriterion("has_item", this.hasItem(Items.SLIME_BALL))::build)
-      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimeboots/blood"), ConditionalAdvancement.builder()
+    for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
+      ResourceLocation slimeBootsId = new ResourceLocation(TConstruct.modID, "gadgets/slimeboots/" + slime.getName());
+      ConditionalRecipe.builder()
         .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-        .addAdvancement(Advancement.Builder.builder()
-          .withParentId(new ResourceLocation("recipes/root"))
-          .withRewards(AdvancementRewards.Builder.recipe(bloodSlimeBootsId))
-          .withCriterion("has_item", hasItem(Items.SLIME_BALL))
-          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(bloodSlimeBootsId))
-          .withRequirementsStrategy(IRequirementsStrategy.OR))
-      ).build(consumer, bloodSlimeBootsId);
-
-    ResourceLocation blueSlimeBootsId = new ResourceLocation(TConstruct.modID, "gadgets/slimeboots/blue");
-    ConditionalRecipe.builder()
-      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_boots_blue)
-        .setGroup("tconstruct:slime_boots")
-        .key('#', WorldBlocks.congealed_blue_slime)
-        .key('X', Tags.Items.BLUE_SLIMEBALL)
-        .patternLine("X X")
-        .patternLine("# #")
-        .addCriterion("has_item", this.hasItem(Items.SLIME_BALL))::build)
-      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimeboots/blue"), ConditionalAdvancement.builder()
-        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-        .addAdvancement(Advancement.Builder.builder()
-          .withParentId(new ResourceLocation("recipes/root"))
-          .withRewards(AdvancementRewards.Builder.recipe(blueSlimeBootsId))
-          .withCriterion("has_item", hasItem(Items.SLIME_BALL))
-          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(blueSlimeBootsId))
-          .withRequirementsStrategy(IRequirementsStrategy.OR))
-      ).build(consumer, blueSlimeBootsId);
-
-    ResourceLocation greenSlimeBootsId = new ResourceLocation(TConstruct.modID, "gadgets/slimeboots/green");
-    ConditionalRecipe.builder()
-      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_boots_green)
-        .setGroup("tconstruct:slime_boots")
-        .key('#', WorldBlocks.congealed_green_slime)
-        .key('X', Tags.Items.GREEN_SLIMEBALL)
-        .patternLine("X X")
-        .patternLine("# #")
-        .addCriterion("has_item", this.hasItem(Items.SLIME_BALL))::build)
-      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimeboots/green"), ConditionalAdvancement.builder()
-        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-        .addAdvancement(Advancement.Builder.builder()
-          .withParentId(new ResourceLocation("recipes/root"))
-          .withRewards(AdvancementRewards.Builder.recipe(greenSlimeBootsId))
-          .withCriterion("has_item", hasItem(Items.SLIME_BALL))
-          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(greenSlimeBootsId))
-          .withRequirementsStrategy(IRequirementsStrategy.OR))
-      ).build(consumer, greenSlimeBootsId);
-
-    ResourceLocation magmaSlimeBootsId = new ResourceLocation(TConstruct.modID, "gadgets/slimeboots/magma");
-    ConditionalRecipe.builder()
-      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_boots_magma)
-        .setGroup("tconstruct:slime_boots")
-        .key('#', WorldBlocks.congealed_magma_slime)
-        .key('X', Tags.Items.MAGMA_SLIMEBALL)
-        .patternLine("X X")
-        .patternLine("# #")
-        .addCriterion("has_item", this.hasItem(Items.SLIME_BALL))::build)
-      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimeboots/magma"), ConditionalAdvancement.builder()
-        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-        .addAdvancement(Advancement.Builder.builder()
-          .withParentId(new ResourceLocation("recipes/root"))
-          .withRewards(AdvancementRewards.Builder.recipe(magmaSlimeBootsId))
-          .withCriterion("has_item", hasItem(Items.SLIME_BALL))
-          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(magmaSlimeBootsId))
-          .withRequirementsStrategy(IRequirementsStrategy.OR))
-      ).build(consumer, magmaSlimeBootsId);
-
-    ResourceLocation purpleSlimeBootsId = new ResourceLocation(TConstruct.modID, "gadgets/slimeboots/purple");
-    ConditionalRecipe.builder()
-      .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_boots_purple)
-        .setGroup("tconstruct:slime_boots")
-        .key('#', WorldBlocks.congealed_purple_slime)
-        .key('X', Tags.Items.PURPLE_SLIMEBALL)
-        .patternLine("X X")
-        .patternLine("# #")
-        .addCriterion("has_item", this.hasItem(Items.SLIME_BALL))::build)
-      .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimeboots/purple"), ConditionalAdvancement.builder()
-        .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-        .addAdvancement(Advancement.Builder.builder()
-          .withParentId(new ResourceLocation("recipes/root"))
-          .withRewards(AdvancementRewards.Builder.recipe(purpleSlimeBootsId))
-          .withCriterion("has_item", hasItem(Items.SLIME_BALL))
-          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(purpleSlimeBootsId))
-          .withRequirementsStrategy(IRequirementsStrategy.OR))
-      ).build(consumer, purpleSlimeBootsId);
+        .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_boots.get(slime))
+          .setGroup("tconstruct:slime_boots")
+          .key('#', WorldBlocks.congealed_slime.get(slime))
+          .key('X', slime.getSlimeBallTag())
+          .patternLine("X X")
+          .patternLine("# #")
+          .addCriterion("has_item", this.hasItem(Items.SLIME_BALL))::build)
+        .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/slimeboots/" + slime.getName()), ConditionalAdvancement.builder()
+          .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
+          .addAdvancement(Advancement.Builder.builder()
+            .withParentId(new ResourceLocation("recipes/root"))
+            .withRewards(AdvancementRewards.Builder.recipe(slimeBootsId))
+            .withCriterion("has_item", hasItem(Items.SLIME_BALL))
+            .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(slimeBootsId))
+            .withRequirementsStrategy(IRequirementsStrategy.OR))
+        ).build(consumer, slimeBootsId);
+    }
   }
 
   private void addWoodenRailRecipes(Consumer<IFinishedRecipe> consumer) {
     ResourceLocation woodenRailId = new ResourceLocation(TConstruct.modID, "gadgets/rail/wooden_rail");
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.wooden_rail, 4)
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.wooden_rail.get(), 4)
         .key('#', ItemTags.PLANKS)
         .key('X', net.minecraftforge.common.Tags.Items.RODS_WOODEN)
         .patternLine("# #")
@@ -909,7 +603,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ResourceLocation woodenDropperRailId = new ResourceLocation(TConstruct.modID, "gadgets/rail/wooden_dropper_rail");
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
-      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.wooden_dropper_rail, 4)
+      .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.wooden_dropper_rail.get(), 4)
         .key('#', ItemTags.PLANKS)
         .key('X', ItemTags.WOODEN_TRAPDOORS)
         .patternLine("# #")

@@ -17,14 +17,14 @@
         ],
         "key": {
           "#": {
-            "item": "tconstruct:congealed_blue_slime"
+            "item": "tconstruct:blue_congealed_slime"
           },
           "X": {
             "tag": "forge:slimeball/blue"
           }
         },
         "result": {
-          "item": "tconstruct:slime_boots_blue"
+          "item": "tconstruct:blue_slime_boots"
         }
       }
     }

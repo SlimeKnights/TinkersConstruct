@@ -21,14 +21,14 @@
             "item": "minecraft:string"
           },
           "X": {
-            "item": "tconstruct:congealed_magma_slime"
+            "item": "tconstruct:magma_congealed_slime"
           },
           "L": {
             "tag": "forge:slimeball/magma"
           }
         },
         "result": {
-          "item": "tconstruct:slime_sling_magma"
+          "item": "tconstruct:magma_slime_sling"
         }
       }
     }

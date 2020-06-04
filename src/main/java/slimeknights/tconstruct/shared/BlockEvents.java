@@ -12,6 +12,8 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.blocks.CommonBlocks;
 import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.library.TinkerPulseIds;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 @Mod.EventBusSubscriber(modid = TConstruct.modID)
 public class BlockEvents {
@@ -33,11 +35,11 @@ public class BlockEvents {
     BlockState state = event.getEntity().getEntityWorld().getBlockState(pos);
     Block block = state.getBlock();
 
-    if (block == WorldBlocks.congealed_green_slime || block == WorldBlocks.congealed_blue_slime || block == WorldBlocks.congealed_purple_slime || block == WorldBlocks.congealed_blood_slime || block == WorldBlocks.congealed_magma_slime) {
+    if (WorldBlocks.congealed_slime.contains(block)) {
       bounce(event.getEntity(), 0.25f);
-    } else if (block == CommonBlocks.slimy_mud_green || block == CommonBlocks.slimy_mud_blue) {
+    } else if (block == CommonBlocks.slimy_mud_green.get() || block == CommonBlocks.slimy_mud_blue.get()) {
       bounce(event.getEntity(), 0.15f);
-    } else if (worldLoaded && (block == WorldBlocks.green_slime_dirt || block == WorldBlocks.blue_slime_dirt || block == WorldBlocks.purple_slime_dirt || block == WorldBlocks.magma_slime_dirt || block == WorldBlocks.blue_vanilla_slime_grass || block == WorldBlocks.purple_vanilla_slime_grass || block == WorldBlocks.orange_vanilla_slime_grass || block == WorldBlocks.blue_green_slime_grass || block == WorldBlocks.purple_green_slime_grass || block == WorldBlocks.orange_green_slime_grass || block == WorldBlocks.blue_blue_slime_grass || block == WorldBlocks.purple_blue_slime_grass || block == WorldBlocks.orange_blue_slime_grass || block == WorldBlocks.blue_purple_slime_grass || block == WorldBlocks.purple_purple_slime_grass || block == WorldBlocks.orange_purple_slime_grass || block == WorldBlocks.blue_magma_slime_grass || block == WorldBlocks.purple_magma_slime_grass || block == WorldBlocks.orange_magma_slime_grass)) {
+    } else if (worldLoaded && (WorldBlocks.slime_dirt.contains(block) || WorldBlocks.vanilla_slime_grass.contains(block) || WorldBlocks.green_slime_grass.contains(block) || WorldBlocks.blue_slime_grass.contains(block) || WorldBlocks.purple_slime_grass.contains(block) || WorldBlocks.magma_slime_grass.contains(block))) {
       bounce(event.getEntity(), 0.06f);
     }
   }

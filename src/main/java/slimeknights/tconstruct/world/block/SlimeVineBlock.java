@@ -73,15 +73,15 @@ public class SlimeVineBlock extends VineBlock {
     switch (this.vineStage) {
       case START:
         if (this.foliage == SlimeGrassBlock.FoliageType.BLUE) {
-          return WorldBlocks.blue_slime_vine_middle;
+          return WorldBlocks.blue_slime_vine_middle.get();
         } else if (this.foliage == SlimeGrassBlock.FoliageType.PURPLE) {
-          return WorldBlocks.purple_slime_vine_middle;
+          return WorldBlocks.purple_slime_vine_middle.get();
         }
       case MIDDLE:
         if (this.foliage == SlimeGrassBlock.FoliageType.BLUE) {
-          return WorldBlocks.blue_slime_vine_end;
+          return WorldBlocks.blue_slime_vine_end.get();
         } else if (this.foliage == SlimeGrassBlock.FoliageType.PURPLE) {
-          return WorldBlocks.purple_slime_vine_end;
+          return WorldBlocks.purple_slime_vine_end.get();
         }
       case END:
         return null;

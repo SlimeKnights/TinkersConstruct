@@ -1,137 +1,77 @@
 package slimeknights.tconstruct.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.StairsBlock;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
-import slimeknights.tconstruct.common.registry.BlockItemRegistryAdapter;
-import slimeknights.tconstruct.common.registry.BlockRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.registration.BlockDeferredRegister;
+import slimeknights.tconstruct.library.registration.object.BlockItemObject;
+import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
+import slimeknights.tconstruct.library.registration.object.EnumObject;
 import slimeknights.tconstruct.shared.block.ClearGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 
-import static slimeknights.tconstruct.common.TinkerPulse.injected;
-
-@ObjectHolder(TConstruct.modID)
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DecorativeBlocks {
 
+  private static final Item.Properties generalProps = new Item.Properties().group(TinkerRegistry.tabGeneral);
+  private static final BlockDeferredRegister BLOCKS = new BlockDeferredRegister(TConstruct.modID);
+
+  public static void init() {
+    IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    BLOCKS.register(modEventBus);
+  }
+
   /* Decorative Blocks */
-  public static final ClearGlassBlock clear_glass = injected();
-  public static final ClearStainedGlassBlock white_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock orange_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock magenta_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock light_blue_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock yellow_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock lime_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock pink_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock gray_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock light_gray_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock cyan_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock purple_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock blue_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock brown_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock green_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock red_clear_stained_glass = injected();
-  public static final ClearStainedGlassBlock black_clear_stained_glass = injected();
+  public static final BlockItemObject<ClearGlassBlock> clear_glass = BLOCKS.register("clear_glass", () -> new ClearGlassBlock(BlockProperties.GENERIC_GLASS_BLOCK), generalProps);
+  public static final EnumObject<ClearStainedGlassBlock.GlassColor,ClearStainedGlassBlock> clear_stained_glass = BLOCKS.registerEnum(ClearStainedGlassBlock.GlassColor.values(), "clear_stained_glass", (color) -> new ClearStainedGlassBlock(BlockProperties.GENERIC_GLASS_BLOCK, color), generalProps);
 
-  public static final Block mud_bricks = injected();
-  public static final SlabBlock mud_bricks_slab = injected();
-  public static final StairsBlock mud_bricks_stairs = injected();
-
-  public static final Block dried_clay = injected();
-  public static final SlabBlock dried_clay_slab = injected();
-  public static final StairsBlock dried_clay_stairs = injected();
-
-  public static final Block dried_clay_bricks = injected();
-  public static final SlabBlock dried_clay_bricks_slab = injected();
-  public static final StairsBlock dried_clay_bricks_stairs = injected();
+  public static final BuildingBlockObject mud_bricks = BLOCKS.registerBuilding("mud_bricks", BlockProperties.MUD_BRICKS, generalProps);
+  public static final BuildingBlockObject dried_clay = BLOCKS.registerBuilding("dried_clay", BlockProperties.DRIED_CLAY, generalProps);
+  public static final BuildingBlockObject dried_clay_bricks = BLOCKS.registerBuilding("dried_clay_bricks", BlockProperties.DRIED_CLAY_BRICKS, generalProps);
 
   @SubscribeEvent
-  static void registerBlocks(final RegistryEvent.Register<Block> event) {
-    BlockRegistryAdapter registry = new BlockRegistryAdapter(event.getRegistry());
-
-    registerGlass(registry);
-
-    registry.registerSlabsAndStairs(new Block(BlockProperties.MUD_BRICKS), "mud_bricks");
-    registry.registerSlabsAndStairs(new Block(BlockProperties.DRIED_CLAY), "dried_clay");
-    registry.registerSlabsAndStairs(new Block(BlockProperties.DRIED_CLAY_BRICKS), "dried_clay_bricks");
-  }
-
-  @SubscribeEvent
-  static void registerBlockItems(final RegistryEvent.Register<Item> event) {
-    BlockItemRegistryAdapter registry = new BlockItemRegistryAdapter(event.getRegistry(), TinkerRegistry.tabGeneral);
-
-    registry.registerBlockItem(clear_glass);
-    registry.registerBlockItem(white_clear_stained_glass);
-    registry.registerBlockItem(orange_clear_stained_glass);
-    registry.registerBlockItem(magenta_clear_stained_glass);
-    registry.registerBlockItem(light_blue_clear_stained_glass);
-    registry.registerBlockItem(yellow_clear_stained_glass);
-    registry.registerBlockItem(lime_clear_stained_glass);
-    registry.registerBlockItem(pink_clear_stained_glass);
-    registry.registerBlockItem(gray_clear_stained_glass);
-    registry.registerBlockItem(light_gray_clear_stained_glass);
-    registry.registerBlockItem(cyan_clear_stained_glass);
-    registry.registerBlockItem(purple_clear_stained_glass);
-    registry.registerBlockItem(blue_clear_stained_glass);
-    registry.registerBlockItem(brown_clear_stained_glass);
-    registry.registerBlockItem(green_clear_stained_glass);
-    registry.registerBlockItem(red_clear_stained_glass);
-    registry.registerBlockItem(black_clear_stained_glass);
-
-    registry.registerBlockItem(mud_bricks);
-    registry.registerBlockItem(mud_bricks_slab);
-    registry.registerBlockItem(mud_bricks_stairs);
-
-    registry.registerBlockItem(dried_clay);
-    registry.registerBlockItem(dried_clay_slab);
-    registry.registerBlockItem(dried_clay_stairs);
-
-    registry.registerBlockItem(dried_clay_bricks);
-    registry.registerBlockItem(dried_clay_bricks_slab);
-    registry.registerBlockItem(dried_clay_bricks_stairs);
-  }
-
-  private static void registerGlass(BaseRegistryAdapter<Block> registry) {
-    registry.register(new ClearGlassBlock(BlockProperties.GENERIC_GLASS_BLOCK), "clear_glass");
-
-    for (ClearStainedGlassBlock.GlassColor glassColor : ClearStainedGlassBlock.GlassColor.values()) {
-      String registryName = glassColor.name().toLowerCase() + "_clear_stained_glass";
-      registry.register(new ClearStainedGlassBlock(BlockProperties.GENERIC_GLASS_BLOCK, glassColor), registryName);
+  static void clientSetup(final FMLClientSetupEvent event) {
+    RenderTypeLookup.setRenderLayer(clear_glass.get(), (layer) -> layer == RenderType.getCutout());
+    for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
+      RenderTypeLookup.setRenderLayer(clear_stained_glass.get(color), (layer) -> layer == RenderType.getTranslucent());
     }
   }
 
   @SubscribeEvent
-  static void clientSetup(final FMLClientSetupEvent event) {
-    RenderTypeLookup.setRenderLayer(clear_glass, (layer) -> layer == RenderType.getCutout());
+  static void registerColorHandlers(ColorHandlerEvent.Item event) {
+    BlockColors blockColors = event.getBlockColors();
+    ItemColors itemColors = event.getItemColors();
 
-    RenderTypeLookup.setRenderLayer(white_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(orange_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(magenta_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(light_blue_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(yellow_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(lime_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(pink_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(gray_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(light_gray_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(cyan_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(purple_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(blue_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(brown_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(green_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(red_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
-    RenderTypeLookup.setRenderLayer(black_clear_stained_glass, (layer) -> layer == RenderType.getTranslucent());
+    for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
+      blockColors.register((state, reader, pos, index) -> {
+        if (state != null && state.getBlock() instanceof ClearStainedGlassBlock) {
+          ClearStainedGlassBlock block = (ClearStainedGlassBlock) state.getBlock();
+          return block.getGlassColor().getColor();
+        }
+
+        MaterialColor materialColor = state.getMaterialColor(reader, pos);
+        return materialColor != null ? materialColor.colorValue : -1;
+      }, clear_stained_glass.get(color));
+      itemColors.register((stack, index) -> {
+        BlockState state = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
+        return blockColors.getColor(state, null,  null, index);
+      }, clear_stained_glass.get(color));
+    }
   }
-
-  private DecorativeBlocks() {}
 }

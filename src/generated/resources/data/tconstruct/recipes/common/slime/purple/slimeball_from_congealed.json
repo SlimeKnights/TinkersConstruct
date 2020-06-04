@@ -3,7 +3,7 @@
   "group": "tconstruct:slime_balls",
   "ingredients": [
     {
-      "item": "tconstruct:congealed_purple_slime"
+      "item": "tconstruct:purple_congealed_slime"
     }
   ],
   "result": {

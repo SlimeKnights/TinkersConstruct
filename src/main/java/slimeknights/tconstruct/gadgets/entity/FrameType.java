@@ -45,23 +45,6 @@ public enum FrameType implements IStringSerializable {
   }
 
   public static Item getFrameFromType(FrameType type) {
-    switch (type) {
-      case JEWEL:
-        return GadgetItems.jewel_item_frame;
-      case ALUMINUM_BRASS:
-        return GadgetItems.aluminum_brass_item_frame;
-      case COBALT:
-        return GadgetItems.cobalt_item_frame;
-      case ARDITE:
-        return GadgetItems.ardite_item_frame;
-      case MANYULLYN:
-        return GadgetItems.manyullyn_item_frame;
-      case GOLD:
-        return GadgetItems.gold_item_frame;
-      case CLEAR:
-        return GadgetItems.clear_item_frame;
-      default:
-        return Items.ITEM_FRAME;
-    }
+        return GadgetItems.item_frame.get(type);
   }
 }

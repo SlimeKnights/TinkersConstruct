@@ -17,14 +17,14 @@
         ],
         "key": {
           "#": {
-            "item": "tconstruct:congealed_magma_slime"
+            "item": "tconstruct:magma_congealed_slime"
           },
           "X": {
             "tag": "forge:slimeball/magma"
           }
         },
         "result": {
-          "item": "tconstruct:slime_boots_magma"
+          "item": "tconstruct:magma_slime_boots"
         }
       }
     }

@@ -2,18 +2,22 @@ package slimeknights.tconstruct;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.Item;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -26,6 +30,11 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.pulsar.control.PulseManager;
+import slimeknights.tconstruct.blocks.CommonBlocks;
+import slimeknights.tconstruct.blocks.DecorativeBlocks;
+import slimeknights.tconstruct.blocks.GadgetBlocks;
+import slimeknights.tconstruct.blocks.SmelteryBlocks;
+import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.ClientProxy;
 import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.config.Config;
@@ -39,10 +48,17 @@ import slimeknights.tconstruct.debug.ToolDebugContainer;
 import slimeknights.tconstruct.debug.ToolDebugScreen;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.items.CommonItems;
+import slimeknights.tconstruct.items.FoodItems;
+import slimeknights.tconstruct.items.GadgetItems;
+import slimeknights.tconstruct.items.ToolItems;
+import slimeknights.tconstruct.items.ToolParts;
+import slimeknights.tconstruct.items.WorldItems;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
@@ -77,6 +93,19 @@ public class TConstruct {
 
     ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
+
+    ToolParts.init();
+    ToolItems.init();
+    GadgetItems.init();
+    GadgetBlocks.init();
+    WorldItems.init();
+    WorldBlocks.init();
+    TinkerWorld.init();
+    DecorativeBlocks.init();
+    SmelteryBlocks.init();
+    CommonBlocks.init();
+    CommonItems.init();
+    FoodItems.init();
 
     pulseManager = new PulseManager(Config.pulseConfig);
     pulseManager.registerPulse(new TinkerCommons());
@@ -141,5 +170,72 @@ public class TConstruct {
         return Command.SINGLE_SUCCESS;
       });
     event.getCommandDispatcher().register(executes);
+  }
+
+  @SubscribeEvent // TODO: Remove after a while, maybe at release.
+  public void missingItemMappings(RegistryEvent.MissingMappings<Item> event) {
+    for (RegistryEvent.MissingMappings.Mapping<Item> entry : event.getAllMappings()) {
+      if (entry.key.getNamespace().equals(TConstruct.modID)) {
+        for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
+          // Remap slime_sling_$slime
+          if (entry.key.getPath().equals("slime_sling_" + slime.getName())) {
+            entry.remap(GadgetItems.slime_sling.get(slime));
+          }
+          // Remap slime_boots_$slime
+          if (entry.key.getPath().equals("slime_boots_" + slime.getName())) {
+            entry.remap(GadgetItems.slime_boots.get(slime));
+          }
+          // Remap congealed_$slime_slime
+          if (entry.key.getNamespace().equals(TConstruct.modID) && entry.key.getPath().equals(String.format("congealed_%s_slime", slime.getName()))) {
+            entry.remap(WorldBlocks.congealed_slime.get(slime).asItem());
+          }
+        }
+      }
+    }
+  }
+
+  @SubscribeEvent // TODO: Remove after a while, maybe at release.
+  public void missingBlockMappings(RegistryEvent.MissingMappings<Block> event) {
+    for (RegistryEvent.MissingMappings.Mapping<Block> entry : event.getAllMappings()) {
+      if (entry.key.getNamespace().equals(TConstruct.modID)) {
+        for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
+          // Remap congealed_$slime_slime
+          if (entry.key.getPath().equals(String.format("congealed_%s_slime", slime.getName()))) {
+            entry.remap(WorldBlocks.congealed_slime.get(slime));
+          }
+        }
+
+        if (entry.key.getPath().equals("purple_slime_fluid_block")) {
+          entry.remap(TinkerFluids.purple_slime.getBlock());
+        }
+
+        if (entry.key.getPath().equals("blue_slime_fluid_block")) {
+          entry.remap(TinkerFluids.blue_slime.getBlock());
+        }
+      }
+    }
+  }
+
+  @SubscribeEvent // TODO: Remove after a while, maybe at release.
+  public void missingFluidMappings(RegistryEvent.MissingMappings<Fluid> event) {
+    for (RegistryEvent.MissingMappings.Mapping<Fluid> entry : event.getAllMappings()) {
+      if (entry.key.getNamespace().equals(TConstruct.modID)) {
+        if (entry.key.getPath().equals("blue_slime_fluid")) {
+          entry.remap(TinkerFluids.blue_slime.getStill());
+        }
+
+        if (entry.key.getPath().equals("blue_slime_fluid_flowing")) {
+          entry.remap(TinkerFluids.blue_slime.getFlowing());
+        }
+
+        if (entry.key.getPath().equals("purple_slime_fluid")) {
+          entry.remap(TinkerFluids.purple_slime.getStill());
+        }
+
+        if (entry.key.getPath().equals("purple_slime_fluid_flowing")) {
+          entry.remap(TinkerFluids.purple_slime.getFlowing());
+        }
+      }
+    }
   }
 }

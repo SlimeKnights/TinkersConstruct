@@ -1,35 +1,30 @@
 package slimeknights.tconstruct.items;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.entity.WorldEntities;
-
-import static slimeknights.tconstruct.common.TinkerPulse.injected;
+import slimeknights.tconstruct.library.registration.ItemDeferredRegister;
+import slimeknights.tconstruct.library.registration.object.ItemObject;
 
 @SuppressWarnings("unused")
-@ObjectHolder(TConstruct.modID)
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class WorldItems {
 
-  public static final SpawnEggItem blue_slime_spawn_egg = injected();
+  private static final ItemDeferredRegister ITEMS = new ItemDeferredRegister(TConstruct.modID);
 
-  @SubscribeEvent
-  static void registerItems(final RegistryEvent.Register<Item> event) {
-    BaseRegistryAdapter<Item> registry = new BaseRegistryAdapter<>(event.getRegistry());
+  public static void init() {
+    IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-    registry.register(getBlueSlimeSpawnEgg(), "blue_slime_spawn_egg");
+    ITEMS.register(modEventBus);
   }
 
-  private static SpawnEggItem getBlueSlimeSpawnEgg() {
-    return new SpawnEggItem(WorldEntities.blue_slime_entity, 0x47eff5, 0xacfff4, (new Item.Properties()).group(ItemGroup.MISC));
-  }
-
-  private WorldItems() {}
+  public static final ItemObject<SpawnEggItem> blue_slime_spawn_egg = ITEMS.register("blue_slime_spawn_egg", () -> new SpawnEggItem(WorldEntities.blue_slime_entity, 0x47eff5, 0xacfff4, (new Item.Properties()).group(ItemGroup.MISC)));
 }

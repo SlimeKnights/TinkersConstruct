@@ -17,14 +17,14 @@
         ],
         "key": {
           "#": {
-            "item": "tconstruct:congealed_blood_slime"
+            "item": "tconstruct:blood_congealed_slime"
           },
           "X": {
             "tag": "forge:slimeball/blood"
           }
         },
         "result": {
-          "item": "tconstruct:slime_boots_blood"
+          "item": "tconstruct:blood_slime_boots"
         }
       }
     }

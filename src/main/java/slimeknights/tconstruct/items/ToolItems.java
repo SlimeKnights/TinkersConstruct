@@ -3,63 +3,41 @@ package slimeknights.tconstruct.items;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.registration.ItemDeferredRegister;
+import slimeknights.tconstruct.library.registration.object.ItemObject;
 import slimeknights.tconstruct.tools.ToolDefinitions;
 import slimeknights.tconstruct.tools.harvest.PickaxeTool;
 
-import static slimeknights.tconstruct.common.TinkerPulse.injected;
-
-@ObjectHolder(TConstruct.modID)
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ToolItems {
 
-  public static final Item green_slime_crystal = injected();
-  public static final Item blue_slime_crystal = injected();
-  public static final Item magma_slime_crystal = injected();
-  public static final Item width_expander = injected();
-  public static final Item height_expander = injected();
-  public static final Item reinforcement = injected();
-  public static final Item silky_cloth = injected();
-  public static final Item silky_jewel = injected();
-  public static final Item necrotic_bone = injected();
-  public static final Item moss = injected();
-  public static final Item mending_moss = injected();
-  public static final Item creative_modifier = injected();
+  private static final Item.Properties generalProps = new Item.Properties().group(TinkerRegistry.tabGeneral);
+  private static final ItemDeferredRegister ITEMS = new ItemDeferredRegister(TConstruct.modID);
 
-  public static final PickaxeTool pickaxe = injected();
+  public static void init() {
+    IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-  @SubscribeEvent
-  static void registerItems(final RegistryEvent.Register<Item> event) {
-    BaseRegistryAdapter<Item> registry = new BaseRegistryAdapter<>(event.getRegistry());
-    ItemGroup tabGeneral = TinkerRegistry.tabGeneral;
-
-    registerTools(registry);
-
-    // modifier items
-    registry.register(new Item(new Item.Properties().group(tabGeneral)), "green_slime_crystal");
-    registry.register(new Item(new Item.Properties().group(tabGeneral)), "blue_slime_crystal");
-    registry.register(new Item(new Item.Properties().group(tabGeneral)), "magma_slime_crystal");
-    registry.register(new Item(new Item.Properties().group(tabGeneral)), "width_expander");
-    registry.register(new Item(new Item.Properties().group(tabGeneral)), "height_expander");
-    registry.register(new Item(new Item.Properties().group(tabGeneral)), "reinforcement");
-    registry.register(new Item(new Item.Properties().group(tabGeneral)), "silky_cloth");
-    registry.register(new Item(new Item.Properties().group(tabGeneral)), "silky_jewel");
-    registry.register(new Item(new Item.Properties().group(tabGeneral)), "necrotic_bone");
-    registry.register(new Item(new Item.Properties().group(tabGeneral)), "moss");
-    registry.register(new Item(new Item.Properties().group(tabGeneral)), "mending_moss");
-    registry.register(new Item(new Item.Properties().group(tabGeneral)), "creative_modifier");
+    ITEMS.register(modEventBus);
   }
 
-  private static void registerTools(BaseRegistryAdapter<Item> registry) {
-    registry.register(new PickaxeTool(new Item.Properties().group(TinkerRegistry.tabTools), ToolDefinitions.PICKAXE), "pickaxe");
-  }
+  public static final ItemObject<Item> green_slime_crystal = ITEMS.register("green_slime_crystal", generalProps);
+  public static final ItemObject<Item> blue_slime_crystal = ITEMS.register("blue_slime_crystal", generalProps);
+  public static final ItemObject<Item> magma_slime_crystal = ITEMS.register("magma_slime_crystal", generalProps);
+  public static final ItemObject<Item> width_expander = ITEMS.register("width_expander", generalProps);
+  public static final ItemObject<Item> height_expander = ITEMS.register("height_expander", generalProps);
+  public static final ItemObject<Item> reinforcement = ITEMS.register("reinforcement", generalProps);
+  public static final ItemObject<Item> silky_cloth = ITEMS.register("silky_cloth", generalProps);
+  public static final ItemObject<Item> silky_jewel = ITEMS.register("silky_jewel", generalProps);
+  public static final ItemObject<Item> necrotic_bone = ITEMS.register("necrotic_bone", generalProps);
+  public static final ItemObject<Item> moss = ITEMS.register("moss", generalProps);
+  public static final ItemObject<Item> mending_moss = ITEMS.register("mending_moss", generalProps);
+  public static final ItemObject<Item> creative_modifier = ITEMS.register("creative_modifier", generalProps);
 
+  public static final ItemObject<PickaxeTool> pickaxe = ITEMS.register("pickaxe", () -> new PickaxeTool(new Item.Properties().group(TinkerRegistry.tabTools), ToolDefinitions.PICKAXE));
 }
