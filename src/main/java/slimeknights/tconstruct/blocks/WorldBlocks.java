@@ -14,19 +14,15 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.registration.BlockDeferredRegister;
-import slimeknights.tconstruct.library.registration.ItemDeferredRegister;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
 import slimeknights.tconstruct.shared.block.CongealedSlimeBlock;
@@ -44,13 +40,17 @@ import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
 import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class WorldBlocks {
 
-  private static final Item.Properties worldProps = new Item.Properties().group(TinkerRegistry.tabWorld);
+  private static final Item.Properties WORLD_PROPS = new Item.Properties().group(TinkerRegistry.tabWorld);
+  private static final Function<Block,? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, WORLD_PROPS);
+  private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, WORLD_PROPS);
+
   private static final BlockDeferredRegister BLOCKS = new BlockDeferredRegister(TConstruct.modID);
 
   public static void init() {
@@ -60,15 +60,15 @@ public final class WorldBlocks {
   }
 
   /* Ores */
-  public static final BlockItemObject<OverlayBlock> cobalt_ore = BLOCKS.register("cobalt_ore", () -> new OverlayBlock(BlockProperties.ORE), worldProps);
-  public static final BlockItemObject<OverlayBlock> ardite_ore = BLOCKS.register("ardite_ore", () -> new OverlayBlock(BlockProperties.ORE), worldProps);
+  public static final BlockItemObject<OverlayBlock> cobalt_ore = BLOCKS.register("cobalt_ore", () -> new OverlayBlock(BlockProperties.ORE), DEFAULT_BLOCK_ITEM);
+  public static final BlockItemObject<OverlayBlock> ardite_ore = BLOCKS.register("ardite_ore", () -> new OverlayBlock(BlockProperties.ORE), DEFAULT_BLOCK_ITEM);
 
   /* Slimestuff */
   public static final EnumObject<SlimeBlock.SlimeType, Block> slime;
 
   static {
-    EnumObject<SlimeBlock.SlimeType, SlimeBlock> tinkerSlimeBlocks = BLOCKS.registerEnum(SlimeBlock.SlimeType.TINKER, "slime", (type) -> new SlimeBlock(BlockProperties.SLIME, (type == SlimeBlock.SlimeType.PINK)), worldProps);
-    Map<SlimeBlock.SlimeType, Supplier<? extends Block>> map = new EnumMap(SlimeBlock.SlimeType.class);
+    EnumObject<SlimeBlock.SlimeType, SlimeBlock> tinkerSlimeBlocks = BLOCKS.registerEnum(SlimeBlock.SlimeType.TINKER, "slime", (type) -> new SlimeBlock(BlockProperties.SLIME, (type == SlimeBlock.SlimeType.PINK)), TOOLTIP_BLOCK_ITEM);
+    Map<SlimeBlock.SlimeType, Supplier<? extends Block>> map = new EnumMap<>(SlimeBlock.SlimeType.class);
     for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.TINKER) {
       map.put(slime, tinkerSlimeBlocks.getSupplier(slime));
     }
@@ -76,30 +76,30 @@ public final class WorldBlocks {
     slime = new EnumObject<>(map);
   }
 
-  public static final EnumObject<SlimeBlock.SlimeType, CongealedSlimeBlock> congealed_slime = BLOCKS.registerEnum(SlimeBlock.SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(BlockProperties.SLIME, (type == SlimeBlock.SlimeType.PINK)), worldProps);
+  public static final EnumObject<SlimeBlock.SlimeType, CongealedSlimeBlock> congealed_slime = BLOCKS.registerEnum(SlimeBlock.SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(BlockProperties.SLIME, (type == SlimeBlock.SlimeType.PINK)), TOOLTIP_BLOCK_ITEM);
 
-  public static final EnumObject<SlimeDirtBlock.SlimeDirtType, SlimeDirtBlock> slime_dirt = BLOCKS.registerEnum(SlimeDirtBlock.SlimeDirtType.values(), "slime_dirt", (type) -> new SlimeDirtBlock(BlockProperties.SLIME_DIRT), worldProps);
+  public static final EnumObject<SlimeDirtBlock.SlimeDirtType, SlimeDirtBlock> slime_dirt = BLOCKS.registerEnum(SlimeDirtBlock.SlimeDirtType.values(), "slime_dirt", (type) -> new SlimeDirtBlock(BlockProperties.SLIME_DIRT), TOOLTIP_BLOCK_ITEM);
 
-  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> vanilla_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "vanilla_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), worldProps);
-  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> green_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "green_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), worldProps);
-  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> blue_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "blue_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), worldProps);
-  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> purple_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "purple_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), worldProps);
-  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> magma_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "magma_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), worldProps);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> vanilla_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "vanilla_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> green_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "green_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> blue_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "blue_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> purple_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "purple_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> magma_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "magma_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
 
-  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeLeavesBlock> slime_leaves = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_leaves", (type) -> new SlimeLeavesBlock(BlockProperties.SLIME_LEAVES, type), worldProps);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeLeavesBlock> slime_leaves = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_leaves", (type) -> new SlimeLeavesBlock(BlockProperties.SLIME_LEAVES, type), DEFAULT_BLOCK_ITEM);
 
-  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeTallGrassBlock> slime_fern = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_fern", (type) -> new SlimeTallGrassBlock(BlockProperties.TALL_GRASS, type, SlimeTallGrassBlock.SlimePlantType.FERN), worldProps);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeTallGrassBlock> slime_fern = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_fern", (type) -> new SlimeTallGrassBlock(BlockProperties.TALL_GRASS, type, SlimeTallGrassBlock.SlimePlantType.FERN), DEFAULT_BLOCK_ITEM);
 
-  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeTallGrassBlock> slime_tall_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_tall_grass", (type) -> new SlimeTallGrassBlock(BlockProperties.TALL_GRASS, type, SlimeTallGrassBlock.SlimePlantType.TALL_GRASS), worldProps);
+  public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeTallGrassBlock> slime_tall_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_tall_grass", (type) -> new SlimeTallGrassBlock(BlockProperties.TALL_GRASS, type, SlimeTallGrassBlock.SlimePlantType.TALL_GRASS), DEFAULT_BLOCK_ITEM);
 
-  public static final EnumObject<SlimeGrassBlock.FoliageType,SlimeSaplingBlock> slime_sapling = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_sapling", (type) -> new SlimeSaplingBlock(new SlimeTree(type, false), BlockProperties.SAPLING), worldProps);
+  public static final EnumObject<SlimeGrassBlock.FoliageType,SlimeSaplingBlock> slime_sapling = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_sapling", (type) -> new SlimeSaplingBlock(new SlimeTree(type, false), BlockProperties.SAPLING), TOOLTIP_BLOCK_ITEM);
 
-  public static final BlockItemObject<SlimeVineBlock> purple_slime_vine = BLOCKS.register("purple_slime_vine", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), worldProps);
-  public static final BlockItemObject<SlimeVineBlock> purple_slime_vine_middle = BLOCKS.register("purple_slime_vine_middle", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), worldProps);
-  public static final BlockItemObject<SlimeVineBlock> purple_slime_vine_end = BLOCKS.register("purple_slime_vine_end", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.END), worldProps);
-  public static final BlockItemObject<SlimeVineBlock> blue_slime_vine = BLOCKS.register("blue_slime_vine", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.START), worldProps);
-  public static final BlockItemObject<SlimeVineBlock> blue_slime_vine_middle = BLOCKS.register("blue_slime_vine_middle", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.MIDDLE), worldProps);
-  public static final BlockItemObject<SlimeVineBlock> blue_slime_vine_end = BLOCKS.register("blue_slime_vine_end", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.END), worldProps);
+  public static final BlockItemObject<SlimeVineBlock> purple_slime_vine = BLOCKS.register("purple_slime_vine", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), DEFAULT_BLOCK_ITEM);
+  public static final BlockItemObject<SlimeVineBlock> purple_slime_vine_middle = BLOCKS.register("purple_slime_vine_middle", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), DEFAULT_BLOCK_ITEM);
+  public static final BlockItemObject<SlimeVineBlock> purple_slime_vine_end = BLOCKS.register("purple_slime_vine_end", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.END), DEFAULT_BLOCK_ITEM);
+  public static final BlockItemObject<SlimeVineBlock> blue_slime_vine = BLOCKS.register("blue_slime_vine", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.START), DEFAULT_BLOCK_ITEM);
+  public static final BlockItemObject<SlimeVineBlock> blue_slime_vine_middle = BLOCKS.register("blue_slime_vine_middle", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.MIDDLE), DEFAULT_BLOCK_ITEM);
+  public static final BlockItemObject<SlimeVineBlock> blue_slime_vine_end = BLOCKS.register("blue_slime_vine_end", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.END), DEFAULT_BLOCK_ITEM);
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {

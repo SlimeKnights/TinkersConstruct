@@ -2,6 +2,7 @@ package slimeknights.tconstruct.blocks;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.renderer.RenderType;
@@ -25,12 +26,15 @@ import slimeknights.tconstruct.library.registration.object.EnumObject;
 import slimeknights.tconstruct.shared.block.ClearGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 
+import java.util.function.Function;
+
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DecorativeBlocks {
 
-  private static final Item.Properties generalProps = new Item.Properties().group(TinkerRegistry.tabGeneral);
   private static final BlockDeferredRegister BLOCKS = new BlockDeferredRegister(TConstruct.modID);
+  private static final Item.Properties GENERAL_PROPS = new Item.Properties().group(TinkerRegistry.tabGeneral);
+  private static final Function<Block,? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, GENERAL_PROPS);
 
   public static void init() {
     IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -38,12 +42,12 @@ public final class DecorativeBlocks {
   }
 
   /* Decorative Blocks */
-  public static final BlockItemObject<ClearGlassBlock> clear_glass = BLOCKS.register("clear_glass", () -> new ClearGlassBlock(BlockProperties.GENERIC_GLASS_BLOCK), generalProps);
-  public static final EnumObject<ClearStainedGlassBlock.GlassColor,ClearStainedGlassBlock> clear_stained_glass = BLOCKS.registerEnum(ClearStainedGlassBlock.GlassColor.values(), "clear_stained_glass", (color) -> new ClearStainedGlassBlock(BlockProperties.GENERIC_GLASS_BLOCK, color), generalProps);
+  public static final BlockItemObject<ClearGlassBlock> clear_glass = BLOCKS.register("clear_glass", () -> new ClearGlassBlock(BlockProperties.GENERIC_GLASS_BLOCK), DEFAULT_BLOCK_ITEM);
+  public static final EnumObject<ClearStainedGlassBlock.GlassColor,ClearStainedGlassBlock> clear_stained_glass = BLOCKS.registerEnum(ClearStainedGlassBlock.GlassColor.values(), "clear_stained_glass", (color) -> new ClearStainedGlassBlock(BlockProperties.GENERIC_GLASS_BLOCK, color), DEFAULT_BLOCK_ITEM);
 
-  public static final BuildingBlockObject mud_bricks = BLOCKS.registerBuilding("mud_bricks", BlockProperties.MUD_BRICKS, generalProps);
-  public static final BuildingBlockObject dried_clay = BLOCKS.registerBuilding("dried_clay", BlockProperties.DRIED_CLAY, generalProps);
-  public static final BuildingBlockObject dried_clay_bricks = BLOCKS.registerBuilding("dried_clay_bricks", BlockProperties.DRIED_CLAY_BRICKS, generalProps);
+  public static final BuildingBlockObject mud_bricks = BLOCKS.registerBuilding("mud_bricks", BlockProperties.MUD_BRICKS, DEFAULT_BLOCK_ITEM);
+  public static final BuildingBlockObject dried_clay = BLOCKS.registerBuilding("dried_clay", BlockProperties.DRIED_CLAY, DEFAULT_BLOCK_ITEM);
+  public static final BuildingBlockObject dried_clay_bricks = BLOCKS.registerBuilding("dried_clay_bricks", BlockProperties.DRIED_CLAY_BRICKS, DEFAULT_BLOCK_ITEM);
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {

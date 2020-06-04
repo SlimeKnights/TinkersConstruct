@@ -15,8 +15,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
-import slimeknights.tconstruct.library.registration.object.WallBuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.FenceBuildingBlockObject;
+import slimeknights.tconstruct.library.registration.object.WallBuildingBlockObject;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -77,26 +77,14 @@ public class BlockDeferredRegister extends RegisterWrapper<Block> {
   }
 
   /**
-   * Registers a block with the block registry, using the given item properties
-   * @param name   Block ID
-   * @param block  Block supplier
-   * @param props  Item properties
-   * @param <B>    Block class
-   * @return  Block item registry object pair
-   */
-  public <B extends Block> BlockItemObject<B> register(final String name, final Supplier<? extends B> block, final Item.Properties props) {
-    return register(name, block, (b) -> new BlockItem(b, props));
-  }
-
-  /**
-   * Registers a block with the block registry, using the given item properties
+   * Registers a block with the block registry, using the function for the BlockItem
    * @param name        Block ID
-   * @param blockProps  Block properties
-   * @param itemProps   Item properties
+   * @param blockProps  Block supplier
+   * @param item        Function to create a BlockItem from a Block
    * @return  Block item registry object pair
    */
-  public BlockItemObject<Block> register(final String name, final Block.Properties blockProps, final Item.Properties itemProps) {
-    return register(name, () -> new Block(blockProps), itemProps);
+  public BlockItemObject<Block> register(final String name, final Block.Properties blockProps, final Function<? super Block, ? extends BlockItem> item) {
+    return register(name, () -> new Block(blockProps), item);
   }
 
 
@@ -106,14 +94,14 @@ public class BlockDeferredRegister extends RegisterWrapper<Block> {
    * Registers a block with slab, and stairs
    * @param name      Name of the block
    * @param props     Block properties
-   * @param itemProps Item properties
+   * @param item      Function to get an item from the block
    * @return  BuildingBlockObject class that returns different block types
    */
-  public BuildingBlockObject registerBuilding(final String name, Block.Properties props, Item.Properties itemProps) {
-    BlockItemObject<Block> blockObj = register(name, props, itemProps);
+  public BuildingBlockObject registerBuilding(final String name, Block.Properties props, final Function<? super Block, ? extends BlockItem> item) {
+    BlockItemObject<Block> blockObj = register(name, props, item);
     return new BuildingBlockObject(blockObj,
-      register(name + "_slab", () -> new SlabBlock(props), itemProps),
-      register(name + "_stairs", () -> new StairsBlock(() -> blockObj.get().getDefaultState(), props), itemProps)
+      register(name + "_slab", () -> new SlabBlock(props), item),
+      register(name + "_stairs", () -> new StairsBlock(() -> blockObj.get().getDefaultState(), props), item)
     );
   }
 
@@ -121,13 +109,13 @@ public class BlockDeferredRegister extends RegisterWrapper<Block> {
    * Registers a block with slab, stairs, and wall
    * @param name      Name of the block
    * @param props     Block properties
-   * @param itemProps Item properties
+   * @param item      Function to get an item from the block
    * @return  StoneBuildingBlockObject class that returns different block types
    */
-  public WallBuildingBlockObject registerWallBuilding(final String name, final Block.Properties props, final Item.Properties itemProps) {
+  public WallBuildingBlockObject registerWallBuilding(final String name, final Block.Properties props, final Function<? super Block, ? extends BlockItem> item) {
     return new WallBuildingBlockObject(
-      registerBuilding(name, props, itemProps),
-      register(name + "_wall", () -> new WallBlock(props), itemProps)
+      registerBuilding(name, props, item),
+      register(name + "_wall", () -> new WallBlock(props), item)
     );
   }
 
@@ -135,13 +123,13 @@ public class BlockDeferredRegister extends RegisterWrapper<Block> {
    * Registers a block with slab, stairs, and fence
    * @param name      Name of the block
    * @param props     Block properties
-   * @param itemProps Item properties
+   * @param item      Function to get an item from the block
    * @return  WoodBuildingBlockObject class that returns different block types
    */
-  public FenceBuildingBlockObject registerFenceBuilding(final String name, final Block.Properties props, final Item.Properties itemProps) {
+  public FenceBuildingBlockObject registerFenceBuilding(final String name, final Block.Properties props, final Function<? super Block, ? extends BlockItem> item) {
     return new FenceBuildingBlockObject(
-      registerBuilding(name, props, itemProps),
-      register(name + "_fence", () -> new FenceBlock(props), itemProps)
+      registerBuilding(name, props, item),
+      register(name + "_fence", () -> new FenceBlock(props), item)
     );
   }
 
@@ -150,18 +138,18 @@ public class BlockDeferredRegister extends RegisterWrapper<Block> {
    * @param values    Enum values to use for this block
    * @param name      Name of the block
    * @param supplier  Function to get a block for the given enum value
-   * @param itemProps Item properties
+   * @param item      Function to get an item from the block
    * @return  EnumObject mapping between different block types
    */
   @SuppressWarnings("unchecked")
-  public <T extends Enum<T> & IStringSerializable, B extends Block> EnumObject<T,B> registerEnum(final T[] values, final String name, Function<T,? extends B> supplier, Item.Properties itemProps) {
+  public <T extends Enum<T> & IStringSerializable, B extends Block> EnumObject<T,B> registerEnum(final T[] values, final String name, Function<T,? extends B> supplier, final Function<? super B, ? extends BlockItem> item) {
     if (values.length == 0) {
       throw new IllegalArgumentException("Must have at least one value");
     }
     // note this cast only works because you cannot extend an enum
     Map<T, Supplier<? extends B>> map = new EnumMap<>((Class<T>)values[0].getClass());
     for (T value : values) {
-      map.put(value, register(value.getName() + "_" + name, () -> supplier.apply(value), itemProps));
+      map.put(value, register(value.getName() + "_" + name, () -> supplier.apply(value), item));
     }
     return new EnumObject<>(map);
   }
