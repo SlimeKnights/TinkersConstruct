@@ -72,31 +72,29 @@ public class SmelteryBlocks {
     builder.add(seared_paver.get());
     builder.add(seared_road.get());
     builder.add(seared_tile.get());
+    ImmutableSet<Block> searedBlocks = builder.build();
 
+    // smeltery adds in tank, glass and drains
+    builder = ImmutableSet.builder();
+    builder.addAll(searedBlocks);
     //builder.add(searedTank);
     //builder.add(smelteryIO);
     builder.add(seared_glass.get());
 
+    // same blocks right now for smeltery and tinker tank
     validSmelteryBlocks = builder.build();
-    validTinkerTankBlocks = builder.build(); // same blocks right now
-    validTinkerTankFloorBlocks = ImmutableSet.of(seared_stone.get(), seared_cobble.get(), seared_bricks.get(), seared_cracked_bricks.get(), seared_fancy_bricks.get(), seared_square_bricks.get(), seared_small_bricks.get(), seared_triangle_bricks.get(), seared_creeper.get(), seared_paver.get(), seared_road.get(), seared_tile.get(), seared_glass.get());//, smelteryIO);
+    validTinkerTankBlocks = builder.build();
+    // tinker tank floor disallows tanks
+    builder = ImmutableSet.builder();
+    builder.addAll(searedBlocks);
+    builder.add(seared_glass.get());
+    //builder.add(smelteryIO);
+    validTinkerTankFloorBlocks = builder.build();
 
     // seared furnace ceiling blocks, no smelteryIO or seared glass
     // does not affect sides, those are forced to use seared blocks/tanks where relevant
     builder = ImmutableSet.builder();
-    builder.add(seared_stone.get());
-    builder.add(seared_cobble.get());
-    builder.add(seared_bricks.get());
-    builder.add(seared_cracked_bricks.get());
-    builder.add(seared_fancy_bricks.get());
-    builder.add(seared_square_bricks.get());
-    builder.add(seared_small_bricks.get());
-    builder.add(seared_triangle_bricks.get());
-    builder.add(seared_creeper.get());
-    builder.add(seared_paver.get());
-    builder.add(seared_road.get());
-    builder.add(seared_tile.get());
-
+    builder.addAll(validSmelteryBlocks);
     builder.add(seared_stone.getSlab());
     builder.add(seared_cobble.getSlab());
     builder.add(seared_bricks.getSlab());
@@ -109,7 +107,6 @@ public class SmelteryBlocks {
     builder.add(seared_paver.getSlab());
     builder.add(seared_road.getSlab());
     builder.add(seared_tile.getSlab());
-
     builder.add(seared_stone.getStairs());
     builder.add(seared_cobble.getStairs());
     builder.add(seared_bricks.getStairs());
@@ -122,7 +119,6 @@ public class SmelteryBlocks {
     builder.add(seared_paver.getStairs());
     builder.add(seared_road.getStairs());
     builder.add(seared_tile.getStairs());
-
     searedStairsSlabs = builder.build();
   }
 
