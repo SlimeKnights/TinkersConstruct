@@ -128,6 +128,6 @@ public class SmelteryBlocks {
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    RenderTypeLookup.setRenderLayer(seared_glass.get(), (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(seared_glass.get(), RenderType.getCutout());
   }
 }

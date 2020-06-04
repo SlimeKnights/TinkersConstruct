@@ -76,7 +76,7 @@ public final class WorldBlocks {
     slime = new EnumObject<>(map);
   }
 
-  public static final EnumObject<SlimeBlock.SlimeType, CongealedSlimeBlock> congealed_slime = BLOCKS.registerEnum(SlimeBlock.SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(BlockProperties.SLIME, (type == SlimeBlock.SlimeType.PINK)), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<SlimeBlock.SlimeType, CongealedSlimeBlock> congealed_slime = BLOCKS.registerEnum(SlimeBlock.SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(BlockProperties.CONGEALED_SLIME, (type == SlimeBlock.SlimeType.PINK)), TOOLTIP_BLOCK_ITEM);
 
   public static final EnumObject<SlimeDirtBlock.SlimeDirtType, SlimeDirtBlock> slime_dirt = BLOCKS.registerEnum(SlimeDirtBlock.SlimeDirtType.values(), "slime_dirt", (type) -> new SlimeDirtBlock(BlockProperties.SLIME_DIRT), TOOLTIP_BLOCK_ITEM);
 
@@ -103,27 +103,30 @@ public final class WorldBlocks {
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    RenderTypeLookup.setRenderLayer(cobalt_ore.get(), (layer) -> layer == RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(ardite_ore.get(), (layer) -> layer == RenderType.getCutoutMipped());
+    RenderTypeLookup.setRenderLayer(cobalt_ore.get(), RenderType.getCutoutMipped());
+    RenderTypeLookup.setRenderLayer(ardite_ore.get(), RenderType.getCutoutMipped());
 
     for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
-      RenderTypeLookup.setRenderLayer(slime_leaves.get(type), (layer) -> layer == RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(vanilla_slime_grass.get(type), (layer) -> layer == RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(green_slime_grass.get(type), (layer) -> layer == RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(blue_slime_grass.get(type), (layer) -> layer == RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(purple_slime_grass.get(type), (layer) -> layer == RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(magma_slime_grass.get(type), (layer) -> layer == RenderType.getCutoutMipped());
-      RenderTypeLookup.setRenderLayer(slime_fern.get(type), (layer) -> layer == RenderType.getCutout());
-      RenderTypeLookup.setRenderLayer(slime_tall_grass.get(type), (layer) -> layer == RenderType.getCutout());
-      RenderTypeLookup.setRenderLayer(slime_sapling.get(type), (layer) -> layer == RenderType.getCutout());
+      RenderTypeLookup.setRenderLayer(slime_leaves.get(type), RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(vanilla_slime_grass.get(type), RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(green_slime_grass.get(type), RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(blue_slime_grass.get(type), RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(purple_slime_grass.get(type), RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(magma_slime_grass.get(type), RenderType.getCutoutMipped());
+      RenderTypeLookup.setRenderLayer(slime_fern.get(type), RenderType.getCutout());
+      RenderTypeLookup.setRenderLayer(slime_tall_grass.get(type), RenderType.getCutout());
+      RenderTypeLookup.setRenderLayer(slime_sapling.get(type), RenderType.getCutout());
+    }
+    for (SlimeBlock.SlimeType type : SlimeBlock.SlimeType.TINKER) {
+      RenderTypeLookup.setRenderLayer(slime.get(type), RenderType.getTranslucent());
     }
 
-    RenderTypeLookup.setRenderLayer(purple_slime_vine.get(), (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(purple_slime_vine_middle.get(), (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(purple_slime_vine_end.get(), (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(blue_slime_vine.get(), (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(blue_slime_vine_middle.get(), (layer) -> layer == RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(blue_slime_vine_end.get(), (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(purple_slime_vine.get(), RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(purple_slime_vine_middle.get(), RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(purple_slime_vine_end.get(), RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(blue_slime_vine.get(), RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(blue_slime_vine_middle.get(), RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(blue_slime_vine_end.get(), RenderType.getCutout());
   }
 
   @SubscribeEvent

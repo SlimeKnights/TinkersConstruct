@@ -51,9 +51,9 @@ public final class DecorativeBlocks {
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    RenderTypeLookup.setRenderLayer(clear_glass.get(), (layer) -> layer == RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(clear_glass.get(), RenderType.getCutout());
     for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
-      RenderTypeLookup.setRenderLayer(clear_stained_glass.get(color), (layer) -> layer == RenderType.getTranslucent());
+      RenderTypeLookup.setRenderLayer(clear_stained_glass.get(color), RenderType.getTranslucent());
     }
   }
 
