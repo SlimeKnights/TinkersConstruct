@@ -16,9 +16,7 @@ import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import slimeknights.tconstruct.blocks.WorldBlocks;
-import slimeknights.tconstruct.common.Tags;
-import slimeknights.tconstruct.world.block.SlimeDirtBlock;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
+import slimeknights.tconstruct.common.TinkerTags;
 
 import java.util.Random;
 import java.util.Set;
@@ -239,7 +237,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
   public static boolean isAirOrLeaves(IWorldGenerationBaseReader worldIn, BlockPos pos) {
     if (worldIn instanceof net.minecraft.world.IWorldReader) // FORGE: Redirect to state method when possible
       return worldIn.hasBlockState(pos, state -> state.canBeReplacedByLeaves((net.minecraft.world.IWorldReader) worldIn, pos));
-    return worldIn.hasBlockState(pos, (p_227223_0_) -> p_227223_0_.isAir() || p_227223_0_.isIn(BlockTags.LEAVES) || p_227223_0_.isIn(Tags.Blocks.SLIMY_LEAVES));
+    return worldIn.hasBlockState(pos, (p_227223_0_) -> p_227223_0_.isAir() || p_227223_0_.isIn(BlockTags.LEAVES) || p_227223_0_.isIn(TinkerTags.Blocks.SLIMY_LEAVES));
   }
 
   private BlockPos findGround(IWorld reader, BlockPos position) {

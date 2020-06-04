@@ -11,7 +11,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 
-public class Tags {
+public class TinkerTags {
 
   public static class Blocks {
 

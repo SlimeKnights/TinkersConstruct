@@ -11,7 +11,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTables;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.Tags;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import java.util.Random;
@@ -26,7 +26,7 @@ public class BlueSlimeEntity extends SlimeEntity {
     IFluidState ifluidstate = worldIn.getFluidState(pos);
     BlockPos down = pos.down();
 
-    if (ifluidstate.isTagged(Tags.Fluids.SLIME) && worldIn.getFluidState(down).isTagged(Tags.Fluids.SLIME)) {
+    if (ifluidstate.isTagged(TinkerTags.Fluids.SLIME) && worldIn.getFluidState(down).isTagged(TinkerTags.Fluids.SLIME)) {
       return true;
     }
 

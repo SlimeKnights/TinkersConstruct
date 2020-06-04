@@ -4,7 +4,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.EntityTypeTagsProvider;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.common.Tags;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.entity.WorldEntities;
 
 import java.nio.file.Path;
@@ -25,7 +25,7 @@ public class TConstructEntityTypeTagsProvider extends EntityTypeTagsProvider {
 
     this.filter = this.tagToBuilder.keySet().stream().map(Tag::getId).collect(Collectors.toSet());
 
-    this.getBuilder(Tags.EntityTypes.SLIMES).add(WorldEntities.blue_slime_entity);
+    this.getBuilder(TinkerTags.EntityTypes.SLIMES).add(WorldEntities.blue_slime_entity);
   }
 
   @Override
@@ -35,7 +35,7 @@ public class TConstructEntityTypeTagsProvider extends EntityTypeTagsProvider {
 
   @Override
   public String getName() {
-    return "Tinkers Construct Entity Type Tags";
+    return "Tinkers Construct Entity Type TinkerTags";
   }
 
 }

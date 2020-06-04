@@ -8,7 +8,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import slimeknights.tconstruct.common.Tags;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.entity.WorldEntities;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
@@ -40,7 +40,7 @@ public class WorldEvents {
     IFluidState ifluidstate = worldIn.getFluidState(pos);
     BlockPos down = pos.down();
 
-    if (ifluidstate.isTagged(Tags.Fluids.SLIME) && worldIn.getFluidState(down).isTagged(Tags.Fluids.SLIME)) {
+    if (ifluidstate.isTagged(TinkerTags.Fluids.SLIME) && worldIn.getFluidState(down).isTagged(TinkerTags.Fluids.SLIME)) {
       return true;
     }
 

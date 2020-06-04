@@ -22,6 +22,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
@@ -32,7 +33,7 @@ import slimeknights.tconstruct.blocks.DecorativeBlocks;
 import slimeknights.tconstruct.blocks.GadgetBlocks;
 import slimeknights.tconstruct.blocks.SmelteryBlocks;
 import slimeknights.tconstruct.blocks.WorldBlocks;
-import slimeknights.tconstruct.common.Tags;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
 import slimeknights.tconstruct.common.conditions.PulseLoadedCondition;
 import slimeknights.tconstruct.items.CommonItems;
@@ -161,13 +162,13 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(GadgetItems.efln_ball.get())
         .addIngredient(Items.FLINT)
         .addIngredient(Items.GUNPOWDER)
-        .addCriterion("has_item", this.hasItem(net.minecraftforge.common.Tags.Items.DUSTS_GLOWSTONE))::build)
+        .addCriterion("has_item", this.hasItem(Tags.Items.DUSTS_GLOWSTONE))::build)
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
       .addCondition(not(new TagEmptyCondition("forge", "dusts/sulfur")))
       .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(GadgetItems.efln_ball.get())
-        .addIngredient(Tags.Items.DUSTS_SULFUR)
+        .addIngredient(TinkerTags.Items.DUSTS_SULFUR)
         .addIngredient(Ingredient.fromItemListStream(Stream.of(
-          new Ingredient.TagList(Tags.Items.DUSTS_SULFUR),
+          new Ingredient.TagList(TinkerTags.Items.DUSTS_SULFUR),
           new Ingredient.SingleItemList(new ItemStack(Items.GUNPOWDER)))
         ))
         .addCriterion("has_item", this.hasItem(Items.GUNPOWDER))::build)
@@ -186,17 +187,17 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
       .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.glow_ball.get(), 8)
         .key('#', Items.SNOWBALL)
-        .key('X', net.minecraftforge.common.Tags.Items.DUSTS_GLOWSTONE)
+        .key('X', Tags.Items.DUSTS_GLOWSTONE)
         .patternLine("###")
         .patternLine("#X#")
         .patternLine("###")
-        .addCriterion("has_item", this.hasItem(net.minecraftforge.common.Tags.Items.DUSTS_GLOWSTONE))::build)
+        .addCriterion("has_item", this.hasItem(Tags.Items.DUSTS_GLOWSTONE))::build)
       .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/throwball/glowball"), ConditionalAdvancement.builder()
         .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
         .addAdvancement(Advancement.Builder.builder()
           .withParentId(new ResourceLocation("recipes/root"))
           .withRewards(AdvancementRewards.Builder.recipe(glowBallId))
-          .withCriterion("has_item", hasItem(net.minecraftforge.common.Tags.Items.DUSTS_GLOWSTONE))
+          .withCriterion("has_item", hasItem(Tags.Items.DUSTS_GLOWSTONE))
           .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(glowBallId))
           .withRequirementsStrategy(IRequirementsStrategy.OR))
       ).build(consumer, glowBallId);
@@ -205,18 +206,18 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
       .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.piggy_backpack.get())
-        .key('#', net.minecraftforge.common.Tags.Items.RODS_WOODEN)
-        .key('X', net.minecraftforge.common.Tags.Items.LEATHER)
+        .key('#', Tags.Items.RODS_WOODEN)
+        .key('X', Tags.Items.LEATHER)
         .patternLine(" X ")
         .patternLine("# #")
         .patternLine(" X ")
-        .addCriterion("has_item", this.hasItem(net.minecraftforge.common.Tags.Items.RODS_WOODEN))::build)
+        .addCriterion("has_item", this.hasItem(Tags.Items.RODS_WOODEN))::build)
       .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/piggy_backpack"), ConditionalAdvancement.builder()
         .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
         .addAdvancement(Advancement.Builder.builder()
           .withParentId(new ResourceLocation("recipes/root"))
           .withRewards(AdvancementRewards.Builder.recipe(piggyBackpackId))
-          .withCriterion("has_item", hasItem(net.minecraftforge.common.Tags.Items.RODS_WOODEN))
+          .withCriterion("has_item", hasItem(Tags.Items.RODS_WOODEN))
           .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(piggyBackpackId))
           .withRequirementsStrategy(IRequirementsStrategy.OR))
       ).build(consumer, piggyBackpackId);
@@ -271,16 +272,16 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                        .build(consumer, wrap(SmelteryBlocks.seared_square_bricks.getRegistryName(), folder, "_crafting"));
 
     // transform bricks
-    this.addStonecutter(consumer, Tags.Items.SEARED_BRICKS, SmelteryBlocks.seared_bricks, folder);
-    this.addStonecutter(consumer, Tags.Items.SEARED_BRICKS, SmelteryBlocks.seared_fancy_bricks, folder);
-    this.addStonecutter(consumer, Tags.Items.SEARED_BRICKS, SmelteryBlocks.seared_square_bricks, folder);
-    this.addStonecutter(consumer, Tags.Items.SEARED_BRICKS, SmelteryBlocks.seared_small_bricks, folder);
-    this.addStonecutter(consumer, Tags.Items.SEARED_BRICKS, SmelteryBlocks.seared_triangle_bricks, folder);
-    this.addStonecutter(consumer, Tags.Items.SEARED_BRICKS, SmelteryBlocks.seared_road, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, SmelteryBlocks.seared_bricks, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, SmelteryBlocks.seared_fancy_bricks, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, SmelteryBlocks.seared_square_bricks, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, SmelteryBlocks.seared_small_bricks, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, SmelteryBlocks.seared_triangle_bricks, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, SmelteryBlocks.seared_road, folder);
     // transform smooth
-    this.addStonecutter(consumer, Tags.Items.SMOOTH_SEARED_BLOCKS, SmelteryBlocks.seared_paver, folder);
-    this.addStonecutter(consumer, Tags.Items.SMOOTH_SEARED_BLOCKS, SmelteryBlocks.seared_creeper, folder);
-    this.addStonecutter(consumer, Tags.Items.SMOOTH_SEARED_BLOCKS, SmelteryBlocks.seared_tile, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SMOOTH_SEARED_BLOCKS, SmelteryBlocks.seared_paver, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SMOOTH_SEARED_BLOCKS, SmelteryBlocks.seared_creeper, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SMOOTH_SEARED_BLOCKS, SmelteryBlocks.seared_tile, folder);
 
     // stairs and slabs
     this.registerSlabStair(consumer, SmelteryBlocks.seared_stone, folder, true);
@@ -373,17 +374,17 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ConditionalRecipe.builder()
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
       .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.stone_ladder.get(), 3)
-        .key('#', Tags.Items.RODS_STONE)
+        .key('#', TinkerTags.Items.RODS_STONE)
         .patternLine("# #")
         .patternLine("###")
         .patternLine("# #")
-        .addCriterion("has_item", this.hasItem(Tags.Items.RODS_STONE))::build)
+        .addCriterion("has_item", this.hasItem(TinkerTags.Items.RODS_STONE))::build)
       .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/stone/stone_ladder"), ConditionalAdvancement.builder()
         .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
         .addAdvancement(Advancement.Builder.builder()
           .withParentId(new ResourceLocation("recipes/root"))
           .withRewards(AdvancementRewards.Builder.recipe(stoneLadderId))
-          .withCriterion("has_item", hasItem(Tags.Items.RODS_STONE))
+          .withCriterion("has_item", hasItem(TinkerTags.Items.RODS_STONE))
           .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(stoneLadderId))
           .withRequirementsStrategy(IRequirementsStrategy.OR))
       ).build(consumer, stoneLadderId);
@@ -393,18 +394,18 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
       .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetItems.stone_stick.get(), 4)
         .key('#', Ingredient.fromItemListStream(Stream.of(
-          new Ingredient.TagList(net.minecraftforge.common.Tags.Items.STONE),
-          new Ingredient.TagList(net.minecraftforge.common.Tags.Items.COBBLESTONE))
+          new Ingredient.TagList(Tags.Items.STONE),
+          new Ingredient.TagList(Tags.Items.COBBLESTONE))
         ))
         .patternLine("#")
         .patternLine("#")
-        .addCriterion("has_item", this.hasItem(net.minecraftforge.common.Tags.Items.STONE))::build)
+        .addCriterion("has_item", this.hasItem(Tags.Items.STONE))::build)
       .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/stone/stone_rod"), ConditionalAdvancement.builder()
         .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
         .addAdvancement(Advancement.Builder.builder()
           .withParentId(new ResourceLocation("recipes/root"))
           .withRewards(AdvancementRewards.Builder.recipe(stoneRodId))
-          .withCriterion("has_item", hasItem(net.minecraftforge.common.Tags.Items.STONE))
+          .withCriterion("has_item", hasItem(Tags.Items.STONE))
           .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(stoneRodId))
           .withRequirementsStrategy(IRequirementsStrategy.OR))
       ).build(consumer, stoneRodId);
@@ -417,16 +418,16 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
           new Ingredient.SingleItemList(new ItemStack(Items.COAL)),
           new Ingredient.SingleItemList(new ItemStack(Items.CHARCOAL))
         )))
-        .key('X', Tags.Items.RODS_STONE)
+        .key('X', TinkerTags.Items.RODS_STONE)
         .patternLine("#")
         .patternLine("X")
-        .addCriterion("has_item", this.hasItem(Tags.Items.RODS_STONE))::build)
+        .addCriterion("has_item", this.hasItem(TinkerTags.Items.RODS_STONE))::build)
       .setAdvancement(new ResourceLocation(TConstruct.modID, "recipes/tinkers_gadgets/stone/stone_torch"), ConditionalAdvancement.builder()
         .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
         .addAdvancement(Advancement.Builder.builder()
           .withParentId(new ResourceLocation("recipes/root"))
           .withRewards(AdvancementRewards.Builder.recipe(stoneTorchId))
-          .withCriterion("has_item", hasItem(Tags.Items.RODS_STONE))
+          .withCriterion("has_item", hasItem(TinkerTags.Items.RODS_STONE))
           .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(stoneTorchId))
           .withRequirementsStrategy(IRequirementsStrategy.OR))
       ).build(consumer, stoneTorchId);
@@ -488,7 +489,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .addCondition(new PulseLoadedCondition(TinkerPulseIds.TINKER_GADGETS_PULSE_ID))
       .addRecipe(ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.wooden_rail.get(), 4)
         .key('#', ItemTags.PLANKS)
-        .key('X', net.minecraftforge.common.Tags.Items.RODS_WOODEN)
+        .key('X', Tags.Items.RODS_WOODEN)
         .patternLine("# #")
         .patternLine("#X#")
         .patternLine("# #")
