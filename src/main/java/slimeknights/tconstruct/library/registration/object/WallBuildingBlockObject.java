@@ -9,12 +9,29 @@ import net.minecraft.item.Item;
 public class WallBuildingBlockObject extends BuildingBlockObject {
   private final BlockItemObject<WallBlock> wall;
 
+  /**
+   * Creates a new building block object with all parameters
+   * @param block    Block object
+   * @param slab     Slab object
+   * @param stairs   Stairs object
+   * @param wall     Wall object
+   */
   public WallBuildingBlockObject(
-    BlockItemObject<Block> block,
-    BlockItemObject<SlabBlock> slab,
-    BlockItemObject<StairsBlock> stairs,
-    BlockItemObject<WallBlock> wall) {
+      BlockItemObject<Block> block,
+      BlockItemObject<SlabBlock> slab,
+      BlockItemObject<StairsBlock> stairs,
+      BlockItemObject<WallBlock> wall) {
     super(block, slab, stairs);
+    this.wall = wall;
+  }
+
+  /**
+   * Creates a new object from a building block object plus a wall
+   * @param object  Previous building block object
+   * @param wall    Wall object
+   */
+  public WallBuildingBlockObject(BuildingBlockObject object, BlockItemObject<WallBlock> wall) {
+    super(object);
     this.wall = wall;
   }
 

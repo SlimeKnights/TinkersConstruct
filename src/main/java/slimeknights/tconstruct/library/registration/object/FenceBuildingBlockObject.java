@@ -9,12 +9,29 @@ import net.minecraft.item.Item;
 public class FenceBuildingBlockObject extends BuildingBlockObject {
   private final BlockItemObject<FenceBlock> fence;
 
+  /**
+   * Creates a new building block object with all parameters
+   * @param block    Block object
+   * @param slab     Slab object
+   * @param stairs   Stairs object
+   * @param fence    Fence object
+   */
   public FenceBuildingBlockObject(
-    BlockItemObject<Block> block,
-    BlockItemObject<SlabBlock> slab,
-    BlockItemObject<StairsBlock> stairs,
-    BlockItemObject<FenceBlock> fence) {
+      BlockItemObject<Block> block,
+      BlockItemObject<SlabBlock> slab,
+      BlockItemObject<StairsBlock> stairs,
+      BlockItemObject<FenceBlock> fence) {
     super(block, slab, stairs);
+    this.fence = fence;
+  }
+
+  /**
+   * Creates a new object from a building block object plus a fence
+   * @param object  Previous building block object
+   * @param fence   Fence object
+   */
+  public FenceBuildingBlockObject(BuildingBlockObject object, BlockItemObject<FenceBlock> fence) {
+    super(object);
     this.fence = fence;
   }
 

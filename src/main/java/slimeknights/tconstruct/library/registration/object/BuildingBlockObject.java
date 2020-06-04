@@ -6,9 +6,15 @@ import net.minecraft.block.StairsBlock;
 import net.minecraft.item.Item;
 
 public class BuildingBlockObject extends BlockItemObject<Block> {
-  private final BlockItemObject<SlabBlock> slab;
-  private final BlockItemObject<StairsBlock> stairs;
+  protected final BlockItemObject<SlabBlock> slab;
+  protected final BlockItemObject<StairsBlock> stairs;
 
+  /**
+   * Creates a new object from BlockItemObjects
+   * @param block   Base block
+   * @param slab    Slab block
+   * @param stairs  Stairs block
+   */
   public BuildingBlockObject(
     BlockItemObject<Block> block,
     BlockItemObject<SlabBlock> slab,
@@ -16,6 +22,16 @@ public class BuildingBlockObject extends BlockItemObject<Block> {
     super(block.block, block.item);
     this.slab = slab;
     this.stairs = stairs;
+  }
+
+  /**
+   * Creates a new object from another building block object
+   * @param object   Object to copy
+   */
+  protected BuildingBlockObject(BuildingBlockObject object) {
+    super(object.block, object.item);
+    this.slab = object.slab;
+    this.stairs = object.stairs;
   }
 
   public static BuildingBlockObject fromBlocks(Block block, Block slab, Block stairs) {

@@ -128,11 +128,9 @@ public class BlockDeferredRegister extends RegisterWrapper<Block> {
    * @param itemProps Item properties
    * @return  StoneBuildingBlockObject class that returns different block types
    */
-  public WallBuildingBlockObject registerWallBuilding(final String name, Block.Properties props, Item.Properties itemProps) {
-    BlockItemObject<Block> blockObj = register(name, props, itemProps);
-    return new WallBuildingBlockObject(blockObj,
-      register(name + "_slab", () -> new SlabBlock(props), itemProps),
-      register(name + "_stairs", () -> new StairsBlock(() -> blockObj.get().getDefaultState(), props), itemProps),
+  public WallBuildingBlockObject registerWallBuilding(final String name, final Block.Properties props, final Item.Properties itemProps) {
+    return new WallBuildingBlockObject(
+      registerBuilding(name, props, itemProps),
       register(name + "_wall", () -> new WallBlock(props), itemProps)
     );
   }
@@ -144,11 +142,9 @@ public class BlockDeferredRegister extends RegisterWrapper<Block> {
    * @param itemProps Item properties
    * @return  WoodBuildingBlockObject class that returns different block types
    */
-  public FenceBuildingBlockObject registerFenceBuilding(final String name, Block.Properties props, Item.Properties itemProps) {
-    BlockItemObject<Block> blockObj = register(name, props, itemProps);
-    return new FenceBuildingBlockObject(blockObj,
-      register(name + "_slab", () -> new SlabBlock(props), itemProps),
-      register(name + "_stairs", () -> new StairsBlock(() -> blockObj.get().getDefaultState(), props), itemProps),
+  public FenceBuildingBlockObject registerFenceBuilding(final String name, final Block.Properties props, final Item.Properties itemProps) {
+    return new FenceBuildingBlockObject(
+      registerBuilding(name, props, itemProps),
       register(name + "_fence", () -> new FenceBlock(props), itemProps)
     );
   }
