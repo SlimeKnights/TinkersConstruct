@@ -3,10 +3,7 @@ package slimeknights.tconstruct.items;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.item.Item;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.tconstruct.TConstruct;
@@ -44,7 +41,7 @@ public final class GadgetItems {
 
   public static final ItemObject<PiggyBackPackItem> piggy_backpack = ITEMS.register("piggy_backpack", PiggyBackPackItem::new);
 
-  public static final EnumObject<FrameType,FancyItemFrameItem> item_frame = ITEMS.registerEnum(FrameType.values(), "jewel_item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
+  public static final EnumObject<FrameType,FancyItemFrameItem> item_frame = ITEMS.registerEnum(FrameType.values(), "item_frame", (type) -> new FancyItemFrameItem(((world, pos, dir) -> new FancyItemFrameEntity(world, pos, dir, type.getId()))));
 
   public static final ItemObject<GlowBallItem> glow_ball = ITEMS.register("glow_ball", GlowBallItem::new);
   public static final ItemObject<EflnBallItem> efln_ball = ITEMS.register("efln_ball", EflnBallItem::new);
