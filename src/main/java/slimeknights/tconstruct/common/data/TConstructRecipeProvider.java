@@ -2,8 +2,10 @@ package slimeknights.tconstruct.common.data;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.ICriterionInstance;
 import net.minecraft.advancements.IRequirementsStrategy;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
@@ -11,6 +13,8 @@ import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
 import net.minecraft.data.ShapedRecipeBuilder;
 import net.minecraft.data.ShapelessRecipeBuilder;
+import net.minecraft.data.SingleItemRecipeBuilder;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
@@ -32,9 +36,11 @@ import slimeknights.tconstruct.items.CommonItems;
 import slimeknights.tconstruct.items.FoodItems;
 import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.TinkerPulseIds;
+import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
+import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
-import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 
+import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -60,36 +66,15 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
   }
 
   private void addCommon(Consumer<IFinishedRecipe> consumer) {
+    // firewood and lavawood
     ShapelessRecipeBuilder.shapelessRecipe(CommonBlocks.firewood.get())
       .addIngredient(Items.BLAZE_POWDER)
       .addIngredient(CommonBlocks.lavawood.get())
       .addIngredient(Items.BLAZE_POWDER)
       .addCriterion("has_lavawood", this.hasItem(CommonBlocks.lavawood.get()))
       .build(consumer, "tconstruct:common/firewood/firewood");
-    ShapedRecipeBuilder.shapedRecipe(CommonBlocks.firewood.getSlab(), 6)
-      .key('#', CommonBlocks.firewood.get())
-      .patternLine("###")
-      .addCriterion("has_firewood", this.hasItem(CommonBlocks.firewood.get()))
-      .build(consumer, "tconstruct:common/firewood/firewood_slab");
-    ShapedRecipeBuilder.shapedRecipe(CommonBlocks.firewood.getStairs(), 4)
-      .key('#', CommonBlocks.firewood.get())
-      .patternLine("#  ")
-      .patternLine("## ")
-      .patternLine("###")
-      .addCriterion("has_firewood", this.hasItem(CommonBlocks.firewood.get()))
-      .build(consumer, "tconstruct:common/firewood/firewood_stairs");
-    ShapedRecipeBuilder.shapedRecipe(CommonBlocks.lavawood.getSlab(), 6)
-      .key('#', CommonBlocks.firewood.get())
-      .patternLine("###")
-      .addCriterion("has_firewood", this.hasItem(CommonBlocks.firewood.get()))
-      .build(consumer, "tconstruct:common/firewood/lavawood_slab");
-    ShapedRecipeBuilder.shapedRecipe(CommonBlocks.lavawood.getStairs(), 4)
-      .key('#', CommonBlocks.firewood.get())
-      .patternLine("#  ")
-      .patternLine("## ")
-      .patternLine("###")
-      .addCriterion("has_firewood", this.hasItem(CommonBlocks.firewood.get()))
-      .build(consumer, "tconstruct:common/firewood/lavawood_stairs");
+    registerSlabStair(consumer, CommonBlocks.firewood, "common/firewood/", false);
+    registerSlabStair(consumer, CommonBlocks.lavawood, "common/firewood/", false);
 
     ShapelessRecipeBuilder.shapelessRecipe(CommonBlocks.graveyard_soil.get())
       .addIngredient(Blocks.DIRT)
@@ -105,32 +90,22 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .patternLine("##")
       .addCriterion("has_mud_brick", this.hasItem(CommonItems.mud_brick.get()))
       .build(consumer, "tconstruct:common/soil/mud_bricks_block");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks.getSlab(), 6)
-      .key('#', DecorativeBlocks.mud_bricks.get())
-      .patternLine("###")
-      .setGroup("tconstruct:mud_brick_slab")
-      .addCriterion("has_mud_bricks", this.hasItem(DecorativeBlocks.mud_bricks.get()))
-      .build(consumer, "tconstruct:common/soil/mud_bricks_slab_block");
+    registerSlabStair(consumer, DecorativeBlocks.mud_bricks, "common/soil/", true);
     ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks.getSlab())
       .key('#', CommonItems.mud_brick.get())
       .patternLine("##")
       .setGroup("tconstruct:mud_brick_slab")
       .addCriterion("has_mud_brick", this.hasItem(CommonItems.mud_brick.get()))
-      .build(consumer, "tconstruct:common/soil/mud_bricks_slab");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks.getStairs(), 4)
-      .key('#', DecorativeBlocks.mud_bricks.get())
-      .patternLine("#  ")
-      .patternLine("## ")
-      .patternLine("###")
-      .addCriterion("has_mud_bricks", this.hasItem(DecorativeBlocks.mud_bricks.get()))
-      .build(consumer, "tconstruct:common/soil/mud_bricks_stairs");
+      .build(consumer, "tconstruct:common/soil/mud_bricks_slab_item");
 
+    // book
     ShapelessRecipeBuilder.shapelessRecipe(CommonItems.book.get())
       .addIngredient(Items.BOOK)
       .addIngredient(Blocks.GRAVEL)
       .addCriterion("has_gravel", this.hasItem(Blocks.GRAVEL))
       .build(consumer, "tconstruct:common/book");
 
+    // vanilla recipes
     ResourceLocation flintId = new ResourceLocation(TConstruct.modID, "common/flint");
     ConditionalRecipe.builder()
       .addCondition(new ConfigOptionEnabledCondition("addGravelToFlintRecipe"))
@@ -300,150 +275,18 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
   }
 
   private void addGlassRecipes(Consumer<IFinishedRecipe> consumer) {
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.BLACK), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_BLACK)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/black_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.BLUE), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_BLUE)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/blue_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.BROWN), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_BROWN)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/brown_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.CYAN), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_CYAN)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/cyan_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.GRAY), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_GRAY)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/gray_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.GREEN), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_GREEN)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/green_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.LIGHT_BLUE), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_LIGHT_BLUE)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/light_blue_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.LIGHT_GRAY), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_LIGHT_GRAY)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/light_gray_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.LIME), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_LIME)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/lime_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.MAGENTA), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_MAGENTA)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/magenta_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.ORANGE), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_ORANGE)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/orange_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.PINK), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_PINK)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/pink_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.PURPLE), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_PURPLE)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/purple_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.RED), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_RED)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/red_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.WHITE), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_WHITE)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/white_clear_stained_glass");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.clear_stained_glass.get(ClearStainedGlassBlock.GlassColor.YELLOW), 8)
-      .key('#', DecorativeBlocks.clear_glass.get())
-      .key('X', net.minecraftforge.common.Tags.Items.DYES_YELLOW)
-      .patternLine("###")
-      .patternLine("#X#")
-      .patternLine("###")
-      .setGroup("tconstruct:stained_clear_glass")
-      .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
-      .build(consumer, "tconstruct:common/glass/yellow_clear_stained_glass");
+    for (GlassColor color : GlassColor.values()) {
+      Block block = DecorativeBlocks.clear_stained_glass.get(color);
+      ShapedRecipeBuilder.shapedRecipe(block, 8)
+                         .key('#', DecorativeBlocks.clear_glass)
+                         .key('X', color.getDye().getTag())
+                         .patternLine("###")
+                         .patternLine("#X#")
+                         .patternLine("###")
+                         .setGroup(locationString("stained_clear_glass"))
+                         .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
+                         .build(consumer, wrap(block.getRegistryName(), "common/glass/", ""));
+    }
   }
 
   private void addStoneRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -619,5 +462,77 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
           .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(woodenDropperRailId))
           .withRequirementsStrategy(IRequirementsStrategy.OR))
       ).build(consumer, woodenDropperRailId);
+  }
+
+
+  /* String helpers */
+  /**
+   * Gets a resource location for Tinkers
+   * @param id  Location path
+   * @return  Location for Tinkers
+   */
+  private static ResourceLocation location(String id) {
+    return new ResourceLocation(TConstruct.modID, id);
+  }
+  /**
+   * Gets a resource location string for Tinkers
+   * @param id  Location path
+   * @return  Location for Tinkers
+   */
+  private static String locationString(String id) {
+    return TConstruct.modID + ":" + id;
+  }
+
+  /**
+   * Prefixes the resource location path with the given value
+   * @param loc     Location to prefix
+   * @param prefix  Prefix value
+   * @return  Resource location path
+   */
+  private static ResourceLocation wrap(ResourceLocation loc, String prefix, String suffix) {
+    return new ResourceLocation(loc.getNamespace(), prefix + loc.getPath() + suffix);
+  }
+
+
+  /* Helpers */
+
+  /**
+   * Registers generic building block recipes
+   * @param consumer  Recipe consumer
+   * @param building  Building object instance
+   */
+  private void registerSlabStair(@Nonnull Consumer<IFinishedRecipe> consumer, BuildingBlockObject building, String folder, boolean addStonecutter) {
+    Item item = building.asItem();
+    ResourceLocation location = item.getRegistryName();
+    ICriterionInstance hasBlock = hasItem(item);
+    Ingredient ingredient = Ingredient.fromItems(item);
+    // slab
+    Item slab = building.getSlabItem();
+    ShapedRecipeBuilder.shapedRecipe(slab, 6)
+                       .key('B', item)
+                       .patternLine("BBB")
+                       .addCriterion("has_item", hasBlock)
+                       .setGroup(slab.getRegistryName().toString())
+                       .build(consumer, wrap(location, folder, "_slab"));
+    // stairs
+    Item stairs = building.getStairsItem();
+    ShapedRecipeBuilder.shapedRecipe(stairs, 4)
+                       .key('B', item)
+                       .patternLine("B  ")
+                       .patternLine("BB ")
+                       .patternLine("BBB")
+                       .addCriterion("has_item", hasBlock)
+                       .setGroup(stairs.getRegistryName().toString())
+                       .build(consumer, wrap(location, folder, "_stairs"));
+
+    // only add stonecutter if relevant
+    if (addStonecutter) {
+      SingleItemRecipeBuilder.stonecuttingRecipe(ingredient, slab, 2)
+                             .addCriterion("has_item", hasBlock)
+                             .build(consumer, wrap(location, folder, "_slab_stonecutter"));
+      SingleItemRecipeBuilder.stonecuttingRecipe(ingredient, stairs)
+                             .addCriterion("has_item", hasBlock)
+                             .build(consumer, wrap(location, folder, "_stairs_stonecutter"));
+    }
   }
 }

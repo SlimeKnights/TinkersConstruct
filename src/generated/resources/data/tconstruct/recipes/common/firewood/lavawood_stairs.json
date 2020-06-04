@@ -1,13 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:lavawood_stairs",
   "pattern": [
-    "#  ",
-    "## ",
-    "###"
+    "B  ",
+    "BB ",
+    "BBB"
   ],
   "key": {
-    "#": {
-      "item": "tconstruct:firewood"
+    "B": {
+      "item": "tconstruct:lavawood"
     }
   },
   "result": {

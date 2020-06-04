@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_firewood": {
+    "has_item": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:firewood"
+            "item": "tconstruct:lavawood"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_firewood",
+      "has_item",
       "has_the_recipe"
     ]
   ]

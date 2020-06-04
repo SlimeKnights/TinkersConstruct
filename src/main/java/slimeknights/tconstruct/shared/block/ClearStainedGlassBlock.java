@@ -2,52 +2,24 @@ package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.entity.EntityType;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import slimeknights.mantle.block.ConnectedTextureBlock;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
 
-public class ClearStainedGlassBlock extends ConnectedTextureBlock {
+public class ClearStainedGlassBlock extends ClearGlassBlock {
 
   private final GlassColor glassColor;
 
   public ClearStainedGlassBlock(Properties properties, GlassColor glassColor) {
     super(properties);
     this.glassColor = glassColor;
-  }
-
-  @Override
-  @OnlyIn(Dist.CLIENT)
-  public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
-    return 1.0F;
-  }
-
-  @Override
-  public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
-    return true;
-  }
-
-  @Override
-  public boolean causesSuffocation(BlockState state, IBlockReader worldIn, BlockPos pos) {
-    return false;
-  }
-
-  @Override
-  public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos) {
-    return false;
-  }
-
-  @Override
-  public boolean canEntitySpawn(BlockState state, IBlockReader worldIn, BlockPos pos, EntityType<?> type) {
-    return false;
   }
 
   @Override
@@ -72,31 +44,31 @@ public class ClearStainedGlassBlock extends ConnectedTextureBlock {
 
   // do not change enum names, they're used for block registries
   public enum GlassColor implements IStringSerializable {
-    WHITE(0xffffff, MaterialColor.SNOW),
-    ORANGE(0xd87f33, MaterialColor.ADOBE),
-    MAGENTA(0xb24cd8, MaterialColor.MAGENTA),
-    LIGHT_BLUE(0x6699d8, MaterialColor.LIGHT_BLUE),
-    YELLOW(0xe5e533, MaterialColor.YELLOW),
-    LIME(0x7fcc19, MaterialColor.LIME),
-    PINK(0xf27fa5, MaterialColor.PINK),
-    GRAY(0x4c4c4c, MaterialColor.GRAY),
-    LIGHT_GRAY(0x999999, MaterialColor.LIGHT_GRAY),
-    CYAN(0x4c7f99, MaterialColor.CYAN),
-    PURPLE(0x7f3fb2, MaterialColor.PURPLE),
-    BLUE(0x334cb2, MaterialColor.BLUE),
-    BROWN(0x664c33, MaterialColor.BROWN),
-    GREEN(0x667f33, MaterialColor.GREEN),
-    RED(0x993333, MaterialColor.RED),
-    BLACK(0x191919, MaterialColor.BLACK);
+    WHITE(0xffffff, DyeColor.WHITE),
+    ORANGE(0xd87f33, DyeColor.ORANGE),
+    MAGENTA(0xb24cd8, DyeColor.MAGENTA),
+    LIGHT_BLUE(0x6699d8, DyeColor.LIGHT_BLUE),
+    YELLOW(0xe5e533, DyeColor.YELLOW),
+    LIME(0x7fcc19, DyeColor.LIME),
+    PINK(0xf27fa5, DyeColor.PINK),
+    GRAY(0x4c4c4c, DyeColor.GRAY),
+    LIGHT_GRAY(0x999999, DyeColor.LIGHT_GRAY),
+    CYAN(0x4c7f99, DyeColor.CYAN),
+    PURPLE(0x7f3fb2, DyeColor.PURPLE),
+    BLUE(0x334cb2, DyeColor.BLUE),
+    BROWN(0x664c33, DyeColor.BROWN),
+    GREEN(0x667f33, DyeColor.GREEN),
+    RED(0x993333, DyeColor.RED),
+    BLACK(0x191919, DyeColor.BLACK);
 
     private final int color;
-    private final MaterialColor materialColor;
+    private final DyeColor dye;
     private final float[] rgb;
     private final String name;
 
-    GlassColor(int color, MaterialColor mapColor) {
+    GlassColor(int color, DyeColor dye) {
       this.color = color;
-      this.materialColor = mapColor;
+      this.dye = dye;
       this.rgb = calcRGB(color);
       this.name = this.name().toLowerCase(Locale.US);
     }
@@ -115,9 +87,13 @@ public class ClearStainedGlassBlock extends ConnectedTextureBlock {
     }
 
     public MaterialColor getMaterialColor() {
-      return this.materialColor;
+      return dye.getMapColor();
     }
 
+    /** Gets the vanilla dye color associated with this color */
+    public DyeColor getDye() {
+      return dye;
+    }
 
     @Override
     public String toString() {

@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:common/firewood/lavawood_stairs"
+      "tconstruct:common/soil/mud_bricks_slab_stonecutter"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "tconstruct:lavawood"
+            "item": "tconstruct:mud_bricks"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:common/firewood/lavawood_stairs"
+        "recipe": "tconstruct:common/soil/mud_bricks_slab_stonecutter"
       }
     }
   },

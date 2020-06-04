@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:firewood_stairs",
   "pattern": [
-    "#  ",
-    "## ",
-    "###"
+    "B  ",
+    "BB ",
+    "BBB"
   ],
   "key": {
-    "#": {
+    "B": {
       "item": "tconstruct:firewood"
     }
   },

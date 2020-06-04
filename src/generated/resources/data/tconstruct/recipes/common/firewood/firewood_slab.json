@@ -1,10 +1,11 @@
 {
   "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:firewood_slab",
   "pattern": [
-    "###"
+    "BBB"
   ],
   "key": {
-    "#": {
+    "B": {
       "item": "tconstruct:firewood"
     }
   },
