@@ -20,12 +20,12 @@ public class TinkerTables extends TinkerModule {
 
   @SubscribeEvent
   public void setupClient(final FMLClientSetupEvent event) {
-    ScreenManager.registerFactory(TableContainerTypes.crafting_station, CraftingStationScreen::new);
+    ScreenManager.registerFactory(TableContainerTypes.crafting_station.get(), CraftingStationScreen::new);
 
-    ScreenManager.registerFactory(TableContainerTypes.part_builder, PartBuilderScreen::new);
+    ScreenManager.registerFactory(TableContainerTypes.part_builder.get(), PartBuilderScreen::new);
 
-    ScreenManager.registerFactory(TableContainerTypes.pattern_chest, PatternChestScreen::new);
-    ScreenManager.registerFactory(TableContainerTypes.part_chest, PartChestScreen::new);
+    ScreenManager.registerFactory(TableContainerTypes.pattern_chest.get(), PatternChestScreen::new);
+    ScreenManager.registerFactory(TableContainerTypes.part_chest.get(), PartChestScreen::new);
 
     ClientRegistry.bindTileEntityRenderer(TablesTileEntities.crafting_station.get(), CraftingStationTileEntityRenderer::new);
   }

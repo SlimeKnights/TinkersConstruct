@@ -91,20 +91,20 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private void addTools() {
-    this.registerDropSelfLootTable(TableBlocks.crafting_station);
-    for (Block block : new Block[] {TableBlocks.pattern_chest, TableBlocks.part_chest}) {
+    this.registerDropSelfLootTable(TableBlocks.crafting_station.get());
+    for (Block block : new Block[] {TableBlocks.pattern_chest.get(), TableBlocks.part_chest.get()}) {
       this.registerLootTable(block, droppingWithFunctions(block, (builder) -> {
         return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
                  .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation("Items", "TinkerData.Items"));
       }));
     }
-    for (Block block : new Block[] {TableBlocks.part_builder}) {
+    for (Block block : new Block[] {TableBlocks.part_builder.get()}) {
       this.registerLootTable(block, droppingWithFunctions(block, (builder) -> {
         return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
                .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).addOperation("LegTexture", "TinkerData.LegTexture", Action.REPLACE));
       }));
     }
-    this.registerLootTable(TableBlocks.crafting_station, (block) -> {
+    this.registerLootTable(TableBlocks.crafting_station.get(), (block) -> {
       return droppingWithFunctions(block, (builder) -> {
         return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY));
       });

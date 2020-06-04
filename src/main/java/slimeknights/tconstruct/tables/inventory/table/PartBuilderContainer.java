@@ -49,7 +49,7 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
   public final IInventory patternChest;
 
   public PartBuilderContainer(int id, @Nullable PlayerInventory inv, PartBuilderTileEntity partBuilderTileEntity) {
-    super(TableContainerTypes.part_builder, id, inv, partBuilderTileEntity);
+    super(TableContainerTypes.part_builder.get(), id, inv, partBuilderTileEntity);
 
     PersistentCraftingInventory craftMatrix = new PersistentCraftingInventory(this, tile, 1, 3);
     this.craftResult = new CraftResultInventory();
@@ -94,7 +94,7 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
       // are we a PartCrafter?
       this.partCrafter = hasStencilTable && hasCraftingStation;
 
-      Container sideInventory = new PatternChestContainer.DynamicChestInventory(TableContainerTypes.part_builder, id, inv, chest, -6, 8, 6);
+      Container sideInventory = new PatternChestContainer.DynamicChestInventory(TableContainerTypes.part_builder.get(), id, inv, chest, -6, 8, 6);
       this.addSubContainer(sideInventory, true);
 
       this.patternChest = chest;

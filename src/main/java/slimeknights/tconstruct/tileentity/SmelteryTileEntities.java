@@ -11,7 +11,6 @@ import slimeknights.tconstruct.library.registration.TileEntityTypeDeferredRegist
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 
 @SuppressWarnings("unused")
-@ObjectHolder(TConstruct.modID)
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SmelteryTileEntities {
 
