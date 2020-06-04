@@ -12,6 +12,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.blocks.CommonBlocks;
 import slimeknights.tconstruct.blocks.DecorativeBlocks;
 import slimeknights.tconstruct.blocks.GadgetBlocks;
+import slimeknights.tconstruct.blocks.SmelteryBlocks;
 import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.Tags;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
@@ -31,6 +32,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     this.addCommon();
     this.addGadgets();
     this.addWorld();
+    this.addSmeltery();
   }
 
   private void addCommon() {
@@ -60,6 +62,27 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
   private void addGadgets() {
     this.getBuilder(BlockTags.RAILS).add(GadgetBlocks.wooden_rail.get(), GadgetBlocks.wooden_dropper_rail.get());
+  }
+
+  private void addSmeltery() {
+    this.getBuilder(Tags.Blocks.SEARED_BRICKS).add(
+      SmelteryBlocks.seared_bricks.get(),
+      SmelteryBlocks.seared_fancy_bricks.get(),
+      SmelteryBlocks.seared_square_bricks.get(),
+      SmelteryBlocks.seared_small_bricks.get(),
+      SmelteryBlocks.seared_triangle_bricks.get(),
+      SmelteryBlocks.seared_road.get()
+    );
+    this.getBuilder(Tags.Blocks.SMOOTH_SEARED_BLOCKS).add(
+      SmelteryBlocks.seared_paver.get(),
+      SmelteryBlocks.seared_creeper.get(),
+      SmelteryBlocks.seared_tile.get()
+    );
+    this.getBuilder(Tags.Blocks.SEARED_BLOCKS).add(
+      SmelteryBlocks.seared_stone.get(),
+      SmelteryBlocks.seared_cracked_bricks.get(),
+      SmelteryBlocks.seared_cobble.get()
+    ).add(Tags.Blocks.SEARED_BRICKS, Tags.Blocks.SMOOTH_SEARED_BLOCKS);
   }
 
   @Override

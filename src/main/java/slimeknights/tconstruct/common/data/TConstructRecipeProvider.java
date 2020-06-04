@@ -19,6 +19,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
@@ -28,6 +30,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.blocks.CommonBlocks;
 import slimeknights.tconstruct.blocks.DecorativeBlocks;
 import slimeknights.tconstruct.blocks.GadgetBlocks;
+import slimeknights.tconstruct.blocks.SmelteryBlocks;
 import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.Tags;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
@@ -55,6 +58,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     this.addCommon(consumer);
     this.addGlassRecipes(consumer);
     this.addSlimeRecipes(consumer);
+    this.addSmelteryRecipes(consumer);
 
     if (TConstruct.pulseManager.isPulseLoaded(TinkerPulseIds.TINKER_WORLD_PULSE_ID)) {
       this.addWorld(consumer);
@@ -235,6 +239,62 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
           .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(punjiSticksId))
           .withRequirementsStrategy(IRequirementsStrategy.OR))
       ).build(consumer, punjiSticksId);
+  }
+
+  private void addSmelteryRecipes(Consumer<IFinishedRecipe> consumer) {
+    final String folder = "smeltery/seared_block/";
+    // cobble -> stone
+    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(SmelteryBlocks.seared_cobble.get()), SmelteryBlocks.seared_stone, 0.1f, 200)
+                        .addCriterion("has_item", hasItem(SmelteryBlocks.seared_cobble.get()))
+                        .build(consumer, wrap(SmelteryBlocks.seared_stone.getRegistryName(), folder, "_smelting"));
+    // stone -> paver
+    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(SmelteryBlocks.seared_stone.get()), SmelteryBlocks.seared_paver, 0.1f, 200)
+                        .addCriterion("has_item", hasItem(SmelteryBlocks.seared_stone.get()))
+                        .build(consumer, wrap(SmelteryBlocks.seared_paver.getRegistryName(), folder, "_smelting"));
+    // paver -> bricks
+    ShapedRecipeBuilder.shapedRecipe(SmelteryBlocks.seared_bricks, 4)
+                       .key('b', SmelteryBlocks.seared_stone)
+                       .patternLine("bb")
+                       .patternLine("bb")
+                       .addCriterion("has_item", hasItem(SmelteryBlocks.seared_stone))
+                       .build(consumer, wrap(SmelteryBlocks.seared_bricks.getRegistryName(), folder, "_crafting"));
+    // bricks -> cracked
+    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(SmelteryBlocks.seared_bricks), SmelteryBlocks.seared_cracked_bricks, 0.1f, 200)
+                        .addCriterion("has_item", hasItem(SmelteryBlocks.seared_bricks))
+                        .build(consumer, wrap(SmelteryBlocks.seared_cracked_bricks.getRegistryName(), folder, "_smelting"));
+    // brick slabs -> chiseled
+    ShapedRecipeBuilder.shapedRecipe(SmelteryBlocks.seared_square_bricks)
+                       .key('s', SmelteryBlocks.seared_bricks.getSlab())
+                       .patternLine("s")
+                       .patternLine("s")
+                       .addCriterion("has_item",  hasItem(SmelteryBlocks.seared_bricks.getSlab()))
+                       .build(consumer, wrap(SmelteryBlocks.seared_square_bricks.getRegistryName(), folder, "_crafting"));
+
+    // transform bricks
+    this.addStonecutter(consumer, Tags.Items.SEARED_BRICKS, SmelteryBlocks.seared_bricks, folder);
+    this.addStonecutter(consumer, Tags.Items.SEARED_BRICKS, SmelteryBlocks.seared_fancy_bricks, folder);
+    this.addStonecutter(consumer, Tags.Items.SEARED_BRICKS, SmelteryBlocks.seared_square_bricks, folder);
+    this.addStonecutter(consumer, Tags.Items.SEARED_BRICKS, SmelteryBlocks.seared_small_bricks, folder);
+    this.addStonecutter(consumer, Tags.Items.SEARED_BRICKS, SmelteryBlocks.seared_triangle_bricks, folder);
+    this.addStonecutter(consumer, Tags.Items.SEARED_BRICKS, SmelteryBlocks.seared_road, folder);
+    // transform smooth
+    this.addStonecutter(consumer, Tags.Items.SMOOTH_SEARED_BLOCKS, SmelteryBlocks.seared_paver, folder);
+    this.addStonecutter(consumer, Tags.Items.SMOOTH_SEARED_BLOCKS, SmelteryBlocks.seared_creeper, folder);
+    this.addStonecutter(consumer, Tags.Items.SMOOTH_SEARED_BLOCKS, SmelteryBlocks.seared_tile, folder);
+
+    // stairs and slabs
+    this.registerSlabStair(consumer, SmelteryBlocks.seared_stone, folder, true);
+    this.registerSlabStair(consumer, SmelteryBlocks.seared_cobble, folder, true);
+    this.registerSlabStair(consumer, SmelteryBlocks.seared_paver, folder, true);
+    this.registerSlabStair(consumer, SmelteryBlocks.seared_bricks, folder, true);
+    this.registerSlabStair(consumer, SmelteryBlocks.seared_cracked_bricks, folder, true);
+    this.registerSlabStair(consumer, SmelteryBlocks.seared_fancy_bricks, folder, true);
+    this.registerSlabStair(consumer, SmelteryBlocks.seared_square_bricks, folder, true);
+    this.registerSlabStair(consumer, SmelteryBlocks.seared_small_bricks, folder, true);
+    this.registerSlabStair(consumer, SmelteryBlocks.seared_triangle_bricks, folder, true);
+    this.registerSlabStair(consumer, SmelteryBlocks.seared_creeper, folder, true);
+    this.registerSlabStair(consumer, SmelteryBlocks.seared_road, folder, true);
+    this.registerSlabStair(consumer, SmelteryBlocks.seared_tile, folder, true);
   }
 
   private void addSlimeRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -495,6 +555,19 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
 
 
   /* Helpers */
+
+  /**
+   * Adds a stonecutting recipe with automatic name and criteria
+   * @param consumer  Recipe consumer
+   * @param input     Recipe input
+   * @param output    Recipe output
+   * @param folder    Recipe folder path
+   */
+  private void addStonecutter(@Nonnull Consumer<IFinishedRecipe> consumer, Tag<Item> input, IItemProvider output, String folder) {
+    SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromTag(input), output, 1)
+                           .addCriterion("has_item", hasItem(input))
+                           .build(consumer, wrap(output.asItem().getRegistryName(), folder, "_stonecutting"));
+  }
 
   /**
    * Registers generic building block recipes

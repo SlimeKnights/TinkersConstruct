@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "tconstruct:seared_paver"
+  },
+  "result": "tconstruct:seared_paver_slab",
+  "count": 2
+}

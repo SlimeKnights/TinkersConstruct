@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "tconstruct:seared_bricks"
+  },
+  "result": "tconstruct:seared_cracked_bricks",
+  "experience": 0.1,
+  "cookingtime": 200
+}

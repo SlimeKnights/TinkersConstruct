@@ -32,6 +32,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.addCommon();
     this.addGadgets();
     this.addWorld();
+    this.addSmeltery();
   }
 
   private void addCommon() {
@@ -86,6 +87,12 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.copy(BlockTags.RAILS, ItemTags.RAILS);
     this.getBuilder(net.minecraftforge.common.Tags.Items.RODS).add(Tags.Items.RODS_STONE);
     this.getBuilder(Tags.Items.RODS_STONE).add(GadgetItems.stone_stick.get());
+  }
+
+  private void addSmeltery() {
+    this.copy(Tags.Blocks.SEARED_BRICKS, Tags.Items.SEARED_BRICKS);
+    this.copy(Tags.Blocks.SMOOTH_SEARED_BLOCKS, Tags.Items.SMOOTH_SEARED_BLOCKS);
+    this.copy(Tags.Blocks.SEARED_BLOCKS, Tags.Items.SEARED_BLOCKS);
   }
 
   @Override

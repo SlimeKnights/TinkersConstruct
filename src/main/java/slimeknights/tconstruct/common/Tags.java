@@ -29,6 +29,10 @@ public class Tags {
     public static final Tag<Block> STORAGE_BLOCKS_PIGIRON = forgeTag("storage_blocks/pigiron");
     public static final Tag<Block> STORAGE_BLOCKS_ALUBRASS = forgeTag("storage_blocks/alubrass");
 
+    public static final Tag<Block> SEARED_BLOCKS = tag("seared_blocks");
+    public static final Tag<Block> SMOOTH_SEARED_BLOCKS = tag("smooth_seared_blocks");
+    public static final Tag<Block> SEARED_BRICKS = tag("seared_bricks");
+
     private static Tag<Block> tag(String name) {
       return new BlockTags.Wrapper(new ResourceLocation("tconstruct", name));
     }
@@ -53,6 +57,10 @@ public class Tags {
     public static final Tag<Item> STORAGE_BLOCKS_KNIGHTSLIME = forgeTag("storage_blocks/knightslime");
     public static final Tag<Item> STORAGE_BLOCKS_PIGIRON = forgeTag("storage_blocks/pigiron");
     public static final Tag<Item> STORAGE_BLOCKS_ALUBRASS = forgeTag("storage_blocks/alubrass");
+
+    public static final Tag<Item> SEARED_BLOCKS = tag("seared_blocks");
+    public static final Tag<Item> SMOOTH_SEARED_BLOCKS = tag("smooth_seared_blocks");
+    public static final Tag<Item> SEARED_BRICKS = tag("seared_bricks");
 
     public static final Tag<Item> GREEN_SLIMEBALL = forgeTag("slimeball/green");
     public static final Tag<Item> BLUE_SLIMEBALL = forgeTag("slimeball/blue");
