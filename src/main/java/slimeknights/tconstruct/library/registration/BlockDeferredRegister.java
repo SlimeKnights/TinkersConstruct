@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.registration;
 
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.SlabBlock;
@@ -16,14 +15,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
-import slimeknights.tconstruct.library.registration.object.EnumPairObject;
 import slimeknights.tconstruct.library.registration.object.WallBuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.FenceBuildingBlockObject;
 
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -168,29 +164,5 @@ public class BlockDeferredRegister extends RegisterWrapper<Block> {
       map.put(value, register(value.getName() + "_" + name, () -> supplier.apply(value), itemProps));
     }
     return new EnumObject<>(map);
-  }
-
-  /**
-   * Registers a block with slab, stairs, and walls
-   * @param first     First enum values to use for this block
-   * @param second    Second enum values to use for this block
-   * @param name      Name of the block
-   * @param supplier  Function to get a block for the given enum value
-   * @param itemProps Item properties
-   * @return  EnumPairObject mapping between different block types
-   */
-  public <F extends Enum<F> & IStringSerializable, S extends Enum<S> & IStringSerializable, B extends Block>
-  EnumPairObject<F,S,B> registerEnumPair(final F[] first, final S[] second, final String name, BiFunction<F,S,? extends B> supplier, Item.Properties itemProps) {
-    if (first.length == 0 || second.length == 0) {
-      throw new IllegalArgumentException("Must have at least one value for both objects");
-    }
-    // note this cast only works because you cannot extend an enum
-    Map<Pair<F,S>, Supplier<? extends B>> map = new HashMap<>();
-    for (F f : first) {
-      for (S s : second) {
-        map.put(Pair.of(f, s), register(String.format("%s_%s_%s", f.getName(), s.getName(), name), () -> supplier.apply(f, s), itemProps));
-      }
-    }
-    return new EnumPairObject<>(map);
   }
 }
