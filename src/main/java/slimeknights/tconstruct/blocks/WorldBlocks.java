@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
@@ -79,7 +78,6 @@ public final class WorldBlocks {
   public static final EnumObject<SlimeBlock.SlimeType, CongealedSlimeBlock> congealed_slime = BLOCKS.registerEnum(SlimeBlock.SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(BlockProperties.CONGEALED_SLIME, (type == SlimeBlock.SlimeType.PINK)), TOOLTIP_BLOCK_ITEM);
 
   public static final EnumObject<SlimeDirtBlock.SlimeDirtType, SlimeDirtBlock> slime_dirt = BLOCKS.registerEnum(SlimeDirtBlock.SlimeDirtType.values(), "slime_dirt", (type) -> new SlimeDirtBlock(BlockProperties.SLIME_DIRT), TOOLTIP_BLOCK_ITEM);
-
   public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> vanilla_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "vanilla_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
   public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> green_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "green_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
   public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> blue_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "blue_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
@@ -87,11 +85,8 @@ public final class WorldBlocks {
   public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeGrassBlock> magma_slime_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "magma_slime_grass", (type) -> new SlimeGrassBlock(BlockProperties.SLIME_GRASS, type), TOOLTIP_BLOCK_ITEM);
 
   public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeLeavesBlock> slime_leaves = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_leaves", (type) -> new SlimeLeavesBlock(BlockProperties.SLIME_LEAVES, type), DEFAULT_BLOCK_ITEM);
-
   public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeTallGrassBlock> slime_fern = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_fern", (type) -> new SlimeTallGrassBlock(BlockProperties.TALL_GRASS, type, SlimeTallGrassBlock.SlimePlantType.FERN), DEFAULT_BLOCK_ITEM);
-
   public static final EnumObject<SlimeGrassBlock.FoliageType, SlimeTallGrassBlock> slime_tall_grass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_tall_grass", (type) -> new SlimeTallGrassBlock(BlockProperties.TALL_GRASS, type, SlimeTallGrassBlock.SlimePlantType.TALL_GRASS), DEFAULT_BLOCK_ITEM);
-
   public static final EnumObject<SlimeGrassBlock.FoliageType,SlimeSaplingBlock> slime_sapling = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_sapling", (type) -> new SlimeSaplingBlock(new SlimeTree(type, false), BlockProperties.SAPLING), TOOLTIP_BLOCK_ITEM);
 
   public static final BlockItemObject<SlimeVineBlock> purple_slime_vine = BLOCKS.register("purple_slime_vine", () -> new SlimeVineBlock(BlockProperties.VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), DEFAULT_BLOCK_ITEM);
@@ -161,19 +156,12 @@ public final class WorldBlocks {
       }, slime_fern.get(type), slime_tall_grass.get(type));
     }
 
-    blockColors.register((state, reader, pos, index) -> {
-        if (state.getBlock() instanceof SlimeVineBlock) {
-          SlimeVineBlock block = (SlimeVineBlock) state.getBlock();
-          return getSlimeColorByPos(pos, block.getFoliageType(), SlimeColorizer.LOOP_OFFSET);
-        }
-
-        MaterialColor materialColor = state.getMaterialColor(reader, pos);
-        return materialColor != null ? materialColor.colorValue : -1;
-      },
-      blue_slime_vine.get(), blue_slime_vine_middle.get(), blue_slime_vine_end.get(),
+    blockColors.register((state, reader, pos, index) -> getSlimeColorByPos(pos, SlimeGrassBlock.FoliageType.BLUE, SlimeColorizer.LOOP_OFFSET),
+      blue_slime_vine.get(), blue_slime_vine_middle.get(), blue_slime_vine_end.get()
+    );
+    blockColors.register((state, reader, pos, index) -> getSlimeColorByPos(pos, SlimeGrassBlock.FoliageType.PURPLE, SlimeColorizer.LOOP_OFFSET),
       purple_slime_vine.get(), purple_slime_vine_middle.get(), purple_slime_vine_end.get()
     );
-
     itemColors.register((stack, index) -> {
         BlockState state = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
         return blockColors.getColor(state, null, null, index);

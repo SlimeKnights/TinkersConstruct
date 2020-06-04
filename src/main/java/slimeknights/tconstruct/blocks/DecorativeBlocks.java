@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
@@ -63,19 +62,12 @@ public final class DecorativeBlocks {
     ItemColors itemColors = event.getItemColors();
 
     for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
-      blockColors.register((state, reader, pos, index) -> {
-        if (state != null && state.getBlock() instanceof ClearStainedGlassBlock) {
-          ClearStainedGlassBlock block = (ClearStainedGlassBlock) state.getBlock();
-          return block.getGlassColor().getColor();
-        }
-
-        MaterialColor materialColor = state.getMaterialColor(reader, pos);
-        return materialColor != null ? materialColor.colorValue : -1;
-      }, clear_stained_glass.get(color));
+      Block block = clear_stained_glass.get(color);
+      blockColors.register((state, reader, pos, index) -> color.getColor(), block);
       itemColors.register((stack, index) -> {
         BlockState state = ((BlockItem) stack.getItem()).getBlock().getDefaultState();
         return blockColors.getColor(state, null,  null, index);
-      }, clear_stained_glass.get(color));
+      }, block);
     }
   }
 }
