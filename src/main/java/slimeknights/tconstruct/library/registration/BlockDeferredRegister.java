@@ -46,7 +46,7 @@ public class BlockDeferredRegister extends RegisterWrapper<Block> {
    * @param <B>    Block class
    * @return  Block registry object
    */
-  public <B extends Block> RegistryObject<B> register(final String name, final Supplier<? extends B> block) {
+  public <B extends Block> RegistryObject<B> registerNoItem(final String name, final Supplier<? extends B> block) {
     return register.register(name, block);
   }
 
@@ -56,8 +56,8 @@ public class BlockDeferredRegister extends RegisterWrapper<Block> {
    * @param props  Block properties
    * @return  Block registry object
    */
-  public RegistryObject<Block> register(final String name, final Block.Properties props) {
-    return register(name, () -> new Block(props));
+  public RegistryObject<Block> registerNoItem(final String name, final Block.Properties props) {
+    return registerNoItem(name, () -> new Block(props));
   }
 
 
@@ -72,7 +72,7 @@ public class BlockDeferredRegister extends RegisterWrapper<Block> {
    * @return  Block item registry object pair
    */
   public <B extends Block> BlockItemObject<B> register(final String name, final Supplier<? extends B> block, final Function<? super B, ? extends BlockItem> item) {
-    RegistryObject<B> blockObj = register(name, block);
+    RegistryObject<B> blockObj = registerNoItem(name, block);
     return new BlockItemObject<>(blockObj, itemRegister.register(name, () -> item.apply(blockObj.get())));
   }
 

@@ -42,7 +42,7 @@ public final class GadgetBlocks {
   }
 
   public static final BlockItemObject<LadderBlock> stone_ladder = BLOCKS.register("stone_ladder", () -> new LadderBlock(BlockProperties.STONE_LADDER) {}, DEFAULT_BLOCK_ITEM);
-  public static final RegistryObject<WallTorchBlock> wall_stone_torch = BLOCKS.register("wall_stone_torch", () -> new WallTorchBlock(BlockProperties.STONE_TORCH) {});
+  public static final RegistryObject<WallTorchBlock> wall_stone_torch = BLOCKS.registerNoItem("wall_stone_torch", () -> new WallTorchBlock(BlockProperties.STONE_TORCH) {});
   public static final BlockItemObject<TorchBlock> stone_torch = BLOCKS.register("stone_torch",
     () -> new TorchBlock(BlockProperties.STONE_TORCH) {},
     (block) -> new WallOrFloorItem(block, wall_stone_torch.get(), GADGET_PROPS));

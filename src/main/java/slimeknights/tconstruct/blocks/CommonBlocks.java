@@ -66,7 +66,7 @@ public final class CommonBlocks {
   public static final BuildingBlockObject lavawood = BLOCKS.registerBuilding("lavawood", BlockProperties.LAVAWOOD, DEFAULT_BLOCK_ITEM);
   public static final BuildingBlockObject firewood = BLOCKS.registerBuilding("firewood", BlockProperties.FIREWOOD, DEFAULT_BLOCK_ITEM);
 
-  public static final RegistryObject<GlowBlock> glow = BLOCKS.register("glow", () -> new GlowBlock(BlockProperties.GLOW));
+  public static final RegistryObject<GlowBlock> glow = BLOCKS.registerNoItem("glow", () -> new GlowBlock(BlockProperties.GLOW));
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
