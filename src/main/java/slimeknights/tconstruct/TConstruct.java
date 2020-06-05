@@ -62,6 +62,8 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tileentities.TablesTileEntities;
+import slimeknights.tconstruct.tileentity.SmelteryTileEntities;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -106,6 +108,8 @@ public class TConstruct {
     CommonBlocks.init();
     CommonItems.init();
     FoodItems.init();
+    SmelteryTileEntities.init();
+    TablesTileEntities.init();
 
     // initialize modules, done this way rather than with annotations to give us control over the order
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();

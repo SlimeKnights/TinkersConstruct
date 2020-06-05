@@ -2,8 +2,10 @@ package slimeknights.tconstruct.library.registration.object;
 
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class EnumObject<T extends Enum<T>, I extends IForgeRegistryEntry<? super I>> {
   private Map<T,Supplier<? extends I>> map;
@@ -40,5 +42,13 @@ public class EnumObject<T extends Enum<T>, I extends IForgeRegistryEntry<? super
    */
   public boolean contains(IForgeRegistryEntry<? super I> value) {
     return this.map.values().stream().anyMatch((sup) -> sup.get() == value);
+  }
+
+  /**
+   * Gets a list of values in this enum object
+   * @return  List of values in the object
+   */
+  public List<I> values() {
+    return this.map.values().stream().map(Supplier::get).collect(Collectors.toList());
   }
 }

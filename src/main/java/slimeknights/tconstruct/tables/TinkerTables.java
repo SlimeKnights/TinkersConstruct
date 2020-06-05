@@ -27,6 +27,6 @@ public class TinkerTables extends TinkerModule {
     ScreenManager.registerFactory(TableContainerTypes.pattern_chest, PatternChestScreen::new);
     ScreenManager.registerFactory(TableContainerTypes.part_chest, PartChestScreen::new);
 
-    ClientRegistry.bindTileEntityRenderer(TablesTileEntities.crafting_station, CraftingStationTileEntityRenderer::new);
+    ClientRegistry.bindTileEntityRenderer(TablesTileEntities.crafting_station.get(), CraftingStationTileEntityRenderer::new);
   }
 }

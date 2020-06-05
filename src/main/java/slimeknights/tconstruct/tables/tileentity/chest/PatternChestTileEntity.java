@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 public class PatternChestTileEntity extends TinkerChestTileEntity {
 
   public PatternChestTileEntity() {
-    super(TablesTileEntities.pattern_chest, "gui.tconstruct.pattern_chest", TinkerChestTileEntity.MAX_INVENTORY, 1);
+    super(TablesTileEntities.pattern_chest.get(), "gui.tconstruct.pattern_chest", TinkerChestTileEntity.MAX_INVENTORY, 1);
   }
 
   @Nullable

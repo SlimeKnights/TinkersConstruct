@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 public class SmelteryComponentTileEntity extends MultiServantLogic {
 
   public SmelteryComponentTileEntity() {
-    this(SmelteryTileEntities.SMELTERY_COMPONENT);
+    this(SmelteryTileEntities.SMELTERY_COMPONENT.get());
   }
 
   public SmelteryComponentTileEntity(TileEntityType<?> tileEntityTypeIn) {

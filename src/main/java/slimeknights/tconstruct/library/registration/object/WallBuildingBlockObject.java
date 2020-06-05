@@ -6,6 +6,9 @@ import net.minecraft.block.StairsBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.item.Item;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class WallBuildingBlockObject extends BuildingBlockObject {
   private final BlockItemObject<WallBlock> wall;
 
@@ -52,5 +55,10 @@ public class WallBuildingBlockObject extends BuildingBlockObject {
   /** Gets the wall item for this block */
   public Item getWallItem() {
     return wall.asItem();
+  }
+
+  @Override
+  public List<Block> values() {
+    return Arrays.asList(get(), getSlab(), getStairs(), getWall());
   }
 }

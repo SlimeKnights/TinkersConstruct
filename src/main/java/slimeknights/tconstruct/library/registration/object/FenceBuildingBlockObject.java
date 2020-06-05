@@ -6,6 +6,9 @@ import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.item.Item;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class FenceBuildingBlockObject extends BuildingBlockObject {
   private final BlockItemObject<FenceBlock> fence;
 
@@ -52,5 +55,10 @@ public class FenceBuildingBlockObject extends BuildingBlockObject {
   /** Gets the fence item for this block */
   public Item getFenceItem() {
     return fence.asItem();
+  }
+
+  @Override
+  public List<Block> values() {
+    return Arrays.asList(get(), getSlab(), getStairs(), getFence());
   }
 }

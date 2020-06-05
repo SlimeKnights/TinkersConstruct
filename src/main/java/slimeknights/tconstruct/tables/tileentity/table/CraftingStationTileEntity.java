@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 public class CraftingStationTileEntity extends TableTileEntity {
 
   public CraftingStationTileEntity() {
-    super(TablesTileEntities.crafting_station, "gui.tconstruct.crafting_station", 9);
+    super(TablesTileEntities.crafting_station.get(), "gui.tconstruct.crafting_station", 9);
     this.itemHandler = new CraftingStationItemHandler(this, true, false);
     this.itemHandlerCap = LazyOptional.of(() -> this.itemHandler);
   }

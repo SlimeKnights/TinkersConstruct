@@ -5,6 +5,9 @@ import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.item.Item;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class BuildingBlockObject extends BlockItemObject<Block> {
   protected final BlockItemObject<SlabBlock> slab;
   protected final BlockItemObject<StairsBlock> stairs;
@@ -60,5 +63,13 @@ public class BuildingBlockObject extends BlockItemObject<Block> {
   /** Gets the stairs item for this block */
   public Item getStairsItem() {
     return stairs.asItem();
+  }
+
+  /**
+   * Gets an array of the blocks in this object
+   * @return  Array of the blocks in this object
+   */
+  public List<Block> values() {
+    return Arrays.asList(get(), getSlab(), getStairs());
   }
 }
