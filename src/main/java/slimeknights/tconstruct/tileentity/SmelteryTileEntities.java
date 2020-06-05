@@ -11,7 +11,7 @@ import slimeknights.tconstruct.blocks.SmelteryBlocks;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 
-import static slimeknights.tconstruct.common.TinkerPulse.injected;
+import static slimeknights.tconstruct.common.TinkerModule.injected;
 
 @SuppressWarnings("unused")
 @ObjectHolder(TConstruct.modID)

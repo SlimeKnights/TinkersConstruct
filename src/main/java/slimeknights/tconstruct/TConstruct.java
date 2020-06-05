@@ -18,6 +18,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -27,9 +28,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import slimeknights.mantle.pulsar.control.PulseManager;
 import slimeknights.tconstruct.blocks.CommonBlocks;
 import slimeknights.tconstruct.blocks.DecorativeBlocks;
 import slimeknights.tconstruct.blocks.GadgetBlocks;
@@ -59,6 +60,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
@@ -86,8 +88,6 @@ public class TConstruct {
 
   public static ServerProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
-  public static PulseManager pulseManager;
-
   public TConstruct() {
     instance = this;
 
@@ -107,19 +107,18 @@ public class TConstruct {
     CommonItems.init();
     FoodItems.init();
 
-    pulseManager = new PulseManager(Config.pulseConfig);
-    pulseManager.registerPulse(new TinkerCommons());
-    pulseManager.registerPulse(new TinkerFluids());
-    pulseManager.registerPulse(new TinkerWorld());
-    pulseManager.registerPulse(new TinkerGadgets());
-    pulseManager.registerPulse(new TinkerTables());
-    pulseManager.enablePulses();
+    // initialize modules, done this way rather than with annotations to give us control over the order
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+    bus.register(new TinkerCommons());
+    bus.register(new TinkerFluids());
+    bus.register(new TinkerWorld());
+    bus.register(new TinkerTables());
+    bus.register(new TinkerSmeltery());
+    bus.register(new TinkerGadgets());
 
     DistExecutor.runWhenOn(Dist.CLIENT, () -> TinkerBook::initBook);
 
     MinecraftForge.EVENT_BUS.register(this);
-
-    //DistExecutor.runWhenOn(Dist.CLIENT, ModelLoaderRegisterHelper::registerModelLoader);
   }
 
   @SubscribeEvent

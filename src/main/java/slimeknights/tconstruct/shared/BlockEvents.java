@@ -11,14 +11,9 @@ import net.minecraftforge.fml.common.Mod;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.blocks.CommonBlocks;
 import slimeknights.tconstruct.blocks.WorldBlocks;
-import slimeknights.tconstruct.library.TinkerPulseIds;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 @Mod.EventBusSubscriber(modid = TConstruct.modID)
 public class BlockEvents {
-
-  private static boolean worldLoaded = TConstruct.pulseManager.isPulseLoaded(TinkerPulseIds.TINKER_WORLD_PULSE_ID);
 
   // Slimy block jump stuff
   @SubscribeEvent
@@ -39,7 +34,7 @@ public class BlockEvents {
       bounce(event.getEntity(), 0.25f);
     } else if (block == CommonBlocks.slimy_mud_green.get() || block == CommonBlocks.slimy_mud_blue.get()) {
       bounce(event.getEntity(), 0.15f);
-    } else if (worldLoaded && (WorldBlocks.slime_dirt.contains(block) || WorldBlocks.vanilla_slime_grass.contains(block) || WorldBlocks.green_slime_grass.contains(block) || WorldBlocks.blue_slime_grass.contains(block) || WorldBlocks.purple_slime_grass.contains(block) || WorldBlocks.magma_slime_grass.contains(block))) {
+    } else if (WorldBlocks.slime_dirt.contains(block) || WorldBlocks.vanilla_slime_grass.contains(block) || WorldBlocks.green_slime_grass.contains(block) || WorldBlocks.blue_slime_grass.contains(block) || WorldBlocks.purple_slime_grass.contains(block) || WorldBlocks.magma_slime_grass.contains(block)) {
       bounce(event.getEntity(), 0.06f);
     }
   }

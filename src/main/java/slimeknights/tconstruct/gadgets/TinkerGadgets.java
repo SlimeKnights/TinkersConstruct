@@ -9,27 +9,23 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.ObjectHolder;
 import org.apache.logging.log4j.Logger;
-import slimeknights.mantle.pulsar.pulse.Pulse;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.gadgets.entity.EflnBallEntity;
 import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
 import slimeknights.tconstruct.gadgets.entity.GlowballEntity;
 import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem;
 import slimeknights.tconstruct.items.GadgetItems;
-import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 
-@Pulse(id = TinkerPulseIds.TINKER_GADGETS_PULSE_ID, description = "All the fun toys")
-@ObjectHolder(TConstruct.modID)
-public class TinkerGadgets extends TinkerPulse {
-
-  static final Logger log = Util.getLogger(TinkerPulseIds.TINKER_GADGETS_PULSE_ID);
+/**
+ * Contains any special tools unrelated to the base tools
+ */
+public class TinkerGadgets extends TinkerModule {
+  static final Logger log = Util.getLogger("tinker_gadgets");
 
   public static EntityType<FancyItemFrameEntity> fancy_item_frame;
   public static EntityType<GlowballEntity> throwable_glow_ball;

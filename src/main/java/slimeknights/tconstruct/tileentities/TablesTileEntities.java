@@ -16,7 +16,7 @@ import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
 import java.util.function.Supplier;
 
-import static slimeknights.tconstruct.common.TinkerPulse.injected;
+import static slimeknights.tconstruct.common.TinkerModule.injected;
 
 @SuppressWarnings("unused")
 @ObjectHolder(TConstruct.modID)

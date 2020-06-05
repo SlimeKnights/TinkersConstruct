@@ -1,32 +1,19 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
-    {
-      "conditions": [
-        {
-          "pulseid": "tinker_gadgets",
-          "type": "tconstruct:pulse_loaded"
-        }
-      ],
-      "recipe": {
-        "type": "minecraft:crafting_shaped",
-        "group": "tconstruct:slime_boots",
-        "pattern": [
-          "X X",
-          "# #"
-        ],
-        "key": {
-          "#": {
-            "item": "tconstruct:magma_congealed_slime"
-          },
-          "X": {
-            "tag": "forge:slimeball/magma"
-          }
-        },
-        "result": {
-          "item": "tconstruct:magma_slime_boots"
-        }
-      }
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:slime_boots",
+  "pattern": [
+    "X X",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "tconstruct:magma_congealed_slime"
+    },
+    "X": {
+      "tag": "forge:slimeball/magma"
     }
-  ]
+  },
+  "result": {
+    "item": "tconstruct:magma_slime_boots"
+  }
 }

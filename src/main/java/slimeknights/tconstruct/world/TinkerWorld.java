@@ -27,20 +27,18 @@ import net.minecraftforge.common.PlantType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.Logger;
-import slimeknights.mantle.pulsar.pulse.Pulse;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.blocks.WorldBlocks;
-import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
 import slimeknights.tconstruct.entity.WorldEntities;
-import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
@@ -56,12 +54,13 @@ import slimeknights.tconstruct.world.worldgen.trees.feature.SupplierBlockStatePr
 
 import java.util.function.Supplier;
 
-@Pulse(id = TinkerPulseIds.TINKER_WORLD_PULSE_ID, description = "Everything that's found in the world and worldgen")
-public class TinkerWorld extends TinkerPulse {
-
+/**
+ * Contains any world generation, including ores and slime islands
+ */
+public class TinkerWorld extends TinkerModule {
   private static final DeferredRegister<Feature<?>> FEATURES = new DeferredRegister<>(ForgeRegistries.FEATURES, TConstruct.modID);
 
-  static final Logger log = Util.getLogger(TinkerPulseIds.TINKER_WORLD_PULSE_ID);
+  static final Logger log = Util.getLogger("tinker_world");
   
   public static PlantType slimePlantType = PlantType.create("slime");
 

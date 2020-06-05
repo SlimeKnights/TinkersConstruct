@@ -15,7 +15,7 @@ import slimeknights.tconstruct.tables.block.chest.PatternChestBlock;
 import slimeknights.tconstruct.tables.block.table.CraftingStationBlock;
 import slimeknights.tconstruct.tables.block.table.PartBuilderBlock;
 
-import static slimeknights.tconstruct.common.TinkerPulse.injected;
+import static slimeknights.tconstruct.common.TinkerModule.injected;
 
 @SuppressWarnings("unused")
 @ObjectHolder(TConstruct.modID)

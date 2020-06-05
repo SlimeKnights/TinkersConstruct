@@ -4,10 +4,6 @@
     {
       "conditions": [
         {
-          "pulseid": "tinker_gadgets",
-          "type": "tconstruct:pulse_loaded"
-        },
-        {
           "tag": "forge:dusts/sulfur",
           "type": "forge:tag_empty"
         }
@@ -29,10 +25,6 @@
     },
     {
       "conditions": [
-        {
-          "pulseid": "tinker_gadgets",
-          "type": "tconstruct:pulse_loaded"
-        },
         {
           "value": {
             "tag": "forge:dusts/sulfur",

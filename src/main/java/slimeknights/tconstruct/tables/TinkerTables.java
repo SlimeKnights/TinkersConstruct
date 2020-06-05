@@ -4,12 +4,8 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.registries.ObjectHolder;
-import slimeknights.mantle.pulsar.pulse.Pulse;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerPulse;
+import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.containers.TableContainerTypes;
-import slimeknights.tconstruct.library.TinkerPulseIds;
 import slimeknights.tconstruct.tables.client.inventory.chest.PartChestScreen;
 import slimeknights.tconstruct.tables.client.inventory.chest.PatternChestScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.CraftingStationScreen;
@@ -17,9 +13,10 @@ import slimeknights.tconstruct.tables.client.inventory.table.PartBuilderScreen;
 import slimeknights.tconstruct.tables.client.renderer.CraftingStationTileEntityRenderer;
 import slimeknights.tconstruct.tileentities.TablesTileEntities;
 
-@Pulse(id = TinkerPulseIds.TINKER_TABLES_PULSE_ID, description = "Everything related to the tables.", forced = true)
-@ObjectHolder(TConstruct.modID)
-public class TinkerTables extends TinkerPulse {
+/**
+ * Handles all the table for tool creation
+ */
+public class TinkerTables extends TinkerModule {
 
   @SubscribeEvent
   public void setupClient(final FMLClientSetupEvent event) {

@@ -13,7 +13,7 @@ import slimeknights.tconstruct.tables.inventory.chest.PatternChestContainer;
 import slimeknights.tconstruct.tables.inventory.table.PartBuilderContainer;
 import slimeknights.tconstruct.tables.inventory.table.crafting.CraftingStationContainer;
 
-import static slimeknights.tconstruct.common.TinkerPulse.injected;
+import static slimeknights.tconstruct.common.TinkerModule.injected;
 
 @SuppressWarnings("unused")
 @ObjectHolder(TConstruct.modID)
