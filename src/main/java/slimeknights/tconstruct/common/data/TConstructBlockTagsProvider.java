@@ -45,7 +45,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_PIGIRON).add(TinkerMaterials.pigironBlock.get());
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ALUBRASS).add(TinkerMaterials.alubrassBlock.get());
 
-    this.getBuilder(Tags.Blocks.GLASS_COLORLESS).add(TinkerCommons.clear_glass.get());
+    this.getBuilder(Tags.Blocks.GLASS_COLORLESS).add(TinkerCommons.clearGlass.get());
     addColored(getBuilder(Tags.Blocks.STAINED_GLASS)::add, Tags.Blocks.GLASS, "{color}_clear_stained_glass");
   }
 

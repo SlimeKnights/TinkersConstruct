@@ -8,17 +8,14 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.gadgets.GadgetEvents;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.ItemObject;
@@ -61,8 +58,8 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final BuildingBlockObject searedSmallBricks = BLOCKS.registerBuilding("seared_small_bricks", SMELTERY, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedTriangleBricks = BLOCKS.registerBuilding("seared_triangle_bricks", SMELTERY, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedCreeper = BLOCKS.registerBuilding("seared_creeper", SMELTERY, TOOLTIP_BLOCK_ITEM);
-  public static final BuildingBlockObject searedRoad = BLOCKS.registerBuilding("searedRoad", SMELTERY, TOOLTIP_BLOCK_ITEM);
-  public static final BuildingBlockObject searedTile = BLOCKS.registerBuilding("searedTile", SMELTERY, TOOLTIP_BLOCK_ITEM);
+  public static final BuildingBlockObject searedRoad = BLOCKS.registerBuilding("seared_road", SMELTERY, TOOLTIP_BLOCK_ITEM);
+  public static final BuildingBlockObject searedTile = BLOCKS.registerBuilding("seared_tile", SMELTERY, TOOLTIP_BLOCK_ITEM);
 
   /*
    * Tile entities
@@ -85,7 +82,7 @@ public final class TinkerSmeltery extends TinkerModule {
   /*
    * Items
    */
-  public static final ItemObject<Item> seared_brick = ITEMS.register("seared_brick", SMELTERY_PROPS);
+  public static final ItemObject<Item> searedBrick = ITEMS.register("seared_brick", SMELTERY_PROPS);
 
 
   /*
@@ -152,8 +149,6 @@ public final class TinkerSmeltery extends TinkerModule {
    */
   @SubscribeEvent
   public void commonSetup(final FMLCommonSetupEvent event) {
-    CapabilityTinkerPiggyback.register();
-    MinecraftForge.EVENT_BUS.register(new GadgetEvents());
     TinkerRegistry.tabSmeltery.setDisplayIcon(new ItemStack(searedBricks));
   }
 }

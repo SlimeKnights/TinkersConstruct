@@ -103,12 +103,7 @@ public final class TinkerStructures extends TinkerModule {
   /*
    * Misc
    */
-  public static BlockStateProviderType<SupplierBlockStateProvider> supplierBlockstateProvider;
-
-  @SubscribeEvent
-  void registerMisc(final FMLCommonSetupEvent event) {
-    supplierBlockstateProvider = Registry.register(Registry.BLOCK_STATE_PROVIDER_TYPE, location("supplier_state_provider"), new BlockStateProviderType<>(SupplierBlockStateProvider::new));
-  }
+  public static final BlockStateProviderType<SupplierBlockStateProvider> supplierBlockstateProvider = Registry.register(Registry.BLOCK_STATE_PROVIDER_TYPE, location("supplier_state_provider"), new BlockStateProviderType<>(SupplierBlockStateProvider::new));;
 
   /*
    * Features

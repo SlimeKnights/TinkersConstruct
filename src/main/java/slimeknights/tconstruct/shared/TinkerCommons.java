@@ -53,7 +53,7 @@ public final class TinkerCommons extends TinkerModule {
   public static final BuildingBlockObject driedClay = BLOCKS.registerBuilding("dried_clay", DRIED_CLAY, GENERAL_BLOCK_ITEM);
   public static final BuildingBlockObject driedClayBricks = BLOCKS.registerBuilding("dried_clay_bricks", DRIED_CLAY, GENERAL_BLOCK_ITEM);
   // glass
-  public static final BlockItemObject<ClearGlassBlock> clear_glass = BLOCKS.register("clear_glass", () -> new ClearGlassBlock(GENERIC_GLASS_BLOCK), GENERAL_BLOCK_ITEM);
+  public static final BlockItemObject<ClearGlassBlock> clearGlass = BLOCKS.register("clear_glass", () -> new ClearGlassBlock(GENERIC_GLASS_BLOCK), GENERAL_BLOCK_ITEM);
   public static final EnumObject<GlassColor,ClearStainedGlassBlock> clearStainedGlass = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass", (color) -> new ClearStainedGlassBlock(GENERIC_GLASS_BLOCK, color), GENERAL_BLOCK_ITEM);
   // wood
   private static final Block.Properties WOOD = builder(Material.WOOD, ToolType.AXE, SoundType.WOOD).hardnessAndResistance(2.0F, 7.0F).lightValue(7);

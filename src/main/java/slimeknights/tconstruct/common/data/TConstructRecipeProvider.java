@@ -102,13 +102,13 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     for (GlassColor color : GlassColor.values()) {
       Block block = TinkerCommons.clearStainedGlass.get(color);
       ShapedRecipeBuilder.shapedRecipe(block, 8)
-                         .key('#', TinkerCommons.clear_glass)
+                         .key('#', TinkerCommons.clearGlass)
                          .key('X', color.getDye().getTag())
                          .patternLine("###")
                          .patternLine("#X#")
                          .patternLine("###")
                          .setGroup(locationString("stained_clear_glass"))
-                         .addCriterion("has_clear_glass", this.hasItem(TinkerCommons.clear_glass.get()))
+                         .addCriterion("has_clear_glass", this.hasItem(TinkerCommons.clearGlass.get()))
                          .build(consumer, wrap(block.getRegistryName(), "common/glass/", ""));
     }
 
@@ -131,9 +131,9 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
           .withRequirementsStrategy(IRequirementsStrategy.OR))
        ).build(consumer, flintId);
 
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Blocks.GLASS.asItem()), TinkerCommons.clear_glass.get().asItem(), 0.1F, 200)
+    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Blocks.GLASS.asItem()), TinkerCommons.clearGlass.get().asItem(), 0.1F, 200)
                         .addCriterion("has_item", this.hasItem(Blocks.GLASS))
-                        .build(consumer, wrap(TinkerCommons.clear_glass.getRegistryName(), "common/glass/", "_from_smelting"));
+                        .build(consumer, wrap(TinkerCommons.clearGlass.getRegistryName(), "common/glass/", "_from_smelting"));
   }
 
   private void addWorldRecipes(Consumer<IFinishedRecipe> consumer) {

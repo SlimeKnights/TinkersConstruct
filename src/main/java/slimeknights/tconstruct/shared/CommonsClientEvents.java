@@ -27,7 +27,7 @@ public class CommonsClientEvents extends ClientEventBase {
     RenderTypeLookup.setRenderLayer(TinkerCommons.glow.get(), RenderType.getTranslucent());
 
     // glass
-    RenderTypeLookup.setRenderLayer(TinkerCommons.clear_glass.get(), RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(TinkerCommons.clearGlass.get(), RenderType.getCutout());
     for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
       RenderTypeLookup.setRenderLayer(TinkerCommons.clearStainedGlass.get(color), RenderType.getTranslucent());
     }

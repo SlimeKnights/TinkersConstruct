@@ -79,7 +79,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private void addDecorative() {
-    this.registerDropSelfLootTable(TinkerCommons.clear_glass.get());
+    this.registerDropSelfLootTable(TinkerCommons.clearGlass.get());
 
     for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
       this.registerDropSelfLootTable(TinkerCommons.clearStainedGlass.get(color));
