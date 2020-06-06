@@ -17,7 +17,7 @@ public class SupplierBlockStateProvider extends BlockStateProvider {
   private final Supplier<BlockState> blockStateSupplier;
 
   public SupplierBlockStateProvider(Supplier<BlockState> blockStateSupplier) {
-    super(TinkerStructures.supplierBlockstateProvider);
+    super(TinkerStructures.supplierBlockstateProvider.get());
     this.blockStateSupplier = blockStateSupplier;
   }
 

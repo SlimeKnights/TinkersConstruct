@@ -103,7 +103,7 @@ public final class TinkerStructures extends TinkerModule {
   /*
    * Misc
    */
-  public static final BlockStateProviderType<SupplierBlockStateProvider> supplierBlockstateProvider = Registry.register(Registry.BLOCK_STATE_PROVIDER_TYPE, location("supplier_state_provider"), new BlockStateProviderType<>(SupplierBlockStateProvider::new));;
+  public static final RegistryObject<BlockStateProviderType<SupplierBlockStateProvider>> supplierBlockstateProvider = BLOCK_STATE_PROVIDER_TYPES.register("supplier_state_provider", () -> new BlockStateProviderType<>(SupplierBlockStateProvider::new));;
 
   /*
    * Features

@@ -7,6 +7,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effect;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -38,6 +39,7 @@ public abstract class TinkerModule {
   protected static final ContainerDeferredRegister CONTAINERS = new ContainerDeferredRegister(TConstruct.modID);
   protected static final DeferredRegister<Effect> POTIONS = new DeferredRegister<Effect>(ForgeRegistries.POTIONS, TConstruct.modID);
   protected static final DeferredRegister<Feature<?>> FEATURES = new DeferredRegister<>(ForgeRegistries.FEATURES, TConstruct.modID);
+  protected static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = new DeferredRegister<>(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.modID);
 
   // base block properties
   protected static final Block.Properties GENERIC_SAND_BLOCK = builder(Material.SAND, ToolType.SHOVEL, SoundType.SAND).hardnessAndResistance(3.0f).slipperiness(0.8F);
@@ -60,6 +62,7 @@ public abstract class TinkerModule {
     CONTAINERS.register(bus);
     POTIONS.register(bus);
     FEATURES.register(bus);
+    BLOCK_STATE_PROVIDER_TYPES.register(bus);
   }
 
   /**
