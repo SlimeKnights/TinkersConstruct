@@ -7,14 +7,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import slimeknights.mantle.multiblock.MultiServantLogic;
 import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
-import slimeknights.tconstruct.tileentity.SmelteryTileEntities;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nonnull;
 
 public class SmelteryComponentTileEntity extends MultiServantLogic {
 
   public SmelteryComponentTileEntity() {
-    this(SmelteryTileEntities.SMELTERY_COMPONENT.get());
+    this(TinkerSmeltery.smelteryComponent.get());
   }
 
   public SmelteryComponentTileEntity(TileEntityType<?> tileEntityTypeIn) {

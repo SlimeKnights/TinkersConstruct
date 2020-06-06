@@ -19,8 +19,7 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.lighting.LightEngine;
 import net.minecraft.world.server.ServerWorld;
-import slimeknights.tconstruct.blocks.WorldBlocks;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Locale;
 import java.util.Random;
@@ -78,9 +77,9 @@ public class SlimeGrassBlock extends Block implements IGrowable {
           BlockState plantState = null;
 
           if (rand.nextInt(8) == 0) {
-            plantState = WorldBlocks.slime_fern.get(this.foliageType).getDefaultState();
+            plantState = TinkerWorld.slimeFern.get(this.foliageType).getDefaultState();
           } else {
-            plantState = WorldBlocks.slime_tall_grass.get(this.foliageType).getDefaultState();
+            plantState = TinkerWorld.slimeTallGrass.get(this.foliageType).getDefaultState();
           }
 
           if (plantState != null) {
@@ -139,20 +138,20 @@ public class SlimeGrassBlock extends Block implements IGrowable {
   }
 
   public BlockState getDirtState(BlockState grassState) {
-    if (WorldBlocks.vanilla_slime_grass.contains(grassState.getBlock())) {
+    if (TinkerWorld.vanillaSlimeGrass.contains(grassState.getBlock())) {
       return Blocks.DIRT.getDefaultState();
     }
-    if (WorldBlocks.green_slime_grass.contains(grassState.getBlock())) {
-      return WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.GREEN).getDefaultState();
+    if (TinkerWorld.greenSlimeGrass.contains(grassState.getBlock())) {
+      return TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.GREEN).getDefaultState();
     }
-    if (WorldBlocks.blue_slime_grass.contains(grassState.getBlock())) {
-      return WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.BLUE).getDefaultState();
+    if (TinkerWorld.blueSlimeGrass.contains(grassState.getBlock())) {
+      return TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.BLUE).getDefaultState();
     }
-    if (WorldBlocks.purple_slime_grass.contains(grassState.getBlock())) {
-      return WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.PURPLE).getDefaultState();
+    if (TinkerWorld.purpleSlimeGrass.contains(grassState.getBlock())) {
+      return TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.PURPLE).getDefaultState();
     }
-    if (WorldBlocks.magma_slime_grass.contains(grassState.getBlock())) {
-      return WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.MAGMA).getDefaultState();
+    if (TinkerWorld.magmaSlimeGrass.contains(grassState.getBlock())) {
+      return TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.MAGMA).getDefaultState();
     }
 
     return null;
@@ -160,17 +159,17 @@ public class SlimeGrassBlock extends Block implements IGrowable {
 
   private BlockState getStateFromDirt(BlockState dirtState) {
     if (dirtState.getBlock() == Blocks.DIRT) {
-      return WorldBlocks.vanilla_slime_grass.get(this.foliageType).getDefaultState();
+      return TinkerWorld.vanillaSlimeGrass.get(this.foliageType).getDefaultState();
     }
 
-    if (dirtState.getBlock() == WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.GREEN)) {
-      return WorldBlocks.green_slime_grass.get(this.foliageType).getDefaultState();
-    } else if (dirtState.getBlock() == WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.BLUE)) {
-      return WorldBlocks.blue_slime_grass.get(this.foliageType).getDefaultState();
-    } else if (dirtState.getBlock() == WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.PURPLE)) {
-      return WorldBlocks.purple_slime_grass.get(this.foliageType).getDefaultState();
-    } else if (dirtState.getBlock() == WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.MAGMA)) {
-      return WorldBlocks.magma_slime_grass.get(this.foliageType).getDefaultState();
+    if (dirtState.getBlock() == TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.GREEN)) {
+      return TinkerWorld.greenSlimeGrass.get(this.foliageType).getDefaultState();
+    } else if (dirtState.getBlock() == TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.BLUE)) {
+      return TinkerWorld.blueSlimeGrass.get(this.foliageType).getDefaultState();
+    } else if (dirtState.getBlock() == TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.PURPLE)) {
+      return TinkerWorld.purpleSlimeGrass.get(this.foliageType).getDefaultState();
+    } else if (dirtState.getBlock() == TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.MAGMA)) {
+      return TinkerWorld.magmaSlimeGrass.get(this.foliageType).getDefaultState();
     }
 
     return null;

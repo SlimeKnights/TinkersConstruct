@@ -42,7 +42,7 @@ public class SlimyMudBlock extends Block {
   @Override
   public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable) {
     if (this.mudType == MudType.SLIMY_MUD_GREEN || this.mudType == MudType.SLIMY_MUD_BLUE) {
-      return plantable.getPlantType(world, pos) == TinkerWorld.slimePlantType;
+      return plantable.getPlantType(world, pos) == TinkerWorld.SLIME_PLANT_TYPE;
     }
 
     return super.canSustainPlant(state, world, pos, facing, plantable);

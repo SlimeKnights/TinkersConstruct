@@ -28,19 +28,16 @@ import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.blocks.CommonBlocks;
-import slimeknights.tconstruct.blocks.DecorativeBlocks;
-import slimeknights.tconstruct.blocks.GadgetBlocks;
-import slimeknights.tconstruct.blocks.SmelteryBlocks;
-import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
-import slimeknights.tconstruct.items.CommonItems;
-import slimeknights.tconstruct.items.FoodItems;
-import slimeknights.tconstruct.items.GadgetItems;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -63,16 +60,16 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
 
   private void addCommonRecipes(Consumer<IFinishedRecipe> consumer) {
     // firewood and lavawood
-    ShapelessRecipeBuilder.shapelessRecipe(CommonBlocks.firewood.get())
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.firewood.get())
       .addIngredient(Items.BLAZE_POWDER)
-      .addIngredient(CommonBlocks.lavawood.get())
+      .addIngredient(TinkerCommons.lavawood.get())
       .addIngredient(Items.BLAZE_POWDER)
-      .addCriterion("has_lavawood", this.hasItem(CommonBlocks.lavawood.get()))
+      .addCriterion("has_lavawood", this.hasItem(TinkerCommons.lavawood.get()))
       .build(consumer, "tconstruct:common/firewood/firewood");
-    registerSlabStair(consumer, CommonBlocks.firewood, "common/firewood/", false);
-    registerSlabStair(consumer, CommonBlocks.lavawood, "common/firewood/", false);
+    registerSlabStair(consumer, TinkerCommons.firewood, "common/firewood/", false);
+    registerSlabStair(consumer, TinkerCommons.lavawood, "common/firewood/", false);
 
-    ShapelessRecipeBuilder.shapelessRecipe(CommonBlocks.graveyard_soil.get())
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerModifiers.graveyardSoil.get())
       .addIngredient(Blocks.DIRT)
       .addIngredient(Items.ROTTEN_FLESH)
       .addIngredient(Items.BONE_MEAL)
@@ -80,22 +77,22 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .addCriterion("has_rotten_flesh", this.hasItem(Items.ROTTEN_FLESH))
       .addCriterion("has_bone_meal", this.hasItem(Items.BONE_MEAL))
       .build(consumer, "tconstruct:common/soil/graveyard_soil");
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks.get())
-      .key('#', CommonItems.mud_brick.get())
+    ShapedRecipeBuilder.shapedRecipe(TinkerCommons.mudBricks.get())
+      .key('#', TinkerCommons.mudBrick.get())
       .patternLine("##")
       .patternLine("##")
-      .addCriterion("has_mud_brick", this.hasItem(CommonItems.mud_brick.get()))
+      .addCriterion("has_mud_brick", this.hasItem(TinkerCommons.mudBrick.get()))
       .build(consumer, "tconstruct:common/soil/mud_bricks_block");
-    registerSlabStair(consumer, DecorativeBlocks.mud_bricks, "common/soil/", true);
-    ShapedRecipeBuilder.shapedRecipe(DecorativeBlocks.mud_bricks.getSlab())
-      .key('#', CommonItems.mud_brick.get())
+    registerSlabStair(consumer, TinkerCommons.mudBricks, "common/soil/", true);
+    ShapedRecipeBuilder.shapedRecipe(TinkerCommons.mudBricks.getSlab())
+      .key('#', TinkerCommons.mudBrick.get())
       .patternLine("##")
       .setGroup("tconstruct:mud_brick_slab")
-      .addCriterion("has_mud_brick", this.hasItem(CommonItems.mud_brick.get()))
+      .addCriterion("has_mud_brick", this.hasItem(TinkerCommons.mudBrick.get()))
       .build(consumer, "tconstruct:common/soil/mud_bricks_slab_item");
 
     // book
-    ShapelessRecipeBuilder.shapelessRecipe(CommonItems.book.get())
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.book.get())
       .addIngredient(Items.BOOK)
       .addIngredient(Blocks.GRAVEL)
       .addCriterion("has_gravel", this.hasItem(Blocks.GRAVEL))
@@ -103,15 +100,15 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
 
     // glass
     for (GlassColor color : GlassColor.values()) {
-      Block block = DecorativeBlocks.clear_stained_glass.get(color);
+      Block block = TinkerCommons.clearStainedGlass.get(color);
       ShapedRecipeBuilder.shapedRecipe(block, 8)
-                         .key('#', DecorativeBlocks.clear_glass)
+                         .key('#', TinkerCommons.clear_glass)
                          .key('X', color.getDye().getTag())
                          .patternLine("###")
                          .patternLine("#X#")
                          .patternLine("###")
                          .setGroup(locationString("stained_clear_glass"))
-                         .addCriterion("has_clear_glass", this.hasItem(DecorativeBlocks.clear_glass.get()))
+                         .addCriterion("has_clear_glass", this.hasItem(TinkerCommons.clear_glass.get()))
                          .build(consumer, wrap(block.getRegistryName(), "common/glass/", ""));
     }
 
@@ -134,9 +131,9 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
           .withRequirementsStrategy(IRequirementsStrategy.OR))
        ).build(consumer, flintId);
 
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Blocks.GLASS.asItem()), DecorativeBlocks.clear_glass.get().asItem(), 0.1F, 200)
+    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(Blocks.GLASS.asItem()), TinkerCommons.clear_glass.get().asItem(), 0.1F, 200)
                         .addCriterion("has_item", this.hasItem(Blocks.GLASS))
-                        .build(consumer, wrap(DecorativeBlocks.clear_glass.getRegistryName(), "common/glass/", "_from_smelting"));
+                        .build(consumer, wrap(TinkerCommons.clear_glass.getRegistryName(), "common/glass/", "_from_smelting"));
   }
 
   private void addWorldRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -147,9 +144,9 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     // slime
     String folder = "gadgets/slimeboots/";
     for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
-      ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_boots.get(slime))
+      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeBoots.get(slime))
                          .setGroup("tconstruct:slime_boots")
-                         .key('#', WorldBlocks.congealed_slime.get(slime))
+                         .key('#', TinkerWorld.congealedSlime.get(slime))
                          .key('X', slime.getSlimeBallTag())
                          .patternLine("X X")
                          .patternLine("# #")
@@ -158,10 +155,10 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     }
     folder = "gadgets/slimesling/";
     for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
-      ShapedRecipeBuilder.shapedRecipe(GadgetItems.slime_sling.get(slime))
+      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(slime))
                          .setGroup("tconstruct:slimesling")
                          .key('#', Items.STRING)
-                         .key('X', WorldBlocks.congealed_slime.get(slime))
+                         .key('X', TinkerWorld.congealedSlime.get(slime))
                          .key('L', slime.getSlimeBallTag())
                          .patternLine("#X#")
                          .patternLine("L L")
@@ -172,41 +169,41 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
 
     // rails
     folder = "gadgets/rail/";
-    ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.wooden_rail.get(), 4)
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.woodenRail.get(), 4)
                        .key('#', ItemTags.PLANKS)
                        .key('X', Tags.Items.RODS_WOODEN)
                        .patternLine("# #")
                        .patternLine("#X#")
                        .patternLine("# #")
                        .addCriterion("has_item", this.hasItem(ItemTags.PLANKS))
-                       .build(consumer, prefix(GadgetBlocks.wooden_rail.getRegistryName(), folder));
+                       .build(consumer, prefix(TinkerGadgets.woodenRail.getRegistryName(), folder));
 
-    ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.wooden_dropper_rail.get(), 4)
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.woodenDropperRail.get(), 4)
                        .key('#', ItemTags.PLANKS)
                        .key('X', ItemTags.WOODEN_TRAPDOORS)
                        .patternLine("# #")
                        .patternLine("#X#")
                        .patternLine("# #")
                        .addCriterion("has_item", this.hasItem(ItemTags.PLANKS))
-                       .build(consumer, prefix(GadgetBlocks.wooden_dropper_rail.getRegistryName(), folder));
+                       .build(consumer, prefix(TinkerGadgets.woodenDropperRail.getRegistryName(), folder));
 
     // folder
     folder = "gadgets/stone/";
     ShapedRecipeBuilder.shapedRecipe(Blocks.JACK_O_LANTERN)
                        .key('#', Blocks.CARVED_PUMPKIN)
-                       .key('X', GadgetBlocks.stone_torch.get())
+                       .key('X', TinkerGadgets.stoneTorch.get())
                        .patternLine("#")
                        .patternLine("X")
                        .addCriterion("has_item", this.hasItem(Blocks.CARVED_PUMPKIN))
                        .build(consumer, location(folder + "jack_o_lantern"));
-    ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.stone_ladder.get(), 3)
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.stoneLadder.get(), 3)
                        .key('#', TinkerTags.Items.RODS_STONE)
                        .patternLine("# #")
                        .patternLine("###")
                        .patternLine("# #")
                        .addCriterion("has_item", this.hasItem(TinkerTags.Items.RODS_STONE))
-                       .build(consumer, prefix(GadgetBlocks.stone_ladder.getRegistryName(), folder));
-    ShapedRecipeBuilder.shapedRecipe(GadgetItems.stone_stick.get(), 4)
+                       .build(consumer, prefix(TinkerGadgets.stoneLadder.getRegistryName(), folder));
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.stoneStick.get(), 4)
                        .key('#', Ingredient.fromItemListStream(Stream.of(
                          new Ingredient.TagList(Tags.Items.STONE),
                          new Ingredient.TagList(Tags.Items.COBBLESTONE))
@@ -214,8 +211,8 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                        .patternLine("#")
                        .patternLine("#")
                        .addCriterion("has_item", this.hasItem(Tags.Items.STONE))
-                       .build(consumer, prefix(GadgetItems.stone_stick.getRegistryName(), folder));
-    ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.stone_torch.get(), 4)
+                       .build(consumer, prefix(TinkerGadgets.stoneStick.getRegistryName(), folder));
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.stoneTorch.get(), 4)
                        .key('#', Ingredient.fromItemListStream(Stream.of(
                          new Ingredient.SingleItemList(new ItemStack(Items.COAL)),
                          new Ingredient.SingleItemList(new ItemStack(Items.CHARCOAL))
@@ -224,18 +221,18 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                        .patternLine("#")
                        .patternLine("X")
                        .addCriterion("has_item", this.hasItem(TinkerTags.Items.RODS_STONE))
-                       .build(consumer, prefix(GadgetBlocks.stone_torch.getRegistryName(), folder));
+                       .build(consumer, prefix(TinkerGadgets.stoneTorch.getRegistryName(), folder));
 
     // throw balls
     ResourceLocation eflnBallId = new ResourceLocation(TConstruct.modID, "gadgets/throwball/efln");
     ConditionalRecipe.builder()
       .addCondition(new TagEmptyCondition("forge", "dusts/sulfur"))
-      .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(GadgetItems.efln_ball.get())
+      .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(TinkerGadgets.efln.get())
         .addIngredient(Items.FLINT)
         .addIngredient(Items.GUNPOWDER)
         .addCriterion("has_item", this.hasItem(Tags.Items.DUSTS_GLOWSTONE))::build)
       .addCondition(not(new TagEmptyCondition("forge", "dusts/sulfur")))
-      .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(GadgetItems.efln_ball.get())
+      .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(TinkerGadgets.efln.get())
         .addIngredient(TinkerTags.Items.DUSTS_SULFUR)
         .addIngredient(Ingredient.fromItemListStream(Stream.of(
           new Ingredient.TagList(TinkerTags.Items.DUSTS_SULFUR),
@@ -243,93 +240,93 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
         ))
         .addCriterion("has_item", this.hasItem(Items.GUNPOWDER))::build)
       .build(consumer, eflnBallId);
-    ShapedRecipeBuilder.shapedRecipe(GadgetItems.glow_ball.get(), 8)
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.glowBall.get(), 8)
       .key('#', Items.SNOWBALL)
       .key('X', Tags.Items.DUSTS_GLOWSTONE)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
       .addCriterion("has_item", this.hasItem(Tags.Items.DUSTS_GLOWSTONE))
-      .build(consumer, wrap(GadgetItems.glow_ball.getRegistryName(), "gadgets/throwball/", ""));
+      .build(consumer, wrap(TinkerGadgets.glowBall.getRegistryName(), "gadgets/throwball/", ""));
 
     // piggybackpack
-    ShapedRecipeBuilder.shapedRecipe(GadgetItems.piggy_backpack.get())
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.piggyBackpack.get())
       .key('#', Tags.Items.RODS_WOODEN)
       .key('X', Tags.Items.LEATHER)
       .patternLine(" X ")
       .patternLine("# #")
       .patternLine(" X ")
       .addCriterion("has_item", this.hasItem(Tags.Items.RODS_WOODEN))
-      .build(consumer, prefix(GadgetItems.piggy_backpack.getRegistryName(), "gadgets/"));
-    ShapedRecipeBuilder.shapedRecipe(GadgetBlocks.punji.get(), 3)
+      .build(consumer, prefix(TinkerGadgets.piggyBackpack.getRegistryName(), "gadgets/"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.punji.get(), 3)
       .key('#', Items.SUGAR_CANE)
       .patternLine("# #")
       .patternLine(" # ")
       .patternLine("# #")
       .addCriterion("has_item", this.hasItem(Items.SUGAR_CANE))
-      .build(consumer, prefix(GadgetBlocks.punji.getRegistryName(), "gadgets/"));
+      .build(consumer, prefix(TinkerGadgets.punji.getRegistryName(), "gadgets/"));
   }
 
   private void addSmelteryRecipes(Consumer<IFinishedRecipe> consumer) {
     final String folder = "smeltery/seared_block/";
     // cobble -> stone
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(SmelteryBlocks.seared_cobble.get()), SmelteryBlocks.seared_stone, 0.1f, 200)
-                        .addCriterion("has_item", hasItem(SmelteryBlocks.seared_cobble.get()))
-                        .build(consumer, wrap(SmelteryBlocks.seared_stone.getRegistryName(), folder, "_smelting"));
+    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerSmeltery.searedCobble.get()), TinkerSmeltery.searedStone, 0.1f, 200)
+                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedCobble.get()))
+                        .build(consumer, wrap(TinkerSmeltery.searedStone.getRegistryName(), folder, "_smelting"));
     // stone -> paver
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(SmelteryBlocks.seared_stone.get()), SmelteryBlocks.seared_paver, 0.1f, 200)
-                        .addCriterion("has_item", hasItem(SmelteryBlocks.seared_stone.get()))
-                        .build(consumer, wrap(SmelteryBlocks.seared_paver.getRegistryName(), folder, "_smelting"));
+    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerSmeltery.searedStone.get()), TinkerSmeltery.searedPaver, 0.1f, 200)
+                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedStone.get()))
+                        .build(consumer, wrap(TinkerSmeltery.searedPaver.getRegistryName(), folder, "_smelting"));
     // paver -> bricks
-    ShapedRecipeBuilder.shapedRecipe(SmelteryBlocks.seared_bricks, 4)
-                       .key('b', SmelteryBlocks.seared_stone)
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedBricks, 4)
+                       .key('b', TinkerSmeltery.searedStone)
                        .patternLine("bb")
                        .patternLine("bb")
-                       .addCriterion("has_item", hasItem(SmelteryBlocks.seared_stone))
-                       .build(consumer, wrap(SmelteryBlocks.seared_bricks.getRegistryName(), folder, "_crafting"));
+                       .addCriterion("has_item", hasItem(TinkerSmeltery.searedStone))
+                       .build(consumer, wrap(TinkerSmeltery.searedBricks.getRegistryName(), folder, "_crafting"));
     // bricks -> cracked
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(SmelteryBlocks.seared_bricks), SmelteryBlocks.seared_cracked_bricks, 0.1f, 200)
-                        .addCriterion("has_item", hasItem(SmelteryBlocks.seared_bricks))
-                        .build(consumer, wrap(SmelteryBlocks.seared_cracked_bricks.getRegistryName(), folder, "_smelting"));
+    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerSmeltery.searedBricks), TinkerSmeltery.searedCrackedBricks, 0.1f, 200)
+                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBricks))
+                        .build(consumer, wrap(TinkerSmeltery.searedCrackedBricks.getRegistryName(), folder, "_smelting"));
     // brick slabs -> chiseled
-    ShapedRecipeBuilder.shapedRecipe(SmelteryBlocks.seared_square_bricks)
-                       .key('s', SmelteryBlocks.seared_bricks.getSlab())
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedSquareBricks)
+                       .key('s', TinkerSmeltery.searedBricks.getSlab())
                        .patternLine("s")
                        .patternLine("s")
-                       .addCriterion("has_item",  hasItem(SmelteryBlocks.seared_bricks.getSlab()))
-                       .build(consumer, wrap(SmelteryBlocks.seared_square_bricks.getRegistryName(), folder, "_crafting"));
+                       .addCriterion("has_item",  hasItem(TinkerSmeltery.searedBricks.getSlab()))
+                       .build(consumer, wrap(TinkerSmeltery.searedSquareBricks.getRegistryName(), folder, "_crafting"));
 
     // transform bricks
-    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, SmelteryBlocks.seared_bricks, folder);
-    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, SmelteryBlocks.seared_fancy_bricks, folder);
-    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, SmelteryBlocks.seared_square_bricks, folder);
-    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, SmelteryBlocks.seared_small_bricks, folder);
-    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, SmelteryBlocks.seared_triangle_bricks, folder);
-    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, SmelteryBlocks.seared_road, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, TinkerSmeltery.searedBricks, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, TinkerSmeltery.searedFancyBricks, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, TinkerSmeltery.searedSquareBricks, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, TinkerSmeltery.searedSmallBricks, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, TinkerSmeltery.searedTriangleBricks, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SEARED_BRICKS, TinkerSmeltery.searedRoad, folder);
     // transform smooth
-    this.addStonecutter(consumer, TinkerTags.Items.SMOOTH_SEARED_BLOCKS, SmelteryBlocks.seared_paver, folder);
-    this.addStonecutter(consumer, TinkerTags.Items.SMOOTH_SEARED_BLOCKS, SmelteryBlocks.seared_creeper, folder);
-    this.addStonecutter(consumer, TinkerTags.Items.SMOOTH_SEARED_BLOCKS, SmelteryBlocks.seared_tile, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SMOOTH_SEARED_BLOCKS, TinkerSmeltery.searedPaver, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SMOOTH_SEARED_BLOCKS, TinkerSmeltery.searedCreeper, folder);
+    this.addStonecutter(consumer, TinkerTags.Items.SMOOTH_SEARED_BLOCKS, TinkerSmeltery.searedTile, folder);
 
     // stairs and slabs
-    this.registerSlabStair(consumer, SmelteryBlocks.seared_stone, folder, true);
-    this.registerSlabStair(consumer, SmelteryBlocks.seared_cobble, folder, true);
-    this.registerSlabStair(consumer, SmelteryBlocks.seared_paver, folder, true);
-    this.registerSlabStair(consumer, SmelteryBlocks.seared_bricks, folder, true);
-    this.registerSlabStair(consumer, SmelteryBlocks.seared_cracked_bricks, folder, true);
-    this.registerSlabStair(consumer, SmelteryBlocks.seared_fancy_bricks, folder, true);
-    this.registerSlabStair(consumer, SmelteryBlocks.seared_square_bricks, folder, true);
-    this.registerSlabStair(consumer, SmelteryBlocks.seared_small_bricks, folder, true);
-    this.registerSlabStair(consumer, SmelteryBlocks.seared_triangle_bricks, folder, true);
-    this.registerSlabStair(consumer, SmelteryBlocks.seared_creeper, folder, true);
-    this.registerSlabStair(consumer, SmelteryBlocks.seared_road, folder, true);
-    this.registerSlabStair(consumer, SmelteryBlocks.seared_tile, folder, true);
+    this.registerSlabStair(consumer, TinkerSmeltery.searedStone, folder, true);
+    this.registerSlabStair(consumer, TinkerSmeltery.searedCobble, folder, true);
+    this.registerSlabStair(consumer, TinkerSmeltery.searedPaver, folder, true);
+    this.registerSlabStair(consumer, TinkerSmeltery.searedBricks, folder, true);
+    this.registerSlabStair(consumer, TinkerSmeltery.searedCrackedBricks, folder, true);
+    this.registerSlabStair(consumer, TinkerSmeltery.searedFancyBricks, folder, true);
+    this.registerSlabStair(consumer, TinkerSmeltery.searedSquareBricks, folder, true);
+    this.registerSlabStair(consumer, TinkerSmeltery.searedSmallBricks, folder, true);
+    this.registerSlabStair(consumer, TinkerSmeltery.searedTriangleBricks, folder, true);
+    this.registerSlabStair(consumer, TinkerSmeltery.searedCreeper, folder, true);
+    this.registerSlabStair(consumer, TinkerSmeltery.searedRoad, folder, true);
+    this.registerSlabStair(consumer, TinkerSmeltery.searedTile, folder, true);
   }
 
   private void addSlimeRecipes(Consumer<IFinishedRecipe> consumer) {
     // Add recipe for all slimeball<->congealed
     for (SlimeBlock.SlimeType slimeType : SlimeBlock.SlimeType.values()) {
-      ShapedRecipeBuilder.shapedRecipe(WorldBlocks.congealed_slime.get(slimeType))
+      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(slimeType))
         .key('#', slimeType.getSlimeBallTag())
         .patternLine("##")
         .patternLine("##")
@@ -337,16 +334,16 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
         .setGroup("tconstruct:congealed_slime")
         .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/congealed");
 
-      ShapelessRecipeBuilder.shapelessRecipe(FoodItems.slime_ball.get(slimeType), 4)
-        .addIngredient(WorldBlocks.congealed_slime.get(slimeType))
-        .addCriterion("has_item", this.hasItem(WorldBlocks.congealed_slime.get(slimeType)))
+      ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.slimeball.get(slimeType), 4)
+        .addIngredient(TinkerWorld.congealedSlime.get(slimeType))
+        .addCriterion("has_item", this.hasItem(TinkerWorld.congealedSlime.get(slimeType)))
         .setGroup("tconstruct:slime_balls")
         .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeball_from_congealed");
     }
 
     // Don't re add recipe for vanilla slime_block and slime_ball
     for (SlimeBlock.SlimeType slimeType : SlimeBlock.SlimeType.TINKER) {
-      ShapedRecipeBuilder.shapedRecipe(WorldBlocks.slime.get(slimeType))
+      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.slime.get(slimeType))
         .key('#', slimeType.getSlimeBallTag())
         .patternLine("###")
         .patternLine("###")
@@ -355,9 +352,9 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
         .setGroup("tconstruct:slime_blocks")
         .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeblock");
 
-      ShapelessRecipeBuilder.shapelessRecipe(FoodItems.slime_ball.get(slimeType), 9)
-        .addIngredient(WorldBlocks.slime.get(slimeType))
-        .addCriterion("has_item", this.hasItem(WorldBlocks.slime.get(slimeType)))
+      ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.slimeball.get(slimeType), 9)
+        .addIngredient(TinkerWorld.slime.get(slimeType))
+        .addCriterion("has_item", this.hasItem(TinkerWorld.slime.get(slimeType)))
         .setGroup("tconstruct:slime_balls")
         .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeball_from_block");
     }

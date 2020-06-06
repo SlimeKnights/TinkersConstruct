@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.world.worldgen.trees;
 
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeatureConfig;
 
@@ -27,18 +27,18 @@ public class SlimeTree extends SlimeTreeAbstract {
     switch (foliageType) {
       case BLUE:
         if (this.isIslandTree) {
-          return TinkerWorld.TREE.get().withConfiguration(TinkerWorld.BLUE_SLIME_ISLAND_TREE_CONFIG);
+          return TinkerStructures.tree.get().withConfiguration(TinkerStructures.blueSlimeIslandTreeConfig);
         } else {
-          return TinkerWorld.TREE.get().withConfiguration(TinkerWorld.BLUE_SLIME_TREE_CONFIG);
+          return TinkerStructures.tree.get().withConfiguration(TinkerStructures.blueSlimeTreeConfig);
         }
       case PURPLE:
         if (this.isIslandTree) {
-          return TinkerWorld.TREE.get().withConfiguration(TinkerWorld.PURPLE_SLIME_ISLAND_TREE_CONFIG);
+          return TinkerStructures.tree.get().withConfiguration(TinkerStructures.purpleSlimeIslandTreeConfig);
         } else {
-          return TinkerWorld.TREE.get().withConfiguration(TinkerWorld.PURPLE_SLIME_TREE_CONFIG);
+          return TinkerStructures.tree.get().withConfiguration(TinkerStructures.purpleSlimeTreeConfig);
         }
       case ORANGE:
-        return TinkerWorld.TREE.get().withConfiguration(TinkerWorld.MAGMA_SLIME_TREE_CONFIG);
+        return TinkerStructures.tree.get().withConfiguration(TinkerStructures.magmaSlimeTreeConfig);
     }
     return null;
   }

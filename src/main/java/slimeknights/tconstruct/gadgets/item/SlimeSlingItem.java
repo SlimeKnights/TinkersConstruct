@@ -12,23 +12,18 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.item.TooltipItem;
 import slimeknights.tconstruct.common.Sounds;
-import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
-import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 
 import javax.annotation.Nonnull;
 
 public class SlimeSlingItem extends TooltipItem {
 
-  public SlimeSlingItem() {
-    super((new Properties()).group(TinkerRegistry.tabGadgets).maxStackSize(1));
+  public SlimeSlingItem(Properties props) {
+    super(props);
   }
 
   @Nonnull

@@ -15,13 +15,14 @@ import slimeknights.tconstruct.library.registration.object.FluidObject;
 /**
  * Contains all fluids used throughout the mod
  */
-public class TinkerFluids extends TinkerModule {
+public final class TinkerFluids extends TinkerModule {
+  static final Logger log = Util.getLogger("tinker_fluids");
+
   private static final FluidDeferredRegister FLUIDS = new FluidDeferredRegister(TConstruct.modID);
 
-  public static final FluidObject<ForgeFlowingFluid> blue_slime = FLUIDS.register("blue_slime", FluidAttributes.builder(FluidIcons.FLUID_STILL, FluidIcons.FLUID_FLOWING).color(0xef67f0f5).density(1500).viscosity(1500).temperature(310), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER);
-  public static final FluidObject<ForgeFlowingFluid> purple_slime = FLUIDS.register("purple_slime", FluidAttributes.builder(FluidIcons.FLUID_STILL, FluidIcons.FLUID_FLOWING).color(0xefd236ff).density(1600).viscosity(1600).temperature(370), SlimeFluid.Source::new, SlimeFluid.Flowing::new,  Material.WATER);
+  public static final FluidObject<ForgeFlowingFluid> blueSlime = FLUIDS.register("blue_slime", FluidAttributes.builder(FluidIcons.FLUID_STILL, FluidIcons.FLUID_FLOWING).color(0xef67f0f5).density(1500).viscosity(1500).temperature(310), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER);
+  public static final FluidObject<ForgeFlowingFluid> purpleSlime = FLUIDS.register("purple_slime", FluidAttributes.builder(FluidIcons.FLUID_STILL, FluidIcons.FLUID_FLOWING).color(0xefd236ff).density(1600).viscosity(1600).temperature(370), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER);
 
-  static final Logger log = Util.getLogger("tinker_fluids");
 
   public TinkerFluids() {
     IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

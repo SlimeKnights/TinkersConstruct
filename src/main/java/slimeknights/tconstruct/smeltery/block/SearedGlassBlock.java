@@ -10,7 +10,6 @@ import net.minecraft.world.IWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.block.ConnectedTextureBlock;
-import slimeknights.tconstruct.blocks.BlockProperties;
 
 import javax.annotation.Nonnull;
 

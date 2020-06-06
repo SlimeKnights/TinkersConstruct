@@ -8,7 +8,6 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.PlantType;
-import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nonnull;
@@ -22,13 +21,13 @@ public class SlimeSaplingBlock extends SaplingBlock {
   @Override
   protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
     Block block = state.getBlock();
-    return WorldBlocks.slime_dirt.contains(block) || WorldBlocks.vanilla_slime_grass.contains(block) || WorldBlocks.green_slime_grass.contains(block) || WorldBlocks.blue_slime_grass.contains(block) || WorldBlocks.purple_slime_grass.contains(block) || WorldBlocks.magma_slime_grass.contains(block);
+    return TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.greenSlimeGrass.contains(block) || TinkerWorld.blueSlimeGrass.contains(block) || TinkerWorld.purpleSlimeGrass.contains(block) || TinkerWorld.magmaSlimeGrass.contains(block);
   }
 
   @Nonnull
   @Override
   public PlantType getPlantType(IBlockReader world, BlockPos pos) {
-    return TinkerWorld.slimePlantType;
+    return TinkerWorld.SLIME_PLANT_TYPE;
   }
 
   @Override

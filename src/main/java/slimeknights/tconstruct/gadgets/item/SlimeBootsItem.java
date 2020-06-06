@@ -2,7 +2,6 @@ package slimeknights.tconstruct.gadgets.item;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
@@ -12,18 +11,9 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import slimeknights.mantle.item.ArmorTooltipItem;
-import slimeknights.tconstruct.items.GadgetItems;
-import slimeknights.tconstruct.library.SlimeBounceHandler;
-import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
-import slimeknights.tconstruct.tools.common.network.BouncedPacket;
 
 public class SlimeBootsItem extends ArmorTooltipItem implements IDyeableArmorItem {
 
@@ -68,8 +58,8 @@ public class SlimeBootsItem extends ArmorTooltipItem implements IDyeableArmorIte
 
   private final SlimeBlock.SlimeType slimeType;
 
-  public SlimeBootsItem(SlimeBlock.SlimeType slimeType) {
-    super(SLIME, EquipmentSlotType.FEET, (new Properties()).group(TinkerRegistry.tabGadgets).maxStackSize(1));
+  public SlimeBootsItem(SlimeBlock.SlimeType slimeType, Properties props) {
+    super(SLIME, EquipmentSlotType.FEET, props);
     this.slimeType = slimeType;
   }
 

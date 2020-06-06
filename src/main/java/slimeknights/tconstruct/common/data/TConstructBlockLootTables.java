@@ -18,16 +18,16 @@ import net.minecraft.world.storage.loot.functions.CopyNbt;
 import net.minecraft.world.storage.loot.functions.CopyNbt.Action;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.blocks.CommonBlocks;
-import slimeknights.tconstruct.blocks.DecorativeBlocks;
-import slimeknights.tconstruct.blocks.GadgetBlocks;
-import slimeknights.tconstruct.blocks.SmelteryBlocks;
-import slimeknights.tconstruct.blocks.TableBlocks;
-import slimeknights.tconstruct.blocks.WorldBlocks;
-import slimeknights.tconstruct.items.FoodItems;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tools.TinkerMaterials;
+import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeDirtBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
@@ -59,52 +59,52 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private void addCommon() {
-    this.registerDropSelfLootTable(CommonBlocks.grout.get());
-    this.registerDropSelfLootTable(CommonBlocks.slimy_mud_green.get());
-    this.registerDropSelfLootTable(CommonBlocks.slimy_mud_blue.get());
-    this.registerDropSelfLootTable(CommonBlocks.graveyard_soil.get());
-    this.registerDropSelfLootTable(CommonBlocks.consecrated_soil.get());
-    this.registerDropSelfLootTable(CommonBlocks.slimy_mud_magma.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.grout.get());
+    this.registerDropSelfLootTable(TinkerModifiers.slimyMudGreen.get());
+    this.registerDropSelfLootTable(TinkerModifiers.slimyMudBlue.get());
+    this.registerDropSelfLootTable(TinkerModifiers.graveyardSoil.get());
+    this.registerDropSelfLootTable(TinkerModifiers.consecratedSoil.get());
+    this.registerDropSelfLootTable(TinkerModifiers.slimyMudMagma.get());
 
-    this.registerBuildingLootTables(CommonBlocks.firewood);
-    this.registerBuildingLootTables(CommonBlocks.lavawood);
+    this.registerBuildingLootTables(TinkerCommons.firewood);
+    this.registerBuildingLootTables(TinkerCommons.lavawood);
 
-    this.registerDropSelfLootTable(CommonBlocks.cobalt_block.get());
-    this.registerDropSelfLootTable(CommonBlocks.ardite_block.get());
-    this.registerDropSelfLootTable(CommonBlocks.manyullyn_block.get());
-    this.registerDropSelfLootTable(CommonBlocks.knightslime_block.get());
-    this.registerDropSelfLootTable(CommonBlocks.pigiron_block.get());
-    this.registerDropSelfLootTable(CommonBlocks.alubrass_block.get());
-    this.registerDropSelfLootTable(CommonBlocks.silky_jewel_block.get());
+    this.registerDropSelfLootTable(TinkerMaterials.cobaltBlock.get());
+    this.registerDropSelfLootTable(TinkerMaterials.arditeBlock.get());
+    this.registerDropSelfLootTable(TinkerMaterials.manyullynBlock.get());
+    this.registerDropSelfLootTable(TinkerMaterials.knightSlimeBlock.get());
+    this.registerDropSelfLootTable(TinkerMaterials.pigironBlock.get());
+    this.registerDropSelfLootTable(TinkerMaterials.alubrassBlock.get());
+    this.registerDropSelfLootTable(TinkerModifiers.silkyJewelBlock.get());
   }
 
   private void addDecorative() {
-    this.registerDropSelfLootTable(DecorativeBlocks.clear_glass.get());
+    this.registerDropSelfLootTable(TinkerCommons.clear_glass.get());
 
     for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
-      this.registerDropSelfLootTable(DecorativeBlocks.clear_stained_glass.get(color));
+      this.registerDropSelfLootTable(TinkerCommons.clearStainedGlass.get(color));
     }
 
-    this.registerBuildingLootTables(DecorativeBlocks.mud_bricks);
-    this.registerBuildingLootTables(DecorativeBlocks.dried_clay);
-    this.registerBuildingLootTables(DecorativeBlocks.dried_clay_bricks);
+    this.registerBuildingLootTables(TinkerCommons.mudBricks);
+    this.registerBuildingLootTables(TinkerCommons.driedClay);
+    this.registerBuildingLootTables(TinkerCommons.driedClayBricks);
   }
 
   private void addTools() {
-    this.registerDropSelfLootTable(TableBlocks.crafting_station);
-    for (Block block : new Block[] {TableBlocks.pattern_chest, TableBlocks.part_chest}) {
+    this.registerDropSelfLootTable(TinkerTables.craftingStation.get());
+    for (Block block : new Block[] {TinkerTables.patternChest.get(), TinkerTables.partChest.get()}) {
       this.registerLootTable(block, droppingWithFunctions(block, (builder) -> {
         return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
                  .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation("Items", "TinkerData.Items"));
       }));
     }
-    for (Block block : new Block[] {TableBlocks.part_builder}) {
+    for (Block block : new Block[] {TinkerTables.partBuilder.get()}) {
       this.registerLootTable(block, droppingWithFunctions(block, (builder) -> {
         return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
                .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).addOperation("LegTexture", "TinkerData.LegTexture", Action.REPLACE));
       }));
     }
-    this.registerLootTable(TableBlocks.crafting_station, (block) -> {
+    this.registerLootTable(TinkerTables.craftingStation.get(), (block) -> {
       return droppingWithFunctions(block, (builder) -> {
         return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY));
       });
@@ -112,71 +112,71 @@ public class TConstructBlockLootTables extends BlockLootTables {
   }
 
   private void addWorld() {
-    this.registerDropSelfLootTable(WorldBlocks.cobalt_ore.get());
-    this.registerDropSelfLootTable(WorldBlocks.ardite_ore.get());
+    this.registerDropSelfLootTable(TinkerWorld.cobaltOre.get());
+    this.registerDropSelfLootTable(TinkerWorld.arditeOre.get());
 
     // Only make loot table for our modded slime blocks
     for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.TINKER) {
-      this.registerDropSelfLootTable(WorldBlocks.slime.get(slime));
+      this.registerDropSelfLootTable(TinkerWorld.slime.get(slime));
     }
     // Make loot table for all congealed_slime variants
     for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
-      this.registerDropSelfLootTable(WorldBlocks.congealed_slime.get(slime));
+      this.registerDropSelfLootTable(TinkerWorld.congealedSlime.get(slime));
     }
 
     for (SlimeDirtBlock.SlimeDirtType dirtType : SlimeDirtBlock.SlimeDirtType.values()) {
-      this.registerDropSelfLootTable(WorldBlocks.slime_dirt.get(dirtType));
+      this.registerDropSelfLootTable(TinkerWorld.slimeDirt.get(dirtType));
     }
 
     for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
-      this.registerLootTable(WorldBlocks.vanilla_slime_grass.get(type), (block) -> droppingWithSilkTouch(block, Blocks.DIRT));
-      this.registerLootTable(WorldBlocks.green_slime_grass.get(type), (block) -> droppingWithSilkTouch(block, WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.GREEN)));
-      this.registerLootTable(WorldBlocks.blue_slime_grass.get(type), (block) -> droppingWithSilkTouch(block, WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.BLUE)));
-      this.registerLootTable(WorldBlocks.purple_slime_grass.get(type), (block) -> droppingWithSilkTouch(block, WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.PURPLE)));
-      this.registerLootTable(WorldBlocks.magma_slime_grass.get(type), (block) -> droppingWithSilkTouch(block, WorldBlocks.slime_dirt.get(SlimeDirtBlock.SlimeDirtType.MAGMA)));
-      this.registerLootTable(WorldBlocks.slime_leaves.get(type), (block) -> randomDropSlimeBallOrSapling(type, block, WorldBlocks.slime_sapling.get(type), DEFAULT_SAPLING_DROP_RATES));
-      this.registerLootTable(WorldBlocks.slime_fern.get(type), BlockLootTables::onlyWithShears);
-      this.registerLootTable(WorldBlocks.slime_tall_grass.get(type), BlockLootTables::onlyWithShears);
-      this.registerDropSelfLootTable(WorldBlocks.slime_sapling.get(type));
+      this.registerLootTable(TinkerWorld.vanillaSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, Blocks.DIRT));
+      this.registerLootTable(TinkerWorld.greenSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.GREEN)));
+      this.registerLootTable(TinkerWorld.blueSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.BLUE)));
+      this.registerLootTable(TinkerWorld.purpleSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.PURPLE)));
+      this.registerLootTable(TinkerWorld.magmaSlimeGrass.get(type), (block) -> droppingWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.MAGMA)));
+      this.registerLootTable(TinkerWorld.slimeLeaves.get(type), (block) -> randomDropSlimeBallOrSapling(type, block, TinkerWorld.slimeSapling.get(type), DEFAULT_SAPLING_DROP_RATES));
+      this.registerLootTable(TinkerWorld.slimeFern.get(type), BlockLootTables::onlyWithShears);
+      this.registerLootTable(TinkerWorld.slimeTallGrass.get(type), BlockLootTables::onlyWithShears);
+      this.registerDropSelfLootTable(TinkerWorld.slimeSapling.get(type));
     }
 
-    this.registerLootTable(WorldBlocks.purple_slime_vine.get(), BlockLootTables::onlyWithShears);
-    this.registerLootTable(WorldBlocks.purple_slime_vine_middle.get(), BlockLootTables::onlyWithShears);
-    this.registerLootTable(WorldBlocks.purple_slime_vine_end.get(), BlockLootTables::onlyWithShears);
+    this.registerLootTable(TinkerWorld.purpleSlimeVine.get(), BlockLootTables::onlyWithShears);
+    this.registerLootTable(TinkerWorld.purpleSlimeVineMiddle.get(), BlockLootTables::onlyWithShears);
+    this.registerLootTable(TinkerWorld.purpleSlimeVineEnd.get(), BlockLootTables::onlyWithShears);
 
-    this.registerLootTable(WorldBlocks.blue_slime_vine.get(), BlockLootTables::onlyWithShears);
-    this.registerLootTable(WorldBlocks.blue_slime_vine_middle.get(), BlockLootTables::onlyWithShears);
-    this.registerLootTable(WorldBlocks.blue_slime_vine_end.get(), BlockLootTables::onlyWithShears);
+    this.registerLootTable(TinkerWorld.blueSlimeVine.get(), BlockLootTables::onlyWithShears);
+    this.registerLootTable(TinkerWorld.blueSlimeVineMiddle.get(), BlockLootTables::onlyWithShears);
+    this.registerLootTable(TinkerWorld.blueSlimeVineEnd.get(), BlockLootTables::onlyWithShears);
   }
 
   private void addGadgets() {
-    this.registerDropSelfLootTable(GadgetBlocks.stone_ladder.get());
+    this.registerDropSelfLootTable(TinkerGadgets.stoneLadder.get());
 
-    this.registerDropSelfLootTable(GadgetBlocks.stone_torch.get());
+    this.registerDropSelfLootTable(TinkerGadgets.stoneTorch.get());
 
-    this.registerDropping(GadgetBlocks.wall_stone_torch.get(), GadgetBlocks.stone_torch.get());
+    this.registerDropping(TinkerGadgets.wallStoneTorch.get(), TinkerGadgets.stoneTorch.get());
 
-    this.registerDropSelfLootTable(GadgetBlocks.punji.get());
+    this.registerDropSelfLootTable(TinkerGadgets.punji.get());
 
-    this.registerDropSelfLootTable(GadgetBlocks.wooden_rail.get());
-    this.registerDropSelfLootTable(GadgetBlocks.wooden_dropper_rail.get());
+    this.registerDropSelfLootTable(TinkerGadgets.woodenRail.get());
+    this.registerDropSelfLootTable(TinkerGadgets.woodenDropperRail.get());
   }
 
   private void addSmeltery() {
-    this.registerBuildingLootTables(SmelteryBlocks.seared_stone);
-    this.registerBuildingLootTables(SmelteryBlocks.seared_cobble);
-    this.registerBuildingLootTables(SmelteryBlocks.seared_paver);
-    this.registerBuildingLootTables(SmelteryBlocks.seared_stone);
-    this.registerBuildingLootTables(SmelteryBlocks.seared_bricks);
-    this.registerBuildingLootTables(SmelteryBlocks.seared_cracked_bricks);
-    this.registerBuildingLootTables(SmelteryBlocks.seared_fancy_bricks);
-    this.registerBuildingLootTables(SmelteryBlocks.seared_square_bricks);
-    this.registerBuildingLootTables(SmelteryBlocks.seared_small_bricks);
-    this.registerBuildingLootTables(SmelteryBlocks.seared_triangle_bricks);
-    this.registerBuildingLootTables(SmelteryBlocks.seared_creeper);
-    this.registerBuildingLootTables(SmelteryBlocks.seared_road);
-    this.registerBuildingLootTables(SmelteryBlocks.seared_tile);
-    this.registerDropSelfLootTable(SmelteryBlocks.seared_glass.get());
+    this.registerBuildingLootTables(TinkerSmeltery.searedStone);
+    this.registerBuildingLootTables(TinkerSmeltery.searedCobble);
+    this.registerBuildingLootTables(TinkerSmeltery.searedPaver);
+    this.registerBuildingLootTables(TinkerSmeltery.searedStone);
+    this.registerBuildingLootTables(TinkerSmeltery.searedBricks);
+    this.registerBuildingLootTables(TinkerSmeltery.searedCrackedBricks);
+    this.registerBuildingLootTables(TinkerSmeltery.searedFancyBricks);
+    this.registerBuildingLootTables(TinkerSmeltery.searedSquareBricks);
+    this.registerBuildingLootTables(TinkerSmeltery.searedSmallBricks);
+    this.registerBuildingLootTables(TinkerSmeltery.searedTriangleBricks);
+    this.registerBuildingLootTables(TinkerSmeltery.searedCreeper);
+    this.registerBuildingLootTables(TinkerSmeltery.searedRoad);
+    this.registerBuildingLootTables(TinkerSmeltery.searedTile);
+    this.registerDropSelfLootTable(TinkerSmeltery.searedGlass.get());
   }
 
   /*
@@ -190,9 +190,9 @@ public class TConstructBlockLootTables extends BlockLootTables {
   private static LootTable.Builder randomDropSlimeBallOrSapling(SlimeGrassBlock.FoliageType foliageType, Block blockIn, Block sapling, float... fortuneIn) {
     switch (foliageType) {
       case PURPLE:
-        return dropSapling(blockIn, sapling, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(withSurvivesExplosion(blockIn, ItemLootEntry.builder(FoodItems.slime_ball.get(SlimeBlock.SlimeType.PURPLE))).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
+        return dropSapling(blockIn, sapling, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(withSurvivesExplosion(blockIn, ItemLootEntry.builder(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.PURPLE))).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
       case BLUE:
-        return dropSapling(blockIn, sapling, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(AlternativesLootEntry.builder(withSurvivesExplosion(blockIn, ItemLootEntry.builder(FoodItems.slime_ball.get(SlimeBlock.SlimeType.BLUE))).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)), withSurvivesExplosion(blockIn, ItemLootEntry.builder(Items.SLIME_BALL)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)))));
+        return dropSapling(blockIn, sapling, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(AlternativesLootEntry.builder(withSurvivesExplosion(blockIn, ItemLootEntry.builder(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.BLUE))).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)), withSurvivesExplosion(blockIn, ItemLootEntry.builder(Items.SLIME_BALL)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)))));
       case ORANGE:
       default:
         return dropSapling(blockIn, sapling, fortuneIn);

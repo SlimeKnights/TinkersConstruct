@@ -10,7 +10,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
-import slimeknights.tconstruct.items.GadgetItems;
 import slimeknights.tconstruct.library.SlimeBounceHandler;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.piggyback.TinkerPiggybackSerializer;

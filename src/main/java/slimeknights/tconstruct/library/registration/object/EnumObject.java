@@ -41,7 +41,7 @@ public class EnumObject<T extends Enum<T>, I extends IForgeRegistryEntry<? super
    * @return  True if the value is contained, false otherwise
    */
   public boolean contains(IForgeRegistryEntry<? super I> value) {
-    return this.map.values().stream().anyMatch((sup) -> sup.get() == value);
+    return this.map.values().stream().map(Supplier::get).anyMatch(value::equals);
   }
 
   /**

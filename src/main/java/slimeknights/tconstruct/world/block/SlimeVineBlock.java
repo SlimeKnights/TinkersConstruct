@@ -14,7 +14,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import slimeknights.tconstruct.blocks.WorldBlocks;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
@@ -73,15 +73,15 @@ public class SlimeVineBlock extends VineBlock {
     switch (this.vineStage) {
       case START:
         if (this.foliage == SlimeGrassBlock.FoliageType.BLUE) {
-          return WorldBlocks.blue_slime_vine_middle.get();
+          return TinkerWorld.blueSlimeVineMiddle.get();
         } else if (this.foliage == SlimeGrassBlock.FoliageType.PURPLE) {
-          return WorldBlocks.purple_slime_vine_middle.get();
+          return TinkerWorld.purpleSlimeVineMiddle.get();
         }
       case MIDDLE:
         if (this.foliage == SlimeGrassBlock.FoliageType.BLUE) {
-          return WorldBlocks.blue_slime_vine_end.get();
+          return TinkerWorld.blueSlimeVineEnd.get();
         } else if (this.foliage == SlimeGrassBlock.FoliageType.PURPLE) {
-          return WorldBlocks.purple_slime_vine_end.get();
+          return TinkerWorld.purpleSlimeVineEnd.get();
         }
       case END:
         return null;

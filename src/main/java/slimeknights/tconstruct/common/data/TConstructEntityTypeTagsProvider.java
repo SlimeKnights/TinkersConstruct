@@ -5,7 +5,7 @@ import net.minecraft.data.EntityTypeTagsProvider;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.entity.WorldEntities;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.nio.file.Path;
 import java.util.Set;
@@ -25,7 +25,7 @@ public class TConstructEntityTypeTagsProvider extends EntityTypeTagsProvider {
 
     this.filter = this.tagToBuilder.keySet().stream().map(Tag::getId).collect(Collectors.toSet());
 
-    this.getBuilder(TinkerTags.EntityTypes.SLIMES).add(WorldEntities.blue_slime_entity);
+    this.getBuilder(TinkerTags.EntityTypes.SLIMES).add(TinkerWorld.blueSlimeEntity.get());
   }
 
   @Override

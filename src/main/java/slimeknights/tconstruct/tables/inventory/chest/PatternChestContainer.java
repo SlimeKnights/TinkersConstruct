@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
-import slimeknights.tconstruct.containers.TableContainerTypes;
+import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
 import slimeknights.tconstruct.tables.tileentity.chest.PatternChestTileEntity;
@@ -20,9 +20,9 @@ public class PatternChestContainer extends TinkerStationContainer<PatternChestTi
   protected SideInventoryContainer<PatternChestTileEntity> inventory;
 
   public PatternChestContainer(int id, PlayerInventory inv, PatternChestTileEntity tileEntity) {
-    super(TableContainerTypes.pattern_chest, id, inv, tileEntity);
+    super(TinkerTables.patternChestContainer.get(), id, inv, tileEntity);
 
-    this.inventory = new PatternChestContainer.DynamicChestInventory(TableContainerTypes.pattern_chest, this.windowId, inv, this.tile, 8, 18, 8); // columns don't matter since they get set by gui
+    this.inventory = new PatternChestContainer.DynamicChestInventory(TinkerTables.patternChestContainer.get(), this.windowId, inv, this.tile, 8, 18, 8); // columns don't matter since they get set by gui
     this.addSubContainer(inventory, true);
 
     this.addInventorySlots();

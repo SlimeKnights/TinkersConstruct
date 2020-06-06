@@ -10,13 +10,13 @@ import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.tconstruct.blocks.CommonBlocks;
-import slimeknights.tconstruct.blocks.DecorativeBlocks;
-import slimeknights.tconstruct.blocks.GadgetBlocks;
-import slimeknights.tconstruct.blocks.SmelteryBlocks;
-import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tools.TinkerMaterials;
+import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import java.util.Locale;
@@ -38,49 +38,49 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
   private void addCommon() {
     this.getBuilder(Tags.Blocks.STORAGE_BLOCKS).add(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT, TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE, TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN, TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME, TinkerTags.Blocks.STORAGE_BLOCKS_PIGIRON, TinkerTags.Blocks.STORAGE_BLOCKS_ALUBRASS);
-    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT).add(CommonBlocks.cobalt_block.get());
-    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE).add(CommonBlocks.ardite_block.get());
-    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN).add(CommonBlocks.manyullyn_block.get());
-    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME).add(CommonBlocks.knightslime_block.get());
-    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_PIGIRON).add(CommonBlocks.pigiron_block.get());
-    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ALUBRASS).add(CommonBlocks.alubrass_block.get());
+    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT).add(TinkerMaterials.cobaltBlock.get());
+    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE).add(TinkerMaterials.arditeBlock.get());
+    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN).add(TinkerMaterials.manyullynBlock.get());
+    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME).add(TinkerMaterials.knightSlimeBlock.get());
+    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_PIGIRON).add(TinkerMaterials.pigironBlock.get());
+    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ALUBRASS).add(TinkerMaterials.alubrassBlock.get());
 
-    this.getBuilder(Tags.Blocks.GLASS_COLORLESS).add(DecorativeBlocks.clear_glass.get());
+    this.getBuilder(Tags.Blocks.GLASS_COLORLESS).add(TinkerCommons.clear_glass.get());
     addColored(getBuilder(Tags.Blocks.STAINED_GLASS)::add, Tags.Blocks.GLASS, "{color}_clear_stained_glass");
   }
 
   private void addWorld() {
-    this.getBuilder(TinkerTags.Blocks.SLIMY_LOGS).add(WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.GREEN), WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.BLUE), WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.PURPLE), WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.BLOOD), WorldBlocks.congealed_slime.get(SlimeBlock.SlimeType.MAGMA));
+    this.getBuilder(TinkerTags.Blocks.SLIMY_LOGS).add(TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.GREEN), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.BLUE), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.PURPLE), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.BLOOD), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.MAGMA));
     for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
-      this.getBuilder(TinkerTags.Blocks.SLIMY_LEAVES).add(WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.BLUE), WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.PURPLE), WorldBlocks.slime_leaves.get(SlimeGrassBlock.FoliageType.ORANGE));
-      this.getBuilder(TinkerTags.Blocks.SLIMY_SAPLINGS).add(WorldBlocks.slime_sapling.get(type));
+      this.getBuilder(TinkerTags.Blocks.SLIMY_LEAVES).add(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.BLUE), TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.PURPLE), TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ORANGE));
+      this.getBuilder(TinkerTags.Blocks.SLIMY_SAPLINGS).add(TinkerWorld.slimeSapling.get(type));
     }
 
     this.getBuilder(Tags.Blocks.ORES).add(TinkerTags.Blocks.ORES_COBALT, TinkerTags.Blocks.ORES_ARDITE);
-    this.getBuilder(TinkerTags.Blocks.ORES_COBALT).add(WorldBlocks.cobalt_ore.get());
-    this.getBuilder(TinkerTags.Blocks.ORES_ARDITE).add(WorldBlocks.ardite_ore.get());
+    this.getBuilder(TinkerTags.Blocks.ORES_COBALT).add(TinkerWorld.cobaltOre.get());
+    this.getBuilder(TinkerTags.Blocks.ORES_ARDITE).add(TinkerWorld.arditeOre.get());
   }
 
   private void addGadgets() {
-    this.getBuilder(BlockTags.RAILS).add(GadgetBlocks.wooden_rail.get(), GadgetBlocks.wooden_dropper_rail.get());
+    this.getBuilder(BlockTags.RAILS).add(TinkerGadgets.woodenRail.get(), TinkerGadgets.woodenDropperRail.get());
   }
 
   private void addSmeltery() {
     this.getBuilder(TinkerTags.Blocks.SEARED_BRICKS).add(
-      SmelteryBlocks.seared_bricks.get(),
-      SmelteryBlocks.seared_fancy_bricks.get(),
-      SmelteryBlocks.seared_square_bricks.get(),
-      SmelteryBlocks.seared_small_bricks.get(),
-      SmelteryBlocks.seared_triangle_bricks.get(),
-      SmelteryBlocks.seared_road.get());
+      TinkerSmeltery.searedBricks.get(),
+      TinkerSmeltery.searedFancyBricks.get(),
+      TinkerSmeltery.searedSquareBricks.get(),
+      TinkerSmeltery.searedSmallBricks.get(),
+      TinkerSmeltery.searedTriangleBricks.get(),
+      TinkerSmeltery.searedRoad.get());
     this.getBuilder(TinkerTags.Blocks.SMOOTH_SEARED_BLOCKS).add(
-      SmelteryBlocks.seared_paver.get(),
-      SmelteryBlocks.seared_creeper.get(),
-      SmelteryBlocks.seared_tile.get());
+      TinkerSmeltery.searedPaver.get(),
+      TinkerSmeltery.searedCreeper.get(),
+      TinkerSmeltery.searedTile.get());
     this.getBuilder(TinkerTags.Blocks.SEARED_BLOCKS).add(
-      SmelteryBlocks.seared_stone.get(),
-      SmelteryBlocks.seared_cracked_bricks.get(),
-      SmelteryBlocks.seared_cobble.get()).add(TinkerTags.Blocks.SEARED_BRICKS, TinkerTags.Blocks.SMOOTH_SEARED_BLOCKS);
+      TinkerSmeltery.searedStone.get(),
+      TinkerSmeltery.searedCrackedBricks.get(),
+      TinkerSmeltery.searedCobble.get()).add(TinkerTags.Blocks.SEARED_BRICKS, TinkerTags.Blocks.SMOOTH_SEARED_BLOCKS);
   }
 
   @Override

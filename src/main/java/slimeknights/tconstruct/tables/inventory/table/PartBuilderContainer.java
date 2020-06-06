@@ -20,11 +20,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.inventory.CraftingCustomSlot;
 import slimeknights.mantle.inventory.IContainerCraftingCustom;
 import slimeknights.mantle.inventory.OutSlot;
-import slimeknights.tconstruct.containers.TableContainerTypes;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
-import slimeknights.tconstruct.library.utils.ListUtil;
 import slimeknights.tconstruct.shared.inventory.PersistentCraftingInventory;
+import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.block.TinkerTableBlock;
 import slimeknights.tconstruct.tables.client.inventory.table.PartBuilderScreen;
 import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
@@ -49,7 +46,7 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
   public final IInventory patternChest;
 
   public PartBuilderContainer(int id, @Nullable PlayerInventory inv, PartBuilderTileEntity partBuilderTileEntity) {
-    super(TableContainerTypes.part_builder, id, inv, partBuilderTileEntity);
+    super(TinkerTables.partBuilderContainer.get(), id, inv, partBuilderTileEntity);
 
     PersistentCraftingInventory craftMatrix = new PersistentCraftingInventory(this, tile, 1, 3);
     this.craftResult = new CraftResultInventory();
@@ -94,7 +91,7 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
       // are we a PartCrafter?
       this.partCrafter = hasStencilTable && hasCraftingStation;
 
-      Container sideInventory = new PatternChestContainer.DynamicChestInventory(TableContainerTypes.part_builder, id, inv, chest, -6, 8, 6);
+      Container sideInventory = new PatternChestContainer.DynamicChestInventory(TinkerTables.partBuilderContainer.get(), id, inv, chest, -6, 8, 6);
       this.addSubContainer(sideInventory, true);
 
       this.patternChest = chest;

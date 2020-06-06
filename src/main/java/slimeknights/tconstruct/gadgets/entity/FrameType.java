@@ -1,9 +1,8 @@
 package slimeknights.tconstruct.gadgets.entity;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.util.IStringSerializable;
-import slimeknights.tconstruct.items.GadgetItems;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -45,6 +44,6 @@ public enum FrameType implements IStringSerializable {
   }
 
   public static Item getFrameFromType(FrameType type) {
-        return GadgetItems.item_frame.get(type);
+        return TinkerGadgets.itemFrame.get(type);
   }
 }

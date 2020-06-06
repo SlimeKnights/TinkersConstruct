@@ -27,8 +27,8 @@ public class TConstructFluidTagsProvider extends FluidTagsProvider {
 
     this.getBuilder(TinkerTags.Fluids.SLIME).add(TinkerTags.Fluids.BLUE_SLIME, TinkerTags.Fluids.PURPLE_SLIME);
 
-    this.getBuilder(TinkerTags.Fluids.BLUE_SLIME).add(TinkerFluids.blue_slime.get(), TinkerFluids.blue_slime.getFlowing());
-    this.getBuilder(TinkerTags.Fluids.PURPLE_SLIME).add(TinkerFluids.purple_slime.get(), TinkerFluids.purple_slime.getFlowing());
+    this.getBuilder(TinkerTags.Fluids.BLUE_SLIME).add(TinkerFluids.blueSlime.get(), TinkerFluids.blueSlime.getFlowing());
+    this.getBuilder(TinkerTags.Fluids.PURPLE_SLIME).add(TinkerFluids.purpleSlime.get(), TinkerFluids.purpleSlime.getFlowing());
   }
 
   @Override

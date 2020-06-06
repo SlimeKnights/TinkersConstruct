@@ -18,7 +18,7 @@ import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
@@ -45,7 +45,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   }
 
   public SlimeIslandPiece(TemplateManager templateManager, SlimeIslandVariant variant, String templateName, BlockPos templatePosition, Rotation rotation, Mirror mirror) {
-    super(TinkerWorld.SLIME_ISLAND_PIECE, 0);
+    super(TinkerStructures.slimeIslandPiece, 0);
     this.templateName = templateName;
     this.variant = variant;
     this.templatePosition = templatePosition;
@@ -56,7 +56,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   }
 
   public SlimeIslandPiece(TemplateManager templateManager, CompoundNBT nbt) {
-    super(TinkerWorld.SLIME_ISLAND_PIECE, nbt);
+    super(TinkerStructures.slimeIslandPiece, nbt);
     this.templateName = nbt.getString("Template");
     this.variant = SlimeIslandVariant.getVariantFromIndex(nbt.getInt("Variant"));
     this.rotation = Rotation.valueOf(nbt.getString("Rot"));

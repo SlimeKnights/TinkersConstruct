@@ -8,7 +8,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
-import slimeknights.tconstruct.containers.TableContainerTypes;
+import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
 import slimeknights.tconstruct.tables.tileentity.chest.PartChestTileEntity;
@@ -21,9 +21,9 @@ public class PartChestContainer extends TinkerStationContainer<PartChestTileEnti
   protected SideInventoryContainer<PartChestTileEntity> inventory;
 
   public PartChestContainer(int id, PlayerInventory inv, PartChestTileEntity tileEntity) {
-    super(TableContainerTypes.part_chest, id, inv, tileEntity);
+    super(TinkerTables.partChestContainer.get(), id, inv, tileEntity);
 
-    this.inventory = new PartChestContainer.DynamicChestInventory(TableContainerTypes.part_chest, windowId, inv, tile, 8, 18, 8); // columns don't matter since they get set by gui
+    this.inventory = new PartChestContainer.DynamicChestInventory(TinkerTables.partChestContainer.get(), windowId, inv, tile, 8, 18, 8); // columns don't matter since they get set by gui
     this.addSubContainer(inventory, true);
 
     this.addInventorySlots();

@@ -15,8 +15,8 @@ import net.minecraft.world.gen.IWorldGenerationBaseReader;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import slimeknights.tconstruct.blocks.WorldBlocks;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Random;
 import java.util.Set;
@@ -216,7 +216,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
   protected static boolean isSlimyDirtOrGrass(IWorldGenerationBaseReader worldIn, BlockPos pos) {
     return worldIn.hasBlockState(pos, (state) -> {
       Block block = state.getBlock();
-      return WorldBlocks.slime_dirt.contains(block) || WorldBlocks.vanilla_slime_grass.contains(block) || WorldBlocks.green_slime_grass.contains(block) || WorldBlocks.blue_slime_grass.contains(block) || WorldBlocks.purple_slime_grass.contains(block) || WorldBlocks.magma_slime_grass.contains(block);
+      return TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.greenSlimeGrass.contains(block) || TinkerWorld.blueSlimeGrass.contains(block) || TinkerWorld.purpleSlimeGrass.contains(block) || TinkerWorld.magmaSlimeGrass.contains(block);
     });
   }
 
@@ -246,7 +246,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
       Block block = state.getBlock();
       BlockState upState = reader.getBlockState(position.up());
 
-      if ((WorldBlocks.slime_dirt.contains(block) || WorldBlocks.vanilla_slime_grass.contains(block) || WorldBlocks.green_slime_grass.contains(block) || WorldBlocks.blue_slime_grass.contains(block) || WorldBlocks.purple_slime_grass.contains(block) || WorldBlocks.magma_slime_grass.contains(block)) && !upState.getBlock().isOpaqueCube(upState, reader, position)) {
+      if ((TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.greenSlimeGrass.contains(block) || TinkerWorld.blueSlimeGrass.contains(block) || TinkerWorld.purpleSlimeGrass.contains(block) || TinkerWorld.magmaSlimeGrass.contains(block)) && !upState.getBlock().isOpaqueCube(upState, reader, position)) {
         return position.up();
       }
       position = position.down();

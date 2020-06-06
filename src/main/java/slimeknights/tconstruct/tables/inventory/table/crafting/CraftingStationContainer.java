@@ -32,9 +32,9 @@ import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.inventory.BaseContainer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.containers.TableContainerTypes;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.shared.inventory.PersistentCraftingInventory;
+import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
 import slimeknights.tconstruct.tables.network.LastRecipePacket;
@@ -58,7 +58,7 @@ public class CraftingStationContainer extends TinkerStationContainer<CraftingSta
   private ICraftingRecipe lastLastRecipe;
 
   public CraftingStationContainer(int id, PlayerInventory inv, CraftingStationTileEntity tileEntity) {
-    super(TableContainerTypes.crafting_station, id, inv, tileEntity);
+    super(TinkerTables.craftingStationContainer.get(), id, inv, tileEntity);
 
     this.craftResult = new CraftResultInventory();
     this.craftMatrix = new PersistentCraftingInventory(this, tileEntity, 3, 3);
@@ -125,7 +125,7 @@ public class CraftingStationContainer extends TinkerStationContainer<CraftingSta
       }
 
       if (inventoryTE != null) {
-        this.addSubContainer(new SideInventoryContainer(TableContainerTypes.crafting_station, id, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, 6), false);
+        this.addSubContainer(new SideInventoryContainer<>(TinkerTables.craftingStationContainer.get(), id, inv, inventoryTE, accessDir, -6 - 18 * 6, 8, 6), false);
       }
     }
 

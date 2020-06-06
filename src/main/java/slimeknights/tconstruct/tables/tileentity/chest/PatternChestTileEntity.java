@@ -7,8 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
+import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.chest.PatternChestContainer;
-import slimeknights.tconstruct.tileentities.TablesTileEntities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 public class PatternChestTileEntity extends TinkerChestTileEntity {
 
   public PatternChestTileEntity() {
-    super(TablesTileEntities.pattern_chest.get(), "gui.tconstruct.pattern_chest", TinkerChestTileEntity.MAX_INVENTORY, 1);
+    super(TinkerTables.patternChestTile.get(), "gui.tconstruct.pattern_chest", TinkerChestTileEntity.MAX_INVENTORY, 1);
   }
 
   @Nullable

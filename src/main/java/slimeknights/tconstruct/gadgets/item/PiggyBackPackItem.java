@@ -28,7 +28,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.item.ArmorTooltipItem;
-import slimeknights.tconstruct.items.GadgetItems;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
@@ -194,18 +194,16 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
       LivingEntity livingEntity = (LivingEntity) entityIn;
       if (livingEntity.getItemStackFromSlot(EquipmentSlotType.CHEST) == stack && entityIn.isBeingRidden()) {
         int amplifier = this.getEntitiesCarriedCount(livingEntity) - 1;
-        livingEntity.addPotionEffect(new EffectInstance(CarryPotionEffect.INSTANCE, 1, amplifier, true, false));
+        livingEntity.addPotionEffect(new EffectInstance(TinkerGadgets.carryEffect.get(), 1, amplifier, true, false));
       }
     }
   }
 
   public static class CarryPotionEffect extends TinkerEffect {
-
-    public static final CarryPotionEffect INSTANCE = new CarryPotionEffect();
     static final String UUID = "ff4de63a-2b24-11e6-b67b-9e71128cae77";
 
-    CarryPotionEffect() {
-      super(Util.getResource("carry"), EffectType.NEUTRAL, true);
+    public CarryPotionEffect() {
+      super(EffectType.NEUTRAL, true);
 
       this.addAttributesModifier(SharedMonsterAttributes.MOVEMENT_SPEED, UUID, -0.05D, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
@@ -218,10 +216,10 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
     @Override
     public void performEffect(@Nonnull LivingEntity livingEntityIn, int p_76394_2_) {
       ItemStack chestArmor = livingEntityIn.getItemStackFromSlot(EquipmentSlotType.CHEST);
-      if (chestArmor.isEmpty() || chestArmor.getItem() != GadgetItems.piggy_backpack.get()) {
-        GadgetItems.piggy_backpack.get().matchCarriedEntitiesToCount(livingEntityIn, 0);
+      if (chestArmor.isEmpty() || chestArmor.getItem() != TinkerGadgets.piggyBackpack.get()) {
+        TinkerGadgets.piggyBackpack.get().matchCarriedEntitiesToCount(livingEntityIn, 0);
       } else {
-        GadgetItems.piggy_backpack.get().matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
+        TinkerGadgets.piggyBackpack.get().matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
         if (!livingEntityIn.getEntityWorld().isRemote) {
           if (livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).isPresent()) {
             ITinkerPiggyback piggyback = livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).orElse(null);

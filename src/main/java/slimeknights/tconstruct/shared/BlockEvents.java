@@ -9,8 +9,8 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.blocks.CommonBlocks;
-import slimeknights.tconstruct.blocks.WorldBlocks;
+import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.world.TinkerWorld;
 
 @Mod.EventBusSubscriber(modid = TConstruct.modID)
 public class BlockEvents {
@@ -30,11 +30,11 @@ public class BlockEvents {
     BlockState state = event.getEntity().getEntityWorld().getBlockState(pos);
     Block block = state.getBlock();
 
-    if (WorldBlocks.congealed_slime.contains(block)) {
+    if (TinkerWorld.congealedSlime.contains(block)) {
       bounce(event.getEntity(), 0.25f);
-    } else if (block == CommonBlocks.slimy_mud_green.get() || block == CommonBlocks.slimy_mud_blue.get()) {
+    } else if (block == TinkerModifiers.slimyMudGreen.get() || block == TinkerModifiers.slimyMudBlue.get()) {
       bounce(event.getEntity(), 0.15f);
-    } else if (WorldBlocks.slime_dirt.contains(block) || WorldBlocks.vanilla_slime_grass.contains(block) || WorldBlocks.green_slime_grass.contains(block) || WorldBlocks.blue_slime_grass.contains(block) || WorldBlocks.purple_slime_grass.contains(block) || WorldBlocks.magma_slime_grass.contains(block)) {
+    } else if (TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.greenSlimeGrass.contains(block) || TinkerWorld.blueSlimeGrass.contains(block) || TinkerWorld.purpleSlimeGrass.contains(block) || TinkerWorld.magmaSlimeGrass.contains(block)) {
       bounce(event.getEntity(), 0.06f);
     }
   }

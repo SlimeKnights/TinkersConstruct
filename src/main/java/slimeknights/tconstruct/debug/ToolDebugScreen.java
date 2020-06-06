@@ -8,12 +8,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import slimeknights.tconstruct.items.ToolItems;
-import slimeknights.tconstruct.items.ToolParts;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
-import slimeknights.tconstruct.tools.harvest.PickaxeTool;
+import slimeknights.tconstruct.tools.TinkerToolParts;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 public class ToolDebugScreen extends ContainerScreen<ToolDebugContainer> {
 
@@ -26,11 +25,10 @@ public class ToolDebugScreen extends ContainerScreen<ToolDebugContainer> {
     super.init();
 
     addButton(new Button(guiLeft, guiTop, 20, 20, "test", button -> {
-      ItemStack st = ToolParts.pickaxe_head.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:stone")));
-      ItemStack st2 = ToolParts.tool_rod.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:wood")));
-      ItemStack st3 = ToolParts.small_binding.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:ardite")));
-      // TODO: Get rid of cast
-      ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(NonNullList.from(ItemStack.EMPTY, st, st2, st3), ToolItems.pickaxe.get());
+      ItemStack st = TinkerToolParts.pickaxeHead.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:stone")));
+      ItemStack st2 = TinkerToolParts.toolRod.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:wood")));
+      ItemStack st3 = TinkerToolParts.smallBinding.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:ardite")));
+      ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(NonNullList.from(ItemStack.EMPTY, st, st2, st3), TinkerTools.pickaxe.get());
       container.inventory.setInventorySlotContents(0, itemStack);
     }));
   }

@@ -7,7 +7,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
-import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.TinkerStructures;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -17,7 +17,7 @@ public class SupplierBlockStateProvider extends BlockStateProvider {
   private final Supplier<BlockState> blockStateSupplier;
 
   public SupplierBlockStateProvider(Supplier<BlockState> blockStateSupplier) {
-    super(TinkerWorld.SUPPLIER_BLOCKSTATE_PROVIDER);
+    super(TinkerStructures.supplierBlockstateProvider);
     this.blockStateSupplier = blockStateSupplier;
   }
 

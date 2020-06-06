@@ -4,8 +4,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
+import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.chest.PartChestContainer;
-import slimeknights.tconstruct.tileentities.TablesTileEntities;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 public class PartChestTileEntity extends TinkerChestTileEntity {
 
   public PartChestTileEntity() {
-    super(TablesTileEntities.part_chest.get(), "gui.tconstruct.part_chest");
+    super(TinkerTables.partChestTile.get(), "gui.tconstruct.part_chest");
   }
 
   @Override
