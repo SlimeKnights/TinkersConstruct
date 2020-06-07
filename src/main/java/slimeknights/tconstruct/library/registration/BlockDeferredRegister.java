@@ -153,4 +153,25 @@ public class BlockDeferredRegister extends RegisterWrapper<Block> {
     }
     return new EnumObject<>(map);
   }
+
+  /**
+   * Registers a block with slab, stairs, and walls
+   * @param name      Name of the block
+   * @param values    Enum values to use for this block
+   * @param supplier  Function to get a block for the given enum value
+   * @param item      Function to get an item from the block
+   * @return  EnumObject mapping between different block types
+   */
+  @SuppressWarnings("unchecked")
+  public <T extends Enum<T> & IStringSerializable, B extends Block> EnumObject<T,B> registerEnum(final String name, final T[] values, Function<T,? extends B> supplier, final Function<? super B, ? extends BlockItem> item) {
+    if (values.length == 0) {
+      throw new IllegalArgumentException("Must have at least one value");
+    }
+    // note this cast only works because you cannot extend an enum
+    Map<T, Supplier<? extends B>> map = new EnumMap<>((Class<T>)values[0].getClass());
+    for (T value : values) {
+      map.put(value, register(name + "_" + value.getName(), () -> supplier.apply(value), item));
+    }
+    return new EnumObject<>(map);
+  }
 }

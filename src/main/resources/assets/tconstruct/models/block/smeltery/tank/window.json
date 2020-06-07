@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+        "particle": "tconstruct:block/smeltery/tank/seared_window_top",
+        "end":  "tconstruct:block/smeltery/tank/seared_window_top",
+        "side": "tconstruct:block/smeltery/tank/seared_window_side"
+    }
+}

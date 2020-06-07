@@ -42,6 +42,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -598,6 +599,33 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     this.registerSlabStair(consumer, TinkerSmeltery.searedCreeper, folder, true);
     this.registerSlabStair(consumer, TinkerSmeltery.searedRoad, folder, true);
     this.registerSlabStair(consumer, TinkerSmeltery.searedTile, folder, true);
+
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(SearedTankBlock.TankType.TANK))
+      .key('#', TinkerSmeltery.searedBrick)
+      .key('B', Tags.Items.GLASS)
+      .patternLine("###")
+      .patternLine("#B#")
+      .patternLine("###")
+      .addCriterion("has_item", this.hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, location("smeltery/seared/tank"));
+
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(SearedTankBlock.TankType.GAUGE))
+      .key('#', TinkerSmeltery.searedBrick)
+      .key('B', Tags.Items.GLASS)
+      .patternLine("#B#")
+      .patternLine("BBB")
+      .patternLine("#B#")
+      .addCriterion("has_item", this.hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, location("smeltery/seared/gauge"));
+
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(SearedTankBlock.TankType.WINDOW))
+      .key('#', TinkerSmeltery.searedBrick)
+      .key('B', Tags.Items.GLASS)
+      .patternLine("#B#")
+      .patternLine("#B#")
+      .patternLine("#B#")
+      .addCriterion("has_item", this.hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, location("smeltery/seared/window"));
   }
 
   private void addSlimeRecipes(Consumer<IFinishedRecipe> consumer) {

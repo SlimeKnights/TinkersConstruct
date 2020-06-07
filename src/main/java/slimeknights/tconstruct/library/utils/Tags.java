@@ -70,6 +70,9 @@ public final class Tags {
 
   public static final String NO_RENAME = "NoRename";
 
+  // Tank
+  public static final String TANK = "tank";
+
   private Tags() {
   }
 }

@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid= TConstruct.modID, value= Dist.CLIENT, bus= Bus.MOD)
@@ -16,5 +17,8 @@ public class SmelteryClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedGlass.get(), RenderType.getCutout());
+    for (SearedTankBlock.TankType tankType : SearedTankBlock.TankType.values()) {
+      RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedTank.get(tankType), RenderType.getCutout());
+    }
   }
 }
