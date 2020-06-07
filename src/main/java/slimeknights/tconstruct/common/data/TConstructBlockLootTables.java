@@ -193,6 +193,8 @@ public class TConstructBlockLootTables extends BlockLootTables {
     }
 
     this.registerDropSelfLootTable(TinkerSmeltery.searedFaucet.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.castingBasin.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.castingTable.get());
   }
 
   /*

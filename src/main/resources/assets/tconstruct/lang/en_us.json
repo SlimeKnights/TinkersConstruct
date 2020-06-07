@@ -452,6 +452,10 @@
     "block.tconstruct.tank.amount": "%d mb",
     "block.tconstruct.faucet": "Seared Faucet",
     "block.tconstruct.faucet.tooltip": "Drains liquids from Smelteries and Tanks",
+    "block.tconstruct.casting_basin": "Casting Basin",
+    "block.tconstruct.casting_basin.tooltip": "Cast items using molten metals from a Smeltery",
+    "block.tconstruct.casting_table": "Casting Table",
+    "block.tconstruct.casting_table.tooltip": "Cast items using molten metals from a Smeltery",
 
     "_comment": "Tinkers World",
 
