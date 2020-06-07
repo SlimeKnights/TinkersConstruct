@@ -20,7 +20,7 @@ import slimeknights.tconstruct.tables.client.renderer.CraftingStationTileEntityR
 public class TableClientEvents extends ClientEventBase {
 
   @SubscribeEvent
-  void setupClient(final FMLClientSetupEvent event) {
+  public static void setupClient(final FMLClientSetupEvent event) {
     ScreenManager.registerFactory(TinkerTables.craftingStationContainer.get(), CraftingStationScreen::new);
     ScreenManager.registerFactory(TinkerTables.partBuilderContainer.get(), PartBuilderScreen::new);
     ScreenManager.registerFactory(TinkerTables.patternChestContainer.get(), PatternChestScreen::new);
