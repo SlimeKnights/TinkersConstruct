@@ -42,6 +42,7 @@ import slimeknights.tconstruct.common.data.TConstructFluidTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructItemTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructLootTableProvider;
 import slimeknights.tconstruct.common.data.TConstructRecipeProvider;
+import slimeknights.tconstruct.debug.CommandDev;
 import slimeknights.tconstruct.debug.ToolDebugContainer;
 import slimeknights.tconstruct.debug.ToolDebugScreen;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -164,6 +165,7 @@ public class TConstruct {
         return Command.SINGLE_SUCCESS;
       });
     event.getCommandDispatcher().register(executes);
+    CommandDev.register(event.getCommandDispatcher());
   }
 
   @SubscribeEvent // TODO: Remove after a while, maybe at release.
