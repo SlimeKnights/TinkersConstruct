@@ -118,11 +118,10 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                         .build(consumer, prefix(TinkerCommons.mudBrick, folder));
 
     // book
-    // FIXME: switch book recipe once we decide how to deal with patterns
     ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.book)
       .addIngredient(Items.BOOK)
-      .addIngredient(TinkerCommons.driedBrick)
-      .addCriterion("has_item", this.hasItem(TinkerCommons.driedBrick))
+      .addIngredient(TinkerTables.pattern)
+      .addCriterion("has_item", this.hasItem(TinkerTables.pattern))
       .build(consumer, prefix(TinkerCommons.book, "common/"));
 
     // glass
