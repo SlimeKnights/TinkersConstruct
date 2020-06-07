@@ -17,15 +17,22 @@ import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.recipe.casting.CastingRecipeSerializer;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
 import slimeknights.tconstruct.library.registration.object.ItemObject;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
+import slimeknights.tconstruct.smeltery.block.CastingBasinBlock;
+import slimeknights.tconstruct.smeltery.block.CastingTableBlock;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
 import slimeknights.tconstruct.smeltery.block.SearedGlassBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.item.TankItem;
+import slimeknights.tconstruct.library.recipe.casting.CastingBasinRecipe;
+import slimeknights.tconstruct.library.recipe.casting.CastingTableRecipe;
+import slimeknights.tconstruct.smeltery.tileentity.CastingBasinTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.CastingTableTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
@@ -38,6 +45,7 @@ import java.util.function.Function;
  */
 public final class TinkerSmeltery extends TinkerModule {
   public static final Logger log = Util.getLogger("tinker_smeltery");
+
   /* Bricks */
   /* Crafting related items */
 
@@ -73,6 +81,8 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final BuildingBlockObject searedTile = BLOCKS.registerBuilding("seared_tile", SMELTERY, TOOLTIP_BLOCK_ITEM);
   public static final EnumObject<SearedTankBlock.TankType,SearedTankBlock> searedTank = BLOCKS.registerEnum("seared", SearedTankBlock.TankType.values(), (type) -> new SearedTankBlock(SMELTERY_GLASS), (b) -> new TankItem(b, SMELTERY_PROPS));
   public static final BlockItemObject<FaucetBlock> searedFaucet = BLOCKS.register("faucet", () -> new FaucetBlock(FAUCET), TOOLTIP_BLOCK_ITEM);
+  public static final BlockItemObject<CastingBasinBlock> castingBasin = BLOCKS.register("casting_basin", () -> new CastingBasinBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
+  public static final BlockItemObject<CastingTableBlock> castingTable = BLOCKS.register("casting_table", () -> new CastingTableBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
 
   /*
    * Tile entities
@@ -93,12 +103,20 @@ public final class TinkerSmeltery extends TinkerModule {
   });
   public static final RegistryObject<TileEntityType<TankTileEntity>> tank = TILE_ENTITIES.register("tank", TankTileEntity::new, (set) -> set.addAll(searedTank.values()));
   public static final RegistryObject<TileEntityType<FaucetTileEntity>> faucet = TILE_ENTITIES.register("faucet", FaucetTileEntity::new, searedFaucet);
+  public static final RegistryObject<TileEntityType<CastingBasinTileEntity>> basin = TILE_ENTITIES.register("basin", CastingBasinTileEntity::new, castingBasin);
+  public static final RegistryObject<TileEntityType<CastingTableTileEntity>> table = TILE_ENTITIES.register("table", CastingTableTileEntity::new, castingTable);
 
   /*
    * Items
    */
   public static final ItemObject<Item> searedBrick = ITEMS.register("seared_brick", SMELTERY_PROPS);
 
+
+  /*
+   * Recipe
+   */
+  public static final RegistryObject<CastingRecipeSerializer<CastingBasinRecipe>> basinRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin", () -> new CastingRecipeSerializer<>(CastingBasinRecipe::new));
+  public static final RegistryObject<CastingRecipeSerializer<CastingTableRecipe>> tableRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table", () -> new CastingRecipeSerializer<>(CastingTableRecipe::new));
 
   /*
    * Smeltery block lists
