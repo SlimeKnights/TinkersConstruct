@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "tconstruct:manyullyn_ingot",
+  "ingredients": [
+    {
+      "item": "tconstruct:cobalt_ingot"
+    },
+    {
+      "item": "tconstruct:ardite_ingot"
+    },
+    {
+      "item": "minecraft:coal_block"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:manyullyn_ingot"
+  }
+}

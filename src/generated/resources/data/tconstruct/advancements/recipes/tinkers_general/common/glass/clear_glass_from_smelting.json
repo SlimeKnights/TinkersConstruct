@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:glass"
+            "tag": "forge:glass/colorless"
           }
         ]
       }

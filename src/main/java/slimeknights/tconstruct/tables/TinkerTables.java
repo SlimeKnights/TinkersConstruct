@@ -4,11 +4,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
+import slimeknights.tconstruct.library.registration.object.ItemObject;
 import slimeknights.tconstruct.tables.block.TableBlock;
 import slimeknights.tconstruct.tables.block.chest.PartChestBlock;
 import slimeknights.tconstruct.tables.block.chest.PatternChestBlock;
@@ -35,6 +37,11 @@ public final class TinkerTables extends TinkerModule {
   public static final BlockItemObject<TableBlock> partBuilder = BLOCKS.register("part_builder", () -> new PartBuilderBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
   public static final BlockItemObject<TableBlock> patternChest = BLOCKS.register("pattern_chest", () -> new PatternChestBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
   public static final BlockItemObject<TableBlock> partChest = BLOCKS.register("part_chest", () -> new PartChestBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
+
+  /*
+   * Items
+   */
+  public static final ItemObject<Item> pattern = ITEMS.register("pattern", GENERAL_PROPS);
 
   /*
    * Tile entites

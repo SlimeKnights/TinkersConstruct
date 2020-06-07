@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:pigiron_block",
+  "pattern": [
+    "iii",
+    "iii",
+    "iii"
+  ],
+  "key": {
+    "i": {
+      "item": "tconstruct:pigiron_ingot"
+    }
+  },
+  "result": {
+    "item": "tconstruct:pigiron_block"
+  }
+}

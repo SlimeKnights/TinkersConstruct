@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "tconstruct:seared_cracked_bricks"
+  },
+  "result": "tconstruct:seared_cobble",
+  "experience": 0.3,
+  "cookingtime": 300
+}

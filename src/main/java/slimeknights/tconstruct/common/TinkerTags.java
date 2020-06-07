@@ -33,6 +33,7 @@ public class TinkerTags {
     public static final Tag<Block> SMOOTH_SEARED_BLOCKS = tag("smooth_seared_blocks");
     public static final Tag<Block> SEARED_BRICKS = tag("seared_bricks");
 
+
     private static Tag<Block> tag(String name) {
       return new BlockTags.Wrapper(new ResourceLocation("tconstruct", name));
     }

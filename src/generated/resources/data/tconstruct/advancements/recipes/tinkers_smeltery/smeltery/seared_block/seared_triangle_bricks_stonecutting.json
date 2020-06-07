@@ -6,7 +6,17 @@
     ]
   },
   "criteria": {
-    "has_item": {
+    "has_stone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:seared_stone"
+          }
+        ]
+      }
+    },
+    "has_bricks": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -25,7 +35,8 @@
   },
   "requirements": [
     [
-      "has_item",
+      "has_stone",
+      "has_bricks",
       "has_the_recipe"
     ]
   ]

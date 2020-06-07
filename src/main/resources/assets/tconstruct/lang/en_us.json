@@ -101,15 +101,25 @@
     "item.tconstruct.magma_slime_ball": "Slimeball",
     "item.tconstruct.pink_slime_ball": "Slimeball",
     "item.tconstruct.beef_jerky": "Beef Jerky",
+    "item.tconstruct.beef_jerky.tooltip": "Saturating!",
     "item.tconstruct.chicken_jerky": "Chicken Jerky",
+    "item.tconstruct.chicken_jerky.tooltip": "Saturating!",
     "item.tconstruct.pork_jerky": "Bacon Jerky",
+    "item.tconstruct.pork_jerky.tooltip": "Saturating!",
     "item.tconstruct.mutton_jerky": "Mutton Jerky",
+    "item.tconstruct.mutton_jerky.tooltip": "Saturating!",
     "item.tconstruct.rabbit_jerky": "Rabbit Jerky",
-    "item.tconstruct.fish_jerky": "Fish Jerky",
+    "item.tconstruct.rabbit_jerky.tooltip": "Saturating!",
+    "item.tconstruct.fish_jerky": "Cod Jerky",
+    "item.tconstruct.fish_jerky.tooltip": "Saturating!",
     "item.tconstruct.salmon_jerky": "Salmon Jerky",
-    "item.tconstruct.clownfish_jerky": "Clownfish Jerky",
+    "item.tconstruct.salmon_jerky.tooltip": "Saturating!",
+    "item.tconstruct.clownfish_jerky": "Tropical Fish Jerky",
+    "item.tconstruct.clownfish_jerky.tooltip": "Colorful!",
     "item.tconstruct.pufferfish_jerky": "Fugu Jerky",
+    "item.tconstruct.pufferfish_jerky.tooltip": "Safe to eat!",
     "item.tconstruct.monster_jerky": "Monster Jerky",
+    "item.tconstruct.monster_jerky.tooltip": "Safe to eat!",
     "item.tconstruct.green_slime_drop": "Gelatinous Slime Drop",
     "item.tconstruct.blue_slime_drop": "Gelatinous Slime Drop",
     "item.tconstruct.purple_slime_drop": "Gelatinous Slime Drop",
@@ -162,25 +172,16 @@
 
     "_comment": "Tinkers Fluids",
 
-    "block.tconstruct.blue_slime_fluid_block": "Blue Slime",
     "block.tconstruct.blue_slime_fluid": "Blue Slime",
-    "block.tconstruct.blue_slime_fluid_flowing": "Flowing Blue Slime",
-
-    "block.tconstruct.purple_slime_fluid_block": "Purple Slime",
-    "block.tconstruct.purple_slime_fluid": "Purple Slime",
-    "block.tconstruct.purple_slime_fluid_flowing": "Flowing Purple Slime",
-
-    "fluid.tconstruct.blue_slime_fluid_block": "Blue Slime",
-    "fluid.tconstruct.blue_slime_fluid": "Blue Slime",
-    "fluid.tconstruct.blue_slime_fluid_flowing": "Flowing Blue Slime",
-
-    "fluid.tconstruct.purple_slime_fluid_block": "Purple Slime",
-    "fluid.tconstruct.purple_slime_fluid": "Purple Slime",
-    "fluid.tconstruct.purple_slime_fluid_flowing": "Flowing Purple Slime",
-
+    "fluid.tconstruct.blue_slime": "Blue Slime",
+    "fluid.tconstruct.flowing_blue_slime": "Flowing Blue Slime",
     "item.tconstruct.blue_slime_bucket": "Blue Slime Bucket",
 
+    "block.tconstruct.purple_slime_fluid": "Purple Slime",
+    "fluid.tconstruct.purple_slime": "Purple Slime",
+    "fluid.tconstruct.flowing_purple_slime": "Flowing Purple Slime",
     "item.tconstruct.purple_slime_bucket": "Purple Slime Bucket",
+
 
     "_comment": "Tinkers Gadgets",
 
@@ -268,6 +269,8 @@
 
     "block.tconstruct.pattern_chest": "Pattern Chest",
     "block.tconstruct.pattern_chest.tooltip": "Holds either patterns or casts",
+    
+    "item.tconstruct.pattern": "Pattern",
 
     "_comment": "Tinkers Smeltery",
 

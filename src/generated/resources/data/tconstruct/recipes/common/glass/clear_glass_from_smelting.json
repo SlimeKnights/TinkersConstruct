@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "minecraft:glass"
+    "tag": "forge:glass/colorless"
   },
   "result": "tconstruct:clear_glass",
   "experience": 0.1,

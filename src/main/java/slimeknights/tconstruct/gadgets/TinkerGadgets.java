@@ -92,7 +92,7 @@ public final class TinkerGadgets extends TinkerModule {
   public static final ItemObject<EflnBallItem> efln = ITEMS.register("efln_ball", EflnBallItem::new);
 
   // foods
-  public static final EnumObject<SlimeType,EdibleItem> slime_drop = ITEMS.registerEnum(SlimeType.VISIBLE_COLORS, "slime_drop", (type) -> new EdibleItem(type.getSlimeDropFood(type), TinkerRegistry.tabGadgets));
+  public static final EnumObject<SlimeType,EdibleItem> slimeDrop = ITEMS.registerEnum(SlimeType.VISIBLE_COLORS, "slime_drop", (type) -> new EdibleItem(type.getSlimeDropFood(type), TinkerRegistry.tabGadgets));
   // jerkies
   public static final ItemObject<EdibleItem> monsterJerky = ITEMS.register("monster_jerky", () -> new EdibleItem(TinkerFood.MONSTER_JERKY, TinkerRegistry.tabGadgets));
   public static final ItemObject<EdibleItem> beefJerky = ITEMS.register("beef_jerky", () -> new EdibleItem(TinkerFood.BEEF_JERKY, TinkerRegistry.tabGadgets));

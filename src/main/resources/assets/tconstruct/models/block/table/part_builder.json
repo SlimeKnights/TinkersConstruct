@@ -4,8 +4,8 @@
         "particle": "tconstruct:block/table/part_builder_top",
         "top": "tconstruct:block/table/part_builder_top",
         "side": "tconstruct:block/table/side",
-        "bottom": "minecraft:block/oak_log",
-        "leg": "minecraft:block/oak_log",
-        "legBottom": "minecraft:block/oak_log"
+        "bottom": "minecraft:block/oak_planks",
+        "leg": "minecraft:block/oak_planks",
+        "legBottom": "minecraft:block/oak_planks"
     }
 }

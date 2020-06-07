@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "tconstruct:mud_bricks"
-  },
-  "result": "tconstruct:mud_bricks_slab",
-  "count": 2
-}

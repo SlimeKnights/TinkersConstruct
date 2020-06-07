@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:fancy_item_frame",
+  "pattern": [
+    " e ",
+    "eMe",
+    " e "
+  ],
+  "key": {
+    "e": {
+      "item": "tconstruct:cobalt_nugget"
+    },
+    "M": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result": {
+    "item": "tconstruct:cobalt_item_frame"
+  }
+}

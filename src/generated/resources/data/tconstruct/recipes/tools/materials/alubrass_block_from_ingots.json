@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:alubrass_block",
+  "pattern": [
+    "iii",
+    "iii",
+    "iii"
+  ],
+  "key": {
+    "i": {
+      "item": "tconstruct:alubrass_ingot"
+    }
+  },
+  "result": {
+    "item": "tconstruct:alubrass_block"
+  }
+}
