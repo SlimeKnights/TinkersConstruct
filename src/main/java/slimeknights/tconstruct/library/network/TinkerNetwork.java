@@ -10,6 +10,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.DataSyncOnLoginEvents;
+import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.tables.network.LastRecipePacket;
 import slimeknights.tconstruct.tables.network.PartCrafterSelectionPacket;
@@ -42,6 +43,7 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(LastRecipePacket.class, LastRecipePacket::encode, LastRecipePacket::new, LastRecipePacket::handle);
     instance.registerPacket(PartCrafterSelectionPacket.class, PartCrafterSelectionPacket::encode, PartCrafterSelectionPacket::new, PartCrafterSelectionPacket::handle);
     instance.registerPacket(FluidUpdatePacket.class, FluidUpdatePacket::encode, FluidUpdatePacket::new, FluidUpdatePacket::handle);
+    instance.registerPacket(FaucetActivationPacket.class, FaucetActivationPacket::encode, FaucetActivationPacket::new, FaucetActivationPacket::handle);
 
     DataSyncOnLoginEvents.setupMaterialDataSyncPackets();
   }

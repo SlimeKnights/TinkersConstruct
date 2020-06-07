@@ -188,6 +188,8 @@ public class TConstructBlockLootTables extends BlockLootTables {
           .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation(Tags.TANK, Tags.TANK));
       }));
     }
+
+    this.registerDropSelfLootTable(TinkerSmeltery.searedFaucet.get());
   }
 
   /*

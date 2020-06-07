@@ -17,6 +17,8 @@ public class FluidUpdatePacket extends AbstractPacketThreadsafe {
   public BlockPos pos;
   public FluidStack fluid;
 
+  public FluidUpdatePacket() {}
+
   public FluidUpdatePacket(BlockPos pos, FluidStack fluid) {
     this.pos = pos;
     this.fluid = fluid;
