@@ -6,16 +6,19 @@ import net.minecraft.data.ItemTagsProvider;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.common.Tags;
-import slimeknights.tconstruct.items.CommonItems;
-import slimeknights.tconstruct.items.GadgetItems;
+import net.minecraftforge.common.Tags;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.tools.TinkerMaterials;
 
-import java.nio.file.Path;
 import java.util.Locale;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class TConstructItemTagsProvider extends ItemTagsProvider {
 
@@ -25,71 +28,72 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     super(generatorIn);
   }
 
-  private void addCommon() {
-    this.getBuilder(net.minecraftforge.common.Tags.Items.SLIMEBALLS).add(Tags.Items.BLUE_SLIMEBALL, Tags.Items.PURPLE_SLIMEBALL, Tags.Items.BLOOD_SLIMEBALL, Tags.Items.MAGMA_SLIMEBALL).add(CommonItems.pink_slime_ball);
-    this.getBuilder(Tags.Items.GREEN_SLIMEBALL).add(Items.SLIME_BALL);
-    this.getBuilder(Tags.Items.BLUE_SLIMEBALL).add(CommonItems.blue_slime_ball);
-    this.getBuilder(Tags.Items.PURPLE_SLIMEBALL).add(CommonItems.purple_slime_ball);
-    this.getBuilder(Tags.Items.BLOOD_SLIMEBALL).add(CommonItems.blood_slime_ball);
-    this.getBuilder(Tags.Items.MAGMA_SLIMEBALL).add(CommonItems.magma_slime_ball);
-
-    this.getBuilder(net.minecraftforge.common.Tags.Items.INGOTS).add(Tags.Items.INGOTS_COBALT, Tags.Items.INGOTS_ARDITE, Tags.Items.INGOTS_MANYULLYN, Tags.Items.INGOTS_KNIGHTSLIME, Tags.Items.INGOTS_PIGIRON, Tags.Items.INGOTS_ALUBRASS);
-    this.getBuilder(Tags.Items.INGOTS_COBALT).add(CommonItems.cobalt_ingot);
-    this.getBuilder(Tags.Items.INGOTS_ARDITE).add(CommonItems.ardite_ingot);
-    this.getBuilder(Tags.Items.INGOTS_MANYULLYN).add(CommonItems.manyullyn_ingot);
-    this.getBuilder(Tags.Items.INGOTS_KNIGHTSLIME).add(CommonItems.knightslime_ingot);
-    this.getBuilder(Tags.Items.INGOTS_PIGIRON).add(CommonItems.pigiron_ingot);
-    this.getBuilder(Tags.Items.INGOTS_ALUBRASS).add(CommonItems.alubrass_ingot);
-
-    this.getBuilder(net.minecraftforge.common.Tags.Items.NUGGETS).add(Tags.Items.NUGGETS_COBALT, Tags.Items.NUGGETS_ARDITE, Tags.Items.NUGGETS_MANYULLYN, Tags.Items.NUGGETS_KNIGHTSLIME, Tags.Items.NUGGETS_PIGIRON, Tags.Items.NUGGETS_ALUBRASS);
-    this.getBuilder(Tags.Items.NUGGETS_COBALT).add(CommonItems.cobalt_nugget);
-    this.getBuilder(Tags.Items.NUGGETS_ARDITE).add(CommonItems.ardite_nugget);
-    this.getBuilder(Tags.Items.NUGGETS_MANYULLYN).add(CommonItems.manyullyn_nugget);
-    this.getBuilder(Tags.Items.NUGGETS_KNIGHTSLIME).add(CommonItems.knightslime_nugget);
-    this.getBuilder(Tags.Items.NUGGETS_PIGIRON).add(CommonItems.pigiron_nugget);
-    this.getBuilder(Tags.Items.NUGGETS_ALUBRASS).add(CommonItems.alubrass_nugget);
-
-    this.copy(net.minecraftforge.common.Tags.Blocks.STORAGE_BLOCKS, net.minecraftforge.common.Tags.Items.STORAGE_BLOCKS);
-    this.copy(Tags.Blocks.STORAGE_BLOCKS_COBALT, Tags.Items.STORAGE_BLOCKS_COBALT);
-    this.copy(Tags.Blocks.STORAGE_BLOCKS_ARDITE, Tags.Items.STORAGE_BLOCKS_ARDITE);
-    this.copy(Tags.Blocks.STORAGE_BLOCKS_MANYULLYN, Tags.Items.STORAGE_BLOCKS_MANYULLYN);
-    this.copy(Tags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME, Tags.Items.STORAGE_BLOCKS_KNIGHTSLIME);
-    this.copy(Tags.Blocks.STORAGE_BLOCKS_PIGIRON, Tags.Items.STORAGE_BLOCKS_PIGIRON);
-    this.copy(Tags.Blocks.STORAGE_BLOCKS_ALUBRASS, Tags.Items.STORAGE_BLOCKS_ALUBRASS);
-
-    copyColored(net.minecraftforge.common.Tags.Blocks.GLASS, net.minecraftforge.common.Tags.Items.GLASS);
-    copy(net.minecraftforge.common.Tags.Blocks.STAINED_GLASS, net.minecraftforge.common.Tags.Items.STAINED_GLASS);
-  }
-
-  private void addWorld() {
-    this.copy(Tags.Blocks.SLIMY_LOGS, Tags.Items.SLIMY_LOGS);
-    this.copy(Tags.Blocks.SLIMY_LEAVES, Tags.Items.SLIMY_LEAVES);
-    this.copy(Tags.Blocks.SLIMY_SAPLINGS, Tags.Items.SLIMY_SAPLINGS);
-
-    this.copy(net.minecraftforge.common.Tags.Blocks.ORES, net.minecraftforge.common.Tags.Items.ORES);
-    this.copy(Tags.Blocks.ORES_COBALT, Tags.Items.ORES_COBALT);
-    this.copy(Tags.Blocks.ORES_ARDITE, Tags.Items.ORES_ARDITE);
-  }
-
-  public void addGadgets() {
-    this.getBuilder(net.minecraftforge.common.Tags.Items.RODS).add(Tags.Items.RODS_STONE);
-    this.getBuilder(Tags.Items.RODS_STONE).add(GadgetItems.stone_stick);
-  }
-
   @Override
-  public void registerTags() {
-    super.registerTags();
-
-    this.filter = this.tagToBuilder.keySet().stream().map(Tag::getId).collect(Collectors.toSet());
-
+  protected void registerTags() {
     this.addCommon();
     this.addGadgets();
     this.addWorld();
+    this.addSmeltery();
   }
 
-  @Override
-  protected Path makePath(ResourceLocation id) {
-    return this.filter != null && this.filter.contains(id) ? null : super.makePath(id); //We don't want to save vanilla tags.
+  private void addCommon() {
+
+    this.getBuilder(Tags.Items.SLIMEBALLS).add(TinkerTags.Items.BLUE_SLIMEBALL, TinkerTags.Items.PURPLE_SLIMEBALL, TinkerTags.Items.BLOOD_SLIMEBALL, TinkerTags.Items.MAGMA_SLIMEBALL, TinkerTags.Items.PINK_SLIMEBALL);
+    this.getBuilder(TinkerTags.Items.GREEN_SLIMEBALL).add(Items.SLIME_BALL);
+    this.getBuilder(TinkerTags.Items.BLUE_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.BLUE));
+    this.getBuilder(TinkerTags.Items.PURPLE_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.PURPLE));
+    this.getBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.BLOOD));
+    this.getBuilder(TinkerTags.Items.MAGMA_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.MAGMA));
+    this.getBuilder(TinkerTags.Items.PINK_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.PINK));
+
+    this.getBuilder(Tags.Items.INGOTS).add(TinkerTags.Items.INGOTS_COBALT, TinkerTags.Items.INGOTS_ARDITE, TinkerTags.Items.INGOTS_MANYULLYN, TinkerTags.Items.INGOTS_KNIGHTSLIME, TinkerTags.Items.INGOTS_PIGIRON, TinkerTags.Items.INGOTS_ALUBRASS);
+    this.getBuilder(TinkerTags.Items.INGOTS_COBALT).add(TinkerMaterials.cobaltIngot.get());
+    this.getBuilder(TinkerTags.Items.INGOTS_ARDITE).add(TinkerMaterials.arditeIngot.get());
+    this.getBuilder(TinkerTags.Items.INGOTS_MANYULLYN).add(TinkerMaterials.manyullynIngot.get());
+    this.getBuilder(TinkerTags.Items.INGOTS_KNIGHTSLIME).add(TinkerMaterials.knightslimeIngot.get());
+    this.getBuilder(TinkerTags.Items.INGOTS_PIGIRON).add(TinkerMaterials.pigironIngot.get());
+    this.getBuilder(TinkerTags.Items.INGOTS_ALUBRASS).add(TinkerMaterials.alubrassIngot.get());
+
+    this.getBuilder(Tags.Items.NUGGETS).add(TinkerTags.Items.NUGGETS_COBALT, TinkerTags.Items.NUGGETS_ARDITE, TinkerTags.Items.NUGGETS_MANYULLYN, TinkerTags.Items.NUGGETS_KNIGHTSLIME, TinkerTags.Items.NUGGETS_PIGIRON, TinkerTags.Items.NUGGETS_ALUBRASS);
+    this.getBuilder(TinkerTags.Items.NUGGETS_COBALT).add(TinkerMaterials.cobaltNugget.get());
+    this.getBuilder(TinkerTags.Items.NUGGETS_ARDITE).add(TinkerMaterials.arditeNugget.get());
+    this.getBuilder(TinkerTags.Items.NUGGETS_MANYULLYN).add(TinkerMaterials.manyullynNugget.get());
+    this.getBuilder(TinkerTags.Items.NUGGETS_KNIGHTSLIME).add(TinkerMaterials.knightslimeNugget.get());
+    this.getBuilder(TinkerTags.Items.NUGGETS_PIGIRON).add(TinkerMaterials.pigironNugget.get());
+    this.getBuilder(TinkerTags.Items.NUGGETS_ALUBRASS).add(TinkerMaterials.alubrassNugget.get());
+
+    this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
+    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT, TinkerTags.Items.STORAGE_BLOCKS_COBALT);
+    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE, TinkerTags.Items.STORAGE_BLOCKS_ARDITE);
+    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN, TinkerTags.Items.STORAGE_BLOCKS_MANYULLYN);
+    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME, TinkerTags.Items.STORAGE_BLOCKS_KNIGHTSLIME);
+    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_PIGIRON, TinkerTags.Items.STORAGE_BLOCKS_PIGIRON);
+    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_ALUBRASS, TinkerTags.Items.STORAGE_BLOCKS_ALUBRASS);
+
+    copyColored(Tags.Blocks.GLASS, Tags.Items.GLASS);
+    copy(Tags.Blocks.STAINED_GLASS, Tags.Items.STAINED_GLASS);
+  }
+
+  private void addWorld() {
+    this.copy(TinkerTags.Blocks.SLIMY_LOGS, TinkerTags.Items.SLIMY_LOGS);
+    this.copy(TinkerTags.Blocks.SLIMY_LEAVES, TinkerTags.Items.SLIMY_LEAVES);
+    this.copy(TinkerTags.Blocks.SLIMY_SAPLINGS, TinkerTags.Items.SLIMY_SAPLINGS);
+
+    this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
+    this.copy(TinkerTags.Blocks.ORES_COBALT, TinkerTags.Items.ORES_COBALT);
+    this.copy(TinkerTags.Blocks.ORES_ARDITE, TinkerTags.Items.ORES_ARDITE);
+  }
+
+  private void addGadgets() {
+    this.copy(BlockTags.RAILS, ItemTags.RAILS);
+    this.getBuilder(Tags.Items.RODS).add(TinkerTags.Items.RODS_STONE);
+    this.getBuilder(TinkerTags.Items.RODS_STONE).add(TinkerGadgets.stoneStick.get());
+  }
+
+  private void addSmeltery() {
+    this.copy(TinkerTags.Blocks.SEARED_BRICKS, TinkerTags.Items.SEARED_BRICKS);
+    this.copy(TinkerTags.Blocks.SMOOTH_SEARED_BLOCKS, TinkerTags.Items.SMOOTH_SEARED_BLOCKS);
+    this.copy(TinkerTags.Blocks.SEARED_BLOCKS, TinkerTags.Items.SEARED_BLOCKS);
   }
 
   @Override
@@ -118,9 +122,9 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   private Tag<Block> getForgeBlockTag(String name) {
     try {
       name = name.toUpperCase(Locale.ENGLISH);
-      return (Tag<Block>) net.minecraftforge.common.Tags.Blocks.class.getDeclaredField(name).get(null);
+      return (Tag<Block>) Tags.Blocks.class.getDeclaredField(name).get(null);
     } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-      throw new IllegalStateException(net.minecraftforge.common.Tags.Blocks.class.getName() + " is missing tag name: " + name);
+      throw new IllegalStateException(Tags.Blocks.class.getName() + " is missing tag name: " + name);
     }
   }
 
@@ -131,9 +135,9 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   private Tag<Item> getForgeItemTag(String name) {
     try {
       name = name.toUpperCase(Locale.ENGLISH);
-      return (Tag<Item>) net.minecraftforge.common.Tags.Items.class.getDeclaredField(name).get(null);
+      return (Tag<Item>) Tags.Items.class.getDeclaredField(name).get(null);
     } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-      throw new IllegalStateException(net.minecraftforge.common.Tags.Items.class.getName() + " is missing tag name: " + name);
+      throw new IllegalStateException(Tags.Items.class.getName() + " is missing tag name: " + name);
     }
   }
 

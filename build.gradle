@@ -95,6 +95,17 @@ if (System.getenv().ARTIFACT_VERSION != null) {
 
 version = "${minecraft_version}-${artifact_version}"
 
+sourceSets {
+    main {
+        resources {
+            srcDirs = [
+                "$rootDir/src/main/resources",
+                "$rootDir/src/generated/resources"
+            ]
+        }
+    }
+}
+
 minecraft {
     mappings channel: 'snapshot', version: mappings_version
 
@@ -112,7 +123,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                mantle {
+                tconstruct {
                     source sourceSets.main
                 }
             }
@@ -128,7 +139,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                mantle {
+                tconstruct {
                     source sourceSets.main
                 }
             }
@@ -143,7 +154,7 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
-            args '--mod', 'tconstruct', '--all', '--output', file('generated/resources/')
+            args '--mod', 'tconstruct', '--all', '--output', file('src/generated/resources/')
 
             mods {
                 tconstruct {
@@ -168,8 +179,8 @@ dependencies {
     // at runtime, use the full JEI jar
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
-    //compile fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}")
-    //deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${config.probe_version}"
+    compile fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}")
+    compile fg.deobf("mcjty.theoneprobe:TheOneProbe-1.15:${probe_version}")
     //deobfCompile "cofh:RedstoneFlux:${config.redstoneflux_version}:universal"
 
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'

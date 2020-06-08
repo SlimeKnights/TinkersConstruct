@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:mud_bricks_slab",
+  "pattern": [
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "tconstruct:mud_bricks"
+    }
+  },
+  "result": {
+    "item": "tconstruct:mud_bricks_slab",
+    "count": 6
+  }
+}

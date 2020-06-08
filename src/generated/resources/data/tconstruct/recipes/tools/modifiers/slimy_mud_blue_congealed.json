@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "tconstruct:slimy_mud",
+  "ingredients": [
+    {
+      "item": "tconstruct:blue_congealed_slime"
+    },
+    {
+      "tag": "forge:sand"
+    },
+    {
+      "item": "minecraft:dirt"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:slimy_mud_blue"
+  }
+}

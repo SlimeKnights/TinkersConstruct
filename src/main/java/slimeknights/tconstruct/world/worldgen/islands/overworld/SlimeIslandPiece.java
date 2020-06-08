@@ -13,18 +13,17 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.TinkerStructures;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
-import slimeknights.tconstruct.world.worldgen.trees.BlueSlimeTree;
-import slimeknights.tconstruct.world.worldgen.trees.PurpleSlimeTree;
+import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeatureConfig;
 
 import java.util.Random;
@@ -38,15 +37,15 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   private int numberOfTreesPlaced;
   private ChunkGenerator<?> chunkGenerator;
 
-  private static final BlueSlimeTree blueSlimeTree = new BlueSlimeTree(true);
-  private static final PurpleSlimeTree purpleSlimeTree = new PurpleSlimeTree(true);
+  private static final SlimeTree SLIME_TREE = new SlimeTree(SlimeGrassBlock.FoliageType.BLUE,true);
+  private static final SlimeTree PURPLE_BLUE_SLIME_TREE = new SlimeTree(SlimeGrassBlock.FoliageType.PURPLE,true);
 
   public SlimeIslandPiece(TemplateManager templateManager, SlimeIslandVariant variant, String templateName, BlockPos templatePosition, Rotation rotation) {
     this(templateManager, variant, templateName, templatePosition, rotation, Mirror.NONE);
   }
 
   public SlimeIslandPiece(TemplateManager templateManager, SlimeIslandVariant variant, String templateName, BlockPos templatePosition, Rotation rotation, Mirror mirror) {
-    super(TinkerWorld.SLIME_ISLAND_PIECE, 0);
+    super(TinkerStructures.slimeIslandPiece, 0);
     this.templateName = templateName;
     this.variant = variant;
     this.templatePosition = templatePosition;
@@ -57,7 +56,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   }
 
   public SlimeIslandPiece(TemplateManager templateManager, CompoundNBT nbt) {
-    super(TinkerWorld.SLIME_ISLAND_PIECE, nbt);
+    super(TinkerStructures.slimeIslandPiece, nbt);
     this.templateName = nbt.getString("Template");
     this.variant = SlimeIslandVariant.getVariantFromIndex(nbt.getInt("Variant"));
     this.rotation = Rotation.valueOf(nbt.getString("Rot"));
@@ -118,10 +117,10 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
           switch (this.variant) {
             case BLUE:
             case GREEN:
-              treeFeature = purpleSlimeTree.getSlimeTreeFeature(rand, false);
+              treeFeature = PURPLE_BLUE_SLIME_TREE.getSlimeTreeFeature(rand, false);
               break;
             case PURPLE:
-              treeFeature = blueSlimeTree.getSlimeTreeFeature(rand, false);
+              treeFeature = SLIME_TREE.getSlimeTreeFeature(rand, false);
               break;
             default:
               throw new IllegalStateException("Unexpected variant: " + this.variant);
@@ -172,9 +171,9 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   }
 
   @Override
-  public boolean func_225577_a_(IWorld worldIn, ChunkGenerator<?> chunkGenerator, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPosIn) {
+  public boolean create(IWorld worldIn, ChunkGenerator<?> chunkGenerator, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPosIn) {
     this.chunkGenerator = chunkGenerator;
 
-    return super.func_225577_a_(worldIn, chunkGenerator, randomIn, structureBoundingBoxIn, chunkPosIn);
+    return super.create(worldIn, chunkGenerator, randomIn, structureBoundingBoxIn, chunkPosIn);
   }
 }

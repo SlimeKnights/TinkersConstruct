@@ -8,6 +8,7 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.data.GenericDataProvider;
@@ -30,8 +31,8 @@ public class MaterialStatsDataProvider extends GenericDataProvider {
     .disableHtmlEscaping()
     .create();
 
-  public MaterialStatsDataProvider() {
-    super(MaterialStatsManager.FOLDER, GSON);
+  public MaterialStatsDataProvider(DataGenerator gen) {
+    super(gen, MaterialStatsManager.FOLDER, GSON);
   }
 
   @Override

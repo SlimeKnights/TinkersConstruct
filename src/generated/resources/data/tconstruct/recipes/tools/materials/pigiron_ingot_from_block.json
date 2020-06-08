@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "tconstruct:pigiron_ingot",
+  "ingredients": [
+    {
+      "item": "tconstruct:pigiron_block"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:pigiron_ingot",
+    "count": 9
+  }
+}

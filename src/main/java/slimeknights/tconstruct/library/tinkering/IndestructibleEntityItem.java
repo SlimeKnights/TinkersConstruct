@@ -9,7 +9,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-import slimeknights.tconstruct.entity.ToolEntities;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nonnull;
 
@@ -20,7 +20,7 @@ public class IndestructibleEntityItem extends ItemEntity {
   }
 
   public IndestructibleEntityItem(World worldIn, double x, double y, double z, ItemStack stack) {
-    super(ToolEntities.indestructible_item, worldIn);
+    super(TinkerTools.indestructibleItem.get(), worldIn);
     this.setPosition(x, y, z);
     this.rotationYaw = this.rand.nextFloat() * 360.0F;
     this.setMotion(this.rand.nextDouble() * 0.2D - 0.1D, 0.2D, this.rand.nextDouble() * 0.2D - 0.1D);

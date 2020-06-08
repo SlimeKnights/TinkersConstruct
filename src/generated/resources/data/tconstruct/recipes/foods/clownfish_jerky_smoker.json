@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "minecraft:tropical_fish"
+  },
+  "result": "tconstruct:clownfish_jerky",
+  "experience": 0.35,
+  "cookingtime": 100
+}

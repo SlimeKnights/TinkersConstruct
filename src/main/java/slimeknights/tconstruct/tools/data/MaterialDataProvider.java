@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.data;
 
+import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;
@@ -10,8 +11,8 @@ import slimeknights.tconstruct.library.materials.json.MaterialJson;
 
 public class MaterialDataProvider extends GenericDataProvider {
 
-  public MaterialDataProvider() {
-    super(MaterialManager.FOLDER, MaterialManager.GSON);
+  public MaterialDataProvider(DataGenerator gen) {
+    super(gen, MaterialManager.FOLDER, MaterialManager.GSON);
   }
 
   @Override

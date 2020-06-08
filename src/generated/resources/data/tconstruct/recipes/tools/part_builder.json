@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "p",
+    "w"
+  ],
+  "key": {
+    "p": {
+      "item": "tconstruct:pattern"
+    },
+    "w": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "tconstruct:part_builder"
+  }
+}

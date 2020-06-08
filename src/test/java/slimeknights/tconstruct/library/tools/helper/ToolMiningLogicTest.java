@@ -11,7 +11,7 @@ import slimeknights.tconstruct.fixture.MaterialItemFixture;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.tinkering.Category;
-import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolCoreTest;
@@ -76,9 +76,9 @@ class ToolMiningLogicTest extends ToolCoreTest {
       new ToolDefinition(
         new ToolBaseStatDefinition.Builder().setDamageModifier(1f).setMiningSpeedModifer(modifier).build(),
         ImmutableList.of(
-          new PartMaterialType(MaterialItemFixture.MATERIAL_ITEM_HEAD, HeadMaterialStats.ID),
-          new PartMaterialType(MaterialItemFixture.MATERIAL_ITEM_HANDLE, HandleMaterialStats.ID),
-          new PartMaterialType(MaterialItemFixture.MATERIAL_ITEM_EXTRA, ExtraMaterialStats.ID)
+          new PartMaterialRequirement(() -> MaterialItemFixture.MATERIAL_ITEM_HEAD, HeadMaterialStats.ID),
+          new PartMaterialRequirement(() -> MaterialItemFixture.MATERIAL_ITEM_HANDLE, HandleMaterialStats.ID),
+          new PartMaterialRequirement(() -> MaterialItemFixture.MATERIAL_ITEM_EXTRA, ExtraMaterialStats.ID)
         ),
         ImmutableSet.of(Category.HARVEST)
       ));

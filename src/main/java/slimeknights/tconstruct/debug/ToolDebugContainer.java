@@ -13,11 +13,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import slimeknights.mantle.inventory.OutSlot;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.items.ToolItems;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
+import slimeknights.tconstruct.tools.TinkerToolParts;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ToolDebugContainer extends Container {
@@ -48,10 +49,10 @@ public class ToolDebugContainer extends Container {
       this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 142));
     }
 
-    ItemStack st = ToolItems.test_part.getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:stone")));
-    ItemStack st2 = ToolItems.test_part.getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:wood")));
-    ItemStack st3 = ToolItems.test_part.getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:ardite")));
-    ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(NonNullList.from(ItemStack.EMPTY, st, st2, st3), ToolItems.test_tool);
+    ItemStack st = TinkerToolParts.pickaxeHead.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:stone")));
+    ItemStack st2 = TinkerToolParts.toolRod.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:wood")));
+    ItemStack st3 = TinkerToolParts.smallBinding.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:ardite")));
+    ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(NonNullList.from(ItemStack.EMPTY, st, st2, st3), TinkerTools.pickaxe.get());
     inventory.setInventorySlotContents(0, itemStack);
   }
 

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "tconstruct:seared_road"
+  },
+  "result": "tconstruct:seared_road_slab",
+  "count": 2
+}

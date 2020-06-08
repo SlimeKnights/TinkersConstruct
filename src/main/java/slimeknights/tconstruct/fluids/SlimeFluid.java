@@ -10,7 +10,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
-import slimeknights.tconstruct.blocks.WorldBlocks;
+import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 import java.util.Random;
 
@@ -36,13 +37,13 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
             // same block and a higher flow
             if (state2.getFluid() == this && getLevelFromState(state2) == getLevelFromState(state) - 1) {
               BlockState dirt = world.getBlockState(pos.offset(dir).down());
-              if (dirt.getBlock() == WorldBlocks.green_slime_dirt || dirt.getBlock() == WorldBlocks.blue_slime_dirt || dirt.getBlock() == WorldBlocks.purple_slime_dirt || dirt.getBlock() == WorldBlocks.magma_slime_dirt) {
+              if (TinkerWorld.slimeDirt.contains(dirt.getBlock())) {
                 // we got a block we flowed from and the block we flowed from has slimedirt below
                 // change the dirt below us to slimedirt too
                 world.setBlockState(pos.down(), dirt);
               }
-              if (dirt.getBlock() == WorldBlocks.blue_green_slime_grass) {
-                world.setBlockState(pos.down(), WorldBlocks.blue_green_slime_grass.getDirtState(dirt));
+              if (dirt.getBlock() == TinkerWorld.greenSlimeGrass.get(SlimeGrassBlock.FoliageType.BLUE)) {
+                world.setBlockState(pos.down(), TinkerWorld.greenSlimeGrass.get(SlimeGrassBlock.FoliageType.BLUE).getDirtState(dirt));
               }
             }
           }

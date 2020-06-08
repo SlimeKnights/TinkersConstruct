@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:slime_boots",
+  "pattern": [
+    "X X",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "tconstruct:blood_congealed_slime"
+    },
+    "X": {
+      "tag": "forge:slimeball/blood"
+    }
+  },
+  "result": {
+    "item": "tconstruct:blood_slime_boots"
+  }
+}

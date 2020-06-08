@@ -12,16 +12,16 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.TreeFeatureConfig;
 import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.TinkerStructures;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
-import slimeknights.tconstruct.world.worldgen.trees.MagmaSlimeTree;
+import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeatureConfig;
 
 import java.util.Random;
@@ -35,14 +35,14 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
   private int numberOfTreesPlaced;
   private ChunkGenerator<?> chunkGenerator;
 
-  private static final MagmaSlimeTree magmaSlimeTree = new MagmaSlimeTree();
+  private static final SlimeTree magmaSlimeTree = new SlimeTree(SlimeGrassBlock.FoliageType.ORANGE, false);
 
   public NetherSlimeIslandPiece(TemplateManager templateManager, SlimeIslandVariant variant, String templateName, BlockPos templatePosition, Rotation rotation) {
     this(templateManager, variant, templateName, templatePosition, rotation, Mirror.NONE);
   }
 
   public NetherSlimeIslandPiece(TemplateManager templateManager, SlimeIslandVariant variant, String templateName, BlockPos templatePosition, Rotation rotation, Mirror mirror) {
-    super(TinkerWorld.NETHER_SLIME_ISLAND_PIECE, 0);
+    super(TinkerStructures.netherSlimeIslandPiece, 0);
     this.templateName = templateName;
     this.variant = variant;
     this.templatePosition = templatePosition;
@@ -53,7 +53,7 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
   }
 
   public NetherSlimeIslandPiece(TemplateManager templateManager, CompoundNBT nbt) {
-    super(TinkerWorld.NETHER_SLIME_ISLAND_PIECE, nbt);
+    super(TinkerStructures.netherSlimeIslandPiece, nbt);
     this.templateName = nbt.getString("Template");
     this.variant = SlimeIslandVariant.getVariantFromIndex(nbt.getInt("Variant"));
     this.rotation = Rotation.valueOf(nbt.getString("Rot"));
@@ -128,11 +128,11 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
   }
 
   @Override
-  public boolean func_225577_a_(IWorld worldIn, ChunkGenerator<?> chunkGenerator, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPosIn) {
+  public boolean create(IWorld worldIn, ChunkGenerator<?> chunkGenerator, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPosIn) {
     this.chunkGenerator = chunkGenerator;
 
     if (this.isLava(worldIn, this.templatePosition.up()) && this.isLava(worldIn, this.templatePosition.up().north()) && this.isLava(worldIn, this.templatePosition.up().east()) && this.isLava(worldIn, this.templatePosition.up().south()) && this.isLava(worldIn, this.templatePosition.up().west())) {
-      return super.func_225577_a_(worldIn, chunkGenerator, randomIn, structureBoundingBoxIn, chunkPosIn);
+      return super.create(worldIn, chunkGenerator, randomIn, structureBoundingBoxIn, chunkPosIn);
     } else {
       return false;
     }

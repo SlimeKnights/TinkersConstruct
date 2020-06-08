@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:knightslime_block",
+  "pattern": [
+    "iii",
+    "iii",
+    "iii"
+  ],
+  "key": {
+    "i": {
+      "item": "tconstruct:knightslime_ingot"
+    }
+  },
+  "result": {
+    "item": "tconstruct:knightslime_block"
+  }
+}

@@ -5,68 +5,82 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.DyeColor;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.tconstruct.blocks.CommonBlocks;
-import slimeknights.tconstruct.blocks.DecorativeBlocks;
-import slimeknights.tconstruct.blocks.WorldBlocks;
-import slimeknights.tconstruct.common.Tags;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.tools.TinkerMaterials;
+import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
-import java.nio.file.Path;
 import java.util.Locale;
-import java.util.Set;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public class TConstructBlockTagsProvider extends BlockTagsProvider {
-
-  private Set<ResourceLocation> filter = null;
 
   public TConstructBlockTagsProvider(DataGenerator generatorIn) {
     super(generatorIn);
   }
 
-  private void addCommon() {
-    this.getBuilder(net.minecraftforge.common.Tags.Blocks.STORAGE_BLOCKS).add(Tags.Blocks.STORAGE_BLOCKS_COBALT, Tags.Blocks.STORAGE_BLOCKS_ARDITE, Tags.Blocks.STORAGE_BLOCKS_MANYULLYN, Tags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME, Tags.Blocks.STORAGE_BLOCKS_PIGIRON, Tags.Blocks.STORAGE_BLOCKS_ALUBRASS);
-    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_COBALT).add(CommonBlocks.cobalt_block);
-    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_ARDITE).add(CommonBlocks.ardite_block);
-    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_MANYULLYN).add(CommonBlocks.manyullyn_block);
-    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME).add(CommonBlocks.knightslime_block);
-    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_PIGIRON).add(CommonBlocks.pigiron_block);
-    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS_ALUBRASS).add(CommonBlocks.alubrass_block);
-
-    this.getBuilder(net.minecraftforge.common.Tags.Blocks.GLASS_COLORLESS).add(DecorativeBlocks.clear_glass);
-    addColored(getBuilder(net.minecraftforge.common.Tags.Blocks.STAINED_GLASS)::add, net.minecraftforge.common.Tags.Blocks.GLASS, "{color}_clear_stained_glass");
-  }
-
-  private void addWorld() {
-    this.getBuilder(Tags.Blocks.SLIMY_LOGS).add(WorldBlocks.congealed_green_slime, WorldBlocks.congealed_blue_slime, WorldBlocks.congealed_purple_slime, WorldBlocks.congealed_blood_slime, WorldBlocks.congealed_magma_slime);
-    this.getBuilder(Tags.Blocks.SLIMY_LEAVES).add(WorldBlocks.blue_slime_leaves, WorldBlocks.purple_slime_leaves, WorldBlocks.orange_slime_leaves);
-    this.getBuilder(Tags.Blocks.SLIMY_SAPLINGS).add(WorldBlocks.blue_slime_sapling, WorldBlocks.orange_slime_sapling, WorldBlocks.purple_slime_sapling);
-
-    this.getBuilder(net.minecraftforge.common.Tags.Blocks.ORES).add(Tags.Blocks.ORES_COBALT, Tags.Blocks.ORES_ARDITE);
-    this.getBuilder(Tags.Blocks.ORES_COBALT).add(WorldBlocks.cobalt_ore);
-    this.getBuilder(Tags.Blocks.ORES_ARDITE).add(WorldBlocks.ardite_ore);
-  }
-
-  private void addGadgets() {
-  }
-
   @Override
-  public void registerTags() {
-    super.registerTags();
-
-    this.filter = this.tagToBuilder.keySet().stream().map(Tag::getId).collect(Collectors.toSet());
-
+  protected void registerTags() {
     this.addCommon();
     this.addGadgets();
     this.addWorld();
+    this.addSmeltery();
   }
 
-  @Override
-  protected Path makePath(ResourceLocation id) {
-    return this.filter != null && this.filter.contains(id) ? null : super.makePath(id); //We don't want to save vanilla tags.
+  private void addCommon() {
+    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS).add(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT, TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE, TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN, TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME, TinkerTags.Blocks.STORAGE_BLOCKS_PIGIRON, TinkerTags.Blocks.STORAGE_BLOCKS_ALUBRASS);
+    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT).add(TinkerMaterials.cobaltBlock.get());
+    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE).add(TinkerMaterials.arditeBlock.get());
+    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN).add(TinkerMaterials.manyullynBlock.get());
+    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME).add(TinkerMaterials.knightSlimeBlock.get());
+    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_PIGIRON).add(TinkerMaterials.pigironBlock.get());
+    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ALUBRASS).add(TinkerMaterials.alubrassBlock.get());
+
+    this.getBuilder(Tags.Blocks.GLASS_COLORLESS).add(TinkerCommons.clearGlass.get());
+    addColored(getBuilder(Tags.Blocks.STAINED_GLASS)::add, Tags.Blocks.GLASS, "{color}_clear_stained_glass");
+  }
+
+  private void addWorld() {
+    this.getBuilder(TinkerTags.Blocks.SLIMY_LOGS).add(TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.GREEN), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.BLUE), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.PURPLE), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.BLOOD), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.MAGMA));
+    for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
+      this.getBuilder(TinkerTags.Blocks.SLIMY_LEAVES).add(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.BLUE), TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.PURPLE), TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ORANGE));
+      this.getBuilder(TinkerTags.Blocks.SLIMY_SAPLINGS).add(TinkerWorld.slimeSapling.get(type));
+    }
+
+    this.getBuilder(Tags.Blocks.ORES).add(TinkerTags.Blocks.ORES_COBALT, TinkerTags.Blocks.ORES_ARDITE);
+    this.getBuilder(TinkerTags.Blocks.ORES_COBALT).add(TinkerWorld.cobaltOre.get());
+    this.getBuilder(TinkerTags.Blocks.ORES_ARDITE).add(TinkerWorld.arditeOre.get());
+  }
+
+  private void addGadgets() {
+    this.getBuilder(BlockTags.RAILS).add(TinkerGadgets.woodenRail.get(), TinkerGadgets.woodenDropperRail.get());
+  }
+
+  private void addSmeltery() {
+    this.getBuilder(TinkerTags.Blocks.SEARED_BRICKS).add(
+      TinkerSmeltery.searedBricks.get(),
+      TinkerSmeltery.searedFancyBricks.get(),
+      TinkerSmeltery.searedSquareBricks.get(),
+      TinkerSmeltery.searedSmallBricks.get(),
+      TinkerSmeltery.searedTriangleBricks.get(),
+      TinkerSmeltery.searedRoad.get());
+    this.getBuilder(TinkerTags.Blocks.SMOOTH_SEARED_BLOCKS).add(
+      TinkerSmeltery.searedPaver.get(),
+      TinkerSmeltery.searedCreeper.get(),
+      TinkerSmeltery.searedTile.get());
+    this.getBuilder(TinkerTags.Blocks.SEARED_BLOCKS).add(
+      TinkerSmeltery.searedStone.get(),
+      TinkerSmeltery.searedCrackedBricks.get(),
+      TinkerSmeltery.searedCobble.get()).add(TinkerTags.Blocks.SEARED_BRICKS, TinkerTags.Blocks.SMOOTH_SEARED_BLOCKS);
   }
 
   @Override
@@ -97,9 +111,9 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
   private Tag<Block> getForgeTag(String name) {
     try {
       name = name.toUpperCase(Locale.ENGLISH);
-      return (Tag<Block>) net.minecraftforge.common.Tags.Blocks.class.getDeclaredField(name).get(null);
+      return (Tag<Block>) Tags.Blocks.class.getDeclaredField(name).get(null);
     } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
-      throw new IllegalStateException(net.minecraftforge.common.Tags.Blocks.class.getName() + " is missing tag name: " + name);
+      throw new IllegalStateException(Tags.Blocks.class.getName() + " is missing tag name: " + name);
     }
   }
 

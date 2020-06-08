@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:fancy_item_frame",
+  "pattern": [
+    " e ",
+    "eMe",
+    " e "
+  ],
+  "key": {
+    "e": {
+      "item": "tconstruct:silky_cloth"
+    },
+    "M": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result": {
+    "item": "tconstruct:jewel_item_frame"
+  }
+}

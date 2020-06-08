@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:knightslime_ingot",
+  "pattern": [
+    "nnn",
+    "nnn",
+    "nnn"
+  ],
+  "key": {
+    "n": {
+      "item": "tconstruct:knightslime_nugget"
+    }
+  },
+  "result": {
+    "item": "tconstruct:knightslime_ingot"
+  }
+}

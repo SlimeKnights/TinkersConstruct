@@ -11,7 +11,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
-import slimeknights.tconstruct.common.Tags;
+import slimeknights.tconstruct.common.TinkerTags;
 
 import java.util.Random;
 
@@ -63,7 +63,7 @@ public class SlimeLeavesBlock extends LeavesBlock {
   }
 
   private static int getDistance(BlockState neighbor) {
-    if (Tags.Blocks.SLIMY_LOGS.contains(neighbor.getBlock())) {
+    if (TinkerTags.Blocks.SLIMY_LOGS.contains(neighbor.getBlock())) {
       return 0;
     } else {
       return neighbor.getBlock() instanceof SlimeLeavesBlock ? neighbor.get(DISTANCE) : 7;
@@ -86,6 +86,6 @@ public class SlimeLeavesBlock extends LeavesBlock {
 
   @Override
   public boolean canBeReplacedByLeaves(BlockState state, IWorldReader world, BlockPos pos) {
-    return this.isAir(state, world, pos) || state.isIn(BlockTags.LEAVES) || state.isIn(Tags.Blocks.SLIMY_LEAVES);
+    return this.isAir(state, world, pos) || state.isIn(BlockTags.LEAVES) || state.isIn(TinkerTags.Blocks.SLIMY_LEAVES);
   }
 }

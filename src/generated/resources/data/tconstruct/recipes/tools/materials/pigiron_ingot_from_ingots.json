@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:pigiron_ingot",
+  "pattern": [
+    "nnn",
+    "nnn",
+    "nnn"
+  ],
+  "key": {
+    "n": {
+      "item": "tconstruct:pigiron_nugget"
+    }
+  },
+  "result": {
+    "item": "tconstruct:pigiron_ingot"
+  }
+}

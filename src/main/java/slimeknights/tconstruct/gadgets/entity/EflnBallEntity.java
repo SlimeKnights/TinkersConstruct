@@ -15,7 +15,6 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.tconstruct.gadgets.Exploder;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.tconstruct.items.GadgetItems;
 
 import javax.annotation.Nonnull;
 
@@ -26,16 +25,16 @@ public class EflnBallEntity extends ProjectileItemEntity implements IEntityAddit
   }
 
   public EflnBallEntity(World worldIn, LivingEntity throwerIn) {
-    super(TinkerGadgets.throwable_efln_ball, throwerIn, worldIn);
+    super(TinkerGadgets.eflnEntity.get(), throwerIn, worldIn);
   }
 
   public EflnBallEntity(World worldIn, double x, double y, double z) {
-    super(TinkerGadgets.throwable_efln_ball, x, y, z, worldIn);
+    super(TinkerGadgets.eflnEntity.get(), x, y, z, worldIn);
   }
 
   @Override
   protected Item getDefaultItem() {
-    return GadgetItems.efln_ball;
+    return TinkerGadgets.efln.get();
   }
 
   @Override

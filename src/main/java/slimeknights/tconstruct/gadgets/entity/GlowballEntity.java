@@ -14,9 +14,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
-import slimeknights.tconstruct.blocks.CommonBlocks;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.tconstruct.items.GadgetItems;
+import slimeknights.tconstruct.shared.TinkerCommons;
 
 import javax.annotation.Nonnull;
 
@@ -27,16 +26,16 @@ public class GlowballEntity extends ProjectileItemEntity implements IEntityAddit
   }
 
   public GlowballEntity(World worldIn, LivingEntity throwerIn) {
-    super(TinkerGadgets.throwable_glow_ball, throwerIn, worldIn);
+    super(TinkerGadgets.glowBallEntity.get(), throwerIn, worldIn);
   }
 
   public GlowballEntity(World worldIn, double x, double y, double z) {
-    super(TinkerGadgets.throwable_glow_ball, x, y, z, worldIn);
+    super(TinkerGadgets.glowBallEntity.get(), x, y, z, worldIn);
   }
 
   @Override
   protected Item getDefaultItem() {
-    return GadgetItems.glow_ball;
+    return TinkerGadgets.glowBall.get();
   }
 
   @Override
@@ -56,7 +55,7 @@ public class GlowballEntity extends ProjectileItemEntity implements IEntityAddit
       }
 
       if (position != null) {
-        CommonBlocks.glow.addGlow(this.world, position, direction);
+        TinkerCommons.glow.get().addGlow(this.world, position, direction);
       }
     }
 

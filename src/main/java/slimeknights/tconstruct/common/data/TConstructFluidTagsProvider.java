@@ -4,7 +4,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.FluidTagsProvider;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.common.Tags;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 
 import java.nio.file.Path;
@@ -25,9 +25,10 @@ public class TConstructFluidTagsProvider extends FluidTagsProvider {
 
     this.filter = this.tagToBuilder.keySet().stream().map(Tag::getId).collect(Collectors.toSet());
 
-    this.getBuilder(Tags.Fluids.SLIME).add(Tags.Fluids.BLUE_SLIME, Tags.Fluids.PINK_SLIME);
-    this.getBuilder(Tags.Fluids.BLUE_SLIME).add(TinkerFluids.blue_slime_fluid.get(), TinkerFluids.blue_slime_fluid_flowing.get(), TinkerFluids.purple_slime_fluid.get(), TinkerFluids.blue_slime_fluid_flowing.get());
-    this.getBuilder(Tags.Fluids.PINK_SLIME).add(TinkerFluids.purple_slime_fluid.get(), TinkerFluids.blue_slime_fluid_flowing.get());
+    this.getBuilder(TinkerTags.Fluids.SLIME).add(TinkerTags.Fluids.BLUE_SLIME, TinkerTags.Fluids.PURPLE_SLIME);
+
+    this.getBuilder(TinkerTags.Fluids.BLUE_SLIME).add(TinkerFluids.blueSlime.get(), TinkerFluids.blueSlime.getFlowing());
+    this.getBuilder(TinkerTags.Fluids.PURPLE_SLIME).add(TinkerFluids.purpleSlime.get(), TinkerFluids.purpleSlime.getFlowing());
   }
 
   @Override
@@ -37,7 +38,7 @@ public class TConstructFluidTagsProvider extends FluidTagsProvider {
 
   @Override
   public String getName() {
-    return "Tinkers Construct Fluid Tags";
+    return "Tinkers Construct Fluid TinkerTags";
   }
 
 }

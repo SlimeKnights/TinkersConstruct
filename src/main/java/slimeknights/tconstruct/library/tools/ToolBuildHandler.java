@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
-import slimeknights.tconstruct.library.tinkering.PartMaterialType;
+import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
@@ -24,7 +24,7 @@ public final class ToolBuildHandler {
    * @return The built item or null if invalid input.
    */
   public static ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks, ToolCore tool) {
-    List<PartMaterialType> requiredComponents = tool.getToolDefinition().getRequiredComponents();
+    List<PartMaterialRequirement> requiredComponents = tool.getToolDefinition().getRequiredComponents();
 
     if (stacks.size() != requiredComponents.size() || !canBeBuiltFromParts(stacks, requiredComponents)) {
       return ItemStack.EMPTY;
@@ -53,8 +53,8 @@ public final class ToolBuildHandler {
     return output;
   }
 
-  private static boolean canBeBuiltFromParts(NonNullList<ItemStack> stacks, List<PartMaterialType> requiredComponents) {
-    return Streams.zip(requiredComponents.stream(), stacks.stream(), PartMaterialType::isValid).allMatch(Boolean::booleanValue);
+  private static boolean canBeBuiltFromParts(NonNullList<ItemStack> stacks, List<PartMaterialRequirement> requiredComponents) {
+    return Streams.zip(requiredComponents.stream(), stacks.stream(), PartMaterialRequirement::isValid).allMatch(Boolean::booleanValue);
   }
 
   private ToolBuildHandler() {

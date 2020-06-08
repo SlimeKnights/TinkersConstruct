@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:congealed_slime",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:slimeball/blood"
+    }
+  },
+  "result": {
+    "item": "tconstruct:blood_congealed_slime"
+  }
+}

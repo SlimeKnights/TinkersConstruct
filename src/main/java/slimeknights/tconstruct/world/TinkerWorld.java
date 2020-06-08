@@ -1,193 +1,138 @@
 package slimeknights.tconstruct.world;
 
-import net.minecraft.block.BlockState;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
+import net.minecraft.entity.EntityType;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.FlatGenerationSettings;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.feature.structure.IStructurePieceType;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.placement.CountRangeConfig;
-import net.minecraft.world.gen.placement.IPlacementConfig;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.PlantType;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ObjectHolder;
 import org.apache.logging.log4j.Logger;
-import slimeknights.mantle.pulsar.pulse.Pulse;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.blocks.WorldBlocks;
-import slimeknights.tconstruct.common.ServerProxy;
-import slimeknights.tconstruct.common.TinkerPulse;
-import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.common.registry.BaseRegistryAdapter;
-import slimeknights.tconstruct.entity.WorldEntities;
-import slimeknights.tconstruct.library.TinkerPulseIds;
+import slimeknights.mantle.item.BlockTooltipItem;
+import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.registration.object.BlockItemObject;
+import slimeknights.tconstruct.library.registration.object.EnumObject;
+import slimeknights.tconstruct.library.utils.HarvestLevels;
+import slimeknights.tconstruct.shared.block.CongealedSlimeBlock;
+import slimeknights.tconstruct.shared.block.OverlayBlock;
+import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
+import slimeknights.tconstruct.world.block.SlimeDirtBlock;
+import slimeknights.tconstruct.world.block.SlimeDirtBlock.SlimeDirtType;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
+import slimeknights.tconstruct.world.block.SlimeLeavesBlock;
+import slimeknights.tconstruct.world.block.SlimeSaplingBlock;
+import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
+import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
-import slimeknights.tconstruct.world.worldgen.islands.nether.NetherSlimeIslandPiece;
-import slimeknights.tconstruct.world.worldgen.islands.nether.NetherSlimeIslandStructure;
-import slimeknights.tconstruct.world.worldgen.islands.overworld.SlimeIslandPiece;
-import slimeknights.tconstruct.world.worldgen.islands.overworld.SlimeIslandStructure;
-import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeature;
-import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeatureConfig;
-import slimeknights.tconstruct.world.worldgen.trees.feature.SupplierBlockStateProvider;
+import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
 
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
-@Pulse(id = TinkerPulseIds.TINKER_WORLD_PULSE_ID, description = "Everything that's found in the world and worldgen")
-@ObjectHolder(TConstruct.modID)
-public class TinkerWorld extends TinkerPulse {
+/**
+ * Contains blocks and items relevant to structures and world gen
+ */
+@SuppressWarnings("unused")
+public final class TinkerWorld extends TinkerModule {
+  static final Logger log = Util.getLogger("tinker_world");
 
-  static final Logger log = Util.getLogger(TinkerPulseIds.TINKER_WORLD_PULSE_ID);
+  public static final PlantType SLIME_PLANT_TYPE = PlantType.create("slime");
 
-  public static ServerProxy proxy = DistExecutor.runForDist(() -> WorldClientProxy::new, () -> ServerProxy::new);
+  /*
+   * Block base properties
+   */
+  private static final Item.Properties WORLD_PROPS = new Item.Properties().group(TinkerRegistry.tabWorld);
+  private static final Function<Block,? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, WORLD_PROPS);
+  private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, WORLD_PROPS);
 
-  // todo: create own planttype
-  public static PlantType slimePlantType = PlantType.Nether;
+  /*
+   * Blocks
+   */
+  // ores
+  private static final Block.Properties ORE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).harvestLevel(HarvestLevels.COBALT).hardnessAndResistance(10.0F).notSolid();
+  public static final BlockItemObject<OverlayBlock> cobaltOre = BLOCKS.register("cobalt_ore", () -> new OverlayBlock(ORE), DEFAULT_BLOCK_ITEM);
+  public static final BlockItemObject<OverlayBlock> arditeOre = BLOCKS.register("ardite_ore", () -> new OverlayBlock(ORE), DEFAULT_BLOCK_ITEM);
 
-  public static IStructurePieceType SLIME_ISLAND_PIECE;
-  public static final Structure<NoFeatureConfig> SLIME_ISLAND = injected();
-
-  public static IStructurePieceType NETHER_SLIME_ISLAND_PIECE;
-  public static final Structure<NoFeatureConfig> NETHER_SLIME_ISLAND = injected();
-
-  public static final Feature<SlimeTreeFeatureConfig> TREE = injected();
-
-  public static BlockStateProviderType<SupplierBlockStateProvider> SUPPLIER_BLOCKSTATE_PROVIDER = Registry.register(Registry.BLOCK_STATE_PROVIDER_TYPE, "tconstruct:supplier_state_provider", new BlockStateProviderType<>(SupplierBlockStateProvider::new));
-
-  public static SlimeTreeFeatureConfig BLUE_SLIME_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_green_slime.getDefaultState(), () -> WorldBlocks.blue_slime_leaves.getDefaultState(),
-    () -> Blocks.AIR.getDefaultState(), 5, 4, false, WorldBlocks.blue_slime_sapling);
-
-  public static SlimeTreeFeatureConfig BLUE_SLIME_ISLAND_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_green_slime.getDefaultState(), () -> WorldBlocks.blue_slime_leaves.getDefaultState(),
-    () -> WorldBlocks.blue_slime_vine_middle.getDefaultState(), 5, 4, true, WorldBlocks.blue_slime_sapling);
-
-  public static SlimeTreeFeatureConfig PURPLE_SLIME_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_green_slime.getDefaultState(), () -> WorldBlocks.purple_slime_leaves.getDefaultState(),
-    () -> Blocks.AIR.getDefaultState(), 5, 4, false, WorldBlocks.purple_slime_sapling);
-
-  public static SlimeTreeFeatureConfig PURPLE_SLIME_ISLAND_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_green_slime.getDefaultState(), () -> WorldBlocks.purple_slime_leaves.getDefaultState(),
-    () -> WorldBlocks.purple_slime_vine_middle.getDefaultState(), 5, 4, true, WorldBlocks.purple_slime_sapling);
-
-  public static SlimeTreeFeatureConfig MAGMA_SLIME_TREE_CONFIG = createTreeConfig(() -> WorldBlocks.congealed_magma_slime.getDefaultState(), () -> WorldBlocks.orange_slime_leaves.getDefaultState(),
-    () -> Blocks.AIR.getDefaultState(), 5, 4, false, WorldBlocks.orange_slime_sapling);
-
-  public TinkerWorld() {
-    proxy.construct();
-    //slimePlantType = PlantType.create("slime"); TODO: RE-ENABLE THIS AFTER FORGE FIXES IT
+  // slime
+  private static Block.Properties SLIME = Block.Properties.create(Material.CLAY, MaterialColor.GRASS).sound(SoundType.SLIME).hardnessAndResistance(0.0f).slipperiness(0.8F).notSolid();
+  public static final EnumObject<SlimeType, Block> slime;
+  static {
+    EnumObject<SlimeBlock.SlimeType, SlimeBlock> tinkerSlimeBlocks = BLOCKS.registerEnum(SlimeBlock.SlimeType.TINKER, "slime", (type) -> new SlimeBlock(SLIME, (type == SlimeBlock.SlimeType.PINK)), TOOLTIP_BLOCK_ITEM);
+    Map<SlimeType,Supplier<? extends Block>> map = new EnumMap<>(SlimeBlock.SlimeType.class);
+    for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.TINKER) {
+      map.put(slime, tinkerSlimeBlocks.getSupplier(slime));
+    }
+    map.put(SlimeBlock.SlimeType.GREEN, Blocks.SLIME_BLOCK.delegate);
+    slime = new EnumObject<>(map);
   }
+  private static final Block.Properties CONGEALED_SLIME = builder(Material.CLAY, NO_TOOL, SoundType.SLIME).hardnessAndResistance(0.5F).slipperiness(0.5F);
+  public static final EnumObject<SlimeType,CongealedSlimeBlock> congealedSlime = BLOCKS.registerEnum(SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(CONGEALED_SLIME, (type == SlimeType.PINK)), TOOLTIP_BLOCK_ITEM);
 
+  // island blocks
+  private static final Block.Properties SLIME_DIRT = builder(Material.ORGANIC, NO_TOOL, SoundType.SLIME).hardnessAndResistance(0.55F);
+  public static final EnumObject<SlimeDirtType, SlimeDirtBlock> slimeDirt = BLOCKS.registerEnum(SlimeDirtBlock.SlimeDirtType.values(), "slime_dirt", (type) -> new SlimeDirtBlock(SLIME_DIRT), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, SlimeGrassBlock> vanillaSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "vanilla_slime_grass", (type) -> new SlimeGrassBlock(SLIME_DIRT, type), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, SlimeGrassBlock> greenSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "green_slime_grass", (type) -> new SlimeGrassBlock(SLIME_DIRT, type), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, SlimeGrassBlock> blueSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "blue_slime_grass", (type) -> new SlimeGrassBlock(SLIME_DIRT, type), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, SlimeGrassBlock> purpleSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "purple_slime_grass", (type) -> new SlimeGrassBlock(SLIME_DIRT, type), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, SlimeGrassBlock> magmaSlimeGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "magma_slime_grass", (type) -> new SlimeGrassBlock(SLIME_DIRT, type), TOOLTIP_BLOCK_ITEM);
+
+  // plants
+  private static final Block.Properties GRASS = builder(Material.PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.1F).doesNotBlockMovement().tickRandomly();
+  public static final EnumObject<FoliageType,SlimeTallGrassBlock> slimeFern = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_fern", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.FERN), DEFAULT_BLOCK_ITEM);
+  public static final EnumObject<FoliageType,SlimeTallGrassBlock> slimeTallGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_tall_grass", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.TALL_GRASS), DEFAULT_BLOCK_ITEM);
+
+  // trees
+  private static final Block.Properties SAPLING = builder(Material.PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.1F).doesNotBlockMovement().tickRandomly();
+  public static final EnumObject<FoliageType,SlimeSaplingBlock> slimeSapling = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_sapling", (type) -> new SlimeSaplingBlock(new SlimeTree(type, false), SAPLING), TOOLTIP_BLOCK_ITEM);
+  private static final Block.Properties SLIME_LEAVES = builder(Material.LEAVES, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.3F).tickRandomly().notSolid();
+  public static final EnumObject<FoliageType,SlimeLeavesBlock> slimeLeaves = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_leaves", (type) -> new SlimeLeavesBlock(SLIME_LEAVES, type), DEFAULT_BLOCK_ITEM);
+
+  // slime vines
+  private static final Block.Properties VINE = builder(Material.TALL_PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.3F).doesNotBlockMovement().tickRandomly();
+  public static final BlockItemObject<SlimeVineBlock> purpleSlimeVine = BLOCKS.register("purple_slime_vine", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), DEFAULT_BLOCK_ITEM);
+  public static final BlockItemObject<SlimeVineBlock> purpleSlimeVineMiddle = BLOCKS.register("purple_slime_vine_middle", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), DEFAULT_BLOCK_ITEM);
+  public static final BlockItemObject<SlimeVineBlock> purpleSlimeVineEnd = BLOCKS.register("purple_slime_vine_end", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.END), DEFAULT_BLOCK_ITEM);
+  public static final BlockItemObject<SlimeVineBlock> blueSlimeVine = BLOCKS.register("blue_slime_vine", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.START), DEFAULT_BLOCK_ITEM);
+  public static final BlockItemObject<SlimeVineBlock> blueSlimeVineMiddle = BLOCKS.register("blue_slime_vine_middle", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.MIDDLE), DEFAULT_BLOCK_ITEM);
+  public static final BlockItemObject<SlimeVineBlock> blueSlimeVineEnd = BLOCKS.register("blue_slime_vine_end", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.END), DEFAULT_BLOCK_ITEM);
+
+  /*
+   * Entities
+   */
+  public static final RegistryObject<EntityType<BlueSlimeEntity>> blueSlimeEntity = ENTITIES.registerWithEgg("blue_slime", () -> {
+    return EntityType.Builder.create(BlueSlimeEntity::new, EntityClassification.MONSTER)
+      .setShouldReceiveVelocityUpdates(true)
+      .setUpdateInterval(5)
+      .setTrackingRange(64)
+      .size(2.04F, 2.04F)
+      .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.blueSlimeEntity.get().create(world));
+  }, 0x47eff5, 0xacfff4);
+
+  /*
+   * Events
+   */
   @SubscribeEvent
-  public void onFeaturesRegistry(RegistryEvent.Register<Feature<?>> event) {
-    BaseRegistryAdapter<Feature<?>> registry = new BaseRegistryAdapter<>(event.getRegistry());
-
-    registry.register(new SlimeTreeFeature(SlimeTreeFeatureConfig::deserialize), "tree");
-
-    SLIME_ISLAND_PIECE = Registry.register(Registry.STRUCTURE_PIECE, registry.getResource("slime_island_piece"), SlimeIslandPiece::new);
-    registry.register(new SlimeIslandStructure(NoFeatureConfig::deserialize), "slime_island");
-
-    NETHER_SLIME_ISLAND_PIECE = Registry.register(Registry.STRUCTURE_PIECE, registry.getResource("nether_slime_island_piece"), NetherSlimeIslandPiece::new);
-    registry.register(new NetherSlimeIslandStructure(NoFeatureConfig::deserialize), "nether_slime_island");
-  }
-
-  @SubscribeEvent
-  public void preInit(final FMLCommonSetupEvent event) {
-    proxy.preInit();
-
-    applyFeatures();
-  }
-
-  @SubscribeEvent
-  public void init(final InterModEnqueueEvent event) {
-    proxy.init();
-  }
-
-  @SubscribeEvent
-  public void postInit(final InterModProcessEvent event) {
+  void commonSetup(final FMLCommonSetupEvent event) {
     MinecraftForge.EVENT_BUS.register(new WorldEvents());
-    proxy.postInit();
-    TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(WorldBlocks.blue_slime_sapling));
-
-    EntitySpawnPlacementRegistry.register(WorldEntities.blue_slime_entity, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
+    TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(slimeSapling.get(SlimeGrassBlock.FoliageType.BLUE)));
+    EntitySpawnPlacementRegistry.register(blueSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
   }
-
-  public static void applyFeatures() {
-    ConfiguredFeature<?, ?> SLIME_ISLAND_FEATURE = SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
-    FlatGenerationSettings.FEATURE_STAGES.put(SLIME_ISLAND_FEATURE, GenerationStage.Decoration.SURFACE_STRUCTURES);
-    FlatGenerationSettings.STRUCTURES.put("tconstruct:slime_island", new ConfiguredFeature[]{SLIME_ISLAND_FEATURE});
-    FlatGenerationSettings.FEATURE_CONFIGS.put(SLIME_ISLAND_FEATURE, IFeatureConfig.NO_FEATURE_CONFIG);
-
-    ConfiguredFeature<?, ?> NETHER_SLIME_ISLAND_FEATURE = NETHER_SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
-    FlatGenerationSettings.FEATURE_STAGES.put(NETHER_SLIME_ISLAND_FEATURE, GenerationStage.Decoration.UNDERGROUND_DECORATION);
-    FlatGenerationSettings.STRUCTURES.put("tconstruct:nether_slime_island", new ConfiguredFeature[]{NETHER_SLIME_ISLAND_FEATURE});
-    FlatGenerationSettings.FEATURE_CONFIGS.put(NETHER_SLIME_ISLAND_FEATURE, IFeatureConfig.NO_FEATURE_CONFIG);
-
-    ForgeRegistries.BIOMES.forEach(biome -> {
-      if (biome.getCategory() == Biome.Category.NETHER) {
-        if (Config.COMMON.generateSlimeIslands.get()) {
-          biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, NETHER_SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-          biome.addStructure(NETHER_SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-        }
-
-        if (Config.COMMON.generateCobalt.get()) {
-          addCobaltOre(biome);
-        }
-
-        if (Config.COMMON.generateArdite.get()) {
-          addArditeOre(biome);
-        }
-      } else if (biome.getCategory() != Biome.Category.THEEND) {
-        if (Config.COMMON.generateSlimeIslands.get()) {
-          biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-          biome.addStructure(SLIME_ISLAND.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-          biome.getSpawns(EntityClassification.MONSTER).add(new Biome.SpawnListEntry(WorldEntities.blue_slime_entity, 15, 2, 4));
-        }
-      }
-    });
-  }
-
-  private static void addCobaltOre(Biome biome) {
-    int veinCount = Config.COMMON.veinCountCobalt.get() / 2;
-
-    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, WorldBlocks.cobalt_ore.getDefaultState(), 5))
-      .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(veinCount, 32, 0, 64))));
-
-    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, WorldBlocks.cobalt_ore.getDefaultState(), 5))
-      .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(veinCount, 0, 0, 128))));
-  }
-
-  private static void addArditeOre(Biome biome) {
-    int veinCount = Config.COMMON.veinCountArdite.get() / 2;
-
-    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, WorldBlocks.ardite_ore.getDefaultState(), 5))
-      .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(veinCount, 32, 0, 64))));
-
-    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, WorldBlocks.ardite_ore.getDefaultState(), 5))
-      .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(veinCount, 0, 0, 128))));
-  }
-
-  public static SlimeTreeFeatureConfig createTreeConfig(Supplier<BlockState> logSupplierIn, Supplier<BlockState> leafSupplierIn, Supplier<BlockState> vineSupplierIn, int baseHeightIn, int randomHeightIn, boolean hasVines, IPlantable saplingIn) {
-    return (new SlimeTreeFeatureConfig.Builder(new SupplierBlockStateProvider(logSupplierIn),
-      new SupplierBlockStateProvider(leafSupplierIn), new SupplierBlockStateProvider(vineSupplierIn))).baseHeight(baseHeightIn).randomHeight(randomHeightIn).hasVines(hasVines).setSapling(saplingIn).build();
-  }
-
 }

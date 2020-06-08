@@ -34,7 +34,7 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
   }
 
   public FancyItemFrameEntity(World worldIn, BlockPos blockPos, Direction face, int variant) {
-    super(TinkerGadgets.fancy_item_frame, worldIn);
+    super(TinkerGadgets.itemFrameEntity.get(), worldIn);
     this.hangingPosition = blockPos;
     this.updateFacingWithBoundingBox(face);
     this.dataManager.set(VARIANT, variant);

@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "tconstruct:pigiron_ingot",
+  "ingredients": [
+    {
+      "item": "tconstruct:blood_slime_ball"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "minecraft:brick"
+    },
+    {
+      "item": "minecraft:brick"
+    },
+    {
+      "item": "minecraft:brick"
+    },
+    {
+      "item": "minecraft:brick"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:pigiron_ingot",
+    "count": 4
+  }
+}
