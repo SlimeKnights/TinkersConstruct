@@ -98,8 +98,10 @@ public class DynInventoryScreen extends ModuleScreen {
     }
 
     if (mouseButton == 0) {
-      this.slider.handleMouseClicked((int) mouseX, (int) mouseY, mouseButton);
-      return true;
+      if (mouseX >= this.slider.xPos && mouseY >= this.slider.yPos && mouseX <= this.slider.xPos + this.slider.width && mouseY <= this.slider.yPos + this.slider.height) {
+        this.slider.handleMouseClicked((int) mouseX, (int) mouseY, mouseButton);
+        return true;
+      }
     }
 
     return false;
@@ -112,7 +114,7 @@ public class DynInventoryScreen extends ModuleScreen {
     }
 
     this.slider.handleMouseReleased();
-    return true;
+    return mouseX >= this.slider.xPos && mouseY >= this.slider.yPos && mouseX <= this.slider.xPos + this.slider.width && mouseY <= this.slider.yPos + this.slider.height;
   }
 
   @Override
