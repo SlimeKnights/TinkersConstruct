@@ -49,6 +49,7 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.book.TinkerBook;
+import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -112,6 +113,7 @@ public class TConstruct {
     TinkerModule.initRegisters();
 
     DistExecutor.runWhenOn(Dist.CLIENT, () -> TinkerBook::initBook);
+    DistExecutor.runWhenOn(Dist.CLIENT, () -> MaterialRenderInfoLoader::init);
 
     MinecraftForge.EVENT_BUS.register(this);
   }

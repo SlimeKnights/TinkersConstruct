@@ -1,0 +1,26 @@
+{
+    "comment": "order must be unique, part can have texture (generated itemmodel) or model (use another model) but not both. Part also can have a transformation(? not sure yet). 0 is bottom, everything else on top layered. Transforms can be applied to each layer separately",
+    "parts": [
+        {
+            "order": 0,
+            "parent": "forge:item/default",
+            "texture": "tconstruct:items/pickaxe/head"
+        },
+        {
+            "order": 1,
+            "parent":"tconstruct:item/generic_handle_model",
+            "texture": "tconstruct:items/pickaxe/special_pickaxe_handle_texture"
+        },
+        {
+            "order": 2,
+            "parent": "forge:item/default",
+            "texture": "tconstruct:items/pickaxe/head",
+            "transform": {
+                "translation": [0, 0.09375, -0.171875],
+                "rotation": [ { "y": -45}, {"x": 10}, {"z": 170} ],
+                "scale": 0.375
+            }
+        }
+    ],
+    "transform": "forge:default-tool"
+}

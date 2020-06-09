@@ -4,6 +4,7 @@ import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 
 @Getter
 public class Material implements IMaterial {
@@ -47,6 +48,11 @@ public class Material implements IMaterial {
   private final ItemStack shardItem;
 
   /**
+   * Key used for localizing the material
+   */
+  private final String translationKey;
+
+  /**
    * Materials should only be created by the MaterialManager.
    * They're synced over the network and other classes might lead to unexpected behaviour.
    */
@@ -56,6 +62,7 @@ public class Material implements IMaterial {
     this.fluid = fluid;
     this.craftable = craftable;
     this.shardItem = shardItem;
+    this.translationKey = Util.makeTranslationKey("material", identifier);
   }
 
   @Override
@@ -66,4 +73,8 @@ public class Material implements IMaterial {
     return ItemStack.EMPTY;
   }
 
+  @Override
+  public String getTranslationKey() {
+    return translationKey;
+  }
 }

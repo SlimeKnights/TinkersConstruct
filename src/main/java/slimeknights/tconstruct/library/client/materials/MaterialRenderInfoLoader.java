@@ -1,0 +1,159 @@
+package slimeknights.tconstruct.library.client.materials;
+
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParseException;
+import lombok.extern.log4j.Log4j2;
+import net.minecraft.client.Minecraft;
+import net.minecraft.profiler.IProfiler;
+import net.minecraft.resources.IFutureReloadListener;
+import net.minecraft.resources.IReloadableResourceManager;
+import net.minecraft.resources.IResource;
+import net.minecraft.resources.IResourceManager;
+import net.minecraft.util.ResourceLocation;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.utils.ModResourceLocationSerializer;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+
+/**
+ * Loads the material render info from resource packs. Loaded independently of materials loaded in data packs, so a resource needs to exist in both lists to be used.
+ * See {@link slimeknights.tconstruct.library.materials.stats.MaterialStatsManager} for stats.
+ * <p>
+ * The location inside resource packs is "toolmaterials".
+ * So if your mods name is "foobar", the location for your mods materials is "assets/foobar/toolmaterials".
+ */
+@Log4j2
+public class MaterialRenderInfoLoader implements IFutureReloadListener {
+
+  public static final MaterialRenderInfoLoader INSTANCE = new MaterialRenderInfoLoader();
+
+  /** Folder to scan for material render info JSONS */
+  private static final String FOLDER = "toolmaterials";
+  /** GSON adapter for material info deserializing */
+  private static final Gson GSON = (new GsonBuilder())
+    .registerTypeAdapter(ResourceLocation.class, new ModResourceLocationSerializer(TConstruct.modID))
+    .setPrettyPrinting()
+    .disableHtmlEscaping()
+    .create();
+
+  /**
+   * Called on mod construct to register the resource listener
+   */
+  public static void init() {
+    IResourceManager manager = Minecraft.getInstance().getResourceManager();
+    if (manager instanceof IReloadableResourceManager) {
+      ((IReloadableResourceManager)manager).addReloadListener(INSTANCE);
+    }
+  }
+
+  /** Map of all loaded materials */
+  private Map<MaterialId, IMaterialRenderInfo> renderInfos = ImmutableMap.of();
+
+  private MaterialRenderInfoLoader() {}
+
+  /**
+   * Gets a list of all loaded materials render infos
+   * @return  All loaded material render infos
+   */
+  public Collection<IMaterialRenderInfo> getAllRenderInfos() {
+    return renderInfos.values();
+  }
+
+  /**
+   * Gets the render info for the given material
+   * @param materialId  Material loaded
+   * @return  Material render info
+   */
+  public Optional<IMaterialRenderInfo> getRenderInfo(MaterialId materialId) {
+    return Optional.ofNullable(renderInfos.get(materialId));
+  }
+
+  @Override
+  public CompletableFuture<Void> reload(IFutureReloadListener.IStage stage, IResourceManager resourceManager, IProfiler preparationsProfiler, IProfiler reloadProfiler, Executor backgroundExecutor, Executor gameExecutor) {
+    // none of the interfaces did what I want, which is "prepare" and no apply
+    // vanilla models do texture fetching in "prepare", so we need to run our logic there to make sure we are in time to add model textures
+    return CompletableFuture.runAsync(() -> {
+      this.onResourceManagerReload(resourceManager);
+    }, backgroundExecutor).thenCompose(stage::markCompleteAwaitingOthers);
+  }
+
+  /**
+   * Called in the proper thread to reload resources
+   * @param manager  Resource manager
+   */
+  private void onResourceManagerReload(IResourceManager manager) {
+    // first, we need to fetch all relevant JSON files
+    int trim = FOLDER.length() + 1;
+    Map<MaterialId, IMaterialRenderInfo> map = new HashMap<>();
+    for(ResourceLocation location : manager.getAllResourceLocations(FOLDER, (loc) -> loc.endsWith(".json"))) {
+      // clean up ID by trimming off the extension
+      String path = location.getPath();
+      MaterialId id = new MaterialId(location.getNamespace(), path.substring(trim, path.length() - 5));
+
+      // read in the JSON data
+      try (
+        IResource iresource = manager.getResource(location);
+        InputStream inputstream = iresource.getInputStream();
+        Reader reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8));
+      ) {
+        MaterialRenderInfoJson json = GSON.fromJson(reader, MaterialRenderInfoJson.class);
+        if (json == null) {
+          log.error("Couldn't load data file {} from {} as it's null or empty", id, location);
+        } else {
+          // parse it into material render info
+          IMaterialRenderInfo old = map.put(id, loadRenderInfo(id, json));
+          if (old != null) {
+            throw new IllegalStateException("Duplicate data file ignored with ID " + id);
+          }
+        }
+      } catch (IllegalArgumentException | IOException | JsonParseException jsonparseexception) {
+        log.error("Couldn't parse data file {} from {}", id, location, jsonparseexception);
+      }
+    }
+    // store the list immediately, otherwise it is not in place in time for models to load
+    this.renderInfos = map;
+    log.debug("Loaded material render infos: {}", Util.toIndentedStringList(map.keySet()));
+    log.info("{} material render infos loaded", map.size());
+  }
+
+  /**
+   * Gets material render info based on the given JSON
+   * @param loc   Material location
+   * @param json  Render info JSON data
+   * @return  Material render info data
+   */
+  private IMaterialRenderInfo loadRenderInfo(ResourceLocation loc, MaterialRenderInfoJson json) {
+    // parse color
+    int color = 0xFFFFFFFF;
+    if (json.getColor() != null) {
+      color = Integer.parseInt(json.getColor(), 16);
+      if((color & 0xFF000000) == 0) {
+        color |= 0xFF000000;
+      }
+    }
+
+    // parse fallback if present
+    MaterialId id = new MaterialId(loc);
+    ResourceLocation texture = json.getTexture();
+    ResourceLocation fallback = json.getFallback();
+    if (fallback != null) {
+      return new IMaterialRenderInfo.Fallback(id, texture, fallback, color);
+    }
+    return new IMaterialRenderInfo.Default(id, texture, color);
+  }
+}
