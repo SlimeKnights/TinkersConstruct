@@ -46,4 +46,10 @@ public interface IMaterial {
    */
   // todo: evaluate if shards are still needed
   ItemStack getShard();
+
+  /**
+   * Gets the translation key for this material
+   * @return
+   */
+  String getTranslationKey();
 }

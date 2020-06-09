@@ -39,6 +39,14 @@ public final class MaterialRegistry {
     MaterialRegistry.INSTANCE = new MaterialRegistry();
   }
 
+  /**
+   * Returns true if the material registry is initialized
+   * @return  True when initialized
+   */
+  public static boolean initialized() {
+    return INSTANCE != null;
+  }
+
   @SubscribeEvent
   public static void onServerAboutToStart(final FMLServerAboutToStartEvent event) {
     event.getServer().getResourceManager().addReloadListener(INSTANCE.materialManager);
