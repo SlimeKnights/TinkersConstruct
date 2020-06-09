@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.texture.MissingTextureSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.JSONUtils;
@@ -38,6 +39,7 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.shared.TinkerClient;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -46,6 +48,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class MaterialModel implements IModelGeometry<MaterialModel> {
@@ -68,8 +71,17 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     Material texture = owner.resolveTexture("texture");
     allTextures.add(texture);
     // if no specific material is set, load all materials as dependencies
+    Consumer<Material> textureAdder = (mat) -> {
+      // either must be non-blocks, or must exist. We have fallbacks if it does not exist
+      if (!PlayerContainer.LOCATION_BLOCKS_TEXTURE.equals(mat.getAtlasLocation()) || TinkerClient.textureValidator.test(mat.getTextureLocation())) {
+        allTextures.add(mat);
+      }
+    };
+    // if no material, get textures for all materials
     if (material == null) {
-      MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos().forEach((info) -> info.getTextureDependencies(allTextures::add, texture));
+      MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos().forEach((info) -> info.getTextureDependencies(textureAdder, texture));
+    } else {
+      MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material).ifPresent((info) -> info.getTextureDependencies(textureAdder, texture));
     }
     return allTextures;
   }
