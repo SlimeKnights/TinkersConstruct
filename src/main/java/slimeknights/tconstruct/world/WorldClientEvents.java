@@ -1,12 +1,10 @@
 package slimeknights.tconstruct.world;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -33,18 +31,13 @@ public class WorldClientEvents extends ClientEventBase {
 
   public static SlimeColorizer slimeColorizer = new SlimeColorizer();
 
-  static {
-    // TODO: find a proper event to use here instead
-    Minecraft minecraft = Minecraft.getInstance();
-    if (minecraft != null) {
-      IResourceManager iManager = Minecraft.getInstance().getResourceManager();
-      if (iManager instanceof IReloadableResourceManager) {
-        IReloadableResourceManager reloadable = (IReloadableResourceManager)iManager;
-        reloadable.addReloadListener(new BlueColorReloadListener());
-        reloadable.addReloadListener(new PurpleColorReloadListener());
-        reloadable.addReloadListener(new OrangeColorReloadListener());
-      }
-    }
+  /**
+   * Called by TinkerClient to add the resource listeners, runs during constructor
+   */
+  public static void addResourceListener(IReloadableResourceManager manager) {
+    manager.addReloadListener(new BlueColorReloadListener());
+    manager.addReloadListener(new PurpleColorReloadListener());
+    manager.addReloadListener(new OrangeColorReloadListener());
   }
 
   @SubscribeEvent

@@ -54,11 +54,8 @@ public class MaterialRenderInfoLoader implements IFutureReloadListener {
   /**
    * Called on mod construct to register the resource listener
    */
-  public static void init() {
-    IResourceManager manager = Minecraft.getInstance().getResourceManager();
-    if (manager instanceof IReloadableResourceManager) {
-      ((IReloadableResourceManager)manager).addReloadListener(INSTANCE);
-    }
+  public static void addResourceListener(IReloadableResourceManager manager)  {
+    manager.addReloadListener(INSTANCE);
   }
 
   /** Map of all loaded materials */
