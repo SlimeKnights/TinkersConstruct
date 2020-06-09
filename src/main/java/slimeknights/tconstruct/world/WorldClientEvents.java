@@ -5,7 +5,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.math.BlockPos;
@@ -20,7 +19,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.renderer.BlueSlimeRenderer;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
-import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
 import slimeknights.tconstruct.world.client.slime.BlueColorReloadListener;
@@ -52,7 +50,6 @@ public class WorldClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void clientSetup(FMLClientSetupEvent event) {
     RenderingRegistry.registerEntityRenderingHandler(TinkerWorld.blueSlimeEntity.get(), BlueSlimeRenderer.BLUE_SLIME_FACTORY);
-    RenderingRegistry.registerEntityRenderingHandler(TinkerTools.indestructibleItem.get(), manager -> new ItemRenderer(manager, Minecraft.getInstance().getItemRenderer()));
 
     // render types - ores
     RenderTypeLookup.setRenderLayer(TinkerWorld.cobaltOre.get(), RenderType.getCutoutMipped());
