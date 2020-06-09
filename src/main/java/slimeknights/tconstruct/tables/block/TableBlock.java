@@ -156,7 +156,6 @@ public abstract class TableBlock extends InventoryBlock {
             CompoundNBT inventoryTag = new CompoundNBT();
             table.writeInventoryToNBT(inventoryTag);
             tag.put(TinkerNBTConstants.TINKER_DATA, inventoryTag);
-            table.clear();
           }
         }
 
