@@ -17,6 +17,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.ForgeI18n;
 import net.minecraftforge.fml.ModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -86,6 +87,15 @@ public class Util {
    */
   public static String prefix(String name) {
     return String.format("%s.%s", RESOURCE, name.toLowerCase(Locale.US));
+  }
+
+  /**
+   * Checks if the given key can be translated
+   * @param key  Key to check
+   * @return  True if it can be translated
+   */
+  public static boolean canTranslate(String key) {
+    return !ForgeI18n.getPattern(key).equals(key);
   }
 
   /**
