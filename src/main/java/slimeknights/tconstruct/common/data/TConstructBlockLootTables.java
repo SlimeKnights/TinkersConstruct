@@ -20,6 +20,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
+import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
@@ -28,6 +29,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.world.block.SlimeDirtBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
@@ -177,6 +179,13 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerBuildingLootTables(TinkerSmeltery.searedRoad);
     this.registerBuildingLootTables(TinkerSmeltery.searedTile);
     this.registerDropSelfLootTable(TinkerSmeltery.searedGlass.get());
+
+    for (SearedTankBlock.TankType type : SearedTankBlock.TankType.values()) {
+      this.registerLootTable(TinkerSmeltery.searedTank.get(type), (block) -> droppingWithFunctions(block, (builder) -> {
+        return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
+          .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation(Tags.TANK, Tags.TANK));
+      }));
+    }
   }
 
   /*

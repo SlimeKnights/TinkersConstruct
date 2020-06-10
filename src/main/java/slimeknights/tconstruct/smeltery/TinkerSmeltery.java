@@ -18,9 +18,13 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
+import slimeknights.tconstruct.library.registration.object.EnumObject;
 import slimeknights.tconstruct.library.registration.object.ItemObject;
 import slimeknights.tconstruct.smeltery.block.SearedGlassBlock;
+import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
+import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 
 import java.util.Set;
 import java.util.function.Function;
@@ -42,8 +46,9 @@ public final class TinkerSmeltery extends TinkerModule {
   /*
    * Blocks
    */
+  private static final Block.Properties SMELTERY_GLASS = builder(Material.ROCK, NO_TOOL, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).notSolid();
   public static final BlockItemObject<Block> grout = BLOCKS.register("grout", () -> new Block(GENERIC_SAND_BLOCK), TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<SearedGlassBlock> searedGlass = BLOCKS.register("seared_glass", () -> new SearedGlassBlock(builder(Material.ROCK, NO_TOOL, SoundType.METAL).hardnessAndResistance(3.0F, 20.0F).notSolid()), TOOLTIP_BLOCK_ITEM);
+  public static final BlockItemObject<SearedGlassBlock> searedGlass = BLOCKS.register("seared_glass", () -> new SearedGlassBlock(SMELTERY_GLASS), TOOLTIP_BLOCK_ITEM);
 
   // seared
   // TODO: registerBuilding does not handle custom blocks
@@ -60,6 +65,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final BuildingBlockObject searedCreeper = BLOCKS.registerBuilding("seared_creeper", SMELTERY, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedRoad = BLOCKS.registerBuilding("seared_road", SMELTERY, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedTile = BLOCKS.registerBuilding("seared_tile", SMELTERY, TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<SearedTankBlock.TankType,SearedTankBlock> searedTank = BLOCKS.registerEnum("seared", SearedTankBlock.TankType.values(), (type) -> new SearedTankBlock(SMELTERY_GLASS), (b) -> new TankItem(b, SMELTERY_PROPS));
 
   /*
    * Tile entities
@@ -78,6 +84,7 @@ public final class TinkerSmeltery extends TinkerModule {
     set.addAll(searedRoad.values());
     set.addAll(searedTile.values());
   });
+  public static final RegistryObject<TileEntityType<TankTileEntity>> tank = TILE_ENTITIES.register("tank", TankTileEntity::new, (set) -> set.addAll(searedTank.values()));
 
   /*
    * Items
@@ -112,7 +119,7 @@ public final class TinkerSmeltery extends TinkerModule {
     // smeltery adds in tank, glass and drains
     builder = ImmutableSet.builder();
     builder.addAll(searedBlocks);
-    //builder.add(searedTank);
+    builder.addAll(TinkerSmeltery.searedTank.values());
     //builder.add(smelteryIO);
     builder.add(TinkerSmeltery.searedGlass.get());
 
@@ -149,6 +156,6 @@ public final class TinkerSmeltery extends TinkerModule {
    */
   @SubscribeEvent
   public void commonSetup(final FMLCommonSetupEvent event) {
-    TinkerRegistry.tabSmeltery.setDisplayIcon(new ItemStack(searedBricks));
+    TinkerRegistry.tabSmeltery.setDisplayIcon(new ItemStack(searedTank.get(SearedTankBlock.TankType.TANK)));
   }
 }

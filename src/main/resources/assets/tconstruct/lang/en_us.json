@@ -338,6 +338,14 @@
 
     "block.tconstruct.seared_glass": "Seared Glass",
     "block.tconstruct.seared_glass.tooltip": "Part of the Smeltery. Safe for decoration.\nCannot store liquids.",
+    "block.tconstruct.seared_tank": "Seared Tank",
+    "block.tconstruct.seared_tank.tooltip": "Heart of the Smeltery.\nRetains liquid when broken.",
+    "block.tconstruct.seared_gauge": "Seared Gauge",
+    "block.tconstruct.seared_gauge.tooltip": "Heart of the Smeltery.\nRetains liquid when broken.",
+    "block.tconstruct.seared_window": "Seared Window",
+    "block.tconstruct.seared_window.tooltip": "Heart of the Smeltery.\nRetains liquid when broken.",
+    "block.tconstruct.tank.fluid": "Liquid %s",
+    "block.tconstruct.tank.amount": "%d mb",
 
     "_comment": "Tinkers World",
 
