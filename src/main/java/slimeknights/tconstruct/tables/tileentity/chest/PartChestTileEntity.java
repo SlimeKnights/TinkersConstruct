@@ -4,6 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
+import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.chest.PartChestContainer;
 
@@ -18,10 +19,6 @@ public class PartChestTileEntity extends TinkerChestTileEntity {
 
   @Override
   public boolean isItemValidForSlot(int slot, @Nonnull ItemStack itemstack) {
-
-    return true;
-    //TODO
-    /*
     // check if there is no other slot containing that item
     for (int i = 0; i < this.getSizeInventory(); i++) {
       // don't compare count
@@ -31,7 +28,7 @@ public class PartChestTileEntity extends TinkerChestTileEntity {
       }
     }
 
-    return itemstack.getItem() instanceof IToolPart;*/
+    return itemstack.getItem() instanceof IMaterialItem;
   }
 
   @Nullable
