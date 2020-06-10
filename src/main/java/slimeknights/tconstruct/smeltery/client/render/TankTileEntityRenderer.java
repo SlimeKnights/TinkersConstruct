@@ -30,7 +30,7 @@ public class TankTileEntityRenderer extends TileEntityRenderer<TankTileEntity> {
         tank.setRenderOffset(0);
       }
 
-      IVertexBuilder builder = bufferIn.getBuffer(RenderUtil.FLUID_RENDER_TYPE);
+      IVertexBuilder builder = bufferIn.getBuffer(RenderUtil.getBlockRenderType());
 
       float d = RenderUtil.FLUID_OFFSET;
 

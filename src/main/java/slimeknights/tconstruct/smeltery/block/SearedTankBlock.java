@@ -72,6 +72,15 @@ public class SearedTankBlock extends SearedBlock {
   }
 
   @Override
+  public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+    TileEntity te = world.getTileEntity(pos);
+    if (te instanceof TankTileEntity) {
+      return ((TankTileEntity) te).getInternalTank().getFluid().getFluid().getAttributes().getLuminosity();
+    }
+    return super.getLightValue(state, world, pos);
+  }
+
+  @Override
   public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     TileEntity te = worldIn.getTileEntity(pos);
     if (te instanceof TankTileEntity && stack != null && stack.hasTag()) {

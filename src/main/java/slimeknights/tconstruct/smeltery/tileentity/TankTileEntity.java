@@ -83,6 +83,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements IFlui
       this.getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockState().getBlock());
       this.lastStrength = newStrength;
     }
+    this.getWorld().getLightManager().checkBlock(this.pos);
   }
 
   public FluidTankAnimated getInternalTank() {
@@ -93,7 +94,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements IFlui
   public void updateFluidTo(FluidStack fluid) {
     int oldAmount = tank.getFluidAmount();
     tank.setFluid(fluid);
-
     tank.setRenderOffset(tank.getRenderOffset() + tank.getFluidAmount() - oldAmount);
+    this.getWorld().getLightManager().checkBlock(this.pos);
   }
 }
