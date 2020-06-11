@@ -2,6 +2,6 @@
   "loader": "tconstruct:material",
   "parent": "forge:item/default",
   "textures": {
-    "texture": "tconstruct:item/parts/small_binding"
+    "texture": "tconstruct:item/tool/parts/small_binding"
   }
 }

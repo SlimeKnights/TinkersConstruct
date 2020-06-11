@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class ResourceValidator implements IEarlySelectiveReloadListener, Predicate<ResourceLocation> {
   private final IResourceType type;
   private final String folder;
+  private final int trim;
   private final String extension;
   private Set<ResourceLocation> resources;
 
@@ -25,9 +26,10 @@ public class ResourceValidator implements IEarlySelectiveReloadListener, Predica
    * @param folder
    * @param extension
    */
-  public ResourceValidator(IResourceType type, String folder, String extension) {
+  public ResourceValidator(IResourceType type, String folder, String trim, String extension) {
     this.type = type;
     this.folder = folder;
+    this.trim = trim.length() + 1;
     this.extension = extension;
     this.resources = ImmutableSet.of();
   }
@@ -35,8 +37,8 @@ public class ResourceValidator implements IEarlySelectiveReloadListener, Predica
   @Override
   public void onResourceManagerReload(IResourceManager manager, Predicate<IResourceType> predicate) {
     if (predicate.test(type)) {
-      int trim = folder.length() + 1;
       int extensionLength = extension.length();
+      // FIXME: this does not validate folder names
       this.resources = manager.getAllResourceLocations(folder, (loc) -> {
         // must have proper extension and contain valid characters
         return loc.endsWith(extension) && isPathValid(loc);

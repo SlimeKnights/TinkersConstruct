@@ -7,6 +7,7 @@ import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
+import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.renderer.TransformationMatrix;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
@@ -44,6 +45,7 @@ import slimeknights.tconstruct.shared.TinkerClient;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -51,6 +53,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+@Log4j2
 public class MaterialModel implements IModelGeometry<MaterialModel> {
 
   @Nullable
@@ -70,13 +73,27 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     Set<Material> allTextures = Sets.newHashSet();
     Material texture = owner.resolveTexture("texture");
     allTextures.add(texture);
+    // texture should exist in item/tool, or the validator cannot handle them
+    Consumer<Material> textureAdder;
+    if (texture.getTextureLocation().getPath().startsWith("item/tool")) {
+      // keep track of skipped textures, so we do not debug print the same resource twice
+      Set<ResourceLocation> skipped = new HashSet<>();
+      textureAdder = (mat) -> {
+        // either must be non-blocks, or must exist. We have fallbacks if it does not exist
+        ResourceLocation loc = mat.getTextureLocation();
+        if (!PlayerContainer.LOCATION_BLOCKS_TEXTURE.equals(mat.getAtlasLocation()) || TinkerClient.textureValidator.test(loc)) {
+          allTextures.add(mat);
+        } else if (!skipped.contains(loc)) {
+          skipped.add(loc);
+          log.debug("Skipping loading texture '{}' as it does not exist in the resource pack", loc);
+        }
+      };
+    } else {
+      // just directly add with no filter, nothing we can do
+      textureAdder = allTextures::add;
+      log.error("Texture '{}' is not in item/tool, unable to safely validate optional material textures", texture.getTextureLocation());
+    }
     // if no specific material is set, load all materials as dependencies
-    Consumer<Material> textureAdder = (mat) -> {
-      // either must be non-blocks, or must exist. We have fallbacks if it does not exist
-      if (!PlayerContainer.LOCATION_BLOCKS_TEXTURE.equals(mat.getAtlasLocation()) || TinkerClient.textureValidator.test(mat.getTextureLocation())) {
-        allTextures.add(mat);
-      }
-    };
     // if no material, get textures for all materials
     if (material == null) {
       MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos().forEach((info) -> info.getTextureDependencies(textureAdder, texture));

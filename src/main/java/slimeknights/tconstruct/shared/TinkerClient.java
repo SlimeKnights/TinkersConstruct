@@ -14,7 +14,7 @@ import slimeknights.tconstruct.world.WorldClientEvents;
  */
 public class TinkerClient {
   /** Validates that a texture exists for models. During model type as that is when the validator is needed */
-  public static final ResourceValidator textureValidator = new ResourceValidator(VanillaResourceType.MODELS, "textures", ".png");
+  public static final ResourceValidator textureValidator = new ResourceValidator(VanillaResourceType.MODELS, "textures/item/tool", "textures", ".png");
 
   /**
    * Called by TConstruct to handle any client side logic that needs to run during the constructor
