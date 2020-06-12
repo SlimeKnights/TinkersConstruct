@@ -27,7 +27,6 @@ import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.shared.block.CongealedSlimeBlock;
-import slimeknights.tconstruct.shared.block.OverlayBlock;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
 import slimeknights.tconstruct.world.block.SlimeDirtBlock;
@@ -66,11 +65,12 @@ public final class TinkerWorld extends TinkerModule {
    * Blocks
    */
   // ores
-  private static final Block.Properties ORE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).harvestLevel(HarvestLevels.COBALT).hardnessAndResistance(10.0F).notSolid();
-  public static final BlockItemObject<OverlayBlock> cobaltOre = BLOCKS.register("cobalt_ore", () -> new OverlayBlock(ORE), DEFAULT_BLOCK_ITEM);
-  public static final BlockItemObject<OverlayBlock> arditeOre = BLOCKS.register("ardite_ore", () -> new OverlayBlock(ORE), DEFAULT_BLOCK_ITEM);
+  private static final Block.Properties NETHER_ORE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).harvestLevel(HarvestLevels.COBALT).hardnessAndResistance(10.0F).notSolid();
+  public static final BlockItemObject<Block> cobaltOre = BLOCKS.register("cobalt_ore", () -> new Block(NETHER_ORE), DEFAULT_BLOCK_ITEM);
+  public static final BlockItemObject<Block> arditeOre = BLOCKS.register("ardite_ore", () -> new Block(NETHER_ORE), DEFAULT_BLOCK_ITEM);
 
-  public static final BlockItemObject<Block> copperOre = BLOCKS.register("copper_ore", () -> new Block(ORE), DEFAULT_BLOCK_ITEM);
+  private static final Block.Properties OVERWORLD_ORE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).hardnessAndResistance(3.0F, 3.0F);
+  public static final BlockItemObject<Block> copperOre = BLOCKS.register("copper_ore", () -> new Block(OVERWORLD_ORE), DEFAULT_BLOCK_ITEM);
 
   // slime
   private static Block.Properties SLIME = Block.Properties.create(Material.CLAY, MaterialColor.GRASS).sound(SoundType.SLIME).hardnessAndResistance(0.0f).slipperiness(0.8F).notSolid();
