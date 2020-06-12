@@ -664,5 +664,10 @@
     "gui.tconstruct.error.invalid_recipe": "Invalid Recipe!",
     "gui.tconstruct.error.unknown_material": "Unknown Material",
     "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\n\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting.",
-    "gui.tconstruct.error.not_enough_durability": "Not enough durability to replace parts!\n%d more durability required."
+    "gui.tconstruct.error.not_enough_durability": "Not enough durability to replace parts!\n%d more durability required.",
+
+    "_comment": "JEI Strings",
+    "gui.jei.casting.cooling_time": "%d s",
+    "gui.jei.casting.basin": "block.tconstruct.casting_basin",
+    "gui.jei.casting.table": "block.tconstruct.casting_table"
 }
