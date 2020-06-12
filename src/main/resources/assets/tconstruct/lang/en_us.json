@@ -603,5 +603,9 @@
     "gui.tconstruct.warning": "WARNING",
     "gui.tconstruct.general.hover": "Hover over the entries for more information",
     "gui.tconstruct.error.invalid_pattern": "Pattern does not contain a valid tool part!",
-    "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting."
+    "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting.",
+
+    "_comment": "JEI Strings",
+    "gui.jei.casting.basin": "block.tconstruct.casting_basin",
+    "gui.jei.casting.table": "block.tconstruct.casting_table"
 }
