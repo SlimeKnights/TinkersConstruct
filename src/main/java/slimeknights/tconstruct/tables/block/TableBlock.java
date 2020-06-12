@@ -101,37 +101,16 @@ public abstract class TableBlock extends InventoryBlock {
   }
 
   @Override
-  public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, IFluidState fluid) {
-    this.onPlayerDestroy(world, pos, state);
-
-    if (willHarvest) {
-      this.harvestBlock(world, player, pos, state, world.getTileEntity(pos), player.getHeldItemMainhand());
-    }
-
-    if (this.keepInventory(state)) {
-      TileEntity te = world.getTileEntity(pos);
-
-      if (te instanceof InventoryTileEntity) {
-        ((InventoryTileEntity) te).clear();
-      }
-    }
-
-    world.removeBlock(pos, false);
-
-    return false;
-  }
-
-  @Override
   public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
     if (state.getBlock() != newState.getBlock()) {
       TileEntity tileentity = worldIn.getTileEntity(pos);
       if (tileentity instanceof InventoryTileEntity) {
-        InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileentity);
+        if (!this.keepInventory(state)) {
+          InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileentity);
+        }
         worldIn.updateComparatorOutputLevel(pos, this);
       }
     }
-
-    super.onReplaced(state, worldIn, pos, newState, isMoving);
   }
 
   protected boolean keepInventory(BlockState state) {
