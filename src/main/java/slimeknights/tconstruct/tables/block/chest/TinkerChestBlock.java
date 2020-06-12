@@ -42,7 +42,7 @@ public abstract class TinkerChestBlock extends TinkerTableBlock {
   }
 
   @Override
-  protected boolean keepInventory(BlockState state) {
+  protected boolean keepInventory() {
     return Config.COMMON.chestsKeepInventory.get();
   }
 
@@ -63,5 +63,12 @@ public abstract class TinkerChestBlock extends TinkerTableBlock {
     }
 
     return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+  }
+
+  @Override
+  public void dropInventoryItems(BlockState state, World worldIn, BlockPos pos, TileEntity tileentity) {
+    if (keepInventory()) {
+      super.dropInventoryItems(state, worldIn, pos, tileentity);
+    }
   }
 }

@@ -57,11 +57,6 @@ public abstract class TableBlock extends InventoryBlock {
     this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
   }
 
-  @Nonnull
-  public BlockRenderType getRenderType(BlockState state) {
-    return BlockRenderType.MODEL;
-  }
-
   @Override
   public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
     return false;
@@ -100,24 +95,11 @@ public abstract class TableBlock extends InventoryBlock {
     }
   }
 
-  @Override
-  public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-    if (state.getBlock() != newState.getBlock()) {
-      TileEntity tileentity = worldIn.getTileEntity(pos);
-      if (tileentity instanceof InventoryTileEntity) {
-        if (!this.keepInventory(state)) {
-          InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) tileentity);
-        }
-        worldIn.updateComparatorOutputLevel(pos, this);
-      }
-    }
-  }
-
-  protected boolean keepInventory(BlockState state) {
+  protected boolean keepInventory() {
     return false;
   }
 
-  private void writeDataOntoItemStack(@Nonnull ItemStack item, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean inventorySave) {
+  private void writeDataOntoItemStack(@Nonnull ItemStack item, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState state) {
     TileEntity tileEntity = world.getTileEntity(pos);
 
     if (tileEntity != null) {
@@ -130,7 +112,7 @@ public abstract class TableBlock extends InventoryBlock {
         }
 
         // save inventory, if not empty
-        if (inventorySave && keepInventory(state)) {
+        if (keepInventory()) {
           if (!table.isInventoryEmpty()) {
             CompoundNBT inventoryTag = new CompoundNBT();
             table.writeInventoryToNBT(inventoryTag);
@@ -156,7 +138,7 @@ public abstract class TableBlock extends InventoryBlock {
   public ItemStack getPickBlock(BlockState state, RayTraceResult target, IBlockReader world, BlockPos pos, PlayerEntity player) {
     ItemStack itemStack = new ItemStack(this);
 
-    this.writeDataOntoItemStack(itemStack, world, pos, state, true);
+    this.writeDataOntoItemStack(itemStack, world, pos, state);
 
     return itemStack;
   }
