@@ -45,7 +45,7 @@ public class SideInventoryScreen extends ModuleScreen {
   protected int firstSlotId;
   protected int lastSlotId;
 
-  protected int yOffset = 5;
+  protected int yOffset;
   protected int xOffset;
   protected boolean connected;
 
@@ -71,7 +71,8 @@ public class SideInventoryScreen extends ModuleScreen {
         this.border.cornerTopLeft = this.overlapTopLeft;
         this.border.borderLeft = this.overlap;
         this.border.cornerBottomLeft = this.overlapBottomLeft;
-      } else {
+      }
+      else {
         this.border.cornerTopRight = this.overlapTopRight;
         this.border.borderRight = this.overlap;
         this.border.cornerBottomRight = this.overlapBottomRight;
@@ -84,11 +85,7 @@ public class SideInventoryScreen extends ModuleScreen {
   }
 
   protected boolean shouldDrawName() {
-    if (this.container instanceof BaseContainer) {
-      return true;//((BaseContainer) this.container).() != null;
-    }
-
-    return false;
+    return this.container instanceof BaseContainer;
   }
 
   @Override
@@ -130,7 +127,8 @@ public class SideInventoryScreen extends ModuleScreen {
     if (this.getDisplayedRows() < this.getTotalRows()) {
       this.slider.enable();
       this.xSize = this.columns * this.slot.w + this.slider.width + 2 * this.border.w;
-    } else {
+    }
+    else {
       this.slider.disable();
       this.xSize = this.columns * this.slot.w + this.border.w * 2;
     }
@@ -143,14 +141,16 @@ public class SideInventoryScreen extends ModuleScreen {
       if (this.yOffset == 0) {
         if (this.right) {
           this.border.cornerTopLeft = this.overlapTop;
-        } else {
+        }
+        else {
           this.border.cornerTopRight = this.overlapTop;
         }
       }
 
       this.xOffset = (this.border.w - 1) * (this.right ? -1 : 1);
       this.guiLeft += this.xOffset;
-    } else {
+    }
+    else {
       this.xOffset = 0;
     }
 
@@ -232,10 +232,12 @@ public class SideInventoryScreen extends ModuleScreen {
 
         if (this.right) {
           slot.xPos += this.parent.realWidth;
-        } else {
+        }
+        else {
           slot.xPos -= this.xSize;
         }
-      } else {
+      }
+      else {
         slot.xPos = 0;
         slot.yPos = 0;
       }
@@ -245,7 +247,7 @@ public class SideInventoryScreen extends ModuleScreen {
   @Override
   public void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
     if (this.shouldDrawName()) {
-      String name = this.getTitle().getFormattedText();//((BaseContainer) ).getInventoryDisplayName();
+      String name = this.getTitle().getFormattedText();
       this.font.drawString(name, this.border.w, this.border.h - 1, 0x404040);
     }
   }
@@ -258,10 +260,9 @@ public class SideInventoryScreen extends ModuleScreen {
     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     this.minecraft.getTextureManager().bindTexture(GENERIC_INVENTORY);
 
-    int x = this.guiLeft;// + border.w;
-    int y = this.guiTop;// + border.h;
+    int x = this.guiLeft;
+    int y = this.guiTop;
     int midW = this.xSize - this.border.w * 2;
-    int midH = this.ySize - this.border.h * 2;
 
     this.border.draw();
 
@@ -309,32 +310,26 @@ public class SideInventoryScreen extends ModuleScreen {
 
   @Override
   public boolean handleMouseClicked(double mouseX, double mouseY, int mouseButton) {
-    if (!this.slider.isEnabled()) {
-      return false;
-    }
-
-    if (mouseButton == 0) {
+    if (mouseButton == 0 && this.slider.isEnabled()) {
       this.slider.handleMouseClicked((int) mouseX, (int) mouseY, mouseButton);
-      return true;
     }
 
-    return false;
+    return super.handleMouseClicked(mouseX, mouseY, mouseButton);
   }
 
   @Override
   public boolean handleMouseReleased(double mouseX, double mouseY, int state) {
-    if (!this.slider.isEnabled()) {
-      return false;
+    if (this.slider.isEnabled()) {
+      this.slider.handleMouseReleased();
     }
 
-    this.slider.handleMouseReleased();
-    return true;
+    return super.handleMouseReleased(mouseX, mouseY, state);
   }
 
   @Override
   public boolean handleMouseScrolled(double mouseX, double mouseY, double scrollData) {
     if (!this.slider.isEnabled()) {
-      return false;
+      return super.handleMouseScrolled(mouseX, mouseY, scrollData);
     }
 
     return this.slider.mouseScrolled(scrollData, !this.isMouseOverFullSlot(mouseX, mouseY) && this.isMouseInModule((int) mouseX, (int) mouseY));
