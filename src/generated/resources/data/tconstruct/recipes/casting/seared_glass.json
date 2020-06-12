@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "tag": "forge:glass/colorless"
+  },
+  "castconsumed": true,
+  "fluidstack": {
+    "fluid": "tconstruct:seared_stone",
+    "amount": 576
+  },
+  "result": "tconstruct:seared_glass"
+}

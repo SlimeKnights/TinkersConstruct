@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:pickaxe_head"
+  },
+  "castconsumed": true,
+  "switchslots": true,
+  "fluidstack": {
+    "fluid": "tconstruct:molten_gold",
+    "amount": 144
+  },
+  "result": "tconstruct:pickaxe_head_cast"
+}

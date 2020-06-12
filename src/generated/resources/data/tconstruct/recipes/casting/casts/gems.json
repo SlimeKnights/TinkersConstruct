@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "forge:gems"
+  },
+  "castconsumed": true,
+  "switchslots": true,
+  "fluidstack": {
+    "fluid": "tconstruct:molten_gold",
+    "amount": 144
+  },
+  "result": "tconstruct:gem_cast"
+}

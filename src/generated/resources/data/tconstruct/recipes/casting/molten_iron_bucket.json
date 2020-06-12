@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:bucket"
+  },
+  "castconsumed": true,
+  "fluidstack": {
+    "fluid": "tconstruct:molten_iron",
+    "amount": 1000
+  },
+  "result": "tconstruct:molten_iron_bucket"
+}

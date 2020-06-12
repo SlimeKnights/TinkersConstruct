@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "tag": "minecraft:planks"
+  },
+  "castconsumed": true,
+  "fluidstack": {
+    "fluid": "minecraft:lava",
+    "amount": 250
+  },
+  "result": "tconstruct:lavawood"
+}

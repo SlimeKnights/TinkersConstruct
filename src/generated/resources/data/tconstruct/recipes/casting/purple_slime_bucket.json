@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:bucket"
+  },
+  "castconsumed": true,
+  "fluidstack": {
+    "fluid": "tconstruct:purple_slime",
+    "amount": 1000
+  },
+  "result": "tconstruct:purple_slime_bucket"
+}
