@@ -70,6 +70,8 @@ public final class TinkerWorld extends TinkerModule {
   public static final BlockItemObject<OverlayBlock> cobaltOre = BLOCKS.register("cobalt_ore", () -> new OverlayBlock(ORE), DEFAULT_BLOCK_ITEM);
   public static final BlockItemObject<OverlayBlock> arditeOre = BLOCKS.register("ardite_ore", () -> new OverlayBlock(ORE), DEFAULT_BLOCK_ITEM);
 
+  public static final BlockItemObject<Block> copperOre = BLOCKS.register("copper_ore", () -> new Block(ORE), DEFAULT_BLOCK_ITEM);
+
   // slime
   private static Block.Properties SLIME = Block.Properties.create(Material.CLAY, MaterialColor.GRASS).sound(SoundType.SLIME).hardnessAndResistance(0.0f).slipperiness(0.8F).notSolid();
   public static final EnumObject<SlimeType, Block> slime;

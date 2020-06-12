@@ -117,6 +117,8 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerWorld.cobaltOre.get());
     this.registerDropSelfLootTable(TinkerWorld.arditeOre.get());
 
+    this.registerDropSelfLootTable(TinkerWorld.copperOre.get());
+
     // Only make loot table for our modded slime blocks
     for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.TINKER) {
       this.registerDropSelfLootTable(TinkerWorld.slime.get(slime));

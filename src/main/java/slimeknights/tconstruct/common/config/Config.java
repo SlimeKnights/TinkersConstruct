@@ -30,6 +30,9 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue generateArdite;
     public final ForgeConfigSpec.ConfigValue<Integer> veinCountArdite;
 
+    public final ForgeConfigSpec.BooleanValue generateCopper;
+    public final ForgeConfigSpec.ConfigValue<Integer> veinCountCopper;
+
     public final ForgeConfigSpec.BooleanValue generateSlimeIslands;
 
     public final ForgeConfigSpec.BooleanValue chestsKeepInventory;
@@ -86,6 +89,18 @@ public class Config {
       builder.pop();
 
       builder.comment("Everything to do with world generation").push("worldgen");
+
+      this.generateCopper = builder
+        .comment("Generate Copper")
+        .translation("tconstruct.configgui.generateCopper")
+        .worldRestart()
+        .define("generateCopper", true);
+
+      this.veinCountCopper = builder
+        .comment("Approx Ores per Chunk")
+        .translation("tconstruct.configgui.veinCountCopper")
+        .worldRestart()
+        .define("veinCountCopper", 20);
 
       this.generateCobalt = builder
         .comment("Generate Cobalt")

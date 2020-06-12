@@ -156,6 +156,12 @@ public final class TinkerStructures extends TinkerModule {
           biome.addStructure(slimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
           biome.getSpawns(EntityClassification.MONSTER).add(new Biome.SpawnListEntry(TinkerWorld.blueSlimeEntity.get(), 15, 2, 4));
         }
+
+        if (Config.COMMON.generateCopper.get()) {
+          biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
+            Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, TinkerWorld.copperOre.get().getDefaultState(), 17))
+              .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(Config.COMMON.veinCountCopper.get(), 30, 0, 90))));
+        }
       }
     });
   }
