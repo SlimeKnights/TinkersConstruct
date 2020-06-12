@@ -39,6 +39,17 @@ public class FluidDeferredRegister extends RegisterWrapper<Fluid> {
   }
 
   /**
+   * Registers a fluid to the registry
+   * @param name  Name of the fluid to register
+   * @param sup   Fluid supplier
+   * @param <I>   Fluid type
+   * @return  Fluid to supply
+   */
+  public <I extends Fluid> RegistryObject<I> registerFluid(final String name, final Supplier<? extends I> sup) {
+    return register.register(name, sup);
+  }
+
+  /**
    * Registers a fluid with still, flowing, block, and bucket
    * @param name     Fluid name
    * @param builder  Properties builder
@@ -58,35 +69,37 @@ public class FluidDeferredRegister extends RegisterWrapper<Fluid> {
     // create props with the suppliers
     Properties props = builder.build(stillSup, flowingSup, blockObj, bucketObj);
     // create fluids now that we have props
-    stillSup.supplier = register.register(name, () -> still.apply(props));
-    flowingSup.supplier = register.register("flowing_" + name, () -> flowing.apply(props));
+    stillSup.supplier = registerFluid(name, () -> still.apply(props));
+    flowingSup.supplier = registerFluid("flowing_" + name, () -> flowing.apply(props));
     // return the final nice object
     return new FluidObject<>(stillSup.supplier, flowingSup.supplier, blockObj, bucketObj);
   }
 
   /**
    * Registers a fluid with still, flowing, block, and bucket using the default fluid block
-   * @param name     Fluid name
-   * @param builder  Properties builder
-   * @param still    Function to create still from the properties
-   * @param flowing  Function to create flowing from the properties
-   * @param material Block material
+   * @param name       Fluid name
+   * @param builder    Properties builder
+   * @param still      Function to create still from the properties
+   * @param flowing    Function to create flowing from the properties
+   * @param material   Block material
+   * @param lightLevel Block light level
    * @param <F>      Fluid type
    * @return  Fluid object
    */
-  public <F extends ForgeFlowingFluid> FluidObject<F> register(final String name, FluidAttributes.Builder builder, final Function<Properties,? extends F> still, final Function<Properties,? extends F> flowing, Material material) {
-    return register(name, new Builder(builder).explosionResistance(100f), still, flowing, (fluid) -> new FlowingFluidBlock(fluid, Block.Properties.create(material).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
+  public <F extends ForgeFlowingFluid> FluidObject<F> register(final String name, FluidAttributes.Builder builder, final Function<Properties,? extends F> still, final Function<Properties,? extends F> flowing, Material material, int lightLevel) {
+    return register(name, new Builder(builder).explosionResistance(100f), still, flowing, (fluid) -> new FlowingFluidBlock(fluid, Block.Properties.create(material).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops().lightValue(lightLevel)));
   }
 
   /**
    * Registers a fluid with still, flowing, block, and bucket using the default Forge fluid
-   * @param name     Fluid name
-   * @param builder  Properties builder
-   * @param material Block material
+   * @param name       Fluid name
+   * @param builder    Properties builder
+   * @param material   Block material
+   * @param lightLevel Block light level
    * @return  Fluid object
    */
-  public FluidObject<ForgeFlowingFluid> register(final String name, FluidAttributes.Builder builder, Material material) {
-    return register(name, builder, ForgeFlowingFluid.Source::new, ForgeFlowingFluid.Flowing::new, material);
+  public FluidObject<ForgeFlowingFluid> register(final String name, FluidAttributes.Builder builder, Material material, int lightLevel) {
+    return register(name, builder, ForgeFlowingFluid.Source::new, ForgeFlowingFluid.Flowing::new, material, lightLevel);
   }
 
   /**

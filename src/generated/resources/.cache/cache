@@ -27,6 +27,7 @@ fcc8e315c1fd042d8bec7af6337a4d66b72b7563 data/forge/tags/blocks/storage_blocks/k
 b7f4fe5768667b45fbe31a15a9082ac16c7771b7 data/forge/tags/blocks/storage_blocks/manyullyn.json
 519f2cb2169c2d8b65ddac8f9af28466b5c3c9c7 data/forge/tags/blocks/storage_blocks/pigiron.json
 81684ca7eb31fa223b850a974e803fdb1c74ed69 data/forge/tags/entity_types/slimes.json
+07978b93bc695755c61009c85e459dfaca48fa04 data/forge/tags/fluids/milk.json
 4611bd93626754bfd238a04054f3a9df552eb421 data/forge/tags/items/glass/black.json
 d173bbf4a187997a49632af2f407ee11aa775555 data/forge/tags/items/glass/blue.json
 9844f60519771879305cd6178c34dd0e7c06ba8a data/forge/tags/items/glass/brown.json

@@ -102,6 +102,7 @@ public class TinkerTags {
     public static final Tag<Fluid> BLUE_SLIME = tag("blue_slime");
     public static final Tag<Fluid> PURPLE_SLIME = tag("purple_slime");
     public static final Tag<Fluid> SLIME = tag("slime");
+    public static final Tag<Fluid> MILK = forgeTag("milk");
 
     private static Tag<Fluid> tag(String name) {
       return new FluidTags.Wrapper(new ResourceLocation("tconstruct", name));

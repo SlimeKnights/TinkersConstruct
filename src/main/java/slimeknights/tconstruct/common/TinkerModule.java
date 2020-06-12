@@ -20,6 +20,7 @@ import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.registration.BlockDeferredRegister;
 import slimeknights.tconstruct.library.registration.ContainerDeferredRegister;
 import slimeknights.tconstruct.library.registration.EntityTypeDeferredRegister;
+import slimeknights.tconstruct.library.registration.FluidDeferredRegister;
 import slimeknights.tconstruct.library.registration.ItemDeferredRegister;
 import slimeknights.tconstruct.library.registration.TileEntityTypeDeferredRegister;
 
@@ -34,6 +35,7 @@ public abstract class TinkerModule {
   // deferred register instances
   protected static final BlockDeferredRegister BLOCKS = new BlockDeferredRegister(TConstruct.modID);
   protected static final ItemDeferredRegister ITEMS = new ItemDeferredRegister(TConstruct.modID);
+  protected static final FluidDeferredRegister FLUIDS = new FluidDeferredRegister(TConstruct.modID);
   protected static final TileEntityTypeDeferredRegister TILE_ENTITIES = new TileEntityTypeDeferredRegister(TConstruct.modID);
   protected static final EntityTypeDeferredRegister ENTITIES = new EntityTypeDeferredRegister(TConstruct.modID);
   protected static final ContainerDeferredRegister CONTAINERS = new ContainerDeferredRegister(TConstruct.modID);
@@ -57,6 +59,7 @@ public abstract class TinkerModule {
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
     BLOCKS.register(bus);
     ITEMS.register(bus);
+    FLUIDS.register(bus);
     TILE_ENTITIES.register(bus);
     ENTITIES.register(bus);
     CONTAINERS.register(bus);
