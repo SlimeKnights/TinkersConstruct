@@ -28,25 +28,12 @@ public abstract class TinkerTableBlock extends TableBlock implements ITinkerStat
         }
       }
     }
+
     return true;
   }
 
   @Override
-  public boolean isMaster() {
-    return false;
-  }
-
   public TableTypes getType() {
     return TableTypes.NoTableTypeAssigned;
-  }
-
-  public enum TableTypes {
-    CraftingStation,
-    StencilTable,
-    PartBuilder,
-    ToolStation,
-    PatternChest,
-    PartChest,
-    NoTableTypeAssigned
   }
 }

@@ -22,6 +22,7 @@ import slimeknights.mantle.inventory.IContainerCraftingCustom;
 import slimeknights.mantle.inventory.OutSlot;
 import slimeknights.tconstruct.shared.inventory.PersistentCraftingInventory;
 import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tables.block.TableTypes;
 import slimeknights.tconstruct.tables.block.TinkerTableBlock;
 import slimeknights.tconstruct.tables.client.inventory.table.PartBuilderScreen;
 import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
@@ -55,7 +56,6 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
     this.addSlot(new CraftingCustomSlot(this, inv.player, craftMatrix, this.craftResult, 0, 106, 35));
     this.addSlot(this.secondarySlot = new OutSlot(tile, 3, 132, 35));
 
-
     // pattern slot
     this.addSlot(this.patternSlot = new StencilSlot(craftMatrix, 2, 26, 35, false));
 
@@ -77,12 +77,12 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
 
         TinkerTableBlock tableBlock = (TinkerTableBlock) pair.getRight().getBlock();
 
-        TinkerTableBlock.TableTypes type = tableBlock.getType();
+        TableTypes type = tableBlock.getType();
 
-        if (type != TinkerTableBlock.TableTypes.NoTableTypeAssigned) {
-          if (type == TinkerTableBlock.TableTypes.CraftingStation) {
+        if (type != TableTypes.NoTableTypeAssigned) {
+          if (type == TableTypes.CraftingStation) {
             hasCraftingStation = true;
-          } else if (type == TinkerTableBlock.TableTypes.StencilTable) {
+          } else if (type == TableTypes.StencilTable) {
             hasStencilTable = true;
           }
         }

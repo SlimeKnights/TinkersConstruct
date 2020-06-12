@@ -27,7 +27,6 @@ import java.util.Set;
 
 public class TinkerStationContainer<TILE extends TileEntity & IInventory> extends MultiModuleContainer<TILE> {
 
-  public final boolean hasCraftingStation;
   public final List<Pair<BlockPos, BlockState>> tinkerStationBlocks;
 
   public TinkerStationContainer(ContainerType<?> containerType, int id, @Nullable PlayerInventory inv, TILE tile) {
@@ -35,40 +34,14 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
 
     this.tinkerStationBlocks = Lists.newLinkedList();
 
-    if (tile == null) {
-      this.hasCraftingStation = false;
-    } else {
-      if (tile.getWorld() == null) {
-        this.hasCraftingStation = false;
-      } else {
-        this.hasCraftingStation = this.detectedTinkerStationParts(tile.getWorld(), tile.getPos());
-      }
+    if (tile != null && tile.getWorld() != null) {
+      this.detectedTinkerStationParts(tile.getWorld(), tile.getPos());
     }
   }
 
-  @SuppressWarnings("unchecked")
-  public <TE extends TileEntity> TE getTinkerTE(Class<TE> clazz) {
-    if (this.tile == null) {
-      return null;
-    } else {
-      if (this.tile.getWorld() == null) {
-        return null;
-      }
-      for (Pair<BlockPos, BlockState> pair : this.tinkerStationBlocks) {
-        TileEntity te = this.tile.getWorld().getTileEntity(pair.getLeft());
-
-        if (te != null && clazz.isAssignableFrom(te.getClass())) {
-          return (TE) te;
-        }
-      }
-    }
-    return null;
-  }
-
-  public boolean detectedTinkerStationParts(World world, BlockPos start) {
+  public void detectedTinkerStationParts(World world, BlockPos start) {
     Set<Integer> found = Sets.newHashSet();
     Set<BlockPos> visited = Sets.newHashSet();
-    boolean hasMaster = false;
 
     // BFS for related blocks
     Queue<BlockPos> queue = Queues.newPriorityQueue();
@@ -91,12 +64,15 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
       if (!visited.contains(pos.north())) {
         queue.add(pos.north());
       }
+
       if (!visited.contains(pos.east())) {
         queue.add(pos.east());
       }
+
       if (!visited.contains(pos.south())) {
         queue.add(pos.south());
       }
+
       if (!visited.contains(pos.west())) {
         queue.add(pos.west());
       }
@@ -105,23 +81,17 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
 
       // save the thing
       ITinkerStationBlock tinker = (ITinkerStationBlock) state.getBlock();
-      Integer number = tinker.getGuiNumber(state);
+      Integer number = tinker.getType().getSort();
 
       if (!found.contains(number)) {
         found.add(number);
-        tinkerStationBlocks.add(Pair.of(pos, state));
-
-        if (tinker.isMaster()) {
-          hasMaster = true;
-        }
+        this.tinkerStationBlocks.add(Pair.of(pos, state));
       }
     }
 
     // sort the found blocks by priority
     TinkerStationContainer.TinkerBlockComp comp = new TinkerStationContainer.TinkerBlockComp();
-    tinkerStationBlocks.sort(comp);
-
-    return hasMaster;
+    this.tinkerStationBlocks.sort(comp);
   }
 
   public void updateGUI() {
@@ -191,7 +161,7 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
       BlockState s1 = o1.getRight();
       BlockState s2 = o2.getRight();
 
-      return ((ITinkerStationBlock) s2.getBlock()).getGuiNumber(s2) - ((ITinkerStationBlock) s1.getBlock()).getGuiNumber(s1);
+      return ((ITinkerStationBlock) s2.getBlock()).getType().getSort() - ((ITinkerStationBlock) s1.getBlock()).getType().getSort();
     }
   }
 }

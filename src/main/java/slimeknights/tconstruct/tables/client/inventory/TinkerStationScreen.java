@@ -39,17 +39,15 @@ public class TinkerStationScreen<TILE extends TileEntity & IInventory, CONTAINER
     this.tinkerTabsScreen = new TinkerTabsScreen(this, container, playerInventory, title);
     this.addModule(this.tinkerTabsScreen);
 
-    if (container.hasCraftingStation) {
-      if (this.tile != null) {
-        World world = this.tile.getWorld();
+    if (this.tile != null) {
+      World world = this.tile.getWorld();
 
-        if (world != null) {
-          for (Pair<BlockPos, BlockState> pair : container.tinkerStationBlocks) {
-            BlockState state = pair.getRight();
-            BlockPos blockPos = pair.getLeft();
-            ItemStack stack = state.getBlock().getPickBlock(state, null, world, blockPos, playerInventory.player);
-            this.tinkerTabsScreen.addTab(stack, blockPos);
-          }
+      if (world != null) {
+        for (Pair<BlockPos, BlockState> pair : container.tinkerStationBlocks) {
+          BlockState state = pair.getRight();
+          BlockPos blockPos = pair.getLeft();
+          ItemStack stack = state.getBlock().getPickBlock(state, null, world, blockPos, playerInventory.player);
+          this.tinkerTabsScreen.addTab(stack, blockPos);
         }
       }
     }
