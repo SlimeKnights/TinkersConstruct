@@ -27,8 +27,7 @@ public class TankItem extends BlockTooltipItem {
   @OnlyIn(Dist.CLIENT)
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
     if (stack.hasTag()) {
-      FluidTank tank = new FluidTank(TankTileEntity.CAPACITY);
-      tank.readFromNBT(stack.getTag().getCompound(Tags.TANK));
+      FluidTank tank = getFluidTank(stack);
       if (tank.getFluidAmount() > 0) {
         tooltip.add(new TranslationTextComponent("block.tconstruct.tank.fluid", tank.getFluid().getDisplayName()).applyTextStyle(TextFormatting.GRAY));
         tooltip.add(new TranslationTextComponent("block.tconstruct.tank.amount", tank.getFluidAmount()).applyTextStyle(TextFormatting.GRAY));
@@ -37,5 +36,18 @@ public class TankItem extends BlockTooltipItem {
     else {
       super.addInformation(stack, worldIn, tooltip, flagIn);
     }
+  }
+
+  /**
+   * Gets the tank for the given stack
+   * @param stack  Tank stack
+   * @return  Tank stored in the stack
+   */
+  public static FluidTank getFluidTank(ItemStack stack) {
+    FluidTank tank = new FluidTank(TankTileEntity.CAPACITY);
+    if (stack.hasTag()) {
+      tank.readFromNBT(stack.getTag().getCompound(Tags.TANK));
+    }
+    return tank;
   }
 }

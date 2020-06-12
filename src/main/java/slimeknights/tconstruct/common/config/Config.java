@@ -145,6 +145,7 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue temperatureInCelsius;
 
     public final ForgeConfigSpec.BooleanValue renderTableItems;
+    public final ForgeConfigSpec.BooleanValue tankFluidModel;
 
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
@@ -163,6 +164,14 @@ public class Config {
         .comment("If true all of Tinkers' blocks with contents (tables, basin, drying racks,...) will render their contents in the world")
         .translation("tconstruct.configgui.renderTableItems")
         .define("renderTableItems", true);
+
+      this.tankFluidModel = builder
+        .comment(
+          "Experimental. If true, renders fluids in tanks using a dynamic model, being more efficient when the tank is static",
+          "If false, renders fluids in tanks using a TESR, which is more efficient when the tank contents are changing"
+         )
+        .translation("tconstruct.configgui.tankFluidModel")
+        .define("tankFluidModel", false);
 
       builder.pop();
     }

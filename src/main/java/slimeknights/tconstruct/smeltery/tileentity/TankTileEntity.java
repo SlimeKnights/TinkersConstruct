@@ -1,19 +1,28 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fml.DistExecutor;
+import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.library.client.RenderUtil;
+import slimeknights.tconstruct.library.client.model.TankModel;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.fluid.IFluidTankUpdater;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
+import slimeknights.tconstruct.tables.client.model.ModelProperties;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,6 +30,7 @@ import javax.annotation.Nullable;
 public class TankTileEntity extends SmelteryComponentTileEntity implements IFluidTankUpdater, FluidUpdatePacket.IFluidPacketReceiver {
 
   public static final int CAPACITY = FluidAttributes.BUCKET_VOLUME * 4;
+  private final ModelDataMap modelData;
 
   protected FluidTankAnimated tank;
 
@@ -31,10 +41,12 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements IFlui
     this(TinkerSmeltery.tank.get());
     this.tank = new FluidTankAnimated(CAPACITY, this);
     this.lastStrength = -1;
+    this.modelData.setData(ModelProperties.FLUID_TANK, tank);
   }
 
   public TankTileEntity(TileEntityType<?> tileEntityTypein) {
     super(tileEntityTypein);
+    modelData = new ModelDataMap.Builder().withProperty(ModelProperties.FLUID_TANK).build();
   }
 
   @Override
@@ -93,8 +105,27 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements IFlui
   @Override
   public void updateFluidTo(FluidStack fluid) {
     int oldAmount = tank.getFluidAmount();
+    int newAmount = fluid.getAmount();
     tank.setFluid(fluid);
-    tank.setRenderOffset(tank.getRenderOffset() + tank.getFluidAmount() - oldAmount);
+    tank.setRenderOffset(tank.getRenderOffset() + newAmount - oldAmount);
     this.getWorld().getLightManager().checkBlock(this.pos);
+
+    // update the block model
+    DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> () -> {
+      if (Config.CLIENT.tankFluidModel.get()) {
+        // if the amount change is bigger than a single increment, or we changd whether we have a fluid, update the world renderer
+        TankModel.BakedModel model = RenderUtil.getBakedModel(this.getBlockState().getBlock(), TankModel.BakedModel.class);
+        if (model != null && (Math.abs(newAmount - oldAmount) >= (tank.getCapacity() / model.getIncrements()) || (oldAmount == 0) != (newAmount == 0))) {
+          //this.requestModelDataUpdate();
+          Minecraft.getInstance().worldRenderer.notifyBlockUpdate(null, pos, null, null, 3);
+        }
+      }
+    });
+  }
+
+  @Override
+  @Nonnull
+  public IModelData getModelData() {
+    return this.modelData;
   }
 }

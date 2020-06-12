@@ -8,12 +8,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.Direction;
+import net.minecraft.util.IItemProvider;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
+
+import javax.annotation.Nullable;
 
 public final class RenderUtil {
 
@@ -55,6 +59,13 @@ public final class RenderUtil {
   public static void renderFluidCuboid(FluidStack fluid, MatrixStack matrices, IVertexBuilder renderer, int combinedLight, float x1, float y1, float z1, float x2, float y2, float z2) {
     int color = fluid.getFluid().getAttributes().getColor(fluid);
     renderFluidCuboid(fluid, matrices, renderer, combinedLight, x1, y1, z1, x2, y2, z2, color);
+  }
+
+  /**
+   * Renders a fluid block with offset from the matrices and from x1/y1/z1 to x2/y2/z2 using block model coordinates, so from 0-16
+   */
+  public static void renderScaledFluidCuboid(FluidStack fluid, MatrixStack matrices, IVertexBuilder renderer, int combinedLight, float x1, float y1, float z1, float x2, float y2, float z2) {
+    renderFluidCuboid(fluid, matrices, renderer, combinedLight, x1 / 16, y1 / 16, z1 / 16, x2 / 16, y2 / 16, x2 / 16);
   }
 
   /**
@@ -341,5 +352,22 @@ public final class RenderUtil {
 
   public static int blue(int c) {
     return (c) & 0xFF;
+  }
+
+  /**
+   * Gets the model for the given item
+   * @param item   Item provider
+   * @param clazz  Class type to cast result into
+   * @param <T>    Class type
+   * @return  Item model, or null if its missing or the wrong class type
+   */
+  @Nullable
+  @SuppressWarnings("unchecked")
+  public static <T extends IBakedModel> T getBakedModel(IItemProvider item, Class<T> clazz) {
+    IBakedModel baked = mc.getItemRenderer().getItemModelMesher().getItemModel(item.asItem());
+    if (clazz.isInstance(baked)) {
+      return (T) baked;
+    }
+    return null;
   }
 }
