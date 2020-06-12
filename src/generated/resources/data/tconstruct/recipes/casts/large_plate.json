@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:large_plate"
+  },
+  "cast_consumed": true,
+  "switch_slots": true,
+  "fluidstack": {
+    "fluid": "tconstruct:molten_gold",
+    "amount": 144
+  },
+  "result": "tconstruct:large_plate_cast"
+}

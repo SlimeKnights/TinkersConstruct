@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:nugget_cast"
+  },
+  "fluidstack": {
+    "fluid": "tconstruct:molten_cobalt",
+    "amount": 16
+  },
+  "result": "tconstruct:cobalt_nugget"
+}
