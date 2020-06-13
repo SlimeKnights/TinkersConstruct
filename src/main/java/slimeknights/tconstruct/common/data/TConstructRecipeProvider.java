@@ -38,11 +38,11 @@ import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -276,6 +276,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     registerMineralRecipes(consumer, TinkerMaterials.knightSlimeBlock, TinkerMaterials.knightslimeIngot, TinkerMaterials.knightslimeNugget, folder);
     registerMineralRecipes(consumer, TinkerMaterials.pigironBlock, TinkerMaterials.pigironIngot, TinkerMaterials.pigironNugget, folder);
     registerMineralRecipes(consumer, TinkerMaterials.alubrassBlock, TinkerMaterials.alubrassIngot, TinkerMaterials.alubrassNugget, folder);
+    registerMineralRecipes(consumer, TinkerMaterials.copperBlock, TinkerMaterials.copperIngot, TinkerMaterials.copperNugget, folder);
 
     // smelt ore into ingots, must use a blast furnace for nether ores
     CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.cobaltOre), TinkerMaterials.cobaltIngot, 1.5f, 200)
@@ -284,6 +285,10 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.arditeOre), TinkerMaterials.arditeIngot, 1.5f, 200)
                         .addCriterion("has_item", hasItem(TinkerWorld.arditeOre))
                         .build(consumer, wrap(TinkerMaterials.arditeIngot, folder, "_smelting"));
+
+    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), TinkerMaterials.copperIngot, 1.5f, 200)
+      .addCriterion("has_item", hasItem(TinkerWorld.copperOre))
+      .build(consumer, wrap(TinkerMaterials.copperIngot, folder, "_smelting"));
 
     // FIXME: temporary manyullyn recipe
     ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.manyullynNugget)

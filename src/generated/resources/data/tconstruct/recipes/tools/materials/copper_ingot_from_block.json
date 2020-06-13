@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "tconstruct:copper_ingot",
+  "ingredients": [
+    {
+      "item": "tconstruct:copper_block"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:copper_ingot",
+    "count": 9
+  }
+}

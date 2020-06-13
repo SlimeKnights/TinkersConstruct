@@ -25,11 +25,11 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.world.block.SlimeDirtBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
@@ -77,6 +77,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerMaterials.knightSlimeBlock.get());
     this.registerDropSelfLootTable(TinkerMaterials.pigironBlock.get());
     this.registerDropSelfLootTable(TinkerMaterials.alubrassBlock.get());
+    this.registerDropSelfLootTable(TinkerMaterials.copperBlock.get());
     this.registerDropSelfLootTable(TinkerModifiers.silkyJewelBlock.get());
   }
 

@@ -37,13 +37,14 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
   }
 
   private void addCommon() {
-    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS).add(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT, TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE, TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN, TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME, TinkerTags.Blocks.STORAGE_BLOCKS_PIGIRON, TinkerTags.Blocks.STORAGE_BLOCKS_ALUBRASS);
+    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS).add(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT, TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE, TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN, TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME, TinkerTags.Blocks.STORAGE_BLOCKS_PIGIRON, TinkerTags.Blocks.STORAGE_BLOCKS_ALUBRASS, TinkerTags.Blocks.STORAGE_BLOCKS_COPPER);
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT).add(TinkerMaterials.cobaltBlock.get());
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE).add(TinkerMaterials.arditeBlock.get());
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN).add(TinkerMaterials.manyullynBlock.get());
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME).add(TinkerMaterials.knightSlimeBlock.get());
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_PIGIRON).add(TinkerMaterials.pigironBlock.get());
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ALUBRASS).add(TinkerMaterials.alubrassBlock.get());
+    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_COPPER).add(TinkerMaterials.copperBlock.get());
 
     this.getBuilder(Tags.Blocks.GLASS_COLORLESS).add(TinkerCommons.clearGlass.get());
     addColored(getBuilder(Tags.Blocks.STAINED_GLASS)::add, Tags.Blocks.GLASS, "{color}_clear_stained_glass");
@@ -56,9 +57,10 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
       this.getBuilder(TinkerTags.Blocks.SLIMY_SAPLINGS).add(TinkerWorld.slimeSapling.get(type));
     }
 
-    this.getBuilder(Tags.Blocks.ORES).add(TinkerTags.Blocks.ORES_COBALT, TinkerTags.Blocks.ORES_ARDITE);
+    this.getBuilder(Tags.Blocks.ORES).add(TinkerTags.Blocks.ORES_COBALT, TinkerTags.Blocks.ORES_ARDITE, TinkerTags.Blocks.ORES_COPPER);
     this.getBuilder(TinkerTags.Blocks.ORES_COBALT).add(TinkerWorld.cobaltOre.get());
     this.getBuilder(TinkerTags.Blocks.ORES_ARDITE).add(TinkerWorld.arditeOre.get());
+    this.getBuilder(TinkerTags.Blocks.ORES_COPPER).add(TinkerWorld.copperOre.get());
   }
 
   private void addGadgets() {
