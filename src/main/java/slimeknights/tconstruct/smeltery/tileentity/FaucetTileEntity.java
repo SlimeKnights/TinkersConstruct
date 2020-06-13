@@ -175,6 +175,9 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
     stopPouring = false;
     drained = null;
     direction = Direction.DOWN;
+    if (world != null && !getWorld().isRemote() && getWorld() instanceof ServerWorld) {
+      TinkerNetwork.getInstance().sendToClientsAround(new FaucetActivationPacket(pos, drained), (ServerWorld) world, getPos());
+    }
   }
 
   /**
