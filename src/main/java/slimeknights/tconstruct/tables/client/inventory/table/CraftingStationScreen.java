@@ -20,21 +20,13 @@ public class CraftingStationScreen extends TinkerStationScreen<CraftingStationTi
     super(container, playerInventory, title);
 
     if (this.container instanceof CraftingStationContainer) {
-      CraftingStationContainer craftingStationContainer = (CraftingStationContainer) container;
       SideInventoryContainer sideInventoryContainer = container.getSubContainer(SideInventoryContainer.class);
 
       if (sideInventoryContainer != null) {
         ITextComponent sideInventoryName = title;
 
-        if (sideInventoryContainer.getTileEntity() != null) {
-          if (sideInventoryContainer.getTileEntity() instanceof ChestTileEntity) {
-            // Fix: chests don't update their single/double chest status clientside once accessed
-            //((ChestTileEntity) sideInventoryContainer.getTileEntity()).chestHandler = null;
-          }
-
-          if (sideInventoryContainer.getTileEntity() instanceof INamedContainerProvider) {
+        if (sideInventoryContainer.getTileEntity() != null && sideInventoryContainer.getTileEntity() instanceof INamedContainerProvider) {
             sideInventoryName = ((INamedContainerProvider) sideInventoryContainer.getTileEntity()).getDisplayName();
-          }
         }
 
         this.addModule(new SideInventoryScreen(this, sideInventoryContainer, playerInventory, sideInventoryName, sideInventoryContainer.getSlotCount(), sideInventoryContainer.columns));
