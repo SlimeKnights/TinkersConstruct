@@ -21,6 +21,7 @@ public class TinkerTags {
 
     public static final Tag<Block> ORES_COBALT = forgeTag("ores/cobalt");
     public static final Tag<Block> ORES_ARDITE = forgeTag("ores/ardite");
+    public static final Tag<Block> ORES_COPPER = forgeTag("ores/copper");
 
     public static final Tag<Block> STORAGE_BLOCKS_COBALT = forgeTag("storage_blocks/cobalt");
     public static final Tag<Block> STORAGE_BLOCKS_ARDITE = forgeTag("storage_blocks/ardite");
@@ -28,6 +29,7 @@ public class TinkerTags {
     public static final Tag<Block> STORAGE_BLOCKS_KNIGHTSLIME = forgeTag("storage_blocks/knightslime");
     public static final Tag<Block> STORAGE_BLOCKS_PIGIRON = forgeTag("storage_blocks/pigiron");
     public static final Tag<Block> STORAGE_BLOCKS_ALUBRASS = forgeTag("storage_blocks/alubrass");
+    public static final Tag<Block> STORAGE_BLOCKS_COPPER = forgeTag("storage_blocks/copper");
 
     public static final Tag<Block> SEARED_BLOCKS = tag("seared_blocks");
     public static final Tag<Block> SMOOTH_SEARED_BLOCKS = tag("smooth_seared_blocks");
@@ -51,6 +53,7 @@ public class TinkerTags {
 
     public static final Tag<Item> ORES_COBALT = forgeTag("ores/cobalt");
     public static final Tag<Item> ORES_ARDITE = forgeTag("ores/ardite");
+    public static final Tag<Item> ORES_COPPER = forgeTag("ores/copper");
 
     public static final Tag<Item> STORAGE_BLOCKS_COBALT = forgeTag("storage_blocks/cobalt");
     public static final Tag<Item> STORAGE_BLOCKS_ARDITE = forgeTag("storage_blocks/ardite");
@@ -58,6 +61,7 @@ public class TinkerTags {
     public static final Tag<Item> STORAGE_BLOCKS_KNIGHTSLIME = forgeTag("storage_blocks/knightslime");
     public static final Tag<Item> STORAGE_BLOCKS_PIGIRON = forgeTag("storage_blocks/pigiron");
     public static final Tag<Item> STORAGE_BLOCKS_ALUBRASS = forgeTag("storage_blocks/alubrass");
+    public static final Tag<Item> STORAGE_BLOCKS_COPPER = forgeTag("storage_blocks/copper");
 
     public static final Tag<Item> SEARED_BLOCKS = tag("seared_blocks");
     public static final Tag<Item> SMOOTH_SEARED_BLOCKS = tag("smooth_seared_blocks");
@@ -76,6 +80,7 @@ public class TinkerTags {
     public static final Tag<Item> INGOTS_KNIGHTSLIME = forgeTag("ingots/knightslime");
     public static final Tag<Item> INGOTS_PIGIRON = forgeTag("ingots/pigiron");
     public static final Tag<Item> INGOTS_ALUBRASS = forgeTag("ingots/alubrass");
+    public static final Tag<Item> INGOTS_COPPER = forgeTag("ingots/copper");
 
     public static final Tag<Item> NUGGETS_COBALT = forgeTag("nuggets/cobalt");
     public static final Tag<Item> NUGGETS_ARDITE = forgeTag("nuggets/ardite");
@@ -83,6 +88,7 @@ public class TinkerTags {
     public static final Tag<Item> NUGGETS_KNIGHTSLIME = forgeTag("nuggets/knightslime");
     public static final Tag<Item> NUGGETS_PIGIRON = forgeTag("nuggets/pigiron");
     public static final Tag<Item> NUGGETS_ALUBRASS = forgeTag("nuggets/alubrass");
+    public static final Tag<Item> NUGGETS_COPPER = forgeTag("nuggets/copper");
 
     public static final Tag<Item> DUSTS_SULFUR = forgeTag("dusts/sulfur");
 
