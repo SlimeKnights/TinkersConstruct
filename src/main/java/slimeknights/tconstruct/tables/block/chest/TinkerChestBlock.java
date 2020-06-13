@@ -67,7 +67,7 @@ public abstract class TinkerChestBlock extends TinkerTableBlock {
 
   @Override
   public void dropInventoryItems(BlockState state, World worldIn, BlockPos pos, TileEntity tileentity) {
-    if (keepInventory()) {
+    if (!keepInventory()) {
       super.dropInventoryItems(state, worldIn, pos, tileentity);
     }
   }
