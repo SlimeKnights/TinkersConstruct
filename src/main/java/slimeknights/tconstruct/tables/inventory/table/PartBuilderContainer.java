@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.inventory.table;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftResultInventory;
@@ -47,7 +48,7 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
     this.addSlot(this.secondarySlot = new OutSlot(tile, 3, 132, 35));
 
     // pattern slot
-    this.addSlot(this.patternSlot = new PatternSlot(craftMatrix, 2, 26, 35, false));
+    this.addSlot(this.patternSlot = new PatternSlot(craftMatrix, 2, 26, 35));
 
     // material slots
     this.addSlot(this.input1 = new Slot(craftMatrix, 0, 48, 26));
