@@ -49,13 +49,13 @@ public class PatternChestContainer extends TinkerStationContainer<PatternChestTi
     }
   }
 
-  public static class PatternChestSlot extends StencilSlot {
+  public static class PatternChestSlot extends PatternSlot {
 
     @Nullable
     public final PatternChestTileEntity patternChestTileEntity;
 
     public PatternChestSlot(@Nullable PatternChestTileEntity tileEntity, int index, int xPosition, int yPosition) {
-      super(tileEntity, index, xPosition, yPosition, false);
+      super(tileEntity, index, xPosition, yPosition);
 
       this.patternChestTileEntity = tileEntity;
     }
