@@ -9,6 +9,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
+import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
 import slimeknights.tconstruct.tables.inventory.table.PartBuilderContainer;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
