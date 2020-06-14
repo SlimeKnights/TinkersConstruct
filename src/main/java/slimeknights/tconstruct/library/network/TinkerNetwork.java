@@ -13,7 +13,6 @@ import slimeknights.tconstruct.library.DataSyncOnLoginEvents;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.tables.network.LastRecipePacket;
-import slimeknights.tconstruct.tables.network.PartCrafterSelectionPacket;
 import slimeknights.tconstruct.tables.network.TinkerStationTabPacket;
 import slimeknights.tconstruct.tools.common.network.BouncedPacket;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
@@ -41,7 +40,6 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::encode, InventorySlotSyncPacket::new, InventorySlotSyncPacket::handle);
     instance.registerPacket(TinkerStationTabPacket.class, TinkerStationTabPacket::encode, TinkerStationTabPacket::new, TinkerStationTabPacket::handle);
     instance.registerPacket(LastRecipePacket.class, LastRecipePacket::encode, LastRecipePacket::new, LastRecipePacket::handle);
-    instance.registerPacket(PartCrafterSelectionPacket.class, PartCrafterSelectionPacket::encode, PartCrafterSelectionPacket::new, PartCrafterSelectionPacket::handle);
     instance.registerPacket(FluidUpdatePacket.class, FluidUpdatePacket::encode, FluidUpdatePacket::new, FluidUpdatePacket::handle);
     instance.registerPacket(FaucetActivationPacket.class, FaucetActivationPacket::encode, FaucetActivationPacket::new, FaucetActivationPacket::handle);
 

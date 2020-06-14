@@ -1,8 +1,5 @@
 package slimeknights.tconstruct.tables.inventory.table;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftResultInventory;
@@ -16,19 +13,14 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.inventory.CraftingCustomSlot;
 import slimeknights.mantle.inventory.IContainerCraftingCustom;
 import slimeknights.mantle.inventory.OutSlot;
 import slimeknights.tconstruct.shared.inventory.PersistentCraftingInventory;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tables.block.TableTypes;
-import slimeknights.tconstruct.tables.block.TinkerTableBlock;
 import slimeknights.tconstruct.tables.client.inventory.table.PartBuilderScreen;
 import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
-import slimeknights.tconstruct.tables.inventory.chest.PatternChestContainer;
-import slimeknights.tconstruct.tables.inventory.chest.StencilSlot;
-import slimeknights.tconstruct.tables.tileentity.chest.PatternChestTileEntity;
+import slimeknights.tconstruct.tables.inventory.chest.PatternSlot;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
 import javax.annotation.Nullable;
@@ -42,9 +34,7 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
   private final Slot input1;
   private final Slot input2;
 
-  private final boolean partCrafter;
   private final PlayerEntity player;
-  public final IInventory patternChest;
 
   public PartBuilderContainer(int id, @Nullable PlayerInventory inv, PartBuilderTileEntity partBuilderTileEntity) {
     super(TinkerTables.partBuilderContainer.get(), id, inv, partBuilderTileEntity);
@@ -57,48 +47,11 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
     this.addSlot(this.secondarySlot = new OutSlot(tile, 3, 132, 35));
 
     // pattern slot
-    this.addSlot(this.patternSlot = new StencilSlot(craftMatrix, 2, 26, 35, false));
+    this.addSlot(this.patternSlot = new PatternSlot(craftMatrix, 2, 26, 35, false));
 
     // material slots
     this.addSlot(this.input1 = new Slot(craftMatrix, 0, 48, 26));
     this.addSlot(this.input2 = new Slot(craftMatrix, 1, 48, 44));
-
-    PatternChestTileEntity chest = this.detectTE(PatternChestTileEntity.class);
-    // TE present?
-    if (chest != null) {
-      // crafting station and stencil table also present?
-      boolean hasCraftingStation = false;
-      boolean hasStencilTable = false;
-
-      for (Pair<BlockPos, BlockState> pair : this.tinkerStationBlocks) {
-        if (!(pair.getRight().getBlock() instanceof TinkerTableBlock)) {
-          continue;
-        }
-
-        TinkerTableBlock tableBlock = (TinkerTableBlock) pair.getRight().getBlock();
-
-        TableTypes type = tableBlock.getType();
-
-        if (type != TableTypes.NoTableTypeAssigned) {
-          if (type == TableTypes.CraftingStation) {
-            hasCraftingStation = true;
-          } else if (type == TableTypes.StencilTable) {
-            hasStencilTable = true;
-          }
-        }
-      }
-
-      // are we a PartCrafter?
-      this.partCrafter = hasStencilTable && hasCraftingStation;
-
-      Container sideInventory = new PatternChestContainer.DynamicChestInventory(TinkerTables.partBuilderContainer.get(), id, inv, chest, -6, 8, 6);
-      this.addSubContainer(sideInventory, true);
-
-      this.patternChest = chest;
-    } else {
-      this.partCrafter = false;
-      this.patternChest = null;
-    }
 
     this.addInventorySlots();
 
@@ -107,10 +60,6 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
 
   public PartBuilderContainer(int id, PlayerInventory inv, PacketBuffer buf) {
     this(id, inv, getTileEntityFromBuf(buf, PartBuilderTileEntity.class));
-  }
-
-  public boolean isPartCrafter() {
-    return partCrafter;
   }
 
   @Override
@@ -164,23 +113,6 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
     }
   }
 
-  public void setPattern(ItemStack wanted) {
-    if(this.patternChest == null) {
-      return;
-    }
-
-    // check chest contents for wanted
-    for(int i = 0; i < this.patternChest.getSizeInventory(); i++) {
-      if(ItemStack.areItemStacksEqual(wanted, this.patternChest.getStackInSlot(i))) {
-        // found it! exchange it with the pattern slot!
-        ItemStack slotStack = this.patternSlot.getStack();
-        this.patternSlot.putStack(this.patternChest.getStackInSlot(i));
-        this.patternChest.setInventorySlotContents(i, slotStack);
-        break;
-      }
-    }
-  }
-
   @Override
   public void onCrafting(PlayerEntity playerEntity, ItemStack output, IInventory craftMatrix) {
     NonNullList<ItemStack> toolPart = NonNullList.create();
@@ -214,30 +146,5 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
   @Override
   public boolean canMergeSlot(ItemStack stack, Slot slotIn) {
     return slotIn.inventory != this.craftResult && super.canMergeSlot(stack, slotIn);
-  }
-
-  @Override
-  @OnlyIn(Dist.CLIENT)
-  public void putStackInSlot(int slotID, ItemStack stack) {
-    super.putStackInSlot(slotID, stack);
-
-    Minecraft mc = Minecraft.getInstance();
-
-    if (mc.currentScreen instanceof PartBuilderScreen) {
-      ((PartBuilderScreen) mc.currentScreen).updateButtons();
-    }
-  }
-
-  @Override
-  @OnlyIn(Dist.CLIENT)
-  public ItemStack slotClick(int slotId, int dragType, ClickType clickTypeIn, PlayerEntity player) {
-    ItemStack itemStack = super.slotClick(slotId, dragType, clickTypeIn, player);
-    Minecraft mc = Minecraft.getInstance();
-
-    if (mc.currentScreen instanceof PartBuilderScreen) {
-      ((PartBuilderScreen) mc.currentScreen).updateButtons();
-    }
-
-    return itemStack;
   }
 }
