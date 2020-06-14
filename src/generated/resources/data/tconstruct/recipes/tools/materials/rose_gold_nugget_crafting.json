@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "tconstruct:rose_gold_nugget",
+  "ingredients": [
+    {
+      "item": "tconstruct:copper_nugget"
+    },
+    {
+      "item": "minecraft:gold_nugget"
+    },
+    {
+      "item": "minecraft:coal"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:rose_gold_nugget"
+  }
+}

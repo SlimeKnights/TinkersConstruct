@@ -87,6 +87,8 @@
     "block.tconstruct.pigiron_block.tooltip": "block.tconstruct.metal.tooltip",
     "block.tconstruct.copper_block": "Block of Copper",
     "block.tconstruct.copper_block.tooltip": "block.tconstruct.metal.tooltip",
+    "block.tconstruct.rose_gold_block": "Block of Rose Gold",
+    "block.tconstruct.copper_block.tooltip": "block.tconstruct.metal.tooltip",
     "block.tconstruct.silky_jewel_block": "Silky Block of Jewel",
     "block.tconstruct.silky_jewel_block.tooltip": "block.tconstruct.metal.tooltip",
     "block.tconstruct.metal.tooltip": "Can be used as beacon base",
@@ -164,6 +166,7 @@
     "item.tconstruct.pigiron_ingot": "Pigiron Ingot",
     "item.tconstruct.pigiron_ingot.tooltip": "Pigiron Ingot",
     "item.tconstruct.copper_ingot": "Copper Ingot",
+    "item.tconstruct.rose_gold_ingot": "Rose Gold Ingot",
 
     "item.tconstruct.cobalt_nugget": "Cobalt Nugget",
     "item.tconstruct.ardite_nugget": "Ardite Nugget",
@@ -171,6 +174,7 @@
     "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
     "item.tconstruct.pigiron_nugget": "Pigiron Nugget",
     "item.tconstruct.copper_nugget": "Copper Nugget",
+    "item.tconstruct.rose_gold_nugget": "Rose Gold Nugget",
 
     "_comment": "Tinkers Fluids",
 

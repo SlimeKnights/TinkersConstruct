@@ -276,6 +276,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     registerMineralRecipes(consumer, TinkerMaterials.knightSlimeBlock, TinkerMaterials.knightslimeIngot, TinkerMaterials.knightslimeNugget, folder);
     registerMineralRecipes(consumer, TinkerMaterials.pigironBlock, TinkerMaterials.pigironIngot, TinkerMaterials.pigironNugget, folder);
     registerMineralRecipes(consumer, TinkerMaterials.copperBlock, TinkerMaterials.copperIngot, TinkerMaterials.copperNugget, folder);
+    registerMineralRecipes(consumer, TinkerMaterials.roseGoldBlock, TinkerMaterials.roseGoldIngot, TinkerMaterials.roseGoldNugget, folder);
 
     // smelt ore into ingots, must use a blast furnace for nether ores
     CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.cobaltOre), TinkerMaterials.cobaltIngot, 1.5f, 200)
@@ -304,6 +305,22 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                           .setGroup(TinkerMaterials.manyullynIngot.getRegistryName().toString())
                           .addCriterion("has_item", hasItem(TinkerMaterials.cobaltIngot))
                           .build(consumer, wrap(TinkerMaterials.manyullynIngot, folder, "_crafting"));
+
+    // FIXME: temporary rose gold recipe
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.roseGoldNugget)
+                          .addIngredient(TinkerMaterials.copperNugget)
+                          .addIngredient(Items.GOLD_NUGGET)
+                          .addIngredient(Items.COAL)
+                          .setGroup(TinkerMaterials.roseGoldNugget.getRegistryName().toString())
+                          .addCriterion("has_item", hasItem(Items.GOLD_NUGGET))
+                          .build(consumer, wrap(TinkerMaterials.roseGoldNugget, folder, "_crafting"));
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.roseGoldIngot)
+                          .addIngredient(TinkerMaterials.copperIngot)
+                          .addIngredient(Items.GOLD_INGOT)
+                          .addIngredient(Blocks.COAL_BLOCK)
+                          .setGroup(TinkerMaterials.roseGoldIngot.getRegistryName().toString())
+                          .addCriterion("has_item", hasItem(Items.GOLD_INGOT))
+                          .build(consumer, wrap(TinkerMaterials.roseGoldIngot, folder, "_crafting"));
 
     // FIXME: temporary knightslime recipe
     Item purpleSlime = TinkerCommons.slimeball.get(SlimeType.PURPLE);

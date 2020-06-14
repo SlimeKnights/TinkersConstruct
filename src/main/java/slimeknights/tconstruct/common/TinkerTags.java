@@ -29,6 +29,7 @@ public class TinkerTags {
     public static final Tag<Block> STORAGE_BLOCKS_KNIGHTSLIME = forgeTag("storage_blocks/knightslime");
     public static final Tag<Block> STORAGE_BLOCKS_PIGIRON = forgeTag("storage_blocks/pigiron");
     public static final Tag<Block> STORAGE_BLOCKS_COPPER = forgeTag("storage_blocks/copper");
+    public static final Tag<Block> STORAGE_BLOCKS_ROSE_GOLD = forgeTag("storage_blocks/rose_gold");
 
     public static final Tag<Block> SEARED_BLOCKS = tag("seared_blocks");
     public static final Tag<Block> SMOOTH_SEARED_BLOCKS = tag("smooth_seared_blocks");
@@ -60,6 +61,7 @@ public class TinkerTags {
     public static final Tag<Item> STORAGE_BLOCKS_KNIGHTSLIME = forgeTag("storage_blocks/knightslime");
     public static final Tag<Item> STORAGE_BLOCKS_PIGIRON = forgeTag("storage_blocks/pigiron");
     public static final Tag<Item> STORAGE_BLOCKS_COPPER = forgeTag("storage_blocks/copper");
+    public static final Tag<Item> STORAGE_BLOCKS_ROSE_GOLD = forgeTag("storage_blocks/rose_gold");
 
     public static final Tag<Item> SEARED_BLOCKS = tag("seared_blocks");
     public static final Tag<Item> SMOOTH_SEARED_BLOCKS = tag("smooth_seared_blocks");
@@ -78,6 +80,7 @@ public class TinkerTags {
     public static final Tag<Item> INGOTS_KNIGHTSLIME = forgeTag("ingots/knightslime");
     public static final Tag<Item> INGOTS_PIGIRON = forgeTag("ingots/pigiron");
     public static final Tag<Item> INGOTS_COPPER = forgeTag("ingots/copper");
+    public static final Tag<Item> INGOTS_ROSE_GOLD = forgeTag("ingots/rose_gold");
 
     public static final Tag<Item> NUGGETS_COBALT = forgeTag("nuggets/cobalt");
     public static final Tag<Item> NUGGETS_ARDITE = forgeTag("nuggets/ardite");
@@ -85,6 +88,7 @@ public class TinkerTags {
     public static final Tag<Item> NUGGETS_KNIGHTSLIME = forgeTag("nuggets/knightslime");
     public static final Tag<Item> NUGGETS_PIGIRON = forgeTag("nuggets/pigiron");
     public static final Tag<Item> NUGGETS_COPPER = forgeTag("nuggets/copper");
+    public static final Tag<Item> NUGGETS_ROSE_GOLD = forgeTag("nuggets/rose_gold");
 
     public static final Tag<Item> DUSTS_SULFUR = forgeTag("dusts/sulfur");
 
