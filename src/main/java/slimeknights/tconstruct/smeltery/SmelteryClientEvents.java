@@ -20,6 +20,7 @@ import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.TankModel;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
+import slimeknights.tconstruct.smeltery.client.render.FaucetTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.TankTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
@@ -33,8 +34,10 @@ public class SmelteryClientEvents extends ClientEventBase {
     for (SearedTankBlock.TankType tankType : SearedTankBlock.TankType.values()) {
       RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedTank.get(tankType), RenderType.getCutout());
     }
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedFaucet.get(), RenderType.getCutout());
 
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.tank.get(), TankTileEntityRenderer::new);
+    ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.faucet.get(), FaucetTileEntityRenderer::new);
   }
 
   @SubscribeEvent
