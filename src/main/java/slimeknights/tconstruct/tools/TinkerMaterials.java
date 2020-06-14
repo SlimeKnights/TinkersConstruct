@@ -21,7 +21,6 @@ public final class TinkerMaterials extends TinkerModule {
   public static final BlockItemObject<BeaconBaseBlock> manyullynBlock = BLOCKS.register("manyullyn_block", () -> new BeaconBaseBlock(GENERIC_METAL_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
   public static final BlockItemObject<BeaconBaseBlock> knightSlimeBlock = BLOCKS.register("knightslime_block", () -> new BeaconBaseBlock(GENERIC_METAL_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
   public static final BlockItemObject<BeaconBaseBlock> pigironBlock = BLOCKS.register("pigiron_block", () -> new BeaconBaseBlock(GENERIC_METAL_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<BeaconBaseBlock> alubrassBlock = BLOCKS.register("alubrass_block", () -> new BeaconBaseBlock(GENERIC_METAL_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
   public static final BlockItemObject<BeaconBaseBlock> copperBlock = BLOCKS.register("copper_block", () -> new BeaconBaseBlock(GENERIC_METAL_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
 
   /*
@@ -36,8 +35,6 @@ public final class TinkerMaterials extends TinkerModule {
   public static final ItemObject<Item> manyullynIngot = ITEMS.register("manyullyn_ingot", GENERAL_PROPS);
   public static final ItemObject<Item> pigironNugget = ITEMS.register("pigiron_nugget", GENERAL_PROPS);
   public static final ItemObject<Item> pigironIngot = ITEMS.register("pigiron_ingot", GENERAL_PROPS);
-  public static final ItemObject<Item> alubrassNugget = ITEMS.register("alubrass_nugget", GENERAL_PROPS);
-  public static final ItemObject<Item> alubrassIngot = ITEMS.register("alubrass_ingot", GENERAL_PROPS);
   public static final ItemObject<Item> knightslimeNugget = ITEMS.register("knightslime_nugget", GENERAL_PROPS);
   public static final ItemObject<Item> knightslimeIngot = ITEMS.register("knightslime_ingot", GENERAL_PROPS);
   public static final ItemObject<Item> copperNugget = ITEMS.register("copper_nugget", GENERAL_PROPS);

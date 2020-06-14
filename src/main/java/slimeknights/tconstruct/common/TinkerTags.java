@@ -28,7 +28,6 @@ public class TinkerTags {
     public static final Tag<Block> STORAGE_BLOCKS_MANYULLYN = forgeTag("storage_blocks/manyullyn");
     public static final Tag<Block> STORAGE_BLOCKS_KNIGHTSLIME = forgeTag("storage_blocks/knightslime");
     public static final Tag<Block> STORAGE_BLOCKS_PIGIRON = forgeTag("storage_blocks/pigiron");
-    public static final Tag<Block> STORAGE_BLOCKS_ALUBRASS = forgeTag("storage_blocks/alubrass");
     public static final Tag<Block> STORAGE_BLOCKS_COPPER = forgeTag("storage_blocks/copper");
 
     public static final Tag<Block> SEARED_BLOCKS = tag("seared_blocks");
@@ -60,7 +59,6 @@ public class TinkerTags {
     public static final Tag<Item> STORAGE_BLOCKS_MANYULLYN = forgeTag("storage_blocks/manyullyn");
     public static final Tag<Item> STORAGE_BLOCKS_KNIGHTSLIME = forgeTag("storage_blocks/knightslime");
     public static final Tag<Item> STORAGE_BLOCKS_PIGIRON = forgeTag("storage_blocks/pigiron");
-    public static final Tag<Item> STORAGE_BLOCKS_ALUBRASS = forgeTag("storage_blocks/alubrass");
     public static final Tag<Item> STORAGE_BLOCKS_COPPER = forgeTag("storage_blocks/copper");
 
     public static final Tag<Item> SEARED_BLOCKS = tag("seared_blocks");
@@ -79,7 +77,6 @@ public class TinkerTags {
     public static final Tag<Item> INGOTS_MANYULLYN = forgeTag("ingots/manyullyn");
     public static final Tag<Item> INGOTS_KNIGHTSLIME = forgeTag("ingots/knightslime");
     public static final Tag<Item> INGOTS_PIGIRON = forgeTag("ingots/pigiron");
-    public static final Tag<Item> INGOTS_ALUBRASS = forgeTag("ingots/alubrass");
     public static final Tag<Item> INGOTS_COPPER = forgeTag("ingots/copper");
 
     public static final Tag<Item> NUGGETS_COBALT = forgeTag("nuggets/cobalt");
@@ -87,7 +84,6 @@ public class TinkerTags {
     public static final Tag<Item> NUGGETS_MANYULLYN = forgeTag("nuggets/manyullyn");
     public static final Tag<Item> NUGGETS_KNIGHTSLIME = forgeTag("nuggets/knightslime");
     public static final Tag<Item> NUGGETS_PIGIRON = forgeTag("nuggets/pigiron");
-    public static final Tag<Item> NUGGETS_ALUBRASS = forgeTag("nuggets/alubrass");
     public static final Tag<Item> NUGGETS_COPPER = forgeTag("nuggets/copper");
 
     public static final Tag<Item> DUSTS_SULFUR = forgeTag("dusts/sulfur");

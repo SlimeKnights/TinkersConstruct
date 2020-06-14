@@ -275,7 +275,6 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     registerMineralRecipes(consumer, TinkerMaterials.manyullynBlock, TinkerMaterials.manyullynIngot, TinkerMaterials.manyullynNugget, folder);
     registerMineralRecipes(consumer, TinkerMaterials.knightSlimeBlock, TinkerMaterials.knightslimeIngot, TinkerMaterials.knightslimeNugget, folder);
     registerMineralRecipes(consumer, TinkerMaterials.pigironBlock, TinkerMaterials.pigironIngot, TinkerMaterials.pigironNugget, folder);
-    registerMineralRecipes(consumer, TinkerMaterials.alubrassBlock, TinkerMaterials.alubrassIngot, TinkerMaterials.alubrassNugget, folder);
     registerMineralRecipes(consumer, TinkerMaterials.copperBlock, TinkerMaterials.copperIngot, TinkerMaterials.copperNugget, folder);
 
     // smelt ore into ingots, must use a blast furnace for nether ores
@@ -455,7 +454,6 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
 
     // frames
     registerFrameRecipes(consumer, TinkerModifiers.silkyCloth, FrameType.JEWEL);
-    registerFrameRecipes(consumer, TinkerMaterials.alubrassNugget, FrameType.ALUMINUM_BRASS);
     registerFrameRecipes(consumer, TinkerMaterials.cobaltNugget, FrameType.COBALT);
     registerFrameRecipes(consumer, TinkerMaterials.arditeNugget, FrameType.ARDITE);
     registerFrameRecipes(consumer, TinkerMaterials.manyullynNugget, FrameType.MANYULLYN);

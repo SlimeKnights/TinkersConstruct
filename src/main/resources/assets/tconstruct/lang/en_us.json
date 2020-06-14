@@ -85,8 +85,6 @@
     "block.tconstruct.knightslime_block.tooltip": "block.tconstruct.metal.tooltip",
     "block.tconstruct.pigiron_block": "Block of Pigiron",
     "block.tconstruct.pigiron_block.tooltip": "block.tconstruct.metal.tooltip",
-    "block.tconstruct.alubrass_block": "Block of Aluminum Brass",
-    "block.tconstruct.alubrass_block.tooltip": "block.tconstruct.metal.tooltip",
     "block.tconstruct.copper_block": "Block of Copper",
     "block.tconstruct.copper_block.tooltip": "block.tconstruct.metal.tooltip",
     "block.tconstruct.silky_jewel_block": "Silky Block of Jewel",
@@ -165,7 +163,6 @@
     "item.tconstruct.knightslime_ingot.tooltip": "Slimy yet metallic but also stone? Fascinating!",
     "item.tconstruct.pigiron_ingot": "Pigiron Ingot",
     "item.tconstruct.pigiron_ingot.tooltip": "Pigiron Ingot",
-    "item.tconstruct.alubrass_ingot": "Aluminum Brass Ingot",
     "item.tconstruct.copper_ingot": "Copper Ingot",
 
     "item.tconstruct.cobalt_nugget": "Cobalt Nugget",
@@ -173,7 +170,6 @@
     "item.tconstruct.manyullyn_nugget": "Manyullyn Nugget",
     "item.tconstruct.knightslime_nugget": "Knightslime Nugget",
     "item.tconstruct.pigiron_nugget": "Pigiron Nugget",
-    "item.tconstruct.alubrass_nugget": "Aluminum Brass Nugget",
     "item.tconstruct.copper_nugget": "Copper Nugget",
 
     "_comment": "Tinkers Fluids",

@@ -46,6 +46,7 @@ import slimeknights.tconstruct.debug.ToolDebugContainer;
 import slimeknights.tconstruct.debug.ToolDebugScreen;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerClient;
@@ -169,19 +170,35 @@ public class TConstruct {
   public void missingItemMappings(RegistryEvent.MissingMappings<Item> event) {
     for (RegistryEvent.MissingMappings.Mapping<Item> entry : event.getAllMappings()) {
       if (entry.key.getNamespace().equals(TConstruct.modID)) {
+        String path = entry.key.getPath();
+        // slime is prefixed with color instead of suffixed
         for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
           // Remap slime_sling_$slime
-          if (entry.key.getPath().equals("slime_sling_" + slime.getName())) {
+          if (path.equals("slime_sling_" + slime.getName())) {
             entry.remap(TinkerGadgets.slimeSling.get(slime));
           }
           // Remap slime_boots_$slime
-          if (entry.key.getPath().equals("slime_boots_" + slime.getName())) {
+          if (path.equals("slime_boots_" + slime.getName())) {
             entry.remap(TinkerGadgets.slimeBoots.get(slime));
           }
           // Remap congealed_$slime_slime
-          if (entry.key.getNamespace().equals(TConstruct.modID) && entry.key.getPath().equals(String.format("congealed_%s_slime", slime.getName()))) {
+          if (path.equals(String.format("congealed_%s_slime", slime.getName()))) {
             entry.remap(TinkerWorld.congealedSlime.get(slime).asItem());
           }
+        }
+        switch (path) {
+          // alubrass removed, fallback
+          case "alubrass_block":
+            entry.remap(TinkerMaterials.copperBlock.asItem());
+            break;
+          case "alubrass_ingot":
+            entry.remap(TinkerMaterials.cobaltIngot.get());
+            break;
+          case "alubrass_nugget":
+            entry.remap(TinkerMaterials.copperNugget.get());
+            break;
+          case "aluminum_brass_item_frame":
+            entry.remap(TinkerGadgets.itemFrame.get(FrameType.JEWEL));
         }
       }
     }
@@ -191,19 +208,26 @@ public class TConstruct {
   public void missingBlockMappings(RegistryEvent.MissingMappings<Block> event) {
     for (RegistryEvent.MissingMappings.Mapping<Block> entry : event.getAllMappings()) {
       if (entry.key.getNamespace().equals(TConstruct.modID)) {
+        // congealed is congealed_color_slime instead of color_congealed_slime
+        String path = entry.key.getPath();
         for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
           // Remap congealed_$slime_slime
-          if (entry.key.getPath().equals(String.format("congealed_%s_slime", slime.getName()))) {
+          if (path.equals(String.format("congealed_%s_slime", slime.getName()))) {
             entry.remap(TinkerWorld.congealedSlime.get(slime));
           }
         }
-
-        if (entry.key.getPath().equals("purple_slime_fluid_block")) {
-          entry.remap(TinkerFluids.purpleSlime.getBlock());
-        }
-
-        if (entry.key.getPath().equals("blue_slime_fluid_block")) {
-          entry.remap(TinkerFluids.blueSlime.getBlock());
+        switch(path) {
+          // slime fluids renamed to remove "fluid"
+          case "purple_slime_fluid_block":
+            entry.remap(TinkerFluids.purpleSlime.getBlock());
+            break;
+          case "blue_slime_fluid_block":
+            entry.remap(TinkerFluids.blueSlime.getBlock());
+            break;
+          // alubrass removed, fallback
+          case "alubrass_block":
+            entry.remap(TinkerMaterials.copperBlock.get());
+            break;
         }
       }
     }
@@ -213,20 +237,20 @@ public class TConstruct {
   public void missingFluidMappings(RegistryEvent.MissingMappings<Fluid> event) {
     for (RegistryEvent.MissingMappings.Mapping<Fluid> entry : event.getAllMappings()) {
       if (entry.key.getNamespace().equals(TConstruct.modID)) {
-        if (entry.key.getPath().equals("blue_slime_fluid")) {
-          entry.remap(TinkerFluids.blueSlime.getStill());
-        }
-
-        if (entry.key.getPath().equals("blue_slime_fluid_flowing")) {
-          entry.remap(TinkerFluids.blueSlime.getFlowing());
-        }
-
-        if (entry.key.getPath().equals("purple_slime_fluid")) {
-          entry.remap(TinkerFluids.purpleSlime.getStill());
-        }
-
-        if (entry.key.getPath().equals("purple_slime_fluid_flowing")) {
-          entry.remap(TinkerFluids.purpleSlime.getFlowing());
+        switch (entry.key.getPath()) {
+          // slime fluids renamed to remove fluid, flowing is now prefix
+          case "blue_slime_fluid":
+            entry.remap(TinkerFluids.blueSlime.getStill());
+            break;
+          case "blue_slime_fluid_flowing":
+            entry.remap(TinkerFluids.blueSlime.getFlowing());
+            break;
+          case "purple_slime_fluid":
+            entry.remap(TinkerFluids.purpleSlime.getStill());
+            break;
+          case "purple_slime_fluid_flowing":
+            entry.remap(TinkerFluids.purpleSlime.getFlowing());
+            break;
         }
       }
     }

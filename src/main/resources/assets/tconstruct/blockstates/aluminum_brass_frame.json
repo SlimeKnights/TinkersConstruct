@@ -1,6 +1,0 @@
-{
-    "variants": {
-        "map=false": { "model": "tconstruct:block/aluminum_brass_frame" },
-        "map=true": { "model": "tconstruct:block/aluminum_brass_frame_map" }
-    }
-}

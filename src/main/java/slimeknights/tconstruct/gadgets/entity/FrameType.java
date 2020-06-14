@@ -10,16 +10,13 @@ import java.util.Locale;
 
 public enum FrameType implements IStringSerializable {
   JEWEL(0),
-  ALUMINUM_BRASS(1),
-  COBALT(2),
-  ARDITE(3),
-  MANYULLYN(4),
-  GOLD(5),
-  CLEAR(6);
+  COBALT(1),
+  ARDITE(2),
+  MANYULLYN(3),
+  GOLD(4),
+  CLEAR(5);
 
-  private static final FrameType[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(FrameType::getId)).toArray((id) -> {
-    return new FrameType[id];
-  });
+  private static final FrameType[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(FrameType::getId)).toArray(FrameType[]::new);
   private final int id;
 
   private FrameType(int idIn) {
