@@ -2,9 +2,9 @@ package slimeknights.tconstruct.library.materials;
 
 import lombok.Getter;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
+import slimeknights.tconstruct.library.client.renderer.font.CustomFontColor;
 
 @Getter
 public class Material implements IMaterial {
@@ -43,38 +43,50 @@ public class Material implements IMaterial {
   private final boolean craftable;
 
   /**
-   * This item will be used instead of the generic shard item when returning leftovers.
-   */
-  private final ItemStack shardItem;
-
-  /**
    * Key used for localizing the material
    */
   private final String translationKey;
 
   /**
+   * the unencoded color for the material
+   */
+  private final String materialTextColor;
+
+  /**
    * Materials should only be created by the MaterialManager.
    * They're synced over the network and other classes might lead to unexpected behaviour.
    */
-  public Material(ResourceLocation identifier, Fluid fluid, boolean craftable, ItemStack shardItem) {
+  public Material(ResourceLocation identifier, Fluid fluid, boolean craftable, String materialTextColor) {
     // lowercases and removes whitespaces
     this.identifier = new MaterialId(identifier);
     this.fluid = fluid;
     this.craftable = craftable;
-    this.shardItem = shardItem;
     this.translationKey = Util.makeTranslationKey("material", identifier);
+    this.materialTextColor = materialTextColor;
   }
 
-  @Override
-  public ItemStack getShard() {
-    if (shardItem != ItemStack.EMPTY) {
-      return shardItem.copy();
-    }
-    return ItemStack.EMPTY;
+  public Material(ResourceLocation identifier, Fluid fluid, boolean craftable) {
+    this(identifier, fluid, craftable, "ffffff");
   }
 
   @Override
   public String getTranslationKey() {
-    return translationKey;
+    return this.translationKey;
+  }
+
+  @Override
+  public String getEncodedTextColor() {
+    int color = Integer.parseInt(this.materialTextColor, 16);
+
+    if((color & 0xFF000000) == 0) {
+      color |= 0xFF000000;
+    }
+
+    return CustomFontColor.encodeColor(color);
+  }
+
+  @Override
+  public String getTextColor() {
+    return this.materialTextColor;
   }
 }

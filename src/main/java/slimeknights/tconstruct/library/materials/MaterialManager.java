@@ -9,9 +9,6 @@ import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -109,28 +106,13 @@ public class MaterialManager extends JsonReloadListener {
 
       boolean isCraftable = Boolean.TRUE.equals(materialJson.getCraftable());
       Fluid fluid = loadFluid(materialId, materialJson);
-      ItemStack shard = loadShardItem(materialId, materialJson);
+      String color = materialJson.getTextColor();
 
-      return new Material(materialId, fluid, isCraftable, shard);
+      return new Material(materialId, fluid, isCraftable, color);
     } catch (Exception e) {
       log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;
     }
-  }
-
-  private ItemStack loadShardItem(ResourceLocation materialId, MaterialJson materialJson) {
-    ResourceLocation shardItemId = materialJson.getShardItem();
-    ItemStack shard = ItemStack.EMPTY;
-    if (shardItemId != null) {
-      Item shardItem = ForgeRegistries.ITEMS.getValue(shardItemId);
-      // air is the default, but the contract also allows null
-      if (shardItem != null && shardItem != Items.AIR) {
-        shard = new ItemStack(shardItem);
-      } else {
-        log.warn("Could not find shard item {} for material {}", shardItemId, materialId);
-      }
-    }
-    return shard;
   }
 
   private Fluid loadFluid(ResourceLocation materialId, MaterialJson materialJson) {

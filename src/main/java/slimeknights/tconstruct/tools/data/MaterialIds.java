@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.data;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialId;
 
-final class MaterialIds {
+public final class MaterialIds {
 
   // natural resources/blocks
   public static final MaterialId wood = id("wood");

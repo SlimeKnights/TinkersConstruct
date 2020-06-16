@@ -8,26 +8,25 @@ public class MaterialJson {
 
   private final Boolean craftable;
   private final ResourceLocation fluid;
-  private final ResourceLocation shardItem;
+  private final String textColor;
 
-  public MaterialJson(Boolean craftable, ResourceLocation fluid, ResourceLocation shardItem) {
+  public MaterialJson(Boolean craftable, ResourceLocation fluid, String textColor) {
     this.craftable = craftable;
     this.fluid = fluid;
-    this.shardItem = shardItem;
+    this.textColor = textColor;
   }
 
   @Nullable
   public Boolean getCraftable() {
-    return craftable;
+    return this.craftable;
   }
 
   @Nullable
   public ResourceLocation getFluid() {
-    return fluid;
+    return this.fluid;
   }
 
-  @Nullable
-  public ResourceLocation getShardItem() {
-    return shardItem;
+  public String getTextColor() {
+    return this.textColor;
   }
 }

@@ -22,10 +22,8 @@ public class MaterialDataProvider extends GenericDataProvider {
 
   private MaterialJson convert(IMaterial material) {
     ResourceLocation fluid = material.getFluid() == Fluids.EMPTY ? null : material.getFluid().getRegistryName();
-    // todo: implement shard if needed
-    return new MaterialJson(material.isCraftable(), fluid, null);
+    return new MaterialJson(material.isCraftable(), fluid, material.getTextColor());
   }
-
 
   @Override
   public String getName() {

@@ -8,7 +8,6 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
@@ -31,7 +30,7 @@ public abstract class GenericDataProvider implements IDataProvider {
     .disableHtmlEscaping()
     .create();
 
-  IMaterial test = new Material(Util.getResource("test"), Fluids.EMPTY, true, ItemStack.EMPTY);
+  IMaterial test = new Material(Util.getResource("test"), Fluids.EMPTY, true);
 
   protected final DataGenerator generator;
   private final String folder;

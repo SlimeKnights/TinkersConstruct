@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.materials;
 
 import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
 import slimeknights.tconstruct.library.Util;
 
 public interface IMaterial {
@@ -13,7 +12,7 @@ public interface IMaterial {
    * <p>
    * The fallback material needs to have all part types associated with it.
    */
-  Material UNKNOWN = new Material(Util.getResource("unknown"), null, false, ItemStack.EMPTY);
+  Material UNKNOWN = new Material(Util.getResource("unknown"), null, false);
 
   /**
    * Used to identify the material in NBT and other constructs.
@@ -39,17 +38,20 @@ public interface IMaterial {
   Fluid getFluid();
 
   /**
-   * Shards are the leftovers when crafting parts, e.g. sticks for wood.
-   * Usually the empty itemstack is used as default, signifying that the shard material item should be used.
-   *
-   * @return The itemstack to use for leftovers when crafting parts or empty itemstack if the shard item shall be used
-   */
-  // todo: evaluate if shards are still needed
-  ItemStack getShard();
-
-  /**
    * Gets the translation key for this material
-   * @return
+   * @return the translation key
    */
   String getTranslationKey();
+
+  /**
+   * Gets the encoded text color for this material
+   * @return the encoded text color
+   */
+  String getEncodedTextColor();
+
+  /**
+   * Gets the text color for this material
+   * @return the text color
+   */
+  String getTextColor();
 }
