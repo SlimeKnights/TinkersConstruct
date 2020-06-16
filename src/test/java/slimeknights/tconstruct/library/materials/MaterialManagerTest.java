@@ -5,8 +5,6 @@ import com.google.gson.JsonObject;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -46,7 +44,6 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new MaterialId("tconstruct", "full"));
     assertThat(testMaterial.getFluid()).isEqualTo(Fluids.WATER);
     assertThat(testMaterial.isCraftable()).isTrue();
-    assertThat(testMaterial.getShard()).matches(itemStack -> ItemStack.areItemStacksEqual(itemStack, new ItemStack(Items.STICK)));
   }
 
   @Test
@@ -61,7 +58,6 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new MaterialId("tconstruct", "minimal"));
     assertThat(testMaterial.getFluid()).extracting(Fluid::getDefaultState).matches(IFluidState::isEmpty);
     assertThat(testMaterial.isCraftable()).isFalse();
-    assertThat(testMaterial.getShard()).matches(ItemStack::isEmpty);
   }
 
   @Test
@@ -85,7 +81,6 @@ class MaterialManagerTest extends BaseMcTest {
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
     IMaterial testMaterial = allMaterials.iterator().next();
-    assertThat(testMaterial.getShard()).matches(ItemStack::isEmpty);
   }
 
   @Test

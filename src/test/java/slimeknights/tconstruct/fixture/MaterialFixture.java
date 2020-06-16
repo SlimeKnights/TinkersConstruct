@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
@@ -42,7 +41,7 @@ public final class MaterialFixture {
   }
 
   private static Material material(String mat, Fluid fluid, boolean craftable, IMaterialStats... stats) {
-    Material material = new TestMaterial(new ResourceLocation("test", mat), fluid, craftable, ItemStack.EMPTY);
+    Material material = new TestMaterial(new ResourceLocation("test", mat), fluid, craftable);
     ALL_MATERIALS_BUILDER.add(material);
     ALL_MATERIAL_FIXTURES_BUILDER.put(material, ImmutableList.copyOf(stats));
     return material;
