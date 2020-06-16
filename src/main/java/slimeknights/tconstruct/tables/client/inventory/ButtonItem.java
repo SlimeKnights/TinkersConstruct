@@ -23,7 +23,7 @@ public class ButtonItem<T> extends Button {
   private ElementScreen pressedGui = BUTTON_PRESSED_GUI;
   private ElementScreen normalGui = BUTTON_NORMAL_GUI;
   private ElementScreen hoverGui = BUTTON_HOVER_GUI;
-  private ResourceLocation backgroundLocation = Icons.ICON;
+  private ResourceLocation backgroundLocation = Icons.ICONS;
 
   public ButtonItem(int x, int y, int width, int height, String text, @Nonnull T data, IPressable onPress) {
     super(x, y, 18, 18, text, onPress);

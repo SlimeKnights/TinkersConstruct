@@ -562,8 +562,11 @@
     "gui.tconstruct.crafting_station": "Crafting Station",
 
     "gui.tconstruct.part_builder": "Part Builder",
-    "gui.tconstruct.part_builder.info": "Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put its pattern into the left slot. The two remaining slots hold the material you want to craft your part out of.",
-    "gui.tconstruct.part_builder.material_value": "Material Value: %s %s",
+    "gui.tconstruct.part_builder.info": "Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put a blank pattern into the left slot and select the part you want. The remaining slot hold the material you want to craft your part out of.",
+    "gui.tconstruct.part_builder.material_value": "Material Value: %s",
+    "gui.tconstruct.part_builder.cost": "Pattern cost: %s",
+    "gui.tconstruct.part_builder.cost_description": "The amount of material needed to be able to craft the part",
+    "gui.tconstruct.part_builder.material_value_description": "The current materials value",
 
     "gui.tconstruct.part_crafter": "Part Crafter",
 
@@ -578,5 +581,5 @@
     "gui.tconstruct.warning": "WARNING",
     "gui.tconstruct.general.hover": "Hover over the entries for more information",
     "gui.tconstruct.error.invalid_pattern": "Pattern does not contain a valid tool part!",
-    "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting."
+    "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\n\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting."
 }

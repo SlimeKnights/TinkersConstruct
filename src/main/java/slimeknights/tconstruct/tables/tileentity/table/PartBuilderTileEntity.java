@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 public class PartBuilderTileEntity extends TableTileEntity {
 
   public PartBuilderTileEntity() {
-    super(TinkerTables.partBuilderTile.get(), "gui.tconstruct.part_builder", 4);
+    super(TinkerTables.partBuilderTile.get(), "gui.tconstruct.part_builder", 3);
     this.itemHandler = new ConfigurableInvWrapperCapability(this, false, false);
     this.itemHandlerCap = LazyOptional.of(() -> this.itemHandler);
   }

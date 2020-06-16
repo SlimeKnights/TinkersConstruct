@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tables.client.inventory.module;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.ResourceLocation;
@@ -18,6 +17,7 @@ import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.client.screen.SliderWidget;
 import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.shared.TinkerClient;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -27,66 +27,63 @@ public class InfoPanelScreen extends ModuleScreen {
   private static int resW = 118;
   private static int resH = 75;
 
-  private static ResourceLocation BACKGROUND = Util.getResource("textures/gui/panel.png");
+  protected static ResourceLocation BACKGROUND_IMAGE = Util.getResource("textures/gui/panel.png");
 
-  private static ElementScreen topLeft = new ElementScreen(0, 0, 4, 4, 256, 256);
-  private static ElementScreen topRight = new ElementScreen(resW + 4, 0, 4, 4);
-  private static ElementScreen botLeft = new ElementScreen(0, resH + 4, 4, 4);
-  private static ElementScreen botRight = new ElementScreen(resW + 4, resH + 4, 4, 4);
+  protected static ElementScreen TOP_LEFT = new ElementScreen(0, 0, 4, 4, 256, 256);
+  protected static ElementScreen TOP_RIGHT = new ElementScreen(resW + 4, 0, 4, 4);
+  protected static ElementScreen BOTTOM_LEFT = new ElementScreen(0, resH + 4, 4, 4);
+  protected static ElementScreen BOTTOM_RIGHT = new ElementScreen(resW + 4, resH + 4, 4, 4);
 
-  private static ScalableElementScreen top = new ScalableElementScreen(4, 0, resW, 4);
-  private static ScalableElementScreen bot = new ScalableElementScreen(4, 4 + resH, resW, 4);
-  private static ScalableElementScreen left = new ScalableElementScreen(0, 4, 4, resH);
-  private static ScalableElementScreen right = new ScalableElementScreen(4 + resW, 4, 4, resH);
+  protected static ScalableElementScreen TOP = new ScalableElementScreen(4, 0, resW, 4);
+  protected static ScalableElementScreen BOTTOM = new ScalableElementScreen(4, 4 + resH, resW, 4);
+  protected static ScalableElementScreen LEFT = new ScalableElementScreen(0, 4, 4, resH);
+  protected static ScalableElementScreen RIGHT = new ScalableElementScreen(4 + resW, 4, 4, resH);
 
-  private static ScalableElementScreen background = new ScalableElementScreen(4, 4, resW, resH);
+  protected static ScalableElementScreen BACKGROUND = new ScalableElementScreen(4, 4, resW, resH);
 
-  private static ElementScreen sliderNormal = new ElementScreen(0, 83, 3, 5);
-  private static ElementScreen sliderHover = sliderNormal.shift(sliderNormal.w, 0);
+  protected static ElementScreen SLIDER_NORMAL = new ElementScreen(0, 83, 3, 5);
+  protected static ElementScreen SLIDER_HOVER = SLIDER_NORMAL.shift(SLIDER_NORMAL.w, 0);
 
-  private static ScalableElementScreen sliderBar = new ScalableElementScreen(0, 88, 3, 8);
-  private static ElementScreen sliderTop = new ElementScreen(3, 88, 3, 4);
-  private static ElementScreen sliderBot = new ElementScreen(3, 92, 3, 4);
+  protected static ScalableElementScreen SLIDER_BAR = new ScalableElementScreen(0, 88, 3, 8);
+  protected static ElementScreen SLIDER_TOP = new ElementScreen(3, 88, 3, 4);
+  protected static ElementScreen SLIDER_BOTTOM = new ElementScreen(3, 92, 3, 4);
 
-  private BorderWidget border = new BorderWidget();
+  protected BorderWidget border = new BorderWidget();
 
-  private FontRenderer font = Minecraft.getInstance().fontRenderer;
-  private SliderWidget slider = new SliderWidget(sliderNormal, sliderHover, sliderHover, sliderTop, sliderBot, sliderBar);
+  protected SliderWidget slider = new SliderWidget(SLIDER_NORMAL, SLIDER_HOVER, SLIDER_HOVER, SLIDER_TOP, SLIDER_BOTTOM, SLIDER_BAR);
 
   protected String caption;
   protected List<String> text;
   protected List<String> tooltips;
 
-  private List<Integer> tooltipLines = Lists.newLinkedList();
+  protected List<Integer> tooltipLines = Lists.newLinkedList();
 
   public float textScale = 1.0f;
 
   public InfoPanelScreen(MultiModuleScreen parent, Container container, PlayerInventory playerInventory, ITextComponent title) {
     super(parent, container, playerInventory, title, true, false);
 
-    this.border.borderTop = top;
-    this.border.borderBottom = bot;
-    this.border.borderLeft = left;
-    this.border.borderRight = right;
+    this.border.borderTop = TOP;
+    this.border.borderBottom = BOTTOM;
+    this.border.borderLeft = LEFT;
+    this.border.borderRight = RIGHT;
 
-    this.border.cornerTopLeft = topLeft;
-    this.border.cornerTopRight = topRight;
-    this.border.cornerBottomLeft = botLeft;
-    this.border.cornerBottomRight = botRight;
+    this.border.cornerTopLeft = TOP_LEFT;
+    this.border.cornerTopRight = TOP_RIGHT;
+    this.border.cornerBottomLeft = BOTTOM_LEFT;
+    this.border.cornerBottomRight = BOTTOM_RIGHT;
 
     this.xSize = resW + 8;
     this.ySize = resH + 8;
 
     this.caption = new TranslationTextComponent("gui.tconstruct.caption").getFormattedText();
     this.text = Lists.newLinkedList();
-
-    super.font = this.font;
   }
 
   @Override
   public void init(Minecraft mc, int width, int height) {
     super.init(mc, width, height);
-    super.font = this.font;
+    super.font = TinkerClient.fontRenderer;
   }
 
   @Override
@@ -148,10 +145,18 @@ public class InfoPanelScreen extends ModuleScreen {
     return this.tooltips != null && !this.tooltips.isEmpty();
   }
 
+  public boolean hasInitialized() {
+    return this.font != null;
+  }
+
   public int calcNeededHeight() {
     int neededHeight = 0;
 
-    if (hasCaption()) {
+    if (!this.hasInitialized()) {
+      return height;
+    }
+
+    if (this.hasCaption()) {
       neededHeight += this.font.FONT_HEIGHT;
       neededHeight += 3;
     }
@@ -227,19 +232,19 @@ public class InfoPanelScreen extends ModuleScreen {
   }
 
   private void shift(int xd, int yd) {
-    this.border.borderTop = top.shift(xd, yd);
-    this.border.borderBottom = bot.shift(xd, yd);
-    this.border.borderLeft = left.shift(xd, yd);
-    this.border.borderRight = right.shift(xd, yd);
+    this.border.borderTop = TOP.shift(xd, yd);
+    this.border.borderBottom = BOTTOM.shift(xd, yd);
+    this.border.borderLeft = LEFT.shift(xd, yd);
+    this.border.borderRight = RIGHT.shift(xd, yd);
 
-    this.border.cornerTopLeft = topLeft.shift(xd, yd);
-    this.border.cornerTopRight = topRight.shift(xd, yd);
-    this.border.cornerBottomLeft = botLeft.shift(xd, yd);
-    this.border.cornerBottomRight = botRight.shift(xd, yd);
+    this.border.cornerTopLeft = TOP_LEFT.shift(xd, yd);
+    this.border.cornerTopRight = TOP_RIGHT.shift(xd, yd);
+    this.border.cornerBottomLeft = BOTTOM_LEFT.shift(xd, yd);
+    this.border.cornerBottomRight = BOTTOM_RIGHT.shift(xd, yd);
   }
 
   private void shiftSlider(int xd, int yd) {
-    this.slider = new SliderWidget(sliderNormal.shift(xd, yd), sliderHover.shift(xd, yd), sliderHover.shift(xd, yd), sliderTop.shift(xd, yd), sliderBot.shift(xd, yd), sliderBar.shift(xd, yd));
+    this.slider = new SliderWidget(SLIDER_NORMAL.shift(xd, yd), SLIDER_HOVER.shift(xd, yd), SLIDER_HOVER.shift(xd, yd), SLIDER_TOP.shift(xd, yd), SLIDER_BOTTOM.shift(xd, yd), SLIDER_BAR.shift(xd, yd));
   }
 
   @Override
@@ -270,7 +275,7 @@ public class InfoPanelScreen extends ModuleScreen {
 
     // get the index of the currently hovered line
     int index = -1;
-    ListIterator<String> iter = getTotalLines().listIterator(slider.getValue());
+    ListIterator<String> iter = this.getTotalLines().listIterator(slider.getValue());
 
     while (iter.hasNext()) {
       if (y + textHeight > lowerBound) {
@@ -315,10 +320,10 @@ public class InfoPanelScreen extends ModuleScreen {
 
   @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-    this.minecraft.getTextureManager().bindTexture(BACKGROUND);
+    this.minecraft.getTextureManager().bindTexture(BACKGROUND_IMAGE);
 
     this.border.draw();
-    background.drawScaled(this.guiLeft + 4, this.guiTop + 4, this.xSize - 8, this.ySize - 8);
+    BACKGROUND.drawScaled(this.guiLeft + 4, this.guiTop + 4, this.xSize - 8, this.ySize - 8);
 
     float y = 5 + this.guiTop;
     float x = 5 + this.guiLeft;
@@ -326,18 +331,17 @@ public class InfoPanelScreen extends ModuleScreen {
 
     // info ? in the top right corner
     if (this.hasTooltips()) {
-      this.font.drawString("?", guiRight() - border.w - this.font.getCharWidth('?') / 2, guiTop + 5, 0xff5f5f5f);
+      this.font.drawString("?", guiRight() - this.border.w - this.font.getCharWidth('?') / 2, this.guiTop + 5, 0xff5f5f5f);
     }
 
     // draw caption
     if (this.hasCaption()) {
       int x2 = this.xSize / 2;
-      x2 -= this.font.getStringWidth(caption) / 2;
+      x2 -= this.font.getStringWidth(this.caption) / 2;
 
-      this.font.drawStringWithShadow(TextFormatting.UNDERLINE + TextFormatting.getTextWithoutFormattingCodes(caption), guiLeft + x2, y, color);
+      this.font.drawStringWithShadow(TextFormatting.UNDERLINE + TextFormatting.getTextWithoutFormattingCodes(this.caption), (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
-
 
     if (this.text == null || this.text.size() == 0) {
       // no text to draw
@@ -364,7 +368,7 @@ public class InfoPanelScreen extends ModuleScreen {
 
     RenderSystem.scalef(1f / textScale, 1f / textScale, 1.0f);
 
-    this.minecraft.getTextureManager().bindTexture(BACKGROUND);
+    this.minecraft.getTextureManager().bindTexture(BACKGROUND_IMAGE);
     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     this.slider.update(mouseX, mouseY);
     this.slider.draw();
