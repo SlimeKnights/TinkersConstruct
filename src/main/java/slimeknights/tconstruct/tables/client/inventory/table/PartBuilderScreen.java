@@ -164,17 +164,16 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     }
 
     for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
-      stats.add(stat.getIdentifier().toString());
-      /*List<String> info = stat.getLocalizedInfo();
+      List<String> info = stat.getLocalizedInfo();
 
-      if(!info.isEmpty()) {
-        stats.add(TextFormatting.UNDERLINE + stat.getLocalizedName());
+      if(info != null && !info.isEmpty()) {
+        stats.add(TextFormatting.UNDERLINE + new TranslationTextComponent(stat.getLocalizedName()).getFormattedText());
         stats.addAll(info);
         stats.add(null);
         tips.add(null);
         tips.addAll(stat.getLocalizedDesc());
         tips.add(null);
-      }*/
+      }
     }
 
     if (!stats.isEmpty() && stats.get(stats.size() - 1) == null) {
