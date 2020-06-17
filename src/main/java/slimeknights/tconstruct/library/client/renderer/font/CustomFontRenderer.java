@@ -90,6 +90,15 @@ public class CustomFontRenderer extends FontRenderer implements ISelectiveResour
   }
 
   @Override
+  public float getCharWidth(char character) {
+    if ((int) character >= CustomFontColor.MARKER && (int) character <= CustomFontColor.MARKER + 0xFF) {
+      return 0.0F;
+    }
+
+    return character == 167 ? 0.0F : this.font.findGlyph(character).getAdvance(false);
+  }
+
+  @Override
   public int renderString(String text, float x, float y, int color, Matrix4f matrix, boolean dropShadow) {
     return super.renderString(text, x, y, color, matrix, dropShadow);
   }
@@ -189,7 +198,7 @@ public class CustomFontRenderer extends FontRenderer implements ISelectiveResour
           shouldDrawCharacter = false;
         }
 
-        if(shouldDrawCharacter) {
+        if (shouldDrawCharacter) {
           if (this.state != 0) {
             this.state = 0;
           }
@@ -219,8 +228,6 @@ public class CustomFontRenderer extends FontRenderer implements ISelectiveResour
           }
 
           xOut += boldOffset;
-        } else {
-          xOut += 1;
         }
       }
     }
