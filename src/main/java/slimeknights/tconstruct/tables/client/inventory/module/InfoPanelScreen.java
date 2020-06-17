@@ -54,7 +54,7 @@ public class InfoPanelScreen extends ModuleScreen {
 
   protected String caption;
   protected List<String> text;
-  protected List<String> tooltips;
+  protected List<ITextComponent> tooltips;
 
   protected List<Integer> tooltipLines = Lists.newLinkedList();
 
@@ -110,7 +110,7 @@ public class InfoPanelScreen extends ModuleScreen {
     this.setText(text, null);
   }
 
-  public void setText(List<String> text, List<String> tooltips) {
+  public void setText(List<String> text, List<ITextComponent> tooltips) {
     // convert \n in localized text to actual newlines
     if (text != null) {
       text = Lists.newArrayList(text);
@@ -126,14 +126,7 @@ public class InfoPanelScreen extends ModuleScreen {
     this.setTooltips(tooltips);
   }
 
-  protected void setTooltips(List<String> tooltips) {
-    // convert \n in localized text to actual newlines
-    if (tooltips != null) {
-      for (int i = 0; i < tooltips.size(); i++) {
-        tooltips.set(i, LocUtils.convertNewlines(tooltips.get(i)));
-      }
-    }
-
+  protected void setTooltips(List<ITextComponent> tooltips) {
     this.tooltips = tooltips;
   }
 
@@ -313,7 +306,7 @@ public class InfoPanelScreen extends ModuleScreen {
       w = 100;
     }
 
-    List<String> lines = this.font.listFormattedStringToWidth(this.tooltips.get(i), w);
+    List<String> lines = this.font.listFormattedStringToWidth(this.tooltips.get(i).getFormattedText(), w);
 
     this.renderTooltip(lines, mouseX - this.guiLeft, mouseY - this.guiTop - lines.size() * this.font.FONT_HEIGHT / 2);
   }

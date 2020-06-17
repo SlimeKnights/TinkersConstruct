@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
@@ -24,7 +25,7 @@ public class ExtraMaterialStats extends BaseMaterialStats {
   public static final MaterialStatsId ID = new MaterialStatsId(Util.getResource("extra"));
   public static final ExtraMaterialStats DEFAULT = new ExtraMaterialStats(0);
 
-  public final static String DURABILITY_LOCALIZATION = "stat.extra.durability.description";
+  public final static String DURABILITY_LOCALIZATION = "stat.extra.durability.name";
   public final static String DURABILITY_DESCRIPTION_LOCALIZATION = "stat.extra.durability.description";
   public final static String DURABILITY_COLOR = HeadMaterialStats.DURABILITY_COLOR;
 
@@ -51,8 +52,8 @@ public class ExtraMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public List<String> getLocalizedDesc() {
-    return ImmutableList.of(new TranslationTextComponent(DURABILITY_DESCRIPTION_LOCALIZATION).getFormattedText());
+  public List<ITextComponent> getLocalizedDesc() {
+    return ImmutableList.of(new TranslationTextComponent(DURABILITY_DESCRIPTION_LOCALIZATION));
   }
 
   public static String formatDurability(int durability) {

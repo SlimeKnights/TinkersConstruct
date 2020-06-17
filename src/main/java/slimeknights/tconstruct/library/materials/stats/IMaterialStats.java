@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.materials.stats;
 
+import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.network.INetworkSendable;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public interface IMaterialStats extends INetworkSendable {
    * The indices of the lines must line up with the lines from getLocalizedInfo()!</br>
    * *
    * This is used to display properties of materials to the user.
+   * @return
    */
-  List<String> getLocalizedDesc();
+  List<ITextComponent> getLocalizedDesc();
 }

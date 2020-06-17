@@ -146,7 +146,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       w = 100;
     }
 
-    List<String> lines = this.font.listFormattedStringToWidth(this.tooltips.get(i), w);
+    List<String> lines = this.font.listFormattedStringToWidth(this.tooltips.get(i).getFormattedText(), w);
 
     this.renderTooltip(lines, mouseX - this.guiLeft, mouseY - this.guiTop - lines.size() * this.font.FONT_HEIGHT / 2);
   }

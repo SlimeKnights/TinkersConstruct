@@ -1,12 +1,9 @@
 package slimeknights.tconstruct.library.materials.stats;
 
-import com.google.common.collect.Lists;
 import lombok.EqualsAndHashCode;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
-
-import java.util.List;
 
 /**
  * A simple material class without stats.
@@ -18,22 +15,6 @@ public abstract class BaseMaterialStats implements IMaterialStats {
   @Override
   public String getLocalizedName() {
     return String.format("stat.%s.name", this.getIdentifier().getPath());
-  }
-
-  @Override
-  public List<String> getLocalizedInfo() {
-    List<String> info = Lists.newArrayList();
-    info.add(this.getIdentifier() + " does not override getLocalizedInfo");
-    // todo
-    return info;
-  }
-
-  @Override
-  public List<String> getLocalizedDesc() {
-    List<String> info = Lists.newArrayList();
-    info.add(this.getIdentifier() + " does not override getLocalizedDesc");
-    // todo
-    return info;
   }
 
   public static String formatNumber(String loc, String color, int number) {

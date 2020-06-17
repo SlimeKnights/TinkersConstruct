@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.renderer.font.CustomFontColor;
@@ -60,8 +61,8 @@ public class HandleMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public List<String> getLocalizedDesc() {
-    return ImmutableList.of(new TranslationTextComponent(MULTIPLIER_DESCRIPTION_LOCALIZATION).getFormattedText(), new TranslationTextComponent(DURABILITY_DESCRIPTION_LOCALIZATION).getFormattedText());
+  public List<ITextComponent> getLocalizedDesc() {
+    return ImmutableList.of(new TranslationTextComponent(MULTIPLIER_DESCRIPTION_LOCALIZATION), new TranslationTextComponent(DURABILITY_DESCRIPTION_LOCALIZATION));
   }
 
 

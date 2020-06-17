@@ -143,7 +143,7 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     this.infoPanelScreen.setCaption(material.getEncodedTextColor() + new TranslationTextComponent(material.getTranslationKey()).getFormattedText());
 
     List<String> stats = Lists.newLinkedList();
-    List<String> tips = Lists.newArrayList();
+    List<ITextComponent> tips = Lists.newArrayList();
 
     MaterialRecipe materialRecipe = this.container.getMaterialRecipe();
 
