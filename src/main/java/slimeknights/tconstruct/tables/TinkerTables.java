@@ -13,7 +13,6 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.ItemObject;
-import slimeknights.tconstruct.library.registration.object.RecipeSerializerObject;
 import slimeknights.tconstruct.tables.block.TableBlock;
 import slimeknights.tconstruct.tables.block.chest.PartChestBlock;
 import slimeknights.tconstruct.tables.block.chest.PatternChestBlock;
@@ -69,9 +68,9 @@ public final class TinkerTables extends TinkerModule {
   /*
    * Recipes
    */
-  public static final RecipeSerializerObject<PartRecipeSerializer<PartRecipe>> partRecipeSerializer = RECIPE_SERIALIZERS.register("part_builder", () -> new PartRecipeSerializer<>(PartRecipe::new));
+  public static final RegistryObject<PartRecipeSerializer<PartRecipe>> partRecipeSerializer = RECIPE_SERIALIZERS.register("part_builder", () -> new PartRecipeSerializer<>(PartRecipe::new));
   public static final IRecipeType<PartRecipe> partRecipeType = IRecipeType.register(Util.resource("part_builder"));
 
-  public static final RecipeSerializerObject<MaterialRecipeSerializer<MaterialRecipe>> materialRecipeSerializer = RECIPE_SERIALIZERS.register("material", () -> new MaterialRecipeSerializer<>(MaterialRecipe::new));
+  public static final RegistryObject<MaterialRecipeSerializer<MaterialRecipe>> materialRecipeSerializer = RECIPE_SERIALIZERS.register("material", () -> new MaterialRecipeSerializer<>(MaterialRecipe::new));
   public static final IRecipeType<MaterialRecipe> materialRecipeType = IRecipeType.register(Util.resource("material"));
 }

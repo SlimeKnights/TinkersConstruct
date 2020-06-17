@@ -5,6 +5,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.Effect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
@@ -22,7 +23,6 @@ import slimeknights.tconstruct.library.registration.ContainerDeferredRegister;
 import slimeknights.tconstruct.library.registration.EntityTypeDeferredRegister;
 import slimeknights.tconstruct.library.registration.FluidDeferredRegister;
 import slimeknights.tconstruct.library.registration.ItemDeferredRegister;
-import slimeknights.tconstruct.library.registration.RecipeSerializerDeferredRegister;
 import slimeknights.tconstruct.library.registration.TileEntityTypeDeferredRegister;
 
 import javax.annotation.Nonnull;
@@ -43,7 +43,7 @@ public abstract class TinkerModule {
   protected static final DeferredRegister<Effect> POTIONS = new DeferredRegister<Effect>(ForgeRegistries.POTIONS, TConstruct.modID);
   protected static final DeferredRegister<Feature<?>> FEATURES = new DeferredRegister<>(ForgeRegistries.FEATURES, TConstruct.modID);
   protected static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = new DeferredRegister<>(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.modID);
-  protected static final RecipeSerializerDeferredRegister RECIPE_SERIALIZERS = new RecipeSerializerDeferredRegister(TConstruct.modID);
+  protected static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = new DeferredRegister<IRecipeSerializer<?>>(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.modID);
 
   // base block properties
   protected static final Block.Properties GENERIC_SAND_BLOCK = builder(Material.SAND, ToolType.SHOVEL, SoundType.SAND).hardnessAndResistance(3.0f).slipperiness(0.8F);
