@@ -355,7 +355,7 @@ public class InfoPanelScreen extends ModuleScreen {
     y /= this.textScale;
 
     // render shown lines
-    ListIterator<String> iter = getTotalLines().listIterator(this.slider.getValue());
+    ListIterator<String> iter = this.getTotalLines().listIterator(this.slider.getValue());
     while (iter.hasNext()) {
       if (y + textHeight - 0.5f > lowerBound) {
         break;
@@ -381,8 +381,10 @@ public class InfoPanelScreen extends ModuleScreen {
     }
 
     if (mouseButton == 0) {
-      this.slider.handleMouseClicked((int) mouseX, (int) mouseY, mouseButton);
-      return true;
+      if (mouseX >= this.slider.xPos && mouseY >= this.slider.yPos && mouseX <= this.slider.xPos + this.slider.width && mouseY <= this.slider.yPos + this.slider.height) {
+        this.slider.handleMouseClicked((int) mouseX, (int) mouseY, mouseButton);
+        return true;
+      }
     }
 
     return false;
@@ -395,7 +397,7 @@ public class InfoPanelScreen extends ModuleScreen {
     }
 
     this.slider.handleMouseReleased();
-    return true;
+    return mouseX >= this.slider.xPos && mouseY >= this.slider.yPos && mouseX <= this.slider.xPos + this.slider.width && mouseY <= this.slider.yPos + this.slider.height;
   }
 
   @Override
