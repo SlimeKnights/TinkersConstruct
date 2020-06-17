@@ -229,6 +229,10 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
   public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
     this.clickedOnScrollBar = false;
 
+    if(this.infoPanelScreen.handleMouseClicked(mouseX, mouseY, mouseButton)) {
+      return false;
+    }
+
     if (this.hasPatternInPatternSlot) {
       int x = this.cornerX + 51;
       int y = this.cornerY + 15;
@@ -257,6 +261,10 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
 
   @Override
   public boolean mouseDragged(double mouseX, double mouseY, int clickedMouseButton, double timeSinceLastClick, double unknown) {
+    if (this.infoPanelScreen.handleMouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)) {
+      return false;
+    }
+
     if (this.clickedOnScrollBar && this.canScroll()) {
       int i = this.cornerY + 14;
       int j = i + 54;
@@ -270,15 +278,28 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
   }
 
   @Override
-  public boolean mouseScrolled(double p_mouseScrolled_1_, double p_mouseScrolled_3_, double p_mouseScrolled_5_) {
+  public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
+    if(this.infoPanelScreen.handleMouseScrolled(mouseX, mouseY, delta)) {
+      return false;
+    }
+
     if (this.canScroll()) {
       int i = this.getHiddenRows();
-      this.sliderProgress = (float) ((double) this.sliderProgress - p_mouseScrolled_5_ / (double) i);
+      this.sliderProgress = (float) ((double) this.sliderProgress - delta / (double) i);
       this.sliderProgress = MathHelper.clamp(this.sliderProgress, 0.0F, 1.0F);
       this.recipeIndexOffset = (int) ((double) (this.sliderProgress * (float) i) + 0.5D) * 4;
     }
 
     return true;
+  }
+
+  @Override
+  public boolean mouseReleased(double mouseX, double mouseY, int state) {
+    if (this.infoPanelScreen.handleMouseReleased(mouseX, mouseY, state)) {
+      return false;
+    }
+
+    return super.mouseReleased(mouseX, mouseY, state);
   }
 
   private boolean canScroll() {
