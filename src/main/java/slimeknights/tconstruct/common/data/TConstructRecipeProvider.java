@@ -702,18 +702,18 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
 
   private void addPartBuilderRecipes(Consumer<IFinishedRecipe> consumer) {
     PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.pickaxeHead.get()))
-      .setPattern("tconstruct:pickaxe_head")
+      .setPattern(location("pickaxe_head"))
       .setCost(2)
       .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
       .build(consumer, location("parts/pickaxe_head"));
 
     PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.smallBinding.get()))
-      .setPattern("tconstruct:small_binding")
+      .setPattern(location("small_binding"))
       .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
       .build(consumer, location("parts/small_binding"));
 
     PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.toolRod.get()))
-      .setPattern("tconstruct:tool_rod")
+      .setPattern(location("tool_rod"))
       .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
       .build(consumer, location("parts/tool_rod"));
   }

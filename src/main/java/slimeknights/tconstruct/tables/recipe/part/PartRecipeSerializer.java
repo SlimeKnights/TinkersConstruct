@@ -23,7 +23,7 @@ public class PartRecipeSerializer<T extends PartRecipe> extends ForgeRegistryEnt
   @Override
   public T read(ResourceLocation recipeId, JsonObject json) {
     String group = JSONUtils.getString(json, "group", "");
-    String pattern = JSONUtils.getString(json, "pattern", "");
+    ResourceLocation pattern = new ResourceLocation(JSONUtils.getString(json, "pattern"));
     int cost = JSONUtils.getInt(json, "cost", 0);
     ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
 
@@ -35,7 +35,7 @@ public class PartRecipeSerializer<T extends PartRecipe> extends ForgeRegistryEnt
   public T read(ResourceLocation recipeId, PacketBuffer buffer) {
     try {
       String group = buffer.readString(32767);
-      String pattern = buffer.readString(32767);
+      ResourceLocation pattern = new ResourceLocation(buffer.readString(32767));
       int cost = buffer.readInt();
       ItemStack output = buffer.readItemStack();
 
@@ -50,7 +50,7 @@ public class PartRecipeSerializer<T extends PartRecipe> extends ForgeRegistryEnt
   public void write(PacketBuffer buffer, T recipe) {
     try {
       buffer.writeString(recipe.group);
-      buffer.writeString(recipe.pattern);
+      buffer.writeString(recipe.pattern.toString());
       buffer.writeInt(recipe.cost);
       buffer.writeItemStack(recipe.output);
     } catch (Exception e) {
@@ -60,7 +60,6 @@ public class PartRecipeSerializer<T extends PartRecipe> extends ForgeRegistryEnt
   }
 
   public interface IFactory<T extends PartRecipe> {
-
-    T create(ResourceLocation id, String group, String pattern, int cost, ItemStack output);
+    T create(ResourceLocation id, String group, ResourceLocation pattern, int cost, ItemStack output);
   }
 }

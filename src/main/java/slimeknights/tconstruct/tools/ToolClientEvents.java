@@ -4,9 +4,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -29,8 +31,9 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid= TConstruct.modID, value= Dist.CLIENT, bus= Bus.MOD)
+@EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)
 public class ToolClientEvents extends ClientEventBase {
+
   @SubscribeEvent
   static void registerModelLoaders(ModelRegistryEvent event) {
     ModelLoaderRegistry.registerLoader(Util.getResource("tool"), ToolModelLoader.INSTANCE);
@@ -40,6 +43,22 @@ public class ToolClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void clientSetupEvent(FMLClientSetupEvent event) {
     RenderingRegistry.registerEntityRenderingHandler(TinkerTools.indestructibleItem.get(), manager -> new ItemRenderer(manager, Minecraft.getInstance().getItemRenderer()));
+  }
+
+  @SubscribeEvent
+  static void modelRegistry(ModelRegistryEvent event) {
+    registerGuiPart(TinkerToolParts.pickaxeHead);
+    registerGuiPart(TinkerToolParts.smallBinding);
+    registerGuiPart(TinkerToolParts.toolRod);
+  }
+
+  /**
+   * Registers a part model for the GUI
+   * @param itemSup  Material item model supplier
+   */
+  private static void registerGuiPart(Supplier<MaterialItem> itemSup) {
+    ResourceLocation location = itemSup.get().getRegistryName();
+    ModelLoader.addSpecialModel(new ResourceLocation(location.getNamespace(), "gui/part/" + location.getPath()));
   }
 
   @SubscribeEvent

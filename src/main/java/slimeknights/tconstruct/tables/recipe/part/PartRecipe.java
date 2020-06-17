@@ -12,11 +12,11 @@ import slimeknights.tconstruct.tables.TinkerTables;
 public class PartRecipe implements IRecipe<IInventory> {
   protected final ResourceLocation id;
   protected final String group;
-  protected final String pattern;
+  protected final ResourceLocation pattern;
   protected final int cost;
   protected final ItemStack output;
 
-  public PartRecipe(ResourceLocation id, String group, String pattern, int cost, ItemStack output) {
+  public PartRecipe(ResourceLocation id, String group, ResourceLocation pattern, int cost, ItemStack output) {
     this.id = id;
     this.group = group;
     this.pattern = pattern;
@@ -89,7 +89,7 @@ public class PartRecipe implements IRecipe<IInventory> {
     return this.cost;
   }
 
-  public String getPattern() {
+  public ResourceLocation getPattern() {
     return this.pattern;
   }
 

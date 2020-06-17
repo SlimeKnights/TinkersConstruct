@@ -3,6 +3,11 @@ package slimeknights.tconstruct.tables.client.inventory.table;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.crash.CrashReport;
+import net.minecraft.crash.CrashReportCategory;
+import net.minecraft.crash.ReportedException;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -64,9 +69,9 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
 
     this.minecraft.getTextureManager().bindTexture(BACKGROUND);
 
-    this.blit(this.cornerX + 119, this.cornerY + 15 + (int) (41.0F * this.sliderProgress), 176 + (this.canScroll() ? 0 : 12), 0, 12, 15);
-    this.drawRecipesBackground(mouseX, mouseY, this.cornerX + 52, this.cornerY + 14, this.recipeIndexOffset + 12);
-    this.drawRecipesItems(this.cornerX + 52, this.cornerY + 14, this.recipeIndexOffset + 12);
+    this.blit(this.cornerX + 126, this.cornerY + 15 + (int) (41.0F * this.sliderProgress), 176 + (this.canScroll() ? 0 : 12), 0, 12, 15);
+    this.drawRecipesBackground(mouseX, mouseY, this.cornerX + 51, this.cornerY + 15, this.recipeIndexOffset + 12);
+    this.drawRecipesItems(this.cornerX + 51, this.cornerY + 15, this.recipeIndexOffset + 12);
 
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
   }
@@ -183,18 +188,16 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
 
   private void drawRecipesBackground(int mouseX, int mouseY, int left, int top, int recipeIndexOffsetMax) {
     for (int i = this.recipeIndexOffset; i < recipeIndexOffsetMax && i < this.container.getPartRecipeListSize(); ++i) {
-      int j = i - this.recipeIndexOffset;
-      int k = left + j % 4 * 16;
-      int l = j / 4;
-      int i1 = top + l * 18 + 2;
-      int j1 = this.ySize;
+      int relative = i - this.recipeIndexOffset;
+      int x = left + relative % 4 * 18;
+      int y = top + (relative / 4) * 18;
+      int u = this.ySize;
       if (i == this.container.getSelectedPartRecipe()) {
-        j1 += 18;
-      } else if (mouseX >= k && mouseY >= i1 && mouseX < k + 16 && mouseY < i1 + 18) {
-        j1 += 36;
+        u += 18;
+      } else if (mouseX >= x && mouseY >= y && mouseX < x + 18 && mouseY < y + 18) {
+        u += 36;
       }
-
-      this.blit(k, i1 - 1, 0, j1, 16, 18);
+      this.blit(x, y, 0, u, 18, 18);
     }
   }
 
@@ -202,11 +205,24 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     List<PartRecipe> list = this.container.getPartRecipeList();
 
     for (int i = this.recipeIndexOffset; i < recipeIndexOffsetMax && i < this.container.getPartRecipeListSize(); ++i) {
-      int j = i - this.recipeIndexOffset;
-      int k = left + j % 4 * 16;
-      int l = j / 4;
-      int i1 = top + l * 18 + 2;
-      this.minecraft.getItemRenderer().renderItemAndEffectIntoGUI(list.get(i).getRecipeOutput(), k, i1);
+      int relative = i - this.recipeIndexOffset;
+      int x = left + relative % 4 * 18 + 1;
+      int y = top + (relative / 4) * 18 + 1;
+
+      PartRecipe recipe = list.get(i);
+      ResourceLocation pattern = recipe.getPattern();
+      try {
+        // render the GUI model for the pattern
+        ItemRenderer renderer = this.minecraft.getItemRenderer();
+        renderer.zLevel += 50.0F;
+        IBakedModel model = this.minecraft.getModelManager().getModel(new ResourceLocation(pattern.getNamespace(), "gui/part/" + pattern.getPath()));
+        renderer.renderItemModelIntoGUI(recipe.getRecipeOutput(), x, y, model);
+      } catch (Throwable throwable) {
+        CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering item model");
+        CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being rendered");
+        crashreportcategory.addDetail("Item Model", () -> String.valueOf(pattern));
+        throw new ReportedException(crashreport);
+      }
     }
   }
 
@@ -215,26 +231,24 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     this.clickedOnScrollBar = false;
 
     if (this.hasPatternInPatternSlot) {
-      int i = this.cornerX + 52;
-      int j = this.cornerY + 14;
-      int k = this.recipeIndexOffset + 12;
+      int x = this.cornerX + 51;
+      int y = this.cornerY + 15;
+      int maxIndex = Math.min((this.recipeIndexOffset + 12), this.container.getPartRecipeListSize());
+      for (int l = this.recipeIndexOffset; l < maxIndex; ++l) {
+        int relative = l - this.recipeIndexOffset;
+        double buttonX = mouseX - (double) (x + relative % 4 * 18);
+        double buttonY = mouseY - (double) (y + relative / 4 * 18);
 
-      for (int l = this.recipeIndexOffset; l < k; ++l) {
-        int i1 = l - this.recipeIndexOffset;
-        double d0 = mouseX - (double) (i + i1 % 4 * 16);
-        double d1 = mouseY - (double) (j + i1 / 4 * 18);
-
-        if (d0 >= 0.0D && d1 >= 0.0D && d0 < 16.0D && d1 < 18.0D && this.container.enchantItem(this.minecraft.player, l)) {
+        if (buttonX >= 0.0D && buttonY >= 0.0D && buttonX < 18.0D && buttonY < 18.0D && this.container.enchantItem(this.minecraft.player, l)) {
           Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
           this.minecraft.playerController.sendEnchantPacket((this.container).windowId, l);
           return true;
         }
       }
-
-      i = this.cornerX + 119;
-      j = this.cornerY + 9;
-
-      if (mouseX >= (double) i && mouseX < (double) (i + 12) && mouseY >= (double) j && mouseY < (double) (j + 54)) {
+      // scrollbar position
+      x = this.cornerX + 126;
+      y = this.cornerY + 15;
+      if (mouseX >= x && mouseX < (x + 12) && mouseY >= y && mouseY < (y + 54)) {
         this.clickedOnScrollBar = true;
       }
     }
@@ -247,9 +261,9 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     if (this.clickedOnScrollBar && this.canScroll()) {
       int i = this.cornerY + 14;
       int j = i + 54;
-      this.sliderProgress = ((float) mouseY - (float) i - 7.5F) / ((float) (j - i) - 15.0F);
+      this.sliderProgress = ((float) mouseY - i - 7.5F) / ((float) (j - i) - 15.0F);
       this.sliderProgress = MathHelper.clamp(this.sliderProgress, 0.0F, 1.0F);
-      this.recipeIndexOffset = (int) ((double) (this.sliderProgress * (float) this.getHiddenRows()) + 0.5D) * 4;
+      this.recipeIndexOffset = (int) ((this.sliderProgress * this.getHiddenRows()) + 0.5D) * 4;
       return true;
     } else {
       return super.mouseDragged(mouseX, mouseY, clickedMouseButton, timeSinceLastClick, unknown);

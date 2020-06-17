@@ -20,7 +20,7 @@ public class PartRecipeBuilder {
   private String group;
   private ItemStack output;
   private int cost = 1;
-  private String pattern = "";
+  private ResourceLocation pattern = null;
   private final Advancement.Builder advancementBuilder = Advancement.Builder.builder();
 
   private PartRecipeBuilder(ItemStack output) {
@@ -46,7 +46,7 @@ public class PartRecipeBuilder {
     return this;
   }
 
-  public PartRecipeBuilder setPattern(String pattern) {
+  public PartRecipeBuilder setPattern(ResourceLocation pattern) {
     this.pattern = pattern;
     return this;
   }
@@ -63,7 +63,7 @@ public class PartRecipeBuilder {
       throw new IllegalStateException("recipe " + id + " has no value associated with it");
     }
 
-    if (this.pattern.isEmpty()) {
+    if (this.pattern == null) {
       throw new IllegalStateException("recipe " + id + " has no pattern associated with it");
     }
 
@@ -92,11 +92,11 @@ public class PartRecipeBuilder {
     private final String group;
     private final ItemStack output;
     private final int cost;
-    private final String pattern;
+    private final ResourceLocation pattern;
     private final Advancement.Builder advancementBuilder;
     private final ResourceLocation advancementId;
 
-    public Result(ResourceLocation id, String group, ItemStack output, int cost, String pattern, Advancement.Builder advancementBuilder, ResourceLocation advancementId) {
+    public Result(ResourceLocation id, String group, ItemStack output, int cost, ResourceLocation pattern, Advancement.Builder advancementBuilder, ResourceLocation advancementId) {
       this.id = id;
       this.group = group;
       this.output = output;
@@ -112,7 +112,7 @@ public class PartRecipeBuilder {
         json.addProperty("group", this.group);
       }
 
-      json.addProperty("pattern", this.pattern);
+      json.addProperty("pattern", this.pattern.toString());
 
       json.addProperty("cost", this.cost);
 

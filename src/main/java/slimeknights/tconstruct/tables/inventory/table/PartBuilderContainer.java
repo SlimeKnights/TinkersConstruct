@@ -55,13 +55,13 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
     this.player = playerInventoryIn.player;
     this.world = playerInventoryIn.player.world;
 
-    this.addSlot(new CraftingCustomSlot(this, playerInventoryIn.player, this.craftMatrix, this.craftResult, 0, 143, 33));
+    this.addSlot(new CraftingCustomSlot(this, playerInventoryIn.player, this.craftMatrix, this.craftResult, 0, 148, 33));
 
     // pattern slot
     this.addSlot(this.patternSlot = new PatternSlot(this.craftMatrix, 1, 8, 34));
 
     // material slots
-    this.addSlot(this.inputSlot = new Slot(this.craftMatrix, 0, 30, 34) {
+    this.addSlot(this.inputSlot = new Slot(this.craftMatrix, 0, 29, 34) {
       /*
        * Fix issues related to the output not updating when you put a material in the slot.
        */
