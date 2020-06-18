@@ -192,13 +192,21 @@ public class TConstruct {
             entry.remap(TinkerMaterials.copperBlock.asItem());
             break;
           case "alubrass_ingot":
-            entry.remap(TinkerMaterials.cobaltIngot.get());
+            entry.remap(TinkerMaterials.copperIngot.get());
             break;
           case "alubrass_nugget":
             entry.remap(TinkerMaterials.copperNugget.get());
             break;
           case "aluminum_brass_item_frame":
             entry.remap(TinkerGadgets.itemFrame.get(FrameType.JEWEL));
+            break;
+          // old tool before we had a proper model
+          case "test_tool":
+            entry.remap(TinkerTools.pickaxe.get());
+            break;
+          case "test_part":
+            entry.remap(TinkerToolParts.pickaxeHead.get());
+            break;
         }
       }
     }
