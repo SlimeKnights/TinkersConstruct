@@ -4,5 +4,8 @@
   "textures": {
     "pane": "tconstruct:block/smeltery/seared_glass"
   },
-  "connected": ["pane"]
+  "connection": {
+    "textures": ["pane"],
+    "predicate": "tconstruct:pane"
+  }
 }

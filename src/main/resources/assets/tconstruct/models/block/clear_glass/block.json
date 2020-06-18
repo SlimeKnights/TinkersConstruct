@@ -4,5 +4,7 @@
   "textures": {
     "all": "tconstruct:block/clear_glass"
   },
-  "connected": ["all"]
+  "connection": {
+    "textures": ["all"]
+  }
 }

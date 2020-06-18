@@ -4,5 +4,7 @@
   "textures": {
     "all": "tconstruct:block/smeltery/seared_glass"
   },
-  "connected": ["all"]
+  "connection": {
+    "textures": ["all"]
+  }
 }

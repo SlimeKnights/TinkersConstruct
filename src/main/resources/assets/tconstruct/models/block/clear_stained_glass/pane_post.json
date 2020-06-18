@@ -6,7 +6,10 @@
     "edge": "tconstruct:block/clear_stained_glass_top",
     "pane": "tconstruct:block/clear_stained_glass"
   },
-  "connected": ["pane"],
+  "connection": {
+    "textures": ["pane"],
+    "predicate": "tconstruct:pane"
+  },
   "elements": [
     { "from": [ 7, 0, 7 ],
       "to": [ 9, 16, 9 ],

@@ -5,5 +5,8 @@
     "edge": "tconstruct:block/smeltery/seared_glass_top",
     "pane": "tconstruct:block/smeltery/seared_glass"
   },
-  "connected": ["pane"]
+  "connection": {
+    "textures": ["pane"],
+    "predicate": "tconstruct:pane"
+  }
 }

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared.block;
 
+import net.minecraft.block.AbstractGlassBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.DyeColor;
 import net.minecraft.util.IStringSerializable;
@@ -9,7 +10,7 @@ import net.minecraft.world.IWorldReader;
 import javax.annotation.Nullable;
 import java.util.Locale;
 
-public class ClearStainedGlassBlock extends ClearGlassBlock {
+public class ClearStainedGlassBlock extends AbstractGlassBlock {
 
   private final GlassColor glassColor;
   public ClearStainedGlassBlock(Properties properties, GlassColor glassColor) {

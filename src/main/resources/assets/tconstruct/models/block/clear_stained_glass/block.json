@@ -5,7 +5,9 @@
     "particle": "tconstruct:block/clear_stained_glass",
     "all": "tconstruct:block/clear_stained_glass"
   },
-  "connected": ["all"],
+  "connection": {
+    "textures": ["all"]
+  },
   "elements": [
     { "from": [ 0, 0, 0 ],
       "to": [ 16, 16, 16 ],

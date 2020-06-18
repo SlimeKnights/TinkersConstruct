@@ -4,5 +4,8 @@
   "textures": {
     "pane": "tconstruct:block/clear_glass"
   },
-  "connected": ["pane"]
+  "connection": {
+    "textures": ["pane"],
+    "predicate": "tconstruct:pane"
+  }
 }

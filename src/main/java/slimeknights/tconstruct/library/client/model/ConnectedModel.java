@@ -30,12 +30,16 @@ import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.Direction.Plane;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ILightReader;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelDataMap;
+import net.minecraftforge.client.model.data.ModelProperty;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
 import slimeknights.tconstruct.tables.client.model.ModelProperties;
 
@@ -49,23 +53,61 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.BiPredicate;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 /**
  * Model that handles generating variants for connected textures
  * TODO: move to Mantle
  */
 public class ConnectedModel implements IModelGeometry<ConnectedModel> {
+  /**
+   * Map of direction to connected property
+   */
+  private static final Map<Direction,ModelProperty<Boolean>> CONNECTED_PROPERTIES;
+  static {
+    CONNECTED_PROPERTIES = new EnumMap<>(Direction.class);
+    for (Direction dir : Direction.values()) {
+      CONNECTED_PROPERTIES.put(dir, new ModelProperty<>());
+    }
+  }
+
+  /**
+   * Default state predicate, compares the blocks for equality
+   */
+  private static final BiPredicate<BlockState,BlockState> DEFAULT_CONNECTION_PREDICATE = (s1, s2) -> s1.getBlock() == s2.getBlock();
+
+  /**
+   * Map of name to connection type. Allows registering custom logic to connect two blocks together, used for glass panes for instance
+   */
+  private static final Map<ResourceLocation,BiPredicate<BlockState,BlockState>> CONNECTION_PREDICATES = new HashMap<>();
+
+  /**
+   * Registers a new connection type
+   * @param location   Name for the type
+   * @param predicate  Connection logic to compare two blockstates for equality
+   */
+  public static void registerConnectionType(ResourceLocation location, BiPredicate<BlockState,BlockState> predicate) {
+    if (CONNECTION_PREDICATES.containsKey(location)) {
+      throw new IllegalArgumentException("Duplicate connection type " + location);
+    }
+    CONNECTION_PREDICATES.put(location, predicate);
+  }
+
   /** Parent model */
   private final BlockModel model;
   /** List of textures that connect */
   private final Set<String> connectedTextures;
+  /** Function to run to check if this block connects to another */
+  private final BiPredicate<BlockState,BlockState> connectionPredicate;
   /** Map of full texture name to the resulting material, filled during getTextures */
   private final Map<String,Either<Material,String>> suffixedTextures;
 
-  protected ConnectedModel(BlockModel model, Set<String> connectedTextures) {
+  protected ConnectedModel(BlockModel model, Set<String> connectedTextures, BiPredicate<BlockState,BlockState> connectionPredicate) {
     this.model = model;
     this.connectedTextures = connectedTextures;
+    this.connectionPredicate = connectionPredicate;
     this.suffixedTextures = new HashMap<>();
   }
 
@@ -144,16 +186,16 @@ public class ConnectedModel implements IModelGeometry<ConnectedModel> {
 
     /**
      * Gets an array of localized directions to whether a block exists on the side
-     * @param state     Block state
+     * @param predicate Function that returns true if the block is connected on the given side
      * @param rotation  State rotation
      * @return  Boolean array of data
+     * @deprecated      Remove once multipart supports propigating model data
      */
-    private static boolean[] getFaces(BlockState state, Matrix4f rotation) {
+    @Deprecated
+    private static boolean[] getFaces(Predicate<Direction> predicate, Matrix4f rotation) {
       boolean[] faces = new boolean[6];
       for (Direction dir : Direction.values()) {
-        // if the prop is missing, treat as false. Prevents crashes if a resource pack maker attempts to use on a non-connected block
-        BooleanProperty prop = ModelProperties.CONNECTED_DIRECTIONS.get(Direction.rotateFace(rotation, dir));
-        faces[dir.getIndex()] = state.has(prop) && state.get(prop);
+        faces[dir.getIndex()] = predicate.test(Direction.rotateFace(rotation, dir));
       }
       return faces;
     }
@@ -302,13 +344,13 @@ public class ConnectedModel implements IModelGeometry<ConnectedModel> {
 
     /**
      * Gets the model based on the connections in the given model data
-     * @param state  Block state
+     * @param predicate  Function that returns true or false based on whether the side contains a block
      * @return  Model with connections applied
      */
     @SuppressWarnings("deprecation")
-    private BlockModel applyConnections(BlockState state) {
+    private BlockModel applyConnections(Predicate<Direction> predicate) {
       // get the suffix based on the placement in world
-      boolean[] faces = getFaces(state, transforms.getRotation().getMatrix());
+      boolean[] faces = getFaces(predicate, transforms.getRotation().getMatrix());
 
       // will add new textures to this map based on connections
       Map<String,Either<Material, String>> textures = Maps.newHashMap(parent.model.textures);
@@ -356,42 +398,79 @@ public class ConnectedModel implements IModelGeometry<ConnectedModel> {
 
     /**
      * Gets the key to cache the given model data
-     * @param state  Block state
+     * @param predicate  Function that returns true for the given direction if the block is connected there
      * @return  Key used to cache it
      */
-    private static int getKey(BlockState state) {
+    private static int getKey(Predicate<Direction> predicate) {
       // iterate each of the six directions
       int key = 0;
       for (Direction dir : Direction.values()) {
         // if the prop is missing, treat as false. Prevents crashes if a resource pack maker attempts to use on a non-connected block
-        BooleanProperty prop = ModelProperties.CONNECTED_DIRECTIONS.get(dir);
-        if (state.has(prop) && state.get(prop)) {
+        if (predicate.test(dir)) {
           key |= 1 << dir.getIndex();
         }
       }
       return key;
     }
 
+    @Override
+    @Nonnull
+    public IModelData getModelData(@Nonnull ILightReader world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull IModelData tileData) {
+      // build model data
+      IModelData data = tileData;
+      if (data == EmptyModelData.INSTANCE) {
+        // going to simply add properties below
+        data = new ModelDataMap.Builder().build();
+      }
+
+      // set connected properties
+      // TODO: support custom predicates
+      BiPredicate<BlockState,BlockState> predicate = (state1, state2) -> state1.getBlock() == state2.getBlock();
+      for (Direction dir : Direction.values()) {
+        data.setData(CONNECTED_PROPERTIES.get(dir), predicate.test(state, world.getBlockState(pos.offset(dir))));
+      }
+
+      return data;
+    }
+
     @Nonnull
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData data) {
-      if (state == null) {
-        return super.getQuads(null, side, rand, data);
-      }
-      // get data based on state
-      int cacheKey = getKey(state);
+      // get data based on model data
+      Predicate<Direction> predicate = (dir) -> data.getData(CONNECTED_PROPERTIES.get(dir)) == Boolean.TRUE;
+      int cacheKey = getKey(predicate);
+
       // bake a new model if the orientation is not yet baked
       if (cache[cacheKey] == null) {
-        BlockModel connected = applyConnections(state);
+        BlockModel connected = applyConnections(predicate);
         cache[cacheKey] = connected.bakeModel(bakery, connected, ModelLoader.defaultTextureGetter(), transforms, BAKE_LOCATION, true);
       }
+
       // get the model for the given orientation
       return cache[cacheKey].getQuads(state, side, rand, data);
     }
 
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand) {
-      return getQuads(state, side, rand, EmptyModelData.INSTANCE);
+      // block state fallback for models that do not support model data
+      if (state == null) {
+        return super.getQuads(null, side, rand);
+      }
+      // get data based on state
+      Predicate<Direction> predicate = (dir) -> {
+        BooleanProperty prop = ModelProperties.CONNECTED_DIRECTIONS.get(dir);
+        return state.has(prop) && state.get(prop);
+      };
+      int cacheKey = getKey(predicate);
+
+      // bake a new model if the orientation is not yet baked
+      if (cache[cacheKey] == null) {
+        BlockModel connected = applyConnections(predicate);
+        cache[cacheKey] = connected.bakeModel(bakery, connected, ModelLoader.defaultTextureGetter(), transforms, BAKE_LOCATION, true);
+      }
+
+      // get the model for the given orientation
+      return cache[cacheKey].getQuads(state, side, rand, EmptyModelData.INSTANCE);
     }
   }
 
@@ -406,8 +485,11 @@ public class ConnectedModel implements IModelGeometry<ConnectedModel> {
     public ConnectedModel read(JsonDeserializationContext context, JsonObject json) {
       BlockModel model = ModelUtils.deserialize(context, json);
 
+      // root object for all model data
+      JsonObject data = json.getAsJsonObject("connection");
+
       // need at least one connected texture
-      JsonArray connected = JSONUtils.getJsonArray(json, "connected");
+      JsonArray connected = JSONUtils.getJsonArray(data, "textures");
       if (connected.size() == 0) {
         throw new JsonSyntaxException("Must have at least one texture in connected");
       }
@@ -415,15 +497,26 @@ public class ConnectedModel implements IModelGeometry<ConnectedModel> {
       // build texture list
       ImmutableSet.Builder<String> connectedTextures = new ImmutableSet.Builder<>();
       for (int i = 0; i < connected.size(); i++) {
-        String name = JSONUtils.getString(connected.get(i), "connected[" + i + "]");
+        String name = JSONUtils.getString(connected.get(i), "textures[" + i + "]");
         // texture must be in the model
         if(!model.textures.containsKey(name)) {
           throw new JsonSyntaxException("Invalid connected texture " + name + ", missing in model");
         }
         connectedTextures.add(name);
       }
+
+      // get the connection predicate
+      BiPredicate<BlockState,BlockState> predicate = DEFAULT_CONNECTION_PREDICATE;
+      if (data.has("predicate")) {
+        ResourceLocation predicateLoc = new ResourceLocation(JSONUtils.getString(data, "predicate"));
+        if (!CONNECTION_PREDICATES.containsKey(predicateLoc)) {
+          throw new JsonSyntaxException("Unknown connection predicate " + predicateLoc);
+        }
+        predicate = CONNECTION_PREDICATES.get(predicateLoc);
+      }
+
       // final model instance
-      return new ConnectedModel(model, connectedTextures.build());
+      return new ConnectedModel(model, connectedTextures.build(), predicate);
     }
   }
 }
