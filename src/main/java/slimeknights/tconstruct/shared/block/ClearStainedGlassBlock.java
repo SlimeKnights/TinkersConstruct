@@ -3,12 +3,9 @@ package slimeknights.tconstruct.shared.block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.DyeColor;
-import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
@@ -20,12 +17,6 @@ public class ClearStainedGlassBlock extends ClearGlassBlock {
   public ClearStainedGlassBlock(Properties properties, GlassColor glassColor) {
     super(properties);
     this.glassColor = glassColor;
-  }
-
-  @Override
-  @OnlyIn(Dist.CLIENT)
-  public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
-    return this.canConnect(state, adjacentBlockState);
   }
 
   @Nullable

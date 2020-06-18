@@ -71,4 +71,10 @@ public class SearedGlassBlock extends SearedBlock {
   public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos) {
     return false;
   }
+
+  @Override
+  @OnlyIn(Dist.CLIENT)
+  public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
+    return adjacentBlockState.getBlock() == this || super.isSideInvisible(state, adjacentBlockState, side);
+  }
 }

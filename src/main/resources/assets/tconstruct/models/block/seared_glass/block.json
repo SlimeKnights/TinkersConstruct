@@ -1,0 +1,8 @@
+{
+  "loader": "tconstruct:connected",
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "tconstruct:block/smeltery/seared_glass"
+  },
+  "connected": ["all"]
+}

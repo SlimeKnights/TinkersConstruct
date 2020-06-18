@@ -14,6 +14,8 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.model.ConnectedModel;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 
@@ -31,6 +33,11 @@ public class CommonsClientEvents extends ClientEventBase {
     for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
       RenderTypeLookup.setRenderLayer(TinkerCommons.clearStainedGlass.get(color), RenderType.getTranslucent());
     }
+  }
+
+  @SubscribeEvent
+  static void registerModelLoaders(ModelRegistryEvent event) {
+    ModelLoaderRegistry.registerLoader(Util.getResource("connected"), ConnectedModel.Loader.INSTANCE);
   }
 
   @SubscribeEvent
