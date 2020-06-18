@@ -31,6 +31,7 @@ public class SmelteryClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedGlass.get(), RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedGlassPane.get(), RenderType.getCutout());
     for (SearedTankBlock.TankType tankType : SearedTankBlock.TankType.values()) {
       RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedTank.get(tankType), RenderType.getCutout());
     }

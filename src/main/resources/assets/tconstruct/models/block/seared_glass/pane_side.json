@@ -1,0 +1,9 @@
+{
+  "loader": "tconstruct:connected",
+  "parent": "tconstruct:block/pane/side",
+  "textures": {
+    "edge": "tconstruct:block/smeltery/seared_glass_top",
+    "pane": "tconstruct:block/smeltery/seared_glass"
+  },
+  "connected": ["pane"]
+}

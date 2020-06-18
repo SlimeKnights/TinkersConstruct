@@ -1,0 +1,8 @@
+{
+  "loader": "tconstruct:connected",
+  "parent": "tconstruct:block/pane/noside",
+  "textures": {
+    "pane": "tconstruct:block/clear_glass"
+  },
+  "connected": ["pane"]
+}

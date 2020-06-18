@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tconstruct:common/glass/yellow_clear_stained_glass_pane_from_panes"
+    ]
+  },
+  "criteria": {
+    "has_clear_glass": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tconstruct:clear_glass_pane"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tconstruct:common/glass/yellow_clear_stained_glass_pane_from_panes"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_clear_glass",
+      "has_the_recipe"
+    ]
+  ]
+}

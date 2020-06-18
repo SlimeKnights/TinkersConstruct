@@ -8,6 +8,8 @@ import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -30,8 +32,10 @@ public class CommonsClientEvents extends ClientEventBase {
 
     // glass
     RenderTypeLookup.setRenderLayer(TinkerCommons.clearGlass.get(), RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(TinkerCommons.clearGlassPane.get(), RenderType.getCutout());
     for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
       RenderTypeLookup.setRenderLayer(TinkerCommons.clearStainedGlass.get(color), RenderType.getTranslucent());
+      RenderTypeLookup.setRenderLayer(TinkerCommons.clearStainedGlassPane.get(color), RenderType.getTranslucent());
     }
   }
 
@@ -42,12 +46,15 @@ public class CommonsClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerColorHandlers(ColorHandlerEvent.Item event) {
+    // colors apply a constant tint to make models easier
     BlockColors blockColors = event.getBlockColors();
     ItemColors itemColors = event.getItemColors();
     for (GlassColor color : GlassColor.values()) {
       Block block = TinkerCommons.clearStainedGlass.get(color);
-      blockColors.register((state, reader, pos, index) -> color.getColor(), block);
+      Block pane = TinkerCommons.clearStainedGlassPane.get(color);
+      blockColors.register((state, reader, pos, index) -> color.getColor(), block, pane);
       registerBlockItemColorAlias(blockColors, itemColors, block);
+      registerBlockItemColorAlias(blockColors, itemColors, pane);
     }
   }
 }

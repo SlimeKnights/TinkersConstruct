@@ -1,0 +1,9 @@
+{
+  "loader": "tconstruct:connected",
+  "parent": "tconstruct:block/pane/side",
+  "textures": {
+    "edge": "tconstruct:block/clear_glass_top",
+    "pane": "tconstruct:block/clear_glass"
+  },
+  "connected": ["pane"]
+}

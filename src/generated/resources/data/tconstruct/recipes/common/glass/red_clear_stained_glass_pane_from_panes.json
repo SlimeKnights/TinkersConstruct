@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:stained_clear_glass_pane",
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "tconstruct:clear_glass_pane"
+    },
+    "X": {
+      "tag": "forge:dyes/red"
+    }
+  },
+  "result": {
+    "item": "tconstruct:red_clear_stained_glass_pane",
+    "count": 8
+  }
+}

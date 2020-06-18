@@ -83,9 +83,10 @@ public class TConstructBlockLootTables extends BlockLootTables {
 
   private void addDecorative() {
     this.registerDropSelfLootTable(TinkerCommons.clearGlass.get());
-
+    this.registerDropSelfLootTable(TinkerCommons.clearGlassPane.get());
     for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
       this.registerDropSelfLootTable(TinkerCommons.clearStainedGlass.get(color));
+      this.registerDropSelfLootTable(TinkerCommons.clearStainedGlassPane.get(color));
     }
 
     this.registerBuildingLootTables(TinkerCommons.mudBricks);
@@ -182,6 +183,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerBuildingLootTables(TinkerSmeltery.searedRoad);
     this.registerBuildingLootTables(TinkerSmeltery.searedTile);
     this.registerDropSelfLootTable(TinkerSmeltery.searedGlass.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.searedGlassPane.get());
 
     for (SearedTankBlock.TankType type : SearedTankBlock.TankType.values()) {
       this.registerLootTable(TinkerSmeltery.searedTank.get(type), (block) -> droppingWithFunctions(block, (builder) -> {

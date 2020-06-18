@@ -126,6 +126,12 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .build(consumer, prefix(TinkerCommons.book, "common/"));
 
     // glass
+    ShapedRecipeBuilder.shapedRecipe(TinkerCommons.clearGlassPane, 16)
+                       .key('#', TinkerCommons.clearGlass)
+                       .patternLine("###")
+                       .patternLine("###")
+                       .addCriterion("has_block", this.hasItem(TinkerCommons.clearGlass))
+                       .build(consumer, prefix(TinkerCommons.clearGlassPane, "common/glass/"));
     for (GlassColor color : GlassColor.values()) {
       Block block = TinkerCommons.clearStainedGlass.get(color);
       ShapedRecipeBuilder.shapedRecipe(block, 8)
@@ -135,14 +141,34 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                          .patternLine("#X#")
                          .patternLine("###")
                          .setGroup(locationString("stained_clear_glass"))
-                         .addCriterion("has_clear_glass", this.hasItem(TinkerCommons.clearGlass.get()))
+                         .addCriterion("has_clear_glass", this.hasItem(TinkerCommons.clearGlass))
                          .build(consumer, prefix(block, "common/glass/"));
+      Block pane = TinkerCommons.clearStainedGlassPane.get(color);
+      ShapedRecipeBuilder.shapedRecipe(pane, 16)
+                         .key('#', block)
+                         .patternLine("###")
+                         .patternLine("###")
+                         .setGroup(locationString("stained_clear_glass_pane"))
+                         .addCriterion("has_block", this.hasItem(block))
+                         .build(consumer, prefix(pane, "common/glass/"));
+      ShapedRecipeBuilder.shapedRecipe(pane, 8)
+                         .key('#', TinkerCommons.clearGlassPane)
+                         .key('X', color.getDye().getTag())
+                         .patternLine("###")
+                         .patternLine("#X#")
+                         .patternLine("###")
+                         .setGroup(locationString("stained_clear_glass_pane"))
+                         .addCriterion("has_clear_glass", this.hasItem(TinkerCommons.clearGlassPane))
+                         .build(consumer, wrap(pane, "common/glass/", "_from_panes"));
     }
 
     // FIXME: temporary clear glass recipe
-    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromTag(Tags.Items.GLASS_COLORLESS), TinkerCommons.clearGlass.get().asItem(), 0.1F, 200)
+    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromTag(Tags.Items.GLASS_COLORLESS), TinkerCommons.clearGlass, 0.1F, 200)
                         .addCriterion("has_item", this.hasItem(Tags.Items.GLASS_COLORLESS))
                         .build(consumer, wrap(TinkerCommons.clearGlass, "common/glass/", "_from_smelting"));
+    CookingRecipeBuilder.smeltingRecipe(Ingredient.fromTag(Tags.Items.GLASS_PANES_COLORLESS), TinkerCommons.clearGlassPane, 0.1F, 200)
+                        .addCriterion("has_item", this.hasItem(Tags.Items.GLASS_PANES_COLORLESS))
+                        .build(consumer, wrap(TinkerCommons.clearGlassPane, "common/glass/", "_from_smelting"));
 
     // vanilla recipes
     ResourceLocation flintId = location("common/flint");
@@ -605,6 +631,12 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                        .patternLine(" b ")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, prefix(TinkerSmeltery.searedGlass, folder));
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedGlassPane)
+                       .key('#', TinkerSmeltery.searedGlass)
+                       .patternLine("###")
+                       .patternLine("###")
+                       .addCriterion("has_item", hasItem(TinkerSmeltery.searedGlass))
+                       .build(consumer, prefix(TinkerSmeltery.searedGlassPane, folder));
 
     // stairs and slabs
     this.registerSlabStair(consumer, TinkerSmeltery.searedStone, folder, true);
