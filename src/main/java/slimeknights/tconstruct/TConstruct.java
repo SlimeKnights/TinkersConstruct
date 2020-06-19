@@ -83,7 +83,7 @@ public class TConstruct {
   /* Instance of this mod, used for grabbing prototype fields */
   public static TConstruct instance;
 
-  public static ServerProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+  public static ServerProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
   public TConstruct() {
     instance = this;
@@ -112,7 +112,7 @@ public class TConstruct {
     // init deferred registers
     TinkerModule.initRegisters();
     // init client logic
-    DistExecutor.runWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
+    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
     MinecraftForge.EVENT_BUS.register(this);
   }
 

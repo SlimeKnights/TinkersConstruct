@@ -5,7 +5,6 @@ import com.mojang.datafixers.Dynamic;
 import com.mojang.datafixers.types.DynamicOps;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
 import slimeknights.tconstruct.world.TinkerStructures;
 
@@ -33,7 +32,7 @@ public class SupplierBlockStateProvider extends BlockStateProvider {
   @Override
   public <T> T serialize(DynamicOps<T> dynamicOps) {
     ImmutableMap.Builder<T, T> builder = ImmutableMap.builder();
-    builder.put(dynamicOps.createString("type"), dynamicOps.createString(Registry.BLOCK_STATE_PROVIDER_TYPE.getKey(this.blockStateProvider).toString())).put(dynamicOps.createString("state"), BlockState.serialize(dynamicOps, this.blockStateSupplier.get()).getValue());
+    builder.put(dynamicOps.createString("type"), dynamicOps.createString(this.blockStateProvider.getRegistryName().toString())).put(dynamicOps.createString("state"), BlockState.serialize(dynamicOps, this.blockStateSupplier.get()).getValue());
     return (new Dynamic<>(dynamicOps, dynamicOps.createMap(builder.build()))).getValue();
   }
 }

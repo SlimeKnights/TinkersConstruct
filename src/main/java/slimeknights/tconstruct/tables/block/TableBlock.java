@@ -1,14 +1,11 @@
 package slimeknights.tconstruct.tables.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -30,7 +27,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import slimeknights.mantle.block.InventoryBlock;
-import slimeknights.mantle.tileentity.InventoryTileEntity;
 import slimeknights.tconstruct.library.TinkerNBTConstants;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tables.tileentity.TableTileEntity;
@@ -57,6 +53,7 @@ public abstract class TableBlock extends InventoryBlock {
     this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(WATERLOGGED, false));
   }
 
+  @Deprecated
   @Override
   public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
     return false;
@@ -177,19 +174,13 @@ public abstract class TableBlock extends InventoryBlock {
     return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite()).with(WATERLOGGED, flag);
   }
 
-  /**
-   * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
-   * blockstate.
-   */
+  @Deprecated
   @Override
   public BlockState rotate(BlockState state, Rotation rot) {
     return state.with(FACING, rot.rotate(state.get(FACING)));
   }
 
-  /**
-   * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
-   * blockstate.
-   */
+  @Deprecated
   @Override
   public BlockState mirror(BlockState state, Mirror mirrorIn) {
     return state.rotate(mirrorIn.toRotation(state.get(FACING)));
@@ -206,6 +197,7 @@ public abstract class TableBlock extends InventoryBlock {
     return SHAPE;
   }
 
+  @Deprecated
   @Override
   public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
     if (stateIn.get(WATERLOGGED)) {
@@ -215,9 +207,9 @@ public abstract class TableBlock extends InventoryBlock {
     return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
   }
 
+  @Deprecated
   @Override
   public IFluidState getFluidState(BlockState state) {
     return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
   }
-
 }

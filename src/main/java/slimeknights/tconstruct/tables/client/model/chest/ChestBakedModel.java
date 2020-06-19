@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ILightReader;
-import net.minecraftforge.client.model.data.EmptyModelData;
+import net.minecraftforge.client.model.data.IDynamicBakedModel;
 import net.minecraftforge.client.model.data.IModelData;
 import slimeknights.tconstruct.tables.client.model.ModelProperties;
 
@@ -21,19 +21,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class ChestBakedModel implements IBakedModel {
+public class ChestBakedModel implements IDynamicBakedModel {
 
   private final IBakedModel internal;
   private final Map<Direction, IBakedModel> cache = Maps.newEnumMap(Direction.class);
 
   public ChestBakedModel(IBakedModel internal) {
     this.internal = internal;
-  }
-
-  @Nonnull
-  @Override
-  public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand) {
-    return this.getQuads(state, side, rand, EmptyModelData.INSTANCE);
   }
 
   @Nonnull

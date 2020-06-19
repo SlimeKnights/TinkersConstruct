@@ -235,7 +235,7 @@ public class CraftingStationContainer extends TinkerStationContainer<CraftingSta
   }
 
   private <T extends TileEntity> boolean hasSameContainerOpen(BaseContainer<T> container, PlayerEntity playerToCheck) {
-    return playerToCheck instanceof ServerPlayerEntity && playerToCheck.openContainer.getClass().isAssignableFrom(container.getClass()) && this.sameGui((BaseContainer<T>) playerToCheck.openContainer);
+    return playerToCheck instanceof ServerPlayerEntity && player.openContainer instanceof BaseContainer<?> && this.sameGui((BaseContainer<?>) playerToCheck.openContainer);
   }
 
   @Override

@@ -246,7 +246,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
       Block block = state.getBlock();
       BlockState upState = reader.getBlockState(position.up());
 
-      if ((TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.greenSlimeGrass.contains(block) || TinkerWorld.blueSlimeGrass.contains(block) || TinkerWorld.purpleSlimeGrass.contains(block) || TinkerWorld.magmaSlimeGrass.contains(block)) && !upState.getBlock().isOpaqueCube(upState, reader, position)) {
+      if ((TinkerWorld.slimeDirt.contains(block) || TinkerWorld.vanillaSlimeGrass.contains(block) || TinkerWorld.greenSlimeGrass.contains(block) || TinkerWorld.blueSlimeGrass.contains(block) || TinkerWorld.purpleSlimeGrass.contains(block) || TinkerWorld.magmaSlimeGrass.contains(block)) && !upState.isOpaqueCube(reader, position)) {
         return position.up();
       }
       position = position.down();

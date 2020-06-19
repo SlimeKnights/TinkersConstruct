@@ -26,6 +26,7 @@ public class BlockItemObject<B extends Block> implements Supplier<B>, IItemProvi
    * Creates a block item object for a registered block
    * @param block  Block instance
    */
+  @SuppressWarnings("unchecked")
   public static <B extends Block> BlockItemObject<B> fromBlock(B block) {
     IRegistryDelegate<Block> delegate = block.delegate;
     return new BlockItemObject<>(() -> (B)delegate.get(), () -> delegate.get().asItem());

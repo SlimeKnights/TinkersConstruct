@@ -44,6 +44,7 @@ public class FaucetBlock extends ContainerBlock {
     this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
   }
 
+  @Deprecated
   @Override
   public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
     if (player.isSneaking()) {
@@ -62,6 +63,7 @@ public class FaucetBlock extends ContainerBlock {
     return true;
   }
 
+  @Deprecated
   @Override
   public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
     if (worldIn.isRemote()) {
@@ -73,6 +75,7 @@ public class FaucetBlock extends ContainerBlock {
     }
   }
 
+  @Deprecated
   @Override
   public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
     TileEntity te = worldIn.getTileEntity(pos);
@@ -81,16 +84,19 @@ public class FaucetBlock extends ContainerBlock {
     }
   }
 
+  @Deprecated
   @Override
   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
     return SHAPES.get(state.get(FACING));
   }
 
+  @Deprecated
   @Override
   public BlockRenderType getRenderType(BlockState state) {
     return BlockRenderType.MODEL;
   }
 
+  @Override
   @Nullable
   public TileEntity createNewTileEntity(IBlockReader worldIn) {
     return new FaucetTileEntity();

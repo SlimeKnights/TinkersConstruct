@@ -43,6 +43,7 @@ public class PunjiBlock extends Block {
     this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.DOWN).with(NORTH, false).with(EAST, false).with(NORTHEAST, false).with(NORTHWEST, false).with(WATERLOGGED, false));
   }
 
+  @Deprecated
   @Override
   public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
     Direction direction = stateIn.get(FACING);
@@ -148,6 +149,7 @@ public class PunjiBlock extends Block {
     }
   }
 
+  @Deprecated
   @Override
   public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
     Direction direction = state.get(FACING);
@@ -184,17 +186,20 @@ public class PunjiBlock extends Block {
     BOUNDS = builder.build();
   }
 
+  @Deprecated
   @Nonnull
   @Override
   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
     return BOUNDS.get(state.get(FACING));
   }
 
+  @Deprecated
   @Override
   public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos) {
     return false;
   }
 
+  @Deprecated
   @Override
   public IFluidState getFluidState(BlockState state) {
     return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);

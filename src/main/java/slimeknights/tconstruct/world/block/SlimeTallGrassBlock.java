@@ -36,6 +36,7 @@ public class SlimeTallGrassBlock extends BushBlock implements IShearable {
     this.plantType = plantType;
   }
 
+  @Deprecated
   @Override
   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
     return SHAPE;

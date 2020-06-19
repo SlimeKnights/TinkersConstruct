@@ -98,11 +98,13 @@ public class TestWorld extends World {
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public ITickList<Block> getPendingBlockTicks() {
     return mock(ITickList.class);
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public ITickList<Fluid> getPendingFluidTicks() {
     return mock(ITickList.class);
   }
