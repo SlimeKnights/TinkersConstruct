@@ -47,7 +47,9 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ROSE_GOLD).add(TinkerMaterials.roseGoldBlock.get());
 
     this.getBuilder(Tags.Blocks.GLASS_COLORLESS).add(TinkerCommons.clearGlass.get());
+    this.getBuilder(Tags.Blocks.GLASS_PANES_COLORLESS).add(TinkerCommons.clearGlassPane.get());
     addColored(getBuilder(Tags.Blocks.STAINED_GLASS)::add, Tags.Blocks.GLASS, "{color}_clear_stained_glass");
+    addColored(getBuilder(Tags.Blocks.STAINED_GLASS_PANES)::add, Tags.Blocks.GLASS_PANES, "{color}_clear_stained_glass_pane");
   }
 
   private void addWorld() {
@@ -100,7 +102,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
       Tag<Block> tag = getForgeTag(prefix + color.getTranslationKey());
       Block block = ForgeRegistries.BLOCKS.getValue(key);
       if (block == null || block == Blocks.AIR)
-        throw new IllegalStateException("Unknown vanilla block: " + key.toString());
+        throw new IllegalStateException("Unknown tconstruct block: " + key.toString());
       getBuilder(tag).add(block);
       consumer.accept(block);
     }

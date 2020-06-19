@@ -631,7 +631,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                        .patternLine(" b ")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, prefix(TinkerSmeltery.searedGlass, folder));
-    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedGlassPane)
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedGlassPane, 16)
                        .key('#', TinkerSmeltery.searedGlass)
                        .patternLine("###")
                        .patternLine("###")
