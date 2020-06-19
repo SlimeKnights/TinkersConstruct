@@ -203,7 +203,7 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         include 'META-INF/mods.toml'
 
-        expand 'version': artifact_version, 'MCversion': minecraft_version, 'forge_version': forge_version_toml
+        expand 'version': artifact_version, 'MCversion': minecraft_version, 'forge_version': forge_version_min
     }
 
     from(sourceSets.main.resources.srcDirs) {
