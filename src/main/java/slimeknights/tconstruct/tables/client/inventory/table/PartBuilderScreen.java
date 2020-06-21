@@ -14,6 +14,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.MaterialRegistry;
@@ -22,6 +23,7 @@ import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
+import slimeknights.tconstruct.library.tinkering.ToolPart;
 import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
 import slimeknights.tconstruct.tables.inventory.table.PartBuilderContainer;
 import slimeknights.tconstruct.tables.recipe.material.MaterialRecipe;
@@ -95,22 +97,19 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     }
 
     if (!output.isEmpty()) {
-      if (output.getItem() instanceof MaterialItem) {
-        MaterialItem materialItem = (MaterialItem) output.getItem();
+      if (output.getItem() instanceof ToolPart) {
+        ToolPart toolPart = (ToolPart) output.getItem();
         IMaterial material = MaterialItem.getMaterialFromStack(output);
 
-        //todo fix
-        /*if(!materialItem.canUseMaterial(material)) {
-          String materialName = material.getLocalizedNameColored() + TextFormatting.WHITE;
-          String error = I18n.translateToLocalFormatted("gui.tconstruct.error.useless_tool_part", materialName, (new ItemStack(toolPart)).getDisplayName());
-          warning(error);
+        if(!toolPart.canUseMaterial(material)) {
+          String materialName = material.getEncodedTextColor() + new TranslationTextComponent(material.getTranslationKey()).getFormattedText() + TextFormatting.WHITE;
+          String error = new TranslationTextComponent("gui.tconstruct.error.useless_tool_part", materialName, (new ItemStack(toolPart)).getDisplayName()).getFormattedText();
+          this.warning(error);
         }
         // Material is OK, display material properties
         else {
           this.setDisplayForMaterial(material);
-        }*/
-
-        this.setDisplayForMaterial(material);
+        }
       }
     } else {
       MaterialRecipe materialRecipe = this.container.getMaterialRecipe();
@@ -142,7 +141,7 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
   protected void setDisplayForMaterial(IMaterial material) {
     this.infoPanelScreen.setCaption(material.getEncodedTextColor() + new TranslationTextComponent(material.getTranslationKey()).getFormattedText());
 
-    List<String> stats = Lists.newLinkedList();
+    List<ITextComponent> stats = Lists.newLinkedList();
     List<ITextComponent> tips = Lists.newArrayList();
 
     MaterialRecipe materialRecipe = this.container.getMaterialRecipe();
@@ -164,14 +163,14 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     }
 
     for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
-      List<String> info = stat.getLocalizedInfo();
+      List<ITextComponent> info = stat.getLocalizedInfo();
 
-      if(info != null && !info.isEmpty()) {
-        stats.add(TextFormatting.UNDERLINE + new TranslationTextComponent(stat.getLocalizedName()).getFormattedText());
+      if (info != null && !info.isEmpty()) {
+        stats.add(new StringTextComponent(TextFormatting.UNDERLINE + new TranslationTextComponent(stat.getLocalizedName()).getFormattedText()));
         stats.addAll(info);
         stats.add(null);
         tips.add(null);
-        tips.addAll(stat.getLocalizedDesc());
+        tips.addAll(stat.getLocalizedDescriptions());
         tips.add(null);
       }
     }
@@ -229,7 +228,7 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
   public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
     this.clickedOnScrollBar = false;
 
-    if(this.infoPanelScreen.handleMouseClicked(mouseX, mouseY, mouseButton)) {
+    if (this.infoPanelScreen.handleMouseClicked(mouseX, mouseY, mouseButton)) {
       return false;
     }
 
@@ -279,7 +278,7 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
 
   @Override
   public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-    if(this.infoPanelScreen.handleMouseScrolled(mouseX, mouseY, delta)) {
+    if (this.infoPanelScreen.handleMouseScrolled(mouseX, mouseY, delta)) {
       return false;
     }
 

@@ -4,9 +4,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.chest.PartChestContainer;
+import slimeknights.tconstruct.tools.IToolPart;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,7 +28,7 @@ public class PartChestTileEntity extends TinkerChestTileEntity {
       }
     }
 
-    return itemstack.getItem() instanceof IMaterialItem;
+    return itemstack.getItem() instanceof IToolPart;
   }
 
   @Nullable

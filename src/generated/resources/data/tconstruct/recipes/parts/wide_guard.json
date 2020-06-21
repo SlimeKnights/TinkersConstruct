@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:part_builder",
+  "pattern": "tconstruct:wide_guard",
+  "cost": 1,
+  "output": {
+    "item": "tconstruct:wide_guard"
+  }
+}
