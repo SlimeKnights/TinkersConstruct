@@ -14,6 +14,8 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -76,8 +78,13 @@ public class ToolPart extends MaterialItem implements IToolPart {
     // Material traits/info
     boolean shift = Util.isShiftKeyDown();
 
+    // todo traits
+    //if(!this.checkMissingMaterialTooltip(stack, tooltip)) {
+    //  tooltip.addAll(getTooltipTraitInfo(material));
+    //}
+
     // Stats
-    if (Config.COMMON.chestsKeepInventory.get()) {
+    if (Config.CLIENT.extraToolTips.get()) {
       if (!shift) {
         // info tooltip for detailed and component info
         tooltip.add(new StringTextComponent(""));
@@ -87,7 +94,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
       }
     }
 
-    //tooltip.addAll(getAddedByInfo(material));
+    tooltip.addAll(this.getAddedByInfo(material));
   }
 
   public List<ITextComponent> getTooltipStatsInfo(IMaterial material) {
@@ -110,6 +117,21 @@ public class ToolPart extends MaterialItem implements IToolPart {
     return builder.build();
   }
 
+  public List<ITextComponent> getAddedByInfo(IMaterial material) {
+    ImmutableList.Builder<ITextComponent> builder = ImmutableList.builder();
+
+    if(MaterialRegistry.getInstance().getMaterial(material.getIdentifier()) != IMaterial.UNKNOWN) {
+      builder.add(new StringTextComponent(""));
+      for(ModInfo modInfo : ModList.get().getMods()) {
+        if(modInfo.getModId().equalsIgnoreCase(material.getIdentifier().getNamespace())) {
+          builder.add(new TranslationTextComponent("tooltip.part.material_added_by", modInfo.getDisplayName()));
+        }
+      }
+    }
+
+    return builder.build();
+  }
+
   public boolean checkMissingMaterialTooltip(ItemStack stack, List<String> tooltip) {
     return checkMissingMaterialTooltip(stack, tooltip, "");
   }
@@ -123,7 +145,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
       ITextComponent error;
 
       if (!materialId.isEmpty()) {
-        error = new TranslationTextComponent("tooltip.part.missinmg_materal", materialId);
+        error = new TranslationTextComponent("tooltip.part.missing_material", materialId);
       } else {
         error = new TranslationTextComponent("tooltip.part.missing_info");
       }
