@@ -707,15 +707,50 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
       .build(consumer, location("parts/pickaxe_head"));
 
+    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.hammerHead.get()))
+      .setPattern(location("hammer_head"))
+      .setCost(8)
+      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
+      .build(consumer, location("parts/hammer_head"));
+
+    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.shovelHead.get()))
+      .setPattern(location("shovel_head"))
+      .setCost(2)
+      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
+      .build(consumer, location("parts/shovel_head"));
+
+    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.swordBlade.get()))
+      .setPattern(location("sword_blade"))
+      .setCost(2)
+      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
+      .build(consumer, location("parts/sword_blade"));
+
     PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.smallBinding.get()))
       .setPattern(location("small_binding"))
       .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
       .build(consumer, location("parts/small_binding"));
 
+    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.wideGuard.get()))
+      .setPattern(location("wide_guard"))
+      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
+      .build(consumer, location("parts/wide_guard"));
+
+    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.largePlate.get()))
+      .setPattern(location("large_plate"))
+      .setCost(8)
+      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
+      .build(consumer, location("parts/large_plate"));
+
     PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.toolRod.get()))
       .setPattern(location("tool_rod"))
       .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
       .build(consumer, location("parts/tool_rod"));
+
+    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.toughToolRod.get()))
+      .setPattern(location("tough_tool_rod"))
+      .setCost(3)
+      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
+      .build(consumer, location("parts/tough_tool_rod"));
   }
 
   private void addMaterialsRecipes(Consumer<IFinishedRecipe> consumer) {
