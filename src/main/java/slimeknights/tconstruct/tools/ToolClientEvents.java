@@ -77,8 +77,14 @@ public class ToolClientEvents extends ClientEventBase {
 
     // tint tool part textures for fallback
     registerMaterialItemColors(colors, TinkerToolParts.pickaxeHead);
+    registerMaterialItemColors(colors, TinkerToolParts.hammerHead);
+    registerMaterialItemColors(colors, TinkerToolParts.shovelHead);
+    registerMaterialItemColors(colors, TinkerToolParts.swordBlade);
     registerMaterialItemColors(colors, TinkerToolParts.smallBinding);
+    registerMaterialItemColors(colors, TinkerToolParts.wideGuard);
+    registerMaterialItemColors(colors, TinkerToolParts.largePlate);
     registerMaterialItemColors(colors, TinkerToolParts.toolRod);
+    registerMaterialItemColors(colors, TinkerToolParts.toughToolRod);
   }
 
   /** Color handler instance for MaterialItem */
