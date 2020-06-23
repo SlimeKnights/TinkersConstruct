@@ -350,12 +350,19 @@
     "item.tconstruct.pickaxe": "Pickaxe",
     
     "_comment": "Tinkers Tool Parts",
-    
+
     "item.tconstruct.pickaxe_head": "Pickaxe Head",
+    "item.tconstruct.hammer_head": "Hammer Head",
+    "item.tconstruct.shovel_head": "Shovel Head",
+    "item.tconstruct.sword_blade": "Sword Blade",
     "item.tconstruct.tool_rod": "Tool Rod",
+    "item.tconstruct.tough_tool_rod": "Tough Tool Rod",
     "item.tconstruct.small_binding": "Small Binding",
+    "item.tconstruct.wide_guard": "Wide Guard",
+    "item.tconstruct.large_plate": "Large Plate",
 
     "_conment": "Tool Descriptions",
+
     "item.tconstruct.pickaxe.description":"The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?",
 
     "_comment": "Tinkers Smeltery",
@@ -581,6 +588,18 @@
     "ui.mining_level.obsidian": "Obsidian",
     "ui.mining_level.cobalt": "Cobalt",
 
+    "_comment": "Tooltips",
+    "tooltip.tool.modifiers": "Modifiers",
+    "tooltip.tool.broken": "Broken",
+    "tooltip.tool.empty": "Empty",
+    "tooltip.tool.hold_shift": "Hold §e§oShift§r§7 for Stats",
+    "tooltip.tool.hold_ctrl": "Hold §e§bCtrl§r§7 for more",
+
+    "tooltip.part.material_added_by": "Material added by %s",
+    "tooltip.part.missing_material": "Missing material: %s",
+    "tooltip.part.missing_stats": "Material is missing the required stats:\n%s",
+    "tooltip.part.missing_info": "Part has no data",
+
     "_comment": "GUIs",
 
     "itemGroup.tinkers_general": "Tinkers' General Items",
@@ -617,5 +636,6 @@
     "gui.tconstruct.warning": "WARNING",
     "gui.tconstruct.general.hover": "Hover over the entries for more information",
     "gui.tconstruct.error.invalid_pattern": "Pattern does not contain a valid tool part!",
-    "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\n\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting."
+    "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\n\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting.",
+    "gui.tconstruct.error.not_enough_durability": "Not enough durability to replace parts!\n%d more durability required."
 }
