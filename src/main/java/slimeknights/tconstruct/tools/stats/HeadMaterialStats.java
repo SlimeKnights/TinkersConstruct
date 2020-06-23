@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
@@ -69,13 +70,13 @@ public class HeadMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public List<String> getLocalizedInfo() {
-    List<String> info = Lists.newArrayList();
+  public List<ITextComponent> getLocalizedInfo() {
+    List<ITextComponent> info = Lists.newArrayList();
 
-    info.add(formatDurability(this.durability));
-    info.add(formatHarvestLevel(this.harvestLevel));
-    info.add(formatMiningSpeed(this.miningSpeed));
-    info.add(formatAttack(this.attack));
+    info.add(new StringTextComponent(formatDurability(this.durability)));
+    info.add(new StringTextComponent(formatHarvestLevel(this.harvestLevel)));
+    info.add(new StringTextComponent(formatMiningSpeed(this.miningSpeed)));
+    info.add(new StringTextComponent(formatAttack(this.attack)));
 
     return info;
   }
@@ -104,7 +105,7 @@ public class HeadMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public List<ITextComponent> getLocalizedDesc() {
+  public List<ITextComponent> getLocalizedDescriptions() {
     List<ITextComponent> info = Lists.newArrayList();
 
     info.add(new TranslationTextComponent(DURABILITY_DESCRIPTION_LOCALIZATION));

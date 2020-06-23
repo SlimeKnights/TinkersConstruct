@@ -8,7 +8,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.tools.ToolCore;
-import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
@@ -60,9 +60,11 @@ public class TooltipBuilder {
   public TooltipBuilder addDurability(boolean textIfBroken) {
     if (ToolData.isBroken(this.tool) && textIfBroken) {
       this.tips.add(new StringTextComponent(String.format("%s: %s%s%s", new TranslationTextComponent(HeadMaterialStats.DURABILITY_LOCALIZATION).getFormattedText(), TextFormatting.DARK_RED, TextFormatting.BOLD, new TranslationTextComponent("tooltip.tool.broken").getFormattedText())));
-    } else if (ToolData.isBroken(this.tool)) {
+    }
+    else if (ToolData.isBroken(this.tool)) {
       this.tips.add(new StringTextComponent(HeadMaterialStats.formatDurability(ToolCore.getCurrentDurability(this.tool), ToolData.from(this.tool).getStats().durability)));
-    } else {
+    }
+    else {
       this.tips.add(new StringTextComponent(HeadMaterialStats.formatDurability(ToolCore.getCurrentDurability(this.tool), this.tool.getMaxDamage())));
     }
 
@@ -70,7 +72,7 @@ public class TooltipBuilder {
   }
 
   public TooltipBuilder addAttack() {
-    float attack = ToolInteractionUtil.getActualDamage(this.tool, Minecraft.getInstance().player);
+    float attack = ToolAttackUtil.getActualDamage(this.tool, Minecraft.getInstance().player);
 
     tips.add(new StringTextComponent(HeadMaterialStats.formatAttack(attack)));
 

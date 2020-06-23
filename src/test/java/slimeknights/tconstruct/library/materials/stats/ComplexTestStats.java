@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.text.ITextComponent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,5 +31,15 @@ public class ComplexTestStats extends BaseMaterialStats {
     num = buffer.readInt();
     floating = buffer.readFloat();
     text = buffer.readString();
+  }
+
+  @Override
+  public List<ITextComponent> getLocalizedInfo() {
+    return new ArrayList<>();
+  }
+
+  @Override
+  public List<ITextComponent> getLocalizedDescriptions() {
+    return new ArrayList<>();
   }
 }

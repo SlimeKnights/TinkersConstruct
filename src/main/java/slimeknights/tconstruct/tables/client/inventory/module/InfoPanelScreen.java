@@ -8,6 +8,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.mantle.client.screen.ElementScreen;
@@ -15,10 +16,10 @@ import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.client.screen.SliderWidget;
-import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerClient;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -53,7 +54,7 @@ public class InfoPanelScreen extends ModuleScreen {
   protected SliderWidget slider = new SliderWidget(SLIDER_NORMAL, SLIDER_HOVER, SLIDER_HOVER, SLIDER_TOP, SLIDER_BOTTOM, SLIDER_BAR);
 
   protected String caption;
-  protected List<String> text;
+  protected List<ITextComponent> text;
   protected List<ITextComponent> tooltips;
 
   protected List<Integer> tooltipLines = Lists.newLinkedList();
@@ -103,23 +104,19 @@ public class InfoPanelScreen extends ModuleScreen {
   }
 
   public void setText(String... text) {
-    this.setText(Lists.newArrayList(text), null);
+    List<ITextComponent> textComponents = new ArrayList<>();
+
+    for (String s : text) {
+      textComponents.add(new StringTextComponent(s));
+    }
+    this.setText(textComponents, null);
   }
 
-  public void setText(List<String> text) {
+  public void setText(List<ITextComponent> text) {
     this.setText(text, null);
   }
 
-  public void setText(List<String> text, List<ITextComponent> tooltips) {
-    // convert \n in localized text to actual newlines
-    if (text != null) {
-      text = Lists.newArrayList(text);
-
-      for (int i = 0; i < text.size(); i++) {
-        text.set(i, LocUtils.convertNewlines(text.get(i)));
-      }
-    }
-
+  public void setText(List<ITextComponent> text, List<ITextComponent> tooltips) {
     this.text = text;
     this.updateSliderParameters();
 
@@ -196,17 +193,17 @@ public class InfoPanelScreen extends ModuleScreen {
 
     List<String> lines = Lists.newLinkedList();
 
-    tooltipLines.clear();
+    this.tooltipLines.clear();
 
-    for (String line : text) {
-      tooltipLines.add(lines.size());
+    for (ITextComponent textComponent : this.text) {
+      this.tooltipLines.add(lines.size());
       // empty line
-      if (line == null || line.isEmpty()) {
+      if (textComponent == null || textComponent.getFormattedText().isEmpty()) {
         lines.add("");
         continue;
       }
 
-      lines.addAll(this.font.listFormattedStringToWidth(line, w));
+      lines.addAll(this.font.listFormattedStringToWidth(textComponent.getFormattedText(), w));
     }
 
     return lines;
@@ -278,7 +275,8 @@ public class InfoPanelScreen extends ModuleScreen {
       if (mouseY > y && mouseY <= y + textHeight) {
         index = iter.nextIndex();
         break;
-      } else {
+      }
+      else {
         iter.next();
       }
       y += textHeight;

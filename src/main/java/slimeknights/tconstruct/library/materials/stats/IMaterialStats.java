@@ -28,14 +28,14 @@ public interface IMaterialStats extends INetworkSendable {
    * </br>
    * This is used to display properties of materials to the user.
    */
-  List<String> getLocalizedInfo();
+  List<ITextComponent> getLocalizedInfo();
 
   /**
-   * Returns a list containing a String describing each player-relevant value.</br>
+   * Returns a list containing a Text Component describing each player-relevant value.</br>
    * The indices of the lines must line up with the lines from getLocalizedInfo()!</br>
    * *
    * This is used to display properties of materials to the user.
-   * @return
+   * @return a list of Text Components
    */
-  List<ITextComponent> getLocalizedDesc();
+  List<ITextComponent> getLocalizedDescriptions();
 }
