@@ -104,13 +104,13 @@ f1062a73b4417d8772ebb9aa9189aa4064f649e0 data/forge/tags/items/ores/ardite.json
 b9011c1b35eaf73670663eeef10f49b30df9a24c data/forge/tags/items/ores/copper.json
 f6d948da59e46d26cfc34188b9b140dd37f437d1 data/forge/tags/items/rods.json
 cb4d6289ec4c32cf5b57f3fa21419376486a7cae data/forge/tags/items/rods/stone.json
-2513ecf2fc1caedde8be0b41be0e6bf4e149dab6 data/forge/tags/items/slimeballs.json
 9ecc2c411681c0fc1a42acc3cdf7510783ffaec7 data/forge/tags/items/slimeball/blood.json
 8a9941607c1100a061f3c47d203b834dc91dc243 data/forge/tags/items/slimeball/blue.json
 a7629398a73eef2b5267342d79f1cebcf2b1eec4 data/forge/tags/items/slimeball/green.json
 1cb76aaacdb5b68a408abf6fac03a3b8a3a5d7d4 data/forge/tags/items/slimeball/magma.json
 caa063b792e2560c06105fd235ef20ffb152058f data/forge/tags/items/slimeball/pink.json
 cd0c3987c9be5c4d2fe8e9352734c581e1d60f15 data/forge/tags/items/slimeball/purple.json
+2513ecf2fc1caedde8be0b41be0e6bf4e149dab6 data/forge/tags/items/slimeballs.json
 67c5756a5424da1261b7e83f7ce0ced0763f5196 data/forge/tags/items/stained_glass.json
 3f5dbd5839e630ffd552bd236813c7b43f84a769 data/forge/tags/items/stained_glass_panes.json
 08143c04c67fe6fdf85c8d0844d8478c7860e483 data/forge/tags/items/storage_blocks.json

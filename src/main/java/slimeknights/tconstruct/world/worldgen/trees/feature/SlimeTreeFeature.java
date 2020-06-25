@@ -61,7 +61,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
 
   protected void placeTrunk(IWorldGenerationReader worldIn, Random randomIn, int treeHeight, BlockPos blockPos, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBoxIn, SlimeTreeFeatureConfig treeFeatureConfigIn) {
     while (treeHeight > 0) {
-      this.func_227216_a_(worldIn, randomIn, blockPos, blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+      this.setLog(worldIn, randomIn, blockPos, blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
 
       blockPos = blockPos.up();
       treeHeight--;
@@ -91,16 +91,16 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
     //Drippers
     // stuck with only one block down because of leaf decay distance
     blockPos = blockPos.down();
-    this.func_227219_b_(worldIn, randomIn, blockPos.add(+3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
-    this.func_227219_b_(worldIn, randomIn, blockPos.add(-3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
-    this.func_227219_b_(worldIn, randomIn, blockPos.add(0, 0, -3), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
-    this.func_227219_b_(worldIn, randomIn, blockPos.add(0, 0, +3), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+    this.setLeaf(worldIn, randomIn, blockPos.add(+3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+    this.setLeaf(worldIn, randomIn, blockPos.add(-3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+    this.setLeaf(worldIn, randomIn, blockPos.add(0, 0, -3), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+    this.setLeaf(worldIn, randomIn, blockPos.add(0, 0, +3), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
 
     if (!treeFeatureConfigIn.hasVines) {
-      this.func_227219_b_(worldIn, randomIn, blockPos.add(+1, 0, +1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
-      this.func_227219_b_(worldIn, randomIn, blockPos.add(-3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
-      this.func_227219_b_(worldIn, randomIn, blockPos.add(-1, 0, +1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
-      this.func_227219_b_(worldIn, randomIn, blockPos.add(-1, 0, -1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+      this.setLeaf(worldIn, randomIn, blockPos.add(+1, 0, +1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+      this.setLeaf(worldIn, randomIn, blockPos.add(-3, 0, 0), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+      this.setLeaf(worldIn, randomIn, blockPos.add(-1, 0, +1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+      this.setLeaf(worldIn, randomIn, blockPos.add(-1, 0, -1), blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
     }
 
     if (treeFeatureConfigIn.hasVines) {
@@ -148,18 +148,18 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
       for (int z = -range; z <= range; z++) {
         if (Math.abs(x) + Math.abs(z) <= range) {
           BlockPos blockpos = blockPos.add(x, 0, z);
-          this.func_227219_b_(worldIn, randomIn, blockpos, blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
+          this.setLeaf(worldIn, randomIn, blockpos, blockPosSet, mutableBoundingBoxIn, treeFeatureConfigIn);
         }
       }
     }
   }
 
   @Override
-  protected boolean func_227216_a_(IWorldGenerationReader worldIn, Random randomIn, BlockPos blockPos, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBoxIn, BaseTreeFeatureConfig treeFeatureConfigIn) {
+  protected boolean setLog(IWorldGenerationReader worldIn, Random randomIn, BlockPos blockPos, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBoxIn, BaseTreeFeatureConfig treeFeatureConfigIn) {
     if (!isAirOrLeaves(worldIn, blockPos)) {
       return false;
     } else {
-      this.func_227217_a_(worldIn, blockPos, treeFeatureConfigIn.trunkProvider.getBlockState(randomIn, blockPos), mutableBoundingBoxIn);
+      this.setBlockState(worldIn, blockPos, treeFeatureConfigIn.trunkProvider.getBlockState(randomIn, blockPos), mutableBoundingBoxIn);
       blockPosSet.add(blockPos.toImmutable());
       return true;
     }
@@ -169,18 +169,18 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
     if (!isAirOrLeaves(worldIn, blockPos)) {
       return false;
     } else {
-      this.func_227217_a_(worldIn, blockPos, Blocks.AIR.getDefaultState(), mutableBoundingBoxIn);
+      this.setBlockState(worldIn, blockPos, Blocks.AIR.getDefaultState(), mutableBoundingBoxIn);
       blockPosSet.add(blockPos.toImmutable());
       return true;
     }
   }
 
   @Override
-  protected boolean func_227219_b_(IWorldGenerationReader worldIn, Random random, BlockPos blockPos, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBoxIn, BaseTreeFeatureConfig treeFeatureConfigIn) {
+  protected boolean setLeaf(IWorldGenerationReader worldIn, Random random, BlockPos blockPos, Set<BlockPos> blockPosSet, MutableBoundingBox mutableBoundingBoxIn, BaseTreeFeatureConfig treeFeatureConfigIn) {
     if (!isAirOrLeaves(worldIn, blockPos)) {
       return false;
     } else {
-      this.func_227217_a_(worldIn, blockPos, treeFeatureConfigIn.leavesProvider.getBlockState(random, blockPos), mutableBoundingBoxIn);
+      this.setBlockState(worldIn, blockPos, treeFeatureConfigIn.leavesProvider.getBlockState(random, blockPos), mutableBoundingBoxIn);
       blockPosSet.add(blockPos.toImmutable());
       return true;
     }
@@ -190,7 +190,7 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
     if (!isAirOrLeaves(worldIn, blockPos)) {
       return false;
     } else {
-      this.func_227217_a_(worldIn, blockPos, vineState, mutableBoundingBoxIn);
+      this.setBlockState(worldIn, blockPos, vineState, mutableBoundingBoxIn);
       blockPosSet.add(blockPos.toImmutable());
       return true;
     }
