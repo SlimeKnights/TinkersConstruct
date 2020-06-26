@@ -10,6 +10,10 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.function.Consumer;
 
+/**
+ * Common logic to create a recipe builder class
+ * @param <T>
+ */
 public abstract class AbstractRecipeBuilder<T extends AbstractRecipeBuilder<T>> {
 
   /** Advancement builder for this class */
@@ -27,6 +31,11 @@ public abstract class AbstractRecipeBuilder<T extends AbstractRecipeBuilder<T>> 
     return (T)this;
   }
 
+  /**
+   * Builds the recipe
+   * @param consumerIn  Recipe consumer
+   * @param id          Recipe ID
+   */
   public abstract void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id);
 
   /**
