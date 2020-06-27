@@ -118,7 +118,6 @@ public class TConstruct {
 
   @SubscribeEvent
   public static void commonSetup(final FMLCommonSetupEvent event) {
-    DistExecutor.runWhenOn(Dist.CLIENT, () -> TinkerClient::onCommonSetup);
     MaterialRegistry.init();
   }
 

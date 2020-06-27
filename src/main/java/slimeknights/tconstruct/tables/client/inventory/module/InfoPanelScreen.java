@@ -17,7 +17,7 @@ import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.client.screen.SliderWidget;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.shared.TinkerClient;
+import slimeknights.tconstruct.shared.CommonsClientEvents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +84,7 @@ public class InfoPanelScreen extends ModuleScreen {
   @Override
   public void init(Minecraft mc, int width, int height) {
     super.init(mc, width, height);
-    super.font = TinkerClient.fontRenderer;
+    super.font = CommonsClientEvents.fontRenderer;
   }
 
   @Override
@@ -198,12 +198,14 @@ public class InfoPanelScreen extends ModuleScreen {
     for (ITextComponent textComponent : this.text) {
       this.tooltipLines.add(lines.size());
       // empty line
-      if (textComponent == null || textComponent.getFormattedText().isEmpty()) {
+      String formattedText = textComponent.getFormattedText();
+
+      if (formattedText.isEmpty()) {
         lines.add("");
         continue;
       }
 
-      lines.addAll(this.font.listFormattedStringToWidth(textComponent.getFormattedText(), w));
+      lines.addAll(this.font.listFormattedStringToWidth(formattedText, w));
     }
 
     return lines;
