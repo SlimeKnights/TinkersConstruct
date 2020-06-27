@@ -33,6 +33,7 @@ public class ToolAttackUtil {
   public static float calcCutoffDamage(float damage, float cutoff) {
     float p = 1f;
     float d = damage;
+
     damage = 0f;
     while (d > cutoff) {
       damage += p * cutoff;
@@ -44,6 +45,7 @@ public class ToolAttackUtil {
         damage += p * cutoff * ((d / cutoff) - 1f);
         return damage;
       }
+
       d -= cutoff;
     }
 

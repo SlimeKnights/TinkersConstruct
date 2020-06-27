@@ -49,7 +49,7 @@ public class ExtraMaterialStats extends BaseMaterialStats {
 
   @Override
   public List<ITextComponent> getLocalizedInfo() {
-    return ImmutableList.of(new StringTextComponent(formatDurability(this.durability)));
+    return ImmutableList.of(formatDurability(this.durability));
   }
 
   @Override
@@ -57,7 +57,7 @@ public class ExtraMaterialStats extends BaseMaterialStats {
     return ImmutableList.of(new TranslationTextComponent(DURABILITY_DESCRIPTION_LOCALIZATION));
   }
 
-  public static String formatDurability(int durability) {
+  public static ITextComponent formatDurability(int durability) {
     return formatNumber(DURABILITY_LOCALIZATION, DURABILITY_COLOR, durability);
   }
 }

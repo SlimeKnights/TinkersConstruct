@@ -9,7 +9,6 @@ import lombok.ToString;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.renderer.font.CustomFontColor;
@@ -73,34 +72,36 @@ public class HeadMaterialStats extends BaseMaterialStats {
   public List<ITextComponent> getLocalizedInfo() {
     List<ITextComponent> info = Lists.newArrayList();
 
-    info.add(new StringTextComponent(formatDurability(this.durability)));
-    info.add(new StringTextComponent(formatHarvestLevel(this.harvestLevel)));
-    info.add(new StringTextComponent(formatMiningSpeed(this.miningSpeed)));
-    info.add(new StringTextComponent(formatAttack(this.attack)));
+    info.add(formatDurability(this.durability));
+    info.add(formatHarvestLevel(this.harvestLevel));
+    info.add(formatMiningSpeed(this.miningSpeed));
+    info.add(formatAttack(this.attack));
 
     return info;
   }
 
-  public static String formatDurability(int durability) {
+  public static ITextComponent formatDurability(int durability) {
     return formatNumber(DURABILITY_LOCALIZATION, DURABILITY_COLOR, durability);
   }
 
-  public static String formatDurability(int durability, int ref) {
-    return String.format("%s: %s",
-      new TranslationTextComponent(DURABILITY_LOCALIZATION).getFormattedText(),
-      CustomFontColor.formatPartialAmount(durability, ref))
-      + TextFormatting.RESET;
+  public static ITextComponent formatDurability(int durability, int ref) {
+    return new TranslationTextComponent(DURABILITY_LOCALIZATION)
+      .appendSibling(new StringTextComponent(": "))
+      .appendSibling(new StringTextComponent(CustomFontColor.formatPartialAmount(durability, ref)));
   }
 
-  public static String formatHarvestLevel(int level) {
-    return String.format("%s: %s", new TranslationTextComponent(HARVEST_LEVEL_LOCALIZATION).getFormattedText(), HarvestLevels.getHarvestLevelName(level)) + TextFormatting.RESET;
+  public static ITextComponent formatHarvestLevel(int level) {
+    return new TranslationTextComponent(HARVEST_LEVEL_LOCALIZATION)
+      .appendSibling(new StringTextComponent(": "))
+      .appendSibling(new StringTextComponent(": "))
+      .appendSibling(HarvestLevels.getHarvestLevelName(level));
   }
 
-  public static String formatMiningSpeed(float speed) {
+  public static ITextComponent formatMiningSpeed(float speed) {
     return formatNumber(MINING_SPEED_LOCALIZATION, SPEED_COLOR, speed);
   }
 
-  public static String formatAttack(float attack) {
+  public static ITextComponent formatAttack(float attack) {
     return formatNumber(ATTACK_LOCALIZATION, ATTACK_COLOR, attack);
   }
 

@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.utils;
 
 import com.google.common.collect.Maps;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.MaterialRegistry;
@@ -20,24 +22,24 @@ public class HarvestLevels {
   private HarvestLevels() {
   } // non-instantiable
 
-  public static final Map<Integer, String> harvestLevelNames = Maps.newHashMap();
+  public static final Map<Integer, ITextComponent> harvestLevelNames = Maps.newHashMap();
 
-  public static String getHarvestLevelName(int num) {
-    return harvestLevelNames.containsKey(num) ? harvestLevelNames.get(num) : String.valueOf(num);
+  public static ITextComponent getHarvestLevelName(int num) {
+    return harvestLevelNames.containsKey(num) ? harvestLevelNames.get(num) : new StringTextComponent(String.valueOf(num));
   }
 
   public static void init() {
-    harvestLevelNames.put(STONE, MaterialRegistry.getMaterial(MaterialIds.stone).getEncodedTextColor() + new TranslationTextComponent("ui.mining_level.stone").getFormattedText());
-    harvestLevelNames.put(IRON, MaterialRegistry.getMaterial(MaterialIds.iron).getEncodedTextColor() + new TranslationTextComponent("ui.mining_level.iron").getFormattedText());
-    harvestLevelNames.put(DIAMOND, TextFormatting.AQUA + new TranslationTextComponent("ui.mining_level.diamond").getFormattedText());
-    harvestLevelNames.put(OBSIDIAN, MaterialRegistry.getMaterial(MaterialIds.obsidian).getEncodedTextColor() + new TranslationTextComponent("ui.mining_level.obsidian").getFormattedText());
-    harvestLevelNames.put(COBALT, MaterialRegistry.getMaterial(MaterialIds.cobalt).getEncodedTextColor() + new TranslationTextComponent("ui.mining_level.cobalt").getFormattedText());
+    harvestLevelNames.put(STONE, new StringTextComponent(MaterialRegistry.getMaterial(MaterialIds.stone).getEncodedTextColor()).appendSibling(new TranslationTextComponent("ui.mining_level.stone")));
+    harvestLevelNames.put(IRON, new StringTextComponent(MaterialRegistry.getMaterial(MaterialIds.iron).getEncodedTextColor()).appendSibling(new TranslationTextComponent("ui.mining_level.iron")));
+    harvestLevelNames.put(DIAMOND, new TranslationTextComponent("ui.mining_level.diamond")).applyTextStyle(TextFormatting.AQUA);
+    harvestLevelNames.put(OBSIDIAN, new StringTextComponent(MaterialRegistry.getMaterial(MaterialIds.obsidian).getEncodedTextColor()).appendSibling(new TranslationTextComponent("ui.mining_level.obsidian")));
+    harvestLevelNames.put(COBALT, new StringTextComponent(MaterialRegistry.getMaterial(MaterialIds.cobalt).getEncodedTextColor()).appendSibling(new TranslationTextComponent("ui.mining_level.cobalt")));
 
     // custom names via resource pack..
     String base = "ui.mining_level.";
     int i = 0;
     while (Util.canTranslate(String.format("%s%d", base, i))) {
-      harvestLevelNames.put(i, new TranslationTextComponent(String.format("%s%d", base, i)).getFormattedText());
+      harvestLevelNames.put(i, new TranslationTextComponent(String.format("%s%d", base, i)));
       i++;
     }
   }

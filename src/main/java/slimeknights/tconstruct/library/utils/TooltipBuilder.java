@@ -46,13 +46,13 @@ public class TooltipBuilder {
       speed *= ((ToolCore) this.tool.getItem()).getToolDefinition().getBaseStatDefinition().getMiningSpeedModifier();
     }
 
-    tips.add(new StringTextComponent(HeadMaterialStats.formatMiningSpeed(speed)));
+    tips.add(HeadMaterialStats.formatMiningSpeed(speed));
 
     return this;
   }
 
   public TooltipBuilder addHarvestLevel() {
-    tips.add(new StringTextComponent(HeadMaterialStats.formatHarvestLevel(ToolData.from(this.tool).getStats().harvestLevel)));
+    tips.add(HeadMaterialStats.formatHarvestLevel(ToolData.from(this.tool).getStats().harvestLevel));
 
     return this;
   }
@@ -62,10 +62,10 @@ public class TooltipBuilder {
       this.tips.add(new StringTextComponent(String.format("%s: %s%s%s", new TranslationTextComponent(HeadMaterialStats.DURABILITY_LOCALIZATION).getFormattedText(), TextFormatting.DARK_RED, TextFormatting.BOLD, new TranslationTextComponent("tooltip.tool.broken").getFormattedText())));
     }
     else if (ToolData.isBroken(this.tool)) {
-      this.tips.add(new StringTextComponent(HeadMaterialStats.formatDurability(ToolCore.getCurrentDurability(this.tool), ToolData.from(this.tool).getStats().durability)));
+      this.tips.add(HeadMaterialStats.formatDurability(ToolCore.getCurrentDurability(this.tool), ToolData.from(this.tool).getStats().durability));
     }
     else {
-      this.tips.add(new StringTextComponent(HeadMaterialStats.formatDurability(ToolCore.getCurrentDurability(this.tool), this.tool.getMaxDamage())));
+      this.tips.add(HeadMaterialStats.formatDurability(ToolCore.getCurrentDurability(this.tool), this.tool.getMaxDamage()));
     }
 
     return this;
@@ -74,7 +74,7 @@ public class TooltipBuilder {
   public TooltipBuilder addAttack() {
     float attack = ToolAttackUtil.getActualDamage(this.tool, Minecraft.getInstance().player);
 
-    tips.add(new StringTextComponent(HeadMaterialStats.formatAttack(attack)));
+    tips.add(HeadMaterialStats.formatAttack(attack));
 
     return this;
   }

@@ -245,13 +245,13 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
 
       switch (effect.getAmplifier()) {
         case 0:
-          element = Icons.PIGGYBACK_1_ICON;
+          element = Icons.PIGGYBACK_1;
           break;
         case 1:
-          element = Icons.PIGGYBACK_2_ICON;
+          element = Icons.PIGGYBACK_2;
           break;
         default:
-          element = Icons.PIGGYBACK_3_ICON;
+          element = Icons.PIGGYBACK_3;
           break;
       }
 

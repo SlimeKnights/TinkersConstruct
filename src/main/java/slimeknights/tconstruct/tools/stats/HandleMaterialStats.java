@@ -58,7 +58,7 @@ public class HandleMaterialStats extends BaseMaterialStats {
 
   @Override
   public List<ITextComponent> getLocalizedInfo() {
-    return ImmutableList.of(new StringTextComponent(formatModifier(this.modifier)), new StringTextComponent(formatDurability(this.durability)));
+    return ImmutableList.of(formatModifier(this.modifier),formatDurability(this.durability));
   }
 
   @Override
@@ -67,11 +67,11 @@ public class HandleMaterialStats extends BaseMaterialStats {
   }
 
 
-  public static String formatModifier(float quality) {
+  public static ITextComponent formatModifier(float quality) {
     return formatNumber(MULTIPLIER_LOCALIZATION, MODIFIER_COLOR, quality);
   }
 
-  public static String formatDurability(int durability) {
+  public static ITextComponent formatDurability(int durability) {
     return formatNumber(DURABILITY_LOCALIZATION, DURABILITY_COLOR, durability);
   }
 }

@@ -19,7 +19,7 @@ public interface IMaterialStats extends INetworkSendable {
   /**
    * Returns the name of the stat type, to be displayed to the player.
    */
-  String getLocalizedName();
+  ITextComponent getLocalizedName();
 
   /**
    * Returns a list containing a String for each player-relevant value.</br>
