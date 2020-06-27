@@ -4,10 +4,8 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import lombok.AllArgsConstructor;
@@ -62,8 +60,6 @@ import java.util.function.Function;
 @Log4j2
 @AllArgsConstructor
 public class TankModel implements IModelGeometry<TankModel> {
-  private static final BlockModel.Deserializer DESERIALIZER = new BlockModel.Deserializer();
-
   private final BlockModel model;
   private final Vector3f from;
   private final Vector3f to;
@@ -243,7 +239,9 @@ public class TankModel implements IModelGeometry<TankModel> {
 
   /** Loader for this model */
   public static class Loader implements IModelLoader<TankModel> {
-    /** Shared loader instance */
+    /**
+     * Shared loader instance
+     */
     public static final TankModel.Loader INSTANCE = new TankModel.Loader();
 
     @Override
@@ -251,32 +249,12 @@ public class TankModel implements IModelGeometry<TankModel> {
 
     @Override
     public TankModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
-      BlockModel model = DESERIALIZER.deserialize(modelContents, null, deserializationContext);
+      BlockModel model = ModelUtils.deserialize(deserializationContext, modelContents);
       JsonObject fluid = JSONUtils.getJsonObject(modelContents, "fluid");
-      Vector3f from = arrayToVector(fluid, "from");
-      Vector3f to = arrayToVector(fluid, "to");
+      Vector3f from = ModelUtils.arrayToVector(fluid, "from");
+      Vector3f to = ModelUtils.arrayToVector(fluid, "to");
       int increments = JSONUtils.getInt(fluid, "increments");
       return new TankModel(model, from, to, increments);
-    }
-
-    /**
-     * Converts a JSON array with 3 elements into a Vector3f
-     * @param json  JSON object
-     * @param name  Name of the array in the object to fetch
-     * @return  Vector3f of data
-     * @throws  JsonParseException  If there is no array or the length is wrong
-     */
-    private static Vector3f arrayToVector(JsonObject json, String name) {
-      JsonArray array = JSONUtils.getJsonArray(json, name);
-      if (array.size() != 3) {
-        throw new JsonParseException("Expected 3 " + name + " values, found: " + array.size());
-      }
-      float[] vec = new float[3];
-      for(int i = 0; i < vec.length; ++i) {
-        vec[i] = JSONUtils.getFloat(array.get(i), name + "[" + i + "]");
-      }
-
-      return new Vector3f(vec[0], vec[1], vec[2]);
     }
   }
 }

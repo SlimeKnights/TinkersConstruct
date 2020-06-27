@@ -90,9 +90,7 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
           matrixStackIn.scale(0.0078125F, 0.0078125F, 0.0078125F);
           matrixStackIn.translate(-64.0D, -64.0D, 0.0D);
           matrixStackIn.translate(0.0D, 0.0D, -1.0D);
-          if (mapdata != null) {
-            this.mc.gameRenderer.getMapItemRenderer().renderMap(matrixStackIn, bufferIn, mapdata, true, packedLightIn);
-          }
+          this.mc.gameRenderer.getMapItemRenderer().renderMap(matrixStackIn, bufferIn, mapdata, true, packedLightIn);
         } else {
           matrixStackIn.scale(0.5F, 0.5F, 0.5F);
           this.itemRenderer.renderItem(itemstack, ItemCameraTransforms.TransformType.FIXED, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);

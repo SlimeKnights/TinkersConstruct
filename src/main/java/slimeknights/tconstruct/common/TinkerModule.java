@@ -43,7 +43,7 @@ public abstract class TinkerModule {
   protected static final DeferredRegister<Effect> POTIONS = new DeferredRegister<Effect>(ForgeRegistries.POTIONS, TConstruct.modID);
   protected static final DeferredRegister<Feature<?>> FEATURES = new DeferredRegister<>(ForgeRegistries.FEATURES, TConstruct.modID);
   protected static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = new DeferredRegister<>(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.modID);
-  protected static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = new DeferredRegister<IRecipeSerializer<?>>(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.modID);
+  protected static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = new DeferredRegister<>(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.modID);
 
   // base block properties
   protected static final Block.Properties GENERIC_SAND_BLOCK = builder(Material.SAND, ToolType.SHOVEL, SoundType.SAND).hardnessAndResistance(3.0f).slipperiness(0.8F);

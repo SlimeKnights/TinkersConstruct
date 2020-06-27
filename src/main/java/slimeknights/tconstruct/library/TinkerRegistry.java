@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import org.apache.logging.log4j.Logger;
@@ -22,8 +21,8 @@ public final class TinkerRegistry {
   public static CreativeTab tabGeneral = new CreativeTab("tinkers_general", new ItemStack(Items.SLIME_BALL));
   public static CreativeTab tabTools = new CreativeTab("tinkers_tools", new ItemStack(Items.IRON_PICKAXE));
   public static CreativeTab tabParts = new CreativeTab("tinkers_tool_parts", new ItemStack(Items.STICK));
-  public static CreativeTab tabSmeltery = new CreativeTab("tinkers_smeltery", new ItemStack(Item.getItemFromBlock(Blocks.STONE_BRICKS)));
-  public static CreativeTab tabWorld = new CreativeTab("tinkers_world", new ItemStack(Item.getItemFromBlock(Blocks.SLIME_BLOCK)));
+  public static CreativeTab tabSmeltery = new CreativeTab("tinkers_smeltery", new ItemStack(Blocks.STONE_BRICKS));
+  public static CreativeTab tabWorld = new CreativeTab("tinkers_world", new ItemStack(Blocks.SLIME_BLOCK));
   public static CreativeTab tabGadgets = new CreativeTab("tinkers_gadgets", new ItemStack(Blocks.TNT));
 
   /*---------------------------------------------------------------------------

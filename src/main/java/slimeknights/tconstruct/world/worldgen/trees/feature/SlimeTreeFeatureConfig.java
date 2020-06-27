@@ -5,11 +5,11 @@ import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.Dynamic;
 import com.mojang.datafixers.types.DynamicOps;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.treedecorator.TreeDecorator;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class SlimeTreeFeatureConfig extends BaseTreeFeatureConfig {
 
   public static <T> SlimeTreeFeatureConfig deserialize(Dynamic<T> dynamic) {
     BaseTreeFeatureConfig basetreefeatureconfig = BaseTreeFeatureConfig.deserialize(dynamic);
-    BlockStateProviderType<?> blockstateprovidertype = Registry.BLOCK_STATE_PROVIDER_TYPE.getOrDefault(new ResourceLocation(dynamic.get("vine_provider").get("type").asString().orElseThrow(RuntimeException::new)));
+    BlockStateProviderType<?> blockstateprovidertype = ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES.getValue(new ResourceLocation(dynamic.get("vine_provider").get("type").asString().orElseThrow(RuntimeException::new)));
     return new SlimeTreeFeatureConfig(basetreefeatureconfig.trunkProvider, basetreefeatureconfig.leavesProvider, blockstateprovidertype.func_227399_a_(dynamic.get("vine_provider").orElseEmptyMap()), basetreefeatureconfig.decorators, basetreefeatureconfig.baseHeight, dynamic.get("random_height").asInt(0), dynamic.get("has_vines").asBoolean(false));
   }
 

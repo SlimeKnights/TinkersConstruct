@@ -83,7 +83,7 @@ public class TConstruct {
   /* Instance of this mod, used for grabbing prototype fields */
   public static TConstruct instance;
 
-  public static ServerProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+  public static ServerProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
   public TConstruct() {
     instance = this;
@@ -112,7 +112,7 @@ public class TConstruct {
     // init deferred registers
     TinkerModule.initRegisters();
     // init client logic
-    DistExecutor.runWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
+    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
     MinecraftForge.EVENT_BUS.register(this);
   }
 
@@ -192,13 +192,21 @@ public class TConstruct {
             entry.remap(TinkerMaterials.copperBlock.asItem());
             break;
           case "alubrass_ingot":
-            entry.remap(TinkerMaterials.cobaltIngot.get());
+            entry.remap(TinkerMaterials.copperIngot.get());
             break;
           case "alubrass_nugget":
             entry.remap(TinkerMaterials.copperNugget.get());
             break;
           case "aluminum_brass_item_frame":
             entry.remap(TinkerGadgets.itemFrame.get(FrameType.JEWEL));
+            break;
+          // old tool before we had a proper model
+          case "test_tool":
+            entry.remap(TinkerTools.pickaxe.get());
+            break;
+          case "test_part":
+            entry.remap(TinkerToolParts.pickaxeHead.get());
+            break;
         }
       }
     }

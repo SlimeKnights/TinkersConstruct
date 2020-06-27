@@ -55,6 +55,7 @@ public class GlowBlock extends Block {
     BOUNDS = builder.build();
   }
 
+  @Deprecated
   @Override
   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
     return BOUNDS.get(state.get(FACING));
@@ -66,35 +67,19 @@ public class GlowBlock extends Block {
     return VoxelShapes.empty();
   }
 
-  /**
-   * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
-   * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
-   *
-   * @deprecated call via {@link BlockState#getRenderType()} whenever possible. Implementing/overriding is fine.
-   */
+  @Deprecated
   @Override
   public BlockRenderType getRenderType(BlockState state) {
     return BlockRenderType.INVISIBLE;
   }
 
-  /**
-   * Returns the blockstate with the given rotation from the passed blockstate. If inapplicable, returns the passed
-   * blockstate.
-   *
-   * @deprecated call via {@link BlockState#rotate(Rotation)} whenever possible. Implementing/overriding is
-   * fine.
-   */
+  @Deprecated
   @Override
   public BlockState rotate(BlockState state, Rotation rot) {
     return state.with(FACING, rot.rotate(state.get(FACING)));
   }
 
-  /**
-   * Returns the blockstate with the given mirror of the passed blockstate. If inapplicable, returns the passed
-   * blockstate.
-   *
-   * @deprecated call via {@link BlockState#mirror(Mirror)} whenever possible. Implementing/overriding is fine.
-   */
+  @Deprecated
   @Override
   public BlockState mirror(BlockState state, Mirror mirrorIn) {
     return state.rotate(mirrorIn.toRotation(state.get(FACING)));
@@ -105,6 +90,7 @@ public class GlowBlock extends Block {
     builder.add(FACING);
   }
 
+  @Deprecated
   @Override
   public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean p_220069_6_) {
     if (!this.canBlockStay(worldIn, pos, state.get(FACING))) {
@@ -116,7 +102,10 @@ public class GlowBlock extends Block {
 
   /**
    * Determines if a block side can contain a glow.
-   * Returns true if the block side is solid and the block at the given BlockPos is not a liquid
+   * @param world   World instance
+   * @param pos     Position
+   * @param facing  Side of the update
+   * @returns true if the block side is solid and the block at the given BlockPos is not a liquid
    */
   protected boolean canBlockStay(World world, BlockPos pos, Direction facing) {
     BlockPos placedOn = pos.offset(facing);
@@ -127,11 +116,16 @@ public class GlowBlock extends Block {
     return !isLiquid && isSolidSide;
   }
 
+  /**
+   * Adds a glow block at the given location
+   * @param world      World instance
+   * @param pos        Position
+   * @param direction  Preferred direction, may reorient
+   * @return  True if a block was placed
+   */
   public boolean addGlow(World world, BlockPos pos, Direction direction) {
     // only place the block if the current block at the location is replacable (eg, air, tall grass, etc.)
-    BlockState oldState = world.getBlockState(pos);
-
-    if (oldState.getBlock().getMaterial(oldState).isReplaceable()) {
+    if (world.getBlockState(pos).getMaterial().isReplaceable()) {
       // if the location is valid, place the block directly
       if (this.canBlockStay(world, pos, direction)) {
         if (!world.isRemote) {

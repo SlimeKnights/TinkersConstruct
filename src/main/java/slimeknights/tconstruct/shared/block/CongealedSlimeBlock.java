@@ -25,6 +25,7 @@ public class CongealedSlimeBlock extends Block {
     this.hideFromCreativeMenu = hideFromCreativeMenu;
   }
 
+  @Deprecated
   @Override
   public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
     return SHAPE;

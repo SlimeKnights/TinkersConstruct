@@ -58,6 +58,8 @@
     "block.tconstruct.firewood_stairs": "Firewood Stairs",
 
     "block.tconstruct.clear_glass": "Clear Glass",
+    "block.tconstruct.clear_glass_pane": "Clear Glass Pane",
+    
     "block.tconstruct.white_clear_stained_glass": "Clear White Stained Glass",
     "block.tconstruct.orange_clear_stained_glass": "Clear Orange Stained Glass",
     "block.tconstruct.magenta_clear_stained_glass": "Clear Magenta Stained Glass",
@@ -74,6 +76,23 @@
     "block.tconstruct.green_clear_stained_glass": "Clear Green Stained Glass",
     "block.tconstruct.red_clear_stained_glass": "Clear Red Stained Glass",
     "block.tconstruct.black_clear_stained_glass": "Clear Black Stained Glass",
+    
+    "block.tconstruct.white_clear_stained_glass_pane": "Clear White Stained Glass Pane",
+    "block.tconstruct.orange_clear_stained_glass_pane": "Clear Orange Stained Glass Pane",
+    "block.tconstruct.magenta_clear_stained_glass_pane": "Clear Magenta Stained Glass Pane",
+    "block.tconstruct.light_blue_clear_stained_glass_pane": "Clear Light Blue Stained Glass Pane",
+    "block.tconstruct.yellow_clear_stained_glass_pane": "Clear Yellow Stained Glass Pane",
+    "block.tconstruct.lime_clear_stained_glass_pane": "Clear Light Green Stained Glass Pane",
+    "block.tconstruct.pink_clear_stained_glass_pane": "Clear Pink Stained Glass Pane",
+    "block.tconstruct.gray_clear_stained_glass_pane": "Clear Gray Stained Glass Pane",
+    "block.tconstruct.light_gray_clear_stained_glass_pane": "Clear Light Gray Stained Glass Pane",
+    "block.tconstruct.cyan_clear_stained_glass_pane": "Clear Cyan Stained Glass Pane",
+    "block.tconstruct.purple_clear_stained_glass_pane": "Clear Purple Stained Glass Pane",
+    "block.tconstruct.blue_clear_stained_glass_pane": "Clear Blue Stained Glass Pane",
+    "block.tconstruct.brown_clear_stained_glass_pane": "Clear Brown Stained Glass Pane",
+    "block.tconstruct.green_clear_stained_glass_pane": "Clear Green Stained Glass Pane",
+    "block.tconstruct.red_clear_stained_glass_pane": "Clear Red Stained Glass Pane",
+    "block.tconstruct.black_clear_stained_glass_pane": "Clear Black Stained Glass Pane",
 
     "block.tconstruct.cobalt_block": "Block of Cobalt",
     "block.tconstruct.cobalt_block.tooltip": "block.tconstruct.metal.tooltip",
@@ -421,6 +440,8 @@
 
     "block.tconstruct.seared_glass": "Seared Glass",
     "block.tconstruct.seared_glass.tooltip": "Part of the Smeltery. Safe for decoration.\nCannot store liquids.",
+    "block.tconstruct.seared_glass_pane": "Seared Glass Pane",
+    "block.tconstruct.seared_glass_pane.tooltip": "Cannot be used in a Smeltery.",
     "block.tconstruct.seared_tank": "Seared Tank",
     "block.tconstruct.seared_tank.tooltip": "Heart of the Smeltery.\nRetains liquid when broken.",
     "block.tconstruct.seared_gauge": "Seared Gauge",

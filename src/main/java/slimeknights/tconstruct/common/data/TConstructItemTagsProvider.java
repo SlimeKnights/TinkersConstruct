@@ -74,7 +74,9 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_ROSE_GOLD, TinkerTags.Items.STORAGE_BLOCKS_ROSE_GOLD);
 
     copyColored(Tags.Blocks.GLASS, Tags.Items.GLASS);
+    copyColored(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
     copy(Tags.Blocks.STAINED_GLASS, Tags.Items.STAINED_GLASS);
+    copy(Tags.Blocks.STAINED_GLASS_PANES, Tags.Items.STAINED_GLASS_PANES);
   }
 
   private void addWorld() {

@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.smeltery.block;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -19,7 +18,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 
@@ -32,11 +30,14 @@ public class SearedTankBlock extends SearedBlock {
     super(properties);
   }
 
+  @Deprecated
   @Override
   @OnlyIn(Dist.CLIENT)
   public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
     return 1.0F;
   }
+
+  @Deprecated
   @Override
   public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos) {
     return false;
@@ -52,17 +53,17 @@ public class SearedTankBlock extends SearedBlock {
     return new TankTileEntity();
   }
 
+  @Deprecated
   @Override
   public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
     if (!world.isRemote()) {
       TileEntity te = world.getTileEntity(pos);
       if (te != null) {
-        IFluidHandler handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit.getFace()).orElse(null);
-        if (handler != null) {
+        te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit.getFace()).ifPresent((handler) -> {
           if (FluidUtil.interactWithFluidHandler(player, hand, handler)) {
             world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY_LAVA, SoundCategory.BLOCKS, 1, 1);
           }
-        }
+        });
       }
     }
     if (FluidUtil.getFluidHandler(player.getHeldItem(hand)).isPresent()) {
@@ -89,11 +90,13 @@ public class SearedTankBlock extends SearedBlock {
     super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
   }
 
+  @Deprecated
   @Override
   public boolean hasComparatorInputOverride(BlockState state) {
     return true;
   }
 
+  @Deprecated
   @Override
   public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
     TileEntity te = worldIn.getTileEntity(pos);

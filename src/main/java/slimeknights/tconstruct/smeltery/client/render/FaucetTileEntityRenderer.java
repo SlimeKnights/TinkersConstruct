@@ -8,10 +8,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.Vector3f;
-import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -53,9 +53,9 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
       float o = 0.5f;
       matrices.push();
       // custom rendering for flowing on top
-      Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
+      Minecraft.getInstance().textureManager.bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
       int color = tileEntity.drained.getFluid().getAttributes().getColor(tileEntity.drained);
-      TextureAtlasSprite flowing = Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(tileEntity.drained.getFluid().getAttributes().getFlowingTexture(tileEntity.drained));
+      TextureAtlasSprite flowing = Minecraft.getInstance().getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(tileEntity.drained.getFluid().getAttributes().getFlowingTexture(tileEntity.drained));
 
       matrices.translate(o, 0, o);
       matrices.rotate(Vector3f.YP.rotationDegrees(r));

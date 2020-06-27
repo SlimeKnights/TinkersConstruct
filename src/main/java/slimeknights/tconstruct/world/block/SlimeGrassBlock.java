@@ -21,6 +21,7 @@ import net.minecraft.world.lighting.LightEngine;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Random;
 
@@ -69,7 +70,7 @@ public class SlimeGrassBlock extends Block implements IGrowable {
         if (j < i / 16) {
           blockpos2 = blockpos2.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
 
-          if (worldIn.getBlockState(blockpos2.down()).getBlock() == this && !worldIn.getBlockState(blockpos2).getBlock().isNormalCube(state, worldIn, pos)) {
+          if (worldIn.getBlockState(blockpos2.down()).getBlock() == this && !worldIn.getBlockState(blockpos2).isNormalCube(worldIn, pos)) {
             ++j;
             continue;
           }
@@ -99,6 +100,7 @@ public class SlimeGrassBlock extends Block implements IGrowable {
     return this.foliageType;
   }
 
+  @Deprecated
   @Override
   public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
     if (!worldIn.isRemote) {
@@ -137,6 +139,7 @@ public class SlimeGrassBlock extends Block implements IGrowable {
     return canBecomeSlimeGrass(state, worldReader, pos) && !worldReader.getFluidState(blockpos).isTagged(FluidTags.WATER);
   }
 
+  @Nullable
   public BlockState getDirtState(BlockState grassState) {
     if (TinkerWorld.vanillaSlimeGrass.contains(grassState.getBlock())) {
       return Blocks.DIRT.getDefaultState();

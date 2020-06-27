@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "tconstruct:clear_glass"
+    }
+  },
+  "result": {
+    "item": "tconstruct:clear_glass_pane",
+    "count": 16
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "loader": "tconstruct:connected",
+  "parent": "tconstruct:block/pane/post",
+  "textures": {
+    "edge": "tconstruct:block/smeltery/seared_glass_top",
+    "pane": "tconstruct:block/smeltery/seared_glass"
+  },
+  "connection": {
+    "textures": ["pane"],
+    "predicate": "tconstruct:pane"
+  }
+}
