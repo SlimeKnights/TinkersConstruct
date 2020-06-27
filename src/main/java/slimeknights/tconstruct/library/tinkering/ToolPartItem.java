@@ -24,7 +24,7 @@ import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
-import slimeknights.tconstruct.shared.TinkerClient;
+import slimeknights.tconstruct.shared.CommonsClientEvents;
 import slimeknights.tconstruct.tools.IToolPart;
 
 import javax.annotation.Nonnull;
@@ -32,11 +32,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class ToolPart extends MaterialItem implements IToolPart {
+public class ToolPartItem extends MaterialItem implements IToolPart {
 
   public final MaterialStatsId materialStatId;
 
-  public ToolPart(Properties properties, MaterialStatsId id) {
+  public ToolPartItem(Properties properties, MaterialStatsId id) {
     super(properties);
 
     this.materialStatId = id;
@@ -89,7 +89,8 @@ public class ToolPart extends MaterialItem implements IToolPart {
         // info tooltip for detailed and component info
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new TranslationTextComponent("tooltip.tool.hold_shift"));
-      } else {
+      }
+      else {
         tooltip.addAll(this.getTooltipStatsInfo(material));
       }
     }
@@ -108,7 +109,7 @@ public class ToolPart extends MaterialItem implements IToolPart {
         List<ITextComponent> text = stat.getLocalizedInfo();
         if (!text.isEmpty()) {
           builder.add(new StringTextComponent(""));
-          builder.add(new StringTextComponent(TextFormatting.WHITE.toString() + TextFormatting.UNDERLINE).appendSibling(new TranslationTextComponent(stat.getLocalizedName())));
+          builder.add(stat.getLocalizedName().applyTextStyles(TextFormatting.WHITE, TextFormatting.UNDERLINE));
           builder.addAll(stat.getLocalizedInfo());
         }
       }
@@ -120,10 +121,10 @@ public class ToolPart extends MaterialItem implements IToolPart {
   public List<ITextComponent> getAddedByInfo(IMaterial material) {
     ImmutableList.Builder<ITextComponent> builder = ImmutableList.builder();
 
-    if(MaterialRegistry.getInstance().getMaterial(material.getIdentifier()) != IMaterial.UNKNOWN) {
+    if (MaterialRegistry.getInstance().getMaterial(material.getIdentifier()) != IMaterial.UNKNOWN) {
       builder.add(new StringTextComponent(""));
-      for(ModInfo modInfo : ModList.get().getMods()) {
-        if(modInfo.getModId().equalsIgnoreCase(material.getIdentifier().getNamespace())) {
+      for (ModInfo modInfo : ModList.get().getMods()) {
+        if (modInfo.getModId().equalsIgnoreCase(material.getIdentifier().getNamespace())) {
           builder.add(new TranslationTextComponent("tooltip.part.material_added_by", modInfo.getDisplayName()));
         }
       }
@@ -146,7 +147,8 @@ public class ToolPart extends MaterialItem implements IToolPart {
 
       if (!materialId.isEmpty()) {
         error = new TranslationTextComponent("tooltip.part.missing_material", materialId);
-      } else {
+      }
+      else {
         error = new TranslationTextComponent("tooltip.part.missing_info");
       }
       tooltip.add(error.getFormattedText());
@@ -163,6 +165,6 @@ public class ToolPart extends MaterialItem implements IToolPart {
   @OnlyIn(Dist.CLIENT)
   @Override
   public FontRenderer getFontRenderer(ItemStack stack) {
-    return TinkerClient.fontRenderer;
+    return CommonsClientEvents.fontRenderer;
   }
 }

@@ -24,7 +24,7 @@ import slimeknights.tconstruct.library.client.model.MaterialModel;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
-import slimeknights.tconstruct.library.tinkering.ToolPart;
+import slimeknights.tconstruct.library.tinkering.ToolPartItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 
@@ -63,7 +63,7 @@ public class ToolClientEvents extends ClientEventBase {
    * Registers a part model for the GUI
    * @param itemSup  Material item model supplier
    */
-  private static void registerGuiPart(Supplier<ToolPart> itemSup) {
+  private static void registerGuiPart(Supplier<ToolPartItem> itemSup) {
     ResourceLocation location = itemSup.get().getRegistryName();
     ModelLoader.addSpecialModel(new ResourceLocation(location.getNamespace(), "gui/part/" + location.getPath()));
   }
