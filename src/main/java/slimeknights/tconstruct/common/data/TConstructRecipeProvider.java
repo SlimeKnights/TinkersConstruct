@@ -701,56 +701,15 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
   }
 
   private void addPartBuilderRecipes(Consumer<IFinishedRecipe> consumer) {
-    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.pickaxeHead.get()))
-      .setPattern(location("pickaxe_head"))
-      .setCost(2)
-      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
-      .build(consumer, location("parts/pickaxe_head"));
-
-    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.hammerHead.get()))
-      .setPattern(location("hammer_head"))
-      .setCost(8)
-      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
-      .build(consumer, location("parts/hammer_head"));
-
-    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.shovelHead.get()))
-      .setPattern(location("shovel_head"))
-      .setCost(2)
-      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
-      .build(consumer, location("parts/shovel_head"));
-
-    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.swordBlade.get()))
-      .setPattern(location("sword_blade"))
-      .setCost(2)
-      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
-      .build(consumer, location("parts/sword_blade"));
-
-    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.smallBinding.get()))
-      .setPattern(location("small_binding"))
-      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
-      .build(consumer, location("parts/small_binding"));
-
-    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.wideGuard.get()))
-      .setPattern(location("wide_guard"))
-      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
-      .build(consumer, location("parts/wide_guard"));
-
-    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.largePlate.get()))
-      .setPattern(location("large_plate"))
-      .setCost(8)
-      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
-      .build(consumer, location("parts/large_plate"));
-
-    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.toolRod.get()))
-      .setPattern(location("tool_rod"))
-      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
-      .build(consumer, location("parts/tool_rod"));
-
-    PartRecipeBuilder.partRecipe(new ItemStack(TinkerToolParts.toughToolRod.get()))
-      .setPattern(location("tough_tool_rod"))
-      .setCost(3)
-      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
-      .build(consumer, location("parts/tough_tool_rod"));
+    addPartRecipe(consumer, TinkerToolParts.pickaxeHead, 2, "pickaxe_head");
+    addPartRecipe(consumer, TinkerToolParts.hammerHead, 8, "hammer_head");
+    addPartRecipe(consumer, TinkerToolParts.shovelHead, 2, "shovel_head");
+    addPartRecipe(consumer, TinkerToolParts.swordBlade, 2, "sword_blade");
+    addPartRecipe(consumer, TinkerToolParts.smallBinding, 1, "small_binding");
+    addPartRecipe(consumer, TinkerToolParts.wideGuard, 1, "wide_guard");
+    addPartRecipe(consumer, TinkerToolParts.largePlate, 8, "large_plate");
+    addPartRecipe(consumer, TinkerToolParts.toolRod, 1, "tool_rod");
+    addPartRecipe(consumer, TinkerToolParts.toughToolRod, 3, "tough_tool_rod");
   }
 
   private void addMaterialsRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -881,6 +840,14 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
 
 
   /* Helpers */
+
+  private void addPartRecipe(@Nonnull Consumer<IFinishedRecipe> consumer, IItemProvider part, int cost, String saveName) {
+    PartRecipeBuilder.partRecipe(new ItemStack(part))
+      .setPattern(location(saveName))
+      .setCost(cost)
+      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
+      .build(consumer, location("parts/" + saveName));
+  }
 
   private void registerMaterial(@Nonnull Consumer<IFinishedRecipe> consumer, MaterialId material, Ingredient input, int value, int needed, String saveName) {
     MaterialRecipeBuilder.materialRecipe(material)
