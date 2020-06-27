@@ -68,14 +68,14 @@ public final class ToolBuildHandler {
     Item part = partRecipe.getCraftingResult().getItem();
 
     if (part == null || !(part instanceof MaterialItem)) {
-      throw new TinkerGuiException(new TranslationTextComponent("gui.error.invalid_pattern").getFormattedText());
+      throw new TinkerGuiException(new TranslationTextComponent("gui.tconstruct.error.invalid_pattern").getFormattedText());
     }
 
     if (materialRecipe != null) {
       IMaterial material = materialRecipe.getMaterial();
 
       if (material == IMaterial.UNKNOWN) {
-        throw new TinkerGuiException(new TranslationTextComponent("gui.error.unknown_material").getFormattedText());
+        throw new TinkerGuiException(new TranslationTextComponent("gui.tconstruct.error.unknown_material").getFormattedText());
       }
 
       int itemCount = 1;
@@ -106,7 +106,7 @@ public final class ToolBuildHandler {
 
       return output;
     } else {
-      throw new TinkerGuiException(new TranslationTextComponent("gui.error.invalid_recipe").getFormattedText());
+      throw new TinkerGuiException(new TranslationTextComponent("gui.tconstruct.error.invalid_recipe").getFormattedText());
     }
   }
 

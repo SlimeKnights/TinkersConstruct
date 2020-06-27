@@ -636,6 +636,8 @@
     "gui.tconstruct.warning": "WARNING",
     "gui.tconstruct.general.hover": "Hover over the entries for more information",
     "gui.tconstruct.error.invalid_pattern": "Pattern does not contain a valid tool part!",
+    "gui.tconstruct.error.invalid_recipe": "Invalid Recipe!",
+    "gui.tconstruct.error.unknown_material": "Unknown Material",
     "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\n\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting.",
     "gui.tconstruct.error.not_enough_durability": "Not enough durability to replace parts!\n%d more durability required."
 }
