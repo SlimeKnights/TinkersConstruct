@@ -8,6 +8,13 @@ import slimeknights.tconstruct.library.tools.nbt.ToolData;
 
 public class ToolAttackUtil {
 
+  /**
+   * Gets the actual damage a tool does
+   *
+   * @param stack the ItemStack to check
+   * @param player the current player
+   * @return the actual damage of the tool
+   */
   public static float getActualDamage(ItemStack stack, LivingEntity player) {
     float damage = (float) SharedMonsterAttributes.ATTACK_DAMAGE.getDefaultValue();
 
@@ -24,33 +31,40 @@ public class ToolAttackUtil {
     damage += toolDamage;
 
     if (stack.getItem() instanceof ToolCore) {
-      damage = calcCutoffDamage(damage, ((ToolCore) stack.getItem()).getToolDefinition().getBaseStatDefinition().getDamageCutoff());
+      damage = calculateCutoffDamage(damage, ((ToolCore) stack.getItem()).getToolDefinition().getBaseStatDefinition().getDamageCutoff());
     }
 
     return damage;
   }
 
-  public static float calcCutoffDamage(float damage, float cutoff) {
-    float p = 1f;
-    float d = damage;
+  /**
+   * Used to calculate the damage to start doing diminishing returns
+   *
+   * @param damageIn the current damage the tool does
+   * @param cutoffDamage the fixed damage value for the diminishing effects to kick in
+   * @return the damage to use from the cutoff
+   */
+  public static float calculateCutoffDamage(float damageIn, float cutoffDamage) {
+    float percent = 1f;
+    float oldDamage = damageIn;
 
-    damage = 0f;
-    while (d > cutoff) {
-      damage += p * cutoff;
+    damageIn = 0f;
+    while (oldDamage > cutoffDamage) {
+      damageIn += percent * cutoffDamage;
       // safety for ridiculous values
-      if (p > 0.001f) {
-        p *= 0.9f;
+      if (percent > 0.001f) {
+        percent *= 0.9f;
       }
       else {
-        damage += p * cutoff * ((d / cutoff) - 1f);
-        return damage;
+        damageIn += percent * cutoffDamage * ((oldDamage / cutoffDamage) - 1f);
+        return damageIn;
       }
 
-      d -= cutoff;
+      oldDamage -= cutoffDamage;
     }
 
-    damage += p * d;
+    damageIn += percent * oldDamage;
 
-    return damage;
+    return damageIn;
   }
 }
