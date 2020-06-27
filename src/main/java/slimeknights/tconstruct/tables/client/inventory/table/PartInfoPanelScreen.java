@@ -135,7 +135,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       i++;
     }
 
-    if (i >= this.tooltips.size() || this.tooltips.get(i) == null) {
+    if (i >= this.tooltips.size() || this.tooltips.get(i).getFormattedText().isEmpty()) {
       return;
     }
 
