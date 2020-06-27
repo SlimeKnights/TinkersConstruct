@@ -25,13 +25,13 @@ public class HarvestLevels {
   public static final Map<Integer, ITextComponent> harvestLevelNames = Maps.newHashMap();
 
   public static ITextComponent getHarvestLevelName(int num) {
-    return harvestLevelNames.containsKey(num) ? harvestLevelNames.get(num) : new StringTextComponent(String.valueOf(num));
+    return harvestLevelNames.containsKey(num) ? num == DIAMOND ? harvestLevelNames.get(num).applyTextStyle(TextFormatting.AQUA) : harvestLevelNames.get(num) : new StringTextComponent(String.valueOf(num));
   }
 
   public static void init() {
     harvestLevelNames.put(STONE, new StringTextComponent(MaterialRegistry.getMaterial(MaterialIds.stone).getEncodedTextColor()).appendSibling(new TranslationTextComponent("ui.mining_level.stone")));
     harvestLevelNames.put(IRON, new StringTextComponent(MaterialRegistry.getMaterial(MaterialIds.iron).getEncodedTextColor()).appendSibling(new TranslationTextComponent("ui.mining_level.iron")));
-    harvestLevelNames.put(DIAMOND, new TranslationTextComponent("ui.mining_level.diamond")).applyTextStyle(TextFormatting.AQUA);
+    harvestLevelNames.put(DIAMOND, new TranslationTextComponent("ui.mining_level.diamond"));
     harvestLevelNames.put(OBSIDIAN, new StringTextComponent(MaterialRegistry.getMaterial(MaterialIds.obsidian).getEncodedTextColor()).appendSibling(new TranslationTextComponent("ui.mining_level.obsidian")));
     harvestLevelNames.put(COBALT, new StringTextComponent(MaterialRegistry.getMaterial(MaterialIds.cobalt).getEncodedTextColor()).appendSibling(new TranslationTextComponent("ui.mining_level.cobalt")));
 
