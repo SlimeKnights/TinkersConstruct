@@ -206,7 +206,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
     y /= this.textScale;
 
     // render shown lines
-    ListIterator<String> iter = getTotalLines().listIterator(this.slider.getValue());
+    ListIterator<String> iter = this.getTotalLines().listIterator(this.slider.getValue());
     while (iter.hasNext()) {
       if (y + textHeight - 0.5f > lowerBound) {
         break;

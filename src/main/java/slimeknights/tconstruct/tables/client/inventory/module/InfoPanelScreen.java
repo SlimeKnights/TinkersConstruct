@@ -109,6 +109,7 @@ public class InfoPanelScreen extends ModuleScreen {
     for (String s : text) {
       textComponents.add(new StringTextComponent(s));
     }
+
     this.setText(textComponents, null);
   }
 

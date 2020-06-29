@@ -86,14 +86,11 @@ public class HeadMaterialStats extends BaseMaterialStats {
 
   public static ITextComponent formatDurability(int durability, int ref) {
     return new TranslationTextComponent(DURABILITY_LOCALIZATION)
-      .appendSibling(new StringTextComponent(": "))
-      .appendSibling(new StringTextComponent(CustomFontColor.formatPartialAmount(durability, ref)));
+      .appendText(CustomFontColor.formatPartialAmount(durability, ref));
   }
 
   public static ITextComponent formatHarvestLevel(int level) {
     return new TranslationTextComponent(HARVEST_LEVEL_LOCALIZATION)
-      .appendSibling(new StringTextComponent(": "))
-      .appendSibling(new StringTextComponent(": "))
       .appendSibling(HarvestLevels.getHarvestLevelName(level));
   }
 

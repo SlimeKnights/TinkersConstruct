@@ -25,15 +25,11 @@ public abstract class BaseMaterialStats implements IMaterialStats {
 
   public static ITextComponent formatNumber(String loc, String color, float number) {
     return new TranslationTextComponent(loc)
-      .appendSibling(new StringTextComponent(": "))
-      .appendSibling(new StringTextComponent(color))
-      .appendSibling(new StringTextComponent(Util.df.format(number)));
+      .appendText(color + Util.df.format(number));
   }
 
   public static ITextComponent formatNumberPercent(String loc, String color, float number) {
     return new TranslationTextComponent(loc)
-      .appendSibling(new StringTextComponent(": "))
-      .appendSibling(new StringTextComponent(color))
-      .appendSibling(new StringTextComponent(Util.dfPercent.format(number)));
+      .appendText(color + Util.dfPercent.format(number));
   }
 }
