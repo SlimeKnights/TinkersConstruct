@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.tinkering;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemGroup;
@@ -16,6 +17,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
+import slimeknights.mantle.util.LocUtils;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -29,6 +31,7 @@ import slimeknights.tconstruct.tools.IToolPart;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,8 +68,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
 
   @Override
   public boolean hasUseForStat(MaterialStatsId stat) {
-    //TODO check if part is correct for any tool's required components
-    return true;
+    return this.materialStatId.equals(stat);
   }
 
   @Override
@@ -79,9 +81,9 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     boolean shift = Util.isShiftKeyDown();
 
     // todo traits
-    //if(!this.checkMissingMaterialTooltip(stack, tooltip)) {
-    //  tooltip.addAll(getTooltipTraitInfo(material));
-    //}
+    if(!this.checkMissingMaterialTooltip(stack, tooltip)) {
+      tooltip.addAll(this.getTooltipTraitInfo(material));
+    }
 
     // Stats
     if (Config.CLIENT.extraToolTips.get()) {
@@ -96,6 +98,16 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     }
 
     tooltip.addAll(this.getAddedByInfo(material));
+  }
+
+  private List<? extends ITextComponent> getTooltipTraitInfo(IMaterial material) {
+    //TODO IMPLEMENT
+
+    List<ITextComponent> tooltips = Lists.newLinkedList();
+
+    tooltips.add(new StringTextComponent("please implement getTooltipTraitInfo"));
+
+    return tooltips;
   }
 
   public List<ITextComponent> getTooltipStatsInfo(IMaterial material) {
@@ -133,30 +145,27 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     return builder.build();
   }
 
-  public boolean checkMissingMaterialTooltip(ItemStack stack, List<String> tooltip) {
-    return checkMissingMaterialTooltip(stack, tooltip, "");
+  public boolean checkMissingMaterialTooltip(ItemStack stack, List<ITextComponent> tooltip) {
+    return checkMissingMaterialTooltip(stack, tooltip, null);
   }
 
-  public boolean checkMissingMaterialTooltip(ItemStack stack, List<String> tooltip, String statIdentifier) {
+  public boolean checkMissingMaterialTooltip(ItemStack stack, List<ITextComponent> tooltip, MaterialStatsId statIdentifier) {
     IMaterial material = this.getMaterial(stack);
 
     if (material == IMaterial.UNKNOWN) {
       CompoundNBT tagSafe = TagUtil.getTagSafe(stack);
       String materialId = tagSafe.getString(Tags.PART_MATERIAL);
-      ITextComponent error;
-
       if (!materialId.isEmpty()) {
-        error = new TranslationTextComponent("tooltip.part.missing_material", materialId);
+        tooltip.add(new TranslationTextComponent("tooltip.part.missing_material", materialId));
       }
       else {
-        error = new TranslationTextComponent("tooltip.part.missing_info");
+        tooltip.add(new TranslationTextComponent("tooltip.part.missing_info"));
       }
-      tooltip.add(error.getFormattedText());
       return true;
     }
-    /*else if(statIdentifier != null && material.getStats(statIdentifier) == null) {
-      //tooltip.addAll(LocUtils.getTooltips(Util.translateFormatted("tooltip.part.missing_stats", material.getLocalizedName(), statIdentifier)));
-    }*/
+    else if(!MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), statIdentifier).isPresent()) {
+      tooltip.addAll(LocUtils.getTooltips(Util.translateFormatted("tooltip.part.missing_stats", material.getTranslationKey(), statIdentifier)));
+    }
 
     return false;
   }
