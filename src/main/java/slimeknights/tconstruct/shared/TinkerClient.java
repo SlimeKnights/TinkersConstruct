@@ -3,16 +3,10 @@ package slimeknights.tconstruct.shared;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResourceManager;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.resource.VanillaResourceType;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.client.renderer.font.CustomFontRenderer;
 import slimeknights.tconstruct.library.client.util.ResourceValidator;
-import slimeknights.tconstruct.tools.ToolClientEvents;
 import slimeknights.tconstruct.world.WorldClientEvents;
 
 /**
