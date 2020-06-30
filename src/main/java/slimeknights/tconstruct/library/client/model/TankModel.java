@@ -170,6 +170,8 @@ public class TankModel implements IModelGeometry<TankModel> {
 
       // bake the model
       BlockModel withFluid = new BlockModel(base.getParentLocation(), elements, textures, base.isAmbientOcclusion(), base.func_230176_c_(), base.getAllTransforms(), Lists.newArrayList(base.getOverrides()));
+      withFluid.name = base.name;
+      withFluid.parent = base.parent;
       return withFluid.bakeModel(bakery, withFluid, ModelLoader.defaultTextureGetter(), originalTransforms, BAKE_LOCATION, true);
     }
 
