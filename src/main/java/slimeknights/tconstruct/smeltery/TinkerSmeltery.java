@@ -8,6 +8,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -49,15 +50,15 @@ public final class TinkerSmeltery extends TinkerModule {
   /*
    * Blocks
    */
-  private static final Block.Properties SMELTERY_GLASS = builder(Material.ROCK, NO_TOOL, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).notSolid();
+  private static final Block.Properties SMELTERY_GLASS = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).notSolid();
   public static final BlockItemObject<Block> grout = BLOCKS.register("grout", () -> new Block(GENERIC_SAND_BLOCK), TOOLTIP_BLOCK_ITEM);
   public static final BlockItemObject<SearedGlassBlock> searedGlass = BLOCKS.register("seared_glass", () -> new SearedGlassBlock(SMELTERY_GLASS), TOOLTIP_BLOCK_ITEM);
   public static final BlockItemObject<ClearGlassPaneBlock> searedGlassPane = BLOCKS.register("seared_glass_pane", () -> new ClearGlassPaneBlock(SMELTERY_GLASS), TOOLTIP_BLOCK_ITEM);
 
   // seared
   // TODO: registerBuilding does not handle custom blocks
-  private static final Block.Properties SMELTERY = builder(Material.ROCK, NO_TOOL, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F);
-  private static final Block.Properties FAUCET = builder(Material.ROCK, NO_TOOL, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).notSolid();
+  private static final Block.Properties SMELTERY = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F);
+  private static final Block.Properties FAUCET = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).notSolid();
   public static final BuildingBlockObject searedStone = BLOCKS.registerBuilding("seared_stone", SMELTERY, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedCobble = BLOCKS.registerBuilding("seared_cobble", SMELTERY, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedPaver = BLOCKS.registerBuilding("seared_paver", SMELTERY, TOOLTIP_BLOCK_ITEM);
