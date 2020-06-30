@@ -45,7 +45,7 @@ public class TankTileEntityRenderer extends TileEntityRenderer<TankTileEntity> {
       IVertexBuilder builder = bufferIn.getBuffer(RenderUtil.getBlockRenderType());
 
       // determine where to draw the fluid based on the model
-      TankModel.BakedModel model = RenderUtil.getBakedModel(tile.getBlockState().getBlock(), TankModel.BakedModel.class);
+      TankModel.BakedModel model = RenderUtil.getBakedModel(tile.getBlockState(), TankModel.BakedModel.class);
       Vector3f from = FROM_FALLBACK, to = TO_FALLBACK;
       if (model != null) {
         from = model.getFrom();

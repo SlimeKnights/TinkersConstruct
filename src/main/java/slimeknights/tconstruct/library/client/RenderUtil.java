@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import lombok.Getter;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.RenderState;
@@ -355,6 +356,22 @@ public final class RenderUtil {
   }
 
   /**
+   * Gets the model for the given block
+   * @param state  Block state
+   * @param clazz  Class type to cast result into
+   * @param <T>    Class type
+   * @return  Block model, or null if its missing or the wrong class type
+   */
+  @Nullable
+  public static <T extends IBakedModel> T getBakedModel(BlockState state, Class<T> clazz) {
+    IBakedModel baked = mc.getModelManager().getBlockModelShapes().getModel(state);
+    if (clazz.isInstance(baked)) {
+      return clazz.cast(baked);
+    }
+    return null;
+  }
+
+  /**
    * Gets the model for the given item
    * @param item   Item provider
    * @param clazz  Class type to cast result into
@@ -362,11 +379,10 @@ public final class RenderUtil {
    * @return  Item model, or null if its missing or the wrong class type
    */
   @Nullable
-  @SuppressWarnings("unchecked")
   public static <T extends IBakedModel> T getBakedModel(IItemProvider item, Class<T> clazz) {
     IBakedModel baked = mc.getItemRenderer().getItemModelMesher().getItemModel(item.asItem());
     if (clazz.isInstance(baked)) {
-      return (T) baked;
+      return clazz.cast(baked);
     }
     return null;
   }
