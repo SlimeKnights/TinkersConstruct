@@ -25,7 +25,6 @@ import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
 import slimeknights.tconstruct.tables.inventory.table.PartBuilderContainer;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
@@ -99,7 +98,7 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     if (!output.isEmpty()) {
       if (output.getItem() instanceof IMaterialItem) {
         IMaterialItem materialItem = (IMaterialItem) output.getItem();
-        IMaterial material = MaterialItem.getMaterialFromStack(output);
+        IMaterial material = IMaterialItem.getMaterialFromStack(output);
 
         if(!materialItem.canUseMaterial(material)) {
           String materialName = material.getEncodedTextColor() + new TranslationTextComponent(material.getTranslationKey()).getFormattedText() + TextFormatting.WHITE;

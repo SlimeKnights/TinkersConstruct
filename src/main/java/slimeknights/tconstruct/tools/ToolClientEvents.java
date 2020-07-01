@@ -23,6 +23,7 @@ import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader
 import slimeknights.tconstruct.library.client.model.MaterialModel;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tinkering.ToolPartItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -89,7 +90,7 @@ public class ToolClientEvents extends ClientEventBase {
 
   /** Color handler instance for MaterialItem */
   private static final IItemColor materialColorHandler = (stack, index) -> {
-    return Optional.of(MaterialItem.getMaterialFromStack(stack))
+    return Optional.of(IMaterialItem.getMaterialFromStack(stack))
       .filter((material) -> IMaterial.UNKNOWN != material)
       .map(IMaterial::getIdentifier)
       .flatMap(MaterialRenderInfoLoader.INSTANCE::getRenderInfo)

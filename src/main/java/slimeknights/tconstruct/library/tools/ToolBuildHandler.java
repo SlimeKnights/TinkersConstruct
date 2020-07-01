@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
-import slimeknights.tconstruct.library.tinkering.MaterialItem;
+import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
@@ -39,7 +39,7 @@ public final class ToolBuildHandler {
 
     List<IMaterial> materials = stacks.stream()
       .filter(stack -> !stack.isEmpty())
-      .map(MaterialItem::getMaterialFromStack)
+      .map(IMaterialItem::getMaterialFromStack)
       .collect(Collectors.toList());
 
     return buildItemFromMaterials(tool, materials);
@@ -67,7 +67,7 @@ public final class ToolBuildHandler {
   public static ItemStack tryToBuildToolPart(@Nonnull PartRecipe partRecipe, @Nullable MaterialRecipe materialRecipe, ItemStack patternStack, ItemStack materialStack, boolean removeItems) throws TinkerGuiException {
     Item part = partRecipe.getCraftingResult().getItem();
 
-    if (part == null || !(part instanceof MaterialItem)) {
+    if (part == null || !(part instanceof IMaterialItem)) {
       throw new TinkerGuiException(new TranslationTextComponent("gui.tconstruct.error.invalid_pattern").getFormattedText());
     }
 
@@ -92,7 +92,7 @@ public final class ToolBuildHandler {
       ItemStack output = ItemStack.EMPTY;
 
       if (material.isCraftable() && currentValue >= partRecipe.getCost()) {
-        output = ((MaterialItem) part).getItemstackWithMaterial(material);
+        output = ((IMaterialItem) part).getItemstackWithMaterial(material);
 
         if (output.isEmpty()) {
           output = ItemStack.EMPTY;

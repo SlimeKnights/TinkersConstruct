@@ -25,4 +25,16 @@ public interface IMaterialItem {
   default boolean canUseMaterial(IMaterial mat) {
     return true;
   }
+
+  /**
+   * Gets the material from a given item stack
+   * @param stack  Item stack containing a material item
+   * @return  Material, or unknown if none
+   */
+  static IMaterial getMaterialFromStack(ItemStack stack) {
+    if ((stack.getItem() instanceof IMaterialItem)) {
+      return ((IMaterialItem) stack.getItem()).getMaterial(stack);
+    }
+    return IMaterial.UNKNOWN;
+  }
 }
