@@ -1,10 +1,11 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
-import net.minecraft.client.Minecraft;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraftforge.api.distmarker.Dist;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.capabilities.Capability;
@@ -13,119 +14,96 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fml.DistExecutor;
-import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.client.RenderUtil;
-import slimeknights.tconstruct.library.client.model.tesr.TankModel;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
-import slimeknights.tconstruct.library.fluid.IFluidTankUpdater;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.tables.client.model.ModelProperties;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TankTileEntity extends SmelteryComponentTileEntity implements IFluidTankUpdater, FluidUpdatePacket.IFluidPacketReceiver {
-
+public class TankTileEntity extends SmelteryComponentTileEntity implements ITankTileEntity {
+  /** Max capacity for the tank */
   public static final int CAPACITY = FluidAttributes.BUCKET_VOLUME * 4;
-  private final ModelDataMap modelData;
 
-  protected FluidTankAnimated tank;
-
+  /** Internal fluid tank instance */
+  @Getter
+  protected final FluidTankAnimated tank = new FluidTankAnimated(CAPACITY, this);
+  /** Capability holder for the tank */
   private final LazyOptional<IFluidHandler> holder = LazyOptional.of(() -> tank);
+  /** Tank data for the model */
+  private final ModelDataMap modelData;
+  /** Last comparator strength to reduce block updates */
+  @Getter @Setter
   private int lastStrength;
 
+  /** Main constructor */
   public TankTileEntity() {
     this(TinkerSmeltery.tank.get());
-    this.tank = new FluidTankAnimated(CAPACITY, this);
-    this.lastStrength = -1;
-    this.modelData.setData(ModelProperties.FLUID_TANK, tank);
   }
 
-  public TankTileEntity(TileEntityType<?> tileEntityTypein) {
+  /** Extendable constructor */
+  protected TankTileEntity(TileEntityType<?> tileEntityTypein) {
     super(tileEntityTypein);
-    modelData = new ModelDataMap.Builder().withProperty(ModelProperties.FLUID_TANK).build();
+    this.lastStrength = -1;
+    modelData = new ModelDataMap.Builder().withInitial(ModelProperties.FLUID_TANK, tank).build();
   }
+
+  /*
+   * Tank methods
+   */
 
   @Override
   @Nonnull
   public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
-    if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+    if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
       return holder.cast();
+    }
     return super.getCapability(capability, facing);
   }
 
   @Override
-  public void read(CompoundNBT tag) {
-    CompoundNBT fluid = tag.getCompound(Tags.TANK);
-    tank.readFromNBT(fluid);
-    super.read(tag);
-  }
-
-  public void readTank(CompoundNBT nbt) {
-    tank.readFromNBT(nbt);
-  }
-
-  @Nonnull
-  @Override
-  public CompoundNBT write(CompoundNBT tag) {
-    CompoundNBT fluid = new CompoundNBT();
-    tank.writeToNBT(fluid);
-    tag.put(Tags.TANK, fluid);
-    return super.write(tag);
-  }
-
-  public void writeTank(CompoundNBT nbt) {
-    tank.writeToNBT(nbt);
-  }
-
-  /**
-   * @return The current comparator strength based on the tank's capicity
-   */
-  public int comparatorStrength() {
-    return 15 * tank.getFluidAmount() / tank.getCapacity();
+  public IModelData getModelData() {
+    return modelData;
   }
 
   @Override
   public void onTankContentsChanged() {
-    int newStrength = this.comparatorStrength();
-    if (newStrength != lastStrength) {
-      this.getWorld().notifyNeighborsOfStateChange(this.pos, this.getBlockState().getBlock());
-      this.lastStrength = newStrength;
-    }
+    ITankTileEntity.super.onTankContentsChanged();
     this.getWorld().getLightManager().checkBlock(this.pos);
-  }
-
-  public FluidTankAnimated getInternalTank() {
-    return tank;
   }
 
   @Override
   public void updateFluidTo(FluidStack fluid) {
-    int oldAmount = tank.getFluidAmount();
-    int newAmount = fluid.getAmount();
-    tank.setFluid(fluid);
-    tank.setRenderOffset(tank.getRenderOffset() + newAmount - oldAmount);
-    this.getWorld().getLightManager().checkBlock(this.pos);
+    ITankTileEntity.super.updateFluidTo(fluid);
 
-    // update the block model
-    DistExecutor.unsafeRunWhenOn(Dist.CLIENT,() -> () -> {
-      if (Config.CLIENT.tankFluidModel.get()) {
-        // if the amount change is bigger than a single increment, or we changed whether we have a fluid, update the world renderer
-        TankModel.BakedModel model = RenderUtil.getBakedModel(this.getBlockState(), TankModel.BakedModel.class);
-        if (model != null && (Math.abs(newAmount - oldAmount) >= (tank.getCapacity() / model.getFluid().getIncrements()) || (oldAmount == 0) != (newAmount == 0))) {
-          //this.requestModelDataUpdate();
-          Minecraft.getInstance().worldRenderer.notifyBlockUpdate(null, pos, null, null, 3);
-        }
-      }
-    });
+    // update light if the fluid changes
+    BlockPos pos = getPos();
+    this.getWorld().getLightManager().checkBlock(pos);
+  }
+
+
+  /*
+   * NBT
+   */
+
+  @Override
+  public void read(CompoundNBT tag) {
+    updateTank(tag.getCompound(Tags.TANK));
+    super.read(tag);
+  }
+
+  /**
+   * Updates the tank from an NBT tag, used in the block
+   * @param nbt  tank NBT
+   */
+  public void updateTank(CompoundNBT nbt) {
+    tank.readFromNBT(nbt);
   }
 
   @Override
-  @Nonnull
-  public IModelData getModelData() {
-    return this.modelData;
+  public CompoundNBT write(CompoundNBT tag) {
+    tag.put(Tags.TANK, tank.writeToNBT(new CompoundNBT()));
+    return super.write(tag);
   }
 }
