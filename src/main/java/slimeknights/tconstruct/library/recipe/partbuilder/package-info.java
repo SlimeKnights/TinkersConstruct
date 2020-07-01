@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.tables.recipe.material;
+package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import mcp.MethodsReturnNonnullByDefault;
 

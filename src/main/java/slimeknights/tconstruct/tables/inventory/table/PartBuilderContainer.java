@@ -15,13 +15,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.inventory.CraftingCustomSlot;
 import slimeknights.mantle.inventory.IContainerCraftingCustom;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
+import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.shared.inventory.PersistentCraftingInventory;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
 import slimeknights.tconstruct.tables.inventory.chest.PatternSlot;
-import slimeknights.tconstruct.tables.recipe.material.MaterialRecipe;
-import slimeknights.tconstruct.tables.recipe.part.PartRecipe;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
 import javax.annotation.Nullable;
@@ -198,14 +199,14 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
     this.craftResult.setInventorySlotContents(0, ItemStack.EMPTY);
 
     if (!stack.isEmpty()) {
-      this.partRecipes = this.world.getRecipeManager().getRecipes(TinkerTables.partRecipeType, inventoryIn, this.world);
+      this.partRecipes = this.world.getRecipeManager().getRecipes(RecipeTypes.PART_BUILDER, inventoryIn, this.world);
     }
   }
 
   private void updateAvailableMaterialRecipes(IInventory inventoryIn) {
     this.materialRecipes.clear();
 
-    this.materialRecipes = this.world.getRecipeManager().getRecipes(TinkerTables.materialRecipeType, inventoryIn, this.world);
+    this.materialRecipes = this.world.getRecipeManager().getRecipes(RecipeTypes.MATERIAL, inventoryIn, this.world);
   }
 
   @Nullable

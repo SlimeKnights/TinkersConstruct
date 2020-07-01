@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tables.recipe.material;
+package slimeknights.tconstruct.library.recipe.material;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

@@ -22,12 +22,12 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
 import slimeknights.tconstruct.tables.inventory.table.PartBuilderContainer;
-import slimeknights.tconstruct.tables.recipe.material.MaterialRecipe;
-import slimeknights.tconstruct.tables.recipe.part.PartRecipe;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
 import java.util.List;

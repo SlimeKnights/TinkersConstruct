@@ -8,14 +8,14 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.library.tools.nbt.ToolItemNBT;
-import slimeknights.tconstruct.tables.recipe.material.MaterialRecipe;
-import slimeknights.tconstruct.tables.recipe.part.PartRecipe;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

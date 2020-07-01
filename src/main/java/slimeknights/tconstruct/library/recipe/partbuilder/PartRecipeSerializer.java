@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tables.recipe.part;
+package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;

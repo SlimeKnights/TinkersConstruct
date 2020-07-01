@@ -1,32 +1,40 @@
-package slimeknights.tconstruct.tables.recipe.part;
+package slimeknights.tconstruct.library.recipe.material;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.library.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-public class PartRecipe implements IRecipe<IInventory> {
+public class MaterialRecipe implements IRecipe<IInventory> {
   protected final ResourceLocation id;
   protected final String group;
-  protected final ResourceLocation pattern;
-  protected final int cost;
-  protected final ItemStack output;
+  protected final Ingredient ingredient;
+  protected final MaterialId materialId;
+  protected final int value;
+  protected final int needed;
 
-  public PartRecipe(ResourceLocation id, String group, ResourceLocation pattern, int cost, ItemStack output) {
+  public MaterialRecipe(ResourceLocation id, String group, Ingredient ingredient, int value, int needed, MaterialId materialId) {
     this.id = id;
     this.group = group;
-    this.pattern = pattern;
-    this.cost = cost;
-    this.output = output;
+    this.ingredient = ingredient;
+    this.materialId = materialId;
+    this.value = value;
+    this.needed = needed;
   }
 
   @Override
   public IRecipeType<?> getType() {
-    return TinkerTables.partRecipeType;
+    return RecipeTypes.MATERIAL;
   }
 
   @Override
@@ -41,7 +49,7 @@ public class PartRecipe implements IRecipe<IInventory> {
 
   @Override
   public IRecipeSerializer<?> getSerializer() {
-    return TinkerTables.partRecipeSerializer.get();
+    return TinkerTables.materialRecipeSerializer.get();
   }
 
   /**
@@ -49,7 +57,7 @@ public class PartRecipe implements IRecipe<IInventory> {
    */
   @Override
   public boolean matches(IInventory inv, World worldIn) {
-    return inv.getStackInSlot(1).getItem() == TinkerTables.pattern.get();
+    return this.ingredient.test(inv.getStackInSlot(0));
   }
 
   /**
@@ -74,7 +82,7 @@ public class PartRecipe implements IRecipe<IInventory> {
    */
   @Override
   public ItemStack getRecipeOutput() {
-    return this.output;
+    return ItemStack.EMPTY;
   }
 
   /**
@@ -82,18 +90,34 @@ public class PartRecipe implements IRecipe<IInventory> {
    */
   @Override
   public ItemStack getCraftingResult(IInventory inv) {
-    return this.output.copy();
+    return ItemStack.EMPTY;
   }
 
-  public int getCost() {
-    return this.cost;
+  @Override
+  public NonNullList<Ingredient> getIngredients() {
+    NonNullList<Ingredient> ingredients = NonNullList.create();
+    ingredients.add(this.ingredient);
+    return ingredients;
   }
 
-  public ResourceLocation getPattern() {
-    return this.pattern;
+  /**
+   * Returns the material id for this recipe
+   *
+   * @return the material id
+   */
+  public MaterialId getMaterialId() {
+    return this.materialId;
   }
 
-  public ItemStack getCraftingResult() {
-    return this.output.copy();
+  public IMaterial getMaterial() {
+    return MaterialRegistry.getInstance().getMaterial(this.materialId);
+  }
+
+  public int getValue() {
+    return this.value;
+  }
+
+  public int getNeeded() {
+    return this.needed;
   }
 }
