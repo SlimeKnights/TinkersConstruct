@@ -26,7 +26,6 @@ import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
@@ -54,6 +53,7 @@ import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
+import slimeknights.tconstruct.smeltery.block.SearedTankBlock.TankType;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -702,6 +702,14 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .patternLine("# #")
       .addCriterion("has_item", this.hasItem(TinkerSmeltery.searedBrick))
       .build(consumer, location("smeltery/casting/table"));
+
+    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedMelter)
+                       .key('G', TinkerSmeltery.searedTank.get(TankType.GAUGE))
+                       .key('B', TinkerSmeltery.searedBrick)
+                       .patternLine("BGB")
+                       .patternLine("BBB")
+                       .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+                       .build(consumer, prefix(TinkerSmeltery.searedMelter, "smeltery/"));
   }
 
   private void addCastingRecipes(Consumer<IFinishedRecipe> consumer) {
