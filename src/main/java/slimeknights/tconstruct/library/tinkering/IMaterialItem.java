@@ -7,7 +7,6 @@ import slimeknights.tconstruct.library.materials.IMaterial;
  * Items implementing this interface contain a material
  */
 public interface IMaterialItem {
-
   /**
    * Returns the material of the part this itemstack holds.
    *
@@ -19,4 +18,11 @@ public interface IMaterialItem {
    * Returns the item with the given material
    */
   ItemStack getItemstackWithMaterial(IMaterial material);
+
+  /**
+   * Returns true if the material can be used for this toolpart
+   */
+  default boolean canUseMaterial(IMaterial mat) {
+    return true;
+  }
 }

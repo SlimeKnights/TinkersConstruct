@@ -22,8 +22,8 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
+import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
-import slimeknights.tconstruct.library.tinkering.ToolPartItem;
 import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
 import slimeknights.tconstruct.tables.inventory.table.PartBuilderContainer;
 import slimeknights.tconstruct.tables.recipe.material.MaterialRecipe;
@@ -97,13 +97,13 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     }
 
     if (!output.isEmpty()) {
-      if (output.getItem() instanceof ToolPartItem) {
-        ToolPartItem toolPartItem = (ToolPartItem) output.getItem();
+      if (output.getItem() instanceof IMaterialItem) {
+        IMaterialItem materialItem = (IMaterialItem) output.getItem();
         IMaterial material = MaterialItem.getMaterialFromStack(output);
 
-        if(!toolPartItem.canUseMaterial(material)) {
+        if(!materialItem.canUseMaterial(material)) {
           String materialName = material.getEncodedTextColor() + new TranslationTextComponent(material.getTranslationKey()).getFormattedText() + TextFormatting.WHITE;
-          String error = new TranslationTextComponent("gui.tconstruct.error.useless_tool_part", materialName, (new ItemStack(toolPartItem)).getDisplayName()).getFormattedText();
+          String error = new TranslationTextComponent("gui.tconstruct.error.useless_tool_part", materialName, output.getDisplayName()).getFormattedText();
           this.warning(error);
         }
         // Material is OK, display material properties

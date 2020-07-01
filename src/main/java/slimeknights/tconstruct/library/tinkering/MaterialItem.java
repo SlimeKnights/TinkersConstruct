@@ -58,7 +58,9 @@ public class MaterialItem extends Item implements IMaterialItem {
     if (this.isInGroup(group)) {
       if (MaterialRegistry.initialized()) {
         for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
-          items.add(this.getItemstackWithMaterial(material));
+          if (this.canUseMaterial(material)) {
+            items.add(this.getItemstackWithMaterial(material));
+          }
         }
       } else {
         items.add(new ItemStack(this));

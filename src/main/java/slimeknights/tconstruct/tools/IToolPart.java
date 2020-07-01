@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools;
 
-import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
@@ -9,11 +8,6 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
  * Any Class that's used as a tool part needs to implement this.
  */
 public interface IToolPart extends IMaterialItem {
-
-  /**
-   * Retruns true if the material can be used for this toolpart
-   */
-  boolean canUseMaterial(IMaterial mat);
 
   /**
    * Workaround for dual-materials like crossbow-bolts.
