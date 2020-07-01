@@ -1,8 +1,10 @@
 package slimeknights.tconstruct.smeltery;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -25,6 +27,7 @@ import slimeknights.tconstruct.library.client.model.tesr.TankModel;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.client.FaucetFluidLoader;
+import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
 import slimeknights.tconstruct.smeltery.client.render.CastingTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.FaucetTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.TankTileEntityRenderer;
@@ -43,8 +46,10 @@ public class SmelteryClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
+    // render layers
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedGlass.get(), RenderType.getCutout());
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedGlassPane.get(), RenderType.getCutout());
+    RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedMelter.get(), RenderType.getCutout());
     for (SearedTankBlock.TankType tankType : SearedTankBlock.TankType.values()) {
       RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedTank.get(tankType), RenderType.getCutout());
     }
@@ -52,10 +57,15 @@ public class SmelteryClientEvents extends ClientEventBase {
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.castingBasin.get(), RenderType.getCutout());
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.castingTable.get(), RenderType.getCutout());
 
+    // TESRs
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.tank.get(), TankTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.faucet.get(), FaucetTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.table.get(), CastingTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.basin.get(), CastingTileEntityRenderer::new);
+    ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.melter.get(), TankTileEntityRenderer::new);
+
+    // screens
+    ScreenManager.registerFactory(TinkerSmeltery.melterContainer.get(), MelterScreen::new);
 
     FluidTooltipHandler.init();
   }
@@ -69,7 +79,7 @@ public class SmelteryClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void blockColors(ColorHandlerEvent.Block event) {
-    event.getBlockColors().register((state, world, pos, index) -> {
+    IBlockColor handler = (state, world, pos, index) -> {
       if (pos != null && world != null) {
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof ITankTileEntity) {
@@ -78,7 +88,9 @@ public class SmelteryClientEvents extends ClientEventBase {
         }
       }
       return -1;
-    }, TinkerSmeltery.searedTank.values().toArray(new Block[0]));
+    };
+    event.getBlockColors().register(handler, TinkerSmeltery.searedTank.values().toArray(new Block[0]));
+    event.getBlockColors().register(handler, TinkerSmeltery.searedMelter.get());
   }
 
   @SubscribeEvent

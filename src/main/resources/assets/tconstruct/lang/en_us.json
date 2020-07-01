@@ -486,6 +486,13 @@
     "block.tconstruct.casting_table": "Casting Table",
     "block.tconstruct.casting_table.tooltip": "Cast items using molten metals from a Smeltery",
 
+    "block.tconstruct.melter": "Seared Melter",
+    "block.tconstruct.melter.tooltip": "First Smeltery.\nPlace above a seared tank to fuel.",
+    "gui.tconstruct.melter": "Melter",
+    "gui.tconstruct.melting.capacity": "Capacity:",
+    "gui.tconstruct.melting.available": "Free:",
+    "gui.tconstruct.melting.used": "Used:",
+    
     "gui.tconstruct.fluid.kilobucket": "{0} kb",
     "gui.tconstruct.fluid.bucket": "{0} b",
     "gui.tconstruct.fluid.millibucket": "{0} mb",
