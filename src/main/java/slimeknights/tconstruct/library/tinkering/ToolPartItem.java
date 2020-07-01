@@ -22,7 +22,6 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
@@ -31,9 +30,7 @@ import slimeknights.tconstruct.tools.IToolPart;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 public class ToolPartItem extends MaterialItem implements IToolPart {
 
@@ -67,8 +64,8 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
   }
 
   @Override
-  public boolean hasUseForStat(MaterialStatsId stat) {
-    return this.materialStatId.equals(stat);
+  public MaterialStatsId getStatType() {
+    return this.materialStatId;
   }
 
   @Override
@@ -113,19 +110,14 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
   public List<ITextComponent> getTooltipStatsInfo(IMaterial material) {
     ImmutableList.Builder<ITextComponent> builder = ImmutableList.builder();
 
-    Optional<IMaterialStats> materialStat = MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), this.materialStatId);
-    if (materialStat.isPresent()) {
-      IMaterialStats stat = materialStat.get();
-
-      if (this.hasUseForStat(stat.getIdentifier())) {
-        List<ITextComponent> text = stat.getLocalizedInfo();
-        if (!text.isEmpty()) {
-          builder.add(new StringTextComponent(""));
-          builder.add(stat.getLocalizedName().applyTextStyles(TextFormatting.WHITE, TextFormatting.UNDERLINE));
-          builder.addAll(stat.getLocalizedInfo());
-        }
+    MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), this.materialStatId).ifPresent((stat) -> {
+      List<ITextComponent> text = stat.getLocalizedInfo();
+      if (!text.isEmpty()) {
+        builder.add(new StringTextComponent(""));
+        builder.add(stat.getLocalizedName().applyTextStyles(TextFormatting.WHITE, TextFormatting.UNDERLINE));
+        builder.addAll(stat.getLocalizedInfo());
       }
-    }
+    });
 
     return builder.build();
   }
@@ -146,10 +138,6 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
   }
 
   public boolean checkMissingMaterialTooltip(ItemStack stack, List<ITextComponent> tooltip) {
-    return checkMissingMaterialTooltip(stack, tooltip, null);
-  }
-
-  public boolean checkMissingMaterialTooltip(ItemStack stack, List<ITextComponent> tooltip, MaterialStatsId statIdentifier) {
     IMaterial material = this.getMaterial(stack);
 
     if (material == IMaterial.UNKNOWN) {
@@ -163,8 +151,8 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
       }
       return true;
     }
-    else if(!MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), statIdentifier).isPresent()) {
-      tooltip.addAll(LocUtils.getTooltips(Util.translateFormatted("tooltip.part.missing_stats", material.getTranslationKey(), statIdentifier)));
+    else if(!MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), materialStatId).isPresent()) {
+      tooltip.addAll(LocUtils.getTooltips(Util.translateFormatted("tooltip.part.missing_stats", material.getTranslationKey(), materialStatId)));
     }
 
     return false;

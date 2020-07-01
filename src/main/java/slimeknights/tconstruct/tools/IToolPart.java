@@ -18,5 +18,9 @@ public interface IToolPart extends IMaterialItem {
     return canUseMaterial(mat);
   }
 
-  boolean hasUseForStat(MaterialStatsId stat);
+  /**
+   * Gets the stat type for the given item, limits which materials are supported
+   * @return  Stat type for the given item
+   */
+  public MaterialStatsId getStatType();
 }
