@@ -18,9 +18,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
-import slimeknights.mantle.block.InventoryBlock;
 
-public abstract class TableBlock extends InventoryBlock implements IWaterLoggable {
+public abstract class TableBlock extends GuiInventoryBlock implements IWaterLoggable {
 
   protected static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
   protected static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
