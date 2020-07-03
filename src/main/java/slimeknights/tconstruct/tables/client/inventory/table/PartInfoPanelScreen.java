@@ -16,30 +16,59 @@ import java.util.ListIterator;
 
 public class PartInfoPanelScreen extends InfoPanelScreen {
 
-  protected String patternCost;
-  protected String materialValue;
-
+  private String patternCost;
+  private String materialValue;
   public PartInfoPanelScreen(MultiModuleScreen parent, Container container, PlayerInventory playerInventory, ITextComponent title) {
     super(parent, container, playerInventory, title);
     this.patternCost = "";
     this.materialValue = "";
   }
 
-  public void setPatternCost(String patternCost) {
-    this.patternCost = patternCost;
+  /* Pattern cost */
+
+  /**
+   * Clears the pattern cost text
+   */
+  public void clearPatternCost() {
+    this.patternCost = "";
     this.updateSliderParameters();
   }
 
-  public boolean hasPatternCost() {
+  /**
+   * Sets the pattern cost
+   * @param cost  Pattern cost
+   */
+  public void setPatternCost(int cost) {
+    this.patternCost = new TranslationTextComponent("gui.tconstruct.part_builder.cost", cost).getFormattedText();
+    this.updateSliderParameters();
+  }
+
+  /** If true, has pattern cost text */
+  private boolean hasPatternCost() {
     return this.patternCost != null && !this.patternCost.isEmpty();
   }
 
-  public void setMaterialValue(String materialValue) {
-    this.materialValue = materialValue;
+  /* Material value */
+
+  /**
+   * Sets the material value
+   * @param value  Value text
+   */
+  public void setMaterialValue(ITextComponent value) {
+    this.materialValue = new TranslationTextComponent("gui.tconstruct.part_builder.material_value", value).getFormattedText();
+    this.updateSliderParameters();;
+  }
+
+  /**
+   * Clears the material value
+   */
+  public void clearMaterialValue() {
+    this.materialValue = "";
     this.updateSliderParameters();
   }
 
-  public boolean hasMaterialValue() {
+  /** If true, has material value text */
+  private boolean hasMaterialValue() {
     return this.materialValue != null && !this.materialValue.isEmpty();
   }
 

@@ -9,14 +9,13 @@ import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.crash.ReportedException;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
@@ -24,7 +23,6 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
 import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
@@ -35,13 +33,11 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
 
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/partbuilder.png");
 
+  /** Part builder side panel */
   protected PartInfoPanelScreen infoPanelScreen;
-
+  /** Current scrollbar position */
   private float sliderProgress = 0.0F;
-
-  /**
-   * Is {@code true} if the player clicked on the scroll wheel in the GUI.
-   */
+  /** Is {@code true} if the player clicked on the scroll wheel in the GUI */
   private boolean clickedOnScrollBar;
 
   /**
@@ -65,125 +61,22 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     this.drawBackground(BACKGROUND);
 
     // draw slot icons
-    this.drawIconEmpty(this.container.getSlot(1), Icons.PATTERN);
-    this.drawIconEmpty(this.container.getSlot(2), Icons.INGOT);
+    this.drawIconEmpty(this.container.getPatternSlot(), Icons.PATTERN);
+    this.drawIconEmpty(this.container.getInputSlot(), Icons.INGOT);
 
+    // draw scrollbar
     this.minecraft.getTextureManager().bindTexture(BACKGROUND);
-
     this.blit(this.cornerX + 126, this.cornerY + 15 + (int) (41.0F * this.sliderProgress), 176 + (this.canScroll() ? 0 : 12), 0, 12, 15);
-    this.drawRecipesBackground(mouseX, mouseY, this.cornerX + 51, this.cornerY + 15, this.recipeIndexOffset + 12);
-    this.drawRecipesItems(this.cornerX + 51, this.cornerY + 15, this.recipeIndexOffset + 12);
+    this.drawRecipesBackground(mouseX, mouseY, this.cornerX + 51, this.cornerY + 15);
+    this.drawRecipesItems(this.cornerX + 51, this.cornerY + 15);
 
     super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
   }
 
-  @Override
-  public void updateDisplay() {
-    this.hasPatternInPatternSlot = this.container.hasPatternInPatternSlot();
-
-    if (!this.hasPatternInPatternSlot) {
-      this.sliderProgress = 0.0F;
-      this.recipeIndexOffset = 0;
-    }
-
-    ItemStack output = this.container.getSlot(0).getStack();
-
-    PartRecipe partRecipe = this.container.getPartRecipe();
-    if (partRecipe != null) {
-      this.infoPanelScreen.setPatternCost(new TranslationTextComponent("gui.tconstruct.part_builder.cost", partRecipe.getCost()).getFormattedText());
-    } else {
-      this.infoPanelScreen.setPatternCost("");
-    }
-
-    if (!output.isEmpty()) {
-      if (output.getItem() instanceof IMaterialItem) {
-        IMaterialItem materialItem = (IMaterialItem) output.getItem();
-        IMaterial material = IMaterialItem.getMaterialFromStack(output);
-
-        if(!materialItem.canUseMaterial(material)) {
-          String materialName = material.getEncodedTextColor() + new TranslationTextComponent(material.getTranslationKey()).getFormattedText() + TextFormatting.WHITE;
-          String error = new TranslationTextComponent("gui.tconstruct.error.useless_tool_part", materialName, output.getDisplayName()).getFormattedText();
-          this.warning(error);
-        }
-        // Material is OK, display material properties
-        else {
-          this.setDisplayForMaterial(material);
-        }
-      }
-    } else {
-      MaterialRecipe materialRecipe = this.container.getMaterialRecipe();
-
-      if (materialRecipe != null) {
-        IMaterial material = materialRecipe.getMaterial();
-
-        this.setDisplayForMaterial(material);
-      } else {
-        this.infoPanelScreen.setCaption(this.getTitle().getFormattedText());
-        this.infoPanelScreen.setText(new TranslationTextComponent("gui.tconstruct.part_builder.info").getFormattedText());
-        this.infoPanelScreen.setMaterialValue("");
-      }
-    }
-  }
-
-  @Override
-  public void error(String message) {
-    this.infoPanelScreen.setCaption(new TranslationTextComponent("gui.tconstruct.error").getFormattedText());
-    this.infoPanelScreen.setText(message);
-  }
-
-  @Override
-  public void warning(String message) {
-    this.infoPanelScreen.setCaption(new TranslationTextComponent("gui.tconstruct.warning").getFormattedText());
-    this.infoPanelScreen.setText(message);
-  }
-
-  protected void setDisplayForMaterial(IMaterial material) {
-    this.infoPanelScreen.setCaption(material.getEncodedTextColor() + new TranslationTextComponent(material.getTranslationKey()).getFormattedText());
-
-    List<ITextComponent> stats = Lists.newLinkedList();
-    List<ITextComponent> tips = Lists.newArrayList();
-
-    MaterialRecipe materialRecipe = this.container.getMaterialRecipe();
-
-    if (materialRecipe != null) {
-      int totalValue = this.container.getSlot(2).getStack().getCount() * materialRecipe.getValue();
-      float needed = totalValue / (float) materialRecipe.getNeeded();
-      String amount = Util.df.format(needed);
-
-      PartRecipe partRecipe = this.container.getPartRecipe();
-      if (partRecipe != null) {
-        if (needed < partRecipe.getCost()) {
-          amount = TextFormatting.DARK_RED + amount + TextFormatting.RESET;
-        }
-      }
-
-      this.infoPanelScreen.setMaterialValue(new TranslationTextComponent("gui.tconstruct.part_builder.material_value", amount).getFormattedText());
-    }
-
-    for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
-      List<ITextComponent> info = stat.getLocalizedInfo();
-
-      if (info != null && !info.isEmpty()) {
-        stats.add(stat.getLocalizedName().applyTextStyle(TextFormatting.UNDERLINE));
-        stats.addAll(info);
-        stats.add(new StringTextComponent(""));
-        tips.add(new StringTextComponent(""));
-        tips.addAll(stat.getLocalizedDescriptions());
-        tips.add(new StringTextComponent(""));
-      }
-    }
-
-    if (!stats.isEmpty() && stats.get(stats.size() - 1).getFormattedText().isEmpty()) {
-      // last empty line
-      stats.remove(stats.size() - 1);
-      tips.remove(tips.size() - 1);
-    }
-
-    this.infoPanelScreen.setText(stats, tips);
-  }
-
-  private void drawRecipesBackground(int mouseX, int mouseY, int left, int top, int recipeIndexOffsetMax) {
-    for (int i = this.recipeIndexOffset; i < recipeIndexOffsetMax && i < this.getPartRecipeCount(); ++i) {
+  /** Draw backgrounds for all patterns */
+  private void drawRecipesBackground(int mouseX, int mouseY, int left, int top) {
+    int max = Math.min(this.recipeIndexOffset + 12, this.getPartRecipeCount());
+    for (int i = this.recipeIndexOffset; i < max; ++i) {
       int relative = i - this.recipeIndexOffset;
       int x = left + relative % 4 * 18;
       int y = top + (relative / 4) * 18;
@@ -197,10 +90,11 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     }
   }
 
-  private void drawRecipesItems(int left, int top, int recipeIndexOffsetMax) {
+  /** Draw slot icons for all patterns */
+  private void drawRecipesItems(int left, int top) {
     List<PartRecipe> list = this.container.getPartRecipes();
-
-    for (int i = this.recipeIndexOffset; i < recipeIndexOffsetMax && i < this.getPartRecipeCount(); ++i) {
+    int max = Math.min(this.recipeIndexOffset + 12, this.getPartRecipeCount());
+    for (int i = this.recipeIndexOffset; i < max; ++i) {
       int relative = i - this.recipeIndexOffset;
       int x = left + relative % 4 * 18 + 1;
       int y = top + (relative / 4) * 18 + 1;
@@ -221,6 +115,82 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
       }
     }
   }
+
+  @Override
+  public void updateDisplay() {
+    // update slider
+    this.hasPatternInPatternSlot = this.container.hasPatternInPatternSlot();
+    if (!this.hasPatternInPatternSlot) {
+      this.sliderProgress = 0.0F;
+      this.recipeIndexOffset = 0;
+    }
+
+    // update part recipe cost
+    PartRecipe partRecipe = this.container.getPartRecipe();
+    if (partRecipe != null) {
+      this.infoPanelScreen.setPatternCost(partRecipe.getCost());
+    } else {
+      this.infoPanelScreen.clearPatternCost();
+    }
+
+    // update material
+    MaterialRecipe materialRecipe = this.container.getMaterialRecipe();
+    if (materialRecipe != null) {
+      this.setDisplayForMaterial(materialRecipe.getMaterial());
+    } else {
+      // default text
+      this.infoPanelScreen.setCaption(this.getTitle().getFormattedText());
+      this.infoPanelScreen.setText(ForgeI18n.getPattern("gui.tconstruct.part_builder.info"));
+      this.infoPanelScreen.clearMaterialValue();
+    }
+  }
+
+  /**
+   * Updates the data in the material display
+   * @param material  New materia
+   */
+  private void setDisplayForMaterial(IMaterial material) {
+    this.infoPanelScreen.setCaption(material.getEncodedTextColor() + ForgeI18n.getPattern(material.getTranslationKey()));
+
+    // determine how much material we have
+    MaterialRecipe materialRecipe = this.container.getMaterialRecipe();
+    if (materialRecipe != null) {
+      // get exact number of material, rather than rounded
+      float value = materialRecipe.getMaterialValue(this.container.getCraftInventory());
+      ITextComponent formatted = new StringTextComponent(Util.df.format(value));
+
+      // if we have a part recipe, mark material red when not enough
+      PartRecipe partRecipe = this.container.getPartRecipe();
+      if (partRecipe != null && value < partRecipe.getCost()) {
+        formatted = formatted.applyTextStyle(TextFormatting.DARK_RED);
+      }
+      this.infoPanelScreen.setMaterialValue(formatted);
+    }
+
+    // update stats and traits
+    List<ITextComponent> stats = Lists.newLinkedList();
+    List<ITextComponent> tips = Lists.newArrayList();
+    for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
+      List<ITextComponent> info = stat.getLocalizedInfo();
+      if (!info.isEmpty()) {
+        stats.add(stat.getLocalizedName().applyTextStyle(TextFormatting.UNDERLINE));
+        stats.addAll(info);
+        stats.add(new StringTextComponent(""));
+        tips.add(new StringTextComponent(""));
+        tips.addAll(stat.getLocalizedDescriptions());
+        tips.add(new StringTextComponent(""));
+      }
+    }
+    // remove last line if empty
+    if (!stats.isEmpty() && stats.get(stats.size() - 1).getFormattedText().isEmpty()) {
+      stats.remove(stats.size() - 1);
+      tips.remove(tips.size() - 1);
+    }
+    this.infoPanelScreen.setText(stats, tips);
+  }
+
+
+  /* Scrollbar logic */
 
   @Override
   public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
@@ -282,9 +252,8 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
 
     if (this.canScroll()) {
       int i = this.getHiddenRows();
-      this.sliderProgress = (float) ((double) this.sliderProgress - delta / (double) i);
-      this.sliderProgress = MathHelper.clamp(this.sliderProgress, 0.0F, 1.0F);
-      this.recipeIndexOffset = (int) ((double) (this.sliderProgress * (float) i) + 0.5D) * 4;
+      this.sliderProgress = MathHelper.clamp((float) (this.sliderProgress - delta / i), 0.0F, 1.0F);
+      this.recipeIndexOffset = (int) ((this.sliderProgress * (float) i) + 0.5f) * 4;
     }
 
     return true;
@@ -299,16 +268,36 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     return super.mouseReleased(mouseX, mouseY, state);
   }
 
+
+  /* Update error logic */
+
+  @Override
+  public void error(String message) {
+    this.infoPanelScreen.setCaption(ForgeI18n.getPattern("gui.tconstruct.error"));
+    this.infoPanelScreen.setText(message);
+  }
+
+  @Override
+  public void warning(String message) {
+    this.infoPanelScreen.setCaption(ForgeI18n.getPattern("gui.tconstruct.warning"));
+    this.infoPanelScreen.setText(message);
+  }
+
+
+  /* Helpers */
+
   /** Gets the number of part recipes */
   private int getPartRecipeCount() {
     return container.getPartRecipes().size();
   }
 
+  /** If true, we can scroll */
   private boolean canScroll() {
     return this.hasPatternInPatternSlot && this.getPartRecipeCount() > 12;
   }
 
-  protected int getHiddenRows() {
+  /** Gets the number of hidden part recipe rows */
+  private int getHiddenRows() {
     return (this.getPartRecipeCount() + 4 - 1) / 4 - 3;
   }
 }

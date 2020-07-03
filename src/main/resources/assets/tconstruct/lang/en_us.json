@@ -634,7 +634,7 @@
 
     "gui.tconstruct.part_builder": "Part Builder",
     "gui.tconstruct.part_builder.info": "Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put a blank pattern into the left slot and select the part you want. The remaining slot hold the material you want to craft your part out of.",
-    "gui.tconstruct.part_builder.material_value": "Material Value: %s",
+    "gui.tconstruct.part_builder.material_value": "Material value: %s",
     "gui.tconstruct.part_builder.cost": "Pattern cost: %s",
 
     "gui.tconstruct.part_crafter": "Part Crafter",
