@@ -4,11 +4,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -25,7 +23,6 @@ import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
-import slimeknights.tconstruct.library.tinkering.ToolPartItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 
@@ -45,28 +42,6 @@ public class ToolClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void clientSetupEvent(FMLClientSetupEvent event) {
     RenderingRegistry.registerEntityRenderingHandler(TinkerTools.indestructibleItem.get(), manager -> new ItemRenderer(manager, Minecraft.getInstance().getItemRenderer()));
-  }
-
-  @SubscribeEvent
-  static void modelRegistry(ModelRegistryEvent event) {
-    registerGuiPart(TinkerToolParts.pickaxeHead);
-    registerGuiPart(TinkerToolParts.hammerHead);
-    registerGuiPart(TinkerToolParts.shovelHead);
-    registerGuiPart(TinkerToolParts.swordBlade);
-    registerGuiPart(TinkerToolParts.smallBinding);
-    registerGuiPart(TinkerToolParts.wideGuard);
-    registerGuiPart(TinkerToolParts.largePlate);
-    registerGuiPart(TinkerToolParts.toolRod);
-    registerGuiPart(TinkerToolParts.toughToolRod);
-  }
-
-  /**
-   * Registers a part model for the GUI
-   * @param itemSup  Material item model supplier
-   */
-  private static void registerGuiPart(Supplier<ToolPartItem> itemSup) {
-    ResourceLocation location = itemSup.get().getRegistryName();
-    ModelLoader.addSpecialModel(new ResourceLocation(location.getNamespace(), "gui/part/" + location.getPath()));
   }
 
   @SubscribeEvent

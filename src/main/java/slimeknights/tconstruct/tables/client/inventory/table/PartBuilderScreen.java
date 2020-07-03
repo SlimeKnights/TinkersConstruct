@@ -3,12 +3,9 @@ package slimeknights.tconstruct.tables.client.inventory.table;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.crash.CrashReport;
-import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ReportedException;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
@@ -28,6 +25,7 @@ import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderCon
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity, PartBuilderContainer> {
 
@@ -92,28 +90,25 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
 
   /** Draw slot icons for all patterns */
   private void drawRecipesItems(int left, int top) {
+    // use block texture list
+    this.minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+    Function<ResourceLocation, TextureAtlasSprite> spriteGetter = this.minecraft.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+    // iterate all recipes
     List<PartRecipe> list = this.container.getPartRecipes();
     int max = Math.min(this.recipeIndexOffset + 12, this.getPartRecipeCount());
     for (int i = this.recipeIndexOffset; i < max; ++i) {
       int relative = i - this.recipeIndexOffset;
       int x = left + relative % 4 * 18 + 1;
       int y = top + (relative / 4) * 18 + 1;
-
+      // get the sprite for the pattern and draw
       PartRecipe recipe = list.get(i);
       ResourceLocation pattern = recipe.getPattern();
-      try {
-        // render the GUI model for the pattern
-        ItemRenderer renderer = this.minecraft.getItemRenderer();
-        renderer.zLevel += 50.0F;
-        IBakedModel model = this.minecraft.getModelManager().getModel(new ResourceLocation(pattern.getNamespace(), "gui/part/" + pattern.getPath()));
-        renderer.renderItemModelIntoGUI(recipe.getRecipeOutput(), x, y, model);
-      } catch (Throwable throwable) {
-        CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Rendering item model");
-        CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being rendered");
-        crashreportcategory.addDetail("Item Model", () -> String.valueOf(pattern));
-        throw new ReportedException(crashreport);
-      }
+      TextureAtlasSprite sprite = spriteGetter.apply(new ResourceLocation(pattern.getNamespace(), "gui/tinker_pattern/" + pattern.getPath()));
+      blit(x, y, 100, 16, 16, sprite);
     }
+  }
+
+  private void drawIcon(ResourceLocation name) {
   }
 
   @Override

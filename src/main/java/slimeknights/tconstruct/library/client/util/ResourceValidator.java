@@ -18,7 +18,7 @@ public class ResourceValidator implements IEarlySelectiveReloadListener, Predica
   private final String folder;
   private final int trim;
   private final String extension;
-  private Set<ResourceLocation> resources;
+  protected Set<ResourceLocation> resources;
 
   /**
    * Gets a resource validator instance
