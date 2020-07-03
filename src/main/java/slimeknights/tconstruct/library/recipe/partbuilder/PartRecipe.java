@@ -1,21 +1,38 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
-import net.minecraft.inventory.IInventory;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-public class PartRecipe implements IRecipe<IInventory> {
+import javax.annotation.Nullable;
+import java.util.Optional;
+
+@AllArgsConstructor
+public class PartRecipe implements IRecipe<IPartBuilderInventory> {
+  @Getter
   protected final ResourceLocation id;
+  @Getter
   protected final String group;
+  @Getter
   protected final ResourceLocation pattern;
+  /** Recipe material cost */
+  @Getter
   protected final int cost;
+  /** Normal recipe result, with no material */
   protected final ItemStack output;
+  // TODO: should proably not be nullable
+  @Nullable
+  protected final IMaterialItem materialItem;
 
   public PartRecipe(ResourceLocation id, String group, ResourceLocation pattern, int cost, ItemStack output) {
     this.id = id;
@@ -23,16 +40,14 @@ public class PartRecipe implements IRecipe<IInventory> {
     this.pattern = pattern;
     this.cost = cost;
     this.output = output;
+    this.materialItem = (IMaterialItem)Optional.of(output.getItem())
+                                               .filter(item -> item instanceof IMaterialItem)
+                                               .orElse(null);
   }
 
   @Override
   public IRecipeType<?> getType() {
     return RecipeTypes.PART_BUILDER;
-  }
-
-  @Override
-  public ResourceLocation getId() {
-    return this.id;
   }
 
   @Override
@@ -46,55 +61,68 @@ public class PartRecipe implements IRecipe<IInventory> {
   }
 
   /**
-   * Used to check if a recipe matches current crafting inventory
+   * Checks if the recipe supports the given pattern, used to filter out the button list
+   * @param inv  Inventory instance
+   * @return  True if the recipe matches the given pattern
    */
-  @Override
-  public boolean matches(IInventory inv, World worldIn) {
-    return inv.getStackInSlot(1).getItem() == TinkerTables.pattern.get();
+  public boolean matchesPattern(IPartBuilderInventory inv) {
+    return inv.getPatternStack().getItem() == TinkerTables.pattern.get();
   }
 
   /**
-   * Recipes with equal group are combined into one button in the recipe book
+   * Checks if the recipe is valid for the given input. Assumes {@link #matchesPattern(IPartBuilderInventory)} is true
+   * @param inv    Inventory instance
+   * @param world  World instance
+   * @return  True if this recipe matches
    */
   @Override
-  public String getGroup() {
-    return this.group;
+  public boolean matches(IPartBuilderInventory inv, World world) {
+    // TODO: fix this in the JSON parser
+    if (materialItem == null) {
+      return true;
+    }
+
+    // must have a material
+    MaterialRecipe materialRecipe = inv.getMaterial();
+    if (materialRecipe != null) {
+      // material must be craftable, usable in the item, and have a cost we can afford
+      IMaterial material = materialRecipe.getMaterial();
+      return material.isCraftable() && materialItem.canUseMaterial(material)
+             && inv.getStack().getCount() >= materialRecipe.getItemsUsed(cost);
+    }
+    return false;
   }
 
   /**
-   * Used to determine if this recipe can fit in a grid of the given width/height
+   * Gets the number of material items consumed by this recipe
+   * @param inv  Crafting inventory
+   * @return  Number of items consumed
    */
-  @Override
-  public boolean canFit(int width, int height) {
-    return true;
+  public int getItemsUsed(IPartBuilderInventory inv) {
+    return Optional.ofNullable(inv.getMaterial())
+                   .map(mat -> mat.getItemsUsed(cost))
+                   .orElse(1);
   }
 
-  /**
-   * Get the result of this recipe, usually for display purposes (e.g. recipe book). If your recipe has more than one
-   * possible result (e.g. it's dynamic and depends on its inputs), then return an empty stack.
-   */
   @Override
   public ItemStack getRecipeOutput() {
     return this.output;
   }
 
-  /**
-   * Returns an Item that is the result of this recipe
-   */
   @Override
-  public ItemStack getCraftingResult(IInventory inv) {
+  public ItemStack getCraftingResult(IPartBuilderInventory inv) {
+    if (materialItem != null) {
+      MaterialRecipe materialRecipe = inv.getMaterial();
+      if (materialRecipe != null) {
+        return materialItem.getItemstackWithMaterial(materialRecipe.getMaterial());
+      }
+    }
     return this.output.copy();
   }
 
-  public int getCost() {
-    return this.cost;
-  }
-
-  public ResourceLocation getPattern() {
-    return this.pattern;
-  }
-
-  public ItemStack getCraftingResult() {
-    return this.output.copy();
+  /* Required methods */
+  @Override
+  public boolean canFit(int width, int height) {
+    return true;
   }
 }

@@ -2,14 +2,9 @@ package slimeknights.tconstruct.library.tools;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Streams;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
-import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
@@ -17,8 +12,6 @@ import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.library.tools.nbt.ToolItemNBT;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,52 +55,6 @@ public final class ToolBuildHandler {
 
   private static boolean canBeBuiltFromParts(NonNullList<ItemStack> stacks, List<PartMaterialRequirement> requiredComponents) {
     return Streams.zip(requiredComponents.stream(), stacks.stream(), PartMaterialRequirement::isValid).allMatch(Boolean::booleanValue);
-  }
-
-  public static ItemStack tryToBuildToolPart(@Nonnull PartRecipe partRecipe, @Nullable MaterialRecipe materialRecipe, ItemStack patternStack, ItemStack materialStack, boolean removeItems) throws TinkerGuiException {
-    Item part = partRecipe.getCraftingResult().getItem();
-
-    if (part == null || !(part instanceof IMaterialItem)) {
-      throw new TinkerGuiException(new TranslationTextComponent("gui.tconstruct.error.invalid_pattern").getFormattedText());
-    }
-
-    if (materialRecipe != null) {
-      IMaterial material = materialRecipe.getMaterial();
-
-      if (material == IMaterial.UNKNOWN) {
-        throw new TinkerGuiException(new TranslationTextComponent("gui.tconstruct.error.unknown_material").getFormattedText());
-      }
-
-      int itemCount = 1;
-
-      int neededMaterial = partRecipe.getCost();
-      float costPerPart = materialRecipe.getValue() / (float) materialRecipe.getNeeded();
-      float currentValue = costPerPart;
-
-      while (currentValue < (float) neededMaterial && itemCount != materialStack.getCount()) {
-        currentValue += costPerPart;
-        itemCount++;
-      }
-
-      ItemStack output = ItemStack.EMPTY;
-
-      if (material.isCraftable() && currentValue >= partRecipe.getCost()) {
-        output = ((IMaterialItem) part).getItemstackWithMaterial(material);
-
-        if (output.isEmpty()) {
-          output = ItemStack.EMPTY;
-        }
-
-        if (removeItems) {
-          patternStack.shrink(1);
-          materialStack.shrink(itemCount);
-        }
-      }
-
-      return output;
-    } else {
-      throw new TinkerGuiException(new TranslationTextComponent("gui.tconstruct.error.invalid_recipe").getFormattedText());
-    }
   }
 
   private ToolBuildHandler() {

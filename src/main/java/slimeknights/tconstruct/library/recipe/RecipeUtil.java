@@ -15,7 +15,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -37,6 +39,26 @@ public final class RecipeUtil {
     return manager.getRecipes(type).values().stream()
                   .filter(clazz::isInstance)
                   .map(clazz::cast)
+                  .collect(Collectors.toList());
+  }
+
+  /**
+   * Gets a list of recipes for display in a UI list, such as UI buttons. Will be sorted and filtered
+   * @param manager  Recipe manager
+   * @param type     Recipe type
+   * @param clazz    Preferred recipe class type
+   * @param filter   Filter for which recipes to add to the list
+   * @param <I>  Inventory interface type
+   * @param <T>  Recipe class
+   * @param <C>  Return type
+   * @return  Recipe list
+   */
+  public static <I extends IInventory, T extends IRecipe<I>, C extends T> List<C> getUIRecipes(RecipeManager manager, IRecipeType<T> type, Class<C> clazz, Predicate<? super C> filter) {
+    return manager.getRecipes(type).values().stream()
+                  .filter(clazz::isInstance)
+                  .map(clazz::cast)
+                  .filter(filter)
+                  .sorted(Comparator.comparing(IRecipe::getId))
                   .collect(Collectors.toList());
   }
 

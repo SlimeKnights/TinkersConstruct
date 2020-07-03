@@ -26,7 +26,7 @@ import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
-import slimeknights.tconstruct.tables.inventory.table.PartBuilderContainer;
+import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
 import java.util.List;
@@ -88,8 +88,8 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
 
     ItemStack output = this.container.getSlot(0).getStack();
 
-    if (!(this.container.getPartRecipeList().isEmpty()) && this.container.getSelectedPartRecipe() != -1) {
-      PartRecipe partRecipe = this.container.getPartRecipeList().get(this.container.getSelectedPartRecipe());
+    PartRecipe partRecipe = this.container.getPartRecipe();
+    if (partRecipe != null) {
       this.infoPanelScreen.setPatternCost(new TranslationTextComponent("gui.tconstruct.part_builder.cost", partRecipe.getCost()).getFormattedText());
     } else {
       this.infoPanelScreen.setPatternCost("");
@@ -150,9 +150,8 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
       float needed = totalValue / (float) materialRecipe.getNeeded();
       String amount = Util.df.format(needed);
 
-      if (!(this.container.getPartRecipeList().isEmpty()) && this.container.getSelectedPartRecipe() != -1) {
-        PartRecipe partRecipe = this.container.getPartRecipeList().get(this.container.getSelectedPartRecipe());
-
+      PartRecipe partRecipe = this.container.getPartRecipe();
+      if (partRecipe != null) {
         if (needed < partRecipe.getCost()) {
           amount = TextFormatting.DARK_RED + amount + TextFormatting.RESET;
         }
@@ -184,7 +183,7 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
   }
 
   private void drawRecipesBackground(int mouseX, int mouseY, int left, int top, int recipeIndexOffsetMax) {
-    for (int i = this.recipeIndexOffset; i < recipeIndexOffsetMax && i < this.container.getPartRecipeListSize(); ++i) {
+    for (int i = this.recipeIndexOffset; i < recipeIndexOffsetMax && i < this.getPartRecipeCount(); ++i) {
       int relative = i - this.recipeIndexOffset;
       int x = left + relative % 4 * 18;
       int y = top + (relative / 4) * 18;
@@ -199,9 +198,9 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
   }
 
   private void drawRecipesItems(int left, int top, int recipeIndexOffsetMax) {
-    List<PartRecipe> list = this.container.getPartRecipeList();
+    List<PartRecipe> list = this.container.getPartRecipes();
 
-    for (int i = this.recipeIndexOffset; i < recipeIndexOffsetMax && i < this.container.getPartRecipeListSize(); ++i) {
+    for (int i = this.recipeIndexOffset; i < recipeIndexOffsetMax && i < this.getPartRecipeCount(); ++i) {
       int relative = i - this.recipeIndexOffset;
       int x = left + relative % 4 * 18 + 1;
       int y = top + (relative / 4) * 18 + 1;
@@ -234,7 +233,7 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     if (this.hasPatternInPatternSlot) {
       int x = this.cornerX + 51;
       int y = this.cornerY + 15;
-      int maxIndex = Math.min((this.recipeIndexOffset + 12), this.container.getPartRecipeListSize());
+      int maxIndex = Math.min((this.recipeIndexOffset + 12), this.getPartRecipeCount());
       for (int l = this.recipeIndexOffset; l < maxIndex; ++l) {
         int relative = l - this.recipeIndexOffset;
         double buttonX = mouseX - (double) (x + relative % 4 * 18);
@@ -300,11 +299,16 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     return super.mouseReleased(mouseX, mouseY, state);
   }
 
+  /** Gets the number of part recipes */
+  private int getPartRecipeCount() {
+    return container.getPartRecipes().size();
+  }
+
   private boolean canScroll() {
-    return this.hasPatternInPatternSlot && this.container.getPartRecipeListSize() > 12;
+    return this.hasPatternInPatternSlot && this.getPartRecipeCount() > 12;
   }
 
   protected int getHiddenRows() {
-    return (this.container.getPartRecipeListSize() + 4 - 1) / 4 - 3;
+    return (this.getPartRecipeCount() + 4 - 1) / 4 - 3;
   }
 }

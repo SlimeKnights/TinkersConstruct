@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.material;
 
-import net.minecraft.inventory.IInventory;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -13,33 +14,32 @@ import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-public class MaterialRecipe implements IRecipe<IInventory> {
+@AllArgsConstructor
+public class MaterialRecipe implements IRecipe<ISingleItemInventory> {
+  @Getter
   protected final ResourceLocation id;
+  @Getter
   protected final String group;
   protected final Ingredient ingredient;
-  protected final MaterialId materialId;
+  /** Amount of material this recipe returns */
+  @Getter
   protected final int value;
+  /** Amount of input items needed to craft this material */
+  @Getter
   protected final int needed;
+  /** Material returned by this recipe */
+  @Getter
+  // TODO: why store the ID and not the material?
+  protected final MaterialId materialId;
 
-  public MaterialRecipe(ResourceLocation id, String group, Ingredient ingredient, int value, int needed, MaterialId materialId) {
-    this.id = id;
-    this.group = group;
-    this.ingredient = ingredient;
-    this.materialId = materialId;
-    this.value = value;
-    this.needed = needed;
-  }
+  /* Basic */
 
   @Override
   public IRecipeType<?> getType() {
     return RecipeTypes.MATERIAL;
-  }
-
-  @Override
-  public ResourceLocation getId() {
-    return this.id;
   }
 
   @Override
@@ -52,72 +52,74 @@ public class MaterialRecipe implements IRecipe<IInventory> {
     return TinkerTables.materialRecipeSerializer.get();
   }
 
-  /**
-   * Used to check if a recipe matches current crafting inventory
-   */
+  /* Material methods */
+
   @Override
-  public boolean matches(IInventory inv, World worldIn) {
-    return this.ingredient.test(inv.getStackInSlot(0));
+  public boolean matches(ISingleItemInventory inv, World worldIn) {
+    return this.ingredient.test(inv.getStack());
+  }
+
+  @Override
+  public NonNullList<Ingredient> getIngredients() {
+    return NonNullList.from(ingredient);
   }
 
   /**
-   * Recipes with equal group are combined into one button in the recipe book
+   * Returns a material instance for this recipe
+   * @return  Material for the recipe
    */
-  @Override
-  public String getGroup() {
-    return this.group;
+  public IMaterial getMaterial() {
+    return MaterialRegistry.getInstance().getMaterial(this.materialId);
+  }
+
+
+  /**
+   * Gets the amount of material present in the inventory as a float for display
+   * @param inv  Inventory reference
+   * @return  Number of material present as a float
+   */
+  public float getMaterialValue(ISingleItemInventory inv) {
+    return inv.getStack().getCount() * this.value / (float)this.needed;
   }
 
   /**
-   * Used to determine if this recipe can fit in a grid of the given width/height
+   * Gets the number of items in order to craft a material with the given cost
+   * @param itemCost  Cost of the item being crafted
+   * @return  Number of the input to consume
+   */
+  public int getItemsUsed(int itemCost) {
+    int needed = itemCost * this.needed;
+    int cost = needed / this.value;
+    if (needed % this.value != 0) {
+      cost++;
+    }
+    return cost;
+  }
+
+  /**
+   * Gets the number of leftover material from crafting a part with this material
+   * @param itemCost  Cost of the item being crafted
+   * @return  Number of input to consume
+   */
+  public int getRemainder(int itemCost) {
+    return itemCost * this.needed % this.value;
+  }
+
+  /*
+   * Required methods
    */
   @Override
   public boolean canFit(int width, int height) {
     return true;
   }
 
-  /**
-   * Get the result of this recipe, usually for display purposes (e.g. recipe book). If your recipe has more than one
-   * possible result (e.g. it's dynamic and depends on its inputs), then return an empty stack.
-   */
   @Override
   public ItemStack getRecipeOutput() {
     return ItemStack.EMPTY;
   }
 
-  /**
-   * Returns an Item that is the result of this recipe
-   */
   @Override
-  public ItemStack getCraftingResult(IInventory inv) {
+  public ItemStack getCraftingResult(ISingleItemInventory inv) {
     return ItemStack.EMPTY;
-  }
-
-  @Override
-  public NonNullList<Ingredient> getIngredients() {
-    NonNullList<Ingredient> ingredients = NonNullList.create();
-    ingredients.add(this.ingredient);
-    return ingredients;
-  }
-
-  /**
-   * Returns the material id for this recipe
-   *
-   * @return the material id
-   */
-  public MaterialId getMaterialId() {
-    return this.materialId;
-  }
-
-  public IMaterial getMaterial() {
-    return MaterialRegistry.getInstance().getMaterial(this.materialId);
-  }
-
-  public int getValue() {
-    return this.value;
-  }
-
-  public int getNeeded() {
-    return this.needed;
   }
 }
