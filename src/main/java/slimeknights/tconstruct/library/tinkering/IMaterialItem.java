@@ -1,12 +1,13 @@
 package slimeknights.tconstruct.library.tinkering;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IItemProvider;
 import slimeknights.tconstruct.library.materials.IMaterial;
 
 /**
  * Items implementing this interface contain a material
  */
-public interface IMaterialItem {
+public interface IMaterialItem extends IItemProvider {
   /**
    * Returns the material of the part this itemstack holds.
    *

@@ -14,7 +14,6 @@ import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-import javax.annotation.Nullable;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -28,22 +27,10 @@ public class PartRecipe implements IRecipe<IPartBuilderInventory> {
   /** Recipe material cost */
   @Getter
   protected final int cost;
-  /** Normal recipe result, with no material */
-  protected final ItemStack output;
-  // TODO: should proably not be nullable
-  @Nullable
-  protected final IMaterialItem materialItem;
-
-  public PartRecipe(ResourceLocation id, String group, ResourceLocation pattern, int cost, ItemStack output) {
-    this.id = id;
-    this.group = group;
-    this.pattern = pattern;
-    this.cost = cost;
-    this.output = output;
-    this.materialItem = (IMaterialItem)Optional.of(output.getItem())
-                                               .filter(item -> item instanceof IMaterialItem)
-                                               .orElse(null);
-  }
+  /** Recipe result, used to fetch a material */
+  protected final IMaterialItem output;
+  /** Count for the recipe output */
+  protected final int outputCount;
 
   @Override
   public IRecipeType<?> getType() {
@@ -77,17 +64,12 @@ public class PartRecipe implements IRecipe<IPartBuilderInventory> {
    */
   @Override
   public boolean matches(IPartBuilderInventory inv, World world) {
-    // TODO: fix this in the JSON parser
-    if (materialItem == null) {
-      return true;
-    }
-
     // must have a material
     MaterialRecipe materialRecipe = inv.getMaterial();
     if (materialRecipe != null) {
       // material must be craftable, usable in the item, and have a cost we can afford
       IMaterial material = materialRecipe.getMaterial();
-      return material.isCraftable() && materialItem.canUseMaterial(material)
+      return material.isCraftable() && output.canUseMaterial(material)
              && inv.getStack().getCount() >= materialRecipe.getItemsUsed(cost);
     }
     return false;
@@ -104,20 +86,32 @@ public class PartRecipe implements IRecipe<IPartBuilderInventory> {
                    .orElse(1);
   }
 
+  /** @deprecated use {@link #getRecipeOutput(IMaterial)} */
+  @Deprecated
   @Override
   public ItemStack getRecipeOutput() {
-    return this.output;
+    return new ItemStack(output);
+  }
+
+  /**
+   * Gets the output of the recipe for display
+   * @param material  Material to use
+   * @return  Output of the recipe
+   */
+  public ItemStack getRecipeOutput(IMaterial material) {
+    ItemStack stack = output.getItemstackWithMaterial(material);
+    stack.setCount(outputCount);
+    return stack;
   }
 
   @Override
   public ItemStack getCraftingResult(IPartBuilderInventory inv) {
-    if (materialItem != null) {
-      MaterialRecipe materialRecipe = inv.getMaterial();
-      if (materialRecipe != null) {
-        return materialItem.getItemstackWithMaterial(materialRecipe.getMaterial());
-      }
+    IMaterial material = IMaterial.UNKNOWN;
+    MaterialRecipe materialRecipe = inv.getMaterial();
+    if (materialRecipe != null) {
+      material = materialRecipe.getMaterial();
     }
-    return this.output.copy();
+    return this.getRecipeOutput(material);
   }
 
   /* Required methods */
