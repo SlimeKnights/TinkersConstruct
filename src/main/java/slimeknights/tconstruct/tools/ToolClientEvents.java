@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -25,6 +26,7 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.tables.client.inventory.library.ToolBuildScreenInfo;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -42,6 +44,8 @@ public class ToolClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void clientSetupEvent(FMLClientSetupEvent event) {
     RenderingRegistry.registerEntityRenderingHandler(TinkerTools.indestructibleItem.get(), manager -> new ItemRenderer(manager, Minecraft.getInstance().getItemRenderer()));
+
+    registerToolBuildInformation();
   }
 
   @SubscribeEvent
@@ -50,6 +54,7 @@ public class ToolClientEvents extends ClientEventBase {
 
     // tint tool textures for fallback
     registerToolItemColors(colors, TinkerTools.pickaxe);
+    registerToolItemColors(colors, TinkerTools.broadSword);
 
     // tint tool part textures for fallback
     registerMaterialItemColors(colors, TinkerToolParts.pickaxeHead);
@@ -102,5 +107,23 @@ public class ToolClientEvents extends ClientEventBase {
    */
   private static void registerToolItemColors(ItemColors colors, Supplier<? extends ToolCore> item) {
     colors.register(toolColorHandler, item.get());
+  }
+
+  private static void registerToolBuildInformation() {
+    ToolBuildScreenInfo info;
+
+    // pickaxe
+    info = new ToolBuildScreenInfo(new ItemStack(TinkerTools.pickaxe.get()));
+    info.addSlotPosition(53, 22); // pick head
+    info.addSlotPosition(15, 60); // rod
+    info.addSlotPosition(33, 42); // binding
+    ToolRegistry.addToolBuilding(info);
+
+    // broad sword
+    info = new ToolBuildScreenInfo(new ItemStack(TinkerTools.broadSword.get()));
+    info.addSlotPosition(48, 26); // blade
+    info.addSlotPosition(12, 62); // handle
+    info.addSlotPosition(30, 44); // guard
+    ToolRegistry.addToolBuilding(info);
   }
 }

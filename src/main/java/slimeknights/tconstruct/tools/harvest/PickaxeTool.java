@@ -3,12 +3,10 @@ package slimeknights.tconstruct.tools.harvest;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-
-import java.util.List;
+import slimeknights.tconstruct.tools.ToolRegistry;
 
 public class PickaxeTool extends ToolCore {
 
@@ -23,14 +21,12 @@ public class PickaxeTool extends ToolCore {
 
   public PickaxeTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
+
+    ToolRegistry.registerToolCrafting(this);
   }
 
   @Override
   public boolean isEffective(BlockState state) {
     return effective_materials.contains(state.getMaterial()) || PickaxeItem.EFFECTIVE_ON.contains(state.getBlock());
-  }
-
-  @Override
-  public void getTooltip(ItemStack stack, List<String> tooltips) {
   }
 }

@@ -20,6 +20,15 @@ public final class ToolDefinitions {
     ),
     ImmutableSet.of(Category.HARVEST));
 
+  public static final ToolDefinition BROADSWORD = new ToolDefinition(
+    ToolBaseStatDefinitions.BROADSWORD,
+    ImmutableList.of(
+      new PartMaterialRequirement(TinkerToolParts.swordBlade, HeadMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.wideGuard, ExtraMaterialStats.ID)
+    ),
+    ImmutableSet.of(Category.WEAPON));
+
   private ToolDefinitions() {
   }
 }

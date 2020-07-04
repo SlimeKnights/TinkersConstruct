@@ -19,13 +19,14 @@ public class PartMaterialRequirement {
   private final List<MaterialStatsId> neededTypes;
 
   public PartMaterialRequirement(Supplier<? extends Item> part, MaterialStatsId... statIDs) {
-    neededPart = part;
-    neededTypes = ImmutableList.copyOf(statIDs);
+    this.neededPart = part;
+    this.neededTypes = ImmutableList.copyOf(statIDs);
   }
 
   public boolean isValid(ItemStack stack) {
     if (stack.getItem() instanceof IMaterialItem) {
       IMaterialItem toolPart = (IMaterialItem) stack.getItem();
+
       return isValid(stack.getItem(), toolPart.getMaterial(stack));
     }
     return false;
@@ -36,11 +37,11 @@ public class PartMaterialRequirement {
   }
 
   public boolean isValidItem(Item part) {
-    return Objects.equals(part.getRegistryName(), neededPart.get().getRegistryName());
+    return Objects.equals(part.getRegistryName(), this.neededPart.get().getRegistryName());
   }
 
   public boolean isValidMaterial(IMaterial material) {
-    return neededTypes.stream().allMatch(
+    return this.neededTypes.stream().allMatch(
       statsId -> MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), statsId).isPresent()
     );
   }
@@ -50,13 +51,17 @@ public class PartMaterialRequirement {
    * This does NOT mean that a material having this stat is usable, since multiple stats might be required!
    */
   public boolean usesStat(MaterialStatsId statID) {
-    for (MaterialStatsId type : neededTypes) {
+    for (MaterialStatsId type : this.neededTypes) {
       if (type.equals(statID)) {
         return true;
       }
     }
 
     return false;
+  }
+
+  public Item getPossiblePart() {
+    return this.neededPart.get();
   }
 //
 //  public Collection<ITrait> getApplicableTraitsForMaterial(Material material) {
@@ -78,9 +83,6 @@ public class PartMaterialRequirement {
 //    return traits.build();
 //  }
 //
-//  public Set<IToolPart> getPossibleParts() {
-//    return ImmutableSet.of(neededPart);
-//  }
   // todo: readd
 /*
   public static PartMaterialType head(IToolPart part) {

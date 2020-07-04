@@ -361,12 +361,15 @@
 
     "block.tconstruct.pattern_chest": "Pattern Chest",
     "block.tconstruct.pattern_chest.tooltip": "Holds either patterns or casts",
+
+    "block.tconstruct.tool_station": "Tool Station",
     
     "item.tconstruct.pattern": "Pattern",
     
     "_comment": "Tinkers Tools",
     
     "item.tconstruct.pickaxe": "Pickaxe",
+    "item.tconstruct.broad_sword": "Broadsword",
     
     "_comment": "Tinkers Tool Parts",
 
@@ -383,6 +386,7 @@
     "_conment": "Tool Descriptions",
 
     "item.tconstruct.pickaxe.description":"The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?",
+    "item.tconstruct.broad_sword.description": "The Broadsword is a universal weapon. Sweep attacks keep enemy hordes at bay.\nAlso good against cobwebs!",
 
     "_comment": "Tinkers Smeltery",
 

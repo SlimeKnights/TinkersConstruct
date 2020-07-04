@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.tinkering;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 
 import java.util.List;
 
@@ -8,22 +9,12 @@ public interface IToolStationDisplay {
 
   /**
    * The "title" displayed in the GUI
-   *
-   * @deprecated Use getLocalizedName for consistency
    */
-  @Deprecated
-  String getLocalizedToolName();
+  ITextComponent getLocalizedName();
 
   /**
-   * The "title" displayed in the GUI
-   */
-  default String getLocalizedName() {
-    return getLocalizedToolName();
-  }
-
-  /**
-   * Returns an List of Strings, where each String represents an information about the tool. Used to display
+   * Returns an List of ITextComponent, where each Text Component represents an information about the tool. Used to display
    * Information about the item in the GUI
    */
-  List<String> getInformation(ItemStack stack);
+  List<ITextComponent> getInformation(ItemStack stack);
 }

@@ -122,4 +122,8 @@ public class MaterialRecipe implements IRecipe<ISingleItemInventory> {
   public ItemStack getCraftingResult(ISingleItemInventory inv) {
     return ItemStack.EMPTY;
   }
+
+  public boolean matches(ItemStack itemStack) {
+    return this.ingredient.test(itemStack);
+  }
 }
