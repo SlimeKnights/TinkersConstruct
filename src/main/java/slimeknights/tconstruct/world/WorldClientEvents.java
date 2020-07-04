@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.world;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.BreakingParticle;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
@@ -8,6 +10,7 @@ import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -15,6 +18,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.library.client.particle.SlimeParticle;
 import slimeknights.tconstruct.library.client.renderer.BlueSlimeRenderer;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
@@ -38,6 +42,11 @@ public class WorldClientEvents extends ClientEventBase {
     manager.addReloadListener(new BlueColorReloadListener());
     manager.addReloadListener(new PurpleColorReloadListener());
     manager.addReloadListener(new OrangeColorReloadListener());
+  }
+
+  @SubscribeEvent
+  static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
+    Minecraft.getInstance().particles.registerFactory(TinkerWorld.slimeParticle.get(), new SlimeParticle.Factory());
   }
 
   @SubscribeEvent

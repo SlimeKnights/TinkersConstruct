@@ -32,8 +32,6 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import slimeknights.tconstruct.common.ClientProxy;
-import slimeknights.tconstruct.common.ServerProxy;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.data.TConstructBlockTagsProvider;
@@ -82,8 +80,6 @@ public class TConstruct {
 
   /* Instance of this mod, used for grabbing prototype fields */
   public static TConstruct instance;
-
-  public static ServerProxy proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
   public TConstruct() {
     instance = this;

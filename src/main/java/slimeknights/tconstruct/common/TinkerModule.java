@@ -6,6 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
@@ -44,6 +45,7 @@ public abstract class TinkerModule {
   protected static final DeferredRegister<Feature<?>> FEATURES = new DeferredRegister<>(ForgeRegistries.FEATURES, TConstruct.modID);
   protected static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = new DeferredRegister<>(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.modID);
   protected static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = new DeferredRegister<>(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.modID);
+  protected static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = new DeferredRegister<ParticleType<?>>(ForgeRegistries.PARTICLE_TYPES, TConstruct.modID);
 
   // base block properties
   protected static final Block.Properties GENERIC_SAND_BLOCK = builder(Material.SAND, ToolType.SHOVEL, SoundType.SAND).hardnessAndResistance(3.0f).slipperiness(0.8F);
@@ -69,6 +71,7 @@ public abstract class TinkerModule {
     FEATURES.register(bus);
     BLOCK_STATE_PROVIDER_TYPES.register(bus);
     RECIPE_SERIALIZERS.register(bus);
+    PARTICLE_TYPES.register(bus);
   }
 
   /**

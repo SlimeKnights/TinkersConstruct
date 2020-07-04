@@ -11,6 +11,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.PlantType;
@@ -127,6 +130,11 @@ public final class TinkerWorld extends TinkerModule {
       .size(2.04F, 2.04F)
       .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.blueSlimeEntity.get().create(world));
   }, 0x47eff5, 0xacfff4);
+
+  /*
+   * Particles
+   */
+  public static final RegistryObject<BasicParticleType> slimeParticle = PARTICLE_TYPES.register("slime",() -> new BasicParticleType(false));
 
   /*
    * Events
