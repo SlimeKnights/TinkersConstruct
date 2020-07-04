@@ -38,7 +38,7 @@ import slimeknights.tconstruct.library.client.materials.IMaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.tinkering.MaterialItem;
+import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.shared.TinkerClient;
 
@@ -159,7 +159,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     public IBakedModel getModelWithOverrides(IBakedModel originalModel, ItemStack stack, @Nullable World world, @Nullable LivingEntity entity) {
       // fetch the material from the stack
       MaterialModel.BakedModel model = (MaterialModel.BakedModel)originalModel;
-      IMaterial material = MaterialItem.getMaterialFromStack(stack);
+      IMaterial material = IMaterialItem.getMaterialFromStack(stack);
       // if no material, try to fetch from the tool model
       if (material == IMaterial.UNKNOWN) {
         // needs to have a valid index

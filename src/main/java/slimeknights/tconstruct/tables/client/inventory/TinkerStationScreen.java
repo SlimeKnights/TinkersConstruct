@@ -65,7 +65,7 @@ public class TinkerStationScreen<TILE extends TileEntity & IInventory, CONTAINER
   }
 
   protected void drawIcon(Slot slot, ElementScreen element) {
-    this.minecraft.getTextureManager().bindTexture(Icons.ICON);
+    this.minecraft.getTextureManager().bindTexture(Icons.ICONS);
     element.draw(slot.xPos + this.cornerX - 1, slot.yPos + this.cornerY - 1);
   }
 

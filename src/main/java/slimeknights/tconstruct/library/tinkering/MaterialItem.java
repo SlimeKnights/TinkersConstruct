@@ -22,14 +22,6 @@ import java.util.Optional;
  */
 public class MaterialItem extends Item implements IMaterialItem {
 
-  public static IMaterial getMaterialFromStack(ItemStack stack) {
-    if ((stack.getItem() instanceof IMaterialItem)) {
-      return ((IMaterialItem) stack.getItem()).getMaterial(stack);
-    }
-
-    return IMaterial.UNKNOWN;
-  }
-
   public MaterialItem(Properties properties) {
     super(properties);
   }
@@ -58,7 +50,9 @@ public class MaterialItem extends Item implements IMaterialItem {
     if (this.isInGroup(group)) {
       if (MaterialRegistry.initialized()) {
         for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
-          items.add(this.getItemstackWithMaterial(material));
+          if (this.canUseMaterial(material)) {
+            items.add(this.getItemstackWithMaterial(material));
+          }
         }
       } else {
         items.add(new ItemStack(this));

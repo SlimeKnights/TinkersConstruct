@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:part_builder",
+  "pattern": "tconstruct:hammer_head",
+  "cost": 8,
+  "output": {
+    "item": "tconstruct:hammer_head"
+  }
+}

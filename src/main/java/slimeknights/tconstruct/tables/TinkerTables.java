@@ -9,6 +9,10 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipeSerializer;
+import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
+import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeSerializer;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.ItemObject;
 import slimeknights.tconstruct.tables.block.TableBlock;
@@ -18,8 +22,8 @@ import slimeknights.tconstruct.tables.block.table.CraftingStationBlock;
 import slimeknights.tconstruct.tables.block.table.PartBuilderBlock;
 import slimeknights.tconstruct.tables.inventory.chest.PartChestContainer;
 import slimeknights.tconstruct.tables.inventory.chest.PatternChestContainer;
-import slimeknights.tconstruct.tables.inventory.table.PartBuilderContainer;
 import slimeknights.tconstruct.tables.inventory.table.crafting.CraftingStationContainer;
+import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
 import slimeknights.tconstruct.tables.tileentity.chest.PartChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.chest.PatternChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
@@ -58,4 +62,10 @@ public final class TinkerTables extends TinkerModule {
   public static final RegistryObject<ContainerType<PartBuilderContainer>> partBuilderContainer = CONTAINERS.register("part_builder", PartBuilderContainer::new);
   public static final RegistryObject<ContainerType<PatternChestContainer>> patternChestContainer = CONTAINERS.register("pattern_chest", PatternChestContainer::new);
   public static final RegistryObject<ContainerType<PartChestContainer>> partChestContainer = CONTAINERS.register("part_chest", PartChestContainer::new);
+
+  /*
+   * Recipes
+   */
+  public static final RegistryObject<PartRecipeSerializer<PartRecipe>> partRecipeSerializer = RECIPE_SERIALIZERS.register("part_builder", () -> new PartRecipeSerializer<>(PartRecipe::new));
+  public static final RegistryObject<MaterialRecipeSerializer<MaterialRecipe>> materialRecipeSerializer = RECIPE_SERIALIZERS.register("material", () -> new MaterialRecipeSerializer<>(MaterialRecipe::new));
 }

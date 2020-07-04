@@ -39,7 +39,9 @@ public class Config {
 
     public final ForgeConfigSpec.ConfigValue<List<String>> craftingStationBlacklist;
 
-    public final ForgeConfigSpec.BooleanValue allowStencilsToBeReused;
+    public final ForgeConfigSpec.BooleanValue listAllToolMaterials;
+
+    public final ForgeConfigSpec.BooleanValue listAllPartMaterials;
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -80,11 +82,17 @@ public class Config {
         .worldRestart()
         .define("craftingStationBlacklist", new ArrayList<>());
 
-      this.allowStencilsToBeReused = builder
-        .comment("Allows reusing of stencils in the stencil table to turn them into other stencils")
-        .translation("tconstruct.configgui.allowStencilsToBeReused")
+      this.listAllToolMaterials = builder
+        .comment("If true all material variants of the different tools will be listed in creative. Set to false to only have the first found material for all tools (usually wood).")
+        .translation("tconstruct.configgui.listAllToolMaterials")
         .worldRestart()
-        .define("allowStencilsToBeReused", true);
+        .define("listAllToolMaterials", true);
+
+      this.listAllPartMaterials = builder
+        .comment("If true all material variants of the different parts will be listed in creative. Set to false to only have the first found material for all parts (usually wood).")
+        .translation("tconstruct.configgui.listAllPartMaterials")
+        .worldRestart()
+        .define("listAllPartMaterials", true);
 
       builder.pop();
 
@@ -147,6 +155,8 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue renderTableItems;
     public final ForgeConfigSpec.BooleanValue tankFluidModel;
 
+    public final ForgeConfigSpec.BooleanValue extraToolTips;
+
     Client(ForgeConfigSpec.Builder builder) {
       builder.comment("Client only settings").push("client");
 
@@ -172,6 +182,11 @@ public class Config {
          )
         .translation("tconstruct.configgui.tankFluidModel")
         .define("tankFluidModel", false);
+
+      this.extraToolTips = builder
+        .comment("If true tools will show additional info in their tooltips")
+        .translation("tconstruct.configgui.extraToolTips")
+        .define("extraToolTips", true);
 
       builder.pop();
     }

@@ -240,18 +240,18 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
     @Override
     @OnlyIn(Dist.CLIENT)
     public void renderHUDEffect(EffectInstance effect, AbstractGui gui, int x, int y, float z, float alpha) {
-      Minecraft.getInstance().getTextureManager().bindTexture(Icons.ICON);
+      Minecraft.getInstance().getTextureManager().bindTexture(Icons.ICONS);
       ElementScreen element;
 
       switch (effect.getAmplifier()) {
         case 0:
-          element = Icons.ICON_PIGGYBACK_1;
+          element = Icons.PIGGYBACK_1;
           break;
         case 1:
-          element = Icons.ICON_PIGGYBACK_2;
+          element = Icons.PIGGYBACK_2;
           break;
         default:
-          element = Icons.ICON_PIGGYBACK_3;
+          element = Icons.PIGGYBACK_3;
           break;
       }
 

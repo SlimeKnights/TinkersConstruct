@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader
 import slimeknights.tconstruct.library.client.model.MaterialModel;
 import slimeknights.tconstruct.library.client.model.ToolModelLoader;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
@@ -29,8 +30,9 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
-@EventBusSubscriber(modid= TConstruct.modID, value= Dist.CLIENT, bus= Bus.MOD)
+@EventBusSubscriber(modid = TConstruct.modID, value = Dist.CLIENT, bus = Bus.MOD)
 public class ToolClientEvents extends ClientEventBase {
+
   @SubscribeEvent
   static void registerModelLoaders(ModelRegistryEvent event) {
     ModelLoaderRegistry.registerLoader(Util.getResource("tool"), ToolModelLoader.INSTANCE);
@@ -51,31 +53,37 @@ public class ToolClientEvents extends ClientEventBase {
 
     // tint tool part textures for fallback
     registerMaterialItemColors(colors, TinkerToolParts.pickaxeHead);
+    registerMaterialItemColors(colors, TinkerToolParts.hammerHead);
+    registerMaterialItemColors(colors, TinkerToolParts.shovelHead);
+    registerMaterialItemColors(colors, TinkerToolParts.swordBlade);
     registerMaterialItemColors(colors, TinkerToolParts.smallBinding);
+    registerMaterialItemColors(colors, TinkerToolParts.wideGuard);
+    registerMaterialItemColors(colors, TinkerToolParts.largePlate);
     registerMaterialItemColors(colors, TinkerToolParts.toolRod);
+    registerMaterialItemColors(colors, TinkerToolParts.toughToolRod);
   }
 
   /** Color handler instance for MaterialItem */
   private static final IItemColor materialColorHandler = (stack, index) -> {
-    return Optional.of(MaterialItem.getMaterialFromStack(stack))
-                   .filter((material) -> IMaterial.UNKNOWN != material)
-                   .map(IMaterial::getIdentifier)
-                   .flatMap(MaterialRenderInfoLoader.INSTANCE::getRenderInfo)
-                   .map(IMaterialRenderInfo::getVertexColor)
-                   .orElse(-1);
+    return Optional.of(IMaterialItem.getMaterialFromStack(stack))
+      .filter((material) -> IMaterial.UNKNOWN != material)
+      .map(IMaterial::getIdentifier)
+      .flatMap(MaterialRenderInfoLoader.INSTANCE::getRenderInfo)
+      .map(IMaterialRenderInfo::getVertexColor)
+      .orElse(-1);
   };
 
   /** Color handler instance for ToolCore */
   private static final IItemColor toolColorHandler = (stack, index) -> {
     return Optional.ofNullable(stack.getTag())
-                   .map(ToolData::readFromNBT)
-                   .map(ToolData::getMaterials)
-                   .filter((mats) -> index < mats.size())
-                   .map((mats) -> mats.get(index))
-                   .map(IMaterial::getIdentifier)
-                   .flatMap(MaterialRenderInfoLoader.INSTANCE::getRenderInfo)
-                   .map(IMaterialRenderInfo::getVertexColor)
-                   .orElse(-1);
+      .map(ToolData::readFromNBT)
+      .map(ToolData::getMaterials)
+      .filter((mats) -> index < mats.size())
+      .map((mats) -> mats.get(index))
+      .map(IMaterial::getIdentifier)
+      .flatMap(MaterialRenderInfoLoader.INSTANCE::getRenderInfo)
+      .map(IMaterialRenderInfo::getVertexColor)
+      .orElse(-1);
   };
 
   /**

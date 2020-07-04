@@ -369,10 +369,20 @@
     "item.tconstruct.pickaxe": "Pickaxe",
     
     "_comment": "Tinkers Tool Parts",
-    
+
     "item.tconstruct.pickaxe_head": "Pickaxe Head",
+    "item.tconstruct.hammer_head": "Hammer Head",
+    "item.tconstruct.shovel_head": "Shovel Head",
+    "item.tconstruct.sword_blade": "Sword Blade",
     "item.tconstruct.tool_rod": "Tool Rod",
+    "item.tconstruct.tough_tool_rod": "Tough Tool Rod",
     "item.tconstruct.small_binding": "Small Binding",
+    "item.tconstruct.wide_guard": "Wide Guard",
+    "item.tconstruct.large_plate": "Large Plate",
+
+    "_conment": "Tool Descriptions",
+
+    "item.tconstruct.pickaxe.description":"The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?",
 
     "_comment": "Tinkers Smeltery",
 
@@ -568,8 +578,48 @@
     "material.tconstruct.feather": "Feather",
     "material.tconstruct.leaf": "Leaf",
     "material.tconstruct.slimeleaf_blue": "Slimeleaf",
-    "material.tconstruct.slimeleaf_orange.": "Slimeleaf",
+    "material.tconstruct.slimeleaf_orange": "Slimeleaf",
     "material.tconstruct.slimeleaf_purple": "Slimeleaf",
+
+    "_comment": "Stats",
+
+    "stat.head.name": "Head",
+    "stat.head.durability.name": "Durability: ",
+    "stat.head.durability.description": "The base-value for durability calculations.\nUsually an integral part to the overall durability of a tool.",
+    "stat.head.mining_speed.name": "Mining Speed: ",
+    "stat.head.mining_speed.description": "How fast a tool with a tool head of this material can mine blocks.\nMay be influenced by other toolparts.",
+    "stat.head.harvest_level.name": "Mining Level: ",
+    "stat.head.harvest_level.description": "What range of blocks a tool with a tool head of this material can mine.",
+    "stat.head.attack.name": "Attack: ",
+    "stat.head.attack.description": "Base value for attack calculations.\nThe end result depends on the tool itself and the other components used.",
+
+    "stat.handle.name": "Handle",
+    "stat.handle.modifier.name": "Modifier: ",
+    "stat.handle.modifier.description": "How suitable the tool material is as a handle.\nThe total durability of the tool will be multiplied by this.",
+    "stat.handle.durability.name": "Durability: ",
+    "stat.handle.durability.description": "How well the material can be held.\nTool durability will be changed by this amount.",
+
+    "stat.extra.name": "Extra",
+    "stat.extra.durability.name": "Durability: ",
+    "stat.extra.durability.description": "How much durability this part contributes when used as an accessory.",
+
+    "ui.mining_level.stone": "Stone",
+    "ui.mining_level.iron": "Iron",
+    "ui.mining_level.diamond": "Diamond",
+    "ui.mining_level.obsidian": "Obsidian",
+    "ui.mining_level.cobalt": "Cobalt",
+
+    "_comment": "Tooltips",
+    "tooltip.tool.modifiers": "Modifiers",
+    "tooltip.tool.broken": "Broken",
+    "tooltip.tool.empty": "Empty",
+    "tooltip.tool.hold_shift": "Hold §e§oShift§r§7 for Stats",
+    "tooltip.tool.hold_ctrl": "Hold §e§bCtrl§r§7 for more",
+
+    "tooltip.part.material_added_by": "Material added by %s",
+    "tooltip.part.missing_material": "Missing material: %s",
+    "tooltip.part.missing_stats": "Material is missing the required stats:\n%s",
+    "tooltip.part.missing_info": "Part has no data",
 
     "_comment": "GUIs",
 
@@ -583,14 +633,22 @@
     "gui.tconstruct.crafting_station": "Crafting Station",
 
     "gui.tconstruct.part_builder": "Part Builder",
-    "gui.tconstruct.part_builder.info": "Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put its pattern into the left slot. The two remaining slots hold the material you want to craft your part out of.",
-    "gui.tconstruct.part_builder.material_value": "Material Value: %s %s",
+    "gui.tconstruct.part_builder.info": "Here you can craft tool parts to fulfill your tinkering fantasies.\n\nTo craft a part simply put a blank pattern into the left slot and select the part you want. The remaining slot hold the material you want to craft your part out of.",
+    "gui.tconstruct.part_builder.material_value": "Material value: %s",
+    "gui.tconstruct.part_builder.cost": "Pattern cost: %s",
 
     "gui.tconstruct.part_crafter": "Part Crafter",
 
     "gui.tconstruct.pattern_chest": "Pattern Chest",
     "gui.tconstruct.cast_chest": "Cast Chest",
     "gui.tconstruct.part_chest": "Part Chest",
+
+    "gui.tconstruct.tool_station": "Tool Station",
+    "gui.tconstruct.tool_station.repair": "Repair & Modify",
+    "gui.tconstruct.tool_station.traits": "Traits",
+    "gui.tconstruct.tool_station.components": "Components",
+    "gui.tconstruct.tool_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
+    "gui.tconstruct.tool_station.no_traits": "None :[",
 
     "_comment": "GUIs Messages",
 
@@ -599,5 +657,8 @@
     "gui.tconstruct.warning": "WARNING",
     "gui.tconstruct.general.hover": "Hover over the entries for more information",
     "gui.tconstruct.error.invalid_pattern": "Pattern does not contain a valid tool part!",
-    "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting."
+    "gui.tconstruct.error.invalid_recipe": "Invalid Recipe!",
+    "gui.tconstruct.error.unknown_material": "Unknown Material",
+    "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\n\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting.",
+    "gui.tconstruct.error.not_enough_durability": "Not enough durability to replace parts!\n%d more durability required."
 }

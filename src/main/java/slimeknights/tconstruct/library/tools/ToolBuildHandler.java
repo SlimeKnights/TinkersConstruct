@@ -5,7 +5,7 @@ import com.google.common.collect.Streams;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.tinkering.MaterialItem;
+import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
@@ -32,7 +32,7 @@ public final class ToolBuildHandler {
 
     List<IMaterial> materials = stacks.stream()
       .filter(stack -> !stack.isEmpty())
-      .map(MaterialItem::getMaterialFromStack)
+      .map(IMaterialItem::getMaterialFromStack)
       .collect(Collectors.toList());
 
     return buildItemFromMaterials(tool, materials);

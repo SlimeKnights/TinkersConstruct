@@ -1,26 +1,13 @@
 package slimeknights.tconstruct.tools;
 
 import slimeknights.tconstruct.library.materials.Material;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
 /**
  * Any Class that's used as a tool part needs to implement this.
  */
 public interface IToolPart extends IMaterialItem {
-
-  /**
-   * Returns the cost to craft the tool. Values match the ingot values<br>
-   * 72 = 1 shard<br>
-   * 144 = 1 ingot<br>
-   * etc.<br>
-   * Check the Material class for values
-   */
-  int getCost();
-
-  /**
-   * Retruns true if the material can be used for this toolpart
-   */
-  boolean canUseMaterial(Material mat);
 
   /**
    * Workaround for dual-materials like crossbow-bolts.
@@ -31,24 +18,9 @@ public interface IToolPart extends IMaterialItem {
     return canUseMaterial(mat);
   }
 
-  boolean hasUseForStat(String stat);
-
   /**
-   * Return true if the toolpart should be registered for crafting in the stencil table, with a pattern
+   * Gets the stat type for the given item, limits which materials are supported
+   * @return  Stat type for the given item
    */
-  default boolean canBeCrafted() {
-    return true;
-  }
-
-  /**
-   * Return true if the toolpart should be registered for casting, using a cast
-   */
-  default boolean canBeCasted() {
-    return true;
-  }
-
-//  @SideOnly(Side.CLIENT)
-//  default ItemStack getOutlineRenderStack() {
-//    return getItemstackWithMaterial(CustomTextureCreator.guiMaterial);
-//  }
+  public MaterialStatsId getStatType();
 }
