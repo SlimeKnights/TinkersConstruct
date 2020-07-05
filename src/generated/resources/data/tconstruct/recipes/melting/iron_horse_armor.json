@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "minecraft:iron_horse_armor"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_iron",
+    "amount": 1008
+  },
+  "temperature": 433
+}

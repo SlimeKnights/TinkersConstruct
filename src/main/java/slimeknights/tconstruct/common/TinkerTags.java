@@ -27,7 +27,7 @@ public class TinkerTags {
     public static final Tag<Block> STORAGE_BLOCKS_ARDITE = forgeTag("storage_blocks/ardite");
     public static final Tag<Block> STORAGE_BLOCKS_MANYULLYN = forgeTag("storage_blocks/manyullyn");
     public static final Tag<Block> STORAGE_BLOCKS_KNIGHTSLIME = forgeTag("storage_blocks/knightslime");
-    public static final Tag<Block> STORAGE_BLOCKS_PIGIRON = forgeTag("storage_blocks/pigiron");
+    public static final Tag<Block> STORAGE_BLOCKS_PIG_IRON = forgeTag("storage_blocks/pig_iron");
     public static final Tag<Block> STORAGE_BLOCKS_COPPER = forgeTag("storage_blocks/copper");
     public static final Tag<Block> STORAGE_BLOCKS_ROSE_GOLD = forgeTag("storage_blocks/rose_gold");
 
@@ -59,7 +59,7 @@ public class TinkerTags {
     public static final Tag<Item> STORAGE_BLOCKS_ARDITE = forgeTag("storage_blocks/ardite");
     public static final Tag<Item> STORAGE_BLOCKS_MANYULLYN = forgeTag("storage_blocks/manyullyn");
     public static final Tag<Item> STORAGE_BLOCKS_KNIGHTSLIME = forgeTag("storage_blocks/knightslime");
-    public static final Tag<Item> STORAGE_BLOCKS_PIGIRON = forgeTag("storage_blocks/pigiron");
+    public static final Tag<Item> STORAGE_BLOCKS_PIG_IRON = forgeTag("storage_blocks/pig_iron");
     public static final Tag<Item> STORAGE_BLOCKS_COPPER = forgeTag("storage_blocks/copper");
     public static final Tag<Item> STORAGE_BLOCKS_ROSE_GOLD = forgeTag("storage_blocks/rose_gold");
 
@@ -78,7 +78,7 @@ public class TinkerTags {
     public static final Tag<Item> INGOTS_ARDITE = forgeTag("ingots/ardite");
     public static final Tag<Item> INGOTS_MANYULLYN = forgeTag("ingots/manyullyn");
     public static final Tag<Item> INGOTS_KNIGHTSLIME = forgeTag("ingots/knightslime");
-    public static final Tag<Item> INGOTS_PIGIRON = forgeTag("ingots/pigiron");
+    public static final Tag<Item> INGOTS_PIG_IRON = forgeTag("ingots/pig_iron");
     public static final Tag<Item> INGOTS_COPPER = forgeTag("ingots/copper");
     public static final Tag<Item> INGOTS_ROSE_GOLD = forgeTag("ingots/rose_gold");
 
@@ -86,13 +86,16 @@ public class TinkerTags {
     public static final Tag<Item> NUGGETS_ARDITE = forgeTag("nuggets/ardite");
     public static final Tag<Item> NUGGETS_MANYULLYN = forgeTag("nuggets/manyullyn");
     public static final Tag<Item> NUGGETS_KNIGHTSLIME = forgeTag("nuggets/knightslime");
-    public static final Tag<Item> NUGGETS_PIGIRON = forgeTag("nuggets/pigiron");
+    public static final Tag<Item> NUGGETS_PIG_IRON = forgeTag("nuggets/pig_iron");
     public static final Tag<Item> NUGGETS_COPPER = forgeTag("nuggets/copper");
     public static final Tag<Item> NUGGETS_ROSE_GOLD = forgeTag("nuggets/rose_gold");
+
+    public static final Tag<Item> CASTS = tag("casts");
 
     public static final Tag<Item> DUSTS_SULFUR = forgeTag("dusts/sulfur");
 
     public static final Tag<Item> RODS_STONE = forgeTag("rods/stone");
+
 
     private static Tag<Item> tag(String name) {
       return new ItemTags.Wrapper(new ResourceLocation("tconstruct", name));

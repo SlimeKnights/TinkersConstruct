@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "minecraft:snow_block"
+  },
+  "result": {
+    "fluid": "minecraft:water",
+    "amount": 500
+  },
+  "temperature": 14
+}

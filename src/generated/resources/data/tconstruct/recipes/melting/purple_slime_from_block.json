@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:purple_slime"
+  },
+  "result": {
+    "fluid": "tconstruct:purple_slime",
+    "amount": 2250
+  },
+  "temperature": 83
+}

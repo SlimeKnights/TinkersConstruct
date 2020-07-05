@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:glass_panes"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_glass",
+    "amount": 375
+  },
+  "temperature": 219
+}

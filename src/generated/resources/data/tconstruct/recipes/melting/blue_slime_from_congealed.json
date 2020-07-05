@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:blue_congealed_slime"
+  },
+  "result": {
+    "fluid": "tconstruct:blue_slime",
+    "amount": 1000
+  },
+  "temperature": 9
+}

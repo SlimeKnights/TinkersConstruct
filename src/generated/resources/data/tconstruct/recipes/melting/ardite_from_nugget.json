@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:nuggets/ardite"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_ardite",
+    "amount": 16
+  },
+  "temperature": 140
+}
