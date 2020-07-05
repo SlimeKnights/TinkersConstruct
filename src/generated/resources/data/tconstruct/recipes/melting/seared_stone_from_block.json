@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "tconstruct:seared_blocks"
+  },
+  "result": {
+    "fluid": "tconstruct:seared_stone",
+    "amount": 288
+  },
+  "temperature": 311
+}

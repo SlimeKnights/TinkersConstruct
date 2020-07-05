@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material",
   "ingredient": {
-    "tag": "forge:storage_blocks/pigiron"
+    "tag": "forge:storage_blocks/pig_iron"
   },
   "value": 9,
   "needed": 1,

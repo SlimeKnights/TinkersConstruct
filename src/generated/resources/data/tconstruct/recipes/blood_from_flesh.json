@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "minecraft:rotten_flesh"
+  },
+  "result": {
+    "fluid": "tconstruct:blood",
+    "amount": 50
+  },
+  "temperature": 12
+}

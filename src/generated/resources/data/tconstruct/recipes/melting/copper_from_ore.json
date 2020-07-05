@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:ores/copper"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_copper",
+    "amount": 144
+  },
+  "temperature": 121
+}
