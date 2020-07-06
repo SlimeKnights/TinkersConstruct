@@ -43,6 +43,7 @@ import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.casting.ContainerFillingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelBuilder;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
@@ -889,6 +890,11 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     MeltingRecipeBuilder.melting(Ingredient.fromTag(TinkerTags.Items.CASTS), TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot)
                         .addCriterion("has_item", hasItem(TinkerTags.Items.CASTS))
                         .build(consumer, location(folder + "gold_from_cast"));
+
+    // fuels
+    MeltingFuelBuilder.fuel(new FluidStack(Fluids.LAVA, 50), 100)
+                      .addCriterion("has_item", hasItem(Items.LAVA_BUCKET))
+                      .build(consumer, location(folder + "fuel/lava"));
   }
 
   private void addSlimeRecipes(Consumer<IFinishedRecipe> consumer) {
