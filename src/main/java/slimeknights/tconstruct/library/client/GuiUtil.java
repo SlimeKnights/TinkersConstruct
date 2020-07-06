@@ -3,7 +3,9 @@ package slimeknights.tconstruct.library.client;
 import com.mojang.blaze3d.systems.RenderSystem;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
@@ -15,6 +17,7 @@ import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import org.lwjgl.opengl.GL11;
+import slimeknights.mantle.client.screen.ElementScreen;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class GuiUtil {
@@ -52,7 +55,7 @@ public final class GuiUtil {
    * @return  True if the area is hovered
    */
   public static boolean isHovered(int mouseX, int mouseY, int x, int y, int width, int height) {
-    return mouseX >= x && mouseY >= y && mouseX <= x + width && mouseY <= y + height;
+    return mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
   }
 
   /**
@@ -211,8 +214,40 @@ public final class GuiUtil {
     builder.pos((double)x1, (double)y1, (double)z).tex(u1, v1).endVertex();
   }
 
-
-  /*
-   * Fluid amount displays
+  /**
+   * Draws an upwards progress bar
+   * @param element   Element to draw
+   * @param x         X position to start
+   * @param y         Y position to start
+   * @param progress  Progress between 0 and 1
    */
+  public static void drawProgressUp(ElementScreen element, int x, int y, float progress) {
+    int height;
+    if (progress > 1) {
+      height = element.h;
+    } else if (progress < 0) {
+      height = 0;
+    } else {
+      // add an extra 0.5 so it rounds instead of flooring
+      height = (int)(progress * element.h + 0.5);
+    }
+    // amount to offset element by for the height
+    int deltaY = element.h - height;
+    Screen.blit(x, y + deltaY, element.x, element.y + deltaY, element.w, height, element.texW, element.texH);
+  }
+
+  /**
+   * Renders a highlight overlay for the given area
+   * @param x       Element X position
+   * @param y       Element Y position
+   * @param width   Element width
+   * @param height  Element height
+   */
+  public static void renderHighlight(int x, int y, int width, int height) {
+      RenderSystem.disableDepthTest();
+      RenderSystem.colorMask(true, true, true, false);
+      AbstractGui.fill(x, y, x + width, y + height, 0x80FFFFFF);
+      RenderSystem.colorMask(true, true, true, true);
+      RenderSystem.enableDepthTest();
+  }
 }
