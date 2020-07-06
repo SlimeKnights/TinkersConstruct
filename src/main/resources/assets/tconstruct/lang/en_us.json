@@ -492,6 +492,14 @@
     "gui.tconstruct.melting.capacity": "Capacity:",
     "gui.tconstruct.melting.available": "Free:",
     "gui.tconstruct.melting.used": "Used:",
+
+    "gui.tconstruct.melting.no_recipe": "Item cannot be molten.",
+    "gui.tconstruct.melting.no_heat": "Not enough heat to melt this item.",
+    "gui.tconstruct.melting.no_space": "Not enough free space for the fluid.",
+
+    "gui.tconstruct.melting.fuel.empty": "No fuel found",
+    "gui.tconstruct.melting.fuel.temperature": "Temperature: {0}",
+    "gui.tconstruct.melting.fuel.invalid": "Invalid melting fuel!",
     
     "gui.tconstruct.fluid.kilobucket": "{0} kb",
     "gui.tconstruct.fluid.bucket": "{0} b",
