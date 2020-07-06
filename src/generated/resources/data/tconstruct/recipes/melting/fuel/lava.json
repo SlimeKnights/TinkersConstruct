@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:melting_fuel",
+  "fluid": {
+    "name": "minecraft:lava",
+    "amount": 50
+  },
+  "duration": 100,
+  "temperature": 1000
+}
