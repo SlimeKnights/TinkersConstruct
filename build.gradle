@@ -48,7 +48,7 @@ repositories {
     }
     maven {
          name "Tehnut Maven FS"
-         url "https://tehnut.info/maven"
+         url "https://maven.tehnut.info"
     }
     maven {
         name = "CoFH Maven"
