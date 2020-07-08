@@ -75,7 +75,9 @@ public final class ToolStatsBuilder {
       buildAttack(),
       buildMiningSpeed(),
       1f,
-      StatsNBT.DEFAULT_MODIFIERS,
+      StatsNBT.DEFAULT_MOD_SLOTS,
+      StatsNBT.DEFAULT_ABILITY_SLOTS,
+      StatsNBT.DEFAULT_ARMOR_SLOTS,
       false
     );
   }

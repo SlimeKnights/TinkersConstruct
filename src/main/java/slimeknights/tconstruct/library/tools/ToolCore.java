@@ -388,7 +388,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
     increase = Math.max(increase, actualDurability / 64f);
 
-    int modifiersFree = ToolData.from(tool).getStats().freeModifiers;
+    int modifiersFree = ToolData.from(tool).getStats().freeModSlots;
     float mods = 1.0f;
 
     increase *= mods;
@@ -586,8 +586,16 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
     info.addAttack();
 
-    if (ToolData.from(stack).getStats().freeModifiers > 0) {
-      info.addFreeModifiers();
+    if (ToolData.from(stack).getStats().freeModSlots > 0) {
+      info.addFreeModSlots();
+    }
+
+    if (ToolData.from(stack).getStats().freeAbilitySlots > 0) {
+      info.addFreeAbilitySlots();
+    }
+
+    if (ToolData.from(stack).getStats().freeArmorSlots > 0) {
+      info.addFreeArmorSlots();
     }
 
     if (detailed) {

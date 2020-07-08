@@ -16,7 +16,9 @@ import java.util.List;
 
 public class TooltipBuilder {
 
-  public final static String FREE_MODIFIERS_LOCALIZATION = "tooltip.tool.modifiers";
+  public final static String FREE_MOD_SLOTS_LOCALIZATION = "tooltip.tool.slots.mod";
+  public final static String FREE_ABILITY_SLOTS_LOCALIZATION = "tooltip.tool.slots.ability";
+  public final static String FREE_ARMOR_SLOTS_LOCALIZATION = "tooltip.tool.slots.armor";
   public final static String AMMO_LOCALIZATION = "stat.projectile.ammo.name";
 
   public static final String BROKEN_LOCALIZATION = "tooltip.tool.broken";
@@ -81,10 +83,26 @@ public class TooltipBuilder {
     return this;
   }
 
-  public TooltipBuilder addFreeModifiers() {
-    this.tips.add(new TranslationTextComponent(FREE_MODIFIERS_LOCALIZATION)
+  public TooltipBuilder addFreeModSlots() {
+    this.tips.add(new TranslationTextComponent(FREE_MOD_SLOTS_LOCALIZATION)
       .appendSibling(new StringTextComponent(": "))
-      .appendSibling(new StringTextComponent(String.valueOf(ToolData.from(this.tool).getStats().freeModifiers))));
+      .appendSibling(new StringTextComponent(String.valueOf(ToolData.from(this.tool).getStats().freeModSlots))));
+
+    return this;
+  }
+
+  public TooltipBuilder addFreeAbilitySlots() {
+    this.tips.add(new TranslationTextComponent(FREE_ABILITY_SLOTS_LOCALIZATION)
+      .appendSibling(new StringTextComponent(": "))
+      .appendSibling(new StringTextComponent(String.valueOf(ToolData.from(this.tool).getStats().freeAbilitySlots))));
+
+    return this;
+  }
+
+  public TooltipBuilder addFreeArmorSlots() {
+    this.tips.add(new TranslationTextComponent(FREE_ARMOR_SLOTS_LOCALIZATION)
+      .appendSibling(new StringTextComponent(": "))
+      .appendSibling(new StringTextComponent(String.valueOf(ToolData.from(this.tool).getStats().freeArmorSlots))));
 
     return this;
   }
