@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
+import lombok.Getter;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -9,11 +8,8 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -29,57 +25,53 @@ import javax.annotation.Nullable;
 import static slimeknights.tconstruct.smeltery.block.FaucetBlock.FACING;
 
 public class FaucetTileEntity extends TileEntity implements ITickableTileEntity {
-  public Direction direction;
-  public boolean isPouring;
-  public boolean stopPouring;
-  public FluidStack drained;
-  public boolean lastRedstoneState;
+  @Getter
+  private boolean isPouring = false;
+  private boolean stopPouring = false;
+  @Getter
+  private FluidStack drained = FluidStack.EMPTY;
+  private boolean lastRedstoneState;
 
   public FaucetTileEntity() {
     this(TinkerSmeltery.faucet.get());
   }
 
-  public FaucetTileEntity(TileEntityType<?> tileEntityTypeIn) {
+  protected FaucetTileEntity(TileEntityType<?> tileEntityTypeIn) {
     super(tileEntityTypeIn);
-    reset();
   }
 
   /**
-   * Toggles pouring state and initiates transfer if appropriate.
+   * Toggles pouring state and initiates transfer if appropriate. Called on right click and from redstone
    */
   public void activate() {
-    BlockState state = getWorld().getBlockState(pos);
-    // invalid state
-    if (!state.getProperties().contains(FACING)) {
+    // don't run on client
+    if (world == null || world.isRemote) {
       return;
     }
-
     // already pouring? we want to stop then
     if (isPouring) {
       stopPouring = true;
-      return;
+    } else {
+      doTransfer();
     }
-
-    direction = getWorld().getBlockState(pos).get(FACING);
-    doTransfer();
   }
 
   /**
    * Flips hasSignal and schedules a tick if appropriate.
-   * @param hasSignal
+   * @param hasSignal  New signal state
    */
   public void handleRedstone(boolean hasSignal) {
-    if (hasSignal != lastRedstoneState) {
+    if (hasSignal != lastRedstoneState ) {
       lastRedstoneState = hasSignal;
-      if (hasSignal) {
-        getWorld().getPendingBlockTicks().scheduleTick(pos, this.getBlockState().getBlock(), 2);
+      if (hasSignal && world != null) {
+        world.getPendingBlockTicks().scheduleTick(pos, this.getBlockState().getBlock(), 2);
       }
     }
   }
 
   @Override
   public void tick() {
-    if (getWorld().isRemote) {
+    if (world == null || world.isRemote) {
       return;
     }
 
@@ -88,30 +80,28 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
       return;
     }
 
-    if (drained != null) {
-      // done draining
-      if (drained.getAmount() <= 0) {
-        drained = null;
-        // pour me another, if we want to
-        if (!stopPouring) {
-          doTransfer();
-        }
-        else {
-          reset();
-        }
+    // done draining
+    if (drained.isEmpty()) {
+      // pour me another, if we want to
+      if (!stopPouring) {
+        doTransfer();
       }
       else {
-        // reduce amount (cooldown)
-        pour();
+        reset();
       }
+    }
+    else {
+      // reduce amount (cooldown)
+      pour();
     }
   }
 
   /**
    * Initiate fluid transfer
    */
-  protected void doTransfer() {
+  private void doTransfer() {
     // still got content left
+    Direction direction = this.getBlockState().get(FACING);
     IFluidHandler toDrain = getFluidHandler(pos.offset(direction), direction.getOpposite());
     IFluidHandler toFill = getFluidHandler(pos.down(), Direction.UP);
     if (toDrain != null && toFill != null) {
@@ -123,14 +113,15 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
         if (filled > 0) {
           // drain the liquid and transfer it, buffer the amount for delay
           this.drained = toDrain.drain(filled, IFluidHandler.FluidAction.EXECUTE);
-          this.isPouring = true;
-          pour();
 
           // sync to clients
-          if (world != null && !getWorld().isRemote() && getWorld() instanceof ServerWorld) {
+          if (world instanceof ServerWorld) {
             TinkerNetwork.getInstance().sendToClientsAround(new FaucetActivationPacket(pos, drained), (ServerWorld) world, getPos());
           }
 
+          // should never be a problem, but since pour can send a reset pack, pour after we send the start packet
+          this.isPouring = true;
+          pour();
           return;
         }
       }
@@ -142,7 +133,7 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
   /**
    * Takes the liquid inside and executes one pouring step.
    */
-  protected void pour() {
+  private void pour() {
     if (drained.isEmpty()) {
       return;
     }
@@ -162,20 +153,20 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
       }
     }
     else {
-      // filling TE got lost. reset. all liquid buffered is lost.
+      // filling TE got lost. all liquid buffered is lost.
       reset();
     }
+
   }
 
   /**
    * Resets TE to default state.
    */
-  protected void reset() {
+  private void reset() {
     isPouring = false;
     stopPouring = false;
-    drained = null;
-    direction = Direction.DOWN;
-    if (world != null && !getWorld().isRemote() && getWorld() instanceof ServerWorld) {
+    drained = FluidStack.EMPTY;
+    if (world instanceof ServerWorld) {
       TinkerNetwork.getInstance().sendToClientsAround(new FaucetActivationPacket(pos, drained), (ServerWorld) world, getPos());
     }
   }
@@ -186,8 +177,12 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
    * @param direction Side of TE to check for fluid handler
    * @return  IFluidHandler of TE or null.
    */
-  protected IFluidHandler getFluidHandler(BlockPos pos, Direction direction) {
-    TileEntity te = getWorld().getTileEntity(pos);
+  @Nullable
+  private IFluidHandler getFluidHandler(BlockPos pos, Direction direction) {
+    if (world == null) {
+      return null;
+    }
+    TileEntity te = world.getTileEntity(pos);
     if (te != null) {
       return te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, direction).orElse(null);
     }
@@ -203,9 +198,9 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
   @Override
   public CompoundNBT write(CompoundNBT compound) {
     compound = super.write(compound);
-    if (drained != null) {
+    if (!drained.isEmpty()) {
       drained.writeToNBT(compound);
-      compound.putInt("direction", direction.getIndex());
+      compound.putBoolean("stop", stopPouring);
     }
     return compound;
   }
@@ -214,10 +209,8 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
   public void read(CompoundNBT compound) {
     super.read(compound);
     drained = FluidStack.loadFluidStackFromNBT(compound);
-
-    if (drained != null) {
+    if (!drained.isEmpty()) {
       isPouring = true;
-      direction = Direction.values()[compound.getInt("direction")];
       stopPouring = compound.getBoolean("stop");
     }
     else {
@@ -239,7 +232,6 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
     else {
       drained = fluid;
       isPouring = true;
-      direction = getWorld().getBlockState(pos).get(FACING);
     }
   }
 
