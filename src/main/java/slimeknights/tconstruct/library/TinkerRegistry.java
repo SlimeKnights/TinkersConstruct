@@ -32,6 +32,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +45,7 @@ import java.util.stream.Collectors;
 
 import slimeknights.mantle.client.CreativeTab;
 import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.events.MaterialEvent;
 import slimeknights.tconstruct.library.events.TinkerRegisterEvent;
 import slimeknights.tconstruct.library.materials.IMaterialStats;
@@ -385,7 +387,9 @@ public final class TinkerRegistry {
 
   /** Adds a tool to the Crafting UI of the Tool Station */
   public static void registerToolStationCrafting(ToolCore tool) {
-    toolStationCrafting.add(tool);
+    if (!Arrays.asList(Config.toolTypeBlacklist).contains(tool.getUnlocalizedName())) {
+      toolStationCrafting.add(tool);
+    };
   }
 
   public static Set<ToolCore> getToolStationCrafting() {
@@ -394,7 +398,9 @@ public final class TinkerRegistry {
 
   /** Adds a tool to the Crafting UI of the Tool Forge */
   public static void registerToolForgeCrafting(ToolCore tool) {
-    toolForgeCrafting.add(tool);
+    if (!Arrays.asList(Config.toolTypeBlacklist).contains(tool.getUnlocalizedName())) {
+      toolForgeCrafting.add(tool);
+    };
   }
 
   public static Set<ToolCore> getToolForgeCrafting() {
