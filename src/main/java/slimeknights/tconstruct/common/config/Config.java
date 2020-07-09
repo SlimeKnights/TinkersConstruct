@@ -67,6 +67,8 @@ public final class Config {
           "string",
           "minecraft:chest:0"
   };
+  public static String[] toolTypeBlacklist = {
+  };
 
   // Worldgen
   public static boolean genSlimeIslands = true;
@@ -242,6 +244,12 @@ public final class Config {
       prop = configFile.get(cat, "testIMC", testIMC);
       prop.setComment("REQUIRES DEBUG MODULE. Tests all IMC integrations with dummy recipes. May significantly impact gameplay, so its advised you disable this outside of dev environements.");
       testIMC = prop.getBoolean();
+      propOrder.add(prop.getName());
+      
+      prop = configFile.get(cat, "toolTypeBlacklist", toolTypeBlacklist);
+      prop.setComment("List of tool names that should not be present in the crafting station, and will thus be uncraftable. For instance placing \"hatchet\" in this list will remove all references to hatchet");
+      toolTypeBlacklist = prop.getStringList();
+      prop.setRequiresMcRestart(true);
       propOrder.add(prop.getName());
     }
     // Worldgen
