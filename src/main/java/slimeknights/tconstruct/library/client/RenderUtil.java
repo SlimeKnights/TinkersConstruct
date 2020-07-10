@@ -43,36 +43,6 @@ public final class RenderUtil {
 
   private static Minecraft mc = Minecraft.getInstance();
 
-  /**
-   * Renders a fluid block with offset from the matrices and from x1/y1/z1 to x2/y2/z2 inside the block local coordinates, so from 0-1
-   */
-  public static void renderFluidCuboid(FluidStack fluid, MatrixStack matrices, IVertexBuilder renderer, int combinedLight, float x1, float y1, float z1, float x2, float y2, float z2) {
-    mc.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
-    boolean upsideDown = fluid.getFluid().getAttributes().isGaseous(fluid);
-
-    Function<ResourceLocation, TextureAtlasSprite> spriteGetter = mc.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
-    FluidAttributes attributes = fluid.getFluid().getAttributes();
-    TextureAtlasSprite still = spriteGetter.apply(attributes.getStillTexture(fluid));
-    TextureAtlasSprite flowing = spriteGetter.apply(attributes.getFlowingTexture(fluid));
-
-    matrices.push();
-    matrices.translate(x1, y1, z1);
-    Matrix4f matrix = matrices.getLast().getMatrix();
-
-    // x/y/z2 - x/y/z1 is because we need the width/height/depth
-    int color = attributes.getColor(fluid);
-    int rotation = upsideDown ? 180 : 0;
-    putTexturedQuad(renderer, matrix, still,   x2 - x1, y2 - y1, z2 - z1, Direction.DOWN,  color, combinedLight, rotation, false);
-    putTexturedQuad(renderer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.NORTH, color, combinedLight, rotation, true);
-    putTexturedQuad(renderer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.EAST,  color, combinedLight, rotation, true);
-    putTexturedQuad(renderer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.SOUTH, color, combinedLight, rotation, true);
-    putTexturedQuad(renderer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.WEST,  color, combinedLight, rotation, true);
-    putTexturedQuad(renderer, matrix, still,   x2 - x1, y2 - y1, z2 - z1, Direction.UP,    color, combinedLight, rotation, false);
-
-    matrices.pop();
-  }
-
-
   /* Fluid cuboids */
 
   /**
@@ -88,54 +58,56 @@ public final class RenderUtil {
    * @param brightness        Face brightness
    * @param flowing           If true, half texture coordinates
    */
-  public static void putTexturedQuad(IVertexBuilder renderer, Matrix4f matrix, TextureAtlasSprite sprite, float w, float h, float d, Direction face,
+  private static void putTexturedQuad(IVertexBuilder renderer, Matrix4f matrix, TextureAtlasSprite sprite, Vector3f from, Vector3f to, Direction face,
                                      int color, int brightness, int rotation, boolean flowing) {
     // start with texture coordinates
-    // TODO: is starting at 0 the best idea?
-    double xt1 = 0, xt2 = w % 1d;
-    double zt1 = 0, zt2 = d % 1d;
-    // fluid expands upwards, so unless flipped start flowing at the bottom
-    double yt1, yt2;
-    if (rotation != 90 && rotation != 180) {
-      yt1 = 1d - (h % 1d);
-      yt2 = 1d;
-    } else {
-      yt1 = 0;
-      yt2 = h % 1f;
-    }
+    float x1 = from.getX(), y1 = from.getY(), z1 = from.getZ();
+    float x2 = to.getX(), y2 = to.getY(), z2 = to.getZ();
     // choose UV based on opposite two axis
-    double ut1, ut2, vt1, vt2;
+    float u1, u2, v1, v2;
     switch (face.getAxis()) {
       case Y:
       default:
-        ut1 = xt1; ut2 = xt2;
-        vt1 = zt2; vt2 = zt1;
+        u1 = x1; u2 = x2;
+        v1 = z2; v2 = z1;
         break;
       case Z:
-        ut1 = xt2; ut2 = xt1;
-        vt1 = yt1; vt2 = yt2;
+        u1 = x2; u2 = x1;
+        v1 = y1; v2 = y2;
         break;
       case X:
-        ut1 = zt2; ut2 = zt1;
-        vt1 = yt1; vt2 = yt2;
+        u1 = z2; u2 = z1;
+        v1 = y1; v2 = y2;
         break;
+    }
+    // flip V when relevant
+    if (rotation == 0 || rotation == 270) {
+      float temp = v1;
+      v1 = 1f - v2;
+      v2 = 1f - temp;
+    }
+    // flip U when relevant
+    if (rotation >= 180) {
+      float temp = u1;
+      u1 = 1f - u2;
+      u2 = 1f - temp;
     }
     // if rotating by 90 or 270, swap U and V
     float minU, maxU, minV, maxV;
-    double size = flowing ? 8f : 16f;
+    double size = flowing ? 8 : 16;
     if ((rotation % 180) == 90) {
-      minU = sprite.getInterpolatedU(vt1 * size);
-      maxU = sprite.getInterpolatedU(vt2 * size);
-      minV = sprite.getInterpolatedV(ut1 * size);
-      maxV = sprite.getInterpolatedV(ut2 * size);
+      minU = sprite.getInterpolatedU(v1 * size);
+      maxU = sprite.getInterpolatedU(v2 * size);
+      minV = sprite.getInterpolatedV(u1 * size);
+      maxV = sprite.getInterpolatedV(u2 * size);
     } else {
-      minU = sprite.getInterpolatedU(ut1 * size);
-      maxU = sprite.getInterpolatedU(ut2 * size);
-      minV = sprite.getInterpolatedV(vt1 * size);
-      maxV = sprite.getInterpolatedV(vt2 * size);
+      minU = sprite.getInterpolatedU(u1 * size);
+      maxU = sprite.getInterpolatedU(u2 * size);
+      minV = sprite.getInterpolatedV(v1 * size);
+      maxV = sprite.getInterpolatedV(v2 * size);
     }
     // based on rotation, put coords into place
-    float u1, u2, u3, u4, v1, v2, v3, v4;
+    float u3, u4, v3, v4;
     switch(rotation) {
       case 0:
       default:
@@ -172,40 +144,40 @@ public final class RenderUtil {
     int b = color & 0xFF;
     switch (face) {
       case DOWN:
-        renderer.pos(matrix, 0, 0, d).color(r, g, b, a).tex(u1, v1).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, 0, 0, 0).color(r, g, b, a).tex(u2, v2).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, w, 0, 0).color(r, g, b, a).tex(u3, v3).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, w, 0, d).color(r, g, b, a).tex(u4, v4).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x1, y1, z2).color(r, g, b, a).tex(u1, v1).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x1, y1, z1).color(r, g, b, a).tex(u2, v2).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x2, y1, z1).color(r, g, b, a).tex(u3, v3).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x2, y1, z2).color(r, g, b, a).tex(u4, v4).lightmap(light1, light2).endVertex();
         break;
       case UP:
-        renderer.pos(matrix, 0, h, 0).color(r, g, b, a).tex(u1, v1).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, 0, h, d).color(r, g, b, a).tex(u2, v2).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, w, h, d).color(r, g, b, a).tex(u3, v3).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, w, h, 0).color(r, g, b, a).tex(u4, v4).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x1, y2, z1).color(r, g, b, a).tex(u1, v1).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x1, y2, z2).color(r, g, b, a).tex(u2, v2).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x2, y2, z2).color(r, g, b, a).tex(u3, v3).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x2, y2, z1).color(r, g, b, a).tex(u4, v4).lightmap(light1, light2).endVertex();
         break;
       case NORTH:
-        renderer.pos(matrix, 0, 0, 0).color(r, g, b, a).tex(u1, v1).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, 0, h, 0).color(r, g, b, a).tex(u2, v2).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, w, h, 0).color(r, g, b, a).tex(u3, v3).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, w, 0, 0).color(r, g, b, a).tex(u4, v4).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x1, y1, z1).color(r, g, b, a).tex(u1, v1).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x1, y2, z1).color(r, g, b, a).tex(u2, v2).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x2, y2, z1).color(r, g, b, a).tex(u3, v3).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x2, y1, z1).color(r, g, b, a).tex(u4, v4).lightmap(light1, light2).endVertex();
         break;
       case SOUTH:
-        renderer.pos(matrix, w, 0, d).color(r, g, b, a).tex(u1, v1).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, w, h, d).color(r, g, b, a).tex(u2, v2).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, 0, h, d).color(r, g, b, a).tex(u3, v3).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, 0, 0, d).color(r, g, b, a).tex(u4, v4).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x2, y1, z2).color(r, g, b, a).tex(u1, v1).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x2, y2, z2).color(r, g, b, a).tex(u2, v2).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x1, y2, z2).color(r, g, b, a).tex(u3, v3).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x1, y1, z2).color(r, g, b, a).tex(u4, v4).lightmap(light1, light2).endVertex();
         break;
       case WEST:
-        renderer.pos(matrix, 0, 0, d).color(r, g, b, a).tex(u1, v1).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, 0, h, d).color(r, g, b, a).tex(u2, v2).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, 0, h, 0).color(r, g, b, a).tex(u3, v3).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, 0, 0, 0).color(r, g, b, a).tex(u4, v4).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x1, y1, z2).color(r, g, b, a).tex(u1, v1).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x1, y2, z2).color(r, g, b, a).tex(u2, v2).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x1, y2, z1).color(r, g, b, a).tex(u3, v3).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x1, y1, z1).color(r, g, b, a).tex(u4, v4).lightmap(light1, light2).endVertex();
         break;
       case EAST:
-        renderer.pos(matrix, w, 0, 0).color(r, g, b, a).tex(u1, v1).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, w, h, 0).color(r, g, b, a).tex(u2, v2).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, w, h, d).color(r, g, b, a).tex(u3, v3).lightmap(light1, light2).endVertex();
-        renderer.pos(matrix, w, 0, d).color(r, g, b, a).tex(u4, v4).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x2, y1, z1).color(r, g, b, a).tex(u1, v1).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x2, y2, z1).color(r, g, b, a).tex(u2, v2).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x2, y2, z2).color(r, g, b, a).tex(u3, v3).lightmap(light1, light2).endVertex();
+        renderer.pos(matrix, x2, y1, z2).color(r, g, b, a).tex(u4, v4).lightmap(light1, light2).endVertex();
         break;
     }
   }
@@ -217,14 +189,13 @@ public final class RenderUtil {
    * @param still     Still sprite
    * @param flowing   Flowing sprite
    * @param cube      Fluid cuboid
-   * @param xSize     X size for cube
-   * @param ySize     Y size for cube
-   * @param zSize     Z size for cube
+   * @param from      Fluid start
+   * @param to        Fluid end
    * @param color     Fluid color
    * @param light     Quad lighting
    * @param isGas     If true, fluid is a gas
    */
-  private static void putTexturedCuboid(MatrixStack matrices, IVertexBuilder buffer, FluidCuboid cube, TextureAtlasSprite still, TextureAtlasSprite flowing, float xSize, float ySize, float zSize, int color, int light, boolean isGas) {
+  private static void putTexturedCuboid(MatrixStack matrices, IVertexBuilder buffer, FluidCuboid cube, TextureAtlasSprite still, TextureAtlasSprite flowing, Vector3f from, Vector3f to, int color, int light, boolean isGas) {
     Matrix4f matrix = matrices.getLast().getMatrix();
     int rotation = isGas ? 180 : 0;
     for (Direction dir : Direction.values()) {
@@ -232,7 +203,7 @@ public final class RenderUtil {
       if (face != null) {
         boolean isFlowing = face.isFlowing();
         int faceRot = (rotation + face.getRotation()) % 360;
-        RenderUtil.putTexturedQuad(buffer, matrix, isFlowing ? flowing : still, xSize, ySize, zSize, dir, color, light, faceRot, isFlowing);
+        RenderUtil.putTexturedQuad(buffer, matrix, isFlowing ? flowing : still, from, to, dir, color, light, faceRot, isFlowing);
       }
     }
   }
@@ -248,20 +219,15 @@ public final class RenderUtil {
    * @param light     Quad lighting
    * @param isGas     If true, fluid is a gas
    */
-  public static void renderCuboid(MatrixStack matrices, IVertexBuilder buffer, FluidCuboid cube, float yOffset, TextureAtlasSprite still, TextureAtlasSprite flowing, int color, int light, boolean isGas) {
-    matrices.push();
-    // determine coords
-    Vector3f from = cube.getFrom();
-    Vector3f to = cube.getTo();
-    float x1 = from.getX() / 16;
-    float y1 = from.getY() / 16;
-    float z1 = from.getZ() / 16;
-    float xSize = to.getX() / 16 - x1;
-    float ySize = to.getY() / 16 - y1;
-    float zSize = to.getZ() / 16 - z1;
-    matrices.translate(x1, yOffset + y1, z1);
-    putTexturedCuboid(matrices, buffer, cube, still, flowing, xSize, ySize, zSize, color, light, isGas);
-    matrices.pop();
+  public static void putTexturedCuboid(MatrixStack matrices, IVertexBuilder buffer, FluidCuboid cube, float yOffset, TextureAtlasSprite still, TextureAtlasSprite flowing, int color, int light, boolean isGas) {
+    if (yOffset != 0) {
+      matrices.push();
+      matrices.translate(0, yOffset, 0);
+    }
+    putTexturedCuboid(matrices, buffer, cube, still, flowing, cube.getFromScaled(), cube.getToScaled(), color, light, isGas);
+    if (yOffset != 0) {
+      matrices.pop();
+    }
   }
 
   /**
@@ -281,25 +247,23 @@ public final class RenderUtil {
     TextureAtlasSprite still = spriteGetter.apply(attributes.getStillTexture(fluid));
     TextureAtlasSprite flowing = spriteGetter.apply(attributes.getFlowingTexture(fluid));
     boolean isGas = attributes.isGaseous(fluid);
+
     // determine height based on fluid amount
-    matrices.push();
-    Vector3f from = cube.getFrom();
-    Vector3f to = cube.getTo();
-    float yMin = from.getY() / 16;
-    float yMax = to.getY() / 16;
-    float y1;
-    float ySize = height * (yMax - yMin);
-    if (flipGas && isGas) {
-      y1 = yMax - ySize;
+    Vector3f from = cube.getFromScaled();
+    Vector3f to = cube.getToScaled();
+    // gas renders upside down
+    float minY = from.getY();
+    float maxY = to.getY();
+    if (isGas && flipGas) {
+      from = from.copy();
+      from.setY(maxY + (height * (minY - maxY)));
     } else {
-      y1 = yMin;
+      to = to.copy();
+      to.setY(minY + (height * (maxY - minY)));
     }
-    // other coords
-    float x1 = from.getX() / 16;
-    float z1 = from.getZ() / 16;
-    matrices.translate(x1, y1, z1);
-    putTexturedCuboid(matrices, buffer.getBuffer(blockRenderType), cube, still, flowing,to.getX() / 16 - x1, ySize, to.getZ() / 16 - z1, attributes.getColor(fluid), light, isGas);
-    matrices.pop();
+
+    // draw cuboid
+    putTexturedCuboid(matrices, buffer.getBuffer(blockRenderType), cube, still, flowing, from, to, attributes.getColor(fluid), light, isGas);
   }
 
   public static void setColorRGB(int color) {

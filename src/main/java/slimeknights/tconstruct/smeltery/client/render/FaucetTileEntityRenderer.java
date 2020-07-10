@@ -72,14 +72,14 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
       // render all cubes in the model
       IVertexBuilder buffer = bufferIn.getBuffer(RenderUtil.getBlockRenderType());
       for (FluidCuboid cube : model.getFluids()) {
-        RenderUtil.renderCuboid(matrices, buffer, cube, 0, still, flowing, color, combinedLightIn, isGas);
+        RenderUtil.putTexturedCuboid(matrices, buffer, cube, 0, still, flowing, color, combinedLightIn, isGas);
       }
 
       // render into the block(s) below
       FaucetFluid faucetFluid = FaucetFluidLoader.get(world.getBlockState(tileEntity.getPos().down()));
       // render all cubes with the given offset
       for (FluidCuboid cube : faucetFluid.getFluids(direction)) {
-        RenderUtil.renderCuboid(matrices, buffer, cube, -1, still, flowing, color, combinedLightIn, isGas);
+        RenderUtil.putTexturedCuboid(matrices, buffer, cube, -1, still, flowing, color, combinedLightIn, isGas);
       }
 
       // if rotated, pop back rotation
