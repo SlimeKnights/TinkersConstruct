@@ -15,7 +15,7 @@ import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeSerializer;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.ItemObject;
-import slimeknights.tconstruct.tables.block.TableBlock;
+import slimeknights.tconstruct.shared.block.TableBlock;
 import slimeknights.tconstruct.tables.block.chest.PartChestBlock;
 import slimeknights.tconstruct.tables.block.chest.PatternChestBlock;
 import slimeknights.tconstruct.tables.block.table.CraftingStationBlock;

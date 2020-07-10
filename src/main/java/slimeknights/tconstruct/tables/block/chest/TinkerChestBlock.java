@@ -42,11 +42,6 @@ public abstract class TinkerChestBlock extends TinkerTableBlock {
   }
 
   @Override
-  protected boolean keepInventory() {
-    return Config.COMMON.chestsKeepInventory.get();
-  }
-
-  @Override
   @Deprecated
   public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
     TileEntity te = worldIn.getTileEntity(pos);
@@ -67,7 +62,7 @@ public abstract class TinkerChestBlock extends TinkerTableBlock {
 
   @Override
   public void dropInventoryItems(BlockState state, World worldIn, BlockPos pos, TileEntity tileentity) {
-    if (!keepInventory()) {
+    if (!Config.COMMON.chestsKeepInventory.get()) {
       super.dropInventoryItems(state, worldIn, pos, tileentity);
     }
   }

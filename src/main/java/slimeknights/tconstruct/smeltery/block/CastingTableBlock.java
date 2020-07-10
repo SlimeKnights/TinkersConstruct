@@ -15,7 +15,8 @@ import javax.annotation.Nonnull;
 
 public class CastingTableBlock extends AbstractCastingBlock {
 
-  protected static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(),
+  private static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(
+    VoxelShapes.fullCube(),
     VoxelShapes.or(
       Block.makeCuboidShape(4.0D, 0.0D, 0.0D, 12.0D, 10.0D, 16.0D),
       Block.makeCuboidShape(0.0D, 0.0D, 4.0D, 16.0D, 10.0D, 12.0D),
@@ -26,6 +27,7 @@ public class CastingTableBlock extends AbstractCastingBlock {
     super(builder);
   }
 
+  @Deprecated
   @Override
   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
     return SHAPE;

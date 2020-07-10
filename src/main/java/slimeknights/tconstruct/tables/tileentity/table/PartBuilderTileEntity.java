@@ -5,9 +5,9 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraftforge.common.util.LazyOptional;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
+import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
-import slimeknights.tconstruct.tables.tileentity.TableTileEntity;
 
 import javax.annotation.Nullable;
 

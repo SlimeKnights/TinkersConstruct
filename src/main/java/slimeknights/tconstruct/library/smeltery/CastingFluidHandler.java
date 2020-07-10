@@ -41,7 +41,7 @@ public class CastingFluidHandler implements IFluidHandler {
 
   @Override
   public int fill(FluidStack resource, FluidAction action) {
-    if (resource.isEmpty() || tile.isStackInSlot(tile.OUTPUT)) {
+    if (resource.isEmpty() || tile.isStackInSlot(AbstractCastingTileEntity.OUTPUT)) {
       return 0;
     }
     Fluid fluid = resource.getFluid();

@@ -15,21 +15,22 @@ import javax.annotation.Nonnull;
 
 public class CastingBasinBlock extends AbstractCastingBlock {
 
-
-  private static final VoxelShape INSIDE = Block.makeCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
-  protected static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(),
+  private static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(
+    VoxelShapes.fullCube(),
     VoxelShapes.or(
       Block.makeCuboidShape(0.0D, 0.0D, 5.0D, 16.0D, 2.0D, 11.0D),
       Block.makeCuboidShape(5.0D, 0.0D, 0.0D, 11.0D, 2.0D, 16.0D),
       Block.makeCuboidShape(2.0D, 0.0D, 3.0D, 14.0D, 3.0D, 14.0D),
       Block.makeCuboidShape(7.0D, 5.0D, 0.0D, 9.0D, 13.0D, 16.0D),
       Block.makeCuboidShape(0.0D, 5.0D, 7.0D, 16.0D, 13.0D, 9.0D),
-      INSIDE), IBooleanFunction.ONLY_FIRST);
+      Block.makeCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D)),
+    IBooleanFunction.ONLY_FIRST);
 
   public CastingBasinBlock(Properties builder) {
     super(builder);
   }
 
+  @Deprecated
   @Override
   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
     return SHAPE;

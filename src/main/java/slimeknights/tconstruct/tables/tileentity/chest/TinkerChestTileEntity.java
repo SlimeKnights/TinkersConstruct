@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tables.tileentity.chest;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import slimeknights.tconstruct.tables.tileentity.TableTileEntity;
+import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
 
 public abstract class TinkerChestTileEntity extends TableTileEntity {
 

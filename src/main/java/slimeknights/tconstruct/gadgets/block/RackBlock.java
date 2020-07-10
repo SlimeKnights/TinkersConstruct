@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import slimeknights.tconstruct.tables.block.TableBlock;
+import slimeknights.tconstruct.shared.block.TableBlock;
 
 import javax.annotation.Nonnull;
 

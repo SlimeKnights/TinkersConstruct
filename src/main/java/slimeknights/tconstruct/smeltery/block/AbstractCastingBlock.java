@@ -7,23 +7,16 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import slimeknights.mantle.block.InventoryBlock;
+import slimeknights.tconstruct.shared.block.TableBlock;
 import slimeknights.tconstruct.smeltery.tileentity.AbstractCastingTileEntity;
 
-import javax.annotation.Nonnull;
-
-public abstract class AbstractCastingBlock extends InventoryBlock {
-
+public abstract class AbstractCastingBlock extends TableBlock {
   protected AbstractCastingBlock(Properties builder) {
     super(builder);
   }
 
-  @Nonnull
-  @Override
-  public abstract TileEntity createTileEntity(BlockState blockState, IBlockReader iBlockReader);
-
+  @Deprecated
   @Override
   public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult rayTraceResult) {
     if (player.isSneaking()) {

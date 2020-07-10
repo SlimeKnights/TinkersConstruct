@@ -17,7 +17,9 @@ import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.recipe.casting.CastingBasinRecipe;
 import slimeknights.tconstruct.library.recipe.casting.CastingRecipeSerializer;
+import slimeknights.tconstruct.library.recipe.casting.CastingTableRecipe;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
@@ -29,8 +31,7 @@ import slimeknights.tconstruct.smeltery.block.FaucetBlock;
 import slimeknights.tconstruct.smeltery.block.SearedGlassBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.item.TankItem;
-import slimeknights.tconstruct.library.recipe.casting.CastingBasinRecipe;
-import slimeknights.tconstruct.library.recipe.casting.CastingTableRecipe;
+import slimeknights.tconstruct.smeltery.tileentity.AbstractCastingTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.CastingBasinTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.CastingTableTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
@@ -103,8 +104,8 @@ public final class TinkerSmeltery extends TinkerModule {
   });
   public static final RegistryObject<TileEntityType<TankTileEntity>> tank = TILE_ENTITIES.register("tank", TankTileEntity::new, (set) -> set.addAll(searedTank.values()));
   public static final RegistryObject<TileEntityType<FaucetTileEntity>> faucet = TILE_ENTITIES.register("faucet", FaucetTileEntity::new, searedFaucet);
-  public static final RegistryObject<TileEntityType<CastingBasinTileEntity>> basin = TILE_ENTITIES.register("basin", CastingBasinTileEntity::new, castingBasin);
-  public static final RegistryObject<TileEntityType<CastingTableTileEntity>> table = TILE_ENTITIES.register("table", CastingTableTileEntity::new, castingTable);
+  public static final RegistryObject<TileEntityType<AbstractCastingTileEntity>> basin = TILE_ENTITIES.register("basin", CastingBasinTileEntity::new, castingBasin);
+  public static final RegistryObject<TileEntityType<AbstractCastingTileEntity>> table = TILE_ENTITIES.register("table", CastingTableTileEntity::new, castingTable);
 
   /*
    * Items
