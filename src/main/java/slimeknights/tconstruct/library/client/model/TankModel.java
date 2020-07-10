@@ -11,12 +11,9 @@ import com.mojang.datafixers.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.BlockFaceUV;
 import net.minecraft.client.renderer.model.BlockModel;
 import net.minecraft.client.renderer.model.BlockPart;
-import net.minecraft.client.renderer.model.BlockPartFace;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IModelTransform;
 import net.minecraft.client.renderer.model.IUnbakedModel;
@@ -43,13 +40,13 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.library.client.model.data.IncrementalFluidCuboid;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.tables.client.model.ModelProperties;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -61,9 +58,7 @@ import java.util.function.Function;
 @AllArgsConstructor
 public class TankModel implements IModelGeometry<TankModel> {
   private final BlockModel model;
-  private final Vector3f from;
-  private final Vector3f to;
-  private final int increments;
+  private final IncrementalFluidCuboid fluid;
 
   @Override
   public Collection<Material> getTextures(IModelConfiguration owner, Function<ResourceLocation,IUnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
@@ -122,36 +117,6 @@ public class TankModel implements IModelGeometry<TankModel> {
     }
 
     /**
-     * Gets a part in the model for the given amount
-     * @param amount  Fluid amount
-     * @param gas     If true, renders upside down
-     * @return  Fluid part to use in the model
-     */
-    private BlockPart getFluidPart(int amount, boolean gas) {
-      // set cube height based on stack amount
-      float minY = original.from.getY();
-      float maxY = original.to.getY();
-      // gas renders upside down
-      Vector3f start, end;
-      if (gas) {
-        start = new Vector3f(original.from.getX(), maxY + (amount * (minY - maxY) / original.increments), original.from.getZ());
-        end = original.to;
-      } else {
-        start = original.from;
-        end = new Vector3f(original.to.getX(), minY + (amount * (maxY - minY) / original.increments), original.to.getZ());
-      }
-      // add fluid faces
-      // vanilla does most of this automatically for us, just make it all null :)
-      Map<Direction,BlockPartFace> faces = new EnumMap<>(Direction.class);
-      for (Direction dir : Direction.values()) {
-        faces.put(dir, new BlockPartFace(null, 0, "fluid", new BlockFaceUV(null, 0)));
-      }
-
-      // create the part with the fluid
-      return new BlockPart(start, end, faces, null, false);
-    }
-
-    /**
      * Gets the model with the fluid part added
      * @param stack  Fluid stack to add
      * @return  Model with the fluid part
@@ -162,11 +127,12 @@ public class TankModel implements IModelGeometry<TankModel> {
       FluidAttributes attributes = stack.getFluid().getAttributes();
       Map<String,Either<Material,String>> textures = Maps.newHashMap(base.textures);
       textures.put("fluid", Either.left(ModelLoaderRegistry.blockMaterial(attributes.getStillTexture(stack))));
+      textures.put("flowing_fluid", Either.left(ModelLoaderRegistry.blockMaterial(attributes.getFlowingTexture(stack))));
 
       // add fluid part
       // TODO: fullbright for fluids with light level
       List<BlockPart> elements = Lists.newArrayList(base.getElements());
-      elements.add(getFluidPart(stack.getAmount(), attributes.isGaseous(stack)));
+      elements.add(original.fluid.getPart(stack.getAmount(), attributes.isGaseous(stack)));
 
       // bake the model
       BlockModel withFluid = new BlockModel(base.getParentLocation(), elements, textures, base.isAmbientOcclusion(), base.func_230176_c_(), base.getAllTransforms(), Lists.newArrayList(base.getOverrides()));
@@ -197,7 +163,8 @@ public class TankModel implements IModelGeometry<TankModel> {
      * @return  Cached model
      */
     private IBakedModel getCachedModel(FluidStack fluid, int capacity) {
-      return getCachedModel(new FluidStack(fluid.getFluid(), Math.min(fluid.getAmount() * original.increments / capacity, original.increments)));
+      int increments = original.fluid.getIncrements();
+      return getCachedModel(new FluidStack(fluid.getFluid(), Math.min(fluid.getAmount() * increments / capacity, increments)));
     }
 
     @Nonnull
@@ -215,27 +182,11 @@ public class TankModel implements IModelGeometry<TankModel> {
     /* Data */
 
     /**
-     * Gets the fluid start location
-     * @return  Fluid start
+     * Gets the fluid location
+     * @return  Fluid location data
      */
-    public Vector3f getFrom() {
-      return original.from;
-    }
-
-    /**
-     * Gets the fluid end location
-     * @return  Fluid end
-     */
-    public Vector3f getTo() {
-      return original.to;
-    }
-
-    /**
-     * Gets the number of increments on the texture
-     * @return  Texture increments
-     */
-    public int getIncrements() {
-      return original.increments;
+    public IncrementalFluidCuboid getFluid() {
+      return original.fluid;
     }
   }
 
@@ -252,11 +203,8 @@ public class TankModel implements IModelGeometry<TankModel> {
     @Override
     public TankModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
       BlockModel model = ModelUtils.deserialize(deserializationContext, modelContents);
-      JsonObject fluid = JSONUtils.getJsonObject(modelContents, "fluid");
-      Vector3f from = ModelUtils.arrayToVector(fluid, "from");
-      Vector3f to = ModelUtils.arrayToVector(fluid, "to");
-      int increments = JSONUtils.getInt(fluid, "increments");
-      return new TankModel(model, from, to, increments);
+      IncrementalFluidCuboid fluid = IncrementalFluidCuboid.fromJson(JSONUtils.getJsonObject(modelContents, "fluid"));
+      return new TankModel(model, fluid);
     }
   }
 }

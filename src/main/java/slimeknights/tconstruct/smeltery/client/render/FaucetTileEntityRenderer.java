@@ -72,11 +72,11 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
       matrices.translate(x1, y1, z1);
       Matrix4f matrix = matrices.getLast().getMatrix();
       // the stuff in the faucet
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.DOWN, color, combinedLightIn, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.NORTH, color, combinedLightIn, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.EAST, color, combinedLightIn, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.WEST, color, combinedLightIn, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.UP, color, combinedLightIn, true);
+      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.DOWN, color, combinedLightIn, 0, true);
+      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.NORTH, color, combinedLightIn, 0, true);
+      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.EAST, color, combinedLightIn, 0, true);
+      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.WEST, color, combinedLightIn, 0, true);
+      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.UP, color, combinedLightIn, 0, true);
       matrices.pop();
       
       // the stuff flowing down
@@ -86,12 +86,12 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
       matrices.push();
       matrices.translate(x1, y1, z1);
       matrix = matrices.getLast().getMatrix();
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.DOWN, color, combinedLightIn, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.NORTH, color, combinedLightIn, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.EAST, color, combinedLightIn, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.SOUTH, color, combinedLightIn, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.WEST, color, combinedLightIn, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.UP, color, combinedLightIn, true);
+      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.DOWN, color, combinedLightIn, 0, true);
+      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.NORTH, color, combinedLightIn, 0, true);
+      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.EAST, color, combinedLightIn, 0, true);
+      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.SOUTH, color, combinedLightIn, 0, true);
+      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.WEST, color, combinedLightIn, 0, true);
+      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.UP, color, combinedLightIn, 0, true);
       matrices.pop();
       
       // render in the block beneath
@@ -101,11 +101,11 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
         matrices.push();
         matrices.translate(x1, y1, z1);
         matrix = matrices.getLast().getMatrix();
-        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.DOWN, color, combinedLightIn, true);
-        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.NORTH, color, combinedLightIn, true);
-        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.EAST, color, combinedLightIn, true);
-        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.SOUTH, color, combinedLightIn, true);
-        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.WEST, color, combinedLightIn, true);
+        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.DOWN, color, combinedLightIn, 0, true);
+        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.NORTH, color, combinedLightIn, 0, true);
+        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.EAST, color, combinedLightIn, 0, true);
+        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.SOUTH, color, combinedLightIn, 0, true);
+        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.WEST, color, combinedLightIn, 0, true);
         matrices.pop();
       }
 

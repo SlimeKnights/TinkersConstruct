@@ -115,7 +115,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements IFlui
       if (Config.CLIENT.tankFluidModel.get()) {
         // if the amount change is bigger than a single increment, or we changed whether we have a fluid, update the world renderer
         TankModel.BakedModel model = RenderUtil.getBakedModel(this.getBlockState(), TankModel.BakedModel.class);
-        if (model != null && (Math.abs(newAmount - oldAmount) >= (tank.getCapacity() / model.getIncrements()) || (oldAmount == 0) != (newAmount == 0))) {
+        if (model != null && (Math.abs(newAmount - oldAmount) >= (tank.getCapacity() / model.getFluid().getIncrements()) || (oldAmount == 0) != (newAmount == 0))) {
           //this.requestModelDataUpdate();
           Minecraft.getInstance().worldRenderer.notifyBlockUpdate(null, pos, null, null, 3);
         }
