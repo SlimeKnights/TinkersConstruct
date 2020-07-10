@@ -7,6 +7,7 @@ import net.minecraftforge.resource.VanillaResourceType;
 import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.util.ResourceValidator;
+import slimeknights.tconstruct.smeltery.SmelteryClientEvents;
 import slimeknights.tconstruct.tables.TableClientEvents;
 import slimeknights.tconstruct.world.WorldClientEvents;
 
@@ -38,6 +39,7 @@ public class TinkerClient {
   private static void addResourceListeners(IReloadableResourceManager manager) {
     WorldClientEvents.addResourceListener(manager);
     TableClientEvents.addResourceListener(manager);
+    SmelteryClientEvents.addResourceListener(manager);
     MaterialRenderInfoLoader.addResourceListener(manager);
     manager.addReloadListener(textureValidator);
   }

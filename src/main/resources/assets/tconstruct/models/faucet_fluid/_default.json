@@ -1,0 +1,24 @@
+{
+  "side": {
+    "from": [  6,  1, 6 ],
+    "to":   [ 10, 16, 8 ],
+    "faces": {
+      "down":  { "flowing": false },
+      "north": { "flowing": true },
+      "east":  { "flowing": true },
+      "south": { "flowing": true },
+      "west":  { "flowing": true }
+    }
+  },
+  "center": {
+    "from": [  6,  1, 6 ],
+    "to":   [ 10, 16, 10 ],
+    "faces": {
+      "down":  { "flowing": false },
+      "north": { "flowing": true },
+      "east":  { "flowing": true },
+      "south": { "flowing": true },
+      "west":  { "flowing": true }
+    }
+  }
+}

@@ -2,20 +2,29 @@ package slimeknights.tconstruct.smeltery.client.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Direction.Axis;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.client.RenderUtil;
+import slimeknights.tconstruct.library.client.model.FluidsModel;
+import slimeknights.tconstruct.library.client.model.data.FluidCuboid;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
+import slimeknights.tconstruct.smeltery.client.FaucetFluidLoader;
+import slimeknights.tconstruct.smeltery.client.FaucetFluidLoader.FaucetFluid;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
+
+import java.util.function.Function;
 
 public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntity> {
   public FaucetTileEntityRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
@@ -29,87 +38,54 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
       return;
     }
 
-    // check how far into the 2nd block we want to render
+    // safety
     World world = tileEntity.getWorld();
     if (world == null) {
       return;
     }
-    IVertexBuilder buffer = bufferIn.getBuffer(RenderUtil.getBlockRenderType());
-    // TODO: Remove hardcoding
-    float yMin = -15f / 16f;
 
-    Direction direction = tileEntity.getBlockState().get(FaucetBlock.FACING);
-    if (direction == Direction.UP) {
-      RenderUtil.renderFluidCuboid(drained, matrices, buffer, combinedLightIn, 0.375f, 0, 0.375f, 0.625f, 1f, 0.625f);
-      // render in the block beneath
-      if (yMin < 0) {
-        RenderUtil.renderFluidCuboid(drained, matrices, buffer, combinedLightIn, 0.375f, yMin, 0.375f, 0.625f, 0f, 0.625f);
-      }
-    }
-    // for horizontal we use custom rendering so we can rotate it and have the flowing texture in the faucet part
-    // default direction is north because that makes the fluid flow into the right direction through the UVs
-    if (direction.getHorizontalIndex() >= 0) {
-      float r = -90f * (2 + direction.getHorizontalIndex());
-      float o = 0.5f;
-      matrices.push();
-      // custom rendering for flowing on top
-      Minecraft.getInstance().textureManager.bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
-      int color = drained.getFluid().getAttributes().getColor(drained);
-      TextureAtlasSprite flowing = Minecraft.getInstance().getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(drained.getFluid().getAttributes().getFlowingTexture(drained));
-
-      matrices.translate(o, 0, o);
-      matrices.rotate(Vector3f.YP.rotationDegrees(r));
-      matrices.translate(-o, 0, -o);
-
-      float x1 = 0.375f;
-      float x2 = 0.625f;
-      float y1 = 0.375f;
-      float y2 = 0.625f;
-      float z1 = 0f;
-      float z2 = 0.375f;
-
-      matrices.push();
-      matrices.translate(x1, y1, z1);
-      Matrix4f matrix = matrices.getLast().getMatrix();
-      // the stuff in the faucet
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.DOWN, color, combinedLightIn, 0, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.NORTH, color, combinedLightIn, 0, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.EAST, color, combinedLightIn, 0, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.WEST, color, combinedLightIn, 0, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.UP, color, combinedLightIn, 0, true);
-      matrices.pop();
-      
-      // the stuff flowing down
-      y1 = 0f;
-      z1 = 0.375f;
-      z2 = 0.5f;
-      matrices.push();
-      matrices.translate(x1, y1, z1);
-      matrix = matrices.getLast().getMatrix();
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.DOWN, color, combinedLightIn, 0, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.NORTH, color, combinedLightIn, 0, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.EAST, color, combinedLightIn, 0, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.SOUTH, color, combinedLightIn, 0, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.WEST, color, combinedLightIn, 0, true);
-      RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.UP, color, combinedLightIn, 0, true);
-      matrices.pop();
-      
-      // render in the block beneath
-      if (yMin < 0) {
-        y1 = yMin;
-        y2 = 0;
+    // fetch faucet model to determine where to render fluids
+    BlockState state = tileEntity.getBlockState();
+    FluidsModel.BakedModel model = RenderUtil.getBakedModel(state, FluidsModel.BakedModel.class);
+    if (model != null) {
+      // if side, rotate fluid model
+      Direction direction = tileEntity.getBlockState().get(FaucetBlock.FACING);
+      boolean isRotated = direction.getAxis() != Axis.Y;
+      if(isRotated) {
+        // TODO: double check
+        float r = -90f * (2 + direction.getHorizontalIndex());
+        float o = 0.5f;
         matrices.push();
-        matrices.translate(x1, y1, z1);
-        matrix = matrices.getLast().getMatrix();
-        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.DOWN, color, combinedLightIn, 0, true);
-        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.NORTH, color, combinedLightIn, 0, true);
-        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.EAST, color, combinedLightIn, 0, true);
-        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.SOUTH, color, combinedLightIn, 0, true);
-        RenderUtil.putTexturedQuad(buffer, matrix, flowing, x2 - x1, y2 - y1, z2 - z1, Direction.WEST, color, combinedLightIn, 0, true);
+        matrices.translate(o, 0, o);
+        matrices.rotate(Vector3f.YP.rotationDegrees(r));
+        matrices.translate(-o, 0, -o);
+      }
+
+      // fluid props
+      FluidAttributes attributes = drained.getFluid().getAttributes();
+      int color = attributes.getColor(drained);
+      Function<ResourceLocation, TextureAtlasSprite> spriteGetter = Minecraft.getInstance().getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+      TextureAtlasSprite still = spriteGetter.apply(attributes.getStillTexture(drained));
+      TextureAtlasSprite flowing = spriteGetter.apply(attributes.getFlowingTexture(drained));
+      boolean isGas = attributes.isGaseous(drained);
+
+      // render all cubes in the model
+      IVertexBuilder buffer = bufferIn.getBuffer(RenderUtil.getBlockRenderType());
+      for (FluidCuboid cube : model.getFluids()) {
+        RenderUtil.renderCuboid(matrices, buffer, cube, 0, still, flowing, color, combinedLightIn, isGas);
+      }
+
+      // render into the block(s) below
+      FaucetFluid faucetFluid = FaucetFluidLoader.get(world.getBlockState(tileEntity.getPos().down()));
+      // render all cubes with the given offset
+      for (FluidCuboid cube : faucetFluid.getFluids(direction)) {
+        RenderUtil.renderCuboid(matrices, buffer, cube, -1, still, flowing, color, combinedLightIn, isGas);
+      }
+
+      // if rotated, pop back rotation
+      if(isRotated) {
         matrices.pop();
       }
-
-      matrices.pop();
     }
   }
 }

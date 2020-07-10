@@ -3,6 +3,7 @@ package slimeknights.tconstruct.smeltery;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -18,8 +19,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.model.FluidsModel;
 import slimeknights.tconstruct.library.client.model.TankModel;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
+import slimeknights.tconstruct.smeltery.client.FaucetFluidLoader;
 import slimeknights.tconstruct.smeltery.client.render.FaucetTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.TankTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.item.TankItem;
@@ -28,6 +31,13 @@ import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid= TConstruct.modID, value= Dist.CLIENT, bus= Bus.MOD)
 public class SmelteryClientEvents extends ClientEventBase {
+  /**
+   * Called by TinkerClient to add the resource listeners, runs during constructor
+   */
+  public static void addResourceListener(IReloadableResourceManager manager) {
+    manager.addReloadListener(FaucetFluidLoader.INSTANCE);
+  }
+
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
     RenderTypeLookup.setRenderLayer(TinkerSmeltery.searedGlass.get(), RenderType.getCutout());
@@ -45,6 +55,7 @@ public class SmelteryClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerModelLoaders(ModelRegistryEvent event) {
+    ModelLoaderRegistry.registerLoader(Util.getResource("fluids"), FluidsModel.Loader.INSTANCE);
     ModelLoaderRegistry.registerLoader(Util.getResource("tank"), TankModel.Loader.INSTANCE);
   }
 
