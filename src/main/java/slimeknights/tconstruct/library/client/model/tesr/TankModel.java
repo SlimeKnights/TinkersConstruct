@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.client.model;
+package slimeknights.tconstruct.library.client.model.tesr;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -40,6 +40,7 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.library.client.model.ModelUtils;
 import slimeknights.tconstruct.library.client.model.data.IncrementalFluidCuboid;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.tables.client.model.ModelProperties;

@@ -14,9 +14,13 @@ import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.PlayerContainer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -25,8 +29,10 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.model.data.FluidCuboid;
 import slimeknights.tconstruct.library.client.model.data.FluidCuboid.FluidFace;
+import slimeknights.tconstruct.library.client.model.data.ModelItem;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.Function;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -47,19 +53,17 @@ public final class RenderUtil {
 
   /**
    * Adds a quad to the renderer
-   * @param renderer          Renderer instnace
-   * @param matrix            Render matrix
-   * @param sprite            Sprite to render
-   * @param w                 Sprite width
-   * @param h                 Sprite height
-   * @param d                 Sprite depth
-   * @param face              Face to render
-   * @param color             Color to use in rendering
-   * @param brightness        Face brightness
-   * @param flowing           If true, half texture coordinates
+   * @param renderer    Renderer instnace
+   * @param matrix      Render matrix
+   * @param sprite      Sprite to render
+   * @param from        Quad start
+   * @param to          Quad end
+   * @param face        Face to render
+   * @param color       Color to use in rendering
+   * @param brightness  Face brightness
+   * @param flowing     If true, half texture coordinates
    */
-  private static void putTexturedQuad(IVertexBuilder renderer, Matrix4f matrix, TextureAtlasSprite sprite, Vector3f from, Vector3f to, Direction face,
-                                     int color, int brightness, int rotation, boolean flowing) {
+  private static void putTexturedQuad(IVertexBuilder renderer, Matrix4f matrix, TextureAtlasSprite sprite, Vector3f from, Vector3f to, Direction face, int color, int brightness, int rotation, boolean flowing) {
     // start with texture coordinates
     float x1 = from.getX(), y1 = from.getY(), z1 = from.getZ();
     float x2 = to.getX(), y2 = to.getY(), z2 = to.getZ();
@@ -301,6 +305,51 @@ public final class RenderUtil {
 
   public static int blue(int c) {
     return (c) & 0xFF;
+  }
+
+  /* Items */
+
+  /**
+   * Renders inventory items in a TESr
+   * @param matrices    Matrix stack instance
+   * @param buffer      Buffer instance
+   * @param inventory   Inventory to render
+   * @param modelItems  List of model items for render information
+   * @param light       Model light
+   */
+  public static void renderInventory(MatrixStack matrices, IRenderTypeBuffer buffer, IInventory inventory, List<ModelItem> modelItems, int light) {
+    for (int i = 0; i < modelItems.size(); i++) {
+      // if the item says skip, skip
+      ModelItem modelItem = modelItems.get(i);
+      if (modelItem.isEmpty()) continue;
+
+      // if no stack, skip
+      ItemStack item = inventory.getStackInSlot(i);
+      if (item.isEmpty()) continue;
+
+      // start rendering
+      matrices.push();
+      Vector3f center = modelItem.getCenterScaled();
+      matrices.translate(center.getX(), center.getY(), center.getZ());
+
+      // scale
+      float scale = modelItem.getSizeScaled();
+      matrices.scale(scale, scale, scale);
+
+      // rotate X, then Y
+      float x = modelItem.getX();
+      if (x != 0) {
+        matrices.rotate(Vector3f.XP.rotationDegrees(x));
+      }
+      float y = modelItem.getY();
+      if (y != 0) {
+        matrices.rotate(Vector3f.YP.rotationDegrees(y));
+      }
+
+      // render the actual item
+      Minecraft.getInstance().getItemRenderer().renderItem(item, TransformType.NONE, light, OverlayTexture.NO_OVERLAY, matrices, buffer);
+      matrices.pop();
+    }
   }
 
 

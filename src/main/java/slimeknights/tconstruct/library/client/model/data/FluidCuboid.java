@@ -1,9 +1,7 @@
 package slimeknights.tconstruct.library.client.model.data;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,7 +12,6 @@ import net.minecraft.util.JSONUtils;
 import slimeknights.tconstruct.library.client.model.ModelUtils;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
@@ -116,15 +113,7 @@ public class FluidCuboid {
 
     // array: multiple cubes
     if (json.isJsonArray()) {
-      JsonArray array = json.getAsJsonArray();
-      if (array.size() == 0) {
-        throw new JsonSyntaxException(key + " must have at least 1 element");
-      }
-      List<FluidCuboid> fluids = new ArrayList<>(array.size());
-      for (int i = 0; i < array.size(); i++) {
-        fluids.add(fromJson(JSONUtils.getJsonObject(array.get(i), key + "[" + i + "]")));
-      }
-      return fluids;
+      return ModelUtils.parseList(json.getAsJsonArray(), FluidCuboid::fromJson, key);
     }
 
     throw new JsonSyntaxException("Invalid fluid '" + key + "', must be an array or an object");
@@ -149,27 +138,13 @@ public class FluidCuboid {
       if (dir != null) {
         JsonObject face = JSONUtils.getJsonObject(entry.getValue(), name);
         boolean flowing = JSONUtils.getBoolean(face, "flowing", false);
-        int rotation = parseRotation(face);
+        int rotation = ModelUtils.getRotation(face, "rotation");
         faces.put(dir, new FluidFace(flowing, rotation));
       } else {
         throw new JsonSyntaxException("Unknown face '" + name + "'");
       }
     }
     return faces;
-  }
-
-  /**
-   * Parses a face rotation, throwing an exception if invalid
-   * @param json  JSON parent
-   * @return  Integer of 0, 90, 180, or 270
-   */
-  private static int parseRotation(JsonObject json) {
-    int i = JSONUtils.getInt(json, "rotation", 0);
-    if (i >= 0 && i % 90 == 0 && i / 90 <= 3) {
-      return i;
-    } else {
-      throw new JsonParseException("Invalid rotation " + i + " found, only 0/90/180/270 allowed");
-    }
   }
 
   @AllArgsConstructor

@@ -1,14 +1,19 @@
 package slimeknights.tconstruct.library.client.model;
 
+import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.BlockModel;
 import net.minecraft.util.JSONUtils;
+
+import java.util.List;
+import java.util.function.Function;
 
 @NoArgsConstructor(access= AccessLevel.PRIVATE)
 public final class ModelUtils {
@@ -43,5 +48,39 @@ public final class ModelUtils {
     }
 
     return new Vector3f(vec[0], vec[1], vec[2]);
+  }
+
+  /**
+   * Gets a rotation from JSON
+   * @param json  JSON parent
+   * @return  Integer of 0, 90, 180, or 270
+   */
+  public static int getRotation(JsonObject json, String key) {
+    int i = JSONUtils.getInt(json, key, 0);
+    if (i >= 0 && i % 90 == 0 && i / 90 <= 3) {
+      return i;
+    } else {
+      throw new JsonParseException("Invalid '" + key + "' " + i + " found, only 0/90/180/270 allowed");
+    }
+  }
+
+  /**
+   * Parses a list from an JsonArray
+   * @param array   Json array
+   * @param mapper  Mapper from JsonObject to new object
+   * @param name    Json key of the array
+   * @param <T>     Output type
+   * @return  List of output objects
+   */
+  public static <T> List<T> parseList(JsonArray array, Function<JsonObject, T> mapper, String name) {
+    if (array.size() == 0) {
+      throw new JsonSyntaxException(name + " must have at least 1 element");
+    }
+    // build the list
+    ImmutableList.Builder<T> builder = ImmutableList.builder();
+    for (int i = 0; i < array.size(); i++) {
+      builder.add(mapper.apply(JSONUtils.getJsonObject(array.get(i), name + "[" + i + "]")));
+    }
+    return builder.build();
   }
 }

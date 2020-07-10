@@ -22,12 +22,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
-import slimeknights.tconstruct.library.client.renderer.font.CustomFontRenderer;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.ConnectedModel;
+import slimeknights.tconstruct.library.client.model.tesr.InventoryModel;
+import slimeknights.tconstruct.library.client.renderer.font.CustomFontRenderer;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
-import slimeknights.tconstruct.tools.ToolClientEvents;
 
 @EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)
 public class CommonsClientEvents extends ClientEventBase {
@@ -71,6 +71,7 @@ public class CommonsClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void registerModelLoaders(ModelRegistryEvent event) {
     ModelLoaderRegistry.registerLoader(Util.getResource("connected"), ConnectedModel.Loader.INSTANCE);
+    ModelLoaderRegistry.registerLoader(Util.getResource("inventory"), InventoryModel.Loader.INSTANCE);
   }
 
   @SubscribeEvent

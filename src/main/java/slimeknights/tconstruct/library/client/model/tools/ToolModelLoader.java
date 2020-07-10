@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.client.model;
+package slimeknights.tconstruct.library.client.model.tools;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonDeserializationContext;

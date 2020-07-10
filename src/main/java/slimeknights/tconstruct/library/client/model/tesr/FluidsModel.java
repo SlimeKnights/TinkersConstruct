@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.client.model;
+package slimeknights.tconstruct.library.client.model.tesr;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
@@ -19,6 +19,7 @@ import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
+import slimeknights.tconstruct.library.client.model.ModelUtils;
 import slimeknights.tconstruct.library.client.model.data.FluidCuboid;
 
 import java.util.Collection;
@@ -69,5 +70,4 @@ public class FluidsModel implements IModelGeometry<FluidsModel> {
       return new FluidsModel(model, fluid);
     }
   }
-
 }

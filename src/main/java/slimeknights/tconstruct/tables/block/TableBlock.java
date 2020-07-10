@@ -171,7 +171,7 @@ public abstract class TableBlock extends InventoryBlock {
     IWorld iworld = context.getWorld();
     BlockPos blockpos = context.getPos();
     boolean flag = iworld.getFluidState(blockpos).getFluid() == Fluids.WATER;
-    return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite()).with(WATERLOGGED, flag);
+    return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing()).with(WATERLOGGED, flag);
   }
 
   @Deprecated
