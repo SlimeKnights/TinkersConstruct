@@ -12,7 +12,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.Vec3d;
 import slimeknights.tconstruct.library.client.RenderUtil;
+import slimeknights.tconstruct.library.client.model.data.ModelItem;
 import slimeknights.tconstruct.library.client.model.tesr.InventoryModel;
+
+import java.util.List;
 
 public class InventoryTileEntityRenderer<T extends TileEntity & IInventory> extends TileEntityRenderer<T> {
 
@@ -40,7 +43,10 @@ public class InventoryTileEntityRenderer<T extends TileEntity & IInventory> exte
         }
 
         // render items
-        RenderUtil.renderInventory(matrices, buffer, station, model.getItems(), light);
+        List<ModelItem> modelItems = model.getItems();
+        for (int i = 0; i < modelItems.size(); i++) {
+          RenderUtil.renderItem(matrices, buffer, station.getStackInSlot(i), modelItems.get(i), light);
+        }
 
         // pop back rotation
         if (isRotated) {

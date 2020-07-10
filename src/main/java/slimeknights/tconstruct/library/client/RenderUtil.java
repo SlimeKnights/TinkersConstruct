@@ -18,7 +18,6 @@ import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
@@ -32,7 +31,6 @@ import slimeknights.tconstruct.library.client.model.data.FluidCuboid.FluidFace;
 import slimeknights.tconstruct.library.client.model.data.ModelItem;
 
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.function.Function;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -310,46 +308,41 @@ public final class RenderUtil {
   /* Items */
 
   /**
-   * Renders inventory items in a TESr
-   * @param matrices    Matrix stack instance
+   * Renders a single item in a TESR
+   * @param matrices    Matrix stack inst ance
    * @param buffer      Buffer instance
-   * @param inventory   Inventory to render
-   * @param modelItems  List of model items for render information
+   * @param item        Item to render
+   * @param modelItem   Model items for render information
    * @param light       Model light
    */
-  public static void renderInventory(MatrixStack matrices, IRenderTypeBuffer buffer, IInventory inventory, List<ModelItem> modelItems, int light) {
-    for (int i = 0; i < modelItems.size(); i++) {
-      // if the item says skip, skip
-      ModelItem modelItem = modelItems.get(i);
-      if (modelItem.isEmpty()) continue;
+  public static void renderItem(MatrixStack matrices, IRenderTypeBuffer buffer, ItemStack item, ModelItem modelItem, int light) {
+    // if the item says skip, skip
+    if (modelItem.isEmpty()) return;
+    // if no stack, skip
+    if (item.isEmpty()) return;
 
-      // if no stack, skip
-      ItemStack item = inventory.getStackInSlot(i);
-      if (item.isEmpty()) continue;
+    // start rendering
+    matrices.push();
+    Vector3f center = modelItem.getCenterScaled();
+    matrices.translate(center.getX(), center.getY(), center.getZ());
 
-      // start rendering
-      matrices.push();
-      Vector3f center = modelItem.getCenterScaled();
-      matrices.translate(center.getX(), center.getY(), center.getZ());
+    // scale
+    float scale = modelItem.getSizeScaled();
+    matrices.scale(scale, scale, scale);
 
-      // scale
-      float scale = modelItem.getSizeScaled();
-      matrices.scale(scale, scale, scale);
-
-      // rotate X, then Y
-      float x = modelItem.getX();
-      if (x != 0) {
-        matrices.rotate(Vector3f.XP.rotationDegrees(x));
-      }
-      float y = modelItem.getY();
-      if (y != 0) {
-        matrices.rotate(Vector3f.YP.rotationDegrees(y));
-      }
-
-      // render the actual item
-      Minecraft.getInstance().getItemRenderer().renderItem(item, TransformType.NONE, light, OverlayTexture.NO_OVERLAY, matrices, buffer);
-      matrices.pop();
+    // rotate X, then Y
+    float x = modelItem.getX();
+    if (x != 0) {
+      matrices.rotate(Vector3f.XP.rotationDegrees(x));
     }
+    float y = modelItem.getY();
+    if (y != 0) {
+      matrices.rotate(Vector3f.YP.rotationDegrees(y));
+    }
+
+    // render the actual item
+    Minecraft.getInstance().getItemRenderer().renderItem(item, TransformType.NONE, light, OverlayTexture.NO_OVERLAY, matrices, buffer);
+    matrices.pop();
   }
 
 
