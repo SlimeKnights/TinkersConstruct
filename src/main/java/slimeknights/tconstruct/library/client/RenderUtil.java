@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -29,6 +30,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.model.data.FluidCuboid;
 import slimeknights.tconstruct.library.client.model.data.FluidCuboid.FluidFace;
 import slimeknights.tconstruct.library.client.model.data.ModelItem;
+import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 
 import javax.annotation.Nullable;
 import java.util.function.Function;
@@ -268,6 +270,39 @@ public final class RenderUtil {
     putTexturedCuboid(matrices, buffer.getBuffer(blockRenderType), cube, still, flowing, from, to, attributes.getColor(fluid), light, isGas);
   }
 
+  /**
+   * Add textured quads for a fluid tank
+   * @param matrices      Matrix stack instance
+   * @param buffer        Render type buffer instance
+   * @param tank          Fluid tank animated to render=
+   * @param light         Quad lighting
+   * @param cube          Fluid cuboid instance
+   * @param partialTicks  Partial ticks
+   * @param flipGas       If true, flips gas cubes
+   */
+  public static void renderScaledCuboid(MatrixStack matrices, IRenderTypeBuffer buffer, FluidCuboid cube, FluidTankAnimated tank, int light, float partialTicks, boolean flipGas) {
+    // render liquid if present
+    FluidStack liquid = tank.getFluid();
+    int capacity = tank.getCapacity();
+    if (!liquid.isEmpty() && capacity > 0) {
+      // update render offset
+      float offset = tank.getRenderOffset();
+      if (offset > 1.2f || offset < -1.2f) {
+        offset = offset - ((offset / 12f + 0.1f) * partialTicks);
+        tank.setRenderOffset(offset);
+      } else {
+        tank.setRenderOffset(0);
+      }
+
+      // fetch fluid information from the model
+      float height = (liquid.getAmount() - offset) / capacity;
+      RenderUtil.renderScaledCuboid(matrices, buffer, cube, liquid, height, light, flipGas);
+    } else {
+      // clear render offet if no liquid
+      tank.setRenderOffset(0);
+    }
+  }
+
   public static void setColorRGB(int color) {
     setColorRGBA(color | 0xff000000);
   }
@@ -343,6 +378,36 @@ public final class RenderUtil {
     // render the actual item
     Minecraft.getInstance().getItemRenderer().renderItem(item, TransformType.NONE, light, OverlayTexture.NO_OVERLAY, matrices, buffer);
     matrices.pop();
+  }
+
+  /**
+   * Applies horizontal rotation to the given TESR
+   * @param matrices  Matrix stack
+   * @param state     Block state, checked for {@link BlockStateProperties#HORIZONTAL_FACING}
+   * @return  True if rotation was applied. Caller is expected to call {@link MatrixStack#pop()} if true
+   */
+  public static boolean applyRotation(MatrixStack matrices, BlockState state) {
+    if (state.has(BlockStateProperties.HORIZONTAL_FACING)) {
+      return applyRotation(matrices, state.get(BlockStateProperties.HORIZONTAL_FACING));
+    }
+    return false;
+  }
+
+  /**
+   * Applies horizontal rotation to the given TESR
+   * @param matrices  Matrix stack
+   * @param facing    Direction of rotation
+   * @return  True if rotation was applied. Caller is expected to call {@link MatrixStack#pop()} if true
+   */
+  public static boolean applyRotation(MatrixStack matrices, Direction facing) {
+    if (facing.getAxis().isHorizontal()) {
+      matrices.push();
+      matrices.translate(0.5, 0, 0.5);
+      matrices.rotate(Vector3f.YP.rotationDegrees(-90f * (2 + facing.getHorizontalIndex())));
+      matrices.translate(-0.5, 0, -0.5);
+      return true;
+    }
+    return false;
   }
 
 

@@ -5,13 +5,11 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidAttributes;
@@ -49,17 +47,8 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
     FluidsModel.BakedModel model = RenderUtil.getBakedModel(state, FluidsModel.BakedModel.class);
     if (model != null) {
       // if side, rotate fluid model
-      Direction direction = tileEntity.getBlockState().get(FaucetBlock.FACING);
-      boolean isRotated = direction.getAxis() != Axis.Y;
-      if(isRotated) {
-        // TODO: double check
-        float r = -90f * (2 + direction.getHorizontalIndex());
-        float o = 0.5f;
-        matrices.push();
-        matrices.translate(o, 0, o);
-        matrices.rotate(Vector3f.YP.rotationDegrees(r));
-        matrices.translate(-o, 0, -o);
-      }
+      Direction direction = state.get(FaucetBlock.FACING);
+      boolean isRotated = RenderUtil.applyRotation(matrices, direction);
 
       // fluid props
       FluidAttributes attributes = drained.getFluid().getAttributes();
