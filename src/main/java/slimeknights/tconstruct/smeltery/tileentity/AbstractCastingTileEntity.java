@@ -16,6 +16,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -23,6 +24,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
@@ -32,6 +34,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.library.recipe.RecipeUtil;
 import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
 import slimeknights.tconstruct.library.smeltery.CastingFluidHandler;
 import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
@@ -42,16 +45,27 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public abstract class AbstractCastingTileEntity extends TableTileEntity implements ITickableTileEntity, ISidedInventory, FluidUpdatePacket.IFluidPacketReceiver {
+  // slots
   public static final int INPUT = 0;
   public static final int OUTPUT = 1;
+  // NBT
+  private static final String TAG_TANK = "tank";
+  private static final String TAG_TIMER = "timer";
+  private static final String TAG_RECIPE = "recipe";
+
   @Getter
   private final FluidTankAnimated tank = new FluidTankAnimated(0, this);
   private final LazyOptional<CastingFluidHandler> holder = LazyOptional.of(() -> new CastingFluidHandler(this, tank));
   private final TileCastingWrapper crafting;
   private final IRecipeType<AbstractCastingRecipe> recipeType;
 
+  /** Current recipe progress */
   private int timer;
+  /** Current in progress recipe */
   private AbstractCastingRecipe recipe;
+  /** Name of the current recipe, fetched from NBT. Used since NBT is read before recipe manager access */
+  private ResourceLocation recipeName;
+  /** Cache recipe to reduce time during recipe lookups. Not saved to NBT */
   private AbstractCastingRecipe lastRecipe;
 
   protected AbstractCastingTileEntity(TileEntityType<?> tileEntityTypeIn, IRecipeType<AbstractCastingRecipe> recipeType) {
@@ -182,7 +196,7 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
    * @return        Amount of fluid needed for recipe, used to resize the tank.
    */
   public int initNewCasting(Fluid fluid, IFluidHandler.FluidAction action) {
-    if (this.recipe != null) {
+    if (this.recipe != null || this.recipeName != null) {
       return 0;
     }
     this.crafting.setFluid(fluid);
@@ -238,20 +252,56 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
 
   /* NBT */
 
+  /**
+   * Loads a recipe in from its name and updates the tank capacity
+   * @param world  Nonnull world instance
+   * @param name   Recipe name to load
+   */
+  private void loadRecipe(World world, ResourceLocation name) {
+    recipe = RecipeUtil.getRecipe(world.getRecipeManager(), name, AbstractCastingRecipe.class).orElse(null);
+    if (recipe != null) {
+      tank.setCapacity(recipe.getFluid().getAmount());
+    }
+  }
+
+  @Override
+  public void setWorldAndPos(World world, BlockPos pos) {
+    super.setWorldAndPos(world, pos);
+    // if we have a recipe name, swap recipe name for recipe instance
+    if (recipeName != null) {
+      loadRecipe(world, recipeName);
+      recipeName = null;
+    }
+  }
+
   @Override
   @Nonnull
   public CompoundNBT write(CompoundNBT tags) {
     tags = super.write(tags);
-    tags.put("tank", tank.writeToNBT(new CompoundNBT()));
-    tags.putInt("timer", timer);
+    tags.put(TAG_TANK, tank.writeToNBT(new CompoundNBT()));
+    tags.putInt(TAG_TIMER, timer);
+    if (recipe != null) {
+      tags.putString(TAG_RECIPE, recipe.getId().toString());
+    } else if (recipeName != null) {
+      tags.putString(TAG_RECIPE, recipeName.toString());
+    }
     return tags;
   }
 
   @Override
   public void read(CompoundNBT tags) {
     super.read(tags);
-    tank.readFromNBT(tags.getCompound("tank"));
-    updateFluidTo(tank.getFluid());
-    timer = tags.getInt("timer");
+    tank.readFromNBT(tags.getCompound(TAG_TANK));
+    timer = tags.getInt(TAG_TIMER);
+    if (tags.contains(TAG_RECIPE, NBT.TAG_STRING)) {
+      ResourceLocation name = new ResourceLocation(tags.getString(TAG_RECIPE));
+      // if we have a world, fetch the recipe
+      if (world != null) {
+        loadRecipe(world, name);
+      } else {
+        // otherwise fetch the recipe when the world is set
+        recipeName = name;
+      }
+    }
   }
 }

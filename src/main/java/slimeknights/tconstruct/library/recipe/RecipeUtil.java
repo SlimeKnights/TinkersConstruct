@@ -17,6 +17,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,18 @@ import java.util.stream.Collectors;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class RecipeUtil {
+  /**
+   * Gets a recipe by name from the manager
+   * @param manager  Recipe manager
+   * @param name     Recipe name
+   * @param clazz    Output class
+   * @param <C>      Return type
+   * @return  Recipe in the given type, or null if wrong type
+   */
+  public static <C extends IRecipe<?>> Optional<C> getRecipe(RecipeManager manager, ResourceLocation name, Class<C> clazz) {
+    return manager.getRecipe(name).filter(clazz::isInstance).map(clazz::cast);
+  }
+
   /**
    * Gets a list of all recipes from the manager, safely casting to the specified type
    * @param manager  Recipe manager
