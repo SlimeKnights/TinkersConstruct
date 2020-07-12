@@ -696,7 +696,9 @@
     "gui.tconstruct.error.not_enough_durability": "Not enough durability to replace parts!\n%d more durability required.",
 
     "_comment": "JEI Strings",
-    "gui.jei.casting.cooling_time": "%d s",
-    "gui.jei.casting.basin": "block.tconstruct.casting_basin",
-    "gui.jei.casting.table": "block.tconstruct.casting_table"
+    "jei.tconstruct.casting.basin": "Casting Basin",
+    "jei.tconstruct.casting.table": "Casting Table",
+    "jei.tconstruct.casting.cooling_time": "{0} s",
+    "jei.tconstruct.casting.cast_kept": "Cast item can be reused in later recipes",
+    "jei.tconstruct.casting.cast_consumed": "Cast item is consumed on casting"
 }

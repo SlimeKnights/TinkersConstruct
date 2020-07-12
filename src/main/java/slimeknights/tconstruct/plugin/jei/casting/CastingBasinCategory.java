@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei.casting;
 
-import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.recipe.casting.CastingBasinRecipe;
@@ -9,10 +8,8 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 public class CastingBasinCategory extends AbstractCastingCategory<CastingBasinRecipe> {
 
-  private final IDrawable castingBasin;
   public CastingBasinCategory(IGuiHelper guiHelper) {
-    super(guiHelper, TinkerSmeltery.castingBasin.get(), "gui.jei.casting.basin", 200);
-    castingBasin = guiHelper.createDrawable(this.getBackgroundLoc(), 141, 16, 16, 16);
+    super(guiHelper, TinkerSmeltery.castingBasin.get(), "jei.tconstruct.casting.basin", guiHelper.createDrawable(BACKGROUND_LOC, 117, 16, 16, 16));
   }
 
   @Override
@@ -23,11 +20,5 @@ public class CastingBasinCategory extends AbstractCastingCategory<CastingBasinRe
   @Override
   public Class<? extends CastingBasinRecipe> getRecipeClass() {
     return CastingBasinRecipe.class;
-  }
-
-  @Override
-  public void draw(CastingBasinRecipe recipe, double mouseX, double mouseY) {
-    castingBasin.draw(59, 42);
-    super.draw(recipe, mouseX, mouseY);
   }
 }
