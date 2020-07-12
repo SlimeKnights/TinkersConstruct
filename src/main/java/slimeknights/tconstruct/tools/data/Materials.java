@@ -6,7 +6,6 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.Material;
 import slimeknights.tconstruct.library.materials.MaterialId;
 
 import java.util.ArrayList;
@@ -77,7 +76,7 @@ final class Materials {
    * Creates a material with a fluid
    */
   private static IMaterial mat(MaterialId location, Supplier<? extends Fluid> fluid, boolean craftable, String materialColor) {
-    Material material = new DataMaterial(location, fluid, craftable, materialColor);
+    IMaterial material = new DataMaterial(location, fluid, craftable, materialColor);
     allMaterials.add(material);
     return material;
   }
