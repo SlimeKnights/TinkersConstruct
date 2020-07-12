@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:ingot_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_rose_gold",
     "amount": 144
   },
-  "result": "tconstruct:rose_gold_ingot"
+  "result": "tconstruct:rose_gold_ingot",
+  "cooling_time": 45
 }

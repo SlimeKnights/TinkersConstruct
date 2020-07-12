@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:nugget_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_copper",
     "amount": 16
   },
-  "result": "tconstruct:copper_nugget"
+  "result": "tconstruct:copper_nugget",
+  "cooling_time": 26
 }

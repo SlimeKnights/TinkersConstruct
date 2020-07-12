@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:ingot_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:seared_stone",
     "amount": 144
   },
-  "result": "tconstruct:seared_brick"
+  "result": "tconstruct:seared_brick",
+  "cooling_time": 69
 }

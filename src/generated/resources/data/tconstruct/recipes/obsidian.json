@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:casting_basin",
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_obsidian",
     "amount": 576
   },
-  "result": "minecraft:obsidian"
+  "result": "minecraft:obsidian",
+  "cooling_time": 276
 }

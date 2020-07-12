@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:ingot_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_knightslime",
     "amount": 144
   },
-  "result": "tconstruct:knightslime_ingot"
+  "result": "tconstruct:knightslime_ingot",
+  "cooling_time": 43
 }

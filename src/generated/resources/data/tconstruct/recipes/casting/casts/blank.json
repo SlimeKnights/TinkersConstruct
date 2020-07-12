@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:casting_table",
   "switch_slots": true,
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_gold",
     "amount": 144
   },
-  "result": "tconstruct:blank_cast"
+  "result": "tconstruct:blank_cast",
+  "cooling_time": 44
 }

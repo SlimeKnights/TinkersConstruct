@@ -4,9 +4,10 @@
     "item": "tconstruct:purple_congealed_slime"
   },
   "cast_consumed": true,
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:purple_slime",
     "amount": 720
   },
-  "result": "tconstruct:purple_slime"
+  "result": "tconstruct:purple_slime",
+  "cooling_time": 55
 }

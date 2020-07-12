@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:ingot_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_cobalt",
     "amount": 144
   },
-  "result": "tconstruct:cobalt_ingot"
+  "result": "tconstruct:cobalt_ingot",
+  "cooling_time": 82
 }

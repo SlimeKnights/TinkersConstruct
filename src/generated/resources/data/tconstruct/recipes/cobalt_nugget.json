@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:nugget_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_cobalt",
     "amount": 16
   },
-  "result": "tconstruct:cobalt_nugget"
+  "result": "tconstruct:cobalt_nugget",
+  "cooling_time": 30
 }

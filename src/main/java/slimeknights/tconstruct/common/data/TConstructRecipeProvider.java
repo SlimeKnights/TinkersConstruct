@@ -29,9 +29,7 @@ import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
@@ -39,11 +37,10 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.casting.CastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
-import slimeknights.tconstruct.library.materials.MaterialValues;
-import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.FluidObject;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -707,11 +704,11 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     this.addSlimeCastingRecipe(consumer, TinkerFluids.blood, SlimeType.BLOOD);
     this.addSlimeCastingRecipe(consumer, TinkerFluids.blueSlime, SlimeType.BLUE);
     this.addSlimeCastingRecipe(consumer, TinkerFluids.purpleSlime, SlimeType.PURPLE);
-    this.addBlockCastingRecipe(consumer, TinkerFluids.searedStone, TinkerSmeltery.searedStone.get(), MaterialValues.VALUE_BrickBlock);
+    this.addBlockCastingRecipe(consumer, TinkerFluids.searedStone, TinkerSmeltery.searedStone, MaterialValues.VALUE_BrickBlock);
     this.addIngotCastingRecipe(consumer, TinkerFluids.searedStone, TinkerSmeltery.searedBrick, MaterialValues.VALUE_Ingot);
     this.addBlockCastingRecipe(consumer, TinkerFluids.moltenGlass, TinkerCommons.clearGlass, MaterialValues.VALUE_Glass);
     CastingRecipeBuilder.tableRecipe(TinkerCommons.clearGlassPane)
-      .setFluid(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.VALUE_Glass * 6 / 16))
+      .setFluidAndTime(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.VALUE_Glass * 6 / 16))
       .addCriterion("has_item", this.hasItem(TinkerCommons.clearGlassPane.asItem()))
       .build(consumer, location("casting/clear_glass_pane"));
     this.addBlockCastingRecipe(consumer, TinkerFluids.moltenObsidian, Items.OBSIDIAN, MaterialValues.VALUE_BrickBlock);
@@ -728,33 +725,33 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
 
     // Smeltery Misc
     CastingRecipeBuilder.basinRecipe(TinkerSmeltery.searedCobble.get())
-      .setFluid(new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.VALUE_Ingot * 3))
+      .setFluidAndTime(new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.VALUE_Ingot * 3))
       .setCast(Tags.Items.COBBLESTONE, true)
       .addCriterion("has_item", this.hasItem(TinkerFluids.searedStone.asItem()))
       .build(consumer, location("casting/seared_cobble"));
 
     CastingRecipeBuilder.basinRecipe(TinkerSmeltery.searedGlass)
-      .setFluid(new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.VALUE_Ingot * 4))
+      .setFluidAndTime(new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.VALUE_Ingot * 4))
       .setCast(Tags.Items.GLASS_COLORLESS, true)
       .addCriterion("has_item", this.hasItem(TinkerFluids.searedStone.asItem()))
       .build(consumer, location("casting/seared_glass"));
 
     CastingRecipeBuilder.tableRecipe(TinkerSmeltery.searedGlassPane)
-      .setFluid(new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.VALUE_BrickBlock * 6 / 16))
+      .setFluidAndTime(new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.VALUE_BrickBlock * 6 / 16))
       .setCast(Tags.Items.GLASS_PANES_COLORLESS, true)
       .addCriterion("has_item", this.hasItem(Tags.Items.GLASS_PANES_COLORLESS))
       .build(consumer, location("casting/seared_glass_pane"));
 
     // Misc
     CastingRecipeBuilder.basinRecipe(TinkerCommons.lavawood.get())
-      .setFluid(new FluidStack(Fluids.LAVA, 250))
+      .setFluidAndTime(new FluidStack(Fluids.LAVA, 250))
       .setCast(ItemTags.PLANKS, true)
       .addCriterion("has_item", this.hasItem(Items.LAVA_BUCKET))
       .build(consumer, location("casting/lavawood"));
 
     // Cast recipes
     CastingRecipeBuilder.tableRecipe(TinkerSmeltery.blankCast)
-      .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
+      .setFluidAndTime(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
       .setSwitchSlots()
       .addCriterion("has_item", this.hasItem(TinkerSmeltery.castingTable))
       .build(consumer, location("casting/casts/blank"));
@@ -1160,14 +1157,14 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
 
   private void addBlockCastingRecipe(@Nonnull Consumer<IFinishedRecipe> consumer, @Nonnull FluidObject fluidObject, IItemProvider block, int amount) {
     CastingRecipeBuilder.basinRecipe(block)
-      .setFluid(new FluidStack(fluidObject.get(), amount))
+      .setFluidAndTime(new FluidStack(fluidObject.get(), amount))
       .addCriterion("has_item", this.hasItem(block))
       .build(consumer, location(block.asItem().getRegistryName().getPath()));
   }
 
   private void addIngotCastingRecipe(@Nonnull Consumer<IFinishedRecipe> consumer, FluidObject fluidObject, IItemProvider ingot, int amount) {
     CastingRecipeBuilder.tableRecipe(ingot)
-      .setFluid(new FluidStack(fluidObject.get(), amount))
+      .setFluidAndTime(new FluidStack(fluidObject.get(), amount))
       .setCast(TinkerSmeltery.ingotCast, false)
       .addCriterion("has_item", this.hasItem(ingot))
       .build(consumer, location(ingot.asItem().getRegistryName().getPath()));
@@ -1175,7 +1172,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
 
   private void addNuggetCastingRecipe(@Nonnull Consumer<IFinishedRecipe> consumer, FluidObject fluidObject, IItemProvider nugget, int amount) {
     CastingRecipeBuilder.tableRecipe(nugget)
-      .setFluid(new FluidStack(fluidObject.get(), 16))
+      .setFluidAndTime(new FluidStack(fluidObject.get(), 16))
       .setCast(TinkerSmeltery.nuggetCast, false)
       .addCriterion("has_item", this.hasItem(nugget))
       .build(consumer, location(nugget.asItem().getRegistryName().getPath()));
@@ -1190,12 +1187,12 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
   private void addSlimeCastingRecipe(@Nonnull Consumer<IFinishedRecipe> consumer, @Nonnull FluidObject fluidObject, SlimeType slimeType) {
     addBlockCastingRecipe(consumer, fluidObject, TinkerWorld.congealedSlime.get(slimeType), MaterialValues.VALUE_BrickBlock);
     CastingRecipeBuilder.basinRecipe(TinkerWorld.slime.get(slimeType))
-      .setFluid(new FluidStack(fluidObject.get(), MaterialValues.VALUE_Ingot * 5))
+      .setFluidAndTime(new FluidStack(fluidObject.get(), MaterialValues.VALUE_Ingot * 5))
       .setCast(TinkerWorld.congealedSlime.get(slimeType), true)
       .addCriterion("has_item", this.hasItem(TinkerCommons.slimeball.get(slimeType)))
       .build(consumer, location("slime/" + slimeType.getName()));
     CastingRecipeBuilder.tableRecipe(TinkerCommons.slimeball.get(slimeType))
-      .setFluid(new FluidStack(fluidObject.get(), MaterialValues.VALUE_Ingot))
+      .setFluidAndTime(new FluidStack(fluidObject.get(), MaterialValues.VALUE_Ingot))
       .addCriterion("has_item", this.hasItem(TinkerCommons.slimeball.get(slimeType)))
       .build(consumer, location("slimeball/" + slimeType.getName()));
   }
@@ -1214,7 +1211,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
 
   private void addCastCastingRecipe(@Nonnull Consumer<IFinishedRecipe> consumer, @Nonnull Tag<Item> input, @Nonnull IItemProvider cast) {
     CastingRecipeBuilder.tableRecipe(cast)
-      .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
+      .setFluidAndTime(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
       .setCast(input, true)
       .setSwitchSlots()
       .addCriterion("has_item", this.hasItem(input))
@@ -1223,7 +1220,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
 
   private void addCastCastingRecipe(@Nonnull Consumer<IFinishedRecipe> consumer, @Nonnull IItemProvider input, @Nonnull IItemProvider cast) {
     CastingRecipeBuilder.tableRecipe(cast)
-      .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
+      .setFluidAndTime(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
       .setCast(input, true)
       .setSwitchSlots()
       .addCriterion("has_item", this.hasItem(input))

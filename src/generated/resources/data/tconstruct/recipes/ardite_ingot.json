@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:ingot_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_ardite",
     "amount": 144
   },
-  "result": "tconstruct:ardite_ingot"
+  "result": "tconstruct:ardite_ingot",
+  "cooling_time": 74
 }

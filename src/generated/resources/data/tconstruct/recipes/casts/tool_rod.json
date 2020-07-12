@@ -5,9 +5,10 @@
   },
   "cast_consumed": true,
   "switch_slots": true,
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_gold",
     "amount": 144
   },
-  "result": "tconstruct:tool_rod_cast"
+  "result": "tconstruct:tool_rod_cast",
+  "cooling_time": 44
 }

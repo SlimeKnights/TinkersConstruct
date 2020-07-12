@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:casting_basin",
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_gold",
     "amount": 1296
   },
-  "result": "minecraft:gold_block"
+  "result": "minecraft:gold_block",
+  "cooling_time": 211
 }

@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:casting_basin",
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:blood",
     "amount": 576
   },
-  "result": "tconstruct:blood_congealed_slime"
+  "result": "tconstruct:blood_congealed_slime",
+  "cooling_time": 36
 }

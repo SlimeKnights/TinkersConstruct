@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:nugget_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_iron",
     "amount": 16
   },
-  "result": "minecraft:iron_nugget"
+  "result": "minecraft:iron_nugget",
+  "cooling_time": 28
 }

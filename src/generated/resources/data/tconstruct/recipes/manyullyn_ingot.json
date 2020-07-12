@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:ingot_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_manyullyn",
     "amount": 144
   },
-  "result": "tconstruct:manyullyn_ingot"
+  "result": "tconstruct:manyullyn_ingot",
+  "cooling_time": 87
 }

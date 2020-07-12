@@ -1,8 +1,9 @@
 {
   "type": "tconstruct:casting_table",
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:blood",
     "amount": 144
   },
-  "result": "tconstruct:blood_slime_ball"
+  "result": "tconstruct:blood_slime_ball",
+  "cooling_time": 27
 }

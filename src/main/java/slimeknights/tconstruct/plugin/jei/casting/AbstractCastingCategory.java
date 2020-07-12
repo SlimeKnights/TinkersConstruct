@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.casting;
 
+import com.google.common.collect.ImmutableList;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -15,12 +16,11 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
 
 import java.awt.Color;
-import java.util.Arrays;
 
 public abstract class AbstractCastingCategory<T extends AbstractCastingRecipe> implements IRecipeCategory<T> {
   protected static final int inputSlot = 0;
@@ -56,7 +56,7 @@ public abstract class AbstractCastingCategory<T extends AbstractCastingRecipe> i
   @Override
   public void setIngredients(T recipe, IIngredients ingredients) {
     ingredients.setInputIngredients(recipe.getIngredients());
-    ingredients.setInput(VanillaTypes.FLUID, recipe.getFluid());
+    ingredients.setInputLists(VanillaTypes.FLUID, ImmutableList.of(recipe.getFluids()));
     ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
   }
 
@@ -87,14 +87,13 @@ public abstract class AbstractCastingCategory<T extends AbstractCastingRecipe> i
     guiItemStacks.set(ingredients);
 
     IGuiFluidStackGroup fluidStacks = recipeLayout.getFluidStacks();
-    FluidStack fluid = recipe.getFluid();
-    fluidStacks.init(0, true, 22, 10, 18, 32, 1296, false, null);
+    fluidStacks.init(0, true, 22, 10, 18, 32, MaterialValues.VALUE_Block, false, null);
     fluidStacks.set(ingredients);
     int h = 11;
     if (recipe.getCast() == Ingredient.EMPTY) {
       h += 16;
     }
-    fluidStacks.init(1, true, 64, 15, 6, h, recipe.getFluid().getAmount(), false, null);
-    fluidStacks.set(1, fluid);
+    fluidStacks.init(1, true, 64, 15, 6, h, 1, false, null);
+    fluidStacks.set(1, recipe.getFluids());
   }
 }

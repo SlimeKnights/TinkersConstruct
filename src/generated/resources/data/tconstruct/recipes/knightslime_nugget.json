@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:nugget_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_knightslime",
     "amount": 16
   },
-  "result": "tconstruct:knightslime_nugget"
+  "result": "tconstruct:knightslime_nugget",
+  "cooling_time": 26
 }

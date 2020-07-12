@@ -206,7 +206,7 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
       if (action == IFluidHandler.FluidAction.EXECUTE) {
         this.recipe = castingRecipe;
       }
-      return castingRecipe.getFluid().getAmount();
+      return castingRecipe.getFluidAmount(crafting);
     }
     return 0;
   }
@@ -258,9 +258,16 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
    * @param name   Recipe name to load
    */
   private void loadRecipe(World world, ResourceLocation name) {
-    recipe = RecipeUtil.getRecipe(world.getRecipeManager(), name, AbstractCastingRecipe.class).orElse(null);
-    if (recipe != null) {
-      tank.setCapacity(recipe.getFluid().getAmount());
+    // if the tank is empty, ignore old recipe
+    FluidStack fluid = tank.getFluid();
+    if(!fluid.isEmpty()) {
+      // fetch recipe by name
+      AbstractCastingRecipe recipe = RecipeUtil.getRecipe(world.getRecipeManager(), name, AbstractCastingRecipe.class).orElse(null);
+      if(recipe != null) {
+        // update capacity from recipe
+        crafting.setFluid(fluid.getFluid());
+        tank.setCapacity(recipe.getFluidAmount(crafting));
+      }
     }
   }
 

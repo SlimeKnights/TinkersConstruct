@@ -5,9 +5,10 @@
   },
   "cast_consumed": true,
   "switch_slots": true,
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_gold",
     "amount": 144
   },
-  "result": "tconstruct:sword_blade_cast"
+  "result": "tconstruct:sword_blade_cast",
+  "cooling_time": 44
 }

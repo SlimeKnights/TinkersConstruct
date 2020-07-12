@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:ingot_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_pig_iron",
     "amount": 144
   },
-  "result": "tconstruct:pigiron_ingot"
+  "result": "tconstruct:pigiron_ingot",
+  "cooling_time": 51
 }

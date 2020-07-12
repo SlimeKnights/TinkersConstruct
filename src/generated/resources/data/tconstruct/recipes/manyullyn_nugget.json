@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:nugget_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_manyullyn",
     "amount": 16
   },
-  "result": "tconstruct:manyullyn_nugget"
+  "result": "tconstruct:manyullyn_nugget",
+  "cooling_time": 31
 }

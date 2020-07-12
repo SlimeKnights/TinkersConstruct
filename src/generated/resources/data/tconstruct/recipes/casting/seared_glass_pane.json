@@ -4,9 +4,10 @@
     "tag": "forge:glass_panes/colorless"
   },
   "cast_consumed": true,
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:seared_stone",
     "amount": 216
   },
-  "result": "tconstruct:seared_glass_pane"
+  "result": "tconstruct:seared_glass_pane",
+  "cooling_time": 91
 }

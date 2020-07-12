@@ -5,9 +5,10 @@
   },
   "cast_consumed": true,
   "switch_slots": true,
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_gold",
     "amount": 144
   },
-  "result": "tconstruct:large_plate_cast"
+  "result": "tconstruct:large_plate_cast",
+  "cooling_time": 44
 }

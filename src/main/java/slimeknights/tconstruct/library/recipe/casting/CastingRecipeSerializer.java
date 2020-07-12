@@ -2,16 +2,14 @@ package slimeknights.tconstruct.library.recipe.casting;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-import slimeknights.tconstruct.library.recipe.RecipeUtil;
+import slimeknights.tconstruct.library.recipe.FluidIngredient;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,21 +34,10 @@ public class CastingRecipeSerializer<T extends AbstractCastingRecipe> extends Fo
       consumed = JSONUtils.getBoolean(json, "cast_consumed", false);
     }
 
-    if (!json.has("fluidstack"))
-      throw new JsonSyntaxException("Missing fluid input definition!");
-    JsonObject jsonFluid = JSONUtils.getJsonObject(json, "fluidstack");
-    FluidStack fluidStack = RecipeUtil.deserializeFluidStack(jsonFluid);
+    FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
     ItemStack item = new ItemStack(JSONUtils.getItem(json, "result"));
-    int coolingtime;
-    if (!json.has("cooling_time")) {
-      int time = 24;
-      int temperature = fluidStack.getFluid().getAttributes().getTemperature() - 300;
-      coolingtime = time + (temperature * fluidStack.getAmount()) / 1600;
-    }
-    else {
-      coolingtime = JSONUtils.getInt(json, "cooling_time");
-    }
-    return this.factory.create(recipeId, group, cast, fluidStack, item, coolingtime, consumed, switchSlots);
+    int coolingTime = JSONUtils.getInt(json, "cooling_time");
+    return this.factory.create(recipeId, group, cast, fluid, item, coolingTime, consumed, switchSlots);
   }
 
   @Nullable
@@ -58,19 +45,19 @@ public class CastingRecipeSerializer<T extends AbstractCastingRecipe> extends Fo
   public T read(ResourceLocation recipeId, PacketBuffer buffer) {
     String group = buffer.readString(Short.MAX_VALUE);
     Ingredient cast = Ingredient.read(buffer);
-    FluidStack fluidStack = FluidStack.readFromPacket(buffer);
+    FluidIngredient fluid = FluidIngredient.read(buffer);
     ItemStack output = buffer.readItemStack();
     int coolingtime = buffer.readInt();
     boolean consumed = buffer.readBoolean();
     boolean switchSlots = buffer.readBoolean();
-    return this.factory.create(recipeId, group, cast, fluidStack, output, coolingtime, consumed, switchSlots);
+    return this.factory.create(recipeId, group, cast, fluid, output, coolingtime, consumed, switchSlots);
   }
 
   @Override
   public void write(PacketBuffer buffer, AbstractCastingRecipe recipe) {
     buffer.writeString(recipe.getGroup());
     recipe.getCast().write(buffer);
-    recipe.getFluid().writeToPacket(buffer);
+    recipe.getFluid().write(buffer);
     buffer.writeItemStack(recipe.getRecipeOutput());
     buffer.writeInt(recipe.getCoolingTime());
     buffer.writeBoolean(recipe.isConsumed());
@@ -78,7 +65,7 @@ public class CastingRecipeSerializer<T extends AbstractCastingRecipe> extends Fo
   }
 
   public interface IFactory<T extends AbstractCastingRecipe> {
-    T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, @Nonnull FluidStack fluidIn,
+    T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, @Nonnull FluidIngredient fluidIn,
              ItemStack result, int coolingTime, boolean consumed, boolean switchSlots);
   }
 }

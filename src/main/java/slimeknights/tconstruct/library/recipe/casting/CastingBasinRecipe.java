@@ -4,14 +4,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidStack;
+import slimeknights.tconstruct.library.recipe.FluidIngredient;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 public class CastingBasinRecipe extends AbstractCastingRecipe {
 
 
-  public CastingBasinRecipe(ResourceLocation id, String group, Ingredient cast, FluidStack fluid, ItemStack result, int coolingTime, boolean consumed, boolean switchSlots) {
+  public CastingBasinRecipe(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemStack result, int coolingTime, boolean consumed, boolean switchSlots) {
     super(RecipeTypes.CASTING_BASIN, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
   }
 

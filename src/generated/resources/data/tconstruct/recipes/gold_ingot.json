@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:ingot_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_gold",
     "amount": 144
   },
-  "result": "minecraft:gold_ingot"
+  "result": "minecraft:gold_ingot",
+  "cooling_time": 44
 }

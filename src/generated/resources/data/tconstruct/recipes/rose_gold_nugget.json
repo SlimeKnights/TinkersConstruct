@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:nugget_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_rose_gold",
     "amount": 16
   },
-  "result": "tconstruct:rose_gold_nugget"
+  "result": "tconstruct:rose_gold_nugget",
+  "cooling_time": 26
 }

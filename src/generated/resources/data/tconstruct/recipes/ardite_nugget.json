@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:nugget_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_ardite",
     "amount": 16
   },
-  "result": "tconstruct:ardite_nugget"
+  "result": "tconstruct:ardite_nugget",
+  "cooling_time": 29
 }

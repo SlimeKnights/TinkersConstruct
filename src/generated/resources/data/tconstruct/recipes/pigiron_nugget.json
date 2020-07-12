@@ -3,9 +3,10 @@
   "cast": {
     "item": "tconstruct:nugget_cast"
   },
-  "fluidstack": {
+  "fluid": {
     "fluid": "tconstruct:molten_pig_iron",
     "amount": 16
   },
-  "result": "tconstruct:pigiron_nugget"
+  "result": "tconstruct:pigiron_nugget",
+  "cooling_time": 27
 }
