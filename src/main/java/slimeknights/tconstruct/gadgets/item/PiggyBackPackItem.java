@@ -29,7 +29,6 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.item.ArmorTooltipItem;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.library.capability.piggyback.ITinkerPiggyback;
@@ -84,7 +83,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
   };
 
   public PiggyBackPackItem() {
-    super(PIGGYBACK, EquipmentSlotType.CHEST, (new Properties()).group(TinkerRegistry.tabGadgets).maxStackSize(16));
+    super(PIGGYBACK, EquipmentSlotType.CHEST, (new Properties()).group(TinkerGadgets.TAB_GADGETS).maxStackSize(16));
   }
 
   @Nonnull

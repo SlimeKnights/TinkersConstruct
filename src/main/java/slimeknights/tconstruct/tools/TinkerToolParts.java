@@ -1,17 +1,32 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.registration.object.ItemObject;
 import slimeknights.tconstruct.library.tinkering.ToolPartItem;
+import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
-public final class TinkerToolParts extends TinkerModule {
+import java.util.ArrayList;
+import java.util.List;
 
-  private static final Item.Properties PARTS_PROPS = new Item.Properties().group(TinkerRegistry.tabParts);
+public final class TinkerToolParts extends TinkerModule {
+  /** Tab for all tool parts */
+  public static final ItemGroup TAB_TOOL_PARTS = new SupplierItemGroup(TConstruct.modID, "tool_parts", () -> {
+    List<IMaterial> materials = new ArrayList<>(MaterialRegistry.getInstance().getMaterials());
+    if (materials.isEmpty()) {
+      return new ItemStack(TinkerToolParts.pickaxeHead);
+    }
+    return TinkerToolParts.pickaxeHead.get().getItemstackWithMaterial(materials.get(TConstruct.random.nextInt(materials.size())));
+  });
+  private static final Item.Properties PARTS_PROPS = new Item.Properties().group(TAB_TOOL_PARTS);
 
   public static final ItemObject<ToolPartItem> pickaxeHead = ITEMS.register("pickaxe_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));
   public static final ItemObject<ToolPartItem> hammerHead = ITEMS.register("hammer_head", () -> new ToolPartItem(PARTS_PROPS, HeadMaterialStats.ID));

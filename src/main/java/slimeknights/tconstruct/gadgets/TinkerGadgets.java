@@ -11,6 +11,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraftforge.common.MinecraftForge;
@@ -20,6 +21,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.item.EdibleItem;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.gadgets.block.DropperRailBlock;
 import slimeknights.tconstruct.gadgets.block.PunjiBlock;
@@ -34,14 +36,13 @@ import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem;
 import slimeknights.tconstruct.gadgets.item.PiggyBackPackItem.CarryPotionEffect;
 import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
 import slimeknights.tconstruct.gadgets.item.SlimeSlingItem;
-import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
 import slimeknights.tconstruct.library.registration.object.ItemObject;
+import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.shared.TinkerFood;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
 
 import java.util.function.Function;
@@ -51,14 +52,15 @@ import java.util.function.Function;
  */
 @SuppressWarnings("unused")
 public final class TinkerGadgets extends TinkerModule {
-  /* Slime Drops */
+  /** Tab for all special tools added by the mod */
+  public static final ItemGroup TAB_GADGETS = new SupplierItemGroup(TConstruct.modID, "gadgets", () -> new ItemStack(TinkerGadgets.slimeSling.get(SlimeType.GREEN)));
   static final Logger log = Util.getLogger("tinker_gadgets");
 
   /*
    * Block base properties
    */
-  private static final Item.Properties GADGET_PROPS = new Item.Properties().group(TinkerRegistry.tabGadgets);
-  private static final Item.Properties UNSTACKABLE_PROPS = new Item.Properties().group(TinkerRegistry.tabGadgets).maxStackSize(1);
+  private static final Item.Properties GADGET_PROPS = new Item.Properties().group(TAB_GADGETS);
+  private static final Item.Properties UNSTACKABLE_PROPS = new Item.Properties().group(TAB_GADGETS).maxStackSize(1);
   private static final Function<Block,? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, GADGET_PROPS);
   private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GADGET_PROPS);
 
@@ -92,18 +94,18 @@ public final class TinkerGadgets extends TinkerModule {
   public static final ItemObject<EflnBallItem> efln = ITEMS.register("efln_ball", EflnBallItem::new);
 
   // foods
-  public static final EnumObject<SlimeType,EdibleItem> slimeDrop = ITEMS.registerEnum(SlimeType.VISIBLE_COLORS, "slime_drop", (type) -> new EdibleItem(type.getSlimeDropFood(type), TinkerRegistry.tabGadgets));
+  public static final EnumObject<SlimeType,EdibleItem> slimeDrop = ITEMS.registerEnum(SlimeType.VISIBLE_COLORS, "slime_drop", (type) -> new EdibleItem(type.getSlimeDropFood(type), TAB_GADGETS));
   // jerkies
-  public static final ItemObject<EdibleItem> monsterJerky = ITEMS.register("monster_jerky", () -> new EdibleItem(TinkerFood.MONSTER_JERKY, TinkerRegistry.tabGadgets));
-  public static final ItemObject<EdibleItem> beefJerky = ITEMS.register("beef_jerky", () -> new EdibleItem(TinkerFood.BEEF_JERKY, TinkerRegistry.tabGadgets));
-  public static final ItemObject<EdibleItem> chickenJerky = ITEMS.register("chicken_jerky", () -> new EdibleItem(TinkerFood.CHICKEN_JERKY, TinkerRegistry.tabGadgets));
-  public static final ItemObject<EdibleItem> porkJerky = ITEMS.register("pork_jerky", () -> new EdibleItem(TinkerFood.PORK_JERKY, TinkerRegistry.tabGadgets));
-  public static final ItemObject<EdibleItem> muttonJerky = ITEMS.register("mutton_jerky", () -> new EdibleItem(TinkerFood.MUTTON_JERKY, TinkerRegistry.tabGadgets));
-  public static final ItemObject<EdibleItem> rabbitJerky = ITEMS.register("rabbit_jerky", () -> new EdibleItem(TinkerFood.RABBIT_JERKY, TinkerRegistry.tabGadgets));
-  public static final ItemObject<EdibleItem> fishJerky = ITEMS.register("fish_jerky", () -> new EdibleItem(TinkerFood.FISH_JERKY, TinkerRegistry.tabGadgets));
-  public static final ItemObject<EdibleItem> salmonJerky = ITEMS.register("salmon_jerky", () -> new EdibleItem(TinkerFood.SALMON_JERKY, TinkerRegistry.tabGadgets));
-  public static final ItemObject<EdibleItem> clownfishJerky = ITEMS.register("clownfish_jerky", () -> new EdibleItem(TinkerFood.CLOWNFISH_JERKY, TinkerRegistry.tabGadgets));
-  public static final ItemObject<EdibleItem> pufferfishJerky = ITEMS.register("pufferfish_jerky", () -> new EdibleItem(TinkerFood.PUFFERFISH_JERKY, TinkerRegistry.tabGadgets));
+  public static final ItemObject<EdibleItem> monsterJerky = ITEMS.register("monster_jerky", () -> new EdibleItem(TinkerFood.MONSTER_JERKY, TAB_GADGETS));
+  public static final ItemObject<EdibleItem> beefJerky = ITEMS.register("beef_jerky", () -> new EdibleItem(TinkerFood.BEEF_JERKY, TAB_GADGETS));
+  public static final ItemObject<EdibleItem> chickenJerky = ITEMS.register("chicken_jerky", () -> new EdibleItem(TinkerFood.CHICKEN_JERKY, TAB_GADGETS));
+  public static final ItemObject<EdibleItem> porkJerky = ITEMS.register("pork_jerky", () -> new EdibleItem(TinkerFood.PORK_JERKY, TAB_GADGETS));
+  public static final ItemObject<EdibleItem> muttonJerky = ITEMS.register("mutton_jerky", () -> new EdibleItem(TinkerFood.MUTTON_JERKY, TAB_GADGETS));
+  public static final ItemObject<EdibleItem> rabbitJerky = ITEMS.register("rabbit_jerky", () -> new EdibleItem(TinkerFood.RABBIT_JERKY, TAB_GADGETS));
+  public static final ItemObject<EdibleItem> fishJerky = ITEMS.register("fish_jerky", () -> new EdibleItem(TinkerFood.FISH_JERKY, TAB_GADGETS));
+  public static final ItemObject<EdibleItem> salmonJerky = ITEMS.register("salmon_jerky", () -> new EdibleItem(TinkerFood.SALMON_JERKY, TAB_GADGETS));
+  public static final ItemObject<EdibleItem> clownfishJerky = ITEMS.register("clownfish_jerky", () -> new EdibleItem(TinkerFood.CLOWNFISH_JERKY, TAB_GADGETS));
+  public static final ItemObject<EdibleItem> pufferfishJerky = ITEMS.register("pufferfish_jerky", () -> new EdibleItem(TinkerFood.PUFFERFISH_JERKY, TAB_GADGETS));
   // Spicy Memes
   private static final Item.Properties SPAGET_PROPS = new Item.Properties().maxStackSize(1);
   public static final ItemObject<Item> hardSpaghetti = ITEMS.register("hard_spaghetti", SPAGET_PROPS);
@@ -151,6 +153,5 @@ public final class TinkerGadgets extends TinkerModule {
   void commonSetup(final FMLCommonSetupEvent event) {
     CapabilityTinkerPiggyback.register();
     MinecraftForge.EVENT_BUS.register(new GadgetEvents());
-    TinkerRegistry.tabGadgets.setDisplayIcon(new ItemStack(slimeSling.get(SlimeBlock.SlimeType.GREEN)));
   }
 }

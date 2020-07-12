@@ -17,8 +17,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.util.LocUtils;
+import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.EflnBallEntity;
-import slimeknights.tconstruct.library.TinkerRegistry;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.List;
 public class EflnBallItem extends SnowballItem {
 
   public EflnBallItem() {
-    super((new Properties()).maxStackSize(16).group(TinkerRegistry.tabGadgets));
+    super((new Properties()).maxStackSize(16).group(TinkerGadgets.TAB_GADGETS));
   }
 
   @Override
