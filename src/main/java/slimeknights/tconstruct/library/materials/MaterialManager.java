@@ -12,8 +12,6 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.Util;
@@ -88,7 +86,10 @@ public class MaterialManager extends JsonReloadListener {
     return Optional.ofNullable(fluidLookup.get(fluid));
   }
 
-  @OnlyIn(Dist.CLIENT)
+  /**
+   * Updates the material list from the server.list. Should only be called client side
+   * @param materialList  Server material list
+   */
   public void updateMaterialsFromServer(Collection<IMaterial> materialList) {
     this.materials = materialList.stream()
       .filter(Objects::nonNull)

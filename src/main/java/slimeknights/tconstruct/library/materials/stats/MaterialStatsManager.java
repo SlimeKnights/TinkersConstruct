@@ -13,8 +13,6 @@ import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.PacketDistributor;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
@@ -104,7 +102,10 @@ public class MaterialStatsManager extends JsonReloadListener {
     return materialToStatsPerType.getOrDefault(materialId, ImmutableMap.of()).values();
   }
 
-  @OnlyIn(Dist.CLIENT)
+  /**
+   * Updates the material stats from the server, should only be called on the client
+   * @param materialStats  Material stats list
+   */
   public void updateMaterialStatsFromServer(Map<MaterialId, Collection<IMaterialStats>> materialStats) {
     this.materialToStatsPerType = materialStats.entrySet().stream()
       .collect(Collectors.toMap(

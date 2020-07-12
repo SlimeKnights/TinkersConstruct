@@ -2,8 +2,6 @@ package slimeknights.tconstruct.library;
 
 import com.google.common.annotations.VisibleForTesting;
 import net.minecraft.fluid.Fluid;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
@@ -74,17 +72,27 @@ public final class MaterialRegistry {
     this.materialTraitsManager = null;
   }
 
-  @OnlyIn(Dist.CLIENT)
+  /**
+   * Updates the material list from the server list. Should only be called client side
+   * @param materials  Materials list
+   */
   static void updateMaterialsFromServer(Collection<IMaterial> materials) {
     INSTANCE.materialManager.updateMaterialsFromServer(materials);
   }
 
-  @OnlyIn(Dist.CLIENT)
+  /**
+   * Updates material stats from the server list. Should only be called client side
+   * @param materialStats  Stats list
+   */
   static void updateMaterialStatsFromServer(Map<MaterialId, Collection<IMaterialStats>> materialStats) {
     INSTANCE.materialStatsManager.updateMaterialStatsFromServer(materialStats);
   }
 
-  @OnlyIn(Dist.CLIENT)
+  /**
+   * Gets the class for a material stat ID
+   * @param id  Material stat type
+   * @return  Material stat class
+   */
   static Class<? extends IMaterialStats> getClassForStat(MaterialStatsId id) {
     return INSTANCE.materialStatsManager.getClassForStat(id);
   }

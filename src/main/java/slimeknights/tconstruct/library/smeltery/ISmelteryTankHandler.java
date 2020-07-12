@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.smeltery;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 
 import javax.annotation.Nullable;
@@ -17,16 +15,15 @@ public interface ISmelteryTankHandler {
    */
   void onTankChanged(List<FluidStack> fluids, FluidStack changed);
 
-
   /**
    * Returns a copy of the SmelteryTank of the TE
    * @return Smeltery Tank if active, null if the smeltery is inactive
    */
   @Nullable
   SmelteryTank getTank();
+
   /**
-   * Updates the fluids in the tank with data from the packet
+   * Updates the fluids in the tank with data from the packet, should only be called client side
    */
-  @OnlyIn(Dist.CLIENT)
   void updateFluidsFromPacket(List<FluidStack> liquids);
 }
