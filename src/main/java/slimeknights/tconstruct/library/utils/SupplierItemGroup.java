@@ -12,6 +12,7 @@ public class SupplierItemGroup extends ItemGroup {
   private final Supplier<ItemStack> supplier;
   public SupplierItemGroup(String modId, String name, Supplier<ItemStack> supplier) {
     super(String.format("%s.%s", modId, name));
+    this.setTabPath(String.format("%s/%s", modId, name));
     this.supplier = supplier;
   }
 

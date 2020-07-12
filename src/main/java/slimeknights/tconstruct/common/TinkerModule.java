@@ -5,6 +5,8 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
@@ -24,7 +26,9 @@ import slimeknights.tconstruct.library.registration.EntityTypeDeferredRegister;
 import slimeknights.tconstruct.library.registration.FluidDeferredRegister;
 import slimeknights.tconstruct.library.registration.ItemDeferredRegister;
 import slimeknights.tconstruct.library.registration.TileEntityTypeDeferredRegister;
+import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -53,8 +57,11 @@ public abstract class TinkerModule {
   protected static final Block.Properties GENERIC_GEM_BLOCK = GENERIC_METAL_BLOCK;
   protected static final Block.Properties GENERIC_GLASS_BLOCK = builder(Material.GLASS, ToolType.PICKAXE, SoundType.GLASS).hardnessAndResistance(0.3F).notSolid();
 
+  /** Creative tab for items that do not fit in another tab */
+  public static final ItemGroup TAB_GENERAL = new SupplierItemGroup(TConstruct.modID, "general", () -> new ItemStack(TinkerCommons.slimeball.get(SlimeType.BLUE)));
+
   // base item properties
-  protected static final Item.Properties GENERAL_PROPS = new Item.Properties().group(TinkerCommons.TAB_GENERAL);
+  protected static final Item.Properties GENERAL_PROPS = new Item.Properties().group(TAB_GENERAL);
   protected static final Function<Block,? extends BlockItem> GENERAL_BLOCK_ITEM = (b) -> new BlockItem(b, GENERAL_PROPS);
   protected static final Function<Block,? extends BlockItem> GENERAL_TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GENERAL_PROPS);
 
