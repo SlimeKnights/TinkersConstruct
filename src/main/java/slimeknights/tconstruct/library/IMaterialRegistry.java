@@ -70,5 +70,5 @@ public interface IMaterialRegistry {
    * @param defaultStats  Default stats instance
    * @param clazz         Stat type class
    */
-  <T extends IMaterialStats> void registerMaterial(T defaultStats, Class<T> clazz);
+  <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz);
 }

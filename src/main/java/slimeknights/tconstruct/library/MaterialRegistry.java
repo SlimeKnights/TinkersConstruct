@@ -61,9 +61,9 @@ public final class MaterialRegistry {
     materialTraitsManager = new MaterialTraitsManager();
     registry = new MaterialRegistryImpl(materialManager, materialStatsManager, materialTraitsManager);
 
-    registry.registerMaterial(HeadMaterialStats.DEFAULT, HeadMaterialStats.class);
-    registry.registerMaterial(HandleMaterialStats.DEFAULT, HandleMaterialStats.class);
-    registry.registerMaterial(ExtraMaterialStats.DEFAULT, ExtraMaterialStats.class);
+    registry.registerStatType(HeadMaterialStats.DEFAULT, HeadMaterialStats.class);
+    registry.registerStatType(HandleMaterialStats.DEFAULT, HandleMaterialStats.class);
+    registry.registerStatType(ExtraMaterialStats.DEFAULT, ExtraMaterialStats.class);
   }
 
   @VisibleForTesting

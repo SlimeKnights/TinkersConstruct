@@ -72,7 +72,7 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   }
 
   @Override
-  public <T extends IMaterialStats> void registerMaterial(T defaultStats, Class<T> clazz) {
+  public <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz) {
     MaterialStatsId statsId = defaultStats.getIdentifier();
     if (materialStatDefaults.containsKey(statsId)) {
       throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(statsId);
