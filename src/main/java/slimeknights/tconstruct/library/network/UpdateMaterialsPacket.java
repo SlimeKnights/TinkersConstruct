@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -13,6 +14,7 @@ import slimeknights.tconstruct.library.materials.MaterialId;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 @Getter
 @NoArgsConstructor
@@ -35,9 +37,13 @@ public class UpdateMaterialsPacket implements INetworkSendable {
       boolean craftable = buffer.readBoolean();
       ResourceLocation fluidId = buffer.readResourceLocation();
       Fluid fluid = ForgeRegistries.FLUIDS.getValue(fluidId);
+      if (fluid == null) {
+        fluid = Fluids.EMPTY;
+      }
       String textColor = buffer.readString();
+      int temperature = buffer.readInt();
 
-      this.materials.add(new Material(id, fluid, craftable, textColor));
+      this.materials.add(new Material(id, fluid, craftable, textColor, temperature));
     }
   }
 
@@ -48,8 +54,9 @@ public class UpdateMaterialsPacket implements INetworkSendable {
     this.materials.forEach(material -> {
       buffer.writeResourceLocation(material.getIdentifier());
       buffer.writeBoolean(material.isCraftable());
-      buffer.writeResourceLocation(material.getFluid().getRegistryName());
+      buffer.writeResourceLocation(Objects.requireNonNull(material.getFluid().getRegistryName()));
       buffer.writeString(material.getTextColor());
+      buffer.writeInt(material.getTemperature());
     });
   }
 }

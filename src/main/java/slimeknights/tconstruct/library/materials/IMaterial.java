@@ -1,10 +1,13 @@
 package slimeknights.tconstruct.library.materials;
 
 import net.minecraft.fluid.Fluid;
-import slimeknights.tconstruct.library.Util;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.renderer.font.CustomFontColor;
 
 public interface IMaterial {
-
   /**
    * Fallback material. Used for operations where a material or specific aspects of a material are used,
    * but the given input is missing or does not match the requirements.
@@ -12,7 +15,7 @@ public interface IMaterial {
    * <p>
    * The fallback material needs to have all part types associated with it.
    */
-  Material UNKNOWN = new Material(Util.getResource("unknown"), null, false);
+  IMaterial UNKNOWN = new Material(new ResourceLocation(TConstruct.modID, "unknown"), Fluids.EMPTY, false);
 
   /**
    * Used to identify the material in NBT and other constructs.
@@ -34,24 +37,38 @@ public interface IMaterial {
    *
    * @return The associated fluid or Fluids.EMPTY if material is not castable
    */
-  // todo: check if we should replace this with a FluidStack or IFluidState. Probably best done after we know usage
   Fluid getFluid();
 
   /**
    * Gets the translation key for this material
    * @return the translation key
    */
-  String getTranslationKey();
-
-  /**
-   * Gets the encoded text color for this material
-   * @return the encoded text color
-   */
-  String getEncodedTextColor();
+  default String getTranslationKey() {
+    return Util.makeTranslationKey("material", getIdentifier());
+  }
 
   /**
    * Gets the text color for this material
    * @return the text color
    */
   String getTextColor();
+
+  /**
+   * Gets the encoded text color for this material
+   * @return the encoded text color
+   */
+  default String getEncodedTextColor() {
+    int color = Integer.parseInt(this.getTextColor(), 16);
+    if((color & 0xFF000000) == 0) {
+      color |= 0xFF000000;
+    }
+    return CustomFontColor.encodeColor(color);
+  }
+
+  /**
+   * Gets the temperature of this material for use in melting and casting recipes.
+   * If this is not castable or meltable, will be 0;
+   * @return  Temperature of the material, 0 if not relevant
+   */
+  int getTemperature();
 }

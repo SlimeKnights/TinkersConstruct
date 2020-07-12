@@ -1,32 +1,19 @@
 package slimeknights.tconstruct.library.materials.json;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
 
+@AllArgsConstructor
+@Getter
 public class MaterialJson {
-
+  @Nullable
   private final Boolean craftable;
+  @Nullable
   private final ResourceLocation fluid;
   private final String textColor;
-
-  public MaterialJson(Boolean craftable, ResourceLocation fluid, String textColor) {
-    this.craftable = craftable;
-    this.fluid = fluid;
-    this.textColor = textColor;
-  }
-
   @Nullable
-  public Boolean getCraftable() {
-    return this.craftable;
-  }
-
-  @Nullable
-  public ResourceLocation getFluid() {
-    return this.fluid;
-  }
-
-  public String getTextColor() {
-    return this.textColor;
-  }
+  private final Integer temperature;
 }

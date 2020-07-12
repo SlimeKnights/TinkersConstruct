@@ -107,14 +107,20 @@ public class MaterialManager extends JsonReloadListener {
       boolean isCraftable = Boolean.TRUE.equals(materialJson.getCraftable());
       Fluid fluid = loadFluid(materialId, materialJson);
       String color = materialJson.getTextColor();
-
-      return new Material(materialId, fluid, isCraftable, color);
+      Integer temperature = materialJson.getTemperature();
+      return new Material(materialId, fluid, isCraftable, color, temperature == null ? 0 : temperature);
     } catch (Exception e) {
       log.error("Could not deserialize material {}. JSON: {}", materialId, jsonObject, e);
       return null;
     }
   }
 
+  /**
+   * Find a fluid for the material JSON
+   * @param materialId    Material ID
+   * @param materialJson  Mateiral JSON
+   * @return  Fluid, or Fluids.EMPTY if none
+   */
   private Fluid loadFluid(ResourceLocation materialId, MaterialJson materialJson) {
     ResourceLocation fluidId = materialJson.getFluid();
     Fluid fluid = Fluids.EMPTY;

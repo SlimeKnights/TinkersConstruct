@@ -1,4 +1,6 @@
 {
   "craftable": false,
-  "textColor": "f18ff0"
+  "fluid": "tconstruct:molten_knightslime",
+  "textColor": "f18ff0",
+  "temperature": 520
 }

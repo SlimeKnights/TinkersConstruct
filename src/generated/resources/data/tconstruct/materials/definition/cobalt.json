@@ -1,4 +1,6 @@
 {
   "craftable": false,
-  "textColor": "2882d4"
+  "fluid": "tconstruct:molten_cobalt",
+  "textColor": "2882d4",
+  "temperature": 950
 }

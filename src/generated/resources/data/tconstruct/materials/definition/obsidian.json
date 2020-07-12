@@ -1,4 +1,6 @@
 {
   "craftable": true,
-  "textColor": "601cc4"
+  "fluid": "tconstruct:molten_obsidian",
+  "textColor": "601cc4",
+  "temperature": 1000
 }

@@ -1,4 +1,6 @@
 {
   "craftable": false,
-  "textColor": "d14210"
+  "fluid": "tconstruct:molten_ardite",
+  "textColor": "d14210",
+  "temperature": 860
 }
