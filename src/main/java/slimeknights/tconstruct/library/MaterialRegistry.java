@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library;
 
 import com.google.common.annotations.VisibleForTesting;
+import net.minecraft.fluid.Fluid;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -88,8 +89,22 @@ public final class MaterialRegistry {
     return INSTANCE.materialStatsManager.getClassForStat(id);
   }
 
+  /**
+   * Gets a material by ID
+   * @param id  Material ID
+   * @return  Material, or IMaterial.UNKNOWN if missing
+   */
   public static IMaterial getMaterial(MaterialId id) {
     return INSTANCE.registry.getMaterial(id);
+  }
+
+  /**
+   * Gets a material by fluid lookup
+   * @param fluid  Fluid instance
+   * @return  Material, or IMateiral.UNKNOWN if none match the fluid
+   */
+  public static IMaterial getMaterial(Fluid fluid) {
+    return INSTANCE.registry.getMaterial(fluid);
   }
 //
 //  public static Collection<IMaterial> getMaterials() {

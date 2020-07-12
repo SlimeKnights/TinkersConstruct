@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library;
 
+import net.minecraft.fluid.Fluid;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -45,6 +46,11 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   }
 
   @Override
+  public IMaterial getMaterial(Fluid fluid) {
+    return materialManager.getMaterial(fluid).orElse(IMaterial.UNKNOWN);
+  }
+
+  @Override
   public Collection<IMaterial> getMaterials() {
     return materialManager.getAllMaterials();
   }
@@ -65,22 +71,6 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
     return (T) materialStatDefaults.get(statsId);
   }
 
-  /**
-   * This method serves two purposes:
-   * <ol>
-   * <li>it makes the game aware of a new material stat type</li>
-   * <li>it registers the default stats (=fallback) for the given type</li>
-   * </ol><br/>
-   * For stats to be usable they need to be registered, otherwise they can't be loaded.
-   * The default stats are used when something tries to create something out of material with these stats,
-   * but for some reason the material does not have the given stats.<br/>
-   * e.g. building an arrow with stone fletchings (stone cannot be used for fletchings)
-   * <p>
-   * All material stats for the same materialStatType <em>must</em> have the same class as its default after it's registered.
-   *
-   * @param type
-   * @param defaultStats
-   */
   @Override
   public <T extends IMaterialStats> void registerMaterial(T defaultStats, Class<T> clazz) {
     MaterialStatsId statsId = defaultStats.getIdentifier();

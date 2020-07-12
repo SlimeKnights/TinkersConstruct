@@ -50,6 +50,7 @@ public class MaterialManager extends JsonReloadListener {
 
   private final TinkerNetwork tinkerNetwork;
   private Map<MaterialId, IMaterial> materials = ImmutableMap.of();
+  private Map<Fluid, IMaterial> fluidLookup = ImmutableMap.of();
 
   public MaterialManager() {
     this(TinkerNetwork.getInstance());
@@ -61,12 +62,30 @@ public class MaterialManager extends JsonReloadListener {
     this.tinkerNetwork = tinkerNetwork;
   }
 
+  /**
+   * Gets a collection of all loaded materials
+   * @return  All loaded materials
+   */
   public Collection<IMaterial> getAllMaterials() {
     return materials.values();
   }
 
+  /**
+   * Gets a material based on its ID
+   * @param materialId  Material ID
+   * @return  Optional of material, empty if missing
+   */
   public Optional<IMaterial> getMaterial(MaterialId materialId) {
     return Optional.ofNullable(materials.get(materialId));
+  }
+
+  /**
+   * Gets a material based on a fluid
+   * @param fluid  Fluid to check
+   * @return  Optional of material, empty if fluid does not match any material
+   */
+  public Optional<IMaterial> getMaterial(Fluid fluid) {
+    return Optional.ofNullable(fluidLookup.get(fluid));
   }
 
   @OnlyIn(Dist.CLIENT)
@@ -88,6 +107,7 @@ public class MaterialManager extends JsonReloadListener {
         IMaterial::getIdentifier,
         material -> material)
       );
+    this.fluidLookup = this.materials.values().stream().filter((mat) -> mat.getFluid() != Fluids.EMPTY).collect(Collectors.toMap(IMaterial::getFluid, Function.identity()));
 
     log.debug("Loaded materials: {}", Util.toIndentedStringList(materials.keySet()));
     log.info("{} materials loaded", materials.size());
