@@ -4,7 +4,7 @@
     "item": "tconstruct:ingot_cast"
   },
   "fluid": {
-    "fluid": "tconstruct:seared_stone",
+    "name": "tconstruct:seared_stone",
     "amount": 144
   },
   "result": "tconstruct:seared_brick",

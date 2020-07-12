@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_basin",
   "fluid": {
-    "fluid": "tconstruct:molten_copper",
+    "name": "tconstruct:molten_copper",
     "amount": 1296
   },
   "result": "tconstruct:copper_block",

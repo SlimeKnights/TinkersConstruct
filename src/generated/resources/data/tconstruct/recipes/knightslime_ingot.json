@@ -4,7 +4,7 @@
     "item": "tconstruct:ingot_cast"
   },
   "fluid": {
-    "fluid": "tconstruct:molten_knightslime",
+    "name": "tconstruct:molten_knightslime",
     "amount": 144
   },
   "result": "tconstruct:knightslime_ingot",

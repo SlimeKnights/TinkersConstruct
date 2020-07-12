@@ -4,7 +4,7 @@
     "item": "tconstruct:ingot_cast"
   },
   "fluid": {
-    "fluid": "tconstruct:molten_copper",
+    "name": "tconstruct:molten_copper",
     "amount": 144
   },
   "result": "tconstruct:copper_ingot",

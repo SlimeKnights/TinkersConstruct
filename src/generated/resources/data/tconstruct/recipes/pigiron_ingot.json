@@ -4,7 +4,7 @@
     "item": "tconstruct:ingot_cast"
   },
   "fluid": {
-    "fluid": "tconstruct:molten_pig_iron",
+    "name": "tconstruct:molten_pig_iron",
     "amount": 144
   },
   "result": "tconstruct:pigiron_ingot",

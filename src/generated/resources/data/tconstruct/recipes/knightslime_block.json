@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_basin",
   "fluid": {
-    "fluid": "tconstruct:molten_knightslime",
+    "name": "tconstruct:molten_knightslime",
     "amount": 1296
   },
   "result": "tconstruct:knightslime_block",

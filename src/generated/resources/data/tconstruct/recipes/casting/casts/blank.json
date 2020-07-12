@@ -2,7 +2,7 @@
   "type": "tconstruct:casting_table",
   "switch_slots": true,
   "fluid": {
-    "fluid": "tconstruct:molten_gold",
+    "name": "tconstruct:molten_gold",
     "amount": 144
   },
   "result": "tconstruct:blank_cast",

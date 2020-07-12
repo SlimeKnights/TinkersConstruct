@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_basin",
   "fluid": {
-    "fluid": "tconstruct:blood",
+    "name": "tconstruct:blood",
     "amount": 576
   },
   "result": "tconstruct:blood_congealed_slime",

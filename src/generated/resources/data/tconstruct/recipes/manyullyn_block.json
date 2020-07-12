@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_basin",
   "fluid": {
-    "fluid": "tconstruct:molten_manyullyn",
+    "name": "tconstruct:molten_manyullyn",
     "amount": 1296
   },
   "result": "tconstruct:manyullyn_block",

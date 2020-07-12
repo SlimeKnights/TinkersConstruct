@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_table",
   "fluid": {
-    "fluid": "tconstruct:purple_slime",
+    "name": "tconstruct:purple_slime",
     "amount": 144
   },
   "result": "tconstruct:purple_slime_ball",

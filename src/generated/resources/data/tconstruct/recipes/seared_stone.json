@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_basin",
   "fluid": {
-    "fluid": "tconstruct:seared_stone",
+    "name": "tconstruct:seared_stone",
     "amount": 576
   },
   "result": "tconstruct:seared_stone",

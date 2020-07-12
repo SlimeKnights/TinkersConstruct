@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "fluid": "minecraft:lava",
+    "name": "minecraft:lava",
     "amount": 250
   },
   "result": "tconstruct:lavawood",

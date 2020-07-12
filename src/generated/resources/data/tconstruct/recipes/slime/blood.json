@@ -5,7 +5,7 @@
   },
   "cast_consumed": true,
   "fluid": {
-    "fluid": "tconstruct:blood",
+    "name": "tconstruct:blood",
     "amount": 720
   },
   "result": "tconstruct:blood_slime",

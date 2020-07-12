@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_table",
   "fluid": {
-    "fluid": "tconstruct:molten_glass",
+    "name": "tconstruct:molten_glass",
     "amount": 375
   },
   "result": "tconstruct:clear_glass_pane",
