@@ -1,10 +1,15 @@
 package slimeknights.tconstruct.library;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.client.CreativeTab;
+import slimeknights.tconstruct.library.modifiers.ICraftMod;
 
 public final class TinkerRegistry {
 

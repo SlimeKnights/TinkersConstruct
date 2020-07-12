@@ -78,6 +78,7 @@ public final class ToolStatsBuilder {
       StatsNBT.DEFAULT_MOD_SLOTS,
       StatsNBT.DEFAULT_ABILITY_SLOTS,
       StatsNBT.DEFAULT_ARMOR_SLOTS,
+      StatsNBT.DEFAULT_TRAIT_SLOTS,
       false
     );
   }

@@ -23,6 +23,8 @@ public class ToolData {
   protected static final String TAG_ITEM = "tic_item";
   protected static final String TAG_MATERIALS = "tic_materials";
   protected static final String TAG_STATS = "tic_stats";
+  protected static final String TAG_MODIFIERS = "tic_modifiers";
+  protected static final String TAG_LAYERS = "tic_layers";
 
   // tool so we don't need categories and original stats?
   private final ToolItemNBT toolItem;

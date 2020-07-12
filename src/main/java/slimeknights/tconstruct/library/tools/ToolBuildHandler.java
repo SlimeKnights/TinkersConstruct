@@ -2,7 +2,9 @@ package slimeknights.tconstruct.library.tools;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.common.collect.Streams;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -10,10 +12,13 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.mantle.util.ItemStackList;
+import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.MaterialRegistry;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
+import slimeknights.tconstruct.library.modifiers.ICraftMod;
 import slimeknights.tconstruct.library.modifiers.TinkerGuiException;
 import slimeknights.tconstruct.library.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
@@ -25,11 +30,14 @@ import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.library.tools.nbt.ToolItemNBT;
 import slimeknights.tconstruct.tools.IToolPart;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -239,6 +247,36 @@ public final class ToolBuildHandler {
 
   private static boolean canBeBuiltFromParts(NonNullList<ItemStack> stacks, List<PartMaterialRequirement> requiredComponents) {
     return Streams.zip(requiredComponents.stream(), stacks.stream(), PartMaterialRequirement::isValid).allMatch(Boolean::booleanValue);
+  }
+
+  /**
+   * Takes a tool and an array of itemstacks and tries to modify the tool with those.
+   * If removeItems is true, the items used in the process will be removed from the array.
+   *
+   * @param input       Items to modify the tool with
+   * @param toolStack   The tool
+   * @param removeItems If true the applied items will be removed from the array
+   * @return The modified tool or null if something went wrong or no modifier applied.
+   * @throws TinkerGuiException Thrown when not matching modifiers could be applied. Contains extra-information why the process failed.
+   */
+  @Nonnull
+  public static ItemStack tryModifyTool(NonNullList<ItemStack> stacks, ItemStack tool, boolean removeItems)
+    throws TinkerGuiException {
+    ItemStack copy = tool.copy();
+    ArrayList<ICraftMod> modifiers = TinkerModifiers.getAllModifiers();
+    ItemStack[] inputs = new ItemStack[modifiers.size()];//(ItemStack[]) stacks.toArray();
+    for (int i = 0; i < inputs.length; i++) {
+      inputs[i] = stacks.get(i);
+      System.out.println("Input "+(i)+": "+inputs[i]+", source: "+stacks.get(i));
+    }
+    int[] slotsOpen = new int[]{3, 1, 0, 1};
+
+    for (int i = 0; i < modifiers.size(); i++) {
+      if (modifiers.get(i).canApply(copy, inputs, slotsOpen)) {
+        modifiers.get(i).apply(tool, copy);
+      }
+    }
+    return copy;
   }
 
   private ToolBuildHandler() {

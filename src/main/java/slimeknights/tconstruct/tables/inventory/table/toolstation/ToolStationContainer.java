@@ -9,6 +9,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.StringUtils;
@@ -28,6 +29,7 @@ import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.client.inventory.table.ToolStationScreen;
@@ -183,6 +185,10 @@ public class ToolStationContainer extends TinkerStationContainer<ToolStationTile
       if (result.isEmpty()) {
         result = this.replaceToolParts(false);
       }
+      // 3. try modifying
+      if (result.isEmpty()) {
+        result = modifyTool(false);
+      }
       // 4. try renaming
       if (result.isEmpty()) {
         result = this.renameTool();
@@ -312,6 +318,28 @@ public class ToolStationContainer extends TinkerStationContainer<ToolStationTile
 
     ItemStack result = ToolBuildHandler.tryToReplaceToolParts(toolStack, inputs, removeItems);
 
+    return result;
+  }
+
+  private ItemStack modifyTool(boolean remove) throws TinkerGuiException {
+    ItemStack modifyable = getToolStack();
+    CompoundNBT stats = TagUtil.getToolTag(modifyable);
+    int[] slots = new int[4];
+    slots[0] = stats.getInt(StatsNBT.TAG_FREE_UPGRADE_SLOTS);
+    slots[1] = stats.getInt(StatsNBT.TAG_FREE_ABILITY_SLOTS);
+    slots[2] = stats.getInt(StatsNBT.TAG_FREE_ARMOR_SLOTS);
+    slots[3] = stats.getInt(StatsNBT.TAG_FREE_TRAIT_SLOTS);
+    System.out.println("Modifier slots: "+slots[0]);
+
+    // modifying possible?
+    if(modifyable.isEmpty()) {
+      return ItemStack.EMPTY;
+    }
+
+    ItemStack result = ToolBuildHandler.tryModifyTool(getInputs(), modifyable, remove);
+    /*if(!result.isEmpty()) {
+      TinkerCraftingEvent.ToolModifyEvent.fireEvent(result, player, modifyable.copy());
+    }*/
     return result;
   }
 

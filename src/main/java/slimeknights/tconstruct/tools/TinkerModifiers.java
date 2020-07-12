@@ -2,12 +2,17 @@ package slimeknights.tconstruct.tools;
 
 import net.minecraft.item.Item;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.library.TinkerRegistry;
+import slimeknights.tconstruct.library.modifiers.ICraftMod;
+import slimeknights.tconstruct.library.modifiers.ModifierCrafting;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.ItemObject;
 import slimeknights.tconstruct.shared.block.BeaconBaseBlock;
 import slimeknights.tconstruct.shared.block.ConsecratedSoilBlock;
 import slimeknights.tconstruct.shared.block.GraveyardSoilBlock;
 import slimeknights.tconstruct.shared.block.SlimyMudBlock;
+
+import java.util.ArrayList;
 
 /**
  * Contains modifiers and the items or blocks used to craft modifiers
@@ -41,4 +46,24 @@ public final class TinkerModifiers extends TinkerModule {
   public static final ItemObject<Item> moss = ITEMS.register("moss", GENERAL_PROPS);
   public static final ItemObject<Item> mendingMoss = ITEMS.register("mending_moss", GENERAL_PROPS);
   public static final ItemObject<Item> creativeModifier = ITEMS.register("creative_modifier", GENERAL_PROPS);
+
+  /*
+   * Modifier management
+   */
+  private static final ArrayList<ICraftMod> modifiers = new ArrayList<ICraftMod>(); //TODO: Find default size of ArrayList and
+  //private static final ArrayList<IModBreakBlock> activeBreaks = new ArrayList<IModBreakBlock>();
+
+  public static void registerCraftingModifier(ICraftMod mod)
+  {
+    modifiers.add(mod);
+  }
+
+  public static ArrayList<ICraftMod> getAllModifiers() {
+    return modifiers;
+  }
+
+  public TinkerModifiers()
+  {
+    this.registerCraftingModifier(new ModifierCrafting());
+  }
 }

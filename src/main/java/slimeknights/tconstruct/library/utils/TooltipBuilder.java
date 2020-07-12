@@ -16,7 +16,7 @@ import java.util.List;
 
 public class TooltipBuilder {
 
-  public final static String FREE_MOD_SLOTS_LOCALIZATION = "tooltip.tool.slots.mod";
+  public final static String FREE_UPGRADE_SLOTS_LOCALIZATION = "tooltip.tool.slots.upgrade";
   public final static String FREE_ABILITY_SLOTS_LOCALIZATION = "tooltip.tool.slots.ability";
   public final static String FREE_ARMOR_SLOTS_LOCALIZATION = "tooltip.tool.slots.armor";
   public final static String AMMO_LOCALIZATION = "stat.projectile.ammo.name";
@@ -84,9 +84,9 @@ public class TooltipBuilder {
   }
 
   public TooltipBuilder addFreeModSlots() {
-    this.tips.add(new TranslationTextComponent(FREE_MOD_SLOTS_LOCALIZATION)
+    this.tips.add(new TranslationTextComponent(FREE_UPGRADE_SLOTS_LOCALIZATION)
       .appendSibling(new StringTextComponent(": "))
-      .appendSibling(new StringTextComponent(String.valueOf(ToolData.from(this.tool).getStats().freeModSlots))));
+      .appendSibling(new StringTextComponent(String.valueOf(ToolData.from(this.tool).getStats().freeUpgradeSlots))));
 
     return this;
   }

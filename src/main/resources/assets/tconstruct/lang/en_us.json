@@ -614,7 +614,7 @@
     "ui.mining_level.cobalt": "Cobalt",
 
     "_comment": "Tooltips",
-    "tooltip.tool.slots.mod": "Mod Slots",
+    "tooltip.tool.slots.upgrade": "Upgrade Slots",
     "tooltip.tool.slots.ability": "Ability Slots",
     "tooltip.tool.slots.armor": "Armor Slots",
     "tooltip.tool.broken": "Broken",
