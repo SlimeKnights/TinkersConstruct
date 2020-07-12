@@ -18,13 +18,13 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.registration.BlockDeferredRegister;
 import slimeknights.tconstruct.library.registration.ContainerDeferredRegister;
 import slimeknights.tconstruct.library.registration.EntityTypeDeferredRegister;
 import slimeknights.tconstruct.library.registration.FluidDeferredRegister;
 import slimeknights.tconstruct.library.registration.ItemDeferredRegister;
 import slimeknights.tconstruct.library.registration.TileEntityTypeDeferredRegister;
-import slimeknights.tconstruct.shared.TinkerCommons;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -54,7 +54,7 @@ public abstract class TinkerModule {
   protected static final Block.Properties GENERIC_GLASS_BLOCK = builder(Material.GLASS, ToolType.PICKAXE, SoundType.GLASS).hardnessAndResistance(0.3F).notSolid();
 
   // base item properties
-  protected static final Item.Properties GENERAL_PROPS = new Item.Properties().group(TinkerCommons.TAB_GENERAL);
+  protected static final Item.Properties GENERAL_PROPS = new Item.Properties().group(TinkerRegistry.tabGeneral);
   protected static final Function<Block,? extends BlockItem> GENERAL_BLOCK_ITEM = (b) -> new BlockItem(b, GENERAL_PROPS);
   protected static final Function<Block,? extends BlockItem> GENERAL_TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, GENERAL_PROPS);
 

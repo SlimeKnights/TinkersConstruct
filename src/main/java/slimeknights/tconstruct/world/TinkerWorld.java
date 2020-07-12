@@ -10,9 +10,10 @@ import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BasicParticleType;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.PlantType;
@@ -22,13 +23,12 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.BlockTooltipItem;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
-import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.shared.block.CongealedSlimeBlock;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
@@ -53,8 +53,6 @@ import java.util.function.Supplier;
  */
 @SuppressWarnings("unused")
 public final class TinkerWorld extends TinkerModule {
-  /** Tab for anything generated in the world */
-  public static final ItemGroup TAB_WORLD = new SupplierItemGroup(TConstruct.modID, "world", () -> new ItemStack(TinkerWorld.cobaltOre));
   static final Logger log = Util.getLogger("tinker_world");
 
   public static final PlantType SLIME_PLANT_TYPE = PlantType.create("slime");
@@ -62,7 +60,7 @@ public final class TinkerWorld extends TinkerModule {
   /*
    * Block base properties
    */
-  private static final Item.Properties WORLD_PROPS = new Item.Properties().group(TAB_WORLD);
+  private static final Item.Properties WORLD_PROPS = new Item.Properties().group(TinkerRegistry.tabWorld);
   private static final Function<Block,? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, WORLD_PROPS);
   private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, WORLD_PROPS);
 
@@ -144,6 +142,7 @@ public final class TinkerWorld extends TinkerModule {
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
     MinecraftForge.EVENT_BUS.register(new WorldEvents());
+    TinkerRegistry.tabWorld.setDisplayIcon(new ItemStack(slimeSapling.get(SlimeGrassBlock.FoliageType.BLUE)));
     EntitySpawnPlacementRegistry.register(blueSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
   }
 }

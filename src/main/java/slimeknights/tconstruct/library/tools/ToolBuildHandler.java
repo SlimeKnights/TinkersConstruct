@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Streams;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -37,13 +38,8 @@ public final class ToolBuildHandler {
     return buildItemFromMaterials(tool, materials);
   }
 
-  /**
-   * Builds a too stack from a material list
-   * @param tool       Tool instance
-   * @param materials  Material list
-   * @return  Item stack with materials
-   */
-  public static ItemStack buildItemFromMaterials(ToolCore tool, List<IMaterial> materials) {
+  @VisibleForTesting
+  protected static ItemStack buildItemFromMaterials(ToolCore tool, List<IMaterial> materials) {
     StatsNBT stats = tool.buildToolStats(materials);
 
     ToolData toolData = new ToolData(

@@ -6,7 +6,6 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.ToolType;
@@ -15,8 +14,8 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.BlockTooltipItem;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.recipe.casting.CastingBasinRecipe;
 import slimeknights.tconstruct.library.recipe.casting.CastingRecipeSerializer;
@@ -25,14 +24,12 @@ import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
 import slimeknights.tconstruct.library.registration.object.ItemObject;
-import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
 import slimeknights.tconstruct.smeltery.block.CastingBasinBlock;
 import slimeknights.tconstruct.smeltery.block.CastingTableBlock;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
 import slimeknights.tconstruct.smeltery.block.SearedGlassBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
-import slimeknights.tconstruct.smeltery.block.SearedTankBlock.TankType;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.smeltery.tileentity.AbstractCastingTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.CastingBasinTileEntity;
@@ -48,8 +45,6 @@ import java.util.function.Function;
  * Contains logic for the multiblocks in the mod
  */
 public final class TinkerSmeltery extends TinkerModule {
-  /** Tab for all blocks related to the smeltery */
-  public static final ItemGroup TAB_SMELTERY = new SupplierItemGroup(TConstruct.modID, "smeltery", () -> new ItemStack(TinkerSmeltery.searedTank.get(TankType.TANK)));
   public static final Logger log = Util.getLogger("tinker_smeltery");
 
   /* Bricks */
@@ -58,7 +53,7 @@ public final class TinkerSmeltery extends TinkerModule {
   /*
    * Block base properties
    */
-  private static final Item.Properties SMELTERY_PROPS = new Item.Properties().group(TAB_SMELTERY);
+  private static final Item.Properties SMELTERY_PROPS = new Item.Properties().group(TinkerRegistry.tabSmeltery);
   private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, SMELTERY_PROPS);
 
   /*
@@ -210,5 +205,13 @@ public final class TinkerSmeltery extends TinkerModule {
     builder.addAll(TinkerSmeltery.searedRoad.values());
     builder.addAll(TinkerSmeltery.searedTile.values());
     searedStairsSlabs = builder.build();
+  }
+
+  /*
+   * Events
+   */
+  @SubscribeEvent
+  public void commonSetup(final FMLCommonSetupEvent event) {
+    TinkerRegistry.tabSmeltery.setDisplayIcon(new ItemStack(searedTank.get(SearedTankBlock.TankType.TANK)));
   }
 }

@@ -5,7 +5,6 @@ import net.minecraft.block.GlassBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -14,18 +13,18 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.EdibleItem;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
+import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
 import slimeknights.tconstruct.library.registration.object.ItemObject;
-import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
@@ -43,9 +42,8 @@ import java.util.function.Supplier;
  */
 @SuppressWarnings("unused")
 public final class TinkerCommons extends TinkerModule {
+  /* Drool stimulant */
   static final Logger log = Util.getLogger("tinker_commons");
-  /** Creative tab for items that do not fit in another tab */
-  public static final ItemGroup TAB_GENERAL = new SupplierItemGroup(TConstruct.modID, "general", () -> new ItemStack(TinkerCommons.slimeball.get(SlimeType.BLUE)));
 
   /*
    * Blocks
@@ -69,15 +67,15 @@ public final class TinkerCommons extends TinkerModule {
   /*
    * Items
    */
-  public static final ItemObject<EdibleItem> bacon = ITEMS.register("bacon", () -> new EdibleItem(TinkerFood.BACON, TAB_GENERAL));
-  public static final ItemObject<TinkerBookItem> book = ITEMS.register("book", () -> new TinkerBookItem(new Item.Properties().group(TAB_GENERAL).maxStackSize(1)));
+  public static final ItemObject<EdibleItem> bacon = ITEMS.register("bacon", () -> new EdibleItem(TinkerFood.BACON, TinkerRegistry.tabGeneral));
+  public static final ItemObject<TinkerBookItem> book = ITEMS.register("book", () -> new TinkerBookItem(new Item.Properties().group(TinkerRegistry.tabGeneral).maxStackSize(1)));
   public static final ItemObject<Item> mudBrick = ITEMS.register("mud_brick", GENERAL_PROPS);
   public static final ItemObject<Item> driedBrick = ITEMS.register("dried_brick", GENERAL_PROPS);
 
   /* Slime Balls are edible, believe it or not */
   public static final EnumObject<SlimeType, Item> slimeball;
   static {
-    EnumObject<SlimeBlock.SlimeType,EdibleItem> tinkerSlimeballs = ITEMS.registerEnum(SlimeBlock.SlimeType.TINKER, "slime_ball", (type) -> new EdibleItem(type.getSlimeFood(type), TAB_GENERAL));
+    EnumObject<SlimeBlock.SlimeType,EdibleItem> tinkerSlimeballs = ITEMS.registerEnum(SlimeBlock.SlimeType.TINKER, "slime_ball", (type) -> new EdibleItem(type.getSlimeFood(type), TinkerRegistry.tabGeneral));
     Map<SlimeType,Supplier<? extends Item>> map = new EnumMap<>(SlimeBlock.SlimeType.class);
     for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.TINKER) {
       map.put(slime, tinkerSlimeballs.getSupplier(slime));
@@ -89,5 +87,10 @@ public final class TinkerCommons extends TinkerModule {
   @SubscribeEvent
   void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
     CraftingHelper.register(ConfigOptionEnabledCondition.Serializer.INSTANCE);
+  }
+  
+  @SubscribeEvent
+  void commonSetup(final FMLCommonSetupEvent event) {
+    TinkerRegistry.tabGeneral.setDisplayIcon(new ItemStack(slimeball.get(SlimeBlock.SlimeType.BLUE)));
   }
 }
