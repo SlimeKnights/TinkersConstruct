@@ -7,11 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.data.IDataProvider;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.materials.Material;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -29,8 +25,6 @@ public abstract class GenericDataProvider implements IDataProvider {
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
-
-  IMaterial test = new Material(Util.getResource("test"), Fluids.EMPTY, true);
 
   protected final DataGenerator generator;
   private final String folder;
