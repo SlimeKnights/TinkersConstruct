@@ -1,5 +1,6 @@
 {
-	"credit": "Made with Blockbench",
+        "credit": "Made with Blockbench",
+        "loader": "tconstruct:casting",
 	"parent": "block/block",
 	"textures": {
 		"particle": "tconstruct:block/smeltery/casting/basin_top",
@@ -163,7 +164,22 @@
 				"west": {"uv": [7, 3, 5, 11], "rotation": 180, "texture": "#side"},
 				"up": {"uv": [9, 11, 7, 13], "rotation": 180, "texture": "#side"},
 				"down": {"uv": [7, 1, 9, 3], "rotation": 90, "texture": "#side"}
-			}
-		}
-	]
+			      }
+    }
+  ],
+  "fluid": {
+    "from": [ 2, 4, 2 ],
+    "to": [ 14, 15.9, 14 ],
+    "faces": {
+      "up": {},
+      "north": {},
+      "south": {},
+      "west": {},
+      "east": {}
+    }
+  },
+  "items": [
+    { "center": [ 8, 10, 8 ], "size": 11.92 },
+    { "center": [ 8, 10, 8 ], "size": 12    }
+  ]
 }
