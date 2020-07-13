@@ -8,6 +8,7 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.api.gui.ingredient.IGuiFluidStackGroup;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
+import mezz.jei.api.gui.ingredient.ITooltipCallback;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
@@ -17,8 +18,10 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
@@ -27,7 +30,7 @@ import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractCastingCategory<T extends AbstractCastingRecipe> implements IRecipeCategory<T> {
+public abstract class AbstractCastingCategory<T extends AbstractCastingRecipe> implements IRecipeCategory<T>, ITooltipCallback<FluidStack> {
   private static final int INPUT_SLOT = 0;
   private static final int OUTPUT_SLOT = 1;
   private static final String KEY_COOLING_TIME = "jei.tconstruct.casting.cooling_time";
@@ -96,6 +99,7 @@ public abstract class AbstractCastingCategory<T extends AbstractCastingRecipe> i
     guiItemStacks.set(ingredients);
 
     IGuiFluidStackGroup fluidStacks = recipeLayout.getFluidStacks();
+    fluidStacks.addTooltipCallback(this);
     int capacity = MaterialValues.VALUE_Block;
     if (recipe.getType() == RecipeTypes.CASTING_TABLE) {
       capacity /= 2;
@@ -108,5 +112,15 @@ public abstract class AbstractCastingCategory<T extends AbstractCastingRecipe> i
     }
     fluidStacks.init(1, true, 43, 8, 6, h, 1, false, null);
     fluidStacks.set(1, recipe.getFluids());
+  }
+
+  @Override
+  public void onTooltip(int index, boolean input, FluidStack stack, List<String> list) {
+    String name = list.get(0);
+    String modId = list.get(list.size() - 1);
+    list.clear();
+    list.add(name);
+    FluidTooltipHandler.appendMaterial(stack, list);
+    list.add(modId);
   }
 }

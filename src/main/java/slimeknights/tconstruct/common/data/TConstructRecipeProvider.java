@@ -708,7 +708,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     this.addIngotCastingRecipe(consumer, TinkerFluids.searedStone, TinkerSmeltery.searedBrick, MaterialValues.VALUE_Ingot);
     this.addBlockCastingRecipe(consumer, TinkerFluids.moltenGlass, TinkerCommons.clearGlass, MaterialValues.VALUE_Glass);
     CastingRecipeBuilder.tableRecipe(TinkerCommons.clearGlassPane)
-      .setFluidAndTime(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.VALUE_Glass * 6 / 16))
+      .setFluidAndTime(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.VALUE_Pane))
       .addCriterion("has_item", this.hasItem(TinkerCommons.clearGlassPane.asItem()))
       .build(consumer, location("casting/clear_glass_pane"));
     this.addBlockCastingRecipe(consumer, TinkerFluids.moltenObsidian, Items.OBSIDIAN, MaterialValues.VALUE_BrickBlock);

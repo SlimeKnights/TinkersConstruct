@@ -486,6 +486,18 @@
     "block.tconstruct.casting_table": "Casting Table",
     "block.tconstruct.casting_table.tooltip": "Cast items using molten metals from a Smeltery",
 
+    "gui.tconstruct.fluid.kilobucket": "{0} kb",
+    "gui.tconstruct.fluid.bucket": "{0} b",
+    "gui.tconstruct.fluid.millibucket": "{0} mb",
+    "gui.tconstruct.fluid.ingot": "{0} Ingots",
+    "gui.tconstruct.fluid.nugget": "{0} Nuggets",
+    "gui.tconstruct.fluid.block": "{0} Blocks",
+    "gui.tconstruct.fluid.pane": "{0} Panes",
+    "gui.tconstruct.fluid.gem": "{0} Gems",
+    "gui.tconstruct.fluid.slimeball": "{0} Slimeballs",
+    
+    "gui.tconstruct.fluid.hold_shift": "Hold §e§oShift§r§7 for buckets",
+    
     "_comment": "Tinkers World",
 
     "block.tconstruct.green_slime_dirt": "Green Slimy Dirt",

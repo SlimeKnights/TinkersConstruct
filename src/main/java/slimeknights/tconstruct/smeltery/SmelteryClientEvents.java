@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.tesr.CastingModel;
 import slimeknights.tconstruct.library.client.model.tesr.FluidsModel;
 import slimeknights.tconstruct.library.client.model.tesr.TankModel;
+import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.client.FaucetFluidLoader;
 import slimeknights.tconstruct.smeltery.client.render.CastingTileEntityRenderer;
@@ -55,6 +56,8 @@ public class SmelteryClientEvents extends ClientEventBase {
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.faucet.get(), FaucetTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.table.get(), CastingTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.basin.get(), CastingTileEntityRenderer::new);
+
+    FluidTooltipHandler.init();
   }
 
   @SubscribeEvent

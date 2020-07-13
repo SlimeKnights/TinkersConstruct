@@ -22,6 +22,7 @@ public final class MaterialValues {
   public static final int VALUE_SearedBlock = VALUE_Ingot * 2;
   public static final int VALUE_SearedMaterial = VALUE_Ingot / 2;
   public static final int VALUE_Glass = 1000;
+  public static final int VALUE_Pane = VALUE_Glass * 6 / 16;
 
   public static final int VALUE_BrickBlock = VALUE_Ingot * 4;
 
