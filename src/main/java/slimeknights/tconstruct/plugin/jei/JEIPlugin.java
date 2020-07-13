@@ -14,7 +14,7 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.RecipeUtil;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
-import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
+import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
 import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
 import slimeknights.tconstruct.plugin.jei.casting.MaterialCastingRecipeMaker;
@@ -52,7 +52,7 @@ public class JEIPlugin implements IModPlugin {
     register.addRecipes(MaterialCastingRecipeMaker.createMaterialCastingTableRecipes(), TConstructRecipeCategoryUid.castingTable);
 
     // melting
-    List<IMeltingRecipe> meltingRecipes = RecipeUtil.getRecipes(manager, RecipeTypes.MELTING, IMeltingRecipe.class);
+    List<MeltingRecipe> meltingRecipes = RecipeUtil.getJEIRecipes(manager, RecipeTypes.MELTING, MeltingRecipe.class);
     register.addRecipes(meltingRecipes, TConstructRecipeCategoryUid.melting);
     MeltingFuelHandler.setMeltngFuels(RecipeUtil.getRecipes(manager, RecipeTypes.FUEL, MeltingFuel.class));
   }

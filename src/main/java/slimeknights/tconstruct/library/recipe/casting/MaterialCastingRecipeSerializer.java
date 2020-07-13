@@ -2,19 +2,16 @@ package slimeknights.tconstruct.library.recipe.casting;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-import io.netty.handler.codec.DecoderException;
 import lombok.AllArgsConstructor;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.recipe.RecipeUtil;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
 import javax.annotation.Nullable;
@@ -36,15 +33,8 @@ public class MaterialCastingRecipeSerializer<T extends MaterialCastingRecipe> ex
       consumed = JSONUtils.getBoolean(json, "cast_consumed", false);
     }
     int fluidAmount = JSONUtils.getInt(json, "fluid_amount");
-    String itemName = JSONUtils.getString(json, "result");
-    Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName));
-    if (result == null) {
-      throw new JsonSyntaxException("Unknown item '" + itemName + "'");
-    }
-    if (!(result instanceof IMaterialItem)) {
-      throw new JsonSyntaxException("Invalid result, item does not implement IMaterialItem");
-    }
-    return this.factory.create(recipeId, group, cast, fluidAmount, (IMaterialItem) result, consumed, switchSlots);
+    IMaterialItem result = RecipeUtil.deserializeMaterialItem(JSONUtils.getString(json, "result"), "result");
+    return this.factory.create(recipeId, group, cast, fluidAmount, result, consumed, switchSlots);
   }
 
   @Nullable
@@ -55,13 +45,10 @@ public class MaterialCastingRecipeSerializer<T extends MaterialCastingRecipe> ex
       Ingredient cast = Ingredient.read(buffer);
       int fluidAmount = buffer.readInt();
       int itemId = buffer.readVarInt();
-      Item result = Item.getItemById(itemId);
-      if (!(result instanceof IMaterialItem)) {
-        throw new DecoderException("Invalid item '" + result.getRegistryName() + "', must implement IMaterialItem");
-      }
+      IMaterialItem result = RecipeUtil.readMaterialItem(buffer);
       boolean consumed = buffer.readBoolean();
       boolean switchSlots = buffer.readBoolean();
-      return this.factory.create(recipeId, group, cast, fluidAmount, (IMaterialItem) result, consumed, switchSlots);
+      return this.factory.create(recipeId, group, cast, fluidAmount, result, consumed, switchSlots);
     } catch (Exception e) {
       TConstruct.log.error("Error reading material casting recipe from packet.", e);
       throw e;

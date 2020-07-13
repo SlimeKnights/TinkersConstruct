@@ -36,6 +36,16 @@ public class MeltingRecipe implements IMeltingRecipe {
   }
 
   @Override
+  public int getTemperature(ISingleItemInventory inv) {
+    return temperature;
+  }
+
+  @Override
+  public FluidStack getOutput(ISingleItemInventory inv) {
+    return output.copy();
+  }
+
+  @Override
   public NonNullList<Ingredient> getIngredients() {
     return NonNullList.from(Ingredient.EMPTY, input);
   }

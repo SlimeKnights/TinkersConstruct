@@ -244,7 +244,7 @@ public class MelterTileEntity extends TableTileEntity implements ITankTileEntity
     if(!inv.isEmpty()) {
       IMeltingRecipe recipe = findRecipe(inv, slot);
       if (recipe != null) {
-        newHeat = recipe.getTemperature();
+        newHeat = recipe.getTemperature(inv);
       }
     }
     itemTempRequired[slot] = newHeat;
