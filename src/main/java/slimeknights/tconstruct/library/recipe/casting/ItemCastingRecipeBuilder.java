@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -20,46 +21,46 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class CastingRecipeBuilder extends AbstractRecipeBuilder<CastingRecipeBuilder> {
-  private final Item result;
-  private boolean castConsumed = false;
-  private boolean switchSlots = false;
-  private FluidIngredient fluid = FluidIngredient.EMPTY;
-  private Ingredient cast = Ingredient.EMPTY;
-  private int coolingTime = -1;
+public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingRecipeBuilder> {
+  private final ItemCastingRecipeSerializer<?> recipeSerializer;
   private String group;
-  private final CastingRecipeSerializer<?> recipeSerializer;
+  private Ingredient cast = Ingredient.EMPTY;
+  private FluidIngredient fluid = FluidIngredient.EMPTY;
+  private int coolingTime = -1;
+  private final Item result;
+  private boolean consumed = false;
+  private boolean switchSlots = false;
 
-  private CastingRecipeBuilder(IItemProvider resultIn, CastingRecipeSerializer<?> serializer) {
+  private ItemCastingRecipeBuilder(IItemProvider resultIn, ItemCastingRecipeSerializer<?> serializer) {
     this.result = resultIn.asItem();
     this.recipeSerializer = serializer;
   }
 
   /**
    * Creates a new builder instance
-   * @param resultIn    Result
+   * @param resultIn    Recipe result
    * @param serializer  Serializer type
-   * @return  Recipe instance
+   * @return  Builder instance
    */
-  public static CastingRecipeBuilder castingRecipe(IItemProvider resultIn, CastingRecipeSerializer<?> serializer) {
-    return new CastingRecipeBuilder(resultIn, serializer);
+  public static ItemCastingRecipeBuilder castingRecipe(IItemProvider resultIn, ItemCastingRecipeSerializer<?> serializer) {
+    return new ItemCastingRecipeBuilder(resultIn, serializer);
   }
 
   /**
    * Creates a new casting basin recipe
    * @param resultIn  Recipe result
-   * @return  Recipe instance
+   * @return  Builder instance
    */
-  public static CastingRecipeBuilder basinRecipe(IItemProvider resultIn) {
+  public static ItemCastingRecipeBuilder basinRecipe(IItemProvider resultIn) {
     return castingRecipe(resultIn, TinkerSmeltery.basinRecipeSerializer.get());
   }
 
   /**
    * Creates a new casting table recipe
    * @param resultIn  Recipe result
-   * @return  Recipe instance
+   * @return  Builder instance
    */
-  public static CastingRecipeBuilder tableRecipe(IItemProvider resultIn) {
+  public static ItemCastingRecipeBuilder tableRecipe(IItemProvider resultIn) {
     return castingRecipe(resultIn, TinkerSmeltery.tableRecipeSerializer.get());
   }
 
@@ -67,24 +68,33 @@ public class CastingRecipeBuilder extends AbstractRecipeBuilder<CastingRecipeBui
   /* Fluids */
 
   /**
+   * Sets the fluid for this recipe
+   * @param tagIn   Tag<Fluid> instance
+   * @param amount  amount of fluid
+   * @return  Builder instance
+   */
+  public ItemCastingRecipeBuilder setFluid(Tag<Fluid> tagIn, int amount) {
+    return this.setFluid(FluidIngredient.of(tagIn, amount));
+  }
+  /**
    * Sets the fluid ingredient
    * @param fluid  Fluid ingredient instance
    * @return  Builder instance
    */
-  public CastingRecipeBuilder setFluid(FluidIngredient fluid) {
+  public ItemCastingRecipeBuilder setFluid(FluidIngredient fluid) {
     this.fluid = fluid;
     return this;
   }
 
   /**
-   * Sets the fluid for this recipe, and sets the cooling time based on that fluid
+   * Sets the fluid for this recipe, and cooling time if unset.
    * @param fluidStack  Fluid input
    * @return  Builder instance
    */
-  public CastingRecipeBuilder setFluidAndTime(FluidStack fluidStack) {
+  public ItemCastingRecipeBuilder setFluid(FluidStack fluidStack) {
     this.fluid = FluidIngredient.of(fluidStack);
     if (this.coolingTime == -1) {
-      this.coolingTime = AbstractCastingRecipe.calcCoolingTime(fluidStack);
+      this.coolingTime = ICastingRecipe.calcCoolingTime(fluidStack);
     }
     return this;
   }
@@ -94,7 +104,7 @@ public class CastingRecipeBuilder extends AbstractRecipeBuilder<CastingRecipeBui
    * @param time  Cooling time
    * @return  Builder instance
    */
-  public CastingRecipeBuilder setCoolingTime(int time) {
+  public ItemCastingRecipeBuilder setCoolingTime(int time) {
     this.coolingTime = time;
     return this;
   }
@@ -104,7 +114,7 @@ public class CastingRecipeBuilder extends AbstractRecipeBuilder<CastingRecipeBui
    * @param groupIn  Recipe group
    * @return  Builder instance
    */
-  public CastingRecipeBuilder setGroup(String groupIn) {
+  public ItemCastingRecipeBuilder setGroup(String groupIn) {
     this.group = groupIn;
     return this;
   }
@@ -118,7 +128,7 @@ public class CastingRecipeBuilder extends AbstractRecipeBuilder<CastingRecipeBui
    * @param consumed  If true, the cast is consumed
    * @return  Builder instance
    */
-  public CastingRecipeBuilder setCast(Tag<Item> tagIn, boolean consumed) {
+  public ItemCastingRecipeBuilder setCast(Tag<Item> tagIn, boolean consumed) {
     return this.setCast(Ingredient.fromTag(tagIn), consumed);
   }
 
@@ -128,7 +138,7 @@ public class CastingRecipeBuilder extends AbstractRecipeBuilder<CastingRecipeBui
    * @param consumed  If true, the cast is consumed
    * @return  Builder instance
    */
-  public CastingRecipeBuilder setCast(IItemProvider itemIn, boolean consumed) {
+  public ItemCastingRecipeBuilder setCast(IItemProvider itemIn, boolean consumed) {
     return this.setCast(Ingredient.fromItems(itemIn), consumed);
   }
 
@@ -138,9 +148,9 @@ public class CastingRecipeBuilder extends AbstractRecipeBuilder<CastingRecipeBui
    * @param consumed    If true, the cast is consumed
    * @return  Builder instance
    */
-  public CastingRecipeBuilder setCast(Ingredient ingredient, boolean consumed) {
+  public ItemCastingRecipeBuilder setCast(Ingredient ingredient, boolean consumed) {
     this.cast = ingredient;
-    this.castConsumed = consumed;
+    this.consumed = consumed;
     return this;
   }
 
@@ -149,7 +159,7 @@ public class CastingRecipeBuilder extends AbstractRecipeBuilder<CastingRecipeBui
    * Mostly used for cast creation
    * @return  Builder instance
    */
-  public CastingRecipeBuilder setSwitchSlots() {
+  public ItemCastingRecipeBuilder setSwitchSlots() {
     this.switchSlots = true;
     return this;
   }
@@ -163,12 +173,12 @@ public class CastingRecipeBuilder extends AbstractRecipeBuilder<CastingRecipeBui
   }
 
   @Override
-  public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
+  public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
     if (this.fluid == FluidIngredient.EMPTY) {
       throw new IllegalStateException("Casting recipes require a fluid input");
     }
     ResourceLocation advancementId = this.buildAdvancement(id, "casting");
-    consumerIn.accept(new CastingRecipeBuilder.Result(id, this.group == null ? "" : this.group, this.castConsumed, this.switchSlots, this.fluid, this.cast, this.result, this.coolingTime, this.advancementBuilder, advancementId, this.recipeSerializer));
+    consumer.accept(new ItemCastingRecipeBuilder.Result(id, this.group == null ? "" : this.group, this.consumed, this.switchSlots, this.fluid, this.cast, this.result, this.coolingTime, this.advancementBuilder, advancementId, this.recipeSerializer));
   }
 
   @AllArgsConstructor
@@ -176,7 +186,7 @@ public class CastingRecipeBuilder extends AbstractRecipeBuilder<CastingRecipeBui
     @Getter
     protected final ResourceLocation ID;
     private final String group;
-    private final boolean castConsumed;
+    private final boolean consumed;
     private final boolean switchSlots;
     private final FluidIngredient fluid;
     private final Ingredient cast;
@@ -186,7 +196,7 @@ public class CastingRecipeBuilder extends AbstractRecipeBuilder<CastingRecipeBui
     @Getter
     private final ResourceLocation advancementID;
     @Getter
-    private final IRecipeSerializer<? extends AbstractCastingRecipe> serializer;
+    private final IRecipeSerializer<? extends ItemCastingRecipe> serializer;
 
     @Override
     public void serialize(JsonObject json) {
@@ -195,12 +205,12 @@ public class CastingRecipeBuilder extends AbstractRecipeBuilder<CastingRecipeBui
       }
       if (cast != Ingredient.EMPTY) {
         json.add("cast", this.cast.serialize());
-        if (castConsumed) {
-          json.addProperty("cast_consumed", castConsumed);
+        if (consumed) {
+          json.addProperty("cast_consumed", true);
         }
       }
       if (switchSlots) {
-        json.addProperty("switch_slots", switchSlots);
+        json.addProperty("switch_slots", true);
       }
       json.add("fluid", this.fluid.serialize());
       json.addProperty("result", Objects.requireNonNull(this.result.getRegistryName()).toString());
