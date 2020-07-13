@@ -23,7 +23,6 @@ import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.library.materials.MaterialValues;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 
 import java.awt.Color;
@@ -102,9 +101,6 @@ public abstract class AbstractCastingCategory<T extends ItemCastingRecipe> imple
     IGuiFluidStackGroup fluidStacks = recipeLayout.getFluidStacks();
     fluidStacks.addTooltipCallback(this);
     int capacity = MaterialValues.VALUE_Block;
-    if (recipe.getType() == RecipeTypes.CASTING_TABLE) {
-      capacity /= 2;
-    }
     fluidStacks.init(0, true, 3, 3, 32, 32, capacity, false, tankOverlay);
     fluidStacks.set(ingredients);
     int h = 11;
