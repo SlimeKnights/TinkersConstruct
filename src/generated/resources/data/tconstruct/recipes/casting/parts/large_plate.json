@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "item": "tconstruct:large_plate_cast"
+  },
+  "fluid_amount": 1152,
+  "result": "tconstruct:large_plate"
+}

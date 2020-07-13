@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.recipe.RecipeUtil;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
 import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
+import slimeknights.tconstruct.plugin.jei.casting.MaterialCastingRecipeMaker;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.List;
@@ -40,6 +41,8 @@ public class JEIPlugin implements IModPlugin {
     List<ItemCastingRecipe> castingTableRecipes = RecipeUtil.getRecipes(Minecraft.getInstance().world.getRecipeManager(), RecipeTypes.CASTING_TABLE, ItemCastingRecipe.class);
     register.addRecipes(castingBasinRecipes, TConstructRecipeCategoryUid.castingBasin);
     register.addRecipes(castingTableRecipes, TConstructRecipeCategoryUid.castingTable);
+    register.addRecipes(MaterialCastingRecipeMaker.createMaterialCastingBasinRecipes(), TConstructRecipeCategoryUid.castingBasin);
+    register.addRecipes(MaterialCastingRecipeMaker.createMaterialCastingTableRecipes(), TConstructRecipeCategoryUid.castingTable);
   }
 
   @Override
