@@ -55,11 +55,14 @@ import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 
+/**
+ * This model contains a single scalable fluid that can either be statically rendered or rendered in the TESR. It also supports rendering fluids in the item model
+ */
 @Log4j2
 @AllArgsConstructor
 public class TankModel implements IModelGeometry<TankModel> {
-  private final BlockModel model;
-  private final IncrementalFluidCuboid fluid;
+  protected final BlockModel model;
+  protected final IncrementalFluidCuboid fluid;
 
   @Override
   public Collection<Material> getTextures(IModelConfiguration owner, Function<ResourceLocation,IUnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
@@ -69,7 +72,7 @@ public class TankModel implements IModelGeometry<TankModel> {
   @Override
   public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<Material,TextureAtlasSprite> spriteGetter, IModelTransform transform, ItemOverrideList overrides, ResourceLocation location) {
     IBakedModel baked = model.bakeModel(bakery, model, spriteGetter, transform, location, true);
-    return new BakedModel(bakery, transform, baked, this);
+    return new BakedModel<TankModel>(bakery, transform, baked, this);
   }
 
   /** Override to add the fluid part to the item model */
@@ -93,19 +96,22 @@ public class TankModel implements IModelGeometry<TankModel> {
     }
   }
 
-  /** Baked variant to load in the custom overrides */
-  public static final class BakedModel extends BakedModelWrapper<IBakedModel> {
+  /**
+   * Baked variant to load in the custom overrides
+   * @param <T>  Parent model type, used to make this easier to extend
+   */
+  public static class BakedModel<T extends TankModel> extends BakedModelWrapper<IBakedModel> {
     private static final ResourceLocation BAKE_LOCATION = new ResourceLocation("tconstruct:tank_model");
 
     private final ModelBakery bakery;
     private final IModelTransform originalTransforms;
-    private final TankModel original;
+    protected final T original;
     private final Cache<FluidStack, IBakedModel> cache = CacheBuilder
       .newBuilder()
       .maximumSize(64)
       .build();
 
-    private BakedModel(ModelBakery bakery, IModelTransform transforms, IBakedModel baked, TankModel original) {
+    protected BakedModel(ModelBakery bakery, IModelTransform transforms, IBakedModel baked, T original) {
       super(baked);
       this.bakery = bakery;
       this.originalTransforms = transforms;

@@ -1,11 +1,16 @@
 {
-  "loader": "tconstruct:tank",
+  "loader": "tconstruct:melter",
   "parent": "tconstruct:block/smeltery/controller/melter",
   "fluid": {
     "from": [ 0.08, 8.08, 0.08 ],
     "to": [ 15.92, 15.92, 15.92 ],
     "increments": 128
   },
+  "items": [
+    { "center": [  8, 12, 12 ], "size": 7.5 },
+    { "center": [  4, 12,  4 ], "size": 7.5 },
+    { "center": [ 12, 12,  4 ], "size": 7.5 }
+  ],
   "textures": {
     "front": "tconstruct:block/smeltery/controller/melter_active"
   }

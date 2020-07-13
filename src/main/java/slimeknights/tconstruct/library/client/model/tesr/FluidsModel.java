@@ -27,6 +27,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
+/**
+ * This model contains a list of fluid cuboids for the sake of rendering multiple fluid regions in world. It is used by the faucet at this time
+ */
 @AllArgsConstructor
 public class FluidsModel implements IModelGeometry<FluidsModel> {
   private final BlockModel model;

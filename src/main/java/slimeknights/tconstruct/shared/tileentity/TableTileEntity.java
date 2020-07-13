@@ -11,6 +11,9 @@ import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
 import javax.annotation.Nonnull;
 
+/**
+ * Tile entity that displays items in world. TODO: better name?
+ */
 public abstract class TableTileEntity extends InventoryTileEntity {
 
   public TableTileEntity(TileEntityType<?> tileEntityTypeIn, String name, int inventorySize) {
