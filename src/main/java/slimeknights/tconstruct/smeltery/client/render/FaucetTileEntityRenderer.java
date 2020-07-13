@@ -47,7 +47,7 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
     FluidsModel.BakedModel model = RenderUtil.getBakedModel(state, FluidsModel.BakedModel.class);
     if (model != null) {
       // if side, rotate fluid model
-      Direction direction = state.get(FaucetBlock.FACING);
+      Direction direction = state.get(FaucetBlock.FACING).getOpposite();
       boolean isRotated = RenderUtil.applyRotation(matrices, direction);
 
       // fluid props
