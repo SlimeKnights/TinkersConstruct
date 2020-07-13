@@ -23,14 +23,14 @@ import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.library.materials.MaterialValues;
-import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
+import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructRecipeCategoryUid;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.awt.Color;
 import java.util.List;
 
-public class MeltingCategory implements IRecipeCategory<IMeltingRecipe>, ITooltipCallback<FluidStack> {
+public class MeltingCategory implements IRecipeCategory<MeltingRecipe>, ITooltipCallback<FluidStack> {
   private static final ResourceLocation BACKGROUND_LOC = Util.getResource("textures/gui/jei/melting.png");
   private static final String KEY_TITLE = Util.makeTranslationKey("jei", "melting.title");
   private static final String KEY_TEMPERATURE = Util.makeTranslationKey("jei", "melting.temperature");
@@ -58,18 +58,18 @@ public class MeltingCategory implements IRecipeCategory<IMeltingRecipe>, IToolti
   }
 
   @Override
-  public Class<? extends IMeltingRecipe> getRecipeClass() {
-    return IMeltingRecipe.class;
+  public Class<? extends MeltingRecipe> getRecipeClass() {
+    return MeltingRecipe.class;
   }
 
   @Override
-  public void setIngredients(IMeltingRecipe recipe, IIngredients ingredients) {
+  public void setIngredients(MeltingRecipe recipe, IIngredients ingredients) {
     ingredients.setInputIngredients(recipe.getIngredients());
     ingredients.setOutput(VanillaTypes.FLUID, recipe.getOutput());
   }
 
   @Override
-  public void draw(IMeltingRecipe recipe, double mouseX, double mouseY) {
+  public void draw(MeltingRecipe recipe, double mouseX, double mouseY) {
     heatBar.draw(24, 18);
 
     String tempString = ForgeI18n.parseMessage(KEY_TEMPERATURE, recipe.getTemperature());
@@ -79,7 +79,7 @@ public class MeltingCategory implements IRecipeCategory<IMeltingRecipe>, IToolti
   }
 
   @Override
-  public void setRecipe(IRecipeLayout layout, IMeltingRecipe recipe, IIngredients ingredients) {
+  public void setRecipe(IRecipeLayout layout, MeltingRecipe recipe, IIngredients ingredients) {
     // input
     IGuiItemStackGroup items = layout.getItemStacks();
     items.init(0, true, 27, 17);

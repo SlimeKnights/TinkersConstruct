@@ -46,6 +46,7 @@ import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeBuild
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelBuilder;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
+import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
@@ -1103,6 +1104,11 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
 
     // Cast Casting
     addCastCastingRecipe(consumer, part, cast, "casting/");
+
+    // Part melting
+    MaterialMeltingRecipeBuilder.melting(part, cost * MaterialValues.VALUE_Ingot)
+                                .addCriterion("has_item", hasItem(part))
+                                .build(consumer, location("melting/parts/" + part));
   }
 
   /**

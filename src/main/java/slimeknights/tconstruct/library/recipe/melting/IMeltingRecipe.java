@@ -10,28 +10,18 @@ import slimeknights.tconstruct.library.recipe.inventory.ISingleItemInventory;
 
 public interface IMeltingRecipe extends IRecipe<ISingleItemInventory> {
   /**
-   * Gets a safe to modify output stack for this recipe
-   * @param inv    Input inventory
+   * Gets a new instance of the output stack for this recipe
+   * @param inv  Input inventory
    * @return  Output stack
    */
-  default FluidStack getOutput(ISingleItemInventory inv) {
-    return getOutput().copy();
-  }
+  FluidStack getOutput(ISingleItemInventory inv);
 
   /**
    * Gets the minimum temperatue to melt this item. Doubles as the time
+   * @param inv  Inventory instance
    * @return  Recipe temperature
    */
-  int getTemperature();
-
-
-  /* JEI display */
-
-  /**
-   * Gets the recipe output for display, result should not be modified or added to an inventroy
-   * @return  Fluid output
-   */
-  FluidStack getOutput();
+  int getTemperature(ISingleItemInventory inv);
 
 
   /* Recipe data */
