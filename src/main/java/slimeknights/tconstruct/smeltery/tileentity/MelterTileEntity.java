@@ -12,7 +12,6 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.capabilities.Capability;
@@ -21,7 +20,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import slimeknights.mantle.tileentity.InventoryTileEntity;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.materials.MaterialValues;
@@ -31,6 +29,7 @@ import slimeknights.tconstruct.library.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.recipe.inventory.InventorySlotWrapper;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.library.utils.Tags;
+import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
@@ -41,8 +40,7 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Optional;
 
-
-public class MelterTileEntity extends InventoryTileEntity implements ITankTileEntity, ITickableTileEntity {
+public class MelterTileEntity extends TableTileEntity implements ITankTileEntity, ITickableTileEntity {
   /** Max capacity for the tank */
   private static final int TANK_CAPACITY = MaterialValues.VALUE_Block;
   /* tags */
@@ -98,7 +96,7 @@ public class MelterTileEntity extends InventoryTileEntity implements ITankTileEn
 
   /** Extendable constructor */
   protected MelterTileEntity(TileEntityType<? extends MelterTileEntity> type) {
-    super(type, new TranslationTextComponent(Util.makeTranslationKey("gui", "melter")), 3, 1);
+    super(type, Util.makeTranslationKey("gui", "melter"), 3, 1);
 
     // melting
     this.slotWrappers = new ISingleItemInventory[3];

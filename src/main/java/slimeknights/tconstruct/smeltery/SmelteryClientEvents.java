@@ -23,6 +23,7 @@ import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.tesr.CastingModel;
 import slimeknights.tconstruct.library.client.model.tesr.FluidsModel;
+import slimeknights.tconstruct.library.client.model.tesr.MelterModel;
 import slimeknights.tconstruct.library.client.model.tesr.TankModel;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
@@ -30,6 +31,7 @@ import slimeknights.tconstruct.smeltery.client.FaucetFluidLoader;
 import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
 import slimeknights.tconstruct.smeltery.client.render.CastingTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.FaucetTileEntityRenderer;
+import slimeknights.tconstruct.smeltery.client.render.MelterTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.TankTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
@@ -62,7 +64,7 @@ public class SmelteryClientEvents extends ClientEventBase {
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.faucet.get(), FaucetTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.table.get(), CastingTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.basin.get(), CastingTileEntityRenderer::new);
-    ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.melter.get(), TankTileEntityRenderer::new);
+    ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.melter.get(), MelterTileEntityRenderer::new);
 
     // screens
     ScreenManager.registerFactory(TinkerSmeltery.melterContainer.get(), MelterScreen::new);
@@ -75,6 +77,7 @@ public class SmelteryClientEvents extends ClientEventBase {
     ModelLoaderRegistry.registerLoader(Util.getResource("fluids"), FluidsModel.Loader.INSTANCE);
     ModelLoaderRegistry.registerLoader(Util.getResource("tank"), TankModel.Loader.INSTANCE);
     ModelLoaderRegistry.registerLoader(Util.getResource("casting"), CastingModel.Loader.INSTANCE);
+    ModelLoaderRegistry.registerLoader(Util.getResource("melter"), MelterModel.Loader.INSTANCE);
   }
 
   @SubscribeEvent
