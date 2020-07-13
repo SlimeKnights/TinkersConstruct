@@ -25,6 +25,8 @@ import java.util.Optional;
  * This info is used so we don't have to save redundant information that's present on the item when
  * working on the NBT (during load/reconstruction, e.g.)
  */
+
+//TODO: Determine the purpose of this class
 public class ToolItemNBT {
 
   /**

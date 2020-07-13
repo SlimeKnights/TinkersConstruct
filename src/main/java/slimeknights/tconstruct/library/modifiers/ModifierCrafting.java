@@ -4,14 +4,8 @@ package slimeknights.tconstruct.library.modifiers;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.*;
-import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
-import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
-
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Optional;
 
 public class ModifierCrafting implements ICraftMod {
 
@@ -50,18 +44,20 @@ public class ModifierCrafting implements ICraftMod {
     //ToolData data = ToolData.from(original);
     //StatsNBT stats = data.getStats();
     CompoundNBT root = output.getOrCreateTag();
-    CompoundNBT data = root.getCompound(Tags.BASE);
-    System.out.println("Tag? "+root.getCompound("tic_stats") + ", Other tag? "+data.getCompound(Tags.TOOL_STATS)+ ", Base? "+data+", Root? "+root);
-    CompoundNBT stats = root.getCompound("tic_stats");
+    CompoundNBT stats = root.getCompound(Tags.BASE);
+    CompoundNBT mods = stats.getCompound(Tags.MODIFIERS);
+    //System.out.println("Tag? "+root.getCompound("tic_stats") + ", Other tag? "+data.getCompound(Tags.TOOL_STATS)+ ", Base? "+data+", Root? "+root);
+    System.out.println("Root tag: "+root);
+    //CompoundNBT stats = root.getCompound("tic_stats");
 
     if (!hasModifier(root, getIdentifier())) {
       root.putBoolean(getIdentifier(), true);
 
       //CompoundNBT stats = TagUtil.getToolTag(root);
-      int durability = stats.getInt(StatsNBT.TAG_DURABILITY);
+      int durability = stats.getInt(Tags.DURABILITY);
       durability += 50;
-      stats.putInt(StatsNBT.TAG_DURABILITY, durability);
-      System.out.println("Durability?: "+stats.getInt(StatsNBT.TAG_DURABILITY));
+      stats.putInt(Tags.DURABILITY, durability);
+      System.out.println("Durability?: "+stats.getInt(Tags.DURABILITY));
     }
   }
 

@@ -8,6 +8,7 @@ import lombok.With;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraftforge.common.util.Constants;
+import slimeknights.tconstruct.library.utils.Tags;
 
 import javax.annotation.Nullable;
 import java.util.function.BiFunction;
@@ -25,24 +26,22 @@ public class StatsNBT {
   public static final int DEFAULT_ABILITY_SLOTS = 1;
   public static final int DEFAULT_ARMOR_SLOTS = 0;
   public static final int DEFAULT_TRAIT_SLOTS = 1;
-  final static StatsNBT EMPTY = new StatsNBT(1, 0, 1, 1, 1, DEFAULT_MOD_SLOTS, DEFAULT_ABILITY_SLOTS, DEFAULT_ARMOR_SLOTS, DEFAULT_TRAIT_SLOTS,false);
 
-  public static final String TAG_DURABILITY = "durability";
-  public static final String TAG_ATTACK = "attack";
-  public static final String TAG_ATTACKSPEEDMULTIPLIER = "attack_speed_multiplier";
-  public static final String TAG_MININGSPEED = "mining_speed";
-  public static final String TAG_HARVESTLEVEL = "harvest_level";
-  public static final String TAG_FREE_UPGRADE_SLOTS = "upgrade_slots";
-  public static final String TAG_FREE_ABILITY_SLOTS = "ability_slots";
-  public static final String TAG_FREE_ARMOR_SLOTS = "armor_slots";
-  public static final String TAG_FREE_TRAIT_SLOTS = "trait_slots";
-  public static final String TAG_BROKEN = "is_broken";
+  final static StatsNBT EMPTY = new StatsNBT(10, 0, 1, 1,
+    0,1f, 1f, 0,1f,
+    DEFAULT_MOD_SLOTS, DEFAULT_ABILITY_SLOTS, DEFAULT_ARMOR_SLOTS, DEFAULT_TRAIT_SLOTS, false);
 
   public final int durability;
   public final int harvestLevel;
   public final float attack;
   public final float miningSpeed;
+
+  public final int repairCount;
+  public final float miningSpeedMultiplier;
   public final float attackSpeedMultiplier;
+  public final int bonusDurability;
+  public final float bonusDurabilityMultiplier;
+
   public final int freeUpgradeSlots;
   public final int freeAbilitySlots;
   public final int freeArmorSlots;
@@ -58,51 +57,50 @@ public class StatsNBT {
     }
 
     CompoundNBT nbt = (CompoundNBT)inbt;
-    int durability = getIntFromTagOrDefault(nbt, TAG_DURABILITY, EMPTY.durability);
-    int harvestLevel = getIntFromTagOrDefault(nbt, TAG_HARVESTLEVEL, EMPTY.harvestLevel);
-    float attack = getFloatFromTagOrDefault(nbt, TAG_ATTACK, EMPTY.attack);
-    float miningSpeed = getFloatFromTagOrDefault(nbt, TAG_MININGSPEED, EMPTY.miningSpeed);
-    float attackSpeedMultiplier = getFloatFromTagOrDefault(nbt, TAG_ATTACKSPEEDMULTIPLIER, EMPTY.attackSpeedMultiplier);
-    int upgradeSlots = getIntFromTagOrDefault(nbt, TAG_FREE_UPGRADE_SLOTS, EMPTY.freeUpgradeSlots);
-    int abilitySlots = getIntFromTagOrDefault(nbt, TAG_FREE_ABILITY_SLOTS, EMPTY.freeAbilitySlots);
-    int armorSlots = getIntFromTagOrDefault(nbt, TAG_FREE_ARMOR_SLOTS, EMPTY.freeArmorSlots);
-    int traitSlots = getIntFromTagOrDefault(nbt, TAG_FREE_TRAIT_SLOTS, EMPTY.freeTraitSlots);
-    boolean isBroken = getBoolFromTagOrDefault(nbt, TAG_BROKEN, EMPTY.broken);
+    int durability = Tags.getIntFromTagOrDefault(nbt, Tags.DURABILITY, EMPTY.durability);
+    int harvestLevel = Tags.getIntFromTagOrDefault(nbt, Tags.HARVEST_LEVEL, EMPTY.harvestLevel);
+    float attack = Tags.getFloatFromTagOrDefault(nbt, Tags.ATTACK, EMPTY.attack);
+    float miningSpeed = Tags.getFloatFromTagOrDefault(nbt, Tags.MINING_SPEED, EMPTY.miningSpeed);
 
-    return new StatsNBT(durability, harvestLevel, attack, miningSpeed, attackSpeedMultiplier, upgradeSlots, abilitySlots, armorSlots, traitSlots, isBroken);
-  }
+    int repairCount = Tags.getIntFromTagOrDefault(nbt, Tags.REPAIR_COUNT, EMPTY.repairCount);
+    float miningSpeedMultiplier = Tags.getFloatFromTagOrDefault(nbt, Tags.MINING_SPEED_MULTIPLIER, EMPTY.miningSpeedMultiplier);
+    float attackSpeedMultiplier = Tags.getFloatFromTagOrDefault(nbt, Tags.ATTACK_SPEED_MULTIPLIER, EMPTY.attackSpeedMultiplier);
+    int bonusDurability = Tags.getIntFromTagOrDefault(nbt, Tags.BONUS_DURABILITY, EMPTY.bonusDurability);
+    float bonusDurabilityMultiplier = Tags.getFloatFromTagOrDefault(nbt, Tags.BONUS_DURABILITY_MULTIPLIER, EMPTY.bonusDurabilityMultiplier);
 
-  private static int getIntFromTagOrDefault(CompoundNBT nbt, String key, int defaultValue) {
-    return getFromTagOrDefault(nbt, key, defaultValue, CompoundNBT::getInt);
-  }
+    int upgradeSlots = Tags.getIntFromTagOrDefault(nbt, Tags.FREE_UPGRADE_SLOTS, EMPTY.freeUpgradeSlots);
+    int abilitySlots = Tags.getIntFromTagOrDefault(nbt, Tags.FREE_ABILITY_SLOTS, EMPTY.freeAbilitySlots);
+    int armorSlots = Tags.getIntFromTagOrDefault(nbt, Tags.FREE_ARMOR_SLOTS, EMPTY.freeArmorSlots);
+    int traitSlots = Tags.getIntFromTagOrDefault(nbt, Tags.FREE_TRAIT_SLOTS, EMPTY.freeTraitSlots);
 
-  private static float getFloatFromTagOrDefault(CompoundNBT nbt, String key, float defaultValue) {
-    return getFromTagOrDefault(nbt, key, defaultValue, CompoundNBT::getFloat);
-  }
+    boolean isBroken = Tags.getBoolFromTagOrDefault(nbt, Tags.BROKEN, EMPTY.broken);
 
-  private static boolean getBoolFromTagOrDefault(CompoundNBT nbt, String key, boolean defaultValue) {
-    return getFromTagOrDefault(nbt, key, defaultValue, CompoundNBT::getBoolean);
-  }
-
-  private static <T> T getFromTagOrDefault(CompoundNBT nbt, String key, T defaultValue, BiFunction<CompoundNBT, String, T> valueGetter) {
-    if(nbt.contains(key, Constants.NBT.TAG_ANY_NUMERIC)) {
-      return valueGetter.apply(nbt, key);
-    }
-    return defaultValue;
+    return new StatsNBT(durability, harvestLevel, attack, miningSpeed,
+      repairCount, miningSpeedMultiplier, attackSpeedMultiplier, bonusDurability, bonusDurabilityMultiplier,
+      upgradeSlots, abilitySlots, armorSlots, traitSlots,
+      isBroken);
   }
 
   public CompoundNBT serializeToNBT() {
     CompoundNBT nbt = new CompoundNBT();
-    nbt.putInt(TAG_DURABILITY, durability);
-    nbt.putInt(TAG_HARVESTLEVEL, harvestLevel);
-    nbt.putFloat(TAG_ATTACK, attack);
-    nbt.putFloat(TAG_MININGSPEED, miningSpeed);
-    nbt.putFloat(TAG_ATTACKSPEEDMULTIPLIER, attackSpeedMultiplier);
-    nbt.putInt(TAG_FREE_UPGRADE_SLOTS, freeUpgradeSlots);
-    nbt.putInt(TAG_FREE_ABILITY_SLOTS, freeAbilitySlots);
-    nbt.putInt(TAG_FREE_ARMOR_SLOTS, freeArmorSlots);
-    nbt.putInt(TAG_FREE_TRAIT_SLOTS, freeTraitSlots);
-    nbt.putBoolean(TAG_BROKEN, broken);
+    nbt.putInt(Tags.DURABILITY, durability);
+    nbt.putInt(Tags.HARVEST_LEVEL, harvestLevel);
+    nbt.putFloat(Tags.ATTACK, attack);
+    nbt.putFloat(Tags.MINING_SPEED, miningSpeed);
+    nbt.putFloat(Tags.ATTACK_SPEED_MULTIPLIER, attackSpeedMultiplier);
+
+    nbt.putInt(Tags.REPAIR_COUNT, repairCount);
+    nbt.putFloat(Tags.MINING_SPEED_MULTIPLIER, miningSpeedMultiplier);
+    nbt.putFloat(Tags.ATTACK_SPEED_MULTIPLIER, attackSpeedMultiplier);
+    nbt.putInt(Tags.BONUS_DURABILITY, bonusDurability);
+    nbt.putFloat(Tags.BONUS_DURABILITY_MULTIPLIER, bonusDurabilityMultiplier);
+
+    nbt.putInt(Tags.FREE_UPGRADE_SLOTS, freeUpgradeSlots);
+    nbt.putInt(Tags.FREE_ABILITY_SLOTS, freeAbilitySlots);
+    nbt.putInt(Tags.FREE_ARMOR_SLOTS, freeArmorSlots);
+    nbt.putInt(Tags.FREE_TRAIT_SLOTS, freeTraitSlots);
+
+    nbt.putBoolean(Tags.BROKEN, broken);
 
     return nbt;
   }

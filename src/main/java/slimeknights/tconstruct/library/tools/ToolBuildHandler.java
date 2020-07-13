@@ -2,9 +2,7 @@ package slimeknights.tconstruct.library.tools;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.google.common.collect.Streams;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -12,9 +10,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.mantle.util.ItemStackList;
-import slimeknights.mantle.util.RecipeMatch;
 import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.TinkerRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -36,8 +32,6 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -253,8 +247,8 @@ public final class ToolBuildHandler {
    * Takes a tool and an array of itemstacks and tries to modify the tool with those.
    * If removeItems is true, the items used in the process will be removed from the array.
    *
-   * @param input       Items to modify the tool with
-   * @param toolStack   The tool
+   * @param stacks       Items to modify the tool with
+   * @param tool   The tool
    * @param removeItems If true the applied items will be removed from the array
    * @return The modified tool or null if something went wrong or no modifier applied.
    * @throws TinkerGuiException Thrown when not matching modifiers could be applied. Contains extra-information why the process failed.

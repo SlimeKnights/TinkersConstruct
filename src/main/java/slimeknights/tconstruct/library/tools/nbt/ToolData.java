@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.utils.Tags;
 
 import java.util.List;
 
@@ -20,11 +21,11 @@ import java.util.List;
 @ToString
 public class ToolData {
 
-  protected static final String TAG_ITEM = "tic_item";
+  /*protected static final String TAG_ITEM = "tic_item";
   protected static final String TAG_MATERIALS = "tic_materials";
   protected static final String TAG_STATS = "tic_stats";
   protected static final String TAG_MODIFIERS = "tic_modifiers";
-  protected static final String TAG_LAYERS = "tic_layers";
+  protected static final String TAG_LAYERS = "tic_layers";*/
 
   // tool so we don't need categories and original stats?
   private final ToolItemNBT toolItem;
@@ -78,9 +79,9 @@ public class ToolData {
   }
 
   public static ToolData readFromNBT(CompoundNBT nbt) {
-    ToolItemNBT toolCore = ToolItemNBT.readFromNBT(nbt.get(TAG_ITEM));
-    MaterialNBT materialNBT = MaterialNBT.readFromNBT(nbt.get(TAG_MATERIALS));
-    StatsNBT statsNBT = StatsNBT.readFromNBT(nbt.get(TAG_STATS));
+    ToolItemNBT toolCore = ToolItemNBT.readFromNBT(nbt.get("Unknown"));
+    StatsNBT statsNBT = StatsNBT.readFromNBT(nbt.get(Tags.BASE));
+    MaterialNBT materialNBT = MaterialNBT.readFromNBT(nbt.get(Tags.MATERIALS));
 
     return new ToolData(toolCore, materialNBT, statsNBT);
   }
@@ -88,9 +89,9 @@ public class ToolData {
   public CompoundNBT serializeToNBT() {
     CompoundNBT nbt = new CompoundNBT();
 
-    nbt.put(TAG_ITEM, toolItem.serializeToNBT());
-    nbt.put(TAG_MATERIALS, materials.serializeToNBT());
-    nbt.put(TAG_STATS, stats.serializeToNBT());
+    nbt.put("Unknown", toolItem.serializeToNBT());
+    nbt.put(Tags.BASE, stats.serializeToNBT());
+    nbt.put(Tags.MATERIALS, materials.serializeToNBT());
 
     // base data about the tool, what it's built out of
 //    nbt.put(Tags.BASE, null);

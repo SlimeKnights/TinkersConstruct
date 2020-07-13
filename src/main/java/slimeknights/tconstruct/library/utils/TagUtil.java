@@ -70,7 +70,7 @@ public final class TagUtil {
   }
 
   public static ListNBT getBaseModifiersTagList(CompoundNBT root) {
-    return getTagListSafe(getBaseTag(root), Tags.BASE_MODIFIERS, TAG_TYPE_STRING);
+    return getTagListSafe(getBaseTag(root), Tags.MODIFIERS, TAG_TYPE_STRING);
   }
 
   public static void setBaseModifiersTagList(ItemStack stack, ListNBT tagList) {
@@ -82,7 +82,7 @@ public final class TagUtil {
 
   public static void setBaseModifiersTagList(CompoundNBT root, ListNBT tagList) {
     CompoundNBT baseTag = getBaseTag(root);
-    baseTag.put(Tags.BASE_MODIFIERS, tagList);
+    baseTag.put(Tags.MODIFIERS, tagList);
     setBaseTag(root, baseTag);
   }
 
@@ -91,7 +91,7 @@ public final class TagUtil {
   }
 
   public static ListNBT getBaseMaterialsTagList(CompoundNBT root) {
-    return getTagListSafe(getBaseTag(root), Tags.BASE_MATERIALS, TAG_TYPE_STRING);
+    return getTagListSafe(getBaseTag(root), Tags.MATERIALS, TAG_TYPE_STRING);
   }
 
   public static void setBaseMaterialsTagList(ItemStack stack, ListNBT tagList) {
@@ -102,7 +102,7 @@ public final class TagUtil {
   }
 
   public static void setBaseMaterialsTagList(CompoundNBT root, ListNBT tagList) {
-    getBaseTag(root).put(Tags.BASE_MATERIALS, tagList);
+    getBaseTag(root).put(Tags.MATERIALS, tagList);
   }
 
   public static int getBaseModifiersUsed(CompoundNBT root) {
@@ -119,7 +119,7 @@ public final class TagUtil {
   }
 
   public static CompoundNBT getToolTag(CompoundNBT root) {
-    return getTagSafe(root, Tags.TOOL_STATS);
+    return getTagSafe(root, Tags.BASE);
   }
 
   public static void setToolTag(ItemStack stack, CompoundNBT tag) {
@@ -131,7 +131,7 @@ public final class TagUtil {
 
   public static void setToolTag(CompoundNBT root, CompoundNBT tag) {
     if (root != null) {
-      root.put(Tags.TOOL_STATS, tag);
+      root.put(Tags.BASE, tag);
     }
   }
 
@@ -141,7 +141,7 @@ public final class TagUtil {
   }
 
   public static ListNBT getModifiersTagList(CompoundNBT root) {
-    return getTagListSafe(root, Tags.TOOL_MODIFIERS, TAG_TYPE_COMPOUND);
+    return getTagListSafe(root, Tags.MODIFIERS, TAG_TYPE_COMPOUND);
   }
 
   public static void setModifiersTagList(ItemStack stack, ListNBT tagList) {
@@ -153,7 +153,7 @@ public final class TagUtil {
 
   public static void setModifiersTagList(CompoundNBT root, ListNBT tagList) {
     if (root != null) {
-      root.put(Tags.TOOL_MODIFIERS, tagList);
+      root.put(Tags.MODIFIERS, tagList);
     }
   }
 
