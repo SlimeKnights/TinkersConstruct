@@ -1,6 +1,6 @@
 {
         "credit": "Made with Blockbench",
-        "loader": "tconstruct:casting",
+	 "loader": "tconstruct:casting",
 	"parent": "block/block",
 	"textures": {
 		"particle": "tconstruct:block/smeltery/casting/basin_top",
@@ -73,8 +73,7 @@
 			"faces": {
 				"east": {"uv": [14, 0, 2, 12], "texture": "#side"},
 				"west": {"uv": [2, 0, 14, 12], "texture": "#side"},
-				"up": {"uv": [14, 2, 16, 14], "rotation": 180, "texture": "#top"},
-				"down": {"uv": [0, 0, 1, 8], "texture": "#missing"}
+				"up": {"uv": [14, 2, 16, 14], "rotation": 180, "texture": "#top"}
 			}
 		},
 		{
@@ -86,8 +85,7 @@
 				"east": {"uv": [14, 0, 16, 12], "texture": "#side"},
 				"south": {"uv": [0, 0, 16, 12], "texture": "#side"},
 				"west": {"uv": [0, 0, 2, 12], "texture": "#side"},
-				"up": {"uv": [16, 0, 0, 2], "texture": "#top"},
-				"down": {"uv": [0, 0, 1, 8], "texture": "#missing"}
+				"up": {"uv": [16, 0, 0, 2], "texture": "#top"}
 			}
 		},
 		{
@@ -99,8 +97,8 @@
 				"east": {"uv": [2, 0, 0, 12], "texture": "#side"},
 				"south": {"uv": [0, 0, 16, 12], "texture": "#side"},
 				"west": {"uv": [14, 0, 16, 12], "texture": "#side"},
-				"up": {"uv": [16, 2, 0, 0], "texture": "#top"},
-				"down": {"uv": [0, 0, 1, 8], "texture": "#missing"}
+				"up": {"uv": [16, 2, 0, 0], "texture": "#top"}
+
 			}
 		},
 		{
@@ -110,8 +108,7 @@
 			"faces": {
 				"east": {"uv": [2, 0, 14, 12], "texture": "#side"},
 				"west": {"uv": [14, 0, 2, 12], "texture": "#side"},
-				"up": {"uv": [0, 2, 2, 14], "rotation": 180, "texture": "#top"},
-				"down": {"uv": [0, 0, 1, 8], "texture": "#missing"}
+				"up": {"uv": [0, 2, 2, 14], "rotation": 180, "texture": "#top"}
 			}
 		},
 		{
