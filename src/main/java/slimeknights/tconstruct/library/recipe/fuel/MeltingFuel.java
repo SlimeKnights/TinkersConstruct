@@ -11,6 +11,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.tconstruct.library.recipe.FluidIngredient;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -18,12 +19,12 @@ import slimeknights.tconstruct.library.recipe.inventory.IFluidInventory;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 @AllArgsConstructor
 public class MeltingFuel implements IRecipe<IFluidInventory> {
   @Getter
   private final ResourceLocation id;
-  @Getter
   private final FluidIngredient input;
   @Getter
   private final int duration;
@@ -46,6 +47,13 @@ public class MeltingFuel implements IRecipe<IFluidInventory> {
     return input.getAmount(inv.getFluid().getFluid());
   }
 
+  /**
+   * Gets a list of all valid input fluids for this recipe
+   * @return  Input fluids
+   */
+  public List<FluidStack> getInputs() {
+    return input.getFluids();
+  }
 
   /* Recipe type methods */
 

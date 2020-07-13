@@ -37,7 +37,7 @@ public class MeltingRecipe implements IMeltingRecipe {
 
   @Override
   public NonNullList<Ingredient> getIngredients() {
-    return NonNullList.from(input);
+    return NonNullList.from(Ingredient.EMPTY, input);
   }
 
   @Override

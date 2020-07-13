@@ -498,7 +498,7 @@
     "gui.tconstruct.melting.no_space": "Not enough free space for the fluid.",
 
     "gui.tconstruct.melting.fuel.empty": "No fuel found",
-    "gui.tconstruct.melting.fuel.temperature": "Temperature: {0}",
+    "gui.tconstruct.melting.fuel.temperature": "Temperature: {0}°C",
     "gui.tconstruct.melting.fuel.invalid": "Invalid melting fuel!",
     
     "gui.tconstruct.fluid.kilobucket": "{0} kb",
@@ -727,5 +727,8 @@
     "jei.tconstruct.casting.table": "Casting Table",
     "jei.tconstruct.casting.cooling_time": "{0} s",
     "jei.tconstruct.casting.cast_kept": "Cast item can be reused in later recipes",
-    "jei.tconstruct.casting.cast_consumed": "Cast item is consumed on casting"
+    "jei.tconstruct.casting.cast_consumed": "Cast item is consumed on casting",
+    
+    "jei.tconstruct.melting.title": "Melting",
+    "jei.tconstruct.melting.temperature": "{0}°C"
 }
