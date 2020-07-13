@@ -41,9 +41,11 @@ import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
+import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
@@ -82,7 +84,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     this.addMaterialRecipes(consumer);
     this.addSmelteryRecipes(consumer);
     this.addGadgetRecipes(consumer);
-    this.addPartBuilderRecipes(consumer);
+    this.addPartRecipes(consumer);
     this.addMaterialsRecipes(consumer);
     this.addCastingRecipes(consumer);
   }
@@ -762,16 +764,6 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     this.addCastCastingRecipe(consumer, Tags.Items.INGOTS, TinkerSmeltery.ingotCast, folder);
     this.addCastCastingRecipe(consumer, Tags.Items.NUGGETS, TinkerSmeltery.nuggetCast, folder);
     this.addCastCastingRecipe(consumer, Tags.Items.GEMS, TinkerSmeltery.gemCast, folder);
-    this.addCastCastingRecipe(consumer, TinkerToolParts.pickaxeHead, TinkerSmeltery.pickaxeHeadCast, folder);
-    this.addCastCastingRecipe(consumer, TinkerToolParts.smallBinding, TinkerSmeltery.smallBindingCast, folder);
-    this.addCastCastingRecipe(consumer, TinkerToolParts.toolRod, TinkerSmeltery.toolRodCast, folder);
-    this.addCastCastingRecipe(consumer, TinkerToolParts.swordBlade, TinkerSmeltery.swordBladeCast, folder);
-    this.addCastCastingRecipe(consumer, TinkerToolParts.toughToolRod, TinkerSmeltery.toughToolRodCast, folder);
-    this.addCastCastingRecipe(consumer, TinkerToolParts.wideGuard, TinkerSmeltery.wideGuardCast, folder);
-    this.addCastCastingRecipe(consumer, TinkerToolParts.hammerHead, TinkerSmeltery.hammerHeadCast, folder);
-    this.addCastCastingRecipe(consumer, TinkerToolParts.largePlate, TinkerSmeltery.largePlateCast, folder);
-    this.addCastCastingRecipe(consumer, TinkerToolParts.shovelHead, TinkerSmeltery.shovelHeadCast, folder);
-
   }
 
   private void addSlimeRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -811,16 +803,16 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     }
   }
 
-  private void addPartBuilderRecipes(Consumer<IFinishedRecipe> consumer) {
-    addPartRecipe(consumer, TinkerToolParts.pickaxeHead, 2, "pickaxe_head");
-    addPartRecipe(consumer, TinkerToolParts.hammerHead, 8, "hammer_head");
-    addPartRecipe(consumer, TinkerToolParts.shovelHead, 2, "shovel_head");
-    addPartRecipe(consumer, TinkerToolParts.swordBlade, 2, "sword_blade");
-    addPartRecipe(consumer, TinkerToolParts.smallBinding, 1, "small_binding");
-    addPartRecipe(consumer, TinkerToolParts.wideGuard, 1, "wide_guard");
-    addPartRecipe(consumer, TinkerToolParts.largePlate, 8, "large_plate");
-    addPartRecipe(consumer, TinkerToolParts.toolRod, 1, "tool_rod");
-    addPartRecipe(consumer, TinkerToolParts.toughToolRod, 3, "tough_tool_rod");
+  private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {
+    addPartRecipe(consumer, TinkerToolParts.pickaxeHead, 2, TinkerSmeltery.pickaxeHeadCast);
+    addPartRecipe(consumer, TinkerToolParts.hammerHead, 8, TinkerSmeltery.hammerHeadCast);
+    addPartRecipe(consumer, TinkerToolParts.shovelHead, 2, TinkerSmeltery.shovelHeadCast);
+    addPartRecipe(consumer, TinkerToolParts.swordBlade, 2, TinkerSmeltery.swordBladeCast);
+    addPartRecipe(consumer, TinkerToolParts.smallBinding, 1, TinkerSmeltery.smallBindingCast);
+    addPartRecipe(consumer, TinkerToolParts.wideGuard, 1, TinkerSmeltery.wideGuardCast);
+    addPartRecipe(consumer, TinkerToolParts.largePlate, 8, TinkerSmeltery.largePlateCast);
+    addPartRecipe(consumer, TinkerToolParts.toolRod, 1, TinkerSmeltery.toolRodCast);
+    addPartRecipe(consumer, TinkerToolParts.toughToolRod, 3, TinkerSmeltery.toughToolRodCast);
   }
 
   private void addMaterialsRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -955,16 +947,31 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
   /**
    * Adds a recipe to craft a part
    * @param consumer  Recipe consumer
-   * @param part      Part to be crafted
+   * @param sup       Part to be crafted
    * @param cost      Part cost
-   * @param saveName  Name for the recipe
+   * @param cast      Part cast
    */
-  private void addPartRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider part, int cost, String saveName) {
+  private void addPartRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends IMaterialItem> sup, int cost, IItemProvider cast) {
+    // Base data
+    IMaterialItem part = sup.get();
+    String name = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
+
+    // Part Builder
     PartRecipeBuilder.partRecipe(new ItemStack(part))
-      .setPattern(location(saveName))
+      .setPattern(location(name))
       .setCost(cost)
-      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
-      .build(consumer, location("parts/" + saveName));
+      .addCriterion("has_item", this.hasItem(TinkerTables.pattern))
+      .build(consumer, location("parts/" + name));
+
+    // Material Casting
+    MaterialCastingRecipeBuilder.tableRecipe(part)
+      .setFluidAmount(cost * MaterialValues.VALUE_Ingot)
+      .setCast(cast, false)
+      .addCriterion("has_item", this.hasItem(cast))
+      .build(consumer, location("casting/parts/" + name));
+
+    // Cast Casting
+    addCastCastingRecipe(consumer, part, cast, "casting/");
   }
 
   /**

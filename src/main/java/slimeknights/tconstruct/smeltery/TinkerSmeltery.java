@@ -20,6 +20,8 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeSerializer;
+import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeSerializer;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
@@ -149,6 +151,8 @@ public final class TinkerSmeltery extends TinkerModule {
    */
   public static final RegistryObject<ItemCastingRecipeSerializer<ItemCastingRecipe.Basin>> basinRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin", () -> new ItemCastingRecipeSerializer<>(ItemCastingRecipe.Basin::new));
   public static final RegistryObject<ItemCastingRecipeSerializer<ItemCastingRecipe.Table>> tableRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table", () -> new ItemCastingRecipeSerializer<>(ItemCastingRecipe.Table::new));
+  public static final RegistryObject<MaterialCastingRecipeSerializer<MaterialCastingRecipe.Basin>> basinMaterialSerializer = RECIPE_SERIALIZERS.register("basin_casting_material", () -> new MaterialCastingRecipeSerializer<>(MaterialCastingRecipe.Basin::new));
+  public static final RegistryObject<MaterialCastingRecipeSerializer<MaterialCastingRecipe.Table>> tableMaterialSerializer = RECIPE_SERIALIZERS.register("table_casting_material", () -> new MaterialCastingRecipeSerializer<>(MaterialCastingRecipe.Table::new));
 
   /*
    * Smeltery block lists
