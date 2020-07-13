@@ -24,13 +24,14 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 
 import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractCastingCategory<T extends AbstractCastingRecipe> implements IRecipeCategory<T>, ITooltipCallback<FluidStack> {
+
+public abstract class AbstractCastingCategory<T extends ItemCastingRecipe> implements IRecipeCategory<T>, ITooltipCallback<FluidStack> {
   private static final int INPUT_SLOT = 0;
   private static final int OUTPUT_SLOT = 1;
   private static final String KEY_COOLING_TIME = "jei.tconstruct.casting.cooling_time";

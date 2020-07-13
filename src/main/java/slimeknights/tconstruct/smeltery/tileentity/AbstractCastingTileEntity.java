@@ -34,10 +34,12 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.RecipeUtil;
-import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.smeltery.CastingFluidHandler;
 import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 import slimeknights.tconstruct.smeltery.recipe.TileCastingWrapper;
 
@@ -57,18 +59,18 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
   private final FluidTankAnimated tank = new FluidTankAnimated(0, this);
   private final LazyOptional<CastingFluidHandler> holder = LazyOptional.of(() -> new CastingFluidHandler(this, tank));
   private final TileCastingWrapper crafting;
-  private final IRecipeType<AbstractCastingRecipe> recipeType;
+  private final IRecipeType<ICastingRecipe> recipeType;
 
   /** Current recipe progress */
   private int timer;
   /** Current in progress recipe */
-  private AbstractCastingRecipe recipe;
+  private ICastingRecipe recipe;
   /** Name of the current recipe, fetched from NBT. Used since NBT is read before recipe manager access */
   private ResourceLocation recipeName;
   /** Cache recipe to reduce time during recipe lookups. Not saved to NBT */
-  private AbstractCastingRecipe lastRecipe;
+  private ICastingRecipe lastRecipe;
 
-  protected AbstractCastingTileEntity(TileEntityType<?> tileEntityTypeIn, IRecipeType<AbstractCastingRecipe> recipeType) {
+  protected AbstractCastingTileEntity(TileEntityType<?> tileEntityTypeIn, IRecipeType<ICastingRecipe> recipeType) {
     super(tileEntityTypeIn, "gui.tconstruct.casting", 2, 1);
     this.itemHandler = new SidedInvWrapper(this, Direction.DOWN);
     this.recipeType = recipeType;
@@ -148,7 +150,7 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
     // fully filled
     if (tank.getFluidAmount() == tank.getCapacity() && !tank.getFluid().isEmpty()) {
       timer++;
-      if (!world.isRemote && timer >= recipe.getCoolingTime()) {
+      if (!world.isRemote && timer >= recipe.getCoolingTime(crafting)) {
         ItemStack output = recipe.getCraftingResult(crafting);
         if (recipe.switchSlots()) {
           if (!recipe.isConsumed()) {
@@ -175,14 +177,14 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
   }
 
   @Nullable
-  private AbstractCastingRecipe findRecipe() {
+  private ICastingRecipe findRecipe() {
     if (world == null) {
       return null;
     }
     if (this.lastRecipe != null && this.lastRecipe.matches(crafting, world)) {
       return this.lastRecipe;
     }
-    AbstractCastingRecipe castingRecipe = world.getRecipeManager().getRecipe(this.recipeType, crafting, world).orElse(null);
+    ICastingRecipe castingRecipe = world.getRecipeManager().getRecipe(this.recipeType, crafting, world).orElse(null);
     if (castingRecipe != null) {
       this.lastRecipe = castingRecipe;
     }
@@ -201,7 +203,7 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
     }
     this.crafting.setFluid(fluid);
 
-    AbstractCastingRecipe castingRecipe = findRecipe();
+    ICastingRecipe castingRecipe = findRecipe();
     if (castingRecipe != null) {
       if (action == IFluidHandler.FluidAction.EXECUTE) {
         this.recipe = castingRecipe;
@@ -262,7 +264,7 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
     FluidStack fluid = tank.getFluid();
     if(!fluid.isEmpty()) {
       // fetch recipe by name
-      AbstractCastingRecipe recipe = RecipeUtil.getRecipe(world.getRecipeManager(), name, AbstractCastingRecipe.class).orElse(null);
+      ICastingRecipe recipe = RecipeUtil.getRecipe(world.getRecipeManager(), name, ICastingRecipe.class).orElse(null);
       if(recipe != null) {
         // update capacity from recipe
         crafting.setFluid(fluid.getFluid());
@@ -309,6 +311,18 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
         // otherwise fetch the recipe when the world is set
         recipeName = name;
       }
+    }
+  }
+
+  public static class Basin extends AbstractCastingTileEntity {
+    public Basin() {
+      super(TinkerSmeltery.basin.get(), RecipeTypes.CASTING_BASIN);
+    }
+  }
+
+  public static class Table extends AbstractCastingTileEntity {
+    public Table() {
+      super(TinkerSmeltery.table.get(), RecipeTypes.CASTING_TABLE);
     }
   }
 }
