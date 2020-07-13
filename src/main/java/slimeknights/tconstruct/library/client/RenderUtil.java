@@ -403,7 +403,7 @@ public final class RenderUtil {
     if (facing.getAxis().isHorizontal()) {
       matrices.push();
       matrices.translate(0.5, 0, 0.5);
-      matrices.rotate(Vector3f.YP.rotationDegrees(-90f * (2 + facing.getHorizontalIndex())));
+      matrices.rotate(Vector3f.YP.rotationDegrees(-90f * (facing.getHorizontalIndex())));
       matrices.translate(-0.5, 0, -0.5);
       return true;
     }

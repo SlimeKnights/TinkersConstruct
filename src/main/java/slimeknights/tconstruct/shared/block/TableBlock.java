@@ -19,6 +19,9 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 
+/**
+ * Inventory block with directions and waterlogging
+ */
 public abstract class TableBlock extends GuiInventoryBlock implements IWaterLoggable {
 
   protected static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -46,7 +49,7 @@ public abstract class TableBlock extends GuiInventoryBlock implements IWaterLogg
   @Override
   public BlockState getStateForPlacement(BlockItemUseContext context) {
     boolean flag = context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER;
-    return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing()).with(WATERLOGGED, flag);
+    return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite()).with(WATERLOGGED, flag);
   }
 
   @Deprecated
