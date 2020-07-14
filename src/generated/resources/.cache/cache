@@ -150,6 +150,7 @@ db69c53b3673733c132c2eeb63b82dbfa709a2c8 data/tconstruct/advancements/recipes/ca
 25462c0443e3777dbbd49092c56b24ed04e4ad46 data/tconstruct/advancements/recipes/casting/casting/copper_block.json
 66e90ea10dde18fef6e80bb5d08d278f89eb96be data/tconstruct/advancements/recipes/casting/casting/copper_ingot.json
 d8139585fd5d737d8b1e686396e0550bcd65af20 data/tconstruct/advancements/recipes/casting/casting/copper_nugget.json
+41022ec1b4cbe34f0d5de20e6e85c578815fbe04 data/tconstruct/advancements/recipes/casting/casting/filling/bucket.json
 8258c554b71c48af3107801ccadbbf84719dd64e data/tconstruct/advancements/recipes/casting/casting/gold_block.json
 de24b365f504189bd5e00e882ad1a7f2fa562a82 data/tconstruct/advancements/recipes/casting/casting/gold_ingot.json
 c92f30816569810b6b43ddf304f318f0ff135c68 data/tconstruct/advancements/recipes/casting/casting/gold_nugget.json
@@ -821,6 +822,7 @@ ba2252b5f93792a54052f43d1c3c04862d460eb0 data/tconstruct/recipes/casting/cobalt_
 8b3651f59c6b97e90765c1e204f06bd419e0237f data/tconstruct/recipes/casting/copper_block.json
 c447ad9c9380f7a5deea9ec704777846b1c03b50 data/tconstruct/recipes/casting/copper_ingot.json
 89fe663fb5c5728619afb90c31ca50f303543d4f data/tconstruct/recipes/casting/copper_nugget.json
+2b5305c563b1b6cbc9be6cdf94aae0be555afc9f data/tconstruct/recipes/casting/filling/bucket.json
 ca13f982bb69f4a9839faac99194e03ad525a859 data/tconstruct/recipes/casting/gold_block.json
 3526a257d11c9e2b8b80fb366c67ae851cdf4228 data/tconstruct/recipes/casting/gold_ingot.json
 76cd3a86192f02f7cf37ef5035ea6d0f163c5490 data/tconstruct/recipes/casting/gold_nugget.json
