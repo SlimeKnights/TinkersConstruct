@@ -1,0 +1,21 @@
+{
+  "materialId": "tconstruct:titanium",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 560,
+      "miningSpeed": 6,
+      "harvestLevel": 4,
+      "attack": 6
+    },
+    {
+      "id": "tconstruct:handle",
+      "modifier": 1.4,
+      "durability": 0
+    },
+    {
+      "id": "tconstruct:extra",
+      "durability": 40
+    }
+  ]
+}
