@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:titanium_ingot",
+  "pattern": [
+    "nnn",
+    "nnn",
+    "nnn"
+  ],
+  "key": {
+    "n": {
+      "item": "tconstruct:titanium_nugget"
+    }
+  },
+  "result": {
+    "item": "tconstruct:titanium_ingot"
+  }
+}
