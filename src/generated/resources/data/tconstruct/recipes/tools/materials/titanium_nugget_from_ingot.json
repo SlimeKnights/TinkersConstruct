@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "tconstruct:titanium_nugget",
+  "ingredients": [
+    {
+      "item": "tconstruct:titanium_ingot"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:titanium_nugget",
+    "count": 9
+  }
+}
