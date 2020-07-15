@@ -1,0 +1,2 @@
+cd TinkersConstruct
+gradlew runClient
