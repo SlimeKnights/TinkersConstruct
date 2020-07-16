@@ -28,16 +28,17 @@ public abstract class SlimeTreeAbstract extends Tree {
   /**
    * Get a {@link net.minecraft.world.gen.feature.ConfiguredFeature} of tree
    */
+  @Nullable
   protected abstract ConfiguredFeature<SlimeTreeFeatureConfig, ?> getSlimeTreeFeature(Random randomIn, boolean bool);
 
   @Override
   public boolean place(IWorld worldIn, ChunkGenerator<?> chunkGenerator, BlockPos blockPos, BlockState state, Random random) {
-    ConfiguredFeature<SlimeTreeFeatureConfig, ?> configuredfeature = this.getSlimeTreeFeature(random, this.func_230140_a_(worldIn, blockPos));
-    if (configuredfeature == null) {
+    ConfiguredFeature<SlimeTreeFeatureConfig, ?> configuredFeature = this.getSlimeTreeFeature(random, this.func_230140_a_(worldIn, blockPos));
+    if (configuredFeature == null) {
       return false;
     } else {
       worldIn.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 4);
-      if (configuredfeature.place(worldIn, chunkGenerator, random, blockPos)) {
+      if (configuredFeature.place(worldIn, chunkGenerator, random, blockPos)) {
         return true;
       } else {
         worldIn.setBlockState(blockPos, state, 4);
