@@ -17,7 +17,6 @@ import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
 import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
-import slimeknights.tconstruct.plugin.jei.casting.MaterialCastingRecipeMaker;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -44,12 +43,10 @@ public class JEIPlugin implements IModPlugin {
     assert Minecraft.getInstance().world != null;
     RecipeManager manager = Minecraft.getInstance().world.getRecipeManager();
     // casting
-    List<ItemCastingRecipe> castingBasinRecipes = RecipeUtil.getRecipes(manager, RecipeTypes.CASTING_BASIN, ItemCastingRecipe.class);
+    List<ItemCastingRecipe> castingBasinRecipes = RecipeUtil.getJEIRecipes(manager, RecipeTypes.CASTING_BASIN, ItemCastingRecipe.class);
     register.addRecipes(castingBasinRecipes, TConstructRecipeCategoryUid.castingBasin);
-    List<ItemCastingRecipe> castingTableRecipes = RecipeUtil.getRecipes(manager, RecipeTypes.CASTING_TABLE, ItemCastingRecipe.class);
+    List<ItemCastingRecipe> castingTableRecipes = RecipeUtil.getJEIRecipes(manager, RecipeTypes.CASTING_TABLE, ItemCastingRecipe.class);
     register.addRecipes(castingTableRecipes, TConstructRecipeCategoryUid.castingTable);
-    register.addRecipes(MaterialCastingRecipeMaker.createMaterialCastingBasinRecipes(), TConstructRecipeCategoryUid.castingBasin);
-    register.addRecipes(MaterialCastingRecipeMaker.createMaterialCastingTableRecipes(), TConstructRecipeCategoryUid.castingTable);
 
     // melting
     List<MeltingRecipe> meltingRecipes = RecipeUtil.getJEIRecipes(manager, RecipeTypes.MELTING, MeltingRecipe.class);
