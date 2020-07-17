@@ -36,13 +36,9 @@ import net.minecraftforge.gradle.common.task.SignJar
 
 repositories {
     mavenLocal()
-    maven {
+    maven { // Forge
         name 'ForgeFS'
         url 'https://files.minecraftforge.net/maven'
-    }
-    maven {
-        name 'DVS1 Maven FS'
-        url 'https://dvs1.progwml6.com/files/maven'
     }
     maven { // TOP
         name 'tterrag maven'
@@ -64,7 +60,7 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.k-4u.nl"
     }
-    maven {
+    maven { // CoFH
         name = "CoFH Maven"
         url = "https://maven.covers1624.net"
     }
