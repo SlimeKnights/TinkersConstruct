@@ -52,9 +52,17 @@ repositories {
         name 'K-4u maven'
         url "https://maven.k-4u.nl/"
     }
-    maven {
+    maven { // backup maven location
         name "Tehnut Maven FS"
-        url "https://tehnut.info/maven"
+        url "https://github.com/TehNut/temporary-maven-thing/tree/master/maven/"
+    }
+    maven { // location of the maven that hosts JEI files
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven { // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl"
     }
     maven {
         name = "CoFH Maven"
