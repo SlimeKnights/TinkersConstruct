@@ -23,9 +23,7 @@ public final class ToolBuildHandler {
    * @return The built item or null if invalid input.
    */
   public static ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks, ToolCore tool) {
-    List<PartMaterialRequirement> requiredComponents = tool.getToolDefinition().getRequiredComponents();
-
-    if (stacks.size() != requiredComponents.size() || !canBeBuiltFromParts(stacks, requiredComponents)) {
+    if(!canToolBeBuilt(stacks, tool)) {
       return ItemStack.EMPTY;
     }
 
@@ -55,6 +53,12 @@ public final class ToolBuildHandler {
     ItemStack output = new ItemStack(tool);
     output.setTag(toolData.serializeToNBT());
     return output;
+  }
+
+  public static boolean canToolBeBuilt(NonNullList<ItemStack> stacks, ToolCore tool) {
+    List<PartMaterialRequirement> requiredComponents = tool.getToolDefinition().getRequiredComponents();
+
+    return stacks.size() == requiredComponents.size() && canBeBuiltFromParts(stacks, requiredComponents);
   }
 
   private static boolean canBeBuiltFromParts(NonNullList<ItemStack> stacks, List<PartMaterialRequirement> requiredComponents) {

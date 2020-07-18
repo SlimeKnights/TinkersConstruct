@@ -125,18 +125,18 @@ public class Util {
   }
 
   /**
-   * Returns a fixed size DEEP copy of the list
+   * Returns a fixed size copy of the list
    */
-  public static NonNullList<ItemStack> deepCopyFixedNonNullList(NonNullList<ItemStack> in) {
-    return RecipeMatchRegistry.copyItemStackArray(in);
-  }
+  public static NonNullList<ItemStack> copyItemStackList(NonNullList<ItemStack> stacks) {
+    NonNullList<ItemStack> stacksCopy = NonNullList.withSize(stacks.size(), ItemStack.EMPTY);
 
-  /**
-   * @deprecated use deepCopyFixedNonNullList
-   */
-  @Deprecated
-  public static NonNullList<ItemStack> copyItemStackArray(NonNullList<ItemStack> in) {
-    return deepCopyFixedNonNullList(in);
+    for (int i = 0; i < stacks.size(); i++) {
+      if (!stacks.get(i).isEmpty()) {
+        stacksCopy.set(i, stacks.get(i).copy());
+      }
+    }
+
+    return stacksCopy;
   }
 
   /* Code for ctl and shift down  from TicTooltips by squeek502

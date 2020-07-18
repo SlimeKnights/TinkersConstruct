@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.tinkering;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 
 import java.util.List;
 
@@ -13,5 +14,15 @@ public interface ITinkerable {
   /**
    * The default tooltip for the item
    */
-  void getTooltip(ItemStack stack, List<String> tooltips);
+  void getTooltip(ItemStack stack, List<ITextComponent> tooltips);
+
+  /**
+   * Detailed info about the tool. Displayed when Shift is held]
+   */
+  void getTooltipDetailed(ItemStack stack, List<ITextComponent> tooltips);
+
+  /**
+   * What the tool is made out of. Displayed whet Ctrl is held
+   */
+  void getTooltipComponents(ItemStack stack, List<ITextComponent> tooltips);
 }

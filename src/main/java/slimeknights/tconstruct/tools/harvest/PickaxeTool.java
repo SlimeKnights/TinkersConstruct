@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.tools.ToolRegistry;
 
 import java.util.List;
 
@@ -23,14 +24,12 @@ public class PickaxeTool extends ToolCore {
 
   public PickaxeTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
+
+    ToolRegistry.registerToolCrafting(this);
   }
 
   @Override
   public boolean isEffective(BlockState state) {
     return effective_materials.contains(state.getMaterial()) || PickaxeItem.EFFECTIVE_ON.contains(state.getBlock());
-  }
-
-  @Override
-  public void getTooltip(ItemStack stack, List<String> tooltips) {
   }
 }

@@ -102,7 +102,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
                  .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation("Items", "TinkerData.Items"));
       }));
     }
-    for (Block block : new Block[] {TinkerTables.partBuilder.get()}) {
+    for (Block block : new Block[] {TinkerTables.partBuilder.get(), TinkerTables.toolStation.get()}) {
       this.registerLootTable(block, droppingWithFunctions(block, (builder) -> {
         return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
                .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).addOperation("LegTexture", "TinkerData.LegTexture", Action.REPLACE));
