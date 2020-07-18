@@ -47,7 +47,7 @@ public abstract class TinkerRegisterEvent<T> extends TinkerEvent {
       super(recipe);
     }
   }
-  
+
   /** Register a recipe for melting something in the smeltery */
   public static class MeltingRegisterEvent extends TinkerRegisterEvent<MeltingRecipe> {
 
@@ -117,7 +117,7 @@ public abstract class TinkerRegisterEvent<T> extends TinkerEvent {
       return fuelDuration;
     }
   }
-  
+
   public static class EntityMeltingRegisterEvent extends TinkerRegisterEvent<Class<? extends Entity>> {
     protected final FluidStack fluidStack;
     protected FluidStack newFluidStack;
