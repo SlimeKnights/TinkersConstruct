@@ -6,12 +6,12 @@ import lombok.AllArgsConstructor;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.IItemProvider;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.recipe.RecipeUtil;
 
 import javax.annotation.Nullable;
 
@@ -38,8 +38,7 @@ public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> 
     try {
       String group = buffer.readString(Short.MAX_VALUE);
       int fluidAmount = buffer.readInt();
-      int itemId = buffer.readVarInt();
-      Item result = Item.getItemById(itemId);
+      Item result = RecipeUtil.readItem(buffer);
       return this.factory.create(recipeId, group, fluidAmount, result);
     } catch (Exception e) {
       TConstruct.log.error("Error reading container filling recipe from packet.", e);
@@ -52,7 +51,7 @@ public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> 
     try {
       buffer.writeString(recipe.group);
       buffer.writeInt(recipe.fluidAmount);
-      buffer.writeInt(Item.getIdFromItem(recipe.container.asItem()));
+      RecipeUtil.writeItem(buffer, recipe.container);
     } catch (Exception e) {
       TConstruct.log.error("Error writing container filling recipe to packet.", e);
       throw e;
