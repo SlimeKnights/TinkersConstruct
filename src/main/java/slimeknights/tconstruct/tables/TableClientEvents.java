@@ -39,5 +39,6 @@ public class TableClientEvents extends ClientEventBase {
 
     ClientRegistry.bindTileEntityRenderer(TinkerTables.craftingStationTile.get(), InventoryTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerTables.partBuilderTile.get(), InventoryTileEntityRenderer::new);
+    ClientRegistry.bindTileEntityRenderer(TinkerTables.toolStationTile.get(), InventoryTileEntityRenderer::new);
   }
 }
