@@ -16,6 +16,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.recipe.RecipeUtil;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -85,15 +86,9 @@ public class ToolBuildingRecipe implements IToolStationRecipe {
     public ToolBuildingRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
       try {
         String group = buffer.readString(32767);
-        // output must be a Tool Core item
-        int itemId = buffer.readVarInt();
-        Item item = Item.getItemById(itemId);
+        ToolCore result = RecipeUtil.readItem(buffer, ToolCore.class);
 
-        if (!(item instanceof ToolCore)) {
-          throw new DecoderException("Invalid item '" + item.getRegistryName() + "', must be a ToolCore");
-        }
-
-        return new ToolBuildingRecipe(recipeId, group, (ToolCore) item);
+        return new ToolBuildingRecipe(recipeId, group, (ToolCore) result);
       }
       catch (Exception e) {
         TConstruct.log.error("Error reading tool building recipe from packet.", e);
@@ -105,7 +100,7 @@ public class ToolBuildingRecipe implements IToolStationRecipe {
     public void write(PacketBuffer buffer, ToolBuildingRecipe recipe) {
       try {
         buffer.writeString(recipe.group);
-        buffer.writeVarInt(Item.getIdFromItem(recipe.output.asItem()));
+        RecipeUtil.writeItem(buffer, recipe.output);
       }
       catch (Exception e) {
         TConstruct.log.error("Error writing tool building recipe to packet.", e);
