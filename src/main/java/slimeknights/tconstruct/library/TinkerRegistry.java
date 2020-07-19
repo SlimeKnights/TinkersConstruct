@@ -387,6 +387,8 @@ public final class TinkerRegistry {
   public static void registerToolStationCrafting(ToolCore tool) {
     if(new TinkerRegisterEvent.ToolStationCraftingRegisterEvent(tool).fire()) {
       toolStationCrafting.add(tool);
+    } else {
+      log.debug("Registration of tool station recipe " + tool.getRegistryName().toString() + " has been cancelled by event");
     }
   }
 
@@ -398,6 +400,8 @@ public final class TinkerRegistry {
   public static void registerToolForgeCrafting(ToolCore tool) {
     if(new TinkerRegisterEvent.ToolForgeCraftingRegisterEvent(tool).fire()) {
       toolForgeCrafting.add(tool);
+    } else {
+      log.debug("Registration of tool forge recipe " + tool.getRegistryName().toString() + " has been cancelled by event");
     }
   }
 
@@ -414,6 +418,8 @@ public final class TinkerRegistry {
     }
     if(new TinkerRegisterEvent.StencilTableCraftingRegisterEvent(stencil).fire()) {
       stencilTableCrafting.add(stencil);
+    } else {
+      log.debug("Registration of stencil table stencil " + stencil.toString() + " has been cancelled by event");
     }
   }
 
