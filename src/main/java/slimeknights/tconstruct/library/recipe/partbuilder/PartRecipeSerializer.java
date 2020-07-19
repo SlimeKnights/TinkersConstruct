@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import com.google.gson.JsonObject;
-import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
@@ -43,7 +42,7 @@ public class PartRecipeSerializer<T extends PartRecipe> extends ForgeRegistryEnt
       ResourceLocation pattern = new ResourceLocation(buffer.readString(32767));
       int cost = buffer.readInt();
       // output must be a material item
-      IMaterialItem item = RecipeUtil.readMaterialItem(buffer);
+      IMaterialItem item = RecipeUtil.readItem(buffer, IMaterialItem.class);
       int count = buffer.readByte();
       return this.factory.create(recipeId, group, pattern, cost, item, count);
     } catch (Exception e) {
@@ -58,7 +57,7 @@ public class PartRecipeSerializer<T extends PartRecipe> extends ForgeRegistryEnt
       buffer.writeString(recipe.group);
       buffer.writeString(recipe.pattern.toString());
       buffer.writeInt(recipe.cost);
-      buffer.writeInt(Item.getIdFromItem(recipe.output.asItem()));
+      RecipeUtil.writeItem(buffer, recipe.output);
       buffer.writeByte(recipe.outputCount);
     } catch (Exception e) {
       TConstruct.log.error("Error writing material recipe to packet.", e);

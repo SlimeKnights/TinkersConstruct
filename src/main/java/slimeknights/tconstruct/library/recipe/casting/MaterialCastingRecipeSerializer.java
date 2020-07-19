@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.recipe.casting;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
-import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
@@ -44,8 +43,7 @@ public class MaterialCastingRecipeSerializer<T extends MaterialCastingRecipe> ex
       String group = buffer.readString(Short.MAX_VALUE);
       Ingredient cast = Ingredient.read(buffer);
       int fluidAmount = buffer.readInt();
-      int itemId = buffer.readVarInt();
-      IMaterialItem result = RecipeUtil.readMaterialItem(buffer);
+      IMaterialItem result = RecipeUtil.readItem(buffer, IMaterialItem.class);
       boolean consumed = buffer.readBoolean();
       boolean switchSlots = buffer.readBoolean();
       return this.factory.create(recipeId, group, cast, fluidAmount, result, consumed, switchSlots);
@@ -61,7 +59,7 @@ public class MaterialCastingRecipeSerializer<T extends MaterialCastingRecipe> ex
       buffer.writeString(recipe.group);
       recipe.cast.write(buffer);
       buffer.writeInt(recipe.fluidAmount);
-      buffer.writeInt(Item.getIdFromItem(recipe.result.asItem()));
+      RecipeUtil.writeItem(buffer, recipe.result);
       buffer.writeBoolean(recipe.consumed);
       buffer.writeBoolean(recipe.switchSlots);
     } catch (Exception e) {

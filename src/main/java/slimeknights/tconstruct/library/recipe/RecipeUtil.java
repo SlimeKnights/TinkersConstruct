@@ -13,6 +13,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -164,16 +165,35 @@ public final class RecipeUtil {
   }
 
   /**
-   * Reads a material item from the packet buffer
-   * @param buffer  Packet buffer instance
-   * @return  Material item instance
+   * Reads an item from the packet buffer
+   * @param buffer  Buffer instance
+   * @return  Item read from the buffer
    */
-  public static IMaterialItem readMaterialItem(PacketBuffer buffer) {
-    int itemId = buffer.readVarInt();
-    Item item = Item.getItemById(itemId);
-    if (!(item instanceof IMaterialItem)) {
-      throw new DecoderException("Invalid item '" + item.getRegistryName() + "', must implement IMaterialItem");
+  public static Item readItem(PacketBuffer buffer) {
+    return Item.getItemById(buffer.readVarInt());
+  }
+
+  /**
+   * Reads an item from the packet buffer and validates its class type
+   * @param buffer  Buffer instance
+   * @param clazz   Output class
+   * @param <T>     Class type
+   * @return  Item read from the buffer with the given class type
+   */
+  public static <T> T readItem(PacketBuffer buffer, Class<T> clazz) {
+    Item item = readItem(buffer);
+    if (!clazz.isInstance(item)) {
+      throw new DecoderException("Invalid item '" + item.getRegistryName() + "', must be " + clazz.getSimpleName());
     }
-    return (IMaterialItem) item;
+    return clazz.cast(item);
+  }
+
+  /**
+   * Writes an item to the packet buffer
+   * @param buffer  Buffer instance
+   * @param item    Item to write
+   */
+  public static void writeItem(PacketBuffer buffer, IItemProvider item) {
+    buffer.writeVarInt(Item.getIdFromItem(item.asItem()));
   }
 }

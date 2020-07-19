@@ -3,10 +3,12 @@ package slimeknights.tconstruct.library.recipe.casting;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.Tag;
@@ -21,20 +23,16 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+@RequiredArgsConstructor(staticName = "castingRecipe")
 public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingRecipeBuilder> {
+  private final ItemStack result;
   private final ItemCastingRecipeSerializer<?> recipeSerializer;
   private String group;
   private Ingredient cast = Ingredient.EMPTY;
   private FluidIngredient fluid = FluidIngredient.EMPTY;
   private int coolingTime = -1;
-  private final Item result;
   private boolean consumed = false;
   private boolean switchSlots = false;
-
-  private ItemCastingRecipeBuilder(IItemProvider resultIn, ItemCastingRecipeSerializer<?> serializer) {
-    this.result = resultIn.asItem();
-    this.recipeSerializer = serializer;
-  }
 
   /**
    * Creates a new builder instance
@@ -43,7 +41,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @return  Builder instance
    */
   public static ItemCastingRecipeBuilder castingRecipe(IItemProvider resultIn, ItemCastingRecipeSerializer<?> serializer) {
-    return new ItemCastingRecipeBuilder(resultIn, serializer);
+    return castingRecipe(new ItemStack(resultIn), serializer);
   }
 
   /**
@@ -169,13 +167,19 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @param consumerIn  Recipe consumer
    */
   public void build(Consumer<IFinishedRecipe> consumerIn) {
-    this.build(consumerIn, Objects.requireNonNull(this.result.getRegistryName()));
+    this.build(consumerIn, Objects.requireNonNull(this.result.getItem().getRegistryName()));
   }
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+    if (result.isEmpty()) {
+      throw new IllegalStateException("Result may not be empty");
+    }
     if (this.fluid == FluidIngredient.EMPTY) {
       throw new IllegalStateException("Casting recipes require a fluid input");
+    }
+    if (this.coolingTime < 0) {
+      throw new IllegalStateException("Cooling time is too low, must be at least 0");
     }
     ResourceLocation advancementId = this.buildAdvancement(id, "casting");
     consumer.accept(new ItemCastingRecipeBuilder.Result(id, this.group == null ? "" : this.group, this.consumed, this.switchSlots, this.fluid, this.cast, this.result, this.coolingTime, this.advancementBuilder, advancementId, this.recipeSerializer));
@@ -190,7 +194,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
     private final boolean switchSlots;
     private final FluidIngredient fluid;
     private final Ingredient cast;
-    private final Item result;
+    private final ItemStack result;
     private final int coolingTime;
     private final Advancement.Builder advancementBuilder;
     @Getter
@@ -213,10 +217,19 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
         json.addProperty("switch_slots", true);
       }
       json.add("fluid", this.fluid.serialize());
-      json.addProperty("result", Objects.requireNonNull(this.result.getRegistryName()).toString());
-      if (this.coolingTime != -1) {
-        json.addProperty("cooling_time", this.coolingTime);
+
+      // if the item has NBT, write both, else write just the name
+      String itemName = Objects.requireNonNull(this.result.getItem().getRegistryName()).toString();
+      if (result.hasTag()) {
+        JsonObject result = new JsonObject();
+        result.addProperty("item", itemName);
+        result.addProperty("nbt", this.result.getTag().toString());
+        json.add("result", result);
+      } else {
+        json.addProperty("result", itemName);
       }
+
+      json.addProperty("cooling_time", this.coolingTime);
     }
 
     @Nullable

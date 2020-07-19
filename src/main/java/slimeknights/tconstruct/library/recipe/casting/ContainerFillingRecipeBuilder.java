@@ -18,10 +18,9 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<ContainerFillingRecipeBuilder> {
-
   private final ContainerFillingRecipeSerializer<?> recipeSerializer;
   private String group;
-  private int fluidAmount = 0;
+  private final int fluidAmount;
   private final Item result;
 
   private ContainerFillingRecipeBuilder(IItemProvider result, int fluidAmount, ContainerFillingRecipeSerializer<?> recipeSerializer) {
@@ -53,18 +52,8 @@ public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<Contain
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
-    this.validate(id);
     ResourceLocation advancementId = this.buildAdvancement(id, "casting");
     consumerIn.accept(new ContainerFillingRecipeBuilder.Result(id, this.group == null ? "" : this.group, this.fluidAmount, this.result, this.advancementBuilder, advancementId, this.recipeSerializer));
-  }
-
-  /**
-   * Makes sure this is valid
-   */
-  private void validate(ResourceLocation id) {
-    if (this.fluidAmount <= 0) {
-      throw new IllegalStateException("Material casting recipes require a positive amount of fluid");
-    }
   }
 
   @AllArgsConstructor

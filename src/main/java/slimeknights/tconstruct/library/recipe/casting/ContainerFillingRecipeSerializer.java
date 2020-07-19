@@ -1,17 +1,15 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 import lombok.AllArgsConstructor;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.IItemProvider;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.recipe.RecipeUtil;
 
 import javax.annotation.Nullable;
 
@@ -24,11 +22,7 @@ public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> 
   public T read(ResourceLocation recipeId, JsonObject json) {
     String group = JSONUtils.getString(json, "group", "");
     int fluidAmount = JSONUtils.getInt(json, "fluid_amount");
-    String itemName = JSONUtils.getString(json, "container");
-    Item result = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName));
-    if (result == null) {
-      throw new JsonSyntaxException("Unknown item '" + itemName + "'");
-    }
+    Item result = JSONUtils.getItem(json, "container");
     return this.factory.create(recipeId, group, fluidAmount, result);
   }
 
@@ -38,8 +32,7 @@ public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> 
     try {
       String group = buffer.readString(Short.MAX_VALUE);
       int fluidAmount = buffer.readInt();
-      int itemId = buffer.readVarInt();
-      Item result = Item.getItemById(itemId);
+      Item result = RecipeUtil.readItem(buffer);
       return this.factory.create(recipeId, group, fluidAmount, result);
     } catch (Exception e) {
       TConstruct.log.error("Error reading container filling recipe from packet.", e);
@@ -52,7 +45,7 @@ public class ContainerFillingRecipeSerializer<T extends ContainerFillingRecipe> 
     try {
       buffer.writeString(recipe.group);
       buffer.writeInt(recipe.fluidAmount);
-      buffer.writeInt(Item.getIdFromItem(recipe.container.asItem()));
+      RecipeUtil.writeItem(buffer, recipe.container);
     } catch (Exception e) {
       TConstruct.log.error("Error writing container filling recipe to packet.", e);
       throw e;

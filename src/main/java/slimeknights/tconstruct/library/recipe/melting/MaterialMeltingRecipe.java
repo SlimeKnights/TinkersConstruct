@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -14,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.recipe.IMultiRecipe;
 import slimeknights.tconstruct.library.recipe.RecipeUtil;
@@ -84,15 +84,25 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
     @Nullable
     @Override
     public MaterialMeltingRecipe read(ResourceLocation id, PacketBuffer buffer) {
-      IMaterialItem item = RecipeUtil.readMaterialItem(buffer);
-      int amount = buffer.readInt();
-      return new MaterialMeltingRecipe(id, item, amount);
+      try {
+        IMaterialItem item = RecipeUtil.readItem(buffer, IMaterialItem.class);
+        int amount = buffer.readInt();
+        return new MaterialMeltingRecipe(id, item, amount);
+      } catch(Exception e) {
+        TConstruct.log.error("Error reading material melting recipe from packet.", e);
+        throw e;
+      }
     }
 
     @Override
     public void write(PacketBuffer buffer, MaterialMeltingRecipe recipe) {
-      buffer.writeInt(Item.getIdFromItem(recipe.item.asItem()));
-      buffer.writeInt(recipe.amount);
+      try {
+        RecipeUtil.writeItem(buffer, recipe.item);
+        buffer.writeInt(recipe.amount);
+      } catch(Exception e) {
+        TConstruct.log.error("Error reading material melting recipe from packet.", e);
+        throw e;
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -15,6 +16,7 @@ import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
+@RequiredArgsConstructor
 public abstract class ContainerFillingRecipe implements ICastingRecipe {
   @Getter
   protected final IRecipeType<?> type;
@@ -26,19 +28,6 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe {
   protected final int fluidAmount;
   @Getter
   protected final Item container;
-  @Getter
-  protected final boolean consumed = true;
-  protected final boolean switchSlots = false;
-  @Getter
-  protected final int coolingTime = 5;
-
-  public ContainerFillingRecipe(IRecipeType<?> typeIn, ResourceLocation idIn, String groupIn, int fluidAmount, Item containerIn) {
-    this.type = typeIn;
-    this.id = idIn;
-    this.group = groupIn;
-    this.fluidAmount = fluidAmount;
-    this.container = containerIn;
-  }
 
   @Override
   public int getFluidAmount(ICastingInventory inv) {
@@ -46,13 +35,18 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe {
   }
 
   @Override
+  public boolean isConsumed() {
+    return true;
+  }
+
+  @Override
   public boolean switchSlots() {
-    return switchSlots;
+    return false;
   }
 
   @Override
   public int getCoolingTime(ICastingInventory inv) {
-    return getCoolingTime();
+    return 5;
   }
 
   @Override

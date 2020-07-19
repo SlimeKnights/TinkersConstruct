@@ -9,6 +9,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.FluidIngredient;
@@ -34,7 +35,15 @@ public class ItemCastingRecipeSerializer<T extends ItemCastingRecipe> extends Fo
       consumed = JSONUtils.getBoolean(json, "cast_consumed", false);
     }
     FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
-    ItemStack result = new ItemStack(JSONUtils.getItem(json, "result"));
+    // result can either be "mod:name" or {"item": "mod:name"} Second form supports NBT
+    ItemStack result;
+    JsonElement resultElement = json.get("result");
+    if (resultElement.isJsonPrimitive()) {
+      result = new ItemStack(JSONUtils.getItem(resultElement, "result"));
+    } else {
+      result = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "result"), true);
+      result.setCount(1);
+    }
     int coolingTime = JSONUtils.getInt(json, "cooling_time");
     return this.factory.create(recipeId, group, cast, fluid, result, coolingTime, consumed, switchSlots);
   }
