@@ -254,6 +254,19 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   /* Repairing */
 
+  @Override
+  public boolean needsRepair(ItemStack repairable) {
+    if (repairable.getDamage() == 0 && !ToolData.isBroken(repairable)) {
+      // undamaged and not broken - no need to repair
+      return false;
+    }
+
+    ToolData toolData = ToolData.readFromNBT(repairable.getTag());
+
+    List<IMaterial> materials = toolData.getMaterials();
+    return !materials.isEmpty();
+  }
+
   public int[] getRepairParts() {
     return new int[] { 0 }; // index 0 usually is the head. 1 is handle.
   }
@@ -766,6 +779,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     if (MaterialRegistry.initialized()) {
       List<PartMaterialRequirement> requirements = this.getToolDefinition().getRequiredComponents();
       List<IMaterial> toolMaterials = new ArrayList<>(requirements.size());
+      IMaterial material = IMaterial.UNKNOWN;
 
       for (int i = 0; i < requirements.size(); i++) {
         PartMaterialRequirement requirement = requirements.get(i);
@@ -775,7 +789,11 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
           List<IMaterial> materials = MaterialRegistry.getInstance().getMaterials().stream().filter(toolPart::canUseMaterial).collect(Collectors.toList());
 
-          toolMaterials.add(i, materials.get(TConstruct.random.nextInt(materials.size())));
+          if(material == IMaterial.UNKNOWN) {
+            material = materials.get(TConstruct.random.nextInt(materials.size()));
+          }
+
+          toolMaterials.add(i, material);
         }
       }
 

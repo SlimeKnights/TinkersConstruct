@@ -28,7 +28,7 @@ public class ToolDebugScreen extends ContainerScreen<ToolDebugContainer> {
       ItemStack st = TinkerToolParts.pickaxeHead.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:stone")));
       ItemStack st2 = TinkerToolParts.toolRod.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:wood")));
       ItemStack st3 = TinkerToolParts.smallBinding.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:ardite")));
-      ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(NonNullList.from(ItemStack.EMPTY, st, st2, st3), TinkerTools.pickaxe.get());
+      ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(NonNullList.from(ItemStack.EMPTY, st, st2, st3).stream(), 3, TinkerTools.pickaxe.get());
       container.inventory.setInventorySlotContents(0, itemStack);
     }));
   }

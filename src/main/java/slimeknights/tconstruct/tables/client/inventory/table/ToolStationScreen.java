@@ -189,6 +189,7 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
       }
 
       this.traitInfo.setCaption(new TranslationTextComponent("gui.tconstruct.tool_station.traits").getFormattedText());
+      this.traitInfo.setText("dyio where my trains!");
     }
     // Repair info
     else if (this.currentData.tool.isEmpty()) {

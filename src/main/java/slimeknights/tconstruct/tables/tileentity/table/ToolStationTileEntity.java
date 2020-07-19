@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 
 public class ToolStationTileEntity extends TableTileEntity {
   public static final int TOOL_SLOT = 0;
+  public static final int OUTPUT_SLOT = 0;
 
   public ToolStationTileEntity() {
     super(TinkerTables.toolStationTile.get(), "gui.tconstruct.tool_station", 6);

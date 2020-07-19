@@ -12,21 +12,21 @@ import slimeknights.tconstruct.tools.IToolPart;
 
 public class ToolStationInSlot extends Slot {
 
-  public Container parent;
+  public ToolStationContainer parent;
   public boolean dormant;
 
   public ItemStack icon;
 
   public PartMaterialRequirement restriction;
 
-  public ToolStationInSlot(IInventory inventoryIn, int index, int xPosition, int yPosition, Container parentContainer) {
+  public ToolStationInSlot(IInventory inventoryIn, int index, int xPosition, int yPosition, ToolStationContainer parentContainer) {
     super(inventoryIn, index, xPosition, yPosition);
     this.parent = parentContainer;
   }
 
   @Override
   public void onSlotChanged() {
-    this.parent.onCraftMatrixChanged(this.inventory);
+    this.parent.updateResult();
   }
 
   @Override

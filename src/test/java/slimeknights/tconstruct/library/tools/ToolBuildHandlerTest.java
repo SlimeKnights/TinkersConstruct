@@ -24,7 +24,7 @@ class ToolBuildHandlerTest extends BaseMcTest {
     input.add(materialItem1);
     input.add(materialItem2);
 
-    ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(input, testToolCore);
+    ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(input.stream(), 3, testToolCore);
 
     assertThat(itemStack.isEmpty()).isFalse();
   }
@@ -36,7 +36,7 @@ class ToolBuildHandlerTest extends BaseMcTest {
     input.add(materialItem2);
     input.add(materialItem2);
 
-    ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(input, testToolCore);
+    ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(input.stream(), 3, testToolCore);
 
     assertThat(itemStack.isEmpty()).isTrue();
   }
@@ -46,7 +46,7 @@ class ToolBuildHandlerTest extends BaseMcTest {
     NonNullList<ItemStack> input = NonNullList.create();
     input.add(materialItem1);
 
-    ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(input, testToolCore);
+    ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(input.stream(), 3, testToolCore);
 
     assertThat(itemStack.isEmpty()).isTrue();
   }
@@ -57,7 +57,7 @@ class ToolBuildHandlerTest extends BaseMcTest {
     input.add(materialItem2);
     input.add(materialItem1);
 
-    ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(input, testToolCore);
+    ItemStack itemStack = ToolBuildHandler.buildItemFromStacks(input.stream(), 3, testToolCore);
 
     assertThat(itemStack.isEmpty()).isTrue();
   }

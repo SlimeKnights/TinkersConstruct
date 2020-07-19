@@ -49,6 +49,8 @@ import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.toolstation.ToolBuildingRecipe;
+import slimeknights.tconstruct.library.recipe.toolstation.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -62,6 +64,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.MaterialIds;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
@@ -95,6 +98,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     this.addMaterialsRecipes(consumer);
     this.addCastingRecipes(consumer);
     this.addMeltingRecipes(consumer);
+    this.addToolRecipes(consumer);
   }
 
   private void addCommonRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -1033,6 +1037,13 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     registerMaterial(consumer, MaterialIds.slimeleaf_purple, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.PURPLE)), 1, 2, "slimeleaf_purple");
   }
 
+  private void addToolRecipes(Consumer<IFinishedRecipe> consumer) {
+    registerToolBuilding(consumer, TinkerTools.pickaxe.get());
+    registerToolBuilding(consumer, TinkerTools.hammer.get());
+    registerToolBuilding(consumer, TinkerTools.shovel.get());
+    registerToolBuilding(consumer, TinkerTools.broadSword.get());
+  }
+
   /* String helpers */
   /**
    * Gets a resource location for Tinkers
@@ -1109,6 +1120,14 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     MaterialMeltingRecipeBuilder.melting(part, cost * MaterialValues.VALUE_Ingot)
                                 .addCriterion("has_item", hasItem(part))
                                 .build(consumer, location("melting/parts/" + part));
+  }
+
+  private void registerToolBuilding(Consumer<IFinishedRecipe> consumer, Item item) {
+    String name = Objects.requireNonNull(item.asItem().getRegistryName()).getPath();
+
+    ToolBuildingRecipeBuilder.toolBuildingRecipe(item)
+      .addCriterion("has_item", this.hasItem(TinkerTables.pattern))
+      .build(consumer, location("tools/" + name));
   }
 
   /**

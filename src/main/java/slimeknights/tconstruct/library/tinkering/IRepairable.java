@@ -25,4 +25,6 @@ public interface IRepairable {
    */
   @Nonnull
   ItemStack repair(List<MaterialRecipe> recipes, ItemStack repairable, NonNullList<ItemStack> repairItems);
+
+  boolean needsRepair(ItemStack repairable);
 }

@@ -26,7 +26,7 @@ public class ToolStationOutSlot extends Slot {
   @Override
   public ItemStack onTake(PlayerEntity playerIn, @Nonnull ItemStack stack) {
     net.minecraftforge.fml.hooks.BasicEventHooks.firePlayerCraftingEvent(playerIn, stack, this.parent.getTileEntity());
-    this.parent.onResultTaken(playerIn, stack);
+    this.parent.onCrafting(playerIn, stack, this.inventory);
     stack.onCrafting(playerIn.getEntityWorld(), playerIn, 1);
 
     return super.onTake(playerIn, stack);

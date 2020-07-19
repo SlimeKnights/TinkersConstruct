@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.tools;
 
 import com.google.common.collect.Streams;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
@@ -13,6 +12,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolItemNBT;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public final class ToolBuildHandler {
 
@@ -22,13 +22,12 @@ public final class ToolBuildHandler {
    * @param stacks Items to build with. Have to be in the correct order and contain material items.
    * @return The built item or null if invalid input.
    */
-  public static ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks, ToolCore tool) {
-    if(!canToolBeBuilt(stacks, tool)) {
+  public static ItemStack buildItemFromStacks(Stream<ItemStack> stacks, int size, ToolCore tool) {
+    if (!canToolBeBuilt(stacks, size, tool)) {
       return ItemStack.EMPTY;
     }
 
-    List<IMaterial> materials = stacks.stream()
-      .filter(stack -> !stack.isEmpty())
+    List<IMaterial> materials = stacks.filter(stack -> !stack.isEmpty())
       .map(IMaterialItem::getMaterialFromStack)
       .collect(Collectors.toList());
 
@@ -39,7 +38,7 @@ public final class ToolBuildHandler {
    * Builds a too stack from a material list
    * @param tool       Tool instance
    * @param materials  Material list
-   * @return  Item stack with materials
+   * @return Item stack with materials
    */
   public static ItemStack buildItemFromMaterials(ToolCore tool, List<IMaterial> materials) {
     StatsNBT stats = tool.buildToolStats(materials);
@@ -55,14 +54,14 @@ public final class ToolBuildHandler {
     return output;
   }
 
-  public static boolean canToolBeBuilt(NonNullList<ItemStack> stacks, ToolCore tool) {
+  public static boolean canToolBeBuilt(Stream<ItemStack> stacks, int size, ToolCore tool) {
     List<PartMaterialRequirement> requiredComponents = tool.getToolDefinition().getRequiredComponents();
 
-    return stacks.size() == requiredComponents.size() && canBeBuiltFromParts(stacks, requiredComponents);
+    return size == requiredComponents.size() && canBeBuiltFromParts(stacks, requiredComponents);
   }
 
-  private static boolean canBeBuiltFromParts(NonNullList<ItemStack> stacks, List<PartMaterialRequirement> requiredComponents) {
-    return Streams.zip(requiredComponents.stream(), stacks.stream(), PartMaterialRequirement::isValid).allMatch(Boolean::booleanValue);
+  private static boolean canBeBuiltFromParts(Stream<ItemStack> stacks, List<PartMaterialRequirement> requiredComponents) {
+    return Streams.zip(requiredComponents.stream(), stacks, PartMaterialRequirement::isValid).allMatch(Boolean::booleanValue);
   }
 
   private ToolBuildHandler() {

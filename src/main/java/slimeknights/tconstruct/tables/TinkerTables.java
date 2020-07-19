@@ -5,6 +5,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
@@ -13,6 +14,8 @@ import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeSerializer;
+import slimeknights.tconstruct.library.recipe.toolstation.ToolBuildingRecipe;
+import slimeknights.tconstruct.library.recipe.toolstation.ToolRepairingRecipe;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.ItemObject;
 import slimeknights.tconstruct.shared.block.TableBlock;
@@ -74,4 +77,6 @@ public final class TinkerTables extends TinkerModule {
    */
   public static final RegistryObject<PartRecipeSerializer<PartRecipe>> partRecipeSerializer = RECIPE_SERIALIZERS.register("part_builder", () -> new PartRecipeSerializer<>(PartRecipe::new));
   public static final RegistryObject<MaterialRecipeSerializer<MaterialRecipe>> materialRecipeSerializer = RECIPE_SERIALIZERS.register("material", () -> new MaterialRecipeSerializer<>(MaterialRecipe::new));
+  public static final RegistryObject<IRecipeSerializer<ToolBuildingRecipe>> toolBuildingRecipeSerializer = RECIPE_SERIALIZERS.register("tool_building", ToolBuildingRecipe.Serializer::new);
+  public static final RegistryObject<IRecipeSerializer<ToolRepairingRecipe>> toolRepairingRecipeSerializer = RECIPE_SERIALIZERS.register("tool_repairing", ToolRepairingRecipe.Serializer::new);
 }
