@@ -36,11 +36,11 @@ import net.minecraftforge.gradle.common.task.SignJar
 
 repositories {
     mavenLocal()
-    maven {
+    maven { // Forge
         name 'ForgeFS'
         url 'https://files.minecraftforge.net/maven'
     }
-    maven {
+    maven { // Mantle and JEI
         name 'DVS1 Maven FS'
         url 'https://dvs1.progwml6.com/files/maven'
     }
@@ -48,17 +48,13 @@ repositories {
         name 'tterrag maven'
         url "https://maven.tterrag.com/"
     }
-    maven { // compatlayer
-        name 'K-4u maven'
-        url "https://maven.k-4u.nl/"
+    maven { // unofficial backup maven in case official mavens go down
+        name "ModMaven"
+        url "https://modmaven.k-4u.nl"
     }
-    maven {
+    maven { // HWYLA, last since it 403s anything not present
         name "Tehnut Maven FS"
-        url "https://tehnut.info/maven"
-    }
-    maven {
-        name = "CoFH Maven"
-        url = "https://maven.covers1624.net"
+        url "https://maven.tehnut.info"
     }
 }
 
@@ -204,7 +200,6 @@ dependencies {
 
     compile fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}")
     compile fg.deobf("mcjty.theoneprobe:TheOneProbe-1.15:${probe_version}")
-    //deobfCompile "cofh:RedstoneFlux:${config.redstoneflux_version}:universal"
 
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 
