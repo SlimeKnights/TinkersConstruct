@@ -60,8 +60,10 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
   private final LazyOptional<CastingFluidHandler> holder = LazyOptional.of(() -> new CastingFluidHandler(this, tank));
   private final TileCastingWrapper crafting;
   private final IRecipeType<ICastingRecipe> recipeType;
+  private ItemStack lastOutput = null;
 
   /** Current recipe progress */
+  @Getter
   private int timer;
   /** Current in progress recipe */
   private ICastingRecipe recipe;
@@ -207,6 +209,7 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
     if (castingRecipe != null) {
       if (action == IFluidHandler.FluidAction.EXECUTE) {
         this.recipe = castingRecipe;
+        this.lastOutput = null;
       }
       return castingRecipe.getFluidAmount(crafting);
     }
@@ -219,6 +222,7 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
   public void reset() {
     timer = 0;
     recipe = null;
+    this.lastOutput = null;
     tank.setCapacity(0);
     tank.setFluid(FluidStack.EMPTY);
     tank.setRenderOffset(0);
@@ -250,6 +254,35 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
     // no GUI
     return null;
   }
+
+
+  /* TER display */
+
+  /**
+   * Gets the recipe output for display in the TER
+   * @return  Recipe output
+   */
+  public ItemStack getRecipeOutput() {
+    if (lastOutput == null) {
+      if (recipe == null) {
+        return ItemStack.EMPTY;
+      }
+      lastOutput = recipe.getCraftingResult(crafting);
+    }
+    return lastOutput;
+  }
+
+  /**
+   * Gets the total time for this recipe for display in the TER
+   * @return  total recipe time
+   */
+  public int getRecipeTime() {
+    if (recipe == null) {
+      return -1;
+    }
+    return recipe.getCoolingTime(crafting);
+  }
+
 
 
   /* NBT */
