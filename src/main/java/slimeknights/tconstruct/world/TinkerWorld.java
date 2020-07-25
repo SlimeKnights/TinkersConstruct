@@ -43,10 +43,7 @@ import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
 import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
 
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * Contains blocks and items relevant to structures and world gen
@@ -79,16 +76,10 @@ public final class TinkerWorld extends TinkerModule {
 
   // slime
   private static Block.Properties SLIME = Block.Properties.create(Material.CLAY, MaterialColor.GRASS).sound(SoundType.SLIME).hardnessAndResistance(0.0f).slipperiness(0.8F).notSolid();
-  public static final EnumObject<SlimeType, Block> slime;
-  static {
-    EnumObject<SlimeBlock.SlimeType, SlimeBlock> tinkerSlimeBlocks = BLOCKS.registerEnum(SlimeBlock.SlimeType.TINKER, "slime", (type) -> new SlimeBlock(SLIME, (type == SlimeBlock.SlimeType.PINK)), TOOLTIP_BLOCK_ITEM);
-    Map<SlimeType,Supplier<? extends Block>> map = new EnumMap<>(SlimeBlock.SlimeType.class);
-    for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.TINKER) {
-      map.put(slime, tinkerSlimeBlocks.getSupplier(slime));
-    }
-    map.put(SlimeBlock.SlimeType.GREEN, Blocks.SLIME_BLOCK.delegate);
-    slime = new EnumObject<>(map);
-  }
+  public static final EnumObject<SlimeType, Block> slime = new EnumObject.Builder<SlimeType, Block>(SlimeType.class)
+    .put(SlimeType.GREEN, Blocks.SLIME_BLOCK.delegate)
+    .putAll(BLOCKS.registerEnum(SlimeBlock.SlimeType.TINKER, "slime", (type) -> new SlimeBlock(SLIME, (type == SlimeBlock.SlimeType.PINK)), TOOLTIP_BLOCK_ITEM))
+    .build();
   private static final Block.Properties CONGEALED_SLIME = builder(Material.CLAY, NO_TOOL, SoundType.SLIME).hardnessAndResistance(0.5F).slipperiness(0.5F);
   public static final EnumObject<SlimeType,CongealedSlimeBlock> congealedSlime = BLOCKS.registerEnum(SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(CONGEALED_SLIME, (type == SlimeType.PINK)), TOOLTIP_BLOCK_ITEM);
 

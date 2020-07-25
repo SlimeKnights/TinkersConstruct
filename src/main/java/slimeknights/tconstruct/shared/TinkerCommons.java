@@ -29,12 +29,7 @@ import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.GlowBlock;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
-
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.function.Supplier;
 
 /**
  * Contains items and blocks and stuff that is shared by multiple modules, but might be required individually
@@ -71,16 +66,10 @@ public final class TinkerCommons extends TinkerModule {
   public static final ItemObject<Item> driedBrick = ITEMS.register("dried_brick", GENERAL_PROPS);
 
   /* Slime Balls are edible, believe it or not */
-  public static final EnumObject<SlimeType, Item> slimeball;
-  static {
-    EnumObject<SlimeBlock.SlimeType,EdibleItem> tinkerSlimeballs = ITEMS.registerEnum(SlimeBlock.SlimeType.TINKER, "slime_ball", (type) -> new EdibleItem(type.getSlimeFood(type), TAB_GENERAL));
-    Map<SlimeType,Supplier<? extends Item>> map = new EnumMap<>(SlimeBlock.SlimeType.class);
-    for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.TINKER) {
-      map.put(slime, tinkerSlimeballs.getSupplier(slime));
-    }
-    map.put(SlimeBlock.SlimeType.GREEN, Items.SLIME_BALL.delegate);
-    slimeball = new EnumObject<>(map);
-  }
+  public static final EnumObject<SlimeType, Item> slimeball = new EnumObject.Builder<SlimeType, Item>(SlimeType.class)
+    .put(SlimeType.GREEN, Items.SLIME_BALL.delegate)
+    .putAll(ITEMS.registerEnum(SlimeType.TINKER, "slime_ball", (type) -> new EdibleItem(type.getSlimeFood(type), TAB_GENERAL)))
+    .build();
 
   /*
    * Recipe serializers

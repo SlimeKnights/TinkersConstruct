@@ -7,7 +7,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
 import slimeknights.tconstruct.library.registration.object.ItemObject;
 
-import java.util.EnumMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -54,16 +53,15 @@ public class ItemDeferredRegister extends RegisterWrapper<Item> {
    * @param supplier  Function to get a item for the given enum value
    * @return  EnumObject mapping between different item types
    */
-  @SuppressWarnings("unchecked")
   public <T extends Enum<T> & IStringSerializable, I extends Item> EnumObject<T,I> registerEnum(final T[] values, final String name, Function<T,? extends I> supplier) {
     if (values.length == 0) {
       throw new IllegalArgumentException("Must have at least one value");
     }
     // note this cast only works because you cannot extend an enum
-    EnumMap<T, Supplier<? extends I>> map = new EnumMap<>((Class<T>)values[0].getClass());
+    EnumObject.Builder<T,I> builder = new EnumObject.Builder<>(values[0].getDeclaringClass());
     for (T value : values) {
-      map.put(value, this.register(value.getName() + "_" + name, () -> supplier.apply(value)));
+      builder.put(value, this.register(value.getName() + "_" + name, () -> supplier.apply(value)));
     }
-    return new EnumObject<>(map);
+    return builder.build();
   }
 }
