@@ -58,7 +58,7 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
       congealedBuilder.add(TinkerWorld.congealedSlime.get(type));
     }
     Tag.Builder<Block> logBuilder = this.getBuilder(TinkerTags.Blocks.SLIMY_LOGS);
-    for (SlimeType type : SlimeType.VISIBLE_COLORS) {
+    for (SlimeType type : SlimeType.values()) {
       logBuilder.add(TinkerWorld.congealedSlime.get(type));
     }
     Tag.Builder<Block> leavesBuilder = this.getBuilder(TinkerTags.Blocks.SLIMY_LEAVES);

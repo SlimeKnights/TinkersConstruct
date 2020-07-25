@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "tconstruct:slime_blocks",
+  "group": "slime_blocks",
   "pattern": [
     "###",
     "###",

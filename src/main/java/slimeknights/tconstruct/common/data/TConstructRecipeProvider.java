@@ -54,7 +54,6 @@ import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
 import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
@@ -385,14 +384,14 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     // slime
     String folder = "gadgets/slimeboots/";
     ShapedFallbackRecipeBuilder slimeBoots = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeBoots.get(SlimeType.PINK))
+      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeBoots.get(SlimeType.GREEN))
                          .setGroup("tconstruct:slime_boots")
                          .key('#', TinkerTags.Items.CONGEALED_SLIME)
                          .key('X', Tags.Items.SLIMEBALLS)
                          .patternLine("X X")
                          .patternLine("# #")
                          .addCriterion("has_item", this.hasItem(Tags.Items.SLIMEBALLS)));
-    for (SlimeType slime : SlimeType.VISIBLE_COLORS) {
+    for (SlimeType slime : SlimeType.TINKER) {
       ResourceLocation name = location(folder + slime.getName());
       ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeBoots.get(slime))
                          .setGroup("tconstruct:slime_boots")
@@ -404,11 +403,11 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                          .build(consumer, name);
       slimeBoots.addAlternative(name);
     }
-    slimeBoots.build(consumer, location(folder + "pink"));
+    slimeBoots.build(consumer, location(folder + "green"));
 
     folder = "gadgets/slimesling/";
     ShapedFallbackRecipeBuilder slimeSling = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(SlimeType.PINK))
+      ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(SlimeType.GREEN))
                          .setGroup("tconstruct:slimesling")
                          .key('#', Tags.Items.STRING)
                          .key('X', TinkerTags.Items.CONGEALED_SLIME)
@@ -417,7 +416,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                          .patternLine("L L")
                          .patternLine(" L ")
                          .addCriterion("has_item", this.hasItem(Tags.Items.SLIMEBALLS)));
-    for (SlimeType slime : SlimeType.VISIBLE_COLORS) {
+    for (SlimeType slime : SlimeType.TINKER) {
       ResourceLocation name = location(folder + slime.getName());
       ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(slime))
                          .setGroup("tconstruct:slimesling")
@@ -431,7 +430,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                          .build(consumer, name);
       slimeSling.addAlternative(name);
     }
-    slimeSling.build(consumer, location(folder + "pink"));
+    slimeSling.build(consumer, location(folder + "green"));
 
     // rails
     folder = "gadgets/rail/";
@@ -577,7 +576,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     addFoodCooking(consumer, Items.TROPICAL_FISH, TinkerGadgets.clownfishJerky, 0.35f, folder);
     addFoodCooking(consumer, Items.PUFFERFISH, TinkerGadgets.pufferfishJerky, 0.35f, folder);
     // slime drops
-    for (SlimeType slime : SlimeType.VISIBLE_COLORS) {
+    for (SlimeType slime : SlimeType.values()) {
       addFoodCooking(consumer, TinkerCommons.slimeball.get(slime), TinkerGadgets.slimeDrop.get(slime), 0.35f, folder);
     }
   }
@@ -927,72 +926,64 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
   private void addSlimeRecipes(Consumer<IFinishedRecipe> consumer) {
 
     // Add recipe for all slimeball <-> congealed and slimeblock <-> slimeball
-    // fallback: pink slime
+    // fallback: green slime
     ShapedFallbackRecipeBuilder congealed = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(SlimeType.PINK))
+      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(SlimeType.GREEN))
         .key('#', Tags.Items.SLIMEBALLS)
         .patternLine("##")
         .patternLine("##")
         .addCriterion("has_item", this.hasItem(Tags.Items.SLIMEBALLS))
         .setGroup("tconstruct:congealed_slime"));
+    // replace vanilla recipe to prevent it from conflicting with our slime blocks
     ShapedFallbackRecipeBuilder slimeBlock = ShapedFallbackRecipeBuilder.fallback(
-      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.slime.get(SlimeType.PINK))
+      ShapedRecipeBuilder.shapedRecipe(Blocks.SLIME_BLOCK)
                          .key('#', Tags.Items.SLIMEBALLS)
                          .patternLine("###")
                          .patternLine("###")
                          .patternLine("###")
                          .addCriterion("has_item", this.hasItem(Tags.Items.SLIMEBALLS))
-                         .setGroup("tconstruct:slime_blocks"));
-
-    for (SlimeBlock.SlimeType slimeType : SlimeBlock.SlimeType.values()) {
-      // pink is the alternative, does not need a standalone recipe
-      if (slimeType != SlimeType.PINK) {
-        ResourceLocation name = location("common/slime/" + slimeType.getName() + "/congealed");
-        ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(slimeType))
-                           .key('#', slimeType.getSlimeBallTag())
-                           .patternLine("##")
-                           .patternLine("##")
-                           .addCriterion("has_item", this.hasItem(slimeType.getSlimeBallTag()))
-                           .setGroup("tconstruct:congealed_slime")
-                           .build(consumer, name);
-        congealed.addAlternative(name);
-
-        // register green over the vanilla recipe
-        ResourceLocation blockName = slimeType == SlimeType.GREEN
-                                     ? Objects.requireNonNull(Blocks.SLIME_BLOCK.getRegistryName())
-                                     : location("common/slime/" + slimeType.getName() + "/slimeblock");
-        ShapedRecipeBuilder.shapedRecipe(TinkerWorld.slime.get(slimeType))
-                           .key('#', slimeType.getSlimeBallTag())
-                           .patternLine("###")
-                           .patternLine("###")
-                           .patternLine("###")
-                           .addCriterion("has_item", this.hasItem(slimeType.getSlimeBallTag()))
-                           .setGroup("tconstruct:slime_blocks")
-                           .build(consumer, blockName);
-        slimeBlock.addAlternative(blockName);
-      }
-
-      // slimeballs
+                         .setGroup("slime_blocks"));
+    // does not need green as its the fallback
+    for (SlimeType slimeType : SlimeType.TINKER) {
+      ResourceLocation name = location("common/slime/" + slimeType.getName() + "/congealed");
+      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(slimeType))
+                         .key('#', slimeType.getSlimeBallTag())
+                         .patternLine("##")
+                         .patternLine("##")
+                         .addCriterion("has_item", this.hasItem(slimeType.getSlimeBallTag()))
+                         .setGroup("tconstruct:congealed_slime")
+                         .build(consumer, name);
+      congealed.addAlternative(name);
+      ResourceLocation blockName = location("common/slime/" + slimeType.getName() + "/slimeblock");
+      ShapedRecipeBuilder.shapedRecipe(TinkerWorld.slime.get(slimeType))
+                         .key('#', slimeType.getSlimeBallTag())
+                         .patternLine("###")
+                         .patternLine("###")
+                         .patternLine("###")
+                         .addCriterion("has_item", this.hasItem(slimeType.getSlimeBallTag()))
+                         .setGroup("slime_blocks")
+                         .build(consumer, blockName);
+      slimeBlock.addAlternative(blockName);
+      // green already can craft into slime balls
+      ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.slimeball.get(slimeType), 9)
+                            .addIngredient(TinkerWorld.slime.get(slimeType))
+                            .addCriterion("has_item", this.hasItem(TinkerWorld.slime.get(slimeType)))
+                            .setGroup("tconstruct:slime_balls")
+                            .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeball_from_block");
+    }
+    // all types of congealed need a recipe to a block
+    for (SlimeType slimeType : SlimeType.values()) {
       ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.slimeball.get(slimeType), 4)
-        .addIngredient(TinkerWorld.congealedSlime.get(slimeType))
-        .addCriterion("has_item", this.hasItem(TinkerWorld.congealedSlime.get(slimeType)))
-        .setGroup("tconstruct:slime_balls")
-        .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeball_from_congealed");
-
-
-      // green already has this
-      if (slimeType != SlimeType.GREEN) {
-        ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.slimeball.get(slimeType), 9)
-                              .addIngredient(TinkerWorld.slime.get(slimeType))
-                              .addCriterion("has_item", this.hasItem(TinkerWorld.slime.get(slimeType)))
-                              .setGroup("tconstruct:slime_balls")
-                              .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeball_from_block");
-      }
+                            .addIngredient(TinkerWorld.congealedSlime.get(slimeType))
+                            .addCriterion("has_item", this.hasItem(TinkerWorld.congealedSlime.get(slimeType)))
+                            .setGroup("tconstruct:slime_balls")
+                            .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeball_from_congealed");
     }
 
     // build fallback recipes
-    congealed.build(consumer, location("common/slime/pink/congealed"));
-    slimeBlock.build(consumer, location("common/slime/pink/slimeblock"));
+    congealed.build(consumer, location("common/slime/green/congealed"));
+    // block fallback replaces the vanilla recipe
+    slimeBlock.build(consumer);
   }
 
   private void addPartRecipes(Consumer<IFinishedRecipe> consumer) {

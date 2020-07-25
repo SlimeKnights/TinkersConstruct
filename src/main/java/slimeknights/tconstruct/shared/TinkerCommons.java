@@ -74,7 +74,7 @@ public final class TinkerCommons extends TinkerModule {
   /*
    * Recipe serializers
    */
-  public static final RegistryObject<IRecipeSerializer<ShapedRecipe>> shapedFallbackRecipe = RECIPE_SERIALIZERS.register("shaped_fallback", ShapedFallbackRecipe.Serializer::new);
+  public static final RegistryObject<IRecipeSerializer<ShapedRecipe>> shapedFallbackRecipe = RECIPE_SERIALIZERS.register("crafting_shaped_fallback", ShapedFallbackRecipe.Serializer::new);
 
   @SubscribeEvent
   void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {

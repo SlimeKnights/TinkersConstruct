@@ -38,13 +38,12 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   }
 
   private void addCommon() {
-    this.getBuilder(Tags.Items.SLIMEBALLS).add(TinkerTags.Items.BLUE_SLIMEBALL, TinkerTags.Items.PURPLE_SLIMEBALL, TinkerTags.Items.BLOOD_SLIMEBALL, TinkerTags.Items.MAGMA_SLIMEBALL, TinkerTags.Items.PINK_SLIMEBALL);
+    this.getBuilder(Tags.Items.SLIMEBALLS).add(TinkerTags.Items.BLUE_SLIMEBALL, TinkerTags.Items.PURPLE_SLIMEBALL, TinkerTags.Items.BLOOD_SLIMEBALL, TinkerTags.Items.MAGMA_SLIMEBALL);
     this.getBuilder(TinkerTags.Items.GREEN_SLIMEBALL).add(Items.SLIME_BALL);
     this.getBuilder(TinkerTags.Items.BLUE_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.BLUE));
     this.getBuilder(TinkerTags.Items.PURPLE_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.PURPLE));
     this.getBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.BLOOD));
     this.getBuilder(TinkerTags.Items.MAGMA_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.MAGMA));
-    this.getBuilder(TinkerTags.Items.PINK_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.PINK));
 
     this.getBuilder(Tags.Items.INGOTS).add(TinkerTags.Items.INGOTS_COBALT, TinkerTags.Items.INGOTS_ARDITE, TinkerTags.Items.INGOTS_MANYULLYN, TinkerTags.Items.INGOTS_KNIGHTSLIME, TinkerTags.Items.INGOTS_PIG_IRON, TinkerTags.Items.INGOTS_COPPER, TinkerTags.Items.INGOTS_ROSE_GOLD);
     this.getBuilder(TinkerTags.Items.INGOTS_COBALT).add(TinkerMaterials.cobaltIngot.get());
