@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tconstruct:gadgets/slimesling/purple"
+      "minecraft:slime_block"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:slimeball/purple"
+            "tag": "forge:slimeball/green"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tconstruct:gadgets/slimesling/purple"
+        "recipe": "minecraft:slime_block"
       }
     }
   },

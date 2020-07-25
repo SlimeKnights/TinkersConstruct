@@ -7,6 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
@@ -18,6 +19,7 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.recipe.crafting.ShapedFallbackRecipe;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
@@ -79,6 +81,11 @@ public final class TinkerCommons extends TinkerModule {
     map.put(SlimeBlock.SlimeType.GREEN, Items.SLIME_BALL.delegate);
     slimeball = new EnumObject<>(map);
   }
+
+  /*
+   * Recipe serializers
+   */
+  public static final RegistryObject<IRecipeSerializer<ShapedRecipe>> shapedFallbackRecipe = RECIPE_SERIALIZERS.register("shaped_fallback", ShapedFallbackRecipe.Serializer::new);
 
   @SubscribeEvent
   void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {

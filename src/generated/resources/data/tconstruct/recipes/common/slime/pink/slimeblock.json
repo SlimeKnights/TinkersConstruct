@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "tconstruct:shaped_fallback",
   "group": "tconstruct:slime_blocks",
   "pattern": [
     "###",
@@ -8,10 +8,17 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:slimeball/pink"
+      "tag": "forge:slimeballs"
     }
   },
   "result": {
     "item": "tconstruct:pink_slime"
-  }
+  },
+  "alternatives": [
+    "minecraft:slime_block",
+    "tconstruct:common/slime/blue/slimeblock",
+    "tconstruct:common/slime/purple/slimeblock",
+    "tconstruct:common/slime/blood/slimeblock",
+    "tconstruct:common/slime/magma/slimeblock"
+  ]
 }

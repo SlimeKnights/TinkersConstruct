@@ -15,6 +15,7 @@ public class TinkerTags {
 
   public static class Blocks {
 
+    public static final Tag<Block> CONGEALED_SLIME = tag("congealed_slime");
     public static final Tag<Block> SLIMY_LOGS = tag("slimy_logs");
     public static final Tag<Block> SLIMY_LEAVES = tag("slimy_leaves");
     public static final Tag<Block> SLIMY_SAPLINGS = tag("slimy_saplings");
@@ -47,6 +48,7 @@ public class TinkerTags {
 
   public static class Items {
 
+    public static final Tag<Item> CONGEALED_SLIME = tag("congealed_slime");
     public static final Tag<Item> SLIMY_LOGS = tag("slimy_logs");
     public static final Tag<Item> SLIMY_LEAVES = tag("slimy_leaves");
     public static final Tag<Item> SLIMY_SAPLINGS = tag("slimy_saplings");
