@@ -15,11 +15,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
+import slimeknights.tconstruct.library.registration.object.EnumObject.Builder;
 import slimeknights.tconstruct.library.registration.object.FenceBuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.WallBuildingBlockObject;
 
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -141,17 +140,16 @@ public class BlockDeferredRegister extends RegisterWrapper<Block> {
    * @param item      Function to get an item from the block
    * @return  EnumObject mapping between different block types
    */
-  @SuppressWarnings("unchecked")
   public <T extends Enum<T> & IStringSerializable, B extends Block> EnumObject<T,B> registerEnum(final T[] values, final String name, Function<T,? extends B> supplier, final Function<? super B, ? extends BlockItem> item) {
     if (values.length == 0) {
       throw new IllegalArgumentException("Must have at least one value");
     }
     // note this cast only works because you cannot extend an enum
-    Map<T, Supplier<? extends B>> map = new EnumMap<>((Class<T>)values[0].getClass());
+    EnumObject.Builder<T, B> builder = new EnumObject.Builder<>(values[0].getDeclaringClass());
     for (T value : values) {
-      map.put(value, register(value.getName() + "_" + name, () -> supplier.apply(value), item));
+      builder.put(value, register(value.getName() + "_" + name, () -> supplier.apply(value), item));
     }
-    return new EnumObject<>(map);
+    return builder.build();
   }
 
   /**
@@ -162,16 +160,15 @@ public class BlockDeferredRegister extends RegisterWrapper<Block> {
    * @param item      Function to get an item from the block
    * @return  EnumObject mapping between different block types
    */
-  @SuppressWarnings("unchecked")
   public <T extends Enum<T> & IStringSerializable, B extends Block> EnumObject<T,B> registerEnum(final String name, final T[] values, Function<T,? extends B> supplier, final Function<? super B, ? extends BlockItem> item) {
     if (values.length == 0) {
       throw new IllegalArgumentException("Must have at least one value");
     }
     // note this cast only works because you cannot extend an enum
-    Map<T, Supplier<? extends B>> map = new EnumMap<>((Class<T>)values[0].getClass());
+    EnumObject.Builder<T,B> builder = new Builder<>(values[0].getDeclaringClass());
     for (T value : values) {
-      map.put(value, register(name + "_" + value.getName(), () -> supplier.apply(value), item));
+      builder.put(value, register(name + "_" + value.getName(), () -> supplier.apply(value), item));
     }
-    return new EnumObject<>(map);
+    return builder.build();
   }
 }

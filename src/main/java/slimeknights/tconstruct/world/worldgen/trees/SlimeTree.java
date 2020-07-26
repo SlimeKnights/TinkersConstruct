@@ -24,7 +24,7 @@ public class SlimeTree extends SlimeTreeAbstract {
   @Override
   @Nullable
   public ConfiguredFeature<SlimeTreeFeatureConfig, ?> getSlimeTreeFeature(Random random, boolean bool) {
-    switch (foliageType) {
+    switch (this.foliageType) {
       case BLUE:
         if (this.isIslandTree) {
           return TinkerStructures.tree.get().withConfiguration(TinkerStructures.blueSlimeIslandTreeConfig);
@@ -40,6 +40,7 @@ public class SlimeTree extends SlimeTreeAbstract {
       case ORANGE:
         return TinkerStructures.tree.get().withConfiguration(TinkerStructures.magmaSlimeTreeConfig);
     }
+
     return null;
   }
 }

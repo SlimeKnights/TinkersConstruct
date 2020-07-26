@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BGB",
+    "BBB"
+  ],
+  "key": {
+    "G": {
+      "item": "tconstruct:seared_gauge"
+    },
+    "B": {
+      "item": "tconstruct:seared_brick"
+    }
+  },
+  "result": {
+    "item": "tconstruct:melter"
+  }
+}

@@ -22,6 +22,9 @@ import slimeknights.tconstruct.library.client.model.data.ModelItem;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * This model contains a single fluid region that is scaled in the TESR, and a list of two items displayed in the TESR
+ */
 public class CastingModel extends InventoryModel {
   private final FluidCuboid fluid;
 

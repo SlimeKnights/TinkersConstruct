@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:storage_blocks/gold"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_gold",
+    "amount": 1296
+  },
+  "temperature": 232
+}

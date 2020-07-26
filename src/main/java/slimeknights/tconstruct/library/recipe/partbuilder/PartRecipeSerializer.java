@@ -1,16 +1,13 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-import io.netty.handler.codec.DecoderException;
-import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.recipe.RecipeUtil;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 
 import javax.annotation.Nullable;
@@ -31,17 +28,10 @@ public class PartRecipeSerializer<T extends PartRecipe> extends ForgeRegistryEnt
 
     // output fetch as a material item, its an error if it does not implement that interface
     JsonObject output = JSONUtils.getJsonObject(json, "output");
-    String itemName = JSONUtils.getString(output, "item");
-    Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemName));
-    if (item == null) {
-      throw new JsonSyntaxException("Unknown item '" + itemName + "'");
-    }
-    if (!(item instanceof IMaterialItem)) {
-      throw new JsonSyntaxException("Invalid output, item does not implement IMaterialItem");
-    }
+    IMaterialItem item = RecipeUtil.deserializeMaterialItem(JSONUtils.getString(output, "item"), "output");
     int count = JSONUtils.getInt(output, "count", 1);
 
-    return this.factory.create(recipeId, group, pattern, cost, (IMaterialItem) item, count);
+    return this.factory.create(recipeId, group, pattern, cost, item, count);
   }
 
   @Nullable
@@ -52,14 +42,9 @@ public class PartRecipeSerializer<T extends PartRecipe> extends ForgeRegistryEnt
       ResourceLocation pattern = new ResourceLocation(buffer.readString(32767));
       int cost = buffer.readInt();
       // output must be a material item
-      int itemId = buffer.readVarInt();
-      Item item = Item.getItemById(itemId);
-      if (!(item instanceof IMaterialItem)) {
-        throw new DecoderException("Invalid item '" + item.getRegistryName() + "', must implement IMaterialItem");
-      }
+      IMaterialItem item = RecipeUtil.readItem(buffer, IMaterialItem.class);
       int count = buffer.readByte();
-
-      return this.factory.create(recipeId, group, pattern, cost, (IMaterialItem) item, count);
+      return this.factory.create(recipeId, group, pattern, cost, item, count);
     } catch (Exception e) {
       TConstruct.log.error("Error reading material recipe from packet.", e);
       throw e;
@@ -72,7 +57,7 @@ public class PartRecipeSerializer<T extends PartRecipe> extends ForgeRegistryEnt
       buffer.writeString(recipe.group);
       buffer.writeString(recipe.pattern.toString());
       buffer.writeInt(recipe.cost);
-      buffer.writeInt(Item.getIdFromItem(recipe.output.asItem()));
+      RecipeUtil.writeItem(buffer, recipe.output);
       buffer.writeByte(recipe.outputCount);
     } catch (Exception e) {
       TConstruct.log.error("Error writing material recipe to packet.", e);

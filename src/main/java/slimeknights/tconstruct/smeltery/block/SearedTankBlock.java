@@ -8,17 +8,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.utils.Tags;
+import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 
 import javax.annotation.Nullable;
@@ -56,17 +54,7 @@ public class SearedTankBlock extends SearedBlock {
   @Deprecated
   @Override
   public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-    if (!world.isRemote()) {
-      TileEntity te = world.getTileEntity(pos);
-      if (te != null) {
-        te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, hit.getFace()).ifPresent((handler) -> {
-          if (FluidUtil.interactWithFluidHandler(player, hand, handler)) {
-            world.playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY_LAVA, SoundCategory.BLOCKS, 1, 1);
-          }
-        });
-      }
-    }
-    if (FluidUtil.getFluidHandler(player.getHeldItem(hand)).isPresent()) {
+    if (ITankTileEntity.interactWithTank(world, pos, player, hand, hit)) {
       return ActionResultType.SUCCESS;
     }
     return super.onBlockActivated(state, world, pos, player, hand, hit);
@@ -76,7 +64,8 @@ public class SearedTankBlock extends SearedBlock {
   public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
     TileEntity te = world.getTileEntity(pos);
     if (te instanceof TankTileEntity) {
-      return ((TankTileEntity) te).getInternalTank().getFluid().getFluid().getAttributes().getLuminosity();
+      FluidStack fluid = ((TankTileEntity) te).getTank().getFluid();
+      return fluid.getFluid().getAttributes().getLuminosity(fluid);
     }
     return super.getLightValue(state, world, pos);
   }
@@ -84,8 +73,8 @@ public class SearedTankBlock extends SearedBlock {
   @Override
   public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     TileEntity te = worldIn.getTileEntity(pos);
-    if (te instanceof TankTileEntity && stack != null && stack.hasTag()) {
-      ((TankTileEntity) te).readTank(stack.getTag().getCompound(Tags.TANK));
+    if (te instanceof TankTileEntity && stack.hasTag()) {
+      ((TankTileEntity) te).updateTank(stack.getTag().getCompound(Tags.TANK));
     }
     super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
   }
@@ -99,11 +88,7 @@ public class SearedTankBlock extends SearedBlock {
   @Deprecated
   @Override
   public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
-    TileEntity te = worldIn.getTileEntity(pos);
-    if (!(te instanceof TankTileEntity)) {
-      return 0;
-    }
-    return ((TankTileEntity) te).comparatorStrength();
+    return ITankTileEntity.getComparatorInputOverride(worldIn, pos);
   }
 
   public enum TankType implements IStringSerializable {

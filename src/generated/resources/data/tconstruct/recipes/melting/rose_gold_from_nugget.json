@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:nuggets/rose_gold"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_rose_gold",
+    "amount": 16
+  },
+  "temperature": 59
+}

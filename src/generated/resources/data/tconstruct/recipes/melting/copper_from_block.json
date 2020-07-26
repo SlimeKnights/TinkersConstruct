@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:storage_blocks/copper"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_copper",
+    "amount": 1296
+  },
+  "temperature": 242
+}

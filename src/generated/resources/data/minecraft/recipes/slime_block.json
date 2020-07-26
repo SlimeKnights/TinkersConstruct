@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:crafting_shaped_fallback",
+  "group": "slime_blocks",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:slimeballs"
+    }
+  },
+  "result": {
+    "item": "minecraft:slime_block"
+  },
+  "alternatives": [
+    "tconstruct:common/slime/blue/slimeblock",
+    "tconstruct:common/slime/purple/slimeblock",
+    "tconstruct:common/slime/blood/slimeblock",
+    "tconstruct:common/slime/magma/slimeblock"
+  ]
+}

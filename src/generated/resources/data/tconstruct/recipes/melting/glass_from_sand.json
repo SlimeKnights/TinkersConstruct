@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:sand"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_glass",
+    "amount": 1000
+  },
+  "temperature": 299
+}

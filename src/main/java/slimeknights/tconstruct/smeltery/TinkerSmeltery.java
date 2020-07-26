@@ -4,10 +4,12 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,9 +20,15 @@ import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.recipe.casting.CastingBasinRecipe;
-import slimeknights.tconstruct.library.recipe.casting.CastingRecipeSerializer;
-import slimeknights.tconstruct.library.recipe.casting.CastingTableRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ContainerFillingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ContainerFillingRecipeSerializer;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeSerializer;
+import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeSerializer;
+import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
+import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipe;
+import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.library.registration.object.BlockItemObject;
 import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.registration.object.EnumObject;
@@ -30,14 +38,15 @@ import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
 import slimeknights.tconstruct.smeltery.block.CastingBasinBlock;
 import slimeknights.tconstruct.smeltery.block.CastingTableBlock;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
+import slimeknights.tconstruct.smeltery.block.MelterBlock;
 import slimeknights.tconstruct.smeltery.block.SearedGlassBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock.TankType;
+import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.smeltery.tileentity.AbstractCastingTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.CastingBasinTileEntity;
-import slimeknights.tconstruct.smeltery.tileentity.CastingTableTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.TankTileEntity;
 
@@ -90,6 +99,10 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final BlockItemObject<CastingBasinBlock> castingBasin = BLOCKS.register("casting_basin", () -> new CastingBasinBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
   public static final BlockItemObject<CastingTableBlock> castingTable = BLOCKS.register("casting_table", () -> new CastingTableBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
 
+  // controllers
+  private static final Block.Properties MELTER = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).lightValue(13).notSolid();
+  public static final BlockItemObject<MelterBlock> searedMelter = BLOCKS.register("melter", () -> new MelterBlock(MELTER), TOOLTIP_BLOCK_ITEM);
+
   /*
    * Tile entities
    */
@@ -109,8 +122,9 @@ public final class TinkerSmeltery extends TinkerModule {
   });
   public static final RegistryObject<TileEntityType<TankTileEntity>> tank = TILE_ENTITIES.register("tank", TankTileEntity::new, (set) -> set.addAll(searedTank.values()));
   public static final RegistryObject<TileEntityType<FaucetTileEntity>> faucet = TILE_ENTITIES.register("faucet", FaucetTileEntity::new, searedFaucet);
-  public static final RegistryObject<TileEntityType<AbstractCastingTileEntity>> basin = TILE_ENTITIES.register("basin", CastingBasinTileEntity::new, castingBasin);
-  public static final RegistryObject<TileEntityType<AbstractCastingTileEntity>> table = TILE_ENTITIES.register("table", CastingTableTileEntity::new, castingTable);
+  public static final RegistryObject<TileEntityType<AbstractCastingTileEntity>> basin = TILE_ENTITIES.register("basin", AbstractCastingTileEntity.Basin::new, castingBasin);
+  public static final RegistryObject<TileEntityType<AbstractCastingTileEntity>> table = TILE_ENTITIES.register("table", AbstractCastingTileEntity.Table::new, castingTable);
+  public static final RegistryObject<TileEntityType<MelterTileEntity>> melter = TILE_ENTITIES.register("melter", MelterTileEntity::new, searedMelter);
 
   /*
    * Items
@@ -150,8 +164,22 @@ public final class TinkerSmeltery extends TinkerModule {
   /*
    * Recipe
    */
-  public static final RegistryObject<CastingRecipeSerializer<CastingBasinRecipe>> basinRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin", () -> new CastingRecipeSerializer<>(CastingBasinRecipe::new));
-  public static final RegistryObject<CastingRecipeSerializer<CastingTableRecipe>> tableRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table", () -> new CastingRecipeSerializer<>(CastingTableRecipe::new));
+  // casting
+  public static final RegistryObject<ItemCastingRecipeSerializer<ItemCastingRecipe.Basin>> basinRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin", () -> new ItemCastingRecipeSerializer<>(ItemCastingRecipe.Basin::new));
+  public static final RegistryObject<ItemCastingRecipeSerializer<ItemCastingRecipe.Table>> tableRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table", () -> new ItemCastingRecipeSerializer<>(ItemCastingRecipe.Table::new));
+  public static final RegistryObject<MaterialCastingRecipeSerializer<MaterialCastingRecipe.Basin>> basinMaterialSerializer = RECIPE_SERIALIZERS.register("basin_casting_material", () -> new MaterialCastingRecipeSerializer<>(MaterialCastingRecipe.Basin::new));
+  public static final RegistryObject<MaterialCastingRecipeSerializer<MaterialCastingRecipe.Table>> tableMaterialSerializer = RECIPE_SERIALIZERS.register("table_casting_material", () -> new MaterialCastingRecipeSerializer<>(MaterialCastingRecipe.Table::new));
+  public static final RegistryObject<ContainerFillingRecipeSerializer<ContainerFillingRecipe.Basin>> basinFillingRecipeSerializer = RECIPE_SERIALIZERS.register("basin_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Basin::new));
+  public static final RegistryObject<ContainerFillingRecipeSerializer<ContainerFillingRecipe.Table>> tableFillingRecipeSerializer = RECIPE_SERIALIZERS.register("table_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Table::new));
+  // melting
+  public static final RegistryObject<IRecipeSerializer<MeltingRecipe>> meltingSerializer = RECIPE_SERIALIZERS.register("melting", MeltingRecipe.Serializer::new);
+  public static final RegistryObject<IRecipeSerializer<MaterialMeltingRecipe>> materialMeltingSerializer = RECIPE_SERIALIZERS.register("material_melting", MaterialMeltingRecipe.Serializer::new);
+  public static final RegistryObject<IRecipeSerializer<MeltingFuel>> fuelSerializer = RECIPE_SERIALIZERS.register("melting_fuel", MeltingFuel.Serializer::new);
+
+  /*
+   * Inventory
+   */
+  public static final RegistryObject<ContainerType<MelterContainer>> melterContainer = CONTAINERS.register("melter", MelterContainer::new);
 
   /*
    * Smeltery block lists

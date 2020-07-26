@@ -23,14 +23,14 @@ import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.library.materials.MaterialValues;
-import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 
 import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractCastingCategory<T extends AbstractCastingRecipe> implements IRecipeCategory<T>, ITooltipCallback<FluidStack> {
+
+public abstract class AbstractCastingCategory<T extends ItemCastingRecipe> implements IRecipeCategory<T>, ITooltipCallback<FluidStack> {
   private static final int INPUT_SLOT = 0;
   private static final int OUTPUT_SLOT = 1;
   private static final String KEY_COOLING_TIME = "jei.tconstruct.casting.cooling_time";
@@ -101,9 +101,6 @@ public abstract class AbstractCastingCategory<T extends AbstractCastingRecipe> i
     IGuiFluidStackGroup fluidStacks = recipeLayout.getFluidStacks();
     fluidStacks.addTooltipCallback(this);
     int capacity = MaterialValues.VALUE_Block;
-    if (recipe.getType() == RecipeTypes.CASTING_TABLE) {
-      capacity /= 2;
-    }
     fluidStacks.init(0, true, 3, 3, 32, 32, capacity, false, tankOverlay);
     fluidStacks.set(ingredients);
     int h = 11;

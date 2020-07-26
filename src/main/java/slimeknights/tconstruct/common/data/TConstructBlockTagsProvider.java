@@ -13,11 +13,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
 import java.util.Locale;
 import java.util.function.Consumer;
@@ -37,12 +37,12 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
   }
 
   private void addCommon() {
-    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS).add(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT, TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE, TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN, TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME, TinkerTags.Blocks.STORAGE_BLOCKS_PIGIRON, TinkerTags.Blocks.STORAGE_BLOCKS_COPPER, TinkerTags.Blocks.STORAGE_BLOCKS_ROSE_GOLD);
+    this.getBuilder(Tags.Blocks.STORAGE_BLOCKS).add(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT, TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE, TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN, TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME, TinkerTags.Blocks.STORAGE_BLOCKS_PIG_IRON, TinkerTags.Blocks.STORAGE_BLOCKS_COPPER, TinkerTags.Blocks.STORAGE_BLOCKS_ROSE_GOLD);
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT).add(TinkerMaterials.cobaltBlock.get());
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE).add(TinkerMaterials.arditeBlock.get());
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN).add(TinkerMaterials.manyullynBlock.get());
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME).add(TinkerMaterials.knightSlimeBlock.get());
-    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_PIGIRON).add(TinkerMaterials.pigironBlock.get());
+    this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_PIG_IRON).add(TinkerMaterials.pigironBlock.get());
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_COPPER).add(TinkerMaterials.copperBlock.get());
     this.getBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ROSE_GOLD).add(TinkerMaterials.roseGoldBlock.get());
 
@@ -53,10 +53,19 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
   }
 
   private void addWorld() {
-    this.getBuilder(TinkerTags.Blocks.SLIMY_LOGS).add(TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.GREEN), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.BLUE), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.PURPLE), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.BLOOD), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.MAGMA));
-    for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
-      this.getBuilder(TinkerTags.Blocks.SLIMY_LEAVES).add(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.BLUE), TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.PURPLE), TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ORANGE));
-      this.getBuilder(TinkerTags.Blocks.SLIMY_SAPLINGS).add(TinkerWorld.slimeSapling.get(type));
+    Tag.Builder<Block> congealedBuilder = this.getBuilder(TinkerTags.Blocks.CONGEALED_SLIME);
+    for (SlimeType type : SlimeType.values()) {
+      congealedBuilder.add(TinkerWorld.congealedSlime.get(type));
+    }
+    Tag.Builder<Block> logBuilder = this.getBuilder(TinkerTags.Blocks.SLIMY_LOGS);
+    for (SlimeType type : SlimeType.values()) {
+      logBuilder.add(TinkerWorld.congealedSlime.get(type));
+    }
+    Tag.Builder<Block> leavesBuilder = this.getBuilder(TinkerTags.Blocks.SLIMY_LEAVES);
+    Tag.Builder<Block> saplingBuilder = this.getBuilder(TinkerTags.Blocks.SLIMY_SAPLINGS);
+    for (FoliageType type : FoliageType.values()) {
+      leavesBuilder.add(TinkerWorld.slimeLeaves.get(type));
+      saplingBuilder.add(TinkerWorld.slimeSapling.get(type));
     }
 
     this.getBuilder(Tags.Blocks.ORES).add(TinkerTags.Blocks.ORES_COBALT, TinkerTags.Blocks.ORES_ARDITE, TinkerTags.Blocks.ORES_COPPER);

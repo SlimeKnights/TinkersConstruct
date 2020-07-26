@@ -49,6 +49,21 @@ public final class RenderUtil {
 
   private static Minecraft mc = Minecraft.getInstance();
 
+  /** Cached sprite getter instance */
+  private static Function<ResourceLocation, TextureAtlasSprite> blockSpriteGetter;
+
+  /**
+   * Gets a block sprite from the given location
+   * @param sprite  Sprite name
+   * @return  Sprite location
+   */
+  public static TextureAtlasSprite getBlockSprite(ResourceLocation sprite) {
+    if (blockSpriteGetter == null) {
+      blockSpriteGetter = mc.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+    }
+    return blockSpriteGetter.apply(sprite);
+  }
+
   /* Fluid cuboids */
 
   /**
@@ -235,6 +250,38 @@ public final class RenderUtil {
   }
 
   /**
+   * Adds a fluid cuboid with transparency
+   * @param matrices  Matrix stack instance
+   * @param buffer    Render type buffer instance
+   * @param fluid     Fluid to render
+   * @param opacity   Fluid opacity to blend in
+   * @param light     Quad lighting
+   * @param cube      Fluid cuboid instance
+   * @param flipGas   If true, flips gas cubes
+   */
+  public static void renderTransparentCuboid(MatrixStack matrices, IRenderTypeBuffer buffer, FluidCuboid cube, FluidStack fluid, int opacity, int light, boolean flipGas) {
+    // nothing to render? skip
+    if (opacity < 0 || fluid.isEmpty()) {
+      return;
+    }
+
+    FluidAttributes attributes = fluid.getFluid().getAttributes();
+    TextureAtlasSprite still = getBlockSprite(attributes.getStillTexture(fluid));
+    TextureAtlasSprite flowing = getBlockSprite(attributes.getFlowingTexture(fluid));
+    boolean isGas = attributes.isGaseous(fluid);
+
+    // add in fluid opacity if given
+    int color = attributes.getColor(fluid);
+    if (opacity < 0xFF) {
+      // alpha is top 8 bits, multiply by opacity and divide out remainder
+      int alpha = ((color >> 24) & 0xFF) * opacity / 0xFF;
+      // clear bits in color and or in the new alpha
+      color = (color & 0xFFFFFF) | (alpha << 24);
+    }
+    putTexturedCuboid(matrices, buffer.getBuffer(blockRenderType), cube, still, flowing, cube.getFromScaled(), cube.getToScaled(), color, light, isGas);
+  }
+
+  /**
    * Adds textured quads for a textured cuboid
    * @param matrices  Matrix stack instance
    * @param buffer    Render type buffer instance
@@ -245,11 +292,14 @@ public final class RenderUtil {
    * @param flipGas   If true, flips gas cubes
    */
   public static void renderScaledCuboid(MatrixStack matrices, IRenderTypeBuffer buffer, FluidCuboid cube, FluidStack fluid, float height, int light, boolean flipGas) {
+    if (height < 0 || fluid.isEmpty()) {
+      return;
+    }
+
     // fluid attributes
     FluidAttributes attributes = fluid.getFluid().getAttributes();
-    Function<ResourceLocation, TextureAtlasSprite> spriteGetter = mc.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
-    TextureAtlasSprite still = spriteGetter.apply(attributes.getStillTexture(fluid));
-    TextureAtlasSprite flowing = spriteGetter.apply(attributes.getFlowingTexture(fluid));
+    TextureAtlasSprite still = getBlockSprite(attributes.getStillTexture(fluid));
+    TextureAtlasSprite flowing = getBlockSprite(attributes.getFlowingTexture(fluid));
     boolean isGas = attributes.isGaseous(fluid);
 
     // determine height based on fluid amount
@@ -403,7 +453,7 @@ public final class RenderUtil {
     if (facing.getAxis().isHorizontal()) {
       matrices.push();
       matrices.translate(0.5, 0, 0.5);
-      matrices.rotate(Vector3f.YP.rotationDegrees(-90f * (2 + facing.getHorizontalIndex())));
+      matrices.rotate(Vector3f.YP.rotationDegrees(-90f * (facing.getHorizontalIndex())));
       matrices.translate(-0.5, 0, -0.5);
       return true;
     }

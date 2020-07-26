@@ -3,26 +3,24 @@ package slimeknights.tconstruct.plugin.jei;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.RecipeUtil;
-import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
+import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
+import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
 import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
+import slimeknights.tconstruct.plugin.jei.melting.MeltingCategory;
+import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
-import javax.annotation.Nullable;
-import java.util.Collection;
 import java.util.List;
 
 @JeiPlugin
@@ -34,23 +32,32 @@ public class JEIPlugin implements IModPlugin {
 
   @Override
   public void registerCategories(IRecipeCategoryRegistration registry) {
-    final IJeiHelpers jeiHelpers = registry.getJeiHelpers();
     final IGuiHelper guiHelper = registry.getJeiHelpers().getGuiHelper();
     registry.addRecipeCategories(new CastingBasinCategory(guiHelper));
     registry.addRecipeCategories(new CastingTableCategory(guiHelper));
+    registry.addRecipeCategories(new MeltingCategory(guiHelper));
   }
 
   @Override
   public void registerRecipes(IRecipeRegistration register) {
-    List<AbstractCastingRecipe> castingBasinRecipes = RecipeUtil.getRecipes(Minecraft.getInstance().world.getRecipeManager(), RecipeTypes.CASTING_BASIN, AbstractCastingRecipe.class);
-    List<AbstractCastingRecipe> castingTableRecipes = RecipeUtil.getRecipes(Minecraft.getInstance().world.getRecipeManager(), RecipeTypes.CASTING_TABLE, AbstractCastingRecipe.class);
+    assert Minecraft.getInstance().world != null;
+    RecipeManager manager = Minecraft.getInstance().world.getRecipeManager();
+    // casting
+    List<ItemCastingRecipe> castingBasinRecipes = RecipeUtil.getJEIRecipes(manager, RecipeTypes.CASTING_BASIN, ItemCastingRecipe.class);
     register.addRecipes(castingBasinRecipes, TConstructRecipeCategoryUid.castingBasin);
+    List<ItemCastingRecipe> castingTableRecipes = RecipeUtil.getJEIRecipes(manager, RecipeTypes.CASTING_TABLE, ItemCastingRecipe.class);
     register.addRecipes(castingTableRecipes, TConstructRecipeCategoryUid.castingTable);
+
+    // melting
+    List<MeltingRecipe> meltingRecipes = RecipeUtil.getJEIRecipes(manager, RecipeTypes.MELTING, MeltingRecipe.class);
+    register.addRecipes(meltingRecipes, TConstructRecipeCategoryUid.melting);
+    MeltingFuelHandler.setMeltngFuels(RecipeUtil.getRecipes(manager, RecipeTypes.FUEL, MeltingFuel.class));
   }
 
   @Override
   public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.castingBasin), TConstructRecipeCategoryUid.castingBasin);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.castingTable), TConstructRecipeCategoryUid.castingTable);
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedMelter), TConstructRecipeCategoryUid.melting);
   }
 }

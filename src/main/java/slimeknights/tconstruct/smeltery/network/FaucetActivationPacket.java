@@ -14,14 +14,21 @@ import java.util.function.Supplier;
 /** Sent to clients to activate the faucet animation clientside **/
 public class FaucetActivationPacket extends FluidUpdatePacket {
 
-  public FaucetActivationPacket() {}
-
-  public FaucetActivationPacket(BlockPos pos, FluidStack fluid) {
+  private final boolean isPouring;
+  public FaucetActivationPacket(BlockPos pos, FluidStack fluid, boolean isPouring) {
     super(pos, fluid);
+    this.isPouring = isPouring;
   }
 
   public FaucetActivationPacket(PacketBuffer buffer) {
     super(buffer);
+    this.isPouring = buffer.readBoolean();
+  }
+
+  @Override
+  public void encode(PacketBuffer packetBuffer) {
+    super.encode(packetBuffer);
+    packetBuffer.writeBoolean(isPouring);
   }
 
   @Override
@@ -30,7 +37,7 @@ public class FaucetActivationPacket extends FluidUpdatePacket {
       if (supplier.get().getDirection().getReceptionSide() == LogicalSide.CLIENT) {
         TileEntity te = Minecraft.getInstance().world.getTileEntity(pos);
         if (te instanceof FaucetTileEntity) {
-          ((FaucetTileEntity) te).onActivationPacket(fluid);
+          ((FaucetTileEntity) te).onActivationPacket(fluid, isPouring);
         }
       }
     });

@@ -1,0 +1,38 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "particle": "#front",
+    "top":   "tconstruct:block/smeltery/tank/seared_window_top",
+    "side":  "tconstruct:block/smeltery/controller/melter_side",
+    "brick": "tconstruct:block/smeltery/seared/bricks"
+  },
+  "elements": [
+    { "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down":  { "texture": "#brick", "cullface": "down"  },
+        "up":    { "texture": "#top",   "cullface": "up"    },
+        "north": { "texture": "#front", "cullface": "north" },
+        "south": { "texture": "#side",  "cullface": "south" },
+        "west":  { "texture": "#side",  "cullface": "west"  },
+        "east":  { "texture": "#side",  "cullface": "east"  }
+      }
+    },
+    { "from": [ 15.9, 15.9, 15.9 ],
+      "to": [ 0.1, 8.0, 0.1 ],
+      "faces": {
+        "north": { "texture": "#side",  "shade": false },
+        "east":  { "texture": "#side",  "shade": false },
+        "south": { "texture": "#front", "shade": false },
+        "west":  { "texture": "#side",  "shade": false },
+        "down":  { "texture": "#top",   "shade": false }
+      }
+    },
+    { "from": [ 0, 8, 0 ],
+      "to": [ 16, 8, 16 ],
+      "faces": {
+        "up": { "texture": "#brick" }
+      }
+    }
+  ]
+}

@@ -27,6 +27,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
+/**
+ * This model contains a list of multiple items to display in a TESR
+ */
 @AllArgsConstructor
 public class InventoryModel implements IModelGeometry<InventoryModel> {
   protected final BlockModel model;

@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "item": "tconstruct:wide_guard_cast"
+  },
+  "fluid_amount": 144,
+  "result": "tconstruct:wide_guard"
+}

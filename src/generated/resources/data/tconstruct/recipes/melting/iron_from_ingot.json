@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:ingots/iron"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_iron",
+    "amount": 144
+  },
+  "temperature": 234
+}

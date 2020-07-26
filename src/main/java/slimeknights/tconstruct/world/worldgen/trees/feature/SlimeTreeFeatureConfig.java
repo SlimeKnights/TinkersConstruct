@@ -42,8 +42,8 @@ public class SlimeTreeFeatureConfig extends BaseTreeFeatureConfig {
 
   public static <T> SlimeTreeFeatureConfig deserialize(Dynamic<T> dynamic) {
     BaseTreeFeatureConfig basetreefeatureconfig = BaseTreeFeatureConfig.deserialize(dynamic);
-    BlockStateProviderType<?> blockstateprovidertype = ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES.getValue(new ResourceLocation(dynamic.get("vine_provider").get("type").asString().orElseThrow(RuntimeException::new)));
-    return new SlimeTreeFeatureConfig(basetreefeatureconfig.trunkProvider, basetreefeatureconfig.leavesProvider, blockstateprovidertype.func_227399_a_(dynamic.get("vine_provider").orElseEmptyMap()), basetreefeatureconfig.decorators, basetreefeatureconfig.baseHeight, dynamic.get("random_height").asInt(0), dynamic.get("has_vines").asBoolean(false));
+    BlockStateProviderType<?> blockStateProviderType = ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES.getValue(new ResourceLocation(dynamic.get("vine_provider").get("type").asString().orElseThrow(RuntimeException::new)));
+    return new SlimeTreeFeatureConfig(basetreefeatureconfig.trunkProvider, basetreefeatureconfig.leavesProvider, blockStateProviderType.func_227399_a_(dynamic.get("vine_provider").orElseEmptyMap()), basetreefeatureconfig.decorators, basetreefeatureconfig.baseHeight, dynamic.get("random_height").asInt(0), dynamic.get("has_vines").asBoolean(false));
   }
 
   public static class Builder extends BaseTreeFeatureConfig.Builder {

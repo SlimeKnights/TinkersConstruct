@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "tconstruct:crafting_shaped_fallback",
   "group": "tconstruct:congealed_slime",
   "pattern": [
     "##",
@@ -7,10 +7,16 @@
   ],
   "key": {
     "#": {
-      "tag": "forge:slimeball/green"
+      "tag": "forge:slimeballs"
     }
   },
   "result": {
     "item": "tconstruct:green_congealed_slime"
-  }
+  },
+  "alternatives": [
+    "tconstruct:common/slime/blue/congealed",
+    "tconstruct:common/slime/purple/congealed",
+    "tconstruct:common/slime/blood/congealed",
+    "tconstruct:common/slime/magma/congealed"
+  ]
 }

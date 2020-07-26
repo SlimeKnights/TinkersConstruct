@@ -486,6 +486,21 @@
     "block.tconstruct.casting_table": "Casting Table",
     "block.tconstruct.casting_table.tooltip": "Cast items using molten metals from a Smeltery",
 
+    "block.tconstruct.melter": "Seared Melter",
+    "block.tconstruct.melter.tooltip": "First Smeltery.\nPlace above a seared tank to fuel.",
+    "gui.tconstruct.melter": "Melter",
+    "gui.tconstruct.melting.capacity": "Capacity:",
+    "gui.tconstruct.melting.available": "Free:",
+    "gui.tconstruct.melting.used": "Used:",
+
+    "gui.tconstruct.melting.no_recipe": "Item cannot be molten.",
+    "gui.tconstruct.melting.no_heat": "Not enough heat to melt this item.",
+    "gui.tconstruct.melting.no_space": "Not enough free space for the fluid.",
+
+    "gui.tconstruct.melting.fuel.empty": "No fuel found",
+    "gui.tconstruct.melting.fuel.temperature": "Temperature: {0}°C",
+    "gui.tconstruct.melting.fuel.invalid": "Invalid melting fuel!",
+    
     "gui.tconstruct.fluid.kilobucket": "{0} kb",
     "gui.tconstruct.fluid.bucket": "{0} b",
     "gui.tconstruct.fluid.millibucket": "{0} mb",
@@ -712,5 +727,8 @@
     "jei.tconstruct.casting.table": "Casting Table",
     "jei.tconstruct.casting.cooling_time": "{0} s",
     "jei.tconstruct.casting.cast_kept": "Cast item can be reused in later recipes",
-    "jei.tconstruct.casting.cast_consumed": "Cast item is consumed on casting"
+    "jei.tconstruct.casting.cast_consumed": "Cast item is consumed on casting",
+    
+    "jei.tconstruct.melting.title": "Melting",
+    "jei.tconstruct.melting.temperature": "{0}°C"
 }

@@ -114,10 +114,14 @@ public final class MaterialRegistry {
   public static IMaterial getMaterial(Fluid fluid) {
     return INSTANCE.registry.getMaterial(fluid);
   }
-//
-//  public static Collection<IMaterial> getMaterials() {
-//    return INSTANCE.getMaterials();
-//  }
+
+  /**
+   * Gets all currently registered materials
+   * @return  Collection of all materials
+   */
+  public static Collection<IMaterial> getMaterials() {
+    return INSTANCE.registry.getMaterials();
+  }
 //
 //  public static <T extends IMaterialStats> Optional<T> getMaterialStats(MaterialId materialId, MaterialStatsId statsId) {
 //    return INSTANCE.getMaterialStats(materialId, statsId);

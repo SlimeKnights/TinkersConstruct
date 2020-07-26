@@ -9,7 +9,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
-import slimeknights.tconstruct.smeltery.tileentity.CastingBasinTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.AbstractCastingTileEntity;
 
 import javax.annotation.Nonnull;
 
@@ -39,6 +39,6 @@ public class CastingBasinBlock extends AbstractCastingBlock {
   @Nonnull
   @Override
   public TileEntity createTileEntity(BlockState blockState, IBlockReader iBlockReader) {
-    return new CastingBasinTileEntity();
+    return new AbstractCastingTileEntity.Basin();
   }
 }
