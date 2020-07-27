@@ -1,148 +1,111 @@
 {
-	"credit": "Made with Blockbench",
- 	"loader": "tconstruct:casting",
-	"parent": "block/block",
-	"textures": {
-		"side": "tconstruct:block/smeltery/casting/table_side",
-		"particle": "tconstruct:block/smeltery/casting/table_top",
-		"top": "tconstruct:block/smeltery/casting/table_top",
-		"legBottom": "tconstruct:block/smeltery/casting/table_bottom"
-	},
-	"elements": [
-		{
-			"name": "Table top plate",
-			"from": [0, 10, 0],
-			"to": [16, 15, 16],
-			"faces": {
-				"north": {"uv": [0, 1, 16, 6], "texture": "#side", "cullface": "north"},
-				"east": {"uv": [16, 1, 0, 6], "texture": "#side", "cullface": "east"},
-				"south": {"uv": [0, 1, 16, 6], "texture": "#side", "cullface": "south"},
-				"west": {"uv": [16, 1, 0, 6], "texture": "#side", "cullface": "west"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#top", "cullface": "up"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#legBottom"}
-			}
-		},
-		{
-			"from": [0, 0, 0],
-			"to": [4, 10, 4],
-			"faces": {
-				"north": {"uv": [12, 6, 16, 16], "texture": "#side", "cullface": "north"},
-				"east": {"uv": [0, 6, 4, 16], "texture": "#side"},
-				"south": {"uv": [12, 6, 16, 16], "texture": "#side"},
-				"west": {"uv": [0, 6, 4, 16], "texture": "#side", "cullface": "west"},
-				"up": {"uv": [0, 0, 0, 0], "texture": "#side"},
-				"down": {"uv": [0, 12, 4, 16], "rotation": 270, "texture": "#legBottom", "cullface": "down"}
-			}
-		},
-		{
-			"from": [12, 0, 0],
-			"to": [16, 10, 4],
-			"faces": {
-				"north": {"uv": [0, 6, 4, 16], "texture": "#side", "cullface": "north"},
-				"east": {"uv": [12, 6, 16, 16], "texture": "#side", "cullface": "east"},
-				"south": {"uv": [0, 6, 4, 16], "texture": "#side"},
-				"west": {"uv": [12, 6, 16, 16], "texture": "#side"},
-				"down": {"uv": [12, 12, 16, 16], "rotation": 90, "texture": "#legBottom", "cullface": "down"}
-			}
-		},
-		{
-			"from": [12, 0, 12],
-			"to": [16, 10, 16],
-			"faces": {
-				"north": {"uv": [12, 6, 16, 16], "texture": "#side"},
-				"east": {"uv": [0, 6, 4, 16], "texture": "#side", "cullface": "east"},
-				"south": {"uv": [12, 6, 16, 16], "texture": "#side", "cullface": "south"},
-				"west": {"uv": [0, 6, 4, 16], "texture": "#side"},
-				"down": {"uv": [12, 0, 16, 4], "texture": "#legBottom", "cullface": "down"}
-			}
-		},
-		{
-			"from": [0, 0, 12],
-			"to": [4, 10, 16],
-			"faces": {
-				"north": {"uv": [0, 6, 4, 16], "texture": "#side"},
-				"east": {"uv": [12, 6, 16, 16], "texture": "#side"},
-				"south": {"uv": [0, 6, 4, 16], "texture": "#side", "cullface": "south"},
-				"west": {"uv": [12, 6, 16, 16], "texture": "#side", "cullface": "west"},
-				"up": {"uv": [0, 0, 0, 0], "texture": "#side"},
-				"down": {"uv": [0, 0, 4, 4], "texture": "#legBottom", "cullface": "down"}
-			}
-		},
-		{
-			"from": [0, 15, 0],
-			"to": [1, 16, 16],
-			"faces": {
-				"north": {"uv": [15, 0, 16, 1], "texture": "#side"},
-				"east": {"uv": [0, 0, 16, 1], "rotation": 180, "texture": "#side"},
-				"south": {"uv": [0, 0, 1, 1], "texture": "#side"},
-				"west": {"uv": [16, 0, 0, 1], "texture": "#side"},
-				"up": {"uv": [16, 0, 0, 1], "rotation": 90, "texture": "#side"},
-				"down": {"uv": [0, 0, 0, 0], "texture": "#top"}
-			}
-		},
-		{
-			"from": [15, 15, 0],
-			"to": [16, 16, 16],
-			"faces": {
-				"north": {"uv": [0, 0, 1, 1], "texture": "#side"},
-				"east": {"uv": [16, 1, 0, 0], "texture": "#side"},
-				"south": {"uv": [15, 0, 16, 1], "texture": "#side"},
-				"west": {"uv": [0, 0, 16, 1], "texture": "#side"},
-				"up": {"uv": [16, 0, 0, 1], "rotation": 270, "texture": "side"}
-			}
-		},
-		{
-			"from": [1, 15, 0],
-			"to": [15, 16, 1],
-			"faces": {
-				"north": {"uv": [1, 0, 15, 1], "texture": "#side"},
-				"south": {"uv": [1, 0, 15, 1], "texture": "#side"},
-				"up": {"uv": [1, 0, 15, 1], "texture": "#side"}
-			}
-		},
-		{
-			"from": [1, 15, 15],
-			"to": [15, 16, 16],
-			"faces": {
-				"north": {"uv": [1, 0, 15, 1], "rotation": 180, "texture": "#side"},
-				"south": {"uv": [1, 0, 15, 1], "texture": "#side"},
-				"up": {"uv": [1, 0, 15, 1], "texture": "#side"}
-			}
-		}
-	],
-	"display": {
-		"thirdperson_righthand": {
-			"rotation": [75, 45, 0],
-			"translation": [0, 2.5, 0],
-			"scale": [0.375, 0.375, 0.375]
-		},
-		"thirdperson_lefthand": {
-			"rotation": [75, 45, 0],
-			"translation": [0, 2.5, 0],
-			"scale": [0.375, 0.375, 0.375]
-		},
-		"firstperson_righthand": {
-			"rotation": [0, 45, 0],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"firstperson_lefthand": {
-			"rotation": [0, 225, 0],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"ground": {
-			"translation": [0, 3, 0],
-			"scale": [0.25, 0.25, 0.25]
-		},
-		"gui": {
-			"rotation": [30, 225, 0],
-			"scale": [0.625, 0.625, 0.625]
-		},
-		"fixed": {
-			"scale": [0.5, 0.5, 0.5]
-		}
- 			},
-
- "fluid": {
+  "loader": "tconstruct:casting",
+  "parent": "block/block",
+  "textures": {
+    "side":     "tconstruct:block/smeltery/casting/table_side",
+    "particle": "tconstruct:block/smeltery/casting/table_side",
+    "top":      "tconstruct:block/smeltery/casting/basin_top",
+    "bottom":   "tconstruct:block/smeltery/casting/table_bottom"
+  },
+  "elements": [
+    {
+      "name": "Table outer",
+      "from": [ 0, 10, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "north": { "texture": "#side", "cullface": "north" },
+        "east":  { "texture": "#side", "cullface": "east"  },
+        "south": { "texture": "#side", "cullface": "south" },
+        "west":  { "texture": "#side", "cullface": "west"  },
+        "down":  { "texture": "#bottom" }
+      }
+    },
+    {
+      "name": "Table inner",
+      "from": [ 15, 16, 15 ],
+      "to": [ 1, 15, 1 ],
+      "faces": {
+        "north": { "texture": "#side", "cullface": "up" },
+        "east":  { "texture": "#side", "cullface": "up" },
+        "south": { "texture": "#side", "cullface": "up" },
+        "west":  { "texture": "#side", "cullface": "up" },
+        "up":    { "texture": "#top",  "cullface": "up" }
+      }
+    },
+    {
+      "name": "Northwest leg",
+      "from": [ 0, 0, 0] ,
+      "to": [ 4, 10, 4 ],
+      "faces": {
+        "north": { "texture": "#side",   "cullface": "north" },
+        "east":  { "texture": "#side" },
+        "south": { "texture": "#side" },
+        "west":  { "texture": "#side",   "cullface": "west"  },
+        "down":  { "texture": "#bottom", "cullface": "down"  }
+      }
+    },
+    {
+      "name": "Northeast leg",
+      "from": [ 12, 0, 0 ],
+      "to": [ 16, 10, 4 ],
+      "faces": {
+        "north": { "texture": "#side",   "cullface": "north" },
+        "east":  { "texture": "#side",   "cullface": "east"  },
+        "south": { "texture": "#side"},
+        "west":  { "texture": "#side"},
+        "down":  { "texture": "#bottom", "cullface": "down"  }
+      }
+    },
+    {
+      "name": "Southeast leg",
+      "from": [ 12, 0, 12 ],
+      "to": [ 16, 10, 16 ],
+      "faces": {
+        "north": { "texture": "#side" },
+        "east":  { "texture": "#side",   "cullface": "east"  },
+        "south": { "texture": "#side",   "cullface": "south" },
+        "west":  { "texture": "#side" },
+        "down":  { "texture": "#bottom", "cullface": "down"  }
+      }
+    },
+    {
+      "name": "Southwest leg",
+      "from": [ 0, 0, 12 ],
+      "to": [ 4, 10, 16 ],
+      "faces": {
+        "north": { "texture": "#side" },
+        "east":  { "texture": "#side" },
+        "south": { "texture": "#side",   "cullface": "south" },
+        "west":  { "texture": "#side",   "cullface": "west"  },
+        "down":  { "texture": "#bottom", "cullface": "down"  }
+      }
+    },
+    {
+      "name": "West top edge",
+      "from": [ 0, 16, 0 ],
+      "to": [ 1, 16, 16 ],
+      "faces": { "up": { "texture": "#top", "cullface": "up" }}
+    },
+    {
+      "name": "East top edge",
+      "from": [ 15, 16, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": { "up": { "texture": "#top", "cullface": "up" }}
+    },
+    {
+      "name": "North top edge",
+      "from": [ 1, 16, 0 ],
+      "to": [ 15, 16, 1 ],
+      "faces": { "up": { "texture": "#top", "cullface": "up" }}
+    },
+    {
+      "name": "South top edge",
+      "from": [ 1, 16, 15 ],
+      "to": [ 15, 16, 16 ],
+      "faces": { "up": { "texture": "#top", "cullface": "up" }}
+    }
+  ],
+  "fluid": {
     "from": [ 1, 15, 1 ],
     "to": [ 15, 15.9, 15 ],
     "faces": { "up": {} }
@@ -150,5 +113,5 @@
   "items": [
     { "center": [ 8, 15.5, 8 ], "size": 14,   "x": 270 },
     { "center": [ 8, 15.5, 8 ], "size": 14.1, "x": 270 }
- 		]
-	}
+  ]
+}
