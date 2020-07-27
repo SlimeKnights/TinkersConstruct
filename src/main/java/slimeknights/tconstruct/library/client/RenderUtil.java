@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
+import net.minecraft.client.renderer.texture.MissingTextureSprite;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -33,7 +34,6 @@ import slimeknights.tconstruct.library.client.model.data.ModelItem;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 
 import javax.annotation.Nullable;
-import java.util.function.Function;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class RenderUtil {
@@ -49,19 +49,13 @@ public final class RenderUtil {
 
   private static Minecraft mc = Minecraft.getInstance();
 
-  /** Cached sprite getter instance */
-  private static Function<ResourceLocation, TextureAtlasSprite> blockSpriteGetter;
-
   /**
    * Gets a block sprite from the given location
-   * @param sprite  Sprite name
+   * @param name  Sprite name
    * @return  Sprite location
    */
-  public static TextureAtlasSprite getBlockSprite(ResourceLocation sprite) {
-    if (blockSpriteGetter == null) {
-      blockSpriteGetter = mc.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
-    }
-    return blockSpriteGetter.apply(sprite);
+  public static TextureAtlasSprite getBlockSprite(ResourceLocation name) {
+    return mc.getModelManager().getAtlasTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE).getSprite(name);
   }
 
   /* Fluid cuboids */
