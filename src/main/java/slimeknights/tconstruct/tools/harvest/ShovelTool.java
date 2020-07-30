@@ -20,8 +20,6 @@ public class ShovelTool extends ToolCore {
 
   public ShovelTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
-
-    ToolRegistry.registerToolCrafting(this);
   }
 
   @Override

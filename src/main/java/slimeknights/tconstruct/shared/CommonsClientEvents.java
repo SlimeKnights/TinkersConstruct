@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.resources.IReloadableResourceManager;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -23,6 +24,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.book.TinkerBook;
 import slimeknights.tconstruct.library.client.model.ConnectedModel;
 import slimeknights.tconstruct.library.client.model.tesr.InventoryModel;
 import slimeknights.tconstruct.library.client.renderer.font.CustomFontRenderer;
@@ -92,6 +94,12 @@ public class CommonsClientEvents extends ClientEventBase {
   static void commonSetup(final FMLCommonSetupEvent event) {
     CommonsClientEvents.fontRenderer = new CustomFontRenderer(Minecraft.getInstance().fontRenderer);
     CommonsClientEvents.fontRenderer.setBidiFlag(Minecraft.getInstance().getLanguageManager().isCurrentLanguageBidirectional());
+
+    //todo fix
+    //CustomFontRenderer book = new CustomFontRenderer(Minecraft.getInstance().getFontResourceManager().getFontRenderer(new ResourceLocation("tconstruct:book")));
+    //book.setBidiFlag(Minecraft.getInstance().getLanguageManager().isCurrentLanguageBidirectional());
+
+    TinkerBook.INSTANCE.fontRenderer = fontRenderer;
 
     Minecraft minecraft = Minecraft.getInstance();
 

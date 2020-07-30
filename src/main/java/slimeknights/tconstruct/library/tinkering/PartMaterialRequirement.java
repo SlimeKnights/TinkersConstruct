@@ -83,41 +83,4 @@ public class PartMaterialRequirement {
 //    return traits.build();
 //  }
 //
-  // todo: readd
-/*
-  public static PartMaterialType head(IToolPart part) {
-    return new PartMaterialType(part, MaterialTypes.HEAD);
-  }
-
-  public static PartMaterialType handle(IToolPart part) {
-    return new PartMaterialType(part, MaterialTypes.HANDLE);
-  }
-
-  public static PartMaterialType extra(IToolPart part) {
-    return new PartMaterialType(part, MaterialTypes.EXTRA);
-  }
-
-  public static PartMaterialType bow(IToolPart part) {
-    return new PartMaterialType(part, MaterialTypes.BOW, MaterialTypes.HEAD);
-  }
-
-  public static PartMaterialType bowstring(IToolPart part) {
-    return new PartMaterialType(part, MaterialTypes.BOWSTRING);
-  }
-
-  public static PartMaterialType arrowHead(IToolPart part) {
-    return new PartMaterialType(part, MaterialTypes.HEAD, MaterialTypes.PROJECTILE);
-  }
-
-  public static PartMaterialType arrowShaft(IToolPart part) {
-    return new PartMaterialType(part, MaterialTypes.SHAFT);
-  }
-
-  public static PartMaterialType fletching(IToolPart part) {
-    return new PartMaterialType(part, MaterialTypes.FLETCHING);
-  }
-
-  public static PartMaterialType crossbow(IToolPart part) {
-    return new PartMaterialType(part, MaterialTypes.HANDLE, MaterialTypes.EXTRA);
-  }*/
 }

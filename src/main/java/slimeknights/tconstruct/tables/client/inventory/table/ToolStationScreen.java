@@ -25,10 +25,11 @@ import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.IToolStationDisplay;
 import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.tables.client.ToolSlotInformationLoader;
 import slimeknights.tconstruct.tables.client.inventory.ButtonItem;
-import slimeknights.tconstruct.tables.client.inventory.RepairButton;
 import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
-import slimeknights.tconstruct.tables.client.inventory.library.ToolBuildScreenInfo;
+import slimeknights.tconstruct.tables.client.inventory.library.slots.SlotInformation;
+import slimeknights.tconstruct.tables.client.inventory.library.slots.SlotPosition;
 import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
 import slimeknights.tconstruct.tables.client.inventory.module.ToolStationButtonsScreen;
 import slimeknights.tconstruct.tables.inventory.table.toolstation.ToolStationContainer;
@@ -38,11 +39,9 @@ import slimeknights.tconstruct.tables.network.ToolStationTextPacket;
 import slimeknights.tconstruct.tables.tileentity.table.ToolStationTileEntity;
 import slimeknights.tconstruct.tools.ToolRegistry;
 
-import java.awt.Point;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
-
 
 public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity, ToolStationContainer> {
 
@@ -84,7 +83,7 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
   protected InfoPanelScreen toolInfo;
   protected InfoPanelScreen traitInfo;
 
-  public ToolBuildScreenInfo currentData = RepairButton.info;
+  public SlotInformation currentData = ToolSlotInformationLoader.get(ToolSlotInformationLoader.REPAIR_NAME);
 
   public ToolStationScreen(ToolStationContainer container, PlayerInventory playerInventory, ITextComponent title) {
     super(container, playerInventory, title);
@@ -143,11 +142,15 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
     int i;
 
     for (i = 0; i < this.activeSlots; i++) {
-      Point point = this.currentData.positions.get(i);
+      SlotPosition point = this.currentData.getPoints().get(i);
 
       Slot slot = this.container.getSlot(i);
-      slot.xPos = (int) point.getX();
-      slot.yPos = (int) point.getY();
+      slot.xPos = point.getX();
+      slot.yPos = point.getY();
+
+      if(slot instanceof ToolStationInSlot) {
+        ((ToolStationInSlot) slot).activate();
+      }
     }
 
     // remaining slots
@@ -156,12 +159,19 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
       Slot slot = this.container.getSlot(i);
 
       if (slot.getHasStack()) {
+        if(slot instanceof ToolStationInSlot) {
+          ((ToolStationInSlot) slot).activate();
+        }
+
         slot.xPos = 87 + 20 * stillFilled;
         slot.yPos = 62;
         stillFilled++;
       }
       else {
-        // todo: slot.disable
+        if(slot instanceof ToolStationInSlot) {
+          ((ToolStationInSlot) slot).deactivate();
+        }
+
         slot.xPos = 0;
         slot.yPos = 0;
       }
@@ -192,7 +202,7 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
       this.traitInfo.setText("dyio where my trains!");
     }
     // Repair info
-    else if (this.currentData.tool.isEmpty()) {
+    else if (this.currentData.getItemStack().isEmpty()) {
       this.toolInfo.setCaption(new TranslationTextComponent("gui.tconstruct.tool_station.repair").getFormattedText());
       this.toolInfo.setText();
 
@@ -212,7 +222,7 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
     }
     // tool build info
     else {
-      ToolCore tool = (ToolCore) this.currentData.tool.getItem();
+      ToolCore tool = (ToolCore) this.currentData.getItemStack().getItem();
       this.toolInfo.setCaption(new TranslationTextComponent(tool.getTranslationKey()).getFormattedText());
       this.toolInfo.setText(new TranslationTextComponent(tool.getTranslationKey() + ".description").getFormattedText());
 
@@ -366,6 +376,15 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
   }
 
   @Override
+  public boolean isSlotSelected(Slot slotIn, double mouseX, double mouseY) {
+    if (slotIn instanceof ToolStationInSlot && ((ToolStationInSlot) slotIn).isDormant() && !slotIn.getHasStack()) {
+      return false;
+    }
+
+    return super.isSlotSelected(slotIn, mouseX, mouseY);
+  }
+
+  @Override
   protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
     this.drawBackground(BACKGROUND);
 
@@ -394,9 +413,9 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
     int logoY = (int) (this.cornerY / scale);
 
     if (this.currentData != null) {
-      if (!this.currentData.tool.isEmpty()) {
+      if (!this.currentData.getItemStack().isEmpty()) {
         this.itemRenderer.renderItemIntoGUI(this.currentData.getToolForRendering(), logoX, logoY);
-      } else if (this.currentData == RepairButton.info) {
+      } else if (this.currentData == ToolSlotInformationLoader.get(new ResourceLocation("tconstruct:repair"))) {
         this.minecraft.getTextureManager().bindTexture(Icons.ICONS);
         Icons.ANVIL.draw(logoX, logoY);
       }
@@ -433,9 +452,9 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
 
     this.minecraft.getTextureManager().bindTexture(Icons.ICONS);
 
-    if (this.currentData == RepairButton.info) {
+    if (this.currentData == ToolSlotInformationLoader.get(new ResourceLocation("tconstruct:repair"))) {
       this.drawRepairSlotIcons();
-    } else if (this.currentData.tool.getItem() instanceof ToolCore) {
+    } else if (this.currentData.getItemStack().getItem() instanceof ToolCore) {
       for (int i = 0; i < this.activeSlots; i++) {
         Slot slot = this.container.getSlot(i);
 
@@ -585,14 +604,14 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
     this.traitInfo.setText();
   }
 
-  public void onToolSelection(ToolBuildScreenInfo data) {
-    this.activeSlots = Math.min(data.positions.size(), TABLE_SLOT_COUNT);
+  public void onToolSelection(SlotInformation data) {
+    this.activeSlots = Math.min(data.getPoints().size(), TABLE_SLOT_COUNT);
     this.currentData = data;
 
     ItemStack tool = ItemStack.EMPTY;
 
-    if (data.tool.getItem() instanceof ToolCore) {
-      tool = data.tool;
+    if (data.getItemStack().getItem() instanceof ToolCore) {
+      tool = data.getItemStack();
     }
 
     container.setToolSelection(tool, activeSlots);
@@ -601,21 +620,21 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
   }
 
   public void onToolSelectionPacket(ToolStationSelectionPacket packet) {
-    ToolBuildScreenInfo data = ToolRegistry.getToolBuildInfoForTool(packet.tool.getItem());
+    SlotInformation data = ToolSlotInformationLoader.get(packet.tool.getItem().getRegistryName());
 
-    if (data == null || data.tool.isEmpty() || data.tool == ItemStack.EMPTY) {
-      data = RepairButton.info;
+    if (data == null || data.getItemStack().isEmpty() || data.getItemStack() == ItemStack.EMPTY) {
+      data = ToolSlotInformationLoader.get(ToolSlotInformationLoader.REPAIR_NAME);
     }
 
     this.activeSlots = packet.activeSlots;
     this.currentData = data;
 
-    this.toolStationButtonsScreen.setSelectedButtonByTool(this.currentData.tool);
+    this.toolStationButtonsScreen.setSelectedButtonByTool(this.currentData.getItemStack());
 
     this.updateGUI();
   }
 
   public Set<ToolCore> getBuildableItems() {
-    return ToolRegistry.getToolStationCrafting();
+    return ToolRegistry.getTools();
   }
 }

@@ -14,8 +14,6 @@ public class BroadSword extends SwordCore {
 
   public BroadSword(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
-
-    ToolRegistry.registerToolCrafting(this);
   }
 
   @Override

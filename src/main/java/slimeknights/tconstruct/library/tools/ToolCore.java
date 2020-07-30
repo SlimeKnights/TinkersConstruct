@@ -58,6 +58,7 @@ import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
 import slimeknights.tconstruct.shared.CommonsClientEvents;
+import slimeknights.tconstruct.tools.ToolRegistry;
 import slimeknights.tconstruct.tools.ToolStatsBuilder;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
@@ -91,6 +92,8 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     super(properties);
     this.toolDefinition = toolDefinition;
     this.toolMiningLogic = toolMiningLogic;
+
+    ToolRegistry.registerTool(this);
   }
 
   public ToolDefinition getToolDefinition() {

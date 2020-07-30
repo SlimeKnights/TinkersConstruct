@@ -11,6 +11,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.tables.client.PatternGuiTextureLoader;
+import slimeknights.tconstruct.tables.client.ToolSlotInformationLoader;
 import slimeknights.tconstruct.tables.client.inventory.chest.PartChestScreen;
 import slimeknights.tconstruct.tables.client.inventory.chest.PatternChestScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.CraftingStationScreen;
@@ -27,6 +28,7 @@ public class TableClientEvents extends ClientEventBase {
    */
   public static void addResourceListener(IReloadableResourceManager manager) {
     manager.addReloadListener(PatternGuiTextureLoader.INSTANCE);
+    manager.addReloadListener(ToolSlotInformationLoader.INSTANCE);
   }
 
   @SubscribeEvent

@@ -24,8 +24,6 @@ public class PickaxeTool extends ToolCore {
 
   public PickaxeTool(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
-
-    ToolRegistry.registerToolCrafting(this);
   }
 
   @Override
