@@ -11,7 +11,11 @@ import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.tables.client.inventory.library.slots.SlotInformation;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Log4j2
@@ -28,8 +32,11 @@ public class ToolSlotInformationLoader extends JsonReloadListener {
 
   public static final ResourceLocation REPAIR_NAME = Util.getResource("repair");
 
-  /** Map of slots */
-  private final Map<ResourceLocation, SlotInformation> slotMap = new HashMap<>();
+  /** Map of SlotInformation */
+  private final Map<ResourceLocation, SlotInformation> slotInformationMap = new HashMap<>();
+
+  /** Sorted List of SlotInformations */
+  private final List<SlotInformation> slotInformationList = new ArrayList<>();
 
   private ToolSlotInformationLoader() {
     super(GSON, "tool_station");
@@ -37,20 +44,31 @@ public class ToolSlotInformationLoader extends JsonReloadListener {
 
   @Override
   protected void apply(Map<ResourceLocation, JsonObject> map, IResourceManager resourceManager, IProfiler profiler) {
+    this.slotInformationMap.clear();
+    this.slotInformationList.clear();
+
     for (Map.Entry<ResourceLocation, JsonObject> entry : map.entrySet()) {
       ResourceLocation location = entry.getKey();
       try {
         JsonObject json = entry.getValue();
 
-        this.slotMap.put(location, SlotInformation.fromJson(json));
+        this.slotInformationMap.put(location, SlotInformation.fromJson(json));
       }
       catch (Exception e) {
         log.warn("Exception loading slot information '{}': {}", location, e.getMessage());
       }
     }
+
+    this.slotInformationList.addAll(this.slotInformationMap.values());
+
+    this.slotInformationList.sort(Comparator.comparing(SlotInformation::getSortIndex));
   }
 
   public static SlotInformation get(ResourceLocation registryKey) {
-    return INSTANCE.slotMap.get(registryKey);
+    return INSTANCE.slotInformationMap.get(registryKey);
+  }
+
+  public static Collection<SlotInformation> getSlotInformationList() {
+    return INSTANCE.slotInformationList;
   }
 }

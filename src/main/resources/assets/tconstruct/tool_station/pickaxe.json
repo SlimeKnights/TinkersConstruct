@@ -4,5 +4,6 @@
         { "position": [ 15, 60 ] },
         { "position": [ 33, 42 ] }
     ],
-    "item": "tconstruct:pickaxe"
+    "item": "tconstruct:pickaxe",
+    "sortIndex": 1
 }

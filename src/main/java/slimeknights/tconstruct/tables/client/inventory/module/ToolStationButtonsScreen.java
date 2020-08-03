@@ -1,16 +1,16 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.tables.client.ToolSlotInformationLoader;
 import slimeknights.tconstruct.tables.client.inventory.ButtonItem;
-import slimeknights.tconstruct.tables.client.inventory.RepairButton;
 import slimeknights.tconstruct.tables.client.inventory.library.slots.SlotInformation;
 import slimeknights.tconstruct.tables.client.inventory.table.ToolStationScreen;
 
@@ -54,21 +54,26 @@ public class ToolStationButtonsScreen extends SideButtonsScreen {
       }
     };
 
-    ButtonItem<SlotInformation> repairButton = new RepairButton(index++, -1, -1, onPressed);
+    for (SlotInformation slotInformation : ToolSlotInformationLoader.getSlotInformationList()) {
+      ButtonItem<SlotInformation> buttonItem;
 
-    this.addInfoButton(repairButton);
+      if (slotInformation == ToolSlotInformationLoader.get(ToolSlotInformationLoader.REPAIR_NAME)) {
+        buttonItem = new ButtonItem<SlotInformation>(index++, -1, -1, new TranslationTextComponent("gui.tconstruct.repair").getFormattedText(), slotInformation, onPressed) {
+          @Override
+          protected void drawIcon(Minecraft minecraft) {
+            minecraft.getTextureManager().bindTexture(Icons.ICONS);
+            Icons.ANVIL.draw(this.x, this.y);
+          }
+        };
+      }
+      else {
+        buttonItem = new ButtonItem<>(index++, -1, -1, slotInformation.getToolForRendering(), slotInformation, onPressed);
+      }
 
-    for (Item item : this.parent.getBuildableItems()) {
-      SlotInformation toolInfo = ToolSlotInformationLoader.get(item.getRegistryName());
+      this.addInfoButton(buttonItem);
 
-      if (toolInfo != null) {
-        ButtonItem<SlotInformation> buttonItem = new ButtonItem<>(index++, -1, -1, toolInfo.getToolForRendering(), toolInfo, onPressed);
-
-        this.addInfoButton(buttonItem);
-
-        if (index - 1 == selected) {
-          buttonItem.pressed = true;
-        }
+      if (index - 1 == selected) {
+        buttonItem.pressed = true;
       }
     }
 

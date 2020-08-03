@@ -17,13 +17,11 @@ import java.util.List;
 @Getter
 public class SlotPosition {
 
-  public final int x;
-  public final int y;
+  private final int x;
+  private final int y;
 
   public static List<SlotPosition> listFromJson(JsonObject parent, String key) {
     JsonElement json = parent.get(key);
-
-    System.out.println(json);
 
     // object: one cube
     if (json.isJsonObject()) {

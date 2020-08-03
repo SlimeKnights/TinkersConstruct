@@ -158,20 +158,16 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
     for (; i < TABLE_SLOT_COUNT; i++) {
       Slot slot = this.container.getSlot(i);
 
-      if (slot.getHasStack()) {
-        if(slot instanceof ToolStationInSlot) {
-          ((ToolStationInSlot) slot).activate();
-        }
+      if(slot instanceof ToolStationInSlot) {
+        ((ToolStationInSlot) slot).deactivate();
+      }
 
+      if (slot.getHasStack()) {
         slot.xPos = 87 + 20 * stillFilled;
         slot.yPos = 62;
         stillFilled++;
       }
       else {
-        if(slot instanceof ToolStationInSlot) {
-          ((ToolStationInSlot) slot).deactivate();
-        }
-
         slot.xPos = 0;
         slot.yPos = 0;
       }
@@ -415,7 +411,7 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
     if (this.currentData != null) {
       if (!this.currentData.getItemStack().isEmpty()) {
         this.itemRenderer.renderItemIntoGUI(this.currentData.getToolForRendering(), logoX, logoY);
-      } else if (this.currentData == ToolSlotInformationLoader.get(new ResourceLocation("tconstruct:repair"))) {
+      } else if (this.currentData == ToolSlotInformationLoader.get(ToolSlotInformationLoader.REPAIR_NAME)) {
         this.minecraft.getTextureManager().bindTexture(Icons.ICONS);
         Icons.ANVIL.draw(logoX, logoY);
       }
@@ -452,7 +448,7 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
 
     this.minecraft.getTextureManager().bindTexture(Icons.ICONS);
 
-    if (this.currentData == ToolSlotInformationLoader.get(new ResourceLocation("tconstruct:repair"))) {
+    if (this.currentData == ToolSlotInformationLoader.get(ToolSlotInformationLoader.REPAIR_NAME)) {
       this.drawRepairSlotIcons();
     } else if (this.currentData.getItemStack().getItem() instanceof ToolCore) {
       for (int i = 0; i < this.activeSlots; i++) {

@@ -4,5 +4,6 @@
         { "position": [ 33, 42 ] },
         { "position": [ 13, 62 ] }
     ],
-    "item": "tconstruct:shovel"
+    "item": "tconstruct:shovel",
+    "sortIndex": 1
 }

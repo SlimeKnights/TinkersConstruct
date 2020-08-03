@@ -6,21 +6,22 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.JSONUtils;
 import slimeknights.tconstruct.library.tools.ToolCore;
 
-import java.util.Collections;
 import java.util.List;
 
 public class SlotInformation {
 
-  public static final SlotInformation EMPTY = new SlotInformation(Collections.emptyList(), ItemStack.EMPTY);
   @Getter
   private final List<SlotPosition> points;
   @Getter
   private final ItemStack itemStack;
+  @Getter
+  private final int sortIndex;
   public ItemStack toolForRendering;
 
-  public SlotInformation(List<SlotPosition> points, ItemStack itemStack) {
+  public SlotInformation(List<SlotPosition> points, ItemStack itemStack, int sortIndex) {
     this.points = points;
     this.itemStack = itemStack;
+    this.sortIndex = sortIndex;
   }
 
   public static SlotInformation fromJson(JsonObject json) {
@@ -31,7 +32,9 @@ public class SlotInformation {
       stack = new ItemStack(JSONUtils.getItem(json, "item"));
     }
 
-    return new SlotInformation(slots, stack);
+    int sortIndex = JSONUtils.getInt(json, "sortIndex");
+
+    return new SlotInformation(slots, stack, sortIndex);
   }
 
   public ItemStack getToolForRendering() {
