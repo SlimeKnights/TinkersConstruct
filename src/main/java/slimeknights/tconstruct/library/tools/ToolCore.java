@@ -100,6 +100,10 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     return this.toolDefinition;
   }
 
+  public ToolMiningLogic getToolMiningLogic() {
+    return this.toolMiningLogic;
+  }
+
   public StatsNBT buildToolStats(List<IMaterial> materials) {
     return ToolStatsBuilder.from(materials, this.toolDefinition).buildDefaultStats();
   }
@@ -200,7 +204,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     return -1;
   }
 
-  private void afterBlockBreak(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity player, int damage, boolean wasEffective) {
+  public void afterBlockBreak(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity player, int damage, boolean wasEffective) {
     TraitUtil.forEachTrait(stack, trait -> trait.afterBlockBreak(stack, world, state, pos, player, wasEffective));
     stack.damageItem(damage, player,
       livingEntity -> livingEntity.sendBreakAnimation(EquipmentSlotType.MAINHAND));

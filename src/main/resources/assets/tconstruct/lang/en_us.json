@@ -400,6 +400,7 @@
     "item.tconstruct.pickaxe": "Pickaxe",
     "item.tconstruct.hammer": "Hammer",
     "item.tconstruct.shovel": "Shovel",
+    "item.tconstruct.axe": "Hatchet",
     "item.tconstruct.broad_sword": "Broadsword",
     
     "_comment": "Tinkers Tool Parts",
@@ -407,6 +408,7 @@
     "item.tconstruct.pickaxe_head": "Pickaxe Head",
     "item.tconstruct.hammer_head": "Hammer Head",
     "item.tconstruct.shovel_head": "Shovel Head",
+    "item.tconstruct.axe_head": "Axe Head",
     "item.tconstruct.sword_blade": "Sword Blade",
     "item.tconstruct.tool_rod": "Tool Rod",
     "item.tconstruct.tough_tool_rod": "Tough Tool Rod",
@@ -419,6 +421,7 @@
     "item.tconstruct.pickaxe.description":"The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?",
     "item.tconstruct.hammer.description": "The Hammer is a broad mining tool. It harvests blocks in a wide range.\nAlso effective against undead.",
     "item.tconstruct.shovel.description": "The Shovel digs up dirt. It is effective on dirt, sand, gravel and snow.\nJust don't dig your own grave!",
+    "item.tconstruct.axe.description": "The Hatchet chops up wood and makes short work of leaves. It also makes for a passable weapon.\nChop chop!",
     "item.tconstruct.broad_sword.description": "The Broadsword is a universal weapon. Sweep attacks keep enemy hordes at bay.\nAlso good against cobwebs!",
 
     "_comment": "Tinkers Smeltery",

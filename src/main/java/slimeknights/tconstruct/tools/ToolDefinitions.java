@@ -28,7 +28,7 @@ public final class ToolDefinitions {
       new PartMaterialRequirement(TinkerToolParts.largePlate, HeadMaterialStats.ID),
       new PartMaterialRequirement(TinkerToolParts.largePlate, HeadMaterialStats.ID)
     ),
-    ImmutableSet.of(Category.HARVEST, Category.WEAPON));
+    ImmutableSet.of(Category.HARVEST, Category.WEAPON, Category.AOE));
 
   public static final ToolDefinition SHOVEL = new ToolDefinition(
     ToolBaseStatDefinitions.SHOVEL,
@@ -38,6 +38,15 @@ public final class ToolDefinitions {
       new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
     ),
     ImmutableSet.of(Category.HARVEST));
+
+  public static final ToolDefinition AXE = new ToolDefinition(
+    ToolBaseStatDefinitions.AXE,
+    ImmutableList.of(
+      new PartMaterialRequirement(TinkerToolParts.axeHead, HeadMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
+    ),
+    ImmutableSet.of(Category.HARVEST, Category.WEAPON));
 
 
   public static final ToolDefinition BROADSWORD = new ToolDefinition(

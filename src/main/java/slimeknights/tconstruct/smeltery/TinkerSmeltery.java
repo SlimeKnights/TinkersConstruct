@@ -143,7 +143,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Item> hammerHeadCast = ITEMS.register("hammer_head_cast", SMELTERY_PROPS);
   public static final ItemObject<Item> wideGuardCast = ITEMS.register("wide_guard_cast", SMELTERY_PROPS);
   public static final ItemObject<Item> shovelHeadCast = ITEMS.register("shovel_head_cast", SMELTERY_PROPS);
-//  public static final ItemObject<Item> axeHeadCast = ITEMS.register("axe_head_cast", SMELTERY_PROPS);
+  public static final ItemObject<Item> axeHeadCast = ITEMS.register("axe_head_cast", SMELTERY_PROPS);
 //  public static final ItemObject<Item> scytheHeadCast = ITEMS.register("scythe_head_cast", SMELTERY_PROPS);
 //  public static final ItemObject<Item> sharpeningKitCast = ITEMS.register("sharpening_kit_cast", SMELTERY_PROPS);
 //  public static final ItemObject<Item> largeSwordBladeCast = ITEMS.register("large_sword_blade_cast", SMELTERY_PROPS);

@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:part_builder",
+  "pattern": "tconstruct:axe_head",
+  "cost": 2,
+  "output": {
+    "item": "tconstruct:axe_head"
+  }
+}
