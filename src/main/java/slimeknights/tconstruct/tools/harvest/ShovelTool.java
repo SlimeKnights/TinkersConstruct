@@ -38,8 +38,6 @@ public class ShovelTool extends ToolCore {
   @Override
   public ActionResultType onItemUse(ItemUseContext context) {
     PlayerEntity playerentity = context.getPlayer();
-    World world = context.getWorld();
-    BlockPos pos = context.getPos();
     ItemStack itemStack = playerentity.getHeldItem(context.getHand());
 
     if (ToolData.from(itemStack).getStats().broken) {

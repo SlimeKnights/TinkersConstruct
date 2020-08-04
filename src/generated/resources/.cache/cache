@@ -134,6 +134,7 @@ b92911a8673247ee46412cae4aed92208ad52608 data/tconstruct/advancements/recipes/ca
 8f9146235021d62c0cdffd69795867510f7001d2 data/tconstruct/advancements/recipes/casting/casting/casts/gems.json
 d3cc1b7e6217e2173380b7c43c411c2781798cf4 data/tconstruct/advancements/recipes/casting/casting/casts/hammer_head.json
 cd1e8655efb4248e5c5b51e04cb3dc7c48a05aed data/tconstruct/advancements/recipes/casting/casting/casts/ingots.json
+bcf7d51b14b42b5773f4ff42c7a42a33af13093b data/tconstruct/advancements/recipes/casting/casting/casts/kama_head.json
 e760a65b6cac2b2e1fc62314dfedf9f3ac66774e data/tconstruct/advancements/recipes/casting/casting/casts/large_plate.json
 1aab6982e55873254e91793bd85162afaffb5aad data/tconstruct/advancements/recipes/casting/casting/casts/nuggets.json
 db69c53b3673733c132c2eeb63b82dbfa709a2c8 data/tconstruct/advancements/recipes/casting/casting/casts/pickaxe_head.json
@@ -168,6 +169,7 @@ bb1e52f95fca8f09573a0c463c260c428d6bbdf2 data/tconstruct/advancements/recipes/ca
 ba9c184b80cdc56ad14c4e95673ff953b1deeeff data/tconstruct/advancements/recipes/casting/casting/obsidian.json
 a4aa294986bf0c46742f93fb6674b090c4720faa data/tconstruct/advancements/recipes/casting/casting/parts/axe_head.json
 e460087e7cfa3bf166ed7245cf857af6672bc48b data/tconstruct/advancements/recipes/casting/casting/parts/hammer_head.json
+2bb0ff9d8077b41b6567bd8654d11155ea744222 data/tconstruct/advancements/recipes/casting/casting/parts/kama_head.json
 d7c62f52277ad0a2bad5dbe02daf4173e681311c data/tconstruct/advancements/recipes/casting/casting/parts/large_plate.json
 c790db20e9364512ba5d88a482205d76deb82a0b data/tconstruct/advancements/recipes/casting/casting/parts/pickaxe_head.json
 57dafb52ba3a6ca6910b212a3d60ad036b130f9d data/tconstruct/advancements/recipes/casting/casting/parts/shovel_head.json
@@ -292,6 +294,7 @@ aee2d41cba3e4556abdc43026be42a72e2ec2fc5 data/tconstruct/advancements/recipes/me
 60a4741c15395b41baaca9e26c11d0de057d5e9e data/tconstruct/advancements/recipes/melting/melting/obsidian.json
 55ab10b225ec926be8834068110619ae624a3b4a data/tconstruct/advancements/recipes/melting/melting/parts/axe_head.json
 24fb41ed5ca3a2d3236402e864bdeb07bb9fe62e data/tconstruct/advancements/recipes/melting/melting/parts/hammer_head.json
+13e71eb6aba7af5ae4a95c013ef4cd43fa7c8b3e data/tconstruct/advancements/recipes/melting/melting/parts/kama_head.json
 309ce90563b86386f50155463dfba4857f80ecba data/tconstruct/advancements/recipes/melting/melting/parts/large_plate.json
 5708215785ad25d3ba32eac2589ff7d792e85b1f data/tconstruct/advancements/recipes/melting/melting/parts/pickaxe_head.json
 6fff04c0cc7e038abf0d3a3677573a1f05fde593 data/tconstruct/advancements/recipes/melting/melting/parts/shovel_head.json
@@ -322,6 +325,7 @@ da118fa0b9c69c3691c9a64f98af8a24f750ff64 data/tconstruct/advancements/recipes/me
 a06a3a8aeb06681c226c46b6e5b360b910e609ee data/tconstruct/advancements/recipes/misc/common/slime/green/slimeball_from_congealed.json
 4f11583a3eb0a8cc9618f08ff8d2f9456eaa8bb5 data/tconstruct/advancements/recipes/parts/parts/axe_head.json
 cd99c130b3b2790a9700f3367022c553f6ac3ce4 data/tconstruct/advancements/recipes/parts/parts/hammer_head.json
+cf92650fbfa2fe8a9ddb554e2aa1ecd91ee6efca data/tconstruct/advancements/recipes/parts/parts/kama_head.json
 6635fff0bcfbbd52ce9349f831f27e024adc89bc data/tconstruct/advancements/recipes/parts/parts/large_plate.json
 ff6265783af4287257f86244781dc58e46da9b54 data/tconstruct/advancements/recipes/parts/parts/pickaxe_head.json
 bb32c92a89a65b05ac8094117e7b7e0876fee36e data/tconstruct/advancements/recipes/parts/parts/shovel_head.json
@@ -623,6 +627,7 @@ ef20c7b3eea20d83f98a251f78ba4728c5dfa136 data/tconstruct/advancements/recipes/ti
 7113d4617d2e551c56a7fc2bb8e04a35794695e1 data/tconstruct/advancements/recipes/tools/tools/axe.json
 2a9d41a24de61d6d9033f983e863091425e702c9 data/tconstruct/advancements/recipes/tools/tools/broad_sword.json
 4b7d2aa1cc5842b11a40483845538812349485df data/tconstruct/advancements/recipes/tools/tools/hammer.json
+b8a6dfb718f3dbe55073272c9045ddfb17b51315 data/tconstruct/advancements/recipes/tools/tools/kama.json
 c8efea44bbe5d82c151780e22bc035cb2ee59c7b data/tconstruct/advancements/recipes/tools/tools/pickaxe.json
 29520c31e5b28782affda65c0e15941ee54088aa data/tconstruct/advancements/recipes/tools/tools/shovel.json
 0dd5d44cd57da62c8a81c8b878e21dc0ebd278b1 data/tconstruct/loot_tables/blocks/ardite_block.json
@@ -884,6 +889,7 @@ b4f2d6a6afbdf87aa9c0c5a84b8dce80d9b0b5c2 data/tconstruct/recipes/casting/casts/a
 96446c147948a6f92700f1d062d557d1012ee6c9 data/tconstruct/recipes/casting/casts/gems.json
 9bb3ec0701db26dd2ce59c1fb58de1b7b3391a04 data/tconstruct/recipes/casting/casts/hammer_head.json
 22eea914f5daa31ecbd9640b6a446fa1f2f83174 data/tconstruct/recipes/casting/casts/ingots.json
+50c7def861d90d3a45e4d686944ae89fb5c9cb2a data/tconstruct/recipes/casting/casts/kama_head.json
 08dd3a7ce202ea8236b6f0f8861c8a7e3ebba8fe data/tconstruct/recipes/casting/casts/large_plate.json
 4254e1adadc7aad8241106af4a8bf52845e83239 data/tconstruct/recipes/casting/casts/nuggets.json
 bd528d5dbce36d80f61e62a14176d4ef44c7ce3a data/tconstruct/recipes/casting/casts/pickaxe_head.json
@@ -918,6 +924,7 @@ d60d568de77a340533da152d62242d453bcfa563 data/tconstruct/recipes/casting/manyull
 e5f2763fa959263af178e4d682ec7f0d34b9203f data/tconstruct/recipes/casting/obsidian.json
 a12ddc0f0d662d37ab5da255e6369aa54142f6a2 data/tconstruct/recipes/casting/parts/axe_head.json
 030fa1d6e25e3012e3f4da8eea983ba585d82573 data/tconstruct/recipes/casting/parts/hammer_head.json
+6b98258cb1afdb191f2c2e325927995ccccb8219 data/tconstruct/recipes/casting/parts/kama_head.json
 3d559d8739a9df891782f3bce42ff6a7c0ec86b6 data/tconstruct/recipes/casting/parts/large_plate.json
 f0a68405cac3ad01d8590ddb226cbbe73f0a44da data/tconstruct/recipes/casting/parts/pickaxe_head.json
 094771066efb653074a84d9c144e0d4f9ec55637 data/tconstruct/recipes/casting/parts/shovel_head.json
@@ -1193,6 +1200,7 @@ f80906773db57bfbdb70e68ccb0bcc22649b4530 data/tconstruct/recipes/melting/manyull
 81c0d892a1fc7543107ca932553432a91b947a3c data/tconstruct/recipes/melting/obsidian.json
 c244ced008768577b5716ddbabba3f73639226d3 data/tconstruct/recipes/melting/parts/axe_head.json
 7bdeefc90b26e9c59aefd274a3a506dc6569ba66 data/tconstruct/recipes/melting/parts/hammer_head.json
+3c2cd0eae626470604ffb906755b6638471c11b5 data/tconstruct/recipes/melting/parts/kama_head.json
 14416b873215593b1002781132ed79e57f9f09c1 data/tconstruct/recipes/melting/parts/large_plate.json
 f5cfb0ec94cedc60fc2c960b2f30fa94327ad144 data/tconstruct/recipes/melting/parts/pickaxe_head.json
 51633f486042215b8bf3b2cdf948a024f1182ab7 data/tconstruct/recipes/melting/parts/shovel_head.json
@@ -1221,6 +1229,7 @@ a36587a707cfb2e72aa0210958b2bfcd1b8f4378 data/tconstruct/recipes/melting/water_f
 427aee7fcd258086d7f6085446b31b4e8a454349 data/tconstruct/recipes/melting/water_from_snowball.json
 96e1e1a760064b6fba68181c87f488d272aeaab1 data/tconstruct/recipes/parts/axe_head.json
 e0c75d95dde1e931dc72292218d9c4129d78a058 data/tconstruct/recipes/parts/hammer_head.json
+50350884c7fe97e19525f7eadd630c2f3c2f6ad7 data/tconstruct/recipes/parts/kama_head.json
 431b0002267a50c159021472dd98293ddf599be4 data/tconstruct/recipes/parts/large_plate.json
 92085b30b53ce2ba8b62409821cc237dd2b79d04 data/tconstruct/recipes/parts/pickaxe_head.json
 c3d0e55b8373218313fe61d186d596e51b3a3458 data/tconstruct/recipes/parts/shovel_head.json
@@ -1308,6 +1317,7 @@ d1f3412c786450cfa1f10ad13f196d954240ba80 data/tconstruct/recipes/smeltery/seared
 c4827cffe8cd79e568fd01cfb7772a026e28fe62 data/tconstruct/recipes/tools/broad_sword.json
 0bd58a6a4c9f72d1c0bf49720300ca8a1d191928 data/tconstruct/recipes/tools/crafting_station.json
 7c58d24bb2d7be876ebe5db2552d02050b5110b4 data/tconstruct/recipes/tools/hammer.json
+87df4ab7114ae60d25d07c73d89c74b885b2b945 data/tconstruct/recipes/tools/kama.json
 71f41221cec10ca116651bda866aeff61f96960e data/tconstruct/recipes/tools/materials/ardite_block_from_ingots.json
 56647c15e47cfce99e7f3cc55796de9c2e77800e data/tconstruct/recipes/tools/materials/ardite_ingot_from_block.json
 d51aca281903b57dcee9b1dafdec626e51380d0f data/tconstruct/recipes/tools/materials/ardite_ingot_from_ingots.json

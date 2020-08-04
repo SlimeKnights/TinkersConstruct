@@ -290,4 +290,23 @@ public class AoeToolInteractionUtil {
 
     return builder.build();
   }
+
+  /**
+   * Same as {@link #breakExtraBlock(ItemStack, World, PlayerEntity, BlockPos, BlockPos)}, but attempts to shear the block first
+   * @param stack
+   * @param world
+   * @param player
+   * @param pos
+   * @param refPos
+   */
+  public static void shearExtraBlock(ItemStack stack, World world, PlayerEntity player, BlockPos pos, BlockPos refPos) {
+    if (!canBreakExtraBlock(stack, world, player, pos, refPos)) {
+      return;
+    }
+
+    // if we cannot shear the block, just run normal block break code
+    if (!ToolInteractionUtil.shearBlock(stack, world, player, pos)) {
+      breakExtraBlock(stack, world, player, pos, refPos);
+    }
+  }
 }

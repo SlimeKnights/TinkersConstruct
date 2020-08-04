@@ -629,8 +629,4 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
 
     this.updateGUI();
   }
-
-  public Set<ToolCore> getBuildableItems() {
-    return ToolRegistry.getTools();
-  }
 }

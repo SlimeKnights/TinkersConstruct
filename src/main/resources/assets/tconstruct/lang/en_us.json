@@ -401,6 +401,7 @@
     "item.tconstruct.hammer": "Hammer",
     "item.tconstruct.shovel": "Shovel",
     "item.tconstruct.axe": "Hatchet",
+    "item.tconstruct.kama": "Kama",
     "item.tconstruct.broad_sword": "Broadsword",
     
     "_comment": "Tinkers Tool Parts",
@@ -409,6 +410,7 @@
     "item.tconstruct.hammer_head": "Hammer Head",
     "item.tconstruct.shovel_head": "Shovel Head",
     "item.tconstruct.axe_head": "Axe Head",
+    "item.tconstruct.kama_head": "Kama Head",
     "item.tconstruct.sword_blade": "Sword Blade",
     "item.tconstruct.tool_rod": "Tool Rod",
     "item.tconstruct.tough_tool_rod": "Tough Tool Rod",
@@ -422,6 +424,7 @@
     "item.tconstruct.hammer.description": "The Hammer is a broad mining tool. It harvests blocks in a wide range.\nAlso effective against undead.",
     "item.tconstruct.shovel.description": "The Shovel digs up dirt. It is effective on dirt, sand, gravel and snow.\nJust don't dig your own grave!",
     "item.tconstruct.axe.description": "The Hatchet chops up wood and makes short work of leaves. It also makes for a passable weapon.\nChop chop!",
+    "item.tconstruct.kama.description": "The Kama is a precision reaping tool, mowing down plants and shearing animals.\nRight Click: Harvest and replant crops",
     "item.tconstruct.broad_sword.description": "The Broadsword is a universal weapon. Sweep attacks keep enemy hordes at bay.\nAlso good against cobwebs!",
 
     "_comment": "Tinkers Smeltery",

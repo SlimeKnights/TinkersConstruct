@@ -48,6 +48,15 @@ public final class ToolDefinitions {
     ),
     ImmutableSet.of(Category.HARVEST, Category.WEAPON));
 
+  public static final ToolDefinition KAMA = new ToolDefinition(
+    ToolBaseStatDefinitions.KAMA,
+    ImmutableList.of(
+      new PartMaterialRequirement(TinkerToolParts.kamaHead, HeadMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
+    ),
+    ImmutableSet.of(Category.HARVEST, Category.WEAPON));
+
 
   public static final ToolDefinition BROADSWORD = new ToolDefinition(
     ToolBaseStatDefinitions.BROADSWORD,
