@@ -23,6 +23,6 @@
         }
     },
     "textures": {
-        "layer0": "tconstruct:item/gadgets/slime_sling"
+        "layer0": "tconstruct:item/gadgets/blue_slime_sling"
     }
 }

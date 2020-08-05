@@ -5,8 +5,6 @@ import com.google.common.collect.Multimap;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.IDyeableArmorItem;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.SoundEvent;
@@ -15,10 +13,24 @@ import slimeknights.mantle.item.ArmorTooltipItem;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
 
-public class SlimeBootsItem extends ArmorTooltipItem implements IDyeableArmorItem {
+public class SlimeBootsItem extends ArmorTooltipItem {
 
-  private static final IArmorMaterial SLIME = new IArmorMaterial() {
+  public SlimeBootsItem(SlimeBlock.SlimeType slimeType, Properties props) {
+    super(new SlimeArmorMaterial(slimeType.getName() + "_slime"), EquipmentSlotType.FEET, props);
+  }
+
+  @Override
+  public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
+    return HashMultimap.<String, AttributeModifier>create();
+  }
+
+  public static class SlimeArmorMaterial implements IArmorMaterial {
     private final Ingredient empty_repair_material = Ingredient.fromItems(Items.AIR);
+    private final String name;
+
+    public SlimeArmorMaterial(String slimeName) {
+      name = slimeName;
+    }
 
     @Override
     public int getDurability(EquipmentSlotType slotIn) {
@@ -47,34 +59,12 @@ public class SlimeBootsItem extends ArmorTooltipItem implements IDyeableArmorIte
 
     @Override
     public String getName() {
-      return Util.resource("slime");
+      return Util.resource(name);
     }
 
     @Override
     public float getToughness() {
       return 0;
     }
-  };
-
-  private final SlimeBlock.SlimeType slimeType;
-
-  public SlimeBootsItem(SlimeBlock.SlimeType slimeType, Properties props) {
-    super(SLIME, EquipmentSlotType.FEET, props);
-    this.slimeType = slimeType;
-  }
-
-  @Override
-  public boolean hasColor(ItemStack stack) {
-    return true;
-  }
-
-  @Override
-  public int getColor(ItemStack stack) {
-    return this.slimeType.getBallColor();
-  }
-
-  @Override
-  public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
-    return HashMultimap.<String, AttributeModifier>create();
   }
 }

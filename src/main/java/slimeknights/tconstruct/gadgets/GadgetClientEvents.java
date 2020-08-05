@@ -26,14 +26,6 @@ import slimeknights.tconstruct.shared.block.SlimeBlock;
 @EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)
 public class GadgetClientEvents extends ClientEventBase {
   @SubscribeEvent
-  static void registerItemColors(ColorHandlerEvent.Item event) {
-    final ItemColors colors = event.getItemColors();
-    for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
-      colors.register((stack,index)->slime.getBallColor(), TinkerGadgets.slimeSling.get(slime), TinkerGadgets.slimeBoots.get(slime));
-    }
-  }
-
-  @SubscribeEvent
   static void registerModels(ModelRegistryEvent event) {
     // TODO: reinstate when Forge fixes itself
     //StateContainer<Block, BlockState> dummyContainer = new StateContainer.Builder<Block, BlockState>(Blocks.AIR).add(BooleanProperty.create("map")).create(BlockState::new);
