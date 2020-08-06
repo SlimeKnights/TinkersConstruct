@@ -1,10 +1,10 @@
 {
     "parent": "tconstruct:block/table/chest/chest",
     "textures": {
-        "side": "tconstruct:block/chest/pattern/side",
-        "front": "tconstruct:block/chest/pattern/front",
-        "top": "tconstruct:block/chest/pattern/top",
-        "drawer_front": "tconstruct:block/chest/pattern/drawer_front",
-        "drawer_side": "tconstruct:block/chest/pattern/drawer_side"
+		"0": "tconstruct:block/chest/drawer_front",
+		"1": "tconstruct:block/chest/drawer_side",
+		"2": "tconstruct:block/chest/drawer_top",
+		"3": "tconstruct:block/chest/drawer_bottom",
+		"particle": "tconstruct:block/chest/drawer_front"
     }
 }
