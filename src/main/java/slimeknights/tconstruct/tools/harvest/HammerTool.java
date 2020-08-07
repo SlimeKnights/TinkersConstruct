@@ -13,8 +13,9 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -37,10 +38,7 @@ public class HammerTool extends PickaxeTool implements IAoeTool {
     boolean hit = super.dealDamage(stack, player, entity, damage);
 
     if (hit && this.readyForSpecialAttack(player)) {
-      /*if(player.world instanceof ServerWorld) {
-        ((ServerWorld) player.world).spawnParticle()
-      }*/
-      //TinkerTools.proxy.spawnAttackParticle(Particles.HAMMER_ATTACK, player, 0.8d);
+      ToolAttackUtil.spawnAttachParticle(TinkerTools.hammerAttackParticle.get(), player, 0.8d);
     }
 
     return hit;

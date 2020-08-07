@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.BasicParticleType;
 import net.minecraftforge.fml.RegistryObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
@@ -52,6 +53,12 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.KAMA));
 
   public static final ItemObject<BroadSword> broadSword = ITEMS.register("broad_sword", () -> new BroadSword(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.BROADSWORD));
+
+  /*
+   * Particles
+   */
+  public static final RegistryObject<BasicParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack",() -> new BasicParticleType(false));
+  public static final RegistryObject<BasicParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack",() -> new BasicParticleType(false));
 
   /*
    * Entities

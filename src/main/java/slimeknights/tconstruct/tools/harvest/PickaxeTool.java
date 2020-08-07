@@ -3,13 +3,9 @@ package slimeknights.tconstruct.tools.harvest;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.tools.ToolRegistry;
-
-import java.util.List;
 
 public class PickaxeTool extends ToolCore {
 

@@ -17,8 +17,10 @@ import net.minecraft.world.World;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.List;
 
@@ -81,7 +83,7 @@ public class AxeTool extends ToolCore {
     boolean hit = super.dealDamage(stack, player, entity, damage);
 
     if (hit && this.readyForSpecialAttack(player)) {
-      //TinkerTools.proxy.spawnAttackParticle(Particles.HATCHET_ATTACK, player, 0.8d);
+      ToolAttackUtil.spawnAttachParticle(TinkerTools.axeAttackParticle.get(), player, 0.8d);
     }
 
     return hit;

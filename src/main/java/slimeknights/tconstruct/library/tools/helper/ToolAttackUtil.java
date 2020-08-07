@@ -8,6 +8,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SEntityVelocityPacket;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.Effects;
 import net.minecraft.stats.Stats;
@@ -19,6 +20,10 @@ import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.library.traits.ITrait;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ToolAttackUtil {
 
@@ -133,7 +138,7 @@ public class ToolAttackUtil {
 
     // traits on the tool
     // todo traits
-    //List<ITrait> traits = TinkerUtil.getTraitsOrdered(stack);
+    List<ITrait> traits = new ArrayList<>();//TinkerUtil.getTraitsOrdered(stack);
 
     // players base damage (includes tools damage stat)
     float baseDamage = (float) attacker.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getValue();
@@ -144,21 +149,20 @@ public class ToolAttackUtil {
 
     // calculate if it's a critical hit
     boolean isCritical = attacker.fallDistance > 0.0F && !attacker.onGround && !attacker.isOnLadder() && !attacker.isInWater() && !attacker.isPotionActive(Effects.BLINDNESS) && !attacker.isPassenger();
-    // todo traits
-    /*for(ITrait trait : traits) {
-      if(trait.isCriticalHit(stack, attacker, target)) {
+
+    for (ITrait trait : traits) {
+      if (trait.isCriticalHit(stack, attacker, target)) {
         isCritical = true;
       }
-    }*/
+    }
 
     // calculate actual damage
     float damage = baseDamage;
-    // todo traits
-    /*if(target != null) {
-      for(ITrait trait : traits) {
+    if (target != null) {
+      for (ITrait trait : traits) {
         damage = trait.damage(stack, attacker, target, baseDamage, damage, isCritical);
       }
-    }*/
+    }
 
     // apply critical damage
     if (isCritical) {
@@ -171,12 +175,11 @@ public class ToolAttackUtil {
     // calculate actual knock back
     float knockBack = baseKnockBack;
 
-    // todo traits
-    /*if(target != null) {
-      for(ITrait trait : traits) {
+    if (target != null) {
+      for (ITrait trait : traits) {
         knockBack = trait.knockBack(stack, attacker, target, damage, baseKnockBack, knockBack, isCritical);
       }
-    }*/
+    }
 
     // missing because not supported by tcon tools: vanilla fire aspect enchantments, we have our own modifiers
 
@@ -203,12 +206,13 @@ public class ToolAttackUtil {
     // deal the damage
     if (target != null) {
       int hurtResistantTime = target.hurtResistantTime;
-      // todo traits
-      /*for(ITrait trait : traits) {
+
+      for (ITrait trait : traits) {
         trait.onHit(stack, attacker, target, damage, isCritical);
-        // reset hurt reristant time
+
+        // reset hurt resistant time
         target.hurtResistantTime = hurtResistantTime;
-      }*/
+      }
     }
 
     boolean hit = tool.dealDamage(stack, attacker, targetEntity, damage);
@@ -276,10 +280,9 @@ public class ToolAttackUtil {
       attacker.setLastAttackedEntity(target);
 
       // call post-hit callbacks before reducing the durability
-      // todo traits
-      /*for(ITrait trait : traits) {
+      for (ITrait trait : traits) {
         trait.afterHit(stack, attacker, target, damageDealt, isCritical, true); // hit is always true
-      }*/
+      }
 
       // damage the tool
       if (player != null) {
@@ -328,5 +331,19 @@ public class ToolAttackUtil {
     }
 
     return true;
+  }
+
+  public static void spawnAttachParticle(IParticleData particleData, Entity entity, double height) {
+    double xd = -MathHelper.sin(entity.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(entity.rotationPitch / 180.0F * (float) Math.PI);
+    double zd = +MathHelper.cos(entity.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(entity.rotationPitch / 180.0F * (float) Math.PI);
+    double yd = -MathHelper.sin(entity.rotationPitch / 180.0F * (float) Math.PI);
+
+    xd *= 1f;
+    yd *= 1f;
+    zd *= 1f;
+
+    if (entity.world instanceof ServerWorld) {
+      ((ServerWorld) entity.world).spawnParticle(particleData, entity.getPosX() + xd, entity.getPosY() + entity.getHeight() * height, entity.getPosZ() + zd, 0, xd, yd, zd, 1.0D);
+    }
   }
 }
