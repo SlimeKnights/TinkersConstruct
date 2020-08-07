@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.tools;
 
 import com.google.common.collect.Streams;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
@@ -22,12 +23,12 @@ public final class ToolBuildHandler {
    * @param stacks Items to build with. Have to be in the correct order and contain material items.
    * @return The built item or null if invalid input.
    */
-  public static ItemStack buildItemFromStacks(Stream<ItemStack> stacks, int size, ToolCore tool) {
-    if (!canToolBeBuilt(stacks, size, tool)) {
+  public static ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks, int size, ToolCore tool) {
+    if (!canToolBeBuilt(stacks.stream(), size, tool)) {
       return ItemStack.EMPTY;
     }
 
-    List<IMaterial> materials = stacks.filter(stack -> !stack.isEmpty())
+    List<IMaterial> materials = stacks.stream().filter(stack -> !stack.isEmpty())
       .map(IMaterialItem::getMaterialFromStack)
       .collect(Collectors.toList());
 

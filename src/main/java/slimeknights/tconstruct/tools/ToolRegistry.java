@@ -20,7 +20,9 @@ public class ToolRegistry {
     tools.add(tool);
 
     for (PartMaterialRequirement pmt : tool.getToolDefinition().getRequiredComponents()) {
-      toolParts.add((IToolPart) pmt.getPossiblePart());
+      if (pmt.getPossiblePart() instanceof IToolPart) {
+        toolParts.add((IToolPart) pmt.getPossiblePart());
+      }
     }
   }
 

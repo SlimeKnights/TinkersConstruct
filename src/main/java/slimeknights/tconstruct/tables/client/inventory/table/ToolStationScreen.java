@@ -37,10 +37,8 @@ import slimeknights.tconstruct.tables.inventory.table.toolstation.ToolStationInS
 import slimeknights.tconstruct.tables.network.ToolStationSelectionPacket;
 import slimeknights.tconstruct.tables.network.ToolStationTextPacket;
 import slimeknights.tconstruct.tables.tileentity.table.ToolStationTileEntity;
-import slimeknights.tconstruct.tools.ToolRegistry;
 
 import java.util.List;
-import java.util.Set;
 import java.util.function.Function;
 
 public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity, ToolStationContainer> {
@@ -148,7 +146,7 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
       slot.xPos = point.getX();
       slot.yPos = point.getY();
 
-      if(slot instanceof ToolStationInSlot) {
+      if (slot instanceof ToolStationInSlot) {
         ((ToolStationInSlot) slot).activate();
       }
     }
@@ -158,7 +156,7 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
     for (; i < TABLE_SLOT_COUNT; i++) {
       Slot slot = this.container.getSlot(i);
 
-      if(slot instanceof ToolStationInSlot) {
+      if (slot instanceof ToolStationInSlot) {
         ((ToolStationInSlot) slot).deactivate();
       }
 
@@ -189,7 +187,8 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
         IToolStationDisplay tool = (IToolStationDisplay) toolStack.getItem();
         this.toolInfo.setCaption(tool.getLocalizedName().getFormattedText());
         this.toolInfo.setText(tool.getInformation(toolStack));
-      } else {
+      }
+      else {
         this.toolInfo.setCaption(toolStack.getDisplayName().getFormattedText());
         this.toolInfo.setText();
       }
@@ -205,7 +204,7 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
       this.traitInfo.setCaption("");
 
       String c = TextFormatting.DARK_GRAY.toString();
-      String[] art = new String[]{
+      String[] art = new String[] {
         c + "",
         c + "",
         c + "       .",
@@ -259,11 +258,11 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
 
   @Override
   public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-    if(this.toolInfo.handleMouseClicked(mouseX, mouseY, mouseButton)) {
+    if (this.toolInfo.handleMouseClicked(mouseX, mouseY, mouseButton)) {
       return false;
     }
 
-    if(this.traitInfo.handleMouseClicked(mouseX, mouseY, mouseButton)) {
+    if (this.traitInfo.handleMouseClicked(mouseX, mouseY, mouseButton)) {
       return false;
     }
 
@@ -329,7 +328,8 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
   public boolean charTyped(char typedChar, int keyCode) {
     if (!this.textField.isFocused()) {
       return super.charTyped(typedChar, keyCode);
-    } else {
+    }
+    else {
       if (keyCode == 1) {
         this.minecraft.player.closeScreen();
         return true;
@@ -349,7 +349,8 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
   protected void insertText(String text, boolean setText) {
     if (setText) {
       this.textField.setText(text);
-    } else {
+    }
+    else {
       this.textField.writeText(text);
     }
   }
@@ -411,7 +412,8 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
     if (this.currentData != null) {
       if (!this.currentData.getItemStack().isEmpty()) {
         this.itemRenderer.renderItemIntoGUI(this.currentData.getToolForRendering(), logoX, logoY);
-      } else if (this.currentData == ToolSlotInformationLoader.get(ToolSlotInformationLoader.REPAIR_NAME)) {
+      }
+      else if (this.currentData == ToolSlotInformationLoader.get(ToolSlotInformationLoader.REPAIR_NAME)) {
         this.minecraft.getTextureManager().bindTexture(Icons.ICONS);
         Icons.ANVIL.draw(logoX, logoY);
       }
@@ -450,7 +452,8 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
 
     if (this.currentData == ToolSlotInformationLoader.get(ToolSlotInformationLoader.REPAIR_NAME)) {
       this.drawRepairSlotIcons();
-    } else if (this.currentData.getItemStack().getItem() instanceof ToolCore) {
+    }
+    else if (this.currentData.getItemStack().getItem() instanceof ToolCore) {
       for (int i = 0; i < this.activeSlots; i++) {
         Slot slot = this.container.getSlot(i);
 
@@ -535,15 +538,20 @@ public class ToolStationScreen extends TinkerStationScreen<ToolStationTileEntity
 
     if (i == 0) {
       icon = Icons.PICKAXE;
-    } else if (i == 1) {
+    }
+    else if (i == 1) {
       icon = Icons.DUST;
-    } else if (i == 2) {
+    }
+    else if (i == 2) {
       icon = Icons.LAPIS;
-    } else if (i == 3) {
+    }
+    else if (i == 3) {
       icon = Icons.INGOT;
-    } else if (i == 4) {
+    }
+    else if (i == 4) {
       icon = Icons.GEM;
-    } else if (i == 5) {
+    }
+    else if (i == 5) {
       icon = Icons.QUARTZ;
     }
 
