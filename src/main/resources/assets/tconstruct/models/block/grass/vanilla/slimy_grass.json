@@ -5,7 +5,7 @@
         "overlay": "tconstruct:block/slime/slime_grass_overlay",
         "particle": "block/dirt",
         "bottom": "block/dirt",
-        "side": "block/dirt",
+        "side": "tconstruct:block/slime/dirt_grass",
         "all": "block/dirt"
     }
 }

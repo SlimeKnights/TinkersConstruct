@@ -15,6 +15,7 @@ public class TinkerTags {
 
   public static class Blocks {
 
+    public static final Tag<Block> CONGEALED_SLIME = tag("congealed_slime");
     public static final Tag<Block> SLIMY_LOGS = tag("slimy_logs");
     public static final Tag<Block> SLIMY_LEAVES = tag("slimy_leaves");
     public static final Tag<Block> SLIMY_SAPLINGS = tag("slimy_saplings");
@@ -47,6 +48,7 @@ public class TinkerTags {
 
   public static class Items {
 
+    public static final Tag<Item> CONGEALED_SLIME = tag("congealed_slime");
     public static final Tag<Item> SLIMY_LOGS = tag("slimy_logs");
     public static final Tag<Item> SLIMY_LEAVES = tag("slimy_leaves");
     public static final Tag<Item> SLIMY_SAPLINGS = tag("slimy_saplings");
@@ -72,7 +74,6 @@ public class TinkerTags {
     public static final Tag<Item> PURPLE_SLIMEBALL = forgeTag("slimeball/purple");
     public static final Tag<Item> BLOOD_SLIMEBALL = forgeTag("slimeball/blood");
     public static final Tag<Item> MAGMA_SLIMEBALL = forgeTag("slimeball/magma");
-    public static final Tag<Item> PINK_SLIMEBALL = forgeTag("slimeball/pink");
 
     public static final Tag<Item> INGOTS_COBALT = forgeTag("ingots/cobalt");
     public static final Tag<Item> INGOTS_ARDITE = forgeTag("ingots/ardite");

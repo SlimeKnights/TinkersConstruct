@@ -1,23 +1,20 @@
 package slimeknights.tconstruct.smeltery.network;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.NetworkEvent;
-import slimeknights.mantle.network.AbstractPacketThreadsafe;
+import slimeknights.mantle.network.AbstractPacket;
 
 import java.util.function.Supplier;
 
-public class FluidUpdatePacket extends AbstractPacketThreadsafe {
+public class FluidUpdatePacket extends AbstractPacket {
 
-  public BlockPos pos;
-  public FluidStack fluid;
-
-  public FluidUpdatePacket() {}
+  protected final BlockPos pos;
+  protected final FluidStack fluid;
 
   public FluidUpdatePacket(BlockPos pos, FluidStack fluid) {
     this.pos = pos;
@@ -26,17 +23,13 @@ public class FluidUpdatePacket extends AbstractPacketThreadsafe {
 
   public FluidUpdatePacket(PacketBuffer buffer) {
     this.pos = readPos(buffer);
-    this.fluid = FluidStack.loadFluidStackFromNBT(buffer.readCompoundTag());
+    this.fluid = buffer.readFluidStack();
   }
 
   @Override
   public void encode(PacketBuffer packetBuffer) {
     writePos(pos, packetBuffer);
-    CompoundNBT tag = new CompoundNBT();
-    if (fluid != null) {
-      fluid.writeToNBT(tag);
-    }
-    packetBuffer.writeCompoundTag(tag);
+    packetBuffer.writeFluidStack(fluid);
   }
 
   @Override

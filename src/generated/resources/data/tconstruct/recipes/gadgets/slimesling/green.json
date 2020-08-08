@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "tconstruct:crafting_shaped_fallback",
   "group": "tconstruct:slimesling",
   "pattern": [
     "#X#",
@@ -8,16 +8,22 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:string"
+      "tag": "forge:string"
     },
     "X": {
-      "item": "tconstruct:green_congealed_slime"
+      "tag": "tconstruct:congealed_slime"
     },
     "L": {
-      "tag": "forge:slimeball/green"
+      "tag": "forge:slimeballs"
     }
   },
   "result": {
     "item": "tconstruct:green_slime_sling"
-  }
+  },
+  "alternatives": [
+    "tconstruct:gadgets/slimesling/blue",
+    "tconstruct:gadgets/slimesling/purple",
+    "tconstruct:gadgets/slimesling/blood",
+    "tconstruct:gadgets/slimesling/magma"
+  ]
 }

@@ -3,6 +3,7 @@ package slimeknights.tconstruct;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -14,6 +15,7 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -50,6 +52,7 @@ import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerMaterials;
@@ -164,7 +167,7 @@ public class TConstruct {
 
   @SubscribeEvent // TODO: Remove after a while, maybe at release.
   public void missingItemMappings(RegistryEvent.MissingMappings<Item> event) {
-    for (RegistryEvent.MissingMappings.Mapping<Item> entry : event.getAllMappings()) {
+    entries: for (RegistryEvent.MissingMappings.Mapping<Item> entry : event.getAllMappings()) {
       if (entry.key.getNamespace().equals(TConstruct.modID)) {
         String path = entry.key.getPath();
         // slime is prefixed with color instead of suffixed
@@ -172,17 +175,36 @@ public class TConstruct {
           // Remap slime_sling_$slime
           if (path.equals("slime_sling_" + slime.getName())) {
             entry.remap(TinkerGadgets.slimeSling.get(slime));
+            continue entries;
           }
           // Remap slime_boots_$slime
           if (path.equals("slime_boots_" + slime.getName())) {
             entry.remap(TinkerGadgets.slimeBoots.get(slime));
+            continue entries;
           }
           // Remap congealed_$slime_slime
           if (path.equals(String.format("congealed_%s_slime", slime.getName()))) {
             entry.remap(TinkerWorld.congealedSlime.get(slime).asItem());
+            continue entries;
           }
         }
         switch (path) {
+          // pink slime removed
+          case "congealed_pink_slime": case "pink_congealed_slime":
+            entry.remap(TinkerWorld.congealedSlime.get(SlimeType.GREEN).asItem());
+            break;
+          case "pink_slime":
+            entry.remap(Blocks.SLIME_BLOCK.asItem());
+            break;
+          case "pink_slime_ball":
+            entry.remap(Items.SLIME_BALL);
+            break;
+          case "pink_slime_sling":
+            entry.remap(TinkerGadgets.slimeSling.get(SlimeType.GREEN));
+            break;
+          case "pink_slime_boots":
+            entry.remap(TinkerGadgets.slimeBoots.get(SlimeType.GREEN));
+            break;
           // alubrass removed, fallback
           case "alubrass_block":
             entry.remap(TinkerMaterials.copperBlock.asItem());
@@ -210,7 +232,7 @@ public class TConstruct {
 
   @SubscribeEvent // TODO: Remove after a while, maybe at release.
   public void missingBlockMappings(RegistryEvent.MissingMappings<Block> event) {
-    for (RegistryEvent.MissingMappings.Mapping<Block> entry : event.getAllMappings()) {
+    entries: for (RegistryEvent.MissingMappings.Mapping<Block> entry : event.getAllMappings()) {
       if (entry.key.getNamespace().equals(TConstruct.modID)) {
         // congealed is congealed_color_slime instead of color_congealed_slime
         String path = entry.key.getPath();
@@ -218,9 +240,17 @@ public class TConstruct {
           // Remap congealed_$slime_slime
           if (path.equals(String.format("congealed_%s_slime", slime.getName()))) {
             entry.remap(TinkerWorld.congealedSlime.get(slime));
+            continue entries;
           }
         }
         switch (path) {
+          // pink slime removed
+          case "congealed_pink_slime": case "pink_congealed_slime":
+            entry.remap(TinkerWorld.congealedSlime.get(SlimeType.GREEN));
+            break;
+          case "pink_slime":
+            entry.remap(Blocks.SLIME_BLOCK);
+            break;
           // slime fluids renamed to remove "fluid"
           case "purple_slime_fluid_block":
             entry.remap(TinkerFluids.purpleSlime.getBlock());

@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "tconstruct:crafting_shaped_fallback",
   "group": "tconstruct:slime_boots",
   "pattern": [
     "X X",
@@ -7,13 +7,19 @@
   ],
   "key": {
     "#": {
-      "item": "tconstruct:green_congealed_slime"
+      "tag": "tconstruct:congealed_slime"
     },
     "X": {
-      "tag": "forge:slimeball/green"
+      "tag": "forge:slimeballs"
     }
   },
   "result": {
     "item": "tconstruct:green_slime_boots"
-  }
+  },
+  "alternatives": [
+    "tconstruct:gadgets/slimeboots/blue",
+    "tconstruct:gadgets/slimeboots/purple",
+    "tconstruct:gadgets/slimeboots/blood",
+    "tconstruct:gadgets/slimeboots/magma"
+  ]
 }

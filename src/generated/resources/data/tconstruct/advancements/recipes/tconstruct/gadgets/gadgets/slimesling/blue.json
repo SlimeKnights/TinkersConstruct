@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:string"
+            "tag": "forge:slimeball/blue"
           }
         ]
       }
