@@ -1379,7 +1379,7 @@ ef2e3e13d8d2c6041a62b71a11cd77bba4cf369b data/tconstruct/recipes/tools/modifiers
 d8826669bbb7cdbde4f68e95e575c9790b983cca data/tconstruct/recipes/tools/part_builder.json
 f8d0d99512d2d85cdb4f67a0843016d594d652d1 data/tconstruct/recipes/tools/pattern.json
 1ef11938b9448404d38fa4988b435d81e279fc38 data/tconstruct/recipes/tools/pickaxe.json
-d5fedaaccf4003f4ee3467a26f177f97a0194d28 data/tconstruct/recipes/tools/shovel.jso
+d5fedaaccf4003f4ee3467a26f177f97a0194d28 data/tconstruct/recipes/tools/shovel.json
 8ff83857b3738e3d86266802b15ef0c38bdd0722 data/tconstruct/tags/blocks/congealed_slime.json
 3d3f55987c89c6bcdcc7263c0f8e58f6135ff9bd data/tconstruct/tags/blocks/seared_blocks.json
 d2b01ae15f0b4df9f9d9b538d31c84261bd4afd1 data/tconstruct/tags/blocks/seared_bricks.json
