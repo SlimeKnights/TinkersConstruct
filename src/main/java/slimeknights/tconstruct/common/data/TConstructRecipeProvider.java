@@ -944,9 +944,11 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     addPartRecipe(consumer, TinkerToolParts.hammerHead, 8, TinkerSmeltery.hammerHeadCast);
     addPartRecipe(consumer, TinkerToolParts.shovelHead, 2, TinkerSmeltery.shovelHeadCast);
     addPartRecipe(consumer, TinkerToolParts.axeHead, 2, TinkerSmeltery.axeHeadCast);
+    addPartRecipe(consumer, TinkerToolParts.excavatorHead, 8, TinkerSmeltery.excavatorHeadCast);
     addPartRecipe(consumer, TinkerToolParts.kamaHead, 2, TinkerSmeltery.kamaHeadCast);
     addPartRecipe(consumer, TinkerToolParts.swordBlade, 2, TinkerSmeltery.swordBladeCast);
     addPartRecipe(consumer, TinkerToolParts.smallBinding, 1, TinkerSmeltery.smallBindingCast);
+    addPartRecipe(consumer, TinkerToolParts.toughBinding, 3, TinkerSmeltery.toughBindingCast);
     addPartRecipe(consumer, TinkerToolParts.wideGuard, 1, TinkerSmeltery.wideGuardCast);
     addPartRecipe(consumer, TinkerToolParts.largePlate, 8, TinkerSmeltery.largePlateCast);
     addPartRecipe(consumer, TinkerToolParts.toolRod, 1, TinkerSmeltery.toolRodCast);
@@ -1043,6 +1045,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     registerToolBuilding(consumer, TinkerTools.pickaxe.get());
     registerToolBuilding(consumer, TinkerTools.hammer.get());
     registerToolBuilding(consumer, TinkerTools.shovel.get());
+    registerToolBuilding(consumer, TinkerTools.excavator.get());
     registerToolBuilding(consumer, TinkerTools.axe.get());
     registerToolBuilding(consumer, TinkerTools.kama.get());
     registerToolBuilding(consumer, TinkerTools.broadSword.get());

@@ -131,6 +131,7 @@ a5085c730e7b947ee3bf938ce828df4d4792e712 data/tconstruct/advancements/recipes/ca
 22d31df85d2d2321733d529d12e70244da12fb21 data/tconstruct/advancements/recipes/casting/casting/blue_congealed_slime.json
 5fb9249166f746963f13a005a2eb645f1a63d739 data/tconstruct/advancements/recipes/casting/casting/casts/axe_head.json
 b92911a8673247ee46412cae4aed92208ad52608 data/tconstruct/advancements/recipes/casting/casting/casts/blank.json
+3e2c103103b0531f1565e8f1d10b1e153ee5f7fe data/tconstruct/advancements/recipes/casting/casting/casts/excavator_head.json
 8f9146235021d62c0cdffd69795867510f7001d2 data/tconstruct/advancements/recipes/casting/casting/casts/gems.json
 d3cc1b7e6217e2173380b7c43c411c2781798cf4 data/tconstruct/advancements/recipes/casting/casting/casts/hammer_head.json
 cd1e8655efb4248e5c5b51e04cb3dc7c48a05aed data/tconstruct/advancements/recipes/casting/casting/casts/ingots.json
@@ -142,6 +143,7 @@ db69c53b3673733c132c2eeb63b82dbfa709a2c8 data/tconstruct/advancements/recipes/ca
 113f2e6cfefa9bffe4c1c39a6330d5b67613761f data/tconstruct/advancements/recipes/casting/casting/casts/small_binding.json
 770a718f5b720bdac1a757bc634c5d5a81177c03 data/tconstruct/advancements/recipes/casting/casting/casts/sword_blade.json
 0fc368addcc113fd2d2fd199cd48ae7fdebf4096 data/tconstruct/advancements/recipes/casting/casting/casts/tool_rod.json
+ead3101aa1c46c3b5c85bf8dff174d4c6a3631fa data/tconstruct/advancements/recipes/casting/casting/casts/tough_binding.json
 3250b1ec63a28efa91fb1e8d26c03df67977d980 data/tconstruct/advancements/recipes/casting/casting/casts/tough_tool_rod.json
 17f476c00d4acfcd6f67fdb088919205b9f508b8 data/tconstruct/advancements/recipes/casting/casting/casts/wide_guard.json
 726182674e296c48467fbfb070d92375e9e985cf data/tconstruct/advancements/recipes/casting/casting/clear_glass.json
@@ -168,6 +170,7 @@ bb1e52f95fca8f09573a0c463c260c428d6bbdf2 data/tconstruct/advancements/recipes/ca
 71dd52b71133ea0b61db5565e46f7a9f78e999c7 data/tconstruct/advancements/recipes/casting/casting/manyullyn_nugget.json
 ba9c184b80cdc56ad14c4e95673ff953b1deeeff data/tconstruct/advancements/recipes/casting/casting/obsidian.json
 a4aa294986bf0c46742f93fb6674b090c4720faa data/tconstruct/advancements/recipes/casting/casting/parts/axe_head.json
+bde750982c2c3083302a7bc0aafab907ad5e566a data/tconstruct/advancements/recipes/casting/casting/parts/excavator_head.json
 e460087e7cfa3bf166ed7245cf857af6672bc48b data/tconstruct/advancements/recipes/casting/casting/parts/hammer_head.json
 2bb0ff9d8077b41b6567bd8654d11155ea744222 data/tconstruct/advancements/recipes/casting/casting/parts/kama_head.json
 d7c62f52277ad0a2bad5dbe02daf4173e681311c data/tconstruct/advancements/recipes/casting/casting/parts/large_plate.json
@@ -176,6 +179,7 @@ c790db20e9364512ba5d88a482205d76deb82a0b data/tconstruct/advancements/recipes/ca
 938c53449f140f331a7a92af72f181a8175211b2 data/tconstruct/advancements/recipes/casting/casting/parts/small_binding.json
 a2fb81266d5a855e46d68b3090d65690d70bb5c8 data/tconstruct/advancements/recipes/casting/casting/parts/sword_blade.json
 7d22c7d01ef14875fcbfaf90aff9ffaa41b49030 data/tconstruct/advancements/recipes/casting/casting/parts/tool_rod.json
+4320aa075dcf2e364ab8a8a111a65d2edfae9e95 data/tconstruct/advancements/recipes/casting/casting/parts/tough_binding.json
 daa0590037d4212eabd3c5f16b0b07fbb2cc5d5e data/tconstruct/advancements/recipes/casting/casting/parts/tough_tool_rod.json
 b4b2b0e68b732be4e6a85ccb60aae10e716fb083 data/tconstruct/advancements/recipes/casting/casting/parts/wide_guard.json
 6e600c9433c0bf02a449a29910a219706ef6ba70 data/tconstruct/advancements/recipes/casting/casting/pigiron_block.json
@@ -293,6 +297,7 @@ a3672511c691280f3d87e3e896e83f2e36cc95e0 data/tconstruct/advancements/recipes/me
 aee2d41cba3e4556abdc43026be42a72e2ec2fc5 data/tconstruct/advancements/recipes/melting/melting/manyullyn_from_nugget.json
 60a4741c15395b41baaca9e26c11d0de057d5e9e data/tconstruct/advancements/recipes/melting/melting/obsidian.json
 55ab10b225ec926be8834068110619ae624a3b4a data/tconstruct/advancements/recipes/melting/melting/parts/axe_head.json
+8c5acccd2634132eef52be4857136ffcbb96a0fd data/tconstruct/advancements/recipes/melting/melting/parts/excavator_head.json
 24fb41ed5ca3a2d3236402e864bdeb07bb9fe62e data/tconstruct/advancements/recipes/melting/melting/parts/hammer_head.json
 13e71eb6aba7af5ae4a95c013ef4cd43fa7c8b3e data/tconstruct/advancements/recipes/melting/melting/parts/kama_head.json
 309ce90563b86386f50155463dfba4857f80ecba data/tconstruct/advancements/recipes/melting/melting/parts/large_plate.json
@@ -301,6 +306,7 @@ aee2d41cba3e4556abdc43026be42a72e2ec2fc5 data/tconstruct/advancements/recipes/me
 7768e2f794b461e7128a296cd2f1eeec51362042 data/tconstruct/advancements/recipes/melting/melting/parts/small_binding.json
 698e53a53c49c6dd624f336f74ae5628d85675f8 data/tconstruct/advancements/recipes/melting/melting/parts/sword_blade.json
 bf2487555e28d74d46ec12276377a83b2532c378 data/tconstruct/advancements/recipes/melting/melting/parts/tool_rod.json
+c9fcb645d1359f636205fba6b4280738b9c19a94 data/tconstruct/advancements/recipes/melting/melting/parts/tough_binding.json
 824ae4712ca20519342c6d7e22298c0a0da49f94 data/tconstruct/advancements/recipes/melting/melting/parts/tough_tool_rod.json
 1a17abecf359f8407f6d95b0c2295b5a7b8acb3e data/tconstruct/advancements/recipes/melting/melting/parts/wide_guard.json
 4a3950ecdfe47a9319d7f31f44b86f9b46f8bb72 data/tconstruct/advancements/recipes/melting/melting/pig_iron_from_block.json
@@ -324,6 +330,7 @@ da118fa0b9c69c3691c9a64f98af8a24f750ff64 data/tconstruct/advancements/recipes/me
 73ff9a2fa888e80a807b2e7627602cfeb36ed5c1 data/tconstruct/advancements/recipes/melting_fuel/melting/fuel/lava.json
 a06a3a8aeb06681c226c46b6e5b360b910e609ee data/tconstruct/advancements/recipes/misc/common/slime/green/slimeball_from_congealed.json
 4f11583a3eb0a8cc9618f08ff8d2f9456eaa8bb5 data/tconstruct/advancements/recipes/parts/parts/axe_head.json
+d21638c0490bb2ab535f6691764530113f29b291 data/tconstruct/advancements/recipes/parts/parts/excavator_head.json
 cd99c130b3b2790a9700f3367022c553f6ac3ce4 data/tconstruct/advancements/recipes/parts/parts/hammer_head.json
 cf92650fbfa2fe8a9ddb554e2aa1ecd91ee6efca data/tconstruct/advancements/recipes/parts/parts/kama_head.json
 6635fff0bcfbbd52ce9349f831f27e024adc89bc data/tconstruct/advancements/recipes/parts/parts/large_plate.json
@@ -332,6 +339,7 @@ bb32c92a89a65b05ac8094117e7b7e0876fee36e data/tconstruct/advancements/recipes/pa
 cd4528a903bc0797d4dcae0c8318720c24fd6687 data/tconstruct/advancements/recipes/parts/parts/small_binding.json
 cd67848f6c26e907c1d7e0f6e53c8e6b5186183c data/tconstruct/advancements/recipes/parts/parts/sword_blade.json
 49d3eceffeeec8292a391890f0f101f7272dee45 data/tconstruct/advancements/recipes/parts/parts/tool_rod.json
+a1ded7ebc9d833bd2451826f3ae7d9ceaf06793f data/tconstruct/advancements/recipes/parts/parts/tough_binding.json
 6146ea87ffe1a4f1d206820b65d49ad223c43543 data/tconstruct/advancements/recipes/parts/parts/tough_tool_rod.json
 daf5c947455830fb179a679981916a794a9dc34d data/tconstruct/advancements/recipes/parts/parts/wide_guard.json
 6561851ef59bbf3d66b3eb431a34db49183df105 data/tconstruct/advancements/recipes/tconstruct/gadgets/foods/beef_jerky_campfire.json
@@ -626,6 +634,7 @@ f40198de18e41146c94a75f9482c17871b5ee0ab data/tconstruct/advancements/recipes/tc
 ef20c7b3eea20d83f98a251f78ba4728c5dfa136 data/tconstruct/advancements/recipes/tinkers_general/common/flint.json
 7113d4617d2e551c56a7fc2bb8e04a35794695e1 data/tconstruct/advancements/recipes/tools/tools/axe.json
 2a9d41a24de61d6d9033f983e863091425e702c9 data/tconstruct/advancements/recipes/tools/tools/broad_sword.json
+75409cb1cca4008967c44c3655aeeaefbcfaf1ff data/tconstruct/advancements/recipes/tools/tools/excavator.json
 4b7d2aa1cc5842b11a40483845538812349485df data/tconstruct/advancements/recipes/tools/tools/hammer.json
 b8a6dfb718f3dbe55073272c9045ddfb17b51315 data/tconstruct/advancements/recipes/tools/tools/kama.json
 c8efea44bbe5d82c151780e22bc035cb2ee59c7b data/tconstruct/advancements/recipes/tools/tools/pickaxe.json
@@ -886,6 +895,7 @@ ba83751b901fd4933171ada44b4edb44654d5bba data/tconstruct/recipes/casting/ardite_
 84091656221b4be9be06d411eb0444b7b8a5a956 data/tconstruct/recipes/casting/blue_congealed_slime.json
 b4f2d6a6afbdf87aa9c0c5a84b8dce80d9b0b5c2 data/tconstruct/recipes/casting/casts/axe_head.json
 33a39cf3eff11e8947881bb1f95224f3fd39c8fe data/tconstruct/recipes/casting/casts/blank.json
+135f70258ce6cc8b8ceccc80c29dbdaf15f492bb data/tconstruct/recipes/casting/casts/excavator_head.json
 96446c147948a6f92700f1d062d557d1012ee6c9 data/tconstruct/recipes/casting/casts/gems.json
 9bb3ec0701db26dd2ce59c1fb58de1b7b3391a04 data/tconstruct/recipes/casting/casts/hammer_head.json
 22eea914f5daa31ecbd9640b6a446fa1f2f83174 data/tconstruct/recipes/casting/casts/ingots.json
@@ -897,6 +907,7 @@ ab10c3ffa3ca677322abef5a3e1f153449e2784b data/tconstruct/recipes/casting/casts/s
 f31b95cb9729aa2c96b432572e3cbebe27b4412c data/tconstruct/recipes/casting/casts/small_binding.json
 744b82f95057ed7b3c20287fd5bdebf721518276 data/tconstruct/recipes/casting/casts/sword_blade.json
 8204f06e8e6fd25e1a83d03fd5fada5962172d73 data/tconstruct/recipes/casting/casts/tool_rod.json
+c196d8228be4db48ee6a2e4872a1b8115c0cd1eb data/tconstruct/recipes/casting/casts/tough_binding.json
 fd5eb38ea24364b60a78ff968b78e9c29740c719 data/tconstruct/recipes/casting/casts/tough_tool_rod.json
 103c87a024808049a51ffab31f6baf5481bf0d9f data/tconstruct/recipes/casting/casts/wide_guard.json
 11937e9cf8dff8e42afa064c2b07fc869869cadb data/tconstruct/recipes/casting/clear_glass.json
@@ -923,6 +934,7 @@ d60d568de77a340533da152d62242d453bcfa563 data/tconstruct/recipes/casting/manyull
 8f9589aece709655748474af8bb524f87f78902f data/tconstruct/recipes/casting/manyullyn_nugget.json
 e5f2763fa959263af178e4d682ec7f0d34b9203f data/tconstruct/recipes/casting/obsidian.json
 a12ddc0f0d662d37ab5da255e6369aa54142f6a2 data/tconstruct/recipes/casting/parts/axe_head.json
+36a72233e59343cf34ae9d0add9e792aebb38154 data/tconstruct/recipes/casting/parts/excavator_head.json
 030fa1d6e25e3012e3f4da8eea983ba585d82573 data/tconstruct/recipes/casting/parts/hammer_head.json
 6b98258cb1afdb191f2c2e325927995ccccb8219 data/tconstruct/recipes/casting/parts/kama_head.json
 3d559d8739a9df891782f3bce42ff6a7c0ec86b6 data/tconstruct/recipes/casting/parts/large_plate.json
@@ -931,6 +943,7 @@ f0a68405cac3ad01d8590ddb226cbbe73f0a44da data/tconstruct/recipes/casting/parts/p
 16b53f9a4bf839b3532d86cadbb336e24c14bc18 data/tconstruct/recipes/casting/parts/small_binding.json
 a49a628a7123b83baa9f68dece0717291abe6492 data/tconstruct/recipes/casting/parts/sword_blade.json
 272c2269d0386d0cb785017e6ac1b13289c3221f data/tconstruct/recipes/casting/parts/tool_rod.json
+16e6855eea0994869d53fbde038794398f89d582 data/tconstruct/recipes/casting/parts/tough_binding.json
 1fcc9344b7713b5b3a529d909a5557f7f8284ef3 data/tconstruct/recipes/casting/parts/tough_tool_rod.json
 b03b4af7efaa8668dd5cf82ccabae15f2b8d958f data/tconstruct/recipes/casting/parts/wide_guard.json
 c394438ceffe9cb88fd6eda103a1f76ccc0cbaca data/tconstruct/recipes/casting/pigiron_block.json
@@ -1199,6 +1212,7 @@ a30b4894b9c75c0489dae4385395a8fd6be30b1d data/tconstruct/recipes/melting/manyull
 f80906773db57bfbdb70e68ccb0bcc22649b4530 data/tconstruct/recipes/melting/manyullyn_from_nugget.json
 81c0d892a1fc7543107ca932553432a91b947a3c data/tconstruct/recipes/melting/obsidian.json
 c244ced008768577b5716ddbabba3f73639226d3 data/tconstruct/recipes/melting/parts/axe_head.json
+891e747c4959699cab4b4709df19ae4c315817ab data/tconstruct/recipes/melting/parts/excavator_head.json
 7bdeefc90b26e9c59aefd274a3a506dc6569ba66 data/tconstruct/recipes/melting/parts/hammer_head.json
 3c2cd0eae626470604ffb906755b6638471c11b5 data/tconstruct/recipes/melting/parts/kama_head.json
 14416b873215593b1002781132ed79e57f9f09c1 data/tconstruct/recipes/melting/parts/large_plate.json
@@ -1207,6 +1221,7 @@ f5cfb0ec94cedc60fc2c960b2f30fa94327ad144 data/tconstruct/recipes/melting/parts/p
 9b48299e0e9b5e30437ae87a00d3b77a79f5fac3 data/tconstruct/recipes/melting/parts/small_binding.json
 82545b378055caae118c5e5c72d096d0ac14c7ff data/tconstruct/recipes/melting/parts/sword_blade.json
 20fcec4b1bce412b5a9c63048d877f9bdcb6b14b data/tconstruct/recipes/melting/parts/tool_rod.json
+cf23521553b19732427e0fa596b654e06170d260 data/tconstruct/recipes/melting/parts/tough_binding.json
 3096f65e641628b314a989cb9852eea25c5be20d data/tconstruct/recipes/melting/parts/tough_tool_rod.json
 d07ab2f3419c8e9407f74c0eb905ca5155a32129 data/tconstruct/recipes/melting/parts/wide_guard.json
 385b58bf2cd34a901af826722e88c28cc374612d data/tconstruct/recipes/melting/pig_iron_from_block.json
@@ -1228,6 +1243,7 @@ a36587a707cfb2e72aa0210958b2bfcd1b8f4378 data/tconstruct/recipes/melting/water_f
 1a9cb4100b92265ca82b1eb3d6e81dd5b52a3d80 data/tconstruct/recipes/melting/water_from_snow_layer.json
 427aee7fcd258086d7f6085446b31b4e8a454349 data/tconstruct/recipes/melting/water_from_snowball.json
 96e1e1a760064b6fba68181c87f488d272aeaab1 data/tconstruct/recipes/parts/axe_head.json
+eacf3416f9796843c0f1653a6001fabb1198140b data/tconstruct/recipes/parts/excavator_head.json
 e0c75d95dde1e931dc72292218d9c4129d78a058 data/tconstruct/recipes/parts/hammer_head.json
 50350884c7fe97e19525f7eadd630c2f3c2f6ad7 data/tconstruct/recipes/parts/kama_head.json
 431b0002267a50c159021472dd98293ddf599be4 data/tconstruct/recipes/parts/large_plate.json
@@ -1236,6 +1252,7 @@ c3d0e55b8373218313fe61d186d596e51b3a3458 data/tconstruct/recipes/parts/shovel_he
 335b07b0341968b7f61a6587c65d106231505567 data/tconstruct/recipes/parts/small_binding.json
 8713e84d98819615888e3617ec69f64d8d606146 data/tconstruct/recipes/parts/sword_blade.json
 d7561df2dfd85a0da569162088f6b2fb3ece807b data/tconstruct/recipes/parts/tool_rod.json
+deced57d228f5db732cc5735d8ad8465fd0864e3 data/tconstruct/recipes/parts/tough_binding.json
 be7e9a7be15a66fd527949e8990444e8485e8308 data/tconstruct/recipes/parts/tough_tool_rod.json
 c1e5731d39c228bf6b6c903d1356203692e44099 data/tconstruct/recipes/parts/wide_guard.json
 8adaae368736d9b7dba175416f20b3a88e261544 data/tconstruct/recipes/smeltery/casting/basin.json
@@ -1316,6 +1333,7 @@ d1f3412c786450cfa1f10ad13f196d954240ba80 data/tconstruct/recipes/smeltery/seared
 88e481d3984a0cea4a0849f29e43151fd7ce40e5 data/tconstruct/recipes/tools/axe.json
 c4827cffe8cd79e568fd01cfb7772a026e28fe62 data/tconstruct/recipes/tools/broad_sword.json
 0bd58a6a4c9f72d1c0bf49720300ca8a1d191928 data/tconstruct/recipes/tools/crafting_station.json
+28aebd29118b50f00355827ceaea35691706bdc6 data/tconstruct/recipes/tools/excavator.json
 7c58d24bb2d7be876ebe5db2552d02050b5110b4 data/tconstruct/recipes/tools/hammer.json
 87df4ab7114ae60d25d07c73d89c74b885b2b945 data/tconstruct/recipes/tools/kama.json
 71f41221cec10ca116651bda866aeff61f96960e data/tconstruct/recipes/tools/materials/ardite_block_from_ingots.json

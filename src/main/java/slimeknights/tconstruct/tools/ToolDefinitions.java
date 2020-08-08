@@ -39,6 +39,16 @@ public final class ToolDefinitions {
     ),
     ImmutableSet.of(Category.HARVEST));
 
+  public static final ToolDefinition EXCAVATOR = new ToolDefinition(
+    ToolBaseStatDefinitions.EXCAVATOR,
+    ImmutableList.of(
+      new PartMaterialRequirement(TinkerToolParts.excavatorHead, HeadMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.toughToolRod, HandleMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.largePlate, HeadMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.toughBinding, ExtraMaterialStats.ID)
+    ),
+    ImmutableSet.of(Category.HARVEST, Category.AOE));
+
   public static final ToolDefinition AXE = new ToolDefinition(
     ToolBaseStatDefinitions.AXE,
     ImmutableList.of(

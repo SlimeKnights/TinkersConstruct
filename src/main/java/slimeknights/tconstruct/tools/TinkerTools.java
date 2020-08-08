@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.registration.object.ItemObject;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.tools.harvest.AxeTool;
+import slimeknights.tconstruct.tools.harvest.ExcavatorTool;
 import slimeknights.tconstruct.tools.harvest.HammerTool;
 import slimeknights.tconstruct.tools.harvest.KamaTool;
 import slimeknights.tconstruct.tools.harvest.PickaxeTool;
@@ -47,6 +48,7 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<HammerTool> hammer = ITEMS.register("hammer", () -> new HammerTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.HAMMER));
 
   public static final ItemObject<ShovelTool> shovel = ITEMS.register("shovel", () -> new ShovelTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.SHOVEL));
+  public static final ItemObject<ExcavatorTool> excavator = ITEMS.register("excavator", () -> new ExcavatorTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.EXCAVATOR));
 
   public static final ItemObject<AxeTool> axe = ITEMS.register("axe", () -> new AxeTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.AXE));
 

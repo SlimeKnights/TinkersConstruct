@@ -220,7 +220,7 @@ public class TConstruct {
             entry.remap(TinkerWorld.congealedSlime.get(slime));
           }
         }
-        switch(path) {
+        switch (path) {
           // slime fluids renamed to remove "fluid"
           case "purple_slime_fluid_block":
             entry.remap(TinkerFluids.purpleSlime.getBlock());

@@ -86,10 +86,12 @@ public class JEIPlugin implements IModPlugin {
     registry.registerSubtypeInterpreter(TinkerToolParts.pickaxeHead.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.hammerHead.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.shovelHead.get(), toolPartInterpreter);
+    registry.registerSubtypeInterpreter(TinkerToolParts.excavatorHead.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.axeHead.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.kamaHead.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.swordBlade.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.smallBinding.get(), toolPartInterpreter);
+    registry.registerSubtypeInterpreter(TinkerToolParts.toughBinding.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.wideGuard.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.largePlate.get(), toolPartInterpreter);
     registry.registerSubtypeInterpreter(TinkerToolParts.toolRod.get(), toolPartInterpreter);
@@ -118,6 +120,7 @@ public class JEIPlugin implements IModPlugin {
     registry.registerSubtypeInterpreter(TinkerTools.pickaxe.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.hammer.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.shovel.get(), toolInterpreter);
+    registry.registerSubtypeInterpreter(TinkerTools.excavator.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.axe.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.kama.get(), toolInterpreter);
     registry.registerSubtypeInterpreter(TinkerTools.broadSword.get(), toolInterpreter);

@@ -8,6 +8,7 @@ public final class ToolBaseStatDefinitions {
   static final ToolBaseStatDefinition HAMMER = new ToolBaseStatDefinition.Builder().setDamageModifier(1.2f).setAttackSpeed(0.8f).setMiningSpeedModifer(0.4f).build();
 
   static final ToolBaseStatDefinition SHOVEL = new ToolBaseStatDefinition.Builder().setDamageModifier(0.9f).setAttackSpeed(1f).build();
+  static final ToolBaseStatDefinition EXCAVATOR = new ToolBaseStatDefinition.Builder().setDamageModifier(1.25f).setAttackSpeed(0.7f).setMiningSpeedModifer(0.28f).build();
 
   static final ToolBaseStatDefinition AXE = new ToolBaseStatDefinition.Builder().setDamageModifier(1.1f).setAttackSpeed(1.1f).setKnockbackModifier(1.3f).build();
 

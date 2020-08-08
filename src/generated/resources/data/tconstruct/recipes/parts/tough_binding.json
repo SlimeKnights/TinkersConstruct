@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:part_builder",
+  "pattern": "tconstruct:tough_binding",
+  "cost": 3,
+  "output": {
+    "item": "tconstruct:tough_binding"
+  }
+}
