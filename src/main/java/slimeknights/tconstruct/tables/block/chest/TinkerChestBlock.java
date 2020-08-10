@@ -16,22 +16,24 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
+import slimeknights.mantle.tileentity.InventoryTileEntity;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.tables.block.TinkerTableBlock;
 import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
 
 public abstract class TinkerChestBlock extends TinkerTableBlock {
 
-  public static final VoxelShape SHAPE = VoxelShapes.or(
+  private static final VoxelShape SHAPE = VoxelShapes.or(
     Block.makeCuboidShape(0.0D, 15.0D, 0.0D, 16.0D, 16.0D, 16.0D), //top
     Block.makeCuboidShape(1.0D, 3.0D, 1.0D, 15.0D, 16.0D, 15.0D), //middle
     Block.makeCuboidShape(0.5D, 0.0D, 0.5D, 2.5D, 15.0D, 2.5D), //leg
     Block.makeCuboidShape(13.5D, 0.0D, 0.5D, 15.5D, 15.0D, 2.5D), //leg
     Block.makeCuboidShape(13.5D, 0.0D, 13.5D, 15.5D, 15.0D, 15.5D), //leg
     Block.makeCuboidShape(0.5D, 0.0D, 13.5D, 2.5D, 15.0D, 15.5D) //leg
-  );
+                                                        );
 
-  public TinkerChestBlock(Properties builder) {
+  @SuppressWarnings("WeakerAccess")
+  protected TinkerChestBlock(Properties builder) {
     super(builder);
   }
 
@@ -61,9 +63,9 @@ public abstract class TinkerChestBlock extends TinkerTableBlock {
   }
 
   @Override
-  public void dropInventoryItems(BlockState state, World worldIn, BlockPos pos, TileEntity tileentity) {
+  public void dropInventoryItems(BlockState state, World worldIn, BlockPos pos, InventoryTileEntity te) {
     if (!Config.COMMON.chestsKeepInventory.get()) {
-      super.dropInventoryItems(state, worldIn, pos, tileentity);
+      super.dropInventoryItems(state, worldIn, pos, te);
     }
   }
 }

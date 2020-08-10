@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.world.worldgen.islands.overworld;
 
+/*
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.SharedSeedRandom;
@@ -73,14 +74,14 @@ public class SlimeIslandStructure extends ScatteredStructure<NoFeatureConfig> {
     return 8;
   }
 
-  public static class Start extends StructureStart {
+  public static class Start extends StructureStart<NoFeatureConfig> {
 
-    public Start(Structure<?> structureIn, int chunkPosX, int chunkPosZ, MutableBoundingBox bounds, int references, long seed) {
+    public Start(Structure<NoFeatureConfig> structureIn, int chunkPosX, int chunkPosZ, MutableBoundingBox bounds, int references, long seed) {
       super(structureIn, chunkPosX, chunkPosZ, bounds, references, seed);
     }
 
     @Override
-    public void init(ChunkGenerator<?> generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn) {
+    public void func_230364_a_(ChunkGenerator generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn, NoFeatureConfig config) {
       int x = chunkX * 16 + 4 + this.rand.nextInt(8);
       int z = chunkZ * 16 + 4 + this.rand.nextInt(8);
 
@@ -121,3 +122,4 @@ public class SlimeIslandStructure extends ScatteredStructure<NoFeatureConfig> {
     }
   }
 }
+*/

@@ -4,6 +4,7 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.ICriterionInstance;
 import net.minecraft.advancements.IRequirementsStrategy;
+import net.minecraft.advancements.criterion.EntityPredicate.AndPredicate;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -21,17 +22,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ITag;
+import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalAdvancement;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
@@ -50,11 +52,10 @@ import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
-import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
-import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock.TankType;
@@ -104,7 +105,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .addIngredient(Items.BLAZE_POWDER)
       .addIngredient(TinkerCommons.lavawood)
       .addIngredient(Items.BLAZE_POWDER)
-      .addCriterion("has_lavawood", this.hasItem(TinkerCommons.lavawood))
+      .addCriterion("has_lavawood", hasItem(TinkerCommons.lavawood))
       .build(consumer, prefix(TinkerCommons.firewood, folder));
     registerSlabStair(consumer, TinkerCommons.firewood, folder, false);
     registerSlabStair(consumer, TinkerCommons.lavawood, folder, false);
@@ -115,9 +116,9 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .addIngredient(Blocks.DIRT)
       .addIngredient(Items.ROTTEN_FLESH)
       .addIngredient(Items.BONE_MEAL)
-      .addCriterion("has_dirt", this.hasItem(Blocks.DIRT))
-      .addCriterion("has_rotten_flesh", this.hasItem(Items.ROTTEN_FLESH))
-      .addCriterion("has_bone_meal", this.hasItem(Items.BONE_MEAL))
+      .addCriterion("has_dirt", hasItem(Blocks.DIRT))
+      .addCriterion("has_rotten_flesh", hasItem(Items.ROTTEN_FLESH))
+      .addCriterion("has_bone_meal", hasItem(Items.BONE_MEAL))
       .build(consumer, prefix(TinkerModifiers.graveyardSoil, folder));
     // consecrated soil
     CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerModifiers.graveyardSoil), TinkerModifiers.consecratedSoil, 0.1f, 200)
@@ -129,7 +130,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .key('#', TinkerCommons.mudBrick.get())
       .patternLine("##")
       .patternLine("##")
-      .addCriterion("has_mud_brick", this.hasItem(TinkerCommons.mudBrick))
+      .addCriterion("has_mud_brick", hasItem(TinkerCommons.mudBrick))
       .build(consumer, prefix(TinkerCommons.mudBricks, folder));
     registerSlabStair(consumer, TinkerCommons.mudBricks, folder, false);
     // FIXME: temporary mud brick item recipe
@@ -141,7 +142,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.book)
       .addIngredient(Items.BOOK)
       .addIngredient(TinkerTables.pattern)
-      .addCriterion("has_item", this.hasItem(TinkerTables.pattern))
+      .addCriterion("has_item", hasItem(TinkerTables.pattern))
       .build(consumer, prefix(TinkerCommons.book, "common/"));
 
     // glass
@@ -149,7 +150,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                        .key('#', TinkerCommons.clearGlass)
                        .patternLine("###")
                        .patternLine("###")
-                       .addCriterion("has_block", this.hasItem(TinkerCommons.clearGlass))
+                       .addCriterion("has_block", hasItem(TinkerCommons.clearGlass))
                        .build(consumer, prefix(TinkerCommons.clearGlassPane, "common/glass/"));
     for (GlassColor color : GlassColor.values()) {
       Block block = TinkerCommons.clearStainedGlass.get(color);
@@ -160,7 +161,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                          .patternLine("#X#")
                          .patternLine("###")
                          .setGroup(locationString("stained_clear_glass"))
-                         .addCriterion("has_clear_glass", this.hasItem(TinkerCommons.clearGlass))
+                         .addCriterion("has_clear_glass", hasItem(TinkerCommons.clearGlass))
                          .build(consumer, prefix(block, "common/glass/"));
       Block pane = TinkerCommons.clearStainedGlassPane.get(color);
       ShapedRecipeBuilder.shapedRecipe(pane, 16)
@@ -168,7 +169,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                          .patternLine("###")
                          .patternLine("###")
                          .setGroup(locationString("stained_clear_glass_pane"))
-                         .addCriterion("has_block", this.hasItem(block))
+                         .addCriterion("has_block", hasItem(block))
                          .build(consumer, prefix(pane, "common/glass/"));
       ShapedRecipeBuilder.shapedRecipe(pane, 8)
                          .key('#', TinkerCommons.clearGlassPane)
@@ -177,7 +178,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                          .patternLine("#X#")
                          .patternLine("###")
                          .setGroup(locationString("stained_clear_glass_pane"))
-                         .addCriterion("has_clear_glass", this.hasItem(TinkerCommons.clearGlassPane))
+                         .addCriterion("has_clear_glass", hasItem(TinkerCommons.clearGlassPane))
                          .build(consumer, wrap(pane, "common/glass/", "_from_panes"));
     }
 
@@ -189,14 +190,14 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
         .addIngredient(Blocks.GRAVEL)
         .addIngredient(Blocks.GRAVEL)
         .addIngredient(Blocks.GRAVEL)
-        .addCriterion("has_item", this.hasItem(Blocks.GRAVEL))::build)
+        .addCriterion("has_item", hasItem(Blocks.GRAVEL))::build)
       .setAdvancement(location("recipes/tinkers_general/common/flint"), ConditionalAdvancement.builder()
         .addCondition(new ConfigOptionEnabledCondition("addGravelToFlintRecipe"))
         .addAdvancement(Advancement.Builder.builder()
           .withParentId(new ResourceLocation("recipes/root"))
           .withRewards(AdvancementRewards.Builder.recipe(flintId))
           .withCriterion("has_item", hasItem(Blocks.GRAVEL))
-          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(flintId))
+          .withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(AndPredicate.ANY_AND, flintId))
           .withRequirementsStrategy(IRequirementsStrategy.OR))
        ).build(consumer, flintId);
   }
@@ -390,16 +391,16 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                          .key('X', Tags.Items.SLIMEBALLS)
                          .patternLine("X X")
                          .patternLine("# #")
-                         .addCriterion("has_item", this.hasItem(Tags.Items.SLIMEBALLS)));
+                         .addCriterion("has_item", hasItem(Tags.Items.SLIMEBALLS)));
     for (SlimeType slime : SlimeType.TINKER) {
-      ResourceLocation name = location(folder + slime.getName());
+      ResourceLocation name = location(folder + slime.getString());
       ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeBoots.get(slime))
                          .setGroup("tconstruct:slime_boots")
                          .key('#', TinkerWorld.congealedSlime.get(slime))
                          .key('X', slime.getSlimeBallTag())
                          .patternLine("X X")
                          .patternLine("# #")
-                         .addCriterion("has_item", this.hasItem(slime.getSlimeBallTag()))
+                         .addCriterion("has_item", hasItem(slime.getSlimeBallTag()))
                          .build(consumer, name);
       slimeBoots.addAlternative(name);
     }
@@ -415,9 +416,9 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                          .patternLine("#X#")
                          .patternLine("L L")
                          .patternLine(" L ")
-                         .addCriterion("has_item", this.hasItem(Tags.Items.SLIMEBALLS)));
+                         .addCriterion("has_item", hasItem(Tags.Items.SLIMEBALLS)));
     for (SlimeType slime : SlimeType.TINKER) {
-      ResourceLocation name = location(folder + slime.getName());
+      ResourceLocation name = location(folder + slime.getString());
       ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.slimeSling.get(slime))
                          .setGroup("tconstruct:slimesling")
                          .key('#', Items.STRING)
@@ -426,7 +427,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                          .patternLine("#X#")
                          .patternLine("L L")
                          .patternLine(" L ")
-                         .addCriterion("has_item", this.hasItem(slime.getSlimeBallTag()))
+                         .addCriterion("has_item", hasItem(slime.getSlimeBallTag()))
                          .build(consumer, name);
       slimeSling.addAlternative(name);
     }
@@ -440,7 +441,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                        .patternLine("# #")
                        .patternLine("#X#")
                        .patternLine("# #")
-                       .addCriterion("has_item", this.hasItem(ItemTags.PLANKS))
+                       .addCriterion("has_item", hasItem(ItemTags.PLANKS))
                        .build(consumer, prefix(TinkerGadgets.woodenRail, folder));
 
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.woodenDropperRail, 4)
@@ -449,7 +450,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                        .patternLine("# #")
                        .patternLine("#X#")
                        .patternLine("# #")
-                       .addCriterion("has_item", this.hasItem(ItemTags.PLANKS))
+                       .addCriterion("has_item", hasItem(ItemTags.PLANKS))
                        .build(consumer, prefix(TinkerGadgets.woodenDropperRail, folder));
 
     // stone
@@ -459,14 +460,14 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                        .key('X', TinkerGadgets.stoneTorch.get())
                        .patternLine("#")
                        .patternLine("X")
-                       .addCriterion("has_item", this.hasItem(Blocks.CARVED_PUMPKIN))
+                       .addCriterion("has_item", hasItem(Blocks.CARVED_PUMPKIN))
                        .build(consumer, location(folder + "jack_o_lantern"));
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.stoneLadder.get(), 3)
                        .key('#', TinkerTags.Items.RODS_STONE)
                        .patternLine("# #")
                        .patternLine("###")
                        .patternLine("# #")
-                       .addCriterion("has_item", this.hasItem(TinkerTags.Items.RODS_STONE))
+                       .addCriterion("has_item", hasItem(TinkerTags.Items.RODS_STONE))
                        .build(consumer, prefix(TinkerGadgets.stoneLadder, folder));
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.stoneStick.get(), 4)
                        .key('#', Ingredient.fromItemListStream(Stream.of(
@@ -475,7 +476,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                        ))
                        .patternLine("#")
                        .patternLine("#")
-                       .addCriterion("has_item", this.hasItem(Tags.Items.STONE))
+                       .addCriterion("has_item", hasItem(Tags.Items.STONE))
                        .build(consumer, prefix(TinkerGadgets.stoneStick, folder));
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.stoneTorch.get(), 4)
                        .key('#', Ingredient.fromItemListStream(Stream.of(
@@ -485,34 +486,22 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                        .key('X', TinkerTags.Items.RODS_STONE)
                        .patternLine("#")
                        .patternLine("X")
-                       .addCriterion("has_item", this.hasItem(TinkerTags.Items.RODS_STONE))
+                       .addCriterion("has_item", hasItem(TinkerTags.Items.RODS_STONE))
                        .build(consumer, prefix(TinkerGadgets.stoneTorch, folder));
 
     // throw balls
-    ResourceLocation eflnBallId = new ResourceLocation(TConstruct.modID, "gadgets/throwball/efln");
-    ConditionalRecipe.builder()
-      .addCondition(new TagEmptyCondition("forge", "dusts/sulfur"))
-      .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(TinkerGadgets.efln.get())
-        .addIngredient(Items.FLINT)
-        .addIngredient(Items.GUNPOWDER)
-        .addCriterion("has_item", this.hasItem(Tags.Items.DUSTS_GLOWSTONE))::build)
-      .addCondition(not(new TagEmptyCondition("forge", "dusts/sulfur")))
-      .addRecipe(ShapelessRecipeBuilder.shapelessRecipe(TinkerGadgets.efln.get())
-        .addIngredient(TinkerTags.Items.DUSTS_SULFUR)
-        .addIngredient(Ingredient.fromItemListStream(Stream.of(
-          new Ingredient.TagList(TinkerTags.Items.DUSTS_SULFUR),
-          new Ingredient.SingleItemList(new ItemStack(Items.GUNPOWDER)))
-        ))
-        .addCriterion("has_item", this.hasItem(Items.GUNPOWDER))::build)
-      .build(consumer, eflnBallId);
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerGadgets.efln.get())
+      .addIngredient(Items.FLINT)
+      .addIngredient(Items.GUNPOWDER)
+      .addCriterion("has_item", hasItem(Tags.Items.DUSTS_GLOWSTONE)).build(consumer, prefix(TinkerGadgets.efln, "gadgets/throwball/"));
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.glowBall.get(), 8)
       .key('#', Items.SNOWBALL)
       .key('X', Tags.Items.DUSTS_GLOWSTONE)
       .patternLine("###")
       .patternLine("#X#")
       .patternLine("###")
-      .addCriterion("has_item", this.hasItem(Tags.Items.DUSTS_GLOWSTONE))
-      .build(consumer, wrap(TinkerGadgets.glowBall, "gadgets/throwball/", ""));
+      .addCriterion("has_item", hasItem(Tags.Items.DUSTS_GLOWSTONE))
+      .build(consumer, prefix(TinkerGadgets.glowBall, "gadgets/throwball/"));
 
     // piggybackpack
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.piggyBackpack.get())
@@ -521,14 +510,14 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .patternLine(" X ")
       .patternLine("# #")
       .patternLine(" X ")
-      .addCriterion("has_item", this.hasItem(Tags.Items.RODS_WOODEN))
+      .addCriterion("has_item", hasItem(Tags.Items.RODS_WOODEN))
       .build(consumer, prefix(TinkerGadgets.piggyBackpack, "gadgets/"));
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.punji.get(), 3)
       .key('#', Items.SUGAR_CANE)
       .patternLine("# #")
       .patternLine(" # ")
       .patternLine("# #")
-      .addCriterion("has_item", this.hasItem(Items.SUGAR_CANE))
+      .addCriterion("has_item", hasItem(Items.SUGAR_CANE))
       .build(consumer, prefix(TinkerGadgets.punji, "gadgets/"));
 
     // frames
@@ -690,7 +679,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .patternLine("###")
       .patternLine("#B#")
       .patternLine("###")
-      .addCriterion("has_item", this.hasItem(TinkerSmeltery.searedBrick))
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
       .build(consumer, location("smeltery/seared/tank"));
 
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(SearedTankBlock.TankType.GAUGE))
@@ -699,7 +688,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .patternLine("#B#")
       .patternLine("BBB")
       .patternLine("#B#")
-      .addCriterion("has_item", this.hasItem(TinkerSmeltery.searedBrick))
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
       .build(consumer, location("smeltery/seared/gauge"));
 
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedTank.get(SearedTankBlock.TankType.WINDOW))
@@ -708,14 +697,14 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .patternLine("#B#")
       .patternLine("#B#")
       .patternLine("#B#")
-      .addCriterion("has_item", this.hasItem(TinkerSmeltery.searedBrick))
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
       .build(consumer, location("smeltery/seared/window"));
 
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedFaucet.get())
       .key('#', TinkerSmeltery.searedBrick)
       .patternLine("# #")
       .patternLine(" # ")
-      .addCriterion("has_item", this.hasItem(TinkerSmeltery.searedBrick))
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
       .build(consumer, location("smeltery/faucet"));
 
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.castingBasin.get())
@@ -723,7 +712,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .patternLine("# #")
       .patternLine("# #")
       .patternLine("###")
-      .addCriterion("has_item", this.hasItem(TinkerSmeltery.searedBrick))
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
       .build(consumer, location("smeltery/casting/basin"));
 
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.castingTable.get())
@@ -731,7 +720,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .patternLine("###")
       .patternLine("# #")
       .patternLine("# #")
-      .addCriterion("has_item", this.hasItem(TinkerSmeltery.searedBrick))
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
       .build(consumer, location("smeltery/casting/table"));
 
     ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedMelter)
@@ -758,7 +747,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     this.addBlockCastingRecipe(consumer, TinkerFluids.moltenGlass, MaterialValues.VALUE_Glass, TinkerCommons.clearGlass, folder);
     ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.clearGlassPane)
       .setFluid(new FluidStack(TinkerFluids.moltenGlass.get(), MaterialValues.VALUE_Pane))
-      .addCriterion("has_item", this.hasItem(TinkerCommons.clearGlassPane.asItem()))
+      .addCriterion("has_item", hasItem(TinkerCommons.clearGlassPane.asItem()))
       .build(consumer, prefix(TinkerCommons.clearGlassPane, folder));
     this.addBlockCastingRecipe(consumer, TinkerFluids.moltenObsidian, MaterialValues.VALUE_Glass, Items.OBSIDIAN, folder);
     // Molten objects with Bucket, Block, Ingot, and Nugget forms with standard values
@@ -776,33 +765,33 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.searedCobble)
       .setFluid(new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.VALUE_Ingot * 3))
       .setCast(Tags.Items.COBBLESTONE, true)
-      .addCriterion("has_item", this.hasItem(TinkerFluids.searedStone.asItem()))
+      .addCriterion("has_item", hasItem(TinkerFluids.searedStone.asItem()))
       .build(consumer, prefix(TinkerSmeltery.searedCobble, folder));
 
     ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.searedGlass)
       .setFluid(new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.VALUE_Ingot * 4))
       .setCast(Tags.Items.GLASS_COLORLESS, true)
-      .addCriterion("has_item", this.hasItem(TinkerFluids.searedStone.asItem()))
+      .addCriterion("has_item", hasItem(TinkerFluids.searedStone.asItem()))
       .build(consumer, prefix(TinkerSmeltery.searedGlass, folder));
 
     ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.searedGlassPane)
       .setFluid(new FluidStack(TinkerFluids.searedStone.get(), MaterialValues.VALUE_BrickBlock * 6 / 16))
       .setCast(Tags.Items.GLASS_PANES_COLORLESS, true)
-      .addCriterion("has_item", this.hasItem(Tags.Items.GLASS_PANES_COLORLESS))
+      .addCriterion("has_item", hasItem(Tags.Items.GLASS_PANES_COLORLESS))
       .build(consumer, prefix(TinkerSmeltery.searedGlassPane, folder));
 
     // Misc
     ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.lavawood)
       .setFluid(new FluidStack(Fluids.LAVA, 250))
       .setCast(ItemTags.PLANKS, true)
-      .addCriterion("has_item", this.hasItem(Items.LAVA_BUCKET))
+      .addCriterion("has_item", hasItem(Items.LAVA_BUCKET))
       .build(consumer, prefix(TinkerCommons.lavawood, folder));
 
     // Cast recipes
     ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.blankCast)
       .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
       .setSwitchSlots()
-      .addCriterion("has_item", this.hasItem(TinkerSmeltery.castingTable))
+      .addCriterion("has_item", hasItem(TinkerSmeltery.castingTable))
       .build(consumer, location(folder + "casts/blank"));
 
     this.addCastCastingRecipe(consumer, Tags.Items.INGOTS, TinkerSmeltery.ingotCast, folder);
@@ -932,7 +921,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
         .key('#', Tags.Items.SLIMEBALLS)
         .patternLine("##")
         .patternLine("##")
-        .addCriterion("has_item", this.hasItem(Tags.Items.SLIMEBALLS))
+        .addCriterion("has_item", hasItem(Tags.Items.SLIMEBALLS))
         .setGroup("tconstruct:congealed_slime"));
     // replace vanilla recipe to prevent it from conflicting with our slime blocks
     ShapedFallbackRecipeBuilder slimeBlock = ShapedFallbackRecipeBuilder.fallback(
@@ -941,43 +930,43 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                          .patternLine("###")
                          .patternLine("###")
                          .patternLine("###")
-                         .addCriterion("has_item", this.hasItem(Tags.Items.SLIMEBALLS))
+                         .addCriterion("has_item", hasItem(Tags.Items.SLIMEBALLS))
                          .setGroup("slime_blocks"));
     // does not need green as its the fallback
     for (SlimeType slimeType : SlimeType.TINKER) {
-      ResourceLocation name = location("common/slime/" + slimeType.getName() + "/congealed");
+      ResourceLocation name = location("common/slime/" + slimeType.getString() + "/congealed");
       ShapedRecipeBuilder.shapedRecipe(TinkerWorld.congealedSlime.get(slimeType))
                          .key('#', slimeType.getSlimeBallTag())
                          .patternLine("##")
                          .patternLine("##")
-                         .addCriterion("has_item", this.hasItem(slimeType.getSlimeBallTag()))
+                         .addCriterion("has_item", hasItem(slimeType.getSlimeBallTag()))
                          .setGroup("tconstruct:congealed_slime")
                          .build(consumer, name);
       congealed.addAlternative(name);
-      ResourceLocation blockName = location("common/slime/" + slimeType.getName() + "/slimeblock");
+      ResourceLocation blockName = location("common/slime/" + slimeType.getString() + "/slimeblock");
       ShapedRecipeBuilder.shapedRecipe(TinkerWorld.slime.get(slimeType))
                          .key('#', slimeType.getSlimeBallTag())
                          .patternLine("###")
                          .patternLine("###")
                          .patternLine("###")
-                         .addCriterion("has_item", this.hasItem(slimeType.getSlimeBallTag()))
+                         .addCriterion("has_item", hasItem(slimeType.getSlimeBallTag()))
                          .setGroup("slime_blocks")
                          .build(consumer, blockName);
       slimeBlock.addAlternative(blockName);
       // green already can craft into slime balls
       ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.slimeball.get(slimeType), 9)
                             .addIngredient(TinkerWorld.slime.get(slimeType))
-                            .addCriterion("has_item", this.hasItem(TinkerWorld.slime.get(slimeType)))
+                            .addCriterion("has_item", hasItem(TinkerWorld.slime.get(slimeType)))
                             .setGroup("tconstruct:slime_balls")
-                            .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeball_from_block");
+                            .build(consumer, "tconstruct:common/slime/" + slimeType.getString() + "/slimeball_from_block");
     }
     // all types of congealed need a recipe to a block
     for (SlimeType slimeType : SlimeType.values()) {
       ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.slimeball.get(slimeType), 4)
                             .addIngredient(TinkerWorld.congealedSlime.get(slimeType))
-                            .addCriterion("has_item", this.hasItem(TinkerWorld.congealedSlime.get(slimeType)))
+                            .addCriterion("has_item", hasItem(TinkerWorld.congealedSlime.get(slimeType)))
                             .setGroup("tconstruct:slime_balls")
-                            .build(consumer, "tconstruct:common/slime/" + slimeType.getName() + "/slimeball_from_congealed");
+                            .build(consumer, "tconstruct:common/slime/" + slimeType.getString() + "/slimeball_from_congealed");
     }
 
     // build fallback recipes
@@ -1143,14 +1132,14 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     PartRecipeBuilder.partRecipe(new ItemStack(part))
       .setPattern(location(name))
       .setCost(cost)
-      .addCriterion("has_item", this.hasItem(TinkerTables.pattern))
+      .addCriterion("has_item", hasItem(TinkerTables.pattern))
       .build(consumer, location("parts/" + name));
 
     // Material Casting
     MaterialCastingRecipeBuilder.tableRecipe(part)
       .setFluidAmount(cost * MaterialValues.VALUE_Ingot)
       .setCast(cast, false)
-      .addCriterion("has_item", this.hasItem(cast))
+      .addCriterion("has_item", hasItem(cast))
       .build(consumer, location("casting/parts/" + name));
 
     // Cast Casting
@@ -1176,7 +1165,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .setIngredient(input)
       .setValue(value)
       .setNeeded(needed)
-      .addCriterion("has_item", this.hasItem(TinkerTables.pattern.get()))
+      .addCriterion("has_item", hasItem(TinkerTables.pattern.get()))
       .build(consumer, location("materials/" + saveName));
   }
 
@@ -1225,22 +1214,22 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ICriterionInstance hasBlock = hasItem(item);
     Ingredient ingredient = Ingredient.fromItems(item);
     // slab
-    Item slab = building.getSlabItem();
+    IItemProvider slab = building.getSlab();
     ShapedRecipeBuilder.shapedRecipe(slab, 6)
                        .key('B', item)
                        .patternLine("BBB")
                        .addCriterion("has_item", hasBlock)
-                       .setGroup(Objects.requireNonNull(slab.getRegistryName()).toString())
+                       .setGroup(Objects.requireNonNull(slab.asItem().getRegistryName()).toString())
                        .build(consumer, wrap(item, folder, "_slab"));
     // stairs
-    Item stairs = building.getStairsItem();
+    IItemProvider stairs = building.getStairs();
     ShapedRecipeBuilder.shapedRecipe(stairs, 4)
                        .key('B', item)
                        .patternLine("B  ")
                        .patternLine("BB ")
                        .patternLine("BBB")
                        .addCriterion("has_item", hasBlock)
-                       .setGroup(Objects.requireNonNull(stairs.getRegistryName()).toString())
+                       .setGroup(Objects.requireNonNull(stairs.asItem().getRegistryName()).toString())
                        .build(consumer, wrap(item, folder, "_stairs"));
 
     // only add stonecutter if relevant
@@ -1389,7 +1378,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
   private void addBlockCastingRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends Fluid> fluid, int amount, IItemProvider block, String folder) {
     ItemCastingRecipeBuilder.basinRecipe(block)
       .setFluid(new FluidStack(fluid.get(), amount))
-      .addCriterion("has_item", this.hasItem(block))
+      .addCriterion("has_item", hasItem(block))
       .build(consumer, prefix(block, folder));
   }
 
@@ -1404,7 +1393,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ItemCastingRecipeBuilder.tableRecipe(ingot)
       .setFluid(new FluidStack(fluid.get(), MaterialValues.VALUE_Ingot))
       .setCast(TinkerSmeltery.ingotCast, false)
-      .addCriterion("has_item", this.hasItem(ingot))
+      .addCriterion("has_item", hasItem(ingot))
       .build(consumer, prefix(ingot, folder));
   }
 
@@ -1419,7 +1408,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ItemCastingRecipeBuilder.tableRecipe(nugget)
       .setFluid(new FluidStack(fluid.get(), MaterialValues.VALUE_Nugget))
       .setCast(TinkerSmeltery.nuggetCast, false)
-      .addCriterion("has_item", this.hasItem(nugget))
+      .addCriterion("has_item", hasItem(nugget))
       .build(consumer, prefix(nugget, folder));
   }
 
@@ -1435,12 +1424,12 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     ItemCastingRecipeBuilder.basinRecipe(TinkerWorld.slime.get(slimeType))
       .setFluid(new FluidStack(fluid.get(), MaterialValues.VALUE_SlimeBall * 5))
       .setCast(TinkerWorld.congealedSlime.get(slimeType), true)
-      .addCriterion("has_item", this.hasItem(TinkerCommons.slimeball.get(slimeType)))
-      .build(consumer, location(folder +"slime/" + slimeType.getName()));
+      .addCriterion("has_item", hasItem(TinkerCommons.slimeball.get(slimeType)))
+      .build(consumer, location(folder +"slime/" + slimeType.getString()));
     ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.slimeball.get(slimeType))
       .setFluid(new FluidStack(fluid.get(), MaterialValues.VALUE_SlimeBall))
-      .addCriterion("has_item", this.hasItem(TinkerCommons.slimeball.get(slimeType)))
-      .build(consumer, location(folder + "slimeball/" + slimeType.getName()));
+      .addCriterion("has_item", hasItem(TinkerCommons.slimeball.get(slimeType)))
+      .build(consumer, location(folder + "slimeball/" + slimeType.getString()));
   }
 
   /**
@@ -1471,13 +1460,13 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
    * @param cast      Produced cast
    * @param folder    Output folder
    */
-  private void addCastCastingRecipe(Consumer<IFinishedRecipe> consumer, Tag<Item> input, IItemProvider cast, String folder) {
+  private void addCastCastingRecipe(Consumer<IFinishedRecipe> consumer, INamedTag<Item> input, IItemProvider cast, String folder) {
     ItemCastingRecipeBuilder.tableRecipe(cast)
       .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
       .setCast(input, true)
       .setSwitchSlots()
-      .addCriterion("has_item", this.hasItem(input))
-      .build(consumer, location(folder + "casts/" + input.getId().getPath()));
+      .addCriterion("has_item", hasItem(input))
+      .build(consumer, location(folder + "casts/" + input.getName().getPath()));
   }
 
   /**
@@ -1492,7 +1481,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
       .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
       .setCast(input, true)
       .setSwitchSlots()
-      .addCriterion("has_item", this.hasItem(input))
+      .addCriterion("has_item", hasItem(input))
       .build(consumer, location(folder + "casts/" + Objects.requireNonNull(input.asItem().getRegistryName()).getPath()));
   }
 
@@ -1509,23 +1498,23 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
   private void addMetalMelting(Consumer<IFinishedRecipe> consumer, Fluid fluid, String name, boolean hasOre, String folder) {
     String prefix = folder + name + "_from_";
     // block
-    Tag<Item> block = getTag("forge", "storage_blocks/" + name);
+    ITag<Item> block = getTag("forge", "storage_blocks/" + name);
     MeltingRecipeBuilder.melting(Ingredient.fromTag(block), fluid, MaterialValues.VALUE_Block)
                         .addCriterion("hasItem", hasItem(block))
                         .build(consumer, location(prefix + "block"));
     // ingot
-    Tag<Item> ingot = getTag("forge", "ingots/" + name);
+    ITag<Item> ingot = getTag("forge", "ingots/" + name);
     MeltingRecipeBuilder.melting(Ingredient.fromTag(ingot), fluid, MaterialValues.VALUE_Ingot)
                         .addCriterion("hasItem", hasItem(Tags.Items.INGOTS_IRON))
                         .build(consumer, location(prefix + "ingot"));
     // nugget
-    Tag<Item> nugget = getTag("forge", "nuggets/" + name);
+    ITag<Item> nugget = getTag("forge", "nuggets/" + name);
     MeltingRecipeBuilder.melting(Ingredient.fromTag(nugget), fluid, MaterialValues.VALUE_Nugget)
                         .addCriterion("hasItem", hasItem(Tags.Items.NUGGETS_IRON))
                         .build(consumer, location(prefix + "nugget"));
     if (hasOre) {
       // TODO: mark as an ore recipe for ore doubling
-      Tag<Item> ore = getTag("forge", "ores/" + name);
+      ITag<Item> ore = getTag("forge", "ores/" + name);
       MeltingRecipeBuilder.melting(Ingredient.fromTag(ore), fluid, MaterialValues.VALUE_Ingot)
                           .addCriterion("hasItem", hasItem(ore))
                           .build(consumer, location(prefix + "ore"));
@@ -1538,8 +1527,8 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
    * @param name   Tag name
    * @return  Tag instance
    */
-  private static Tag<Item> getTag(String modId, String name) {
-    return new ItemTags.Wrapper(new ResourceLocation(modId, name));
+  private static ITag<Item> getTag(String modId, String name) {
+    return ItemTags.makeWrapperTag(modId + ":" + name);
   }
 
   // Forge constructor is private, not sure if there is a public place for this

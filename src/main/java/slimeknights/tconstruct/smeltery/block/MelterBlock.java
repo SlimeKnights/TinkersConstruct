@@ -22,7 +22,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import slimeknights.tconstruct.shared.block.GuiInventoryBlock;
+import slimeknights.mantle.block.InventoryBlock;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 /* TODO: extract base methods to shared class */
-public class MelterBlock extends GuiInventoryBlock {
+public class MelterBlock extends InventoryBlock {
   public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
   public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
   public MelterBlock(Properties props) {
@@ -92,12 +92,6 @@ public class MelterBlock extends GuiInventoryBlock {
 
   @Deprecated
   @Override
-  public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos) {
-    return false;
-  }
-
-  @Deprecated
-  @Override
   @OnlyIn(Dist.CLIENT)
   public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
     return 1.0F;
@@ -106,18 +100,6 @@ public class MelterBlock extends GuiInventoryBlock {
   @Override
   public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
     return true;
-  }
-
-  @Deprecated
-  @Override
-  public boolean causesSuffocation(BlockState state, IBlockReader worldIn, BlockPos pos) {
-    return false;
-  }
-
-  @Override
-  @Deprecated
-  public int getLightValue(BlockState state) {
-    return state.get(ACTIVE) ? super.getLightValue(state) : 0;
   }
 
   @Override

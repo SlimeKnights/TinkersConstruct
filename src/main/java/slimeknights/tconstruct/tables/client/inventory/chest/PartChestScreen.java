@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory.chest;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
@@ -13,22 +14,23 @@ public class PartChestScreen extends TinkerStationScreen<PartChestTileEntity, Ti
 
   protected static final ScalableElementScreen BACKGROUND = new ScalableElementScreen(7 + 18, 7, 18, 18);
 
-  public ScalingChestScreen scalingChestScreen;
+  public ScalingChestScreen<PartChestTileEntity> scalingChestScreen;
 
   public PartChestScreen(TinkerStationContainer<PartChestTileEntity> container, PlayerInventory playerInventory, ITextComponent title) {
     super(container, playerInventory, title);
 
-    this.scalingChestScreen = new ScalingChestScreen(this, container.getSubContainer(PartChestContainer.DynamicChestInventory.class), playerInventory, title);
+    // FIXME: nullable
+    this.scalingChestScreen = new ScalingChestScreen<>(this, container.getSubContainer(PartChestContainer.DynamicChestInventory.class), playerInventory, title);
     this.addModule(scalingChestScreen);
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-    this.drawBackground(BLANK_BACK);
+  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+    this.drawBackground(matrices, BLANK_BACK);
 
     this.scalingChestScreen.update(mouseX, mouseY);
 
-    super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+    super.drawGuiContainerBackgroundLayer(matrices, partialTicks, mouseX, mouseY);
   }
 
   @Override

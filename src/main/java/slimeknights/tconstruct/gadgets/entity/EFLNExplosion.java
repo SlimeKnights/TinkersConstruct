@@ -7,8 +7,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootContext;
+import net.minecraft.loot.LootParameters;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundCategory;
@@ -17,8 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -71,9 +71,8 @@ public class EFLNExplosion extends Explosion {
             float f = this.size * (1f - d / (r));
             BlockState blockstate = this.world.getBlockState(blockpos);
 
-            IFluidState ifluidstate = this.world.getFluidState(blockpos);
-
-            float f2 = Math.max(blockstate.getExplosionResistance(this.world, blockpos, this.exploder, this), ifluidstate.getExplosionResistance(this.world, blockpos, this.exploder, this));
+            FluidState ifluidstate = this.world.getFluidState(blockpos);
+            float f2 = Math.max(blockstate.getExplosionResistance(this.world, blockpos, this), ifluidstate.getExplosionResistance(this.world, blockpos, this));
             if (this.exploder != null) {
               f2 = this.exploder.getExplosionResistance(this, this.world, blockpos, blockstate, ifluidstate, f2);
             }
@@ -119,9 +118,7 @@ public class EFLNExplosion extends Explosion {
             builder.withParameter(LootParameters.EXPLOSION_RADIUS, this.size);
           }
 
-          blockstate.getDrops(builder).forEach((p_229977_2_) -> {
-            func_229976_a_(arrayList, p_229977_2_, blockpos1);
-          });
+          blockstate.getDrops(builder).forEach((stack) -> addStack(arrayList, stack, blockpos1));
         }
 
         blockstate.onBlockExploded(this.world, blockpos, this);
@@ -134,23 +131,23 @@ public class EFLNExplosion extends Explosion {
     this.affectedBlockPositions.add(blockPos);
   }
 
-  private static void func_229976_a_(ObjectArrayList<Pair<ItemStack, BlockPos>> arrayList, ItemStack itemStack, BlockPos blockPos) {
+  private static void addStack(ObjectArrayList<Pair<ItemStack, BlockPos>> arrayList, ItemStack merge, BlockPos blockPos) {
     int i = arrayList.size();
 
     for (int j = 0; j < i; ++j) {
       Pair<ItemStack, BlockPos> pair = arrayList.get(j);
       ItemStack itemstack = pair.getFirst();
 
-      if (ItemEntity.func_226532_a_(itemstack, itemStack)) {
-        ItemStack itemstack1 = ItemEntity.func_226533_a_(itemstack, itemStack, 16);
+      if (ItemEntity.canMergeStacks(itemstack, merge)) {
+        ItemStack itemstack1 = ItemEntity.mergeStacks(itemstack, merge, 16);
         arrayList.set(j, Pair.of(itemstack1, pair.getSecond()));
 
-        if (itemStack.isEmpty()) {
+        if (merge.isEmpty()) {
           return;
         }
       }
     }
 
-    arrayList.add(Pair.of(itemStack, blockPos));
+    arrayList.add(Pair.of(merge, blockPos));
   }
 }

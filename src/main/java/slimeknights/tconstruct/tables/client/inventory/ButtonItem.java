@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.tables.client.inventory;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.tconstruct.library.client.Icons;
-
-import javax.annotation.Nonnull;
 
 public class ButtonItem<T> extends Button {
 
@@ -25,15 +25,15 @@ public class ButtonItem<T> extends Button {
   private ElementScreen hoverGui = BUTTON_HOVER_GUI;
   private ResourceLocation backgroundLocation = Icons.ICONS;
 
-  public ButtonItem(int x, int y, int width, int height, String text, @Nonnull T data, IPressable onPress) {
+  public ButtonItem(int x, int y, int width, int height, ITextComponent text, T data, IPressable onPress) {
     super(x, y, 18, 18, text, onPress);
 
     this.icon = null;
     this.data = data;
   }
 
-  public ButtonItem(int x, int y, ItemStack icon, @Nonnull T data, IPressable onPress) {
-    super(x, y, 18, 18, icon.getDisplayName().getFormattedText(), onPress);
+  public ButtonItem(int x, int y, ItemStack icon, T data, IPressable onPress) {
+    super(x, y, 18, 18, icon.getDisplayName(), onPress);
 
     this.icon = icon;
     this.data = data;
@@ -49,7 +49,7 @@ public class ButtonItem<T> extends Button {
   }
 
   @Override
-  public void renderButton(int mouseX, int mouseY, float partialTicks) {
+  public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float partialTicks) {
     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     Minecraft.getInstance().getTextureManager().bindTexture(this.backgroundLocation);
 
@@ -57,11 +57,11 @@ public class ButtonItem<T> extends Button {
       this.isHovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 
       if (this.pressed) {
-        this.pressedGui.draw(this.x, this.y);
+        this.pressedGui.draw(matrices, this.x, this.y);
       } else if (this.isHovered) {
-        this.hoverGui.draw(this.x, this.y);
+        this.hoverGui.draw(matrices, this.x, this.y);
       } else {
-        this.normalGui.draw(this.x, this.y);
+        this.normalGui.draw(matrices, this.x, this.y);
       }
 
       this.drawIcon(Minecraft.getInstance());

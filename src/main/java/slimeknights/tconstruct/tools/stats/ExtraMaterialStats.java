@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
@@ -28,7 +28,7 @@ public class ExtraMaterialStats extends BaseMaterialStats {
 
   public final static String DURABILITY_LOCALIZATION = "stat.extra.durability.name";
   public final static String DURABILITY_DESCRIPTION_LOCALIZATION = "stat.extra.durability.description";
-  public final static String DURABILITY_COLOR = HeadMaterialStats.DURABILITY_COLOR;
+  public final static Color DURABILITY_COLOR = HeadMaterialStats.DURABILITY_COLOR;
 
   private int durability;
 

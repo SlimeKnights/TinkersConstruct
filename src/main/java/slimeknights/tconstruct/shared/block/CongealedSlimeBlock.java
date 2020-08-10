@@ -6,9 +6,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -33,13 +33,13 @@ public class CongealedSlimeBlock extends Block {
       return;
     }
 
-    Vec3d vec3d = entityIn.getMotion();
+    Vector3d vec3d = entityIn.getMotion();
 
     if (vec3d.y < -0.25D) {
       entityIn.setMotion(vec3d.x, -vec3d.y * -1.2D, vec3d.z);
       entityIn.fallDistance = 0;
       if (entityIn instanceof ItemEntity) {
-        entityIn.onGround = false;
+        entityIn.setOnGround(false);
       }
     } else {
       super.onLanded(worldIn, entityIn);

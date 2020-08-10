@@ -2,15 +2,15 @@ package slimeknights.tconstruct.library.client.model.data;
 
 import com.google.gson.JsonObject;
 import lombok.Getter;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.util.JSONUtils;
+import net.minecraft.util.math.vector.Vector3f;
 import slimeknights.tconstruct.library.client.model.ModelUtils;
 
 import java.util.List;
 
 public class ModelItem {
   /** Model item for rendering no item */
-  private static final ModelItem EMPTY = new ModelItem(new Vector3f(0,0,0), 0, 0, 0);
+  private static final ModelItem EMPTY = new ModelItem(new Vector3f(0, 0, 0), 0, 0, 0);
 
   /** Item center location in pixels */
   @Getter

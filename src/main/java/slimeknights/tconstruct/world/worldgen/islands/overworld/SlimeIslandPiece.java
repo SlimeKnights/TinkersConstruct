@@ -1,5 +1,5 @@
 package slimeknights.tconstruct.world.worldgen.islands.overworld;
-
+/*
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
@@ -10,14 +10,17 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
@@ -35,7 +38,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   private final Rotation rotation;
   private final Mirror mirror;
   private int numberOfTreesPlaced;
-  private ChunkGenerator<?> chunkGenerator;
+  private ChunkGenerator chunkGenerator;
 
   private static final SlimeTree SLIME_TREE = new SlimeTree(SlimeGrassBlock.FoliageType.BLUE,true);
   private static final SlimeTree PURPLE_BLUE_SLIME_TREE = new SlimeTree(SlimeGrassBlock.FoliageType.PURPLE,true);
@@ -71,9 +74,6 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
     this.setup(template, this.templatePosition, placementsettings);
   }
 
-  /**
-   * (abstract) Helper method to read subclass data from NBT
-   */
   @Override
   protected void readAdditional(CompoundNBT tagCompound) {
     super.readAdditional(tagCompound);
@@ -126,8 +126,9 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
               throw new IllegalStateException("Unexpected variant: " + this.variant);
           }
 
-          if (treeFeature != null) {
-            treeFeature.place(worldIn, this.chunkGenerator, rand, pos);
+          if (treeFeature != null && worldIn instanceof ServerWorld) {
+            ServerWorld serverWorld = (ServerWorld)worldIn;
+            treeFeature.func_236265_a_(serverWorld, serverWorld.func_241112_a_(), this.chunkGenerator, rand, pos);
           }
         }
 
@@ -171,9 +172,9 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   }
 
   @Override
-  public boolean create(IWorld worldIn, ChunkGenerator<?> chunkGenerator, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPosIn) {
-    this.chunkGenerator = chunkGenerator;
-
-    return super.create(worldIn, chunkGenerator, randomIn, structureBoundingBoxIn, chunkPosIn);
+  public boolean func_230383_a_(ISeedReader world, StructureManager manager, ChunkGenerator generator, Random rand, MutableBoundingBox bounds, ChunkPos chunk, BlockPos pos) {
+    this.chunkGenerator = generator;
+    return super.func_230383_a_(world, manager, generator, rand, bounds, chunk, pos);
   }
 }
+*/

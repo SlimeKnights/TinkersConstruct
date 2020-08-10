@@ -15,7 +15,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.ForgeI18n;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -24,7 +24,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.lwjgl.glfw.GLFW;
-import slimeknights.mantle.util.RecipeMatchRegistry;
+import slimeknights.mantle.recipe.match.RecipeMatchRegistry;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -178,10 +178,10 @@ public class Util {
   }
 
   /* Position helpers */
-  private static ImmutableMap<Vec3i, Direction> offsetMap;
+  private static ImmutableMap<Vector3i, Direction> offsetMap;
 
   static {
-    ImmutableMap.Builder<Vec3i, Direction> builder = ImmutableMap.builder();
+    ImmutableMap.Builder<Vector3i, Direction> builder = ImmutableMap.builder();
     for (Direction facing : Direction.values()) {
       builder.put(facing.getDirectionVec(), facing);
     }

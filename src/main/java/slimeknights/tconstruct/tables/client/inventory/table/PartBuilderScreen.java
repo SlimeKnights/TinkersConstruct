@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tables.client.inventory.table;
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -9,9 +10,11 @@ import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -55,24 +58,24 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-    this.drawBackground(BACKGROUND);
+  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+    this.drawBackground(matrices, BACKGROUND);
 
     // draw slot icons
-    this.drawIconEmpty(this.container.getPatternSlot(), Icons.PATTERN);
-    this.drawIconEmpty(this.container.getInputSlot(), Icons.INGOT);
+    this.drawIconEmpty(matrices, this.container.getPatternSlot(), Icons.PATTERN);
+    this.drawIconEmpty(matrices, this.container.getInputSlot(), Icons.INGOT);
 
     // draw scrollbar
     this.minecraft.getTextureManager().bindTexture(BACKGROUND);
-    this.blit(this.cornerX + 126, this.cornerY + 15 + (int) (41.0F * this.sliderProgress), 176 + (this.canScroll() ? 0 : 12), 0, 12, 15);
-    this.drawRecipesBackground(mouseX, mouseY, this.cornerX + 51, this.cornerY + 15);
-    this.drawRecipesItems(this.cornerX + 51, this.cornerY + 15);
+    this.blit(matrices, this.cornerX + 126, this.cornerY + 15 + (int) (41.0F * this.sliderProgress), 176 + (this.canScroll() ? 0 : 12), 0, 12, 15);
+    this.drawRecipesBackground(matrices, mouseX, mouseY, this.cornerX + 51, this.cornerY + 15);
+    this.drawRecipesItems(matrices, this.cornerX + 51, this.cornerY + 15);
 
-    super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
+    super.drawGuiContainerBackgroundLayer(matrices, partialTicks, mouseX, mouseY);
   }
 
   /** Draw backgrounds for all patterns */
-  private void drawRecipesBackground(int mouseX, int mouseY, int left, int top) {
+  private void drawRecipesBackground(MatrixStack matrices, int mouseX, int mouseY, int left, int top) {
     int max = Math.min(this.recipeIndexOffset + 12, this.getPartRecipeCount());
     for (int i = this.recipeIndexOffset; i < max; ++i) {
       int relative = i - this.recipeIndexOffset;
@@ -84,13 +87,14 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
       } else if (mouseX >= x && mouseY >= y && mouseX < x + 18 && mouseY < y + 18) {
         u += 36;
       }
-      this.blit(x, y, 0, u, 18, 18);
+      this.blit(matrices, x, y, 0, u, 18, 18);
     }
   }
 
   /** Draw slot icons for all patterns */
-  private void drawRecipesItems(int left, int top) {
+  private void drawRecipesItems(MatrixStack matrices, int left, int top) {
     // use block texture list
+    assert this.minecraft != null;
     this.minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
     Function<ResourceLocation, TextureAtlasSprite> spriteGetter = this.minecraft.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
     // iterate all recipes
@@ -104,11 +108,8 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
       PartRecipe recipe = list.get(i);
       ResourceLocation pattern = recipe.getPattern();
       TextureAtlasSprite sprite = spriteGetter.apply(new ResourceLocation(pattern.getNamespace(), "gui/tinker_pattern/" + pattern.getPath()));
-      blit(x, y, 100, 16, 16, sprite);
+      blit(matrices, x, y, 100, 16, 16, sprite);
     }
-  }
-
-  private void drawIcon(ResourceLocation name) {
   }
 
   @Override
@@ -134,7 +135,7 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
       this.setDisplayForMaterial(materialRecipe.getMaterial());
     } else {
       // default text
-      this.infoPanelScreen.setCaption(this.getTitle().getFormattedText());
+      this.infoPanelScreen.setCaption(this.getTitle());
       this.infoPanelScreen.setText(ForgeI18n.getPattern("gui.tconstruct.part_builder.info"));
       this.infoPanelScreen.clearMaterialValue();
     }
@@ -145,19 +146,19 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
    * @param material  New materia
    */
   private void setDisplayForMaterial(IMaterial material) {
-    this.infoPanelScreen.setCaption(material.getEncodedTextColor() + ForgeI18n.getPattern(material.getTranslationKey()));
+    this.infoPanelScreen.setCaption(new TranslationTextComponent(material.getTranslationKey()).modifyStyle(style -> style.setColor(material.getColor())));
 
     // determine how much material we have
     MaterialRecipe materialRecipe = this.container.getMaterialRecipe();
     if (materialRecipe != null) {
       // get exact number of material, rather than rounded
       float value = materialRecipe.getMaterialValue(this.container.getCraftInventory());
-      ITextComponent formatted = new StringTextComponent(Util.df.format(value));
+      IFormattableTextComponent formatted = new StringTextComponent(Util.df.format(value));
 
       // if we have a part recipe, mark material red when not enough
       PartRecipe partRecipe = this.container.getPartRecipe();
       if (partRecipe != null && value < partRecipe.getCost()) {
-        formatted = formatted.applyTextStyle(TextFormatting.DARK_RED);
+        formatted = formatted.mergeStyle(TextFormatting.DARK_RED);
       }
       this.infoPanelScreen.setMaterialValue(formatted);
     }
@@ -168,7 +169,7 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
       List<ITextComponent> info = stat.getLocalizedInfo();
       if (!info.isEmpty()) {
-        stats.add(stat.getLocalizedName().applyTextStyle(TextFormatting.UNDERLINE));
+        stats.add(stat.getLocalizedName().mergeStyle(TextFormatting.UNDERLINE));
         stats.addAll(info);
         stats.add(new StringTextComponent(""));
         tips.add(new StringTextComponent(""));
@@ -177,7 +178,7 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
       }
     }
     // remove last line if empty
-    if (!stats.isEmpty() && stats.get(stats.size() - 1).getFormattedText().isEmpty()) {
+    if (!stats.isEmpty() && stats.get(stats.size() - 1).getString().isEmpty()) {
       stats.remove(stats.size() - 1);
       tips.remove(tips.size() - 1);
     }
@@ -204,8 +205,10 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
         double buttonX = mouseX - (double) (x + relative % 4 * 18);
         double buttonY = mouseY - (double) (y + relative / 4 * 18);
 
+        assert this.minecraft != null;
         if (buttonX >= 0.0D && buttonY >= 0.0D && buttonX < 18.0D && buttonY < 18.0D && this.container.enchantItem(this.minecraft.player, l)) {
           Minecraft.getInstance().getSoundHandler().play(SimpleSound.master(SoundEvents.UI_STONECUTTER_SELECT_RECIPE, 1.0F));
+          assert this.minecraft.playerController != null;
           this.minecraft.playerController.sendEnchantPacket((this.container).windowId, l);
           return true;
         }
@@ -268,13 +271,13 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
 
   @Override
   public void error(String message) {
-    this.infoPanelScreen.setCaption(ForgeI18n.getPattern("gui.tconstruct.error"));
+    this.infoPanelScreen.setCaption(new TranslationTextComponent("gui.tconstruct.error"));
     this.infoPanelScreen.setText(message);
   }
 
   @Override
   public void warning(String message) {
-    this.infoPanelScreen.setCaption(ForgeI18n.getPattern("gui.tconstruct.warning"));
+    this.infoPanelScreen.setCaption(new TranslationTextComponent("gui.tconstruct.warning"));
     this.infoPanelScreen.setText(message);
   }
 

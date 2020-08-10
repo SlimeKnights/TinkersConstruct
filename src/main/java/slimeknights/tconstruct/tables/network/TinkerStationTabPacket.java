@@ -7,74 +7,52 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.fml.network.NetworkHooks;
-import slimeknights.mantle.network.AbstractPacket;
+import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
 
-import java.util.function.Supplier;
+public class TinkerStationTabPacket implements IThreadsafePacket {
 
-public class TinkerStationTabPacket extends AbstractPacket {
-
-  public int blockX;
-  public int blockY;
-  public int blockZ;
-
+  private BlockPos pos;
   public TinkerStationTabPacket(BlockPos blockPos) {
-    this.blockX = blockPos.getX();
-    this.blockY = blockPos.getY();
-    this.blockZ = blockPos.getZ();
+    this.pos = blockPos;
   }
 
   public TinkerStationTabPacket(PacketBuffer buffer) {
-    this.blockX = buffer.readInt();
-    this.blockY = buffer.readInt();
-    this.blockZ = buffer.readInt();
+    this.pos = buffer.readBlockPos();
   }
 
   @Override
-  public void encode(PacketBuffer packetBuffer) {
-    packetBuffer.writeInt(this.blockX);
-    packetBuffer.writeInt(this.blockY);
-    packetBuffer.writeInt(this.blockZ);
+  public void encode(PacketBuffer buffer) {
+    buffer.writeBlockPos(pos);
   }
 
   @Override
-  public void handle(Supplier<NetworkEvent.Context> supplier) {
-    supplier.get().enqueueWork(() -> {
-      if (supplier.get().getDirection().getReceptionSide() == LogicalSide.SERVER) {
-        if (supplier.get().getSender() != null) {
-          ServerPlayerEntity playerEntity = supplier.get().getSender();
-          ItemStack heldStack = null;
+  public void handleThreadsafe(Context context) {
+    ServerPlayerEntity sender = context.getSender();
+    if (sender != null) {
+      ItemStack heldStack = sender.inventory.getItemStack();
+      if (!heldStack.isEmpty()) {
+        // set it to empty, so it's doesn't get dropped
+        sender.inventory.setItemStack(ItemStack.EMPTY);
+      }
 
-          if (playerEntity != null && !playerEntity.inventory.getItemStack().isEmpty()) {
-            heldStack = playerEntity.inventory.getItemStack();
-            // set it to empty, so it's doesn't get dropped
-            playerEntity.inventory.setItemStack(ItemStack.EMPTY);
-          }
-
-          BlockPos pos = new BlockPos(blockX, blockY, blockZ);
-          BlockState state = playerEntity.getEntityWorld().getBlockState(pos);
-
-          if (state.getBlock() instanceof ITinkerStationBlock) {
-            ((ITinkerStationBlock) state.getBlock()).openGui(playerEntity, playerEntity.getEntityWorld(), pos);
-          } else {
-            INamedContainerProvider provider = state.getContainer(playerEntity.getEntityWorld(), pos);
-
-            if (provider != null) {
-              NetworkHooks.openGui(playerEntity, provider, pos);
-            }
-          }
-
-          if (heldStack != null) {
-            playerEntity.inventory.setItemStack(heldStack);
-            TinkerNetwork.getInstance().sendVanillaPacket(playerEntity, new SSetSlotPacket(-1, -1, heldStack));
-          }
+      BlockState state = sender.getEntityWorld().getBlockState(pos);
+      if (state.getBlock() instanceof ITinkerStationBlock) {
+        ((ITinkerStationBlock) state.getBlock()).openGui(sender, sender.getEntityWorld(), pos);
+      } else {
+        INamedContainerProvider provider = state.getContainer(sender.getEntityWorld(), pos);
+        if (provider != null) {
+          NetworkHooks.openGui(sender, provider, pos);
         }
       }
-    });
-    supplier.get().setPacketHandled(true);
+
+      if (!heldStack.isEmpty()) {
+        sender.inventory.setItemStack(heldStack);
+        TinkerNetwork.getInstance().sendVanillaPacket(sender, new SSetSlotPacket(-1, -1, heldStack));
+      }
+    }
   }
 }

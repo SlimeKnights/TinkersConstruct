@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
 import lombok.Getter;
+import net.minecraft.block.BlockState;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundNBT;
@@ -267,8 +268,8 @@ public class FaucetTileEntity extends TileEntity implements ITickableTileEntity 
   }
 
   @Override
-  public void read(CompoundNBT compound) {
-    super.read(compound);
+  public void read(BlockState state, CompoundNBT compound) {
+    super.read(state, compound);
     isPouring = compound.getBoolean(TAG_POURING);
     stopPouring = compound.getBoolean(TAG_STOP);
     lastRedstoneState = compound.getBoolean(TAG_LAST_REDSTONE);

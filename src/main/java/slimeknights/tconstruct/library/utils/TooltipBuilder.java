@@ -60,8 +60,8 @@ public class TooltipBuilder {
   public TooltipBuilder addDurability(boolean textIfBroken) {
     if (ToolData.isBroken(this.tool) && textIfBroken) {
       this.tips.add(new TranslationTextComponent(HeadMaterialStats.DURABILITY_LOCALIZATION)
-        .appendSibling(new StringTextComponent(": "))
-        .appendSibling(new TranslationTextComponent("tooltip.tool.broken").applyTextStyles(TextFormatting.BOLD, TextFormatting.DARK_RED)));
+        .append(new StringTextComponent(": "))
+        .append(new TranslationTextComponent("tooltip.tool.broken").mergeStyle(TextFormatting.BOLD, TextFormatting.DARK_RED)));
     }
     else if (ToolData.isBroken(this.tool)) {
       this.tips.add(HeadMaterialStats.formatDurability(ToolCore.getCurrentDurability(this.tool), ToolData.from(this.tool).getStats().durability));
@@ -83,8 +83,8 @@ public class TooltipBuilder {
 
   public TooltipBuilder addFreeModifiers() {
     this.tips.add(new TranslationTextComponent(FREE_MODIFIERS_LOCALIZATION)
-      .appendSibling(new StringTextComponent(": "))
-      .appendSibling(new StringTextComponent(String.valueOf(ToolData.from(this.tool).getStats().freeModifiers))));
+      .appendString(": ")
+      .appendString(String.valueOf(ToolData.from(this.tool).getStats().freeModifiers)));
 
     return this;
   }

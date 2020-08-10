@@ -46,7 +46,7 @@ public class GadgetEvents {
       if (isClient) {
         entity.setMotion(entity.getMotion().x, entity.getMotion().y * -0.9, entity.getMotion().z);
         entity.isAirBorne = true;
-        entity.onGround = false;
+        entity.setOnGround(false);
         double f = 0.91d + 0.04d;
         // only slow down half as much when bouncing
         entity.setMotion(entity.getMotion().x / f, entity.getMotion().y, entity.getMotion().z / f);

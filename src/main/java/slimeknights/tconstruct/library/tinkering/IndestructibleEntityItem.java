@@ -11,8 +11,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import slimeknights.tconstruct.tools.TinkerTools;
 
-import javax.annotation.Nonnull;
-
 public class IndestructibleEntityItem extends ItemEntity {
 
   public IndestructibleEntityItem(EntityType<? extends IndestructibleEntityItem> entityType, World world) {
@@ -51,17 +49,12 @@ public class IndestructibleEntityItem extends ItemEntity {
   }
 
   @Override
-  protected int getFireImmuneTicks() {
-    return Integer.MAX_VALUE;
+  public boolean isImmuneToFire() {
+    return true;
   }
 
   @Override
-  protected void dealFireDamage(int p_70081_1_) {
-    // no fire damage for you
-  }
-
-  @Override
-  public boolean attackEntityFrom(@Nonnull DamageSource source, float amount) {
+  public boolean attackEntityFrom(DamageSource source, float amount) {
     // prevent any damage besides out of world
     return source.getDamageType().equals(DamageSource.OUT_OF_WORLD.damageType);
   }

@@ -27,18 +27,6 @@ public class SearedGlassBlock extends SearedBlock {
 
   @Deprecated
   @Override
-  public boolean causesSuffocation(BlockState state, IBlockReader worldIn, BlockPos pos) {
-    return false;
-  }
-
-  @Deprecated
-  @Override
-  public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos) {
-    return false;
-  }
-
-  @Deprecated
-  @Override
   @OnlyIn(Dist.CLIENT)
   public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) {
     return adjacentBlockState.getBlock() == this || super.isSideInvisible(state, adjacentBlockState, side);

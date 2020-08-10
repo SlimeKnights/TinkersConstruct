@@ -25,15 +25,15 @@ public class HarvestLevels {
   public static final Map<Integer, ITextComponent> harvestLevelNames = Maps.newHashMap();
 
   public static ITextComponent getHarvestLevelName(int num) {
-    return harvestLevelNames.containsKey(num) ? num == DIAMOND ? harvestLevelNames.get(num).applyTextStyle(TextFormatting.AQUA) : harvestLevelNames.get(num) : new StringTextComponent(String.valueOf(num));
+    return harvestLevelNames.containsKey(num) ? harvestLevelNames.get(num) : new StringTextComponent(String.valueOf(num));
   }
 
   public static void init() {
-    harvestLevelNames.put(STONE, new StringTextComponent(MaterialRegistry.getMaterial(MaterialIds.stone).getEncodedTextColor()).appendSibling(new TranslationTextComponent("ui.mining_level.stone")));
-    harvestLevelNames.put(IRON, new StringTextComponent(MaterialRegistry.getMaterial(MaterialIds.iron).getEncodedTextColor()).appendSibling(new TranslationTextComponent("ui.mining_level.iron")));
-    harvestLevelNames.put(DIAMOND, new TranslationTextComponent("ui.mining_level.diamond"));
-    harvestLevelNames.put(OBSIDIAN, new StringTextComponent(MaterialRegistry.getMaterial(MaterialIds.obsidian).getEncodedTextColor()).appendSibling(new TranslationTextComponent("ui.mining_level.obsidian")));
-    harvestLevelNames.put(COBALT, new StringTextComponent(MaterialRegistry.getMaterial(MaterialIds.cobalt).getEncodedTextColor()).appendSibling(new TranslationTextComponent("ui.mining_level.cobalt")));
+    harvestLevelNames.put(STONE, new TranslationTextComponent("ui.mining_level.stone").modifyStyle(style -> style.setColor(MaterialRegistry.getMaterial(MaterialIds.stone).getColor())));
+    harvestLevelNames.put(IRON, new TranslationTextComponent("ui.mining_level.iron").modifyStyle(style -> style.setColor(MaterialRegistry.getMaterial(MaterialIds.iron).getColor())));
+    harvestLevelNames.put(DIAMOND, new TranslationTextComponent("ui.mining_level.diamond").mergeStyle(TextFormatting.AQUA));
+    harvestLevelNames.put(OBSIDIAN, new TranslationTextComponent("ui.mining_level.obsidian").modifyStyle(style -> style.setColor(MaterialRegistry.getMaterial(MaterialIds.obsidian).getColor())));
+    harvestLevelNames.put(COBALT, new TranslationTextComponent("ui.mining_level.cobalt").modifyStyle(style -> style.setColor(MaterialRegistry.getMaterial(MaterialIds.cobalt).getColor())));
 
     // custom names via resource pack..
     String base = "ui.mining_level.";

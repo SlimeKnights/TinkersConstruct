@@ -6,13 +6,13 @@ import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IModelTransform;
 import net.minecraft.client.renderer.model.IUnbakedModel;
 import net.minecraft.client.renderer.model.ItemOverrideList;
-import net.minecraft.client.renderer.model.Material;
 import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.client.model.CompositeModel;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.geometry.IModelGeometryPart;
@@ -47,8 +47,8 @@ public class Geometry implements IMultipartModelGeometry<Geometry> {
   }
 
   @Override
-  public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<Material, TextureAtlasSprite> spriteGetter, IModelTransform modelTransform, ItemOverrideList overrides, ResourceLocation modelLocation) {
-    Material particleLocation = owner.resolveTexture("particle");
+  public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, IModelTransform modelTransform, ItemOverrideList overrides, ResourceLocation modelLocation) {
+    RenderMaterial particleLocation = owner.resolveTexture("particle");
     TextureAtlasSprite particle = spriteGetter.apply(particleLocation);
 
     ImmutableMap.Builder<String, IBakedModel> bakedParts = ImmutableMap.builder();
@@ -61,12 +61,12 @@ public class Geometry implements IMultipartModelGeometry<Geometry> {
     IModelTransform transforms = owner.getCombinedTransform();
     // place names in an array so we can maintain order
     String[] partNames = this.parts.keySet().toArray(new String[0]);
-    return new CompositeModel(owner.isShadedInGui(), owner.useSmoothLighting(), particle, bakedParts.build(), transforms, new CompositeOverrides(partNames, transforms));
+    return new CompositeModel(owner.isShadedInGui(), owner.isSideLit(), owner.useSmoothLighting(), particle, bakedParts.build(), transforms, new CompositeOverrides(partNames, transforms));
   }
 
   @Override
-  public Collection<Material> getTextures(IModelConfiguration owner, Function<ResourceLocation, IUnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
-    Set<Material> textures = new HashSet<>();
+  public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation, IUnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
+    Set<RenderMaterial> textures = new HashSet<>();
     for (Submodel part : parts.values()) {
       textures.addAll(part.getTextures(owner, modelGetter, missingTextureErrors));
     }
@@ -89,7 +89,7 @@ public class Geometry implements IMultipartModelGeometry<Geometry> {
     }
 
     @Override
-    public IBakedModel getModelWithOverrides(IBakedModel originalModel, ItemStack stack, @Nullable World world, @Nullable LivingEntity entity) {
+    public IBakedModel func_239290_a_(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
       CompositeModel model = (CompositeModel) originalModel;
       ImmutableMap.Builder<String, IBakedModel> bakedParts = ImmutableMap.builder();
       // store all the baked models in an array to use as a hash key
@@ -99,7 +99,7 @@ public class Geometry implements IMultipartModelGeometry<Geometry> {
         IBakedModel part = model.getPart(key);
         if (part != null) {
           // apply the overrides on the model
-          IBakedModel override = part.getOverrides().getModelWithOverrides(part, stack, world, entity);
+          IBakedModel override = part.getOverrides().func_239290_a_(part, stack, world, entity);
           // fallback to the untextured model if none
           if (override != null) {
             hashKey[i] = override;
@@ -111,7 +111,7 @@ public class Geometry implements IMultipartModelGeometry<Geometry> {
         }
       }
       // skip overrides, we already have them
-      return cache.computeIfAbsent(new QuickHash(hashKey), (key) -> new CompositeModel(model.isGui3d(), model.isAmbientOcclusion(), model.getParticleTexture(), bakedParts.build(), originalTransform, this));
+      return cache.computeIfAbsent(new QuickHash(hashKey), (key) -> new CompositeModel(model.isGui3d(), model.func_230044_c_(), model.isAmbientOcclusion(), model.getParticleTexture(), bakedParts.build(), originalTransform, this));
     }
   }
 

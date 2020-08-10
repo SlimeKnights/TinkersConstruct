@@ -3,8 +3,8 @@ package slimeknights.tconstruct.shared.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
@@ -18,16 +18,17 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import slimeknights.mantle.block.InventoryBlock;
 
 /**
  * Inventory block with directions and waterlogging
  */
-public abstract class TableBlock extends GuiInventoryBlock implements IWaterLoggable {
+public abstract class TableBlock extends InventoryBlock implements IWaterLoggable {
 
-  protected static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-  protected static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+  private static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+  private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-  protected static final VoxelShape TABLE_SHAPE = VoxelShapes.or(
+  private static final VoxelShape TABLE_SHAPE = VoxelShapes.or(
     Block.makeCuboidShape(0.0D, 12.0D, 0.0D, 16.0D, 16.0D, 16.0D),  // top
     Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 4.0D, 15.0D, 4.0D),     // leg
     Block.makeCuboidShape(12.0D, 0.0D, 0.0D, 16.0D, 15.0D, 4.0D),   // leg
@@ -71,7 +72,7 @@ public abstract class TableBlock extends GuiInventoryBlock implements IWaterLogg
 
   @Deprecated
   @Override
-  public IFluidState getFluidState(BlockState state) {
+  public FluidState getFluidState(BlockState state) {
     return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
   }
 }

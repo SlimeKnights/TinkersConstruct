@@ -2,6 +2,7 @@ package slimeknights.tconstruct.test;
 
 import com.mojang.authlib.GameProfile;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.UUID;
@@ -9,7 +10,7 @@ import java.util.UUID;
 public class TestPlayerEntity extends PlayerEntity {
 
   public TestPlayerEntity(World worldIn) {
-    super(worldIn, new GameProfile(UUID.randomUUID(), "test"));
+    super(worldIn, BlockPos.ZERO, new GameProfile(UUID.randomUUID(), "test"));
   }
 
   @Override

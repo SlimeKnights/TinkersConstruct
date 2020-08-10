@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.library.network;
 
-import com.google.common.annotations.VisibleForTesting;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.fml.network.NetworkEvent.Context;
 import org.apache.logging.log4j.Logger;
+import slimeknights.mantle.network.packet.IThreadsafePacket;
+import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
@@ -20,20 +21,17 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
-public class UpdateMaterialStatsPacket {
+public class UpdateMaterialStatsPacket implements IThreadsafePacket {
+  private static final Logger log = Util.getLogger("NetworkSync");
 
-  public static final Logger log = Util.getLogger("NetworkSync");
+  protected final Map<MaterialId, Collection<IMaterialStats>> materialToStats;
 
-  @VisibleForTesting
-  protected Map<MaterialId, Collection<IMaterialStats>> materialToStats;
-
-  public UpdateMaterialStatsPacket(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
-    decode(buffer, classResolver);
+  public UpdateMaterialStatsPacket(PacketBuffer buffer) {
+    this(buffer, MaterialRegistry::getClassForStat);
   }
 
-  public void decode(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
+  public UpdateMaterialStatsPacket(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
     int materialCount = buffer.readInt();
     materialToStats = new HashMap<>(materialCount);
     for (int i = 0; i < materialCount; i++) {
@@ -47,6 +45,12 @@ public class UpdateMaterialStatsPacket {
     }
   }
 
+  /**
+   * Decodes a single stat
+   * @param buffer         Buffer instance
+   * @param classResolver  Stat to decode
+   * @return
+   */
   private Optional<IMaterialStats> decodeStat(PacketBuffer buffer, Function<MaterialStatsId, Class<?>> classResolver) {
     MaterialStatsId statsId = new MaterialStatsId(buffer.readResourceLocation());
     try {
@@ -60,6 +64,7 @@ public class UpdateMaterialStatsPacket {
     }
   }
 
+  @Override
   public void encode(PacketBuffer buffer) {
     buffer.writeInt(materialToStats.size());
     materialToStats.forEach((materialId, stats) -> {
@@ -69,8 +74,18 @@ public class UpdateMaterialStatsPacket {
     });
   }
 
+  /**
+   * Encodes a single material stat
+   * @param buffer  Buffer instance
+   * @param stat    Stat to encode
+   */
   private void encodeStat(PacketBuffer buffer, IMaterialStats stat) {
     buffer.writeResourceLocation(stat.getIdentifier());
     stat.encode(buffer);
+  }
+
+  @Override
+  public void handleThreadsafe(Context context) {
+    MaterialRegistry.updateMaterialStatsFromServer(this);
   }
 }

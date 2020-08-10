@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.materials.client;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
@@ -29,8 +29,8 @@ public class MaterialRenderManager extends JsonReloadListener {
   }
 
   @Override
-  protected void apply(Map<ResourceLocation, JsonObject> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+  protected void apply(Map<ResourceLocation,JsonElement> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
     // todo: actually keep the data
-    splashList.forEach((resourceLocation, jsonObject) -> LOGGER.info("{}: {}", resourceLocation, jsonObject));
+    splashList.forEach((resourceLocation, json) -> LOGGER.info("{}: {}", resourceLocation, json));
   }
 }

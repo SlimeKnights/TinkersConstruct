@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.world;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.BreakingParticle;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
@@ -20,7 +19,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.particle.SlimeParticle;
 import slimeknights.tconstruct.library.client.renderer.BlueSlimeRenderer;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
 import slimeknights.tconstruct.world.client.slime.BlueColorReloadListener;
@@ -67,7 +66,7 @@ public class WorldClientEvents extends ClientEventBase {
       RenderTypeLookup.setRenderLayer(TinkerWorld.magmaSlimeGrass.get(type), RenderType.getCutoutMipped());
       RenderTypeLookup.setRenderLayer(TinkerWorld.slimeFern.get(type), RenderType.getCutout());
       RenderTypeLookup.setRenderLayer(TinkerWorld.slimeTallGrass.get(type), RenderType.getCutout());
-      RenderTypeLookup.setRenderLayer(TinkerWorld.slimeSapling.get(type), RenderType.getCutout());
+      //RenderTypeLookup.setRenderLayer(TinkerWorld.slimeSapling.get(type), RenderType.getCutout());
     }
     RenderTypeLookup.setRenderLayer(TinkerWorld.purpleSlimeVine.get(), RenderType.getCutout());
     RenderTypeLookup.setRenderLayer(TinkerWorld.purpleSlimeVineMiddle.get(), RenderType.getCutout());
@@ -77,7 +76,7 @@ public class WorldClientEvents extends ClientEventBase {
     RenderTypeLookup.setRenderLayer(TinkerWorld.blueSlimeVineEnd.get(), RenderType.getCutout());
 
     // render types - slime blocks
-    for (SlimeBlock.SlimeType type : SlimeBlock.SlimeType.TINKER) {
+    for (StickySlimeBlock.SlimeType type : StickySlimeBlock.SlimeType.TINKER) {
       RenderTypeLookup.setRenderLayer(TinkerWorld.slime.get(type), RenderType.getTranslucent());
     }
   }

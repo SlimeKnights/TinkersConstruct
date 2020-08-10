@@ -1,5 +1,5 @@
 package slimeknights.tconstruct.test;
-
+/*
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.server.MinecraftServer;
@@ -53,4 +53,4 @@ public class TestServerWorld extends ServerWorld {
       mock(IProfiler.class),
       mock(IChunkStatusListener.class));
   }
-}
+*/

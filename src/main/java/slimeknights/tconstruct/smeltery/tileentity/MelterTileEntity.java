@@ -95,6 +95,7 @@ public class MelterTileEntity extends TableTileEntity implements ITankTileEntity
   }
 
   /** Extendable constructor */
+  @SuppressWarnings("WeakerAccess")
   protected MelterTileEntity(TileEntityType<? extends MelterTileEntity> type) {
     super(type, Util.makeTranslationKey("gui", "melter"), 3, 1);
 
@@ -397,13 +398,13 @@ public class MelterTileEntity extends TableTileEntity implements ITankTileEntity
    */
 
   @Override
-  public void read(CompoundNBT tag) {
+  public void read(BlockState state, CompoundNBT tag) {
     tank.readFromNBT(tag.getCompound(Tags.TANK));
     this.fuel = tag.getInt(TAG_FUEL);
     this.temperature = tag.getInt(TAG_TEMPERATURE);
     this.itemTemperatures = validate(tag.getIntArray(TAG_ITEM_TEMPERATURES), 3);
     this.itemTempRequired = validate(tag.getIntArray(TAG_ITEM_TEMP_REQUIRED), 3);
-    super.read(tag);
+    super.read(state, tag);
   }
 
   /**
@@ -446,6 +447,6 @@ public class MelterTileEntity extends TableTileEntity implements ITankTileEntity
   /** Checks if the tile entity is active */
   private boolean isActive() {
     BlockState state = this.getBlockState();
-    return state.has(MelterBlock.ACTIVE) && state.get(MelterBlock.ACTIVE);
+    return state.hasProperty(MelterBlock.ACTIVE) && state.get(MelterBlock.ACTIVE);
   }
 }

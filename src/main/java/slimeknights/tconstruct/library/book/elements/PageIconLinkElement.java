@@ -1,8 +1,10 @@
 package slimeknights.tconstruct.library.book.elements;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.mantle.client.book.action.StringActionProcessor;
@@ -10,6 +12,7 @@ import slimeknights.mantle.client.book.data.PageData;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.element.SizedBookElement;
 
+// TODO: name as ITextComponent?
 @OnlyIn(Dist.CLIENT)
 public class PageIconLinkElement extends SizedBookElement {
 
@@ -33,22 +36,22 @@ public class PageIconLinkElement extends SizedBookElement {
   }
 
   @Override
-  public void draw(int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
+  public void draw(MatrixStack matrices, int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
     boolean hover = this.isHovered(mouseX, mouseY);
     RenderSystem.color4f(1F, 1F, 1F, hover ? 1F : 0.5F);
     //RenderSystem.scale(scale, scale, 1f);
     if (this.isHovered(mouseX, mouseY)) {
-      fill(this.x, this.y, this.x + this.width, this.y + this.height, this.parent.book.appearance.hoverColor | (0x77 << 24));
+      fill(matrices, this.x, this.y, this.x + this.width, this.y + this.height, this.parent.book.appearance.hoverColor | (0x77 << 24));
     }
 
-    this.displayElement.draw(mouseX, mouseY, partialTicks, fontRenderer);
+    this.displayElement.draw(matrices, mouseX, mouseY, partialTicks, fontRenderer);
     //RenderSystem.scale(1/scale, 1/scale, 1f);
   }
 
   @Override
-  public void drawOverlay(int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
+  public void drawOverlay(MatrixStack matrices, int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
     if (this.name != null && !this.name.isEmpty() && this.isHovered(mouseX, mouseY)) {
-      this.drawHoveringText(ImmutableList.of(this.name), mouseX, mouseY, fontRenderer);
+      this.drawHoveringText(matrices, ImmutableList.of(new StringTextComponent(name)), mouseX, mouseY, fontRenderer);
     }
   }
 

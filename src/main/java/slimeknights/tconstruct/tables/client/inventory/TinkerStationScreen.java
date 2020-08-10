@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.entity.player.PlayerInventory;
@@ -33,7 +34,7 @@ public class TinkerStationScreen<TILE extends TileEntity & IInventory, CONTAINER
 
   public TinkerStationScreen(CONTAINER container, PlayerInventory playerInventory, ITextComponent title) {
     super(container, playerInventory, title);
-    this.tile = container.getTileEntity();
+    this.tile = container.getTile();
     this.container = container;
 
     this.tinkerTabsScreen = new TinkerTabsScreen(this, container, playerInventory, title);
@@ -64,32 +65,37 @@ public class TinkerStationScreen<TILE extends TileEntity & IInventory, CONTAINER
     return this.tile;
   }
 
-  protected void drawIcon(Slot slot, ElementScreen element) {
+  protected void drawIcon(MatrixStack matrices, Slot slot, ElementScreen element) {
     this.minecraft.getTextureManager().bindTexture(Icons.ICONS);
-    element.draw(slot.xPos + this.cornerX - 1, slot.yPos + this.cornerY - 1);
+    element.draw(matrices, slot.xPos + this.cornerX - 1, slot.yPos + this.cornerY - 1);
   }
 
-  protected void drawIconEmpty(Slot slot, ElementScreen element) {
+  protected void drawIconEmpty(MatrixStack matrices, Slot slot, ElementScreen element) {
     if (slot.getHasStack()) {
       return;
     }
 
-    this.drawIcon(slot, element);
+    this.drawIcon(matrices, slot, element);
   }
 
   public void onTabSelection(int selection) {
     if (selection < 0 || selection > this.tinkerTabsScreen.tabData.size()) {
       return;
     }
+    World world = this.tile.getWorld();
+    if (world == null) {
+      return;
+    }
 
     BlockPos pos = this.tinkerTabsScreen.tabData.get(selection);
-    BlockState state = this.tile.getWorld().getBlockState(pos);
+    BlockState state = world.getBlockState(pos);
 
     if (state.getBlock() instanceof ITinkerStationBlock) {
       TileEntity te = this.tile.getWorld().getTileEntity(pos);
       TinkerNetwork.getInstance().sendToServer(new TinkerStationTabPacket(pos));
 
       // sound!
+      assert this.minecraft != null;
       this.minecraft.getSoundHandler().play(SimpleSound.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
     }
   }

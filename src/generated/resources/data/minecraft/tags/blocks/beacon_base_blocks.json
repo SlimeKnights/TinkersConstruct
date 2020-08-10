@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:silky_jewel_block",
+    "#forge:storage_blocks/cobalt",
+    "#forge:storage_blocks/ardite",
+    "#forge:storage_blocks/manyullyn",
+    "#forge:storage_blocks/knightslime",
+    "#forge:storage_blocks/pig_iron",
+    "#forge:storage_blocks/copper",
+    "#forge:storage_blocks/rose_gold"
+  ]
+}

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory.library;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
@@ -15,7 +16,7 @@ public class DynInventoryScreen extends ModuleScreen {
 
   // Graphic Resources
   protected static final ScalableElementScreen slot = GenericScreen.slot;
-  protected static final ScalableElementScreen slotEmpty = GenericScreen.slotEmpty;
+  private static final ScalableElementScreen slotEmpty = GenericScreen.slotEmpty;
 
   protected static final ElementScreen sliderNormal = GenericScreen.sliderNormal;
   protected static final ElementScreen sliderLow = GenericScreen.sliderLow;
@@ -171,10 +172,10 @@ public class DynInventoryScreen extends ModuleScreen {
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     this.minecraft.getTextureManager().bindTexture(GenericScreen.LOCATION);
     if (!this.slider.isHidden()) {
-      this.slider.draw();
+      this.slider.draw(matrices);
 
       this.updateSlots();
     }
@@ -185,15 +186,15 @@ public class DynInventoryScreen extends ModuleScreen {
     int y;
 
     for (y = 0; y < fullRows * slot.h && y < this.ySize; y += slot.h) {
-      slot.drawScaledX(this.guiLeft, this.guiTop + y, w);
+      slot.drawScaledX(matrices, this.guiLeft, this.guiTop + y, w);
     }
 
     // draw partial row and unused slots
     int slotsLeft = (this.lastSlotId - this.firstSlotId) % this.columns;
     if (slotsLeft > 0) {
-      slot.drawScaledX(this.guiLeft, this.guiTop + y, slotsLeft * slot.w);
+      slot.drawScaledX(matrices, this.guiLeft, this.guiTop + y, slotsLeft * slot.w);
       // empty slots that don't exist
-      slotEmpty.drawScaledX(this.guiLeft + slotsLeft * slot.w, this.guiTop + y, w - slotsLeft * slot.w);
+      slotEmpty.drawScaledX(matrices, this.guiLeft + slotsLeft * slot.w, this.guiTop + y, w - slotsLeft * slot.w);
     }
   }
 }

@@ -14,6 +14,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -107,10 +108,11 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
     this.updateFacingWithBoundingBox(Direction.byIndex(buffer.readVarInt()));
   }
 
-  private static void removeClickEvents(ITextComponent p_207712_0_) {
-    p_207712_0_.applyTextStyle((p_213318_0_) -> {
-      p_213318_0_.setClickEvent(null);
-    }).getSiblings().forEach(FancyItemFrameEntity::removeClickEvents);
+  private static void removeClickEvents(ITextComponent text) {
+    if (text instanceof IFormattableTextComponent) {
+      ((IFormattableTextComponent)text).modifyStyle((p_213318_0_) -> p_213318_0_.setClickEvent(null))
+          .getSiblings().forEach(FancyItemFrameEntity::removeClickEvents);
+    }
   }
 
   @Override
@@ -123,7 +125,7 @@ public class FancyItemFrameEntity extends ItemFrameEntity implements IEntityAddi
     } else {
       String translationKey = this.getType().getTranslationKey();
 
-      return new TranslationTextComponent(translationKey + "." + this.getFrameType().getName());
+      return new TranslationTextComponent(translationKey + "." + this.getFrameType().getString());
     }
   }
 }

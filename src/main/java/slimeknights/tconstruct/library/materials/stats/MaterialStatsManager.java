@@ -10,9 +10,13 @@ import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.resources.JsonReloadListener;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
@@ -77,6 +81,7 @@ public class MaterialStatsManager extends JsonReloadListener {
   public MaterialStatsManager(TinkerNetwork tinkerNetwork) {
     super(GSON, FOLDER);
     this.tinkerNetwork = tinkerNetwork;
+    MinecraftForge.EVENT_BUS.addListener(this::updatePlayerMaterials);
   }
 
   public void registerMaterialStat(MaterialStatsId materialStatType, Class<? extends IMaterialStats> statsClass) {
@@ -119,11 +124,12 @@ public class MaterialStatsManager extends JsonReloadListener {
   }
 
   @Override
-  protected void apply(Map<ResourceLocation, JsonObject> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+  protected void apply(Map<ResourceLocation, JsonElement> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
     // Combine all loaded material files into one map, removing possible conflicting stats and printing a warning about them
     // this map can't contain any duplicate material stats in one material anymore.
     Map<MaterialId, Map<MaterialStatsId, StatContent>> statContentMappedByMaterial = splashList.entrySet().stream()
-      .map(entry -> loadFileContent(entry.getKey(), entry.getValue()))
+      .filter(entry -> entry.getValue().isJsonObject())
+      .map(entry -> loadFileContent(entry.getKey(), entry.getValue().getAsJsonObject()))
       .filter(Objects::nonNull)
       .collect(Collectors.toMap(
         statsFileContent -> statsFileContent.materialId,
@@ -145,14 +151,23 @@ public class MaterialStatsManager extends JsonReloadListener {
     log.info("{} stats loaded for {} materials",
       materialToStatsPerType.values().stream().mapToInt(stats -> stats.keySet().size()).sum(),
       materialToStatsPerType.size());
+  }
 
-    // send the newly loaded stats over the network
-    Map<MaterialId, Collection<IMaterialStats>> networkPayload = materialToStatsPerType.entrySet().stream()
-      .collect(Collectors.toMap(
-        Map.Entry::getKey,
-        entry -> entry.getValue().values()
-      ));
-    tinkerNetwork.send(PacketDistributor.ALL.noArg(), new UpdateMaterialStatsPacket(networkPayload));
+  /**
+   * Called when the player joins the server to send them a list of materials
+   * @param event  Player logged in event
+   */
+  private void updatePlayerMaterials(PlayerLoggedInEvent event) {
+    PlayerEntity player = event.getPlayer();
+    if (player instanceof ServerPlayerEntity) {
+      ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
+      Map<MaterialId, Collection<IMaterialStats>> networkPayload =
+        materialToStatsPerType.entrySet().stream()
+                              .collect(Collectors.toMap(
+                                Map.Entry::getKey,
+                                entry -> entry.getValue().values()));
+      tinkerNetwork.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new UpdateMaterialStatsPacket(networkPayload));
+    }
   }
 
   private Map<MaterialStatsId, IMaterialStats> deserializeMaterialStatsFromContent(Map<MaterialStatsId, StatContent> contents) {

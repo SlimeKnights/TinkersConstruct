@@ -69,6 +69,7 @@ public class SlimeVineBlock extends VineBlock {
     }
   }
 
+  @Nullable
   private Block getStateFromStage() {
     switch (this.vineStage) {
       case START:
@@ -257,7 +258,7 @@ public class SlimeVineBlock extends VineBlock {
     END;
 
     @Override
-    public String getName() {
+    public String getString() {
       return this.toString().toLowerCase(Locale.US);
     }
   }

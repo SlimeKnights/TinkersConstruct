@@ -69,9 +69,7 @@ class UpdateMaterialStatsPacketTest extends BaseMcTest {
     UpdateMaterialStatsPacket packetToEncode = new UpdateMaterialStatsPacket(materialToStats);
     packetToEncode.encode(buffer);
 
-    UpdateMaterialStatsPacket packetToDecode = new UpdateMaterialStatsPacket();
-    packetToDecode.decode(buffer, classResolverMock);
-    return packetToDecode;
+    return new UpdateMaterialStatsPacket(buffer, classResolverMock);
   }
 
   @SuppressWarnings("unchecked")

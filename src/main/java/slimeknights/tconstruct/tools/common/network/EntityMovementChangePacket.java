@@ -3,17 +3,15 @@ package slimeknights.tconstruct.tools.common.network;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
-import slimeknights.mantle.network.AbstractPacket;
+import net.minecraftforge.fml.network.NetworkEvent.Context;
+import slimeknights.mantle.network.packet.IThreadsafePacket;
 
-import java.util.function.Supplier;
-
-public class EntityMovementChangePacket extends AbstractPacket {
+public class EntityMovementChangePacket implements IThreadsafePacket {
 
   private int entityID;
-  public double x;
-  public double y;
-  public double z;
+  private double x;
+  private double y;
+  private double z;
   private float yaw;
   private float pitch;
 
@@ -46,15 +44,22 @@ public class EntityMovementChangePacket extends AbstractPacket {
   }
 
   @Override
-  public void handle(Supplier<NetworkEvent.Context> supplier) {
-    supplier.get().enqueueWork(() -> {
-      Entity entity = Minecraft.getInstance().world.getEntityByID(this.entityID);
-      if (supplier.get().getSender() != null && entity != null) {
-        entity.setMotion(this.x, this.y, this.z);
-        entity.rotationYaw = this.yaw;
-        entity.rotationPitch = this.pitch;
+  public void handleThreadsafe(Context context) {
+    if (context.getSender() != null) {
+      HandleClient.handle(this);
+    }
+  }
+
+  /** Safely runs client side only code in a method only called on client */
+  private static class HandleClient {
+    private static void handle(EntityMovementChangePacket packet) {
+      assert Minecraft.getInstance().world != null;
+      Entity entity = Minecraft.getInstance().world.getEntityByID(packet.entityID);
+      if (entity != null) {
+        entity.setMotion(packet.x, packet.y, packet.z);
+        entity.rotationYaw = packet.yaw;
+        entity.rotationPitch = packet.pitch;
       }
-    });
-    supplier.get().setPacketHandled(true);
+    }
   }
 }

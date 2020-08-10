@@ -3,18 +3,19 @@ package slimeknights.tconstruct.tables.client.inventory.library;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.inventory.BaseContainer;
 
-public class ScalingChestScreen extends DynInventoryScreen {
+public class ScalingChestScreen<T extends TileEntity & IInventory> extends DynInventoryScreen {
 
   protected final IInventory inventory;
 
-  public ScalingChestScreen(MultiModuleScreen<?> parent, BaseContainer container, PlayerInventory playerInventory, ITextComponent title) {
+  public ScalingChestScreen(MultiModuleScreen<?> parent, BaseContainer<T> container, PlayerInventory playerInventory, ITextComponent title) {
     super(parent, container, playerInventory, title);
 
-    this.inventory = (IInventory) container.getTileEntity();
+    this.inventory = container.getTile();
     if (this.inventory != null)
       this.slotCount = this.inventory.getSizeInventory();
     else

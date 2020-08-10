@@ -10,7 +10,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import slimeknights.mantle.item.TooltipItem;
 import slimeknights.tconstruct.common.Sounds;
@@ -45,7 +45,7 @@ public class SlimeSlingItem extends TooltipItem {
 
     PlayerEntity player = (PlayerEntity) entityLiving;
     // has to be on ground to do something
-    if (!player.onGround) {
+    if (!player.isOnGround()) {
       return;
     }
 
@@ -61,11 +61,9 @@ public class SlimeSlingItem extends TooltipItem {
 
     // check if player was targeting a block
     RayTraceResult mop = rayTrace(worldIn, player, RayTraceContext.FluidMode.NONE);
-
-    if (mop != null && mop.getType() == RayTraceResult.Type.BLOCK) {
+    if (mop.getType() == RayTraceResult.Type.BLOCK) {
       // we fling the inverted player look vector
-      Vec3d vec = player.getLookVec().normalize();
-
+      Vector3d vec = player.getLookVec().normalize();
       player.addVelocity(vec.x * -f,
         vec.y * -f / 3f,
         vec.z * -f);

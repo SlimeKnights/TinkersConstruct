@@ -5,11 +5,8 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fml.network.NetworkEvent.Context;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
-
-import java.util.function.Supplier;
 
 /** Sent to clients to activate the faucet animation clientside **/
 public class FaucetActivationPacket extends FluidUpdatePacket {
@@ -32,16 +29,18 @@ public class FaucetActivationPacket extends FluidUpdatePacket {
   }
 
   @Override
-  public void handle(Supplier<NetworkEvent.Context> supplier) {
-    supplier.get().enqueueWork(() -> {
-      if (supplier.get().getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-        TileEntity te = Minecraft.getInstance().world.getTileEntity(pos);
-        if (te instanceof FaucetTileEntity) {
-          ((FaucetTileEntity) te).onActivationPacket(fluid, isPouring);
-        }
-      }
-    });
+  public void handleThreadsafe(Context context) {
+    HandleClient.handle(this);
+  }
 
-    supplier.get().setPacketHandled(true);
+  /** Safely runs client side only code in a method only called on client */
+  private static class HandleClient {
+    private static void handle(FaucetActivationPacket packet) {
+      assert Minecraft.getInstance().world != null;
+      TileEntity te = Minecraft.getInstance().world.getTileEntity(packet.pos);
+      if (te instanceof FaucetTileEntity) {
+        ((FaucetTileEntity) te).onActivationPacket(packet.fluid, packet.isPouring);
+      }
+    }
   }
 }

@@ -29,7 +29,7 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
 
   public final List<Pair<BlockPos, BlockState>> tinkerStationBlocks;
 
-  public TinkerStationContainer(ContainerType<?> containerType, int id, @Nullable PlayerInventory inv, TILE tile) {
+  public TinkerStationContainer(ContainerType<?> containerType, int id, @Nullable PlayerInventory inv, @Nullable TILE tile) {
     super(containerType, id, inv, tile);
 
     this.tinkerStationBlocks = Lists.newLinkedList();

@@ -6,9 +6,9 @@ import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.util.Direction;
 import net.minecraft.util.JSONUtils;
+import net.minecraft.util.math.vector.Vector3f;
 import slimeknights.tconstruct.library.client.model.ModelUtils;
 
 import javax.annotation.Nullable;

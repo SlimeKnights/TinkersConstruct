@@ -1,5 +1,5 @@
 package slimeknights.tconstruct.world.worldgen.islands.nether;
-
+/*
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.SharedSeedRandom;
@@ -97,3 +97,4 @@ public class NetherSlimeIslandStructure extends ScatteredStructure<NoFeatureConf
     }
   }
 }
+*/

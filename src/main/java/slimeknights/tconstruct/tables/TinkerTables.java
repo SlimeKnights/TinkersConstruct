@@ -8,13 +8,12 @@ import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
+import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeSerializer;
-import slimeknights.tconstruct.library.registration.object.BlockItemObject;
-import slimeknights.tconstruct.library.registration.object.ItemObject;
 import slimeknights.tconstruct.shared.block.TableBlock;
 import slimeknights.tconstruct.tables.block.chest.PartChestBlock;
 import slimeknights.tconstruct.tables.block.chest.PatternChestBlock;
@@ -37,10 +36,10 @@ public final class TinkerTables extends TinkerModule {
    * Blocks
    */
   private static final Block.Properties TOOL_TABLE = builder(Material.WOOD, ToolType.AXE, SoundType.WOOD).hardnessAndResistance(1.0F, 5.0F).notSolid();
-  public static final BlockItemObject<TableBlock> craftingStation = BLOCKS.register("crafting_station", () -> new CraftingStationBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
-  public static final BlockItemObject<TableBlock> partBuilder = BLOCKS.register("part_builder", () -> new PartBuilderBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
-  public static final BlockItemObject<TableBlock> patternChest = BLOCKS.register("pattern_chest", () -> new PatternChestBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
-  public static final BlockItemObject<TableBlock> partChest = BLOCKS.register("part_chest", () -> new PartChestBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<TableBlock> craftingStation = BLOCKS.register("crafting_station", () -> new CraftingStationBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<TableBlock> partBuilder = BLOCKS.register("part_builder", () -> new PartBuilderBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<TableBlock> patternChest = BLOCKS.register("pattern_chest", () -> new PatternChestBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<TableBlock> partChest = BLOCKS.register("part_chest", () -> new PartChestBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
 
   /*
    * Items

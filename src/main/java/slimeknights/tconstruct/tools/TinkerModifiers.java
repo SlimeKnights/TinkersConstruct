@@ -1,10 +1,9 @@
 package slimeknights.tconstruct.tools;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.library.registration.object.BlockItemObject;
-import slimeknights.tconstruct.library.registration.object.ItemObject;
-import slimeknights.tconstruct.shared.block.BeaconBaseBlock;
 import slimeknights.tconstruct.shared.block.ConsecratedSoilBlock;
 import slimeknights.tconstruct.shared.block.GraveyardSoilBlock;
 import slimeknights.tconstruct.shared.block.SlimyMudBlock;
@@ -18,13 +17,13 @@ public final class TinkerModifiers extends TinkerModule {
    * Blocks
    */
   // material
-  public static final BlockItemObject<BeaconBaseBlock> silkyJewelBlock = BLOCKS.register("silky_jewel_block", () -> new BeaconBaseBlock(GENERIC_GEM_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> silkyJewelBlock = BLOCKS.register("silky_jewel_block", GENERIC_GEM_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
   // soil
-  public static final BlockItemObject<GraveyardSoilBlock> graveyardSoil = BLOCKS.register("graveyard_soil", () -> new GraveyardSoilBlock(GENERIC_SAND_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<ConsecratedSoilBlock> consecratedSoil = BLOCKS.register("consecrated_soil", () -> new ConsecratedSoilBlock(GENERIC_SAND_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<SlimyMudBlock> slimyMudGreen = BLOCKS.register("slimy_mud_green", () -> new SlimyMudBlock(GENERIC_SAND_BLOCK, SlimyMudBlock.MudType.SLIMY_MUD_GREEN), GENERAL_TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<SlimyMudBlock> slimyMudBlue = BLOCKS.register("slimy_mud_blue", () -> new SlimyMudBlock(GENERIC_SAND_BLOCK, SlimyMudBlock.MudType.SLIMY_MUD_BLUE), GENERAL_TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<SlimyMudBlock> slimyMudMagma = BLOCKS.register("slimy_mud_magma", () -> new SlimyMudBlock(GENERIC_SAND_BLOCK, SlimyMudBlock.MudType.SLIMY_MUD_MAGMA), GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<GraveyardSoilBlock> graveyardSoil = BLOCKS.register("graveyard_soil", () -> new GraveyardSoilBlock(GENERIC_SAND_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<ConsecratedSoilBlock> consecratedSoil = BLOCKS.register("consecrated_soil", () -> new ConsecratedSoilBlock(GENERIC_SAND_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SlimyMudBlock> slimyMudGreen = BLOCKS.register("slimy_mud_green", () -> new SlimyMudBlock(GENERIC_SAND_BLOCK, SlimyMudBlock.MudType.SLIMY_MUD_GREEN), GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SlimyMudBlock> slimyMudBlue = BLOCKS.register("slimy_mud_blue", () -> new SlimyMudBlock(GENERIC_SAND_BLOCK, SlimyMudBlock.MudType.SLIMY_MUD_BLUE), GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SlimyMudBlock> slimyMudMagma = BLOCKS.register("slimy_mud_magma", () -> new SlimyMudBlock(GENERIC_SAND_BLOCK, SlimyMudBlock.MudType.SLIMY_MUD_MAGMA), GENERAL_TOOLTIP_BLOCK_ITEM);
 
   /*
    * Items

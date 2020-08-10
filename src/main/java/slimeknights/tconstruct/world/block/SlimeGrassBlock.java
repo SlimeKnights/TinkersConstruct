@@ -21,7 +21,6 @@ import net.minecraft.world.lighting.LightEngine;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Random;
 
@@ -139,25 +138,22 @@ public class SlimeGrassBlock extends Block implements IGrowable {
     return canBecomeSlimeGrass(state, worldReader, pos) && !worldReader.getFluidState(blockpos).isTagged(FluidTags.WATER);
   }
 
-  @Nullable
   public BlockState getDirtState(BlockState grassState) {
-    if (TinkerWorld.vanillaSlimeGrass.contains(grassState.getBlock())) {
-      return Blocks.DIRT.getDefaultState();
-    }
-    if (TinkerWorld.greenSlimeGrass.contains(grassState.getBlock())) {
+    Block block = grassState.getBlock();
+    if (TinkerWorld.greenSlimeGrass.contains(block)) {
       return TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.GREEN).getDefaultState();
     }
-    if (TinkerWorld.blueSlimeGrass.contains(grassState.getBlock())) {
+    if (TinkerWorld.blueSlimeGrass.contains(block)) {
       return TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.BLUE).getDefaultState();
     }
-    if (TinkerWorld.purpleSlimeGrass.contains(grassState.getBlock())) {
+    if (TinkerWorld.purpleSlimeGrass.contains(block)) {
       return TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.PURPLE).getDefaultState();
     }
-    if (TinkerWorld.magmaSlimeGrass.contains(grassState.getBlock())) {
+    if (TinkerWorld.magmaSlimeGrass.contains(block)) {
       return TinkerWorld.slimeDirt.get(SlimeDirtBlock.SlimeDirtType.MAGMA).getDefaultState();
     }
-
-    return null;
+    // includes vanilla slime grass
+    return Blocks.DIRT.getDefaultState();
   }
 
   private BlockState getStateFromDirt(BlockState dirtState) {
@@ -184,7 +180,7 @@ public class SlimeGrassBlock extends Block implements IGrowable {
     ORANGE;
 
     @Override
-    public String getName() {
+    public String getString() {
       return this.toString().toLowerCase(Locale.US);
     }
 

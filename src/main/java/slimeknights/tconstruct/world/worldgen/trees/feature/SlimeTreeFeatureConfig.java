@@ -1,5 +1,5 @@
 package slimeknights.tconstruct.world.worldgen.trees.feature;
-
+/*
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.Dynamic;
@@ -92,3 +92,4 @@ public class SlimeTreeFeatureConfig extends BaseTreeFeatureConfig {
     }
   }
 }
+*/

@@ -51,8 +51,8 @@ import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
-import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerMaterials;
@@ -72,6 +72,7 @@ import java.util.Random;
  * @author mDiyo
  */
 
+@SuppressWarnings("unused")
 @Mod(TConstruct.modID)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TConstruct {
@@ -116,23 +117,24 @@ public class TConstruct {
   }
 
   @SubscribeEvent
-  public static void commonSetup(final FMLCommonSetupEvent event) {
+  static void commonSetup(final FMLCommonSetupEvent event) {
     MaterialRegistry.init();
   }
 
   @SubscribeEvent
-  public static void clientSetup(final FMLClientSetupEvent event) {
+  static void clientSetup(final FMLClientSetupEvent event) {
     // TODO: this belongs in the debug module, not here
     ScreenManager.registerFactory(ToolDebugContainer.TOOL_DEBUG_CONTAINER_TYPE, ToolDebugScreen::new);
   }
 
   @SubscribeEvent
-  public static void gatherData(final GatherDataEvent event) {
+  static void gatherData(final GatherDataEvent event) {
     DataGenerator datagenerator = event.getGenerator();
 
     if (event.includeServer()) {
-      datagenerator.addProvider(new TConstructBlockTagsProvider(datagenerator));
-      datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator));
+      TConstructBlockTagsProvider blockTags = new TConstructBlockTagsProvider(datagenerator);
+      datagenerator.addProvider(blockTags);
+      datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator, blockTags));
       datagenerator.addProvider(new TConstructFluidTagsProvider(datagenerator));
       datagenerator.addProvider(new TConstructEntityTypeTagsProvider(datagenerator));
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
@@ -144,7 +146,7 @@ public class TConstruct {
   }
 
   @SubscribeEvent
-  public void onServerStarting(final FMLServerStartingEvent event) {
+  void onServerStarting(final FMLServerStartingEvent event) {
     LiteralArgumentBuilder<CommandSource> executes = Commands.literal("tic_debug")
       .requires(commandSource -> commandSource.hasPermissionLevel(4))
       .executes(context -> {
@@ -162,28 +164,28 @@ public class TConstruct {
         });
         return Command.SINGLE_SUCCESS;
       });
-    event.getCommandDispatcher().register(executes);
+    event.getServer().getCommandManager().getDispatcher().register(executes);
   }
 
   @SubscribeEvent // TODO: Remove after a while, maybe at release.
-  public void missingItemMappings(RegistryEvent.MissingMappings<Item> event) {
+  void missingItemMappings(RegistryEvent.MissingMappings<Item> event) {
     entries: for (RegistryEvent.MissingMappings.Mapping<Item> entry : event.getAllMappings()) {
       if (entry.key.getNamespace().equals(TConstruct.modID)) {
         String path = entry.key.getPath();
         // slime is prefixed with color instead of suffixed
-        for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
+        for (StickySlimeBlock.SlimeType slime : StickySlimeBlock.SlimeType.values()) {
           // Remap slime_sling_$slime
-          if (path.equals("slime_sling_" + slime.getName())) {
+          if (path.equals("slime_sling_" + slime.getString())) {
             entry.remap(TinkerGadgets.slimeSling.get(slime));
             continue entries;
           }
           // Remap slime_boots_$slime
-          if (path.equals("slime_boots_" + slime.getName())) {
+          if (path.equals("slime_boots_" + slime.getString())) {
             entry.remap(TinkerGadgets.slimeBoots.get(slime));
             continue entries;
           }
           // Remap congealed_$slime_slime
-          if (path.equals(String.format("congealed_%s_slime", slime.getName()))) {
+          if (path.equals(String.format("congealed_%s_slime", slime.getString()))) {
             entry.remap(TinkerWorld.congealedSlime.get(slime).asItem());
             continue entries;
           }
@@ -231,14 +233,14 @@ public class TConstruct {
   }
 
   @SubscribeEvent // TODO: Remove after a while, maybe at release.
-  public void missingBlockMappings(RegistryEvent.MissingMappings<Block> event) {
+  void missingBlockMappings(RegistryEvent.MissingMappings<Block> event) {
     entries: for (RegistryEvent.MissingMappings.Mapping<Block> entry : event.getAllMappings()) {
       if (entry.key.getNamespace().equals(TConstruct.modID)) {
         // congealed is congealed_color_slime instead of color_congealed_slime
         String path = entry.key.getPath();
-        for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
+        for (StickySlimeBlock.SlimeType slime : StickySlimeBlock.SlimeType.values()) {
           // Remap congealed_$slime_slime
-          if (path.equals(String.format("congealed_%s_slime", slime.getName()))) {
+          if (path.equals(String.format("congealed_%s_slime", slime.getString()))) {
             entry.remap(TinkerWorld.congealedSlime.get(slime));
             continue entries;
           }
@@ -252,12 +254,24 @@ public class TConstruct {
             entry.remap(Blocks.SLIME_BLOCK);
             break;
           // slime fluids renamed to remove "fluid"
-          case "purple_slime_fluid_block":
-            entry.remap(TinkerFluids.purpleSlime.getBlock());
+          case "purple_slime_fluid_block": {
+            Block block = TinkerFluids.purpleSlime.getBlock();
+            if (block == null) {
+              entry.ignore();
+            } else {
+              entry.remap(block);
+            }
             break;
-          case "blue_slime_fluid_block":
-            entry.remap(TinkerFluids.blueSlime.getBlock());
+          }
+          case "blue_slime_fluid_block": {
+            Block block = TinkerFluids.blueSlime.getBlock();
+            if (block == null) {
+              entry.ignore();
+            } else {
+              entry.remap(block);
+            }
             break;
+          }
           // alubrass removed, fallback
           case "alubrass_block":
             entry.remap(TinkerMaterials.copperBlock.get());
@@ -268,7 +282,7 @@ public class TConstruct {
   }
 
   @SubscribeEvent // TODO: Remove after a while, maybe at release.
-  public void missingFluidMappings(RegistryEvent.MissingMappings<Fluid> event) {
+  void missingFluidMappings(RegistryEvent.MissingMappings<Fluid> event) {
     for (RegistryEvent.MissingMappings.Mapping<Fluid> entry : event.getAllMappings()) {
       if (entry.key.getNamespace().equals(TConstruct.modID)) {
         switch (entry.key.getPath()) {
@@ -291,7 +305,7 @@ public class TConstruct {
   }
 
   @SubscribeEvent // TODO: Remove after a while, maybe at release.
-  public void missingEntityMappings(RegistryEvent.MissingMappings<EntityType<?>> event) {
+  void missingEntityMappings(RegistryEvent.MissingMappings<EntityType<?>> event) {
     for (RegistryEvent.MissingMappings.Mapping<EntityType<?>> entry : event.getAllMappings()) {
       if (entry.key.getNamespace().equals(TConstruct.modID)) {
         if (entry.key.getPath().equals("blue_slime_entity")) {

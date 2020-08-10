@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -49,11 +50,14 @@ public class FaucetFluidLoader extends JsonReloadListener {
   }
 
   @Override
-  protected void apply(Map<ResourceLocation,JsonObject> map, IResourceManager resourceManager, IProfiler profiler) {
-    for (Entry<ResourceLocation,JsonObject> entry : map.entrySet()) {
+  protected void apply(Map<ResourceLocation,JsonElement> map, IResourceManager resourceManager, IProfiler profiler) {
+    for (Entry<ResourceLocation,JsonElement> entry : map.entrySet()) {
+      if (!entry.getValue().isJsonObject()) {
+        continue;
+      }
       ResourceLocation location = entry.getKey();
       try {
-        JsonObject json = entry.getValue();
+        JsonObject json = entry.getValue().getAsJsonObject();
 
         // special case: default for blocks missing values
         if(location.equals(DEFAULT_NAME)) {

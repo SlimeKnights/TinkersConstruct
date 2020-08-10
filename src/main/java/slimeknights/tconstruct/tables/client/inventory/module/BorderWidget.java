@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
@@ -49,29 +50,29 @@ public class BorderWidget extends Widget {
   }
 
   @Override
-  public void draw() {
+  public void draw(MatrixStack matrices) {
     int x = this.xPos;
     int y = this.yPos;
     int midW = this.width - this.borderLeft.w - this.borderRight.w;
     int midH = this.height - this.borderTop.h - this.borderBottom.h;
 
     // top row
-    x += this.cornerTopLeft.draw(x, y);
-    x += this.borderTop.drawScaledX(x, y, midW);
-    this.cornerTopRight.draw(x, y);
+    x += this.cornerTopLeft.draw(matrices, x, y);
+    x += this.borderTop.drawScaledX(matrices, x, y, midW);
+    this.cornerTopRight.draw(matrices, x, y);
 
     // center row
     x = this.xPos;
     y += this.borderTop.h;
-    x += this.borderLeft.drawScaledY(x, y, midH);
+    x += this.borderLeft.drawScaledY(matrices, x, y, midH);
     x += midW;
-    this.borderRight.drawScaledY(x, y, midH);
+    this.borderRight.drawScaledY(matrices, x, y, midH);
 
     // bottom row
     x = this.xPos;
     y += midH;
-    x += this.cornerBottomLeft.draw(x, y);
-    x += this.borderBottom.drawScaledX(x, y, midW);
-    this.cornerBottomRight.draw(x, y);
+    x += this.cornerBottomLeft.draw(matrices, x, y);
+    x += this.borderBottom.drawScaledX(matrices, x, y, midW);
+    this.cornerBottomRight.draw(matrices, x, y);
   }
 }

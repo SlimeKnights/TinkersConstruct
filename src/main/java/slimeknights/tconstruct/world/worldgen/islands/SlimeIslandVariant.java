@@ -5,41 +5,39 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.IStringSerializable;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
+import javax.annotation.Nullable;
 import java.util.Locale;
 
 public enum SlimeIslandVariant implements IStringSerializable {
   BLUE(0, TinkerWorld.blueSlimeGrass.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState(), TinkerFluids.blueSlime.getBlock(),
-       createArray(TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.BLUE).getDefaultState(), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.GREEN).getDefaultState()),
+       createArray(TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.BLUE).getDefaultState(), TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.GREEN).getDefaultState()),
        TinkerWorld.blueSlimeVine.get().getDefaultState(), createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState())),
   GREEN(1, TinkerWorld.greenSlimeGrass.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState(), TinkerFluids.blueSlime.getBlock(),
-        createArray(TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.BLUE).getDefaultState(), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.GREEN).getDefaultState()),
+        createArray(TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.BLUE).getDefaultState(), TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.GREEN).getDefaultState()),
         TinkerWorld.blueSlimeVine.get().getDefaultState(), createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState())),
   PURPLE(2, TinkerWorld.purpleSlimeGrass.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState(), TinkerFluids.purpleSlime.getBlock(),
-         createArray(TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.PURPLE).getDefaultState()),
+         createArray(TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.PURPLE).getDefaultState()),
          TinkerWorld.purpleSlimeVine.get().getDefaultState(), createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState())),
   MAGMA(3, TinkerWorld.magmaSlimeGrass.get(SlimeGrassBlock.FoliageType.ORANGE).getDefaultState(), Blocks.LAVA,
-        createArray(TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.MAGMA).getDefaultState(), TinkerWorld.congealedSlime.get(SlimeBlock.SlimeType.BLOOD).getDefaultState()),
+        createArray(TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.MAGMA).getDefaultState(), TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.BLOOD).getDefaultState()),
         null, createArray(TinkerWorld.slimeFern.get(SlimeGrassBlock.FoliageType.ORANGE).getDefaultState(), TinkerWorld.slimeTallGrass.get(SlimeGrassBlock.FoliageType.ORANGE).getDefaultState()));
 
   private final int index;
   private final BlockState lakeBottom;
   private final BlockState lakeFluid;
   private final BlockState[] congealedSlime;
+  @Nullable
   private final BlockState vine;
   private final BlockState[] tallGrass;
 
-  SlimeIslandVariant(int index, BlockState lakeBottom, Block lakeFluid, BlockState[] congealedSlime, BlockState vine, BlockState[] tallGrass) {
+  SlimeIslandVariant(int index, BlockState lakeBottom, Block lakeFluid, BlockState[] congealedSlime, @Nullable BlockState vine, BlockState[] tallGrass) {
     this.index = index;
     this.lakeBottom = lakeBottom;
-    if (lakeFluid != null) {
-      this.lakeFluid = lakeFluid.getDefaultState();
-    } else {
-      this.lakeFluid = Blocks.WATER.getDefaultState();
-    }
+    this.lakeFluid = lakeFluid.getDefaultState();
     this.congealedSlime = congealedSlime;
     this.vine = vine;
     this.tallGrass = tallGrass;
@@ -61,6 +59,7 @@ public enum SlimeIslandVariant implements IStringSerializable {
     return this.congealedSlime;
   }
 
+  @Nullable
   public BlockState getVine() {
     return this.vine;
   }
@@ -70,7 +69,7 @@ public enum SlimeIslandVariant implements IStringSerializable {
   }
 
   @Override
-  public String getName() {
+  public String getString() {
     return this.toString().toLowerCase(Locale.US);
   }
 

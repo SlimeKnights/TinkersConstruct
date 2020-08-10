@@ -52,10 +52,6 @@ repositories {
         name "ModMaven"
         url "https://modmaven.k-4u.nl"
     }
-    maven { // HWYLA, last since it 403s anything not present
-        name "Tehnut Maven FS"
-        url "https://maven.tehnut.info"
-    }
 }
 
 group = 'slimeknights.tconstruct'
@@ -198,8 +194,7 @@ dependencies {
     // at runtime, use the full JEI jar
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
 
-    compile fg.deobf("mcp.mobius.waila:Hwyla:${hwyla_version}_${minecraft_version}")
-    compile fg.deobf("mcjty.theoneprobe:TheOneProbe-1.15:${probe_version}")
+    compile fg.deobf("mcjty.theoneprobe:TheOneProbe-${minecraft_base_version}:${minecraft_base_version}-${probe_version}")
 
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 

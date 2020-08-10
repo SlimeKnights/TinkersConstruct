@@ -1,38 +1,36 @@
 package slimeknights.tconstruct.world.worldgen.trees.feature;
 
-import com.google.common.collect.ImmutableMap;
-import com.mojang.datafixers.Dynamic;
-import com.mojang.datafixers.types.DynamicOps;
+import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
+import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
 import slimeknights.tconstruct.world.TinkerStructures;
 
 import java.util.Random;
 import java.util.function.Supplier;
 
 public class SupplierBlockStateProvider extends BlockStateProvider {
+  public static final Codec<SupplierBlockStateProvider> CODEC =
+    BlockState.BLOCKSTATE_CODEC.fieldOf("state")
+                               .xmap(SupplierBlockStateProvider::new, (provider) -> provider.supplier.get()).codec();
 
-  private final Supplier<BlockState> blockStateSupplier;
+  private final Supplier<BlockState> supplier;
+  private SupplierBlockStateProvider(BlockState state) {
+    this(() -> state);
+  }
 
   public SupplierBlockStateProvider(Supplier<BlockState> blockStateSupplier) {
-    super(TinkerStructures.supplierBlockstateProvider.get());
-    this.blockStateSupplier = blockStateSupplier;
-  }
-
-  public <T> SupplierBlockStateProvider(Dynamic<T> dynamic) {
-    this(() -> BlockState.deserialize(dynamic.get("state").orElseEmptyMap()));
+    this.supplier = blockStateSupplier;
   }
 
   @Override
-  public BlockState getBlockState(Random random, BlockPos blockPos) {
-    return this.blockStateSupplier.get();
+  protected BlockStateProviderType<?> func_230377_a_() {
+    return TinkerStructures.supplierBlockstateProvider.get();
   }
 
   @Override
-  public <T> T serialize(DynamicOps<T> dynamicOps) {
-    ImmutableMap.Builder<T, T> builder = ImmutableMap.builder();
-    builder.put(dynamicOps.createString("type"), dynamicOps.createString(this.blockStateProvider.getRegistryName().toString())).put(dynamicOps.createString("state"), BlockState.serialize(dynamicOps, this.blockStateSupplier.get()).getValue());
-    return (new Dynamic<>(dynamicOps, dynamicOps.createMap(builder.build()))).getValue();
+  public BlockState getBlockState(Random randomIn, BlockPos blockPosIn) {
+    return this.supplier.get();
   }
 }

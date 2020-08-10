@@ -2,9 +2,6 @@ package slimeknights.tconstruct.library.tools;
 
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
-import slimeknights.tconstruct.test.TestLivingEntity;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,6 +27,7 @@ public class ToolCoreDurabilityTest extends ToolCoreTest {
     assertThat(isTestitemBroken()).isFalse();
   }
 
+  /*
   @Test
   void testDealingDamage() {
     testItemStack.damageItem(10, TestLivingEntity.getTestLivingEntity(), testLivingEntity -> {});
@@ -37,6 +35,7 @@ public class ToolCoreDurabilityTest extends ToolCoreTest {
     assertThat(testItemStack.getDamage()).isEqualTo(10);
     assertThat(isTestitemBroken()).isFalse();
   }
+  */
 
   @Test
   void testMaxDamageBreaksTool() {
@@ -58,6 +57,7 @@ public class ToolCoreDurabilityTest extends ToolCoreTest {
     assertThat(isTestitemBroken()).isTrue();
   }
 
+  /*
   @Test
   void testVanillaBreakCallback() {
     AtomicBoolean callbackCalled = new AtomicBoolean(false);
@@ -68,7 +68,9 @@ public class ToolCoreDurabilityTest extends ToolCoreTest {
     assertThat(callbackCalled.get()).isTrue();
     assertThat(isTestitemBroken()).isTrue();
   }
+  */
 
+  /*
   @Test
   void testVanillaBreakDoesNotReduceStacksize() {
     testItemStack.damageItem(99999, TestLivingEntity.getTestLivingEntity(),
@@ -77,4 +79,5 @@ public class ToolCoreDurabilityTest extends ToolCoreTest {
     assertThat(isTestitemBroken()).isTrue();
     assertThat(testItemStack.isEmpty()).isFalse();
   }
+  */
 }

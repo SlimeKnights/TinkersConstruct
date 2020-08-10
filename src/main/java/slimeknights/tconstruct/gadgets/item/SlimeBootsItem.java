@@ -2,6 +2,7 @@ package slimeknights.tconstruct.gadgets.item;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
@@ -11,17 +12,17 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import slimeknights.mantle.item.ArmorTooltipItem;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 
 public class SlimeBootsItem extends ArmorTooltipItem {
 
-  public SlimeBootsItem(SlimeBlock.SlimeType slimeType, Properties props) {
-    super(new SlimeArmorMaterial(slimeType.getName() + "_slime"), EquipmentSlotType.FEET, props);
+  public SlimeBootsItem(StickySlimeBlock.SlimeType slimeType, Properties props) {
+    super(new SlimeArmorMaterial(slimeType.getString() + "_slime"), EquipmentSlotType.FEET, props);
   }
 
   @Override
-  public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
-    return HashMultimap.<String, AttributeModifier>create();
+  public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
+    return HashMultimap.create();
   }
 
   public static class SlimeArmorMaterial implements IArmorMaterial {
@@ -64,6 +65,11 @@ public class SlimeBootsItem extends ArmorTooltipItem {
 
     @Override
     public float getToughness() {
+      return 0;
+    }
+
+    @Override
+    public float getKnockbackResistance() {
       return 0;
     }
   }

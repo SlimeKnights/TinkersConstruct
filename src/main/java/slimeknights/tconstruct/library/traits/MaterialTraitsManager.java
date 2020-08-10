@@ -4,7 +4,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.profiler.IProfiler;
@@ -68,7 +68,7 @@ public class MaterialTraitsManager extends JsonReloadListener {
   }
 
   @Override
-  protected void apply(Map<ResourceLocation, JsonObject> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+  protected void apply(Map<ResourceLocation,JsonElement> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
     List<TraitMappingJson> parsedSplashList = parseSplashlist(splashList);
 
     materialDefaultTraits = parsedSplashList.stream()
@@ -107,7 +107,7 @@ public class MaterialTraitsManager extends JsonReloadListener {
       );
   }
 
-  private List<TraitMappingJson> parseSplashlist(Map<ResourceLocation, JsonObject> splashList) {
+  private List<TraitMappingJson> parseSplashlist(Map<ResourceLocation, JsonElement> splashList) {
     return splashList.entrySet().stream()
       .map(this::parseJsonEntry)
       .filter(Objects::nonNull)
@@ -119,7 +119,10 @@ public class MaterialTraitsManager extends JsonReloadListener {
   }
 
   @Nullable
-  private TraitMappingJson parseJsonEntry(Map.Entry<ResourceLocation, JsonObject> entry) {
+  private TraitMappingJson parseJsonEntry(Map.Entry<ResourceLocation, JsonElement> entry) {
+    if (!entry.getValue().isJsonObject()) {
+      return null;
+    }
     try {
       TraitMappingJson traitMappingJson = GSON.fromJson(entry.getValue(), TraitMappingJson.class);
       if (traitMappingJson.getMaterialId() == null) {

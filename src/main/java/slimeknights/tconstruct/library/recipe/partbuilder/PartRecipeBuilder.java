@@ -13,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class PartRecipeBuilder {
@@ -73,7 +74,7 @@ public class PartRecipeBuilder {
   }
 
   public void build(Consumer<IFinishedRecipe> consumerIn) {
-    this.build(consumerIn, this.output.getItem().getRegistryName());
+    this.build(consumerIn, Objects.requireNonNull(this.output.getItem().getRegistryName()));
   }
 
   public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
@@ -82,7 +83,7 @@ public class PartRecipeBuilder {
 
   public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id, String group) {
     this.validate(id);
-    this.advancementBuilder.withParentId(new ResourceLocation("recipes/root")).withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(id)).withRewards(AdvancementRewards.Builder.recipe(id)).withRequirementsStrategy(IRequirementsStrategy.OR);
+    this.advancementBuilder.withParentId(new ResourceLocation("recipes/root")).withCriterion("has_the_recipe", RecipeUnlockedTrigger.create(id)).withRewards(AdvancementRewards.Builder.recipe(id)).withRequirementsStrategy(IRequirementsStrategy.OR);
     consumerIn.accept(new Result(id, this.group == null ? "" : this.group, this.output, this.cost, this.pattern, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + group + "/" + id.getPath())));
   }
 
@@ -118,7 +119,7 @@ public class PartRecipeBuilder {
 
       JsonObject output = new JsonObject();
 
-      output.addProperty("item", this.output.getItem().getRegistryName().toString());
+      output.addProperty("item", Objects.requireNonNull(this.output.getItem().getRegistryName()).toString());
       if (this.output.getCount() > 1) {
         output.addProperty("count", this.output.getCount());
       }

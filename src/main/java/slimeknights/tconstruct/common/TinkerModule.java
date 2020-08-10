@@ -19,16 +19,16 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.item.BlockTooltipItem;
+import slimeknights.mantle.registration.deferred.BlockDeferredRegister;
+import slimeknights.mantle.registration.deferred.ContainerTypeDeferredRegister;
+import slimeknights.mantle.registration.deferred.EntityTypeDeferredRegister;
+import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
+import slimeknights.mantle.registration.deferred.ItemDeferredRegister;
+import slimeknights.mantle.registration.deferred.TileEntityTypeDeferredRegister;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.registration.BlockDeferredRegister;
-import slimeknights.tconstruct.library.registration.ContainerDeferredRegister;
-import slimeknights.tconstruct.library.registration.EntityTypeDeferredRegister;
-import slimeknights.tconstruct.library.registration.FluidDeferredRegister;
-import slimeknights.tconstruct.library.registration.ItemDeferredRegister;
-import slimeknights.tconstruct.library.registration.TileEntityTypeDeferredRegister;
 import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -44,20 +44,21 @@ public abstract class TinkerModule {
   protected static final FluidDeferredRegister FLUIDS = new FluidDeferredRegister(TConstruct.modID);
   protected static final TileEntityTypeDeferredRegister TILE_ENTITIES = new TileEntityTypeDeferredRegister(TConstruct.modID);
   protected static final EntityTypeDeferredRegister ENTITIES = new EntityTypeDeferredRegister(TConstruct.modID);
-  protected static final ContainerDeferredRegister CONTAINERS = new ContainerDeferredRegister(TConstruct.modID);
-  protected static final DeferredRegister<Effect> POTIONS = new DeferredRegister<Effect>(ForgeRegistries.POTIONS, TConstruct.modID);
-  protected static final DeferredRegister<Feature<?>> FEATURES = new DeferredRegister<>(ForgeRegistries.FEATURES, TConstruct.modID);
-  protected static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = new DeferredRegister<>(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.modID);
-  protected static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = new DeferredRegister<>(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.modID);
-  protected static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = new DeferredRegister<ParticleType<?>>(ForgeRegistries.PARTICLE_TYPES, TConstruct.modID);
+  protected static final ContainerTypeDeferredRegister CONTAINERS = new ContainerTypeDeferredRegister(TConstruct.modID);
+  protected static final DeferredRegister<Effect> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, TConstruct.modID);
+  protected static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, TConstruct.modID);
+  protected static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.modID);
+  protected static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.modID);
+  protected static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, TConstruct.modID);
 
   // base block properties
   protected static final Block.Properties GENERIC_SAND_BLOCK = builder(Material.SAND, ToolType.SHOVEL, SoundType.SAND).hardnessAndResistance(3.0f).slipperiness(0.8F);
   protected static final Block.Properties GENERIC_METAL_BLOCK = builder(Material.IRON, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(5.0f);
   protected static final Block.Properties GENERIC_GEM_BLOCK = GENERIC_METAL_BLOCK;
-  protected static final Block.Properties GENERIC_GLASS_BLOCK = builder(Material.GLASS, ToolType.PICKAXE, SoundType.GLASS).hardnessAndResistance(0.3F).notSolid();
+  protected static final Block.Properties GENERIC_GLASS_BLOCK = builder(Material.GLASS, ToolType.PICKAXE, SoundType.GLASS).hardnessAndResistance(0.3F).notSolid(); //TODO: .setAllowsSpawn(Blocks::neverAllowSpawn).setOpaque(Blocks::isntSolid).setSuffocates(Blocks::isntSolid).setBlocksVision(Blocks::isntSolid);
 
   /** Creative tab for items that do not fit in another tab */
+  @SuppressWarnings("WeakerAccess")
   public static final ItemGroup TAB_GENERAL = new SupplierItemGroup(TConstruct.modID, "general", () -> new ItemStack(TinkerCommons.slimeball.get(SlimeType.BLUE)));
 
   // base item properties

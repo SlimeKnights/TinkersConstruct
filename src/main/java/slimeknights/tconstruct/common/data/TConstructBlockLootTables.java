@@ -6,24 +6,24 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Items;
+import net.minecraft.loot.AlternativesLootEntry;
+import net.minecraft.loot.ConstantRange;
+import net.minecraft.loot.ItemLootEntry;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.conditions.TableBonus;
+import net.minecraft.loot.functions.CopyName;
+import net.minecraft.loot.functions.CopyNbt;
+import net.minecraft.loot.functions.CopyNbt.Action;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.AlternativesLootEntry;
-import net.minecraft.world.storage.loot.ConstantRange;
-import net.minecraft.world.storage.loot.ItemLootEntry;
-import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.LootTable;
-import net.minecraft.world.storage.loot.conditions.TableBonus;
-import net.minecraft.world.storage.loot.functions.CopyName;
-import net.minecraft.world.storage.loot.functions.CopyNbt;
-import net.minecraft.world.storage.loot.functions.CopyNbt.Action;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -122,11 +122,11 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerWorld.copperOre.get());
 
     // Only make loot table for our modded slime blocks
-    for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.TINKER) {
+    for (StickySlimeBlock.SlimeType slime : StickySlimeBlock.SlimeType.TINKER) {
       this.registerDropSelfLootTable(TinkerWorld.slime.get(slime));
     }
     // Make loot table for all congealed_slime variants
-    for (SlimeBlock.SlimeType slime : SlimeBlock.SlimeType.values()) {
+    for (StickySlimeBlock.SlimeType slime : StickySlimeBlock.SlimeType.values()) {
       this.registerDropSelfLootTable(TinkerWorld.congealedSlime.get(slime));
     }
 
@@ -209,9 +209,9 @@ public class TConstructBlockLootTables extends BlockLootTables {
   private static LootTable.Builder randomDropSlimeBallOrSapling(SlimeGrassBlock.FoliageType foliageType, Block blockIn, Block sapling, float... fortuneIn) {
     switch (foliageType) {
       case PURPLE:
-        return dropSapling(blockIn, sapling, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(withSurvivesExplosion(blockIn, ItemLootEntry.builder(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.PURPLE))).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
+        return dropSapling(blockIn, sapling, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(withSurvivesExplosion(blockIn, ItemLootEntry.builder(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.PURPLE))).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F))));
       case BLUE:
-        return dropSapling(blockIn, sapling, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(AlternativesLootEntry.builder(withSurvivesExplosion(blockIn, ItemLootEntry.builder(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.BLUE))).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)), withSurvivesExplosion(blockIn, ItemLootEntry.builder(Items.SLIME_BALL)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)))));
+        return dropSapling(blockIn, sapling, fortuneIn).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NOT_SILK_TOUCH_OR_SHEARS).addEntry(AlternativesLootEntry.builder(withSurvivesExplosion(blockIn, ItemLootEntry.builder(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.BLUE))).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)), withSurvivesExplosion(blockIn, ItemLootEntry.builder(Items.SLIME_BALL)).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.005F, 0.0055555557F, 0.00625F, 0.008333334F, 0.025F)))));
       case ORANGE:
       default:
         return dropSapling(blockIn, sapling, fortuneIn);

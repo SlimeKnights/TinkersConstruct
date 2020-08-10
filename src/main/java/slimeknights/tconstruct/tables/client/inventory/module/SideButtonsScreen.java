@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
@@ -7,8 +8,6 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
-
-import java.io.IOException;
 
 public class SideButtonsScreen extends ModuleScreen {
 
@@ -76,9 +75,9 @@ public class SideButtonsScreen extends ModuleScreen {
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     for (Widget button : this.buttons) {
-      button.render(mouseX, mouseY, partialTicks);
+      button.render(matrices, mouseX, mouseY, partialTicks);
     }
   }
 }

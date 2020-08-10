@@ -100,7 +100,7 @@ public class MaterialRecipeBuilder {
 
   public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id, String group) {
     this.validate(id);
-    this.advancementBuilder.withParentId(new ResourceLocation("recipes/root")).withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(id)).withRewards(AdvancementRewards.Builder.recipe(id)).withRequirementsStrategy(IRequirementsStrategy.OR);
+    this.advancementBuilder.withParentId(new ResourceLocation("recipes/root")).withCriterion("has_the_recipe", RecipeUnlockedTrigger.create(id)).withRewards(AdvancementRewards.Builder.recipe(id)).withRequirementsStrategy(IRequirementsStrategy.OR);
     consumerIn.accept(new Result(id, this.group == null ? "" : this.group, this.ingredient, this.material, this.value, this.needed, this.advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + group + "/" + id.getPath())));
   }
 

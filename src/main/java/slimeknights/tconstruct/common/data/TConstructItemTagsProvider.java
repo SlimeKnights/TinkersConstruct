@@ -1,20 +1,21 @@
 package slimeknights.tconstruct.common.data;
 
 import net.minecraft.block.Block;
+import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 
@@ -25,8 +26,8 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
   private Set<ResourceLocation> filter = null;
 
-  public TConstructItemTagsProvider(DataGenerator generatorIn) {
-    super(generatorIn);
+  public TConstructItemTagsProvider(DataGenerator generatorIn, BlockTagsProvider blockTagProvider) {
+    super(generatorIn, blockTagProvider);
   }
 
   @Override
@@ -38,30 +39,48 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   }
 
   private void addCommon() {
-    this.getBuilder(Tags.Items.SLIMEBALLS).add(TinkerTags.Items.BLUE_SLIMEBALL, TinkerTags.Items.PURPLE_SLIMEBALL, TinkerTags.Items.BLOOD_SLIMEBALL, TinkerTags.Items.MAGMA_SLIMEBALL);
-    this.getBuilder(TinkerTags.Items.GREEN_SLIMEBALL).add(Items.SLIME_BALL);
-    this.getBuilder(TinkerTags.Items.BLUE_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.BLUE));
-    this.getBuilder(TinkerTags.Items.PURPLE_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.PURPLE));
-    this.getBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.BLOOD));
-    this.getBuilder(TinkerTags.Items.MAGMA_SLIMEBALL).add(TinkerCommons.slimeball.get(SlimeBlock.SlimeType.MAGMA));
+    this.getOrCreateBuilder(Tags.Items.SLIMEBALLS)
+        .addTag(TinkerTags.Items.BLUE_SLIMEBALL)
+        .addTag(TinkerTags.Items.PURPLE_SLIMEBALL)
+        .addTag(TinkerTags.Items.BLOOD_SLIMEBALL)
+        .addTag(TinkerTags.Items.MAGMA_SLIMEBALL);
+    this.getOrCreateBuilder(TinkerTags.Items.GREEN_SLIMEBALL).add(Items.SLIME_BALL);
+    this.getOrCreateBuilder(TinkerTags.Items.BLUE_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.BLUE));
+    this.getOrCreateBuilder(TinkerTags.Items.PURPLE_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.PURPLE));
+    this.getOrCreateBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.BLOOD));
+    this.getOrCreateBuilder(TinkerTags.Items.MAGMA_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.MAGMA));
 
-    this.getBuilder(Tags.Items.INGOTS).add(TinkerTags.Items.INGOTS_COBALT, TinkerTags.Items.INGOTS_ARDITE, TinkerTags.Items.INGOTS_MANYULLYN, TinkerTags.Items.INGOTS_KNIGHTSLIME, TinkerTags.Items.INGOTS_PIG_IRON, TinkerTags.Items.INGOTS_COPPER, TinkerTags.Items.INGOTS_ROSE_GOLD);
-    this.getBuilder(TinkerTags.Items.INGOTS_COBALT).add(TinkerMaterials.cobaltIngot.get());
-    this.getBuilder(TinkerTags.Items.INGOTS_ARDITE).add(TinkerMaterials.arditeIngot.get());
-    this.getBuilder(TinkerTags.Items.INGOTS_MANYULLYN).add(TinkerMaterials.manyullynIngot.get());
-    this.getBuilder(TinkerTags.Items.INGOTS_KNIGHTSLIME).add(TinkerMaterials.knightslimeIngot.get());
-    this.getBuilder(TinkerTags.Items.INGOTS_PIG_IRON).add(TinkerMaterials.pigironIngot.get());
-    this.getBuilder(TinkerTags.Items.INGOTS_COPPER).add(TinkerMaterials.copperIngot.get());
-    this.getBuilder(TinkerTags.Items.INGOTS_ROSE_GOLD).add(TinkerMaterials.roseGoldIngot.get());
+    this.getOrCreateBuilder(Tags.Items.INGOTS)
+        .addTag(TinkerTags.Items.INGOTS_COBALT)
+        .addTag(TinkerTags.Items.INGOTS_ARDITE)
+        .addTag(TinkerTags.Items.INGOTS_MANYULLYN)
+        .addTag(TinkerTags.Items.INGOTS_KNIGHTSLIME)
+        .addTag(TinkerTags.Items.INGOTS_PIG_IRON)
+        .addTag(TinkerTags.Items.INGOTS_COPPER)
+        .addTag(TinkerTags.Items.INGOTS_ROSE_GOLD);
+    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_COBALT).add(TinkerMaterials.cobaltIngot.get());
+    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_ARDITE).add(TinkerMaterials.arditeIngot.get());
+    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_MANYULLYN).add(TinkerMaterials.manyullynIngot.get());
+    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_KNIGHTSLIME).add(TinkerMaterials.knightslimeIngot.get());
+    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_PIG_IRON).add(TinkerMaterials.pigironIngot.get());
+    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_COPPER).add(TinkerMaterials.copperIngot.get());
+    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_ROSE_GOLD).add(TinkerMaterials.roseGoldIngot.get());
 
-    this.getBuilder(Tags.Items.NUGGETS).add(TinkerTags.Items.NUGGETS_COBALT, TinkerTags.Items.NUGGETS_ARDITE, TinkerTags.Items.NUGGETS_MANYULLYN, TinkerTags.Items.NUGGETS_KNIGHTSLIME, TinkerTags.Items.NUGGETS_PIG_IRON, TinkerTags.Items.NUGGETS_COPPER, TinkerTags.Items.NUGGETS_ROSE_GOLD);
-    this.getBuilder(TinkerTags.Items.NUGGETS_COBALT).add(TinkerMaterials.cobaltNugget.get());
-    this.getBuilder(TinkerTags.Items.NUGGETS_ARDITE).add(TinkerMaterials.arditeNugget.get());
-    this.getBuilder(TinkerTags.Items.NUGGETS_MANYULLYN).add(TinkerMaterials.manyullynNugget.get());
-    this.getBuilder(TinkerTags.Items.NUGGETS_KNIGHTSLIME).add(TinkerMaterials.knightslimeNugget.get());
-    this.getBuilder(TinkerTags.Items.NUGGETS_PIG_IRON).add(TinkerMaterials.pigironNugget.get());
-    this.getBuilder(TinkerTags.Items.NUGGETS_COPPER).add(TinkerMaterials.copperNugget.get());
-    this.getBuilder(TinkerTags.Items.NUGGETS_ROSE_GOLD).add(TinkerMaterials.roseGoldNugget.get());
+    this.getOrCreateBuilder(Tags.Items.NUGGETS)
+        .addTag(TinkerTags.Items.NUGGETS_COBALT)
+        .addTag(TinkerTags.Items.NUGGETS_ARDITE)
+        .addTag(TinkerTags.Items.NUGGETS_MANYULLYN)
+        .addTag(TinkerTags.Items.NUGGETS_KNIGHTSLIME)
+        .addTag(TinkerTags.Items.NUGGETS_PIG_IRON)
+        .addTag(TinkerTags.Items.NUGGETS_COPPER)
+        .addTag(TinkerTags.Items.NUGGETS_ROSE_GOLD);
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_COBALT).add(TinkerMaterials.cobaltNugget.get());
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_ARDITE).add(TinkerMaterials.arditeNugget.get());
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_MANYULLYN).add(TinkerMaterials.manyullynNugget.get());
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_KNIGHTSLIME).add(TinkerMaterials.knightslimeNugget.get());
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_PIG_IRON).add(TinkerMaterials.pigironNugget.get());
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_COPPER).add(TinkerMaterials.copperNugget.get());
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_ROSE_GOLD).add(TinkerMaterials.roseGoldNugget.get());
 
     this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
     this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT, TinkerTags.Items.STORAGE_BLOCKS_COBALT);
@@ -92,15 +111,15 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
   private void addGadgets() {
     this.copy(BlockTags.RAILS, ItemTags.RAILS);
-    this.getBuilder(Tags.Items.RODS).add(TinkerTags.Items.RODS_STONE);
-    this.getBuilder(TinkerTags.Items.RODS_STONE).add(TinkerGadgets.stoneStick.get());
+    this.getOrCreateBuilder(Tags.Items.RODS).addTag(TinkerTags.Items.RODS_STONE);
+    this.getOrCreateBuilder(TinkerTags.Items.RODS_STONE).add(TinkerGadgets.stoneStick.get());
   }
 
   private void addSmeltery() {
     this.copy(TinkerTags.Blocks.SEARED_BRICKS, TinkerTags.Items.SEARED_BRICKS);
     this.copy(TinkerTags.Blocks.SMOOTH_SEARED_BLOCKS, TinkerTags.Items.SMOOTH_SEARED_BLOCKS);
     this.copy(TinkerTags.Blocks.SEARED_BLOCKS, TinkerTags.Items.SEARED_BLOCKS);
-    this.getBuilder(TinkerTags.Items.CASTS).add(
+    this.getOrCreateBuilder(TinkerTags.Items.CASTS).add(
       TinkerSmeltery.blankCast.get(),
       TinkerSmeltery.ingotCast.get(),
       TinkerSmeltery.nuggetCast.get(),
@@ -124,12 +143,12 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
   /*
    * Credit to forge for this code to generate the tags.
    */
-  private void copyColored(Tag<Block> blockGroup, Tag<Item> itemGroup) {
-    String blockPre = blockGroup.getId().getPath().toUpperCase(Locale.ENGLISH) + '_';
-    String itemPre = itemGroup.getId().getPath().toUpperCase(Locale.ENGLISH) + '_';
+  private void copyColored(INamedTag<Block> blockGroup, INamedTag<Item> itemGroup) {
+    String blockPre = blockGroup.getName().getPath().toUpperCase(Locale.ENGLISH) + '_';
+    String itemPre = itemGroup.getName().getPath().toUpperCase(Locale.ENGLISH) + '_';
     for (DyeColor color : DyeColor.values()) {
-      Tag<Block> from = getForgeBlockTag(blockPre + color.getTranslationKey());
-      Tag<Item> to = getForgeItemTag(itemPre + color.getTranslationKey());
+      INamedTag<Block> from = getForgeBlockTag(blockPre + color.getTranslationKey());
+      INamedTag<Item> to = getForgeItemTag(itemPre + color.getTranslationKey());
       copy(from, to);
     }
     copy(getForgeBlockTag(blockPre + "colorless"), getForgeItemTag(itemPre + "colorless"));
@@ -139,10 +158,10 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
    * Credit to forge for this code to generate the tags.
    */
   @SuppressWarnings("unchecked")
-  private Tag<Block> getForgeBlockTag(String name) {
+  private INamedTag<Block> getForgeBlockTag(String name) {
     try {
       name = name.toUpperCase(Locale.ENGLISH);
-      return (Tag<Block>) Tags.Blocks.class.getDeclaredField(name).get(null);
+      return (INamedTag<Block>) Tags.Blocks.class.getDeclaredField(name).get(null);
     } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
       throw new IllegalStateException(Tags.Blocks.class.getName() + " is missing tag name: " + name);
     }
@@ -152,10 +171,10 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
    * Credit to forge for this code to generate the tags.
    */
   @SuppressWarnings("unchecked")
-  private Tag<Item> getForgeItemTag(String name) {
+  private INamedTag<Item> getForgeItemTag(String name) {
     try {
       name = name.toUpperCase(Locale.ENGLISH);
-      return (Tag<Item>) Tags.Items.class.getDeclaredField(name).get(null);
+      return (INamedTag<Item>) Tags.Items.class.getDeclaredField(name).get(null);
     } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
       throw new IllegalStateException(Tags.Items.class.getName() + " is missing tag name: " + name);
     }

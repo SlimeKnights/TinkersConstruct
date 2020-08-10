@@ -2,9 +2,9 @@ package slimeknights.tconstruct.library;
 
 import com.google.common.annotations.VisibleForTesting;
 import net.minecraft.fluid.Fluid;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -12,13 +12,14 @@ import slimeknights.tconstruct.library.materials.MaterialManager;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
+import slimeknights.tconstruct.library.network.UpdateMaterialStatsPacket;
+import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
 import slimeknights.tconstruct.library.traits.MaterialTraitsManager;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.Collection;
-import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class MaterialRegistry {
@@ -47,10 +48,10 @@ public final class MaterialRegistry {
   }
 
   @SubscribeEvent
-  public static void onServerAboutToStart(final FMLServerAboutToStartEvent event) {
-    event.getServer().getResourceManager().addReloadListener(INSTANCE.materialManager);
-    event.getServer().getResourceManager().addReloadListener(INSTANCE.materialStatsManager);
-    event.getServer().getResourceManager().addReloadListener(INSTANCE.materialTraitsManager);
+  static void addDataPackListeners(final AddReloadListenerEvent event) {
+    event.addListener(INSTANCE.materialManager);
+    event.addListener(INSTANCE.materialStatsManager);
+    event.addListener(INSTANCE.materialTraitsManager);
   }
 
   public MaterialRegistry() {
@@ -74,18 +75,18 @@ public final class MaterialRegistry {
 
   /**
    * Updates the material list from the server list. Should only be called client side
-   * @param materials  Materials list
+   * @param packet  Materials packet
    */
-  static void updateMaterialsFromServer(Collection<IMaterial> materials) {
-    INSTANCE.materialManager.updateMaterialsFromServer(materials);
+  public static void updateMaterialsFromServer(UpdateMaterialsPacket packet) {
+    INSTANCE.materialManager.updateMaterialsFromServer(packet.getMaterials());
   }
 
   /**
    * Updates material stats from the server list. Should only be called client side
-   * @param materialStats  Stats list
+   * @param packet  Materials stats packet
    */
-  static void updateMaterialStatsFromServer(Map<MaterialId, Collection<IMaterialStats>> materialStats) {
-    INSTANCE.materialStatsManager.updateMaterialStatsFromServer(materialStats);
+  public static void updateMaterialStatsFromServer(UpdateMaterialStatsPacket packet) {
+    INSTANCE.materialStatsManager.updateMaterialStatsFromServer(packet.getMaterialToStats());
   }
 
   /**
@@ -93,7 +94,7 @@ public final class MaterialRegistry {
    * @param id  Material stat type
    * @return  Material stat class
    */
-  static Class<? extends IMaterialStats> getClassForStat(MaterialStatsId id) {
+  public static Class<? extends IMaterialStats> getClassForStat(MaterialStatsId id) {
     return INSTANCE.materialStatsManager.getClassForStat(id);
   }
 

@@ -4,14 +4,19 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.resources.JsonReloadListener;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.Util;
@@ -52,6 +57,7 @@ public class MaterialManager extends JsonReloadListener {
 
   public MaterialManager() {
     this(TinkerNetwork.getInstance());
+    MinecraftForge.EVENT_BUS.addListener(this::updatePlayerMaterials);
   }
 
   @VisibleForTesting
@@ -100,9 +106,10 @@ public class MaterialManager extends JsonReloadListener {
   }
 
   @Override
-  protected void apply(Map<ResourceLocation, JsonObject> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
+  protected void apply(Map<ResourceLocation, JsonElement> splashList, IResourceManager resourceManagerIn, IProfiler profilerIn) {
     this.materials = splashList.entrySet().stream()
-      .map(entry -> loadMaterial(entry.getKey(), entry.getValue()))
+      .filter(entry -> entry.getValue().isJsonObject())
+      .map(entry -> loadMaterial(entry.getKey(), entry.getValue().getAsJsonObject()))
       .filter(Objects::nonNull)
       .collect(Collectors.toMap(
         IMaterial::getIdentifier,
@@ -112,8 +119,18 @@ public class MaterialManager extends JsonReloadListener {
 
     log.debug("Loaded materials: {}", Util.toIndentedStringList(materials.keySet()));
     log.info("{} materials loaded", materials.size());
+  }
 
-    tinkerNetwork.send(PacketDistributor.ALL.noArg(), new UpdateMaterialsPacket(materials.values()));
+  /**
+   * Called when the player joins the server to send them a list of materials
+   * @param event  Player logged in event
+   */
+  private void updatePlayerMaterials(PlayerLoggedInEvent event) {
+    PlayerEntity player = event.getPlayer();
+    if (player instanceof ServerPlayerEntity) {
+      ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
+      tinkerNetwork.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new UpdateMaterialsPacket(materials.values()));
+    }
   }
 
   @Nullable

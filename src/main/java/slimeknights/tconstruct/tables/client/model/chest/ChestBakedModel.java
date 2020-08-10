@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ILightReader;
+import net.minecraft.world.IBlockDisplayReader;
 import net.minecraftforge.client.model.data.IDynamicBakedModel;
 import net.minecraftforge.client.model.data.IModelData;
 import slimeknights.tconstruct.tables.client.model.ModelProperties;
@@ -32,7 +32,7 @@ public class ChestBakedModel implements IDynamicBakedModel {
 
   @Nonnull
   @Override
-  public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData extraData) {
+  public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, Random rand, IModelData extraData) {
     Direction facingDirection = null;
 
     if (extraData.hasProperty(ModelProperties.DIRECTION)) {
@@ -95,19 +95,16 @@ public class ChestBakedModel implements IDynamicBakedModel {
     return internal.handlePerspective(cameraTransformType, mat);
   }
 
-  @Nonnull
   @Override
   public ItemOverrideList getOverrides() {
     return internal.getOverrides();
   }
 
-  @Nonnull
   @Override
-  public IModelData getModelData(@Nonnull ILightReader world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull IModelData tileData) {
+  public IModelData getModelData(IBlockDisplayReader world, BlockPos pos, BlockState state, IModelData tileData) {
     return internal.getModelData(world, pos, state, tileData);
   }
 
-  @Nonnull
   @Override
   @Deprecated
   public ItemCameraTransforms getItemCameraTransforms() {

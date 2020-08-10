@@ -331,8 +331,8 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
   }
 
   @Override
-  public void read(CompoundNBT tags) {
-    super.read(tags);
+  public void read(BlockState state, CompoundNBT tags) {
+    super.read(state, tags);
     tank.readFromNBT(tags.getCompound(TAG_TANK));
     timer = tags.getInt(TAG_TIMER);
     if (tags.contains(TAG_RECIPE, NBT.TAG_STRING)) {

@@ -1,5 +1,5 @@
 package slimeknights.tconstruct.test;
-
+/*
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -38,3 +38,4 @@ public class TestLivingEntity extends LivingEntity {
     return HandSide.RIGHT;
   }
 }
+ */

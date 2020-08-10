@@ -2,12 +2,10 @@ package slimeknights.tconstruct.world.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeavesBlock;
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
@@ -49,17 +47,16 @@ public class SlimeLeavesBlock extends LeavesBlock {
   private static BlockState updateDistance(BlockState state, IWorld world, BlockPos pos) {
     int i = 7;
 
-    try (BlockPos.PooledMutable mutableBlockPos = BlockPos.PooledMutable.retain()) {
-      for (Direction direction : Direction.values()) {
-        mutableBlockPos.setPos(pos).move(direction);
-        i = Math.min(i, getDistance(world.getBlockState(mutableBlockPos)) + 1);
-        if (i == 1) {
-          break;
-        }
+    BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable();
+    for (Direction direction : Direction.values()) {
+      mutableBlockPos.setPos(pos).move(direction);
+      i = Math.min(i, getDistance(world.getBlockState(mutableBlockPos)) + 1);
+      if (i == 1) {
+        break;
       }
     }
 
-    return state.with(DISTANCE, Integer.valueOf(i));
+    return state.with(DISTANCE, i);
   }
 
   private static int getDistance(BlockState neighbor) {
@@ -72,11 +69,6 @@ public class SlimeLeavesBlock extends LeavesBlock {
 
   public SlimeGrassBlock.FoliageType getFoliageType() {
     return this.foliageType;
-  }
-
-  @Override
-  public boolean canEntitySpawn(BlockState state, IBlockReader worldIn, BlockPos pos, EntityType<?> type) {
-    return false;
   }
 
   @Override

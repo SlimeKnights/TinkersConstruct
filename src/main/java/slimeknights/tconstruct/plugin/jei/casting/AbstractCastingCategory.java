@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.plugin.jei.casting;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -18,6 +19,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.Util;
@@ -69,24 +72,24 @@ public abstract class AbstractCastingCategory<T extends ItemCastingRecipe> imple
   }
 
   @Override
-  public void draw(T recipe, double mouseX, double mouseY) {
-    arrow.draw(58, 18);
-    block.draw(38, 35);
+  public void draw(T recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    arrow.draw(matrixStack, 58, 18);
+    block.draw(matrixStack, 38, 35);
     if (recipe.getCast() != Ingredient.EMPTY) {
-      (recipe.isConsumed() ? castConsumed : castKept).draw(63, 39);
+      (recipe.isConsumed() ? castConsumed : castKept).draw(matrixStack, 63, 39);
     }
 
     int coolingTime = recipe.getCoolingTime() / 20;
     String coolingString = ForgeI18n.parseMessage(KEY_COOLING_TIME, coolingTime);
     FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
     int x = 72 - fontRenderer.getStringWidth(coolingString) / 2;
-    fontRenderer.drawString(coolingString, x, 2, Color.GRAY.getRGB());
+    fontRenderer.drawString(matrixStack, coolingString, x, 2, Color.GRAY.getRGB());
   }
 
   @Override
-  public List<String> getTooltipStrings(T recipe, double mouseX, double mouseY) {
+  public List<ITextComponent> getTooltipStrings(T recipe, double mouseX, double mouseY) {
     if (mouseX >= 63 && mouseY >= 39 && mouseX < 76 && mouseY < 50 && recipe.getCast() != Ingredient.EMPTY) {
-      return Collections.singletonList(ForgeI18n.getPattern(recipe.isConsumed() ? KEY_CAST_CONSUMED : KEY_CAST_KEPT));
+      return Collections.singletonList(new TranslationTextComponent(recipe.isConsumed() ? KEY_CAST_CONSUMED : KEY_CAST_KEPT));
     }
     return Collections.emptyList();
   }
@@ -112,9 +115,9 @@ public abstract class AbstractCastingCategory<T extends ItemCastingRecipe> imple
   }
 
   @Override
-  public void onTooltip(int index, boolean input, FluidStack stack, List<String> list) {
-    String name = list.get(0);
-    String modId = list.get(list.size() - 1);
+  public void onTooltip(int index, boolean input, FluidStack stack, List<ITextComponent> list) {
+    ITextComponent name = list.get(0);
+    ITextComponent modId = list.get(list.size() - 1);
     list.clear();
     list.add(name);
     FluidTooltipHandler.appendMaterial(stack, list);

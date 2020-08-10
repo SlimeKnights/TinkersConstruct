@@ -9,18 +9,19 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.ForgeI18n;
 import net.minecraftforge.fml.ModList;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.FluidIngredient;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.RecipeUtil;
-import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -72,6 +73,7 @@ public class FluidTooltipHandler {
    * Called when recipes are synced from the server to the client
    * @param event  Event instance
    */
+  @SuppressWarnings("unused")
   private static void onRecipesUpdated(RecipesUpdatedEvent event) {
     CACHE.clear();
   }
@@ -81,16 +83,16 @@ public class FluidTooltipHandler {
    * @param fluid  Fluid stack instance
    * @return  Fluid tooltip
    */
-  public static List<String> getFluidTooltip(FluidStack fluid) {
-    List<String> tooltip = new ArrayList<>();
-    // fluid name
-    tooltip.add(fluid.getDisplayName().applyTextStyle(TextFormatting.WHITE).getString());
+  public static List<ITextComponent> getFluidTooltip(FluidStack fluid) {
+    List<ITextComponent> tooltip = new ArrayList<>();
+    // fluid name, not sure if there is a cleaner way to do this
+    tooltip.add(new StringTextComponent("").append(fluid.getDisplayName()).mergeStyle(TextFormatting.WHITE));
     // material
     appendMaterial(fluid, tooltip);
     // add mod display name
     ModList.get().getModContainerById(Objects.requireNonNull(fluid.getFluid().getRegistryName()).getNamespace())
            .map(container -> container.getModInfo().getDisplayName())
-           .ifPresent(name -> tooltip.add(TextFormatting.BLUE + (TextFormatting.ITALIC + name)));
+           .ifPresent(name -> tooltip.add(new StringTextComponent(name).mergeStyle(TextFormatting.BLUE, TextFormatting.ITALIC)));
     return tooltip;
   }
 
@@ -99,7 +101,7 @@ public class FluidTooltipHandler {
    * @param fluid    Input fluid stack
    * @param tooltip  Tooltip to append information
    */
-  public static void appendMaterial(FluidStack fluid, List<String> tooltip) {
+  public static void appendMaterial(FluidStack fluid, List<ITextComponent> tooltip) {
     int original = fluid.getAmount();
     int amount = original;
 
@@ -124,10 +126,10 @@ public class FluidTooltipHandler {
    * Appends the hold shift message to the tooltip
    * @param tooltip  Tooltip to append information
    */
-  public static void appendShift(List<String> tooltip) {
+  public static void appendShift(List<ITextComponent> tooltip) {
     if(!Screen.hasShiftDown()) {
-      tooltip.add("");
-      tooltip.add(TextFormatting.GRAY + ForgeI18n.getPattern(HOLD_SHIFT));
+      tooltip.add(new StringTextComponent(""));
+      tooltip.add(new TranslationTextComponent(HOLD_SHIFT).mergeStyle(TextFormatting.GRAY));
     }
   }
 
@@ -136,7 +138,7 @@ public class FluidTooltipHandler {
    * @param amount   Fluid amount
    * @param tooltip  Tooltip to append information
    */
-  public static void appendIngots(int amount, List<String> tooltip) {
+  public static void appendIngots(int amount, List<ITextComponent> tooltip) {
     amount = INGOT.getText(tooltip, amount);
     appendBuckets(amount, tooltip);
   }
@@ -146,7 +148,7 @@ public class FluidTooltipHandler {
    * @param amount   Fluid amount
    * @param tooltip  Tooltip to append information
    */
-  public static void appendBuckets(int amount, List<String> tooltip) {
+  public static void appendBuckets(int amount, List<ITextComponent> tooltip) {
     amount = KILOBUCKET.getText(tooltip, amount);
     amount = BUCKET.getText(tooltip, amount);
     MILLIBUCKET.getText(tooltip, amount);
@@ -226,7 +228,7 @@ public class FluidTooltipHandler {
      * @param amount  Amount
      * @return  this if amount matches, new entry if no match
      */
-    public FluidGuiEntry withAmount(int amount) {
+    private FluidGuiEntry withAmount(int amount) {
       if (amount == this.needed) {
         return this;
       }
@@ -237,10 +239,10 @@ public class FluidTooltipHandler {
      * Gets the display text for this fluid entry
      * @return  Display text
      */
-    private int getText(List<String> tooltip, int amount) {
+    private int getText(List<ITextComponent> tooltip, int amount) {
       int full = amount / needed;
       if (full > 0) {
-        tooltip.add(TextFormatting.GRAY + ForgeI18n.parseMessage(translationKey, full));
+        tooltip.add(new TranslationTextComponent(translationKey, full).mergeStyle(TextFormatting.GRAY));
       }
       return amount % needed;
     }

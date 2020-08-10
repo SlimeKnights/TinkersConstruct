@@ -47,10 +47,11 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
   // misc
   private final World world;
 
-  public PartBuilderContainer(int windowIdIn, PlayerInventory playerInventoryIn, PartBuilderTileEntity partBuilderTileEntity) {
+  public PartBuilderContainer(int windowIdIn, PlayerInventory playerInventoryIn, @Nullable PartBuilderTileEntity partBuilderTileEntity) {
     super(TinkerTables.partBuilderContainer.get(), windowIdIn, playerInventoryIn, partBuilderTileEntity);
 
     // inventories
+    // TODO: what if its null?
     this.craftInventory = new PartBuilderInventoryWrapper(partBuilderTileEntity);
     this.craftResult = new CraftResultInventory();
 
@@ -203,7 +204,8 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
     @Nullable
     private Item lastItem;
     private MaterialSlot(PartBuilderContainer container, int x, int y) {
-      super(container.getTileEntity(), PartBuilderTileEntity.MATERIAL_SLOT, x, y);
+      // TODO: what if null?
+      super(container.getTile(), PartBuilderTileEntity.MATERIAL_SLOT, x, y);
       this.container = container;
     }
 
@@ -227,7 +229,7 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
   public static class PatternSlot extends Slot {
     private final PartBuilderContainer container;
     private PatternSlot(PartBuilderContainer container, int x, int y) {
-      super(container.getTileEntity(), PartBuilderTileEntity.PATTERN_SLOT, x, y);
+      super(container.getTile(), PartBuilderTileEntity.PATTERN_SLOT, x, y);
       this.container = container;
     }
 

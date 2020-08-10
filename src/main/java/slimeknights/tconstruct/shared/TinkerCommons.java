@@ -15,21 +15,20 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.EdibleItem;
+import slimeknights.mantle.registration.object.BuildingBlockObject;
+import slimeknights.mantle.registration.object.EnumObject;
+import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.recipe.crafting.ShapedFallbackRecipe;
-import slimeknights.tconstruct.library.registration.object.BlockItemObject;
-import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
-import slimeknights.tconstruct.library.registration.object.EnumObject;
-import slimeknights.tconstruct.library.registration.object.ItemObject;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.GlowBlock;
-import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 
 /**
  * Contains items and blocks and stuff that is shared by multiple modules, but might be required individually
@@ -41,19 +40,19 @@ public final class TinkerCommons extends TinkerModule {
   /*
    * Blocks
    */
-  public static final RegistryObject<GlowBlock> glow = BLOCKS.registerNoItem("glow", () -> new GlowBlock(builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.CLOTH).hardnessAndResistance(0.0F).lightValue(14).notSolid()));
+  public static final RegistryObject<GlowBlock> glow = BLOCKS.registerNoItem("glow", () -> new GlowBlock(builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.CLOTH).hardnessAndResistance(0.0F).setLightLevel(s -> 14).notSolid()));
   public static final BuildingBlockObject mudBricks = BLOCKS.registerBuilding("mud_bricks", builder(Material.EARTH, ToolType.SHOVEL, SoundType.GROUND).hardnessAndResistance(2.0F), GENERAL_BLOCK_ITEM);
   // clay
   private static final Block.Properties DRIED_CLAY = builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).hardnessAndResistance(1.5F, 20.0F);
   public static final BuildingBlockObject driedClay = BLOCKS.registerBuilding("dried_clay", DRIED_CLAY, GENERAL_BLOCK_ITEM);
   public static final BuildingBlockObject driedClayBricks = BLOCKS.registerBuilding("dried_clay_bricks", DRIED_CLAY, GENERAL_BLOCK_ITEM);
   // glass
-  public static final BlockItemObject<GlassBlock> clearGlass = BLOCKS.register("clear_glass", () -> new GlassBlock(GENERIC_GLASS_BLOCK), GENERAL_BLOCK_ITEM);
-  public static final BlockItemObject<ClearGlassPaneBlock> clearGlassPane = BLOCKS.register("clear_glass_pane", () -> new ClearGlassPaneBlock(GENERIC_GLASS_BLOCK), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<GlassBlock> clearGlass = BLOCKS.register("clear_glass", () -> new GlassBlock(GENERIC_GLASS_BLOCK), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<ClearGlassPaneBlock> clearGlassPane = BLOCKS.register("clear_glass_pane", () -> new ClearGlassPaneBlock(GENERIC_GLASS_BLOCK), GENERAL_BLOCK_ITEM);
   public static final EnumObject<GlassColor,ClearStainedGlassBlock> clearStainedGlass = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass", (color) -> new ClearStainedGlassBlock(GENERIC_GLASS_BLOCK, color), GENERAL_BLOCK_ITEM);
   public static final EnumObject<GlassColor,ClearStainedGlassPaneBlock> clearStainedGlassPane = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass_pane", (color) -> new ClearStainedGlassPaneBlock(GENERIC_GLASS_BLOCK, color), GENERAL_BLOCK_ITEM);
   // wood
-  private static final Block.Properties WOOD = builder(Material.WOOD, ToolType.AXE, SoundType.WOOD).hardnessAndResistance(2.0F, 7.0F).lightValue(7);
+  private static final Block.Properties WOOD = builder(Material.WOOD, ToolType.AXE, SoundType.WOOD).hardnessAndResistance(2.0F, 7.0F).setLightLevel(s -> 7);
   public static final BuildingBlockObject lavawood = BLOCKS.registerBuilding("lavawood", WOOD, GENERAL_BLOCK_ITEM);
   public static final BuildingBlockObject firewood = BLOCKS.registerBuilding("firewood", WOOD, GENERAL_BLOCK_ITEM);
 

@@ -2,15 +2,11 @@ package slimeknights.tconstruct.common.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
-import slimeknights.mantle.pulsar.config.PulsarConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Config {
-
-  public static PulsarConfig pulseConfig = new PulsarConfig("TinkerModules", "Modules");
-
   /**
    * Common specific configuration
    */

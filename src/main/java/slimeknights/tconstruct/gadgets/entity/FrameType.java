@@ -36,7 +36,7 @@ public enum FrameType implements IStringSerializable {
   }
 
   @Override
-  public String getName() {
+  public String getString() {
     return this.toString().toLowerCase(Locale.US);
   }
 

@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.tinkering;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -15,9 +14,10 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.ForgeI18n;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
-import slimeknights.mantle.util.LocUtils;
+import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -25,10 +25,8 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
-import slimeknights.tconstruct.shared.CommonsClientEvents;
 import slimeknights.tconstruct.tools.IToolPart;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -114,7 +112,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
       List<ITextComponent> text = stat.getLocalizedInfo();
       if (!text.isEmpty()) {
         builder.add(new StringTextComponent(""));
-        builder.add(stat.getLocalizedName().applyTextStyles(TextFormatting.WHITE, TextFormatting.UNDERLINE));
+        builder.add(stat.getLocalizedName().mergeStyle(TextFormatting.WHITE, TextFormatting.UNDERLINE));
         builder.addAll(stat.getLocalizedInfo());
       }
     });
@@ -152,16 +150,9 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
       return true;
     }
     else if(!MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), materialStatId).isPresent()) {
-      tooltip.addAll(LocUtils.getTooltips(Util.translateFormatted("tooltip.part.missing_stats", material.getTranslationKey(), materialStatId)));
+      TranslationHelper.addEachLine(ForgeI18n.parseMessage("tooltip.part.missing_stats", material.getTranslationKey(), materialStatId), tooltip);
     }
 
     return false;
-  }
-
-  @Nonnull
-  @OnlyIn(Dist.CLIENT)
-  @Override
-  public FontRenderer getFontRenderer(ItemStack stack) {
-    return CommonsClientEvents.fontRenderer;
   }
 }

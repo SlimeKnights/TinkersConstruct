@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.book.elements;
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -18,7 +19,7 @@ public class ListingLeftElement extends TextElement {
   }
 
   @Override
-  public void draw(int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
+  public void draw(MatrixStack matrices, int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) {
     if (this.isHovered(mouseX, mouseY)) {
       this.text[0].text = " > ";
       for (int i = 1; i < this.text.length; i++) {
@@ -30,6 +31,6 @@ public class ListingLeftElement extends TextElement {
         this.text[i].color = "black";
       }
     }
-    super.draw(mouseX, mouseY, partialTicks, fontRenderer);
+    super.draw(matrices, mouseX, mouseY, partialTicks, fontRenderer);
   }
 }

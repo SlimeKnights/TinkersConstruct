@@ -18,16 +18,16 @@ import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IModelTransform;
 import net.minecraft.client.renderer.model.IUnbakedModel;
 import net.minecraft.client.renderer.model.ItemOverrideList;
-import net.minecraft.client.renderer.model.Material;
 import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.Direction;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
@@ -65,12 +65,12 @@ public class TankModel implements IModelGeometry<TankModel> {
   protected final IncrementalFluidCuboid fluid;
 
   @Override
-  public Collection<Material> getTextures(IModelConfiguration owner, Function<ResourceLocation,IUnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
+  public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation,IUnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
     return model.getTextures(modelGetter, missingTextureErrors);
   }
 
   @Override
-  public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<Material,TextureAtlasSprite> spriteGetter, IModelTransform transform, ItemOverrideList overrides, ResourceLocation location) {
+  public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, IModelTransform transform, ItemOverrideList overrides, ResourceLocation location) {
     IBakedModel baked = model.bakeModel(bakery, model, spriteGetter, transform, location, true);
     return new BakedModel<TankModel>(bakery, transform, baked, this);
   }
@@ -81,7 +81,7 @@ public class TankModel implements IModelGeometry<TankModel> {
     public static final FluidPartOverride INSTANCE = new FluidPartOverride();
 
     @Override
-    public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World world, @Nullable LivingEntity entity) {
+    public IBakedModel func_239290_a_(IBakedModel model, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
       // ensure we have a fluid
       if (stack.isEmpty() || !stack.hasTag()) {
         return model;
@@ -132,7 +132,7 @@ public class TankModel implements IModelGeometry<TankModel> {
       // add fluid texture
       BlockModel base = original.model;
       FluidAttributes attributes = stack.getFluid().getAttributes();
-      Map<String,Either<Material,String>> textures = Maps.newHashMap(base.textures);
+      Map<String,Either<RenderMaterial,String>> textures = Maps.newHashMap(base.textures);
       textures.put("fluid", Either.left(ModelLoaderRegistry.blockMaterial(attributes.getStillTexture(stack))));
       textures.put("flowing_fluid", Either.left(ModelLoaderRegistry.blockMaterial(attributes.getFlowingTexture(stack))));
 

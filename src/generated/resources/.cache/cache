@@ -122,6 +122,7 @@ b7f4fe5768667b45fbe31a15a9082ac16c7771b7 data/forge/tags/items/storage_blocks/ma
 ff42ae5d56b04eb9092a5d8bf39b0745626143a6 data/forge/tags/items/storage_blocks/rose_gold.json
 a1f6e60fa7ffbbf8557f7eb0eb30eb29d0d83701 data/minecraft/advancements/recipes/decorations/slime_block.json
 aa890e39247c1ce30f355b0b9405127e580e373b data/minecraft/recipes/slime_block.json
+551d782cdc13056f71bd1c42837d75681d8cc749 data/minecraft/tags/blocks/beacon_base_blocks.json
 6bd071dfd27099ab8f306882b95204b1237963a6 data/minecraft/tags/blocks/rails.json
 6bd071dfd27099ab8f306882b95204b1237963a6 data/minecraft/tags/items/rails.json
 8fb057fc5f17d40fe21f938842e9636fa9acb064 data/tconstruct/advancements/recipes/building_blocks/gadgets/stone/jack_o_lantern.json
@@ -389,6 +390,7 @@ d233568bdbd3ee89f16a8b2a3ae7334e58216107 data/tconstruct/advancements/recipes/tc
 f4d1d8719d99237c5213525965726bb75e1ea6a4 data/tconstruct/advancements/recipes/tconstruct/gadgets/gadgets/stone/stone_ladder.json
 8b4e710926af9e4fbdea52721af4ff0d8c44200a data/tconstruct/advancements/recipes/tconstruct/gadgets/gadgets/stone/stone_stick.json
 e3fd093351e7e84a383b36cc31458f33a1cd5181 data/tconstruct/advancements/recipes/tconstruct/gadgets/gadgets/stone/stone_torch.json
+107d0163eb83a016ddf62b1440e9957950b96d66 data/tconstruct/advancements/recipes/tconstruct/gadgets/gadgets/throwball/efln_ball.json
 654d0157c7e1e7c123cf23ca2d67f4c3e6d0fe8e data/tconstruct/advancements/recipes/tconstruct/gadgets/gadgets/throwball/glow_ball.json
 d3f0c5f26c805df0a8ed708b3839d3ef75e1e9bc data/tconstruct/advancements/recipes/tconstruct/general/building/dried_brick_campfire.json
 97c746494237a97fbf9b59f012d12845213a937c data/tconstruct/advancements/recipes/tconstruct/general/building/dried_clay_bricks.json
@@ -1074,7 +1076,7 @@ f8acd6e3c1e2bc673ac44b690fd8b95f51e247ee data/tconstruct/recipes/gadgets/stone/j
 2d3c1d41a52721852c48d6e0a6ae53b37a7fc176 data/tconstruct/recipes/gadgets/stone/stone_ladder.json
 9146ab972fe602dea45170ca1324254cc5943752 data/tconstruct/recipes/gadgets/stone/stone_stick.json
 2243808065f62b1333b289c3a7b410ce4fb3dd6f data/tconstruct/recipes/gadgets/stone/stone_torch.json
-1340797bd2a4c041168e1d9e2c810aaaa7080a98 data/tconstruct/recipes/gadgets/throwball/efln.json
+80d4185b3907caf4def8fc46d13e31d186182c04 data/tconstruct/recipes/gadgets/throwball/efln_ball.json
 c71d3854e4a7e60f7d75decb1e985d4723300c2f data/tconstruct/recipes/gadgets/throwball/glow_ball.json
 707a97721d8911428507ed51519a0c7f0841e6d0 data/tconstruct/recipes/materials/ardite_from_block.json
 664ed79f8068bd061b8affbcd77fb0dc9f504a7c data/tconstruct/recipes/materials/ardite_from_ingot.json

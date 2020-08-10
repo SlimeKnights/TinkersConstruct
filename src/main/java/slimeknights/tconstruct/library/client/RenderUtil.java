@@ -9,13 +9,10 @@ import lombok.NoArgsConstructor;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
-import net.minecraft.client.renderer.texture.MissingTextureSprite;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -25,6 +22,8 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
@@ -431,7 +430,7 @@ public final class RenderUtil {
    * @return  True if rotation was applied. Caller is expected to call {@link MatrixStack#pop()} if true
    */
   public static boolean applyRotation(MatrixStack matrices, BlockState state) {
-    if (state.has(BlockStateProperties.HORIZONTAL_FACING)) {
+    if (state.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
       return applyRotation(matrices, state.get(BlockStateProperties.HORIZONTAL_FACING));
     }
     return false;

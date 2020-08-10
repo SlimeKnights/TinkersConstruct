@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.traits;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
@@ -30,7 +31,7 @@ class MaterialTraitsManagerTest extends BaseMcTest {
 
   @Test
   void defaultTraitsAreLoaded() {
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(SIMPLE_TRAIT_FILE);
+    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(SIMPLE_TRAIT_FILE);
 
     traitsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -41,7 +42,7 @@ class MaterialTraitsManagerTest extends BaseMcTest {
 
   @Test
   void perStatsTraitsAreLoaded() {
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(SIMPLE_TRAIT_FILE);
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist(SIMPLE_TRAIT_FILE);
 
     traitsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -52,7 +53,7 @@ class MaterialTraitsManagerTest extends BaseMcTest {
 
   @Test
   void defaultWithMultipleTraits_singleFile() {
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(MULTIPLE_TRAITS_FILE);
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist(MULTIPLE_TRAITS_FILE);
 
     traitsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -66,7 +67,7 @@ class MaterialTraitsManagerTest extends BaseMcTest {
 
   @Test
   void perStatsTraitsWithMultipleTraits_singleFile() {
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(MULTIPLE_TRAITS_FILE);
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist(MULTIPLE_TRAITS_FILE);
 
     traitsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -80,7 +81,7 @@ class MaterialTraitsManagerTest extends BaseMcTest {
 
   @Test
   void multipleTraitsPerStats_singleFile() {
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(MULTIPLE_TRAITS_FILE);
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist(MULTIPLE_TRAITS_FILE);
 
     traitsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -101,7 +102,7 @@ class MaterialTraitsManagerTest extends BaseMcTest {
 
   @Test
   void combineDefaultTraits_multipleFiles() {
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(SIMPLE_TRAIT_FILE, SIMPLE_TRAIT_FILE2);
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist(SIMPLE_TRAIT_FILE, SIMPLE_TRAIT_FILE2);
 
     traitsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -114,7 +115,7 @@ class MaterialTraitsManagerTest extends BaseMcTest {
 
   @Test
   void combineStatsTraits_multipleFiles() {
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(SIMPLE_TRAIT_FILE, SIMPLE_TRAIT_FILE2);
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist(SIMPLE_TRAIT_FILE, SIMPLE_TRAIT_FILE2);
 
     traitsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -127,7 +128,7 @@ class MaterialTraitsManagerTest extends BaseMcTest {
 
   @Test
   void loadMissingFile_ignored() {
-    Map<ResourceLocation, JsonObject> splashList = ImmutableMap.of(Util.getResource("nonexistant"), new JsonObject());
+    Map<ResourceLocation, JsonElement> splashList = ImmutableMap.of(Util.getResource("nonexistant"), new JsonObject());
 
     traitsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 

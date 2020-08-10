@@ -4,7 +4,6 @@ import lombok.Getter;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
-import slimeknights.tconstruct.library.client.renderer.font.CustomFontColor;
 
 @Getter
 public class Material implements IMaterial {
@@ -44,16 +43,5 @@ public class Material implements IMaterial {
 
   protected Material(ResourceLocation identifier, Fluid fluid, boolean craftable) {
     this(identifier, fluid, craftable, "ffffff", 0);
-  }
-
-  @Override
-  public String getEncodedTextColor() {
-    int color = Integer.parseInt(this.textColor, 16);
-
-    if((color & 0xFF000000) == 0) {
-      color |= 0xFF000000;
-    }
-
-    return CustomFontColor.encodeColor(color);
   }
 }

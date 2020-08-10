@@ -1,10 +1,13 @@
 package slimeknights.tconstruct.library.tools.helper;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.item.ItemStack;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
+
+import javax.annotation.Nullable;
 
 public class ToolAttackUtil {
 
@@ -15,11 +18,14 @@ public class ToolAttackUtil {
    * @param player the current player
    * @return the actual damage of the tool
    */
-  public static float getActualDamage(ItemStack stack, LivingEntity player) {
-    float damage = (float) SharedMonsterAttributes.ATTACK_DAMAGE.getDefaultValue();
+  public static float getActualDamage(ItemStack stack, @Nullable LivingEntity player) {
+    float damage = (float) Attributes.ATTACK_DAMAGE.getDefaultValue();
 
     if (player != null) {
-      damage = (float) player.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getValue();
+      ModifiableAttributeInstance instance = player.getAttribute(Attributes.ATTACK_DAMAGE);
+      if (instance != null) {
+        damage = (float) instance.getValue();
+      }
     }
 
     float toolDamage = ToolData.from(stack).getStats().attack;

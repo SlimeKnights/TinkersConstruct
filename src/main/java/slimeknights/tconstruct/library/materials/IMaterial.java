@@ -4,10 +4,12 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
+import net.minecraft.util.text.Color;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.client.renderer.font.CustomFontColor;
 
 public interface IMaterial {
+  Color WHITE = Color.func_240743_a_(0xFFFFFFFF);
+
   /**
    * Fallback material. Used for operations where a material or specific aspects of a material are used,
    * but the given input is missing or does not match the requirements.
@@ -57,12 +59,16 @@ public interface IMaterial {
    * Gets the encoded text color for this material
    * @return the encoded text color
    */
-  default String getEncodedTextColor() {
-    int color = Integer.parseInt(this.getTextColor(), 16);
-    if((color & 0xFF000000) == 0) {
-      color |= 0xFF000000;
+  default Color getColor() {
+    try {
+      int color = Integer.parseInt(getTextColor(), 16);
+      if((color & 0xFF000000) == 0) {
+        color |= 0xFF000000;
+      }
+      return Color.func_240743_a_(color);
+    } catch (NumberFormatException e) {
+      return WHITE;
     }
-    return CustomFontColor.encodeColor(color);
   }
 
   /**

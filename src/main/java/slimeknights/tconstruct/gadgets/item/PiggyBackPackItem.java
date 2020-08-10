@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.gadgets.item;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.DisplayEffectsScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.play.server.SSetPassengersPacket;
 import net.minecraft.potion.EffectInstance;
@@ -44,8 +44,6 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
   private static final int MAX_ENTITY_STACK = 3; // how many entities can be carried at once
 
   private static final IArmorMaterial PIGGYBACK = new IArmorMaterial() {
-    private final Ingredient empty_repair_material = Ingredient.fromItems(Items.AIR);
-
     @Override
     public int getDurability(EquipmentSlotType slotIn) {
       return 0;
@@ -68,9 +66,10 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
 
     @Override
     public Ingredient getRepairMaterial() {
-      return this.empty_repair_material;
+      return Ingredient.EMPTY;
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public String getName() {
       return Util.resource("piggyback");
@@ -78,6 +77,11 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
 
     @Override
     public float getToughness() {
+      return 0;
+    }
+
+    @Override
+    public float getKnockbackResistance() {
       return 0;
     }
   };
@@ -94,14 +98,14 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
   }
 
   @Override
-  public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+  public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
     // is the chest slot empty?
     ItemStack chestArmor = playerIn.getItemStackFromSlot(this.slot);
 
     // need enough space to exchange the chest armor
     if (chestArmor.getItem() != this && playerIn.inventory.getFirstEmptyStack() == -1) {
       // not enough inventory space
-      return false;
+      return ActionResultType.PASS;
     }
 
     if (this.pickupEntity(playerIn, target)) {
@@ -119,10 +123,10 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
         chestArmor.grow(1);
       }
       // successfully picked up an entity
-      return true;
+      return ActionResultType.SUCCESS;
     }
 
-    return false;
+    return ActionResultType.PASS;
   }
 
   private boolean pickupEntity(PlayerEntity player, Entity target) {
@@ -204,7 +208,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
     public CarryPotionEffect() {
       super(EffectType.NEUTRAL, true);
 
-      this.addAttributesModifier(SharedMonsterAttributes.MOVEMENT_SPEED, UUID, -0.05D, AttributeModifier.Operation.MULTIPLY_TOTAL);
+      this.addAttributesModifier(Attributes.MOVEMENT_SPEED, UUID, -0.05D, AttributeModifier.Operation.MULTIPLY_TOTAL);
     }
 
     @Override
@@ -220,25 +224,20 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
       } else {
         TinkerGadgets.piggyBackpack.get().matchCarriedEntitiesToCount(livingEntityIn, chestArmor.getCount());
         if (!livingEntityIn.getEntityWorld().isRemote) {
-          if (livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).isPresent()) {
-            ITinkerPiggyback piggyback = livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).orElse(null);
-            if (piggyback != null) {
-              piggyback.updatePassengers();
-            }
-          }
+          livingEntityIn.getCapability(CapabilityTinkerPiggyback.PIGGYBACK, null).ifPresent(ITinkerPiggyback::updatePassengers);
         }
       }
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void renderInventoryEffect(EffectInstance effect, DisplayEffectsScreen<?> gui, int x, int y, float z) {
-      this.renderHUDEffect(effect, gui, x, y, z, 1f);
+    public void renderInventoryEffect(EffectInstance effect, DisplayEffectsScreen<?> gui, MatrixStack matrices, int x, int y, float z) {
+      this.renderHUDEffect(effect, gui, matrices, x, y, z, 1f);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void renderHUDEffect(EffectInstance effect, AbstractGui gui, int x, int y, float z, float alpha) {
+    public void renderHUDEffect(EffectInstance effect, AbstractGui gui, MatrixStack matrices, int x, int y, float z, float alpha) {
       Minecraft.getInstance().getTextureManager().bindTexture(Icons.ICONS);
       ElementScreen element;
 
@@ -254,7 +253,7 @@ public class PiggyBackPackItem extends ArmorTooltipItem {
           break;
       }
 
-      element.draw(x + 6, y + 7);
+      element.draw(matrices, x + 6, y + 7);
     }
   }
 }

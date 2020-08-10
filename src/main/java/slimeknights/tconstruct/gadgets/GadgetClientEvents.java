@@ -3,12 +3,10 @@ package slimeknights.tconstruct.gadgets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,7 +18,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.gadgets.client.FancyItemFrameRenderer;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)
@@ -37,8 +34,8 @@ public class GadgetClientEvents extends ClientEventBase {
     //}
 
     for (FrameType frameType : FrameType.values()) {
-      ModelLoader.addSpecialModel(new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getName() + "_frame_empty"), "inventory"));
-      ModelLoader.addSpecialModel(new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getName() + "_frame_map"), "inventory"));
+      ModelLoader.addSpecialModel(new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getString() + "_frame_empty"), "inventory"));
+      ModelLoader.addSpecialModel(new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getString() + "_frame_map"), "inventory"));
     }
   }
 

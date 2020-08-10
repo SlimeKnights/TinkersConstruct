@@ -1,5 +1,5 @@
 package slimeknights.tconstruct.world.worldgen.trees.feature;
-
+/*
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -256,3 +256,4 @@ public class SlimeTreeFeature extends AbstractTreeFeature<SlimeTreeFeatureConfig
     return position;
   }
 }
+*/

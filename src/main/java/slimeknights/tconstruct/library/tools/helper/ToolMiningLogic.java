@@ -43,7 +43,7 @@ public final class ToolMiningLogic {
     Block block = state.getBlock();
 
     // doesn't require a tool
-    if(state.getMaterial().isToolNotRequired()) {
+    if(!state.getRequiresTool()) {
       return true;
     }
 

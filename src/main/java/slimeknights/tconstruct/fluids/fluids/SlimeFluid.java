@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +22,7 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
   }
 
   @Override
-  public void randomTick(World world, BlockPos pos, IFluidState state, Random random) {
+  public void randomTick(World world, BlockPos pos, FluidState state, Random random) {
     int oldLevel = getLevelFromState(state);
     super.randomTick(world, pos, state, random);
 
@@ -33,7 +33,7 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
         if (blockDown == Blocks.DIRT) {
           // check if the block we flowed from has slimedirt below it and move the slime with us!
           for (Direction dir : Direction.Plane.HORIZONTAL) {
-            IFluidState state2 = world.getFluidState(pos.offset(dir));
+            FluidState state2 = world.getFluidState(pos.offset(dir));
             // same block and a higher flow
             if (state2.getFluid() == this && getLevelFromState(state2) == getLevelFromState(state) - 1) {
               BlockState dirt = world.getBlockState(pos.offset(dir).down());
@@ -62,18 +62,18 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Fluid, IFluidState> builder) {
+    protected void fillStateContainer(StateContainer.Builder<Fluid, FluidState> builder) {
       super.fillStateContainer(builder);
       builder.add(LEVEL_1_8);
     }
 
     @Override
-    public int getLevel(IFluidState state) {
+    public int getLevel(FluidState state) {
       return state.get(LEVEL_1_8);
     }
 
     @Override
-    public boolean isSource(IFluidState state) {
+    public boolean isSource(FluidState state) {
       return false;
     }
   }
@@ -85,12 +85,12 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
     }
 
     @Override
-    public int getLevel(IFluidState state) {
+    public int getLevel(FluidState state) {
       return 8;
     }
 
     @Override
-    public boolean isSource(IFluidState state) {
+    public boolean isSource(FluidState state) {
       return true;
     }
   }

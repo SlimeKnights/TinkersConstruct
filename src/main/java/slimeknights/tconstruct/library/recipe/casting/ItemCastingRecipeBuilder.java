@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -126,7 +127,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @param consumed  If true, the cast is consumed
    * @return  Builder instance
    */
-  public ItemCastingRecipeBuilder setCast(Tag<Item> tagIn, boolean consumed) {
+  public ItemCastingRecipeBuilder setCast(ITag<Item> tagIn, boolean consumed) {
     return this.setCast(Ingredient.fromTag(tagIn), consumed);
   }
 

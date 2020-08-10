@@ -1,27 +1,14 @@
 package slimeknights.tconstruct.world;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.feature.structure.IStructurePieceType;
-import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.placement.CountRangeConfig;
-import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
-import net.minecraftforge.common.IPlantable;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -30,16 +17,6 @@ import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
-import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
-import slimeknights.tconstruct.world.worldgen.islands.nether.NetherSlimeIslandPiece;
-import slimeknights.tconstruct.world.worldgen.islands.nether.NetherSlimeIslandStructure;
-import slimeknights.tconstruct.world.worldgen.islands.overworld.SlimeIslandPiece;
-import slimeknights.tconstruct.world.worldgen.islands.overworld.SlimeIslandStructure;
-import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeature;
-import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeatureConfig;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SupplierBlockStateProvider;
 
 import java.util.function.Supplier;
@@ -54,6 +31,7 @@ public final class TinkerStructures extends TinkerModule {
   /*
    * Structure pieces
    */
+  /*
   public static IStructurePieceType slimeIslandPiece;
   public static IStructurePieceType netherSlimeIslandPiece;
 
@@ -62,10 +40,12 @@ public final class TinkerStructures extends TinkerModule {
     slimeIslandPiece = Registry.register(Registry.STRUCTURE_PIECE, location("slime_island_piece"), SlimeIslandPiece::new);
     netherSlimeIslandPiece = Registry.register(Registry.STRUCTURE_PIECE, location("nether_slime_island_piece"), NetherSlimeIslandPiece::new);
   }
+  */
 
   /*
    * Config
    */
+  /*
   public static SlimeTreeFeatureConfig blueSlimeTreeConfig;
   public static SlimeTreeFeatureConfig blueSlimeIslandTreeConfig;
   public static SlimeTreeFeatureConfig purpleSlimeTreeConfig;
@@ -99,25 +79,27 @@ public final class TinkerStructures extends TinkerModule {
                                       .setSapling(saplingIn)
                                       .build();
   }
+   */
 
   /*
    * Misc
    */
-  public static final RegistryObject<BlockStateProviderType<SupplierBlockStateProvider>> supplierBlockstateProvider = BLOCK_STATE_PROVIDER_TYPES.register("supplier_state_provider", () -> new BlockStateProviderType<>(SupplierBlockStateProvider::new));;
+  public static final RegistryObject<BlockStateProviderType<SupplierBlockStateProvider>> supplierBlockstateProvider = BLOCK_STATE_PROVIDER_TYPES.register("supplier_state_provider", () -> new BlockStateProviderType<>(SupplierBlockStateProvider.CODEC));;
 
   /*
    * Features
    */
-  public static final RegistryObject<Feature<SlimeTreeFeatureConfig>> tree = FEATURES.register("tree", () -> new SlimeTreeFeature(SlimeTreeFeatureConfig::deserialize));
+  //public static final RegistryObject<Feature<SlimeTreeFeatureConfig>> tree = FEATURES.register("tree", () -> new SlimeTreeFeature(SlimeTreeFeatureConfig::deserialize));
   // islands
-  public static final RegistryObject<Structure<NoFeatureConfig>> slimeIsland = FEATURES.register("slime_island", () -> new SlimeIslandStructure(NoFeatureConfig::deserialize));
-  public static final RegistryObject<Structure<NoFeatureConfig>> netherSlimeIsland = FEATURES.register("nether_slime_island", () -> new NetherSlimeIslandStructure(NoFeatureConfig::deserialize));
+  //public static final RegistryObject<Structure<NoFeatureConfig>> slimeIsland = FEATURES.register("slime_island", () -> new SlimeIslandStructure(NoFeatureConfig::deserialize));
+  //public static final RegistryObject<Structure<NoFeatureConfig>> netherSlimeIsland = FEATURES.register("nether_slime_island", () -> new NetherSlimeIslandStructure(NoFeatureConfig::deserialize));
 
   /*
    * Feature placement and configuration
    */
   @SubscribeEvent
-  void commonSetup(final FMLCommonSetupEvent event) {
+  void commonSetup(FMLCommonSetupEvent event) {
+    /*
     // slime island
     ConfiguredFeature<?, ?> slimeIslandFeature = slimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
     FlatGenerationSettings.FEATURE_STAGES.put(slimeIslandFeature, GenerationStage.Decoration.SURFACE_STRUCTURES);
@@ -128,6 +110,7 @@ public final class TinkerStructures extends TinkerModule {
     FlatGenerationSettings.FEATURE_STAGES.put(NETHER_SLIME_ISLAND_FEATURE, GenerationStage.Decoration.UNDERGROUND_DECORATION);
     FlatGenerationSettings.STRUCTURES.put("tconstruct:nether_slime_island", new ConfiguredFeature[]{NETHER_SLIME_ISLAND_FEATURE});
     FlatGenerationSettings.FEATURE_CONFIGS.put(NETHER_SLIME_ISLAND_FEATURE, IFeatureConfig.NO_FEATURE_CONFIG);
+    */
 
     // add islands and ores to worldgen
     ForgeRegistries.BIOMES.forEach(biome -> {
@@ -135,10 +118,12 @@ public final class TinkerStructures extends TinkerModule {
       // nether ores to the nether
       if (biome.getCategory() == Biome.Category.NETHER) {
         // FIXME: constant config
+        /*
         if (Config.COMMON.generateSlimeIslands.get()) {
           biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, netherSlimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
           biome.addStructure(netherSlimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
         }
+        */
 
         // FIXME: constant config
         if (Config.COMMON.generateCobalt.get()) {
@@ -151,11 +136,13 @@ public final class TinkerStructures extends TinkerModule {
       // overworld islands to the overworld
       } else if (biome.getCategory() != Biome.Category.THEEND) {
         // FIXME: constant config
+        /*
         if (Config.COMMON.generateSlimeIslands.get()) {
           biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, slimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
           biome.addStructure(slimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
           biome.getSpawns(EntityClassification.MONSTER).add(new Biome.SpawnListEntry(TinkerWorld.blueSlimeEntity.get(), 15, 2, 4));
         }
+        */
 
         if (Config.COMMON.generateCopper.get()) {
           biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,

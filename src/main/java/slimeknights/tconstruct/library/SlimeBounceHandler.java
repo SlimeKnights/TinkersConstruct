@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.TickEvent;
@@ -46,17 +46,17 @@ public class SlimeBounceHandler {
     if (event.phase == TickEvent.Phase.END && event.player == this.entityLiving && !event.player.isElytraFlying()) {
       // bounce up. This is to pcircumvent the logic that resets y motion after landing
       if (event.player.ticksExisted == this.bounceTick) {
-        Vec3d vec3d = event.player.getMotion();
+        Vector3d vec3d = event.player.getMotion();
         event.player.setMotion(vec3d.x, this.bounce, vec3d.z);
         this.bounceTick = 0;
       }
 
       // preserve motion
-      if (!this.entityLiving.onGround && this.entityLiving.ticksExisted != this.bounceTick) {
+      if (!this.entityLiving.isOnGround() && this.entityLiving.ticksExisted != this.bounceTick) {
         if (this.lastMovX != this.entityLiving.getMotion().x || this.lastMovZ != this.entityLiving.getMotion().z) {
           double f = 0.91d + 0.025d;
           //System.out.println((entityLiving.worldObj.isRemote ? "client: " : "server: ") + entityLiving.motionX);
-          Vec3d vec3d = this.entityLiving.getMotion();
+          Vector3d vec3d = this.entityLiving.getMotion();
           event.player.setMotion(vec3d.x / f, vec3d.y, vec3d.z / f);
           this.entityLiving.isAirBorne = true;
           this.lastMovX = this.entityLiving.getMotion().x;
@@ -65,7 +65,7 @@ public class SlimeBounceHandler {
       }
 
       // timing the effect out
-      if (this.wasInAir && this.entityLiving.onGround) {
+      if (this.wasInAir && this.entityLiving.isOnGround()) {
         if (this.timer == 0) {
           this.timer = this.entityLiving.ticksExisted;
         } else if (this.entityLiving.ticksExisted - this.timer > 5) {

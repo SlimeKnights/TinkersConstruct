@@ -6,7 +6,6 @@ import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
@@ -19,10 +18,10 @@ import net.minecraft.item.FilledMapItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.storage.MapData;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
@@ -32,7 +31,7 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-@OnlyIn(Dist.CLIENT)
+// TODO: needs so much cleanup
 public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity> {
 
   private static final ResourceLocation MAP_BACKGROUND_TEXTURES = new ResourceLocation("textures/map/map_background.png");
@@ -54,8 +53,8 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
       // LOCATIONS_MODEL.put(color, new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getName() + "_frame"), "map=false"));
       // LOCATIONS_MODEL_MAP.put(color, new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getName() + "_frame"), "map=true"));
 
-      LOCATIONS_MODEL.put(frameType, new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getName() + "_frame_empty"), "inventory"));
-      LOCATIONS_MODEL_MAP.put(frameType, new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getName() + "_frame_map"), "inventory"));
+      LOCATIONS_MODEL.put(frameType, new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getString() + "_frame_empty"), "inventory"));
+      LOCATIONS_MODEL_MAP.put(frameType, new ModelResourceLocation(new ResourceLocation(TConstruct.modID, frameType.getString() + "_frame_map"), "inventory"));
     }
   }
 
@@ -64,7 +63,7 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
     super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     matrixStackIn.push();
     Direction direction = entityIn.getHorizontalFacing();
-    Vec3d vec3d = this.getRenderOffset(entityIn, partialTicks);
+    Vector3d vec3d = this.getRenderOffset(entityIn, partialTicks);
     matrixStackIn.translate(-vec3d.getX(), -vec3d.getY(), -vec3d.getZ());
     matrixStackIn.translate((double) direction.getXOffset() * 0.46875D, (double) direction.getYOffset() * 0.46875D, (double) direction.getZOffset() * 0.46875D);
     matrixStackIn.rotate(Vector3f.XP.rotationDegrees(entityIn.rotationPitch));
@@ -108,8 +107,8 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
   }
 
   @Override
-  public Vec3d getRenderOffset(FancyItemFrameEntity entityIn, float partialTicks) {
-    return new Vec3d((float) entityIn.getHorizontalFacing().getXOffset() * 0.3F, -0.25D, (float) entityIn.getHorizontalFacing().getZOffset() * 0.3F);
+  public Vector3d getRenderOffset(FancyItemFrameEntity entityIn, float partialTicks) {
+    return new Vector3d((float) entityIn.getHorizontalFacing().getXOffset() * 0.3F, -0.25D, (float) entityIn.getHorizontalFacing().getZOffset() * 0.3F);
   }
 
   @Override
@@ -124,7 +123,7 @@ public class FancyItemFrameRenderer extends EntityRenderer<FancyItemFrameEntity>
   }
 
   @Override
-  protected void renderName(FancyItemFrameEntity entityIn, String displayNameIn, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-    super.renderName(entityIn, entityIn.getDisplayedItem().getDisplayName().getFormattedText(), matrixStackIn, bufferIn, packedLightIn);
+  protected void renderName(FancyItemFrameEntity entityIn, ITextComponent displayNameIn, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+    super.renderName(entityIn, entityIn.getDisplayedItem().getDisplayName(), matrixStackIn, bufferIn, packedLightIn);
   }
 }

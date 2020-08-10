@@ -1,10 +1,9 @@
 package slimeknights.tconstruct.tools;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.library.registration.object.BlockItemObject;
-import slimeknights.tconstruct.library.registration.object.ItemObject;
-import slimeknights.tconstruct.shared.block.BeaconBaseBlock;
 
 /**
  * Contains blocks and items used in crafting materials, and the materials themselves
@@ -16,13 +15,13 @@ public final class TinkerMaterials extends TinkerModule {
 
   // metal
   // TODO: which tinker materials do we want?
-  public static final BlockItemObject<BeaconBaseBlock> cobaltBlock = BLOCKS.register("cobalt_block", () -> new BeaconBaseBlock(GENERIC_METAL_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<BeaconBaseBlock> arditeBlock = BLOCKS.register("ardite_block", () -> new BeaconBaseBlock(GENERIC_METAL_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<BeaconBaseBlock> manyullynBlock = BLOCKS.register("manyullyn_block", () -> new BeaconBaseBlock(GENERIC_METAL_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<BeaconBaseBlock> knightSlimeBlock = BLOCKS.register("knightslime_block", () -> new BeaconBaseBlock(GENERIC_METAL_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<BeaconBaseBlock> pigironBlock = BLOCKS.register("pigiron_block", () -> new BeaconBaseBlock(GENERIC_METAL_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<BeaconBaseBlock> copperBlock = BLOCKS.register("copper_block", () -> new BeaconBaseBlock(GENERIC_METAL_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<BeaconBaseBlock> roseGoldBlock = BLOCKS.register("rose_gold_block", () -> new BeaconBaseBlock(GENERIC_METAL_BLOCK), GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> cobaltBlock = BLOCKS.register("cobalt_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> arditeBlock = BLOCKS.register("ardite_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> manyullynBlock = BLOCKS.register("manyullyn_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> knightSlimeBlock = BLOCKS.register("knightslime_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> pigironBlock = BLOCKS.register("pigiron_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> copperBlock = BLOCKS.register("copper_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> roseGoldBlock = BLOCKS.register("rose_gold_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
 
   /*
    * Items

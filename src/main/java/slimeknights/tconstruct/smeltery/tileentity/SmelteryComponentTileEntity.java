@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.tileentity;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -9,7 +10,7 @@ import slimeknights.mantle.multiblock.MultiServantLogic;
 import slimeknights.tconstruct.library.smeltery.ISmelteryTankHandler;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class SmelteryComponentTileEntity extends MultiServantLogic {
 
@@ -17,7 +18,8 @@ public class SmelteryComponentTileEntity extends MultiServantLogic {
     this(TinkerSmeltery.smelteryComponent.get());
   }
 
-  public SmelteryComponentTileEntity(TileEntityType<?> tileEntityTypeIn) {
+  @SuppressWarnings("WeakerAccess")
+  protected SmelteryComponentTileEntity(TileEntityType<?> tileEntityTypeIn) {
     super(tileEntityTypeIn);
   }
 
@@ -31,10 +33,9 @@ public class SmelteryComponentTileEntity extends MultiServantLogic {
   @Override
   public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
     super.onDataPacket(net, pkt);
-    this.read(pkt.getNbtCompound());
+    this.read(this.getBlockState(), pkt.getNbtCompound());
   }
 
-  @Nonnull
   @Override
   public CompoundNBT getUpdateTag() {
     // new tag instead of super since default implementation calls the super of writeToNBT
@@ -42,8 +43,8 @@ public class SmelteryComponentTileEntity extends MultiServantLogic {
   }
 
   @Override
-  public void handleUpdateTag(@Nonnull CompoundNBT tag) {
-    this.read(tag);
+  public void handleUpdateTag(BlockState state, CompoundNBT tag) {
+    this.read(state, tag);
   }
 
   /**
@@ -51,9 +52,10 @@ public class SmelteryComponentTileEntity extends MultiServantLogic {
    *
    * @return null if the TE is not an ISmelteryTankHandler or if the master is missing
    */
+  @Nullable
   protected ISmelteryTankHandler getSmelteryTankHandler() {
-    if (this.getHasMaster()) {
-      TileEntity te = this.getWorld().getTileEntity(this.getMasterPosition());
+    if (this.getHasMaster() && this.world != null) {
+      TileEntity te = this.world.getTileEntity(this.getMasterPosition());
       if (te instanceof ISmelteryTankHandler) {
         return (ISmelteryTankHandler) te;
       }

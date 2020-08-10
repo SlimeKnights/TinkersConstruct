@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.world;
-
+/*
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
@@ -11,6 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
+@EventBusSubscriber(modid = TConstruct.modID, bus = Bus.FORGE)
 public class WorldEvents {
 
   // Custom slime spawning on slime islands
@@ -18,7 +19,7 @@ public class WorldEvents {
   private Biome.SpawnListEntry blueSlimeSpawn = new Biome.SpawnListEntry(TinkerWorld.blueSlimeEntity.get(), 15, 2, 4);
 
   @SubscribeEvent
-  public void extraSlimeSpawn(WorldEvent.PotentialSpawns event) {
+  static void extraSlimeSpawn(WorldEvent.PotentialSpawns event) {
     if (event.getType() == EntityClassification.MONSTER) {
       // inside a magma slime island?
       if (TinkerStructures.netherSlimeIsland.get().isPositionInsideStructure(event.getWorld(), event.getPos().down(3)) && shouldSpawn(event.getWorld(), event.getPos())) {
@@ -36,7 +37,7 @@ public class WorldEvents {
   }
 
   public boolean shouldSpawn(IWorld worldIn, BlockPos pos) {
-    IFluidState ifluidstate = worldIn.getFluidState(pos);
+    FluidState ifluidstate = worldIn.getFluidState(pos);
     BlockPos down = pos.down();
 
     if (ifluidstate.isTagged(TinkerTags.Fluids.SLIME) && worldIn.getFluidState(down).isTagged(TinkerTags.Fluids.SLIME)) {
@@ -46,3 +47,4 @@ public class WorldEvents {
     return worldIn.getBlockState(pos.down()).getBlock() instanceof SlimeGrassBlock;
   }
 }
+*/

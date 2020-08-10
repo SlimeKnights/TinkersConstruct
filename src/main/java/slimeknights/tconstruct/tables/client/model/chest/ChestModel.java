@@ -9,8 +9,8 @@ import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IModelTransform;
 import net.minecraft.client.renderer.model.IUnbakedModel;
 import net.minecraft.client.renderer.model.ItemOverrideList;
-import net.minecraft.client.renderer.model.Material;
 import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.MissingTextureSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.Direction;
@@ -34,7 +34,7 @@ public class ChestModel implements IModelGeometry<ChestModel> {
   }
 
   @Override
-  public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<Material, TextureAtlasSprite> spriteGetter, IModelTransform modelTransform, ItemOverrideList overrides, ResourceLocation modelLocation) {
+  public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, IModelTransform modelTransform, ItemOverrideList overrides, ResourceLocation modelLocation) {
     TextureAtlasSprite particle = spriteGetter.apply(owner.resolveTexture("particle"));
 
     IModelBuilder<?> builder = IModelBuilder.of(owner, overrides, particle);
@@ -56,13 +56,13 @@ public class ChestModel implements IModelGeometry<ChestModel> {
   }
 
   @Override
-  public Collection<Material> getTextures(IModelConfiguration owner, Function<ResourceLocation, IUnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
-    Set<Material> textures = Sets.newHashSet();
+  public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation, IUnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
+    Set<RenderMaterial> textures = Sets.newHashSet();
 
     for (BlockPart part : elements) {
       for (BlockPartFace face : part.mapFaces.values()) {
-        Material texture = owner.resolveTexture(face.texture);
-        if (Objects.equals(texture, MissingTextureSprite.getLocation().toString())) {
+        RenderMaterial texture = owner.resolveTexture(face.texture);
+        if (Objects.equals(texture.getTextureLocation(), MissingTextureSprite.getLocation())) {
           missingTextureErrors.add(Pair.of(face.texture, owner.getModelName()));
         }
 

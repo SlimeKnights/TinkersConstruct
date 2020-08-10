@@ -3,15 +3,13 @@ package slimeknights.tconstruct.tools.common.network;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.network.NetworkEvent;
-import slimeknights.mantle.network.AbstractPacket;
+import net.minecraftforge.fml.network.NetworkEvent.Context;
+import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.tileentity.InventoryTileEntity;
+import slimeknights.mantle.util.TileEntityHelper;
 
-import java.util.function.Supplier;
-
-public class InventorySlotSyncPacket extends AbstractPacket {
+public class InventorySlotSyncPacket implements IThreadsafePacket {
 
   public ItemStack itemStack;
   public int slot;
@@ -37,17 +35,17 @@ public class InventorySlotSyncPacket extends AbstractPacket {
   }
 
   @Override
-  public void handle(Supplier<NetworkEvent.Context> supplier) {
-    supplier.get().enqueueWork(() -> {
-      TileEntity tileEntity = Minecraft.getInstance().player.getEntityWorld().getTileEntity(this.pos);
-      if (tileEntity == null || !(tileEntity instanceof InventoryTileEntity)) {
-        return;
-      }
+  public void handleThreadsafe(Context context) {
+    HandleClient.handle(this);
+  }
 
-      InventoryTileEntity tile = (InventoryTileEntity) tileEntity;
-      tile.setInventorySlotContents(this.slot, this.itemStack);
-      Minecraft.getInstance().worldRenderer.notifyBlockUpdate(null, this.pos, null, null, 0);
-    });
-    supplier.get().setPacketHandled(true);
+  /** Safely runs client side only code in a method only called on client */
+  private static class HandleClient {
+    private static void handle(InventorySlotSyncPacket packet) {
+      TileEntityHelper.getTile(InventoryTileEntity.class, Minecraft.getInstance().world, packet.pos).ifPresent(te -> {
+        te.setInventorySlotContents(packet.slot, packet.itemStack);
+        Minecraft.getInstance().worldRenderer.notifyBlockUpdate(null, packet.pos, null, null, 0);
+      });
+    }
   }
 }

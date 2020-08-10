@@ -6,11 +6,11 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.RegistryObject;
 import org.apache.logging.log4j.Logger;
+import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.fluids.fluids.SlimeFluid;
 import slimeknights.tconstruct.fluids.fluids.UnplaceableFluid;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.registration.object.FluidObject;
 
 /**
  * Contains all fluids used throughout the mod

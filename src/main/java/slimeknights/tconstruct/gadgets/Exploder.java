@@ -5,8 +5,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootContext;
+import net.minecraft.loot.LootParameters;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
@@ -15,11 +17,9 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -83,7 +83,7 @@ public class Exploder {
       && !entity.isImmuneToExplosions()
       && EntityPredicates.NOT_SPECTATING.test(entity)
       && EntityPredicates.IS_ALIVE.test(entity)
-      && entity.getPositionVector().squareDistanceTo(this.x, this.y, this.z) <= this.r * this.r;
+      && entity.getPositionVec().squareDistanceTo(this.x, this.y, this.z) <= this.r * this.r;
 
     // damage and blast back entities
     List<Entity> list = this.world.getEntitiesInAABBexcluding(this.exploder,
@@ -99,7 +99,7 @@ public class Exploder {
 
     for (Entity entity : list) {
       // move it away from the center depending on distance and explosion strength
-      Vec3d dir = entity.getPositionVector().subtract(this.exploder.getPositionVector().add(0, -this.r / 2, 0));
+      Vector3d dir = entity.getPositionVec().subtract(this.exploder.getPositionVec().add(0, -this.r / 2, 0));
       double str = (this.r - dir.length()) / this.r;
       str = Math.max(0.3, str);
       dir = dir.normalize();
@@ -177,14 +177,14 @@ public class Exploder {
       if (d <= this.rr) {
         BlockPos blockpos = new BlockPos(this.x + this.curX, this.y + this.curY, this.z + this.curZ);
         BlockState blockState = this.world.getBlockState(blockpos);
-        IFluidState ifluidstate = this.world.getFluidState(blockpos);
+        FluidState ifluidstate = this.world.getFluidState(blockpos);
 
         // no air blocks
         if (!blockState.isAir(this.world, blockpos) || !ifluidstate.isEmpty()) {
           // explosion "strength" at the current position
           double f = this.explosionStrength * (1f - d / this.rr);
 
-          float f2 = Math.max(blockState.getExplosionResistance(this.world, blockpos, this.exploder, this.explosion), ifluidstate.getExplosionResistance(this.world, blockpos, this.exploder, this.explosion));
+          float f2 = Math.max(blockState.getExplosionResistance(this.world, blockpos, this.explosion), ifluidstate.getExplosionResistance(this.world, blockpos, this.explosion));
           if (this.exploder != null) {
             f2 = this.exploder.getExplosionResistance(this.explosion, this.world, blockpos, blockState, ifluidstate, f2);
           }

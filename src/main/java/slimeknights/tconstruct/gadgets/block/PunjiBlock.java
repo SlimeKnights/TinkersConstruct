@@ -6,8 +6,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -25,8 +25,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-
-import javax.annotation.Nonnull;
 
 public class PunjiBlock extends Block {
 
@@ -138,7 +136,7 @@ public class PunjiBlock extends Block {
       state = state.with(NORTHWEST, true);
     }
 
-    IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
+    FluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
 
     state = state.with(WATERLOGGED, ifluidstate.getFluid() == Fluids.WATER);
 
@@ -187,7 +185,6 @@ public class PunjiBlock extends Block {
   }
 
   @Deprecated
-  @Nonnull
   @Override
   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
     return BOUNDS.get(state.get(FACING));
@@ -195,13 +192,7 @@ public class PunjiBlock extends Block {
 
   @Deprecated
   @Override
-  public boolean isNormalCube(BlockState state, IBlockReader worldIn, BlockPos pos) {
-    return false;
-  }
-
-  @Deprecated
-  @Override
-  public IFluidState getFluidState(BlockState state) {
+  public FluidState getFluidState(BlockState state) {
     return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
   }
 }

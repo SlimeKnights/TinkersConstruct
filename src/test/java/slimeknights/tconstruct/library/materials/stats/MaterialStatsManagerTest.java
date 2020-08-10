@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.materials.stats;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
@@ -32,7 +33,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
     materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, ComplexTestStats.class);
 
     ResourceLocation file = Util.getResource("teststat");
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
+    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist(file);
 
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -45,7 +46,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
     materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, ComplexTestStats.class);
 
     ResourceLocation file = Util.getResource("teststat");
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist(file);
 
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -65,7 +66,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
     MaterialStatsId statId2 = new MaterialStatsId("test", "stat2");
     materialStatsManager.registerMaterialStat(statId2, ComplexTestStats.class);
 
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist(file);
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
     assertThat(materialStatsManager.getStats(MATERIAL_ID, statId1)).isNotEmpty();
@@ -75,7 +76,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
   @Test
   void testLoadFileWithEmptyStats_ok() {
     ResourceLocation file = Util.getResource("empty");
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist(file);
 
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -87,7 +88,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
   @Test
   void testLoadFileWithoutStats_ok() {
     ResourceLocation file = Util.getResource("missing_stats");
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist(file);
 
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -104,7 +105,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
     materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, ComplexTestStats.class);
     materialStatsManager.registerMaterialStat(otherStatId, ComplexTestStats.class);
 
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file1, file2);
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist(file1, file2);
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
     assertThat(materialStatsManager.getStats(MATERIAL_ID, STATS_ID_SIMPLE)).isNotEmpty();
@@ -120,7 +121,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
     ResourceLocation file2 = Util.getResource("teststat_duplicate");
     materialStatsManager.registerMaterialStat(STATS_ID_SIMPLE, ComplexTestStats.class);
 
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file1, file2);
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist(file1, file2);
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
     Optional<ComplexTestStats> stats = materialStatsManager.getStats(MATERIAL_ID, STATS_ID_SIMPLE);
@@ -131,7 +132,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
   @Test
   void loadMissingFile_ignored() {
     ResourceLocation file = Util.getResource("nonexistant");
-    Map<ResourceLocation, JsonObject> splashList = ImmutableMap.of(file, new JsonObject());
+    Map<ResourceLocation, JsonElement> splashList = ImmutableMap.of(file, new JsonObject());
 
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -143,7 +144,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
   @Test
   void loadFileWithOnlyUnregisteredStats_doNothing() {
     ResourceLocation file = Util.getResource("invalid");
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist(file);
 
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -154,7 +155,7 @@ class MaterialStatsManagerTest extends BaseMcTest {
   @Test
   void loadStatsWithMissingId_doNothing() {
     ResourceLocation file = Util.getResource("missing_stat_id");
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist(file);
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist(file);
 
     materialStatsManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 

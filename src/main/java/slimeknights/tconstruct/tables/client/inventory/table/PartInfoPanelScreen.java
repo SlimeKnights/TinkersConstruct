@@ -1,14 +1,15 @@
 package slimeknights.tconstruct.tables.client.inventory.table;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.ITextProperties;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
-import slimeknights.tconstruct.library.client.renderer.font.CustomFontColor;
 import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
    * @param cost  Pattern cost
    */
   public void setPatternCost(int cost) {
-    this.patternCost = new TranslationTextComponent("gui.tconstruct.part_builder.cost", cost).getFormattedText();
+    this.patternCost = new TranslationTextComponent("gui.tconstruct.part_builder.cost", cost).getString();
     this.updateSliderParameters();
   }
 
@@ -55,7 +56,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
    * @param value  Value text
    */
   public void setMaterialValue(ITextComponent value) {
-    this.materialValue = new TranslationTextComponent("gui.tconstruct.part_builder.material_value", value).getFormattedText();
+    this.materialValue = new TranslationTextComponent("gui.tconstruct.part_builder.material_value", value).getString();
     this.updateSliderParameters();;
   }
 
@@ -101,7 +102,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
   }
 
   @Override
-  protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+  protected void drawGuiContainerForegroundLayer(MatrixStack matrices, int mouseX, int mouseY) {
     if (this.tooltips == null) {
       return;
     }
@@ -111,9 +112,9 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
     }
 
     // floating over tooltip info?
-    if (this.hasTooltips() && mouseX >= this.guiRight() - this.border.w - this.font.getCharWidth('?') / 2 && mouseX < this.guiRight() && mouseY > this.guiTop + 5 && mouseY < this.guiTop + 5 + this.font.FONT_HEIGHT) {
+    if (this.hasTooltips() && mouseX >= this.guiRight() - this.border.w - this.font.getStringWidth("?") / 2 && mouseX < this.guiRight() && mouseY > this.guiTop + 5 && mouseY < this.guiTop + 5 + this.font.FONT_HEIGHT) {
       int w = MathHelper.clamp(this.width - mouseX - 12, 10, 200);
-      this.renderTooltip(this.font.listFormattedStringToWidth(new TranslationTextComponent("gui.tconstruct.general.hover").getFormattedText(), w), mouseX - guiLeft, mouseY - guiTop);
+      this.renderTooltip(matrices, this.font.func_238425_b_(new TranslationTextComponent("gui.tconstruct.general.hover"), w), mouseX - guiLeft, mouseY - guiTop);
     }
 
     // are we hovering over an entry?
@@ -136,7 +137,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
 
     // get the index of the currently hovered line
     int index = -1;
-    ListIterator<String> iter = this.getTotalLines().listIterator(slider.getValue());
+    ListIterator<ITextProperties> iter = this.getTotalLines().listIterator(slider.getValue());
 
     while (iter.hasNext()) {
       if (y + textHeight > lowerBound) {
@@ -164,7 +165,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       i++;
     }
 
-    if (i >= this.tooltips.size() || this.tooltips.get(i).getFormattedText().isEmpty()) {
+    if (i >= this.tooltips.size() || this.tooltips.get(i).getString().isEmpty()) {
       return;
     }
 
@@ -175,17 +176,18 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       w = 100;
     }
 
-    List<String> lines = this.font.listFormattedStringToWidth(this.tooltips.get(i).getFormattedText(), w);
+    List<ITextProperties> lines = this.font.func_238425_b_(this.tooltips.get(i), w);
 
-    this.renderTooltip(lines, mouseX - this.guiLeft, mouseY - this.guiTop - lines.size() * this.font.FONT_HEIGHT / 2);
+    this.renderTooltip(matrices, lines, mouseX - this.guiLeft, mouseY - this.guiTop - lines.size() * this.font.FONT_HEIGHT / 2);
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+    assert this.minecraft != null;
     this.minecraft.getTextureManager().bindTexture(BACKGROUND_IMAGE);
 
-    this.border.draw();
-    BACKGROUND.drawScaled(this.guiLeft + 4, this.guiTop + 4, this.xSize - 8, this.ySize - 8);
+    this.border.draw(matrices);
+    BACKGROUND.drawScaled(matrices, this.guiLeft + 4, this.guiTop + 4, this.xSize - 8, this.ySize - 8);
 
     float y = 5 + this.guiTop;
     float x = 5 + this.guiLeft;
@@ -193,7 +195,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
 
     // info ? in the top right corner
     if (this.hasTooltips()) {
-      this.font.drawString("?", guiRight() - this.border.w - this.font.getCharWidth('?') / 2, this.guiTop + 5, 0xff5f5f5f);
+      this.font.drawString(matrices, "?", guiRight() - this.border.w - this.font.getStringWidth("?") / 2f, this.guiTop + 5, 0xff5f5f5f);
     }
 
     // draw caption
@@ -201,7 +203,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.getStringWidth(this.caption) / 2;
 
-      this.font.drawStringWithShadow(TextFormatting.UNDERLINE + TextFormatting.getTextWithoutFormattingCodes(this.caption), (float) this.guiLeft + x2, y, color);
+      this.font.drawStringWithShadow(matrices, TextFormatting.UNDERLINE + TextFormatting.getTextWithoutFormattingCodes(this.caption), (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
 
@@ -210,7 +212,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.getStringWidth(this.patternCost) / 2;
 
-      this.font.drawStringWithShadow(TextFormatting.GOLD + TextFormatting.getTextWithoutFormattingCodes(this.patternCost), (float) this.guiLeft + x2, y, color);
+      this.font.drawStringWithShadow(matrices, TextFormatting.GOLD + TextFormatting.getTextWithoutFormattingCodes(this.patternCost), (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
 
@@ -219,7 +221,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.getStringWidth(this.materialValue) / 2;
 
-      this.font.drawStringWithShadow(CustomFontColor.encodeColor(0x7fffff) + this.materialValue, (float) this.guiLeft + x2, y, color);
+      this.font.drawStringWithShadow(matrices, TextFormatting.WHITE + this.materialValue, (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
 
@@ -235,14 +237,14 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
     y /= this.textScale;
 
     // render shown lines
-    ListIterator<String> iter = this.getTotalLines().listIterator(this.slider.getValue());
+    ListIterator<ITextProperties> iter = this.getTotalLines().listIterator(this.slider.getValue());
     while (iter.hasNext()) {
       if (y + textHeight - 0.5f > lowerBound) {
         break;
       }
 
-      String line = iter.next();
-      this.font.drawStringWithShadow(line, x, y, color);
+      ITextProperties line = iter.next();
+      this.font.drawStringWithShadow(matrices, line.getString(), x, y, color);
       y += textHeight;
     }
 
@@ -251,6 +253,6 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
     this.minecraft.getTextureManager().bindTexture(BACKGROUND_IMAGE);
     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     this.slider.update(mouseX, mouseY);
-    this.slider.draw();
+    this.slider.draw(matrices);
   }
 }

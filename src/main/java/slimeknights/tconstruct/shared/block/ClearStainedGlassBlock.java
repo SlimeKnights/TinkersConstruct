@@ -90,7 +90,7 @@ public class ClearStainedGlassBlock extends AbstractGlassBlock {
     }
 
     @Override
-    public String getName() {
+    public String getString() {
       return name;
     }
 

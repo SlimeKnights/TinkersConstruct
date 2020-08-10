@@ -8,9 +8,9 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.BlockModel;
 import net.minecraft.util.JSONUtils;
+import net.minecraft.util.math.vector.Vector3f;
 
 import java.util.List;
 import java.util.function.Function;

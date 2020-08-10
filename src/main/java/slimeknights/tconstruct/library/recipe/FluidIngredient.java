@@ -11,7 +11,9 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagCollectionManager;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -298,7 +300,7 @@ public abstract class FluidIngredient {
    */
   @AllArgsConstructor(access=AccessLevel.PRIVATE)
   private static class TagMatch extends FluidIngredient {
-    private final Tag<Fluid> tag;
+    private final ITag<Fluid> tag;
     private final int amount;
 
     @Override
@@ -319,7 +321,7 @@ public abstract class FluidIngredient {
     @Override
     public JsonElement serialize() {
       JsonObject object = new JsonObject();
-      object.addProperty("tag", tag.getId().toString());
+      object.addProperty("tag", TagCollectionManager.func_232928_e_().func_232926_c_().func_232975_b_(tag).toString());
       object.addProperty("amount", amount);
       return object;
     }
@@ -331,7 +333,7 @@ public abstract class FluidIngredient {
      */
     private static TagMatch deserialize(JsonObject json) {
       String tagName = JSONUtils.getString(json, "tag");
-      Tag<Fluid> tag = FluidTags.getCollection().get(new ResourceLocation(tagName));
+      ITag<Fluid> tag = FluidTags.getCollection().get(new ResourceLocation(tagName));
       if (tag == null) {
         throw new JsonSyntaxException("Unknown fluid tag '" + tagName + "'");
       }

@@ -20,7 +20,7 @@ public class SlimeDirtBlock extends Block {
   @Override
   public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, net.minecraftforge.common.IPlantable plantable) {
     // can sustain both slimeplants and normal plants
-    return plantable.getPlantType(world, pos) == TinkerWorld.SLIME_PLANT_TYPE || plantable.getPlantType(world, pos) == PlantType.Plains;
+    return plantable.getPlantType(world, pos) == TinkerWorld.SLIME_PLANT_TYPE || plantable.getPlantType(world, pos) == PlantType.PLAINS;
   }
 
   public enum SlimeDirtType implements IStringSerializable {
@@ -30,7 +30,7 @@ public class SlimeDirtBlock extends Block {
     MAGMA;
 
     @Override
-    public String getName() {
+    public String getString() {
       return this.toString().toLowerCase(Locale.US);
     }
   }

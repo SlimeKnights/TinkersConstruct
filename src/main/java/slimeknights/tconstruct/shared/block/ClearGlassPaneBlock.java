@@ -11,17 +11,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import slimeknights.mantle.block.IMultipartConnectedBlock;
+import slimeknights.mantle.client.model.connected.ConnectedModelRegistry;
 
 import java.util.EnumMap;
 
-import static slimeknights.mantle.block.ConnectedTextureBlock.CONNECTED_DOWN;
-import static slimeknights.mantle.block.ConnectedTextureBlock.CONNECTED_EAST;
-import static slimeknights.mantle.block.ConnectedTextureBlock.CONNECTED_NORTH;
-import static slimeknights.mantle.block.ConnectedTextureBlock.CONNECTED_SOUTH;
-import static slimeknights.mantle.block.ConnectedTextureBlock.CONNECTED_UP;
-import static slimeknights.mantle.block.ConnectedTextureBlock.CONNECTED_WEST;
-
-public class ClearGlassPaneBlock extends PaneBlock {
+public class ClearGlassPaneBlock extends PaneBlock implements IMultipartConnectedBlock {
 
   private static final EnumMap<Direction,BooleanProperty> DIRECTIONS;
   static {
@@ -34,55 +29,24 @@ public class ClearGlassPaneBlock extends PaneBlock {
 
   public ClearGlassPaneBlock(Properties builder) {
     super(builder);
-    this.setDefaultState(this.getDefaultState()
-                             .with(CONNECTED_DOWN,  Boolean.FALSE)
-                             .with(CONNECTED_EAST,  Boolean.FALSE)
-                             .with(CONNECTED_NORTH, Boolean.FALSE)
-                             .with(CONNECTED_SOUTH, Boolean.FALSE)
-                             .with(CONNECTED_UP,    Boolean.FALSE)
-                             .with(CONNECTED_WEST,  Boolean.FALSE));
+    this.setDefaultState(IMultipartConnectedBlock.defaultConnections(this.getDefaultState()));
   }
 
   @Override
   protected void fillStateContainer(Builder<Block, BlockState> builder) {
     super.fillStateContainer(builder);
-    builder.add(CONNECTED_DOWN, CONNECTED_UP, CONNECTED_NORTH, CONNECTED_SOUTH, CONNECTED_WEST, CONNECTED_EAST);
+    IMultipartConnectedBlock.fillStateContainer(builder);
   }
 
   @Override
   public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld world, BlockPos currentPos, BlockPos facingPos) {
     BlockState state = super.updatePostPlacement(stateIn, facing, facingState, world, currentPos, facingPos);
-    return state.with(CONNECTED_DOWN,  this.isSideConnectable(state, world, currentPos, Direction.DOWN))
-                .with(CONNECTED_EAST,  this.isSideConnectable(state, world, currentPos, Direction.EAST))
-                .with(CONNECTED_NORTH, this.isSideConnectable(state, world, currentPos, Direction.NORTH))
-                .with(CONNECTED_SOUTH, this.isSideConnectable(state, world, currentPos, Direction.SOUTH))
-                .with(CONNECTED_UP,    this.isSideConnectable(state, world, currentPos, Direction.UP))
-                .with(CONNECTED_WEST,  this.isSideConnectable(state, world, currentPos, Direction.WEST));
+    return getConnectionUpdate(state, facing, facingState);
   }
 
-  /**
-   * Checks if the given side can connect
-   * @param state  State to check
-   * @param world  World instance
-   * @param pos    Block position
-   * @param side   Side to check
-   * @return  True if the side can connect
-   */
-  private boolean isSideConnectable(BlockState state, IWorld world, BlockPos pos, Direction side) {
-    BlockState connected = world.getBlockState(pos.offset(side));
-    return this.canConnect(state, connected);
-  }
-
-  /**
-   * Checks if this state can connect to the neighboring state
-   * @param original   Current block state
-   * @param connected  Connected block state
-   * @return  True if the block can connect
-   */
-  protected boolean canConnect(BlockState original, BlockState connected) {
-    // must be the same block, and either both blocks must be center only, or neither are center only
-    return original.getBlock() == connected.getBlock()
-           && (original.get(NORTH) || original.get(EAST) || original.get(SOUTH) || original.get(WEST)) == (connected.get(NORTH) || connected.get(EAST) || connected.get(SOUTH) || connected.get(WEST));
+  @Override
+  public boolean connects(BlockState state, BlockState neighbor) {
+    return ConnectedModelRegistry.getPredicate("pane").test(state, neighbor);
   }
 
   @Override

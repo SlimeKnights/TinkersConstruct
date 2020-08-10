@@ -8,24 +8,24 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.client.renderer.TransformationMatrix;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IModelTransform;
 import net.minecraft.client.renderer.model.IUnbakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.model.ItemOverrideList;
-import net.minecraft.client.renderer.model.Material;
 import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.MissingTextureSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.util.math.vector.TransformationMatrix;
 import net.minecraftforge.client.model.BakedItemModel;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
@@ -69,12 +69,12 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
   }
 
   @Override
-  public Collection<Material> getTextures(IModelConfiguration owner, Function<ResourceLocation,IUnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
-    Set<Material> allTextures = Sets.newHashSet();
-    Material texture = owner.resolveTexture("texture");
+  public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation,IUnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
+    Set<RenderMaterial> allTextures = Sets.newHashSet();
+    RenderMaterial texture = owner.resolveTexture("texture");
     allTextures.add(texture);
     // texture should exist in item/tool, or the validator cannot handle them
-    Consumer<Material> textureAdder;
+    Consumer<RenderMaterial> textureAdder;
     if (texture.getTextureLocation().getPath().startsWith("item/tool")) {
       // keep track of skipped textures, so we do not debug print the same resource twice
       Set<ResourceLocation> skipped = new HashSet<>();
@@ -104,8 +104,8 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
   }
 
   @Override
-  public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<Material, TextureAtlasSprite> spriteGetter, IModelTransform modelTransform, ItemOverrideList overrides, ResourceLocation modelLocation) {
-    Material texture = owner.resolveTexture("texture");
+  public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, IModelTransform modelTransform, ItemOverrideList overrides, ResourceLocation modelLocation) {
+    RenderMaterial texture = owner.resolveTexture("texture");
     int tintIndex = -1;
     TextureAtlasSprite finalSprite = null;
     // if the base material is non-null, try to find the sprite for that material
@@ -116,7 +116,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
       Optional<IMaterialRenderInfo> renderInfo = MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material);
       if(renderInfo.isPresent()) {
         // get a list of texture options
-        List<Material> textureOptions = renderInfo.get().getTextureChoices(texture);
+        List<RenderMaterial> textureOptions = renderInfo.get().getTextureChoices(texture);
         Optional<TextureAtlasSprite> sprite = textureOptions.stream()
                                                             .map(spriteGetter)
                                                             .filter((s) -> !MissingTextureSprite.getLocation().equals(s.getName()))
@@ -156,7 +156,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     }
 
     @Override
-    public IBakedModel getModelWithOverrides(IBakedModel originalModel, ItemStack stack, @Nullable World world, @Nullable LivingEntity entity) {
+    public IBakedModel func_239290_a_(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
       // fetch the material from the stack
       MaterialModel.BakedModel model = (MaterialModel.BakedModel)originalModel;
       IMaterial material = IMaterialItem.getMaterialFromStack(stack);

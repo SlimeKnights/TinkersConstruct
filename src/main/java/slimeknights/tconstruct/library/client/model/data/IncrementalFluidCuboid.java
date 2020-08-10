@@ -2,12 +2,12 @@ package slimeknights.tconstruct.library.client.model.data;
 
 import com.google.gson.JsonObject;
 import lombok.Getter;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.BlockFaceUV;
 import net.minecraft.client.renderer.model.BlockPart;
 import net.minecraft.client.renderer.model.BlockPartFace;
 import net.minecraft.util.Direction;
 import net.minecraft.util.JSONUtils;
+import net.minecraft.util.math.vector.Vector3f;
 import slimeknights.tconstruct.library.client.model.ModelUtils;
 
 import java.util.EnumMap;

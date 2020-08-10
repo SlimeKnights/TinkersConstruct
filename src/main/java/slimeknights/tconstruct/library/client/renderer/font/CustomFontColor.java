@@ -1,58 +1,40 @@
 package slimeknights.tconstruct.library.client.renderer.font;
 
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.Color;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import slimeknights.tconstruct.library.Util;
 
-import java.awt.*;
+import java.util.function.UnaryOperator;
 
+import static java.awt.Color.HSBtoRGB;
+
+// TODO: extract?
 public class CustomFontColor {
-  protected static int MARKER = 0xE700;
+  public static final Color MAX = valueToColor(1, 1);
+  private static final UnaryOperator<Style> APPLY_MAX = style -> style.setColor(MAX);
 
-  private CustomFontColor() {
-  }
-
-  public static String encodeColor(int color) {
-    int r = ((color >> 16) & 255);
-    int g = ((color >> 8) & 255);
-    int b = ((color) & 255);
-
-    return encodeColor(r, g, b);
-  }
-
-  public static String encodeColor(float r, float g, float b) {
-    return encodeColor((int) r * 255, (int) g * 255, (int) b * 255);
-  }
-
-  public static String encodeColor(int r, int g, int b) {
-    return String.format("%c%c%c",
-      ((char) (MARKER + (r & 0xFF))),
-      ((char) (MARKER + (g & 0xFF))),
-      ((char) (MARKER + (b & 0xFF))));
-  }
+  private CustomFontColor() {}
 
   /**
    * Takes a value between 0.0 and 1.0.
    * Returns a color between red and green, depending on the value. 1.0 is green.
    * If the value goes above 1.0 it continues along the color spectrum.
    */
-  public static String valueToColorCode(float v) {
+  public static Color valueToColor(float value, float max) {
     // 0.0 -> 0 = red
     // 1.0 -> 1/3 = green
     // 1.5 -> 1/2 = aqua
-    v /= 3f;
-    v = MathHelper.clamp(v, 0.01f, 0.5f);
-    int color = Color.HSBtoRGB(v, 0.65f, 0.8f);
-    return encodeColor(color);
+    float v = value / max / 3;
+    return Color.func_240743_a_(HSBtoRGB(v, 0.01f, 0.5f));
   }
 
-  public static String formatPartialAmount(int value, int max) {
-    return String.format("%s%s%s/%s%s",
-      CustomFontColor.valueToColorCode((float) value / (float) max),
-      Util.df.format(value),
-      TextFormatting.GRAY.toString(),
-      CustomFontColor.valueToColorCode(1f),
-      Util.df.format(max))
-      + TextFormatting.RESET;
+  public static ITextComponent formatPartialAmount(int value, int max) {
+    return new StringTextComponent(Util.df.format(value))
+      .modifyStyle(style -> style.setColor(CustomFontColor.valueToColor(value, max)))
+      .append(new StringTextComponent("/").mergeStyle(TextFormatting.GRAY))
+      .append(new StringTextComponent(Util.df.format(max)).modifyStyle(APPLY_MAX));
   }
 }

@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.WallOrFloorItem;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -21,6 +22,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.item.EdibleItem;
+import slimeknights.mantle.registration.object.EnumObject;
+import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.gadgets.block.DropperRailBlock;
@@ -38,12 +41,9 @@ import slimeknights.tconstruct.gadgets.item.SlimeBootsItem;
 import slimeknights.tconstruct.gadgets.item.SlimeSlingItem;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.capability.piggyback.CapabilityTinkerPiggyback;
-import slimeknights.tconstruct.library.registration.object.BlockItemObject;
-import slimeknights.tconstruct.library.registration.object.EnumObject;
-import slimeknights.tconstruct.library.registration.object.ItemObject;
 import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.shared.TinkerFood;
-import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 
 import java.util.function.Function;
 
@@ -67,18 +67,18 @@ public final class TinkerGadgets extends TinkerModule {
   /*
    * Blocks
    */
-  public static final BlockItemObject<LadderBlock> stoneLadder = BLOCKS.register("stone_ladder", () -> new LadderBlock(builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.STONE).hardnessAndResistance(0.1F).notSolid()) {}, DEFAULT_BLOCK_ITEM);
-  public static final BlockItemObject<PunjiBlock> punji = BLOCKS.register("punji", () -> new PunjiBlock(builder(Material.PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(3.0F)), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<LadderBlock> stoneLadder = BLOCKS.register("stone_ladder", () -> new LadderBlock(builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.STONE).hardnessAndResistance(0.1F).notSolid()) {}, DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<PunjiBlock> punji = BLOCKS.register("punji", () -> new PunjiBlock(builder(Material.PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(3.0F).notSolid()), TOOLTIP_BLOCK_ITEM);
   // torch
-  private static final Block.Properties STONE_TORCH = builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.STONE).doesNotBlockMovement().hardnessAndResistance(0.0F).lightValue(14);
-  public static final RegistryObject<WallTorchBlock> wallStoneTorch = BLOCKS.registerNoItem("wall_stone_torch", () -> new WallTorchBlock(STONE_TORCH) {});
-  public static final BlockItemObject<TorchBlock> stoneTorch = BLOCKS.register("stone_torch",
-                                                                               () -> new TorchBlock(STONE_TORCH) {},
+  private static final Block.Properties STONE_TORCH = builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.STONE).doesNotBlockMovement().hardnessAndResistance(0.0F).setLightLevel(s -> 14);
+  public static final RegistryObject<WallTorchBlock> wallStoneTorch = BLOCKS.registerNoItem("wall_stone_torch", () -> new WallTorchBlock(STONE_TORCH, ParticleTypes.FLAME) {});
+  public static final ItemObject<TorchBlock> stoneTorch = BLOCKS.register("stone_torch",
+                                                                               () -> new TorchBlock(STONE_TORCH, ParticleTypes.FLAME) {},
                                                                                (block) -> new WallOrFloorItem(block, wallStoneTorch.get(), GADGET_PROPS));
   // rails
   private static final Block.Properties WOODEN_RAIL = builder(Material.MISCELLANEOUS, NO_TOOL, SoundType.WOOD).doesNotBlockMovement().hardnessAndResistance(0.2F);
-  public static final BlockItemObject<DropperRailBlock> woodenDropperRail = BLOCKS.register("wooden_dropper_rail", () -> new DropperRailBlock(WOODEN_RAIL), TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<RailBlock> woodenRail = BLOCKS.register("wooden_rail", () -> new RailBlock(WOODEN_RAIL) {}, DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<DropperRailBlock> woodenDropperRail = BLOCKS.register("wooden_dropper_rail", () -> new DropperRailBlock(WOODEN_RAIL), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<RailBlock> woodenRail = BLOCKS.register("wooden_rail", () -> new RailBlock(WOODEN_RAIL) {}, DEFAULT_BLOCK_ITEM);
 
   /*
    * Items

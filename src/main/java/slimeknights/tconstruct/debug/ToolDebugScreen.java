@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.debug;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.button.Button;
@@ -8,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
@@ -24,7 +26,7 @@ public class ToolDebugScreen extends ContainerScreen<ToolDebugContainer> {
   protected void init() {
     super.init();
 
-    addButton(new Button(guiLeft, guiTop, 20, 20, "test", button -> {
+    addButton(new Button(guiLeft, guiTop, 20, 20, new StringTextComponent("test"), button -> {
       ItemStack st = TinkerToolParts.pickaxeHead.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:stone")));
       ItemStack st2 = TinkerToolParts.toolRod.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:wood")));
       ItemStack st3 = TinkerToolParts.smallBinding.get().getItemstackWithMaterial(MaterialRegistry.getMaterial(new MaterialId("tconstruct:ardite")));
@@ -34,21 +36,21 @@ public class ToolDebugScreen extends ContainerScreen<ToolDebugContainer> {
   }
 
   @Override
-  public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
-    this.renderBackground();
-    super.render(p_render_1_, p_render_2_, p_render_3_);
-    this.renderHoveredToolTip(p_render_1_, p_render_2_);
+  public void render(MatrixStack matrices, int p_render_1_, int p_render_2_, float p_render_3_) {
+    this.renderBackground(matrices);
+    super.render(matrices, p_render_1_, p_render_2_, p_render_3_);
+    this.func_230459_a_(matrices, p_render_1_, p_render_2_);
     //GlStateManager.disableLighting();
     //GlStateManager.disableBlend();
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     this.minecraft.getTextureManager().bindTexture(new ResourceLocation("textures/gui/container/anvil.png"));
     int i = (this.width - this.xSize) / 2;
     int j = (this.height - this.ySize) / 2;
-    this.blit(i, j, 0, 0, this.xSize, this.ySize);
+    this.blit(matrices, i, j, 0, 0, this.xSize, this.ySize);
   }
 
 }

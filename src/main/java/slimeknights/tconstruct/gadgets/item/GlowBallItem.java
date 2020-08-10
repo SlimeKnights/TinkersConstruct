@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.gadgets.item;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -12,11 +11,10 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import slimeknights.mantle.util.LocUtils;
+import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.GlowballEntity;
 
@@ -40,7 +38,7 @@ public class GlowBallItem extends SnowballItem {
     if (!worldIn.isRemote) {
       GlowballEntity glowballEntity = new GlowballEntity(worldIn, playerIn);
       glowballEntity.setItem(itemstack);
-      glowballEntity.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+      glowballEntity.func_234612_a_(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
       worldIn.addEntity(glowballEntity);
     }
 
@@ -51,10 +49,7 @@ public class GlowBallItem extends SnowballItem {
   @Override
   @OnlyIn(Dist.CLIENT)
   public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-    if (I18n.hasKey(stack.getTranslationKey() + ".tooltip")) {
-      tooltip.addAll(LocUtils.getTooltips(TextFormatting.GRAY.toString() + LocUtils.translateRecursive(stack.getTranslationKey() + ".tooltip", new Object[0])));
-    }
-
+    TranslationHelper.addOptionalTooltip(stack, tooltip);
     super.addInformation(stack, worldIn, tooltip, flagIn);
   }
 }

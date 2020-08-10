@@ -20,7 +20,7 @@ public class PartChestContainer extends TinkerStationContainer<PartChestTileEnti
 
   protected SideInventoryContainer<PartChestTileEntity> inventory;
 
-  public PartChestContainer(int id, PlayerInventory inv, PartChestTileEntity tileEntity) {
+  public PartChestContainer(int id, PlayerInventory inv, @Nullable PartChestTileEntity tileEntity) {
     super(TinkerTables.partChestContainer.get(), id, inv, tileEntity);
 
     this.inventory = new PartChestContainer.DynamicChestInventory(TinkerTables.partChestContainer.get(), windowId, inv, tile, 8, 18, 8); // columns don't matter since they get set by gui
@@ -35,7 +35,7 @@ public class PartChestContainer extends TinkerStationContainer<PartChestTileEnti
 
   public static class DynamicChestInventory extends SideInventoryContainer<PartChestTileEntity> {
 
-    public DynamicChestInventory(ContainerType<?> containerType, int windowId, PlayerInventory inv, PartChestTileEntity tile, int x, int y, int columns) {
+    public DynamicChestInventory(ContainerType<?> containerType, int windowId, PlayerInventory inv, @Nullable PartChestTileEntity tile, int x, int y, int columns) {
       super(containerType, windowId, inv, tile, x, y, columns);
 
       // add the theoretically possible slots

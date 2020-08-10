@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery.client.inventory;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
@@ -7,8 +8,8 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.library.Util;
@@ -50,90 +51,96 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
   }
 
   @Override
-  public void render(int x, int y, float partialTicks) {
-    this.renderBackground();
-    super.render(x, y, partialTicks);
-    this.renderHoveredToolTip(x, y);
+  public void render(MatrixStack matrices, int x, int y, float partialTicks) {
+    this.renderBackground(matrices);
+    super.render(matrices, x, y, partialTicks);
+    this.func_230459_a_(matrices, x, y);
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-    GuiUtil.drawBackground(this, BACKGROUND);
+  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
+    GuiUtil.drawBackground(matrices, this, BACKGROUND);
 
     // fluids
-    MelterTileEntity melter = container.getTileEntity();
-    FluidTankAnimated tank = melter.getTank();
-    GuiUtil.renderFluidTank(this, tank.getFluid(), tank.getCapacity(), 90, 16, 52, 52, 100);
+    MelterTileEntity melter = container.getTile();
+    if (melter != null) {
+      FluidTankAnimated tank = melter.getTank();
+      GuiUtil.renderFluidTank(matrices, this, tank.getFluid(), tank.getCapacity(), 90, 16, 52, 52, 100);
 
-    // fuel
-    MelterFuelWrapper wrapper = melter.getFuelInventory();
-    if (wrapper != null) {
-      GuiUtil.renderFluidTank(this, wrapper.getFluidStack(), wrapper.getCapacity(), 153, 16, 12, 52, 100);
+      // fuel
+      MelterFuelWrapper wrapper = melter.getFuelInventory();
+      if (wrapper != null) {
+        GuiUtil.renderFluidTank(matrices, this, wrapper.getFluidStack(), wrapper.getCapacity(), 153, 16, 12, 52, 100);
+      }
     }
   }
 
   @Override
-  protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-    GuiUtil.drawContainerNames(this, this.font, this.playerInventory);
+  protected void drawGuiContainerForegroundLayer(MatrixStack matrices, int mouseX, int mouseY) {
+    GuiUtil.drawContainerNames(matrices, this, this.font, this.playerInventory);
 
     int checkX = mouseX - this.guiLeft;
     int checkY = mouseY - this.guiTop;
-    MelterTileEntity melter = container.getTileEntity();
+    MelterTileEntity melter = container.getTile();
 
     // highlight hovered fluid
-    if (GuiUtil.isHovered(checkX, checkY, 89, 15, 54, 54)) {
+    if (GuiUtil.isHovered(checkX, checkY, 89, 15, 54, 54) && melter != null) {
       FluidTankAnimated tank = melter.getTank();
       int fluidHeight = 52 * tank.getFluidAmount() / tank.getCapacity();
       int middle = 68 - fluidHeight;
       // highlight just fluid
       if (checkY > middle) {
-        GuiUtil.renderHighlight(90, middle, 52, fluidHeight);
+        GuiUtil.renderHighlight(matrices, 90, middle, 52, fluidHeight);
       } else {
         // or highlight empty
-        GuiUtil.renderHighlight(90, 16, 52, 52 - fluidHeight);
+        GuiUtil.renderHighlight(matrices, 90, 16, 52, 52 - fluidHeight);
       }
     }
 
     // highlight hovered fuel
     if (GuiUtil.isHovered(checkX, checkY, 152, 15, 14, 54)) {
-      GuiUtil.renderHighlight(153, 16, 12, 52);
+      GuiUtil.renderHighlight(matrices, 153, 16, 12, 52);
     }
 
+    assert minecraft != null;
     minecraft.getTextureManager().bindTexture(BACKGROUND);
     RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
-    SCALA.draw(90, 16);
+    SCALA.draw(matrices, 90, 16);
     
-    drawHeatBars();
+    drawHeatBars(matrices);
   }
 
   @Override
-  protected void renderHoveredToolTip(int mouseX, int mouseY) {
-    super.renderHoveredToolTip(mouseX, mouseY);
+  protected void func_230459_a_(MatrixStack matrices, int mouseX, int mouseY) {
+    super.func_230459_a_(matrices, mouseX, mouseY);
 
     int checkX = mouseX - this.guiLeft;
     int checkY = mouseY - this.guiTop;
-    MelterTileEntity melter = container.getTileEntity();
+    MelterTileEntity melter = container.getTile();
+    if (melter == null) {
+      return;
+    }
     if (GuiUtil.isHovered(checkX, checkY, 89, 15, 54, 54)) {
       FluidTankAnimated tank = melter.getTank();
       int amount = tank.getFluidAmount();
       int capacity = tank.getCapacity();
 
       // if hovering over the fluid, display with name
-      final List<String> tooltip;
+      final List<ITextComponent> tooltip;
       if (checkY > 68 - (52 * amount / capacity)) {
         tooltip = FluidTooltipHandler.getFluidTooltip(tank.getFluid());
       } else {
         // function to call for amounts
-        BiConsumer<Integer, List<String>> formatter = Util.isShiftKeyDown()
+        BiConsumer<Integer, List<ITextComponent>> formatter = Util.isShiftKeyDown()
           ? FluidTooltipHandler::appendBuckets
           : FluidTooltipHandler::appendIngots;
 
         // add tooltips
         tooltip = new ArrayList<>();
-        tooltip.add(ForgeI18n.getPattern(TOOLTIP_CAPACITY));
+        tooltip.add(new TranslationTextComponent(TOOLTIP_CAPACITY));
         formatter.accept(capacity, tooltip);
         if (capacity != amount) {
-          tooltip.add(ForgeI18n.getPattern(TOOLTIP_AVAILABLE));
+          tooltip.add(new TranslationTextComponent(TOOLTIP_AVAILABLE));
           formatter.accept(capacity - amount, tooltip);
         }
 
@@ -142,14 +149,14 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
         FluidTooltipHandler.appendShift(tooltip);
       }
 
-      this.renderTooltip(tooltip, mouseX, mouseY);
+      this.renderTooltip(matrices, tooltip, mouseX, mouseY);
     }
     
-    drawHeatTooltips(mouseX, mouseY);
+    drawHeatTooltips(matrices, mouseX, mouseY);
 
     // fuel tooltip
     if (GuiUtil.isHovered(checkX, checkY, 152, 15, 14, 54)) {
-      List<String> tooltip = null;
+      List<ITextComponent> tooltip = null;
       // make sure we have a tank below
       MelterFuelWrapper wrapper = melter.getFuelInventory();
       if (wrapper != null) {
@@ -159,27 +166,30 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
           // we are displaying current tank, so a match means matches current contents
           MeltingFuel fuel = melter.findMeltingFuel();
           if (fuel != null) {
-            tooltip.add(1, TextFormatting.GRAY + (TextFormatting.ITALIC + ForgeI18n.parseMessage(TOOLTIP_TEMPERATURE, fuel.getTemperature())));
+            tooltip.add(1, new TranslationTextComponent(TOOLTIP_TEMPERATURE, fuel.getTemperature()).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
           } else {
             // invalid fuel
-            tooltip.add(1, TextFormatting.RED + ForgeI18n.getPattern(TOOLTIP_INVALID_FUEL));
+            tooltip.add(1, new TranslationTextComponent(TOOLTIP_INVALID_FUEL).mergeStyle(TextFormatting.RED));
           }
         }
       }
       // null means either empty or we have no wrapper
       if (tooltip == null) {
-        tooltip = Collections.singletonList(ForgeI18n.getPattern(TOOLTIP_NO_FUEL));
+        tooltip = Collections.singletonList(new TranslationTextComponent(TOOLTIP_NO_FUEL));
       }
 
-      this.renderTooltip(tooltip, mouseX, mouseY);
+      this.renderTooltip(matrices, tooltip, mouseX, mouseY);
     }
   }
 
   /**
    * Draws the heat bars on each slot
    */
-  private void drawHeatBars() {
-    MelterTileEntity melter = container.getTileEntity();
+  private void drawHeatBars(MatrixStack matrices) {
+    MelterTileEntity melter = container.getTile();
+    if (melter == null) {
+      return;
+    }
     for(Slot slot : this.container.getInputs()) {
       if(slot.getHasStack()) {
         // determine the bar to draw and the progress
@@ -205,7 +215,7 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
         }
 
         // draw the bar
-        GuiUtil.drawProgressUp(bar, slot.xPos - 4, slot.yPos, progress);
+        GuiUtil.drawProgressUp(matrices, bar, slot.xPos - 4, slot.yPos, progress);
       }
     }
   }
@@ -215,17 +225,21 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
    * @param mouseX  Mouse X position
    * @param mouseY  Mouse Y position
    */
-  private void drawHeatTooltips(int mouseX, int mouseY) {
+  private void drawHeatTooltips(MatrixStack matrices, int mouseX, int mouseY) {
     int checkX = mouseX - this.guiLeft;
     int checkY = mouseY - this.guiTop;
 
     // skip the fourth slot if it exists
+    MelterTileEntity melter = container.getTile();
+    if (melter == null) {
+      return;
+    }
     for(Slot slot : container.getInputs()) {
       // must have a stack
       if(slot.getHasStack()) {
         // mouse must be within the slot
         if (GuiUtil.isHovered(checkX, checkY, slot.xPos - 5, slot.yPos - 1, PROGRESS_BAR.w + 1, PROGRESS_BAR.h + 2)) {
-          float progress = container.getTileEntity().getHeatingProgress(slot.getSlotIndex());
+          float progress = melter.getHeatingProgress(slot.getSlotIndex());
           String tooltipKey = null;
 
           // NaN means 0 progress for 0 need, unmeltable
@@ -244,7 +258,7 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
 
           // draw tooltip if relevant
           if (tooltipKey != null) {
-            this.renderTooltip(ForgeI18n.getPattern(tooltipKey), mouseX, mouseY);
+            this.renderTooltip(matrices, new TranslationTextComponent(tooltipKey), mouseX, mouseY);
           }
 
           // cannot hover two slots, so done

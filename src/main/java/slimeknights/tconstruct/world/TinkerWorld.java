@@ -2,8 +2,10 @@ package slimeknights.tconstruct.world;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SlimeBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.trees.OakTree;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
@@ -13,7 +15,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.PlantType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,16 +22,16 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.BlockTooltipItem;
+import slimeknights.mantle.registration.object.EnumObject;
+import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.registration.object.BlockItemObject;
-import slimeknights.tconstruct.library.registration.object.EnumObject;
 import slimeknights.tconstruct.library.utils.HarvestLevels;
 import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.shared.block.CongealedSlimeBlock;
-import slimeknights.tconstruct.shared.block.SlimeBlock;
-import slimeknights.tconstruct.shared.block.SlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.world.block.SlimeDirtBlock;
 import slimeknights.tconstruct.world.block.SlimeDirtBlock.SlimeDirtType;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
@@ -40,7 +41,6 @@ import slimeknights.tconstruct.world.block.SlimeSaplingBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
-import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
 
 import java.util.function.Function;
 
@@ -50,10 +50,11 @@ import java.util.function.Function;
 @SuppressWarnings("unused")
 public final class TinkerWorld extends TinkerModule {
   /** Tab for anything generated in the world */
+  @SuppressWarnings("WeakerAccess")
   public static final ItemGroup TAB_WORLD = new SupplierItemGroup(TConstruct.modID, "world", () -> new ItemStack(TinkerWorld.cobaltOre));
   static final Logger log = Util.getLogger("tinker_world");
 
-  public static final PlantType SLIME_PLANT_TYPE = PlantType.create("slime");
+  public static final PlantType SLIME_PLANT_TYPE = PlantType.get("slime");
 
   /*
    * Block base properties
@@ -67,17 +68,17 @@ public final class TinkerWorld extends TinkerModule {
    */
   // ores
   private static final Block.Properties NETHER_ORE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).harvestLevel(HarvestLevels.COBALT).hardnessAndResistance(10.0F).notSolid();
-  public static final BlockItemObject<Block> cobaltOre = BLOCKS.register("cobalt_ore", () -> new Block(NETHER_ORE), DEFAULT_BLOCK_ITEM);
-  public static final BlockItemObject<Block> arditeOre = BLOCKS.register("ardite_ore", () -> new Block(NETHER_ORE), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<Block> cobaltOre = BLOCKS.register("cobalt_ore", () -> new Block(NETHER_ORE), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<Block> arditeOre = BLOCKS.register("ardite_ore", () -> new Block(NETHER_ORE), DEFAULT_BLOCK_ITEM);
 
   private static final Block.Properties OVERWORLD_ORE = builder(Material.ROCK, ToolType.PICKAXE, SoundType.STONE).hardnessAndResistance(3.0F, 3.0F);
-  public static final BlockItemObject<Block> copperOre = BLOCKS.register("copper_ore", () -> new Block(OVERWORLD_ORE), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<Block> copperOre = BLOCKS.register("copper_ore", OVERWORLD_ORE, DEFAULT_BLOCK_ITEM);
 
   // slime
   private static final Block.Properties SLIME = Block.Properties.from(Blocks.SLIME_BLOCK);
-  public static final EnumObject<SlimeType, Block> slime = new EnumObject.Builder<SlimeType, Block>(SlimeType.class)
-    .put(SlimeType.GREEN, Blocks.SLIME_BLOCK.delegate)
-    .putAll(BLOCKS.registerEnum(SlimeBlock.SlimeType.TINKER, "slime", (type) -> new SlimeBlock(SLIME), TOOLTIP_BLOCK_ITEM))
+  public static final EnumObject<SlimeType,SlimeBlock> slime = new EnumObject.Builder<SlimeType,SlimeBlock>(SlimeType.class)
+    .putDelegate(SlimeType.GREEN, Blocks.SLIME_BLOCK.delegate)
+    .putAll(BLOCKS.registerEnum(StickySlimeBlock.SlimeType.TINKER, "slime", (type) -> new StickySlimeBlock(SLIME), TOOLTIP_BLOCK_ITEM))
     .build();
   private static final Block.Properties CONGEALED_SLIME = builder(Material.CLAY, NO_TOOL, SoundType.SLIME).hardnessAndResistance(0.5F).slipperiness(0.5F);
   public static final EnumObject<SlimeType,CongealedSlimeBlock> congealedSlime = BLOCKS.registerEnum(SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(CONGEALED_SLIME), TOOLTIP_BLOCK_ITEM);
@@ -98,18 +99,19 @@ public final class TinkerWorld extends TinkerModule {
 
   // trees
   private static final Block.Properties SAPLING = builder(Material.PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.1F).doesNotBlockMovement().tickRandomly();
-  public static final EnumObject<FoliageType,SlimeSaplingBlock> slimeSapling = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_sapling", (type) -> new SlimeSaplingBlock(new SlimeTree(type, false), SAPLING), TOOLTIP_BLOCK_ITEM);
-  private static final Block.Properties SLIME_LEAVES = builder(Material.LEAVES, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.3F).tickRandomly().notSolid();
+  // TODO: bring back slime tree
+  public static final EnumObject<FoliageType,SlimeSaplingBlock> slimeSapling = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_sapling", (type) -> new SlimeSaplingBlock(/*new SlimeTree(type, false)*/new OakTree(), SAPLING), TOOLTIP_BLOCK_ITEM);
+  private static final Block.Properties SLIME_LEAVES = builder(Material.LEAVES, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.3F).tickRandomly().notSolid().setAllowsSpawn((s,w,p,e) -> false);
   public static final EnumObject<FoliageType,SlimeLeavesBlock> slimeLeaves = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_leaves", (type) -> new SlimeLeavesBlock(SLIME_LEAVES, type), DEFAULT_BLOCK_ITEM);
 
   // slime vines
   private static final Block.Properties VINE = builder(Material.TALL_PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.3F).doesNotBlockMovement().tickRandomly();
-  public static final BlockItemObject<SlimeVineBlock> purpleSlimeVine = BLOCKS.register("purple_slime_vine", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), DEFAULT_BLOCK_ITEM);
-  public static final BlockItemObject<SlimeVineBlock> purpleSlimeVineMiddle = BLOCKS.register("purple_slime_vine_middle", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), DEFAULT_BLOCK_ITEM);
-  public static final BlockItemObject<SlimeVineBlock> purpleSlimeVineEnd = BLOCKS.register("purple_slime_vine_end", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.END), DEFAULT_BLOCK_ITEM);
-  public static final BlockItemObject<SlimeVineBlock> blueSlimeVine = BLOCKS.register("blue_slime_vine", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.START), DEFAULT_BLOCK_ITEM);
-  public static final BlockItemObject<SlimeVineBlock> blueSlimeVineMiddle = BLOCKS.register("blue_slime_vine_middle", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.MIDDLE), DEFAULT_BLOCK_ITEM);
-  public static final BlockItemObject<SlimeVineBlock> blueSlimeVineEnd = BLOCKS.register("blue_slime_vine_end", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.END), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<SlimeVineBlock> purpleSlimeVine = BLOCKS.register("purple_slime_vine", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<SlimeVineBlock> purpleSlimeVineMiddle = BLOCKS.register("purple_slime_vine_middle", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<SlimeVineBlock> purpleSlimeVineEnd = BLOCKS.register("purple_slime_vine_end", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.END), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<SlimeVineBlock> blueSlimeVine = BLOCKS.register("blue_slime_vine", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.START), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<SlimeVineBlock> blueSlimeVineMiddle = BLOCKS.register("blue_slime_vine_middle", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.MIDDLE), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<SlimeVineBlock> blueSlimeVineEnd = BLOCKS.register("blue_slime_vine_end", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.END), DEFAULT_BLOCK_ITEM);
 
   /*
    * Entities
@@ -133,7 +135,6 @@ public final class TinkerWorld extends TinkerModule {
    */
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
-    MinecraftForge.EVENT_BUS.register(new WorldEvents());
     EntitySpawnPlacementRegistry.register(blueSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
   }
 }

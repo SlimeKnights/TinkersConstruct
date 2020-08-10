@@ -1,21 +1,17 @@
 package slimeknights.tconstruct.tables.network;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.network.NetworkEvent;
-import slimeknights.mantle.network.AbstractPacket;
+import net.minecraftforge.fml.network.NetworkEvent.Context;
+import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.recipe.RecipeUtil;
 import slimeknights.tconstruct.tables.inventory.table.crafting.CraftingStationContainer;
 
-import java.util.Optional;
-import java.util.function.Supplier;
-
-public class LastRecipePacket extends AbstractPacket {
+public class LastRecipePacket implements IThreadsafePacket {
 
   public static final ResourceLocation NO_RECIPE = Util.getResource("null");
   private ResourceLocation recipe;
@@ -34,40 +30,32 @@ public class LastRecipePacket extends AbstractPacket {
   }
 
   @Override
-  public void handle(Supplier<NetworkEvent.Context> supplier) {
-    supplier.get().enqueueWork(() -> {
-      if (Minecraft.getInstance().player != null) {
-        Container container = Minecraft.getInstance().player.openContainer;
+  public void handleThreadsafe(Context context) {
+    HandleClient.handle(this);
+  }
 
-        if (this.recipe != NO_RECIPE) {
-          Optional<? extends IRecipe<?>> optional = Minecraft.getInstance().player.getEntityWorld().getRecipeManager().getRecipe(this.recipe);
+  /** Safely runs client side only code in a method only called on client */
+  private static class HandleClient {
+    private static void handle(LastRecipePacket packet) {
+      PlayerEntity player = Minecraft.getInstance().player;
+      if (player == null) {
+        return;
+      }
+      if (!(player.openContainer instanceof CraftingStationContainer)) {
+        return;
+      }
+      CraftingStationContainer container = (CraftingStationContainer)player.openContainer;
 
-          if (optional.isPresent()) {
-            IRecipe<?> recipe = optional.get();
-
-            if (recipe.getType() == IRecipeType.CRAFTING) {
-              ICraftingRecipe craftingRecipe = (ICraftingRecipe) recipe;
-
-              if (container instanceof CraftingStationContainer) {
-                ((CraftingStationContainer) container).updateLastRecipeFromServer(craftingRecipe);
-              }
-            } else {
-              if (container instanceof CraftingStationContainer) {
-                ((CraftingStationContainer) container).updateLastRecipeFromServer(null);
-              }
-            }
-          } else {
-            if (container instanceof CraftingStationContainer) {
-              ((CraftingStationContainer) container).updateLastRecipeFromServer(null);
-            }
-          }
-        } else {
-          if (container instanceof CraftingStationContainer) {
-            ((CraftingStationContainer) container).updateLastRecipeFromServer(null);
-          }
+      // ensure a recipe was set
+      if (packet.recipe != NO_RECIPE) {
+        // fetch the recipe
+        ICraftingRecipe recipe = RecipeUtil.getRecipe(player.getEntityWorld().getRecipeManager(), packet.recipe, ICraftingRecipe.class).orElse(null);
+        if (recipe != null) {
+          container.updateLastRecipeFromServer(recipe);
+          return;
         }
       }
-    });
-    supplier.get().setPacketHandled(true);
+      container.updateLastRecipeFromServer(null);
+    }
   }
 }

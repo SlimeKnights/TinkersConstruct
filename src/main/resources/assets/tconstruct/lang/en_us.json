@@ -498,18 +498,18 @@
     "gui.tconstruct.melting.no_space": "Not enough free space for the fluid.",
 
     "gui.tconstruct.melting.fuel.empty": "No fuel found",
-    "gui.tconstruct.melting.fuel.temperature": "Temperature: {0}°C",
+    "gui.tconstruct.melting.fuel.temperature": "Temperature: %s°C",
     "gui.tconstruct.melting.fuel.invalid": "Invalid melting fuel!",
     
-    "gui.tconstruct.fluid.kilobucket": "{0} kb",
-    "gui.tconstruct.fluid.bucket": "{0} b",
-    "gui.tconstruct.fluid.millibucket": "{0} mb",
-    "gui.tconstruct.fluid.ingot": "{0} Ingots",
-    "gui.tconstruct.fluid.nugget": "{0} Nuggets",
-    "gui.tconstruct.fluid.block": "{0} Blocks",
-    "gui.tconstruct.fluid.pane": "{0} Panes",
-    "gui.tconstruct.fluid.gem": "{0} Gems",
-    "gui.tconstruct.fluid.slimeball": "{0} Slimeballs",
+    "gui.tconstruct.fluid.kilobucket": "%s kb",
+    "gui.tconstruct.fluid.bucket": "%s b",
+    "gui.tconstruct.fluid.millibucket": "%s mb",
+    "gui.tconstruct.fluid.ingot": "%s Ingots",
+    "gui.tconstruct.fluid.nugget": "%s Nuggets",
+    "gui.tconstruct.fluid.block": "%s Blocks",
+    "gui.tconstruct.fluid.pane": "%s Panes",
+    "gui.tconstruct.fluid.gem": "%s Gems",
+    "gui.tconstruct.fluid.slimeball": "%s Slimeballs",
     
     "gui.tconstruct.fluid.hold_shift": "Hold §e§oShift§r§7 for buckets",
     
@@ -678,7 +678,7 @@
 
     "tooltip.part.material_added_by": "Material added by %s",
     "tooltip.part.missing_material": "Missing material: %s",
-    "tooltip.part.missing_stats": "Material is missing the required stats:\n%s",
+    "tooltip.part.missing_stats": "Material is missing the required stats:\n{0}",
     "tooltip.part.missing_info": "Part has no data",
 
     "_comment": "GUIs",
@@ -725,10 +725,10 @@
     "_comment": "JEI Strings",
     "jei.tconstruct.casting.basin": "Casting Basin",
     "jei.tconstruct.casting.table": "Casting Table",
-    "jei.tconstruct.casting.cooling_time": "{0} s",
+    "jei.tconstruct.casting.cooling_time": "%s s",
     "jei.tconstruct.casting.cast_kept": "Cast item can be reused in later recipes",
     "jei.tconstruct.casting.cast_consumed": "Cast item is consumed on casting",
     
     "jei.tconstruct.melting.title": "Melting",
-    "jei.tconstruct.melting.temperature": "{0}°C"
+    "jei.tconstruct.melting.temperature": "%s°C"
 }

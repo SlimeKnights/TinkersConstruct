@@ -1,28 +1,34 @@
 package slimeknights.tconstruct.world.worldgen.islands.nether;
 
+/*
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Direction.Plane;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
 import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
-import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeatureConfig;
 
 import java.util.Random;
 
@@ -33,7 +39,7 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
   private final Rotation rotation;
   private final Mirror mirror;
   private int numberOfTreesPlaced;
-  private ChunkGenerator<?> chunkGenerator;
+  private ChunkGenerator chunkGenerator;
 
   private static final SlimeTree magmaSlimeTree = new SlimeTree(SlimeGrassBlock.FoliageType.ORANGE, false);
 
@@ -68,9 +74,6 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
     this.setup(template, this.templatePosition, placementsettings);
   }
 
-  /**
-   * (abstract) Helper method to read subclass data from NBT
-   */
   @Override
   protected void readAdditional(CompoundNBT tagCompound) {
     super.readAdditional(tagCompound);
@@ -98,10 +101,11 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 
         if (rand.nextBoolean() && this.numberOfTreesPlaced < 3) {
-          ConfiguredFeature<SlimeTreeFeatureConfig, ?> treeFeature = magmaSlimeTree.getSlimeTreeFeature(rand, false);
+          ConfiguredFeature<? extends BaseTreeFeatureConfig, ?> treeFeature = magmaSlimeTree.getSlimeTreeFeature(rand, false);
 
-          if (treeFeature != null) {
-            treeFeature.place(worldIn, this.chunkGenerator, rand, pos);
+          if (treeFeature != null && worldIn instanceof ServerWorld) {
+            ServerWorld serverWorld = (ServerWorld)worldIn;
+            treeFeature.func_236265_a_(serverWorld, serverWorld.func_241112_a_(), this.chunkGenerator, rand, pos);
           }
         }
 
@@ -128,17 +132,23 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
   }
 
   @Override
-  public boolean create(IWorld worldIn, ChunkGenerator<?> chunkGenerator, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPosIn) {
-    this.chunkGenerator = chunkGenerator;
+  public boolean func_230383_a_(ISeedReader world, StructureManager manager, ChunkGenerator generator, Random rand, MutableBoundingBox bounds, ChunkPos chunk, BlockPos pos) {
+    this.chunkGenerator = generator;
 
-    if (this.isLava(worldIn, this.templatePosition.up()) && this.isLava(worldIn, this.templatePosition.up().north()) && this.isLava(worldIn, this.templatePosition.up().east()) && this.isLava(worldIn, this.templatePosition.up().south()) && this.isLava(worldIn, this.templatePosition.up().west())) {
-      return super.create(worldIn, chunkGenerator, randomIn, structureBoundingBoxIn, chunkPosIn);
-    } else {
-      return false;
+    BlockPos up = this.templatePosition.up();
+    if (this.isLava(world, up)) {
+      for (Direction dir : Plane.HORIZONTAL) {
+        if (!this.isLava(world, up.offset(dir))) {
+          return false;
+        }
+      }
+      return super.func_230383_a_(world, manager, generator, rand, bounds, chunk, pos);
     }
+    return false;
   }
 
   private boolean isLava(IWorld world, BlockPos pos) {
     return world.getBlockState(pos).getBlock() == Blocks.LAVA;
   }
 }
+*/

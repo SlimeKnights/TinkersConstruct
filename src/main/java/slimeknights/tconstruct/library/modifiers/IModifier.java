@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.modifiers;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import slimeknights.mantle.util.RecipeMatch;
+import slimeknights.mantle.recipe.match.RecipeMatch;
 
 import java.util.Optional;
 

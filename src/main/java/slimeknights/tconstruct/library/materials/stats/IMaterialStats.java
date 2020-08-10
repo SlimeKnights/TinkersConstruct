@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.materials.stats;
 
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.network.INetworkSendable;
 
@@ -19,7 +20,7 @@ public interface IMaterialStats extends INetworkSendable {
   /**
    * Returns the name of the stat type, to be displayed to the player.
    */
-  ITextComponent getLocalizedName();
+  IFormattableTextComponent getLocalizedName();
 
   /**
    * Returns a list containing a String for each player-relevant value.</br>

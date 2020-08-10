@@ -7,11 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.renderer.font.CustomFontColor;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
@@ -33,8 +32,8 @@ public class HandleMaterialStats extends BaseMaterialStats {
   public final static String MULTIPLIER_DESCRIPTION_LOCALIZATION = "stat.handle.modifier.description";
   public final static String DURABILITY_DESCRIPTION_LOCALIZATION = "stat.handle.durability.description";
 
-  public final static String DURABILITY_COLOR = HeadMaterialStats.DURABILITY_COLOR;
-  public final static String MODIFIER_COLOR = CustomFontColor.encodeColor(185, 185, 90);
+  public final static Color DURABILITY_COLOR = HeadMaterialStats.DURABILITY_COLOR;
+  public final static Color MODIFIER_COLOR = Color.func_240743_a_(0xFFB9B95A);
 
   private float modifier;
   private int durability;

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -71,11 +72,11 @@ public class TinkerTabsScreen extends ModuleScreen {
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     int sel = this.tabs.selected;
     this.tabs.update(mouseX, mouseY);
-    this.tabs.draw();
+    this.tabs.draw(matrices);
 
     // new selection
     if (sel != this.tabs.selected) {
@@ -84,16 +85,15 @@ public class TinkerTabsScreen extends ModuleScreen {
   }
 
   @Override
-  protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+  protected void drawGuiContainerForegroundLayer(MatrixStack matrices, int mouseX, int mouseY) {
     // highlighted tooltip
     if (this.tabs.highlighted > -1) {
       BlockPos pos = this.tabData.get(this.tabs.highlighted);
       BlockState state = Minecraft.getInstance().player.getEntityWorld().getBlockState(pos);
       ItemStack stack = new ItemStack(state.getBlock(), 1);
-      String name = stack.getDisplayName().getFormattedText();
 
       // the origin has been translated to the top left of this gui rather than the screen, so we have to adjust
-      this.renderTooltip(Lists.newArrayList(name), mouseX - this.guiLeft, mouseY - this.guiTop);
+      this.renderTooltip(matrices, Lists.newArrayList(stack.getDisplayName()), mouseX - this.guiLeft, mouseY - this.guiTop);
     }
   }
 }

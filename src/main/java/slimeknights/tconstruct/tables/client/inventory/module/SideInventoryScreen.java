@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -245,15 +246,14 @@ public class SideInventoryScreen extends ModuleScreen {
   }
 
   @Override
-  public void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+  public void drawGuiContainerForegroundLayer(MatrixStack matrices, int mouseX, int mouseY) {
     if (this.shouldDrawName()) {
-      String name = this.getTitle().getFormattedText();
-      this.font.drawString(name, this.border.w, this.border.h - 1, 0x404040);
+      this.font.drawString(matrices, this.getTitle().getString(), this.border.w, this.border.h - 1, 0x404040);
     }
   }
 
   @Override
-  protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+  protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
     this.guiLeft += this.border.w;
     this.guiTop += this.border.h;
 
@@ -264,20 +264,20 @@ public class SideInventoryScreen extends ModuleScreen {
     int y = this.guiTop;
     int midW = this.xSize - this.border.w * 2;
 
-    this.border.draw();
+    this.border.draw(matrices);
 
     if (this.shouldDrawName()) {
-      this.textBackground.drawScaledX(x, y, midW);
+      this.textBackground.drawScaledX(matrices, x, y, midW);
       y += this.textBackground.h;
     }
 
     this.minecraft.getTextureManager().bindTexture(GENERIC_INVENTORY);
-    this.drawSlots(x, y);
+    this.drawSlots(matrices, x, y);
 
     // slider
     if (this.slider.isEnabled()) {
       this.slider.update(mouseX, mouseY);
-      this.slider.draw();
+      this.slider.draw(matrices);
 
       this.updateSlots();
     }
@@ -286,23 +286,23 @@ public class SideInventoryScreen extends ModuleScreen {
     this.guiTop -= this.border.h;
   }
 
-  protected int drawSlots(int xPos, int yPos) {
+  protected int drawSlots(MatrixStack matrices, int xPos, int yPos) {
     int width = this.columns * this.slot.w;
     int height = this.ySize - this.border.h * 2;
     int fullRows = (this.lastSlotId - this.firstSlotId) / this.columns;
     int y;
 
     for (y = 0; y < fullRows * this.slot.h && y < height; y += this.slot.h) {
-      this.slot.drawScaledX(xPos, yPos + y, width);
+      this.slot.drawScaledX(matrices, xPos, yPos + y, width);
     }
 
     // draw partial row and unused slots
     int slotsLeft = (this.lastSlotId - this.firstSlotId) % this.columns;
 
     if (slotsLeft > 0) {
-      this.slot.drawScaledX(xPos, yPos + y, slotsLeft * this.slot.w);
+      this.slot.drawScaledX(matrices, xPos, yPos + y, slotsLeft * this.slot.w);
       // empty slots that don't exist
-      this.slotEmpty.drawScaledX(xPos + slotsLeft * this.slot.w, yPos + y, width - slotsLeft * this.slot.w);
+      this.slotEmpty.drawScaledX(matrices, xPos + slotsLeft * this.slot.w, yPos + y, width - slotsLeft * this.slot.w);
     }
 
     return width;

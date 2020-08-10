@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.plugin.jei.melting;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -17,7 +18,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.ForgeI18n;
 import slimeknights.tconstruct.library.Util;
@@ -69,13 +72,13 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe>, ITooltip
   }
 
   @Override
-  public void draw(MeltingRecipe recipe, double mouseX, double mouseY) {
-    heatBar.draw(24, 18);
+  public void draw(MeltingRecipe recipe, MatrixStack matrices, double mouseX, double mouseY) {
+    heatBar.draw(matrices, 24, 18);
 
     String tempString = ForgeI18n.parseMessage(KEY_TEMPERATURE, recipe.getTemperature());
     FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
     int x = 56 - fontRenderer.getStringWidth(tempString) / 2;
-    fontRenderer.drawString(tempString, x, 3, Color.GRAY.getRGB());
+    fontRenderer.drawString(matrices, tempString, x, 3, Color.GRAY.getRGB());
   }
 
   @Override
@@ -97,9 +100,9 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe>, ITooltip
   }
 
   @Override
-  public void onTooltip(int index, boolean input, FluidStack stack, List<String> list) {
-    String name = list.get(0);
-    String modId = list.get(list.size() - 1);
+  public void onTooltip(int index, boolean input, FluidStack stack, List<ITextComponent> list) {
+    ITextComponent name = list.get(0);
+    ITextComponent modId = list.get(list.size() - 1);
     list.clear();
     list.add(name);
 
@@ -111,7 +114,7 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe>, ITooltip
     // fuels show temperature
     if (index == 1) {
       MeltingFuelHandler.getTemperature(stack.getFluid()).ifPresent((temperature) ->
-        list.add(TextFormatting.GRAY + ForgeI18n.parseMessage(KEY_TEMPERATURE, temperature)));
+        list.add(new TranslationTextComponent(KEY_TEMPERATURE, temperature).mergeStyle(TextFormatting.GRAY)));
     }
     list.add(modId);
   }

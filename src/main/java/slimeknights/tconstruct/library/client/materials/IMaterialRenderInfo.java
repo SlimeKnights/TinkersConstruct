@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.client.materials;
 
 import lombok.Getter;
-import net.minecraft.client.renderer.model.Material;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -32,14 +32,14 @@ public interface IMaterialRenderInfo {
    * @param base  Base texture
    * @return  A list of textures to choose from
    */
-  List<Material> getTextureChoices(Material base);
+  List<RenderMaterial> getTextureChoices(RenderMaterial base);
 
   /**
    * Gets all dependencies for this render info
    * @param textures  Texture consumer
    * @param base      Base texture, will be used to generate texture names
    */
-  void getTextureDependencies(Consumer<Material> textures, Material base);
+  void getTextureDependencies(Consumer<RenderMaterial> textures, RenderMaterial base);
 
   /** Standard render information for tinting */
   class Default implements IMaterialRenderInfo {
@@ -60,14 +60,14 @@ public interface IMaterialRenderInfo {
     }
 
     @Override
-    public List<Material> getTextureChoices(Material base) {
+    public List<RenderMaterial> getTextureChoices(RenderMaterial base) {
       return Arrays.asList(
         getMaterial(base.getTextureLocation(), texture),
         base);
     }
 
     @Override
-    public void getTextureDependencies(Consumer<Material> textures, Material base) {
+    public void getTextureDependencies(Consumer<RenderMaterial> textures, RenderMaterial base) {
       textures.accept(getMaterial(base.getTextureLocation(), texture));
     }
   }
@@ -82,7 +82,7 @@ public interface IMaterialRenderInfo {
     }
 
     @Override
-    public List<Material> getTextureChoices(Material base) {
+    public List<RenderMaterial> getTextureChoices(RenderMaterial base) {
       ResourceLocation location = base.getTextureLocation();
       return Arrays.asList(
         getMaterial(location, texture),
@@ -91,7 +91,7 @@ public interface IMaterialRenderInfo {
     }
 
     @Override
-    public void getTextureDependencies(Consumer<Material> textures, Material base) {
+    public void getTextureDependencies(Consumer<RenderMaterial> textures, RenderMaterial base) {
       super.getTextureDependencies(textures, base);
       textures.accept(getMaterial(base.getTextureLocation(), fallback));
     }
@@ -103,7 +103,7 @@ public interface IMaterialRenderInfo {
    * @param material  Material ID
    * @return  Material instance
    */
-  static Material getMaterial(ResourceLocation texture, ResourceLocation material) {
+  static RenderMaterial getMaterial(ResourceLocation texture, ResourceLocation material) {
     return ModelLoaderRegistry.blockMaterial(new ResourceLocation(material.getNamespace(), texture.getPath() + "_" + material.getPath()));
   }
 }

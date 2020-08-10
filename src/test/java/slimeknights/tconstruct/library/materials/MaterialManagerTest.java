@@ -1,10 +1,11 @@
 package slimeknights.tconstruct.library.materials;
 
 import com.google.common.collect.ImmutableMap;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
@@ -34,7 +35,7 @@ class MaterialManagerTest extends BaseMcTest {
 
   @Test
   void loadFullMaterial_allStatsPresent() {
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist("full");
+    Map<ResourceLocation,JsonElement> splashList = fileLoader.loadFilesAsSplashlist("full");
 
     materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -48,7 +49,7 @@ class MaterialManagerTest extends BaseMcTest {
 
   @Test
   void loadMinimalMaterial_succeedWithDefaults() {
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist("minimal");
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("minimal");
 
     materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -56,25 +57,25 @@ class MaterialManagerTest extends BaseMcTest {
     assertThat(allMaterials).hasSize(1);
     IMaterial testMaterial = allMaterials.iterator().next();
     assertThat(testMaterial.getIdentifier()).isEqualByComparingTo(new MaterialId("tconstruct", "minimal"));
-    assertThat(testMaterial.getFluid()).extracting(Fluid::getDefaultState).matches(IFluidState::isEmpty);
+    assertThat(testMaterial.getFluid()).extracting(Fluid::getDefaultState).matches(FluidState::isEmpty);
     assertThat(testMaterial.isCraftable()).isFalse();
   }
 
   @Test
   void invalidFluid_useDefault() {
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist("invalid");
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("invalid");
 
     materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
     Collection<IMaterial> allMaterials = materialManager.getAllMaterials();
     assertThat(allMaterials).hasSize(1);
     IMaterial testMaterial = allMaterials.iterator().next();
-    assertThat(testMaterial.getFluid()).extracting(Fluid::getDefaultState).matches(IFluidState::isEmpty);
+    assertThat(testMaterial.getFluid()).extracting(Fluid::getDefaultState).matches(FluidState::isEmpty);
   }
 
   @Test
   void invalidShard_useDefault() {
-    Map<ResourceLocation, JsonObject> splashList = fileLoader.loadFilesAsSplashlist("invalid");
+    Map<ResourceLocation, JsonElement> splashList = fileLoader.loadFilesAsSplashlist("invalid");
 
     materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 
@@ -86,7 +87,7 @@ class MaterialManagerTest extends BaseMcTest {
   @Test
   void craftableIsRequired_failOnMissing() {
     ResourceLocation materialId = Util.getResource("nonexistant");
-    Map<ResourceLocation, JsonObject> splashList = ImmutableMap.of(materialId, new JsonObject());
+    Map<ResourceLocation, JsonElement> splashList = ImmutableMap.of(materialId, new JsonObject());
 
     materialManager.apply(splashList, mock(IResourceManager.class), mock(IProfiler.class));
 

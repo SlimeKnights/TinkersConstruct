@@ -2,6 +2,7 @@ package slimeknights.tconstruct.test;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
@@ -33,7 +34,7 @@ public class JsonFileLoader {
     this.folder = folder;
   }
 
-  public Map<ResourceLocation, JsonObject> loadFilesAsSplashlist(String... files) {
+  public Map<ResourceLocation,JsonElement> loadFilesAsSplashlist(String... files) {
     ResourceLocation[] resourceLocations = Arrays.stream(files)
       .map(Util::getResource)
       .toArray(ResourceLocation[]::new);
@@ -41,8 +42,8 @@ public class JsonFileLoader {
     return loadFilesAsSplashlist(resourceLocations);
   }
 
-  public Map<ResourceLocation, JsonObject> loadFilesAsSplashlist(ResourceLocation... files) {
-    Map<ResourceLocation, JsonObject> splashlist = Arrays.stream(files)
+  public Map<ResourceLocation, JsonElement> loadFilesAsSplashlist(ResourceLocation... files) {
+    Map<ResourceLocation, JsonElement> splashlist = Arrays.stream(files)
       .collect(Collectors.toMap(Function.identity(), this::loadJson));
 
     return ImmutableMap.copyOf(splashlist);

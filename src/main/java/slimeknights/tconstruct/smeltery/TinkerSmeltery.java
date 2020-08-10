@@ -17,6 +17,9 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.BlockTooltipItem;
+import slimeknights.mantle.registration.object.BuildingBlockObject;
+import slimeknights.mantle.registration.object.EnumObject;
+import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.Util;
@@ -29,10 +32,6 @@ import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeSeria
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
-import slimeknights.tconstruct.library.registration.object.BlockItemObject;
-import slimeknights.tconstruct.library.registration.object.BuildingBlockObject;
-import slimeknights.tconstruct.library.registration.object.EnumObject;
-import slimeknights.tconstruct.library.registration.object.ItemObject;
 import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
 import slimeknights.tconstruct.smeltery.block.CastingBasinBlock;
@@ -73,10 +72,10 @@ public final class TinkerSmeltery extends TinkerModule {
   /*
    * Blocks
    */
-  private static final Block.Properties SMELTERY_GLASS = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).notSolid();
-  public static final BlockItemObject<Block> grout = BLOCKS.register("grout", () -> new Block(GENERIC_SAND_BLOCK), TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<SearedGlassBlock> searedGlass = BLOCKS.register("seared_glass", () -> new SearedGlassBlock(SMELTERY_GLASS), TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<ClearGlassPaneBlock> searedGlassPane = BLOCKS.register("seared_glass_pane", () -> new ClearGlassPaneBlock(SMELTERY_GLASS), TOOLTIP_BLOCK_ITEM);
+  private static final Block.Properties SMELTERY_GLASS = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).notSolid().setSuffocates((s,w,p) -> false);
+  public static final ItemObject<Block> grout = BLOCKS.register("grout", GENERIC_SAND_BLOCK, TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SearedGlassBlock> searedGlass = BLOCKS.register("seared_glass", () -> new SearedGlassBlock(SMELTERY_GLASS), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<ClearGlassPaneBlock> searedGlassPane = BLOCKS.register("seared_glass_pane", () -> new ClearGlassPaneBlock(SMELTERY_GLASS), TOOLTIP_BLOCK_ITEM);
 
   // seared
   // TODO: registerBuilding does not handle custom blocks
@@ -94,14 +93,14 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final BuildingBlockObject searedCreeper = BLOCKS.registerBuilding("seared_creeper", SMELTERY, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedRoad = BLOCKS.registerBuilding("seared_road", SMELTERY, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedTile = BLOCKS.registerBuilding("seared_tile", SMELTERY, TOOLTIP_BLOCK_ITEM);
-  public static final EnumObject<SearedTankBlock.TankType,SearedTankBlock> searedTank = BLOCKS.registerEnum("seared", SearedTankBlock.TankType.values(), (type) -> new SearedTankBlock(SMELTERY_GLASS), (b) -> new TankItem(b, SMELTERY_PROPS));
-  public static final BlockItemObject<FaucetBlock> searedFaucet = BLOCKS.register("faucet", () -> new FaucetBlock(FAUCET), TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<CastingBasinBlock> castingBasin = BLOCKS.register("casting_basin", () -> new CastingBasinBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
-  public static final BlockItemObject<CastingTableBlock> castingTable = BLOCKS.register("casting_table", () -> new CastingTableBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<TankType,SearedTankBlock> searedTank = BLOCKS.registerEnum("seared", SearedTankBlock.TankType.values(), (type) -> new SearedTankBlock(SMELTERY_GLASS), (b) -> new TankItem(b, SMELTERY_PROPS));
+  public static final ItemObject<FaucetBlock> searedFaucet = BLOCKS.register("faucet", () -> new FaucetBlock(FAUCET), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<CastingBasinBlock> castingBasin = BLOCKS.register("casting_basin", () -> new CastingBasinBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<CastingTableBlock> castingTable = BLOCKS.register("casting_table", () -> new CastingTableBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
 
   // controllers
-  private static final Block.Properties MELTER = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).lightValue(13).notSolid();
-  public static final BlockItemObject<MelterBlock> searedMelter = BLOCKS.register("melter", () -> new MelterBlock(MELTER), TOOLTIP_BLOCK_ITEM);
+  private static final Block.Properties MELTER = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).setLightLevel(s -> s.get(MelterBlock.ACTIVE) ? 13 : 0).notSolid();
+  public static final ItemObject<MelterBlock> searedMelter = BLOCKS.register("melter", () -> new MelterBlock(MELTER), TOOLTIP_BLOCK_ITEM);
 
   /*
    * Tile entities

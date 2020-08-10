@@ -7,8 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.renderer.font.CustomFontColor;
@@ -38,9 +38,9 @@ public class HeadMaterialStats extends BaseMaterialStats {
   public final static String ATTACK_DESCRIPTION_LOCALIZATION = "stat.head.attack.description";
   public final static String HARVEST_LEVEL_DESCRIPTION_LOCALIZATION = "stat.head.harvest_level.description";
 
-  public final static String DURABILITY_COLOR = CustomFontColor.valueToColorCode(1f);
-  public final static String ATTACK_COLOR = CustomFontColor.encodeColor(215, 100, 100);
-  public final static String SPEED_COLOR = CustomFontColor.encodeColor(120, 160, 205);
+  public final static Color DURABILITY_COLOR = CustomFontColor.MAX;
+  public final static Color ATTACK_COLOR = Color.func_240743_a_(0xFFD76464);
+  public final static Color SPEED_COLOR = Color.func_240743_a_(0xFF78A0CD);
 
   private int durability;
   private float miningSpeed;
@@ -85,13 +85,11 @@ public class HeadMaterialStats extends BaseMaterialStats {
   }
 
   public static ITextComponent formatDurability(int durability, int ref) {
-    return new TranslationTextComponent(DURABILITY_LOCALIZATION)
-      .appendText(CustomFontColor.formatPartialAmount(durability, ref));
+    return new TranslationTextComponent(DURABILITY_LOCALIZATION).append(CustomFontColor.formatPartialAmount(durability, ref));
   }
 
   public static ITextComponent formatHarvestLevel(int level) {
-    return new TranslationTextComponent(HARVEST_LEVEL_LOCALIZATION)
-      .appendSibling(HarvestLevels.getHarvestLevelName(level));
+    return new TranslationTextComponent(HARVEST_LEVEL_LOCALIZATION).append(HarvestLevels.getHarvestLevelName(level));
   }
 
   public static ITextComponent formatMiningSpeed(float speed) {

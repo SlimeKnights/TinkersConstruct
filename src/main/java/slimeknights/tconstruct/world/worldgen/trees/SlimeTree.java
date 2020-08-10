@@ -1,5 +1,5 @@
 package slimeknights.tconstruct.world.worldgen.trees;
-
+/*
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
@@ -17,10 +17,6 @@ public class SlimeTree extends SlimeTreeAbstract {
     this.foliageType = foliageType;
     this.isIslandTree = isIslandTree;
   }
-
-  /**
-   * Get a {@link net.minecraft.world.gen.feature.ConfiguredFeature} of tree
-   */
   @Override
   @Nullable
   public ConfiguredFeature<SlimeTreeFeatureConfig, ?> getSlimeTreeFeature(Random random, boolean bool) {
@@ -44,3 +40,4 @@ public class SlimeTree extends SlimeTreeAbstract {
     return null;
   }
 }
+*/

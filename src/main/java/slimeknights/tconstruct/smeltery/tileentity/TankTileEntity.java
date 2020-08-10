@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.tileentity;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -43,6 +44,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   }
 
   /** Extendable constructor */
+  @SuppressWarnings("WeakerAccess")
   protected TankTileEntity(TileEntityType<?> tileEntityTypein) {
     super(tileEntityTypein);
     this.lastStrength = -1;
@@ -55,7 +57,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
 
   @Override
   @Nonnull
-  public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
+  public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
     if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
       return holder.cast();
     }
@@ -70,7 +72,9 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   @Override
   public void onTankContentsChanged() {
     ITankTileEntity.super.onTankContentsChanged();
-    this.getWorld().getLightManager().checkBlock(this.pos);
+    if (this.world != null) {
+      world.getLightManager().checkBlock(this.pos);
+    }
   }
 
   @Override
@@ -79,7 +83,9 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
 
     // update light if the fluid changes
     BlockPos pos = getPos();
-    this.getWorld().getLightManager().checkBlock(pos);
+    if (this.world != null) {
+      world.getLightManager().checkBlock(this.pos);
+    }
   }
 
 
@@ -88,9 +94,9 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
    */
 
   @Override
-  public void read(CompoundNBT tag) {
+  public void read(BlockState state, CompoundNBT tag) {
     updateTank(tag.getCompound(Tags.TANK));
-    super.read(tag);
+    super.read(state, tag);
   }
 
   /**
