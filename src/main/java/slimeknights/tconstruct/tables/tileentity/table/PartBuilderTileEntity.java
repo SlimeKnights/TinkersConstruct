@@ -5,13 +5,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraftforge.common.util.LazyOptional;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
-import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
 
 import javax.annotation.Nullable;
 
-public class PartBuilderTileEntity extends TableTileEntity {
+public class PartBuilderTileEntity extends RetexturedTableTileEntity {
   public static final int MATERIAL_SLOT = 0;
   public static final int PATTERN_SLOT = 1;
   public static final int LEFTOVER_SLOT = 2;

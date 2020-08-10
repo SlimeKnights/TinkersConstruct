@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "mantle:crafting_shaped_retextured",
   "pattern": [
     "p",
     "w"
@@ -14,5 +14,9 @@
   },
   "result": {
     "item": "tconstruct:part_builder"
-  }
+  },
+  "texture": {
+    "tag": "minecraft:planks"
+  },
+  "match_all": false
 }

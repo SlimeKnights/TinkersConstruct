@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.shared.tileentity;
+package slimeknights.tconstruct.tables.item;
 
 import mcp.MethodsReturnNonnullByDefault;
 

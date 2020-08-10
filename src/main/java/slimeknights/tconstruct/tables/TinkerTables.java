@@ -5,6 +5,8 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.tags.ITag;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
@@ -23,10 +25,13 @@ import slimeknights.tconstruct.tables.inventory.chest.PartChestContainer;
 import slimeknights.tconstruct.tables.inventory.chest.PatternChestContainer;
 import slimeknights.tconstruct.tables.inventory.table.crafting.CraftingStationContainer;
 import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
+import slimeknights.tconstruct.tables.item.RetexturedTableBlockItem;
 import slimeknights.tconstruct.tables.tileentity.chest.PartChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.chest.PatternChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
+
+import java.util.function.Function;
 
 /**
  * Handles all the table for tool creation
@@ -36,8 +41,10 @@ public final class TinkerTables extends TinkerModule {
    * Blocks
    */
   private static final Block.Properties TOOL_TABLE = builder(Material.WOOD, ToolType.AXE, SoundType.WOOD).hardnessAndResistance(1.0F, 5.0F).notSolid();
+  /** Call with .apply to set the tag type for a block item provider */
+  private static final Function<ITag<Item>, Function<Block, RetexturedTableBlockItem>> RETEXTURED_BLOCK_ITEM = (tag) -> (block) -> new RetexturedTableBlockItem(block, tag, GENERAL_PROPS);
   public static final ItemObject<TableBlock> craftingStation = BLOCKS.register("crafting_station", () -> new CraftingStationBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
-  public static final ItemObject<TableBlock> partBuilder = BLOCKS.register("part_builder", () -> new PartBuilderBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<TableBlock> partBuilder = BLOCKS.register("part_builder", () -> new PartBuilderBlock(TOOL_TABLE), RETEXTURED_BLOCK_ITEM.apply(ItemTags.PLANKS));
   public static final ItemObject<TableBlock> patternChest = BLOCKS.register("pattern_chest", () -> new PatternChestBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
   public static final ItemObject<TableBlock> partChest = BLOCKS.register("part_chest", () -> new PartChestBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
 

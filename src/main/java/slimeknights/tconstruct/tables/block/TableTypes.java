@@ -7,8 +7,7 @@ public enum TableTypes {
   PartChest(16),
   PatternChest(15),
   ModifierChest(14),
-  StencilTable(10),
-  NoTableTypeAssigned(-1);
+  StencilTable(10);
 
   private final int sortIndex;
 

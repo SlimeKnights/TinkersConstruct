@@ -33,6 +33,7 @@ import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.recipe.crafting.ShapedRetexturedRecipeBuilder;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -223,14 +224,15 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                        .build(consumer, prefix(TinkerTables.craftingStation, folder));
 
     // part builder
-    // FIXME: texture recipe
-    ShapedRecipeBuilder.shapedRecipe(TinkerTables.partBuilder)
-                       .key('p', TinkerTables.pattern)
-                       .key('w', ItemTags.PLANKS)
-                       .patternLine("p")
-                       .patternLine("w")
-                       .addCriterion("has_item", hasItem(TinkerTables.pattern))
-                       .build(consumer, prefix(TinkerTables.partBuilder, folder));
+    ShapedRetexturedRecipeBuilder.fromShaped(
+      ShapedRecipeBuilder.shapedRecipe(TinkerTables.partBuilder)
+                         .key('p', TinkerTables.pattern)
+                         .key('w', ItemTags.PLANKS)
+                         .patternLine("p")
+                         .patternLine("w")
+                         .addCriterion("has_item", hasItem(TinkerTables.pattern)))
+      .setSource(ItemTags.PLANKS)
+      .build(consumer, prefix(TinkerTables.partBuilder, folder));
   }
 
   private void addModifierRecipes(Consumer<IFinishedRecipe> consumer) {

@@ -15,9 +15,4 @@ public abstract class TinkerTableBlock extends TableBlock implements ITinkerStat
   public boolean openGui(PlayerEntity player, World world, BlockPos pos) {
     return super.openGui(player, world, pos);
   }
-
-  @Override
-  public TableTypes getType() {
-    return TableTypes.NoTableTypeAssigned;
-  }
 }

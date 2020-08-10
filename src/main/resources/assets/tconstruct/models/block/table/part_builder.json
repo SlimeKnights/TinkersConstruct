@@ -1,5 +1,5 @@
 {
-  "loader": "mantle:inventory",
+  "loader": "tconstruct:table",
   "parent": "tconstruct:block/table/table",
   "textures": {
     "particle": "tconstruct:block/table/part_builder_top",
@@ -9,6 +9,7 @@
     "leg": "minecraft:block/oak_planks",
     "legBottom": "minecraft:block/oak_planks"
   },
+  "retextured": ["leg", "bottom", "legBottom"],
   "items": [
     { "center": [  4.5, 17.5,     4.5 ], "size": 3 },
     { "center": [  4.5, 16.3125, 11.5 ], "size": 5, "x": 270 },
