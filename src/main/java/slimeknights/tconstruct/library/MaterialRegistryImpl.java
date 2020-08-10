@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library;
 
 import net.minecraft.fluid.Fluid;
+import net.minecraftforge.common.MinecraftForge;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
@@ -38,6 +39,8 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
     this.materialManager = materialManager;
     this.materialStatsManager = materialStatsManager;
     this.materialTraitsManager = materialTraitsManager;
+    MinecraftForge.EVENT_BUS.addListener(materialManager::handleLogin);
+    MinecraftForge.EVENT_BUS.addListener(materialStatsManager::handleLogin);
   }
 
   @Override

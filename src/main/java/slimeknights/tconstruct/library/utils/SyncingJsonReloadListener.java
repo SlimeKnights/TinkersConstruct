@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
 import slimeknights.mantle.network.NetworkWrapper;
@@ -17,7 +16,6 @@ public abstract class SyncingJsonReloadListener extends JsonReloadListener {
   public SyncingJsonReloadListener(NetworkWrapper network, Gson gson, String folder) {
     super(gson, folder);
     this.network = network;
-    MinecraftForge.EVENT_BUS.addListener(this::updatePlayerMaterials);
   }
 
   /**
@@ -30,7 +28,7 @@ public abstract class SyncingJsonReloadListener extends JsonReloadListener {
    * Called when the player joins the server to send them a list of materials
    * @param event  Player logged in event
    */
-  private void updatePlayerMaterials(PlayerLoggedInEvent event) {
+  public void handleLogin(PlayerLoggedInEvent event) {
     PlayerEntity player = event.getPlayer();
     if (player instanceof ServerPlayerEntity) {
       ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
