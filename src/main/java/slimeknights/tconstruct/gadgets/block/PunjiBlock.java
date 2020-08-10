@@ -17,6 +17,7 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -30,68 +31,50 @@ public class PunjiBlock extends Block {
 
   public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
-  public static final BooleanProperty NORTH = BlockStateProperties.NORTH;
-  public static final BooleanProperty EAST = BlockStateProperties.EAST;
-  public static final BooleanProperty NORTHEAST = BooleanProperty.create("northeast");
-  public static final BooleanProperty NORTHWEST = BooleanProperty.create("northwest");
-  public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+  private static final BooleanProperty NORTH = BlockStateProperties.NORTH;
+  private static final BooleanProperty EAST = BlockStateProperties.EAST;
+  private static final BooleanProperty NORTHEAST = BooleanProperty.create("northeast");
+  private static final BooleanProperty NORTHWEST = BooleanProperty.create("northwest");
+  private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
   public PunjiBlock(Properties properties) {
     super(properties);
-    this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.DOWN).with(NORTH, false).with(EAST, false).with(NORTHEAST, false).with(NORTHWEST, false).with(WATERLOGGED, false));
+    this.setDefaultState(this.stateContainer.getBaseState()
+                                            .with(FACING, Direction.DOWN)
+                                            .with(NORTH, false)
+                                            .with(EAST, false)
+                                            .with(NORTHEAST, false)
+                                            .with(NORTHWEST, false)
+                                            .with(WATERLOGGED, false));
   }
 
+  @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-    Direction direction = stateIn.get(FACING);
-
-    if (stateIn.get(WATERLOGGED)) {
-      worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
+  public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos pos, BlockPos facingPos) {
+    if (state.get(WATERLOGGED)) {
+      world.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
     }
 
-    if (!stateIn.isValidPosition(worldIn, currentPos)) {
+    // break if now invalid
+    Direction direction = state.get(FACING);
+    if (facing == direction && !state.isValidPosition(world, pos)) {
       return Blocks.AIR.getDefaultState();
     }
 
-    int off = -direction.ordinal() % 2;
-
-    Direction face1 = Direction.values()[(direction.ordinal() + 2) % 6];
-    Direction face2 = Direction.values()[(direction.ordinal() + 4 + off) % 6];
-
-    // North/East Connector
-    BlockState north = worldIn.getBlockState(currentPos.offset(face1));
-    BlockState east = worldIn.getBlockState(currentPos.offset(face2));
-
-    if (north.getBlock() == this && north.get(FACING) == direction) {
-      stateIn = stateIn.with(NORTH, true);
-    } else {
-      stateIn = stateIn.with(NORTH, false);
+    // apply north and east if relevant
+    Direction north = getLocalNorth(direction);
+    Direction east = getLocalEast(direction);
+    if (facing == north) {
+      state = state.with(NORTH, isConnected(world, direction, facingPos));
+    } else if (facing == east) {
+      state = state.with(EAST, isConnected(world, direction, facingPos));
     }
 
-    if (east.getBlock() == this && east.get(FACING) == direction) {
-      stateIn = stateIn.with(EAST, true);
-    } else {
-      stateIn = stateIn.with(EAST, false);
-    }
-
-    // Diagonal connections
-    BlockState northeast = worldIn.getBlockState(currentPos.offset(face1).offset(face2));
-    BlockState northwest = worldIn.getBlockState(currentPos.offset(face1).offset(face2.getOpposite()));
-
-    if (northeast.getBlock() == this && northeast.get(FACING) == direction) {
-      stateIn = stateIn.with(NORTHEAST, true);
-    } else {
-      stateIn = stateIn.with(NORTHEAST, false);
-    }
-
-    if (northwest.getBlock() == this && northwest.get(FACING) == direction) {
-      stateIn = stateIn.with(NORTHWEST, true);
-    } else {
-      stateIn = stateIn.with(NORTHWEST, false);
-    }
-
-    return stateIn;
+    // always update northeast and northwest, never gets direct updates
+    BlockPos northPos = pos.offset(north);
+    return state.with(NORTHEAST, isConnected(world, direction, northPos.offset(east)))
+                .with(NORTHWEST, isConnected(world, direction, northPos.offset(east.getOpposite())));
   }
 
   @Override
@@ -102,60 +85,74 @@ public class PunjiBlock extends Block {
   @Override
   public BlockState getStateForPlacement(BlockItemUseContext context) {
     Direction direction = context.getFace().getOpposite();
-    IWorldReader iworldreader = context.getWorld();
-    BlockPos blockpos = context.getPos();
+    IWorldReader world = context.getWorld();
+    BlockPos pos = context.getPos();
 
     BlockState state = this.getDefaultState().with(FACING, direction);
-
-    int off = -direction.ordinal() % 2;
-
-    Direction face1 = Direction.values()[(direction.ordinal() + 2) % 6];
-    Direction face2 = Direction.values()[(direction.ordinal() + 4 + off) % 6];
-
-    // North/East Connector
-    BlockState north = iworldreader.getBlockState(blockpos.offset(face1));
-    BlockState east = iworldreader.getBlockState(blockpos.offset(face2));
-
-    if (north.getBlock() == this && north.get(FACING) == direction) {
-      state = state.with(NORTH, true);
-    }
-
-    if (east.getBlock() == this && east.get(FACING) == direction) {
-      state = state.with(EAST, true);
-    }
-
-    // Diagonal connections
-    BlockState northeast = iworldreader.getBlockState(blockpos.offset(face1).offset(face2));
-    BlockState northwest = iworldreader.getBlockState(blockpos.offset(face1).offset(face2.getOpposite()));
-
-    if (northeast.getBlock() == this && northeast.get(FACING) == direction) {
-      state = state.with(NORTHEAST, true);
-    }
-
-    if (northwest.getBlock() == this && northwest.get(FACING) == direction) {
-      state = state.with(NORTHWEST, true);
-    }
-
-    FluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
-
-    state = state.with(WATERLOGGED, ifluidstate.getFluid() == Fluids.WATER);
-
-    if (state.isValidPosition(iworldreader, blockpos)) {
-      return state;
-    } else {
+    if (!state.isValidPosition(world, pos)) {
       return null;
     }
+
+    // apply connections
+    Direction north = getLocalNorth(direction);
+    Direction east = getLocalEast(direction);
+    BlockPos northPos = pos.offset(north);
+    return state.with(NORTH,     isConnected(world, direction, northPos))
+                .with(EAST,      isConnected(world, direction, pos.offset(east)))
+                .with(NORTHEAST, isConnected(world, direction, northPos.offset(east)))
+                .with(NORTHWEST, isConnected(world, direction, northPos.offset(east.getOpposite())))
+                .with(WATERLOGGED, context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER);
   }
 
+  /**
+   * Checks if this should connect to the block at the position
+   * @param world   World instance
+   * @param facing  Punji stick facing
+   * @param target  Position to check
+   * @return  True if connected
+   */
+  private boolean isConnected(IWorldReader world, Direction facing, BlockPos target) {
+    BlockState state = world.getBlockState(target);
+    return state.getBlock() == this && state.get(FACING) == facing;
+  }
+
+  /**
+   * Gets the facing relative north
+   * @param facing  Punji stick facing
+   * @return  North for the given facing
+   */
+  private static Direction getLocalNorth(Direction facing) {
+    switch (facing) {
+      case DOWN:
+        return Direction.NORTH;
+      case UP:
+        return Direction.SOUTH;
+    }
+    return Direction.UP;
+  }
+
+  /**
+   * Gets the facing relative east
+   * @param facing  Punji stick facing
+   * @return  East for the given facing
+   */
+  private static Direction getLocalEast(Direction facing) {
+    if (facing.getAxis() == Axis.Y) {
+      return Direction.EAST;
+    }
+    return facing.rotateY();
+  }
+
+  @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+  public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
     Direction direction = state.get(FACING);
-    BlockPos blockpos = pos.offset(direction);
-    BlockState blockstate = worldIn.getBlockState(blockpos);
-    return blockstate.isSolidSide(worldIn, blockpos, direction.getOpposite());
+    BlockPos target = pos.offset(direction);
+    return world.getBlockState(target).isSolidSide(world, target, direction.getOpposite());
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   @Deprecated
   public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
@@ -184,12 +181,14 @@ public class PunjiBlock extends Block {
     BOUNDS = builder.build();
   }
 
+  @SuppressWarnings("deprecation")
   @Deprecated
   @Override
   public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
     return BOUNDS.get(state.get(FACING));
   }
 
+  @SuppressWarnings("deprecation")
   @Deprecated
   @Override
   public FluidState getFluidState(BlockState state) {

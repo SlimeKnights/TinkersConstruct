@@ -1,0 +1,21 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "all": "tconstruct:block/punji",
+    "particle": "tconstruct:block/punji"
+  },
+  "elements": [
+    {
+      "from": [ 7, 0, 7 ],
+      "to":   [ 9, 6, 9 ],
+      "faces": {
+        "up":    { "uv": [0, 0, 2, 2], "texture": "#all" },
+        "down":  { "uv": [2, 0, 4, 2], "texture": "#all", "cullface": "down" },
+        "north": { "uv": [0, 2, 2, 8], "texture": "#all" },
+        "south": { "uv": [2, 2, 4, 8], "texture": "#all" },
+        "west":  { "uv": [4, 2, 6, 8], "texture": "#all" },
+        "east":  { "uv": [6, 2, 8, 8], "texture": "#all" }
+      }
+    }
+  ]
+}

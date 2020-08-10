@@ -1,5 +1,5 @@
 {
-    "parent": "block/torch_wall",
+    "parent": "block/template_torch_wall",
     "textures": {
         "torch": "tconstruct:block/stone_torch"
     }
