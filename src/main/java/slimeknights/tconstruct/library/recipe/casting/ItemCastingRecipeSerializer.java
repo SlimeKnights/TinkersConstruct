@@ -11,12 +11,17 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+import slimeknights.mantle.recipe.FluidIngredient;
+import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.recipe.FluidIngredient;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/**
+ * Seralizer for {@link ItemCastingRecipe}.
+ * @param <T>  Casting recipe class type
+ */
 @AllArgsConstructor
 public class ItemCastingRecipeSerializer<T extends ItemCastingRecipe> extends ForgeRegistryEntry<IRecipeSerializer<?>>
   implements IRecipeSerializer<T> {
@@ -30,8 +35,7 @@ public class ItemCastingRecipeSerializer<T extends ItemCastingRecipe> extends Fo
     boolean consumed = false;
     boolean switchSlots = JSONUtils.getBoolean(json, "switch_slots", false);
     if (json.has("cast")) {
-      JsonElement jsonElement = JSONUtils.getJsonObject(json, "cast");
-      cast = Ingredient.deserialize(jsonElement);
+      cast = Ingredient.deserialize(JsonHelper.getElement(json, "cast"));
       consumed = JSONUtils.getBoolean(json, "cast_consumed", false);
     }
     FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
@@ -82,8 +86,11 @@ public class ItemCastingRecipeSerializer<T extends ItemCastingRecipe> extends Fo
     }
   }
 
+  /**
+   * Interface representing a item casting recipe constructor
+   * @param <T>  Recipe class type
+   */
   public interface IFactory<T extends ItemCastingRecipe> {
-
     T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, @Nonnull FluidIngredient fluidIn,
              ItemStack result, int coolingTime, boolean consumed, boolean switchSlots);
   }

@@ -1,28 +1,16 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
-public interface ICastingRecipe extends IRecipe<ICastingInventory> {
-  @Override
-  default ItemStack getCraftingResult(ICastingInventory inv) {
-    return getRecipeOutput().copy();
-  }
-
-  @Override
-  default boolean canFit(int width, int height) {
-    return true;
-  }
-
-  @Override
-  default boolean isDynamic() {
-    return true;
-  }
-
+/**
+ * Base interface for all casting recipes
+ */
+public interface ICastingRecipe extends ICommonRecipe<ICastingInventory> {
   @Override
   default ItemStack getIcon() {
     return new ItemStack(getType() == RecipeTypes.CASTING_TABLE ? TinkerSmeltery.castingTable : TinkerSmeltery.castingBasin);

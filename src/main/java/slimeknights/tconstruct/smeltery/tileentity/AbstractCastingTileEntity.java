@@ -32,10 +32,10 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
+import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.RecipeUtil;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.smeltery.CastingFluidHandler;
 import slimeknights.tconstruct.shared.tileentity.TableTileEntity;
@@ -297,12 +297,11 @@ public abstract class AbstractCastingTileEntity extends TableTileEntity implemen
     FluidStack fluid = tank.getFluid();
     if(!fluid.isEmpty()) {
       // fetch recipe by name
-      ICastingRecipe recipe = RecipeUtil.getRecipe(world.getRecipeManager(), name, ICastingRecipe.class).orElse(null);
-      if(recipe != null) {
-        // update capacity from recipe
+      RecipeHelper.getRecipe(world.getRecipeManager(), name, ICastingRecipe.class).ifPresent(recipe -> {
+        this.recipe = recipe;
         crafting.setFluid(fluid.getFluid());
         tank.setCapacity(recipe.getFluidAmount(crafting));
-      }
+      });
     }
   }
 

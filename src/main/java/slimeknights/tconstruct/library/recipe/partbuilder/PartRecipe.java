@@ -3,11 +3,11 @@ package slimeknights.tconstruct.library.recipe.partbuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
@@ -16,8 +16,11 @@ import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.util.Optional;
 
+/**
+ * Recipe to make a tool part from a material item in the part builder
+ */
 @AllArgsConstructor
-public class PartRecipe implements IRecipe<IPartBuilderInventory> {
+public class PartRecipe implements ICommonRecipe<IPartBuilderInventory> {
   @Getter
   protected final ResourceLocation id;
   @Getter
@@ -98,6 +101,7 @@ public class PartRecipe implements IRecipe<IPartBuilderInventory> {
    * @param material  Material to use
    * @return  Output of the recipe
    */
+  @SuppressWarnings("WeakerAccess")
   public ItemStack getRecipeOutput(IMaterial material) {
     ItemStack stack = output.getItemstackWithMaterial(material);
     stack.setCount(outputCount);
@@ -112,11 +116,5 @@ public class PartRecipe implements IRecipe<IPartBuilderInventory> {
       material = materialRecipe.getMaterial();
     }
     return this.getRecipeOutput(material);
-  }
-
-  /* Required methods */
-  @Override
-  public boolean canFit(int width, int height) {
-    return true;
   }
 }

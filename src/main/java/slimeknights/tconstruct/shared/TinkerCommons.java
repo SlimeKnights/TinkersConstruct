@@ -7,7 +7,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
@@ -22,7 +21,6 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.conditions.ConfigOptionEnabledCondition;
 import slimeknights.tconstruct.common.item.TinkerBookItem;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.recipe.crafting.ShapedFallbackRecipe;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
@@ -69,11 +67,6 @@ public final class TinkerCommons extends TinkerModule {
     .put(SlimeType.GREEN, Items.SLIME_BALL.delegate)
     .putAll(ITEMS.registerEnum(SlimeType.TINKER, "slime_ball", (type) -> new EdibleItem(type.getSlimeFood(type), TAB_GENERAL)))
     .build();
-
-  /*
-   * Recipe serializers
-   */
-  public static final RegistryObject<IRecipeSerializer<ShapedRecipe>> shapedFallbackRecipe = RECIPE_SERIALIZERS.register("crafting_shaped_fallback", ShapedFallbackRecipe.Serializer::new);
 
   @SubscribeEvent
   void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {

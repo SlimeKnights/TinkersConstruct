@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.casting;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -10,10 +11,10 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import slimeknights.mantle.recipe.FluidIngredient;
+import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.recipe.FluidIngredient;
-import slimeknights.tconstruct.library.recipe.IMultiRecipe;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -22,6 +23,9 @@ import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Casting recipe that takes an arbitrary fluid of a given amount and set the material on the output based on that fluid
+ */
 @RequiredArgsConstructor
 public abstract class MaterialCastingRecipe implements ICastingRecipe, IMultiRecipe<ItemCastingRecipe> {
   @Getter
@@ -35,13 +39,9 @@ public abstract class MaterialCastingRecipe implements ICastingRecipe, IMultiRec
   protected final IMaterialItem result;
   @Getter
   protected final boolean consumed;
+  @Getter @Accessors(fluent = true)
   protected final boolean switchSlots;
   private List<ItemCastingRecipe> multiRecipes;
-
-  @Override
-  public boolean switchSlots() {
-    return this.switchSlots;
-  }
 
   @Override
   public int getCoolingTime(ICastingInventory inv) {
@@ -79,6 +79,7 @@ public abstract class MaterialCastingRecipe implements ICastingRecipe, IMultiRec
    * @param factory  Factory instance
    * @return  Display recipe list
    */
+  @SuppressWarnings("WeakerAccess")
   protected List<ItemCastingRecipe> getRecipes(ItemCastingRecipeSerializer.IFactory<? extends ItemCastingRecipe> factory) {
     if (multiRecipes == null) {
       multiRecipes = MaterialRegistry.getMaterials().stream()
@@ -94,6 +95,7 @@ public abstract class MaterialCastingRecipe implements ICastingRecipe, IMultiRec
     return multiRecipes;
   }
 
+  /** Basin implementation */
   public static class Basin extends MaterialCastingRecipe {
 
     public Basin(ResourceLocation id, String group, Ingredient cast, int fluidAmount, IMaterialItem result, boolean consumed, boolean switchSlots) {
@@ -111,6 +113,7 @@ public abstract class MaterialCastingRecipe implements ICastingRecipe, IMultiRec
     }
   }
 
+  /** Table implementation */
   public static class Table extends MaterialCastingRecipe {
 
     public Table(ResourceLocation id, String group, Ingredient cast, int fluidAmount, IMaterialItem result, boolean consumed, boolean switchSlots) {

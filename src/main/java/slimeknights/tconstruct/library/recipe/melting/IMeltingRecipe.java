@@ -1,14 +1,18 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.inventory.ISingleItemInventory;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-public interface IMeltingRecipe extends IRecipe<ISingleItemInventory> {
+/**
+ * Common interface for all melting recipes
+ */
+public interface IMeltingRecipe extends ICustomOutputRecipe<ISingleItemInventory> {
   /**
    * Gets a new instance of the output stack for this recipe
    * @param inv  Input inventory
@@ -23,7 +27,6 @@ public interface IMeltingRecipe extends IRecipe<ISingleItemInventory> {
    */
   int getTemperature(ISingleItemInventory inv);
 
-
   /* Recipe data */
 
   @Override
@@ -32,34 +35,9 @@ public interface IMeltingRecipe extends IRecipe<ISingleItemInventory> {
   }
 
   @Override
-  default boolean isDynamic() {
-    return true;
+  default ItemStack getIcon() {
+    return new ItemStack(TinkerSmeltery.searedMelter);
   }
-
-
-  /* Required methods */
-
-  /** @deprecated unused */
-  @Deprecated
-  @Override
-  default boolean canFit(int width, int height) {
-    return true;
-  }
-
-  /** @deprecated unsupported */
-  @Deprecated
-  @Override
-  default ItemStack getRecipeOutput() {
-    return ItemStack.EMPTY;
-  }
-
-  /** @deprecated unsupported */
-  @Deprecated
-  @Override
-  default ItemStack getCraftingResult(ISingleItemInventory inv) {
-    return ItemStack.EMPTY;
-  }
-
 
   /* Utils */
 
@@ -69,7 +47,7 @@ public interface IMeltingRecipe extends IRecipe<ISingleItemInventory> {
    * Calculates the temperature for a recipe based on the amount and temperature
    * @param temperature  Temperature baseline
    * @param amount       Output amount
-   * @return
+   * @return  Temperatuer for the recipe in celsius
    */
   static int calcTemperature(int temperature, int amount) {
     int base = MaterialValues.VALUE_Block;

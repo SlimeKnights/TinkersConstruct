@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.casting;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
@@ -10,13 +11,16 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.tconstruct.library.recipe.FluidIngredient;
+import slimeknights.mantle.recipe.FluidIngredient;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
 import java.util.List;
 
+/**
+ * Casting recipe that takes a fluid and optional cast and outputs an item
+ */
 @AllArgsConstructor
 public abstract class ItemCastingRecipe implements ICastingRecipe {
   @Getter
@@ -35,6 +39,7 @@ public abstract class ItemCastingRecipe implements ICastingRecipe {
   protected final int coolingTime;
   @Getter
   protected final boolean consumed;
+  @Getter @Accessors(fluent = true)
   protected final boolean switchSlots;
 
   @Override
@@ -53,18 +58,9 @@ public abstract class ItemCastingRecipe implements ICastingRecipe {
   }
 
   @Override
-  public abstract IRecipeSerializer<?> getSerializer();
-
-  @Override
-  public boolean switchSlots() {
-    return this.switchSlots;
-  }
-
-  @Override
   public int getCoolingTime(ICastingInventory inv) {
     return this.coolingTime;
   }
-
 
   @Override
   public NonNullList<Ingredient> getIngredients() {
@@ -72,13 +68,14 @@ public abstract class ItemCastingRecipe implements ICastingRecipe {
   }
 
   /**
-   * Gets a list of valid fluid inputs for this recipe
+   * Gets a list of valid fluid inputs for this recipe, for display in JEI
    * @return  List of fluids
    */
   public List<FluidStack> getFluids() {
     return this.fluid.getFluids();
   }
 
+  /** Subclass for basin recipes */
   public static class Basin extends ItemCastingRecipe {
     public Basin(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemStack result, int coolingTime, boolean consumed, boolean switchSlots) {
       super(RecipeTypes.CASTING_BASIN, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
@@ -90,6 +87,7 @@ public abstract class ItemCastingRecipe implements ICastingRecipe {
     }
   }
 
+  /** Subclass for table recipes */
   public static class Table extends ItemCastingRecipe {
     public Table(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemStack result, int coolingTime, boolean consumed, boolean switchSlots) {
       super(RecipeTypes.CASTING_TABLE, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);

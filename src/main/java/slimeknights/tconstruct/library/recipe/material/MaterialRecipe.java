@@ -1,24 +1,26 @@
 package slimeknights.tconstruct.library.recipe.material;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import slimeknights.mantle.recipe.ICustomOutputRecipe;
+import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-@AllArgsConstructor
-public class MaterialRecipe implements IRecipe<ISingleItemInventory> {
+/**
+ * Recipe to get the material from an ingredient
+ */
+public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory> {
   @Getter
   protected final ResourceLocation id;
   @Getter
@@ -30,10 +32,24 @@ public class MaterialRecipe implements IRecipe<ISingleItemInventory> {
   /** Amount of input items needed to craft this material */
   @Getter
   protected final int needed;
-  /** Material returned by this recipe */
-  @Getter
-  // TODO: why store the ID and not the material?
+  /** Material ID for the recipe return */
   protected final MaterialId materialId;
+  /** Material returned by this recipe, lazy loaded */
+  private final LazyValue<IMaterial> material;
+
+  /**
+   * Creates a new material recipe
+   */
+  @SuppressWarnings("WeakerAccess")
+  public MaterialRecipe(ResourceLocation id, String group, Ingredient ingredient, int value, int needed, MaterialId materialId) {
+    this.id = id;
+    this.group = group;
+    this.ingredient = ingredient;
+    this.value = value;
+    this.needed = needed;
+    this.materialId = materialId;
+    this.material = new LazyValue<>(() -> MaterialRegistry.getMaterial(materialId));
+  }
 
   /* Basic */
 
@@ -69,9 +85,8 @@ public class MaterialRecipe implements IRecipe<ISingleItemInventory> {
    * @return  Material for the recipe
    */
   public IMaterial getMaterial() {
-    return MaterialRegistry.getInstance().getMaterial(this.materialId);
+    return material.getValue();
   }
-
 
   /**
    * Gets the amount of material present in the inventory as a float for display
@@ -103,23 +118,5 @@ public class MaterialRecipe implements IRecipe<ISingleItemInventory> {
    */
   public int getRemainder(int itemCost) {
     return itemCost * this.needed % this.value;
-  }
-
-  /*
-   * Required methods
-   */
-  @Override
-  public boolean canFit(int width, int height) {
-    return true;
-  }
-
-  @Override
-  public ItemStack getRecipeOutput() {
-    return ItemStack.EMPTY;
-  }
-
-  @Override
-  public ItemStack getCraftingResult(ISingleItemInventory inv) {
-    return ItemStack.EMPTY;
   }
 }

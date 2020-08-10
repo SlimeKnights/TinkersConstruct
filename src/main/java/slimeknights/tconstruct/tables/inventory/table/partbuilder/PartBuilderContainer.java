@@ -13,8 +13,8 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.IntReferenceHolder;
 import net.minecraft.world.World;
 import slimeknights.mantle.inventory.IContainerCraftingCustom;
+import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
-import slimeknights.tconstruct.library.recipe.RecipeUtil;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -129,7 +129,7 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
     this.craftResult.setInventorySlotContents(0, ItemStack.EMPTY);
     // update the list of recipes
     if (!patternSlot.getStack().isEmpty()) {
-      this.partRecipes = RecipeUtil.getUIRecipes(world.getRecipeManager(), RecipeTypes.PART_BUILDER, PartRecipe.class, partFilter);
+      this.partRecipes = RecipeHelper.getUIRecipes(world.getRecipeManager(), RecipeTypes.PART_BUILDER, PartRecipe.class, partFilter);
     }
     this.updateGUI();
   }

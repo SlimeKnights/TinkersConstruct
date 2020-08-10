@@ -10,12 +10,14 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.recipe.ICastingInventory;
 
+/**
+ * Casting recipe that takes an arbitrary fluid for a given amount and fills a container
+ */
 @RequiredArgsConstructor
 public abstract class ContainerFillingRecipe implements ICastingRecipe {
   @Getter
@@ -65,11 +67,13 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe {
   @Override
   public ItemStack getCraftingResult(ICastingInventory inv) {
     ItemStack output = new ItemStack(container);
-    IFluidHandlerItem fluidHandler = FluidUtil.getFluidHandler(output).orElse(null);
-    fluidHandler.fill(new FluidStack(inv.getFluid(), this.fluidAmount), IFluidHandler.FluidAction.EXECUTE);
-    return fluidHandler.getContainer();
+    return FluidUtil.getFluidHandler(output).map(handler -> {
+      handler.fill(new FluidStack(inv.getFluid(), this.fluidAmount), FluidAction.EXECUTE);
+      return handler.getContainer();
+    }).orElse(ItemStack.EMPTY);
   }
 
+  /** Basin implementation */
   public static class Basin extends ContainerFillingRecipe {
     public Basin(ResourceLocation idIn, String groupIn, int fluidAmount, Item containerIn) {
       super(RecipeTypes.CASTING_BASIN, idIn, groupIn, fluidAmount, containerIn);
@@ -81,6 +85,7 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe {
     }
   }
 
+  /** Table implementation */
   public static class Table extends ContainerFillingRecipe {
 
     public Table(ResourceLocation idIn, String groupIn, int fluidAmount, Item containerIn) {

@@ -33,6 +33,7 @@ import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.recipe.crafting.ShapedFallbackRecipeBuilder;
 import slimeknights.mantle.recipe.crafting.ShapedRetexturedRecipeBuilder;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
@@ -46,7 +47,6 @@ import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.casting.ContainerFillingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.crafting.ShapedFallbackRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelBuilder;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
@@ -1131,7 +1131,7 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
     String name = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
 
     // Part Builder
-    PartRecipeBuilder.partRecipe(new ItemStack(part))
+    PartRecipeBuilder.partRecipe(part)
       .setPattern(location(name))
       .setCost(cost)
       .addCriterion("has_item", hasItem(TinkerTables.pattern))

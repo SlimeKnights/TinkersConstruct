@@ -4,6 +4,8 @@ import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.fluid.Fluid;
@@ -16,21 +18,25 @@ import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.tconstruct.library.recipe.AbstractRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.FluidIngredient;
+import slimeknights.mantle.recipe.FluidIngredient;
+import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+/**
+ * Builder for an item casting recipe. Takes a fluid and optional cast to create an item
+ */
+@SuppressWarnings({"WeakerAccess", "unused"})
 @RequiredArgsConstructor(staticName = "castingRecipe")
 public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingRecipeBuilder> {
   private final ItemStack result;
   private final ItemCastingRecipeSerializer<?> recipeSerializer;
-  private String group;
   private Ingredient cast = Ingredient.EMPTY;
   private FluidIngredient fluid = FluidIngredient.EMPTY;
+  @Setter @Accessors(chain = true)
   private int coolingTime = -1;
   private boolean consumed = false;
   private boolean switchSlots = false;
@@ -98,26 +104,6 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
     return this;
   }
 
-  /**
-   * Sets the cooling time for this recipe
-   * @param time  Cooling time
-   * @return  Builder instance
-   */
-  public ItemCastingRecipeBuilder setCoolingTime(int time) {
-    this.coolingTime = time;
-    return this;
-  }
-
-  /**
-   * Sets the recipe group
-   * @param groupIn  Recipe group
-   * @return  Builder instance
-   */
-  public ItemCastingRecipeBuilder setGroup(String groupIn) {
-    this.group = groupIn;
-    return this;
-  }
-
 
   /* Cast */
 
@@ -167,6 +153,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * Builds a recipe using the registry name as the recipe name
    * @param consumerIn  Recipe consumer
    */
+  @Override
   public void build(Consumer<IFinishedRecipe> consumerIn) {
     this.build(consumerIn, Objects.requireNonNull(this.result.getItem().getRegistryName()));
   }
@@ -183,11 +170,11 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
       throw new IllegalStateException("Cooling time is too low, must be at least 0");
     }
     ResourceLocation advancementId = this.buildAdvancement(id, "casting");
-    consumer.accept(new ItemCastingRecipeBuilder.Result(id, this.group == null ? "" : this.group, this.consumed, this.switchSlots, this.fluid, this.cast, this.result, this.coolingTime, this.advancementBuilder, advancementId, this.recipeSerializer));
+    consumer.accept(new ItemCastingRecipeBuilder.Result(id, this.getGroup(), this.consumed, this.switchSlots, this.fluid, this.cast, this.result, this.coolingTime, this.advancementBuilder, advancementId, this.recipeSerializer));
   }
 
   @AllArgsConstructor
-  public static class Result implements IFinishedRecipe {
+  private static class Result implements IFinishedRecipe {
     @Getter
     protected final ResourceLocation ID;
     private final String group;
@@ -224,7 +211,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
       if (result.hasTag()) {
         JsonObject result = new JsonObject();
         result.addProperty("item", itemName);
-        result.addProperty("nbt", this.result.getTag().toString());
+        result.addProperty("nbt", Objects.requireNonNull(this.result.getTag()).toString());
         json.add("result", result);
       } else {
         json.addProperty("result", itemName);

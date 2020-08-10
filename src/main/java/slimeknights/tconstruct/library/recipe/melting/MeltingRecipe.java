@@ -13,17 +13,21 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-import slimeknights.tconstruct.library.recipe.RecipeUtil;
-import slimeknights.tconstruct.library.recipe.inventory.ISingleItemInventory;
+import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
 
+/**
+ * Recipe to melt an ingredient into a specific fuel
+ */
 @AllArgsConstructor
 public class MeltingRecipe implements IMeltingRecipe {
-  // TODO: group?
   @Getter
   private final ResourceLocation id;
+  @Getter
+  private final String group;
   private final Ingredient input;
   @Getter
   private final FluidStack output;
@@ -55,11 +59,15 @@ public class MeltingRecipe implements IMeltingRecipe {
     return TinkerSmeltery.meltingSerializer.get();
   }
 
+  /**
+   * Serializer for {@link MeltingRecipe}
+   */
   public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<MeltingRecipe> {
     @Override
     public MeltingRecipe read(ResourceLocation id, JsonObject json) {
+      String group = JSONUtils.getString(json, "group", "");
       Ingredient input = Ingredient.deserialize(JSONUtils.getJsonObject(json, "ingredient"));
-      FluidStack output = RecipeUtil.deserializeFluidStack(JSONUtils.getJsonObject(json, "result"));
+      FluidStack output = RecipeHelper.deserializeFluidStack(JSONUtils.getJsonObject(json, "result"));
 
       // temperature calculates
       int temperature;
@@ -73,20 +81,22 @@ public class MeltingRecipe implements IMeltingRecipe {
         throw new JsonSyntaxException("Melting temperature must be greater than zero");
       }
 
-      return new MeltingRecipe(id, input, output, temperature);
+      return new MeltingRecipe(id, group, input, output, temperature);
     }
 
     @Nullable
     @Override
     public MeltingRecipe read(ResourceLocation id, PacketBuffer buffer) {
+      String group = buffer.readString(Short.MAX_VALUE);
       Ingredient input = Ingredient.read(buffer);
       FluidStack output = FluidStack.readFromPacket(buffer);
       int temperature = buffer.readInt();
-      return new MeltingRecipe(id, input, output, temperature);
+      return new MeltingRecipe(id, group, input, output, temperature);
     }
 
     @Override
     public void write(PacketBuffer buffer, MeltingRecipe recipe) {
+      buffer.writeString(recipe.group);
       recipe.input.write(buffer);
       recipe.output.writeToPacket(buffer);
       buffer.writeInt(recipe.temperature);

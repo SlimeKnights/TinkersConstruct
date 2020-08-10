@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:crafting_shaped_fallback",
+  "type": "mantle:crafting_shaped_fallback",
   "group": "tconstruct:slime_boots",
   "pattern": [
     "X X",

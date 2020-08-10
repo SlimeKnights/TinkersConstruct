@@ -5,8 +5,8 @@ import net.minecraft.fluid.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import slimeknights.tconstruct.library.recipe.fuel.IFluidInventory;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
-import slimeknights.tconstruct.library.recipe.inventory.IFluidInventory;
 
 import java.lang.ref.WeakReference;
 import java.util.Optional;

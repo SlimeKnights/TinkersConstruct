@@ -7,8 +7,8 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
+import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.recipe.RecipeUtil;
 import slimeknights.tconstruct.tables.inventory.table.crafting.CraftingStationContainer;
 
 public class LastRecipePacket implements IThreadsafePacket {
@@ -49,7 +49,7 @@ public class LastRecipePacket implements IThreadsafePacket {
       // ensure a recipe was set
       if (packet.recipe != NO_RECIPE) {
         // fetch the recipe
-        ICraftingRecipe recipe = RecipeUtil.getRecipe(player.getEntityWorld().getRecipeManager(), packet.recipe, ICraftingRecipe.class).orElse(null);
+        ICraftingRecipe recipe = RecipeHelper.getRecipe(player.getEntityWorld().getRecipeManager(), packet.recipe, ICraftingRecipe.class).orElse(null);
         if (recipe != null) {
           container.updateLastRecipeFromServer(recipe);
           return;

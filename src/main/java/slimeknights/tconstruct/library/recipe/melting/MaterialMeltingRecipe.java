@@ -13,11 +13,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+import slimeknights.mantle.recipe.IMultiRecipe;
+import slimeknights.mantle.recipe.RecipeHelper;
+import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.MaterialRegistry;
-import slimeknights.tconstruct.library.recipe.IMultiRecipe;
-import slimeknights.tconstruct.library.recipe.RecipeUtil;
-import slimeknights.tconstruct.library.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -25,10 +25,15 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Melting recipe for melting a material item into the proper fluid
+ */
 @RequiredArgsConstructor
 public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<MeltingRecipe> {
   @Getter
   private final ResourceLocation id;
+  @Getter
+  private final String group;
   private final IMaterialItem item;
   private final int amount;
   private List<MeltingRecipe> multiRecipes;
@@ -64,6 +69,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
         ResourceLocation matId = mat.getIdentifier();
         return new MeltingRecipe(
           new ResourceLocation(id.getNamespace(), String.format("%s/%s/%s", id.getPath(), matId.getNamespace(), matId.getPath())),
+          group,
           Ingredient.fromStacks(item.getItemstackWithMaterial(mat)),
           new FluidStack(mat.getFluid(), amount),
           mat.getTemperature()
@@ -73,21 +79,26 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
     return multiRecipes;
   }
 
+  /**
+   * Serializer for {@link MaterialMeltingRecipe}
+   */
   public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<MaterialMeltingRecipe> {
     @Override
     public MaterialMeltingRecipe read(ResourceLocation id, JsonObject json) {
-      IMaterialItem item = RecipeUtil.deserializeMaterialItem(JSONUtils.getString(json, "item"), "item");
+      String group = JSONUtils.getString(json, "group", "");
+      IMaterialItem item = RecipeHelper.deserializeItem(JSONUtils.getString(json, "item"), "item", IMaterialItem.class);
       int amount = JSONUtils.getInt(json, "amount");
-      return new MaterialMeltingRecipe(id, item, amount);
+      return new MaterialMeltingRecipe(id, group, item, amount);
     }
 
     @Nullable
     @Override
     public MaterialMeltingRecipe read(ResourceLocation id, PacketBuffer buffer) {
       try {
-        IMaterialItem item = RecipeUtil.readItem(buffer, IMaterialItem.class);
+        String group = buffer.readString(Short.MAX_VALUE);
+        IMaterialItem item = RecipeHelper.readItem(buffer, IMaterialItem.class);
         int amount = buffer.readInt();
-        return new MaterialMeltingRecipe(id, item, amount);
+        return new MaterialMeltingRecipe(id, group, item, amount);
       } catch(Exception e) {
         TConstruct.log.error("Error reading material melting recipe from packet.", e);
         throw e;
@@ -97,7 +108,8 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
     @Override
     public void write(PacketBuffer buffer, MaterialMeltingRecipe recipe) {
       try {
-        RecipeUtil.writeItem(buffer, recipe.item);
+        buffer.writeString(recipe.group);
+        RecipeHelper.writeItem(buffer, recipe.item);
         buffer.writeInt(recipe.amount);
       } catch(Exception e) {
         TConstruct.log.error("Error reading material melting recipe from packet.", e);

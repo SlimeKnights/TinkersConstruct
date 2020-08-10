@@ -3,6 +3,9 @@ package slimeknights.tconstruct.library.recipe.casting;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
@@ -11,8 +14,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.tconstruct.library.recipe.AbstractRecipeBuilder;
+import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -20,87 +22,92 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+@SuppressWarnings({"unused", "WeakerAccess"})
+@RequiredArgsConstructor(staticName = "castingRecipe")
 public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<MaterialCastingRecipeBuilder> {
+  private final IMaterialItem result;
   private final MaterialCastingRecipeSerializer<?> recipeSerializer;
-  private String group;
   private Ingredient cast = Ingredient.EMPTY;
+  @Setter @Accessors(chain = true)
   private int fluidAmount = 0;
-  private final Item result;
   private boolean consumed = false;
   private boolean switchSlots = false;
 
-  private MaterialCastingRecipeBuilder(IMaterialItem result, MaterialCastingRecipeSerializer<?> recipeSerializer) {
-    this.result = result.asItem();
-    this.recipeSerializer = recipeSerializer;
-  }
-
-  public static MaterialCastingRecipeBuilder castingRecipe(IMaterialItem result, MaterialCastingRecipeSerializer<?> recipeSerializer) {
-    return new MaterialCastingRecipeBuilder(result, recipeSerializer);
-  }
-
+  /**
+   * Creates a new material casting recipe for an basin recipe
+   * @param result            Material item result
+   * @return  Builder instance
+   */
   public static MaterialCastingRecipeBuilder basinRecipe(IMaterialItem result) {
     return castingRecipe(result, TinkerSmeltery.basinMaterialSerializer.get());
   }
 
+  /**
+   * Creates a new material casting recipe for an table recipe
+   * @param result            Material item result
+   * @return  Builder instance
+   */
   public static MaterialCastingRecipeBuilder tableRecipe(IMaterialItem result) {
     return castingRecipe(result, TinkerSmeltery.tableMaterialSerializer.get());
   }
 
-  public MaterialCastingRecipeBuilder setGroup(String group) {
-    this.group = group;
-    return this;
-  }
-
+  /**
+   * Sets the cast to the given tag
+   * @param tag       Cast tag
+   * @param consumed  If true, cast is consumed
+   * @return  Builder instance
+   */
   public MaterialCastingRecipeBuilder setCast(Tag<Item> tag, boolean consumed) {
     return this.setCast(Ingredient.fromTag(tag), consumed);
   }
 
+  /**
+   * Sets the cast to the given item
+   * @param item      Cast item
+   * @param consumed  If true, cast is consumed
+   * @return  Builder instance
+   */
   public MaterialCastingRecipeBuilder setCast(IItemProvider item, boolean consumed) {
     return this.setCast(Ingredient.fromItems(item), consumed);
   }
 
+  /**
+   * Set the cast to the given ingredient
+   * @param cast      Ingredient
+   * @param consumed  If true, cast is consumed
+   * @return  Builder instance
+   */
   public MaterialCastingRecipeBuilder setCast(Ingredient cast, boolean consumed) {
     this.cast = cast;
     this.consumed = consumed;
     return this;
   }
 
-  public MaterialCastingRecipeBuilder setFluidAmount(int fluidAmount) {
-    this.fluidAmount = fluidAmount;
-    return this;
-  }
-
   /**
    * Set output of recipe to be put into the input slot.
-   * Mostly used for 'casts'
+   * Mostly used for cast creation
    */
   public MaterialCastingRecipeBuilder setSwitchSlots() {
     this.switchSlots = true;
     return this;
   }
 
+  @Override
   public void build(Consumer<IFinishedRecipe> consumer) {
-    this.build(consumer, Objects.requireNonNull(this.result.getRegistryName()));
+    this.build(consumer, Objects.requireNonNull(this.result.asItem().getRegistryName()));
   }
 
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
-    this.validate(id);
-    ResourceLocation advancementId = this.buildAdvancement(id, "casting");
-    consumer.accept(new MaterialCastingRecipeBuilder.Result(id, this.group == null ? "" : this.group, this.consumed, this.switchSlots, this.fluidAmount, this.cast, this.result, this.advancementBuilder, advancementId, this.recipeSerializer));
-  }
-
-  /**
-   * Makes sure that this is valid
-   */
-  private void validate(ResourceLocation id) {
     if (this.fluidAmount <= 0) {
       throw new IllegalStateException("Material casting recipes require a positive amount of fluid");
     }
+    ResourceLocation advancementId = this.buildAdvancement(id, "casting");
+    consumer.accept(new Result(id, this.getGroup(), this.consumed, this.switchSlots, this.fluidAmount, this.cast, this.result, this.advancementBuilder, advancementId, this.recipeSerializer));
   }
 
   @AllArgsConstructor
-  public static class Result implements IFinishedRecipe {
+  private static class Result implements IFinishedRecipe {
     @Getter
     protected final ResourceLocation ID;
     private final String group;
@@ -108,7 +115,7 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
     private final boolean switchSlots;
     private final int fluidAmount;
     private final Ingredient cast;
-    private final Item result;
+    private final IMaterialItem result;
     private final Advancement.Builder advancementBuilder;
     @Getter
     private final ResourceLocation advancementID;
@@ -130,7 +137,7 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
         json.addProperty("switch_slots", true);
       }
       json.addProperty("fluid_amount", this.fluidAmount);
-      json.addProperty("result", Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this.result.asItem())).toString());
+      json.addProperty("result", Objects.requireNonNull(this.result.asItem().getRegistryName()).toString());
     }
 
     @Nullable

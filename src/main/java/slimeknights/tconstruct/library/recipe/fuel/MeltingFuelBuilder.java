@@ -8,13 +8,17 @@ import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.tconstruct.library.recipe.AbstractRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.FluidIngredient;
+import slimeknights.mantle.recipe.FluidIngredient;
+import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.function.Consumer;
 
+/**
+ * Builds a new recipe for a melter or smeltery fuel
+ */
 @AllArgsConstructor(staticName="fuel")
 public class MeltingFuelBuilder extends AbstractRecipeBuilder<MeltingFuelBuilder> {
   private final FluidIngredient input;
@@ -32,14 +36,24 @@ public class MeltingFuelBuilder extends AbstractRecipeBuilder<MeltingFuelBuilder
   }
 
   @Override
+  public void build(Consumer<IFinishedRecipe> consumer) {
+    if (input.getFluids().isEmpty()) {
+      throw new IllegalStateException("Must have at least one fluid for dynamic input");
+    }
+    build(consumer, Objects.requireNonNull(input.getFluids().get(0).getFluid().getRegistryName()));
+  }
+
+  @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
     ResourceLocation advancementId = this.buildAdvancement(id, "melting_fuel");
-    consumer.accept(new Result(id, input, duration, temperature, advancementBuilder, advancementId));
+    consumer.accept(new Result(id, getGroup(), input, duration, temperature, advancementBuilder, advancementId));
   }
 
   @AllArgsConstructor
   private static class Result implements IFinishedRecipe {
-    private final ResourceLocation id;
+    @Getter
+    private final ResourceLocation ID;
+    private final String group;
     private final FluidIngredient input;
     private final int duration;
     private final int temperature;
@@ -49,14 +63,12 @@ public class MeltingFuelBuilder extends AbstractRecipeBuilder<MeltingFuelBuilder
 
     @Override
     public void serialize(JsonObject json) {
+      if (!group.isEmpty()) {
+        json.addProperty("group", group);
+      }
       json.add("fluid", input.serialize());
       json.addProperty("duration", duration);
       json.addProperty("temperature", temperature);
-    }
-
-    @Override
-    public ResourceLocation getID() {
-      return this.id;
     }
 
     @Override

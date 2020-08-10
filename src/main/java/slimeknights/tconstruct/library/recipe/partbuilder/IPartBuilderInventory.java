@@ -1,15 +1,18 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import net.minecraft.item.ItemStack;
-import slimeknights.tconstruct.library.recipe.inventory.ISingleItemInventory;
+import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 
 import javax.annotation.Nullable;
 
+/**
+ * Inventory interface for the part builder
+ */
 public interface IPartBuilderInventory extends ISingleItemInventory {
   /**
    * Gets the material recipe based on the current slot contents
-   * @return  Material recipe
+   * @return  Material recipe, or null if the slot contents are not a valid material
    */
   @Nullable
   MaterialRecipe getMaterial();
@@ -20,7 +23,7 @@ public interface IPartBuilderInventory extends ISingleItemInventory {
    */
   ItemStack getPatternStack();
 
-  /**
+  /*
    * Gets the currently selected pattern item
    * @return
    */

@@ -9,17 +9,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.tconstruct.library.recipe.AbstractRecipeBuilder;
+import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+/**
+ * Builder for a container filling recipe. Takes an arbitrary fluid for a specific amount to fill a Forge {@link net.minecraftforge.fluids.capability.IFluidHandlerItem}
+ */
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<ContainerFillingRecipeBuilder> {
   private final ContainerFillingRecipeSerializer<?> recipeSerializer;
-  private String group;
   private final int fluidAmount;
   private final Item result;
 
@@ -29,23 +31,38 @@ public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<Contain
     this.recipeSerializer = recipeSerializer;
   }
 
+  /**
+   * Creates a new builder instance using the given result, amount, and serializer
+   * @param result            Recipe result
+   * @param fluidAmount       Container size
+   * @param recipeSerializer  Serializer
+   * @return  Builder instance
+   */
   public static ContainerFillingRecipeBuilder castingRecipe(IItemProvider result, int fluidAmount, ContainerFillingRecipeSerializer<?> recipeSerializer) {
     return new ContainerFillingRecipeBuilder(result, fluidAmount, recipeSerializer);
   }
 
+  /**
+   * Creates a new basin recipe builder using the given result, amount, and serializer
+   * @param result            Recipe result
+   * @param fluidAmount       Container size
+   * @return  Builder instance
+   */
   public static ContainerFillingRecipeBuilder basinRecipe(IItemProvider result, int fluidAmount) {
     return castingRecipe(result, fluidAmount, TinkerSmeltery.basinFillingRecipeSerializer.get());
   }
 
+  /**
+   * Creates a new table recipe builder using the given result, amount, and serializer
+   * @param result            Recipe result
+   * @param fluidAmount       Container size
+   * @return  Builder instance
+   */
   public static ContainerFillingRecipeBuilder tableRecipe(IItemProvider result, int fluidAmount) {
     return castingRecipe(result, fluidAmount, TinkerSmeltery.tableFillingRecipeSerializer.get());
   }
 
-  public ContainerFillingRecipeBuilder setGroup(String group) {
-    this.group = group;
-    return this;
-  }
-
+  @Override
   public void build(Consumer<IFinishedRecipe> consumer) {
     this.build(consumer, Objects.requireNonNull(this.result.getRegistryName()));
   }
@@ -53,11 +70,11 @@ public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<Contain
   @Override
   public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
     ResourceLocation advancementId = this.buildAdvancement(id, "casting");
-    consumerIn.accept(new ContainerFillingRecipeBuilder.Result(id, this.group == null ? "" : this.group, this.fluidAmount, this.result, this.advancementBuilder, advancementId, this.recipeSerializer));
+    consumerIn.accept(new ContainerFillingRecipeBuilder.Result(id, this.getGroup(), this.fluidAmount, this.result, this.advancementBuilder, advancementId, this.recipeSerializer));
   }
 
   @AllArgsConstructor
-  public static class Result implements IFinishedRecipe {
+  private static class Result implements IFinishedRecipe {
     @Getter
     protected final ResourceLocation ID;
     private final String group;
@@ -75,7 +92,7 @@ public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<Contain
         json.addProperty("group", this.group);
       }
       json.addProperty("fluid_amount", this.fluidAmount);
-      json.addProperty("container", Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(this.result.asItem())).toString());
+      json.addProperty("container", Objects.requireNonNull(this.result.asItem().getRegistryName()).toString());
     }
 
     @Nullable

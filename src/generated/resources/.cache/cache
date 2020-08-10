@@ -121,7 +121,7 @@ b7f4fe5768667b45fbe31a15a9082ac16c7771b7 data/forge/tags/items/storage_blocks/ma
 519f2cb2169c2d8b65ddac8f9af28466b5c3c9c7 data/forge/tags/items/storage_blocks/pig_iron.json
 ff42ae5d56b04eb9092a5d8bf39b0745626143a6 data/forge/tags/items/storage_blocks/rose_gold.json
 a1f6e60fa7ffbbf8557f7eb0eb30eb29d0d83701 data/minecraft/advancements/recipes/decorations/slime_block.json
-aa890e39247c1ce30f355b0b9405127e580e373b data/minecraft/recipes/slime_block.json
+505ba1675fe3af3cc184bc2dd1a5b6b22e4a85d8 data/minecraft/recipes/slime_block.json
 551d782cdc13056f71bd1c42837d75681d8cc749 data/minecraft/tags/blocks/beacon_base_blocks.json
 6bd071dfd27099ab8f306882b95204b1237963a6 data/minecraft/tags/blocks/rails.json
 6bd071dfd27099ab8f306882b95204b1237963a6 data/minecraft/tags/items/rails.json
@@ -991,7 +991,7 @@ db8a529fd489a4ce205e845f0f08c3eeca060b7a data/tconstruct/recipes/common/slime/bl
 f5818546515b27aefbc3f8269556613d4d2a1433 data/tconstruct/recipes/common/slime/blue/slimeball_from_block.json
 dca8735066ca28ff106ec762f303dae7784a6035 data/tconstruct/recipes/common/slime/blue/slimeball_from_congealed.json
 d312b75b093f214fb019e55075f78fb982524119 data/tconstruct/recipes/common/slime/blue/slimeblock.json
-d5c5f8bc33a2c4faddbfbf3de52b50e1a866a825 data/tconstruct/recipes/common/slime/green/congealed.json
+a4726b1ae15ceb2740804f0a3f5c625036e21dc6 data/tconstruct/recipes/common/slime/green/congealed.json
 f20af96f6351327953b2deea26409b5de9574031 data/tconstruct/recipes/common/slime/green/slimeball_from_congealed.json
 66e8ca83c344af0417e25ad7de6fc260169e48aa data/tconstruct/recipes/common/slime/magma/congealed.json
 dc36e202053ee16527a8bcc90d08d2072e4e20fd data/tconstruct/recipes/common/slime/magma/slimeball_from_block.json
@@ -1064,12 +1064,12 @@ cd462c3986c110d0056f11fc7d04777cf26412b5 data/tconstruct/recipes/gadgets/punji.j
 5136879e6b4fe9d49eaf20f189e3e4f3aaf15764 data/tconstruct/recipes/gadgets/rail/wooden_rail.json
 e9b351c9bf53c7b1106c3a407dfe3a35e698a634 data/tconstruct/recipes/gadgets/slimeboots/blood.json
 8b9644bb07e80bebdc847cc2d48696d9dad066bc data/tconstruct/recipes/gadgets/slimeboots/blue.json
-1de2e99c859160d26dfc62a786d4f339245b4568 data/tconstruct/recipes/gadgets/slimeboots/green.json
+039b66b07d6d26b07aba7dcda689d3d2368960df data/tconstruct/recipes/gadgets/slimeboots/green.json
 81ea9bedf6d258a9517a01f53e78151557bb0002 data/tconstruct/recipes/gadgets/slimeboots/magma.json
 098988f98042f7498ae1a17b4a7ef5917b33d260 data/tconstruct/recipes/gadgets/slimeboots/purple.json
 6c06b8e3e22371c02d0d05e7d5d4aca7e89e5321 data/tconstruct/recipes/gadgets/slimesling/blood.json
 3177a1ae6cd0d6f5ca3fa65dbd37e2383f222736 data/tconstruct/recipes/gadgets/slimesling/blue.json
-a7ed361c6128f6d5d324a5bb9b3c5fa9b1d4ef16 data/tconstruct/recipes/gadgets/slimesling/green.json
+187c87dd81ee2343ef4939d13d04b29713e3076d data/tconstruct/recipes/gadgets/slimesling/green.json
 062827c98abf1cac5b2fe9d8cf0832df0b608eaa data/tconstruct/recipes/gadgets/slimesling/magma.json
 caf38a20994a5ad4b6653106f933a269a639c0d5 data/tconstruct/recipes/gadgets/slimesling/purple.json
 f8acd6e3c1e2bc673ac44b690fd8b95f51e247ee data/tconstruct/recipes/gadgets/stone/jack_o_lantern.json
