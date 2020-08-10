@@ -39,7 +39,7 @@ tile.tconstruct.metal.manyullyn.name=玛玉灵块
 tile.tconstruct.metal.knightslime.name=骑士粘石块
 tile.tconstruct.metal.pigiron.name=生铁块
 tile.tconstruct.metal.alubrass.name=铝黄铜块
-tile.tconstruct.metal.silky_jewel.name=精致珠宝块
+tile.tconstruct.metal.silky_jewel.name=裹绸宝石块
 
 tile.tconstruct.firewood.lavawood.name=熔岩木
 tile.tconstruct.firewood.firewood.name=烈焰木
@@ -107,7 +107,7 @@ tile.tconstruct.slime_grass_tall.fern.name=史莱姆蕨
 tile.tconstruct.slime_sapling.blue.name=蓝色史莱姆树苗
 tile.tconstruct.slime_sapling.purple.name=紫色史莱姆树苗
 tile.tconstruct.slime_sapling.orange.name=岩浆史莱姆树苗
-tile.tconstruct.slime_sapling.tooltip=只能在粘性泥土/草方块上生长
+tile.tconstruct.slime_sapling.tooltip=只能在粘性泥土/粘性草方块上生长
 
 tile.tconstruct.slime_vine_blue.name=蓝色史莱姆藤蔓
 tile.tconstruct.slime_vine_blue_mid.name=蓝色史莱姆藤蔓
@@ -127,7 +127,7 @@ tile.tconstruct.seared.brick_triangle.name=三角纹焦黑石砖
 tile.tconstruct.seared.brick_small.name=细纹焦黑石砖
 tile.tconstruct.seared.road.name=焦黑路面
 tile.tconstruct.seared.tile.name=焦黑石瓦
-tile.tconstruct.seared.creeper.name=苦力怕雕面焦黑石
+tile.tconstruct.seared.creeper.name=爬行者雕面焦黑石
 tile.tconstruct.seared.tooltip=搭建冶炼炉的建材，安全可靠的装饰材料。
 
 tile.tconstruct.seared_slab.stone.name=焦黑石头台阶
@@ -138,7 +138,7 @@ tile.tconstruct.seared_slab.brick_cracked.name=裂纹焦黑石砖台阶
 tile.tconstruct.seared_slab.brick_fancy.name=精美焦黑石砖台阶
 tile.tconstruct.seared_slab.brick_square.name=方纹焦黑石砖台阶
 tile.tconstruct.seared_slab.road.name=焦黑路面台阶
-tile.tconstruct.seared_slab2.creeper.name=苦力怕雕面焦黑石台阶
+tile.tconstruct.seared_slab2.creeper.name=爬行者雕面焦黑石台阶
 tile.tconstruct.seared_slab2.brick_triangle.name=三角纹焦黑石砖台阶
 tile.tconstruct.seared_slab2.brick_small.name=细纹焦黑石砖台阶
 tile.tconstruct.seared_slab2.tile.name=焦黑石瓦台阶
@@ -154,7 +154,7 @@ tile.tconstruct.seared_stairs_brick_triangle.name=三角纹焦黑石砖楼梯
 tile.tconstruct.seared_stairs_brick_small.name=细纹焦黑石砖楼梯
 tile.tconstruct.seared_stairs_road.name=焦黑路面楼梯
 tile.tconstruct.seared_stairs_tile.name=焦黑石瓦楼梯
-tile.tconstruct.seared_stairs_creeper.name=苦力怕雕面焦黑石楼梯
+tile.tconstruct.seared_stairs_creeper.name=爬行者雕面焦黑石楼梯
 
 tile.tconstruct.smeltery_controller.name=冶炼炉控制器
 tile.tconstruct.smeltery_controller.tooltip=冶炼炉的大脑
@@ -166,7 +166,7 @@ tile.tconstruct.casting.tooltip=利用冶炼炉中的液态金属铸造物品
 tile.tconstruct.faucet.name=焦黑龙头
 tile.tconstruct.faucet.tooltip=从冶炼炉或储罐中排出液体
 tile.tconstruct.channel.name=流铸道
-tile.tconstruct.channel.tooltip=运输从龙头中流出的液体，用于铸造
+tile.tconstruct.channel.tooltip=运输从龙头中流出的液体，以便铸造
 tile.tconstruct.seared_tank.tank.name=焦黑储罐
 tile.tconstruct.seared_tank.gauge.name=焦黑量器
 tile.tconstruct.seared_tank.window.name=焦黑视窗
@@ -178,7 +178,7 @@ tile.tconstruct.seared_furnace_controller.name=焦黑熔炉控制器
 tile.tconstruct.tinker_tank_controller.name=工匠储罐控制器
 
 tile.tconstruct.stone_torch.name=石棍火把
-tile.tconstruct.stone_ladder.name=石棍梯子
+tile.tconstruct.stone_ladder.name=石梯子
 tile.tconstruct.wood_rail.name=木轨
 tile.tconstruct.wood_rail_trapdoor.name=活板门木轨
 tile.tconstruct.wood_rail_trapdoor.tooltip=漏斗矿车能\n通过它向下方的方块输出物品
@@ -218,7 +218,7 @@ tile.tconstruct.brownstone.brick_triangle.name=三角纹褐砂石砖
 tile.tconstruct.brownstone.brick_small.name=细纹褐砂石砖
 tile.tconstruct.brownstone.road.name=褐砂路面
 tile.tconstruct.brownstone.tile.name=褐砂石瓦
-tile.tconstruct.brownstone.creeper.name=苦力怕雕面褐砂石
+tile.tconstruct.brownstone.creeper.name=爬行者雕面褐砂石
 tile.tconstruct.brownstone.tooltip=在上面你能走得快一点
 
 tile.tconstruct.brownstone_slab.smooth.name=平滑褐砂石台阶
@@ -229,7 +229,7 @@ tile.tconstruct.brownstone_slab.brick_cracked.name=裂纹褐砂石砖台阶
 tile.tconstruct.brownstone_slab.brick_fancy.name=精美褐砂石砖台阶
 tile.tconstruct.brownstone_slab.brick_square.name=方纹褐砂石砖台阶
 tile.tconstruct.brownstone_slab.road.name=褐砂路面台阶
-tile.tconstruct.brownstone_slab2.creeper.name=苦力怕雕面褐砂石台阶
+tile.tconstruct.brownstone_slab2.creeper.name=爬行者雕面褐砂石台阶
 tile.tconstruct.brownstone_slab2.brick_triangle.name=三角纹褐砂石砖台阶
 tile.tconstruct.brownstone_slab2.brick_small.name=细纹褐砂石砖台阶
 tile.tconstruct.brownstone_slab2.tile.name=褐砂石瓦台阶
@@ -245,7 +245,7 @@ tile.tconstruct.brownstone_stairs_brick_triangle.name=三角纹褐砂石砖楼�
 tile.tconstruct.brownstone_stairs_brick_small.name=细纹褐砂石砖楼梯
 tile.tconstruct.brownstone_stairs_road.name=褐砂路面楼梯
 tile.tconstruct.brownstone_stairs_tile.name=褐砂石瓦楼梯
-tile.tconstruct.brownstone_stairs_creeper.name=苦力怕雕面褐砂石楼梯
+tile.tconstruct.brownstone_stairs_creeper.name=爬行者雕面褐砂石楼梯
 
 ################
 #    Items     #
@@ -368,7 +368,7 @@ item.tconstruct.shortbow.name=短弓
 item.tconstruct.longbow.name=长弓
 item.tconstruct.crossbow.name=弩弓
 
-item.tconstruct.arrow.name=羽箭
+item.tconstruct.arrow.name=箭矢
 item.tconstruct.bolt.name=弩箭
 
 item.tconstruct.shuriken.name=回旋镖
@@ -454,8 +454,8 @@ item.tconstruct.throwball.efln.tooltip=爆破，一种安全的挖矿方式！
 
 item.tconstruct.moms_spaghetti.name=妈妈做的意大利面
 item.tconstruct.moms_spaghetti.desc=美味可口！
-item.tconstruct.moms_spaghetti.tooltip1=§o我猜这样就可以了……但还是什么地方不一样。\n肯定要酱料，而且是那种红色酱料。
-item.tconstruct.moms_spaghetti.tooltip2=§o还缺了什么……也许是肉。妈妈做的意大利面总是用各种肉的。\n我想我得找至少三种肉。
+item.tconstruct.moms_spaghetti.tooltip1=§o我猜这样就可以了······但还是有什么地方不一样。\n肯定要酱料，而且是那种红色酱料。
+item.tconstruct.moms_spaghetti.tooltip2=§o还缺了什么······也许是肉。妈妈做的意大利面总是用各种肉的。\n我想我得找至少三种肉。
 item.tconstruct.moms_spaghetti.tooltip3=§o现在这意大利面就是妈妈的味道。
 stat.spaghetti.uses.name=还剩几口呢
 stat.spaghetti.nourishment.name=营养值
@@ -579,9 +579,9 @@ stat.head.name=顶端
 stat.head.durability.name=耐久度
 stat.head.durability.desc=计算工具耐久度所依据的基准值。\n通常是工具整体耐久不可或缺的一部分。
 stat.head.miningspeed.name=挖掘速度
-stat.head.miningspeed.desc=用这种材料制成顶端部件的工具挖掘方块时的速度。\n可能受到工具其余部件的影响。
+stat.head.miningspeed.desc=若使用该材料制作顶端，该数据体现工具在挖掘方块时的挖掘速度。\n可能受到工具其余部件的影响。
 stat.head.harvestlevel.name=挖掘等级
-stat.head.harvestlevel.desc=决定用这种材料制成顶端部件的工具所能挖掘方块的范围。
+stat.head.harvestlevel.desc=若使用该材料制作顶端，此项决定工具可挖掘方块的等级范围。
 stat.head.attack.name=攻击力
 stat.head.attack.desc=计算工具攻击力所依据的基准值。\n最终伤害还会受到工具本身的种类和使用的其它部件影响。
 
@@ -608,7 +608,7 @@ stat.bow.damage.desc=每次击中所附带的额外伤害。\n来自于箭矢上
 
 stat.bowstring.name=弓弦
 stat.bowstring.modifier.name=倍率
-stat.bowstring.modifier.desc=工具的总耐久会是基础值与该系数相乘的结果。
+stat.bowstring.modifier.desc=工具的总耐久为基础值与该系数相乘的结果。
 
 stat.shaft.name=箭杆
 stat.shaft.modifier.name=倍率
@@ -620,7 +620,7 @@ stat.fletching.name=箭羽
 stat.fletching.accuracy.name=精准度
 stat.fletching.accuracy.desc=反映了使用此箭羽的箭飞行时弹道的稳定程度。\n会影响弹射物整体的精准度。
 stat.fletching.modifier.name=倍率
-stat.fletching.modifier.desc=反映出产出箭矢的数量。\n总弹药量会是基础值与该系数相乘的结果。
+stat.fletching.modifier.desc=反映出制成箭矢的数量。\n总弹药量会是基础值与该系数相乘的结果。
 
 stat.projectile.name=弹射物
 stat.projectile.ammo.name=弹药数
@@ -638,14 +638,14 @@ modifier.aridiculous.name=干旱
 modifier.aridiculous.desc=§o升温吧！§r\n工具在炎热的环境中效率更高。
 modifier.autosmelt.name=自动冶炼
 modifier.autosmelt.desc=§o工具形式的熔炉！§r\n烧炼采掘到的方块。
-modifier.baconlicious.name=培根香
+modifier.baconlicious.name=培根飘香
 modifier.baconlicious.desc=§o培！根！§r\n敲东西时有可能产出培根。
 modifier.cheap.name=廉价
-modifier.cheap.desc=§o这花销更合算！§r\n提升修复工具时恢复的耐久量。
+modifier.cheap.desc=§o花小钱获大利！§r\n提升修复工具时恢复的耐久量。
 modifier.cheapskate.name=吝啬
 modifier.cheapskate.desc=§o无耻！§r\n石头真是糟糕。你的工具耐久度更低了。
 modifier.coldblooded.name=冷血
-modifier.coldblooded.desc=§o残暴！§r\n对满生命的目标造成额为伤害。
+modifier.coldblooded.desc=§o残暴！§r\n对满生命的目标造成额外伤害。
 modifier.crude.name=粗暴
 modifier.crude.desc=§o懦夫才会用盔甲！§r\n对无护甲的目标造成额外伤害。
 modifier.crude.extra=对无护甲生物伤害加成：+%s
@@ -692,10 +692,10 @@ modifier.poisonous.desc=§o根本不是无铅产品！§r\n击中敌人时使其
 modifier.prickly.name=尖刺
 modifier.prickly.desc=§o哎呦！§r\n在尖刺下，没人是安全的：它们总能扎到人。
 modifier.sharp.name=锐利
-modifier.sharp.desc=§o甚至能斩断话语！§r\n击中敌人会让它们出血一小会儿。
+modifier.sharp.desc=§o甚至连说出来的话都能斩断！§r\n击中敌人会让它们出血一小会儿。
 modifier.shocking.name=震击
 modifier.shocking.desc=§o震击§r\n奔跑、破坏方块或者攻击实体会为你的工具充能。若通过攻击敌人来释放能量，会提高伤害并附加给玩家速度效果；若通过挖掘方块释放，则会给予玩家急迫效果。
-modifier.slimey.name=史莱姆液
+modifier.slimey.name=史莱姆
 modifier.slimey.desc=§o哕，真黏！§r\n我要洗掉它。
 modifier.spiky.name=棘刺
 modifier.spiky.desc=§o有刺的炫酷度就是200%！§r\n防御或者受伤时均会反伤攻击者。
@@ -735,7 +735,7 @@ modifier.splitting.desc=§o一分为二！§r\n箭矢发射时的瞬间加速可
 #   Modifiers   #
 #################
 
-modifier.bane_of_arthopods.name=灭虫
+modifier.bane_of_arthopods.name=节肢杀手
 modifier.bane_of_arthopods.desc=§o消灭蜘蛛！§r\n对节肢动物造成严重伤害。
 modifier.bane_of_arthopods.extra=对节肢生物伤害加成：+%s
 modifier.beheading.name=斩首
@@ -823,9 +823,9 @@ item.tconstruct.cleaver.desc=劈刀是一种重型进攻型武器，其斩击沉
 item.tconstruct.battleaxe.desc=战斧是一种重型进攻型武器，充满狂暴战士的力量。它能轻松劈倒小树，也能把对手打飞。\n右击：狂暴
 item.tconstruct.scythe.desc=长柄镰是一种范围收割工具，以摧枯拉朽之势收割作物和敌人的生命。\n具备范围攻击能力。\n右击：收获作物并重新播种
 item.tconstruct.shuriken.desc=回旋镖是一种快速、短距离的投掷型武器，弹药数量大但伤害低。\n副手也可投掷。
-item.tconstruct.shortbow.desc=短弓是一种快速而灵活的武器，使用者在快速射箭的同时还能维持迅捷的移动。\n使用匠魂羽箭。
-item.tconstruct.longbow.desc=长弓是一种强劲的长射程武器，比起它较为短小的兄弟，它的伤害更高，但灵活性有所欠缺。\n使用匠魂羽箭。
-item.tconstruct.arrow.desc=羽箭是匠魂弓所使用的弹药，每一组都能支持很多次射击，而且它们也能像常规工具那样被强化。
+item.tconstruct.shortbow.desc=短弓是一种快速而灵活的武器，使用者在快速射箭的同时还能维持迅捷的移动。\n使用匠魂箭矢。
+item.tconstruct.longbow.desc=长弓是一种强劲的长射程武器，比起它较为短小的兄弟，它的伤害更高，但灵活性有所欠缺。\n使用匠魂箭矢。
+item.tconstruct.arrow.desc=箭矢是匠魂弓所使用的弹药，每一组都能支持很多次射击，而且它们也能像常规工具那样被强化。
 item.tconstruct.crossbow.desc=弩弓是一种攻击缓慢但威力巨大的武器，必须提前长按右键来进行装填，但在装填完毕后可随时射击。\n使用匠魂弩箭。
 item.tconstruct.bolt.desc=弩箭是匠魂弩弓所使用的弹药，每一组都能支持很多次射击，而且它们也能像常规工具那样被强化。\n具备一定的穿甲性能。
 
@@ -846,7 +846,7 @@ tooltip.part.missing_info=部件无数据
 
 tooltip.pattern.cost=材料消耗：%d
 
-tooltip.chest.has_items=存有%d
+tooltip.chest.has_items=存有%d个物品
 tooltip.patternchest.holds_patterns=存有%d个模具
 tooltip.patternchest.holds_casts=存有%d个铸模
 
@@ -916,12 +916,12 @@ gui.general.temperature.celsius=%s°C
 gui.general.temperature.kelvin=%sK
 
 # Creative Tabs
-itemGroup.TinkerGeneral=匠魂 常规物品
-itemGroup.TinkerTools=匠魂 工具
-itemGroup.TinkerToolParts=匠魂 部件
-itemGroup.TinkerSmeltery=匠魂 冶炼
-itemGroup.TinkerWorld=匠魂 世界
-itemGroup.TinkerGadgets=匠魂 器物
+itemGroup.TinkerGeneral=匠魂丨常规物品
+itemGroup.TinkerTools=匠魂丨工具
+itemGroup.TinkerToolParts=匠魂丨部件
+itemGroup.TinkerSmeltery=匠魂丨冶炼
+itemGroup.TinkerWorld=匠魂丨世界
+itemGroup.TinkerGadgets=匠魂丨器物
 
 # Crafting Station
 gui.craftingstation.name=合成站
@@ -991,7 +991,7 @@ gui.dryingrack.name=晾干架
 gui.jei.smelting.title=熔炼
 gui.jei.alloy.title=合金
 gui.jei.casting.title=浇铸
-gui.jei.casting.consume=消耗模型！
+gui.jei.casting.consume=消耗母模！
 gui.jei.drying.title=晾干
 
 # WAILA Plugin
