@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.tables.client.renderer;
+package slimeknights.tconstruct.library.client.model.block;
 
 import mcp.MethodsReturnNonnullByDefault;
 

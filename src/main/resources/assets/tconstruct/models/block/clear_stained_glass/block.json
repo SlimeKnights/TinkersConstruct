@@ -1,12 +1,12 @@
 {
-  "loader": "tconstruct:connected",
+  "loader": "mantle:connected",
   "parent": "block/block",
   "textures": {
     "particle": "tconstruct:block/clear_stained_glass",
     "all": "tconstruct:block/clear_stained_glass"
   },
   "connection": {
-    "textures": ["all"]
+    "textures": {"all": "cornerless_full"}
   },
   "elements": [
     { "from": [ 0, 0, 0 ],

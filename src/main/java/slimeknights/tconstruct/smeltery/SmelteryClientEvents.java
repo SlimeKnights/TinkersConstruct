@@ -21,10 +21,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.model.tesr.CastingModel;
-import slimeknights.tconstruct.library.client.model.tesr.FluidsModel;
-import slimeknights.tconstruct.library.client.model.tesr.MelterModel;
-import slimeknights.tconstruct.library.client.model.tesr.TankModel;
+import slimeknights.tconstruct.library.client.model.block.CastingModel;
+import slimeknights.tconstruct.library.client.model.block.MelterModel;
+import slimeknights.tconstruct.library.client.model.block.TankModel;
 import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.client.FaucetFluidLoader;
@@ -74,10 +73,9 @@ public class SmelteryClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerModelLoaders(ModelRegistryEvent event) {
-    ModelLoaderRegistry.registerLoader(Util.getResource("fluids"), FluidsModel.Loader.INSTANCE);
-    ModelLoaderRegistry.registerLoader(Util.getResource("tank"), TankModel.Loader.INSTANCE);
-    ModelLoaderRegistry.registerLoader(Util.getResource("casting"), CastingModel.Loader.INSTANCE);
-    ModelLoaderRegistry.registerLoader(Util.getResource("melter"), MelterModel.Loader.INSTANCE);
+    ModelLoaderRegistry.registerLoader(Util.getResource("tank"), TankModel.LOADER);
+    ModelLoaderRegistry.registerLoader(Util.getResource("casting"), CastingModel.LOADER);
+    ModelLoaderRegistry.registerLoader(Util.getResource("melter"), MelterModel.LOADER);
   }
 
   @SubscribeEvent

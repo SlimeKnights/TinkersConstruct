@@ -13,7 +13,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -21,6 +20,8 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.library.client.model.ModelProperties;
+import slimeknights.tconstruct.library.client.util.SinglePropertyModelData;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -34,7 +35,6 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.tileentity.inventory.MelterFuelWrapper;
-import slimeknights.tconstruct.tables.client.model.ModelProperties;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -56,7 +56,7 @@ public class MelterTileEntity extends TableTileEntity implements ITankTileEntity
   /** Capability holder for the tank */
   private final LazyOptional<IFluidHandler> tankHolder = LazyOptional.of(() -> tank);
   /** Tank data for the model */
-  private final ModelDataMap modelData;
+  private final IModelData modelData;
   /** Last comparator strength to reduce block updates */
   private int lastStrength = -1;
 
@@ -109,9 +109,7 @@ public class MelterTileEntity extends TableTileEntity implements ITankTileEntity
     this.itemTempRequired = new int[3];
 
     // tank data
-    modelData = new ModelDataMap.Builder()
-      .withInitial(ModelProperties.FLUID_TANK, tank)
-      .build();
+    modelData = new SinglePropertyModelData<>(tank, ModelProperties.FLUID_TANK);
   }
 
   @Nullable

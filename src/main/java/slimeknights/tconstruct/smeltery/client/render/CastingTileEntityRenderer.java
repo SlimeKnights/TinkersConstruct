@@ -6,9 +6,11 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
-import slimeknights.tconstruct.library.client.RenderUtil;
-import slimeknights.tconstruct.library.client.model.data.ModelItem;
-import slimeknights.tconstruct.library.client.model.tesr.CastingModel;
+import slimeknights.mantle.client.model.inventory.ModelItem;
+import slimeknights.mantle.client.model.util.ModelHelper;
+import slimeknights.mantle.client.render.RenderUtil;
+import slimeknights.tconstruct.library.client.RenderUtils;
+import slimeknights.tconstruct.library.client.model.block.CastingModel;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.smeltery.client.util.CastingItemRenderTypeBuffer;
 import slimeknights.tconstruct.smeltery.tileentity.AbstractCastingTileEntity;
@@ -23,7 +25,7 @@ public class CastingTileEntityRenderer extends TileEntityRenderer<AbstractCastin
   @Override
   public void render(AbstractCastingTileEntity casting, float partialTicks, MatrixStack matrices, IRenderTypeBuffer buffer, int light, int combinedOverlayIn) {
     BlockState state = casting.getBlockState();
-    CastingModel.BakedModel model = RenderUtil.getBakedModel(state, CastingModel.BakedModel.class);
+    CastingModel.BakedModel model = ModelHelper.getBakedModel(state, CastingModel.BakedModel.class);
     if (model != null) {
       // rotate the matrix
       boolean isRotated = RenderUtil.applyRotation(matrices, state);
@@ -50,9 +52,9 @@ public class CastingTileEntityRenderer extends TileEntityRenderer<AbstractCastin
       FluidTankAnimated tank = casting.getTank();
       // if full, start rendering with opacity for progress
       if (tank.getFluidAmount() == tank.getCapacity() && tank.getRenderOffset() == 0) {
-        RenderUtil.renderTransparentCuboid(matrices, buffer, model.getFluid(), tank.getFluid(), fluidOpacity, light, false);
+        RenderUtils.renderTransparentCuboid(matrices, buffer, model.getFluid(), tank.getFluid(), fluidOpacity, light);
       } else {
-        RenderUtil.renderScaledCuboid(matrices, buffer, model.getFluid(), tank, light, partialTicks, false);
+        RenderUtils.renderFluidTank(matrices, buffer, model.getFluid(), tank, light, partialTicks, false);
       }
 
       // render items

@@ -16,9 +16,9 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fml.DistExecutor;
+import slimeknights.mantle.client.model.util.ModelHelper;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.client.RenderUtil;
-import slimeknights.tconstruct.library.client.model.tesr.TankModel;
+import slimeknights.tconstruct.library.client.model.block.TankModel;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.fluid.IFluidTankUpdater;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
@@ -88,7 +88,7 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
       if (Config.CLIENT.tankFluidModel.get()) {
         // if the amount change is bigger than a single increment, or we changed whether we have a fluid, update the world renderer
-        TankModel.BakedModel model = RenderUtil.getBakedModel(this.getBlockState(), TankModel.BakedModel.class);
+        TankModel.BakedModel model = ModelHelper.getBakedModel(this.getBlockState(), TankModel.BakedModel.class);
         if (model != null && (Math.abs(newAmount - oldAmount) >= (tank.getCapacity() / model.getFluid().getIncrements()) || (oldAmount == 0) != (newAmount == 0))) {
           //this.requestModelDataUpdate();
           Minecraft.getInstance().worldRenderer.notifyBlockUpdate(null, getPos(), null, null, 3);

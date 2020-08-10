@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.client.model.data;
+package slimeknights.tconstruct.library.client.model.block;
 
 import com.google.gson.JsonObject;
 import lombok.Getter;
@@ -8,7 +8,8 @@ import net.minecraft.client.renderer.model.BlockPartFace;
 import net.minecraft.util.Direction;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.math.vector.Vector3f;
-import slimeknights.tconstruct.library.client.model.ModelUtils;
+import slimeknights.mantle.client.model.fluid.FluidCuboid;
+import slimeknights.mantle.client.model.util.ModelHelper;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -17,11 +18,11 @@ import java.util.Map.Entry;
 @Getter
 public class IncrementalFluidCuboid extends FluidCuboid {
   private final int increments;
+  @SuppressWarnings("WeakerAccess")
   public IncrementalFluidCuboid(Vector3f from, Vector3f to, Map<Direction,FluidFace> faces, int increments) {
     super(from, to, faces);
     this.increments = increments;
   }
-
 
   /**
    * Gets the fluid part for this incremental cuboid
@@ -29,6 +30,7 @@ public class IncrementalFluidCuboid extends FluidCuboid {
    * @param gas     If true, renders upside down
    * @return  Fluid part
    */
+  @SuppressWarnings("WeakerAccess")
   public BlockPart getPart(int amount, boolean gas) {
     // set cube height based on stack amount
     Vector3f from = getFrom();
@@ -133,8 +135,8 @@ public class IncrementalFluidCuboid extends FluidCuboid {
    * @return  Scalable fluid cuboid
    */
   public static IncrementalFluidCuboid fromJson(JsonObject json) {
-    Vector3f from = ModelUtils.arrayToVector(json, "from");
-    Vector3f to = ModelUtils.arrayToVector(json, "to");
+    Vector3f from = ModelHelper.arrayToVector(json, "from");
+    Vector3f to = ModelHelper.arrayToVector(json, "to");
     Map<Direction,FluidFace> faces = getFaces(json);
     int increments = JSONUtils.getInt(json, "increments");
     return new IncrementalFluidCuboid(from, to, faces, increments);

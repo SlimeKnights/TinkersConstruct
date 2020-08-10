@@ -1,5 +1,5 @@
 {
-  "loader": "tconstruct:fluids",
+  "loader": "mantle:fluids",
   "textures": {
     "tex": "tconstruct:block/smeltery/faucet",
     "particle": "tconstruct:block/smeltery/faucet"

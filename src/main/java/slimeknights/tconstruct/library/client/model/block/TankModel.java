@@ -1,18 +1,15 @@
-package slimeknights.tconstruct.library.client.model.tesr;
+package slimeknights.tconstruct.library.client.model.block;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import com.mojang.datafixers.util.Either;
 import com.mojang.datafixers.util.Pair;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.BlockModel;
 import net.minecraft.client.renderer.model.BlockPart;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IModelTransform;
@@ -31,23 +28,24 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.BakedModelWrapper;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import slimeknights.mantle.client.model.util.ExtraTextureConfiguration;
+import slimeknights.mantle.client.model.util.SimpleBlockModel;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.client.model.ModelUtils;
-import slimeknights.tconstruct.library.client.model.data.IncrementalFluidCuboid;
+import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.smeltery.item.TankItem;
-import slimeknights.tconstruct.tables.client.model.ModelProperties;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -61,18 +59,21 @@ import java.util.function.Function;
 @Log4j2
 @AllArgsConstructor
 public class TankModel implements IModelGeometry<TankModel> {
-  protected final BlockModel model;
+  /** Shared loader instance */
+  public static final Loader LOADER = new Loader();
+
+  protected final SimpleBlockModel model;
   protected final IncrementalFluidCuboid fluid;
 
   @Override
   public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation,IUnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
-    return model.getTextures(modelGetter, missingTextureErrors);
+    return model.getTextures(owner, modelGetter, missingTextureErrors);
   }
 
   @Override
   public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, IModelTransform transform, ItemOverrideList overrides, ResourceLocation location) {
-    IBakedModel baked = model.bakeModel(bakery, model, spriteGetter, transform, location, true);
-    return new BakedModel<TankModel>(bakery, transform, baked, this);
+    IBakedModel baked = model.bakeModel(owner, transform, overrides, spriteGetter, location);
+    return new BakedModel<>(owner, transform, baked, this);
   }
 
   /** Override to add the fluid part to the item model */
@@ -101,19 +102,19 @@ public class TankModel implements IModelGeometry<TankModel> {
    * @param <T>  Parent model type, used to make this easier to extend
    */
   public static class BakedModel<T extends TankModel> extends BakedModelWrapper<IBakedModel> {
-    private static final ResourceLocation BAKE_LOCATION = new ResourceLocation("tconstruct:tank_model");
-
-    private final ModelBakery bakery;
+    private final IModelConfiguration owner;
     private final IModelTransform originalTransforms;
+    @SuppressWarnings("WeakerAccess")
     protected final T original;
     private final Cache<FluidStack, IBakedModel> cache = CacheBuilder
       .newBuilder()
       .maximumSize(64)
       .build();
 
-    protected BakedModel(ModelBakery bakery, IModelTransform transforms, IBakedModel baked, T original) {
+    @SuppressWarnings("WeakerAccess")
+    protected BakedModel(IModelConfiguration owner, IModelTransform transforms, IBakedModel baked, T original) {
       super(baked);
-      this.bakery = bakery;
+      this.owner = owner;
       this.originalTransforms = transforms;
       this.original = original;
     }
@@ -130,22 +131,19 @@ public class TankModel implements IModelGeometry<TankModel> {
      */
     private IBakedModel getModel(FluidStack stack) {
       // add fluid texture
-      BlockModel base = original.model;
+      Map<String,RenderMaterial> textures = new HashMap<>();
       FluidAttributes attributes = stack.getFluid().getAttributes();
-      Map<String,Either<RenderMaterial,String>> textures = Maps.newHashMap(base.textures);
-      textures.put("fluid", Either.left(ModelLoaderRegistry.blockMaterial(attributes.getStillTexture(stack))));
-      textures.put("flowing_fluid", Either.left(ModelLoaderRegistry.blockMaterial(attributes.getFlowingTexture(stack))));
+      textures.put("fluid", ModelLoaderRegistry.blockMaterial(attributes.getStillTexture(stack)));
+      textures.put("flowing_fluid", ModelLoaderRegistry.blockMaterial(attributes.getFlowingTexture(stack)));
+      IModelConfiguration textured = new ExtraTextureConfiguration(owner, textures);
 
       // add fluid part
       // TODO: fullbright for fluids with light level
-      List<BlockPart> elements = Lists.newArrayList(base.getElements());
+      List<BlockPart> elements = Lists.newArrayList(original.model.getElements());
       elements.add(original.fluid.getPart(stack.getAmount(), attributes.isGaseous(stack)));
 
       // bake the model
-      BlockModel withFluid = new BlockModel(base.getParentLocation(), elements, textures, base.isAmbientOcclusion(), base.func_230176_c_(), base.getAllTransforms(), Lists.newArrayList(base.getOverrides()));
-      withFluid.name = base.name;
-      withFluid.parent = base.parent;
-      return withFluid.bakeModel(bakery, withFluid, ModelLoader.defaultTextureGetter(), originalTransforms, BAKE_LOCATION, true);
+      return SimpleBlockModel.bakeDynamic(textured, elements, originalTransforms);
     }
 
     /**
@@ -178,15 +176,13 @@ public class TankModel implements IModelGeometry<TankModel> {
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData data) {
       if (Config.CLIENT.tankFluidModel.get() && data.hasProperty(ModelProperties.FLUID_TANK)) {
-        FluidTank tank = data.getData(ModelProperties.FLUID_TANK);
-        if (tank != null && !tank.isEmpty()) {
+        IFluidTank tank = data.getData(ModelProperties.FLUID_TANK);
+        if (tank != null && !tank.getFluid().isEmpty()) {
           return getCachedModel(tank.getFluid(), tank.getCapacity()).getQuads(state, side, rand, EmptyModelData.INSTANCE);
         }
       }
       return originalModel.getQuads(state, side, rand, data);
     }
-
-    /* Data */
 
     /**
      * Gets the fluid location
@@ -199,17 +195,12 @@ public class TankModel implements IModelGeometry<TankModel> {
 
   /** Loader for this model */
   public static class Loader implements IModelLoader<TankModel> {
-    /**
-     * Shared loader instance
-     */
-    public static final TankModel.Loader INSTANCE = new TankModel.Loader();
-
     @Override
     public void onResourceManagerReload(IResourceManager resourceManager) {}
 
     @Override
     public TankModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
-      BlockModel model = ModelUtils.deserialize(deserializationContext, modelContents);
+      SimpleBlockModel model = SimpleBlockModel.deserialize(deserializationContext, modelContents);
       IncrementalFluidCuboid fluid = IncrementalFluidCuboid.fromJson(JSONUtils.getJsonObject(modelContents, "fluid"));
       return new TankModel(model, fluid);
     }

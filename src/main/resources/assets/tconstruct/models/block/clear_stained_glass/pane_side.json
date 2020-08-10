@@ -1,5 +1,5 @@
 {
-  "loader": "tconstruct:connected",
+  "loader": "mantle:connected",
   "ambientocclusion": false,
   "textures": {
     "particle": "tconstruct:block/clear_stained_glass",
@@ -7,8 +7,8 @@
     "pane": "tconstruct:block/clear_stained_glass"
   },
   "connection": {
-    "textures": ["pane"],
-    "predicate": "tconstruct:pane"
+    "textures": {"pane": "cornerless_full"},
+    "predicate": "pane"
   },
   "elements": [
     { "from": [ 7, 0, 0 ],

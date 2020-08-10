@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.RenderUtil;
+import slimeknights.tconstruct.library.client.RenderUtils;
 
 @OnlyIn(Dist.CLIENT)
 public class BlueSlimeRenderer extends MobRenderer<SlimeEntity, SlimeModel<SlimeEntity>> {
@@ -38,7 +38,7 @@ public class BlueSlimeRenderer extends MobRenderer<SlimeEntity, SlimeModel<Slime
 
   @Override
   public void render(SlimeEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-    RenderUtil.setColorRGBA(this.color);
+    RenderUtils.setColorRGBA(this.color);
     this.shadowSize = 0.25F * (float) entityIn.getSlimeSize();
     super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
   }

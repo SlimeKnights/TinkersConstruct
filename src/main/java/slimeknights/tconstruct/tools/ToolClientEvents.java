@@ -36,7 +36,7 @@ public class ToolClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void registerModelLoaders(ModelRegistryEvent event) {
     ModelLoaderRegistry.registerLoader(Util.getResource("tool"), ToolModelLoader.INSTANCE);
-    ModelLoaderRegistry.registerLoader(Util.getResource("material"), MaterialModel.Loader.INSTANCE);
+    ModelLoaderRegistry.registerLoader(Util.getResource("material"), MaterialModel.LOADER);
   }
 
   @SubscribeEvent

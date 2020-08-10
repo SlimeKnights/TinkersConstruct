@@ -14,9 +14,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.tconstruct.library.client.RenderUtil;
-import slimeknights.tconstruct.library.client.model.data.FluidCuboid;
-import slimeknights.tconstruct.library.client.model.tesr.FluidsModel;
+import slimeknights.mantle.client.model.fluid.FluidCuboid;
+import slimeknights.mantle.client.model.fluid.FluidsModel;
+import slimeknights.mantle.client.model.util.ModelHelper;
+import slimeknights.mantle.client.render.FluidRenderer;
+import slimeknights.mantle.client.render.RenderUtil;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
 import slimeknights.tconstruct.smeltery.client.FaucetFluidLoader;
 import slimeknights.tconstruct.smeltery.client.FaucetFluidLoader.FaucetFluid;
@@ -44,7 +46,7 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
 
     // fetch faucet model to determine where to render fluids
     BlockState state = tileEntity.getBlockState();
-    FluidsModel.BakedModel model = RenderUtil.getBakedModel(state, FluidsModel.BakedModel.class);
+    FluidsModel.BakedModel model = ModelHelper.getBakedModel(state, FluidsModel.BakedModel.class);
     if (model != null) {
       // if side, rotate fluid model
       Direction direction = state.get(FaucetBlock.FACING).getOpposite();
@@ -59,16 +61,16 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
       boolean isGas = attributes.isGaseous(drained);
 
       // render all cubes in the model
-      IVertexBuilder buffer = bufferIn.getBuffer(RenderUtil.getBlockRenderType());
+      IVertexBuilder buffer = bufferIn.getBuffer(FluidRenderer.RENDER_TYPE);
       for (FluidCuboid cube : model.getFluids()) {
-        RenderUtil.putTexturedCuboid(matrices, buffer, cube, 0, still, flowing, color, combinedLightIn, isGas);
+        FluidRenderer.renderCuboid(matrices, buffer, cube, 0, still, flowing, color, combinedLightIn, isGas);
       }
 
       // render into the block(s) below
       FaucetFluid faucetFluid = FaucetFluidLoader.get(world.getBlockState(tileEntity.getPos().down()));
       // render all cubes with the given offset
       for (FluidCuboid cube : faucetFluid.getFluids(direction)) {
-        RenderUtil.putTexturedCuboid(matrices, buffer, cube, -1, still, flowing, color, combinedLightIn, isGas);
+        FluidRenderer.renderCuboid(matrices, buffer, cube, -1, still, flowing, color, combinedLightIn, isGas);
       }
 
       // if rotated, pop back rotation

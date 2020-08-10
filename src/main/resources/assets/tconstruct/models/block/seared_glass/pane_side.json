@@ -1,12 +1,12 @@
 {
-  "loader": "tconstruct:connected",
+  "loader": "mantle:connected",
   "parent": "tconstruct:block/pane/side",
   "textures": {
     "edge": "tconstruct:block/smeltery/seared_glass_top",
     "pane": "tconstruct:block/smeltery/seared_glass"
   },
   "connection": {
-    "textures": ["pane"],
-    "predicate": "tconstruct:pane"
+    "textures": {"pane": "cornerless_full"},
+    "predicate": "pane"
   }
 }

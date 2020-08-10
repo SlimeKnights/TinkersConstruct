@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.entity.model.SlimeModel;
 import net.minecraft.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import slimeknights.tconstruct.library.client.RenderUtil;
+import slimeknights.tconstruct.library.client.RenderUtils;
 
 import java.awt.*;
 
@@ -44,19 +44,19 @@ public class ColoredSlimeGelLayer<T extends LivingEntity> extends LayerRenderer<
     if (!entitylivingbaseIn.isInvisible()) {
       if (magicMushrooms) {
         int color = Color.HSBtoRGB(this.ticking / 100f, 0.65f, 0.8f) | (this.color & (0xFF << 24));
-        red = RenderUtil.red(color) / 255.0F;
-        green = RenderUtil.green(color) / 255.0F;
-        blue = RenderUtil.blue(color) / 255.0F;
-        alpha = RenderUtil.alpha(color) / 255.0F;
+        red = RenderUtils.red(color) / 255.0F;
+        green = RenderUtils.green(color) / 255.0F;
+        blue = RenderUtils.blue(color) / 255.0F;
+        alpha = RenderUtils.alpha(color) / 255.0F;
 
-        RenderUtil.setColorRGBA(color);
+        RenderUtils.setColorRGBA(color);
       } else {
-        red = RenderUtil.red(this.color) / 255.0F;
-        green = RenderUtil.green(this.color) / 255.0F;
-        blue = RenderUtil.blue(this.color) / 255.0F;
-        alpha = RenderUtil.alpha(this.color) / 255.0F;
+        red = RenderUtils.red(this.color) / 255.0F;
+        green = RenderUtils.green(this.color) / 255.0F;
+        blue = RenderUtils.blue(this.color) / 255.0F;
+        alpha = RenderUtils.alpha(this.color) / 255.0F;
 
-        RenderUtil.setColorRGBA(this.color);
+        RenderUtils.setColorRGBA(this.color);
       }
 
       this.getEntityModel().copyModelAttributesTo(this.slimeModel);

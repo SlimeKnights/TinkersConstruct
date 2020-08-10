@@ -17,8 +17,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.client.model.fluid.FluidCuboid;
 import slimeknights.tconstruct.library.Util;
-import slimeknights.tconstruct.library.client.model.data.FluidCuboid;
 
 import java.util.Collections;
 import java.util.HashMap;

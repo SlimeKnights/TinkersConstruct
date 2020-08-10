@@ -8,6 +8,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import slimeknights.mantle.client.render.InventoryTileEntityRenderer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.tables.client.PatternGuiTextureLoader;
@@ -15,7 +16,6 @@ import slimeknights.tconstruct.tables.client.inventory.chest.PartChestScreen;
 import slimeknights.tconstruct.tables.client.inventory.chest.PatternChestScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.CraftingStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.PartBuilderScreen;
-import slimeknights.tconstruct.tables.client.renderer.InventoryTileEntityRenderer;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)

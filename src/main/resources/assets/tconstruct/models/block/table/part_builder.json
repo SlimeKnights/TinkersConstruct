@@ -1,5 +1,5 @@
 {
-  "loader": "tconstruct:inventory",
+  "loader": "mantle:inventory",
   "parent": "tconstruct:block/table/table",
   "textures": {
     "particle": "tconstruct:block/table/part_builder_top",

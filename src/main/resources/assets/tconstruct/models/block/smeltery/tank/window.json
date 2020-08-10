@@ -1,11 +1,5 @@
 {
-  "loader": "tconstruct:tank",
   "parent": "tconstruct:block/smeltery/tank/base",
-  "fluid": {
-    "from": [ 0.08, 0.08, 0.08 ],
-    "to": [ 15.92, 15.92, 15.92 ],
-    "increments": 256
-  },
   "textures": {
     "top":  "tconstruct:block/smeltery/tank/seared_window_top",
     "side": "tconstruct:block/smeltery/tank/seared_window_side"

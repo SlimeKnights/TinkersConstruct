@@ -5,10 +5,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import slimeknights.mantle.client.model.inventory.ModelItem;
+import slimeknights.mantle.client.model.util.ModelHelper;
+import slimeknights.mantle.client.render.RenderUtil;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.client.RenderUtil;
-import slimeknights.tconstruct.library.client.model.data.ModelItem;
-import slimeknights.tconstruct.library.client.model.tesr.MelterModel;
+import slimeknights.tconstruct.library.client.RenderUtils;
+import slimeknights.tconstruct.library.client.model.block.MelterModel;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 
 import java.util.List;
@@ -21,14 +23,14 @@ public class MelterTileEntityRenderer extends TileEntityRenderer<MelterTileEntit
   @Override
   public void render(MelterTileEntity melter, float partialTicks, MatrixStack matrices, IRenderTypeBuffer buffer, int light, int combinedOverlayIn) {
     BlockState state = melter.getBlockState();
-    MelterModel.BakedModel model = RenderUtil.getBakedModel(state, MelterModel.BakedModel.class);
+    MelterModel.BakedModel model = ModelHelper.getBakedModel(state, MelterModel.BakedModel.class);
     if (model != null) {
       // rotate the matrix
       boolean isRotated = RenderUtil.applyRotation(matrices, state);
 
       // render fluids
       if (!Config.CLIENT.tankFluidModel.get()) {
-        RenderUtil.renderScaledCuboid(matrices, buffer, model.getFluid(), melter.getTank(), light, partialTicks, false);
+        RenderUtils.renderFluidTank(matrices, buffer, model.getFluid(), melter.getTank(), light, partialTicks, false);
       }
 
       // render items

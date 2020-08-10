@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.tables.client.model;
+package slimeknights.tconstruct.shared;
 
 import mcp.MethodsReturnNonnullByDefault;
 

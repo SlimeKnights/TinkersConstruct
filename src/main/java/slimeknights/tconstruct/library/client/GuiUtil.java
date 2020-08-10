@@ -117,7 +117,7 @@ public final class GuiUtil {
   public static void renderTiledFluid(MatrixStack matrices, ContainerScreen<?> screen, FluidStack stack, int x, int y, int width, int height, int depth) {
     if (!stack.isEmpty()) {
       TextureAtlasSprite fluidSprite = screen.getMinecraft().getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE).apply(stack.getFluid().getAttributes().getStillTexture(stack));
-      RenderUtil.setColorRGBA(stack.getFluid().getAttributes().getColor(stack));
+      RenderUtils.setColorRGBA(stack.getFluid().getAttributes().getColor(stack));
       renderTiledTextureAtlas(matrices, screen, fluidSprite, x, y, width, height, depth, stack.getFluid().getAttributes().isGaseous(stack));
     }
   }

@@ -55,6 +55,8 @@ import java.util.function.Function;
 
 @Log4j2
 public class MaterialModel implements IModelGeometry<MaterialModel> {
+  /** Shared loader instance */
+  public static final Loader LOADER = new Loader();
 
   @Nullable
   private final MaterialId material;
@@ -209,8 +211,6 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
   }
 
   public static class Loader implements IModelLoader<MaterialModel> {
-    public static final MaterialModel.Loader INSTANCE = new MaterialModel.Loader();
-
     @Override
     public void onResourceManagerReload(IResourceManager resourceManager) {
       // nothing to do

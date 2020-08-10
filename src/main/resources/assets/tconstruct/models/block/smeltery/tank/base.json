@@ -1,5 +1,11 @@
 {
+  "loader": "tconstruct:tank",
 	"parent": "block/block",
+  "fluid": {
+    "from": [ 0.08, 0.08, 0.08 ],
+    "to": [ 15.92, 15.92, 15.92 ],
+    "increments": 256
+  },
 	"textures": {
     "particle": "#side"
 	},

@@ -1,9 +1,8 @@
-package slimeknights.tconstruct.library.client.model.tesr;
+package slimeknights.tconstruct.library.client.model.block;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import lombok.Getter;
-import net.minecraft.client.renderer.model.BlockModel;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IModelTransform;
 import net.minecraft.client.renderer.model.ItemOverrideList;
@@ -15,9 +14,10 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
-import slimeknights.tconstruct.library.client.model.ModelUtils;
-import slimeknights.tconstruct.library.client.model.data.FluidCuboid;
-import slimeknights.tconstruct.library.client.model.data.ModelItem;
+import slimeknights.mantle.client.model.fluid.FluidCuboid;
+import slimeknights.mantle.client.model.inventory.InventoryModel;
+import slimeknights.mantle.client.model.inventory.ModelItem;
+import slimeknights.mantle.client.model.util.SimpleBlockModel;
 
 import java.util.List;
 import java.util.function.Function;
@@ -26,16 +26,20 @@ import java.util.function.Function;
  * This model contains a single fluid region that is scaled in the TESR, and a list of two items displayed in the TESR
  */
 public class CastingModel extends InventoryModel {
+  /** Shared loader instance */
+  public static final Loader LOADER = new Loader();
+
   private final FluidCuboid fluid;
 
-  public CastingModel(BlockModel model, List<ModelItem> items, FluidCuboid fluid) {
+  @SuppressWarnings("WeakerAccess")
+  protected CastingModel(SimpleBlockModel model, List<ModelItem> items, FluidCuboid fluid) {
     super(model, items);
     this.fluid = fluid;
   }
 
   @Override
   public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, IModelTransform transform, ItemOverrideList overrides, ResourceLocation location) {
-    IBakedModel baked = model.bakeModel(bakery, model, spriteGetter, transform, location, true);
+    IBakedModel baked = model.bakeModel(owner, transform, overrides, spriteGetter, location);
     return new BakedModel(baked, items, fluid);
   }
 
@@ -51,17 +55,12 @@ public class CastingModel extends InventoryModel {
 
   /** Loader for this model */
   public static class Loader implements IModelLoader<InventoryModel> {
-    /**
-     * Shared loader instance
-     */
-    public static final Loader INSTANCE = new Loader();
-
     @Override
     public void onResourceManagerReload(IResourceManager resourceManager) {}
 
     @Override
     public InventoryModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
-      BlockModel model = ModelUtils.deserialize(deserializationContext, modelContents);
+      SimpleBlockModel model = SimpleBlockModel.deserialize(deserializationContext, modelContents);
       List<ModelItem> items = ModelItem.listFromJson(modelContents, "items");
       FluidCuboid fluid = FluidCuboid.fromJson(JSONUtils.getJsonObject(modelContents, "fluid"));
       return new CastingModel(model, items, fluid);
