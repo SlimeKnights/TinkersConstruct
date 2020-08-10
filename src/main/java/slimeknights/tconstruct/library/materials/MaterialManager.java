@@ -7,23 +7,18 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialsPacket;
+import slimeknights.tconstruct.library.utils.SyncingJsonReloadListener;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -42,7 +37,7 @@ import java.util.stream.Collectors;
  * So if your mods name is "foobar", the location for your mods materials is "data/foobar/materials".
  */
 @Log4j2
-public class MaterialManager extends JsonReloadListener {
+public class MaterialManager extends SyncingJsonReloadListener {
 
   public static final String FOLDER = "materials/definition";
   public static final Gson GSON = (new GsonBuilder())
@@ -51,19 +46,16 @@ public class MaterialManager extends JsonReloadListener {
     .disableHtmlEscaping()
     .create();
 
-  private final TinkerNetwork tinkerNetwork;
   private Map<MaterialId, IMaterial> materials = ImmutableMap.of();
   private Map<Fluid, IMaterial> fluidLookup = ImmutableMap.of();
 
   public MaterialManager() {
     this(TinkerNetwork.getInstance());
-    MinecraftForge.EVENT_BUS.addListener(this::updatePlayerMaterials);
   }
 
   @VisibleForTesting
   protected MaterialManager(TinkerNetwork tinkerNetwork) {
-    super(GSON, FOLDER);
-    this.tinkerNetwork = tinkerNetwork;
+    super(tinkerNetwork, GSON, FOLDER);
   }
 
   /**
@@ -121,16 +113,9 @@ public class MaterialManager extends JsonReloadListener {
     log.info("{} materials loaded", materials.size());
   }
 
-  /**
-   * Called when the player joins the server to send them a list of materials
-   * @param event  Player logged in event
-   */
-  private void updatePlayerMaterials(PlayerLoggedInEvent event) {
-    PlayerEntity player = event.getPlayer();
-    if (player instanceof ServerPlayerEntity) {
-      ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
-      tinkerNetwork.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new UpdateMaterialsPacket(materials.values()));
-    }
+  @Override
+  protected Object getUpdatePacket() {
+    return new UpdateMaterialsPacket(materials.values());
   }
 
   @Nullable

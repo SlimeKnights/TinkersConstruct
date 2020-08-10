@@ -9,15 +9,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.client.resources.JsonReloadListener;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.fml.network.PacketDistributor;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
@@ -25,6 +19,7 @@ import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJsonWrapper;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.network.UpdateMaterialStatsPacket;
+import slimeknights.tconstruct.library.utils.SyncingJsonReloadListener;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -54,7 +49,7 @@ import java.util.stream.Stream;
  * So if your mods name is "foobar", the location for your mads material stats is "data/foobar/materials/stats".
  */
 @Log4j2
-public class MaterialStatsManager extends JsonReloadListener {
+public class MaterialStatsManager extends SyncingJsonReloadListener {
 
   public static final String FOLDER = "materials/stats";
   public static final Gson GSON = (new GsonBuilder())
@@ -62,8 +57,6 @@ public class MaterialStatsManager extends JsonReloadListener {
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();
-
-  private final TinkerNetwork tinkerNetwork;
   /**
    * This map represents the known stats of the manager. Only known materials can be loaded.
    * Usually they're registered by the registry, when a new material stats type is registered.
@@ -79,9 +72,7 @@ public class MaterialStatsManager extends JsonReloadListener {
 
   @VisibleForTesting
   public MaterialStatsManager(TinkerNetwork tinkerNetwork) {
-    super(GSON, FOLDER);
-    this.tinkerNetwork = tinkerNetwork;
-    MinecraftForge.EVENT_BUS.addListener(this::updatePlayerMaterials);
+    super(tinkerNetwork, GSON, FOLDER);
   }
 
   public void registerMaterialStat(MaterialStatsId materialStatType, Class<? extends IMaterialStats> statsClass) {
@@ -153,21 +144,14 @@ public class MaterialStatsManager extends JsonReloadListener {
       materialToStatsPerType.size());
   }
 
-  /**
-   * Called when the player joins the server to send them a list of materials
-   * @param event  Player logged in event
-   */
-  private void updatePlayerMaterials(PlayerLoggedInEvent event) {
-    PlayerEntity player = event.getPlayer();
-    if (player instanceof ServerPlayerEntity) {
-      ServerPlayerEntity serverPlayer = (ServerPlayerEntity)player;
-      Map<MaterialId, Collection<IMaterialStats>> networkPayload =
-        materialToStatsPerType.entrySet().stream()
-                              .collect(Collectors.toMap(
-                                Map.Entry::getKey,
-                                entry -> entry.getValue().values()));
-      tinkerNetwork.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new UpdateMaterialStatsPacket(networkPayload));
-    }
+  @Override
+  protected Object getUpdatePacket() {
+    Map<MaterialId, Collection<IMaterialStats>> networkPayload =
+      materialToStatsPerType.entrySet().stream()
+                            .collect(Collectors.toMap(
+                              Map.Entry::getKey,
+                              entry -> entry.getValue().values()));
+    return new UpdateMaterialStatsPacket(networkPayload);
   }
 
   private Map<MaterialStatsId, IMaterialStats> deserializeMaterialStatsFromContent(Map<MaterialStatsId, StatContent> contents) {
