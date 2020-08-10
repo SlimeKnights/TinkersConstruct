@@ -42,7 +42,6 @@ import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Mod.EventBusSubscriber(modid = TConstruct.modID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -54,10 +53,9 @@ public class CraftingStationContainer extends TinkerStationContainer<CraftingSta
   private final PersistentCraftingInventory craftMatrix;
   private final CraftResultInventory craftResult;
 
+  /** Last recipe crafted, to speed up recipe crafting */
   private ICraftingRecipe lastRecipe;
-  private ICraftingRecipe lastLastRecipe;
-
-  public CraftingStationContainer(int id, PlayerInventory inv, CraftingStationTileEntity tileEntity) {
+  public CraftingStationContainer(int id, PlayerInventory inv, @Nullable CraftingStationTileEntity tileEntity) {
     super(TinkerTables.craftingStationContainer.get(), id, inv, tileEntity);
 
     this.craftResult = new CraftResultInventory();
@@ -164,37 +162,31 @@ public class CraftingStationContainer extends TinkerStationContainer<CraftingSta
       ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) playerEntity;
       ItemStack itemstack = ItemStack.EMPTY;
 
-      Optional<ICraftingRecipe> optional = world.getServer().getRecipeManager().getRecipe(IRecipeType.CRAFTING, craftingInventory, world);
-
-      // if the recipe is no longer valid, update it
-      if (this.lastRecipe == null || !this.lastRecipe.matches(craftingInventory, world)) {
-        this.lastRecipe = optional.orElse(null);
+      ICraftingRecipe recipe = lastRecipe;
+      if (recipe == null || !recipe.matches(craftingInventory, world)) {
+        recipe = world.getServer().getRecipeManager().getRecipe(IRecipeType.CRAFTING, craftingInventory, world).orElse(null);
       }
 
       // if we have a recipe, fetch its result
-      if (this.lastRecipe != null) {
-        if (resultInventory.canUseRecipe(world, serverPlayerEntity, this.lastRecipe)) {
-          itemstack = this.lastRecipe.getCraftingResult(craftingInventory);
+      List<ServerPlayerEntity> relevantPlayers = this.getAllPlayersWithThisContainerOpen(this, serverPlayerEntity.getServerWorld());
+      if (recipe != null) {
+        if (resultInventory.canUseRecipe(world, serverPlayerEntity, recipe)) {
+          itemstack = recipe.getCraftingResult(craftingInventory);
+        }
+        if (recipe != lastRecipe) {
+          lastRecipe = recipe;
+          this.syncRecipeToAllOpenWindows(this.lastRecipe, relevantPlayers);
         }
       }
 
       // set the slot on both sides, client is for display/so the client knows about the recipe
       resultInventory.setInventorySlotContents(SLOT_RESULT, itemstack);
 
-      // update recipe on server
-      // we need to sync to all players currently in the inventory
-      List<ServerPlayerEntity> relevantPlayers = this.getAllPlayersWithThisContainerOpen(this, serverPlayerEntity.getServerWorld());
-
       // sync result to all serverside inventories to prevent duplications/recipes being blocked
       // need to do this every time as otherwise taking items of the result causes desync
       this.syncResultToAllOpenWindows(itemstack, relevantPlayers);
-
-      // if the recipe changed, update clients last recipe
-      // this also updates the client side display when the recipe is added
-      if (this.lastLastRecipe != this.lastRecipe) {
-        this.syncRecipeToAllOpenWindows(this.lastRecipe, relevantPlayers);
-        this.lastLastRecipe = this.lastRecipe;
-      }
+    } else if (lastRecipe != null) {
+      this.craftResult.setInventorySlotContents(SLOT_RESULT, lastRecipe.getCraftingResult(craftMatrix));
     }
   }
 
