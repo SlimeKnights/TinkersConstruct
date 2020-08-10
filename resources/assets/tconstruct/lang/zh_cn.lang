@@ -2,15 +2,15 @@
 #    Blocks    #
 ################
 
-tile.tconstruct.tooltables.craftingstation.name=合成站
-tile.tconstruct.tooltables.stenciltable.name=刻模桌
-tile.tconstruct.tooltables.partbuilder.name=塑件台
-tile.tconstruct.tooltables.toolstation.name=组器站
+tile.tconstruct.tooltables.craftingstation.name=工作站
+tile.tconstruct.tooltables.stenciltable.name=模具雕刻台
+tile.tconstruct.tooltables.partbuilder.name=部件制造桌
+tile.tconstruct.tooltables.toolstation.name=工具装配站
 tile.tconstruct.tooltables.patternchest.name=模具箱
 tile.tconstruct.tooltables.patternchest.tooltip=可存储模具或铸模
 tile.tconstruct.tooltables.partchest.name=部件箱
 tile.tconstruct.tooltables.partchest.tooltip=能容纳大量部件
-tile.tconstruct.toolforge.name=铸器砧
+tile.tconstruct.toolforge.name=工具锻铸砧
 
 tile.tconstruct.soil.grout.name=砖泥
 tile.tconstruct.soil.grout.tooltip=I am Grout!
