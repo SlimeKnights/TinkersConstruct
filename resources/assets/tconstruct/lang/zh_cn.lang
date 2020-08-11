@@ -763,11 +763,11 @@ modifier.harvestwidth.name=横向扩展
 modifier.harvestwidth.desc=§o扩展！§r\n增加你工具的横向作用范围，只对特定工具有效。
 modifier.harvestheight.name=纵向扩展
 modifier.harvestheight.desc=§o扩展！§r\n增加你工具的纵向作用范围，只对特定工具有效。
-modifier.haste.name=急速
-modifier.haste.name2=急速+
-modifier.haste.name3=超速
-modifier.haste.name4=超速+
-modifier.haste.name5=神速
+modifier.haste.name=急速+
+modifier.haste.name2=急速++
+modifier.haste.name3=急速+++
+modifier.haste.name4=急速++++
+modifier.haste.name5=急速+++++
 modifier.haste.desc=§o咴————！§r\n红石会在你使用工具时产生推力，让你的工具动得更快。
 modifier.haste.extra=速度加成：+%s
 modifier.knockback.name=击退
@@ -784,11 +784,11 @@ modifier.reinforced.name=加固
 modifier.reinforced.unbreakable=不毁
 modifier.reinforced.desc=§o真是结实！§r\n每级都会让不消耗耐久度的概率提高%s。
 modifier.reinforced.extra=加固：%s
-modifier.sharpness.name=锐利
-modifier.sharpness.name2=锐利+
-modifier.sharpness.name3=锋利
-modifier.sharpness.name4=锋利+
-modifier.sharpness.name5=尖利
+modifier.sharpness.name=锋利+
+modifier.sharpness.name2=锋利++
+modifier.sharpness.name3=锋利+++
+modifier.sharpness.name4=锋利++++
+modifier.sharpness.name5=锋利+++++
 modifier.sharpness.desc=§o哎呦！§r\n太锋利了，只是看着就感觉很痛。
 modifier.shulking.name=浮空
 modifier.shulking.desc=§o飘起，飞啦！§r\n击中对手会使其漂浮。
@@ -924,20 +924,20 @@ itemGroup.TinkerWorld=匠魂丨世界
 itemGroup.TinkerGadgets=匠魂丨器物
 
 # Crafting Station
-gui.craftingstation.name=合成站
+gui.craftingstation.name=工作站
 
 # Stencil Table
-gui.stenciltable.name=刻模桌
+gui.stenciltable.name=模具雕刻台
 
 # PartBuilder
-gui.partbuilder.name=塑件台
-gui.partcrafter.name=制件台
+gui.partbuilder.name=部件制造桌
+gui.partcrafter.name=部件合成桌
 gui.partbuilder.info=在这里，你能制作工具部件，从而实现你的工匠梦想。\n\n要制作一个工具部件，你需要将模具放入左侧的空槽，并在右侧的两个槽中放置足量的任意一种材料，这样就能制成对应材料的对应部件了。
 gui.partbuilder.material_value=材料值：%s份%s
 
 # Tool Station/Forge
-gui.toolstation.name=组器站
-gui.toolforge.name=铸器砧
+gui.toolstation.name=工具装配站
+gui.toolforge.name=工具锻铸砧
 gui.toolstation.repair=修复&强化
 gui.toolstation.traits=特性
 gui.toolstation.components=组成部件
