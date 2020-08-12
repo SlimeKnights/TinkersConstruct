@@ -7,6 +7,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.TorchBlock;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
@@ -19,6 +20,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.item.EdibleItem;
@@ -28,6 +30,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.gadgets.block.DropperRailBlock;
 import slimeknights.tconstruct.gadgets.block.PunjiBlock;
+import slimeknights.tconstruct.gadgets.data.GadgetRecipeProvider;
 import slimeknights.tconstruct.gadgets.entity.EflnBallEntity;
 import slimeknights.tconstruct.gadgets.entity.FancyItemFrameEntity;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
@@ -153,5 +156,13 @@ public final class TinkerGadgets extends TinkerModule {
   void commonSetup(final FMLCommonSetupEvent event) {
     CapabilityTinkerPiggyback.register();
     MinecraftForge.EVENT_BUS.register(new GadgetEvents());
+  }
+
+  @SubscribeEvent
+  void gatherData(final GatherDataEvent event) {
+    if (event.includeServer()) {
+      DataGenerator datagenerator = event.getGenerator();
+      datagenerator.addProvider(new GadgetRecipeProvider(datagenerator));
+    }
   }
 }

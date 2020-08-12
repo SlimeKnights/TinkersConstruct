@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.GlassBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -12,6 +13,7 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.EdibleItem;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
@@ -27,6 +29,7 @@ import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.GlowBlock;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
+import slimeknights.tconstruct.shared.data.CommonRecipeProvider;
 
 /**
  * Contains items and blocks and stuff that is shared by multiple modules, but might be required individually
@@ -71,5 +74,13 @@ public final class TinkerCommons extends TinkerModule {
   @SubscribeEvent
   void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
     CraftingHelper.register(ConfigOptionEnabledCondition.Serializer.INSTANCE);
+  }
+
+  @SubscribeEvent
+  void gatherData(final GatherDataEvent event) {
+    if (event.includeServer()) {
+      DataGenerator datagenerator = event.getGenerator();
+      datagenerator.addProvider(new CommonRecipeProvider(datagenerator));
+    }
   }
 }

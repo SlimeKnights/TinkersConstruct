@@ -41,7 +41,6 @@ import slimeknights.tconstruct.common.data.TConstructEntityTypeTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructFluidTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructItemTagsProvider;
 import slimeknights.tconstruct.common.data.TConstructLootTableProvider;
-import slimeknights.tconstruct.common.data.TConstructRecipeProvider;
 import slimeknights.tconstruct.debug.ToolDebugContainer;
 import slimeknights.tconstruct.debug.ToolDebugScreen;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -59,8 +58,6 @@ import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.data.MaterialDataProvider;
-import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -129,19 +126,14 @@ public class TConstruct {
 
   @SubscribeEvent
   static void gatherData(final GatherDataEvent event) {
-    DataGenerator datagenerator = event.getGenerator();
-
     if (event.includeServer()) {
+      DataGenerator datagenerator = event.getGenerator();
       TConstructBlockTagsProvider blockTags = new TConstructBlockTagsProvider(datagenerator);
       datagenerator.addProvider(blockTags);
       datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator, blockTags));
       datagenerator.addProvider(new TConstructFluidTagsProvider(datagenerator));
       datagenerator.addProvider(new TConstructEntityTypeTagsProvider(datagenerator));
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
-      datagenerator.addProvider(new TConstructRecipeProvider(datagenerator));
-
-      datagenerator.addProvider(new MaterialDataProvider(datagenerator));
-      datagenerator.addProvider(new MaterialStatsDataProvider(datagenerator));
     }
   }
 

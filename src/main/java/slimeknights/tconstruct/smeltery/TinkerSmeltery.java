@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -15,6 +16,7 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
@@ -41,6 +43,7 @@ import slimeknights.tconstruct.smeltery.block.MelterBlock;
 import slimeknights.tconstruct.smeltery.block.SearedGlassBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock.TankType;
+import slimeknights.tconstruct.smeltery.data.SmelteryRecipeProvider;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.smeltery.tileentity.AbstractCastingTileEntity;
@@ -55,6 +58,7 @@ import java.util.function.Function;
 /**
  * Contains logic for the multiblocks in the mod
  */
+@SuppressWarnings("unused")
 public final class TinkerSmeltery extends TinkerModule {
   /** Tab for all blocks related to the smeltery */
   public static final ItemGroup TAB_SMELTERY = new SupplierItemGroup(TConstruct.modID, "smeltery", () -> new ItemStack(TinkerSmeltery.searedTank.get(TankType.TANK)));
@@ -188,7 +192,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static Set<Block> validTinkerTankBlocks;
   public static Set<Block> validTinkerTankFloorBlocks;
   @SubscribeEvent
-  static void registerBlockLists(final FMLCommonSetupEvent event) {
+  void registerBlockLists(final FMLCommonSetupEvent event) {
     ImmutableSet.Builder<Block> builder = ImmutableSet.builder();
     builder.add(TinkerSmeltery.searedStone.get());
     builder.add(TinkerSmeltery.searedCobble.get());
@@ -237,5 +241,13 @@ public final class TinkerSmeltery extends TinkerModule {
     builder.addAll(TinkerSmeltery.searedRoad.values());
     builder.addAll(TinkerSmeltery.searedTile.values());
     searedStairsSlabs = builder.build();
+  }
+
+  @SubscribeEvent
+  void gatherData(final GatherDataEvent event) {
+    if (event.includeServer()) {
+      DataGenerator datagenerator = event.getGenerator();
+      datagenerator.addProvider(new SmelteryRecipeProvider(datagenerator));
+    }
   }
 }

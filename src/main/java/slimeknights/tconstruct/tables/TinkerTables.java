@@ -3,13 +3,16 @@ package slimeknights.tconstruct.tables;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeSerializer;
@@ -19,6 +22,7 @@ import slimeknights.tconstruct.tables.block.chest.PartChestBlock;
 import slimeknights.tconstruct.tables.block.chest.PatternChestBlock;
 import slimeknights.tconstruct.tables.block.table.CraftingStationBlock;
 import slimeknights.tconstruct.tables.block.table.PartBuilderBlock;
+import slimeknights.tconstruct.tables.data.TableRecipeProvider;
 import slimeknights.tconstruct.tables.inventory.chest.PartChestContainer;
 import slimeknights.tconstruct.tables.inventory.chest.PatternChestContainer;
 import slimeknights.tconstruct.tables.inventory.table.crafting.CraftingStationContainer;
@@ -72,4 +76,13 @@ public final class TinkerTables extends TinkerModule {
    */
   public static final RegistryObject<PartRecipeSerializer> partRecipeSerializer = RECIPE_SERIALIZERS.register("part_builder", PartRecipeSerializer::new);
   public static final RegistryObject<MaterialRecipeSerializer> materialRecipeSerializer = RECIPE_SERIALIZERS.register("material", MaterialRecipeSerializer::new);
+
+  @SuppressWarnings("unused")
+  @SubscribeEvent
+  void gatherData(final GatherDataEvent event) {
+    if (event.includeServer()) {
+      DataGenerator datagenerator = event.getGenerator();
+      datagenerator.addProvider(new TableRecipeProvider(datagenerator));
+    }
+  }
 }

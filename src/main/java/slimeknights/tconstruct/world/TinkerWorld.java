@@ -6,6 +6,7 @@ import net.minecraft.block.SlimeBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.trees.OakTree;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
@@ -20,6 +21,7 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.registration.object.EnumObject;
@@ -40,6 +42,7 @@ import slimeknights.tconstruct.world.block.SlimeLeavesBlock;
 import slimeknights.tconstruct.world.block.SlimeSaplingBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
+import slimeknights.tconstruct.world.data.WorldRecipeProvider;
 import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
 
 import java.util.function.Function;
@@ -136,5 +139,13 @@ public final class TinkerWorld extends TinkerModule {
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {
     EntitySpawnPlacementRegistry.register(blueSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
+  }
+
+  @SubscribeEvent
+  void gatherData(final GatherDataEvent event) {
+    if (event.includeServer()) {
+      DataGenerator datagenerator = event.getGenerator();
+      datagenerator.addProvider(new WorldRecipeProvider(datagenerator));
+    }
   }
 }
