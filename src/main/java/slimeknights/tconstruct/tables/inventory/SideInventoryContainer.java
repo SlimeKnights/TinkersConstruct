@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.inventory;
 
+import lombok.Getter;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
@@ -16,63 +17,58 @@ import javax.annotation.Nullable;
 
 public class SideInventoryContainer<TILE extends TileEntity> extends BaseContainer<TILE> {
 
-  public final int columns;
-  public final int slotCount;
+  @Getter
+  private final int columns;
+  @Getter
+  private final int slotCount;
   protected final LazyOptional<IItemHandler> itemHandler;
 
   public SideInventoryContainer(ContainerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, int x, int y, int columns) {
     this(containerType, windowId, inv, tile, null, x, y, columns);
   }
 
-  public SideInventoryContainer(ContainerType<?> containerType, int windowId, PlayerInventory inv, TILE tile, @Nullable Direction inventoryDirection, int x, int y, int columns) {
+  public SideInventoryContainer(ContainerType<?> containerType, int windowId, PlayerInventory inv, @Nullable TILE tile, @Nullable Direction inventoryDirection, int x, int y, int columns) {
     super(containerType, windowId, inv, tile);
 
+    // must have a TE
     if (tile == null) {
-      this.itemHandler = LazyOptional.of(EmptyHandler::new);
+      this.itemHandler = LazyOptional.of(() -> EmptyHandler.INSTANCE);
     } else {
-      if (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventoryDirection).isPresent()) {
-        this.itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventoryDirection);
-      } else {
-        this.itemHandler = LazyOptional.of(EmptyHandler::new);
-      }
+      this.itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventoryDirection);
     }
 
+    // slot properties
+    IItemHandler handler = itemHandler.orElse(EmptyHandler.INSTANCE);
+    this.slotCount = handler.getSlots();
     this.columns = columns;
-    this.slotCount = this.getItemHandler().getSlots();
-
     int rows = this.slotCount / columns;
-
     if (this.slotCount % columns != 0) {
       rows++;
     }
 
+    // add slots
     int index = 0;
-
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < columns; c++) {
         if (index >= this.slotCount) {
           break;
         }
 
-        this.addSlot(this.createSlot(this.getItemHandler(), index, x + c * 18, y + r * 18));
+        this.addSlot(this.createSlot(handler, index, x + c * 18, y + r * 18));
         index++;
       }
     }
   }
 
-  private IItemHandler getItemHandler() {
-    return this.itemHandler.orElseGet(EmptyHandler::new);
-  }
-
+  /**
+   * Creates a slot for this inventory
+   * @param itemHandler  Item handler
+   * @param index        Slot index
+   * @param x            Slot X position
+   * @param y            Slot Y position
+   * @return  Inventory slot
+   */
   protected Slot createSlot(IItemHandler itemHandler, int index, int x, int y) {
     return new SlotItemHandler(itemHandler, index, x, y);
-  }
-
-  public int getSlotCount() {
-    return this.slotCount;
-  }
-
-  public int getSizeInventory() {
-    return this.getItemHandler().getSlots();
   }
 }

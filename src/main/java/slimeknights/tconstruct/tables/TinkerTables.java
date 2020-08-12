@@ -25,7 +25,7 @@ import slimeknights.tconstruct.tables.block.table.PartBuilderBlock;
 import slimeknights.tconstruct.tables.data.TableRecipeProvider;
 import slimeknights.tconstruct.tables.inventory.chest.PartChestContainer;
 import slimeknights.tconstruct.tables.inventory.chest.PatternChestContainer;
-import slimeknights.tconstruct.tables.inventory.table.crafting.CraftingStationContainer;
+import slimeknights.tconstruct.tables.inventory.table.CraftingStationContainer;
 import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
 import slimeknights.tconstruct.tables.item.RetexturedTableBlockItem;
 import slimeknights.tconstruct.tables.tileentity.chest.PartChestTileEntity;

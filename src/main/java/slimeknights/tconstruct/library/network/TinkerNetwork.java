@@ -12,8 +12,8 @@ import slimeknights.mantle.network.NetworkWrapper;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.smeltery.network.FaucetActivationPacket;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
-import slimeknights.tconstruct.tables.network.LastRecipePacket;
 import slimeknights.tconstruct.tables.network.TinkerStationTabPacket;
+import slimeknights.tconstruct.tables.network.UpdateCraftingRecipePacket;
 import slimeknights.tconstruct.tools.common.network.BouncedPacket;
 import slimeknights.tconstruct.tools.common.network.EntityMovementChangePacket;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
@@ -39,11 +39,11 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(BouncedPacket.class, BouncedPacket::new, NetworkDirection.PLAY_TO_SERVER);
     instance.registerPacket(InventorySlotSyncPacket.class, InventorySlotSyncPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(TinkerStationTabPacket.class, TinkerStationTabPacket::new, NetworkDirection.PLAY_TO_SERVER);
-    instance.registerPacket(LastRecipePacket.class, LastRecipePacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(FluidUpdatePacket.class, FluidUpdatePacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(FaucetActivationPacket.class, FaucetActivationPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateMaterialsPacket.class, UpdateMaterialsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateMaterialStatsPacket.class, UpdateMaterialStatsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(UpdateCraftingRecipePacket.class, UpdateCraftingRecipePacket::new, NetworkDirection.PLAY_TO_CLIENT);
   }
 
   public void sendVanillaPacket(Entity player, IPacket<?> packet) {
