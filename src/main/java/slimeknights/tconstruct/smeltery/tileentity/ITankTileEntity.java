@@ -23,8 +23,6 @@ import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.fluid.IFluidTankUpdater;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
 
-import javax.annotation.Nullable;
-
 /**
  * Common logic between the tank and the melter
  */
@@ -63,8 +61,10 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
   @Override
   default void onTankContentsChanged() {
     int newStrength = this.comparatorStrength();
-    if (newStrength != getLastStrength() && getWorld() != null) {
-      getWorld().notifyNeighborsOfStateChange(getPos(), getBlockState().getBlock());
+    TileEntity te = getTE();
+    World world = te.getWorld();
+    if (newStrength != getLastStrength() && world != null) {
+      world.notifyNeighborsOfStateChange(te.getPos(), te.getBlockState().getBlock());
       setLastStrength(newStrength);
     }
   }
@@ -88,10 +88,11 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
       if (Config.CLIENT.tankFluidModel.get()) {
         // if the amount change is bigger than a single increment, or we changed whether we have a fluid, update the world renderer
-        TankModel.BakedModel model = ModelHelper.getBakedModel(this.getBlockState(), TankModel.BakedModel.class);
+        TileEntity te = getTE();
+        TankModel.BakedModel model = ModelHelper.getBakedModel(te.getBlockState(), TankModel.BakedModel.class);
         if (model != null && (Math.abs(newAmount - oldAmount) >= (tank.getCapacity() / model.getFluid().getIncrements()) || (oldAmount == 0) != (newAmount == 0))) {
           //this.requestModelDataUpdate();
-          Minecraft.getInstance().worldRenderer.notifyBlockUpdate(null, getPos(), null, null, 3);
+          Minecraft.getInstance().worldRenderer.notifyBlockUpdate(null, te.getPos(), null, null, 3);
         }
       }
     });
@@ -102,12 +103,9 @@ public interface ITankTileEntity extends IFluidTankUpdater, FluidUpdatePacket.IF
    */
 
   /** @return tile entity world */
-  @Nullable
-  World getWorld();
-  /** @return tile entity position */
-  BlockPos getPos();
-  /** @return tile entity block state */
-  BlockState getBlockState();
+  default TileEntity getTE() {
+    return (TileEntity) this;
+  }
 
   /*
    * Helpers
