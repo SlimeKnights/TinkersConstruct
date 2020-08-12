@@ -40,7 +40,7 @@ public class EflnBallEntity extends ProjectileItemEntity implements IEntityAddit
   @Override
   protected void onImpact(RayTraceResult result) {
     if (!this.world.isRemote) {
-      EFLNExplosion explosion = new EFLNExplosion(this.world, this, this.getPosX(), this.getPosY(), this.getPosZ(), 6f, false, Explosion.Mode.NONE);
+      EFLNExplosion explosion = new EFLNExplosion(this.world, this, null, null, this.getPosX(), this.getPosY(), this.getPosZ(), 6f, false, Explosion.Mode.NONE);
       if (!ForgeEventFactory.onExplosionStart(this.world, explosion)) {
         Exploder.startExplosion(this.world, explosion, this, new BlockPos(this.getPosX(), this.getPosY(), this.getPosZ()), 6f, 6f);
       }

@@ -13,35 +13,24 @@ import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameters;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
+import net.minecraft.world.IExplosionContext;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
-import java.util.List;
 
 public class EFLNExplosion extends Explosion {
 
   protected ImmutableSet<BlockPos> affectedBlockPositionsInternal;
 
-  @OnlyIn(Dist.CLIENT)
-  public EFLNExplosion(World worldIn, @Nullable Entity entityIn, double x, double y, double z, float size, List<BlockPos> affectedPositions) {
-    super(worldIn, entityIn, x, y, z, size, false, Explosion.Mode.DESTROY, affectedPositions);
-  }
-
-  @OnlyIn(Dist.CLIENT)
-  public EFLNExplosion(World worldIn, @Nullable Entity exploderIn, double xIn, double yIn, double zIn, float sizeIn, boolean causesFireIn, Explosion.Mode modeIn, List<BlockPos> affectedBlockPositionsIn) {
-    super(worldIn, exploderIn, xIn, yIn, zIn, sizeIn, causesFireIn, modeIn);
-  }
-
-  public EFLNExplosion(World worldIn, @Nullable Entity exploderIn, double xIn, double yIn, double zIn, float sizeIn, boolean causesFireIn, Explosion.Mode modeIn) {
-    super(worldIn, exploderIn, xIn, yIn, zIn, sizeIn, causesFireIn, modeIn);
+  public EFLNExplosion(World world, @Nullable Entity entity, @Nullable DamageSource damage, @Nullable IExplosionContext context, double x, double y, double z, float size, boolean causesFire, Explosion.Mode mode) {
+    super(world, entity, damage, context, x, y, z, size, causesFire, mode);
   }
 
   /**
