@@ -492,10 +492,14 @@ public class TConstructRecipeProvider extends RecipeProvider implements IConditi
                        .build(consumer, prefix(TinkerGadgets.stoneTorch, folder));
 
     // throw balls
-    ShapelessRecipeBuilder.shapelessRecipe(TinkerGadgets.efln.get())
-      .addIngredient(Items.FLINT)
-      .addIngredient(Items.GUNPOWDER)
-      .addCriterion("has_item", hasItem(Tags.Items.DUSTS_GLOWSTONE)).build(consumer, prefix(TinkerGadgets.efln, "gadgets/throwball/"));
+    ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.efln.get())
+                       .key('#', Tags.Items.GUNPOWDER)
+                       .key('X', Items.FLINT)
+                       .patternLine(" # ")
+                       .patternLine("#X#")
+                       .patternLine(" # ")
+                       .addCriterion("has_item", hasItem(Tags.Items.DUSTS_GLOWSTONE))
+                       .build(consumer, prefix(TinkerGadgets.efln, "gadgets/throwball/"));
     ShapedRecipeBuilder.shapedRecipe(TinkerGadgets.glowBall.get(), 8)
       .key('#', Items.SNOWBALL)
       .key('X', Tags.Items.DUSTS_GLOWSTONE)
