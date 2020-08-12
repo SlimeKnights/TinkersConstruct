@@ -16,6 +16,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
@@ -80,7 +81,7 @@ public abstract class AbstractCastingCategory<T extends ItemCastingRecipe> imple
     }
 
     int coolingTime = recipe.getCoolingTime() / 20;
-    String coolingString = ForgeI18n.parseMessage(KEY_COOLING_TIME, coolingTime);
+    String coolingString = I18n.format(KEY_COOLING_TIME, coolingTime);
     FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
     int x = 72 - fontRenderer.getStringWidth(coolingString) / 2;
     fontRenderer.drawString(matrixStack, coolingString, x, 2, Color.GRAY.getRGB());

@@ -16,6 +16,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -75,7 +76,7 @@ public class MeltingCategory implements IRecipeCategory<MeltingRecipe>, ITooltip
   public void draw(MeltingRecipe recipe, MatrixStack matrices, double mouseX, double mouseY) {
     heatBar.draw(matrices, 24, 18);
 
-    String tempString = ForgeI18n.parseMessage(KEY_TEMPERATURE, recipe.getTemperature());
+    String tempString = I18n.format(KEY_TEMPERATURE, recipe.getTemperature());
     FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
     int x = 56 - fontRenderer.getStringWidth(tempString) / 2;
     fontRenderer.drawString(matrices, tempString, x, 3, Color.GRAY.getRGB());
