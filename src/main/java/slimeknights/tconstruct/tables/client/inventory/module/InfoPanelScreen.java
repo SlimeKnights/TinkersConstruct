@@ -339,7 +339,7 @@ public class InfoPanelScreen extends ModuleScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.func_238414_a_(this.caption) / 2;
 
-      this.font.func_238407_a_(matrices, this.caption.mergeStyle(TextFormatting.RESET, TextFormatting.UNDERLINE), (float) this.guiLeft + x2, y, color);
+      this.font.func_238407_a_(matrices, this.caption.mergeStyle(TextFormatting.UNDERLINE), (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
 

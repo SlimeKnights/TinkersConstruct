@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.Color;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.ITextProperties;
@@ -12,7 +13,6 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
-import slimeknights.tconstruct.library.client.renderer.font.CustomFontColor;
 import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
 
 import java.util.List;
@@ -62,7 +62,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
    */
   public void setMaterialValue(ITextComponent value) {
     this.materialValue = new TranslationTextComponent("gui.tconstruct.part_builder.material_value", value);
-    this.updateSliderParameters();;
+    this.updateSliderParameters();
   }
 
   /**
@@ -226,7 +226,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.func_238414_a_(this.materialValue) / 2;
 
-      this.font.func_238407_a_(matrices, this.materialValue.modifyStyle(style -> style.setColor(CustomFontColor.getColor("7fffff"))), (float) this.guiLeft + x2, y, color);
+      this.font.func_238407_a_(matrices, this.materialValue.modifyStyle(style -> style.setColor(Color.func_240743_a_(0x7fffff))), (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
 
