@@ -164,10 +164,12 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     }
 
     // update stats and traits
-    List<ITextComponent> stats = Lists.newLinkedList();
-    List<ITextComponent> tips = Lists.newArrayList();
+    List<IFormattableTextComponent> stats = Lists.newLinkedList();
+    List<IFormattableTextComponent> tips = Lists.newArrayList();
+
     for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
-      List<ITextComponent> info = stat.getLocalizedInfo();
+      List<IFormattableTextComponent> info = stat.getLocalizedInfo();
+
       if (!info.isEmpty()) {
         stats.add(stat.getLocalizedName().mergeStyle(TextFormatting.UNDERLINE));
         stats.addAll(info);
@@ -177,11 +179,13 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
         tips.add(new StringTextComponent(""));
       }
     }
+
     // remove last line if empty
     if (!stats.isEmpty() && stats.get(stats.size() - 1).getString().isEmpty()) {
       stats.remove(stats.size() - 1);
       tips.remove(tips.size() - 1);
     }
+
     this.infoPanelScreen.setText(stats, tips);
   }
 
@@ -270,13 +274,13 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
   /* Update error logic */
 
   @Override
-  public void error(String message) {
+  public void error(IFormattableTextComponent message) {
     this.infoPanelScreen.setCaption(new TranslationTextComponent("gui.tconstruct.error"));
     this.infoPanelScreen.setText(message);
   }
 
   @Override
-  public void warning(String message) {
+  public void warning(IFormattableTextComponent message) {
     this.infoPanelScreen.setCaption(new TranslationTextComponent("gui.tconstruct.warning"));
     this.infoPanelScreen.setText(message);
   }

@@ -29,7 +29,7 @@ public interface IMaterialStats extends INetworkSendable {
    * </br>
    * This is used to display properties of materials to the user.
    */
-  List<ITextComponent> getLocalizedInfo();
+  List<IFormattableTextComponent> getLocalizedInfo();
 
   /**
    * Returns a list containing a Text Component describing each player-relevant value.</br>
@@ -38,5 +38,5 @@ public interface IMaterialStats extends INetworkSendable {
    * This is used to display properties of materials to the user.
    * @return a list of Text Components
    */
-  List<ITextComponent> getLocalizedDescriptions();
+  List<IFormattableTextComponent> getLocalizedDescriptions();
 }

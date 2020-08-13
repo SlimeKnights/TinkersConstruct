@@ -7,6 +7,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -100,7 +101,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
 
     List<ITextComponent> tooltips = Lists.newLinkedList();
 
-    tooltips.add(new StringTextComponent("please implement getTooltipTraitInfo"));
+    tooltips.add(new StringTextComponent("None ;("));
 
     return tooltips;
   }
@@ -109,7 +110,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     ImmutableList.Builder<ITextComponent> builder = ImmutableList.builder();
 
     MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), this.materialStatId).ifPresent((stat) -> {
-      List<ITextComponent> text = stat.getLocalizedInfo();
+      List<IFormattableTextComponent> text = stat.getLocalizedInfo();
       if (!text.isEmpty()) {
         builder.add(new StringTextComponent(""));
         builder.add(stat.getLocalizedName().mergeStyle(TextFormatting.WHITE, TextFormatting.UNDERLINE));

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.Color;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
@@ -38,7 +39,7 @@ public class HeadMaterialStats extends BaseMaterialStats {
   public final static String ATTACK_DESCRIPTION_LOCALIZATION = "stat.head.attack.description";
   public final static String HARVEST_LEVEL_DESCRIPTION_LOCALIZATION = "stat.head.harvest_level.description";
 
-  public final static Color DURABILITY_COLOR = CustomFontColor.MAX;
+  public final static Color DURABILITY_COLOR = Color.func_240743_a_(0xFF47cc47);
   public final static Color ATTACK_COLOR = Color.func_240743_a_(0xFFD76464);
   public final static Color SPEED_COLOR = Color.func_240743_a_(0xFF78A0CD);
 
@@ -69,8 +70,8 @@ public class HeadMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public List<ITextComponent> getLocalizedInfo() {
-    List<ITextComponent> info = Lists.newArrayList();
+  public List<IFormattableTextComponent> getLocalizedInfo() {
+    List<IFormattableTextComponent> info = Lists.newArrayList();
 
     info.add(formatDurability(this.durability));
     info.add(formatHarvestLevel(this.harvestLevel));
@@ -80,29 +81,29 @@ public class HeadMaterialStats extends BaseMaterialStats {
     return info;
   }
 
-  public static ITextComponent formatDurability(int durability) {
+  public static IFormattableTextComponent formatDurability(int durability) {
     return formatNumber(DURABILITY_LOCALIZATION, DURABILITY_COLOR, durability);
   }
 
-  public static ITextComponent formatDurability(int durability, int ref) {
+  public static IFormattableTextComponent formatDurability(int durability, int ref) {
     return new TranslationTextComponent(DURABILITY_LOCALIZATION).append(CustomFontColor.formatPartialAmount(durability, ref));
   }
 
-  public static ITextComponent formatHarvestLevel(int level) {
+  public static IFormattableTextComponent formatHarvestLevel(int level) {
     return new TranslationTextComponent(HARVEST_LEVEL_LOCALIZATION).append(HarvestLevels.getHarvestLevelName(level));
   }
 
-  public static ITextComponent formatMiningSpeed(float speed) {
+  public static IFormattableTextComponent formatMiningSpeed(float speed) {
     return formatNumber(MINING_SPEED_LOCALIZATION, SPEED_COLOR, speed);
   }
 
-  public static ITextComponent formatAttack(float attack) {
+  public static IFormattableTextComponent formatAttack(float attack) {
     return formatNumber(ATTACK_LOCALIZATION, ATTACK_COLOR, attack);
   }
 
   @Override
-  public List<ITextComponent> getLocalizedDescriptions() {
-    List<ITextComponent> info = Lists.newArrayList();
+  public List<IFormattableTextComponent> getLocalizedDescriptions() {
+    List<IFormattableTextComponent> info = Lists.newArrayList();
 
     info.add(new TranslationTextComponent(DURABILITY_DESCRIPTION_LOCALIZATION));
     info.add(new TranslationTextComponent(HARVEST_LEVEL_DESCRIPTION_LOCALIZATION));

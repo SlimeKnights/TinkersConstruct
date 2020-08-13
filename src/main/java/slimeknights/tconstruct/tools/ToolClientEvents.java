@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -25,6 +26,8 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
+import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -45,18 +48,34 @@ public class ToolClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
+  static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
+    Minecraft.getInstance().particles.registerFactory(TinkerTools.hammerAttackParticle.get(), HammerAttackParticle.Factory::new);
+    Minecraft.getInstance().particles.registerFactory(TinkerTools.axeAttackParticle.get(), AxeAttackParticle.Factory::new);
+  }
+
+  @SubscribeEvent
   static void itemColors(ColorHandlerEvent.Item event) {
     final ItemColors colors = event.getItemColors();
 
     // tint tool textures for fallback
     registerToolItemColors(colors, TinkerTools.pickaxe);
+    registerToolItemColors(colors, TinkerTools.hammer);
+    registerToolItemColors(colors, TinkerTools.shovel);
+    registerToolItemColors(colors, TinkerTools.excavator);
+    registerToolItemColors(colors, TinkerTools.axe);
+    registerToolItemColors(colors, TinkerTools.kama);
+    registerToolItemColors(colors, TinkerTools.broadSword);
 
     // tint tool part textures for fallback
     registerMaterialItemColors(colors, TinkerToolParts.pickaxeHead);
     registerMaterialItemColors(colors, TinkerToolParts.hammerHead);
     registerMaterialItemColors(colors, TinkerToolParts.shovelHead);
+    registerMaterialItemColors(colors, TinkerToolParts.excavatorHead);
+    registerMaterialItemColors(colors, TinkerToolParts.axeHead);
+    registerMaterialItemColors(colors, TinkerToolParts.kamaHead);
     registerMaterialItemColors(colors, TinkerToolParts.swordBlade);
     registerMaterialItemColors(colors, TinkerToolParts.smallBinding);
+    registerMaterialItemColors(colors, TinkerToolParts.toughBinding);
     registerMaterialItemColors(colors, TinkerToolParts.wideGuard);
     registerMaterialItemColors(colors, TinkerToolParts.largePlate);
     registerMaterialItemColors(colors, TinkerToolParts.toolRod);

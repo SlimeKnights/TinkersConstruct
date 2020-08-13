@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.BasicParticleType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
@@ -20,7 +21,13 @@ import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
 import slimeknights.tconstruct.tools.data.ToolsRecipeProvider;
+import slimeknights.tconstruct.tools.harvest.AxeTool;
+import slimeknights.tconstruct.tools.harvest.ExcavatorTool;
+import slimeknights.tconstruct.tools.harvest.HammerTool;
+import slimeknights.tconstruct.tools.harvest.KamaTool;
 import slimeknights.tconstruct.tools.harvest.PickaxeTool;
+import slimeknights.tconstruct.tools.harvest.ShovelTool;
+import slimeknights.tconstruct.tools.melee.BroadSword;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +55,22 @@ public final class TinkerTools extends TinkerModule {
    * Items
    */
   public static final ItemObject<PickaxeTool> pickaxe = ITEMS.register("pickaxe", () -> new PickaxeTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.PICKAXE));
+  public static final ItemObject<HammerTool> hammer = ITEMS.register("hammer", () -> new HammerTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.HAMMER));
+
+  public static final ItemObject<ShovelTool> shovel = ITEMS.register("shovel", () -> new ShovelTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.SHOVEL));
+  public static final ItemObject<ExcavatorTool> excavator = ITEMS.register("excavator", () -> new ExcavatorTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.EXCAVATOR));
+
+  public static final ItemObject<AxeTool> axe = ITEMS.register("axe", () -> new AxeTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.AXE));
+
+  public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.KAMA));
+
+  public static final ItemObject<BroadSword> broadSword = ITEMS.register("broad_sword", () -> new BroadSword(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.BROADSWORD));
+
+  /*
+   * Particles
+   */
+  public static final RegistryObject<BasicParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack",() -> new BasicParticleType(false));
+  public static final RegistryObject<BasicParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack",() -> new BasicParticleType(false));
 
   /*
    * Entities

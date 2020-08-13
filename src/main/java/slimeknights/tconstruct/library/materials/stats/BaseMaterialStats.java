@@ -20,16 +20,16 @@ public abstract class BaseMaterialStats implements IMaterialStats {
     return new TranslationTextComponent(String.format("stat.%s.name", this.getIdentifier().getPath()));
   }
 
-  public static ITextComponent formatNumber(String loc, Color color, int number) {
+  public static IFormattableTextComponent formatNumber(String loc, Color color, int number) {
     return formatNumber(loc, color, (float) number);
   }
 
-  public static ITextComponent formatNumber(String loc, Color color, float number) {
+  public static IFormattableTextComponent formatNumber(String loc, Color color, float number) {
     return new TranslationTextComponent(loc)
       .append(new StringTextComponent(Util.df.format(number)).modifyStyle(style -> style.setColor(color)));
   }
 
-  public static ITextComponent formatNumberPercent(String loc, Color color, float number) {
+  public static IFormattableTextComponent formatNumberPercent(String loc, Color color, float number) {
     return new TranslationTextComponent(loc)
       .append(new StringTextComponent(Util.dfPercent.format(number)).modifyStyle(style -> style.setColor(color)));
   }

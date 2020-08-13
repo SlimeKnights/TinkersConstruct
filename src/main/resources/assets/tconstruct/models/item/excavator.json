@@ -1,0 +1,38 @@
+{
+    "loader": "tconstruct:tool",
+    "parent": "forge:item/default-tool",
+    "parts": {
+        "handle": {
+            "loader": "tconstruct:material",
+            "parent": "forge:item/default",
+            "index": 0,
+            "textures": {
+                "texture": "tconstruct:item/tool/excavator/handle"
+            }
+        },
+        "head": {
+            "loader": "tconstruct:material",
+            "parent": "forge:item/default",
+            "index": 1,
+            "textures": {
+                "texture": "tconstruct:item/tool/excavator/head"
+            }
+        },
+        "binding": {
+            "loader": "tconstruct:material",
+            "parent": "forge:item/default",
+            "index": 2,
+            "textures": {
+                "texture": "tconstruct:item/tool/excavator/binding"
+            }
+        },
+        "grip": {
+            "loader": "tconstruct:material",
+            "parent": "forge:item/default",
+            "index": 3,
+            "textures": {
+                "texture": "tconstruct:item/tool/excavator/grip"
+            }
+        }
+    }
+}

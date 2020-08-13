@@ -39,7 +39,7 @@ public class TooltipBuilder {
     return this;
   }
 
-  public TooltipBuilder addMiningSpeed() {
+  public void addMiningSpeed() {
     float speed = ToolData.from(this.tool).getStats().miningSpeed;
 
     if (!this.tool.isEmpty() && this.tool.getItem() instanceof ToolCore) {
@@ -48,16 +48,14 @@ public class TooltipBuilder {
 
     tips.add(HeadMaterialStats.formatMiningSpeed(speed));
 
-    return this;
   }
 
-  public TooltipBuilder addHarvestLevel() {
+  public void addHarvestLevel() {
     tips.add(HeadMaterialStats.formatHarvestLevel(ToolData.from(this.tool).getStats().harvestLevel));
 
-    return this;
   }
 
-  public TooltipBuilder addDurability(boolean textIfBroken) {
+  public void addDurability(boolean textIfBroken) {
     if (ToolData.isBroken(this.tool) && textIfBroken) {
       this.tips.add(new TranslationTextComponent(HeadMaterialStats.DURABILITY_LOCALIZATION)
         .append(new StringTextComponent(": "))
@@ -70,27 +68,24 @@ public class TooltipBuilder {
       this.tips.add(HeadMaterialStats.formatDurability(ToolCore.getCurrentDurability(this.tool), this.tool.getMaxDamage()));
     }
 
-    return this;
   }
 
-  public TooltipBuilder addAttack() {
+  public void addAttack() {
     float attack = ToolAttackUtil.getActualDamage(this.tool, Minecraft.getInstance().player);
 
     tips.add(HeadMaterialStats.formatAttack(attack));
 
-    return this;
   }
 
-  public TooltipBuilder addFreeModifiers() {
+  public void addFreeModifiers() {
     this.tips.add(new TranslationTextComponent(FREE_MODIFIERS_LOCALIZATION)
       .appendString(": ")
       .appendString(String.valueOf(ToolData.from(this.tool).getStats().freeModifiers)));
 
-    return this;
   }
 
-  public TooltipBuilder addModifierInfo() {
-    this.tips.add(new StringTextComponent("TODO: GET MODIFIER INFORMATION"));
+  public void addModifierInfo() {
+    this.tips.add(new StringTextComponent("todo modifier information"));
 
     //todo implement code below and remove line above.
     /*NBTTagList tagList = TagUtil.getModifiersTagList(stack);
@@ -111,10 +106,10 @@ public class TooltipBuilder {
       }
     }*/
 
-    return this;
   }
 
-  public TooltipBuilder addDrawSpeed() {
+  //todo: are these still needed?
+  public void addDrawSpeed() {
     this.tips.add(new StringTextComponent("TODO: implement getting draw speed"));
 
     //todo implement code below and remove line above.
@@ -125,24 +120,20 @@ public class TooltipBuilder {
     }
     this.tips.add(BowMaterialStats.formatDrawspeed(speed));*/
 
-    return this;
   }
 
-  public TooltipBuilder addRange() {
+  public void addRange() {
     this.tips.add(new StringTextComponent("TODO: implement getting range"));
 
     //todo implement code below and remove line above.
     //this.tips.add(BowMaterialStats.formatRange(ProjectileLauncherNBT.from(stack).range));
-
-    return this;
   }
 
-  public TooltipBuilder addProjectileBonusDamage() {
+  public void addProjectileBonusDamage() {
     this.tips.add(new StringTextComponent("TODO: Implement getting projectile bonus damage"));
 
     //todo implement code below and remove line above.
     //this.tips.add(BowMaterialStats.formatDamage(ProjectileLauncherNBT.from(stack).bonusDamage));
 
-    return this;
   }
 }

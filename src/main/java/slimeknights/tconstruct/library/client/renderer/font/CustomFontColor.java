@@ -15,6 +15,7 @@ import static java.awt.Color.HSBtoRGB;
 public class CustomFontColor {
   public static final Color MAX = valueToColor(1, 1);
   private static final UnaryOperator<Style> APPLY_MAX = style -> style.setColor(MAX);
+  public static Color WHITE = Color.func_240743_a_(0xFFFFFFFF);
 
   private CustomFontColor() {}
 
@@ -36,5 +37,17 @@ public class CustomFontColor {
       .modifyStyle(style -> style.setColor(CustomFontColor.valueToColor(value, max)))
       .append(new StringTextComponent("/").mergeStyle(TextFormatting.GRAY))
       .append(new StringTextComponent(Util.df.format(max)).modifyStyle(APPLY_MAX));
+  }
+
+  public static Color getColor(String textColor) {
+    try {
+      int color = Integer.parseInt(textColor, 16);
+      if((color & 0xFF000000) == 0) {
+        color |= 0xFF000000;
+      }
+      return Color.func_240743_a_(color);
+    } catch (NumberFormatException e) {
+      return WHITE;
+    }
   }
 }

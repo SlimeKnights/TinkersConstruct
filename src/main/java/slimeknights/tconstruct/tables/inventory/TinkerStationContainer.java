@@ -11,6 +11,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -107,7 +108,7 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
   /**
    * Tells the client to display the LOCALIZED error message
    */
-  public void error(final String message) {
+  public void error(final IFormattableTextComponent message) {
     if (this.tile != null) {
       if (this.tile.getWorld() != null) {
         if (tile.getWorld().isRemote) {
@@ -120,7 +121,7 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
   /**
    * Tells the client to display the LOCALIZED warning message
    */
-  public void warning(final String message) {
+  public void warning(final IFormattableTextComponent message) {
     if (this.tile != null) {
       if (this.tile.getWorld() != null) {
         if (tile.getWorld().isRemote) {
@@ -139,7 +140,7 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
   }
 
   @OnlyIn(Dist.CLIENT)
-  private static void clientError(String message) {
+  private static void clientError(IFormattableTextComponent message) {
     Screen screen = Minecraft.getInstance().currentScreen;
     if (screen instanceof TinkerStationScreen) {
       ((TinkerStationScreen) screen).error(message);
@@ -147,7 +148,7 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
   }
 
   @OnlyIn(Dist.CLIENT)
-  private static void clientWarning(String message) {
+  private static void clientWarning(IFormattableTextComponent message) {
     Screen screen = Minecraft.getInstance().currentScreen;
     if (screen instanceof TinkerStationScreen) {
       ((TinkerStationScreen) screen).warning(message);

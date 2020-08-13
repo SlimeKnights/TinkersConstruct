@@ -12,7 +12,7 @@ import java.util.List;
 
 public class PickaxeTool extends ToolCore {
 
-  public static final ImmutableSet<Material> effective_materials =
+  public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
     ImmutableSet.of(net.minecraft.block.material.Material.IRON,
       net.minecraft.block.material.Material.ANVIL,
       net.minecraft.block.material.Material.ROCK,
@@ -27,10 +27,6 @@ public class PickaxeTool extends ToolCore {
 
   @Override
   public boolean isEffective(BlockState state) {
-    return effective_materials.contains(state.getMaterial()) || PickaxeItem.EFFECTIVE_ON.contains(state.getBlock());
-  }
-
-  @Override
-  public void getTooltip(ItemStack stack, List<String> tooltips) {
+    return EFFECTIVE_MATERIALS.contains(state.getMaterial()) || PickaxeItem.EFFECTIVE_ON.contains(state.getBlock());
   }
 }
