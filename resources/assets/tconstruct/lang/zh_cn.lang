@@ -598,7 +598,7 @@ stat.extra.durability.desc=反映出当用作工具的附件时这一材料部�
 stat.mattock.axelevel.name=斧挖掘等级
 stat.mattock.shovellevel.name=锹挖掘等级
 
-stat.bow.name=弓
+stat.bow.name=弓臂
 stat.bow.drawspeed.name=拉弓速度
 stat.bow.drawspeed.desc=决定了你拉弓的速度。
 stat.bow.range.name=范围系数
