@@ -324,7 +324,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
-    ImmutableMultimap.Builder<Attribute, AttributeModifier> multimap = ImmutableMultimap.builder();//super.getAttributeModifiers(slot, stack);
+    ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 
     float speed = ToolData.from(stack).getStats().attackSpeedMultiplier;
 
@@ -339,15 +339,15 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     }
 
     if (slot == EquipmentSlotType.MAINHAND && !ToolData.isBroken(stack)) {
-      multimap.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", damage, AttributeModifier.Operation.ADDITION));
-      multimap.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", speed - 4d, AttributeModifier.Operation.ADDITION));
+      builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", damage, AttributeModifier.Operation.ADDITION));
+      builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", speed - 4d, AttributeModifier.Operation.ADDITION));
     }
 
-    Multimap<Attribute, AttributeModifier> map = multimap.build();
+    Multimap<Attribute, AttributeModifier> attributeMap = builder.build();
 
-    TraitUtil.forEachTrait(stack, trait -> trait.getAttributeModifiers(slot, stack, map));
+    TraitUtil.forEachTrait(stack, trait -> trait.getAttributeModifiers(slot, stack, attributeMap));
 
-    return map;
+    return attributeMap;
   }
 
   /* World interaction */
@@ -435,7 +435,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
       tooltip.add(new TranslationTextComponent("tooltip.tool.hold_ctrl"));
 
       if (worldIn != null) {
-        tooltip.add((new TranslationTextComponent("attribute.modifier.plus.0", Util.df.format(ToolAttackUtil.getActualDamage(stack, Minecraft.getInstance().player)), new TranslationTextComponent("attribute.name.generic.attackDamage"))).mergeStyle(TextFormatting.BLUE));
+        tooltip.add((new TranslationTextComponent("attribute.modifier.plus.0", Util.df.format(ToolAttackUtil.getActualDamage(stack, Minecraft.getInstance().player)), new TranslationTextComponent("attribute.name.generic.attack_damage"))).mergeStyle(TextFormatting.BLUE));
       }
     }
     // detailed data
