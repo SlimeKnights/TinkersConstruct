@@ -33,6 +33,11 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = TConstruct.modID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ToolRenderEvents {
 
+  /**
+   * Renders the outline on the extra blocks
+   *
+   * @param event the highlight event
+   */
   @SubscribeEvent
   static void renderBlockHighlights(DrawHighlightEvent.HighlightBlock event) {
     PlayerEntity player = Minecraft.getInstance().player;
@@ -75,6 +80,11 @@ public class ToolRenderEvents {
     }
   }
 
+  /**
+   * Renders the block damage process on the extra blocks
+   *
+   * @param event the RenderWorldLastEvent
+   */
   @SubscribeEvent
   static void renderBlockDamageProgress(RenderWorldLastEvent event) {
     PlayerController controller = Minecraft.getInstance().playerController;
@@ -114,6 +124,15 @@ public class ToolRenderEvents {
     }
   }
 
+  /**
+   * Draws the damaged texture on the given blocks
+   *
+   * @param worldRender the current world renderer
+   * @param matrixStackIn the matrix stack
+   * @param renderInfo the current render info from the client
+   * @param world the active world
+   * @param extraBlocks the list of blocks
+   */
   private static void drawBlockDamageTexture(WorldRenderer worldRender, MatrixStack matrixStackIn, ActiveRenderInfo renderInfo, World world, Iterable<BlockPos> extraBlocks) {
     double d0 = renderInfo.getProjectedView().x;
     double d1 = renderInfo.getProjectedView().y;
