@@ -1,0 +1,7 @@
+{
+  "parent": "tconstruct:block/smeltery/tank/base",
+  "textures": {
+    "top":  "tconstruct:block/smeltery/tank/alloy_tank_top",
+    "side": "tconstruct:block/smeltery/tank/alloy_tank_side"
+  }
+}

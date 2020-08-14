@@ -126,7 +126,7 @@ public class MelterBlock extends InventoryBlock {
    * @param front      Block front
    * @param side       Block side offset
    */
-  protected void spawnFireParticles(IWorld world, Direction direction, double x, double y, double z, double front, double side) {
+  protected static void spawnFireParticles(IWorld world, Direction direction, double x, double y, double z, double front, double side) {
     switch(direction) {
       case WEST:
         world.addParticle(ParticleTypes.SMOKE, x - front, y, z + side, 0.0D, 0.0D, 0.0D);

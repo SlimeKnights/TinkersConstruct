@@ -196,6 +196,10 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerSmeltery.searedFaucet.get());
     this.registerDropSelfLootTable(TinkerSmeltery.castingBasin.get());
     this.registerDropSelfLootTable(TinkerSmeltery.castingTable.get());
+    this.registerLootTable(TinkerSmeltery.alloyTank.get(), (block -> droppingWithFunctions(block, (builder) -> {
+      return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
+        .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation(Tags.TANK, Tags.TANK));
+    })));
   }
 
   /*

@@ -629,6 +629,7 @@ d37be362a4c3d53d7c13217683b81b3b65ab98fc data/tconstruct/advancements/recipes/tc
 a94c2f45c4d1385d291e9c6c5cb6353301b618e7 data/tconstruct/advancements/recipes/tconstruct/world/common/slime/magma/slimeblock.json
 ac67415f49f0e505f934e24eead0b3345c155ac7 data/tconstruct/advancements/recipes/tconstruct/world/common/slime/purple/congealed.json
 f40198de18e41146c94a75f9482c17871b5ee0ab data/tconstruct/advancements/recipes/tconstruct/world/common/slime/purple/slimeblock.json
+625e08d3fbc3f65bfed3720232f7edd60e8bb594 data/tconstruct/loot_tables/blocks/alloy_tank.json
 0dd5d44cd57da62c8a81c8b878e21dc0ebd278b1 data/tconstruct/loot_tables/blocks/ardite_block.json
 41b2d55dbb5f8c9f4dc7492d70b4fa1fe0e3d700 data/tconstruct/loot_tables/blocks/ardite_ore.json
 16aa51af2541c4470ff9bea19b7d1ecf775d74a6 data/tconstruct/loot_tables/blocks/black_clear_stained_glass.json
