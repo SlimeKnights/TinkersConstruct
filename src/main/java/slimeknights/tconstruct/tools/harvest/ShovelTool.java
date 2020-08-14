@@ -6,14 +6,22 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.Items;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.util.ActionResultType;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.util.Constants;
+import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 
-public class ShovelTool extends ToolCore {
+public class ShovelTool extends AoeToolCore {
 
   public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
     ImmutableSet.of(Material.ORGANIC,
@@ -35,18 +43,6 @@ public class ShovelTool extends ToolCore {
 
   @Override
   public ActionResultType onItemUse(ItemUseContext context) {
-    PlayerEntity playerentity = context.getPlayer();
-    ItemStack itemStack = playerentity.getHeldItem(context.getHand());
-
-    if (ToolData.from(itemStack).getStats().broken) {
-      return ActionResultType.FAIL;
-    }
-
-    ActionResultType resultType = Items.DIAMOND_SHOVEL.onItemUse(context);
-    if (resultType == ActionResultType.SUCCESS) {
-      //TODO event
-    }
-
-    return resultType;
+    return AoeToolInteractionUtil.tillBlocks(context,ToolType.SHOVEL, SoundEvents.ITEM_SHOVEL_FLATTEN);
   }
 }

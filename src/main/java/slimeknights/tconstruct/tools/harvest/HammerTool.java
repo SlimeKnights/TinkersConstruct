@@ -56,12 +56,7 @@ public class HammerTool extends PickaxeTool implements IAoeTool {
 
   @Override
   public ImmutableList<BlockPos> getAOEBlocks(@Nonnull ItemStack stack, World world, PlayerEntity player, BlockPos origin) {
-    return AoeToolInteractionUtil.calcAOEBlocks(stack, world, player, origin, 3, 3, 1);
-  }
-
-  @Override
-  public boolean isAoeHarvestTool() {
-    return true;
+    return AoeToolInteractionUtil.calculateAOEBlocks(stack, world, player, origin, 3, 3, 1);
   }
 
   @Override

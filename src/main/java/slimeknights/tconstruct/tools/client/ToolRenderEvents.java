@@ -36,7 +36,6 @@ public class ToolRenderEvents {
   @SubscribeEvent
   static void renderBlockHighlights(DrawHighlightEvent.HighlightBlock event) {
     PlayerEntity player = Minecraft.getInstance().player;
-    PlayerController playerController = Minecraft.getInstance().playerController;
 
     if (player == null) {
       return;
@@ -50,7 +49,7 @@ public class ToolRenderEvents {
     if (!tool.isEmpty()) {
       if (tool.getItem() instanceof IAoeTool) {
         ActiveRenderInfo renderInfo = Minecraft.getInstance().gameRenderer.getActiveRenderInfo();
-        ImmutableList<BlockPos> extraBlocks = ((IAoeTool) tool.getItem()).getAOEBlocks(tool, world, player, event.getTarget().getPos());
+        Iterable<BlockPos> extraBlocks = ((IAoeTool) tool.getItem()).getAOEBlocks(tool, world, player, event.getTarget().getPos());
 
         WorldRenderer worldRender = event.getContext();
         MatrixStack matrix = event.getMatrix();
@@ -106,7 +105,7 @@ public class ToolRenderEvents {
           return;
         }
 
-        ImmutableList<BlockPos> extraBlocks = ((IAoeTool) tool.getItem()).getAOEBlocks(tool, player.world, player, traceResult.getPos());
+        Iterable<BlockPos> extraBlocks = ((IAoeTool) tool.getItem()).getAOEBlocks(tool, player.world, player, traceResult.getPos());
 
         if (controller.isHittingBlock) {
           drawBlockDamageTexture(event.getContext(), event.getMatrixStack(), Minecraft.getInstance().gameRenderer.getActiveRenderInfo(), player.getEntityWorld(), extraBlocks);
@@ -115,11 +114,12 @@ public class ToolRenderEvents {
     }
   }
 
-  private static void drawBlockDamageTexture(WorldRenderer worldRender, MatrixStack matrixStackIn, ActiveRenderInfo renderInfo, World world, List<BlockPos> extraBlocks) {
+  private static void drawBlockDamageTexture(WorldRenderer worldRender, MatrixStack matrixStackIn, ActiveRenderInfo renderInfo, World world, Iterable<BlockPos> extraBlocks) {
     double d0 = renderInfo.getProjectedView().x;
     double d1 = renderInfo.getProjectedView().y;
     double d2 = renderInfo.getProjectedView().z;
 
+    assert Minecraft.getInstance().playerController != null;
     int progress = (int) (Minecraft.getInstance().playerController.curBlockDamageMP * 10.0F) - 1;
 
     if (progress < 0) {

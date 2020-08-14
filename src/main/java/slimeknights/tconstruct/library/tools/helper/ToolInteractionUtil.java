@@ -1,20 +1,30 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.IShearable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.util.Constants;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
@@ -89,13 +99,13 @@ public class ToolInteractionUtil {
 
   /**
    * Attempts to shear a block using IForgeShearable logic
-   * @param itemstack
-   * @param world
-   * @param player
-   * @param pos
+   * @param tool the tool stack
+   * @param world the current world the block is in
+   * @param player the player attempting to shear a block
+   * @param pos the blockpos of the block
    * @return true if the block was successfully sheared
    */
-  public static boolean shearBlock(ItemStack itemstack, World world, PlayerEntity player, BlockPos pos) {
+  public static boolean shearBlock(ItemStack tool, World world, PlayerEntity player, BlockPos pos) {
     // only serverside since it creates entities
     if (world.isRemote) {
       return false;
@@ -107,9 +117,9 @@ public class ToolInteractionUtil {
     if (block instanceof IForgeShearable) {
       IForgeShearable target = (IForgeShearable) block;
 
-      if (target.isShearable(itemstack, world, pos)) {
-        int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, itemstack);
-        List<ItemStack> drops = target.onSheared(player, itemstack, world, pos, fortune);
+      if (target.isShearable(tool, world, pos)) {
+        int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, tool);
+        List<ItemStack> drops = target.onSheared(player, tool, world, pos, fortune);
 
         for (ItemStack stack : drops) {
           float f = 0.7F;
@@ -124,7 +134,7 @@ public class ToolInteractionUtil {
           world.addEntity(itemEntity);
         }
 
-        itemstack.onBlockDestroyed(world, state, pos, player);
+        tool.onBlockDestroyed(world, state, pos, player);
 
         world.removeBlock(pos, false);
 

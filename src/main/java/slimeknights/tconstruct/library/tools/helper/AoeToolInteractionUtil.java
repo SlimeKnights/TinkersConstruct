@@ -10,10 +10,15 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.network.play.client.CPlayerDiggingPacket;
 import net.minecraft.network.play.server.SChangeBlockPacket;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
@@ -21,30 +26,35 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.ForgeEventFactory;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.events.TinkerToolEvent;
+import slimeknights.tconstruct.library.tools.nbt.ToolData;
 
 public class AoeToolInteractionUtil {
 
   /**
    * Preconditions for {@link #breakExtraBlock(ItemStack, World, PlayerEntity, BlockPos, BlockPos)} and {@link #shearExtraBlock(ItemStack, World, PlayerEntity, BlockPos, BlockPos)}
    *
-   * @param stack
-   * @param world
-   * @param player
-   * @param pos
-   * @param refPos
+   * @param tool   Tool ItemStack
+   * @param world  World instance
+   * @param player Player instance
+   * @param pos    Current position
+   * @param refPos Base position
    * @return true if the extra block can be broken
    */
-  private static boolean canBreakExtraBlock(ItemStack stack, World world, PlayerEntity player, BlockPos pos, BlockPos refPos) {
+  private static boolean canBreakExtraBlock(ItemStack tool, World world, PlayerEntity player, BlockPos pos, BlockPos refPos) {
     // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
     if (world.isAirBlock(pos)) {
       return false;
     }
 
-    if (!stack.hasTag() || !(stack.getItem() instanceof ToolCore)) {
+    if (!tool.hasTag() || !(tool.getItem() instanceof ToolCore)) {
       return false;
     }
 
@@ -53,9 +63,9 @@ public class AoeToolInteractionUtil {
     BlockState blockState = world.getBlockState(pos);
     Block block = blockState.getBlock();
 
-    ToolCore toolCore = (ToolCore) stack.getItem();
+    ToolCore toolCore = (ToolCore) tool.getItem();
 
-    if (!toolCore.isEffective(blockState) && !ToolInteractionUtil.isToolEffectiveAgainstBlock(stack, blockState)) {
+    if (!toolCore.isEffective(blockState) && !ToolInteractionUtil.isToolEffectiveAgainstBlock(tool, blockState)) {
       return false;
     }
 
@@ -87,8 +97,17 @@ public class AoeToolInteractionUtil {
     return true;
   }
 
-  public static void breakExtraBlock(ItemStack stack, World world, PlayerEntity player, BlockPos pos, BlockPos refPos) {
-    if (!canBreakExtraBlock(stack, world, player, pos, refPos)) {
+  /**
+   * Handles breaking of an extra block
+   *
+   * @param tool   Tool ItemStack
+   * @param world  World instance
+   * @param player Player instance
+   * @param pos    Current position
+   * @param refPos Base position
+   */
+  public static void breakExtraBlock(ItemStack tool, World world, PlayerEntity player, BlockPos pos, BlockPos refPos) {
+    if (!canBreakExtraBlock(tool, world, player, pos, refPos)) {
       return;
     }
 
@@ -96,7 +115,7 @@ public class AoeToolInteractionUtil {
     Block block = state.getBlock();
 
     // callback to the tool the player uses. Called on both sides. This damages the tool n stuff.
-    stack.onBlockDestroyed(world, state, pos, player);
+    tool.onBlockDestroyed(world, state, pos, player);
 
     // server sided handling
     if (!world.isRemote) {
@@ -113,7 +132,7 @@ public class AoeToolInteractionUtil {
       // ItemInWorldManager.removeBlock
       if (block.removedByPlayer(state, world, pos, player, true, fluidState)) { // boolean is if block can be harvested, checked above
         block.onPlayerDestroy(world, pos, state);
-        block.harvestBlock(world, player, pos, state, tileEntity, stack);
+        block.harvestBlock(world, player, pos, state, tileEntity, tool);
         block.dropXpOnBlockBreak(world, pos, xp);
       }
 
@@ -133,27 +152,51 @@ public class AoeToolInteractionUtil {
         block.onPlayerDestroy(world, pos, state);
       }
       // callback to the tool
-      stack.onBlockDestroyed(world, state, pos, player);
+      tool.onBlockDestroyed(world, state, pos, player);
 
-      if (stack.getCount() == 0 && stack == player.getHeldItemMainhand()) {
-        ForgeEventFactory.onPlayerDestroyItem(player, stack, Hand.MAIN_HAND);
+      if (tool.getCount() == 0 && tool == player.getHeldItemMainhand()) {
+        ForgeEventFactory.onPlayerDestroyItem(player, tool, Hand.MAIN_HAND);
         player.setHeldItem(Hand.MAIN_HAND, ItemStack.EMPTY);
       }
 
       // send an update to the server, so we get an update back
-      //if(PHConstruct.extraBlockUpdates)
       ClientPlayNetHandler connection = Minecraft.getInstance().getConnection();
       assert connection != null;
       connection.sendPacket(new CPlayerDiggingPacket(CPlayerDiggingPacket.Action.STOP_DESTROY_BLOCK, pos, ((BlockRayTraceResult) Minecraft.getInstance().objectMouseOver).getFace()));
     }
   }
 
-  public static ImmutableList<BlockPos> calcAOEBlocks(ItemStack stack, World world, PlayerEntity player, BlockPos origin, int width, int height, int depth) {
-    return calcAOEBlocks(stack, world, player, origin, width, height, depth, -1);
+  /**
+   *  Calculates the blocks that the AOE tool can affect
+   *
+   * @param stack the tool stack
+   * @param world World Instance
+   * @param player Player instance
+   * @param origin Origin Position
+   * @param width The Width
+   * @param height The Height
+   * @param depth The Depth
+   * @return a list of BlockPoses
+   */
+  public static ImmutableList<BlockPos> calculateAOEBlocks(ItemStack stack, World world, PlayerEntity player, BlockPos origin, int width, int height, int depth) {
+    return calculateAOEBlocks(stack, world, player, origin, width, height, depth, -1);
   }
 
-  public static ImmutableList<BlockPos> calcAOEBlocks(ItemStack stack, World world, PlayerEntity player, BlockPos origin, int width, int height, int depth, int distance) {
-    // only works with toolcore because we need the raytrace call
+  /**
+   *  Calculates the blocks that the AOE tool can affect
+   *
+   * @param stack the tool stack
+   * @param world World Instance
+   * @param player Player instance
+   * @param origin Origin Position
+   * @param width The Width
+   * @param height The Height
+   * @param depth The Depth
+   * @param distance The Distance
+   * @return a list of BlockPoses
+   */
+  public static ImmutableList<BlockPos> calculateAOEBlocks(ItemStack stack, World world, PlayerEntity player, BlockPos origin, int width, int height, int depth, int distance) {
+    // only works with tool core because we need the raytrace call
     if (stack.isEmpty() || !(stack.getItem() instanceof ToolCore)) {
       return ImmutableList.of();
     }
@@ -182,7 +225,7 @@ public class AoeToolInteractionUtil {
     // fire event
     TinkerToolEvent.ExtraBlockBreak event = TinkerToolEvent.ExtraBlockBreak.fireEvent(stack, player, state, width, height, depth, distance);
 
-    if(event.isCanceled()) {
+    if (event.isCanceled()) {
       return ImmutableList.of();
     }
 
@@ -293,20 +336,104 @@ public class AoeToolInteractionUtil {
 
   /**
    * Same as {@link #breakExtraBlock(ItemStack, World, PlayerEntity, BlockPos, BlockPos)}, but attempts to shear the block first
-   * @param stack
-   * @param world
-   * @param player
-   * @param pos
-   * @param refPos
+   *
+   * @param tool   Tool ItemStack
+   * @param world  World instance
+   * @param player Player instance
+   * @param pos    Current position
+   * @param refPos Base position
    */
-  public static void shearExtraBlock(ItemStack stack, World world, PlayerEntity player, BlockPos pos, BlockPos refPos) {
-    if (!canBreakExtraBlock(stack, world, player, pos, refPos)) {
+  public static void shearExtraBlock(ItemStack tool, World world, PlayerEntity player, BlockPos pos, BlockPos refPos) {
+    if (!canBreakExtraBlock(tool, world, player, pos, refPos)) {
       return;
     }
 
     // if we cannot shear the block, just run normal block break code
-    if (!ToolInteractionUtil.shearBlock(stack, world, player, pos)) {
-      breakExtraBlock(stack, world, player, pos, refPos);
+    if (!ToolInteractionUtil.shearBlock(tool, world, player, pos)) {
+      breakExtraBlock(tool, world, player, pos, refPos);
     }
+  }
+
+  public static ActionResultType tillBlocks(ItemUseContext context, ToolType toolType, SoundEvent sound) {
+    PlayerEntity player = context.getPlayer();
+
+    if (player == null || player.isSneaking()) {
+      return ActionResultType.PASS;
+    }
+
+    Direction sideHit = context.getFace();
+
+    if (sideHit == Direction.DOWN) {
+      return ActionResultType.PASS;
+    }
+
+    Hand hand = context.getHand();
+    ItemStack stack = player.getHeldItem(hand);
+
+    if (ToolData.from(stack).getStats().broken) {
+      return ActionResultType.FAIL;
+    }
+
+    World world = context.getWorld();
+    BlockPos pos = context.getPos();
+    BlockState tilledState = world.getBlockState(pos).getToolModifiedState(world, pos, player, stack, toolType);
+
+    if (tilledState == null) {
+      return ActionResultType.PASS;
+    }
+
+    BlockPos abovePos = pos.up();
+    BlockState aboveState = world.getBlockState(abovePos);
+
+    if (aboveState.isOpaqueCube(world, abovePos)) {
+      return ActionResultType.PASS;
+    }
+
+    if (world.isRemote) {
+      return ActionResultType.SUCCESS;
+    }
+
+    world.setBlockState(pos, tilledState, Constants.BlockFlags.DEFAULT_AND_RERENDER);
+
+    Material aboveMaterial = aboveState.getMaterial();
+
+    if (aboveMaterial == Material.PLANTS || aboveMaterial == Material.TALL_PLANTS) {
+      world.destroyBlock(abovePos, true);
+    }
+
+    world.playSound(null, pos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+    int damage = 1;
+
+    if (stack.getItem() instanceof IAoeTool) {
+      for (BlockPos newPos : ((IAoeTool) stack.getItem()).getAOEBlocks(stack, world, player, pos)) {
+        if (pos.equals(newPos)) {
+          //in case it attempts to run the same position twice
+          continue;
+        }
+
+        if (ToolData.from(stack).getStats().broken) {
+          break;
+        }
+
+        BlockState stateAbove = world.getBlockState(newPos.up());
+        if (!stateAbove.isOpaqueCube(world, newPos.up()) && tilledState == world.getBlockState(newPos).getToolModifiedState(world, newPos, player, stack, toolType)) {
+          damage += 1;
+
+          world.setBlockState(newPos, tilledState, Constants.BlockFlags.DEFAULT_AND_RERENDER);
+
+          aboveMaterial = stateAbove.getMaterial();
+
+          if (aboveMaterial == Material.PLANTS || aboveMaterial == Material.TALL_PLANTS) {
+            world.destroyBlock(newPos.up(), true);
+          }
+
+          world.playSound(null, newPos, sound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        }
+      }
+    }
+
+    context.getItem().damageItem(damage, player, (onBroken) -> onBroken.sendBreakAnimation(context.getHand()));
+
+    return ActionResultType.SUCCESS;
   }
 }

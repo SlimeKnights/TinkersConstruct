@@ -10,6 +10,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -19,7 +20,8 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import net.minecraftforge.common.ToolType;
+import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
@@ -28,7 +30,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import java.util.List;
 import java.util.Random;
 
-public class KamaTool extends ToolCore {
+public class KamaTool extends AoeToolCore {
 
   public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
     ImmutableSet.of(Material.WOOD,
@@ -139,5 +141,10 @@ public class KamaTool extends ToolCore {
     }
 
     return ActionResult.resultPass(itemStackIn);
+  }
+
+  @Override
+  public ActionResultType onItemUse(ItemUseContext context) {
+    return AoeToolInteractionUtil.tillBlocks(context, ToolType.HOE, SoundEvents.ITEM_HOE_TILL);
   }
 }

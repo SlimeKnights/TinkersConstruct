@@ -3,14 +3,11 @@ package slimeknights.tconstruct.tools.harvest;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
-import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 
-import java.util.List;
-
-public class PickaxeTool extends ToolCore {
+public class PickaxeTool extends AoeToolCore {
 
   public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
     ImmutableSet.of(net.minecraft.block.material.Material.IRON,

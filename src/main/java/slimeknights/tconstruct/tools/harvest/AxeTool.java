@@ -12,9 +12,15 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.util.Constants;
 import slimeknights.tconstruct.library.materials.IMaterial;
+import slimeknights.tconstruct.library.tools.AoeToolCore;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
@@ -24,7 +30,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.List;
 
-public class AxeTool extends ToolCore {
+public class AxeTool extends AoeToolCore {
 
   public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
     ImmutableSet.of(Material.WOOD,
@@ -45,19 +51,37 @@ public class AxeTool extends ToolCore {
 
   @Override
   public ActionResultType onItemUse(ItemUseContext context) {
-    PlayerEntity playerentity = context.getPlayer();
-    ItemStack itemStack = playerentity.getHeldItem(context.getHand());
+    PlayerEntity player  = context.getPlayer();
 
-    if (ToolData.from(itemStack).getStats().broken) {
+    if (player == null || player.isSneaking()) {
+      return ActionResultType.PASS;
+    }
+
+    Hand hand = context.getHand();
+    ItemStack stack = player.getHeldItem(hand);
+
+    if (ToolData.from(stack).getStats().broken) {
       return ActionResultType.FAIL;
     }
 
-    ActionResultType resultType = Items.DIAMOND_AXE.onItemUse(context);
-    if (resultType == ActionResultType.SUCCESS) {
-      //TODO event
+    World world = context.getWorld();
+    BlockPos pos = context.getPos();
+    BlockState clickedState = world.getBlockState(pos);
+    BlockState strippedState = clickedState.getToolModifiedState(world, pos, player, stack, ToolType.AXE);
+
+    if (strippedState == null) {
+      return ActionResultType.PASS;
     }
 
-    return resultType;
+    if (world.isRemote) {
+      return ActionResultType.SUCCESS;
+    }
+
+    world.setBlockState(pos, strippedState, Constants.BlockFlags.DEFAULT_AND_RERENDER);
+    world.playSound(null, pos, SoundEvents.ITEM_AXE_STRIP, SoundCategory.BLOCKS, 1.0F, 1.0F);
+    context.getItem().damageItem(1, player, (onBroken) -> onBroken.sendBreakAnimation(context.getHand()));
+
+    return ActionResultType.SUCCESS;
   }
 
   @Override

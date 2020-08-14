@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class ExcavatorTool extends ShovelTool implements IAoeTool {
+public class ExcavatorTool extends ShovelTool {
 
   public static final float DURABILITY_MODIFIER = 1.75f;
 
@@ -28,65 +28,8 @@ public class ExcavatorTool extends ShovelTool implements IAoeTool {
   }
 
   @Override
-  public ActionResultType onItemUse(ItemUseContext context) {
-    ActionResultType resultType = super.onItemUse(context);
-    PlayerEntity playerEntity = context.getPlayer();
-    World world = context.getWorld();
-    BlockPos pos = context.getPos();
-    ItemStack itemStack = playerEntity.getHeldItem(context.getHand());
-
-    Block block = world.getBlockState(pos).getBlock();
-    if (block == Blocks.GRASS || block == Blocks.GRASS_PATH) {
-      for (BlockPos aoePos : this.getAOEBlocks(itemStack, world, playerEntity, pos)) {
-        // stop if the tool breaks during the process
-        if (ToolData.from(itemStack).getStats().broken) {
-          break;
-        }
-
-        // TODO Add in 1.16 using methods
-
-        /*ItemUseContext context1 = new ItemUseContext(context.getPlayer(), context.getHand(), null) {
-          public BlockPos getPos() {
-            return aoePos;
-          }
-
-          public Direction getFace() {
-            return context.getFace();
-          }
-
-          public Vec3d getHitVec() {
-            return context.getHitVec();
-          }
-
-          public boolean isInside() {
-            return context.isInside();
-          }
-        };
-
-        ActionResultType aoeResult = Items.DIAMOND_SHOVEL.onItemUse(context1);
-        // if we pass on an earlier block, check if another block succeeds here instead
-        if (resultType != ActionResultType.SUCCESS) {
-          resultType = aoeResult;
-        }
-
-        if (aoeResult == ActionResultType.SUCCESS) {
-          //TODO event
-          //TinkerToolEvent.OnShovelMakePath.fireEvent(stack, player, world, aoePos);
-        }*/
-      }
-    }
-
-    return resultType;
-  }
-
-  @Override
   public ImmutableList<BlockPos> getAOEBlocks(@Nonnull ItemStack stack, World world, PlayerEntity player, BlockPos origin) {
-    return AoeToolInteractionUtil.calcAOEBlocks(stack, world, player, origin, 3, 3, 1);
-  }
-
-  @Override
-  public boolean isAoeHarvestTool() {
-    return true;
+    return AoeToolInteractionUtil.calculateAOEBlocks(stack, world, player, origin, 3, 3, 1);
   }
 
   /*@Override
