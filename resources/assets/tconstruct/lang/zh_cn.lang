@@ -527,7 +527,7 @@ potion.carry=肩驮中
 
 material.wood.name=木
 material.wood.prefix=木制%s
-material.stone.name=圆石
+material.stone.name=石
 material.flint.name=燧石
 material.cactus.name=仙人掌
 material.obsidian.name=黑曜石
