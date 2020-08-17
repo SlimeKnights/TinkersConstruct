@@ -32,6 +32,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
@@ -47,6 +48,7 @@ import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tinkering.IToolStationDisplay;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
+import slimeknights.tconstruct.library.tinkering.ToolPartItem;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
@@ -67,6 +69,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /**
  * An indestructible item constructed from different parts.
@@ -655,6 +658,34 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     name.appendString(" ").append(itemName);
 
     return name;
+  }
+
+  public ItemStack buildToolForRendering() {
+    if (MaterialRegistry.initialized()) {
+      List<PartMaterialRequirement> requirements = this.getToolDefinition().getRequiredComponents();
+      List<IMaterial> toolMaterials = new ArrayList<>(requirements.size());
+      IMaterial material = IMaterial.UNKNOWN;
+
+      for (int i = 0; i < requirements.size(); i++) {
+        PartMaterialRequirement requirement = requirements.get(i);
+
+        if (requirement.getPart().get() instanceof ToolPartItem) {
+          ToolPartItem toolPart = (ToolPartItem) requirement.getPart().get();
+
+          List<IMaterial> materials = MaterialRegistry.getInstance().getMaterials().stream().filter(toolPart::canUseMaterial).collect(Collectors.toList());
+
+          if (material == IMaterial.UNKNOWN) {
+            material = materials.get(TConstruct.random.nextInt(materials.size()));
+          }
+
+          toolMaterials.add(i, material);
+        }
+      }
+
+      return ToolBuildHandler.buildItemFromMaterials(this, toolMaterials);
+    }
+
+    return ItemStack.EMPTY;
   }
 
   @Override

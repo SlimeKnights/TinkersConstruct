@@ -16,7 +16,6 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
-import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.tools.data.MaterialDataProvider;
 import slimeknights.tconstruct.tools.data.MaterialStatsDataProvider;
@@ -37,18 +36,16 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public final class TinkerTools extends TinkerModule {
+
   /** Creative tab for all tool items */
   public static final ItemGroup TAB_TOOLS = new SupplierItemGroup(TConstruct.modID, "tools", () -> {
     List<IMaterial> materials = new ArrayList<>(MaterialRegistry.getInstance().getMaterials());
+
     if (materials.isEmpty()) {
       return new ItemStack(TinkerTools.pickaxe);
     }
-    // TODO: use ToolCore::buildToolForRendering
-    List<IMaterial> toolMats = new ArrayList<>(3);
-    for (int i = 0; i < 3; i++) {
-      toolMats.add(materials.get(TConstruct.random.nextInt(materials.size())));
-    }
-    return ToolBuildHandler.buildItemFromMaterials(TinkerTools.pickaxe.get(), toolMats);
+
+    return TinkerTools.pickaxe.get().buildToolForRendering();
   });
 
   /*
@@ -69,8 +66,8 @@ public final class TinkerTools extends TinkerModule {
   /*
    * Particles
    */
-  public static final RegistryObject<BasicParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack",() -> new BasicParticleType(false));
-  public static final RegistryObject<BasicParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack",() -> new BasicParticleType(false));
+  public static final RegistryObject<BasicParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack", () -> new BasicParticleType(false));
+  public static final RegistryObject<BasicParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack", () -> new BasicParticleType(false));
 
   /*
    * Entities
