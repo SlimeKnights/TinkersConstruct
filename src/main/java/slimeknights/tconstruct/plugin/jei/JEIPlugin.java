@@ -71,15 +71,13 @@ public class JEIPlugin implements IModPlugin {
   @Override
   public void registerItemSubtypes(ISubtypeRegistration registry) {
     ISubtypeInterpreter toolPartInterpreter = itemStack -> {
-      String meta = itemStack.getDamage() + ":";
-
       IMaterial material = IMaterialItem.getMaterialFromStack(itemStack);
 
       if (material == IMaterial.UNKNOWN) {
         return ISubtypeInterpreter.NONE;
       }
 
-      return meta + material.getIdentifier();
+      return material.getIdentifier().toString();
     };
 
     registry.registerSubtypeInterpreter(TinkerToolParts.pickaxeHead.get(), toolPartInterpreter);
@@ -98,7 +96,6 @@ public class JEIPlugin implements IModPlugin {
 
     ISubtypeInterpreter toolInterpreter = itemStack -> {
       StringBuilder builder = new StringBuilder();
-      builder.append(itemStack.getDamage());
 
       List<IMaterial> materialList = ToolData.from(itemStack).getMaterials();
 
