@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 /**
  * Items that can be repaired. They also break instead of getting removed.
  */
-public interface IRepairable {
+public interface IRepairable extends ITinkerable {
 
   /**
    * Try repairing the item with the given itemstacks.

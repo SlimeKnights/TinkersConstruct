@@ -1,5 +1,5 @@
 package slimeknights.tconstruct.library.tinkering;
 
-public interface IModifiable {
+public interface IModifiable extends ITinkerable {
 
 }

@@ -45,7 +45,7 @@ import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.ITinkerable;
-import slimeknights.tconstruct.library.tinkering.IToolStationDisplay;
+import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tinkering.ToolPartItem;
@@ -76,7 +76,7 @@ import java.util.stream.Collectors;
  * This class handles how all the data for items made out of different
  * The NBT representation of tool stats, what the tool is made of, which modifier have been applied, etc.
  */
-public abstract class ToolCore extends Item implements ITinkerable, IModifiable, IRepairable, IToolStationDisplay {
+public abstract class ToolCore extends Item implements ITinkerable, IModifiable, IRepairable, ITinkerStationDisplay {
 
   private final ToolDefinition toolDefinition;
   private final ToolMiningLogic toolMiningLogic;
