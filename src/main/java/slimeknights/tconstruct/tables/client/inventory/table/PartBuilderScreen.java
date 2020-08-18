@@ -135,7 +135,7 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
       this.setDisplayForMaterial(materialRecipe.getMaterial());
     } else {
       // default text
-      this.infoPanelScreen.setCaption(this.getTitle().copyRaw());
+      this.infoPanelScreen.setCaption(this.getTitle());
       this.infoPanelScreen.setText(ForgeI18n.getPattern("gui.tconstruct.part_builder.info"));
       this.infoPanelScreen.clearMaterialValue();
     }

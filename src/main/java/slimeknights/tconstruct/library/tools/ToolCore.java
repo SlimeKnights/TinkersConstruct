@@ -44,8 +44,8 @@ import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
-import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
+import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
 import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tinkering.ToolPartItem;
@@ -329,13 +329,15 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
     ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
 
-    float speed = ToolData.from(stack).getStats().attackSpeedMultiplier;
+    StatsNBT statsNBT = ToolData.from(stack).getStats();
+
+    float speed = statsNBT.attackSpeedMultiplier;
 
     if (!stack.isEmpty() && stack.getItem() instanceof ToolCore) {
       speed *= ((ToolCore) stack.getItem()).getToolDefinition().getBaseStatDefinition().getAttackSpeed();
     }
 
-    float damage = ToolData.from(stack).getStats().attack;
+    float damage = statsNBT.attack;
 
     if (!stack.isEmpty() && stack.getItem() instanceof ToolCore) {
       damage *= ((ToolCore) stack.getItem()).getToolDefinition().getBaseStatDefinition().getDamageModifier();
@@ -432,7 +434,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     if (!shift && !ctrl) {
       this.getTooltip(stack, tooltip);
 
-      tooltip.add(new StringTextComponent(""));
+      tooltip.add(StringTextComponent.EMPTY);
 
       tooltip.add(new TranslationTextComponent("tooltip.tool.hold_shift"));
       tooltip.add(new TranslationTextComponent("tooltip.tool.hold_ctrl"));
@@ -532,7 +534,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
       if (toolPart instanceof IMaterialItem) {
         ItemStack partStack = ((IMaterialItem) toolPart).getItemstackWithMaterial(material);
 
-        tooltips.add((new StringTextComponent("")).append(partStack.getDisplayName()).mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
+        tooltips.add(partStack.getDisplayName().copyRaw().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
 
         for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
           if (requirement.usesStat(stat.getIdentifier())) {
@@ -540,10 +542,10 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
           }
         }
 
-        tooltips.add(new StringTextComponent(""));
+        tooltips.add(StringTextComponent.EMPTY);
       }
       else {
-        tooltips.add((new StringTextComponent("")).append(new ItemStack(toolPart).getDisplayName()).mergeStyle(TextFormatting.UNDERLINE));
+        tooltips.add(new ItemStack(toolPart).getDisplayName().copyRaw().mergeStyle(TextFormatting.UNDERLINE));
       }
     }
   }

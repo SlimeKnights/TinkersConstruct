@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.shared;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
@@ -17,8 +16,9 @@ import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 
-@EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)
+@EventBusSubscriber(modid = TConstruct.modID, value = Dist.CLIENT, bus = Bus.MOD)
 public class CommonsClientEvents extends ClientEventBase {
+
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
     RenderTypeLookup.setRenderLayer(TinkerCommons.glow.get(), RenderType.getTranslucent());

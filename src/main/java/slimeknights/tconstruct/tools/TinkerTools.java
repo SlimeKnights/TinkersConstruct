@@ -51,17 +51,19 @@ public final class TinkerTools extends TinkerModule {
   /*
    * Items
    */
-  public static final ItemObject<PickaxeTool> pickaxe = ITEMS.register("pickaxe", () -> new PickaxeTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.PICKAXE));
-  public static final ItemObject<HammerTool> hammer = ITEMS.register("hammer", () -> new HammerTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.HAMMER));
+  private static final Item.Properties TOOL = new Item.Properties().group(TAB_TOOLS);
 
-  public static final ItemObject<ShovelTool> shovel = ITEMS.register("shovel", () -> new ShovelTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.SHOVEL));
-  public static final ItemObject<ExcavatorTool> excavator = ITEMS.register("excavator", () -> new ExcavatorTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.EXCAVATOR));
+  public static final ItemObject<PickaxeTool> pickaxe = ITEMS.register("pickaxe", () -> new PickaxeTool(TOOL, ToolDefinitions.PICKAXE));
+  public static final ItemObject<HammerTool> hammer = ITEMS.register("hammer", () -> new HammerTool(TOOL, ToolDefinitions.HAMMER));
 
-  public static final ItemObject<AxeTool> axe = ITEMS.register("axe", () -> new AxeTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.AXE));
+  public static final ItemObject<ShovelTool> shovel = ITEMS.register("shovel", () -> new ShovelTool(TOOL, ToolDefinitions.SHOVEL));
+  public static final ItemObject<ExcavatorTool> excavator = ITEMS.register("excavator", () -> new ExcavatorTool(TOOL, ToolDefinitions.EXCAVATOR));
 
-  public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.KAMA));
+  public static final ItemObject<AxeTool> axe = ITEMS.register("axe", () -> new AxeTool(TOOL, ToolDefinitions.AXE));
 
-  public static final ItemObject<BroadSword> broadSword = ITEMS.register("broad_sword", () -> new BroadSword(new Item.Properties().group(TAB_TOOLS), ToolDefinitions.BROADSWORD));
+  public static final ItemObject<KamaTool> kama = ITEMS.register("kama", () -> new KamaTool(TOOL, ToolDefinitions.KAMA));
+
+  public static final ItemObject<BroadSword> broadSword = ITEMS.register("broad_sword", () -> new BroadSword(TOOL, ToolDefinitions.BROADSWORD));
 
   /*
    * Particles

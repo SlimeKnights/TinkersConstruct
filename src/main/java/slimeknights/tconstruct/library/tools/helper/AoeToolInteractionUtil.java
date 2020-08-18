@@ -229,10 +229,10 @@ public class AoeToolInteractionUtil {
       return ImmutableList.of();
     }
 
-    width = event.width;
-    height = event.height;
-    depth = event.depth;
-    distance = event.distance;
+    width = event.getWidth();
+    height = event.getHeight();
+    depth = event.getDepth();
+    distance = event.getDistance();
 
     // we know the block and we know which side of the block we're hitting. time to calculate the depth along the different axes
     int x, y, z;
