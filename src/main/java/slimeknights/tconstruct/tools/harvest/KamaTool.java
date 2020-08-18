@@ -21,7 +21,8 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.common.ToolType;
-import slimeknights.tconstruct.library.tools.AoeToolCore;
+import slimeknights.tconstruct.library.tinkering.IAoeTool;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
@@ -30,7 +31,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import java.util.List;
 import java.util.Random;
 
-public class KamaTool extends AoeToolCore {
+public class KamaTool extends ToolCore implements IAoeTool {
 
   public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
     ImmutableSet.of(Material.WOOD,

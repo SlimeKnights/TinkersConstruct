@@ -5,6 +5,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
 
 import javax.annotation.Nonnull;
 
@@ -22,7 +23,9 @@ public interface IAoeTool {
    * @param origin the origin block spot to start from
    * @return A list of BlockPoses that the AOE tool can affect.
    */
-  ImmutableList<BlockPos> getAOEBlocks(@Nonnull ItemStack stack, World world, PlayerEntity player, BlockPos origin);
+  default ImmutableList<BlockPos> getAOEBlocks(@Nonnull ItemStack stack, World world, PlayerEntity player, BlockPos origin) {
+    return AoeToolInteractionUtil.calculateAOEBlocks(stack, world, player, origin, 1, 1, 1);
+  }
 
 
   /**
@@ -30,5 +33,8 @@ public interface IAoeTool {
    *
    * @return if the tool is a AOE harvest tool
    */
-  boolean isAoeHarvestTool();
+  default boolean isAoeHarvestTool() {
+    return true;
+  }
+
 }

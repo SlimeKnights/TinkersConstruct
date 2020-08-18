@@ -9,7 +9,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -20,7 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.Constants;
 import slimeknights.tconstruct.library.materials.IMaterial;
-import slimeknights.tconstruct.library.tools.AoeToolCore;
+import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
@@ -30,7 +29,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.List;
 
-public class AxeTool extends AoeToolCore {
+public class AxeTool extends ToolCore implements IAoeTool {
 
   public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
     ImmutableSet.of(Material.WOOD,
@@ -51,7 +50,7 @@ public class AxeTool extends AoeToolCore {
 
   @Override
   public ActionResultType onItemUse(ItemUseContext context) {
-    PlayerEntity player  = context.getPlayer();
+    PlayerEntity player = context.getPlayer();
 
     if (player == null || player.isSneaking()) {
       return ActionResultType.PASS;
