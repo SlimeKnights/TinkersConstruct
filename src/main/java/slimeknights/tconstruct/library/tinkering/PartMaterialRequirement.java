@@ -60,8 +60,8 @@ public class PartMaterialRequirement {
     return false;
   }
 
-  public Supplier<? extends Item> getPart() {
-    return this.neededPart;
+  public Item getPart() {
+    return this.neededPart.get();
   }
 
   //

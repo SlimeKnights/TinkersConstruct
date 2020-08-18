@@ -529,7 +529,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
       PartMaterialRequirement requirement = components.get(i);
       IMaterial material = materials.get(i);
 
-      Item toolPart = requirement.getPart().get();
+      Item toolPart = requirement.getPart();
 
       if (toolPart instanceof IMaterialItem) {
         ItemStack partStack = ((IMaterialItem) toolPart).getItemstackWithMaterial(material);
@@ -653,10 +653,12 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
     IMaterial material = iter.next();
     name.append(new TranslationTextComponent(material.getTranslationKey()));
+
     while (iter.hasNext()) {
       material = iter.next();
       name.appendString("-").append(new TranslationTextComponent(material.getTranslationKey()));
     }
+
     name.appendString(" ").append(itemName);
 
     return name;
@@ -671,8 +673,8 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
       for (int i = 0; i < requirements.size(); i++) {
         PartMaterialRequirement requirement = requirements.get(i);
 
-        if (requirement.getPart().get() instanceof ToolPartItem) {
-          ToolPartItem toolPart = (ToolPartItem) requirement.getPart().get();
+        if (requirement.getPart() instanceof ToolPartItem) {
+          ToolPartItem toolPart = (ToolPartItem) requirement.getPart();
 
           List<IMaterial> materials = MaterialRegistry.getInstance().getMaterials().stream().filter(toolPart::canUseMaterial).collect(Collectors.toList());
 
