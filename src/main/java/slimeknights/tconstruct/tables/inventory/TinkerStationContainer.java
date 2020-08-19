@@ -36,11 +36,17 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
     this.tinkerStationBlocks = Lists.newLinkedList();
 
     if (tile != null && tile.getWorld() != null) {
-      this.detectedTinkerStationParts(tile.getWorld(), tile.getPos());
+      this.detectStationParts(tile.getWorld(), tile.getPos());
     }
   }
 
-  public void detectedTinkerStationParts(World world, BlockPos start) {
+  /**
+   * Detects the given station parts nearby the given position
+   *
+   * @param world the current world
+   * @param start the current position of the tile entity
+   */
+  public void detectStationParts(World world, BlockPos start) {
     Set<Integer> found = Sets.newHashSet();
     Set<BlockPos> visited = Sets.newHashSet();
 
@@ -95,11 +101,14 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
     this.tinkerStationBlocks.sort(comp);
   }
 
-  public void updateGUI() {
+  /**
+   * Sends a update to the client's current screen.
+   */
+  public void updateScreen() {
     if (this.tile != null) {
       if (this.tile.getWorld() != null) {
         if (tile.getWorld().isRemote) {
-          Minecraft.getInstance().execute(TinkerStationContainer::clientGuiUpdate);
+          Minecraft.getInstance().execute(TinkerStationContainer::clientScreenUpdate);
         }
       }
     }
@@ -131,27 +140,40 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
     }
   }
 
+  /**
+   * Updates the client's screen
+   */
   @OnlyIn(Dist.CLIENT)
-  private static void clientGuiUpdate() {
+  private static void clientScreenUpdate() {
     Screen screen = Minecraft.getInstance().currentScreen;
     if (screen instanceof TinkerStationScreen) {
       ((TinkerStationScreen) screen).updateDisplay();
     }
   }
 
+  /**
+   * Sends the error message from the container to the client's screen
+   *
+   * @param errorMessage the error message to send to the client
+   */
   @OnlyIn(Dist.CLIENT)
-  private static void clientError(IFormattableTextComponent message) {
+  private static void clientError(IFormattableTextComponent errorMessage) {
     Screen screen = Minecraft.getInstance().currentScreen;
     if (screen instanceof TinkerStationScreen) {
-      ((TinkerStationScreen) screen).error(message);
+      ((TinkerStationScreen) screen).error(errorMessage);
     }
   }
 
+  /**
+   * Sends the warning message from the container to the client's screen
+   *
+   * @param warningMessage the warning message to send to the client
+   */
   @OnlyIn(Dist.CLIENT)
-  private static void clientWarning(IFormattableTextComponent message) {
+  private static void clientWarning(IFormattableTextComponent warningMessage) {
     Screen screen = Minecraft.getInstance().currentScreen;
     if (screen instanceof TinkerStationScreen) {
-      ((TinkerStationScreen) screen).warning(message);
+      ((TinkerStationScreen) screen).warning(warningMessage);
     }
   }
 

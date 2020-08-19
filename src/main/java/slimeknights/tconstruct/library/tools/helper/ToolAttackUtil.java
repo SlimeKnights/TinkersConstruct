@@ -332,6 +332,13 @@ public class ToolAttackUtil {
     return true;
   }
 
+  /**
+   * Spawns a given particle at the given entity's position with an offset
+   *
+   * @param particleData the selected particle
+   * @param entity the entity
+   * @param height the height offset for the particle position
+   */
   public static void spawnAttachParticle(IParticleData particleData, Entity entity, double height) {
     double xd = -MathHelper.sin(entity.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(entity.rotationPitch / 180.0F * (float) Math.PI);
     double zd = +MathHelper.cos(entity.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(entity.rotationPitch / 180.0F * (float) Math.PI);
