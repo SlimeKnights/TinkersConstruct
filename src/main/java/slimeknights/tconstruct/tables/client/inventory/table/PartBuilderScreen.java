@@ -164,11 +164,11 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     }
 
     // update stats and traits
-    List<IFormattableTextComponent> stats = Lists.newLinkedList();
-    List<IFormattableTextComponent> tips = Lists.newArrayList();
+    List<ITextComponent> stats = Lists.newLinkedList();
+    List<ITextComponent> tips = Lists.newArrayList();
 
     for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
-      List<IFormattableTextComponent> info = stat.getLocalizedInfo();
+      List<ITextComponent> info = stat.getLocalizedInfo();
 
       if (!info.isEmpty()) {
         stats.add(stat.getLocalizedName().mergeStyle(TextFormatting.UNDERLINE));

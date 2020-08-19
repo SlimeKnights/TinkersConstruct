@@ -35,12 +35,12 @@ public class ComplexTestStats extends BaseMaterialStats {
   }
 
   @Override
-  public List<IFormattableTextComponent> getLocalizedInfo() {
+  public List<ITextComponent> getLocalizedInfo() {
     return new ArrayList<>();
   }
 
   @Override
-  public List<IFormattableTextComponent> getLocalizedDescriptions() {
+  public List<ITextComponent> getLocalizedDescriptions() {
     return new ArrayList<>();
   }
 }

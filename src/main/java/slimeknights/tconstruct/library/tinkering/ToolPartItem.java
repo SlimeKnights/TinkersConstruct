@@ -110,7 +110,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     ImmutableList.Builder<ITextComponent> builder = ImmutableList.builder();
 
     MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), this.materialStatId).ifPresent((stat) -> {
-      List<IFormattableTextComponent> text = stat.getLocalizedInfo();
+      List<ITextComponent> text = stat.getLocalizedInfo();
       if (!text.isEmpty()) {
         builder.add(new StringTextComponent(""));
         builder.add(stat.getLocalizedName().mergeStyle(TextFormatting.WHITE, TextFormatting.UNDERLINE));

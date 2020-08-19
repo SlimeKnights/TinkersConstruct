@@ -57,9 +57,9 @@ public class InfoPanelScreen extends ModuleScreen {
 
   protected SliderWidget slider = new SliderWidget(SLIDER_NORMAL, SLIDER_HOVER, SLIDER_HOVER, SLIDER_TOP, SLIDER_BOTTOM, SLIDER_BAR);
 
-  protected IFormattableTextComponent caption;
-  protected List<IFormattableTextComponent> text;
-  protected List<IFormattableTextComponent> tooltips;
+  protected ITextComponent caption;
+  protected List<ITextComponent> text;
+  protected List<ITextComponent> tooltips;
 
   protected List<Integer> tooltipLines = Lists.newLinkedList();
 
@@ -107,7 +107,7 @@ public class InfoPanelScreen extends ModuleScreen {
   }
 
   public void setText(String... text) {
-    List<IFormattableTextComponent> textComponents = new ArrayList<>();
+    List<ITextComponent> textComponents = new ArrayList<>();
 
     for (String s : text) {
       textComponents.add(new StringTextComponent(s));
@@ -116,24 +116,24 @@ public class InfoPanelScreen extends ModuleScreen {
     this.setText(textComponents, null);
   }
 
-  public void setText(IFormattableTextComponent... text) {
-    List<IFormattableTextComponent> textComponents = new ArrayList<>(Arrays.asList(text));
+  public void setText(ITextComponent... text) {
+    List<ITextComponent> textComponents = new ArrayList<>(Arrays.asList(text));
 
     this.setText(textComponents, null);
   }
 
-  public void setText(List<IFormattableTextComponent> text) {
+  public void setText(List<ITextComponent> text) {
     this.setText(text, null);
   }
 
-  public void setText(List<IFormattableTextComponent> text, @Nullable List<IFormattableTextComponent> tooltips) {
+  public void setText(List<ITextComponent> text, @Nullable List<ITextComponent> tooltips) {
     this.text = text;
     this.updateSliderParameters();
 
     this.setTooltips(tooltips);
   }
 
-  protected void setTooltips(@Nullable List<IFormattableTextComponent> tooltips) {
+  protected void setTooltips(@Nullable List<ITextComponent> tooltips) {
     this.tooltips = tooltips;
   }
 

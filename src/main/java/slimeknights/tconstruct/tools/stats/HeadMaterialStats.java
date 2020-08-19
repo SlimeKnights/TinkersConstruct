@@ -70,8 +70,8 @@ public class HeadMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public List<IFormattableTextComponent> getLocalizedInfo() {
-    List<IFormattableTextComponent> info = Lists.newArrayList();
+  public List<ITextComponent> getLocalizedInfo() {
+    List<ITextComponent> info = Lists.newArrayList();
 
     info.add(formatDurability(this.durability));
     info.add(formatHarvestLevel(this.harvestLevel));
@@ -81,29 +81,29 @@ public class HeadMaterialStats extends BaseMaterialStats {
     return info;
   }
 
-  public static IFormattableTextComponent formatDurability(int durability) {
+  public static ITextComponent formatDurability(int durability) {
     return formatNumber(DURABILITY_LOCALIZATION, DURABILITY_COLOR, durability);
   }
 
-  public static IFormattableTextComponent formatDurability(int durability, int ref) {
+  public static ITextComponent formatDurability(int durability, int ref) {
     return new TranslationTextComponent(DURABILITY_LOCALIZATION).append(CustomFontColor.formatPartialAmount(durability, ref));
   }
 
-  public static IFormattableTextComponent formatHarvestLevel(int level) {
+  public static ITextComponent formatHarvestLevel(int level) {
     return new TranslationTextComponent(HARVEST_LEVEL_LOCALIZATION).append(HarvestLevels.getHarvestLevelName(level));
   }
 
-  public static IFormattableTextComponent formatMiningSpeed(float speed) {
+  public static ITextComponent formatMiningSpeed(float speed) {
     return formatNumber(MINING_SPEED_LOCALIZATION, SPEED_COLOR, speed);
   }
 
-  public static IFormattableTextComponent formatAttack(float attack) {
+  public static ITextComponent formatAttack(float attack) {
     return formatNumber(ATTACK_LOCALIZATION, ATTACK_COLOR, attack);
   }
 
   @Override
-  public List<IFormattableTextComponent> getLocalizedDescriptions() {
-    List<IFormattableTextComponent> info = Lists.newArrayList();
+  public List<ITextComponent> getLocalizedDescriptions() {
+    List<ITextComponent> info = Lists.newArrayList();
 
     info.add(new TranslationTextComponent(DURABILITY_DESCRIPTION_LOCALIZATION));
     info.add(new TranslationTextComponent(HARVEST_LEVEL_DESCRIPTION_LOCALIZATION));

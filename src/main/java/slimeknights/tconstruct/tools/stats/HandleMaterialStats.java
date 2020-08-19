@@ -9,6 +9,7 @@ import lombok.ToString;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
@@ -56,21 +57,21 @@ public class HandleMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public List<IFormattableTextComponent> getLocalizedInfo() {
+  public List<ITextComponent> getLocalizedInfo() {
     return ImmutableList.of(formatModifier(this.modifier), formatDurability(this.durability));
   }
 
   @Override
-  public List<IFormattableTextComponent> getLocalizedDescriptions() {
+  public List<ITextComponent> getLocalizedDescriptions() {
     return ImmutableList.of(new TranslationTextComponent(MULTIPLIER_DESCRIPTION_LOCALIZATION), new TranslationTextComponent(DURABILITY_DESCRIPTION_LOCALIZATION));
   }
 
 
-  public static IFormattableTextComponent formatModifier(float quality) {
+  public static ITextComponent formatModifier(float quality) {
     return formatNumber(MULTIPLIER_LOCALIZATION, MODIFIER_COLOR, quality);
   }
 
-  public static IFormattableTextComponent formatDurability(int durability) {
+  public static ITextComponent formatDurability(int durability) {
     return formatNumber(DURABILITY_LOCALIZATION, DURABILITY_COLOR, durability);
   }
 }
