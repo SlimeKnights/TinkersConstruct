@@ -29,16 +29,44 @@ public class TooltipBuilder {
     this.tool = tool;
   }
 
-  public List<ITextComponent> getTooltip() {
+  /**
+   * Gets the tooltips from the builder
+   *
+   * @return the list of tooltips
+   */
+  public List<ITextComponent> getTooltips() {
     return this.tips;
   }
 
+  /**
+   * Adds the given text to the tooltip
+   *
+   * @param text the text to add
+   * @return the tooltip builder
+   */
   public TooltipBuilder add(String text) {
     this.tips.add(new StringTextComponent(text));
 
     return this;
   }
 
+  /**
+   * Adds the given text to the tooltip
+   *
+   * @param textComponent the text component to add
+   * @return the tooltip builder
+   */
+  public TooltipBuilder add(ITextComponent textComponent) {
+    this.tips.add(textComponent);
+
+    return this;
+  }
+
+  /**
+   * Adds the mining speed to the tooltip
+   *
+   * @return the tooltip builder
+   */
   public TooltipBuilder addMiningSpeed() {
     float speed = ToolData.from(this.tool).getStats().miningSpeed;
 
@@ -46,17 +74,27 @@ public class TooltipBuilder {
       speed *= ((ToolCore) this.tool.getItem()).getToolDefinition().getBaseStatDefinition().getMiningSpeedModifier();
     }
 
-    tips.add(HeadMaterialStats.formatMiningSpeed(speed));
+    this.tips.add(HeadMaterialStats.formatMiningSpeed(speed));
 
     return this;
   }
 
+  /**
+   * Adds the harvest level to the tooltip
+   *
+   * @return the tooltip builder
+   */
   public TooltipBuilder addHarvestLevel() {
-    tips.add(HeadMaterialStats.formatHarvestLevel(ToolData.from(this.tool).getStats().harvestLevel));
+    this.tips.add(HeadMaterialStats.formatHarvestLevel(ToolData.from(this.tool).getStats().harvestLevel));
 
     return this;
   }
 
+  /**
+   * Adds the durability to the tooltip
+   *
+   * @return the tooltip builder
+   */
   public TooltipBuilder addDurability(boolean textIfBroken) {
     if (ToolData.isBroken(this.tool) && textIfBroken) {
       this.tips.add(new TranslationTextComponent(HeadMaterialStats.DURABILITY_LOCALIZATION)
@@ -73,14 +111,24 @@ public class TooltipBuilder {
     return this;
   }
 
+  /**
+   * Adds the attack damage to the tooltip
+   *
+   * @return the tooltip builder
+   */
   public TooltipBuilder addAttack() {
     float attack = ToolAttackUtil.getActualDamage(this.tool, Minecraft.getInstance().player);
 
-    tips.add(HeadMaterialStats.formatAttack(attack));
+    this.tips.add(HeadMaterialStats.formatAttack(attack));
 
     return this;
   }
 
+  /**
+   * Adds the current free modifiers to the tooltip
+   *
+   * @return the tooltip builder
+   */
   public TooltipBuilder addFreeModifiers() {
     this.tips.add(new TranslationTextComponent(FREE_MODIFIERS_LOCALIZATION)
       .appendString(": ")
@@ -89,6 +137,11 @@ public class TooltipBuilder {
     return this;
   }
 
+  /**
+   * Adds the modifier information to the tooltip
+   *
+   * @return the tooltip builder
+   */
   public TooltipBuilder addModifierInfo() {
     this.tips.add(new StringTextComponent("todo modifier information"));
 
@@ -115,6 +168,11 @@ public class TooltipBuilder {
   }
 
   //todo: are these still needed?
+  /**
+   * Adds the draw speed to the tooltip
+   *
+   * @return the tooltip builder
+   */
   public TooltipBuilder addDrawSpeed() {
     this.tips.add(new StringTextComponent("TODO: implement getting draw speed"));
 
@@ -129,6 +187,11 @@ public class TooltipBuilder {
     return this;
   }
 
+  /**
+   * Adds the range information to the tooltip
+   *
+   * @return the tooltip builder
+   */
   public TooltipBuilder addRange() {
     this.tips.add(new StringTextComponent("TODO: implement getting range"));
 
@@ -138,6 +201,11 @@ public class TooltipBuilder {
     return this;
   }
 
+  /**
+   * Adds the projective damage bonus to the tooltip
+   *
+   * @return the tooltip builder
+   */
   public TooltipBuilder addProjectileBonusDamage() {
     this.tips.add(new StringTextComponent("TODO: Implement getting projectile bonus damage"));
 

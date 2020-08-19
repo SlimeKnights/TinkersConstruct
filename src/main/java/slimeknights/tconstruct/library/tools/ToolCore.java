@@ -507,6 +507,13 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     return this.getInformation(stack, true);
   }
 
+  /**
+   * Gets the information for the given tool stack
+   *
+   * @param stack the tool stack
+   * @param detailed if it should be detailed or not, used for durability
+   * @return the information for the given stack
+   */
   public List<ITextComponent> getInformation(ItemStack stack, boolean detailed) {
     TooltipBuilder info = new TooltipBuilder(stack);
 
@@ -533,7 +540,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
       info.addModifierInfo();
     }
 
-    return info.getTooltip();
+    return info.getTooltips();
   }
 
   @Override
