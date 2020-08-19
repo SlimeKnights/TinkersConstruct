@@ -91,14 +91,30 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     this.toolMiningLogic = toolMiningLogic;
   }
 
+  /**
+   * Gets the tool definition for the given tool
+   *
+   * @return the tool definition
+   */
   public ToolDefinition getToolDefinition() {
     return this.toolDefinition;
   }
 
+  /**
+   *  Gets the mining logic for the given tool
+   *
+   * @return the tool mining logic
+   */
   public ToolMiningLogic getToolMiningLogic() {
     return this.toolMiningLogic;
   }
 
+  /**
+   * Builds the tool stats from the given materials
+   *
+   * @param materials the list of materials to build from
+   * @return the tool stats
+   */
   public StatsNBT buildToolStats(List<IMaterial> materials) {
     return ToolStatsBuilder.from(materials, this.toolDefinition).buildDefaultStats();
   }
@@ -240,6 +256,12 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     return effective && this.toolDefinition.hasCategory(Category.HARVEST);
   }
 
+  /**
+   * Checks if the current tool is effective against the given blockstate
+   *
+   * @param state the blockstate
+   * @return true if effective or false if not
+   */
   public abstract boolean isEffective(BlockState state);
 
   @Override
@@ -359,7 +381,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, PlayerEntity player) {
-    if (!ToolData.isBroken(itemstack) && this instanceof IAoeTool && ((IAoeTool) this).isAoeHarvestTool()) {
+    if (!ToolData.isBroken(itemstack) && this instanceof IAoeTool) {
       for (BlockPos extraPos : ((IAoeTool) this).getAOEBlocks(itemstack, player.getEntityWorld(), player, pos)) {
         this.breakExtraBlock(itemstack, player.getEntityWorld(), player, extraPos, pos);
       }
@@ -460,6 +482,12 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     }
   }
 
+  /**
+   * Gets the broken tool tip for the given tool.
+   *
+   * @param itemStack the given tool stack
+   * @return The broken tool tip
+   */
   protected IFormattableTextComponent getBrokenToolTip(ItemStack itemStack) {
     return new TranslationTextComponent(TooltipBuilder.BROKEN_LOCALIZATION);
   }
@@ -534,7 +562,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
       if (toolPart instanceof IMaterialItem) {
         ItemStack partStack = ((IMaterialItem) toolPart).getItemstackWithMaterial(material);
 
-        tooltips.add(partStack.getDisplayName().copyRaw().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
+        tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
 
         for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
           if (requirement.usesStat(stat.getIdentifier())) {
@@ -545,7 +573,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
         tooltips.add(StringTextComponent.EMPTY);
       }
       else {
-        tooltips.add(new ItemStack(toolPart).getDisplayName().copyRaw().mergeStyle(TextFormatting.UNDERLINE));
+        tooltips.add(new ItemStack(toolPart).getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE));
       }
     }
   }
@@ -631,6 +659,13 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     return ToolCore.getCombinedItemName(super.getDisplayName(stack), nameMaterials);
   }
 
+  /**
+   * Combines the given display name with the material names to form the new given name
+   *
+   * @param itemName the standard display name
+   * @param materials the list of materials
+   * @return the combined item name
+   */
   public static ITextComponent getCombinedItemName(ITextComponent itemName, Collection<IMaterial> materials) {
     if (materials.isEmpty() || materials.stream().allMatch(IMaterial.UNKNOWN::equals)) {
       return itemName;
@@ -664,6 +699,11 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     return name;
   }
 
+  /**
+   * Builds a tool meant for rendering in a screen
+   *
+   * @return the tool to use for rendering
+   */
   public ItemStack buildToolForRendering() {
     if (MaterialRegistry.initialized()) {
       List<PartMaterialRequirement> requirements = this.getToolDefinition().getRequiredComponents();
@@ -724,6 +764,15 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   /* Misc */
 
+  /**
+   * Creates a raytrace and casts it to a BlockRayTraceResult
+   *
+   * @param worldIn the world
+   * @param player the given player
+   * @param fluidMode the fluid mode to use for the raytrace event
+   *
+   * @return
+   */
   public BlockRayTraceResult blockRayTrace(World worldIn, PlayerEntity player, RayTraceContext.FluidMode fluidMode) {
     return (BlockRayTraceResult) Item.rayTrace(worldIn, player, fluidMode);
   }

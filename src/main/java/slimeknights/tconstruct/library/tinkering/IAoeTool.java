@@ -26,15 +26,4 @@ public interface IAoeTool {
   default ImmutableList<BlockPos> getAOEBlocks(@Nonnull ItemStack stack, World world, PlayerEntity player, BlockPos origin) {
     return AoeToolInteractionUtil.calculateAOEBlocks(stack, world, player, origin, 1, 1, 1);
   }
-
-
-  /**
-   * Checks if the AOE tool mines blocks, used for the extra block breaking rendering.
-   *
-   * @return if the tool is a AOE harvest tool
-   */
-  default boolean isAoeHarvestTool() {
-    return true;
-  }
-
 }
