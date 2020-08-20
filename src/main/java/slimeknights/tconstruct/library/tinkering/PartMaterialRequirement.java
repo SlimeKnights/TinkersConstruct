@@ -60,6 +60,11 @@ public class PartMaterialRequirement {
     return false;
   }
 
+  /**
+   * Gets the part from the given part requirement
+   *
+   * @return the part needed
+   */
   public Item getPart() {
     return this.neededPart.get();
   }

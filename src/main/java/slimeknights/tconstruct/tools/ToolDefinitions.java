@@ -18,7 +18,7 @@ public final class ToolDefinitions {
       new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
       new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
     ),
-    ImmutableSet.of(Category.HARVEST));
+    ImmutableSet.of(Category.HARVEST, Category.AOE));
 
   public static final ToolDefinition HAMMER = new ToolDefinition(
     ToolBaseStatDefinitions.HAMMER,
@@ -37,7 +37,7 @@ public final class ToolDefinitions {
       new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
       new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
     ),
-    ImmutableSet.of(Category.HARVEST));
+    ImmutableSet.of(Category.HARVEST, Category.AOE));
 
   public static final ToolDefinition EXCAVATOR = new ToolDefinition(
     ToolBaseStatDefinitions.EXCAVATOR,
@@ -56,7 +56,7 @@ public final class ToolDefinitions {
       new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
       new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
     ),
-    ImmutableSet.of(Category.HARVEST, Category.WEAPON));
+    ImmutableSet.of(Category.HARVEST, Category.WEAPON, Category.AOE));
 
   public static final ToolDefinition KAMA = new ToolDefinition(
     ToolBaseStatDefinitions.KAMA,
@@ -65,7 +65,7 @@ public final class ToolDefinitions {
       new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
       new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
     ),
-    ImmutableSet.of(Category.HARVEST, Category.WEAPON));
+    ImmutableSet.of(Category.HARVEST, Category.WEAPON, Category.AOE));
 
 
   public static final ToolDefinition BROADSWORD = new ToolDefinition(

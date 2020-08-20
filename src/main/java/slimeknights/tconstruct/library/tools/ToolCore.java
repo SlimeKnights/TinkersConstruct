@@ -57,6 +57,7 @@ import slimeknights.tconstruct.library.tools.helper.TraitUtil;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.library.utils.TooltipBuilder;
+import slimeknights.tconstruct.library.utils.TooltipType;
 import slimeknights.tconstruct.tools.ToolStatsBuilder;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
@@ -454,7 +455,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
     // modifiers
     if (!shift && !ctrl) {
-      this.getTooltip(stack, tooltip);
+      this.getTooltip(stack, tooltip, TooltipType.NORMAL);
 
       tooltip.add(StringTextComponent.EMPTY);
 
@@ -467,18 +468,63 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     }
     // detailed data
     else if (shift) {
-      this.getTooltipDetailed(stack, tooltip);
+      this.getTooltip(stack, tooltip, TooltipType.SHIFT);
     }
     // component data
     else if (ctrl) {
-      this.getTooltipComponents(stack, tooltip);
+      this.getTooltip(stack, tooltip, TooltipType.CONTROL);
     }
   }
 
   @Override
-  public void getTooltip(ItemStack stack, List<ITextComponent> tooltips) {
-    if (ToolData.isBroken(stack)) {
-      tooltips.add(this.getBrokenToolTip(stack).mergeStyle(TextFormatting.DARK_RED, TextFormatting.BOLD));
+  public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType) {
+    if (tooltipType == TooltipType.NORMAL) {
+      if (ToolData.isBroken(stack)) {
+        tooltips.add(this.getBrokenToolTip(stack).mergeStyle(TextFormatting.DARK_RED, TextFormatting.BOLD));
+      }
+    }
+    else if (tooltipType == TooltipType.SHIFT) {
+      tooltips.addAll(this.getInformation(stack, false));
+    }
+    else if (tooltipType == TooltipType.CONTROL) {
+      CompoundNBT tag = stack.getTag();
+      if (tag == null) {
+        tooltips.add(new StringTextComponent("No tool data. NBT missing."));
+        return;
+      }
+
+      ToolData toolData = ToolData.readFromNBT(tag);
+
+      List<IMaterial> materials = toolData.getMaterials();
+      List<PartMaterialRequirement> components = this.getToolDefinition().getRequiredComponents();
+
+      if (materials.size() < components.size()) {
+        return;
+      }
+
+      for (int i = 0; i < components.size(); i++) {
+        PartMaterialRequirement requirement = components.get(i);
+        IMaterial material = materials.get(i);
+
+        Item toolPart = requirement.getPart();
+
+        if (toolPart instanceof IMaterialItem) {
+          ItemStack partStack = ((IMaterialItem) toolPart).getItemstackWithMaterial(material);
+
+          tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
+
+          for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
+            if (requirement.usesStat(stat.getIdentifier())) {
+              tooltips.addAll(stat.getLocalizedInfo());
+            }
+          }
+
+          tooltips.add(StringTextComponent.EMPTY);
+        }
+        else {
+          tooltips.add(new ItemStack(toolPart).getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE));
+        }
+      }
     }
   }
 
@@ -490,11 +536,6 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    */
   protected IFormattableTextComponent getBrokenToolTip(ItemStack itemStack) {
     return new TranslationTextComponent(TooltipBuilder.BROKEN_LOCALIZATION);
-  }
-
-  @Override
-  public void getTooltipDetailed(ItemStack stack, List<ITextComponent> tooltips) {
-    tooltips.addAll(this.getInformation(stack, false));
   }
 
   @Override
@@ -541,48 +582,6 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     }
 
     return info.getTooltips();
-  }
-
-  @Override
-  public void getTooltipComponents(ItemStack stack, List<ITextComponent> tooltips) {
-    CompoundNBT tag = stack.getTag();
-    if (tag == null) {
-      tooltips.add(new StringTextComponent("No tool data. NBT missing."));
-      return;
-    }
-
-    ToolData toolData = ToolData.readFromNBT(tag);
-
-    List<IMaterial> materials = toolData.getMaterials();
-    List<PartMaterialRequirement> components = this.getToolDefinition().getRequiredComponents();
-
-    if (materials.size() < components.size()) {
-      return;
-    }
-
-    for (int i = 0; i < components.size(); i++) {
-      PartMaterialRequirement requirement = components.get(i);
-      IMaterial material = materials.get(i);
-
-      Item toolPart = requirement.getPart();
-
-      if (toolPart instanceof IMaterialItem) {
-        ItemStack partStack = ((IMaterialItem) toolPart).getItemstackWithMaterial(material);
-
-        tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
-
-        for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
-          if (requirement.usesStat(stat.getIdentifier())) {
-            tooltips.addAll(stat.getLocalizedInfo());
-          }
-        }
-
-        tooltips.add(StringTextComponent.EMPTY);
-      }
-      else {
-        tooltips.add(new ItemStack(toolPart).getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE));
-      }
-    }
   }
 
   @Override

@@ -14,7 +14,6 @@ public interface IModifierDisplay {
    */
   int getColor();
 
-
   /**
    * List of ItemStacks possible to apply the modifier.
    * Each list entry corresponds to one item combination that can be applied

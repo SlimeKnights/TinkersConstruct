@@ -1,18 +1,11 @@
 package slimeknights.tconstruct.library.modifiers;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import slimeknights.mantle.recipe.match.RecipeMatch;
-
-import java.util.Optional;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public interface IModifier extends IToolMod {
-
-  /**
-   * Called with a set of itemstacks and returns a match which contains the items that match
-   * and how often the modifier can be applied with them
-   */
-  Optional<RecipeMatch.Match> matches(NonNullList<ItemStack> stacks);
 
   /**
    * Returns true if the modifier can be applied to the given itemstack.
@@ -33,7 +26,7 @@ public interface IModifier extends IToolMod {
    * Apply the modifier to a root-nbt of an itemstack.
    * The complete procedure, usually called from the itemstack variant.
    */
-  //void apply(NBTTagCompound root);
+  void apply(CompoundNBT root);
 
   /**
    * In this function the modifier saves its own data into the given tag.
@@ -42,7 +35,7 @@ public interface IModifier extends IToolMod {
    *
    * @param modifierTag This tag shall be filled with data. It will be saved into the tool as the modifiers identifier.
    */
-//  void updateNBT(NBTTagCompound modifierTag);
+  void updateNBT(CompoundNBT modifierTag);
 
   /**
    * This is the actual bread and butter of the modifier. This function applies the actual effect like adding a trait,
@@ -54,22 +47,22 @@ public interface IModifier extends IToolMod {
    * @param rootCompound The main compound of the item to be modified.
    * @param modifierTag  The same tag as for updateNBT.
    */
-//  void applyEffect(NBTTagCompound rootCompound, NBTTagCompound modifierTag);
+  void applyEffect(CompoundNBT rootCompound, CompoundNBT modifierTag);
 
   /**
    * Returns the tooltip to display for the given tag of this specific modifier.
    * If detailed is true also include building info like how much X already is in it. Used in the toolstation display.
    * Color tags are not necessary.
    */
-//  String getTooltip(NBTTagCompound modifierTag, boolean detailed);
+  String getTooltip(CompoundNBT modifierTag, boolean detailed);
 
   /**
    * Used for specific modifiers that need a texture variant for each material
    */
-//  @SideOnly(Side.CLIENT)
+  @OnlyIn(Dist.CLIENT)
   boolean hasTexturePerMaterial();
 
-//  boolean equalModifier(NBTTagCompound modifierTag1, NBTTagCompound modifierTag2);
+  boolean equalModifier(CompoundNBT modifierTag1, CompoundNBT modifierTag2);
 
   default boolean hasItemsToApplyWith() {
     return true;
