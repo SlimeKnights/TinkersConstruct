@@ -472,7 +472,17 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     }
   }
 
-  @Override
+  /**
+   * The tooltip for the item
+   *
+   * Displays different information based on the tooltip type
+   * If the SHIFT key is held, the detailed information is displayed
+   * If CONTROL key is held, the materials the tool is made out of is displayed
+   *
+   * @param stack the given itemstack
+   * @param tooltips the list of tooltips to add to
+   * @param tooltipType the tooltip type to display
+   */
   public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType) {
     if (tooltipType == TooltipType.NORMAL) {
       if (ToolData.isBroken(stack)) {
