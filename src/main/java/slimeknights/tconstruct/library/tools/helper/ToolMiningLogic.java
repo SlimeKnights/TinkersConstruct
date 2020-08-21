@@ -13,6 +13,13 @@ import slimeknights.tconstruct.library.tools.nbt.ToolData;
  */
 public final class ToolMiningLogic {
 
+  /**
+   * Calculates the dig speed for the given blockstate
+   *
+   * @param stack the tool stack
+   * @param blockState the block state to check
+   * @return the dig speed
+   */
   public float calcDigSpeed(ItemStack stack, BlockState blockState) {
     if(!stack.hasTag() || !(stack.getItem() instanceof ToolCore)) {
       return 1f;

@@ -57,6 +57,13 @@ public final class ToolBuildHandler {
     return output;
   }
 
+  /**
+   * Checks if the tool can be built from the given input stacks
+   *
+   * @param stacks the input items
+   * @param requiredComponents the required components
+   * @return if the given tool can be built from the given inputs
+   */
   private static boolean canBeBuiltFromParts(NonNullList<ItemStack> stacks, List<PartMaterialRequirement> requiredComponents) {
     return Streams.zip(requiredComponents.stream(), stacks.stream(), PartMaterialRequirement::isValid).allMatch(Boolean::booleanValue);
   }

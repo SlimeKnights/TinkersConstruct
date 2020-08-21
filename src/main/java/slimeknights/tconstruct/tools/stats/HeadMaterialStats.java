@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.Color;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.Util;
@@ -38,7 +39,7 @@ public class HeadMaterialStats extends BaseMaterialStats {
   public final static String ATTACK_DESCRIPTION_LOCALIZATION = "stat.head.attack.description";
   public final static String HARVEST_LEVEL_DESCRIPTION_LOCALIZATION = "stat.head.harvest_level.description";
 
-  public final static Color DURABILITY_COLOR = CustomFontColor.MAX;
+  public final static Color DURABILITY_COLOR = Color.func_240743_a_(0xFF47cc47);
   public final static Color ATTACK_COLOR = Color.func_240743_a_(0xFFD76464);
   public final static Color SPEED_COLOR = Color.func_240743_a_(0xFF78A0CD);
 

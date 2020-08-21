@@ -131,7 +131,7 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
     if (!patternSlot.getStack().isEmpty()) {
       this.partRecipes = RecipeHelper.getUIRecipes(world.getRecipeManager(), RecipeTypes.PART_BUILDER, PartRecipe.class, partFilter);
     }
-    this.updateGUI();
+    this.updateScreen();
   }
 
   /**
@@ -149,7 +149,7 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
       // TODO: consider a message if it fails to match, the recipe will need to be modified so wrong count does not error
     }
     this.craftResult.setInventorySlotContents(0, output);
-    this.updateGUI();
+    this.updateScreen();
   }
 
   @Override

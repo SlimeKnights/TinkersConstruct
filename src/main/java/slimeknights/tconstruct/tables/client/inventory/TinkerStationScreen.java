@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.tuple.Pair;
@@ -100,10 +101,10 @@ public class TinkerStationScreen<TILE extends TileEntity & IInventory, CONTAINER
     }
   }
 
-  public void error(String message) {
+  public void error(IFormattableTextComponent message) {
   }
 
-  public void warning(String message) {
+  public void warning(IFormattableTextComponent message) {
   }
 
   public void updateDisplay() {

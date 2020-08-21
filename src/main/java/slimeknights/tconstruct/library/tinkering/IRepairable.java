@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 /**
  * Items that can be repaired. They also break instead of getting removed.
  */
-public interface IRepairable {
+public interface IRepairable extends ITinkerable {
 
   /**
    * Try repairing the item with the given itemstacks.
@@ -23,4 +23,12 @@ public interface IRepairable {
    */
   @Nonnull
   ItemStack repair(ItemStack repairable, NonNullList<ItemStack> repairItems);
+
+  /**
+   * Checks to see if the item passed needs to be repaired or not.
+   *
+   * @param repairable the item to check if it needs to be repaired
+   * @return if the item needs repaired
+   */
+  boolean needsRepair(ItemStack repairable);
 }

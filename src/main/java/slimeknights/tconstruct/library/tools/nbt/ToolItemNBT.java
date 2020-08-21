@@ -8,11 +8,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
+import slimeknights.tconstruct.library.utils.TooltipType;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -39,8 +42,8 @@ public class ToolItemNBT {
     }
 
     @Override
-    public void getTooltip(ItemStack stack, List<String> tooltips) {
-      tooltips.add("Something went wrong, this shouldn't exist. Probably broken data or a bug.");
+    public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType) {
+      tooltips.add(new StringTextComponent("Something went wrong, this shouldn't exist. Probably broken data or a bug."));
     }
   });
 

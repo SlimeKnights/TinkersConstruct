@@ -3,16 +3,14 @@ package slimeknights.tconstruct.tools.harvest;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.PickaxeItem;
+import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 
-import java.util.List;
+public class PickaxeTool extends ToolCore implements IAoeTool {
 
-public class PickaxeTool extends ToolCore {
-
-  public static final ImmutableSet<Material> effective_materials =
+  public static final ImmutableSet<Material> EFFECTIVE_MATERIALS =
     ImmutableSet.of(net.minecraft.block.material.Material.IRON,
       net.minecraft.block.material.Material.ANVIL,
       net.minecraft.block.material.Material.ROCK,
@@ -27,10 +25,6 @@ public class PickaxeTool extends ToolCore {
 
   @Override
   public boolean isEffective(BlockState state) {
-    return effective_materials.contains(state.getMaterial()) || PickaxeItem.EFFECTIVE_ON.contains(state.getBlock());
-  }
-
-  @Override
-  public void getTooltip(ItemStack stack, List<String> tooltips) {
+    return EFFECTIVE_MATERIALS.contains(state.getMaterial()) || PickaxeItem.EFFECTIVE_ON.contains(state.getBlock());
   }
 }

@@ -42,8 +42,6 @@ public class ToolData {
   //List<Category> categories;
   // original stats
 
-  //private final StatsNBT stats;
-
   public ToolCore getToolItem() {
     return toolItem.getToolItem();
   }

@@ -4,7 +4,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
+import slimeknights.tconstruct.library.utils.TooltipType;
 
 import java.util.List;
 
@@ -24,7 +26,7 @@ public class TestToolCore extends ToolCore {
   }
 
   @Override
-  public void getTooltip(ItemStack stack, List<String> tooltips) {
+  public void getTooltip(ItemStack stack, List<ITextComponent> tooltips, TooltipType tooltipType) {
 
   }
 }

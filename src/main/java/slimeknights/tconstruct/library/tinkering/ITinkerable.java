@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.tinkering;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.ITextComponent;
+import slimeknights.tconstruct.library.utils.TooltipType;
 
 import java.util.List;
 
@@ -9,9 +11,4 @@ import java.util.List;
  * access the data.
  */
 public interface ITinkerable {
-
-  /**
-   * The default tooltip for the item
-   */
-  void getTooltip(ItemStack stack, List<String> tooltips);
 }
