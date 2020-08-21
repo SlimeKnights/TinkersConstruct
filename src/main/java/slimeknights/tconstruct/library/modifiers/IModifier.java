@@ -2,20 +2,11 @@ package slimeknights.tconstruct.library.modifiers;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public interface IModifier extends IToolMod {
-
-  /**
-   * Returns true if the modifier can be applied to the given itemstack.
-   * Modifiers can be applied in bulk, but each application is called separately.
-   * The original contains the unmodified tool.
-   *
-   * @throws TinkerGuiException Thrown if there is a specific reason why the modifier couldn't be applied.
-   *                            The exception contains a localized string describing what's wrong.
-   */
-  boolean canApply(ItemStack stack, ItemStack original) throws TinkerGuiException;
 
   /**
    * Apply the modifier to that itemstack. The complete procedure
@@ -54,17 +45,14 @@ public interface IModifier extends IToolMod {
    * If detailed is true also include building info like how much X already is in it. Used in the toolstation display.
    * Color tags are not necessary.
    */
-  String getTooltip(CompoundNBT modifierTag, boolean detailed);
+  ITextComponent getTooltip(CompoundNBT modifierTag, boolean detailed);
 
   /**
    * Used for specific modifiers that need a texture variant for each material
    */
-  @OnlyIn(Dist.CLIENT)
-  boolean hasTexturePerMaterial();
+  default boolean hasTexturePerMaterial() {
+    return false;
+  }
 
   boolean equalModifier(CompoundNBT modifierTag1, CompoundNBT modifierTag2);
-
-  default boolean hasItemsToApplyWith() {
-    return true;
-  }
 }
