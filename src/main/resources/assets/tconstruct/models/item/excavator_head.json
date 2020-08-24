@@ -3,5 +3,6 @@
   "parent": "forge:item/default",
   "textures": {
     "texture": "tconstruct:item/tool/excavator/head"
-  }
+  },
+  "offset": [-3,3]
 }

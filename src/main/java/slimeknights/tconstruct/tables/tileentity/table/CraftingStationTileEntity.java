@@ -56,7 +56,7 @@ public class CraftingStationTileEntity extends TableTileEntity implements LazyRe
 
   @Override
   public ItemStack calcResult() {
-    if (world == null) {
+    if (world == null || isEmpty()) {
       return ItemStack.EMPTY;
     }
     // assume empty unless we learn otherwise
