@@ -1,4 +1,4 @@
 {
-  "type": "tconstruct:tinkerable_building",
+  "type": "tconstruct:tool_building",
   "output": "tconstruct:excavator"
 }

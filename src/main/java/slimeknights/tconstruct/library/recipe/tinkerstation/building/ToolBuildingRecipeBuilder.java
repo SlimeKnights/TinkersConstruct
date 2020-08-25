@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 /**
  * Builder for a recipe that builds a tool
  */
-@RequiredArgsConstructor(staticName = "tinkerableBuildingRecipe")
+@RequiredArgsConstructor(staticName = "toolBuildingRecipe")
 public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildingRecipeBuilder> {
 
   private final ToolCore output;
@@ -57,7 +57,7 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-      return TinkerTables.tinkerableBuildingRecipeSerializer.get();
+      return TinkerTables.toolBuildingRecipeSerializer.get();
     }
 
     @Nullable

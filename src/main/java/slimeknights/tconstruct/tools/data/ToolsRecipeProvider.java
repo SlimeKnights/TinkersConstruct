@@ -326,7 +326,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     ToolCore toolCore = sup.get();
     String name = Objects.requireNonNull(toolCore.getRegistryName()).getPath();
 
-    ToolBuildingRecipeBuilder.tinkerableBuildingRecipe(toolCore)
+    ToolBuildingRecipeBuilder.toolBuildingRecipe(toolCore)
       .addCriterion("has_item", hasItem(TinkerTables.tinkerStation))
       .build(consumer, location("tinker_station/building/" + name));
   }
