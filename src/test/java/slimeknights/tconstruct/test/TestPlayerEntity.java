@@ -10,7 +10,7 @@ import java.util.UUID;
 public class TestPlayerEntity extends PlayerEntity {
 
   public TestPlayerEntity(World worldIn) {
-    super(worldIn, BlockPos.ZERO, new GameProfile(UUID.randomUUID(), "test"));
+    super(worldIn, BlockPos.ZERO, 0.0F, new GameProfile(UUID.randomUUID(), "test"));
   }
 
   @Override

@@ -9,7 +9,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 import slimeknights.mantle.client.model.inventory.ModelItem;
 import slimeknights.mantle.client.model.util.ModelHelper;
-import slimeknights.mantle.client.render.RenderUtil;
+import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.library.client.model.block.TableModel;
 
 import java.util.List;
@@ -30,11 +30,11 @@ public class TableTileEntityRenderer<T extends TileEntity & IInventory> extends 
       BlockState state = inventory.getBlockState();
       TableModel.BakedModel model = ModelHelper.getBakedModel(state, TableModel.BakedModel.class);
       if (model != null) {
-        boolean isRotated = RenderUtil.applyRotation(matrices, state);
+        boolean isRotated = RenderingHelper.applyRotation(matrices, state);
         List<ModelItem> modelItems = model.getItems();
 
         for(int i = 0; i < modelItems.size(); ++i) {
-          RenderUtil.renderItem(matrices, buffer, inventory.getStackInSlot(i), modelItems.get(i), light);
+          RenderingHelper.renderItem(matrices, buffer, inventory.getStackInSlot(i), modelItems.get(i), light);
         }
 
         if (isRotated) {

@@ -202,7 +202,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     }
 
     @Override
-    public IBakedModel func_239290_a_(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
+    public IBakedModel getOverrideModel(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
       // fetch the material from the stack
       IMaterial material = IMaterialItem.getMaterialFromStack(stack);
       // if no material on the stack, try to fetch from the tool model

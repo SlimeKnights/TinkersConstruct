@@ -24,7 +24,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.lwjgl.glfw.GLFW;
-import slimeknights.mantle.recipe.match.RecipeMatchRegistry;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -122,21 +121,6 @@ public class Util {
   public static String translateFormatted(String key, Object... pars) {
     // translates twice to allow rerouting/alias
     return I18n.format(I18n.format(key, pars).trim()).trim();
-  }
-
-  /**
-   * Returns a fixed size DEEP copy of the list
-   */
-  public static NonNullList<ItemStack> deepCopyFixedNonNullList(NonNullList<ItemStack> in) {
-    return RecipeMatchRegistry.copyItemStackArray(in);
-  }
-
-  /**
-   * @deprecated use deepCopyFixedNonNullList
-   */
-  @Deprecated
-  public static NonNullList<ItemStack> copyItemStackArray(NonNullList<ItemStack> in) {
-    return deepCopyFixedNonNullList(in);
   }
 
   /* Code for ctl and shift down  from TicTooltips by squeek502

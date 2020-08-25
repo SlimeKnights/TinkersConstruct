@@ -32,7 +32,7 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
   @Override
   public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
     ResourceLocation advancementId = this.buildAdvancement(id, "parts");
-    consumerIn.accept(new ToolBuildingRecipeBuilder.Result(id, this.getGroup(), this.output, this.advancementBuilder, advancementId));
+    consumerIn.accept(new ToolBuildingRecipeBuilder.Result(id, this.group, this.output, this.advancementBuilder, advancementId));
   }
 
   @AllArgsConstructor

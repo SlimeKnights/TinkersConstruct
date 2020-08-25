@@ -89,7 +89,7 @@ public class Geometry implements IMultipartModelGeometry<Geometry> {
     }
 
     @Override
-    public IBakedModel func_239290_a_(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
+    public IBakedModel getOverrideModel(IBakedModel originalModel, ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity entity) {
       CompositeModel model = (CompositeModel) originalModel;
       ImmutableMap.Builder<String, IBakedModel> bakedParts = ImmutableMap.builder();
       // store all the baked models in an array to use as a hash key
@@ -99,7 +99,7 @@ public class Geometry implements IMultipartModelGeometry<Geometry> {
         IBakedModel part = model.getPart(key);
         if (part != null) {
           // apply the overrides on the model
-          IBakedModel override = part.getOverrides().func_239290_a_(part, stack, world, entity);
+          IBakedModel override = part.getOverrides().getOverrideModel(part, stack, world, entity);
           // fallback to the untextured model if none
           if (override != null) {
             hashKey[i] = override;
@@ -111,7 +111,7 @@ public class Geometry implements IMultipartModelGeometry<Geometry> {
         }
       }
       // skip overrides, we already have them
-      return cache.computeIfAbsent(new QuickHash(hashKey), (key) -> new CompositeModel(model.isGui3d(), model.func_230044_c_(), model.isAmbientOcclusion(), model.getParticleTexture(), bakedParts.build(), originalTransform, this));
+      return cache.computeIfAbsent(new QuickHash(hashKey), (key) -> new CompositeModel(model.isGui3d(), model.isSideLit(), model.isAmbientOcclusion(), model.getParticleTexture(), bakedParts.build(), originalTransform, this));
     }
   }
 

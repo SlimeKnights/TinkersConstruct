@@ -70,7 +70,7 @@ public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<Contain
   @Override
   public void build(Consumer<IFinishedRecipe> consumerIn, ResourceLocation id) {
     ResourceLocation advancementId = this.buildAdvancement(id, "casting");
-    consumerIn.accept(new ContainerFillingRecipeBuilder.Result(id, this.getGroup(), this.fluidAmount, this.result, this.advancementBuilder, advancementId, this.recipeSerializer));
+    consumerIn.accept(new ContainerFillingRecipeBuilder.Result(id, this.group, this.fluidAmount, this.result, this.advancementBuilder, advancementId, this.recipeSerializer));
   }
 
   @AllArgsConstructor

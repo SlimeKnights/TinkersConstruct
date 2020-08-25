@@ -40,7 +40,7 @@ public class MaterialNBT {
       return EMPTY;
     }
     ListNBT listNBT = (ListNBT) nbt;
-    if (listNBT.func_230528_d__() != Constants.NBT.TAG_STRING) {
+    if (listNBT.getTagType() != Constants.NBT.TAG_STRING) {
       return EMPTY;
     }
 

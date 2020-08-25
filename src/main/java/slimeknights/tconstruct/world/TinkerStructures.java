@@ -6,7 +6,6 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.placement.CountRangeConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -113,17 +112,16 @@ public final class TinkerStructures extends TinkerModule {
     */
 
     // add islands and ores to worldgen
+    /*
     ForgeRegistries.BIOMES.forEach(biome -> {
       // nether slime island to the nether
       // nether ores to the nether
       if (biome.getCategory() == Biome.Category.NETHER) {
         // FIXME: constant config
-        /*
         if (Config.COMMON.generateSlimeIslands.get()) {
           biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, netherSlimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
           biome.addStructure(netherSlimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
         }
-        */
 
         // FIXME: constant config
         if (Config.COMMON.generateCobalt.get()) {
@@ -136,13 +134,11 @@ public final class TinkerStructures extends TinkerModule {
       // overworld islands to the overworld
       } else if (biome.getCategory() != Biome.Category.THEEND) {
         // FIXME: constant config
-        /*
         if (Config.COMMON.generateSlimeIslands.get()) {
           biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, slimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
           biome.addStructure(slimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
           biome.getSpawns(EntityClassification.MONSTER).add(new Biome.SpawnListEntry(TinkerWorld.blueSlimeEntity.get(), 15, 2, 4));
         }
-        */
 
         if (Config.COMMON.generateCopper.get()) {
           biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
@@ -151,6 +147,7 @@ public final class TinkerStructures extends TinkerModule {
         }
       }
     });
+    */
   }
 
   /**
@@ -162,11 +159,13 @@ public final class TinkerStructures extends TinkerModule {
   private static void addNetherOre(Biome biome, Supplier<? extends Block> block, ConfigValue<Integer> count) {
     // FIXME: constant config
     int veinCount = count.get() / 2;
+    /*
     biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION,
                      Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, block.get().getDefaultState(), 5))
                                 .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(veinCount, 32, 0, 64))));
     biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION,
                      Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, block.get().getDefaultState(), 5))
                                 .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(veinCount, 0, 0, 128))));
+     */
   }
 }
