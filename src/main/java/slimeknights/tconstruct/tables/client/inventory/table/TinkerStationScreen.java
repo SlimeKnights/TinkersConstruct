@@ -276,7 +276,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
   @Override
   protected void drawContainerName(MatrixStack matrixStack) {
-    this.font.func_238422_b_(matrixStack, this.getTitle(), 8.0F, 8.0F, 4210752);
+    this.font.func_243248_b(matrixStack, this.getTitle(), 8.0F, 8.0F, 4210752);
   }
 
   @Override
@@ -415,7 +415,8 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
         this.buttonDecorationTop.draw(matrices, button.x, button.y - this.buttonDecorationTop.h);
         // don't draw the bottom for the buttons in the last row
         if (button.buttonId < this.buttonsScreen.getButtons().size() - COLUMN_COUNT) {
-          this.buttonDecorationBot.draw(matrices, button.x, button.y + button.getHeight());
+          // TODO: getHeightRealms()->getHeight()
+          this.buttonDecorationBot.draw(matrices, button.x, button.y + button.getHeightRealms());
         }
       }
     }

@@ -46,7 +46,7 @@ public class MeltingFuelBuilder extends AbstractRecipeBuilder<MeltingFuelBuilder
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
     ResourceLocation advancementId = this.buildAdvancement(id, "melting_fuel");
-    consumer.accept(new Result(id, getGroup(), input, duration, temperature, advancementBuilder, advancementId));
+    consumer.accept(new Result(id, group, input, duration, temperature, advancementBuilder, advancementId));
   }
 
   @AllArgsConstructor

@@ -18,7 +18,7 @@ import slimeknights.mantle.client.model.fluid.FluidCuboid;
 import slimeknights.mantle.client.model.fluid.FluidsModel;
 import slimeknights.mantle.client.model.util.ModelHelper;
 import slimeknights.mantle.client.render.FluidRenderer;
-import slimeknights.mantle.client.render.RenderUtil;
+import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
 import slimeknights.tconstruct.smeltery.client.FaucetFluidLoader;
 import slimeknights.tconstruct.smeltery.client.FaucetFluidLoader.FaucetFluid;
@@ -50,7 +50,7 @@ public class FaucetTileEntityRenderer extends TileEntityRenderer<FaucetTileEntit
     if (model != null) {
       // if side, rotate fluid model
       Direction direction = state.get(FaucetBlock.FACING).getOpposite();
-      boolean isRotated = RenderUtil.applyRotation(matrices, direction);
+      boolean isRotated = RenderingHelper.applyRotation(matrices, direction);
 
       // fluid props
       FluidAttributes attributes = drained.getFluid().getAttributes();

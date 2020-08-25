@@ -45,7 +45,7 @@ public class AxeTool extends ToolCore implements IAoeTool {
 
   @Override
   public boolean isEffective(BlockState state) {
-    return EFFECTIVE_MATERIALS.contains(state.getMaterial()) || AxeItem.field_150917_d_.contains(state.getBlock());
+    return EFFECTIVE_MATERIALS.contains(state.getMaterial()) || AxeItem.EFFECTIVE_ON_BLOCKS.contains(state.getBlock());
   }
 
   @Override

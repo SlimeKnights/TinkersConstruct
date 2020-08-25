@@ -34,7 +34,7 @@ public class HandleMaterialStats extends BaseMaterialStats {
   public final static String DURABILITY_DESCRIPTION_LOCALIZATION = "stat.handle.durability.description";
 
   public final static Color DURABILITY_COLOR = HeadMaterialStats.DURABILITY_COLOR;
-  public final static Color MODIFIER_COLOR = Color.func_240743_a_(0xFFB9B95A);
+  public final static Color MODIFIER_COLOR = Color.fromInt(0xFFB9B95A);
 
   private float modifier;
   private int durability;
