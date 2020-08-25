@@ -6,13 +6,13 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
+import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.module.SideInventoryScreen;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.inventory.table.CraftingStationContainer;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 
-public class CraftingStationScreen extends TinkerStationScreen<CraftingStationTileEntity, CraftingStationContainer> {
+public class CraftingStationScreen extends BaseStationScreen<CraftingStationTileEntity, CraftingStationContainer> {
   private static final ResourceLocation CRAFTING_TABLE_GUI_TEXTURES = new ResourceLocation("textures/gui/container/crafting_table.png");
 
   public CraftingStationScreen(CraftingStationContainer container, PlayerInventory playerInventory, ITextComponent title) {

@@ -13,7 +13,7 @@ import net.minecraft.util.text.ITextComponent;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.TabsWidget;
-import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
+import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 
 import java.util.List;
 
@@ -27,9 +27,9 @@ public class TinkerTabsScreen extends ModuleScreen {
   public TabsWidget tabs;
   public List<BlockPos> tabData;
 
-  public final TinkerStationScreen parent;
+  public final BaseStationScreen parent;
 
-  public TinkerTabsScreen(TinkerStationScreen parent, Container container, PlayerInventory playerInventory, ITextComponent title) {
+  public TinkerTabsScreen(BaseStationScreen parent, Container container, PlayerInventory playerInventory, ITextComponent title) {
     super(parent, container, playerInventory, title, false, false);
 
     this.parent = parent;

@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 /**
- * Builder for a recipe to determine the mateiral from an input
+ * Builder for a recipe to determine the material from an input
  */
 @RequiredArgsConstructor(staticName = "materialRecipe")
 public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeBuilder> {

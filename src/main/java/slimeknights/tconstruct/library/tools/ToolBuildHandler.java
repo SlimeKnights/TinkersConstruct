@@ -23,9 +23,7 @@ public final class ToolBuildHandler {
    * @return The built item or null if invalid input.
    */
   public static ItemStack buildItemFromStacks(NonNullList<ItemStack> stacks, ToolCore tool) {
-    List<PartMaterialRequirement> requiredComponents = tool.getToolDefinition().getRequiredComponents();
-
-    if (stacks.size() != requiredComponents.size() || !canBeBuiltFromParts(stacks, requiredComponents)) {
+    if (!canToolBeBuilt(stacks, tool)) {
       return ItemStack.EMPTY;
     }
 
@@ -58,11 +56,24 @@ public final class ToolBuildHandler {
   }
 
   /**
-   * Checks if the tool can be built from the given input stacks
+   * Checks if the tool can be built from the given items
+   *
+   * @param stacks the input items
+   * @param tool the tool
+   * @return if the given tool can be built from the items
+   */
+  public static boolean canToolBeBuilt(NonNullList<ItemStack> stacks, ToolCore tool) {
+    List<PartMaterialRequirement> requiredComponents = tool.getToolDefinition().getRequiredComponents();
+
+    return stacks.size() == requiredComponents.size() && canBeBuiltFromParts(stacks, requiredComponents);
+  }
+
+  /**
+   * Checks if the tool can be built from the given parts
    *
    * @param stacks the input items
    * @param requiredComponents the required components
-   * @return if the given tool can be built from the given inputs
+   * @return if the given tool can be built from the given parts
    */
   private static boolean canBeBuiltFromParts(NonNullList<ItemStack> stacks, List<PartMaterialRequirement> requiredComponents) {
     return Streams.zip(requiredComponents.stream(), stacks.stream(), PartMaterialRequirement::isValid).allMatch(Boolean::booleanValue);

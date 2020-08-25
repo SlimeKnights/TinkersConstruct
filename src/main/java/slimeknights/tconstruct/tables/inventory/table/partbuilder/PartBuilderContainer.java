@@ -19,14 +19,14 @@ import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.client.inventory.table.ResultSlot;
-import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
+import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTileEntity> implements IContainerCraftingCustom {
+public class PartBuilderContainer extends BaseStationContainer<PartBuilderTileEntity> implements IContainerCraftingCustom {
 
   // recipe
   private final IntReferenceHolder selectedRecipe = IntReferenceHolder.single();

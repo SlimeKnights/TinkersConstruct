@@ -4,19 +4,19 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
-import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
+import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.library.ScalingChestScreen;
-import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
+import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.inventory.chest.PartChestContainer;
 import slimeknights.tconstruct.tables.tileentity.chest.PartChestTileEntity;
 
-public class PartChestScreen extends TinkerStationScreen<PartChestTileEntity, TinkerStationContainer<PartChestTileEntity>> {
+public class PartChestScreen extends BaseStationScreen<PartChestTileEntity, BaseStationContainer<PartChestTileEntity>> {
 
   protected static final ScalableElementScreen BACKGROUND = new ScalableElementScreen(7 + 18, 7, 18, 18);
 
   public ScalingChestScreen<PartChestTileEntity> scalingChestScreen;
 
-  public PartChestScreen(TinkerStationContainer<PartChestTileEntity> container, PlayerInventory playerInventory, ITextComponent title) {
+  public PartChestScreen(BaseStationContainer<PartChestTileEntity> container, PlayerInventory playerInventory, ITextComponent title) {
     super(container, playerInventory, title);
 
     // FIXME: nullable

@@ -106,16 +106,6 @@ public class InfoPanelScreen extends ModuleScreen {
     this.updateSliderParameters();
   }
 
-  public void setText(String... text) {
-    List<ITextComponent> textComponents = new ArrayList<>();
-
-    for (String s : text) {
-      textComponents.add(new StringTextComponent(s));
-    }
-
-    this.setText(textComponents, null);
-  }
-
   public void setText(ITextComponent... text) {
     List<ITextComponent> textComponents = new ArrayList<>(Arrays.asList(text));
 

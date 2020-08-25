@@ -15,10 +15,11 @@ import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.DistExecutor;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.mantle.inventory.MultiModuleContainer;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
-import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
+import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 
 import javax.annotation.Nullable;
 import java.util.Comparator;
@@ -26,14 +27,14 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-public class TinkerStationContainer<TILE extends TileEntity & IInventory> extends MultiModuleContainer<TILE> {
+public class BaseStationContainer<TILE extends TileEntity & IInventory> extends MultiModuleContainer<TILE> {
 
-  public final List<Pair<BlockPos, BlockState>> tinkerStationBlocks;
+  public final List<Pair<BlockPos, BlockState>> stationBlocks;
 
-  public TinkerStationContainer(ContainerType<?> containerType, int id, @Nullable PlayerInventory inv, @Nullable TILE tile) {
+  public BaseStationContainer(ContainerType<?> containerType, int id, @Nullable PlayerInventory inv, @Nullable TILE tile) {
     super(containerType, id, inv, tile);
 
-    this.tinkerStationBlocks = Lists.newLinkedList();
+    this.stationBlocks = Lists.newLinkedList();
 
     if (tile != null && tile.getWorld() != null) {
       this.detectStationParts(tile.getWorld(), tile.getPos());
@@ -92,25 +93,23 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
 
       if (!found.contains(number)) {
         found.add(number);
-        this.tinkerStationBlocks.add(Pair.of(pos, state));
+        this.stationBlocks.add(Pair.of(pos, state));
       }
     }
 
     // sort the found blocks by priority
-    TinkerStationContainer.TinkerBlockComp comp = new TinkerStationContainer.TinkerBlockComp();
-    this.tinkerStationBlocks.sort(comp);
+    BaseStationContainer.TinkerBlockComp comp = new BaseStationContainer.TinkerBlockComp();
+    this.stationBlocks.sort(comp);
   }
 
   /**
    * Sends a update to the client's current screen.
    */
   public void updateScreen() {
-    if (this.tile != null) {
-      if (this.tile.getWorld() != null) {
-        if (tile.getWorld().isRemote) {
-          Minecraft.getInstance().execute(TinkerStationContainer::clientScreenUpdate);
-        }
-      }
+    assert this.tile != null;
+    assert this.tile.getWorld() != null;
+    if (this.tile.getWorld().isRemote) {
+      DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> BaseStationContainer::clientScreenUpdate);
     }
   }
 
@@ -118,12 +117,10 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
    * Tells the client to display the LOCALIZED error message
    */
   public void error(final IFormattableTextComponent message) {
-    if (this.tile != null) {
-      if (this.tile.getWorld() != null) {
-        if (tile.getWorld().isRemote) {
-          Minecraft.getInstance().execute(() -> TinkerStationContainer.clientError(message));
-        }
-      }
+    assert this.tile != null;
+    assert this.tile.getWorld() != null;
+    if (this.tile.getWorld().isRemote) {
+      DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BaseStationContainer.clientError(message));
     }
   }
 
@@ -131,12 +128,10 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
    * Tells the client to display the LOCALIZED warning message
    */
   public void warning(final IFormattableTextComponent message) {
-    if (this.tile != null) {
-      if (this.tile.getWorld() != null) {
-        if (tile.getWorld().isRemote) {
-          Minecraft.getInstance().execute(() -> TinkerStationContainer.clientWarning(message));
-        }
-      }
+    assert this.tile != null;
+    assert this.tile.getWorld() != null;
+    if (this.tile.getWorld().isRemote) {
+      DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BaseStationContainer.clientWarning(message));
     }
   }
 
@@ -146,8 +141,8 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
   @OnlyIn(Dist.CLIENT)
   private static void clientScreenUpdate() {
     Screen screen = Minecraft.getInstance().currentScreen;
-    if (screen instanceof TinkerStationScreen) {
-      ((TinkerStationScreen) screen).updateDisplay();
+    if (screen instanceof BaseStationScreen) {
+      ((BaseStationScreen) screen).updateDisplay();
     }
   }
 
@@ -159,8 +154,8 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
   @OnlyIn(Dist.CLIENT)
   private static void clientError(IFormattableTextComponent errorMessage) {
     Screen screen = Minecraft.getInstance().currentScreen;
-    if (screen instanceof TinkerStationScreen) {
-      ((TinkerStationScreen) screen).error(errorMessage);
+    if (screen instanceof BaseStationScreen) {
+      ((BaseStationScreen) screen).error(errorMessage);
     }
   }
 
@@ -172,8 +167,8 @@ public class TinkerStationContainer<TILE extends TileEntity & IInventory> extend
   @OnlyIn(Dist.CLIENT)
   private static void clientWarning(IFormattableTextComponent warningMessage) {
     Screen screen = Minecraft.getInstance().currentScreen;
-    if (screen instanceof TinkerStationScreen) {
-      ((TinkerStationScreen) screen).warning(warningMessage);
+    if (screen instanceof BaseStationScreen) {
+      ((BaseStationScreen) screen).warning(warningMessage);
     }
   }
 

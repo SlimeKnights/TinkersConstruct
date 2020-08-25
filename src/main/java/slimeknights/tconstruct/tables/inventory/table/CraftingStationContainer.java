@@ -19,14 +19,14 @@ import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
-import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
+import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-public class CraftingStationContainer extends TinkerStationContainer<CraftingStationTileEntity> {
+public class CraftingStationContainer extends BaseStationContainer<CraftingStationTileEntity> {
   private final LazyResultSlot resultSlot;
 
   /**
@@ -60,7 +60,7 @@ public class CraftingStationContainer extends TinkerStationContainer<CraftingSta
       horizontals: for (Direction dir : Direction.Plane.HORIZONTAL) {
         // skip any tables in this multiblock
         BlockPos neighbor = pos.offset(dir);
-        for (Pair<BlockPos, BlockState> tinkerPos : this.tinkerStationBlocks) {
+        for (Pair<BlockPos, BlockState> tinkerPos : this.stationBlocks) {
           if (tinkerPos.getLeft().equals(neighbor)) {
             continue horizontals;
           }

@@ -25,7 +25,10 @@ import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
+import slimeknights.tconstruct.library.tinkering.ITinkerable;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -33,6 +36,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
@@ -52,6 +56,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     this.addMaterialsRecipes(consumer);
     this.addToolMaterialRecipes(consumer);
     this.addPartRecipes(consumer);
+    this.addTinkerStationRecipes(consumer);
   }
 
 
@@ -304,6 +309,30 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.slimeleaf_blue, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.BLUE)), 1, 2, "slimeleaf_blue");
     registerMaterial(consumer, MaterialIds.slimeleaf_orange, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ORANGE)), 1, 2, "slimeleaf_orange");
     registerMaterial(consumer, MaterialIds.slimeleaf_purple, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.PURPLE)), 1, 2, "slimeleaf_purple");
+  }
+
+  private void addTinkerStationRecipes(Consumer<IFinishedRecipe> consumer) {
+    registerBuildingRecipe(consumer, TinkerTools.pickaxe);
+    registerBuildingRecipe(consumer, TinkerTools.hammer);
+
+    registerBuildingRecipe(consumer, TinkerTools.shovel);
+    registerBuildingRecipe(consumer, TinkerTools.excavator);
+
+    registerBuildingRecipe(consumer, TinkerTools.axe);
+
+    registerBuildingRecipe(consumer, TinkerTools.kama);
+
+    registerBuildingRecipe(consumer, TinkerTools.broadSword);
+  }
+
+  private void registerBuildingRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends ToolCore> sup) {
+    // Base data
+    ToolCore toolCore = sup.get();
+    String name = Objects.requireNonNull(toolCore.getRegistryName()).getPath();
+
+    ToolBuildingRecipeBuilder.tinkerableBuildingRecipe(toolCore)
+      .addCriterion("has_item", hasItem(TinkerTables.tinkerStation))
+      .build(consumer, location("tinker_station/building/" + name));
   }
 
 

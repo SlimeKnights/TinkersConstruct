@@ -23,14 +23,14 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
-import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
+import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
 import java.util.List;
 import java.util.function.Function;
 
-public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity, PartBuilderContainer> {
+public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, PartBuilderContainer> {
 
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/partbuilder.png");
 
@@ -136,7 +136,7 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     } else {
       // default text
       this.infoPanelScreen.setCaption(this.getTitle());
-      this.infoPanelScreen.setText(ForgeI18n.getPattern("gui.tconstruct.part_builder.info"));
+      this.infoPanelScreen.setText(new TranslationTextComponent("gui.tconstruct.part_builder.info"));
       this.infoPanelScreen.clearMaterialValue();
     }
   }

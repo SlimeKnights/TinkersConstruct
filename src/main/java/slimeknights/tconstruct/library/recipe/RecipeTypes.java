@@ -8,6 +8,7 @@ import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 
 /**
  * Class containing all of Tinkers Construct recipe types
@@ -15,6 +16,7 @@ import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 public interface RecipeTypes {
   IRecipeType<PartRecipe> PART_BUILDER = register("part_builder");
   IRecipeType<MaterialRecipe> MATERIAL = register("material");
+  IRecipeType<ITinkerStationRecipe> TINKER_STATION = register("tinker_station");
 
   // casting
   IRecipeType<ICastingRecipe> CASTING_BASIN = register("casting_basin");

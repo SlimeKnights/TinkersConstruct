@@ -13,14 +13,14 @@ import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
 
-public class TinkerStationTabPacket implements IThreadsafePacket {
+public class StationTabPacket implements IThreadsafePacket {
 
   private BlockPos pos;
-  public TinkerStationTabPacket(BlockPos blockPos) {
+  public StationTabPacket(BlockPos blockPos) {
     this.pos = blockPos;
   }
 
-  public TinkerStationTabPacket(PacketBuffer buffer) {
+  public StationTabPacket(PacketBuffer buffer) {
     this.pos = buffer.readBlockPos();
   }
 

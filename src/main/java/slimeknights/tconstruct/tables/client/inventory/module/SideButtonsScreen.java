@@ -80,4 +80,8 @@ public class SideButtonsScreen extends ModuleScreen {
       button.render(matrices, mouseX, mouseY, partialTicks);
     }
   }
+
+  @Override
+  protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+  }
 }
