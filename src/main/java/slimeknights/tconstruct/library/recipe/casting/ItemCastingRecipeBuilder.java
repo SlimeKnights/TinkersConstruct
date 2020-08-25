@@ -170,7 +170,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
       throw new IllegalStateException("Cooling time is too low, must be at least 0");
     }
     ResourceLocation advancementId = this.buildAdvancement(id, "casting");
-    consumer.accept(new ItemCastingRecipeBuilder.Result(id, this.getGroup(), this.consumed, this.switchSlots, this.fluid, this.cast, this.result, this.coolingTime, this.advancementBuilder, advancementId, this.recipeSerializer));
+    consumer.accept(new ItemCastingRecipeBuilder.Result(id, this.group, this.consumed, this.switchSlots, this.fluid, this.cast, this.result, this.coolingTime, this.advancementBuilder, advancementId, this.recipeSerializer));
   }
 
   @AllArgsConstructor

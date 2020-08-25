@@ -6,6 +6,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.IFormattableTextComponent;
@@ -212,7 +213,8 @@ public class InfoPanelScreen extends ModuleScreen {
         continue;
       }
 
-      lines.addAll(this.font.func_238425_b_(textComponent, w));
+      // TODO: Not sure
+      // lines.addAll(this.font.func_238425_b_(textComponent, w));
     }
 
     return lines;
@@ -313,7 +315,7 @@ public class InfoPanelScreen extends ModuleScreen {
       w = 100;
     }
 
-    List<ITextProperties> lines = this.font.func_238425_b_(this.tooltips.get(i), w);
+    List<IReorderingProcessor> lines = this.font.func_238425_b_(this.tooltips.get(i), w);
 
     this.renderTooltip(matrices, lines, mouseX - this.guiLeft, mouseY - this.guiTop - lines.size() * this.font.FONT_HEIGHT / 2);
   }
@@ -339,7 +341,8 @@ public class InfoPanelScreen extends ModuleScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.func_238414_a_(this.caption) / 2;
 
-      this.font.func_238407_a_(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE), (float) this.guiLeft + x2, y, color);
+      // TODO: Not sure
+      // this.font.func_238407_a_(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE), (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
 
@@ -362,7 +365,8 @@ public class InfoPanelScreen extends ModuleScreen {
       }
 
       ITextProperties line = iter.next();
-      this.font.func_238407_a_(matrices, line, x, y, color);
+      // TODO: Not sure
+      // this.font.func_238407_a_(matrices, line, x, y, color);
       y += textHeight;
     }
 

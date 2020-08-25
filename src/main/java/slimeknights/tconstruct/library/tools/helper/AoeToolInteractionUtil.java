@@ -25,6 +25,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.common.util.Constants;
@@ -133,7 +134,7 @@ public class AoeToolInteractionUtil {
       if (block.removedByPlayer(state, world, pos, player, true, fluidState)) { // boolean is if block can be harvested, checked above
         block.onPlayerDestroy(world, pos, state);
         block.harvestBlock(world, player, pos, state, tileEntity, tool);
-        block.dropXpOnBlockBreak(world, pos, xp);
+        block.dropXpOnBlockBreak((ServerWorld) world, pos, xp);
       }
 
       TinkerNetwork.getInstance().sendVanillaPacket(player, new SChangeBlockPacket(world, pos));

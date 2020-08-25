@@ -149,7 +149,8 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
         FluidTooltipHandler.appendShift(tooltip);
       }
 
-      this.renderTooltip(matrices, tooltip, mouseX, mouseY);
+      // TODO: func_243308_b->renderTooltip
+      this.func_243308_b(matrices, tooltip, mouseX, mouseY);
     }
     
     drawHeatTooltips(matrices, mouseX, mouseY);
@@ -178,7 +179,8 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
         tooltip = Collections.singletonList(new TranslationTextComponent(TOOLTIP_NO_FUEL));
       }
 
-      this.renderTooltip(matrices, tooltip, mouseX, mouseY);
+      // TODO: func_243308_b->renderTooltip
+      this.func_243308_b(matrices, tooltip, mouseX, mouseY);
     }
   }
 

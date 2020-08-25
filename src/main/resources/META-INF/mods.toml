@@ -2,6 +2,7 @@ modLoader="javafml"
 loaderVersion="[24,)"
 issueTrackerURL="https://github.com/SlimeKnights/TinkersConstruct/issues"
 logoFile="logo.png"
+license="MIT"
 
 [[mods]]
     modId="tconstruct"

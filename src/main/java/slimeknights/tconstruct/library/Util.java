@@ -24,7 +24,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 import org.lwjgl.glfw.GLFW;
-import slimeknights.mantle.recipe.match.RecipeMatchRegistry;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -128,7 +127,9 @@ public class Util {
    * Returns a fixed size DEEP copy of the list
    */
   public static NonNullList<ItemStack> deepCopyFixedNonNullList(NonNullList<ItemStack> in) {
-    return RecipeMatchRegistry.copyItemStackArray(in);
+    // TODO: Not sure how to migrate. Not used aside from copyItemStackArray
+    // return RecipeMatchRegistry.copyItemStackArray(in);
+    return in;
   }
 
   /**

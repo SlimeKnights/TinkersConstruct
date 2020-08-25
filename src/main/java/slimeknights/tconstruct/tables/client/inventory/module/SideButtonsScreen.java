@@ -30,11 +30,13 @@ public class SideButtonsScreen extends ModuleScreen {
     int rows = (this.buttonCount - 1) / this.columns + 1;
 
     this.xSize = button.getWidth() * this.columns + this.spacing * (this.columns - 1);
-    this.ySize = button.getHeight() * rows + this.spacing * (rows - 1);
+    // TODO: getWidth_CLASH->getHeight()
+    this.ySize = button.getWidth_CLASH() * rows + this.spacing * (rows - 1);
 
     int offset = this.buttonCount;
     int x = (offset % columns) * (button.getWidth() + this.spacing);
-    int y = (offset / columns) * (button.getHeight() + this.spacing);
+    // TODO: getWidth_CLASH->getHeight()
+    int y = (offset / columns) * (button.getWidth_CLASH() + this.spacing);
 
     button.x = guiLeft + x;
     button.y = guiTop + y;

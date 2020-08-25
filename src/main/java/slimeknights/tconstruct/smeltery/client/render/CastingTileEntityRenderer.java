@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import slimeknights.mantle.client.model.inventory.ModelItem;
 import slimeknights.mantle.client.model.util.ModelHelper;
-import slimeknights.mantle.client.render.RenderUtil;
+import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.client.model.block.CastingModel;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
@@ -28,7 +28,7 @@ public class CastingTileEntityRenderer extends TileEntityRenderer<AbstractCastin
     CastingModel.BakedModel model = ModelHelper.getBakedModel(state, CastingModel.BakedModel.class);
     if (model != null) {
       // rotate the matrix
-      boolean isRotated = RenderUtil.applyRotation(matrices, state);
+      boolean isRotated = RenderingHelper.applyRotation(matrices, state);
 
       // if the recipe is in progress, start fading the item away
       int timer = casting.getTimer();
@@ -61,13 +61,13 @@ public class CastingTileEntityRenderer extends TileEntityRenderer<AbstractCastin
       List<ModelItem> modelItems = model.getItems();
       // input is normal
       if (modelItems.size() >= 1) {
-        RenderUtil.renderItem(matrices, buffer, casting.getStackInSlot(0), modelItems.get(0), light);
+        RenderingHelper.renderItem(matrices, buffer, casting.getStackInSlot(0), modelItems.get(0), light);
       }
 
       // output may be the recipe output instead of the current item
       if (modelItems.size() >= 2) {
         ModelItem outputModel = modelItems.get(1);
-        if(!outputModel.isEmpty()) {
+        if(!outputModel.isHidden()) {
           // get output stack
           ItemStack output = casting.getStackInSlot(1);
           IRenderTypeBuffer outputBuffer = buffer;
@@ -76,7 +76,7 @@ public class CastingTileEntityRenderer extends TileEntityRenderer<AbstractCastin
             // apply a buffer wrapper to tint and add opacity
             outputBuffer = new CastingItemRenderTypeBuffer(buffer, itemOpacity, fluidOpacity);
           }
-          RenderUtil.renderItem(matrices, outputBuffer, output, outputModel, light);
+          RenderingHelper.renderItem(matrices, outputBuffer, output, outputModel, light);
         }
       }
 

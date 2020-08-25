@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.IFormattableTextComponent;
@@ -181,7 +182,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       w = 100;
     }
 
-    List<ITextProperties> lines = this.font.func_238425_b_(this.tooltips.get(i), w);
+    List<IReorderingProcessor> lines = this.font.func_238425_b_(this.tooltips.get(i), w);
 
     this.renderTooltip(matrices, lines, mouseX - this.guiLeft, mouseY - this.guiTop - lines.size() * this.font.FONT_HEIGHT / 2);
   }
@@ -208,7 +209,8 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.func_238414_a_(this.caption) / 2;
 
-      this.font.func_238407_a_(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE), (float) this.guiLeft + x2, y, color);
+      // TODO: Not sure
+      // this.font.func_238407_a_(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE), (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
 
@@ -217,7 +219,8 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.func_238414_a_(this.patternCost) / 2;
 
-      this.font.func_238407_a_(matrices, this.patternCost.mergeStyle(TextFormatting.GOLD), (float) this.guiLeft + x2, y, color);
+      // TODO: Not sure
+      // this.font.func_238407_a_(matrices, this.patternCost.mergeStyle(TextFormatting.GOLD), (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
 
@@ -226,7 +229,8 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       int x2 = this.xSize / 2;
       x2 -= this.font.func_238414_a_(this.materialValue) / 2;
 
-      this.font.func_238407_a_(matrices, this.materialValue.modifyStyle(style -> style.setColor(Color.func_240743_a_(0x7fffff))), (float) this.guiLeft + x2, y, color);
+      // TODO: Not sure
+      // this.font.func_238407_a_(matrices, this.materialValue.modifyStyle(style -> style.setColor(Color.func_240743_a_(0x7fffff))), (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
 
@@ -249,7 +253,8 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       }
 
       ITextProperties line = iter.next();
-      this.font.func_238407_a_(matrices, line, x, y, color);
+      // TODO: Not sure
+      // this.font.func_238407_a_(matrices, line, x, y, color);
       y += textHeight;
     }
 

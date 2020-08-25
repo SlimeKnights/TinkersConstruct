@@ -93,7 +93,8 @@ public class TinkerTabsScreen extends ModuleScreen {
       ItemStack stack = new ItemStack(state.getBlock(), 1);
 
       // the origin has been translated to the top left of this gui rather than the screen, so we have to adjust
-      this.renderTooltip(matrices, Lists.newArrayList(stack.getDisplayName()), mouseX - this.guiLeft, mouseY - this.guiTop);
+      // TODO: func_243308_b->renderTooltip
+      this.func_243308_b(matrices, Lists.newArrayList(stack.getDisplayName()), mouseX - this.guiLeft, mouseY - this.guiTop);
     }
   }
 }

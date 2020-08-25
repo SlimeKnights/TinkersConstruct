@@ -56,7 +56,7 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
       throw new IllegalStateException("recipe " + id + " has no pattern associated with it");
     }
     ResourceLocation advancementId = this.buildAdvancement(id, "parts");
-    consumerIn.accept(new Result(id, this.getGroup(), this.output, this.outputAmount, this.cost, this.pattern, this.advancementBuilder, advancementId));
+    consumerIn.accept(new Result(id, this.group, this.output, this.outputAmount, this.cost, this.pattern, this.advancementBuilder, advancementId));
   }
 
   @AllArgsConstructor

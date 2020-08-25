@@ -81,7 +81,7 @@ public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeB
       throw new IllegalStateException("recipe " + id + " has no needed associated with it");
     }
     ResourceLocation advancementId = this.buildAdvancement(id, "materials");
-    consumerIn.accept(new Result(id, this.getGroup(), this.ingredient, this.material, this.value, this.needed, this.advancementBuilder, advancementId));
+    consumerIn.accept(new Result(id, this.group, this.ingredient, this.material, this.value, this.needed, this.advancementBuilder, advancementId));
   }
 
   @AllArgsConstructor
