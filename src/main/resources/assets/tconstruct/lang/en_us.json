@@ -383,6 +383,8 @@
 
     "block.tconstruct.crafting_station": "Crafting Station",
 
+    "block.tconstruct.tinker_station": "Tinker Station",
+
     "block.tconstruct.part_builder": "Part Builder",
 
     "block.tconstruct.part_chest": "Part Chest",
@@ -719,12 +721,13 @@
     "gui.tconstruct.cast_chest": "Cast Chest",
     "gui.tconstruct.part_chest": "Part Chest",
 
-    "gui.tconstruct.tool_station": "Tool Station",
-    "gui.tconstruct.tool_station.repair": "Repair & Modify",
-    "gui.tconstruct.tool_station.traits": "Traits",
-    "gui.tconstruct.tool_station.components": "Components",
-    "gui.tconstruct.tool_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
-    "gui.tconstruct.tool_station.no_traits": "None :[",
+    "gui.tconstruct.tinker_station": "Tinker Station",
+    "gui.tconstruct.tinker_station.repair": "Repair & Modify",
+    "gui.tconstruct.tinker_station.traits": "Traits",
+    "gui.tconstruct.tinker_station.components": "Components",
+    "gui.tconstruct.tinker_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
+    "gui.tconstruct.tinker_station.no_traits": "None :[",
+    "gui.tconstruct.tinker_station.traits.coming_soon": "Traits coming soon",
 
     "_comment": "GUIs Messages",
 

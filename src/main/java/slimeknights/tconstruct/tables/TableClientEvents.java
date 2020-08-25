@@ -16,11 +16,13 @@ import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.block.TableModel;
 import slimeknights.tconstruct.tables.client.PatternGuiTextureLoader;
+import slimeknights.tconstruct.tables.client.SlotInformationLoader;
 import slimeknights.tconstruct.tables.client.TableTileEntityRenderer;
 import slimeknights.tconstruct.tables.client.inventory.chest.PartChestScreen;
 import slimeknights.tconstruct.tables.client.inventory.chest.PatternChestScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.CraftingStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.table.PartBuilderScreen;
+import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)
@@ -31,6 +33,7 @@ public class TableClientEvents extends ClientEventBase {
    */
   public static void addResourceListener(IReloadableResourceManager manager) {
     manager.addReloadListener(PatternGuiTextureLoader.INSTANCE);
+    manager.addReloadListener(SlotInformationLoader.INSTANCE);
   }
 
   @SubscribeEvent
@@ -41,11 +44,13 @@ public class TableClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void setupClient(final FMLClientSetupEvent event) {
     ScreenManager.registerFactory(TinkerTables.craftingStationContainer.get(), CraftingStationScreen::new);
+    ScreenManager.registerFactory(TinkerTables.tinkerStationContainer.get(), TinkerStationScreen::new);
     ScreenManager.registerFactory(TinkerTables.partBuilderContainer.get(), PartBuilderScreen::new);
     ScreenManager.registerFactory(TinkerTables.patternChestContainer.get(), PatternChestScreen::new);
     ScreenManager.registerFactory(TinkerTables.partChestContainer.get(), PartChestScreen::new);
 
     ClientRegistry.bindTileEntityRenderer(TinkerTables.craftingStationTile.get(), InventoryTileEntityRenderer::new);
+    ClientRegistry.bindTileEntityRenderer(TinkerTables.tinkerStationTile.get(), TableTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerTables.partBuilderTile.get(), TableTileEntityRenderer::new);
   }
 }

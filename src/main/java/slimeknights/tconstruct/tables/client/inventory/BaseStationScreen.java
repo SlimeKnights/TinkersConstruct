@@ -22,42 +22,42 @@ import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.block.ITinkerStationBlock;
 import slimeknights.tconstruct.tables.client.inventory.module.TinkerTabsScreen;
-import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
-import slimeknights.tconstruct.tables.network.TinkerStationTabPacket;
+import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
+import slimeknights.tconstruct.tables.network.StationTabPacket;
 
-public class TinkerStationScreen<TILE extends TileEntity & IInventory, CONTAINER extends TinkerStationContainer<TILE>> extends MultiModuleScreen<CONTAINER> {
+public class BaseStationScreen<TILE extends TileEntity & IInventory, CONTAINER extends BaseStationContainer<TILE>> extends MultiModuleScreen<CONTAINER> {
 
   public static final ResourceLocation BLANK_BACK = Util.getResource("textures/gui/blank.png");
 
   protected final TILE tile;
   protected final CONTAINER container;
-  protected TinkerTabsScreen tinkerTabsScreen;
+  protected TinkerTabsScreen tabsScreen;
 
-  public TinkerStationScreen(CONTAINER container, PlayerInventory playerInventory, ITextComponent title) {
+  public BaseStationScreen(CONTAINER container, PlayerInventory playerInventory, ITextComponent title) {
     super(container, playerInventory, title);
     this.tile = container.getTile();
     this.container = container;
 
-    this.tinkerTabsScreen = new TinkerTabsScreen(this, container, playerInventory, title);
-    this.addModule(this.tinkerTabsScreen);
+    this.tabsScreen = new TinkerTabsScreen(this, container, playerInventory, title);
+    this.addModule(this.tabsScreen);
 
     if (this.tile != null) {
       World world = this.tile.getWorld();
 
       if (world != null) {
-        for (Pair<BlockPos, BlockState> pair : container.tinkerStationBlocks) {
+        for (Pair<BlockPos, BlockState> pair : container.stationBlocks) {
           BlockState state = pair.getRight();
           BlockPos blockPos = pair.getLeft();
           ItemStack stack = state.getBlock().getPickBlock(state, null, world, blockPos, playerInventory.player);
-          this.tinkerTabsScreen.addTab(stack, blockPos);
+          this.tabsScreen.addTab(stack, blockPos);
         }
       }
     }
 
     // preselect the correct tab
-    for (int i = 0; i < this.tinkerTabsScreen.tabData.size(); i++) {
-      if (this.tinkerTabsScreen.tabData.get(i).equals(this.tile.getPos())) {
-        this.tinkerTabsScreen.tabs.selected = i;
+    for (int i = 0; i < this.tabsScreen.tabData.size(); i++) {
+      if (this.tabsScreen.tabData.get(i).equals(this.tile.getPos())) {
+        this.tabsScreen.tabs.selected = i;
       }
     }
   }
@@ -80,20 +80,22 @@ public class TinkerStationScreen<TILE extends TileEntity & IInventory, CONTAINER
   }
 
   public void onTabSelection(int selection) {
-    if (selection < 0 || selection > this.tinkerTabsScreen.tabData.size()) {
+    if (selection < 0 || selection > this.tabsScreen.tabData.size()) {
       return;
     }
+
     World world = this.tile.getWorld();
+
     if (world == null) {
       return;
     }
 
-    BlockPos pos = this.tinkerTabsScreen.tabData.get(selection);
+    BlockPos pos = this.tabsScreen.tabData.get(selection);
     BlockState state = world.getBlockState(pos);
 
     if (state.getBlock() instanceof ITinkerStationBlock) {
       TileEntity te = this.tile.getWorld().getTileEntity(pos);
-      TinkerNetwork.getInstance().sendToServer(new TinkerStationTabPacket(pos));
+      TinkerNetwork.getInstance().sendToServer(new StationTabPacket(pos));
 
       // sound!
       assert this.minecraft != null;

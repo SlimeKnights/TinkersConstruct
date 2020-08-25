@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.tinkering;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.tconstruct.library.utils.TooltipType;
 

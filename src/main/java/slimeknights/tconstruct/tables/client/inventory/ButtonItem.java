@@ -19,24 +19,27 @@ public class ButtonItem<T> extends Button {
   private final ItemStack icon;
   public final T data;
   public boolean pressed;
+  public final int buttonId;
 
   private ElementScreen pressedGui = BUTTON_PRESSED_GUI;
   private ElementScreen normalGui = BUTTON_NORMAL_GUI;
   private ElementScreen hoverGui = BUTTON_HOVER_GUI;
   private ResourceLocation backgroundLocation = Icons.ICONS;
 
-  public ButtonItem(int x, int y, int width, int height, ITextComponent text, T data, IPressable onPress) {
+  public ButtonItem(int buttonId, int x, int y, ITextComponent text, T data, IPressable onPress) {
     super(x, y, 18, 18, text, onPress);
 
     this.icon = null;
     this.data = data;
+    this.buttonId = buttonId;
   }
 
-  public ButtonItem(int x, int y, ItemStack icon, T data, IPressable onPress) {
+  public ButtonItem(int buttonId, int x, int y, ItemStack icon, T data, IPressable onPress) {
     super(x, y, 18, 18, icon.getDisplayName(), onPress);
 
     this.icon = icon;
     this.data = data;
+    this.buttonId = buttonId;
   }
 
   public ButtonItem<T> setGraphics(ElementScreen normal, ElementScreen hover, ElementScreen pressed, ResourceLocation background) {
@@ -64,11 +67,11 @@ public class ButtonItem<T> extends Button {
         this.normalGui.draw(matrices, this.x, this.y);
       }
 
-      this.drawIcon(Minecraft.getInstance());
+      this.drawIcon(matrices, Minecraft.getInstance());
     }
   }
 
-  protected void drawIcon(Minecraft mc) {
+  protected void drawIcon(MatrixStack matrices, Minecraft mc) {
     mc.getItemRenderer().renderItemIntoGUI(this.icon, this.x + 1, this.y + 1);
   }
 }
