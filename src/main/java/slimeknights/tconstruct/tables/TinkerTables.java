@@ -83,7 +83,7 @@ public final class TinkerTables extends TinkerModule {
    */
   public static final RegistryObject<PartRecipeSerializer> partRecipeSerializer = RECIPE_SERIALIZERS.register("part_builder", PartRecipeSerializer::new);
   public static final RegistryObject<MaterialRecipeSerializer> materialRecipeSerializer = RECIPE_SERIALIZERS.register("material", MaterialRecipeSerializer::new);
-  public static final RegistryObject<ToolBuildingRecipeSerializer> tinkerableBuildingRecipeSerializer = RECIPE_SERIALIZERS.register("tinkerable_building", ToolBuildingRecipeSerializer::new);
+  public static final RegistryObject<ToolBuildingRecipeSerializer> toolBuildingRecipeSerializer = RECIPE_SERIALIZERS.register("tool_building", ToolBuildingRecipeSerializer::new);
 
   @SuppressWarnings("unused")
   @SubscribeEvent
