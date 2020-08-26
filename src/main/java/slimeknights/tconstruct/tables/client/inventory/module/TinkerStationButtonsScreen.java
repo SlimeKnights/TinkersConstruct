@@ -22,6 +22,9 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
   protected int selected = 0;
   private int style = 0;
 
+  public static final int WOOD_STYLE = 2;
+  public static final int METAL_STYLE = 1;
+
   public TinkerStationButtonsScreen(TinkerStationScreen parent, Container container, PlayerInventory playerInventory, ITextComponent title) {
     super(parent, container, playerInventory, title, TinkerStationScreen.COLUMN_COUNT, false);
 
@@ -86,21 +89,12 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
   }
 
   @SuppressWarnings("unchecked")
-  public void wood() {
+  public void shiftStyle(int style) {
     for (Object o : this.buttons) {
       this.shiftButton((ButtonItem<SlotInformation>) o, 0, -18);
     }
 
-    this.style = 2;
-  }
-
-  @SuppressWarnings("unchecked")
-  public void metal() {
-    for (Object o : this.buttons) {
-      this.shiftButton((ButtonItem<SlotInformation>) o, 0, -18);
-    }
-
-    this.style = 1;
+    this.style = style;
   }
 
   protected void shiftButton(ButtonItem<SlotInformation> button, int xd, int yd) {

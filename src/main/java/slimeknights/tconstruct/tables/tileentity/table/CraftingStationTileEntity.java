@@ -56,67 +56,68 @@ public class CraftingStationTileEntity extends TableTileEntity implements LazyRe
 
   @Override
   public ItemStack calcResult() {
-    if (world == null || isEmpty()) {
+    if (this.world == null || isEmpty()) {
       return ItemStack.EMPTY;
     }
     // assume empty unless we learn otherwise
     ItemStack result = ItemStack.EMPTY;
-    if (!world.isRemote && world.getServer() != null) {
-      RecipeManager manager = world.getServer().getRecipeManager();
+    if (!this.world.isRemote && this.world.getServer() != null) {
+      RecipeManager manager = this.world.getServer().getRecipeManager();
 
       // first, try the cached recipe
       ICraftingRecipe recipe = lastRecipe;
       // if it does not match, find a new recipe
-      if (recipe == null || !recipe.matches(craftingInventory, world)) {
-        recipe = manager.getRecipe(IRecipeType.CRAFTING, craftingInventory, world).orElse(null);
+      if (recipe == null || !recipe.matches(this.craftingInventory, this.world)) {
+        recipe = manager.getRecipe(IRecipeType.CRAFTING, this.craftingInventory, this.world).orElse(null);
       }
 
       // if we have a recipe, fetch its result
       if (recipe != null) {
-        result = recipe.getCraftingResult(craftingInventory);
+        result = recipe.getCraftingResult(this.craftingInventory);
         // sync if the recipe is different
         if (recipe != lastRecipe) {
-          lastRecipe = recipe;
-          syncToRelevantPlayers();
+          this.lastRecipe = recipe;
+          this.syncToRelevantPlayers(this::syncRecipe);
         }
       }
-    } else if (lastRecipe != null && lastRecipe.matches(craftingInventory, world)) {
-      result = lastRecipe.getCraftingResult(craftingInventory);
+    }
+    else if (this.lastRecipe != null && this.lastRecipe.matches(this.craftingInventory, this.world)) {
+      result = this.lastRecipe.getCraftingResult(this.craftingInventory);
     }
     return result;
   }
 
   @Override
   public ItemStack onCraft(PlayerEntity player, ItemStack result, int amount) {
-    if (world == null || amount == 0 || lastRecipe == null || !lastRecipe.matches(craftingInventory, world)) {
+    if (this.world == null || amount == 0 || this.lastRecipe == null || !this.lastRecipe.matches(this.craftingInventory, this.world)) {
       return ItemStack.EMPTY;
     }
 
     // check if the player has access to the result
     if (player instanceof ServerPlayerEntity) {
-      if (lastRecipe != null) {
+      if (this.lastRecipe != null) {
         // if the player cannot craft this, block crafting
-        if (!lastRecipe.isDynamic() && world.getGameRules().getBoolean(GameRules.DO_LIMITED_CRAFTING) && !((ServerPlayerEntity)player).getRecipeBook().isUnlocked(lastRecipe)) {
+        if (!this.lastRecipe.isDynamic() && world.getGameRules().getBoolean(GameRules.DO_LIMITED_CRAFTING) && !((ServerPlayerEntity) player).getRecipeBook().isUnlocked(this.lastRecipe)) {
           return ItemStack.EMPTY;
         }
         // unlock the recipe if it was not unlocked
-        if (lastRecipe != null && !lastRecipe.isDynamic()) {
-          player.unlockRecipes(Collections.singleton(lastRecipe));
+        if (this.lastRecipe != null && !this.lastRecipe.isDynamic()) {
+          player.unlockRecipes(Collections.singleton(this.lastRecipe));
         }
       }
 
       // fire crafting events
       result.onCrafting(this.world, player, amount);
-      BasicEventHooks.firePlayerCraftingEvent(player, result, craftingInventory);
+      BasicEventHooks.firePlayerCraftingEvent(player, result, this.craftingInventory);
     }
 
     // update all slots in the inventory
     // remove remaining items
     ForgeHooks.setCraftingPlayer(player);
-    NonNullList<ItemStack> remaining = lastRecipe.getRemainingItems(craftingInventory);
+    NonNullList<ItemStack> remaining = this.lastRecipe.getRemainingItems(craftingInventory);
     ForgeHooks.setCraftingPlayer(null);
     for (int i = 0; i < remaining.size(); ++i) {
-      ItemStack original = getStackInSlot(i);
+      ItemStack original = this.getStackInSlot(i);
       ItemStack newStack = remaining.get(i);
 
       // if the slot contains a stack, decrease by 1
@@ -129,11 +130,13 @@ public class CraftingStationTileEntity extends TableTileEntity implements LazyRe
         // if empty, set directly
         if (original.isEmpty()) {
           this.setInventorySlotContents(i, newStack);
-        } else if (ItemStack.areItemsEqual(original, newStack) && ItemStack.areItemStackTagsEqual(original, newStack)) {
+        }
+        else if (ItemStack.areItemsEqual(original, newStack) && ItemStack.areItemStackTagsEqual(original, newStack)) {
           // if matching, merge
           newStack.grow(original.getCount());
           this.setInventorySlotContents(i, newStack);
-        } else {
+        }
+        else {
           // otherwise, drop the item as the player
           if (!player.inventory.addItemStackToInventory(newStack)) {
             player.dropItem(newStack, false);
@@ -156,32 +159,13 @@ public class CraftingStationTileEntity extends TableTileEntity implements LazyRe
   /* Syncing */
 
   /**
-   * Sends a packet to all players with this container open
-   */
-  private void syncToRelevantPlayers() {
-    if (world == null || world.isRemote) {
-      return;
-    }
-    world.getPlayers().stream()
-         // sync if they are viewing this tile
-         .filter(player -> {
-           if (player.openContainer instanceof CraftingStationContainer) {
-             return ((CraftingStationContainer) player.openContainer).getTile() == this;
-           }
-           return false;
-         })
-         // send packets
-         .forEach(this::syncRecipe);
-  }
-
-  /**
    * Sends the current recipe to the given player
    * @param player  Player to send an update to
    */
   public void syncRecipe(PlayerEntity player) {
     // must have a last recipe and a server world
-    if (lastRecipe != null && world != null && !world.isRemote && player instanceof ServerPlayerEntity) {
-      TinkerNetwork.getInstance().sendTo(new UpdateCraftingRecipePacket(pos, lastRecipe), (ServerPlayerEntity) player);
+    if (this.lastRecipe != null && this.world != null && !this.world.isRemote && player instanceof ServerPlayerEntity) {
+      TinkerNetwork.getInstance().sendTo(new UpdateCraftingRecipePacket(this.pos, this.lastRecipe), (ServerPlayerEntity) player);
     }
   }
 
@@ -190,7 +174,7 @@ public class CraftingStationTileEntity extends TableTileEntity implements LazyRe
    * @param recipe  New recipe
    */
   public void updateRecipe(ICraftingRecipe recipe) {
-    lastRecipe = recipe;
-    craftingResult.clear();
+    this.lastRecipe = recipe;
+    this.craftingResult.clear();
   }
 }

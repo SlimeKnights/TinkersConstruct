@@ -33,7 +33,7 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
       int index;
 
       for (index = 0; index < tile.getSizeInventory() - 1; index++) {
-        this.addSlot(new TinkerStationInSlot(tile, index, 0, 0, this));
+        this.addSlot(new TinkerStationInSlot(tile, index, 0, 0));
       }
 
       this.addSlot(this.tinkerSlot = new TinkerSlot(tile, TinkerStationTileEntity.TINKER_SLOT, 0, 0));

@@ -103,10 +103,10 @@ public class BaseStationScreen<TILE extends TileEntity & IInventory, CONTAINER e
     }
   }
 
-  public void error(IFormattableTextComponent message) {
+  public void error(ITextComponent message) {
   }
 
-  public void warning(IFormattableTextComponent message) {
+  public void warning(ITextComponent message) {
   }
 
   public void updateDisplay() {

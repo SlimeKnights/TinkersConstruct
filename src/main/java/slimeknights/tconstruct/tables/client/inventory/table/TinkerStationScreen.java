@@ -613,7 +613,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     this.panelDecorationL = PANEL_SPACE_LEFT.shift(18, 0);
     this.panelDecorationR = PANEL_SPACE_RIGHT.shift(18, 0);
 
-    this.buttonsScreen.wood();
+    this.buttonsScreen.shiftStyle(TinkerStationButtonsScreen.WOOD_STYLE);
 
     this.leftBeam = LEFT_BEAM;
     this.rightBeam = RIGHT_BEAM;
@@ -629,7 +629,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     this.panelDecorationL = PANEL_SPACE_LEFT.shift(18 * 2, 0);
     this.panelDecorationR = PANEL_SPACE_RIGHT.shift(18 * 2, 0);
 
-    this.buttonsScreen.metal();
+    this.buttonsScreen.shiftStyle(TinkerStationButtonsScreen.METAL_STYLE);
 
     this.leftBeam = LEFT_BEAM.shift(0, LEFT_BEAM.h);
     this.rightBeam = RIGHT_BEAM.shift(0, RIGHT_BEAM.h);
@@ -637,7 +637,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   }
 
   @Override
-  public void error(IFormattableTextComponent message) {
+  public void error(ITextComponent message) {
     this.tinkerInfo.setCaption(new TranslationTextComponent("gui.tconstruct.error"));
     this.tinkerInfo.setText(message);
     this.traitInfo.setCaption(StringTextComponent.EMPTY);
@@ -645,7 +645,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   }
 
   @Override
-  public void warning(IFormattableTextComponent message) {
+  public void warning(ITextComponent message) {
     this.tinkerInfo.setCaption(new TranslationTextComponent("gui.tconstruct.warning"));
     this.tinkerInfo.setText(message);
     this.traitInfo.setCaption(StringTextComponent.EMPTY);
