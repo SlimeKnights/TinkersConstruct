@@ -748,5 +748,8 @@
     "jei.tconstruct.casting.cast_consumed": "Cast item is consumed on casting",
     
     "jei.tconstruct.melting.title": "Melting",
-    "jei.tconstruct.melting.temperature": "%s°C"
+    "jei.tconstruct.melting.temperature": "%s°C",
+
+    "jei.tconstruct.alloying.title": "Alloying",
+    "jei.tconstruct.alloying.temperature": "%s°C"
 }

@@ -15,11 +15,13 @@ import net.minecraft.util.ResourceLocation;
 import slimeknights.mantle.recipe.RecipeHelper;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.alloy.recipe.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
+import slimeknights.tconstruct.plugin.jei.alloying.AlloyingCategory;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
 import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingCategory;
@@ -43,6 +45,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCategories(new CastingBasinCategory(guiHelper));
     registry.addRecipeCategories(new CastingTableCategory(guiHelper));
     registry.addRecipeCategories(new MeltingCategory(guiHelper));
+    registry.addRecipeCategories(new AlloyingCategory(guiHelper));
   }
 
   @Override
@@ -59,6 +62,9 @@ public class JEIPlugin implements IModPlugin {
     List<MeltingRecipe> meltingRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.MELTING, MeltingRecipe.class);
     register.addRecipes(meltingRecipes, TConstructRecipeCategoryUid.melting);
     MeltingFuelHandler.setMeltngFuels(RecipeHelper.getRecipes(manager, RecipeTypes.FUEL, MeltingFuel.class));
+
+    List<AlloyRecipe> alloyRecipes = RecipeHelper.getJEIRecipes(manager, RecipeTypes.ALLOY, AlloyRecipe.class);
+    register.addRecipes(alloyRecipes, TConstructRecipeCategoryUid.alloying);
   }
 
   @Override
@@ -66,6 +72,7 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.castingBasin), TConstructRecipeCategoryUid.castingBasin);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.castingTable), TConstructRecipeCategoryUid.castingTable);
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.searedMelter), TConstructRecipeCategoryUid.melting);
+    registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.alloyTank), TConstructRecipeCategoryUid.alloying);
   }
 
   @Override
