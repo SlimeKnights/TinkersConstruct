@@ -35,7 +35,7 @@ public class SlotInformation {
       stack = new ItemStack(JSONUtils.getItem(json, "item"));
     }
 
-    SlotPosition slotPosition = new SlotPosition(0, 0);
+    SlotPosition slotPosition = new SlotPosition(-1, -1);
 
     if (json.has("tool")) {
       slotPosition = SlotPosition.fromJson(json.get("tool").getAsJsonObject());
