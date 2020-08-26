@@ -6,13 +6,11 @@ import net.minecraft.item.ItemStack;
 
 public class TinkerStationInSlot extends Slot {
 
-  public TinkerStationContainer parent;
   public boolean dormant;
   public ItemStack icon;
 
-  public TinkerStationInSlot(IInventory inventoryIn, int index, int xPosition, int yPosition, TinkerStationContainer parentContainer) {
+  public TinkerStationInSlot(IInventory inventoryIn, int index, int xPosition, int yPosition) {
     super(inventoryIn, index, xPosition, yPosition);
-    this.parent = parentContainer;
   }
 
   @Override
@@ -39,10 +37,5 @@ public class TinkerStationInSlot extends Slot {
 
   public void updateIcon(ItemStack icon) {
     this.icon = icon;
-  }
-
-  @Override
-  public void onSlotChanged() {
-    this.parent.updateScreen();
   }
 }

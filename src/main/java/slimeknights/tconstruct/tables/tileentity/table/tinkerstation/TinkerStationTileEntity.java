@@ -6,10 +6,10 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.GameRules;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
@@ -22,9 +22,8 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
-import slimeknights.tconstruct.tables.network.UpdateCraftingRecipePacket;
+import slimeknights.tconstruct.tables.network.UpdateStationScreenPacket;
 import slimeknights.tconstruct.tables.network.UpdateTinkerStationRecipePacket;
-import slimeknights.tconstruct.tables.tileentity.crafting.CraftingInventoryWrapper;
 import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
 import slimeknights.tconstruct.tables.tileentity.table.RetexturedTableTileEntity;
 
@@ -44,6 +43,9 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   private final LazyResultInventory craftingResult;
   /** Crafting inventory for the recipe calls */
   private final TinkerStationInventoryWrapper inventoryWrapper;
+
+  private String screenSyncType = UpdateStationScreenPacket.NO_TYPE;
+  private ITextComponent screenSyncMessage = StringTextComponent.EMPTY;
 
   public TinkerStationTileEntity() {
     super(TinkerTables.tinkerStationTile.get(), "gui.tconstruct.tinker_station", 6);
@@ -86,13 +88,15 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
         // sync if the recipe is different
         if (recipe != this.lastRecipe) {
           this.lastRecipe = recipe;
-          this.syncToRelevantPlayers();
+          this.syncToRelevantPlayers(this::syncRecipe);
         }
       }
     }
     else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, world)) {
       result = this.lastRecipe.getCraftingResult(this.inventoryWrapper);
     }
+
+    this.syncToRelevantPlayers(this::syncScreen);
 
     return result;
   }
@@ -122,13 +126,14 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     }
 
     this.playCraftSound(player);
+    this.syncToRelevantPlayers(this::syncScreen);
 
     // update all slots in the inventory
     // remove remaining items
     NonNullList<ItemStack> remaining = this.lastRecipe.getRemainingItems(this.inventoryWrapper);
 
     for (int i = 0; i < remaining.size(); ++i) {
-      ItemStack original = getStackInSlot(i);
+      ItemStack original = this.getStackInSlot(i);
       ItemStack newStack = remaining.get(i);
 
       // if the slot contains a stack, decrease by 1
@@ -165,29 +170,11 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     // clear the crafting result when the matrix changes so we recalculate the result
     this.craftingResult.clear();
     this.inventoryWrapper.clearInputs();
+
+    this.syncToRelevantPlayers(this::syncScreen);
   }
 
   /* Syncing */
-
-  /**
-   * Sends a packet to all players with this container open
-   */
-  private void syncToRelevantPlayers() {
-    if (this.world == null || this.world.isRemote) {
-      return;
-    }
-
-    this.world.getPlayers().stream()
-      // sync if they are viewing this tile
-      .filter(player -> {
-        if (player.openContainer instanceof TinkerStationContainer) {
-          return ((TinkerStationContainer) player.openContainer).getTile() == this;
-        }
-        return false;
-      })
-      // send packets
-      .forEach(this::syncRecipe);
-  }
 
   /**
    * Sends the current recipe to the given player
@@ -209,6 +196,21 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     this.craftingResult.clear();
   }
 
+  /**
+   * Update the screen to the given player
+   * @param player  Player to send an update to
+   */
+  public void syncScreen(PlayerEntity player) {
+    if (this.world != null && !this.world.isRemote && player instanceof ServerPlayerEntity) {
+      TinkerNetwork.getInstance().sendTo(new UpdateStationScreenPacket(this.screenSyncType, this.screenSyncMessage), (ServerPlayerEntity) player);
+    }
+  }
+
+  /**
+   * Plays the crafting sound for all players around the given player
+   *
+   * @param player the player
+   */
   protected void playCraftSound(PlayerEntity player) {
     SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * TConstruct.random.nextFloat());
   }

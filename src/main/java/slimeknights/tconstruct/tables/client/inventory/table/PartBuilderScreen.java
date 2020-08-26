@@ -274,13 +274,13 @@ public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, 
   /* Update error logic */
 
   @Override
-  public void error(IFormattableTextComponent message) {
+  public void error(ITextComponent message) {
     this.infoPanelScreen.setCaption(new TranslationTextComponent("gui.tconstruct.error"));
     this.infoPanelScreen.setText(message);
   }
 
   @Override
-  public void warning(IFormattableTextComponent message) {
+  public void warning(ITextComponent message) {
     this.infoPanelScreen.setCaption(new TranslationTextComponent("gui.tconstruct.warning"));
     this.infoPanelScreen.setText(message);
   }
