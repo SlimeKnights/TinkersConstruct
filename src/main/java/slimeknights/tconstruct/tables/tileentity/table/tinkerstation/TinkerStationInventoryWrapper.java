@@ -18,13 +18,18 @@ public class TinkerStationInventoryWrapper implements ITinkerStationInventory {
   @Override
   public NonNullList<ItemStack> getAllInputStacks() {
     if (this.inputs == null) {
-      this.inputs = NonNullList.from(ItemStack.EMPTY, IntStream.range(0, 6).mapToObj(this.station::getStackInSlot).filter(itemStack -> !itemStack.isEmpty()).toArray(ItemStack[]::new));
+      this.inputs = NonNullList.from(ItemStack.EMPTY, IntStream.range(0, 6)
+        .mapToObj(this.station::getStackInSlot)
+        .filter(itemStack -> !itemStack.isEmpty())
+        .toArray(ItemStack[]::new));
     }
 
     return this.inputs;
   }
 
-  @Override
+  /**
+   * Clears the cached inputs
+   */
   public void clearInputs() {
     this.inputs = null;
   }

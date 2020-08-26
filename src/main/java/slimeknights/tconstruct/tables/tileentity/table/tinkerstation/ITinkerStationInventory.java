@@ -6,9 +6,18 @@ import slimeknights.mantle.recipe.inventory.IReadOnlyInventory;
 
 public interface ITinkerStationInventory extends IReadOnlyInventory {
 
+  /**
+   * Gets the stacks in the input slots
+   * (the outer slots for the repair/modify screen and the tool parts for the others)
+   *
+   * @return the stacks in slots (0-4)
+   */
   NonNullList<ItemStack> getAllInputStacks();
 
-  void clearInputs();
-
+  /**
+   * Gets the stack in the tinkerable slot.
+   *
+   * @return the itemstack in the tinkerable slot (slot 5/center slot)
+   */
   ItemStack getTinkerableStack();
 }

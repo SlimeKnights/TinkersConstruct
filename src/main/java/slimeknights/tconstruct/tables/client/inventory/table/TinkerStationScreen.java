@@ -60,6 +60,8 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
   private static final ElementScreen RIGHT_BEAM = new ElementScreen(131, 180, 2, 7);
   private static final ScalableElementScreen CENTER_BEAM = new ScalableElementScreen(2, 180, 129, 7);
 
+  public static final ResourceLocation REPAIR_NAME = Util.getResource("repair");
+
   public static final int COLUMN_COUNT = 5;
   private static final int TABLE_SLOT_COUNT = 6;
 
@@ -99,7 +101,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     this.wood();
 
-    SlotInformation slotInformation = SlotInformationLoader.get(SlotInformationLoader.REPAIR_NAME);
+    SlotInformation slotInformation = SlotInformationLoader.get(TinkerStationScreen.REPAIR_NAME);
 
     this.activeSlots = Math.min(slotInformation.getPoints().size(), TABLE_SLOT_COUNT);
     this.currentData = slotInformation;
@@ -309,7 +311,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       if (!this.currentData.getItemStack().isEmpty()) {
         this.itemRenderer.renderItemIntoGUI(this.currentData.getToolForRendering(), logoX, logoY);
       }
-      else if (this.currentData == SlotInformationLoader.get(SlotInformationLoader.REPAIR_NAME)) {
+      else if (this.currentData == SlotInformationLoader.get(TinkerStationScreen.REPAIR_NAME)) {
         assert this.minecraft != null;
         this.minecraft.getTextureManager().bindTexture(Icons.ICONS);
         Icons.ANVIL.draw(matrices, logoX, logoY);
@@ -359,7 +361,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     this.minecraft.getTextureManager().bindTexture(Icons.ICONS);
 
-    if (this.currentData == SlotInformationLoader.get(SlotInformationLoader.REPAIR_NAME)) {
+    if (this.currentData == SlotInformationLoader.get(TinkerStationScreen.REPAIR_NAME)) {
       this.drawRepairSlotIcons(matrices);
     }
     else if (this.currentData.getItemStack().getItem() instanceof ToolCore) {

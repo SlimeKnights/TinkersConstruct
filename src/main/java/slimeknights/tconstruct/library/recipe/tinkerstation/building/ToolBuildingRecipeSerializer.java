@@ -18,7 +18,7 @@ public class ToolBuildingRecipeSerializer extends ForgeRegistryEntry<IRecipeSeri
   public ToolBuildingRecipe read(ResourceLocation recipeId, JsonObject json) {
     String group = JSONUtils.getString(json, "group", "");
 
-    // output fetch as a tinkerable item, its an error if it does not implement that interface
+    // output fetch as a toolcore item, its an error if it does not implement that interface
     ToolCore item = RecipeHelper.deserializeItem(JSONUtils.getString(json, "output"), "output", ToolCore.class);
 
     return new ToolBuildingRecipe(recipeId, group, item);
@@ -28,7 +28,7 @@ public class ToolBuildingRecipeSerializer extends ForgeRegistryEntry<IRecipeSeri
   @Override
   public ToolBuildingRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
     try {
-      String group = buffer.readString(32767);
+      String group = buffer.readString(Short.MAX_VALUE);
       ToolCore result = RecipeHelper.readItem(buffer, ToolCore.class);
 
       return new ToolBuildingRecipe(recipeId, group, result);
