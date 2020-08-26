@@ -31,8 +31,6 @@ public class SlotInformationLoader extends JsonReloadListener {
   /** Singleton instance */
   public static final SlotInformationLoader INSTANCE = new SlotInformationLoader();
 
-  public static final ResourceLocation REPAIR_NAME = Util.getResource("repair");
-
   /** Map of SlotInformation */
   private final Map<ResourceLocation, SlotInformation> slotInformationMap = new HashMap<>();
 
