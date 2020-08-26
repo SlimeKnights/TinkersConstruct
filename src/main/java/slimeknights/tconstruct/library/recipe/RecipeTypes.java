@@ -3,6 +3,8 @@ package slimeknights.tconstruct.library.recipe;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.recipe.alloy.recipe.AlloyRecipe;
+import slimeknights.tconstruct.library.recipe.alloy.recipe.IAlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
@@ -23,6 +25,9 @@ public interface RecipeTypes {
   // smeltery
   IRecipeType<IMeltingRecipe> MELTING = register("melting");
   IRecipeType<MeltingFuel> FUEL = register("fuel");
+
+  // alloying
+  IRecipeType<IAlloyRecipe> ALLOY = register("alloy");
 
   /**
    * Registers a new recipe type, prefixing with the mod ID
