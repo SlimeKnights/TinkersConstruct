@@ -20,6 +20,13 @@ public class SlotPosition {
   private final int x;
   private final int y;
 
+  /**
+   * Creates a list of SlotPositions from the given json
+   *
+   * @param parent the parent json
+   * @param key the key to read from
+   * @return a list of SlotPositions
+   */
   public static List<SlotPosition> listFromJson(JsonObject parent, String key) {
     JsonElement json = parent.get(key);
 
@@ -36,7 +43,14 @@ public class SlotPosition {
     throw new JsonSyntaxException("Invalid slot '" + key + "', must be an array or an object");
   }
 
-  public static SlotPosition arrayToPosition(JsonObject json, String name) {
+  /**
+   * Creates a SlotPosition from the given JSON data
+   *
+   * @param json the json data
+   * @param name the name that contains the actual positions
+   * @return a slot position
+   */
+  public static SlotPosition fromJson(JsonObject json, String name) {
     JsonArray array = JSONUtils.getJsonArray(json, name);
 
     if (array.size() != 2) {
@@ -51,10 +65,22 @@ public class SlotPosition {
     return new SlotPosition(vec[0], vec[1]);
   }
 
+  /**
+   * creates a slot position from the given json object
+   *
+   * @param json the json data
+   * @return a slot position
+   */
   public static SlotPosition fromJson(JsonObject json) {
-    return arrayToPosition(json, "position");
+    return fromJson(json, "position");
   }
 
+  /**
+   * Checks to see if the given slot position should be hidden or not
+   * used mostly for the main tinkerer slot
+   *
+   * @return if the slot is hidden or not
+   */
   public boolean isHidden() {
     return this.x == -1 && this.y == -1;
   }

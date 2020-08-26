@@ -27,6 +27,12 @@ public class SlotInformation {
     this.sortIndex = sortIndex;
   }
 
+  /**
+   * Creates a new instance of SlotInformation from a json
+   *
+   * @param json the json object
+   * @return a instance of SlotInformation that contains all the points, sort index and tool
+   */
   public static SlotInformation fromJson(JsonObject json) {
     List<SlotPosition> slots = SlotPosition.listFromJson(json, "slots");
     ItemStack stack = ItemStack.EMPTY;
@@ -46,6 +52,11 @@ public class SlotInformation {
     return new SlotInformation(slots, slotPosition, stack, sortIndex);
   }
 
+  /**
+   * Gets the item to use for rendering in the client's screen
+   *
+   * @return the itemstack to use for rendering
+   */
   public ItemStack getToolForRendering() {
     if (this.toolForRendering == null || this.toolForRendering.isEmpty()) {
       if (this.itemStack.getItem() instanceof ToolCore) {

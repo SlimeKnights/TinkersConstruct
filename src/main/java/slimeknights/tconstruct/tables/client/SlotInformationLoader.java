@@ -31,10 +31,10 @@ public class SlotInformationLoader extends JsonReloadListener {
   /** Singleton instance */
   public static final SlotInformationLoader INSTANCE = new SlotInformationLoader();
 
-  /** Map of SlotInformation */
+  /** Map of Slot Information's */
   private final Map<ResourceLocation, SlotInformation> slotInformationMap = new HashMap<>();
 
-  /** Sorted List of SlotInformations */
+  /** Sorted List of Slot Information's */
   private final List<SlotInformation> slotInformationList = new ArrayList<>();
 
   private SlotInformationLoader() {
@@ -63,10 +63,21 @@ public class SlotInformationLoader extends JsonReloadListener {
     this.slotInformationList.sort(Comparator.comparing(SlotInformation::getSortIndex));
   }
 
+  /**
+   * Fetches a Slot Information from the given name
+   *
+   * @param registryKey the name of the slot infomation to find
+   * @return the slot information
+   */
   public static SlotInformation get(ResourceLocation registryKey) {
     return INSTANCE.slotInformationMap.get(registryKey);
   }
 
+  /**
+   * Gets the full list of all Slot Information's
+   *
+   * @return a list of SlotInformation
+   */
   public static Collection<SlotInformation> getSlotInformationList() {
     return INSTANCE.slotInformationList;
   }
