@@ -17,6 +17,9 @@ import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.ITinkerStat
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This recipe is used for crafting a set of parts into a tool
+ */
 @AllArgsConstructor
 public class ToolBuildingRecipe implements ITinkerStationRecipe {
 

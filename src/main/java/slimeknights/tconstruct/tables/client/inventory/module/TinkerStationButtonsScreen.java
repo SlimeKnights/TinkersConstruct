@@ -57,7 +57,7 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
     for (SlotInformation slotInformation : SlotInformationLoader.getSlotInformationList()) {
       ButtonItem<SlotInformation> buttonItem;
 
-      if (slotInformation == SlotInformationLoader.get(SlotInformationLoader.REPAIR_NAME)) {
+      if (slotInformation == SlotInformationLoader.get(TinkerStationScreen.REPAIR_NAME)) {
         buttonItem = new ButtonItem<SlotInformation>(index++, -1, -1, new TranslationTextComponent("gui.tconstruct.repair"), slotInformation, onPressed) {
           @Override
           protected void drawIcon(MatrixStack matrices, Minecraft minecraft) {

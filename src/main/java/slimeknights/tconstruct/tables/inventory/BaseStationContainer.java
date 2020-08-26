@@ -106,10 +106,12 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
    * Sends a update to the client's current screen.
    */
   public void updateScreen() {
-    assert this.tile != null;
-    assert this.tile.getWorld() != null;
-    if (this.tile.getWorld().isRemote) {
-      DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> BaseStationContainer::clientScreenUpdate);
+    if (this.tile != null) {
+      if (this.tile.getWorld() != null) {
+        if (this.tile.getWorld().isRemote) {
+          DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> BaseStationContainer::clientScreenUpdate);
+        }
+      }
     }
   }
 
@@ -117,10 +119,12 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
    * Tells the client to display the LOCALIZED error message
    */
   public void error(final IFormattableTextComponent message) {
-    assert this.tile != null;
-    assert this.tile.getWorld() != null;
-    if (this.tile.getWorld().isRemote) {
-      DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BaseStationContainer.clientError(message));
+    if (this.tile != null) {
+      if (this.tile.getWorld() != null) {
+        if (this.tile.getWorld().isRemote) {
+          DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BaseStationContainer.clientError(message));
+        }
+      }
     }
   }
 
@@ -128,10 +132,12 @@ public class BaseStationContainer<TILE extends TileEntity & IInventory> extends 
    * Tells the client to display the LOCALIZED warning message
    */
   public void warning(final IFormattableTextComponent message) {
-    assert this.tile != null;
-    assert this.tile.getWorld() != null;
-    if (this.tile.getWorld().isRemote) {
-      DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BaseStationContainer.clientWarning(message));
+    if (this.tile != null) {
+      if (this.tile.getWorld() != null) {
+        if (this.tile.getWorld().isRemote) {
+          DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> BaseStationContainer.clientWarning(message));
+        }
+      }
     }
   }
 

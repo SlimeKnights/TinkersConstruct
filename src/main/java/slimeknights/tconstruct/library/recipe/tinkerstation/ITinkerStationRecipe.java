@@ -5,11 +5,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.world.World;
+import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.library.recipe.ValidationResult;
 import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.ITinkerStationInventory;
 
-public interface ITinkerStationRecipe extends IRecipe<ITinkerStationInventory> {
+public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInventory> {
   /* Recipe data */
 
   @Override
@@ -17,21 +18,8 @@ public interface ITinkerStationRecipe extends IRecipe<ITinkerStationInventory> {
     return RecipeTypes.TINKER_STATION;
   }
 
-  @Override
-  default boolean isDynamic() {
-    return true;
-  }
-
-  /* Required methods */
-
-  /** @deprecated unused */
-  @Deprecated
-  @Override
-  default boolean canFit(int width, int height) {
-    return true;
-  }
-
   /** If true, this recipe matches the given inputs, ignoring current tool state */
+  @Override
   boolean matches(ITinkerStationInventory inv, World world);
 
   /** Validates the recipe, returning success, or failure with a possible message */

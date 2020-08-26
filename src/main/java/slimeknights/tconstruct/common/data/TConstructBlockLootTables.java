@@ -96,19 +96,13 @@ public class TConstructBlockLootTables extends BlockLootTables {
 
   private void addTools() {
     this.registerDropSelfLootTable(TinkerTables.craftingStation.get());
-    for (Block block : new Block[] {TinkerTables.tinkerStation.get()}) {
-      this.registerLootTable(block, droppingWithFunctions(block, (builder) -> {
-        return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
-          .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).addOperation("LegTexture", "TinkerData.LegTexture", Action.REPLACE));
-      }));
-    }
     for (Block block : new Block[] {TinkerTables.patternChest.get(), TinkerTables.partChest.get()}) {
       this.registerLootTable(block, droppingWithFunctions(block, (builder) -> {
         return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
                  .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation("Items", "TinkerData.Items"));
       }));
     }
-    for (Block block : new Block[] {TinkerTables.partBuilder.get()}) {
+    for (Block block : new Block[] {TinkerTables.partBuilder.get(), TinkerTables.tinkerStation.get()}) {
       this.registerLootTable(block, droppingWithFunctions(block, (builder) -> {
         return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
                .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).addOperation("LegTexture", "TinkerData.LegTexture", Action.REPLACE));
