@@ -10,31 +10,27 @@ import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 
 public class UpdateStationScreenPacket implements IThreadsafePacket {
 
-  private final String type;
+  private final PacketType type;
   private final ITextComponent message;
-
-  public static final String NO_TYPE = "no_type";
-  public static final String ERROR_TYPE = "error";
-  public static final String WARNING_TYPE = "warning";
 
   /**
    *
    * @param type the type of sync the packet is, can be NO_TYPE, ERROR OR WARNING
    * @param message the message to display if a warning or error occurred
    */
-  public UpdateStationScreenPacket(String type, ITextComponent message) {
+  public UpdateStationScreenPacket(PacketType type, ITextComponent message) {
     this.type = type;
     this.message = message;
   }
 
   public UpdateStationScreenPacket(PacketBuffer buffer) {
-    this.type = buffer.readString();
+    this.type = PacketType.valueOf(buffer.readString());
     this.message = buffer.readTextComponent();
   }
 
   @Override
   public void encode(PacketBuffer packetBuffer) {
-    packetBuffer.writeString(this.type);
+    packetBuffer.writeString(this.type.toString());
     packetBuffer.writeTextComponent(this.message);
   }
 
@@ -51,16 +47,25 @@ public class UpdateStationScreenPacket implements IThreadsafePacket {
       if (screen != null) {
         if (screen instanceof BaseStationScreen) {
           switch (packet.type) {
-            case ERROR_TYPE:
+            case ERROR:
               ((BaseStationScreen) screen).error(packet.message);
-            case WARNING_TYPE:
+              break;
+            case WARNING:
               ((BaseStationScreen) screen).warning(packet.message);
-            case NO_TYPE:
+              break;
+            case SUCCESS:
             default:
               ((BaseStationScreen) screen).updateDisplay();
+              break;
           }
         }
       }
     }
+  }
+
+  public enum PacketType {
+    ERROR,
+    WARNING,
+    SUCCESS;
   }
 }
