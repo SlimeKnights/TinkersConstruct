@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "item": "tconstruct:kama_head"
+    "item": "tconstruct:kama_head",
+    "type": "tconstruct:material"
   },
   "cast_consumed": true,
   "switch_slots": true,

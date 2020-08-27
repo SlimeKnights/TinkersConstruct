@@ -13,11 +13,15 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
@@ -376,7 +380,12 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                                 .build(consumer, location("casting/parts/" + name));
 
     // Cast Casting
-    addCastCastingRecipe(consumer, part, cast, "casting/");
+    ItemCastingRecipeBuilder.tableRecipe(cast)
+                            .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
+                            .setCast(MaterialIngredient.fromItem(part), true)
+                            .setSwitchSlots()
+                            .addCriterion("has_item", hasItem(part))
+                            .build(consumer, location("casting/casts/" + Objects.requireNonNull(part.asItem().getRegistryName()).getPath()));
 
     // Part melting
     MaterialMeltingRecipeBuilder.melting(part, cost * MaterialValues.VALUE_Ingot)

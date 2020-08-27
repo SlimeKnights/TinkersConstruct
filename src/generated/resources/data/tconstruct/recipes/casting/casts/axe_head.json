@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "item": "tconstruct:axe_head"
+    "item": "tconstruct:axe_head",
+    "type": "tconstruct:material"
   },
   "cast_consumed": true,
   "switch_slots": true,

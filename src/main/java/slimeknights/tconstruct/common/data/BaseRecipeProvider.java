@@ -13,12 +13,8 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.library.materials.MaterialValues;
-import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 
 import java.util.List;
 import java.util.Objects;
@@ -90,22 +86,6 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
 
 
   /* Recipe helpers */
-
-  /**
-   * Adds a recipe to create a cast
-   * @param consumer  Recipe consumer
-   * @param input     Item consumed to create cast
-   * @param cast      Produced cast
-   * @param folder    Output folder
-   */
-  protected void addCastCastingRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider input, IItemProvider cast, String folder) {
-    ItemCastingRecipeBuilder.tableRecipe(cast)
-                            .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
-                            .setCast(input, true)
-                            .setSwitchSlots()
-                            .addCriterion("has_item", hasItem(input))
-                            .build(consumer, location(folder + "casts/" + Objects.requireNonNull(input.asItem().getRegistryName()).getPath()));
-  }
 
   /**
    * Registers generic building block recipes

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tinkering;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
 import slimeknights.tconstruct.library.materials.IMaterial;
@@ -37,5 +38,25 @@ public interface IMaterialItem extends IItemProvider {
       return ((IMaterialItem) stack.getItem()).getMaterial(stack);
     }
     return IMaterial.UNKNOWN;
+  }
+
+  /**
+   * Gets the given item stack with this material applied
+   * @param stack     Stack instance
+   * @param material  Material
+   * @return  Stack with material, or original stack if not a material item
+   */
+  static ItemStack withMaterial(ItemStack stack, IMaterial material) {
+    Item item = stack.getItem();
+    if (item instanceof IMaterialItem) {
+      ItemStack output = ((IMaterialItem) item).getItemstackWithMaterial(material);
+      if (stack.hasTag()) {
+        assert stack.getTag() != null;
+        assert output.getTag() != null;
+        output.getTag().merge(stack.getTag());
+      }
+      return output;
+    }
+    return stack;
   }
 }

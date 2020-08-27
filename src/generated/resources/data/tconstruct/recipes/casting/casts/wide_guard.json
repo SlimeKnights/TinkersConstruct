@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "item": "tconstruct:wide_guard"
+    "item": "tconstruct:wide_guard",
+    "type": "tconstruct:material"
   },
   "cast_consumed": true,
   "switch_slots": true,

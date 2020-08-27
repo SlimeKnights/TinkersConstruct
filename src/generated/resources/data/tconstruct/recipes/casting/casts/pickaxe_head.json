@@ -1,7 +1,8 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "item": "tconstruct:pickaxe_head"
+    "item": "tconstruct:pickaxe_head",
+    "type": "tconstruct:material"
   },
   "cast_consumed": true,
   "switch_slots": true,
