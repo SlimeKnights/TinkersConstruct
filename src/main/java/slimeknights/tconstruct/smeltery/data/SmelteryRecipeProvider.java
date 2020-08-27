@@ -24,6 +24,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.alloy.recipe.AlloyRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.ContainerFillingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelBuilder;
@@ -54,6 +55,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.addBaseRecipes(consumer);
     this.addMeltingRecipes(consumer);
     this.addCastingRecipes(consumer);
+    this.addAlloyRecipes(consumer);
   }
 
   private void addBaseRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -399,6 +401,21 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                       .build(consumer, location(folder + "fuel/lava"));
   }
 
+  private void addAlloyRecipes(Consumer<IFinishedRecipe> consumer) {
+    String folder = "alloys/";
+    AlloyRecipeBuilder.alloying(new FluidStack(TinkerFluids.moltenManyullyn.get(), MaterialValues.VALUE_Nugget))
+      .addFluid(new FluidStack(TinkerFluids.moltenArdite.get(), MaterialValues.VALUE_Nugget))
+      .addFluid(new FluidStack(TinkerFluids.moltenCobalt.get(), MaterialValues.VALUE_Nugget))
+      .addCriterion("has_item", hasItem(TinkerFluids.moltenArdite.asItem()))
+      .build(consumer, location(folder + "manyullyn"));
+
+    AlloyRecipeBuilder.alloying(new FluidStack(TinkerFluids.moltenKnightslime.get(), MaterialValues.VALUE_Nugget))
+      .addFluid(new FluidStack(TinkerFluids.moltenIron.get(), MaterialValues.VALUE_Nugget))
+      .addFluid(new FluidStack(TinkerFluids.purpleSlime.get(), MaterialValues.VALUE_Nugget))
+      .addFluid(new FluidStack(TinkerFluids.searedStone.get(), 2 * MaterialValues.VALUE_Nugget))
+      .addCriterion("has_item", hasItem(TinkerFluids.purpleSlime.asItem()))
+      .build(consumer, location(folder + "knightslime"));
+  }
 
   /* Helpers */
 

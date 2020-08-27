@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:alloy",
+  "ingredients": [
+    {
+      "name": "tconstruct:molten_ardite",
+      "amount": 16
+    },
+    {
+      "name": "tconstruct:molten_cobalt",
+      "amount": 16
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_manyullyn",
+    "amount": 16
+  },
+  "temperature": 1000
+}

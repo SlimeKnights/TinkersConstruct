@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:alloy",
+  "ingredients": [
+    {
+      "name": "tconstruct:molten_iron",
+      "amount": 16
+    },
+    {
+      "name": "tconstruct:purple_slime",
+      "amount": 16
+    },
+    {
+      "name": "tconstruct:seared_stone",
+      "amount": 32
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_knightslime",
+    "amount": 16
+  },
+  "temperature": 520
+}
