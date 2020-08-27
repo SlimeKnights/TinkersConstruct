@@ -2,19 +2,26 @@ package slimeknights.tconstruct.smeltery.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.tileentity.AlloyTankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.ITankTileEntity;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class AlloyTankBlock extends SearedBlock {
@@ -88,6 +95,23 @@ public class AlloyTankBlock extends SearedBlock {
     }
   }
 
+  /*
+   * Tile Entity interaction
+   */
+
+  @Nonnull
+  @Override
+  public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    return new AlloyTankTileEntity();
+  }
+
+  @Override
+  public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    if (ITankTileEntity.interactWithTank(worldIn, pos, player, handIn, hit)) {
+      return ActionResultType.SUCCESS;
+    }
+    return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+  }
 
   /*
    * Comparator

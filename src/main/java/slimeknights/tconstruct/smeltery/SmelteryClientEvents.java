@@ -65,6 +65,7 @@ public class SmelteryClientEvents extends ClientEventBase {
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.table.get(), CastingTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.basin.get(), CastingTileEntityRenderer::new);
     ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.melter.get(), MelterTileEntityRenderer::new);
+    ClientRegistry.bindTileEntityRenderer(TinkerSmeltery.alloy.get(), TankTileEntityRenderer::new);
 
     // screens
     ScreenManager.registerFactory(TinkerSmeltery.melterContainer.get(), MelterScreen::new);

@@ -49,6 +49,7 @@ import slimeknights.tconstruct.smeltery.data.SmelteryRecipeProvider;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 import slimeknights.tconstruct.smeltery.tileentity.AbstractCastingTileEntity;
+import slimeknights.tconstruct.smeltery.tileentity.AlloyTankTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.FaucetTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.MelterTileEntity;
 import slimeknights.tconstruct.smeltery.tileentity.SmelteryComponentTileEntity;
@@ -132,6 +133,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<TileEntityType<AbstractCastingTileEntity>> basin = TILE_ENTITIES.register("basin", AbstractCastingTileEntity.Basin::new, castingBasin);
   public static final RegistryObject<TileEntityType<AbstractCastingTileEntity>> table = TILE_ENTITIES.register("table", AbstractCastingTileEntity.Table::new, castingTable);
   public static final RegistryObject<TileEntityType<MelterTileEntity>> melter = TILE_ENTITIES.register("melter", MelterTileEntity::new, searedMelter);
+  public static final RegistryObject<TileEntityType<AlloyTankTileEntity>> alloy = TILE_ENTITIES.register("alloy", AlloyTankTileEntity::new, alloyTank);
 
   /*
    * Items
