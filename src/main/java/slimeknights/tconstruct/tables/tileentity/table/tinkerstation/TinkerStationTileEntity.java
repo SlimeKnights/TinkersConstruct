@@ -18,6 +18,7 @@ import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
+import slimeknights.tconstruct.library.recipe.ValidationResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -44,7 +45,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
   /** Crafting inventory for the recipe calls */
   private final TinkerStationInventoryWrapper inventoryWrapper;
 
-  private String screenSyncType = UpdateStationScreenPacket.NO_TYPE;
+  private UpdateStationScreenPacket.PacketType screenSyncType = UpdateStationScreenPacket.PacketType.SUCCESS;
   private ITextComponent screenSyncMessage = StringTextComponent.EMPTY;
 
   public TinkerStationTileEntity() {
@@ -84,16 +85,38 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
       // if we have a recipe, fetch its result
       if (recipe != null) {
-        result = recipe.getCraftingResult(this.inventoryWrapper);
-        // sync if the recipe is different
-        if (recipe != this.lastRecipe) {
-          this.lastRecipe = recipe;
-          this.syncToRelevantPlayers(this::syncRecipe);
+        ValidationResult validationResult = recipe.validate(this.inventoryWrapper);
+
+        if (validationResult.isSuccess()) {
+          result = recipe.getCraftingResult(this.inventoryWrapper);
+          // sync if the recipe is different
+          if (recipe != this.lastRecipe) {
+            this.lastRecipe = recipe;
+            this.syncToRelevantPlayers(this::syncRecipe);
+          }
+
+          this.screenSyncType = UpdateStationScreenPacket.PacketType.SUCCESS;
+          this.screenSyncMessage = StringTextComponent.EMPTY;
+        }
+        else {
+          this.screenSyncType = UpdateStationScreenPacket.PacketType.ERROR;
+          this.screenSyncMessage = validationResult.getMessage();
         }
       }
     }
     else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, world)) {
-      result = this.lastRecipe.getCraftingResult(this.inventoryWrapper);
+      ValidationResult validationResult = this.lastRecipe.validate(this.inventoryWrapper);
+
+      if (validationResult.isSuccess()) {
+        result = this.lastRecipe.getCraftingResult(this.inventoryWrapper);
+
+        this.screenSyncType = UpdateStationScreenPacket.PacketType.SUCCESS;
+        this.screenSyncMessage = StringTextComponent.EMPTY;
+      }
+      else {
+        this.screenSyncType = UpdateStationScreenPacket.PacketType.ERROR;
+        this.screenSyncMessage = validationResult.getMessage();
+      }
     }
 
     this.syncToRelevantPlayers(this::syncScreen);
