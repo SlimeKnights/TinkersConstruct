@@ -31,7 +31,6 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
     this.parent = parent;
   }
 
-  @SuppressWarnings("unchecked")
   @Override
   public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY) {
     super.updatePosition(parentX, parentY, parentSizeX, parentSizeY);
@@ -40,9 +39,9 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
     this.buttonCount = 0;
 
     Button.IPressable onPressed = button -> {
-      for (Object o : TinkerStationButtonsScreen.this.buttons) {
+      for (Widget o : TinkerStationButtonsScreen.this.buttons) {
         if (o instanceof ButtonItem) {
-          ((ButtonItem<SlotInformation>) o).pressed = false;
+          ((ButtonItem<?>) o).pressed = false;
         }
       }
 

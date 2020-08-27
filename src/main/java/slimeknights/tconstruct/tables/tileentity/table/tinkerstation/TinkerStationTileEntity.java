@@ -161,7 +161,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
       // if the slot contains a stack, decrease by 1
       if (!original.isEmpty()) {
-        original.shrink(1);
+        original.shrink(this.lastRecipe.getAmountUsed(i));
       }
 
       // if we have a new item, try merging it in

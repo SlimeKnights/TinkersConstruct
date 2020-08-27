@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.world.World;
 import slimeknights.mantle.recipe.ICommonRecipe;
@@ -30,5 +28,9 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
   /** Gets the recipe result, assumes matches is true and validate returned SUCCESS */
   default ItemStack getCraftingResult(ITinkerStationInventory inv) {
     return getRecipeOutput().copy();
+  }
+
+  default int getAmountUsed(int index) {
+    return 1;
   }
 }

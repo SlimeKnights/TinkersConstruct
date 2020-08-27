@@ -54,13 +54,4 @@ public class TinkerStationInventoryWrapper implements ITinkerStationInventory {
 
     return true;
   }
-
-  /** @deprecated
-   * Do not use, instead use getTinkerableSlot OR getAllInputStacks
-   */
-  @Override
-  @Deprecated
-  public ItemStack getStackInSlot(int index) {
-    return ItemStack.EMPTY;
-  }
 }
