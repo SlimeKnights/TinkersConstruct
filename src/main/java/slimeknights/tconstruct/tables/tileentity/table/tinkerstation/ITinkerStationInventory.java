@@ -20,4 +20,13 @@ public interface ITinkerStationInventory extends IReadOnlyInventory {
    * @return the itemstack in the tinkerable slot (slot 5/center slot)
    */
   ItemStack getTinkerableStack();
+
+  /** @deprecated
+   * Do not use, instead use getTinkerableSlot OR getAllInputStacks
+   */
+  @Override
+  @Deprecated
+  default ItemStack getStackInSlot(int index) {
+    return ItemStack.EMPTY;
+  }
 }

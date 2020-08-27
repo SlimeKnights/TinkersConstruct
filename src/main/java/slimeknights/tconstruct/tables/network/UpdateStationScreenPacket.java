@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.fml.network.NetworkEvent;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
@@ -24,14 +25,27 @@ public class UpdateStationScreenPacket implements IThreadsafePacket {
   }
 
   public UpdateStationScreenPacket(PacketBuffer buffer) {
-    this.type = PacketType.valueOf(buffer.readString());
-    this.message = buffer.readTextComponent();
+    this.type = buffer.readEnumValue(PacketType.class);
+
+    if (buffer.readBoolean()) {
+      this.message = buffer.readTextComponent();
+    }
+    else {
+      this.message = StringTextComponent.EMPTY;
+    }
   }
 
   @Override
   public void encode(PacketBuffer packetBuffer) {
-    packetBuffer.writeString(this.type.toString());
-    packetBuffer.writeTextComponent(this.message);
+    packetBuffer.writeEnumValue(this.type);
+
+    if (this.message == StringTextComponent.EMPTY) {
+      packetBuffer.writeBoolean(false);
+    }
+    else {
+      packetBuffer.writeBoolean(true);
+      packetBuffer.writeTextComponent(this.message);
+    }
   }
 
   @Override
