@@ -42,9 +42,11 @@ import slimeknights.tconstruct.smeltery.block.CastingBasinBlock;
 import slimeknights.tconstruct.smeltery.block.CastingTableBlock;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
+import slimeknights.tconstruct.smeltery.block.MultiblockControllerBlock;
 import slimeknights.tconstruct.smeltery.block.SearedGlassBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock.TankType;
+import slimeknights.tconstruct.smeltery.block.SmelteryControllerBlock;
 import slimeknights.tconstruct.smeltery.data.SmelteryRecipeProvider;
 import slimeknights.tconstruct.smeltery.inventory.MelterContainer;
 import slimeknights.tconstruct.smeltery.item.TankItem;
@@ -108,8 +110,10 @@ public final class TinkerSmeltery extends TinkerModule {
   // controllers
   private static final Block.Properties MELTER = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).setLightLevel(s -> s.get(MelterBlock.ACTIVE) ? 13 : 0).notSolid();
   private static final Block.Properties ALLOY = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).setLightLevel(s -> s.get(AlloyTankBlock.ACTIVE) ? 13 : 0).notSolid();
+  private static final Block.Properties CONTROLLER = builder(Material.ROCK, ToolType.PICKAXE, SoundType.METAL).hardnessAndResistance(3.0F, 9.0F).setLightLevel(s -> s.get(MultiblockControllerBlock.ACTIVE) ? 13 : 0);
   public static final ItemObject<MelterBlock> searedMelter = BLOCKS.register("melter", () -> new MelterBlock(MELTER), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<AlloyTankBlock> alloyTank = BLOCKS.register("alloy_tank", () -> new AlloyTankBlock(ALLOY), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SmelteryControllerBlock> smelteryController = BLOCKS.register("smeltery_controller", () -> new SmelteryControllerBlock(CONTROLLER), TOOLTIP_BLOCK_ITEM);
 
   /*
    * Tile entities

@@ -503,6 +503,8 @@
     "block.tconstruct.casting_table.tooltip": "Cast items using molten metals from a Smeltery",
     "block.tconstruct.alloy_tank": "Alloy Tank",
     "block.tconstruct.alloy_tank.tooltip": "Alloys liquids from adjacent seared tanks and melters.\nPlace above a seared tank to fuel.",
+    "block.tconstruct.smeltery_controller": "Smeltery Controller",
+    "block.tconstruct.smeltery_controller.tooltip": "Brain of the Smeltery",
 
     "block.tconstruct.melter": "Seared Melter",
     "block.tconstruct.melter.tooltip": "First Smeltery.\nPlace above a seared tank to fuel.",
