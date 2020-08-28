@@ -1,6 +1,20 @@
 package slimeknights.tconstruct.library.smeltery;
 
-public class SmelteryTank {/*implements IFluidTank, IFluidHandler {
+import com.google.common.collect.Lists;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.StringUtils;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import slimeknights.mantle.recipe.FluidIngredient;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.ListIterator;
+
+public class SmelteryTank implements IFluidTank, IFluidHandler {
 
   protected final ISmelteryTankHandler parent;
   protected List<FluidStack> liquids; // currently, contained liquids in the smeltery
@@ -18,6 +32,26 @@ public class SmelteryTank {/*implements IFluidTank, IFluidHandler {
 
   public List<FluidStack> getFluids() {
     return liquids;
+  }
+
+  @Override
+  public int getTanks() {
+    return liquids.size();
+  }
+
+  @Override
+  public FluidStack getFluidInTank(int tank) {
+    return liquids.get(tank);
+  }
+
+  @Override
+  public int getTankCapacity(int tank) {
+    return getCapacity() - getFluidAmount() + liquids.get(tank).getAmount();
+  }
+
+  @Override
+  public boolean isFluidValid(int tank, @Nonnull FluidStack stack) {
+    return true;
   }
 
   public void setFluids(List<FluidStack> fluids) {
@@ -50,6 +84,7 @@ public class SmelteryTank {/*implements IFluidTank, IFluidHandler {
     return false;
   }
 
+  /*
   @Override
   public IFluidTankProperties[] getTankProperties() {
     // if the size is 0 (no fluids) simply return an empty properties
@@ -70,6 +105,7 @@ public class SmelteryTank {/*implements IFluidTank, IFluidHandler {
 
     return properties;
   }
+   */
 
   @Override
   public int fill(FluidStack resource, FluidAction action) {
@@ -151,7 +187,7 @@ public class SmelteryTank {/*implements IFluidTank, IFluidHandler {
     return FluidStack.EMPTY;
   }
 
-  /* Saving and loading *
+  /* Saving and loading */
 
   public CompoundNBT writeToNBT(CompoundNBT nbt) {
     ListNBT taglist = new ListNBT();
@@ -195,12 +231,12 @@ public class SmelteryTank {/*implements IFluidTank, IFluidHandler {
 
   /**
    * Moves the fluid with the passed index to the beginning/bottom of the fluid tank stack
-   *
+   */
   public void moveFluidToBottom(int index) {
     if (index < liquids.size()) {
       FluidStack fluid = liquids.get(index);
       liquids.remove(index);
       liquids.add(0, fluid);
     }
-  }*/
+  }
 }

@@ -28,6 +28,7 @@ import slimeknights.tconstruct.library.client.util.FluidTooltipHandler;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.client.FaucetFluidLoader;
 import slimeknights.tconstruct.smeltery.client.inventory.MelterScreen;
+import slimeknights.tconstruct.smeltery.client.inventory.SmelteryScreen;
 import slimeknights.tconstruct.smeltery.client.render.CastingTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.FaucetTileEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.MelterTileEntityRenderer;
@@ -69,6 +70,7 @@ public class SmelteryClientEvents extends ClientEventBase {
 
     // screens
     ScreenManager.registerFactory(TinkerSmeltery.melterContainer.get(), MelterScreen::new);
+    ScreenManager.registerFactory(TinkerSmeltery.smelteryContainer.get(), SmelteryScreen::new);
 
     FluidTooltipHandler.init();
   }

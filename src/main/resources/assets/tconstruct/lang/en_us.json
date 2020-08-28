@@ -509,6 +509,7 @@
     "block.tconstruct.melter": "Seared Melter",
     "block.tconstruct.melter.tooltip": "First Smeltery.\nPlace above a seared tank to fuel.",
     "gui.tconstruct.melter": "Melter",
+    "gui.tconstruct.smeltery_controller": "Smeltery",
     "gui.tconstruct.melting.capacity": "Capacity:",
     "gui.tconstruct.melting.available": "Free:",
     "gui.tconstruct.melting.used": "Used:",
