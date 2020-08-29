@@ -43,6 +43,7 @@ import slimeknights.tconstruct.smeltery.block.CastingTableBlock;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
 import slimeknights.tconstruct.smeltery.block.MelterBlock;
 import slimeknights.tconstruct.smeltery.block.MultiblockControllerBlock;
+import slimeknights.tconstruct.smeltery.block.SearedBlock;
 import slimeknights.tconstruct.smeltery.block.SearedGlassBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock.TankType;
@@ -95,7 +96,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final BuildingBlockObject searedStone = BLOCKS.registerBuilding("seared_stone", SMELTERY, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedCobble = BLOCKS.registerBuilding("seared_cobble", SMELTERY, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedPaver = BLOCKS.registerBuilding("seared_paver", SMELTERY, TOOLTIP_BLOCK_ITEM);
-  public static final BuildingBlockObject searedBricks = BLOCKS.registerBuilding("seared_bricks", SMELTERY, TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SearedBlock> searedBricks = BLOCKS.register("seared_bricks", () -> new SearedBlock(SMELTERY), TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedCrackedBricks = BLOCKS.registerBuilding("seared_cracked_bricks", SMELTERY, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedFancyBricks = BLOCKS.registerBuilding("seared_fancy_bricks", SMELTERY, TOOLTIP_BLOCK_ITEM);
   public static final BuildingBlockObject searedSquareBricks = BLOCKS.registerBuilding("seared_square_bricks", SMELTERY, TOOLTIP_BLOCK_ITEM);
@@ -123,7 +124,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<TileEntityType<SmelteryComponentTileEntity>> smelteryComponent = TILE_ENTITIES.register("smeltery_component", SmelteryComponentTileEntity::new, (set) -> {
     set.addAll(searedStone.values());
     set.addAll(searedCobble.values());
-    set.addAll(searedBricks.values());
+    set.add(searedBricks.get());
     set.addAll(searedCrackedBricks.values());
     set.addAll(searedFancyBricks.values());
     set.addAll(searedSquareBricks.values());
@@ -244,9 +245,9 @@ public final class TinkerSmeltery extends TinkerModule {
     // seared furnace ceiling blocks, no smelteryIO or seared glass
     // does not affect sides, those are forced to use seared blocks/tanks where relevant
     builder = ImmutableSet.builder();
-    builder.addAll(TinkerSmeltery.searedStone.values());
+    builder.add(TinkerSmeltery.searedStone.get());
     builder.addAll(TinkerSmeltery.searedCobble.values());
-    builder.addAll(TinkerSmeltery.searedBricks.values());
+    builder.add(TinkerSmeltery.searedBricks.get());
     builder.addAll(TinkerSmeltery.searedCrackedBricks.values());
     builder.addAll(TinkerSmeltery.searedFancyBricks.values());
     builder.addAll(TinkerSmeltery.searedSquareBricks.values());

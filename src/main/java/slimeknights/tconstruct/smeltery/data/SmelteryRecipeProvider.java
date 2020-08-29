@@ -106,12 +106,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                         .addCriterion("has_item", hasItem(TinkerSmeltery.searedBricks))
                         .build(consumer, wrap(TinkerSmeltery.searedCrackedBricks, folder, "_smelting"));
     // brick slabs -> chiseled
-    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedSquareBricks)
-                       .key('s', TinkerSmeltery.searedBricks.getSlab())
-                       .patternLine("s")
-                       .patternLine("s")
-                       .addCriterion("has_item", hasItem(TinkerSmeltery.searedBricks.getSlab()))
-                       .build(consumer, wrap(TinkerSmeltery.searedSquareBricks, folder, "_crafting"));
+//    ShapedRecipeBuilder.shapedRecipe(TinkerSmeltery.searedSquareBricks)
+//                       .key('s', TinkerSmeltery.searedBricks.getSlab())
+//                       .patternLine("s")
+//                       .patternLine("s")
+//                       .addCriterion("has_item", hasItem(TinkerSmeltery.searedBricks.getSlab()))
+//                       .build(consumer, wrap(TinkerSmeltery.searedSquareBricks, folder, "_crafting"));
     // bricks or stone as input
     this.addSearedStonecutter(consumer, TinkerSmeltery.searedBricks, folder);
     this.addSearedStonecutter(consumer, TinkerSmeltery.searedFancyBricks, folder);
@@ -151,7 +151,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.registerSlabStair(consumer, TinkerSmeltery.searedStone, folder, true);
     this.registerSlabStair(consumer, TinkerSmeltery.searedCobble, folder, true);
     this.registerSlabStair(consumer, TinkerSmeltery.searedPaver, folder, true);
-    this.registerSlabStair(consumer, TinkerSmeltery.searedBricks, folder, true);
+//    this.registerSlabStair(consumer, TinkerSmeltery.searedBricks, folder, true);
     this.registerSlabStair(consumer, TinkerSmeltery.searedCrackedBricks, folder, true);
     this.registerSlabStair(consumer, TinkerSmeltery.searedFancyBricks, folder, true);
     this.registerSlabStair(consumer, TinkerSmeltery.searedSquareBricks, folder, true);
