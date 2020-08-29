@@ -54,7 +54,7 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
   public void render(MatrixStack matrices, int x, int y, float partialTicks) {
     this.renderBackground(matrices);
     super.render(matrices, x, y, partialTicks);
-    this.func_230459_a_(matrices, x, y);
+    this.renderHoveredTooltip(matrices, x, y);
   }
 
   @Override
@@ -111,8 +111,8 @@ public class MelterScreen extends ContainerScreen<MelterContainer> {
   }
 
   @Override
-  protected void func_230459_a_(MatrixStack matrices, int mouseX, int mouseY) {
-    super.func_230459_a_(matrices, mouseX, mouseY);
+  protected void renderHoveredTooltip(MatrixStack matrices, int mouseX, int mouseY) {
+    super.renderHoveredTooltip(matrices, mouseX, mouseY);
 
     int checkX = mouseX - this.guiLeft;
     int checkY = mouseY - this.guiTop;

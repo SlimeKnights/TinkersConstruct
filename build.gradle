@@ -52,6 +52,9 @@ repositories {
         name "ModMaven"
         url "https://modmaven.k-4u.nl"
     }
+    maven {
+        url 'https://www.dogforce-games.com/maven/'
+    }
 }
 
 group = 'slimeknights.tconstruct'
