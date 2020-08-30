@@ -9,15 +9,16 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.tconstruct.library.client.Icons;
+import slimeknights.tconstruct.tables.client.inventory.library.slots.SlotInformation;
 
-public class ButtonItem<T> extends Button {
+public class SlotButtonItem extends Button {
 
   protected static final ElementScreen BUTTON_PRESSED_GUI = new ElementScreen(144, 216, 18, 18, 256, 256);
   protected static final ElementScreen BUTTON_NORMAL_GUI = new ElementScreen(144 + 18 * 2, 216, 18, 18, 256, 256);
   protected static final ElementScreen BUTTON_HOVER_GUI = new ElementScreen(144 + 18 * 4, 216, 18, 18, 256, 256);
 
   private final ItemStack icon;
-  public final T data;
+  public final SlotInformation data;
   public boolean pressed;
   public final int buttonId;
 
@@ -26,7 +27,7 @@ public class ButtonItem<T> extends Button {
   private ElementScreen hoverGui = BUTTON_HOVER_GUI;
   private ResourceLocation backgroundLocation = Icons.ICONS;
 
-  public ButtonItem(int buttonId, int x, int y, ITextComponent text, T data, IPressable onPress) {
+  public SlotButtonItem(int buttonId, int x, int y, ITextComponent text, SlotInformation data, IPressable onPress) {
     super(x, y, 18, 18, text, onPress);
 
     this.icon = null;
@@ -34,7 +35,7 @@ public class ButtonItem<T> extends Button {
     this.buttonId = buttonId;
   }
 
-  public ButtonItem(int buttonId, int x, int y, ItemStack icon, T data, IPressable onPress) {
+  public SlotButtonItem(int buttonId, int x, int y, ItemStack icon, SlotInformation data, IPressable onPress) {
     super(x, y, 18, 18, icon.getDisplayName(), onPress);
 
     this.icon = icon;
@@ -42,7 +43,7 @@ public class ButtonItem<T> extends Button {
     this.buttonId = buttonId;
   }
 
-  public ButtonItem<T> setGraphics(ElementScreen normal, ElementScreen hover, ElementScreen pressed, ResourceLocation background) {
+  public SlotButtonItem setGraphics(ElementScreen normal, ElementScreen hover, ElementScreen pressed, ResourceLocation background) {
     this.pressedGui = pressed;
     this.normalGui = normal;
     this.hoverGui = hover;

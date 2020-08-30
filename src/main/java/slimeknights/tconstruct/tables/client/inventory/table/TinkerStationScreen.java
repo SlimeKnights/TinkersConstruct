@@ -30,7 +30,7 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.tables.client.SlotInformationLoader;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
-import slimeknights.tconstruct.tables.client.inventory.ButtonItem;
+import slimeknights.tconstruct.tables.client.inventory.SlotButtonItem;
 import slimeknights.tconstruct.tables.client.inventory.library.slots.SlotInformation;
 import slimeknights.tconstruct.tables.client.inventory.library.slots.SlotPosition;
 import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
@@ -409,7 +409,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     // draw the decoration for the buttons
     for (Widget widget : this.buttonsScreen.getButtons()) {
-      ButtonItem<SlotInformation> button = (ButtonItem<SlotInformation>) widget;
+      SlotButtonItem button = (SlotButtonItem) widget;
 
       this.buttonDecorationTop.draw(matrices, button.x, button.y - this.buttonDecorationTop.h);
       // don't draw the bottom for the buttons in the last row

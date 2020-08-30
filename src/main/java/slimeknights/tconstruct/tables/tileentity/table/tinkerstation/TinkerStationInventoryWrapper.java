@@ -38,20 +38,4 @@ public class TinkerStationInventoryWrapper implements ITinkerStationInventory {
   public ItemStack getTinkerableStack() {
     return this.station.getStackInSlot(TinkerStationTileEntity.TINKER_SLOT);
   }
-
-  @Override
-  public int getSizeInventory() {
-    return this.station.getSizeInventory();
-  }
-
-  @Override
-  public boolean isEmpty() {
-    for (int i = 0; i < this.station.getSizeInventory(); i++) {
-      if (!this.station.getStackInSlot(i).isEmpty()) {
-        return false;
-      }
-    }
-
-    return true;
-  }
 }

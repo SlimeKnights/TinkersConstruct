@@ -2,9 +2,9 @@ package slimeknights.tconstruct.tables.tileentity.table.tinkerstation;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import slimeknights.mantle.recipe.inventory.IReadOnlyInventory;
+import slimeknights.mantle.recipe.inventory.IEmptyInventory;
 
-public interface ITinkerStationInventory extends IReadOnlyInventory {
+public interface ITinkerStationInventory extends IEmptyInventory {
 
   /**
    * Gets the stacks in the input slots
@@ -20,13 +20,4 @@ public interface ITinkerStationInventory extends IReadOnlyInventory {
    * @return the itemstack in the tinkerable slot (slot 5/center slot)
    */
   ItemStack getTinkerableStack();
-
-  /** @deprecated
-   * Do not use, instead use getTinkerableSlot OR getAllInputStacks
-   */
-  @Override
-  @Deprecated
-  default ItemStack getStackInSlot(int index) {
-    return ItemStack.EMPTY;
-  }
 }
