@@ -10,7 +10,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.tables.client.SlotInformationLoader;
-import slimeknights.tconstruct.tables.client.inventory.ButtonItem;
+import slimeknights.tconstruct.tables.client.inventory.SlotButtonItem;
 import slimeknights.tconstruct.tables.client.inventory.library.slots.SlotInformation;
 import slimeknights.tconstruct.tables.client.inventory.table.TinkerStationScreen;
 
@@ -40,27 +40,27 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
 
     Button.IPressable onPressed = button -> {
       for (Widget o : TinkerStationButtonsScreen.this.buttons) {
-        if (o instanceof ButtonItem) {
-          ((ButtonItem<?>) o).pressed = false;
+        if (o instanceof SlotButtonItem) {
+          ((SlotButtonItem) o).pressed = false;
         }
       }
 
-      if (button instanceof ButtonItem) {
-        ButtonItem<SlotInformation> buildScreenInfoButtonItem = (ButtonItem<SlotInformation>) button;
+      if (button instanceof SlotButtonItem) {
+        SlotButtonItem slotInformationButton = (SlotButtonItem) button;
 
-        buildScreenInfoButtonItem.pressed = true;
+        slotInformationButton.pressed = true;
 
-        TinkerStationButtonsScreen.this.selected = buildScreenInfoButtonItem.buttonId;
+        TinkerStationButtonsScreen.this.selected = slotInformationButton.buttonId;
 
-        TinkerStationButtonsScreen.this.parent.onToolSelection(buildScreenInfoButtonItem.data);
+        TinkerStationButtonsScreen.this.parent.onToolSelection(slotInformationButton.data);
       }
     };
 
     for (SlotInformation slotInformation : SlotInformationLoader.getSlotInformationList()) {
-      ButtonItem<SlotInformation> buttonItem;
+      SlotButtonItem slotButtonItem;
 
       if (slotInformation == SlotInformationLoader.get(TinkerStationScreen.REPAIR_NAME)) {
-        buttonItem = new ButtonItem<SlotInformation>(index++, -1, -1, new TranslationTextComponent("gui.tconstruct.repair"), slotInformation, onPressed) {
+        slotButtonItem = new SlotButtonItem(index++, -1, -1, new TranslationTextComponent("gui.tconstruct.repair"), slotInformation, onPressed) {
           @Override
           protected void drawIcon(MatrixStack matrices, Minecraft minecraft) {
             minecraft.getTextureManager().bindTexture(Icons.ICONS);
@@ -69,34 +69,33 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
         };
       }
       else {
-        buttonItem = new ButtonItem<>(index++, -1, -1, slotInformation.getToolForRendering(), slotInformation, onPressed);
+        slotButtonItem = new SlotButtonItem(index++, -1, -1, slotInformation.getToolForRendering(), slotInformation, onPressed);
       }
 
-      this.addInfoButton(buttonItem);
+      this.addInfoButton(slotButtonItem);
 
       if (index - 1 == selected) {
-        buttonItem.pressed = true;
+        slotButtonItem.pressed = true;
       }
     }
 
     super.updatePosition(parentX, parentY, parentSizeX, parentSizeY);
   }
 
-  public void addInfoButton(ButtonItem<SlotInformation> buttonItem) {
-    this.shiftButton(buttonItem, 0, -18 * this.style);
-    this.addSideButton(buttonItem);
+  public void addInfoButton(SlotButtonItem slotButtonItem) {
+    this.shiftButton(slotButtonItem, 0, -18 * this.style);
+    this.addSideButton(slotButtonItem);
   }
 
-  @SuppressWarnings("unchecked")
   public void shiftStyle(int style) {
-    for (Object o : this.buttons) {
-      this.shiftButton((ButtonItem<SlotInformation>) o, 0, -18);
+    for (Widget o : this.buttons) {
+      this.shiftButton((SlotButtonItem) o, 0, -18);
     }
 
     this.style = style;
   }
 
-  protected void shiftButton(ButtonItem<SlotInformation> button, int xd, int yd) {
+  protected void shiftButton(SlotButtonItem button, int xd, int yd) {
     button.setGraphics(Icons.BUTTON.shift(xd, yd),
       Icons.BUTTON_HOVERED.shift(xd, yd),
       Icons.BUTTON_PRESSED.shift(xd, yd),
