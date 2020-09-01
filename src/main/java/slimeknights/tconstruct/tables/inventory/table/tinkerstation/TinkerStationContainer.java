@@ -39,7 +39,7 @@ public class TinkerStationContainer extends BaseStationContainer<TinkerStationTi
       this.addSlot(this.tinkerSlot = new TinkerSlot(tile, TinkerStationTileEntity.TINKER_SLOT, 0, 0));
 
       // add result slot, will fetch result cache
-      this.addSlot(this.resultSlot = new LazyResultSlot(tile.getCraftingResult(), 124, 35));
+      this.addSlot(this.resultSlot = new LazyResultSlot(tile.getCraftingResult(), 124, 37));
     }
     else {
       // requirement for final variable
