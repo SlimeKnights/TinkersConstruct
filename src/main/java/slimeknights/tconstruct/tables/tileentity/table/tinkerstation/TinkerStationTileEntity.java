@@ -28,7 +28,10 @@ import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
 import slimeknights.tconstruct.tables.tileentity.table.RetexturedTableTileEntity;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class TinkerStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
 
@@ -150,14 +153,30 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     this.playCraftSound(player);
     this.syncToRelevantPlayers(this::syncScreen);
 
+    ItemStack centerSlotItem = this.getStackInSlot(TINKER_SLOT);
+    if (!centerSlotItem.isEmpty()) {
+      centerSlotItem.shrink(1);
+    }
+    this.setInventorySlotContents(TINKER_SLOT, centerSlotItem);
+
     // update all slots in the inventory
-    // remove remaining items
-    this.lastRecipe.consumeInputs(this.inventoryWrapper.getAllInputStacks(), (itemStack) -> {
+
+    List<ItemStack> list = new ArrayList<>(this.getSizeInventory());
+    for (int slot = 0; slot < this.getSizeInventory(); slot++) {
+      list.add(slot, this.getStackInSlot(slot));
+    }
+
+    Consumer<ItemStack> consumer = (itemStack) -> {
       if (!player.inventory.addItemStackToInventory(itemStack)) {
         player.dropItem(itemStack, false);
       }
-    });
+    };
 
+    this.lastRecipe.consumeInputs(list, consumer);
+
+    for (int slot = 0; slot < this.getSizeInventory(); slot++) {
+      this.setInventorySlotContents(slot, list.get(slot));
+    }
     return result;
   }
 
