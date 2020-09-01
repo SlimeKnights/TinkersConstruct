@@ -42,7 +42,7 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
    */
   void consumeInputs(List<ItemStack> inventory, Consumer<ItemStack> extraStackConsumer);
 
-  /** Unused, please call consumeInputs */
+  /** @deprecated use {@link #consumeInputs(List,Consumer)} */
   @Deprecated
   default NonNullList<ItemStack> getRemainingItems(ITinkerStationInventory inv) {
     return NonNullList.from(ItemStack.EMPTY);
