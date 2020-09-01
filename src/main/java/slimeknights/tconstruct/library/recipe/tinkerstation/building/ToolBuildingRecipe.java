@@ -15,6 +15,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.ITinkerStationInventory;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -52,5 +53,28 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   @Override
   public ItemStack getRecipeOutput() {
     return new ItemStack(this.output);
+  }
+
+  @Override
+  public void consumeInputs(List<ItemStack> stacks, Consumer<ItemStack> extraStackConsumer) {
+    for (int index = 0; index < stacks.size(); index++) {
+      ItemStack stack = stacks.get(index);
+
+      ItemStack container = ItemStack.EMPTY;
+      if (stack.hasContainerItem()) {
+        container = stack.getContainerItem();
+      }
+
+      // shrink the stack
+      stack.shrink(1);
+      // if the stack is now empty, insert the container into the slot
+      if (stack.isEmpty()) {
+        stacks.set(index, container);
+      }
+      else {
+        // otherwise add the container to the consumer
+        extraStackConsumer.accept(container);
+      }
+    }
   }
 }

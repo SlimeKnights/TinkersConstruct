@@ -7,7 +7,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.GameRules;
@@ -153,36 +152,11 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
     // update all slots in the inventory
     // remove remaining items
-    NonNullList<ItemStack> remaining = this.lastRecipe.getRemainingItems(this.inventoryWrapper);
-
-    for (int i = 0; i < remaining.size(); ++i) {
-      ItemStack original = this.getStackInSlot(i);
-      ItemStack newStack = remaining.get(i);
-
-      // if the slot contains a stack, decrease by 1
-      if (!original.isEmpty()) {
-        original.shrink(this.lastRecipe.getAmountUsed(i));
+    this.lastRecipe.consumeInputs(this.inventoryWrapper.getAllInputStacks(), (itemStack) -> {
+      if (!player.inventory.addItemStackToInventory(itemStack)) {
+        player.dropItem(itemStack, false);
       }
-
-      // if we have a new item, try merging it in
-      if (!newStack.isEmpty()) {
-        // if empty, set directly
-        if (original.isEmpty()) {
-          this.setInventorySlotContents(i, newStack);
-        }
-        else if (ItemStack.areItemsEqual(original, newStack) && ItemStack.areItemStackTagsEqual(original, newStack)) {
-          // if matching, merge
-          newStack.grow(original.getCount());
-          this.setInventorySlotContents(i, newStack);
-        }
-        else {
-          // otherwise, drop the item as the player
-          if (!player.inventory.addItemStackToInventory(newStack)) {
-            player.dropItem(newStack, false);
-          }
-        }
-      }
-    }
+    });
 
     return result;
   }
