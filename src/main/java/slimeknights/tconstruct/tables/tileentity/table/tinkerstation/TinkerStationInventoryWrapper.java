@@ -18,7 +18,7 @@ public class TinkerStationInventoryWrapper implements ITinkerStationInventory {
   @Override
   public NonNullList<ItemStack> getAllInputStacks() {
     if (this.inputs == null) {
-      this.inputs = NonNullList.from(ItemStack.EMPTY, IntStream.range(0, 6)
+      this.inputs = NonNullList.from(ItemStack.EMPTY, IntStream.range(0, 5)
         .mapToObj(this.station::getStackInSlot)
         .filter(itemStack -> !itemStack.isEmpty())
         .toArray(ItemStack[]::new));
