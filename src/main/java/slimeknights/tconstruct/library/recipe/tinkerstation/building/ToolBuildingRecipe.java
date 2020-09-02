@@ -37,7 +37,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
 
   @Override
   public boolean matches(ITinkerStationInventory inv, World worldIn) {
-    return ToolBuildHandler.canToolBeBuilt(inv.getAllInputStacks(), this.output) && inv.getTinkerableStack().isEmpty();
+    return inv.getTinkerableStack().isEmpty() && ToolBuildHandler.canToolBeBuilt(inv.getAllInputStacks(), this.output);
   }
 
   @Override
