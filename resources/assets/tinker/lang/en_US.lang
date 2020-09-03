@@ -16,6 +16,8 @@ crafters.Smeltery=Smeltery
 crafters.Frypan=Frying Pan
 inventory.knapsack=Knapsack
 
+nei.options.keys.gui.tinkers_belt=Toggle Travellers Belt
+
 ToolStation.Crafter.name=Tool Station
 ToolStation.Parts.name=Part Builder
 ToolStation.PatternChest.name=Pattern Chest

@@ -174,10 +174,7 @@ public class ArmorControls {
 				}
 			}
 			if (key == ArmorControls.beltSwap) {
-				if (ArmorProxyClient.armorExtended.inventory[3] != null) {
-					PlayerAbilityHelper.swapBelt(mc.thePlayer, ArmorProxyClient.armorExtended);
-					toggleBelt();
-				}
+				doBeltSwapIfPossible();
 			}
 			if (key == ArmorControls.zoomKey) {
 				zoom = !zoom;
@@ -217,7 +214,17 @@ public class ArmorControls {
 		updateServer(packet);
 	}
 
-	private void toggleBelt() {
+	public static boolean doBeltSwapIfPossible()
+	{
+		if (ArmorProxyClient.armorExtended.inventory[3] != null) {
+			PlayerAbilityHelper.swapBelt(mc.thePlayer, ArmorProxyClient.armorExtended);
+			toggleBelt();
+			return true;
+		}
+		return false;
+	}
+
+	private static void toggleBelt() {
 		AbstractPacket packet = new BeltPacket();
 		updateServer(packet);
 	}
