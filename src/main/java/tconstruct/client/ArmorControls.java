@@ -214,8 +214,7 @@ public class ArmorControls {
 		updateServer(packet);
 	}
 
-	public static boolean doBeltSwapIfPossible()
-	{
+	public static boolean doBeltSwapIfPossible() {
 		if (ArmorProxyClient.armorExtended.inventory[3] != null) {
 			PlayerAbilityHelper.swapBelt(mc.thePlayer, ArmorProxyClient.armorExtended);
 			toggleBelt();
