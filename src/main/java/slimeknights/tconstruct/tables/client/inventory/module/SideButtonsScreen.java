@@ -49,13 +49,15 @@ public class SideButtonsScreen extends ModuleScreen {
 
   @Override
   public boolean handleMouseClicked(double mouseX, double mouseY, int mouseButton) {
-    if(mouseButton == 0) {
-      for(Object o : this.buttons) {
-        Button button = (Button) o;
+    if (mouseButton == 0) {
+      for (Widget widget : this.buttons) {
+        if (widget instanceof Button) {
+          Button button = (Button) widget;
 
-        if(button.mouseClicked(mouseX, mouseY, mouseButton)) {
-          this.clickedButton = button;
-          return true;
+          if (button.mouseClicked(mouseX, mouseY, mouseButton)) {
+            this.clickedButton = button;
+            return true;
+          }
         }
       }
     }
@@ -65,7 +67,7 @@ public class SideButtonsScreen extends ModuleScreen {
 
   @Override
   public boolean handleMouseReleased(double mouseX, double mouseY, int state) {
-    if(clickedButton != null) {
+    if (clickedButton != null) {
       clickedButton.mouseReleased(mouseX, mouseY, state);
       clickedButton = null;
       return true;
@@ -76,8 +78,8 @@ public class SideButtonsScreen extends ModuleScreen {
 
   @Override
   protected void drawGuiContainerBackgroundLayer(MatrixStack matrices, float partialTicks, int mouseX, int mouseY) {
-    for (Widget button : this.buttons) {
-      button.render(matrices, mouseX, mouseY, partialTicks);
+    for (Widget widget : this.buttons) {
+      widget.render(matrices, mouseX, mouseY, partialTicks);
     }
   }
 

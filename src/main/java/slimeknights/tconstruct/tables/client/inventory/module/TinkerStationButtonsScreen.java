@@ -39,9 +39,9 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
     this.buttonCount = 0;
 
     Button.IPressable onPressed = button -> {
-      for (Widget o : TinkerStationButtonsScreen.this.buttons) {
-        if (o instanceof SlotButtonItem) {
-          ((SlotButtonItem) o).pressed = false;
+      for (Widget widget : TinkerStationButtonsScreen.this.buttons) {
+        if (widget instanceof SlotButtonItem) {
+          ((SlotButtonItem) widget).pressed = false;
         }
       }
 
@@ -88,8 +88,10 @@ public class TinkerStationButtonsScreen extends SideButtonsScreen {
   }
 
   public void shiftStyle(int style) {
-    for (Widget o : this.buttons) {
-      this.shiftButton((SlotButtonItem) o, 0, -18);
+    for (Widget widget : this.buttons) {
+      if (widget instanceof SlotButtonItem) {
+        this.shiftButton((SlotButtonItem) widget, 0, -18);
+      }
     }
 
     this.style = style;
