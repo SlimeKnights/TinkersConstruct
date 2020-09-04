@@ -409,12 +409,14 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     // draw the decoration for the buttons
     for (Widget widget : this.buttonsScreen.getButtons()) {
-      SlotButtonItem button = (SlotButtonItem) widget;
+      if(widget instanceof SlotButtonItem) {
+        SlotButtonItem button = (SlotButtonItem) widget;
 
-      this.buttonDecorationTop.draw(matrices, button.x, button.y - this.buttonDecorationTop.h);
-      // don't draw the bottom for the buttons in the last row
-      if (button.buttonId < this.buttonsScreen.getButtons().size() - COLUMN_COUNT) {
-        this.buttonDecorationBot.draw(matrices, button.x, button.y + button.getHeight());
+        this.buttonDecorationTop.draw(matrices, button.x, button.y - this.buttonDecorationTop.h);
+        // don't draw the bottom for the buttons in the last row
+        if (button.buttonId < this.buttonsScreen.getButtons().size() - COLUMN_COUNT) {
+          this.buttonDecorationBot.draw(matrices, button.x, button.y + button.getHeight());
+        }
       }
     }
 
