@@ -1,0 +1,23 @@
+{
+  "type": "mantle:crafting_shaped_retextured",
+  "pattern": [
+    " p ",
+    "w w",
+    "w w"
+  ],
+  "key": {
+    "p": {
+      "item": "tconstruct:pattern"
+    },
+    "w": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "tconstruct:tinker_station"
+  },
+  "texture": {
+    "tag": "minecraft:planks"
+  },
+  "match_all": false
+}
