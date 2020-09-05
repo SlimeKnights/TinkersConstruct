@@ -19,6 +19,8 @@ public class NEITConstructConfig implements IConfigureNEI
         registerHandler(new RecipeHandlerAlloying());
         registerHandler(new RecipeHandlerCastingTable());
         registerHandler(new RecipeHandlerCastingBasin());
+
+        BeltToggleFromGuiInputHandler.init();
     }
 
     @Override
