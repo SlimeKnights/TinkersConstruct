@@ -34,20 +34,40 @@ public class ToolDefinition {
     this.categories = ImmutableSet.copyOf(categories);
   }
 
+  /**
+   * Gets the current tools base stats definition
+   *
+   * @return the tools base stats definition
+   */
   public ToolBaseStatDefinition getBaseStatDefinition() {
-    return baseStatDefinition;
+    return this.baseStatDefinition;
   }
 
+  /**
+   * Gets the required components for the given tool definition
+   * @return the required components
+   */
   public List<PartMaterialRequirement> getRequiredComponents() {
-    return requiredComponents;
+    return this.requiredComponents;
   }
 
+  /**
+   * Checks if the tool has the given category or not
+   *
+   * @param category the category to check for
+   * @return if the tool has the category or not
+   */
   public boolean hasCategory(Category category) {
-    return categories.contains(category);
+    return this.categories.contains(category);
   }
 
+  /**
+   * Gets all the categories for the given tool
+   *
+   * @return the list of categories
+   */
   public Set<Category> getCategories() {
-    return categories;
+    return this.categories;
   }
 
   /* Repairing */

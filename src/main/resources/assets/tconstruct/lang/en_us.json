@@ -383,6 +383,8 @@
 
     "block.tconstruct.crafting_station": "Crafting Station",
 
+    "block.tconstruct.tinker_station": "Tinker Station",
+
     "block.tconstruct.part_builder": "Part Builder",
 
     "block.tconstruct.part_chest": "Part Chest",
@@ -396,22 +398,38 @@
     "_comment": "Tinkers Tools",
     
     "item.tconstruct.pickaxe": "Pickaxe",
+    "item.tconstruct.hammer": "Hammer",
+    "item.tconstruct.shovel": "Shovel",
+    "item.tconstruct.excavator": "Excavator",
+    "item.tconstruct.axe": "Hatchet",
+    "item.tconstruct.kama": "Kama",
+    "item.tconstruct.broad_sword": "Broadsword",
     
     "_comment": "Tinkers Tool Parts",
 
     "item.tconstruct.pickaxe_head": "Pickaxe Head",
     "item.tconstruct.hammer_head": "Hammer Head",
     "item.tconstruct.shovel_head": "Shovel Head",
+    "item.tconstruct.excavator_head": "Excavator Head",
+    "item.tconstruct.axe_head": "Axe Head",
+    "item.tconstruct.kama_head": "Kama Head",
     "item.tconstruct.sword_blade": "Sword Blade",
     "item.tconstruct.tool_rod": "Tool Rod",
     "item.tconstruct.tough_tool_rod": "Tough Tool Rod",
     "item.tconstruct.small_binding": "Small Binding",
+    "item.tconstruct.tough_binding": "Tough Binding",
     "item.tconstruct.wide_guard": "Wide Guard",
     "item.tconstruct.large_plate": "Large Plate",
 
     "_conment": "Tool Descriptions",
 
     "item.tconstruct.pickaxe.description":"The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?",
+    "item.tconstruct.hammer.description": "The Hammer is a broad mining tool. It harvests blocks in a wide range.\nAlso effective against undead.",
+    "item.tconstruct.shovel.description": "The Shovel digs up dirt. It is effective on dirt, sand, gravel and snow.\nJust don't dig your own grave!",
+    "item.tconstruct.excavator.description": "The Excavator is a broad digging tool. It digs up large areas of soil and snow in a wide range.\nTerraforming!",
+    "item.tconstruct.axe.description": "The Hatchet chops up wood and makes short work of leaves. It also makes for a passable weapon.\nChop chop!",
+    "item.tconstruct.kama.description": "The Kama is a precision reaping tool, mowing down plants and shearing animals.\nRight Click: Harvest and replant crops",
+    "item.tconstruct.broad_sword.description": "The Broadsword is a universal weapon. Sweep attacks keep enemy hordes at bay.\nAlso good against cobwebs!",
 
     "_comment": "Tinkers Smeltery",
 
@@ -703,12 +721,13 @@
     "gui.tconstruct.cast_chest": "Cast Chest",
     "gui.tconstruct.part_chest": "Part Chest",
 
-    "gui.tconstruct.tool_station": "Tool Station",
-    "gui.tconstruct.tool_station.repair": "Repair & Modify",
-    "gui.tconstruct.tool_station.traits": "Traits",
-    "gui.tconstruct.tool_station.components": "Components",
-    "gui.tconstruct.tool_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
-    "gui.tconstruct.tool_station.no_traits": "None :[",
+    "gui.tconstruct.tinker_station": "Tinker Station",
+    "gui.tconstruct.tinker_station.repair": "Repair & Modify",
+    "gui.tconstruct.tinker_station.traits": "Traits",
+    "gui.tconstruct.tinker_station.components": "Components",
+    "gui.tconstruct.tinker_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
+    "gui.tconstruct.tinker_station.no_traits": "None :[",
+    "gui.tconstruct.tinker_station.traits.coming_soon": "Traits coming soon",
 
     "_comment": "GUIs Messages",
 

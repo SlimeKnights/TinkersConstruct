@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.renderer.font;
 
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -13,6 +14,7 @@ import static java.awt.Color.HSBtoRGB;
 
 // TODO: extract?
 public class CustomFontColor {
+
   public static final Color MAX = valueToColor(1, 1);
   private static final UnaryOperator<Style> APPLY_MAX = style -> style.setColor(MAX);
 
@@ -27,8 +29,8 @@ public class CustomFontColor {
     // 0.0 -> 0 = red
     // 1.0 -> 1/3 = green
     // 1.5 -> 1/2 = aqua
-    float v = value / max / 3;
-    return Color.func_240743_a_(HSBtoRGB(v, 0.01f, 0.5f));
+    float hue = MathHelper.clamp(((value / max) / 3), 0.01f, 0.5f);
+    return Color.func_240743_a_(HSBtoRGB(hue, 0.65f, 0.8f));
   }
 
   public static ITextComponent formatPartialAmount(int value, int max) {

@@ -2,12 +2,11 @@ package slimeknights.tconstruct.tables.block;
 
 public enum TableTypes {
   CraftingStation(50),
-  ToolStation(25),
+  TinkerStation(25),
   PartBuilder(20),
   PartChest(16),
   PatternChest(15),
-  ModifierChest(14),
-  StencilTable(10);
+  ModifierChest(14);
 
   private final int sortIndex;
 

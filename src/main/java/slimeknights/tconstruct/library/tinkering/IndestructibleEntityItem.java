@@ -33,8 +33,8 @@ public class IndestructibleEntityItem extends ItemEntity {
 
   public void setPickupDelayFrom(Entity reference) {
     if (reference instanceof ItemEntity) {
-      short pickupDelay = getPickupDelay((ItemEntity) reference);
-      setPickupDelay(pickupDelay);
+      short pickupDelay = this.getPickupDelay((ItemEntity) reference);
+      this.setPickupDelay(pickupDelay);
     }
     setMotion(reference.getMotion());
   }

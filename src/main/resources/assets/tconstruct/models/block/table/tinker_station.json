@@ -1,0 +1,21 @@
+{
+    "loader": "tconstruct:table",
+    "parent": "tconstruct:block/table/table",
+    "textures": {
+        "particle": "tconstruct:block/table/tinker_station_top",
+        "top": "tconstruct:block/table/tinker_station_top",
+        "side": "tconstruct:block/table/side",
+        "bottom": "minecraft:block/oak_planks",
+        "leg": "minecraft:block/oak_planks",
+        "legBottom": "minecraft:block/oak_planks"
+    },
+    "retextured": [ "leg", "bottom", "legBottom" ],
+    "items": [
+        { "center": [ 3.5, 18, 13 ], "size": 3 },
+        { "center": [ 2.5, 18, 7 ], "size": 3 },
+        { "center": [ 8, 18, 2 ], "size": 3 },
+        { "center": [ 14, 18, 7 ], "size": 3 },
+        { "center": [ 13, 18, 13 ], "size": 3 },
+        { "center": [ 8, 17, 8 ], "size": 7.5, "x": 270 }
+    ]
+}

@@ -13,6 +13,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import java.util.function.Consumer;
 
 public class TableRecipeProvider extends BaseRecipeProvider {
+
   public TableRecipeProvider(DataGenerator generator) {
     super(generator);
   }
@@ -22,31 +23,43 @@ public class TableRecipeProvider extends BaseRecipeProvider {
     String folder = "tools/";
     // pattern
     ShapedRecipeBuilder.shapedRecipe(TinkerTables.pattern)
-                       .key('s', Tags.Items.RODS_WOODEN)
-                       .key('p', ItemTags.PLANKS)
-                       .patternLine("ps")
-                       .patternLine("sp")
-                       .addCriterion("has_item", hasItem(Tags.Items.RODS_WOODEN))
-                       .build(consumer, prefix(TinkerTables.pattern, folder));
+      .key('s', Tags.Items.RODS_WOODEN)
+      .key('p', ItemTags.PLANKS)
+      .patternLine("ps")
+      .patternLine("sp")
+      .addCriterion("has_item", hasItem(Tags.Items.RODS_WOODEN))
+      .build(consumer, prefix(TinkerTables.pattern, folder));
 
     // crafting station -> crafting table upgrade
     ShapedRecipeBuilder.shapedRecipe(TinkerTables.craftingStation)
-                       .key('p', TinkerTables.pattern)
-                       .key('w', Items.CRAFTING_TABLE)
-                       .patternLine("p")
-                       .patternLine("w")
-                       .addCriterion("has_item", hasItem(TinkerTables.pattern))
-                       .build(consumer, prefix(TinkerTables.craftingStation, folder));
+      .key('p', TinkerTables.pattern)
+      .key('w', Items.CRAFTING_TABLE)
+      .patternLine("p")
+      .patternLine("w")
+      .addCriterion("has_item", hasItem(TinkerTables.pattern))
+      .build(consumer, prefix(TinkerTables.craftingStation, folder));
 
     // part builder
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shapedRecipe(TinkerTables.partBuilder)
-                         .key('p', TinkerTables.pattern)
-                         .key('w', ItemTags.PLANKS)
-                         .patternLine("p")
-                         .patternLine("w")
-                         .addCriterion("has_item", hasItem(TinkerTables.pattern)))
-                                 .setSource(ItemTags.PLANKS)
-                                 .build(consumer, prefix(TinkerTables.partBuilder, folder));
+        .key('p', TinkerTables.pattern)
+        .key('w', ItemTags.PLANKS)
+        .patternLine("p")
+        .patternLine("w")
+        .addCriterion("has_item", hasItem(TinkerTables.pattern)))
+      .setSource(ItemTags.PLANKS)
+      .build(consumer, prefix(TinkerTables.partBuilder, folder));
+
+    // tinker station
+    ShapedRetexturedRecipeBuilder.fromShaped(
+      ShapedRecipeBuilder.shapedRecipe(TinkerTables.tinkerStation)
+        .key('p', TinkerTables.pattern)
+        .key('w', ItemTags.PLANKS)
+        .patternLine(" p ")
+        .patternLine("w w")
+        .patternLine("w w")
+        .addCriterion("has_item", hasItem(TinkerTables.pattern)))
+      .setSource(ItemTags.PLANKS)
+      .build(consumer, prefix(TinkerTables.tinkerStation, folder));
   }
 }

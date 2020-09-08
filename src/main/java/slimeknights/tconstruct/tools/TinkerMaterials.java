@@ -2,12 +2,18 @@ package slimeknights.tconstruct.tools;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 
 /**
  * Contains blocks and items used in crafting materials, and the materials themselves
  */
+@SuppressWarnings("unused")
 public final class TinkerMaterials extends TinkerModule {
   /*
    * Blocks
@@ -41,4 +47,13 @@ public final class TinkerMaterials extends TinkerModule {
   public static final ItemObject<Item> copperIngot = ITEMS.register("copper_ingot", GENERAL_PROPS);
   public static final ItemObject<Item> roseGoldNugget = ITEMS.register("rose_gold_nugget", GENERAL_PROPS);
   public static final ItemObject<Item> roseGoldIngot = ITEMS.register("rose_gold_ingot", GENERAL_PROPS);
+
+
+  /*
+   * Serializers
+   */
+  @SubscribeEvent
+  void registerSerializers(RegistryEvent<IRecipeSerializer<?>> event) {
+    CraftingHelper.register(MaterialIngredient.Serializer.ID, MaterialIngredient.Serializer.INSTANCE);
+  }
 }

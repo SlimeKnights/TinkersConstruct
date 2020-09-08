@@ -9,13 +9,13 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
-import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
+import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.tileentity.chest.PatternChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
 
 import javax.annotation.Nullable;
 
-public class PatternChestContainer extends TinkerStationContainer<PatternChestTileEntity> {
+public class PatternChestContainer extends BaseStationContainer<PatternChestTileEntity> {
 
   protected SideInventoryContainer<PatternChestTileEntity> inventory;
 
@@ -65,6 +65,7 @@ public class PatternChestContainer extends TinkerStationContainer<PatternChestTi
       if (this.patternChestTileEntity == null) {
         return true;
       }
+
       return this.patternChestTileEntity.isItemValidForSlot(this.getSlotIndex(), stack); // slot parameter is unused
     }
   }

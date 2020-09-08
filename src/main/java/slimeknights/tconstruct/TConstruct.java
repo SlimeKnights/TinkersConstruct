@@ -2,25 +2,18 @@ package slimeknights.tconstruct;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -45,13 +38,10 @@ import slimeknights.tconstruct.debug.ToolDebugContainer;
 import slimeknights.tconstruct.debug.ToolDebugScreen;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock;
-import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerMaterials;
@@ -157,153 +147,5 @@ public class TConstruct {
         return Command.SINGLE_SUCCESS;
       });
     event.getServer().getCommandManager().getDispatcher().register(executes);
-  }
-
-  @SubscribeEvent // TODO: Remove after a while, maybe at release.
-  void missingItemMappings(RegistryEvent.MissingMappings<Item> event) {
-    entries: for (RegistryEvent.MissingMappings.Mapping<Item> entry : event.getAllMappings()) {
-      if (entry.key.getNamespace().equals(TConstruct.modID)) {
-        String path = entry.key.getPath();
-        // slime is prefixed with color instead of suffixed
-        for (StickySlimeBlock.SlimeType slime : StickySlimeBlock.SlimeType.values()) {
-          // Remap slime_sling_$slime
-          if (path.equals("slime_sling_" + slime.getString())) {
-            entry.remap(TinkerGadgets.slimeSling.get(slime));
-            continue entries;
-          }
-          // Remap slime_boots_$slime
-          if (path.equals("slime_boots_" + slime.getString())) {
-            entry.remap(TinkerGadgets.slimeBoots.get(slime));
-            continue entries;
-          }
-          // Remap congealed_$slime_slime
-          if (path.equals(String.format("congealed_%s_slime", slime.getString()))) {
-            entry.remap(TinkerWorld.congealedSlime.get(slime).asItem());
-            continue entries;
-          }
-        }
-        switch (path) {
-          // pink slime removed
-          case "congealed_pink_slime": case "pink_congealed_slime":
-            entry.remap(TinkerWorld.congealedSlime.get(SlimeType.GREEN).asItem());
-            break;
-          case "pink_slime":
-            entry.remap(Blocks.SLIME_BLOCK.asItem());
-            break;
-          case "pink_slime_ball":
-            entry.remap(Items.SLIME_BALL);
-            break;
-          case "pink_slime_sling":
-            entry.remap(TinkerGadgets.slimeSling.get(SlimeType.GREEN));
-            break;
-          case "pink_slime_boots":
-            entry.remap(TinkerGadgets.slimeBoots.get(SlimeType.GREEN));
-            break;
-          // alubrass removed, fallback
-          case "alubrass_block":
-            entry.remap(TinkerMaterials.copperBlock.asItem());
-            break;
-          case "alubrass_ingot":
-            entry.remap(TinkerMaterials.copperIngot.get());
-            break;
-          case "alubrass_nugget":
-            entry.remap(TinkerMaterials.copperNugget.get());
-            break;
-          case "aluminum_brass_item_frame":
-            entry.remap(TinkerGadgets.itemFrame.get(FrameType.JEWEL));
-            break;
-          // old tool before we had a proper model
-          case "test_tool":
-            entry.remap(TinkerTools.pickaxe.get());
-            break;
-          case "test_part":
-            entry.remap(TinkerToolParts.pickaxeHead.get());
-            break;
-        }
-      }
-    }
-  }
-
-  @SubscribeEvent // TODO: Remove after a while, maybe at release.
-  void missingBlockMappings(RegistryEvent.MissingMappings<Block> event) {
-    entries: for (RegistryEvent.MissingMappings.Mapping<Block> entry : event.getAllMappings()) {
-      if (entry.key.getNamespace().equals(TConstruct.modID)) {
-        // congealed is congealed_color_slime instead of color_congealed_slime
-        String path = entry.key.getPath();
-        for (StickySlimeBlock.SlimeType slime : StickySlimeBlock.SlimeType.values()) {
-          // Remap congealed_$slime_slime
-          if (path.equals(String.format("congealed_%s_slime", slime.getString()))) {
-            entry.remap(TinkerWorld.congealedSlime.get(slime));
-            continue entries;
-          }
-        }
-        switch(path) {
-          // pink slime removed
-          case "congealed_pink_slime": case "pink_congealed_slime":
-            entry.remap(TinkerWorld.congealedSlime.get(SlimeType.GREEN));
-            break;
-          case "pink_slime":
-            entry.remap(Blocks.SLIME_BLOCK);
-            break;
-          // slime fluids renamed to remove "fluid"
-          case "purple_slime_fluid_block": {
-            Block block = TinkerFluids.purpleSlime.getBlock();
-            if (block == null) {
-              entry.ignore();
-            } else {
-              entry.remap(block);
-            }
-            break;
-          }
-          case "blue_slime_fluid_block": {
-            Block block = TinkerFluids.blueSlime.getBlock();
-            if (block == null) {
-              entry.ignore();
-            } else {
-              entry.remap(block);
-            }
-            break;
-          }
-          // alubrass removed, fallback
-          case "alubrass_block":
-            entry.remap(TinkerMaterials.copperBlock.get());
-            break;
-        }
-      }
-    }
-  }
-
-  @SubscribeEvent // TODO: Remove after a while, maybe at release.
-  void missingFluidMappings(RegistryEvent.MissingMappings<Fluid> event) {
-    for (RegistryEvent.MissingMappings.Mapping<Fluid> entry : event.getAllMappings()) {
-      if (entry.key.getNamespace().equals(TConstruct.modID)) {
-        switch (entry.key.getPath()) {
-          // slime fluids renamed to remove fluid, flowing is now prefix
-          case "blue_slime_fluid":
-            entry.remap(TinkerFluids.blueSlime.getStill());
-            break;
-          case "blue_slime_fluid_flowing":
-            entry.remap(TinkerFluids.blueSlime.getFlowing());
-            break;
-          case "purple_slime_fluid":
-            entry.remap(TinkerFluids.purpleSlime.getStill());
-            break;
-          case "purple_slime_fluid_flowing":
-            entry.remap(TinkerFluids.purpleSlime.getFlowing());
-            break;
-        }
-      }
-    }
-  }
-
-  @SubscribeEvent // TODO: Remove after a while, maybe at release.
-  void missingEntityMappings(RegistryEvent.MissingMappings<EntityType<?>> event) {
-    for (RegistryEvent.MissingMappings.Mapping<EntityType<?>> entry : event.getAllMappings()) {
-      if (entry.key.getNamespace().equals(TConstruct.modID)) {
-        if (entry.key.getPath().equals("blue_slime_entity")) {
-          entry.remap(TinkerWorld.blueSlimeEntity.get());
-        }
-      }
-    }
   }
 }

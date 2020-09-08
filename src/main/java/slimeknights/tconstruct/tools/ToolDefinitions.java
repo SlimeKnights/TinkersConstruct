@@ -18,7 +18,64 @@ public final class ToolDefinitions {
       new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
       new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
     ),
-    ImmutableSet.of(Category.HARVEST));
+    ImmutableSet.of(Category.HARVEST, Category.AOE));
+
+  public static final ToolDefinition HAMMER = new ToolDefinition(
+    ToolBaseStatDefinitions.HAMMER,
+    ImmutableList.of(
+      new PartMaterialRequirement(TinkerToolParts.hammerHead, HeadMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.toughToolRod, HandleMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.largePlate, HeadMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.largePlate, HeadMaterialStats.ID)
+    ),
+    ImmutableSet.of(Category.HARVEST, Category.WEAPON, Category.AOE));
+
+  public static final ToolDefinition SHOVEL = new ToolDefinition(
+    ToolBaseStatDefinitions.SHOVEL,
+    ImmutableList.of(
+      new PartMaterialRequirement(TinkerToolParts.shovelHead, HeadMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
+    ),
+    ImmutableSet.of(Category.HARVEST, Category.AOE));
+
+  public static final ToolDefinition EXCAVATOR = new ToolDefinition(
+    ToolBaseStatDefinitions.EXCAVATOR,
+    ImmutableList.of(
+      new PartMaterialRequirement(TinkerToolParts.excavatorHead, HeadMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.toughToolRod, HandleMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.largePlate, HeadMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.toughBinding, ExtraMaterialStats.ID)
+    ),
+    ImmutableSet.of(Category.HARVEST, Category.AOE));
+
+  public static final ToolDefinition AXE = new ToolDefinition(
+    ToolBaseStatDefinitions.AXE,
+    ImmutableList.of(
+      new PartMaterialRequirement(TinkerToolParts.axeHead, HeadMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
+    ),
+    ImmutableSet.of(Category.HARVEST, Category.WEAPON, Category.AOE));
+
+  public static final ToolDefinition KAMA = new ToolDefinition(
+    ToolBaseStatDefinitions.KAMA,
+    ImmutableList.of(
+      new PartMaterialRequirement(TinkerToolParts.kamaHead, HeadMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
+    ),
+    ImmutableSet.of(Category.HARVEST, Category.WEAPON, Category.AOE));
+
+
+  public static final ToolDefinition BROADSWORD = new ToolDefinition(
+    ToolBaseStatDefinitions.BROADSWORD,
+    ImmutableList.of(
+      new PartMaterialRequirement(TinkerToolParts.swordBlade, HeadMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
+      new PartMaterialRequirement(TinkerToolParts.wideGuard, ExtraMaterialStats.ID)
+    ),
+    ImmutableSet.of(Category.WEAPON));
 
   private ToolDefinitions() {
   }

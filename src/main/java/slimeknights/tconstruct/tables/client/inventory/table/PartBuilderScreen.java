@@ -23,14 +23,14 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
-import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
+import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
 import java.util.List;
 import java.util.function.Function;
 
-public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity, PartBuilderContainer> {
+public class PartBuilderScreen extends BaseStationScreen<PartBuilderTileEntity, PartBuilderContainer> {
 
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/partbuilder.png");
 
@@ -136,7 +136,7 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     } else {
       // default text
       this.infoPanelScreen.setCaption(this.getTitle());
-      this.infoPanelScreen.setText(ForgeI18n.getPattern("gui.tconstruct.part_builder.info"));
+      this.infoPanelScreen.setText(new TranslationTextComponent("gui.tconstruct.part_builder.info"));
       this.infoPanelScreen.clearMaterialValue();
     }
   }
@@ -166,8 +166,10 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
     // update stats and traits
     List<ITextComponent> stats = Lists.newLinkedList();
     List<ITextComponent> tips = Lists.newArrayList();
+
     for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
       List<ITextComponent> info = stat.getLocalizedInfo();
+
       if (!info.isEmpty()) {
         stats.add(stat.getLocalizedName().mergeStyle(TextFormatting.UNDERLINE));
         stats.addAll(info);
@@ -177,11 +179,13 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
         tips.add(new StringTextComponent(""));
       }
     }
+
     // remove last line if empty
     if (!stats.isEmpty() && stats.get(stats.size() - 1).getString().isEmpty()) {
       stats.remove(stats.size() - 1);
       tips.remove(tips.size() - 1);
     }
+
     this.infoPanelScreen.setText(stats, tips);
   }
 
@@ -270,13 +274,13 @@ public class PartBuilderScreen extends TinkerStationScreen<PartBuilderTileEntity
   /* Update error logic */
 
   @Override
-  public void error(String message) {
+  public void error(ITextComponent message) {
     this.infoPanelScreen.setCaption(new TranslationTextComponent("gui.tconstruct.error"));
     this.infoPanelScreen.setText(message);
   }
 
   @Override
-  public void warning(String message) {
+  public void warning(ITextComponent message) {
     this.infoPanelScreen.setCaption(new TranslationTextComponent("gui.tconstruct.warning"));
     this.infoPanelScreen.setText(message);
   }

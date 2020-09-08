@@ -16,6 +16,7 @@ import net.minecraftforge.client.model.IModelLoader;
 import slimeknights.mantle.client.model.inventory.ModelItem;
 import slimeknights.mantle.client.model.util.SimpleBlockModel;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Function;
 
@@ -28,22 +29,27 @@ public class MelterModel extends TankModel {
 
   private final List<ModelItem> items;
   @SuppressWarnings("WeakerAccess")
-  protected MelterModel(SimpleBlockModel model, IncrementalFluidCuboid fluid, List<ModelItem> items) {
-    super(model, fluid);
+  protected MelterModel(SimpleBlockModel model, @Nullable SimpleBlockModel gui, IncrementalFluidCuboid fluid, List<ModelItem> items) {
+    super(model, gui, fluid);
     this.items = items;
   }
 
   @Override
   public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<RenderMaterial,TextureAtlasSprite> spriteGetter, IModelTransform transform, ItemOverrideList overrides, ResourceLocation location) {
     IBakedModel baked = model.bakeModel(owner, transform, overrides, spriteGetter, location);
-    return new BakedModel(owner, transform, baked, this);
+    // bake the GUI model if present
+    IBakedModel bakedGui = baked;
+    if (gui != null) {
+      bakedGui = gui.bakeModel(owner, transform, overrides, spriteGetter, location);
+    }
+    return new BakedModel(owner, transform, baked, bakedGui, this);
   }
 
   /** Baked variant to allow access to items */
   public static final class BakedModel extends TankModel.BakedModel<MelterModel> {
     @SuppressWarnings("WeakerAccess")
-    protected BakedModel(IModelConfiguration owner, IModelTransform transforms, IBakedModel baked, MelterModel original) {
-      super(owner, transforms, baked, original);
+    protected BakedModel(IModelConfiguration owner, IModelTransform transforms, IBakedModel baked, IBakedModel gui, MelterModel original) {
+      super(owner, transforms, baked, gui, original);
     }
 
     /**
@@ -63,9 +69,13 @@ public class MelterModel extends TankModel {
     @Override
     public TankModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
       SimpleBlockModel model = SimpleBlockModel.deserialize(deserializationContext, modelContents);
+      SimpleBlockModel gui = null;
+      if (modelContents.has("gui")) {
+        gui = SimpleBlockModel.deserialize(deserializationContext, JSONUtils.getJsonObject(modelContents, "gui"));
+      }
       IncrementalFluidCuboid fluid = IncrementalFluidCuboid.fromJson(JSONUtils.getJsonObject(modelContents, "fluid"));
       List<ModelItem> items = ModelItem.listFromJson(modelContents, "items");
-      return new MelterModel(model, fluid, items);
+      return new MelterModel(model, gui, fluid, items);
     }
   }
 }

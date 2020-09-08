@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.ITextProperties;
 import net.minecraft.util.text.StringTextComponent;
@@ -22,13 +23,14 @@ import slimeknights.tconstruct.library.Util;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
 public class InfoPanelScreen extends ModuleScreen {
 
-  private static int resW = 118;
-  private static int resH = 75;
+  private static final int resW = 118;
+  private static final int resH = 75;
 
   protected static ResourceLocation BACKGROUND_IMAGE = Util.getResource("textures/gui/panel.png");
 
@@ -55,10 +57,8 @@ public class InfoPanelScreen extends ModuleScreen {
 
   protected SliderWidget slider = new SliderWidget(SLIDER_NORMAL, SLIDER_HOVER, SLIDER_HOVER, SLIDER_TOP, SLIDER_BOTTOM, SLIDER_BAR);
 
-  // TODO: make ITextComponent
-  protected String caption;
+  protected ITextComponent caption;
   protected List<ITextComponent> text;
-  @Nullable
   protected List<ITextComponent> tooltips;
 
   protected List<Integer> tooltipLines = Lists.newLinkedList();
@@ -81,7 +81,7 @@ public class InfoPanelScreen extends ModuleScreen {
     this.xSize = resW + 8;
     this.ySize = resH + 8;
 
-    this.caption = new TranslationTextComponent("gui.tconstruct.caption").getString();
+    this.caption = new TranslationTextComponent("gui.tconstruct.caption");
     this.text = Lists.newLinkedList();
   }
 
@@ -101,25 +101,13 @@ public class InfoPanelScreen extends ModuleScreen {
     this.updateSliderParameters();
   }
 
-  /**
-   * @deprecated use {@link #setCaption(ITextProperties)}
-   */
-  @Deprecated
-  public void setCaption(String caption) {
-    this.caption = caption;
+  public void setCaption(ITextComponent caption) {
+    this.caption = (IFormattableTextComponent) caption;
     this.updateSliderParameters();
   }
 
-  public void setCaption(ITextProperties caption) {
-    setCaption(caption.getString());
-  }
-
-  public void setText(String... text) {
-    List<ITextComponent> textComponents = new ArrayList<>();
-
-    for (String s : text) {
-      textComponents.add(new StringTextComponent(s));
-    }
+  public void setText(ITextComponent... text) {
+    List<ITextComponent> textComponents = new ArrayList<>(Arrays.asList(text));
 
     this.setText(textComponents, null);
   }
@@ -140,7 +128,7 @@ public class InfoPanelScreen extends ModuleScreen {
   }
 
   public boolean hasCaption() {
-    return this.caption != null && !this.caption.isEmpty();
+    return this.caption != null && !this.caption.getString().isEmpty();
   }
 
   public boolean hasTooltips() {
@@ -208,6 +196,12 @@ public class InfoPanelScreen extends ModuleScreen {
 
     for (ITextComponent textComponent : this.text) {
       this.tooltipLines.add(lines.size());
+
+      if (textComponent.getString().isEmpty()) {
+        lines.add(StringTextComponent.EMPTY);
+        continue;
+      }
+
       lines.addAll(this.font.func_238425_b_(textComponent, w));
     }
 
@@ -333,9 +327,9 @@ public class InfoPanelScreen extends ModuleScreen {
     // draw caption
     if (this.hasCaption()) {
       int x2 = this.xSize / 2;
-      x2 -= this.font.getStringWidth(this.caption) / 2;
+      x2 -= this.font.func_238414_a_(this.caption) / 2;
 
-      this.font.drawStringWithShadow(matrices, TextFormatting.UNDERLINE + TextFormatting.getTextWithoutFormattingCodes(this.caption), (float) this.guiLeft + x2, y, color);
+      this.font.func_238407_a_(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE), (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
 
@@ -358,7 +352,7 @@ public class InfoPanelScreen extends ModuleScreen {
       }
 
       ITextProperties line = iter.next();
-      this.font.drawStringWithShadow(matrices, line.getString(), x, y, color);
+      this.font.func_238407_a_(matrices, line, x, y, color);
       y += textHeight;
     }
 

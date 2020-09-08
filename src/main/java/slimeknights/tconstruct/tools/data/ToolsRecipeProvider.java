@@ -13,15 +13,22 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
+import slimeknights.tconstruct.library.tinkering.ITinkerable;
+import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -29,6 +36,7 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
+import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
@@ -48,6 +56,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     this.addMaterialsRecipes(consumer);
     this.addToolMaterialRecipes(consumer);
     this.addPartRecipes(consumer);
+    this.addTinkerStationRecipes(consumer);
   }
 
 
@@ -204,8 +213,12 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     addPartRecipe(consumer, TinkerToolParts.pickaxeHead, 2, TinkerSmeltery.pickaxeHeadCast);
     addPartRecipe(consumer, TinkerToolParts.hammerHead, 8, TinkerSmeltery.hammerHeadCast);
     addPartRecipe(consumer, TinkerToolParts.shovelHead, 2, TinkerSmeltery.shovelHeadCast);
+    addPartRecipe(consumer, TinkerToolParts.axeHead, 2, TinkerSmeltery.axeHeadCast);
+    addPartRecipe(consumer, TinkerToolParts.excavatorHead, 8, TinkerSmeltery.excavatorHeadCast);
+    addPartRecipe(consumer, TinkerToolParts.kamaHead, 2, TinkerSmeltery.kamaHeadCast);
     addPartRecipe(consumer, TinkerToolParts.swordBlade, 2, TinkerSmeltery.swordBladeCast);
     addPartRecipe(consumer, TinkerToolParts.smallBinding, 1, TinkerSmeltery.smallBindingCast);
+    addPartRecipe(consumer, TinkerToolParts.toughBinding, 3, TinkerSmeltery.toughBindingCast);
     addPartRecipe(consumer, TinkerToolParts.wideGuard, 1, TinkerSmeltery.wideGuardCast);
     addPartRecipe(consumer, TinkerToolParts.largePlate, 8, TinkerSmeltery.largePlateCast);
     addPartRecipe(consumer, TinkerToolParts.toolRod, 1, TinkerSmeltery.toolRodCast);
@@ -298,6 +311,30 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.slimeleaf_purple, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.PURPLE)), 1, 2, "slimeleaf_purple");
   }
 
+  private void addTinkerStationRecipes(Consumer<IFinishedRecipe> consumer) {
+    registerBuildingRecipe(consumer, TinkerTools.pickaxe);
+    registerBuildingRecipe(consumer, TinkerTools.hammer);
+
+    registerBuildingRecipe(consumer, TinkerTools.shovel);
+    registerBuildingRecipe(consumer, TinkerTools.excavator);
+
+    registerBuildingRecipe(consumer, TinkerTools.axe);
+
+    registerBuildingRecipe(consumer, TinkerTools.kama);
+
+    registerBuildingRecipe(consumer, TinkerTools.broadSword);
+  }
+
+  private void registerBuildingRecipe(Consumer<IFinishedRecipe> consumer, Supplier<? extends ToolCore> sup) {
+    // Base data
+    ToolCore toolCore = sup.get();
+    String name = Objects.requireNonNull(toolCore.getRegistryName()).getPath();
+
+    ToolBuildingRecipeBuilder.toolBuildingRecipe(toolCore)
+      .addCriterion("has_item", hasItem(TinkerTables.tinkerStation))
+      .build(consumer, location("tinker_station/building/" + name));
+  }
+
 
   /* Helpers */
 
@@ -372,7 +409,12 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
                                 .build(consumer, location("casting/parts/" + name));
 
     // Cast Casting
-    addCastCastingRecipe(consumer, part, cast, "casting/");
+    ItemCastingRecipeBuilder.tableRecipe(cast)
+                            .setFluid(new FluidStack(TinkerFluids.moltenGold.get(), MaterialValues.VALUE_Ingot))
+                            .setCast(MaterialIngredient.fromItem(part), true)
+                            .setSwitchSlots()
+                            .addCriterion("has_item", hasItem(part))
+                            .build(consumer, location("casting/casts/" + Objects.requireNonNull(part.asItem().getRegistryName()).getPath()));
 
     // Part melting
     MaterialMeltingRecipeBuilder.melting(part, cost * MaterialValues.VALUE_Ingot)

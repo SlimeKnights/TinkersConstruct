@@ -73,7 +73,7 @@ public class Config {
         .define("chestsKeepInventory", true);
 
       this.craftingStationBlacklist = builder
-        .comment("Blacklist of registry names or TE class names for the crafting station to connect to. Mainly for compatibility.")
+        .comment("Blacklist of registry names for the crafting station to connect to. Mainly for compatibility.")
         .translation("tconstruct.configgui.craftingStationBlacklist")
         .worldRestart()
         .define("craftingStationBlacklist", new ArrayList<>());

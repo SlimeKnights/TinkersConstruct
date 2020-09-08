@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared.tileentity;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
@@ -7,9 +8,11 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import slimeknights.mantle.tileentity.InventoryTileEntity;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
+import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tools.common.network.InventorySlotSyncPacket;
 
 import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 
 /**
  * Tile entity that displays items in world. TODO: better name?
@@ -39,5 +42,25 @@ public abstract class TableTileEntity extends InventoryTileEntity {
   public CompoundNBT getUpdateTag() {
     // sync whole inventory on chunk load
     return this.write(new CompoundNBT());
+  }
+
+  /**
+   * Sends a packet to all players with this container open
+   */
+  public void syncToRelevantPlayers(Consumer<PlayerEntity> action) {
+    if (this.world == null || this.world.isRemote) {
+      return;
+    }
+
+    this.world.getPlayers().stream()
+      // sync if they are viewing this tile
+      .filter(player -> {
+        if (player.openContainer instanceof BaseStationContainer) {
+          return ((BaseStationContainer) player.openContainer).getTile() == this;
+        }
+        return false;
+      })
+      // send packets
+      .forEach(action);
   }
 }

@@ -19,14 +19,14 @@ import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.client.inventory.table.ResultSlot;
-import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
+import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTileEntity> implements IContainerCraftingCustom {
+public class PartBuilderContainer extends BaseStationContainer<PartBuilderTileEntity> implements IContainerCraftingCustom {
 
   // recipe
   private final IntReferenceHolder selectedRecipe = IntReferenceHolder.single();
@@ -131,7 +131,7 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
     if (!patternSlot.getStack().isEmpty()) {
       this.partRecipes = RecipeHelper.getUIRecipes(world.getRecipeManager(), RecipeTypes.PART_BUILDER, PartRecipe.class, partFilter);
     }
-    this.updateGUI();
+    this.updateScreen();
   }
 
   /**
@@ -149,7 +149,7 @@ public class PartBuilderContainer extends TinkerStationContainer<PartBuilderTile
       // TODO: consider a message if it fails to match, the recipe will need to be modified so wrong count does not error
     }
     this.craftResult.setInventorySlotContents(0, output);
-    this.updateGUI();
+    this.updateScreen();
   }
 
   @Override

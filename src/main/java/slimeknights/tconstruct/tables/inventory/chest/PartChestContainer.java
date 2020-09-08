@@ -10,13 +10,13 @@ import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
-import slimeknights.tconstruct.tables.inventory.TinkerStationContainer;
+import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
 import slimeknights.tconstruct.tables.tileentity.chest.PartChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
 
 import javax.annotation.Nullable;
 
-public class PartChestContainer extends TinkerStationContainer<PartChestTileEntity> {
+public class PartChestContainer extends BaseStationContainer<PartChestTileEntity> {
 
   protected SideInventoryContainer<PartChestTileEntity> inventory;
 
