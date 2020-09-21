@@ -2,13 +2,13 @@ package tconstruct.util.network;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import mantle.common.network.*;
+import mantle.common.network.AbstractPacket;
+import mantle.common.network.PacketUpdateTE;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
+import tconstruct.smeltery.inventory.SmelteryContainer;
 import tconstruct.smeltery.logic.SmelteryLogic;
 
 public class SmelteryPacket extends AbstractPacket
@@ -64,34 +64,33 @@ public class SmelteryPacket extends AbstractPacket
     @Override
     public void handleServerSide (EntityPlayer player)
     {
-        World world = player.worldObj;
-
-        TileEntity te = world.getTileEntity(x, y, z);
-        if (te instanceof SmelteryLogic)
+        if (player.openContainer instanceof SmelteryContainer)
         {
-            FluidStack temp = null;
-
-            for (FluidStack liquid : ((SmelteryLogic) te).moltenMetal)
+            SmelteryContainer container = (SmelteryContainer) player.openContainer;
+            SmelteryLogic logic = container.logic;
+            if (logic != null && logic.hasWorldObj() && logic.getWorldObj().provider.dimensionId == this.dimension && logic.xCoord == this.x && logic.yCoord == this.y && logic.zCoord == this.z)
             {
-                if (liquid.getFluidID() == fluidID)
+                FluidStack temp = null;
+
+                for (FluidStack liquid : logic.moltenMetal)
                 {
-                    temp = liquid;
+                    if (liquid.getFluidID() == this.fluidID)
+                        temp = liquid;
                 }
-            }
 
-            if (temp != null)
-            {
-                ((SmelteryLogic) te).moltenMetal.remove(temp);
-                if (isShiftPressed)
-                    ((SmelteryLogic) te).moltenMetal.add(temp);
-                else
-                    ((SmelteryLogic) te).moltenMetal.add(0, temp);
-            }
+                if (temp != null)
+                {
+                    logic.moltenMetal.remove(temp);
+                    if (this.isShiftPressed)
+                        logic.moltenMetal.add(temp);
+                    else
+                        logic.moltenMetal.add(0, temp);
+                }
 
-            NBTTagCompound data = new NBTTagCompound();
-            te.writeToNBT(data);
-            TConstruct.packetPipeline.sendToDimension(new PacketUpdateTE(x, y, z, data), dimension);
+                NBTTagCompound data = new NBTTagCompound();
+                logic.writeToNBT(data);
+                TConstruct.packetPipeline.sendToDimension(new PacketUpdateTE(this.x, this.y, this.z, data), this.dimension);
+            }
         }
     }
-
 }

@@ -5,9 +5,8 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import mantle.common.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-import tconstruct.tools.logic.*;
+import tconstruct.tools.inventory.ToolStationContainer;
+import tconstruct.tools.logic.ToolStationLogic;
 
 public class ToolStationPacket extends AbstractPacket
 {
@@ -53,16 +52,14 @@ public class ToolStationPacket extends AbstractPacket
     @Override
     public void handleServerSide (EntityPlayer player)
     {
-        World world = player.worldObj;
-        TileEntity te = world.getTileEntity(x, y, z);
-
-        if (te instanceof ToolStationLogic)
+        if (player.openContainer instanceof ToolStationContainer)
         {
-            ((ToolStationLogic) te).setToolname(toolName);
-        }
-        if (te instanceof ToolForgeLogic)
-        {
-            ((ToolForgeLogic) te).setToolname(toolName);
+            ToolStationContainer container = (ToolStationContainer) player.openContainer;
+            ToolStationLogic logic = container.logic;
+            if (logic != null && logic.xCoord == x && logic.yCoord == y && logic.zCoord == z)
+            {
+                logic.setToolname(toolName);
+            }
         }
     }
 
