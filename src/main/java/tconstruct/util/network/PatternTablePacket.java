@@ -3,12 +3,13 @@ package tconstruct.util.network;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import mantle.blocks.abstracts.InventoryLogic;
 import mantle.common.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
+import tconstruct.TConstruct;
+import tconstruct.library.crafting.StencilBuilder;
+import tconstruct.tools.inventory.PatternShaperContainer;
+import tconstruct.tools.logic.StencilTableLogic;
 
 public class PatternTablePacket extends AbstractPacket
 {
@@ -56,13 +57,34 @@ public class PatternTablePacket extends AbstractPacket
     @Override
     public void handleServerSide (EntityPlayer player)
     {
-        World world = player.worldObj;
-        TileEntity te = world.getTileEntity(x, y, z);
-
-        if (te instanceof InventoryLogic)
+        if (player.openContainer instanceof PatternShaperContainer)
         {
-            ((InventoryLogic) te).setInventorySlotContents(1, contents);
+            PatternShaperContainer container = (PatternShaperContainer) player.openContainer;
+            StencilTableLogic logic = container.logic;
+            if (logic != null && logic.xCoord == this.x && logic.yCoord == this.y && logic.zCoord == this.z)
+                if (this.contents == null)
+                    logic.setSelectedPattern(null);
+                else
+                {
+                    ItemStack stackBlank = logic.getStackInSlot(0);
+                    if (stackBlank != null && stackBlank.stackSize > 0 && StencilBuilder.isBlank(stackBlank))
+                    {
+                        boolean warning = true;
+                        for (ItemStack stack : StencilBuilder.instance.stencils.values())
+                        {
+                            if (stack != null && this.contents.isItemEqual(stack))
+                            {
+                                this.contents = stack.copy();
+                                warning = false;
+                                break;
+                            }
+                        }
+                        if (warning)
+                            TConstruct.logger.warn("Possible packet-cheating with PatternTable for player " + player.getCommandSenderName());
+                        else
+                            logic.setSelectedPattern(this.contents);
+                    }
+                }
         }
     }
-
 }

@@ -4,8 +4,11 @@ import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import mantle.common.network.AbstractPacket;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import tconstruct.TConstruct;
 import tconstruct.armor.ArmorProxyCommon;
+import tconstruct.armor.TinkerArmor;
+import tconstruct.armor.player.TPlayerStats;
 
 public class AccessoryInventoryPacket extends AbstractPacket
 {
@@ -52,7 +55,12 @@ public class AccessoryInventoryPacket extends AbstractPacket
             player.openGui(TConstruct.instance, ArmorProxyCommon.armorGuiID, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
             break;
         case ArmorProxyCommon.knapsackGuiID:
-            player.openGui(TConstruct.instance, ArmorProxyCommon.knapsackGuiID, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+            TPlayerStats stats = TPlayerStats.get(player);
+            ItemStack itemStack = stats.armor.getStackInSlot(2);
+            if (itemStack != null && itemStack.getItem() == TinkerArmor.knapsack && itemStack.stackSize > 0)
+            {
+                player.openGui(TConstruct.instance, ArmorProxyCommon.knapsackGuiID, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+            }
             break;
         }
     }

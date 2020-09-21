@@ -62,7 +62,7 @@ public class SignDataPacket extends AbstractPacket
     {
         TileEntity te = player.worldObj.getTileEntity(x, y, z);
 
-        if (te != null && te instanceof BattlesignLogic)
+        if (te instanceof BattlesignLogic)
         {
             BattlesignLogic logic = (BattlesignLogic) te;
 
@@ -73,9 +73,14 @@ public class SignDataPacket extends AbstractPacket
     @Override
     public void handleServerSide (EntityPlayer player)
     {
+        if (player.worldObj.blockExists(x, y, z))
+        {
+            return;
+        }
+
         TileEntity te = player.worldObj.getTileEntity(x, y, z);
 
-        if (te != null && te instanceof BattlesignLogic)
+        if (te instanceof BattlesignLogic)
         {
             BattlesignLogic logic = (BattlesignLogic) te;
 
