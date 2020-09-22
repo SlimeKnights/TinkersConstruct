@@ -1,11 +1,17 @@
 package tconstruct.tools.logic;
 
 import java.lang.ref.WeakReference;
+
 import mantle.blocks.abstracts.InventoryLogic;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.*;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.*;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
 import tconstruct.tools.inventory.CraftingStationContainer;
 
@@ -94,6 +100,26 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     }
 
     @Override
+    public boolean isUseableByPlayer(EntityPlayer player)
+    {
+        return isUseableByPlayer(player, this.getInventories()) && super.isUseableByPlayer(player);
+    }
+
+    public static boolean isUseableByPlayer(EntityPlayer player, WeakReference[] inventories) {
+        for (WeakReference<IInventory> ref : inventories)
+        {
+            if (ref != null)
+            {
+                IInventory inv = ref.get();
+                if (inv != null && !inv.isUseableByPlayer(player))
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
     public boolean canInsertItem (int i, ItemStack itemstack, int j)
     {
         return false;
@@ -140,6 +166,11 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     {
         // TODO Auto-generated method stub
 
+    }
+
+    public WeakReference[] getInventories()
+    {
+        return new WeakReference[] { this.chest, this.doubleChest, this.patternChest, this.furnace };
     }
 
     @Override

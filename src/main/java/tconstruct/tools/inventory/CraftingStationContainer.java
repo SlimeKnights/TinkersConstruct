@@ -1,17 +1,20 @@
 package tconstruct.tools.inventory;
 
+import java.lang.ref.WeakReference;
+
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.*;
-import net.minecraft.inventory.*;
-import net.minecraft.item.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryCrafting;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 import tconstruct.library.crafting.ModifyBuilder;
-import tconstruct.library.event.ToolCraftedEvent;
 import tconstruct.library.modifier.IModifyable;
-import tconstruct.library.tools.AbilityHelper;
 import tconstruct.tools.TinkerTools;
 import tconstruct.tools.logic.CraftingStationLogic;
 
@@ -26,6 +29,7 @@ public class CraftingStationContainer extends Container
     private int posX;
     private int posY;
     private int posZ;
+    private WeakReference[] inventories;
 
     public CraftingStationContainer(InventoryPlayer inventorplayer, CraftingStationLogic logic, int x, int y, int z)
     {
@@ -37,6 +41,7 @@ public class CraftingStationContainer extends Container
         this.logic = logic;
         craftMatrix = new InventoryCraftingStation(this, 3, 3, logic);
         craftResult = new InventoryCraftingStationResult(logic);
+        this.inventories = logic.getInventories();
 
         int row;
         int column;
@@ -162,6 +167,10 @@ public class CraftingStationContainer extends Container
         Block block = worldObj.getBlock(this.posX, this.posY, this.posZ);
         if (block != TinkerTools.craftingStationWood && block != TinkerTools.craftingSlabWood)
             return false;
+
+        if (!this.logic.isUseableByPlayer(player) || !CraftingStationLogic.isUseableByPlayer(player, this.inventories))
+            return false;
+
         return player.getDistanceSq((double) this.posX + 0.5D, (double) this.posY + 0.5D, (double) this.posZ + 0.5D) <= 64.0D;
     }
 

@@ -1,21 +1,22 @@
 package tconstruct.armor.player;
 
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.UUID;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.relauncher.Side;
 import io.netty.buffer.ByteBuf;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.*;
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.*;
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import tconstruct.library.accessory.IHealthAccessory;
 
 public class ArmorExtended implements IInventory
@@ -278,13 +279,15 @@ public class ArmorExtended implements IInventory
     public void dropItems ()
     {
         EntityPlayer player = parent.get();
-
-        for (int i = 0; i < 4; ++i)
+        if (player != null)
         {
-            if (this.inventory[i] != null && !isSoulBounded(this.inventory[i]))
+            for (int i = 0; i < 4; ++i)
             {
-                player.func_146097_a(this.inventory[i], true, false);
-                this.inventory[i] = null;
+                if (this.inventory[i] != null && !isSoulBounded(this.inventory[i]))
+                {
+                    player.func_146097_a(this.inventory[i], true, false);
+                    this.inventory[i] = null;
+                }
             }
         }
     }

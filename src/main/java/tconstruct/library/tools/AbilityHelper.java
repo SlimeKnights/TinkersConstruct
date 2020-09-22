@@ -1,29 +1,37 @@
 package tconstruct.library.tools;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+
 import cofh.api.energy.IEnergyContainerItem;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.Event.Result;
-import java.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.*;
+import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityGhast;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityWolf;
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
-import net.minecraft.stats.*;
+import net.minecraft.stats.AchievementList;
+import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import tconstruct.TConstruct;
-import tconstruct.library.*;
+import tconstruct.library.ActiveToolMod;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.library.util.PiercingEntityDamage;
 
 public class AbilityHelper
@@ -58,7 +66,7 @@ public class AbilityHelper
 
     public static boolean onLeftClickEntity (ItemStack stack, EntityLivingBase player, Entity entity, ToolCore tool, int baseDamage)
     {
-        if (entity.canAttackWithItem() && stack.hasTagCompound())
+        if (entity != null && player != null && entity.canAttackWithItem() && stack.hasTagCompound())
         {
             if (!entity.hitByEntity(player)) // can't attack this entity
             {
