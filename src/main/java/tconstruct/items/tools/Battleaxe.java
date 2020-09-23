@@ -1,34 +1,35 @@
 package tconstruct.items.tools;
 
-import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.relauncher.*;
-import mantle.world.WorldHelper;
 import mods.battlegear2.api.PlayerEventChild;
 import mods.battlegear2.api.weapons.IBattlegearWeapon;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.*;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import tconstruct.library.*;
-import tconstruct.library.tools.*;
+import tconstruct.library.tools.AOEHarvestTool;
+import tconstruct.library.tools.AbilityHelper;
 import tconstruct.tools.TinkerTools;
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
-@Optional.InterfaceList({
-        @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon"),
-        @Optional.Interface(modid = "ZeldaItemAPI", iface = "zeldaswordskills.api.item.ISword")
-})
+@Optional.InterfaceList({ @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon"),
+        @Optional.Interface(modid = "ZeldaItemAPI", iface = "zeldaswordskills.api.item.ISword") })
 public class Battleaxe extends AOEHarvestTool implements IBattlegearWeapon
 {
     public Battleaxe()
     {
-        super(4, 1,1);
+        super(4, 1, 1);
         this.setUnlocalizedName("InfiTool.Battleaxe");
     }
 
@@ -181,10 +182,14 @@ public class Battleaxe extends AOEHarvestTool implements IBattlegearWeapon
             int boost = time / 100;
             if (boost > 2)
                 boost = 2;
-            player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, time * 4, boost));
-            player.addPotionEffect(new PotionEffect(Potion.jump.id, time * 4, boost));
-            player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, time * 4, 0));
-            player.addPotionEffect(new PotionEffect(Potion.hunger.id, time * 2, 0));
+
+            if (!world.isRemote)
+            {
+                player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, time * 4, boost));
+                player.addPotionEffect(new PotionEffect(Potion.jump.id, time * 4, boost));
+                player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, time * 4, 0));
+                player.addPotionEffect(new PotionEffect(Potion.hunger.id, time * 2, 0));
+            }
             if (time > 5 && player.onGround)
             {
                 player.addExhaustion(0.2F);
@@ -239,45 +244,51 @@ public class Battleaxe extends AOEHarvestTool implements IBattlegearWeapon
 
     @Override
     @Optional.Method(modid = "battlegear2")
-    public boolean sheatheOnBack(ItemStack item)
+    public boolean sheatheOnBack (ItemStack item)
     {
         return true;
     }
 
     @Override
     @Optional.Method(modid = "battlegear2")
-    public boolean isOffhandHandDual(ItemStack off) {
+    public boolean isOffhandHandDual (ItemStack off)
+    {
         return true;
     }
 
     @Override
     @Optional.Method(modid = "battlegear2")
-    public boolean offhandAttackEntity(PlayerEventChild.OffhandAttackEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
+    public boolean offhandAttackEntity (PlayerEventChild.OffhandAttackEvent event, ItemStack mainhandItem, ItemStack offhandItem)
+    {
         return true;
     }
 
     @Override
     @Optional.Method(modid = "battlegear2")
-    public boolean offhandClickAir(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
+    public boolean offhandClickAir (PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem)
+    {
         return true;
     }
 
     @Override
     @Optional.Method(modid = "battlegear2")
-    public boolean offhandClickBlock(PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
+    public boolean offhandClickBlock (PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem)
+    {
         return true;
     }
 
     @Override
     @Optional.Method(modid = "battlegear2")
-    public void performPassiveEffects(Side effectiveSide, ItemStack mainhandItem, ItemStack offhandItem) {
+    public void performPassiveEffects (Side effectiveSide, ItemStack mainhandItem, ItemStack offhandItem)
+    {
         // unused
     }
 
     @Override
     @Optional.Method(modid = "battlegear2")
-    public boolean allowOffhand(ItemStack mainhand, ItemStack offhand) {
-        if(offhand == null)
+    public boolean allowOffhand (ItemStack mainhand, ItemStack offhand)
+    {
+        if (offhand == null)
             return true;
 
         return (mainhand != null && mainhand.getItem() != TinkerTools.cleaver && mainhand.getItem() != TinkerTools.battleaxe)
