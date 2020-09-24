@@ -1,45 +1,41 @@
 package slimeknights.tconstruct.world;
 
-import net.minecraft.block.Block;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.util.registry.DynamicRegistries;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.gen.DimensionSettings;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProviderType;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.StructureFeature;
+import net.minecraft.world.gen.feature.structure.IStructurePieceType;
+import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.common.TinkerModule;
-import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.Util;
+import slimeknights.tconstruct.world.worldgen.islands.nether.NetherSlimeIslandPiece;
+import slimeknights.tconstruct.world.worldgen.islands.nether.NetherSlimeIslandStructure;
+import slimeknights.tconstruct.world.worldgen.islands.overworld.SlimeIslandPiece;
+import slimeknights.tconstruct.world.worldgen.islands.overworld.SlimeIslandStructure;
 import slimeknights.tconstruct.world.worldgen.trees.feature.SupplierBlockStateProvider;
-
-import java.util.function.Supplier;
 
 /**
  * Contains any logic relevant to structure generation, including trees and islands
  */
 @SuppressWarnings("unused")
 public final class TinkerStructures extends TinkerModule {
+
   static final Logger log = Util.getLogger("tinker_structures");
 
   /*
-   * Structure pieces
+   * Misc
    */
-  /*
-  public static IStructurePieceType slimeIslandPiece;
-  public static IStructurePieceType netherSlimeIslandPiece;
-
-  @SubscribeEvent
-  void onFeaturesRegistry(RegistryEvent.Register<Feature<?>> event) {
-    slimeIslandPiece = Registry.register(Registry.STRUCTURE_PIECE, location("slime_island_piece"), SlimeIslandPiece::new);
-    netherSlimeIslandPiece = Registry.register(Registry.STRUCTURE_PIECE, location("nether_slime_island_piece"), NetherSlimeIslandPiece::new);
-  }
-  */
+  public static final RegistryObject<BlockStateProviderType<SupplierBlockStateProvider>> supplierBlockstateProvider = BLOCK_STATE_PROVIDER_TYPES.register("supplier_state_provider", () -> new BlockStateProviderType<>(SupplierBlockStateProvider.CODEC));
 
   /*
    * Config
@@ -81,91 +77,41 @@ public final class TinkerStructures extends TinkerModule {
    */
 
   /*
-   * Misc
-   */
-  public static final RegistryObject<BlockStateProviderType<SupplierBlockStateProvider>> supplierBlockstateProvider = BLOCK_STATE_PROVIDER_TYPES.register("supplier_state_provider", () -> new BlockStateProviderType<>(SupplierBlockStateProvider.CODEC));;
-
-  /*
    * Features
    */
   //public static final RegistryObject<Feature<SlimeTreeFeatureConfig>> tree = FEATURES.register("tree", () -> new SlimeTreeFeature(SlimeTreeFeatureConfig::deserialize));
-  // islands
-  //public static final RegistryObject<Structure<NoFeatureConfig>> slimeIsland = FEATURES.register("slime_island", () -> new SlimeIslandStructure(NoFeatureConfig::deserialize));
-  //public static final RegistryObject<Structure<NoFeatureConfig>> netherSlimeIsland = FEATURES.register("nether_slime_island", () -> new NetherSlimeIslandStructure(NoFeatureConfig::deserialize));
 
   /*
-   * Feature placement and configuration
+   * Structures
    */
+  public static IStructurePieceType slimeIslandPiece;
+  public static final RegistryObject<Structure<NoFeatureConfig>> slimeIsland = STRUCTURE_FEATURES.register("slime_island", () -> new SlimeIslandStructure(NoFeatureConfig.field_236558_a_));
+  public static StructureFeature<NoFeatureConfig, ? extends Structure<NoFeatureConfig>> SLIME_ISLAND;
+
+  public static IStructurePieceType netherSlimeIslandPiece;
+  public static final RegistryObject<Structure<NoFeatureConfig>> netherSlimeIsland = STRUCTURE_FEATURES.register("nether_slime_island", () -> new NetherSlimeIslandStructure(NoFeatureConfig.field_236558_a_));
+  public static StructureFeature<NoFeatureConfig, ? extends Structure<NoFeatureConfig>> NETHER_SLIME_ISLAND;
+
   @SubscribeEvent
-  void commonSetup(FMLCommonSetupEvent event) {
-    /*
-    // slime island
-    ConfiguredFeature<?, ?> slimeIslandFeature = slimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
-    FlatGenerationSettings.FEATURE_STAGES.put(slimeIslandFeature, GenerationStage.Decoration.SURFACE_STRUCTURES);
-    FlatGenerationSettings.STRUCTURES.put("tconstruct:slime_island", new ConfiguredFeature[]{slimeIslandFeature});
-    FlatGenerationSettings.FEATURE_CONFIGS.put(slimeIslandFeature, IFeatureConfig.NO_FEATURE_CONFIG);
-    // nether island
-    ConfiguredFeature<?, ?> NETHER_SLIME_ISLAND_FEATURE = netherSlimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
-    FlatGenerationSettings.FEATURE_STAGES.put(NETHER_SLIME_ISLAND_FEATURE, GenerationStage.Decoration.UNDERGROUND_DECORATION);
-    FlatGenerationSettings.STRUCTURES.put("tconstruct:nether_slime_island", new ConfiguredFeature[]{NETHER_SLIME_ISLAND_FEATURE});
-    FlatGenerationSettings.FEATURE_CONFIGS.put(NETHER_SLIME_ISLAND_FEATURE, IFeatureConfig.NO_FEATURE_CONFIG);
-    */
-
-    // add islands and ores to worldgen
-    /*
-    ForgeRegistries.BIOMES.forEach(biome -> {
-      // nether slime island to the nether
-      // nether ores to the nether
-      if (biome.getCategory() == Biome.Category.NETHER) {
-        // FIXME: constant config
-        if (Config.COMMON.generateSlimeIslands.get()) {
-          biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION, netherSlimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-          biome.addStructure(netherSlimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-        }
-
-        // FIXME: constant config
-        if (Config.COMMON.generateCobalt.get()) {
-          addNetherOre(biome, TinkerWorld.cobaltOre, Config.COMMON.veinCountCobalt);
-        }
-        // FIXME: constant config
-        if (Config.COMMON.generateArdite.get()) {
-          addNetherOre(biome, TinkerWorld.arditeOre, Config.COMMON.veinCountArdite);
-        }
-      // overworld islands to the overworld
-      } else if (biome.getCategory() != Biome.Category.THEEND) {
-        // FIXME: constant config
-        if (Config.COMMON.generateSlimeIslands.get()) {
-          biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, slimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-          biome.addStructure(slimeIsland.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
-          biome.getSpawns(EntityClassification.MONSTER).add(new Biome.SpawnListEntry(TinkerWorld.blueSlimeEntity.get(), 15, 2, 4));
-        }
-
-        if (Config.COMMON.generateCopper.get()) {
-          biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,
-            Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NATURAL_STONE, TinkerWorld.copperOre.get().getDefaultState(), 17))
-              .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(Config.COMMON.veinCountCopper.get(), 30, 0, 90))));
-        }
-      }
-    });
-    */
+  void onFeaturesRegistry(RegistryEvent.Register<Feature<?>> event) {
+    slimeIslandPiece = Registry.register(Registry.STRUCTURE_PIECE, location("slime_island_piece"), SlimeIslandPiece::new);
+    netherSlimeIslandPiece = Registry.register(Registry.STRUCTURE_PIECE, location("nether_slime_island_piece"), NetherSlimeIslandPiece::new);
   }
 
   /**
-   * Adds an ore with nether placement
-   * @param biome  Nether biome
-   * @param block  Block to generate
-   * @param count  Vein side config
+   * Feature configuration
+   *
+   * PLACEMENT MOVED TO WorldEvents#onBiomeLoad
    */
-  private static void addNetherOre(Biome biome, Supplier<? extends Block> block, ConfigValue<Integer> count) {
-    // FIXME: constant config
-    int veinCount = count.get() / 2;
-    /*
-    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION,
-                     Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, block.get().getDefaultState(), 5))
-                                .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(veinCount, 32, 0, 64))));
-    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_DECORATION,
-                     Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, block.get().getDefaultState(), 5))
-                                .withPlacement(Placement.COUNT_RANGE.configure(new CountRangeConfig(veinCount, 0, 0, 128))));
-     */
+  @SubscribeEvent
+  void commonSetup(FMLCommonSetupEvent event) {
+    SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("slime_island"), slimeIsland.get().func_236391_a_(NoFeatureConfig.field_236559_b_));
+    Structure.field_236365_a_.put("tconstruct:slime_island", slimeIsland.get());
+    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(slimeIsland.get(), new StructureSeparationSettings(20, 11, 14357800));
+
+    NETHER_SLIME_ISLAND = WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, location("nether_slime_island"), netherSlimeIsland.get().func_236391_a_(NoFeatureConfig.field_236559_b_));
+    Structure.field_236365_a_.put("tconstruct:nether_slime_island", netherSlimeIsland.get());
+    DimensionSettings.func_242746_i().getStructures().func_236195_a_().put(netherSlimeIsland.get(), new StructureSeparationSettings(20, 11, 14357800));
+    //DynamicRegistries.func_239770_b_().getRegistry(Registry.NOISE_SETTINGS_KEY).getOrThrow(DimensionSettings.field_242736_e).getStructures().func_236195_a_().put(netherSlimeIsland.get(), new StructureSeparationSettings(20, 11, 14357800));
   }
 }

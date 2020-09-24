@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.world.worldgen.islands.nether;
 
-/*
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
@@ -13,22 +12,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.ISeedReader;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.world.TinkerStructures;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
-import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
 
 import java.util.Random;
 
@@ -41,7 +36,7 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
   private int numberOfTreesPlaced;
   private ChunkGenerator chunkGenerator;
 
-  private static final SlimeTree magmaSlimeTree = new SlimeTree(SlimeGrassBlock.FoliageType.ORANGE, false);
+  //private static final SlimeTree magmaSlimeTree = new SlimeTree(SlimeGrassBlock.FoliageType.ORANGE, false);
 
   public NetherSlimeIslandPiece(TemplateManager templateManager, SlimeIslandVariant variant, String templateName, BlockPos templatePosition, Rotation rotation) {
     this(templateManager, variant, templateName, templatePosition, rotation, Mirror.NONE);
@@ -69,7 +64,7 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
   }
 
   private void loadTemplate(TemplateManager templateManager) {
-    Template template = templateManager.getTemplateDefaulted(new ResourceLocation("tconstruct:slime_islands/" + this.variant.getName() + "/" + this.templateName));
+    Template template = templateManager.getTemplateDefaulted(new ResourceLocation("tconstruct:slime_islands/" + this.variant.getString() + "/" + this.templateName));
     PlacementSettings placementsettings = (new PlacementSettings()).setIgnoreEntities(true).setRotation(this.rotation).setMirror(this.mirror).addProcessor(BlockIgnoreStructureProcessor.AIR_AND_STRUCTURE_BLOCK);
     this.setup(template, this.templatePosition, placementsettings);
   }
@@ -85,7 +80,7 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
   }
 
   @Override
-  protected void handleDataMarker(String function, BlockPos pos, IWorld worldIn, Random rand, MutableBoundingBox sbb) {
+  protected void handleDataMarker(String function, BlockPos pos, IServerWorld worldIn, Random rand, MutableBoundingBox sbb) {
     switch (function) {
       case "tconstruct:lake_bottom":
         worldIn.setBlockState(pos, this.variant.getLakeBottom(), 2);
@@ -100,14 +95,16 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
       case "tconstruct:slime_tree":
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 
-        if (rand.nextBoolean() && this.numberOfTreesPlaced < 3) {
+        /*if (rand.nextBoolean() && this.numberOfTreesPlaced < 3) {
           ConfiguredFeature<? extends BaseTreeFeatureConfig, ?> treeFeature = magmaSlimeTree.getSlimeTreeFeature(rand, false);
 
           if (treeFeature != null && worldIn instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld)worldIn;
             treeFeature.func_236265_a_(serverWorld, serverWorld.func_241112_a_(), this.chunkGenerator, rand, pos);
           }
-        }
+        }*/
+
+        worldIn.setBlockState(pos, Blocks.BEDROCK.getDefaultState(), 2);
 
         this.numberOfTreesPlaced++;
         break;
@@ -151,4 +148,3 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
     return world.getBlockState(pos).getBlock() == Blocks.LAVA;
   }
 }
-*/
