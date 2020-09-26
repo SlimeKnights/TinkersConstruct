@@ -15,6 +15,7 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
@@ -22,8 +23,11 @@ import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import slimeknights.tconstruct.world.TinkerStructures;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
+import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
+import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 
 import java.util.Random;
 
@@ -36,7 +40,7 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
   private int numberOfTreesPlaced;
   private ChunkGenerator chunkGenerator;
 
-  //private static final SlimeTree magmaSlimeTree = new SlimeTree(SlimeGrassBlock.FoliageType.ORANGE, false);
+  private static final SlimeTree MAGMA_SLIME_TREE = new SlimeTree(SlimeGrassBlock.FoliageType.ORANGE, false);
 
   public NetherSlimeIslandPiece(TemplateManager templateManager, SlimeIslandVariant variant, String templateName, BlockPos templatePosition, Rotation rotation) {
     this(templateManager, variant, templateName, templatePosition, rotation, Mirror.NONE);
@@ -95,16 +99,14 @@ public class NetherSlimeIslandPiece extends TemplateStructurePiece {
       case "tconstruct:slime_tree":
         worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 
-        /*if (rand.nextBoolean() && this.numberOfTreesPlaced < 3) {
-          ConfiguredFeature<? extends BaseTreeFeatureConfig, ?> treeFeature = magmaSlimeTree.getSlimeTreeFeature(rand, false);
+        if (rand.nextBoolean() && this.numberOfTreesPlaced < 3) {
+          ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> treeFeature = MAGMA_SLIME_TREE.getSlimeTreeFeature(rand, false);
 
-          if (treeFeature != null && worldIn instanceof ServerWorld) {
-            ServerWorld serverWorld = (ServerWorld)worldIn;
-            treeFeature.func_236265_a_(serverWorld, serverWorld.func_241112_a_(), this.chunkGenerator, rand, pos);
+          if (treeFeature != null && worldIn instanceof ISeedReader) {
+            ISeedReader seedReader = (ISeedReader) worldIn;
+            treeFeature.func_242765_a(seedReader, this.chunkGenerator, rand, pos);
           }
-        }*/
-
-        worldIn.setBlockState(pos, Blocks.BEDROCK.getDefaultState(), 2);
+        }
 
         this.numberOfTreesPlaced++;
         break;

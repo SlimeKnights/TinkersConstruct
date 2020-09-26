@@ -66,7 +66,7 @@ public class WorldClientEvents extends ClientEventBase {
       RenderTypeLookup.setRenderLayer(TinkerWorld.magmaSlimeGrass.get(type), RenderType.getCutoutMipped());
       RenderTypeLookup.setRenderLayer(TinkerWorld.slimeFern.get(type), RenderType.getCutout());
       RenderTypeLookup.setRenderLayer(TinkerWorld.slimeTallGrass.get(type), RenderType.getCutout());
-      //RenderTypeLookup.setRenderLayer(TinkerWorld.slimeSapling.get(type), RenderType.getCutout());
+      RenderTypeLookup.setRenderLayer(TinkerWorld.slimeSapling.get(type), RenderType.getCutout());
     }
     RenderTypeLookup.setRenderLayer(TinkerWorld.purpleSlimeVine.get(), RenderType.getCutout());
     RenderTypeLookup.setRenderLayer(TinkerWorld.purpleSlimeVineMiddle.get(), RenderType.getCutout());

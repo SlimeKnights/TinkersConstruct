@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.world.worldgen.trees.feature;
+package slimeknights.tconstruct.world.worldgen.trees;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;

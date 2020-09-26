@@ -7,6 +7,7 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
@@ -27,6 +28,11 @@ public class NetherSlimeIslandStructure extends Structure<NoFeatureConfig> {
   @Override
   public String getStructureName() {
     return "tconstruct:nether_slime_island";
+  }
+
+  @Override
+  public GenerationStage.Decoration func_236396_f_() {
+    return GenerationStage.Decoration.UNDERGROUND_DECORATION;
   }
 
   public static class Start extends StructureStart<NoFeatureConfig> {

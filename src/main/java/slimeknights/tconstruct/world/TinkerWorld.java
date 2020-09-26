@@ -5,7 +5,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.SlimeBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.trees.OakTree;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
@@ -46,6 +45,7 @@ import slimeknights.tconstruct.world.block.SlimeTallGrassBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.data.WorldRecipeProvider;
 import slimeknights.tconstruct.world.entity.BlueSlimeEntity;
+import slimeknights.tconstruct.world.worldgen.trees.SlimeTree;
 
 import java.util.function.Function;
 
@@ -54,6 +54,7 @@ import java.util.function.Function;
  */
 @SuppressWarnings("unused")
 public final class TinkerWorld extends TinkerModule {
+
   /** Tab for anything generated in the world */
   @SuppressWarnings("WeakerAccess")
   public static final ItemGroup TAB_WORLD = new SupplierItemGroup(TConstruct.modID, "world", () -> new ItemStack(TinkerWorld.cobaltOre));
@@ -65,8 +66,8 @@ public final class TinkerWorld extends TinkerModule {
    * Block base properties
    */
   private static final Item.Properties WORLD_PROPS = new Item.Properties().group(TAB_WORLD);
-  private static final Function<Block,? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, WORLD_PROPS);
-  private static final Function<Block,? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, WORLD_PROPS);
+  private static final Function<Block, ? extends BlockItem> DEFAULT_BLOCK_ITEM = (b) -> new BlockItem(b, WORLD_PROPS);
+  private static final Function<Block, ? extends BlockItem> TOOLTIP_BLOCK_ITEM = (b) -> new BlockTooltipItem(b, WORLD_PROPS);
 
   /*
    * Blocks
@@ -81,12 +82,12 @@ public final class TinkerWorld extends TinkerModule {
 
   // slime
   private static final Block.Properties SLIME = Block.Properties.from(Blocks.SLIME_BLOCK);
-  public static final EnumObject<SlimeType,SlimeBlock> slime = new EnumObject.Builder<SlimeType,SlimeBlock>(SlimeType.class)
+  public static final EnumObject<SlimeType, SlimeBlock> slime = new EnumObject.Builder<SlimeType, SlimeBlock>(SlimeType.class)
     .putDelegate(SlimeType.GREEN, Blocks.SLIME_BLOCK.delegate)
     .putAll(BLOCKS.registerEnum(StickySlimeBlock.SlimeType.TINKER, "slime", (type) -> new StickySlimeBlock(SLIME), TOOLTIP_BLOCK_ITEM))
     .build();
   private static final Block.Properties CONGEALED_SLIME = builder(Material.CLAY, NO_TOOL, SoundType.SLIME).hardnessAndResistance(0.5F).slipperiness(0.5F);
-  public static final EnumObject<SlimeType,CongealedSlimeBlock> congealedSlime = BLOCKS.registerEnum(SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(CONGEALED_SLIME), TOOLTIP_BLOCK_ITEM);
+  public static final EnumObject<SlimeType, CongealedSlimeBlock> congealedSlime = BLOCKS.registerEnum(SlimeType.values(), "congealed_slime", (type) -> new CongealedSlimeBlock(CONGEALED_SLIME), TOOLTIP_BLOCK_ITEM);
 
   // island blocks
   private static final Block.Properties SLIME_DIRT = builder(Material.ORGANIC, NO_TOOL, SoundType.SLIME).hardnessAndResistance(0.55F);
@@ -99,15 +100,15 @@ public final class TinkerWorld extends TinkerModule {
 
   // plants
   private static final Block.Properties GRASS = builder(Material.PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.1F).doesNotBlockMovement().tickRandomly();
-  public static final EnumObject<FoliageType,SlimeTallGrassBlock> slimeFern = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_fern", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.FERN), DEFAULT_BLOCK_ITEM);
-  public static final EnumObject<FoliageType,SlimeTallGrassBlock> slimeTallGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_tall_grass", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.TALL_GRASS), DEFAULT_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, SlimeTallGrassBlock> slimeFern = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_fern", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.FERN), DEFAULT_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, SlimeTallGrassBlock> slimeTallGrass = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_tall_grass", (type) -> new SlimeTallGrassBlock(GRASS, type, SlimeTallGrassBlock.SlimePlantType.TALL_GRASS), DEFAULT_BLOCK_ITEM);
 
   // trees
   private static final Block.Properties SAPLING = builder(Material.PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.1F).doesNotBlockMovement().tickRandomly();
   // TODO: bring back slime tree
-  public static final EnumObject<FoliageType,SlimeSaplingBlock> slimeSapling = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_sapling", (type) -> new SlimeSaplingBlock(/*new SlimeTree(type, false)*/new OakTree(), SAPLING), TOOLTIP_BLOCK_ITEM);
-  private static final Block.Properties SLIME_LEAVES = builder(Material.LEAVES, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.3F).tickRandomly().notSolid().setAllowsSpawn((s,w,p,e) -> false);
-  public static final EnumObject<FoliageType,SlimeLeavesBlock> slimeLeaves = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_leaves", (type) -> new SlimeLeavesBlock(SLIME_LEAVES, type), DEFAULT_BLOCK_ITEM);
+  public static final EnumObject<FoliageType, SlimeSaplingBlock> slimeSapling = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_sapling", (type) -> new SlimeSaplingBlock(new SlimeTree(type, false), SAPLING), TOOLTIP_BLOCK_ITEM);
+  private static final Block.Properties SLIME_LEAVES = builder(Material.LEAVES, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.3F).tickRandomly().notSolid().setAllowsSpawn((s, w, p, e) -> false);
+  public static final EnumObject<FoliageType, SlimeLeavesBlock> slimeLeaves = BLOCKS.registerEnum(SlimeGrassBlock.FoliageType.values(), "slime_leaves", (type) -> new SlimeLeavesBlock(SLIME_LEAVES, type), DEFAULT_BLOCK_ITEM);
 
   // slime vines
   private static final Block.Properties VINE = builder(Material.TALL_PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.3F).doesNotBlockMovement().tickRandomly();
@@ -133,7 +134,7 @@ public final class TinkerWorld extends TinkerModule {
   /*
    * Particles
    */
-  public static final RegistryObject<BasicParticleType> slimeParticle = PARTICLE_TYPES.register("slime",() -> new BasicParticleType(false));
+  public static final RegistryObject<BasicParticleType> slimeParticle = PARTICLE_TYPES.register("slime", () -> new BasicParticleType(false));
 
   /*
    * Events
