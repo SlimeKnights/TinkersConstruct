@@ -1,0 +1,16 @@
+{
+  "title":"As páginas perdidas",
+  "text": [
+    {
+      "text": "Bem-vindo à segunda edição de Materiais e você: sobrevivendo ao primeiro dia e depois. Infelizmente, parece que algumas páginas foram perdidas!"
+    },
+    {
+      "text": "Este livro está incompleto, mas contém todos os materiais de ferramentas e modificadores. Versões posteriores conterão mais informações, portanto, verifique novamente de vez em quando!",
+      "paragraph": true
+    },
+    {
+      "text": "Ah, também se você está se perguntando para onde o cobre, o alumínio ... foram: Tinkers Construct apenas adiciona minério de cobalto e ardita ao Nether, mas não gera mais minérios em geral. No entanto, ele suporta qualquer mod que os adicione automaticamente.",
+      "paragraph": true
+    }
+  ]
+}

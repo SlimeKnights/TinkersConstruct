@@ -1,0 +1,22 @@
+// Sections
+intro=Introdução
+materials=Materiais de ferramentas
+bowmaterials=Materiais de arco
+tools=Ferramentas
+modifiers=Modificadores
+smeltery=Fundição
+seared_furnace=Fornalha de Forja
+tinker_tank=Tanque do Tinkers
+
+repairing=Reparando
+offhand=Colheita improvisada
+bolt_core=Fabricação de parafusos
+
+modifier.effect=Efeitos:
+tool.properties=Propriedades:
+
+material.craft_partbuilder=Pode ser criado no Construtor de Peças
+material.craft_casting=Pode ser molde de %s
+
+wood.flavour=Quanta madeira uma marmota poderia atirar se uma marmota pudesse atirar madeira?
+stone.flavour=Rocha sólida
