@@ -1,30 +1,47 @@
 package tconstruct.smeltery.logic;
 
-import cpw.mods.fml.relauncher.*;
-import java.util.*;
-import mantle.blocks.abstracts.*;
-import mantle.blocks.iface.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import mantle.blocks.abstracts.InventoryLogic;
+import mantle.blocks.abstracts.MultiServantLogic;
+import mantle.blocks.iface.IActiveLogic;
+import mantle.blocks.iface.IFacingLogic;
+import mantle.blocks.iface.IMasterLogic;
+import mantle.blocks.iface.IServantLogic;
 import mantle.world.CoordTuple;
 import net.minecraft.block.Block;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.*;
-import net.minecraft.entity.passive.*;
-import net.minecraft.entity.player.*;
-import net.minecraft.init.Blocks;
+import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityIronGolem;
+import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
-import net.minecraft.network.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 import tconstruct.TConstruct;
 import tconstruct.library.crafting.Smeltery;
-import tconstruct.smeltery.*;
+import tconstruct.smeltery.SmelteryDamageSource;
+import tconstruct.smeltery.TinkerSmeltery;
 import tconstruct.smeltery.inventory.SmelteryContainer;
 import tconstruct.util.config.PHConstruct;
 
@@ -328,67 +345,74 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
         AxisAlignedBB box = AxisAlignedBB.getBoundingBox(minPos.x, minPos.y, minPos.z, maxPos.x + 1, minPos.y + layers, maxPos.z + 1);
 
-        List list = worldObj.getEntitiesWithinAABB(Entity.class, box);
-        for (Object o : list)
+        List<Entity> list = worldObj.getEntitiesWithinAABB(Entity.class, box);
+        for (Entity o : list)
         {
+            if (o.isDead)
+                return;
+
             if (moltenMetal.size() >= 1)
             {
+                Fluid fluid = null;
+                int amount = 0;
+                float damage = 5;
+
                 if (o instanceof EntityVillager && PHConstruct.meltableVillagers)
                 {
                     EntityVillager villager = (EntityVillager) o;
-                    if (villager.attackEntityFrom(new SmelteryDamageSource(), 5))
-                    {
-                        if (currentLiquid + 40 < maxLiquid)
-                        {
-                            int amount = villager.isChild() ? 5 : 40;
-                            this.fill(new FluidStack(TinkerSmeltery.moltenEmeraldFluid, amount), true);
-                        }
-                    }
+                    fluid = TinkerSmeltery.moltenEmeraldFluid;
+                    amount = villager.isChild() ? 5 : 40;
                 }
                 else if (o instanceof EntityEnderman)
                 {
-                    EntityEnderman villager = (EntityEnderman) o;
-                    if (villager.attackEntityFrom(new SmelteryDamageSource(), 5))
-                    {
-                        if (currentLiquid + 125 < maxLiquid)
-                        {
-                            this.fill(new FluidStack(TinkerSmeltery.moltenEnderFluid, 125), true);
-                        }
-                    }
+                    fluid = TinkerSmeltery.moltenEnderFluid;
+                    amount = 125;
                 }
                 else if (o instanceof EntityIronGolem)
                 {
-                    EntityIronGolem golem = (EntityIronGolem) o;
-                    if (golem.attackEntityFrom(new SmelteryDamageSource(), 5))
-                    {
-                        if (currentLiquid + 40 < maxLiquid)
-                        {
-                            this.fill(new FluidStack(TinkerSmeltery.moltenIronFluid, 40), true);
-                        }
-                    }
+                    fluid = TinkerSmeltery.moltenIronFluid;
+                    amount = 40;
                 }
                 else if (o instanceof EntityHorse && PHConstruct.meltableHorses)
                 {
-                    EntityHorse horse = (EntityHorse) o;
-                    if (horse.attackEntityFrom(new SmelteryDamageSource(), 5))
-                    {
-                        if (currentLiquid + 108 < maxLiquid)
-                        {
-                            this.fill(new FluidStack(TinkerSmeltery.glueFluid, 108), true);
-                        }
-                    }
+                    fluid = TinkerSmeltery.glueFluid;
+                    amount = 108;
                 }
                 else if (o instanceof EntityLivingBase)
                 {
                     EntityLivingBase living = (EntityLivingBase) o;
-                    if (!living.isDead && living.attackEntityFrom(new SmelteryDamageSource(), 5))
+                    fluid = TinkerSmeltery.bloodFluid;
+                    amount = living.isChild() || living instanceof EntityPlayer ? 5 : 40;
+                }
+
+                if (fluid != null && amount > 0 && damage > 0)
+                {
+                    boolean canFill = false;
+
+                    if (o instanceof EntityLivingBase)
                     {
-                        if (currentLiquid + 40 < maxLiquid)
+                        int freeLiquid = Math.max(0, this.maxLiquid - this.currentLiquid - 1);
+                        if (freeLiquid > 0)
                         {
-                            int amount = (living.isChild() || living instanceof EntityPlayer) ? 5 : 40;
-                            this.fill(new FluidStack(TinkerSmeltery.bloodFluid, amount), true);
+                            int freeQuants = MathHelper.floor_float((float) freeLiquid / amount);
+                            if (freeQuants > 0)
+                            {
+                                float health = ((EntityLivingBase) o).getHealth();
+                                int quantsAmount = MathHelper.ceiling_float_int(health / damage);
+                                if (quantsAmount > 0)
+                                {
+                                    int quantsToBeAdded = Math.min(freeQuants, quantsAmount);
+                                    amount = quantsToBeAdded * amount;
+                                    canFill = o.attackEntityFrom(DamageSource.outOfWorld, 9999);
+                                }
+                            }
                         }
                     }
+                    else
+                        canFill = o.attackEntityFrom(new SmelteryDamageSource(), damage);
+
+                    if (canFill && amount > 0)
+                        this.fill(new FluidStack(fluid, amount), true);
                 }
             }
             else if (PHConstruct.throwableSmeltery && o instanceof EntityItem)
@@ -753,9 +777,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         int xd1 = 1, xd2 = 1; // x-difference
         for (int i = 1; i < MAX_SMELTERY_SIZE; i++) // don't check farther than needed
         {
-            if (worldObj.getBlock(x - xd1, y, z) == null || worldObj.isAirBlock(x - xd1, y, z))
+            if (this.worldObj.isAirBlock(x - xd1, y, z))
                 xd1++;
-            else if (worldObj.getBlock(x + xd2, y, z) == null || worldObj.isAirBlock(x + xd2, y, z))
+            else if (this.worldObj.isAirBlock(x + xd2, y, z))
                 xd2++;
 
             // if one side hit a wall and the other didn't we might have to center our x-position again
@@ -778,9 +802,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         int zd1 = 1, zd2 = 1;
         for (int i = 1; i < MAX_SMELTERY_SIZE; i++) // don't check farther than needed
         {
-            if (worldObj.getBlock(x, y, z - zd1) == null || worldObj.isAirBlock(x, y, z - zd1))
+            if (this.worldObj.isAirBlock(x, y, z - zd1))
                 zd1++;
-            else if (worldObj.getBlock(x, y, z + zd2) == null || worldObj.isAirBlock(x, y, z + zd2))
+            else if (this.worldObj.isAirBlock(x, y, z + zd2))
                 zd2++;
 
             // if one side hit a wall and the other didn't we might have to center our x-position again
@@ -885,9 +909,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = zMin + 1; zPos <= zMax - 1; zPos++)
             {
-                block = worldObj.getBlock(xPos, y, zPos);
-                if (block != null && !worldObj.isAirBlock(xPos, y, zPos))
+                if (!this.worldObj.isAirBlock(xPos, y, zPos))
+                {
                     return false;
+                }
             }
         }
 
@@ -940,7 +965,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             // regular check failed, maybe it's the bottom?
             Block block = worldObj.getBlock(x, y, z);
-            if (block != null && !worldObj.isAirBlock(x, y, z))
+            if (!block.isAir(this.worldObj, x, y, z))
                 if (validBlockID(block))
                     return validateBottom(x, y, z, sides, count);
 
@@ -960,21 +985,29 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         int zMax = z + sides[3] - 1;
 
         // Check inside
-        for (int xPos = xMin; xPos <= xMax; xPos++)
-        {
-            for (int zPos = zMin; zPos <= zMax; zPos++)
+        if (y >= 0 && y < 256) {
+            for (int xPos = xMin; xPos <= xMax; xPos++)
             {
-                if (validBlockID(worldObj.getBlock(xPos, y, zPos)) && (worldObj.getBlockMetadata(xPos, y, zPos) >= 2)) {
-                    TileEntity te = worldObj.getTileEntity(xPos, y, zPos);
+                for (int zPos = zMin; zPos <= zMax; zPos++)
+                {
+                    Chunk chunk = this.worldObj.getChunkFromBlockCoords(xPos, zPos);
+                    if (chunk == null)
+                        continue;
 
-                    if (te instanceof MultiServantLogic) {
-                        MultiServantLogic servant = (MultiServantLogic) te;
-                        if (servant.hasValidMaster()) {
-                            if (servant.verifyMaster(this, worldObj, this.xCoord, this.yCoord, this.zCoord))
+                    int xx = xPos & 15;
+                    int zz = zPos & 15;
+                    if (this.validBlockID(chunk.getBlock(xx, y, zz)) && chunk.getBlockMetadata(xx, y, zz) >= 2) {
+                        TileEntity te = worldObj.getTileEntity(xPos, y, zPos);
+
+                        if (te instanceof MultiServantLogic) {
+                            MultiServantLogic servant = (MultiServantLogic) te;
+                            if (servant.hasValidMaster()) {
+                                if (servant.verifyMaster(this, worldObj, this.xCoord, this.yCoord, this.zCoord))
+                                    bottomBricks++;
+                            } else {
+                                servant.overrideMaster(this.xCoord, this.yCoord, this.zCoord);
                                 bottomBricks++;
-                        } else {
-                            servant.overrideMaster(this.xCoord, this.yCoord, this.zCoord);
-                            bottomBricks++;
+                            }
                         }
                     }
                 }

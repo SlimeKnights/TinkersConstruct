@@ -1,38 +1,35 @@
 package tconstruct.library.weaponry;
 
-import cpw.mods.fml.common.Optional;
-import net.minecraft.init.Items;
-import net.minecraft.util.StatCollector;
-import tconstruct.client.TProxyClient;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.weaponry.TinkerWeaponry;
-import tconstruct.weaponry.ammo.ArrowAmmo;
-import tconstruct.weaponry.ammo.BoltAmmo;
-import tconstruct.weaponry.client.CrosshairType;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import mods.battlegear2.api.PlayerEventChild;
+import mods.battlegear2.api.weapons.IBattlegearWeapon;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import tconstruct.client.TProxyClient;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.TextureHelper;
 import tconstruct.tools.TinkerTools;
-import tconstruct.weaponry.entity.ArrowEntity;
-import mods.battlegear2.api.PlayerEventChild;
-import mods.battlegear2.api.weapons.IBattlegearWeapon;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import tconstruct.weaponry.TinkerWeaponry;
+import tconstruct.weaponry.client.CrosshairType;
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @Optional.InterfaceList({
     @Optional.Interface(modid = "battlegear2", iface = "mods.battlegear2.api.weapons.IBattlegearWeapon")
@@ -132,8 +129,12 @@ public abstract class ProjectileWeapon extends ToolCore implements IBattlegearWe
 
     public float getProjectileSpeed(ItemStack itemStack)
     {
-        NBTTagCompound toolTag = itemStack.getTagCompound().getCompoundTag("InfiTool");
-        return toolTag.getFloat("FlightSpeed");
+        if (itemStack != null && itemStack.hasTagCompound())
+        {
+            NBTTagCompound toolTag = itemStack.getTagCompound().getCompoundTag("InfiTool");
+            return toolTag.getFloat("FlightSpeed");
+        }
+        return 0;
     }
 
     /* Bow usage */
@@ -166,6 +167,11 @@ public abstract class ProjectileWeapon extends ToolCore implements IBattlegearWe
     @Override
     public void onPlayerStoppedUsing (ItemStack weapon, World world, EntityPlayer player, int useRemaining)
     {
+        if (!weapon.hasTagCompound())
+        {
+            return;
+        }
+
         int time = this.getMaxItemUseDuration(weapon) - useRemaining;
 
         // we abuse the arrowLooseEvent for all projectiles
@@ -244,7 +250,10 @@ public abstract class ProjectileWeapon extends ToolCore implements IBattlegearWe
 
     @Override
     public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        NBTTagCompound tags = null;
+
+        if(stack.hasTagCompound())
+            tags = stack.getTagCompound().getCompoundTag("InfiTool");
 
         if(tags == null || renderPass > 10)
             return super.getIcon(stack, renderPass, player, usingItem, useRemaining);

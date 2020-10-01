@@ -1,14 +1,16 @@
 package tconstruct.tools.inventory;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import tconstruct.armor.inventory.SlotOnlyTake;
 import tconstruct.library.util.IPattern;
 import tconstruct.smeltery.inventory.ActiveContainer;
 import tconstruct.tools.TinkerTools;
-import tconstruct.tools.logic.*;
+import tconstruct.tools.logic.PartBuilderLogic;
+import tconstruct.tools.logic.PatternChestLogic;
 
 public class PartCrafterChestContainer extends ActiveContainer
 {
@@ -74,9 +76,10 @@ public class PartCrafterChestContainer extends ActiveContainer
             ItemStack slotStack = slot.getStack();
             stack = slotStack.copy();
 
-            if (slotID < logic.getSizeInventory())
+            int inventorySize = this.inventory.length + this.patternLogic.getSizeInventory();
+            if (slotID < inventorySize)
             {
-                if (!this.mergeItemStack(slotStack, logic.getSizeInventory() + patternLogic.getSizeInventory(), this.inventorySlots.size(), true))
+                if (!this.mergeItemStack(slotStack, inventorySize, this.inventorySlots.size(), true))
                 {
                     return null;
                 }
@@ -94,7 +97,7 @@ public class PartCrafterChestContainer extends ActiveContainer
 
             if (slotStack.stackSize == 0)
             {
-                slot.putStack((ItemStack) null);
+                slot.putStack(null);
                 logic.tryBuildPart(slotID);
             }
             slot.onSlotChanged();

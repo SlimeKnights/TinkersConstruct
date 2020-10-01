@@ -1,14 +1,8 @@
 package tconstruct.armor;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -18,6 +12,9 @@ import tconstruct.armor.items.TravelGear;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.util.network.HealthUpdatePacket;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
 
 public class ArmorAbilities
 {
@@ -45,7 +42,7 @@ public class ArmorAbilities
 
         //Feet changes
         ItemStack feet = player.getCurrentArmor(0);
-        if (feet != null)
+        if (feet != null && feet.hasTagCompound())
         {
             if (feet.getItem() instanceof IModifyable && !player.isSneaking())
             {

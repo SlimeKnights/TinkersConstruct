@@ -2,7 +2,8 @@ package tconstruct.tools.logic;
 
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.*;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -55,13 +56,20 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
     {
         super.setInventorySlotContents(slot, itemstack);
         if (slot == 0) {
-            if(itemstack != null && StencilBuilder.isBlank(itemstack)) {
+            if (itemstack != null && StencilBuilder.isBlank(itemstack))
+            {
                 super.setInventorySlotContents(1, selectedStack);
-            } else if(itemstack!=null) {
+            }
+            else if (itemstack!=null)
+            {
                 ItemStack cpy=itemstack.copy();
                 cpy.stackSize=1;
                 super.setInventorySlotContents(1, cpy);
-            }else super.setInventorySlotContents(1,null);
+            }
+            else
+            {
+                super.setInventorySlotContents(1,null);
+            }
         }
     }
 

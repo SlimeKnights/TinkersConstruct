@@ -1,6 +1,5 @@
 package tconstruct.armor.items;
 
-import cpw.mods.fml.relauncher.*;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,6 +9,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import tconstruct.library.armor.ArmorPart;
 import tconstruct.tools.TinkerTools;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TravelWings extends TravelGear
 {
@@ -38,22 +39,25 @@ public class TravelWings extends TravelGear
     public void onArmorTick (World world, EntityPlayer player, ItemStack itemStack)
     {
         super.onArmorTick(world, player, itemStack);
-        NBTTagCompound tag = itemStack.getTagCompound().getCompoundTag(getBaseTagName());
-        int feather = tag.getInteger("Feather Fall");
-        if (feather > 0)
+        if (itemStack.hasTagCompound())
         {
-            if (player.fallDistance > 2.5)
-                player.fallDistance = 2.5f;
-            float terminalVelocity = -0.4f + (feather * 0.08f);
-            if (terminalVelocity > -0.05f)
-                terminalVelocity = -0.05f;
-            if (player.isSneaking() && terminalVelocity > -0.8f)
-                terminalVelocity = -0.8F;
-            boolean flying = false;
-            flying = player.capabilities.isFlying;
-            if (!flying && player.motionY < terminalVelocity)
+            NBTTagCompound tag = itemStack.getTagCompound().getCompoundTag(getBaseTagName());
+            int feather = tag.getInteger("Feather Fall");
+            if (feather > 0)
             {
-                player.motionY = terminalVelocity;
+                if (player.fallDistance > 2.5)
+                    player.fallDistance = 2.5f;
+                float terminalVelocity = -0.4f + (feather * 0.08f);
+                if (terminalVelocity > -0.05f)
+                    terminalVelocity = -0.05f;
+                if (player.isSneaking() && terminalVelocity > -0.8f)
+                    terminalVelocity = -0.8F;
+                boolean flying = false;
+                flying = player.capabilities.isFlying;
+                if (!flying && player.motionY < terminalVelocity)
+                {
+                    player.motionY = terminalVelocity;
+                }
             }
         }
     }
