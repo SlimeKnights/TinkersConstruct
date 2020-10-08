@@ -1,0 +1,23 @@
+{
+  "materialId": "tconstruct:blazewood",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 10,
+      "miningSpeed": 1.0,
+      "harvestLevel": 4,
+      "attack": 1.0
+    },
+    {
+      "id": "tconstruct:handle",
+      "durability": 0,
+      "durabilityMultiplier": 1.0,
+      "miningSpeedMultiplier": 1.0,
+      "attackSpeedMultiplier": 1.0
+    },
+    {
+      "id": "tconstruct:extra",
+      "durability": 0
+    }
+  ]
+}

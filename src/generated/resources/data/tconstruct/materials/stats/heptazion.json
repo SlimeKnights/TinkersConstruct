@@ -1,0 +1,23 @@
+{
+  "materialId": "tconstruct:heptazion",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 920,
+      "miningSpeed": 6.0,
+      "harvestLevel": 4,
+      "attack": 6.0
+    },
+    {
+      "id": "tconstruct:handle",
+      "durability": 0,
+      "durabilityMultiplier": 0.7,
+      "miningSpeedMultiplier": 1.0,
+      "attackSpeedMultiplier": 1.3
+    },
+    {
+      "id": "tconstruct:extra",
+      "durability": 0
+    }
+  ]
+}

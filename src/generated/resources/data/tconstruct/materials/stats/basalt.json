@@ -1,0 +1,23 @@
+{
+  "materialId": "tconstruct:basalt",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 400,
+      "miningSpeed": 8.0,
+      "harvestLevel": 1,
+      "attack": 1.0
+    },
+    {
+      "id": "tconstruct:handle",
+      "durability": 0,
+      "durabilityMultiplier": 1.0,
+      "miningSpeedMultiplier": 1.2,
+      "attackSpeedMultiplier": 1.0
+    },
+    {
+      "id": "tconstruct:extra",
+      "durability": 0
+    }
+  ]
+}

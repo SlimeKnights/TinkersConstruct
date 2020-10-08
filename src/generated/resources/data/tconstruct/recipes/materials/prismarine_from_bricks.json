@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:material",
-  "ingredient": {
-    "item": "minecraft:prismarine_bricks"
-  },
-  "value": 9,
-  "needed": 4,
-  "material": "tconstruct:prismarine"
-}

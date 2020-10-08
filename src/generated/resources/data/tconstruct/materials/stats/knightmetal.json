@@ -1,0 +1,23 @@
+{
+  "materialId": "tconstruct:knightmetal",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 1500,
+      "miningSpeed": 8.0,
+      "harvestLevel": 5,
+      "attack": 8.0
+    },
+    {
+      "id": "tconstruct:handle",
+      "durability": 0,
+      "durabilityMultiplier": 0.6,
+      "miningSpeedMultiplier": 1.0,
+      "attackSpeedMultiplier": 1.4
+    },
+    {
+      "id": "tconstruct:extra",
+      "durability": 0
+    }
+  ]
+}

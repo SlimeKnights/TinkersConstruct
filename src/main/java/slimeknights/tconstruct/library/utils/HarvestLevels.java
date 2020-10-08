@@ -13,11 +13,12 @@ import java.util.Map;
 
 public class HarvestLevels {
 
-  public static final int STONE = 0;
-  public static final int IRON = 1;
-  public static final int DIAMOND = 2;
-  public static final int OBSIDIAN = 3;
-  public static final int COBALT = 4;
+  public static final int WOOD = 0;
+  public static final int STONE = 1;
+  public static final int IRON = 2;
+  public static final int DIAMOND = 3;
+  public static final int NETHERITE = 4;
+  public static final int MANYULLYN = 5;
 
   private HarvestLevels() {
   } // non-instantiable
@@ -29,11 +30,12 @@ public class HarvestLevels {
   }
 
   public static void init() {
+    harvestLevelNames.put(WOOD, new TranslationTextComponent("ui.mining_level.wood").modifyStyle(style -> style.setColor(MaterialRegistry.getMaterial(MaterialIds.wood).getColor())));
     harvestLevelNames.put(STONE, new TranslationTextComponent("ui.mining_level.stone").modifyStyle(style -> style.setColor(MaterialRegistry.getMaterial(MaterialIds.stone).getColor())));
     harvestLevelNames.put(IRON, new TranslationTextComponent("ui.mining_level.iron").modifyStyle(style -> style.setColor(MaterialRegistry.getMaterial(MaterialIds.iron).getColor())));
     harvestLevelNames.put(DIAMOND, new TranslationTextComponent("ui.mining_level.diamond").mergeStyle(TextFormatting.AQUA));
-    harvestLevelNames.put(OBSIDIAN, new TranslationTextComponent("ui.mining_level.obsidian").modifyStyle(style -> style.setColor(MaterialRegistry.getMaterial(MaterialIds.obsidian).getColor())));
-    harvestLevelNames.put(COBALT, new TranslationTextComponent("ui.mining_level.cobalt").modifyStyle(style -> style.setColor(MaterialRegistry.getMaterial(MaterialIds.cobalt).getColor())));
+    harvestLevelNames.put(NETHERITE, new TranslationTextComponent("ui.mining_level.netherite").mergeStyle(TextFormatting.DARK_GRAY));
+    harvestLevelNames.put(MANYULLYN, new TranslationTextComponent("ui.mining_level.manyullyn").modifyStyle(style -> style.setColor(MaterialRegistry.getMaterial(MaterialIds.manyullyn).getColor())));
 
     // custom names via resource pack..
     String base = "ui.mining_level.";

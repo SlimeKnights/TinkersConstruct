@@ -658,6 +658,26 @@
     "material.tconstruct.slimeleaf_blue": "Slimeleaf",
     "material.tconstruct.slimeleaf_orange": "Slimeleaf",
     "material.tconstruct.slimeleaf_purple": "Slimeleaf",
+	
+	"material.tconstruct.searedstone": "Seared Stone",
+    "material.tconstruct.basalt": "Basalt",
+    "material.tconstruct.blackstone": "Blackstone",
+    "material.tconstruct.rosegold": "Rose Gold",
+    "material.tconstruct.chorus": "Chorius",
+    "material.tconstruct.witherbone": "Necrotic Bone",
+    "material.tconstruct.coral": "Coral",
+    "material.tconstruct.blazewood": "Blazewood",
+    "material.tconstruct.slimebronze": "Slimey Bronze",
+    "material.tconstruct.bloodwood": "Bloodwood",
+    "material.tconstruct.knightmetal": "Knight Metal",
+    "material.tconstruct.nahuatl": "Nahuatl",
+    "material.tconstruct.slimestone": "Slimey Stone",
+    "material.tconstruct.slimewood": "Slimey Wood",
+    "material.tconstruct.slimesteel": "Slimey Steel",
+    "material.tconstruct.soulsteel": "Soulsteel",
+    "material.tconstruct.heptazion": "Heptazion",
+    "material.tconstruct.mushwood": "Mushwood",
+
 
     "_comment": "Stats",
 
