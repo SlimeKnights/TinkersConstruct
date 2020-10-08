@@ -84,9 +84,9 @@ public final class ToolStatsBuilder {
     double averageHeadDurability = getAverageValue(heads, HeadMaterialStats::getDurability);
     double averageExtraDurability = getAverageValue(extras, ExtraMaterialStats::getDurability);
     double averageHandleDurability = getAverageValue(handles, HandleMaterialStats::getDurability);
-    double averageHandleModifier = getAverageValue(handles, HandleMaterialStats::getModifier, 1);
+    double averageHandleMultiplier = getAverageValue(handles, HandleMaterialStats::getDurabilityMultiplier, 1);
 
-    double durability = (averageHeadDurability + averageExtraDurability) * averageHandleModifier + averageHandleDurability;
+    double durability = (averageHeadDurability + averageExtraDurability) * averageHandleMultiplier + averageHandleDurability;
 
     // durability should never be below 1
     return Math.max(1, (int)durability);

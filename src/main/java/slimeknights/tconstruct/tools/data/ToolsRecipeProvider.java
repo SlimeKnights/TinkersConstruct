@@ -234,14 +234,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
 
     registerMaterial(consumer, MaterialIds.flint, Ingredient.fromItems(Items.FLINT), 1, 1, "flint");
 
-    registerMaterial(consumer, MaterialIds.cactus, Ingredient.fromItems(Items.CACTUS), 1, 1, "cactus");
+    /*registerMaterial(consumer, MaterialIds.cactus, Ingredient.fromItems(Items.CACTUS), 1, 1, "cactus");
 
     registerMaterial(consumer, MaterialIds.obsidian, Ingredient.fromItems(Items.OBSIDIAN), 1, 1, "obsidian");
 
     registerMaterial(consumer, MaterialIds.prismarine, Ingredient.fromItems(Items.PRISMARINE), 1, 1, "prismarine_from_block");
     registerMaterial(consumer, MaterialIds.prismarine, Ingredient.fromItems(Items.PRISMARINE_BRICKS), 9, 4, "prismarine_from_bricks");
     registerMaterial(consumer, MaterialIds.prismarine, Ingredient.fromItems(Items.DARK_PRISMARINE), 2, 1, "prismarine_from_dark");
-    registerMaterial(consumer, MaterialIds.prismarine, Ingredient.fromItems(Items.PRISMARINE_SHARD), 1, 4, "prismarine_from_shard");
+    registerMaterial(consumer, MaterialIds.prismarine, Ingredient.fromItems(Items.PRISMARINE_SHARD), 1, 4, "prismarine_from_shard");*/
 
     registerMaterial(consumer, MaterialIds.netherrack, Ingredient.fromItems(Items.NETHERRACK), 1, 1, "netherrack");
 
@@ -250,19 +250,19 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
 
     registerMaterial(consumer, MaterialIds.paper, Ingredient.fromItems(Items.PAPER), 1, 4, "paper");
 
-    registerMaterial(consumer, MaterialIds.sponge, Ingredient.fromItems(Items.SPONGE), 1, 1, "sponge");
+    /*registerMaterial(consumer, MaterialIds.sponge, Ingredient.fromItems(Items.SPONGE), 1, 1, "sponge");
 
     registerMaterial(consumer, MaterialIds.sponge, Ingredient.fromItems(TinkerCommons.firewood), 1, 1, "firewood");
 
     registerMaterial(consumer, MaterialIds.slime, Ingredient.fromItems(TinkerModifiers.greenSlimeCrystal), 1, 1, "slime");
 
-    registerMaterial(consumer, MaterialIds.blueslime, Ingredient.fromItems(TinkerModifiers.blueSlimeCrystal), 1, 1, "blue_slime");
+    registerMaterial(consumer, MaterialIds.blueslime, Ingredient.fromItems(TinkerModifiers.blueSlimeCrystal), 1, 1, "blue_slime");*/
 
     registerMaterial(consumer, MaterialIds.knightslime, Ingredient.fromTag(TinkerTags.Items.INGOTS_KNIGHTSLIME), 1, 1, "knightslime_from_ingot");
     registerMaterial(consumer, MaterialIds.knightslime, Ingredient.fromTag(TinkerTags.Items.NUGGETS_KNIGHTSLIME), 1, 9, "knightslime_from_nugget");
     registerMaterial(consumer, MaterialIds.knightslime, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_KNIGHTSLIME), 9, 1, "knightslime_from_block");
 
-    registerMaterial(consumer, MaterialIds.magmaslime, Ingredient.fromItems(TinkerModifiers.magmaSlimeCrystal), 1, 1, "magma_slime");
+    //registerMaterial(consumer, MaterialIds.magmaslime, Ingredient.fromItems(TinkerModifiers.magmaSlimeCrystal), 1, 1, "magma_slime");
 
     registerMaterial(consumer, MaterialIds.iron, Ingredient.fromTag(Tags.Items.INGOTS_IRON), 1, 1, "iron_from_ingot");
     registerMaterial(consumer, MaterialIds.iron, Ingredient.fromTag(Tags.Items.NUGGETS_IRON), 1, 9, "iron_from_nugget");
@@ -276,9 +276,9 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.cobalt, Ingredient.fromTag(TinkerTags.Items.NUGGETS_COBALT), 1, 9, "cobalt_from_nugget");
     registerMaterial(consumer, MaterialIds.cobalt, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_COBALT), 9, 1, "cobalt_from_block");
 
-    registerMaterial(consumer, MaterialIds.ardite, Ingredient.fromTag(TinkerTags.Items.INGOTS_ARDITE), 1, 1, "ardite_from_ingot");
+    /*registerMaterial(consumer, MaterialIds.ardite, Ingredient.fromTag(TinkerTags.Items.INGOTS_ARDITE), 1, 1, "ardite_from_ingot");
     registerMaterial(consumer, MaterialIds.ardite, Ingredient.fromTag(TinkerTags.Items.NUGGETS_ARDITE), 1, 9, "ardite_from_nugget");
-    registerMaterial(consumer, MaterialIds.ardite, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_ARDITE), 9, 1, "ardite_from_block");
+    registerMaterial(consumer, MaterialIds.ardite, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_ARDITE), 9, 1, "ardite_from_block");*/
 
     registerMaterial(consumer, MaterialIds.manyullyn, Ingredient.fromTag(TinkerTags.Items.INGOTS_MANYULLYN), 1, 1, "manyullyn_from_ingot");
     registerMaterial(consumer, MaterialIds.manyullyn, Ingredient.fromTag(TinkerTags.Items.NUGGETS_MANYULLYN), 1, 9, "manyullyn_from_nugget");
@@ -288,7 +288,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMaterial(consumer, MaterialIds.copper, Ingredient.fromTag(TinkerTags.Items.NUGGETS_COPPER), 1, 9, "copper_from_nugget");
     registerMaterial(consumer, MaterialIds.copper, Ingredient.fromTag(TinkerTags.Items.STORAGE_BLOCKS_COPPER), 9, 1, "copper_from_block");
 
-    registerMaterial(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 1, "string");
+    /*registerMaterial(consumer, MaterialIds.string, Ingredient.fromTag(Tags.Items.STRING), 1, 1, "string");
 
     registerMaterial(consumer, MaterialIds.slimevine_blue, Ingredient.fromItems(TinkerWorld.blueSlimeVine, TinkerWorld.blueSlimeVineMiddle, TinkerWorld.blueSlimeVineEnd), 1, 1, "slimevine_blue");
 
@@ -308,7 +308,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
 
     registerMaterial(consumer, MaterialIds.slimeleaf_blue, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.BLUE)), 1, 2, "slimeleaf_blue");
     registerMaterial(consumer, MaterialIds.slimeleaf_orange, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.ORANGE)), 1, 2, "slimeleaf_orange");
-    registerMaterial(consumer, MaterialIds.slimeleaf_purple, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.PURPLE)), 1, 2, "slimeleaf_purple");
+    registerMaterial(consumer, MaterialIds.slimeleaf_purple, Ingredient.fromItems(TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.PURPLE)), 1, 2, "slimeleaf_purple");*/
   }
 
   private void addTinkerStationRecipes(Consumer<IFinishedRecipe> consumer) {

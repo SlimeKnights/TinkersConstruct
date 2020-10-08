@@ -123,8 +123,8 @@ class ToolStatsBuilderTest extends BaseMcTest {
 
   @Test
   void buildDurability_ensureAverage_handle() {
-    HandleMaterialStats stats1 = new HandleMaterialStats(1f, 100);
-    HandleMaterialStats stats2 = new HandleMaterialStats(1f, 50);
+    HandleMaterialStats stats1 = new HandleMaterialStats(100, 1f, 1f, 1f);
+    HandleMaterialStats stats2 = new HandleMaterialStats(50, 1f, 1f, 1f);
 
     ToolStatsBuilder builder = new ToolStatsBuilder(Collections.emptyList(), ImmutableList.of(stats1, stats2), Collections.emptyList());
 
@@ -134,7 +134,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
   @Test
   void buildDurability_testHandleModifier() {
     HeadMaterialStats statsHead = new HeadMaterialStats(200, 0, 0, 0);
-    HandleMaterialStats statsHandle = new HandleMaterialStats(0.5f, 0);
+    HandleMaterialStats statsHandle = new HandleMaterialStats(0, 0.5f, 0.5f, 0.5f);
     ExtraMaterialStats statsExtra = new ExtraMaterialStats(100);
 
     ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(statsHead), ImmutableList.of(statsHandle), ImmutableList.of(statsExtra));
@@ -145,8 +145,8 @@ class ToolStatsBuilderTest extends BaseMcTest {
   @Test
   void buildDurability_testHandleModifier_average() {
     HeadMaterialStats statsHead = new HeadMaterialStats(200, 0, 0, 0);
-    HandleMaterialStats statsHandle1 = new HandleMaterialStats(0.3f, 0);
-    HandleMaterialStats statsHandle2 = new HandleMaterialStats(0.7f, 0);
+    HandleMaterialStats statsHandle1 = new HandleMaterialStats(0, 0.3f, 0.7f, 0.7f);
+    HandleMaterialStats statsHandle2 = new HandleMaterialStats(0, 0.7f, 0.7f, 0.7f);
     ExtraMaterialStats statsExtra = new ExtraMaterialStats(100);
 
     ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(statsHead), ImmutableList.of(statsHandle1, statsHandle2), ImmutableList.of(statsExtra));
@@ -157,7 +157,7 @@ class ToolStatsBuilderTest extends BaseMcTest {
   @Test
   void buildDurability_testHandleDurability_notAffectedByModifier() {
     HeadMaterialStats statsHead = new HeadMaterialStats(100, 0, 0, 0);
-    HandleMaterialStats statsHandle = new HandleMaterialStats(0.1f, 50);
+    HandleMaterialStats statsHandle = new HandleMaterialStats(50, 0.1f, 0.1f, 0.1f);
     ExtraMaterialStats statsExtra = new ExtraMaterialStats(0);
 
     ToolStatsBuilder builder = new ToolStatsBuilder(ImmutableList.of(statsHead), ImmutableList.of(statsHandle), ImmutableList.of(statsExtra));
