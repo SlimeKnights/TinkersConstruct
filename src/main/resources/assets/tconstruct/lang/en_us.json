@@ -680,11 +680,12 @@
     "stat.extra.durability.name": "Durability: ",
     "stat.extra.durability.description": "How much durability this part contributes when used as an accessory.",
 
+    "ui.mining_level.Wood": "Wood",
     "ui.mining_level.stone": "Stone",
     "ui.mining_level.iron": "Iron",
     "ui.mining_level.diamond": "Diamond",
-    "ui.mining_level.obsidian": "Obsidian",
-    "ui.mining_level.cobalt": "Cobalt",
+    "ui.mining_level.netherite": "Netherite",
+    "ui.mining_level.manyullyn": "Manyullyn",
 
     "_comment": "Tooltips",
     "tooltip.tool.modifiers": "Modifiers",
