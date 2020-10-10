@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_table",
+  "fluid": {
+    "name": "tconstruct:magma_slime",
+    "amount": 250
+  },
+  "result": "tconstruct:magma_slime_ball",
+  "cooling_time": 117
+}

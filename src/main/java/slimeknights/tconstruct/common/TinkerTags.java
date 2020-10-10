@@ -83,6 +83,7 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> PURPLE_SLIMEBALL = forgeTag("slimeball/purple");
     public static final IOptionalNamedTag<Item> BLOOD_SLIMEBALL = forgeTag("slimeball/blood");
     public static final IOptionalNamedTag<Item> RAINBOW_SLIMEBALL = forgeTag("slimeball/rainbow");
+    public static final IOptionalNamedTag<Item> GOLD_SLIMEBALL = forgeTag("slimeball/gold");
 
     public static final IOptionalNamedTag<Item> MAGMA_SLIMEBALL = forgeTag("slimeball/magma");
     public static final IOptionalNamedTag<Item> INGOTS_ARDITE = forgeTag("ingots/ardite");
@@ -130,7 +131,9 @@ public class TinkerTags {
   public static class Fluids {
 
     public static final IOptionalNamedTag<Fluid> BLUE_SLIME = tag("blue_slime");
+    public static final IOptionalNamedTag<Fluid> MAGMA_SLIME = tag("magma_slime");
     public static final IOptionalNamedTag<Fluid> PURPLE_SLIME = tag("purple_slime");
+    public static final IOptionalNamedTag<Fluid> RAINBOW_SLIME = tag("rainbow_slime");
     public static final IOptionalNamedTag<Fluid> SLIME = tag("slime");
     public static final IOptionalNamedTag<Fluid> MILK = forgeTag("milk");
 

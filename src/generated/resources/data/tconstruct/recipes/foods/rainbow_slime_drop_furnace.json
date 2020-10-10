@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "tconstruct:rainbow_slime_ball"
+  },
+  "result": "tconstruct:rainbow_slime_drop",
+  "experience": 0.35,
+  "cookingtime": 200
+}

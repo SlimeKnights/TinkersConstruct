@@ -203,9 +203,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                                  .addCriterion("has_item", hasItem(Items.BUCKET))
                                  .build(consumer, location(folder + "filling/bucket"));
     // Slime
+    this.addSlimeCastingRecipe(consumer, TinkerFluids.slime, SlimeType.GREEN, folder);
     this.addSlimeCastingRecipe(consumer, TinkerFluids.blood, SlimeType.BLOOD, folder);
     this.addSlimeCastingRecipe(consumer, TinkerFluids.blueSlime, SlimeType.BLUE, folder);
+    this.addSlimeCastingRecipe(consumer, TinkerFluids.magmaSlime, SlimeType.MAGMA, folder);
     this.addSlimeCastingRecipe(consumer, TinkerFluids.purpleSlime, SlimeType.PURPLE, folder);
+    this.addSlimeCastingRecipe(consumer, TinkerFluids.rainbowSlime, SlimeType.RAINBOW, folder);
 
     // seared blocks
     this.addBlockCastingRecipe(consumer, TinkerFluids.searedStone, MaterialValues.VALUE_BrickBlock, TinkerSmeltery.searedStone, folder);
@@ -360,11 +363,24 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                         .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                         .build(consumer, location(folder + "seared_stone_from_grout"));
 
+    // green slime
+    MeltingRecipeBuilder.melting(Ingredient.fromTag(TinkerTags.Items.GREEN_SLIMEBALL), TinkerFluids.slime.get(), MaterialValues.VALUE_SlimeBall)
+      .addCriterion("has_item", hasItem(TinkerTags.Items.GREEN_SLIMEBALL))
+      .build(consumer, location(folder + "green_slime_from_ball"));
+    IItemProvider item = TinkerWorld.congealedSlime.get(SlimeType.GREEN);
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(item), TinkerFluids.slime.get(), MaterialValues.VALUE_SlimeBall * 4)
+      .addCriterion("has_item", hasItem(item))
+      .build(consumer, location(folder + "green_slime_from_congealed"));
+    item = TinkerWorld.slime.get(SlimeType.GREEN);
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(item), TinkerFluids.slime.get(), MaterialValues.VALUE_SlimeBall * 9)
+      .addCriterion("has_item", hasItem(item))
+      .build(consumer, location(folder + "green_slime_from_block"));
+
     // blue slime
     MeltingRecipeBuilder.melting(Ingredient.fromTag(TinkerTags.Items.BLUE_SLIMEBALL), TinkerFluids.blueSlime.get(), MaterialValues.VALUE_SlimeBall)
                         .addCriterion("has_item", hasItem(TinkerTags.Items.BLUE_SLIMEBALL))
                         .build(consumer, location(folder + "blue_slime_from_ball"));
-    IItemProvider item = TinkerWorld.congealedSlime.get(SlimeType.BLUE);
+    item = TinkerWorld.congealedSlime.get(SlimeType.BLUE);
     MeltingRecipeBuilder.melting(Ingredient.fromItems(item), TinkerFluids.blueSlime.get(), MaterialValues.VALUE_SlimeBall * 4)
                         .addCriterion("has_item", hasItem(item))
                         .build(consumer, location(folder + "blue_slime_from_congealed"));
@@ -372,6 +388,19 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     MeltingRecipeBuilder.melting(Ingredient.fromItems(item), TinkerFluids.blueSlime.get(), MaterialValues.VALUE_SlimeBall * 9)
                         .addCriterion("has_item", hasItem(item))
                         .build(consumer, location(folder + "blue_slime_from_block"));
+
+    // magma slime
+    MeltingRecipeBuilder.melting(Ingredient.fromTag(TinkerTags.Items.MAGMA_SLIMEBALL), TinkerFluids.magmaSlime.get(), MaterialValues.VALUE_SlimeBall)
+      .addCriterion("has_item", hasItem(TinkerTags.Items.BLUE_SLIMEBALL))
+      .build(consumer, location(folder + "magma_slime_from_ball"));
+    item = TinkerWorld.congealedSlime.get(SlimeType.MAGMA);
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(item), TinkerFluids.magmaSlime.get(), MaterialValues.VALUE_SlimeBall * 4)
+      .addCriterion("has_item", hasItem(item))
+      .build(consumer, location(folder + "magma_slime_from_congealed"));
+    item = TinkerWorld.slime.get(SlimeType.MAGMA);
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(item), TinkerFluids.magmaSlime.get(), MaterialValues.VALUE_SlimeBall * 9)
+      .addCriterion("has_item", hasItem(item))
+      .build(consumer, location(folder + "magma_slime_from_block"));
 
     // purple slime
     MeltingRecipeBuilder.melting(Ingredient.fromTag(TinkerTags.Items.PURPLE_SLIMEBALL), TinkerFluids.purpleSlime.get(), MaterialValues.VALUE_SlimeBall)
@@ -385,6 +414,19 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     MeltingRecipeBuilder.melting(Ingredient.fromItems(item), TinkerFluids.purpleSlime.get(), MaterialValues.VALUE_SlimeBall * 9)
                         .addCriterion("has_item", hasItem(item))
                         .build(consumer, location(folder + "purple_slime_from_block"));
+
+    // rainbow slime
+    MeltingRecipeBuilder.melting(Ingredient.fromTag(TinkerTags.Items.RAINBOW_SLIMEBALL), TinkerFluids.rainbowSlime.get(), MaterialValues.VALUE_SlimeBall)
+      .addCriterion("has_item", hasItem(TinkerTags.Items.RAINBOW_SLIMEBALL))
+      .build(consumer, location(folder + "rainbow_slime_from_ball"));
+    item = TinkerWorld.congealedSlime.get(SlimeType.RAINBOW);
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(item), TinkerFluids.rainbowSlime.get(), MaterialValues.VALUE_SlimeBall * 4)
+      .addCriterion("has_item", hasItem(item))
+      .build(consumer, location(folder + "rainbow_slime_from_congealed"));
+    item = TinkerWorld.slime.get(SlimeType.RAINBOW);
+    MeltingRecipeBuilder.melting(Ingredient.fromItems(item), TinkerFluids.rainbowSlime.get(), MaterialValues.VALUE_SlimeBall * 9)
+      .addCriterion("has_item", hasItem(item))
+      .build(consumer, location(folder + "rainbow_slime_from_block"));
 
     // obsidian
     MeltingRecipeBuilder.melting(Ingredient.fromTag(Tags.Items.OBSIDIAN), TinkerFluids.moltenObsidian.get(), MaterialValues.VALUE_Glass)

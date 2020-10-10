@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "tconstruct:congealed_slime",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:slimeball/rainbow"
+    }
+  },
+  "result": {
+    "item": "tconstruct:rainbow_congealed_slime"
+  }
+}

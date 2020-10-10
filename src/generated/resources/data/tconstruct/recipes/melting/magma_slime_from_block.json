@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:magma_slime"
+  },
+  "result": {
+    "fluid": "tconstruct:magma_slime",
+    "amount": 2250
+  },
+  "temperature": 714
+}

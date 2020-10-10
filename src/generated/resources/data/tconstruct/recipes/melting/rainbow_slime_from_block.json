@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:rainbow_slime"
+  },
+  "result": {
+    "fluid": "tconstruct:rainbow_slime",
+    "amount": 2250
+  },
+  "temperature": 392
+}

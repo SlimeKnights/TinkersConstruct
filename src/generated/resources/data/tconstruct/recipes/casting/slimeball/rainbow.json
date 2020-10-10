@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_table",
+  "fluid": {
+    "name": "tconstruct:rainbow_slime",
+    "amount": 250
+  },
+  "result": "tconstruct:rainbow_slime_ball",
+  "cooling_time": 75
+}

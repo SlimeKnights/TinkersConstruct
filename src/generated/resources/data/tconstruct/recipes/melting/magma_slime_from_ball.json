@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:slimeball/magma"
+  },
+  "result": {
+    "fluid": "tconstruct:magma_slime",
+    "amount": 250
+  },
+  "temperature": 357
+}

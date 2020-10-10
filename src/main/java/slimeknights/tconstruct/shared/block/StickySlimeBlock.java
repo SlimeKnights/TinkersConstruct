@@ -30,12 +30,13 @@ public class StickySlimeBlock extends net.minecraft.block.SlimeBlock {
     BLUE(0x01cbcd, TinkerTags.Items.BLUE_SLIMEBALL),
     PURPLE(0xaf4cf6, TinkerTags.Items.PURPLE_SLIMEBALL),
     BLOOD(0xb50101, TinkerTags.Items.BLOOD_SLIMEBALL),
-    MAGMA(0xff970d, TinkerTags.Items.MAGMA_SLIMEBALL);
+    MAGMA(0xff970d, TinkerTags.Items.MAGMA_SLIMEBALL),
+    RAINBOW(0xffffff, TinkerTags.Items.RAINBOW_SLIMEBALL);
 
     /**
      * Slime types added by the mod
      */
-    public static final SlimeType[] TINKER = {BLUE, PURPLE, BLOOD, MAGMA};
+    public static final SlimeType[] TINKER = {BLUE, PURPLE, BLOOD, MAGMA, RAINBOW};
 
     /* Block color for this slime type */
     @Getter
@@ -61,6 +62,8 @@ public class StickySlimeBlock extends net.minecraft.block.SlimeBlock {
           return TinkerFood.BLOOD_SLIME_BALL;
         case MAGMA:
           return TinkerFood.MAGMA_SLIME_BALL;
+        case RAINBOW:
+          return TinkerFood.RAINBOW_SLIME_BALL;
       }
     }
 

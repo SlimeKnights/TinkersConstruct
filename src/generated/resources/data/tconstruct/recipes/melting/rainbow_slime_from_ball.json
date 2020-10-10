@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:slimeball/rainbow"
+  },
+  "result": {
+    "fluid": "tconstruct:rainbow_slime",
+    "amount": 250
+  },
+  "temperature": 196
+}

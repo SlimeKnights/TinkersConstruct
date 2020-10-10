@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "item": "tconstruct:magma_congealed_slime"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "name": "tconstruct:magma_slime",
+    "amount": 1250
+  },
+  "result": "tconstruct:magma_slime",
+  "cooling_time": 492
+}

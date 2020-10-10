@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:slimeball/green"
+  },
+  "result": {
+    "fluid": "tconstruct:slime",
+    "amount": 250
+  },
+  "temperature": 5
+}

@@ -23,8 +23,11 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> blood = FLUIDS.register("blood", FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).color(0xff540000).density(1200).viscosity(1200).temperature(336), Material.WATER, 0);
 
   // slime
+  public static final FluidObject<ForgeFlowingFluid> slime = FLUIDS.register("slime", FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).color(0xef3bff3b).density(1500).viscosity(1500).temperature(310), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
   public static final FluidObject<ForgeFlowingFluid> blueSlime = FLUIDS.register("blue_slime", FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).color(0xef67f0f5).density(1500).viscosity(1500).temperature(310), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
+  public static final FluidObject<ForgeFlowingFluid> magmaSlime = FLUIDS.register("magma_slime", FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).color(0xefc67604).density(800).viscosity(800).temperature(900), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 15);
   public static final FluidObject<ForgeFlowingFluid> purpleSlime = FLUIDS.register("purple_slime", FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).color(0xefd236ff).density(1600).viscosity(1600).temperature(370), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);
+  public static final FluidObject<ForgeFlowingFluid> rainbowSlime = FLUIDS.register("rainbow_slime", FluidAttributes.builder(FluidIcons.LIQUID_STILL, FluidIcons.LIQUID_FLOWING).color(0xdfffffff).density(2400).viscosity(2400).temperature(630), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 8);
 
   // molten
   public static final FluidObject<ForgeFlowingFluid> searedStone = FLUIDS.register("seared_stone", stoneBuilder().color(0xff777777).temperature(800), Material.LAVA, 7);

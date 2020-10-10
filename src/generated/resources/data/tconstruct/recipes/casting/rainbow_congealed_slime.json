@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:casting_basin",
+  "fluid": {
+    "name": "tconstruct:rainbow_slime",
+    "amount": 1000
+  },
+  "result": "tconstruct:rainbow_congealed_slime",
+  "cooling_time": 230
+}

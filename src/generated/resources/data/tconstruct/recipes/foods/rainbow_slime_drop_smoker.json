@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "tconstruct:rainbow_slime_ball"
+  },
+  "result": "tconstruct:rainbow_slime_drop",
+  "experience": 0.35,
+  "cookingtime": 100
+}

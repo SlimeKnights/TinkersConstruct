@@ -12,7 +12,8 @@ public final class TinkerFood {
   public static final Food PURPLE_SLIME_BALL = (new Food.Builder()).hunger(1).saturation(2.0F).setAlwaysEdible().effect(() -> new EffectInstance(Effects.UNLUCK, 20 * 45), 1.0F).effect(() -> new EffectInstance(Effects.LUCK, 20 * 60), 1.0F).build();
   public static final Food BLOOD_SLIME_BALL = (new Food.Builder()).hunger(1).saturation(1.5F).setAlwaysEdible().effect(() -> new EffectInstance(Effects.POISON, 20 * 45, 2), 1.0F).effect(() -> new EffectInstance(Effects.HEALTH_BOOST, 20 * 60), 1.0F).build();
   public static final Food MAGMA_SLIME_BALL = (new Food.Builder()).hunger(1).saturation(1.0F).setAlwaysEdible().effect(() -> new EffectInstance(Effects.WEAKNESS, 20 * 45), 1.0F).effect(() -> new EffectInstance(Effects.WITHER, 20 * 15), 1.0F).effect(() -> new EffectInstance(Effects.FIRE_RESISTANCE, 20 * 60), 1.0F).build();
-  public static final Food PINK_SLIME_BALL = (new Food.Builder()).hunger(1).saturation(1.0F).setAlwaysEdible().effect(() -> new EffectInstance(Effects.NAUSEA, 20 * 10, 2), 1.0F).build();
+  public static final Food RAINBOW_SLIME_BALL = (new Food.Builder()).hunger(1).saturation(1.0F).setAlwaysEdible().effect(() -> new EffectInstance(Effects.NAUSEA, 20 * 20), 1.0F).effect(() -> new EffectInstance(Effects.RESISTANCE, 20 * 60), 1.0F).build();
+  public static final Food GOLD_SLIME_BALL = (new Food.Builder()).hunger(20).saturation(20.0F).setAlwaysEdible().effect(() -> new EffectInstance(Effects.LUCK, 20 * 10, 2), 1.0F).build();
 
   /* Bacon. What more is there to say? */
   public static final Food BACON = (new Food.Builder()).hunger(4).saturation(0.6F).build();

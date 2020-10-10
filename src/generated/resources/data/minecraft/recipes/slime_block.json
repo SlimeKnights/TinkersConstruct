@@ -18,6 +18,7 @@
     "tconstruct:common/slime/blue/slimeblock",
     "tconstruct:common/slime/purple/slimeblock",
     "tconstruct:common/slime/blood/slimeblock",
-    "tconstruct:common/slime/magma/slimeblock"
+    "tconstruct:common/slime/magma/slimeblock",
+    "tconstruct:common/slime/rainbow/slimeblock"
   ]
 }
