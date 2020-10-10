@@ -147,9 +147,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.cobaltOre), TinkerMaterials.cobaltIngot, 1.5f, 200)
                         .addCriterion("has_item", hasItem(TinkerWorld.cobaltOre))
                         .build(consumer, wrap(TinkerMaterials.cobaltIngot, folder, "_smelting"));
-    CookingRecipeBuilder.blastingRecipe(Ingredient.fromItems(TinkerWorld.arditeOre), TinkerMaterials.arditeIngot, 1.5f, 200)
-                        .addCriterion("has_item", hasItem(TinkerWorld.arditeOre))
-                        .build(consumer, wrap(TinkerMaterials.arditeIngot, folder, "_smelting"));
 
     CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(TinkerWorld.copperOre), TinkerMaterials.copperIngot, 1.5f, 200)
                         .addCriterion("has_item", hasItem(TinkerWorld.copperOre))

@@ -2,6 +2,7 @@ package slimeknights.tconstruct;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -10,10 +11,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.Item;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -147,5 +150,35 @@ public class TConstruct {
         return Command.SINGLE_SUCCESS;
       });
     event.getServer().getCommandManager().getDispatcher().register(executes);
+  }
+
+  @SubscribeEvent
+  void misingItemMappings(RegistryEvent.MissingMappings<Item> event) {
+    for (RegistryEvent.MissingMappings.Mapping<Item> entry : event.getAllMappings()) {
+      if (entry.key.getNamespace().equals(TConstruct.modID)) {
+        String path = entry.key.getPath();
+        switch (path) {
+          // ardite ore removed
+          case "ardite_ore":
+            entry.remap(TinkerWorld.cobaltOre.asItem());
+            break;
+        }
+      }
+    }
+  }
+
+  @SubscribeEvent
+  void misingBlockMappings(RegistryEvent.MissingMappings<Block> event) {
+    for (RegistryEvent.MissingMappings.Mapping<Block> entry : event.getAllMappings()) {
+      if (entry.key.getNamespace().equals(TConstruct.modID)) {
+        String path = entry.key.getPath();
+        switch (path) {
+          // ardite ore removed
+          case "ardite_ore":
+            entry.remap(TinkerWorld.cobaltOre.get());
+            break;
+        }
+      }
+    }
   }
 }

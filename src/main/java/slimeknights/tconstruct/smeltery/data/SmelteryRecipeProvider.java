@@ -322,7 +322,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     addMetalMelting(consumer, TinkerFluids.moltenGold.get(), "gold", true, folder);
     addMetalMelting(consumer, TinkerFluids.moltenCopper.get(), "copper", true, folder);
     addMetalMelting(consumer, TinkerFluids.moltenCobalt.get(), "cobalt", true, folder);
-    addMetalMelting(consumer, TinkerFluids.moltenArdite.get(), "ardite", true, folder);
+    addMetalMelting(consumer, TinkerFluids.moltenArdite.get(), "ardite", false, folder);
     // metal alloys
     addMetalMelting(consumer, TinkerFluids.moltenRoseGold.get(), "rose_gold", false, folder);
     addMetalMelting(consumer, TinkerFluids.moltenManyullyn.get(), "manyullyn", false, folder);
