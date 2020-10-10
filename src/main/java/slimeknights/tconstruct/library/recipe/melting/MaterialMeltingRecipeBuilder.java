@@ -31,7 +31,7 @@ public class MaterialMeltingRecipeBuilder extends AbstractRecipeBuilder<Material
   @Override
   public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
     ResourceLocation advancementId = this.buildAdvancement(id, "melting");
-    consumer.accept(new Result(id, getGroup(), item, amount, advancementBuilder, advancementId));
+    consumer.accept(new Result(id, group, item, amount, advancementBuilder, advancementId));
   }
 
   @AllArgsConstructor

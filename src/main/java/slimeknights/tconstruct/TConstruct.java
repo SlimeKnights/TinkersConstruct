@@ -2,6 +2,7 @@ package slimeknights.tconstruct;
 
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -10,10 +11,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.item.Item;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent.MissingMappings;
+import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -25,6 +30,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimeknights.tconstruct.common.TinkerModule;
@@ -51,7 +57,9 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import javax.annotation.Nullable;
 import java.util.Random;
+import java.util.function.Function;
 
 /**
  * TConstruct, the tool mod. Craft your tools with style, then modify until the original is gone!
@@ -147,5 +155,79 @@ public class TConstruct {
         return Command.SINGLE_SUCCESS;
       });
     event.getServer().getCommandManager().getDispatcher().register(executes);
+  }
+
+
+  @SubscribeEvent
+  static void missingBlocks(final MissingMappings<Block> event) {
+    handleMissingMappings(event, TConstruct::missingBlock);
+  }
+
+  @SubscribeEvent
+  static void missingItems(final MissingMappings<Item> event) {
+    handleMissingMappings(event, name -> {
+      IItemProvider provider = missingBlock(name);
+      return provider == null ? null : provider.asItem();
+    });
+  }
+
+  /**
+   * Handles missing block remapping
+   * @param name  Block name
+   * @return  New block replacement, or null if no replacement
+   */
+  @Nullable
+  private static Block missingBlock(String name) {
+    switch (name) {
+      // square/small/road removed
+      case "seared_square_bricks":
+      case "seared_small_bricks":
+      case "seared_road":
+        return TinkerSmeltery.searedBricks.get();
+      // cracked and fancy stairs/slabs removed
+      case "seared_cracked_bricks_slab":
+      case "seared_fancy_bricks_slab":
+      case "seared_square_bricks_slab":
+      case "seared_small_bricks_slab":
+      case "seared_road_slab":
+        return TinkerSmeltery.searedBricks.getSlab();
+      case "seared_cracked_bricks_stairs":
+      case "seared_fancy_bricks_stairs":
+      case "seared_square_bricks_stairs":
+      case "seared_small_bricks_stairs":
+      case "seared_road_stairs":
+        return TinkerSmeltery.searedBricks.getStairs();
+      // creeper and tile removed
+      case "seared_creeper":
+      case "seared_tile":
+        return TinkerSmeltery.searedPaver.get();
+      // triangle staris/slabs removed
+      case "seared_triangle_bricks_slab":
+      case "seared_creeper_slab":
+      case "seared_tile_slab":
+        return TinkerSmeltery.searedPaver.getSlab();
+      case "seared_triangle_bricks_stairs":
+      case "seared_creeper_stairs":
+      case "seared_tile_stairs":
+        return TinkerSmeltery.searedPaver.getStairs();
+    }
+    return null;
+  }
+
+  /**
+   * Handles missing mappings for the given registry
+   * @param event    Mappings event
+   * @param handler  Mapping handler
+   * @param <T>      Event type
+   */
+  private static <T extends IForgeRegistryEntry<T>> void handleMissingMappings(MissingMappings<T> event, Function<String,T> handler) {
+    for (Mapping<T> mapping : event.getAllMappings()) {
+      if (modID.equals(mapping.key.getNamespace())) {
+        @Nullable T value = handler.apply(mapping.key.getPath());
+        if (value != null) {
+          mapping.remap(value);
+        }
+      }
+    }
   }
 }

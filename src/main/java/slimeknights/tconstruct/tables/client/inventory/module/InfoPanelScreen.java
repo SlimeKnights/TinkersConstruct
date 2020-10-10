@@ -6,6 +6,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.IFormattableTextComponent;
@@ -182,7 +183,7 @@ public class InfoPanelScreen extends ModuleScreen {
     this.slider.setSliderParameters(0, hiddenRows, 1);
   }
 
-  protected List<ITextProperties> getTotalLines() {
+  protected List<IReorderingProcessor> getTotalLines() {
     int w = this.xSize - this.border.w * 2 + 2;
 
     if (!this.slider.isHidden()) {
@@ -191,18 +192,18 @@ public class InfoPanelScreen extends ModuleScreen {
 
     w = (int) ((float) w / this.textScale);
 
-    List<ITextProperties> lines = Lists.newLinkedList();
+    List<IReorderingProcessor> lines = Lists.newLinkedList();
     this.tooltipLines.clear();
 
     for (ITextComponent textComponent : this.text) {
       this.tooltipLines.add(lines.size());
 
       if (textComponent.getString().isEmpty()) {
-        lines.add(StringTextComponent.EMPTY);
+        lines.add(StringTextComponent.EMPTY.func_241878_f());
         continue;
       }
 
-      lines.addAll(this.font.func_238425_b_(textComponent, w));
+      lines.addAll(this.font.trimStringToWidth(textComponent, w));
     }
 
     return lines;
@@ -249,7 +250,7 @@ public class InfoPanelScreen extends ModuleScreen {
     // floating over tooltip info?
     if (this.hasTooltips() && mouseX >= this.guiRight() - this.border.w - this.font.getStringWidth("?") / 2 && mouseX < this.guiRight() && mouseY > this.guiTop + 5 && mouseY < this.guiTop + 5 + this.font.FONT_HEIGHT) {
       int w = MathHelper.clamp(this.width - mouseX - 12, 10, 200);
-      this.renderTooltip(matrices, this.font.func_238425_b_(new TranslationTextComponent("gui.tconstruct.general.hover"), w), mouseX - guiLeft, mouseY - guiTop);
+      this.renderTooltip(matrices, this.font.trimStringToWidth(new TranslationTextComponent("gui.tconstruct.general.hover"), w), mouseX - guiLeft, mouseY - guiTop);
     }
 
     // are we hovering over an entry?
@@ -264,7 +265,7 @@ public class InfoPanelScreen extends ModuleScreen {
 
     // get the index of the currently hovered line
     int index = -1;
-    ListIterator<ITextProperties> iter = this.getTotalLines().listIterator(slider.getValue());
+    ListIterator<IReorderingProcessor> iter = this.getTotalLines().listIterator(slider.getValue());
 
     while (iter.hasNext()) {
       if (y + textHeight > lowerBound) {
@@ -303,7 +304,7 @@ public class InfoPanelScreen extends ModuleScreen {
       w = 100;
     }
 
-    List<ITextProperties> lines = this.font.func_238425_b_(this.tooltips.get(i), w);
+    List<IReorderingProcessor> lines = this.font.trimStringToWidth(this.tooltips.get(i), w);
 
     this.renderTooltip(matrices, lines, mouseX - this.guiLeft, mouseY - this.guiTop - lines.size() * this.font.FONT_HEIGHT / 2);
   }
@@ -327,9 +328,9 @@ public class InfoPanelScreen extends ModuleScreen {
     // draw caption
     if (this.hasCaption()) {
       int x2 = this.xSize / 2;
-      x2 -= this.font.func_238414_a_(this.caption) / 2;
+      x2 -= this.font.getStringPropertyWidth(this.caption) / 2;
 
-      this.font.func_238407_a_(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE), (float) this.guiLeft + x2, y, color);
+      this.font.func_238407_a_(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE).func_241878_f(), (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
 
@@ -345,13 +346,13 @@ public class InfoPanelScreen extends ModuleScreen {
     y /= this.textScale;
 
     // render shown lines
-    ListIterator<ITextProperties> iter = this.getTotalLines().listIterator(this.slider.getValue());
+    ListIterator<IReorderingProcessor> iter = this.getTotalLines().listIterator(this.slider.getValue());
     while (iter.hasNext()) {
       if (y + textHeight - 0.5f > lowerBound) {
         break;
       }
 
-      ITextProperties line = iter.next();
+      IReorderingProcessor line = iter.next();
       this.font.func_238407_a_(matrices, line, x, y, color);
       y += textHeight;
     }

@@ -55,3 +55,4 @@ options.txt
 /banned-players.json
 /ops.json
 /whitelist.json
+src/generated/resources/.cache/cache

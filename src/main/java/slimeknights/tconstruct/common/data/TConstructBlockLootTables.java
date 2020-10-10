@@ -18,6 +18,7 @@ import net.minecraft.loot.functions.CopyNbt.Action;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
+import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.utils.Tags;
@@ -170,18 +171,13 @@ public class TConstructBlockLootTables extends BlockLootTables {
 
   private void addSmeltery() {
     this.registerBuildingLootTables(TinkerSmeltery.searedStone);
-    this.registerBuildingLootTables(TinkerSmeltery.searedCobble);
+    this.registerWallBuildingLootTables(TinkerSmeltery.searedCobble);
     this.registerBuildingLootTables(TinkerSmeltery.searedPaver);
     this.registerBuildingLootTables(TinkerSmeltery.searedStone);
-    this.registerBuildingLootTables(TinkerSmeltery.searedBricks);
-    this.registerBuildingLootTables(TinkerSmeltery.searedCrackedBricks);
-    this.registerBuildingLootTables(TinkerSmeltery.searedFancyBricks);
-    this.registerBuildingLootTables(TinkerSmeltery.searedSquareBricks);
-    this.registerBuildingLootTables(TinkerSmeltery.searedSmallBricks);
-    this.registerBuildingLootTables(TinkerSmeltery.searedTriangleBricks);
-    this.registerBuildingLootTables(TinkerSmeltery.searedCreeper);
-    this.registerBuildingLootTables(TinkerSmeltery.searedRoad);
-    this.registerBuildingLootTables(TinkerSmeltery.searedTile);
+    this.registerWallBuildingLootTables(TinkerSmeltery.searedBricks);
+    this.registerDropSelfLootTable(TinkerSmeltery.searedCrackedBricks.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.searedFancyBricks.get());
+    this.registerDropSelfLootTable(TinkerSmeltery.searedTriangleBricks.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedGlass.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedGlassPane.get());
     this.registerDropSelfLootTable(TinkerSmeltery.searedMelter.get());
@@ -218,7 +214,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
     }
   }
 
-  private static LootTable.Builder droppingWithFunctions(Block block, Function<ItemLootEntry.Builder,ItemLootEntry.Builder> mapping) {
+  private static LootTable.Builder droppingWithFunctions(Block block, Function<ItemLootEntry.Builder<?>,ItemLootEntry.Builder<?>> mapping) {
     return LootTable.builder().addLootPool(withSurvivesExplosion(block, LootPool.builder().rolls(ConstantRange.of(1)).addEntry(mapping.apply(ItemLootEntry.builder(block)))));
   }
 
@@ -230,5 +226,14 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerDropSelfLootTable(object.get());
     this.registerLootTable(object.getSlab(), BlockLootTables::droppingSlab);
     this.registerDropSelfLootTable(object.getStairs());
+  }
+
+  /**
+   * Registers all loot tables for a wall building block object
+   * @param object  Object instance
+   */
+  private void registerWallBuildingLootTables(WallBuildingBlockObject object) {
+    registerBuildingLootTables(object);
+    this.registerDropSelfLootTable(object.getWall());
   }
 }

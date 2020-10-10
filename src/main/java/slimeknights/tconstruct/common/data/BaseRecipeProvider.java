@@ -14,8 +14,10 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
+import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.tconstruct.TConstruct;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -88,14 +90,13 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
   /* Recipe helpers */
 
   /**
-   * Registers generic building block recipes
+   * Registers generic building block recipes for slabs and stairs
    * @param consumer  Recipe consumer
    * @param building  Building object instance
    */
   protected void registerSlabStair(Consumer<IFinishedRecipe> consumer, BuildingBlockObject building, String folder, boolean addStonecutter) {
     Item item = building.asItem();
     ICriterionInstance hasBlock = hasItem(item);
-    Ingredient ingredient = Ingredient.fromItems(item);
     // slab
     IItemProvider slab = building.getSlab();
     ShapedRecipeBuilder.shapedRecipe(slab, 6)
@@ -117,6 +118,7 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
 
     // only add stonecutter if relevant
     if (addStonecutter) {
+      Ingredient ingredient = Ingredient.fromItems(item);
       SingleItemRecipeBuilder.stonecuttingRecipe(ingredient, slab, 2)
                              .addCriterion("has_item", hasBlock)
                              .build(consumer, wrap(item, folder, "_slab_stonecutter"));
@@ -126,10 +128,42 @@ public abstract class BaseRecipeProvider extends RecipeProvider implements ICond
     }
   }
 
-  // Forge constructor is private, not sure if there is a public place for this
+  /**
+   * Registers generic building block recipes for slabs, stairs, and walls
+   * @param consumer  Recipe consumer
+   * @param building  Building object instance
+   */
+  protected void registerSlabStairWall(Consumer<IFinishedRecipe> consumer, WallBuildingBlockObject building, String folder, boolean addStonecutter) {
+    registerSlabStair(consumer, building, folder, addStonecutter);
+    // wall
+    Item item = building.asItem();
+    ICriterionInstance hasBlock = hasItem(item);
+    IItemProvider wall = building.getWall();
+    ShapedRecipeBuilder.shapedRecipe(wall, 4)
+                       .key('B', item)
+                       .patternLine("BBB")
+                       .patternLine("BBB")
+                       .addCriterion("has_item", hasBlock)
+                       .setGroup(Objects.requireNonNull(wall.asItem().getRegistryName()).toString())
+                       .build(consumer, wrap(item, folder, "_wall"));
+    // only add stonecutter if relevant
+    if (addStonecutter) {
+      Ingredient ingredient = Ingredient.fromItems(item);
+      SingleItemRecipeBuilder.stonecuttingRecipe(ingredient, wall)
+                             .addCriterion("has_item", hasBlock)
+                             .build(consumer, wrap(item, folder, "_wall_stonecutter"));
+    }
+  }
+
+
+    // Forge constructor is private, not sure if there is a public place for this
   protected static class CompoundIngredient extends net.minecraftforge.common.crafting.CompoundIngredient {
     public CompoundIngredient(List<Ingredient> children) {
       super(children);
+    }
+
+    public CompoundIngredient(Ingredient... children) {
+      this(Arrays.asList(children));
     }
   }
 }

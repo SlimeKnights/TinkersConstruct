@@ -8,7 +8,7 @@ import net.minecraft.util.text.Color;
 import slimeknights.tconstruct.TConstruct;
 
 public interface IMaterial {
-  Color WHITE = Color.func_240743_a_(0xFFFFFFFF);
+  Color WHITE = Color.fromInt(0xFFFFFFFF);
 
   /**
    * Fallback material. Used for operations where a material or specific aspects of a material are used,
@@ -65,7 +65,7 @@ public interface IMaterial {
       if((color & 0xFF000000) == 0) {
         color |= 0xFF000000;
       }
-      return Color.func_240743_a_(color);
+      return Color.fromInt(color);
     } catch (NumberFormatException e) {
       return WHITE;
     }

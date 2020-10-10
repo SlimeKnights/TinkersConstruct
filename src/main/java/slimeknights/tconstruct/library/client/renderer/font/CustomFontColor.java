@@ -30,7 +30,7 @@ public class CustomFontColor {
     // 1.0 -> 1/3 = green
     // 1.5 -> 1/2 = aqua
     float hue = MathHelper.clamp(((value / max) / 3), 0.01f, 0.5f);
-    return Color.func_240743_a_(HSBtoRGB(hue, 0.65f, 0.8f));
+    return Color.fromInt(HSBtoRGB(hue, 0.65f, 0.8f));
   }
 
   public static ITextComponent formatPartialAmount(int value, int max) {

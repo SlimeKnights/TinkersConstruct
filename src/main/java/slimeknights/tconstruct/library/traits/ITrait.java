@@ -60,7 +60,8 @@ public interface ITrait extends IToolMod {
    * Called after a block has been broken. See {@link net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent}
    * Note that, as opposed to the original event, this only gets called with a player.
    */
-  void blockHarvestDrops(ItemStack tool, BlockEvent.HarvestDropsEvent event);
+  // TODO: Event is gone?
+  // void blockHarvestDrops(ItemStack tool, BlockEvent.HarvestDropsEvent event);
 
 
   /* Attacking */

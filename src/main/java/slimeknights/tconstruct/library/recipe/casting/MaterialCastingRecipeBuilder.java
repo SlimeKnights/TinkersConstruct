@@ -103,7 +103,7 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
       throw new IllegalStateException("Material casting recipes require a positive amount of fluid");
     }
     ResourceLocation advancementId = this.buildAdvancement(id, "casting");
-    consumer.accept(new Result(id, this.getGroup(), this.consumed, this.switchSlots, this.fluidAmount, this.cast, this.result, this.advancementBuilder, advancementId, this.recipeSerializer));
+    consumer.accept(new Result(id, this.group, this.consumed, this.switchSlots, this.fluidAmount, this.cast, this.result, this.advancementBuilder, advancementId, this.recipeSerializer));
   }
 
   @AllArgsConstructor

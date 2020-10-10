@@ -103,15 +103,11 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Blocks.SEARED_BRICKS).add(
       TinkerSmeltery.searedBricks.get(),
       TinkerSmeltery.searedFancyBricks.get(),
-      TinkerSmeltery.searedSquareBricks.get(),
-      TinkerSmeltery.searedSmallBricks.get(),
-      TinkerSmeltery.searedTriangleBricks.get(),
-      TinkerSmeltery.searedRoad.get());
-    this.getOrCreateBuilder(TinkerTags.Blocks.SMOOTH_SEARED_BLOCKS).add(TinkerSmeltery.searedPaver.get(), TinkerSmeltery.searedCreeper.get(), TinkerSmeltery.searedTile.get());
+      TinkerSmeltery.searedTriangleBricks.get());
     this.getOrCreateBuilder(TinkerTags.Blocks.SEARED_BLOCKS)
-        .add(TinkerSmeltery.searedStone.get(), TinkerSmeltery.searedCrackedBricks.get(), TinkerSmeltery.searedCobble.get())
-        .addTag(TinkerTags.Blocks.SEARED_BRICKS)
-        .addTag(TinkerTags.Blocks.SMOOTH_SEARED_BLOCKS);
+        .add(TinkerSmeltery.searedStone.get(), TinkerSmeltery.searedCrackedBricks.get(), TinkerSmeltery.searedCobble.get(), TinkerSmeltery.searedPaver.get())
+        .addTag(TinkerTags.Blocks.SEARED_BRICKS);
+    this.getOrCreateBuilder(BlockTags.WALLS).add(TinkerSmeltery.searedBricks.getWall(), TinkerSmeltery.searedCobble.getWall());
   }
 
   @Override

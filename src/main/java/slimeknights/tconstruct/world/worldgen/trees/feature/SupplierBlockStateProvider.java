@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public class SupplierBlockStateProvider extends BlockStateProvider {
   public static final Codec<SupplierBlockStateProvider> CODEC =
-    BlockState.BLOCKSTATE_CODEC.fieldOf("state")
+    BlockState.CODEC.fieldOf("state")
                                .xmap(SupplierBlockStateProvider::new, (provider) -> provider.supplier.get()).codec();
 
   private final Supplier<BlockState> supplier;
@@ -25,7 +25,7 @@ public class SupplierBlockStateProvider extends BlockStateProvider {
   }
 
   @Override
-  protected BlockStateProviderType<?> func_230377_a_() {
+  protected BlockStateProviderType<?> getProviderType() {
     return TinkerStructures.supplierBlockstateProvider.get();
   }
 

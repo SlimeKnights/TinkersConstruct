@@ -37,7 +37,7 @@ public class SlotPosition {
 
     // array: multiple cubes
     if (json.isJsonArray()) {
-      return JsonHelper.parseList(json.getAsJsonArray(), key, JSONUtils::getJsonObject, SlotPosition::fromJson);
+      return JsonHelper.parseList(json.getAsJsonArray(), key, (j) -> fromJson(j));
     }
 
     throw new JsonSyntaxException("Invalid slot '" + key + "', must be an array or an object");

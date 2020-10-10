@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.Color;
 import net.minecraft.util.text.IFormattableTextComponent;
@@ -119,7 +120,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
     // floating over tooltip info?
     if (this.hasTooltips() && mouseX >= this.guiRight() - this.border.w - this.font.getStringWidth("?") / 2 && mouseX < this.guiRight() && mouseY > this.guiTop + 5 && mouseY < this.guiTop + 5 + this.font.FONT_HEIGHT) {
       int w = MathHelper.clamp(this.width - mouseX - 12, 10, 200);
-      this.renderTooltip(matrices, this.font.func_238425_b_(new TranslationTextComponent("gui.tconstruct.general.hover"), w), mouseX - guiLeft, mouseY - guiTop);
+      this.renderTooltip(matrices, this.font.trimStringToWidth(new TranslationTextComponent("gui.tconstruct.general.hover"), w), mouseX - guiLeft, mouseY - guiTop);
     }
 
     // are we hovering over an entry?
@@ -142,7 +143,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
 
     // get the index of the currently hovered line
     int index = -1;
-    ListIterator<ITextProperties> iter = this.getTotalLines().listIterator(slider.getValue());
+    ListIterator<IReorderingProcessor> iter = this.getTotalLines().listIterator(slider.getValue());
 
     while (iter.hasNext()) {
       if (y + textHeight > lowerBound) {
@@ -181,7 +182,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
       w = 100;
     }
 
-    List<ITextProperties> lines = this.font.func_238425_b_(this.tooltips.get(i), w);
+    List<IReorderingProcessor> lines = this.font.trimStringToWidth(this.tooltips.get(i), w);
 
     this.renderTooltip(matrices, lines, mouseX - this.guiLeft, mouseY - this.guiTop - lines.size() * this.font.FONT_HEIGHT / 2);
   }
@@ -206,27 +207,27 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
     // draw caption
     if (this.hasCaption()) {
       int x2 = this.xSize / 2;
-      x2 -= this.font.func_238414_a_(this.caption) / 2;
+      x2 -= this.font.getStringPropertyWidth(this.caption) / 2;
 
-      this.font.func_238407_a_(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE), (float) this.guiLeft + x2, y, color);
+      this.font.func_238407_a_(matrices, this.caption.copyRaw().mergeStyle(TextFormatting.UNDERLINE).func_241878_f(), (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
 
     // Draw pattern cost
     if (this.hasPatternCost()) {
       int x2 = this.xSize / 2;
-      x2 -= this.font.func_238414_a_(this.patternCost) / 2;
+      x2 -= this.font.getStringPropertyWidth(this.patternCost) / 2;
 
-      this.font.func_238407_a_(matrices, this.patternCost.mergeStyle(TextFormatting.GOLD), (float) this.guiLeft + x2, y, color);
+      this.font.func_238407_a_(matrices, this.patternCost.mergeStyle(TextFormatting.GOLD).func_241878_f(), (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
 
     // Draw material value
     if (this.hasMaterialValue()) {
       int x2 = this.xSize / 2;
-      x2 -= this.font.func_238414_a_(this.materialValue) / 2;
+      x2 -= this.font.getStringPropertyWidth(this.materialValue) / 2;
 
-      this.font.func_238407_a_(matrices, this.materialValue.modifyStyle(style -> style.setColor(Color.func_240743_a_(0x7fffff))), (float) this.guiLeft + x2, y, color);
+      this.font.func_238407_a_(matrices, this.materialValue.modifyStyle(style -> style.setColor(Color.fromInt(0x7fffff))).func_241878_f(), (float) this.guiLeft + x2, y, color);
       y += this.font.FONT_HEIGHT + 3;
     }
 
@@ -242,13 +243,13 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
     y /= this.textScale;
 
     // render shown lines
-    ListIterator<ITextProperties> iter = this.getTotalLines().listIterator(this.slider.getValue());
+    ListIterator<IReorderingProcessor> iter = this.getTotalLines().listIterator(this.slider.getValue());
     while (iter.hasNext()) {
       if (y + textHeight - 0.5f > lowerBound) {
         break;
       }
 
-      ITextProperties line = iter.next();
+      IReorderingProcessor line = iter.next();
       this.font.func_238407_a_(matrices, line, x, y, color);
       y += textHeight;
     }
