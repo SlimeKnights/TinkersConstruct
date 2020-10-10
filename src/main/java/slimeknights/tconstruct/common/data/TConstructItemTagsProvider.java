@@ -117,7 +117,6 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
   private void addSmeltery() {
     this.copy(TinkerTags.Blocks.SEARED_BRICKS, TinkerTags.Items.SEARED_BRICKS);
-    this.copy(TinkerTags.Blocks.SMOOTH_SEARED_BLOCKS, TinkerTags.Items.SMOOTH_SEARED_BLOCKS);
     this.copy(TinkerTags.Blocks.SEARED_BLOCKS, TinkerTags.Items.SEARED_BLOCKS);
     this.getOrCreateBuilder(TinkerTags.Items.CASTS).add(
       TinkerSmeltery.blankCast.get(),

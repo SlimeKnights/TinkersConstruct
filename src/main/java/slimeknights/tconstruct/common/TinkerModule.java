@@ -19,7 +19,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.item.BlockTooltipItem;
-import slimeknights.mantle.registration.deferred.BlockDeferredRegister;
 import slimeknights.mantle.registration.deferred.ContainerTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.EntityTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
@@ -39,7 +38,7 @@ import java.util.function.Function;
  */
 public abstract class TinkerModule {
   // deferred register instances
-  protected static final BlockDeferredRegister BLOCKS = new BlockDeferredRegister(TConstruct.modID);
+  protected static final BlockDeferredRegisterExtension BLOCKS = new BlockDeferredRegisterExtension(TConstruct.modID);
   protected static final ItemDeferredRegister ITEMS = new ItemDeferredRegister(TConstruct.modID);
   protected static final FluidDeferredRegister FLUIDS = new FluidDeferredRegister(TConstruct.modID);
   protected static final TileEntityTypeDeferredRegister TILE_ENTITIES = new TileEntityTypeDeferredRegister(TConstruct.modID);

@@ -2,6 +2,6 @@
     "variants": {
         "type=bottom": { "model": "tconstruct:block/smeltery/slab/paver/slab" },
         "type=top": { "model": "tconstruct:block/smeltery/slab/paver/slab_top" },
-        "type=double": { "model": "tconstruct:block/smeltery/seared/paver" }
+        "type=double": { "model": "tconstruct:block/smeltery/slab/paver/slab_double" }
     }
 }

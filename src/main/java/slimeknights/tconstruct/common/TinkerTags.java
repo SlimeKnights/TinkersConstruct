@@ -34,7 +34,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_ROSE_GOLD = forgeTag("storage_blocks/rose_gold");
 
     public static final IOptionalNamedTag<Block> SEARED_BLOCKS = tag("seared_blocks");
-    public static final IOptionalNamedTag<Block> SMOOTH_SEARED_BLOCKS = tag("smooth_seared_blocks");
     public static final IOptionalNamedTag<Block> SEARED_BRICKS = tag("seared_bricks");
 
 
@@ -67,7 +66,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_ROSE_GOLD = forgeTag("storage_blocks/rose_gold");
 
     public static final IOptionalNamedTag<Item> SEARED_BLOCKS = tag("seared_blocks");
-    public static final IOptionalNamedTag<Item> SMOOTH_SEARED_BLOCKS = tag("smooth_seared_blocks");
 
     public static final IOptionalNamedTag<Item> SEARED_BRICKS = tag("seared_bricks");
     public static final IOptionalNamedTag<Item> GREEN_SLIMEBALL = forgeTag("slimeball/green");

@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "tag": "tconstruct:smooth_seared_blocks"
-  },
-  "result": "tconstruct:seared_paver",
-  "count": 1
-}

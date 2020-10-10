@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "tconstruct:seared_cobble"
+  },
+  "result": "tconstruct:seared_cobble_wall",
+  "count": 1
+}

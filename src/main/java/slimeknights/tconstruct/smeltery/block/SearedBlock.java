@@ -35,13 +35,10 @@ public class SearedBlock extends Block {
   @Deprecated
   public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
     TileEntity tileEntity = worldIn.getTileEntity(pos);
-
     if (tileEntity instanceof SmelteryComponentTileEntity) {
       ((SmelteryComponentTileEntity) tileEntity).notifyMasterOfChange();
     }
-
     super.onReplaced(state, worldIn, pos, newState, isMoving);
-    worldIn.removeTileEntity(pos);
   }
 
   @Override
