@@ -7,6 +7,12 @@
     "#forge:nuggets/knightslime",
     "#forge:nuggets/pig_iron",
     "#forge:nuggets/copper",
-    "#forge:nuggets/rose_gold"
+    "#forge:nuggets/rose_gold",
+    "#forge:nuggets/bronze",
+    "#forge:nuggets/ravager_steel",
+    "#forge:nuggets/soul_steel",
+    "#forge:nuggets/heptazion",
+    "#forge:nuggets/slime_bronze",
+    "#forge:nuggets/knight_metal"
   ]
 }
