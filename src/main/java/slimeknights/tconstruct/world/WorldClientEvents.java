@@ -54,7 +54,6 @@ public class WorldClientEvents extends ClientEventBase {
 
     // render types - ores
     RenderTypeLookup.setRenderLayer(TinkerWorld.cobaltOre.get(), RenderType.getCutoutMipped());
-    RenderTypeLookup.setRenderLayer(TinkerWorld.arditeOre.get(), RenderType.getCutoutMipped());
 
     // render types - slime plants
     for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {

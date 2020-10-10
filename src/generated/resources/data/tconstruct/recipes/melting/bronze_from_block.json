@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:storage_blocks/bronze"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_bronze",
+    "amount": 1296
+  },
+  "temperature": 178
+}

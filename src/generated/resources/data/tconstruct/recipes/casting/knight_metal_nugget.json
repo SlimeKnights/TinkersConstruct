@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:nugget_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_knight_metal",
+    "amount": 16
+  },
+  "result": "tconstruct:knight_metal_nugget",
+  "cooling_time": 27
+}

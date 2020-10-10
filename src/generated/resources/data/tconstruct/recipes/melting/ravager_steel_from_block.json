@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:storage_blocks/ravager_steel"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_ravager_steel",
+    "amount": 1296
+  },
+  "temperature": 469
+}

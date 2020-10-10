@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:ingot_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_knight_metal",
+    "amount": 144
+  },
+  "result": "tconstruct:knight_metal_ingot",
+  "cooling_time": 52
+}

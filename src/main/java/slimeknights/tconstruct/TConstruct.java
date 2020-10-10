@@ -19,6 +19,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -157,7 +158,6 @@ public class TConstruct {
     event.getServer().getCommandManager().getDispatcher().register(executes);
   }
 
-
   @SubscribeEvent
   static void missingBlocks(final MissingMappings<Block> event) {
     handleMissingMappings(event, TConstruct::missingBlock);
@@ -226,6 +226,36 @@ public class TConstruct {
         @Nullable T value = handler.apply(mapping.key.getPath());
         if (value != null) {
           mapping.remap(value);
+        }
+      }
+    }
+  }
+
+  @SubscribeEvent
+  void missingItemMappings(RegistryEvent.MissingMappings<Item> event) {
+    for (RegistryEvent.MissingMappings.Mapping<Item> entry : event.getAllMappings()) {
+      if (entry.key.getNamespace().equals(TConstruct.modID)) {
+        String path = entry.key.getPath();
+        switch (path) {
+          // ardite ore removed
+          case "ardite_ore":
+            entry.remap(TinkerWorld.cobaltOre.asItem());
+            break;
+        }
+      }
+    }
+  }
+
+  @SubscribeEvent
+  void missingBlockMappings(RegistryEvent.MissingMappings<Block> event) {
+    for (RegistryEvent.MissingMappings.Mapping<Block> entry : event.getAllMappings()) {
+      if (entry.key.getNamespace().equals(TConstruct.modID)) {
+        String path = entry.key.getPath();
+        switch (path) {
+          // ardite ore removed
+          case "ardite_ore":
+            entry.remap(TinkerWorld.cobaltOre.get());
+            break;
         }
       }
     }

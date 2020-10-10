@@ -8,6 +8,12 @@
     "#forge:storage_blocks/knightslime",
     "#forge:storage_blocks/pig_iron",
     "#forge:storage_blocks/copper",
-    "#forge:storage_blocks/rose_gold"
+    "#forge:storage_blocks/rose_gold",
+    "#forge:storage_blocks/bronze",
+    "#forge:storage_blocks/ravager_steel",
+    "#forge:storage_blocks/soul_steel",
+    "#forge:storage_blocks/heptazion",
+    "#forge:storage_blocks/slime_bronze",
+    "#forge:storage_blocks/knight_metal"
   ]
 }

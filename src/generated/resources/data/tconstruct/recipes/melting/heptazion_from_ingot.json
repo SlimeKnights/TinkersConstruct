@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:ingots/heptazion"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_heptazion",
+    "amount": 144
+  },
+  "temperature": 340
+}

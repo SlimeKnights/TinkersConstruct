@@ -43,7 +43,6 @@
     "block.tconstruct.copper_ore": "Copper Ore",
 
     "block.tconstruct.cobalt_ore": "Cobalt Ore",
-    "block.tconstruct.ardite_ore": "Ardite Ore",
 
     "block.tconstruct.mud_bricks": "Mud Bricks",
     "block.tconstruct.mud_bricks_slab": "Mud Bricks Slab",
@@ -107,7 +106,7 @@
     "block.tconstruct.copper_block": "Block of Copper",
     "block.tconstruct.copper_block.tooltip": "block.tconstruct.metal.tooltip",
     "block.tconstruct.rose_gold_block": "Block of Rose Gold",
-    "block.tconstruct.copper_block.tooltip": "block.tconstruct.metal.tooltip",
+    "block.tconstruct.rose_gold_block.tooltip": "block.tconstruct.metal.tooltip",
     "block.tconstruct.silky_jewel_block": "Silky Block of Jewel",
     "block.tconstruct.silky_jewel_block.tooltip": "block.tconstruct.metal.tooltip",
     "block.tconstruct.bronze_block": "Bronze Block",
@@ -328,6 +327,35 @@
     "fluid.tconstruct.flowing_molten_knightslime": "Flowing Molten Knightslime",
     "item.tconstruct.molten_knightslime_bucket": "Molten Knightslime Bucket",
 
+    "block.tconstruct.molten_bronze_fluid": "Molten Bronze",
+    "fluid.tconstruct.molten_bronze": "Molten Bronze",
+    "fluid.tconstruct.flowing_molten_bronze": "Flowing Molten Bronze",
+    "item.tconstruct.molten_bronze_bucket": "Molten Bronze Bucket",
+
+    "block.tconstruct.molten_ravager_steel_fluid": "Molten Ravager Steel",
+    "fluid.tconstruct.molten_ravager_steel": "Molten Ravager Steel",
+    "fluid.tconstruct.flowing_molten_ravager_steel": "Flowing Molten Ravager Steel",
+    "item.tconstruct.molten_ravager_steel_bucket": "Molten Ravager Steel Bucket",
+
+    "block.tconstruct.molten_soul_steel_fluid": "Molten Soul Steel",
+    "fluid.tconstruct.molten_soul_steel": "Molten Soul Steel",
+    "fluid.tconstruct.flowing_molten_soul_steel": "Flowing Molten Soul Steel",
+    "item.tconstruct.molten_soul_steel_bucket": "Molten Soul Steel Bucket",
+
+    "block.tconstruct.molten_heptazion_fluid": "Molten Heptazion",
+    "fluid.tconstruct.molten_heptazion": "Molten Heptazion",
+    "fluid.tconstruct.flowing_molten_heptazion": "Flowing Molten Heptazion",
+    "item.tconstruct.molten_heptazion_bucket": "Molten Heptazion Bucket",
+
+    "block.tconstruct.molten_slime_bronze_fluid": "Molten Slimey Bronze",
+    "fluid.tconstruct.molten_slime_bronze": "Molten Slimey Bronze",
+    "fluid.tconstruct.flowing_molten_slime_bronze": "Flowing Molten Slimey Bronze",
+    "item.tconstruct.molten_slime_bronze_bucket": "Molten Slimey Bronze Bucket",
+
+    "block.tconstruct.molten_knight_metal_fluid": "Molten Knight Metal",
+    "fluid.tconstruct.molten_knight_metal": "Molten Knight Metal",
+    "fluid.tconstruct.flowing_molten_knight_metal": "Flowing Molten Knight Metal",
+    "item.tconstruct.molten_knight_metal_bucket": "Molten Knight Metal Bucket",
 
     "_comment": "Tinkers Gadgets",
 

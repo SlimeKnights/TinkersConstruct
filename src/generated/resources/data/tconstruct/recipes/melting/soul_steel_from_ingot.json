@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:ingots/soul_steel"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_soul_steel",
+    "amount": 144
+  },
+  "temperature": 269
+}

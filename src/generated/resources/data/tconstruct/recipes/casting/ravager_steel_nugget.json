@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:nugget_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_ravager_steel",
+    "amount": 16
+  },
+  "result": "tconstruct:ravager_steel_nugget",
+  "cooling_time": 28
+}

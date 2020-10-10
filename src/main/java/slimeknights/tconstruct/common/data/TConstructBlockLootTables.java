@@ -80,6 +80,12 @@ public class TConstructBlockLootTables extends BlockLootTables {
     this.registerDropSelfLootTable(TinkerMaterials.copperBlock.get());
     this.registerDropSelfLootTable(TinkerMaterials.roseGoldBlock.get());
     this.registerDropSelfLootTable(TinkerModifiers.silkyJewelBlock.get());
+    this.registerDropSelfLootTable(TinkerMaterials.bronzeBlock.get());
+    this.registerDropSelfLootTable(TinkerMaterials.ravagerSteelBlock.get());
+    this.registerDropSelfLootTable(TinkerMaterials.soulSteelBlock.get());
+    this.registerDropSelfLootTable(TinkerMaterials.heptazionBlock.get());
+    this.registerDropSelfLootTable(TinkerMaterials.slimeBronzeBlock.get());
+    this.registerDropSelfLootTable(TinkerMaterials.knightMetalBlock.get());
   }
 
   private void addDecorative() {
@@ -118,7 +124,6 @@ public class TConstructBlockLootTables extends BlockLootTables {
 
   private void addWorld() {
     this.registerDropSelfLootTable(TinkerWorld.cobaltOre.get());
-    this.registerDropSelfLootTable(TinkerWorld.arditeOre.get());
 
     this.registerDropSelfLootTable(TinkerWorld.copperOre.get());
 

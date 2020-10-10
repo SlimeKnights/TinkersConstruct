@@ -54,6 +54,12 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_PIG_IRON).add(TinkerMaterials.pigironBlock.get());
     this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_COPPER).add(TinkerMaterials.copperBlock.get());
     this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_ROSE_GOLD).add(TinkerMaterials.roseGoldBlock.get());
+    this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_BRONZE).add(TinkerMaterials.bronzeBlock.get());
+    this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_RAVAGER_STEEL).add(TinkerMaterials.ravagerSteelBlock.get());
+    this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_SOUL_STEEL).add(TinkerMaterials.soulSteelBlock.get());
+    this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_HEPTAZION).add(TinkerMaterials.heptazionBlock.get());
+    this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_SLIME_BRONZE).add(TinkerMaterials.slimeBronzeBlock.get());
+    this.getOrCreateBuilder(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHT_METAL).add(TinkerMaterials.knightMetalBlock.get());
     this.getOrCreateBuilder(BlockTags.BEACON_BASE_BLOCKS)
         .add(TinkerModifiers.silkyJewelBlock.get())
         .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT)
@@ -62,7 +68,13 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME)
         .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_PIG_IRON)
         .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_COPPER)
-        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_ROSE_GOLD);
+        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_ROSE_GOLD)
+        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_BRONZE)
+        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_RAVAGER_STEEL)
+        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_SOUL_STEEL)
+        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_HEPTAZION)
+        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_SLIME_BRONZE)
+        .addTag(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHT_METAL);
 
     this.getOrCreateBuilder(Tags.Blocks.GLASS_COLORLESS).add(TinkerCommons.clearGlass.get());
     this.getOrCreateBuilder(Tags.Blocks.GLASS_PANES_COLORLESS).add(TinkerCommons.clearGlassPane.get());
@@ -88,10 +100,8 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
     this.getOrCreateBuilder(Tags.Blocks.ORES)
         .addTag(TinkerTags.Blocks.ORES_COBALT)
-        //.addTag(TinkerTags.Blocks.ORES_ARDITE)
         .addTag(TinkerTags.Blocks.ORES_COPPER);
     this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COBALT).add(TinkerWorld.cobaltOre.get());
-    //this.getOrCreateBuilder(TinkerTags.Blocks.ORES_ARDITE).add(TinkerWorld.arditeOre.get());
     this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COPPER).add(TinkerWorld.copperOre.get());
   }
 

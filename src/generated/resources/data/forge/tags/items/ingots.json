@@ -7,6 +7,12 @@
     "#forge:ingots/knightslime",
     "#forge:ingots/pig_iron",
     "#forge:ingots/copper",
-    "#forge:ingots/rose_gold"
+    "#forge:ingots/rose_gold",
+    "#forge:ingots/bronze",
+    "#forge:ingots/ravager_steel",
+    "#forge:ingots/soul_steel",
+    "#forge:ingots/heptazion",
+    "#forge:ingots/slime_bronze",
+    "#forge:ingots/knight_metal"
   ]
 }
