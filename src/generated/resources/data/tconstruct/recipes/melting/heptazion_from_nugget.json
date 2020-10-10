@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:nuggets/heptazion"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_heptazion",
+    "amount": 16
+  },
+  "temperature": 170
+}

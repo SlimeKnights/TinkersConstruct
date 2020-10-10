@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:nuggets/knight_metal"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_knight_metal",
+    "amount": 16
+  },
+  "temperature": 80
+}

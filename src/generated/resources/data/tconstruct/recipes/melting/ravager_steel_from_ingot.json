@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:ingots/ravager_steel"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_ravager_steel",
+    "amount": 144
+  },
+  "temperature": 234
+}

@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:storage_blocks/knight_metal"
+  },
+  "result": {
+    "fluid": "tconstruct:molten_knight_metal",
+    "amount": 1296
+  },
+  "temperature": 320
+}

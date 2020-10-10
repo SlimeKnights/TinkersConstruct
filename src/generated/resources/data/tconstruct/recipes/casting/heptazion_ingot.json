@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:ingot_cast"
+  },
+  "fluid": {
+    "name": "tconstruct:molten_heptazion",
+    "amount": 144
+  },
+  "result": "tconstruct:heptazion_ingot",
+  "cooling_time": 85
+}
