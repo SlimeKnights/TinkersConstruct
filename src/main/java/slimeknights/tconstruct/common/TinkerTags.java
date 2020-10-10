@@ -22,7 +22,6 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Block> SLIMY_SAPLINGS = tag("slimy_saplings");
 
     public static final IOptionalNamedTag<Block> ORES_COBALT = forgeTag("ores/cobalt");
-    //public static final IOptionalNamedTag<Block> ORES_ARDITE = forgeTag("ores/ardite");
     public static final IOptionalNamedTag<Block> ORES_COPPER = forgeTag("ores/copper");
 
     public static final IOptionalNamedTag<Block> STORAGE_BLOCKS_COBALT = forgeTag("storage_blocks/cobalt");
@@ -61,11 +60,10 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> SLIMY_SAPLINGS = tag("slimy_saplings");
 
     public static final IOptionalNamedTag<Item> ORES_COBALT = forgeTag("ores/cobalt");
-    //public static final IOptionalNamedTag<Item> ORES_ARDITE = forgeTag("ores/ardite");
     public static final IOptionalNamedTag<Item> ORES_COPPER = forgeTag("ores/copper");
 
     public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_COBALT = forgeTag("storage_blocks/cobalt");
-    //public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_ARDITE = forgeTag("storage_blocks/ardite");
+    public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_ARDITE = forgeTag("storage_blocks/ardite");
     public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_MANYULLYN = forgeTag("storage_blocks/manyullyn");
     public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_KNIGHTSLIME = forgeTag("storage_blocks/knightslime");
     public static final IOptionalNamedTag<Item> STORAGE_BLOCKS_PIG_IRON = forgeTag("storage_blocks/pig_iron");

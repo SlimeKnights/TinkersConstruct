@@ -88,10 +88,8 @@ public class TConstructBlockTagsProvider extends BlockTagsProvider {
 
     this.getOrCreateBuilder(Tags.Blocks.ORES)
         .addTag(TinkerTags.Blocks.ORES_COBALT)
-        //.addTag(TinkerTags.Blocks.ORES_ARDITE)
         .addTag(TinkerTags.Blocks.ORES_COPPER);
     this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COBALT).add(TinkerWorld.cobaltOre.get());
-    //this.getOrCreateBuilder(TinkerTags.Blocks.ORES_ARDITE).add(TinkerWorld.arditeOre.get());
     this.getOrCreateBuilder(TinkerTags.Blocks.ORES_COPPER).add(TinkerWorld.copperOre.get());
   }
 
