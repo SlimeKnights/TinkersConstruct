@@ -28,6 +28,12 @@ public final class TinkerMaterials extends TinkerModule {
   public static final ItemObject<Block> pigironBlock = BLOCKS.register("pigiron_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> copperBlock = BLOCKS.register("copper_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<Block> roseGoldBlock = BLOCKS.register("rose_gold_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> bronzeBlock = BLOCKS.register("bronze_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> ravagerSteelBlock = BLOCKS.register("ravager_steel_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> soulSteelBlock = BLOCKS.register("soul_steel_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> heptazionBlock = BLOCKS.register("heptazion_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> slimeBronzeBlock = BLOCKS.register("slime_bronze_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<Block> knightMetalBlock = BLOCKS.register("knight_metal_block", GENERIC_METAL_BLOCK, GENERAL_TOOLTIP_BLOCK_ITEM);
 
   /*
    * Items
@@ -47,7 +53,18 @@ public final class TinkerMaterials extends TinkerModule {
   public static final ItemObject<Item> copperIngot = ITEMS.register("copper_ingot", GENERAL_PROPS);
   public static final ItemObject<Item> roseGoldNugget = ITEMS.register("rose_gold_nugget", GENERAL_PROPS);
   public static final ItemObject<Item> roseGoldIngot = ITEMS.register("rose_gold_ingot", GENERAL_PROPS);
-
+  public static final ItemObject<Item> bronzeNugget = ITEMS.register("bronze_nugget", GENERAL_PROPS);
+  public static final ItemObject<Item> bronzeIngot = ITEMS.register("bronze_ingot", GENERAL_PROPS);
+  public static final ItemObject<Item> ravagerSteelNugget = ITEMS.register("ravager_steel_nugget", GENERAL_PROPS);
+  public static final ItemObject<Item> ravagerSteelIngot = ITEMS.register("ravager_steel_ingot", GENERAL_PROPS);
+  public static final ItemObject<Item> soulSteelNugget = ITEMS.register("soul_steel_nugget", GENERAL_PROPS);
+  public static final ItemObject<Item> soulSteelIngot = ITEMS.register("soul_steel_ingot", GENERAL_PROPS);
+  public static final ItemObject<Item> heptazionNugget = ITEMS.register("heptazion_nugget", GENERAL_PROPS);
+  public static final ItemObject<Item> heptazionIngot = ITEMS.register("heptazion_ingot", GENERAL_PROPS);
+  public static final ItemObject<Item> slimeBronzeNugget = ITEMS.register("slime_bronze_nugget", GENERAL_PROPS);
+  public static final ItemObject<Item> slimeBronzeIngot = ITEMS.register("slime_bronze_ingot", GENERAL_PROPS);
+  public static final ItemObject<Item> knightMetalNugget = ITEMS.register("knight_metal_nugget", GENERAL_PROPS);
+  public static final ItemObject<Item> knightMetalIngot = ITEMS.register("knight_metal_ingot", GENERAL_PROPS);
 
   /*
    * Serializers

@@ -34,6 +34,7 @@ public final class MaterialIds {
   public static final MaterialId bronze = id("bronze");
   public static final MaterialId pigiron = id("pigiron");
   public static final MaterialId rosegold = id("rosegold");
+  public static final MaterialId ravagersteel = id("ravagersteel");
 
   public static final MaterialId cobalt = id("cobalt");
   public static final MaterialId endstone = id("endstone");

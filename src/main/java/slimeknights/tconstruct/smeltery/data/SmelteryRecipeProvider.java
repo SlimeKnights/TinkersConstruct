@@ -247,6 +247,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     this.addMoltenMineralCastingRecipe(consumer, TinkerFluids.moltenKnightslime, TinkerMaterials.knightSlimeBlock, TinkerMaterials.knightslimeIngot, TinkerMaterials.knightslimeNugget, folder);
     this.addMoltenMineralCastingRecipe(consumer, TinkerFluids.moltenCopper, TinkerMaterials.copperBlock, TinkerMaterials.copperIngot, TinkerMaterials.copperNugget, folder);
     this.addMoltenMineralCastingRecipe(consumer, TinkerFluids.moltenRoseGold, TinkerMaterials.roseGoldBlock, TinkerMaterials.roseGoldIngot, TinkerMaterials.roseGoldNugget, folder);
+    this.addMoltenMineralCastingRecipe(consumer, TinkerFluids.moltenBronze, TinkerMaterials.bronzeBlock, TinkerMaterials.bronzeIngot, TinkerMaterials.bronzeNugget, folder);
+    this.addMoltenMineralCastingRecipe(consumer, TinkerFluids.moltenRavagerSteel, TinkerMaterials.ravagerSteelBlock, TinkerMaterials.ravagerSteelIngot, TinkerMaterials.ravagerSteelNugget, folder);
+    this.addMoltenMineralCastingRecipe(consumer, TinkerFluids.moltenSoulSteel, TinkerMaterials.soulSteelBlock, TinkerMaterials.soulSteelIngot, TinkerMaterials.soulSteelNugget, folder);
+    this.addMoltenMineralCastingRecipe(consumer, TinkerFluids.moltenHeptazion, TinkerMaterials.heptazionBlock, TinkerMaterials.heptazionIngot, TinkerMaterials.heptazionNugget, folder);
+    this.addMoltenMineralCastingRecipe(consumer, TinkerFluids.moltenSlimeBronze, TinkerMaterials.slimeBronzeBlock, TinkerMaterials.slimeBronzeIngot, TinkerMaterials.slimeBronzeNugget, folder);
+    this.addMoltenMineralCastingRecipe(consumer, TinkerFluids.moltenKnightMetal, TinkerMaterials.knightMetalBlock, TinkerMaterials.knightMetalIngot, TinkerMaterials.knightMetalNugget, folder);
 
     // Smeltery Misc
     ItemCastingRecipeBuilder.basinRecipe(TinkerSmeltery.searedCobble)
@@ -323,6 +329,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
     addMetalMelting(consumer, TinkerFluids.moltenPigIron.get(), "pig_iron", false, folder);
     addMetalMelting(consumer, TinkerFluids.moltenKnightslime.get(), "knightslime", false, folder);
 
+    addMetalMelting(consumer, TinkerFluids.moltenBronze.get(), "bronze", false, folder);
+    addMetalMelting(consumer, TinkerFluids.moltenRavagerSteel.get(), "ravager_steel", false, folder);
+    addMetalMelting(consumer, TinkerFluids.moltenSoulSteel.get(), "soul_steel", false, folder);
+    addMetalMelting(consumer, TinkerFluids.moltenHeptazion.get(), "heptazion", false, folder);
+    addMetalMelting(consumer, TinkerFluids.moltenSlimeBronze.get(), "slime_bronze", false, folder);
+    addMetalMelting(consumer, TinkerFluids.moltenKnightMetal.get(), "knight_metal", false, folder);
     // blood
     MeltingRecipeBuilder.melting(Ingredient.fromItems(Items.ROTTEN_FLESH), TinkerFluids.blood.get(), MaterialValues.VALUE_SlimeBall / 5)
                         .addCriterion("has_item", hasItem(Items.ROTTEN_FLESH))
