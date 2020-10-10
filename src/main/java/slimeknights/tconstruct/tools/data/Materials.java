@@ -45,14 +45,15 @@ final class Materials {
   public static final IMaterial bronze = mat(MaterialIds.bronze, false, "e3bd68");
   public static final IMaterial pigiron = mat(MaterialIds.pigiron, false, "ef9e9b");
   public static final IMaterial rosegold = mat(MaterialIds.rosegold, false, "ff5a89");
+  public static final IMaterial ravagersteel = mat(MaterialIds.ravagersteel, false, "ff5a89");
 
   public static final IMaterial cobalt = mat(MaterialIds.cobalt, false, "2882d4");
   public static final IMaterial endstone = mat(MaterialIds.endstone, true, "e0d890");
   public static final IMaterial chorus = mat(MaterialIds.chorus, true, "937596");
 
   //Tier 4
-  public static final IMaterial soulsteel = mat(MaterialIds.soulsteel, true, "6a3723");
-  public static final IMaterial heptazion = mat(MaterialIds.heptazion, true, "601cc4");
+  public static final IMaterial soulsteel = mat(MaterialIds.soulsteel, false, "6a3723");
+  public static final IMaterial heptazion = mat(MaterialIds.heptazion, false, "601cc4");
   public static final IMaterial slimebronze = mat(MaterialIds.slimebronze, false, "e3bd68");
   public static final IMaterial blazewood = mat(MaterialIds.blazewood, true, "e0d890");
 
@@ -60,7 +61,7 @@ final class Materials {
   public static final IMaterial manyullyn = mat(MaterialIds.manyullyn, false, "a15cf8");
   public static final IMaterial knightslime = mat(MaterialIds.knightslime, false, "f18ff0");
   public static final IMaterial knightmetal = mat(MaterialIds.knightmetal, false, "cbc9b3");
-  public static final IMaterial rainbowslime = mat(MaterialIds.rainbowslime, false, "f580ff");
+  public static final IMaterial rainbowslime = mat(MaterialIds.rainbowslime, true, "f580ff");
   public static final IMaterial alexandrite = mat(MaterialIds.alexandrite, false, "52c492");
   public static final IMaterial gardite = mat(MaterialIds.gardite, false, "49b83d");
 

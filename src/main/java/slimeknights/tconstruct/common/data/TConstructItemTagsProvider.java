@@ -57,7 +57,13 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
         .addTag(TinkerTags.Items.INGOTS_KNIGHTSLIME)
         .addTag(TinkerTags.Items.INGOTS_PIG_IRON)
         .addTag(TinkerTags.Items.INGOTS_COPPER)
-        .addTag(TinkerTags.Items.INGOTS_ROSE_GOLD);
+        .addTag(TinkerTags.Items.INGOTS_ROSE_GOLD)
+        .addTag(TinkerTags.Items.INGOTS_BRONZE)
+        .addTag(TinkerTags.Items.INGOTS_RAVAGER_STEEL)
+        .addTag(TinkerTags.Items.INGOTS_SOUL_STEEL)
+        .addTag(TinkerTags.Items.INGOTS_HEPTAZION)
+        .addTag(TinkerTags.Items.INGOTS_SLIME_BRONZE)
+        .addTag(TinkerTags.Items.INGOTS_KNIGHT_METAL);
     this.getOrCreateBuilder(TinkerTags.Items.INGOTS_COBALT).add(TinkerMaterials.cobaltIngot.get());
     this.getOrCreateBuilder(TinkerTags.Items.INGOTS_ARDITE).add(TinkerMaterials.arditeIngot.get());
     this.getOrCreateBuilder(TinkerTags.Items.INGOTS_MANYULLYN).add(TinkerMaterials.manyullynIngot.get());
@@ -65,6 +71,12 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.INGOTS_PIG_IRON).add(TinkerMaterials.pigironIngot.get());
     this.getOrCreateBuilder(TinkerTags.Items.INGOTS_COPPER).add(TinkerMaterials.copperIngot.get());
     this.getOrCreateBuilder(TinkerTags.Items.INGOTS_ROSE_GOLD).add(TinkerMaterials.roseGoldIngot.get());
+    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_BRONZE).add(TinkerMaterials.bronzeIngot.get());
+    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_RAVAGER_STEEL).add(TinkerMaterials.ravagerSteelIngot.get());
+    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_SOUL_STEEL).add(TinkerMaterials.soulSteelIngot.get());
+    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_HEPTAZION).add(TinkerMaterials.heptazionIngot.get());
+    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_SLIME_BRONZE).add(TinkerMaterials.slimeBronzeIngot.get());
+    this.getOrCreateBuilder(TinkerTags.Items.INGOTS_KNIGHT_METAL).add(TinkerMaterials.knightMetalIngot.get());
 
     this.getOrCreateBuilder(Tags.Items.NUGGETS)
         .addTag(TinkerTags.Items.NUGGETS_COBALT)
@@ -73,7 +85,13 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
         .addTag(TinkerTags.Items.NUGGETS_KNIGHTSLIME)
         .addTag(TinkerTags.Items.NUGGETS_PIG_IRON)
         .addTag(TinkerTags.Items.NUGGETS_COPPER)
-        .addTag(TinkerTags.Items.NUGGETS_ROSE_GOLD);
+        .addTag(TinkerTags.Items.NUGGETS_ROSE_GOLD)
+        .addTag(TinkerTags.Items.NUGGETS_BRONZE)
+        .addTag(TinkerTags.Items.NUGGETS_RAVAGER_STEEL)
+        .addTag(TinkerTags.Items.NUGGETS_SOUL_STEEL)
+        .addTag(TinkerTags.Items.NUGGETS_HEPTAZION)
+        .addTag(TinkerTags.Items.NUGGETS_SLIME_BRONZE)
+        .addTag(TinkerTags.Items.NUGGETS_KNIGHT_METAL);
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_COBALT).add(TinkerMaterials.cobaltNugget.get());
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_ARDITE).add(TinkerMaterials.arditeNugget.get());
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_MANYULLYN).add(TinkerMaterials.manyullynNugget.get());
@@ -81,15 +99,27 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_PIG_IRON).add(TinkerMaterials.pigironNugget.get());
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_COPPER).add(TinkerMaterials.copperNugget.get());
     this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_ROSE_GOLD).add(TinkerMaterials.roseGoldNugget.get());
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_BRONZE).add(TinkerMaterials.bronzeNugget.get());
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_RAVAGER_STEEL).add(TinkerMaterials.ravagerSteelNugget.get());
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_SOUL_STEEL).add(TinkerMaterials.soulSteelNugget.get());
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_HEPTAZION).add(TinkerMaterials.heptazionNugget.get());
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_SLIME_BRONZE).add(TinkerMaterials.slimeBronzeNugget.get());
+    this.getOrCreateBuilder(TinkerTags.Items.NUGGETS_KNIGHT_METAL).add(TinkerMaterials.knightMetalNugget.get());
 
     this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
     this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_COBALT, TinkerTags.Items.STORAGE_BLOCKS_COBALT);
-    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE, TinkerTags.Items.STORAGE_BLOCKS_ARDITE);
+    //this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_ARDITE, TinkerTags.Items.STORAGE_BLOCKS_ARDITE);
     this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_MANYULLYN, TinkerTags.Items.STORAGE_BLOCKS_MANYULLYN);
     this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHTSLIME, TinkerTags.Items.STORAGE_BLOCKS_KNIGHTSLIME);
     this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_PIG_IRON, TinkerTags.Items.STORAGE_BLOCKS_PIG_IRON);
     this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_COPPER, TinkerTags.Items.STORAGE_BLOCKS_COPPER);
     this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_ROSE_GOLD, TinkerTags.Items.STORAGE_BLOCKS_ROSE_GOLD);
+    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_BRONZE, TinkerTags.Items.STORAGE_BLOCKS_BRONZE);
+    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_RAVAGER_STEEL, TinkerTags.Items.STORAGE_BLOCKS_RAVAGER_STEEL);
+    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_SOUL_STEEL, TinkerTags.Items.STORAGE_BLOCKS_SOUL_STEEL);
+    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_HEPTAZION, TinkerTags.Items.STORAGE_BLOCKS_HEPTAZION);
+    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_SLIME_BRONZE, TinkerTags.Items.STORAGE_BLOCKS_SLIME_BRONZE);
+    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHT_METAL, TinkerTags.Items.STORAGE_BLOCKS_KNIGHT_METAL);
 
     copyColored(Tags.Blocks.GLASS, Tags.Items.GLASS);
     copyColored(Tags.Blocks.GLASS_PANES, Tags.Items.GLASS_PANES);
@@ -105,7 +135,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
 
     this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
     this.copy(TinkerTags.Blocks.ORES_COBALT, TinkerTags.Items.ORES_COBALT);
-    this.copy(TinkerTags.Blocks.ORES_ARDITE, TinkerTags.Items.ORES_ARDITE);
+    //this.copy(TinkerTags.Blocks.ORES_ARDITE, TinkerTags.Items.ORES_ARDITE);
     this.copy(TinkerTags.Blocks.ORES_COPPER, TinkerTags.Items.ORES_COPPER);
   }
 

@@ -43,6 +43,13 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> moltenPigIron = FLUIDS.register("molten_pig_iron", moltenBuilder().color(0xffef9e9b).temperature(600), Material.LAVA, 10);
   public static final FluidObject<ForgeFlowingFluid> moltenKnightslime = FLUIDS.register("molten_knightslime", moltenBuilder().color(0xfff18ff0).temperature(520), Material.LAVA, 9);
 
+  public static final FluidObject<ForgeFlowingFluid> moltenBronze = FLUIDS.register("molten_bronze", moltenBuilder().color(0xfff18ff0).temperature(478), Material.LAVA, 9);
+  public static final FluidObject<ForgeFlowingFluid> moltenRavagerSteel = FLUIDS.register("molten_ravager_steel", moltenBuilder().color(0xfff18ff0).temperature(769), Material.LAVA, 9);
+  public static final FluidObject<ForgeFlowingFluid> moltenSoulSteel = FLUIDS.register("molten_soul_steel", moltenBuilder().color(0xfff18ff0).temperature(839), Material.LAVA, 9);
+  public static final FluidObject<ForgeFlowingFluid> moltenHeptazion = FLUIDS.register("molten_heptazion", moltenBuilder().color(0xfff18ff0).temperature(980), Material.LAVA, 9);
+  public static final FluidObject<ForgeFlowingFluid> moltenSlimeBronze = FLUIDS.register("molten_slime_bronze", moltenBuilder().color(0xfff18ff0).temperature(478), Material.LAVA, 9);
+  public static final FluidObject<ForgeFlowingFluid> moltenKnightMetal = FLUIDS.register("molten_knight_metal", moltenBuilder().color(0xfff18ff0).temperature(620), Material.LAVA, 9);
+
   /** Creates a builder for a molten fluid */
   private static FluidAttributes.Builder stoneBuilder() {
     return FluidAttributes.builder(FluidIcons.STONE_STILL, FluidIcons.STONE_FLOWING).density(2000).viscosity(10000).temperature(1000);
