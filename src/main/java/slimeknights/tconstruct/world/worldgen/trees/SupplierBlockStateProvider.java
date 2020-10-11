@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.world.worldgen.trees.feature;
+package slimeknights.tconstruct.world.worldgen.trees;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
@@ -11,11 +11,13 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 public class SupplierBlockStateProvider extends BlockStateProvider {
+
   public static final Codec<SupplierBlockStateProvider> CODEC =
     BlockState.CODEC.fieldOf("state")
-                               .xmap(SupplierBlockStateProvider::new, (provider) -> provider.supplier.get()).codec();
+      .xmap(SupplierBlockStateProvider::new, (provider) -> provider.supplier.get()).codec();
 
   private final Supplier<BlockState> supplier;
+
   private SupplierBlockStateProvider(BlockState state) {
     this(() -> state);
   }

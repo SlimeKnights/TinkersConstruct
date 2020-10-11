@@ -48,10 +48,6 @@ repositories {
         name 'tterrag maven'
         url "https://maven.tterrag.com/"
     }
-    maven { // unofficial backup maven in case official mavens go down
-        name "ModMaven"
-        url "https://modmaven.k-4u.nl"
-    }
 }
 
 group = 'slimeknights.tconstruct'
