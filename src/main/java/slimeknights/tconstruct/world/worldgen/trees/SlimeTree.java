@@ -20,11 +20,9 @@ import java.util.Random;
 public class SlimeTree extends Tree {
 
   private final SlimeGrassBlock.FoliageType foliageType;
-  private final boolean isIslandTree;
 
-  public SlimeTree(SlimeGrassBlock.FoliageType foliageType, boolean isIslandTree) {
+  public SlimeTree(SlimeGrassBlock.FoliageType foliageType) {
     this.foliageType = foliageType;
-    this.isIslandTree = isIslandTree;
   }
 
   @Deprecated
@@ -41,19 +39,9 @@ public class SlimeTree extends Tree {
   public ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> getSlimeTreeFeature(Random randomIn, boolean largeHive) {
     switch (this.foliageType) {
       case BLUE:
-        if (this.isIslandTree) {
-          return TinkerStructures.BLUE_SLIME_TREE_ISLAND;
-        }
-        else {
-          return TinkerStructures.BLUE_SLIME_TREE;
-        }
+        return TinkerStructures.BLUE_SLIME_TREE;
       case PURPLE:
-        if (this.isIslandTree) {
-          return TinkerStructures.PURPLE_SLIME_TREE_ISLAND;
-        }
-        else {
-          return TinkerStructures.PURPLE_SLIME_TREE;
-        }
+        return TinkerStructures.PURPLE_SLIME_TREE;
       case ORANGE:
         return TinkerStructures.MAGMA_SLIME_TREE;
     }

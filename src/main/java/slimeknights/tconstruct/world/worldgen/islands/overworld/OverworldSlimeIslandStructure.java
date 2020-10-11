@@ -1,11 +1,13 @@
 package slimeknights.tconstruct.world.worldgen.islands.overworld;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.Heightmap;
@@ -13,22 +15,35 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandPiece;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandVariant;
 
-public class SlimeIslandStructure extends Structure<NoFeatureConfig> {
+import java.util.List;
 
-  public SlimeIslandStructure(Codec<NoFeatureConfig> configCodec) {
+public class OverworldSlimeIslandStructure extends Structure<NoFeatureConfig> {
+
+  private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
+    new MobSpawnInfo.Spawners(TinkerWorld.blueSlimeEntity.get(), 30, 4, 4)
+  );
+
+  public OverworldSlimeIslandStructure(Codec<NoFeatureConfig> configCodec) {
     super(configCodec);
   }
 
   @Override
   public Structure.IStartFactory<NoFeatureConfig> getStartFactory() {
-    return SlimeIslandStructure.Start::new;
+    return OverworldSlimeIslandStructure.Start::new;
   }
 
   @Override
   public String getStructureName() {
-    return "tconstruct:slime_island";
+    return "tconstruct:overworld_slime_island";
+  }
+
+  @Override
+  public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
+    return STRUCTURE_MONSTERS;
   }
 
   @Override
@@ -72,10 +87,7 @@ public class SlimeIslandStructure extends Structure<NoFeatureConfig> {
       SlimeIslandVariant variant = SlimeIslandVariant.BLUE;
       String[] sizes = new String[] { "0x1x0", "2x2x4", "4x1x6", "8x1x11", "11x1x11" };
 
-      if (rnr <= 1) {
-        variant = SlimeIslandVariant.PURPLE;
-      }
-      else if (rnr < 6) {
+      if (rnr < 6) {
         variant = SlimeIslandVariant.GREEN;
       }
 
