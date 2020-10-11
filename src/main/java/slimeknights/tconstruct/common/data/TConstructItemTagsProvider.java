@@ -43,12 +43,14 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
         .addTag(TinkerTags.Items.BLUE_SLIMEBALL)
         .addTag(TinkerTags.Items.PURPLE_SLIMEBALL)
         .addTag(TinkerTags.Items.BLOOD_SLIMEBALL)
-        .addTag(TinkerTags.Items.MAGMA_SLIMEBALL);
+        .addTag(TinkerTags.Items.MAGMA_SLIMEBALL)
+        .addTag(TinkerTags.Items.RAINBOW_SLIMEBALL);
     this.getOrCreateBuilder(TinkerTags.Items.GREEN_SLIMEBALL).add(Items.SLIME_BALL);
     this.getOrCreateBuilder(TinkerTags.Items.BLUE_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.BLUE));
     this.getOrCreateBuilder(TinkerTags.Items.PURPLE_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.PURPLE));
     this.getOrCreateBuilder(TinkerTags.Items.BLOOD_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.BLOOD));
     this.getOrCreateBuilder(TinkerTags.Items.MAGMA_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.MAGMA));
+    this.getOrCreateBuilder(TinkerTags.Items.RAINBOW_SLIMEBALL).add(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.RAINBOW));
 
     this.getOrCreateBuilder(Tags.Items.INGOTS)
         .addTag(TinkerTags.Items.INGOTS_COBALT)
