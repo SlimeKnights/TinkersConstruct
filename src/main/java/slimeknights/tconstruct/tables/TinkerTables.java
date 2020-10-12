@@ -19,20 +19,20 @@ import slimeknights.tconstruct.library.recipe.material.MaterialRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeSerializer;
 import slimeknights.tconstruct.shared.block.TableBlock;
+import slimeknights.tconstruct.tables.block.chest.ModifierChestBlock;
 import slimeknights.tconstruct.tables.block.chest.PartChestBlock;
-import slimeknights.tconstruct.tables.block.chest.PatternChestBlock;
 import slimeknights.tconstruct.tables.block.table.CraftingStationBlock;
 import slimeknights.tconstruct.tables.block.table.PartBuilderBlock;
 import slimeknights.tconstruct.tables.block.table.TinkerStationBlock;
 import slimeknights.tconstruct.tables.data.TableRecipeProvider;
+import slimeknights.tconstruct.tables.inventory.chest.ModifierChestContainer;
 import slimeknights.tconstruct.tables.inventory.chest.PartChestContainer;
-import slimeknights.tconstruct.tables.inventory.chest.PatternChestContainer;
 import slimeknights.tconstruct.tables.inventory.table.CraftingStationContainer;
 import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
 import slimeknights.tconstruct.tables.item.RetexturedTableBlockItem;
+import slimeknights.tconstruct.tables.tileentity.chest.ModifierChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.chest.PartChestTileEntity;
-import slimeknights.tconstruct.tables.tileentity.chest.PatternChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.PartBuilderTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.tinkerstation.TinkerStationTileEntity;
@@ -43,6 +43,7 @@ import java.util.function.Function;
  * Handles all the table for tool creation
  */
 public final class TinkerTables extends TinkerModule {
+
   /*
    * Blocks
    */
@@ -52,7 +53,7 @@ public final class TinkerTables extends TinkerModule {
   public static final ItemObject<TableBlock> craftingStation = BLOCKS.register("crafting_station", () -> new CraftingStationBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
   public static final ItemObject<TableBlock> tinkerStation = BLOCKS.register("tinker_station", () -> new TinkerStationBlock(TOOL_TABLE), RETEXTURED_BLOCK_ITEM.apply(ItemTags.PLANKS));
   public static final ItemObject<TableBlock> partBuilder = BLOCKS.register("part_builder", () -> new PartBuilderBlock(TOOL_TABLE), RETEXTURED_BLOCK_ITEM.apply(ItemTags.PLANKS));
-  public static final ItemObject<TableBlock> patternChest = BLOCKS.register("pattern_chest", () -> new PatternChestBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<TableBlock> modifierChest = BLOCKS.register("modifier_chest", () -> new ModifierChestBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
   public static final ItemObject<TableBlock> partChest = BLOCKS.register("part_chest", () -> new PartChestBlock(TOOL_TABLE), GENERAL_BLOCK_ITEM);
 
   /*
@@ -66,7 +67,7 @@ public final class TinkerTables extends TinkerModule {
   public static final RegistryObject<TileEntityType<CraftingStationTileEntity>> craftingStationTile = TILE_ENTITIES.register("crafting_station", CraftingStationTileEntity::new, craftingStation);
   public static final RegistryObject<TileEntityType<TinkerStationTileEntity>> tinkerStationTile = TILE_ENTITIES.register("tinker_station", TinkerStationTileEntity::new, tinkerStation);
   public static final RegistryObject<TileEntityType<PartBuilderTileEntity>> partBuilderTile = TILE_ENTITIES.register("part_builder", PartBuilderTileEntity::new, partBuilder);
-  public static final RegistryObject<TileEntityType<PatternChestTileEntity>> patternChestTile = TILE_ENTITIES.register("pattern_chest", PatternChestTileEntity::new, patternChest);
+  public static final RegistryObject<TileEntityType<ModifierChestTileEntity>> modifierChestTile = TILE_ENTITIES.register("modifier_chest", ModifierChestTileEntity::new, modifierChest);
   public static final RegistryObject<TileEntityType<PartChestTileEntity>> partChestTile = TILE_ENTITIES.register("part_chest", PartChestTileEntity::new, partChest);
 
   /*
@@ -75,7 +76,7 @@ public final class TinkerTables extends TinkerModule {
   public static final RegistryObject<ContainerType<CraftingStationContainer>> craftingStationContainer = CONTAINERS.register("crafting_station", CraftingStationContainer::new);
   public static final RegistryObject<ContainerType<TinkerStationContainer>> tinkerStationContainer = CONTAINERS.register("tinker_station", TinkerStationContainer::new);
   public static final RegistryObject<ContainerType<PartBuilderContainer>> partBuilderContainer = CONTAINERS.register("part_builder", PartBuilderContainer::new);
-  public static final RegistryObject<ContainerType<PatternChestContainer>> patternChestContainer = CONTAINERS.register("pattern_chest", PatternChestContainer::new);
+  public static final RegistryObject<ContainerType<ModifierChestContainer>> modifierChestContainer = CONTAINERS.register("modifier_chest", ModifierChestContainer::new);
   public static final RegistryObject<ContainerType<PartChestContainer>> partChestContainer = CONTAINERS.register("part_chest", PartChestContainer::new);
 
   /*

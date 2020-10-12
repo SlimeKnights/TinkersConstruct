@@ -10,31 +10,31 @@ import net.minecraftforge.items.wrapper.EmptyHandler;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.inventory.SideInventoryContainer;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
-import slimeknights.tconstruct.tables.tileentity.chest.PatternChestTileEntity;
+import slimeknights.tconstruct.tables.tileentity.chest.ModifierChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.chest.TinkerChestTileEntity;
 
 import javax.annotation.Nullable;
 
-public class PatternChestContainer extends BaseStationContainer<PatternChestTileEntity> {
+public class ModifierChestContainer extends BaseStationContainer<ModifierChestTileEntity> {
 
-  protected SideInventoryContainer<PatternChestTileEntity> inventory;
+  protected SideInventoryContainer<ModifierChestTileEntity> inventory;
 
-  public PatternChestContainer(int id, PlayerInventory inv, PatternChestTileEntity tileEntity) {
-    super(TinkerTables.patternChestContainer.get(), id, inv, tileEntity);
+  public ModifierChestContainer(int id, PlayerInventory inv, ModifierChestTileEntity tileEntity) {
+    super(TinkerTables.modifierChestContainer.get(), id, inv, tileEntity);
 
-    this.inventory = new PatternChestContainer.DynamicChestInventory(TinkerTables.patternChestContainer.get(), this.windowId, inv, this.tile, 8, 18, 8); // columns don't matter since they get set by gui
+    this.inventory = new ModifierChestContainer.DynamicChestInventory(TinkerTables.modifierChestContainer.get(), this.windowId, inv, this.tile, 8, 18, 8); // columns don't matter since they get set by gui
     this.addSubContainer(inventory, true);
 
     this.addInventorySlots();
   }
 
-  public PatternChestContainer(int id, PlayerInventory inv, PacketBuffer buf) {
-    this(id, inv, getTileEntityFromBuf(buf, PatternChestTileEntity.class));
+  public ModifierChestContainer(int id, PlayerInventory inv, PacketBuffer buf) {
+    this(id, inv, getTileEntityFromBuf(buf, ModifierChestTileEntity.class));
   }
 
-  public static class DynamicChestInventory extends SideInventoryContainer<PatternChestTileEntity> {
+  public static class DynamicChestInventory extends SideInventoryContainer<ModifierChestTileEntity> {
 
-    public DynamicChestInventory(ContainerType<?> containerType, int windowId, PlayerInventory inv, PatternChestTileEntity tile, int x, int y, int columns) {
+    public DynamicChestInventory(ContainerType<?> containerType, int windowId, PlayerInventory inv, ModifierChestTileEntity tile, int x, int y, int columns) {
       super(containerType, windowId, inv, tile, x, y, columns);
 
       // add the theoretically possible slots
@@ -52,21 +52,21 @@ public class PatternChestContainer extends BaseStationContainer<PatternChestTile
   public static class PatternChestSlot extends PatternSlot {
 
     @Nullable
-    public final PatternChestTileEntity patternChestTileEntity;
+    public final ModifierChestTileEntity modifierChestTileEntity;
 
-    public PatternChestSlot(@Nullable PatternChestTileEntity tileEntity, int index, int xPosition, int yPosition) {
+    public PatternChestSlot(@Nullable ModifierChestTileEntity tileEntity, int index, int xPosition, int yPosition) {
       super(tileEntity, index, xPosition, yPosition);
 
-      this.patternChestTileEntity = tileEntity;
+      this.modifierChestTileEntity = tileEntity;
     }
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-      if (this.patternChestTileEntity == null) {
+      if (this.modifierChestTileEntity == null) {
         return true;
       }
 
-      return this.patternChestTileEntity.isItemValidForSlot(this.getSlotIndex(), stack); // slot parameter is unused
+      return this.modifierChestTileEntity.isItemValidForSlot(this.getSlotIndex(), stack); // slot parameter is unused
     }
   }
 }

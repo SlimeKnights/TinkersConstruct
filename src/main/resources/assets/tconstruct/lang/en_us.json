@@ -390,8 +390,8 @@
     "block.tconstruct.part_chest": "Part Chest",
     "block.tconstruct.part_chest.tooltip": "Can hold a large amount of toolparts",
 
-    "block.tconstruct.pattern_chest": "Pattern Chest",
-    "block.tconstruct.pattern_chest.tooltip": "Holds either patterns or casts",
+    "block.tconstruct.modifier_chest": "Modifier Chest",
+    "block.tconstruct.modifier_chest.tooltip": "Holds modifiers",
     
     "item.tconstruct.pattern": "Pattern",
     

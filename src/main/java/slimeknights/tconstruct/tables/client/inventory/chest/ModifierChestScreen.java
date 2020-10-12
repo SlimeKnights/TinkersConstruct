@@ -7,20 +7,20 @@ import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.library.ScalingChestScreen;
 import slimeknights.tconstruct.tables.inventory.BaseStationContainer;
-import slimeknights.tconstruct.tables.inventory.chest.PatternChestContainer;
-import slimeknights.tconstruct.tables.tileentity.chest.PatternChestTileEntity;
+import slimeknights.tconstruct.tables.inventory.chest.ModifierChestContainer;
+import slimeknights.tconstruct.tables.tileentity.chest.ModifierChestTileEntity;
 
-public class PatternChestScreen extends BaseStationScreen<PatternChestTileEntity, BaseStationContainer<PatternChestTileEntity>> {
+public class ModifierChestScreen extends BaseStationScreen<ModifierChestTileEntity, BaseStationContainer<ModifierChestTileEntity>> {
 
   protected static final ScalableElementScreen BACKGROUND = new ScalableElementScreen(7 + 18, 7, 18, 18);
 
-  public ScalingChestScreen<PatternChestTileEntity> scalingChestScreen;
+  public ScalingChestScreen<ModifierChestTileEntity> scalingChestScreen;
 
-  public PatternChestScreen(BaseStationContainer<PatternChestTileEntity> container, PlayerInventory playerInventory, ITextComponent title) {
+  public ModifierChestScreen(BaseStationContainer<ModifierChestTileEntity> container, PlayerInventory playerInventory, ITextComponent title) {
     super(container, playerInventory, title);
 
     // FIXME: nullable
-    this.scalingChestScreen = new ScalingChestScreen<>(this, container.getSubContainer(PatternChestContainer.DynamicChestInventory.class), playerInventory, title);
+    this.scalingChestScreen = new ScalingChestScreen<>(this, container.getSubContainer(ModifierChestContainer.DynamicChestInventory.class), playerInventory, title);
     this.addModule(scalingChestScreen);
   }
 

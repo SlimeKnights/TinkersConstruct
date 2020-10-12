@@ -4,24 +4,24 @@ import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
 import slimeknights.tconstruct.tables.block.TableTypes;
-import slimeknights.tconstruct.tables.tileentity.chest.PatternChestTileEntity;
+import slimeknights.tconstruct.tables.tileentity.chest.ModifierChestTileEntity;
 
 import javax.annotation.Nonnull;
 
-public class PatternChestBlock extends TinkerChestBlock {
+public class ModifierChestBlock extends TinkerChestBlock {
 
-  public PatternChestBlock(Properties builder) {
+  public ModifierChestBlock(Properties builder) {
     super(builder);
   }
 
   @Nonnull
   @Override
   public TileEntity createTileEntity(BlockState blockState, IBlockReader iBlockReader) {
-    return new PatternChestTileEntity();
+    return new ModifierChestTileEntity();
   }
 
   @Override
   public TableTypes getType() {
-    return TableTypes.PatternChest;
+    return TableTypes.ModifierChest;
   }
 }
