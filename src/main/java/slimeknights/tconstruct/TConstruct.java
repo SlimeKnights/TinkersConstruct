@@ -174,7 +174,7 @@ public class TConstruct {
   /**
    * Handles missing block remapping
    * @param name  Block name
-   * @return  New block replacement, or null if no replacement
+   * @return New block replacement, or null if no replacement
    */
   @Nullable
   private static Block missingBlock(String name) {
@@ -210,6 +210,9 @@ public class TConstruct {
       case "seared_creeper_stairs":
       case "seared_tile_stairs":
         return TinkerSmeltery.searedPaver.getStairs();
+      // pattern chest
+      case "pattern_chest":
+        return TinkerTables.modifierChest.get();
     }
     return null;
   }
@@ -220,7 +223,7 @@ public class TConstruct {
    * @param handler  Mapping handler
    * @param <T>      Event type
    */
-  private static <T extends IForgeRegistryEntry<T>> void handleMissingMappings(MissingMappings<T> event, Function<String,T> handler) {
+  private static <T extends IForgeRegistryEntry<T>> void handleMissingMappings(MissingMappings<T> event, Function<String, T> handler) {
     for (Mapping<T> mapping : event.getAllMappings()) {
       if (modID.equals(mapping.key.getNamespace())) {
         @Nullable T value = handler.apply(mapping.key.getPath());
