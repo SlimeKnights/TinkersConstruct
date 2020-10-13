@@ -23,6 +23,7 @@ import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.mantle.registration.object.WallBuildingBlockObject;
+import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.Util;
@@ -35,7 +36,6 @@ import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeSeria
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
-import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
 import slimeknights.tconstruct.smeltery.block.CastingBasinBlock;
 import slimeknights.tconstruct.smeltery.block.CastingTableBlock;

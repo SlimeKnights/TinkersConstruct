@@ -11,10 +11,10 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.resource.IResourceType;
 import net.minecraftforge.resource.VanillaResourceType;
+import slimeknights.mantle.client.IEarlySelectiveReloadListener;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.MaterialId;
-import slimeknights.tconstruct.library.utils.IEarlySelectiveReloadListener;
 import slimeknights.tconstruct.library.utils.ModResourceLocationSerializer;
 
 import java.io.BufferedReader;

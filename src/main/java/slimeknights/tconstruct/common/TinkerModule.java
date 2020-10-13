@@ -25,8 +25,8 @@ import slimeknights.mantle.registration.deferred.EntityTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
 import slimeknights.mantle.registration.deferred.ItemDeferredRegister;
 import slimeknights.mantle.registration.deferred.TileEntityTypeDeferredRegister;
+import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.utils.SupplierItemGroup;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 
