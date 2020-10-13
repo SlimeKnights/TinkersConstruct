@@ -5,9 +5,9 @@
     "particle": "tconstruct:block/table/crafting_station_top",
     "top": "tconstruct:block/table/crafting_station_top",
     "side": "tconstruct:block/table/crafting_station_side",
-    "bottom": "minecraft:block/oak_planks",
-    "leg": "tconstruct:block/table/side",
-    "legBottom": "minecraft:block/oak_planks"
+    "leg": "tconstruct:block/table/crafting_station_side",
+    "bottom": "tconstruct:block/table/bottom",
+    "legBottom": "tconstruct:block/table/bottom"
   },
   "items": [
     { "center": [  5, 17,  5 ], "size": 2 },

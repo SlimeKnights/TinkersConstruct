@@ -1,7 +1,7 @@
 {
   "type": "mantle:crafting_shaped_retextured",
   "pattern": [
-    " p ",
+    "ppp",
     "w w",
     "w w"
   ],
@@ -19,5 +19,5 @@
   "texture": {
     "tag": "minecraft:planks"
   },
-  "match_all": false
+  "match_all": true
 }

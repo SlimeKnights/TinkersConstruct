@@ -22,7 +22,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
   protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
     String folder = "tools/";
     // pattern
-    ShapedRecipeBuilder.shapedRecipe(TinkerTables.pattern)
+    ShapedRecipeBuilder.shapedRecipe(TinkerTables.pattern, 4)
       .key('s', Tags.Items.RODS_WOODEN)
       .key('p', ItemTags.PLANKS)
       .patternLine("ps")
@@ -44,10 +44,11 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       ShapedRecipeBuilder.shapedRecipe(TinkerTables.partBuilder)
         .key('p', TinkerTables.pattern)
         .key('w', ItemTags.PLANKS)
-        .patternLine("p")
-        .patternLine("w")
+        .patternLine("pp")
+        .patternLine("ww")
         .addCriterion("has_item", hasItem(TinkerTables.pattern)))
       .setSource(ItemTags.PLANKS)
+      .setMatchAll()
       .build(consumer, prefix(TinkerTables.partBuilder, folder));
 
     // tinker station
@@ -55,11 +56,12 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       ShapedRecipeBuilder.shapedRecipe(TinkerTables.tinkerStation)
         .key('p', TinkerTables.pattern)
         .key('w', ItemTags.PLANKS)
-        .patternLine(" p ")
+        .patternLine("ppp")
         .patternLine("w w")
         .patternLine("w w")
         .addCriterion("has_item", hasItem(TinkerTables.pattern)))
       .setSource(ItemTags.PLANKS)
+      .setMatchAll()
       .build(consumer, prefix(TinkerTables.tinkerStation, folder));
   }
 }
