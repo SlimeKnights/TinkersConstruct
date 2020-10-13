@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tables.data;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
@@ -29,6 +30,17 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       .patternLine("sp")
       .addCriterion("has_item", hasItem(Tags.Items.RODS_WOODEN))
       .build(consumer, prefix(TinkerTables.pattern, folder));
+
+    // book from patterns and slime
+    ShapelessRecipeBuilder.shapelessRecipe(Items.BOOK)
+                          .addIngredient(Items.PAPER)
+                          .addIngredient(Items.PAPER)
+                          .addIngredient(Items.PAPER)
+                          .addIngredient(Tags.Items.SLIMEBALLS)
+                          .addIngredient(TinkerTables.pattern)
+                          .addIngredient(TinkerTables.pattern)
+                          .addCriterion("has_item", hasItem(TinkerTables.pattern))
+                          .build(consumer, location(folder + "book_substitute"));
 
     // crafting station -> crafting table upgrade
     ShapedRecipeBuilder.shapedRecipe(TinkerTables.craftingStation)
