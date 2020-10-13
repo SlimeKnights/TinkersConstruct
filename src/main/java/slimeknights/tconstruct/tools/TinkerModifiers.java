@@ -28,9 +28,6 @@ public final class TinkerModifiers extends TinkerModule {
   /*
    * Items
    */
-  /*public static final ItemObject<Item> greenSlimeCrystal = ITEMS.register("green_slime_crystal", GENERAL_PROPS);
-  public static final ItemObject<Item> blueSlimeCrystal = ITEMS.register("blue_slime_crystal", GENERAL_PROPS);
-  public static final ItemObject<Item> magmaSlimeCrystal = ITEMS.register("magma_slime_crystal", GENERAL_PROPS);*/
   public static final ItemObject<Item> widthExpander = ITEMS.register("width_expander", GENERAL_PROPS);
   public static final ItemObject<Item> heightExpander = ITEMS.register("height_expander", GENERAL_PROPS);
   public static final ItemObject<Item> reinforcement = ITEMS.register("reinforcement", GENERAL_PROPS);

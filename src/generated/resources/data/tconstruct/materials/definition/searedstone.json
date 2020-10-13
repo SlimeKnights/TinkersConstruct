@@ -1,4 +1,6 @@
 {
   "craftable": false,
-  "textColor": "ed9f07"
+  "fluid": "tconstruct:seared_stone",
+  "textColor": "ed9f07",
+  "temperature": 800
 }

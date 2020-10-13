@@ -9,7 +9,7 @@ public final class MaterialIds {
   public static final MaterialId wood = id("wood");
   public static final MaterialId bone = id("bone");
   public static final MaterialId stone = id("stone");
-  public static final MaterialId paper = id("paper");
+  //public static final MaterialId paper = id("paper");
   public static final MaterialId flint = id("flint");
   public static final MaterialId coral = id("coral");
 
@@ -23,7 +23,6 @@ public final class MaterialIds {
   //Tier 2 alternate
   public static final MaterialId mushwood = id("mushwood");
   public static final MaterialId bloodwood = id("bloodwood");
-  public static final MaterialId netherrack = id("netherrack");
   public static final MaterialId blackstone = id("blackstone");
   public static final MaterialId basalt = id("basalt");
   public static final MaterialId witherbone = id("witherbone");

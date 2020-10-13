@@ -52,6 +52,7 @@ public final class TinkerFluids extends TinkerModule {
   public static final FluidObject<ForgeFlowingFluid> moltenHeptazion = FLUIDS.register("molten_heptazion", moltenBuilder().color(0xff6c1291).temperature(980), Material.LAVA, 9);
   public static final FluidObject<ForgeFlowingFluid> moltenSlimeBronze = FLUIDS.register("molten_slime_bronze", moltenBuilder().color(0xffd2a300).temperature(478), Material.LAVA, 9);
   public static final FluidObject<ForgeFlowingFluid> moltenKnightMetal = FLUIDS.register("molten_knight_metal", moltenBuilder().color(0xff96917e).temperature(620), Material.LAVA, 9);
+  public static final FluidObject<ForgeFlowingFluid> moltenSlimeSteel = FLUIDS.register("molten_slime_steel", moltenBuilder().color(0xffb2cbcd).temperature(478), Material.LAVA, 9);
 
   /** Creates a builder for a molten fluid */
   private static FluidAttributes.Builder stoneBuilder() {

@@ -27,143 +27,108 @@ final class MaterialStats {
     //Tier 1
     addMaterialStats(MaterialIds.wood,
       new HeadMaterialStats(60, 2f, WOOD, 0f),
-      new HandleMaterialStats(0, 1.0f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.0f, 1.0f));
     addMaterialStats(MaterialIds.bone,
       new HeadMaterialStats(90, 4f, STONE, 2f),
-      new HandleMaterialStats(0, 1.0f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.0f, 1.0f));
     addMaterialStats(MaterialIds.stone,
       new HeadMaterialStats(130, 4f, STONE, 1f),
-      new HandleMaterialStats(0, 1.0f, 1.1f, 1.0f),
-      new ExtraMaterialStats(0));
-    addMaterialStats(MaterialIds.paper,
+      new HandleMaterialStats(1.0f, 1.1f, 1.0f));
+    /*addMaterialStats(MaterialIds.paper,
       new HeadMaterialStats(40, 2f, WOOD, -1f),
-      new HandleMaterialStats(0, 0.5f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(0.5f, 1.0f, 1.0f));*/
     addMaterialStats(MaterialIds.flint,
       new HeadMaterialStats(60, 4f, STONE, 2f),
-      new HandleMaterialStats(0, 0.5f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(0.5f, 1.0f, 1.0f));
     addMaterialStats(MaterialIds.coral,
       new HeadMaterialStats(100, 4f, STONE, 0f),
-      new HandleMaterialStats(0, 1f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1f, 1.0f, 1.0f));
 
     //Tier 2
     addMaterialStats(MaterialIds.copper,
       new HeadMaterialStats(210, 8f, STONE, 2f),
-      new HandleMaterialStats(0, 1.0f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.0f, 1.0f));
     addMaterialStats(MaterialIds.searedstone,
       new HeadMaterialStats(200, 6f, IRON, 3f),
-      new HandleMaterialStats(0, 0.8f, 1.0f, 1.1f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(0.8f, 1.0f, 1.1f));
     addMaterialStats(MaterialIds.iron,
       new HeadMaterialStats(250, 6f, IRON, 2f),
-      new HandleMaterialStats(0, 1.2f, 1.2f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.2f, 1.2f, 1.0f));
     addMaterialStats(MaterialIds.slimewood,
       new HeadMaterialStats(560, 4f, IRON, 1f),
-      new HandleMaterialStats(0, 1.5f, 1.0f, 1.3f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.5f, 1.0f, 1.3f));
     addMaterialStats(MaterialIds.slimestone,
       new HeadMaterialStats(630, 4f, IRON, 1f),
-      new HandleMaterialStats(0, 1.5f, 1.3f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.5f, 1.3f, 1.0f));
 
     //Tier 2 alternate
     addMaterialStats(MaterialIds.mushwood,
       new HeadMaterialStats(130, 6f, STONE, 0f),
-      new HandleMaterialStats(0, 1.0f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
-    addMaterialStats(MaterialIds.netherrack,
-      new HeadMaterialStats(200, 8f, STONE, 3f),
-      new HandleMaterialStats(0, 0.8f, 1.0f, 1.1f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.0f, 1.0f));
     addMaterialStats(MaterialIds.blackstone,
       new HeadMaterialStats(250, 6f, STONE, 1f),
-      new HandleMaterialStats(0, 1.0f, 1.0f, 1.1f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.0f, 1.1f));
     addMaterialStats(MaterialIds.basalt,
       new HeadMaterialStats(400, 8f, STONE, 1f),
-      new HandleMaterialStats(0, 1.0f, 1.2f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.2f, 1.0f));
     addMaterialStats(MaterialIds.bloodwood,
       new HeadMaterialStats(90, 4f, STONE, 1f),
-      new HandleMaterialStats(0, 0.5f, 0.5f, 0.5f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(0.5f, 0.5f, 0.5f));
     addMaterialStats(MaterialIds.witherbone,
       new HeadMaterialStats(100, 4f, STONE, 2f),
-      new HandleMaterialStats(0, 1f, 1f, 1f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1f, 1f, 1f));
 
     //Tier 3
     addMaterialStats(MaterialIds.slimesteel,
       new HeadMaterialStats(640, 6f, DIAMOND, 3f),
-      new HandleMaterialStats(0, 1.0f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.0f, 1.0f));
     addMaterialStats(MaterialIds.nahuatl,
       new HeadMaterialStats(350, 6f, DIAMOND, 4f),
-      new HandleMaterialStats(0, 0.75f, 1.0f, 1.2f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(0.75f, 1.0f, 1.2f));
     addMaterialStats(MaterialIds.bronze,
       new HeadMaterialStats(420, 10f, DIAMOND, 3f),
-      new HandleMaterialStats(0, 1.4f, 1.3f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.4f, 1.3f, 1.0f));
     addMaterialStats(MaterialIds.pigiron,
       new HeadMaterialStats(300, 8f, DIAMOND, 3f),
-      new HandleMaterialStats(0, 1.0f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.0f, 1.0f));
     addMaterialStats(MaterialIds.rosegold,
       new HeadMaterialStats(250, 12f, DIAMOND, 1f),
-      new HandleMaterialStats(0, 1.0f, 1.0f, 0.5f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.0f, 0.5f));
 
     addMaterialStats(MaterialIds.cobalt,
       new HeadMaterialStats(1060, 10f, DIAMOND, 3f),
-      new HandleMaterialStats(0, 1.0f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.0f, 1.0f));
     addMaterialStats(MaterialIds.endstone,
       new HeadMaterialStats(420, 6f, DIAMOND, 3f),
-      new HandleMaterialStats(0, 1.0f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.0f, 1.0f));
     addMaterialStats(MaterialIds.chorus,
       new HeadMaterialStats(300, 4f, DIAMOND, 3f),
-      new HandleMaterialStats(0, 1.0f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.0f, 1.0f));
 
     //Tier 4
     addMaterialStats(MaterialIds.soulsteel,
       new HeadMaterialStats(1120, 8f, NETHERITE, 4f),
-      new HandleMaterialStats(0, 1.0f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.0f, 1.0f));
     addMaterialStats(MaterialIds.heptazion,
       new HeadMaterialStats(920, 6f, NETHERITE, 6f),
-      new HandleMaterialStats(0, 0.7f, 1.0f, 1.3f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(0.7f, 1.0f, 1.3f));
     addMaterialStats(MaterialIds.slimebronze,
       new HeadMaterialStats(1200, 14f, DIAMOND, 4f),
-      new HandleMaterialStats(0, 1.4f, 1.6f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.4f, 1.6f, 1.0f));
     addMaterialStats(MaterialIds.blazewood,
       new HeadMaterialStats(10, 1f, NETHERITE, 1f),
-      new HandleMaterialStats(0, 1.0f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.0f, 1.0f));
 
     //Tier 5
     addMaterialStats(MaterialIds.manyullyn,
       new HeadMaterialStats(1420, 14f, MANYULLYN, 6f),
-      new HandleMaterialStats(0, 1.0f, 1.0f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.0f, 1.0f, 1.0f));
     addMaterialStats(MaterialIds.knightslime,
       new HeadMaterialStats(2100, 18f, MANYULLYN, 5f),
-      new HandleMaterialStats(0, 1.8f, 1.5f, 1.0f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(1.8f, 1.5f, 1.0f));
     addMaterialStats(MaterialIds.knightmetal,
       new HeadMaterialStats(1500, 8f, MANYULLYN, 8f),
-      new HandleMaterialStats(0, 0.6f, 1.0f, 1.4f),
-      new ExtraMaterialStats(0));
+      new HandleMaterialStats(0.6f, 1.0f, 1.4f));
   }
 
   private static void addMaterialStats(MaterialId location, IMaterialStats... stats) {

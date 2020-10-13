@@ -364,15 +364,20 @@
     "fluid.tconstruct.flowing_molten_heptazion": "Flowing Molten Heptazion",
     "item.tconstruct.molten_heptazion_bucket": "Molten Heptazion Bucket",
 
-    "block.tconstruct.molten_slime_bronze_fluid": "Molten Slimey Bronze",
-    "fluid.tconstruct.molten_slime_bronze": "Molten Slimey Bronze",
-    "fluid.tconstruct.flowing_molten_slime_bronze": "Flowing Molten Slimey Bronze",
-    "item.tconstruct.molten_slime_bronze_bucket": "Molten Slimey Bronze Bucket",
+    "block.tconstruct.molten_slime_bronze_fluid": "Slimey Bronze",
+    "fluid.tconstruct.molten_slime_bronze": "Slimey Bronze",
+    "fluid.tconstruct.flowing_molten_slime_bronze": "Flowing Slimey Bronze",
+    "item.tconstruct.molten_slime_bronze_bucket": "Slimey Bronze Bucket",
 
     "block.tconstruct.molten_knight_metal_fluid": "Molten Knight Metal",
     "fluid.tconstruct.molten_knight_metal": "Molten Knight Metal",
     "fluid.tconstruct.flowing_molten_knight_metal": "Flowing Molten Knight Metal",
     "item.tconstruct.molten_knight_metal_bucket": "Molten Knight Metal Bucket",
+	
+	"block.tconstruct.molten_slime_steel_fluid": "Slimey Steel",
+    "fluid.tconstruct.molten_slime_steel": "Slimey Steel",
+    "fluid.tconstruct.flowing_molten_slime_steel": "Flowing Slimey Steel",
+    "item.tconstruct.molten_knight_metal_bucket": "Slimey Steel Bucket",
 
 
     "_comment": "Tinkers Gadgets",

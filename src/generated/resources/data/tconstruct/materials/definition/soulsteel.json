@@ -1,4 +1,6 @@
 {
   "craftable": false,
-  "textColor": "6a3723"
+  "fluid": "tconstruct:molten_soul_steel",
+  "textColor": "6a3723",
+  "temperature": 839
 }

@@ -1,4 +1,6 @@
 {
   "craftable": false,
-  "textColor": "ff5a89"
+  "fluid": "tconstruct:molten_ravager_steel",
+  "textColor": "ff5a89",
+  "temperature": 769
 }

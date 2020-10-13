@@ -1,4 +1,6 @@
 {
   "craftable": false,
-  "textColor": "e3bd68"
+  "fluid": "tconstruct:molten_slime_bronze",
+  "textColor": "e3bd68",
+  "temperature": 478
 }

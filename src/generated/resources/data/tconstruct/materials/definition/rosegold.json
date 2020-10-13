@@ -1,4 +1,6 @@
 {
   "craftable": false,
-  "textColor": "ff5a89"
+  "fluid": "tconstruct:molten_rose_gold",
+  "textColor": "ff5a89",
+  "temperature": 537
 }

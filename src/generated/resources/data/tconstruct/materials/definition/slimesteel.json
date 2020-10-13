@@ -1,4 +1,6 @@
 {
   "craftable": false,
-  "textColor": "74c8c7"
+  "fluid": "tconstruct:molten_slime_steel",
+  "textColor": "74c8c7",
+  "temperature": 478
 }

@@ -1,4 +1,6 @@
 {
   "craftable": true,
-  "textColor": "f580ff"
+  "fluid": "tconstruct:rainbow_slime",
+  "textColor": "f580ff",
+  "temperature": 630
 }

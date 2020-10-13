@@ -83,7 +83,7 @@ public class TinkerTags {
     public static final IOptionalNamedTag<Item> PURPLE_SLIMEBALL = forgeTag("slimeball/purple");
     public static final IOptionalNamedTag<Item> BLOOD_SLIMEBALL = forgeTag("slimeball/blood");
     public static final IOptionalNamedTag<Item> RAINBOW_SLIMEBALL = forgeTag("slimeball/rainbow");
-    public static final IOptionalNamedTag<Item> GOLD_SLIMEBALL = forgeTag("slimeball/gold");
+    //public static final IOptionalNamedTag<Item> GOLD_SLIMEBALL = forgeTag("slimeball/gold");
 
     public static final IOptionalNamedTag<Item> MAGMA_SLIMEBALL = forgeTag("slimeball/magma");
     public static final IOptionalNamedTag<Item> INGOTS_ARDITE = forgeTag("ingots/ardite");

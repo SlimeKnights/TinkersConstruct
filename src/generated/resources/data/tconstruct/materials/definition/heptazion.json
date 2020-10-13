@@ -1,4 +1,6 @@
 {
   "craftable": false,
-  "textColor": "601cc4"
+  "fluid": "tconstruct:molten_heptazion",
+  "textColor": "601cc4",
+  "temperature": 980
 }

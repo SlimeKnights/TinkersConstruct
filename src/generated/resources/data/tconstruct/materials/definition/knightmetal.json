@@ -1,4 +1,6 @@
 {
   "craftable": false,
-  "textColor": "cbc9b3"
+  "fluid": "tconstruct:molten_knight_metal",
+  "textColor": "cbc9b3",
+  "temperature": 620
 }
