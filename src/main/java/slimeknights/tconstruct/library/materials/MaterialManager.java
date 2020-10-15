@@ -85,6 +85,15 @@ public class MaterialManager extends SyncingJsonReloadListener {
   }
 
   /**
+   * Recreates the fluid lookup using the new materials map
+   */
+  private void reloadFluidLookup() {
+    this.fluidLookup = this.materials.values().stream()
+                                     .filter((mat) -> mat.getFluid() != Fluids.EMPTY)
+                                     .collect(Collectors.toMap(IMaterial::getFluid, Function.identity()));
+  }
+
+  /**
    * Updates the material list from the server.list. Should only be called client side
    * @param materialList  Server material list
    */
@@ -95,6 +104,7 @@ public class MaterialManager extends SyncingJsonReloadListener {
         IMaterial::getIdentifier,
         Function.identity())
       );
+    reloadFluidLookup();
   }
 
   @Override
@@ -107,8 +117,8 @@ public class MaterialManager extends SyncingJsonReloadListener {
         IMaterial::getIdentifier,
         material -> material)
       );
-    this.fluidLookup = this.materials.values().stream().filter((mat) -> mat.getFluid() != Fluids.EMPTY).collect(Collectors.toMap(IMaterial::getFluid, Function.identity()));
-
+    reloadFluidLookup();
+    
     log.debug("Loaded materials: {}", Util.toIndentedStringList(materials.keySet()));
     log.info("{} materials loaded", materials.size());
   }
