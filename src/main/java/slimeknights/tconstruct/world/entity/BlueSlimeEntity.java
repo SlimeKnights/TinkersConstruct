@@ -4,9 +4,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.loot.LootTables;
 import net.minecraft.particles.IParticleData;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -18,7 +16,7 @@ import java.util.Random;
 
 public class BlueSlimeEntity extends SlimeEntity {
 
-  public BlueSlimeEntity(EntityType<? extends SlimeEntity> type, World worldIn) {
+  public BlueSlimeEntity(EntityType<? extends BlueSlimeEntity> type, World worldIn) {
     super(type, worldIn);
   }
 
@@ -31,11 +29,6 @@ public class BlueSlimeEntity extends SlimeEntity {
     }
 
     return worldIn.getBlockState(pos.down()).getBlock() instanceof SlimeGrassBlock;
-  }
-
-  @Override
-  protected ResourceLocation getLootTable() {
-    return this.getSlimeSize() == 1 ? this.getType().getLootTable() : LootTables.EMPTY;
   }
 
   @Override

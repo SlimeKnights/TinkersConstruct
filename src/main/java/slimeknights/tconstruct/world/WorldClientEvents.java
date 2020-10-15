@@ -18,10 +18,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.particle.SlimeParticle;
-import slimeknights.tconstruct.library.client.renderer.BlueSlimeRenderer;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
+import slimeknights.tconstruct.world.client.TinkerSlimeRenderer;
 import slimeknights.tconstruct.world.client.slime.BlueColorReloadListener;
 import slimeknights.tconstruct.world.client.slime.OrangeColorReloadListener;
 import slimeknights.tconstruct.world.client.slime.PurpleColorReloadListener;
@@ -50,7 +50,7 @@ public class WorldClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetup(FMLClientSetupEvent event) {
-    RenderingRegistry.registerEntityRenderingHandler(TinkerWorld.blueSlimeEntity.get(), BlueSlimeRenderer.BLUE_SLIME_FACTORY);
+    RenderingRegistry.registerEntityRenderingHandler(TinkerWorld.blueSlimeEntity.get(), TinkerSlimeRenderer.BLUE_SLIME_FACTORY);
 
     // render types - ores
     RenderTypeLookup.setRenderLayer(TinkerWorld.cobaltOre.get(), RenderType.getCutoutMipped());

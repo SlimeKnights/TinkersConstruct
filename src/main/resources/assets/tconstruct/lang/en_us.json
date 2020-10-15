@@ -512,6 +512,8 @@
     
     "_comment": "Tinkers World",
 
+    "entity.tconstruct.blue_slime": "Blue Slime",
+
     "block.tconstruct.green_slime_dirt": "Green Slimy Dirt",
     "block.tconstruct.green_slime_dirt.tooltip": "block.tconstruct.slime_dirt.tooltip",
     "block.tconstruct.blue_slime_dirt": "Blue Slimy Dirt",
