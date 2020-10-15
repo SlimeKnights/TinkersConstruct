@@ -13,6 +13,10 @@
       "durabilityMultiplier": 0.75,
       "miningSpeedMultiplier": 1.0,
       "attackSpeedMultiplier": 1.2
+    },
+    {
+      "id": "tconstruct:extra",
+      "durability": 0
     }
   ]
 }
