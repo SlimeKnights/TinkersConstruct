@@ -183,6 +183,16 @@ final class MaterialStats {
       new HeadMaterialStats(3500, 4f, MANYULLYN, 4f),
       new HandleMaterialStats(1.5f, 1.0f, 1.0f),
       new ExtraMaterialStats());
+
+    //Misc
+    addMaterialStats(MaterialIds.blank,
+      new HeadMaterialStats(0, 0f, WOOD, 0f),
+      new HandleMaterialStats(1.0f, 1.0f, 1.0f),
+      new ExtraMaterialStats());
+    addMaterialStats(MaterialIds.admin,
+      new HeadMaterialStats(99999999, 99999999f, MANYULLYN, 99999999f),
+      new HandleMaterialStats(1.0f, 1.0f, 1.0f),
+      new ExtraMaterialStats());
   }
 
   private static void addMaterialStats(MaterialId location, IMaterialStats... stats) {

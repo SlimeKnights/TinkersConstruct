@@ -1,0 +1,21 @@
+{
+  "materialId": "tconstruct:admin",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 99999999,
+      "miningSpeed": 1.0E8,
+      "harvestLevel": 5,
+      "attack": 1.0E8
+    },
+    {
+      "id": "tconstruct:handle",
+      "durabilityMultiplier": 1.0,
+      "miningSpeedMultiplier": 1.0,
+      "attackSpeedMultiplier": 1.0
+    },
+    {
+      "id": "tconstruct:extra"
+    }
+  ]
+}

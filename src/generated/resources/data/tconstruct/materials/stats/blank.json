@@ -1,0 +1,21 @@
+{
+  "materialId": "tconstruct:blank",
+  "stats": [
+    {
+      "id": "tconstruct:head",
+      "durability": 0,
+      "miningSpeed": 0.0,
+      "harvestLevel": 0,
+      "attack": 0.0
+    },
+    {
+      "id": "tconstruct:handle",
+      "durabilityMultiplier": 1.0,
+      "miningSpeedMultiplier": 1.0,
+      "attackSpeedMultiplier": 1.0
+    },
+    {
+      "id": "tconstruct:extra"
+    }
+  ]
+}

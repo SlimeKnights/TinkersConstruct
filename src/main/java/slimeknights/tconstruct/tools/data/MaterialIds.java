@@ -55,6 +55,10 @@ public final class MaterialIds {
   public static final MaterialId dragonstone = id("dragonstone");
   public static final MaterialId gardite = id("gardite");
 
+  //Misc
+  public static final MaterialId blank = id("blank");
+  public static final MaterialId admin = id("admin");
+
   private static MaterialId id(String name) {
     return new MaterialId(Util.getResource(name));
   }

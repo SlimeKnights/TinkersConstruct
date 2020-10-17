@@ -67,6 +67,9 @@ final class Materials {
   public static final IMaterial dragonstone = mat(MaterialIds.dragonstone, TinkerFluids.dragonstone, true, "a2007a");
   public static final IMaterial gardite = mat(MaterialIds.gardite, false, "49b83d"); //Compsite: Rainbow Slime -> Diorite
 
+  //Misc
+  public static final IMaterial blank = mat(MaterialIds.blank, false, "ffffff");
+  public static final IMaterial admin = mat(MaterialIds.admin, false, "ffffff");
   /**
    * Creates a material with a fluid
    */
