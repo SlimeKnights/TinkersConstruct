@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/cobalt"
+    },
+    {
+      "tag": "minecraft:soul_fire_base_blocks"
+    },
+    {
+      "tag": "forge:ingots/slime_steel"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:soul_steel_ingot",
+    "count": 3
+  }
+}

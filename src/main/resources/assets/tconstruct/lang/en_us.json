@@ -289,6 +289,16 @@
     "fluid.tconstruct.flowing_seared_stone": "Flowing Seared Stone",
     "item.tconstruct.seared_stone_bucket": "Seared Stone Bucket",
 
+    "block.tconstruct.magmastone_fluid": "Magma Stone",
+    "fluid.tconstruct.magmastone": "Magma Stone",
+    "fluid.tconstruct.flowing_magmastone": "Flowing Magmastone",
+    "item.tconstruct.seared_magmastone": "Magma Stonesucket",
+
+    "block.tconstruct.dragonstone_fluid": "Dragonstone",
+    "fluid.tconstruct.dragonstone": "Dragonstone",
+    "fluid.tconstruct.flowing_dragonstone": "Flowing Dragonstone",
+    "item.tconstruct.dragonstone_bucket": "Dragonstone Bucket",
+
     "block.tconstruct.molten_glass_fluid": "Molten Glass",
     "fluid.tconstruct.molten_glass": "Molten Glass",
     "fluid.tconstruct.flowing_molten_glass": "Flowing Molten Glass",
@@ -377,7 +387,7 @@
 	"block.tconstruct.molten_slime_steel_fluid": "Slimey Steel",
     "fluid.tconstruct.molten_slime_steel": "Slimey Steel",
     "fluid.tconstruct.flowing_molten_slime_steel": "Flowing Slimey Steel",
-    "item.tconstruct.molten_knight_metal_bucket": "Slimey Steel Bucket",
+    "item.tconstruct.molten_slime_metal_bucket": "Slimey Steel Bucket",
 
 
     "_comment": "Tinkers Gadgets",
@@ -718,6 +728,8 @@
     "material.tconstruct.slimeleaf_purple": "Slimeleaf",
 	
 	"material.tconstruct.searedstone": "Seared Stone",
+    "material.tconstruct.magmastone": "Magmastone",
+    "material.tconstruct.dragonstone": "Dragonstone",
     "material.tconstruct.basalt": "Basalt",
     "material.tconstruct.blackstone": "Blackstone",
     "material.tconstruct.rosegold": "Rose Gold",
@@ -735,6 +747,9 @@
     "material.tconstruct.soulsteel": "Soulsteel",
     "material.tconstruct.heptazion": "Heptazion",
     "material.tconstruct.mushwood": "Mushwood",
+    "material.tconstruct.ravagersteel": "Ravager Steel",
+    "material.tconstruct.gardite": "Gardite",
+    "material.tconstruct.alexandrite": "Alexandrite",
 
 
     "_comment": "Stats",

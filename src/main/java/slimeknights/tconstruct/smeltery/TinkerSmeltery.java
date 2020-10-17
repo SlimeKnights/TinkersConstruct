@@ -128,6 +128,8 @@ public final class TinkerSmeltery extends TinkerModule {
    * Items
    */
   public static final ItemObject<Item> searedBrick = ITEMS.register("seared_brick", SMELTERY_PROPS);
+  public static final ItemObject<Item> magmastoneBrick = ITEMS.register("magmastone_brick", SMELTERY_PROPS);
+  public static final ItemObject<Item> dragonstoneBrick = ITEMS.register("dragonstone_brick", SMELTERY_PROPS);
   public static final ItemObject<Item> blankCast = ITEMS.register("blank_cast", SMELTERY_PROPS);
   public static final ItemObject<Item> ingotCast = ITEMS.register("ingot_cast", SMELTERY_PROPS);
   public static final ItemObject<Item> nuggetCast = ITEMS.register("nugget_cast", SMELTERY_PROPS);

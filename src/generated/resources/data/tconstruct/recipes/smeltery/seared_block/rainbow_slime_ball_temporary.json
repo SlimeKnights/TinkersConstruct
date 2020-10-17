@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:slimeball/green"
+    },
+    {
+      "tag": "forge:slimeball/blue"
+    },
+    {
+      "tag": "forge:slimeball/magma"
+    },
+    {
+      "tag": "forge:slimeball/purple"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:rainbow_slime_ball",
+    "count": 2
+  }
+}

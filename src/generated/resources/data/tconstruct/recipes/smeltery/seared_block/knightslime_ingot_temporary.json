@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/knight_metal"
+    },
+    {
+      "tag": "forge:ingots/ardite"
+    },
+    {
+      "tag": "forge:slimeball/purple"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:knightslime_ingot",
+    "count": 2
+  }
+}

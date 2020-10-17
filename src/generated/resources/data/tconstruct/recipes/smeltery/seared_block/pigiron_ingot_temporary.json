@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "tag": "forge:slimeball/blood"
+    },
+    {
+      "tag": "forge:slimeball/blood"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:pigiron_ingot",
+    "count": 2
+  }
+}

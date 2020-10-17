@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/cobalt"
+    },
+    {
+      "tag": "forge:slimeball/magma"
+    },
+    {
+      "tag": "forge:ingots/bronze"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:slime_bronze_ingot",
+    "count": 3
+  }
+}

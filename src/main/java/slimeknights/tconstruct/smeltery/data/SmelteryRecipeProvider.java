@@ -29,6 +29,7 @@ import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelBuilder;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.SearedTankBlock;
@@ -193,6 +194,89 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider {
                        .patternLine("BBB")
                        .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
                        .build(consumer, prefix(TinkerSmeltery.searedMelter, "smeltery/"));
+
+    // TODO: Temporary magmastone brick
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerSmeltery.magmastoneBrick, 2)
+      .addIngredient(ItemTags.SOUL_FIRE_BASE_BLOCKS)
+      .addIngredient(Blocks.MAGMA_BLOCK).addIngredient(Items.NETHER_WART)
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, wrap(TinkerSmeltery.magmastoneBrick, folder, "_temporary"));
+
+    // TODO: Temporary dragonstone brick
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerSmeltery.dragonstoneBrick, 2)
+      .addIngredient(TinkerTags.Items.INGOTS_ARDITE)
+      .addIngredient(Items.DRAGON_BREATH).addIngredient(Items.CHORUS_FRUIT)
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, wrap(TinkerSmeltery.dragonstoneBrick, folder, "_temporary"));
+
+    // TODO: Temporary Bronze Recipe
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.bronzeIngot.get(), 3)
+      .addIngredient(Items.IRON_INGOT)
+      .addIngredient(TinkerTags.Items.INGOTS_COPPER).addIngredient(TinkerTags.Items.INGOTS_COPPER)
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, wrap(TinkerMaterials.bronzeIngot.get(), folder, "_temporary"));
+
+    // TODO: Temporary Pig Iron Recipe
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.pigironIngot.get(), 2)
+      .addIngredient(Items.IRON_INGOT)
+      .addIngredient(TinkerTags.Items.BLOOD_SLIMEBALL).addIngredient(TinkerTags.Items.BLOOD_SLIMEBALL)
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, wrap(TinkerMaterials.pigironIngot.get(), folder, "_temporary"));
+
+    // TODO: Temporary Rose Gold Recipe
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.roseGoldIngot.get(), 3)
+      .addIngredient(Items.GOLD_INGOT)
+      .addIngredient(TinkerTags.Items.INGOTS_COPPER).addIngredient(TinkerTags.Items.INGOTS_COPPER)
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, wrap(TinkerMaterials.roseGoldIngot.get(), folder, "_temporary"));
+
+    // TODO: Temporary Soulsteel Recipe
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.soulSteelIngot.get(), 3)
+      .addIngredient(TinkerTags.Items.INGOTS_COBALT)
+      .addIngredient(ItemTags.SOUL_FIRE_BASE_BLOCKS).addIngredient(TinkerTags.Items.INGOTS_SLIME_STEEL)
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, wrap(TinkerMaterials.soulSteelIngot.get(), folder, "_temporary"));
+
+    // TODO: Temporary Alexandrite Recipe
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.alexandritePearl.get(), 1)
+      .addIngredient(Items.ENDER_EYE)
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, wrap(TinkerMaterials.alexandritePearl.get(), folder, "_temporary"));
+
+    // TODO: Temporary Heptazion Recipe
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.heptazionIngot.get(), 3)
+      .addIngredient(TinkerTags.Items.INGOTS_COBALT)
+      .addIngredient(Blocks.OBSIDIAN).addIngredient(TinkerTags.Items.INGOTS_COPPER)
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, wrap(TinkerMaterials.heptazionIngot.get(), folder, "_temporary"));
+
+    // TODO: Temporary Slimebronze Recipe
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.slimeBronzeIngot.get(), 3)
+      .addIngredient(TinkerTags.Items.INGOTS_COBALT)
+      .addIngredient(TinkerTags.Items.MAGMA_SLIMEBALL).addIngredient(TinkerTags.Items.INGOTS_BRONZE)
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, wrap(TinkerMaterials.slimeBronzeIngot.get(), folder, "_temporary"));
+
+    // TODO: Temporary Manyullyn Recipe
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.manyullynIngot.get(), 2)
+      .addIngredient(TinkerTags.Items.INGOTS_COBALT)
+      .addIngredient(TinkerTags.Items.INGOTS_ARDITE).addIngredient(TinkerTags.Items.INGOTS_ARDITE)
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, wrap(TinkerMaterials.manyullynIngot.get(), folder, "_temporary"));
+
+    // TODO: Temporary Knightslime Recipe
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerMaterials.knightslimeIngot.get(), 2)
+      .addIngredient(TinkerTags.Items.INGOTS_KNIGHT_METAL)
+      .addIngredient(TinkerTags.Items.INGOTS_ARDITE).addIngredient(TinkerTags.Items.PURPLE_SLIMEBALL)
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, wrap(TinkerMaterials.knightslimeIngot.get(), folder, "_temporary"));
+
+    // TODO: Temporary Rainbow Slime Recipe
+    ShapelessRecipeBuilder.shapelessRecipe(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.RAINBOW), 2)
+      .addIngredient(TinkerTags.Items.GREEN_SLIMEBALL).addIngredient(TinkerTags.Items.BLUE_SLIMEBALL)
+      .addIngredient(TinkerTags.Items.MAGMA_SLIMEBALL).addIngredient(TinkerTags.Items.PURPLE_SLIMEBALL)
+      .addCriterion("has_item", hasItem(TinkerSmeltery.searedBrick))
+      .build(consumer, wrap(TinkerCommons.slimeball.get(StickySlimeBlock.SlimeType.RAINBOW), folder, "_temporary"));
   }
 
 

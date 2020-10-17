@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/cobalt"
+    },
+    {
+      "tag": "forge:ingots/ardite"
+    },
+    {
+      "tag": "forge:ingots/ardite"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:manyullyn_ingot",
+    "count": 2
+  }
+}

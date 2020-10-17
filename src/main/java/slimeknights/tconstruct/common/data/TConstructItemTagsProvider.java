@@ -79,6 +79,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.getOrCreateBuilder(TinkerTags.Items.INGOTS_HEPTAZION).add(TinkerMaterials.heptazionIngot.get());
     this.getOrCreateBuilder(TinkerTags.Items.INGOTS_SLIME_BRONZE).add(TinkerMaterials.slimeBronzeIngot.get());
     this.getOrCreateBuilder(TinkerTags.Items.INGOTS_KNIGHT_METAL).add(TinkerMaterials.knightMetalIngot.get());
+    this.getOrCreateBuilder(TinkerTags.Items.ALEXANDRITE_PEARL).add(TinkerMaterials.alexandritePearl.get());
 
     this.getOrCreateBuilder(Tags.Items.NUGGETS)
         .addTag(TinkerTags.Items.NUGGETS_COBALT)
@@ -121,6 +122,7 @@ public class TConstructItemTagsProvider extends ItemTagsProvider {
     this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_SOUL_STEEL, TinkerTags.Items.STORAGE_BLOCKS_SOUL_STEEL);
     this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_HEPTAZION, TinkerTags.Items.STORAGE_BLOCKS_HEPTAZION);
     this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_SLIME_BRONZE, TinkerTags.Items.STORAGE_BLOCKS_SLIME_BRONZE);
+    this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_SLIME_STEEL, TinkerTags.Items.STORAGE_BLOCKS_SLIME_STEEL);
     this.copy(TinkerTags.Blocks.STORAGE_BLOCKS_KNIGHT_METAL, TinkerTags.Items.STORAGE_BLOCKS_KNIGHT_METAL);
 
     copyColored(Tags.Blocks.GLASS, Tags.Items.GLASS);
