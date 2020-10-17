@@ -1,16 +1,16 @@
 {
-  "materialId": "tconstruct:flint",
+  "materialId": "tconstruct:rainbowslime",
   "stats": [
     {
       "id": "tconstruct:head",
-      "durability": 60,
+      "durability": 2800,
       "miningSpeed": 4.0,
-      "harvestLevel": 1,
-      "attack": 2.0
+      "harvestLevel": 5,
+      "attack": 0.0
     },
     {
       "id": "tconstruct:handle",
-      "durabilityMultiplier": 0.5,
+      "durabilityMultiplier": 2.0,
       "miningSpeedMultiplier": 1.0,
       "attackSpeedMultiplier": 1.0
     },

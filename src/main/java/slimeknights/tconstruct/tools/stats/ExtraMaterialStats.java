@@ -18,30 +18,19 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString
 public class ExtraMaterialStats extends BaseMaterialStats {
 
   public static final MaterialStatsId ID = new MaterialStatsId(Util.getResource("extra"));
-  public static final ExtraMaterialStats DEFAULT = new ExtraMaterialStats(0);
-
-  public final static String DURABILITY_LOCALIZATION = "stat.extra.durability.name";
-  public final static String DURABILITY_DESCRIPTION_LOCALIZATION = "stat.extra.durability.description";
-  public final static Color DURABILITY_COLOR = HeadMaterialStats.DURABILITY_COLOR;
-
-  private int durability;
+  public static final ExtraMaterialStats DEFAULT = new ExtraMaterialStats();
 
   @Override
-  public void encode(PacketBuffer buffer) {
-    buffer.writeInt(this.durability);
-  }
+  public void encode(PacketBuffer buffer) { }
 
   @Override
-  public void decode(PacketBuffer buffer) {
-    this.durability = buffer.readInt();
-  }
+  public void decode(PacketBuffer buffer) { }
 
   @Override
   public MaterialStatsId getIdentifier() {
@@ -49,16 +38,10 @@ public class ExtraMaterialStats extends BaseMaterialStats {
   }
 
   @Override
-  public List<ITextComponent> getLocalizedInfo() {
-    return ImmutableList.of(formatDurability(this.durability));
-  }
+  public List<ITextComponent> getLocalizedInfo() { return ImmutableList.of(); }
 
   @Override
   public List<ITextComponent> getLocalizedDescriptions() {
-    return ImmutableList.of(new TranslationTextComponent(DURABILITY_DESCRIPTION_LOCALIZATION));
-  }
-
-  public static ITextComponent formatDurability(int durability) {
-    return formatNumber(DURABILITY_LOCALIZATION, DURABILITY_COLOR, durability);
+    return ImmutableList.of();
   }
 }

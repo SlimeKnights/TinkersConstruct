@@ -40,7 +40,10 @@ public class TinkerTags {
 
     public static final IOptionalNamedTag<Block> SEARED_BLOCKS = tag("seared_blocks");
     public static final IOptionalNamedTag<Block> SEARED_BRICKS = tag("seared_bricks");
-
+    public static final IOptionalNamedTag<Block> MAGMASTONE_BLOCKS = tag("magmastone_blocks");
+    public static final IOptionalNamedTag<Block> MAGMASTONE_BRICKS = tag("magmastone_bricks");
+    public static final IOptionalNamedTag<Block> DRAGONSTONE_BLOCKS = tag("dragonstone_blocks");
+    public static final IOptionalNamedTag<Block> DRAGONSTONE_BRICKS = tag("dragonstone_bricks");
 
     private static IOptionalNamedTag<Block> tag(String name) {
       return BlockTags.createOptional(Util.getResource(name));

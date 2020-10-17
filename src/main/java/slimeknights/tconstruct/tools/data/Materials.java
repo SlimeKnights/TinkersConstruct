@@ -21,9 +21,9 @@ final class Materials {
   public static final IMaterial wood = mat(MaterialIds.wood, true, "8e661b");
   public static final IMaterial bone = mat(MaterialIds.bone, true, "ede6bf");
   public static final IMaterial stone = mat(MaterialIds.stone, true, "999999");
-  //public static final IMaterial paper = mat(MaterialIds.paper, true, "ffffff");
-  public static final IMaterial flint = mat(MaterialIds.flint, true, "696969");
   public static final IMaterial coral = mat(MaterialIds.coral, true, "ffef38");
+  public static final IMaterial flint = mat(MaterialIds.flint, true, "696969");
+  //public static final IMaterial paper = mat(MaterialIds.paper, true, "ffffff");
 
   //Tier 2
   public static final IMaterial copper = mat(MaterialIds.copper, TinkerFluids.moltenCopper, true, "ed9f07");
@@ -34,18 +34,18 @@ final class Materials {
 
   //Tier 2 alternate
   public static final IMaterial mushwood = mat(MaterialIds.mushwood, true, "24bad5");
-  public static final IMaterial bloodwood = mat(MaterialIds.bloodwood, true, "d53024");
   public static final IMaterial blackstone = mat(MaterialIds.blackstone, true, "333333");
   public static final IMaterial basalt = mat(MaterialIds.basalt, true, "cfcfcf");
+  public static final IMaterial bloodwood = mat(MaterialIds.bloodwood, true, "d53024");
   public static final IMaterial witherbone = mat(MaterialIds.witherbone, true, "16202e");
 
   //Tier 3
   public static final IMaterial slimesteel = mat(MaterialIds.slimesteel, TinkerFluids.moltenSlimeSteel,false, "74c8c7");
   public static final IMaterial nahuatl = mat(MaterialIds.nahuatl, false, "601cc4"); //Compsite: Obsidian -> Wood
+  public static final IMaterial ravagersteel = mat(MaterialIds.ravagersteel, TinkerFluids.moltenRavagerSteel, false, "ff5a89");
   public static final IMaterial bronze = mat(MaterialIds.bronze, TinkerFluids.moltenBronze, false, "e3bd68");
   public static final IMaterial pigiron = mat(MaterialIds.pigiron, TinkerFluids.moltenPigIron, false, "ef9e9b");
   public static final IMaterial rosegold = mat(MaterialIds.rosegold, TinkerFluids.moltenRoseGold, false, "ff5a89");
-  public static final IMaterial ravagersteel = mat(MaterialIds.ravagersteel, TinkerFluids.moltenRavagerSteel, false, "ff5a89");
 
   public static final IMaterial cobalt = mat(MaterialIds.cobalt, TinkerFluids.moltenCobalt, false, "2882d4");
   public static final IMaterial endstone = mat(MaterialIds.endstone, true, "e0d890");
@@ -53,16 +53,18 @@ final class Materials {
 
   //Tier 4
   public static final IMaterial soulsteel = mat(MaterialIds.soulsteel, TinkerFluids.moltenSoulSteel, false, "6a3723");
+  public static final IMaterial alexandrite = mat(MaterialIds.alexandrite, true, "52c492");
   public static final IMaterial heptazion = mat(MaterialIds.heptazion, TinkerFluids.moltenHeptazion, false, "601cc4");
+  public static final IMaterial magmastone = mat(MaterialIds.magmastone, TinkerFluids.magmastone, true, "b0330c");
+  public static final IMaterial knightmetal = mat(MaterialIds.knightmetal, TinkerFluids.moltenKnightMetal, false, "cbc9b3");
   public static final IMaterial slimebronze = mat(MaterialIds.slimebronze, TinkerFluids.moltenSlimeBronze, false, "e3bd68");
   public static final IMaterial blazewood = mat(MaterialIds.blazewood, true, "e0d890"); //Compsite: Liquid Blaze -> Wood
 
   //Tier 5
   public static final IMaterial manyullyn = mat(MaterialIds.manyullyn, TinkerFluids.moltenManyullyn, false, "a15cf8");
   public static final IMaterial knightslime = mat(MaterialIds.knightslime, TinkerFluids.moltenKnightslime, false, "f18ff0");
-  public static final IMaterial knightmetal = mat(MaterialIds.knightmetal, TinkerFluids.moltenKnightMetal, false, "cbc9b3");
   public static final IMaterial rainbowslime = mat(MaterialIds.rainbowslime, TinkerFluids.rainbowSlime, true, "f580ff");
-  public static final IMaterial alexandrite = mat(MaterialIds.alexandrite, true, "52c492");
+  public static final IMaterial dragonstone = mat(MaterialIds.dragonstone, TinkerFluids.dragonstone, true, "a2007a");
   public static final IMaterial gardite = mat(MaterialIds.gardite, false, "49b83d"); //Compsite: Rainbow Slime -> Diorite
 
   /**

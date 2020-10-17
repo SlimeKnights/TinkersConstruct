@@ -15,8 +15,7 @@
       "attackSpeedMultiplier": 0.5
     },
     {
-      "id": "tconstruct:extra",
-      "durability": 0
+      "id": "tconstruct:extra"
     }
   ]
 }

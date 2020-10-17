@@ -1,17 +1,17 @@
 {
-  "materialId": "tconstruct:knightmetal",
+  "materialId": "tconstruct:dragonstone",
   "stats": [
     {
       "id": "tconstruct:head",
-      "durability": 1350,
-      "miningSpeed": 10.0,
+      "durability": 2100,
+      "miningSpeed": 18.0,
       "harvestLevel": 5,
-      "attack": 4.0
+      "attack": 5.0
     },
     {
       "id": "tconstruct:handle",
-      "durabilityMultiplier": 1.3,
-      "miningSpeedMultiplier": 1.1,
+      "durabilityMultiplier": 0.6,
+      "miningSpeedMultiplier": 1.4,
       "attackSpeedMultiplier": 1.0
     },
     {

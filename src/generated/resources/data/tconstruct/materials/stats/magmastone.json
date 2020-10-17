@@ -1,17 +1,17 @@
 {
-  "materialId": "tconstruct:endstone",
+  "materialId": "tconstruct:magmastone",
   "stats": [
     {
       "id": "tconstruct:head",
-      "durability": 420,
-      "miningSpeed": 6.0,
-      "harvestLevel": 3,
-      "attack": 3.0
+      "durability": 1000,
+      "miningSpeed": 8.0,
+      "harvestLevel": 4,
+      "attack": 6.0
     },
     {
       "id": "tconstruct:handle",
       "durabilityMultiplier": 1.0,
-      "miningSpeedMultiplier": 1.0,
+      "miningSpeedMultiplier": 1.1,
       "attackSpeedMultiplier": 1.0
     },
     {

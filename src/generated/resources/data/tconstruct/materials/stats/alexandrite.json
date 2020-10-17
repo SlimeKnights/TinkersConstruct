@@ -1,18 +1,18 @@
 {
-  "materialId": "tconstruct:copper",
+  "materialId": "tconstruct:alexandrite",
   "stats": [
     {
       "id": "tconstruct:head",
-      "durability": 210,
+      "durability": 1140,
       "miningSpeed": 8.0,
-      "harvestLevel": 1,
-      "attack": 2.0
+      "harvestLevel": 4,
+      "attack": 4.0
     },
     {
       "id": "tconstruct:handle",
       "durabilityMultiplier": 1.0,
-      "miningSpeedMultiplier": 1.0,
-      "attackSpeedMultiplier": 1.0
+      "miningSpeedMultiplier": 1.2,
+      "attackSpeedMultiplier": 1.2
     },
     {
       "id": "tconstruct:extra"

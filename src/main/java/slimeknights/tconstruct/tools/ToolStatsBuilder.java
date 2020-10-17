@@ -74,7 +74,7 @@ public final class ToolStatsBuilder {
       buildHarvestLevel(),
       buildAttack(),
       buildMiningSpeed(),
-      1f,
+      buildAttackSpeed(),
       StatsNBT.DEFAULT_MODIFIERS,
       false
     );
@@ -92,8 +92,9 @@ public final class ToolStatsBuilder {
 
   public float buildMiningSpeed() {
     double averageHeadSpeed = getAverageValue(heads, HeadMaterialStats::getMiningSpeed);
+    double averageHandleMultiplier = getAverageValue(handles, HandleMaterialStats::getMiningSpeedMultiplier);
 
-    return (float)Math.max(0.1d, averageHeadSpeed);
+    return (float)Math.max(0.1d, averageHeadSpeed * averageHandleMultiplier);
   }
 
   public int buildHarvestLevel() {
@@ -107,6 +108,12 @@ public final class ToolStatsBuilder {
     double averageHeadAttack = getAverageValue(heads, HeadMaterialStats::getAttack);
 
     return (float)Math.max(0.1d, averageHeadAttack);
+  }
+
+  public float buildAttackSpeed() {
+    double averageAttackSpeed = getAverageValue(handles, HandleMaterialStats::getAttackSpeedMultiplier);
+
+    return (float)Math.max(0.1d, 1.0 * averageAttackSpeed);
   }
 
   private <T extends IMaterialStats> double getAverageValue(List<T> stats, Function<T, ? extends Number> statGetter) {

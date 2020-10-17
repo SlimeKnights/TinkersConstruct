@@ -1,16 +1,16 @@
 {
-  "materialId": "tconstruct:flint",
+  "materialId": "tconstruct:gardite",
   "stats": [
     {
       "id": "tconstruct:head",
-      "durability": 60,
+      "durability": 3500,
       "miningSpeed": 4.0,
-      "harvestLevel": 1,
-      "attack": 2.0
+      "harvestLevel": 5,
+      "attack": 4.0
     },
     {
       "id": "tconstruct:handle",
-      "durabilityMultiplier": 0.5,
+      "durabilityMultiplier": 1.5,
       "miningSpeedMultiplier": 1.0,
       "attackSpeedMultiplier": 1.0
     },

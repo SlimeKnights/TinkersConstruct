@@ -1,18 +1,18 @@
 {
-  "materialId": "tconstruct:searedstone",
+  "materialId": "tconstruct:ravagersteel",
   "stats": [
     {
       "id": "tconstruct:head",
-      "durability": 200,
+      "durability": 920,
       "miningSpeed": 6.0,
-      "harvestLevel": 2,
-      "attack": 3.0
+      "harvestLevel": 3,
+      "attack": 6.0
     },
     {
       "id": "tconstruct:handle",
-      "durabilityMultiplier": 0.8,
+      "durabilityMultiplier": 1.2,
       "miningSpeedMultiplier": 1.0,
-      "attackSpeedMultiplier": 1.1
+      "attackSpeedMultiplier": 1.2
     },
     {
       "id": "tconstruct:extra"
