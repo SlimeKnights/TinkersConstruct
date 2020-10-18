@@ -3,12 +3,8 @@ package slimeknights.tconstruct.fixture;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import slimeknights.tconstruct.library.tinkering.Category;
-import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
-import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
-import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 public final class ToolDefinitionFixture {
 
@@ -17,7 +13,7 @@ public final class ToolDefinitionFixture {
   public static ToolDefinition getTestToolDefinition() {
     return new ToolDefinition(
       new ToolBaseStatDefinition.Builder().setDamageModifier(1f).build(),
-      ImmutableList.of(PartMaterialTypeFixture.PART_MATERIAL_TYPE, PartMaterialTypeFixture.PART_MATERIAL_TYPE_2),
+      () -> ImmutableList.of(MaterialItemFixture.MATERIAL_ITEM, MaterialItemFixture.MATERIAL_ITEM_2),
       ImmutableSet.of(TEST_CATEGORY)
     );
   }
@@ -25,11 +21,7 @@ public final class ToolDefinitionFixture {
   public static ToolDefinition getStandardToolDefinition() {
     return new ToolDefinition(
       new ToolBaseStatDefinition.Builder().setDamageModifier(1f).build(),
-      ImmutableList.of(
-        new PartMaterialRequirement(() -> MaterialItemFixture.MATERIAL_ITEM_HEAD, HeadMaterialStats.ID),
-        new PartMaterialRequirement(() -> MaterialItemFixture.MATERIAL_ITEM_HANDLE, HandleMaterialStats.ID),
-        new PartMaterialRequirement(() -> MaterialItemFixture.MATERIAL_ITEM_EXTRA, ExtraMaterialStats.ID)
-      ),
+      () -> ImmutableList.of(MaterialItemFixture.MATERIAL_ITEM_HEAD, MaterialItemFixture.MATERIAL_ITEM_HANDLE, MaterialItemFixture.MATERIAL_ITEM_EXTRA),
       ImmutableSet.of(TEST_CATEGORY, Category.HARVEST)
     );
   }

@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationInventory;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
+import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -42,10 +42,10 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     }
 
     // each part must match the given slot
-    List<PartMaterialRequirement> parts = output.getToolDefinition().getRequiredComponents();
+    List<IToolPart> parts = output.getToolDefinition().getRequiredComponents();
     int i;
     for (i = 0; i < parts.size(); i++) {
-      if (parts.get(i).isValid(inv.getInput(i))) {
+      if (parts.get(i).asItem() != inv.getInput(i).getItem()) {
         return false;
       }
     }
