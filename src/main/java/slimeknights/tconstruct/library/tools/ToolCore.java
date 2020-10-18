@@ -38,16 +38,13 @@ import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.IAoeTool;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
-import slimeknights.tconstruct.library.tinkering.ToolPartItem;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -61,7 +58,6 @@ import slimeknights.tconstruct.library.utils.TooltipType;
 import slimeknights.tconstruct.tools.ToolStatsBuilder;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -257,22 +253,24 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   /* Repairing */
 
   @Override
-  public boolean needsRepair(ItemStack repairable) {
-    if (repairable.getDamage() == 0 && !ToolData.isBroken(repairable)) {
-      // undamaged and not broken - no need to repair
-      return false;
+  public boolean canRepairWith(ItemStack repairable, IMaterial material) {
+    ToolData toolData = ToolData.from(repairable);
+    for (int part : this.toolDefinition.getRepairParts()) {
+      if (toolData.getMaterial(part) == material) {
+        return true;
+      }
     }
-
-    ToolData toolData = ToolData.readFromNBT(repairable.getTag());
-
-    List<IMaterial> materials = toolData.getMaterials();
-    return !materials.isEmpty();
+    return false;
   }
 
-  @Nonnull
   @Override
-  public ItemStack repair(ItemStack repairable, NonNullList<ItemStack> repairItems) {
-    //todo decide how to handle this
+  public boolean needsRepair(ItemStack repairable) {
+    return ToolDamageUtil.needsRepair(repairable);
+  }
+
+  @Override
+  public ItemStack repairItem(ItemStack repairable, int amount) {
+    ToolDamageUtil.repairTool(repairable, amount, null);
     return repairable;
   }
 

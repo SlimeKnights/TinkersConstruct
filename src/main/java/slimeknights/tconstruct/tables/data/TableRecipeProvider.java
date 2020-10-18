@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.data;
 
+import net.minecraft.data.CustomRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
@@ -75,5 +76,9 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       .setSource(ItemTags.PLANKS)
       .setMatchAll()
       .build(consumer, prefix(TinkerTables.tinkerStation, folder));
+
+    // tool repair recipe
+    CustomRecipeBuilder.customRecipe(TinkerTables.tinkerStationRepairSerializer.get())
+                       .build(consumer, locationString(folder + "tinker_station_repair"));
   }
 }
