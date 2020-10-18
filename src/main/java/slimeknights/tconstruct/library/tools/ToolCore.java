@@ -51,6 +51,7 @@ import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tinkering.ToolPartItem;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolMiningLogic;
 import slimeknights.tconstruct.library.tools.helper.TraitUtil;
@@ -138,25 +139,16 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public int getMaxDamage(ItemStack stack) {
-    StatsNBT stats = ToolData.from(stack).getStats();
-    // the tool can only have damage when it's not broken, to prevent vanilla from deleting the itemstack
-    return stats.broken ? 0 : stats.durability;
+    return ToolData.from(stack).getStats().durability;
   }
 
   @Override
   public void setDamage(ItemStack stack, int damage) {
     int max = this.getMaxDamage(stack);
-    super.setDamage(stack, Math.min(max, damage));
+    super.setDamage(stack, Math.min(max - 1, damage));
 
-    if (this.getDamage(stack) >= max) {
-      stack.getOrCreateTag().putInt("Damage", max);
-
-      ToolData toolData = ToolData.from(stack);
-
-      if (!toolData.getStats().broken) {
-        ToolData newData = toolData.createNewDataWithBroken(true);
-        newData.updateStack(stack);
-      }
+    if (damage >= max) {
+      ToolDamageUtil.breakTool(stack);
     }
   }
 
@@ -166,9 +158,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    */
   @Override
   public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
-    ToolInteractionUtil.damageTool(stack, amount, damager);
-
-    if (ToolData.from(stack).getStats().broken) {
+    if (ToolDamageUtil.damageTool(stack, amount, damager)) {
       onBroken.accept(damager);
     }
 
@@ -181,22 +171,12 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   }
 
   @Override
-  public boolean showDurabilityBar(ItemStack stack) {
-    return super.showDurabilityBar(stack) && !ToolData.from(stack).getStats().broken;
-  }
-
-  /**
-   * Gets the current tool durability
-   *
-   * @param stack the tool stack to use
-   * @return the currently durability of the tool stack
-   */
-  public static int getCurrentDurability(ItemStack stack) {
+  public double getDurabilityForDisplay(ItemStack stack) {
+    // show 0 when broken
     if (ToolData.isBroken(stack)) {
-      return ToolData.from(stack).getStats().durability - stack.getDamage();
+      return 0;
     }
-
-    return stack.getMaxDamage() - stack.getDamage();
+    return super.getDurabilityForDisplay(stack);
   }
 
   /* Mining */
@@ -204,7 +184,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   @Override
   public Set<ToolType> getToolTypes(ItemStack stack) {
     // no classes if broken
-    if (ToolData.from(stack).getStats().broken) {
+    if (ToolData.isBroken(stack)) {
       return Collections.emptySet();
     }
 
@@ -213,11 +193,9 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public int getHarvestLevel(ItemStack stack, ToolType toolClass, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
-    StatsNBT stats = ToolData.from(stack).getStats();
-
     // brokenness is calculated in by the toolTypes check
     if (this.getToolTypes(stack).contains(toolClass)) {
-      return stats.harvestLevel;
+      return ToolData.from(stack).getStats().harvestLevel;
     }
 
     return -1;
@@ -243,9 +221,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-    StatsNBT stats = ToolData.from(stack).getStats();
-
-    if (stats.broken) {
+    if (ToolData.isBroken(stack)) {
       return false;
     }
 
@@ -562,7 +538,8 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    * @return the information for the given stack
    */
   public List<ITextComponent> getInformation(ItemStack stack, boolean detailed) {
-    TooltipBuilder info = new TooltipBuilder(stack);
+    ToolData data = ToolData.from(stack);
+    TooltipBuilder info = new TooltipBuilder(stack, data);
 
     info.addDurability(!detailed);
 
@@ -579,7 +556,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
     info.addAttack();
 
-    if (ToolData.from(stack).getStats().freeModifiers > 0) {
+    if (data.getStats().freeModifiers > 0) {
       info.addFreeModifiers();
     }
 

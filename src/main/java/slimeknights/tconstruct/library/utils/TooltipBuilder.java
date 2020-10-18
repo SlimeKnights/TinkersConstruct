@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.utils;
 
 import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
@@ -9,11 +10,14 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 public class TooltipBuilder {
 
   public final static String FREE_MODIFIERS_LOCALIZATION = "tooltip.tool.modifiers";
@@ -24,9 +28,10 @@ public class TooltipBuilder {
 
   private final List<ITextComponent> tips = Lists.newLinkedList();
   private final ItemStack tool;
+  private final ToolData data;
 
   public TooltipBuilder(ItemStack tool) {
-    this.tool = tool;
+    this(tool, ToolData.from(tool));
   }
 
   /**
@@ -68,7 +73,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addMiningSpeed() {
-    float speed = ToolData.from(this.tool).getStats().miningSpeed;
+    float speed = data.getStats().miningSpeed;
 
     if (!this.tool.isEmpty() && this.tool.getItem() instanceof ToolCore) {
       speed *= ((ToolCore) this.tool.getItem()).getToolDefinition().getBaseStatDefinition().getMiningSpeedModifier();
@@ -85,7 +90,7 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addHarvestLevel() {
-    this.tips.add(HeadMaterialStats.formatHarvestLevel(ToolData.from(this.tool).getStats().harvestLevel));
+    this.tips.add(HeadMaterialStats.formatHarvestLevel(data.getStats().harvestLevel));
 
     return this;
   }
@@ -96,16 +101,14 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addDurability(boolean textIfBroken) {
-    if (ToolData.isBroken(this.tool) && textIfBroken) {
+    StatsNBT stats = data.getStats();
+    if (stats.broken && textIfBroken) {
       this.tips.add(new TranslationTextComponent(HeadMaterialStats.DURABILITY_LOCALIZATION)
         .append(new StringTextComponent(": "))
         .append(new TranslationTextComponent("tooltip.tool.broken").mergeStyle(TextFormatting.BOLD, TextFormatting.DARK_RED)));
     }
-    else if (ToolData.isBroken(this.tool)) {
-      this.tips.add(HeadMaterialStats.formatDurability(ToolCore.getCurrentDurability(this.tool), ToolData.from(this.tool).getStats().durability));
-    }
     else {
-      this.tips.add(HeadMaterialStats.formatDurability(ToolCore.getCurrentDurability(this.tool), this.tool.getMaxDamage()));
+      this.tips.add(HeadMaterialStats.formatDurability(ToolDamageUtil.getCurrentDurability(this.tool, data), stats.durability));
     }
 
     return this;
@@ -132,7 +135,7 @@ public class TooltipBuilder {
   public TooltipBuilder addFreeModifiers() {
     this.tips.add(new TranslationTextComponent(FREE_MODIFIERS_LOCALIZATION)
       .appendString(": ")
-      .appendString(String.valueOf(ToolData.from(this.tool).getStats().freeModifiers)));
+      .appendString(String.valueOf(data.getStats().freeModifiers)));
 
     return this;
   }
