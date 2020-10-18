@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.IFormattableTextComponent;
@@ -22,11 +21,10 @@ import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
-import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
-import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
+import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.tables.client.SlotInformationLoader;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
@@ -237,33 +235,23 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       this.traitInfo.setText(textComponent);
     }
     // tool build info
+    // TODO: not all tinkerable is tool core, switch to IModifyable?
     else {
       ToolCore tool = (ToolCore) this.currentData.getItemStack().getItem();
       this.tinkerInfo.setCaption(new TranslationTextComponent(tool.getTranslationKey()));
       this.tinkerInfo.setText(new TranslationTextComponent(tool.getTranslationKey() + ".description"));
 
       IFormattableTextComponent text = new StringTextComponent("");
-      List<PartMaterialRequirement> materialRequirements = tool.getToolDefinition().getRequiredComponents();
-
+      List<IToolPart> materialRequirements = tool.getToolDefinition().getRequiredComponents();
       for (int i = 0; i < materialRequirements.size(); i++) {
-        PartMaterialRequirement requirement = materialRequirements.get(i);
+        IToolPart requirement = materialRequirements.get(i);
         IFormattableTextComponent textComponent = new StringTextComponent(" * ");
 
         ItemStack slotStack = this.container.getSlot(i).getStack();
-        if (!requirement.isValid(slotStack)) {
+        if (requirement.asItem() != slotStack.getItem()) {
           textComponent.mergeStyle(TextFormatting.RED);
-
-          if (slotStack.getItem() instanceof IMaterial) {
-            if (requirement.isValidItem(slotStack.getItem())) {
-              // the item has an invalid material
-              this.warning(new TranslationTextComponent("gui.tconstruct.error.wrong_material_part"));
-            }
-          }
         }
-
-        Item part = requirement.getPart();
-
-        textComponent.append(part.getDisplayName(new ItemStack(part))).appendString("\n");
+        textComponent.append(new TranslationTextComponent(requirement.asItem().getTranslationKey())).appendString("\n");
 
         text.append(textComponent);
       }
@@ -681,10 +669,9 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
           if (tool != ItemStack.EMPTY && tool.getItem() instanceof ToolCore) {
             ToolCore toolCore = (ToolCore) tool.getItem();
-            List<PartMaterialRequirement> requiredComponents = toolCore.getToolDefinition().getRequiredComponents();
-
+            List<IToolPart> requiredComponents = toolCore.getToolDefinition().getRequiredComponents();
             if (i < requiredComponents.size()) {
-              toolPartSlot.updateIcon(new ItemStack(requiredComponents.get(i).getPart()));
+              toolPartSlot.updateIcon(new ItemStack(requiredComponents.get(i)));
             }
           }
         }

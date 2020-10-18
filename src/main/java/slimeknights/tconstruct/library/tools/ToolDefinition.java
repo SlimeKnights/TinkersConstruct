@@ -1,12 +1,15 @@
 package slimeknights.tconstruct.library.tools;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import net.minecraftforge.common.util.Lazy;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tinkering.Category;
-import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
+import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
+import java.util.stream.IntStream;
 
 /**
  * The data defining a tinkers tool, e.g. a pickaxe or a hammer.
@@ -14,6 +17,7 @@ import java.util.Set;
  * Contains information about what's needed to craft the tool, how it behaves...
  */
 public class ToolDefinition {
+  private static final Set<MaterialStatsId> REPAIR_STATS = ImmutableSet.of(HeadMaterialStats.ID);
 
   /**
    * Inherent stats of the tool.
@@ -22,15 +26,17 @@ public class ToolDefinition {
   /**
    * The tool parts required to build this tool.
    */
-  protected final List<PartMaterialRequirement> requiredComponents;
+  protected final Lazy<List<IToolPart>> requiredComponents;
   /**
    * Categories determine behaviour of the tool when interacting with things or displaying information.
    */
   protected final Set<Category> categories;
 
-  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, List<PartMaterialRequirement> requiredComponents, Set<Category> categories) {
+  private int[] repairIndices;
+
+  public ToolDefinition(ToolBaseStatDefinition baseStatDefinition, Supplier<List<IToolPart>> requiredComponents, Set<Category> categories) {
     this.baseStatDefinition = baseStatDefinition;
-    this.requiredComponents = ImmutableList.copyOf(requiredComponents);
+    this.requiredComponents = Lazy.of(requiredComponents);
     this.categories = ImmutableSet.copyOf(categories);
   }
 
@@ -47,8 +53,8 @@ public class ToolDefinition {
    * Gets the required components for the given tool definition
    * @return the required components
    */
-  public List<PartMaterialRequirement> getRequiredComponents() {
-    return this.requiredComponents;
+  public List<IToolPart> getRequiredComponents() {
+    return this.requiredComponents.get();
   }
 
   /**
@@ -71,15 +77,20 @@ public class ToolDefinition {
   }
 
   /* Repairing */
-// todo: repairing
-  /** Returns indices of the parts that are used for repairing */
-/*
+
+  /** Returns a list of part material requirements for repair materials */
   public int[] getRepairParts() {
-    return new int[] { 1 }; // index 1 usually is the head. 0 is handle.
+    if (repairIndices == null) {
+      // get indices of all head parts
+      List<IToolPart> components = requiredComponents.get();
+      repairIndices = IntStream.range(0, components.size())
+                               .filter(i -> REPAIR_STATS.contains(components.get(i).getStatType()))
+                               .toArray();
+    }
+    return repairIndices;
   }
 
-  public float getRepairModifierForPart(int index) {
+  /*public float getRepairModifierForPart(int index) {
     return 1f;
-  }
-*/
+  }*/
 }

@@ -5,7 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
-import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
@@ -18,6 +17,7 @@ public final class ToolBuildHandler {
 
   /**
    * Builds an ItemStack of this tool with the given materials from the ItemStacks, if possible.
+   * TODO: do we still need this?
    *
    * @param stacks Items to build with. Have to be in the correct order and contain material items.
    * @return The built item or null if invalid input.
@@ -57,14 +57,14 @@ public final class ToolBuildHandler {
 
   /**
    * Checks if the tool can be built from the given items
+   * TODO: do we still need this?
    *
    * @param stacks the input items
    * @param tool the tool
    * @return if the given tool can be built from the items
    */
   public static boolean canToolBeBuilt(NonNullList<ItemStack> stacks, ToolCore tool) {
-    List<PartMaterialRequirement> requiredComponents = tool.getToolDefinition().getRequiredComponents();
-
+    List<IToolPart> requiredComponents = tool.getToolDefinition().getRequiredComponents();
     return stacks.size() == requiredComponents.size() && canBeBuiltFromParts(stacks, requiredComponents);
   }
 
@@ -75,8 +75,8 @@ public final class ToolBuildHandler {
    * @param requiredComponents the required components
    * @return if the given tool can be built from the given parts
    */
-  private static boolean canBeBuiltFromParts(NonNullList<ItemStack> stacks, List<PartMaterialRequirement> requiredComponents) {
-    return Streams.zip(requiredComponents.stream(), stacks.stream(), PartMaterialRequirement::isValid).allMatch(Boolean::booleanValue);
+  private static boolean canBeBuiltFromParts(NonNullList<ItemStack> stacks, List<IToolPart> requiredComponents) {
+    return Streams.zip(requiredComponents.stream(), stacks.stream(), (part, stack) -> part.asItem() == stack.getItem() && part.getMaterial(stack) != IMaterial.UNKNOWN).allMatch(Boolean::booleanValue);
   }
 
   private ToolBuildHandler() {

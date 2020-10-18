@@ -47,7 +47,6 @@ import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
-import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tinkering.ToolPartItem;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
@@ -478,34 +477,18 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
       ToolData toolData = ToolData.readFromNBT(tag);
 
       List<IMaterial> materials = toolData.getMaterials();
-      List<PartMaterialRequirement> components = this.getToolDefinition().getRequiredComponents();
-
+      List<IToolPart> components = this.getToolDefinition().getRequiredComponents();
       if (materials.size() < components.size()) {
         return;
       }
 
       for (int i = 0; i < components.size(); i++) {
-        PartMaterialRequirement requirement = components.get(i);
+        IToolPart requirement = components.get(i);
         IMaterial material = materials.get(i);
-
-        Item toolPart = requirement.getPart();
-
-        if (toolPart instanceof IMaterialItem) {
-          ItemStack partStack = ((IMaterialItem) toolPart).getItemstackWithMaterial(material);
-
-          tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
-
-          for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
-            if (requirement.usesStat(stat.getIdentifier())) {
-              tooltips.addAll(stat.getLocalizedInfo());
-            }
-          }
-
-          tooltips.add(StringTextComponent.EMPTY);
-        }
-        else {
-          tooltips.add(new ItemStack(toolPart).getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE));
-        }
+        ItemStack partStack = requirement.getItemstackWithMaterial(material);
+        tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
+        MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
+        tooltips.add(StringTextComponent.EMPTY);
       }
     }
   }
@@ -578,11 +561,12 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   protected void addDefaultSubItems(List<ItemStack> items, Material... fixedMaterials) {
     if (MaterialRegistry.initialized()) {
+      List<IToolPart> required = this.getToolDefinition().getRequiredComponents();
       for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
         List<IMaterial> materials = new ArrayList<>(this.getToolDefinition().getRequiredComponents().size());
 
         for (int i = 0; i < this.getToolDefinition().getRequiredComponents().size(); i++) {
-          if (fixedMaterials.length > i && fixedMaterials[i] != null && this.getToolDefinition().getRequiredComponents().get(i).isValidMaterial(fixedMaterials[i])) {
+          if (fixedMaterials.length > i && fixedMaterials[i] != null && required.get(i).canUseMaterial(fixedMaterials[i])) {
             materials.add(fixedMaterials[i]);
           }
           else {
@@ -613,10 +597,10 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     }
 
     // check if all materials used have the stats needed
+    List<IToolPart> requirements = getToolDefinition().getRequiredComponents();
     for (int i = 0; i < materials.size(); i++) {
       IMaterial material = materials.get(i);
-      PartMaterialRequirement required = this.getToolDefinition().getRequiredComponents().get(i);
-      if (!required.isValidMaterial(material)) {
+      if (!requirements.get(i).canUseMaterial(material)) {
         return false;
       }
     }
@@ -633,13 +617,14 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   public ITextComponent getDisplayName(ItemStack stack) {
     // if the tool is not named we use the repair tools for a prefix like thing
     List<IMaterial> materials = ToolData.from(stack).getMaterials();
-    List<PartMaterialRequirement> components = ((ToolCore) stack.getItem()).getToolDefinition().getRequiredComponents();
+    List<IToolPart> components = ((ToolCore) stack.getItem()).getToolDefinition().getRequiredComponents();
     // we save all the ones for the name in a set so we don't have the same material in it twice
     Set<IMaterial> nameMaterials = Sets.newLinkedHashSet();
 
     if (materials.size() == components.size()) {
       for (int i = 0; i < components.size(); i++) {
-        if (components.get(i).usesStat(HeadMaterialStats.ID) && i < materials.size()) {
+        // TODO: repair materials?
+        if (HeadMaterialStats.ID.equals(components.get(i).getStatType()) && i < materials.size()) {
           nameMaterials.add(materials.get(i));
         }
       }
@@ -695,24 +680,18 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    */
   public ItemStack buildToolForRendering() {
     if (MaterialRegistry.initialized()) {
-      List<PartMaterialRequirement> requirements = this.getToolDefinition().getRequiredComponents();
+      List<IToolPart> requirements = this.getToolDefinition().getRequiredComponents();
       List<IMaterial> toolMaterials = new ArrayList<>(requirements.size());
       IMaterial material = IMaterial.UNKNOWN;
 
       for (int i = 0; i < requirements.size(); i++) {
-        PartMaterialRequirement requirement = requirements.get(i);
-
-        if (requirement.getPart() instanceof ToolPartItem) {
-          ToolPartItem toolPart = (ToolPartItem) requirement.getPart();
-
-          List<IMaterial> materials = MaterialRegistry.getInstance().getMaterials().stream().filter(toolPart::canUseMaterial).collect(Collectors.toList());
-
-          if (material == IMaterial.UNKNOWN) {
-            material = materials.get(TConstruct.random.nextInt(materials.size()));
-          }
-
-          toolMaterials.add(i, material);
+        IToolPart requirement = requirements.get(i);
+        List<IMaterial> materials = MaterialRegistry.getInstance().getMaterials().stream().filter(requirement::canUseMaterial).collect(Collectors.toList());
+        if (material == IMaterial.UNKNOWN) {
+          material = materials.get(TConstruct.random.nextInt(materials.size()));
         }
+
+        toolMaterials.add(i, material);
       }
 
       return ToolBuildHandler.buildItemFromMaterials(this, toolMaterials);

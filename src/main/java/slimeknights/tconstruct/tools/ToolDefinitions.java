@@ -1,82 +1,70 @@
 package slimeknights.tconstruct.tools;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import slimeknights.tconstruct.library.tinkering.Category;
-import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
+import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
-import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
-import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
-import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ToolDefinitions {
 
   public static final ToolDefinition PICKAXE = new ToolDefinition(
     ToolBaseStatDefinitions.PICKAXE,
-    ImmutableList.of(
-      new PartMaterialRequirement(TinkerToolParts.pickaxeHead, HeadMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
-    ),
+    requirements(TinkerToolParts.pickaxeHead, TinkerToolParts.toolRod, TinkerToolParts.smallBinding),
     ImmutableSet.of(Category.HARVEST, Category.AOE));
 
   public static final ToolDefinition HAMMER = new ToolDefinition(
     ToolBaseStatDefinitions.HAMMER,
-    ImmutableList.of(
-      new PartMaterialRequirement(TinkerToolParts.hammerHead, HeadMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.toughToolRod, HandleMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.largePlate, HeadMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.largePlate, HeadMaterialStats.ID)
-    ),
+    requirements(TinkerToolParts.hammerHead, TinkerToolParts.toughToolRod, TinkerToolParts.largePlate, TinkerToolParts.largePlate),
     ImmutableSet.of(Category.HARVEST, Category.WEAPON, Category.AOE));
 
   public static final ToolDefinition SHOVEL = new ToolDefinition(
     ToolBaseStatDefinitions.SHOVEL,
-    ImmutableList.of(
-      new PartMaterialRequirement(TinkerToolParts.shovelHead, HeadMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
-    ),
+    requirements(TinkerToolParts.shovelHead, TinkerToolParts.toolRod, TinkerToolParts.smallBinding),
     ImmutableSet.of(Category.HARVEST, Category.AOE));
 
   public static final ToolDefinition EXCAVATOR = new ToolDefinition(
     ToolBaseStatDefinitions.EXCAVATOR,
-    ImmutableList.of(
-      new PartMaterialRequirement(TinkerToolParts.excavatorHead, HeadMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.toughToolRod, HandleMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.largePlate, HeadMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.toughBinding, ExtraMaterialStats.ID)
-    ),
+    requirements(TinkerToolParts.excavatorHead, TinkerToolParts.toughToolRod, TinkerToolParts.largePlate, TinkerToolParts.toughBinding),
     ImmutableSet.of(Category.HARVEST, Category.AOE));
 
   public static final ToolDefinition AXE = new ToolDefinition(
     ToolBaseStatDefinitions.AXE,
-    ImmutableList.of(
-      new PartMaterialRequirement(TinkerToolParts.axeHead, HeadMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
-    ),
+    requirements(TinkerToolParts.axeHead, TinkerToolParts.toolRod, TinkerToolParts.smallBinding),
     ImmutableSet.of(Category.HARVEST, Category.WEAPON, Category.AOE));
 
   public static final ToolDefinition KAMA = new ToolDefinition(
     ToolBaseStatDefinitions.KAMA,
-    ImmutableList.of(
-      new PartMaterialRequirement(TinkerToolParts.kamaHead, HeadMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.smallBinding, ExtraMaterialStats.ID)
-    ),
+    requirements(TinkerToolParts.kamaHead, TinkerToolParts.toolRod, TinkerToolParts.smallBinding),
     ImmutableSet.of(Category.HARVEST, Category.WEAPON, Category.AOE));
 
 
   public static final ToolDefinition BROADSWORD = new ToolDefinition(
     ToolBaseStatDefinitions.BROADSWORD,
-    ImmutableList.of(
-      new PartMaterialRequirement(TinkerToolParts.swordBlade, HeadMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.toolRod, HandleMaterialStats.ID),
-      new PartMaterialRequirement(TinkerToolParts.wideGuard, ExtraMaterialStats.ID)
-    ),
+    requirements(TinkerToolParts.swordBlade, TinkerToolParts.toolRod, TinkerToolParts.toolRod),
     ImmutableSet.of(Category.WEAPON));
 
-  private ToolDefinitions() {
+  /** Creates a requirements supplier from a list */
+  private static Supplier<List<IToolPart>> requirements(List<Supplier<? extends IToolPart>> parts) {
+    return () -> parts.stream().map(Supplier::get).collect(Collectors.toList());
+  }
+
+  /** Creates a requirements supplier from 3 parts */
+  @SuppressWarnings("SameParameterValue")
+  private static Supplier<List<IToolPart>> requirements(Supplier<? extends IToolPart> part1, Supplier<? extends IToolPart> part2, Supplier<? extends IToolPart> part3) {
+    return requirements(Arrays.asList(part1, part2, part3));
+  }
+
+  /** Creates a requirements supplier from 4 parts */
+  @SuppressWarnings("SameParameterValue")
+  private static Supplier<List<IToolPart>> requirements(Supplier<? extends IToolPart> part1, Supplier<? extends IToolPart> part2, Supplier<? extends IToolPart> part3, Supplier<? extends IToolPart> part4) {
+    return requirements(Arrays.asList(part1, part2, part3, part4));
   }
 }
