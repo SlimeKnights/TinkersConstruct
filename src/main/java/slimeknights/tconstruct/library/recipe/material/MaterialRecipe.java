@@ -16,6 +16,10 @@ import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
 import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
+
+import javax.annotation.Nullable;
+import java.util.Optional;
 
 /**
  * Recipe to get the material from an ingredient
@@ -36,6 +40,9 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
   protected final MaterialId materialId;
   /** Material returned by this recipe, lazy loaded */
   private final LazyValue<IMaterial> material;
+  /** Durability restored per item input, lazy loaded */
+  @Nullable
+  private Float repairPerItem;
 
   /**
    * Creates a new material recipe
@@ -77,7 +84,7 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
 
   @Override
   public NonNullList<Ingredient> getIngredients() {
-    return NonNullList.from(ingredient);
+    return NonNullList.from(Ingredient.EMPTY, ingredient);
   }
 
   /**
@@ -118,5 +125,20 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleItemInventory>
    */
   public int getRemainder(int itemCost) {
     return itemCost * this.needed % this.value;
+  }
+
+  /**
+   * Gets the amount to repair per item for tool repair
+   * @return  Float amount per item to repair
+   */
+  public float getRepairPerItem() {
+    if (repairPerItem == null) {
+      // total tool durability
+      Optional<HeadMaterialStats> stats = MaterialRegistry.getInstance().getMaterialStats(materialId, HeadMaterialStats.ID);
+      int durabilityPerUnit = stats.map(HeadMaterialStats::getDurability).orElse(0);
+      // multiply by recipe value (iron block is 9x), divide by needed (nuggets need 9), divide again by 4 (vanilla ingots restore 25%)
+      repairPerItem = this.getValue() * durabilityPerUnit / 4f / this.getNeeded();
+    }
+    return repairPerItem;
   }
 }

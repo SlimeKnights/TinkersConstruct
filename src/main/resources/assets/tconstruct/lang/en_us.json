@@ -394,6 +394,8 @@
     "block.tconstruct.modifier_chest.tooltip": "Holds modifiers",
     
     "item.tconstruct.pattern": "Pattern",
+
+    "gui.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
     
     "_comment": "Tinkers Tools",
     
