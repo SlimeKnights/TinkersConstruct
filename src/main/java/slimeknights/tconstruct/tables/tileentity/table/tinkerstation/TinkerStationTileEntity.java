@@ -28,10 +28,7 @@ import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
 import slimeknights.tconstruct.tables.tileentity.table.RetexturedTableTileEntity;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-import java.util.function.Consumer;
 
 public class TinkerStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
 
@@ -133,6 +130,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     }
 
     // check if the player has access to the result
+    // TODO: ditch?
     if (player instanceof ServerPlayerEntity) {
       if (this.lastRecipe != null) {
         // if the player cannot craft this, block crafting
@@ -153,30 +151,19 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     this.playCraftSound(player);
     this.syncToRelevantPlayers(this::syncScreen);
 
+    // run the recipe, will shrink inputs and
+    this.inventoryWrapper.setPlayer(player);
+    this.lastRecipe.updateInputs(result, inventoryWrapper);
+    this.inventoryWrapper.setPlayer(null);
+
+    // shrink the center slot and return the result
+    // TODO: consider modifying a stack of items
     ItemStack centerSlotItem = this.getStackInSlot(TINKER_SLOT);
     if (!centerSlotItem.isEmpty()) {
       centerSlotItem.shrink(1);
-    }
-    this.setInventorySlotContents(TINKER_SLOT, centerSlotItem);
-
-    // update all slots in the inventory
-
-    List<ItemStack> list = new ArrayList<>(this.getSizeInventory());
-    for (int slot = 0; slot < this.getSizeInventory(); slot++) {
-      list.add(slot, this.getStackInSlot(slot));
+      this.setInventorySlotContents(TINKER_SLOT, centerSlotItem);
     }
 
-    Consumer<ItemStack> consumer = (itemStack) -> {
-      if (!player.inventory.addItemStackToInventory(itemStack)) {
-        player.dropItem(itemStack, false);
-      }
-    };
-
-    this.lastRecipe.consumeInputs(list, consumer);
-
-    for (int slot = 0; slot < this.getSizeInventory(); slot++) {
-      this.setInventorySlotContents(slot, list.get(slot));
-    }
     return result;
   }
 
@@ -185,7 +172,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     super.setInventorySlotContents(slot, itemstack);
     // clear the crafting result when the matrix changes so we recalculate the result
     this.craftingResult.clear();
-    this.inventoryWrapper.clearInputs();
+    this.inventoryWrapper.refreshInput(slot);
 
     this.syncToRelevantPlayers(this::syncScreen);
   }
