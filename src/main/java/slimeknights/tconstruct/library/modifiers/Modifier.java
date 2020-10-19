@@ -7,6 +7,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 
 import java.util.List;
@@ -33,6 +34,19 @@ public abstract class Modifier extends ForgeRegistryEntry<Modifier> implements I
   @Override
   public void updateNBT(CompoundNBT modifierTag) {
     // nothing to do in most cases, aspects handle the updating for most modifier
+  }
+
+  @Override
+  public IFormattableTextComponent getTooltip(CompoundNBT modifierTag, boolean detailed) {
+    IFormattableTextComponent textComponent = this.getLocalizedName().deepCopy();
+
+    ModifierNBT data = ModifierNBT.readFromNBT(modifierTag);
+
+    if (data.level > 1) {
+      textComponent.appendString(" ").appendString(Util.getRomanNumeral(data.level));
+    }
+
+    return textComponent;
   }
 
   @Override

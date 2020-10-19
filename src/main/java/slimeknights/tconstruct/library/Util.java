@@ -9,9 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.InputMappings;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -91,7 +89,7 @@ public class Util {
   /**
    * Checks if the given key can be translated
    * @param key  Key to check
-   * @return  True if it can be translated
+   * @return True if it can be translated
    */
   public static boolean canTranslate(String key) {
     return !ForgeI18n.getPattern(key).equals(key);
@@ -101,7 +99,7 @@ public class Util {
    * Makes a translation key for the given name
    * @param base  Base name, such as "block" or "gui"
    * @param name  Object name
-   * @return  Translation key
+   * @return Translation key
    */
   public static String makeTranslationKey(String base, String name) {
     return net.minecraft.util.Util.makeTranslationKey(base, getResource(name));
@@ -221,5 +219,73 @@ public class Util {
     return list.stream()
       .map(Object::toString)
       .collect(Collectors.joining("\n\t", "\n\t", ""));
+  }
+
+  /**
+   * Converts an integer value to it's given roman numerals
+   *
+   * @param value the value to convert to roman numerals
+   * @return a String that either contains thee given value in roman numerals or 'really big' if too large
+   */
+  public static String getRomanNumeral(int value) {
+    if (value < 1 || value > 3999) {
+      return "Really big";
+    }
+
+    StringBuilder sb = new StringBuilder();
+    while (value >= 1000) {
+      sb.append("M");
+      value -= 1000;
+    }
+    while (value >= 900) {
+      sb.append("CM");
+      value -= 900;
+    }
+    while (value >= 500) {
+      sb.append("D");
+      value -= 500;
+    }
+    while (value >= 400) {
+      sb.append("CD");
+      value -= 400;
+    }
+    while (value >= 100) {
+      sb.append("C");
+      value -= 100;
+    }
+    while (value >= 90) {
+      sb.append("XC");
+      value -= 90;
+    }
+    while (value >= 50) {
+      sb.append("L");
+      value -= 50;
+    }
+    while (value >= 40) {
+      sb.append("XL");
+      value -= 40;
+    }
+    while (value >= 10) {
+      sb.append("X");
+      value -= 10;
+    }
+    while (value >= 9) {
+      sb.append("IX");
+      value -= 9;
+    }
+    while (value >= 5) {
+      sb.append("V");
+      value -= 5;
+    }
+    while (value >= 4) {
+      sb.append("IV");
+      value -= 4;
+    }
+    while (value >= 1) {
+      sb.append("I");
+      value -= 1;
+    }
+
+    return sb.toString();
   }
 }

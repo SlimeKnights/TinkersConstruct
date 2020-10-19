@@ -1,23 +1,25 @@
 package slimeknights.tconstruct.library.modifiers;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.With;
+import lombok.Setter;
+import lombok.ToString;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 
-@With
-@RequiredArgsConstructor
-@Getter(AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Getter(AccessLevel.PUBLIC)
+@Setter(AccessLevel.PUBLIC)
+@ToString
 public final class ModifierToolStatsBuilder {
 
-  public final int durability;
-  public final int harvestLevel;
-  public final float attack;
-  public final float miningSpeed;
-  public final float attackSpeedMultiplier;
-  public final int freeModifiers;
+  public int durability;
+  public int harvestLevel;
+  public float attack;
+  public float miningSpeed;
+  public float attackSpeedMultiplier;
+  public int freeModifiers;
 
   public final boolean broken;
 
