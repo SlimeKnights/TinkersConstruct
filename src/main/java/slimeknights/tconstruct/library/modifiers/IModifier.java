@@ -14,12 +14,6 @@ public interface IModifier extends IToolMod {
   void apply(ItemStack stack);
 
   /**
-   * Apply the modifier to a root-nbt of an itemstack.
-   * The complete procedure, usually called from the itemstack variant.
-   */
-  void apply(CompoundNBT root);
-
-  /**
    * In this function the modifier saves its own data into the given tag.
    * Take a look at the ModifierNBT class for easy handling.
    * Do not apply any actual effect of the modifier here, ONLY update the modifiers tag!
@@ -35,10 +29,12 @@ public interface IModifier extends IToolMod {
    * reapplied.
    * Do NOT modify the tag itself. That's done in updateNBT. You'll get very unhappy otherwise.
    *
-   * @param rootCompound The main compound of the item to be modified.
+   * @param statsBuilder The main compound of the item to be modified.
    * @param modifierTag  The same tag as for updateNBT.
    */
-  void applyEffect(CompoundNBT rootCompound, CompoundNBT modifierTag);
+  void applyEffectToStats(ModifierToolStatsBuilder statsBuilder, CompoundNBT modifierTag);
+
+  void applyEffectToModifiersList();
 
   /**
    * Returns the tooltip to display for the given tag of this specific modifier.

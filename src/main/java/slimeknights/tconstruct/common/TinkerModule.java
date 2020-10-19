@@ -19,6 +19,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryBuilder;
 import slimeknights.mantle.item.BlockTooltipItem;
 import slimeknights.mantle.registration.deferred.ContainerTypeDeferredRegister;
 import slimeknights.mantle.registration.deferred.EntityTypeDeferredRegister;
@@ -27,6 +28,7 @@ import slimeknights.mantle.registration.deferred.ItemDeferredRegister;
 import slimeknights.mantle.registration.deferred.TileEntityTypeDeferredRegister;
 import slimeknights.mantle.util.SupplierItemGroup;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock.SlimeType;
 
@@ -51,6 +53,7 @@ public abstract class TinkerModule {
   protected static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.modID);
   protected static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, TConstruct.modID);
   protected static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, TConstruct.modID);
+  protected static final DeferredRegister<Modifier> MODIFIERS = DeferredRegister.create(Modifier.class, TConstruct.modID);
 
   // base block properties
   protected static final Block.Properties GENERIC_SAND_BLOCK = builder(Material.SAND, ToolType.SHOVEL, SoundType.SAND).hardnessAndResistance(3.0f).slipperiness(0.8F);
@@ -82,6 +85,9 @@ public abstract class TinkerModule {
     BLOCK_STATE_PROVIDER_TYPES.register(bus);
     RECIPE_SERIALIZERS.register(bus);
     PARTICLE_TYPES.register(bus);
+
+    MODIFIERS.makeRegistry("modifier", RegistryBuilder::new);
+    MODIFIERS.register(bus);
   }
 
   /**

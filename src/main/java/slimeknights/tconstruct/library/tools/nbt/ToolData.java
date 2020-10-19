@@ -59,6 +59,10 @@ public class ToolData {
     return this.withStats(newStats);
   }
 
+  public ToolData createNewDataWithStats(StatsNBT newStats) {
+    return this.withStats(newStats);
+  }
+
   public void updateStack(ItemStack stack) {
     stack.getOrCreateTag().merge(serializeToNBT());
   }
@@ -104,7 +108,7 @@ public class ToolData {
     return nbt;
   }
 
-//
+  //
 //
 //  /** Checks whether an Item built from materials has only valid materials. Uses the standard NBT to determine materials. */
 //  public boolean hasValidMaterials(ItemStack stack) {
