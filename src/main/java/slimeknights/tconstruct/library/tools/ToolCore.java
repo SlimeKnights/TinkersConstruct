@@ -167,9 +167,9 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public double getDurabilityForDisplay(ItemStack stack) {
-    // show 0 when broken
+    // show 1 when broken (fully broken)
     if (ToolData.isBroken(stack)) {
-      return 0;
+      return 1;
     }
     return super.getDurabilityForDisplay(stack);
   }
