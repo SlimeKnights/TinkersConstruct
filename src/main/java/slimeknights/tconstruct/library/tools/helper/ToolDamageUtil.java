@@ -52,7 +52,8 @@ public class ToolDamageUtil {
   }
 
   /**
-   * Gets the current damge the tool has taken. Essentially the reverse of {@link #getCurrentDurability(ItemStack)}
+   * Gets the current damage the tool has taken. Essentially the reverse of {@link #getCurrentDurability(ItemStack)}
+   * TODO: consider replacing definition of {@link net.minecraft.item.Item#getDamage(ItemStack)} with this, will that cause vanilla to delete the stack?
    *
    * @param stack the tool stack to use
    * @return the currently durability of the tool stack
