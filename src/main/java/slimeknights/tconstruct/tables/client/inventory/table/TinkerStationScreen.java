@@ -355,30 +355,17 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     else if (this.currentData.getItemStack().getItem() instanceof ToolCore) {
       for (int i = 0; i < this.activeSlots; i++) {
         Slot slot = this.container.getSlot(i);
-
-        if (!(slot instanceof TinkerStationInSlot)) {
+        if (slot.getHasStack() || !(slot instanceof TinkerStationInSlot)) {
           continue;
         }
 
-        ItemStack stack = ((TinkerStationInSlot) slot).icon;
-
-        if (slot.getHasStack()) {
-          continue;
+        ResourceLocation icon = ((TinkerStationInSlot) slot).getIcon();
+        if (icon != null) {
+          this.minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+          Function<ResourceLocation, TextureAtlasSprite> spriteGetter = this.minecraft.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+          TextureAtlasSprite sprite = spriteGetter.apply(new ResourceLocation(icon.getNamespace(), "gui/tinker_pattern/" + icon.getPath()));
+          blit(matrices, x + this.cornerX + slot.xPos, y + this.cornerY + slot.yPos, 100, 16, 16, sprite);
         }
-
-        if (stack.isEmpty()) {
-          continue;
-        }
-
-        this.minecraft.getTextureManager().bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
-        Function<ResourceLocation, TextureAtlasSprite> spriteGetter = this.minecraft.getAtlasSpriteGetter(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
-
-        ResourceLocation location = stack.getItem().getRegistryName();
-
-        assert location != null;
-
-        TextureAtlasSprite sprite = spriteGetter.apply(new ResourceLocation(location.getNamespace(), "gui/tinker_pattern/" + location.getPath()));
-        blit(matrices, x + this.cornerX + slot.xPos, y + this.cornerY + slot.yPos, 100, 16, 16, sprite);
       }
     }
 
@@ -643,6 +630,10 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
     this.traitInfo.setText(StringTextComponent.EMPTY);
   }
 
+  /**
+   * Called when a tool button is pressed
+   * @param data  Info from the pressed button
+   */
   public void onToolSelection(SlotInformation data) {
     this.activeSlots = Math.min(data.getPoints().size(), TABLE_SLOT_COUNT);
     this.currentData = data;
@@ -653,26 +644,25 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       tool = data.getItemStack();
     }
 
+    List<IToolPart> requiredComponents = null;
+    if (tool != ItemStack.EMPTY && tool.getItem() instanceof ToolCore) {
+      requiredComponents = ((ToolCore)tool.getItem()).getToolDefinition().getRequiredComponents();
+    }
+
     for (int i = 0; i < this.tile.getSizeInventory(); i++) {
       Slot slot = this.container.getSlot(i);
-      // set part info for the slot
+      // set part icons for the slots
       if (slot instanceof TinkerStationInSlot) {
         TinkerStationInSlot toolPartSlot = (TinkerStationInSlot) slot;
 
-        toolPartSlot.updateIcon(ItemStack.EMPTY);
-
+        toolPartSlot.setIcon(null);
         if (i >= activeSlots) {
           toolPartSlot.deactivate();
         }
         else {
           toolPartSlot.activate();
-
-          if (tool != ItemStack.EMPTY && tool.getItem() instanceof ToolCore) {
-            ToolCore toolCore = (ToolCore) tool.getItem();
-            List<IToolPart> requiredComponents = toolCore.getToolDefinition().getRequiredComponents();
-            if (i < requiredComponents.size()) {
-              toolPartSlot.updateIcon(new ItemStack(requiredComponents.get(i)));
-            }
+          if (requiredComponents != null && i < requiredComponents.size()) {
+            toolPartSlot.setIcon(requiredComponents.get(i).asItem().getRegistryName());
           }
         }
       }

@@ -71,6 +71,8 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
     // assume empty unless we learn otherwise
     ItemStack result = ItemStack.EMPTY;
+    this.screenSyncType = UpdateStationScreenPacket.PacketType.SUCCESS;
+    this.screenSyncMessage = StringTextComponent.EMPTY;
 
     if (!this.world.isRemote && this.world.getServer() != null) {
       RecipeManager manager = this.world.getServer().getRecipeManager();
@@ -93,29 +95,16 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
             this.lastRecipe = recipe;
             this.syncToRelevantPlayers(this::syncRecipe);
           }
-
-          this.screenSyncType = UpdateStationScreenPacket.PacketType.SUCCESS;
-          this.screenSyncMessage = StringTextComponent.EMPTY;
-        }
-        else {
+        } else if (validationResult.hasMessage()) {
           this.screenSyncType = UpdateStationScreenPacket.PacketType.ERROR;
           this.screenSyncMessage = validationResult.getMessage();
         }
       }
     }
-    else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, world)) {
-      ValidationResult validationResult = this.lastRecipe.validate(this.inventoryWrapper);
-
-      if (validationResult.isSuccess()) {
-        result = this.lastRecipe.getCraftingResult(this.inventoryWrapper);
-
-        this.screenSyncType = UpdateStationScreenPacket.PacketType.SUCCESS;
-        this.screenSyncMessage = StringTextComponent.EMPTY;
-      }
-      else {
-        this.screenSyncType = UpdateStationScreenPacket.PacketType.ERROR;
-        this.screenSyncMessage = validationResult.getMessage();
-      }
+    // client side only needs to update result, server syncs message elsewhere
+    else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, world)
+             && this.lastRecipe.validate(this.inventoryWrapper).isSuccess()) {
+      result = this.lastRecipe.getCraftingResult(this.inventoryWrapper);
     }
 
     this.syncToRelevantPlayers(this::syncScreen);
