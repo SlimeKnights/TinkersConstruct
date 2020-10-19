@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.client.model.composite;
+package slimeknights.tconstruct.library.client.model.tools;
 
 import com.mojang.datafixers.util.Pair;
 import lombok.AllArgsConstructor;
