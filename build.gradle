@@ -86,10 +86,9 @@ version = "${minecraft_version}-${artifact_version}"
 sourceSets {
     main {
         resources {
-            srcDirs = [
-                "$rootDir/src/main/resources",
-                "$rootDir/src/generated/resources"
-            ]
+            srcDirs "src/generated/resources"
+            //But exclude the cache of the generated data from what gets built
+            exclude '.cache'
         }
     }
 }
@@ -198,32 +197,56 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
     testImplementation 'org.mockito:mockito-core:3.1.0'
     testImplementation 'org.assertj:assertj-core:3.14.0'
-
 }
 
 test {
     useJUnitPlatform()
 }
 
-processResources {
-    inputs.property "version", artifact_version
-    inputs.property "MCversion", minecraft_version
-
-    from(sourceSets.main.resources.srcDirs) {
+// process mods.toml to inject variables
+def modsTomlSpec = copySpec{
+    from(sourceSets.main.resources) {
         include 'META-INF/mods.toml'
-
         expand 'version': artifact_version,
-            'minecraft_version_min': minecraft_version_min, 'minecraft_version_max': minecraft_version_max,
-            'forge_version_min': forge_version_min, 'forge_version_max': forge_version_max,
-            'javafml_min': javafml_min, 'javafml_max': javafml_max,
+            'minecraft_version_min': minecraft_version_min,
+            'minecraft_version_max': minecraft_version_max,
+            'forge_version_min': forge_version_min,
+            'forge_version_max': forge_version_max,
+            'javafml_min': javafml_min,
+            'javafml_max': javafml_max,
             'mantle_version': mantle_version
     }
+}
+// need to copy into each build directory, unfortunately does not seem easy to do this automatically
+def buildPaths = [
+    "$rootDir/out/production/resources", // IDEA
+    "$rootDir/bin", // Eclipse
+]
 
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'META-INF/mods.toml'
+// task to add mods.toml to all relevant folders
+task replaceResources {
+    // copy for gradle
+    copy {
+        outputs.upToDateWhen { false }
+        with modsTomlSpec
+        into processResources.destinationDir
+    }
+    // copy for IDEs
+    buildPaths.each { path ->
+        if (new File(path).exists()) {
+            copy {
+                outputs.upToDateWhen { false }
+                with modsTomlSpec
+                into path
+            }
+        }
     }
 }
 
+processResources {
+    exclude 'META-INF/mods.toml'
+    finalizedBy replaceResources
+}
 
 jar {
     manifest {
