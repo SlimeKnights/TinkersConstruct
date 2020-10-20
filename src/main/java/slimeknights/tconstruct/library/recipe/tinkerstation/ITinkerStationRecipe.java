@@ -42,9 +42,6 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationInvent
    * @param inv     Inventory instance to modify inputs
    */
   default void updateInputs(ItemStack result, IMutableTinkerStationInventory inv) {
-    // get output
-    ItemStack output = getCraftingResult(inv);
-
     // shrink all stacks by 1
     for (int index = 0; index < inv.getInputCount(); index++) {
       inv.shrinkInput(index, 1);
