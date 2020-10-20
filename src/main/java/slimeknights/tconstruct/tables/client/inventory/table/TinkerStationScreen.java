@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory.table;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -16,16 +17,20 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.registries.RegistryManager;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.Icons;
+import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.modifiers.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.network.TinkerNetwork;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tools.IToolPart;
 import slimeknights.tconstruct.library.tools.ToolCore;
+import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.tables.client.SlotInformationLoader;
 import slimeknights.tconstruct.tables.client.inventory.BaseStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.SlotButtonItem;
@@ -215,7 +220,25 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
       }
 
       this.traitInfo.setCaption(new TranslationTextComponent("gui.tconstruct.tinker_station.traits"));
-      this.traitInfo.setText(new TranslationTextComponent("gui.tconstruct.tinker_station.traits.coming_soon"));
+
+      List<ITextComponent> modifiers = Lists.newLinkedList();
+      List<ITextComponent> modifiersTips = Lists.newLinkedList();
+      for (ModifierNBT modifierNBT : ToolData.from(toolStack).getModifiers().getCurrentModifiers()) {
+        IModifier modifier = RegistryManager.ACTIVE.getRegistry(IModifier.class).getValue(modifierNBT.identifier);
+
+        if (modifier == null || modifier.isHidden()) {
+          continue;
+        }
+
+        modifiers.add(modifier.getTooltip(modifierNBT, true));
+        modifiersTips.add(modifier.getLocalizedDescription());
+      }
+
+      if (modifiers.isEmpty()) {
+        modifiers.add(new TranslationTextComponent("gui.tconstruct.tinker_station.traits.no_traits"));
+      }
+
+      this.traitInfo.setText(modifiers, modifiersTips);
     }
     // Repair info
     else if (this.currentData.getItemStack().isEmpty()) {
@@ -384,7 +407,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     // draw the decoration for the buttons
     for (Widget widget : this.buttonsScreen.getButtons()) {
-      if(widget instanceof SlotButtonItem) {
+      if (widget instanceof SlotButtonItem) {
         SlotButtonItem button = (SlotButtonItem) widget;
 
         this.buttonDecorationTop.draw(matrices, button.x, button.y - this.buttonDecorationTop.h);
@@ -646,7 +669,7 @@ public class TinkerStationScreen extends BaseStationScreen<TinkerStationTileEnti
 
     List<IToolPart> requiredComponents = null;
     if (tool != ItemStack.EMPTY && tool.getItem() instanceof ToolCore) {
-      requiredComponents = ((ToolCore)tool.getItem()).getToolDefinition().getRequiredComponents();
+      requiredComponents = ((ToolCore) tool.getItem()).getToolDefinition().getRequiredComponents();
     }
 
     for (int i = 0; i < this.tile.getSizeInventory(); i++) {

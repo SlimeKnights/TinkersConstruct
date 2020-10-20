@@ -19,6 +19,7 @@ import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.MaterialId;
 import slimeknights.tconstruct.library.materials.MaterialValues;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.MaterialCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
@@ -26,6 +27,7 @@ import slimeknights.tconstruct.library.recipe.material.MaterialRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.melting.MaterialMeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifiying.ToolModifierRecipeBuilder;
 import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tools.ToolCore;
@@ -130,6 +132,8 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     registerMudRecipe(consumer, SlimeType.GREEN, null, TinkerModifiers.slimyMudGreen, TinkerModifiers.greenSlimeCrystal, folder);
     registerMudRecipe(consumer, SlimeType.BLUE, null, TinkerModifiers.slimyMudBlue, TinkerModifiers.blueSlimeCrystal, folder);
     registerMudRecipe(consumer, SlimeType.MAGMA, Items.MAGMA_CREAM, TinkerModifiers.slimyMudMagma, TinkerModifiers.magmaSlimeCrystal, folder);
+
+    registerModifier(consumer, new ModifierId("tconstruct:test_modifier"), Ingredient.fromItems(Items.PAPER), 1, "test_modifier");
   }
 
   private void addToolMaterialRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -479,5 +483,13 @@ public class ToolsRecipeProvider extends BaseRecipeProvider {
     CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(mud), crystal, 0.5f, 200)
                         .addCriterion("has_item", hasItem(mud))
                         .build(consumer, wrap(crystal, folder, "_smelting"));
+  }
+
+  private void registerModifier(Consumer<IFinishedRecipe> consumer, ModifierId modifier, Ingredient input, int cost, String saveName) {
+    ToolModifierRecipeBuilder.modifierRecipe(modifier)
+      .setIngredient(input)
+      .setCost(cost)
+      .addCriterion("has_item", hasItem(TinkerTables.pattern.get()))
+      .build(consumer, location("materials/" + saveName));
   }
 }

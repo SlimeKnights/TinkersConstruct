@@ -461,6 +461,8 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
       if (ToolData.isBroken(stack)) {
         tooltips.add(this.getBrokenToolTip(stack).mergeStyle(TextFormatting.DARK_RED, TextFormatting.BOLD));
       }
+
+      TooltipBuilder.addModifierTooltips(stack, tooltips);
     }
     else if (tooltipType == TooltipType.SHIFT) {
       tooltips.addAll(this.getInformation(stack, false));

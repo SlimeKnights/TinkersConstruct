@@ -19,6 +19,7 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeSerializer;
+import slimeknights.tconstruct.library.recipe.tinkerstation.modifiying.ToolModifierRecipeSerializer;
 import slimeknights.tconstruct.shared.block.TableBlock;
 import slimeknights.tconstruct.tables.block.chest.ModifierChestBlock;
 import slimeknights.tconstruct.tables.block.chest.PartChestBlock;
@@ -88,6 +89,7 @@ public final class TinkerTables extends TinkerModule {
   public static final RegistryObject<MaterialRecipeSerializer> materialRecipeSerializer = RECIPE_SERIALIZERS.register("material", MaterialRecipeSerializer::new);
   public static final RegistryObject<ToolBuildingRecipeSerializer> toolBuildingRecipeSerializer = RECIPE_SERIALIZERS.register("tool_building", ToolBuildingRecipeSerializer::new);
   public static final RegistryObject<SpecialRecipeSerializer<TinkerStationRepairRecipe>> tinkerStationRepairSerializer = RECIPE_SERIALIZERS.register("tinker_station_repair", () -> new SpecialRecipeSerializer<>(TinkerStationRepairRecipe::new));
+  public static final RegistryObject<ToolModifierRecipeSerializer> toolModifierRecipeSerializer = RECIPE_SERIALIZERS.register("tool_modifying", ToolModifierRecipeSerializer::new);
 
   @SuppressWarnings("unused")
   @SubscribeEvent

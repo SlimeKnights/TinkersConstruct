@@ -709,8 +709,7 @@
     "gui.tconstruct.tinker_station.traits": "Traits",
     "gui.tconstruct.tinker_station.components": "Components",
     "gui.tconstruct.tinker_station.info": "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
-    "gui.tconstruct.tinker_station.no_traits": "None :[",
-    "gui.tconstruct.tinker_station.traits.coming_soon": "Traits coming soon",
+    "gui.tconstruct.tinker_station.traits.no_traits": "None :[",
 
     "_comment": "GUIs Messages",
 

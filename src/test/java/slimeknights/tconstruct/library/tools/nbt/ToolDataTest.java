@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ToolDataTest extends BaseMcTest {
 
-  private final ToolData testToolData = new ToolData(ToolItemNBT.EMPTY, MaterialNBT.EMPTY, StatsNBT.EMPTY);
+  private final ToolData testToolData = new ToolData(ToolItemNBT.EMPTY, MaterialNBT.EMPTY, StatsNBT.EMPTY, ModifierListNBT.EMPTY);
 
   @Test
   void serializeNBT() {
@@ -23,6 +23,8 @@ class ToolDataTest extends BaseMcTest {
     assertThat(nbt.getTagId(ToolData.TAG_MATERIALS)).isEqualTo((byte) Constants.NBT.TAG_LIST);
     assertThat(nbt.contains(ToolData.TAG_STATS)).isTrue();
     assertThat(nbt.getTagId(ToolData.TAG_STATS)).isEqualTo((byte) Constants.NBT.TAG_COMPOUND);
+    assertThat(nbt.contains(ToolData.TAG_MODIFIERS)).isTrue();
+    assertThat(nbt.getTagId(ToolData.TAG_MODIFIERS)).isEqualTo((byte) Constants.NBT.TAG_LIST);
   }
 
   @Test
@@ -52,7 +54,17 @@ class ToolDataTest extends BaseMcTest {
 
     ToolData toolData = ToolData.readFromNBT(nbt);
 
-    assertThat(toolData.getMaterials()).isNotNull();
+    assertThat(toolData.getStats()).isNotNull();
+  }
+
+  @Test
+  void deserializeNBT_modifiers() {
+    CompoundNBT nbt = new CompoundNBT();
+    nbt.put(ToolData.TAG_STATS, new CompoundNBT());
+
+    ToolData toolData = ToolData.readFromNBT(nbt);
+
+    assertThat(toolData.getModifiers()).isNotNull();
   }
 
   @Test
@@ -64,5 +76,6 @@ class ToolDataTest extends BaseMcTest {
     assertThat(toolData.getToolItem()).isNotNull();
     assertThat(toolData.getMaterials()).isNotNull();
     assertThat(toolData.getStats()).isNotNull();
+    assertThat(toolData.getModifiers()).isNotNull();
   }
 }

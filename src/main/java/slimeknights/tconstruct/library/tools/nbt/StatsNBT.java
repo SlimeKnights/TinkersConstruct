@@ -37,6 +37,8 @@ public class StatsNBT {
   public final float attack;
   public final float miningSpeed;
   public final float attackSpeedMultiplier;
+
+  @With(AccessLevel.PACKAGE)
   public final int freeModifiers;
 
   // this is placed in the stats since it has a direct impact on durability

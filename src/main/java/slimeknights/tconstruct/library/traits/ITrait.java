@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.traits;
 
 import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
@@ -9,14 +10,16 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import slimeknights.tconstruct.library.modifiers.IToolMod;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 // todo: move defaults to abstractTrait or all abstract to defaults
 
@@ -25,7 +28,32 @@ import javax.annotation.Nonnull;
  * The trait object contains basic information about the trait.
  * The corresponding trait object gets events forwarded to it when a tool with that trait executes them
  */
-public interface ITrait extends IToolMod {
+public interface ITrait {
+  /*
+   * The name of the Tool modifier
+   */
+  IFormattableTextComponent getLocalizedName();
+
+  /**
+   * A short description to tell the user what the trait does
+   */
+  IFormattableTextComponent getLocalizedDescription();
+
+  /**
+   * Extra info to display in the tool station. Each entry adds a line.
+   */
+  List<IFormattableTextComponent> getExtraInfo(ItemStack tool, CompoundNBT modifierTag);
+
+  /**
+   * Return true to hide the trait from the user.
+   * Useful for internal stuff.
+   */
+  boolean isHidden();
+
+  boolean canApplyTogether(ITrait iToolMod);
+
+  boolean canApplyTogether(Enchantment enchantment);
+
   /* Updating */
 
   /**

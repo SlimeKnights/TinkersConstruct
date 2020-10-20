@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:tool_modifying",
+  "ingredient": {
+    "item": "minecraft:paper"
+  },
+  "cost": 1,
+  "modifier": "tconstruct:test_modifier"
+}

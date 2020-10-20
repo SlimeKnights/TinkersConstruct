@@ -25,6 +25,7 @@ public class ModifierChestTileEntity extends TinkerChestTileEntity {
 
   @Override
   public boolean isItemValidForSlot(int slot, @Nonnull ItemStack itemstack) {
-    return itemstack.getItem() instanceof IModifier;
+    // Todo Decide on what to do
+    return true;
   }
 }

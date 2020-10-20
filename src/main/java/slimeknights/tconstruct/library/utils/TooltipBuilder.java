@@ -8,6 +8,9 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.registries.RegistryManager;
+import slimeknights.tconstruct.library.modifiers.IModifier;
+import slimeknights.tconstruct.library.modifiers.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -146,29 +149,40 @@ public class TooltipBuilder {
    * @return the tooltip builder
    */
   public TooltipBuilder addModifierInfo() {
-    this.tips.add(new StringTextComponent("todo modifier information"));
+    List<ModifierNBT> modifiers = data.getModifiers().getCurrentModifiers();
 
-    //todo implement code below and remove line above.
-    /*NBTTagList tagList = TagUtil.getModifiersTagList(stack);
-    for(int i = 0; i < tagList.tagCount(); i++) {
-      NBTTagCompound tag = tagList.getCompoundTagAt(i);
-      ModifierNBT data = ModifierNBT.readTag(tag);
-
-      // get matching modifier
-      IModifier modifier = TinkerRegistry.getModifier(data.identifier);
-      if(modifier == null || modifier.isHidden()) {
+    for (ModifierNBT modifierNBT : modifiers) {
+      IModifier modifier = RegistryManager.ACTIVE.getRegistry(IModifier.class).getValue(modifierNBT.identifier);
+      if (modifier == null || modifier.isHidden()) {
         continue;
       }
 
-      for(String string : modifier.getExtraInfo(stack, tag)) {
-        if(!string.isEmpty()) {
-          tips.add(data.getColorString() + string);
+      for (ITextComponent textComponent : modifier.getExtraInfo(this.tool, modifierNBT)) {
+        if (!textComponent.getString().isEmpty()) {
+          this.tips.add(textComponent);
         }
       }
-    }*/
+    }
 
     return this;
   }
+
+  /**
+   * Adds the modifier information to the tooltip
+   */
+  public static void addModifierTooltips(ItemStack stack, List<ITextComponent> tooltips) {
+    List<ModifierNBT> modifiers = ToolData.from(stack).getModifiers().getCurrentModifiers();
+
+    for (ModifierNBT modifierNBT : modifiers) {
+      IModifier modifier = RegistryManager.ACTIVE.getRegistry(IModifier.class).getValue(modifierNBT.identifier);
+      if (modifier == null || modifier.isHidden()) {
+        continue;
+      }
+
+      tooltips.add(modifier.getTooltip(modifierNBT, false));
+    }
+  }
+
 
   //todo: are these still needed?
   /**

@@ -2,11 +2,13 @@ package slimeknights.tconstruct.tools;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.RegistryObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.shared.block.ConsecratedSoilBlock;
 import slimeknights.tconstruct.shared.block.GraveyardSoilBlock;
 import slimeknights.tconstruct.shared.block.SlimyMudBlock;
+import slimeknights.tconstruct.tools.modifiers.TestModifier;
 
 /**
  * Contains modifiers and the items or blocks used to craft modifiers
@@ -40,4 +42,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final ItemObject<Item> moss = ITEMS.register("moss", GENERAL_PROPS);
   public static final ItemObject<Item> mendingMoss = ITEMS.register("mending_moss", GENERAL_PROPS);
   public static final ItemObject<Item> creativeModifier = ITEMS.register("creative_modifier", GENERAL_PROPS);
+
+  /*
+   * Modifiers
+   */
+  public static final RegistryObject<TestModifier> testModifiers = MODIFIERS.register("test_modifier", TestModifier::new);
 }

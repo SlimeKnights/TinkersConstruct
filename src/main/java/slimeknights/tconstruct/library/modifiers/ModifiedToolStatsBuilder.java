@@ -12,21 +12,21 @@ import slimeknights.tconstruct.library.tools.nbt.ToolData;
 @Getter(AccessLevel.PUBLIC)
 @Setter(AccessLevel.PUBLIC)
 @ToString
-public final class ModifierToolStatsBuilder {
+public final class ModifiedToolStatsBuilder {
 
   public int durability;
   public int harvestLevel;
   public float attack;
   public float miningSpeed;
   public float attackSpeedMultiplier;
-  public int freeModifiers;
+  public final int freeModifiers;
 
   public final boolean broken;
 
-  public static ModifierToolStatsBuilder from(ToolData toolData) {
+  public static ModifiedToolStatsBuilder from(ToolData toolData) {
     StatsNBT stats = toolData.getStats();
 
-    return new ModifierToolStatsBuilder(stats.durability, stats.harvestLevel, stats.attack, stats.miningSpeed, stats.attackSpeedMultiplier, stats.freeModifiers, stats.broken);
+    return new ModifiedToolStatsBuilder(stats.durability, stats.harvestLevel, stats.attack, stats.miningSpeed, stats.attackSpeedMultiplier, stats.freeModifiers, stats.broken);
   }
 
   public StatsNBT buildNewStats() {
