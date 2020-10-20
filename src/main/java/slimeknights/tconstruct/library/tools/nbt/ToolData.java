@@ -50,6 +50,15 @@ public class ToolData {
     return materials.getMaterials();
   }
 
+  /**
+   * Gets the material at the given index
+   * @param index  Index
+   * @return  Material, or unknown if index is invalid
+   */
+  public IMaterial getMaterial(int index) {
+    return materials.getMaterial(index);
+  }
+
   public StatsNBT getStats() {
     return stats;
   }

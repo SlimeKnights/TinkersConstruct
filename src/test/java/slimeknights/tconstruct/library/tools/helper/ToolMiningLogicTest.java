@@ -11,15 +11,11 @@ import slimeknights.tconstruct.fixture.MaterialItemFixture;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.tinkering.Category;
-import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
 import slimeknights.tconstruct.library.tools.ToolBaseStatDefinition;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolCoreTest;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.tools.harvest.PickaxeTool;
-import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
-import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
-import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -75,11 +71,7 @@ class ToolMiningLogicTest extends ToolCoreTest {
       new Item.Properties().addToolType(ToolType.PICKAXE, 1),
       new ToolDefinition(
         new ToolBaseStatDefinition.Builder().setDamageModifier(1f).setMiningSpeedModifer(modifier).build(),
-        ImmutableList.of(
-          new PartMaterialRequirement(() -> MaterialItemFixture.MATERIAL_ITEM_HEAD, HeadMaterialStats.ID),
-          new PartMaterialRequirement(() -> MaterialItemFixture.MATERIAL_ITEM_HANDLE, HandleMaterialStats.ID),
-          new PartMaterialRequirement(() -> MaterialItemFixture.MATERIAL_ITEM_EXTRA, ExtraMaterialStats.ID)
-        ),
+        () -> ImmutableList.of(MaterialItemFixture.MATERIAL_ITEM_HEAD, MaterialItemFixture.MATERIAL_ITEM_HANDLE, MaterialItemFixture.MATERIAL_ITEM_EXTRA),
         ImmutableSet.of(Category.HARVEST)
       ));
     ItemStack tool = buildTestTool(toolWithMiningModifier);

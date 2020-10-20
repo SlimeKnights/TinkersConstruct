@@ -14,8 +14,6 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.math.vector.TransformationMatrix;
 import net.minecraftforge.client.model.IModelLoader;
 import net.minecraftforge.client.model.SimpleModelTransform;
-import slimeknights.tconstruct.library.client.model.composite.Geometry;
-import slimeknights.tconstruct.library.client.model.composite.Submodel;
 
 import java.util.Map;
 
@@ -23,43 +21,23 @@ import java.util.Map;
  * Based upon CompositeModel
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class ToolModelLoader implements IModelLoader<Geometry> {
+public class ToolModelLoader implements IModelLoader<ToolModelGeometry> {
     public static final ToolModelLoader INSTANCE = new ToolModelLoader();
 
     @Override
-    public void onResourceManagerReload(IResourceManager resourceManager)
-    {
-
-    }
+    public void onResourceManagerReload(IResourceManager resourceManager) {}
 
     @Override
-    public Geometry read(JsonDeserializationContext deserializationContext, JsonObject modelContents)
-    {
+    public ToolModelGeometry read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
       if (!modelContents.has("parts"))
         throw new RuntimeException("Composite model requires a \"parts\" element.");
       ImmutableMap.Builder<String, Submodel> parts = ImmutableMap.builder();
-      for(Map.Entry<String, JsonElement> part : modelContents.get("parts").getAsJsonObject().entrySet())
-      {
+      for(Map.Entry<String, JsonElement> part : modelContents.get("parts").getAsJsonObject().entrySet()) {
         IUnbakedModel subPartModel = deserializationContext.deserialize(part.getValue(), BlockModel.class);
-        //SubPartJson subPart = deserializationContext.deserialize(part.getValue(), SubPartJson.class);
-        // todo: not needed since we can just use the actual loader entry.. ok. remove when it works
-        /*if(subPart.model != null) {
-          subPartModel = ModelLoader.instance().getModelOrLogError(new ResourceLocation(subPart.model), "Model for tinker tool not found: " + subPart.model);
-        } else if(!StringUtils.isNullOrEmpty(subPart.texture)) {
-          subPartModel = deserializationContext.deserialize(part.getValue(), BlockModel.class);
-        } else {
-          subPartModel = ModelLoader.instance().getModelOrMissing(new ResourceLocation("forge:missing"));
-        }*/
-        //IModelTransform modelTransform = getModelTransform(deserializationContext, part.getValue());
-
         IModelTransform modelTransform = SimpleModelTransform.IDENTITY;
-
-        parts.put(part.getKey(), new Submodel(
-          part.getKey(),
-          subPartModel,
-          modelTransform));
+        parts.put(part.getKey(), new Submodel(part.getKey(), subPartModel, modelTransform));
       }
-      return new Geometry(parts.build());
+      return new ToolModelGeometry(parts.build());
     }
 
   private IModelTransform getModelTransform(JsonDeserializationContext deserializationContext, JsonElement partJson) {

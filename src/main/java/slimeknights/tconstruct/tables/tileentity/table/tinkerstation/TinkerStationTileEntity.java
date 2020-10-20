@@ -28,10 +28,7 @@ import slimeknights.tconstruct.tables.tileentity.crafting.LazyResultInventory;
 import slimeknights.tconstruct.tables.tileentity.table.RetexturedTableTileEntity;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-import java.util.function.Consumer;
 
 public class TinkerStationTileEntity extends RetexturedTableTileEntity implements LazyResultInventory.ILazyCrafter {
 
@@ -74,6 +71,8 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
 
     // assume empty unless we learn otherwise
     ItemStack result = ItemStack.EMPTY;
+    this.screenSyncType = UpdateStationScreenPacket.PacketType.SUCCESS;
+    this.screenSyncMessage = StringTextComponent.EMPTY;
 
     if (!this.world.isRemote && this.world.getServer() != null) {
       RecipeManager manager = this.world.getServer().getRecipeManager();
@@ -96,29 +95,16 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
             this.lastRecipe = recipe;
             this.syncToRelevantPlayers(this::syncRecipe);
           }
-
-          this.screenSyncType = UpdateStationScreenPacket.PacketType.SUCCESS;
-          this.screenSyncMessage = StringTextComponent.EMPTY;
-        }
-        else {
+        } else if (validationResult.hasMessage()) {
           this.screenSyncType = UpdateStationScreenPacket.PacketType.ERROR;
           this.screenSyncMessage = validationResult.getMessage();
         }
       }
     }
-    else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, world)) {
-      ValidationResult validationResult = this.lastRecipe.validate(this.inventoryWrapper);
-
-      if (validationResult.isSuccess()) {
-        result = this.lastRecipe.getCraftingResult(this.inventoryWrapper);
-
-        this.screenSyncType = UpdateStationScreenPacket.PacketType.SUCCESS;
-        this.screenSyncMessage = StringTextComponent.EMPTY;
-      }
-      else {
-        this.screenSyncType = UpdateStationScreenPacket.PacketType.ERROR;
-        this.screenSyncMessage = validationResult.getMessage();
-      }
+    // client side only needs to update result, server syncs message elsewhere
+    else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, world)
+             && this.lastRecipe.validate(this.inventoryWrapper).isSuccess()) {
+      result = this.lastRecipe.getCraftingResult(this.inventoryWrapper);
     }
 
     this.syncToRelevantPlayers(this::syncScreen);
@@ -133,6 +119,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     }
 
     // check if the player has access to the result
+    // TODO: ditch?
     if (player instanceof ServerPlayerEntity) {
       if (this.lastRecipe != null) {
         // if the player cannot craft this, block crafting
@@ -153,30 +140,19 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     this.playCraftSound(player);
     this.syncToRelevantPlayers(this::syncScreen);
 
+    // run the recipe, will shrink inputs and
+    this.inventoryWrapper.setPlayer(player);
+    this.lastRecipe.updateInputs(result, inventoryWrapper);
+    this.inventoryWrapper.setPlayer(null);
+
+    // shrink the center slot and return the result
+    // TODO: consider modifying a stack of items
     ItemStack centerSlotItem = this.getStackInSlot(TINKER_SLOT);
     if (!centerSlotItem.isEmpty()) {
       centerSlotItem.shrink(1);
-    }
-    this.setInventorySlotContents(TINKER_SLOT, centerSlotItem);
-
-    // update all slots in the inventory
-
-    List<ItemStack> list = new ArrayList<>(this.getSizeInventory());
-    for (int slot = 0; slot < this.getSizeInventory(); slot++) {
-      list.add(slot, this.getStackInSlot(slot));
+      this.setInventorySlotContents(TINKER_SLOT, centerSlotItem);
     }
 
-    Consumer<ItemStack> consumer = (itemStack) -> {
-      if (!player.inventory.addItemStackToInventory(itemStack)) {
-        player.dropItem(itemStack, false);
-      }
-    };
-
-    this.lastRecipe.consumeInputs(list, consumer);
-
-    for (int slot = 0; slot < this.getSizeInventory(); slot++) {
-      this.setInventorySlotContents(slot, list.get(slot));
-    }
     return result;
   }
 
@@ -185,7 +161,7 @@ public class TinkerStationTileEntity extends RetexturedTableTileEntity implement
     super.setInventorySlotContents(slot, itemstack);
     // clear the crafting result when the matrix changes so we recalculate the result
     this.craftingResult.clear();
-    this.inventoryWrapper.clearInputs();
+    this.inventoryWrapper.refreshInput(slot);
 
     this.syncToRelevantPlayers(this::syncScreen);
   }

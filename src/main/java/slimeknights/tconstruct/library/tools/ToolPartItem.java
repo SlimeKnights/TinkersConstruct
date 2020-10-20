@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.tinkering;
+package slimeknights.tconstruct.library.tools;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -7,7 +7,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -24,9 +23,9 @@ import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.tinkering.MaterialItem;
 import slimeknights.tconstruct.library.utils.TagUtil;
 import slimeknights.tconstruct.library.utils.Tags;
-import slimeknights.tconstruct.tools.IToolPart;
 
 import javax.annotation.Nullable;
 import java.util.List;

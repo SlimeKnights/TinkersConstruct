@@ -6,6 +6,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tileentity.TileEntityType;
@@ -31,6 +32,7 @@ import slimeknights.tconstruct.tables.inventory.table.CraftingStationContainer;
 import slimeknights.tconstruct.tables.inventory.table.partbuilder.PartBuilderContainer;
 import slimeknights.tconstruct.tables.inventory.table.tinkerstation.TinkerStationContainer;
 import slimeknights.tconstruct.tables.item.RetexturedTableBlockItem;
+import slimeknights.tconstruct.tables.recipe.TinkerStationRepairRecipe;
 import slimeknights.tconstruct.tables.tileentity.chest.ModifierChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.chest.PartChestTileEntity;
 import slimeknights.tconstruct.tables.tileentity.table.CraftingStationTileEntity;
@@ -85,6 +87,7 @@ public final class TinkerTables extends TinkerModule {
   public static final RegistryObject<PartRecipeSerializer> partRecipeSerializer = RECIPE_SERIALIZERS.register("part_builder", PartRecipeSerializer::new);
   public static final RegistryObject<MaterialRecipeSerializer> materialRecipeSerializer = RECIPE_SERIALIZERS.register("material", MaterialRecipeSerializer::new);
   public static final RegistryObject<ToolBuildingRecipeSerializer> toolBuildingRecipeSerializer = RECIPE_SERIALIZERS.register("tool_building", ToolBuildingRecipeSerializer::new);
+  public static final RegistryObject<SpecialRecipeSerializer<TinkerStationRepairRecipe>> tinkerStationRepairSerializer = RECIPE_SERIALIZERS.register("tinker_station_repair", () -> new SpecialRecipeSerializer<>(TinkerStationRepairRecipe::new));
 
   @SuppressWarnings("unused")
   @SubscribeEvent

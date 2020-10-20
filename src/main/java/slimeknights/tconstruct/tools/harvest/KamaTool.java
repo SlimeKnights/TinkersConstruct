@@ -25,6 +25,7 @@ import slimeknights.tconstruct.library.tinkering.IAoeTool;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 
@@ -107,7 +108,7 @@ public class KamaTool extends ToolCore implements IAoeTool {
         });
       }
 
-      ToolInteractionUtil.damageTool(itemStack, 1, playerEntity);
+      ToolDamageUtil.damageTool(itemStack, 1, playerEntity);
 
       return true;
     }

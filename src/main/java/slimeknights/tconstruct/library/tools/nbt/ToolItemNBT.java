@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.tools.nbt;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
@@ -18,6 +17,7 @@ import slimeknights.tconstruct.library.tools.ToolDefinition;
 import slimeknights.tconstruct.library.utils.TooltipType;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +34,7 @@ public class ToolItemNBT {
    */
   final static ToolItemNBT EMPTY = new ToolItemNBT(new ToolCore(
     new Item.Properties(),
-    new ToolDefinition(new ToolBaseStatDefinition.Builder().setDamageModifier(1f).build(), ImmutableList.of(), ImmutableSet.of())
+    new ToolDefinition(new ToolBaseStatDefinition.Builder().setDamageModifier(1f).build(), Collections::emptyList, ImmutableSet.of())
   ) {
     @Override
     public boolean isEffective(BlockState state) {

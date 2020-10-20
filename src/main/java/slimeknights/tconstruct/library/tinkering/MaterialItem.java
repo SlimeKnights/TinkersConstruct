@@ -32,16 +32,17 @@ public class MaterialItem extends Item implements IMaterialItem {
       .map(compoundNBT -> compoundNBT.getString(Tags.PART_MATERIAL))
       .map(MaterialId::new)
       .map(MaterialRegistry::getMaterial)
+      .filter(this::canUseMaterial)
       .orElse(IMaterial.UNKNOWN);
   }
 
   @Override
   public ItemStack getItemstackWithMaterial(IMaterial material) {
     ItemStack stack = new ItemStack(this);
-    CompoundNBT nbt = new CompoundNBT();
-    nbt.putString(Tags.PART_MATERIAL, material.getIdentifier().toString());
-    stack.setTag(nbt);
-
+    if (canUseMaterial(material)) {
+      CompoundNBT nbt = stack.getOrCreateTag();
+      nbt.putString(Tags.PART_MATERIAL, material.getIdentifier().toString());
+    }
     return stack;
   }
 
