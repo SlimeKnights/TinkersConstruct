@@ -8,13 +8,16 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.shared.block.ConsecratedSoilBlock;
 import slimeknights.tconstruct.shared.block.GraveyardSoilBlock;
 import slimeknights.tconstruct.shared.block.SlimyMudBlock;
-import slimeknights.tconstruct.tools.modifiers.TestModifier;
+import slimeknights.tconstruct.tools.modifiers.HarvestSizeModifier;
+import slimeknights.tconstruct.tools.modifiers.mining.DiamondModifier;
+import slimeknights.tconstruct.tools.modifiers.mining.EmeraldModifier;
 
 /**
  * Contains modifiers and the items or blocks used to craft modifiers
  */
 @SuppressWarnings("unused")
 public final class TinkerModifiers extends TinkerModule {
+
   /*
    * Blocks
    */
@@ -46,5 +49,8 @@ public final class TinkerModifiers extends TinkerModule {
   /*
    * Modifiers
    */
-  public static final RegistryObject<TestModifier> testModifiers = MODIFIERS.register("test_modifier", TestModifier::new);
+  public static final RegistryObject<DiamondModifier> diamondModifier = MODIFIERS.register("diamond", DiamondModifier::new);
+  public static final RegistryObject<EmeraldModifier> emeraldModifier = MODIFIERS.register("emerald", EmeraldModifier::new);
+  public static final RegistryObject<HarvestSizeModifier> widthHarvestSizeModifier = MODIFIERS.register("width_harvest_size", HarvestSizeModifier::new);
+  public static final RegistryObject<HarvestSizeModifier> heightHarvestSizeModifier = MODIFIERS.register("height_harvest_size", HarvestSizeModifier::new);
 }

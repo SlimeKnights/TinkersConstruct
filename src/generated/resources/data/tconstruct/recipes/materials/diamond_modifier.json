@@ -1,8 +1,8 @@
 {
   "type": "tconstruct:tool_modifying",
   "ingredient": {
-    "item": "minecraft:paper"
+    "tag": "forge:gems/diamond"
   },
   "cost": 1,
-  "modifier": "tconstruct:test_modifier"
+  "modifier": "tconstruct:diamond"
 }

@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.modifiers.nbt;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 import lombok.With;
 import net.minecraft.nbt.CompoundNBT;
@@ -16,6 +17,7 @@ import java.util.function.BiFunction;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Getter
 public class ModifierNBT {
 
   public final static ModifierNBT EMPTY = new ModifierNBT(new ModifierId(TConstruct.modID, "none"), 1);

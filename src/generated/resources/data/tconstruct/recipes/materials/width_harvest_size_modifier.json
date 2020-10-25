@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:tool_modifying",
+  "ingredient": {
+    "item": "tconstruct:width_expander"
+  },
+  "cost": 1,
+  "modifier": "tconstruct:width_harvest_size"
+}

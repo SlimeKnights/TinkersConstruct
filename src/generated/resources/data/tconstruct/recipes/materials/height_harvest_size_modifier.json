@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:tool_modifying",
+  "ingredient": {
+    "item": "tconstruct:height_expander"
+  },
+  "cost": 1,
+  "modifier": "tconstruct:height_harvest_size"
+}

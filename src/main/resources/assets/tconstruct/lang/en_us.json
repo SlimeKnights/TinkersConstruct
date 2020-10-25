@@ -6,39 +6,37 @@
     "block.tconstruct.slimy_mud_green": "Green Slimy Mud",
     "block.tconstruct.slimy_mud_green.tooltip": "Slows, but lets you jump even higher",
     "block.tconstruct.slimy_mud_blue": "Blue Slimy Mud",
-    "block.tconstruct.slimy_mud_blue.tooltip": "block.tconstruct.slimy_mud_green.tooltip",
+    "block.tconstruct.slimy_mud_blue.tooltip": "Slows, but lets you jump even higher",
     "block.tconstruct.slimy_mud_magma": "Slimy Magma Mud",
-    "block.tconstruct.slimy_mud_magma.tooltip": "block.tconstruct.slimy_mud_green.tooltip",
+    "block.tconstruct.slimy_mud_magma.tooltip": "Slows, but lets you jump even higher",
     "block.tconstruct.graveyard_soil": "Graveyard Soil",
     "block.tconstruct.graveyard_soil.tooltip": "Heals undead",
     "block.tconstruct.consecrated_soil": "Consecrated Soil",
     "block.tconstruct.consecrated_soil.tooltip": "Hurts undead",
 
     "block.tconstruct.blue_slime": "Slime Block",
-    "block.tconstruct.blue_slime.tooltip": "block.tconstruct.slime.tooltip",
+    "block.tconstruct.blue_slime.tooltip": "Works with pistons!",
     "block.tconstruct.purple_slime": "Slime Block",
-    "block.tconstruct.purple_slime.tooltip": "block.tconstruct.slime.tooltip",
+    "block.tconstruct.purple_slime.tooltip": "Works with pistons!",
     "block.tconstruct.blood_slime": "Blood Slime Block",
-    "block.tconstruct.blood_slime.tooltip": "block.tconstruct.slime.tooltip",
+    "block.tconstruct.blood_slime.tooltip": "Works with pistons!",
     "block.tconstruct.magma_slime": "Slime Block",
-    "block.tconstruct.magma_slime.tooltip": "block.tconstruct.slime.tooltip",
+    "block.tconstruct.magma_slime.tooltip": "Works with pistons!",
     "block.tconstruct.pink_slime": "Slime Block",
-    "block.tconstruct.pink_slime.tooltip": "block.tconstruct.slime.tooltip",
-    "block.tconstruct.slime.tooltip": "Works with pistons!",
+    "block.tconstruct.pink_slime.tooltip": "Works with pistons!",
 
     "block.tconstruct.green_congealed_slime": "Congealed Slime Block",
-    "block.tconstruct.green_congealed_slime.tooltip": "block.tconstruct.congealed_slime.tooltip",
+    "block.tconstruct.green_congealed_slime.tooltip": "Lets you jump really high",
     "block.tconstruct.blue_congealed_slime": "Congealed Slime Block",
-    "block.tconstruct.blue_congealed_slime.tooltip": "block.tconstruct.congealed_slime.tooltip",
+    "block.tconstruct.blue_congealed_slime.tooltip": "Lets you jump really high",
     "block.tconstruct.purple_congealed_slime": "Congealed Slime Block",
-    "block.tconstruct.purple_congealed_slime.tooltip": "block.tconstruct.congealed_slime.tooltip",
+    "block.tconstruct.purple_congealed_slime.tooltip": "Lets you jump really high",
     "block.tconstruct.blood_congealed_slime": "Congealed Bloodblock",
-    "block.tconstruct.blood_congealed_slime.tooltip": "block.tconstruct.congealed_slime.tooltip",
+    "block.tconstruct.blood_congealed_slime.tooltip": "Lets you jump really high",
     "block.tconstruct.magma_congealed_slime": "Congealed Slime Block",
-    "block.tconstruct.magma_congealed_slime.tooltip": "block.tconstruct.congealed_slime.tooltip",
+    "block.tconstruct.magma_congealed_slime.tooltip": "Lets you jump really high",
     "block.tconstruct.pink_congealed_slime": "Congealed Slime Block",
-    "block.tconstruct.pink_congealed_slime.tooltip": "block.tconstruct.congealed_slime.tooltip",
-    "block.tconstruct.congealed_slime.tooltip": "Lets you jump really high",
+    "block.tconstruct.pink_congealed_slime.tooltip": "Lets you jump really high",
 
     "block.tconstruct.copper_ore": "Copper Ore",
 
@@ -59,7 +57,7 @@
 
     "block.tconstruct.clear_glass": "Clear Glass",
     "block.tconstruct.clear_glass_pane": "Clear Glass Pane",
-    
+
     "block.tconstruct.white_clear_stained_glass": "Clear White Stained Glass",
     "block.tconstruct.orange_clear_stained_glass": "Clear Orange Stained Glass",
     "block.tconstruct.magenta_clear_stained_glass": "Clear Magenta Stained Glass",
@@ -76,7 +74,7 @@
     "block.tconstruct.green_clear_stained_glass": "Clear Green Stained Glass",
     "block.tconstruct.red_clear_stained_glass": "Clear Red Stained Glass",
     "block.tconstruct.black_clear_stained_glass": "Clear Black Stained Glass",
-    
+
     "block.tconstruct.white_clear_stained_glass_pane": "Clear White Stained Glass Pane",
     "block.tconstruct.orange_clear_stained_glass_pane": "Clear Orange Stained Glass Pane",
     "block.tconstruct.magenta_clear_stained_glass_pane": "Clear Magenta Stained Glass Pane",
@@ -95,22 +93,21 @@
     "block.tconstruct.black_clear_stained_glass_pane": "Clear Black Stained Glass Pane",
 
     "block.tconstruct.cobalt_block": "Block of Cobalt",
-    "block.tconstruct.cobalt_block.tooltip": "block.tconstruct.metal.tooltip",
+    "block.tconstruct.cobalt_block.tooltip": "Can be used as beacon base",
     "block.tconstruct.ardite_block": "Block of Ardite",
-    "block.tconstruct.ardite_block.tooltip": "block.tconstruct.metal.tooltip",
+    "block.tconstruct.ardite_block.tooltip": "Can be used as beacon base",
     "block.tconstruct.manyullyn_block": "Block of Manyullyn",
-    "block.tconstruct.manyullyn_block.tooltip": "block.tconstruct.metal.tooltip",
+    "block.tconstruct.manyullyn_block.tooltip": "Can be used as beacon base",
     "block.tconstruct.knightslime_block": "Block of Knightslime",
-    "block.tconstruct.knightslime_block.tooltip": "block.tconstruct.metal.tooltip",
+    "block.tconstruct.knightslime_block.tooltip": "Can be used as beacon base",
     "block.tconstruct.pigiron_block": "Block of Pigiron",
-    "block.tconstruct.pigiron_block.tooltip": "block.tconstruct.metal.tooltip",
+    "block.tconstruct.pigiron_block.tooltip": "Can be used as beacon base",
     "block.tconstruct.copper_block": "Block of Copper",
-    "block.tconstruct.copper_block.tooltip": "block.tconstruct.metal.tooltip",
+    "block.tconstruct.copper_block.tooltip": "Can be used as beacon base",
     "block.tconstruct.rose_gold_block": "Block of Rose Gold",
-    "block.tconstruct.copper_block.tooltip": "block.tconstruct.metal.tooltip",
+    "block.tconstruct.copper_block.tooltip": "Can be used as beacon base",
     "block.tconstruct.silky_jewel_block": "Silky Block of Jewel",
-    "block.tconstruct.silky_jewel_block.tooltip": "block.tconstruct.metal.tooltip",
-    "block.tconstruct.metal.tooltip": "Can be used as beacon base",
+    "block.tconstruct.silky_jewel_block.tooltip": "Can be used as beacon base",
 
     "block.tconstruct.glow": "Glow",
 
@@ -156,9 +153,9 @@
     "item.tconstruct.green_slime_crystal": "Green Slime Crystal",
     "item.tconstruct.green_slime_crystal.tooltip": "Used to craft Slime Tools",
     "item.tconstruct.blue_slime_crystal": "Blue Slime Crystal",
-    "item.tconstruct.blue_slime_crystal.tooltip": "item.tconstruct.green_slime_crystal.tooltip",
+    "item.tconstruct.blue_slime_crystal.tooltip": "Used to craft Slime Tools",
     "item.tconstruct.magma_slime_crystal": "Magma Slime Crystal",
-    "item.tconstruct.magma_slime_crystal.tooltip": "item.tconstruct.green_slime_crystal.tooltip",
+    "item.tconstruct.magma_slime_crystal.tooltip": "Used to craft Slime Tools",
     "item.tconstruct.width_expander": "Expander (Horizontal)",
     "item.tconstruct.width_expander.tooltip": "Don't skip leg day!",
     "item.tconstruct.height_expander": "Expander (Vertical)",
@@ -303,7 +300,6 @@
     "fluid.tconstruct.flowing_molten_knightslime": "Flowing Molten Knightslime",
     "item.tconstruct.molten_knightslime_bucket": "Molten Knightslime Bucket",
 
-
     "_comment": "Tinkers Gadgets",
 
     "block.tconstruct.stone_torch": "Stone Torch",
@@ -342,32 +338,30 @@
     "item.tconstruct.efln_ball.tooltip": "Explodes! Safe for mining",
 
     "item.tconstruct.green_slime_sling": "Slimesling",
-    "item.tconstruct.green_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.green_slime_sling.tooltip": "Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!",
     "item.tconstruct.blue_slime_sling": "Slimesling",
-    "item.tconstruct.blue_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.blue_slime_sling.tooltip": "Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!",
     "item.tconstruct.purple_slime_sling": "Slimesling",
-    "item.tconstruct.purple_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.purple_slime_sling.tooltip": "Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!",
     "item.tconstruct.blood_slime_sling": "Congealed Slimesling",
-    "item.tconstruct.blood_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.blood_slime_sling.tooltip": "Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!",
     "item.tconstruct.magma_slime_sling": "Slimesling",
-    "item.tconstruct.magma_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
+    "item.tconstruct.magma_slime_sling.tooltip": "Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!",
     "item.tconstruct.pink_slime_sling": "Slimesling",
-    "item.tconstruct.pink_slime_sling.tooltip": "item.tconstruct.slime_sling.tooltip",
-    "item.tconstruct.slime_sling.tooltip": "Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!",
+    "item.tconstruct.pink_slime_sling.tooltip": "Charge up, aim low, get flinging!\nUse Slime Boots if you value your life!",
 
     "item.tconstruct.green_slime_boots": "Slime Boots",
-    "item.tconstruct.green_slime_boots.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.green_slime_boots.tooltip": "Makes you bounce when landing",
     "item.tconstruct.blue_slime_boots": "Slime Boots",
-    "item.tconstruct.blue_slime_boots.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.blue_slime_boots.tooltip": "Makes you bounce when landing",
     "item.tconstruct.purple_slime_boots": "Slime Boots",
-    "item.tconstruct.purple_slime_boots.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.purple_slime_boots.tooltip": "Makes you bounce when landing",
     "item.tconstruct.blood_slime_boots": "Congealed Blood Boots",
-    "item.tconstruct.blood_slime_boots.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.blood_slime_boots.tooltip": "Makes you bounce when landing",
     "item.tconstruct.magma_slime_boots": "Slime Boots",
-    "item.tconstruct.magma_slime_boots.tooltip": "item.tconstruct.slime_boots.tooltip",
+    "item.tconstruct.magma_slime_boots.tooltip": "Makes you bounce when landing",
     "item.tconstruct.pink_slime_boots": "Slime Boots",
-    "item.tconstruct.pink_slime_boots.tooltip": "item.tconstruct.slime_boots.tooltip",
-    "item.tconstruct.slime_boots.tooltip": "Makes you bounce when landing",
+    "item.tconstruct.pink_slime_boots.tooltip": "Makes you bounce when landing",
 
     "item.tconstruct.piggy_backpack": "Piggybackpack",
     "item.tconstruct.piggy_backpack.tooltip": "Right-click mobs to pick them up",
@@ -392,13 +386,11 @@
 
     "block.tconstruct.modifier_chest": "Modifier Chest",
     "block.tconstruct.modifier_chest.tooltip": "Holds modifiers",
-    
+
     "item.tconstruct.pattern": "Pattern",
 
-    "gui.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
-    
     "_comment": "Tinkers Tools",
-    
+
     "item.tconstruct.pickaxe": "Pickaxe",
     "item.tconstruct.hammer": "Hammer",
     "item.tconstruct.shovel": "Shovel",
@@ -406,7 +398,7 @@
     "item.tconstruct.axe": "Hatchet",
     "item.tconstruct.kama": "Kama",
     "item.tconstruct.broad_sword": "Broadsword",
-    
+
     "_comment": "Tinkers Tool Parts",
 
     "item.tconstruct.pickaxe_head": "Pickaxe Head",
@@ -425,7 +417,7 @@
 
     "_conment": "Tool Descriptions",
 
-    "item.tconstruct.pickaxe.description":"The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?",
+    "item.tconstruct.pickaxe.description": "The Pickaxe is a precise mining tool. It is effective on stone and ores.\nIt breaks blocks, OK?",
     "item.tconstruct.hammer.description": "The Hammer is a broad mining tool. It harvests blocks in a wide range.\nAlso effective against undead.",
     "item.tconstruct.shovel.description": "The Shovel digs up dirt. It is effective on dirt, sand, gravel and snow.\nJust don't dig your own grave!",
     "item.tconstruct.excavator.description": "The Excavator is a broad digging tool. It digs up large areas of soil and snow in a wide range.\nTerraforming!",
@@ -439,24 +431,24 @@
     "block.tconstruct.seared_stone.tooltip": "Part of the Smeltery. Safe for decoration.",
     "block.tconstruct.seared_stone_slab": "Seared Stone Slab",
     "block.tconstruct.seared_stone_stairs": "Seared Stone Stairs",
-    
+
     "block.tconstruct.seared_cobble": "Seared Cobblestone",
     "block.tconstruct.seared_cobble.tooltip": "Part of the Smeltery. Safe for decoration.",
     "block.tconstruct.seared_cobble_slab": "Seared Cobblestone Slab",
     "block.tconstruct.seared_cobble_stairs": "Seared Cobblestone Stairs",
     "block.tconstruct.seared_cobble_wall": "Seared Cobblestone Wall",
-    
+
     "block.tconstruct.seared_bricks": "Seared Bricks",
     "block.tconstruct.seared_bricks.tooltip": "Part of the Smeltery. Safe for decoration.",
     "block.tconstruct.seared_bricks_slab": "Seared Bricks Slab",
     "block.tconstruct.seared_bricks_stairs": "Seared Bricks Stairs",
     "block.tconstruct.seared_bricks_wall": "Seared Bricks Wall",
-    
+
     "block.tconstruct.seared_paver": "Seared Paver",
     "block.tconstruct.seared_paver.tooltip": "Part of the Smeltery. Safe for decoration.",
     "block.tconstruct.seared_paver_slab": "Seared Paver Slab",
     "block.tconstruct.seared_paver_stairs": "Seared Paver Stairs",
-    
+
     "block.tconstruct.seared_cracked_bricks": "Cracked Seared Bricks",
     "block.tconstruct.seared_cracked_bricks.tooltip": "Part of the Smeltery. Safe for decoration.",
     "block.tconstruct.seared_fancy_bricks": "Fancy Seared Bricks",
@@ -468,7 +460,7 @@
     "block.tconstruct.seared_glass.tooltip": "Part of the Smeltery. Safe for decoration.\nCannot store liquids.",
     "block.tconstruct.seared_glass_pane": "Seared Glass Pane",
     "block.tconstruct.seared_glass_pane.tooltip": "Cannot be used in a Smeltery.",
-    
+
     "block.tconstruct.seared_tank": "Seared Tank",
     "block.tconstruct.seared_tank.tooltip": "Heart of the Smeltery.\nRetains liquid when broken.",
     "block.tconstruct.seared_gauge": "Seared Gauge",
@@ -477,7 +469,7 @@
     "block.tconstruct.seared_window.tooltip": "Heart of the Smeltery.\nRetains liquid when broken.",
     "block.tconstruct.tank.fluid": "Liquid %s",
     "block.tconstruct.tank.amount": "%d mb",
-    
+
     "block.tconstruct.faucet": "Seared Faucet",
     "block.tconstruct.faucet.tooltip": "Drains liquids from Smelteries and Tanks",
     "block.tconstruct.casting_basin": "Casting Basin",
@@ -499,7 +491,7 @@
     "gui.tconstruct.melting.fuel.empty": "No fuel found",
     "gui.tconstruct.melting.fuel.temperature": "Temperature: %s°C",
     "gui.tconstruct.melting.fuel.invalid": "Invalid melting fuel!",
-    
+
     "gui.tconstruct.fluid.kilobucket": "%s kb",
     "gui.tconstruct.fluid.bucket": "%s b",
     "gui.tconstruct.fluid.millibucket": "%s mb",
@@ -509,59 +501,56 @@
     "gui.tconstruct.fluid.pane": "%s Panes",
     "gui.tconstruct.fluid.gem": "%s Gems",
     "gui.tconstruct.fluid.slimeball": "%s Slimeballs",
-    
+
     "gui.tconstruct.fluid.hold_shift": "Hold §e§oShift§r§7 for buckets",
-    
+
     "_comment": "Tinkers World",
 
     "entity.tconstruct.blue_slime": "Blue Slime",
 
     "block.tconstruct.green_slime_dirt": "Green Slimy Dirt",
-    "block.tconstruct.green_slime_dirt.tooltip": "block.tconstruct.slime_dirt.tooltip",
+    "block.tconstruct.green_slime_dirt.tooltip": "Slimy, but lets you jump higher",
     "block.tconstruct.blue_slime_dirt": "Blue Slimy Dirt",
-    "block.tconstruct.blue_slime_dirt.tooltip": "block.tconstruct.slime_dirt.tooltip",
+    "block.tconstruct.blue_slime_dirt.tooltip": "Slimy, but lets you jump higher",
     "block.tconstruct.purple_slime_dirt": "Purple Slimy Dirt",
-    "block.tconstruct.purple_slime_dirt.tooltip": "block.tconstruct.slime_dirt.tooltip",
+    "block.tconstruct.purple_slime_dirt.tooltip": "Slimy, but lets you jump higher",
     "block.tconstruct.magma_slime_dirt": "Magma Slimy Dirt",
-    "block.tconstruct.magma_slime_dirt.tooltip": "block.tconstruct.slime_dirt.tooltip",
-    "block.tconstruct.slime_dirt.tooltip": "Slimy, but lets you jump higher",
+    "block.tconstruct.magma_slime_dirt.tooltip": "Slimy, but lets you jump higher",
 
     "block.tconstruct.blue_vanilla_slime_grass": "Slimy Grass",
-    "block.tconstruct.blue_vanilla_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.blue_vanilla_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.purple_vanilla_slime_grass": "Slimy Grass",
-    "block.tconstruct.purple_vanilla_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.purple_vanilla_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.orange_vanilla_slime_grass": "Slimy Grass",
-    "block.tconstruct.orange_vanilla_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.orange_vanilla_slime_grass.tooltip": "So soft! Lets you jump higher",
 
     "block.tconstruct.blue_green_slime_grass": "Green Slimy Grass",
-    "block.tconstruct.blue_green_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.blue_green_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.purple_green_slime_grass": "Green Slimy Grass",
-    "block.tconstruct.purple_green_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.purple_green_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.orange_green_slime_grass": "Green Slimy Grass",
-    "block.tconstruct.orange_green_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.orange_green_slime_grass.tooltip": "So soft! Lets you jump higher",
 
     "block.tconstruct.blue_blue_slime_grass": "Blue Slimy Grass",
-    "block.tconstruct.blue_blue_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.blue_blue_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.purple_blue_slime_grass": "Blue Slimy Grass",
-    "block.tconstruct.purple_blue_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.purple_blue_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.orange_blue_slime_grass": "Blue Slimy Grass",
-    "block.tconstruct.orange_blue_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.orange_blue_slime_grass.tooltip": "So soft! Lets you jump higher",
 
     "block.tconstruct.blue_purple_slime_grass": "Purple Slimy Grass",
-    "block.tconstruct.blue_purple_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.blue_purple_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.purple_purple_slime_grass": "Purple Slimy Grass",
-    "block.tconstruct.purple_purple_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.purple_purple_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.orange_purple_slime_grass": "Purple Slimy Grass",
-    "block.tconstruct.orange_purple_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.orange_purple_slime_grass.tooltip": "So soft! Lets you jump higher",
 
     "block.tconstruct.blue_magma_slime_grass": "Magma Slimy Grass",
-    "block.tconstruct.blue_magma_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.blue_magma_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.purple_magma_slime_grass": "Magma Slimy Grass",
-    "block.tconstruct.purple_magma_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
+    "block.tconstruct.purple_magma_slime_grass.tooltip": "So soft! Lets you jump higher",
     "block.tconstruct.orange_magma_slime_grass": "Magma Slimy Grass",
-    "block.tconstruct.orange_magma_slime_grass.tooltip": "block.tconstruct.slime_grass.tooltip",
-
-    "block.tconstruct.slime_grass.tooltip": "So soft! Lets you jump higher",
+    "block.tconstruct.orange_magma_slime_grass.tooltip": "So soft! Lets you jump higher",
 
     "block.tconstruct.blue_slime_leaves": "Slimy Leaves",
     "block.tconstruct.purple_slime_leaves": "Slimy Leaves",
@@ -576,12 +565,11 @@
     "block.tconstruct.orange_slime_fern": "Slimy Fern",
 
     "block.tconstruct.blue_slime_sapling": "Blue Slime Sapling",
-    "block.tconstruct.blue_slime_sapling.tooltip": "block.tconstruct.slime_sapling.tooltip",
+    "block.tconstruct.blue_slime_sapling.tooltip": "Only grows on slimy dirt/grass",
     "block.tconstruct.purple_slime_sapling": "Purple Slime Sapling",
-    "block.tconstruct.purple_slime_sapling.tooltip": "block.tconstruct.slime_sapling.tooltip",
+    "block.tconstruct.purple_slime_sapling.tooltip": "Only grows on slimy dirt/grass",
     "block.tconstruct.orange_slime_sapling": "Magma Slime Sapling",
-    "block.tconstruct.orange_slime_sapling.tooltip": "block.tconstruct.slime_sapling.tooltip",
-    "block.tconstruct.slime_sapling.tooltip": "Only grows on slimy dirt/grass",
+    "block.tconstruct.orange_slime_sapling.tooltip": "Only grows on slimy dirt/grass",
 
     "block.tconstruct.purple_slime_vine": "Purple Slimy Vine",
     "block.tconstruct.purple_slime_vine_middle": "Purple Slimy Vine",
@@ -592,9 +580,9 @@
     "block.tconstruct.blue_slime_vine_end": "Blue Slimy Vine",
 
     "item.tconstruct.blue_slime_spawn_egg": "Blue Slime Spawn Egg",
-    
+
     "__comment": "Materials",
-    
+
     "material.tconstruct.wood": "Wood",
     "material.tconstruct.wood.format": "Wooden %s",
     "material.tconstruct.stone": "Stone",
@@ -624,18 +612,18 @@
     "material.tconstruct.silver": "Silver",
     "material.tconstruct.electrum": "Electrum",
     "material.tconstruct.steel": "Steel",
-    
+
     "material.tconstruct.string": "String",
     "material.tconstruct.vine": "Vines",
     "material.tconstruct.slimevine_blue": "Slimevine",
     "material.tconstruct.slimevine_orange": "Slimevine",
     "material.tconstruct.slimevine_purple": "Slimevine",
-    
+
     "material.tconstruct.blaze": "Blazerod",
     "material.tconstruct.reed": "Reeds",
     "material.tconstruct.ice": "Ice",
     "material.tconstruct.endrod": "Endrod",
-    
+
     "material.tconstruct.feather": "Feather",
     "material.tconstruct.leaf": "Leaf",
     "material.tconstruct.slimeleaf_blue": "Slimeleaf",
@@ -671,6 +659,7 @@
     "ui.mining_level.cobalt": "Cobalt",
 
     "_comment": "Tooltips",
+
     "tooltip.tool.modifiers": "Modifiers",
     "tooltip.tool.broken": "Broken",
     "tooltip.tool.empty": "Empty",
@@ -681,6 +670,20 @@
     "tooltip.part.missing_material": "Missing material: %s",
     "tooltip.part.missing_stats": "Material is missing the required stats:\n{0}",
     "tooltip.part.missing_info": "Part has no data",
+
+    "_comment": "Modifiers",
+
+    "modifier.tconstruct.diamond": "Diamond",
+    "modifier.tconstruct.diamond.description": "§oShiny!§r\nIncreased durability!",
+
+    "modifier.tconstruct.emerald": "Emerald",
+    "modifier.tconstruct.emerald.description": "§oFancy!§r\nIncreases durability depending on base stats!",
+
+    "modifier.tconstruct.width_harvest_size": "Width++",
+    "modifier.tconstruct.width_harvest_size.description": "§oExpand!§r\nIncreases the width of the area affected by your tool. The effect is tool specific.",
+
+    "modifier.tconstruct.height_harvest_size": "Height++",
+    "modifier.tconstruct.height_harvest_size.description": "§oExpand!§r\nIncreases the height of the area affected by your tool. The effect is tool specific.",
 
     "_comment": "GUIs",
 
@@ -723,13 +726,19 @@
     "gui.tconstruct.error.useless_tool_part": "This part can not be used to craft any tool!\n\nEither the material %s is missing some information or no tool uses a(n) %s in its crafting.",
     "gui.tconstruct.error.not_enough_durability": "Not enough durability to replace parts!\n%d more durability required.",
 
+    "gui.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
+
+    "gui.tconstruct.tool_modifying.not_enough_modifiers": "Not enough Modifiers. (%d needed)",
+    "gui.tconstruct.tool_modifying.modifier_exists": "%s can only be applied once.",
+
     "_comment": "JEI Strings",
+
     "jei.tconstruct.casting.basin": "Casting Basin",
     "jei.tconstruct.casting.table": "Casting Table",
     "jei.tconstruct.casting.cooling_time": "%s s",
     "jei.tconstruct.casting.cast_kept": "Cast item can be reused in later recipes",
     "jei.tconstruct.casting.cast_consumed": "Cast item is consumed on casting",
-    
+
     "jei.tconstruct.melting.title": "Melting",
     "jei.tconstruct.melting.temperature": "%s°C"
 }

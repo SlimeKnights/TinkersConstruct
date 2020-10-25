@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:tool_modifying",
+  "ingredient": {
+    "tag": "forge:gems/emerald"
+  },
+  "cost": 1,
+  "modifier": "tconstruct:emerald"
+}

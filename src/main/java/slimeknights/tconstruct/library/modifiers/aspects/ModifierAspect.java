@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.modifiers.aspects;
 
 import net.minecraft.item.ItemStack;
 import slimeknights.tconstruct.library.modifiers.IModifier;
-import slimeknights.tconstruct.library.modifiers.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.modifiers.ModifiedToolStatsBuilder;
+import slimeknights.tconstruct.library.modifiers.nbt.ModifierNBT;
 
 public abstract class ModifierAspect {
 
@@ -46,7 +46,4 @@ public abstract class ModifierAspect {
   public ModifierNBT editNBT(ModifierNBT modifierNBT) {
     return modifierNBT;
   }
-
-
-
 }

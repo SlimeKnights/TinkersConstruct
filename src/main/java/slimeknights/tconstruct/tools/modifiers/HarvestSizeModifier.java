@@ -1,17 +1,22 @@
 package slimeknights.tconstruct.tools.modifiers;
 
+import slimeknights.tconstruct.library.modifiers.ModifiedToolStatsBuilder;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.nbt.ModifierNBT;
-import slimeknights.tconstruct.library.modifiers.ModifiedToolStatsBuilder;
 
-public class TestModifier extends Modifier {
+public class HarvestSizeModifier extends Modifier {
+
+  public HarvestSizeModifier() {
+    addAspects();
+  }
 
   @Override
   public void applyStats(ModifiedToolStatsBuilder statsBuilder, ModifierNBT modifierNBT) {
-    System.out.println("Test modifier");
+    // no extra data needed
+  }
 
-    statsBuilder.setDurability(999999);
-    statsBuilder.setAttack(999999f);
-    statsBuilder.setMiningSpeed(999999f);
+  @Override
+  public int getColorIndex() {
+    return 0xcaf6a2;
   }
 }

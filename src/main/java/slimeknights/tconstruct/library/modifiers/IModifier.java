@@ -2,10 +2,13 @@ package slimeknights.tconstruct.library.modifiers;
 
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import slimeknights.tconstruct.library.modifiers.nbt.ModifierNBT;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public interface IModifier extends IForgeRegistryEntry<IModifier> {
@@ -76,4 +79,21 @@ public interface IModifier extends IForgeRegistryEntry<IModifier> {
   }
 
   boolean equalModifier(ModifierNBT modifierNBT1, ModifierNBT modifierNBT2);
+
+  /**
+   *
+   * @return
+   */
+  default int getColorIndex() {
+    return 0;
+  }
+
+  @Override
+  @Nullable
+  ModifierId getRegistryName();
+
+  @Override
+  default Class<IModifier> getRegistryType() {
+    return IModifier.class;
+  }
 }

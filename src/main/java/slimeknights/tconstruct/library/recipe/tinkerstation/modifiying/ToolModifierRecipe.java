@@ -17,6 +17,9 @@ import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.ToolData;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import javax.annotation.Nullable;
+import java.util.Objects;
+
 public class ToolModifierRecipe implements ITinkerStationRecipe {
 
   @Getter
@@ -43,16 +46,17 @@ public class ToolModifierRecipe implements ITinkerStationRecipe {
    * Returns a material instance for this recipe
    * @return Material for the recipe
    */
+  @Nullable
   public IModifier getModifier() {
-    return this.modifier.getValue();
+    return modifier.getValue();
   }
 
   @Override
   public boolean matches(ITinkerStationInventory inv, World world) {
     // must be modifiable
-    ItemStack tinkerable = inv.getTinkerableStack();
+    ItemStack modifiable = inv.getTinkerableStack();
 
-    if (tinkerable.isEmpty() || !(tinkerable.getItem() instanceof IModifiable)) {
+    if (modifiable.isEmpty() || !(modifiable.getItem() instanceof IModifiable)) {
       return false;
     }
 
@@ -66,12 +70,7 @@ public class ToolModifierRecipe implements ITinkerStationRecipe {
         continue;
       }
 
-      if (!this.ingredient.test(stack)) {
-        passed = false;
-      }
-      else {
-        passed = true;
-      }
+      passed = ingredient.test(stack);
     }
 
     return passed;
@@ -79,10 +78,14 @@ public class ToolModifierRecipe implements ITinkerStationRecipe {
 
   @Override
   public ValidationResult validate(ITinkerStationInventory inv) {
-    ItemStack repairable = inv.getTinkerableStack();
+    ItemStack modifiable = inv.getTinkerableStack();
 
-    if(ToolData.from(repairable).getModifiers().hasModifier(this.modifierId)) {
-      return ValidationResult.failure("modifier exists on tool");
+    if (ToolData.from(modifiable).getModifiers().hasModifier(modifierId)) {
+      return ValidationResult.failure("gui.tconstruct.tool_modifying.modifier_exists", Objects.requireNonNull(getModifier()).getLocalizedName());
+    }
+
+    if (ToolData.from(modifiable).getStats().freeModifiers < cost) {
+      return ValidationResult.failure("gui.tconstruct.tool_modifying.not_enough_modifiers", cost);
     }
 
     return ValidationResult.SUCCESS;
@@ -90,23 +93,24 @@ public class ToolModifierRecipe implements ITinkerStationRecipe {
 
   @Override
   public ItemStack getCraftingResult(ITinkerStationInventory inv) {
-    ItemStack tinkerable = inv.getTinkerableStack();
+    ItemStack modifiable = inv.getTinkerableStack();
 
-    if (!(tinkerable.getItem() instanceof IModifiable)) {
+    if (!(modifiable.getItem() instanceof IModifiable)) {
       return ItemStack.EMPTY;
     }
 
-    ItemStack tinkerableCopy = tinkerable.copy();
+    ItemStack modifiableCopy = modifiable.copy();
 
-    if (this.getModifier() != null) {
-      ToolData toolData = ToolData.from(tinkerableCopy);
+    if (getModifier() != null) {
+      ToolData toolData = ToolData.from(modifiableCopy);
 
-      toolData.createNewDataWithFreeModifiers(toolData.getStats().freeModifiers - this.cost).updateStack(tinkerableCopy);
+      toolData.createNewDataWithFreeModifiers(toolData.getStats().freeModifiers - cost).updateStack(modifiableCopy);
 
-      return this.getModifier().apply(tinkerableCopy);
+      return getModifier().apply(modifiableCopy);
     }
 
-    return tinkerable;
+    // in case the modifier is invalid, return the unedited tool
+    return modifiable;
   }
 
   @Override
