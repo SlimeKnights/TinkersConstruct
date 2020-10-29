@@ -2,6 +2,7 @@ package slimeknights.tconstruct.world;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.ComposterBlock;
 import net.minecraft.block.SlimeBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -142,6 +143,18 @@ public final class TinkerWorld extends TinkerModule {
   void commonSetup(final FMLCommonSetupEvent event) {
     GlobalEntityTypeAttributes.put(blueSlimeEntity.get(), MonsterEntity.func_234295_eP_().create());
     EntitySpawnPlacementRegistry.register(blueSlimeEntity.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.WORLD_SURFACE, BlueSlimeEntity::canSpawnHere);
+
+    // compostables
+    slimeLeaves.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
+    slimeSapling.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
+    slimeTallGrass.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
+    slimeFern.forEach(block -> ComposterBlock.registerCompostable(0.65f, block));
+    ComposterBlock.registerCompostable(0.5f, blueSlimeVine);
+    ComposterBlock.registerCompostable(0.5f, blueSlimeVineMiddle);
+    ComposterBlock.registerCompostable(0.5f, blueSlimeVineEnd);
+    ComposterBlock.registerCompostable(0.5f, purpleSlimeVine);
+    ComposterBlock.registerCompostable(0.5f, purpleSlimeVineMiddle);
+    ComposterBlock.registerCompostable(0.5f, purpleSlimeVineEnd);
   }
 
   @SubscribeEvent
