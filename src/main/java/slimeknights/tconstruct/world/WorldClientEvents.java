@@ -20,27 +20,23 @@ import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.particle.SlimeParticle;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
+import slimeknights.tconstruct.world.client.SlimeColorReloadListener;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
 import slimeknights.tconstruct.world.client.TinkerSlimeRenderer;
-import slimeknights.tconstruct.world.client.slime.BlueColorReloadListener;
-import slimeknights.tconstruct.world.client.slime.OrangeColorReloadListener;
-import slimeknights.tconstruct.world.client.slime.PurpleColorReloadListener;
 
 import javax.annotation.Nullable;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(modid=TConstruct.modID, value=Dist.CLIENT, bus=Bus.MOD)
 public class WorldClientEvents extends ClientEventBase {
-
-  public static SlimeColorizer slimeColorizer = new SlimeColorizer();
-
   /**
    * Called by TinkerClient to add the resource listeners, runs during constructor
    */
   public static void addResourceListener(IReloadableResourceManager manager) {
-    manager.addReloadListener(new BlueColorReloadListener());
-    manager.addReloadListener(new PurpleColorReloadListener());
-    manager.addReloadListener(new OrangeColorReloadListener());
+    for (FoliageType type : FoliageType.values()) {
+      manager.addReloadListener(new SlimeColorReloadListener(type));
+    }
   }
 
   @SubscribeEvent

@@ -175,15 +175,20 @@ public class SlimeGrassBlock extends Block implements IGrowable {
   }
 
   public enum FoliageType implements IStringSerializable {
-    BLUE,
-    PURPLE,
-    ORANGE;
+    BLUE(0x00F4DA),
+    PURPLE(0xa92dff),
+    ORANGE(0xd09800);
+
+    @Getter
+    private final int defaultColor;
+    FoliageType(int color) {
+      this.defaultColor = color;
+    }
 
     @Override
     public String getString() {
-      return this.toString().toLowerCase(Locale.US);
+      return this.toString();
     }
-
 
     @Override
     public String toString() {
