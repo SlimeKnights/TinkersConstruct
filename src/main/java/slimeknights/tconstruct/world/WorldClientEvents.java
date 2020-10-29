@@ -65,11 +65,7 @@ public class WorldClientEvents extends ClientEventBase {
       RenderTypeLookup.setRenderLayer(TinkerWorld.slimeSapling.get(type), RenderType.getCutout());
     }
     RenderTypeLookup.setRenderLayer(TinkerWorld.purpleSlimeVine.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(TinkerWorld.purpleSlimeVineMiddle.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(TinkerWorld.purpleSlimeVineEnd.get(), RenderType.getCutout());
     RenderTypeLookup.setRenderLayer(TinkerWorld.blueSlimeVine.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(TinkerWorld.blueSlimeVineMiddle.get(), RenderType.getCutout());
-    RenderTypeLookup.setRenderLayer(TinkerWorld.blueSlimeVineEnd.get(), RenderType.getCutout());
 
     // render types - slime blocks
     for (StickySlimeBlock.SlimeType type : StickySlimeBlock.SlimeType.TINKER) {
@@ -78,26 +74,36 @@ public class WorldClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
-  static void registerColorHandlers(ColorHandlerEvent.Item event) {
+  static void registerBlockColorHandlers(ColorHandlerEvent.Block event) {
     BlockColors blockColors = event.getBlockColors();
-    ItemColors itemColors = event.getItemColors();
 
     // slime plants - blocks
     for (SlimeGrassBlock.FoliageType type : SlimeGrassBlock.FoliageType.values()) {
       blockColors.register(
         (state, reader, pos, index) -> getSlimeColorByPos(pos, type, null),
         TinkerWorld.vanillaSlimeGrass.get(type), TinkerWorld.greenSlimeGrass.get(type), TinkerWorld.blueSlimeGrass.get(type),
-        TinkerWorld.purpleSlimeGrass.get(type), TinkerWorld.magmaSlimeGrass.get(type)
-      );
+        TinkerWorld.purpleSlimeGrass.get(type), TinkerWorld.magmaSlimeGrass.get(type));
       blockColors.register(
         (state, reader, pos, index) -> getSlimeColorByPos(pos, type, SlimeColorizer.LOOP_OFFSET),
-        TinkerWorld.slimeLeaves.get(type)
-      );
+        TinkerWorld.slimeLeaves.get(type));
       blockColors.register(
         (state, reader, pos, index) -> getSlimeColorByPos(pos, type, null),
-        TinkerWorld.slimeFern.get(type), TinkerWorld.slimeTallGrass.get(type)
-      );
+        TinkerWorld.slimeFern.get(type), TinkerWorld.slimeTallGrass.get(type));
     }
+
+    // vines
+    blockColors.register(
+      (state, reader, pos, index) -> getSlimeColorByPos(pos, SlimeGrassBlock.FoliageType.BLUE, SlimeColorizer.LOOP_OFFSET),
+      TinkerWorld.blueSlimeVine.get());
+    blockColors.register(
+      (state, reader, pos, index) -> getSlimeColorByPos(pos, SlimeGrassBlock.FoliageType.PURPLE, SlimeColorizer.LOOP_OFFSET),
+      TinkerWorld.purpleSlimeVine.get());
+  }
+
+  @SubscribeEvent
+  static void registerItemColorHandlers(ColorHandlerEvent.Item event) {
+    BlockColors blockColors = event.getBlockColors();
+    ItemColors itemColors = event.getItemColors();
     // slime grass items
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.vanillaSlimeGrass);
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.greenSlimeGrass);
@@ -108,22 +114,8 @@ public class WorldClientEvents extends ClientEventBase {
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.slimeLeaves);
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.slimeFern);
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.slimeTallGrass);
-
-    // vines
-    blockColors.register(
-      (state, reader, pos, index) -> getSlimeColorByPos(pos, SlimeGrassBlock.FoliageType.BLUE, SlimeColorizer.LOOP_OFFSET),
-      TinkerWorld.blueSlimeVine.get(), TinkerWorld.blueSlimeVineMiddle.get(), TinkerWorld.blueSlimeVineEnd.get()
-    );
-    blockColors.register(
-      (state, reader, pos, index) -> getSlimeColorByPos(pos, SlimeGrassBlock.FoliageType.PURPLE, SlimeColorizer.LOOP_OFFSET),
-      TinkerWorld.purpleSlimeVine.get(), TinkerWorld.purpleSlimeVineMiddle.get(), TinkerWorld.purpleSlimeVineEnd.get()
-    );
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.blueSlimeVine);
-    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.blueSlimeVineMiddle);
-    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.blueSlimeVineEnd);
     registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.purpleSlimeVine);
-    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.purpleSlimeVineMiddle);
-    registerBlockItemColorAlias(blockColors, itemColors, TinkerWorld.purpleSlimeVineEnd);
   }
 
   /**

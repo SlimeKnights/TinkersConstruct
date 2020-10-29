@@ -148,12 +148,8 @@ public class TConstructBlockLootTables extends BlockLootTables {
     }
 
     this.registerLootTable(TinkerWorld.purpleSlimeVine.get(), BlockLootTables::onlyWithShears);
-    this.registerLootTable(TinkerWorld.purpleSlimeVineMiddle.get(), BlockLootTables::onlyWithShears);
-    this.registerLootTable(TinkerWorld.purpleSlimeVineEnd.get(), BlockLootTables::onlyWithShears);
 
     this.registerLootTable(TinkerWorld.blueSlimeVine.get(), BlockLootTables::onlyWithShears);
-    this.registerLootTable(TinkerWorld.blueSlimeVineMiddle.get(), BlockLootTables::onlyWithShears);
-    this.registerLootTable(TinkerWorld.blueSlimeVineEnd.get(), BlockLootTables::onlyWithShears);
   }
 
   private void addGadgets() {

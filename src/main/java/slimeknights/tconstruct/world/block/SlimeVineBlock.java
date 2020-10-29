@@ -6,6 +6,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.VineBlock;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.EnumProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
@@ -14,190 +16,106 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Random;
 
-// todo: evaluate block
+/**
+ * Logic for slime vines. Have three stages unlike vanilla vines, and only grow down
+ */
 public class SlimeVineBlock extends VineBlock {
+  public static final EnumProperty<VineStage> STAGE = EnumProperty.create("stage", VineStage.class);
 
-  private final SlimeGrassBlock.FoliageType foliage;
-  private final VineStage vineStage;
-
-  public SlimeVineBlock(Properties properties, SlimeGrassBlock.FoliageType foliage, VineStage vineStage) {
+  private final FoliageType foliage;
+  public SlimeVineBlock(Properties properties, FoliageType foliage) {
     super(properties);
+    this.setDefaultState(this.getDefaultState().with(STAGE, VineStage.START));
     this.foliage = foliage;
-    this.vineStage = vineStage;
+  }
+
+  @Override
+  protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    super.fillStateContainer(builder);
+    builder.add(STAGE);
+  }
+
+  /**
+   * Gets the foliage type associated with these vines
+   * @return  Foliage type
+   */
+  public FoliageType getFoliageType() {
+    return this.foliage;
   }
 
   @Override
   public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
-    if (!worldIn.isRemote) {
-      if (random.nextInt(4) == 0) {
-        this.grow(worldIn, random, pos, state);
-      }
-    }
-  }
-
-  public void grow(IWorld worldIn, Random rand, BlockPos pos, BlockState state) {
-    // end parts don't grow
-    if (this.getStateFromStage() == null) {
-      return;
-    }
-
-    // we only grow down
-    BlockPos below = pos.down();
-    if (worldIn.isAirBlock(below)) {
-      // free floating position?
-      if (this.freeFloating(worldIn, pos, state)) {
-        // at most 3 middle parts
-        int i = 0;
-        while (worldIn.getBlockState(pos.up(i)).getBlock() == this) {
-          i++;
-        }
-
-        if (i > 2 || rand.nextInt(2) == 0) {
-          state = this.getStateFromStage().getDefaultState().with(NORTH, state.get(NORTH)).with(EAST, state.get(EAST)).with(SOUTH, state.get(SOUTH)).with(WEST, state.get(WEST));
-        }
-      }
-
-      state = state.with(UP, false);
-
-      worldIn.setBlockState(below, state, 3);
-    }
-  }
-
-  @Nullable
-  private Block getStateFromStage() {
-    switch (this.vineStage) {
-      case START:
-        if (this.foliage == SlimeGrassBlock.FoliageType.BLUE) {
-          return TinkerWorld.blueSlimeVineMiddle.get();
-        }
-        else if (this.foliage == SlimeGrassBlock.FoliageType.PURPLE) {
-          return TinkerWorld.purpleSlimeVineMiddle.get();
-        }
-      case MIDDLE:
-        if (this.foliage == SlimeGrassBlock.FoliageType.BLUE) {
-          return TinkerWorld.blueSlimeVineEnd.get();
-        }
-        else if (this.foliage == SlimeGrassBlock.FoliageType.PURPLE) {
-          return TinkerWorld.purpleSlimeVineEnd.get();
-        }
-      case END:
-        return null;
-    }
-    return null;
-  }
-
-  private boolean freeFloating(IWorld world, BlockPos pos, BlockState state) {
-    for (Direction side : Direction.Plane.HORIZONTAL) {
-      if (state.get(getPropertyFor(side)) && canAttachTo(world, pos.offset(side), side.getOpposite())) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  @Override
-  @Deprecated
-  public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
     if (worldIn.isRemote) {
       return;
     }
 
-    BlockState oldState = state;
-
-    // check each side to see if it can stay
-    state = this.getCurrentState(state, worldIn, pos);
-
-    // is our position still valid?
-    if (this.getNumOfFaces(state) < 0) {
-      spawnDrops(state, worldIn, pos);
-      worldIn.removeBlock(pos, false);
-    }
-    else if (oldState != state) {
-      worldIn.setBlockState(pos, state, 2);
-    }
-
-    // notify bottom block to update its state since ours might have changed as well
-    BlockPos down = pos.down();
-    BlockState state2;
-    while ((state2 = worldIn.getBlockState(down)).getBlock() instanceof SlimeVineBlock) {
-      worldIn.notifyBlockUpdate(down, state2, state2, 3);
-      down = down.down();
-    }
-  }
-
-  private BlockState getCurrentState(BlockState state, IBlockReader world, BlockPos pos) {
-    BlockPos blockpos = pos.up();
-    if (state.get(UP)) {
-      state = state.with(UP, canAttachTo(world, blockpos, Direction.DOWN));
-    }
-
-    BlockState blockstate = null;
-
-    for (Direction direction : Direction.Plane.HORIZONTAL) {
-      BooleanProperty booleanproperty = getPropertyFor(direction);
-      if (state.get(booleanproperty)) {
-        boolean flag = this.getFlagFromState(world, pos, direction);
-        if (!flag) {
-          if (blockstate == null) {
-            blockstate = world.getBlockState(blockpos);
-          }
-
-          flag = blockstate.getBlock() instanceof SlimeLeavesBlock || (blockstate.getBlock() instanceof SlimeVineBlock && blockstate.get(booleanproperty));
+    // if its only the top piece, start growing down a side
+    if (hasNoHorizontalSides(state)) {
+      // randomly choose sides to add
+      BlockState newState = state;
+      boolean onLeaves = worldIn.getBlockState(pos.up()).isIn(TinkerTags.Blocks.SLIMY_LEAVES);
+      for (Direction side : Direction.Plane.HORIZONTAL) {
+        // must be hanging from leaves or have a valid side
+        if ((onLeaves || canAttachTo(worldIn, pos.offset(side), side)) && random.nextInt(6) == 0) {
+          newState = newState.with(getPropertyFor(side), true);
         }
-
-        state = state.with(booleanproperty, flag);
       }
-    }
-
-    return state;
-  }
-
-  private boolean getFlagFromState(IBlockReader world, BlockPos pos, Direction direction) {
-    if (direction == Direction.DOWN) {
-      return false;
-    }
-    else {
-      BlockPos blockpos = pos.offset(direction);
-      if (canAttachTo(world, blockpos, direction)) {
-        return true;
+      // if there was a change, update
+      if (newState != state) {
+        worldIn.setBlockState(pos, newState, 3);
       }
-      else if (direction.getAxis() == Direction.Axis.Y) {
-        return false;
-      }
-      else {
-        BooleanProperty booleanproperty = FACING_TO_PROPERTY_MAP.get(direction);
-        BlockState blockstate = world.getBlockState(pos.up());
-        return blockstate.getBlock() instanceof SlimeVineBlock && blockstate.get(booleanproperty);
-      }
+      // normal side growth
+    } else if (random.nextInt(4) == 0) {
+      grow(worldIn, random, pos, state);
     }
   }
 
-  private int getNumOfFaces(BlockState state) {
-    int i = 0;
-
-    for (BooleanProperty booleanproperty : FACING_TO_PROPERTY_MAP.values()) {
-      if (state.get(booleanproperty)) {
-        ++i;
-      }
+  /**
+   * Grows the vine one stage
+   * @param worldIn World instance
+   * @param random  Random instance
+   * @param pos     Pos
+   * @param state   State
+   */
+  public void grow(IWorld worldIn, Random random, BlockPos pos, BlockState state) {
+    // no growing ends
+    if (hasNoHorizontalSides(state) || state.get(STAGE) == VineStage.END) {
+      return;
     }
 
-    return i;
-  }
-
-  public static boolean canAttachTo(IBlockReader worldIn, BlockPos pos, Direction direction) {
-    BlockState blockstate = worldIn.getBlockState(pos);
-    return Block.doesSideFillSquare(blockstate.getCollisionShape(worldIn, pos), direction.getOpposite());
+    // start growing down if we have existing sides
+    BlockPos below = pos.down();
+    if (worldIn.isAirBlock(below)) {
+      // free floating position? possibly move to next stage
+      if (freeFloating(worldIn, pos, state)) {
+        // force transition after 3 vines
+        int i = 1;
+        VineStage stage = state.get(STAGE);
+        for (; i < 3; i++) {
+          BlockState above = worldIn.getBlockState(pos.up(i));
+          if (!above.isIn(this) || above.get(STAGE) != stage) {
+            break;
+          }
+        }
+        if (i > 2 || random.nextInt(2) == 0) {
+          state = state.func_235896_a_(STAGE);
+        }
+      }
+      // place new vine at position
+      worldIn.setBlockState(below, state.with(UP, false), 3);
+    }
   }
 
   @Override
   public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-    return this.getNumOfFaces(this.getCurrentState(state, worldIn, pos)) > 0;
+    return hasSides(updateConnections(state, worldIn, pos));
   }
 
   /**
@@ -211,54 +129,131 @@ public class SlimeVineBlock extends VineBlock {
     if (facing == Direction.DOWN) {
       return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
-    else {
-      BlockState blockstate = this.getCurrentState(stateIn, worldIn, currentPos);
-      return !(this.getNumOfFaces(blockstate) > 0) ? Blocks.AIR.getDefaultState() : blockstate;
-    }
+    BlockState updated = updateConnections(stateIn, worldIn, currentPos);
+    return !hasSides(updated) ? Blocks.AIR.getDefaultState() : updated;
   }
 
   @Override
   @Nullable
   public BlockState getStateForPlacement(BlockItemUseContext context) {
-    BlockState blockstate = context.getWorld().getBlockState(context.getPos());
-    boolean flag = blockstate.getBlock() == this;
-    BlockState blockstate1 = flag ? blockstate : this.getDefaultState();
+    World world = context.getWorld();
+    BlockPos pos = context.getPos();
+    BlockState currState = world.getBlockState(pos);
+    boolean isVine = currState.isIn(this);
+    BlockState vineState = isVine ? currState : this.getDefaultState();
 
+    // try each direction, see if we can place on that side
     for (Direction direction : context.getNearestLookingDirections()) {
       if (direction != Direction.DOWN) {
-        BooleanProperty booleanproperty = getPropertyFor(direction);
-        boolean flag1 = flag && blockstate.get(booleanproperty);
-        if (!flag1 && this.getFlagFromState(context.getWorld(), context.getPos(), direction)) {
-          return blockstate1.with(booleanproperty, Boolean.TRUE);
+        // if no existing vine on the side and its valid, place there
+        BooleanProperty prop = getPropertyFor(direction);
+        if (!(isVine && currState.get(prop)) && this.hasAttachment(world, pos, direction)) {
+          return vineState.with(prop, true);
         }
       }
     }
-
-    return flag ? blockstate1 : null;
+    // no sides worked? just say it was fine if there is a vine here
+    return isVine ? vineState : null;
   }
 
-  public BlockState getStateToPlace(IWorld world, BlockPos pos) {
-    BlockState blockstate = world.getBlockState(pos);
-    boolean flag = blockstate.getBlock() == this;
-    BlockState blockstate1 = flag ? blockstate : this.getDefaultState();
+  /*
+   * Helpers
+   */
 
-    for (Direction direction : new Direction[] { Direction.EAST, Direction.UP, Direction.SOUTH, Direction.NORTH, Direction.WEST }) {
-      if (direction != Direction.DOWN) {
-        BooleanProperty booleanproperty = getPropertyFor(direction);
-        boolean flag1 = flag && blockstate.get(booleanproperty);
-        if (!flag1 && this.getFlagFromState(world, pos, direction)) {
-          blockstate1 = blockstate1.with(booleanproperty, Boolean.TRUE);
-        }
+  /**
+   * Checks if the given vines have at least one face
+   * @param state  State to check
+   * @return  True if there is at least one face
+   */
+  private static boolean hasSides(BlockState state) {
+    for (BooleanProperty booleanproperty : FACING_TO_PROPERTY_MAP.values()) {
+      if (state.get(booleanproperty)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Checks if the given vine has no sides
+   * @param state  State to check
+   * @return  True if there are no sides
+   */
+  private static boolean hasNoHorizontalSides(BlockState state) {
+    for (Direction side : Direction.Plane.HORIZONTAL) {
+      if (state.get(getPropertyFor(side))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Checks if the given vine is free floating
+   * @param world  World instance
+   * @param pos    Vine position
+   * @param state  Vine state
+   * @return  True if free floating, false if any side is "connected" to a block
+   */
+  private static boolean freeFloating(IWorld world, BlockPos pos, BlockState state) {
+    for (Direction side : Direction.Plane.HORIZONTAL) {
+      if (state.get(getPropertyFor(side)) && canAttachTo(world, pos.offset(side), side)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * Gets the updated connections based on neighbors
+   * @param state  State to check
+   * @param world  World
+   * @param pos    Position of vines
+   * @return  Updated connections
+   */
+  private BlockState updateConnections(BlockState state, IBlockReader world, BlockPos pos) {
+    BlockPos up = pos.up();
+    if (state.get(UP)) {
+      state = state.with(UP, canAttachTo(world, up, Direction.UP));
+    }
+    // update each side with whether it can be supported
+    for (Direction direction : Direction.Plane.HORIZONTAL) {
+      BooleanProperty prop = getPropertyFor(direction);
+      if (state.get(prop)) {
+        state = state.with(prop, hasAttachment(world, pos, direction));
       }
     }
 
-    return blockstate1;
+    return state;
   }
 
-  public SlimeGrassBlock.FoliageType getFoliageType() {
-    return this.foliage;
+  /**
+   * Checks if the vine side can stay
+   * @param world  World
+   * @param pos    Pos to check
+   * @param side   Vine side to check
+   * @return  True if it can hold
+   */
+  private boolean hasAttachment(IBlockReader world, BlockPos pos, Direction side) {
+    // down has no attachments
+    if (side == Direction.DOWN) {
+      return false;
+    }
+    // remaining direction must be supported
+    BlockPos offset = pos.offset(side);
+    if (canAttachTo(world, offset, side)) {
+      return true;
+    }
+    // if not supported, try finding a vine or leaves there
+    BlockState upState = world.getBlockState(pos.up());
+    if (upState.isIn(TinkerTags.Blocks.SLIMY_LEAVES)) {
+      return true;
+    }
+    // otherwise, if not up try a supporting vine (must not be end to support)
+    return side != Direction.UP && (upState.isIn(this) && upState.get(FACING_TO_PROPERTY_MAP.get(side)) && upState.get(STAGE) != VineStage.END);
   }
 
+  /** Stages of the vine, cycles through them as it grows */
   public enum VineStage implements IStringSerializable {
     START,
     MIDDLE,
@@ -269,5 +264,4 @@ public class SlimeVineBlock extends VineBlock {
       return this.toString().toLowerCase(Locale.US);
     }
   }
-
 }

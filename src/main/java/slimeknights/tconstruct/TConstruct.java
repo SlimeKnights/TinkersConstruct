@@ -161,12 +161,12 @@ public class TConstruct {
 
 
   @SubscribeEvent
-  static void missingBlocks(final MissingMappings<Block> event) {
+  void missingBlocks(final MissingMappings<Block> event) {
     handleMissingMappings(event, TConstruct::missingBlock);
   }
 
   @SubscribeEvent
-  static void missingItems(final MissingMappings<Item> event) {
+  void missingItems(final MissingMappings<Item> event) {
     handleMissingMappings(event, name -> {
       IItemProvider provider = missingBlock(name);
       return provider == null ? null : provider.asItem();
@@ -181,6 +181,13 @@ public class TConstruct {
   @Nullable
   private static Block missingBlock(String name) {
     switch (name) {
+      // unified slime vines
+      case "blue_slime_vine_middle":
+      case "blue_slime_vine_end":
+        return TinkerWorld.blueSlimeVine.get();
+      case "purple_slime_vine_middle":
+      case "purple_slime_vine_end":
+        return TinkerWorld.purpleSlimeVine.get();
       // square/small/road removed
       case "seared_square_bricks":
       case "seared_small_bricks":

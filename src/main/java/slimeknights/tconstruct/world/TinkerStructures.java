@@ -21,6 +21,8 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.shared.block.StickySlimeBlock;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
+import slimeknights.tconstruct.world.block.SlimeVineBlock;
+import slimeknights.tconstruct.world.block.SlimeVineBlock.VineStage;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandPiece;
 import slimeknights.tconstruct.world.worldgen.islands.end.EndSlimeIslandStructure;
 import slimeknights.tconstruct.world.worldgen.islands.nether.NetherSlimeIslandStructure;
@@ -103,7 +105,7 @@ public final class TinkerStructures extends TinkerModule {
       new BaseSlimeTreeFeatureConfig.Builder(
         new SupplierBlockStateProvider(() -> TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.GREEN).getDefaultState()),
         new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.BLUE).getDefaultState()),
-        new SupplierBlockStateProvider(() -> TinkerWorld.blueSlimeVineMiddle.get().getDefaultState()),
+        new SupplierBlockStateProvider(() -> TinkerWorld.blueSlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, VineStage.MIDDLE)),
         5,
         4,
         true))
@@ -124,7 +126,7 @@ public final class TinkerStructures extends TinkerModule {
       new BaseSlimeTreeFeatureConfig.Builder(
         new SupplierBlockStateProvider(() -> TinkerWorld.congealedSlime.get(StickySlimeBlock.SlimeType.BLUE).getDefaultState()),
         new SupplierBlockStateProvider(() -> TinkerWorld.slimeLeaves.get(SlimeGrassBlock.FoliageType.PURPLE).getDefaultState()),
-        new SupplierBlockStateProvider(() -> TinkerWorld.purpleSlimeVineMiddle.get().getDefaultState()),
+        new SupplierBlockStateProvider(() -> TinkerWorld.purpleSlimeVine.get().getDefaultState().with(SlimeVineBlock.STAGE, VineStage.MIDDLE)),
         5,
         4,
         true))

@@ -123,12 +123,8 @@ public final class TinkerWorld extends TinkerModule {
 
   // slime vines
   private static final Block.Properties VINE = builder(Material.TALL_PLANTS, NO_TOOL, SoundType.PLANT).hardnessAndResistance(0.3F).doesNotBlockMovement().tickRandomly();
-  public static final ItemObject<SlimeVineBlock> purpleSlimeVine = BLOCKS.register("purple_slime_vine", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.START), DEFAULT_BLOCK_ITEM);
-  public static final ItemObject<SlimeVineBlock> purpleSlimeVineMiddle = BLOCKS.register("purple_slime_vine_middle", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.MIDDLE), DEFAULT_BLOCK_ITEM);
-  public static final ItemObject<SlimeVineBlock> purpleSlimeVineEnd = BLOCKS.register("purple_slime_vine_end", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.PURPLE, SlimeVineBlock.VineStage.END), DEFAULT_BLOCK_ITEM);
-  public static final ItemObject<SlimeVineBlock> blueSlimeVine = BLOCKS.register("blue_slime_vine", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.START), DEFAULT_BLOCK_ITEM);
-  public static final ItemObject<SlimeVineBlock> blueSlimeVineMiddle = BLOCKS.register("blue_slime_vine_middle", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.MIDDLE), DEFAULT_BLOCK_ITEM);
-  public static final ItemObject<SlimeVineBlock> blueSlimeVineEnd = BLOCKS.register("blue_slime_vine_end", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.BLUE, SlimeVineBlock.VineStage.END), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<SlimeVineBlock> purpleSlimeVine = BLOCKS.register("purple_slime_vine", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.PURPLE), DEFAULT_BLOCK_ITEM);
+  public static final ItemObject<SlimeVineBlock> blueSlimeVine = BLOCKS.register("blue_slime_vine", () -> new SlimeVineBlock(VINE, SlimeGrassBlock.FoliageType.BLUE), DEFAULT_BLOCK_ITEM);
 
   /*
    * Entities
@@ -161,11 +157,7 @@ public final class TinkerWorld extends TinkerModule {
     slimeTallGrass.forEach(block -> ComposterBlock.registerCompostable(0.35f, block));
     slimeFern.forEach(block -> ComposterBlock.registerCompostable(0.65f, block));
     ComposterBlock.registerCompostable(0.5f, blueSlimeVine);
-    ComposterBlock.registerCompostable(0.5f, blueSlimeVineMiddle);
-    ComposterBlock.registerCompostable(0.5f, blueSlimeVineEnd);
     ComposterBlock.registerCompostable(0.5f, purpleSlimeVine);
-    ComposterBlock.registerCompostable(0.5f, purpleSlimeVineMiddle);
-    ComposterBlock.registerCompostable(0.5f, purpleSlimeVineEnd);
   }
 
   @SubscribeEvent

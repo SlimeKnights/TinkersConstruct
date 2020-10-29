@@ -141,16 +141,15 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
       }
     }
 
-    BlockPos pos1 = pos;
-
-    for (int size = random.nextInt(8); size >= 0; size++) {
-      if (!(worldIn.getBlockState(pos1).getBlock() instanceof SlimeVineBlock)) {
+    // grow the vine a few times to start
+    BlockPos vinePos = pos;
+    for (int size = random.nextInt(8); size >= 0; size--) {
+      BlockState state = worldIn.getBlockState(vinePos);
+      if (!(state.getBlock() instanceof SlimeVineBlock)) {
         break;
       }
-
-      ((SlimeVineBlock) worldIn.getBlockState(pos1).getBlock()).grow(worldIn, random, pos1, worldIn.getBlockState(pos1));
-
-      pos1 = pos1.down();
+      ((SlimeVineBlock) state.getBlock()).grow(worldIn, random, vinePos, state);
+      vinePos = vinePos.down();
     }
   }
 
