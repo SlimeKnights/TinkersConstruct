@@ -10,8 +10,9 @@ import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -20,14 +21,11 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerMaterials;
 
 import java.util.Locale;
-import java.util.Set;
 
 public class TConstructItemTagsProvider extends ItemTagsProvider {
 
-  private Set<ResourceLocation> filter = null;
-
-  public TConstructItemTagsProvider(DataGenerator generatorIn, BlockTagsProvider blockTagProvider) {
-    super(generatorIn, blockTagProvider);
+  public TConstructItemTagsProvider(DataGenerator generatorIn, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {
+    super(generatorIn, blockTagProvider, TConstruct.modID, existingFileHelper);
   }
 
   @Override

@@ -17,6 +17,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -126,11 +127,12 @@ public class TConstruct {
   static void gatherData(final GatherDataEvent event) {
     if (event.includeServer()) {
       DataGenerator datagenerator = event.getGenerator();
-      TConstructBlockTagsProvider blockTags = new TConstructBlockTagsProvider(datagenerator);
+      ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+      TConstructBlockTagsProvider blockTags = new TConstructBlockTagsProvider(datagenerator, existingFileHelper);
       datagenerator.addProvider(blockTags);
-      datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator, blockTags));
-      datagenerator.addProvider(new TConstructFluidTagsProvider(datagenerator));
-      datagenerator.addProvider(new TConstructEntityTypeTagsProvider(datagenerator));
+      datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator, blockTags, existingFileHelper));
+      datagenerator.addProvider(new TConstructFluidTagsProvider(datagenerator, existingFileHelper));
+      datagenerator.addProvider(new TConstructEntityTypeTagsProvider(datagenerator, existingFileHelper));
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
     }
   }
