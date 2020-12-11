@@ -5,7 +5,6 @@ public enum TableTypes {
   TinkerStation(25),
   PartBuilder(20),
   PartChest(16),
-  PatternChest(15),
   ModifierChest(14);
 
   private final int sortIndex;

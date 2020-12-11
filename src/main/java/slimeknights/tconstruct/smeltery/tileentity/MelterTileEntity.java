@@ -19,11 +19,11 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.recipe.inventory.ISingleItemInventory;
 import slimeknights.mantle.recipe.inventory.InventorySlotWrapper;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
-import slimeknights.tconstruct.library.client.util.SinglePropertyModelData;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.materials.MaterialValues;
 import slimeknights.tconstruct.library.recipe.RecipeTypes;
@@ -109,7 +109,7 @@ public class MelterTileEntity extends TableTileEntity implements ITankTileEntity
     this.itemTempRequired = new int[3];
 
     // tank data
-    modelData = new SinglePropertyModelData<>(tank, ModelProperties.FLUID_TANK);
+    modelData = new SinglePropertyData<>(ModelProperties.FLUID_TANK, tank);
   }
 
   @Nullable

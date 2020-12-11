@@ -390,10 +390,12 @@
     "block.tconstruct.part_chest": "Part Chest",
     "block.tconstruct.part_chest.tooltip": "Can hold a large amount of toolparts",
 
-    "block.tconstruct.pattern_chest": "Pattern Chest",
-    "block.tconstruct.pattern_chest.tooltip": "Holds either patterns or casts",
+    "block.tconstruct.modifier_chest": "Modifier Chest",
+    "block.tconstruct.modifier_chest.tooltip": "Holds modifiers",
     
     "item.tconstruct.pattern": "Pattern",
+
+    "gui.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
     
     "_comment": "Tinkers Tools",
     
@@ -511,6 +513,8 @@
     "gui.tconstruct.fluid.hold_shift": "Hold §e§oShift§r§7 for buckets",
     
     "_comment": "Tinkers World",
+
+    "entity.tconstruct.blue_slime": "Blue Slime",
 
     "block.tconstruct.green_slime_dirt": "Green Slimy Dirt",
     "block.tconstruct.green_slime_dirt.tooltip": "block.tconstruct.slime_dirt.tooltip",

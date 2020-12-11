@@ -38,19 +38,16 @@ import slimeknights.tconstruct.library.MaterialRegistry;
 import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.library.materials.IMaterial;
 import slimeknights.tconstruct.library.materials.Material;
-import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.tinkering.Category;
 import slimeknights.tconstruct.library.tinkering.IAoeTool;
-import slimeknights.tconstruct.library.tinkering.IMaterialItem;
 import slimeknights.tconstruct.library.tinkering.IModifiable;
 import slimeknights.tconstruct.library.tinkering.IRepairable;
 import slimeknights.tconstruct.library.tinkering.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tinkering.ITinkerable;
 import slimeknights.tconstruct.library.tinkering.IndestructibleEntityItem;
-import slimeknights.tconstruct.library.tinkering.PartMaterialRequirement;
-import slimeknights.tconstruct.library.tinkering.ToolPartItem;
 import slimeknights.tconstruct.library.tools.helper.AoeToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolInteractionUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolMiningLogic;
 import slimeknights.tconstruct.library.tools.helper.TraitUtil;
@@ -61,7 +58,6 @@ import slimeknights.tconstruct.library.utils.TooltipType;
 import slimeknights.tconstruct.tools.ToolStatsBuilder;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -138,25 +134,16 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public int getMaxDamage(ItemStack stack) {
-    StatsNBT stats = ToolData.from(stack).getStats();
-    // the tool can only have damage when it's not broken, to prevent vanilla from deleting the itemstack
-    return stats.broken ? 0 : stats.durability;
+    return ToolData.from(stack).getStats().durability;
   }
 
   @Override
   public void setDamage(ItemStack stack, int damage) {
     int max = this.getMaxDamage(stack);
-    super.setDamage(stack, Math.min(max, damage));
+    super.setDamage(stack, Math.min(max - 1, damage));
 
-    if (this.getDamage(stack) >= max) {
-      stack.getOrCreateTag().putInt("Damage", max);
-
-      ToolData toolData = ToolData.from(stack);
-
-      if (!toolData.getStats().broken) {
-        ToolData newData = toolData.createNewDataWithBroken(true);
-        newData.updateStack(stack);
-      }
+    if (damage >= max) {
+      ToolDamageUtil.breakTool(stack);
     }
   }
 
@@ -166,9 +153,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    */
   @Override
   public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
-    ToolInteractionUtil.damageTool(stack, amount, damager);
-
-    if (ToolData.from(stack).getStats().broken) {
+    if (ToolDamageUtil.damageTool(stack, amount, damager)) {
       onBroken.accept(damager);
     }
 
@@ -181,22 +166,12 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   }
 
   @Override
-  public boolean showDurabilityBar(ItemStack stack) {
-    return super.showDurabilityBar(stack) && !ToolData.from(stack).getStats().broken;
-  }
-
-  /**
-   * Gets the current tool durability
-   *
-   * @param stack the tool stack to use
-   * @return the currently durability of the tool stack
-   */
-  public static int getCurrentDurability(ItemStack stack) {
+  public double getDurabilityForDisplay(ItemStack stack) {
+    // show 1 when broken (fully broken)
     if (ToolData.isBroken(stack)) {
-      return ToolData.from(stack).getStats().durability - stack.getDamage();
+      return 1;
     }
-
-    return stack.getMaxDamage() - stack.getDamage();
+    return super.getDurabilityForDisplay(stack);
   }
 
   /* Mining */
@@ -204,7 +179,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   @Override
   public Set<ToolType> getToolTypes(ItemStack stack) {
     // no classes if broken
-    if (ToolData.from(stack).getStats().broken) {
+    if (ToolData.isBroken(stack)) {
       return Collections.emptySet();
     }
 
@@ -213,11 +188,9 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public int getHarvestLevel(ItemStack stack, ToolType toolClass, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
-    StatsNBT stats = ToolData.from(stack).getStats();
-
     // brokenness is calculated in by the toolTypes check
     if (this.getToolTypes(stack).contains(toolClass)) {
-      return stats.harvestLevel;
+      return ToolData.from(stack).getStats().harvestLevel;
     }
 
     return -1;
@@ -243,9 +216,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   @Override
   public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-    StatsNBT stats = ToolData.from(stack).getStats();
-
-    if (stats.broken) {
+    if (ToolData.isBroken(stack)) {
       return false;
     }
 
@@ -282,22 +253,24 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   /* Repairing */
 
   @Override
-  public boolean needsRepair(ItemStack repairable) {
-    if (repairable.getDamage() == 0 && !ToolData.isBroken(repairable)) {
-      // undamaged and not broken - no need to repair
-      return false;
+  public boolean canRepairWith(ItemStack repairable, IMaterial material) {
+    ToolData toolData = ToolData.from(repairable);
+    for (int part : this.toolDefinition.getRepairParts()) {
+      if (toolData.getMaterial(part) == material) {
+        return true;
+      }
     }
-
-    ToolData toolData = ToolData.readFromNBT(repairable.getTag());
-
-    List<IMaterial> materials = toolData.getMaterials();
-    return !materials.isEmpty();
+    return false;
   }
 
-  @Nonnull
   @Override
-  public ItemStack repair(ItemStack repairable, NonNullList<ItemStack> repairItems) {
-    //todo decide how to handle this
+  public boolean needsRepair(ItemStack repairable) {
+    return ToolDamageUtil.needsRepair(repairable);
+  }
+
+  @Override
+  public ItemStack repairItem(ItemStack repairable, int amount) {
+    ToolDamageUtil.repairTool(repairable, amount, null);
     return repairable;
   }
 
@@ -502,34 +475,18 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
       ToolData toolData = ToolData.readFromNBT(tag);
 
       List<IMaterial> materials = toolData.getMaterials();
-      List<PartMaterialRequirement> components = this.getToolDefinition().getRequiredComponents();
-
+      List<IToolPart> components = this.getToolDefinition().getRequiredComponents();
       if (materials.size() < components.size()) {
         return;
       }
 
       for (int i = 0; i < components.size(); i++) {
-        PartMaterialRequirement requirement = components.get(i);
+        IToolPart requirement = components.get(i);
         IMaterial material = materials.get(i);
-
-        Item toolPart = requirement.getPart();
-
-        if (toolPart instanceof IMaterialItem) {
-          ItemStack partStack = ((IMaterialItem) toolPart).getItemstackWithMaterial(material);
-
-          tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
-
-          for (IMaterialStats stat : MaterialRegistry.getInstance().getAllStats(material.getIdentifier())) {
-            if (requirement.usesStat(stat.getIdentifier())) {
-              tooltips.addAll(stat.getLocalizedInfo());
-            }
-          }
-
-          tooltips.add(StringTextComponent.EMPTY);
-        }
-        else {
-          tooltips.add(new ItemStack(toolPart).getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE));
-        }
+        ItemStack partStack = requirement.getItemstackWithMaterial(material);
+        tooltips.add(partStack.getDisplayName().deepCopy().mergeStyle(TextFormatting.UNDERLINE).modifyStyle(style -> style.setColor(material.getColor())));
+        MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
+        tooltips.add(StringTextComponent.EMPTY);
       }
     }
   }
@@ -562,7 +519,8 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    * @return the information for the given stack
    */
   public List<ITextComponent> getInformation(ItemStack stack, boolean detailed) {
-    TooltipBuilder info = new TooltipBuilder(stack);
+    ToolData data = ToolData.from(stack);
+    TooltipBuilder info = new TooltipBuilder(stack, data);
 
     info.addDurability(!detailed);
 
@@ -579,7 +537,7 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
     info.addAttack();
 
-    if (ToolData.from(stack).getStats().freeModifiers > 0) {
+    if (data.getStats().freeModifiers > 0) {
       info.addFreeModifiers();
     }
 
@@ -601,11 +559,12 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
 
   protected void addDefaultSubItems(List<ItemStack> items, Material... fixedMaterials) {
     if (MaterialRegistry.initialized()) {
+      List<IToolPart> required = this.getToolDefinition().getRequiredComponents();
       for (IMaterial material : MaterialRegistry.getInstance().getMaterials()) {
         List<IMaterial> materials = new ArrayList<>(this.getToolDefinition().getRequiredComponents().size());
 
         for (int i = 0; i < this.getToolDefinition().getRequiredComponents().size(); i++) {
-          if (fixedMaterials.length > i && fixedMaterials[i] != null && this.getToolDefinition().getRequiredComponents().get(i).isValidMaterial(fixedMaterials[i])) {
+          if (fixedMaterials.length > i && fixedMaterials[i] != null && required.get(i).canUseMaterial(fixedMaterials[i])) {
             materials.add(fixedMaterials[i]);
           }
           else {
@@ -636,10 +595,10 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
     }
 
     // check if all materials used have the stats needed
+    List<IToolPart> requirements = getToolDefinition().getRequiredComponents();
     for (int i = 0; i < materials.size(); i++) {
       IMaterial material = materials.get(i);
-      PartMaterialRequirement required = this.getToolDefinition().getRequiredComponents().get(i);
-      if (!required.isValidMaterial(material)) {
+      if (!requirements.get(i).canUseMaterial(material)) {
         return false;
       }
     }
@@ -656,13 +615,14 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
   public ITextComponent getDisplayName(ItemStack stack) {
     // if the tool is not named we use the repair tools for a prefix like thing
     List<IMaterial> materials = ToolData.from(stack).getMaterials();
-    List<PartMaterialRequirement> components = ((ToolCore) stack.getItem()).getToolDefinition().getRequiredComponents();
+    List<IToolPart> components = ((ToolCore) stack.getItem()).getToolDefinition().getRequiredComponents();
     // we save all the ones for the name in a set so we don't have the same material in it twice
     Set<IMaterial> nameMaterials = Sets.newLinkedHashSet();
 
     if (materials.size() == components.size()) {
       for (int i = 0; i < components.size(); i++) {
-        if (components.get(i).usesStat(HeadMaterialStats.ID) && i < materials.size()) {
+        // TODO: repair materials?
+        if (HeadMaterialStats.ID.equals(components.get(i).getStatType()) && i < materials.size()) {
           nameMaterials.add(materials.get(i));
         }
       }
@@ -718,24 +678,18 @@ public abstract class ToolCore extends Item implements ITinkerable, IModifiable,
    */
   public ItemStack buildToolForRendering() {
     if (MaterialRegistry.initialized()) {
-      List<PartMaterialRequirement> requirements = this.getToolDefinition().getRequiredComponents();
+      List<IToolPart> requirements = this.getToolDefinition().getRequiredComponents();
       List<IMaterial> toolMaterials = new ArrayList<>(requirements.size());
       IMaterial material = IMaterial.UNKNOWN;
 
       for (int i = 0; i < requirements.size(); i++) {
-        PartMaterialRequirement requirement = requirements.get(i);
-
-        if (requirement.getPart() instanceof ToolPartItem) {
-          ToolPartItem toolPart = (ToolPartItem) requirement.getPart();
-
-          List<IMaterial> materials = MaterialRegistry.getInstance().getMaterials().stream().filter(toolPart::canUseMaterial).collect(Collectors.toList());
-
-          if (material == IMaterial.UNKNOWN) {
-            material = materials.get(TConstruct.random.nextInt(materials.size()));
-          }
-
-          toolMaterials.add(i, material);
+        IToolPart requirement = requirements.get(i);
+        List<IMaterial> materials = MaterialRegistry.getInstance().getMaterials().stream().filter(requirement::canUseMaterial).collect(Collectors.toList());
+        if (material == IMaterial.UNKNOWN) {
+          material = materials.get(TConstruct.random.nextInt(materials.size()));
         }
+
+        toolMaterials.add(i, material);
       }
 
       return ToolBuildHandler.buildItemFromMaterials(this, toolMaterials);

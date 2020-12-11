@@ -1,43 +1,83 @@
 package slimeknights.tconstruct.world.worldgen.trees;
-/*
+
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.trees.Tree;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.server.ServerWorld;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
-import slimeknights.tconstruct.world.worldgen.trees.feature.SlimeTreeFeatureConfig;
+import slimeknights.tconstruct.world.worldgen.trees.config.BaseSlimeTreeFeatureConfig;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class SlimeTree extends SlimeTreeAbstract {
+public class SlimeTree extends Tree {
 
   private final SlimeGrassBlock.FoliageType foliageType;
-  private final boolean isIslandTree;
 
-  public SlimeTree(SlimeGrassBlock.FoliageType foliageType, boolean isIslandTree) {
+  public SlimeTree(SlimeGrassBlock.FoliageType foliageType) {
     this.foliageType = foliageType;
-    this.isIslandTree = isIslandTree;
   }
-  @Override
+
+  @Deprecated
   @Nullable
-  public ConfiguredFeature<SlimeTreeFeatureConfig, ?> getSlimeTreeFeature(Random random, boolean bool) {
+  @Override
+  protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive) {
+    return null;
+  }
+
+  /**
+   * Get a {@link net.minecraft.world.gen.feature.ConfiguredFeature} of tree
+   */
+  @Nullable
+  public ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> getSlimeTreeFeature(Random randomIn, boolean largeHive) {
     switch (this.foliageType) {
       case BLUE:
-        if (this.isIslandTree) {
-          return TinkerStructures.tree.get().withConfiguration(TinkerStructures.blueSlimeIslandTreeConfig);
-        } else {
-          return TinkerStructures.tree.get().withConfiguration(TinkerStructures.blueSlimeTreeConfig);
-        }
+        return TinkerStructures.BLUE_SLIME_TREE;
       case PURPLE:
-        if (this.isIslandTree) {
-          return TinkerStructures.tree.get().withConfiguration(TinkerStructures.purpleSlimeIslandTreeConfig);
-        } else {
-          return TinkerStructures.tree.get().withConfiguration(TinkerStructures.purpleSlimeTreeConfig);
-        }
+        return TinkerStructures.PURPLE_SLIME_TREE;
       case ORANGE:
-        return TinkerStructures.tree.get().withConfiguration(TinkerStructures.magmaSlimeTreeConfig);
+        return TinkerStructures.MAGMA_SLIME_TREE;
     }
 
     return null;
   }
+
+  @Override
+  public boolean attemptGrowTree(ServerWorld world, ChunkGenerator chunkGenerator, BlockPos pos, BlockState state, Random rand) {
+    ConfiguredFeature<BaseSlimeTreeFeatureConfig, ?> configuredFeature = this.getSlimeTreeFeature(rand, this.hasNearbyFlora(world, pos));
+    if (configuredFeature == null) {
+      return false;
+    }
+    else {
+      world.setBlockState(pos, Blocks.AIR.getDefaultState(), 4);
+
+      configuredFeature.config.forcePlacement();
+
+      if (configuredFeature.func_242765_a(world, chunkGenerator, rand, pos)) {
+        return true;
+      }
+      else {
+        world.setBlockState(pos, state, 4);
+        return false;
+      }
+    }
+  }
+
+  private boolean hasNearbyFlora(IWorld world, BlockPos pos) {
+    for (BlockPos blockpos : BlockPos.Mutable.getAllInBoxMutable(pos.down().north(2).west(2), pos.up().south(2).east(2))) {
+      if (world.getBlockState(blockpos).isIn(BlockTags.FLOWERS)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
 }
-*/

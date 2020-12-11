@@ -82,7 +82,7 @@ public class MaterialIngredient extends Ingredient {
       return false;
     }
     // if material is not wildcard, must match materials
-    if (materialID != WILDCARD && !materialID.equals(IMaterialItem.getMaterialFromStack(stack).getIdentifier())) {
+    if (!WILDCARD.equals(materialID) && !materialID.equals(IMaterialItem.getMaterialFromStack(stack).getIdentifier())) {
       return false;
     }
     // otherwise fallback to base logic

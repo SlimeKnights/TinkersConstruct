@@ -97,7 +97,7 @@ public class TConstructBlockLootTables extends BlockLootTables {
 
   private void addTools() {
     this.registerDropSelfLootTable(TinkerTables.craftingStation.get());
-    for (Block block : new Block[] {TinkerTables.patternChest.get(), TinkerTables.partChest.get()}) {
+    for (Block block : new Block[] {TinkerTables.modifierChest.get(), TinkerTables.partChest.get()}) {
       this.registerLootTable(block, droppingWithFunctions(block, (builder) -> {
         return builder.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY))
                  .acceptFunction(CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY).replaceOperation("Items", "TinkerData.Items"));
@@ -148,12 +148,8 @@ public class TConstructBlockLootTables extends BlockLootTables {
     }
 
     this.registerLootTable(TinkerWorld.purpleSlimeVine.get(), BlockLootTables::onlyWithShears);
-    this.registerLootTable(TinkerWorld.purpleSlimeVineMiddle.get(), BlockLootTables::onlyWithShears);
-    this.registerLootTable(TinkerWorld.purpleSlimeVineEnd.get(), BlockLootTables::onlyWithShears);
 
     this.registerLootTable(TinkerWorld.blueSlimeVine.get(), BlockLootTables::onlyWithShears);
-    this.registerLootTable(TinkerWorld.blueSlimeVineMiddle.get(), BlockLootTables::onlyWithShears);
-    this.registerLootTable(TinkerWorld.blueSlimeVineEnd.get(), BlockLootTables::onlyWithShears);
   }
 
   private void addGadgets() {

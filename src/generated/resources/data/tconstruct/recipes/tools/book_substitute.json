@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "tag": "forge:slimeballs"
+    },
+    {
+      "item": "tconstruct:pattern"
+    },
+    {
+      "item": "tconstruct:pattern"
+    }
+  ],
+  "result": {
+    "item": "minecraft:book"
+  }
+}

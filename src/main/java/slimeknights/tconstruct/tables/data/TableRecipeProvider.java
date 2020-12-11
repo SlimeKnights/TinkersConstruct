@@ -1,8 +1,10 @@
 package slimeknights.tconstruct.tables.data;
 
+import net.minecraft.data.CustomRecipeBuilder;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.ShapedRecipeBuilder;
+import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
@@ -22,13 +24,24 @@ public class TableRecipeProvider extends BaseRecipeProvider {
   protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
     String folder = "tools/";
     // pattern
-    ShapedRecipeBuilder.shapedRecipe(TinkerTables.pattern)
+    ShapedRecipeBuilder.shapedRecipe(TinkerTables.pattern, 4)
       .key('s', Tags.Items.RODS_WOODEN)
       .key('p', ItemTags.PLANKS)
       .patternLine("ps")
       .patternLine("sp")
       .addCriterion("has_item", hasItem(Tags.Items.RODS_WOODEN))
       .build(consumer, prefix(TinkerTables.pattern, folder));
+
+    // book from patterns and slime
+    ShapelessRecipeBuilder.shapelessRecipe(Items.BOOK)
+                          .addIngredient(Items.PAPER)
+                          .addIngredient(Items.PAPER)
+                          .addIngredient(Items.PAPER)
+                          .addIngredient(Tags.Items.SLIMEBALLS)
+                          .addIngredient(TinkerTables.pattern)
+                          .addIngredient(TinkerTables.pattern)
+                          .addCriterion("has_item", hasItem(TinkerTables.pattern))
+                          .build(consumer, location(folder + "book_substitute"));
 
     // crafting station -> crafting table upgrade
     ShapedRecipeBuilder.shapedRecipe(TinkerTables.craftingStation)
@@ -44,10 +57,11 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       ShapedRecipeBuilder.shapedRecipe(TinkerTables.partBuilder)
         .key('p', TinkerTables.pattern)
         .key('w', ItemTags.PLANKS)
-        .patternLine("p")
-        .patternLine("w")
+        .patternLine("pp")
+        .patternLine("ww")
         .addCriterion("has_item", hasItem(TinkerTables.pattern)))
       .setSource(ItemTags.PLANKS)
+      .setMatchAll()
       .build(consumer, prefix(TinkerTables.partBuilder, folder));
 
     // tinker station
@@ -55,11 +69,16 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       ShapedRecipeBuilder.shapedRecipe(TinkerTables.tinkerStation)
         .key('p', TinkerTables.pattern)
         .key('w', ItemTags.PLANKS)
-        .patternLine(" p ")
+        .patternLine("ppp")
         .patternLine("w w")
         .patternLine("w w")
         .addCriterion("has_item", hasItem(TinkerTables.pattern)))
       .setSource(ItemTags.PLANKS)
+      .setMatchAll()
       .build(consumer, prefix(TinkerTables.tinkerStation, folder));
+
+    // tool repair recipe
+    CustomRecipeBuilder.customRecipe(TinkerTables.tinkerStationRepairSerializer.get())
+                       .build(consumer, locationString(folder + "tinker_station_repair"));
   }
 }

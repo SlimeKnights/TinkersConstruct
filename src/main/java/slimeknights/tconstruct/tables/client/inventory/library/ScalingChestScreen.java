@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory.library;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
@@ -70,4 +71,9 @@ public class ScalingChestScreen<T extends TileEntity & IInventory> extends DynIn
 
     return super.shouldDrawSlot(slot);
   }
+
+  @Override
+  protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+  }
+
 }

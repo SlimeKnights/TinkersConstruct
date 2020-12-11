@@ -1,54 +1,64 @@
 package slimeknights.tconstruct.world.client;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
-import slimeknights.tconstruct.library.Util;
 import slimeknights.tconstruct.world.block.SlimeGrassBlock;
+import slimeknights.tconstruct.world.block.SlimeGrassBlock.FoliageType;
 
+import java.util.EnumMap;
+import java.util.Map;
+
+/**
+ * Data class to handle all slime colors
+ */
 public class SlimeColorizer {
+  /** Map of slime foliage type to color */
+  private static final Map<FoliageType,int[]> COLOR_MAP = Util.make(new EnumMap<>(FoliageType.class), map -> {
+    for (FoliageType type : FoliageType.values()) {
+      map.put(type, new int[65536]);
+    }
+  });
 
-  public static int colorBlue = 0x2aec81;
-  public static int colorPurple = 0xa92dff;
-  public static int colorOrange = 0xd09800;
+  public static final float LOOP = 256; // after how many blocks the pattern loops
+  public static final BlockPos LOOP_OFFSET = new BlockPos(SlimeColorizer.LOOP / 2, 0, SlimeColorizer.LOOP / 2);
 
-  private static final ResourceLocation LOC_SLIME_BLUE_PNG = Util.getResource("textures/colormap/slime_grass_color.png");
-  private static final ResourceLocation LOC_SLIME_PURPLE_PNG = Util.getResource("textures/colormap/purple_grass_color.png");
-  private static final ResourceLocation LOC_SLIME_ORANGE_PNG = Util.getResource("textures/colormap/orange_grass_color.png");
-
-  private static int[] colorBufferBlue = new int[65536];
-  private static int[] colorBufferPurple = new int[65536];
-  private static int[] colorBufferOrange = new int[65536];
-
-  public static final float loop = 256; // after how many blocks the pattern loops
-  public static final BlockPos LOOP_OFFSET = new BlockPos(SlimeColorizer.loop / 2, 0, SlimeColorizer.loop / 2);
-
-  public static void setBlueGrassBiomeColorizer(int[] colorBufferBlueIn) {
-    colorBufferBlue = colorBufferBlueIn;
+  /**
+   * Updates the colors for the given type
+   * @param type    Type to update
+   * @param colors  New colors
+   */
+  public static void setGrassColor(FoliageType type, int[] colors) {
+    COLOR_MAP.put(type, colors);
   }
 
-  public static void setPurpleGrassBiomeColorizer(int[] colorBufferPurpleIn) {
-    colorBufferPurple = colorBufferPurpleIn;
+  /**
+   * Gets the color for the given position
+   * @param type  Foliage type
+   * @param x     X position
+   * @param z     Z position
+   * @return      Color
+   */
+  public static int getColor(FoliageType type, int x, int z) {
+    return getColor(COLOR_MAP.get(type), x, z);
   }
 
-  public static void setOrangeGrassBiomeColorizer(int[] colorBufferOrangeIn) {
-    colorBufferOrange = colorBufferOrangeIn;
+  /**
+   * Position dependant Slime foliage color
+   */
+  public static int getColorForPos(BlockPos pos, FoliageType type) {
+    return getColor(type, pos.getX(), pos.getZ());
   }
 
-  public static int getColorBlue(int x, int z) {
-    return getColor(x, z, colorBufferBlue);
-  }
-
-  public static int getColorPurple(int x, int z) {
-    return getColor(x, z, colorBufferPurple);
-  }
-
-  public static int getColorOrange(int x, int z) {
-    return getColor(x, z, colorBufferOrange);
-  }
-
-  private static int getColor(int posX, int posZ, int[] buffer) {
-    float x = Math.abs((loop - (Math.abs(posX) % (2 * loop))) / loop);
-    float z = Math.abs((loop - (Math.abs(posZ) % (2 * loop))) / loop);
+  /**
+   * Gets the color for the given position from the buffer
+   * @param buffer  Color buffer
+   * @param posX    X position
+   * @param posZ    Z position
+   * @return        Color
+   */
+  private static int getColor(int[] buffer, int posX, int posZ) {
+    float x = Math.abs((LOOP - (Math.abs(posX) % (2 * LOOP))) / LOOP);
+    float z = Math.abs((LOOP - (Math.abs(posZ) % (2 * LOOP))) / LOOP);
 
     if (x < z) {
       float tmp = x;
@@ -60,37 +70,9 @@ public class SlimeColorizer {
   }
 
   /**
-   * Block.getRenderColor needs BGR instead of RGB for some reason
-   */
-  public static int getColorStaticBGR(SlimeGrassBlock.FoliageType type) {
-    int color = getColorStatic(type);
-    return (color >> 16) & 0xff |
-      (color & 0xff) << 16 |
-      (color & 0xff00);
-  }
-
-  /**
-   * Position independant Slime foliage color
+   * Gets the position independent slime foliage color
    */
   public static int getColorStatic(SlimeGrassBlock.FoliageType type) {
-    if (type == SlimeGrassBlock.FoliageType.PURPLE) {
-      return SlimeColorizer.colorPurple;
-    } else if (type == SlimeGrassBlock.FoliageType.ORANGE) {
-      return SlimeColorizer.colorOrange;
-    }
-
-    return SlimeColorizer.colorBlue;
-  }
-
-  /**
-   * Position dependant Slime foliage color
-   */
-  public static int getColorForPos(BlockPos pos, SlimeGrassBlock.FoliageType type) {
-    if (type == SlimeGrassBlock.FoliageType.PURPLE) {
-      return SlimeColorizer.getColorPurple(pos.getX(), pos.getZ());
-    } else if (type == SlimeGrassBlock.FoliageType.ORANGE) {
-      return SlimeColorizer.getColorOrange(pos.getX(), pos.getZ());
-    }
-    return SlimeColorizer.getColorBlue(pos.getX(), pos.getZ());
+    return type.getDefaultColor();
   }
 }

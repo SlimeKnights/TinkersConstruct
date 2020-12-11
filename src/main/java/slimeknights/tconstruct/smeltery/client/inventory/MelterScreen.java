@@ -28,12 +28,12 @@ import java.util.function.BiConsumer;
 
 public class MelterScreen extends ContainerScreen<MelterContainer> {
   private static final ResourceLocation BACKGROUND = Util.getResource("textures/gui/melter.png");
-  private static final ElementScreen SCALA = new ElementScreen(176, 0, 52, 52);
+  private static final ElementScreen SCALA = new ElementScreen(176, 0, 52, 52, 256, 256);
   // progress bars
   private static final ScalableElementScreen PROGRESS_BAR = new ScalableElementScreen(176, 150, 3, 16, 256, 256);
-  private static final ScalableElementScreen NO_HEAT_BAR = new ScalableElementScreen(179, 150, 3, 16);
-  private static final ScalableElementScreen NO_SPACE_BAR = new ScalableElementScreen(182, 150, 3, 16);
-  private static final ScalableElementScreen UNMELTABLE_BAR = new ScalableElementScreen(185, 150, 3, 16);
+  private static final ScalableElementScreen NO_HEAT_BAR = new ScalableElementScreen(179, 150, 3, 16, 256, 256);
+  private static final ScalableElementScreen NO_SPACE_BAR = new ScalableElementScreen(182, 150, 3, 16, 256, 256);
+  private static final ScalableElementScreen UNMELTABLE_BAR = new ScalableElementScreen(185, 150, 3, 16, 256, 256);
   // progress bar tooltips
   private static final String TOOLTIP_NO_HEAT = Util.makeTranslationKey("gui", "melting.no_heat");
   private static final String TOOLTIP_NO_SPACE = Util.makeTranslationKey("gui", "melting.no_space");

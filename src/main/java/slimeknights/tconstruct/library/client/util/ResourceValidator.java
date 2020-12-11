@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.resource.IResourceType;
-import slimeknights.tconstruct.library.utils.IEarlySelectiveReloadListener;
+import slimeknights.mantle.client.IEarlySelectiveReloadListener;
 
 import java.util.Set;
 import java.util.function.Predicate;

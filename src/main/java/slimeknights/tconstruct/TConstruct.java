@@ -17,6 +17,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.RegistryEvent.MissingMappings;
 import net.minecraftforge.event.RegistryEvent.MissingMappings.Mapping;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -126,11 +127,12 @@ public class TConstruct {
   static void gatherData(final GatherDataEvent event) {
     if (event.includeServer()) {
       DataGenerator datagenerator = event.getGenerator();
-      TConstructBlockTagsProvider blockTags = new TConstructBlockTagsProvider(datagenerator);
+      ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+      TConstructBlockTagsProvider blockTags = new TConstructBlockTagsProvider(datagenerator, existingFileHelper);
       datagenerator.addProvider(blockTags);
-      datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator, blockTags));
-      datagenerator.addProvider(new TConstructFluidTagsProvider(datagenerator));
-      datagenerator.addProvider(new TConstructEntityTypeTagsProvider(datagenerator));
+      datagenerator.addProvider(new TConstructItemTagsProvider(datagenerator, blockTags, existingFileHelper));
+      datagenerator.addProvider(new TConstructFluidTagsProvider(datagenerator, existingFileHelper));
+      datagenerator.addProvider(new TConstructEntityTypeTagsProvider(datagenerator, existingFileHelper));
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
     }
   }
@@ -159,12 +161,12 @@ public class TConstruct {
 
 
   @SubscribeEvent
-  static void missingBlocks(final MissingMappings<Block> event) {
+  void missingBlocks(final MissingMappings<Block> event) {
     handleMissingMappings(event, TConstruct::missingBlock);
   }
 
   @SubscribeEvent
-  static void missingItems(final MissingMappings<Item> event) {
+  void missingItems(final MissingMappings<Item> event) {
     handleMissingMappings(event, name -> {
       IItemProvider provider = missingBlock(name);
       return provider == null ? null : provider.asItem();
@@ -174,11 +176,18 @@ public class TConstruct {
   /**
    * Handles missing block remapping
    * @param name  Block name
-   * @return  New block replacement, or null if no replacement
+   * @return New block replacement, or null if no replacement
    */
   @Nullable
   private static Block missingBlock(String name) {
     switch (name) {
+      // unified slime vines
+      case "blue_slime_vine_middle":
+      case "blue_slime_vine_end":
+        return TinkerWorld.blueSlimeVine.get();
+      case "purple_slime_vine_middle":
+      case "purple_slime_vine_end":
+        return TinkerWorld.purpleSlimeVine.get();
       // square/small/road removed
       case "seared_square_bricks":
       case "seared_small_bricks":
@@ -210,6 +219,9 @@ public class TConstruct {
       case "seared_creeper_stairs":
       case "seared_tile_stairs":
         return TinkerSmeltery.searedPaver.getStairs();
+      // pattern chest
+      case "pattern_chest":
+        return TinkerTables.modifierChest.get();
     }
     return null;
   }
@@ -220,7 +232,7 @@ public class TConstruct {
    * @param handler  Mapping handler
    * @param <T>      Event type
    */
-  private static <T extends IForgeRegistryEntry<T>> void handleMissingMappings(MissingMappings<T> event, Function<String,T> handler) {
+  private static <T extends IForgeRegistryEntry<T>> void handleMissingMappings(MissingMappings<T> event, Function<String, T> handler) {
     for (Mapping<T> mapping : event.getAllMappings()) {
       if (modID.equals(mapping.key.getNamespace())) {
         @Nullable T value = handler.apply(mapping.key.getPath());

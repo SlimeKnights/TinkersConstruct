@@ -14,8 +14,8 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
-import slimeknights.tconstruct.library.client.util.SinglePropertyModelData;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.utils.Tags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -48,7 +48,7 @@ public class TankTileEntity extends SmelteryComponentTileEntity implements ITank
   protected TankTileEntity(TileEntityType<?> tileEntityTypein) {
     super(tileEntityTypein);
     this.lastStrength = -1;
-    modelData = new SinglePropertyModelData<>(tank, ModelProperties.FLUID_TANK);
+    modelData = new SinglePropertyData<>(ModelProperties.FLUID_TANK, tank);
   }
 
   /*
