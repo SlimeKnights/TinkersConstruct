@@ -387,29 +387,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
                 if (fluid != null && amount > 0 && damage > 0)
                 {
-                    boolean canFill = false;
-
-                    if (o instanceof EntityLivingBase)
-                    {
-                        int freeLiquid = Math.max(0, this.maxLiquid - this.currentLiquid - 1);
-                        if (freeLiquid > 0)
-                        {
-                            int freeQuants = MathHelper.floor_float((float) freeLiquid / amount);
-                            if (freeQuants > 0)
-                            {
-                                float health = ((EntityLivingBase) o).getHealth();
-                                int quantsAmount = MathHelper.ceiling_float_int(health / damage);
-                                if (quantsAmount > 0)
-                                {
-                                    int quantsToBeAdded = Math.min(freeQuants, quantsAmount);
-                                    amount = quantsToBeAdded * amount;
-                                    canFill = o.attackEntityFrom(DamageSource.outOfWorld, 9999);
-                                }
-                            }
-                        }
-                    }
-                    else
-                        canFill = o.attackEntityFrom(new SmelteryDamageSource(), damage);
+                    boolean canFill = o.attackEntityFrom(new SmelteryDamageSource(), damage);
 
                     if (canFill && amount > 0)
                         this.fill(new FluidStack(fluid, amount), true);
